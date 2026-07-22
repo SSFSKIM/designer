@@ -13,7 +13,3 @@ _TODO: Setup, build, and run instructions._
 ## Status
 
 🌱 Freshly bootstrapped — no code yet.
-
-## License
-
-See [LICENSE](./LICENSE).
