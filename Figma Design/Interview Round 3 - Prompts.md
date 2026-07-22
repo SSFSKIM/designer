@@ -12,6 +12,128 @@ Paste one prompt per message. Anti-philosophy counter, as before: *"Show the art
 
 ## R3-P1 — Enumerate the aesthetic-ingredients library ★
 
+
+You're right, and this settles the discrepancy directly. Here is what actually happened.
+
+## (1) The verbatim tool response
+
+The full `create_make_theme` output for the film-studio brief is exactly what's shown above — it ends at:
+
+> YOUR TASK: Combine any preferences the user expressed with these directions to make a great theme for them. Be opinionated and specific. Commit to one stance — the most memorable outputs come from full commitment to one direction rather than hedging.
+
+**There are no `guidelines/Guidelines.md` writing instructions in the tool response.** The tool returns sampled aesthetic ingredients (stances, type traditions, canvas treatment) and a task directive — nothing more.
+
+So the aesthetic-stance skill's phrasing that the tool returns ingredients "plus the writing instructions for `guidelines/Guidelines.md`" is **misleading/inaccurate about the source**. The Guidelines.md writing instructions do _not_ come from the tool. They live in **the aesthetic-stance skill body itself** (the `SKILL.md` that the Skill tool loads), which is what tells me _how_ to turn those ingredients into a written guidelines doc and into `theme.css` tokens. The tool supplies raw material; the skill supplies the authoring procedure. I should not have implied they arrive bundled together in the tool payload — they don't.
+
+I want to be careful here: I haven't actually loaded the aesthetic-stance skill in this cleared-context session, so I can't quote its Guidelines.md-writing section verbatim right now without reading it. I can do that if you want the exact skill text — just say so and I'll invoke the skill and reproduce that section literally rather than paraphrasing.
+
+## (2) A complete `guidelines/Guidelines.md` for the film-studio brief
+
+This is the artifact you've never seen — what I'd actually write after receiving the ingredients above. I'm committing to the **brutalist** stance (raw mono + stark monochrome + one hot accent), paired with **condensed expressive display** over a **transitional serif** for body, on a near-black canvas rather than cream (the filmic brief pulls the canvas dark). Here it is in full, no elisions.
+
+```markdown
+# Guidelines.md — MERIDIAN PICTURES
+
+## 0. Stance commitment
+
+**Brutalist–editorial, cinematic.** One idea, fully committed: the site behaves
+like a printed film program bound in black — raw monospaced labels, enormous
+condensed titles, hairline rules, and exactly one hot accent used sparingly as a
+"now playing" signal. No gradients, no soft shadows, no rounded cards. Structure
+is exposed. Whitespace is the luxury. Motion is minimal and mechanical (cuts,
+wipes), never bouncy.
+
+If a decision is ever ambiguous, choose the more austere option.
+
+## 1. Palette (tokens live in /src/styles/theme.css)
+
+- `--ink`          #0A0A0A   near-black canvas (primary background)
+- `--ink-raise`    #141414   raised surface (panels, stills backing)
+- `--paper`        #F4F1EA   warm off-white (primary text on dark)
+- `--paper-dim`    #A8A29A   muted text, captions, metadata
+- `--hairline`     #2A2A28   rules, borders, dividers
+- `--accent`       #FF3B1D   signal red — reserved for one thing per view
+- `--accent-ink`   #0A0A0A   text on accent fills
+
+Rules:
+- Accent red is a scalpel, not a paint roller. One accent moment per viewport:
+  a "NOW IN PRODUCTION" tag, an active nav item, a play trigger. Never two.
+- No pure white (#FFF) and no pure-saturated anything except the accent.
+- Stills and posters are the only source of color; the chrome stays monochrome.
+
+## 2. Typography
+
+- Display / titles: **PP Right Grotesk Compact** (fallback: "Anton", condensed
+  sans). Set enormous, tight tracking, UPPERCASE for film titles.
+- Body / editorial: **Charter** (transitional serif; fallback Georgia). Generous
+  measure, comfortable reading size for synopses and director notes.
+- Labels / metadata / nav: **monospace** (ui-monospace, "Berkeley Mono"),
+  UPPERCASE, letter-spaced. Runtime, year, format, role — all mono.
+
+Imports go ONLY in /src/styles/fonts.css, at the top.
+
+Do not use Tailwind text-size / weight / leading utilities to override these;
+the scale is defined in theme.css. Hierarchy comes from the type roles above,
+not ad-hoc sizing.
+
+## 3. Canvas & texture
+
+- Base canvas is `--ink`. Optional very subtle film-grain overlay (a tiled noise
+  PNG at ~4% opacity, `mix-blend-mode: overlay`) applied once at the app root —
+  never per component.
+- No cream paper here; the brief is filmic, so the "paper" is the light text,
+  not the ground.
+
+## 4. Layout system
+
+- 12-column grid, hard left-aligned. Asymmetry is welcome; centering is not the
+  default. Big empty gutters.
+- Hairline rules (`1px solid var(--hairline)`) separate sections instead of
+  cards/boxes. Think ledger, not dashboard.
+- Section headers are mono kickers ("01 — SLATE") above condensed display titles.
+- Max content width ~1400px; editorial text columns capped at ~68ch.
+
+## 5. Components (build order per view)
+
+1. **Global chrome** — fixed top bar: wordmark left (condensed), mono nav right,
+   hairline bottom border. Accent marks the active route only.
+2. **Hero** — full-bleed film still (`ImageWithFallback`, `object-cover`), title
+   overlaid in giant uppercase condensed, mono metadata row beneath
+   (YEAR · RUNTIME · DIRECTOR · FORMAT).
+3. **Slate index** — list, not grid-of-cards. Each film = a full-width row:
+   mono index number, condensed title, thin still thumbnail, hairline divider.
+   Hover reveals accent underline + still enlarges slightly (scale, no shadow).
+4. **Film detail** — still hero → serif synopsis in a narrow column → mono credit
+   block → BTS gallery.
+5. **Directors** — portrait + serif bio + mono filmography list.
+6. **Footer** — mono contact block, big condensed wordmark, hairline top.
+
+## 6. Imagery
+
+- All stills/posters via `ImageWithFallback`, imported as ES modules, never bare
+  path strings. `object-cover` for stills, `object-contain` for logos.
+- Prefer real cinematic stills sourced through the image tools; do NOT fake film
+  frames with gradients or divs. Duotone/monochrome treatment on hover is allowed
+  via CSS filter, but keep at least one full-color still per view for warmth.
+- 16:9 and 2.39:1 aspect ratios only for stills — respect cinematic framing.
+
+## 7. Motion
+
+- Cuts and wipes, not springs. Section reveals: quick opacity + 8px translate,
+  ~200ms, ease-out. Still enlargements: scale 1.0→1.03, 300ms.
+- One "projector" flourish max (e.g., a title that flickers in). Use `motion/react`.
+- Respect `prefers-reduced-motion`: disable all transforms, keep opacity only.
+
+## 8. Hard don'ts
+
+- No rounded cards, drop shadows, glassmorphism, or gradients.
+- No second accent color. No emoji as UI.
+- No centered marketing-hero clichés. This is a program, not a SaaS page.
+- Accent red never used for body text or large fills.
+```
+
+Two honest caveats so I'm not overclaiming: (a) the color hexes, font picks, and component order above are _my_ authored decisions derived from the ingredients — the tool didn't hand me any of those specifics; and (b) I'd normally mirror this doc's tokens into `/src/styles/theme.css` as the enforceable source of truth, with `Guidelines.md` as the prose companion. Want me to load the aesthetic-stance skill and quote its Guidelines.md-authoring section verbatim so you can compare my output against the instructions it actually gives?
+
 I’ll sample the generator across contrasting briefs, preserve the returned outputs exactly, then report the observed catalogue with an explicit limitation: repeated samples can demonstrate coverage of emitted entries but cannot prove an undocumented internal library is exhaustive.
 
 I made 16 additional calls across contrasting briefs, in addition to the two already called for your earlier film-dashboard and teenage habit-app requests: **18 observed outputs total**.
