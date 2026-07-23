@@ -119,3 +119,5 @@ Pending — written at finish.
 ## Revision Notes
 
 - 2026-07-23: Initial spec from approved design presentation.
+- 2026-07-23 (planning): Source map extended — corpus sections the reference table left unmapped are assigned: R2-P6 component character → `stances.md`; R2-P8 rulebook → SKILL.md taste floor; R2-P9 vague-feedback protocol and R2-P10 app-scale states/coherence → `qa-protocol.md`; R2-P11 imagery and the generalizable core of R3-P3's image-attachments module → `composition.md`; R2-P12 icon execution mechanics → `icon-illustration.md`. R3-P5 kit precedence already covered by SKILL.md classification.
+- 2026-07-23 (planning): Repo layout gains `scripts/sample-ingredients.test.mjs` (node:test suite for the sampler); extension-stance count fixed at 8 (18 stances total).
