@@ -117,7 +117,29 @@ Quarantine rationale: the replica core (SKILL.md + 10 other references) stays fa
 
 ## Outcomes & Retrospective
 
-Pending — written at finish.
+Shipped 2026-07-24. The skill — `SKILL.md` + the ingredient sampler + 11 references + the FRAME/MERIDIAN example pair + a runnable reference implementation — is built, installed (symlinked into `~/.claude/skills/figma-design`), and validated by a six-brief evaluation.
+
+**Acceptance walk ("What done looks like"):**
+
+1. **Triggering — verified by inspection.** The frontmatter description covers the positive cases (a pottery-studio landing page and a kayak-rental logo both fall under its surface list; the logo routes to `references/icon-illustration.md` via the Classify step) and now excludes the near-misses by name (a log-rotating cron job is backend/non-visual). A live fresh-session sweep was deliberately not automated — the description-optimization loop was descoped as overkill for one frontmatter line — so this criterion is confirmed by reading the description + Classify routing, not a scripted run; best re-confirmed in real use.
+2. **Workflow execution — PASS.** All seven with-skill transcripts show the full chain: conventions read, sampler run, a written stance commitment, `DESIGN.md` authored before UI code, realistic content, and a QA pass (each ran a real browser QA that caught genuine bugs).
+3. **Divergence — PASS.** Eval 5's two sampler seeds produced visibly and structurally different committed systems: seed 22 = terminal/console (monospace, phosphor-amber, near-black), seed 11 = risograph zine (teal + fluorescent pink, warm paper). Confirmed in screenshots.
+4. **Slop-escape — PASS with two logged misses.** Evals 1–5 with-skill grounds stayed out of the cream band and avoided the hero-metric template and identical card grids; the two exceptions (eval 3's eyebrow repeated across four sections; eval 5 seed-11's cream-band paper ground + stray color literals) were self-contradictions of each page's own `DESIGN.md` and drove the build-time-enforcement fix (commit a45dbb3).
+5. **Brief authority — PASS.** Eval 6 honored the explicitly-requested cream + serif + terracotta look with editorial craft, correctly treating the brief as overriding the anti-default guidance.
+6. **Standalone — PASS.** No with-skill transcript or `DESIGN.md` references impeccable or frontend-design; every committed stance came from this skill's own `references/stances.md` vocabulary.
+7. **Eval complete — PASS.** Iteration 1 ran end-to-end (13 runs, graded, benchmarked), the user reviewed the outputs, and the one applied revision landed.
+
+Full unit suite green throughout (`node --test scripts/*.test.mjs` → 4/4).
+
+**Headline result:** with-skill 93.9% assertion pass-rate vs 43.3% baseline (Sonnet executor, same prompt both sides), delta +0.51, at roughly 1.8× the wall-clock time and more tokens — the cost of running the sampler, authoring the law, and doing a real QA loop.
+
+**Deferred (not v1 blockers):**
+- The user's honest note that outputs "still have an AI-feeling" is the primary goal for eval **iteration 2** — to be diagnosed against specific outputs the user points at, not guessed at with a blind edit.
+- A three-way comparison eval (figma-design vs frontend-design vs impeccable as the baselines, rather than no-skill).
+- Minor findings logged per-task in `.doperpowers/sdd/progress.md` (sampler NaN-seed validation, a `stances.md` footnote citation, etc.) for a cleanup pass.
+- Note discovered at eval time: skill-creator's `generate_review.py` (both `--static` and server modes) is broken for outputs that are themselves full HTML pages — it over-escapes the embedded markup; a minimal link-based review page was used instead.
+
+**What this unblocks:** the project's second deliverable — the SVG-filter design skill — is built on top of this skill together with frontend-design and impeccable.
 
 ## Revision Notes
 
