@@ -8,7 +8,7 @@ The trick isn't randomness — it's internal consistency and domain-correct dist
 
 **Names & people:** vary ethnicity and structure (Mina Okafor, Ari Kumar, Elena Ward, Noah Reyes — not five Anglo first names). Match role plausibility: a "Director" is a full name; a commit author might be a handle. Avoid celebrity/real-company collisions.
 
-**Companies:** invent ones that sound like the sector — SaaS gets abstract-noun names, agencies get founder-surname or single-word marks, industrial gets compound functional names. Never real trademarks.
+**Companies:** invent ones that sound like the sector — SaaS gets abstract-noun names (Northwind, Lattice-ish), agencies get founder-surname or single-word marks, industrial gets compound functional names. Never real trademarks.
 
 **What makes numbers believable — the domain-specific part:**
 
@@ -85,15 +85,11 @@ Copy length is a layout constraint as much as a writing one: write to the space 
 
 ## Writing as design material
 
-Words appear in a design for one reason: to make it easier to understand, and therefore easier to use. They are design material, not decoration. Bring the same intentionality to copy that you would bring to spacing and color. Before writing anything, ask what the design needs to say, and how it can best be said to help the person navigate the experience.
+Copy is a design decision, not something poured in after the layout is finished — weigh a word choice the same way you'd weigh a spacing value or a color token. Every string on a screen exists to make the interface easier to understand; if a word isn't doing that job, cut it.
 
-Write from the end user's side of the screen. Name things by what people control and recognize, never by how the system is built. A person manages notifications, not webhook config. Describe what something does in plain terms rather than selling it. Being specific is always better than being clever.
+Name things the way the person using them would, not the way the system implementing them is structured — someone manages notifications, they don't configure a webhook. When two phrasings say the same thing, prefer the plain, specific one over the clever one; clever rarely survives a second reading.
 
-Use active voice as default. A control should say exactly what happens when it's used: "Save changes," not "Submit." An action keeps the same name through the whole flow, so the button that says "Publish" produces a toast that says "Published." The vocabulary of an interface is the signposting for someone navigating the product. Cohesion and consistency are how people learn their way around.
-
-Treat failure and emptiness as moments for direction, not mood. Explain what went wrong and how to fix it, in the interface's voice rather than a person's. Errors don't apologize, and they are never vague about what happened. An empty screen is an invitation to act.
-
-Keep the register conversational and tuned: plain verbs, sentence case, no filler, with tone matched to the brand and the audience. Let each element do exactly one job. A label labels, an example demonstrates, and nothing quietly does double duty.
+Hold each element to a single job: a label should only name the field, an example should only show a case, and neither should quietly stretch to cover for the other's absence.
 
 ---
 
