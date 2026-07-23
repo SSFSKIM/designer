@@ -135,7 +135,8 @@ test("draws exactly 3 stances, 2 traditions, 1 canvas, no duplicates", () => {
   const stances = out.match(/^\d\. \*\*[^*]+\*\* — .+$/gm) ?? [];
   assert.equal(stances.length, 3);
   assert.equal(new Set(stances).size, 3);
-  const traditions = out.match(/^\d\. [^*\n]+ \(.+\)$/gm) ?? [];
+  const traditionsSection = out.split("**Typography traditions:**")[1].split("**Canvas treatment:**")[0];
+  const traditions = traditionsSection.match(/^\d\. .+ \(.+\)$/gm) ?? [];
   assert.equal(traditions.length, 2);
   assert.match(out, /\*\*Canvas treatment:\*\*\n1\. .+/);
 });
@@ -164,7 +165,7 @@ test("library integrity: figma-verbatim entries intact", () => {
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `node --test scripts/`
+Run: `node --test scripts/*.test.mjs`
 Expected: 4 failing tests (module not found / ENOENT for `sample-ingredients.mjs`).
 
 - [ ] **Step 3: Write the implementation**
@@ -234,7 +235,7 @@ console.log(lines.join("\n"));
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `node --test scripts/`
+Run: `node --test scripts/*.test.mjs`
 Expected: `# pass 4`, `# fail 0`
 
 - [ ] **Step 5: Commit**
@@ -663,11 +664,11 @@ git commit -m "feat(skill): add law-to-code reference implementation"
 **Files:**
 - Modify: `README.md` (replace bootstrap placeholder entirely)
 
-- [ ] **Step 1: Rewrite README.md** with: what the skill is (2 ¶: Figma Make workflow replica; part of the SVGF-Design project whose second deliverable is an SVG-filter design skill built on this one + frontend-design + impeccable); install (`ln -s "$(pwd)" ~/.claude/skills/figma-design` from a clone, or marketplace when published); usage (triggers automatically on UI-design tasks; sampler can be run manually: `node scripts/sample-ingredients.mjs [--seed N]`); development (`node --test scripts/`); repo map (skill files vs `Figma Design/` corpus vs `docs/` research+specs, noting corpus is never loaded at runtime); credits (Figma Make interviews; frontend-design; impeccable Apache 2.0).
+- [ ] **Step 1: Rewrite README.md** with: what the skill is (2 ¶: Figma Make workflow replica; part of the SVGF-Design project whose second deliverable is an SVG-filter design skill built on this one + frontend-design + impeccable); install (`ln -s "$(pwd)" ~/.claude/skills/figma-design` from a clone, or marketplace when published); usage (triggers automatically on UI-design tasks; sampler can be run manually: `node scripts/sample-ingredients.mjs [--seed N]`); development (`node --test scripts/*.test.mjs`); repo map (skill files vs `Figma Design/` corpus vs `docs/` research+specs, noting corpus is never loaded at runtime); credits (Figma Make interviews; frontend-design; impeccable Apache 2.0).
 
 - [ ] **Step 2: Verify**
 
-Run: `node --test scripts/` — Expected: `# pass 4` (still green).
+Run: `node --test scripts/*.test.mjs` — Expected: `# pass 4` (still green).
 Run: `grep -n 'ln -s' README.md` — Expected: install line present.
 
 - [ ] **Step 3: Install and commit**
@@ -784,7 +785,7 @@ Execute the spec's acceptance section as written (`docs/doperpowers/specs/2026-0
 - [ ] **5. Brief authority:** eval 6 output IS cream + serif + terracotta, executed with craft.
 - [ ] **6. Standalone:** confirm eval runs used only this skill (no impeccable/frontend-design in the subagent context).
 - [ ] **7. Eval complete:** iteration-1 ran end-to-end with user review and applied revisions (Task 19 evidence).
-- [ ] **Full test suite still green:** `node --test scripts/` → `# pass 4`.
+- [ ] **Full test suite still green:** `node --test scripts/*.test.mjs` → `# pass 4`.
 - [ ] **Close the spec:** write `## Outcomes & Retrospective` in the spec (replacing "Pending — written at finish."), noting acceptance results and anything deferred; final commit (`docs: close out figma-design spec v1`).
 
 ---
