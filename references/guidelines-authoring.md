@@ -1,6 +1,6 @@
 # Authoring DESIGN.md
 
-This file teaches how to write `DESIGN.md`, the project's design law — not a mood board or a style guide someone might read, but the document code is checked against. Use it at the "Author DESIGN.md" step (step 4 of "Required first steps" and step 4 of the workflow spine in `SKILL.md`), immediately after a stance has been committed to and tokens have been built, and before any UI code beyond that first token pass is written. Everything below assumes a stance already exists to write down — this file is about capturing it durably, not choosing it (see `references/stances.md` for that).
+This file teaches how to write `DESIGN.md`, the project's design law — not a mood board or a style guide someone might read, but the document code is checked against. Use it at the "Author DESIGN.md" step (step 4 of "Required first steps" and step 4 of the workflow spine in `SKILL.md`), immediately after a stance has been committed to and before any tokens are built or any UI code is written. `DESIGN.md` records the committed stance and the intended token strategy; the token file that follows implements the values, and this document's palette section is written to reference them once it exists. Everything below assumes a stance already exists to write down — this file is about capturing it durably, not choosing it (see `references/stances.md` for that).
 
 ## Why a design law
 
@@ -27,11 +27,11 @@ Both worked examples in `examples/` share this skeleton. Write `DESIGN.md` in th
 7. **Motion.** What's restrained vs. disallowed, the easing/duration vocabulary actually in use, and the reduced-motion behavior.
 8. **Hard don'ts.** An explicit, enumerable forbidden list — specific effects, specific colors, specific patterns that are not permitted regardless of how a future brief is worded. This is the section most worth keeping brutally concrete, because "forbidden" only works when it's checkable.
 
-Some projects will have a domain-specific ninth topic worth a short section of its own (imagery treatment for a visual-heavy product, data-density rules for an analytics tool). Add it after section 8 rather than displacing any of the nine above — the skeleton is the floor, not a ceiling.
+Some projects will have an additional domain-specific topic worth a short section of its own (imagery treatment for a visual-heavy product, data-density rules for an analytics tool). Add it after section 8 rather than displacing any of the nine above — the skeleton is the floor, not a ceiling.
 
 ## Authoring rules
 
-- **Write it before any UI code**, immediately after stance commitment and token-building, not retrofitted after a few screens exist. A `DESIGN.md` written to describe what was already built records accidents as if they were decisions; written first, it's the thing the build is checked against.
+- **Write it before any UI code**, immediately after stance commitment and before token-building, not retrofitted after a few screens exist. A `DESIGN.md` written to describe what was already built records accidents as if they were decisions; written first, it's the thing the token file and the build are both checked against.
 - **Every rule must be checkable against code.** "Feel premium" is not a rule — nothing about a component can be compared against it. "Accent color appears at most once per view" is a rule. If a sentence in the document can't be answered yes/no by looking at a diff, rewrite it until it can.
 - **Include what's forbidden, not only what's preferred.** A document that only states positive preferences lets anything it didn't think to mention drift in unchecked. Section 8 exists specifically to close that gap — spell out the things that are wrong even though nobody would think to ask.
 - **Keep the whole document to roughly 120 lines or under.** Long enough to cover all nine sections with real specifics, short enough that it actually gets reread before a big change instead of skimmed once and forgotten. If a rule needs a paragraph of justification to make its case, it isn't distilled yet — cut it down to the operative sentence.
