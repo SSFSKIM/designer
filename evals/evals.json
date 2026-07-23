@@ -1,0 +1,41 @@
+{
+  "skill_name": "figma-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a desktop dashboard for a regional freight rail operator's dispatch team: live train positions, crew hours, delay exceptions, and maintenance windows. High-trust, data-dense, used 8 hours a day. Build it as a single HTML file with realistic data.",
+      "expected_output": "Committed non-generic operational system; exception-first or comparable arrangement; semantic tokens; realistic rail data; working interactions",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Build a public status web page for a mid-size city's bus network: line health, current disruptions, next departures for saved stops. Municipal, accessible, needs to work for riders in a hurry. Single HTML file.",
+      "expected_output": "Civic, accessible system distinct from eval 1; status legible without color alone; committed stance recorded in a DESIGN.md",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Design a website for a children's public library summer reading program — kids 6 to 12 and their parents. Sign-up call-to-action, weekly book lists, event calendar. Fun without being garish. Single HTML file.",
+      "expected_output": "Playful-but-disciplined system; no template card-grid; age-appropriate voice; realistic book/event data",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Build an e-commerce landing page for a third-generation family hardware store going online for the first time: featured tools, seasonal project guides, in-store pickup. Practical and trustworthy, not startup-slick. Single HTML file.",
+      "expected_output": "Commerce composition with product imagery treatment rules; trustworthy non-SaaS system; believable products and prices",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Design a one-page electronic press kit for an experimental jazz trio: bio, listen links, upcoming dates, press photos, booking contact. Single HTML file.",
+      "expected_output": "DELIBERATELY VAGUE BRIEF — the divergence testbed. A committed, unusual, coherent system; run twice with different sampler seeds must yield two different stances",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Design a landing page for a meditation app in a warm editorial style with a cream background, serif display type, and terracotta accents. Single HTML file.",
+      "expected_output": "BRIEF-AUTHORITY CHECK — explicitly requests a 'default' look; the skill must honor it literally (cream + serif + terracotta) with high craft, not swerve away",
+      "files": []
+    }
+  ]
+}
