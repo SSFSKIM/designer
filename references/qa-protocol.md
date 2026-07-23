@@ -19,6 +19,16 @@ Most UI work ships without a live render of the result — there's no guarantee 
 
 If a real render is reachable in the working environment, don't stop at these ten — see "Seeing your work" below. Blind checks are the fallback for an environment with no rendering path, not the preferred method once one exists.
 
+## Verify the build against its own law
+
+The checks above catch generic craft failures. This one catches a subtler and more damaging failure: the finished page quietly contradicting the `DESIGN.md` it committed to. A stance is only worth writing down if the build actually holds to it, and the most common way a committed page still reads as AI-generated is that it declared a rule and then broke it — because the QA pass attested compliance in prose instead of checking the rendered markup. Do not attest; verify. Read the `DESIGN.md` law, then check the built output against each rule it states, mechanically wherever the rule is mechanical:
+
+- **Repeated structural labels.** If the law says an eyebrow or kicker — a small uppercase, letter-spaced label above a heading — is used sparingly or once, grep the markup and count how many section headings actually carry it. The same kicker stacked above three or more sections is the exact "eyebrow on every section" tell the taste layer bans (`references/taste-calibration.md`), and it is one of the strongest reasons a committed page still feels generated: a device that marks every section marks nothing. Remove the repeats until the label earns its place.
+- **Color literals outside the token block.** If the law says every color is a token, grep for hex, `rgb(`, `hsl(`, and `oklch(` occurrences outside the `:root`/token definition — including inside inline SVG attributes and `<style>` rules, the two places drift hides. Any color literal loose in the markup is a future inconsistency; move it to a named token. A status hex or an illustration's internal colors are exceptions only if `DESIGN.md` actually names them as exceptions.
+- **Ground against its own claim.** If the law claims the page stays out of the cream band — or commits to any specific ground — re-derive the primary background token's OKLCH and confirm it. A background at lightness 0.84–0.97, chroma under 0.06, hue 40–100 is in the cream band no matter what the prose says. Reconcile the build to the claim or the claim to the build, but never ship the two disagreeing.
+
+The principle generalizes past these three: any rule the `DESIGN.md` states in checkable terms — one accent doing real work, borders thin and low-opacity, a mono face only on tabular data — is a rule this pass verifies against the actual output, not against a memory of having intended to follow it. This is also the cheapest lever against the "still feels AI" complaint: the page already committed to being specific; this check makes sure it stayed specific.
+
 ## Top defects by frequency
 
 Ranked by how often each one turns up in delivered work, most common first:
