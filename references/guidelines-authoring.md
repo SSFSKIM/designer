@@ -1,0 +1,42 @@
+# Authoring DESIGN.md
+
+This file teaches how to write `DESIGN.md`, the project's design law — not a mood board or a style guide someone might read, but the document code is checked against. Use it at the "Author DESIGN.md" step (step 4 of "Required first steps" and step 4 of the workflow spine in `SKILL.md`), immediately after a stance has been committed to and tokens have been built, and before any UI code beyond that first token pass is written. Everything below assumes a stance already exists to write down — this file is about capturing it durably, not choosing it (see `references/stances.md` for that).
+
+## Why a design law
+
+A project has two documents that together are the durable record of a visual system, and they own different halves of it:
+
+- **The token file owns values.** Whatever form it takes in this project — CSS custom properties, a JS/TS token module, a Tailwind config — it is the single place a color, a type size, a spacing step, or a duration actually lives.
+- **`DESIGN.md` owns usage.** It says which token does which job, which face carries which role, what a canonical component is called and when to reuse it instead of building a new one, and what is forbidden outright.
+
+When the two disagree, they resolve in opposite directions: the token file wins for a *value* (if `DESIGN.md` says the accent is orange but the token file defines it as teal, the token file is right — go fix the doc, not the token), and `DESIGN.md` wins for *usage* (if a component invents a second accent color that exists in the token file but was never sanctioned for that role, the usage is wrong even though the value is real). Neither document alone is authoritative over the whole system; the split is what keeps them both honest.
+
+This split exists because of where drift actually happens. The first component in a session is usually built with the stance fresh in mind. By the fifth change, an agent has nothing to check itself against but the rendered output of the first four — it reconstructs "what this system does" from vibes and prior components, and small inconsistencies compound silently: a second accent creeps in, a card gets a shadow the system never used, a heading gets restyled with a one-off utility class instead of its assigned role. `DESIGN.md` exists so that check is against text, not memory of what happened to look right earlier. A design system that lives only in already-rendered output has no way to catch its own drift; one written down as law does.
+
+## Required structure
+
+Both worked examples in `examples/` share this skeleton. Write `DESIGN.md` in this order, using these nine sections — adapt the content to the project, not the shape:
+
+0. **Stance commitment.** One committed idea, stated in a few sentences, naming what the system is and what it explicitly is not. Close the section with an ambiguity tiebreaker: a single sentence of the form *"if a decision is ever ambiguous, choose the more [X] option"* — filling in the quality this system optimizes for under pressure (more austere, more legible, more restrained, more playful). This line is what a later decision gets checked against when the rest of the document doesn't cover it explicitly; without it, an edge case has nothing to resolve against but taste in the moment.
+1. **Palette, with usage rules.** Not the color values themselves (those live in the token file) — which named role does which job, which role is reserved for what (an accent that means exactly one thing, a status set that is the only sanctioned literal-color exception), and what is explicitly not allowed (no second accent, no hardcoded hex outside the documented exceptions).
+2. **Typography roles, with placement rules.** Which face carries which role (display, heading, body, data/label) and, critically, where each is and is not allowed to appear — which elements inherit their type treatment from the token system by default and must not be restyled ad hoc, and which roles are reserved for specific content types (mono for tabular data and metadata, not for prose).
+3. **Canvas & texture.** The base ground treatment and any texture (grain, noise, an atmospheric field) — where it's applied (once, at the root or a major surface) and where it explicitly is not (per-component, animated, behind text).
+4. **Layout system.** The grid model, max content width and alignment, how sections are separated (hairlines vs. cards vs. whitespace), the spacing scale in use, and the responsive collapse behavior.
+5. **Component canon.** Name the canonical components explicitly — the one status chip, the one metric tile, the one card pattern — so a later pass reuses them instead of hand-rolling a competing version of something that already exists. Include a build order when the project is being built view by view, so component dependencies get built in a sane sequence.
+6. **Voice.** Tone, sentence-length and contraction posture, case conventions, and how errors and empty states are written — enough to keep copy written on day nine sounding like copy written on day one. See `references/voice-copy.md` for the fuller vocabulary this section draws from.
+7. **Motion.** What's restrained vs. disallowed, the easing/duration vocabulary actually in use, and the reduced-motion behavior.
+8. **Hard don'ts.** An explicit, enumerable forbidden list — specific effects, specific colors, specific patterns that are not permitted regardless of how a future brief is worded. This is the section most worth keeping brutally concrete, because "forbidden" only works when it's checkable.
+
+Some projects will have a domain-specific ninth topic worth a short section of its own (imagery treatment for a visual-heavy product, data-density rules for an analytics tool). Add it after section 8 rather than displacing any of the nine above — the skeleton is the floor, not a ceiling.
+
+## Authoring rules
+
+- **Write it before any UI code**, immediately after stance commitment and token-building, not retrofitted after a few screens exist. A `DESIGN.md` written to describe what was already built records accidents as if they were decisions; written first, it's the thing the build is checked against.
+- **Every rule must be checkable against code.** "Feel premium" is not a rule — nothing about a component can be compared against it. "Accent color appears at most once per view" is a rule. If a sentence in the document can't be answered yes/no by looking at a diff, rewrite it until it can.
+- **Include what's forbidden, not only what's preferred.** A document that only states positive preferences lets anything it didn't think to mention drift in unchecked. Section 8 exists specifically to close that gap — spell out the things that are wrong even though nobody would think to ask.
+- **Keep the whole document to roughly 120 lines or under.** Long enough to cover all nine sections with real specifics, short enough that it actually gets reread before a big change instead of skimmed once and forgotten. If a rule needs a paragraph of justification to make its case, it isn't distilled yet — cut it down to the operative sentence.
+- **Record rejected ingredients in one line.** When sampled ingredients partially conflict with the brief and get declined in favor of something else, name the rejection and the reason in a single sentence, near the stance commitment. This is what lets a later reader tell the difference between "we considered this and chose otherwise" and "nobody thought of it" — the first is a design decision worth preserving, the second is a gap.
+
+## Worked examples
+
+`examples/guidelines-frame.md` and `examples/guidelines-meridian.md` are one brief answered two ways: the same project brief, sampled with two different sets of ingredients, producing two fully committed and mutually exclusive systems that both follow the nine-section skeleton above. Read them side by side rather than in isolation — the point of the pair isn't either document alone, it's seeing how identical structure holds two genuinely different, internally consistent stances without either one reading as a template filled in twice. If a new `DESIGN.md` ends up structurally interchangeable with either worked example beyond the shared skeleton, that's a sign the stance wasn't actually committed to — go back to `references/stances.md` before writing further.
