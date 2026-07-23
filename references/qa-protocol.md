@@ -164,7 +164,9 @@ Vague feedback is a real signal, not an implementation instruction — it means 
 
 ### "I don't like it"
 
-This is the broadest feedback, and the first job is locating the actual objection: visual taste (colors, fonts, shapes, or imagery feel wrong), product fit (doesn't feel like the audience, category, or brand), hierarchy (unclear what matters or where to look), usability (too dense, too empty, confusing, or hard to act on), reference mismatch (an unspoken reference the result is far from), or scope mismatch (a marketing experience delivered where an operational tool was needed, or the reverse).
+This is the broadest feedback, and the first job is locating the actual objection.
+
+**Diagnose, in order:** visual taste (colors, fonts, shapes, or imagery feel wrong), product fit (doesn't feel like the audience, category, or brand), hierarchy (unclear what matters or where to look), usability (too dense, too empty, confusing, or hard to act on), reference mismatch (an unspoken reference the result is far from), or scope mismatch (a marketing experience delivered where an operational tool was needed, or the reverse).
 
 **Levers, in order:** request concrete comparison points first (one thing that feels wrong, one thing that feels right; ask whether the issue is visual direction, density, navigation, content, or functionality; ask for a reference only if it will materially change the next attempt); then re-state the chosen stance and check whether it's actually the wrong one — if so, change the stance before polishing components; then audit the largest visual decisions (ground color, type pairing, layout composition, primary hierarchy, image strategy); then change the system, not isolated symptoms (a wrong button radius won't fix "too corporate," a font swap alone won't fix bad hierarchy); then protect what's objectively working (accessibility, real interaction, semantic structure, responsive behavior, useful information architecture) unless those are actually part of the complaint.
 
