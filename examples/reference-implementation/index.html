@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FRAME Studio — Overview</title>
+<meta name="description" content="Reference implementation: FRAME Studio production-management Overview page, built from DESIGN.md and its OKLCH token block.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Archivo:wght@600;700&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------------
+     Token block — FRAME Studio, warm-paper OKLCH ramp.
+     Values are quoted character-exact from the film-studio palette
+     worked example this project's DESIGN.md was derived from. This file
+     is the single place these values live; DESIGN.md governs their usage.
+  ------------------------------------------------------------------------ */
+  :root {
+    /* Foundation: warm paper, H ~ 78 */
+    --film-paper-0: oklch(0.985 0.006 78);
+    --film-paper-1: oklch(0.968 0.008 78);
+    --film-paper-2: oklch(0.946 0.011 78);
+    --film-paper-3: oklch(0.918 0.014 78);
+    --film-paper-4: oklch(0.862 0.017 78);
+    --film-paper-5: oklch(0.762 0.019 78);
+    --film-paper-6: oklch(0.642 0.020 78);
+    --film-paper-7: oklch(0.510 0.019 78);
+    --film-paper-8: oklch(0.330 0.018 78);
+    --film-paper-9: oklch(0.220 0.016 78);
+
+    /* Primary: studio green-black */
+    --film-primary: oklch(0.305 0.046 164);
+    --film-primary-hover: oklch(0.270 0.046 164);
+    --film-primary-active: oklch(0.235 0.042 164);
+    --film-primary-foreground: oklch(0.975 0.006 78);
+
+    /* Accent: oxide/clay orange */
+    --film-accent: oklch(0.610 0.145 42);
+    --film-accent-hover: oklch(0.565 0.145 42);
+    --film-accent-soft: oklch(0.925 0.035 42);
+    --film-accent-foreground: oklch(0.245 0.045 42);
+
+    /* Semantic status */
+    --film-success: oklch(0.510 0.105 154);
+    --film-success-soft: oklch(0.925 0.028 154);
+    --film-success-foreground: oklch(0.265 0.060 154);
+    --film-warning: oklch(0.690 0.135 76);
+    --film-warning-soft: oklch(0.940 0.040 76);
+    --film-warning-foreground: oklch(0.350 0.070 76);
+    --film-danger: oklch(0.545 0.155 28);
+    --film-danger-soft: oklch(0.930 0.035 28);
+    --film-danger-foreground: oklch(0.320 0.075 28);
+    --film-info: oklch(0.535 0.090 240);
+    --film-info-soft: oklch(0.925 0.025 240);
+    --film-info-foreground: oklch(0.300 0.055 240);
+
+    /* Light-mode semantic assignment */
+    --background: oklch(0.946 0.011 78);
+    --foreground: oklch(0.220 0.016 78);
+    --card: oklch(0.968 0.008 78);
+    --card-foreground: oklch(0.220 0.016 78);
+    --primary: oklch(0.305 0.046 164);
+    --primary-foreground: oklch(0.975 0.006 78);
+    --secondary: oklch(0.918 0.014 78);
+    --secondary-foreground: oklch(0.315 0.018 78);
+    --muted: oklch(0.918 0.014 78);
+    --muted-foreground: oklch(0.510 0.019 78);
+    --accent: oklch(0.610 0.145 42);
+    --accent-soft: var(--film-accent-soft);
+    --accent-foreground: oklch(0.245 0.045 42);
+    --border: oklch(0.762 0.019 78);
+    --ring: oklch(0.610 0.145 42);
+    --radius: 8px;
+
+    /* Border + shadow rules */
+    --border-subtle: rgb(42 35 29 / 10%);
+    --border-default: rgb(42 35 29 / 16%);
+    --border-emphasized: rgb(42 35 29 / 28%);
+    --shadow-floating: 0 2px 4px rgb(42 35 29 / 6%), 0 16px 38px rgb(42 35 29 / 13%);
+
+    /* Chart series (light mode) */
+    --chart-1: oklch(0.480 0.105 164); /* studio green */
+    --chart-2: oklch(0.610 0.145 42);  /* oxide orange */
+    --chart-3: oklch(0.560 0.105 244); /* slate blue */
+    --chart-4: oklch(0.650 0.125 84);  /* warm amber */
+    --chart-5: oklch(0.545 0.115 318); /* muted magenta */
+    --chart-6: oklch(0.590 0.105 198); /* blue-teal */
+    --chart-7: oklch(0.475 0.085 132); /* olive green */
+    --chart-8: oklch(0.570 0.105 15);  /* brick red */
+
+    --font-display: "Newsreader", serif;
+    --font-heading: "Archivo", sans-serif;
+    --font-body: "Manrope", sans-serif;
+    --font-mono: "DM Mono", monospace;
+  }
+
+  /* Sanctioned literal-hex exception: the status set (DESIGN.md section 1) */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .35em;
+    border: 1px solid;
+    border-radius: 2px;
+    padding: .3em .55em;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .status-badge.on-track   { background: #E4F0EB; color: #245D4B; border-color: #A7C7B5; }
+  .status-badge.at-risk    { background: #F9E6D9; color: #8C3C17; border-color: #D9A888; }
+  .status-badge.review     { background: #F5EEDB; color: #73561B; border-color: #D2BC83; }
+
+  /* ---------------------------------------------------------------------
+     Base + layout
+  ------------------------------------------------------------------------ */
+  * { box-sizing: border-box; }
+  html { color-scheme: light; }
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { margin: 0; font-family: var(--font-heading); }
+  p { margin: 0; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .app { max-width: 1440px; margin: 0 auto; min-width: 0; }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--background);
+  }
+  .brand { display: flex; align-items: baseline; gap: 8px; text-decoration: none; }
+  .brand-mark { font-family: var(--font-display); font-size: 24px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; }
+  .brand-sub { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .week-tag { font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); white-space: nowrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease, filter .15s ease;
+  }
+  .btn:hover { background: var(--secondary); }
+  .btn-primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .btn-primary:hover { filter: brightness(0.95); }
+  .btn-primary:active { transform: translateY(1px); }
+
+  .shell { display: grid; grid-template-columns: 208px minmax(0, 1fr); min-width: 0; }
+
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    min-width: 0;
+  }
+  .sidebar-eyebrow { margin: 0 0 12px 8px; font-family: var(--font-mono); font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); }
+  .nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .nav-link {
+    display: block;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--muted-foreground);
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .nav-link:hover { background: var(--secondary); color: var(--foreground); }
+  .nav-link.current { background: var(--secondary); color: var(--foreground); }
+  .sidebar-stat { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .sidebar-stat-value { margin: 8px 0 0 8px; font-family: var(--font-heading); font-size: 25px; font-weight: 600; letter-spacing: -0.03em; }
+  .sidebar-stat-detail { margin: 4px 8px 0; font-size: 12px; line-height: 1.45; color: var(--muted-foreground); }
+
+  main { min-width: 0; padding: 28px 20px 56px; }
+  .crumb { margin-bottom: 4px; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); }
+
+  .overview { display: flex; flex-direction: column; gap: 32px; margin-top: 20px; }
+
+  .page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-head h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+  .page-head .lede { margin-top: 12px; max-width: 42em; font-size: 15px; line-height: 1.55; color: var(--muted-foreground); }
+
+  .tabs { display: inline-flex; width: fit-content; border: 1px solid var(--border); background: var(--card); border-radius: 4px; padding: 4px; gap: 2px; }
+  .tab {
+    border: none;
+    background: transparent;
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .tab:hover { color: var(--foreground); }
+  .tab[aria-selected="true"] { background: var(--secondary); color: var(--foreground); }
+
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: none; }
+
+  /* Exception-first band: alert card + metric rail */
+  .exception-band { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 16px; align-items: stretch; }
+
+  .alert-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--film-accent-hover);
+    background: var(--accent-soft);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .alert-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); }
+  .alert-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding-left: 8px; }
+  .alert-chip-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .alert-code { font-family: var(--font-mono); font-size: 11px; color: var(--film-primary-active); opacity: .75; }
+  .alert-title { margin-top: 14px; font-size: 23px; font-weight: 600; line-height: 1.16; letter-spacing: -0.014em; }
+  .alert-copy { margin-top: 8px; max-width: 42em; font-size: 14px; line-height: 1.55; color: var(--film-accent-foreground); }
+  .alert-timer { flex: 0 0 auto; border-left: 1px solid var(--film-accent-hover); padding-left: 16px; }
+  .alert-timer-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--film-accent-foreground); opacity: .8; }
+  .alert-timer-value { margin-top: 4px; font-family: var(--font-heading); font-size: 30px; font-weight: 600; line-height: 1; letter-spacing: -0.03em; color: var(--accent); }
+  .alert-timer-unit { margin-top: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--film-accent-foreground); opacity: .8; }
+  .alert-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid var(--film-accent-hover); }
+  .alert-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 12px; color: var(--film-accent-foreground); }
+  .alert-meta .owner { font-family: var(--font-mono); }
+
+  .metrics-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+  .metric { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+  .metric-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .metric-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); }
+  .metric-value { margin-top: 10px; font-family: var(--font-heading); font-size: 28px; font-weight: 600; line-height: 1; letter-spacing: -0.03em; }
+  .metric-icon { flex: none; display: inline-flex; padding: 7px; border-radius: 2px; background: var(--secondary); color: var(--primary); }
+  .metric-detail { font-size: 13px; line-height: 1.5; color: var(--muted-foreground); }
+
+  /* Lower band: budget chart + selected project */
+  .lower-band { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.9fr); gap: 16px; align-items: stretch; }
+
+  .panel-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .panel-eyebrow { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); }
+  .panel-head h2 { margin-top: 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.008em; }
+  .panel-figure { font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); white-space: nowrap; }
+
+  .budget-panel .chart-wrap { padding: 16px 16px 8px; }
+  .budget-panel svg { display: block; width: 100%; height: auto; }
+  .chart-gridline { stroke: rgb(42 35 29 / 12%); stroke-width: 1; }
+  .chart-axis-label { fill: var(--muted-foreground); font-family: var(--font-mono); font-size: 10px; }
+  .line-actual { stroke: var(--chart-1); stroke-width: 2.5; fill: none; }
+  .line-planned { stroke: var(--chart-2); stroke-width: 2; fill: none; stroke-dasharray: 5 5; }
+  .area-actual { fill: url(#actualFill); }
+  .pt { fill: var(--chart-1); transition: opacity .2s ease; }
+  .pt-today-ring { fill: none; stroke: var(--accent); stroke-width: 2; opacity: 0; transition: opacity .2s ease; }
+  .today-callout { opacity: 0; transition: opacity .2s ease; }
+
+  .chart-legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 4px 20px 18px; font-size: 11px; color: var(--muted-foreground); }
+  .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 12px; height: 3px; border-radius: 1px; display: inline-block; }
+  .swatch.actual { background: var(--chart-1); }
+  .swatch.planned { background: var(--chart-2); background-image: repeating-linear-gradient(90deg, var(--chart-2) 0 4px, transparent 4px 7px); }
+
+  /* Today view: mute the early trend, spotlight the latest point */
+  .budget-chart[data-view="today"] .pt:not(.pt-latest) { opacity: .3; }
+  .budget-chart[data-view="today"] .line-planned,
+  .budget-chart[data-view="today"] .line-early { opacity: .3; }
+  .budget-chart[data-view="today"] .pt-today-ring,
+  .budget-chart[data-view="today"] .today-callout { opacity: 1; }
+
+  .project-list { display: flex; flex-direction: column; }
+  .project-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--border);
+    background: transparent;
+    padding: 16px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color .15s ease;
+  }
+  .project-row:first-child { border-top: none; }
+  .project-row:hover { background: rgb(42 35 29 / 5%); }
+  .project-row[aria-pressed="true"] { background: rgb(42 35 29 / 6%); }
+  .project-row-title { display: block; font-size: 13px; font-weight: 700; }
+  .project-row-meta { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); }
+  .project-row-progress { font-family: var(--font-heading); font-size: 19px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
+
+  @media (max-width: 1000px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 20px; }
+    .nav-list { flex-direction: row; flex-wrap: wrap; }
+    .sidebar-stat { margin-top: 16px; padding-top: 16px; }
+    .exception-band { grid-template-columns: 1fr; }
+    .metrics-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lower-band { grid-template-columns: 1fr; }
+    .page-head { align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <a class="brand" href="#top">
+      <span class="brand-mark">FRAME</span>
+      <span class="brand-sub">Studio</span>
+    </a>
+    <div class="topbar-right">
+      <span class="week-tag">Week 29 · 2026</span>
+      <button type="button" class="btn btn-primary">New project</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <p class="sidebar-eyebrow">Studio controls</p>
+      <ul class="nav-list">
+        <li><a class="nav-link current" href="#top" aria-current="page">Overview</a></li>
+        <li><a class="nav-link" href="#">Projects</a></li>
+        <li><a class="nav-link" href="#">Budget</a></li>
+        <li><a class="nav-link" href="#">Deliveries</a></li>
+      </ul>
+      <div class="sidebar-stat">
+        <p class="sidebar-eyebrow">Active slate</p>
+        <p class="sidebar-stat-value">08</p>
+        <p class="sidebar-stat-detail">Productions currently in motion.</p>
+      </div>
+    </aside>
+
+    <main id="top">
+      <p class="crumb">FRAME / Overview</p>
+
+      <div class="overview">
+        <header class="page-head">
+          <div>
+            <h1>Good morning, Mina.</h1>
+            <p class="lede">Four productions are moving through the studio this week. One delivery needs a decision before 16:00.</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Overview timeframe">
+            <button type="button" class="tab" role="tab" data-tab="week" aria-selected="true">This week</button>
+            <button type="button" class="tab" role="tab" data-tab="today" aria-selected="false">Today</button>
+          </div>
+        </header>
+
+        <section class="exception-band" aria-label="Delivery needing a decision">
+          <article class="alert-card">
+            <div class="alert-top">
+              <div>
+                <div class="alert-chip-row">
+                  <span class="status-badge at-risk">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 3 1 21h22z"/><path d="M12 9v5"/><circle cx="12" cy="17.5" r=".5" fill="currentColor"/></svg>
+                    At risk
+                  </span>
+                  <span class="alert-code">DEL-0184 · Client master</span>
+                </div>
+                <h2 class="alert-title">Autumn House — final client master</h2>
+                <p class="alert-copy">The editor's final pass is ready, but the cleared music cue is still waiting on client approval. Dispatch closes at 16:00.</p>
+              </div>
+              <div class="alert-timer">
+                <p class="alert-timer-label">Time left</p>
+                <p class="alert-timer-value">02:18</p>
+                <p class="alert-timer-unit">hours</p>
+              </div>
+            </div>
+            <div class="alert-bottom">
+              <div class="alert-meta">
+                <span>Review pending</span>
+                <span class="owner">Owner · Mina Okafor</span>
+              </div>
+              <button type="button" class="btn btn-primary">Resolve delivery</button>
+            </div>
+          </article>
+
+          <div class="metrics-rail">
+            <article class="metric panel">
+              <div class="metric-top">
+                <div>
+                  <p class="metric-label">Shoot days</p>
+                  <p class="metric-value">14 / 18</p>
+                </div>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+                </span>
+              </div>
+              <p class="metric-detail">Autumn House is in week three.</p>
+            </article>
+            <article class="metric panel">
+              <div class="metric-top">
+                <div>
+                  <p class="metric-label">Crew confirmed</p>
+                  <p class="metric-value">37 / 41</p>
+                </div>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.6"/><path d="M15.3 14.2c2.9.4 5.2 2.6 5.2 5.8"/></svg>
+                </span>
+              </div>
+              <p class="metric-detail">Four positions await final call time.</p>
+            </article>
+            <article class="metric panel">
+              <div class="metric-top">
+                <div>
+                  <p class="metric-label">Approved slate</p>
+                  <p class="metric-value">$776.7k</p>
+                </div>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="6" width="19" height="14" rx="2"/><path d="M2.5 10h19"/><path d="M15.5 15h3"/></svg>
+                </span>
+              </div>
+              <p class="metric-detail">Four active productions in the current cycle.</p>
+            </article>
+            <article class="metric panel">
+              <div class="metric-top">
+                <div>
+                  <p class="metric-label">Committed</p>
+                  <p class="metric-value">$536.9k</p>
+                </div>
+                <span class="metric-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18 18 6M18 6h-7M18 6v7"/></svg>
+                </span>
+              </div>
+              <p class="metric-detail">69% of approved production budget.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="lower-band" aria-label="Budget pace and selected project">
+          <article class="panel budget-panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-eyebrow">Budget pace</p>
+                <h2 id="chart-title">This week's burn against plan</h2>
+              </div>
+              <span class="panel-figure">$218.4k approved</span>
+            </div>
+            <div class="chart-wrap">
+              <div class="budget-chart" data-view="week">
+                <svg viewBox="0 0 620 220" role="img" aria-label="Autumn House budget burn: planned versus actual spend, 03 June through 08 July, actual running slightly ahead of plan.">
+                  <defs>
+                    <linearGradient id="actualFill" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stop-color="var(--chart-1)" stop-opacity="0.32"/>
+                      <stop offset="100%" stop-color="var(--chart-1)" stop-opacity="0.02"/>
+                    </linearGradient>
+                  </defs>
+
+                  <line class="chart-gridline" x1="40" y1="16" x2="600" y2="16"/>
+                  <line class="chart-gridline" x1="40" y1="74" x2="600" y2="74"/>
+                  <line class="chart-gridline" x1="40" y1="132" x2="600" y2="132"/>
+                  <line class="chart-gridline" x1="40" y1="190" x2="600" y2="190"/>
+                  <text class="chart-axis-label" x="8" y="19">$240k</text>
+                  <text class="chart-axis-label" x="16" y="193">$0</text>
+
+                  <path class="area-actual" d="M40,167.5 L152,140.7 L264,104.5 L376,80.5 L488,47.9 L600,32.0 L600,190 L40,190 Z"/>
+                  <path class="line-planned" d="M40,162.5 L152,136.4 L264,111.7 L376,84.2 L488,58.2 L600,30.5"/>
+                  <path class="line-actual" d="M40,167.5 L152,140.7 L264,104.5 L376,80.5 L488,47.9 L600,32.0"/>
+
+                  <circle class="pt" cx="40" cy="167.5" r="3"/>
+                  <circle class="pt" cx="152" cy="140.7" r="3"/>
+                  <circle class="pt" cx="264" cy="104.5" r="3"/>
+                  <circle class="pt" cx="376" cy="80.5" r="3"/>
+                  <circle class="pt" cx="488" cy="47.9" r="3"/>
+                  <circle class="pt pt-latest" cx="600" cy="32.0" r="3.5"/>
+                  <circle class="pt-today-ring" cx="600" cy="32.0" r="7"/>
+                  <text class="today-callout chart-axis-label" x="530" y="20">Today</text>
+
+                  <text class="chart-axis-label" x="30" y="208" text-anchor="middle">03 Jun</text>
+                  <text class="chart-axis-label" x="152" y="208" text-anchor="middle">10 Jun</text>
+                  <text class="chart-axis-label" x="264" y="208" text-anchor="middle">17 Jun</text>
+                  <text class="chart-axis-label" x="376" y="208" text-anchor="middle">24 Jun</text>
+                  <text class="chart-axis-label" x="488" y="208" text-anchor="middle">01 Jul</text>
+                  <text class="chart-axis-label" x="590" y="208" text-anchor="middle">08 Jul</text>
+                </svg>
+              </div>
+            </div>
+            <div class="chart-legend">
+              <span><i class="swatch actual"></i>Actual</span>
+              <span><i class="swatch planned"></i>Planned</span>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div>
+                <p class="panel-eyebrow">Selected project</p>
+                <h2 id="selected-title">Autumn House</h2>
+              </div>
+              <span id="selected-badge" class="status-badge at-risk">At risk</span>
+            </div>
+            <div class="project-list">
+              <button type="button" class="project-row" data-project="Autumn House" data-status="At risk" data-status-class="at-risk" aria-pressed="true">
+                <span>
+                  <span class="project-row-title">Autumn House</span>
+                  <span class="project-row-meta">Edit · due 18 Jul</span>
+                </span>
+                <span class="project-row-progress">72%</span>
+              </button>
+              <button type="button" class="project-row" data-project="North Terminal" data-status="On track" data-status-class="on-track" aria-pressed="false">
+                <span>
+                  <span class="project-row-title">North Terminal</span>
+                  <span class="project-row-meta">Shoot · due 22 Jul</span>
+                </span>
+                <span class="project-row-progress">41%</span>
+              </button>
+              <button type="button" class="project-row" data-project="Low Tide" data-status="Review" data-status-class="review" aria-pressed="false">
+                <span>
+                  <span class="project-row-title">Low Tide</span>
+                  <span class="project-row-meta">Delivery · due 29 Jul</span>
+                </span>
+                <span class="project-row-progress">94%</span>
+              </button>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  var tabs = document.querySelectorAll(".tab");
+  var chart = document.querySelector(".budget-chart");
+  var chartTitle = document.getElementById("chart-title");
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      tabs.forEach(function (t) { t.setAttribute("aria-selected", t === tab ? "true" : "false"); });
+      chart.dataset.view = tab.dataset.tab;
+      chartTitle.textContent = tab.dataset.tab === "today" ? "Today's burn against plan" : "This week's burn against plan";
+    });
+  });
+
+  var rows = document.querySelectorAll(".project-row");
+  var selTitle = document.getElementById("selected-title");
+  var selBadge = document.getElementById("selected-badge");
+  rows.forEach(function (row) {
+    row.addEventListener("click", function () {
+      rows.forEach(function (r) { r.setAttribute("aria-pressed", r === row ? "true" : "false"); });
+      selTitle.textContent = row.dataset.project;
+      selBadge.textContent = row.dataset.status;
+      selBadge.className = "status-badge " + row.dataset.statusClass;
+    });
+  });
+</script>
+</body>
+</html>
