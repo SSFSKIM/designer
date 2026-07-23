@@ -1,7 +1,3 @@
-# Icon and illustration
-
-This is the single-mark workflow: read it instead of the rest of this skill whenever the Classify step in `SKILL.md` routes here — a logo, icon, badge, monogram, crest, or standalone illustration, one primary graphic artifact rather than a composed page. The section below through "Final check before declaring done" is the practice skill's own text, reproduced verbatim; "Execution mechanics" beneath it adds the concrete SVG-authoring layer — grid construction, primitives vs. paths, stroke-vs-fill math, and optical-balance verification — with a worked example.
-
 # Single-mark deliverables
 
 The brief asks for one primary graphic artifact, not a composed page. The page-stance taxonomy does not apply — pick drawing vocabulary, geometry, and palette that fit the specific mark on its own terms.
