@@ -33,6 +33,21 @@ test("same seed reproduces the draw; different seeds diverge", () => {
   assert.ok(a !== b || b !== c, "three different seeds all produced identical draws");
 });
 
+test("rejects a non-numeric --seed instead of silently seeding zero", () => {
+  assert.throws(
+    () =>
+      execFileSync("node", ["scripts/sample-ingredients.mjs", "--seed", "abc"], {
+        encoding: "utf8",
+        stdio: "pipe",
+      }),
+    (err) => {
+      assert.equal(err.status, 1);
+      assert.match(err.stderr, /--seed requires an integer/);
+      return true;
+    }
+  );
+});
+
 test("library integrity: figma-verbatim entries intact", () => {
   const lib = JSON.parse(readFileSync("scripts/ingredients.json", "utf8"));
   assert.equal(lib.stances.filter((s) => s.origin === "figma").length, 10);

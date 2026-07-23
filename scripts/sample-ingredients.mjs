@@ -9,7 +9,18 @@ const here = dirname(fileURLToPath(import.meta.url));
 const lib = JSON.parse(readFileSync(join(here, "ingredients.json"), "utf8"));
 
 const seedIdx = process.argv.indexOf("--seed");
-const seed = seedIdx !== -1 ? Number(process.argv[seedIdx + 1]) : null;
+let seed = null;
+if (seedIdx !== -1) {
+  seed = Number(process.argv[seedIdx + 1]);
+  if (!Number.isInteger(seed)) {
+    // Guard the boundary: Number("abc") is NaN and NaN|0 is 0 inside mulberry32,
+    // so without this an invalid seed would silently masquerade as seed 0.
+    console.error(
+      `--seed requires an integer (got ${JSON.stringify(process.argv[seedIdx + 1])}).`
+    );
+    process.exit(1);
+  }
+}
 
 function mulberry32(a) {
   return function () {

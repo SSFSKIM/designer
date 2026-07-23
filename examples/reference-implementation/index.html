@@ -76,6 +76,9 @@
     --border-subtle: rgb(42 35 29 / 10%);
     --border-default: rgb(42 35 29 / 16%);
     --border-emphasized: rgb(42 35 29 / 28%);
+    --row-hover: rgb(42 35 29 / 5%);
+    --row-selected: rgb(42 35 29 / 6%);
+    --gridline: rgb(42 35 29 / 12%);
     --shadow-floating: 0 2px 4px rgb(42 35 29 / 6%), 0 16px 38px rgb(42 35 29 / 13%);
 
     /* Chart series (light mode) */
@@ -294,7 +297,7 @@
 
   .budget-panel .chart-wrap { padding: 16px 16px 8px; }
   .budget-panel svg { display: block; width: 100%; height: auto; }
-  .chart-gridline { stroke: rgb(42 35 29 / 12%); stroke-width: 1; }
+  .chart-gridline { stroke: var(--gridline); stroke-width: 1; }
   .chart-axis-label { fill: var(--muted-foreground); font-family: var(--font-mono); font-size: 10px; }
   .line-actual { stroke: var(--chart-1); stroke-width: 2.5; fill: none; }
   .line-planned { stroke: var(--chart-2); stroke-width: 2; fill: none; stroke-dasharray: 5 5; }
@@ -307,12 +310,11 @@
   .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
   .swatch { width: 12px; height: 3px; border-radius: 1px; display: inline-block; }
   .swatch.actual { background: var(--chart-1); }
-  .swatch.planned { background: var(--chart-2); background-image: repeating-linear-gradient(90deg, var(--chart-2) 0 4px, transparent 4px 7px); }
+  .swatch.planned { background: none; height: 0; border-top: 3px dashed var(--chart-2); }
 
   /* Today view: mute the early trend, spotlight the latest point */
   .budget-chart[data-view="today"] .pt:not(.pt-latest) { opacity: .3; }
-  .budget-chart[data-view="today"] .line-planned,
-  .budget-chart[data-view="today"] .line-early { opacity: .3; }
+  .budget-chart[data-view="today"] .line-planned { opacity: .3; }
   .budget-chart[data-view="today"] .pt-today-ring,
   .budget-chart[data-view="today"] .today-callout { opacity: 1; }
 
@@ -332,8 +334,8 @@
     transition: background-color .15s ease;
   }
   .project-row:first-child { border-top: none; }
-  .project-row:hover { background: rgb(42 35 29 / 5%); }
-  .project-row[aria-pressed="true"] { background: rgb(42 35 29 / 6%); }
+  .project-row:hover { background: var(--row-hover); }
+  .project-row[aria-pressed="true"] { background: var(--row-selected); }
   .project-row-title { display: block; font-size: 13px; font-weight: 700; }
   .project-row-meta { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--muted-foreground); }
   .project-row-progress { font-family: var(--font-heading); font-size: 19px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
