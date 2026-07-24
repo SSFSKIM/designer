@@ -62,6 +62,22 @@ that query would confidently ship broken glass in both engines. The no-op
 overlay sidesteps the question entirely — it doesn't ask the browser what it
 supports, it just lets rendering (or non-rendering) happen.
 
+**Never let an ancestor become the backdrop root for the refraction layer.**
+`backdrop-filter` samples the *backdrop root* — the nearest ancestor that
+already has its own `filter`, `backdrop-filter`, `opacity`, or `transform` —
+and once such an ancestor exists, every descendant `backdrop-filter` samples
+*that ancestor's own rendered output*, not the live page behind it. Nest
+`.svgf-glass-refract` inside a parent carrying `backdrop-filter: blur()` (or
+any of the other three triggers) and the refraction layer stops displacing
+the ground; it displaces the parent's already-flattened, near-uniform frosted
+tint instead, which produces no visible bend at all. This is exactly the bug
+this repo's Task-1 spike hit and root-caused (`task-1-report.md`): the first
+prototype nested the refract element inside a frosted `.glass` parent, and
+the fix was the sibling architecture above — `.svgf-glass`, the parent, stays
+completely unfiltered, so `.svgf-glass-refract` samples the real page.
+`filter-mechanics.md` carries the same NEVER for the general case; this is
+that rule applied to glass specifically.
+
 Two accessibility overrides sit on top of both tiers:
 
 - **`prefers-reduced-transparency: reduce`** replaces the panel with a
@@ -215,9 +231,14 @@ real edges to bend.
     </filter>
   </svg>
   <style>
-    /* (3) parent carries NO filter/backdrop-filter — sibling architecture,
-       see The tier system above */
-    .svgf-glass { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    /* (3) parent carries NO filter/backdrop-filter/transform/opacity —
+       sibling architecture, see The tier system above. `transform` is
+       included in that list deliberately: the atlas
+       (docs/research/svg-filter-atlas.md:446) names transform, alongside
+       filter/backdrop-filter/opacity, as a backdrop-root trigger, so
+       centering stays margin-based here rather than reaching for
+       translateX(-50%) on this element. */
+    .svgf-glass { position: fixed; left: 50%; bottom: 24px; margin-left: -180px;
       width: 360px; height: 72px; border-radius: 36px; overflow: hidden; }
     @supports not (backdrop-filter: blur(1px)) {
       .svgf-glass { background: rgb(22 26 44 / 92%); }   /* (4) worst-case tier */
@@ -248,6 +269,14 @@ real edges to bend.
       .svgf-glass-frost, .svgf-glass-refract, .svgf-glass-tint { display: none; } */
     }
   </style>
+  <!-- usage (sibling layers — NEVER nest .svgf-glass-refract inside a filtered ancestor):
+  <div class="svgf-glass">
+    <div class="svgf-glass-frost" aria-hidden="true"></div>
+    <div class="svgf-glass-refract" aria-hidden="true"></div>
+    <div class="svgf-glass-tint" aria-hidden="true"></div>
+    <div class="svgf-glass-content">…</div>
+  </div>
+  Regenerate for any width/height differing by >20%. -->
 
   <!-- (11) three sibling layers + content, per "Generating the optics" above -->
   <div class="svgf-glass" role="toolbar" aria-label="Playback">
@@ -285,3 +314,17 @@ real edges to bend.
 No motion is shown here because the toolbar's only motion is the free
 scrolling-content refraction described in Motion — nothing in this example
 needs a transition to demonstrate the material.
+
+**On the transform trap.** An earlier draft of this example centered
+`.svgf-glass` with `transform: translateX(-50%)`, which — per the backdrop-root
+NEVER above — puts the parent itself on the trigger list. Verified directly:
+built the verbatim `translateX(-50%)` version side by side with the
+margin-based version now shown above, over the same authored ground, and
+diffed the two screenshots pixel-for-pixel in Chromium (HeadlessChrome
+150.0.0.0) — they came back byte-identical, and a scale-0 displacement
+control confirmed the rim was actively refracting (diff concentrated at the
+bezel band, flat in the center) in both. So `transform: translateX(-50%)` did
+not visibly break or alter refraction in this test; the margin-based centering
+above is used anyway because the atlas names transform as a backdrop-root
+trigger regardless of whether this particular case exercised the failure —
+safe under the rule either way is worth more than the one line it costs.
