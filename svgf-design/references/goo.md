@@ -151,11 +151,11 @@ circles' `transform` animates.
 
 ```html
 <div class="goo-pair" data-active="false">
-  <svg viewBox="0 0 200 120" width="200" height="120"
+  <svg viewBox="-15 0 230 120" width="230" height="120"
        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <filter id="goo-merge" color-interpolation-filters="sRGB"
-              filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="120">
+              filterUnits="userSpaceOnUse" x="-15" y="0" width="230" height="120">
         <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
         <feColorMatrix in="blur" type="matrix"
           values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9" result="goo" />
@@ -164,8 +164,8 @@ circles' `transform` animates.
     </defs>
 
     <g filter="url(#goo-merge)">
-      <circle class="goo-blob goo-blob-a" cx="70" cy="60" r="30" fill="#7E6BEA" />
-      <circle class="goo-blob goo-blob-b" cx="130" cy="60" r="30" fill="#FFB94D" />
+      <circle class="goo-blob goo-blob-a" cx="45" cy="60" r="30" fill="#7E6BEA" />
+      <circle class="goo-blob goo-blob-b" cx="155" cy="60" r="30" fill="#FFB94D" />
     </g>
   </svg>
 
