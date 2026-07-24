@@ -43,7 +43,7 @@ Glass belongs on floating chrome sitting over a rich, changing ground — toolba
 
 ## 4. Material QA
 
-Run this after figma-design's own QA pass, against the `## Material law` block just written. Fix violations before delivery — the law is the page's own `DESIGN.md`, not this file.
+Run this after figma-design's own QA pass, against the `## Material law` block just written, and cross-check the built page against `references/materials-map.md`'s `## Ban table` directly — the bullets below are drawn from it but the table also carries the checks specific to goo, grain, and lighting that a glass-only build won't hit. Fix violations before delivery — the law is the page's own `DESIGN.md`, not this file.
 
 **Grep-checkable:**
 - The signature moment is present: `<filter`, `filter: url(`, or `backdrop-filter: url(` appears.
