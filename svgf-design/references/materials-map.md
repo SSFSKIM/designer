@@ -56,7 +56,7 @@ exception this table routes around, not the typical case.
 | `editorial` | grain-print | Duotone photo treatment on the lead feature image, low-opacity mono luminosity grain elsewhere. | goo, glass, lighting |
 | `kinetic` | glass | A dark hero glass panel whose refraction reads alive via scrolling ground content, with a strength morph on hover/press. | goo, grain-print, lighting |
 | `maximalist` | grain-print | Colored paper-field grain plus a rough-outline badge or stamp layered into the scrap-and-tape collage. | goo, glass, lighting |
-| `memphis` | goo | A static hero identity mark of merged pastel primary-shape blobs, in the stance's own accent hues. | grain-print, lighting |
+| `memphis` | goo | A static hero identity mark of merged pastel primary-shape blobs, in the stance's own accent hues. | glass, grain-print, lighting |
 | `minimalist` | glass | One hero engineered-glass element — the single floating control the stance's "one hero element" rule asks for. | goo, grain-print, lighting |
 | `swiss` | glass | A restrained floating toolbar, frost-forward with a plain CSS specular rim, function before spectacle. | goo, grain-print, lighting |
 | `warm` | grain-print | Full-page warm paper ground (colored grain, warm tint, vignette) behind tactile product photography, or an earth-tone duotone. | goo, glass, lighting |
@@ -69,8 +69,28 @@ exception this table routes around, not the typical case.
 | `vernacular` | grain-print | A rough-outline decorative border around a hand-painted-style badge or sign, with colored paper-field grain. | goo, glass, lighting |
 | `topographic` | lighting | An embossed terrain-relief badge/seal (contour-line artwork through the emboss recipe) as a wayfinding mark. | goo, glass |
 
-`y2k-web` is the one row where `lighting` is a permitted **supporting**
-family (a matching glossy chrome badge), not a default — see Dosage.
+Three rows leave a fourth family off the "Families explicitly OFF" list on
+purpose, because that family is a permitted **supporting** material for the
+stance — never a default, and still bounded by the Dosage budget below:
+
+- `y2k-web` permits `lighting` (a matching glossy chrome badge) — the
+  stance's own named exception to the no-gloss default.
+- `deco` permits `grain-print` (a quiet aged-paper/ink ground under the
+  embossed metallic seal) — Art Deco's poster-lithography heritage
+  (`scripts/ingredients.json`'s `deco` description) makes a muted printed
+  ground a natural quiet companion to the lighting signature, not an
+  unreviewed gap.
+- `topographic` permits `grain-print` (a quiet printed-quadrangle paper
+  ground under the embossed contour seal) — USGS/hiking-map heritage
+  (`scripts/ingredients.json`'s `topographic` description) makes the same
+  paper-ground pairing defensible here.
+
+Every other row's "Families explicitly OFF" column is exhaustive — the three
+families not named as that row's default are all OFF, with no silent fourth
+exception. (`memphis`'s `glass` was previously missing from its OFF column;
+it is OFF like the other two non-default families — Memphis's flat,
+non-photorealistic geometric energy doesn't support glass's engineered-depth
+optics as even a quiet supporting material.)
 
 ## Dosage
 
@@ -105,7 +125,7 @@ the page (an ancestor relationship, a rendered ground, a moving state) is
 |---|---|---|
 | No glass over a blank or flat-gray ground. | `glass.md:153` | visual |
 | No glass card grids. | `glass.md:155` | visual |
-| No glass-as-default-card (including the translucent-white-fill + 1px-white-border 2021-glassmorphism combo as a default card style). | `glass.md:158` | visual |
+| No glass-as-default-card (including the translucent-white-fill + 1px-white-border 2021-glassmorphism combo as a default card style). | `glass.md:158` + `docs/doperpowers/specs/2026-07-25-svgf-design-skill-design.md:19` (locked decision 9) | visual |
 | Frost alone ships only as the fallback tier or a quiet supporting surface, never as the intended primary look. | `glass.md:161` | visual |
 | Goo never appears on interactive controls or body text. | `goo.md:220` | visual |
 | No goo as a section-divider default. | `goo.md:223` | visual |
