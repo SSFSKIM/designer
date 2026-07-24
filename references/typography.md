@@ -1,6 +1,6 @@
 # Typography
 
-This file teaches how to choose, pair, and scale typefaces for a semantic type-token system. Use it at the "build semantic tokens" step alongside `references/color-engineering.md` — that file derives the color tokens from a chosen stance, this one derives the type tokens: which faces to draw from, which pairings are strong, which faces and pairings read as overused AI defaults, the operational scales to size and weight them at, the case-behavior rules that keep uppercase a structural signal rather than a default text style, and how many families a project actually needs.
+This file teaches how to choose, pair, and scale typefaces for a semantic type-token system. Use it at the "build semantic tokens" step alongside `references/color-engineering.md` — that file derives the color tokens from a chosen stance, this one derives the type tokens: which faces to draw from, how a pairing is derived (with ten worked examples), which faces and pairings read as overused AI defaults, the operational scales to size and weight them at, the case-behavior rules that keep uppercase a structural signal rather than a default text style, and how many families a project actually needs.
 
 ## Selection order
 
@@ -100,7 +100,15 @@ For a new project without an existing font system, draw from a deliberately cura
 |**JetBrains Mono**|Code-heavy and developer products|Highly legible, developer-native|
 |**Fragment Mono**|Graphic/experimental metadata treatment|Distinctive, editorial|
 
-## Ten strong pairings
+## Ten worked pairings — method illustrations, not a menu
+
+These ten exist to demonstrate the derivation method — match the display face's register to the committed stance, pair on a contrast axis, give each family one job — not to be picked from. Ten rows cannot cover the stance space, and treating this section as a catalog collapses the sixty-face pool above into the same handful of faces on every project: a new monoculture indistinguishable from the defaults this file exists to break.
+
+The binding order is derive first, compare second:
+
+1. **Derive first.** Start from your committed stance and the register tables above: pick the display face whose register carries the stance, then a UI face on a contrast axis, then a mono only if a real data role exists. Record the derivation in DESIGN.md.
+2. **Compare second.** Only after deriving, check your result against these ten. Landing on a listed pairing independently is legitimate — but DESIGN.md must then carry the stance-specific reason, never "it is a known-strong pairing."
+3. **When in doubt, swap one slot.** If your derivation matches a listed pairing and the brief does not demand those exact faces, replace at least one family with a same-register neighbor from the tables above. The pool is deep; a pairing this file has never printed is usually available one row away.
 
 ### 1. Newsreader + Public Sans + DM Mono
 
