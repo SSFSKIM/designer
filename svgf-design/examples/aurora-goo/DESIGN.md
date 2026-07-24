@@ -194,9 +194,10 @@ free," "Open Aurora") and focus rings — never a card, a divider, or an icon.
 `--support-sky/peach/mint` are a **named exception**, the direct analogue of
 `aurora-glass`'s room-hue exception: they exist only inside the hero ground
 and the three goo instances (hero, merge, accent); they never decorate a
-room card, a nav item, or body copy. `--accent` (amber) is reserved for the
-"Live" status badge and testimonial attribution labels — literal marker
-roles, never decoration.
+room card, a nav item, or body copy. `--accent` (amber) is declared but
+deliberately unused in this build — `--success` already carries the page's
+one live-status signal (the room-card status dots), so amber sits reserved
+rather than doubling that marker role.
 
 ## 2. Typography, with placement rules
 

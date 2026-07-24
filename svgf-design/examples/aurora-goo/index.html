@@ -389,7 +389,9 @@ a { color: inherit; }
   font-size: var(--type-h1-size); font-weight: 700; letter-spacing: -0.02em;
   margin-bottom: var(--space-6);
 }
-.cta-banner .btn-primary { background: var(--accent); color: var(--accent-foreground); }
+/* CTA button obeys the palette law's --primary system (DESIGN.md §1) —
+   no override needed; the base .btn-primary rule already reads correctly
+   against this banner's --foreground background. */
 
 /* ============================================================
    11. FOOTER
