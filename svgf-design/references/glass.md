@@ -142,9 +142,9 @@ The ban list, each one a rule on its own:
 - **No glass-as-default-card.** A card surface never defaults to glass just
   because glass is available; it needs the same floating-over-rich-content
   justification any other glass surface needs.
-- **Frost alone ships only as the Safari/Firefox fallback tier or a quiet
-  supporting surface** — never as the intended, primary look on a surface
-  that could have shipped full refraction.
+- **Frost alone ships only as the fallback tier or a quiet supporting surface.**
+  Never as the intended, primary look on a surface that could have shipped
+  full refraction.
 
 ## Legibility contract
 
