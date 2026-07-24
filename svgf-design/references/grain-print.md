@@ -154,9 +154,9 @@ of a printed letterform:
 `scale` stays **≤4** here — an order of magnitude gentler than the atlas's
 `5–15` deckled-edge scale for shape outlines (§2.9), because letterform
 legibility degrades far faster with displacement than a photo edge does.
-Apply only to display type set at roughly `24px` and up (filter-mechanics.md's
-text-filtering note) — a headline, a wordmark, a pull-quote initial, a
-poster numeral.
+Apply only to display type set at roughly `24px` and up (the research atlas's
+§3.1 text-filtering note, `docs/research/svg-filter-atlas.md`) — a headline,
+a wordmark, a pull-quote initial, a poster numeral.
 
 **Ink bleed and edge roughening never appear on body text.** Any paragraph,
 label, or reading-size run of text stays outside this filter's `<g>` — the
@@ -205,8 +205,8 @@ sections above:
   ink bleed.
 - **Riso** — the fullest expression: colored grain, a hard two-ink duotone
   pair, halftone on imagery, ink bleed on display type. This is
-  `references/stances.md`'s `risograph` entry in filter form — "visible
-  grain," "flat, fully saturated spot-ink colors," "printed rather than
+  `references/stances.md`'s `risograph` entry in filter form — "grainier,"
+  "flat, fully saturated spot-ink colors," "printed rather than
   screen-native."
 
 All four pair with `grounds.md`'s **Authored SVG/gradient grounds** —
