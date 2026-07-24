@@ -276,7 +276,7 @@ git commit -m "docs: record glass-spike verdict in spec"
 - Consumes: Task 1's verdict (sign convention, falloff, gating mechanism).
 - Produces (used verbatim by Tasks 5, 11, and the eval): CLI
   `node svgf-design/scripts/make-glass-map.mjs --width 360 --height 72 --radius 36 --bezel 16 --strength 60 --shape pill`
-  printing a single self-contained snippet to stdout containing, in order: (1) the `<svg><filter id="svgf-glass-W-H">…` block with `feImage` data-URI map + `feDisplacementMap`, (2) the paired CSS for both tiers (`.svgf-glass` frost base with `@supports (backdrop-filter: blur(1px))`, `.svgf-glass-refract` overlay, specular rim `::after`, `prefers-reduced-transparency` block), (3) an HTML usage comment showing the three-element structure. Also exports (for tests) `generateMap({width,height,radius,bezel,strength,shape})` returning `{ rgba: Buffer, mapWidth, mapHeight }` and `renderSnippet(opts)` returning the full string. `--shape` accepts `pill | squircle | rect` (squircle = rounded-rect SDF with radius; rect = radius 4).
+  printing a single self-contained snippet to stdout containing, in order: (1) the `<svg><filter id="svgf-glass-W-H">…` block whose chain is `feImage` (data-URI map) → `feDisplacementMap` (scale=strength) → `feGaussianBlur` (stdDeviation 3) → `feColorMatrix` (type="saturate" values="1.6") — **the refraction layer produces the complete glass look itself, per the Task-1 spike verdict**; (2) the paired CSS implementing the spike-verified SIBLING architecture: `.svgf-glass` parent carries NO filter/backdrop-filter (position/radius/overflow + worst-case opaque bg gated by `@supports not (backdrop-filter: blur(1px))`), children `.svgf-glass-frost` (inset:0, frost `backdrop-filter: blur(14px) saturate(160%)` inside `@supports (backdrop-filter: blur(1px))`), `.svgf-glass-refract` (inset:0, `backdrop-filter: url(#svgf-glass-W-H)`, painted after frost), `.svgf-glass-tint` (inset:0, translucent fill above both), specular rim on `.svgf-glass::after`, `prefers-reduced-transparency` block; (3) an HTML usage comment showing the five-element structure. Also exports (for tests) `generateMap({width,height,radius,bezel,strength,shape})` returning `{ rgba: Buffer, mapWidth, mapHeight }` and `renderSnippet(opts)` returning the full string. `--shape` accepts `pill | squircle | rect` (squircle = rounded-rect SDF with radius; rect = radius 4). **Never nest the refract layer inside a filtered ancestor — an element with backdrop-filter becomes its descendants' backdrop root (atlas §2.8) and the refraction goes invisible; this is the exact failure the spike caught.**
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -358,6 +358,19 @@ test('CSS includes reduced-transparency block', () => {
 test('filter id encodes the pixel size (per-breakpoint map discipline)', () => {
   assert.match(renderSnippet(OPTS), /id="svgf-glass-360-72"/);
 });
+
+test('refract chain carries its own frost (spike sibling-architecture verdict)', () => {
+  const s = renderSnippet(OPTS);
+  assert.match(s, /feGaussianBlur[^/]*stdDeviation="3"/);
+  assert.match(s, /feColorMatrix[^/]*type="saturate"[^/]*values="1.6"/);
+});
+
+test('parent class carries no backdrop-filter (sibling layering, not nesting)', () => {
+  const s = renderSnippet(OPTS);
+  // the frost backdrop-filter may only appear under .svgf-glass-frost, never on .svgf-glass itself
+  const parentRule = s.match(/\.svgf-glass\s*\{[^}]*\}/)[0];
+  assert.doesNotMatch(parentRule, /backdrop-filter/);
+});
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -371,11 +384,15 @@ Write `svgf-design/scripts/make-glass-map.mjs`: port the Task-1 prototype with t
 
 1. Wrap geometry in `generateMap(opts)` and page-emission in `renderSnippet(opts)`; apply the sign convention and falloff normalization the spike verdict recorded.
 2. `--shape`: `pill` forces `radius = height/2`; `squircle` uses the given radius; `rect` uses radius 4. All three share the rounded-rect SDF.
-3. Emit the snippet contract from **Interfaces** exactly: filter id `svgf-glass-<width>-<height>`; class names `.svgf-glass`, `.svgf-glass-refract`; specular rim on `.svgf-glass::after` (the three inset box-shadows from the spike page); the gating mechanism the spike promoted; `prefers-reduced-transparency` block; trailing HTML usage comment:
+3. Emit the snippet contract from **Interfaces** exactly: filter id `svgf-glass-<width>-<height>`; the sibling-architecture CSS (parent `.svgf-glass` filter-free; children `.svgf-glass-frost`, `.svgf-glass-refract`, `.svgf-glass-tint`); the extended filter chain (displace → blur(3) → saturate(1.6)); specular rim on `.svgf-glass::after` (the three inset box-shadows from the spike page); `prefers-reduced-transparency` block; trailing HTML usage comment:
    ```html
-   <!-- usage:
-   <div class="svgf-glass"><div class="svgf-glass-refract" aria-hidden="true"></div>
-     <div class="svgf-glass-content">…</div></div>
+   <!-- usage (sibling layers — NEVER nest .svgf-glass-refract inside a filtered ancestor):
+   <div class="svgf-glass">
+     <div class="svgf-glass-frost" aria-hidden="true"></div>
+     <div class="svgf-glass-refract" aria-hidden="true"></div>
+     <div class="svgf-glass-tint" aria-hidden="true"></div>
+     <div class="svgf-glass-content">…</div>
+   </div>
    Regenerate for any width/height differing by >20%. -->
    ```
 4. CLI: parse `--width --height --radius --bezel --strength --shape` with `node:util` `parseArgs`; defaults `360 72 36 16 60 pill`; print `renderSnippet` to stdout; `import.meta.url` main-module guard so tests can import without side effects.
@@ -383,7 +400,7 @@ Write `svgf-design/scripts/make-glass-map.mjs`: port the Task-1 prototype with t
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `node --test svgf-design/scripts/`
-Expected: 10 pass / 0 fail. Also run the existing figma-design suite to confirm no interference: `node --test scripts/` → 5 pass.
+Expected: 12 pass / 0 fail. Also run the existing figma-design suite to confirm no interference: `node --test scripts/` → 5 pass.
 
 - [ ] **Step 5: Visual re-verification**
 
@@ -646,7 +663,7 @@ Body — the four moves, each a numbered section:
 ln -sfn /Users/new/Documents/GitHub/SVGF-Design/svgf-design ~/.claude/skills/svgf-design
 ls -la ~/.claude/skills/svgf-design/SKILL.md   # resolves
 head -20 ~/.claude/skills/svgf-design/SKILL.md # frontmatter renders
-node --test svgf-design/scripts/               # still 10 pass
+node --test svgf-design/scripts/               # still 12 pass
 ```
 
 - [ ] **Step 3: Commit**
@@ -781,7 +798,7 @@ Expected: `PASS` × 4, exit 0. Any FAIL → the arm's output violates the skill'
 - [ ] **Step 1: Full test suites**
 
 ```bash
-node --test svgf-design/scripts/   # 10 pass / 0 fail
+node --test svgf-design/scripts/   # 12 pass / 0 fail
 node --test scripts/               # figma-design suite still 5 pass / 0 fail
 ```
 
