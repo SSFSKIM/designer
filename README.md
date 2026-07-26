@@ -2,7 +2,7 @@
 
 A Claude Agent Skill that replicates Figma Make's UI-design workflow — the aesthetic-sampling, stance-commitment, tokenization, and QA discipline Figma Make applies when it builds a page — as a runtime-neutral skill any Claude Code session can load, independent of Figma's own product. It is not a Figma integration or plugin; it is a from-scratch reconstruction of that workflow's method, assembled from a corpus of interviews with Figma Make (see `Figma Design/`) plus supporting design-engineering research, so the same discipline is available wherever Claude is designing UI.
 
-This repository is itself the skill: `SKILL.md` at the repo root is the entry point, and everything a running Claude session reads lives alongside it (`scripts/`, `references/`, `examples/`). The skill is also the first of two planned deliverables for the wider SVGF-Design project — the second is an SVG-filter design skill, built on top of this one together with Anthropic's `frontend-design` plugin skill and the `impeccable` skill, for effects work this skill's own `references/effects-policy.md` intentionally treats as out of scope.
+This repository is itself the skill: `SKILL.md` at the repo root is the entry point, and everything a running Claude session reads lives alongside it (`scripts/`, `references/`, `examples/`).
 
 ## Install
 
@@ -48,5 +48,3 @@ Three tiers, with different runtime treatment:
 - The **Figma Make interviews** (`Figma Design/`) are this workflow's primary source — the sampler, the stance taxonomy, and the QA protocol are all reconstructed from that corpus.
 - **`frontend-design`**, Anthropic's official frontend-design plugin skill, informed parts of this workflow; its own terms are in its bundled `LICENSE.txt`.
 - **`impeccable`** (Apache 2.0) likewise informed parts of this workflow.
-
-Both `frontend-design` and `impeccable` are also direct inputs to this project's planned second deliverable, the SVG-filter design skill.

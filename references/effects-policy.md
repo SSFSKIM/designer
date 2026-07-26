@@ -760,4 +760,4 @@ If the answers are weak, the same effects become generic visual noise.
 
 ---
 
-This policy is deliberately conservative. A companion skill for SVG-filter material design extends it where the product genuinely earns richer materials.
+This policy is deliberately conservative: when a treatment cannot answer the three questions, the design is better without it.
