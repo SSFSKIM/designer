@@ -1,9 +1,9 @@
 ---
-source: multiple — see per-quote citations below (rams-foundation.org, archive.org "Jonathan Ive on Dieter Rams", Dezeen/Fast Company via WebSearch excerpt)
+source: multiple — see per-quote citations below (rams-foundation.org, archive.org "Jonathan Ive on Dieter Rams", Dezeen/Fast Company via WebSearch excerpt, quote-aggregator sites for one commonly-attributed line — see caveat)
 author: Dieter Rams; Jonathan Ive (on Rams)
 original-date: various — see per-section dates
 accessed: 2026-07-27
-retrieval: mixed — WebFetch for rams-foundation.org and archive.org; WebSearch excerpt for Dezeen and Fast Company (both blocked direct WebFetch with HTTP 403)
+retrieval: mixed — WebFetch for rams-foundation.org and archive.org; WebSearch excerpt for Dezeen and Fast Company (both blocked direct WebFetch with HTTP 403); WebSearch for the "heart belongs to the details" line found no primary source, only quote-aggregator recurrence (see caveat)
 ---
 
 # Interviews: Rams on process and decision-making, and Ive on Rams
@@ -91,7 +91,16 @@ via WebSearch excerpt — original article page returned HTTP 403 on direct WebF
 > because for both architecture and industrial design, the cost of changing things
 > afterward is much higher than the cost of better preparation."
 
-### On detail as the actual substance of the work, not a finishing touch
+### On detail as the actual substance of the work, not a finishing touch (commonly attributed — no primary source located)
+
+This quote recurs verbatim across multiple independent quote-aggregation sites
+(azquotes.com, quotefancy.com, quotlr.com) and is referenced without further
+sourcing in secondary design commentary (e.g. Jeffery Saddoris' "Dieter Rams and
+the Details," substack.com). No primary interview transcript, book page, or dated
+original publication carrying this exact wording was located and confirmed in this
+session. Retained here but flagged as commonly-attributed rather than
+source-verified — weight it below the rams-foundation.org / archive.org material in
+sections 1–2:
 
 > "My heart belongs to the details. I actually always found them to be more
 > important than the big picture. Nothing works without details. They are
@@ -114,11 +123,6 @@ for visual and haptic signals" — used by Rams to characterize the design he wa
 reacting against, not his own practice. Flagged here explicitly so it is not later
 misattributed as a Rams design law rather than a critique of others.
 
-### On living with your own designs as a feedback method
-
-> "When you live with products, you get to learn their faults so you can improve
-> them."
-
 ## Caveat on sourcing quality for this file
 
 Two of the interview sources above (Dezeen, Fast Company) blocked WebFetch directly
@@ -129,3 +133,30 @@ but the surrounding interview context (question asked, full paragraph) was not
 independently confirmed in this session. The rams-foundation.org and archive.org
 material in sections 1–2 was retrieved as fuller passages via direct WebFetch and
 should be weighted more heavily when distilling laws.
+
+Two further items in section 3 needed a second look this session:
+
+- "My heart belongs to the details..." is genuinely widespread — it recurs verbatim
+  across multiple independent quote-aggregation sites (azquotes.com,
+  quotefancy.com, quotlr.com) — but no primary interview, book page, or dated
+  original publication carrying this exact wording was located and confirmed this
+  session. It is retained but its heading now flags it explicitly as
+  commonly-attributed rather than source-verified; weight it below the
+  rams-foundation.org/archive.org material in sections 1–2, and below the
+  Dezeen/Fast Company fragments above (which at least came back as exact strings
+  from a live search of the named outlet, rather than from quote-aggregator sites
+  with no traceable original).
+- A quote previously present in this file ("When you live with products, you get to
+  learn their faults so you can improve them.") returned zero corroborating results
+  this session for the exact phrase or close variants — not even on
+  quote-aggregator sites — and has been removed rather than retained in any form,
+  since it could not be verified at all, unlike the "heart belongs to the details"
+  line above.
+
+Net effect: every remaining quote in this file now falls into one of three
+confidence tiers, from highest to lowest — (1) rams-foundation.org/archive.org,
+retrieved as full passages via direct WebFetch; (2) Dezeen/Fast Company, retrieved
+as short but exact strings via WebSearch, original context unconfirmed; (3) the
+"heart belongs to the details" line, commonly attributed across secondary
+aggregators with no primary source located. Nothing in the file is presented as
+verified-primary-source when it is not.

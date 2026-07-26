@@ -1,9 +1,9 @@
 ---
-source: multiple — see per-case citations below (rams-foundation.org, V&A Collections, MoMA/secondary design-history aggregation via WebSearch, Vitsœ 606 product page)
+source: multiple — see per-case citations below (rams-foundation.org, V&A Collections, braunaudio.de, Vitsœ 606 product page)
 author: Dieter Rams (with named co-designers per case)
 original-date: 1956 (SK4); 1960 (606 Universal Shelving System); 1987 (ET66 calculator)
 accessed: 2026-07-27
-retrieval: mixed — WebFetch for rams-foundation.org (colors), V&A collections page, and vitsoe.com/us/606; WebSearch excerpt for SK4 design-history detail and Braun typeface history (aggregated from multiple secondary sources, cross-checked across at least 2 sources each)
+retrieval: mixed — WebFetch for rams-foundation.org (colors), V&A collections page, vitsoe.com/us/606, and braunaudio.de (SK4 nickname + "real innovation" quote, confirmed direct fetch); WebSearch excerpt for the SK4 removed-cabinet/rattle-lid narrative and Braun typeface history (aggregated from multiple secondary sources, cross-checked across at least 2 sources each)
 ---
 
 # Concrete Braun/Vitsœ product decisions: what was removed, standardized, and colored
@@ -31,12 +31,15 @@ built-in loudspeaker's vibrations set it in motion. Rams' resolution was to
 substitute a transparent acrylic (perspex) cover instead of solving the rattle
 within the metal design — i.e., the fix was a material substitution up front, not a
 later mitigation. This transparent lid is what earned the product its nickname,
-quoted verbatim from a design-history source describing it: "Snow White's Coffin."
+"Snow White's Coffin" — per braunaudio.de's own account (source pinned below), the
+fairy-tale association is attributed to co-designer Hans Gugelot, with the site
+itself noting it does not know whether Gugelot intended the title derogatorily.
 
-Direct quote (design-history secondary source, cross-checked): the SK4 is described
-as
+Direct quote (source: braunaudio.de, "Snow White's Coffin SK4 designed by Rams,
+Gugelot and Wagenfeld," https://braunaudio.de/en/snowwhitecoffin-sk4-dieter-rams-hans-gugelot-design-moma/,
+confirmed via direct fetch this session): the SK4 is described as
 
-> "a real innovation in a market dominated by huge radiogramophones."
+> "a real innovation in a market, dominated by huge radiogramophones."
 
 ### Color/material decision
 
@@ -45,12 +48,16 @@ maple wood side panels, and the clear acrylic lid — a deliberate reduction to 
 materials/finishes (white lacquer, wood, clear plastic) rather than the varied wood
 veneers and finishes typical of contemporary radiogram cabinets.
 
-Caveat: sources located in this session describe the SK4's design history and
-material substitution consistently across at least two independent secondary
-sources (a design-history blog post and a manufacturer-affiliated history page,
-braunaudio.de), but no primary Rams-authored statement specifically about the SK4's
-design reasoning was reachable this session — this case entry is paraphrase from
-secondary design history, not a Rams quote, and should be weighted accordingly.
+Caveat: the nickname's origin and the "real innovation" quote directly above are now
+pinned to a single named source, braunaudio.de, confirmed via direct fetch this
+session (see citation above) — so those two claims are source-verified secondary
+history, not an unnamed "design-history source." The broader removed-cabinet /
+rattle-lid narrative earlier in this case (what was removed; the rattle problem and
+the perspex fix) remains paraphrase, cross-checked across at least two independent
+secondary sources (a design-history blog post and braunaudio.de). No primary
+Rams-authored statement specifically about the SK4's design reasoning was reachable
+this session — that part of the case entry should still be weighted as secondary
+design history, not a Rams quote.
 
 ## Case 2 — Braun color system across the audio product line (source: rams-foundation.org, "Colors" — official Rams Foundation article, retrieved via WebFetch)
 
