@@ -3,9 +3,16 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+// Resolve against this file, not the cwd, so the suite passes from anywhere.
+const here = dirname(fileURLToPath(import.meta.url));
+const sampler = join(here, "sample-ingredients.mjs");
+const library = join(here, "ingredients.json");
 
 const run = (args = []) =>
-  execFileSync("node", ["scripts/sample-ingredients.mjs", ...args], { encoding: "utf8" });
+  execFileSync("node", [sampler, ...args], { encoding: "utf8" });
 
 test("emits the verbatim card frame", () => {
   const out = run(["--seed", "7"]);
@@ -36,7 +43,7 @@ test("same seed reproduces the draw; different seeds diverge", () => {
 test("rejects a non-numeric --seed instead of silently seeding zero", () => {
   assert.throws(
     () =>
-      execFileSync("node", ["scripts/sample-ingredients.mjs", "--seed", "abc"], {
+      execFileSync("node", [sampler, "--seed", "abc"], {
         encoding: "utf8",
         stdio: "pipe",
       }),
@@ -49,7 +56,7 @@ test("rejects a non-numeric --seed instead of silently seeding zero", () => {
 });
 
 test("library integrity: figma-verbatim entries intact", () => {
-  const lib = JSON.parse(readFileSync("scripts/ingredients.json", "utf8"));
+  const lib = JSON.parse(readFileSync(library, "utf8"));
   assert.equal(lib.stances.filter((s) => s.origin === "figma").length, 10);
   assert.equal(lib.typographyTraditions.length, 13);
   assert.equal(lib.canvasTreatments.length, 5);

@@ -1,5 +1,5 @@
 ---
-name: figma-design
+name: designer
 description: This skill should be used whenever the user asks to design, build, redesign, restyle, or improve any user interface or visual artifact — landing pages, marketing sites, dashboards, product UI, app shells, admin tools, settings and onboarding screens, error pages, portfolios, multi-section pages, or single graphic marks (logos, icons, badges, illustrations). Use it even when the user never says "design" — phrasings like "make my settings page less ugly", "rework the onboarding screens", "redesign this admin panel", "make a page for X", and "create a logo" all count. Not for backend or non-visual work — designing a REST API, a database schema, a CLI's flag interface, or a logging architecture, and writing SVG-parsing code, are not this skill even when the request literally says "design".
 version: 1.0.0
 ---
