@@ -30,6 +30,12 @@ Let the accent, the typography, and the imagery carry "warmth" instead of the bo
 
 *Adapted from `impeccable` v3.5's new-project color guidance.*
 
+## The sage accent, flagged
+
+The accent-side twin of the cream band: a desaturated green — sage, forest, ink-green — in roughly OKLCH hue 130–165 at low-to-mid chroma, carrying the primary action on an otherwise neutral page. Like cream it's a region, not one hex, and unlike cream it always has a justification within reach: green reads as affirmative (checkmarks, power lights, "in the black"), so any product whose key action is affirmative can rationalize it after the fact. The tell is therefore not green's presence but green winning without a named competitor. When the accent lands in this band, the design record should name one alternative hue that was weighed on the product's own grounds and lost; a green with no rejected candidate is the reflex answer wearing the product's clothes.
+
+*Added in-house (2026-07) after eval builds converged on this band through individually defensible reasoning; not from the grafted sources.*
+
 ## Absolute bans
 
 Match-and-refuse: catching any of these mid-build means stopping and restructuring that piece from scratch, not softening it in place.
