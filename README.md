@@ -67,7 +67,7 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 - `docs/research/` — design-engineering research, including the primary-source persona corpus and its law-by-law distillation record
 - `docs/doperpowers/` — this project's own specs and implementation plans
 - `evals/` — the eval suite used to measure the skill against unaided baselines
-- `svgf-design/` — a discarded second skill (SVG filter craft). Kept for the record; it sits outside `skills/` and does not ship
+- `svgf-design/` — a discarded second skill (SVG filter craft), kept for the record. It sits outside `skills/`, so it is part of the repository but is never loaded: `claude plugin details designer@designer` reports one skill
 
 Project history under `docs/` refers to this skill by its original working name, `figma-design`. It was renamed to `designer` at first release; the documents are left as written rather than retitled after the fact.
 
