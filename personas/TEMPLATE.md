@@ -5,7 +5,7 @@ A persona is a distilled human decision function: a governing layer that, when i
 Authoring rules:
 
 - Distill from a collected primary-source corpus (`docs/research/personas/<name>/`), never from generic knowledge. Every per-step law block ends with `Sources: <corpus file(s)>`. A law that cannot be grounded in the corpus does not ship.
-- Write laws agent-executable: exact values and checkable prescriptions ("one type family; weights 400 and 600 only"), never moods ("keep it elegant").
+- Write laws agent-executable: exact values and checkable prescriptions ("one type family; exactly two weights across the ramp, derived from the family's own weight axis"), never moods ("keep it elegant").
 - The home token system copies the shape of the complete systems in `references/stances.md`: color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion.
 - Keep the whole file readable in one sitting — it is consulted mid-build as one voice.
 

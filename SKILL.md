@@ -38,7 +38,7 @@ When a persona is active: do not run the sampler — the persona file supplies t
 Before writing any UI code for a full-page or multi-section brief, complete these four steps in order:
 
 1. Read the project's existing conventions — tokens, components, stack, styling approach — so new work fits what already exists rather than fighting it. Skipping this step is how a second page ends up with a second, incompatible design system.
-2. Run `node scripts/sample-ingredients.mjs` (path relative to this skill's directory; skip if Classify routed to an existing design system) and treat its output exactly per its own preamble.
+2. Run `node scripts/sample-ingredients.mjs` (path relative to this skill's directory; skip if Classify routed to an existing design system or a persona is active — see "Persona routing" above) and treat its output exactly per its own preamble.
 3. Commit to exactly one stance in writing before any UI code. Name it, and hold it across layout, typography, surfaces, components, imagery, motion, and interaction states. Do not mix unrelated stances in one interface unless the contrast is explicitly motivated by the product or brief.
 4. Author the project design law — `DESIGN.md`, per `references/guidelines-authoring.md` — before any UI code, so the stance and tokens are recorded somewhere durable rather than only implied by the first component written. Anyone touching the project later, human or agent, should be able to read `DESIGN.md` and match the existing direction without re-deriving it from the rendered output.
 
