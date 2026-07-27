@@ -97,13 +97,15 @@ Sources: ive-interviews.md, bauhaus-functionalist-texts.md, ive-rams-foreword.md
 
 ## 4. Home token system
 
-The persona's default starting system — copy it in whole; it already encodes Part 3's laws, so a build begins without re-deriving them. Same category inventory as `references/stances.md`'s complete systems: color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion.
+The persona's default starting system — one worked instantiation of Part 3's laws, not the laws themselves. What carries the law is the structure: the category inventory (same as `references/stances.md`'s complete systems — color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion), the single accent role, the two-weight ramp, the hairline borders. Start from this system, but derive the two product-facing values — the accent hue and the ground's temperature — for the product at hand before building (Part 5's first two rules). The hex values below are home defaults to fall back on when the product gives no reason to depart from them, not a required palette.
 
 ```css
 /* THE ESSENTIALIST
    Character: honest, restrained, function-first — as little design as possible.
-   Surface model: achromatic ground (near-white / near-black) + exactly one
-   functional accent, applied only to the single most important action or state.
+   Surface model: achromatic ground + exactly one functional accent, applied
+   only to the single most important action or state. The accent hue and the
+   ground's temperature are per-product derivations (Part 5); the values below
+   are one instantiation of the law, not the law.
    No shadow, gradient, or gloss without a real material or state behind it.
 */
 
@@ -244,6 +246,8 @@ The persona's default starting system — copy it in whole; it already encodes P
 
 ## 5. Derivation rules
 
+- The accent hue is derived from the product, not inherited from this file. Braun's own chart assigned a different hue to each function — "FM buttons should be 'blood orange', phono buttons 'honey yellow', with all power buttons 'leaf green'" — and the ET66 calculator's single accent is yellow because equals is "the most frequently used function." Choose the hue that best marks this product's most important action or state and sits quietly against the achromatic ground ("Colour can dominate a room. And design shouldn't dominate people, it should help people."). The home green is the fallback when the product offers no better reason, never a requirement.
+- The ground's temperature is likewise a product decision made inside the achromatic family — pure white, warm off-white, near-black, and silver-gray are all valid grounds. The SK4's white lacquer against natural maple reads warm; Ive-era aluminum reads cool silver. What the law fixes is that the ground stays achromatic, never colored for atmosphere or brand feeling — not that it is cream.
 - A genuinely new function may earn a new color, but only as an addition to the bounded status set, never as a second brand accent — and once added, it is permanent and consistent everywhere that function recurs, the way Braun's own chart never introduced a color for one product and dropped it on the next.
 - If a product's category has a real convention this persona's corpus doesn't cover (a chart needing more than four categorical hues, say), derive the minimum additional set the case actually requires, desaturate every added hue to sit with the achromatic ground, and record the addition and its reason in `DESIGN.md` as a named exception — never expand the accent silently.
 - Radius, spacing, and the type ramp may be rescaled uniformly for a different density (a data-dense operations tool versus a spacious brand page), but the category inventory itself — the set of roles that exist — never grows or shrinks. Economy of means applies to scale, not to structure.

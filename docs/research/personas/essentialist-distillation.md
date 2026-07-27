@@ -122,6 +122,18 @@ Note: the corpus predates on-screen motion as a design surface (Rams and the Bau
 | One family (`--font-display` = `--font-ui`), weights 400/600 only | Typography law: one family system-wide; weight/size (not a second family) carries hierarchy |
 | Short, brief motion durations | Motion law: brief, low-amplitude, restrained |
 
+## Part 5 — Derivation rules
+
+Added 2026-07-27 after the first eval round surfaced palette convergence: all three persona builds shipped the home hex values verbatim (cream ground, leaf-green accent) because Part 4 was phrased as "copy it in whole" and Part 5 contained no rule licensing per-product hue derivation. The corpus supports derivation, not a fixed palette:
+
+| Rule | Corpus file | Grounding quote/passage (short) |
+|---|---|---|
+| Accent hue derived per product from its most important function/state | `rams-braun-cases.md` | "FM buttons should be 'blood orange', phono buttons 'honey yellow', with all power buttons 'leaf green'" — a vocabulary of hues assigned by function, not one house color; ET66's lone accent is yellow, "the most frequently used function" |
+| Accent sits quietly against the ground; home green is fallback, not requirement | `rams-braun-cases.md` | Rams "very cautious" about color, accepting it only when colors "have to suit the product"; "Colour can dominate a room. And design shouldn't dominate people, it should help people." |
+| Ground temperature chosen per product inside the achromatic family | `rams-braun-cases.md`, `ive-apple-cases.md` | SK4: white lacquered metal + natural maple (warm); Ive-era aluminum surfaces (cool silver) — both achromatic, differently tempered |
+| Bounded status-set additions, permanent once added | `rams-braun-cases.md` | Braun chart never introduced a color for one product and dropped it on the next |
+| Uniform density rescaling without growing the category inventory | `rams-braun-cases.md`, `bauhaus-functionalist-texts.md` | 606's two bay widths; "economical utilization of space, material, time, and money" |
+
 ## Part 6 — Ban list
 
 ### General bans
