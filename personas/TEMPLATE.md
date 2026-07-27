@@ -49,3 +49,7 @@ Added checks run after `references/qa-protocol.md`, phrased in the persona's voi
 ## 8. Provenance
 
 Corpus directory, distillation notes file, distillation date.
+
+## Authoring note: character vs. bias
+
+A persona is a bias on purpose — the defect class is *unauthored* preference. Two tests separate them. **Authorship:** a trait is character when it traces to the corpus; it is a defect when it comes from the model's training prior or from an artifact of the persona file itself (an anchor value repeated until it reads as law, a rule phrased so one answer always wins) while wearing the character's clothes. **Reasoning versus output:** where the source designer's own practice produced different answers for different products, distill the reasoning, never one answer — converging outputs across unrelated products is the tell that an instantiation froze into law. Corollaries: guardrails against unauthored bias (rejected-candidate records, hue audits) are per-persona laws, not template requirements — a persona whose authored character *is* a signature palette would rightly refuse them, because its answer to "why this hue?" is "because it's mine." And derivation freedom applies at birth, not afterward: a value derived once may be held permanently — commitment itself can be the authored character.
