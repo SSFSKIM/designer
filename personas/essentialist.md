@@ -100,15 +100,15 @@ Sources: ive-interviews.md, bauhaus-functionalist-texts.md, ive-rams-foreword.md
 
 ## 4. Home token system
 
-The persona's default starting system — one worked instantiation of Part 3's laws, not the laws themselves. What carries the law is the structure: the category inventory (same as `references/stances.md`'s complete systems — color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion), the single accent role, the two-weight ramp, the hairline borders. Consult Part 5's derivation rules before building: the accent hue and the ground's temperature must always be consciously derived for the product at hand; every other value below is a home default, derivable too whenever the product gives real reason to depart from it, in keeping with Part 5's general rule that a fresh standard is derived for each product rather than carried over unexamined from this one. The hex values below are home defaults to fall back on when the product gives no reason to depart from them, not a required palette.
+The persona's default starting system — one worked instantiation of Part 3's laws, not the laws themselves. What carries the law is the structure: the category inventory (same as `references/stances.md`'s complete systems — color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion), the single accent role, the two-weight ramp, the hairline borders. Consult Part 5's derivation rules before building: the accent hue and the ground's temperature must always be consciously derived for the product at hand; every other value below is a home default, derivable too whenever the product gives real reason to depart from it, in keeping with Part 5's general rule that a fresh standard is derived for each product rather than carried over unexamined from this one.
 
 ```css
 /* THE ESSENTIALIST
    Character: honest, restrained, function-first — as little design as possible.
    Surface model: achromatic ground + exactly one functional accent, applied
-   only to the single most important action or state. The accent hue and the
-   ground's temperature are per-product derivations (Part 5); the values below
-   are one instantiation of the law, not the law.
+   only to the single most important action or state. Always derive the accent
+   hue and the ground's temperature per product (Part 5); every other value is
+   a home default, likewise derivable when the product gives real reason.
    No shadow, gradient, or gloss without a real material or state behind it.
 */
 
@@ -245,7 +245,7 @@ The persona's default starting system — one worked instantiation of Part 3's l
 
 **Note on `--accent` and `--success` being decoupled:** `--accent` is a per-product derivation (Part 5), tied to whichever single action or state matters most in this product; `--success` is a fixed member of the bounded status set and always stays the affirmative-state green, because a status meaning has to stay legible no matter what the product's primary action turns out to be. At the home defaults the two happen to share a value only because the home accent is also green — that coincidence isn't load-bearing, and deriving the accent must never silently repaint every success state its color: a primary-action button and a success toast are two different meanings, no closer than FM is to phono on Braun's own chart.
 
-**Implementation rules:** use `--radius-1`/`--radius-2` for controls, `--radius-3` for panels, and `--radius-0` for data tables and anything meant to read as a hard edge. Ordinary cards use a 1px border and `--shadow-none`; reserve `--shadow-float` and above for UI that is genuinely floating above the page (a menu, a dialog, a toast). The accent never appears twice for two different meanings on the same screen. When the accent is derived away from the home green, four tokens travel with it — `--accent`, `--accent-foreground` (recomputed for contrast against the new hue), `--ring`, and `--border-active` (the latter two expressed as `var(--accent)` above, so they update automatically) — `--success` is deliberately not one of them.
+**Implementation rules:** use `--radius-1`/`--radius-2` for controls, `--radius-3` for panels, and `--radius-0` for data tables and anything meant to read as a hard edge. Ordinary cards use a 1px border and `--shadow-none`; reserve `--shadow-float` and above for UI that is genuinely floating above the page (a menu, a dialog, a toast). The accent never appears twice for two different meanings on the same screen — which means a build that keeps the fallback green accent and also displays affirmative status states must separate the two (derive the accent away from green, or keep the coinciding hues from sharing a screen); the home values coincide, the meanings never may. When the accent is derived away from the home green, four tokens travel with it — `--accent`, `--accent-foreground` (recomputed for contrast against the new hue), `--ring`, and `--border-active` (the latter two expressed as `var(--accent)` above, so they update automatically) — `--success` is deliberately not one of them.
 
 ## 5. Derivation rules
 
