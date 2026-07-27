@@ -1,0 +1,88 @@
+NOTICE — Licensing provenance for figma-design
+===============================================
+
+figma-design is a Claude Code plugin maintained by Minhyeok Kim (SSFSKIM).
+This file explains which parts of the repository are covered by which terms.
+It supplements, and does not replace, LICENSE (Apache License 2.0).
+
+Copyright (c) 2026 Minhyeok Kim
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use these files except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Four categories of content exist in this repository:
+
+1. Original work
+-----------------
+The substantial majority of this repository was written from scratch for this
+project: the skill entry point, the workflow spine, the reference library, the
+persona layer, the ingredient sampler, and the worked examples. Copyright (c)
+2026 Minhyeok Kim, licensed under the Apache License 2.0 in LICENSE.
+
+2. Content adapted from Anthropic's `frontend-design` skill (Apache-2.0)
+-------------------------------------------------------------------------
+Anthropic's `frontend-design` skill is distributed under the Apache License
+2.0 (its own LICENSE.txt). Sections adapted from it carry an inline
+attribution line at the point of use, and the files that contain them have
+been modified from the originals:
+
+    skills/figma-design/references/taste-calibration.md
+        -- "The three saturated default looks" (adapted)
+        -- "Commitment devices" two-pass process (adapted, combined with
+           impeccable's color-strategy axis)
+    skills/figma-design/references/voice-copy.md
+        -- the writing-in-design section (adapted)
+
+3. Content adapted from `impeccable` v3.5 (Apache-2.0)
+--------------------------------------------------------
+`impeccable` v3.5 is distributed under the Apache License 2.0. Sections
+adapted from it likewise carry inline attribution at the point of use, in
+modified form:
+
+    skills/figma-design/references/taste-calibration.md
+        -- "The cream band, specified" (adapted from its new-project
+           color guidance)
+        -- "Absolute bans" (adapted from its absolute-bans list)
+        -- "The category-reflex check" (adapted from its AI-slop test)
+        -- "Copy tells" (adapted from its copy guidance)
+        -- the color-strategy axis within "Commitment devices" (adapted)
+
+Both upstream projects are licensed under the same terms as this one, so no
+license conflict arises. Per Apache 2.0 section 4(b), the adapted sections
+are marked as changed at the point of use; per section 4(d), this NOTICE
+records the attributions.
+
+Not adapted from either source: "The sage accent, flagged" in
+taste-calibration.md is original work added in-house (2026-07), as its own
+footer states.
+
+4. Third-party quotations in the research corpus
+--------------------------------------------------
+`docs/research/personas/essentialist/` holds a primary-source corpus used to
+distill the Essentialist persona. These files contain short excerpts and
+structured notes quoted from third-party works — writings, speeches, and
+interviews by Dieter Rams, Walter Gropius, Jonathan Ive, and others — for
+purposes of commentary, analysis, and attribution. Each file opens with a
+provenance header recording source URL, author, original date where known,
+date accessed, and retrieval method. These excerpts remain the property of
+their respective copyright holders and are NOT licensed under this
+repository's LICENSE. They are quoted, not relicensed.
+
+The same applies to `Figma Design/`, which holds this project's own notes
+from interviewing Figma Make about its design workflow. The notes are
+original work; any product behavior they describe belongs to its owner.
+
+Trademarks
+-----------
+"Figma" and "Figma Make" are trademarks of Figma, Inc. This project is not
+affiliated with, endorsed by, or sponsored by Figma, Inc. It is not a Figma
+integration or a Figma plugin. The name refers to the design workflow this
+skill reconstructs, and is used only to describe that origin.
+
+"Braun", "Vitsœ", and "Apple" are trademarks of their respective owners and
+appear here only in historical and descriptive reference.
+
+Contact
+-------
+Minhyeok Kim <kimmi@l1ngual.com>

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "figma-design",
+  "description": "SSFSKIM's design-practice plugins for Claude Code.",
+  "owner": {
+    "name": "SSFSKIM"
+  },
+  "plugins": [
+    {
+      "name": "figma-design",
+      "source": "./",
+      "description": "A working UI-design practice for Claude: commit to one visual stance, build on semantic tokens, use real content, and check the result against an accessibility and taste floor. Includes an aesthetic-ingredient sampler, eleven reference files, and an optional Essentialist designer persona distilled from the Bauhaus, Dieter Rams, and Jonathan Ive lineage. Unaffiliated with Figma; not a Figma integration.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SSFSKIM"
+      },
+      "homepage": "https://github.com/SSFSKIM/SVGF-Design",
+      "license": "Apache-2.0",
+      "category": "design",
+      "keywords": [
+        "design",
+        "ui",
+        "frontend",
+        "design-system",
+        "typography",
+        "color",
+        "accessibility",
+        "personas"
+      ]
+    }
+  ]
+}
