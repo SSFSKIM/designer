@@ -1,5 +1,5 @@
 ---
-source: https://adepratt.weebly.com/uploads/3/7/7/1/37716215/bauhaus_-_manifesto__program_statement.pdf (course-handout PDF reproducing the standard English translation of Gropius's manifesto and program; cross-checked against the excerpt quoted at https://bauhausmanifesto.com/ and the same document hosted at https://www.academia.edu/5392236/Walter_Gropius_and_Lyonel_Feininger_Bauhaus_Manifesto_1919)
+source: https://adepratt.weebly.com/uploads/3/7/7/1/37716215/bauhaus_-_manifesto__program_statement.pdf (course-handout PDF reproducing the standard English translation of Gropius's manifesto and program; cross-checked against the matching translation quoted at https://panarchy.org/gropius/bauhaus.html — see the file's source-quality note on why https://bauhausmanifesto.com/, which carries a different translation of the same passages, was dropped as a claimed word-for-word cross-check)
 author: Walter Gropius (cover woodcut "Kathedrale" / "Cathedral" by Lyonel Feininger)
 original-date: April 1919
 accessed: 2026-07-27
@@ -80,12 +80,24 @@ warning line is meant to prevent.
 ## Source-quality note
 
 The PDF at the pinned URL is an unattributed course handout (hosted on a university
-student's personal weebly site) rather than an original scholarly edition, but its
-translation matches — word for word, including distinctive phrasing like "crystal
-symbol of a new faith" — the excerpt independently quoted at bauhausmanifesto.com and
-the manifesto text hosted on academia.edu. This is the same English translation
-lineage that traces back to Hans M. Wingler's *The Bauhaus* (MIT Press, 1969) and
-Ulrich Conrads' *Programs and Manifestoes on 20th-Century Architecture* (MIT Press,
-1970) — the standard anthologized English version of this text — so despite the
-informal hosting, the wording itself is the widely-cited standard translation, not an
-idiosyncratic paraphrase.
+student's personal weebly site) rather than an original scholarly edition. Re-checked
+during review by fetching panarchy.org's posted copy of the manifesto directly: its
+opening paragraph ("The ultimate aim of all visual arts is the complete building!...")
+and closing paragraph ("Let us then create a new guild of craftsmen... like the
+crystal symbol of a new faith.") match this file's quoted text word for word,
+including the distinctive "crystal symbol of a new faith" phrasing. This is the same
+English translation lineage that traces back to Hans M. Wingler's *The Bauhaus* (MIT
+Press, 1969) and Ulrich Conrads' *Programs and Manifestoes on 20th-Century
+Architecture* (MIT Press, 1970) — the standard anthologized English version of this
+text — so despite the informal hosting, the wording itself is the widely-cited
+standard translation, not an idiosyncratic paraphrase.
+
+Correction made during review: an earlier draft of this note claimed bauhausmanifesto.com
+also matched this wording word for word. Re-fetching bauhausmanifesto.com directly
+this session shows it actually carries a *different* English translation of the same
+passages (e.g. "The ultimate goal of all art is the building!" and "...like the clear
+symbol of a new belief to come" rather than "crystal symbol of a new faith") — same
+content, different translator's wording, not a match. That claim has been replaced
+above with a cross-check against panarchy.org, which was independently verified this
+session and does match word for word. academia.edu's hosting of the same document
+returned an HTTP 403 this session and could not be re-checked directly.

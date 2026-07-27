@@ -21,7 +21,8 @@ the same director's design-documentary work, and is not to be confused with it.
 
 > "A big definition of who you are as a designer is the way you look at the world."
 
-> "So many products want you aware of just how clever the solution was."
+> "So many of the products that we're surrounded by want you to be very aware of
+> just how clever the solution was."
 
 > "A lot of what we are doing is getting design out of the way."
 
@@ -124,3 +125,12 @@ one secondary summary (idownloadblog.com) since the primary article is paywalled
 weight these below the other two tiers when distilling laws, since the exact
 surrounding context of each line was not independently re-checked against Ian
 Parker's original text.
+
+Correction made during review: the Objectified quote on cleverness was originally
+transcribed here in a condensed form ("So many products want you aware of just how
+clever the solution was.") that trimmed words out of the verbatim line while still
+presenting it with quotation marks. Re-fetched blog.buildllc.com directly and
+corrected the quote above to its exact wording ("So many of the products that we're
+surrounded by want you to be very aware of just how clever the solution was.") — the
+other two Objectified quotes were independently re-verified against the same page
+and against lukew.com this session and match verbatim as originally transcribed.
