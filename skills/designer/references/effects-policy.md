@@ -229,9 +229,33 @@ Poor fits:
 
 Grain should sit **behind content**, remain subtle, and never interfere with reading. It is surface atmosphere, not information.
 
-### Shippable CSS: static SVG noise texture
+### Shippable CSS: static noise texture
+
+Grain is a generated tile, not a live effect. Produce one monochrome noise tile — at build time, or once at startup for a single-file build — and repeat it as a background. Uncorrelated per-pixel noise has no spatial structure to break at a seam, so the tile repeats invisibly without edge blending.
+
+```js
+// Generate a 180x180 grain tile. Run once, then save the result as an asset
+// or assign the data URL to the custom property below.
+function grainTile(size = 180) {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  const image = ctx.createImageData(size, size);
+  for (let i = 0; i < image.data.length; i += 4) {
+    const value = (Math.random() * 255) | 0;
+    image.data[i] = image.data[i + 1] = image.data[i + 2] = value;
+    image.data[i + 3] = 255;
+  }
+  ctx.putImageData(image, 0, 0);
+  return `url("${canvas.toDataURL("image/png")}")`;
+}
+```
 
 ```css
+:root {
+  --grain-tile: url("/assets/grain-180.png");
+}
+
 .textured-surface {
   position: relative;
   background: #F4EEE4;
@@ -246,7 +270,7 @@ Grain should sit **behind content**, remain subtle, and never interfere with rea
   pointer-events: none;
   opacity: 0.055;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.85'/%3E%3C/svg%3E");
+  background-image: var(--grain-tile);
   background-size: 180px 180px;
 }
 
@@ -411,49 +435,15 @@ This is the most specialized category. Use it only when the product's visual mod
 
 Do not use it for ordinary cards, forms, tables, or navigation. It can be expensive, visually distracting, and difficult to make accessible.
 
-### Shippable SVG: subtle static liquid-glass refraction
+### The implementation path is a shader, not a stylesheet
 
-```svg
-<svg
-  width="0"
-  height="0"
-  aria-hidden="true"
-  focusable="false"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%">
-    <feTurbulence
-      type="fractalNoise"
-      baseFrequency="0.012 0.018"
-      numOctaves="2"
-      seed="18"
-      result="noise"
-    />
-    <feDisplacementMap
-      in="SourceGraphic"
-      in2="noise"
-      scale="7"
-      xChannelSelector="R"
-      yChannelSelector="G"
-    />
-  </filter>
-</svg>
-```
+True refraction means sampling what sits behind a surface and re-reading it at an offset — a per-pixel operation against a live texture. That belongs in WebGL, or a canvas pass for a cheap static case, where the frame cost, the sampling resolution, and the fallback are all explicit and controllable. Do not approximate it with a filter chain: a filter distorts the element's own pixels rather than the ground behind it, its cost stays invisible until the interface stutters, and it degrades to nothing rather than to something.
 
-```css
-.liquid-glass-art {
-  border-radius: 28px;
-  overflow: hidden;
-  filter: url("#liquid-glass");
-  transform: translateZ(0);
-}
-```
+Treat a real material — liquid glass and its relatives — as a dedicated layer rather than a style rule: one localized, `aria-hidden` surface, behind a capability and reduced-motion check, sitting on top of a page that is already finished without it. Building that layer is outside this skill's scope. Committing to the effect without a fallback that stands on its own is what this policy forbids.
 
-Use this on a **non-essential hero artwork or visual ornament**, not on text or an interactive control. Distorting text harms legibility and distorting controls can make hit targets feel disconnected from their visual boundaries.
+### The shippable default: CSS glass, not true refraction
 
-### More practical alternative: CSS glass, not true refraction
-
-For most product UI, a conventional translucent surface with backdrop blur is preferable:
+For nearly all product UI, a conventional translucent surface with backdrop blur is the right answer, and it is also what a material layer falls back to:
 
 ```css
 .prismatic-sheet {
@@ -475,167 +465,15 @@ For most product UI, a conventional translucent surface with backdrop blur is pr
 
 This produces a legible, stable glass-like surface without distorting the content behind it.
 
-## SVG filter primitives: positions
+## Material simulation stays out of the stylesheet
 
-SVG filters are legitimate tools. The important question is not whether they are "allowed"; it is whether they are serving the interaction and visual system without harming performance, accessibility, or maintainability.
+Anything that simulates a physical material rather than styling a surface — refraction, displacement, embossing, specular highlight, merged metaball forms, generated cloud or fluid fields — is a rendering job. Build it in WebGL or canvas as one contained layer, and keep it away from anything whose boundary must stay exact: body text, navigation, primary controls, table cells, form fields, and hit targets. A distorted control makes its own target feel unreliable, and distorted text simply reads worse.
 
-### `feTurbulence`
+Three constraints hold regardless of what renders it:
 
-**Yes, usually static only.**
-Useful for subtle grain, paper texture, cloud-like visual fields, or a background material.
-
-```svg
-<filter id="paper-grain">
-  <feTurbulence
-    type="fractalNoise"
-    baseFrequency="0.72"
-    numOctaves="3"
-    stitchTiles="stitch"
-    seed="24"
-  />
-  <feColorMatrix
-    type="matrix"
-    values="
-      0 0 0 0 0.18
-      0 0 0 0 0.15
-      0 0 0 0 0.12
-      0 0 0 0.13 0
-    "
-  />
-</filter>
-```
-
-Use it as a background-only texture at low opacity. Do not animate it continuously in standard UI.
-
-### `feDisplacementMap`
-
-**Rarely, and only for non-essential artwork.**
-Useful for a static refractive hero illustration, water-like distortion, or a highly specific campaign effect.
-
-```svg
-<filter id="soft-displace" x="-10%" y="-10%" width="120%" height="120%">
-  <feTurbulence
-    type="turbulence"
-    baseFrequency="0.01"
-    numOctaves="2"
-    seed="11"
-    result="texture"
-  />
-  <feDisplacementMap
-    in="SourceGraphic"
-    in2="texture"
-    scale="5"
-    xChannelSelector="R"
-    yChannelSelector="B"
-  />
-</filter>
-```
-
-Do **not** put displacement filters on body text, navigation, primary buttons, tables, or anything whose visual boundary must remain exact.
-
-### `feGaussianBlur` + `feColorMatrix` for "goo"
-
-**Very rarely.**
-This can work in a playful, expressive consumer experience — such as a single animated completion illustration, a nonessential loading motif, or a campaign graphic. It is usually too loud and too computationally expensive for product UI.
-
-```svg
-<svg
-  viewBox="0 0 320 140"
-  xmlns="http://www.w3.org/2000/svg"
-  aria-hidden="true"
->
-  <defs>
-    <filter id="goo" color-interpolation-filters="sRGB">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-      <feColorMatrix
-        in="blur"
-        mode="matrix"
-        values="
-          1 0 0 0 0
-          0 1 0 0 0
-          0 0 1 0 0
-          0 0 0 22 -9
-        "
-        result="goo"
-      />
-      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-    </filter>
-  </defs>
-
-  <g filter="url(#goo)">
-    <circle cx="96" cy="70" r="36" fill="#7E6BEA" />
-    <circle cx="156" cy="70" r="36" fill="#FFB94D" />
-    <circle cx="216" cy="70" r="36" fill="#82D7B2" />
-  </g>
-</svg>
-```
-
-This would be an illustration, not a structural component style.
-
-### `feSpecularLighting`
-
-**Almost never for interface components.**
-
-It can create a convincing embossed, wet, or lit material, but it is difficult to control across displays, can make text harder to read, and often looks like a novelty effect when applied to UI chrome.
-
-It might work for:
-
-- A one-off 3D-ish badge or seal
-- A decorative product visualization
-- A game or music visualizer
-- A non-interactive hero material study
-
-Do not use it for buttons, cards, inputs, or navigation.
-
-```svg
-<filter id="soft-specular" x="-20%" y="-20%" width="140%" height="140%">
-  <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur" />
-  <feSpecularLighting
-    in="blur"
-    surfaceScale="3"
-    specularConstant="0.45"
-    specularExponent="18"
-    lighting-color="#FFFFFF"
-    result="specular"
-  >
-    <feDistantLight azimuth="225" elevation="50" />
-  </feSpecularLighting>
-  <feComposite
-    in="specular"
-    in2="SourceAlpha"
-    operator="in"
-    result="specularClip"
-  />
-  <feComposite
-    in="SourceGraphic"
-    in2="specularClip"
-    operator="arithmetic"
-    k1="0"
-    k2="1"
-    k3="0.34"
-    k4="0"
-  />
-</filter>
-```
-
-### `feDropShadow`
-
-**Yes, commonly — but gently.**
-For SVG icons, marks, floating objects, and illustrations, it can be better than trying to fake a shadow with duplicate paths.
-
-```svg
-<filter id="icon-shadow" x="-30%" y="-30%" width="160%" height="160%">
-  <feDropShadow
-    dx="0"
-    dy="5"
-    stdDeviation="5"
-    flood-color="#172033"
-    flood-opacity="0.18"
-  />
-</filter>
-```
-
-Use one coherent shadow, not stacks of several unrelated effects.
+- **One material moment per screen.** A simulated material is a signature, and a page carrying two of them has neither.
+- **The fallback is the design.** Build the CSS surface first and make it good on its own. The material layer is an addition to a finished page, and it disappears under reduced motion, reduced transparency, high contrast, or a missing GPU context.
+- **It never carries information.** State, hierarchy, and affordance are read from layout, type, and color. A material can make a surface feel like a particular thing; it can never be the only place a user learns something.
 
 ## Worked contrasts
 
@@ -754,7 +592,7 @@ Use rich material effects when the design has a real answer to all three questio
 2. **Why is it placed on this surface rather than everywhere?**
 3. **What remains if the effect is unsupported, reduced, or removed?**
 
-If the answers are strong, glass, grain, gradients, glow, organic forms, and even carefully controlled SVG filters can produce an excellent, sophisticated interface.
+If the answers are strong, glass, grain, gradients, glow, organic forms — and, where a product genuinely calls for one, a single contained material layer — can produce an excellent, sophisticated interface.
 
 If the answers are weak, the same effects become generic visual noise.
 

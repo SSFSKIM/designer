@@ -277,7 +277,7 @@ at most one accent color role (--accent); the status/function-mapped set (--succ
 at most two font-family stacks total; the second is a monospace, used only for tabular or data content
 no more than two distinct resolved font-weight values anywhere in the type ramp (400/600 is the home default pair; a different pair may be derived per Part 5 and recorded in DESIGN.md)
 no backdrop-filter anywhere in the stylesheet
-no material-simulation SVG filter primitives (feTurbulence, feDisplacementMap, feSpecularLighting, feDiffuseLighting) — structural primitives (feDropShadow, feGaussianBlur, feMerge, etc.) fall under the general surfaces rule instead
+no simulated material anywhere — no shader, canvas, or filter layer producing refraction, displacement, lighting, or generated texture; structural shadow and blur fall under the general surfaces rule instead
 no text-shadow anywhere in the stylesheet
 ```
 

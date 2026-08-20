@@ -436,6 +436,11 @@ git commit -m "feat(skill): add composition + imagery reference"
 
 ### Task 9: `references/effects-policy.md`
 
+> **Superseded 2026-08-21.** Task 9 shipped as written, but the file has since dropped every
+> SVG-filter section: the primitive catalog is gone, grain is a generated tile, and refraction
+> defers to WebGL. The `feTurbulence` acceptance check in Step 2 is expected to fail against the
+> current file and must not be "fixed" by restoring the filters.
+
 **Files:**
 - Create: `references/effects-policy.md`
 
