@@ -11,14 +11,14 @@ The workflow is a from-scratch reconstruction of the method observed in Figma Ma
 ## Install
 
 ```
-/plugin marketplace add SSFSKIM/SVGF-Design
+/plugin marketplace add SSFSKIM/designer
 /plugin install designer@designer
 ```
 
 Or from the command line:
 
 ```bash
-claude plugin marketplace add SSFSKIM/SVGF-Design
+claude plugin marketplace add SSFSKIM/designer
 claude plugin install designer@designer
 ```
 
@@ -67,9 +67,10 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 - `docs/research/` — design-engineering research, including the primary-source persona corpus and its law-by-law distillation record
 - `docs/doperpowers/` — this project's own specs and implementation plans
 - `evals/` — the eval suite used to measure the skill against unaided baselines
-- `svgf-design/` — a discarded second skill (SVG filter craft), kept for the record. It sits outside `skills/`, so it is part of the repository but is never loaded: `claude plugin details designer@designer` reports one skill
 
 Project history under `docs/` refers to this skill by its original working name, `figma-design`. It was renamed to `designer` at first release; the documents are left as written rather than retitled after the fact.
+
+`docs/` also holds a second, discarded direction: a material-specialist skill built on SVG filters, planned in mid-2026 and cut. Those documents carry a banner marking them archived. The repository no longer builds anything on SVG filters — `effects-policy.md` treats material simulation as a rendering job with a CSS surface as its fallback, and any future material specialist, liquid glass included, is to be implemented in WebGL.
 
 ## Development
 

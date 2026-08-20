@@ -1,5 +1,11 @@
 # svgf-design Skill Implementation Plan
 
+> **Discarded direction — archived 2026-08-21.** This document belongs to the SVG-filter
+> material skill, which was cut. The repository no longer builds anything on SVG filters:
+> `skills/designer/references/effects-policy.md` treats material simulation as a rendering
+> job, and any future material specialist — liquid glass and its relatives — is to be
+> implemented in WebGL. Kept for the record; nothing here is a live plan.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use doperpowers:subagent-driven-development (recommended) or doperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Ship `svgf-design` — a material-specialist Agent Skill (engineered liquid glass, goo, grain/print, lighting) that composes with the shipped `figma-design` skill and guarantees a signature SVG-filter material moment on every invocation.

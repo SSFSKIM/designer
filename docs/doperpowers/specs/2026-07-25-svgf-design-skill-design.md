@@ -1,5 +1,11 @@
 # svgf-design Skill — Design Spec
 
+> **Discarded direction — archived 2026-08-21.** This document belongs to the SVG-filter
+> material skill, which was cut. The repository no longer builds anything on SVG filters:
+> `skills/designer/references/effects-policy.md` treats material simulation as a rendering
+> job, and any future material specialist — liquid glass and its relatives — is to be
+> implemented in WebGL. Kept for the record; nothing here is a live plan.
+
 ## Purpose
 
 Ship `svgf-design`: a Claude Code Agent Skill that turns SVG filters into a designed material system — Apple-Liquid-Glass-class engineered refraction, gooey/organic forms, grain/print texture, and specular lighting — for the design work AI systems reliably avoid. This is deliverable #2 of the SVGF-Design repo, built on top of deliverable #1 (`figma-design`, shipped and verified 2026-07-25 by beating real Figma Make 2–1) together with the research corpus in `docs/research/svg-filter-atlas.md`.

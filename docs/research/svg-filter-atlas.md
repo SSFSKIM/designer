@@ -1,5 +1,11 @@
 # SVG Filter Capability Atlas for UI Design
 
+> **Discarded direction — archived 2026-08-21.** This document belongs to the SVG-filter
+> material skill, which was cut. The repository no longer builds anything on SVG filters:
+> `skills/designer/references/effects-policy.md` treats material simulation as a rendering
+> job, and any future material specialist — liquid glass and its relatives — is to be
+> implemented in WebGL. Kept for the record; nothing here is a live plan.
+
 **Purpose.** Raw research for an Agent Skill that teaches coding agents to use SVG filters as a design material for sophisticated modern UI: Apple-Liquid-Glass-class refraction, gooey/organic effects, grain/texture, and lighting. Audience: an LLM agent that writes HTML/CSS/SVG.
 
 **Verification status.** Compiled 2026-07-22. Browser-support claims were checked against 2025–2026 sources (WebKit Bugzilla, Mozilla Bugzilla, MDN BCD issues, the kube.io Liquid Glass article, and multiple 2025 Liquid Glass implementations). Anything not verified against a current source is marked **[uncertain]**. See §6 Uncertainty Ledger.

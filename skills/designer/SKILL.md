@@ -1,7 +1,7 @@
 ---
 name: designer
 description: Use whenever the user asks to design, build, redesign, rework, restyle, or improve a user interface or visual artifact — a page, dashboard, product or admin screen, portfolio, or a single mark such as a logo, icon, badge, or illustration. Counts even when the request never says "design" ("make my settings page less ugly", "make a page for X"). Not for non-visual work: designing an API, database schema, CLI flags, or logging, and writing SVG-parsing code, are not this skill even when the request says "design".
-version: 1.0.1
+version: 1.1.0
 ---
 
 # Designer
