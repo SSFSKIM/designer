@@ -352,7 +352,7 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 | C3 geometry kernel | merge (137 tests; full 324-shape matrix green in 125s; analytic one-pass gradient) | landed 2026-08-25, verified on main (chain exit 0) |
 | C4 core runtime | merge 1475029 (241 package tests; 43-state X2 machine; codex review: 6 findings fixed) | landed 2026-08-24, verified on main (chain green, root lint clean) |
 | C5 platform-web runtime | merge (86 unit + 242 Playwright tests: 88 Chromium / 77 Firefox / 77 WebKit; 4 suite-caught bugs fixed) | landed 2026-08-25, verified on main (chain exit 0) |
-| K1 X2 css-by-choice amendment (corrective, core) | — | in-flight (2026-08-25) |
+| K1 X2 css-by-choice amendment (corrective, core) | merge 89e4a8b (43→49 pinned states; probe axis three-valued) | landed 2026-08-25, verified on main (chain exit 0) |
 | C6 WebGPU renderer | — | in-flight (2026-08-25, opus worker, worktree, pin 3516e76) |
 | C7 calibration system | — | not-dispatched (waiting-external: Xcode) |
 | C8 React bindings & components | — | not-dispatched (blocked-by C2, C5, C6) |
@@ -409,6 +409,7 @@ Pending — written at finish.
 - 2026-08-24: Initial spec from the chartering grill, design-research run (wf_ce8e34b5-10e), two independent design reviews, and the approved revised design pass.
 - 2026-08-24 (same day, second revision): adversarial spec review round — six findings, all adopted (Decision Log #14): checked overlap constraint and unit promotion, per-group masked proxies with conformance probe, resolved-state capability model, BackdropFrame protocol, pseudo-SDF geometry reformulation, per-cell calibration matrix, gating spikes S1/S2.
 - 2026-08-24 (third revision): decomposing run extends this document into the composite spec — parent citation, Parent-Level Acceptance, eleven children (S1, S2, C1–C9), nine cross-child contracts (X1–X9), ordering map, risks, tracking map (Decision Log #15–16). Board materialization pending the human gate.
+- 2026-08-25 (eleventh revision): K1 landed — X2's webgpu probe axis is three-valued, CSS-by-choice resolves healthy (6 new ok-states, pin 43→49); C6 notified to merge main.
 - 2026-08-25 (tenth revision): C3 landed — two-reference corner model and the level-set rider ratified (Decision Log #22); C6 dispatched with the f32 cross-check obligation, the level-set concentric mandate, and the one-pass analytic gradient.
 - 2026-08-25 (ninth revision): C5 landed — four suite-caught bugs fixed in-branch (device-lost collapse, first-frame CSS transition, unrecoverable probe demotion, focus-dropping promotion); three flow-backs ruled (Decision Log #21); K1 corrective dispatched on core for the X2 css-by-choice amendment.
 - 2026-08-24 (eighth revision): S2 landed — rsupn adopted, Apple-direct smoothing seed replaces the Figma routing, uniform-radii v1 restriction, family-C governor step conditional on C6's f32 check (Decision Log #20). Spike harness becomes C3's regression base.
