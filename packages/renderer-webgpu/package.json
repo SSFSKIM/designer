@@ -14,15 +14,31 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint . && tsc --noEmit",
-    "test": "vitest run"
+    "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:golden": "playwright test --grep @golden",
+    "test:gpu": "playwright test --grep @gpu",
+    "test:bench": "playwright test --grep @bench",
+    "goldens:regen": "VITREA_UPDATE_GOLDENS=1 playwright test --grep @golden"
+  },
+  "dependencies": {
+    "@vitrea/geometry": "workspace:*",
+    "@vitrea/motion": "workspace:*"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "@types/pngjs": "catalog:",
     "eslint": "catalog:",
+    "pngjs": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:"
   }
 }
