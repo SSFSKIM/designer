@@ -16,11 +16,20 @@
  * render   drawing, with the graph frozen
  * ```
  *
+ * `update` resolves the scene *before* the first update hook runs, and that
+ * ordering is the contract rather than an implementation detail: every phase from
+ * `update` onward reads a resolution describing the graph as it stood at the top
+ * of that phase. So the graph is structurally frozen from `update` on — the scene
+ * reports a register or a remove there as a `frame-phase-violation`, because a
+ * hook that restructures the graph leaves the frame's resolution describing a
+ * graph that no longer exists. Structural reconciliation belongs in `collect`;
+ * `update` is where reads become resolved state.
+ *
  * Phase discipline is enforced, not documented. Consuming the dirty set outside
- * `write`, measuring outside `read`, and restructuring the graph once the
- * renderer is walking it each report a `frame-phase-violation`. None of them
- * throws: a violated frame still draws, and a diagnostic that costs a frame is
- * one a host will silence rather than fix.
+ * `write`, measuring outside `read`, and restructuring the graph once it has
+ * resolved each report a `frame-phase-violation`. None of them throws: a violated
+ * frame still draws, and a diagnostic that costs a frame is one a host will
+ * silence rather than fix.
  */
 
 import { FRAME_PHASES, type FrameInfo, type FramePhase } from "./frame";
@@ -28,6 +37,7 @@ import type {
   BackdropRebuildRequest,
   GlassScene,
   PlaneOverlap,
+  ProxyOverlap,
   SceneResolution,
 } from "./scene";
 
@@ -63,10 +73,28 @@ export interface FrameParticipant {
 export interface FrameReport {
   readonly frame: FrameInfo;
   readonly resolution: SceneResolution;
-  /** Same-plane overlaps found after the read phase, in dev mode. */
+  /** Same-plane surface overlaps found after the read phase, in dev mode. */
   readonly overlaps: readonly PlaneOverlap[];
-  /** Everything handed out this frame, whether a participant asked or not. */
+  /** Groups whose padded proxies would cover the same pixels — X1's other half. */
+  readonly proxyOverlaps: readonly ProxyOverlap[];
+  /**
+   * The rebuilds a write participant actually claimed — nothing more. The
+   * scheduler never consumes on the frame's own behalf, because consuming
+   * advances the source's `builtEpoch`: a rebuild taken so the report could be
+   * "complete" would leave the source looking clean with no renderer having built
+   * anything, and the pyramid would never be rebuilt. A frame with nobody to do
+   * the work — no renderer registered yet, or one sitting out a device-loss
+   * recovery — must therefore hand out nothing at all.
+   */
   readonly rebuilds: readonly BackdropRebuildRequest[];
+  /**
+   * The source ids still dirty when the frame ended: whatever no participant
+   * claimed, plus sources no group samples yet. Read with the non-consuming peek,
+   * so a frame is never charged a rebuild for being reported on. A rebuild
+   * survives here until a renderer takes it, which is precisely what lets
+   * device-loss recovery pick the work back up instead of losing it.
+   */
+  readonly pendingSources: readonly string[];
 }
 
 export interface FrameScheduler {
@@ -101,6 +129,7 @@ export function createFrameScheduler(options: FrameSchedulerOptions): FrameSched
     runFrame(frame) {
       let resolution: SceneResolution | undefined;
       let overlaps: readonly PlaneOverlap[] = [];
+      let proxyOverlaps: readonly ProxyOverlap[] = [];
       const rebuilds: BackdropRebuildRequest[] = [];
 
       const contextFor = (phase: FramePhase): FrameContext => ({
@@ -124,32 +153,42 @@ export function createFrameScheduler(options: FrameSchedulerOptions): FrameSched
         },
       });
 
-      for (const phase of FRAME_PHASES) {
-        scene.setFramePhase(phase);
+      try {
+        for (const phase of FRAME_PHASES) {
+          scene.setFramePhase(phase);
 
-        if (phase === "update") resolution = scene.resolve();
+          // Resolving before the first update hook is what freezes the graph for
+          // the rest of the frame: everything after this reads a resolution of
+          // the graph as it stands right here.
+          if (phase === "update") resolution = scene.resolve();
 
-        for (const participant of [...participants.values()]) {
-          participant[phase]?.(contextFor(phase));
+          for (const participant of [...participants.values()]) {
+            participant[phase]?.(contextFor(phase));
+          }
+
+          // Bounds are freshest here, and both checks must finish before the
+          // renderer acts on a layout the sandwich cannot express.
+          if (phase === "read") {
+            overlaps = scene.checkSamePlaneOverlap();
+            proxyOverlaps = scene.checkGroupProxyOverlap();
+          }
         }
-
-        // Bounds are freshest here, and the check must finish before the
-        // renderer acts on a layout the sandwich cannot express.
-        if (phase === "read") overlaps = scene.checkSamePlaneOverlap();
-
-        // Whatever no participant claimed is still this frame's work: the report
-        // is the whole truth about what needed rebuilding, not what was asked for.
-        if (phase === "write") rebuilds.push(...scene.consumeDirtyBackdropSources(frame.id));
+      } finally {
+        // A hook that throws still ends the frame. Left at the failing phase, the
+        // scene would report the host's own error recovery — tearing the failed
+        // node down, remeasuring — as phase violations it never committed, and
+        // every later frame would inherit the same lie.
+        scene.setFramePhase(undefined);
       }
-
-      scene.setFramePhase(undefined);
 
       return {
         frame,
         // `update` always runs, so this is always assigned by the time it is read.
         resolution: resolution ?? scene.resolve(),
         overlaps,
+        proxyOverlaps,
         rebuilds,
+        pendingSources: scene.dirtyBackdropSources().map((source) => source.descriptor.id),
       };
     },
   };

@@ -418,24 +418,27 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
   let framePhase: FramePhase | undefined;
 
   /**
-   * The graph is frozen from the `update` phase onward.
+   * Descriptors are frozen from the `update` phase onward.
    *
    * `update` is where reads become resolved state — the scheduler resolves the
-   * whole scene at the top of it — so a mutation any later leaves that
-   * resolution describing a graph that no longer exists, and write and render
-   * act on the difference. Structural reconciliation belongs in `collect`,
-   * which is what that phase is for; outside a frame a host may mutate freely,
-   * which is where a React commit lands.
+   * whole scene at the top of it — so any descriptor change after that leaves
+   * the frame's resolution describing a scene that no longer exists, and write
+   * and render act on the difference. That covers patches, not only
+   * registration: a node's `variant` feeds its resolved material and its
+   * `foreground` its resolved adaptation, so "only the graph's shape is frozen"
+   * would be a line with nothing behind it. Reconcile in `collect`, which is
+   * what that phase is for; outside a frame a host may mutate freely, and that
+   * is where a React commit lands.
    */
   const FROZEN_PHASES: readonly FramePhase[] = ["update", "write", "render"];
 
-  const guardStructural = (subject: string): void => {
+  const guardFrozenScene = (subject: string): void => {
     if (framePhase === undefined || !FROZEN_PHASES.includes(framePhase)) return;
     diagnostics.report({
       code: "frame-phase-violation",
       severity: "error",
       subjects: [subject],
-      message: `The scene was restructured during the "${framePhase}" phase, after this frame resolved. Reconcile structure in the "collect" phase or outside a frame — from "update" onward the resolution and the graph must agree.`,
+      message: `The scene was changed during the "${framePhase}" phase, after this frame resolved. Register, remove and patch in the "collect" phase or outside a frame — from "update" onward the resolution and the scene must agree.`,
     });
   };
 
@@ -536,12 +539,13 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
 
     registerBackdropSource(descriptor) {
       if (sources.has(descriptor.id)) throw duplicate("backdrop source", descriptor.id);
-      guardStructural(descriptor.id);
+      guardFrozenScene(descriptor.id);
       sources.set(descriptor.id, { descriptor, dirtyEpoch: 0, builtEpoch: 0 });
     },
 
     updateBackdropSource(id, patch) {
       const record = requireSource(id);
+      guardFrozenScene(id);
       if (record.descriptor.kind !== "texture") {
         throw new GlassSceneError(
           "wrong-source-kind",
@@ -556,7 +560,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
 
     removeBackdropSource(id) {
       requireSource(id);
-      guardStructural(id);
+      guardFrozenScene(id);
       const dependents = groupsOfSource(id);
       if (dependents.length > 0) {
         throw new GlassSceneError(
@@ -574,7 +578,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     registerGlassGroup(descriptor) {
       if (groups.has(descriptor.id)) throw duplicate("glass group", descriptor.id);
       requireSource(descriptor.backdropSourceId);
-      guardStructural(descriptor.id);
+      guardFrozenScene(descriptor.id);
       groups.set(descriptor.id, { descriptor });
     },
 
@@ -582,12 +586,13 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       const record = requireGroup(id);
       const descriptor = applyPatch(record.descriptor, patch);
       requireSource(descriptor.backdropSourceId);
+      guardFrozenScene(id);
       groups.set(id, { ...record, descriptor });
     },
 
     removeGlassGroup(id) {
       requireGroup(id);
-      guardStructural(id);
+      guardFrozenScene(id);
       const members = nodesOfGroup(id);
       if (members.length > 0) {
         throw new GlassSceneError(
@@ -607,7 +612,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     registerGlassNode(descriptor) {
       if (nodes.has(descriptor.id)) throw duplicate("glass node", descriptor.id);
       requireGroup(descriptor.groupId);
-      guardStructural(descriptor.id);
+      guardFrozenScene(descriptor.id);
       nodes.set(descriptor.id, { descriptor });
     },
 
@@ -615,12 +620,13 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       const record = requireNode(id);
       const descriptor = applyPatch(record.descriptor, patch);
       requireGroup(descriptor.groupId);
+      guardFrozenScene(id);
       nodes.set(id, { ...record, descriptor });
     },
 
     removeGlassNode(id) {
       requireNode(id);
-      guardStructural(id);
+      guardFrozenScene(id);
       nodes.delete(id);
     },
 

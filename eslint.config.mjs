@@ -159,7 +159,12 @@ export const node = tseslint.config(...base, {
 });
 
 // Root config: repo-level files only. Packages carry their own.
+//
+// `spikes/**` is ignored alongside them: a spike's deliverable is findings, and
+// its harness is throwaway browser-context evidence that never ships. Linting it
+// against the repo's Node-flavoured root rules only reports globals it is
+// supposed to be using.
 export default tseslint.config(
-  { ignores: ["packages/**", "apps/**", "skills/**", "docs/**", "Figma Design/**"] },
+  { ignores: ["packages/**", "apps/**", "skills/**", "docs/**", "spikes/**", "Figma Design/**"] },
   ...base,
 );

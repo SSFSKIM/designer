@@ -13,6 +13,7 @@ import {
   createDiagnosticsChannel,
   createFrameScheduler,
   createGlassScene,
+  type BackdropRebuildRequest,
   type FrameContext,
   type FramePhase,
   type FrameParticipant,
@@ -222,6 +223,32 @@ describe("the update phase resolves the scene", () => {
     expect(report.overlaps).toEqual([{ plane: "base", nodeIds: ["node", "second"] }]);
     expect(diagnostics.reported.map((finding) => finding.code)).toContain("same-plane-overlap");
   });
+
+  it("runs the cross-group proxy check in the same phase, on the same fresh bounds", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = seeded(diagnostics);
+    scene.registerGlassGroup({ id: "neighbour", backdropSourceId: "src", samplingPadding: 60 });
+    scene.registerGlassNode({
+      id: "neighbour-node",
+      groupId: "neighbour",
+      shapeFamily: "capsule",
+      shape,
+      zSlot: { plane: "base", order: 1 },
+    });
+    const scheduler = createFrameScheduler({ scene });
+    scheduler.addParticipant({
+      id: "measurer",
+      read: () => {
+        scene.setNodeBounds("node", { x: 0, y: 0, width: 40, height: 40 });
+        scene.setNodeBounds("neighbour-node", { x: 48, y: 0, width: 40, height: 40 });
+      },
+    });
+
+    const report = scheduler.runFrame({ id: 1, timeMs: 0 });
+
+    expect(report.proxyOverlaps).toEqual([{ plane: "base", groupIds: ["grp", "neighbour"] }]);
+    expect(diagnostics.reported.map((finding) => finding.code)).toContain("group-proxy-overlap");
+  });
 });
 
 describe("dirty consumption is scoped to the write phase", () => {
@@ -242,6 +269,7 @@ describe("dirty consumption is scoped to the write phase", () => {
     expect(requests).toBe(1);
     expect(report.rebuilds).toHaveLength(1);
     expect(report.rebuilds[0]?.sourceId).toBe("src");
+    expect(report.pendingSources).toEqual([]);
   });
 
   it("gives the second asker in one frame nothing — one rebuild per dirty source", () => {
@@ -263,12 +291,31 @@ describe("dirty consumption is scoped to the write phase", () => {
     expect(counts).toEqual([1, 0]);
   });
 
-  it("reports the frame's rebuilds even when no participant consumed them", () => {
+  it("leaves a rebuild no participant claimed pending and still dirty", () => {
     const scene = seeded();
     const scheduler = createFrameScheduler({ scene });
     scheduler.addParticipant({ id: "a", collect: () => scene.markBackdropSourceDirty("src") });
 
-    expect(scheduler.runFrame({ id: 1, timeMs: 0 }).rebuilds).toHaveLength(1);
+    const unclaimed = scheduler.runFrame({ id: 1, timeMs: 0 });
+
+    // The scheduler consumed nothing on the frame's behalf, so the source is
+    // exactly as dirty as it was — the work is deferred, not silently built.
+    expect(unclaimed.rebuilds).toEqual([]);
+    expect(unclaimed.pendingSources).toEqual(["src"]);
+    expect(scene.dirtyBackdropSources().map((source) => source.descriptor.id)).toEqual(["src"]);
+
+    let claimed = 0;
+    scheduler.addParticipant({
+      id: "renderer",
+      write: (context) => {
+        claimed = context.consumeDirtyBackdropSources().length;
+      },
+    });
+    const next = scheduler.runFrame({ id: 2, timeMs: 16 });
+
+    expect(claimed).toBe(1);
+    expect(next.rebuilds).toHaveLength(1);
+    expect(next.pendingSources).toEqual([]);
   });
 
   it("refuses consumption outside the write phase, and says which phase asked", () => {
@@ -295,14 +342,72 @@ describe("dirty consumption is scoped to the write phase", () => {
     expect(violation?.message).toContain("write");
   });
 
-  it("carries an unconsumed rebuild into the next frame", () => {
+  it("carries an unclaimed rebuild through every frame that leaves it unclaimed", () => {
     const scene = seeded();
     const scheduler = createFrameScheduler({ scene });
     scheduler.addParticipant({ id: "a" });
 
     scene.markBackdropSourceDirty("src");
-    expect(scheduler.runFrame({ id: 1, timeMs: 0 }).rebuilds).toHaveLength(1);
-    expect(scheduler.runFrame({ id: 2, timeMs: 16 }).rebuilds).toHaveLength(0);
+
+    for (const id of [1, 2, 3]) {
+      const report = scheduler.runFrame({ id, timeMs: id * 16 });
+      expect(report.rebuilds).toEqual([]);
+      expect(report.pendingSources).toEqual(["src"]);
+    }
+
+    // Nothing advanced `builtEpoch`, which is the mechanism: the source is dirty
+    // for as long as no one has actually built it.
+    expect(scene.backdropSource("src")?.builtEpoch).toBe(0);
+  });
+
+  it("hands a rebuild the device-loss frames could not do to the renderer that returns", () => {
+    const scene = seeded();
+    const scheduler = createFrameScheduler({ scene });
+    let handed: readonly BackdropRebuildRequest[] = [];
+
+    // The device is lost: the renderer participant is gone, and the backdrop
+    // content keeps changing while it recovers.
+    scene.markBackdropSourceDirty("src");
+    expect(scheduler.runFrame({ id: 1, timeMs: 0 }).pendingSources).toEqual(["src"]);
+    scene.markBackdropSourceDirty("src");
+    expect(scheduler.runFrame({ id: 2, timeMs: 16 }).pendingSources).toEqual(["src"]);
+
+    scheduler.addParticipant({
+      id: "renderer",
+      write: (context) => {
+        handed = context.consumeDirtyBackdropSources();
+      },
+    });
+    const recovered = scheduler.runFrame({ id: 3, timeMs: 32 });
+
+    // One rebuild, at the latest epoch: the outage cost frames, not work.
+    expect(handed).toHaveLength(1);
+    expect(handed[0]?.epoch).toBe(2);
+    expect(recovered.rebuilds).toEqual(handed);
+    expect(recovered.pendingSources).toEqual([]);
+  });
+});
+
+describe("a hook that throws", () => {
+  it("propagates, and still leaves the scene outside a frame", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = seeded(diagnostics);
+    const scheduler = createFrameScheduler({ scene });
+    const lost = new Error("device lost mid-render");
+    scheduler.addParticipant({
+      id: "renderer",
+      render: () => {
+        throw lost;
+      },
+    });
+
+    expect(() => scheduler.runFrame({ id: 1, timeMs: 0 })).toThrow(lost);
+
+    // A phase left stuck at "render" would turn the host's own recovery into a
+    // stream of violations it never committed.
+    expect(scene.framePhase).toBeUndefined();
+    scene.setNodeBounds("node", { x: 0, y: 0, width: 10, height: 10 });
+    expect(diagnostics.reported).toEqual([]);
   });
 });
 
@@ -350,7 +455,7 @@ describe("measurement is scoped to the read phase", () => {
 });
 
 describe("structural change during a frame", () => {
-  it("errors when the graph is restructured while the renderer is walking it", () => {
+  it("errors when the graph is restructured in write, once the frame has resolved", () => {
     const diagnostics = createDiagnosticsChannel();
     const scene = seeded(diagnostics);
     const scheduler = createFrameScheduler({ scene });
@@ -368,7 +473,7 @@ describe("structural change during a frame", () => {
     expect(violation?.subjects).toEqual(["node"]);
   });
 
-  it("allows registration in collect and update, where a host legitimately mutates", () => {
+  it("allows registration in collect and read, before the scene has resolved", () => {
     const diagnostics = createDiagnosticsChannel();
     const scene = seeded(diagnostics);
     const scheduler = createFrameScheduler({ scene });
@@ -376,19 +481,100 @@ describe("structural change during a frame", () => {
       id: "a",
       collect: () =>
         scene.registerGlassNode({
+          id: "collected",
+          groupId: "grp",
+          shapeFamily: "capsule",
+          shape,
+          zSlot: { plane: "base", order: 9 },
+        }),
+      read: () =>
+        scene.registerGlassNode({
+          id: "measured",
+          groupId: "grp",
+          shapeFamily: "capsule",
+          shape,
+          zSlot: { plane: "overlay", order: 0 },
+        }),
+    });
+
+    const report = scheduler.runFrame({ id: 1, timeMs: 0 });
+
+    // Both landed before `update` resolved, so the frame's resolution describes
+    // them — which is exactly why these two phases stay open.
+    expect(diagnostics.reported).toEqual([]);
+    expect(report.resolution.nodes.map((node) => node.nodeId)).toEqual([
+      "node",
+      "collected",
+      "measured",
+    ]);
+  });
+
+  it("errors when the graph is restructured in update, after the frame has resolved", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = seeded(diagnostics);
+    const scheduler = createFrameScheduler({ scene });
+    scheduler.addParticipant({
+      id: "a",
+      update: () =>
+        scene.registerGlassNode({
           id: "late",
           groupId: "grp",
           shapeFamily: "capsule",
           shape,
           zSlot: { plane: "base", order: 9 },
         }),
-      update: () => scene.updateGlassNode("late", { interaction: "hover" }),
+    });
+
+    const report = scheduler.runFrame({ id: 1, timeMs: 0 });
+
+    const violation = diagnostics.reported.find(
+      (finding) => finding.code === "frame-phase-violation",
+    );
+    expect(violation?.severity).toBe("error");
+    expect(violation?.subjects).toEqual(["late"]);
+    expect(violation?.message).toContain("update");
+    // The reason it is an error: the node exists, and this frame's resolution
+    // has already been written without it.
+    expect(scene.glassNode("late")).toBeDefined();
+    expect(report.resolution.nodes.map((node) => node.nodeId)).toEqual(["node"]);
+  });
+
+  it("errors on a descriptor patch in update too — the whole scene is frozen, not just its shape", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = seeded(diagnostics);
+    const scheduler = createFrameScheduler({ scene });
+    scheduler.addParticipant({
+      id: "a",
+      update: () => scene.updateGlassNode("node", { variant: "clear" }),
+    });
+
+    scheduler.runFrame({ id: 1, timeMs: 0 });
+
+    // A patch moves no entry in or out of the graph, but a node's variant feeds
+    // its resolved material and its foreground its resolved adaptation — so a
+    // patch after the resolve is just as stale as a registration would be.
+    expect(diagnostics.reported[0]).toMatchObject({
+      code: "frame-phase-violation",
+      severity: "error",
+      subjects: ["node"],
+    });
+    // Still applied: refusing it would leave the scene disagreeing with the host.
+    expect(scene.glassNode("node")?.descriptor.variant).toBe("clear");
+  });
+
+  it("accepts the same patch in collect, before the frame resolves", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = seeded(diagnostics);
+    const scheduler = createFrameScheduler({ scene });
+    scheduler.addParticipant({
+      id: "a",
+      collect: () => scene.updateGlassNode("node", { interaction: "hover" }),
     });
 
     scheduler.runFrame({ id: 1, timeMs: 0 });
 
     expect(diagnostics.reported).toEqual([]);
-    expect(scene.glassNode("late")?.descriptor.interaction).toBe("hover");
+    expect(scene.glassNode("node")?.descriptor.interaction).toBe("hover");
   });
 
   it("says nothing about registration outside a frame — the normal path", () => {
