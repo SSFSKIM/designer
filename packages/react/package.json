@@ -1,0 +1,47 @@
+{
+  "name": "@vitrea/react",
+  "version": "0.0.0",
+  "description": "React bindings for vitrea: GlassRoot, GlassGroup, GlassSurface and the v1 controls.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/SSFSKIM/designer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSFSKIM/designer.git",
+    "directory": "packages/react"
+  },
+  "keywords": ["liquid-glass", "react", "webgpu", "material", "glass"],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint . && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@vitrea/core": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": ">=18.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@vitrea/platform-web": "workspace:*",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

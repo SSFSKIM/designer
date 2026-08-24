@@ -1,0 +1,31 @@
+{
+  "name": "@vitrea/platform-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Internal: DOM host registration, plane management, backdrop proxies, CSS-tier renderer, WebGPU lifecycle. Bundled into @vitrea/react at publish.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@vitrea/core": "workspace:^"
+  },
+  "devDependencies": {
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

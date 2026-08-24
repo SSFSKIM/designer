@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // Node types are here for the tooling tests under test/ (they shell out to
+    // tsc and read dist/). They also declare `navigator`, so this package's
+    // `navigator` half of X4 rests on the ESLint layer — see eslint.config.mjs.
+    "types": ["node"]
+  },
+  "include": ["src", "test"]
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@vitrea/core",
+  "version": "0.0.0",
+  "description": "Framework-agnostic Liquid Glass material runtime: scene model, capability resolution, material policy, accessibility policy.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/SSFSKIM/designer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSFSKIM/designer.git",
+    "directory": "packages/core"
+  },
+  "keywords": ["liquid-glass", "webgpu", "material", "glass", "ui"],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint . && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@vitrea/geometry": "workspace:*",
+    "@vitrea/motion": "workspace:*",
+    "@vitrea/renderer-webgpu": "workspace:*",
+    "eslint": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
