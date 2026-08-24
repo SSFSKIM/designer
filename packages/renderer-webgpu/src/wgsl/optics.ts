@@ -1,0 +1,149 @@
+/**
+ * The optics pass: refraction, adaptive tint, inner shadow, rim and specular —
+ * the glass body.
+ *
+ * Reads the group's two field targets (value + unit normal + coverage, and the
+ * per-surface optical scalars) and the backdrop pyramid; writes premultiplied sRGB
+ * into the optics canvas over the group's rect. Everything optical happens in
+ * linear light and is encoded exactly once, on the way out (X5).
+ *
+ * The pass is scoped, not fullscreen: the render pass sets its viewport *and* its
+ * scissor to the group's device-pixel rect, so `in.uv` runs 0..1 over the group
+ * and indexes the group's own field textures one-to-one, while `in.position.xy`
+ * stays in canvas device pixels and gives the backdrop coordinate. Nothing outside
+ * the group's bounds is touched — §Performance envelope prices the field and
+ * optics passes on exactly that assumption.
+ *
+ * ## Refraction, and why it scales with size
+ *
+ * Parent acceptance #2 asks for the *mechanism*, not a look: "a larger surface
+ * shows deeper shadow and stronger lensing than a small button over the same
+ * backdrop." Apple's material is size-parameterised, so lens depth is not the
+ * authored thickness alone — `material.ts` resolves
+ *
+ * ```
+ * lensDepthPx = min(thickness * sizeGain(span), span / 2)
+ * ```
+ *
+ * per surface, and the field pass carries the result **per pixel** through the
+ * union. That is what lets a 40 px button and a 320 px platter share one group's
+ * field pass and still lens by their own depth. The clamp is what keeps a small
+ * control from being all lens: a 24 px-tall button cannot bend more than 12 px of
+ * backdrop however thick it is authored.
+ *
+ * The displacement is the normal times a profile that peaks at the rim and dies in
+ * the interior, where the glass is flat and shows the backdrop straight through.
+ * **Sampling LOD follows the same profile and the same depth**: the body sits at
+ * `lensDepth * bodyLodPerPx` — thicker glass diffuses more — and the rim is biased
+ * sharper, because a compressed backdrop reads as detail. That is the inverse of
+ * the naive "blur more at the edge", and it is most of what makes an edge read as
+ * glass rather than as a smudge.
+ *
+ * Every coefficient is advisory and calibration-delegated (C7), named on the CPU.
+ *
+ * ## The dual cap
+ *
+ * `refractionScale` arrives as one number the CPU already resolved through
+ * `effectiveRefraction(accessibilityCap, stateQuality)` — Decision Log #19's rule
+ * that renderers honour the lower of the two caps. The shader never sees them
+ * separately, so it cannot honour the wrong one.
+ */
+
+export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
+  /// viewport size in device px (xy), CSS px per device px (z), coverage ramp px (w)
+  target : vec4f,
+  /// backdrop uv transform on viewport-normalised coords: scale (xy), offset (zw)
+  fit : vec4f,
+  /// refractionScale, bodyLodPerPx, rimLodBias, chainMaxLod
+  lens : vec4f,
+  /// fixed tint colour, linear light (xyz), tint alpha (w)
+  tint : vec4f,
+  /// adapted tint colour, linear light (xyz), adaptation strength (w)
+  adapt : vec4f,
+  /// rimWidthPx, rimAlpha, specularPower, specularGain
+  rim : vec4f,
+  /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
+  light : vec4f,
+  /// hasBackdrop, fieldSize.xy, unused
+  flags : vec4f,
+};
+
+@group(0) @binding(0) var<uniform> ou : OpticsUniforms;
+@group(0) @binding(1) var fieldTexture : texture_2d<f32>;
+@group(0) @binding(2) var auxTexture : texture_2d<f32>;
+@group(0) @binding(3) var backdropSampler : sampler;
+@group(0) @binding(4) var backdropChain : texture_2d<f32>;
+@group(0) @binding(5) var backdropBody : texture_2d<f32>;
+
+/// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
+/// side. Symmetric, so the rim is a band on the boundary rather than a plateau
+/// that keeps burning outward where coverage has already faded.
+fn rim_weight(d : f32, width : f32) -> f32 {
+  let t = clamp(1.0 - abs(d) / max(width, 1e-4), 0.0, 1.0);
+  return t * t;
+}
+
+@fragment
+fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
+  let texel = vec2i(in.uv * ou.flags.yz);
+  let field = textureLoad(fieldTexture, texel, 0);
+  let aux = textureLoad(auxTexture, texel, 0);
+
+  let d = field.x;
+  let normal = field.yz;
+  let coverage = field.w;
+  if (coverage <= 0.0) {
+    return vec4f(0.0);
+  }
+
+  let viewport01 = in.position.xy / ou.target.xy;
+  let viewportCss = ou.target.xy * ou.target.z;
+
+  // Per-pixel, unioned through the field pass. See the module note.
+  let lensDepth = max(aux.x, 1e-4);
+  // '-d' is depth inside the surface, so the profile runs 1 at the contour to 0
+  // at 'lensDepth' inward, and the square makes the falloff read as curvature
+  // rather than as a linear ramp.
+  let depth = clamp(-d / lensDepth, 0.0, 1.0);
+  let profile = (1.0 - depth) * (1.0 - depth);
+
+  let displaceCss = -normal * lensDepth * profile * ou.lens.x;
+  let refracted01 = viewport01 + displaceCss / viewportCss;
+
+  let straightUv = clamp(viewport01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
+  let refractedUv = clamp(refracted01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
+
+  let bodyLod = clamp(lensDepth * ou.lens.y, 0.0, ou.lens.w);
+  let lod = clamp(bodyLod - ou.lens.z * profile, 0.0, ou.lens.w);
+
+  var backdrop = vec3f(0.0);
+  if (ou.flags.x > 0.5) {
+    let lensSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, lod);
+    let bodySample = textureSampleLevel(backdropBody, backdropSampler, straightUv, 0.0);
+    // Premultiplied linear in, straight colour out: the material composites over
+    // whatever is behind it, so a partially transparent backdrop must not darken
+    // the glass.
+    let lensColour = lensSample.rgb / max(lensSample.a, 1e-6);
+    let bodyColour = bodySample.rgb / max(bodySample.a, 1e-6);
+    backdrop = mix(bodyColour, lensColour, profile);
+  }
+
+  // Adaptive tint. 'adapt.w' is the strength the accessibility policy and the
+  // group's analysis quality already agreed on; at 0 the fixed tint stands, which
+  // is what a 'hint' or 'none' group gets.
+  let tintColour = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
+  var colour = mix(backdrop, tintColour, ou.tint.w);
+
+  // Inner shadow: the material's own occlusion, deepest where the lens is
+  // strongest, which is what makes a thicker surface read as heavier.
+  colour = colour * (1.0 - profile * ou.light.z * ou.light.w);
+
+  // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
+  // the specular term is the same edge lit from 'light.xy'.
+  let rw = rim_weight(d, ou.rim.x);
+  let facing = dot(normal, ou.light.xy);
+  let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
+  colour = colour + vec3f(rw * (ou.rim.y + spec));
+
+  return encode_output(max(colour, vec3f(0.0)), coverage);
+}`;
