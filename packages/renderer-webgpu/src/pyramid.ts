@@ -46,7 +46,9 @@ import { poolKey } from "./texture-pool";
 import { PASS_LABEL, type PassTimeline } from "./timing";
 import { analysisModule, chainModule, importModule } from "./wgsl";
 
-const CHAIN_USAGE = GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING;
+/** Computed on first use, not at module scope — see the note in `passes.ts`. */
+const chainUsage = (): GPUTextureUsageFlags =>
+  GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING;
 
 export interface PyramidResources {
   readonly sourceId: string;
@@ -225,7 +227,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       width: plan.width,
       height: plan.height,
       format: WORKING_TEXTURE_FORMAT,
-      usage: CHAIN_USAGE,
+      usage: chainUsage(),
       mipLevelCount: plan.levelCount,
       label: `vitrea:pyramid:${sourceId}:chain`,
     });
@@ -233,7 +235,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       width: bodyWidth,
       height: bodyHeight,
       format: WORKING_TEXTURE_FORMAT,
-      usage: CHAIN_USAGE,
+      usage: chainUsage(),
       label: `vitrea:pyramid:${sourceId}:body`,
     });
 
@@ -377,7 +379,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       width: size.width,
       height: size.height,
       format: WORKING_TEXTURE_FORMAT,
-      usage: CHAIN_USAGE,
+      usage: chainUsage(),
       label: `vitrea:pyramid:${sourceId}:body-scratch`,
     });
 

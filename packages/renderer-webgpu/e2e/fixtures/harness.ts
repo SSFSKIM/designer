@@ -530,7 +530,8 @@ const api = {
       renderer.drawFrame({ frame: { id: 2, timeMs: 33.4 }, optics: optics.view });
       drew = true;
     } catch {
-      drew = false;
+      // Left false: a draw that throws after recovery is exactly what this
+      // reports, and swallowing it here is what lets the spec name it.
     }
 
     const result = {

@@ -125,7 +125,8 @@ export interface BackdropDevice {
   importExternalTexture(descriptor: GPUExternalTextureDescriptor): GPUExternalTexture;
 }
 
-const COPY_USAGE =
+/** Computed on first use, not at module scope — see the note in `passes.ts`. */
+const copyUsage = (): GPUTextureUsageFlags =>
   GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.RENDER_ATTACHMENT;
 
 interface SizeTracker {
@@ -188,7 +189,7 @@ export function createCopyProvider(options: CopyProviderOptions): BackdropProvid
       // 8-bit is the honest storage for an image or a canvas: both are 8-bit
       // sources, and the import pass promotes to float on the way into level 0.
       format: "rgba8unorm",
-      usage: COPY_USAGE,
+      usage: copyUsage(),
     });
     return texture;
   };
@@ -477,7 +478,7 @@ export function createGradientProvider(options: GradientProviderOptions): Backdr
         label: `vitrea:backdrop:${options.id}:gradient`,
         size: { width, height, depthOrArrayLayers: 1 },
         format: "rgba8unorm",
-        usage: COPY_USAGE,
+        usage: copyUsage(),
       });
       if (!uploaded) {
         options.device.queue.writeTexture(

@@ -25,7 +25,18 @@ import { poolKey } from "./texture-pool";
 import { PASS_LABEL, type PassTimeline } from "./timing";
 import { fieldModule, highlightModule, opticsModule } from "./wgsl";
 
-const FIELD_USAGE = GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING;
+/**
+ * Usage masks are computed on FIRST USE, never at module scope.
+ *
+ * `GPUTextureUsage` is a browser global, and this module is imported outside a
+ * browser: `@vitrea/core`'s lazy seam resolves this package in Node to check the
+ * renderer's shape (`packages/core/test/renderer-seam.test.ts`). A mask evaluated
+ * at module scope makes the whole package throw on import there — a
+ * `ReferenceError` from a file that never intended to run, in a test that only
+ * wanted to read `backend` and `ready`.
+ */
+const fieldUsage = (): GPUTextureUsageFlags =>
+  GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.TEXTURE_BINDING;
 
 /** Premultiplied source-over. See the module note. */
 const PREMULTIPLIED_OVER: GPUBlendState = {
@@ -137,7 +148,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     label: "vitrea:placeholder",
     size: { width: 1, height: 1, depthOrArrayLayers: 1 },
     format: WORKING_TEXTURE_FORMAT,
-    usage: FIELD_USAGE,
+    usage: fieldUsage(),
   });
 
   const uniformSlot = (key: string, floats: number): UniformSlot => {
@@ -236,14 +247,14 @@ export function createPassRunner(context: GpuContext): PassRunner {
         width,
         height,
         format: WORKING_TEXTURE_FORMAT,
-        usage: FIELD_USAGE,
+        usage: fieldUsage(),
         label: `vitrea:group:${args.groupId}:field`,
       });
       const aux = pool.acquire(poolKey.groupAux(args.groupId), {
         width,
         height,
         format: WORKING_TEXTURE_FORMAT,
-        usage: FIELD_USAGE,
+        usage: fieldUsage(),
         label: `vitrea:group:${args.groupId}:aux`,
       });
 

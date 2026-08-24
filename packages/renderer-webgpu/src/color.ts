@@ -112,9 +112,9 @@ export function relativeLuminance(linear: Rgb): number {
  * assumed (a P3 profile can then convert differently without touching a shader).
  */
 const P3_TO_SRGB: readonly Rgb[] = [
-  [1.2249401762805587, -0.2249401762805586, 0],
-  [-0.04205697382131573, 1.0420569738213158, 0],
-  [-0.019637554590334, -0.07863604690110464, 1.0982736014914387],
+  [1.224940176280559, -0.224940176280559, 0],
+  [-0.042056973821316, 1.042056973821316, 0],
+  [-0.019637554590334, -0.078636046901105, 1.098273601491439],
 ];
 
 export function displayP3ToSrgbLinear(linearP3: Rgb): Rgb {

@@ -33,6 +33,8 @@ import { fileURLToPath } from "node:url";
 import { expect, type Page } from "@playwright/test";
 import { PNG } from "pngjs";
 
+import type { VitreaHarness } from "./fixtures/harness";
+
 export const GOLDEN_DIR = join(dirname(fileURLToPath(import.meta.url)), "goldens");
 
 export const UPDATING_GOLDENS = process.env.VITREA_UPDATE_GOLDENS === "1";
@@ -63,7 +65,6 @@ export async function openHarness(page: Page): Promise<AdapterReport> {
  */
 export function requireHardwareAdapter(report: AdapterReport): void {
   if (!report.ok) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     expect(report.ok, `no WebGPU adapter on this machine: ${report.why ?? "unknown"}`).toBe(true);
   }
   if (report.isFallback === true && !ALLOW_FALLBACK) {
@@ -173,6 +174,6 @@ declare global {
      * compiling on the other rather than failing at run time inside
      * `page.evaluate`.
      */
-    vitrea: import("./fixtures/harness").VitreaHarness;
+    vitrea: VitreaHarness;
   }
 }
