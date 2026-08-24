@@ -6,12 +6,16 @@
  * adapter duplicates nothing. C8 lands the components.
  */
 
-import type { GlassGroupState } from "@vitrea/core";
+import type { AccessibilityOverride, GlassGroupState } from "@vitrea/core";
 import { GLASS_PLANES, type GlassPlane } from "@vitrea/platform-web";
 import type { ReactNode } from "react";
 
-/** Accessibility overrides follow the media query unless the app overrules it. */
-export type AccessibilityOverride = "system" | boolean;
+/**
+ * Accessibility overrides follow the media query unless the app overrules it.
+ * The vocabulary is core's — `forcedColors` is deliberately absent from it,
+ * because an operating-system mandate is not an app's to switch off.
+ */
+export type { AccessibilityOverride };
 
 export interface GlassRootProps {
   readonly children?: ReactNode | undefined;

@@ -51,6 +51,28 @@ const NODE_BUILTIN_PATTERNS = [
 const PURITY_MESSAGE =
   "X4 (purity law): core, geometry and motion never reference the DOM. Move browser access to @vitrea/platform-web.";
 
+/**
+ * Timers and clocks. `core` is passive by contract: it never schedules and never
+ * reads the time — a host drives frames and supplies the timestamp as data (see
+ * `FrameInfo`). These are invisible to the DOM-free typecheck because
+ * `@types/node` declares them, so the rule below is the only layer that catches
+ * them.
+ */
+const TIMER_AND_CLOCK_GLOBALS = [
+  "setTimeout",
+  "setInterval",
+  "clearTimeout",
+  "clearInterval",
+  "setImmediate",
+  "clearImmediate",
+  "queueMicrotask",
+  "performance",
+  "Date",
+];
+
+const PASSIVE_MESSAGE =
+  "Core is passive: no timers, no clocks, no rAF. Cadence is driven by the host and time arrives as data (FrameInfo.timeMs).";
+
 export const base = tseslint.config(
   {
     ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**", "**/.vitrea-tmp/**"],
@@ -96,6 +118,23 @@ export const pure = tseslint.config(
     },
   },
 );
+
+/**
+ * core — `pure`, plus the passivity law. The scheduler in `core` is a contract
+ * and a reference implementation, never a running loop, so nothing here may arm
+ * a timer or read a clock.
+ */
+export const passive = tseslint.config(...pure, {
+  files: ["src/**/*.ts"],
+  rules: {
+    // A later entry replaces rather than merges, so the purity list is repeated.
+    "no-restricted-globals": [
+      "error",
+      ...FORBIDDEN_BROWSER_GLOBALS.map((name) => ({ name, message: PURITY_MESSAGE })),
+      ...TIMER_AND_CLOCK_GLOBALS.map((name) => ({ name, message: PASSIVE_MESSAGE })),
+    ],
+  },
+});
 
 /** platform-web, renderer-webgpu, react, demo — the DOM is their job; Node is not. */
 export const browser = tseslint.config(...base, {
