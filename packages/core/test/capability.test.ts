@@ -152,14 +152,29 @@ describe("demotion transitions — every reason in the enum", () => {
     expect(state.demotionReason).toBe("device-lost");
   });
 
-  it("probe-failed: S1's conformance probe rejects the proxy topology", () => {
+  it("probe-failed: a rejected proxy topology drops the group to the CSS tier", () => {
     const state = resolveGlassGroupState(
       withPlatform(healthyDom, { backdropProxyConformance: "fail" }),
     );
 
-    expect(state.demotionReason).toBe("probe-failed");
+    // The CSS tier filters in place and uses no proxies, so the thing that
+    // failed is not on its path — it still frosts, it just stops lensing.
+    expect(state).toEqual({
+      configuredSource: "dom",
+      activeRenderer: "css",
+      samplingBackend: "css-backdrop",
+      refraction: "none",
+      analysis: "none",
+      health: "demoted",
+      demotionReason: "probe-failed",
+    } satisfies GlassGroupState);
+  });
+
+  it("no-backdrop-filter keeps WebGPU, because the CSS tier could not draw glass either", () => {
+    const state = resolveGlassGroupState(withPlatform(healthyDom, { backdropFilter: false }));
+
+    expect(state.activeRenderer).toBe("webgpu");
     expect(state.samplingBackend).toBe("none");
-    expect(state.configuredSource).toBe("dom");
   });
 
   it("governor: a tier switch under pressure is a demotion", () => {
@@ -490,9 +505,9 @@ describe("laws that hold across the whole input space", () => {
       }
     }
 
-    // All 720 input combinations collapse to 45 states: 25 for texture groups,
-    // 20 for dom groups. Pinned so that adding a state has to be a deliberate
+    // All 720 input combinations collapse to 43 states: 25 for texture groups,
+    // 18 for dom groups. Pinned so that adding a state has to be a deliberate
     // act rather than a side effect of touching the resolver.
-    expect(distinct.size).toBe(45);
+    expect(distinct.size).toBe(43);
   });
 });

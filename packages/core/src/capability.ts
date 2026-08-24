@@ -181,13 +181,36 @@ function applicableFaults(inputs: CapabilityInputs): readonly DemotionReason[] {
   return REASON_PRECEDENCE.filter((reason) => faults.has(reason));
 }
 
-const RENDERER_FAULTS: readonly DemotionReason[] = ["no-webgpu", "device-lost", "governor"];
+/**
+ * Faults that drop the renderer to the CSS tier.
+ *
+ * `probe-failed` is here because the spec says so outright: when the proxy
+ * topology proves non-equivalent, the group demotes *to the CSS tier*
+ * (§rendering contract, and S1's "its dom groups demote to the CSS tier"). That
+ * is also the sensible fallback — the CSS tier applies `backdrop-filter` in
+ * place and uses no proxies at all, so the very thing that failed is not on its
+ * path.
+ */
+const RENDERER_FAULTS: readonly DemotionReason[] = [
+  "no-webgpu",
+  "device-lost",
+  "probe-failed",
+  "governor",
+];
 
+/**
+ * Faults that cost the group its backdrop while the renderer keeps drawing.
+ *
+ * `no-backdrop-filter` is deliberately *not* a renderer fault, unlike
+ * `probe-failed`: if the engine has no CSS blur at all, the CSS tier cannot draw
+ * glass either, so keeping WebGPU — which can still render tint, rim and glow
+ * geometrically over an unsampled backdrop — is both the higher fidelity and the
+ * honest answer.
+ */
 const SAMPLING_FAULTS: readonly DemotionReason[] = [
   "tainted-source",
   "incompatible-texture",
   "no-backdrop-filter",
-  "probe-failed",
 ];
 
 /**
