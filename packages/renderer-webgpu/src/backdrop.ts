@@ -49,6 +49,7 @@ import {
   type BackdropAlphaMode,
   type BackdropColorSpace,
   linearToSrgbChannel,
+  srgbToLinearChannel,
 } from "./color";
 import { rendererError } from "./errors";
 
@@ -432,12 +433,16 @@ export function createGradientProvider(options: GradientProviderOptions): Backdr
     const span = upper.offset - lower.offset;
     const local = span <= 0 ? 0 : (clamped - lower.offset) / span;
     const mix = (from: number, to: number): number => from + (to - from) * local;
-    return [
-      mix(lower.color[0], upper.color[0]),
-      mix(lower.color[1], upper.color[1]),
-      mix(lower.color[2], upper.color[2]),
-      mix(lower.color[3], upper.color[3]),
-    ];
+    // Colour channels are decoded, mixed, and re-encoded; alpha is already
+    // linear and is mixed as-is. Mixing the encoded values instead puts a
+    // visible dark band through the middle of every gradient — the one place
+    // where working in the wrong space is obvious to the eye rather than to a
+    // metric.
+    const channel = (index: 0 | 1 | 2): number =>
+      linearToSrgbChannel(
+        mix(srgbToLinearChannel(lower.color[index]), srgbToLinearChannel(upper.color[index])),
+      );
+    return [channel(0), channel(1), channel(2), mix(lower.color[3], upper.color[3])];
   };
 
   for (let y = 0; y < height; y += 1) {

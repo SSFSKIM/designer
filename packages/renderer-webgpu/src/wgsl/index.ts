@@ -10,6 +10,7 @@
  */
 
 import { WGSL_ANALYSIS_PASS } from "./analysis";
+import { WGSL_CROSS_CHECK_PASS } from "./cross-check";
 import { importPassSource, WGSL_DOWNSAMPLE_PASS } from "./backdrop";
 import { fieldPassSource, WGSL_FIELD_KERNELS } from "./field";
 import { WGSL_HIGHLIGHT_PASS } from "./highlight";
@@ -17,6 +18,7 @@ import { WGSL_OPTICS_PASS } from "./optics";
 import { WGSL_PRELUDE } from "./prelude";
 
 export * from "./analysis";
+export * from "./cross-check";
 export * from "./backdrop";
 export * from "./field";
 export * from "./highlight";
@@ -47,7 +49,8 @@ export const highlightModule = (): string => withPrelude(WGSL_HIGHLIGHT_PASS);
  * a check that compiled a different string from the one the renderer ships would
  * prove nothing about the shipped shader.
  */
-export const crossCheckKernelModule = (): string => withPrelude(WGSL_FIELD_KERNELS);
+export const crossCheckKernelModule = (): string =>
+  withPrelude([WGSL_FIELD_KERNELS, WGSL_CROSS_CHECK_PASS].join("\n\n"));
 
 /**
  * Every shader this package can compile, concatenated.
