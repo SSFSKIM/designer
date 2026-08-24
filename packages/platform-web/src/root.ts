@@ -271,9 +271,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const wantsWebGPU = (options.renderer ?? "css") === "webgpu";
 
   let probe: PlatformProbe = {
-    // A root that wires no GPU has no WebGPU in play, and says so rather than
-    // claiming a capability nothing is going to use.
-    webgpu: false,
+    // A root that wires no GPU never asked for one — "not-requested", not
+    // "unavailable". core resolves that as a choice, not a fault (X2's K1
+    // amendment, Decision Log #21c); `wantsWebGPU` roots start "unavailable"
+    // until `webgpu.start()` resolves.
+    webgpu: wantsWebGPU ? "unavailable" : "not-requested",
     backdropFilter: platformProbe.support.supported,
     backdropProxyConformance: "pass",
     deviceHealth: "ok",
@@ -328,7 +330,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           ? {}
           : { powerPreference: options.webgpu.powerPreference }),
         onStatusChange: (status) => {
-          setProbe({ webgpu: status.available, deviceHealth: status.deviceHealth });
+          // This callback only exists on a `wantsWebGPU` root, so WebGPU was
+          // requested here by construction — "available" or "unavailable" is
+          // the whole range, never "not-requested".
+          setProbe({
+            webgpu: status.available ? "available" : "unavailable",
+            deviceHealth: status.deviceHealth,
+          });
           if (status.deviceHealth === "lost") {
             platformDiagnostics.report({
               code: "webgpu-device-lost",

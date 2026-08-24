@@ -9,6 +9,12 @@
  *
  * ## Resolution rules
  *
+ * 0. **WebGPU not requested is not a fault.** A root configured for the CSS
+ *    tier never had WebGPU in play; `platform.webgpu: "not-requested"` forces
+ *    `activeRenderer: "css"` the same way a renderer fault would, but names no
+ *    fault, so a group with nothing else wrong resolves `health: "ok"` —
+ *    labeling intent as a fault would invert the honesty doctrine (X2's K1
+ *    amendment, Decision Log #21c).
  * 1. **Renderer faults** — no WebGPU, a lost device, or a governor tier switch —
  *    drop `activeRenderer` to `"css"`. Nothing else can.
  * 2. **Sampling faults** demote the backdrop path without touching the
@@ -28,10 +34,24 @@
 
 import type { ConfiguredSource, DemotionReason, GlassGroupState } from "./state";
 
+/**
+ * Whether WebGPU is in play for this root at all, distinct from whether it
+ * *works* — a root configured for the CSS tier never asks, and that is a
+ * choice, not a fault (X2's K1 amendment, Decision Log #21c).
+ */
+export const WEBGPU_AVAILABILITIES = ["not-requested", "unavailable", "available"] as const;
+
+export type WebGPUAvailability = (typeof WEBGPU_AVAILABILITIES)[number];
+
 /** Platform-wide probe results. platform-web produces these; core only reads them. */
 export interface PlatformProbe {
-  /** A WebGPU adapter and device were obtained. */
-  readonly webgpu: boolean;
+  /**
+   * `"available"` — a WebGPU adapter and device were obtained. `"unavailable"`
+   * — WebGPU was requested but no adapter or device could be obtained.
+   * `"not-requested"` — this root never asked for WebGPU at all (its renderer
+   * is CSS by choice), which resolves honestly rather than as a fault.
+   */
+  readonly webgpu: WebGPUAvailability;
   /** `backdrop-filter` is supported and actually filters. */
   readonly backdropFilter: boolean;
   /**
@@ -164,9 +184,11 @@ function applicableFaults(inputs: CapabilityInputs): readonly DemotionReason[] {
   const { platform, governor, configuredSource } = inputs;
   const faults = new Set<DemotionReason>();
 
-  if (!platform.webgpu) faults.add("no-webgpu");
+  if (platform.webgpu === "unavailable") faults.add("no-webgpu");
   // A device can only be lost if there was one to lose.
-  if (platform.webgpu && platform.deviceHealth === "lost") faults.add("device-lost");
+  if (platform.webgpu === "available" && platform.deviceHealth === "lost") {
+    faults.add("device-lost");
+  }
 
   if (configuredSource === "texture") {
     if (inputs.source.taint === "tainted") faults.add("tainted-source");
@@ -232,7 +254,11 @@ export function resolveGlassGroupState(inputs: CapabilityInputs): GlassGroupStat
   const rendererDemoted = faults.some((fault) => RENDERER_FAULTS.includes(fault));
   const samplingDemoted = faults.some((fault) => SAMPLING_FAULTS.includes(fault));
 
-  const activeRenderer = rendererDemoted ? "css" : "webgpu";
+  // A root that never requested WebGPU forces the same renderer a fault would,
+  // without being one: it names nothing in `faults`, so a group with no other
+  // fault reports `health: "ok"` (rule 0 above).
+  const cssByChoice = inputs.platform.webgpu === "not-requested";
+  const activeRenderer = cssByChoice || rendererDemoted ? "css" : "webgpu";
 
   const sampling = ((): Pick<GlassGroupState, "samplingBackend" | "refraction"> => {
     if (activeRenderer === "css") {

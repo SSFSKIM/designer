@@ -14,6 +14,7 @@ import {
   DEMOTION_RECOVERY,
   GOVERNOR_PRESSURES,
   HINT_AVAILABILITIES,
+  WEBGPU_AVAILABILITIES,
   classifyStateChange,
   resolveGlassGroupState,
   type CapabilityInputs,
@@ -23,7 +24,7 @@ import {
 } from "../src/index";
 
 const workingPlatform: PlatformProbe = {
-  webgpu: true,
+  webgpu: "available",
   backdropFilter: true,
   backdropProxyConformance: "pass",
   deviceHealth: "ok",
@@ -86,9 +87,83 @@ describe("the three healthy primary states (§honesty core)", () => {
   });
 });
 
+describe("CSS by choice — WebGPU not requested is not a fault (X2's K1 amendment)", () => {
+  it("a dom group on a CSS-only root resolves healthy, not demoted", () => {
+    const state = resolveGlassGroupState(withPlatform(healthyDom, { webgpu: "not-requested" }));
+
+    expect(state).toEqual({
+      configuredSource: "dom",
+      activeRenderer: "css",
+      samplingBackend: "css-backdrop",
+      refraction: "none",
+      analysis: "none",
+      health: "ok",
+    } satisfies GlassGroupState);
+  });
+
+  it("a texture group on a CSS-only root still samples the DOM behind it, healthy", () => {
+    const state = resolveGlassGroupState(withPlatform(healthyTexture, { webgpu: "not-requested" }));
+
+    expect(state).toEqual({
+      configuredSource: "texture",
+      activeRenderer: "css",
+      samplingBackend: "css-backdrop",
+      refraction: "none",
+      analysis: "none",
+      health: "ok",
+    } satisfies GlassGroupState);
+  });
+
+  it("names no demotion reason at all — not even no-webgpu", () => {
+    const state = resolveGlassGroupState(withPlatform(healthyDom, { webgpu: "not-requested" }));
+    expect(state.demotionReason).toBeUndefined();
+  });
+
+  it("a tainted texture source still faults independently — the amendment is scoped to webgpu, not to every axis", () => {
+    // K1 narrowly suppresses `no-webgpu`/`device-lost`; a per-source fact like
+    // taint is unrelated to whether this root ever asked for WebGPU, so it
+    // keeps reporting exactly as it always has (reason precedence already
+    // tolerates a reported reason outranking the one actually holding a group
+    // on the CSS tier — see the governor/taint precedence case below).
+    const state = resolveGlassGroupState({
+      ...withPlatform(healthyTexture, { webgpu: "not-requested" }),
+      source: { taint: "tainted", textureCompatibility: "compatible" },
+    });
+
+    expect(state.health).toBe("demoted");
+    expect(state.demotionReason).toBe("tainted-source");
+    expect(state.activeRenderer).toBe("css");
+    expect(state.samplingBackend).toBe("css-backdrop");
+  });
+
+  it("still reports a real, independent fault honestly — missing backdrop-filter is not about WebGPU", () => {
+    const state = resolveGlassGroupState(
+      withPlatform(healthyDom, { webgpu: "not-requested", backdropFilter: false }),
+    );
+
+    expect(state.demotionReason).toBe("no-backdrop-filter");
+    expect(state.health).toBe("demoted");
+    expect(state.activeRenderer).toBe("css");
+  });
+
+  it("requested-and-unavailable is unchanged: exactly today's demoted no-webgpu behavior", () => {
+    const state = resolveGlassGroupState(withPlatform(healthyDom, { webgpu: "unavailable" }));
+
+    expect(state).toEqual({
+      configuredSource: "dom",
+      activeRenderer: "css",
+      samplingBackend: "css-backdrop",
+      refraction: "none",
+      analysis: "none",
+      health: "demoted",
+      demotionReason: "no-webgpu",
+    } satisfies GlassGroupState);
+  });
+});
+
 describe("demotion transitions — every reason in the enum", () => {
   it("no-webgpu: the whole group falls to the CSS tier, configuredSource intact", () => {
-    const state = resolveGlassGroupState(withPlatform(healthyTexture, { webgpu: false }));
+    const state = resolveGlassGroupState(withPlatform(healthyTexture, { webgpu: "unavailable" }));
 
     expect(state).toEqual({
       configuredSource: "texture",
@@ -102,7 +177,7 @@ describe("demotion transitions — every reason in the enum", () => {
   });
 
   it("no-webgpu on a dom group too — acceptance #5's exact report", () => {
-    const state = resolveGlassGroupState(withPlatform(healthyDom, { webgpu: false }));
+    const state = resolveGlassGroupState(withPlatform(healthyDom, { webgpu: "unavailable" }));
 
     expect(state.activeRenderer).toBe("css");
     expect(state.demotionReason).toBe("no-webgpu");
@@ -205,7 +280,7 @@ describe("demotion transitions — every reason in the enum", () => {
 
   it("covers every reason the spec enumerates", () => {
     const cases: readonly CapabilityInputs[] = [
-      withPlatform(healthyTexture, { webgpu: false }),
+      withPlatform(healthyTexture, { webgpu: "unavailable" }),
       withPlatform(healthyDom, { backdropFilter: false }),
       { ...healthyTexture, source: { taint: "tainted", textureCompatibility: "compatible" } },
       { ...healthyTexture, source: { taint: "clean", textureCompatibility: "incompatible" } },
@@ -228,7 +303,7 @@ describe("recovery transitions", () => {
   }[] = [
     {
       reason: "no-webgpu",
-      broken: withPlatform(healthyTexture, { webgpu: false }),
+      broken: withPlatform(healthyTexture, { webgpu: "unavailable" }),
       repaired: healthyTexture,
     },
     {
@@ -304,7 +379,7 @@ describe("recovery transitions", () => {
     expect(
       classifyStateChange(
         undefined,
-        resolveGlassGroupState(withPlatform(healthyTexture, { webgpu: false })),
+        resolveGlassGroupState(withPlatform(healthyTexture, { webgpu: "unavailable" })),
       ),
     ).toEqual({ kind: "initial", reason: "no-webgpu" });
   });
@@ -332,7 +407,7 @@ describe("recovery transitions", () => {
 describe("reason precedence when several faults hold at once", () => {
   it("names the platform fault before a per-source one", () => {
     const state = resolveGlassGroupState({
-      ...withPlatform(healthyTexture, { webgpu: false }),
+      ...withPlatform(healthyTexture, { webgpu: "unavailable" }),
       source: { taint: "tainted", textureCompatibility: "compatible" },
     });
 
@@ -367,7 +442,7 @@ describe("reason precedence when several faults hold at once", () => {
 /** Every combination of every input axis. */
 function everyInput(): readonly CapabilityInputs[] {
   const all: CapabilityInputs[] = [];
-  for (const webgpu of [true, false]) {
+  for (const webgpu of WEBGPU_AVAILABILITIES) {
     for (const backdropFilter of [true, false]) {
       for (const backdropProxyConformance of ["pass", "fail"] as const) {
         for (const deviceHealth of ["ok", "lost"] as const) {
@@ -404,9 +479,9 @@ describe("laws that hold across the whole input space", () => {
   const inputs = everyInput();
 
   it("sweeps every combination of every axis", () => {
-    // 2 webgpu x 2 backdropFilter x 2 conformance x 2 deviceHealth x 3 governor
-    // x 3 hint = 144 platform states; each yields 1 dom case and 4 texture cases.
-    expect(inputs).toHaveLength(144 * 5);
+    // 3 webgpu x 2 backdropFilter x 2 conformance x 2 deviceHealth x 3 governor
+    // x 3 hint = 216 platform states; each yields 1 dom case and 4 texture cases.
+    expect(inputs).toHaveLength(216 * 5);
   });
 
   it("never mutates configuredSource — the property the honesty core exists for", () => {
@@ -453,10 +528,44 @@ describe("laws that hold across the whole input space", () => {
     }
   });
 
-  it("treats a CSS-tier fallback as a demotion, always", () => {
+  it("treats a CSS-tier fallback as a demotion, unless WebGPU was never requested", () => {
+    // X2's K1 amendment: a CSS-by-choice root lands on the CSS tier too, but
+    // landing there by choice is not landing there by fault.
     for (const input of inputs) {
       const state = resolveGlassGroupState(input);
-      if (state.activeRenderer === "css") expect(state.health).toBe("demoted");
+      if (state.activeRenderer === "css" && input.platform.webgpu !== "not-requested") {
+        expect(state.health).toBe("demoted");
+      }
+    }
+  });
+
+  it("never reports no-webgpu or device-lost when WebGPU was never requested", () => {
+    for (const input of inputs) {
+      if (input.platform.webgpu !== "not-requested") continue;
+      const state = resolveGlassGroupState(input);
+      expect(state.demotionReason).not.toBe("no-webgpu");
+      expect(state.demotionReason).not.toBe("device-lost");
+    }
+  });
+
+  it("resolves a css-by-choice group with nothing else wrong to health ok", () => {
+    for (const input of inputs) {
+      if (input.platform.webgpu !== "not-requested") continue;
+      if (input.governor === "demote-tier") continue;
+      if (input.configuredSource === "texture" && input.source.taint === "tainted") continue;
+      if (
+        input.configuredSource === "texture" &&
+        input.source.textureCompatibility === "incompatible"
+      ) {
+        continue;
+      }
+      if (!input.platform.backdropFilter) continue;
+      if (input.platform.backdropProxyConformance === "fail") continue;
+
+      const state = resolveGlassGroupState(input);
+      expect(state.health).toBe("ok");
+      expect(state.demotionReason).toBeUndefined();
+      expect(state.activeRenderer).toBe("css");
     }
   });
 
@@ -474,7 +583,7 @@ describe("laws that hold across the whole input space", () => {
 
       switch (state.demotionReason) {
         case "no-webgpu":
-          expect(input.platform.webgpu).toBe(false);
+          expect(input.platform.webgpu).toBe("unavailable");
           break;
         case "device-lost":
           expect(input.platform.deviceHealth).toBe("lost");
@@ -517,9 +626,16 @@ describe("laws that hold across the whole input space", () => {
       }
     }
 
-    // All 720 input combinations collapse to 43 states: 25 for texture groups,
-    // 18 for dom groups. Pinned so that adding a state has to be a deliberate
+    // All 1080 input combinations collapse to 49 states: 29 for texture groups,
+    // 20 for dom groups. Pinned so that adding a state has to be a deliberate
     // act rather than a side effect of touching the resolver.
-    expect(distinct.size).toBe(43);
+    //
+    // Was 43 (25 texture, 18 dom) on 720 combinations before X2's K1 amendment
+    // (Decision Log #21c) added `webgpu: "not-requested"` alongside the prior
+    // two-valued axis. The 6 new states are exactly the healthy, undemoted
+    // mirror of the 6 that already existed at `webgpu: "unavailable"` with no
+    // other fault — same shape, `health: "ok"` instead of
+    // `demoted`/`no-webgpu`, because choosing the CSS tier is not a fault.
+    expect(distinct.size).toBe(49);
   });
 });
