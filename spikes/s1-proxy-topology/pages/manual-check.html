@@ -1,0 +1,311 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>vitrea S1 — manual conformance check</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#0b0d12; color:#e7ecf5;
+         font:14px/1.55 ui-sans-serif,-apple-system,Helvetica,Arial,sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 24px 80px; }
+  h1 { font-size:22px; margin:0 0 4px; letter-spacing:-.2px }
+  h2 { font-size:16px; margin:38px 0 6px; padding-top:18px; border-top:1px solid #232a38 }
+  p  { margin:6px 0 14px; color:#9fb0c9; max-width:74ch }
+  .q { color:#ffd479; font-weight:600 }
+  .row { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start }
+  .lab { font:600 11px/1.4 ui-monospace,monospace; color:#7f92ae; letter-spacing:.04em;
+         text-transform:uppercase; margin:0 0 5px }
+  /* ---- the scene: "arbitrary page content" every glass tile samples ---- */
+  .scene { position:relative; width:300px; height:150px; overflow:hidden; border-radius:6px }
+  .scene .g { position:absolute; inset:0;
+    background:linear-gradient(115deg,#0b3c8f,#1f9ad6 24%,#f2c14e 48%,#e0553d 70%,#5b2a86 90%,#08111f) }
+  .scene .ck { position:absolute; left:0; top:0; width:300px; height:44px;
+    background:repeating-conic-gradient(#fff 0% 25%,#101014 0% 50%) 0 0/16px 16px }
+  .scene .bar { position:absolute; left:0; top:106px; width:300px; height:44px;
+    background:repeating-linear-gradient(90deg,#ff0040 0 8px,#00e5ff 8px 16px,#ffe600 16px 24px) }
+  .scene .tx { position:absolute; left:6px; top:52px; font:800 30px/1 ui-sans-serif,Helvetica,Arial;
+    color:#00ff9d; letter-spacing:-1px }
+  .flat { position:relative; width:300px; height:150px; background:#3a5a80; border-radius:6px; overflow:hidden }
+  /* ---- the sandwich ---- */
+  .plane { position:absolute; inset:0; pointer-events:none }
+  .proxy { position:absolute; backdrop-filter:blur(14px) saturate(1.8);
+           -webkit-backdrop-filter:blur(14px) saturate(1.8) }
+  .host  { position:absolute; background:transparent; border:0 }
+  .ip    { position:absolute; background:transparent; border-radius:22px;
+           backdrop-filter:blur(14px) saturate(1.8); -webkit-backdrop-filter:blur(14px) saturate(1.8) }
+  .sw { width:74px; height:44px; border-radius:5px; display:inline-block; vertical-align:middle }
+  .swrow { display:flex; gap:10px; align-items:center; margin-top:10px;
+           font:600 12px ui-monospace,monospace; color:#9fb0c9 }
+  code { background:#161c27; padding:1px 5px; border-radius:4px; font-size:12px }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px }
+  .cellwrap .lab { color:#cbd6e6 }
+</style></head>
+<body><div class="wrap">
+
+<h1>vitrea S1 — manual conformance check</h1>
+<p>Open this file <b>directly in the browser under test</b> (real Safari 26, real Firefox) — not
+inside an iframe, and not through a preview pane: an enclosing iframe or a host page's own
+compositing can change the very thing being measured. Answer the amber questions in order.
+Every automated capture path tried on this machine renders <code>backdrop-filter</code> as a no-op in
+Gecko and WebKit, so these answers are the only way to settle those two engines.</p>
+
+<!-- =========================================================== A -->
+<h2>A · Sampling equivalence — portaled masked proxy vs in-place filter</h2>
+<p>Left: <code>backdrop-filter</code> on the host element itself. Right: the host is transparent and the
+filter lives on one <b>portaled, clip-path-masked proxy</b> painted below a transparent canvas and
+the semantic host DOM. Same scene, same shape, same filter.</p>
+<p class="q">A1 — Do the two panels look the same? Look especially at the outer ~15px of each panel.</p>
+<div class="row">
+  <div><div class="lab">in-place</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="ip" style="left:40px;top:40px;width:220px;height:70px"></div></div></div>
+  <div><div class="lab">portaled masked proxy · pad 60</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane">
+        <div class="proxy" style="left:-20px;top:-20px;width:340px;height:190px;
+             clip-path:path('M82,82 H258 A22,22 0 0 1 280,104 V106 A22,22 0 0 1 258,128 H82 A22,22 0 0 1 60,106 V104 A22,22 0 0 1 82,82 Z')"></div>
+        <canvas width="300" height="150" style="position:absolute;inset:0"></canvas>
+        <button class="host" style="left:40px;top:40px;width:220px;height:70px"></button>
+      </div></div></div>
+</div>
+
+<p class="q">A2 — Padding sweep. Reading left to right, from which tile onward do the panels stop
+changing? (That is the smallest <code>samplingPadding</code> this engine needs for a 14px blur.)</p>
+<div class="row" id="sweep"></div>
+
+<!-- =========================================================== B -->
+<h2>B · Double filtering — does a later proxy sample an earlier proxy's output?</h2>
+<p>Flat <code>#3a5a80</code> ground, filter <code>brightness(1.25)</code>, no blur, so the answer is exact
+arithmetic. The left tile has one proxy over the whole strip. The right tile has two proxies whose
+masked regions <b>overlap</b> in the middle third.</p>
+<p class="q">B1 — In the right tile, does the middle (overlap) band match swatch <b>ONE</b> or
+swatch <b>TWO</b> below?</p>
+<div class="row">
+  <div><div class="lab">one proxy</div>
+    <div class="flat"><div class="plane">
+      <div class="proxy" style="left:0;top:40px;width:300px;height:70px;
+           backdrop-filter:brightness(1.25);-webkit-backdrop-filter:brightness(1.25)"></div>
+    </div></div></div>
+  <div><div class="lab">two proxies, overlapping masks</div>
+    <div class="flat"><div class="plane">
+      <div class="proxy" style="left:0;top:40px;width:200px;height:70px;
+           backdrop-filter:brightness(1.25);-webkit-backdrop-filter:brightness(1.25)"></div>
+      <div class="proxy" style="left:100px;top:40px;width:200px;height:70px;
+           backdrop-filter:brightness(1.25);-webkit-backdrop-filter:brightness(1.25)"></div>
+    </div></div></div>
+</div>
+<div class="swrow">
+  <span class="sw" style="background:rgb(72,112,160)"></span> ONE — filter applied once (1.25x)
+  <span class="sw" style="background:rgb(90,140,200)"></span> TWO — applied twice (1.5625x)
+  <span class="sw" style="background:rgb(58,90,128)"></span> NONE — not applied at all
+</div>
+
+<p class="q">B2 — The contract case: two groups 8px apart, each proxy padded by 60px so each box
+covers a slab of the <i>other</i> group's masked region. Do the two glass panels on the right look
+identical to the single-group panels on the left, or is either panel's gap-facing edge brighter /
+more saturated?</p>
+<div class="row">
+  <div><div class="lab">one group, both shapes</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane"><div class="proxy" style="left:-60px;top:-60px;width:420px;height:270px;
+        clip-path:path('M92,102 H198 A14,14 0 0 1 212,116 V146 A14,14 0 0 1 198,160 H92 A14,14 0 0 1 78,146 V116 A14,14 0 0 1 92,102 Z M228,102 H316 A14,14 0 0 1 330,116 V146 A14,14 0 0 1 316,160 H228 A14,14 0 0 1 214,146 V116 A14,14 0 0 1 228,102 Z')"></div>
+      </div></div></div>
+  <div><div class="lab">two groups, padded boxes overlap</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane">
+        <div class="proxy" style="left:-42px;top:-60px;width:220px;height:270px;
+          clip-path:path('M60,102 H166 A14,14 0 0 1 180,116 V146 A14,14 0 0 1 166,160 H60 A14,14 0 0 1 46,146 V116 A14,14 0 0 1 60,102 Z')"></div>
+        <div class="proxy" style="left:94px;top:-60px;width:230px;height:270px;
+          clip-path:path('M60,102 H148 A14,14 0 0 1 162,116 V146 A14,14 0 0 1 148,160 H60 A14,14 0 0 1 46,146 V116 A14,14 0 0 1 60,102 Z')"></div>
+      </div></div></div>
+</div>
+
+<!-- =========================================================== C -->
+<h2>C · Mask extent — does the padding show as a halo?</h2>
+<p class="q">C1 — The right tile masks the proxy to the <i>padded box</i> instead of to the shapes.
+Does a blurred rectangle extend beyond the rounded panel? (If yes, the mask must be the shape
+union only, and the padding must stay a bleed region.)</p>
+<div class="row">
+  <div><div class="lab">mask = shapes</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane"><div class="proxy" style="left:-20px;top:-20px;width:340px;height:190px;
+        clip-path:path('M82,82 H258 A22,22 0 0 1 280,104 V106 A22,22 0 0 1 258,128 H82 A22,22 0 0 1 60,106 V104 A22,22 0 0 1 82,82 Z')"></div></div></div></div>
+  <div><div class="lab">mask = padded box</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane"><div class="proxy" style="left:20px;top:20px;width:260px;height:110px"></div></div></div></div>
+</div>
+
+<!-- =========================================================== D -->
+<h2>D · Backdrop-root breakers — which ancestor styles kill the proxy?</h2>
+<p>Each tile puts <b>one</b> style on the GlassRoot element: an ancestor of the proxy but not of the
+scene content. If the engine treats it as backdrop-root-forming, that tile's panel loses its blur.
+The first tile is the control.</p>
+<p class="q">D1 — List the labels of every tile whose panel is NOT blurred.</p>
+<div class="grid" id="breakers"></div>
+
+<!-- =========================================================== E -->
+<h2>E · Overlay plane over base plane</h2>
+<p class="q">E1 — The wide pale bar is an overlay-plane panel painted above the base plane's glass
+and its tint canvas. Where it crosses the base panel, is the result visibly blurred twice
+(mushier / paler than the base panel alone)?</p>
+<div class="row">
+  <div><div class="lab">base plane only</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane">
+        <div class="proxy" style="left:-20px;top:-20px;width:340px;height:190px;
+          clip-path:path('M82,82 H258 A22,22 0 0 1 280,104 V106 A22,22 0 0 1 258,128 H82 A22,22 0 0 1 60,106 V104 A22,22 0 0 1 82,82 Z')"></div>
+        <div style="position:absolute;left:40px;top:40px;width:220px;height:70px;border-radius:22px;
+          background:rgba(255,255,255,.26)"></div>
+      </div></div></div>
+  <div><div class="lab">base plane + overlay plane</div>
+    <div class="scene"><div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>
+      <div class="plane">
+        <div class="proxy" style="left:-20px;top:-20px;width:340px;height:190px;
+          clip-path:path('M82,82 H258 A22,22 0 0 1 280,104 V106 A22,22 0 0 1 258,128 H82 A22,22 0 0 1 60,106 V104 A22,22 0 0 1 82,82 Z')"></div>
+        <div style="position:absolute;left:40px;top:40px;width:220px;height:70px;border-radius:22px;
+          background:rgba(255,255,255,.26)"></div>
+      </div>
+      <div class="plane">
+        <div class="proxy" style="left:0;top:56px;width:300px;height:38px"></div>
+        <div style="position:absolute;left:0;top:56px;width:300px;height:38px;
+          background:rgba(255,255,255,.26)"></div>
+      </div></div></div>
+</div>
+
+<!-- =========================================================== F -->
+<h2>F · Robustness — scroll, fixed content, a scroller, and zoom</h2>
+<p>The panel below is on a fixed plane over 1400px of scrolling content, including a
+<code>position:fixed</code> stripe and an inner <code>overflow:auto</code> scroller.</p>
+<p class="q">F1 — Scroll the page slowly. Does the blur keep tracking the content underneath, with
+no stale, frozen, smeared, or one-frame-late region?<br>
+F2 — Scroll the inner scroller (the orange/blue striped box). Does the blur track it too?<br>
+F3 — Zoom the browser to 150% and 200% (Cmd +). Does the panel stay blurred, and does the blur
+still look correct — no lost filter, no wrong-scale blur?</p>
+<div style="position:relative;height:340px;overflow:auto;border:1px solid #232a38;border-radius:8px" id="scrollbox">
+  <div style="position:relative;height:1400px;
+       background:linear-gradient(160deg,#0b3c8f,#1f9ad6 20%,#f2c14e 45%,#e0553d 65%,#5b2a86 85%,#08111f)">
+    <div style="position:absolute;left:0;top:120px;width:100%;height:60px;
+      background:repeating-linear-gradient(90deg,#ff0040 0 10px,#00e5ff 10px 20px,#ffe600 20px 30px)"></div>
+    <div style="position:absolute;left:0;top:230px;width:100%;height:90px;
+      background:repeating-conic-gradient(#fff 0% 25%,#101014 0% 50%) 0 0/18px 18px"></div>
+    <div id="inner" style="position:absolute;left:24px;top:360px;width:420px;height:180px;overflow:auto;background:#111">
+      <div style="height:1400px;background:repeating-linear-gradient(0deg,#ff7a00 0 16px,#0066ff 16px 32px)"></div>
+    </div>
+    <div style="position:absolute;left:0;top:640px;font:800 46px/1 ui-sans-serif,Helvetica,Arial;color:#00ff9d">
+      SCROLL 0123456789 MMMM</div>
+    <div style="position:sticky;top:0;height:0"></div>
+  </div>
+  <div style="position:sticky;bottom:0;height:0"></div>
+  <div class="plane" style="position:sticky;top:120px;height:0">
+    <div class="proxy" style="left:40px;top:0;width:420px;height:180px;
+      clip-path:path('M92,52 H368 A26,26 0 0 1 394,78 V102 A26,26 0 0 1 368,128 H92 A26,26 0 0 1 66,102 V78 A26,26 0 0 1 92,52 Z')"></div>
+    <div style="position:absolute;left:106px;top:52px;width:328px;height:76px;border-radius:26px;
+      background:rgba(255,255,255,.2)"></div>
+  </div>
+</div>
+
+<!-- =========================================================== G -->
+<h2>G · Canvas above the proxy</h2>
+<p>A canvas painting <code>rgba(255,255,255,0.30)</code> sits <b>above</b> the proxy. If the proxy ever
+sampled that canvas, the result would be brighter than plain source-over compositing.</p>
+<p class="q">G1 — Does the right tile's panel match the swatch on the right (plain source-over of
+the tint over the left tile's panel colour), or is it brighter?</p>
+<div class="row">
+  <div><div class="lab">proxy only</div>
+    <div class="flat"><div class="plane">
+      <div class="proxy" style="left:0;top:40px;width:300px;height:70px;
+        backdrop-filter:brightness(1.25);-webkit-backdrop-filter:brightness(1.25)"></div>
+    </div></div></div>
+  <div><div class="lab">proxy + tint canvas above it</div>
+    <div class="flat"><div class="plane">
+      <div class="proxy" style="left:0;top:40px;width:300px;height:70px;
+        backdrop-filter:brightness(1.25);-webkit-backdrop-filter:brightness(1.25)"></div>
+      <div style="position:absolute;left:0;top:40px;width:300px;height:70px;background:rgba(255,255,255,.30)"></div>
+    </div></div></div>
+  <div><div class="lab">expected</div>
+    <div class="sw" style="background:rgb(127,155,187);height:70px;width:110px"></div></div>
+</div>
+
+<h2>Reporting back</h2>
+<p>Please report: the browser and version, then A1, A2, B1, B2, C1, D1, E1, F1, F2, F3, G1.
+A one-line answer each is enough. If any tile renders with no blur at all, say so — that is the
+most important single signal.</p>
+
+<script>
+// ---- A2 padding sweep -------------------------------------------------------
+// Identical shape and filter; only the proxy BOX grows. The filter input is
+// clipped to the filtered element's own border box (Filter Effects 2), so a
+// shape-sized box starves the blur near the shape edge; a padded box does not.
+const SHAPE = { x: 40, y: 40, w: 220, h: 70, r: 22 };
+function rr(s) {
+  const k = Math.min(s.r, s.w / 2, s.h / 2);
+  return `M${s.x+k},${s.y}H${s.x+s.w-k}A${k},${k} 0 0 1 ${s.x+s.w},${s.y+k}`
+       + `V${s.y+s.h-k}A${k},${k} 0 0 1 ${s.x+s.w-k},${s.y+s.h}`
+       + `H${s.x+k}A${k},${k} 0 0 1 ${s.x},${s.y+s.h-k}`
+       + `V${s.y+k}A${k},${k} 0 0 1 ${s.x+k},${s.y}Z`;
+}
+function sceneHTML() {
+  return `<div class="g"></div><div class="ck"></div><div class="tx">Wg 0123</div><div class="bar"></div>`;
+}
+const sweep = document.getElementById('sweep');
+for (const pad of [0, 10, 20, 30, 42, 'full']) {
+  const box = pad === 'full'
+    ? { x: 0, y: 0, w: 300, h: 150 }
+    : { x: SHAPE.x - pad, y: SHAPE.y - pad, w: SHAPE.w + 2*pad, h: SHAPE.h + 2*pad };
+  const local = { ...SHAPE, x: SHAPE.x - box.x, y: SHAPE.y - box.y };
+  const cell = document.createElement('div');
+  cell.innerHTML =
+    `<div class="lab">pad ${pad}</div>` +
+    `<div class="scene" style="width:300px">${sceneHTML()}` +
+      `<div class="plane"><div class="proxy" style="left:${box.x}px;top:${box.y}px;` +
+      `width:${box.w}px;height:${box.h}px;clip-path:path('${rr(local)}')"></div></div></div>`;
+  sweep.appendChild(cell);
+}
+
+// ---- D breaker grid ---------------------------------------------------------
+// One candidate backdrop-root-forming style per tile, applied to GlassRoot.
+// GlassRoot is given full tile geometry so that clip-path / mask / contain
+// cannot simply clip the plane away — that confound would be indistinguishable
+// from a re-rooted backdrop.
+const BREAKERS = {
+  'none (control)': {},
+  'opacity: 0.99': { opacity: '0.99' },
+  'filter: none': { filter: 'none' },
+  'filter: blur(0px)': { filter: 'blur(0px)' },
+  'filter: grayscale(0)': { filter: 'grayscale(0)' },
+  'mask-image: linear-gradient': { maskImage: 'linear-gradient(#000,#000)', webkitMaskImage: 'linear-gradient(#000,#000)' },
+  'clip-path: inset(0)': { clipPath: 'inset(0)' },
+  'contain: paint': { contain: 'paint' },
+  'isolation: isolate': { isolation: 'isolate' },
+  'mix-blend-mode: multiply': { mixBlendMode: 'multiply' },
+  'will-change: opacity': { willChange: 'opacity' },
+  'will-change: transform': { willChange: 'transform' },
+  'transform: translate3d(0,0,0)': { transform: 'translate3d(0,0,0)' },
+};
+const grid = document.getElementById('breakers');
+for (const [label, styles] of Object.entries(BREAKERS)) {
+  const cell = document.createElement('div');
+  cell.className = 'cellwrap';
+  const lab = document.createElement('div');
+  lab.className = 'lab';
+  lab.textContent = label;
+  const scene = document.createElement('div');
+  scene.className = 'scene';
+  scene.style.width = '220px';
+  scene.innerHTML = sceneHTML();
+  const root = document.createElement('div');
+  Object.assign(root.style, { position: 'absolute', inset: '0', pointerEvents: 'none' });
+  Object.assign(root.style, styles);
+  const s = { x: 24, y: 40, w: 172, h: 70, r: 20 };
+  const box = { x: s.x - 40, y: s.y - 40, w: s.w + 80, h: s.h + 80 };
+  const local = { ...s, x: s.x - box.x, y: s.y - box.y };
+  const proxy = document.createElement('div');
+  proxy.className = 'proxy';
+  Object.assign(proxy.style, {
+    left: box.x + 'px', top: box.y + 'px', width: box.w + 'px', height: box.h + 'px',
+    clipPath: `path('${rr(local)}')`,
+  });
+  root.appendChild(proxy);
+  scene.appendChild(root);
+  cell.appendChild(lab); cell.appendChild(scene);
+  grid.appendChild(cell);
+}
+</script>
+</div></body></html>
