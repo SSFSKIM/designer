@@ -238,6 +238,8 @@ export function resolveGlassGroupState(inputs: CapabilityInputs): GlassGroupStat
 /** How one group's state moved between two resolutions. */
 export type StateChange =
   | { readonly kind: "unchanged" }
+  /** The group's first resolution — there was no previous state to move from. */
+  | { readonly kind: "initial"; readonly reason?: DemotionReason }
   | { readonly kind: "demoted"; readonly reason: DemotionReason }
   | { readonly kind: "recovered"; readonly from: DemotionReason }
   | { readonly kind: "changed"; readonly reason?: DemotionReason };
@@ -257,12 +259,19 @@ const sameState = (a: GlassGroupState, b: GlassGroupState): boolean =>
 
 /**
  * Name a transition, so a host can log "recovered from device-lost" rather than
- * diff two records. Used by the scene when it re-resolves during a frame.
+ * diff two records. Used by the scene when it re-resolves during a frame. A
+ * missing `previous` is a group's first resolution, not a change.
  */
 export function classifyStateChange(
-  previous: GlassGroupState,
+  previous: GlassGroupState | undefined,
   next: GlassGroupState,
 ): StateChange {
+  if (previous === undefined) {
+    return {
+      kind: "initial",
+      ...(next.demotionReason === undefined ? {} : { reason: next.demotionReason }),
+    };
+  }
   if (sameState(previous, next)) return { kind: "unchanged" };
 
   if (previous.health === "ok" && next.demotionReason !== undefined) {

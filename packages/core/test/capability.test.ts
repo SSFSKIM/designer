@@ -270,6 +270,18 @@ describe("recovery transitions", () => {
     expect(DEMOTION_RECOVERY.governor.trigger).toBe("pressure-released");
   });
 
+  it("calls a group's first resolution initial, not a change", () => {
+    expect(classifyStateChange(undefined, resolveGlassGroupState(healthyTexture))).toEqual({
+      kind: "initial",
+    });
+    expect(
+      classifyStateChange(
+        undefined,
+        resolveGlassGroupState(withPlatform(healthyTexture, { webgpu: false })),
+      ),
+    ).toEqual({ kind: "initial", reason: "no-webgpu" });
+  });
+
   it("classifies the other three change kinds", () => {
     const healthy = resolveGlassGroupState(healthyTexture);
     const demoted = resolveGlassGroupState(withPlatform(healthyTexture, { deviceHealth: "lost" }));
