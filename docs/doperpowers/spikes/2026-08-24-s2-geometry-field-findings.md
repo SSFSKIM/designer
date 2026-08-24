@@ -34,6 +34,10 @@ analytic rounded-rectangle SDF whose corner radius becomes a low-order polynomia
 in the corner angle, plus a first-order gradient normalization. It uses no
 transcendentals, no branches in the corner algebra, and no texture lookups.
 
+The gradient figures are the gradient of the normalized field. A cheaper normal
+is available and is identical on the contour but up to 4.26° off it; that
+trade-off is priced in §6 under C6, because it is C6's to make.
+
 The capsule limit is not approximated at all: it is **exact to machine
 precision**, for every requested smoothing (§Capsule limit below explains why).
 
@@ -515,7 +519,9 @@ The declared bound, for the parent Decision Log:
 > continuous-corner reference contour, across smoothing [0, 1], sizes 16–600 px,
 > aspect 1:1–8:1 and corner radii to half the short side: field value error
 > ≤ 0.17 px and gradient direction error ≤ 2.92° within |d| ≤ 8 px; ≤ 0.17 px and
-> ≤ 1.55° within |d| ≤ 1 px. Capsules and circular corners (smoothing 0) are
+> ≤ 1.55° within |d| ≤ 1 px, the gradient taken on the normalized field (a
+> cheaper unnormalized normal holds ≤ 4.26°, equal on the contour).
+> Capsules and circular corners (smoothing 0) are
 > exact to machine precision. Error is linear in corner radius at the zero level
 > set (1.4e-3 · r) and bounded at ~0.17 px absolute over the measured size range.
 
@@ -603,13 +609,33 @@ interface:
   squared corner radius to keep the deep-interior case from producing NaN. Keep
   that clamp — it is cheaper than a branch and it is why the straight-edge region
   needs no special case.
-- The gradient is worth computing analytically rather than by finite differences.
-  The reported gradient figures come from central differences of the returned
-  field precisely so that they characterize the shipped field — but a shader doing
-  the same would need four extra field evaluations per pixel, roughly five times
-  the cost measured in §4, for no accuracy gain. The analytic normal is the
-  clamped corner vector rotated by the correction's own derivative, which the
-  field already computes for the normalization term.
+- **How the normal is computed is a real decision, and it is not free.** The
+  gradient bound in §2 is measured by central-differencing the *normalized* field.
+  A shader doing that pays four extra field evaluations per pixel — roughly five
+  times the cost in §4. The tempting shortcut is the closed-form level-set normal
+  of the *unnormalized* radial-support field, `normalize(ρ̂ − (R′/ρ)·θ̂)`, where
+  `ρ̂` is the normalized clamped corner vector, `θ̂` its perpendicular, and `R′`
+  the correction derivative the field already computes for its normalization
+  term. That normal costs essentially nothing. Measured over the full matrix
+  (`src/diag-normal.ts`, pooled samples rather than per-shape aggregation, so
+  compare the max columns only):
+
+  | band | closed-form normal, max | normalized-field gradient, max |
+  | --- | --- | --- |
+  | \|d\| ≤ 1 px | 2.641° | 1.545° |
+  | \|d\| ≤ 4 px | 4.257° | 2.622° |
+  | \|d\| ≤ 8 px | 4.257° | 2.915° |
+
+  The two agree to four decimal places **on the contour** — the normalization
+  changes level sets only away from the zero set — so rim lighting is indifferent
+  and the choice only affects refraction at depth. The free normal is 1.5–1.7×
+  worse there, and its \|d\| ≤ 8 figure (4.257°) is exactly family C's gradient
+  error, which is the same statement: taking the cheap normal is taking family
+  C's gradient while keeping family D's values. **Either accept ≤ 4.26° for
+  refraction and take the free normal, or derive the analytic gradient of the
+  normalized field** — that needs no extra field evaluations either, just more
+  algebra than this shortcut. What is not available is the ≤ 2.92° bound at the
+  free normal's price.
 - The eikonal defect stays under 0.03, so the field can be treated as a distance
   for refraction-strength purposes without renormalization.
 
