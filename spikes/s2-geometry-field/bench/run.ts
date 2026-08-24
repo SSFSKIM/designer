@@ -144,7 +144,9 @@ interface Probe { ok: boolean; why?: string; timestamp?: boolean; adapter?: unkn
  * would produce numbers that look like a benchmark and mean nothing.
  */
 async function probeWebGPU(page: Page, allowFallback: boolean): Promise<Probe> {
-  return await page.evaluate(async (allowFallback) => {
+  return await bounded(
+    'adapter probe',
+    page.evaluate(async (allowFallback) => {
     // @webgpu/types is not a dependency of this spike; the probe only needs
     // these few members, so name them locally rather than pull in the package.
     type AdapterInfoish = { vendor?: string; architecture?: string; device?: string; description?: string; isFallbackAdapter?: boolean };
@@ -171,7 +173,8 @@ async function probeWebGPU(page: Page, allowFallback: boolean): Promise<Probe> {
     } catch (e) {
       return { ok: false, why: String(e) };
     }
-  }, allowFallback);
+    }, allowFallback)
+  );
 }
 
 interface Session {
@@ -223,12 +226,51 @@ async function openSession(origin: string, shaderSrc: string, allowFallback: boo
 }
 
 // ---------------------------------------------------------------------------
+// bounded page round trips
+// ---------------------------------------------------------------------------
+
+/**
+ * `page.evaluate` carries no default timeout, so a wedged renderer hangs the
+ * driver silently and forever. That is not hypothetical: when two benchmark
+ * processes contended for this machine's GPU, both completed every measurement
+ * config and then froze on the round trip that fetches results out of the page,
+ * with no error and no progress. Every page round trip is bounded so that
+ * failure mode reports itself instead of looking like a slow run.
+ */
+const EVAL_DEADLINE_MS = 120_000;
+
+async function bounded<T>(label: string, work: Promise<T>): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      work,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(
+          () =>
+            reject(
+              new Error(
+                `page round trip "${label}" exceeded ${EVAL_DEADLINE_MS} ms - the renderer is ` +
+                  `probably wedged; check that nothing else is using the GPU`
+              )
+            ),
+          EVAL_DEADLINE_MS
+        );
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // in-page invocation
 // ---------------------------------------------------------------------------
 
 async function callInPage<T>(page: Page, fnName: string, arg: unknown, timeoutMs: number): Promise<T> {
-  await page.evaluate(
-    ({ fnName, arg }) => {
+  await bounded(
+    `${fnName} kick-off`,
+    page.evaluate(
+      ({ fnName, arg }) => {
       const w = window as unknown as Record<string, unknown>;
       w.__result = null;
       const fn = w[fnName] as (a: unknown) => Promise<unknown>;
@@ -240,11 +282,14 @@ async function callInPage<T>(page: Page, fnName: string, arg: unknown, timeoutMs
         }
       );
     },
-    { fnName, arg }
+      { fnName, arg }
+    )
   );
   await page.waitForFunction('window.__result !== null', null, { timeout: timeoutMs });
-  const res = (await page.evaluate(() => (window as unknown as Record<string, unknown>).__result)) as
-    { ok: true; value: T } | { ok: false; error: string; stack?: string };
+  const res = (await bounded(
+    `${fnName} result fetch`,
+    page.evaluate(() => (window as unknown as Record<string, unknown>).__result)
+  )) as { ok: true; value: T } | { ok: false; error: string; stack?: string };
   if (!res.ok) throw new Error(`in-page ${fnName}() failed: ${res.error}\n${res.stack ?? ''}`);
   return res.value;
 }
