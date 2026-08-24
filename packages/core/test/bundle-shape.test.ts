@@ -46,6 +46,24 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
     expect(declarations).toContain("GlassGroupState");
   });
 
+  it("publishes the whole core runtime surface, not just its types", () => {
+    const declarations = readFileSync(join(distDir, "index.d.ts"), "utf8");
+
+    for (const name of [
+      "resolveGlassGroupState",
+      "DEMOTION_RECOVERY",
+      "resolveBackdropHint",
+      "resolveForegroundAdaptation",
+      "resolveMaterial",
+      "resolveAccessibilityPolicy",
+      "createGlassScene",
+      "createFrameScheduler",
+      "createDiagnosticsChannel",
+    ]) {
+      expect(declarations).toContain(name);
+    }
+  });
+
   it("declares no runtime dependencies", () => {
     const manifest = JSON.parse(readFileSync(join(packageRoot, "package.json"), "utf8")) as {
       dependencies?: Record<string, string>;

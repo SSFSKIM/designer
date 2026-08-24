@@ -5,12 +5,15 @@
  * order so C5 builds the sandwich against a fixed contract.
  */
 
-import type { GlassGroupState } from "@vitrea/core";
+import { GLASS_PLANES, type GlassGroupState, type GlassPlane } from "@vitrea/core";
 
-/** v1 ships exactly two managed stacking planes (X1). */
-export const GLASS_PLANES = ["base", "overlay"] as const;
-
-export type GlassPlane = (typeof GLASS_PLANES)[number];
+/**
+ * Plane *identity* is core's — it is part of the z-slot model, and core's
+ * same-plane overlap check reasons about it. What lives here is the plane's DOM
+ * realisation: the canvas pair and the paint order inside it. Re-exported so a
+ * consumer has one vocabulary and not two.
+ */
+export { GLASS_PLANES, type GlassPlane };
 
 /**
  * Paint order within one plane, back to front (X1). The semantic host sits

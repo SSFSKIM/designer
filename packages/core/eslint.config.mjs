@@ -1,3 +1,3 @@
-import { pure } from "../../eslint.config.mjs";
+import { passive } from "../../eslint.config.mjs";
 
-export default pure;
+export default passive;
