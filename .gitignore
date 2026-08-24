@@ -35,3 +35,11 @@ figma-design-workspace/
 
 # playwright-cli scratch
 .playwright-cli/
+
+# Build metadata
+*.tsbuildinfo
+coverage/
+.vite/
+
+# Written and removed again by packages/core/test/purity-law.test.ts
+*.purity-seed.ts
