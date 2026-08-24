@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>S2 field shader-cost bench</title>
+<style>
+  body { font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; margin: 12px; background:#111; color:#ddd; }
+  #log { white-space: pre-wrap; }
+  canvas { display: none; }
+</style>
+</head>
+<body>
+<h1 style="font-size:14px">S2 geometry-field shader cost</h1>
+<div id="log">idle. driver calls window.runAll(config).</div>
+<script type="module">
+// ---------------------------------------------------------------------------
+// Marginal-cost benchmark for the candidate pseudo-SDF fields.
+//
+// Measurement shape: a RENDER pass over a fullscreen triangle (fragment
+// shader), not a compute pass. The fragment shader evaluates the candidate
+// field K times per pixel, K being a pipeline-overridable constant, for
+// K in {1,2,4,8,16,32}. Cost per evaluation is the SLOPE of per-draw time vs K;
+// everything fixed (raster setup, blend, submit overhead) lands in the
+// intercept and is discarded.
+//
+// A pass holds many draws so that one measurement clears 50 ms. Each sample is
+// a PAIR of passes, N draws and 2N draws: the per-draw cost is their difference
+// over N, which cancels the pass's own fixed cost (tile load/store) exactly.
+// Dividing one pass by its draw count would not, because the draw count is
+// calibrated per K and would smuggle a K-dependent term into the slope.
+//
+// Anti-hoisting (the property the whole measurement rests on):
+//   * the shape parameters come from a read-only storage buffer, so the
+//     compiler cannot constant-fold them;
+//   * the shape INDEX walks the buffer as a function of the loop counter, with
+//     the base, the stride and the mask all arriving in a uniform, so no two
+//     iterations can be proven to load the same shape;
+//   * `p` additionally gets a per-iteration jitter on top of the per-pixel
+//     fragment coordinate, so no two iterations share an argument;
+//   * every iteration's result is summed and the sum is written to the colour
+//     attachment, so nothing is dead code.
+// The `null` variant runs the identical loop (same storage load, same address
+// math, same accumulate) with a trivial body, which prices the loop itself.
+//
+// The shape index is deliberately PIXEL-INVARIANT. Making it pixel-dependent
+// turns every iteration into a fully divergent per-lane gather, which on this
+// class of GPU costs an order of magnitude more than the field math and would
+// be the only thing the numbers measured. A material shader evaluates the same
+// shape set across neighbouring pixels, so the coherent load is also the
+// realistic one.
+// ---------------------------------------------------------------------------
+
+const logEl = document.getElementById('log');
+const lines = [];
+function log(msg) {
+  lines.push(msg);
+  if (lines.length > 400) lines.shift();
+  logEl.textContent = lines.join('\n');
+  console.log(msg);
+}
+
+const KS_DEFAULT = [1, 2, 4, 8, 16, 32];
+const NSHAPES = 256;              // power of two: index masking, not modulo
+const SHAPE_MASK = NSHAPES - 1;
+const SHAPE_STRIDE_F32 = 12;      // WGSL `Shape` is 48 bytes (align 8, 11 used floats + tail pad)
+const UNIFORM_SLOTS = 16;
+const UNIFORM_SLOT_BYTES = 256;   // >= minUniformBufferOffsetAlignment
+const TARGET_FORMAT = 'rgba8unorm';
+
+const VARIANTS = [
+  { id: 'null',     call: 'field_null',     label: 'trivial body (loop + storage-load overhead only)' },
+  { id: 'roundbox', call: 'field_roundbox', label: 'family A: analytic rounded box' },
+  { id: 'rsupn',    call: 'field_rsupn',    label: 'family D: radial support + |grad| normalization' },
+  { id: 'superell', call: 'field_superell', label: 'family B: superellipse exponent (pow-heavy)' },
+];
+
+// ---------------------------------------------------------------------------
+// shader assembly
+// ---------------------------------------------------------------------------
+
+// Appended after bench/shaders.wgsl, which already declares `struct Shape` and
+// the three candidate functions. FIELD_CALL is substituted per variant.
+const BENCH_SUFFIX = `
+struct BenchUniforms {
+  invScale  : vec2f,
+  seed      : vec2f,
+  shapeMask : u32,
+  baseIdx   : u32,
+  strideIdx : u32,
+  pad0      : u32,
+};
+
+@group(0) @binding(0) var<uniform> ubo : BenchUniforms;
+@group(0) @binding(1) var<storage, read> shapes : array<Shape>;
+
+override K_EVALS : u32 = 1u;
+
+@vertex
+fn vs_main(@builtin(vertex_index) vi : u32) -> @builtin(position) vec4f {
+  // one oversized triangle covering all of clip space
+  var tri = array<vec2f, 3>(vec2f(-1.0, -3.0), vec2f(-1.0, 1.0), vec2f(3.0, 1.0));
+  return vec4f(tri[vi], 0.0, 1.0);
+}
+
+fn field_null(p : vec2f, s : Shape) -> f32 {
+  return dot(p, s.half) + s.re;
+}
+
+fn field_roundbox(p : vec2f, s : Shape) -> f32 {
+  return sd_roundbox(p, s.half, s.re);
+}
+
+fn field_rsupn(p : vec2f, s : Shape) -> f32 {
+  return sd_rsupn(p, s.half, s.re, vec4f(s.k0, s.k1, s.k2, s.k3), s.k4);
+}
+
+// The Shape struct's trailing slot carries family B's superellipse exponent for
+// this benchmark; nothing else reads it.
+fn field_superell(p : vec2f, s : Shape) -> f32 {
+  return sd_superell(p, s.half, s.re, s._pad);
+}
+
+@fragment
+fn fs_main(@builtin(position) pos : vec4f) -> @location(0) vec4f {
+  var acc = 0.0;
+  for (var i : u32 = 0u; i < K_EVALS; i = i + 1u) {
+    let idx = (ubo.baseIdx + i * ubo.strideIdx) & ubo.shapeMask;
+    let s = shapes[idx];
+    let jitter = vec2f(f32(i) * 0.37 + ubo.seed.x, f32(i) * -0.21 + ubo.seed.y);
+    let p = (pos.xy - s.centre) * ubo.invScale + jitter;
+    acc = acc + FIELD_CALL(p, s);
+  }
+  return vec4f(acc, acc * 0.5 + 0.25, acc * 0.25, 1.0);
+}
+`;
+
+// Accuracy cross-check: same shader functions, f32, over a supplied point list.
+const CHECK_SUFFIX = `
+@group(0) @binding(0) var<storage, read> cshapes : array<Shape>;
+@group(0) @binding(1) var<storage, read> cpoints : array<vec4f>;   // x, y, shapeIndex, unused
+@group(0) @binding(2) var<storage, read_write> cout : array<vec2f>; // rsupn, roundbox
+
+@compute @workgroup_size(64)
+fn cs_check(@builtin(global_invocation_id) gid : vec3u) {
+  let i = gid.x;
+  if (i >= arrayLength(&cpoints)) { return; }
+  let q = cpoints[i];
+  let s = cshapes[u32(q.z)];
+  let p = q.xy;
+  cout[i] = vec2f(
+    sd_rsupn(p, s.half, s.re, vec4f(s.k0, s.k1, s.k2, s.k3), s.k4),
+    sd_roundbox(p, s.half, s.re)
+  );
+}
+`;
+
+async function loadShaderSource() {
+  if (typeof window.__SHADER_SRC__ === 'string' && window.__SHADER_SRC__.length > 0) {
+    return window.__SHADER_SRC__;
+  }
+  const res = await fetch('./shaders.wgsl');
+  if (!res.ok) throw new Error(`fetch shaders.wgsl -> HTTP ${res.status}`);
+  return await res.text();
+}
+
+// ---------------------------------------------------------------------------
+// device
+// ---------------------------------------------------------------------------
+
+const gpuErrors = [];
+
+let gpuPromise = null;
+function initGPU() {
+  if (!gpuPromise) gpuPromise = initGPUOnce();
+  return gpuPromise;
+}
+
+async function initGPUOnce() {
+  if (!navigator.gpu) throw new Error('navigator.gpu is undefined (no WebGPU in this browser/mode)');
+  const adapter = await navigator.gpu.requestAdapter({ powerPreference: 'high-performance' });
+  if (!adapter) throw new Error('requestAdapter() returned null');
+
+  const features = [...adapter.features].sort();
+  const wantTimestamp = adapter.features.has('timestamp-query');
+
+  let info = {};
+  try {
+    if (adapter.info) {
+      const a = adapter.info;
+      info = {
+        vendor: a.vendor, architecture: a.architecture, device: a.device,
+        description: a.description, subgroupMinSize: a.subgroupMinSize,
+        subgroupMaxSize: a.subgroupMaxSize, isFallbackAdapter: a.isFallbackAdapter,
+      };
+    } else if (adapter.requestAdapterInfo) {
+      const a = await adapter.requestAdapterInfo();
+      info = { vendor: a.vendor, architecture: a.architecture, device: a.device, description: a.description };
+    }
+  } catch (e) {
+    info = { error: String(e) };
+  }
+
+  const device = await adapter.requestDevice({
+    requiredFeatures: wantTimestamp ? ['timestamp-query'] : [],
+  });
+  device.addEventListener('uncapturederror', (e) => {
+    gpuErrors.push(String(e.error && e.error.message ? e.error.message : e.error));
+  });
+  const hasTimestamp = device.features.has('timestamp-query');
+
+  const limits = {};
+  for (const k of ['maxTextureDimension2D', 'maxStorageBufferBindingSize', 'maxComputeWorkgroupSizeX',
+                   'minUniformBufferOffsetAlignment', 'maxBufferSize']) {
+    if (k in device.limits) limits[k] = Number(device.limits[k]);
+  }
+
+  const blob = `${info.vendor ?? ''} ${info.architecture ?? ''} ${info.description ?? ''}`;
+  const isFallbackAdapter = !!(adapter.isFallbackAdapter || info.isFallbackAdapter ||
+    /swiftshader|software|llvmpipe|lavapipe|warp/i.test(blob));
+
+  return { adapter, device, info, features, hasTimestamp, limits, isFallbackAdapter };
+}
+
+// ---------------------------------------------------------------------------
+// data
+// ---------------------------------------------------------------------------
+
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * NSHAPES plausible instances. Magnitudes matter only for realism (all three
+ * candidate bodies are branchless apart from family B's degenerate-corner
+ * guard); what matters for the measurement is that they live in a storage
+ * buffer the compiler cannot see through.
+ */
+function buildShapes() {
+  const rnd = mulberry32(0x5eed1234);
+  const buf = new Float32Array(NSHAPES * SHAPE_STRIDE_F32);
+  for (let i = 0; i < NSHAPES; i++) {
+    const o = i * SHAPE_STRIDE_F32;
+    const W = 40 + rnd() * 260;
+    const H = 40 + rnd() * 260;
+    const r = 6 + rnd() * Math.min(W, H) * 0.35;
+    const s = rnd();                       // smoothing
+    const re = (1 + s) * r;
+    buf[o + 0] = rnd() * 3000;             // centre.x
+    buf[o + 1] = rnd() * 3000;             // centre.y
+    buf[o + 2] = W;                        // half.x
+    buf[o + 3] = H;                        // half.y
+    buf[o + 4] = re;                       // re
+    buf[o + 5] = 0.50 * s;                 // k0
+    buf[o + 6] = -0.20 * s;                // k1
+    buf[o + 7] = 0.10 * s;                 // k2
+    buf[o + 8] = 0.03 * s;                 // k3
+    buf[o + 9] = -0.01 * s;                // k4
+    // _pad carries family B's superellipse exponent. Capped at 8: the corner
+    // vector reaches ~3e3 px here, and pow(3e3, 12) overflows f32.
+    buf[o + 10] = 2 + 6 * s;               // _pad: superellipse exponent n
+    buf[o + 11] = 0;                       // tail padding
+  }
+  return buf;
+}
+
+function buildUniformSlots() {
+  const ab = new ArrayBuffer(UNIFORM_SLOTS * UNIFORM_SLOT_BYTES);
+  for (let s = 0; s < UNIFORM_SLOTS; s++) {
+    const f = new Float32Array(ab, s * UNIFORM_SLOT_BYTES, 4);
+    f[0] = 1.0;                 // invScale.x
+    f[1] = 1.0;                 // invScale.y
+    f[2] = s * 13.7 + 1.0;      // seed.x
+    f[3] = s * -7.3 + 2.0;      // seed.y
+    const u = new Uint32Array(ab, s * UNIFORM_SLOT_BYTES + 16, 4);
+    u[0] = SHAPE_MASK;
+    u[1] = s * 17;              // baseIdx
+    u[2] = 37 + 2 * s;          // strideIdx — odd, so it is coprime with NSHAPES
+  }
+  return ab;
+}
+
+// ---------------------------------------------------------------------------
+// stats
+// ---------------------------------------------------------------------------
+
+function pctile(sortedAsc, q) {
+  const n = sortedAsc.length;
+  if (n === 0) return NaN;
+  if (n === 1) return sortedAsc[0];
+  const i = (n - 1) * q;
+  const lo = Math.floor(i), hi = Math.ceil(i);
+  return sortedAsc[lo] + (sortedAsc[hi] - sortedAsc[lo]) * (i - lo);
+}
+
+function leastSquares(xs, ys) {
+  const n = xs.length;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0, sxx = 0;
+  for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; }
+  const slope = sxx > 0 ? sxy / sxx : NaN;
+  const intercept = my - slope * mx;
+  let ssr = 0, sst = 0;
+  for (let i = 0; i < n; i++) {
+    const p = slope * xs[i] + intercept;
+    ssr += (ys[i] - p) ** 2;
+    sst += (ys[i] - my) ** 2;
+  }
+  return { slope, intercept, r2: sst > 0 ? 1 - ssr / sst : NaN };
+}
+
+const r6 = (x) => (Number.isFinite(x) ? Number(x.toPrecision(6)) : null);
+
+// ---------------------------------------------------------------------------
+// benchmark core
+// ---------------------------------------------------------------------------
+
+class Bench {
+  constructor(gpu, wgsl) {
+    this.gpu = gpu;
+    this.device = gpu.device;
+    this.wgsl = wgsl;
+    const d = this.device;
+
+    this.shapeData = buildShapes();
+    this.shapeBuf = d.createBuffer({
+      size: this.shapeData.byteLength,
+      usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST,
+    });
+    d.queue.writeBuffer(this.shapeBuf, 0, this.shapeData);
+
+    const uni = buildUniformSlots();
+    this.uniBuf = d.createBuffer({ size: uni.byteLength, usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST });
+    d.queue.writeBuffer(this.uniBuf, 0, uni);
+
+    this.bgl = d.createBindGroupLayout({
+      entries: [
+        { binding: 0, visibility: GPUShaderStage.FRAGMENT, buffer: { type: 'uniform', hasDynamicOffset: true, minBindingSize: 32 } },
+        { binding: 1, visibility: GPUShaderStage.FRAGMENT, buffer: { type: 'read-only-storage' } },
+      ],
+    });
+    this.pipelineLayout = d.createPipelineLayout({ bindGroupLayouts: [this.bgl] });
+    this.bindGroup = d.createBindGroup({
+      layout: this.bgl,
+      entries: [
+        { binding: 0, resource: { buffer: this.uniBuf, offset: 0, size: 32 } },
+        { binding: 1, resource: { buffer: this.shapeBuf } },
+      ],
+    });
+
+    this.modules = new Map();
+    this.pipelines = new Map();
+
+    if (this.gpu.hasTimestamp) {
+      this.querySet = d.createQuerySet({ type: 'timestamp', count: 2 });
+      this.resolveBuf = d.createBuffer({ size: 16, usage: GPUBufferUsage.QUERY_RESOLVE | GPUBufferUsage.COPY_SRC });
+      this.readBuf = d.createBuffer({ size: 16, usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ });
+    }
+  }
+
+  module(variant) {
+    if (!this.modules.has(variant.id)) {
+      const src = this.wgsl + BENCH_SUFFIX.replace(/FIELD_CALL/g, variant.call);
+      this.modules.set(variant.id, this.device.createShaderModule({ code: src, label: `bench-${variant.id}` }));
+    }
+    return this.modules.get(variant.id);
+  }
+
+  pipeline(variant, k) {
+    const key = `${variant.id}/${k}`;
+    if (!this.pipelines.has(key)) {
+      const m = this.module(variant);
+      this.pipelines.set(key, this.device.createRenderPipeline({
+        label: key,
+        layout: this.pipelineLayout,
+        vertex: { module: m, entryPoint: 'vs_main' },
+        fragment: {
+          module: m,
+          entryPoint: 'fs_main',
+          // Additive blending is load-bearing, not decoration. Without it this
+          // GPU's tiler drops every draw but the last one in the pass (they are
+          // identical opaque full-coverage triangles), and the measured pass
+          // time comes out physically impossible -- picoseconds per pixel.
+          // Blending makes every draw's fragments contribute, so none can be
+          // culled. Its cost is per-draw, not per-eval, so it lands in the
+          // intercept and never touches the slope.
+          targets: [{
+            format: TARGET_FORMAT,
+            blend: {
+              color: { srcFactor: 'one', dstFactor: 'one', operation: 'add' },
+              alpha: { srcFactor: 'one', dstFactor: 'one', operation: 'add' },
+            },
+          }],
+          constants: { K_EVALS: k },
+        },
+        primitive: { topology: 'triangle-list' },
+      }));
+    }
+    return this.pipelines.get(key);
+  }
+
+  makeTarget(width, height) {
+    if (this.target) this.target.destroy();
+    this.target = this.device.createTexture({
+      size: [width, height],
+      format: TARGET_FORMAT,
+      usage: GPUTextureUsage.RENDER_ATTACHMENT,
+    });
+    this.targetView = this.target.createView();
+  }
+
+  /**
+   * One measurement: a single render pass containing `iters` fullscreen draws,
+   * each with a different uniform slot. Returns { wallMs, gpuMs|null }.
+   */
+  async measure(pipeline, iters) {
+    const d = this.device;
+    const enc = d.createCommandEncoder();
+    const passDesc = {
+      colorAttachments: [{
+        view: this.targetView,
+        clearValue: { r: 0, g: 0, b: 0, a: 1 },
+        loadOp: 'clear',
+        storeOp: 'store',
+      }],
+    };
+    if (this.querySet) {
+      passDesc.timestampWrites = { querySet: this.querySet, beginningOfPassWriteIndex: 0, endOfPassWriteIndex: 1 };
+    }
+    const pass = enc.beginRenderPass(passDesc);
+    pass.setPipeline(pipeline);
+    for (let i = 0; i < iters; i++) {
+      pass.setBindGroup(0, this.bindGroup, [(i % UNIFORM_SLOTS) * UNIFORM_SLOT_BYTES]);
+      pass.draw(3);
+    }
+    pass.end();
+    if (this.querySet) {
+      enc.resolveQuerySet(this.querySet, 0, 2, this.resolveBuf, 0);
+      enc.copyBufferToBuffer(this.resolveBuf, 0, this.readBuf, 0, 16);
+    }
+    const cb = enc.finish();
+
+    const t0 = performance.now();
+    d.queue.submit([cb]);
+    await d.queue.onSubmittedWorkDone();
+    const wallMs = performance.now() - t0;
+
+    let gpuMs = null;
+    if (this.querySet) {
+      await this.readBuf.mapAsync(GPUMapMode.READ);
+      const ts = new BigUint64Array(this.readBuf.getMappedRange().slice(0));
+      this.readBuf.unmap();
+      const dt = ts[1] - ts[0];
+      gpuMs = Number(dt) / 1e6;
+      if (!(gpuMs > 0)) gpuMs = null;   // quantized to zero / unsupported pair
+    }
+    return { wallMs, gpuMs };
+  }
+
+  /** Pick `iters` so one pass is at least minMs, using a short wall-clock probe. */
+  async calibrate(pipeline, minMs) {
+    let iters = 2;
+    for (let attempt = 0; attempt < 12; attempt++) {
+      const { wallMs } = await this.measure(pipeline, iters);
+      const per = wallMs / iters;
+      if (wallMs >= minMs * 0.85) {
+        return Math.max(1, Math.min(200000, Math.ceil((minMs * 1.15) / per)));
+      }
+      const grow = Math.max(2, Math.min(32, Math.ceil((minMs * 1.15) / Math.max(wallMs, 1e-3))));
+      iters = Math.min(200000, iters * grow);
+    }
+    return iters;
+  }
+
+  /**
+   * One paired measurement. The per-draw cost comes out as the DIFFERENCE
+   * between a pass of 2N draws and a pass of N draws, which cancels the pass's
+   * own fixed cost (tile load/store, pass setup) exactly. Dividing a single
+   * pass by its draw count would not: the draw count is calibrated per K, so
+   * the fixed cost would enter the fit as a K-dependent term.
+   *
+   * The same two numbers also yield the fixed cost itself, 2*T(N) - T(2N),
+   * which is reported as a diagnostic.
+   */
+  async measurePair(pipeline, n) {
+    const a = await this.measure(pipeline, n);
+    const b = await this.measure(pipeline, 2 * n);
+    const bothGpu = a.gpuMs != null && b.gpuMs != null;
+    return {
+      gpuPerDraw: bothGpu ? (b.gpuMs - a.gpuMs) / n : null,
+      wallPerDraw: (b.wallMs - a.wallMs) / n,
+      passFixedMs: bothGpu ? 2 * a.gpuMs - b.gpuMs : 2 * a.wallMs - b.wallMs,
+      passMsN: bothGpu ? a.gpuMs : a.wallMs,
+    };
+  }
+
+  async runConfig(variant, k, cfg) {
+    const pipeline = this.pipeline(variant, k);
+    // compile + cache warm, discarded
+    for (let i = 0; i < 2; i++) await this.measure(pipeline, 2);
+
+    const iters = await this.calibrate(pipeline, cfg.minMs);
+    for (let i = 0; i < cfg.warmup; i++) await this.measurePair(pipeline, iters);
+
+    const gpu = [], wall = [], fixed = [], passN = [];
+    for (let rep = 0; rep < cfg.reps; rep++) {
+      const m = await this.measurePair(pipeline, iters);
+      wall.push(m.wallPerDraw);
+      if (m.gpuPerDraw != null) gpu.push(m.gpuPerDraw);
+      fixed.push(m.passFixedMs);
+      passN.push(m.passMsN);
+    }
+    const primary = gpu.length === cfg.reps ? gpu : wall;
+    const method = gpu.length === cfg.reps ? 'timestamp-query' : 'wall-clock';
+    const sorted = primary.slice().sort((a, b) => a - b);
+    const wsorted = wall.slice().sort((a, b) => a - b);
+    const fsorted = fixed.slice().sort((a, b) => a - b);
+    const psorted = passN.slice().sort((a, b) => a - b);
+
+    return {
+      k,
+      drawsPerPass: iters,
+      pairedWith: 2 * iters,
+      reps: cfg.reps,
+      timingMethod: method,
+      msPerDraw: {
+        median: r6(pctile(sorted, 0.5)),
+        p05: r6(pctile(sorted, 0.05)),
+        p95: r6(pctile(sorted, 0.95)),
+        min: r6(sorted[0]),
+        max: r6(sorted[sorted.length - 1]),
+      },
+      wallMsPerDraw: { median: r6(pctile(wsorted, 0.5)), p05: r6(pctile(wsorted, 0.05)), p95: r6(pctile(wsorted, 0.95)) },
+      samplesMsPerDraw: primary.map(r6),
+      shortPassMsMedian: r6(pctile(psorted, 0.5)),
+      passFixedMsMedian: r6(pctile(fsorted, 0.5)),
+    };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// orchestration
+// ---------------------------------------------------------------------------
+
+function verdict(perK, pixels, isNull) {
+  const ks = perK.map((r) => r.k);
+  const ys = perK.map((r) => r.msPerDraw.median);
+  const fit = leastSquares(ks, ys);
+  const t1 = ys[0], tLast = ys[ys.length - 1];
+  const kLast = ks[ks.length - 1];
+  const ratio = t1 > 0 ? tLast / t1 : NaN;
+  // Fraction of the K=kLast time explained by the per-eval term. If the
+  // compiler had hoisted the repeats away this would collapse toward 0.
+  const marginalShare = tLast > 0 ? (fit.slope * kLast) / tLast : NaN;
+  const scales = Number.isFinite(ratio) && ratio >= 2.0 && Number.isFinite(fit.r2) && fit.r2 >= 0.95;
+  return {
+    slopeMsPerDrawPerEval: r6(fit.slope),
+    interceptMsPerDraw: r6(fit.intercept),
+    r2: r6(fit.r2),
+    nsPerEvalPerPixel: r6((fit.slope * 1e6) / pixels),
+    [`ratioK${kLast}toK1`]: r6(ratio),
+    marginalShareAtMaxK: r6(marginalShare),
+    scalesWithK: scales,
+    note: scales
+      ? 'time scales with K; slope is a valid marginal cost'
+      : (isNull
+          ? 'weak scaling — expected for the trivial body if it is bandwidth-bound, not a correctness failure by itself'
+          : 'DOES NOT SCALE WITH K — the compiler likely optimized the repeats away; slope is NOT trustworthy'),
+  };
+}
+
+async function runAll(userCfg) {
+  const cfg = Object.assign({
+    ks: KS_DEFAULT,
+    reps: 15,
+    warmup: 3,
+    minMs: 50,
+    resolutions: [
+      { label: 'mobile-390x844@3', width: 1170, height: 2532 },
+      { label: 'desktop-2880x1800', width: 2880, height: 1800 },
+    ],
+    variants: VARIANTS.map((v) => v.id),
+  }, userCfg || {});
+
+  const wgsl = await loadShaderSource();
+  const gpu = await initGPU();
+  log(`adapter: ${JSON.stringify(gpu.info)}`);
+  log(`timestamp-query: ${gpu.hasTimestamp ? 'YES' : 'no (wall-clock fallback)'}`);
+
+  const bench = new Bench(gpu, wgsl);
+  const chosen = VARIANTS.filter((v) => cfg.variants.includes(v.id));
+
+  const resolutions = [];
+  for (const res of cfg.resolutions) {
+    if (res.width > gpu.limits.maxTextureDimension2D || res.height > gpu.limits.maxTextureDimension2D) {
+      resolutions.push({ ...res, skipped: `exceeds maxTextureDimension2D=${gpu.limits.maxTextureDimension2D}` });
+      continue;
+    }
+    bench.makeTarget(res.width, res.height);
+    const pixels = res.width * res.height;
+    const variants = [];
+    for (const v of chosen) {
+      const perK = [];
+      for (const k of cfg.ks) {
+        const row = await bench.runConfig(v, k, cfg);
+        perK.push(row);
+        log(`${res.label} ${v.id} K=${k}: ${row.msPerDraw.median} ms/draw (${row.drawsPerPass}/${row.pairedWith} draws, fixed=${row.passFixedMsMedian}, ${row.timingMethod})`);
+      }
+      variants.push({
+        id: v.id, label: v.label, perK,
+        fit: verdict(perK, pixels, v.id === 'null'),
+      });
+    }
+    // net of the trivial-body loop, per variant
+    const nullFit = variants.find((v) => v.id === 'null');
+    for (const v of variants) {
+      if (!nullFit || v.id === 'null') continue;
+      const net = v.fit.slopeMsPerDrawPerEval - nullFit.fit.slopeMsPerDrawPerEval;
+      v.fit.netSlopeMsPerDrawPerEval = r6(net);
+      v.fit.netNsPerEvalPerPixel = r6((net * 1e6) / pixels);
+    }
+    resolutions.push({ ...res, pixels, variants });
+  }
+
+  const timingMethods = new Set();
+  for (const r of resolutions) for (const v of (r.variants || [])) for (const k of v.perK) timingMethods.add(k.timingMethod);
+
+  return {
+    meta: {
+      pass: 'render pass, fullscreen triangle, fragment shader (not compute)',
+      targetFormat: TARGET_FORMAT,
+      nShapes: NSHAPES,
+      shapeIndexing: 'pixel-invariant (coherent load); index walks the storage buffer with the loop counter',
+      adapter: gpu.info,
+      adapterFeatures: gpu.features,
+      deviceLimits: gpu.limits,
+      isFallbackAdapter: gpu.isFallbackAdapter,
+      timestampQueryAvailable: gpu.hasTimestamp,
+      timingMethods: [...timingMethods],
+      userAgent: navigator.userAgent,
+      config: { ks: cfg.ks, reps: cfg.reps, warmup: cfg.warmup, minMsPerMeasurement: cfg.minMs },
+      notes: [
+        'msPerDraw is (T(2N) - T(N)) / N for a pass of N draws paired with a pass of 2N draws, which cancels the render pass fixed cost exactly. N is calibrated per config so the N-draw pass clears minMsPerMeasurement.',
+        'Additive blending is enabled on the colour target. Without it this GPU\'s tiler culls the repeated identical draws in a pass and the measured time becomes physically impossible.',
+        'passFixedMsMedian is the by-product 2*T(N) - T(2N). It is a difference of two ~50 ms passes, so it is only good to a few hundred microseconds and can come out negative; it is a sanity check that the pass fixed cost is small, not a measurement.',
+        'nsPerEvalPerPixel = slope / pixelCount. netNsPerEvalPerPixel subtracts the null variant slope, i.e. the per-iteration Shape load, address math and accumulate; it is the field arithmetic alone.',
+        'scalesWithK is the correctness gate: it requires r2 >= 0.95 on the slope fit AND at least a 2x rise from the smallest to the largest K. If it is false for a real candidate, the compiler defeated the anti-hoisting and the slope means nothing.',
+      ],
+      gpuErrors,
+    },
+    resolutions,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// f32 accuracy cross-check
+// ---------------------------------------------------------------------------
+
+async function runCheck(payload) {
+  const wgsl = await loadShaderSource();
+  const gpu = await initGPU();
+  const d = gpu.device;
+
+  const shapes = new Float32Array(payload.shapes);
+  const points = new Float32Array(payload.points);
+  const n = points.length / 4;
+
+  const sBuf = d.createBuffer({ size: shapes.byteLength, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST });
+  d.queue.writeBuffer(sBuf, 0, shapes);
+  const pBuf = d.createBuffer({ size: points.byteLength, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_DST });
+  d.queue.writeBuffer(pBuf, 0, points);
+  const oBuf = d.createBuffer({ size: n * 8, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
+  const rBuf = d.createBuffer({ size: n * 8, usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ });
+
+  const mod = d.createShaderModule({ code: wgsl + CHECK_SUFFIX, label: 'f32-check' });
+  const pipe = d.createComputePipeline({ layout: 'auto', compute: { module: mod, entryPoint: 'cs_check' } });
+  const bg = d.createBindGroup({
+    layout: pipe.getBindGroupLayout(0),
+    entries: [
+      { binding: 0, resource: { buffer: sBuf } },
+      { binding: 1, resource: { buffer: pBuf } },
+      { binding: 2, resource: { buffer: oBuf } },
+    ],
+  });
+
+  const enc = d.createCommandEncoder();
+  const pass = enc.beginComputePass();
+  pass.setPipeline(pipe);
+  pass.setBindGroup(0, bg);
+  pass.dispatchWorkgroups(Math.ceil(n / 64));
+  pass.end();
+  enc.copyBufferToBuffer(oBuf, 0, rBuf, 0, n * 8);
+  d.queue.submit([enc.finish()]);
+  await d.queue.onSubmittedWorkDone();
+  await rBuf.mapAsync(GPUMapMode.READ);
+  const out = new Float32Array(rBuf.getMappedRange().slice(0));
+  rBuf.unmap();
+
+  const rsupn = new Array(n), roundbox = new Array(n);
+  for (let i = 0; i < n; i++) { rsupn[i] = out[i * 2]; roundbox[i] = out[i * 2 + 1]; }
+  return { n, rsupn, roundbox, adapter: gpu.info, gpuErrors };
+}
+
+window.runAll = runAll;
+window.runCheck = runCheck;
+window.__pageReady = true;
+log('page ready');
+</script>
+</body>
+</html>

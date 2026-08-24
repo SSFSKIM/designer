@@ -18,7 +18,6 @@ import {
   buildAppleContour,
 } from '../src/apple.js';
 import {
-  buildContour,
   contourCurvatureBreaks,
   contourGap,
   contourTangentBreak,
@@ -142,7 +141,6 @@ describe('the reference gap dominates the field error', () => {
 
   it('Figma at smoothing 0 is just a circular corner, far from Apple', () => {
     expect(figmaVsApple(0, 1, 1, 400)).toBeGreaterThan(1e-2);
-    void buildContour;
   });
 });
 

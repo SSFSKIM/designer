@@ -12,9 +12,8 @@ import {
   FIGMA_TABLES,
   RSUP_NK_GENERATED,
 } from './coefficients.js';
-import { CANDIDATES, candidateById, RSUP_NK } from './candidates.js';
-import { coeffAt, type FitRow } from './fit.js';
-import { measure } from './metrics.js';
+import { CANDIDATES, RSUP_NK } from './candidates.js';
+import type { FitRow } from './fit.js';
 import { agg, ASPECTS, R_FRACS, SIZES, SMOOTHINGS, specsFor, sweep, type Row } from './sweep.js';
 import { buildContour, contourCurvatureBreaks, contourTangentBreak, cornerParams } from './contour.js';
 import { APPLE_REACH, buildAppleContour } from './apple.js';
@@ -263,8 +262,4 @@ for (const r of FIGMA_TABLES['rsupn']) {
 p();
 p('Apple-direct coefficients (family D): `[' + APPLE_TABLES['rsupn'].coeff.join(', ') + ']`');
 p();
-void candidateById;
-void coeffAt;
-void measure;
-
 console.log(out.join('\n'));

@@ -98,13 +98,6 @@ function local(p: Prepared, x: number, y: number): Local {
   return { qx, qy, cx, cy, rho: Math.hypot(cx, cy), m: Math.max(qx, qy) };
 }
 
-/** v = sin^2(2*theta) from the clamped corner vector, no transcendentals. */
-function vOf(l: Local): number {
-  if (l.rho <= 0) return 0;
-  const s2 = (2 * l.cx * l.cy) / (l.rho * l.rho);
-  return s2 * s2;
-}
-
 // ---------------------------------------------------------------------------
 // A -- analytic rounded box, radius reparameterized
 // ---------------------------------------------------------------------------

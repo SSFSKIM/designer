@@ -335,7 +335,6 @@ function mirrorSegment(s: Segment, mx: boolean, my: boolean): Segment {
       const center = m(s.center);
       const start = m(arcPoint(s, 0));
       const end = m(arcPoint(s, 1));
-      const sgn = reverse ? 1 : -1; // reversed mirror keeps CW; double mirror stays CW
       const from = reverse ? end : start;
       const to = reverse ? start : end;
       const a0 = Math.atan2(from.y - center.y, from.x - center.x);
@@ -344,7 +343,6 @@ function mirrorSegment(s: Segment, mx: boolean, my: boolean): Segment {
       // Preserve magnitude, force clockwise.
       while (sweep > 0) sweep -= 2 * Math.PI;
       while (sweep < -2 * Math.PI) sweep += 2 * Math.PI;
-      void sgn;
       return { kind: 'arc', center, radius: s.radius, a0, sweep };
     }
   }

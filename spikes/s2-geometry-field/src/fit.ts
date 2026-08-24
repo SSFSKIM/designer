@@ -17,7 +17,7 @@
  * normalization only changes the field away from the contour.
  */
 
-import { buildContour, segLength, segPoint, type ShapeSpec } from './contour.js';
+import { buildContour, segPoint, type ShapeSpec } from './contour.js';
 import type { Candidate } from './candidates.js';
 
 /** Canonical fitting geometry: unit radius, edges long enough that nothing caps. */
@@ -39,7 +39,6 @@ export function contourSamples(spec: ShapeSpec, perCurve = 512): { x: number; y:
       const q = segPoint(s, i / n);
       if (q.x >= -1e-12 && q.y >= -1e-12) out.push(q);
     }
-    void segLength;
   }
   return out;
 }

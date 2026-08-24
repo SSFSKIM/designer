@@ -13,7 +13,7 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { CANDIDATES, RSUP_NK, candidateById, fieldGradient, rsupn } from '../src/candidates.js';
+import { CANDIDATES, RSUP_NK, fieldGradient, rsupn } from '../src/candidates.js';
 import { FIGMA_TABLES, RSUP_NK_GENERATED } from '../src/coefficients.js';
 import { coeffAt, type FitRow } from '../src/fit.js';
 import { measure } from '../src/metrics.js';
@@ -249,6 +249,4 @@ describe('field gradient measurement is sound', () => {
     expect(clean.kink).toBe(false);
     expect(clean.mag).toBeCloseTo(1, 6);
   });
-
-  void candidateById;
 });
