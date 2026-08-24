@@ -1,0 +1,2612 @@
+{
+  "generatedAt": "2026-08-24T14:29:14.670Z",
+  "launch": {
+    "path": "a2: playwright chromium (full binary), headless",
+    "attempts": [
+      {
+        "name": "a: playwright chromium, headless",
+        "ok": false,
+        "why": "software/fallback adapter (google swiftshader) — not a GPU measurement"
+      },
+      {
+        "name": "a2: playwright chromium (full binary), headless",
+        "ok": true
+      }
+    ],
+    "browserVersion": "151.0.7922.34",
+    "launchArgs": [
+      "--enable-unsafe-webgpu",
+      "--enable-features=Vulkan,WebGPU",
+      "--disable-dawn-features=timestamp_quantization"
+    ],
+    "adapterProbe": {
+      "ok": true,
+      "timestamp": true,
+      "adapter": {
+        "vendor": "apple",
+        "architecture": "metal-3",
+        "device": "",
+        "description": ""
+      },
+      "fallback": false
+    },
+    "allowFallbackAdapter": false,
+    "pageErrors": []
+  },
+  "meta": {
+    "pass": "render pass, fullscreen triangle, fragment shader (not compute)",
+    "targetFormat": "rgba8unorm",
+    "nShapes": 256,
+    "shapeIndexing": "pixel-invariant (coherent load); index walks the storage buffer with the loop counter",
+    "adapter": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "subgroupMinSize": 32,
+      "subgroupMaxSize": 32,
+      "isFallbackAdapter": false
+    },
+    "adapterFeatures": [
+      "bgra8unorm-storage",
+      "chromium-experimental-subgroup-matrix",
+      "clip-distances",
+      "core-features-and-limits",
+      "depth-clip-control",
+      "depth32float-stencil8",
+      "dual-source-blending",
+      "float32-blendable",
+      "float32-filterable",
+      "indirect-first-instance",
+      "primitive-index",
+      "rg11b10ufloat-renderable",
+      "shader-f16",
+      "subgroups",
+      "texture-component-swizzle",
+      "texture-compression-astc",
+      "texture-compression-astc-sliced-3d",
+      "texture-compression-bc",
+      "texture-compression-bc-sliced-3d",
+      "texture-compression-etc2",
+      "texture-formats-tier1",
+      "texture-formats-tier2",
+      "timestamp-query"
+    ],
+    "deviceLimits": {
+      "maxTextureDimension2D": 8192,
+      "maxStorageBufferBindingSize": 134217728,
+      "maxComputeWorkgroupSizeX": 256,
+      "minUniformBufferOffsetAlignment": 256,
+      "maxBufferSize": 268435456
+    },
+    "isFallbackAdapter": false,
+    "timestampQueryAvailable": true,
+    "timingMethods": [
+      "timestamp-query"
+    ],
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+    "config": {
+      "ks": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32
+      ],
+      "reps": 15,
+      "warmup": 3,
+      "minMsPerMeasurement": 50
+    },
+    "notes": [
+      "msPerDraw is (T(2N) - T(N)) / N for a pass of N draws paired with a pass of 2N draws, which cancels the render pass fixed cost exactly. N is calibrated per config so the N-draw pass clears minMsPerMeasurement.",
+      "Additive blending is enabled on the colour target. Without it this GPU's tiler culls the repeated identical draws in a pass and the measured time becomes physically impossible.",
+      "passFixedMsMedian is the by-product 2*T(N) - T(2N). It is a difference of two ~50 ms passes, so it is only good to a few hundred microseconds and can come out negative; it is a sanity check that the pass fixed cost is small, not a measurement.",
+      "nsPerEvalPerPixel = slope / pixelCount. netNsPerEvalPerPixel subtracts the null variant slope, i.e. the per-iteration Shape load, address math and accumulate; it is the field arithmetic alone.",
+      "scalesWithK is the correctness gate: it requires r2 >= 0.95 on the slope fit AND at least a 2x rise from the smallest to the largest K. If it is false for a real candidate, the compiler defeated the anti-hoisting and the slope means nothing."
+    ],
+    "gpuErrors": []
+  },
+  "resolutions": [
+    {
+      "label": "mobile-390x844@3",
+      "width": 1170,
+      "height": 2532,
+      "pixels": 2962440,
+      "variants": [
+        {
+          "id": "null",
+          "label": "trivial body (loop + storage-load overhead only)",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 988,
+              "pairedWith": 1976,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.0533881,
+                "p05": 0.0532905,
+                "p95": 0.0535799,
+                "min": 0.0532778,
+                "max": 0.0536134
+              },
+              "wallMsPerDraw": {
+                "median": 0.0541498,
+                "p05": 0.0539474,
+                "p95": 0.0542814
+              },
+              "samplesMsPerDraw": [
+                0.0533096,
+                0.0536134,
+                0.0533105,
+                0.0535632,
+                0.0534126,
+                0.053471,
+                0.0532778,
+                0.0533881,
+                0.0533708,
+                0.0533391,
+                0.053296,
+                0.0534247,
+                0.0535655,
+                0.0534291,
+                0.0533588
+              ],
+              "shortPassMsMedian": 52.781,
+              "passFixedMsMedian": 0.013458
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 814,
+              "pairedWith": 1628,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.0696223,
+                "p05": 0.0693793,
+                "p95": 0.0697939,
+                "min": 0.0693728,
+                "max": 0.0698392
+              },
+              "wallMsPerDraw": {
+                "median": 0.0703931,
+                "p05": 0.0700369,
+                "p95": 0.0707985
+              },
+              "samplesMsPerDraw": [
+                0.0694651,
+                0.0696837,
+                0.0695736,
+                0.0693821,
+                0.0694222,
+                0.0697285,
+                0.0693875,
+                0.069437,
+                0.0693728,
+                0.0696692,
+                0.0696427,
+                0.0696223,
+                0.0697064,
+                0.0697745,
+                0.0698392
+              ],
+              "shortPassMsMedian": 56.696,
+              "passFixedMsMedian": -0.00025
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 536,
+              "pairedWith": 1072,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.105908,
+                "p05": 0.10565,
+                "p95": 0.106451,
+                "min": 0.105414,
+                "max": 0.106628
+              },
+              "wallMsPerDraw": {
+                "median": 0.106343,
+                "p05": 0.105616,
+                "p95": 0.107388
+              },
+              "samplesMsPerDraw": [
+                0.105414,
+                0.105831,
+                0.105941,
+                0.106628,
+                0.106375,
+                0.105833,
+                0.105752,
+                0.106366,
+                0.105769,
+                0.105974,
+                0.105908,
+                0.105864,
+                0.106198,
+                0.105832,
+                0.106281
+              ],
+              "shortPassMsMedian": 56.8193,
+              "passFixedMsMedian": 0.043793
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 231,
+              "pairedWith": 462,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.246534,
+                "p05": 0.246133,
+                "p95": 0.247528,
+                "min": 0.246117,
+                "max": 0.247886
+              },
+              "wallMsPerDraw": {
+                "median": 0.246753,
+                "p05": 0.245758,
+                "p95": 0.248182
+              },
+              "samplesMsPerDraw": [
+                0.246117,
+                0.24629,
+                0.247162,
+                0.246534,
+                0.247886,
+                0.246435,
+                0.247374,
+                0.246905,
+                0.246578,
+                0.246814,
+                0.246139,
+                0.24659,
+                0.246208,
+                0.246201,
+                0.24617
+              ],
+              "shortPassMsMedian": 57.007,
+              "passFixedMsMedian": 0.063208
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 125,
+              "pairedWith": 250,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.454768,
+                "p05": 0.453278,
+                "p95": 0.455688,
+                "min": 0.453076,
+                "max": 0.456025
+              },
+              "wallMsPerDraw": {
+                "median": 0.4552,
+                "p05": 0.4536,
+                "p95": 0.456
+              },
+              "samplesMsPerDraw": [
+                0.456025,
+                0.454768,
+                0.454755,
+                0.454148,
+                0.455543,
+                0.455076,
+                0.453076,
+                0.455375,
+                0.453364,
+                0.455407,
+                0.454839,
+                0.455221,
+                0.454338,
+                0.454697,
+                0.4541
+              ],
+              "shortPassMsMedian": 56.8436,
+              "passFixedMsMedian": -0.004914
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 65,
+              "pairedWith": 130,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.870485,
+                "p05": 0.868939,
+                "p95": 0.874675,
+                "min": 0.868717,
+                "max": 0.877966
+              },
+              "wallMsPerDraw": {
+                "median": 0.872308,
+                "p05": 0.868769,
+                "p95": 0.876308
+              },
+              "samplesMsPerDraw": [
+                0.872221,
+                0.872544,
+                0.869034,
+                0.868717,
+                0.877966,
+                0.870485,
+                0.869851,
+                0.873264,
+                0.869643,
+                0.870955,
+                0.869145,
+                0.870937,
+                0.871833,
+                0.869271,
+                0.869926
+              ],
+              "shortPassMsMedian": 56.6128,
+              "passFixedMsMedian": 0.036707
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0267419,
+            "interceptMsPerDraw": 0.0193274,
+            "r2": 0.998544,
+            "nsPerEvalPerPixel": 0.00902699,
+            "ratioK32toK1": 16.3049,
+            "marginalShareAtMaxK": 0.983063,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost"
+          }
+        },
+        {
+          "id": "roundbox",
+          "label": "family A: analytic rounded box",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 866,
+              "pairedWith": 1732,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.0651606,
+                "p05": 0.0650252,
+                "p95": 0.0654107,
+                "min": 0.0649772,
+                "max": 0.0654422
+              },
+              "wallMsPerDraw": {
+                "median": 0.0660508,
+                "p05": 0.0656813,
+                "p95": 0.0663857
+              },
+              "samplesMsPerDraw": [
+                0.0653438,
+                0.0650662,
+                0.0652202,
+                0.0651005,
+                0.0651606,
+                0.0650458,
+                0.065167,
+                0.0654422,
+                0.0651589,
+                0.0653336,
+                0.0650912,
+                0.0653047,
+                0.0650637,
+                0.0649772,
+                0.0653972
+              ],
+              "shortPassMsMedian": 56.4577,
+              "passFixedMsMedian": 0.030124
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 588,
+              "pairedWith": 1176,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.0964165,
+                "p05": 0.0962027,
+                "p95": 0.0967961,
+                "min": 0.0961786,
+                "max": 0.0968755
+              },
+              "wallMsPerDraw": {
+                "median": 0.0967687,
+                "p05": 0.0962585,
+                "p95": 0.0973299
+              },
+              "samplesMsPerDraw": [
+                0.0963475,
+                0.0962492,
+                0.0965421,
+                0.0963952,
+                0.0965775,
+                0.0962645,
+                0.0966045,
+                0.0963096,
+                0.0962131,
+                0.0964596,
+                0.0967621,
+                0.0961786,
+                0.0964165,
+                0.0968755,
+                0.0967108
+              ],
+              "shortPassMsMedian": 56.7634,
+              "passFixedMsMedian": 0.103915
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 374,
+              "pairedWith": 748,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.151685,
+                "p05": 0.151368,
+                "p95": 0.15223,
+                "min": 0.151333,
+                "max": 0.152437
+              },
+              "wallMsPerDraw": {
+                "median": 0.151604,
+                "p05": 0.15107,
+                "p95": 0.153289
+              },
+              "samplesMsPerDraw": [
+                0.151972,
+                0.151522,
+                0.151384,
+                0.151574,
+                0.15187,
+                0.151826,
+                0.151635,
+                0.151333,
+                0.151837,
+                0.151562,
+                0.152437,
+                0.152142,
+                0.151958,
+                0.151685,
+                0.151606
+              ],
+              "shortPassMsMedian": 56.7584,
+              "passFixedMsMedian": 0.003376
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 163,
+              "pairedWith": 326,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.350741,
+                "p05": 0.350172,
+                "p95": 0.351392,
+                "min": 0.35017,
+                "max": 0.351589
+              },
+              "wallMsPerDraw": {
+                "median": 0.35092,
+                "p05": 0.350307,
+                "p95": 0.353558
+              },
+              "samplesMsPerDraw": [
+                0.350741,
+                0.350528,
+                0.350173,
+                0.351589,
+                0.350393,
+                0.350983,
+                0.35017,
+                0.350911,
+                0.350874,
+                0.350984,
+                0.350269,
+                0.350495,
+                0.351266,
+                0.350189,
+                0.351308
+              ],
+              "shortPassMsMedian": 57.2565,
+              "passFixedMsMedian": 0.074334
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 84,
+              "pairedWith": 168,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.664128,
+                "p05": 0.662488,
+                "p95": 0.665483,
+                "min": 0.662408,
+                "max": 0.66564
+              },
+              "wallMsPerDraw": {
+                "median": 0.664286,
+                "p05": 0.662381,
+                "p95": 0.668214
+              },
+              "samplesMsPerDraw": [
+                0.664128,
+                0.665049,
+                0.663565,
+                0.665416,
+                0.663976,
+                0.665071,
+                0.6649,
+                0.664263,
+                0.663642,
+                0.662523,
+                0.664847,
+                0.66564,
+                0.662408,
+                0.663845,
+                0.663888
+              ],
+              "shortPassMsMedian": 55.8098,
+              "passFixedMsMedian": 0.027499
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 44,
+              "pairedWith": 88,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.29203,
+                "p05": 1.28706,
+                "p95": 1.29788,
+                "min": 1.28673,
+                "max": 1.30222
+              },
+              "wallMsPerDraw": {
+                "median": 1.29091,
+                "p05": 1.28568,
+                "p95": 1.30068
+              },
+              "samplesMsPerDraw": [
+                1.29054,
+                1.28945,
+                1.29272,
+                1.28721,
+                1.29203,
+                1.29589,
+                1.29261,
+                1.29602,
+                1.28741,
+                1.29067,
+                1.30222,
+                1.28673,
+                1.2948,
+                1.28798,
+                1.29442
+              ],
+              "shortPassMsMedian": 56.8056,
+              "passFixedMsMedian": -0.101206
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0399858,
+            "interceptMsPerDraw": 0.0168431,
+            "r2": 0.999137,
+            "nsPerEvalPerPixel": 0.0134976,
+            "ratioK32toK1": 19.8284,
+            "marginalShareAtMaxK": 0.990336,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0132439,
+            "netNsPerEvalPerPixel": 0.00447061
+          }
+        },
+        {
+          "id": "rsup",
+          "label": "family C: radial support, no normalization",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 701,
+              "pairedWith": 1402,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.0807451,
+                "p05": 0.0805318,
+                "p95": 0.0809735,
+                "min": 0.0805184,
+                "max": 0.081026
+              },
+              "wallMsPerDraw": {
+                "median": 0.0817404,
+                "p05": 0.0807561,
+                "p95": 0.0823395
+              },
+              "samplesMsPerDraw": [
+                0.0808749,
+                0.0806064,
+                0.0809352,
+                0.0807837,
+                0.080951,
+                0.0807445,
+                0.0806922,
+                0.0807451,
+                0.0809041,
+                0.0806548,
+                0.081026,
+                0.0806396,
+                0.0808159,
+                0.0805375,
+                0.0805184
+              ],
+              "shortPassMsMedian": 56.6028,
+              "passFixedMsMedian": -0.012375
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 461,
+              "pairedWith": 922,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.123493,
+                "p05": 0.123172,
+                "p95": 0.123663,
+                "min": 0.123075,
+                "max": 0.123698
+              },
+              "wallMsPerDraw": {
+                "median": 0.123861,
+                "p05": 0.123427,
+                "p95": 0.124425
+              },
+              "samplesMsPerDraw": [
+                0.123602,
+                0.123698,
+                0.123573,
+                0.123493,
+                0.123417,
+                0.123075,
+                0.123309,
+                0.123649,
+                0.123317,
+                0.123254,
+                0.123619,
+                0.123624,
+                0.123217,
+                0.123544,
+                0.123213
+              ],
+              "shortPassMsMedian": 56.8929,
+              "passFixedMsMedian": -0.039374
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 221,
+              "pairedWith": 442,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.257981,
+                "p05": 0.257416,
+                "p95": 0.258803,
+                "min": 0.257374,
+                "max": 0.25961
+              },
+              "wallMsPerDraw": {
+                "median": 0.258371,
+                "p05": 0.257783,
+                "p95": 0.259548
+              },
+              "samplesMsPerDraw": [
+                0.257751,
+                0.257374,
+                0.258243,
+                0.258339,
+                0.258457,
+                0.258203,
+                0.257945,
+                0.25771,
+                0.257434,
+                0.257729,
+                0.25961,
+                0.257779,
+                0.258093,
+                0.258438,
+                0.257981
+              ],
+              "shortPassMsMedian": 57.1262,
+              "passFixedMsMedian": 0.060833
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 120,
+              "pairedWith": 240,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.477772,
+                "p05": 0.476862,
+                "p95": 0.478912,
+                "min": 0.476856,
+                "max": 0.47918
+              },
+              "wallMsPerDraw": {
+                "median": 0.478333,
+                "p05": 0.476667,
+                "p95": 0.48
+              },
+              "samplesMsPerDraw": [
+                0.478494,
+                0.47918,
+                0.477085,
+                0.478195,
+                0.476995,
+                0.478537,
+                0.478797,
+                0.47725,
+                0.477677,
+                0.476856,
+                0.476865,
+                0.478628,
+                0.477893,
+                0.477544,
+                0.477772
+              ],
+              "shortPassMsMedian": 57.39,
+              "passFixedMsMedian": 0.016
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 62,
+              "pairedWith": 124,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.917401,
+                "p05": 0.915596,
+                "p95": 0.920527,
+                "min": 0.915026,
+                "max": 0.921396
+              },
+              "wallMsPerDraw": {
+                "median": 0.917742,
+                "p05": 0.913548,
+                "p95": 0.923065
+              },
+              "samplesMsPerDraw": [
+                0.919617,
+                0.915026,
+                0.916122,
+                0.916647,
+                0.916953,
+                0.917401,
+                0.921396,
+                0.91584,
+                0.917405,
+                0.919583,
+                0.917392,
+                0.918392,
+                0.916196,
+                0.920154,
+                0.919479
+              ],
+              "shortPassMsMedian": 56.9346,
+              "passFixedMsMedian": 0.059957
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 32,
+              "pairedWith": 64,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.79825,
+                "p05": 1.7924,
+                "p95": 1.80487,
+                "min": 1.79158,
+                "max": 1.80527
+              },
+              "wallMsPerDraw": {
+                "median": 1.79688,
+                "p05": 1.79281,
+                "p95": 1.80406
+              },
+              "samplesMsPerDraw": [
+                1.79825,
+                1.79817,
+                1.79275,
+                1.7994,
+                1.79632,
+                1.79982,
+                1.79843,
+                1.8038,
+                1.79738,
+                1.79872,
+                1.80469,
+                1.80527,
+                1.79158,
+                1.79301,
+                1.79363
+              ],
+              "shortPassMsMedian": 57.554,
+              "passFixedMsMedian": 0.00871
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0554655,
+            "interceptMsPerDraw": 0.0268855,
+            "r2": 0.999831,
+            "nsPerEvalPerPixel": 0.0187229,
+            "ratioK32toK1": 22.2707,
+            "marginalShareAtMaxK": 0.987014,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0287236,
+            "netNsPerEvalPerPixel": 0.00969593
+          }
+        },
+        {
+          "id": "rsupn",
+          "label": "family D: radial support + |grad| normalization",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 545,
+              "pairedWith": 1090,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.104011,
+                "p05": 0.10371,
+                "p95": 0.105973,
+                "min": 0.103639,
+                "max": 0.10727
+              },
+              "wallMsPerDraw": {
+                "median": 0.104771,
+                "p05": 0.104037,
+                "p95": 0.106972
+              },
+              "samplesMsPerDraw": [
+                0.104161,
+                0.105417,
+                0.10727,
+                0.103935,
+                0.104013,
+                0.103949,
+                0.104105,
+                0.104054,
+                0.103854,
+                0.103639,
+                0.103978,
+                0.104131,
+                0.10374,
+                0.104011,
+                0.103999
+              ],
+              "shortPassMsMedian": 56.6928,
+              "passFixedMsMedian": 0.029
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 327,
+              "pairedWith": 654,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.173622,
+                "p05": 0.173006,
+                "p95": 0.173844,
+                "min": 0.172896,
+                "max": 0.174017
+              },
+              "wallMsPerDraw": {
+                "median": 0.174006,
+                "p05": 0.172997,
+                "p95": 0.175413
+              },
+              "samplesMsPerDraw": [
+                0.173676,
+                0.173769,
+                0.17372,
+                0.173414,
+                0.17376,
+                0.173622,
+                0.173674,
+                0.173192,
+                0.172896,
+                0.17309,
+                0.173707,
+                0.173054,
+                0.174017,
+                0.173341,
+                0.173406
+              ],
+              "shortPassMsMedian": 56.7736,
+              "passFixedMsMedian": -0.002585
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 163,
+              "pairedWith": 326,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.350495,
+                "p05": 0.349903,
+                "p95": 0.351262,
+                "min": 0.349724,
+                "max": 0.351312
+              },
+              "wallMsPerDraw": {
+                "median": 0.35092,
+                "p05": 0.346503,
+                "p95": 0.353067
+              },
+              "samplesMsPerDraw": [
+                0.350023,
+                0.350047,
+                0.350637,
+                0.350697,
+                0.351312,
+                0.351241,
+                0.349724,
+                0.350025,
+                0.350328,
+                0.34998,
+                0.350049,
+                0.350495,
+                0.350625,
+                0.351035,
+                0.350543
+              ],
+              "shortPassMsMedian": 57.1704,
+              "passFixedMsMedian": 0.060541
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 86,
+              "pairedWith": 172,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.662094,
+                "p05": 0.660293,
+                "p95": 0.663417,
+                "min": 0.659957,
+                "max": 0.664425
+              },
+              "wallMsPerDraw": {
+                "median": 0.661628,
+                "p05": 0.660465,
+                "p95": 0.664302
+              },
+              "samplesMsPerDraw": [
+                0.660865,
+                0.661638,
+                0.662298,
+                0.659957,
+                0.660438,
+                0.662088,
+                0.662986,
+                0.664425,
+                0.662632,
+                0.662094,
+                0.661044,
+                0.662503,
+                0.662055,
+                0.662544,
+                0.662328
+              ],
+              "shortPassMsMedian": 56.9328,
+              "passFixedMsMedian": 0.006374
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 44,
+              "pairedWith": 88,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.28282,
+                "p05": 1.28021,
+                "p95": 1.28715,
+                "min": 1.2801,
+                "max": 1.28868
+              },
+              "wallMsPerDraw": {
+                "median": 1.28409,
+                "p05": 1.27955,
+                "p95": 1.28932
+              },
+              "samplesMsPerDraw": [
+                1.28868,
+                1.28385,
+                1.28426,
+                1.28146,
+                1.28381,
+                1.28524,
+                1.28273,
+                1.28306,
+                1.2801,
+                1.28227,
+                1.2865,
+                1.28282,
+                1.28178,
+                1.28025,
+                1.28159
+              ],
+              "shortPassMsMedian": 56.5256,
+              "passFixedMsMedian": 0.049708
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 23,
+              "pairedWith": 46,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 2.52806,
+                "p05": 2.52031,
+                "p95": 2.5383,
+                "min": 2.51956,
+                "max": 2.53888
+              },
+              "wallMsPerDraw": {
+                "median": 2.53043,
+                "p05": 2.51304,
+                "p95": 2.54043
+              },
+              "samplesMsPerDraw": [
+                2.52663,
+                2.5325,
+                2.53805,
+                2.53727,
+                2.53058,
+                2.52064,
+                2.52284,
+                2.5237,
+                2.51956,
+                2.53019,
+                2.53888,
+                2.53389,
+                2.52674,
+                2.52806,
+                2.525
+              ],
+              "shortPassMsMedian": 58.1848,
+              "passFixedMsMedian": 0.004625
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0781968,
+            "interceptMsPerDraw": 0.0291172,
+            "r2": 0.999931,
+            "nsPerEvalPerPixel": 0.0263961,
+            "ratioK32toK1": 24.3057,
+            "marginalShareAtMaxK": 0.98981,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0514549,
+            "netNsPerEvalPerPixel": 0.0173691
+          }
+        },
+        {
+          "id": "superell",
+          "label": "family B: superellipse exponent (pow-heavy)",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 486,
+              "pairedWith": 972,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.116955,
+                "p05": 0.11663,
+                "p95": 0.117325,
+                "min": 0.116474,
+                "max": 0.11753
+              },
+              "wallMsPerDraw": {
+                "median": 0.117078,
+                "p05": 0.116872,
+                "p95": 0.117819
+              },
+              "samplesMsPerDraw": [
+                0.116727,
+                0.117196,
+                0.116474,
+                0.117004,
+                0.116841,
+                0.11753,
+                0.117085,
+                0.117237,
+                0.116751,
+                0.116955,
+                0.116997,
+                0.116775,
+                0.116697,
+                0.116965,
+                0.116945
+              ],
+              "shortPassMsMedian": 56.7716,
+              "passFixedMsMedian": -0.034624
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 280,
+              "pairedWith": 560,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.203027,
+                "p05": 0.202332,
+                "p95": 0.203361,
+                "min": 0.202221,
+                "max": 0.203531
+              },
+              "wallMsPerDraw": {
+                "median": 0.203571,
+                "p05": 0.202143,
+                "p95": 0.20475
+              },
+              "samplesMsPerDraw": [
+                0.202964,
+                0.202645,
+                0.202379,
+                0.203288,
+                0.203131,
+                0.203531,
+                0.202221,
+                0.203048,
+                0.203027,
+                0.20312,
+                0.203051,
+                0.203127,
+                0.202784,
+                0.202874,
+                0.202738
+              ],
+              "shortPassMsMedian": 56.8494,
+              "passFixedMsMedian": -0.021457
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 156,
+              "pairedWith": 312,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.367375,
+                "p05": 0.366749,
+                "p95": 0.367809,
+                "min": 0.366532,
+                "max": 0.36808
+              },
+              "wallMsPerDraw": {
+                "median": 0.367949,
+                "p05": 0.367115,
+                "p95": 0.36859
+              },
+              "samplesMsPerDraw": [
+                0.36692,
+                0.367114,
+                0.36808,
+                0.366532,
+                0.366967,
+                0.367691,
+                0.367693,
+                0.367487,
+                0.367375,
+                0.367526,
+                0.367453,
+                0.367632,
+                0.367195,
+                0.366843,
+                0.367268
+              ],
+              "shortPassMsMedian": 57.3807,
+              "passFixedMsMedian": 0.077584
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 71,
+              "pairedWith": 142,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.80164,
+                "p05": 0.800348,
+                "p95": 0.805309,
+                "min": 0.79962,
+                "max": 0.805961
+              },
+              "wallMsPerDraw": {
+                "median": 0.802817,
+                "p05": 0.800563,
+                "p95": 0.805634
+              },
+              "samplesMsPerDraw": [
+                0.80164,
+                0.801504,
+                0.805961,
+                0.803911,
+                0.805029,
+                0.801038,
+                0.80084,
+                0.80159,
+                0.79962,
+                0.802683,
+                0.802433,
+                0.801359,
+                0.80066,
+                0.801707,
+                0.803329
+              ],
+              "shortPassMsMedian": 56.842,
+              "passFixedMsMedian": -0.102166
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 37,
+              "pairedWith": 74,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.5599,
+                "p05": 1.55746,
+                "p95": 1.56545,
+                "min": 1.55696,
+                "max": 1.56842
+              },
+              "wallMsPerDraw": {
+                "median": 1.56216,
+                "p05": 1.55595,
+                "p95": 1.5673
+              },
+              "samplesMsPerDraw": [
+                1.56075,
+                1.56243,
+                1.55826,
+                1.56315,
+                1.56246,
+                1.56088,
+                1.55696,
+                1.55863,
+                1.5599,
+                1.56842,
+                1.55767,
+                1.55801,
+                1.55906,
+                1.56418,
+                1.55895
+              ],
+              "shortPassMsMedian": 57.7633,
+              "passFixedMsMedian": 0.010583
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 19,
+              "pairedWith": 38,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 3.08075,
+                "p05": 3.07693,
+                "p95": 3.09833,
+                "min": 3.07637,
+                "max": 3.09923
+              },
+              "wallMsPerDraw": {
+                "median": 3.08421,
+                "p05": 3.07737,
+                "p95": 3.10158
+              },
+              "samplesMsPerDraw": [
+                3.07862,
+                3.09923,
+                3.08114,
+                3.07794,
+                3.08046,
+                3.08075,
+                3.08946,
+                3.07637,
+                3.08907,
+                3.0958,
+                3.09795,
+                3.08439,
+                3.07965,
+                3.07921,
+                3.07717
+              ],
+              "shortPassMsMedian": 58.6205,
+              "passFixedMsMedian": 0.069998
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0960721,
+            "interceptMsPerDraw": 0.0128506,
+            "r2": 0.999769,
+            "nsPerEvalPerPixel": 0.0324301,
+            "ratioK32toK1": 26.3413,
+            "marginalShareAtMaxK": 0.997909,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0693302,
+            "netNsPerEvalPerPixel": 0.0234031
+          }
+        }
+      ]
+    },
+    {
+      "label": "desktop-2880x1800",
+      "width": 2880,
+      "height": 1800,
+      "pixels": 5184000,
+      "variants": [
+        {
+          "id": "null",
+          "label": "trivial body (loop + storage-load overhead only)",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 608,
+              "pairedWith": 1216,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.093299,
+                "p05": 0.0928966,
+                "p95": 0.0935215,
+                "min": 0.0928636,
+                "max": 0.0936957
+              },
+              "wallMsPerDraw": {
+                "median": 0.09375,
+                "p05": 0.0930428,
+                "p95": 0.0947862
+              },
+              "samplesMsPerDraw": [
+                0.0933709,
+                0.0933817,
+                0.0934468,
+                0.0932352,
+                0.0931429,
+                0.0933655,
+                0.0928636,
+                0.0933269,
+                0.0936957,
+                0.0930697,
+                0.0930354,
+                0.093051,
+                0.093358,
+                0.0929107,
+                0.093299
+              ],
+              "shortPassMsMedian": 56.7136,
+              "passFixedMsMedian": -0.014376
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 466,
+              "pairedWith": 932,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.121712,
+                "p05": 0.121262,
+                "p95": 0.122286,
+                "min": 0.12108,
+                "max": 0.12234
+              },
+              "wallMsPerDraw": {
+                "median": 0.122318,
+                "p05": 0.121052,
+                "p95": 0.123219
+              },
+              "samplesMsPerDraw": [
+                0.122111,
+                0.121712,
+                0.121681,
+                0.122129,
+                0.121533,
+                0.122173,
+                0.121472,
+                0.12234,
+                0.122091,
+                0.12108,
+                0.121541,
+                0.122262,
+                0.121837,
+                0.121461,
+                0.12134
+              ],
+              "shortPassMsMedian": 56.7847,
+              "passFixedMsMedian": -0.035043
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 307,
+              "pairedWith": 614,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.185481,
+                "p05": 0.184741,
+                "p95": 0.186094,
+                "min": 0.184245,
+                "max": 0.186155
+              },
+              "wallMsPerDraw": {
+                "median": 0.185993,
+                "p05": 0.185049,
+                "p95": 0.187818
+              },
+              "samplesMsPerDraw": [
+                0.18571,
+                0.185092,
+                0.186,
+                0.185126,
+                0.186155,
+                0.184245,
+                0.186057,
+                0.185168,
+                0.185219,
+                0.1856,
+                0.185187,
+                0.186068,
+                0.185572,
+                0.184954,
+                0.185481
+              ],
+              "shortPassMsMedian": 56.9483,
+              "passFixedMsMedian": 0.003876
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 131,
+              "pairedWith": 262,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.430606,
+                "p05": 0.429654,
+                "p95": 0.432736,
+                "min": 0.429096,
+                "max": 0.433102
+              },
+              "wallMsPerDraw": {
+                "median": 0.431298,
+                "p05": 0.429542,
+                "p95": 0.434504
+              },
+              "samplesMsPerDraw": [
+                0.429893,
+                0.429096,
+                0.431212,
+                0.43258,
+                0.43246,
+                0.430467,
+                0.430606,
+                0.431965,
+                0.430494,
+                0.43256,
+                0.430554,
+                0.430529,
+                0.430478,
+                0.433102,
+                0.430606
+              ],
+              "shortPassMsMedian": 56.5981,
+              "passFixedMsMedian": 0.18879
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 71,
+              "pairedWith": 142,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.796156,
+                "p05": 0.79346,
+                "p95": 0.797379,
+                "min": 0.793453,
+                "max": 0.797433
+              },
+              "wallMsPerDraw": {
+                "median": 0.797183,
+                "p05": 0.793944,
+                "p95": 0.798592
+              },
+              "samplesMsPerDraw": [
+                0.797355,
+                0.793463,
+                0.796058,
+                0.796191,
+                0.796059,
+                0.797433,
+                0.793453,
+                0.794869,
+                0.797281,
+                0.79721,
+                0.795828,
+                0.796156,
+                0.796022,
+                0.796165,
+                0.796236
+              ],
+              "shortPassMsMedian": 56.5451,
+              "passFixedMsMedian": 0.024373
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 38,
+              "pairedWith": 76,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.52495,
+                "p05": 1.51907,
+                "p95": 1.52664,
+                "min": 1.51574,
+                "max": 1.52849
+              },
+              "wallMsPerDraw": {
+                "median": 1.52368,
+                "p05": 1.51684,
+                "p95": 1.52895
+              },
+              "samplesMsPerDraw": [
+                1.51574,
+                1.52461,
+                1.52499,
+                1.52351,
+                1.52058,
+                1.52505,
+                1.52532,
+                1.5205,
+                1.52545,
+                1.52507,
+                1.52095,
+                1.52849,
+                1.52283,
+                1.52584,
+                1.52495
+              ],
+              "shortPassMsMedian": 57.9794,
+              "passFixedMsMedian": 0.030084
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0468547,
+            "interceptMsPerDraw": 0.0333935,
+            "r2": 0.99859,
+            "nsPerEvalPerPixel": 0.00903832,
+            "ratioK32toK1": 16.3448,
+            "marginalShareAtMaxK": 0.983212,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost"
+          }
+        },
+        {
+          "id": "roundbox",
+          "label": "family A: analytic rounded box",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 490,
+              "pairedWith": 980,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.113822,
+                "p05": 0.113555,
+                "p95": 0.114734,
+                "min": 0.113494,
+                "max": 0.115645
+              },
+              "wallMsPerDraw": {
+                "median": 0.11449,
+                "p05": 0.113959,
+                "p95": 0.115816
+              },
+              "samplesMsPerDraw": [
+                0.114343,
+                0.113601,
+                0.113959,
+                0.113924,
+                0.113494,
+                0.113649,
+                0.113671,
+                0.113822,
+                0.114168,
+                0.113632,
+                0.113581,
+                0.113978,
+                0.11417,
+                0.115645,
+                0.11363
+              ],
+              "shortPassMsMedian": 55.8669,
+              "passFixedMsMedian": 0.073874
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 337,
+              "pairedWith": 674,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.169019,
+                "p05": 0.16838,
+                "p95": 0.169294,
+                "min": 0.168352,
+                "max": 0.169384
+              },
+              "wallMsPerDraw": {
+                "median": 0.169436,
+                "p05": 0.167626,
+                "p95": 0.171988
+              },
+              "samplesMsPerDraw": [
+                0.169236,
+                0.169019,
+                0.169108,
+                0.168685,
+                0.169148,
+                0.169255,
+                0.169034,
+                0.169139,
+                0.168392,
+                0.16874,
+                0.168871,
+                0.168668,
+                0.168461,
+                0.169384,
+                0.168352
+              ],
+              "shortPassMsMedian": 56.9895,
+              "passFixedMsMedian": 0.047499
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 215,
+              "pairedWith": 430,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.265898,
+                "p05": 0.264813,
+                "p95": 0.266648,
+                "min": 0.26468,
+                "max": 0.26671
+              },
+              "wallMsPerDraw": {
+                "median": 0.266047,
+                "p05": 0.264651,
+                "p95": 0.267116
+              },
+              "samplesMsPerDraw": [
+                0.266071,
+                0.26655,
+                0.266474,
+                0.266441,
+                0.26671,
+                0.26468,
+                0.264924,
+                0.265239,
+                0.265597,
+                0.265438,
+                0.264871,
+                0.265813,
+                0.265898,
+                0.266622,
+                0.266229
+              ],
+              "shortPassMsMedian": 57.0573,
+              "passFixedMsMedian": -0.091289
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 93,
+              "pairedWith": 186,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.614481,
+                "p05": 0.612866,
+                "p95": 0.61569,
+                "min": 0.612785,
+                "max": 0.615792
+              },
+              "wallMsPerDraw": {
+                "median": 0.615054,
+                "p05": 0.612258,
+                "p95": 0.617204
+              },
+              "samplesMsPerDraw": [
+                0.614481,
+                0.612962,
+                0.612971,
+                0.615647,
+                0.612901,
+                0.614714,
+                0.614828,
+                0.61469,
+                0.614738,
+                0.612914,
+                0.613779,
+                0.614666,
+                0.612785,
+                0.613565,
+                0.615792
+              ],
+              "shortPassMsMedian": 57.1872,
+              "passFixedMsMedian": 0.037667
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 49,
+              "pairedWith": 98,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.16302,
+                "p05": 1.15854,
+                "p95": 1.16397,
+                "min": 1.15592,
+                "max": 1.16502
+              },
+              "wallMsPerDraw": {
+                "median": 1.16327,
+                "p05": 1.15939,
+                "p95": 1.16592
+              },
+              "samplesMsPerDraw": [
+                1.15592,
+                1.15967,
+                1.1633,
+                1.15967,
+                1.16342,
+                1.16352,
+                1.16502,
+                1.16334,
+                1.16311,
+                1.16099,
+                1.16243,
+                1.16302,
+                1.16315,
+                1.16132,
+                1.16166
+              ],
+              "shortPassMsMedian": 57.0102,
+              "passFixedMsMedian": 0.018333
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 26,
+              "pairedWith": 52,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 2.26009,
+                "p05": 2.25306,
+                "p95": 2.26755,
+                "min": 2.25298,
+                "max": 2.2676
+              },
+              "wallMsPerDraw": {
+                "median": 2.26154,
+                "p05": 2.25,
+                "p95": 2.26923
+              },
+              "samplesMsPerDraw": [
+                2.25298,
+                2.25385,
+                2.2531,
+                2.26016,
+                2.26157,
+                2.26045,
+                2.25411,
+                2.25336,
+                2.2594,
+                2.2676,
+                2.26031,
+                2.26753,
+                2.2603,
+                2.26009,
+                2.25378
+              ],
+              "shortPassMsMedian": 58.7885,
+              "passFixedMsMedian": 0.029126
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0699446,
+            "interceptMsPerDraw": 0.0299699,
+            "r2": 0.999129,
+            "nsPerEvalPerPixel": 0.0134924,
+            "ratioK32toK1": 19.8564,
+            "marginalShareAtMaxK": 0.990327,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0230899,
+            "netNsPerEvalPerPixel": 0.00445407
+          }
+        },
+        {
+          "id": "rsup",
+          "label": "family C: radial support, no normalization",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 403,
+              "pairedWith": 806,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.141008,
+                "p05": 0.140808,
+                "p95": 0.141574,
+                "min": 0.140771,
+                "max": 0.141577
+              },
+              "wallMsPerDraw": {
+                "median": 0.141439,
+                "p05": 0.140868,
+                "p95": 0.141935
+              },
+              "samplesMsPerDraw": [
+                0.141079,
+                0.140894,
+                0.141092,
+                0.140771,
+                0.141245,
+                0.141008,
+                0.141366,
+                0.141091,
+                0.140937,
+                0.140999,
+                0.141573,
+                0.140824,
+                0.141577,
+                0.140965,
+                0.14094
+              ],
+              "shortPassMsMedian": 56.9295,
+              "passFixedMsMedian": 0.103288
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 263,
+              "pairedWith": 526,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.216198,
+                "p05": 0.215198,
+                "p95": 0.216646,
+                "min": 0.215052,
+                "max": 0.216681
+              },
+              "wallMsPerDraw": {
+                "median": 0.21635,
+                "p05": 0.215475,
+                "p95": 0.21711
+              },
+              "samplesMsPerDraw": [
+                0.216631,
+                0.216418,
+                0.216328,
+                0.215968,
+                0.216251,
+                0.215407,
+                0.215701,
+                0.216213,
+                0.216293,
+                0.216198,
+                0.216192,
+                0.215506,
+                0.21526,
+                0.215052,
+                0.216681
+              ],
+              "shortPassMsMedian": 56.7933,
+              "passFixedMsMedian": -0.047043
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 126,
+              "pairedWith": 252,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.452235,
+                "p05": 0.450861,
+                "p95": 0.453083,
+                "min": 0.450861,
+                "max": 0.453118
+              },
+              "wallMsPerDraw": {
+                "median": 0.452381,
+                "p05": 0.450079,
+                "p95": 0.453413
+              },
+              "samplesMsPerDraw": [
+                0.450927,
+                0.450861,
+                0.451567,
+                0.452984,
+                0.450904,
+                0.450861,
+                0.452358,
+                0.452259,
+                0.452235,
+                0.452952,
+                0.451603,
+                0.453118,
+                0.451622,
+                0.452861,
+                0.453068
+              ],
+              "shortPassMsMedian": 57.0045,
+              "passFixedMsMedian": 0.023249
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 68,
+              "pairedWith": 136,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.837237,
+                "p05": 0.833885,
+                "p95": 0.838764,
+                "min": 0.832194,
+                "max": 0.838797
+              },
+              "wallMsPerDraw": {
+                "median": 0.836765,
+                "p05": 0.832353,
+                "p95": 0.841618
+              },
+              "samplesMsPerDraw": [
+                0.832194,
+                0.837291,
+                0.834688,
+                0.834729,
+                0.837237,
+                0.834718,
+                0.837324,
+                0.836061,
+                0.834609,
+                0.838797,
+                0.837364,
+                0.83848,
+                0.83875,
+                0.837275,
+                0.835878
+              ],
+              "shortPassMsMedian": 56.9531,
+              "passFixedMsMedian": 0.024208
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 36,
+              "pairedWith": 72,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.60767,
+                "p05": 1.60268,
+                "p95": 1.60985,
+                "min": 1.60266,
+                "max": 1.60995
+              },
+              "wallMsPerDraw": {
+                "median": 1.60833,
+                "p05": 1.60194,
+                "p95": 1.61556
+              },
+              "samplesMsPerDraw": [
+                1.60803,
+                1.6077,
+                1.60995,
+                1.60744,
+                1.60747,
+                1.60269,
+                1.6075,
+                1.60981,
+                1.60288,
+                1.60294,
+                1.60842,
+                1.60266,
+                1.60767,
+                1.60798,
+                1.60785
+              ],
+              "shortPassMsMedian": 57.8935,
+              "passFixedMsMedian": 0.02033
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 19,
+              "pairedWith": 38,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 3.14894,
+                "p05": 3.13857,
+                "p95": 3.1551,
+                "min": 3.13812,
+                "max": 3.15752
+              },
+              "wallMsPerDraw": {
+                "median": 3.14737,
+                "p05": 3.13526,
+                "p95": 3.15789
+              },
+              "samplesMsPerDraw": [
+                3.14917,
+                3.13876,
+                3.15752,
+                3.13979,
+                3.15406,
+                3.13925,
+                3.13812,
+                3.14896,
+                3.14894,
+                3.14895,
+                3.14918,
+                3.13879,
+                3.14848,
+                3.14816,
+                3.14895
+              ],
+              "shortPassMsMedian": 59.8398,
+              "passFixedMsMedian": 0.01804
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.0971351,
+            "interceptMsPerDraw": 0.0472965,
+            "r2": 0.999823,
+            "nsPerEvalPerPixel": 0.0187375,
+            "ratioK32toK1": 22.3316,
+            "marginalShareAtMaxK": 0.987101,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0502804,
+            "netNsPerEvalPerPixel": 0.00969915
+          }
+        },
+        {
+          "id": "rsupn",
+          "label": "family D: radial support + |grad| normalization",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 313,
+              "pairedWith": 626,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.181737,
+                "p05": 0.181378,
+                "p95": 0.182685,
+                "min": 0.181236,
+                "max": 0.182764
+              },
+              "wallMsPerDraw": {
+                "median": 0.182428,
+                "p05": 0.18147,
+                "p95": 0.183578
+              },
+              "samplesMsPerDraw": [
+                0.181851,
+                0.181438,
+                0.181779,
+                0.181463,
+                0.181484,
+                0.181534,
+                0.181236,
+                0.181737,
+                0.182764,
+                0.182056,
+                0.181471,
+                0.181543,
+                0.182651,
+                0.182317,
+                0.182358
+              ],
+              "shortPassMsMedian": 57.0016,
+              "passFixedMsMedian": 0.10433
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 188,
+              "pairedWith": 376,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.304024,
+                "p05": 0.302025,
+                "p95": 0.304607,
+                "min": 0.300662,
+                "max": 0.30484
+              },
+              "wallMsPerDraw": {
+                "median": 0.304255,
+                "p05": 0.30234,
+                "p95": 0.305479
+              },
+              "samplesMsPerDraw": [
+                0.304016,
+                0.304047,
+                0.30302,
+                0.304046,
+                0.30261,
+                0.300662,
+                0.304141,
+                0.30309,
+                0.303922,
+                0.304508,
+                0.30484,
+                0.304053,
+                0.303211,
+                0.304085,
+                0.304024
+              ],
+              "shortPassMsMedian": 57.1191,
+              "passFixedMsMedian": -0.030667
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 93,
+              "pairedWith": 186,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.614054,
+                "p05": 0.612042,
+                "p95": 0.615285,
+                "min": 0.61191,
+                "max": 0.615918
+              },
+              "wallMsPerDraw": {
+                "median": 0.613978,
+                "p05": 0.611505,
+                "p95": 0.616452
+              },
+              "samplesMsPerDraw": [
+                0.612172,
+                0.612282,
+                0.612988,
+                0.615014,
+                0.612099,
+                0.614981,
+                0.615918,
+                0.612108,
+                0.61216,
+                0.61409,
+                0.614882,
+                0.61191,
+                0.614996,
+                0.614088,
+                0.614054
+              ],
+              "shortPassMsMedian": 57.1209,
+              "passFixedMsMedian": 0.017375
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 49,
+              "pairedWith": 98,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.15882,
+                "p05": 1.15464,
+                "p95": 1.16076,
+                "min": 1.15378,
+                "max": 1.16077
+              },
+              "wallMsPerDraw": {
+                "median": 1.15918,
+                "p05": 1.15143,
+                "p95": 1.16245
+              },
+              "samplesMsPerDraw": [
+                1.15882,
+                1.16077,
+                1.15562,
+                1.15909,
+                1.155,
+                1.15913,
+                1.16048,
+                1.15694,
+                1.15378,
+                1.16076,
+                1.1571,
+                1.15522,
+                1.15886,
+                1.15528,
+                1.15886
+              ],
+              "shortPassMsMedian": 56.8078,
+              "passFixedMsMedian": 0.02696
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 26,
+              "pairedWith": 52,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 2.24937,
+                "p05": 2.23956,
+                "p95": 2.25613,
+                "min": 2.23493,
+                "max": 2.26293
+              },
+              "wallMsPerDraw": {
+                "median": 2.25,
+                "p05": 2.23346,
+                "p95": 2.25885
+              },
+              "samplesMsPerDraw": [
+                2.24952,
+                2.24875,
+                2.24246,
+                2.25289,
+                2.25322,
+                2.24881,
+                2.24912,
+                2.24937,
+                2.26293,
+                2.25265,
+                2.24513,
+                2.23493,
+                2.24155,
+                2.25285,
+                2.25228
+              ],
+              "shortPassMsMedian": 58.4854,
+              "passFixedMsMedian": 0.013417
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 13,
+              "pairedWith": 26,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 4.42988,
+                "p05": 4.41683,
+                "p95": 4.43771,
+                "min": 4.41653,
+                "max": 4.43803
+              },
+              "wallMsPerDraw": {
+                "median": 4.43077,
+                "p05": 4.40538,
+                "p95": 4.44308
+              },
+              "samplesMsPerDraw": [
+                4.42944,
+                4.43081,
+                4.42841,
+                4.41696,
+                4.42878,
+                4.43116,
+                4.42215,
+                4.43803,
+                4.42988,
+                4.43535,
+                4.43045,
+                4.43757,
+                4.41714,
+                4.43166,
+                4.41653
+              ],
+              "shortPassMsMedian": 57.5816,
+              "passFixedMsMedian": 0.010166
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.13705,
+            "interceptMsPerDraw": 0.0506199,
+            "r2": 0.999931,
+            "nsPerEvalPerPixel": 0.0264372,
+            "ratioK32toK1": 24.3752,
+            "marginalShareAtMaxK": 0.990006,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.0901953,
+            "netNsPerEvalPerPixel": 0.0173988
+          }
+        },
+        {
+          "id": "superell",
+          "label": "family B: superellipse exponent (pow-heavy)",
+          "perK": [
+            {
+              "k": 1,
+              "drawsPerPass": 282,
+              "pairedWith": 564,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.20249,
+                "p05": 0.201669,
+                "p95": 0.202997,
+                "min": 0.201263,
+                "max": 0.203106
+              },
+              "wallMsPerDraw": {
+                "median": 0.202837,
+                "p05": 0.201312,
+                "p95": 0.203652
+              },
+              "samplesMsPerDraw": [
+                0.202666,
+                0.201263,
+                0.203106,
+                0.20249,
+                0.202315,
+                0.202683,
+                0.202085,
+                0.202236,
+                0.202692,
+                0.202336,
+                0.202303,
+                0.202922,
+                0.202627,
+                0.20295,
+                0.201843
+              ],
+              "shortPassMsMedian": 57.0448,
+              "passFixedMsMedian": -0.055833
+            },
+            {
+              "k": 2,
+              "drawsPerPass": 162,
+              "pairedWith": 324,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.352961,
+                "p05": 0.350732,
+                "p95": 0.354898,
+                "min": 0.350514,
+                "max": 0.355834
+              },
+              "wallMsPerDraw": {
+                "median": 0.353086,
+                "p05": 0.351481,
+                "p95": 0.355679
+              },
+              "samplesMsPerDraw": [
+                0.352566,
+                0.353238,
+                0.351677,
+                0.353408,
+                0.35278,
+                0.353291,
+                0.350514,
+                0.35341,
+                0.354498,
+                0.355834,
+                0.350825,
+                0.354213,
+                0.351546,
+                0.352802,
+                0.352961
+              ],
+              "shortPassMsMedian": 57.2086,
+              "passFixedMsMedian": 0.047876
+            },
+            {
+              "k": 4,
+              "drawsPerPass": 89,
+              "pairedWith": 178,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 0.64391,
+                "p05": 0.638669,
+                "p95": 0.646724,
+                "min": 0.637471,
+                "max": 0.647295
+              },
+              "wallMsPerDraw": {
+                "median": 0.64382,
+                "p05": 0.637528,
+                "p95": 0.647191
+              },
+              "samplesMsPerDraw": [
+                0.64158,
+                0.646246,
+                0.64648,
+                0.647295,
+                0.641771,
+                0.642746,
+                0.643991,
+                0.639183,
+                0.645051,
+                0.642786,
+                0.642404,
+                0.643921,
+                0.64391,
+                0.644247,
+                0.637471
+              ],
+              "shortPassMsMedian": 57.3407,
+              "passFixedMsMedian": 0.131916
+            },
+            {
+              "k": 8,
+              "drawsPerPass": 41,
+              "pairedWith": 82,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 1.41143,
+                "p05": 1.40633,
+                "p95": 1.41485,
+                "min": 1.40493,
+                "max": 1.4151
+              },
+              "wallMsPerDraw": {
+                "median": 1.4122,
+                "p05": 1.40732,
+                "p95": 1.41707
+              },
+              "samplesMsPerDraw": [
+                1.41171,
+                1.41143,
+                1.40916,
+                1.41295,
+                1.41301,
+                1.41091,
+                1.41148,
+                1.41107,
+                1.4151,
+                1.40996,
+                1.41475,
+                1.40693,
+                1.41116,
+                1.41455,
+                1.40493
+              ],
+              "shortPassMsMedian": 57.7787,
+              "passFixedMsMedian": -0.114207
+            },
+            {
+              "k": 16,
+              "drawsPerPass": 21,
+              "pairedWith": 42,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 2.74313,
+                "p05": 2.73488,
+                "p95": 2.75401,
+                "min": 2.73208,
+                "max": 2.75468
+              },
+              "wallMsPerDraw": {
+                "median": 2.74286,
+                "p05": 2.72857,
+                "p95": 2.75048
+              },
+              "samplesMsPerDraw": [
+                2.74472,
+                2.73837,
+                2.74012,
+                2.74365,
+                2.74213,
+                2.73609,
+                2.74938,
+                2.73755,
+                2.73208,
+                2.74313,
+                2.75468,
+                2.75372,
+                2.74683,
+                2.73988,
+                2.74347
+              ],
+              "shortPassMsMedian": 57.597,
+              "passFixedMsMedian": 0.013001
+            },
+            {
+              "k": 32,
+              "drawsPerPass": 11,
+              "pairedWith": 22,
+              "reps": 15,
+              "timingMethod": "timestamp-query",
+              "msPerDraw": {
+                "median": 5.42571,
+                "p05": 5.40948,
+                "p95": 5.44577,
+                "min": 5.39188,
+                "max": 5.44596
+              },
+              "wallMsPerDraw": {
+                "median": 5.42727,
+                "p05": 5.40909,
+                "p95": 5.45727
+              },
+              "samplesMsPerDraw": [
+                5.41951,
+                5.44159,
+                5.42842,
+                5.44596,
+                5.39188,
+                5.42345,
+                5.44569,
+                5.44327,
+                5.41921,
+                5.41703,
+                5.41744,
+                5.41761,
+                5.44525,
+                5.42571,
+                5.42818
+              ],
+              "shortPassMsMedian": 59.6572,
+              "passFixedMsMedian": -0.027833
+            }
+          ],
+          "fit": {
+            "slopeMsPerDrawPerEval": 0.169299,
+            "interceptMsPerDraw": 0.0189609,
+            "r2": 0.999764,
+            "nsPerEvalPerPixel": 0.0326581,
+            "ratioK32toK1": 26.795,
+            "marginalShareAtMaxK": 0.998502,
+            "scalesWithK": true,
+            "note": "time scales with K; slope is a valid marginal cost",
+            "netSlopeMsPerDrawPerEval": 0.122444,
+            "netNsPerEvalPerPixel": 0.0236197
+          }
+        }
+      ]
+    }
+  ],
+  "f32Check": {
+    "ran": true,
+    "inputFile": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a9d625f0af54aaf63/spikes/s2-geometry-field/bench/f32-check.json",
+    "note": "Generated by bench/make-f32-check.ts. `expected` is f64 evaluation of the same arithmetic as bench/shaders.wgsl, from src/candidates.ts. Points are shape-local.",
+    "points": 5535,
+    "shapes": 3,
+    "precision": "shader f32 vs supplied f64 expected values",
+    "perCandidate": {
+      "rsupn": {
+        "n": 5535,
+        "maxAbsDiff": 0.00004081373515418818,
+        "maxAbsDiffAtIndex": 4176,
+        "maxAbsDiffRelativeToRe": 4.817644428574871e-7,
+        "p50AbsDiff": 0.0000019073486328125,
+        "p99AbsDiff": 0.00001914865177354841,
+        "meanAbsDiff": 0.0000034068486235653822
+      },
+      "roundbox": {
+        "n": 5535,
+        "maxAbsDiff": 0.00003032838932881532,
+        "maxAbsDiffAtIndex": 5496,
+        "maxAbsDiffRelativeToRe": 4.785902358861449e-7,
+        "p50AbsDiff": 0.0000017951516610992257,
+        "p99AbsDiff": 0.00001600664901957316,
+        "meanAbsDiff": 0.00000306188341314774
+      }
+    }
+  }
+}
