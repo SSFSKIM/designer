@@ -18,9 +18,9 @@ See the Decision Log for rationale and rejected alternatives. In brief: hybrid-f
 2. **Texture upgrade.** Registering an image or video as a group's backdrop upgrades that group to true refraction: edge lensing visibly bends the backdrop, and a larger surface shows deeper shadow and stronger lensing than a small button over the same backdrop.
 3. **Interruptible press.** Pointer-down produces press-point glow and ~1–2% compression on a spring; releasing mid-press redirects the animation from its current position and velocity with no snap or restart.
 4. **The morph.** Activating a toolbar button morphs it into a menu platter as one continuous material transition on the overlay plane — geometry, radius, and material thickness interpolate; no crossfade of two separate surfaces. The menu's glass body correctly occludes the toolbar's DOM content beneath it.
-5. **Honest degradation.** In a browser without WebGPU (e.g. flagged Firefox on Linux), the same app renders presentable CSS-tier glass with no console errors, and `useGlassCapabilities()` reports `renderer: "css"`. No tier ever silently pretends to a capability it lacks.
+5. **Honest degradation.** In a browser without WebGPU (e.g. flagged Firefox on Linux), the same app renders presentable CSS-tier glass with no console errors, and `useGlassCapabilities()` reports the resolved state — `activeRenderer: "css"`, `demotionReason: "no-webgpu"` — while preserving `configuredSource`. No state ever silently pretends to a capability it lacks.
 6. **Accessibility modes.** `prefers-reduced-motion` removes overshoot and deformation while preserving spatial continuity; `prefers-contrast: more` strengthens borders and forces near-monochrome foregrounds; `forced-colors: active` renders system colors with no glass. Each is overridable via `GlassRoot` props.
-7. **Calibrated fidelity.** The calibration suite diffs demo renders against versioned `apple-macos-26.5-*` fixtures across canonical scenes (backgrounds × components × states × sizes) with shape, material, and motion metrics inside declared thresholds — including holdout scenes not used for tuning.
+7. **Calibrated fidelity.** The calibration suite diffs demo renders against versioned `apple-macos-26.5-*` fixtures across canonical scenes (backgrounds × components × states × sizes) with shape, material, and motion metrics inside declared thresholds — per supported engine/backend cell, with texture-tier and dom-tier claims stated separately, including holdout scenes not used for tuning.
 8. **Shipped.** `npm install @vitrea/core @vitrea/react` works; the public demo site shows the showpiece with side-by-side native captures; the README's fidelity claim reads "reference-calibrated against macOS 26.5 captures," nothing broader.
 
 ## Architecture
@@ -61,9 +61,12 @@ One compositor — one `GPUDevice`, scheduler, pipeline cache, texture pool, ins
 ```
 page content
   ↓
-backdrop-proxy layer     (dom-backdrop mode only: pointer-events:none geometry
-                          mirrors carrying backdrop-filter, portaled to the
-                          plane root so the optics canvas is never re-blurred)
+backdrop-proxy layer     (dom-backdrop mode only: ONE pointer-events:none
+                          proxy per sampling group, masked to the union of
+                          member shapes + samplingPadding, carrying
+                          backdrop-filter, portaled to the plane root so the
+                          optics canvas is never re-blurred and proxies never
+                          double-filter each other)
   ↓
 optics canvas            (glass bodies: tint, lensing, rim — pointer-events:none)
   ↓
@@ -72,13 +75,13 @@ semantic host DOM        (real <button> etc.: text, icons, focus, IME, a11y tree
 highlight canvas         (specular sweeps, press glow — pointer-events:none)
 ```
 
-Arbitrary interleaving with foreign stacking contexts is **documented out of contract** for v1: all glass lives in GlassRoot's managed planes; menus portal internally to the overlay plane. During a cross-plane morph the surface is promoted to the destination plane so the transition renders on one canvas pair, seam-free. No public layer API ships in v1.
+Arbitrary interleaving with foreign stacking contexts is **documented out of contract** for v1: all glass lives in GlassRoot's managed planes; menus portal internally to the overlay plane. Two further constraints are **checked, not assumed**: (a) glass surfaces within one plane must not overlap — a dev-mode error, because the sandwich cannot place one surface's body above another surface's DOM label (v1's components never overlap in-plane; the overlapping case *is* the cross-plane case); (b) v1 supports exactly one overlay plane — multiple simultaneous overlays are out of scope. During a cross-plane morph the surface is promoted **as a unit** — body, semantic host, and highlight together — to the destination plane so the transition renders on one canvas pair, seam-free; promotion under scroll and focus is a required integration-test scenario. Backdrop sampling context is a documented constraint: glass hosts must not sit beneath ancestors whose filter, opacity, mask, or clip changes the backdrop root — [Filter Effects 2's Backdrop Root definition explicitly lacks WG consensus](https://drafts.csswg.org/filter-effects-2/), so engines may legitimately differ — and a runtime conformance probe validates the proxy topology at startup, demoting a group to the CSS tier when sampling proves non-equivalent. The full proxy topology across Safari/Chrome/Firefox is **gating spike S1** (§Gating spikes). No public layer API ships in v1.
 
 ### Core model
 
 ```
 BackdropSource            GlassGroup                GlassNode
-├─ kind: texture | dom    ├─ backdropSourceId       ├─ ContourIR / compiled shape
+├─ kind: texture | dom    ├─ backdropSourceId       ├─ shape family params (IR-authored)
 ├─ raw texture/source     ├─ morph namespace        ├─ viewport bounds, clip chain
 ├─ blur pyramid           ├─ material profile       ├─ z-slot (plane + order)
 ├─ analysis maps          ├─ adaptation policy      ├─ variant: regular | clear
@@ -90,13 +93,23 @@ BackdropSource            GlassGroup                GlassNode
 
 ### Backdrop & analysis contracts (the honesty core)
 
-Capability is a tuple of orthogonal axes, resolved per group and reported by `useGlassCapabilities()`:
+Capability is **not a free tuple** — a free product of axes admits undefined and misleading states (a registered texture with no WebGPU; a dom group in an engine whose `backdrop-filter` probe fails; a CORS-tainted video). Configuration and resolution are separate: the app *configures* a source; the runtime *resolves* one of an enumerated set of states per group, reported by `useGlassCapabilities()`:
 
+```ts
+interface GlassGroupState {
+  configuredSource: "texture" | "dom";     // what the app declared — never mutated
+  activeRenderer:  "webgpu" | "css";       // what is actually drawing
+  samplingBackend: "gpu-texture" | "css-backdrop" | "none";
+  refraction:      "true" | "approximate" | "none";
+  analysis:        "exact" | "hint" | "none";
+  health:          "ok" | "demoted";
+  demotionReason?: "no-webgpu" | "no-backdrop-filter" | "tainted-source"
+                 | "incompatible-texture" | "device-lost" | "probe-failed"
+                 | "governor";
+}
 ```
-renderer: webgpu | css
-backdrop: texture | dom          (per GlassGroup)
-analysis: exact | hint | none
-```
+
+Only enumerated states are legal. Every demotion names its reason and its recovery transition (device restored, source replaced, probe re-passed); `configuredSource` survives demotion so an app can always see what it asked for versus what it got. The three healthy primary states:
 
 - `texture` + `exact`: the app registers a GPU-ownable source (image, video, canvas, procedural gradient, app-rendered texture). Full refraction; luminance/variance/edge-density reduction runs on-GPU with temporal hysteresis.
 - `dom` + `hint`: CSS backdrop proxy does blur/saturation; GPU renders rim-lensing approximation, tint, glow, morph. Adaptation comes from **one** hint contract: a `backdrop` prop on `GlassGroup` (`{ tone, luminance?, complexity? }`) or an estimator provider. A built-in best-effort DOM estimator (known background colors/images, CORS permitting) may implement the provider — always documented as an estimator, never implied to be pixel analysis.
@@ -110,17 +123,17 @@ A capability seam is **reserved** (not implemented) for two future backends: Chr
 
 ### GPU device ownership
 
-Default: **vitrea owns the device** (`createGlassRoot({ powerPreference })`); apps hand external sources (image/video/canvas → `copyExternalImageToTexture` / `importExternalTexture`). Alternative: **app owns the device** — the app passes its `GPUDevice` and provides same-device texture views per frame, or accepts a render-target callback from vitrea. There is no cross-device texture sharing in WebGPU, so the contract also covers: device-loss recovery, source resize, premultiplied alpha, color space tagging, video frame cadence, visibility pause/resume, and fallback demotion.
+Default: **vitrea owns the device** (`createGlassRoot({ powerPreference })`); apps hand external sources (image/video/canvas → `copyExternalImageToTexture` / `importExternalTexture`). Alternative: **app owns the device** — the app passes its `GPUDevice` and provides same-device texture views per frame, or accepts a render-target callback from vitrea. There is no cross-device texture sharing in WebGPU, so the frame contract is operational, not aspirational: every texture source is normalized through one **BackdropFrame acquisition protocol** — `acquire(frameInfo)` at frame start, `release()` after submit, the frame carrying view, size epoch, color space, and alpha mode. `importExternalTexture` handles expire at task end, so video is re-acquired on every frame that samples it, with `VideoFrame` close ownership held by the provider; imported video arrives unpremultiplied while copied images arrive premultiplied, and the compositor normalizes at import. App-supplied views must satisfy declared usage/format/dimension requirements — validated at registration with a typed error, never discovered at draw time. Resizes bump a size epoch that invalidates dependent pyramid allocations. Device loss demotes affected groups (`demotionReason: "device-lost"`) while recovery runs: vitrea-owned devices re-request and re-register automatically; app-owned devices require a replacement-device callback plus a resource re-registration handshake, and groups stay demoted until it completes.
 
 ### Geometry
 
-Source of truth is a **Contour IR** (cubic Bézier/arc segments + corner metadata + winding), compiled per renderer need to: analytic SDF (v1's only compiled form), distance-mask atlas, or mesh (both post-v1). Shape families in v1 — vitrea's supported set, not "Apple's taxonomy":
+Shapes are authored as a **Contour IR** (cubic Bézier/arc segments + corner metadata + winding) — the interchange representation for export, tessellation, and future arbitrary shapes. The IR is **not** the per-pixel render form: exact distance to a cubic Bézier requires quintic root-finding, so no practical closed-form SDF of the raw contour exists. v1 renders a small set of **parametric pseudo-SDF families** evaluated in-shader with a declared, measured error bound against the true contour (**gating spike S2** validates the bound and the shader cost before the geometry API freezes). Shape families in v1 — vitrea's supported set, not "Apple's taxonomy":
 
-- **fixed** rounded rectangle with a continuous-curvature corner profile (Figma-squircle-style bezier fit as the seed; exact coefficients are calibration-determined and internal — the public API exposes only `profile: "continuous" | "circular"`),
+- **fixed** rounded rectangle with a **continuous numeric corner profile** (`smoothing ∈ [0,1]`, 0 = circular arc; the value matching Apple's continuous curvature is calibration-determined and internal, seeded from Figma-squircle fitting — the public API exposes `profile: "continuous" | "circular"` sugar over the number),
 - **capsule**,
-- **concentric** rounded rectangle: radius = parent contour inward-offset by inset, floored at a minimum — concentricity governs radii, not the curve profile (the research refuted that conflation).
+- **concentric** rounded rectangle: radius derived from the parent's field as a **level-set offset** (inset, floored at a minimum radius) — exact inward offsets of continuous-corner cubics leave the cubic family, so the level-set approximation under the same error budget is the honest contract; concentricity still governs radii, not the curve profile (the research refuted that conflation).
 
-Morphs in v1 are **parametric only**: interpolation over `{ center, size, radii, cornerProfile, thickness }` (capsule ↔ rounded rect, button ↔ menu platter, indicator slides). Contour resampling and topology-changing morphs are post-v1. Group rendering goes through a **per-group field pass** (instances → group SDF/coverage field → one optical pass), which makes bounded smooth-min proximity union within a group nearly free; union aesthetics (neck width, max bulge, separation threshold) are capped and calibration-tuned so nothing reads as jelly.
+Morphs in v1 are **parametric only**: interpolation over `{ center, size, radii, smoothing, thickness }` — every channel numeric, so every channel interpolates (capsule ↔ rounded rect, button ↔ menu platter, indicator slides). Contour resampling and topology-changing morphs are post-v1. If S2 shows the error budget unachievable, the fallback is promoting distance-mask atlases into v1 — a renderer change behind the same IR, not an API change. Group rendering goes through a **per-group field pass** (instances → group SDF/coverage field → one optical pass), which makes bounded smooth-min proximity union within a group nearly free; union aesthetics (neck width, max bulge, separation threshold) are capped and calibration-tuned so nothing reads as jelly.
 
 ### Motion
 
@@ -158,13 +171,20 @@ The GPU budget (~2ms/frame) is a **hypothesis to validate**, pinned to declared 
 
 ### Calibration harness & methodology
 
-`apps/reference-apple` renders canonical scenes — backgrounds (light/dark solids, photo, high-contrast text, video) × components × states (rest/hover/press/release/disabled/selected/focused/menu-open) × sizes — captured on this machine into versioned fixture profiles keyed like `apple-macos-26.5-2x-light-standard` (OS, hardware, scale, color scheme, a11y mode, capture method, refresh rate). Native and web renders use **identical pre-rendered raster backgrounds** so font-rasterization differences never pollute the diff. Metrics are separated by axis: shape (contour distance, corner curvature, silhouette IoU), material (blur edge-spread, luminance transfer, tint response, rim intensity, shadow falloff), motion (response latency, peak compression, overshoot, settling, redirect continuity, morph silhouette trajectory), perceptual (edge-weighted diff, SSIM/OKLab ΔE, human A/B). Fixtures split into calibration / validation / **holdout** sets to prevent overfitting to specific scenes. All fidelity claims cite the profile, never "pixel-identical to Apple."
+`apps/reference-apple` renders canonical scenes — backgrounds (light/dark solids, photo, high-contrast text, video) × components × states (rest/hover/press/release/disabled/selected/focused/menu-open) × sizes — captured on this machine into versioned fixture profiles keyed like `apple-macos-26.5-2x-light-standard` (OS, hardware, scale, color scheme, a11y mode, capture method, refresh rate). Native and web renders use **identical pre-rendered raster backgrounds** so font-rasterization differences never pollute the diff. Metrics are separated by axis: shape (contour distance, corner curvature, silhouette IoU), material (blur edge-spread, luminance transfer, tint response, rim intensity, shadow falloff), motion (response latency, peak compression, overshoot, settling, redirect continuity, morph silhouette trajectory), perceptual (edge-weighted diff, SSIM/OKLab ΔE, human A/B). Fixtures split into calibration / validation / **holdout** sets to prevent overfitting to specific scenes. Fixtures record the native side; **results** are versioned by the full render cell: native profile × web cell (browser engine + version, backend tuple, GPU adapter class, canvas color configuration, capture path). Claims and thresholds are **per tier** — the texture tier (vitrea's own shader math) and the dom tier (each engine's own backdrop-filter blur) are calibrated and stated separately, and holdout passes are required per supported engine/backend cell, not once. Canonical scenes include impulse and checkerboard backgrounds, which expose blur kernels and displacement fields directly for system identification. All fidelity claims cite the profile and cell, never "pixel-identical to Apple."
 
-Spring constants, corner coefficients, tint thresholds, hysteresis rates, merge-distance defaults, and clear-variant dimming are **delegated unknowns**: named here, answered by the harness, recorded into calibration profiles.
+Spring constants, corner smoothing values, tint thresholds, hysteresis rates, merge-distance defaults, and clear-variant dimming are **delegated unknowns**: named here, answered by the harness, recorded into calibration profiles. Two further unknowns gate architecture itself — see §Gating spikes.
 
 ### Testing
 
 `geometry` and `motion`: vitest unit tests, TDD. WGSL passes: headless golden-image tests (sRGB-locked). Integration: Playwright against the demo app, including the CSS tier and capability resolution. Fidelity: the calibration diff suite (capture is machine-local; fixtures and thresholds are committed and CI-diffable).
+
+## Gating spikes
+
+Two prototypes run **before their contracts are built upon**; their outcomes land in the Decision Log. They are the first children of the decomposition, not afterthoughts:
+
+- **S1 — backdrop proxy topology.** Prototype the per-plane sandwich with one masked proxy per sampling group over arbitrary DOM in Safari, Chrome, and Firefox: sampling equivalence versus in-place backdrop-filter, overlap and paint-order behavior, scroll/fixed/zoom behavior, and whether the conformance probe can actually detect failure at runtime. A failing engine narrows the promise (its dom groups demote to the CSS tier) — it does not change the API.
+- **S2 — geometry field error and cost.** Measure the parametric pseudo-SDF families' field error against ground-truth contour distance across the smoothing range and a size sweep, and their shader cost on the benchmark scenes. Failure promotes distance-mask atlases into v1 behind the same Contour IR.
 
 ## v1 scope
 
@@ -172,7 +192,7 @@ Components: `GlassRoot`, `GlassGroup`, `GlassSurface` (with `asChild`), `GlassBu
 
 ## Out of scope (v1 cut list)
 
-WebGL2 backend; Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, SearchField; neighbor glow diffusion; scroll-edge effects; arbitrary-contour/resampled morphs; public layer API and arbitrary stacking interleave; automatic pixel analysis of arbitrary DOM (never promised); HTML-in-Canvas backend (seam only); Chromium SVG-displacement tier (seam only — Decision Log #11); Display-P3/HDR profiles; iOS/iPadOS calibration profiles.
+WebGL2 backend; Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, SearchField; neighbor glow diffusion; scroll-edge effects; arbitrary-contour/resampled morphs; public layer API and arbitrary stacking interleave; same-plane overlapping glass surfaces (checked dev-mode error) and more than one simultaneous overlay plane; automatic pixel analysis of arbitrary DOM (never promised); HTML-in-Canvas backend (seam only); Chromium SVG-displacement tier (seam only — Decision Log #11); Display-P3/HDR profiles; iOS/iPadOS calibration profiles.
 
 ## Decision Log
 
@@ -188,7 +208,8 @@ WebGL2 backend; Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBa
 10. **Controlled track; design-whole-then-decompose** — the pieces share one design surface, so the interaction surface had to be generated before cutting. Rejected: single execution plan (too big to execute reliably), autonomous execplan (fidelity taste arises mid-flight).
 11. **Chromium displacement tier: seam reserved, not implemented** (fork Option 1, user-decided). Verified: `feDisplacementMap` in `backdrop-filter` is Chromium-only (WebKit bug 245510; Firefox unsupported). Rejected: implement in v1 (third optical stack + Chromium-only calibration fork), never (concedes competitors' best demo permanently).
 12. **Review adoptions (2026-08-24 independent reviews, both verified where checkable):** BackdropSource/analysis split with explicit `exact | hint | none` (§honesty core) — fixes the hybrid-mode contradiction; `sampled-async` low-rate readback for foreground (§Foreground) — fixes the GPU→DOM contradiction; canvas pair per managed plane (§rendering contract) — fixes the z-order wall liquidGL demonstrates; backdrop-proxy layer (§rendering contract); GPU device ownership contract (§GPU device ownership); `platform-web` package (§packages); Contour IR over canonical-SDF-as-truth (§Geometry); parametric-only v1 morphs; per-channel MotionDrivers (§Motion); Regular/Clear first-class (§Material variants); color pipeline lock (§Color); blur pyramid owned by BackdropSource (§Core model invariant); calibration rigor — profile keys, raster backgrounds, multi-metric, holdout (§Calibration); benchmark-pinned budget + intra-tier degradation (§Performance); publish two packages with bundled internals; menu via external a11y primitive; repositioned competitive claim (§Purpose).
-13. **Review declines/modifications:** SegmentedControl **kept** in v1 (bounded; exercises within-group indicator morph — a distinct case from the cross-plane morph); three parallel hint mechanisms **consolidated** to one prop + provider contract; public `GlassLayer` API **deferred** (internal LayerManager only); flat three-tier naming **superseded** by orthogonal capability axes.
+13. **Review declines/modifications (2026-08-24 design reviews):** SegmentedControl **kept** in v1 (bounded; exercises within-group indicator morph — a distinct case from the cross-plane morph); three parallel hint mechanisms **consolidated** to one prop + provider contract; public `GlassLayer` API **deferred** (internal LayerManager only); flat three-tier naming **superseded** by orthogonal capability axes (themselves superseded by the resolved-state model in #14).
+14. **Adversarial spec review adoptions (codex `gpt-5.6-sol`, 2026-08-24) — all six findings survived verification against the cited specs; none rejected:** same-plane overlap becomes a checked constraint and cross-plane promotion is specified as unit promotion (§rendering contract); backdrop proxies become one masked proxy per sampling group with a startup conformance probe and demotion path, gated by spike S1 (§rendering contract, §Gating spikes); the free capability tuple is replaced by an enumerated resolved-state model with named demotion reasons (§honesty core); the device contract becomes the operational BackdropFrame acquisition protocol (§GPU device ownership); "analytic SDF of the contour" — mathematically vacuous for cubics — is reformulated as parametric pseudo-SDF families with a measured error bound, continuous corner smoothing, and level-set concentric offsets, gated by spike S2 (§Geometry); calibration results gain the web-side cell axis with per-tier claims and per-cell holdouts (§Calibration).
 
 ## Surprises & Discoveries
 
@@ -197,6 +218,9 @@ WebGL2 backend; Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBa
 - Both independent reviews, working separately, found the **same two contract contradictions** (GPU analysis without a texture; GPU verdicts steering DOM color without readback) — a reminder that internally convergent designs still carry externally visible faults.
 - Apple's concentric shapes govern **radius derivation only**, not the corner curve profile — an earlier claim conflating the two was refuted; continuous curvature applies throughout.
 - Chromium alone renders SVG displacement inside `backdrop-filter`; WebKit refuses it (bug 245510) and Mozilla lists it as unsupported — confirming the fork's premise and the W3C `svgwg#1142` standards gap.
+- The adversarial review caught that "analytic SDF of the contour" was mathematically vacuous — exact cubic-Bézier distance requires quintic root-finding — and that exact inward offsets of continuous-corner cubics leave the cubic family; both forced the pseudo-SDF / level-set reformulation.
+- `importExternalTexture` handles expire at task end and imported video arrives unpremultiplied — per-frame reacquisition is a WebGPU semantic, not an optimization choice.
+- Filter Effects 2's Backdrop Root definition explicitly lacks working-group consensus, so cross-engine backdrop sampling equivalence cannot be assumed — only probed (hence spike S1).
 
 ## Outcomes & Retrospective
 
@@ -205,3 +229,4 @@ Pending — written at finish.
 ## Revision Notes
 
 - 2026-08-24: Initial spec from the chartering grill, design-research run (wf_ce8e34b5-10e), two independent design reviews, and the approved revised design pass.
+- 2026-08-24 (same day, second revision): adversarial spec review round — six findings, all adopted (Decision Log #14): checked overlap constraint and unit promotion, per-group masked proxies with conformance probe, resolved-state capability model, BackdropFrame protocol, pseudo-SDF geometry reformulation, per-cell calibration matrix, gating spikes S1/S2.
