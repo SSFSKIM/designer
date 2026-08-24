@@ -355,7 +355,7 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 | K1 X2 css-by-choice amendment (corrective, core) | merge 89e4a8b (43→49 pinned states; probe axis three-valued) | landed 2026-08-25, verified on main (chain exit 0) |
 | C6 WebGPU renderer | merge (198 unit + 19 GPU tests; f32 check PASSED 3.0e-5px; goldens on real headless Chromium; benchmark: mobile 1.47ms median / desktop 2.20ms vs the 2ms hypothesis) | landed 2026-08-25, verified on main (chain exit 0 after the bundle-test graph fix) |
 | C7 calibration system | — | not-dispatched (waiting-external: Xcode) |
-| C8 React bindings & components | — | not-dispatched (blocked-by C2, C5, C6) |
+| C8 React bindings & components | — | in-flight (2026-08-25, opus worker, worktree, pin bfe63d6) |
 | C9 fidelity, demo & release | — | not-dispatched (deliberately late) |
 
 ## Decision Log
