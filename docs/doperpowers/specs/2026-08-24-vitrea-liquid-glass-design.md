@@ -1,5 +1,13 @@
 # vitrea — Liquid Glass Material Runtime for the Web — Design Spec
 
+> **Parent:** root — chartered 2026-08-24 by the user as a new project in this
+> monorepo; the repo's standing purpose (the designer plugin) gains vitrea as a
+> sibling artifact, and the plugin's archived SVG-filter direction named this
+> project's ground ("material simulation moves to WebGL/GPU", commit a923a7c).
+> This document is the composite spec: design up top, roadmap below, one
+> document. Children dispatch per their track hint; each child spec opens by
+> citing this document (path + child id).
+
 ## Purpose
 
 Replicate Apple's Liquid Glass material and interaction system (WWDC25's `glassEffect`, `GlassEffectContainer`, `interactive()`, `glassEffectID`) on the web, as an open-source TypeScript library named **vitrea**. Apple's material is not a blur preset: it is real-time, size-parameterized lensing; per-element adaptation of tint, shadow, and foreground to the live backdrop; container-scoped sampling; and shape-to-shape morphing — a system no CSS filter chain can express and no existing web library ships as a production-integrable whole.
@@ -194,6 +202,162 @@ Components: `GlassRoot`, `GlassGroup`, `GlassSurface` (with `asChild`), `GlassBu
 
 WebGL2 backend; Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, SearchField; neighbor glow diffusion; scroll-edge effects; arbitrary-contour/resampled morphs; public layer API and arbitrary stacking interleave; same-plane overlapping glass surfaces (checked dev-mode error) and more than one simultaneous overlay plane; automatic pixel analysis of arbitrary DOM (never promised); HTML-in-Canvas backend (seam only); Chromium SVG-displacement tier (seam only — Decision Log #11); Display-P3/HDR profiles; iOS/iPadOS calibration profiles.
 
+## Parent-Level Acceptance
+
+The eight behaviors in §What "done" looks like. Recomposition verifies those — end-to-end, in the shipped demo and published packages — not the sum of child gates.
+
+## Children
+
+### S1: Backdrop proxy topology spike — spike (findings, never a merge)
+
+- **Purpose:** De-risk the one contract only real browsers can confirm: the per-plane sandwich with one masked backdrop proxy per sampling group over arbitrary DOM.
+- **Acceptance:** A findings document recording, per stable engine (Safari, Chrome, Firefox): sampling equivalence versus in-place `backdrop-filter`, masked-proxy and paint-order behavior, scroll/fixed/zoom behavior, and whether the startup conformance probe can detect failure. Parent Decision Log updated: proxy topology confirmed, or the arbitrary-DOM promise narrowed per engine.
+- **Edges:** blocked-by: — ; blocks: C5.
+- **Contracts:** X1, X2 (the `probe-failed` demotion path).
+- **Design inheritance:** §rendering contract, §Gating spikes (S1) — binding.
+- **Required:** yes. **Status:** not-dispatched (dispatchable now).
+
+### S2: Geometry field error & shader cost spike — spike (findings, never a merge)
+
+- **Purpose:** Validate that parametric pseudo-SDF families hold a declared error bound against ground-truth contour distance at acceptable shader cost — or trigger the named fallback (distance-mask atlases) before the geometry API freezes.
+- **Acceptance:** Error curves across `smoothing ∈ [0,1]` and a size sweep; shader cost on the benchmark scenes; a recommendation (bound met | atlas promotion) recorded in the parent Decision Log.
+- **Edges:** blocked-by: — ; blocks: C3, C6.
+- **Contracts:** X8.
+- **Design inheritance:** §Geometry, §Gating spikes (S2) — binding.
+- **Required:** yes. **Status:** not-dispatched (dispatchable now).
+
+### C1: Monorepo foundation — autonomous
+
+- **Purpose:** Turn the repo dual-artifact: pnpm workspaces, the seven package skeletons, strict TypeScript, vitest, CI, changesets, purity lint (X4), lazy-renderer bundling shape (X7) — with the plugin untouched and verified.
+- **Acceptance:** `pnpm install && pnpm -r build && pnpm -r test` green on skeletons; the plugin still validates and its manifest paths resolve; CI runs on push; root `package.json` private.
+- **Edges:** blocked-by: — ; blocks: C2, C3, C4 (and transitively all package work).
+- **Contracts:** X4 (enforces), X7 (establishes).
+- **Design inheritance:** §Repo layout & packages — binding for the package boundary law and publish surface; advisory for tooling details.
+- **Required:** yes. **Status:** not-dispatched (dispatchable now).
+
+### C2: Motion kernel — autonomous
+
+- **Purpose:** The pure-math motion package: the MotionDriver family, closed-form/capped-step springs, the interaction state machine, interruption semantics.
+- **Acceptance:** TDD unit suite: velocity-preserving redirects; frame-rate invariance (60Hz/120Hz/dropped-frame equivalence within tolerance); each driver family's behavior; zero DOM imports (lint-enforced). Constants ship as advisory defaults; calibration (C7) replaces them later.
+- **Edges:** blocked-by: C1; blocks: C8.
+- **Contracts:** X4.
+- **Design inheritance:** §Motion — the driver-per-channel table is binding; integrator choice within the stability requirement is advisory.
+- **Required:** yes. **Status:** not-dispatched (blocked-by C1).
+
+### C3: Geometry kernel — autonomous
+
+- **Purpose:** The pure-math geometry package: ShapeSpec/Contour IR, the pseudo-SDF families as S2 landed them, the level-set concentric resolver, parametric morph interpolation, group union math.
+- **Acceptance:** Unit suite including an error-bound regression against S2's ground-truth harness; concentric derivation properties; morph channel continuity; zero DOM imports.
+- **Edges:** blocked-by: S2, C1; blocks: C6.
+- **Contracts:** X4, X8.
+- **Design inheritance:** §Geometry — shape families, IR role, level-set concentric are binding; internal algorithms advisory.
+- **Required:** yes. **Status:** not-dispatched (blocked-by S2, C1).
+
+### C4: Core runtime — autonomous
+
+- **Purpose:** The platform-free heart: scene model, the three registries (BackdropSource/GlassGroup/GlassNode), the resolved-state capability model with every demotion and recovery transition, material policy (regular/clear + mixing warning), accessibility policy, scheduler interfaces.
+- **Acceptance:** Unit-tested state transitions covering every `demotionReason` and its recovery; policy resolution (variants, accessibility overrides); zero DOM imports.
+- **Edges:** blocked-by: C1; blocks: C5, C6 (C8 inherits transitively).
+- **Contracts:** X2 (implements), X4, X6.
+- **Design inheritance:** §Core model, §honesty core, §Material variants, §Accessibility — binding.
+- **Required:** yes. **Status:** not-dispatched (blocked-by C1).
+
+### C5: platform-web runtime — controlled
+
+- **Purpose:** The browser layer: host registration, GeometrySync (batched dirty reads, zero steady-state reads), LayerManager (base + overlay, unit promotion, overlap dev-error), per-group masked proxies with the conformance probe, the CSS-tier renderer, media-query policy, WebGPU lifecycle (probe, device loss).
+- **Acceptance:** Playwright integration suite (all engines runnable locally): registration/teardown; instrumented proof of zero steady-state layout reads; probe-demotion path; presentable CSS tier; overlap error fires; promotion under scroll and focus.
+- **Edges:** blocked-by: S1, C4; blocks: C8.
+- **Contracts:** X1, X2, X4 (consumer side), X6.
+- **Design inheritance:** §rendering contract (binding, as revised by S1's findings), §Foreground adaptation (binding), §Accessibility (binding).
+- **Required:** yes. **Status:** not-dispatched (blocked-by S1, C4).
+
+### C6: WebGPU renderer — controlled
+
+- **Purpose:** The optical engine: BackdropFrame providers for every source kind, blur/analysis pyramids, the group field pass, optics and highlight passes, texture pool, the color pipeline, golden-image tests.
+- **Acceptance:** Golden suite green (sRGB-locked); lensing visibly scales with surface size (acceptance #2's mechanism); instrumented dirty-epoch invariant (≤1 pyramid rebuild per dirty source per frame); device-loss recovery test for both ownership modes; benchmark scenes measured pass-by-pass with the ~2ms hypothesis evaluated and recorded.
+- **Edges:** blocked-by: S2, C3, C4; blocks: C8.
+- **Contracts:** X1, X2, X3 (owner), X5, X8.
+- **Design inheritance:** §GPU device ownership, §Color pipeline, §Performance envelope — binding; pass structure internals advisory.
+- **Required:** yes. **Status:** not-dispatched (blocked-by S2, C3, C4).
+
+### C7: Calibration system — controlled
+
+- **Purpose:** The fidelity ground truth: the calibration package (fixture schema, multi-axis diff metrics, fitting CLI), the SwiftUI reference harness, and the first committed `apple-macos-26.5-*` fixture profiles with the calibration/validation/holdout split.
+- **Acceptance:** The harness renders the canonical scene matrix and captures versioned fixtures on this machine; the diff CLI produces per-axis metrics on sample pairs; the per-cell result-matrix schema (X9) exists and is consumed by at least one automated comparison run.
+- **Edges:** external:xcode-installed (start gate — Xcode is absent on this Mac; user action); no code dependencies. Its outputs feed C6/C2 tuning and gate C9.
+- **Contracts:** X5, X9 (owner).
+- **Design inheritance:** §Calibration harness & methodology — binding.
+- **Required:** yes (parent acceptance #7 depends on it). **Status:** not-dispatched (waiting-external).
+
+### C8: React bindings & v1 components — controlled
+
+- **Purpose:** The developer-facing surface: GlassRoot/Group/Surface (asChild), Button, IconButton, Toolbar, SegmentedControl, the menu composed over an external accessible primitive, and the press/indicator/morph wiring — thin over platform-web.
+- **Acceptance:** Parent acceptance behaviors #1, #3, #4, and #6 demonstrably pass in the demo playground; a11y assertions (axe + screen-reader spot checks); the variant-mixing warning fires.
+- **Edges:** blocked-by: C2, C5, C6; blocks: C9.
+- **Contracts:** X1, X2, X6, X7, X8.
+- **Design inheritance:** §v1 scope component list (binding), menu-composition decision (binding — Decision Log #13); component internals advisory.
+- **Required:** yes. **Status:** not-dispatched (blocked-by C2, C5, C6).
+
+### C9: Fidelity pass, demo site & release — decomposing run at dispatch
+
+- **Purpose:** Close the charter: tune against calibration cells with per-tier claims, build the public showpiece with side-by-side native captures, write docs and the NOTICE trademark clause, publish `@vitrea/core` and `@vitrea/react`.
+- **Acceptance:** Parent acceptance #5, #7, #8 as written — per-cell holdouts pass, packages install, demo public, claims honest. Precise gates emerge from its own cut.
+- **Edges:** blocked-by: C7, C8.
+- **Contracts:** X7, X9 (consumer).
+- **Design inheritance:** §Purpose positioning (binding), §Calibration claims wording (binding).
+- **Required:** yes. **Status:** not-dispatched (deliberately late — frontier rule).
+
+## Cross-Child Contracts
+
+- **X1 — Rendering sandwich & plane law** (§rendering contract; binds S1, C5, C6, C8): per-plane paint order, one overlay plane, checked same-plane overlap, unit promotion. Owner: this document; S1 findings may narrow it per engine.
+- **X2 — GlassGroupState resolved-state model** (§honesty core; binds C4, C5, C6, C8): the enumerated state interface, demotion reasons, recovery transitions. Owner: C4 implements exactly this shape.
+- **X3 — BackdropFrame protocol** (§GPU device ownership; binds C5, C6 and the public API): acquisition timing, alpha/color normalization, size epochs, ownership modes, loss recovery. Owner: C6 delivers the operational detail.
+- **X4 — Purity law** (§Repo layout; binds C2, C3, C4; enforced by C1's lint): core/geometry/motion never import window, document, or HTMLElement.
+- **X5 — Color pipeline** (§Color pipeline; binds C6, C7): linear-light internal, premultiplied compositing, sRGB-locked v1 output and calibration.
+- **X6 — Hint contract** (§honesty core; binds C4, C5, C8): the `backdrop` prop shape and estimator-provider interface — one mechanism, never implied to be pixel analysis.
+- **X7 — Publish surface** (§Repo layout; binds C1, C9): two published packages, bundled internals, lazy renderer import.
+- **X8 — Shape channel set** (§Geometry; binds C3, C6, C8): `{ center, size, radii, smoothing, thickness }` — every morph channel numeric; S2 may revise only via parent Revision Note.
+- **X9 — Fixture/profile/cell schema** (§Calibration; binds C6, C7, C9): native profile × web cell keying, per-tier thresholds. Authority here; content delegated to C7.
+
+## Ordering & Dependency Map
+
+```
+Wave 0 (parallel, now):  S1   S2   C1   C7(external: Xcode)
+Wave 1:                  C2(C1)   C3(S2,C1)   C4(C1)
+Wave 2:                  C5(S1,C4)   C6(S2,C3,C4)
+Wave 3:                  C8(C2,C5,C6)
+Wave 4:                  C9(C7,C8)
+```
+
+C7 runs whenever its external gate opens — nothing downstream of code blocks on it until C9; a late C7 delays tuning, not structure (advisory defaults hold until fixtures land).
+
+## Risks & Mitigations
+
+- **S1 partially fails on an engine** → the arbitrary-DOM promise narrows there (dom groups demote to CSS tier); API unchanged. Carried by X1/X2.
+- **S2 misses the error budget** → distance-mask atlases promote into v1 behind the same IR; carried by §Geometry's named fallback.
+- **Xcode/calibration slips** → C2/C6 ship advisory constants from WWDC-footage eyeballing; fidelity *claims* wait for C7 (claims are calibration-cited by contract, so no dishonest interim state exists).
+- **WebGPU engine variance** (timestamp queries, adapter quirks) → benchmark scenes record per-adapter-class results (X9); the governor absorbs variance at runtime.
+
+## Deferred (may return)
+
+Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, SearchField; neighbor glow diffusion; scroll-edge effects; HTML-in-Canvas backend; the Chromium displacement tier; Display-P3/HDR profiles; iOS/iPadOS calibration profiles; public layer API. Standing exclusions stay in §Out of scope (v1 cut list).
+
+## Tracking Map
+
+| Child | Spec / findings | Status |
+| --- | --- | --- |
+| S1 proxy-topology spike | — | not-dispatched (dispatchable now) |
+| S2 geometry-field spike | — | not-dispatched (dispatchable now) |
+| C1 monorepo foundation | — | not-dispatched (dispatchable now) |
+| C2 motion kernel | — | not-dispatched (blocked-by C1) |
+| C3 geometry kernel | — | not-dispatched (blocked-by S2, C1) |
+| C4 core runtime | — | not-dispatched (blocked-by C1) |
+| C5 platform-web runtime | — | not-dispatched (blocked-by S1, C4) |
+| C6 WebGPU renderer | — | not-dispatched (blocked-by S2, C3, C4) |
+| C7 calibration system | — | not-dispatched (waiting-external: Xcode) |
+| C8 React bindings & components | — | not-dispatched (blocked-by C2, C5, C6) |
+| C9 fidelity, demo & release | — | not-dispatched (deliberately late) |
+
 ## Decision Log
 
 1. **Name: vitrea** (`@vitrea/core`, `@vitrea/react`; npm scope verified unclaimed 2026-08-24). Rejected: *lensing*, *meniscus* (weaker as brands), *glasskit* (collision-prone, bland).
@@ -210,6 +374,8 @@ WebGL2 backend; Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBa
 12. **Review adoptions (2026-08-24 independent reviews, both verified where checkable):** BackdropSource/analysis split with explicit `exact | hint | none` (§honesty core) — fixes the hybrid-mode contradiction; `sampled-async` low-rate readback for foreground (§Foreground) — fixes the GPU→DOM contradiction; canvas pair per managed plane (§rendering contract) — fixes the z-order wall liquidGL demonstrates; backdrop-proxy layer (§rendering contract); GPU device ownership contract (§GPU device ownership); `platform-web` package (§packages); Contour IR over canonical-SDF-as-truth (§Geometry); parametric-only v1 morphs; per-channel MotionDrivers (§Motion); Regular/Clear first-class (§Material variants); color pipeline lock (§Color); blur pyramid owned by BackdropSource (§Core model invariant); calibration rigor — profile keys, raster backgrounds, multi-metric, holdout (§Calibration); benchmark-pinned budget + intra-tier degradation (§Performance); publish two packages with bundled internals; menu via external a11y primitive; repositioned competitive claim (§Purpose).
 13. **Review declines/modifications (2026-08-24 design reviews):** SegmentedControl **kept** in v1 (bounded; exercises within-group indicator morph — a distinct case from the cross-plane morph); three parallel hint mechanisms **consolidated** to one prop + provider contract; public `GlassLayer` API **deferred** (internal LayerManager only); flat three-tier naming **superseded** by orthogonal capability axes (themselves superseded by the resolved-state model in #14).
 14. **Adversarial spec review adoptions (codex `gpt-5.6-sol`, 2026-08-24) — all six findings survived verification against the cited specs; none rejected:** same-plane overlap becomes a checked constraint and cross-plane promotion is specified as unit promotion (§rendering contract); backdrop proxies become one masked proxy per sampling group with a startup conformance probe and demotion path, gated by spike S1 (§rendering contract, §Gating spikes); the free capability tuple is replaced by an enumerated resolved-state model with named demotion reasons (§honesty core); the device contract becomes the operational BackdropFrame acquisition protocol (§GPU device ownership); "analytic SDF of the contour" — mathematically vacuous for cubics — is reformulated as parametric pseudo-SDF families with a measured error bound, continuous corner smoothing, and level-set concentric offsets, gated by spike S2 (§Geometry); calibration results gain the web-side cell axis with per-tier claims and per-cell holdouts (§Calibration).
+15. **The cut (2026-08-24 decomposing run): eleven children in five waves** (§Children). Rejected: one mega-plan (fails the reliably-ownable gate); merging the pure-math kernels into one "runtime" child (different invariants and verification strategies — shape math versus time-domain drivers — and different dependency gates: geometry waits on S2, motion doesn't); cutting C9 finely now (frontier rule — distant cuts go stale; it carries a decomposing-at-dispatch hint instead); folding the spikes into their consumer children (their deliverable is findings that may *change* those children's contracts, so they must land first and separately).
+16. **Track hints:** spikes for S1/S2; autonomous for C1–C4 (well-scoped, contracts binding and precise, taste-light); controlled for C5–C8 (browser-integration-heavy or fidelity-critical); decomposing-at-dispatch for C9. Rejected: autonomous for C5/C6 (fidelity judgment arises mid-flight there — the tiebreaker purpose lives in those children).
 
 ## Surprises & Discoveries
 
@@ -230,3 +396,4 @@ Pending — written at finish.
 
 - 2026-08-24: Initial spec from the chartering grill, design-research run (wf_ce8e34b5-10e), two independent design reviews, and the approved revised design pass.
 - 2026-08-24 (same day, second revision): adversarial spec review round — six findings, all adopted (Decision Log #14): checked overlap constraint and unit promotion, per-group masked proxies with conformance probe, resolved-state capability model, BackdropFrame protocol, pseudo-SDF geometry reformulation, per-cell calibration matrix, gating spikes S1/S2.
+- 2026-08-24 (third revision): decomposing run extends this document into the composite spec — parent citation, Parent-Level Acceptance, eleven children (S1, S2, C1–C9), nine cross-child contracts (X1–X9), ordering map, risks, tracking map (Decision Log #15–16). Board materialization pending the human gate.
