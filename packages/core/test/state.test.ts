@@ -1,16 +1,23 @@
 import { describe, expect, it } from "vitest";
 
-import { DEMOTION_REASONS, isHealthy, type GlassGroupState } from "../src/index";
+import { DEMOTION_REASONS, isHealthy, resolveGlassGroupState, type GlassGroupState } from "../src/index";
 
-const noWebGpu: GlassGroupState = {
+/**
+ * Resolved rather than hand-written, so the shape test can never drift from the
+ * transition table in `capability.test.ts`. This is acceptance #5's state.
+ */
+const noWebGpu: GlassGroupState = resolveGlassGroupState({
   configuredSource: "texture",
-  activeRenderer: "css",
-  samplingBackend: "css-backdrop",
-  refraction: "approximate",
-  analysis: "none",
-  health: "demoted",
-  demotionReason: "no-webgpu",
-};
+  platform: {
+    webgpu: false,
+    backdropFilter: true,
+    backdropProxyConformance: "pass",
+    deviceHealth: "ok",
+  },
+  source: { taint: "clean", textureCompatibility: "compatible" },
+  governor: "none",
+  hint: "none",
+});
 
 describe("GlassGroupState (X2)", () => {
   it("enumerates every demotion reason the spec names", () => {
