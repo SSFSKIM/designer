@@ -33,3 +33,33 @@ jobs:
       - run: pnpm -r lint
 
       - run: pnpm -r test
+
+  integration:
+    name: platform-web integration (3 engines)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # A separate job rather than a step of `verify`, and separate from
+      # `pnpm -r test`, because three browser engines are a heavy dependency to
+      # put in front of every package's unit suite. C5's acceptance lives here:
+      # pixel assertions on Chromium only, everything else on all three engines.
+      - run: pnpm --filter @vitrea/platform-web exec playwright install --with-deps chromium firefox webkit
+
+      - run: pnpm --filter @vitrea/platform-web test:e2e
+
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: packages/platform-web/playwright-report
+          retention-days: 7

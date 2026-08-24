@@ -79,6 +79,24 @@ export function readComputedStyle(meter: LayoutReadMeter, element: Element): CSS
   return getComputedStyle(element);
 }
 
+/**
+ * Force the browser to resolve pending style writes, and count it as the read it
+ * is.
+ *
+ * Used once per host, at materialization. Style writes are batched, so writing a
+ * surface's final values and then arming its CSS transition in the same tick
+ * makes the browser see one aggregate change *with* the transition — and every
+ * glass surface fades in from the initial transparent, unblurred values it
+ * happened to start with. Flushing between the two writes is what makes the
+ * transition apply to state changes rather than to existing at all.
+ */
+export function flushStyle(meter: LayoutReadMeter, element: Element): void {
+  bump(meter, "styles");
+  // Reading any resolved value forces the recalc; `opacity` is cheap and has no
+  // layout dependency.
+  void getComputedStyle(element).opacity;
+}
+
 export interface ViewportReading {
   readonly width: number;
   readonly height: number;

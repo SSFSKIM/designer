@@ -23,7 +23,17 @@
 export type DeviceOwnership = "vitrea" | "app";
 
 export interface WebGPUStatus {
-  /** An adapter *and* a device were obtained. This is core's `PlatformProbe.webgpu`. */
+  /**
+   * WebGPU is available in this session — an adapter *and* a device were
+   * obtained at least once. This is core's `PlatformProbe.webgpu`.
+   *
+   * It deliberately stays `true` after a device is lost, and the distinction is
+   * load-bearing: core only raises `device-lost` when `webgpu` is true, because
+   * "a device can only be lost if there was one to lose". Clearing this on loss
+   * would collapse a recoverable fault into `no-webgpu`, whose honest recovery
+   * is `"none"` — the runtime would report an unrecoverable state for a device
+   * it is in the middle of re-requesting.
+   */
   readonly available: boolean;
   readonly deviceHealth: "ok" | "lost";
   readonly ownership: DeviceOwnership;
@@ -82,7 +92,7 @@ export function createWebGPULifecycle(options: WebGPULifecycleOptions): WebGPULi
   const watchLoss = (device: GPUDevice): void => {
     void device.lost.then((info) => {
       if (destroyed) return;
-      publish({ ...status, available: false, deviceHealth: "lost", device: undefined });
+      publish({ ...status, available: true, deviceHealth: "lost", device: undefined });
 
       if (ownership === "app") {
         options.onReplacementNeeded?.();

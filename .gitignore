@@ -36,6 +36,11 @@ figma-design-workspace/
 # playwright-cli scratch
 .playwright-cli/
 
+# Playwright run output (packages/platform-web/e2e)
+test-results/
+playwright-report/
+.playwright/
+
 # Build metadata
 *.tsbuildinfo
 coverage/

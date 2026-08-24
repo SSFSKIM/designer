@@ -68,7 +68,7 @@ import {
   type GlassHostOptions,
   type GlassHostPatch,
 } from "./host";
-import { createLayoutReadMeter, type LayoutReadMeter } from "./measure";
+import { createLayoutReadMeter, flushStyle, type LayoutReadMeter } from "./measure";
 import {
   browserMediaMatcher,
   observeAccessibilityPreferences,
@@ -204,8 +204,26 @@ interface HostRecord {
   thickness: number;
   ownedTransform: string | undefined;
   readonly onPlaneChange: ((plane: GlassPlane) => void) | undefined;
-  /** Whether the CSS tier currently owns this host's appearance. */
-  cssStyled: boolean;
+  /**
+   * Whether this host has had the CSS tier's declarations applied even once.
+   *
+   * The first application is written with `transition: none`. Without that, the
+   * tier's own transition animates *from the element's initial values* — a glass
+   * surface fades in from fully transparent with no blur on its first frame,
+   * which is an accident of the initial value rather than a designed
+   * materialization (§Motion gives materialization its own monotonic driver).
+   */
+  cssMaterialized: boolean;
+  /**
+   * The CSS-tier declarations currently on this host, serialised.
+   *
+   * Kept so an unchanged frame writes nothing. Not an optimisation: every
+   * `style.setProperty` is an attribute mutation, the probe re-audits on
+   * attribute mutations, and an audit reads computed styles — so re-writing
+   * identical declarations every frame would turn the steady state into a
+   * read storm and make the zero-read guarantee false.
+   */
+  cssApplied: string | undefined;
 }
 
 /** Attributes the CSS tier writes, so stepping aside can remove exactly them. */
@@ -274,6 +292,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
   const hosts = new Map<string, HostRecord>();
   const probeReports = new Map<string, GroupProbeReport>();
+  /**
+   * Which groups need layer 2 re-run. `"all"` after an application CSS change,
+   * because a theme switch or an animation start state can re-root any chain.
+   *
+   * The probe's inputs are application CSS, which mutates at runtime, so a
+   * startup-only audit under-detects (S1 impact item 7) — but a per-frame audit
+   * reads computed styles forever. A stale set is what makes it re-enterable
+   * without being continuous.
+   */
+  let staleProbes: Set<string> | "all" = "all";
   let renderInput: GlassFrameRenderInput | undefined;
   let frameId = 0;
   let rafHandle: number | undefined;
@@ -333,12 +361,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * on the strength of an audit that could not run yet would demote every group
    * for one frame at startup.
    */
-  const auditGroup = (groupId: string): GroupProbeReport => {
-    const proxy = proxies.proxyFor(groupId);
-    if (proxy === undefined) {
-      return { groupId, verdict: "pass", breaks: [], reach: platformProbe.reach };
-    }
-    const report = probeGroup({ groupId, proxy }, platformProbe, meter);
+  const auditGroup = (groupId: string, plane: GlassPlane): GroupProbeReport => {
+    // A group demoted by this very probe has no proxy — demotion removes it —
+    // so auditing only groups that *have* one would make `probe-failed`
+    // unrecoverable, and every demotion reason is required to name a recovery.
+    // The plane's proxy layer stands in: the walk starts at `from`'s parent, so
+    // both start at the plane root and audit exactly the same chain. The proxy
+    // layer is vitrea's own element and carries no trigger by construction.
+    const from = proxies.proxyFor(groupId) ?? layers.plane(plane).proxyLayer;
+    const report = probeGroup({ groupId, proxy: from }, platformProbe, meter);
     const previous = probeReports.get(groupId);
     probeReports.set(groupId, report);
 
@@ -394,8 +425,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * impact item 7). Attribute mutations are the observable proxy for that;
    * watching them costs nothing until one happens.
    */
-  const styleObserver = new MutationObserver(() => {
-    for (const groupId of probeReports.keys()) auditGroup(groupId);
+  const styleObserver = new MutationObserver((records) => {
+    // vitrea's own writes are not application CSS. Ignoring them is precise
+    // rather than convenient: the audited chain runs from a proxy *upwards*, so
+    // a re-rooting style inside the glass root would be this package's bug, and
+    // treating our own per-frame writes as app changes would re-audit forever.
+    const external = records.some(
+      (record) => record.target instanceof Node && !layers.root.contains(record.target),
+    );
+    if (external) staleProbes = "all";
   });
   styleObserver.observe(view.document.documentElement, {
     attributes: true,
@@ -415,6 +453,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
     const nodesByPlane = new Map<GlassPlane, GlassNodeRenderInput[]>();
+    /** Every group with something measured, and the plane its proxy belongs in. */
+    const auditablePlanes = new Map<string, GlassPlane>();
 
     for (const resolved of resolution.groups) {
       const groupId = resolved.groupId;
@@ -432,6 +472,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         .filter(
           (entry): entry is { record: HostRecord; bounds: Rect } => entry.bounds !== undefined,
         );
+
+      const firstPlane = measured[0]?.record.plane;
+      if (firstPlane !== undefined) auditablePlanes.set(groupId, firstPlane);
 
       groupInputs.push({
         groupId,
@@ -518,26 +561,51 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           policy: accessibility,
         });
         if (state.activeRenderer === "css") {
-          for (const [property, value] of Object.entries(declarations)) {
-            record.host.style.setProperty(property, value);
+          if (!record.cssMaterialized) {
+            // Materialize with the transition off, then flush, then let the
+            // normal write below arm it. Without the flush the browser batches
+            // both writes into one change and transitions *from* the element's
+            // initial values, so every surface fades in from transparent and
+            // unblurred — an accident of the initial value, not a designed
+            // materialization (§Motion gives that its own monotonic driver).
+            record.host.style.setProperty("transition", "none");
+            for (const [property, value] of Object.entries(declarations)) {
+              if (property !== "transition") record.host.style.setProperty(property, value);
+            }
+            flushStyle(meter, record.host);
+            record.cssMaterialized = true;
           }
-          record.cssStyled = true;
-        } else if (record.cssStyled) {
+
+          const serialised = JSON.stringify(declarations);
+          if (record.cssApplied !== serialised) {
+            for (const [property, value] of Object.entries(declarations)) {
+              record.host.style.setProperty(property, value);
+            }
+            record.cssApplied = serialised;
+          }
+        } else if (record.cssApplied !== undefined) {
           clearDeclarations(record.host, declarations);
-          record.cssStyled = false;
+          record.cssApplied = undefined;
         }
       }
     }
 
-    proxies.sync(proxyRequests, {
+    const freshProxies = proxies.sync(proxyRequests, {
       devicePixelRatio: viewport?.devicePixelRatio ?? 1,
       maxProxyAreaDevicePx: platformProbe.conformance.maxProxyAreaDevicePx,
     });
+    if (staleProbes !== "all") for (const groupId of freshProxies) staleProbes.add(groupId);
 
-    // Auditing after the proxies exist is the only order that works: layer 2
-    // walks the proxy's own ancestor chain, so there is nothing to walk until
-    // the element is in the tree.
-    for (const request of proxyRequests) auditGroup(request.groupId);
+    // Auditing after the proxy sync is the only order that works: layer 2 walks
+    // the proxy's own ancestor chain, so a freshly created proxy has to be in
+    // the tree first. Only *stale* groups are audited, and the walk happens
+    // inside the frame where its reads are counted — a per-frame audit would
+    // perform a computed-style read per ancestor per group forever, and the
+    // steady state is supposed to read nothing at all.
+    for (const [groupId, plane] of auditablePlanes) {
+      if (staleProbes === "all" || staleProbes.has(groupId)) auditGroup(groupId, plane);
+    }
+    staleProbes = new Set();
 
     renderInput = {
       frame,
@@ -628,7 +696,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         thickness: shape.thickness,
         ownedTransform: undefined,
         onPlaneChange: hostOptions.onPlaneChange,
-        cssStyled: false,
+        cssMaterialized: false,
+        cssApplied: undefined,
       };
       hosts.set(nodeId, record);
 
@@ -713,11 +782,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // because the next sync places it in the destination plane's layer,
           // and the semantic host because it is moved here — or by the consumer
           // that took placement over.
+          //
+          // Reparenting is a remove followed by an insert, and removing a focused
+          // element from the document resets focus to the body. A morph that
+          // silently dropped keyboard focus would be a real accessibility
+          // regression, and it is invisible unless something restores it — so
+          // this does.
+          const wasFocused = view.document.activeElement === record.host;
           if (record.onPlaneChange === undefined) {
             layers.plane(destination).hostLayer.append(record.host);
           } else {
             record.onPlaneChange(destination);
           }
+          if (wasFocused && view.document.activeElement !== record.host) record.host.focus();
           geometry.markDirty(nodeId);
         },
 
@@ -738,7 +815,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           }
           record.host.style.removeProperty("pointer-events");
           record.host.style.removeProperty("transform");
-          if (record.cssStyled) {
+          if (record.cssApplied !== undefined) {
             clearDeclarations(
               record.host,
               cssTierDeclarations({
@@ -758,7 +835,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     probeReport: (groupId) => probeReports.get(groupId),
 
     revalidateProbe() {
-      for (const groupId of probeReports.keys()) auditGroup(groupId);
+      for (const groupId of probeReports.keys()) {
+        const plane =
+          [...hosts.values()].find((record) => record.groupId === groupId)?.plane ?? "base";
+        auditGroup(groupId, plane);
+      }
     },
 
     setAccessibilityOverrides(overrides) {

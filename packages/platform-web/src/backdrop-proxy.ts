@@ -53,8 +53,12 @@ export interface BackdropProxyManager {
    * Bring the proxy set in line with these requests: create, update, re-order
    * and remove. Idempotent — calling it twice with the same requests writes the
    * same DOM and reports nothing new.
+   *
+   * Returns the groups whose proxy element was created or moved to another
+   * plane. Those are exactly the ones whose backdrop-root chain is new and has
+   * to be re-audited; every other group's chain is the one already scored.
    */
-  sync(requests: readonly ProxyRequest[], environment: ProxyEnvironment): void;
+  sync(requests: readonly ProxyRequest[], environment: ProxyEnvironment): readonly string[];
   proxyFor(groupId: string): HTMLElement | undefined;
   remove(groupId: string): void;
   destroy(): void;
@@ -97,6 +101,7 @@ export function createBackdropProxyManager(
   return {
     sync(requests, environment) {
       const live = new Set<string>();
+      const created: string[] = [];
       const boxes: { readonly groupId: string; readonly plane: GlassPlane; readonly box: Rect }[] =
         [];
 
@@ -173,6 +178,8 @@ export function createBackdropProxyManager(
           .filter((element): element is HTMLElement => element !== undefined);
         options.plane(plane).proxyLayer.replaceChildren(...forPlane);
       }
+
+      return created;
     },
 
     proxyFor(groupId) {
