@@ -349,7 +349,7 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 | S2 geometry-field spike | docs/doperpowers/spikes/2026-08-24-s2-geometry-field-findings.md | landed 2026-08-24 (bound met; rsupn; 46 spike tests; costs from the serialized bench run 2026-08-24T14:29:14.670Z) |
 | C1 monorepo foundation | merge 5923258 (agent report in session; 29 tests, purity lint proven, X7 asserted on built artifact) | landed 2026-08-24, re-verified on main (chain exit 0) |
 | C2 motion kernel | merge (162 package tests; frame-rate invariance ≤1e-12 asserted, ~1e-15 measured) | landed 2026-08-24, re-verified on main (chain exit 0) |
-| C3 geometry kernel | — | not-dispatched (blocked-by S2, C1) |
+| C3 geometry kernel | — | in-flight (2026-08-24, opus worker, worktree, pin 5da3c3f) |
 | C4 core runtime | merge 1475029 (241 package tests; 43-state X2 machine; codex review: 6 findings fixed) | landed 2026-08-24, verified on main (chain green, root lint clean) |
 | C5 platform-web runtime | — | in-flight (2026-08-24, opus worker, worktree, pin 9d1ea36) |
 | C6 WebGPU renderer | — | not-dispatched (blocked-by S2, C3, C4) |
