@@ -89,9 +89,17 @@ describe("geometry references nothing outside itself (X4)", () => {
     const pkg = JSON.parse(readFileSync(join(packageRoot, "package.json"), "utf8")) as {
       dependencies?: Record<string, string>;
       peerDependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
     };
     expect(pkg.dependencies ?? {}).toEqual({});
     expect(pkg.peerDependencies ?? {}).toEqual({});
+
+    // And specifically not @types/node. It would declare ~2000 ambient globals —
+    // `process`, `navigator`, `setTimeout` — all of them visible to src/, at which
+    // point X4 would rest on ESLint alone. The test tree declares the five Node
+    // functions it actually uses in test/harness/node-shims.d.ts instead, which
+    // keeps the ambient global scope empty.
+    expect(Object.keys(pkg.devDependencies ?? {})).not.toContain("@types/node");
   });
 
   it("keeps the DOM-free typecheck rather than relying on lint alone", () => {
