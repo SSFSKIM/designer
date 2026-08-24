@@ -147,6 +147,13 @@ permission. Both are admin/GUI actions.
    swatch ONE or swatch TWO", with the swatches painted at the exact predicted
    values. Open it as a local file, not in an iframe or a preview pane: an
    enclosing compositing layer can change the very thing being measured.
+
+   The page was validated against Chromium first, where it **reproduces this
+   spike's automated results by eye**: its section D grid shows exactly the seven
+   re-rooting styles and six harmless ones that the numeric Q5 table below
+   records, and its section B overlap band visibly lands on the "applied twice"
+   swatch. That is what makes a human's answers from it directly comparable to
+   the Chromium column, rather than a vague impression.
 2. Or grant **Screen Recording** permission to the terminal, which makes
    `screencapture` work and lets the harness be re-pointed at a real browser
    window.
