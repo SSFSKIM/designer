@@ -67,10 +67,44 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 - `docs/research/` — design-engineering research, including the primary-source persona corpus and its law-by-law distillation record
 - `docs/doperpowers/` — this project's own specs and implementation plans
 - `evals/` — the eval suite used to measure the skill against unaided baselines
+- `packages/`, `apps/` — **vitrea**, the second artifact this repo ships (see below). Nothing here is loaded by the plugin
 
 Project history under `docs/` refers to this skill by its original working name, `figma-design`. It was renamed to `designer` at first release; the documents are left as written rather than retitled after the fact.
 
 `docs/` also holds a second, discarded direction: a material-specialist skill built on SVG filters, planned in mid-2026 and cut. Those documents carry a banner marking them archived. The repository no longer builds anything on SVG filters — `effects-policy.md` treats material simulation as a rendering job with a CSS surface as its fallback, and any future material specialist, liquid glass included, is to be implemented in WebGL.
+
+## vitrea — the material runtime (in development)
+
+This repository is dual-artifact. Alongside the plugin it hosts **vitrea**, a
+TypeScript library replicating Apple's Liquid Glass material on the web —
+real-time lensing, per-element backdrop adaptation, container-scoped sampling and
+shape-to-shape morphing, on WebGPU with an honest CSS fallback tier. It is the
+WebGL/GPU direction the archived SVG-filter plan pointed at, built as its own
+open-source product. Design and roadmap:
+`docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`.
+
+The workspace is a pnpm monorepo. Seven packages under `packages/` — `core`,
+`geometry`, `motion`, `platform-web`, `renderer-webgpu`, `react`, `calibration` —
+of which exactly two are ever published: `@vitrea/core` and `@vitrea/react`. The
+rest are bundled into those two at publish time. `apps/demo` is the Vite
+playground and future showpiece; `apps/reference-apple` will hold the native
+SwiftUI capture harness the fidelity claims are measured against.
+
+```bash
+pnpm install
+pnpm -r build && pnpm -r lint && pnpm -r test
+pnpm --filter demo dev
+```
+
+`core`, `geometry` and `motion` are pure: they never reference `window`,
+`document`, `HTMLElement` or `navigator`. That is enforced twice — those packages
+compile without the DOM type library, and ESLint fails on the globals by name —
+and `packages/core/test/purity-law.test.ts` seeds a real violation on every run to
+prove both layers still fire.
+
+The plugin and the library share only this repository. The marketplace still
+installs from `./` and reads `skills/`; no JavaScript build output is loaded at
+plugin runtime.
 
 ## Development
 
