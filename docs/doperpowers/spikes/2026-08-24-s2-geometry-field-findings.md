@@ -32,7 +32,14 @@ shapes:
 The recommended family is **`rsupn`** — a radial-support field: the standard
 analytic rounded-rectangle SDF whose corner radius becomes a low-order polynomial
 in the corner angle, plus a first-order gradient normalization. It uses no
-transcendentals, no branches in the corner algebra, and no texture lookups.
+transcendentals, no branches in the corner algebra, and no texture lookups. On the
+spec's mobile benchmark scene it costs 5% of the ~2 ms GPU budget with field
+passes scoped to group bounds, or 31% under a deliberately pessimistic
+whole-frame bound.
+
+All cost figures come from one serialized benchmark run,
+`bench/results.json` `generatedAt` 2026-08-24T14:29:14.670Z — see §4 for why the
+provenance is called out.
 
 The gradient figures are the gradient of the normalized field. A cheaper normal
 is available and is identical on the contour but up to 4.26° off it; that
@@ -350,76 +357,104 @@ usefully get.
 
 ## 4. Shader cost
 
-Measured on this machine, 2026-08-24. Full data in `spikes/s2-geometry-field/bench/results.json`.
+**Provenance.** Every cost figure below comes from one run:
+`spikes/s2-geometry-field/bench/results.json`, `generatedAt`
+**2026-08-24T14:29:14.670Z**, produced with that process verified as the sole GPU
+client. Regenerate the tables from it with `npx tsx bench/report-cost.ts` rather
+than trusting this transcription.
 
 **Setup.** Headless Playwright Chromium 151.0.7922.34, WebGPU on an Apple
-`metal-3` adapter (not the fallback — see below). Fullscreen-triangle render
-pass, `rgba8unorm` target, 256 shapes in a storage buffer, 15 repetitions per
-point, ≥ 50 ms per measurement, 3 discarded warmup iterations. **GPU
-`timestamp-query` was available and used**; wall-clock timing was recorded
-alongside at every point and agrees with it to within about 1.5%, so the fallback
-path was never needed and the two methods corroborate each other.
+`metal-3` adapter. Fullscreen-triangle render pass, `rgba8unorm` target, 256
+shapes in a storage buffer, 15 repetitions per point, ≥ 50 ms per measurement, 3
+discarded warmup iterations. **GPU `timestamp-query` was available and used**;
+wall-clock timing was recorded alongside at every point and agrees with it to
+within about 1.5%, so the fallback path was never needed and the two methods
+corroborate each other.
 
-Four things make these numbers a measurement rather than a demo, and they are
-worth recording because each was a way to get a wrong answer:
+Five things make these numbers a measurement rather than a demo, and each was a
+way to get a confident wrong answer:
 
-- **The first headless attempt was rejected**, not used: it resolved to Google
-  SwiftShader, a software adapter. Only the run on a real Metal adapter is
-  reported.
+- **The first headless attempt was rejected**, not used. Playwright's default
+  `chromium_headless_shell` does expose `navigator.gpu`, but only as Google
+  SwiftShader, a CPU software rasterizer — roughly 100× slow, and output that
+  looks exactly like a benchmark. The harness now gates on a hardware adapter and
+  falls through to the full Chromium binary, which is what produced every number
+  here.
+- **Chrome quantizes timestamp-query results to 100 µs by default**, which would
+  swamp measurements of this size. The run passes
+  `--disable-dawn-features=timestamp_quantization`. Without it the fine-grained
+  slope is unrecoverable.
 - **Cost is extracted as a slope, not a single timing.** The fragment shader
-  evaluates the field K times per pixel for K ∈ {1, 2, 4, 8, 16, 32}, and cost
-  per evaluation is the least-squares slope of time against K. That subtracts
+  evaluates the field K times per pixel for K ∈ {1, 2, 4, 8, 16, 32}, and cost per
+  evaluation is the least-squares slope of time against K. That subtracts
   render-pass fixed cost instead of attributing it to the field.
 - **The compiler did not hoist the repeated evaluations.** This is the property
-  that would silently invalidate everything: `r² ≥ 0.9985` on every slope fit,
-  a 16–28× rise from K=1 to K=32, and ≥ 98% of the time at K=32 attributable to
-  the marginal term. The harness gates on this explicitly.
+  whose failure would silently invalidate everything: `r² ≥ 0.9985` on every slope
+  fit, a 16–28× rise from K=1 to K=32, and ≥ 98% of the K=32 time in the marginal
+  term. The harness gates on it explicitly and refuses to report a slope that does
+  not scale.
 - **Additive blending had to be enabled** or this GPU's tiler culled the repeated
   draws within a pass and produced physically impossible times. Pass timing also
   uses paired passes of N and 2N draws, `(T(2N) − T(N)) / N`, which cancels the
   pass fixed cost exactly.
+- **Cost per evaluation per pixel agrees between the two resolutions** to within
+  0.7% for every variant and 0.2% for four of the five, across a 1.75× difference
+  in pixel count. That was not designed as a check and is the strongest single
+  piece of evidence that what is being measured is per-pixel work rather than
+  fixed overhead.
+- **The GPU had exactly one client.** This is not pedantry: an earlier pair of
+  overlapping benchmark processes on this machine inflated the small-quantity
+  variants by up to 7% and made the family-D-versus-family-A ratio wander between
+  3.3× and 3.9×. In the serialized run every net cost agrees to three significant
+  figures across two independent resolutions, and the ratio is 3.9× at both. That
+  cross-resolution agreement is the evidence the run is clean; a contended run
+  does not produce it. An earlier solo run agrees with this one on family D to
+  within 0.12%.
 
-Run-to-run reproducibility, from two independent full runs: **family D's cost
-repeats to within 0.4%** at both resolutions. The cheap variants are less
-reproducible — the `null` and `roundbox` figures moved by up to 7% between runs —
-because their *net* cost is a difference of two small numbers and the loop
-overhead dominates them. Treat family D's absolute cost as solid and the
-D-versus-A *ratio* as approximate (it lands between 3.3× and 3.9× depending on
-run and resolution).
+Two limitations of the workload, so it is not read as more general than it is.
+The shape index is **pixel-invariant**: every lane in a wave reads the same
+instance, which is what a per-group field pass iterating its group's instances
+actually does, but it means these figures do not price a divergent per-lane
+gather. And family B is measured on its **expensive branch** — most benchmark
+pixels land where both corner components are positive and take all five `pow`
+calls — which is the fair comparison for a corner-heavy workload but is family
+B's worst case.
 
-**Which candidates were ported, and why not simply the top two by accuracy.** The
-two most accurate are C and D — but they share a coefficient table and a zero
-level set, and D dominates C on every error metric, so pricing them against each
-other decides nothing. The decision-relevant comparison is D against the two
-alternatives someone would actually reach for instead: A, the cheap analytic box
-that is the default in every rounded-rectangle shader, and B, the superellipse
-that is the usual suggestion for "squircle on the GPU". Those three are ported,
-plus a null baseline to separate loop overhead from field arithmetic.
+### Which candidates were ported
+
+All four, plus a null baseline. The two most accurate — C and D — share a
+coefficient table and a zero level set, so pricing them against each other does
+not choose between them on accuracy; it prices the normalization that separates
+them, which turns out to be the useful thing to know. A and B are carried because
+they are what someone reaches for instead: A is the analytic box that every
+rounded-rectangle shader already ships, and B is the superellipse usually
+suggested for "squircle on the GPU".
 
 ### Cost per field evaluation per pixel
 
 | variant | mobile 1170×2532 | net of loop | desktop 2880×1800 | net of loop |
 | --- | --- | --- | --- | --- |
-| `null` (loop + storage load only) | 0.00903 ns | — | 0.00940 ns | — |
-| A `roundbox` | 0.01348 ns | 0.00445 ns | 0.01406 ns | 0.00466 ns |
-| **D `rsupn`** | **0.02643 ns** | **0.01740 ns** | **0.02644 ns** | **0.01704 ns** |
-| B `superell` | 0.03245 ns | 0.02342 ns | 0.03387 ns | 0.02447 ns |
+| `null` (loop + storage load only) | 0.00903 ns | — | 0.00904 ns | — |
+| A `roundbox` | 0.01350 ns | 0.00447 ns | 0.01349 ns | 0.00445 ns |
+| C `rsup` | 0.01872 ns | 0.00970 ns | 0.01874 ns | 0.00970 ns |
+| **D `rsupn`** | **0.02640 ns** | **0.01737 ns** | **0.02644 ns** | **0.01740 ns** |
+| B `superell` | 0.03243 ns | 0.02340 ns | 0.03266 ns | 0.02362 ns |
 
 `net` subtracts the `null` variant, isolating the field arithmetic from the
 per-iteration instance load and accumulate that any real shader also pays.
 
-Family D's per-pixel cost is **identical at both resolutions to three
-significant figures** (0.02643 vs 0.02644 ns). The cost is purely per-pixel ALU
-with no resolution-dependent term, which is what makes it safe to extrapolate to
-scenes below.
+Family D's per-pixel cost is **identical at both resolutions to three significant
+figures**. The cost is purely per-pixel ALU with no resolution-dependent term,
+which is what makes it safe to extrapolate to scenes below.
 
 ### One full-screen field pass, one evaluation per pixel
 
 | variant | mobile (2.96 Mpx) | desktop (5.18 Mpx) |
 | --- | --- | --- |
-| A `roundbox` | 0.0399 ms | 0.0729 ms |
-| **D `rsupn`** | **0.0783 ms** | **0.1371 ms** |
-| B `superell` | 0.0961 ms | 0.1756 ms |
+| A `roundbox` | 0.0400 ms | 0.0699 ms |
+| C `rsup` | 0.0555 ms | 0.0971 ms |
+| **D `rsupn`** | **0.0782 ms** | **0.1371 ms** |
+| B `superell` | 0.0961 ms | 0.1693 ms |
 
 ### Against the spec's benchmark scenes and ~2 ms GPU budget
 
@@ -430,10 +465,11 @@ figure depends on how tightly the group field passes are scoped:
 
 | | mobile, share of 2 ms | desktop, share of 2 ms |
 | --- | --- | --- |
-| **Pessimistic** — all 8 surfaces evaluated at *every* pixel of the frame | 0.626 ms — **31%** | 1.097 ms — **55%** |
-| A `roundbox`, same pessimistic bound | 0.320 ms — 16% | 0.583 ms — 29% |
-| B `superell`, same pessimistic bound | 0.769 ms — 38% | 1.404 ms — 70% |
-| **Scoped** — field passes covering ~15% of the frame in total | ~0.094 ms — **5%** | ~0.165 ms — **8%** |
+| **D `rsupn`, pessimistic** — all 8 surfaces at *every* pixel of the frame | 0.626 ms — **31%** | 1.096 ms — **55%** |
+| A `roundbox`, same pessimistic bound | 0.320 ms — 16% | 0.560 ms — 28% |
+| C `rsup`, same pessimistic bound | 0.444 ms — 22% | 0.777 ms — 39% |
+| B `superell`, same pessimistic bound | 0.769 ms — 38% | 1.354 ms — 68% |
+| **D `rsupn`, scoped** — field passes covering ~15% of the frame in total | **0.094 ms — 5%** | **0.164 ms — 8%** |
 
 The pessimistic row is a deliberate over-estimate: it assumes every group's field
 pass covers the entire frame, which defeats the purpose of scoping a field pass to
@@ -442,16 +478,47 @@ fraction of a 390×844 viewport. **The scoped row is the number to plan with; th
 pessimistic row is the number that proves the choice is safe even if scoping is
 never implemented.**
 
-The honest cost of the accuracy: family D is **3.7–3.9× family A's net field
-arithmetic**, which at the pessimistic bound is +0.31 ms on mobile and +0.51 ms on
-desktop. That is a real fraction of a 2 ms budget, and it buys the difference
-between 2.24 px and 0.17 px of field error. Family B costs *more* than D and is
-4.7× less accurate, so the pow-based superellipse is dominated on both axes.
+The honest cost of the accuracy: family D is **3.9× family A's net field
+arithmetic** at both resolutions, which at the pessimistic bound is +0.31 ms on
+mobile and +0.54 ms on desktop. That is a real fraction of a 2 ms budget, and it
+buys the difference between 2.24 px and 0.17 px of field error. Family B costs
+*more* than D while being 4.7× less accurate, so the pow-based superellipse is
+dominated on both axes and can be dropped from consideration entirely.
 
-The ~2 ms budget is itself a spec hypothesis awaiting validation, and this pass is
-one of six the spec enumerates (backdrop import, blur, analysis, body, highlight,
-composite). Nothing here validates the whole-frame budget — it prices one term in
-it.
+### What the normalization costs, and the cheaper tier it implies
+
+Families C and D differ only by the first-order `|∇|` normalization, so the gap
+between them is that term's price:
+
+| | cost | value error, \|d\| ≤ 8 | gradient error, \|d\| ≤ 8 | \|∇\|−1 |
+| --- | --- | --- | --- | --- |
+| C `rsup` | 0.00970 ns net | 0.574 px | 4.258° | 0.0785 |
+| D `rsupn` | 0.01737 ns net | **0.170 px** | **2.915°** | 0.0273 |
+
+The normalization **roughly doubles family C's field arithmetic** (1.79×) and is
+about 1.7× the cost of an entire plain rounded box on its own — +0.023 ms per
+full-screen mobile pass, or +0.18 ms (9% of the budget) at the pessimistic
+8-surface bound. In exchange it buys 3.4× on value error, 1.5× on gradient error,
+and takes the eikonal defect from 7.9% to 2.7%.
+
+That is clearly worth paying, and family D remains the recommendation. But it also
+means **family C is a coherent cheaper tier rather than a rejected candidate**:
+same coefficient table, same zero level set, same authored channels, 29% less
+total cost, degrading to 0.57 px and 4.26°. If the quality governor ever needs to
+degrade *within* the texture tier — which the spec's §Performance envelope
+explicitly prefers over switching tiers — dropping the normalization is a
+one-branch, one-uniform change with a measured cost and a measured penalty. It is
+the natural first governor step.
+
+**Caveat on family C, stated because it bounds what the above supports.** Family
+C's *error* figures come from the TypeScript field in `src/candidates.ts`, which
+is under the committed test suite. Its *cost* figure comes from the WGSL
+`sd_rsup`, which was verified against that TypeScript by inspection only — unlike
+family D and family A, it was **not** put through the f32 cross-check below. The
+cost number is a cost number and does not depend on the port being bit-accurate,
+but **C6 must run the f32 cross-check on `sd_rsup` before shipping family C as a
+governor tier.** Extending `bench/make-f32-check.ts` to emit a third expected
+column is the whole job.
 
 ### f32 precision does not eat the error budget
 
@@ -474,11 +541,11 @@ at order 7, where coefficients reach ~56 (see §5).
 This check does double duty, and the second job is arguably the more important
 one: agreement at the 1e-5 level also **validates the WGSL port itself**. The
 TypeScript `rsupn.evalAt` is written as a line-for-line mirror of `sd_rsupn` —
-branchless, same clamp, same Horner order — so a transcription error in the
-shader would show up here as a gross disagreement, not a rounding difference.
-The error tables in §2 are computed from the TypeScript field; this is the
-evidence that the shader C6 will ship computes the same function.
-
+branchless, same clamp, same Horner order — so a transcription error in the shader
+would show up here as a gross disagreement, not a rounding difference. The error
+tables in §2 are computed from the TypeScript field; this is the evidence that the
+shader C6 will ship computes the same function. Family C has no such evidence yet,
+which is exactly the caveat above.
 ---
 
 ## 5. Recommendation
@@ -534,6 +601,15 @@ Secondary recommendations:
   family remains the right *authoring* parameterization (it spans the range
   continuously and `smoothing` interpolates); it is the wrong thing to *render*
   when the target is Apple.
+- **Keep family C as the quality governor's first step within the texture tier.**
+  Dropping the `|∇|` normalization is one branch and one uniform, saves 29% of the
+  field's total cost (0.444 ms against 0.626 ms at the pessimistic 8-surface
+  mobile bound), and degrades the bound to 0.57 px and 4.26° — same coefficient
+  table, same zero level set, same authored channels. The spec's §Performance
+  envelope prefers degrading *within* a tier before switching tiers, and this is
+  a cleaner within-tier step than reducing refraction resolution. It is a
+  proposal, not a validated deliverable: family C's WGSL is inspection-verified
+  only and needs the f32 cross-check before it ships (§4).
 - **Basis order is a tuning knob, not a design commitment.** Five terms give
   1.38e-3 r worst case with coefficients bounded by 3.3. Seven give 6.6e-4 r but
   push coefficients to ~56, which starts to matter in f32. If calibration ever
