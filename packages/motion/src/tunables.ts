@@ -1,5 +1,13 @@
 import { MOTION_CHANNELS, type MotionChannel } from "./channels";
-import type { DriverConfig } from "./driver";
+import type {
+  DriverConfig,
+  EaseConfig,
+  ExponentialConfig,
+  LowPassConfig,
+  SpringConfig,
+  StepConfig,
+  ThresholdCrossfadeConfig,
+} from "./driver";
 import type { FramePolicy } from "./frame";
 import { INTERACTION_STATES, type InteractionState, type StateTargetTable } from "./states";
 
@@ -183,12 +191,24 @@ export interface MotionProfilePatch {
 }
 
 /**
- * A patch to one channel's driver configuration. Naming a different `kind`
- * replaces the configuration outright — half a spring's constants merged onto an
- * ease would type-check and mean nothing — so a kind change must carry a whole
- * configuration.
+ * A patch to one channel's driver configuration: either a subset of one
+ * family's constants, or a whole replacement configuration.
+ *
+ * Written as a union of the families rather than `Partial<Omit<DriverConfig,
+ * "kind">>`, which collapses to `{}` — the union members share only `kind`, so
+ * omitting it leaves nothing to be partial about, and every typo would pass.
+ *
+ * Naming a different `kind` replaces the configuration outright: half a
+ * spring's constants merged onto an ease would type-check and mean nothing.
  */
-export type DriverConfigPatch = DriverConfig | Readonly<Partial<Omit<DriverConfig, "kind">>>;
+export type DriverConfigPatch =
+  | DriverConfig
+  | Readonly<Partial<SpringConfig>>
+  | Readonly<Partial<ExponentialConfig>>
+  | Readonly<Partial<LowPassConfig>>
+  | Readonly<Partial<ThresholdCrossfadeConfig>>
+  | Readonly<Partial<EaseConfig>>
+  | Readonly<Partial<StepConfig>>;
 
 /**
  * Apply a patch. This is how a calibration profile lands: C7 emits the measured
@@ -223,8 +243,11 @@ function mergeDriverConfig(
   patch: DriverConfigPatch | undefined,
 ): DriverConfig {
   if (patch === undefined) return base;
-  if ("kind" in patch && patch.kind !== undefined && patch.kind !== base.kind) {
-    return patch as DriverConfig;
-  }
+
+  // Only one union member carries `kind`, and reading it is the whole
+  // discrimination, so probe for it rather than narrowing seven branches.
+  const patchKind = (patch as { readonly kind?: DriverConfig["kind"] }).kind;
+  if (patchKind !== undefined && patchKind !== base.kind) return patch as DriverConfig;
+
   return { ...base, ...patch } as DriverConfig;
 }

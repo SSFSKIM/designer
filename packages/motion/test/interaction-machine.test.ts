@@ -189,10 +189,12 @@ describe("InteractionMachine — the interruption case (§Motion, parent accepta
 
     for (let i = 0; i < 6; i += 1) frame();
 
-    // Immediate re-press, mid-release-animation.
+    // Immediate re-press, mid-release-animation. 24 ms into a 260 ms spring the
+    // channel is still travelling upward — the release bent the trajectory
+    // rather than reversing it, which is exactly what carrying velocity means.
     const atRepress = { value: press.value, velocity: press.velocity };
-    expect(atRepress.value).toBeGreaterThan(0);
-    expect(atRepress.velocity).toBeLessThan(0);
+    expect(atRepress.value).toBeGreaterThan(atRelease.value);
+    expect(atRepress.velocity).toBeLessThan(atRelease.velocity);
 
     machine.transition("pressed");
     expect(press.value).toBe(atRepress.value);
@@ -209,6 +211,27 @@ describe("InteractionMachine — the interruption case (§Motion, parent accepta
     }
     expect(largestJump).toBeLessThan(0.1);
     expect(Math.min(...trace)).toBeGreaterThan(0);
+  });
+
+  it("reverses a held release once the carried momentum is spent", () => {
+    const machine = createInteractionMachine();
+    const press = machine.driver("pressCompression");
+
+    machine.transition("pressed");
+    for (let i = 0; i < 10; i += 1) machine.advance(4);
+    machine.transition("hover");
+
+    let reversed = false;
+    let peak = press.value;
+    for (let i = 0; i < 60; i += 1) {
+      machine.advance(4);
+      peak = Math.max(peak, press.value);
+      if (press.velocity < 0) reversed = true;
+    }
+
+    expect(reversed).toBe(true);
+    expect(peak).toBeLessThan(1);
+    expect(press.value).toBeLessThan(peak);
   });
 
   it("attacks glow on the press and decays it on the release", () => {

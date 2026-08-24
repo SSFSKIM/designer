@@ -58,6 +58,12 @@ export { ThresholdCrossfadeDriver, type CrossfadePhase } from "./drivers/thresho
 export { clampFrameDelta, type FramePolicy } from "./frame";
 
 export {
+  createInteractionMachine,
+  type InteractionMachine,
+  type InteractionMachineOptions,
+} from "./machine";
+
+export {
   INTERACTION_STATES,
   LEGAL_TRANSITIONS,
   canTransition,
