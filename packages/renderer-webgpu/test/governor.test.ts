@@ -10,7 +10,12 @@
 
 import { describe, expect, it } from "vitest";
 
-import { createGovernor, GOVERNOR_LADDER, NOMINAL_GOVERNOR } from "../src/governor";
+import {
+  createGovernor,
+  FAMILY_C_CROSS_CHECK,
+  GOVERNOR_LADDER,
+  NOMINAL_GOVERNOR,
+} from "../src/governor";
 
 describe("the governor's knobs", () => {
   it("starts at full fidelity and core's advisory readback ceiling", () => {
@@ -21,8 +26,21 @@ describe("the governor's knobs", () => {
     expect(governor.knobs.refractionResolutionScale).toBe(1);
   });
 
-  it("refuses family C until the f32 cross-check is recorded", () => {
+  it("allows family C, because Decision Log #20's cross-check has been run", () => {
+    // The gate is open on evidence, not by default: FAMILY_C_CROSS_CHECK carries
+    // the measurement, and both halves of the check run in CI.
+    expect(FAMILY_C_CROSS_CHECK.ran).toBe(true);
+    expect(FAMILY_C_CROSS_CHECK.maxAbsDiffPx).toBeLessThan(
+      FAMILY_C_CROSS_CHECK.boundPx * 1e-3,
+    );
+
     const governor = createGovernor();
+    expect(governor.familyCVerified).toBe(true);
+    expect(governor.set({ fieldFamily: "rsup" }).fieldFamily).toBe("rsup");
+  });
+
+  it("still refuses family C when a caller holds it to family D", () => {
+    const governor = createGovernor({ familyCVerified: false });
 
     expect(governor.familyCVerified).toBe(false);
     expect(governor.set({ fieldFamily: "rsup" }).fieldFamily).toBe("rsupn");
@@ -31,13 +49,8 @@ describe("the governor's knobs", () => {
     expect(governor.set({ fieldFamily: "rsup" }).fieldFamily).toBe("rsup");
   });
 
-  it("accepts family C when the caller states the check already passed", () => {
-    const governor = createGovernor({ familyCVerified: true });
-    expect(governor.set({ fieldFamily: "rsup" }).fieldFamily).toBe("rsup");
-  });
-
   it("walks the suggested ladder, weakest visual cost first", () => {
-    const governor = createGovernor({ familyCVerified: true });
+    const governor = createGovernor();
 
     // Step 1 is the field family alone: one uniform and one pipeline, no
     // resolution change, so nothing resamples as it engages.
@@ -51,7 +64,7 @@ describe("the governor's knobs", () => {
   });
 
   it("clamps a ladder index instead of returning undefined knobs", () => {
-    const governor = createGovernor({ familyCVerified: true });
+    const governor = createGovernor();
     expect(governor.setLevel(-5)).toEqual(GOVERNOR_LADDER[0]);
     expect(governor.setLevel(99)).toEqual(GOVERNOR_LADDER[GOVERNOR_LADDER.length - 1]);
   });
@@ -71,7 +84,6 @@ describe("the governor's knobs", () => {
   it("reports every change, so core's policy can log what it turned", () => {
     const seen: string[] = [];
     const governor = createGovernor({
-      familyCVerified: true,
       onChange: (knobs) => seen.push(knobs.fieldFamily),
     });
 

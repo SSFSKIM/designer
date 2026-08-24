@@ -124,6 +124,7 @@ export {
 
 export {
   createGovernor,
+  FAMILY_C_CROSS_CHECK,
   GOVERNOR_LADDER,
   NOMINAL_GOVERNOR,
   type FieldFamily,

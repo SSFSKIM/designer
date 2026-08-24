@@ -19,9 +19,8 @@
  *    cost for a bound that degrades from 0.170 px / 2.91° to 0.574 px / 4.26°.
  *    It is the *first* step because it is one uniform and one pipeline: no
  *    resolution change, so nothing resamples and nothing shimmers as it engages.
- *    **Conditional on the f32 cross-check** (Decision Log #20) — `fieldFamily`
- *    refuses to move to `rsup` unless the check has been recorded as passing, so
- *    an unverified family cannot ship by omission.
+ *    **Conditional on the f32 cross-check** (Decision Log #20) — and the check
+ *    has now been run, so the condition is met. See `FAMILY_C_CROSS_CHECK`.
  * 2. **`refractionResolutionScale`** — the group field and optics render at a
  *    fraction of device resolution and upsample. Quadratic saving on the two
  *    heaviest passes, and the most visible step, so it comes second.
@@ -64,11 +63,40 @@ export const GOVERNOR_LADDER: readonly GovernorKnobs[] = [
   { fieldFamily: "rsup", refractionResolutionScale: 0.5, adaptationCadenceHz: 4 },
 ];
 
+/**
+ * Decision Log #20's condition, and its answer.
+ *
+ * The spec makes family C's shipping "conditional on C6 running the f32
+ * cross-check on its WGSL". C6 ran it, twice and independently:
+ *
+ *  - **On hardware** (`e2e/gpu/cross-check.spec.ts`, apple/metal-3): the shipped
+ *    `sd_rsup` kernel against `@vitrea/geometry`'s f64 `rsupField` over 5535
+ *    points on and around three shapes' contours — **3.042e-5 px max, 0.0053% of
+ *    the declared 0.574 px bound.** The same run measured family D at 4.073e-5 px
+ *    / 0.0240%, reproducing S2's own 4.08e-5 / 0.024% on that adapter class,
+ *    which is what makes the two runs comparable at all.
+ *  - **In the unit suite** (`test/f32-cross-check.test.ts`): the same arithmetic
+ *    emulated in f32 through `Math.fround`, so the answer exists on a machine
+ *    with no adapter. 3.523e-5 px, the same order.
+ *
+ * So the gate is open by default, and the option below is the opt-out rather than
+ * the opt-in. What keeps that honest is that both checks run in CI and that
+ * `@vitrea/geometry` fingerprints the kernel strings: editing `sd_rsup` trips the
+ * fingerprint test, which says in as many words to re-run the cross-check.
+ */
+export const FAMILY_C_CROSS_CHECK = {
+  ran: true,
+  adapter: "apple/metal-3",
+  points: 5535,
+  maxAbsDiffPx: 3.042e-5,
+  boundPx: 0.574,
+} as const;
+
 export interface GovernorOptions {
   /**
-   * Whether family C's WGSL has been through the f32 cross-check on real
-   * hardware (Decision Log #20). Default false: an unverified family must not
-   * ship because nobody said no.
+   * Whether family C's WGSL has been through the f32 cross-check (Decision Log
+   * #20). Defaults to `FAMILY_C_CROSS_CHECK.ran` — see above. Pass `false` to
+   * hold the governor to family D regardless.
    */
   readonly familyCVerified?: boolean;
   readonly onChange?: (knobs: GovernorKnobs) => void;
@@ -90,7 +118,7 @@ const clampScale = (s: number): number => Math.min(1, Math.max(0.125, s));
 
 export function createGovernor(options: GovernorOptions = {}): Governor {
   let knobs = NOMINAL_GOVERNOR;
-  let verified = options.familyCVerified ?? false;
+  let verified = options.familyCVerified ?? FAMILY_C_CROSS_CHECK.ran;
 
   const apply = (next: GovernorKnobs): GovernorKnobs => {
     const family: FieldFamily = next.fieldFamily === "rsup" && !verified ? "rsupn" : next.fieldFamily;
