@@ -17,15 +17,23 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint . && tsc --noEmit",
-    "test": "vitest run"
+    "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:chromium": "playwright test --project=chromium"
   },
   "dependencies": {
     "@vitrea/core": "workspace:^"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "@types/pngjs": "catalog:",
     "eslint": "catalog:",
+    "jsdom": "catalog:",
+    "pngjs": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:"
   }
 }

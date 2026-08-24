@@ -1,47 +1,45 @@
 /**
- * @vitrea/platform-web — skeleton (C1).
+ * `@vitrea/platform-web` — the browser layer.
  *
- * The only package allowed to touch the DOM. Encodes X1's plane law and paint
- * order so C5 builds the sandwich against a fixed contract.
+ * The only package allowed to touch the DOM (X4). core, geometry and motion are
+ * pure and passive; everything browser-shaped lives here: host registration and
+ * the `asChild` seam, the batched read protocol, X1's plane sandwich, the
+ * per-group backdrop proxies, the three-layer conformance probe, the CSS-tier
+ * renderer, the media-query policy feed, and the WebGPU lifecycle.
+ *
+ * The one entry point an app needs is `createGlassRoot`. Everything else is
+ * exported because `@vitrea/react` (C8) and the WebGPU renderer (C6) compose
+ * against these pieces directly, and because a test should be able to reach the
+ * decision that failed rather than the whole runtime.
  */
 
-import { GLASS_PLANES, type GlassGroupState, type GlassPlane } from "@vitrea/core";
-
-/**
- * Plane *identity* is core's — it is part of the z-slot model, and core's
- * same-plane overlap check reasons about it. What lives here is the plane's DOM
- * realisation: the canvas pair and the paint order inside it. Re-exported so a
- * consumer has one vocabulary and not two.
- */
-export { GLASS_PLANES, type GlassPlane };
-
-/**
- * Paint order within one plane, back to front (X1). The semantic host sits
- * between the optics canvas and the highlight canvas — that sandwich is why
- * two glass surfaces may not overlap inside one plane.
- */
-export const PLANE_PAINT_ORDER = [
-  "backdrop-proxy",
-  "optics-canvas",
-  "semantic-host",
-  "highlight-canvas",
-] as const;
-
-export type PlaneLayer = (typeof PLANE_PAINT_ORDER)[number];
-
-export function paintOrderIndex(layer: PlaneLayer): number {
-  return PLANE_PAINT_ORDER.indexOf(layer);
-}
-
-/** Layers the compositor owns; everything else in the sandwich is app DOM. */
-export const POINTER_TRANSPARENT_LAYERS: readonly PlaneLayer[] = PLANE_PAINT_ORDER.filter(
-  (layer) => layer !== "semantic-host",
-);
-
-/** What C5 registers per glass host. `host` is real DOM — this is the boundary X4 protects. */
-export interface GlassHostRegistration {
-  readonly host: HTMLElement;
-  readonly plane: GlassPlane;
-  readonly groupId: string;
-  readonly state: GlassGroupState;
-}
+export * from "./backdrop-proxy";
+export * from "./css-tier";
+export * from "./diagnostics";
+export * from "./geometry-sync";
+export * from "./group-state";
+export * from "./host";
+export * from "./measure";
+export * from "./media-policy";
+export * from "./optics";
+// Named rather than star-exported: `GlassPlane` is core's type, re-exported by
+// `planes.ts` so a consumer has one plane vocabulary, and several modules below
+// import it. A star export leaves a declaration bundler guessing which module
+// owns the name.
+export {
+  createGlassLayerManager,
+  GLASS_PLANES,
+  paintOrderIndex,
+  PLANE_PAINT_ORDER,
+  POINTER_TRANSPARENT_LAYERS,
+  type GlassLayerManager,
+  type GlassLayerManagerOptions,
+  type GlassPlane,
+  type PlaneLayer,
+  type PlaneLayers,
+} from "./planes";
+export * from "./probe";
+export * from "./proxy-geometry";
+export * from "./refraction";
+export * from "./root";
+export * from "./webgpu";
