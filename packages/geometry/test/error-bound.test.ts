@@ -43,12 +43,11 @@ import { describe, expect, it } from "vitest";
 import { rsupField, rsupLevelSetNormal, rsupnField } from "../src/field";
 import { halfExtents, uniformRadii, type Vec2 } from "../src/channels";
 import { FIGMA_RSUPN_TABLE } from "../src/coefficients";
-import { fieldParams, resolveFromChannels } from "../src/shape";
+import { fieldParams, governorFieldParams, resolveFromChannels } from "../src/shape";
 import {
   aggregate,
   fullMatrix,
   GRADIENTS,
-  governorParams,
   matrixShape,
   measureShape,
   type MatrixEntry,
@@ -244,7 +243,7 @@ describe("family C (rsup) — the governor's first step", () => {
     // Dropping the |grad| normalization is one branch and one uniform. The point
     // of asserting its bound is that the governor step is a KNOWN degradation
     // rather than an unmeasured one.
-    const rows = sweep(rsupField, GRADIENTS.central(rsupField), governorParams);
+    const rows = sweep(rsupField, GRADIENTS.central(rsupField), governorFieldParams);
     const a = aggregate(rows, 8);
     // measured by S2 over the full matrix: 0.574 px, 4.258 deg, defect 0.0785
     expect(a.valueMax).toBeLessThan(0.65);
@@ -254,7 +253,7 @@ describe("family C (rsup) — the governor's first step", () => {
 
   it("is beaten by family D on both metrics, which is why D ships", () => {
     const d = aggregate(analytic(), 8);
-    const c = aggregate(sweep(rsupField, GRADIENTS.central(rsupField), governorParams), 8);
+    const c = aggregate(sweep(rsupField, GRADIENTS.central(rsupField), governorFieldParams), 8);
     expect(d.valueMax).toBeLessThan(c.valueMax * 0.6);
     expect(d.gradMaxDeg).toBeLessThan(c.gradMaxDeg);
     expect(d.eikonalMax).toBeLessThan(c.eikonalMax);

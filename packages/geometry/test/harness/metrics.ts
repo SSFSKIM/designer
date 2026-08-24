@@ -27,8 +27,7 @@ import { type Contour, segmentCurvature, segmentNormal, segmentPoint } from "../
 import { buildReferenceContour } from "../../src/contour";
 import { type FieldParams, centralGradient, rsupnFieldAndGradient } from "../../src/field";
 import { halfExtents, type Vec2 } from "../../src/channels";
-import { fieldParams, resolveCorner, type FieldFamily, type ResolvedShape } from "../../src/shape";
-import { resolveFromChannels } from "../../src/shape";
+import { fieldParams, type ResolvedShape, resolveFromChannels } from "../../src/shape";
 import { uniformRadii } from "../../src/channels";
 import {
   angleDeg,
@@ -67,16 +66,11 @@ function percentile(sorted: readonly number[], q: number): number {
   return sorted[i] as number;
 }
 
-/** How the gradient under test is obtained. Both are real shipping options. */
-export type GradientMode = "analytic" | "central" | "free-normal";
-
 export interface MeasureOptions {
   readonly band?: BandOptions;
   /** finite-difference step as a fraction of the radius, for `central` */
   readonly gradStepFrac?: number;
   readonly refineTop?: number;
-  readonly gradient?: GradientMode;
-  readonly family?: FieldFamily;
 }
 
 /**
@@ -345,19 +339,6 @@ export function aggregate(results: readonly MeasureResult[], half: number): Aggr
 export function referenceContourFor(shape: ResolvedShape): Contour {
   const { halfW, halfH } = halfExtents(shape.channels.size);
   return buildReferenceContour(halfW, halfH, shape.corner);
-}
-
-/** Family C's field parameters for a shape resolved on family D's table. */
-export function governorParams(shape: ResolvedShape): FieldParams {
-  const { halfW, halfH } = halfExtents(shape.channels.size);
-  const corner = resolveCorner(
-    shape.channels.size,
-    shape.corner.radius,
-    shape.channels.smoothing,
-    shape.corner.reference,
-    "rsup",
-  );
-  return { halfW, halfH, reach: corner.reach, k: corner.k };
 }
 
 /** Gradient accessors matching the three shipping options. */
