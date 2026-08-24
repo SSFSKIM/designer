@@ -22,17 +22,37 @@ const WGSL_MARKER = "vitrea:wgsl-marker";
 const IMPORTS_INTERNAL_PACKAGE = /(?:\bfrom|\bimport\(|\bimport)\s*["']@vitrea\//;
 
 describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
-  const entry = readFileSync(entryPath, "utf8");
   const chunks = readdirSync(distDir).filter((name) => name.endsWith(".js") && name !== "index.js");
 
+  // The entry's static import closure: the entry plus every chunk it imports
+  // eagerly (tsup may extract shared code into sibling chunks once another
+  // workspace package also depends on geometry/motion). Dynamic imports stay
+  // excluded — that is what keeps the WGSL chunk lazy.
+  const staticClosure = (() => {
+    const seen = new Set<string>();
+    const queue = ["index.js"];
+    const STATIC_IMPORT = /(?:^|[^(\w.])import\s*(?:[\w$*{},\s]+from\s*)?["'](\.\/[^"']+)["']|\bfrom\s*["'](\.\/[^"']+)["']/g;
+    while (queue.length > 0) {
+      const name = queue.pop() as string;
+      if (seen.has(name)) continue;
+      seen.add(name);
+      const source = readFileSync(join(distDir, name), "utf8");
+      for (const match of source.matchAll(STATIC_IMPORT)) {
+        const spec = (match[1] ?? match[2]) as string;
+        queue.push(spec.replace(/^\.\//, ""));
+      }
+    }
+    return [...seen].map((name) => readFileSync(join(distDir, name), "utf8")).join("\n");
+  })();
+
   it("bundles the internal packages instead of importing them", () => {
-    expect(IMPORTS_INTERNAL_PACKAGE.test(entry)).toBe(false);
-    expect(entry).toContain("concentric-rounded-rect"); // from @vitrea/geometry
-    expect(entry).toContain("interruptible-spring"); // from @vitrea/motion
+    expect(IMPORTS_INTERNAL_PACKAGE.test(staticClosure)).toBe(false);
+    expect(staticClosure).toContain("concentric-rounded-rect"); // from @vitrea/geometry
+    expect(staticClosure).toContain("interruptible-spring"); // from @vitrea/motion
   });
 
   it("keeps WGSL out of the entry chunk and inside a lazy chunk", () => {
-    expect(entry).not.toContain(WGSL_MARKER);
+    expect(staticClosure).not.toContain(WGSL_MARKER);
 
     const lazyChunks = chunks.filter((name) =>
       readFileSync(join(distDir, name), "utf8").includes(WGSL_MARKER),
