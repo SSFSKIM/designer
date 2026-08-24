@@ -75,6 +75,8 @@ export {
   type StateTargets,
 } from "./states";
 
+export { withReducedMotion } from "./reduced-motion";
+
 export {
   DEFAULT_MOTION_PROFILE,
   withProfileOverrides,

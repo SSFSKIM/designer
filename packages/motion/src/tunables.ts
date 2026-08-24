@@ -50,6 +50,13 @@ export interface MotionProfile {
    * means, so the renderer needs no constant of its own.
    */
   readonly pressCompressionScale: number;
+  /**
+   * Whether `withReducedMotion` has run over this profile. Derived, not a
+   * tunable: it keeps the policy idempotent, and it lets a consumer report which
+   * profile is actually in force rather than inferring it from a media query it
+   * may not have been the one to read.
+   */
+  readonly reducedMotionApplied: boolean;
 }
 
 export const DEFAULT_MOTION_PROFILE: MotionProfile = {
@@ -179,6 +186,8 @@ export const DEFAULT_MOTION_PROFILE: MotionProfile = {
   reducedMotion: { minDampingRatio: 1, morphResponseFactor: 0.7 },
 
   pressCompressionScale: 0.015,
+
+  reducedMotionApplied: false,
 };
 
 /** A profile patch: any subset, to any depth, of what a profile holds. */
@@ -235,6 +244,9 @@ export function withProfileOverrides(
     stateTargets,
     reducedMotion: { ...base.reducedMotion, ...patch.reducedMotion },
     pressCompressionScale: patch.pressCompressionScale ?? base.pressCompressionScale,
+    // Derived, so a patch cannot claim it. Patching a reduced profile keeps it
+    // reduced, and the patch's own numbers are taken at face value.
+    reducedMotionApplied: base.reducedMotionApplied,
   };
 }
 
