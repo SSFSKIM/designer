@@ -1,71 +1,79 @@
 /**
- * @vitrea/motion — skeleton (C1).
+ * `@vitrea/motion` — the motion kernel (child C2 of
+ * `docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`).
  *
- * Encodes §Motion's binding driver-per-channel table and the v1 interaction
- * states so C2 implements against a fixed surface. Pure math and state: no DOM,
- * no timers, no rAF (X4) — platform-web owns scheduling.
+ * Pure time-domain math and state: the per-channel driver families of §Motion,
+ * the six v1 interaction states with their interruption semantics, and the
+ * Reduced Motion policy transform. No DOM, no timers, no requestAnimationFrame
+ * (X4) — `platform-web` owns the clock and calls `advance` with the delta it
+ * measured.
+ *
+ * The two properties everything else here is arranged around:
+ *
+ * 1. **Frame-rate invariance.** Every continuous family integrates in closed
+ *    form, so one 33.4 ms step, two 16.7 ms steps and four 8.35 ms steps agree
+ *    to floating point. The capped-step rule (`clampFrameDelta`) lives at the
+ *    frame boundary and exists for a stalled tab's sake, not for stability.
+ * 2. **Interruption without restart.** `retarget` moves only the target;
+ *    position and velocity carry across untouched. A release mid-press and an
+ *    immediate re-press redirect the same trajectory rather than starting new
+ *    ones (parent acceptance #3).
  */
 
-/** Animated channels. Each has exactly one driver family (§Motion, binding). */
-export const MOTION_CHANNELS = [
-  "position",
-  "size",
-  "radius",
-  "pressCompression",
-  "lensStrength",
-  "glow",
-  "backdropAdaptation",
-  "foregroundTone",
-  "materialization",
-  "disabled",
-  "qualityTier",
-] as const;
+export {
+  CHANNEL_ROLE,
+  DEFORMATION_CHANNELS,
+  MOTION_CHANNELS,
+  MOTION_DRIVER_BY_CHANNEL,
+  MOTION_DRIVER_KINDS,
+  NON_OVERSHOOTING_CHANNELS,
+  POSITIONAL_CHANNELS,
+  STATE_DRIVEN_CHANNELS,
+  type ChannelRole,
+  type MotionChannel,
+  type MotionDriverKind,
+} from "./channels";
 
-export type MotionChannel = (typeof MOTION_CHANNELS)[number];
+export {
+  type DriverConfig,
+  type EaseConfig,
+  type ExponentialConfig,
+  type LowPassConfig,
+  type MotionDriver,
+  type SpringConfig,
+  type StepConfig,
+  type ThresholdCrossfadeConfig,
+} from "./driver";
 
-/**
- * Driver families. `interruptible-spring` is the velocity-preserving one:
- * a redirect continues from current position and velocity, never restarts.
- */
-export type MotionDriverKind =
-  | "interruptible-spring"
-  | "critically-damped"
-  | "attack-decay"
-  | "low-pass-hysteresis"
-  | "threshold-crossfade"
-  | "monotonic-ease"
-  | "step"
-  | "hysteresis-cooldown";
+export { EASINGS, EASING_NAMES, type Easing, type EasingName } from "./easing";
 
-export const MOTION_DRIVER_BY_CHANNEL: Readonly<Record<MotionChannel, MotionDriverKind>> = {
-  position: "interruptible-spring",
-  size: "interruptible-spring",
-  radius: "interruptible-spring",
-  pressCompression: "interruptible-spring",
-  lensStrength: "critically-damped",
-  glow: "attack-decay",
-  backdropAdaptation: "low-pass-hysteresis",
-  foregroundTone: "threshold-crossfade",
-  materialization: "monotonic-ease",
-  disabled: "step",
-  qualityTier: "hysteresis-cooldown",
-};
+export { createDriver } from "./drivers/create";
+export { EaseDriver } from "./drivers/ease";
+export { ExponentialDriver } from "./drivers/exponential";
+export { LowPassHysteresisDriver } from "./drivers/low-pass";
+export { SpringDriver } from "./drivers/spring";
+export { StepDriver } from "./drivers/step";
+export { ThresholdCrossfadeDriver, type CrossfadePhase } from "./drivers/threshold-crossfade";
 
-/** v1 interaction states (§Motion). Neighbor glow diffusion is post-v1. */
-export const INTERACTION_STATES = [
-  "idle",
-  "hover",
-  "pressed",
-  "focused",
-  "disabled",
-  "morphing",
-] as const;
+export { clampFrameDelta, type FramePolicy } from "./frame";
 
-export type InteractionState = (typeof INTERACTION_STATES)[number];
+export {
+  INTERACTION_STATES,
+  LEGAL_TRANSITIONS,
+  canTransition,
+  channelsMovedBy,
+  resolveInteractionState,
+  type InteractionFlags,
+  type InteractionState,
+  type StateTargetTable,
+  type StateTargets,
+} from "./states";
 
-/** Channels whose driver must never overshoot, so Reduced Motion cannot regress them. */
-export const NON_OVERSHOOTING_CHANNELS: readonly MotionChannel[] = MOTION_CHANNELS.filter(
-  (channel) =>
-    MOTION_DRIVER_BY_CHANNEL[channel] === "monotonic-ease" ||
-    MOTION_DRIVER_BY_CHANNEL[channel] === "step",
-);
+export {
+  DEFAULT_MOTION_PROFILE,
+  withProfileOverrides,
+  type DriverConfigPatch,
+  type MotionProfile,
+  type MotionProfilePatch,
+  type ReducedMotionTunables,
+} from "./tunables";
