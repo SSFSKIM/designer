@@ -105,6 +105,36 @@ export const DEFAULT_BACKDROP_RESOLUTION: BackdropResolutionPolicy = {
   maxDimension: 2048,
 };
 
+/** How far a group samples beyond its member union, and how near members merge. */
+export interface GroupSamplingGeometry {
+  /** Padding on the proxy's border box, in CSS px. */
+  readonly samplingPadding: number;
+  /** Proximity-union threshold within the group, in CSS px. */
+  readonly mergeDistance: number;
+}
+
+/**
+ * Advisory defaults, chosen so X1's constraints hold out of the box rather than
+ * being numbers worth trusting.
+ *
+ * S1 measured that `samplingPadding` must be at least 3σ of the group's blur:
+ * Filter Effects 2 clips a filter's input to the filtered element's own border
+ * box, so an unpadded box starves its own blur at the edges. 24 is 3σ at
+ * σ = 8 CSS px, a plausible regular-material blur — calibration (C7) replaces
+ * it, and the *actual* 3σ check cannot live here because core carries no blur
+ * radius (see the note on `GlassGroupDescriptor.samplingPadding`).
+ *
+ * `mergeDistance` defaults to the same number because X1 requires
+ * `mergeDistance ≥ samplingPadding`: any two members close enough for their
+ * padded proxies to overlap must already have merged into one, or the filter
+ * applies twice — measured at 1.5625× for `brightness(1.25)`, paint-order
+ * dependent, drifting up to 17/255 even in legal 8px-gap geometry.
+ */
+export const DEFAULT_GROUP_SAMPLING: GroupSamplingGeometry = {
+  samplingPadding: 24,
+  mergeDistance: 24,
+};
+
 export interface TextureBackdropSource {
   readonly id: string;
   readonly kind: "texture";
@@ -139,9 +169,18 @@ export interface GlassGroupDescriptor {
   readonly material?: MaterialProfile;
   /** Requested adaptation. Resolved against the group's state, never assumed legal. */
   readonly foreground?: ForegroundAdaptation;
-  /** Proximity-union threshold within the group, in CSS px (§Geometry). */
+  /**
+   * Proximity-union threshold within the group, in CSS px (§Geometry). X1
+   * requires it to be at least `samplingPadding`; core checks that, since both
+   * numbers live here.
+   */
   readonly mergeDistance?: number;
-  /** Backdrop sampled beyond the member union, in CSS px. */
+  /**
+   * Padding on the group proxy's border box, in CSS px. X1 also requires it to
+   * be at least 3σ of the group's blur — core cannot check *that* one, because
+   * it carries no blur radius; platform-web owns it, where the material's blur
+   * is known.
+   */
   readonly samplingPadding?: number;
   /** X6: the author's declared hint. */
   readonly backdrop?: BackdropHint;
@@ -193,6 +232,8 @@ export interface ResolvedGroup {
   readonly state: GlassGroupState;
   readonly hint: ResolvedBackdropHint;
   readonly foreground: ResolvedForegroundAdaptation;
+  /** Defaults filled in, so a consumer reads one pair of numbers and not two optionals. */
+  readonly sampling: GroupSamplingGeometry;
 }
 
 export interface ResolvedNode {
@@ -395,6 +436,28 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
           hint,
         }
       : { configuredSource: "dom", platform, governor: pressure, hint };
+  }
+
+  /**
+   * Fill in the group's sampling geometry and check X1's relationship between
+   * the two numbers. Authored values are never coerced — a silently widened
+   * merge distance would change which members fuse, which is a visual decision
+   * that belongs to the author.
+   */
+  function samplingOf(group: GlassGroupRecord): GroupSamplingGeometry {
+    const samplingPadding = group.descriptor.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding;
+    const mergeDistance = group.descriptor.mergeDistance ?? samplingPadding;
+
+    if (devMode && mergeDistance < samplingPadding) {
+      diagnostics.report({
+        code: "merge-distance-below-padding",
+        severity: "warning",
+        subjects: [group.descriptor.id],
+        message: `Group "${group.descriptor.id}" has mergeDistance ${mergeDistance} below samplingPadding ${samplingPadding}, which X1 forbids: two members can then sit close enough for their padded proxies to overlap without having merged, and the backdrop filter applies twice over the overlap — paint-order dependent, and measured drifting up to 17/255. Raise mergeDistance to at least the padding.`,
+      });
+    }
+
+    return { samplingPadding, mergeDistance };
   }
 
   const hintOf = (group: GlassGroupRecord): ResolvedBackdropHint =>
@@ -633,7 +696,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
           });
         }
         settled.push({ ...group, state });
-        resolvedGroups.push({ groupId, state, hint, foreground });
+        resolvedGroups.push({ groupId, state, hint, foreground, sampling: samplingOf(group) });
 
         const profile: MaterialProfile = group.descriptor.material ?? { variant: "regular" };
         const members = nodesOfGroup(groupId);

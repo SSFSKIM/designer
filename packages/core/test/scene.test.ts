@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   DEFAULT_BACKDROP_RESOLUTION,
+  DEFAULT_GROUP_SAMPLING,
   GlassSceneError,
   createDiagnosticsChannel,
   createGlassScene,
@@ -586,6 +587,82 @@ describe("resolution", () => {
 
     expect(byId.get("grp")?.health).toBe("ok");
     expect(byId.get("grp2")?.demotionReason).toBe("governor");
+  });
+
+  it("fills in a group's sampling geometry, defaulting merge distance to the padding (X1)", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({ id: "defaults", backdropSourceId: "page" });
+    scene.registerGlassGroup({ id: "padded", backdropSourceId: "page", samplingPadding: 60 });
+
+    const byId = new Map(scene.resolve().groups.map((group) => [group.groupId, group.sampling]));
+
+    expect(byId.get("defaults")).toEqual(DEFAULT_GROUP_SAMPLING);
+    expect(byId.get("padded")).toEqual({ samplingPadding: 60, mergeDistance: 60 });
+    expect(diagnostics.reported).toEqual([]);
+  });
+
+  it("warns when merge distance falls below sampling padding — the double-filter case", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({
+      id: "tight",
+      backdropSourceId: "page",
+      samplingPadding: 60,
+      mergeDistance: 8,
+    });
+
+    const sampling = scene.resolve().groups[0]?.sampling;
+
+    // Reported, never coerced: widening the merge distance would change which
+    // members fuse, and that is the author's decision to make.
+    expect(sampling).toEqual({ samplingPadding: 60, mergeDistance: 8 });
+    expect(diagnostics.reported[0]).toMatchObject({
+      code: "merge-distance-below-padding",
+      severity: "warning",
+      subjects: ["tight"],
+    });
+  });
+
+  it("accepts a merge distance equal to the padding — the constraint is inclusive", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({
+      id: "exact",
+      backdropSourceId: "page",
+      samplingPadding: 32,
+      mergeDistance: 32,
+    });
+
+    scene.resolve();
+
+    expect(diagnostics.reported).toEqual([]);
+  });
+
+  it("skips the sampling-geometry check outside dev mode", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics, devMode: false });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({
+      id: "tight",
+      backdropSourceId: "page",
+      samplingPadding: 60,
+      mergeDistance: 8,
+    });
+
+    scene.resolve();
+
+    expect(diagnostics.reported).toEqual([]);
+  });
+
+  it("keeps the default geometry satisfying X1's own constraint", () => {
+    expect(DEFAULT_GROUP_SAMPLING.mergeDistance).toBeGreaterThanOrEqual(
+      DEFAULT_GROUP_SAMPLING.samplingPadding,
+    );
+    expect(DEFAULT_GROUP_SAMPLING.samplingPadding).toBeGreaterThan(0);
   });
 
   it("starts on the nominal policy and stays quiet until a host reports otherwise", () => {

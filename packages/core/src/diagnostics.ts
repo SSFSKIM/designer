@@ -22,6 +22,8 @@ export const DIAGNOSTIC_CODES = [
   "same-plane-overlap",
   /** `regular` and `clear` nodes share one GlassGroup (§Material variants). */
   "variant-mixing",
+  /** A group's `mergeDistance` is below its `samplingPadding`, so proxies can double-filter (X1). */
+  "merge-distance-below-padding",
   /** A `clear` node has no dimming policy, so it resolved to `regular` instead. */
   "clear-variant-needs-dimming",
   /** A foreground mode the resolved state cannot support; the nearest legal mode was used. */
