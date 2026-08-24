@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><title>backdrop-filter structural variants</title>
+<style>
+  body{margin:0;background:#404040;font:11px monospace;color:#fff}
+  .cell{position:relative;width:200px;height:50px;float:left;margin:0;background:#404040}
+  .bg{position:absolute;inset:0;background:#404040}
+  .bf{position:absolute;inset:0;backdrop-filter:brightness(2);-webkit-backdrop-filter:brightness(2)}
+  #g{position:relative;width:800px}
+</style>
+<!-- Each cell: a #404040 ground with a brightness(2) backdrop-filter above it.
+     Correct rendering = 128 grey. 64 means the filter did not apply.
+     16 cells x 200x50, 4 per row. Sample the centre of each. -->
+<div id="g">
+  <div class="cell"><div class="bg"></div><div class="bf"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf" style="background:rgba(255,255,255,.01)"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf">x</div></div>
+  <div class="cell" style="isolation:isolate"><div class="bg"></div><div class="bf"></div></div>
+
+  <div class="cell" style="z-index:0"><div class="bg"></div><div class="bf"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf" style="will-change:backdrop-filter"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf" style="transform:translateZ(0)"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf" style="backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:none"></div></div>
+
+  <div class="cell"><div class="bg"></div><div class="bf" style="backdrop-filter:invert(1);-webkit-backdrop-filter:invert(1)"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf" style="backdrop-filter:grayscale(1) brightness(2);-webkit-backdrop-filter:grayscale(1) brightness(2)"></div></div>
+  <div class="cell" style="opacity:1"><div class="bg"></div><div class="bf" style="border-radius:8px"></div></div>
+  <div class="cell"><div class="bg"></div><div class="bf" style="clip-path:inset(0)"></div></div>
+
+  <div class="cell" style="position:absolute;left:0;top:200px"><div class="bg"></div><div class="bf"></div></div>
+  <div class="cell" style="position:absolute;left:200px;top:200px;contain:paint"><div class="bg"></div><div class="bf"></div></div>
+  <div class="cell" style="position:absolute;left:400px;top:200px"><div class="bg" style="position:fixed;left:400px;top:200px;width:200px;height:50px"></div><div class="bf"></div></div>
+  <div class="cell" style="position:absolute;left:600px;top:200px"><div class="bg"></div><div class="bf" style="position:fixed;left:600px;top:200px;width:200px;height:50px"></div></div>
+</div>
+<div style="position:absolute;top:260px;left:0;width:200px;height:50px;background:#404040">
+  <div style="position:absolute;inset:0;filter:brightness(2);background:#404040"></div>
+</div>

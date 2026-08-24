@@ -1,0 +1,5366 @@
+{
+  "version": "153.0",
+  "comparisons": [
+    {
+      "name": "Q1 inplace vs proxy pad=0",
+      "a": "inplace",
+      "b": "proxy-pad0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1 inplace vs proxy pad=8",
+      "a": "inplace",
+      "b": "proxy-pad8",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1 inplace vs proxy pad=20",
+      "a": "inplace",
+      "b": "proxy-pad20",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1 inplace vs proxy pad=40",
+      "a": "inplace",
+      "b": "proxy-pad40",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1 inplace vs proxy pad=60",
+      "a": "inplace",
+      "b": "proxy-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1 inplace vs proxy pad=120",
+      "a": "inplace",
+      "b": "proxy-pad120",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1 inplace vs proxy pad=full",
+      "a": "inplace",
+      "b": "proxy-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/inplace__vs__proxy-padfull.png"
+    },
+    {
+      "name": "Q1c pad=full vs pad=0",
+      "a": "proxy-padfull",
+      "b": "proxy-pad0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1c pad=full vs pad=8",
+      "a": "proxy-padfull",
+      "b": "proxy-pad8",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1c pad=full vs pad=20",
+      "a": "proxy-padfull",
+      "b": "proxy-pad20",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1c pad=full vs pad=40",
+      "a": "proxy-padfull",
+      "b": "proxy-pad40",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1c pad=full vs pad=60",
+      "a": "proxy-padfull",
+      "b": "proxy-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/proxy-padfull__vs__proxy-pad60.png"
+    },
+    {
+      "name": "Q1c pad=full vs pad=120",
+      "a": "proxy-padfull",
+      "b": "proxy-pad120",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1m clip-path vs mask-image (pad60)",
+      "a": "proxy-pad60",
+      "b": "proxy-mask60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1m clip-path vs overflow-wrap (pad60)",
+      "a": "proxy-pad60",
+      "b": "proxy-wrap60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1m clip=shapes vs clip=padded (halo)",
+      "a": "proxy-pad60",
+      "b": "proxy-clippadded",
+      "rois": {
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1b checker: inplace vs pad=full",
+      "a": "inplace-checker",
+      "b": "padfull-checker",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/inplace-checker__vs__padfull-checker.png"
+    },
+    {
+      "name": "Q1b checker: pad=full vs pad=60",
+      "a": "padfull-checker",
+      "b": "pad60-checker",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1b image: inplace vs pad=full",
+      "a": "inplace-image",
+      "b": "padfull-image",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/inplace-image__vs__padfull-image.png"
+    },
+    {
+      "name": "Q1b image: pad=full vs pad=60",
+      "a": "padfull-image",
+      "b": "pad60-image",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1b gradient: inplace vs pad=full",
+      "a": "inplace-gradient",
+      "b": "padfull-gradient",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q2 split pad=60 (AB) vs single group",
+      "a": "single-pad60",
+      "b": "split-pad60-ab",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_LEFT_BAND": {
+          "n": 7200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_RIGHT_BAND": {
+          "n": 7200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/single-pad60__vs__split-pad60-ab.png"
+    },
+    {
+      "name": "Q2 split pad=60 (BA) vs single group",
+      "a": "single-pad60",
+      "b": "split-pad60-ba",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_LEFT_BAND": {
+          "n": 7200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_RIGHT_BAND": {
+          "n": 7200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q2 paint order AB vs BA",
+      "a": "split-pad60-ab",
+      "b": "split-pad60-ba",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_LEFT_BAND": {
+          "n": 7200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_RIGHT_BAND": {
+          "n": 7200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/split-pad60-ab__vs__split-pad60-ba.png"
+    },
+    {
+      "name": "Q2 split pad=0 vs single group",
+      "a": "single-pad60",
+      "b": "split-pad0-ab",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q2s near-gap split(AB) vs single group",
+      "a": "near-single",
+      "b": "near-split-ab",
+      "rois": {
+        "NA_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NA_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NGAP": {
+          "n": 960,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/near-single__vs__near-split-ab.png"
+    },
+    {
+      "name": "Q2s near-gap split(BA) vs single group",
+      "a": "near-single",
+      "b": "near-split-ba",
+      "rois": {
+        "NA_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NA_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NGAP": {
+          "n": 960,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q2s near-gap order AB vs BA",
+      "a": "near-split-ab",
+      "b": "near-split-ba",
+      "rois": {
+        "NA_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NGAP": {
+          "n": 960,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/near-split-ab__vs__near-split-ba.png"
+    },
+    {
+      "name": "Q2s near-gap split pad=0 vs single",
+      "a": "near-single",
+      "b": "near-split-pad0",
+      "rois": {
+        "NA_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q2s near-gap brightness split vs single",
+      "a": "nearb-single",
+      "b": "nearb-split-ab",
+      "rois": {
+        "NA_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NB_inner": {
+          "n": 5832,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "NGAP": {
+          "n": 960,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/nearb-single__vs__nearb-split-ab.png"
+    },
+    {
+      "name": "Q3 scroll=400: inplace vs pad=full",
+      "a": "scroll-inplace",
+      "b": "scroll-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/scroll-inplace__vs__scroll-padfull.png"
+    },
+    {
+      "name": "Q3 scroll=400: inplace vs pad=60",
+      "a": "scroll-inplace",
+      "b": "scroll-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3 fixed behind: inplace vs pad=full",
+      "a": "fixed-inplace",
+      "b": "fixed-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/fixed-inplace__vs__fixed-padfull.png"
+    },
+    {
+      "name": "Q3 fixed+scroll: inplace vs pad=full",
+      "a": "fixed-scroll-inplace",
+      "b": "fixed-scroll-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/fixed-scroll-inplace__vs__fixed-scroll-padfull.png"
+    },
+    {
+      "name": "Q3 dsf=2: inplace vs pad=60",
+      "a": "zoom2-inplace",
+      "b": "zoom2-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 55744,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 55744,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 19200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 26880,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 88000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/zoom2-inplace__vs__zoom2-pad60.png"
+    },
+    {
+      "name": "Q3 dsf=2: inplace vs pad=full",
+      "a": "zoom2-inplace",
+      "b": "zoom2-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 55744,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 55744,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 19200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 26880,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 88000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/zoom2-inplace__vs__zoom2-padfull.png"
+    },
+    {
+      "name": "Q3 dsf=2: pad=full vs pad=60",
+      "a": "zoom2-padfull",
+      "b": "zoom2-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 55744,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 55744,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 19200,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 26880,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 88000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=2 pad=60   vs unfiltered",
+      "a": "zoom2-nofilter",
+      "b": "zoom2-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=2 pad=120  vs unfiltered",
+      "a": "zoom2-nofilter",
+      "b": "zoom2-pad120",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=2 pad=200  vs unfiltered",
+      "a": "zoom2-nofilter",
+      "b": "zoom2-pad200",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=2 pad=300  vs unfiltered",
+      "a": "zoom2-nofilter",
+      "b": "zoom2-pad300",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=2 pad=full vs unfiltered",
+      "a": "zoom2-nofilter",
+      "b": "zoom2-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 40256,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=1 pad=full vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "proxy-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=3 pad=60   vs unfiltered",
+      "a": "zoom3-nofilter",
+      "b": "zoom3-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 90576,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3d dsf=3 pad=full vs unfiltered",
+      "a": "zoom3-nofilter",
+      "b": "zoom3-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 90576,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3f fixed-host vs proxy pad=60 (no scroll)",
+      "a": "ipf",
+      "b": "proxy-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3f scroll=400: fixed-host vs proxy pad=60",
+      "a": "ipf-scroll",
+      "b": "scroll-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/ipf-scroll__vs__scroll-pad60.png"
+    },
+    {
+      "name": "Q3f fixed-content+scroll: fixed-host vs proxy",
+      "a": "ipf-fixed-scroll",
+      "b": "fixed-scroll-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/ipf-fixed-scroll__vs__fixed-scroll-padfull.png"
+    },
+    {
+      "name": "Q3f scroll container: fixed-host vs proxy",
+      "a": "ipf-scroller",
+      "b": "scr-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/ipf-scroller__vs__scr-padfull.png"
+    },
+    {
+      "name": "Q3f inner scroll 300: fixed-host vs proxy",
+      "a": "ipf-scroller-300",
+      "b": "scr-scrolled-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/ipf-scroller-300__vs__scr-scrolled-padfull.png"
+    },
+    {
+      "name": "Q3s scroller: proxy pad=full vs pad=60",
+      "a": "scr-padfull",
+      "b": "scr-pad60",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3s scroller: proxy pad=full vs pad=0",
+      "a": "scr-padfull",
+      "b": "scr-pad0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/scr-padfull__vs__scr-pad0.png"
+    },
+    {
+      "name": "Q3s scroller: static host vs fixed host",
+      "a": "scr-inplace",
+      "b": "ipf-scroller",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3s scroller: proxy pad=full vs unfiltered",
+      "a": "scr-nofilter",
+      "b": "scr-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q4o overlay with base tint vs without base tint",
+      "a": "overlay-on",
+      "b": "overlay-on-notint",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 74.59,
+          "max": 122,
+          "pctOver2": 82.35,
+          "pctOver8": 82.35,
+          "pctOver24": 81.56
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 3.32,
+          "max": 177,
+          "pctOver2": 2.4,
+          "pctOver8": 2.4,
+          "pctOver24": 2.38
+        }
+      },
+      "heat": "heat/overlay-on__vs__overlay-on-notint.png"
+    },
+    {
+      "name": "Q3 css zoom 1.5: inplace vs pad=full",
+      "a": "cssz-inplace",
+      "b": "cssz-padfull",
+      "rois": {
+        "FULL": {
+          "n": 158400,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/cssz-inplace__vs__cssz-padfull.png"
+    },
+    {
+      "name": "Q3 xform on content ancestor: inplace vs pad=full",
+      "a": "xf-content-inplace",
+      "b": "xf-content-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/xf-content-inplace__vs__xf-content-padfull.png"
+    },
+    {
+      "name": "Q3 xform on content ancestor: vs untransformed proxy",
+      "a": "proxy-padfull",
+      "b": "xf-content-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3 xform on common ancestor: inplace vs pad=full",
+      "a": "xf-common-inplace",
+      "b": "xf-common-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/xf-common-inplace__vs__xf-common-padfull.png"
+    },
+    {
+      "name": "Q3 xform on common ancestor: vs untransformed proxy",
+      "a": "proxy-padfull",
+      "b": "xf-common-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q3 scroll container: inplace vs pad=full",
+      "a": "scr-inplace",
+      "b": "scr-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/scr-inplace__vs__scr-padfull.png"
+    },
+    {
+      "name": "Q3 inner scroll 300: inplace vs pad=full",
+      "a": "scr-scrolled-inplace",
+      "b": "scr-scrolled-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "OUTSIDE_ABOVE": {
+          "n": 22000,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/scr-scrolled-inplace__vs__scr-scrolled-padfull.png"
+    },
+    {
+      "name": "Q3 inner scroll moved the backdrop at all",
+      "a": "scr-padfull",
+      "b": "scr-scrolled-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 180,
+          "max": 255,
+          "pctOver2": 70.59,
+          "pctOver8": 70.59,
+          "pctOver24": 70.59
+        },
+        "B_interior": {
+          "n": 10064,
+          "mean": 180,
+          "max": 255,
+          "pctOver2": 70.59,
+          "pctOver8": 70.59,
+          "pctOver24": 70.59
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q4 tint canvas on vs off (proxy)",
+      "a": "canvas-off-padfull",
+      "b": "canvas-on-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 62.68,
+          "max": 118,
+          "pctOver2": 82.35,
+          "pctOver8": 82.35,
+          "pctOver24": 80.92
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 2.14,
+          "max": 115,
+          "pctOver2": 2.4,
+          "pctOver8": 2.4,
+          "pctOver24": 2.27
+        },
+        "OUTSIDE_LEFT": {
+          "n": 6720,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": "heat/canvas-off-padfull__vs__canvas-on-padfull.png"
+    },
+    {
+      "name": "Q4 overlay plane: base only vs +overlay",
+      "a": "overlay-base-only",
+      "b": "overlay-on",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 31.33,
+          "max": 51,
+          "pctOver2": 82.35,
+          "pctOver8": 81.56,
+          "pctOver24": 73.25
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 29.19,
+          "max": 62,
+          "pctOver2": 73.05,
+          "pctOver8": 72.53,
+          "pctOver24": 65.59
+        },
+        "GAP": {
+          "n": 4800,
+          "mean": 1.18,
+          "max": 62,
+          "pctOver2": 2.4,
+          "pctOver8": 2.4,
+          "pctOver24": 2.19
+        }
+      },
+      "heat": "heat/overlay-base-only__vs__overlay-on.png"
+    },
+    {
+      "name": "Q1s blur(8px) pad=0sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad0x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=0.5sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad0.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=1sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad1x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=1.5sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad1.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=2sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad2x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=2.5sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad2.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=3sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad3x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) pad=4sigma vs pad=full",
+      "a": "s8-padfull",
+      "b": "s8-pad4x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(8px) in-place vs pad=full",
+      "a": "s8-inplace",
+      "b": "s8-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=0sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad0x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=0.5sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad0.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=1sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad1x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=1.5sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad1.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=2sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad2x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=2.5sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad2.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=3sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad3x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) pad=4sigma vs pad=full",
+      "a": "s20-padfull",
+      "b": "s20-pad4x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(20px) in-place vs pad=full",
+      "a": "s20-inplace",
+      "b": "s20-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=0sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad0x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=0.5sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad0.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=1sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad1x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=1.5sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad1.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=2sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad2x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=2.5sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad2.5x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=3sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad3x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) pad=4sigma vs pad=full",
+      "a": "s40-padfull",
+      "b": "s40-pad4x",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q1s blur(40px) in-place vs pad=full",
+      "a": "s40-inplace",
+      "b": "s40-padfull",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "B_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=none vs break=none",
+      "a": "break-none",
+      "b": "break-none",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=none vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-none",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=opacity099 vs break=none",
+      "a": "break-none",
+      "b": "break-opacity099",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=opacity099 vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-opacity099",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=filterNone vs break=none",
+      "a": "break-none",
+      "b": "break-filterNone",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=filterNone vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-filterNone",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=filterBlur0 vs break=none",
+      "a": "break-none",
+      "b": "break-filterBlur0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=filterBlur0 vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-filterBlur0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=filterGrayscale0 vs break=none",
+      "a": "break-none",
+      "b": "break-filterGrayscale0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=filterGrayscale0 vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-filterGrayscale0",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=maskLinear vs break=none",
+      "a": "break-none",
+      "b": "break-maskLinear",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=maskLinear vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-maskLinear",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=clipPathInset vs break=none",
+      "a": "break-none",
+      "b": "break-clipPathInset",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=clipPathInset vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-clipPathInset",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=containPaint vs break=none",
+      "a": "break-none",
+      "b": "break-containPaint",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=containPaint vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-containPaint",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=isolationIsolate vs break=none",
+      "a": "break-none",
+      "b": "break-isolationIsolate",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=isolationIsolate vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-isolationIsolate",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=mixBlend vs break=none",
+      "a": "break-none",
+      "b": "break-mixBlend",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=mixBlend vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-mixBlend",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=willChangeOpacity vs break=none",
+      "a": "break-none",
+      "b": "break-willChangeOpacity",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=willChangeOpacity vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-willChangeOpacity",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=willChangeTransform vs break=none",
+      "a": "break-none",
+      "b": "break-willChangeTransform",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=willChangeTransform vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-willChangeTransform",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=transform3d vs break=none",
+      "a": "break-none",
+      "b": "break-transform3d",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        },
+        "A_edge": {
+          "n": 13936,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    },
+    {
+      "name": "Q5 break=transform3d vs unfiltered",
+      "a": "ref-nofilter",
+      "b": "break-transform3d",
+      "rois": {
+        "A_interior": {
+          "n": 10064,
+          "mean": 0,
+          "max": 0,
+          "pctOver2": 0,
+          "pctOver8": 0,
+          "pctOver24": 0
+        }
+      },
+      "heat": null
+    }
+  ],
+  "pixels": {
+    "mech-none": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          180,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          430,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      }
+    ],
+    "mech-inplace": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          180,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          430,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      }
+    ],
+    "mech-proxy-ab": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          180,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          430,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      }
+    ],
+    "mech-proxy-ba": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          180,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          430,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      }
+    ],
+    "mech-single": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          180,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      },
+      {
+        "at": [
+          430,
+          120
+        ],
+        "rgb": [
+          58,
+          90,
+          128
+        ]
+      }
+    ],
+    "canvas-off-padfull": [
+      {
+        "at": [
+          200,
+          120
+        ],
+        "rgb": [
+          174,
+          108,
+          108
+        ]
+      },
+      {
+        "at": [
+          450,
+          120
+        ],
+        "rgb": [
+          152,
+          185,
+          103
+        ]
+      }
+    ],
+    "canvas-on-padfull": [
+      {
+        "at": [
+          200,
+          120
+        ],
+        "rgb": [
+          207,
+          167,
+          167
+        ]
+      },
+      {
+        "at": [
+          450,
+          120
+        ],
+        "rgb": [
+          181,
+          205,
+          145
+        ]
+      }
+    ],
+    "canvas-off-nofilter": [
+      {
+        "at": [
+          200,
+          120
+        ],
+        "rgb": [
+          174,
+          108,
+          108
+        ]
+      },
+      {
+        "at": [
+          450,
+          120
+        ],
+        "rgb": [
+          152,
+          185,
+          103
+        ]
+      }
+    ],
+    "canvas-on-nofilter": [
+      {
+        "at": [
+          200,
+          120
+        ],
+        "rgb": [
+          207,
+          167,
+          167
+        ]
+      },
+      {
+        "at": [
+          450,
+          120
+        ],
+        "rgb": [
+          181,
+          205,
+          145
+        ]
+      }
+    ],
+    "overlay-on": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          194,
+          214,
+          162
+        ]
+      },
+      {
+        "at": [
+          200,
+          120
+        ],
+        "rgb": [
+          213,
+          178,
+          178
+        ]
+      }
+    ],
+    "overlay-base-only": [
+      {
+        "at": [
+          300,
+          120
+        ],
+        "rgb": [
+          169,
+          200,
+          136
+        ]
+      },
+      {
+        "at": [
+          200,
+          120
+        ],
+        "rgb": [
+          197,
+          149,
+          149
+        ]
+      }
+    ],
+    "mech-none:regions": {
+      "A_only": [
+        58,
+        90,
+        128
+      ],
+      "overlap": [
+        58,
+        90,
+        128
+      ],
+      "B_only": [
+        58,
+        90,
+        128
+      ]
+    },
+    "mech-inplace:regions": {
+      "A_only": [
+        58,
+        90,
+        128
+      ],
+      "overlap": [
+        58,
+        90,
+        128
+      ],
+      "B_only": [
+        58,
+        90,
+        128
+      ]
+    },
+    "mech-proxy-ab:regions": {
+      "A_only": [
+        58,
+        90,
+        128
+      ],
+      "overlap": [
+        58,
+        90,
+        128
+      ],
+      "B_only": [
+        58,
+        90,
+        128
+      ]
+    },
+    "mech-proxy-ba:regions": {
+      "A_only": [
+        58,
+        90,
+        128
+      ],
+      "overlap": [
+        58,
+        90,
+        128
+      ],
+      "B_only": [
+        58,
+        90,
+        128
+      ]
+    },
+    "mech-single:regions": {
+      "A_only": [
+        58,
+        90,
+        128
+      ],
+      "overlap": [
+        58,
+        90,
+        128
+      ],
+      "B_only": [
+        58,
+        90,
+        128
+      ]
+    }
+  },
+  "cadence": {
+    "withGlass": {
+      "mean": 16.66,
+      "p50": 16.66,
+      "p95": 16.72,
+      "max": 17.52,
+      "over20": 0,
+      "n": 88
+    },
+    "withoutGlass": {
+      "mean": 16.67,
+      "p50": 16.66,
+      "p95": 16.7,
+      "max": 17.16,
+      "over20": 0,
+      "n": 88
+    }
+  },
+  "probe": {
+    "supports": {
+      "backdrop-filter: blur(1px)": true,
+      "-webkit-backdrop-filter: blur(1px)": false,
+      "backdrop-filter: saturate(2)": true,
+      "backdrop-filter: url(#x)": true,
+      "backdrop-filter: blur(1px) url(#x)": true,
+      "clip-path: path(\"M0,0 H1 V1 Z\")": true,
+      "mask-image: linear-gradient(#000,#000)": true,
+      "zoom: 1.5": true
+    },
+    "computedReadback": {
+      "blur(8px)": {
+        "inline": "blur(8px)",
+        "computed": "blur(8px)"
+      },
+      "blur(8px) saturate(1.8)": {
+        "inline": "blur(8px) saturate(1.8)",
+        "computed": "blur(8px) saturate(1.8)"
+      },
+      "url(#nope)": {
+        "inline": "url(\"#nope\")",
+        "computed": "url(\"#nope\")"
+      },
+      "blur(8px) url(#nope)": {
+        "inline": "blur(8px) url(\"#nope\")",
+        "computed": "blur(8px) url(\"#nope\")"
+      },
+      "blur(8px) bogusfn(3)": {
+        "inline": "(dropped at parse)",
+        "computed": "none"
+      }
+    },
+    "auditFixtures": {
+      "none": [],
+      "opacity099": [
+        {
+          "el": "DIV",
+          "prop": "opacity",
+          "value": "0.99"
+        }
+      ],
+      "filterNone": [],
+      "filterBlur0": [
+        {
+          "el": "DIV",
+          "prop": "filter",
+          "value": "blur(0px)"
+        }
+      ],
+      "filterGrayscale0": [
+        {
+          "el": "DIV",
+          "prop": "filter",
+          "value": "grayscale(0)"
+        }
+      ],
+      "maskLinear": [
+        {
+          "el": "DIV",
+          "prop": "maskImage",
+          "value": "linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))"
+        },
+        {
+          "el": "DIV",
+          "prop": "webkitMaskImage",
+          "value": "linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0))"
+        }
+      ],
+      "clipPathInset": [
+        {
+          "el": "DIV",
+          "prop": "clipPath",
+          "value": "inset(0px)"
+        }
+      ],
+      "containPaint": [
+        {
+          "el": "DIV",
+          "prop": "contain",
+          "value": "paint"
+        }
+      ],
+      "isolationIsolate": [
+        {
+          "el": "DIV",
+          "prop": "isolation",
+          "value": "isolate"
+        }
+      ],
+      "mixBlend": [
+        {
+          "el": "DIV",
+          "prop": "mixBlendMode",
+          "value": "multiply"
+        }
+      ],
+      "willChangeOpacity": [
+        {
+          "el": "DIV",
+          "prop": "willChange",
+          "value": "opacity"
+        }
+      ],
+      "willChangeTransform": [],
+      "transform3d": [],
+      "backdropFilterNone": []
+    },
+    "offscreen": {
+      "plainFill": {
+        "ok": true,
+        "tainted": false,
+        "samples": {
+          "left": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "mid": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "right": [
+            0,
+            0,
+            255,
+            255
+          ]
+        }
+      },
+      "cssFilterBlur": {
+        "ok": true,
+        "tainted": false,
+        "samples": {
+          "left": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "mid": [
+            121,
+            0,
+            134,
+            255
+          ],
+          "right": [
+            0,
+            0,
+            255,
+            255
+          ]
+        }
+      },
+      "backdropFilterBlur": {
+        "ok": true,
+        "tainted": false,
+        "samples": {
+          "left": [
+            255,
+            0,
+            0,
+            255
+          ],
+          "mid": [
+            0,
+            0,
+            255,
+            255
+          ],
+          "right": [
+            0,
+            0,
+            255,
+            255
+          ]
+        }
+      },
+      "backdropFilterBrightness": {
+        "ok": true,
+        "tainted": false,
+        "samples": {
+          "left": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "mid": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "right": [
+            64,
+            64,
+            64,
+            255
+          ]
+        }
+      },
+      "backdropFilterTwoSiblings": {
+        "ok": true,
+        "tainted": false,
+        "samples": {
+          "left": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "mid": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "right": [
+            64,
+            64,
+            64,
+            255
+          ]
+        }
+      },
+      "backdropFilterClipped": {
+        "ok": true,
+        "tainted": false,
+        "samples": {
+          "left": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "mid": [
+            64,
+            64,
+            64,
+            255
+          ],
+          "right": [
+            64,
+            64,
+            64,
+            255
+          ]
+        }
+      }
+    },
+    "oracles": {
+      "getDisplayMedia": true,
+      "startViewTransition": true,
+      "CSSPaintWorklet": false,
+      "OffscreenCanvas": true,
+      "userAgentData": false,
+      "uaBrands": null,
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:153.0) Gecko/20100101 Firefox/153.0",
+      "devicePixelRatio": 1
+    }
+  }
+}
