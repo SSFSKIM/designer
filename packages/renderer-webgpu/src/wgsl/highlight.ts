@@ -31,7 +31,7 @@
 
 export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
   /// viewport size in device px (xy), CSS px per device px (z), unused (w)
-  target : vec4f,
+  screen : vec4f,
   /// sweep position 0..1 (x), band width in radians (y), sweep gain (z), rim width px (w)
   sweep : vec4f,
   /// press point in viewport CSS px (xy), glow radius px (z), glow gain (w)
@@ -71,14 +71,14 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
   // Specular sweep: a travelling band in the rim's angular coordinate.
   let rim = clamp(1.0 - abs(d) / max(hu.sweep.w, 1e-4), 0.0, 1.0);
   let theta = atan2(normal.y, normal.x) + TAU * 0.5;
-  let target = hu.sweep.x * TAU;
+  let centre = hu.sweep.x * TAU;
   let width = max(hu.sweep.y, 1e-4);
-  let band = exp(-pow(angle_delta(theta, target) / width, 2.0));
+  let band = exp(-pow(angle_delta(theta, centre) / width, 2.0));
   let sweep = rim * rim * band * hu.sweep.z;
 
   // Press glow: radial, in CSS px, clipped by coverage so it cannot leak past
   // the material's edge.
-  let posCss = in.position.xy * hu.target.z;
+  let posCss = in.position.xy * hu.screen.z;
   let dist = length(posCss - hu.glow.xy);
   let radial = clamp(1.0 - dist / max(hu.glow.z, 1e-4), 0.0, 1.0);
   // 'aux.y' is the per-pixel glow channel, unioned in the field pass, so a group

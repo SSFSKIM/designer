@@ -250,11 +250,9 @@ export const WGSL_SMOOTH_UNION = `fn union_blend(a : f32, b : f32, u : vec3f) ->
  * highlight, and any future pass — reads this and never re-evaluates the field.
  */
 export const WGSL_FIELD_PASS = `struct FieldUniforms {
-  /// rect.xy = group origin in viewport CSS px, rect.zw = group size in CSS px
-  rect   : vec4f,
-  /// target.xy = target size in device px, target.z = CSS px per device px,
-  /// target.w = coverage ramp width in CSS px
-  target : vec4f,
+  /// screen.xy = target size in device px, screen.z = CSS px per device px,
+  /// screen.w = coverage ramp width in CSS px
+  screen : vec4f,
   /// neckWidth, maxBulge, separationThreshold, unused
   unionP : vec4f,
   counts : vec4u,
@@ -296,8 +294,11 @@ struct FieldOut {
 
 @fragment
 fn fs_field(in : FullscreenOut) -> FieldOut {
-  let devicePx = in.uv * fu.target.xy;
-  let p = fu.rect.xy + devicePx * fu.target.z;
+  // GROUP-LOCAL CSS px. The instance buffer's centres were already made relative
+  // to the group's rect on the CPU (f32 loses resolution at large magnitudes, so
+  // a field evaluated at viewport y = 40000 would quantise its own corner), and
+  // adding the origin back here would offset every shape by it twice.
+  let p = in.uv * fu.screen.xy * fu.screen.z;
 
   var out : FieldOut;
   let count = fu.counts.x;
@@ -326,7 +327,7 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
 
   let len = max(length(acc.g), 1e-6);
   let normal = acc.g / len;
-  let coverage = clamp(0.5 - acc.d / max(fu.target.w, 1e-6), 0.0, 1.0);
+  let coverage = clamp(0.5 - acc.d / max(fu.screen.w, 1e-6), 0.0, 1.0);
 
   out.field = vec4f(acc.d, normal.x, normal.y, coverage);
   out.aux = acc.aux;

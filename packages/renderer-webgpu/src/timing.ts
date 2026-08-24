@@ -36,6 +36,12 @@ export interface TimingCollector extends PassTimeline {
   resolve(encoder: GPUCommandEncoder): void;
   /** Read the resolved timings. Labels map to elapsed nanoseconds. */
   read(): Promise<ReadonlyMap<string, number>>;
+  /**
+   * Slots whose resolved pair was not a positive duration, since the collector
+   * was created. A non-zero count means some number reported here is missing a
+   * pass, and saying so is better than quietly averaging it in.
+   */
+  readonly anomalies: number;
   reset(): void;
   destroy(): void;
 }
@@ -63,6 +69,7 @@ export function createTimingCollector(device: GPUDevice, capacity = 64): TimingC
   });
 
   let used = 0;
+  let anomalies = 0;
   const labels: string[] = [];
 
   const take = (label: string): { begin: number; end: number } | undefined => {
@@ -77,6 +84,10 @@ export function createTimingCollector(device: GPUDevice, capacity = 64): TimingC
     capacity,
     get used() {
       return used;
+    },
+
+    get anomalies() {
+      return anomalies;
     },
 
     renderSlot(label) {
@@ -115,10 +126,20 @@ export function createTimingCollector(device: GPUDevice, capacity = 64): TimingC
         const begin = view[i * 2] ?? 0n;
         const end = view[i * 2 + 1] ?? 0n;
         const label = labels[i] ?? `pass-${i}`;
+        const elapsed = Number(end - begin);
+        // Zero IS a legitimate duration — a clear-only pass with no draw really
+        // does take no measurable time. What is not legitimate is a *negative*
+        // one, or a pair where both endpoints are zero: WebGPU leaves a slot
+        // unspecified when its pass did not run, and averaging that in would
+        // corrupt every number in the report. Those are dropped and counted.
+        if (!Number.isFinite(elapsed) || elapsed < 0 || (begin === 0n && end === 0n)) {
+          anomalies += 1;
+          continue;
+        }
         // Several passes share a label (one per group, one per pyramid level), and
         // the interesting number is the total the budget is spent on, so labels
         // accumulate rather than overwrite.
-        out.set(label, (out.get(label) ?? 0) + Number(end - begin));
+        out.set(label, (out.get(label) ?? 0) + elapsed);
       }
       return out;
     },
@@ -145,5 +166,4 @@ export const PASS_LABEL = {
   field: "group-field",
   optics: "optics",
   highlight: "highlight",
-  clear: "clear",
 } as const;

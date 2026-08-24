@@ -78,9 +78,24 @@ export interface SurfaceInput {
   readonly channels?: Partial<SurfaceChannels>;
   /**
    * X8 rider 2. When present this surface renders as `parentField + inset`, and
-   * the parent must be a surface of the same group.
+   * the parent must be declared in the same group — as a member, or as a
+   * `fieldReferenceOnly` shape.
    */
   readonly concentricOf?: { readonly nodeId: string; readonly inset: number };
+  /**
+   * Declared so a concentric child can be a level set of it, but not itself
+   * drawn.
+   *
+   * This exists because of what a union is: a concentric child's field is its
+   * parent's plus a positive inset, so inside the parent the child is always the
+   * larger value and `min` discards it. A child nested in the same union as its
+   * parent is therefore invisible *by construction* — correct, and not what an
+   * inset indicator inside a segmented control's track wants. There, the track
+   * and the indicator are separate surfaces with separate material, and the
+   * indicator's group needs the track's geometry only as the field its own
+   * contour is offset from.
+   */
+  readonly fieldReferenceOnly?: boolean;
 }
 
 export interface GroupRenderInput {

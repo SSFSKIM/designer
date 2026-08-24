@@ -147,7 +147,11 @@ export function resolveSurfaces(
   const paramsFor = (shape: ResolvedShape): FieldParams =>
     family === "rsup" ? governorFieldParams(shape) : fieldParams(shape);
 
-  return group.surfaces.map((surface): ResolvedSurface => {
+  // Reference shapes are resolved (a child needs its parent's field) and then
+  // dropped: they contribute no instance, no bounds, and no coverage.
+  return group.surfaces
+    .filter((surface) => surface.fieldReferenceOnly !== true)
+    .map((surface): ResolvedSurface => {
     const channels = channelsOf(surface);
     const shape = resolveShapeOf(surface);
 

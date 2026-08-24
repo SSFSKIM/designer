@@ -378,7 +378,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           sourceId: request.sourceId,
           epoch: request.epoch,
           resolution: request.resolution,
-          bodySigmaTexels: optics.blurSigma * request.resolution.scale,
+          bodySigmaCss: optics.blurSigma,
+          viewportCss: [viewport.widthCss, viewport.heightCss],
         },
         provider,
         encoder,
@@ -451,8 +452,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const fields = passes.fieldPass(encoder, {
         groupId: input.groupId,
         family: governor.knobs.fieldFamily,
-        originCss: [rectCss.x, rectCss.y],
-        sizeCss: [rectCss.width, rectCss.height],
         rectDevice,
         cssPerDevice,
         coverageRampCss: cssPerDevice,
@@ -700,7 +699,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
       args.timing?.resolve(encoder);
       gpu.device.queue.submit([encoder.finish()]);
-      pyramids.releaseAcquired();
+      pyramids.afterSubmit();
 
       // Advance the adaptation filters by the real frame delta. The drivers are
       // frame-rate invariant by construction (§Motion), so a dropped frame and two
@@ -756,7 +755,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           }
 
           context.device.queue.submit([encoder.finish()]);
-          pyramids.releaseAcquired();
+          pyramids.afterSubmit();
 
           const delta =
             lastFrameTimeMs === undefined ? 0 : frameContext.frame.timeMs - lastFrameTimeMs;

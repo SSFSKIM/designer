@@ -78,8 +78,18 @@ export interface PyramidBuildRequest {
   readonly sourceId: string;
   readonly epoch: number;
   readonly resolution: ResolutionPolicyView;
-  /** Body blur σ in source texels at level 0. */
-  readonly bodySigmaTexels: number;
+  /**
+   * The material's body blur, in **CSS px**, with the viewport it is measured
+   * against.
+   *
+   * Not in source texels, because the conversion between the two is a property of
+   * the frame that has not been acquired yet: a 3840-wide video behind a 390 px
+   * viewport packs ten source texels into every CSS px, so a σ of 8 texels would
+   * be a σ of 0.8 CSS px on screen — a tenth of the frost the material asked for.
+   * The build resolves it once the frame's real extent is known.
+   */
+  readonly bodySigmaCss: number;
+  readonly viewportCss: readonly [number, number];
 }
 
 export type PyramidBuildOutcome =
@@ -101,8 +111,12 @@ export interface PyramidStore {
     provider: BackdropProvider,
     encoder: GPUCommandEncoder,
   ): PyramidBuildOutcome;
-  /** The providers whose `release()` is still owed, in acquisition order. */
-  releaseAcquired(): void;
+  /**
+   * Everything that must happen after `queue.submit`: provider releases, and
+   * starting the analysis readback maps. Both are ordering-critical — see the
+   * implementation.
+   */
+  afterSubmit(): void;
   resources(sourceId: string): PyramidResources | undefined;
   /** Copy a source's stats into a staging buffer and map it. Cadence-gated by the caller. */
   requestStats(sourceId: string, encoder: GPUCommandEncoder): boolean;
@@ -125,6 +139,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
   const readbacks = new Map<string, StatsReadback>();
   const pendingRelease: BackdropProvider[] = [];
   const pendingStats = new Map<string, Promise<BackdropStats | undefined>>();
+  /** Readbacks whose copy is encoded but whose map must wait for the submit. */
+  const pendingMaps: string[] = [];
 
   let timeline: PassTimeline | undefined;
   const timedRender = (label: string): { timestampWrites?: GPURenderPassTimestampWrites } => {
@@ -512,7 +528,16 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       pendingRelease.push(provider);
 
       const plan = planPyramid(frame.width, frame.height, request.resolution);
-      const bodyPlan = bodyBlurPlan(request.bodySigmaTexels, plan);
+      // Source texels per CSS px, under the same cover fit the optics pass
+      // samples with, times the downscale the plan actually applied (which
+      // includes `maxDimension`, not just the policy's `scale`).
+      const [viewportW, viewportH] = request.viewportCss;
+      const cover =
+        viewportW > 0 && viewportH > 0
+          ? Math.max(frame.width / viewportW, frame.height / viewportH)
+          : 1;
+      const planScale = frame.width > 0 ? plan.width / frame.width : 1;
+      const bodyPlan = bodyBlurPlan(request.bodySigmaCss * cover * planScale, plan);
       const target = allocate(
         request.sourceId,
         plan,
@@ -538,9 +563,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       return { status: "built", resources: target };
     },
 
-    releaseAcquired() {
-      // After submit, in acquisition order. A provider that throws on release must
-      // not strand the others — a leaked VideoFrame stalls decoding.
+    afterSubmit() {
+      // Providers first, in acquisition order. A provider that throws on release
+      // must not strand the others — a leaked VideoFrame stalls decoding.
       while (pendingRelease.length > 0) {
         const provider = pendingRelease.shift();
         try {
@@ -548,6 +573,30 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         } catch {
           // Deliberately swallowed; see above.
         }
+      }
+
+      // Then the readback maps, now that the copies they read are in the queue.
+      while (pendingMaps.length > 0) {
+        const sourceId = pendingMaps.shift();
+        if (sourceId === undefined) continue;
+        const slot = readbacks.get(sourceId);
+        if (slot === undefined) continue;
+        const staging = slot.staging;
+        pendingStats.set(
+          sourceId,
+          (async () => {
+            try {
+              await staging.mapAsync(GPUMapMode.READ);
+              const values = new Float32Array(staging.getMappedRange().slice(0));
+              staging.unmap();
+              return statsFromBuffer(values);
+            } catch {
+              return undefined;
+            } finally {
+              slot.inFlight = false;
+            }
+          })(),
+        );
       }
     },
 
@@ -579,24 +628,12 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
 
       encoder.copyBufferToBuffer(target.stats, 0, readback.staging, 0, ANALYSIS_STATS_FLOATS * 4);
       readback.inFlight = true;
-
-      const staging = readback.staging;
-      const slot = readback;
-      pendingStats.set(
-        sourceId,
-        (async () => {
-          try {
-            await staging.mapAsync(GPUMapMode.READ);
-            const values = new Float32Array(staging.getMappedRange().slice(0));
-            staging.unmap();
-            return statsFromBuffer(values);
-          } catch {
-            return undefined;
-          } finally {
-            slot.inFlight = false;
-          }
-        })(),
-      );
+      // The map is NOT started here. `mapAsync` makes a buffer unavailable to
+      // submits from the moment it is called, and the copy just encoded has not
+      // been submitted yet — starting the map now makes this frame's own submit
+      // invalid with "used in submit while mapped". So the map is deferred to
+      // `afterSubmit`.
+      pendingMaps.push(sourceId);
       return true;
     },
 
@@ -620,6 +657,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       readbacks.get(sourceId)?.staging.destroy();
       readbacks.delete(sourceId);
       pendingStats.delete(sourceId);
+      const queued = pendingMaps.indexOf(sourceId);
+      if (queued >= 0) pendingMaps.splice(queued, 1);
     },
 
     destroy() {
@@ -627,6 +666,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       for (const slot of uniforms.values()) slot.buffer.destroy();
       uniforms.clear();
       pendingRelease.length = 0;
+      pendingMaps.length = 0;
     },
   };
 }

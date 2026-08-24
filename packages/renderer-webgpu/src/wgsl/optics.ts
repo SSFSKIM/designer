@@ -51,7 +51,7 @@
 
 export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// viewport size in device px (xy), CSS px per device px (z), coverage ramp px (w)
-  target : vec4f,
+  screen : vec4f,
   /// backdrop uv transform on viewport-normalised coords: scale (xy), offset (zw)
   fit : vec4f,
   /// refractionScale, bodyLodPerPx, rimLodBias, chainMaxLod
@@ -96,8 +96,8 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     return vec4f(0.0);
   }
 
-  let viewport01 = in.position.xy / ou.target.xy;
-  let viewportCss = ou.target.xy * ou.target.z;
+  let viewport01 = in.position.xy / ou.screen.xy;
+  let viewportCss = ou.screen.xy * ou.screen.z;
 
   // Per-pixel, unioned through the field pass. See the module note.
   let lensDepth = max(aux.x, 1e-4);

@@ -44,9 +44,6 @@ export interface DeviceRect {
 export interface FieldPassArgs {
   readonly groupId: string;
   readonly family: FieldFamily;
-  /** Group rect in viewport CSS px. */
-  readonly originCss: readonly [number, number];
-  readonly sizeCss: readonly [number, number];
   readonly rectDevice: DeviceRect;
   /** CSS px per device px. */
   readonly cssPerDevice: number;
@@ -250,25 +247,24 @@ export function createPassRunner(context: GpuContext): PassRunner {
         label: `vitrea:group:${args.groupId}:aux`,
       });
 
-      const slot = uniformSlot(`field:${args.groupId}`, 16);
-      slot.data[0] = args.originCss[0];
-      slot.data[1] = args.originCss[1];
-      slot.data[2] = args.sizeCss[0];
-      slot.data[3] = args.sizeCss[1];
-      slot.data[4] = width;
-      slot.data[5] = height;
-      slot.data[6] = args.cssPerDevice;
-      slot.data[7] = args.coverageRampCss;
-      slot.data[8] = args.union.neckWidth;
-      slot.data[9] = args.union.maxBulge;
-      slot.data[10] = args.union.separationThreshold;
-      slot.data[11] = 0;
+      // Twelve floats: screen, unionP, counts. The group's origin is deliberately
+      // absent — instance centres are packed relative to it, so the shader works
+      // in group-local coordinates and never adds it back.
+      const slot = uniformSlot(`field:${args.groupId}`, 12);
+      slot.data[0] = width;
+      slot.data[1] = height;
+      slot.data[2] = args.cssPerDevice;
+      slot.data[3] = args.coverageRampCss;
+      slot.data[4] = args.union.neckWidth;
+      slot.data[5] = args.union.maxBulge;
+      slot.data[6] = args.union.separationThreshold;
+      slot.data[7] = 0;
       // `counts` is a vec4u in the shader; a Float32Array cannot write a u32, so
       // the count goes through a Uint32 view of the same words.
-      slot.data[13] = 0;
-      slot.data[14] = 0;
-      slot.data[15] = 0;
-      new Uint32Array(slot.data.buffer, slot.data.byteOffset + 48, 1)[0] = args.instanceCount;
+      slot.data[9] = 0;
+      slot.data[10] = 0;
+      slot.data[11] = 0;
+      new Uint32Array(slot.data.buffer, slot.data.byteOffset + 32, 1)[0] = args.instanceCount;
       slot.write();
 
       const instances = storageSlot(args.groupId);
@@ -426,9 +422,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     clearPass(encoder, target) {
+      // Deliberately untimed. A render pass with no draw commands is resolved by
+      // the driver without ever writing its timestamp pair, so a slot taken here
+      // comes back as (0, 0) — indistinguishable from a query that failed. Leaving
+      // it out is what lets a non-zero anomaly count mean something.
       const pass = encoder.beginRenderPass({
         label: "vitrea:pass:clear",
-        ...timed(PASS_LABEL.clear),
         colorAttachments: [
           {
             view: target,
