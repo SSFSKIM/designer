@@ -165,6 +165,6 @@ export const node = tseslint.config(...base, {
 // against the repo's Node-flavoured root rules only reports globals it is
 // supposed to be using.
 export default tseslint.config(
-  { ignores: ["packages/**", "apps/**", "skills/**", "docs/**", "spikes/**", "Figma Design/**"] },
+  { ignores: ["packages/**", "apps/**", "skills/**", "docs/**", "spikes/**", "Figma Design/**", "figma-design-workspace/**", ".playwright-cli/**", ".claude/**"] },
   ...base,
 );
