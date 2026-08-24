@@ -1,63 +1,155 @@
 /**
- * @vitrea/geometry — skeleton (C1).
+ * @vitrea/geometry — ShapeSpec -> Contour IR -> compiled shapes.
  *
- * Holds the shape-channel contract (X8) so downstream packages can type against
- * it before C3 lands the Contour IR, the pseudo-SDF families and the morph
- * solver. Pure math: no DOM, no Node built-ins (X4).
+ * Pure math (X4): no DOM, no Node built-ins, no timers. Everything here is a
+ * function of its arguments.
+ *
+ * The five pieces, and where to start reading:
+ *
+ *  - `field.ts`       the v1 pseudo-SDF (`rsupn`) and its analytic gradient.
+ *                     This is what renders, and what C6's WGSL mirrors.
+ *  - `shape.ts`       ShapeSpec -> the X8 channel vector plus the six derived
+ *                     floats the field needs.
+ *  - `contour.ts`     the Contour IR — interchange and tessellation only, never
+ *                     the render form.
+ *  - `concentric.ts`  the level-set offset resolver.
+ *  - `morph.ts`       parametric interpolation over the whole channel vector.
+ *  - `union.ts`       bounded smooth-min group union.
+ *  - `wgsl.ts`        the shader source of truth, kept in step by
+ *                     `test/wgsl-sync.test.ts`.
+ *
+ * The declared error bound (S2, adopted as spec Decision Log #20) is a permanent
+ * regression target in `test/error-bound.test.ts`, measured against the same
+ * ground-truth harness the spike used.
  */
 
-export type Vec2 = readonly [x: number, y: number];
+export {
+  clamp,
+  type CornerProfile,
+  type CornerRadii,
+  flattenShapeChannels,
+  halfExtents,
+  lerp,
+  lerpShapeChannels,
+  SHAPE_CHANNEL_COUNT,
+  SHAPE_FAMILIES,
+  type ShapeChannels,
+  type ShapeFamily,
+  smoothstep,
+  uniformRadii,
+  type Vec2,
+} from "./channels";
 
-/** Corner radii, clockwise from top-left. */
-export type CornerRadii = readonly [
-  topLeft: number,
-  topRight: number,
-  bottomRight: number,
-  bottomLeft: number,
-];
+export { GeometryError, type GeometryErrorCode } from "./errors";
 
-/** The v1 shape families (§Geometry). Not "Apple's taxonomy" — vitrea's supported set. */
-export const SHAPE_FAMILIES = ["fixed-rounded-rect", "capsule", "concentric-rounded-rect"] as const;
+export {
+  type CornerConstruction,
+  cornerBudget,
+  resolveCornerConstruction,
+  smoothingCeiling,
+} from "./corner";
 
-export type ShapeFamily = (typeof SHAPE_FAMILIES)[number];
+export {
+  APPLE_RSUP,
+  APPLE_RSUPN,
+  type CoefficientRow,
+  coefficientsAt,
+  type CornerCoefficients,
+  FIGMA_RSUP_TABLE,
+  FIGMA_RSUPN_TABLE,
+  RSUP_BASIS_ORDER,
+  ZERO_COEFFICIENTS,
+} from "./coefficients";
 
-/**
- * Public sugar over the internal numeric corner profile: `"circular"` is
- * `smoothing: 0`, `"continuous"` is the calibration-determined value.
- */
-export type CornerProfile = "continuous" | "circular";
+export {
+  centralGradient,
+  cornerSupport,
+  type FieldParams,
+  type FieldSample,
+  rsupField,
+  rsupLevelSetNormal,
+  rsupnField,
+  rsupnFieldAndGradient,
+} from "./field";
 
-/**
- * X8 — the shape channel set. Every channel is numeric, which is what makes
- * v1's parametric morphs total: capsule <-> rounded rect, button <-> platter.
- */
-export interface ShapeChannels {
-  readonly center: Vec2;
-  readonly size: Vec2;
-  readonly radii: CornerRadii;
-  /** 0 = circular arc corners, 1 = maximum continuous-curvature smoothing. */
-  readonly smoothing: number;
-  /** Material thickness, in CSS px, driving lensing depth and shadow. */
-  readonly thickness: number;
-}
+export {
+  APPLE_BEST_FIGMA_SMOOTHING,
+  APPLE_CONTINUOUS_SMOOTHING_SEED,
+  APPLE_CORNER_DUMP,
+  APPLE_REACH,
+  APPLE_SATURATION_RADIUS_RATIO,
+  type AppleContour,
+  buildAppleContour,
+} from "./apple";
 
-const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;
+export {
+  buildReferenceContour,
+  type Contour,
+  contourArea,
+  contourCurvatureBreaks,
+  contourGap,
+  contourLength,
+  type ContourSegment,
+  contourTangentBreak,
+  contourToCubics,
+  mirrorSegment,
+  type Point,
+  ringFromCorner,
+  segmentCurvature,
+  segmentDerivative,
+  segmentEnd,
+  segmentLength,
+  segmentNormal,
+  segmentPoint,
+  segmentSecondDerivative,
+  segmentStart,
+  translateSegment,
+} from "./contour";
 
-/**
- * Interpolate the whole channel set. C3 replaces the easing/solver story; the
- * property that every channel interpolates is the contract, not this code.
- */
-export function lerpShapeChannels(a: ShapeChannels, b: ShapeChannels, t: number): ShapeChannels {
-  return {
-    center: [lerp(a.center[0], b.center[0], t), lerp(a.center[1], b.center[1], t)],
-    size: [lerp(a.size[0], b.size[0], t), lerp(a.size[1], b.size[1], t)],
-    radii: [
-      lerp(a.radii[0], b.radii[0], t),
-      lerp(a.radii[1], b.radii[1], t),
-      lerp(a.radii[2], b.radii[2], t),
-      lerp(a.radii[3], b.radii[3], t),
-    ],
-    smoothing: lerp(a.smoothing, b.smoothing, t),
-    thickness: lerp(a.thickness, b.thickness, t),
-  };
-}
+export {
+  assertUniformRadii,
+  type CapsuleSpec,
+  type CornerReference,
+  type FieldFamily,
+  fieldParams,
+  type FixedRoundedRectSpec,
+  governorFieldParams,
+  type ResolveOptions,
+  type ResolvedCorner,
+  type ResolvedShape,
+  resolveCorner,
+  resolveFromChannels,
+  resolveShape,
+  type ShapeSpec,
+  toContour,
+} from "./shape";
+
+export {
+  type ConcentricResult,
+  type ConcentricSpec,
+  concentricField,
+  concentricFieldAndGradient,
+  DEFAULT_CONCENTRIC_MIN_RADIUS,
+  MEASURED_BAND_PX,
+  resolveConcentric,
+  resolveThicknessInnerShape,
+} from "./concentric";
+
+export { type MorphOptions, morphChannels, morphShapes, sampleMorph } from "./morph";
+
+export {
+  DEFAULT_GROUP_UNION,
+  type GroupUnionParams,
+  groupUnion,
+  groupUnionField,
+  memberField,
+  smoothUnion2,
+} from "./union";
+
+export {
+  fingerprint,
+  WGSL_FIELD_MODULE,
+  WGSL_RSUP,
+  WGSL_RSUPN,
+  WGSL_SHAPE_STRUCT,
+} from "./wgsl";
