@@ -107,7 +107,7 @@ describe("illegal combinations resolve to the nearest legal mode", () => {
   it("sampled-async on a hint state falls to author-hint, one step down", () => {
     const diagnostics = createDiagnosticsChannel();
     const resolved = resolveForegroundAdaptation(sampled(), stateWithAnalysis("hint"), {
-      groupId: "g1",
+      subject: "g1",
       diagnostics,
     });
 
@@ -140,7 +140,7 @@ describe("illegal combinations resolve to the nearest legal mode", () => {
     const state = stateWithAnalysis("none");
 
     for (let frame = 0; frame < 5; frame += 1) {
-      resolveForegroundAdaptation(sampled(), state, { groupId: "g1", diagnostics });
+      resolveForegroundAdaptation(sampled(), state, { subject: "g1", diagnostics });
     }
 
     expect(diagnostics.reported).toHaveLength(1);
@@ -164,7 +164,7 @@ describe("sampled-async parameter validation", () => {
   it("clamps a per-frame rate down to the low-frequency ceiling", () => {
     const diagnostics = createDiagnosticsChannel();
     const resolved = resolveForegroundAdaptation(sampled(60, 0.1), stateWithAnalysis("exact"), {
-      groupId: "g1",
+      subject: "g1",
       diagnostics,
     });
 

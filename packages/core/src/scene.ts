@@ -620,7 +620,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         const state = resolveGlassGroupState(capabilityInputs(group, hint.availability));
 
         const requested = group.descriptor.foreground ?? defaultForegroundAdaptation(state);
-        const foreground = resolveForegroundAdaptation(requested, state, { groupId, diagnostics });
+        const foreground = resolveForegroundAdaptation(requested, state, { subject: groupId, diagnostics });
 
         const previous = group.state;
         const change = classifyStateChange(previous, state);
@@ -651,7 +651,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
             groupId,
             material,
             foreground: resolveForegroundAdaptation(node.descriptor.foreground ?? requested, state, {
-              groupId: nodeId,
+              subject: nodeId,
               diagnostics,
             }),
           });

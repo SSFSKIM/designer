@@ -61,8 +61,12 @@ function legalModes(analysis: AnalysisQuality): readonly ForegroundMode[] {
 }
 
 export interface ForegroundResolutionOptions {
-  /** Named in diagnostics; also the dedupe subject, so a downgrade is reported once. */
-  readonly groupId?: string;
+  /**
+   * What a finding is about — a group id, or a node id where a surface
+   * overrides its group's mode. Also the dedupe subject, so a standing
+   * downgrade is reported once rather than once per frame.
+   */
+  readonly subject?: string;
   readonly diagnostics?: DiagnosticsChannel;
 }
 
@@ -87,7 +91,7 @@ function validateSampled(
     options.diagnostics?.report({
       code: "foreground-rate-clamped",
       severity: "warning",
-      subjects: [options.groupId ?? "*"],
+      subjects: [options.subject ?? "*"],
       message: `Foreground sampled-async parameters were clamped to the supported range (rateHz ${minHz}..${maxHz}, hysteresis ${minHysteresis}..${maxHysteresis}). Readback is low-frequency by contract, never per-frame.`,
     });
   }
@@ -124,7 +128,7 @@ export function resolveForegroundAdaptation(
   options.diagnostics?.report({
     code: "foreground-mode-illegal",
     severity: "warning",
-    subjects: [options.groupId ?? "*"],
+    subjects: [options.subject ?? "*"],
     message: `Foreground mode "${from}" needs a state this group does not have — sampled-async requires analysis: exact, author-hint requires a backdrop hint or estimator (X6). Resolved analysis is "${state.analysis}", so "${target}" was used instead.`,
   });
 
