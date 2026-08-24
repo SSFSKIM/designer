@@ -375,6 +375,14 @@ worth recording because each was a way to get a wrong answer:
   uses paired passes of N and 2N draws, `(T(2N) − T(N)) / N`, which cancels the
   pass fixed cost exactly.
 
+Run-to-run reproducibility, from two independent full runs: **family D's cost
+repeats to within 0.4%** at both resolutions. The cheap variants are less
+reproducible — the `null` and `roundbox` figures moved by up to 7% between runs —
+because their *net* cost is a difference of two small numbers and the loop
+overhead dominates them. Treat family D's absolute cost as solid and the
+D-versus-A *ratio* as approximate (it lands between 3.3× and 3.9× depending on
+run and resolution).
+
 **Which candidates were ported, and why not simply the top two by accuracy.** The
 two most accurate are C and D — but they share a coefficient table and a zero
 level set, and D dominates C on every error metric, so pricing them against each
@@ -458,6 +466,14 @@ shapes:
 than the single-subtraction family A in this respect. The polynomial's
 conditioning is a non-issue at this basis order. It would stop being a non-issue
 at order 7, where coefficients reach ~56 (see §5).
+
+This check does double duty, and the second job is arguably the more important
+one: agreement at the 1e-5 level also **validates the WGSL port itself**. The
+TypeScript `rsupn.evalAt` is written as a line-for-line mirror of `sd_rsupn` —
+branchless, same clamp, same Horner order — so a transcription error in the
+shader would show up here as a gross disagreement, not a rounding difference.
+The error tables in §2 are computed from the TypeScript field; this is the
+evidence that the shader C6 will ship computes the same function.
 
 ---
 
@@ -589,9 +605,11 @@ interface:
   needs no special case.
 - The gradient is worth computing analytically rather than by finite differences.
   The reported gradient figures come from central differences of the returned
-  field precisely so that they characterize the shipped field, but a shader
-  differencing four extra field evaluations per pixel would pay 4× the cost
-  measured in §4 for no accuracy gain.
+  field precisely so that they characterize the shipped field — but a shader doing
+  the same would need four extra field evaluations per pixel, roughly five times
+  the cost measured in §4, for no accuracy gain. The analytic normal is the
+  clamped corner vector rotated by the correction's own derivative, which the
+  field already computes for the normalization term.
 - The eikonal defect stays under 0.03, so the field can be treated as a distance
   for refraction-strength purposes without renormalization.
 

@@ -81,3 +81,23 @@ fn sd_superell(p : vec2f, half : vec2f, re : f32, n : f32) -> f32 {
   let gy = pow(c.y / g, n - 1.0);
   return (g - re) / length(vec2f(gx, gy));
 }
+
+// ---------------------------------------------------------------------------
+// Family C: family D minus the |grad| normalization. The two share a zero level
+// set, and so one coefficient fit; the gap between them is exactly the price of
+// the normalization -- one divide, one rsqrt and the differentiated Horner
+// chain -- which is what carrying this variant in the benchmark buys.
+// ---------------------------------------------------------------------------
+fn sd_rsup(p : vec2f, half : vec2f, re : f32, k : vec4f, k4 : f32) -> f32 {
+  let q  = abs(p) - half + vec2f(re, re);
+  let c  = max(q, vec2f(0.0, 0.0));
+  let r2 = max(dot(c, c), 1e-20);
+  let s2 = 2.0 * c.x * c.y / r2;
+  var acc = k4;
+  acc = acc * s2 + k.w;
+  acc = acc * s2 + k.z;
+  acc = acc * s2 + k.y;
+  acc = acc * s2 + k.x;
+  let R = re * (1.0 + s2 * s2 * acc);
+  return sqrt(r2) + min(max(q.x, q.y), 0.0) - R;
+}

@@ -70,6 +70,7 @@ const TARGET_FORMAT = 'rgba8unorm';
 const VARIANTS = [
   { id: 'null',     call: 'field_null',     label: 'trivial body (loop + storage-load overhead only)' },
   { id: 'roundbox', call: 'field_roundbox', label: 'family A: analytic rounded box' },
+  { id: 'rsup',     call: 'field_rsup',     label: 'family C: radial support, no normalization' },
   { id: 'rsupn',    call: 'field_rsupn',    label: 'family D: radial support + |grad| normalization' },
   { id: 'superell', call: 'field_superell', label: 'family B: superellipse exponent (pow-heavy)' },
 ];
@@ -108,6 +109,10 @@ fn field_null(p : vec2f, s : Shape) -> f32 {
 
 fn field_roundbox(p : vec2f, s : Shape) -> f32 {
   return sd_roundbox(p, s.half, s.re);
+}
+
+fn field_rsup(p : vec2f, s : Shape) -> f32 {
+  return sd_rsup(p, s.half, s.re, vec4f(s.k0, s.k1, s.k2, s.k3), s.k4);
 }
 
 fn field_rsupn(p : vec2f, s : Shape) -> f32 {
