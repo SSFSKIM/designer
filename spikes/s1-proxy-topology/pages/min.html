@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>min compositing matrix</title><style>
+body{margin:0;background:#404040}
+.row{position:relative;height:60px;width:300px}
+.bg{position:absolute;inset:0;background:#404040}
+.bf{position:absolute;inset:0;backdrop-filter:brightness(2);-webkit-backdrop-filter:brightness(2)}
+.f{position:absolute;inset:0;background:#404040;filter:brightness(2)}
+.mb{position:absolute;inset:0;background:#404040;mix-blend-mode:screen}
+.op{position:absolute;inset:0;background:#ffffff;opacity:.5}
+</style>
+<div class="row"><div class="bg"></div><div class="bf"></div></div>
+<div class="row"><div class="f"></div></div>
+<div class="row"><div class="bg"></div><div class="mb"></div></div>
+<div class="row"><div class="bg"></div><div class="op"></div></div>

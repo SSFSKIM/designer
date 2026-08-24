@@ -1,0 +1,430 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>vitrea S1 — manual conformance check</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#0b0d12; color:#e7ecf5;
+         font:14px/1.55 ui-sans-serif,-apple-system,Helvetica,Arial,sans-serif; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 24px 90px; }
+  h1 { font-size:23px; margin:0 0 6px; letter-spacing:-.2px }
+  h2 { font-size:16px; margin:40px 0 6px; padding-top:20px; border-top:1px solid #232a38 }
+  p  { margin:6px 0 14px; color:#9fb0c9; max-width:76ch }
+  .q { color:#ffd479; font-weight:600 }
+  .row { display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start }
+  .lab { font:600 11px/1.4 ui-monospace,monospace; color:#8598b4; letter-spacing:.05em;
+         text-transform:uppercase; margin:0 0 5px }
+  .scene, .flat { position:relative; border-radius:6px; overflow:hidden }
+  .plane { position:absolute; inset:0; pointer-events:none }
+  .proxy { position:absolute }
+  .sw { border-radius:5px; display:inline-block; vertical-align:middle }
+  .swrow { display:flex; gap:12px; align-items:center; margin-top:12px; flex-wrap:wrap;
+           font:600 12px ui-monospace,monospace; color:#9fb0c9 }
+  code { background:#161c27; padding:1px 5px; border-radius:4px; font-size:12px }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px }
+  .grid .lab { color:#cbd6e6 }
+  ol { color:#9fb0c9; max-width:76ch } li { margin:4px 0 }
+</style></head>
+<body><div class="wrap">
+
+<h1>vitrea S1 — manual conformance check</h1>
+<p>Open this file <b>directly in the browser under test</b> — real Safari 26, real
+Firefox — not inside an iframe and not through a preview pane: an enclosing iframe
+or a host page's own compositing can change the very thing being measured. Then
+answer the amber questions in order.</p>
+<p>Why by hand: every automated capture path tried on this machine (Playwright
+Firefox and WebKit headless and headed, retail Firefox <code>--screenshot</code>,
+retail Firefox over WebDriver BiDi, and the system WKWebView's
+<code>takeSnapshot</code>) renders <code>backdrop-filter</code> as a complete
+no-op, while <code>filter</code>, <code>mix-blend-mode</code> and
+<code>opacity</code> all render correctly in the same images. So your eyes are the
+only instrument left for these two engines.</p>
+<p><b>If nothing on this page looks blurred at all</b>, stop and report just that —
+it is the single most important signal, and it means the engine (or this machine's
+configuration of it) is not delivering the effect.</p>
+
+<h2>A · Sampling equivalence — portaled masked proxy vs in-place filter</h2>
+<p>Left: <code>backdrop-filter</code> on the host element itself. Right: the host is
+transparent and the filter lives on one <b>portaled, <code>clip-path</code>-masked
+proxy</b> painted below a transparent canvas and the semantic host DOM. Same
+scene, same shape, same filter.</p>
+<p class="q">A1 — Do the two panels look the same? Look especially at the outer
+~20px ring of each panel, and at the top and bottom edges where the checkerboard
+and the colour bars meet the glass.</p>
+<div class="row" id="sec-a1"></div>
+
+<p class="q">A2 — Padding sweep. All tiles have the identical panel shape and the
+identical filter; only the proxy's <i>box</i> grows outward behind the mask.
+Reading left to right, from which tile onward do the panels stop changing?</p>
+<div class="row" id="sec-a2"></div>
+
+<h2>B · Double filtering — does a later proxy sample an earlier proxy's output?</h2>
+<p>Flat <code>#3a5a80</code> ground, filter <code>brightness(1.25)</code>, no blur, so
+the answer is exact arithmetic rather than a judgement. Left: one proxy over the
+whole strip. Right: two proxies whose masked regions <b>overlap</b> in the middle
+third.</p>
+<p class="q">B1 — In the right tile, does the middle overlap band match swatch
+<b>ONE</b> or swatch <b>TWO</b>?</p>
+<div class="row" id="sec-b1"></div>
+<div class="swrow" id="sec-b1-sw"></div>
+
+<p class="q">B2 — The contract case: two glass panels 8px apart, each proxy's box
+padded 60px so it covers a slab of the <i>other</i> panel's masked region. Do the
+two panels on the right look identical to the single-group pair on the left, or is
+either panel's gap-facing edge brighter or more saturated?</p>
+<div class="row" id="sec-b2"></div>
+
+<h2>C · Mask extent — does the padding show as a halo?</h2>
+<p class="q">C1 — The right tile masks its proxy to the <i>padded box</i> instead of
+to the panel shape. Does a blurred rectangle stand proud of the rounded panel?</p>
+<div class="row" id="sec-c1"></div>
+
+<h2>D · Backdrop-root breakers — which ancestor styles kill the proxy?</h2>
+<p>Each tile puts <b>one</b> style on the GlassRoot element — an ancestor of the
+proxy but not of the scene content. If the engine treats that style as
+backdrop-root-forming, the tile's panel loses its blur entirely. GlassRoot is
+given full tile geometry so a <code>clip-path</code> or <code>contain</code> cannot
+simply clip the plane away and masquerade as a re-rooted backdrop. The first tile
+is the control and must be blurred.</p>
+<p class="q">D1 — List the labels of every tile whose panel is NOT blurred.</p>
+<div class="grid" id="sec-d1"></div>
+
+<h2>E · Overlay plane over base plane</h2>
+<p class="q">E1 — In the right tile a wide overlay-plane panel crosses the base
+panel, painted above the base plane's proxy and its tint. Where they overlap, is
+the result visibly blurred twice — mushier or paler than the base panel is on its
+own in the left tile?</p>
+<div class="row" id="sec-e1"></div>
+
+<h2>F · Robustness — scroll, fixed content, a scroller, and zoom</h2>
+<p>A sticky glass panel over 1400px of scrolling content, including a
+<code>position: fixed</code> stripe and an inner <code>overflow: auto</code>
+scroller.</p>
+<p class="q">
+F1 — Scroll the box slowly. Does the blur keep tracking the content underneath,
+with no stale, frozen, smeared or one-frame-late region?<br>
+F2 — Scroll the inner orange/blue striped box. Does the blur track that too?<br>
+F3 — Zoom the browser to 150% and 200% (Cmd&nbsp;+). Does the panel stay blurred,
+and does the blur still look right — no lost filter, no wrong-scale blur?
+</p>
+<div id="sec-f1"></div>
+
+<h2>G · Canvas above the proxy</h2>
+<p>A layer painting <code>rgba(255,255,255,0.30)</code> sits <b>above</b> the proxy.
+If the proxy ever sampled it, the result would be brighter than plain source-over
+compositing.</p>
+<p class="q">G1 — Does the right tile's band match the "expected" swatch, or is it
+brighter?</p>
+<div class="row" id="sec-g1"></div>
+
+<h2>Reporting back</h2>
+<p>Please report the browser and its exact version, then one line each for A1, A2,
+B1, B2, C1, D1, E1, F1, F2, F3, G1.</p>
+
+<script>
+// ---------------------------------------------------------------- geometry
+// Every rounded rect and every clip path on this page is generated here. The
+// first draft hand-wrote the path data and got the panel geometry wrong, which
+// would have made A1 unanswerable.
+const BLUR = 14;                         // sigma; CSS blur() takes the std dev
+const FILTER = `blur(${BLUR}px) saturate(1.8)`;
+const W = 320, H = 160;                  // scene tile size
+const PANEL = { x: 40, y: 45, w: 240, h: 70, r: 22 };
+
+function rr(s) {
+  const k = Math.min(s.r, s.w / 2, s.h / 2);
+  return `M${s.x + k},${s.y}`
+       + `H${s.x + s.w - k}A${k},${k} 0 0 1 ${s.x + s.w},${s.y + k}`
+       + `V${s.y + s.h - k}A${k},${k} 0 0 1 ${s.x + s.w - k},${s.y + s.h}`
+       + `H${s.x + k}A${k},${k} 0 0 1 ${s.x},${s.y + s.h - k}`
+       + `V${s.y + k}A${k},${k} 0 0 1 ${s.x + k},${s.y}Z`;
+}
+const box = (shapes, pad, w = W, h = H) => {
+  if (pad === 'full') return { x: 0, y: 0, w, h };
+  const x0 = Math.min(...shapes.map(s => s.x)), y0 = Math.min(...shapes.map(s => s.y));
+  const x1 = Math.max(...shapes.map(s => s.x + s.w)), y1 = Math.max(...shapes.map(s => s.y + s.h));
+  return { x: x0 - pad, y: y0 - pad, w: x1 - x0 + 2 * pad, h: y1 - y0 + 2 * pad };
+};
+
+function el(tag, cls, style, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (style) Object.assign(n.style, style);
+  if (text) n.textContent = text;
+  return n;
+}
+
+/** The "arbitrary page content" every glass tile samples. */
+function scene(w = W, h = H) {
+  const s = el('div', 'scene', { width: w + 'px', height: h + 'px' });
+  s.appendChild(el('div', null, { position: 'absolute', inset: '0',
+    background: 'linear-gradient(115deg,#0b3c8f,#1f9ad6 24%,#f2c14e 48%,#e0553d 70%,#5b2a86 90%,#08111f)' }));
+  s.appendChild(el('div', null, { position: 'absolute', left: '0', top: '0',
+    width: w + 'px', height: '42px',
+    background: 'repeating-conic-gradient(#fff 0% 25%,#101014 0% 50%) 0 0/16px 16px' }));
+  s.appendChild(el('div', null, { position: 'absolute', left: '0', top: (h - 42) + 'px',
+    width: w + 'px', height: '42px',
+    background: 'repeating-linear-gradient(90deg,#ff0040 0 8px,#00e5ff 8px 16px,#ffe600 16px 24px)' }));
+  const t = el('div', null, { position: 'absolute', left: '6px', top: '54px',
+    font: '800 32px/1 ui-sans-serif,Helvetica,Arial', color: '#00ff9d', letterSpacing: '-1px' },
+    'Wg 0123');
+  s.appendChild(t);
+  return s;
+}
+
+/** A proxy: box = shapes inflated by `pad`, mask = the shapes (unless maskPadded). */
+function proxy(shapes, pad, { filter = FILTER, maskPadded = false, w = W, h = H } = {}) {
+  const b = box(shapes, pad, w, h);
+  const local = shapes.map(s => ({ ...s, x: s.x - b.x, y: s.y - b.y }));
+  const d = (maskPadded ? [{ x: 0, y: 0, w: b.w, h: b.h, r: 0 }] : local).map(rr).join(' ');
+  const p = el('div', 'proxy', {
+    left: b.x + 'px', top: b.y + 'px', width: b.w + 'px', height: b.h + 'px',
+    backdropFilter: filter, WebkitBackdropFilter: filter,
+    clipPath: `path('${d}')`, webkitClipPath: `path('${d}')`,
+  });
+  return p;
+}
+
+const tintOver = (shapes, a = 0.24) => shapes.map(s => el('div', null, {
+  position: 'absolute', left: s.x + 'px', top: s.y + 'px',
+  width: s.w + 'px', height: s.h + 'px', borderRadius: s.r + 'px',
+  background: `rgba(255,255,255,${a})`,
+}));
+
+function tile(label, build, host) {
+  const cell = el('div');
+  cell.appendChild(el('div', 'lab', null, label));
+  cell.appendChild(build());
+  host.appendChild(cell);
+  return cell;
+}
+
+// ---------------------------------------------------------------- A1
+tile('in-place filter on the host', () => {
+  const s = scene();
+  s.appendChild(el('div', null, {
+    position: 'absolute', left: PANEL.x + 'px', top: PANEL.y + 'px',
+    width: PANEL.w + 'px', height: PANEL.h + 'px', borderRadius: PANEL.r + 'px',
+    background: 'transparent', backdropFilter: FILTER, WebkitBackdropFilter: FILTER,
+  }));
+  return s;
+}, document.getElementById('sec-a1'));
+
+tile('portaled masked proxy, pad 3σ', () => {
+  const s = scene();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([PANEL], BLUR * 3));
+  const cv = el('canvas', null, { position: 'absolute', inset: '0' });
+  cv.width = W; cv.height = H;
+  plane.appendChild(cv);
+  const btn = el('button', null, {
+    position: 'absolute', left: PANEL.x + 'px', top: PANEL.y + 'px',
+    width: PANEL.w + 'px', height: PANEL.h + 'px',
+    background: 'transparent', border: '0', pointerEvents: 'auto',
+  });
+  plane.appendChild(btn);
+  s.appendChild(plane);
+  return s;
+}, document.getElementById('sec-a1'));
+
+// ---------------------------------------------------------------- A2
+for (const m of [0, 0.5, 1, 1.5, 2, 3]) {
+  tile(m === 0 ? 'pad 0' : `pad ${m}σ = ${Math.round(BLUR * m)}px`, () => {
+    const s = scene();
+    const plane = el('div', 'plane');
+    plane.appendChild(proxy([PANEL], Math.round(BLUR * m)));
+    s.appendChild(plane);
+    return s;
+  }, document.getElementById('sec-a2'));
+}
+
+// ---------------------------------------------------------------- B1
+const FLAT = { r: 58, g: 90, b: 128 };            // #3a5a80
+const BAND = { x: 0, y: 45, w: 320, h: 70, r: 0 };
+const flat = () => el('div', 'flat', { width: '320px', height: '160px', background: '#3a5a80' });
+
+tile('one proxy', () => {
+  const f = flat();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([BAND], 0, { filter: 'brightness(1.25)' }));
+  f.appendChild(plane);
+  return f;
+}, document.getElementById('sec-b1'));
+
+tile('two proxies, overlapping masks', () => {
+  const f = flat();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([{ ...BAND, x: 0, w: 213 }], 0, { filter: 'brightness(1.25)' }));
+  plane.appendChild(proxy([{ ...BAND, x: 107, w: 213 }], 0, { filter: 'brightness(1.25)' }));
+  f.appendChild(plane);
+  return f;
+}, document.getElementById('sec-b1'));
+
+const mul = (c, k) => `rgb(${Math.round(c.r*k)},${Math.round(c.g*k)},${Math.round(c.b*k)})`;
+for (const [name, k, note] of [
+  ['ONE', 1.25, 'filter applied once'],
+  ['TWO', 1.5625, 'applied twice (1.25²)'],
+  ['NONE', 1, 'not applied at all'],
+]) {
+  const w = document.getElementById('sec-b1-sw');
+  w.appendChild(el('span', 'sw', { background: mul(FLAT, k), width: '86px', height: '46px' }));
+  w.appendChild(el('span', null, null, `${name} — ${note}`));
+}
+
+// ---------------------------------------------------------------- B2
+const NEAR_A = { x: 20, y: 45, w: 136, h: 70, r: 18 };
+const NEAR_B = { x: 164, y: 45, w: 136, h: 70, r: 18 };   // 8px gap
+tile('one group, both panels', () => {
+  const s = scene();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([NEAR_A, NEAR_B], BLUR * 3));
+  s.appendChild(plane);
+  return s;
+}, document.getElementById('sec-b2'));
+
+tile('two groups, padded boxes overlap', () => {
+  const s = scene();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([NEAR_A], BLUR * 3));
+  plane.appendChild(proxy([NEAR_B], BLUR * 3));
+  s.appendChild(plane);
+  return s;
+}, document.getElementById('sec-b2'));
+
+// ---------------------------------------------------------------- C1
+tile('mask = panel shape', () => {
+  const s = scene();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([PANEL], BLUR * 3));
+  s.appendChild(plane);
+  return s;
+}, document.getElementById('sec-c1'));
+
+tile('mask = padded box', () => {
+  const s = scene();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([PANEL], BLUR * 3, { maskPadded: true }));
+  s.appendChild(plane);
+  return s;
+}, document.getElementById('sec-c1'));
+
+// ---------------------------------------------------------------- D1
+const BREAKERS = {
+  'none (control)': {},
+  'opacity: 0.99': { opacity: '0.99' },
+  'filter: none': { filter: 'none' },
+  'filter: blur(0px)': { filter: 'blur(0px)' },
+  'filter: grayscale(0)': { filter: 'grayscale(0)' },
+  'mask-image: linear-gradient': { maskImage: 'linear-gradient(#000,#000)',
+                                   webkitMaskImage: 'linear-gradient(#000,#000)' },
+  'clip-path: inset(0)': { clipPath: 'inset(0)' },
+  'contain: paint': { contain: 'paint' },
+  'isolation: isolate': { isolation: 'isolate' },
+  'mix-blend-mode: multiply': { mixBlendMode: 'multiply' },
+  'will-change: opacity': { willChange: 'opacity' },
+  'will-change: transform': { willChange: 'transform' },
+  'transform: translate3d(0,0,0)': { transform: 'translate3d(0,0,0)' },
+};
+const SMALL = { x: 26, y: 45, w: 178, h: 70, r: 20 };
+for (const [label, styles] of Object.entries(BREAKERS)) {
+  tile(label, () => {
+    const s = scene(230, 160);
+    const root = el('div', 'plane');            // GlassRoot: full tile geometry
+    Object.assign(root.style, styles);
+    root.appendChild(proxy([SMALL], BLUR * 3, { w: 230, h: 160 }));
+    s.appendChild(root);
+    return s;
+  }, document.getElementById('sec-d1'));
+}
+
+// ---------------------------------------------------------------- E1
+tile('base plane only', () => {
+  const s = scene();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([PANEL], BLUR * 3));
+  for (const n of tintOver([PANEL])) plane.appendChild(n);
+  s.appendChild(plane);
+  return s;
+}, document.getElementById('sec-e1'));
+
+tile('base plane + overlay plane', () => {
+  const s = scene();
+  const base = el('div', 'plane');
+  base.appendChild(proxy([PANEL], BLUR * 3));
+  for (const n of tintOver([PANEL])) base.appendChild(n);
+  s.appendChild(base);
+  const OVER = { x: 0, y: 62, w: 320, h: 36, r: 14 };
+  const over = el('div', 'plane');
+  over.appendChild(proxy([OVER], BLUR * 3));
+  for (const n of tintOver([OVER])) over.appendChild(n);
+  s.appendChild(over);
+  return s;
+}, document.getElementById('sec-e1'));
+
+// ---------------------------------------------------------------- F1
+{
+  const SW = 640, SH = 320;
+  const outer = el('div', null, { position: 'relative', height: SH + 'px', overflow: 'auto',
+    border: '1px solid #232a38', borderRadius: '8px' });
+  const inner = el('div', null, { position: 'relative', height: '1400px',
+    background: 'linear-gradient(160deg,#0b3c8f,#1f9ad6 20%,#f2c14e 45%,#e0553d 65%,#5b2a86 85%,#08111f)' });
+  inner.appendChild(el('div', null, { position: 'absolute', left: '0', top: '110px',
+    width: '100%', height: '56px',
+    background: 'repeating-linear-gradient(90deg,#ff0040 0 10px,#00e5ff 10px 20px,#ffe600 20px 30px)' }));
+  inner.appendChild(el('div', null, { position: 'absolute', left: '0', top: '210px',
+    width: '100%', height: '88px',
+    background: 'repeating-conic-gradient(#fff 0% 25%,#101014 0% 50%) 0 0/18px 18px' }));
+  const sc = el('div', null, { position: 'absolute', left: '24px', top: '340px',
+    width: '420px', height: '180px', overflow: 'auto', background: '#111' });
+  sc.appendChild(el('div', null, { height: '1400px',
+    background: 'repeating-linear-gradient(0deg,#ff7a00 0 16px,#0066ff 16px 32px)' }));
+  inner.appendChild(sc);
+  inner.appendChild(el('div', null, { position: 'absolute', left: '0', top: '620px',
+    font: '800 46px/1 ui-sans-serif,Helvetica,Arial', color: '#00ff9d' }, 'SCROLL 0123456789'));
+  outer.appendChild(inner);
+
+  // The glass plane: sticky, so it holds still while the content moves under it.
+  const SP = { x: 90, y: 40, w: 420, h: 96, r: 26 };
+  const stick = el('div', null, { position: 'sticky', top: '0', height: '0', zIndex: '5',
+    pointerEvents: 'none' });
+  const hold = el('div', null, { position: 'absolute', left: '0', top: '0',
+    width: SW + 'px', height: SH + 'px' });
+  hold.appendChild(proxy([SP], BLUR * 3, { w: SW, h: SH }));
+  for (const n of tintOver([SP], 0.18)) hold.appendChild(n);
+  stick.appendChild(hold);
+  outer.insertBefore(stick, inner);
+  document.getElementById('sec-f1').appendChild(outer);
+}
+
+// ---------------------------------------------------------------- G1
+const G = { x: 0, y: 45, w: 320, h: 70, r: 0 };
+const TINT_A = 0.30;
+tile('proxy only', () => {
+  const f = flat();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([G], 0, { filter: 'brightness(1.25)' }));
+  f.appendChild(plane);
+  return f;
+}, document.getElementById('sec-g1'));
+
+tile('proxy + tint layer above it', () => {
+  const f = flat();
+  const plane = el('div', 'plane');
+  plane.appendChild(proxy([G], 0, { filter: 'brightness(1.25)' }));
+  plane.appendChild(el('div', null, { position: 'absolute', left: '0', top: G.y + 'px',
+    width: G.w + 'px', height: G.h + 'px', background: `rgba(255,255,255,${TINT_A})` }));
+  f.appendChild(plane);
+  return f;
+}, document.getElementById('sec-g1'));
+
+{
+  // Expected = source-over of the tint on top of (flat x 1.25).
+  const over = (c) => Math.round(c * 1.25 * (1 - TINT_A) + 255 * TINT_A);
+  const cell = el('div');
+  cell.appendChild(el('div', 'lab', null, 'expected'));
+  cell.appendChild(el('div', 'sw', {
+    background: `rgb(${over(FLAT.r)},${over(FLAT.g)},${over(FLAT.b)})`,
+    width: '130px', height: '70px', marginTop: '45px',
+  }));
+  document.getElementById('sec-g1').appendChild(cell);
+}
+</script>
+</div></body></html>

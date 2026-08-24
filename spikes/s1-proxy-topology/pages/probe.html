@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>S1 probe battery</title></head>
+<body style="margin:0;background:#123">
+<div id="stage"></div>
+<pre id="out" style="color:#9fe;font:12px/1.4 ui-monospace,monospace;padding:12px;white-space:pre-wrap"></pre>
+<script type="module">
+const R = {};
+
+// ---------------------------------------------------------------------------
+// 1. Support gate — what CSS.supports actually covers.
+// ---------------------------------------------------------------------------
+R.supports = {
+  'backdrop-filter: blur(1px)':        CSS.supports('backdrop-filter', 'blur(1px)'),
+  '-webkit-backdrop-filter: blur(1px)':CSS.supports('-webkit-backdrop-filter', 'blur(1px)'),
+  'backdrop-filter: saturate(2)':      CSS.supports('backdrop-filter', 'saturate(2)'),
+  'backdrop-filter: url(#x)':          CSS.supports('backdrop-filter', 'url(#x)'),
+  'backdrop-filter: blur(1px) url(#x)':CSS.supports('backdrop-filter', 'blur(1px) url(#x)'),
+  'clip-path: path("M0,0 H1 V1 Z")':   CSS.supports('clip-path', 'path("M0,0 H1 V1 Z")'),
+  'mask-image: linear-gradient(#000,#000)': CSS.supports('mask-image', 'linear-gradient(#000,#000)'),
+  'zoom: 1.5':                         CSS.supports('zoom', '1.5'),
+};
+
+// ---------------------------------------------------------------------------
+// 2. Parse-time behaviour — does the engine drop the whole declaration when a
+//    filter function is unsupported? A usable per-function capability channel.
+// ---------------------------------------------------------------------------
+const t = document.createElement('div');
+document.getElementById('stage').appendChild(t);
+function computedFor(decl) {
+  t.style.backdropFilter = '';
+  t.style.setProperty('backdrop-filter', decl);
+  const v = getComputedStyle(t).backdropFilter ||
+            getComputedStyle(t).webkitBackdropFilter || '(property absent)';
+  return { inline: t.style.getPropertyValue('backdrop-filter') || '(dropped at parse)', computed: v };
+}
+R.computedReadback = {
+  'blur(8px)': computedFor('blur(8px)'),
+  'blur(8px) saturate(1.8)': computedFor('blur(8px) saturate(1.8)'),
+  'url(#nope)': computedFor('url(#nope)'),
+  'blur(8px) url(#nope)': computedFor('blur(8px) url(#nope)'),
+  'blur(8px) bogusfn(3)': computedFor('blur(8px) bogusfn(3)'),
+};
+t.style.backdropFilter = '';
+
+// ---------------------------------------------------------------------------
+// 3. Structural backdrop-root audit — the deterministic runtime probe candidate.
+//    Walks the ancestor segment that the proxy and the backdrop content must
+//    share and reports every style that could re-root the backdrop.
+// ---------------------------------------------------------------------------
+const ROOT_FORMING = [
+  ['filter',          (v) => v && v !== 'none'],
+  ['backdropFilter',  (v) => v && v !== 'none'],
+  ['webkitBackdropFilter', (v) => v && v !== 'none'],
+  ['opacity',         (v) => v !== '' && parseFloat(v) < 1],
+  ['maskImage',       (v) => v && v !== 'none'],
+  ['webkitMaskImage', (v) => v && v !== 'none'],
+  ['maskBorderSource',(v) => v && v !== 'none'],
+  ['clipPath',        (v) => v && v !== 'none'],
+  ['mixBlendMode',    (v) => v && v !== 'normal'],
+  ['isolation',       (v) => v === 'isolate'],
+  ['contain',         (v) => v && /paint|strict|content/.test(v)],
+  ['contentVisibility',(v) => v && v !== 'visible'],
+  ['willChange',      (v) => v && /filter|opacity|mask|backdrop-filter|clip-path|mix-blend-mode|contain/.test(v)],
+  ['backdropRoot',    (v) => v && v !== 'auto' && v !== ''], // future 'backdrop-root' prop
+];
+function auditChain(from, stopAt) {
+  const hits = [];
+  let n = from;
+  while (n && n !== stopAt && n !== document.documentElement) {
+    const cs = getComputedStyle(n);
+    for (const [prop, bad] of ROOT_FORMING) {
+      const v = cs[prop];
+      if (v !== undefined && bad(v)) {
+        hits.push({ el: n.id || n.className || n.tagName, prop, value: String(v).slice(0, 60) });
+      }
+    }
+    n = n.parentElement;
+  }
+  return hits;
+}
+// Synthetic fixtures: each wrapper carries one candidate root-forming style.
+const CANDIDATES = {
+  none: {},
+  opacity099: { opacity: '0.99' },
+  filterNone: { filter: 'none' },
+  filterBlur0: { filter: 'blur(0px)' },
+  filterGrayscale0: { filter: 'grayscale(0)' },
+  maskLinear: { maskImage: 'linear-gradient(#000,#000)', webkitMaskImage: 'linear-gradient(#000,#000)' },
+  clipPathInset: { clipPath: 'inset(0)' },
+  containPaint: { contain: 'paint' },
+  isolationIsolate: { isolation: 'isolate' },
+  mixBlend: { mixBlendMode: 'multiply' },
+  willChangeOpacity: { willChange: 'opacity' },
+  willChangeTransform: { willChange: 'transform' },
+  transform3d: { transform: 'translate3d(0,0,0)' },
+  backdropFilterNone: { backdropFilter: 'none' },
+};
+R.auditFixtures = {};
+for (const [k, styles] of Object.entries(CANDIDATES)) {
+  const w = document.createElement('div');
+  Object.assign(w.style, styles);
+  const inner = document.createElement('div');
+  w.appendChild(inner);
+  document.getElementById('stage').appendChild(w);
+  R.auditFixtures[k] = auditChain(inner, document.getElementById('stage'));
+  w.remove();
+}
+
+// ---------------------------------------------------------------------------
+// 4. Offscreen reference construction — can page JS rasterise a *self-contained*
+//    miniature of the sandwich (SVG data URI + foreignObject) and read the
+//    pixels back? If yes, the engine's backdrop-filter semantics become
+//    runtime-measurable even though the real page's backdrop is not.
+// ---------------------------------------------------------------------------
+function svgFixture(body, w = 120, h = 60) {
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">` +
+    `<foreignObject width="${w}" height="${h}">` +
+    `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${w}px;height:${h}px;position:relative;margin:0">${body}</div>` +
+    `</foreignObject></svg>`);
+}
+function rasterise(url, w = 120, h = 60) {
+  return new Promise((res) => {
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      const cx = c.getContext('2d', { willReadFrequently: true });
+      cx.drawImage(img, 0, 0);
+      try {
+        const d = cx.getImageData(0, 0, w, h).data;
+        const at = (x, y) => { const i = (w * y + x) << 2; return [d[i], d[i+1], d[i+2], d[i+3]]; };
+        res({ ok: true, tainted: false, samples: { left: at(20, 30), mid: at(60, 30), right: at(100, 30) } });
+      } catch (e) {
+        res({ ok: false, tainted: true, error: e.name + ': ' + e.message });
+      }
+    };
+    img.onerror = (e) => res({ ok: false, loadFailed: true, error: String(e && e.type) });
+    img.src = url;
+  });
+}
+// Backdrop content: hard red|blue split at x=60. A correct blur smears the seam.
+const SPLIT = `<div style="position:absolute;inset:0;background:linear-gradient(90deg,#ff0000 0 50%,#0000ff 50% 100%)"></div>`;
+R.offscreen = {
+  plainFill: await rasterise(svgFixture(SPLIT)),
+  cssFilterBlur: await rasterise(svgFixture(
+    `<div style="position:absolute;inset:0;filter:blur(8px);background:linear-gradient(90deg,#ff0000 0 50%,#0000ff 50% 100%)"></div>`)),
+  backdropFilterBlur: await rasterise(svgFixture(
+    SPLIT + `<div style="position:absolute;inset:0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)"></div>`)),
+  backdropFilterBrightness: await rasterise(svgFixture(
+    `<div style="position:absolute;inset:0;background:#404040"></div>` +
+    `<div style="position:absolute;inset:0;backdrop-filter:brightness(2);-webkit-backdrop-filter:brightness(2)"></div>`)),
+  backdropFilterTwoSiblings: await rasterise(svgFixture(
+    `<div style="position:absolute;inset:0;background:#404040"></div>` +
+    `<div style="position:absolute;inset:0;backdrop-filter:brightness(1.5);-webkit-backdrop-filter:brightness(1.5)"></div>` +
+    `<div style="position:absolute;inset:0;backdrop-filter:brightness(1.5);-webkit-backdrop-filter:brightness(1.5)"></div>`)),
+  backdropFilterClipped: await rasterise(svgFixture(
+    `<div style="position:absolute;inset:0;background:#404040"></div>` +
+    `<div style="position:absolute;inset:0;clip-path:inset(0 50% 0 0);backdrop-filter:brightness(2);-webkit-backdrop-filter:brightness(2)"></div>`)),
+};
+
+// ---------------------------------------------------------------------------
+// 5. Other candidate oracles — presence only, never invoked.
+// ---------------------------------------------------------------------------
+R.oracles = {
+  getDisplayMedia: typeof navigator.mediaDevices?.getDisplayMedia === 'function',
+  startViewTransition: typeof document.startViewTransition === 'function',
+  CSSPaintWorklet: typeof CSS !== 'undefined' && !!CSS.paintWorklet,
+  OffscreenCanvas: typeof OffscreenCanvas === 'function',
+  userAgentData: !!navigator.userAgentData,
+  uaBrands: navigator.userAgentData ? navigator.userAgentData.brands : null,
+  ua: navigator.userAgent,
+  devicePixelRatio: window.devicePixelRatio,
+};
+
+window.__probeResult = R;
+document.getElementById('out').textContent = JSON.stringify(R, null, 2);
+document.documentElement.setAttribute('data-probe-ready', '1');
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{
+  "hitTest": {
+    "chromium": {
+      "elementFromPointTag": "BUTTON.glass-host",
+      "stack": [
+        "BUTTON.glass-host",
+        "IMG.",
+        "DIV.scene",
+        "BODY.",
+        "HTML."
+      ],
+      "center": [
+        200,
+        360
+      ],
+      "clicksReceived": [
+        0
+      ],
+      "focusAfterTab": "BUTTON.glass-host",
+      "proxyPointerEvents": "none"
+    },
+    "firefox": {
+      "elementFromPointTag": "BUTTON.glass-host",
+      "stack": [
+        "BUTTON.glass-host",
+        "IMG.",
+        "DIV.scene",
+        "BODY.",
+        "HTML."
+      ],
+      "center": [
+        200,
+        360
+      ],
+      "clicksReceived": [
+        0
+      ],
+      "focusAfterTab": "BUTTON.glass-host",
+      "proxyPointerEvents": "none"
+    },
+    "webkit": {
+      "elementFromPointTag": "BUTTON.glass-host",
+      "stack": [
+        "BUTTON.glass-host",
+        "IMG.",
+        "DIV.scene",
+        "BODY.",
+        "HTML."
+      ],
+      "center": [
+        200,
+        360
+      ],
+      "clicksReceived": [
+        0
+      ],
+      "focusAfterTab": "BODY.",
+      "proxyPointerEvents": "none"
+    }
+  },
+  "chromium": {
+    "layers:split-pad60": {
+      "count": 0,
+      "reasons": []
+    },
+    "layers:single-pad60": {
+      "count": 0,
+      "reasons": []
+    },
+    "layers:padfull": {
+      "count": 0,
+      "reasons": []
+    },
+    "layers:inplace": {
+      "count": 0,
+      "reasons": []
+    },
+    "pageZoom1.5": {
+      "inplace vs padfull": {
+        "n": 158400,
+        "mean": 12.94,
+        "max": 107,
+        "pctOver2": 38.17,
+        "pctOver8": 31.16,
+        "pctOver24": 18.03
+      },
+      "padfull vs pad60": {
+        "n": 158400,
+        "mean": 12.76,
+        "max": 107,
+        "pctOver2": 36.66,
+        "pctOver8": 29.61,
+        "pctOver24": 17.49
+      }
+    },
+    "pageZoom2": {
+      "inplace vs padfull": {
+        "n": 158400,
+        "mean": 29.14,
+        "max": 123,
+        "pctOver2": 29.25,
+        "pctOver8": 29.14,
+        "pctOver24": 28.32
+      },
+      "padfull vs pad60": {
+        "n": 158400,
+        "mean": 30.06,
+        "max": 123,
+        "pctOver2": 29.24,
+        "pctOver8": 29.15,
+        "pctOver24": 28.56
+      }
+    }
+  }
+}
