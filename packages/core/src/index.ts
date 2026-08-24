@@ -12,8 +12,12 @@
 import { SHAPE_FAMILIES, type ShapeFamily } from "@vitrea/geometry";
 import { INTERACTION_STATES, MOTION_DRIVER_BY_CHANNEL, type InteractionState } from "@vitrea/motion";
 
+export * from "./accessibility";
+export * from "./backdrop-hint";
 export * from "./capability";
 export * from "./diagnostics";
+export * from "./foreground";
+export * from "./material";
 export * from "./planes";
 export * from "./state";
 export { loadWebGPURenderer, type GlassRenderer } from "./renderer-seam";
