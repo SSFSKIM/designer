@@ -346,9 +346,9 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 
 | Child | Spec / findings | Status |
 | --- | --- | --- |
-| S1 proxy-topology spike | — | not-dispatched (dispatchable now) |
-| S2 geometry-field spike | — | not-dispatched (dispatchable now) |
-| C1 monorepo foundation | — | not-dispatched (dispatchable now) |
+| S1 proxy-topology spike | docs/doperpowers/spikes/2026-08-24-s1-proxy-topology-findings.md (pending) | in-flight (2026-08-24, opus worker, worktree) |
+| S2 geometry-field spike | docs/doperpowers/spikes/2026-08-24-s2-geometry-field-findings.md (pending) | in-flight (2026-08-24, opus worker, worktree) |
+| C1 monorepo foundation | — | in-flight (2026-08-24, opus worker, worktree) |
 | C2 motion kernel | — | not-dispatched (blocked-by C1) |
 | C3 geometry kernel | — | not-dispatched (blocked-by S2, C1) |
 | C4 core runtime | — | not-dispatched (blocked-by C1) |
@@ -397,3 +397,4 @@ Pending — written at finish.
 - 2026-08-24: Initial spec from the chartering grill, design-research run (wf_ce8e34b5-10e), two independent design reviews, and the approved revised design pass.
 - 2026-08-24 (same day, second revision): adversarial spec review round — six findings, all adopted (Decision Log #14): checked overlap constraint and unit promotion, per-group masked proxies with conformance probe, resolved-state capability model, BackdropFrame protocol, pseudo-SDF geometry reformulation, per-cell calibration matrix, gating spikes S1/S2.
 - 2026-08-24 (third revision): decomposing run extends this document into the composite spec — parent citation, Parent-Level Acceptance, eleven children (S1, S2, C1–C9), nine cross-child contracts (X1–X9), ordering map, risks, tracking map (Decision Log #15–16). Board materialization pending the human gate.
+- 2026-08-24 (fourth revision): human gate passed — roadmap approved, spec-only tracking chosen (no board tickets), Xcode install accepted by the user as C7's external gate. Wave 0 dispatched: S1, S2, C1 in-flight as isolated-worktree workers.
