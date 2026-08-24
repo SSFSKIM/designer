@@ -177,6 +177,18 @@ describe("demotion transitions — every reason in the enum", () => {
     expect(state.samplingBackend).toBe("none");
   });
 
+  it("does not stack probe-failed on top of no-backdrop-filter", () => {
+    // A proxy-topology verdict is meaningless where there is no filter to
+    // apply. Raising both would demote the renderer (probe-failed does) while
+    // leaving no CSS blur to draw with — the worst of both tiers.
+    const state = resolveGlassGroupState(
+      withPlatform(healthyDom, { backdropFilter: false, backdropProxyConformance: "fail" }),
+    );
+
+    expect(state.demotionReason).toBe("no-backdrop-filter");
+    expect(state.activeRenderer).toBe("webgpu");
+  });
+
   it("governor: a tier switch under pressure is a demotion", () => {
     const state = resolveGlassGroupState({ ...healthyTexture, governor: "demote-tier" });
 

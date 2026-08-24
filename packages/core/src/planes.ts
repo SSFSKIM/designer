@@ -43,6 +43,28 @@ export function compareZSlot(a: ZSlot, b: ZSlot): number {
   return byPlane !== 0 ? byPlane : a.order - b.order;
 }
 
+/** Smallest rect containing both. */
+export function unionRect(a: Rect, b: Rect): Rect {
+  const x = Math.min(a.x, b.x);
+  const y = Math.min(a.y, b.y);
+  return {
+    x,
+    y,
+    width: Math.max(a.x + a.width, b.x + b.width) - x,
+    height: Math.max(a.y + a.height, b.y + b.height) - y,
+  };
+}
+
+/** Grow a rect outwards on every side — how a group's proxy gets its padding. */
+export function inflateRect(rect: Rect, by: number): Rect {
+  return {
+    x: rect.x - by,
+    y: rect.y - by,
+    width: rect.width + by * 2,
+    height: rect.height + by * 2,
+  };
+}
+
 /**
  * Positive-area intersection. Touching edges are not an overlap — adjacent
  * surfaces in a toolbar are the common case and are legal. A degenerate rect

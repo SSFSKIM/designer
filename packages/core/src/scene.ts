@@ -72,7 +72,14 @@ import {
   type MaterialVariant,
   type ResolvedMaterial,
 } from "./material";
-import { rectsOverlap, type GlassPlane, type Rect, type ZSlot } from "./planes";
+import {
+  inflateRect,
+  rectsOverlap,
+  unionRect,
+  type GlassPlane,
+  type Rect,
+  type ZSlot,
+} from "./planes";
 import type { GlassGroupState } from "./state";
 
 export type GlassSceneErrorCode = "duplicate-id" | "unknown-id" | "in-use" | "wrong-source-kind";
@@ -263,10 +270,16 @@ export interface SceneResolution {
   readonly accessibility: ResolvedAccessibilityPolicy;
 }
 
-/** One overlapping pair inside one plane (X1). */
+/** One overlapping pair of surfaces inside one plane (X1). */
 export interface PlaneOverlap {
   readonly plane: GlassPlane;
   readonly nodeIds: readonly [string, string];
+}
+
+/** Two groups whose padded backdrop proxies would overlap in one plane (X1). */
+export interface ProxyOverlap {
+  readonly plane: GlassPlane;
+  readonly groupIds: readonly [string, string];
 }
 
 export interface GlassSceneOptions {
@@ -300,13 +313,15 @@ export interface GlassScene {
   backdropSource(id: string): BackdropSourceRecord | undefined;
 
   registerGlassGroup(descriptor: GlassGroupDescriptor): void;
-  updateGlassGroup(id: string, patch: Partial<Omit<GlassGroupDescriptor, "id">>): void;
+  /** A key present with `undefined` clears that override; an absent key keeps it. */
+  updateGlassGroup(id: string, patch: DescriptorPatch<Omit<GlassGroupDescriptor, "id">>): void;
   removeGlassGroup(id: string): void;
   glassGroup(id: string): GlassGroupRecord | undefined;
   groupsOfSource(sourceId: string): readonly GlassGroupRecord[];
 
   registerGlassNode(descriptor: GlassNodeDescriptor): void;
-  updateGlassNode(id: string, patch: Partial<Omit<GlassNodeDescriptor, "id">>): void;
+  /** A key present with `undefined` clears that override; an absent key keeps it. */
+  updateGlassNode(id: string, patch: DescriptorPatch<Omit<GlassNodeDescriptor, "id">>): void;
   removeGlassNode(id: string): void;
   glassNode(id: string): GlassNodeRecord | undefined;
   nodesOfGroup(groupId: string): readonly GlassNodeRecord[];
@@ -333,6 +348,35 @@ export interface GlassScene {
 
   resolve(): SceneResolution;
   checkSamePlaneOverlap(): readonly PlaneOverlap[];
+  /**
+   * The cross-group half of X1's proxy geometry. `mergeDistance` only unions
+   * members *within* a group, so two neighbouring groups can still put two
+   * padded proxies over the same pixels — which S1 measured double-filtering.
+   */
+  checkGroupProxyOverlap(): readonly ProxyOverlap[];
+}
+
+/**
+ * A descriptor patch. Unlike `Partial`, a key present with `undefined` is
+ * meaningful: it *clears* the override and restores the inherited default.
+ * Without that, a declarative binding could never take a prop back — React
+ * re-rendering `<GlassGroup backdrop={undefined}>` would have no way to say
+ * "this group no longer declares a hint" short of tearing the entry down.
+ */
+export type DescriptorPatch<D> = { readonly [K in keyof D]?: D[K] | undefined };
+
+/**
+ * Apply a patch, deleting the keys it explicitly cleared. `id` is identity and
+ * therefore not patchable, which is why the patch is typed over `Omit<D, "id">`
+ * while the result is a whole descriptor.
+ */
+function applyPatch<D extends object>(base: D, patch: DescriptorPatch<Omit<D, "id">>): D {
+  const next = { ...base } as Record<string, unknown>;
+  for (const [key, value] of Object.entries(patch)) {
+    if (value === undefined) delete next[key];
+    else next[key] = value;
+  }
+  return next as D;
 }
 
 const unknown = (kind: string, id: string): GlassSceneError =>
@@ -374,18 +418,24 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
   let framePhase: FramePhase | undefined;
 
   /**
-   * Restructuring the graph while the renderer is walking it desynchronises the
-   * frame's resolution from what gets drawn. Before the write phase a host may
-   * mutate freely: React commits land outside a frame, and collect/read/update
-   * are exactly where a host is meant to reconcile.
+   * The graph is frozen from the `update` phase onward.
+   *
+   * `update` is where reads become resolved state — the scheduler resolves the
+   * whole scene at the top of it — so a mutation any later leaves that
+   * resolution describing a graph that no longer exists, and write and render
+   * act on the difference. Structural reconciliation belongs in `collect`,
+   * which is what that phase is for; outside a frame a host may mutate freely,
+   * which is where a React commit lands.
    */
+  const FROZEN_PHASES: readonly FramePhase[] = ["update", "write", "render"];
+
   const guardStructural = (subject: string): void => {
-    if (framePhase !== "write" && framePhase !== "render") return;
+    if (framePhase === undefined || !FROZEN_PHASES.includes(framePhase)) return;
     diagnostics.report({
       code: "frame-phase-violation",
       severity: "error",
       subjects: [subject],
-      message: `The scene was restructured during the "${framePhase}" phase. Register and remove before the write phase — the renderer is already walking the graph this frame's resolution described.`,
+      message: `The scene was restructured during the "${framePhase}" phase, after this frame resolved. Reconcile structure in the "collect" phase or outside a frame — from "update" onward the resolution and the graph must agree.`,
     });
   };
 
@@ -444,8 +494,11 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
    * merge distance would change which members fuse, which is a visual decision
    * that belongs to the author.
    */
+  const paddingOf = (group: GlassGroupRecord): number =>
+    group.descriptor.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding;
+
   function samplingOf(group: GlassGroupRecord): GroupSamplingGeometry {
-    const samplingPadding = group.descriptor.samplingPadding ?? DEFAULT_GROUP_SAMPLING.samplingPadding;
+    const samplingPadding = paddingOf(group);
     const mergeDistance = group.descriptor.mergeDistance ?? samplingPadding;
 
     if (devMode && mergeDistance < samplingPadding) {
@@ -527,7 +580,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
 
     updateGlassGroup(id, patch) {
       const record = requireGroup(id);
-      const descriptor = { ...record.descriptor, ...patch };
+      const descriptor = applyPatch(record.descriptor, patch);
       requireSource(descriptor.backdropSourceId);
       groups.set(id, { ...record, descriptor });
     },
@@ -560,7 +613,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
 
     updateGlassNode(id, patch) {
       const record = requireNode(id);
-      const descriptor = { ...record.descriptor, ...patch };
+      const descriptor = applyPatch(record.descriptor, patch);
       requireGroup(descriptor.groupId);
       nodes.set(id, { ...record, descriptor });
     },
@@ -769,6 +822,54 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
             severity: "error",
             subjects: [...nodeIds],
             message: `Glass surfaces "${nodeIds[0]}" and "${nodeIds[1]}" overlap inside the "${plane}" plane (X1). The paint sandwich cannot put one surface's body above the other's DOM label — put the upper one on the overlay plane instead.`,
+          });
+        }
+      }
+      return overlaps;
+    },
+
+    checkGroupProxyOverlap() {
+      if (!devMode) return [];
+
+      // One padded box per (group, plane): the region that group's proxy would
+      // cover. A group with nothing measured yet contributes none.
+      const boxes: { readonly groupId: string; readonly plane: GlassPlane; readonly box: Rect }[] =
+        [];
+
+      for (const group of groups.values()) {
+        const groupId = group.descriptor.id;
+        const padding = paddingOf(group);
+        const byPlane = new Map<GlassPlane, Rect>();
+
+        for (const node of nodesOfGroup(groupId)) {
+          const { bounds } = node;
+          if (bounds === undefined) continue;
+          const plane = node.descriptor.zSlot.plane;
+          const grown = byPlane.get(plane);
+          byPlane.set(plane, grown === undefined ? bounds : unionRect(grown, bounds));
+        }
+
+        for (const [plane, union] of byPlane) {
+          boxes.push({ groupId, plane, box: inflateRect(union, padding) });
+        }
+      }
+
+      const overlaps: ProxyOverlap[] = [];
+      for (let i = 0; i < boxes.length; i += 1) {
+        for (let j = i + 1; j < boxes.length; j += 1) {
+          const a = boxes[i];
+          const b = boxes[j];
+          if (a === undefined || b === undefined) continue;
+          if (a.plane !== b.plane || a.groupId === b.groupId) continue;
+          if (!rectsOverlap(a.box, b.box)) continue;
+
+          const groupIds: readonly [string, string] = [a.groupId, b.groupId];
+          overlaps.push({ plane: a.plane, groupIds });
+          diagnostics.report({
+            code: "group-proxy-overlap",
+            severity: "warning",
+            subjects: [...groupIds],
+            message: `Groups "${groupIds[0]}" and "${groupIds[1]}" sit close enough in the "${a.plane}" plane that their padded backdrop proxies overlap, and X1 says the filter then applies twice over that region — paint-order dependent, measured drifting up to 17/255. mergeDistance cannot help: it only unions members inside one group. Either put these surfaces in one group so they share a proxy, or separate them by more than the sum of their samplingPadding.`,
           });
         }
       }

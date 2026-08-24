@@ -172,8 +172,15 @@ function applicableFaults(inputs: CapabilityInputs): readonly DemotionReason[] {
     if (inputs.source.taint === "tainted") faults.add("tainted-source");
     if (inputs.source.textureCompatibility === "incompatible") faults.add("incompatible-texture");
   } else {
-    if (!platform.backdropFilter) faults.add("no-backdrop-filter");
-    if (platform.backdropProxyConformance === "fail") faults.add("probe-failed");
+    if (!platform.backdropFilter) {
+      faults.add("no-backdrop-filter");
+    } else if (platform.backdropProxyConformance === "fail") {
+      // Only meaningful where there is a filter to apply. Raising both would
+      // put the group on the CSS tier (probe-failed demotes the renderer) with
+      // no CSS blur to draw with — the worst of both, and the opposite of what
+      // `no-backdrop-filter` is supposed to preserve.
+      faults.add("probe-failed");
+    }
   }
 
   if (governor === "demote-tier") faults.add("governor");

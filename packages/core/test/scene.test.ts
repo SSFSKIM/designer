@@ -126,6 +126,50 @@ describe("registration and references", () => {
     expect(scene.glassGroup("grp")?.descriptor.backdropSourceId).toBe("src");
   });
 
+  it("clears an override when a patch names the key with undefined", () => {
+    const scene = createGlassScene({ platform: workingPlatform });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({
+      id: "g",
+      backdropSourceId: "page",
+      backdrop: { tone: "dark" },
+      samplingPadding: 60,
+    });
+
+    // A declarative binding must be able to take a prop back. Omitting the key
+    // keeps it; naming it with undefined removes it.
+    scene.updateGlassGroup("g", { samplingPadding: 80 });
+    expect(scene.glassGroup("g")?.descriptor.backdrop).toEqual({ tone: "dark" });
+
+    scene.updateGlassGroup("g", { backdrop: undefined });
+    expect(scene.glassGroup("g")?.descriptor.backdrop).toBeUndefined();
+    expect(scene.glassGroup("g")?.descriptor.samplingPadding).toBe(80);
+    expect(scene.resolve().groups[0]?.state.analysis).toBe("none");
+  });
+
+  it("clears a node override the same way, restoring what it inherits", () => {
+    const scene = createGlassScene({ platform: workingPlatform });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({
+      id: "g",
+      backdropSourceId: "page",
+      material: { variant: "regular", dimming: { scrim: 0.3, direction: "darken" } },
+    });
+    scene.registerGlassNode({
+      id: "n",
+      groupId: "g",
+      shapeFamily: "capsule",
+      shape,
+      zSlot: { plane: "base", order: 0 },
+      variant: "clear",
+    });
+
+    expect(scene.resolve().nodes[0]?.material.variant).toBe("clear");
+
+    scene.updateGlassNode("n", { variant: undefined });
+    expect(scene.resolve().nodes[0]?.material.variant).toBe("regular");
+  });
+
   it("re-parents a node only onto a group that exists", () => {
     const scene = seeded();
     scene.registerGlassGroup({ id: "grp2", backdropSourceId: "src" });
@@ -442,6 +486,155 @@ describe("same-plane overlap (X1, dev mode)", () => {
       { plane: "base", nodeIds: ["a", "c"] },
       { plane: "base", nodeIds: ["b", "c"] },
     ]);
+  });
+});
+
+describe("cross-group proxy overlap (X1, dev mode)", () => {
+  /** Two one-node groups on the same source, `gap` px apart, each padded by `padding`. */
+  function neighbours(gap: number, padding: number, plane: "base" | "overlay" = "base") {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+
+    for (const [id, x] of [
+      ["left", 0],
+      ["right", 40 + gap],
+    ] as const) {
+      scene.registerGlassGroup({
+        id,
+        backdropSourceId: "page",
+        samplingPadding: padding,
+        mergeDistance: padding,
+      });
+      scene.registerGlassNode({
+        id: `${id}-node`,
+        groupId: id,
+        shapeFamily: "capsule",
+        shape,
+        zSlot: { plane, order: 0 },
+      });
+      scene.setNodeBounds(`${id}-node`, rect(x, 0));
+    }
+    return { scene, diagnostics };
+  }
+
+  it("catches the 8px-gap case S1 measured, which mergeDistance cannot", () => {
+    const { scene, diagnostics } = neighbours(8, 60);
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([
+      { plane: "base", groupIds: ["left", "right"] },
+    ]);
+    expect(diagnostics.reported[0]).toMatchObject({
+      code: "group-proxy-overlap",
+      severity: "warning",
+      subjects: ["left", "right"],
+    });
+    expect(diagnostics.reported[0]?.message).toContain("mergeDistance cannot help");
+    // The per-group constraint is satisfied, which is exactly why this second
+    // check has to exist.
+    expect(diagnostics.reported.map((finding) => finding.code)).not.toContain(
+      "merge-distance-below-padding",
+    );
+  });
+
+  it("says nothing when the gap exceeds the sum of the paddings", () => {
+    const { scene, diagnostics } = neighbours(200, 60);
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([]);
+    expect(diagnostics.reported).toEqual([]);
+  });
+
+  it("says nothing about surfaces that share one group — one group, one proxy", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    scene.registerGlassGroup({ id: "toolbar", backdropSourceId: "page", samplingPadding: 60 });
+    for (const [id, x] of [
+      ["a", 0],
+      ["b", 48],
+    ] as const) {
+      scene.registerGlassNode({
+        id,
+        groupId: "toolbar",
+        shapeFamily: "capsule",
+        shape,
+        zSlot: { plane: "base", order: 0 },
+      });
+      scene.setNodeBounds(id, rect(x, 0));
+    }
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([]);
+  });
+
+  it("says nothing across planes — each plane has its own proxy layer", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    for (const [id, plane] of [
+      ["base-group", "base"],
+      ["overlay-group", "overlay"],
+    ] as const) {
+      scene.registerGlassGroup({ id, backdropSourceId: "page", samplingPadding: 60 });
+      scene.registerGlassNode({
+        id: `${id}-node`,
+        groupId: id,
+        shapeFamily: "capsule",
+        shape,
+        zSlot: { plane, order: 0 },
+      });
+      scene.setNodeBounds(`${id}-node`, rect(0, 0));
+    }
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([]);
+  });
+
+  it("ignores groups with nothing measured yet", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    for (const id of ["a", "b"]) {
+      scene.registerGlassGroup({ id, backdropSourceId: "page", samplingPadding: 60 });
+      scene.registerGlassNode({
+        id: `${id}-node`,
+        groupId: id,
+        shapeFamily: "capsule",
+        shape,
+        zSlot: { plane: "base", order: 0 },
+      });
+    }
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([]);
+  });
+
+  it("reports one pair once, however many frames it survives", () => {
+    const { scene, diagnostics } = neighbours(8, 60);
+
+    for (let frame = 0; frame < 4; frame += 1) scene.checkGroupProxyOverlap();
+
+    expect(diagnostics.reported).toHaveLength(1);
+  });
+
+  it("skips the check outside dev mode", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics, devMode: false });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+    for (const [id, x] of [
+      ["a", 0],
+      ["b", 48],
+    ] as const) {
+      scene.registerGlassGroup({ id, backdropSourceId: "page", samplingPadding: 60 });
+      scene.registerGlassNode({
+        id: `${id}-node`,
+        groupId: id,
+        shapeFamily: "capsule",
+        shape,
+        zSlot: { plane: "base", order: 0 },
+      });
+      scene.setNodeBounds(`${id}-node`, rect(x, 0));
+    }
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([]);
+    expect(diagnostics.reported).toEqual([]);
   });
 });
 

@@ -24,6 +24,8 @@ export const DIAGNOSTIC_CODES = [
   "variant-mixing",
   /** A group's `mergeDistance` is below its `samplingPadding`, so proxies can double-filter (X1). */
   "merge-distance-below-padding",
+  /** Two groups' padded proxies cover the same pixels, so the filter applies twice (X1). */
+  "group-proxy-overlap",
   /** A `clear` node has no dimming policy, so it resolved to `regular` instead. */
   "clear-variant-needs-dimming",
   /** A foreground mode the resolved state cannot support; the nearest legal mode was used. */
