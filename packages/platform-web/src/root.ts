@@ -32,7 +32,6 @@ import {
   createDiagnosticsChannel,
   createFrameScheduler,
   createGlassScene,
-  DEFAULT_GROUP_SAMPLING,
   resolveMaterial,
   type AccessibilityOverrides,
   type BackdropSourceDescriptor,
@@ -887,5 +886,3 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
   return root;
 }
-
-export const DEFAULT_SAMPLING = DEFAULT_GROUP_SAMPLING;
