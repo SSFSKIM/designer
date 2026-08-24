@@ -348,10 +348,10 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 | --- | --- | --- |
 | S1 proxy-topology spike | docs/doperpowers/spikes/2026-08-24-s1-proxy-topology-findings.md (pending) | in-flight (2026-08-24, opus worker, worktree) |
 | S2 geometry-field spike | docs/doperpowers/spikes/2026-08-24-s2-geometry-field-findings.md (pending) | in-flight (2026-08-24, opus worker, worktree) |
-| C1 monorepo foundation | — | in-flight (2026-08-24, opus worker, worktree) |
-| C2 motion kernel | — | not-dispatched (blocked-by C1) |
+| C1 monorepo foundation | merge 5923258 (agent report in session; 29 tests, purity lint proven, X7 asserted on built artifact) | landed 2026-08-24, re-verified on main (chain exit 0) |
+| C2 motion kernel | — | in-flight (2026-08-24, opus worker, worktree) |
 | C3 geometry kernel | — | not-dispatched (blocked-by S2, C1) |
-| C4 core runtime | — | not-dispatched (blocked-by C1) |
+| C4 core runtime | — | in-flight (2026-08-24, opus worker, worktree) |
 | C5 platform-web runtime | — | not-dispatched (blocked-by S1, C4) |
 | C6 WebGPU renderer | — | not-dispatched (blocked-by S2, C3, C4) |
 | C7 calibration system | — | not-dispatched (waiting-external: Xcode) |
