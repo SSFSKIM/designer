@@ -215,6 +215,11 @@ export interface SceneResolution {
   readonly nodes: readonly ResolvedNode[];
   /** Only the groups whose state moved, plus every group's first resolution. */
   readonly changes: readonly GroupStateChange[];
+  /**
+   * One policy for the whole root, carried here so a renderer has everything a
+   * frame decided in one object rather than two.
+   */
+  readonly accessibility: ResolvedAccessibilityPolicy;
 }
 
 /** One overlapping pair inside one plane (X1). */
@@ -308,12 +313,20 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
 
   let platform = options.platform;
   let governor: GovernorPressure = "none";
+  /**
+   * Until a host reports otherwise, nothing is detected and every query is
+   * answerable — the nominal policy. `reducedTransparencySupported` defaults to
+   * true on purpose: the undetectable-preference warning is about a platform
+   * fact a host *reported*, not about a host that has not spoken yet. The field
+   * is required on `SystemAccessibilityPreferences`, so platform-web cannot
+   * report preferences without stating it.
+   */
   let system: SystemAccessibilityPreferences = options.accessibility ?? {
     reducedTransparency: false,
     reducedMotion: false,
     increasedContrast: false,
     forcedColors: false,
-    reducedTransparencySupported: false,
+    reducedTransparencySupported: true,
   };
   let overrides: AccessibilityOverrides = options.accessibilityOverrides ?? {};
   let consumedFrameId: number | undefined;
@@ -658,7 +671,12 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
 
       for (const group of settled) groups.set(group.descriptor.id, group);
 
-      return { groups: resolvedGroups, nodes: resolvedNodes, changes };
+      return {
+        groups: resolvedGroups,
+        nodes: resolvedNodes,
+        changes,
+        accessibility: resolveAccessibilityPolicy(system, overrides, diagnostics),
+      };
     },
 
     checkSamePlaneOverlap() {

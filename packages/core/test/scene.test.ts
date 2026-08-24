@@ -588,6 +588,46 @@ describe("resolution", () => {
     expect(byId.get("grp2")?.demotionReason).toBe("governor");
   });
 
+  it("starts on the nominal policy and stays quiet until a host reports otherwise", () => {
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+
+    const policy = scene.accessibilityPolicy();
+    expect(policy.reducedTransparency).toBe(false);
+    expect(policy.material.frost).toBe("nominal");
+    expect(diagnostics.reported).toEqual([]);
+
+    // The undetectable-preference warning is about a platform fact a host
+    // reported — not about a host that has not spoken yet.
+    scene.setSystemAccessibility({
+      reducedTransparency: false,
+      reducedMotion: false,
+      increasedContrast: false,
+      forcedColors: false,
+      reducedTransparencySupported: false,
+    });
+    scene.accessibilityPolicy();
+
+    expect(diagnostics.reported.map((finding) => finding.code)).toEqual([
+      "reduced-transparency-undetectable",
+    ]);
+  });
+
+  it("carries the root's accessibility policy on the resolution itself", () => {
+    const scene = createGlassScene({
+      platform: workingPlatform,
+      accessibility: {
+        reducedTransparency: true,
+        reducedMotion: false,
+        increasedContrast: false,
+        forcedColors: false,
+        reducedTransparencySupported: true,
+      },
+    });
+
+    expect(scene.resolve().accessibility.material.frost).toBe("increased");
+  });
+
   it("resolves the accessibility policy once for the whole root", () => {
     const scene = createGlassScene({
       platform: workingPlatform,
