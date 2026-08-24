@@ -23,7 +23,7 @@ import {
 } from "../src/index";
 
 const workingPlatform = {
-  webgpu: true,
+  webgpu: "available",
   backdropFilter: true,
   backdropProxyConformance: "pass",
   deviceHealth: "ok",

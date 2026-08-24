@@ -295,7 +295,12 @@ test.describe("the probe-demotion path (X2)", () => {
 });
 
 test.describe("the WebGPU lifecycle feeding core's capability inputs", () => {
-  test("a CSS-tier root has no WebGPU in play and says so", async ({ page }) => {
+  test("a CSS-tier root has no WebGPU in play and says so honestly, not as a fault", async ({
+    page,
+  }) => {
+    // X2's K1 amendment (Decision Log #21c): a root that never requests
+    // WebGPU is CSS by choice, not demoted — every default root would
+    // otherwise read as faulted, which is the opposite of the honesty core.
     const result = await page.evaluate(async () => {
       await window.h.createRoot({ renderer: "css" });
       window.h.addGroup("g");
@@ -307,10 +312,11 @@ test.describe("the WebGPU lifecycle feeding core's capability inputs", () => {
     expect(result.webgpu).toBeUndefined();
     expect(result.state).toMatchObject({
       activeRenderer: "css",
-      demotionReason: "no-webgpu",
+      health: "ok",
       refraction: "none",
       samplingBackend: "css-backdrop",
     });
+    expect(result.state?.demotionReason).toBeUndefined();
   });
 
   test("device loss demotes with device-lost and reports it", async ({ page }) => {

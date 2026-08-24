@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { effectiveGroupState, type GroupStateInputs } from "../src/group-state";
 
 const platform: PlatformProbe = {
-  webgpu: true,
+  webgpu: "available",
   backdropFilter: true,
   backdropProxyConformance: "pass",
   deviceHealth: "ok",
@@ -86,11 +86,26 @@ describe("the per-group probe verdict (S1 impact item 7)", () => {
   it("lets a scene-wide platform fault outrank the group's own verdict", () => {
     const state = effectiveGroupState({
       ...domGroup,
-      platform: { ...platform, webgpu: false },
+      platform: { ...platform, webgpu: "unavailable" },
       probe: "fail",
     });
 
     // no-webgpu explains the larger loss and comes first in core's precedence.
     expect(state.demotionReason).toBe("no-webgpu");
+  });
+
+  it("a CSS-only root's group resolves healthy, not demoted (X2's K1 amendment)", () => {
+    const state = effectiveGroupState({
+      ...domGroup,
+      platform: { ...platform, webgpu: "not-requested" },
+    });
+
+    expect(state).toMatchObject({
+      activeRenderer: "css",
+      samplingBackend: "css-backdrop",
+      refraction: "none",
+      health: "ok",
+    });
+    expect(state.demotionReason).toBeUndefined();
   });
 });

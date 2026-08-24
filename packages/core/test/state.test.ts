@@ -9,7 +9,7 @@ import { DEMOTION_REASONS, isHealthy, resolveGlassGroupState, type GlassGroupSta
 const noWebGpu: GlassGroupState = resolveGlassGroupState({
   configuredSource: "texture",
   platform: {
-    webgpu: false,
+    webgpu: "unavailable",
     backdropFilter: true,
     backdropProxyConformance: "pass",
     deviceHealth: "ok",

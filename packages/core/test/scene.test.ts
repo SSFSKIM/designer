@@ -19,7 +19,7 @@ import {
 } from "../src/index";
 
 const workingPlatform: PlatformProbe = {
-  webgpu: true,
+  webgpu: "available",
   backdropFilter: true,
   backdropProxyConformance: "pass",
   deviceHealth: "ok",
