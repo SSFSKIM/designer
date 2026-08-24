@@ -123,12 +123,12 @@ class Machine implements InteractionMachine {
 
   applyFlags(flags: InteractionFlags): boolean {
     const next = resolveInteractionState(flags);
-    if (canTransition(this.#state, next)) return this.transition(next);
+    if (this.transition(next)) return true;
 
     // `disabled` and `morphing` are only left through rest, and the host's flags
     // do not know that. Routing through `idle` costs one extra retarget with
-    // nothing advanced in between, so it never shows in a value.
-    if (!canTransition(this.#state, "idle") || !canTransition("idle", next)) return false;
+    // nothing advanced in between, so it never shows in a value. If the detour
+    // is refused too, the pair of failed transitions reports it.
     this.transition("idle");
     return this.transition(next);
   }
