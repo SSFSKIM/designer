@@ -55,6 +55,42 @@ export const DEFAULT_GROUP_UNION: GroupUnionParams = {
 };
 
 /**
+ * Derive a group's union parameters from its declared `mergeDistance`.
+ *
+ * A scene declares `mergeDistance` (§Core model) as the proximity-union
+ * threshold it wants — the same number X1 also uses for the CSS-tier proxy
+ * geometry. Before this function existed, nothing forwarded that number into
+ * `GroupUnionParams`, so every group rendered with `DEFAULT_GROUP_UNION`
+ * regardless of what it declared (C7's flow-back finding).
+ *
+ * The mapping treats `mergeDistance` as `separationThreshold` directly — it is
+ * the same "how close before members interact" quantity — and scales
+ * `neckWidth`/`maxBulge` by the same ratio the defaults already hold to
+ * `DEFAULT_GROUP_UNION.separationThreshold` (16). That preserves the
+ * default's `neckWidth = 4 * maxBulge` relationship (the point at which the
+ * bulge cap is not already binding, per `DEFAULT_GROUP_UNION`'s own note) at
+ * any declared distance, rather than picking a new, untuned ratio.
+ *
+ * Advisory, like the constants it derives from: calibration (C9) can retune
+ * the ratio in this one place.
+ *
+ * A group with no declared `mergeDistance` — `undefined` — gets
+ * `DEFAULT_GROUP_UNION` back unchanged, so existing scenes render exactly as
+ * before.
+ */
+export function groupUnionFromMergeDistance(
+  mergeDistance: number | undefined,
+): GroupUnionParams {
+  if (mergeDistance === undefined) return DEFAULT_GROUP_UNION;
+  const ratio = mergeDistance / DEFAULT_GROUP_UNION.separationThreshold;
+  return {
+    neckWidth: DEFAULT_GROUP_UNION.neckWidth * ratio,
+    maxBulge: DEFAULT_GROUP_UNION.maxBulge * ratio,
+    separationThreshold: mergeDistance,
+  };
+}
+
+/**
  * Two-member bounded smooth union.
  *
  * Commutative: swapping the arguments maps `h -> 1 - h` and leaves the
