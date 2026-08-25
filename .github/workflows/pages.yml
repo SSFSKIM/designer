@@ -1,0 +1,90 @@
+name: pages
+
+# The public demo site (parent acceptance #8: "the public demo site shows the
+# showpiece with side-by-side native captures").
+#
+# Deploys `apps/demo/dist` to GitHub Pages on every push to main. The site is a
+# project site, so it is served from `https://<owner>.github.io/designer/` — and
+# every asset reference in the build is relative (`base: "./"` in
+# apps/demo/vite.config.ts), which is what makes the same `dist/` servable from a
+# path prefix, from a domain root, and from a local preview without rebuilding.
+# Verified before this workflow existed by serving the build under `/designer/`:
+# the entry document, its hashed asset, the `/playground/` route, that route's own
+# `../assets/` reference, and a native fixture all resolve.
+#
+# The build is the whole gate this workflow owns. Correctness is `ci.yml`'s job,
+# which runs the workspace's build, lint, unit and three-engine integration suites
+# on every push including this one; duplicating that here would double the CI cost
+# to make the deploy fail slightly earlier.
+#
+# Enabling this needs one manual step in the repository settings, once: Settings →
+# Pages → Build and deployment → Source: **GitHub Actions**. Until that is set the
+# deploy step fails with a "Pages site not found" error rather than deploying
+# somewhere unexpected.
+
+on:
+  push:
+    branches: [main]
+  # So the site can be republished without an empty commit.
+  workflow_dispatch:
+
+# `pages` and `id-token` are what `deploy-pages` needs; everything else stays at
+# the read-only default.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time, and never cancel one in flight: a cancelled Pages deploy
+# can leave the site on a half-published state, which is the opposite of what
+# cancel-in-progress is for on a test workflow.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # The workspace build first. The demo aliases the packages to their sources
+      # rather than their `dist/`, so this is not strictly required to produce the
+      # site — but a site built from a workspace that does not compile is not a
+      # thing worth publishing, and this is the cheapest way to say so.
+      - run: pnpm -r build
+
+      - run: pnpm --filter demo build
+
+      # The native captures are copied into `dist/fixtures/` by the app's own vite
+      # plugin, and the site references them, so their absence would be a silently
+      # broken comparison rather than a build failure.
+      - name: the native captures made it into the artifact
+        run: test -d apps/demo/dist/fixtures/apple-macos-26.5-1x-light-standard
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/demo/dist
+
+  deploy:
+    name: deploy to Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
