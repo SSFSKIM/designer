@@ -9,7 +9,7 @@
     "url": "git+https://github.com/SSFSKIM/designer.git",
     "directory": "packages/core"
   },
-  "keywords": ["liquid-glass", "webgpu", "material", "glass", "ui"],
+  "keywords": ["liquid-glass", "webgpu", "material", "glass", "ui", "backdrop-filter", "apple"],
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -20,7 +20,7 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": ["dist", "LICENSE", "NOTICE"],
   "publishConfig": {
     "access": "public"
   },
