@@ -31,7 +31,7 @@ Everything else stays quiet.
 
 Scope: this law governs the public site at `/`. The internal acceptance harness at
 `/playground/` is outside it, because its structure, control names and layout are
-pinned by `@vitrea/react`'s Playwright suite rather than by taste; §9 binds it
+pinned by `vitrea-react`'s Playwright suite rather than by taste; §9 binds it
 anyway, since that is about correctness.
 
 If a decision is ever ambiguous, choose the more **instrumental** option: the one
@@ -182,7 +182,7 @@ Both halves must hold, and the page must remain fully usable with all of it off.
 
 ## 9. Glass placement law (domain-specific)
 
-The dev-mode checks in `@vitrea/core` are part of this page's definition of done,
+The dev-mode checks in `vitrea` are part of this page's definition of done,
 so three placement rules are law rather than preference. `pnpm --filter demo dev`
 must report zero diagnostics.
 

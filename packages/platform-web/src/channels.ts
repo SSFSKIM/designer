@@ -25,7 +25,7 @@
  * legal state with defined values.
  */
 
-import type { Rect } from "@vitrea/core";
+import type { Rect } from "vitrea";
 
 /**
  * The custom properties a surface publishes each frame.

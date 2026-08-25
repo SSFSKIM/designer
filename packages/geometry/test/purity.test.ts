@@ -74,7 +74,7 @@ describe("geometry references nothing outside itself (X4)", () => {
   it("imports nothing at all outside this package", () => {
     // Not just "no Node built-ins": geometry has no runtime dependencies of any
     // kind, so every import must be relative. That is what lets it be bundled into
-    // @vitrea/core at publish with nothing trailing behind it.
+    // vitrea at publish with nothing trailing behind it.
     for (const { name, text } of sourceFiles()) {
       const imports = [...code(text).matchAll(/from\s+"([^"]+)"/g)].map((m) => m[1] as string);
       for (const spec of imports) {

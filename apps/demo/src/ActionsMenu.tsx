@@ -4,7 +4,7 @@
  *
  * ## Why React Aria's hooks, and not a component library
  *
- * `@vitrea/react` takes **no** dependency on an accessibility library (Decision
+ * `vitrea-react` takes **no** dependency on an accessibility library (Decision
  * Log #13); the app picks one, and this playground picks the hook-level
  * `react-aria` / `react-stately` packages.
  *
@@ -25,7 +25,7 @@
  * menu needs, and each is one line.
  */
 
-import { APPLE_LIKE_SMOOTHING, GlassMorph, useToolbarItem } from "@vitrea/react";
+import { APPLE_LIKE_SMOOTHING, GlassMorph, useToolbarItem } from "vitrea-react";
 import { useButton, useMenu, useMenuItem, useMenuTrigger } from "react-aria";
 import { Item, useMenuTriggerState, useTreeState } from "react-stately";
 import { useEffect, useRef, type Key, type ReactNode, type RefObject } from "react";

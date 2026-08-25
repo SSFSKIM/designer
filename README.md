@@ -85,7 +85,7 @@ open-source product. Design and roadmap:
 
 The workspace is a pnpm monorepo. Seven packages under `packages/` — `core`,
 `geometry`, `motion`, `platform-web`, `renderer-webgpu`, `react`, `calibration` —
-of which exactly two are ever published: `@vitrea/core` and `@vitrea/react`. The
+of which exactly two are ever published: `vitrea` and `vitrea-react`. The
 rest are bundled into those two at publish time. `apps/demo` is the Vite
 playground and future showpiece; `apps/reference-apple` will hold the native
 SwiftUI capture harness the fidelity claims are measured against.

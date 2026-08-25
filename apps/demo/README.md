@@ -5,7 +5,7 @@ Two pages, one Vite app.
 | Route | What it is |
 | --- | --- |
 | `/` | **vitrea's public demo site.** Designed under [`DESIGN.md`](./DESIGN.md); asserted by [`e2e/site.spec.ts`](./e2e/site.spec.ts). |
-| `/playground/` | **The internal acceptance harness.** What `@vitrea/react`'s Playwright suite drives. Its structure, control names and layout are pinned by those tests, and it is deliberately outside the design law. |
+| `/playground/` | **The internal acceptance harness.** What `vitrea-react`'s Playwright suite drives. Its structure, control names and layout are pinned by those tests, and it is deliberately outside the design law. |
 
 ```sh
 pnpm --filter demo dev        # both routes, on http://localhost:5173

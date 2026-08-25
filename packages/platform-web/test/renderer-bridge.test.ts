@@ -12,7 +12,7 @@
  * rather than one of its assertions.
  */
 
-import { NOMINAL_ACCESSIBILITY_POLICY, type GlassGroupState } from "@vitrea/core";
+import { NOMINAL_ACCESSIBILITY_POLICY, type GlassGroupState } from "vitrea";
 import { DEFAULT_GROUP_UNION, groupUnionFromMergeDistance } from "@vitrea/geometry";
 import { describe, expect, it } from "vitest";
 

@@ -77,7 +77,7 @@ export default defineConfig({
   plugins: [referenceFixtures()],
   resolve: {
     alias: {
-      "@vitrea/core": `${packages}core/src/index.ts`,
+      "vitrea": `${packages}core/src/index.ts`,
       "@vitrea/geometry": `${packages}geometry/src/index.ts`,
       "@vitrea/motion": `${packages}motion/src/index.ts`,
       "@vitrea/platform-web": `${packages}platform-web/src/index.ts`,

@@ -8,7 +8,7 @@
  * renderer, the media-query policy feed, and the WebGPU lifecycle.
  *
  * The one entry point an app needs is `createGlassRoot`. Everything else is
- * exported because `@vitrea/react` (C8) and the WebGPU renderer (C6) compose
+ * exported because `vitrea-react` (C8) and the WebGPU renderer (C6) compose
  * against these pieces directly, and because a test should be able to reach the
  * decision that failed rather than the whole runtime.
  */

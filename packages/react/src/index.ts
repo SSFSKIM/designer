@@ -1,5 +1,5 @@
 /**
- * `@vitrea/react` — the declarative surface (child C8 of
+ * `vitrea-react` — the declarative surface (child C8 of
  * `docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`).
  *
  * The second published package (X7), and thin by policy: it maps React lifecycle
@@ -28,7 +28,7 @@
  *
  * ## Zero runtime dependencies beyond React
  *
- * `@vitrea/core` is this package's one declared dependency; `platform-web`,
+ * `vitrea` is this package's one declared dependency; `platform-web`,
  * `geometry` and `motion` are internal and bundled at publish (X7). React is a
  * peer. There is no state library, no animation library and no a11y library
  * here — v1's menu is composed over an external accessible primitive **the app
@@ -93,16 +93,16 @@ export type {
   GlassPlane,
   MaterialVariant,
   ResolvedAccessibilityPolicy,
-} from "@vitrea/core";
+} from "vitrea";
 
 /**
  * The one-liner that satisfies the clear variant's dimming requirement. Core
  * refuses a clear surface without a policy rather than inventing a scrim, and
  * names this constant when it does — so the bindings surface it too.
  */
-export { DEFAULT_CLEAR_DIMMING } from "@vitrea/core";
+export { DEFAULT_CLEAR_DIMMING } from "vitrea";
 
-import { GLASS_PLANES, type GlassPlane } from "@vitrea/core";
+import { GLASS_PLANES, type GlassPlane } from "vitrea";
 import { DEFAULT_MOTION_PROFILE, type MotionProfile } from "@vitrea/motion";
 
 /**

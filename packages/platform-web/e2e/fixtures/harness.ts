@@ -11,7 +11,7 @@
  * be unreachable in any automated test.
  */
 
-import type { BackdropHint } from "@vitrea/core";
+import type { BackdropHint } from "vitrea";
 
 import {
   createBackdropProxyManager,

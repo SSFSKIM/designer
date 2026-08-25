@@ -24,7 +24,7 @@
  * element that carries the result is `backdrop-proxy.ts`'s job.
  */
 
-import { inflateRect, unionRect, type CornerRadii, type Rect } from "@vitrea/core";
+import { inflateRect, unionRect, type CornerRadii, type Rect } from "vitrea";
 
 import { requiredSamplingPadding } from "./optics";
 

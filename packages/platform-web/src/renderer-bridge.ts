@@ -4,13 +4,13 @@
  * Everything either half needs already existed — `root.renderInput()` publishes
  * measured, resolved, capped surfaces; `@vitrea/renderer-webgpu` consumes groups
  * of surfaces with channel values — and nothing joined them. This module is that
- * join, and it lives here rather than in `@vitrea/react` because the bindings are
+ * join, and it lives here rather than in `vitrea-react` because the bindings are
  * thin by law: a Vue or Web Components adapter must inherit a working GPU tier
  * without reimplementing it.
  *
  * ## What it owns
  *
- * - **The lazy load.** The renderer arrives through `@vitrea/core`'s X7 seam and
+ * - **The lazy load.** The renderer arrives through `vitrea`'s X7 seam and
  *   nowhere else. This file contains no static edge to the renderer package, so a
  *   CSS-tier bundle still never carries a byte of WGSL.
  * - **The canvases.** X1's sandwich gives every plane an optics canvas and a
@@ -49,7 +49,7 @@ import {
   type GlassPlane,
   type GlassRenderer,
   type WebGPURendererModule,
-} from "@vitrea/core";
+} from "vitrea";
 import { groupUnionFromMergeDistance } from "@vitrea/geometry";
 
 import { IDLE_CHANNELS, type SurfaceChannelValues } from "./channels";

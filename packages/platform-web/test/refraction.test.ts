@@ -2,7 +2,7 @@ import {
   NOMINAL_ACCESSIBILITY_POLICY,
   resolveAccessibilityPolicy,
   type RefractionQuality,
-} from "@vitrea/core";
+} from "vitrea";
 import { describe, expect, it } from "vitest";
 
 import {

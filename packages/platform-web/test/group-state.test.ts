@@ -1,4 +1,4 @@
-import type { PlatformProbe } from "@vitrea/core";
+import type { PlatformProbe } from "vitrea";
 import { describe, expect, it } from "vitest";
 
 import { effectiveGroupState, type GroupStateInputs } from "../src/group-state";

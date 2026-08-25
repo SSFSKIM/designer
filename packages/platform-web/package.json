@@ -2,7 +2,7 @@
   "name": "@vitrea/platform-web",
   "version": "0.0.0",
   "private": true,
-  "description": "Internal: DOM host registration, plane management, backdrop proxies, CSS-tier renderer, WebGPU lifecycle. Bundled into @vitrea/react at publish.",
+  "description": "Internal: DOM host registration, plane management, backdrop proxies, CSS-tier renderer, WebGPU lifecycle. Bundled into vitrea-react at publish.",
   "license": "Apache-2.0",
   "type": "module",
   "sideEffects": false,
@@ -24,7 +24,7 @@
     "test:e2e:gpu": "playwright test --project=chromium-gpu"
   },
   "dependencies": {
-    "@vitrea/core": "workspace:^"
+    "vitrea": "workspace:^"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",
