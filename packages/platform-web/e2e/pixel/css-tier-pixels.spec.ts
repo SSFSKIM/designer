@@ -122,6 +122,33 @@ test("renders system colors and no glass under forced colors", async ({ page }) 
   expect(channelDelta(centre, corner)).toBe(0);
 });
 
+test("gives a dark-hinted group the explicit light foreground token, not light-dark()", async ({
+  page,
+}) => {
+  // X6's one honesty-core mechanism, reaching the tier most visitors get
+  // (Decision Log #28(b), corrective K4): an author-declared backdrop tone
+  // must steer the CSS tier's foreground, not just the WebGPU tier's.
+  await page.evaluate(async () => {
+    await window.h.createRoot({ renderer: "css" });
+    window.h.addGroup("g", { backdrop: { tone: "dark" } });
+    window.h.addSurface({
+      groupId: "g",
+      nodeId: "panel",
+      left: 300,
+      top: 200,
+      width: 220,
+      height: 120,
+      radius: 26,
+      label: "",
+    });
+    window.h.frame(3);
+  });
+
+  const style = await page.evaluate(() => window.h.hostStyle("panel"));
+
+  expect(style?.foreground).toBe("#f5f5f7");
+});
+
 test("shortens its transition under reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await buildCssTier(page);

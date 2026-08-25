@@ -11,6 +11,8 @@
  * be unreachable in any automated test.
  */
 
+import type { BackdropHint } from "@vitrea/core";
+
 import {
   createBackdropProxyManager,
   createGlassLayerManager,
@@ -73,6 +75,8 @@ export interface RootSpec {
   readonly devMode?: boolean;
   readonly samplingPadding?: number;
   readonly mergeDistance?: number;
+  /** X6: the author's declared backdrop hint, forwarded straight to `registerGroup`. */
+  readonly backdrop?: BackdropHint;
 }
 
 export interface TextureGroupSpec {
@@ -155,6 +159,7 @@ const api = {
       id: groupId,
       ...(spec.samplingPadding === undefined ? {} : { samplingPadding: spec.samplingPadding }),
       ...(spec.mergeDistance === undefined ? {} : { mergeDistance: spec.mergeDistance }),
+      ...(spec.backdrop === undefined ? {} : { backdrop: spec.backdrop }),
     });
   },
 
@@ -370,6 +375,10 @@ const api = {
       transition: computed.transitionProperty,
       tint: computed.getPropertyValue("--vitrea-tint").trim(),
       occlusion: computed.getPropertyValue("--vitrea-occlusion").trim(),
+      // The raw custom-property string, unresolved by the browser — unlike
+      // `color`, which `light-dark()` collapses to an `rgb()` either way, this
+      // token tells the two cases apart (X6, corrective K4).
+      foreground: computed.getPropertyValue("--vitrea-foreground").trim(),
     };
   },
 

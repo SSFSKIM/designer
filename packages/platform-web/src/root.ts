@@ -653,11 +653,18 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         list.push(input);
         nodesByPlane.set(record.plane, list);
 
-        // The CSS tier paints if and only if it is the active renderer.
+        // The CSS tier paints if and only if it is the active renderer. X6's
+        // hint reaches it here: the node's resolved mode plus the group's
+        // resolved hint tone, both already computed by core — this call
+        // consumes that resolution rather than repeating it.
         const declarations = cssTierDeclarations({
           radii: record.radii,
           optics: baseOptics,
           policy: accessibility,
+          foreground: {
+            mode: (foreground ?? { adaptation: { mode: "fixed" as const } }).adaptation.mode,
+            ...(resolved.hint.hint?.tone === undefined ? {} : { tone: resolved.hint.hint.tone }),
+          },
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {
