@@ -1,6 +1,6 @@
 # vitrea-react
 
-**React bindings for [vitrea](https://www.npmjs.com/package/vitrea) — a
+**React bindings for [vitrea](https://www.npmjs.com/package/@vitreajs/vitrea) — a
 production-oriented, reference-calibrated material compositor for semantic web
 controls.**
 
@@ -21,13 +21,15 @@ below it, never instead of it.
 ## Install
 
 ```bash
-npm install vitrea vitrea-react
+npm install @vitreajs/vitrea @vitreajs/vitrea-react
 ```
 
-`vitrea` is this package's one declared dependency and React is a peer (`>=19`).
-Everything else — the DOM host layer, the geometry kernel, the motion kernel, the
-WebGPU renderer — is internal and bundled in at publish time. There is no state
-library, no animation library, and no accessibility library in here.
+The library is called vitrea and publishes under the npm scope `@vitreajs`.
+`@vitreajs/vitrea` is this package's one declared dependency and React is a
+peer (`>=19`). Everything else — the DOM host layer, the geometry kernel, the
+motion kernel, the WebGPU renderer — is internal and bundled in at publish
+time. There is no state library, no animation library, and no accessibility
+library in here.
 
 In v1 this package is also the **only** way to render glass in a browser: `vitrea`
 itself contains no DOM code by design, and the host layer ships bundled inside
@@ -38,7 +40,7 @@ this artifact.
 ## Quickstart
 
 ```tsx
-import { GlassRoot, GlassGroup, GlassToolbar, GlassButton } from "vitrea-react";
+import { GlassRoot, GlassGroup, GlassToolbar, GlassButton } from "@vitreajs/vitrea-react";
 
 export function App() {
   return (
@@ -115,7 +117,7 @@ find out which happened. Choosing the CSS tier is **not** a fault: a root that
 never requested WebGPU resolves to `activeRenderer: "css"` with `health: "ok"`
 and no demotion reason. Every real demotion names both a reason and its recovery
 condition. The full model is documented in
-[`vitrea`'s README](https://www.npmjs.com/package/vitrea).
+[`@vitreajs/vitrea`'s README](https://www.npmjs.com/package/@vitreajs/vitrea).
 
 ---
 

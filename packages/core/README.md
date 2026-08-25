@@ -25,22 +25,23 @@ selectable, focusable, IME-capable, and announced by a screen reader as a button
 ## Install
 
 ```bash
-npm install vitrea vitrea-react
+npm install @vitreajs/vitrea @vitreajs/vitrea-react
 ```
 
-`vitrea` is the framework-agnostic runtime. `vitrea-react` is the declarative
-surface. These two are the only published packages: the geometry kernel, the
-motion kernel, the DOM host layer and the WebGPU renderer are internal and
-bundled into them at publish time, so an app installs two packages and gets zero
-transitive runtime dependencies beyond React itself.
+The library is called vitrea and publishes under the npm scope `@vitreajs`.
+`@vitreajs/vitrea` is the framework-agnostic runtime, `@vitreajs/vitrea-react`
+the declarative surface. These two are the only published packages: the
+geometry kernel, the motion kernel, the DOM host layer and the WebGPU renderer
+are internal and bundled into them at publish time, so an app installs two
+packages and gets zero transitive runtime dependencies beyond React itself.
 
 ### Which package you actually import from
 
 | You are… | Install | Import |
 | --- | --- | --- |
-| writing a React app | `vitrea vitrea-react` | `vitrea-react` for components, `vitrea` for types |
-| reading the resolved capability state | either | `vitrea` |
-| writing a Vue/Svelte/WC adapter | `vitrea` | not yet supported — see below |
+| writing a React app | `@vitreajs/vitrea @vitreajs/vitrea-react` | `@vitreajs/vitrea-react` for components, `@vitreajs/vitrea` for types |
+| reading the resolved capability state | either | `@vitreajs/vitrea` |
+| writing a Vue/Svelte/WC adapter | `@vitreajs/vitrea` | not yet supported — see below |
 
 **One honest limit up front.** `vitrea` contains no DOM code at all, by design
 (the purity law: the core, geometry and motion packages never touch `window`,
@@ -58,7 +59,7 @@ today by installing `vitrea` alone.
 ## Quickstart
 
 ```tsx
-import { GlassRoot, GlassGroup, GlassToolbar, GlassButton, useGlassCapabilities } from "vitrea-react";
+import { GlassRoot, GlassGroup, GlassToolbar, GlassButton, useGlassCapabilities } from "@vitreajs/vitrea-react";
 
 export function App() {
   return (

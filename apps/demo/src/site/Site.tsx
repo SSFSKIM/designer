@@ -17,7 +17,7 @@ import {
   useGlassAccessibility,
   useGlassRoot,
   type AccessibilityOverride,
-} from "vitrea-react";
+} from "@vitreajs/vitrea-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { MEASURED_CELL_COUNT } from "./calibration";
@@ -445,7 +445,7 @@ export function Site(props: SiteProps): ReactNode {
 
         <Section spec={SECTIONS[5]} active={active}>
           <pre className="code" tabIndex={0}>
-            <code>{"npm install vitrea vitrea-react"}</code>
+            <code>{"npm install @vitreajs/vitrea @vitreajs/vitrea-react"}</code>
           </pre>
           <p className="body">
             Two published packages. The internal geometry, motion and platform layers
@@ -557,7 +557,7 @@ function RendererField(props: { readonly requested: "css" | "webgpu" }): ReactNo
   );
 }
 
-const INSTALL_SNIPPET = `import { GlassRoot, GlassGroup, GlassToolbar, GlassButton } from "vitrea-react";
+const INSTALL_SNIPPET = `import { GlassRoot, GlassGroup, GlassToolbar, GlassButton } from "@vitreajs/vitrea-react";
 
 export function App() {
   return (

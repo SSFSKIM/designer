@@ -1,4 +1,4 @@
-# vitrea-react
+# @vitreajs/vitrea-react
 
 ## 0.1.0
 
@@ -38,11 +38,12 @@
   holding one of its own, so a demotion keeps the same material to within 1.3% of
   its interior level in the mean.
   
-  Published unscoped: `npm install vitrea vitrea-react`. The geometry, motion, DOM
-  host and WebGPU renderer packages are internal and bundled in, so these two carry
-  no transitive runtime dependency beyond React (a peer, `>=19`).
+  Published under the `@vitreajs` scope:
+  `npm install @vitreajs/vitrea @vitreajs/vitrea-react`. The geometry, motion,
+  DOM host and WebGPU renderer packages are internal and bundled in, so these
+  two carry no transitive runtime dependency beyond React (a peer, `>=19`).
 
 ### Patch Changes
 
 - Updated dependencies [1595af5]
-  - vitrea@0.1.0
+  - @vitreajs/vitrea@0.1.0

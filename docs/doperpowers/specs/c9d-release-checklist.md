@@ -93,7 +93,7 @@ Run on `c9d-release`, in this order, all green:
 | `npx eslint .` (root) | exit 0 |
 | `pnpm -r test` | **1089 passed**, 0 failed (motion 162, geometry 143, renderer-webgpu 224, core 249, platform-web 129, react 70, calibration 112) |
 | `@vitrea/platform-web` Playwright | **256 passed**, 0 failed (Chromium / Firefox / WebKit + the real-adapter GPU project) |
-| `vitrea-react` Playwright | **90 passed**, 3 skipped, 0 failed (three engines) |
+| `@vitreajs/vitrea-react` Playwright | **90 passed**, 3 skipped, 0 failed (three engines) |
 | `demo` Playwright | **17 passed**, 0 failed |
 | `@vitrea/renderer-webgpu` Playwright | **29 passed**, 0 failed (goldens, isolation proof, GPU runtime, benchmark) |
 
@@ -108,12 +108,13 @@ that count is closed too.
       holding them together.
 - [x] `pnpm publish --dry-run` clean on both packages at 0.1.0.
 - [x] **The workspace protocol is rewritten in the tarball, verified rather than
-      assumed:** `vitrea-react`'s dependency reads `workspace:^` in the repo and
+      assumed:** `@vitreajs/vitrea-react`'s dependency reads `workspace:^` in the
+      repo and
       `^0.1.0` in the packed artifact. This is Decision Log #30(a)'s reason for
       forbidding bare `npm publish`, re-confirmed at 0.1.0. Also in each tarball:
       `LICENSE` and `NOTICE` (Apache-2.0 §4), a README, one self-contained
-      `index.d.ts`, and no `@vitrea/*` runtime dependency. vitrea 250 kB /
-      vitrea-react 251 kB packed.
+      `index.d.ts`, and no `@vitrea/*` runtime dependency. `@vitreajs/vitrea`
+      250 kB / `@vitreajs/vitrea-react` 251 kB packed.
 - [x] **Demo static build verified under a path prefix.** Served from
       `/designer/`: the entry document, its hashed asset, the `/playground/`
       route, that route's own `../assets/` reference, and a native fixture all
@@ -211,7 +212,8 @@ path (Decision Log #30(a)). Verified rather than assumed on two counts:
   not to `npm publish`. Checked in the installed `@changesets/cli@3.0.1`
   (`getPublishTool` → `pnpm_exports`).
 - That distinction is the whole reason for the rule: npm would ship
-  `vitrea-react`'s dependency as the literal, unresolvable `"vitrea":
+  `@vitreajs/vitrea-react`'s dependency as the literal, unresolvable
+  `"@vitreajs/vitrea":
   "workspace:^"`, while pnpm rewrites it to `^0.1.0`. Confirmed on the packed
   tarball at 0.1.0 (§1).
 
@@ -220,8 +222,8 @@ non-interactive run needs `pnpm changeset publish --otp=<code>` instead. Either
 way a human holds the second factor, which is why this box is unchecked and why
 no agent should tick it.
 
-Publishing is irreversible for a version number: `vitrea@0.1.0` and
-`vitrea-react@0.1.0` can never be re-published with different bytes.
+Publishing is irreversible for a version number: `@vitreajs/vitrea@0.1.0` and
+`@vitreajs/vitrea-react@0.1.0` can never be re-published with different bytes.
 
 ---
 

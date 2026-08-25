@@ -91,12 +91,12 @@ a versioned harness that diffs against native captures. Glass labels stay real
 DOM: a `GlassButton` is a `<button>`, focusable and announced as one.
 
 ```bash
-npm install vitrea vitrea-react
+npm install @vitreajs/vitrea @vitreajs/vitrea-react
 ```
 
-- **[`vitrea`](./packages/core/README.md)** — the framework-agnostic runtime:
+- **[`@vitreajs/vitrea`](./packages/core/README.md)** — the framework-agnostic runtime:
   scene model, capability and tier resolution, material and accessibility policy.
-- **[`vitrea-react`](./packages/react/README.md)** — the declarative surface:
+- **[`@vitreajs/vitrea-react`](./packages/react/README.md)** — the declarative surface:
   `GlassRoot`, `GlassGroup`, `GlassSurface`, and the v1 controls.
 - **The public demo** — `apps/demo`, with side-by-side native reference pairs.
   Run it locally with `pnpm --filter demo dev`.
