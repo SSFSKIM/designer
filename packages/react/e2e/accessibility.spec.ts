@@ -12,12 +12,12 @@
  * of the policy hangs on.
  */
 
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 import { gotoPlayground } from "./support";
 
 /** One row of the panel's readout, by its label. */
-async function readout(page: import("@playwright/test").Page, label: string): Promise<string> {
+async function readout(page: Page, label: string): Promise<string> {
   return page.evaluate((name) => {
     const cell = [...document.querySelectorAll(".panel th")].find(
       (element) => element.textContent?.trim() === name,

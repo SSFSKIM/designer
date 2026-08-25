@@ -87,10 +87,8 @@ function Menu(props: MenuProps & { readonly menuRef: RefObject<HTMLUListElement 
        */
       onKeyDownCapture={(event) => {
         menuProps.onKeyDownCapture?.(event);
-        console.log("ESCKEY " + event.key);
         if (event.key !== "Escape") return;
         event.stopPropagation();
-        console.log("ESCCLOSE");
         props.onClose();
       }}
     >

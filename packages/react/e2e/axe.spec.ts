@@ -9,11 +9,11 @@
  */
 
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 import { gotoPlayground, press } from "./support";
 
-const scan = (page: import("@playwright/test").Page) =>
+const scan = (page: Page) =>
   new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"])
     /*
@@ -31,16 +31,29 @@ const scan = (page: import("@playwright/test").Page) =>
      */
     .disableRules(["region"]);
 
+/**
+ * A violation as a readable line, with the elements it names.
+ *
+ * The assertion compares against `[]`, so the failure message *is* the report —
+ * a bare count would send whoever broke it back to the browser to find out what.
+ */
+type AxeResults = Awaited<ReturnType<AxeBuilder["analyze"]>>;
+
+const describeViolations = (violations: AxeResults["violations"]): string[] =>
+  violations.map(
+    (violation) =>
+      `${violation.id}: ${violation.help} — ${violation.nodes
+        .map((node) => node.target.join(" "))
+        .join(", ")}`,
+  );
+
 test.beforeEach(async ({ page }) => {
   await gotoPlayground(page);
 });
 
 test("the playground has no axe violations at rest", async ({ page }) => {
   const results = await scan(page).analyze();
-  if (process.env.AXE_DETAIL !== undefined) {
-    console.log(JSON.stringify(results.violations.map((v) => ({ id: v.id, nodes: v.nodes.map((n) => ({ t: n.target, s: n.failureSummary?.slice(0, 200) })) })), null, 2));
-  }
-  expect(results.violations.map((violation) => `${violation.id}: ${violation.help}`)).toEqual([]);
+  expect(describeViolations(results.violations)).toEqual([]);
 });
 
 test("the playground has no axe violations with the menu open", async ({ page }) => {
@@ -49,8 +62,5 @@ test("the playground has no axe violations with the menu open", async ({ page })
   await page.waitForTimeout(600);
 
   const results = await scan(page).analyze();
-  if (process.env.AXE_DETAIL !== undefined) {
-    console.log(JSON.stringify(results.violations.map((v) => ({ id: v.id, nodes: v.nodes.map((n) => ({ t: n.target, s: n.failureSummary?.slice(0, 260) })) })), null, 2));
-  }
-  expect(results.violations.map((violation) => `${violation.id}: ${violation.help}`)).toEqual([]);
+  expect(describeViolations(results.violations)).toEqual([]);
 });

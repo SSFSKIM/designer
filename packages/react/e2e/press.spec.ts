@@ -8,7 +8,7 @@
  * independent.
  */
 
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 import { channel, gotoPlayground } from "./support";
 
@@ -16,7 +16,7 @@ const PRESS = "--vitrea-press";
 const GLOW = "--vitrea-glow";
 
 /** Read one channel once per animation frame, `count` times. */
-async function trace(page: import("@playwright/test").Page, count: number, property: string) {
+async function trace(page: Page, count: number, property: string) {
   return page.evaluate(
     ([frames, name]) =>
       new Promise<number[]>((resolve) => {
@@ -47,7 +47,7 @@ async function trace(page: import("@playwright/test").Page, count: number, prope
  * what it means.
  */
 async function waitForChannelBetween(
-  page: import("@playwright/test").Page,
+  page: Page,
   property: string,
   low: number,
   high: number,
