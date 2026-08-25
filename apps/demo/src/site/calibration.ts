@@ -96,13 +96,43 @@ function figuresOf(cell: Cell): readonly Figure[] {
     "Luminance slope, native",
     metric(cell.material, "luminanceSlopeNative"),
     3,
-    "The frosting gap. Native transfers roughly twice the backdrop luminance that this untuned build does, which is the open tuning target.",
+    "Not a transmission figure: this estimator is attenuated by the material's own blur, so it reads lower the busier the backdrop and the two sides are not comparable through it. C9a measured transmission by regressing interior level against backdrop level across scenes instead, and found the reference the MORE opaque of the two — the opposite of what a single slope reading implies.",
   );
   add("Luminance slope, web", metric(cell.material, "luminanceSlopeWeb"), 3);
   return out;
 }
 
-/** Every measured cell, keyed by scene. A scene may hold more than one cell. */
+/**
+ * The profile and tier the page speaks for when a scene has more than one cell.
+ *
+ * A scene now carries up to four (two colour schemes x two tiers), and the page
+ * shows one. Which one is a claim rather than an implementation detail: the
+ * headline is the **texture tier under the light-standard profile**, because that
+ * is the tier the demo itself defaults to and the profile the runtime's own
+ * constants target — the dark profile is a patch a host has to pass (C9a §4.3),
+ * and the dom tier's figures belong to the engine's `backdrop-filter` rather than
+ * to vitrea's shader math.
+ *
+ * This was a real defect and not a preference. Cells arrive in the matrix's
+ * key-sorted order, so "the first one" was the *dark dom* cell purely because
+ * "apple-macos-26.5-1x-dark-standard" sorts before "…-light-standard" — a figure
+ * from the wrong profile and the wrong tier, presented as the page's answer.
+ * Naming the primary makes the choice visible and stops a new cell reordering it.
+ */
+const PRIMARY_PROFILE_KEY = "apple-macos-26.5-1x-light-standard";
+const PRIMARY_TIER = "texture";
+
+/** Lower sorts first. Ties fall through to the matrix's own order, which is stable. */
+function primacy(report: CellReport): number {
+  return (
+    (report.profileKey === PRIMARY_PROFILE_KEY ? 0 : 2) + (report.tier === PRIMARY_TIER ? 0 : 1)
+  );
+}
+
+/**
+ * Every measured cell, keyed by scene, **primary cell first**. A scene may hold
+ * more than one cell; see `PRIMARY_PROFILE_KEY` for which one speaks.
+ */
 export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() => {
   const bySceneId = new Map<string, CellReport[]>();
   for (const cell of cells) {
@@ -122,6 +152,9 @@ export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() 
     const existing = bySceneId.get(report.sceneId);
     if (existing === undefined) bySceneId.set(report.sceneId, [report]);
     else existing.push(report);
+  }
+  for (const reports of bySceneId.values()) {
+    reports.sort((a, b) => primacy(a) - primacy(b));
   }
   return bySceneId;
 })();

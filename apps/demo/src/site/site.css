@@ -411,11 +411,13 @@ code {
    * for exactly this ("foreground from explicit tokens or `color-scheme`"), and it
    * belongs on the region the app authored rather than on the plane vitrea owns.
    *
-   * Recorded for the parent: the group's X6 `hint` carries `tone: "dark"` here and
-   * the CSS tier does not consult it for the foreground, only the GPU tier does. On
-   * the tier most visitors get, the one mechanism the honesty core names for
-   * telling the runtime what it cannot see does not reach the thing it most needs
-   * to change.
+   * Both gaps that made this load-bearing are now closed upstream — K4 wired X6's
+   * hint into the CSS tier's foreground, K5 corrected its arithmetic for the tuned
+   * material, and C9d gave the GPU tier the same answer — so every hinted group on
+   * this page gets an explicit token and `light-dark()` is the fallback rather than
+   * the rule. It stays because the fallback still has to be right: anything on this
+   * dark ground that vitrea is not styling (or a group with no hint to give) reads
+   * its scheme from here.
    */
   color-scheme: dark;
 }
@@ -623,9 +625,52 @@ code {
   isolation: isolate;
 }
 
+/*
+ * Disabled dims the CONTENT, never the material.
+ *
+ * `opacity: 0.5` on the host faded the glass along with the label, and over this
+ * window's dark ground that pulled the surface down toward the backdrop while
+ * leaving the runtime's dark ink where it was: measured at 3.57:1 against the 4.5
+ * floor, on the one control on the page that is disabled. Nothing about the
+ * runtime was wrong there — the app had made its own surface unreadable.
+ *
+ * Dimming the ink alone is also the reference's own reading of the state: Apple's
+ * disabled glass controls keep their material and recede in their content. The
+ * mix percentage is measured rather than chosen — `e2e/contrast.spec.ts` samples
+ * the rendered pixels — and the state is still carried three further ways the
+ * ratio does not depend on: `disabled`, the cursor, and no press or hover
+ * response at all.
+ */
 .control:disabled {
   cursor: default;
-  opacity: 0.5;
+}
+
+/*
+ * Disabled dims the CONTENT, never the material, and it dims it on a child.
+ *
+ * Two things had to change. `opacity: 0.5` on the host faded the glass along with
+ * the label, and over this window's dark ground that pulled the surface down
+ * toward the backdrop while leaving the runtime's dark ink where it was: measured
+ * at 3.57:1 against the 4.5 floor. Nothing about the runtime was wrong there — the
+ * app had made its own surface unreadable. Dimming the ink instead is also the
+ * reference's reading of the state: Apple's disabled glass controls keep their
+ * material and recede in their content.
+ *
+ * And the dim goes on `.control__label` rather than on `.control`, because
+ * `platform-web` writes the host's `color` as an inline style every frame. An app
+ * rule on the host loses to that, silently — the declaration parses, cascades, and
+ * never applies. The published `--vitrea-foreground` is the seam an app is meant
+ * to build on, and building on it means styling something the runtime does not own.
+ *
+ * 72% is measured, not chosen: `e2e/contrast.spec.ts` composites the ink's alpha
+ * over the element's own rendered pixels, and this is about as far as the label can
+ * recede while still clearing the body-text floor on this material. WCAG exempts
+ * inactive components from that floor; the repo's test does not, and this page does
+ * not spend the exemption. The state is carried three further ways the ratio does
+ * not depend on: `disabled`, the cursor, and no press or hover response at all.
+ */
+.control:disabled .control__label {
+  color: color-mix(in oklab, var(--vitrea-foreground, var(--stage-ink)) 72%, transparent);
 }
 
 /*
@@ -688,7 +733,18 @@ code {
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 500;
-  color: var(--stage-ink);
+  /*
+   * The runtime's answer, like every other label on glass here.
+   *
+   * This token was the app's own `--stage-ink` — a light ink chosen for the dark
+   * window behind the control, which was right while the material was 28% opaque
+   * and is not now that it is 78%: what the glyphs sit on is the white tint, and
+   * this measured 1.24:1 against a 4.5 floor. The segmented control's only glass
+   * node is the track (Decision Log #24(c)), so the token inherits from there.
+   * The selected segment overrides it below, because its pill is app decoration
+   * rather than the material and the runtime has no view on it.
+   */
+  color: var(--vitrea-foreground, var(--stage-ink));
   cursor: pointer;
 }
 

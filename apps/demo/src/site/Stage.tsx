@@ -169,10 +169,10 @@ export function StageGround(props: StageProps): ReactNode {
 
           {report === undefined ? (
             <p className="note note--slot">
-              No measured cell for this scene yet. Fidelity tuning is in flight and
-              writes into the same result matrix this page reads, so this slot fills
-              in without a redesign. Reference-calibrated; see the calibration
-              report.
+              No measured cell for this scene yet. Every figure on this page is read
+              from the result matrix and keyed to the cell that produced it, so a
+              scene without one shows this rather than a number borrowed from a
+              different cell. Reference-calibrated; see the calibration report.
             </p>
           ) : (
             <dl className="readout readout--figures">
@@ -317,8 +317,14 @@ export function StageGlass(props: StageProps): ReactNode {
               >
                 <span aria-hidden="true">{favorite ? "★" : "☆"}</span>
               </GlassIconButton>
+              {/*
+                The label is wrapped because the *host's* `color` is the runtime's:
+                platform-web writes it inline every frame, so an app rule on the
+                host loses to it. Restyling a glass host's ink therefore has to
+                happen on a child, and `site.css` says what the wrapper is for.
+              */}
               <GlassButton className="control" disabled>
-                Publish
+                <span className="control__label">Publish</span>
               </GlassButton>
             </GlassToolbar>
 

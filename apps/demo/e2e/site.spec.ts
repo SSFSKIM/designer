@@ -187,18 +187,52 @@ test.describe("the reference pair is a comparison", () => {
     expect(Math.round(surface.y - frame.y)).toBe((CANVAS.height - CAPSULE.height) / 2);
   });
 
-  test("a figure names its cell, and an unmeasured scene says so instead", async ({ page }) => {
+  /*
+   * Decision Log #31(b): the pair's figures were coming from the wrong cell.
+   *
+   * A scene now carries up to four cells (two colour schemes x two tiers) and the
+   * page shows one. It was showing whichever sorted first in the matrix, which is
+   * the *dark dom* cell — "…-dark-standard" sorts before "…-light-standard" — so
+   * the headline figure on the public page belonged to a profile no visitor is
+   * running and a tier that measures the engine's `backdrop-filter` rather than
+   * vitrea's shader math. `calibration.ts` now names the primary explicitly.
+   *
+   * Asserted over every scene the picker offers rather than over the opening one,
+   * because the drift was invisible on nineteen of the twenty and the arbitrary
+   * one is not a fixture worth trusting.
+   */
+  test("every scene's figures come from the primary cell", async ({ page }) => {
     await gotoSite(page);
     await showSection(page, "reference");
 
-    // The one measured cell, which is what the pair opens on.
-    await expect(page.locator(".readout--figures")).toContainText("Silhouette IoU");
-    await expect(page.locator(".readout--figures")).toContainText("apple-macos-26.5-1x-light-standard");
+    const picker = page.getByLabel("Scene");
+    const scenes = await picker.locator("option").evaluateAll((options) =>
+      options.map((option) => (option as HTMLOptionElement).value),
+    );
+    expect(scenes.length).toBeGreaterThan(1);
 
-    // An unmeasured scene renders the labelled slot, never a borrowed number.
-    await page.getByLabel("Scene").selectOption("photo__rrect-md__rest");
-    await expect(page.locator(".note--slot")).toContainText("No measured cell for this scene yet");
-    await expect(page.locator(".readout--figures")).toHaveCount(0);
+    // The scene the pair opens on carries every axis, so it is where the figure
+    // list itself is checked.
+    await expect(page.locator(".readout--figures")).toContainText("Silhouette IoU");
+
+    for (const scene of scenes) {
+      await picker.selectOption(scene);
+      const figures = page.locator(".readout--figures");
+      // Not every scene measures every axis — over a flat backdrop of its own tone
+      // the reference is within 0.02 linear luminance of it, so those scenes have no
+      // silhouette and no shape row. An axis reported absent is a result; what must
+      // never vary is *whose* cell the figures are.
+      await expect(figures.locator(".readout__row"), scene).not.toHaveCount(1);
+      await expect(figures, scene).toContainText("apple-macos-26.5-1x-light-standard");
+      await expect(figures, scene).toContainText("texture tier");
+    }
+
+    // And nothing borrows: the empty-slot branch is what a scene with no cell of
+    // its own renders instead of a neighbour's number. Every scene the pair can
+    // show is now measured, so the slot must be absent everywhere — which is a
+    // statement about coverage, and it fails the moment a scene is added to
+    // `scenes.json` without being measured.
+    await expect(page.locator(".note--slot")).toHaveCount(0);
   });
 });
 

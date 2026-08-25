@@ -16,7 +16,15 @@
 
 import { expect, test } from "@playwright/test";
 
-import { gotoPlayground, morphSettled, press, rectOf, sampleRects, topmostAt } from "./support";
+import {
+  gotoPlayground,
+  morphSettled,
+  press,
+  recordRectsUntilSettled,
+  rectOf,
+  sampleRects,
+  topmostAt,
+} from "./support";
 
 const PLATTER = "[data-vitrea-morph]";
 
@@ -96,7 +104,9 @@ test("the corner radius interpolates with the box", async ({ page }) => {
   const closed = await radiusOf();
   await press(page, page.getByRole("button", { name: "Actions" }));
   await expect(page.getByRole("menu")).toBeVisible();
-  await page.waitForTimeout(700);
+  // The runtime's own settle signal rather than a duration: the radius is on a
+  // spring, so "arrived" is a state it reports and not a time it takes.
+  await morphSettled(page);
   const open = await radiusOf();
 
   // 16 → 22 in the playground: a channel that interpolates, not a class swap.
@@ -116,7 +126,7 @@ test("the platter's glass occludes the toolbar's DOM beneath it", async ({ page 
 
   await press(page, page.getByRole("button", { name: "Actions" }));
   await expect(page.getByRole("menu")).toBeVisible();
-  await page.waitForTimeout(700);
+  await morphSettled(page);
 
   const platterBox = await rectOf(page.locator(PLATTER));
   // The platter opens above the toolbar and is wide enough to cover it; check a
@@ -132,26 +142,64 @@ test("the platter's glass occludes the toolbar's DOM beneath it", async ({ page 
   await expect(toolbar).toBeVisible();
 });
 
+/*
+ * The property is redirection: reversed mid-flight, the geometry continues from
+ * where it was, at the velocity it had, rather than restarting from an endpoint.
+ *
+ * The whole trajectory is recorded **in the page**, one sample per frame, and the
+ * reversal is triggered from Node while that recording runs. The previous shape
+ * read the mid-flight box over a round trip and compared it with the first sample
+ * after the reversal, which meant the two readings were separated by however long
+ * the bridge took — fine with Firefox alone (thirty runs, thirty passes) and not
+ * fine with three engines contending, where it failed on latency rather than on
+ * motion. Adjacent frames cannot drift apart that way, and the assertion below is
+ * stricter than the one it replaces: it holds at every frame of the reversal
+ * instead of at one.
+ */
 test("a reversal mid-flight redirects instead of restarting", async ({ page }) => {
   const platter = page.locator(PLATTER);
   const closed = await rectOf(platter);
 
+  const trajectory = recordRectsUntilSettled(page, PLATTER);
   await press(page, page.getByRole("button", { name: "Actions" }));
-  await page.waitForTimeout(90);
-  const midFlight = await rectOf(platter);
-  expect(midFlight.height).toBeGreaterThan(closed.height + 4);
-
-  // Close again before it has arrived, and sample what happens next.
-  const trajectory = sampleRects(platter, 4);
+  // Mid-flight is a state, not a moment: wait for the geometry to be past the
+  // closed end and still travelling, which is true for as long as it takes the
+  // reversal to be dispatched.
+  await page.waitForFunction(
+    ([selector, from]) => {
+      const element = document.querySelector(selector as string);
+      return (
+        element !== null &&
+        element.hasAttribute("data-vitrea-morphing") &&
+        element.getBoundingClientRect().height > (from as number) + 4
+      );
+    },
+    [PLATTER, closed.height] as const,
+  );
   await page.keyboard.press("Escape");
   const samples = await trajectory;
 
-  const first = samples[0];
-  if (first === undefined) throw new Error("no samples");
-  // Continues from where it was, not from either endpoint.
-  expect(Math.abs(first.height - midFlight.height)).toBeLessThan(midFlight.height * 0.5);
+  expect(samples.length, "the recording caught no frames").toBeGreaterThan(4);
 
-  await page.waitForTimeout(900);
+  // It grew before it shrank, so a reversal really happened inside the recording.
+  const peak = Math.max(...samples.map((sample) => sample.height));
+  expect(peak).toBeGreaterThan(closed.height + 4);
+  expect(samples[samples.length - 1]?.height ?? 0).toBeLessThan(peak);
+
+  // And no frame of it is a cut. A restart from either endpoint would put most of
+  // the travel into one step; a redirect puts none of it there.
+  const travel = peak - closed.height;
+  for (let i = 1; i < samples.length; i += 1) {
+    const previous = samples[i - 1];
+    const current = samples[i];
+    if (previous === undefined || current === undefined) continue;
+    expect(
+      Math.abs(current.height - previous.height),
+      `frame ${String(i)} of ${String(samples.length)} jumped`,
+    ).toBeLessThan(travel * 0.5);
+  }
+
+  await morphSettled(page);
   const settled = await rectOf(platter);
   expect(Math.abs(settled.height - closed.height)).toBeLessThan(2);
   expect(Math.abs(settled.y - closed.y)).toBeLessThan(2);

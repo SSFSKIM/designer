@@ -82,6 +82,60 @@ export async function sampleRects(locator: Locator, count: number): Promise<Rect
 }
 
 /**
+ * Record a locator's box every frame until the morph settles, and hand back the
+ * whole trajectory.
+ *
+ * **Why this exists rather than another `sampleRects`.** A reversal test has to
+ * compare where the geometry *was* when the reversal was triggered against where it
+ * went next. Reading the "was" from Node costs a round trip, and a spring keeps
+ * moving during it — so under load the two readings are frames apart and the test
+ * fails on the harness rather than on the product. Measured: this suite's reversal
+ * assertion passed thirty out of thirty runs with Firefox alone and failed with
+ * three engines contending, which is a statement about round-trip latency and not
+ * about motion.
+ *
+ * Recording in the page removes the round trip from the measurement entirely: every
+ * sample is a frame, adjacent samples are adjacent frames, and the trigger lands
+ * somewhere inside the recording rather than between two of them. The caller starts
+ * the recording, does whatever it likes from Node, and reads the trajectory back.
+ *
+ * Settling is the runtime's own answer (`data-vitrea-morphing`), not a duration, so
+ * the recording ends when the springs do.
+ */
+export function recordRectsUntilSettled(page: Page, selector: string): Promise<Rect[]> {
+  return page.evaluate(
+    ([target, budget]) =>
+      new Promise<Rect[]>((resolve) => {
+        const samples: Rect[] = [];
+        const started = performance.now();
+        const step = (): void => {
+          const element = document.querySelector(target as string);
+          if (element === null) {
+            resolve(samples);
+            return;
+          }
+          const box = element.getBoundingClientRect();
+          samples.push({ x: box.x, y: box.y, width: box.width, height: box.height });
+          // Two conditions, and both are needed. The morph has to have started
+          // before "not morphing" can mean "arrived", and the budget is a bound on
+          // a hang rather than a wait for anything.
+          const morphing = element.hasAttribute("data-vitrea-morphing");
+          if (morphing) element.setAttribute("data-recorded-morphing", "");
+          const sawMorphing = element.hasAttribute("data-recorded-morphing");
+          if ((sawMorphing && !morphing) || performance.now() - started > (budget as number)) {
+            element.removeAttribute("data-recorded-morphing");
+            resolve(samples);
+            return;
+          }
+          requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }),
+    [selector, 4000] as const,
+  );
+}
+
+/**
  * Press an element with a real pointer, down then up.
  *
  * `locator.click()` is not usable on a control that opens on *press start*: the
