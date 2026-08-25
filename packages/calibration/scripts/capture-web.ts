@@ -218,18 +218,85 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
 }
 
 /**
+ * Every top-level key a `MaterialProfilePatch` may carry.
+ *
+ * Restated here on purpose, and it is the one place this script does hold a
+ * second opinion about the renderer's shape. The reason is a measured trap: the
+ * committed calibration profiles are *documents* that contain a patch under a
+ * `patch` key, alongside their provenance — so handing one to `--material-profile`
+ * used to produce a patch whose every key was unrecognised, which
+ * `withMaterialOverrides` ignores by construction. The run then measured the
+ * renderer's defaults while the cell's `capturePath` swore it had applied a
+ * profile: plausible numbers, wrong configuration, and no error anywhere. Caught
+ * only by re-deriving the committed matrix from clean and noticing the dark cells
+ * come back at an interior mean of 0.797 where the tuned profile gives 0.069.
+ *
+ * So a patch that names nothing the renderer knows is refused rather than
+ * applied. The failure mode this guards against is not a typo — it is a file that
+ * is exactly right and one level too deep.
+ */
+const MATERIAL_PATCH_KEYS = new Set([
+  "optics",
+  "adaptiveTintDark",
+  "adaptiveTintLight",
+  "adaptiveLuminanceLow",
+  "adaptiveLuminanceHigh",
+  "refractionScale",
+  "lensSpanMin",
+  "lensSpanMax",
+  "lensSizeGainMax",
+  "lensBodyLodPerPx",
+  "lensRimLodBias",
+  "reducedTransparencyFrost",
+  "increasedOcclusionAlpha",
+  "strongBorderRim",
+  "reducedTintAdaptation",
+  "lightDirection",
+  "sweepBandRadians",
+  "glowRadiusCss",
+  "glowGain",
+  "sweepGain",
+]);
+
+/**
  * Read a material-profile patch off disk.
  *
- * Parsed and hashed, never validated: the shape belongs to the renderer's
- * `MaterialProfilePatch`, and a second opinion about it here is how a harness
- * ends up rejecting a tunable the renderer would have honoured.
+ * Accepts either a bare patch or a calibration-profile document carrying one
+ * under `patch` — the committed profiles are the latter, and making the caller
+ * unwrap them by hand is how the trap above gets re-set.
  */
 function readMaterialProfile(path: string): MaterialProfileFile {
   const text = readFileSync(path, "utf8");
+  const parsed: unknown = JSON.parse(text);
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    throw new Error(`--material-profile ${path} is not a JSON object`);
+  }
+
+  const document = parsed as Record<string, unknown>;
+  const nested = document["patch"];
+  const patch = (
+    typeof nested === "object" && nested !== null && !Array.isArray(nested) ? nested : document
+  ) as Record<string, unknown>;
+
+  const unknown = Object.keys(patch).filter((key) => !MATERIAL_PATCH_KEYS.has(key));
+  if (unknown.length > 0) {
+    throw new Error(
+      `--material-profile ${path} names ${unknown.length} key(s) the renderer's ` +
+        `MaterialProfilePatch does not have: ${unknown.join(", ")}. ` +
+        `Applying it would have silently measured the renderer's defaults. ` +
+        `Known keys: ${[...MATERIAL_PATCH_KEYS].join(", ")}.`,
+    );
+  }
+  if (Object.keys(patch).length === 0) {
+    throw new Error(`--material-profile ${path} is empty, so it would change nothing`);
+  }
+
   return {
     path,
+    // Hashed over the file, not the extracted patch: the cell should name the
+    // artefact a human can go and read, provenance included.
     sha256: createHash("sha256").update(text).digest("hex").slice(0, 12),
-    patch: JSON.parse(text) as MaterialProfileFile["patch"],
+    patch: patch as MaterialProfileFile["patch"],
   };
 }
 

@@ -45,6 +45,12 @@ pnpm --filter @vitrea/calibration run compare -- \
   --material-profile profiles/apple-macos-26.5-1x-dark-standard.json
 ```
 
+Verified: deleting `web-captures/` and `results/matrix.json` and running exactly
+those two commands reproduces **all 30 cells with every measured value identical**
+— only the timestamps differ. Each cell's `capturePath` records the tunables it
+ran on, by repo-relative path and SHA-256, so a committed result cannot be read
+without knowing the configuration that produced it.
+
 The holdout ids appear in no tuning code and in no sweep. `compare` defaults to
 `--set calibration,validation`; holdout requires the flag and prints a banner.
 
