@@ -91,6 +91,7 @@ import {
   createGlassRendererBridge,
   type GlassBackdropTexture,
   type GlassRendererBridge,
+  type RendererMaterialProfile,
 } from "./renderer-bridge";
 import { createWebGPULifecycle, type WebGPULifecycle, type WebGPUStatus } from "./webgpu";
 
@@ -108,6 +109,15 @@ export interface GlassRootOptions {
   /** Which renderer this root wires. Default `"css"`; see the module comment. */
   readonly renderer?: "css" | "webgpu";
   readonly webgpu?: { readonly device?: GPUDevice; readonly powerPreference?: GPUPowerPreference };
+  /**
+   * Optical tunables for the GPU tier, forwarded to the renderer unchanged.
+   *
+   * A patch over the renderer's own `DEFAULT_MATERIAL_PROFILE`, which is where
+   * every optical number lives (C7 calibrates them there). Nothing on this side
+   * reads or restates a value; a CSS-tier root ignores it, because the CSS tier's
+   * numbers are `optics.ts`'s own.
+   */
+  readonly materialProfile?: RendererMaterialProfile;
   /** Drive frames from `requestAnimationFrame`. Default true; tests step manually. */
   readonly autoStart?: boolean;
   readonly matcher?: MediaMatcher;
@@ -224,6 +234,12 @@ export interface GlassRoot {
   revalidateProbe(): void;
 
   setAccessibilityOverrides(overrides: AccessibilityOverrides): void;
+  /**
+   * Replace the GPU tier's optical tunables. A no-op on a CSS-tier root, so an
+   * app can call it unconditionally. The patch replaces rather than accumulates,
+   * which is the renderer's rule; this only forwards it.
+   */
+  setMaterialProfile(profile: RendererMaterialProfile): void;
   readonly accessibility: ResolvedAccessibilityPolicy;
   readonly webgpu: WebGPUStatus | undefined;
   /** The renderer bridge, on a `renderer: "webgpu"` root. Diagnostic surface. */
@@ -392,6 +408,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     ? createGlassRendererBridge({
         layers,
         diagnostics: platformDiagnostics,
+        ...(options.materialProfile === undefined
+          ? {}
+          : { materialProfile: options.materialProfile }),
         onRendererUnavailable: () => {
           rendererUnavailable = true;
           setProbe({ webgpu: "unavailable" });
@@ -954,6 +973,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           [...hosts.values()].find((record) => record.groupId === groupId)?.plane ?? "base";
         auditGroup(groupId, plane);
       }
+    },
+
+    setMaterialProfile(profile) {
+      bridge?.setMaterialProfile(profile);
     },
 
     setAccessibilityOverrides(overrides) {

@@ -68,6 +68,13 @@ export type RendererSurfaceInput = RendererGroupInput["surfaces"][number];
 export type RendererResolution = NonNullable<
   Parameters<GlassRenderer["drawFrame"]>[0]["resolution"]
 >;
+/**
+ * The renderer's optical-tunables patch. Read off `setMaterialProfile` for the
+ * same reason as the types above — and because this file may hold no runtime
+ * edge to the renderer package (X7), a derived type is the only kind of pin
+ * available here.
+ */
+export type RendererMaterialProfile = Parameters<GlassRenderer["setMaterialProfile"]>[0];
 
 /** One plane's worth of groups, in the order the renderer will draw them. */
 export interface RendererPlaneGroups {
@@ -117,6 +124,14 @@ export interface GlassRendererBridgeOptions {
   readonly onRendererUnavailable: () => void;
   /** The X7 seam, swappable so a unit test needs no GPU. */
   readonly load?: () => Promise<WebGPURendererModule>;
+  /**
+   * Optical tunables the renderer should run on, forwarded verbatim.
+   *
+   * Forwarded and nothing else: the numbers belong to `material.ts` in the
+   * renderer package, and a value restated here would be a second opinion about
+   * a measurement this side never took.
+   */
+  readonly materialProfile?: RendererMaterialProfile;
 }
 
 export interface GlassRendererBridge {
@@ -128,6 +143,12 @@ export interface GlassRendererBridge {
   /** Follow the browser-side device lifecycle: attach, loss, replacement. */
   syncDevice(status: WebGPUStatus): void;
   setBackdropTexture(sourceId: string, texture: GlassBackdropTexture | undefined): void;
+  /**
+   * Replace the renderer's optical tunables. A patch replaces rather than
+   * accumulates — that is the renderer's rule, and this only forwards it.
+   * Applied to a renderer that has not loaded yet as soon as it does.
+   */
+  setMaterialProfile(profile: RendererMaterialProfile): void;
   /** The frame's `write` phase: CPU state only, no GPU work. */
   write(input: GlassFrameRenderInput, rebuilds: readonly RebuildRequest[]): void;
   /** The frame's `render` phase, with the scene graph frozen. */
@@ -283,6 +304,8 @@ export function createGlassRendererBridge(
   let destroyed = false;
   /** Latched: a canvas that refused a context will not accept one later either. */
   let canvasesRefused = false;
+  /** The tunables to hand the renderer, whenever it arrives. Never interpreted here. */
+  let materialProfile: RendererMaterialProfile | undefined = options.materialProfile;
 
   const contexts = new Map<GlassPlane, PlaneContexts>();
   const textures = new Map<string, GlassBackdropTexture>();
@@ -484,7 +507,14 @@ export function createGlassRendererBridge(
     const loaded = await moduleLoad;
     if (loaded === undefined || destroyed) return undefined;
     rendererModule ??= loaded;
-    renderer ??= loaded.createWebGPURenderer();
+    if (renderer === undefined) {
+      renderer = loaded.createWebGPURenderer();
+      // X7's seam declares `createWebGPURenderer()` with no arguments, so the
+      // tunables arrive on the line after construction — which is still before the
+      // renderer has a device, let alone a frame, so no frame ever draws on the
+      // defaults when a profile was configured.
+      if (materialProfile !== undefined) renderer.setMaterialProfile(materialProfile);
+    }
     return loaded;
   };
 
@@ -616,6 +646,11 @@ export function createGlassRendererBridge(
       }
       textures.set(sourceId, texture);
       buildProvider(sourceId, texture);
+    },
+
+    setMaterialProfile(profile) {
+      materialProfile = profile;
+      renderer?.setMaterialProfile(profile);
     },
 
     write,

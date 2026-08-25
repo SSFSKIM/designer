@@ -13,7 +13,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json",
@@ -29,6 +31,7 @@
     "@vitrea/core": "workspace:*",
     "@vitrea/motion": "workspace:*",
     "@vitrea/platform-web": "workspace:*",
+    "@vitrea/renderer-webgpu": "workspace:*",
     "eslint": "catalog:",
     "pngjs": "catalog:",
     "tsx": "catalog:",

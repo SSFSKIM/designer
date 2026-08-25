@@ -42,7 +42,7 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 
 import { rendererError } from "./errors";
 import type { FieldFamily } from "./governor";
-import { lensDepthPx } from "./material";
+import { DEFAULT_MATERIAL_PROFILE, lensDepthPx, type MaterialProfile } from "./material";
 import { IDLE_CHANNELS, type GroupRenderInput, type Rect, type SurfaceChannels, type SurfaceInput } from "./render-model";
 
 /** 16 floats, 64 bytes, matching `WGSL_INSTANCE_STRUCT`. */
@@ -84,6 +84,7 @@ function compressedChannels(shape: ShapeChannels, press: number): ShapeChannels 
 export function resolveSurfaces(
   group: GroupRenderInput,
   family: FieldFamily,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): readonly ResolvedSurface[] {
   const byId = new Map<string, SurfaceInput>();
   for (const surface of group.surfaces) {
@@ -170,7 +171,7 @@ export function resolveSurfaces(
       centre: [fieldSource.channels.center[0], fieldSource.channels.center[1]],
       channels,
       spanPx,
-      lensDepthPx: lensDepthPx(shape.channels.thickness, spanPx),
+      lensDepthPx: lensDepthPx(shape.channels.thickness, spanPx, profile),
     };
   });
 }

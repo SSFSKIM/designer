@@ -1,0 +1,238 @@
+{
+  "$comment": [
+    "TUNED MATERIAL CONSTANTS for the light-standard profile — C9a.",
+    "",
+    "This file supersedes nothing: apple-macos-26.5.seed.json remains the record",
+    "of what C7 could and could not answer, and every material entry there is",
+    "still marked `unmeasured` for the reason it gives. This file is the answer to",
+    "the subset those entries named, measured against the real ScreenCaptureKit",
+    "fixtures once the grant landed.",
+    "",
+    "`patch` is a @vitrea/renderer-webgpu MaterialProfilePatch, applicable as-is:",
+    "",
+    "    createGlassRoot({ materialProfile: patch })",
+    "",
+    "For THIS profile the patch is deliberately the identity — the renderer's",
+    "DEFAULT_MATERIAL_PROFILE already carries these numbers, because light-standard",
+    "is the profile the shipped default targets. A test pins that equality, so the",
+    "file and the runtime cannot drift apart silently. The dark sibling is a real",
+    "patch, since only one set of numbers can be the default.",
+    "",
+    "Every number is stated with what moved it and what it did NOT close."
+  ],
+
+  "profileKey": "apple-macos-26.5-1x-light-standard",
+  "schemaVersion": 1,
+  "recordedAt": "2026-08-25",
+  "recordedBy": "C9a",
+  "colorSpace": "srgb",
+  "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+  "identityWithRuntimeDefault": true,
+
+  "measurement": {
+    "fixtures": "apps/reference-apple/fixtures — 24 ScreenCaptureKit captures, materialRendered true, deterministic",
+    "cellsUsedForFitting": 11,
+    "fixtureSets": "calibration only; validation checked but never fitted; holdout untouched until the freeze",
+    "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, srgb",
+    "objective": "mean over calibration cells of |Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|, linear light — see packages/calibration/scripts/sweep.ts",
+    "objectiveBefore": 0.43401,
+    "objectiveAfter": 0.10736,
+    "reproduce": "npx tsx scripts/sweep.ts --profile apple-macos-26.5-1x-light-standard --axis optics.regular.tintAlpha=0.45,0.55,0.62,0.70,0.80"
+  },
+
+  "patch": {
+    "optics": {
+      "regular": {
+        "tintAlpha": 0.62
+      }
+    },
+    "adaptiveTintDark": [1, 1, 1],
+    "adaptiveTintLight": [1, 1, 1]
+  },
+
+  "entries": {
+    "tintAlpha": {
+      "status": "measured",
+      "value": 0.62,
+      "previousAdvisory": 0.28,
+      "method": [
+        "Two estimators, and they agree. Regressing each side's interior level",
+        "against the backdrop level under the same mask, across the calibration",
+        "scenes, gives the material's un-attenuated transmission: Apple passes 0.26",
+        "of the backdrop and adds 0.70, where untuned vitrea passed 0.70 and added",
+        "0.28. Read as an alpha composite that is Apple ~0.74 against vitrea ~0.30.",
+        "The declared objective, swept independently, minimises at 0.62.",
+        "",
+        "The per-pixel affine slope the material axis also reports is a DIFFERENT",
+        "and weaker estimator of the same thing: it is attenuated by the material's",
+        "own blur, so it reads lower the higher-frequency the backdrop (0.045 on",
+        "impulse against 0.419 on photo, for one reference material). The",
+        "across-scene regression is not subject to that, which is why the tuned",
+        "number comes from it."
+      ],
+      "doesNotClose": [
+        "Apple's opacity falls with surface size — implied alpha 0.88 at a 32 px",
+        "span, 0.74 at 44 px, 0.56 at 96 px — and this renderer has no size term on",
+        "the tint. 0.62 is therefore a compromise across the size sweep, and the",
+        "residual |Δ interior mean| of 0.071 is dominated by it rather than by",
+        "anything a better single value would fix. A size-parameterised tint alpha",
+        "is C9a's parent-impact item."
+      ]
+    },
+
+    "adaptiveTint": {
+      "status": "measured",
+      "value": "both ends white — the backdrop crossover is inert by default",
+      "previousAdvisory": "dark end white, light end sRGB [0.09, 0.09, 0.1]",
+      "method": [
+        "The reference's interior rises monotonically with the backdrop under it",
+        "across the whole canonical range (0.680 at backdrop 0.003 through 0.932 at",
+        "0.891), which is a fixed tint at partial transmission and not a tint that",
+        "inverts against what is behind it. What the reference DOES key on is the",
+        "colour scheme: over the same bright checkerboard it sits at 0.809 in light",
+        "and 0.055 in dark.",
+        "",
+        "Measured cost of leaving the inversion on: the light-scheme interior-level",
+        "error was 0.449 with it active against 0.348 with it inert, before any tint",
+        "tuning at all."
+      ],
+      "doesNotClose": [
+        "The two ends are global rather than per-variant, so the clear variant",
+        "inherits this. Clear has no calibration scenes, so it is uncalibrated",
+        "either way — the seed profile already records that as doubly blocked."
+      ]
+    },
+
+    "blurSigma": {
+      "status": "unchanged-deliberately",
+      "value": 8,
+      "method": [
+        "Swept at 2, 4, 6 and 8 against the objective. The optimum sits at 4 and",
+        "beats 8 by 2%, which is inside the flatness of the grid — the whole two",
+        "dimensional (tintAlpha × blurSigma) sweep spans only 1.08x. The fixtures do",
+        "not identify this constant, and the reason is structural rather than",
+        "statistical: no canonical background resolves a step edge at this sigma.",
+        "The checkerboard's 16 px cell bounds any measurable window to about one",
+        "period, and the impulse background is a sparse train rather than a step.",
+        "",
+        "Moving it would also break a documented relationship — sigma 8 is what",
+        "makes core's 24 px samplingPadding advisory exactly the 3-sigma floor S1",
+        "measured, and it is what keeps this package and platform-web's CSS tier on",
+        "one number. Two percent of a quantity the fixtures cannot resolve does not",
+        "buy that."
+      ],
+      "wouldNeed": "A canonical background with one large step edge — a half-dark/half-light field — which is a scenes.json addition and therefore a scope question, not a re-run."
+    },
+
+    "rimIntensity": {
+      "status": "unchanged-deliberately",
+      "value": { "rimWidth": 1.5, "rimAlpha": 0.18, "specularPower": 6, "specularGain": 0.55 },
+      "method": [
+        "Swept rimAlpha at 0.04, 0.09 and 0.18 against specularGain at 0.15, 0.35",
+        "and 0.55. The grid is flat to 1.01x — no leverage at all on this profile.",
+        "",
+        "The reason is quantisation. The reference's light-scheme rim peaks measure",
+        "0.0003 to 0.0012 of linear luminance on the solid and checkerboard scenes,",
+        "while one 8-bit code step at the interior level those scenes sit at (~0.81)",
+        "is 0.0079. The signal being fitted is seven to twenty-six times below the",
+        "capture's own resolution. Only the photo scenes (0.0080 to 0.0164) carry a",
+        "rim above it in this scheme.",
+        "",
+        "Retuning against that would be fitting the estimator, not the material."
+      ],
+      "wouldNeed": "The 2x profile, which puts four times the samples under the same rim band and lifts it clear of the code step. That is an external gate — a Retina display."
+    },
+
+    "shadowFalloff": {
+      "status": "not-discriminating",
+      "value": { "shadowDepth": 0.35, "shadowAlpha": 0.55 },
+      "method": [
+        "The exterior shadow does not separate the two sides: the reference's peak",
+        "darkening outside the contour measures 0.0000 to 0.0001 on almost every",
+        "calibration scene, and vitrea's measures the same order. There is no",
+        "measured gap to close, so nothing was changed.",
+        "",
+        "Note that these two constants do not drive that metric anyway — in this",
+        "renderer they scale an INNER shadow inside the contour, which the",
+        "interior-level term already accounts for. The exterior falloff the metric",
+        "reads is the CSS tier's box-shadow, a different tier's constant."
+      ]
+    },
+
+    "cornerSmoothing": {
+      "status": "not-discriminable",
+      "value": "apple-continuous, seed 0.52866495 (unchanged from S2)",
+      "method": [
+        "S2 left C9 a question: whether the fixtures support the Apple-direct field",
+        "fit or the documented route onto Figma's interpolable axis at smoothing",
+        "0.66. They cannot support either, and the arithmetic says why before the",
+        "measurement does. S2's own residuals are 6.06e-4 per radius for the",
+        "Apple-direct fit and 1.96e-3 per radius for the best Figma route; at the",
+        "largest canonical radius (20 px) that is 0.012 px against 0.039 px. Both",
+        "are two orders of magnitude below one pixel, and a 1x raster cannot",
+        "distinguish them.",
+        "",
+        "The measurement agrees. Contour distance on the corner-bearing calibration",
+        "scenes runs 0.00 to 0.14 px mean, at or under the rasterisation floor.",
+        "",
+        "A separate finding makes the question moot on this path in any case: the",
+        "platform-web bridge does not forward the corner REFERENCE to the renderer,",
+        "so every web surface resolves apple-continuous and the forwarded smoothing",
+        "number is discarded. The Figma route is not reachable from the web runtime",
+        "today, which is recorded as a parent-impact item."
+      ]
+    },
+
+    "groupUnion": {
+      "status": "not-measurable-by-this-matrix",
+      "value": { "neckWidth": 8, "maxBulge": 2, "separationThreshold": 16 },
+      "method": [
+        "These three constants cannot be calibrated against the canonical matrix,",
+        "and the reason is that THE REFERENCE DOES NOT UNION AT THE ONE SPACING THE",
+        "MATRIX DECLARES. Counting connected components in the extracted silhouettes",
+        "settles it: the toolbar-group scene yields three separate bodies on both",
+        "sides, at 1572/1572/1570 px for the reference and 1769/1765/1756 px for",
+        "vitrea, against 1520 px for an unmerged 44 px capsule. Neither side fills",
+        "the 12 px gaps — a full fill would add 23% to the group's area, and the",
+        "reference adds 3.3%.",
+        "",
+        "So the scene has no union in it to compare. Confirmed by sweeping the",
+        "declared mergeDistance across 24, 12 and 4: all three produce a",
+        "byte-identical silhouette area of 5290 px, because the union blend never",
+        "engages at this separation whatever the threshold is set to. C7's flow-back",
+        "assumed the native container would reach 'one merged body' at spacing 12",
+        "and built the web side's merge distance around matching that outcome; the",
+        "assumption is refuted.",
+        "",
+        "Measuring the union aesthetics needs a scene whose members are close enough",
+        "that the reference itself merges them. That is a scenes.json addition, so it",
+        "is recorded as a scope question rather than answered here."
+      ],
+      "incidentalFinding": [
+        "The same component count exposes something the union hypothesis was hiding:",
+        "vitrea's material extends further past its contour than the reference's. Per",
+        "capsule, the reference's silhouette sits 0.37 px outside the declared shape",
+        "and vitrea's sits 1.73 px outside — about 1.4 px of extra bleed at the 0.02",
+        "detection threshold. It is what drives the group scene's silhouette IoU down",
+        "to 0.884, the worst of any well-conditioned calibration cell, since three",
+        "small bodies make IoU unusually sensitive to a uniform dilation. Not tuned:",
+        "the bleed comes from the rim and glow passes together and no single",
+        "constant in the profile isolates it."
+      ]
+    },
+
+    "thickness": {
+      "status": "unmeasurable-as-specified",
+      "method": [
+        "C7's scoping item, and it stands: scenes.json declares no thickness",
+        "channel, so the web side uses platform-web's 8 px host default while",
+        "SwiftUI uses whatever its material does — a quantity Apple does not",
+        "expose. Adding the field to the scene matrix would let both sides honour",
+        "one number, but only the web side can actually be set to it, so the field",
+        "would pin vitrea to a value and leave the reference where it was. That is",
+        "worth doing for reproducibility and worthless as a fidelity measurement;",
+        "it is recorded as a scope question rather than resolved here."
+      ]
+    }
+  }
+}

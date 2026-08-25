@@ -53,13 +53,13 @@ import {
 import {
   accessibilityRefractionCap,
   adaptationStrength,
+  DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
-  LENS_BODY_LOD_PER_PX,
-  LENS_RIM_LOD_BIAS,
-  MATERIAL_OPTICS,
   opticsUnderPolicy,
-  REFRACTION_SCALE,
+  withMaterialOverrides,
   type MaterialPolicyView,
+  type MaterialProfile,
+  type MaterialProfilePatch,
   type MaterialVariant,
 } from "./material";
 import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
@@ -98,19 +98,6 @@ export const NOMINAL_MATERIAL_POLICY: MaterialPolicyView = {
   ambientTint: "nominal",
   foreground: "adaptive",
 };
-
-/**
- * Advisory light direction, in viewport coordinates with y pointing down: a little
- * left of straight overhead, which is where Apple's material reads its specular
- * from. Calibration-delegated (C7) like every other optical constant.
- */
-const LIGHT_DIRECTION: readonly [number, number] = [-0.3714, -0.9285];
-
-/** Specular sweep band width in radians, and the press glow's reach in CSS px. */
-const SWEEP_BAND_RADIANS = 0.55;
-const GLOW_RADIUS_CSS = 44;
-const GLOW_GAIN = 0.6;
-const SWEEP_GAIN = 0.85;
 
 export interface ViewportState {
   /** Viewport size in CSS px. */
@@ -163,6 +150,12 @@ export interface WebGPURendererOptions {
   /** Whether family C's f32 cross-check has passed (Decision Log #20). */
   readonly familyCVerified?: boolean;
   readonly viewport?: ViewportState;
+  /**
+   * Optical tunables to override, on top of `DEFAULT_MATERIAL_PROFILE`. This is
+   * where a calibrated set lands (C7): a patch, not a whole profile, so a host
+   * naming one tint alpha inherits every number it did not measure.
+   */
+  readonly materialProfile?: MaterialProfilePatch;
 }
 
 export interface GlassRenderer {
@@ -191,6 +184,15 @@ export interface GlassRenderer {
   setGroup(input: GroupRenderInput): void;
   removeGroup(groupId: string): void;
   setAccessibility(policy: MaterialPolicyView): void;
+  /**
+   * Replace the optical tunables. The patch is applied to
+   * `DEFAULT_MATERIAL_PROFILE`, never to the profile currently in force, so two
+   * calls do not compound — a profile is a set of measurements, and half of one
+   * measurement set over half of another describes no material.
+   */
+  setMaterialProfile(patch: MaterialProfilePatch): void;
+  /** The tunables in force. Read-only; `setMaterialProfile` is the way in. */
+  readonly materialProfile: MaterialProfile;
 
   drawFrame(args: DrawFrameArgs): DrawFrameResult;
   /** Targets for the participant path, where core drives the phases. */
@@ -213,6 +215,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   const lastReadbackAt = new Map<string, number>();
 
   let accessibility: MaterialPolicyView = NOMINAL_MATERIAL_POLICY;
+  let material: MaterialProfile = withMaterialOverrides(
+    DEFAULT_MATERIAL_PROFILE,
+    options.materialProfile ?? {},
+  );
   let viewport: ViewportState = options.viewport ?? {
     widthCss: 0,
     heightCss: 0,
@@ -283,7 +289,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   const adaptationFor = (sourceId: string): AdaptationState => {
     let state = adaptation.get(sourceId);
     if (state === undefined) {
-      state = createAdaptationState();
+      state = createAdaptationState(undefined, material);
       adaptation.set(sourceId, state);
     }
     return state;
@@ -372,7 +378,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           (entry) => entry.input.backdropSourceId === request.sourceId,
         )?.input ?? { groupId: "", surfaces: [], refraction: "none", analysisExact: false },
       );
-      const optics = opticsUnderPolicy(MATERIAL_OPTICS[variant], accessibility);
+      const optics = opticsUnderPolicy(material.optics[variant], accessibility, material);
 
       const outcome = pyramids.build(
         {
@@ -430,7 +436,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
       let surfaces: readonly ResolvedSurface[];
       try {
-        surfaces = resolveSurfaces(input, governor.knobs.fieldFamily);
+        surfaces = resolveSurfaces(input, governor.knobs.fieldFamily, material);
       } catch (error) {
         skipped.push({
           groupId: input.groupId,
@@ -487,14 +493,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const state = stateOf(input, resolution);
       const policy = resolution?.accessibility.material ?? accessibility;
       const variant = variantOf(input);
-      const optics = opticsUnderPolicy(MATERIAL_OPTICS[variant], policy);
+      const optics = opticsUnderPolicy(material.optics[variant], policy, material);
 
       // Decision Log #19's dual cap, resolved once, on the CPU.
       const refraction = effectiveRefraction(
         accessibilityRefractionCap(policy),
         state.refraction,
       );
-      const refractionScale = REFRACTION_SCALE[refraction];
+      const refractionScale = material.refractionScale[refraction];
 
       const sourceId = input.backdropSourceId;
       const pyramid = sourceId === undefined ? undefined : pyramids.resources(sourceId);
@@ -515,19 +521,21 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             ? [1, 1, 0, 0]
             : coverFit(pyramid.plan.width, pyramid.plan.height),
         refractionScale,
-        bodyLodPerPx: LENS_BODY_LOD_PER_PX,
-        rimLodBias: LENS_RIM_LOD_BIAS,
+        bodyLodPerPx: material.lensBodyLodPerPx,
+        rimLodBias: material.lensRimLodBias,
         chainMaxLod: pyramid?.plan.maxLod ?? 0,
         tint: optics.tint,
         tintAlpha: optics.tintAlpha,
         adaptTint: adapt?.tint ?? optics.tint,
         adaptStrength:
-          adapt?.observed === true ? adaptationStrength(policy, state.analysisExact) : 0,
+          adapt?.observed === true
+            ? adaptationStrength(policy, state.analysisExact, material)
+            : 0,
         rimWidth: optics.rimWidth,
         rimAlpha: optics.rimAlpha,
         specularPower: optics.specularPower,
         specularGain: optics.specularGain,
-        lightDirection: LIGHT_DIRECTION,
+        lightDirection: material.lightDirection,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         backdrop:
@@ -556,13 +564,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           viewportDevice,
           cssPerDevice,
           sweep: lead.channels.sweep,
-          sweepBandRadians: SWEEP_BAND_RADIANS,
+          sweepBandRadians: material.sweepBandRadians,
           // Reduced Motion removes shimmer travel outright rather than freezing it.
-          sweepGain: policy.glass === "none" ? 0 : SWEEP_GAIN,
+          sweepGain: policy.glass === "none" ? 0 : material.sweepGain,
           rimWidth: optics.rimWidth,
           pressPointCss: lead.channels.pressPoint ?? lead.centre,
-          glowRadiusCss: GLOW_RADIUS_CSS,
-          glowGain: GLOW_GAIN,
+          glowRadiusCss: material.glowRadiusCss,
+          glowGain: material.glowGain,
           colour: optics.highlight,
         });
       }
@@ -686,6 +694,19 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     setAccessibility(policy) {
       accessibility = policy;
+    },
+
+    setMaterialProfile(patch) {
+      material = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+      // The adaptation filters carry the old profile's tint ends, so they are
+      // dropped rather than left to interpolate between two materials. Everything
+      // else on the draw path reads the profile per frame, so the next frame
+      // redraws with the new numbers on its own.
+      adaptation.clear();
+    },
+
+    get materialProfile() {
+      return material;
     },
 
     setTargets(next) {

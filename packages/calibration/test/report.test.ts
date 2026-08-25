@@ -9,6 +9,7 @@ import {
   metricValue,
   motionAxisReport,
   perceptualAxisReport,
+  RESULT_MATRIX_SCHEMA_VERSION,
   resultCellKey,
   serializeResultCellKey,
   serializeResultMatrix,
@@ -40,6 +41,8 @@ function cell(key: ResultCellKey, overrides: Partial<CellResult> = {}): CellResu
     tier: "texture",
     capturedAt: "2026-08-25T09:00:00.000Z",
     shape: shapeAxisReport({
+      silhouetteAreaNative: 4865,
+      silhouetteAreaWeb: 4871,
       silhouetteIoU: 0.9987,
       contourDistance: { maxPx: 1.41, p95Px: 1, meanPx: 0.32, rmsPx: 0.51, sampleCount: 812 },
       cornerCurvature: {
@@ -185,8 +188,16 @@ describe("result matrix", () => {
   it("refuses a file that is not a result matrix", () => {
     expect(() => deserializeResultMatrix("not json")).toThrowError(CalibrationError);
     expect(() => deserializeResultMatrix('{"cells":[]}')).toThrowError(/schemaVersion/);
-    expect(() => deserializeResultMatrix('{"schemaVersion":99,"cells":[]}')).toThrowError(/this build writes 1/);
-    expect(() => deserializeResultMatrix('{"schemaVersion":1,"cells":{}}')).toThrowError(/not an array/);
-    expect(() => deserializeResultMatrix('{"schemaVersion":1,"cells":[{}]}')).toThrowError(/well-formed key/);
+    // Derived from the constant rather than restated: the bump on a schema change
+    // is the point, and a test that hardcodes the old number turns an intended
+    // bump into a failure that says nothing about the shape it guards.
+    expect(() => deserializeResultMatrix('{"schemaVersion":99,"cells":[]}')).toThrowError(
+      new RegExp(`this build writes ${RESULT_MATRIX_SCHEMA_VERSION}`),
+    );
+    const current = `"schemaVersion":${RESULT_MATRIX_SCHEMA_VERSION}`;
+    expect(() => deserializeResultMatrix(`{${current},"cells":{}}`)).toThrowError(/not an array/);
+    expect(() => deserializeResultMatrix(`{${current},"cells":[{}]}`)).toThrowError(/well-formed key/);
+    // And a matrix written by the previous schema is refused rather than coerced.
+    expect(() => deserializeResultMatrix('{"schemaVersion":1,"cells":[]}')).toThrowError(/schemaVersion 1/);
   });
 });

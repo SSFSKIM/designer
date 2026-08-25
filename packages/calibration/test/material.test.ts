@@ -4,9 +4,11 @@ import { CalibrationError } from "../src/errors";
 import {
   blurEdgeSpread,
   fitLuminanceTransfer,
+  interiorLevel,
   luminanceTransfer,
   rimIntensity,
   shadowFalloff,
+  singleEdgeRegion,
   tintResponse,
 } from "../src/metrics/material";
 import {
@@ -253,5 +255,84 @@ describe("shadowFalloff", () => {
   it("flags a shadow wider than the window rather than truncating it silently", () => {
     const report = shadowFalloff(image, silhouette, backdrop, { maxDistancePx: 4 });
     expect(report.decayResolved).toBe(false);
+  });
+});
+
+describe("interiorLevel", () => {
+  const mask = maskFromPredicate(80, 60, rectPredicate(20, 15, 59, 44));
+
+  it("recovers the mean and spread of a known two-level interior", () => {
+    // Half the masked region at 0.2, half at 0.6: mean 0.4, population σ 0.2.
+    const image = fromLinearLuminance(80, 60, (x) => (x < 40 ? 0.2 : 0.6));
+    const report = interiorLevel(image, { interior: mask });
+    // Precision 2, not 3: the synthesis round-trips through 8-bit sRGB, which is
+    // worth ~1.5e-3 of linear light in this part of the range.
+    expect(report.mean).toBeCloseTo(0.4, 2);
+    expect(report.stdDev).toBeCloseTo(0.2, 2);
+    expect(report.sampleCount).toBe(40 * 30);
+  });
+
+  it("reports zero spread on a constant region rather than a negative variance", () => {
+    const report = interiorLevel(solidLuminance(80, 60, 0.35), { interior: mask });
+    expect(report.mean).toBeCloseTo(0.35, 2);
+    expect(report.stdDev).toBeGreaterThanOrEqual(0);
+    expect(report.stdDev).toBeLessThan(1e-3);
+  });
+
+  it("measures only inside the mask", () => {
+    // Outside the mask is extreme, so a leak would move the mean off 0.5 sharply.
+    const image = fromLinearLuminance(80, 60, (x, y) =>
+      rectPredicate(20, 15, 59, 44)(x, y) ? 0.5 : 1,
+    );
+    expect(interiorLevel(image, { interior: mask }).mean).toBeCloseTo(0.5, 2);
+    // With no mask the same image averages both populations.
+    expect(interiorLevel(image).mean).toBeGreaterThan(0.6);
+  });
+
+  it("refuses a mask that selects nothing", () => {
+    const empty = maskFromPredicate(80, 60, () => false);
+    expect(() => interiorLevel(solidLuminance(80, 60, 0.5), { interior: empty })).toThrowError(
+      CalibrationError,
+    );
+  });
+});
+
+describe("singleEdgeRegion", () => {
+  const silhouette = maskFromPredicate(200, 60, rectPredicate(20, 10, 179, 49));
+
+  it("brackets one edge of a periodic backdrop and excludes its neighbours", () => {
+    // Step edges every 20 px. The window is bounded by the neighbouring edges, so
+    // it may reach one period either side of the chosen one and no further.
+    const checker = fromLinearLuminance(200, 60, (x) => (Math.floor(x / 20) % 2 === 0 ? 0.05 : 0.9));
+    const region = singleEdgeRegion(checker, silhouette, "x");
+    expect(region).toBeDefined();
+    const { x, width } = region as { x: number; width: number };
+    expect(width).toBeLessThanOrEqual(41);
+    // The assertion that actually matters: one transition in the window, so the
+    // single-error-function model the fit assumes is the right model.
+    let transitions = 0;
+    for (let i = x + 1; i < x + width; i += 1) {
+      if (Math.floor(i / 20) !== Math.floor((i - 1) / 20)) transitions += 1;
+    }
+    expect(transitions).toBe(1);
+  });
+
+  it("lets the blur fit recover a known σ from the region it returns", () => {
+    // This is the whole point of the helper: over a multi-edge strip the same fit
+    // returns a confident wrong σ at an enormous residual, so the test that
+    // matters is that the returned window makes the fit correct.
+    const sigma = 3;
+    const image = fromLinearLuminance(200, 60, (x) => 0.05 + 0.85 * gaussianStep(x, 100, sigma));
+    const backdrop = fromLinearLuminance(200, 60, (x) => (x < 100 ? 0.05 : 0.9));
+    const region = singleEdgeRegion(backdrop, silhouette, "x");
+    if (region === undefined) throw new Error("the backdrop has a step edge; the helper must find it");
+    const report = blurEdgeSpread(image, { axis: "x", region });
+    expect(report.sigmaPx).toBeGreaterThan(sigma * 0.9);
+    expect(report.sigmaPx).toBeLessThan(sigma * 1.1);
+    expect(report.residualRms).toBeLessThan(0.05);
+  });
+
+  it("returns undefined on a backdrop with no step edge", () => {
+    expect(singleEdgeRegion(solidLuminance(200, 60, 0.5), silhouette, "x")).toBeUndefined();
   });
 });

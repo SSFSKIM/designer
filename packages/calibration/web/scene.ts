@@ -51,6 +51,7 @@ import {
   createGlassRoot,
   type GlassHostHandle,
   type GlassRoot,
+  type RendererMaterialProfile,
   type VitreaDiagnostic,
 } from "@vitrea/platform-web";
 import type { GlassGroupState } from "@vitrea/core";
@@ -111,18 +112,31 @@ export interface SceneReport {
     readonly naturalHeight: number;
   };
   readonly pressed: boolean;
+  /**
+   * The optical tunables this capture ran on, or `null` for the renderer's own
+   * defaults. A fidelity number is only interpretable against the numbers that
+   * produced it, so the patch travels with the report rather than living in the
+   * command line that happened to inject it.
+   */
+  readonly materialProfile: RendererMaterialProfile | null;
   readonly groups: readonly GroupReport[];
   readonly surfaces: readonly SurfaceReport[];
   readonly webgpu: Record<string, unknown> | undefined;
   readonly rendererActive: boolean;
   readonly adapter: AdapterReport;
   /**
-   * X5's lock, as observed rather than as intended. `getConfiguration()` is the
-   * only way to read a canvas context's colour space back, and it is not in
-   * every build — where it is absent this says so instead of asserting the
-   * default.
+   * X5's lock: the colour space itself, and nothing else. It becomes a result
+   * cell's `colorSpace`, which X9 closes to `"srgb"`, so it has to stay a bare
+   * value — the reasoning lives in `canvasColorSpaceNote`.
    */
   readonly canvasColorSpace: string;
+  /**
+   * How that value was arrived at: read back from the context, taken from the
+   * document because the tier configures no canvas, or ASSUMED from the WebGPU
+   * default where `getConfiguration()` is unavailable. The distinction between
+   * the last one and the first two is the whole reason this field exists.
+   */
+  readonly canvasColorSpaceNote: string;
   readonly diagnostics: readonly { code: string; severity: string; message: string }[];
   /**
    * Anything that would make this capture a misleading data point. Non-empty
@@ -137,6 +151,12 @@ declare global {
       readonly ready: Promise<SceneReport>;
       report?: SceneReport;
     };
+    /**
+     * Optical tunables to run this capture on, injected by the driver before this
+     * script executes (`page.addInitScript`). Absent means the renderer's own
+     * defaults, which is what an uncalibrated capture must be.
+     */
+    __vitreaMaterialProfile?: RendererMaterialProfile;
   }
 }
 
@@ -232,28 +252,46 @@ function applyPressedPose(host: HTMLElement, handle: GlassHostHandle): void {
 }
 
 /**
- * X5's sRGB lock, as observed rather than as intended.
+ * X5's sRGB lock, as observed rather than as intended — split into the VALUE and
+ * the ROUTE by which it was learned.
  *
- * On the GPU tier the answer is a property of the configured canvas context, and
- * `getConfiguration()` is the only way to read it back — where the build has no
- * such method this says so instead of asserting the default it believes applies.
+ * The split is not tidiness. X9 types a result cell's `colorSpace` as the closed
+ * `"srgb"`, because X5 locks v1 calibration to it and a cell key has to be a key.
+ * This function used to return one string carrying both the value and its
+ * provenance, so on the CSS tier the cell was handed
+ * `"srgb (CSS tier: page compositing; …)"` and the diff refused it — which meant
+ * **no dom-tier cell could be measured at all**, and went unnoticed because every
+ * run until now was GPU-tier, where the sentence happened to reduce to `"srgb"`.
+ * Prose in a key field is the bug; the report is where prose belongs.
+ *
+ * On the GPU tier the value is a property of the configured canvas context, and
+ * `getConfiguration()` is the only way to read it back. Where the build has no
+ * such method the value is the WebGPU default, and the note says that it is an
+ * assumption rather than an observation.
  *
  * On the CSS tier there is no canvas colour space to read: the glass is CSS
- * declarations composited by the page, so the colour space is the document's and
- * the honest answer names that rather than reaching for a context the tier never
- * configured. Calling `getContext("webgpu")` there would *create* one and then
- * report a default nothing drew through.
+ * declarations composited by the page, so the space is the document's. That is a
+ * fact rather than a default, and calling `getContext("webgpu")` to ask would
+ * *create* a context and then report a default nothing drew through.
  */
-function readCanvasColorSpace(root: GlassRoot): string {
+function readCanvasColorSpace(root: GlassRoot): { value: string; note: string } {
   if (root.rendererBridge?.active !== true) {
-    return "srgb (CSS tier: page compositing; no canvas colour space is configured)";
+    return {
+      value: "srgb",
+      note: "CSS tier: the glass is page-composited, so the colour space is the document's and no canvas colour space is configured.",
+    };
   }
   const context = root.plane("base").opticsCanvas.getContext("webgpu") as
     | (GPUCanvasContext & { getConfiguration?: () => { colorSpace?: string } | null })
     | null;
   const configured = context?.getConfiguration?.()?.colorSpace;
-  if (configured !== undefined) return configured;
-  return "srgb (WebGPU default; getConfiguration() unavailable in this build)";
+  if (configured !== undefined) {
+    return { value: configured, note: "read back from the configured canvas context." };
+  }
+  return {
+    value: "srgb",
+    note: "ASSUMED: the WebGPU default, because getConfiguration() is unavailable in this build. Not an observation.",
+  };
 }
 
 async function build(): Promise<SceneReport> {
@@ -311,8 +349,13 @@ async function build(): Promise<SceneReport> {
   const adapter = await probeAdapter();
 
   const diagnostics: { code: string; severity: string; message: string }[] = [];
+  // Forwarded, never interpreted: the page has no opinion about an optical
+  // number, and reading one here to "check" it would put a second copy of the
+  // material's constants in the harness.
+  const materialProfile = window.__vitreaMaterialProfile;
   const root = createGlassRoot({
     renderer: requestedRenderer,
+    ...(materialProfile === undefined ? {} : { materialProfile }),
     // Dev mode on: the overlap and padding checks are exactly the findings that
     // would invalidate a capture, and they are cheaper to read here than to
     // rediscover in a diff.
@@ -394,7 +437,31 @@ async function build(): Promise<SceneReport> {
   // Settled includes "failed": waiting here is waiting to learn the answer.
   await root.ready();
 
-  for (let index = 0; index < frames; index += 1) root.runFrame(index * FRAME_MS);
+  /*
+   * Frames are stepped with a yield between them, and that yield is load-bearing.
+   *
+   * The GPU tier's adaptive tint is driven by an analysis reduction read back off
+   * the device: the bridge fires `collectAdaptation()` once per frame and never
+   * blocks on it, so the observation lands on a later microtask. Stepped in a
+   * tight synchronous loop, none of those promises can resolve until after the
+   * final draw — so every capture rendered the material's *un-adapted* tint, and
+   * the count of frames made no difference at all (measured: byte-identical at 8
+   * and at 240). An app driving vitrea from a real rAF loop always renders the
+   * adapted tint, so calibrating against the un-adapted one would fit every
+   * material constant to a state no application ever shows.
+   *
+   * Yielding to the macrotask queue between frames is what lets each frame's
+   * readback reach the next frame's draw. The first observation jumps rather than
+   * filters (the renderer resets rather than low-passes from zero, so a page does
+   * not fade in from black), so convergence on a static backdrop takes a couple
+   * of frames rather than the filter's 500 ms — but the default count is left
+   * well above that, and `frames` remains a URL parameter so the settled state
+   * can be re-verified rather than assumed.
+   */
+  for (let index = 0; index < frames; index += 1) {
+    root.runFrame(index * FRAME_MS);
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
+  }
 
   // Two frame callbacks after the last draw, so what the compositor is showing
   // is the frame that was just drawn rather than the one before it. This is the
@@ -403,6 +470,7 @@ async function build(): Promise<SceneReport> {
   await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
   await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
 
+  const colorSpace = readCanvasColorSpace(root);
   const renderInput = root.renderInput();
   const boundsOf = (nodeId: string): SurfaceReport["bounds"] => {
     for (const plane of renderInput?.planes ?? []) {
@@ -468,6 +536,7 @@ async function build(): Promise<SceneReport> {
       naturalHeight: image.naturalHeight,
     },
     pressed: placed.pressed,
+    materialProfile: materialProfile ?? null,
     groups,
     surfaces: placed.surfaces.map((surface) => ({
       nodeId: surface.nodeId,
@@ -488,7 +557,8 @@ async function build(): Promise<SceneReport> {
           },
     rendererActive: root.rendererBridge?.active ?? false,
     adapter,
-    canvasColorSpace: readCanvasColorSpace(root),
+    canvasColorSpace: colorSpace.value,
+    canvasColorSpaceNote: colorSpace.note,
     diagnostics,
     problems,
   };

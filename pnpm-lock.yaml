@@ -177,6 +177,9 @@ importers:
       '@vitrea/platform-web':
         specifier: workspace:*
         version: link:../platform-web
+      '@vitrea/renderer-webgpu':
+        specifier: workspace:*
+        version: link:../renderer-webgpu
       eslint:
         specifier: 'catalog:'
         version: 10.9.0
