@@ -165,7 +165,12 @@ field `"unverified"` is a legitimate outcome — the runtime fails closed on it,
 a stale table under-promises rather than over-promises. `"unverified"` is not
 `"no"`.
 
-### [ ] 2.2 Adopt (or amend) the proposed fidelity thresholds
+### [x] 2.2 Adopt (or amend) the proposed fidelity thresholds
+
+**Adopted 2026-08-26 as proposed, without amendment; enforced by
+`packages/calibration/test/adopted-thresholds.test.ts`** over the 48 light-profile
+cells of the committed matrix (the cross-tier ΔE row excepted — it needs the
+uncommitted captures, and the test carries a tripwire saying so).
 
 Parent acceptance #7 says the calibration metrics must be "inside declared
 thresholds", and the thresholds in `c9a-fidelity-claims.md` §5 are **proposals,
