@@ -85,6 +85,12 @@ export default defineConfig({
       "@vitrea/motion": `${packages}motion/src/index.ts`,
       "@vitrea/platform-web": `${packages}platform-web/src/index.ts`,
       "@vitrea/react": `${packages}react/src/index.ts`,
+      // The renderer too, and it was worth the trouble to notice: it reaches the
+      // app through core's lazy dynamic import, so without an alias `pnpm dev`
+      // silently ran whatever was last built into `dist/`. Aliasing it does not
+      // weaken X7 — the import is still dynamic, so the renderer is still a chunk
+      // of its own that a CSS-tier session never fetches.
+      "@vitrea/renderer-webgpu": `${packages}renderer-webgpu/src/index.ts`,
     },
   },
   build: {

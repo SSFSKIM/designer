@@ -16,6 +16,7 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 
 import { RendererError } from "../src/errors";
 import {
+  clipFieldRectToCanvas,
   groupFieldRect,
   INSTANCE_FLOATS,
   packInstances,
@@ -326,5 +327,50 @@ describe("duplicate surfaces", () => {
     expect(() => resolveSurfaces(group([surface(), surface()]), "rsupn")).toThrowError(
       /twice/,
     );
+  });
+});
+
+describe("clipping the field rect to the canvas", () => {
+  const CANVAS: readonly [number, number] = [1440, 900];
+
+  it("leaves a rect that is entirely on the canvas exactly where it was", () => {
+    // The regression that matters most: every existing golden draws a group that
+    // is fully on screen, and clipping must not move any of them by a pixel.
+    const snapped = snapRectToDevicePixels({ x: 100, y: 200, width: 320, height: 180 }, 2);
+    const clipped = clipFieldRectToCanvas(snapped, 2, [2880, 1800]);
+
+    expect(clipped).toEqual({ x: 200, y: 400, width: 640, height: 360 });
+  });
+
+  it("clips a rect that reaches past the top-left origin, rather than going negative", () => {
+    // `groupFieldRect` pads by the rim and bulge margin, so a surface at the
+    // viewport edge lands here with a negative origin. `setScissorRect` takes
+    // unsigned values, so this is the difference between a clipped draw and a
+    // RangeError.
+    const clipped = clipFieldRectToCanvas({ x: -5, y: -5, width: 130, height: 54 }, 1, CANVAS);
+
+    expect(clipped).toEqual({ x: 0, y: 0, width: 125, height: 49 });
+  });
+
+  it("clips a rect that reaches past the far edge", () => {
+    const clipped = clipFieldRectToCanvas({ x: 1400, y: 880, width: 100, height: 100 }, 1, CANVAS);
+
+    expect(clipped).toEqual({ x: 1400, y: 880, width: 40, height: 20 });
+  });
+
+  it("returns nothing at all for a rect entirely off the canvas", () => {
+    expect(clipFieldRectToCanvas({ x: -200, y: 10, width: 100, height: 10 }, 1, CANVAS)).toBe(
+      undefined,
+    );
+    expect(clipFieldRectToCanvas({ x: 10, y: 1000, width: 100, height: 10 }, 1, CANVAS)).toBe(
+      undefined,
+    );
+  });
+
+  it("clips in device pixels, so the device-pixel ratio scales the clip", () => {
+    const clipped = clipFieldRectToCanvas({ x: -4, y: -4, width: 100, height: 100 }, 2, [200, 200]);
+
+    // -8 device px clipped to 0, and the far edge at (-4 + 100) * 2 = 192 kept.
+    expect(clipped).toEqual({ x: 0, y: 0, width: 192, height: 192 });
   });
 });

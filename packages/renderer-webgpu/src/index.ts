@@ -143,12 +143,14 @@ export {
 } from "./gpu-context";
 
 export {
+  clipFieldRectToCanvas,
   groupFieldRect,
   INSTANCE_BYTES,
   INSTANCE_FLOATS,
   packInstances,
   resolveSurfaces,
   snapRectToDevicePixels,
+  type DevicePixelRect,
   type ResolvedSurface,
 } from "./instances";
 
