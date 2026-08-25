@@ -325,6 +325,32 @@ floating rather than as a flat translucent box, which is S1's undetectable-failu
 case. That is a taste judgement with a design owner, and C9b's landed showpiece
 inherits whichever way it goes. Measured, priced, and left to the parent.
 
+### 3.3 The foreground rule had to change with the material, and did
+
+Not a fidelity number, but the largest single consequence of tuning this tier, so
+it belongs beside the claim rather than in a commit message.
+
+K4 wired X6's hint straight to the foreground token: a group hinting `tone:
+"dark"` got the light ink. That was correct while the material was 28% opaque —
+the backdrop showed through, and light ink on a dark backdrop is right. At the
+material's measured opacity it inverts: what a reader sees behind the glyphs is
+`mix(backdrop, tint, α)`, and at α = 0.78 that is the white tint. Measured on the
+demo's own controls before this was fixed, **WCAG contrast 1.24 against a 4.5
+floor** — near-white ink on a near-white surface.
+
+So the CSS tier now decides its foreground against the level behind the glyphs
+rather than against the backdrop alone, using the hint's `luminance` where an app
+gives one and the tone's coarse reading otherwise. The mechanism K4 established
+is untouched; only the arithmetic changed, and both regimes remain reachable —
+the *clear* variant over the same dark hint still resolves to the light token,
+because at its alpha the backdrop genuinely does dominate.
+
+Two things this does not do. It is **not** a contrast calculation and does not
+promise a ratio: it picks between two ink tokens, and an app needing a guaranteed
+ratio still sets its own foreground. And it is **CSS-tier only** — whether the GPU
+tier's foreground path needs the same correction is a parent question, because
+that path is the renderer's and K5 moved nothing there.
+
 **What else is verified for the dom tier:**
 
 - It resolves and draws on all three engines, asserted through non-pixel suites.

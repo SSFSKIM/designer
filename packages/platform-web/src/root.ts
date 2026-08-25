@@ -707,10 +707,17 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const declarations = cssTierDeclarations({
           radii: record.radii,
           optics: baseOptics,
+          mapping: cssMapping,
           policy: accessibility,
           foreground: {
             mode: (foreground ?? { adaptation: { mode: "fixed" as const } }).adaptation.mode,
             ...(resolved.hint.hint?.tone === undefined ? {} : { tone: resolved.hint.hint.tone }),
+            // X6's optional luminance, forwarded rather than re-derived. The
+            // tier needs it because the foreground now depends on how much of
+            // the backdrop the material lets through, not only on its tone.
+            ...(resolved.hint.hint?.luminance === undefined
+              ? {}
+              : { luminance: resolved.hint.hint.luminance }),
           },
         });
         if (state.activeRenderer === "css") {
@@ -989,6 +996,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
               cssTierDeclarations({
                 radii: record.radii,
                 optics: cssOptics.regular,
+                mapping: cssMapping,
                 policy: scene.accessibilityPolicy(),
               }),
             );

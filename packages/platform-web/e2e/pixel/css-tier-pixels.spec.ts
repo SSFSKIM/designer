@@ -18,6 +18,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 const PANEL = { x: 300, y: 200, width: 220, height: 120 };
+/** The panel plus a 20px margin, so a sample can straddle its contour. */
+const WIDE = { x: 280, y: 180, width: 260, height: 160 };
 
 const buildCssTier = async (page: Page): Promise<void> => {
   await page.evaluate(async () => {
@@ -91,16 +93,53 @@ test("stays legible with the blur removed — the tint carries the contrast", as
   expect(filterMattered).toBeGreaterThan(0);
 });
 
-test("draws a border that bounds the shape", async ({ page }) => {
+/*
+ * The property is that the surface's boundary is discernible. What carries it
+ * moved, and the assertion follows the property rather than the old mechanism.
+ *
+ * This used to compare a point on the drawn border against one 12px inside it,
+ * and require > 4. At the material's tuned opacity that delta measures 1: the
+ * border is white at alpha 0.35 laid over an interior that is already white at
+ * alpha 0.78, so it has almost no headroom left. That is not a regression, and
+ * it is what the reference does too — C9a measured Apple's light-scheme rim at
+ * seven to twenty-six times *below* one 8-bit code step.
+ *
+ * What now carries the boundary is the interior itself: measured across the
+ * contour, 147 to 178 of 255. The old assertion was a proxy for "you can see
+ * where the surface ends", and it was the right proxy while the interior was 28%
+ * opaque and nearly invisible. So: assert across the boundary, which is the
+ * property, and pin the border's own collapsed contribution separately so that
+ * its disappearance stays a recorded fact rather than an unnoticed one.
+ */
+test("bounds its shape visibly, whatever is doing the bounding", async ({ page }) => {
+  const pageOnly = await sample(page, WIDE);
   await buildCssTier(page);
-  const panel = await sample(page, PANEL);
+  const withGlass = await sample(page, WIDE);
 
-  // A point on the top edge versus one 12px inside it: the drawn border makes
-  // the boundaryreadable even where the backdrop behind both is the same cell.
-  const onBorder = panel.at(110, 1);
-  const inside = panel.at(110, 14);
+  // WIDE starts 20px above the panel, so WIDE-local y=20 is the panel's top edge.
+  const across = ([2, 6, 10, 14, 18] as const).map((dy) =>
+    channelDelta(withGlass.at(130, 20 - dy), withGlass.at(130, 20 + dy)),
+  );
+  expect(
+    Math.min(...across),
+    `the boundary must be visible; deltas across it were ${across.join(", ")}`,
+  ).toBeGreaterThan(20);
 
-  expect(channelDelta(onBorder, inside)).toBeGreaterThan(4);
+  // And the surface is a surface rather than the page showing through.
+  expect(channelDelta(withGlass.at(130, 40), pageOnly.at(130, 40))).toBeGreaterThan(20);
+});
+
+test("still paints a border, even though it no longer carries the boundary", async ({ page }) => {
+  await buildCssTier(page);
+
+  // Declared, not sampled. The border's pixel contribution against the tuned
+  // interior is ~1/255, so a pixel assertion here would be measuring rounding —
+  // but the declaration is what S1's undetectable failure class relies on, and it
+  // has to still be there for a surface whose tint is ever made transparent again.
+  const style = await page.evaluate(() => window.h.hostStyle("panel"));
+
+  expect(style?.borderTopWidth).toBe("1px");
+  expect(style?.borderTopColor).toContain("rgba(255, 255, 255");
 });
 
 test("renders system colors and no glass under forced colors", async ({ page }) => {
@@ -122,12 +161,19 @@ test("renders system colors and no glass under forced colors", async ({ page }) 
   expect(channelDelta(centre, corner)).toBe(0);
 });
 
-test("gives a dark-hinted group the explicit light foreground token, not light-dark()", async ({
+test("steers the foreground off an author-declared tone, and reaches a readable one", async ({
   page,
 }) => {
   // X6's one honesty-core mechanism, reaching the tier most visitors get
-  // (Decision Log #28(b), corrective K4): an author-declared backdrop tone
-  // must steer the CSS tier's foreground, not just the WebGPU tier's.
+  // (Decision Log #28(b), corrective K4): an author-declared backdrop tone must
+  // steer the CSS tier's foreground, not just the WebGPU tier's.
+  //
+  // K5 changed which token that produces. The hint says the backdrop is dark;
+  // the regular material is 78% opaque, so what the text sits on is the white
+  // tint, and the readable ink is the dark one. The mechanism is what is under
+  // test, so this asserts both halves: an explicit token rather than
+  // `light-dark()`, AND that the ink actually contrasts with the surface — which
+  // is the assertion that would have failed on the old rule at this opacity.
   await page.evaluate(async () => {
     await window.h.createRoot({ renderer: "css" });
     window.h.addGroup("g", { backdrop: { tone: "dark" } });
@@ -146,7 +192,33 @@ test("gives a dark-hinted group the explicit light foreground token, not light-d
 
   const style = await page.evaluate(() => window.h.hostStyle("panel"));
 
-  expect(style?.foreground).toBe("#f5f5f7");
+  expect(style?.foreground).toBe("#1c1c1e");
+  expect(style?.foreground).not.toContain("light-dark");
+
+  const ink = await page.evaluate(() => {
+    const host = document.querySelector<HTMLElement>('[data-vitrea-node="panel"]');
+    return host === null ? undefined : getComputedStyle(host).color;
+  });
+  const linear = (channel: number): number => {
+    const value = channel / 255;
+    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  };
+  const rgb = /(\d+), (\d+), (\d+)/.exec(ink ?? "");
+  const inkLuminance =
+    0.2126 * linear(Number(rgb?.[1])) +
+    0.7152 * linear(Number(rgb?.[2])) +
+    0.0722 * linear(Number(rgb?.[3]));
+
+  const panel = await sample(page, PANEL);
+  const surface = panel.at(110, 60);
+  const surfaceLuminance =
+    0.2126 * linear(surface.r) + 0.7152 * linear(surface.g) + 0.0722 * linear(surface.b);
+  const contrast =
+    (Math.max(inkLuminance, surfaceLuminance) + 0.05) /
+    (Math.min(inkLuminance, surfaceLuminance) + 0.05);
+
+  // WCAG AA for body text. The old rule reached 1.24 here.
+  expect(contrast, `ink ${ink ?? "?"} on the measured surface`).toBeGreaterThanOrEqual(4.5);
 });
 
 test("shortens its transition under reduced motion", async ({ page }) => {

@@ -226,15 +226,59 @@ describe("the CSS tier (the fallback is the design)", () => {
   });
 
   describe("X6's hint reaching the tier (Decision Log #28(b), corrective K4)", () => {
-    it("gives a group hinted with a dark backdrop the explicit light foreground token", () => {
-      const declarations = cssTierDeclarations({
+    /*
+     * K4's mechanism, with K5's arithmetic. The hint still decides the
+     * foreground; what changed is that it decides it against the level behind
+     * the glyphs rather than against the backdrop alone.
+     *
+     * A dark hint under the *regular* material now resolves to the DARK token,
+     * and that inversion is the fix rather than the regression: the regular
+     * material is 78% opaque, so a reader sees the white tint and not the dark
+     * backdrop. Measured on the demo before this changed — near-white ink on a
+     * near-white surface, WCAG contrast 1.24 against a 4.5 floor.
+     *
+     * The old outcome is still reachable and still correct where it belongs: the
+     * clear variant over the same hint keeps the light token, because at its
+     * alpha the backdrop really does dominate. The pair below is the whole
+     * property — the tone matters, and so does how much of it survives the
+     * material.
+     */
+    it("decides a dark-hinted foreground against the material, not against the backdrop", () => {
+      const regular = cssTierDeclarations({
         ...surface,
         foreground: { mode: "author-hint", tone: "dark" },
       });
+      const clear = cssTierDeclarations({
+        ...surface,
+        optics: MATERIAL_OPTICS.clear,
+        foreground: { mode: "author-hint", tone: "dark" },
+      });
 
-      expect(declarations.color).toBe("#f5f5f7");
-      expect(declarations["--vitrea-foreground"]).toBe("#f5f5f7");
-      expect(declarations.color).not.toContain("light-dark");
+      // Opaque enough that the tint is what the text sits on.
+      expect(regular.color).toBe("#1c1c1e");
+      expect(regular["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(regular.color).not.toContain("light-dark");
+      // Transparent enough that the dark backdrop is.
+      expect(clear.color).toBe("#f5f5f7");
+    });
+
+    it("prefers the hint's own luminance over the tone's coarse reading", () => {
+      // X6's hint carries an optional luminance and it is the finer statement.
+      // On the clear variant the two answers differ, which is what makes this a
+      // test of the precedence rather than of the arithmetic.
+      const coarse = cssTierDeclarations({
+        ...surface,
+        optics: MATERIAL_OPTICS.clear,
+        foreground: { mode: "author-hint", tone: "dark" },
+      });
+      const declared = cssTierDeclarations({
+        ...surface,
+        optics: MATERIAL_OPTICS.clear,
+        foreground: { mode: "author-hint", tone: "dark", luminance: 0.45 },
+      });
+
+      expect(coarse.color).toBe("#f5f5f7");
+      expect(declared.color).toBe("#1c1c1e");
     });
 
     it("gives a group hinted with a light backdrop the explicit dark foreground token", () => {

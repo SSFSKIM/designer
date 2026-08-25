@@ -33,7 +33,14 @@ import type {
   ResolvedAccessibilityPolicy,
 } from "vitrea";
 
-import { opticsUnderPolicy, type MaterialOptics, type Rgb255 } from "./optics";
+import {
+  CSS_TIER_MAPPING,
+  cssTierForegroundLevel,
+  opticsUnderPolicy,
+  type CssTierMapping,
+  type MaterialOptics,
+  type Rgb255,
+} from "./optics";
 
 /**
  * The custom properties the tier publishes. A GPU-tier surface writes the same
@@ -61,6 +68,12 @@ export type StyleDeclarations = Record<string, string>;
 export interface CssTierForegroundHint {
   readonly mode: ForegroundMode;
   readonly tone?: BackdropTone;
+  /**
+   * X6's optional backdrop luminance, 0..1 linear, passed through from core. When
+   * an app gives one the foreground decision uses it; otherwise the tone's coarse
+   * reading (`CssTierMapping.toneLuminance`) stands in.
+   */
+  readonly luminance?: number;
 }
 
 export interface CssTierSurface {
@@ -73,6 +86,13 @@ export interface CssTierSurface {
    * `light-dark()` fallback unchanged.
    */
   readonly foreground?: CssTierForegroundHint;
+  /**
+   * The mapping the optics were derived through. Only its foreground constants
+   * are read here — the rest already did their work in `cssTierOptics` — but the
+   * two have to be the same document, or the ink would be chosen against a
+   * material the surface is not drawing. Defaults to the shipped mapping.
+   */
+  readonly mapping?: CssTierMapping;
 }
 
 /**
@@ -99,6 +119,7 @@ const rgba = (rgb: Rgb255, alpha: number): string =>
  */
 export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations {
   const { policy } = surface;
+  const mapping = surface.mapping ?? CSS_TIER_MAPPING;
   const optics = opticsUnderPolicy(surface.optics, policy.material);
   const radius = surface.radii.map(px).join(" ");
 
@@ -130,18 +151,36 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
   const tint = rgba(optics.tint, optics.tintAlpha);
   const border = rgba(optics.border, optics.borderAlpha);
 
-  // X6's one honesty-core mechanism, reaching the tier most visitors get
-  // (Decision Log #28(b), corrective K4): an `author-hint` mode with a
-  // declared light or dark tone gets that tier's explicit foreground token
-  // instead of the `color-scheme`-driven `light-dark()` default — a dark
-  // backdrop gets the light token and vice versa. A "mixed" tone, a "fixed" or
-  // "sampled-async" mode, or no hint at all keep `light-dark()`: there is no
-  // single explicit answer to prefer instead. Accessibility policy outranks
-  // the hint — near-monochrome (increased contrast; forced-colors takes the
-  // early return above) is never overridden by it.
+  /*
+   * X6's one honesty-core mechanism, reaching the tier most visitors get
+   * (Decision Log #28(b), corrective K4): an `author-hint` mode with a declared
+   * light or dark tone gets an explicit foreground token instead of the
+   * `color-scheme`-driven `light-dark()` default. A "mixed" tone, a "fixed" or
+   * "sampled-async" mode, or no hint at all keep `light-dark()` — there is no
+   * single explicit answer to prefer instead. Accessibility policy outranks the
+   * hint: near-monochrome (increased contrast; forced-colors takes the early
+   * return above) is never overridden by it.
+   *
+   * K5 changed the arithmetic and not the mechanism. K4 read the tone straight
+   * through — a dark backdrop got the light token — which was right while the
+   * material was 28% opaque enough to see the backdrop through. At the material's
+   * measured opacity the glyphs sit on the tint, not on the backdrop, so the tone
+   * is now one input to the level behind the text rather than the answer. Both
+   * regimes are still reachable and both are correct: a clear variant over a dark
+   * backdrop still resolves to the light token, because at its alpha the backdrop
+   * really does dominate.
+   */
   const hintedTone = surface.foreground?.mode === "author-hint" ? surface.foreground.tone : undefined;
+  const hintedLuminance =
+    hintedTone === "dark" || hintedTone === "light"
+      ? surface.foreground?.luminance ?? mapping.toneLuminance[hintedTone]
+      : undefined;
   const adaptiveForeground =
-    hintedTone === "dark" ? "#f5f5f7" : hintedTone === "light" ? "#1c1c1e" : "light-dark(#1c1c1e, #f5f5f7)";
+    hintedLuminance === undefined
+      ? "light-dark(#1c1c1e, #f5f5f7)"
+      : cssTierForegroundLevel(optics, hintedLuminance) >= mapping.foregroundCrossover
+        ? "#1c1c1e"
+        : "#f5f5f7";
   const foreground =
     policy.material.foreground === "near-monochrome" ? "light-dark(#000, #fff)" : adaptiveForeground;
 

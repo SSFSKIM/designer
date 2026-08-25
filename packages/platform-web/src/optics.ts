@@ -185,6 +185,24 @@ export interface CssTierMapping {
   readonly shadowOffset: number;
   readonly shadowBlur: number;
   readonly shadowAlpha: number;
+
+  /**
+   * The backdrop level an X6 hint's `tone` stands for when it carries no
+   * `luminance`, in linear relative luminance. Only `dark` and `light` need one:
+   * `mixed` has no single answer and keeps the `light-dark()` default.
+   */
+  readonly toneLuminance: { readonly dark: number; readonly light: number };
+  /**
+   * Where the foreground crosses from the light token to the dark one, measured
+   * on the *encoded* level behind the glyphs (see `cssTierForegroundLevel`).
+   *
+   * Derived rather than chosen: 0.475 is where the two shipped ink tokens reach
+   * equal WCAG contrast against the same surface. `#1c1c1e` sits at linear
+   * 0.0116 and `#f5f5f7` at 0.898, so equal contrast needs
+   * (L + 0.05)² = (0.898 + 0.05)(0.0116 + 0.05), giving L = 0.1917 and an encoded
+   * 0.475. Below it the light token has more contrast, above it the dark one.
+   */
+  readonly foregroundCrossover: number;
 }
 
 export const CSS_TIER_MAPPING: CssTierMapping = {
@@ -236,6 +254,11 @@ export const CSS_TIER_MAPPING: CssTierMapping = {
   shadowOffset: 6,
   shadowBlur: 24,
   shadowAlpha: 0.18,
+  // A hint that names only a tone is a coarse statement, and these are the coarse
+  // readings of it: near-black and near-white. An app that wants the foreground
+  // decided finely passes `luminance`, which X6's hint already carries.
+  toneLuminance: { dark: 0.05, light: 0.9 },
+  foregroundCrossover: 0.475,
 };
 
 /**
@@ -295,6 +318,40 @@ export function cssTintAlpha(
 
   const composited = backdrop * (1 - source.tintAlpha) + tint * source.tintAlpha;
   return clamp01((srgbEncode(composited) - encodedBackdrop) / span);
+}
+
+/**
+ * The level the glyphs actually sit on, encoded sRGB 0..1.
+ *
+ * **Why the foreground cannot be chosen from the backdrop alone.** X6's hint
+ * describes what is *behind the group*, and K4 wired that straight to the
+ * foreground token: a dark backdrop got the light ink. That was right while the
+ * material was 28% opaque and the backdrop showed through it. At the material's
+ * measured opacity it is wrong — what a reader sees behind the text is
+ * `mix(backdrop, tint, α)`, and once α is 0.78 that is the tint. A dark hint over
+ * a white-tinted material was producing near-white ink on a near-white surface;
+ * measured on the demo, WCAG contrast 1.24 against a 4.5 floor.
+ *
+ * So the tone is one input to the decision rather than the decision. The mix is
+ * taken in encoded space because that is where the CSS tier's composite actually
+ * happens (the whole reason `cssTintAlpha` exists), and the hint's `luminance` is
+ * a linear quantity by X6's definition, so it is encoded on the way in.
+ *
+ * Precision is deliberately not the goal here: the output feeds one threshold
+ * between two ink tokens, and what matters is that the decision follows the tint
+ * once the tint dominates. It is not a contrast calculation and does not claim to
+ * be one — an app that needs a guaranteed ratio sets the foreground itself.
+ */
+export function cssTierForegroundLevel(
+  optics: MaterialOptics,
+  backdropLuminance: number,
+): number {
+  const tint = luminance([
+    optics.tint[0] / 255,
+    optics.tint[1] / 255,
+    optics.tint[2] / 255,
+  ]);
+  return (1 - optics.tintAlpha) * srgbEncode(backdropLuminance) + optics.tintAlpha * tint;
 }
 
 /**
