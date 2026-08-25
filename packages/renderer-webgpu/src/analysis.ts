@@ -30,12 +30,7 @@
 
 import { LowPassHysteresisDriver } from "@vitrea/motion";
 
-import {
-  ADAPTIVE_LUMINANCE_HIGH,
-  ADAPTIVE_LUMINANCE_LOW,
-  ADAPTIVE_TINT_DARK,
-  ADAPTIVE_TINT_LIGHT,
-} from "./material";
+import { DEFAULT_MATERIAL_PROFILE, type MaterialProfile } from "./material";
 import type { Rgb } from "./color";
 
 /** The four floats the reduction writes. */
@@ -122,16 +117,24 @@ const smoothstep = (edge0: number, edge1: number, x: number): number => {
  * and can simply follow the smoothed luminance, so it does. One fewer driver, and
  * no risk of the tint and the foreground disagreeing at the threshold.
  */
-export function adaptiveTint(luminance: number): Rgb {
-  const t = smoothstep(ADAPTIVE_LUMINANCE_LOW, ADAPTIVE_LUMINANCE_HIGH, luminance);
+export function adaptiveTint(
+  luminance: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): Rgb {
+  const dark = profile.adaptiveTintDark;
+  const light = profile.adaptiveTintLight;
+  const t = smoothstep(profile.adaptiveLuminanceLow, profile.adaptiveLuminanceHigh, luminance);
   return [
-    ADAPTIVE_TINT_DARK[0] + (ADAPTIVE_TINT_LIGHT[0] - ADAPTIVE_TINT_DARK[0]) * t,
-    ADAPTIVE_TINT_DARK[1] + (ADAPTIVE_TINT_LIGHT[1] - ADAPTIVE_TINT_DARK[1]) * t,
-    ADAPTIVE_TINT_DARK[2] + (ADAPTIVE_TINT_LIGHT[2] - ADAPTIVE_TINT_DARK[2]) * t,
+    dark[0] + (light[0] - dark[0]) * t,
+    dark[1] + (light[1] - dark[1]) * t,
+    dark[2] + (light[2] - dark[2]) * t,
   ];
 }
 
-export function createAdaptationState(initial: BackdropStats = ZERO_STATS): AdaptationState {
+export function createAdaptationState(
+  initial: BackdropStats = ZERO_STATS,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): AdaptationState {
   const luminance = new LowPassHysteresisDriver(LUMINANCE_CONFIG, initial.luminance);
   const variance = new LowPassHysteresisDriver(VARIANCE_CONFIG, initial.variance);
   const edge = new LowPassHysteresisDriver(EDGE_CONFIG, initial.edgeDensity);
@@ -164,7 +167,7 @@ export function createAdaptationState(initial: BackdropStats = ZERO_STATS): Adap
         luminance: luminance.value,
         variance: variance.value,
         edgeDensity: edge.value,
-        tint: adaptiveTint(luminance.value),
+        tint: adaptiveTint(luminance.value, profile),
         observed,
       };
     },

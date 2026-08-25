@@ -42,9 +42,10 @@
  * any condition that would make the capture misleading.
  */
 
+import { createHash } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
-import { basename, join, resolve } from "node:path";
+import { basename, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { chromium, type Browser, type BrowserContext } from "@playwright/test";
@@ -108,6 +109,21 @@ export interface WebCell {
 // Arguments
 // ---------------------------------------------------------------------------
 
+/**
+ * A material profile as the driver handles it: the file it came from, a short
+ * content hash, and the patch itself.
+ *
+ * The path alone would not identify the tunables — a fitting run rewrites the
+ * same file — so the hash travels with it and both land in the cell's
+ * `capturePath`. A capture whose optics cannot be reproduced from what the cell
+ * records is not a data point.
+ */
+interface MaterialProfileFile {
+  readonly path: string;
+  readonly sha256: string;
+  readonly patch: NonNullable<SceneReport["materialProfile"]>;
+}
+
 interface Options {
   readonly sceneIds: readonly string[];
   readonly renderer: "css" | "webgpu";
@@ -115,6 +131,7 @@ interface Options {
   readonly frames: number;
   readonly colorScheme: "light" | "dark";
   readonly outDir: string;
+  readonly materialProfile: MaterialProfileFile | undefined;
 }
 
 interface SceneMatrix {
@@ -129,6 +146,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let frames = 8;
   let colorScheme: "light" | "dark" = "light";
   let outDir = DEFAULT_OUT;
+  let materialProfile: MaterialProfileFile | undefined;
   let all = false;
 
   const next = (index: number, flag: string): string => {
@@ -173,6 +191,10 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         outDir = resolve(process.cwd(), next(index, argument));
         index += 1;
         break;
+      case "--material-profile":
+        materialProfile = readMaterialProfile(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
       default:
         if (argument.startsWith("--")) throw new Error(`unknown flag ${argument}`);
         ids.push(argument);
@@ -192,7 +214,30 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     throw new Error(`These are not in the scene matrix: ${unknown.join(", ")}`);
   }
 
-  return { sceneIds, renderer, scale, frames, colorScheme, outDir };
+  return { sceneIds, renderer, scale, frames, colorScheme, outDir, materialProfile };
+}
+
+/**
+ * Read a material-profile patch off disk.
+ *
+ * Parsed and hashed, never validated: the shape belongs to the renderer's
+ * `MaterialProfilePatch`, and a second opinion about it here is how a harness
+ * ends up rejecting a tunable the renderer would have honoured.
+ */
+function readMaterialProfile(path: string): MaterialProfileFile {
+  const text = readFileSync(path, "utf8");
+  return {
+    path,
+    sha256: createHash("sha256").update(text).digest("hex").slice(0, 12),
+    patch: JSON.parse(text) as MaterialProfileFile["patch"],
+  };
+}
+
+/** How the cell names the tunables a capture ran on. Never omitted. */
+function materialProfileLabel(profile: MaterialProfileFile | undefined): string {
+  if (profile === undefined) return "materialProfile=renderer defaults";
+  const shown = relative(REPO_ROOT, profile.path);
+  return `materialProfile=${shown.startsWith("..") ? profile.path : shown} sha256:${profile.sha256}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -385,7 +430,8 @@ async function captureScene(
       `channel=chromium ${GPU_ARGS.join(" ")}, ` +
       `viewport=${first.report.canvas.width}x${first.report.canvas.height} ` +
       `deviceScaleFactor=${options.scale}, colorScheme=${options.colorScheme}, ` +
-      `animations=disabled, frames=${first.report.frames}`,
+      `animations=disabled, frames=${first.report.frames}, ` +
+      materialProfileLabel(options.materialProfile),
     sceneId,
     pixelSize: [decoded.width, decoded.height],
     deterministic: identical,
@@ -422,6 +468,14 @@ async function captureScene(
         capturedAt: new Date().toISOString(),
         requestedRenderer: options.renderer,
         colorScheme: options.colorScheme,
+        materialProfile:
+          options.materialProfile === undefined
+            ? null
+            : {
+                path: options.materialProfile.path,
+                sha256: options.materialProfile.sha256,
+                patch: options.materialProfile.patch,
+              },
         fallback: fallback ?? null,
         problems,
         page: first.report,
@@ -465,6 +519,17 @@ async function main(): Promise<void> {
       deviceScaleFactor: options.scale,
       colorScheme: options.colorScheme,
     });
+
+    // On the context, so every page it opens carries the tunables — and as an
+    // init script, so they are in place before the scene page's own module runs
+    // and builds the root. Setting them after load would have the first frames
+    // draw on the defaults.
+    if (options.materialProfile !== undefined) {
+      await context.addInitScript((patch: MaterialProfileFile["patch"]) => {
+        window.__vitreaMaterialProfile = patch;
+      }, options.materialProfile.patch);
+      say(`material profile: ${materialProfileLabel(options.materialProfile)}`);
+    }
 
     for (const sceneId of options.sceneIds) {
       const outcome = await captureScene(context, browser, baseUrl, sceneId, options);

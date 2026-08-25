@@ -325,7 +325,7 @@ describe("singleEdgeRegion", () => {
     const image = fromLinearLuminance(200, 60, (x) => 0.05 + 0.85 * gaussianStep(x, 100, sigma));
     const backdrop = fromLinearLuminance(200, 60, (x) => (x < 100 ? 0.05 : 0.9));
     const region = singleEdgeRegion(backdrop, silhouette, "x");
-    expect(region).toBeDefined();
+    if (region === undefined) throw new Error("the backdrop has a step edge; the helper must find it");
     const report = blurEdgeSpread(image, { axis: "x", region });
     expect(report.sigmaPx).toBeGreaterThan(sigma * 0.9);
     expect(report.sigmaPx).toBeLessThan(sigma * 1.1);

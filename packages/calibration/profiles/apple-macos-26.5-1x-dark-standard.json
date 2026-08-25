@@ -1,0 +1,121 @@
+{
+  "$comment": [
+    "TUNED MATERIAL CONSTANTS for the dark-standard profile — C9a.",
+    "",
+    "A real patch, not the identity: only one scheme's numbers can be the",
+    "runtime default, and the default is light-standard. An application in dark",
+    "mode applies this:",
+    "",
+    "    createGlassRoot({ materialProfile: patch })",
+    "",
+    "Nothing selects it automatically yet. That is C9a's parent-impact item — the",
+    "runtime has no colour-scheme input to the material — and until it lands, dark",
+    "mode is correct only for a host that passes this itself.",
+    "",
+    "READ THE BASIS BEFORE THE NUMBERS. This profile rests on FOUR measurable",
+    "cells. The dark profile captured six scenes, and its two solid-backdrop",
+    "scenes yield an empty native silhouette: over a flat backdrop of its own",
+    "tone the reference is within 0.02 linear luminance of it, which is a real",
+    "property of the material and not a capture fault, but it leaves no interior",
+    "to sample. Four cells is a thin basis and the numbers below are stated with",
+    "that thinness rather than around it."
+  ],
+
+  "profileKey": "apple-macos-26.5-1x-dark-standard",
+  "schemaVersion": 1,
+  "recordedAt": "2026-08-25",
+  "recordedBy": "C9a",
+  "colorSpace": "srgb",
+  "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+
+  "measurement": {
+    "fixtures": "apps/reference-apple/fixtures — 6 ScreenCaptureKit captures, materialRendered true, deterministic",
+    "cellsUsedForFitting": 4,
+    "cellsUnmeasurable": 2,
+    "fixtureSets": "calibration only — the dark profile declares no validation or holdout scenes, which is itself a limit on what this profile can claim",
+    "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, srgb",
+    "objective": "mean over calibration cells of |Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|, linear light",
+    "objectiveBefore": 0.39186,
+    "objectiveAfter": 0.1112,
+    "reproduce": "npx tsx scripts/sweep.ts --profile apple-macos-26.5-1x-dark-standard --base <this patch> --axis optics.regular.tintAlpha=0.62,0.75,0.85,0.92,0.97"
+  },
+
+  "patch": {
+    "optics": {
+      "regular": {
+        "tint": [0.05, 0.05, 0.05],
+        "tintAlpha": 0.97
+      }
+    },
+    "adaptiveTintDark": [0.05, 0.05, 0.05],
+    "adaptiveTintLight": [0.05, 0.05, 0.05]
+  },
+
+  "entries": {
+    "tint": {
+      "status": "measured",
+      "value": [0.05, 0.05, 0.05],
+      "units": "linear-light rgb",
+      "method": [
+        "The reference's dark interior sits at 0.048 to 0.060 across all four",
+        "measurable cells and barely moves with the backdrop under it — 0.0545 over",
+        "a backdrop of 0.570 against 0.0479 over 0.213. 0.05 is that level."
+      ]
+    },
+
+    "tintAlpha": {
+      "status": "measured-with-a-caveat",
+      "value": 0.97,
+      "method": [
+        "The interior-level term is what pins it, and it pins it hard: the error",
+        "falls from 0.310 at the untuned default to 0.0096 at 0.97, a 32x",
+        "improvement on the dominant term, monotonically across the swept range",
+        "(0.62, 0.75, 0.85, 0.92, 0.97). The spread term is flat over the same",
+        "range, so nothing trades against it."
+      ],
+      "caveat": [
+        "0.97 means very nearly opaque, and that is in tension with the reference's",
+        "own spread: it passes 7% to 13% of the backdrop's structure through, which",
+        "an alpha of 0.97 cannot do. The two observations are not reconcilable in",
+        "this renderer because its tint is a LERP toward a colour, and a lerp must",
+        "trade the interior level against the structure that survives it.",
+        "",
+        "A MULTIPLY composite gets both, and the fixtures favour it. Inferring the",
+        "transmission from the spread ratio and from the mean separately, a multiply",
+        "model agrees with itself to within a factor of 1.3, 0.6, 1.2 and 0.5 on the",
+        "four cells; the lerp is off by three to nine times. That is evidence for a",
+        "hypothesis, not a proof — four cells at factor-two scatter — and it is",
+        "recorded as parent-impact rather than acted on, because a blend mode is a",
+        "new renderer parameter and not a tunable."
+      ]
+    },
+
+    "rimIntensity": {
+      "status": "declined",
+      "value": "unchanged: rimAlpha 0.18, specularGain 0.55",
+      "method": [
+        "This is the one place the sweep found a large win and it was not taken.",
+        "",
+        "The dark scheme is where the reference's rim is strongest and genuinely",
+        "measurable — peaks of 0.041 to 0.055, well clear of the code step at these",
+        "dark levels — and after the tint tune the rim becomes the dominant error",
+        "term (0.084 of the 0.111 objective). Sweeping rimAlpha to 0.02 and",
+        "specularGain to 0.10 halves the objective to 0.0591 and lifts SSIM from",
+        "0.953 to 0.966.",
+        "",
+        "It was declined on three grounds. The residual bottoms out at almost exactly",
+        "the mean of the reference's own rim peaks, which means the win comes from",
+        "vitrea's rim going to ZERO rather than from it matching — removing a feature",
+        "the reference demonstrably has. The per-cell direction is not consistent:",
+        "on three cells vitrea's rim is too bright and on the fourth it is too dim",
+        "(0.0099 against 0.0478), so the mean is not describing a single error. And",
+        "the metric summarises the rim as a peak above the deepest ring's baseline,",
+        "which is not comparable across the very different opacities being compared",
+        "once the body is near-opaque.",
+        "",
+        "Fitting a four-cell mean by deleting the feature it measures is fitting the",
+        "estimator. The gap is reported instead."
+      ]
+    }
+  }
+}

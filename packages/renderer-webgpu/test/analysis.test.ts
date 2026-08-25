@@ -22,6 +22,9 @@ import {
   ADAPTIVE_LUMINANCE_LOW,
   ADAPTIVE_TINT_DARK,
   ADAPTIVE_TINT_LIGHT,
+  DEFAULT_MATERIAL_PROFILE,
+  withMaterialOverrides,
+  type MaterialProfile,
 } from "../src/material";
 
 const stats = (luminance: number, variance = 0.05, edge = 0.1) => ({
@@ -124,17 +127,46 @@ describe("the adaptation state", () => {
 });
 
 describe("the adaptive tint", () => {
+  /*
+   * The mechanism is tested against a profile with two DISTINCT ends, not against
+   * the shipped default.
+   *
+   * C9a measured that the reference material does not invert its tint against the
+   * backdrop — it keys on the colour scheme instead — so the calibrated default
+   * sets both ends to the same colour and the crossover is deliberately inert.
+   * Asserting a monotone run across the band on the default would therefore be
+   * asserting that vitrea still does the thing the fixtures say it should not,
+   * and the test would be pinning the miscalibration rather than the code.
+   *
+   * The interpolation itself is still real, still reachable by any profile that
+   * wants it, and still has to be right — hence an explicit profile here, and a
+   * separate check below that the default is the inert one on purpose.
+   */
+  const CROSSFADING: MaterialProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+    adaptiveTintDark: [1, 1, 1],
+    adaptiveTintLight: [0.02, 0.02, 0.03],
+  });
+
   it("runs from the dark-backdrop tint to the light-backdrop tint", () => {
     for (let channel = 0; channel < 3; channel += 1) {
-      expect(adaptiveTint(0)[channel]).toBeCloseTo(ADAPTIVE_TINT_DARK[channel] as number, 12);
-      expect(adaptiveTint(1)[channel]).toBeCloseTo(ADAPTIVE_TINT_LIGHT[channel] as number, 12);
+      expect(adaptiveTint(0, CROSSFADING)[channel]).toBeCloseTo(
+        CROSSFADING.adaptiveTintDark[channel] as number,
+        12,
+      );
+      expect(adaptiveTint(1, CROSSFADING)[channel]).toBeCloseTo(
+        CROSSFADING.adaptiveTintLight[channel] as number,
+        12,
+      );
     }
   });
 
   it("crosses over inside the declared band, monotonically", () => {
-    const low = adaptiveTint(ADAPTIVE_LUMINANCE_LOW);
-    const mid = adaptiveTint((ADAPTIVE_LUMINANCE_LOW + ADAPTIVE_LUMINANCE_HIGH) / 2);
-    const high = adaptiveTint(ADAPTIVE_LUMINANCE_HIGH);
+    const low = adaptiveTint(CROSSFADING.adaptiveLuminanceLow, CROSSFADING);
+    const mid = adaptiveTint(
+      (CROSSFADING.adaptiveLuminanceLow + CROSSFADING.adaptiveLuminanceHigh) / 2,
+      CROSSFADING,
+    );
+    const high = adaptiveTint(CROSSFADING.adaptiveLuminanceHigh, CROSSFADING);
 
     expect(low[0]).toBeGreaterThan(mid[0]);
     expect(mid[0]).toBeGreaterThan(high[0]);
@@ -144,9 +176,18 @@ describe("the adaptive tint", () => {
     // The material's tint is continuous and can just follow the smoothed
     // luminance; the DOM foreground is the discrete one, and motion owns that.
     const epsilon = 1e-6;
-    const before = adaptiveTint(ADAPTIVE_LUMINANCE_LOW - epsilon);
-    const after = adaptiveTint(ADAPTIVE_LUMINANCE_LOW + epsilon);
+    const before = adaptiveTint(CROSSFADING.adaptiveLuminanceLow - epsilon, CROSSFADING);
+    const after = adaptiveTint(CROSSFADING.adaptiveLuminanceLow + epsilon, CROSSFADING);
     expect(Math.abs(after[0] - before[0])).toBeLessThan(1e-5);
+  });
+
+  it("is inert under the shipped default, which is the calibrated behaviour", () => {
+    expect(ADAPTIVE_TINT_DARK).toEqual(ADAPTIVE_TINT_LIGHT);
+    // Constant across and beyond the band: no backdrop can move the default tint.
+    const samples = [0, ADAPTIVE_LUMINANCE_LOW, ADAPTIVE_LUMINANCE_HIGH, 1].map((luminance) =>
+      adaptiveTint(luminance),
+    );
+    for (const sample of samples) expect(sample).toEqual(ADAPTIVE_TINT_DARK);
   });
 });
 
