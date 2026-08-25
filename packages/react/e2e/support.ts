@@ -22,7 +22,10 @@ import { expect, type Locator, type Page } from "@playwright/test";
  * adapter.
  */
 export async function gotoPlayground(page: Page): Promise<void> {
-  await page.goto("/?renderer=css");
+  // `/` is now vitrea's public demo site (C9b); the acceptance playground this
+  // suite drives moved to its own route. Same page, same structure, same control
+  // names: the only change is where it is served from.
+  await page.goto("/playground/?renderer=css");
   await page.waitForSelector("[data-vitrea-root]");
   await expect(page.getByRole("toolbar", { name: "Playground actions" })).toBeVisible();
   await page.waitForFunction(() => {

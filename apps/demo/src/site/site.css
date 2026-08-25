@@ -1,0 +1,776 @@
+/*
+ * Every visual decision on the public site lives here. Values come from
+ * `tokens.css`; the rules for using them are `DESIGN.md`.
+ *
+ * Two constraints this file works under, and neither is stylistic:
+ *
+ * 1. Glass surfaces are styled through the channel properties the runtime
+ *    publishes (`--vitrea-tint`, `--vitrea-foreground`, `--vitrea-press`,
+ *    `--vitrea-glow`, `--vitrea-press-x/y`), never by re-declaring the material.
+ *    The CSS tier writes `background`, `border`, `backdrop-filter` and
+ *    `box-shadow` on the host every frame, so anything set here for those
+ *    properties is overwritten. Decoration goes on pseudo-elements.
+ * 2. `.stage` and `.stage--mirror` share every layout rule. They are the same
+ *    picture written twice, once in page DOM and once inside the plane, and they
+ *    line up because they read the same declarations rather than because anything
+ *    measures anything.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--space-6);
+}
+
+@media not (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ui);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-track);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── The narrative column ─────────────────────────────────────────────────── */
+
+.column {
+  width: var(--column-width);
+  max-width: 46rem;
+  padding: var(--space-8) var(--space-7) var(--space-9) var(--space-8);
+}
+
+.masthead {
+  padding-bottom: var(--space-7);
+}
+
+.wordmark {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-track);
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.display {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-line);
+  letter-spacing: var(--type-display-track);
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-4);
+  font-size: var(--type-lead-size);
+  line-height: var(--type-lead-line);
+  color: var(--paper-8);
+}
+
+.body {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-4);
+}
+
+.h2 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line);
+  letter-spacing: var(--type-h2-track);
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: color var(--duration-standard) var(--ease-standard);
+}
+
+.h3 {
+  max-width: var(--measure);
+  margin: var(--space-5) 0 var(--space-3);
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-line);
+  letter-spacing: var(--type-h3-track);
+  font-weight: 650;
+}
+
+.list {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-4);
+  padding-left: var(--space-5);
+}
+
+.list li + li {
+  margin-top: var(--space-3);
+}
+
+.note {
+  max-width: var(--measure);
+  margin: var(--space-4) 0 0;
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line);
+  color: var(--muted-foreground);
+}
+
+.footer {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+/* Section navigation. A list of destinations, each naming its own destination. */
+
+.jump ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-4);
+}
+
+.jump a {
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  color: var(--paper-8);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.jump a:hover,
+.jump a[aria-current="true"] {
+  color: var(--foreground);
+  border-bottom-color: var(--accent);
+}
+
+/*
+ * Sections are separated by one hairline and whitespace: no cards, no panels, no
+ * shadows. The current section is marked three ways at once, because colour is
+ * never the only carrier: the marker appears, the heading moves to full ink, and
+ * the jump link above takes `aria-current`.
+ */
+.section {
+  position: relative;
+  padding: var(--space-7) 0;
+  border-top: 1px solid var(--border);
+}
+
+.section__marker {
+  position: absolute;
+  top: calc(var(--space-7) + 0.42em);
+  left: calc(-1 * var(--space-5));
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity var(--duration-standard) var(--ease-standard);
+}
+
+.section[data-current] .section__marker {
+  opacity: 1;
+}
+
+.section[data-current] .h2 {
+  color: var(--foreground);
+}
+
+/* ── Readouts: the one definition-list pattern ────────────────────────────── */
+
+.readout {
+  max-width: var(--measure);
+  margin: var(--space-5) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.readout__head,
+.readout__row {
+  display: grid;
+  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.readout__head {
+  border-bottom-color: var(--border-strong);
+}
+
+.readout dt {
+  margin: 0;
+  color: var(--muted-foreground);
+}
+
+.readout dd {
+  margin: 0;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+
+.readout dd[data-empty] {
+  color: var(--muted-foreground);
+}
+
+.readout dd[data-health="demoted"] {
+  color: var(--accent-strong);
+}
+
+.readout__row--cell dt,
+.readout__row--cell dd {
+  font-size: 0.6875rem;
+}
+
+.findings {
+  max-width: var(--measure);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+}
+
+.findings li {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-strong);
+  color: var(--foreground);
+}
+
+.findings li[data-severity="error"] {
+  border-color: var(--accent);
+}
+
+/* ── Fields: the one label-plus-control row ───────────────────────────────── */
+
+.fields {
+  max-width: var(--measure);
+  margin: var(--space-5) 0 0;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-0);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.fields__legend {
+  padding: 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-track);
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field__label {
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  color: var(--paper-8);
+}
+
+.field__hint {
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line);
+  color: var(--muted-foreground);
+}
+
+/*
+ * `width: 100%` with `min-width: 0`, because a `<select>` sizes itself to its
+ * widest option by default and the scene list carries full scene ids. Left to its
+ * intrinsic width it pushes the document past 320 CSS px and breaks reflow.
+ */
+.field select {
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  font-size: var(--type-small-size);
+  padding: 0.4rem 0.5rem;
+  color: var(--foreground);
+  background: var(--paper-0);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-0);
+}
+
+.field select:focus-visible,
+.jump a:focus-visible,
+.column a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Code ─────────────────────────────────────────────────────────────────── */
+
+.code {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4);
+  overflow-x: auto;
+  background: var(--paper-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-0);
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.code code {
+  font-size: inherit;
+  white-space: pre;
+}
+
+/* ── The instrument window ────────────────────────────────────────────────── */
+
+/*
+ * Fixed, because X1 puts glass in viewport-fixed planes. `.stage--mirror` is the
+ * same box expressed inside the plane, whose layers are already `inset: 0` on a
+ * fixed root, so `absolute` there resolves against the same rectangle.
+ */
+.stage {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--stage-width);
+  height: 100vh;
+  overflow: hidden;
+  background: var(--stage-0);
+  border-left: 1px solid var(--paper-4);
+  color: var(--stage-ink);
+}
+
+.stage--mirror {
+  position: absolute;
+  background: none;
+  border-left-color: transparent;
+  pointer-events: none;
+}
+
+.stage__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.stage__legend {
+  position: absolute;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  left: var(--space-5);
+  margin: 0;
+  max-width: 30rem;
+  margin-left: auto;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  color: var(--stage-ink-dim);
+}
+
+/*
+ * Top-and-left aligned with a fixed inset, never centred, and the morph is always
+ * last. `DESIGN.md` §9: a centred stack re-centres when the morph's anchor spacer
+ * grows from zero on its second frame, which moves already-registered hosts. The
+ * 4rem gap is the separation two 24px sampling paddings need, with room to spare.
+ */
+.stage__stack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-7) var(--space-6) var(--space-6) var(--space-6);
+}
+
+.stage__inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--space-5);
+  padding: var(--space-7) var(--space-6) var(--space-5);
+}
+
+.stage--mirror .stage__inner {
+  grid-template-rows: auto;
+}
+
+/* ── The reference pair: the signature element ────────────────────────────── */
+
+.pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+.pair__cell {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+/*
+ * `outline` rather than `border`, so the frame costs no layout. The mirror's
+ * placeholder is then exactly the same box without compensating for anything.
+ */
+.pair__raster {
+  display: block;
+  width: 320px;
+  height: 200px;
+  outline: 1px solid var(--stage-rule);
+}
+
+.pair__raster--mirror {
+  position: relative;
+  outline-color: transparent;
+}
+
+.scene-surface {
+  position: absolute;
+}
+
+.pair__caption {
+  display: grid;
+  gap: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+}
+
+.pair__who {
+  color: var(--stage-ink);
+}
+
+.pair__what {
+  color: var(--stage-ink-dim);
+}
+
+.readout--figures {
+  max-width: none;
+  margin: 0;
+  overflow-y: auto;
+  color: var(--stage-ink);
+}
+
+.readout--figures .readout__row {
+  border-bottom-color: var(--stage-rule);
+}
+
+.readout--figures dt {
+  color: var(--stage-ink-dim);
+}
+
+.readout--figures dd {
+  color: var(--stage-ink);
+}
+
+.note--slot {
+  color: var(--stage-ink-dim);
+  border-left: 0;
+}
+
+/* ── Glass surfaces ──────────────────────────────────────────────────────── */
+
+/*
+ * The plates carry one short line each, at large-text size and weight. Everything
+ * that explains them is in the column, on paper: `effects-policy`'s rule that a
+ * material never carries information is also the rule that keeps small text off a
+ * translucent surface over a moving backdrop.
+ */
+.plate {
+  display: grid;
+  gap: var(--space-2);
+  place-content: center;
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--vitrea-foreground, var(--stage-ink));
+}
+
+.plate--lg {
+  width: 21rem;
+  min-height: 10.5rem;
+}
+
+.plate--sm {
+  width: 8.5rem;
+  min-height: 4.5rem;
+  padding: var(--space-3);
+}
+
+.plate strong {
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-line);
+  font-weight: 650;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  pointer-events: none;
+}
+
+.control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--vitrea-foreground, var(--stage-ink));
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.control:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/*
+ * The press glow, at the press point. A pseudo-element because the CSS tier writes
+ * the host's own `background` shorthand every frame and would clobber a
+ * background-image set on the host itself.
+ */
+.control::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: var(--vitrea-glow, 0);
+  background: radial-gradient(
+    9rem 9rem at var(--vitrea-press-x, 50%) var(--vitrea-press-y, 50%),
+    rgb(255 255 255 / 0.45) 0%,
+    rgb(255 255 255 / 0) 70%
+  );
+  pointer-events: none;
+}
+
+.control:focus-visible,
+.segment:focus-visible {
+  outline: 2px solid var(--accent-stage);
+  outline-offset: 3px;
+}
+
+.control--icon {
+  min-width: 2.75rem;
+  padding: 0;
+  font-size: 1.0625rem;
+}
+
+.segmented {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+
+.segment {
+  position: relative;
+  z-index: 1;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--stage-ink-dim);
+  cursor: pointer;
+}
+
+.segment[aria-checked="true"] {
+  color: var(--vitrea-foreground, var(--stage-ink));
+}
+
+.segment:focus-visible {
+  outline-offset: -3px;
+}
+
+.segment-indicator {
+  z-index: 0;
+  background: rgb(255 255 255 / calc(0.16 + 0.12 * var(--vitrea-glow, 0)));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.26);
+}
+
+.platter {
+  /*
+   * Constrains the closed platter *before* it pins. Until it has measured itself
+   * `GlassMorph` leaves it in the plane host layer's own flow, where a block-level
+   * div is as wide as the viewport; that box is registered, and a viewport-wide
+   * one overlaps every other surface on the plane. See `DESIGN.md` §9.
+   */
+  width: max-content;
+  display: block;
+  color: var(--vitrea-foreground, var(--stage-ink));
+}
+
+.menu {
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  min-width: 13rem;
+  outline: none;
+}
+
+.menu__item {
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-3);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.menu__item[data-focused="true"] {
+  background: rgb(255 255 255 / 0.16);
+}
+
+/* ── Collapse ────────────────────────────────────────────────────────────── */
+
+/*
+ * The intentional collapse: the instrument becomes a band across the top and the
+ * narrative takes the full width beneath it. The stage cannot become sticky or
+ * scroll with the column, because the glass inside it is positioned in viewport
+ * coordinates by construction.
+ */
+@media (max-width: 900px) {
+  .column {
+    width: 100%;
+    max-width: none;
+    padding: calc(46vh + var(--space-6)) var(--space-5) var(--space-8);
+  }
+
+  .stage {
+    width: 100%;
+    height: 46vh;
+    border-left: 0;
+    border-bottom: 1px solid var(--paper-4);
+  }
+
+  .stage--mirror {
+    border-bottom-color: transparent;
+  }
+
+  .stage__stack,
+  .stage__inner {
+    padding: var(--space-5);
+    gap: var(--space-6);
+  }
+
+  .section__marker {
+    left: calc(-1 * var(--space-4));
+  }
+}
+
+@media (max-width: 560px) {
+  .column {
+    padding-top: calc(40vh + var(--space-5));
+  }
+
+  /* The readout's two columns become two rows: a 13rem label column plus a value
+     column cannot both stay readable at this width. */
+  .readout__head,
+  .readout__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .readout dt {
+    padding-top: var(--space-1);
+  }
+
+  .stage {
+    height: 40vh;
+  }
+
+  .stage__legend {
+    display: none;
+  }
+
+  .section__marker {
+    top: var(--space-5);
+    left: 0;
+  }
+
+  .section {
+    padding-left: var(--space-4);
+  }
+}
+
+/*
+ * Forced colours: the runtime already flattens the material to system colours.
+ * This keeps the page's own decoration from painting over that palette.
+ */
+@media (forced-colors: active) {
+  .control::after,
+  .segment-indicator,
+  .stage__canvas,
+  .section__marker {
+    display: none;
+  }
+
+  .stage {
+    background: Canvas;
+    color: CanvasText;
+  }
+}

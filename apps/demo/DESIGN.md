@@ -29,6 +29,11 @@ macOS 26.5 capture, at identical `scenes.json` geometry over the identical raste
 background, with the measured axes named beneath it. One risk, spent there.
 Everything else stays quiet.
 
+Scope: this law governs the public site at `/`. The internal acceptance harness at
+`/playground/` is outside it, because its structure, control names and layout are
+pinned by `@vitrea/react`'s Playwright suite rather than by taste; §9 binds it
+anyway, since that is about correctness.
+
 If a decision is ever ambiguous, choose the more **instrumental** option: the one
 that reads as measurement rather than as presentation.
 
@@ -150,8 +155,10 @@ Both halves must hold, and the page must remain fully usable with all of it off.
   slot is labeled unmeasured.
 - No webfonts and no external requests of any kind. The site must build to a
   self-contained static directory.
-- No text over glass below `--type-h3` size, and no information carried by the
-  material.
+- No prose over glass. A glass surface carries at most one short line, at
+  `--type-h3` size or larger, or a real control's own label; everything that
+  explains it lives in the column, on paper. The material never carries
+  information.
 
 ## 9. Glass placement law (domain-specific)
 

@@ -34,6 +34,8 @@ import type { Node as CollectionNode, TreeState } from "react-stately";
 
 export interface ActionsMenuProps {
   readonly onAction: (key: string) => void;
+  /** The menu's accessible name. Defaults to the playground's. */
+  readonly label?: string | undefined;
 }
 
 /**
@@ -167,7 +169,7 @@ export function ActionsMenu(props: ActionsMenuProps): ReactNode {
           <Menu
             {...menuProps}
             menuRef={menuRef}
-            aria-label="Playground actions"
+            aria-label={props.label ?? "Playground actions"}
             autoFocus={state.focusStrategy ?? true}
             onSelect={(key) => {
               props.onAction(String(key));
