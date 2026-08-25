@@ -13,6 +13,7 @@
  */
 
 import { NOMINAL_ACCESSIBILITY_POLICY, type GlassGroupState } from "@vitrea/core";
+import { DEFAULT_GROUP_UNION, groupUnionFromMergeDistance } from "@vitrea/geometry";
 import { describe, expect, it } from "vitest";
 
 import { IDLE_CHANNELS } from "../src/channels";
@@ -79,6 +80,7 @@ const group = (overrides: Partial<GlassGroupRenderInput> = {}): GlassGroupRender
   variant: "regular",
   samplingPadding: 24,
   mergeDistance: 24,
+  declaredMergeDistance: undefined,
   blurRadius: 8,
   ...overrides,
 });
@@ -201,6 +203,33 @@ describe("toRendererGroups", () => {
     expect(planes.map((entry) => entry.plane)).toEqual(["base", "overlay"]);
     expect(planes[0]?.groups[0]?.surfaces.map((surface) => surface.nodeId)).toEqual(["a"]);
     expect(planes[1]?.groups[0]?.surfaces.map((surface) => surface.nodeId)).toEqual(["b"]);
+  });
+
+  it("forwards DEFAULT_GROUP_UNION when the group declared no mergeDistance", () => {
+    // K3: before this wiring, the renderer's DEFAULT_GROUP_UNION was reached by
+    // omission (the `union` field was simply absent). Now it is forwarded
+    // explicitly, but the values — and the no-declaration case — must be
+    // identical to what the renderer already defaulted to.
+    const [base] = toRendererGroups(
+      frame([group({ declaredMergeDistance: undefined })], [{ plane: "base", nodes: [node()] }]),
+      always,
+    );
+
+    expect(base?.groups[0]?.union).toEqual(DEFAULT_GROUP_UNION);
+  });
+
+  it("derives the union params from a declared mergeDistance", () => {
+    const [base] = toRendererGroups(
+      frame([group({ declaredMergeDistance: 40 })], [{ plane: "base", nodes: [node()] }]),
+      always,
+    );
+
+    expect(base?.groups[0]?.union).toEqual(groupUnionFromMergeDistance(40));
+    expect(base?.groups[0]?.union).toEqual({
+      neckWidth: 20,
+      maxBulge: 5,
+      separationThreshold: 40,
+    });
   });
 
   it("leaves a plane's group empty rather than dropping it", () => {

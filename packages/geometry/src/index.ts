@@ -142,6 +142,7 @@ export {
   type GroupUnionParams,
   groupUnion,
   groupUnionField,
+  groupUnionFromMergeDistance,
   memberField,
   smoothUnion2,
 } from "./union";

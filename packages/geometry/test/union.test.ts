@@ -21,6 +21,7 @@ import {
   type GroupUnionParams,
   groupUnion,
   groupUnionField,
+  groupUnionFromMergeDistance,
   memberField,
   smoothUnion2,
 } from "../src/union";
@@ -164,6 +165,56 @@ describe("the n-member union", () => {
     const here = groupUnionField([chip(0, 0), chip(70, 0)], [35, 0]);
     const there = groupUnionField([chip(500, 300), chip(570, 300)], [535, 300]);
     expect(there).toBeCloseTo(here, 12);
+  });
+});
+
+describe("groupUnionFromMergeDistance — wiring a declared mergeDistance into union params", () => {
+  it("keeps today's defaults exactly when no mergeDistance was declared", () => {
+    // The identity case: an undeclared group must render exactly as it did
+    // before this function existed — the same object, not merely equal values.
+    expect(groupUnionFromMergeDistance(undefined)).toBe(DEFAULT_GROUP_UNION);
+  });
+
+  it("maps the default separationThreshold (16) back to the default params exactly", () => {
+    expect(groupUnionFromMergeDistance(16)).toEqual(DEFAULT_GROUP_UNION);
+  });
+
+  it("sets separationThreshold to the declared mergeDistance directly", () => {
+    expect(groupUnionFromMergeDistance(24).separationThreshold).toBe(24);
+    expect(groupUnionFromMergeDistance(8).separationThreshold).toBe(8);
+  });
+
+  it("scales neckWidth and maxBulge proportionally to the defaults' ratio", () => {
+    // At mergeDistance = 24 (1.5x the default 16), neckWidth and maxBulge scale
+    // by the same 1.5x — preserving neckWidth = 4 * maxBulge at any distance.
+    const doubled = groupUnionFromMergeDistance(32);
+    expect(doubled.neckWidth).toBeCloseTo(DEFAULT_GROUP_UNION.neckWidth * 2, 12);
+    expect(doubled.maxBulge).toBeCloseTo(DEFAULT_GROUP_UNION.maxBulge * 2, 12);
+
+    const half = groupUnionFromMergeDistance(8);
+    expect(half.neckWidth).toBeCloseTo(DEFAULT_GROUP_UNION.neckWidth * 0.5, 12);
+    expect(half.maxBulge).toBeCloseTo(DEFAULT_GROUP_UNION.maxBulge * 0.5, 12);
+  });
+
+  it("preserves the neckWidth = 4 * maxBulge relationship at any declared distance", () => {
+    // DEFAULT_GROUP_UNION's own note: the bulge cap must not already be binding
+    // at the default neck width. Proportional scaling keeps that true, so a
+    // scene that declares a larger mergeDistance doesn't silently start capping.
+    for (const mergeDistance of [4, 8, 16, 24, 40, 100]) {
+      const params = groupUnionFromMergeDistance(mergeDistance);
+      expect(params.neckWidth).toBeCloseTo(4 * params.maxBulge, 12);
+    }
+  });
+
+  it("produces a usable, non-jelly union at a small declared mergeDistance", () => {
+    const params = groupUnionFromMergeDistance(4);
+    const a = chip(0, 0);
+    const b = chip(400, 0);
+    for (const x of [150, 200, 250]) {
+      const fa = memberField(a, [x, 0]);
+      const fb = memberField(b, [x, 0]);
+      expect(groupUnionField([a, b], [x, 0], params)).toBe(Math.min(fa, fb));
+    }
   });
 });
 

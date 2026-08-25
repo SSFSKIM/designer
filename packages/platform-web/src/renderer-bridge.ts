@@ -50,6 +50,7 @@ import {
   type GlassRenderer,
   type WebGPURendererModule,
 } from "@vitrea/core";
+import { groupUnionFromMergeDistance } from "@vitrea/geometry";
 
 import { IDLE_CHANNELS, type SurfaceChannelValues } from "./channels";
 import type { PlatformDiagnosticsChannel } from "./diagnostics";
@@ -161,6 +162,13 @@ const drawsOnGpu = (state: { readonly activeRenderer: "webgpu" | "css" }): boole
  * source at all, so it builds no pyramid and the optics pass draws rim, tint and
  * glow over an unsampled backdrop — which is exactly what §honesty core promises
  * the `dom` + `hint` and `dom` + `none` states.
+ *
+ * `union` carries the group's own field-pass parameters, derived from its
+ * declared `mergeDistance` via `groupUnionFromMergeDistance` (C7's flow-back
+ * finding: nothing forwarded this before, so every group drew with the
+ * renderer's hardcoded `DEFAULT_GROUP_UNION` regardless of what it declared).
+ * A group with no declared `mergeDistance` gets `DEFAULT_GROUP_UNION` back
+ * unchanged.
  */
 export function toRendererGroups(
   input: GlassFrameRenderInput,
@@ -195,6 +203,7 @@ export function toRendererGroups(
           refraction: group.state.refraction,
           analysisExact: group.state.analysis === "exact",
           variant: group.variant,
+          union: groupUnionFromMergeDistance(group.declaredMergeDistance),
           ...(sampled ? { backdropSourceId: sourceId } : {}),
         };
       }),

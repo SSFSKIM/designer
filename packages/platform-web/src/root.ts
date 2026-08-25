@@ -159,6 +159,16 @@ export interface GlassGroupRenderInput {
   readonly samplingPadding: number;
   readonly mergeDistance: number;
   readonly blurRadius: number;
+  /**
+   * The scene's own declared `mergeDistance`, `undefined` when the app never
+   * set one. Distinct from `mergeDistance` above: that field is core's
+   * *resolved* proxy-geometry number (always present, defaulting to
+   * `samplingPadding` — X1's proxy math needs a number regardless). This one
+   * is what the GPU-tier union mapping (`groupUnionFromMergeDistance`) reads,
+   * so an app that never declared a distance keeps `DEFAULT_GROUP_UNION`
+   * exactly rather than inheriting the proxy default.
+   */
+  readonly declaredMergeDistance: number | undefined;
 }
 
 export interface GlassPlaneRenderInput {
@@ -570,6 +580,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         variant,
         samplingPadding: resolved.sampling.samplingPadding,
         mergeDistance: resolved.sampling.mergeDistance,
+        declaredMergeDistance: groupRecord.descriptor.mergeDistance,
         blurRadius: optics.blurRadius,
       });
 
