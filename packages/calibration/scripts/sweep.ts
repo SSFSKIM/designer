@@ -191,6 +191,10 @@ function main(): void {
     return i >= 0 ? argv[i + 1] : undefined;
   };
   const profileKey = flag("profile");
+  // Scene restriction, forwarded to compare. Its use here is to check that an
+  // optimum does not depend on a subset of cells — the pressed scenes in
+  // particular, whose native side carries no press pose.
+  const scenes = flag("scene");
   const basePath = flag("base");
   const base =
     basePath === undefined
@@ -235,6 +239,7 @@ function main(): void {
         "--out-matrix",
         matrixPath,
         ...(profileKey === undefined ? [] : ["--profile", profileKey]),
+        ...(scenes === undefined ? [] : ["--scene", scenes]),
       ],
       { cwd: PACKAGE_ROOT, stdio: ["ignore", "ignore", "inherit"] },
     );

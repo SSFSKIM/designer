@@ -184,20 +184,40 @@
     },
 
     "groupUnion": {
-      "status": "not-retuned",
+      "status": "not-measurable-by-this-matrix",
       "value": { "neckWidth": 8, "maxBulge": 2, "separationThreshold": 16 },
       "method": [
-        "C7 reported that the renderer bridge never forwarded core's mergeDistance",
-        "into these caps, so no group scene could measure the spacing it declared.",
-        "That gap is CLOSED — K2's bridge derives the union from the group's",
-        "declared mergeDistance — so the toolbar-group scenes now draw the spacing",
-        "they declare.",
+        "These three constants cannot be calibrated against the canonical matrix,",
+        "and the reason is that THE REFERENCE DOES NOT UNION AT THE ONE SPACING THE",
+        "MATRIX DECLARES. Counting connected components in the extracted silhouettes",
+        "settles it: the toolbar-group scene yields three separate bodies on both",
+        "sides, at 1572/1572/1570 px for the reference and 1769/1765/1756 px for",
+        "vitrea, against 1520 px for an unmerged 44 px capsule. Neither side fills",
+        "the 12 px gaps — a full fill would add 23% to the group's area, and the",
+        "reference adds 3.3%.",
         "",
-        "They were not retuned. The two group scenes measure a union the reference",
-        "does not obviously perform: the toolbar-group contour distance is the worst",
-        "of any calibration scene, but the residual tracks the material gap rather",
-        "than the neck geometry, and two cells is too thin a basis to move three",
-        "constants that also govern morph behaviour no fixture covers."
+        "So the scene has no union in it to compare. Confirmed by sweeping the",
+        "declared mergeDistance across 24, 12 and 4: all three produce a",
+        "byte-identical silhouette area of 5290 px, because the union blend never",
+        "engages at this separation whatever the threshold is set to. C7's flow-back",
+        "assumed the native container would reach 'one merged body' at spacing 12",
+        "and built the web side's merge distance around matching that outcome; the",
+        "assumption is refuted.",
+        "",
+        "Measuring the union aesthetics needs a scene whose members are close enough",
+        "that the reference itself merges them. That is a scenes.json addition, so it",
+        "is recorded as a scope question rather than answered here."
+      ],
+      "incidentalFinding": [
+        "The same component count exposes something the union hypothesis was hiding:",
+        "vitrea's material extends further past its contour than the reference's. Per",
+        "capsule, the reference's silhouette sits 0.37 px outside the declared shape",
+        "and vitrea's sits 1.73 px outside — about 1.4 px of extra bleed at the 0.02",
+        "detection threshold. It is what drives the group scene's silhouette IoU down",
+        "to 0.884, the worst of any well-conditioned calibration cell, since three",
+        "small bodies make IoU unusually sensitive to a uniform dilation. Not tuned:",
+        "the bleed comes from the rim and glow passes together and no single",
+        "constant in the profile isolates it."
       ]
     },
 

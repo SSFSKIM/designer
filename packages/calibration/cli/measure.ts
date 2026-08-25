@@ -155,6 +155,8 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
     );
   } else {
     shape = shapeAxisReport({
+      silhouetteAreaNative: nativeArea,
+      silhouetteAreaWeb: webArea,
       silhouetteIoU: silhouetteIoU(nativeSil, webSil),
       contourDistance: contourDistance(nativeSil, webSil),
       cornerCurvature: cornerCurvature(nativeSil, webSil),

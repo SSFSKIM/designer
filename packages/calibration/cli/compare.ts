@@ -353,11 +353,22 @@ function main(): void {
         profileKey: cell.profileKey,
         sceneId: cell.sceneId,
         webCellPath: webCell,
-        // The web capture's own cell reports samplingBackend "gpu-texture", so a
-        // GPU-tier cell is a claim about vitrea's shader math rather than about an
-        // engine's backdrop-filter. The glass-over-glass scenes are the exception
-        // the claims document names: their overlay group is necessarily `dom`.
-        tier: "texture",
+        /*
+         * Read off what drew, never off what was asked for.
+         *
+         * X9 states claims per tier and the two tiers mean different things: the
+         * texture tier is a claim about vitrea's own shader math, the dom tier a
+         * claim about an engine's backdrop-filter. A CSS-tier capture labelled
+         * `texture` would file a measurement of Chromium's blur as evidence about
+         * vitrea's optics. The capture script already resolves the renderer off
+         * the page's own GlassGroupState, so the honest label is downstream of
+         * that rather than of this orchestrator's flag.
+         *
+         * The glass-over-glass scenes are the exception the claims document
+         * names: their overlay group is necessarily `dom` even on the GPU tier,
+         * so those cells are a mixed-backend claim that neither label captures.
+         */
+        tier: options.renderer === "webgpu" ? "texture" : "dom",
         fixtureSet: cell.fixtureSet,
         blurAxis: "x",
         silhouetteThreshold: options.silhouetteThreshold,

@@ -41,6 +41,8 @@ function cell(key: ResultCellKey, overrides: Partial<CellResult> = {}): CellResu
     tier: "texture",
     capturedAt: "2026-08-25T09:00:00.000Z",
     shape: shapeAxisReport({
+      silhouetteAreaNative: 4865,
+      silhouetteAreaWeb: 4871,
       silhouetteIoU: 0.9987,
       contourDistance: { maxPx: 1.41, p95Px: 1, meanPx: 0.32, rmsPx: 0.51, sampleCount: 812 },
       cornerCurvature: {

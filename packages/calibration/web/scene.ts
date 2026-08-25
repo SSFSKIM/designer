@@ -125,12 +125,18 @@ export interface SceneReport {
   readonly rendererActive: boolean;
   readonly adapter: AdapterReport;
   /**
-   * X5's lock, as observed rather than as intended. `getConfiguration()` is the
-   * only way to read a canvas context's colour space back, and it is not in
-   * every build — where it is absent this says so instead of asserting the
-   * default.
+   * X5's lock: the colour space itself, and nothing else. It becomes a result
+   * cell's `colorSpace`, which X9 closes to `"srgb"`, so it has to stay a bare
+   * value — the reasoning lives in `canvasColorSpaceNote`.
    */
   readonly canvasColorSpace: string;
+  /**
+   * How that value was arrived at: read back from the context, taken from the
+   * document because the tier configures no canvas, or ASSUMED from the WebGPU
+   * default where `getConfiguration()` is unavailable. The distinction between
+   * the last one and the first two is the whole reason this field exists.
+   */
+  readonly canvasColorSpaceNote: string;
   readonly diagnostics: readonly { code: string; severity: string; message: string }[];
   /**
    * Anything that would make this capture a misleading data point. Non-empty
@@ -246,28 +252,46 @@ function applyPressedPose(host: HTMLElement, handle: GlassHostHandle): void {
 }
 
 /**
- * X5's sRGB lock, as observed rather than as intended.
+ * X5's sRGB lock, as observed rather than as intended — split into the VALUE and
+ * the ROUTE by which it was learned.
  *
- * On the GPU tier the answer is a property of the configured canvas context, and
- * `getConfiguration()` is the only way to read it back — where the build has no
- * such method this says so instead of asserting the default it believes applies.
+ * The split is not tidiness. X9 types a result cell's `colorSpace` as the closed
+ * `"srgb"`, because X5 locks v1 calibration to it and a cell key has to be a key.
+ * This function used to return one string carrying both the value and its
+ * provenance, so on the CSS tier the cell was handed
+ * `"srgb (CSS tier: page compositing; …)"` and the diff refused it — which meant
+ * **no dom-tier cell could be measured at all**, and went unnoticed because every
+ * run until now was GPU-tier, where the sentence happened to reduce to `"srgb"`.
+ * Prose in a key field is the bug; the report is where prose belongs.
+ *
+ * On the GPU tier the value is a property of the configured canvas context, and
+ * `getConfiguration()` is the only way to read it back. Where the build has no
+ * such method the value is the WebGPU default, and the note says that it is an
+ * assumption rather than an observation.
  *
  * On the CSS tier there is no canvas colour space to read: the glass is CSS
- * declarations composited by the page, so the colour space is the document's and
- * the honest answer names that rather than reaching for a context the tier never
- * configured. Calling `getContext("webgpu")` there would *create* one and then
- * report a default nothing drew through.
+ * declarations composited by the page, so the space is the document's. That is a
+ * fact rather than a default, and calling `getContext("webgpu")` to ask would
+ * *create* a context and then report a default nothing drew through.
  */
-function readCanvasColorSpace(root: GlassRoot): string {
+function readCanvasColorSpace(root: GlassRoot): { value: string; note: string } {
   if (root.rendererBridge?.active !== true) {
-    return "srgb (CSS tier: page compositing; no canvas colour space is configured)";
+    return {
+      value: "srgb",
+      note: "CSS tier: the glass is page-composited, so the colour space is the document's and no canvas colour space is configured.",
+    };
   }
   const context = root.plane("base").opticsCanvas.getContext("webgpu") as
     | (GPUCanvasContext & { getConfiguration?: () => { colorSpace?: string } | null })
     | null;
   const configured = context?.getConfiguration?.()?.colorSpace;
-  if (configured !== undefined) return configured;
-  return "srgb (WebGPU default; getConfiguration() unavailable in this build)";
+  if (configured !== undefined) {
+    return { value: configured, note: "read back from the configured canvas context." };
+  }
+  return {
+    value: "srgb",
+    note: "ASSUMED: the WebGPU default, because getConfiguration() is unavailable in this build. Not an observation.",
+  };
 }
 
 async function build(): Promise<SceneReport> {
@@ -446,6 +470,7 @@ async function build(): Promise<SceneReport> {
   await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
   await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
 
+  const colorSpace = readCanvasColorSpace(root);
   const renderInput = root.renderInput();
   const boundsOf = (nodeId: string): SurfaceReport["bounds"] => {
     for (const plane of renderInput?.planes ?? []) {
@@ -532,7 +557,8 @@ async function build(): Promise<SceneReport> {
           },
     rendererActive: root.rendererBridge?.active ?? false,
     adapter,
-    canvasColorSpace: readCanvasColorSpace(root),
+    canvasColorSpace: colorSpace.value,
+    canvasColorSpaceNote: colorSpace.note,
     diagnostics,
     problems,
   };

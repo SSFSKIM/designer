@@ -122,7 +122,7 @@ describe("tuned calibration profiles", () => {
       "unchanged-deliberately",
       "not-discriminating",
       "not-discriminable",
-      "not-retuned",
+      "not-measurable-by-this-matrix",
       "unmeasurable-as-specified",
       "declined",
     ]);

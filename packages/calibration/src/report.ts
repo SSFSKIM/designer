@@ -155,6 +155,27 @@ export function serializeResultCellKey(key: ResultCellKey): string {
 
 export interface ShapeAxisReport {
   readonly axis: "shape";
+  /**
+   * Extracted silhouette area per side, in pixels.
+   *
+   * Reported because it is how a reader tells a shape *difference* from a shape
+   * *measurement failure*, and the two are not distinguishable from IoU alone.
+   * The luminance-delta extractor finds the component by differencing against its
+   * backdrop, so it necessarily loses any part of the material whose level
+   * coincides with the backdrop's — and the canonical matrix contains exactly
+   * that case. A dark material over a black-and-white checkerboard is genuinely
+   * indistinguishable from the black squares it covers: measured, the native
+   * silhouette comes back at 4324 px where the declared capsule is 4865, holes
+   * punched through its own interior, while the web side comes back at 5127 by
+   * picking up its own halo. The IoU and contour figures for such a cell describe
+   * the extractor, not the geometry.
+   *
+   * A gate can therefore condition on these: an area far from the declared
+   * component's is a cell whose shape axis should not be gated. That check is
+   * only possible if the areas are on the record, so they are.
+   */
+  readonly silhouetteAreaNative: MetricValue;
+  readonly silhouetteAreaWeb: MetricValue;
   readonly silhouetteIoU: MetricValue;
   readonly contourDistanceMax: MetricValue;
   readonly contourDistanceP95: MetricValue;
@@ -168,12 +189,16 @@ export interface ShapeAxisReport {
 }
 
 export function shapeAxisReport(input: {
+  readonly silhouetteAreaNative: number;
+  readonly silhouetteAreaWeb: number;
   readonly silhouetteIoU: number;
   readonly contourDistance: ContourDistanceReport;
   readonly cornerCurvature: CornerCurvatureReport;
 }): ShapeAxisReport {
   return {
     axis: "shape",
+    silhouetteAreaNative: metricValue(input.silhouetteAreaNative, "px^2"),
+    silhouetteAreaWeb: metricValue(input.silhouetteAreaWeb, "px^2"),
     silhouetteIoU: metricValue(input.silhouetteIoU, "ratio"),
     contourDistanceMax: metricValue(input.contourDistance.maxPx, "px"),
     contourDistanceP95: metricValue(input.contourDistance.p95Px, "px"),
@@ -431,8 +456,12 @@ export interface CellResult {
  * version 1 carried one unlabelled figure that was in fact the web side only.
  * A version-1 cell cannot be read as a version-2 cell, and silently treating a
  * web-only figure as a comparison is exactly the misreading the bump prevents.
+ *
+ * 3 (C9a): the shape axis carries each side's extracted silhouette area, so a
+ * reader — or a gate — can tell a shape difference from a failure of the
+ * extractor to find the shape. See `ShapeAxisReport`.
  */
-export const RESULT_MATRIX_SCHEMA_VERSION = 2;
+export const RESULT_MATRIX_SCHEMA_VERSION = 3;
 
 /** Cells indexed by their serialised key. */
 export interface ResultMatrix {
