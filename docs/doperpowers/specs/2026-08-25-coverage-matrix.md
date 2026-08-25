@@ -89,7 +89,7 @@ material on a view.
 | native item | citation | vitrea status | notes |
 | --- | --- | --- | --- |
 | `GlassEffectContainer<Content>` — "combines multiple Liquid Glass shapes into a single shape that can morph individual shapes into one another" | [swiftui/glasseffectcontainer](https://developer.apple.com/documentation/swiftui/glasseffectcontainer) | `replicated+measured` — `GlassGroup` (`packages/react/src/group.tsx`); measured in `checkerboard__toolbar-group__rest` and `photo__toolbar-group__rest` | |
-| `init(spacing: CGFloat? = nil)` — "the higher the spacing, the sooner blending begins as the shapes approach each other" | [same](https://developer.apple.com/documentation/swiftui/glasseffectcontainer) | `replicated+measured, and the measurement is a refutation` — `mergeDistance` on `GlassGroup`, wired into `DEFAULT_GROUP_UNION` by corrective K3 (merge 35b92b6) | The one row where measurement overturned a design assumption. C9a: **the reference does not union at the 12px spacing the canonical matrix declares** — three separate bodies on both sides, and sweeping merge distance across 24/12/4 gives a byte-identical silhouette. The union caps are therefore unmeasurable by this scene set (§Surprises). A tighter canonical scene is a named parent-impact item. |
+| `init(spacing: CGFloat? = nil)` — "the higher the spacing, the sooner blending begins as the shapes approach each other" | [same](https://developer.apple.com/documentation/swiftui/glasseffectcontainer) | `replicated+measured` — and the measurement is a refutation — `mergeDistance` on `GlassGroup`, wired into `DEFAULT_GROUP_UNION` by corrective K3 (merge 35b92b6) | The one row where measurement overturned a design assumption. C9a: **the reference does not union at the 12px spacing the canonical matrix declares** — three separate bodies on both sides, and sweeping merge distance across 24/12/4 gives a byte-identical silhouette. The union caps are therefore unmeasurable by this scene set (§Surprises). A tighter canonical scene is a named parent-impact item. |
 | The real rationale: **"glass can not sample other glass, so having nearby glass elements in different containers will result in inconsistent behavior"** — the container is a shared sampling region | [WWDC25 session 323](https://developer.apple.com/videos/play/wwdc2025/323/) | `replicated+measured` — one masked backdrop proxy per sampling group, `samplingPadding ≥ 3σ`, `mergeDistance ≥ samplingPadding`; byte-exact on Chromium across 122 capture variants (spike S1) | vitrea's proxy model is a structurally *different* mechanism that lands on the same constraint. This is the strongest architectural correspondence in the matrix. |
 | Rest-state blending rule — container spacing exceeding interior layout spacing blends at rest | [applying-liquid-glass-to-custom-views](https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views) | `replicated, unmeasured` — `packages/geometry/test/union.test.ts` | Cannot be measured against the reference for the reason in the row above. |
 | Modifier ordering — apply `glassEffect` after other appearance-affecting modifiers | [same](https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views) | n/a — no modifier ordering exists in a registration-based API | Recorded as a genuine non-applicability rather than a gap. |
@@ -347,7 +347,7 @@ from the same spring. What it does not have is anything below the fourth row.
 | native behavior | what Apple says | citation | vitrea status | notes |
 | --- | --- | --- | --- | --- |
 | **Glass cannot sample glass** | "glass can not sample other glass, so having nearby glass elements in different containers will result in inconsistent behavior" | S323 | `replicated+measured` — and vitrea's structural analogue is *harder*: S1 established that an overlay-plane proxy **necessarily** samples the base plane's rendered output, so overlay material calibrates against a glassed backdrop | The consequence is recorded honestly: the `glass-over-glass` scenes "can never be a clean texture-tier claim" and resolve to `gpu-texture+css-backdrop` with `refraction: "approximate"` even on the GPU tier. |
-| Blending is proximity-driven and continuous — "as shapes near one another, their paths start to blend" | verbatim | [GlassEffectContainer](https://developer.apple.com/documentation/swiftui/glasseffectcontainer) | `replicated+measured, refuted at the declared spacing` — see §1.2 | The union caps (neck width, max bulge, separation threshold) are calibration-delegated and remain **unmeasured**, because the reference does not union at 12px. |
+| Blending is proximity-driven and continuous — "as shapes near one another, their paths start to blend" | verbatim | [GlassEffectContainer](https://developer.apple.com/documentation/swiftui/glasseffectcontainer) | `replicated+measured` (refuted at the declared spacing) — see §1.2 | The union caps (neck width, max bulge, separation threshold) are calibration-delegated and remain **unmeasured**, because the reference does not union at 12px. |
 | Containers **enforce uniform adaptation** across their members | "UIGlassContainerEffect does more than just enabling animations. It **enforces a uniform adaptation**! Glass dynamically adapts to its background, but still gets a consistent appearance." | S284 | `replicated, unmeasured` — a `GlassGroup` carries one material profile and one adaptation policy for all members, and per-node `variant` falls back to the group's | An exact correspondence, and the reason vitrea's variant-mixing warning is scoped to the group. |
 | Grouping is **mandatory for correctness**, not polish | "This grouping is essential for visual correctness." | S323 | `replicated+measured` | vitrea's version is stronger: a group that is not grouped does not merely look inconsistent, it fails the S1 proxy constraints (`mergeDistance ≥ samplingPadding`, cross-group proxy-rect overlap) and core reports it. |
 | Shapes merge **like liquid droplets** | "As long as there is space between them, they appear as two separate views. Only if they get closer, they start **merging like small droplets of water**." / "grouped glass elements can fluidly join and separate using a liquid visual effect." | S284; [S310](https://developer.apple.com/videos/play/wwdc2025/310/) | `replicated, unmeasured` — bounded smooth-min proximity union with capped neck width, max bulge, and separation threshold "so nothing reads as jelly" (§Geometry) | The caps are calibration-delegated and remain unmeasured because the reference does not union at the declared spacing (§1.2). |
@@ -411,7 +411,7 @@ against Apple.
 | **Differentiate Without Color** | **Verified negative.** The phrase appears nowhere in the full text of ~172 HIG pages, nowhere in the Technology Overviews or SwiftUI glass documentation, and in no WWDC25 or WWDC26 transcript examined. The only artifacts are the API symbols themselves (`accessibilityDifferentiateWithoutColor`, `shouldDifferentiateWithoutColor`, `differentiateWithoutColorDidChangeNotification`), which say nothing about the material. | — (negative finding) | `absent, undecided` | vitrea's `ACCESSIBILITY_FLAGS` is exactly four values and this is not one of them. It appears **once** in vitrea's documents — incidentally, in a C7 surprise about macOS environment values — and never as policy (§6). Because vitrea has no author tint, the mode is arguably moot today; it stops being moot the moment tint ships. |
 | **Show Button Shapes** — Apple states the *developer obligation* and not the *system substitution* | WWDC26 SOTU, in the same breath as glass accessibility: "Liquid Glass seamlessly adapts to a variety of accessibility settings… And now macOS 27 also supports the **'show borders' environment value**, just like iOS. So you can adapt your macOS app's custom controls for this setting as well." The symbol itself: "interactive custom controls such as buttons should be drawn in such a way that their **edges and borders are clearly visible**." | [WWDC26 102](https://developer.apple.com/videos/play/wwdc2026/102/); [accessibilityShowButtonShapes](https://developer.apple.com/documentation/swiftui/environmentvalues/accessibilityshowbuttonshapes) | `absent, undecided` | Never mentioned in any vitrea document (§6). Directly relevant, and the obligation is explicitly aimed at **custom controls** — which is all vitrea ships. A glass button whose only affordance is a rim highlight is precisely what this mode exists to fix, and vitrea already has a `border: "strong"` axis that would serve it unchanged. |
 | `forced-colors` / a system colour mandate | Not a Liquid Glass topic in Apple's sources — it is a web platform feature with no direct native analogue | — | `replicated+measured` — `{ glass: "none", colorSource: "system", occlusion: "opaque", border: "strong", foreground: "near-monochrome" }`; asserted in `packages/platform-web/e2e/shared/media-policy.spec.ts` | A row where vitrea has a capability the native side has no equivalent for, and handles it by removing glass entirely — the right call. |
-| **Accessibility is the one axis where the web side can do more than native** | — | — | recorded fact | macOS exposes the display modes as read-only system state; vitrea sets them per-render through `accessibilityOverrides`. The *native side* is the constraint on this axis (§Surprises, C7). |
+| **Accessibility is the one axis where the web side can do more than native** | — | — | n/a — a recorded asymmetry, not a gap | macOS exposes the display modes as read-only system state; vitrea sets them per-render through `accessibilityOverrides`. The *native side* is the constraint on this axis (§Surprises, C7). |
 
 ### 3.9 Legibility rules and the content-layer prohibition
 
@@ -444,5 +444,217 @@ against Apple.
 | native behavior | what Apple says | citation | vitrea status | notes |
 | --- | --- | --- | --- | --- |
 | Combine custom effects into a container for performance | "make sure to combine them using a GlassEffectContainer, which helps optimize performance while fluidly morphing Liquid Glass shapes into each other." / AppKit's container exists for "reducing the number of passes required to render similar glass effect views." | ALG; [NSGlassEffectContainerView](https://developer.apple.com/documentation/appkit/nsglasseffectcontainerview) | `replicated+measured` — per-group field pass (instances → group field → one optical pass); blur/analysis pyramids belong to `BackdropSource` and rebuild at most once per dirty source per frame | vitrea's invariant is stricter and is enforced by a test (`packages/renderer-webgpu/test/dirty-epoch.test.ts`). |
-| Limit simultaneous effects | "Creating too many Liquid Glass effect containers and applying too many effects to views outside of containers can degrade performance." | ALG | `replicated+measured` — the quality governor, with long hysteresis and cooldown, never switching tiers mid-interaction | Measured against vitrea's own 2ms hypothesis: mobile 1.47ms median, desktop 2.20ms, **p95 over budget on both**. Apple publishes no budget to compare against. |
+| The mechanism behind the saving is **one sampling pass per group** | Grouping "improves the performance of the glass effect, since it only needs **one sampling pass for the entire group**." | [S310](https://developer.apple.com/videos/play/wwdc2025/310/) | `replicated+measured` — vitrea's group field pass is exactly this: instances → one group SDF/coverage field → one optical pass, with blur/analysis pyramids owned by the `BackdropSource` and rebuilt at most once per dirty source per frame (`packages/renderer-webgpu/test/dirty-epoch.test.ts`) | Apple states the property; vitrea enforces it with a test. |
+| Limit simultaneous effects | "Creating too many Liquid Glass effect containers and applying too many effects to views outside of containers can degrade performance." | ALG | `replicated+measured` — the quality governor, with long hysteresis and cooldown, never switching tiers mid-interaction | Measured against vitrea's own 2ms hypothesis: mobile 1.47ms median, desktop 2.20ms, **p95 over budget on both**. Apple publishes no budget to compare against — every quantitative performance statement in this row is vitrea's own. |
+| OS 27 makes glass a named target of a new profiling metric | "The new hitches metric surfaces issues in more places than scrolling, like understanding how apps use Liquid Glass and SwiftUI views." | [WWDC26 258](https://developer.apple.com/videos/play/wwdc2026/258/) | n/a | Apple treating glass cost as a first-class profiling concern corroborates that vitrea's governor is not over-engineering. |
+| **Not Apple's guidance** — a third-party engineering talk hosted by Apple | CNN's team: "The effect is GPU intensive, especially in scrollable or frequently updated views. We limit its use in high frequency UI areas like list and animations, reserving it for static or top level components like the tab bar and toolbars." And on nesting: applying the effect to both parent and child "led to visual redundancy and double translucency with layered blur and unpredictable rendering." | [Meet with Apple 256](https://developer.apple.com/videos/play/meet-with-apple/256/) | n/a | Flagged explicitly so it is never quoted as Apple's position. It is a practitioner report — and it independently reproduces both the glass-on-glass hazard and the content-layer rule from the field. |
 | tvOS hardware floor: Apple TV 4K (2nd gen) and newer; older devices keep the current appearance | verbatim | ALG | n/a — but the analogue exists | vitrea's honest-degradation ladder (WebGPU → CSS with an enumerated `demotionReason`) is the same idea expressed for a different substrate, and is parent acceptance #5. |
+
+---
+
+## 4. Headline numbers
+
+174 native items enumerated across the three layers. 20 of them have no vitrea
+analogue by nature rather than by omission (AppKit expressing the same material a
+third time, visionOS's older unrelated material, tvOS focus gating, Apple
+documenting no rule for a thing vitrea also has no rule for). That leaves **154
+rows on which vitrea can be scored.**
+
+| layer | rows | `replicated+measured` | `replicated, unmeasured` | `partial` | `excluded by decision` | `absent, undecided` | n/a |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| §1 Material API surface | 52 | 10 | 5 | 10 | 4 | **13** | 10 |
+| §2 Component families | 26 | 1 | 2 | 3 | 7 | **10** | 3 |
+| §3 Behavioral system | 96 | 14 | 16 | 17 | 7 | **35** | 7 |
+| **total** | **174** | **25** | **23** | **30** | **18** | **58** | **20** |
+
+Read as proportions of the 154 scoreable rows:
+
+- **16% (25) are replicated and measured.** This is the honest ceiling of what
+  vitrea can currently claim, and it is concentrated in three places: the plane
+  and sandwich model, the container-sampling constraint, and the corner geometry.
+- **15% (23) are replicated but unmeasured** — built, tested for mechanics, never
+  compared to the reference. The motion axis is the bulk of it, and it is
+  unmeasured for a hard reason: no frame sequences were ever captured.
+- **19% (30) are partial** — one half present. Almost every one of these is the
+  same shape: vitrea has the *channel* and not the *law that drives it*
+  (thickness exists but is not wired to opacity; foreground adapts but mirrors a
+  material flip that no longer happens; lensing scales with size but shadow does
+  not).
+- **12% (18) are excluded by a recorded decision.** Every one traces to a
+  §Out of scope line or a Decision Log entry. Only one of them — neighbour glow
+  diffusion — was excluded with the native behavior explicitly named.
+- **38% (58) are absent and undecided.** This is the number the document exists
+  to produce. It is not a to-do list; most of these items are correctly out of a
+  v1's reach. What matters is that **58 native items have never been ruled on**,
+  and a v1 cut list of 18 entries against 58 unconsidered items means the cut
+  list was not written against an enumeration of the reference.
+
+Three cross-cutting facts the per-layer table hides:
+
+1. **The component layer is where vitrea is thinnest, and it is thinnest by
+   design.** One measured row out of 26. That is the correct trade for a v1 whose
+   thesis is the *material*, not the widget set — but it means the phrase
+   "Liquid Glass for the web" is carrying far more weight in the component
+   dimension than the code supports.
+2. **Two of the four declared calibration profiles have zero captures**, both
+   accessibility modes, and the canonical 2× keys are unreachable on the capture
+   machine. So the accessibility rows in §3.8 and every 2× claim rest on
+   vitrea's own policy and nothing else. Parent acceptance #7 is open on exactly
+   this, and its blocker is a human toggling System Settings, not code.
+3. **The reference has already moved.** vitrea calibrates against macOS 26.5;
+   OS 27 tuned the material's diffusion, added a darkened edge and brighter
+   specular highlights, and added a user-facing tint slider — all reaching
+   existing apps with no recompile. Nothing in vitrea's roadmap prices a
+   reference refresh, and Apple explicitly warns that glass "can appear
+   differently between system versions."
+
+## 5. The three highest-value absences, for a post-v1 roadmap
+
+Chosen on evidence rather than effort: each is measured or measurable, each
+blocks a claim vitrea already wants to make, and each is a *system* rather than a
+feature.
+
+**1. The size term on the material — opacity first, then shadow and scattering.**
+The reference passes 0.88 of the backdrop at a 32px span and 0.56 at 96px; vitrea
+passes one fitted constant at every size. This is the only open gap that is
+already quantified, already named as a parent-impact item, already the identified
+mechanism behind the holdout overfitting signal, and already implicated in five
+separate native rows (§3.2). It is also the gap that makes the *existing* claim
+weaker than it needs to be: a single `tintAlpha` fitted across a size sweep must
+over-opacify the large end and under-opacify the small end, so every cell in the
+matrix is paying for its absence. Nothing else on this list improves a number
+that is already published.
+
+**2. An author-facing tint — implemented as Apple implements it, or not at
+all.** `Glass.tint(_:)` and `UIGlassEffect.tintColor` are the material's only
+emphasis mechanism, and their absence cascades: no prominent button style (§1.6),
+no way to follow Apple's "apply color to the background rather than to symbols"
+guidance (§3.4), and Differentiate Without Color stays moot only because there is
+no colour to differentiate (§3.8). The reason this belongs on the list rather
+than in a corner is the trap: Apple's tint is not a fill but "a range of tones
+mapped to content brightness underneath… changing its hue, brightness and
+saturation depending on what's behind," with vibrancy — and Apple names the flat
+alternative as a failure ("a solid fill… breaks the visual character of Liquid
+Glass"). Today an author reaching for emphasis in vitrea has no option *but* the
+failure mode. Shipping the naive version would be worse than shipping nothing,
+which is precisely why it needs a decision rather than a backlog entry.
+
+**3. The content-layer prohibition, as an enforced contract rather than
+guidance.** Apple's single most emphatic rule — "Don't use Liquid Glass in the
+content layer", restated for tables by name, restated again at OS 27 with a
+mechanical reason ("with nothing scrolling underneath there's nothing for it to
+refract") — has zero expression anywhere in vitrea: not in the API, not in a
+diagnostic, not in the docs, and the phrase itself appears nowhere in any spec.
+Meanwhile `GlassSurface asChild` will glass a list row, a `<span>`, or a static
+page background without comment. This is the highest-leverage item on the list
+because it costs the least and protects the most: vitrea already has a diagnostics
+channel, already tracks a backdrop dirty epoch (so it knows when nothing scrolls
+underneath), and already ships dev-mode errors for overlap and clear-without-
+dimming. A project whose stated tiebreaker is fidelity is currently silent on the
+one rule Apple repeats most, and a library that makes the forbidden thing the
+easy thing will be measured on what its users ship, not on its calibration cells.
+
+## 6. Flagged prominently — native items the composite spec never mentions
+
+Every item below was checked by grep across `docs/doperpowers/specs/` and
+`docs/doperpowers/spikes/`. "Never mentioned" means **zero occurrences** in the
+composite spec and in `c9a-fidelity-claims.md`. These are not disagreements with
+vitrea's scope; they are things vitrea's scope never had an opinion about, which
+is a different and more useful finding.
+
+**Material API — never mentioned:**
+
+- `Glass.identity` — the documented way to animate glass to nothing in place.
+  Every "identity" hit in the spec is byte-identity or an unrelated phrase.
+- `glassEffectUnion(id:namespace:)` — union by shared identity, at rest,
+  independent of distance. vitrea unions by proximity only.
+- `GlassEffectTransition`, `matchedGeometry`, `materialize` — the named transition
+  kinds. vitrea has one hardcoded morph behaviour and no vocabulary for the other.
+- `backgroundExtensionEffect()` / `UIBackgroundExtensionView` /
+  `NSBackgroundExtensionView` — and note this is *not* covered by the scroll-edge
+  exclusion. It mirrors adjacent content and blurs the copies.
+- `safeAreaBar(edge:…)` — the glass-aware safe-area inset.
+- The glass button styles by name: `.glass`, `.glassProminent`, `glass(_:)`,
+  `GlassButtonStyle`, `GlassProminentButtonStyle`. The word "prominent" appears
+  zero times anywhere in vitrea's documents.
+- `ToolbarSpacer` and `sharedBackgroundVisibility(_:)` — the entire vocabulary for
+  splitting a toolbar's shared glass background, which vitrea's `GlassToolbar`
+  cannot do.
+- The toolbar-minimization family and `tabBarMinimizeBehavior` — the bars-recede
+  behaviour, in both its 26.0 and 27.0 forms.
+- `UIDesignRequiresCompatibility` — the native opt-out, and the fact that OS 27
+  removes it.
+- Platform scoping: `tvOS`, `watchOS`, and `visionOS` appear nowhere as
+  considerations, including the fact that the core glass symbols deliberately
+  exclude visionOS while the concentricity and scroll-edge symbols include it.
+
+**Behavioral system — never mentioned:**
+
+- **"content layer"** — zero occurrences. Apple's central prohibition, and the
+  name of the thing glass is defined against. See §5, item 3.
+- **"vibrancy"** — zero occurrences. The mechanism by which anything placed on
+  Apple's glass stays legible, automatic on the native side.
+- **The 35% dimming figure** — zero occurrences, despite being the only number
+  Apple publishes about this material and despite clear-variant dimming being an
+  explicitly calibration-delegated unknown in vitrea's own spec. It was free.
+- **Size-gated behavioral switching** — that small elements flip light/dark and
+  large ones deliberately do not, because "their surface area is too big and
+  transitions like these would be distracting."
+- **Ambient colour spill onto large surfaces** from nearby (not behind) content
+  — "spill" has zero occurrences. (The word "ambient" does appear four times,
+  but only as "reduced ambient tint" in the accessibility policy, a different
+  quantity entirely.)
+- **Content-aware shadow opacity** — shadow deepening over text and lightening
+  over solid light backgrounds. vitrea's shadow has no backdrop input, and the
+  canonical scene matrix is nearly blind to the behavior.
+- **Window / scene focus state** as a material state axis — glass receding when a
+  window loses focus, and "element overlap and focus state" being named by Apple
+  as system-managed adaptation inputs.
+- **Touch versus pointer intensity** — Apple gives direct touch "greater
+  emphasis" and a trackpad "a more subdued effect."
+- **Motion-reactive specular highlights** — hedged by Apple ("in some cases"),
+  unhedged in its consumer material, and unreachable on desktop web, which is a
+  reason to decide explicitly rather than a reason to be silent.
+- **Show Button Shapes / `accessibilityShowButtonShapes`** — and Apple's
+  obligation here is aimed specifically at *custom controls*, which is all vitrea
+  ships. vitrea already has the `border: "strong"` axis that would serve it.
+- **Differentiate Without Color** — appears once, incidentally, in a C7 surprise
+  about which macOS environment values are writable. Never as policy. (Apple in
+  turn documents no relationship between this mode and Liquid Glass at all, so
+  this one is a shared blank rather than a one-sided gap.)
+- **The concentricity distance gradient** — "the closer the view is to the
+  container's corner, the more its radius should match." vitrea's level-set inset
+  is position-independent, so the most rigorously measured geometry in the
+  project implements a different rule from the one Apple states, and no vitrea
+  document notices.
+- **Hardware and window corners as the top of the concentricity chain** — the
+  viewport as a container.
+- **Non-interactive elements should not be glass** — titles and status
+  indicators. `GlassSurface` glasses a `<span>` without comment.
+- **Glass/content intersection at rest** — Apple says reposition or scale the
+  content; vitrea checks glass-on-glass overlap and never glass-over-content.
+- **Materialize / dematerialize as lensing modulation rather than a fade**,
+  including the explicit UIKit instruction to animate the effect and never the
+  alpha.
+- **App icons and widgets** as members of the Liquid Glass system — including
+  that widget glass is user-selected and involves desaturation, and that icon
+  glass in clear mode is deliberately pinned *outside* the OS 27 user slider.
+- **Keyboard accessory views** — the clearest automatic-versus-opt-in statement
+  Apple publishes. ("accessory" has zero occurrences; the single "keyboard"
+  hit is acceptance #1's IME requirement, unrelated to the accessory bar.)
+
+**Also never mentioned, and this one is about vitrea's own premise:** Apple's
+explicit disclaimer that these effects "can appear differently between system
+versions", and the fact that OS 27 has already changed the material's diffusion,
+edge, and specular highlights with no recompile required. vitrea's fidelity claim
+is correctly profile-keyed, which means it is *structurally* honest about this —
+but no vitrea document states that the reference is a moving target or prices the
+cost of tracking it.
+
+---
+
+*Compiled 2026-08-25. Native side: Apple DocC JSON, HIG page text, and WWDC
+transcripts as cited per row. vitrea side: `main` at 24c4a7d, with K5 (CSS-tier
+opacity coherence) and C9d (release gates) in flight — neither changes any row's
+status, and K5's landing is what would move the dom tier's rows in §3 out of
+"more than 2× out of step with the texture tier."*
