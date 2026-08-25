@@ -24,6 +24,7 @@ import { CalibrationError } from "./errors";
 import type { ContourDistanceReport, CornerCurvatureReport } from "./metrics/shape";
 import type {
   EdgeSpreadReport,
+  InteriorLevelReport,
   LuminanceTransferReport,
   RimIntensityReport,
   ShadowFalloffReport,
@@ -185,57 +186,145 @@ export function shapeAxisReport(input: {
   };
 }
 
+/**
+ * The material axis, reported **per side wherever a side exists**.
+ *
+ * Every sub-metric that describes one image — the blur width, the rim, the
+ * exterior shadow, the interior level and spread — carries a `Native` and a
+ * `Web` figure measured by the same estimator over the same mask. C7 shipped the
+ * blur, rim and shadow figures for the web side alone, which was enough to
+ * describe vitrea's own material and not enough to tune it: a target needs a
+ * number on the reference side too, and "the gap" is not a quantity until both
+ * halves are measured the same way.
+ *
+ * The comparative sub-metrics (`tint*`, and the `luminance*` pair) keep their
+ * existing shape, since those estimators were already two-sided.
+ *
+ * Optional fields mean **not identifiable on this scene**, never zero:
+ *
+ *   - `luminance*` is absent on a solid-colour backdrop, where no slope exists
+ *     to fit (`tryLinearFit` refuses a constant regressor by design).
+ *   - `blur*` is absent where the backdrop supplies no single resolvable step
+ *     edge inside the silhouette.
+ *
+ * `interiorMean*` and `interiorStdDev*` are the two that are always defined, on
+ * every scene and both sides, which is why they carry the frosting comparison
+ * that the blur fit cannot on this fixture set.
+ */
 export interface MaterialAxisReport {
   readonly axis: "material";
-  readonly blurSigma: MetricValue;
-  readonly blurFitResidual: MetricValue;
-  readonly luminanceSlopeNative: MetricValue;
-  readonly luminanceSlopeWeb: MetricValue;
-  readonly luminanceOffsetNative: MetricValue;
-  readonly luminanceOffsetWeb: MetricValue;
-  readonly luminanceR2Native: MetricValue;
-  readonly luminanceR2Web: MetricValue;
-  readonly tintDeltaL: MetricValue;
-  readonly tintDeltaA: MetricValue;
-  readonly tintDeltaB: MetricValue;
-  readonly tintChromaDelta: MetricValue;
-  readonly tintHueShift: MetricValue;
-  readonly rimPeakLuminance: MetricValue;
-  readonly rimPeakDistance: MetricValue;
-  readonly rimFwhm: MetricValue;
-  readonly shadowPeakDarkening: MetricValue;
-  readonly shadowPeakDistance: MetricValue;
-  readonly shadowDecayLength: MetricValue;
+  /** Gaussian-equivalent σ of the backdrop step seen through each side. */
+  readonly blurSigmaNative?: MetricValue;
+  readonly blurSigmaWeb?: MetricValue;
+  /** Fit residual as a fraction of the step height. Large means σ is not identifiable. */
+  readonly blurFitResidualNative?: MetricValue;
+  readonly blurFitResidualWeb?: MetricValue;
+  readonly luminanceSlopeNative?: MetricValue;
+  readonly luminanceSlopeWeb?: MetricValue;
+  readonly luminanceOffsetNative?: MetricValue;
+  readonly luminanceOffsetWeb?: MetricValue;
+  readonly luminanceR2Native?: MetricValue;
+  readonly luminanceR2Web?: MetricValue;
+  /** Interior level and spread, linear light, over the shared mask. Always present. */
+  readonly interiorMeanNative: MetricValue;
+  readonly interiorMeanWeb: MetricValue;
+  readonly interiorMeanBackdrop: MetricValue;
+  readonly interiorStdDevNative: MetricValue;
+  readonly interiorStdDevWeb: MetricValue;
+  readonly interiorStdDevBackdrop: MetricValue;
+  readonly tintDeltaLNative: MetricValue;
+  readonly tintDeltaLWeb: MetricValue;
+  readonly tintDeltaANative: MetricValue;
+  readonly tintDeltaAWeb: MetricValue;
+  readonly tintDeltaBNative: MetricValue;
+  readonly tintDeltaBWeb: MetricValue;
+  readonly tintChromaDeltaNative: MetricValue;
+  readonly tintChromaDeltaWeb: MetricValue;
+  readonly tintHueShiftNative: MetricValue;
+  readonly tintHueShiftWeb: MetricValue;
+  readonly rimPeakLuminanceNative: MetricValue;
+  readonly rimPeakLuminanceWeb: MetricValue;
+  readonly rimPeakDistanceNative: MetricValue;
+  readonly rimPeakDistanceWeb: MetricValue;
+  readonly rimFwhmNative: MetricValue;
+  readonly rimFwhmWeb: MetricValue;
+  readonly shadowPeakDarkeningNative: MetricValue;
+  readonly shadowPeakDarkeningWeb: MetricValue;
+  readonly shadowPeakDistanceNative: MetricValue;
+  readonly shadowPeakDistanceWeb: MetricValue;
+  readonly shadowDecayLengthNative: MetricValue;
+  readonly shadowDecayLengthWeb: MetricValue;
 }
 
-export function materialAxisReport(input: {
-  readonly blur: EdgeSpreadReport;
-  readonly luminance: LuminanceTransferReport;
+/** One side's single-image material measurements. */
+export interface MaterialSideInput {
+  readonly blur?: EdgeSpreadReport;
+  readonly interior: InteriorLevelReport;
   readonly tint: TintResponseReport;
   readonly rim: RimIntensityReport;
   readonly shadow: ShadowFalloffReport;
+}
+
+export function materialAxisReport(input: {
+  readonly native: MaterialSideInput;
+  readonly web: MaterialSideInput;
+  readonly backdropInterior: InteriorLevelReport;
+  /** Absent on a solid-colour backdrop, where no transfer slope is identifiable. */
+  readonly luminance?: LuminanceTransferReport;
 }): MaterialAxisReport {
+  const { native, web, luminance } = input;
   return {
     axis: "material",
-    blurSigma: metricValue(input.blur.sigmaPx, "px"),
-    blurFitResidual: metricValue(input.blur.residualRms, "ratio"),
-    luminanceSlopeNative: metricValue(input.luminance.native.slope, "ratio"),
-    luminanceSlopeWeb: metricValue(input.luminance.web.slope, "ratio"),
-    luminanceOffsetNative: metricValue(input.luminance.native.offset, "luminance"),
-    luminanceOffsetWeb: metricValue(input.luminance.web.offset, "luminance"),
-    luminanceR2Native: metricValue(input.luminance.native.r2, "ratio"),
-    luminanceR2Web: metricValue(input.luminance.web.r2, "ratio"),
-    tintDeltaL: metricValue(input.tint.deltaL, "oklab"),
-    tintDeltaA: metricValue(input.tint.deltaA, "oklab"),
-    tintDeltaB: metricValue(input.tint.deltaB, "oklab"),
-    tintChromaDelta: metricValue(input.tint.chromaDelta, "oklab"),
-    tintHueShift: metricValue(input.tint.hueShiftDegrees, "degrees"),
-    rimPeakLuminance: metricValue(input.rim.peakLuminance, "luminance"),
-    rimPeakDistance: metricValue(input.rim.peakDistancePx, "px"),
-    rimFwhm: metricValue(input.rim.fwhmPx, "px"),
-    shadowPeakDarkening: metricValue(input.shadow.peakDarkening, "luminance"),
-    shadowPeakDistance: metricValue(input.shadow.peakDistancePx, "px"),
-    shadowDecayLength: metricValue(input.shadow.decayLengthPx, "px"),
+    ...(native.blur === undefined
+      ? {}
+      : {
+          blurSigmaNative: metricValue(native.blur.sigmaPx, "px"),
+          blurFitResidualNative: metricValue(native.blur.residualRms, "ratio"),
+        }),
+    ...(web.blur === undefined
+      ? {}
+      : {
+          blurSigmaWeb: metricValue(web.blur.sigmaPx, "px"),
+          blurFitResidualWeb: metricValue(web.blur.residualRms, "ratio"),
+        }),
+    ...(luminance === undefined
+      ? {}
+      : {
+          luminanceSlopeNative: metricValue(luminance.native.slope, "ratio"),
+          luminanceSlopeWeb: metricValue(luminance.web.slope, "ratio"),
+          luminanceOffsetNative: metricValue(luminance.native.offset, "luminance"),
+          luminanceOffsetWeb: metricValue(luminance.web.offset, "luminance"),
+          luminanceR2Native: metricValue(luminance.native.r2, "ratio"),
+          luminanceR2Web: metricValue(luminance.web.r2, "ratio"),
+        }),
+    interiorMeanNative: metricValue(native.interior.mean, "luminance"),
+    interiorMeanWeb: metricValue(web.interior.mean, "luminance"),
+    interiorMeanBackdrop: metricValue(input.backdropInterior.mean, "luminance"),
+    interiorStdDevNative: metricValue(native.interior.stdDev, "luminance"),
+    interiorStdDevWeb: metricValue(web.interior.stdDev, "luminance"),
+    interiorStdDevBackdrop: metricValue(input.backdropInterior.stdDev, "luminance"),
+    tintDeltaLNative: metricValue(native.tint.deltaL, "oklab"),
+    tintDeltaLWeb: metricValue(web.tint.deltaL, "oklab"),
+    tintDeltaANative: metricValue(native.tint.deltaA, "oklab"),
+    tintDeltaAWeb: metricValue(web.tint.deltaA, "oklab"),
+    tintDeltaBNative: metricValue(native.tint.deltaB, "oklab"),
+    tintDeltaBWeb: metricValue(web.tint.deltaB, "oklab"),
+    tintChromaDeltaNative: metricValue(native.tint.chromaDelta, "oklab"),
+    tintChromaDeltaWeb: metricValue(web.tint.chromaDelta, "oklab"),
+    tintHueShiftNative: metricValue(native.tint.hueShiftDegrees, "degrees"),
+    tintHueShiftWeb: metricValue(web.tint.hueShiftDegrees, "degrees"),
+    rimPeakLuminanceNative: metricValue(native.rim.peakLuminance, "luminance"),
+    rimPeakLuminanceWeb: metricValue(web.rim.peakLuminance, "luminance"),
+    rimPeakDistanceNative: metricValue(native.rim.peakDistancePx, "px"),
+    rimPeakDistanceWeb: metricValue(web.rim.peakDistancePx, "px"),
+    rimFwhmNative: metricValue(native.rim.fwhmPx, "px"),
+    rimFwhmWeb: metricValue(web.rim.fwhmPx, "px"),
+    shadowPeakDarkeningNative: metricValue(native.shadow.peakDarkening, "luminance"),
+    shadowPeakDarkeningWeb: metricValue(web.shadow.peakDarkening, "luminance"),
+    shadowPeakDistanceNative: metricValue(native.shadow.peakDistancePx, "px"),
+    shadowPeakDistanceWeb: metricValue(web.shadow.peakDistancePx, "px"),
+    shadowDecayLengthNative: metricValue(native.shadow.decayLengthPx, "px"),
+    shadowDecayLengthWeb: metricValue(web.shadow.decayLengthPx, "px"),
   };
 }
 
@@ -334,8 +423,16 @@ export interface CellResult {
   readonly motion?: MotionAxisReport;
 }
 
-/** Bumped only when the on-disk shape changes incompatibly. */
-export const RESULT_MATRIX_SCHEMA_VERSION = 1;
+/**
+ * Bumped only when the on-disk shape changes incompatibly.
+ *
+ * 2 (C9a): the material axis became two-sided. Its single-image sub-metrics —
+ * blur, rim, shadow, interior level — grew required `Native`/`Web` pairs where
+ * version 1 carried one unlabelled figure that was in fact the web side only.
+ * A version-1 cell cannot be read as a version-2 cell, and silently treating a
+ * web-only figure as a comparison is exactly the misreading the bump prevents.
+ */
+export const RESULT_MATRIX_SCHEMA_VERSION = 2;
 
 /** Cells indexed by their serialised key. */
 export interface ResultMatrix {

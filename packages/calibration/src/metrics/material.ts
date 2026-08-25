@@ -27,7 +27,7 @@ import {
   type CalibrationImage,
   type PixelRect,
 } from "../image";
-import { distanceToSeeds, type Silhouette } from "../silhouette";
+import { distanceToSeeds, silhouetteBounds, type Silhouette } from "../silhouette";
 import { linearFit, minimiseGoldenSection, normalCdf, tryLinearFit, type LinearFit } from "../stats";
 
 function assertSilhouetteMatches(image: CalibrationImage, silhouette: Silhouette, context: string): void {
@@ -212,6 +212,104 @@ export function blurEdgeSpread(image: CalibrationImage, options: EdgeSpreadOptio
   };
 }
 
+/**
+ * Find a measurement region straddling exactly ONE step edge of the backdrop,
+ * inside the silhouette.
+ *
+ * Why this is needed rather than a strip through the interior: `blurEdgeSpread`
+ * fits a single error function, so a profile crossing several edges is not a
+ * badly-conditioned version of the right question — it is a different question,
+ * and the fit answers it with a confident nonsense σ. (Measured: a strip across
+ * the checkerboard's interior returns σ = 50.6 px at a residual of 63× the step
+ * height, which is the fit reporting its own invalidity in the one field a
+ * caller might not read.)
+ *
+ * The edge is found in the *backdrop*, never in the rendered image: the backdrop
+ * is the known input whose step positions are ground truth, whereas the rendered
+ * image's edges are the thing being measured. The region is then bounded by the
+ * neighbouring edges, so the profile has flat backdrop on both sides of exactly
+ * one transition. Where the material's blur is wider than that gap the fit
+ * cannot resolve it — which shows up as a large `residualRms` rather than as a
+ * plausible number, and is the honest outcome for a backdrop that cannot answer.
+ *
+ * Returns `undefined` when the backdrop has no step edge inside the silhouette
+ * (every solid-colour scene), because there is then no blur width to identify.
+ */
+export function singleEdgeRegion(
+  background: CalibrationImage,
+  silhouette: Silhouette,
+  axis: "x" | "y",
+): PixelRect | undefined {
+  assertSilhouetteMatches(background, silhouette, "singleEdgeRegion");
+  const bounds = silhouetteBounds(silhouette);
+  if (!Number.isFinite(bounds.minX)) return undefined;
+
+  const luminance = linearLuminance(background);
+  const alongX = axis === "x";
+  // A band through the middle of the silhouette, across the profile direction.
+  const bandCentre = alongX
+    ? Math.round((bounds.minY + bounds.maxY) / 2)
+    : Math.round((bounds.minX + bounds.maxX) / 2);
+  const bandHalf = 2;
+  const from = alongX ? bounds.minX : bounds.minY;
+  const to = alongX ? bounds.maxX : bounds.maxY;
+  if (to - from < 8) return undefined;
+
+  // Average the backdrop across the band so a single noisy row cannot invent an
+  // edge, then locate transitions by first difference.
+  const length = to - from + 1;
+  const profile = new Float64Array(length);
+  for (let i = 0; i < length; i += 1) {
+    let sum = 0;
+    let n = 0;
+    for (let j = -bandHalf; j <= bandHalf; j += 1) {
+      const x = alongX ? from + i : bandCentre + j;
+      const y = alongX ? bandCentre + j : from + i;
+      if (x < 0 || y < 0 || x >= background.width || y >= background.height) continue;
+      sum += luminance[y * background.width + x] ?? 0;
+      n += 1;
+    }
+    profile[i] = n > 0 ? sum / n : 0;
+  }
+
+  let span = 0;
+  for (let i = 0; i < length; i += 1) span = Math.max(span, Math.abs((profile[i] ?? 0) - (profile[0] ?? 0)));
+  // A step worth measuring is a large fraction of the backdrop's own range, so
+  // texture and gradient are not mistaken for a step.
+  const threshold = Math.max(0.05, span * 0.4);
+
+  const edges: number[] = [];
+  for (let i = 1; i < length; i += 1) {
+    if (Math.abs((profile[i] ?? 0) - (profile[i - 1] ?? 0)) >= threshold) edges.push(i);
+  }
+  if (edges.length === 0) return undefined;
+
+  // The edge nearest the interior's centre — furthest from the contour, so the
+  // material's own rim is least likely to sit inside the window.
+  const centre = length / 2;
+  let chosen = edges[0] as number;
+  for (const edge of edges) {
+    if (Math.abs(edge - centre) < Math.abs(chosen - centre)) chosen = edge;
+  }
+
+  // Bound by the neighbours so exactly one transition is inside.
+  let before = 0;
+  let after = length - 1;
+  for (const edge of edges) {
+    if (edge < chosen) before = Math.max(before, edge);
+    if (edge > chosen) after = Math.min(after, edge - 1);
+  }
+  const halfWindow = Math.max(3, Math.min(chosen - before, after - chosen));
+  const start = Math.max(0, chosen - halfWindow);
+  const end = Math.min(length - 1, chosen + halfWindow);
+  if (end - start < 4) return undefined;
+
+  const thickness = 2 * bandHalf + 1;
+  return alongX
+    ? { x: from + start, y: bandCentre - bandHalf, width: end - start + 1, height: thickness }
+    : { x: bandCentre - bandHalf, y: from + start, width: thickness, height: end - start + 1 };
+}
+
 // ---------------------------------------------------------------------------
 // Luminance transfer
 // ---------------------------------------------------------------------------
@@ -309,6 +407,69 @@ export function luminanceTransfer(
     slopeDelta: web.slope - native.slope,
     offsetDelta: web.offset - native.offset,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Interior level and contrast
+// ---------------------------------------------------------------------------
+
+/** What one image's masked interior looks like, in linear light. */
+export interface InteriorLevelReport {
+  /** Mean linear-light relative luminance over the mask. */
+  readonly mean: number;
+  /**
+   * Population standard deviation over the same mask. Read against the
+   * backdrop's own standard deviation under that mask, this is the material's
+   * *frosting strength*: how much of the backdrop's structure survives it.
+   */
+  readonly stdDev: number;
+  readonly sampleCount: number;
+}
+
+/**
+ * The mean and spread of an image's masked interior.
+ *
+ * Deliberately the plainest possible statistic, and it exists because the two
+ * richer descriptions both fail on part of the canonical matrix. The affine
+ * transfer fit needs a backdrop that varies, so it is unidentifiable on the
+ * solid-colour scenes; the edge-spread fit needs a single resolvable step edge,
+ * which no canonical background supplies at the σ this material appears to use.
+ * A mean and a standard deviation are defined on every scene, on both sides, and
+ * they separate the two things tuning most needs to steer independently: the
+ * level the material sits at (mean) and how hard it frosts what is behind it
+ * (spread, against the backdrop's own spread under the same mask).
+ *
+ * Reported per side rather than as a ratio. A ratio hides its own denominator,
+ * and on a solid backdrop that denominator is zero — the number would be
+ * infinite where the honest answer is "this scene does not measure frosting".
+ */
+export function interiorLevel(
+  image: CalibrationImage,
+  options: { readonly interior?: Silhouette } = {},
+): InteriorLevelReport {
+  const interior = options.interior;
+  if (interior) assertSilhouetteMatches(image, interior, "interiorLevel");
+
+  const luminance = linearLuminance(image);
+  let count = 0;
+  let sum = 0;
+  let sumSquares = 0;
+  for (let i = 0; i < luminance.length; i += 1) {
+    if (interior && (interior.mask[i] ?? 0) === 0) continue;
+    const value = luminance[i] ?? 0;
+    sum += value;
+    sumSquares += value * value;
+    count += 1;
+  }
+  if (count === 0) {
+    throw new CalibrationError("empty-region", "interiorLevel: the interior mask selected no pixels.");
+  }
+
+  const mean = sum / count;
+  // Clamped at zero: the two-pass identity can go a few ulps negative on a
+  // genuinely constant region, and a negative variance would surface as NaN.
+  const variance = Math.max(0, sumSquares / count - mean * mean);
+  return { mean, stdDev: Math.sqrt(variance), sampleCount: count };
 }
 
 // ---------------------------------------------------------------------------
