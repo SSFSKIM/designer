@@ -67,6 +67,23 @@ const RANGES = [
 
 type Range = (typeof RANGES)[number]["value"];
 
+/**
+ * Which tier to ask for, from `?renderer=css|webgpu`. Defaults to the GPU tier.
+ *
+ * A playground whose renderer cannot be pinned can only be seen on whatever the
+ * visiting browser happens to offer, and the two tiers are meant to be compared
+ * — that is what the resolved-state panel is for. It also gives a test suite
+ * about CSS-tier declarations a way to say so: once both tiers exist, "read the
+ * host's backdrop-filter" is a question that needs to name which renderer it
+ * expects to have written it.
+ *
+ * Read once at module scope: the renderer is a `GlassRoot` construction-time
+ * choice, so changing it means a reload, which is exactly what editing the URL
+ * does.
+ */
+const REQUESTED_RENDERER: "css" | "webgpu" =
+  new URLSearchParams(window.location.search).get("renderer") === "css" ? "css" : "webgpu";
+
 export function App(): ReactNode {
   const [overrides, setOverrides] = useState<OverrideState>({
     reducedMotion: "system",
@@ -80,11 +97,11 @@ export function App(): ReactNode {
 
   return (
     <GlassRoot
-      // Ask for the GPU tier. Asking is not getting: where there is no adapter,
-      // no device, or no renderer, every group resolves to the CSS tier and the
-      // panel below says so by name. That is acceptance #5 and it is the reason
-      // this line is safe to ship unconditionally.
-      renderer="webgpu"
+      // Asking is not getting: where there is no adapter, no device, or no
+      // renderer, every group resolves to the CSS tier and the panel below says
+      // so by name. That is acceptance #5, and it is why asking for the GPU tier
+      // by default is safe to ship.
+      renderer={REQUESTED_RENDERER}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
       increasedContrast={overrides.increasedContrast}

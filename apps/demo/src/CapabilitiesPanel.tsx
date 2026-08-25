@@ -123,6 +123,12 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
           keeps its <code>configuredSource</code> alongside the renderer that is actually painting
           it, so what the app declared and what the browser could do stay separately readable.
         </p>
+        <p className="panel__note">
+          Add <code>?renderer=css</code> to compare the tiers. Note what that does{" "}
+          <em>not</em> say: a root that chose the CSS tier reads <code>health: ok</code> with no
+          demotion reason, because choosing is not failing — labelling intent as fault would invert
+          the whole point of these rows.
+        </p>
       </section>
 
       <section>
