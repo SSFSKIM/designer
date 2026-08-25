@@ -15,6 +15,18 @@ proposable), §7 (constants changed). Everything about the texture tier is C9a's
 and unchanged — K5 moved no renderer constant, and the re-measured texture cells
 reproduce C9a's numbers exactly, which is the evidence for that.
 
+**Amended by C9d (2026-08-25).** K5 handed three items back to the parent and the
+parent ruled on all three (Decision Log #32(b)–(d)); C9d executed them, which moved
+the dom tier's numbers. Sections touched: §3 (every dom-tier figure re-measured
+over all 30 cells with the `box-shadow` removed, K5's figures kept in §3.2 as the
+before-state), §3.1 (a third column, and the coherence-versus-fidelity price
+restated now that it is 0.0005 rather than 0.0022), §3.2 (the shadow question is
+decided and executed), §3.3 (the GPU tier's foreground was audited, the defect
+reproduced at WCAG 1.57, and the rule is now shared across both tiers), §5 (a
+dom-tier shape threshold, which the shadow's removal made meaningful). **The
+texture tier is untouched here as well: the 30 texture cells in
+`packages/calibration/results/matrix.json` are byte-identical across this child.**
+
 Every claim below is scoped to a **native profile × web cell**, per X9. Nothing
 here says "pixel-identical to Apple", and nothing here is a pass verdict — the
 thresholds in §5 are *proposals for the human gate*, not self-certification.
@@ -156,16 +168,26 @@ and the open gap are the same fact seen twice.
 > path can see (S1), so this is a one-engine claim and says so.
 >
 > **On Chromium, in the cell of §1 with `renderer: css` and `samplingBackend:
-> css-backdrop`:** vitrea's CSS tier reaches OKLab ΔE 0.0113 mean / 0.0248 worst
-> and SSIM 0.9655 mean / 0.9271 worst over the 12 light calibration cells; ΔE
-> 0.0123 / 0.0273 and SSIM 0.9697 / 0.9511 over the 6 validation cells; and, on
-> the six scenes held out of all tuning, **ΔE 0.0319 mean / 0.0606 worst and SSIM
-> 0.9317 mean / 0.9131 worst** — within 0.00004 of the texture tier's own holdout
-> ΔE of 0.0320. The six dark calibration cells reach ΔE 0.0162 / 0.0258.
+> css-backdrop`:** vitrea's CSS tier reaches OKLab ΔE 0.0091 mean / 0.0240 worst
+> and SSIM 0.9700 mean / 0.9304 worst over the 12 light calibration cells; ΔE
+> 0.0108 / 0.0273 and SSIM 0.9715 / 0.9511 over the 6 validation cells; and, on
+> the six scenes held out of all tuning, **ΔE 0.0291 mean / 0.0560 worst and SSIM
+> 0.9373 mean / 0.9205 worst** — against the texture tier's own holdout ΔE of
+> 0.0320, so the two tiers' held-out perceptual figures now sit within 0.003 of
+> each other with the dom tier marginally ahead. The six dark calibration cells
+> reach ΔE 0.0144 / 0.0241.
 >
-> **Its shape axis is not gated against the texture tier's thresholds**, and the
-> reason is now attributed rather than described: the tier's own `box-shadow`, not
-> its geometry (§3.2).
+> **Its shape axis is now claimable too**, at silhouette IoU 0.9424 mean / 0.8969
+> worst over the light calibration cells and 0.9684 / 0.9357 on holdout, with
+> contour distance 1.06 px mean and 2.83 px p95. That axis used to belong to the
+> tier's own `box-shadow` rather than to its geometry; C9d removed the shadow on
+> the parent's ruling and the geometry underneath was always comparable to the
+> texture tier's (§3.2).
+
+> **Amended by C9d (Decision Log #32(c)).** Every dom-tier figure above is
+> re-measured over all 30 cells with the `box-shadow` removed. The numbers K5
+> reported for the same sets are kept in §3.2's table so the shadow's price stays
+> on the record rather than being quietly replaced.
 
 ### What tuning moved
 
@@ -232,13 +254,21 @@ rather than each beside Apple.
 Over the 17 measurable light calibration and validation cells, same scenes both
 tiers, Chromium:
 
-| | before (C9a's state) | after (K5) |
-| --- | --- | --- |
-| interior level, GPU ÷ CSS, mean | **3.19** | **0.99** |
-| interior level, GPU ÷ CSS, per-cell range | **1.67 … 9.18** | **0.90 … 1.07** |
-| cross-tier SSIM, mean / worst | 0.9459 / 0.8568 | **0.9693 / 0.9496** |
-| cross-tier OKLab ΔE, mean / worst | 0.0370 / 0.1086 | **0.0080 / 0.0151** |
-| each tier's own ΔE vs Apple, GPU / CSS | 0.0097 / 0.0314 | 0.0097 / **0.0116** |
+| | before (C9a's state) | after (K5) | after (C9d, no shadow) |
+| --- | --- | --- | --- |
+| interior level, GPU ÷ CSS, mean | **3.19** | **0.99** | 0.987 |
+| interior level, GPU ÷ CSS, per-cell range | **1.67 … 9.18** | **0.90 … 1.07** | 0.895 … 1.067 |
+| cross-tier SSIM, mean / worst | 0.9459 / 0.8568 | **0.9693 / 0.9496** | **0.9710 / 0.9498** |
+| cross-tier OKLab ΔE, mean / worst | 0.0370 / 0.1086 | **0.0080 / 0.0151** | **0.0063 / 0.0124** |
+| each tier's own ΔE vs Apple, GPU / CSS | 0.0097 / 0.0314 | 0.0097 / **0.0116** | 0.0097 / **0.0099** |
+
+The last column is C9d's, and the last row of it is the interesting one: with the
+shadow gone the CSS tier sits at 0.0099 against Apple where an independent fit
+would have reached 0.0094, so the price K5 paid for coherence over independent
+fidelity — 0.0116 against 0.0094 — is now 0.0005 rather than 0.0022. The trade
+was real when it was made and is very nearly free now. That is not a vindication
+of the choice: it is the shadow having been the larger term all along, in a
+quantity nobody had separated it out of.
 
 Read the range row first. Before, the CSS tier was between 1.7× and 9.2× more
 transparent than the GPU tier depending on the backdrop — the ">2×" C9a reported
@@ -247,7 +277,8 @@ worst cell of seventeen differs by 11%, and the direction is no longer consisten
 which is what a converted alpha rather than a copied one looks like.
 
 On the six holdout scenes, measured once at the frozen mapping: cross-tier ΔE
-0.0229 mean / 0.0358 worst, interior ratio 0.964 mean. The two worst cells are
+0.0229 mean / 0.0358 worst, interior ratio 0.964 mean — re-measured by C9d without
+the shadow at ΔE 0.0188 / 0.0313 and interior ratio 0.957. The two worst cells are
 the `glass-over-glass` pair, and for a reason §6.4 already names — on the GPU
 tier that scene's overlay group is necessarily `dom`, so those cells were always
 a mixed-backend comparison, and on the CSS tier both groups are `css`. The tiers
@@ -256,12 +287,13 @@ genuinely differ most exactly where the GPU tier is least itself.
 **So: coherence can be claimed, in this wording.**
 
 > On Chromium, a group that demotes from the WebGPU texture tier to the CSS tier
-> keeps the same material to within 1% of its interior level in the mean and 11%
-> on the worst measured cell, at a cross-tier OKLab ΔE of 0.0080 mean / 0.0151
-> worst over the fitted sets and 0.0229 / 0.0358 over the held-out ones. It is
+> keeps the same material to within 1.3% of its interior level in the mean and 11%
+> on the worst measured cell, at a cross-tier OKLab ΔE of 0.0063 mean / 0.0124
+> worst over the fitted sets and 0.0188 / 0.0313 over the held-out ones. It is
 > not the same rendering — refraction is absent on the CSS tier by contract
-> (`refraction: "none"`), and the shape axis differs by the shadow of §3.2 — but
-> the material's opacity, tint and frost no longer change visibly on demotion.
+> (`refraction: "none"`) — but the material's opacity, tint and frost no longer
+> change visibly on demotion, and since C9d removed the dom tier's shadow the
+> silhouettes no longer differ by a feature either.
 
 And what it may **not** say: that the two tiers are identical, or that any of this
 holds on Gecko or WebKit. It is a Chromium measurement of a material's level, on
@@ -290,7 +322,7 @@ tier inherits the GPU tier's fidelity by construction. The price is on the recor
 above: 0.0116 against Apple where an independent fit would have reached 0.0094,
 both far inside the 0.07 threshold §5 proposes.
 
-### 3.2 The shape axis belongs to the box-shadow, and that is now measured
+### 3.2 The shape axis belonged to the box-shadow, which is now gone
 
 C9a reported that the dom tier's shape axis was not comparable to the texture
 tier's, and attributed it to the `box-shadow` the CSS tier draws *outside* the
@@ -316,14 +348,25 @@ point of every sweep run for this child, moving in the fourth decimal while the
 tint alpha moved by a third and the border alpha went to zero. Nothing but the
 shadow moves that axis.
 
-**Not removed, and this is the one open decision K5 hands back.** The reference
-material has no exterior shadow — C9a measured both sides at ≈0 outside the
-contour — so on measurement alone the shadow is a fidelity defect on three axes
-at once. Against that: the repo's effects policy says the fallback *is* the
-design, and the ambient shadow is what makes an unfiltered surface read as
-floating rather than as a flat translucent box, which is S1's undetectable-failure
-case. That is a taste judgement with a design owner, and C9b's landed showpiece
-inherits whichever way it goes. Measured, priced, and left to the parent.
+**Removed by C9d, on the parent's ruling (Decision Log #32(c)).** The case against
+it was the reference: Apple's material has no exterior shadow — C9a measured both
+sides at ≈0 outside the contour — so on measurement alone the shadow was a fidelity
+defect on three axes at once. The case for it was the repo's effects policy, which
+says the fallback *is* the design, and an ambient shadow is what makes an
+unfiltered surface read as floating rather than as a flat translucent box, which is
+S1's undetectable-failure case. The parent ruled fidelity-first the tiebreaker:
+"reads as Apple" outranks "reads as floating", and the tier does not depend on the
+shadow for legibility anyway — what carries an unfiltered surface is the tint and
+the border, which `e2e/pixel/css-tier-pixels.spec.ts` asserts on unchanged
+assertions and still passes.
+
+Re-measured over all 30 cells rather than the sweep's subset, the shipped figures
+are the second column above: silhouette IoU 0.9424 / 0.9684 (calibration /
+holdout) against 0.6756 / 0.7626 with it, contour p95 2.22 px against 18.67, and
+ΔE and cross-tier coherence both better. The seam survives the removal — the
+mapping keeps its `shadowOffset`/`shadowBlur`/`shadowAlpha` fields at zero, so a
+profile can restore a shadow and the declaration is still derived rather than
+special-cased.
 
 ### 3.3 The foreground rule had to change with the material, and did
 
@@ -347,9 +390,33 @@ because at its alpha the backdrop genuinely does dominate.
 
 Two things this does not do. It is **not** a contrast calculation and does not
 promise a ratio: it picks between two ink tokens, and an app needing a guaranteed
-ratio still sets its own foreground. And it is **CSS-tier only** — whether the GPU
-tier's foreground path needs the same correction is a parent question, because
-that path is the renderer's and K5 moved nothing there.
+ratio still sets its own foreground.
+
+**And it is no longer CSS-tier only.** K5 left the GPU tier's half as a parent
+question, and Decision Log #32(b) answered it in the order that matters: measure
+first, fix only if the defect reproduces. It reproduced, in a shape K5 had not
+predicted — the GPU tier published *no* foreground at all, so an app following the
+documented `var(--vitrea-foreground, …)` pattern fell back to its own ink. On a
+dark-hinted surface over dark page content that measured **WCAG 1.57 against the
+4.5 floor**, arrived at from the opposite direction to K5's 1.24 and just as
+unreadable. The audit is
+`packages/platform-web/e2e/gpu/foreground-audit.spec.ts`; it now measures 10.81.
+
+The fix is one rule with two composite spaces rather than two rules.
+`foregroundLevel(material, backdrop, space)` is the shared derivation — the CSS
+tier reads it in encoded sRGB, the renderer's material in linear light, and that
+difference is the only real one between them (the same difference `cssTintAlpha`
+exists for). The crossover, the two ink tokens and accessibility policy's
+precedence over the hint all live in one function that either tier calls. Only the
+foreground pair is written on the GPU tier; tint, blur and border belong to
+whichever tier paints the body, and there that is the canvas.
+
+One thing found while doing it, worth more than the fix: `platform-web` writes the
+host's `color` as an inline style, so an app rule on a glass host loses to it
+silently. `--vitrea-foreground` is the seam an app is meant to build on, and
+building on it means styling something the runtime does not own — a child element.
+The demo's disabled control label had to move for exactly that reason, and both
+ends now say so.
 
 **What else is verified for the dom tier:**
 
@@ -526,25 +593,37 @@ same level as light.
   quantity the fixtures cannot resolve is a number that will be met by accident.
 - **Motion thresholds.** No frame sequences were captured, and the still
   `pressed` cells cannot substitute — see §6.3.
-- **A dom-tier shape threshold.** The axis measures the tier's `box-shadow`
-  rather than its geometry (§3.2), and gating a quantity that is 0.68 with the
-  shadow and 0.94 without it would be gating a design decision nobody has taken
-  yet. It becomes proposable the moment the shadow question in §3.2 is settled,
-  either way.
+- ~~**A dom-tier shape threshold.**~~ **Proposed by C9d.** K5 declined it because
+  the axis measured the tier's `box-shadow` rather than its geometry, and gating a
+  quantity that read 0.68 with the shadow and 0.94 without it would have been
+  gating a design decision nobody had taken. The parent took it (Decision Log
+  #32(c)), the shadow is gone, and the axis now measures geometry — so it is in the
+  dom-tier table below.
 
 ### Dom tier, `apple-macos-26.5-1x-light-standard`, Chromium, `renderer: css`
 
 Added by K5, on the same rule as the texture tier's — **bounded by the holdout
-numbers, not the calibration ones** — and with the shape axis deliberately absent.
+numbers, not the calibration ones** — and extended by C9d with the shape axis the
+shadow's removal made meaningful.
 
 | axis | metric | proposed | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| perceptual | SSIM mean | ≥ 0.90 | 0.9271 | 0.9131 |
-| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0273 | 0.0606 |
-| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0151 | 0.0358 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.895 … 1.067 | 0.863 … 1.040 |
+| shape | silhouette IoU | ≥ 0.85 | 0.8969 | 0.9357 |
+| shape | contour distance mean | ≤ 2.0 px | 1.2456 | 1.1081 |
+| shape | contour distance p95 | ≤ 4.0 px | 2.8284 | 2.8284 |
+| perceptual | SSIM mean | ≥ 0.90 | 0.9304 | 0.9205 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0273 | 0.0560 |
+| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0124 | 0.0313 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.895 … 1.067 | 0.844 … 1.040 |
 
-Three things about this table are deliberate.
+The shape rows carry the texture tier's own well-conditioned-cell predicate
+unchanged (`silhouetteAreaNative ≥ 0.95 ×` the declared component area), for the
+same reason: the extractor, not the geometry, is what the excluded cell measures.
+The bounds are looser than the texture tier's despite the dom tier scoring *better*
+on holdout IoU — a converted material through an engine's own blur is not a
+quantity to hold to vitrea's shader math, and the holdout figure is six scenes.
+
+Four things about this table are deliberate.
 
 **The coherence rows are a new kind of gate** and they belong here rather than
 with the texture tier, because coherence is a property of the pair and the CSS
@@ -560,7 +639,12 @@ would be asserting control over Chromium's compositor.
 
 **It is a one-engine gate.** Gecko and WebKit render `backdrop-filter` as a no-op
 in every capture path, so there is nothing to threshold there and the manual page
-remains their only evidence (C9d's release gate).
+remains their only evidence — still open, and now carried as an unchecked item in
+`docs/doperpowers/specs/c9d-release-checklist.md`.
+
+**The shape rows are C9d's and post-date the freeze the perceptual rows were set
+against.** They are proposals about an axis whose measurement changed, not a
+re-fit of anything: no constant moved to produce them.
 
 ---
 
