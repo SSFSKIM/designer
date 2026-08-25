@@ -20,7 +20,8 @@
     "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "test:e2e:chromium": "playwright test --project=chromium"
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:gpu": "playwright test --project=chromium-gpu"
   },
   "dependencies": {
     "@vitrea/core": "workspace:^"

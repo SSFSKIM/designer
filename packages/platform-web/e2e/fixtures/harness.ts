@@ -25,6 +25,23 @@ import {
   type VitreaDiagnostic,
 } from "../../src/index";
 
+/** What `canvasPixels` reports about one region of a plane's own canvas. */
+export interface CanvasReading {
+  /** Fraction of sampled pixels with any alpha at all. */
+  readonly painted: number;
+  readonly maxAlpha: number;
+  /** The most opaque pixel found, as `[r, g, b, a]`. */
+  readonly peak: readonly [number, number, number, number];
+}
+
+export interface AdapterReport {
+  readonly ok: boolean;
+  readonly why?: string;
+  readonly vendor?: string;
+  readonly architecture?: string;
+  readonly isFallback?: boolean;
+}
+
 export interface SurfaceSpec {
   readonly nodeId?: string;
   readonly groupId: string;
@@ -56,6 +73,14 @@ export interface RootSpec {
   readonly devMode?: boolean;
   readonly samplingPadding?: number;
   readonly mergeDistance?: number;
+}
+
+export interface TextureGroupSpec {
+  readonly groupId: string;
+  readonly sourceId: string;
+  /** Canvas backing-store size, in texture px. */
+  readonly width?: number;
+  readonly height?: number;
 }
 
 export interface DiagnosticRecord {
@@ -94,6 +119,7 @@ let device: StubDevice | undefined;
 let standaloneLayers: GlassLayerManager | undefined;
 let standaloneProxies: BackdropProxyManager | undefined;
 const handles = new Map<string, GlassHostHandle>();
+const textureCanvases = new Map<string, HTMLCanvasElement>();
 const diagnostics: DiagnosticRecord[] = [];
 
 const api = {
@@ -439,6 +465,147 @@ const api = {
     );
   },
 
+  /**
+   * Is there a real adapter here?
+   *
+   * C5 measured that the answer is machine-specific and counter-intuitive — on
+   * this localhost secure context Playwright's WebKit returns a device while
+   * stock Chromium returns none — so every GPU assertion consumes this rather
+   * than assuming an environment. Requesting an adapter here does not disturb
+   * the root's own request: adapters are not exclusive, devices are.
+   */
+  async adapter(): Promise<AdapterReport> {
+    if (navigator.gpu === undefined) return { ok: false, why: "no navigator.gpu" };
+    try {
+      const found = await navigator.gpu.requestAdapter({ powerPreference: "high-performance" });
+      if (found === null) return { ok: false, why: "requestAdapter() returned null" };
+      const info = found.info ?? ({} as GPUAdapterInfo);
+      return {
+        ok: true,
+        vendor: info.vendor,
+        architecture: info.architecture,
+        isFallback: (found as { isFallbackAdapter?: boolean }).isFallbackAdapter === true,
+      };
+    } catch (error) {
+      return { ok: false, why: error instanceof Error ? error.message : String(error) };
+    }
+  },
+
+  /**
+   * Register a texture-backed group and hand the bridge a canvas painting into
+   * it — the two halves of acceptance #2, which are deliberately separate calls
+   * because core holds the declaration and cannot hold the pixels (X4).
+   */
+  addTextureGroup(spec: TextureGroupSpec): void {
+    const glassRoot = api.requireRoot();
+    const canvas = document.createElement("canvas");
+    canvas.width = spec.width ?? 512;
+    canvas.height = spec.height ?? 512;
+
+    // A backdrop worth refracting: hard edges, so lensing has something to bend.
+    const context = canvas.getContext("2d");
+    if (context !== null) {
+      const band = canvas.height / 8;
+      for (let i = 0; i < 8; i += 1) {
+        context.fillStyle = i % 2 === 0 ? "#ff3b30" : "#0a84ff";
+        context.fillRect(0, i * band, canvas.width, band);
+      }
+    }
+
+    glassRoot.registerBackdropSource({
+      id: spec.sourceId,
+      kind: "texture",
+      probe: { taint: "clean", textureCompatibility: "compatible" },
+    });
+    glassRoot.registerGroup({ id: spec.groupId, backdropSourceId: spec.sourceId });
+    glassRoot.setBackdropTexture(spec.sourceId, { kind: "canvas", canvas });
+    glassRoot.scene.markBackdropSourceDirty(spec.sourceId);
+    textureCanvases.set(spec.sourceId, canvas);
+  },
+
+  markTextureDirty(sourceId: string): void {
+    api.requireRoot().scene.markBackdropSourceDirty(sourceId);
+  },
+
+  /**
+   * Read a region of one plane's own canvas back.
+   *
+   * The renderer's canvas, not the page: acceptance #2's mechanism. Reading the
+   * canvas gives the alpha channel that a page screenshot flattens away, and
+   * alpha is the whole question — glass that painted nothing and glass that
+   * painted transparent black are the same pixel once composited.
+   *
+   * **Synchronous, and it must stay synchronous.** A WebGPU canvas can only be
+   * snapshotted while the texture it drew into is still current; once the frame
+   * is presented, `drawImage` and `createImageBitmap` both hand back a fully
+   * transparent image over a canvas the page is plainly still showing. So the
+   * read has to happen in the same task as the draw, which means callers step
+   * frames and read inside one `page.evaluate`, and nothing here may await.
+   */
+  canvasPixels(
+    layer: "optics-canvas" | "highlight-canvas",
+    plane: GlassPlane,
+    region: BoxReading,
+  ): CanvasReading {
+    const layers = api.requireRoot().plane(plane);
+    const canvas = layer === "optics-canvas" ? layers.opticsCanvas : layers.highlightCanvas;
+
+    // `drawImage` rather than `createImageBitmap`: the latter returns a fully
+    // transparent bitmap off a WebGPU canvas in this build, over a canvas
+    // `toDataURL` and the page's own compositing both show as painted.
+    const scale = canvas.width / window.innerWidth;
+    const x = Math.round(region.x * scale);
+    const y = Math.round(region.y * scale);
+    const width = Math.max(1, Math.round(region.width * scale));
+    const height = Math.max(1, Math.round(region.height * scale));
+
+    const scratch = document.createElement("canvas");
+    scratch.width = width;
+    scratch.height = height;
+    const context = scratch.getContext("2d", { willReadFrequently: true });
+    if (context === null) throw new Error("no 2d context for readback");
+    context.clearRect(0, 0, width, height);
+    context.drawImage(canvas, x, y, width, height, 0, 0, width, height);
+
+    const data = context.getImageData(0, 0, width, height).data;
+    let painted = 0;
+    let maxAlpha = 0;
+    let peak: readonly [number, number, number, number] = [0, 0, 0, 0];
+    for (let i = 0; i < data.length; i += 4) {
+      const alpha = data[i + 3] ?? 0;
+      if (alpha > 0) painted += 1;
+      if (alpha > maxAlpha) {
+        maxAlpha = alpha;
+        peak = [data[i] ?? 0, data[i + 1] ?? 0, data[i + 2] ?? 0, alpha];
+      }
+    }
+
+    return { painted: painted / (width * height), maxAlpha, peak };
+  },
+
+  /** Whether the bridge is attached with a live device and configured canvases. */
+  rendererActive(): boolean {
+    return api.requireRoot().rendererBridge?.active ?? false;
+  },
+
+  /**
+   * Destroy the live device out from under the runtime.
+   *
+   * `destroy()` is the only loss a page can provoke. The lifecycle deliberately
+   * does not re-request after one — `reason === "destroyed"` is our own teardown,
+   * not a fault — so the tier swap this provokes is permanent within the root,
+   * and recovery is shown on a second root instead.
+   */
+  async loseRealDevice(): Promise<void> {
+    const live = api.requireRoot().webgpu?.device;
+    if (live === undefined) throw new Error("no live device to lose");
+    live.destroy();
+    await live.lost;
+    // One task, so the lifecycle's own `lost` handler has published the loss and
+    // the bridge's device sync has run.
+    await new Promise((resolve) => setTimeout(resolve, 50));
+  },
+
   reset(): void {
     for (const handle of handles.values()) {
       handle.release();
@@ -453,6 +620,7 @@ const api = {
     standaloneLayers?.destroy();
     standaloneLayers = undefined;
     device = undefined;
+    textureCanvases.clear();
     document.body.removeAttribute("style");
     document.getElementById("scroller")?.scrollTo(0, 0);
   },

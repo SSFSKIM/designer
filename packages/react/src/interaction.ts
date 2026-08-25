@@ -25,12 +25,17 @@
  * (platform-web's host contract). The rest are published as custom properties on
  * the host, in the same `--vitrea-*` vocabulary the CSS tier writes, so an app
  * can style against them and a test can read a channel's value without a
- * screenshot. They are also exactly the `SurfaceChannels` the WebGPU renderer
- * consumes — `press`, `glow`, `sweep`, `lensStrength`, `pressPoint` — for
- * whichever layer eventually bridges the two.
+ * screenshot.
+ *
+ * That publication is also the data path to the GPU. `platform-web`'s renderer
+ * bridge reads these properties back in the frame's write phase and hands them
+ * to the WebGPU renderer as `SurfaceChannels` — `press`, `glow`, `sweep`,
+ * `lensStrength`, `pressPoint`, exactly this set. Nothing here calls the
+ * renderer, and nothing here knows whether one is attached: a binding publishes
+ * values, and the tier that is drawing consumes them.
  */
 
-import type { GlassHostHandle } from "@vitrea/platform-web";
+import { GLASS_CHANNEL_PROPERTIES, type GlassHostHandle } from "@vitrea/platform-web";
 import {
   createInteractionMachine,
   type InteractionFlags,
@@ -42,15 +47,16 @@ import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as
 
 import type { GlassTicker } from "./ticker";
 
-/** The custom properties a surface publishes each frame. */
-export const GLASS_CHANNEL_PROPERTIES = {
-  press: "--vitrea-press",
-  glow: "--vitrea-glow",
-  lensStrength: "--vitrea-lens",
-  pressX: "--vitrea-press-x",
-  pressY: "--vitrea-press-y",
-  state: "--vitrea-state",
-} as const;
+/**
+ * The custom properties a surface publishes each frame.
+ *
+ * Owned by `platform-web`, because that is where they are read back: the frame's
+ * write phase lifts these values off the host and hands them to the WebGPU
+ * renderer as `SurfaceChannels`. Two literals would be two vocabularies one
+ * rename apart from silently drifting, and the drift would show up as a
+ * permanently idle material rather than as a build error.
+ */
+export { GLASS_CHANNEL_PROPERTIES };
 
 /** Keys that activate a button, and therefore press its material. */
 const ACTIVATION_KEYS = new Set([" ", "Enter", "Spacebar"]);

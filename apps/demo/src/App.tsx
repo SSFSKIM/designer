@@ -9,9 +9,16 @@
  *  - **#1** an ordinary React tree wrapped in `GlassRoot`, with real DOM controls
  *    over ordinary page content: selectable prose behind the glass, buttons that
  *    are `<button>`s, a toolbar that is a toolbar.
+ *  - **#2** the texture upgrade: the right-hand region registers its own canvas
+ *    as a GPU-ownable backdrop, so where WebGPU is available its glass genuinely
+ *    bends the bands behind it, and the larger plate lenses harder than the small
+ *    one over the same backdrop.
  *  - **#3** press feedback on every control, driven by the interaction machine.
  *  - **#4** the toolbar's Actions button morphing into a menu platter on the
  *    overlay plane.
+ *  - **#5** honest degradation: the same page on a browser with no WebGPU — or
+ *    with the renderer chunk unreachable — renders presentable CSS-tier glass,
+ *    and the panel names the demotion instead of hiding it.
  *  - **#6** the accessibility policy, overridable from the panel, and the
  *    variant-mixing warning on demand.
  *
@@ -60,6 +67,23 @@ const RANGES = [
 
 type Range = (typeof RANGES)[number]["value"];
 
+/**
+ * Which tier to ask for, from `?renderer=css|webgpu`. Defaults to the GPU tier.
+ *
+ * A playground whose renderer cannot be pinned can only be seen on whatever the
+ * visiting browser happens to offer, and the two tiers are meant to be compared
+ * — that is what the resolved-state panel is for. It also gives a test suite
+ * about CSS-tier declarations a way to say so: once both tiers exist, "read the
+ * host's backdrop-filter" is a question that needs to name which renderer it
+ * expects to have written it.
+ *
+ * Read once at module scope: the renderer is a `GlassRoot` construction-time
+ * choice, so changing it means a reload, which is exactly what editing the URL
+ * does.
+ */
+const REQUESTED_RENDERER: "css" | "webgpu" =
+  new URLSearchParams(window.location.search).get("renderer") === "css" ? "css" : "webgpu";
+
 export function App(): ReactNode {
   const [overrides, setOverrides] = useState<OverrideState>({
     reducedMotion: "system",
@@ -73,6 +97,11 @@ export function App(): ReactNode {
 
   return (
     <GlassRoot
+      // Asking is not getting: where there is no adapter, no device, or no
+      // renderer, every group resolves to the CSS tier and the panel below says
+      // so by name. That is acceptance #5, and it is why asking for the GPU tier
+      // by default is safe to ship.
+      renderer={REQUESTED_RENDERER}
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
       increasedContrast={overrides.increasedContrast}

@@ -111,11 +111,23 @@ export function CapabilitiesPanel(props: CapabilitiesPanelProps): ReactNode {
       <section>
         <h2>Renderer</h2>
         <p className="panel__note">
-          This root runs the CSS tier. The WebGPU optical engine exists and is tested, but nothing
-          yet joins <code>root.renderInput()</code> to the renderer&rsquo;s{" "}
-          <code>setGroup()</code>; that bridge sits between platform-web and the renderer, not in
-          the bindings. Until it lands, a WebGPU-configured root would resolve its groups to a tier
-          with nothing drawing on it — so the playground does not offer the switch.
+          This root asks for <code>renderer=&quot;webgpu&quot;</code>, and the rows above say what
+          it got. Where a device and the renderer are both had, glass bodies are drawn by the WebGPU
+          optical engine onto the plane&rsquo;s own canvas, and a texture-backed group samples the
+          registered source directly — <code>samplingBackend: gpu-texture</code>, with true
+          refraction rather than a blur. Where either is missing, every group resolves to the CSS
+          tier and says so by name.
+        </p>
+        <p className="panel__note">
+          Asking is not getting, and the panel never smooths over the difference: a demoted group
+          keeps its <code>configuredSource</code> alongside the renderer that is actually painting
+          it, so what the app declared and what the browser could do stay separately readable.
+        </p>
+        <p className="panel__note">
+          Add <code>?renderer=css</code> to compare the tiers. Note what that does{" "}
+          <em>not</em> say: a root that chose the CSS tier reads <code>health: ok</code> with no
+          demotion reason, because choosing is not failing — labelling intent as fault would invert
+          the whole point of these rows.
         </p>
       </section>
 

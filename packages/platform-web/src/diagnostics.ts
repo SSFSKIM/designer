@@ -40,6 +40,10 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
   "webgpu-unavailable",
   /** The `GPUDevice` was lost; affected groups demoted while recovery runs. */
   "webgpu-device-lost",
+  /** The renderer chunk failed to resolve, so there is no GPU tier to demote from. */
+  "webgpu-renderer-load-failed",
+  /** A plane's canvas refused a `"webgpu"` context, so X1's sandwich cannot be painted. */
+  "webgpu-canvas-unavailable",
   /** A cross-plane promotion was requested for a node that is already there. */
   "redundant-promotion",
 ] as const;

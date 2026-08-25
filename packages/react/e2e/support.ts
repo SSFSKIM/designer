@@ -7,9 +7,22 @@ import { expect, type Locator, type Page } from "@playwright/test";
  * frame and only then pins itself out of flow, so a press dispatched at
  * coordinates read before that lands a pixel or two off the trigger. Waiting for
  * the pin is waiting for the layout to stop moving.
+ *
+ * **The tier is pinned to CSS**, and that is a statement about what this suite
+ * is for rather than a convenience. These are tests of the *bindings* — that a
+ * channel is published, that a morph interpolates, that a preference reaches the
+ * material — and several of them read the answer off the host's own computed
+ * style, which only the CSS tier writes. The playground now asks for the GPU
+ * tier by default, and whether it gets one is a property of the machine: C5
+ * measured Playwright's WebKit returning a device on localhost where Chromium
+ * returns none. Left unpinned, the same assertion would read a real value on one
+ * engine and `none` on another, for a reason that has nothing to do with the
+ * binding under test. The GPU tier's own drawing is asserted where it can be
+ * asserted honestly: `@vitrea/platform-web`'s `e2e/gpu` suite, against a real
+ * adapter.
  */
 export async function gotoPlayground(page: Page): Promise<void> {
-  await page.goto("/");
+  await page.goto("/?renderer=css");
   await page.waitForSelector("[data-vitrea-root]");
   await expect(page.getByRole("toolbar", { name: "Playground actions" })).toBeVisible();
   await page.waitForFunction(() => {

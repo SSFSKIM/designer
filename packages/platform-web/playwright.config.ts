@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+/** Dawn needs these to reach the real backend; see the `chromium-gpu` note below. */
+const GPU_ARGS = ["--enable-unsafe-webgpu", "--enable-features=Vulkan,WebGPU"];
+
 /**
  * C5's acceptance suite, split exactly where S1's evidence puts the line
  * (Decision Log #18, human-approved).
@@ -21,6 +24,16 @@ import { defineConfig, devices } from "@playwright/test";
  * The remaining gap — how the dom tier actually *looks* on Gecko and WebKit — is
  * closed by a human at release time with
  * `spikes/s1-proxy-topology/pages/manual-check.html` (C9 owns running it).
+ *
+ * **`e2e/gpu` needs a real adapter, so it gets its own project.** C6 measured
+ * that Playwright's bundled headless shell hands back a *software* adapter while
+ * `channel: "chromium"` — the full browser binary — hands back the real one, and
+ * a GPU tier verified on a CPU rasteriser is not the thing acceptance #2 asks
+ * about. That directory is therefore excluded from the stock `chromium` project
+ * and run by `chromium-gpu`, which fails rather than skips when no hardware
+ * adapter answers. It is left out of CI for the same reason C6's suite is: the
+ * hardware answer is machine-specific, and a suite that silently passes on a
+ * machine with no GPU is worse than one that is not run.
  */
 export default defineConfig({
   testDir: "e2e",
@@ -33,9 +46,21 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] }, testDir: "e2e" },
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      testDir: "e2e",
+      testIgnore: "**/gpu/**",
+    },
     { name: "firefox", use: { ...devices["Desktop Firefox"] }, testDir: "e2e/shared" },
     { name: "webkit", use: { ...devices["Desktop Safari"] }, testDir: "e2e/shared" },
+    {
+      name: "chromium-gpu",
+      testDir: "e2e/gpu",
+      // C6's launch recipe, unchanged: the channel is what produces a hardware
+      // adapter rather than SwiftShader, and the flags are what let Dawn use it.
+      use: { channel: "chromium", launchOptions: { args: GPU_ARGS } },
+    },
   ],
   webServer: {
     command: "npx vite --config e2e/vite.config.ts",
