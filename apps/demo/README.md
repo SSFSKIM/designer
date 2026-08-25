@@ -12,7 +12,7 @@ pnpm --filter demo dev        # both routes, on http://localhost:5173
 pnpm --filter demo build      # a static site in apps/demo/dist
 pnpm --filter demo preview    # serve that build
 pnpm --filter demo lint       # eslint + tsc for src and for e2e
-pnpm --filter demo test:e2e   # the site suite (Chromium)
+pnpm --filter demo test:e2e   # the site suite: layout law, the pair, a11y, contrast
 ```
 
 Both routes accept `?renderer=css` and `?renderer=webgpu`. The default is `webgpu`,
@@ -96,6 +96,12 @@ class, tier and fixture set. A scene with no measured cell renders a labelled em
 slot instead of borrowing a figure from a different cell. Fidelity tuning runs
 separately and writes into the same file, so more cells means more filled slots and
 no page change.
+
+One check is worth naming because it is unusual: `e2e/contrast.spec.ts` measures
+text contrast over the live glass on the rendered pixels, across several phases of
+the backdrop's drift. axe reports "incomplete" for text whose background is a canvas,
+which is every label on this page's glass, so the floor for those would otherwise be
+unchecked.
 
 The geometry in the reference pair comes from `apps/reference-apple/scenes.json`,
 the same file the SwiftUI harness reads. `e2e/site.spec.ts` asserts the live

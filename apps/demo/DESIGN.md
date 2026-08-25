@@ -53,6 +53,12 @@ Two grounds, one accent.
   the focus ring, a delta callout, a selected control. It does not tint headings,
   icons, dividers, panels, or grounds.
 
+Every app-authored region inside a glass plane declares `color-scheme: dark`
+(`.stage--mirror` and `.platter`). That is not decoration: the CSS tier writes its
+foreground as `light-dark(...)`, which resolves against the element's own computed
+scheme, so without it a control on glass over the dark instrument gets dark ink on a
+dark surface.
+
 Forbidden: a second accent; a status green anywhere (green on a fidelity page
 reads as "test passed" and would smuggle a claim the calibration data does not
 support, which is why contour green lost to oxide orange despite being the
@@ -105,9 +111,14 @@ no panels, no shadows, no eyebrow above headings. Spacing steps are
 `--radius-0`** — roundness belongs to the material, which is what makes the glass
 read as a different substance from the page.
 
-Collapse at 900px: the stage becomes a fixed top band at 46vh, the column takes
-the full width beneath it with matching top padding, and section order is
-unchanged. Below 560px the stage drops to 40vh and the reference pair stacks.
+Collapse at 900px: the stage becomes a fixed band across the **bottom** at 46vh,
+the column takes the full width above it with matching bottom padding, and section
+order is unchanged. Bottom rather than top is §9 rule 2, not taste: a top band puts
+the behaviour toolbar inside the viewport's origin corner, which has to stay clear
+of glass. Below 560px the band grows to 52vh, because the behaviour stage needs
+about 260px to hold three sampling groups more than 48px apart, and the reference
+pair shows one panel at a time: two 320px frames do not fit side by side on a phone,
+and scaling both far enough to fit makes a fidelity comparison unreadable.
 
 ## 5. Component canon
 
@@ -115,8 +126,9 @@ One of each; reuse rather than rebuild. `.masthead`, `.section` (hairline-
 separated, with `.section__marker` for the active tick), `.readout` (the one
 definition-list pattern for runtime state, used by the capabilities panel, the
 tier table and the calibration figures), `.code` (the one pre/code block),
-`.plate-pair` (the reference pair frame), `.field` (the one label-plus-control
-row, used by every accessibility and tier toggle), `.note` (the one caveat line).
+`.pair` (the reference pair frame, with `.panel-switch` for its collapsed
+single-panel form), `.field` (the one label-plus-control row, used by every
+accessibility and tier toggle), `.note` (the one caveat line).
 
 Build order: tokens → masthead and section shell → stage shell and graticule →
 readout → stage modes (material, reference, behavior, access) → fields → code.
@@ -134,9 +146,12 @@ fine print.
 
 Durations `--duration-fast` 120ms, `--duration-standard` 180ms,
 `--duration-slow` 260ms; easing `--ease-standard` for everything the page owns.
-Only three things move: the stage's cross-fade between modes (slow, opacity
-only), control hover and focus (fast), and the material's own springs, which are
-the runtime's and not this stylesheet's. No parallax, no reveal-on-scroll, no
+Only three things move, and the stage swap is deliberately not one of them: it is
+instant, because a cross-fade between two stage modes would put two materials on
+screen at once and a page carrying two of those has neither. What moves is the
+current-section marker and heading (standard), control hover and focus (fast), and
+the material's own springs, which are the runtime's and not this stylesheet's. No
+parallax, no reveal-on-scroll, no
 drifting gradient, no animated blur.
 
 `prefers-reduced-motion: reduce` cuts every page transition to 1ms and the stage
@@ -159,6 +174,11 @@ Both halves must hold, and the page must remain fully usable with all of it off.
   `--type-h3` size or larger, or a real control's own label; everything that
   explains it lives in the column, on paper. The material never carries
   information.
+- Text over glass is **measured, not assumed**. axe cannot compute contrast over a
+  canvas backdrop, so `e2e/contrast.spec.ts` samples the rendered pixels across
+  several phases of the backdrop's drift and holds 4.5:1 for labels and 3:1 for the
+  plates. Brightening the stage field, dimming a label, or lightening the segmented
+  indicator are all changes that test is guarding.
 
 ## 9. Glass placement law (domain-specific)
 

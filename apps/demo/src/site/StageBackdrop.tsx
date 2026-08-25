@@ -41,10 +41,16 @@ const LOBES = 4;
  * glass towards dark ink on a surface the rest of the page reads as a dark
  * instrument. Peak lightness and alpha are set so the composite stays a dark
  * ground with legible hue variation rather than a light one with colour in it.
+ *
+ * The ceiling is also an accessibility constraint, not only a taste one. Control
+ * labels sit on glass over this field, and the brighter the field drifts the less
+ * contrast they have; `e2e/site.spec.ts` measures that ratio on the rendered pixels
+ * across several phases of the drift, because axe cannot compute contrast over a
+ * canvas. Raising these three numbers is what that test is guarding.
  */
-const LOBE_LIGHTNESS = 0.46;
+const LOBE_LIGHTNESS = 0.4;
 const LOBE_CHROMA = 0.15;
-const LOBE_ALPHA = 0.3;
+const LOBE_ALPHA = 0.24;
 
 export function StageBackdrop(props: StageBackdropProps): ReactNode {
   const root = useGlassRoot();

@@ -60,6 +60,20 @@ export const GROUPS_BY_MODE: Record<StageMode, readonly { id: string; label: str
   access: [{ id: "access", label: "access (registered texture)" }],
 };
 
+/**
+ * X6's hint, and it is load-bearing rather than decorative.
+ *
+ * Without it a group with `analysis: none` takes its foreground from explicit
+ * tokens or `color-scheme`, and this document's `color-scheme` is `light` — so a
+ * control sitting on glass over the *dark* instrument window was being given dark
+ * ink on a dark surface, measured at 1.6:1 to 3.0:1. The hint is the one mechanism
+ * for telling the runtime what it cannot see (§honesty core), and this is exactly
+ * what it is for. It is deliberately absent on the `reference` group: that cell is
+ * a fidelity comparison against a capture over a light raster, and biasing its
+ * foreground by hand is the one place a hint would be a thumb on the scale.
+ */
+const STAGE_HINT = { tone: "dark", luminance: 0.16 } as const;
+
 const RANGES = [
   { value: "day", label: "Day" },
   { value: "week", label: "Week" },
@@ -261,7 +275,7 @@ export function StageGlass(props: StageProps): ReactNode {
     >
       <div className="stage__stack">
         {mode === "material" ? (
-          <GlassGroup id="material" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }}>
+          <GlassGroup id="material" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }} hint={STAGE_HINT}>
             {/*
               One short line each, and nothing else. `DESIGN.md` §8: prose does not
               go on glass, because a material never carries information and because
@@ -278,7 +292,7 @@ export function StageGlass(props: StageProps): ReactNode {
         ) : null}
 
         {mode === "access" ? (
-          <GlassGroup id="access" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }}>
+          <GlassGroup id="access" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }} hint={STAGE_HINT}>
             <GlassSurface className="plate plate--lg" radius={26} thickness={16}>
               <strong>Regular material</strong>
             </GlassSurface>
@@ -290,7 +304,7 @@ export function StageGlass(props: StageProps): ReactNode {
             <GlassToolbar
               aria-label="Document actions"
               className="bar"
-              groupProps={{ id: "behavior-bar" }}
+              groupProps={{ id: "behavior-bar", hint: STAGE_HINT }}
             >
               <GlassButton className="control" onClick={() => props.onAction("share")}>
                 Share
@@ -308,7 +322,7 @@ export function StageGlass(props: StageProps): ReactNode {
               </GlassButton>
             </GlassToolbar>
 
-            <GlassGroup id="behavior-range">
+            <GlassGroup id="behavior-range" hint={STAGE_HINT}>
               <GlassSegmentedControl
                 aria-label="Time range"
                 className="segmented"
@@ -325,7 +339,7 @@ export function StageGlass(props: StageProps): ReactNode {
               closed platter is measured before it pins, and until it pins it is a
               registered box at the plane layer's origin.
             */}
-            <GlassGroup id="behavior-menu">
+            <GlassGroup id="behavior-menu" hint={STAGE_HINT}>
               <ActionsMenu label="Document actions" onAction={props.onAction} />
             </GlassGroup>
           </>

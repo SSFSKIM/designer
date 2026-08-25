@@ -400,6 +400,24 @@ code {
   background: none;
   border-left-color: transparent;
   pointer-events: none;
+  /*
+   * The instrument window is a dark surface, so the glass inside it is told so.
+   *
+   * The CSS tier writes its foreground as `light-dark(#1c1c1e, #f5f5f7)`, which
+   * resolves against the *element's* computed `color-scheme` — and the plane root
+   * carries `light dark`, so on a light-preferring system a control sitting on
+   * glass over this dark ground was given dark ink on a dark surface: measured at
+   * 1.6:1 to 3.0:1, well under the floor. `color-scheme` is the documented lever
+   * for exactly this ("foreground from explicit tokens or `color-scheme`"), and it
+   * belongs on the region the app authored rather than on the plane vitrea owns.
+   *
+   * Recorded for the parent: the group's X6 `hint` carries `tone: "dark"` here and
+   * the CSS tier does not consult it for the foreground, only the GPU tier does. On
+   * the tier most visitors get, the one mechanism the honesty core names for
+   * telling the runtime what it cannot see does not reach the thing it most needs
+   * to change.
+   */
+  color-scheme: dark;
 }
 
 .stage__canvas {
@@ -649,6 +667,16 @@ code {
   isolation: isolate;
 }
 
+/*
+ * Every segment's label sits at full ink, and the indicator carries the state.
+ *
+ * A dimmed label for the unselected segments measured 2.1:1 against the material
+ * under it, which is the kind of thing that only shows up when you sample the
+ * rendered pixels: the surface is a translucent material over a moving backdrop,
+ * so the usual "muted foreground on a known background" arithmetic does not apply.
+ * Selection is still carried three ways without it — the indicator pill, the
+ * weight, and `aria-checked`.
+ */
 .segment {
   position: relative;
   z-index: 1;
@@ -659,13 +687,23 @@ code {
   background: none;
   font: inherit;
   font-size: 0.9375rem;
-  font-weight: 550;
-  color: var(--stage-ink-dim);
+  font-weight: 500;
+  color: var(--stage-ink);
   cursor: pointer;
 }
 
+/*
+ * The selected segment inverts: dark ink on a bright pill.
+ *
+ * That is both the Apple-like reading of a segmented control and the one that
+ * measures well here. A light label on a light pill came out at 3.7:1 against the
+ * rendered surface; brightening the pill and darkening its label takes the same
+ * arrangement past 6:1, and the pill is app decoration rather than the material, so
+ * neither number is the runtime's to fix.
+ */
 .segment[aria-checked="true"] {
-  color: var(--vitrea-foreground, var(--stage-ink));
+  font-weight: 650;
+  color: var(--paper-9);
 }
 
 .segment:focus-visible {
@@ -674,11 +712,19 @@ code {
 
 .segment-indicator {
   z-index: 0;
-  background: rgb(255 255 255 / calc(0.16 + 0.12 * var(--vitrea-glow, 0)));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.26);
+  background: rgb(255 255 255 / calc(0.72 + 0.14 * var(--vitrea-glow, 0)));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.4);
 }
 
 .platter {
+  /*
+   * Dark, for the same reason `.stage--mirror` is: the morph portals itself into a
+   * mount node of its own, directly under the plane's host layer, so it inherits
+   * nothing from the stage the app authored. Without this its collapsed content
+   * gets the light-scheme foreground on a dark surface.
+   */
+  color-scheme: dark;
+
   /*
    * Constrains the closed platter *before* it pins. Until it has measured itself
    * `GlassMorph` leaves it in the plane host layer's own flow, where a block-level
