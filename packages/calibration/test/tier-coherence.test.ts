@@ -29,11 +29,13 @@ import {
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_SOURCE_OPTICS,
+  REDUCED_TRANSPARENCY_FROST,
   cssTierOptics,
   foregroundDeclarations,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
-  resolvedOcclusionLift,
+  opticsUnderPolicy as cssTierOpticsUnderPolicy,
+  resolvedPolicyFold,
   sourceOptics,
 } from "@vitrea/platform-web";
 import {
@@ -138,7 +140,7 @@ describe("tier coherence (K5)", () => {
     const decided = occlusionAlphaUnderPolicy(
       sourceOptics(patch).regular.tintAlpha,
       policy.material.occlusion,
-      resolvedOcclusionLift(patch),
+      resolvedPolicyFold(patch).increasedOcclusionLift,
     );
     expect(decided).toBe(rendered.tintAlpha);
 
@@ -160,6 +162,46 @@ describe("tier coherence (K5)", () => {
     expect(levelAt(atDefaultLift)).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
     expect(inkAt(rendered.tintAlpha)).toBe(FOREGROUND_INK.light);
     expect(inkAt(atDefaultLift)).toBe(FOREGROUND_INK.dark);
+  });
+
+  /*
+   * The frost multiplier, the same mirror one field along. Pinned here for the
+   * reason the lift is: both are patchable profile fields the renderer already
+   * honours, so a mirrored copy that does not follow the patch degrades the two
+   * tiers differently under the same preference — which is what §Accessibility's
+   * "more frosted" promise is worth on a demoted surface.
+   */
+  it("thickens the frost by the same multiplier on both tiers, patch included", () => {
+    expect(REDUCED_TRANSPARENCY_FROST).toBe(DEFAULT_MATERIAL_PROFILE.reducedTransparencyFrost);
+
+    const patch = { reducedTransparencyFrost: 3 };
+    const policy = resolveAccessibilityPolicy({
+      reducedTransparency: true,
+      reducedMotion: false,
+      increasedContrast: false,
+      forcedColors: false,
+      reducedTransparencySupported: true,
+    });
+    expect(policy.material.frost).toBe("increased");
+
+    // σ survives the tier conversion unscaled (`blurSigmaScale`, pinned above), so
+    // the two folded blurs are the same quantity and comparable directly — which
+    // is what makes this a mirror check rather than a coherence-floor one.
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const rendered = rendererOpticsUnderPolicy(profile.optics.regular, policy.material, profile);
+    const painted = cssTierOpticsUnderPolicy(
+      cssTierOptics(patch).regular,
+      policy.material,
+      resolvedPolicyFold(patch),
+    );
+
+    expect(painted.blurRadius).toBe(rendered.blurSigma);
+    // And the patch actually moved something: at the shipped multiplier this same
+    // surface frosts to a different σ, so an equality that ignored the patch would
+    // not have passed by accident.
+    expect(painted.blurRadius).not.toBe(
+      cssTierOpticsUnderPolicy(cssTierOptics(patch).regular, policy.material).blurRadius,
+    );
   });
 
   it("follows a profile patch on both sides at once", () => {

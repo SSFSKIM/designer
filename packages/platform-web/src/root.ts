@@ -88,7 +88,7 @@ import {
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
-  resolvedOcclusionLift,
+  resolvedPolicyFold,
   sourceOptics,
   type CssTierMapping,
   type MaterialOptics,
@@ -454,14 +454,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let gpuOptics = sourceOptics(options.materialProfile);
   /**
-   * The lift the profile resolves to, held alongside the two tiers' optics
-   * because it is the one policy constant neither of them can carry: it applies
-   * to whatever alpha they arrive at rather than being one of those alphas.
-   * Patchable, and the renderer composites with the patched value — so the
-   * foreground decision and this tier's own fold both have to use it or they
-   * would model a material nothing draws.
+   * The profile's policy constants, held alongside the two tiers' optics because
+   * they are the part of the profile neither tier's optics can carry: they
+   * multiply whatever numbers the regime is given rather than being those
+   * numbers. Both are patchable and the renderer already draws with the patched
+   * values, so the foreground decision and this tier's own fold have to use them
+   * or they would model a material nothing draws.
    */
-  let occlusionLift = resolvedOcclusionLift(options.materialProfile);
+  let policyFold = resolvedPolicyFold(options.materialProfile);
 
   const bridge: GlassRendererBridge | undefined = wantsWebGPU
     ? createGlassRendererBridge({
@@ -632,7 +632,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
       const variant = groupRecord.descriptor.material?.variant ?? "regular";
       const baseOptics = cssOptics[variant];
-      const optics = opticsUnderPolicy(baseOptics, accessibility.material, occlusionLift);
+      const optics = opticsUnderPolicy(baseOptics, accessibility.material, policyFold);
       const state = stateFor(groupId) ?? resolved.state;
 
       const members = [...hosts.values()].filter((record) => record.groupId === groupId);
@@ -749,7 +749,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           radii: record.radii,
           optics: baseOptics,
           mapping: cssMapping,
-          increasedOcclusionLift: occlusionLift,
+          policyFold,
           policy: accessibility,
           foreground: hint,
         });
@@ -813,7 +813,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                       tintAlpha: occlusionAlphaUnderPolicy(
                         gpuOptics[variant].tintAlpha,
                         accessibility.material.occlusion,
-                        occlusionLift,
+                        policyFold.increasedOcclusionLift,
                       ),
                     },
                     hintedBackdrop,
@@ -1112,7 +1112,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // handing the CSS tier its own alpha would be re-opening K5's gap by hand.
       cssOptics = cssTierOptics(profile, cssMapping);
       gpuOptics = sourceOptics(profile);
-      occlusionLift = resolvedOcclusionLift(profile);
+      policyFold = resolvedPolicyFold(profile);
       bridge?.setMaterialProfile(profile);
     },
 

@@ -464,8 +464,11 @@ export function requiredSamplingPadding(blurRadius: number): number {
  * How much reduced transparency thickens the frost. §Accessibility says "more
  * frosted"; the regime is core's decision and the multiplier is this package's,
  * because it is a number about a blur radius.
+ *
+ * Mirrored by `@vitrea/renderer-webgpu`'s `MaterialProfile.reducedTransparencyFrost`
+ * and pinned in both directions by `packages/calibration/test/tier-coherence.test.ts`.
  */
-const REDUCED_TRANSPARENCY_FROST = 1.75;
+export const REDUCED_TRANSPARENCY_FROST = 1.75;
 
 /**
  * How much of the *remaining* transparency reduced transparency closes.
@@ -515,21 +518,47 @@ export function occlusionAlphaUnderPolicy(
 }
 
 /**
- * The lift a profile patch resolves to, by the renderer's own merge rule
+ * The profile fields the *policy* fold reads, as opposed to the ones the tier
+ * conversion reads.
+ *
+ * `cssTierOptics` converts a profile's per-variant optics into this tier's alpha
+ * space and hands back numbers. These two are different: they are multipliers the
+ * accessibility regime applies to whatever numbers it is given, so they survive
+ * the conversion untouched and cannot ride along inside the converted optics.
+ * They therefore travel beside them, as one value rather than as loose scalars —
+ * two bare `number`s at a call site are one transposition away from being the
+ * bug they exist to prevent.
+ */
+export interface PolicyFoldConstants {
+  readonly increasedOcclusionLift: number;
+  readonly reducedTransparencyFrost: number;
+}
+
+/** The shipped profile's policy constants — the mirrored defaults. */
+export const POLICY_FOLD_CONSTANTS: PolicyFoldConstants = {
+  increasedOcclusionLift: INCREASED_OCCLUSION_LIFT,
+  reducedTransparencyFrost: REDUCED_TRANSPARENCY_FROST,
+};
+
+/**
+ * What a profile patch resolves them to, by the renderer's own merge rule
  * (`withMaterialOverrides`): a field the patch does not name keeps the mirrored
  * default.
  *
- * The lift is a *patchable* profile field, and the renderer composites with the
- * patched value. Anything on this side that models what the renderer drew — the
- * GPU tier's foreground decision — or that paints its own lifted material — the
- * CSS tier's fold — has to resolve it the same way, or a calibration patch would
- * move the material without moving the decision taken against it. That is the
+ * Both are *patchable* profile fields and the renderer already honours the
+ * patched values. Anything on this side that models what the renderer drew — the
+ * GPU tier's foreground decision — or that paints its own folded material — the
+ * CSS tier — has to resolve them the same way, or a calibration patch would move
+ * the material without moving the decision taken against it. That is the
  * decision-vs-render divergence Decision Log #32(b) exists to prevent, and the
  * tier gap K5 (#32(a)) closed, reappearing through the patch rather than through
  * a second copy of the constant.
  */
-export function resolvedOcclusionLift(patch?: RendererMaterialProfile): number {
-  return patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT;
+export function resolvedPolicyFold(patch?: RendererMaterialProfile): PolicyFoldConstants {
+  return {
+    increasedOcclusionLift: patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT,
+    reducedTransparencyFrost: patch?.reducedTransparencyFrost ?? REDUCED_TRANSPARENCY_FROST,
+  };
 }
 
 /** A drawn border rather than a rim highlight (§Accessibility: "stronger borders"). */
@@ -545,27 +574,34 @@ const REDUCED_TINT_SATURATION = 1;
  * one axis of `ResolvedMaterialPolicy`, so a new axis in core surfaces as a
  * missing branch here rather than as silence.
  *
- * `lift` is the resolved `increasedOcclusionLift` of the profile these optics
- * were derived from (`resolvedOcclusionLift`). It is a parameter because this
- * function receives no profile: the optics arriving here are already converted to
- * this tier's alpha space, and the patch that produced them is only in scope at
- * the call site. The default is the shipped constant, so an unpatched caller
- * folds exactly the numbers it always did.
+ * `fold` is the policy constants of the profile these optics were derived from
+ * (`resolvedPolicyFold`). They are a parameter because this function receives no
+ * profile: the optics arriving here are already converted to this tier's alpha
+ * space, and the patch that produced them is only in scope at the call site. The
+ * default is the shipped set, so an unpatched caller folds exactly the numbers it
+ * always did.
  */
 export function opticsUnderPolicy(
   optics: MaterialOptics,
   policy: ResolvedMaterialPolicy,
-  lift: number = INCREASED_OCCLUSION_LIFT,
+  fold: PolicyFoldConstants = POLICY_FOLD_CONSTANTS,
 ): MaterialOptics {
   let next = optics;
 
   if (policy.frost === "increased") {
-    next = { ...next, blurRadius: next.blurRadius * REDUCED_TRANSPARENCY_FROST };
+    next = { ...next, blurRadius: next.blurRadius * fold.reducedTransparencyFrost };
   } else if (policy.frost === "none") {
     next = { ...next, blurRadius: 0 };
   }
 
-  next = { ...next, tintAlpha: occlusionAlphaUnderPolicy(next.tintAlpha, policy.occlusion, lift) };
+  next = {
+    ...next,
+    tintAlpha: occlusionAlphaUnderPolicy(
+      next.tintAlpha,
+      policy.occlusion,
+      fold.increasedOcclusionLift,
+    ),
+  };
 
   if (policy.border === "strong") next = { ...next, ...STRONG_BORDER };
 

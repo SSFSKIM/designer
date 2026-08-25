@@ -16,11 +16,13 @@ import {
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_OPTICS,
   MATERIAL_SOURCE_OPTICS,
+  REDUCED_TRANSPARENCY_FROST,
   cssTierOptics,
   cssTierForegroundLevel,
   cssTintAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
+  resolvedPolicyFold,
 } from "../src/optics";
 
 const surface = {
@@ -76,6 +78,40 @@ describe("the CSS tier (the fallback is the design)", () => {
     expect(Number(reduced["--vitrea-occlusion"])).toBeGreaterThanOrEqual(
       Number(nominal["--vitrea-occlusion"]),
     );
+  });
+
+  it("frosts by the multiplier the profile patch names, not the shipped one", () => {
+    // Same defect class as the lift one field along: `reducedTransparencyFrost`
+    // is patchable and the renderer already scales its blur sigma by the patched
+    // value, so this tier folding its own mirrored copy would frost a demoted
+    // surface by a factor the GPU tier never used.
+    const policy = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
+    const blurOf = (value: string | undefined): number =>
+      Number(/blur\(([\d.]+)px\)/.exec(value ?? "")?.[1]);
+    const frostedWith = (reducedTransparencyFrost?: number): number =>
+      blurOf(
+        cssTierDeclarations({
+          ...surface,
+          policy,
+          ...(reducedTransparencyFrost === undefined
+            ? {}
+            : { policyFold: resolvedPolicyFold({ reducedTransparencyFrost }) }),
+        })["backdrop-filter"],
+      );
+
+    // The blur is emitted to two decimals, so the expectation rounds the same way
+    // rather than settling for a tolerance the shipped multiplier would also pass.
+    const sigma = surface.optics.blurRadius;
+    const emitted = (radius: number): number => Math.round(radius * 100) / 100;
+    expect(frostedWith(1.1)).toBe(emitted(sigma * 1.1));
+    expect(frostedWith(3)).toBe(emitted(sigma * 3));
+    // Both directions: a patch may thin the frost as well as thicken it, and a
+    // multiplier — unlike a floor — expresses that without a special case.
+    expect(frostedWith(1.1)).toBeLessThan(frostedWith());
+    expect(frostedWith(3)).toBeGreaterThan(frostedWith());
+    // And no patch is byte-identical to before the field could be threaded.
+    expect(frostedWith()).toBe(emitted(sigma * REDUCED_TRANSPARENCY_FROST));
+    expect(frostedWith()).toBe(frostedWith(REDUCED_TRANSPARENCY_FROST));
   });
 
   /*
@@ -139,7 +175,9 @@ describe("the CSS tier (the fallback is the design)", () => {
           ...surface,
           optics: optics.regular,
           policy,
-          ...(increasedOcclusionLift === undefined ? {} : { increasedOcclusionLift }),
+          ...(increasedOcclusionLift === undefined
+            ? {}
+            : { policyFold: resolvedPolicyFold({ increasedOcclusionLift }) }),
         })["--vitrea-occlusion"],
       );
 

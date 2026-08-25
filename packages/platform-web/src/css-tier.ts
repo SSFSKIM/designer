@@ -39,6 +39,7 @@ import {
   opticsUnderPolicy,
   type CssTierMapping,
   type MaterialOptics,
+  type PolicyFoldConstants,
   type Rgb255,
 } from "./optics";
 
@@ -100,13 +101,13 @@ export interface CssTierSurface {
    */
   readonly mapping?: CssTierMapping;
   /**
-   * The resolved `increasedOcclusionLift` of the profile `optics` came from
-   * (`resolvedOcclusionLift`). The lift is patchable and the renderer composites
-   * with the patched value, so a surface whose optics came from a patched profile
-   * has to fold the same lift or this tier would paint a material the GPU tier
-   * does not draw. Absent keeps the shipped constant.
+   * The policy constants of the profile `optics` came from
+   * (`resolvedPolicyFold`). Both are patchable and the renderer already draws
+   * with the patched values, so a surface whose optics came from a patched
+   * profile has to fold the same numbers or this tier would paint a material the
+   * GPU tier does not draw. Absent keeps the shipped set.
    */
-  readonly increasedOcclusionLift?: number;
+  readonly policyFold?: PolicyFoldConstants;
 }
 
 /**
@@ -190,7 +191,7 @@ const rgba = (rgb: Rgb255, alpha: number): string =>
 export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations {
   const { policy } = surface;
   const mapping = surface.mapping ?? CSS_TIER_MAPPING;
-  const optics = opticsUnderPolicy(surface.optics, policy.material, surface.increasedOcclusionLift);
+  const optics = opticsUnderPolicy(surface.optics, policy.material, surface.policyFold);
   const radius = surface.radii.map(px).join(" ");
 
   // forced-colors: "system colors, borders, no glass" (§Accessibility). Nothing
