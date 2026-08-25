@@ -2,7 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    // `test/publish-shape.test.ts` reads the built artifact off disk. That is
+    // the only Node-shaped file here; the lint config still forbids Node
+    // built-ins in `src`, where they would actually ship.
+    "types": ["node"]
   },
   "include": ["src", "test"]
 }

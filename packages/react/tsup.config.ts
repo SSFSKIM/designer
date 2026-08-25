@@ -13,8 +13,18 @@ export default defineConfig({
   splitting: true,
   treeshake: true,
   sourcemap: true,
+  // `dts.resolve: true` rather than a package-name list, and the difference is
+  // load-bearing. A list matches the *specifier* `@vitrea/platform-web`, but that
+  // package's own `.d.ts` re-exports through `export *` from a dozen sibling
+  // modules — so rollup-plugin-dts leaves those siblings external and emits
+  // `import { GlassHostHandle } from "./backdrop-proxy"` into `dist/index.d.ts`,
+  // pointing at a file that was never published. Resolving everything inlines the
+  // whole chain; `@vitrea/core` and `react` stay external because tsup externalises
+  // declared dependencies and peers regardless of this flag.
+  // `test/publish-shape.test.ts` asserts the emitted `.d.ts` on the built artifact.
+  //
   // `ignoreDeprecations` is scoped to the declaration pass because tsup injects
   // the deprecated `baseUrl` there. Drop it when tsup stops doing that.
-  dts: { resolve: [BUNDLED_INTERNALS], compilerOptions: { ignoreDeprecations: "6.0" } },
+  dts: { resolve: true, compilerOptions: { ignoreDeprecations: "6.0" } },
   noExternal: [BUNDLED_INTERNALS],
 });

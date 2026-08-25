@@ -9,7 +9,13 @@
     "url": "git+https://github.com/SSFSKIM/designer.git",
     "directory": "packages/react"
   },
-  "keywords": ["liquid-glass", "react", "webgpu", "material", "glass"],
+  "keywords": [
+    "liquid-glass",
+    "react",
+    "webgpu",
+    "material",
+    "glass"
+  ],
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -20,28 +26,43 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "build": "tsup",
-    "lint": "eslint . && tsc --noEmit",
-    "test": "vitest run"
+    "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@vitrea/core": "workspace:^"
   },
   "peerDependencies": {
-    "react": ">=18.3.0"
+    "react": ">=19.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "catalog:",
+    "@playwright/test": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitrea/geometry": "workspace:*",
+    "@vitrea/motion": "workspace:*",
     "@vitrea/platform-web": "workspace:*",
     "eslint": "catalog:",
+    "jsdom": "catalog:",
     "react": "catalog:",
+    "react-dom": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:"
   }
 }
