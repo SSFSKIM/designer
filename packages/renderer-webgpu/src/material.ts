@@ -158,7 +158,25 @@ export interface MaterialProfile {
    * under the same preference.
    */
   readonly reducedTransparencyFrost: number;
-  readonly increasedOcclusionAlpha: number;
+  /**
+   * How much of the *remaining* transparency reduced transparency closes.
+   *
+   * **Relative, not absolute (Decision Log #32(d)).** This was
+   * `increasedOcclusionAlpha`, an absolute floor of 0.62 applied as
+   * `Math.max(nominal, floor)` — a real lift while nominal was the advisory 0.28,
+   * and a no-op from the moment C9a measured nominal at 0.62. The policy died
+   * without being touched and nothing noticed for a whole child. A fraction of the
+   * headroom cannot die that way: it lifts strictly for every nominal below 1,
+   * whatever a later tuning pass moves nominal to.
+   *
+   * The fraction is the pre-C9a lift, restored rather than invented:
+   * (0.62 − 0.28) / (1 − 0.28) = 0.4722, which reproduces the old floor exactly at
+   * the old nominal. At today's nominal it reads 0.62 → 0.799.
+   *
+   * Mirrored by `@vitrea/platform-web`'s `INCREASED_OCCLUSION_LIFT`, and pinned in
+   * both directions by `packages/calibration/test/tier-coherence.test.ts`.
+   */
+  readonly increasedOcclusionLift: number;
   readonly strongBorderRim: MaterialRim;
   readonly reducedTintAdaptation: number;
 
@@ -184,6 +202,31 @@ export interface MaterialProfile {
  * carries it: packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json.
  */
 const SRGB_WHITE_TINT: Rgb = [1, 1, 1];
+
+/**
+ * The pre-C9a lift, expressed as the fraction of the remaining transparency it
+ * closed: (0.62 − 0.28) / (1 − 0.28). See `MaterialProfile.increasedOcclusionLift`.
+ */
+export const INCREASED_OCCLUSION_LIFT = 0.4722;
+
+/**
+ * The occlusion alpha a resolved policy asks for, given whatever nominal the
+ * material carries. Mirrors `@vitrea/platform-web`'s `occlusionAlphaUnderPolicy`.
+ */
+export function occlusionAlphaUnderPolicy(
+  nominal: number,
+  occlusion: MaterialPolicyView["occlusion"],
+  lift: number = INCREASED_OCCLUSION_LIFT,
+): number {
+  switch (occlusion) {
+    case "nominal":
+      return nominal;
+    case "increased":
+      return nominal + lift * (1 - nominal);
+    case "opaque":
+      return 1;
+  }
+}
 
 export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   optics: {
@@ -270,7 +313,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   lensRimLodBias: 2.5,
 
   reducedTransparencyFrost: 1.75,
-  increasedOcclusionAlpha: 0.62,
+  increasedOcclusionLift: INCREASED_OCCLUSION_LIFT,
   strongBorderRim: { rimWidth: 2, rimAlpha: 0.95 },
   reducedTintAdaptation: 0.35,
 
@@ -316,7 +359,7 @@ export interface MaterialProfilePatch {
   readonly lensBodyLodPerPx?: number;
   readonly lensRimLodBias?: number;
   readonly reducedTransparencyFrost?: number;
-  readonly increasedOcclusionAlpha?: number;
+  readonly increasedOcclusionLift?: number;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
   readonly reducedTintAdaptation?: number;
   readonly lightDirection?: readonly [number, number];
@@ -361,7 +404,7 @@ export function withMaterialOverrides(
     lensBodyLodPerPx: patch.lensBodyLodPerPx ?? base.lensBodyLodPerPx,
     lensRimLodBias: patch.lensRimLodBias ?? base.lensRimLodBias,
     reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
-    increasedOcclusionAlpha: patch.increasedOcclusionAlpha ?? base.increasedOcclusionAlpha,
+    increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
     reducedTintAdaptation: patch.reducedTintAdaptation ?? base.reducedTintAdaptation,
     lightDirection: patch.lightDirection ?? base.lightDirection,
@@ -392,11 +435,14 @@ export function opticsUnderPolicy(
     next = { ...next, blurSigma: 0 };
   }
 
-  if (policy.occlusion === "increased") {
-    next = { ...next, tintAlpha: Math.max(next.tintAlpha, profile.increasedOcclusionAlpha) };
-  } else if (policy.occlusion === "opaque") {
-    next = { ...next, tintAlpha: 1 };
-  }
+  next = {
+    ...next,
+    tintAlpha: occlusionAlphaUnderPolicy(
+      next.tintAlpha,
+      policy.occlusion,
+      profile.increasedOcclusionLift,
+    ),
+  };
 
   if (policy.border === "strong") next = { ...next, ...profile.strongBorderRim };
 

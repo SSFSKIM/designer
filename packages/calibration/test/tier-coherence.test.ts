@@ -23,8 +23,18 @@
  * three.
  */
 
-import { MATERIAL_SOURCE_OPTICS, cssTierOptics } from "@vitrea/platform-web";
-import { DEFAULT_MATERIAL_PROFILE, MATERIAL_VARIANTS } from "@vitrea/renderer-webgpu";
+import {
+  INCREASED_OCCLUSION_LIFT,
+  MATERIAL_SOURCE_OPTICS,
+  cssTierOptics,
+  occlusionAlphaUnderPolicy,
+} from "@vitrea/platform-web";
+import {
+  DEFAULT_MATERIAL_PROFILE,
+  INCREASED_OCCLUSION_LIFT as RENDERER_OCCLUSION_LIFT,
+  MATERIAL_VARIANTS,
+  occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
+} from "@vitrea/renderer-webgpu";
 import { describe, expect, it } from "vitest";
 
 describe("tier coherence (K5)", () => {
@@ -66,6 +76,24 @@ describe("tier coherence (K5)", () => {
 
     expect(css.regular.tintAlpha).toBeGreaterThan(gpu);
     expect(css.regular.tintAlpha).toBeLessThan(1);
+  });
+
+  /*
+   * Decision Log #32(d): the reduced-transparency lift is one derivation, and the
+   * two tiers hold it as a mirror for the same reason they mirror the optics.
+   * Pinned here because an absolute floor is exactly what silently died once
+   * already, and a floor that dies on one tier and not the other would be worse.
+   */
+  it("lifts occlusion by the same relative derivation on both tiers", () => {
+    expect(INCREASED_OCCLUSION_LIFT).toBe(RENDERER_OCCLUSION_LIFT);
+    expect(DEFAULT_MATERIAL_PROFILE.increasedOcclusionLift).toBe(INCREASED_OCCLUSION_LIFT);
+
+    for (const nominal of [0, 0.28, 0.62, 0.9, 1]) {
+      expect(occlusionAlphaUnderPolicy(nominal, "increased"), `nominal ${nominal}`).toBeCloseTo(
+        rendererOcclusionAlphaUnderPolicy(nominal, "increased"),
+        12,
+      );
+    }
   });
 
   it("follows a profile patch on both sides at once", () => {

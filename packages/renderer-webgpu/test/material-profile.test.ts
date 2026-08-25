@@ -19,10 +19,12 @@ import { describe, expect, it } from "vitest";
 import {
   bodyLod,
   DEFAULT_MATERIAL_PROFILE,
+  INCREASED_OCCLUSION_LIFT,
   lensDepthPx,
   lensSizeGain,
   MATERIAL_OPTICS,
   MATERIAL_VARIANTS,
+  occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
   REFRACTION_LADDER,
   REFRACTION_SCALE,
@@ -127,7 +129,7 @@ describe("withMaterialOverrides", () => {
 describe("the foldings read the profile they are given", () => {
   const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
     reducedTransparencyFrost: 3,
-    increasedOcclusionAlpha: 0.9,
+    increasedOcclusionLift: 0.5,
     reducedTintAdaptation: 0.1,
     lensSizeGainMax: 4,
     lensBodyLodPerPx: 1,
@@ -144,13 +146,39 @@ describe("the foldings read the profile they are given", () => {
     expect(optics.blurSigma).toBeCloseTo(profile.optics.regular.blurSigma * 3, 12);
   });
 
-  it("occludes to the profile's floor", () => {
+  it("occludes by the profile's lift, which is a fraction of the headroom", () => {
+    const nominal = profile.optics.regular.tintAlpha;
     const optics = opticsUnderPolicy(
       profile.optics.regular,
       { ...NOMINAL_MATERIAL_POLICY, occlusion: "increased" },
       profile,
     );
-    expect(optics.tintAlpha).toBe(0.9);
+    expect(optics.tintAlpha).toBeCloseTo(nominal + 0.5 * (1 - nominal), 12);
+    expect(optics.tintAlpha).toBeGreaterThan(nominal);
+  });
+
+  /*
+   * Decision Log #32(d). The lift used to be an absolute floor, which C9a's tint
+   * tune silently walked past: nominal became the floor, `Math.max` became the
+   * identity, and the accessibility policy stopped doing anything without anyone
+   * touching it. This is the test that would have caught that, and it is written
+   * over nominals no tuning pass has reached rather than over the shipped one.
+   */
+  it("lifts at any nominal, so a retune cannot make it inert", () => {
+    for (const tintAlpha of [0, 0.05, 0.28, 0.62, 0.9, 0.999]) {
+      const optics = opticsUnderPolicy(
+        { ...DEFAULT_MATERIAL_PROFILE.optics.regular, tintAlpha },
+        { ...NOMINAL_MATERIAL_POLICY, occlusion: "increased" },
+      );
+      expect(optics.tintAlpha, `tintAlpha ${tintAlpha}`).toBeGreaterThan(tintAlpha);
+    }
+    // A material with nothing left to hide is the one place it cannot lift.
+    expect(occlusionAlphaUnderPolicy(1, "increased")).toBe(1);
+  });
+
+  it("restores the pre-C9a lift, expressed relatively", () => {
+    expect(occlusionAlphaUnderPolicy(0.28, "increased")).toBeCloseTo(0.62, 3);
+    expect(INCREASED_OCCLUSION_LIFT).toBeCloseTo((0.62 - 0.28) / (1 - 0.28), 4);
   });
 
   it("gains the lens by the profile's saturation, and lods by its rate", () => {

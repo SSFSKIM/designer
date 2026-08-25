@@ -172,15 +172,22 @@ export interface CssTierMapping {
   /**
    * The ambient drop shadow — offset and blur in CSS px, and its alpha.
    *
-   * CSS-only, and the one place this tier deliberately draws something the
-   * reference material does not: C9a measured both sides at ≈0 outside the
-   * contour, while this shadow puts material outside it (which is why the dom
-   * tier's silhouette runs up to 2.36× the declared component area and its shape
-   * axis is not comparable to the texture tier's). It survives because the
-   * fallback has to read as a floating surface — the repo's effects policy says
-   * the fallback is the design — so it is a stated departure rather than an
-   * unmeasured one. Absolute px rather than multiples of σ so that a frost
-   * preference cannot change the surface's apparent footprint.
+   * **Zero, as of Decision Log #32(c).** The seam stays because a profile is
+   * entitled to put one back; the shipped value is the reference's, which is
+   * none. K5 measured what the shadow was costing: it owned the dom tier's whole
+   * shape axis, and turning it off — nothing else — moved silhouette IoU from
+   * 0.676 to 0.942 and contour p95 from 18.7px to 2.2px, with perceptual and
+   * cross-tier agreement improving too. It had survived until then on the repo's
+   * effects policy ("the fallback is the design", so it has to read as a floating
+   * surface); the parent ruled fidelity-first is the tiebreaker and "reads as
+   * Apple" outranks "reads as floating".
+   *
+   * The tier does not lose its contrast floor with it. What keeps a surface
+   * legible when `backdrop-filter` no-ops is the tint and the border, which is
+   * what `e2e/pixel/css-tier-pixels.spec.ts` asserts, and neither is a shadow.
+   *
+   * Absolute px rather than multiples of σ, so that a frost preference cannot
+   * change the surface's apparent footprint if a profile does restore one.
    */
   readonly shadowOffset: number;
   readonly shadowBlur: number;
@@ -251,9 +258,14 @@ export const CSS_TIER_MAPPING: CssTierMapping = {
    */
   borderAlphaPerRimAlpha: 1.95,
   borderWidth: 1,
-  shadowOffset: 6,
-  shadowBlur: 24,
-  shadowAlpha: 0.18,
+  /*
+   * MEASURED (K5) and REMOVED (Decision Log #32(c)). See `CssTierMapping`'s
+   * shadow fields for the numbers and the reasoning; the surface's own contrast
+   * floor is the tint and the border, not this.
+   */
+  shadowOffset: 0,
+  shadowBlur: 0,
+  shadowAlpha: 0,
   // A hint that names only a tone is a coarse statement, and these are the coarse
   // readings of it: near-black and near-white. An app that wants the foreground
   // decided finely passes `luminance`, which X6's hint already carries.
@@ -321,7 +333,19 @@ export function cssTintAlpha(
 }
 
 /**
- * The level the glyphs actually sit on, encoded sRGB 0..1.
+ * Which space a tier's material is composited in — the one axis on which the two
+ * tiers' arithmetic genuinely differs.
+ *
+ * The renderer lerps toward the tint in **linear light** and the page shows the
+ * encoded result; the CSS tier lays `rgba()` over a `backdrop-filter`ed backdrop
+ * that the page composites in **encoded sRGB**. `cssTintAlpha` exists because of
+ * this difference, and so does this parameter.
+ */
+export type CompositeSpace = "linear" | "encoded";
+
+/**
+ * The level the glyphs actually sit on, encoded sRGB 0..1 — the one derivation
+ * both tiers read (Decision Log #32(b)).
  *
  * **Why the foreground cannot be chosen from the backdrop alone.** X6's hint
  * describes what is *behind the group*, and K4 wired that straight to the
@@ -330,18 +354,34 @@ export function cssTintAlpha(
  * measured opacity it is wrong — what a reader sees behind the text is
  * `mix(backdrop, tint, α)`, and once α is 0.78 that is the tint. A dark hint over
  * a white-tinted material was producing near-white ink on a near-white surface;
- * measured on the demo, WCAG contrast 1.24 against a 4.5 floor.
+ * measured on the demo, WCAG contrast 1.24 against a 4.5 floor, and measured
+ * again on the GPU tier at 1.57 before that tier published a foreground at all.
  *
- * So the tone is one input to the decision rather than the decision. The mix is
- * taken in encoded space because that is where the CSS tier's composite actually
- * happens (the whole reason `cssTintAlpha` exists), and the hint's `luminance` is
- * a linear quantity by X6's definition, so it is encoded on the way in.
+ * So the tone is one input to the decision rather than the decision. The hint's
+ * `luminance` is a linear quantity by X6's definition; where the composite
+ * happens in encoded space it is encoded on the way in, and where it happens in
+ * linear light the mix is taken first and encoded after. Both roads end in an
+ * encoded level, because that is what a reader's eye is presented with and what
+ * `CssTierMapping.foregroundCrossover` is measured on.
  *
  * Precision is deliberately not the goal here: the output feeds one threshold
  * between two ink tokens, and what matters is that the decision follows the tint
  * once the tint dominates. It is not a contrast calculation and does not claim to
  * be one — an app that needs a guaranteed ratio sets the foreground itself.
  */
+export function foregroundLevel(
+  material: { readonly tintAlpha: number; readonly tintLuminance: number },
+  backdropLuminance: number,
+  space: CompositeSpace,
+): number {
+  const { tintAlpha, tintLuminance } = material;
+  if (space === "linear") {
+    return srgbEncode((1 - tintAlpha) * backdropLuminance + tintAlpha * tintLuminance);
+  }
+  return (1 - tintAlpha) * srgbEncode(backdropLuminance) + tintAlpha * srgbEncode(tintLuminance);
+}
+
+/** `foregroundLevel` for this tier's own optics, whose tint is already encoded. */
 export function cssTierForegroundLevel(
   optics: MaterialOptics,
   backdropLuminance: number,
@@ -351,7 +391,41 @@ export function cssTierForegroundLevel(
     optics.tint[1] / 255,
     optics.tint[2] / 255,
   ]);
+  // The tint arrives encoded (`Rgb255`), so its luminance is already the encoded
+  // quantity the mix wants — hence `srgbEncode` is applied to the backdrop only,
+  // which is what `space: "encoded"` does with a linear tint. Decoding to re-encode
+  // would be the same number by a longer road.
   return (1 - optics.tintAlpha) * srgbEncode(backdropLuminance) + optics.tintAlpha * tint;
+}
+
+/** `foregroundLevel` for the renderer's material, which composites in linear light. */
+export function gpuTierForegroundLevel(
+  source: MaterialSourceOptics,
+  backdropLuminance: number,
+): number {
+  return foregroundLevel(
+    { tintAlpha: source.tintAlpha, tintLuminance: luminance(source.tint) },
+    backdropLuminance,
+    "linear",
+  );
+}
+
+/**
+ * The renderer's own per-variant optics under a profile patch — the mirror,
+ * merged, before the tier conversion.
+ *
+ * Exported because the GPU tier's foreground needs the material the *renderer* is
+ * drawing rather than the CSS tier's conversion of it (Decision Log #32(b)), and
+ * that is the only quantity on this side of the seam that describes it.
+ */
+export function sourceOptics(
+  patch?: RendererMaterialProfile,
+): Readonly<Record<MaterialVariant, MaterialSourceOptics>> {
+  const resolved = {} as Record<MaterialVariant, MaterialSourceOptics>;
+  for (const variant of ["regular", "clear"] as const) {
+    resolved[variant] = { ...MATERIAL_SOURCE_OPTICS[variant], ...patch?.optics?.[variant] };
+  }
+  return resolved;
 }
 
 /**
@@ -369,10 +443,7 @@ export function cssTierOptics(
 ): Readonly<Record<MaterialVariant, MaterialOptics>> {
   const resolved = {} as Record<MaterialVariant, MaterialOptics>;
   for (const variant of ["regular", "clear"] as const) {
-    const source: MaterialSourceOptics = {
-      ...MATERIAL_SOURCE_OPTICS[variant],
-      ...patch?.optics?.[variant],
-    };
+    const source = sourceOptics(patch)[variant];
     resolved[variant] = {
       blurRadius: source.blurSigma * mapping.blurSigmaScale,
       saturation: mapping.saturation[variant],
@@ -417,8 +488,52 @@ export function requiredSamplingPadding(blurRadius: number): number {
  */
 const REDUCED_TRANSPARENCY_FROST = 1.75;
 
-/** Occlusion under reduced transparency: enough of the backdrop hidden to read against. */
-const INCREASED_OCCLUSION_ALPHA = 0.62;
+/**
+ * How much of the *remaining* transparency reduced transparency closes.
+ *
+ * **Relative, not absolute, and that is the whole point (Decision Log #32(d)).**
+ * This used to be an absolute floor — `Math.max(nominal, 0.62)` — which was a real
+ * lift while nominal was the advisory 0.28 and became a no-op the moment C9a
+ * measured nominal at 0.62. The policy died without being touched, on both tiers,
+ * and nothing noticed for a whole child. A fraction of the headroom cannot die
+ * that way: it lifts strictly for every nominal below 1, whatever a later tuning
+ * pass moves nominal to.
+ *
+ * The fraction is the pre-C9a lift, restored rather than invented:
+ * (0.62 − 0.28) / (1 − 0.28) = 0.4722. At the pre-C9a nominal it reproduces the old
+ * floor exactly, so this changes the *shape* of the policy and not its calibration.
+ * At today's nominal it reads 0.62 → 0.799 on the renderer's material and
+ * 0.781 → 0.884 on this tier's converted alpha.
+ *
+ * Each tier applies it in its own alpha space. A fraction of headroom is
+ * dimensionless — "close 47% of what is left" means the same thing on either side
+ * of the conversion — which is exactly why a relative form is the right shape here;
+ * the residual between the two tiers' lifted composites is the coherence floor this
+ * module's header already states, not a new one.
+ *
+ * Mirrored by `@vitrea/renderer-webgpu`'s `MaterialProfile.increasedOcclusionLift`
+ * and pinned in both directions by `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export const INCREASED_OCCLUSION_LIFT = 0.4722;
+
+/**
+ * The occlusion alpha a resolved policy asks for, given whatever nominal the
+ * material carries. One derivation, both tiers.
+ */
+export function occlusionAlphaUnderPolicy(
+  nominal: number,
+  occlusion: ResolvedMaterialPolicy["occlusion"],
+  lift: number = INCREASED_OCCLUSION_LIFT,
+): number {
+  switch (occlusion) {
+    case "nominal":
+      return nominal;
+    case "increased":
+      return nominal + lift * (1 - nominal);
+    case "opaque":
+      return 1;
+  }
+}
 
 /** A drawn border rather than a rim highlight (§Accessibility: "stronger borders"). */
 const STRONG_BORDER = { borderWidth: 2, borderAlpha: 0.95 } as const;
@@ -445,11 +560,7 @@ export function opticsUnderPolicy(
     next = { ...next, blurRadius: 0 };
   }
 
-  if (policy.occlusion === "increased") {
-    next = { ...next, tintAlpha: Math.max(next.tintAlpha, INCREASED_OCCLUSION_ALPHA) };
-  } else if (policy.occlusion === "opaque") {
-    next = { ...next, tintAlpha: 1 };
-  }
+  next = { ...next, tintAlpha: occlusionAlphaUnderPolicy(next.tintAlpha, policy.occlusion) };
 
   if (policy.border === "strong") next = { ...next, ...STRONG_BORDER };
 

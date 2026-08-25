@@ -373,6 +373,8 @@ const api = {
       borderRadius: computed.borderTopLeftRadius,
       pointerEvents: computed.pointerEvents,
       transition: computed.transitionProperty,
+      /** The resolved ink — what the label is actually drawn in, whatever chose it. */
+      color: computed.color,
       tint: computed.getPropertyValue("--vitrea-tint").trim(),
       occlusion: computed.getPropertyValue("--vitrea-occlusion").trim(),
       // The raw custom-property string, unresolved by the browser — unlike

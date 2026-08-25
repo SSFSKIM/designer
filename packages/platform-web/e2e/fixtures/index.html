@@ -44,7 +44,13 @@
         border: 0;
         background: transparent;
         font: 600 13px/1 system-ui, sans-serif;
-        color: #fff;
+        /*
+         * The documented pattern an app follows — read the runtime's answer, fall
+         * back to the app's own ink where there is none. Written this way rather
+         * than as a bare colour so that a tier publishing no foreground shows up
+         * here as the fallback rather than as a coincidence.
+         */
+        color: var(--vitrea-foreground, #fff);
       }
 
       #scroller {

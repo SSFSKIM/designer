@@ -259,7 +259,7 @@ const MATERIAL_PATCH_KEYS = new Set([
   "lensBodyLodPerPx",
   "lensRimLodBias",
   "reducedTransparencyFrost",
-  "increasedOcclusionAlpha",
+  "increasedOcclusionLift",
   "strongBorderRim",
   "reducedTintAdaptation",
   "lightDirection",

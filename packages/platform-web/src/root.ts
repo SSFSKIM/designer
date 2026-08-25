@@ -53,7 +53,12 @@ import {
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { readHostChannels, type SurfaceChannelValues } from "./channels";
-import { cssTierDeclarations, type StyleDeclarations } from "./css-tier";
+import {
+  cssTierDeclarations,
+  foregroundDeclarations,
+  hintedBackdropLuminance,
+  type StyleDeclarations,
+} from "./css-tier";
 import {
   consoleDiagnosticSink,
   createPlatformDiagnosticsChannel,
@@ -80,7 +85,10 @@ import {
 import {
   CSS_TIER_MAPPING,
   cssTierOptics,
+  gpuTierForegroundLevel,
+  occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
+  sourceOptics,
   type CssTierMapping,
   type MaterialOptics,
 } from "./optics";
@@ -310,6 +318,12 @@ interface HostRecord {
    * read storm and make the zero-read guarantee false.
    */
   cssApplied: string | undefined;
+  /**
+   * The foreground pair currently on this host while the **GPU** tier is drawing,
+   * serialised. A separate cache from `cssApplied` because the two write disjoint
+   * property sets and either can be the live one on any frame.
+   */
+  gpuForegroundApplied: string | undefined;
 }
 
 /** Attributes the CSS tier writes, so stepping aside can remove exactly them. */
@@ -431,6 +445,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
   let cssOptics = cssTierOptics(options.materialProfile, cssMapping);
+  /**
+   * The same profile *before* the tier conversion — the material the renderer is
+   * drawing. The foreground decision needs it whenever the GPU tier is the one
+   * painting, because the level behind the glyphs is that material's composite
+   * and not the CSS tier's reproduction of it (Decision Log #32(b)).
+   */
+  let gpuOptics = sourceOptics(options.materialProfile);
 
   const bridge: GlassRendererBridge | undefined = wantsWebGPU
     ? createGlassRendererBridge({
@@ -704,21 +725,22 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // hint reaches it here: the node's resolved mode plus the group's
         // resolved hint tone, both already computed by core — this call
         // consumes that resolution rather than repeating it.
+        const hint = {
+          mode: (foreground ?? { adaptation: { mode: "fixed" as const } }).adaptation.mode,
+          ...(resolved.hint.hint?.tone === undefined ? {} : { tone: resolved.hint.hint.tone }),
+          // X6's optional luminance, forwarded rather than re-derived. Both tiers
+          // need it because the foreground depends on how much of the backdrop
+          // the material lets through, not only on its tone.
+          ...(resolved.hint.hint?.luminance === undefined
+            ? {}
+            : { luminance: resolved.hint.hint.luminance }),
+        };
         const declarations = cssTierDeclarations({
           radii: record.radii,
           optics: baseOptics,
           mapping: cssMapping,
           policy: accessibility,
-          foreground: {
-            mode: (foreground ?? { adaptation: { mode: "fixed" as const } }).adaptation.mode,
-            ...(resolved.hint.hint?.tone === undefined ? {} : { tone: resolved.hint.hint.tone }),
-            // X6's optional luminance, forwarded rather than re-derived. The
-            // tier needs it because the foreground now depends on how much of
-            // the backdrop the material lets through, not only on its tone.
-            ...(resolved.hint.hint?.luminance === undefined
-              ? {}
-              : { luminance: resolved.hint.hint.luminance }),
-          },
+          foreground: hint,
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {
@@ -743,9 +765,56 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }
             record.cssApplied = serialised;
           }
-        } else if (record.cssApplied !== undefined) {
-          clearDeclarations(record.host, declarations);
-          record.cssApplied = undefined;
+          // The CSS declarations carry the same foreground pair, so the GPU-tier
+          // cache is stale rather than merely unused: dropping it makes a switch
+          // back re-assert the ink instead of trusting a value another tier wrote.
+          record.gpuForegroundApplied = undefined;
+        } else {
+          if (record.cssApplied !== undefined) {
+            clearDeclarations(record.host, declarations);
+            record.cssApplied = undefined;
+          }
+
+          /*
+           * The GPU tier's foreground (Decision Log #32(b)).
+           *
+           * The material is the renderer's, so the level behind the glyphs is its
+           * linear-light composite rather than the CSS tier's reproduction of one —
+           * but the *decision* is the same decision, so it comes from the same
+           * function. Before this the GPU tier published nothing, and an app
+           * following the documented `var(--vitrea-foreground, …)` pattern fell
+           * back to its own ink: measured on a dark-hinted surface at WCAG 1.57
+           * against a 4.5 floor.
+           *
+           * Only this pair is written here. The tint, blur and border belong to
+           * whichever tier is painting the body, and that is the canvas.
+           */
+          const level = hintedBackdropLuminance(hint, cssMapping);
+          const ink = foregroundDeclarations({
+            policy: accessibility,
+            mapping: cssMapping,
+            ...(level === undefined
+              ? {}
+              : {
+                  level: gpuTierForegroundLevel(
+                    {
+                      ...gpuOptics[variant],
+                      tintAlpha: occlusionAlphaUnderPolicy(
+                        gpuOptics[variant].tintAlpha,
+                        accessibility.material.occlusion,
+                      ),
+                    },
+                    level,
+                  ),
+                }),
+          });
+          const serialisedInk = JSON.stringify(ink);
+          if (record.gpuForegroundApplied !== serialisedInk) {
+            for (const [property, value] of Object.entries(ink)) {
+              record.host.style.setProperty(property, value);
+            }
+            record.gpuForegroundApplied = serialisedInk;
+          }
         }
       }
     }
@@ -873,6 +942,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         onPlaneChange: hostOptions.onPlaneChange,
         cssMaterialized: false,
         cssApplied: undefined,
+        gpuForegroundApplied: undefined,
       };
       hosts.set(nodeId, record);
 
@@ -1001,6 +1071,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
               }),
             );
           }
+          if (record.gpuForegroundApplied !== undefined) {
+            clearDeclarations(
+              record.host,
+              foregroundDeclarations({ policy: scene.accessibilityPolicy(), mapping: cssMapping }),
+            );
+          }
         },
       };
 
@@ -1023,6 +1099,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // told: the mapping is what knows the crossing's cost, and a caller
       // handing the CSS tier its own alpha would be re-opening K5's gap by hand.
       cssOptics = cssTierOptics(profile, cssMapping);
+      gpuOptics = sourceOptics(profile);
       bridge?.setMaterialProfile(profile);
     },
 

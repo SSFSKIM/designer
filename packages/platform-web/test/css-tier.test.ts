@@ -1,13 +1,26 @@
-import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "vitrea";
+import {
+  NOMINAL_ACCESSIBILITY_POLICY,
+  resolveAccessibilityPolicy,
+  type ResolvedAccessibilityPolicy,
+} from "vitrea";
 import { describe, expect, it } from "vitest";
 
-import { cssTierDeclarations, CSS_TIER_TOKENS } from "../src/css-tier";
+import {
+  cssTierDeclarations,
+  foregroundDeclarations,
+  hintedBackdropLuminance,
+  CSS_TIER_TOKENS,
+} from "../src/css-tier";
 import {
   CSS_TIER_MAPPING,
+  INCREASED_OCCLUSION_LIFT,
   MATERIAL_OPTICS,
   MATERIAL_SOURCE_OPTICS,
   cssTierOptics,
   cssTintAlpha,
+  foregroundLevel,
+  gpuTierForegroundLevel,
+  occlusionAlphaUnderPolicy,
 } from "../src/optics";
 
 const surface = {
@@ -66,23 +79,18 @@ describe("the CSS tier (the fallback is the design)", () => {
   });
 
   /*
-   * The occlusion floor is currently inert, and this says so rather than letting
-   * a `≥` above read as a pass.
+   * The occlusion lift is RELATIVE, and these are the tests that would have caught
+   * it dying (Decision Log #32(d)).
    *
-   * §Accessibility promises reduced transparency "higher occlusion", and the
-   * implementation is a floor: `Math.max(nominal, increasedOcclusionAlpha)`, with
-   * the floor at 0.62 in both tiers. That was a real lift while the nominal tint
-   * alpha was the advisory 0.28. C9a then measured the material's alpha at 0.62
-   * and the floor stopped lifting anything on the GPU tier; K5 derives this
-   * tier's alpha from the same profile, so it stops lifting here too — at a
-   * *higher* absolute occlusion than before (0.718 against the old 0.62), but
-   * with no remaining difference from nominal on this axis. Frost still moves.
-   *
-   * Not fixed here: the floor is one number shared by both tiers and it sits in
-   * the texture-tier constants C9a froze against holdout scenes, so re-basing it
-   * is the parent's call, not a corrective child's.
+   * §Accessibility promises reduced transparency "higher occlusion". That used to
+   * be an absolute floor, `Math.max(nominal, 0.62)` — a real lift while the
+   * nominal tint alpha was the advisory 0.28, and a no-op from the moment C9a
+   * measured nominal at 0.62. It had been dead on the GPU tier for a whole child
+   * with nothing noticing. A fraction of the remaining transparency cannot die
+   * that way, and the second test is the one that says so at nominals nobody has
+   * measured yet.
    */
-  it("records that the reduced-transparency occlusion floor no longer lifts anything", () => {
+  it("lifts the occlusion above nominal under reduced transparency", () => {
     const nominal = Number(cssTierDeclarations(surface)["--vitrea-occlusion"]);
     const reduced = Number(
       cssTierDeclarations({
@@ -91,8 +99,37 @@ describe("the CSS tier (the fallback is the design)", () => {
       })["--vitrea-occlusion"],
     );
 
-    expect(nominal).toBeGreaterThan(0.62);
-    expect(reduced).toBe(nominal);
+    // The shipped material, as converted for this tier, and the lift it gets.
+    expect(nominal).toBeCloseTo(0.781, 3);
+    expect(reduced).toBeCloseTo(0.884, 3);
+    expect(reduced).toBeGreaterThan(nominal);
+  });
+
+  it("lifts at any nominal, including the ones no tuning pass has reached", () => {
+    // The property, not the value: whatever a future profile makes the material's
+    // alpha, reduced transparency still hides more of the backdrop than nominal.
+    for (const tintAlpha of [0, 0.05, 0.28, 0.62, 0.9, 0.999]) {
+      const optics = cssTierOptics({ optics: { regular: { tintAlpha } } });
+      const at = (policy: ResolvedAccessibilityPolicy): number =>
+        Number(
+          cssTierDeclarations({ ...surface, optics: optics.regular, policy })["--vitrea-occlusion"],
+        );
+      const nominal = at(resolveAccessibilityPolicy(systemWith({})));
+      const reduced = at(resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })));
+
+      expect(reduced, `tintAlpha ${tintAlpha}`).toBeGreaterThan(nominal);
+    }
+
+    // And a fully opaque material has nothing left to hide, which is the one place
+    // "strictly greater" cannot hold and must not be asserted.
+    expect(occlusionAlphaUnderPolicy(1, "increased")).toBe(1);
+  });
+
+  it("restores the pre-C9a lift, expressed relatively", () => {
+    // The fraction is not a new number: it is the old floor read as a proportion
+    // of the headroom it closed, so at the old nominal the policy is unchanged.
+    expect(occlusionAlphaUnderPolicy(0.28, "increased")).toBeCloseTo(0.62, 3);
+    expect(INCREASED_OCCLUSION_LIFT).toBeCloseTo((0.62 - 0.28) / (1 - 0.28), 4);
   });
 
   it("strengthens the border under increased contrast", () => {
@@ -157,9 +194,17 @@ describe("the CSS tier (the fallback is the design)", () => {
       expect(declarations["border-color"]).toBe(
         `rgba(${optics.border.join(", ")}, ${optics.borderAlpha.toFixed(3)})`,
       );
-      expect(declarations["box-shadow"]).toBe(
-        `0 ${optics.shadowOffset}px ${optics.shadowBlur}px rgba(0, 0, 0, ${optics.shadowAlpha})`,
-      );
+      // The shadow is gone (Decision Log #32(c)) and the declaration says so
+      // rather than writing a zero-sized one, but the seam is still derived: a
+      // profile that restores a shadow gets it painted.
+      expect(optics.shadowAlpha).toBe(0);
+      expect(declarations["box-shadow"]).toBe("none");
+      expect(
+        cssTierDeclarations({
+          ...surface,
+          optics: { ...optics, shadowOffset: 6, shadowBlur: 24, shadowAlpha: 0.18 },
+        })["box-shadow"],
+      ).toBe("0 6px 24px rgba(0, 0, 0, 0.18)");
     });
 
     it("converts the profile's alpha rather than copying it", () => {
@@ -348,5 +393,84 @@ describe("the CSS tier (the fallback is the design)", () => {
       expect(declarations.color).toBe("CanvasText");
       expect(declarations.background).toBe("Canvas");
     });
+  });
+});
+
+/*
+ * The foreground decision, as the *shared* rule it became in C9d (Decision Log
+ * #32(b)).
+ *
+ * K5 corrected the CSS tier's arithmetic and left the GPU tier's alone, because
+ * the parent wanted the GPU tier measured before it was touched. It was, and the
+ * defect reproduced in a shape K5 had not: the GPU tier published no foreground at
+ * all, so an app reading `var(--vitrea-foreground, …)` fell back to its own ink —
+ * measured on a dark-hinted GPU-tier surface at WCAG 1.57 against a 4.5 floor
+ * (`e2e/gpu/foreground-audit.spec.ts`, which now measures 10.81).
+ *
+ * These hold the two halves the e2e cannot: that the rule is one rule, and that
+ * the only thing differing between the tiers is the space their material
+ * composites in.
+ */
+describe("the foreground rule, shared across the tiers", () => {
+  const white = { tintAlpha: 0.62, tintLuminance: 1 };
+
+  it("reaches the same level from either composite, and by different arithmetic", () => {
+    // Same material, same backdrop; the linear-light lerp encoded after lands
+    // above the encoded overlay, because encoding is concave. Both are past the
+    // crossover here, which is why the two tiers agree on the ink while
+    // disagreeing on the number — the coherence floor `optics.ts` states.
+    const linear = foregroundLevel(white, 0.16, "linear");
+    const encoded = foregroundLevel(white, 0.16, "encoded");
+
+    expect(linear).toBeGreaterThan(encoded);
+    expect(linear).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
+    expect(encoded).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
+  });
+
+  it("follows the tint once the tint dominates, and the backdrop while it does not", () => {
+    // The property K4's rule got backwards. At the shipped opacity a dark backdrop
+    // still yields the dark ink, because what the reader sees is the white tint; at
+    // the clear variant's opacity the same backdrop yields the light one.
+    const regular = gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS.regular, 0.05);
+    const clear = gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS.clear, 0.05);
+
+    expect(regular).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
+    expect(clear).toBeLessThan(CSS_TIER_MAPPING.foregroundCrossover);
+  });
+
+  it("hands back both the token and the resolved colour, always in step", () => {
+    for (const level of [0, 0.4, 0.5, 1]) {
+      const declarations = foregroundDeclarations({
+        policy: NOMINAL_ACCESSIBILITY_POLICY,
+        level,
+      });
+      expect(declarations.color).toBe(declarations["--vitrea-foreground"]);
+    }
+  });
+
+  it("keeps accessibility policy above the hint, on either tier", () => {
+    expect(
+      foregroundDeclarations({
+        policy: resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
+        level: 0.95,
+      }).color,
+    ).toBe("light-dark(#000, #fff)");
+    expect(
+      foregroundDeclarations({
+        policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
+        level: 0.95,
+      }).color,
+    ).toBe("CanvasText");
+  });
+
+  it("resolves a hint's backdrop level from its luminance, or from its tone", () => {
+    expect(hintedBackdropLuminance({ mode: "author-hint", tone: "dark", luminance: 0.16 })).toBe(0.16);
+    expect(hintedBackdropLuminance({ mode: "author-hint", tone: "dark" })).toBe(
+      CSS_TIER_MAPPING.toneLuminance.dark,
+    );
+    // Nothing to decide from: a mixed tone, a non-hint mode, no hint at all.
+    expect(hintedBackdropLuminance({ mode: "author-hint", tone: "mixed" })).toBeUndefined();
+    expect(hintedBackdropLuminance({ mode: "fixed", tone: "dark" })).toBeUndefined();
+    expect(hintedBackdropLuminance(undefined)).toBeUndefined();
   });
 });
