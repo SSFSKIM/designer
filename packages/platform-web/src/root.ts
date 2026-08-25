@@ -41,15 +41,18 @@ import {
   type GlassGroupState,
   type GlassPlane,
   type GlassScene,
+  type MaterialVariant,
   type PlatformProbe,
   type Rect,
   type RefractionQuality,
   type ResolvedAccessibilityPolicy,
   type ResolvedForegroundAdaptation,
   type ResolvedMaterial,
+  type ShapeFamily,
 } from "@vitrea/core";
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
+import { readHostChannels, type SurfaceChannelValues } from "./channels";
 import { cssTierDeclarations, type StyleDeclarations } from "./css-tier";
 import {
   consoleDiagnosticSink,
@@ -67,7 +70,7 @@ import {
   type GlassHostOptions,
   type GlassHostPatch,
 } from "./host";
-import { createLayoutReadMeter, flushStyle, type LayoutReadMeter } from "./measure";
+import { createLayoutReadMeter, flushStyle, type LayoutReadMeter, type ViewportReading } from "./measure";
 import {
   browserMediaMatcher,
   observeAccessibilityPreferences,
@@ -84,6 +87,11 @@ import {
   type PlatformProbeReport,
 } from "./probe";
 import { accessibilityRefractionCap, effectiveRefraction } from "./refraction";
+import {
+  createGlassRendererBridge,
+  type GlassBackdropTexture,
+  type GlassRendererBridge,
+} from "./renderer-bridge";
 import { createWebGPULifecycle, type WebGPULifecycle, type WebGPUStatus } from "./webgpu";
 
 /** Every glass group needs a backdrop source; a dom root gets this one for free. */
@@ -114,9 +122,16 @@ export interface GlassNodeRenderInput {
   readonly order: number;
   /** Viewport CSS px, from the read phase. A renderer never measures. */
   readonly bounds: Rect;
+  readonly shapeFamily: ShapeFamily;
   readonly radii: readonly [number, number, number, number];
   readonly smoothing: number;
   readonly thickness: number;
+  /**
+   * The motion drivers' outputs for this surface, read off the host's own inline
+   * custom properties (see `channels.ts`). Every value, never a time — §Motion
+   * puts the drivers on the CPU and a renderer consumes what they produced.
+   */
+  readonly channels: SurfaceChannelValues;
   readonly material: ResolvedMaterial;
   readonly foreground: ResolvedForegroundAdaptation;
   readonly optics: MaterialOptics;
@@ -138,6 +153,9 @@ export interface GlassGroupRenderInput {
   readonly groupId: string;
   readonly state: GlassGroupState;
   readonly probe: GroupProbeReport;
+  /** Which source this group samples. A renderer binds it only where X2 allows. */
+  readonly backdropSourceId: string;
+  readonly variant: MaterialVariant;
   readonly samplingPadding: number;
   readonly mergeDistance: number;
   readonly blurRadius: number;
@@ -154,6 +172,12 @@ export interface GlassFrameRenderInput {
   readonly accessibility: ResolvedAccessibilityPolicy;
   readonly planes: readonly GlassPlaneRenderInput[];
   readonly groups: readonly GlassGroupRenderInput[];
+  /**
+   * The viewport as the read phase last measured it. A renderer sizes its
+   * targets from this and bumps a size epoch when it changes — never from
+   * `window`, which it has no business reading.
+   */
+  readonly viewport: ViewportReading | undefined;
   readonly device: GPUDevice | undefined;
 }
 
@@ -166,6 +190,17 @@ export interface GlassRoot {
 
   plane(plane: GlassPlane): PlaneLayers;
   registerBackdropSource(descriptor: BackdropSourceDescriptor): void;
+  /**
+   * Supply the pixels behind a texture-configured backdrop source.
+   *
+   * core's `TextureBackdropSource` declares that a source *is* a texture and
+   * carries no pixels — it may not know what an `HTMLCanvasElement` is (X4). This
+   * is where the canvas, image or video arrives, and it is the only wiring the
+   * GPU tier needs beyond `renderer: "webgpu"`. Passing `undefined` withdraws it.
+   *
+   * A no-op on a CSS-tier root, so an app can call it unconditionally.
+   */
+  setBackdropTexture(sourceId: string, texture: GlassBackdropTexture | undefined): void;
   registerGroup(descriptor: Omit<GlassGroupDescriptor, "backdropSourceId"> & {
     readonly backdropSourceId?: string;
   }): void;
@@ -181,7 +216,13 @@ export interface GlassRoot {
   setAccessibilityOverrides(overrides: AccessibilityOverrides): void;
   readonly accessibility: ResolvedAccessibilityPolicy;
   readonly webgpu: WebGPUStatus | undefined;
-  /** Resolves once the WebGPU lifecycle has settled; immediately on a CSS root. */
+  /** The renderer bridge, on a `renderer: "webgpu"` root. Diagnostic surface. */
+  readonly rendererBridge: GlassRendererBridge | undefined;
+  /**
+   * Resolves once the WebGPU lifecycle *and* the renderer load have settled;
+   * immediately on a CSS root. Settled includes "failed": a caller waits to
+   * learn the answer, not to be told it was yes.
+   */
   ready(): Promise<void>;
 
   /** Run one frame by hand. `start()` runs them from rAF instead. */
@@ -198,6 +239,7 @@ interface HostRecord {
   readonly host: HTMLElement;
   plane: GlassPlane;
   order: number;
+  readonly shapeFamily: ShapeFamily;
   radii: readonly [number, number, number, number];
   smoothing: number;
   thickness: number;
@@ -323,6 +365,34 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     scene.setPlatformProbe(probe);
   };
 
+  /**
+   * Whether there is a renderer that can draw here, as the bridge reports it.
+   *
+   * A device is not a renderer. Between the adapter resolving and the WGSL chunk
+   * arriving there is a window in which WebGPU is available and nothing can draw
+   * with it, and a group resolved onto the WebGPU tier in that window would be
+   * claiming a capability that is painting nothing. So core's probe reads
+   * `"available"` only when both halves are true — and this half does *not*
+   * withdraw on device loss, which is what keeps a lost device reported as
+   * `device-lost` rather than as `no-webgpu`.
+   */
+  let rendererUsable = false;
+
+  const bridge: GlassRendererBridge | undefined = wantsWebGPU
+    ? createGlassRendererBridge({
+        layers,
+        diagnostics: platformDiagnostics,
+        onRendererUsable: (usable) => {
+          rendererUsable = usable;
+          if (webgpu !== undefined) {
+            setProbe({
+              webgpu: usable && webgpu.status.available ? "available" : "unavailable",
+            });
+          }
+        },
+      })
+    : undefined;
+
   const webgpu: WebGPULifecycle | undefined = wantsWebGPU
     ? createWebGPULifecycle({
         ...(options.webgpu?.device === undefined ? {} : { device: options.webgpu.device }),
@@ -330,11 +400,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           ? {}
           : { powerPreference: options.webgpu.powerPreference }),
         onStatusChange: (status) => {
+          bridge?.syncDevice(status);
           // This callback only exists on a `wantsWebGPU` root, so WebGPU was
           // requested here by construction — "available" or "unavailable" is
           // the whole range, never "not-requested".
           setProbe({
-            webgpu: status.available ? "available" : "unavailable",
+            webgpu: status.available && rendererUsable ? "available" : "unavailable",
             deviceHealth: status.deviceHealth,
           });
           if (status.deviceHealth === "lost") {
@@ -359,8 +430,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       })
     : undefined;
 
+  /**
+   * Settled means "the answer is known", not "the answer was yes": the device
+   * handshake *and* the renderer load, so a caller that awaits this and then
+   * steps a frame is looking at the tier this session actually resolved to.
+   */
   const readyPromise: Promise<void> =
-    webgpu === undefined ? Promise.resolve() : webgpu.start().then(() => undefined);
+    webgpu === undefined
+      ? Promise.resolve()
+      : webgpu.start().then(() => bridge?.ready() ?? undefined);
 
   /**
    * Layer 2 for one group. Proxies only exist once a group has measured members,
@@ -492,6 +570,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           breaks: [],
           reach: platformProbe.reach,
         },
+        backdropSourceId: groupRecord.descriptor.backdropSourceId,
+        variant,
         samplingPadding: resolved.sampling.samplingPadding,
         mergeDistance: resolved.sampling.mergeDistance,
         blurRadius: optics.blurRadius,
@@ -543,9 +623,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           plane: record.plane,
           order: record.order,
           bounds,
+          shapeFamily: record.shapeFamily,
           radii: record.radii,
           smoothing: record.smoothing,
           thickness: record.thickness,
+          // An inline-style read: the same declaration block a binding wrote
+          // into, never the cascade. It forces no style recalculation, so the
+          // zero-read steady state survives it (see `channels.ts`).
+          channels: readHostChannels(record.host, bounds),
           material,
           foreground: foreground ?? { adaptation: { mode: "fixed" } },
           optics,
@@ -623,6 +708,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         nodes: (nodesByPlane.get(planeLayers.plane) ?? []).sort((a, b) => a.order - b.order),
       })),
       groups: groupInputs,
+      viewport,
       device: webgpu?.status.device,
     };
   };
@@ -632,7 +718,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     read: () => geometry.read(),
     write: (context) => {
       if (context.resolution !== undefined) write(context.frame, context.resolution);
+      // The dirty backdrop set is handed out in `write` and only there
+      // (§Core model's invariant). Consuming it on a CSS root would be pointless
+      // work, so only a wired bridge asks.
+      if (bridge !== undefined && renderInput !== undefined) {
+        bridge.write(renderInput, context.consumeDirtyBackdropSources());
+      }
     },
+    // Drawing belongs to `render`, with the graph frozen — the same split the
+    // renderer's own frame participant uses.
+    render: () => bridge?.render(),
   });
 
   const runFrame = (timeMs?: number): FrameReport => {
@@ -656,6 +751,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     registerBackdropSource(descriptor) {
       scene.registerBackdropSource(descriptor);
+    },
+
+    setBackdropTexture(sourceId, texture) {
+      bridge?.setBackdropTexture(sourceId, texture);
     },
 
     registerGroup(descriptor) {
@@ -698,6 +797,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         host: hostOptions.host,
         plane,
         order,
+        shapeFamily: shape.shapeFamily,
         radii: shape.radii,
         smoothing: shape.smoothing,
         thickness: shape.thickness,
@@ -861,6 +961,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       return webgpu?.status;
     },
 
+    rendererBridge: bridge,
+
     ready: () => readyPromise,
 
     runFrame,
@@ -883,6 +985,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       accessibilityFeed.stop();
       geometry.destroy();
       proxies.destroy();
+      // The bridge first: it owns GPU resources built on the device the
+      // lifecycle is about to destroy.
+      bridge?.destroy();
       webgpu?.destroy();
       layers.destroy();
       hosts.clear();

@@ -73,6 +73,11 @@ export function App(): ReactNode {
 
   return (
     <GlassRoot
+      // Ask for the GPU tier. Asking is not getting: where there is no adapter,
+      // no device, or no renderer, every group resolves to the CSS tier and the
+      // panel below says so by name. That is acceptance #5 and it is the reason
+      // this line is safe to ship unconditionally.
+      renderer="webgpu"
       reducedMotion={overrides.reducedMotion}
       reducedTransparency={overrides.reducedTransparency}
       increasedContrast={overrides.increasedContrast}

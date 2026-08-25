@@ -14,6 +14,7 @@
  */
 
 export * from "./backdrop-proxy";
+export * from "./channels";
 export * from "./css-tier";
 export * from "./diagnostics";
 export * from "./geometry-sync";
@@ -41,5 +42,6 @@ export {
 export * from "./probe";
 export * from "./proxy-geometry";
 export * from "./refraction";
+export * from "./renderer-bridge";
 export * from "./root";
 export * from "./webgpu";

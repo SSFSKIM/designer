@@ -37,7 +37,15 @@ export * from "./planes";
 export * from "./scene";
 export * from "./scheduler";
 export * from "./state";
-export { loadWebGPURenderer, type GlassRenderer } from "./renderer-seam";
+export {
+  loadWebGPURenderer,
+  loadWebGPURendererModule,
+  type BackdropProvider,
+  type CopyProviderOptions,
+  type GlassRenderer,
+  type VideoProviderOptions,
+  type WebGPURendererModule,
+} from "./renderer-seam";
 export type { ShapeChannels, ShapeFamily, CornerProfile, Vec2, CornerRadii } from "@vitrea/geometry";
 export type { MotionChannel, MotionDriverKind, InteractionState } from "@vitrea/motion";
 
