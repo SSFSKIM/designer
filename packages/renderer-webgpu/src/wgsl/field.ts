@@ -13,16 +13,20 @@
  *    whose offset error grows with inset and dominates the declared bound past
  *    about 4 px — is not expressible in this shader at all.
  * 2. **The families come from `@vitrea/geometry` verbatim.** `sd_rsupn` and
- *    `sd_rsup` are the fingerprinted strings the S2 benchmark measured, spliced
- *    in unchanged, so the cost figures and the f32 result transfer with them.
- *    What this module adds is their gradients and the union, which S2 did not
- *    price and which are therefore written to be as close to free as the algebra
- *    allows.
+ *    `sd_rsup` are the fingerprinted strings that package owns, spliced in
+ *    unchanged, so the cost figures and the f32 result transfer with them. What
+ *    this module adds is their gradients and the union, which S2 did not price and
+ *    which are therefore written to be as close to free as the algebra allows.
  * 3. **The gradient is analytic and costs no extra field evaluations.**
  *    `sd_rsupn_grad` is a port of `rsupnFieldAndGradient` — the ≤2.92° normal at
  *    the free normal's price. Family C's normal is the closed-form level-set
  *    normal (≤4.26°), which is the honest pairing: taking family C means taking
- *    family C's gradient too.
+ *    family C's gradient too. Being a port, it moves when the value moves:
+ *    `sd_rsupn` anchors its normalization at the contour radius, so this selects
+ *    the same arm and differentiates the arm it selected. `test/wgsl-contract.test.ts`
+ *    pins that pairing, because a normal computed from the unanchored form on top
+ *    of an anchored depth is exactly the kind of half-applied edit no fingerprint
+ *    would notice.
  *
  * The union mirrors `union.ts` exactly on the value — the same bulge cap applied
  * to `k`, the same separation gate, the same single clamp at the end of the fold.
@@ -115,7 +119,12 @@ export const WGSL_RSUPN_GRAD = `fn sd_rsupn_grad(p : vec2f, half : vec2f, re : f
 
   let mm   = min(max(q.x, q.y), 0.0);
   let base = rho + mm - R;
-  let g    = dRdt * inv * rho;
+  // Anchored at the contour radius, mirroring sd_rsupn: the normalization's
+  // slope is read at the foot of the Newton step, never at a sample radius
+  // inside the contour. See geometry's field.ts, "The normalization".
+  let atRho = rho >= R;
+  let w    = select(R, rho, atRho);
+  let g    = select(dRdt / R, dRdt * inv * rho, atRho);
   let norm = sqrt(1.0 + g * g);
   let n    = 1.0 / norm;
 
@@ -133,8 +142,14 @@ export const WGSL_RSUPN_GRAD = `fn sd_rsupn_grad(p : vec2f, half : vec2f, re : f
   let dTermdcx = 2.0 * (d2Rds2 * ds2dcx * c2 + dRds2 * dc2dcx);
   let dTermdcy = 2.0 * (d2Rds2 * ds2dcy * c2 + dRds2 * dc2dcy);
 
-  let dgdcx = dTermdcx / rho - (dRdt * drhodcx) / r2;
-  let dgdcy = dTermdcy / rho - (dRdt * drhodcy) / r2;
+  // w's derivative follows whichever of rho and R is larger. Exact across the
+  // switch because the switch locus is rho == R, the contour, where base == 0
+  // kills the only term the jump lives in.
+  let dwdcx = select(dRdcx, drhodcx, atRho);
+  let dwdcy = select(dRdcy, drhodcy, atRho);
+
+  let dgdcx = dTermdcx / w - (dRdt * dwdcx) / (w * w);
+  let dgdcy = dTermdcy / w - (dRdt * dwdcy) / (w * w);
 
   let n3 = n * n * n;
   let dddcx = (drhodcx - dRdcx) * n + base * (-g * n3 * dgdcx);

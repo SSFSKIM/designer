@@ -135,11 +135,23 @@ describe("the derivation", () => {
       measured.push({ inset, worst });
     }
 
-    // measured: 0.105 / 0.132 / 0.190 / 0.326 px at inset 1 / 2 / 4 / 8
+    // measured: 0.107 / 0.137 / 0.206 / 0.381 px at inset 1 / 2 / 4 / 8
+    //
+    // Re-recorded when the normalization's anchor moved (`field.ts`, "The
+    // normalization"); the inset-8 figure went from 0.326 to 0.381 px. The shift
+    // is confined to THIS path, and its sign is what the change predicts: the
+    // instantiated child's contour does NOT sit at a true depth of `inset` — it
+    // is off by up to 0.29 px, because inward offsets of continuous-corner cubics
+    // leave the cubic family — so it reads the parent field at depths the anchor
+    // moved. The path C6 renders went the other way and is better at every inset
+    // now (0.0894 -> 0.0893, 0.0893 -> 0.0884, 0.0960 -> 0.0952,
+    // 0.1425 -> 0.1404 px), and over S2's full 324-shape matrix the inward band
+    // error is 0.16623 px against 0.16627 px before. The claim this test exists
+    // to make — that the instantiated path costs more — is strengthened.
     expect(measured[0]!.worst).toBeLessThan(0.12);
     expect(measured[1]!.worst).toBeLessThan(0.15);
-    expect(measured[2]!.worst).toBeLessThan(0.21);
-    expect(measured[3]!.worst).toBeLessThan(0.35);
+    expect(measured[2]!.worst).toBeLessThan(0.22);
+    expect(measured[3]!.worst).toBeLessThan(0.40);
 
     // and it grows with inset, which is the signature of a family mismatch rather
     // than of the field's (inset-independent) band error

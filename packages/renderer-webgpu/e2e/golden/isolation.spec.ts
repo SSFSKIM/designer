@@ -31,6 +31,8 @@ import { createHash } from "node:crypto";
 
 import { expect, test } from "@playwright/test";
 
+import { assertUniformRadii, resolveCorner } from "@vitrea/geometry";
+
 import { SCENES } from "../fixtures/scenes";
 import { decodeCapture, openHarness, requireHardwareAdapter, type Raster } from "../support";
 
@@ -74,6 +76,56 @@ const PRE_C9A_HASHES: Readonly<Record<string, string>> = {
   "highlight-press-glow": "0b9dc460a6616c5a3d6fb69a6b97a783",
 };
 
+/**
+ * Hashes a later, deliberately NON-profile change moved — re-recorded, with the
+ * pre-C9a value left in place above so the record is not overwritten.
+ *
+ * This is the file doing its job, not the file being worked around: the note above
+ * says a change that moves a golden other than through the material profile must
+ * fail here, and one did. What makes re-recording legitimate rather than a
+ * re-baseline is that the change is attributable independently of any image, and
+ * the attribution is asserted below rather than asserted in prose — see
+ * "the geometry change is confined to the scenes it can reach".
+ */
+const SUPERSEDED: Readonly<Record<string, { readonly now: string; readonly why: string }>> = {
+  "rim-two-references": {
+    now: "62aec916a518da80353e29564690642b",
+    why:
+      "the normalization's anchor in sd_rsupn / sd_rsupn_grad (@vitrea/geometry " +
+      "field.ts, 'The normalization'). It is provably inert at corner smoothing 0 — " +
+      "the coefficients are all zero there, so R is exactly the corner reach, R' is " +
+      "exactly 0, and the anchored and unanchored forms are the same expression. " +
+      "This is the only golden scene with a non-zero effective smoothing on any " +
+      "surface, and therefore the only one that could move. Delta: max channel 9, " +
+      "mean 0.008, 16 of 96000 pixels past the golden suite's tolerance of 4, all " +
+      "of them in two ~5-device-px clusters at the squares' centres, where each " +
+      "square's corner-sector vertices land because its reach (39.7 and 43.2 px) " +
+      "nearly fills its 44 px half-extent. Those clusters were four hook-shaped " +
+      "marks of false refraction, the same artifact the public demo showed at plate " +
+      "scale, and the new bytes are the ones without them.",
+  },
+};
+
+const expectedHashFor = (name: string): string | undefined =>
+  SUPERSEDED[name]?.now ?? PRE_C9A_HASHES[name];
+
+/** The largest effective corner smoothing any of a scene's surfaces resolves to. */
+const maxSmoothingEff = (scene: (typeof SCENES)[number]): number => {
+  let worst = 0;
+  for (const group of scene.groups) {
+    for (const surface of group.surfaces) {
+      const corner = resolveCorner(
+        surface.shape.size,
+        assertUniformRadii(surface.shape.radii),
+        surface.shape.smoothing,
+        surface.reference ?? "figma-smoothing",
+      );
+      worst = Math.max(worst, corner.smoothingEff);
+    }
+  }
+  return worst;
+};
+
 const hashOf = (raster: Raster): string =>
   createHash("sha256").update(raster.data).digest("hex").slice(0, 32);
 
@@ -92,10 +144,29 @@ test.describe("@golden the C9a delta is exactly the two tuned constants", () => 
 
       expect(
         hashOf(before),
-        `${scene.name}: rendering with the pre-C9a profile must reproduce the pre-C9a bytes`,
-      ).toBe(PRE_C9A_HASHES[scene.name]);
+        `${scene.name}: rendering with the pre-C9a profile must reproduce ` +
+          (SUPERSEDED[scene.name] === undefined
+            ? "the pre-C9a bytes"
+            : `its re-recorded bytes — superseded by ${SUPERSEDED[scene.name]?.why ?? ""}`),
+      ).toBe(expectedHashFor(scene.name));
     });
   }
+
+  test("the geometry change is confined to the scenes it can reach", () => {
+    // The attribution above, as an assertion. A scene can only have moved through
+    // the corner-smoothing path if some surface of it actually resolves to a
+    // non-zero effective smoothing — so the superseded set and the non-zero-
+    // smoothing set must be the same set. If a future geometry change moves a
+    // smoothing-0 scene, this fails and the "provably inert at smoothing 0"
+    // reasoning above is what has to be revisited, not the hash.
+    const scenes = SCENES.filter((candidate) => candidate.measureOnly !== true);
+    const smoothed = scenes.filter((s) => maxSmoothingEff(s) > 0).map((s) => s.name);
+    expect(smoothed.sort()).toEqual(Object.keys(SUPERSEDED).sort());
+    // and every recorded hash still names a scene that exists
+    for (const name of Object.keys(SUPERSEDED)) {
+      expect(scenes.map((s) => s.name)).toContain(name);
+    }
+  });
 
   test("and the tuned profile is not the old one — the proof is not vacuous", async ({ page }) => {
     // Without this, every assertion above would pass just as happily if the

@@ -46,14 +46,46 @@
  *    there `s2 == 0`, so `R == re` and `dR/dtheta == 0`, and the expression
  *    collapses to the exact edge distance.
  *
- * ## The normalization
+ * ## The normalization, and where it is anchored
  *
- * Family D divides by `sqrt(1 + (R'/rho)^2)`, the first-order correction that
+ * Family D divides by `sqrt(1 + (R'/w)^2)`, the first-order correction that
  * turns a level-set-correct field into a distance-correct one. It costs one
  * `rsqrt` and roughly doubles the corner arithmetic; it buys 3.4x on value
  * error, 1.5x on gradient error, and takes the eikonal defect from 7.9% to 2.7%.
  * Family C is the same field without it: same coefficient table, same zero level
  * set, 29% less total cost, and a bound of 0.57 px / 4.26 degrees.
+ *
+ * `w = max(rho, R)` — the correction is anchored at the CONTOUR radius, never at
+ * a sample radius smaller than it. That `max` is load-bearing and it is not a
+ * numerical guard; it is what makes the field usable at depth.
+ *
+ * The correction is a first-order (Newton) step from the sample to the zero set,
+ * and a Newton step must read the slope at the FOOT of the step. Reading it at
+ * the sample instead — `R'/rho` — is identical on the contour and outside it
+ * (`rho >= R` there, so the `max` is inert and this is bit-for-bit the arithmetic
+ * S2 benchmarked), but inside the corner sector `rho` falls away toward the
+ * sector's own vertex at `(halfW - re, halfH - re)` while `R'` stays O(re). The
+ * ratio diverges, `1/sqrt(1 + g^2)` collapses toward 0, and the field reports a
+ * point 39 px deep as ~9 px deep — a false near-surface region, in two lobes
+ * meeting on the corner diagonal, centred one corner reach in from each corner.
+ * Optics that read the field deeper than a few px paint that as a hook-shaped
+ * crease inset from every corner.
+ *
+ * Anchoring at `R` bounds `|g|` by `max|R'|/R` — about 0.35 for every fitted
+ * table — so the factor can never collapse. Three properties make the `max` free
+ * rather than a trade:
+ *
+ *  - **The zero level set does not move at all.** `value = base / sqrt(1 + g^2)`
+ *    and `base == 0` on the contour, so no choice of `g` can shift it.
+ *  - **It is C1 across its own switch**, for the same reason: the switch locus
+ *    IS `rho == R`, where `base == 0`, so the jump in `d(1/sqrt(1+g^2))` is
+ *    multiplied by zero. No seam is introduced.
+ *  - **Outside the shape it changes nothing**, so the declared bound's outward
+ *    half is the arithmetic that was measured, unchanged.
+ *
+ * The inward half is measured too — `test/error-bound.test.ts` holds every
+ * in-band figure at or below what it held before — and `test/field.test.ts`
+ * pins the depth behaviour this `max` exists for.
  */
 
 import { type CornerCoefficients, RSUP_BASIS_ORDER } from "./coefficients";
@@ -171,7 +203,11 @@ export function rsupnField(p: FieldParams, x: number, y: number): number {
   const R = cornerSupport(p, l.s2);
   const dRdTheta = p.reach * l.s2 * hornerB(p.k, l.s2) * (2 * l.c2);
   const base = l.rho + Math.min(l.m, 0) - R;
-  const g = dRdTheta * l.inv * l.rho;
+  // Anchored at the contour radius — see "The normalization" above. The
+  // `rho >= R` arm is spelled as the original product, not as `dRdTheta / rho`,
+  // so that outside the level set this is bit-for-bit the arithmetic S2
+  // benchmarked and the f32 cross-check still pins it exactly.
+  const g = l.rho >= R ? dRdTheta * l.inv * l.rho : dRdTheta / R;
   return base / Math.sqrt(1 + g * g);
 }
 
@@ -210,13 +246,19 @@ export interface FieldSample {
  *   ds2/dcx = -2*cy*c2*inv      ds2/dcy =  2*cx*c2*inv
  *   dc2/dcx =  2*cx*inv*(1-c2)  dc2/dcy = -2*cy*inv*(1+c2)
  *   d = base * n,  n = (1 + g^2)^(-1/2),  dn/dg = -g * n^3
+ *   g = dRdTheta / w,  w = max(rho, R)
+ *
+ * `w`'s own derivative follows whichever of `rho` and `R` is the larger, which is
+ * the one place this function branches on more than a region mask. It stays exact
+ * across the switch because the switch locus is `rho == R`, i.e. the contour,
+ * where `base == 0` kills the term the jump lives in.
  *
  * The `min(max(qx,qy), 0)` term contributes only inside the box branch, where it
  * carries the whole gradient.
  */
 export function rsupnFieldAndGradient(p: FieldParams, x: number, y: number): FieldSample {
   const l = cornerLocal(p, x, y);
-  const { cx, cy, qx, qy, rho, r2, inv, s2, c2 } = l;
+  const { cx, cy, qx, qy, rho, inv, s2, c2 } = l;
 
   const A = hornerA(p.k, s2);
   const B = hornerB(p.k, s2);
@@ -229,7 +271,10 @@ export function rsupnFieldAndGradient(p: FieldParams, x: number, y: number): Fie
 
   const mm = Math.min(l.m, 0);
   const base = rho + mm - R;
-  const g = dRdTheta * inv * rho;
+  // the normalization's anchor: the contour radius, never a smaller sample radius
+  const anchoredAtRho = rho >= R;
+  const w = anchoredAtRho ? rho : R;
+  const g = anchoredAtRho ? dRdTheta * inv * rho : dRdTheta / R;
   // `norm` is spelled as a division rather than folded into `n` so that `value`
   // below is bit-identical to `rsupnField` — which is the function the WGSL
   // cross-check pins, so the two must not drift by even a last bit.
@@ -252,8 +297,11 @@ export function rsupnFieldAndGradient(p: FieldParams, x: number, y: number): Fie
   const dThetaTermdcx = 2 * (d2Rds2 * ds2dcx * c2 + dRds2 * dc2dcx);
   const dThetaTermdcy = 2 * (d2Rds2 * ds2dcy * c2 + dRds2 * dc2dcy);
 
-  const dgdcx = dThetaTermdcx / rho - (dRdTheta * drhodcx) / r2;
-  const dgdcy = dThetaTermdcy / rho - (dRdTheta * drhodcy) / r2;
+  const dwdcx = anchoredAtRho ? drhodcx : dRdcx;
+  const dwdcy = anchoredAtRho ? drhodcy : dRdcy;
+
+  const dgdcx = dThetaTermdcx / w - (dRdTheta * dwdcx) / (w * w);
+  const dgdcy = dThetaTermdcy / w - (dRdTheta * dwdcy) / (w * w);
 
   const dbasedcx = drhodcx - dRdcx;
   const dbasedcy = drhodcy - dRdcy;
@@ -300,6 +348,14 @@ export function rsupnFieldAndGradient(p: FieldParams, x: number, y: number): Fie
  * because it is family C's normal, and family C is the governor's first step:
  * taking this normal is taking family C's gradient while keeping family D's
  * values.
+ *
+ * `R'/rho` here is NOT anchored the way family D's normalization is, and that is
+ * correct rather than an oversight: this is the true gradient direction of family
+ * C's field, whose value has no normalization to anchor. Family C's field does not
+ * collapse at depth — it reads `rho - R`, which is roughly right at the sector
+ * vertex — so its normal only swings where its own value is far outside any lens
+ * band and the optics weight it to zero. Anchoring it here would make it the
+ * gradient of a function nobody evaluates.
  */
 export function rsupLevelSetNormal(p: FieldParams, x: number, y: number): Vec2 {
   const l = cornerLocal(p, x, y);

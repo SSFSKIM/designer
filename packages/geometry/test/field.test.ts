@@ -8,6 +8,14 @@
  * output against them on a metal-3 adapter at 4.08e-5 px worst case. So
  * reproducing this column to machine precision is transitive evidence that the
  * shader and this file agree — much stronger than any hash of the source text.
+ *
+ * ## The column is a two-sided oracle now, and that is deliberate
+ *
+ * The normalization's anchor moved (see `field.ts`, "The normalization"): inside
+ * the level set it reads the slope at the contour radius instead of at the sample
+ * radius. The fixture is NOT rewritten to agree with the new code — it is S2's
+ * measurement — so the assertions below state which half of it still pins the
+ * shipped arithmetic, and exactly how the other half is allowed to differ.
  */
 
 import { describe, expect, it } from "vitest";
@@ -19,9 +27,13 @@ import {
   rsupLevelSetNormal,
   rsupnField,
   rsupnFieldAndGradient,
+  cornerSupport,
 } from "../src/field";
 import { APPLE_RSUPN, FIGMA_RSUPN_TABLE, coefficientsAt, ZERO_COEFFICIENTS } from "../src/coefficients";
+import type { Vec2 } from "../src/channels";
+import { fieldParams, resolveShape, toContour } from "../src/shape";
 import { CROSS_CHECK, crossCheckParams } from "./harness/cross-check";
+import { exactSignedDistance } from "./harness/truth";
 
 const circular = (halfW: number, halfH: number, r: number): FieldParams => ({
   halfW,
@@ -40,17 +52,75 @@ const smoothed = (halfW: number, halfH: number, r: number, sEff: number): FieldP
 describe("the WGSL cross-check: this field is the shader's function", () => {
   const params = crossCheckParams();
 
-  it("reproduces S2's f64 reference column to machine precision", () => {
-    let worst = 0;
+  /**
+   * Which side of the level set each fixture point is on. `rsupField` IS the
+   * numerator the normalization divides — family C's value is family D's `base` —
+   * so the split needs no re-derivation of the corner algebra.
+   */
+  const split = (): { outward: number[]; inward: number[] } => {
+    const outward: number[] = [];
+    const inward: number[] = [];
     for (let i = 0; i < CROSS_CHECK.expected.length; i++) {
       const p = params[CROSS_CHECK.points[i * 3] as number] as FieldParams;
       const x = CROSS_CHECK.points[i * 3 + 1] as number;
       const y = CROSS_CHECK.points[i * 3 + 2] as number;
-      worst = Math.max(worst, Math.abs(rsupnField(p, x, y) - (CROSS_CHECK.expected[i] as number)));
+      (rsupField(p, x, y) >= 0 ? outward : inward).push(i);
     }
-    // The two implementations are the same arithmetic in the same order, so this
-    // is bit-level agreement, not a tolerance.
-    expect(worst).toBeLessThan(1e-15);
+    return { outward, inward };
+  };
+
+  const at = (i: number): { p: FieldParams; x: number; y: number; expected: number } => ({
+    p: params[CROSS_CHECK.points[i * 3] as number] as FieldParams,
+    x: CROSS_CHECK.points[i * 3 + 1] as number,
+    y: CROSS_CHECK.points[i * 3 + 2] as number,
+    expected: CROSS_CHECK.expected[i] as number,
+  });
+
+  it("reproduces S2's f64 reference column EXACTLY on and outside the level set", () => {
+    // Zero, not a tolerance. The anchor's changed arm is selected only where
+    // `rho < R`, and the arm that survives is spelled as the same product in the
+    // same order, so nothing here moved by even a last bit. This is the half of
+    // the fixture where the declared bound's worst case lives and where S2's
+    // on-hardware f32 measurement was taken, so it is the half that has to stay
+    // pinned for the shader's function — and its precision — to still be pinned.
+    const { outward } = split();
+    let worst = 0;
+    for (const i of outward) {
+      const { p, x, y, expected } = at(i);
+      worst = Math.max(worst, Math.abs(rsupnField(p, x, y) - expected));
+    }
+    expect(outward.length).toBe(2926);
+    expect(worst).toBe(0);
+  });
+
+  it("is deeper than the column inside the level set, and never shallower", () => {
+    // The other half of the fixture, and the whole content of the fix: inside the
+    // corner sector S2's arithmetic collapsed the field toward zero, and the
+    // anchored arithmetic does not. One-sidedness is the claim that makes this a
+    // repair rather than a different approximation — a point can only be reported
+    // DEEPER than before, never nearer the surface.
+    const { inward } = split();
+    let deeperCount = 0;
+    let worstDeeper = 0;
+    let shallower = 0;
+    for (const i of inward) {
+      const { p, x, y, expected } = at(i);
+      const got = rsupnField(p, x, y);
+      const d = Math.abs(got) - Math.abs(expected);
+      if (d > 0) {
+        deeperCount++;
+        worstDeeper = Math.max(worstDeeper, d);
+      } else if (d < -1e-12) {
+        shallower++;
+      }
+    }
+    expect(inward.length).toBe(2609);
+    expect(shallower).toBe(0);
+    // measured: 1000 points, worst 36.4814 px — the collapse that painted a
+    // hook-shaped crease one corner reach in from every corner of a thick plate.
+    expect(deeperCount).toBe(1000);
+    expect(worstDeeper).toBeGreaterThan(36);
+    expect(worstDeeper).toBeLessThan(37);
   });
 
   it("covers all three smoothing regimes and both branches of the algebra", () => {
@@ -159,6 +229,187 @@ describe("exactness properties", () => {
     const v = rsupnField(p, 0, 0);
     expect(Number.isFinite(v)).toBe(true);
     expect(v).toBeCloseTo(-(p.halfH - p.reach) - p.reach, 9);
+  });
+});
+
+/**
+ * BEYOND THE MEASURED BAND.
+ *
+ * S2 declared the bound for |d| <= 8 px and said nothing about deeper, which was
+ * honest and, for a while, sufficient. It stopped being sufficient the moment a
+ * caller read the field at depth: the optics scale their lens by the material's
+ * thickness, so an 18 px plate reads the field over d in [0, -26 px], more than
+ * three times the measured band.
+ *
+ * What was down there before the normalization's anchor moved: `g = R'/rho`
+ * diverging as `rho` falls toward the corner sector's vertex at
+ * `(halfW - re, halfH - re)`, `1/sqrt(1 + g^2)` collapsing toward 0 with it, and
+ * the field reporting a point 39 px inside a plate as 9 px inside — a false
+ * near-surface region in two lobes meeting on the corner diagonal. On the public
+ * demo it painted a hook-shaped crease one corner reach in from every corner of
+ * the 18 px plate, and left the 5 px plate clean, because the collapsed region
+ * only becomes visible once the lens reaches it.
+ *
+ * These are not a second declared bound — the fit was never optimised out here.
+ * They are a floor: a guarantee that the field degrades gracefully with depth
+ * rather than folding, so the optics can read it as deep as a real material
+ * thickness goes. Every figure below is the measured worst case over the shape
+ * set, with the pre-fix figure recorded beside it.
+ */
+describe("depth behaviour beyond the measured band", () => {
+  /** The demo hero's own plates, plus the shapes that set the worst cases. */
+  const DEPTH_SHAPES = [
+    { size: [336, 168] as Vec2, radius: 26, profile: "continuous" as const },
+    { size: [136, 72] as Vec2, radius: 14, profile: "continuous" as const },
+    { size: [136, 72] as Vec2, radius: 10.8, profile: 1 },
+    { size: [136, 72] as Vec2, radius: 10.8, profile: "continuous" as const },
+    { size: [240, 90] as Vec2, radius: 13.5, profile: 1 },
+  ];
+
+  interface Probe {
+    depth: number;
+    reported: number;
+    x: number;
+    y: number;
+    label: string;
+  }
+
+  /** Every interior grid point of one corner quadrant, with its exact depth. */
+  const probeQuadrant = (spec: (typeof DEPTH_SHAPES)[number], step = 0.5): Probe[] => {
+    const shape = resolveShape({
+      family: "fixed-rounded-rect",
+      center: [0, 0],
+      size: spec.size,
+      radii: spec.radius,
+      profile: spec.profile,
+    });
+    const p = fieldParams(shape);
+    const contour = toContour(shape);
+    const label = `${spec.size.join("x")} r=${spec.radius} ${spec.profile}`;
+    const out: Probe[] = [];
+    for (let x = 0; x <= p.halfW; x += step) {
+      for (let y = 0; y <= p.halfH; y += step) {
+        const t = exactSignedDistance(contour, { x, y }).d;
+        if (t > 0) continue;
+        const depth = -t;
+        // The shape's own medial axis is where no field is a distance; stay off it.
+        if (depth > Math.min(p.halfW, p.halfH) * 0.9) continue;
+        out.push({ depth, reported: -rsupnField(p, x, y), x, y, label });
+      }
+    }
+    return out;
+  };
+
+  const probes = DEPTH_SHAPES.flatMap((s) => probeQuadrant(s));
+
+  it("holds a graceful error envelope out to four times the measured band", () => {
+    // measured, this shape set: 0.411 / 1.174 / 2.349 / 4.436 px.
+    // before the anchor moved:  0.710 / 3.206 / 11.873 / 17.535 px.
+    // The 16 px row is the one that matters most: 11.9 px of error at a depth a
+    // 12 px-thick plate reads is not a degraded field, it is a wrong one.
+    const ceilings: [number, number][] = [
+      [8, 0.5],
+      [12, 1.3],
+      [16, 2.6],
+      [24, 4.9],
+      [32, 6.0],
+    ];
+    for (const [ceiling, bound] of ceilings) {
+      let worst = 0;
+      let at = "";
+      for (const q of probes) {
+        if (q.depth > ceiling) continue;
+        const e = Math.abs(q.reported - q.depth);
+        if (e > worst) {
+          worst = e;
+          at = `${q.label} @(${q.x}, ${q.y}) depth ${q.depth.toFixed(2)}`;
+        }
+      }
+      expect(worst, `depth <= ${ceiling} px, worst at ${at}`).toBeLessThan(bound);
+    }
+  });
+
+  it("never reports an interior point as materially nearer the surface than it is", () => {
+    // The property the artifact violated, stated directly and without reference
+    // to any particular thickness: if the field says a pixel is D px inside, it
+    // really is at least about D px inside. A lens sized to any depth then reads
+    // a region that genuinely belongs to it.
+    //
+    // measured: 0.411 px worst overshoot. Before the anchor moved: 28.12 px.
+    let worst = 0;
+    let at = "";
+    for (const q of probes) {
+      const overshoot = q.depth - q.reported;
+      if (overshoot > worst) {
+        worst = overshoot;
+        at = `${q.label} @(${q.x}, ${q.y}): truth ${q.depth.toFixed(2)} px, field ${q.reported.toFixed(2)} px`;
+      }
+    }
+    expect(worst, at).toBeLessThan(0.5);
+  });
+
+  it("keeps the 18 px demo plate's whole lens band honest", () => {
+    // The regression in the terms the defect appeared in. The hero plate is
+    // 336x168 with radius 26 and thickness 18, which the renderer resolves to a
+    // 26.40 px lens depth, so refraction is nonzero exactly where the field reads
+    // shallower than 26.40 px. Before the anchor moved, 102.58 px^2 per corner
+    // qualified on the field's say-so while being 30-40 px deep in truth — the
+    // hooks. The 5 px plate's own band caught 2.32 px^2, which is why it read
+    // clean and the thick plate did not.
+    const LENS_DEPTH_PX = 26.3965;
+    let falseArea = 0;
+    const step = 0.25;
+    for (const q of probeQuadrant(DEPTH_SHAPES[0] as (typeof DEPTH_SHAPES)[number], step)) {
+      if (q.reported < LENS_DEPTH_PX && q.depth > LENS_DEPTH_PX) falseArea += step * step;
+    }
+    expect(falseArea).toBe(0);
+  });
+
+  it("turns its own switch into no seam at all: the gradient is continuous across rho == R", () => {
+    // The anchor introduces one new locus, `rho == R`, and a jump in the gradient
+    // across it would be a crease — trading the hooks for a thin ring inside every
+    // corner. It cannot happen, and the reason is worth asserting rather than
+    // arguing: the locus IS the contour, `base == 0` there, and the value is
+    // `base * n`, so the discontinuity in `dn` is multiplied by zero.
+    //
+    // Crossed head-on: for each angle across the corner sector, the point at
+    // radius exactly `R(theta)` from the sector's centre, sampled either side.
+    for (const spec of DEPTH_SHAPES) {
+      const shape = resolveShape({
+        family: "fixed-rounded-rect",
+        center: [0, 0],
+        size: spec.size,
+        radii: spec.radius,
+        profile: spec.profile,
+      });
+      const p = fieldParams(shape);
+      const cxc = p.halfW - p.reach;
+      const cyc = p.halfH - p.reach;
+      const label = `${spec.size.join("x")} r=${spec.radius} ${spec.profile}`;
+      let worstTurn = 0;
+      let worstStep = 0;
+      for (let a = 1; a <= 89; a += 0.25) {
+        const th = (a * Math.PI) / 180;
+        const R = cornerSupport(p, Math.sin(2 * th));
+        const eps = 1e-6;
+        const sample = (r: number): { dir: number; v: number } => {
+          const s = rsupnFieldAndGradient(p, cxc + r * Math.cos(th), cyc + r * Math.sin(th));
+          return { dir: Math.atan2(s.gy, s.gx), v: s.value };
+        };
+        const inside = sample(R - eps);
+        const outside = sample(R + eps);
+        let dd = outside.dir - inside.dir;
+        while (dd > Math.PI) dd -= 2 * Math.PI;
+        while (dd < -Math.PI) dd += 2 * Math.PI;
+        worstTurn = Math.max(worstTurn, (Math.abs(dd) * 180) / Math.PI);
+        worstStep = Math.max(worstStep, Math.abs(outside.v - inside.v));
+        // and the locus really is the zero set, which is why the above holds
+        expect(Math.abs(inside.v), `${label} @ ${a} deg`).toBeLessThan(1e-4);
+      }
+      // measured: < 1e-3 deg of turn and < 1e-5 px of step, i.e. nothing.
+      expect(worstTurn, `${label}: gradient turn across rho == R`).toBeLessThan(0.01);
+      expect(worstStep, `${label}: value step across rho == R`).toBeLessThan(1e-4);
+    }
   });
 });
 

@@ -14,6 +14,17 @@
  *     mirror, so a transcription slip would show as a gross disagreement rather
  *     than a rounding difference.
  *   - `sd_rsup` — 0.00970 ns/eval/px, the governor's first within-tier step.
+ *     Unchanged since S2 measured it, character for character.
+ *
+ * `sd_rsupn` has moved once since: its normalization is now anchored at the
+ * contour radius (see `field.ts`, "The normalization"), which adds one divide and
+ * one `select` and leaves the selected arm identical on and outside the level set.
+ * The f32 result above has been re-established on hardware for the anchored
+ * shader — 4.007e-5 px worst case over 5535 points on an `apple/metal-3` adapter,
+ * against S2's 4.08e-5 — by `renderer-webgpu`'s `e2e/gpu/cross-check.spec.ts`,
+ * which reads this string's own output back off the device. The cost figure is
+ * S2's and now carries the added divide as an unmeasured delta; the renderer's
+ * `@bench` suite is what holds the envelope.
  *
  * **C6 action item, spec Decision Log #20:** family C's WGSL is
  * inspection-verified only. Its cost number is a cost number and does not depend
@@ -83,7 +94,13 @@ export const WGSL_RSUPN = `fn sd_rsupn(p : vec2f, half : vec2f, re : f32, k : ve
   let dRdt = re * s2 * dac * (2.0 * c2);
 
   let base = sqrt(r2) + min(max(q.x, q.y), 0.0) - R;
-  let g = dRdt * inv * sqrt(r2);              // == dRdt / rho
+  // The normalization is a Newton step to the zero set, so its slope is read at
+  // the FOOT of the step: at the contour radius R, never at a sample radius
+  // inside it. On and outside the level set the selected arm is bit-for-bit the
+  // product S2 benchmarked; inside the corner sector the anchor is what stops
+  // R'/rho diverging toward the sector vertex and collapsing the field into a
+  // false near-surface region. See field.ts, "The normalization".
+  let g = select(dRdt / R, dRdt * inv * sqrt(r2), sqrt(r2) >= R);
   return base * inverseSqrt(1.0 + g * g);
 }`;
 

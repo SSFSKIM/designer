@@ -81,7 +81,9 @@ export function rsupnF32(p: FieldParams, x: number, y: number): number {
   const dRdt = mul(mul(mul(re, s2), accB), mul(f(2), c2));
 
   const base = sub(add(f(Math.sqrt(r2)), Math.min(Math.max(qx, qy), 0)), R);
-  const g = mul(mul(dRdt, inv), f(Math.sqrt(r2)));
+  // the normalization's anchor: `select(dRdt / R, dRdt * inv * rho, rho >= R)`
+  const rho = f(Math.sqrt(r2));
+  const g = rho >= R ? mul(mul(dRdt, inv), rho) : div(dRdt, R);
   return mul(base, f(1 / Math.sqrt(add(1, mul(g, g)))));
 }
 

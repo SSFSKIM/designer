@@ -29,23 +29,32 @@ import { describe, expect, it } from "vitest";
 
 import { fingerprint, WGSL_FIELD_MODULE, WGSL_RSUP, WGSL_RSUPN, WGSL_SHAPE_STRUCT } from "../src/wgsl";
 import { rsupField, rsupnField } from "../src/field";
+import { APPLE_RSUPN } from "../src/coefficients";
 import { CROSS_CHECK, crossCheckParams } from "./harness/cross-check";
 
 /**
  * Committed fingerprints. To change either side deliberately:
  *   1. edit the WGSL and its TypeScript mirror together;
- *   2. regenerate `bench/f32-check.json` in the spike and re-run its accuracy
- *      mode on real hardware, confirming f32 agreement stays ~1e-5 px;
+ *   2. re-establish the f32 evidence on real hardware — either by regenerating
+ *      `bench/f32-check.json` in the spike and re-running its accuracy mode, or
+ *      by the renderer's real-adapter field cross-check, which reads the shipped
+ *      shader's own output back and compares it against this package's field;
  *   3. update the constants below.
  * Updating them without step 2 is how the shader and the kernel silently diverge.
+ *
+ * Last moved by the normalization anchor (`field.ts`, "The normalization").
+ * `rsup`'s and the struct's fingerprints did not move, because neither changed.
+ * The f32 evidence for that change is the renderer's real-adapter cross-check,
+ * not a regenerated fixture: S2's column is left as it was measured, and the
+ * assertion above says which half of it is still reproduced exactly.
  */
 const EXPECTED = {
-  rsupn: "4f0cfcea",
+  rsupn: "9c24e278",
   rsup: "13c5190d",
   struct: "f0bd5d17",
-  module: "a697e37a",
+  module: "e73d1af4",
   /** hash of the TS field's outputs over the whole cross-check point set */
-  tsSamples: "7a0d4436",
+  tsSamples: "44402664",
 } as const;
 
 /** Quantized so the hash is stable against last-bit noise but not against real change. */
@@ -62,19 +71,29 @@ function sampleFingerprint(field: (p: ReturnType<typeof crossCheckParams>[number
 }
 
 describe("the numeric cross-check pins the shader's function", () => {
-  it("reproduces the f64 column the benchmarked shader was measured against", () => {
+  it("reproduces the f64 column the benchmarked shader was measured against, on and outside the level set", () => {
     // The same assertion field.test.ts makes, restated here because THIS is the
     // evidence behind the fingerprints: without it they would only prove that two
     // strings had not changed.
+    //
+    // Restricted to `rsupField >= 0` — on and outside the level set — because
+    // that is exactly where the normalization's anchor is inert, and where the
+    // agreement is therefore still exact rather than merely close. The inward
+    // divergence is asserted in field.test.ts, with its magnitude and its
+    // one-sidedness both pinned.
     const params = crossCheckParams();
     let worst = 0;
+    let n = 0;
     for (let i = 0; i < CROSS_CHECK.expected.length; i++) {
       const p = params[CROSS_CHECK.points[i * 3] as number]!;
       const x = CROSS_CHECK.points[i * 3 + 1] as number;
       const y = CROSS_CHECK.points[i * 3 + 2] as number;
+      if (rsupField(p, x, y) < 0) continue;
+      n++;
       worst = Math.max(worst, Math.abs(rsupnField(p, x, y) - (CROSS_CHECK.expected[i] as number)));
     }
-    expect(worst).toBeLessThan(1e-15);
+    expect(n).toBe(2926);
+    expect(worst).toBe(0);
   });
 });
 
@@ -121,6 +140,20 @@ describe("the WGSL mirrors the TypeScript, structurally", () => {
     expect(a).toContain("dac=dac*s2+4.0*k.z;");
     expect(a).toContain("dac=dac*s2+3.0*k.y;");
     expect(a).toContain("dac=dac*s2+2.0*k.x;");
+  });
+
+  it("anchors the normalization at the contour radius, in both dialects", () => {
+    // Load-bearing, and invisible in a fingerprint: without the anchor the
+    // normalization divides by a sample radius that falls to zero at the corner
+    // sector's vertex, and the field reports a point one corner reach deep as a
+    // few px deep. Pinned structurally so it cannot be "simplified" back out.
+    expect(arithmetic(WGSL_RSUPN)).toContain("letg=select(dRdt/R,dRdt*inv*sqrt(r2),sqrt(r2)>=R);");
+    // and the TypeScript mirror selects on the same predicate
+    const p = { halfW: 168, halfH: 84, reach: 39.7453, k: APPLE_RSUPN.k };
+    // one corner reach in from the corner: the sector vertex, plus a hair along
+    // the diagonal so the corner sector (not the box branch) is what answers
+    const deep = rsupnField(p, p.halfW - p.reach + 2, p.halfH - p.reach + 2);
+    expect(deep).toBeLessThan(-38);
   });
 
   it("is family C exactly minus the normalization", () => {

@@ -100,8 +100,21 @@ describe("the field kernels come from @vitrea/geometry unchanged", () => {
   it("pins the fingerprints geometry's own sync test pins", () => {
     // Restated here so a change to geometry's WGSL fails this package's suite too,
     // rather than only geometry's.
-    expect(fingerprint(WGSL_RSUPN)).toBe("4f0cfcea");
+    expect(fingerprint(WGSL_RSUPN)).toBe("9c24e278");
     expect(fingerprint(WGSL_RSUP)).toBe("13c5190d");
+  });
+
+  it("carries the normalization's anchor into the gradient kernel too", () => {
+    // `sd_rsupn_grad` is a port of `rsupnFieldAndGradient`, so it has to select
+    // the same arm AND differentiate the arm it selected. Reading `dRdt / rho`
+    // here while the value kernel reads the anchored form would put the shipped
+    // normal out of step with the shipped depth, and every pass downstream
+    // consumes the two as one sample.
+    expect(WGSL_RSUPN).toContain("select(dRdt / R, dRdt * inv * sqrt(r2), sqrt(r2) >= R)");
+    expect(WGSL_RSUPN_GRAD).toContain("let atRho = rho >= R;");
+    expect(WGSL_RSUPN_GRAD).toContain("select(dRdt / R, dRdt * inv * rho, atRho)");
+    expect(WGSL_RSUPN_GRAD).toContain("select(dRdcx, drhodcx, atRho)");
+    expect(WGSL_RSUPN_GRAD).toContain("select(dRdcy, drhodcy, atRho)");
   });
 
   it("compiles the same kernels into the cross-check as into the pass", () => {
