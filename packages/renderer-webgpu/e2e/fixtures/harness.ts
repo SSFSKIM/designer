@@ -25,6 +25,7 @@ import {
   supportsTimestamps,
   type BackdropProvider,
   type GlassRenderer,
+  type MaterialProfilePatch,
 } from "../../src/index";
 import { CROSS_CHECK_WORKGROUP, crossCheckKernelModule } from "../../src/wgsl";
 import { sceneByName, SCENE_NAMES, type BackdropSpec, type Scene } from "./scenes";
@@ -222,9 +223,15 @@ interface SceneRun {
   dispose(): void;
 }
 
-async function setUpScene(scene: Scene): Promise<SceneRun> {
+async function setUpScene(
+  scene: Scene,
+  materialProfile?: MaterialProfilePatch,
+): Promise<SceneRun> {
   const gpu = await ensureDevice();
-  const renderer = createWebGPURenderer({ familyCVerified: true });
+  const renderer = createWebGPURenderer({
+    familyCVerified: true,
+    ...(materialProfile === undefined ? {} : { materialProfile }),
+  });
   renderer.attachDevice(gpu, "app");
   renderer.setViewport({
     widthCss: scene.widthCss,
@@ -255,8 +262,12 @@ async function setUpScene(scene: Scene): Promise<SceneRun> {
   };
 }
 
-async function runScene(scene: Scene, family?: "rsupn" | "rsup"): Promise<SceneRun> {
-  const run = await setUpScene(scene);
+async function runScene(
+  scene: Scene,
+  family?: "rsupn" | "rsup",
+  materialProfile?: MaterialProfilePatch,
+): Promise<SceneRun> {
+  const run = await setUpScene(scene, materialProfile);
   if (family !== undefined) run.renderer.governor.set({ fieldFamily: family });
   const frames = scene.warmupFrames ?? 1;
   for (let frame = 1; frame <= frames; frame += 1) {
@@ -295,16 +306,26 @@ const api = {
     return [...gpuErrors];
   },
 
+  /**
+   * Render one scene.
+   *
+   * `materialProfile` is the isolation-proof seam (Decision Log #31(a)): the same
+   * `MaterialProfilePatch` `createGlassRoot` takes, so a caller can render a scene
+   * with a *past* set of optical constants and compare the result against a golden
+   * baked before they moved. Nothing else in the pipeline is parameterised, which
+   * is what makes byte-identity under a patch an attribution rather than a hope.
+   */
   async renderScene(
     name: string,
     family?: "rsupn" | "rsup",
+    materialProfile?: MaterialProfilePatch,
   ): Promise<{
     readonly width: number;
     readonly height: number;
     readonly pixels: string;
   }> {
     const scene = sceneByName(name);
-    const run = await runScene(scene, family);
+    const run = await runScene(scene, family, materialProfile);
     try {
       const target = scene.capture === "highlight" ? run.highlight : run.optics;
       const bytes = await readback(await ensureDevice(), target.texture, run.width, run.height);
