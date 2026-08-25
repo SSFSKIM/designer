@@ -68,12 +68,19 @@ Branch: `c9d-release`. Nothing is pushed and nothing is published.
 - [x] **The reference-pair readout names the primary cell** —
       `apple-macos-26.5-1x-light-standard`, texture tier — checked on every scene
       the picker offers rather than on the opening one.
-- [x] **The Firefox reversal intermittent is stabilized, not loosened.** It was
-      failing on bridge latency, not on motion: thirty runs of thirty passed with
-      Firefox alone and it failed with three engines contending. The trajectory is
-      now recorded in the page, one sample per frame, and the assertion that
-      replaced it is stricter — no frame of the reversal may be a cut, rather than
-      the one frame after it. Three consecutive full three-engine runs green.
+- [x] **The Firefox motion-timing intermittents are stabilized, not loosened.**
+      Two of them, both failing on bridge latency rather than on motion, and
+      neither the product's fault. The morph reversal read its mid-flight box over
+      a round trip; it now records the whole trajectory in the page, one sample per
+      frame, and asserts that *no* frame of the reversal is a cut rather than only
+      the frame after it. The press re-press had two causes stacked — a
+      window-shaped wait a long frame could step over (now a crossing, which
+      cannot be), and a round trip between observing and interrupting a 260 ms
+      spring (now one frame in the page, on a handle resolved up front so the
+      arming is a single message). Both continuity tests print their samples on
+      failure, which is what identified the second cause: the loop's first
+      observation was already past the release's undershoot, with the ten frames
+      after it climbing cleanly. **Eight consecutive three-engine runs green.**
 
 ### The full chain
 
