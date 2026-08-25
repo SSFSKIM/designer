@@ -495,7 +495,11 @@ const api = {
         ok: true,
         vendor: info.vendor,
         architecture: info.architecture,
-        isFallback: (found as { isFallbackAdapter?: boolean }).isFallbackAdapter === true,
+        // `isFallbackAdapter` lives on `GPUAdapterInfo`, not on the adapter — it
+        // moved there in the spec, and reading it off the adapter (as this did)
+        // is `undefined` on current Chromium, which left the software-adapter
+        // gate in `../support.ts` unable to ever fire.
+        isFallback: (info as { isFallbackAdapter?: boolean }).isFallbackAdapter === true,
       };
     } catch (error) {
       return { ok: false, why: error instanceof Error ? error.message : String(error) };

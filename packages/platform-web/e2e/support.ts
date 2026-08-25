@@ -1,5 +1,5 @@
 import { PNG } from "pngjs";
-import { expect, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 /** Load the fixture page and wait for the harness module to have run. */
 export async function gotoHarness(page: Page): Promise<void> {
@@ -26,18 +26,32 @@ const ALLOW_FALLBACK = process.env.VITREA_ALLOW_FALLBACK_ADAPTER === "1";
  * in every report. A *software* adapter is worse than absent: it answers every
  * question plausibly and none of them about the thing acceptance #2 asks, which
  * is whether real glass renders on real hardware.
+ *
+ * `VITREA_ALLOW_FALLBACK_ADAPTER=1` is the deliberate exception — the one CI
+ * takes, because `ubuntu-latest` has no GPU. Taking it is not free: the run has
+ * to say so, on every test, naming the rasteriser it measured, so that a green
+ * report cannot be mistaken for a hardware verdict.
  */
 export function requireHardwareAdapter(report: AdapterReport): void {
   expect(report.ok, `no WebGPU adapter on this machine: ${report.why ?? "unknown"}`).toBe(true);
+  if (report.isFallback !== true) return;
 
-  if (report.isFallback === true && !ALLOW_FALLBACK) {
+  const named = `${report.vendor ?? "?"}/${report.architecture ?? "?"}`;
+  if (!ALLOW_FALLBACK) {
     throw new Error(
-      `The adapter is a software fallback (${report.vendor ?? "?"}/${report.architecture ?? "?"}). ` +
+      `The adapter is a software fallback (${named}). ` +
         "A GPU tier verified on a CPU rasteriser is not the tier this suite is about. " +
         'Launch with Playwright\'s full Chromium binary (channel: "chromium"), or set ' +
         "VITREA_ALLOW_FALLBACK_ADAPTER=1 to measure the software path deliberately.",
     );
   }
+
+  const note =
+    `measuring the GPU tier on a SOFTWARE adapter (${named}). ` +
+    "Behaviour is under test here; how real glass looks on real hardware is not, " +
+    "and that coverage lives on developer machines.";
+  test.info().annotations.push({ type: "software-adapter", description: note });
+  console.warn(`[chromium-gpu] ${note}`);
 }
 
 export interface Rgb {
