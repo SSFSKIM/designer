@@ -51,6 +51,7 @@ import {
   createGlassRoot,
   type GlassHostHandle,
   type GlassRoot,
+  type RendererMaterialProfile,
   type VitreaDiagnostic,
 } from "@vitrea/platform-web";
 import type { GlassGroupState } from "@vitrea/core";
@@ -111,6 +112,13 @@ export interface SceneReport {
     readonly naturalHeight: number;
   };
   readonly pressed: boolean;
+  /**
+   * The optical tunables this capture ran on, or `null` for the renderer's own
+   * defaults. A fidelity number is only interpretable against the numbers that
+   * produced it, so the patch travels with the report rather than living in the
+   * command line that happened to inject it.
+   */
+  readonly materialProfile: RendererMaterialProfile | null;
   readonly groups: readonly GroupReport[];
   readonly surfaces: readonly SurfaceReport[];
   readonly webgpu: Record<string, unknown> | undefined;
@@ -137,6 +145,12 @@ declare global {
       readonly ready: Promise<SceneReport>;
       report?: SceneReport;
     };
+    /**
+     * Optical tunables to run this capture on, injected by the driver before this
+     * script executes (`page.addInitScript`). Absent means the renderer's own
+     * defaults, which is what an uncalibrated capture must be.
+     */
+    __vitreaMaterialProfile?: RendererMaterialProfile;
   }
 }
 
@@ -311,8 +325,13 @@ async function build(): Promise<SceneReport> {
   const adapter = await probeAdapter();
 
   const diagnostics: { code: string; severity: string; message: string }[] = [];
+  // Forwarded, never interpreted: the page has no opinion about an optical
+  // number, and reading one here to "check" it would put a second copy of the
+  // material's constants in the harness.
+  const materialProfile = window.__vitreaMaterialProfile;
   const root = createGlassRoot({
     renderer: requestedRenderer,
+    ...(materialProfile === undefined ? {} : { materialProfile }),
     // Dev mode on: the overlap and padding checks are exactly the findings that
     // would invalidate a capture, and they are cheaper to read here than to
     // rediscover in a diff.
@@ -394,7 +413,31 @@ async function build(): Promise<SceneReport> {
   // Settled includes "failed": waiting here is waiting to learn the answer.
   await root.ready();
 
-  for (let index = 0; index < frames; index += 1) root.runFrame(index * FRAME_MS);
+  /*
+   * Frames are stepped with a yield between them, and that yield is load-bearing.
+   *
+   * The GPU tier's adaptive tint is driven by an analysis reduction read back off
+   * the device: the bridge fires `collectAdaptation()` once per frame and never
+   * blocks on it, so the observation lands on a later microtask. Stepped in a
+   * tight synchronous loop, none of those promises can resolve until after the
+   * final draw — so every capture rendered the material's *un-adapted* tint, and
+   * the count of frames made no difference at all (measured: byte-identical at 8
+   * and at 240). An app driving vitrea from a real rAF loop always renders the
+   * adapted tint, so calibrating against the un-adapted one would fit every
+   * material constant to a state no application ever shows.
+   *
+   * Yielding to the macrotask queue between frames is what lets each frame's
+   * readback reach the next frame's draw. The first observation jumps rather than
+   * filters (the renderer resets rather than low-passes from zero, so a page does
+   * not fade in from black), so convergence on a static backdrop takes a couple
+   * of frames rather than the filter's 500 ms — but the default count is left
+   * well above that, and `frames` remains a URL parameter so the settled state
+   * can be re-verified rather than assumed.
+   */
+  for (let index = 0; index < frames; index += 1) {
+    root.runFrame(index * FRAME_MS);
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
+  }
 
   // Two frame callbacks after the last draw, so what the compositor is showing
   // is the frame that was just drawn rather than the one before it. This is the
@@ -468,6 +511,7 @@ async function build(): Promise<SceneReport> {
       naturalHeight: image.naturalHeight,
     },
     pressed: placed.pressed,
+    materialProfile: materialProfile ?? null,
     groups,
     surfaces: placed.surfaces.map((surface) => ({
       nodeId: surface.nodeId,

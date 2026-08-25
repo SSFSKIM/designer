@@ -54,3 +54,8 @@ coverage/
 # unlike apps/reference-apple/fixtures/, which is machine-specific ground truth
 # and IS committed. The measurements taken from these live in results/.
 packages/calibration/web-captures/
+
+# Per-point profiles and matrices from a tuning sweep (scripts/sweep.ts). The
+# search is reproducible from the committed script and its printed grid; the
+# intermediate matrices are not evidence of anything on their own.
+packages/calibration/sweep-work/
