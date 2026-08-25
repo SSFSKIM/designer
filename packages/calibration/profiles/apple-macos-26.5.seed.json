@@ -1,0 +1,215 @@
+{
+  "$comment": [
+    "SEED CONSTANTS — advisory, not authoritative, and deliberately not wired",
+    "into the runtime by C7.",
+    "",
+    "The spec (§Calibration harness & methodology) names spring constants, corner",
+    "smoothing values, tint thresholds, hysteresis rates, merge-distance defaults",
+    "and clear-variant dimming as DELEGATED UNKNOWNS: named in the design,",
+    "answered by the harness, recorded into calibration profiles. This file is",
+    "that record as of C7's landing.",
+    "",
+    "Every entry carries its own provenance and status. That matters more than the",
+    "numbers, because the two statuses mean very different things:",
+    "",
+    "  measured    — derived from a real measurement, with the run that produced",
+    "                it named. Usable as a seed today.",
+    "  unmeasured  — the harness cannot answer this yet, and the reason is stated.",
+    "                A consumer must treat these as absent, NOT as zero and not as",
+    "                the advisory default's endorsement.",
+    "",
+    "Nothing here is a threshold. Thresholds are per tier and per engine cell,",
+    "decided against holdout fixtures, and they belong to C9."
+  ],
+
+  "profileKey": "apple-macos-26.5",
+  "schemaVersion": 1,
+  "recordedAt": "2026-08-25",
+  "recordedBy": "C7",
+  "colorSpace": "srgb",
+  "$colorSpaceNote": "X5 locks v1 calibration to sRGB. A number here measured in another space would not be comparable to anything else in the pipeline.",
+
+  "geometry": {
+    "$comment": [
+      "The corner reference. These come from S2, which recomputed Apple's",
+      "`.continuous` corner from a macOS 26 CGPath dump and asserted the geometry",
+      "from the control points alone — a stronger provenance than anything C7's",
+      "own captures could give, since a rasterised corner cannot recover the",
+      "curve that drew it to this precision.",
+      "",
+      "X8 makes the two-reference model binding: `apple-continuous` is the",
+      "Apple-direct fit that `profile: \"continuous\"` resolves to, and",
+      "`figma-smoothing` is the separate interpolable authoring axis. Morphs",
+      "across the two throw. The smoothing number below is the documented route",
+      "ONTO the interpolable axis, not a redefinition of the Apple reference."
+    ],
+
+    "appleContinuousCorner": {
+      "status": "measured",
+      "provenance": "docs/doperpowers/spikes/2026-08-24-s2-geometry-field-findings.md §3",
+      "edgeReachPerRadius": {
+        "value": 1.528665,
+        "note": "Not reverse-engineered: Apple publishes it as +[CALayer cornerCurveExpansionFactor:] for kCACornerCurveContinuous."
+      },
+      "structure": "three cubics per corner, no arc primitive — but the middle cubic IS a genuine circular arc",
+      "midArc": {
+        "radiusPerRadius": 0.931253,
+        "centrePerRadius": 0.950002,
+        "sweepDegrees": 50.0,
+        "arcAsCubicHandleIdentityResidual": 1.5e-7,
+        "note": "The handle identity (4/3)·tan(sweep/4)·R matching to 1.5e-7 is the real proof the middle cubic is an arc; radius and centre alone could be a coincidence of symmetry."
+      },
+      "continuity": {
+        "atStraightEdgeJoin": "G2 — zero curvature. This is the join that reads visually, and Apple gets it right.",
+        "atShoulderArcJoins": {
+          "tangentBreakDegrees": 2.4532,
+          "curvatureBreakPerRadius": 0.36,
+          "note": "Apple's own path is not even G1 here. Every 'smooth corner' article assuming G2 throughout is describing a curve Apple does not draw. This is the single most useful number for calibration: it is the reference's OWN normal discontinuity, so a specular-rim residual at these joins is a property of the target, not a defect in vitrea, and chasing gradient precision below it is chasing an artifact."
+        }
+      },
+      "radiusSaturation": {
+        "radiusOverSide": 0.327083,
+        "note": "Apple warps the corner past this ratio, under a different budget policy from Figma's. Shapes above it are NOT comparable to Apple and must be excluded from fidelity claims or measured separately."
+      }
+    },
+
+    "appleBestFigmaSmoothing": {
+      "status": "measured",
+      "provenance": "docs/doperpowers/spikes/2026-08-24-s2-geometry-field-findings.md §3; adopted as Decision Log #20",
+      "value": 0.66,
+      "hausdorffPerRadius": 1.96e-3,
+      "withFreeRadiusScale": { "smoothing": 0.6566, "radiusScale": 0.9988, "hausdorffPerRadius": 1.749e-3 },
+      "note": [
+        "The widely cited 'Figma smoothing 0.6 = iOS' is NOT the best fit — 0.6 is",
+        "nearly 2x worse (3.613e-3 r). This answers the spec's 'corner smoothing",
+        "values' delegated unknown.",
+        "",
+        "It is informational rather than load-bearing, and the reason is the",
+        "important part: routing the field fit through Figma's family costs 6.4x",
+        "the value error of fitting the same field directly to Apple's curve",
+        "(0.670px vs 0.104px), because the reference gap (1.96e-3 r) exceeds the",
+        "field's own deviation against Apple (1.38e-3 r). S2's verdict was that",
+        "the reference family, not the field, was the fidelity bottleneck — so v1",
+        "fits Apple directly and this number exists only for authors who want a",
+        "position on the interpolable axis."
+      ]
+    },
+
+    "fieldResidualAgainstApple": {
+      "status": "measured",
+      "provenance": "docs/doperpowers/spikes/2026-08-24-s2-geometry-field-findings.md §3, family D (rsupn) fit to Apple directly",
+      "valueErrorPxMax": 0.104,
+      "valueErrorPxP95": 0.09,
+      "gradientErrorDegreesMax": 1.752,
+      "gradientErrorDegreesP95": 0.871,
+      "contourDeviationPerRadius": 6.06e-4,
+      "note": "Recorded so C7's own shape metrics have a floor to compare against: a measured contour distance at or below this is at the field's approximation limit, not a tuning opportunity. Note the gradient max (1.752°) sits BELOW the reference's own 2.4532° tangent break."
+    }
+  },
+
+  "material": {
+    "$comment": [
+      "This is where C7's capture wall bites. Every parameter below needs pixels",
+      "of the composited material, and on this machine there are none — Liquid",
+      "Glass is composited by the window server and ScreenCaptureKit is TCC-denied",
+      "(apps/reference-apple/README.md §'The capture wall'). The provisional",
+      "fixtures are pixel-identical to their backgrounds, so fitting anything to",
+      "them would be fitting to the background.",
+      "",
+      "Each entry therefore records the METHOD that will answer it and the fixture",
+      "scenes that method needs, so the measurement is a re-run rather than a",
+      "redesign once the grant lands. The advisory defaults already in the runtime",
+      "stand until then — that is the spec's stated fallback ('advisory defaults",
+      "hold until fixtures land')."
+    ],
+
+    "blurSigma": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "method": "blurEdgeSpread over the impulse and checkerboard scenes — the spec mandates both precisely because a material's response to an impulse IS its kernel, and a checkerboard supplies many step edges per capture.",
+      "requiredScenes": [
+        "impulse__capsule-button__rest",
+        "impulse__rrect-md__rest",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__rrect-md__rest"
+      ],
+      "note": "Expected to be size-parameterised, not one constant: the spec's acceptance #2 asserts a larger surface shows stronger lensing and deeper shadow over the same backdrop, so the fit must be per component size across rrect-sm/md/lg before any single number is recorded."
+    },
+
+    "luminanceTransfer": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "method": "luminanceTransfer slope/offset against the light-solid, dark-solid and photo backgrounds, in linear light.",
+      "requiredScenes": ["light-solid__rrect-md__rest", "dark-solid__rrect-md__rest", "photo__rrect-md__rest"]
+    },
+
+    "tintResponse": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "method": "tintResponse in OKLab against the photo background, which is the only canonical background carrying saturated hue transitions.",
+      "requiredScenes": ["photo__rrect-md__rest", "photo__capsule-button__rest"]
+    },
+
+    "rimIntensity": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "method": "rimIntensity peak and radial profile width near the contour.",
+      "requiredScenes": ["checkerboard__rrect-md__rest", "photo__rrect-md__rest"],
+      "note": "Read this one against geometry.appleContinuousCorner.continuity.atShoulderArcJoins: a rim discontinuity at the shoulder joins is expected, because the reference curve has a 2.4532° tangent break there."
+    },
+
+    "shadowFalloff": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "method": "shadowFalloff peak and decay length outside the contour, across the size sweep.",
+      "requiredScenes": ["checkerboard__rrect-sm__rest", "checkerboard__rrect-md__rest", "checkerboard__rrect-lg__rest"]
+    },
+
+    "samplingPadding": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "advisoryDefault": 24,
+      "units": "css-px",
+      "provenance": "Decision Log #19 — an advisory default explicitly marked calibration-delegated.",
+      "note": "S1 makes the real constraint structural rather than tunable: samplingPadding must be >= 3σ of the group's blur radius, so this number is downstream of blurSigma and cannot be answered before it. 24px is 3σ at σ=8."
+    },
+
+    "mergeDistance": {
+      "status": "unmeasured",
+      "blockedBy": "screen-recording-tcc",
+      "method": "The toolbar-group scene at spacing 12 shows whether the two implementations union proximity alike; the union aesthetics the spec caps (neck width, max bulge, separation threshold) are read off the same capture.",
+      "requiredScenes": ["checkerboard__toolbar-group__rest", "photo__toolbar-group__rest"],
+      "note": "Constrained by S1 to be >= samplingPadding, so it is downstream of blurSigma too."
+    },
+
+    "clearVariantDimming": {
+      "status": "unmeasured",
+      "blockedBy": "capture-wall-and-scene-coverage",
+      "note": "Doubly blocked, and the second reason is C7's own: the canonical matrix captures the regular variant only. Calibrating clear needs clear-variant scenes added to scenes.json, which is a scope question for C9 rather than a re-run of this harness."
+    }
+  },
+
+  "motion": {
+    "$comment": [
+      "Spring constants and hysteresis rates are named delegated unknowns, and",
+      "they are C9's by the spec's own division: motion metrics need frame",
+      "sequences, and full motion capture is out of C7's scope. The pressed scenes",
+      "in the canonical matrix capture the SETTLED pressed pose, not a transient,",
+      "so they constrain peak compression only — and not even that until the",
+      "material renders."
+    ],
+    "springConstants": {
+      "status": "unmeasured",
+      "blockedBy": "out-of-scope-c7",
+      "owner": "C9",
+      "method": "Frame-sequence capture; packages/calibration exposes the motion metric family as types with morphSilhouetteTrajectory implemented."
+    },
+    "adaptationHysteresis": {
+      "status": "unmeasured",
+      "blockedBy": "out-of-scope-c7",
+      "owner": "C9",
+      "advisoryDefault": { "readbackRateHz": 15 },
+      "provenance": "Decision Log #19 — advisory 15Hz readback ceiling, calibration-delegated."
+    }
+  }
+}

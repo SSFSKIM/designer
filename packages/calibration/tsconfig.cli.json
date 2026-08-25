@@ -1,0 +1,27 @@
+{
+  "$comment": [
+    "The internal tooling (cli/, scripts/) typechecks separately from the library.",
+    "",
+    "It is a separate project because tsconfig.json's include is what the library",
+    "build and the vitest run see, and the tooling has different needs: node types,",
+    "and no place in dist/. Keeping it out of tsconfig.build.json's rootDir is the",
+    "point — the CLI is never published.",
+    "",
+    "These scripts run under tsx rather than node directly. The library's own",
+    "imports are extensionless because it is built for bundlers, so neither src/",
+    "nor the emitted dist/ resolves under plain node ESM.",
+    "",
+    "src is included rather than referenced so the scripts typecheck against the",
+    "real sources they import, not against a possibly-stale dist.",
+    "",
+    "web/ and scripts/ are deliberately NOT here — each carries its own tsconfig.",
+    "The scene page is browser code needing the DOM lib and the WebGPU types, and",
+    "the Playwright driver needs both its own types and DOM types for the code it",
+    "evaluates inside the page. Neither is what this Node-typed project provides."
+  ],
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["cli", "src"]
+}
