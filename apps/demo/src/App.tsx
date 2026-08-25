@@ -44,7 +44,7 @@ import {
   GlassSurface,
   GlassToolbar,
   PlanePortal,
-} from "@vitrea/react";
+} from "vitrea-react";
 import { useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "./ActionsMenu";

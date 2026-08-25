@@ -43,7 +43,7 @@
  * seam in the middle of the transition the plane exists to avoid.
  */
 
-import type { GlassPlane } from "@vitrea/core";
+import type { GlassPlane } from "vitrea";
 import type { GlassHostHandle } from "@vitrea/platform-web";
 import { createDriver, createInteractionMachine, type MotionDriver } from "@vitrea/motion";
 import {

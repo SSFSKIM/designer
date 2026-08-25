@@ -12,8 +12,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@vitrea/core": "workspace:*",
-    "@vitrea/react": "workspace:*",
+    "vitrea": "workspace:*",
+    "vitrea-react": "workspace:*",
     "react": "catalog:",
     "react-aria": "catalog:",
     "react-dom": "catalog:",

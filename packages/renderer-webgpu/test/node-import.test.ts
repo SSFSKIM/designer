@@ -2,7 +2,7 @@
  * The package must import cleanly where there is no WebGPU.
  *
  * This is not hypothetical and it is not about Node for its own sake:
- * `@vitrea/core`'s lazy seam (X7) resolves this package through a dynamic import,
+ * `vitrea`'s lazy seam (X7) resolves this package through a dynamic import,
  * and `packages/core/test/renderer-seam.test.ts` exercises that in a plain Node
  * environment to read `backend`, `ready` and `shaderSource` off the result.
  *

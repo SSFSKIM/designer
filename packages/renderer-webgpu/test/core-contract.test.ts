@@ -1,5 +1,5 @@
 /**
- * The seam between this package and `@vitrea/core`, asserted rather than assumed.
+ * The seam between this package and `vitrea`, asserted rather than assumed.
  *
  * The renderer sits **below** core in the dependency graph — core reaches it
  * through a dynamic import (X7's lazy seam), so importing core back would close a

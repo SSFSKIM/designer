@@ -13,7 +13,7 @@ import { act } from "react";
 import type { ReactNode } from "react";
 
 import { GlassGroup, GlassSurface, useGlassAccessibility, useGlassMotionProfile } from "../src/index";
-import type { ResolvedAccessibilityPolicy } from "@vitrea/core";
+import type { ResolvedAccessibilityPolicy } from "vitrea";
 import { renderGlass } from "./harness";
 import { setMediaQuery } from "./setup";
 

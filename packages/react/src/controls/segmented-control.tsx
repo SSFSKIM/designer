@@ -59,7 +59,7 @@ import { useGlassRootHandle } from "../context";
 import { GLASS_CHANNEL_PROPERTIES } from "../interaction";
 import type { GlassCornerProfile } from "../shape";
 import { GlassSurface } from "../surface";
-import type { GlassPlane } from "@vitrea/core";
+import type { GlassPlane } from "vitrea";
 
 export interface GlassSegment<T extends string = string> {
   readonly value: T;

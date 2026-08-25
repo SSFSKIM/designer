@@ -16,7 +16,7 @@
  * around silently.
  */
 
-import type { GlassGroupState, ResolvedAccessibilityPolicy } from "@vitrea/core";
+import type { GlassGroupState, ResolvedAccessibilityPolicy } from "vitrea";
 import type { GlassRoot } from "@vitrea/platform-web";
 import { createContext, useContext } from "react";
 
@@ -131,7 +131,7 @@ export function useGlassRootStore(): GlassRootStore {
   const store = useContext(GlassStoreContext);
   if (store === null) {
     throw new Error(
-      "@vitrea/react: this hook reads runtime state, so it must be rendered inside a <GlassRoot>.",
+      "vitrea-react: this hook reads runtime state, so it must be rendered inside a <GlassRoot>.",
     );
   }
   return store;

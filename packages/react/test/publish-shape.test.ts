@@ -1,6 +1,6 @@
 /**
- * X7 — proof that `@vitrea/react`'s published artifact has the shape the spec
- * promises: internals bundled in, zero runtime dependencies beyond `@vitrea/core`
+ * X7 — proof that `vitrea-react`'s published artifact has the shape the spec
+ * promises: internals bundled in, zero runtime dependencies beyond `vitrea`
  * and the React peer, and — the one this suite added — a `.d.ts` that resolves.
  *
  * The declaration check is not decoration. rollup-plugin-dts leaves a
@@ -43,8 +43,8 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
   const runtime = readFileSync(entryPath, "utf8");
   const types = readFileSync(typesPath, "utf8");
 
-  it("depends on nothing but @vitrea/core and the React peer at runtime", () => {
-    expect(specifiersIn(runtime).sort()).toEqual(["@vitrea/core", "react", "react/jsx-runtime"]);
+  it("depends on nothing but vitrea and the React peer at runtime", () => {
+    expect(specifiersIn(runtime).sort()).toEqual(["react", "react/jsx-runtime", "vitrea"]);
   });
 
   it("bundles the internal packages instead of importing them", () => {
@@ -55,7 +55,7 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
   it("emits declarations that resolve — nothing points at an unpublished file", () => {
     const relative = specifiersIn(types).filter((specifier) => specifier.startsWith("."));
     expect(relative).toEqual([]);
-    expect(specifiersIn(types).sort()).toEqual(["@vitrea/core", "react"]);
+    expect(specifiersIn(types).sort()).toEqual(["react", "vitrea"]);
   });
 
   it("declares the components an app imports", () => {

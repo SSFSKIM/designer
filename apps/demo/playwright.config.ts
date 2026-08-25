@@ -5,12 +5,12 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * The public site's own suite.
  *
- * It belongs to the app rather than to `@vitrea/react` because what it asserts is
+ * It belongs to the app rather than to `vitrea-react` because what it asserts is
  * the *page*: that its layout satisfies the placement law in `DESIGN.md` §9 (zero
  * dev-mode findings, on a build with the checks on), that the reference pair really
  * does place both sides from the shared geometry contract, and that the
  * accessibility floor the library claims for its users holds for the library's own
- * front page. `@vitrea/react`'s suite drives `/playground/`, which is the
+ * front page. `vitrea-react`'s suite drives `/playground/`, which is the
  * acceptance harness and a different question.
  *
  * One project. These are structural and geometric assertions, not pixel ones, and

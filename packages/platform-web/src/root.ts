@@ -1,5 +1,5 @@
 /**
- * `createGlassRoot` — the one object an app (or `@vitrea/react`) holds.
+ * `createGlassRoot` — the one object an app (or `vitrea-react`) holds.
  *
  * Everything else in this package is a piece; this is the wiring. It owns the
  * scene and the scheduler from core, the plane DOM, the read protocol, the
@@ -49,7 +49,7 @@ import {
   type ResolvedForegroundAdaptation,
   type ResolvedMaterial,
   type ShapeFamily,
-} from "@vitrea/core";
+} from "vitrea";
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { readHostChannels, type SurfaceChannelValues } from "./channels";

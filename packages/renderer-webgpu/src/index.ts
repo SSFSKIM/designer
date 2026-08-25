@@ -2,10 +2,10 @@
  * `@vitrea/renderer-webgpu` — the optical engine (child C6 of
  * `docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`).
  *
- * The lazy half of X7: nothing here is reachable from `@vitrea/core`'s entry
- * chunk, so a CSS-tier consumer never downloads WGSL. `@vitrea/core` reaches this
+ * The lazy half of X7: nothing here is reachable from `vitrea`'s entry
+ * chunk, so a CSS-tier consumer never downloads WGSL. `vitrea` reaches this
  * package through a single dynamic import, which is also why this package imports
- * `@vitrea/geometry` and `@vitrea/motion` but **never `@vitrea/core`** — an import
+ * `@vitrea/geometry` and `@vitrea/motion` but **never `vitrea`** — an import
  * back would close a dependency cycle. The handful of core-shaped types the
  * renderer reads are declared structurally in `render-model.ts`, and core's own
  * types satisfy them without an adapter.

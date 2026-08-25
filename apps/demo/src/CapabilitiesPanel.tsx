@@ -14,7 +14,7 @@ import {
   useGlassCapabilities,
   useGlassDiagnostics,
   type AccessibilityOverride,
-} from "@vitrea/react";
+} from "vitrea-react";
 import type { ReactNode } from "react";
 
 export interface OverrideState {

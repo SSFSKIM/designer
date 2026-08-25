@@ -31,7 +31,7 @@ import {
   type HintAvailability,
   type PlatformProbe,
   type SourceProbe,
-} from "@vitrea/core";
+} from "vitrea";
 
 export type ProbeVerdict = "pass" | "fail";
 

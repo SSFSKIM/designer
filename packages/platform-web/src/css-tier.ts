@@ -31,7 +31,7 @@ import type {
   CornerRadii,
   ForegroundMode,
   ResolvedAccessibilityPolicy,
-} from "@vitrea/core";
+} from "vitrea";
 
 import { opticsUnderPolicy, type MaterialOptics, type Rgb255 } from "./optics";
 

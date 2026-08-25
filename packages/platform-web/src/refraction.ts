@@ -10,7 +10,7 @@
  * and C6's shaders read it from the same place.
  */
 
-import type { RefractionQuality, ResolvedMaterialPolicy } from "@vitrea/core";
+import type { RefractionQuality, ResolvedMaterialPolicy } from "vitrea";
 
 /** Weakest first. `RefractionQuality`'s own declaration order is not an ordering. */
 export const REFRACTION_LADDER = ["none", "approximate", "true"] as const satisfies readonly RefractionQuality[];

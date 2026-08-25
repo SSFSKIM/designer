@@ -3,7 +3,7 @@
 The optical engine — child **C6** of
 `docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`.
 
-Internal package. `@vitrea/core` reaches it through a single dynamic import (X7's
+Internal package. `vitrea` reaches it through a single dynamic import (X7's
 lazy seam), so a CSS-tier consumer never downloads a byte of WGSL.
 
 ## Running the suites

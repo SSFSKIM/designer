@@ -41,7 +41,7 @@
  * the tier-coherence claim is worded around.
  */
 
-import type { MaterialVariant, ResolvedMaterialPolicy } from "@vitrea/core";
+import type { MaterialVariant, ResolvedMaterialPolicy } from "vitrea";
 
 import type { RendererMaterialProfile } from "./renderer-bridge";
 

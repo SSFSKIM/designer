@@ -73,27 +73,52 @@ Project history under `docs/` refers to this skill by its original working name,
 
 `docs/` also holds a second, discarded direction: a material-specialist skill built on SVG filters, planned in mid-2026 and cut. Those documents carry a banner marking them archived. The repository no longer builds anything on SVG filters — `effects-policy.md` treats material simulation as a rendering job with a CSS surface as its fallback, and any future material specialist, liquid glass included, is to be implemented in WebGL.
 
-## vitrea — the material runtime (in development)
+## vitrea — the material runtime
 
 This repository is dual-artifact. Alongside the plugin it hosts **vitrea**, a
-TypeScript library replicating Apple's Liquid Glass material on the web —
-real-time lensing, per-element backdrop adaptation, container-scoped sampling and
-shape-to-shape morphing, on WebGPU with an honest CSS fallback tier. It is the
-WebGL/GPU direction the archived SVG-filter plan pointed at, built as its own
-open-source product. Design and roadmap:
-`docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`.
+TypeScript library replicating Apple's Liquid Glass material on the web:
+real-time size-parameterized lensing, per-element backdrop adaptation,
+container-scoped sampling, and shape-to-shape morphing, on WebGPU with an honest
+CSS fallback tier. It is the WebGL/GPU direction the archived SVG-filter plan
+pointed at, built as its own open-source product.
+
+Positioning, deliberately: not "the first WebGPU glass demo" — prior art exists.
+vitrea is **a production-oriented, reference-calibrated material compositor for
+semantic web controls**. Explicit backdrop contracts, shared sampling groups,
+coherent cross-element morphing, adaptive accessibility, progressive fidelity
+tiers that report what they actually resolved to, and fidelity numbers backed by
+a versioned harness that diffs against native captures. Glass labels stay real
+DOM: a `GlassButton` is a `<button>`, focusable and announced as one.
+
+```bash
+npm install vitrea vitrea-react
+```
+
+- **[`vitrea`](./packages/core/README.md)** — the framework-agnostic runtime:
+  scene model, capability and tier resolution, material and accessibility policy.
+- **[`vitrea-react`](./packages/react/README.md)** — the declarative surface:
+  `GlassRoot`, `GlassGroup`, `GlassSurface`, and the v1 controls.
+- **The public demo** — `apps/demo`, with side-by-side native reference pairs.
+  Run it locally with `pnpm --filter demo dev`.
+- **Design and roadmap** —
+  [`docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`](./docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md).
+- **Fidelity claims, in full** —
+  [`docs/doperpowers/specs/c9a-fidelity-claims.md`](./docs/doperpowers/specs/c9a-fidelity-claims.md),
+  including everything that could not be measured and why. Nothing anywhere in
+  this project claims to be pixel-identical to Apple's material.
 
 The workspace is a pnpm monorepo. Seven packages under `packages/` — `core`,
 `geometry`, `motion`, `platform-web`, `renderer-webgpu`, `react`, `calibration` —
-of which exactly two are ever published: `@vitrea/core` and `@vitrea/react`. The
-rest are bundled into those two at publish time. `apps/demo` is the Vite
-playground and future showpiece; `apps/reference-apple` will hold the native
-SwiftUI capture harness the fidelity claims are measured against.
+of which exactly two are ever published, under the unscoped names above. The rest
+keep their `@vitrea/*` workspace names, never publish, and are bundled into those
+two at publish time, so an app installs two packages and gets no transitive
+runtime dependency beyond React. `apps/reference-apple` is the native SwiftUI
+capture harness the fidelity claims are measured against.
 
 ```bash
 pnpm install
 pnpm -r build && pnpm -r lint && pnpm -r test
-pnpm --filter demo dev
+pnpm --filter demo dev            # the demo site and the acceptance playground
 ```
 
 `core`, `geometry` and `motion` are pure: they never reference `window`,
@@ -105,6 +130,10 @@ prove both layers still fire.
 The plugin and the library share only this repository. The marketplace still
 installs from `./` and reads `skills/`; no JavaScript build output is loaded at
 plugin runtime.
+
+> **Not affiliated with Apple.** "Liquid Glass" is the name of Apple Inc.'s
+> design language, referenced descriptively to say what vitrea replicates and
+> what its fidelity is measured against. See `NOTICE`.
 
 ## Development
 

@@ -29,7 +29,7 @@ import type {
   MaterialProfile,
   MaterialVariant,
   SourceProbe,
-} from "@vitrea/core";
+} from "vitrea";
 import type { GlassRoot as PlatformGlassRoot } from "@vitrea/platform-web";
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 
