@@ -363,8 +363,8 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 | C8 React bindings & components | merge (70 unit + 31×3-engine Playwright; acceptances #1/#3/#4/#6 evidenced; axe clean ×3 engines) | landed 2026-08-25, verified on main (chain exit 0) |
 | K2 platform-web→renderer bridge (corrective) | merge (923 unit tests; GPU glass end to end; acceptance #2's mechanism visible: larger plate lenses harder) | landed 2026-08-25, verified on main (chain exit 0) |
 | C9 fidelity, demo & release | decomposed 2026-08-25 (see §C9 closing cut) | C9a landed (30/30 cells; two constants moved; every holdout axis improved; claims doc committed) + C9b landed (17 demo e2e; zero diagnostics; static deploy verified); C9c dispatchable (awaiting K4 to avoid css-tier overlap); C9d blocked |
-| K5 tier-coherence opacity (corrective, platform-web) | — | opened 2026-08-25, blocked-by K4 (same file) |
-| K4 CSS-tier foreground hint wiring (corrective, platform-web) | — | in-flight (2026-08-25) |
+| K5 tier-coherence opacity (corrective, platform-web) | — | in-flight (2026-08-25) |
+| K4 CSS-tier foreground hint wiring (corrective, platform-web) | merge aee60d9 (8 unit + 1 pixel test; a11y-over-hint precedence asserted) | landed 2026-08-25, verified on main (chain exit 0) |
 
 ## C9 closing cut (decomposed at dispatch, 2026-08-25 — real fixtures in hand)
 
