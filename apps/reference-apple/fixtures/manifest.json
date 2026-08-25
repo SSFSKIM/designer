@@ -12,7 +12,7 @@
     "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
     "30 of 30 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end."
   ],
-  "generatedAt" : "2026-08-25T07:35:20Z",
+  "generatedAt" : "2026-08-25T07:40:12Z",
   "hardware" : {
     "cpu" : "Apple M2 Pro",
     "model" : "Mac14,12",
@@ -37,7 +37,7 @@
       "fixtures" : [
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:18Z",
+          "capturedAt" : "2026-08-25T07:40:12Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__pressed.png",
@@ -51,7 +51,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:19Z",
+          "capturedAt" : "2026-08-25T07:40:09Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest.png",
@@ -65,7 +65,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:19Z",
+          "capturedAt" : "2026-08-25T07:40:11Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest.png",
@@ -79,7 +79,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:13Z",
+          "capturedAt" : "2026-08-25T07:40:05Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest.png",
@@ -93,7 +93,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:17Z",
+          "capturedAt" : "2026-08-25T07:40:10Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__pressed.png",
@@ -107,7 +107,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:16Z",
+          "capturedAt" : "2026-08-25T07:40:09Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest.png",
@@ -121,7 +121,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:14Z",
+          "capturedAt" : "2026-08-25T07:40:05Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest.png",
@@ -135,7 +135,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:20Z",
+          "capturedAt" : "2026-08-25T07:40:07Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest.png",
@@ -149,7 +149,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:16Z",
+          "capturedAt" : "2026-08-25T07:40:12Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest.png",
@@ -163,7 +163,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:12Z",
+          "capturedAt" : "2026-08-25T07:40:10Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest.png",
@@ -177,7 +177,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:14Z",
+          "capturedAt" : "2026-08-25T07:40:04Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest.png",
@@ -191,7 +191,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:19Z",
+          "capturedAt" : "2026-08-25T07:40:07Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest.png",
@@ -205,7 +205,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:15Z",
+          "capturedAt" : "2026-08-25T07:40:05Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest.png",
@@ -219,7 +219,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:20Z",
+          "capturedAt" : "2026-08-25T07:40:06Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest.png",
@@ -233,7 +233,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:12Z",
+          "capturedAt" : "2026-08-25T07:40:04Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest.png",
@@ -247,7 +247,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:17Z",
+          "capturedAt" : "2026-08-25T07:40:11Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest.png",
@@ -261,7 +261,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:13Z",
+          "capturedAt" : "2026-08-25T07:40:08Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__pressed.png",
@@ -275,7 +275,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:18Z",
+          "capturedAt" : "2026-08-25T07:40:07Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest.png",
@@ -289,7 +289,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:14Z",
+          "capturedAt" : "2026-08-25T07:40:11Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest.png",
@@ -303,7 +303,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:16Z",
+          "capturedAt" : "2026-08-25T07:40:06Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest.png",
@@ -317,7 +317,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:20Z",
+          "capturedAt" : "2026-08-25T07:40:08Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-md__pressed.png",
@@ -331,7 +331,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:15Z",
+          "capturedAt" : "2026-08-25T07:40:04Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-md__rest.png",
@@ -345,7 +345,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:17Z",
+          "capturedAt" : "2026-08-25T07:40:08Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest.png",
@@ -359,7 +359,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:15Z",
+          "capturedAt" : "2026-08-25T07:40:09Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest.png",
@@ -389,7 +389,7 @@
       "fixtures" : [
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:19Z",
+          "capturedAt" : "2026-08-25T07:40:05Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest.png",
@@ -403,7 +403,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:13Z",
+          "capturedAt" : "2026-08-25T07:40:09Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest.png",
@@ -417,7 +417,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:15Z",
+          "capturedAt" : "2026-08-25T07:40:07Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest.png",
@@ -431,7 +431,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:18Z",
+          "capturedAt" : "2026-08-25T07:40:10Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest.png",
@@ -445,7 +445,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:14Z",
+          "capturedAt" : "2026-08-25T07:40:10Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest.png",
@@ -459,7 +459,7 @@
         },
         {
           "captureMethod" : "nsview-cachedisplay",
-          "capturedAt" : "2026-08-25T07:35:17Z",
+          "capturedAt" : "2026-08-25T07:40:06Z",
           "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest.png",

@@ -240,19 +240,26 @@ func runCapture(method: CaptureMethod) {
   /// a systematic gradient across the matrix in whatever order the scenes happen
   /// to be listed. Interleaving by a fixed stride decorrelates scene identity from
   /// capture position, and the stride is deterministic so a re-run is comparable.
+  /// Ordered by a stable hash of the cell's own key, which is a permutation by
+  /// construction — no stride to be accidentally non-coprime with the matrix
+  /// size, and no loop that can fail to terminate. The hash is written out here
+  /// rather than using `Hashable`, because Swift's string hashing is seeded per
+  /// process: `hashValue` would reorder the matrix on every run, and a capture
+  /// order that changes between runs is not comparable between runs.
   func interleaved(_ items: [(ProfileSpec, SceneEntry)]) -> [(ProfileSpec, SceneEntry)] {
-    guard items.count > 2 else { return items }
-    let stride = 7                      // coprime with most matrix sizes here
-    var out: [(ProfileSpec, SceneEntry)] = []
-    var seen = Set<Int>()
-    var i = 0
-    while out.count < items.count {
-      let idx = i % items.count
-      if !seen.contains(idx) { out.append(items[idx]); seen.insert(idx) }
-      i += stride
-      if seen.count < items.count && i % items.count == 0 { i += 1 }
+    func fnv1a(_ s: String) -> UInt64 {
+      var h: UInt64 = 0xcbf2_9ce4_8422_2325
+      for byte in s.utf8 {
+        h ^= UInt64(byte)
+        h = h &* 0x0000_0100_0000_01b3
+      }
+      return h
     }
-    return out
+    return items.sorted { a, b in
+      let ka = fnv1a("\(a.0.key)/\(a.1.id)"), kb = fnv1a("\(b.0.key)/\(b.1.id)")
+      // Tie-break on the key itself so the order is total even on a hash collision.
+      return ka == kb ? "\(a.0.key)/\(a.1.id)" < "\(b.0.key)/\(b.1.id)" : ka < kb
+    }
   }
 
   // Accessibility modes are system-wide and unsettable per view (see
