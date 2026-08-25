@@ -55,11 +55,36 @@ jobs:
       # pixel assertions on Chromium only, everything else on all three engines.
       - run: pnpm --filter @vitrea/platform-web exec playwright install --with-deps chromium firefox webkit
 
-      - run: pnpm --filter @vitrea/platform-web test:e2e
+      # `e2e/gpu` runs here too, on the software path: this runner has no GPU, so
+      # `VITREA_ALLOW_FALLBACK_ADAPTER=1` opts into a SwiftShader adapter, and the
+      # browser has to be headed under a virtual display for a WebGPU canvas to
+      # reach any pixels at all. `packages/platform-web/playwright.config.ts`
+      # carries the measurements behind both halves. `xvfb` is preinstalled on
+      # the runner image; the headless engines ignore the display.
+      - name: platform-web e2e
+        env:
+          VITREA_ALLOW_FALLBACK_ADAPTER: "1"
+        run: |
+          set -o pipefail
+          xvfb-run -a --server-args="-screen 0 1280x1024x24" \
+            pnpm --filter @vitrea/platform-web test:e2e 2>&1 | tee e2e.log
+
+      # What ran, what did not, and on what adapter — in the run summary rather
+      # than buried in the log, because "green" here does not mean "hardware".
+      - if: always()
+        name: e2e summary
+        run: |
+          {
+            echo "### platform-web e2e"
+            echo ""
+            grep -E "^ +[0-9]+ (passed|failed|skipped|flaky|did not run)" e2e.log || echo "no result line"
+            echo ""
+            grep -m1 "SOFTWARE adapter" e2e.log || echo "chromium-gpu measured a hardware adapter."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: packages/platform-web/playwright-report
+          name: playwright-traces
+          path: packages/platform-web/test-results
           retention-days: 7
