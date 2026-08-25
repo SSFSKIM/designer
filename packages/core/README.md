@@ -209,11 +209,36 @@ The claims, in the words that document states them:
 ### The CSS (dom) tier
 
 > **No cross-engine pixel-wise fidelity claim is made for the dom tier, and none
-> can be. A Chromium-only measurement now exists and is stated as such: on the 18
-> light calibration and validation cells, the CSS tier reaches SSIM 0.9544 mean /
-> 0.9040 worst and OKLab ΔE 0.0275 mean / 0.0727 worst — about 3.2× the texture
-> tier's ΔE in the same cells. Its shape axis is not comparable to the texture
-> tier's, and it is UNTUNED.**
+> can be. On Chromium, in the same cell with `renderer: css` and
+> `samplingBackend: css-backdrop`: OKLab ΔE 0.0091 mean / 0.0240 worst and SSIM
+> 0.9700 mean / 0.9304 worst over the 12 light calibration cells, ΔE 0.0108 /
+> 0.0273 over the 6 validation cells, and ΔE 0.0291 mean / 0.0560 worst with SSIM
+> 0.9373 / 0.9205 on the six scenes held out of all tuning. Silhouette IoU 0.9424
+> mean over the calibration cells and 0.9684 on holdout, with a 1.06 px mean
+> contour distance.**
+
+This tier does not hold a material of its own: it **converts** the one the root
+carries, through a mapping whose single fitted constant is tuned against the
+cross-tier difference rather than against the fixtures. That is a deliberate
+trade, recorded rather than hidden — a CSS tier fitted independently against
+Apple is free to drift from the GPU tier the moment either is retuned, while a
+converted one inherits the GPU tier's fidelity by construction. The price is now
+0.0099 against Apple where an independent fit reached 0.0094.
+
+> **Tier coherence, and only in this wording.** On Chromium, a group that demotes
+> from the WebGPU texture tier to the CSS tier keeps the same material to within
+> 1.3% of its interior level in the mean and 11% on the worst measured cell, at a
+> cross-tier OKLab ΔE of 0.0063 mean / 0.0124 worst over the fitted sets and
+> 0.0188 / 0.0313 over the held-out ones. It is **not** the same rendering —
+> refraction is absent on the CSS tier by contract (`refraction: "none"`) — but
+> the material's opacity, tint and frost do not change visibly on demotion.
+
+Exact coherence is unreachable, and the arithmetic says so before any capture
+does: the renderer applies its transfer function *after* the blend and the page
+applies it *before*, so matching the two composites needs a different CSS alpha at
+every backdrop level (0.761 at linear 0.05, 0.635 at 0.8). One scalar is exact at
+one level and necessarily wrong either side of it. What remains is a property of
+`backdrop-filter`, not a residual anyone can tune away.
 
 The cross-engine absence is not laziness. Gecko and WebKit render
 `backdrop-filter` as a complete no-op in every automatable capture path — headless
@@ -245,8 +270,9 @@ check.
   `gpu-texture + css-backdrop` with `refraction: "approximate"` even on the GPU
   tier. They are counted in the holdout numbers, and they are the two lowest
   SSIM figures in that set.
-- **Tier coherence is not yet claimed anywhere.** The CSS tier is untuned; see
-  §3 of the claims document for what that currently costs a root that demotes.
+- **Tier coherence is a Chromium measurement of a material's level**, on one
+  profile, at 1×. It does not say the two tiers are identical, and it does not
+  hold on Gecko or WebKit — nothing measurable does there.
 
 ---
 

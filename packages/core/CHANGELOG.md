@@ -34,7 +34,9 @@
   claims, and everything that could not be measured, are in
   `docs/doperpowers/specs/c9a-fidelity-claims.md`. Nothing here is pixel-identical
   to Apple's material, no press-state claim is made, and the CSS tier carries a
-  Chromium-only figure stated as untuned.
+  Chromium-only figure — it converts the material the root carries rather than
+  holding one of its own, so a demotion keeps the same material to within 1.3% of
+  its interior level in the mean.
   
   Published unscoped: `npm install vitrea vitrea-react`. The geometry, motion, DOM
   host and WebGPU renderer packages are internal and bundled in, so these two carry

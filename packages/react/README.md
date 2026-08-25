@@ -178,11 +178,24 @@ The claim, as that document words it:
 And for the CSS tier, which is what most visitors will actually see:
 
 > **No cross-engine pixel-wise fidelity claim is made for the dom tier, and none
-> can be. A Chromium-only measurement now exists and is stated as such: on the 18
-> light calibration and validation cells, the CSS tier reaches SSIM 0.9544 mean /
-> 0.9040 worst and OKLab ΔE 0.0275 mean / 0.0727 worst — about 3.2× the texture
-> tier's ΔE in the same cells. Its shape axis is not comparable to the texture
-> tier's, and it is UNTUNED.**
+> can be. On Chromium, in the same cell with `renderer: css` and
+> `samplingBackend: css-backdrop`: OKLab ΔE 0.0091 mean / 0.0240 worst and SSIM
+> 0.9700 mean / 0.9304 worst over the 12 light calibration cells, ΔE 0.0108 /
+> 0.0273 over the 6 validation cells, and ΔE 0.0291 mean / 0.0560 worst with SSIM
+> 0.9373 / 0.9205 on the six scenes held out of all tuning. Silhouette IoU 0.9424
+> mean over the calibration cells and 0.9684 on holdout, with a 1.06 px mean
+> contour distance.**
+
+This tier does not hold a material of its own — it **converts** the one the root
+carries — so retuning the material moves both tiers at once. And on demotion:
+
+> On Chromium, a group that demotes from the WebGPU texture tier to the CSS tier
+> keeps the same material to within 1.3% of its interior level in the mean and 11%
+> on the worst measured cell, at a cross-tier OKLab ΔE of 0.0063 mean / 0.0124
+> worst over the fitted sets and 0.0188 / 0.0313 over the held-out ones. It is
+> **not** the same rendering — refraction is absent on the CSS tier by contract
+> (`refraction: "none"`) — but the material's opacity, tint and frost do not
+> change visibly on demotion.
 
 Not claimed, explicitly: **never "pixel-identical to Apple"** — every figure is
 scoped to one native profile and one web cell; **no press-state claim**, because
@@ -190,8 +203,9 @@ Apple's `Glass.interactive(true)` opts the material into responding to press
 input rather than posing it pressed, and the native "pressed" captures are
 byte-identical to their rest counterparts; **no adopted pass/fail thresholds**,
 only proposals awaiting a human gate; **1× scale only**, with both
-accessibility-mode profiles still uncaptured; and **no tier-coherence claim**,
-since the CSS tier is untuned.
+accessibility-mode profiles still uncaptured; and **no claim that the two tiers
+are identical**, nor that the coherence figure above holds on Gecko or WebKit,
+where nothing about `backdrop-filter` is measurable at all.
 
 ---
 
