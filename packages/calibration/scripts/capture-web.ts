@@ -122,6 +122,17 @@ interface MaterialProfileFile {
   readonly path: string;
   readonly sha256: string;
   readonly patch: NonNullable<SceneReport["materialProfile"]>;
+  /**
+   * The CSS tier's half of the same document (corrective K5).
+   *
+   * One file carries both, deliberately. The two tiers render one material
+   * through two compositing pipelines, so a configuration is only fully named
+   * when it names the renderer's optics *and* what the crossing to
+   * `backdrop-filter` costs — and a cell's `capturePath` records one hash over
+   * one artefact either way. Two flags would have let a dom-tier run cite a
+   * renderer profile while silently applying the shipped mapping.
+   */
+  readonly cssTierMapping: NonNullable<SceneReport["cssTierMapping"]> | undefined;
 }
 
 interface Options {
@@ -258,12 +269,27 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sweepGain",
 ]);
 
+/** Every key the CSS tier's `CssTierMapping` may be patched at (corrective K5). */
+const CSS_TIER_MAPPING_KEYS = new Set([
+  "referenceBackdropLuminance",
+  "minimumTintContrast",
+  "blurSigmaScale",
+  "saturation",
+  "borderAlphaPerRimAlpha",
+  "borderWidth",
+  "shadowOffset",
+  "shadowBlur",
+  "shadowAlpha",
+]);
+
 /**
- * Read a material-profile patch off disk.
+ * Read a profile document off disk.
  *
- * Accepts either a bare patch or a calibration-profile document carrying one
- * under `patch` — the committed profiles are the latter, and making the caller
- * unwrap them by hand is how the trap above gets re-set.
+ * Accepts either a bare renderer patch or a calibration-profile document
+ * carrying one under `patch` — the committed profiles are the latter, and making
+ * the caller unwrap them by hand is how the trap above gets re-set. A document
+ * may also carry `cssTierMapping`, which is the CSS tier's side of the same
+ * configuration; either section alone is enough to make the file a document.
  */
 function readMaterialProfile(path: string): MaterialProfileFile {
   const text = readFileSync(path, "utf8");
@@ -272,31 +298,45 @@ function readMaterialProfile(path: string): MaterialProfileFile {
     throw new Error(`--material-profile ${path} is not a JSON object`);
   }
 
-  const document = parsed as Record<string, unknown>;
-  const nested = document["patch"];
-  const patch = (
-    typeof nested === "object" && nested !== null && !Array.isArray(nested) ? nested : document
-  ) as Record<string, unknown>;
+  const object = (value: unknown): Record<string, unknown> | undefined =>
+    typeof value === "object" && value !== null && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : undefined;
 
-  const unknown = Object.keys(patch).filter((key) => !MATERIAL_PATCH_KEYS.has(key));
-  if (unknown.length > 0) {
+  const document = parsed as Record<string, unknown>;
+  // A document declares itself by carrying either section. Testing only for
+  // `patch` would take a CSS-only document — one that tunes the mapping and
+  // leaves the renderer at its defaults, which is exactly what a dom-tier sweep
+  // writes — and treat `cssTierMapping` as an unknown renderer key.
+  const isDocument = "patch" in document || "cssTierMapping" in document;
+  const patch = (isDocument ? object(document["patch"]) ?? {} : document) as Record<string, unknown>;
+  const cssTierMapping = isDocument ? object(document["cssTierMapping"]) : undefined;
+
+  const reject = (section: string, keys: readonly string[], allowed: ReadonlySet<string>): void => {
+    const unknown = keys.filter((key) => !allowed.has(key));
+    if (unknown.length === 0) return;
     throw new Error(
-      `--material-profile ${path} names ${unknown.length} key(s) the renderer's ` +
-        `MaterialProfilePatch does not have: ${unknown.join(", ")}. ` +
-        `Applying it would have silently measured the renderer's defaults. ` +
-        `Known keys: ${[...MATERIAL_PATCH_KEYS].join(", ")}.`,
+      `--material-profile ${path} names ${unknown.length} key(s) ${section} does not have: ` +
+        `${unknown.join(", ")}. Applying it would have silently measured the defaults. ` +
+        `Known keys: ${[...allowed].join(", ")}.`,
     );
+  };
+  reject("the renderer's MaterialProfilePatch", Object.keys(patch), MATERIAL_PATCH_KEYS);
+  if (cssTierMapping !== undefined) {
+    reject("the CSS tier's CssTierMapping", Object.keys(cssTierMapping), CSS_TIER_MAPPING_KEYS);
   }
-  if (Object.keys(patch).length === 0) {
+
+  if (Object.keys(patch).length === 0 && cssTierMapping === undefined) {
     throw new Error(`--material-profile ${path} is empty, so it would change nothing`);
   }
 
   return {
     path,
-    // Hashed over the file, not the extracted patch: the cell should name the
+    // Hashed over the file, not the extracted sections: the cell should name the
     // artefact a human can go and read, provenance included.
     sha256: createHash("sha256").update(text).digest("hex").slice(0, 12),
     patch: patch as MaterialProfileFile["patch"],
+    cssTierMapping: cssTierMapping as MaterialProfileFile["cssTierMapping"],
   };
 }
 
@@ -304,7 +344,14 @@ function readMaterialProfile(path: string): MaterialProfileFile {
 function materialProfileLabel(profile: MaterialProfileFile | undefined): string {
   if (profile === undefined) return "materialProfile=renderer defaults";
   const shown = relative(REPO_ROOT, profile.path);
-  return `materialProfile=${shown.startsWith("..") ? profile.path : shown} sha256:${profile.sha256}`;
+  const sections = [
+    Object.keys(profile.patch).length > 0 ? "renderer" : undefined,
+    profile.cssTierMapping === undefined ? undefined : "cssTierMapping",
+  ].filter((section): section is string => section !== undefined);
+  return (
+    `materialProfile=${shown.startsWith("..") ? profile.path : shown} ` +
+    `sha256:${profile.sha256} sections=${sections.join("+")}`
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -542,6 +589,7 @@ async function captureScene(
                 path: options.materialProfile.path,
                 sha256: options.materialProfile.sha256,
                 patch: options.materialProfile.patch,
+                cssTierMapping: options.materialProfile.cssTierMapping ?? null,
               },
         fallback: fallback ?? null,
         problems,
@@ -592,10 +640,22 @@ async function main(): Promise<void> {
     // and builds the root. Setting them after load would have the first frames
     // draw on the defaults.
     if (options.materialProfile !== undefined) {
-      await context.addInitScript((patch: MaterialProfileFile["patch"]) => {
-        window.__vitreaMaterialProfile = patch;
-      }, options.materialProfile.patch);
-      say(`material profile: ${materialProfileLabel(options.materialProfile)}`);
+      const profile = options.materialProfile;
+      await context.addInitScript(
+        (sections: {
+          patch: MaterialProfileFile["patch"];
+          cssTierMapping: MaterialProfileFile["cssTierMapping"];
+        }) => {
+          if (Object.keys(sections.patch).length > 0) {
+            window.__vitreaMaterialProfile = sections.patch;
+          }
+          if (sections.cssTierMapping !== undefined) {
+            window.__vitreaCssTierMapping = sections.cssTierMapping;
+          }
+        },
+        { patch: profile.patch, cssTierMapping: profile.cssTierMapping },
+      );
+      say(`material profile: ${materialProfileLabel(profile)}`);
     }
 
     for (const sceneId of options.sceneIds) {

@@ -8,6 +8,20 @@
  *     --base profiles/light.base.json \
  *     --profile apple-macos-26.5-1x-light-standard
  *
+ * `--renderer css` sweeps the dom tier instead, where the axes are the CSS
+ * tier's mapping constants (corrective K5):
+ *
+ *   npx tsx scripts/sweep.ts --renderer css \
+ *     --axis cssTierMapping.referenceBackdropLuminance=0.08,0.18,0.32 \
+ *     --profile apple-macos-26.5-1x-light-standard
+ *
+ * The two tiers share this script because they share the objective: the terms
+ * below are properties of the rendered material, not of the pipeline that drew
+ * it. What differs is only which constants an axis can name — a dotted path
+ * rooted at `cssTierMapping` patches the mapping, anything else patches the
+ * renderer's profile — and the profile document carries both sections, so a
+ * point is one file and one hash whichever tier is measuring.
+ *
  * `--base` is a patch merged under every point — for the parts of a profile a
  * numeric axis cannot express, a tint colour being the obvious one.
  *
@@ -90,21 +104,46 @@ function mergeInto(target: Record<string, unknown>, source: Record<string, unkno
   }
 }
 
-/** Build a patch object from dotted leaf paths, over an optional base patch. */
-function patchFrom(
+/** The section of the profile document an axis path patches. */
+const CSS_TIER_SECTION = "cssTierMapping";
+
+/**
+ * Build a profile *document* from dotted leaf paths, over an optional base.
+ *
+ * Always a document — `{ patch, cssTierMapping }` — rather than a bare patch,
+ * because a point may now name constants in either tier and the two must not be
+ * flattened together: `referenceBackdropLuminance` is not a renderer optic and
+ * `optics.regular.tintAlpha` is not a mapping constant. A path rooted at
+ * `cssTierMapping` lands in that section; anything else lands under `patch`,
+ * which is where every pre-K5 axis already pointed.
+ *
+ * A `--base` that is itself a document merges section-wise; one that is a bare
+ * patch merges into `patch`, so the committed profiles keep working unchanged.
+ */
+function documentFrom(
   point: readonly { readonly path: string; readonly value: number }[],
   base: Record<string, unknown> = {},
 ): unknown {
-  const root: Record<string, unknown> = {};
-  mergeInto(root, base);
+  const root: Record<string, unknown> = { patch: {}, [CSS_TIER_SECTION]: {} };
+  const baseIsDocument = "patch" in base || CSS_TIER_SECTION in base;
+  mergeInto(root, baseIsDocument ? base : { patch: base });
+
   for (const { path, value } of point) {
     const parts = path.split(".");
-    let node = root;
-    for (const part of parts.slice(0, -1)) {
+    const section = parts[0] === CSS_TIER_SECTION ? CSS_TIER_SECTION : "patch";
+    const leaves = parts[0] === CSS_TIER_SECTION ? parts.slice(1) : parts;
+    let node = root[section] as Record<string, unknown>;
+    for (const part of leaves.slice(0, -1)) {
       node[part] ??= {};
       node = node[part] as Record<string, unknown>;
     }
-    node[parts[parts.length - 1] as string] = value;
+    node[leaves[leaves.length - 1] as string] = value;
+  }
+
+  // An empty section is dropped rather than written: `cssTierMapping: {}` reads
+  // as "the mapping was configured to nothing", and the driver would accept it.
+  for (const section of ["patch", CSS_TIER_SECTION]) {
+    if (Object.keys(root[section] as Record<string, unknown>).length === 0) delete root[section];
   }
   return root;
 }
@@ -191,6 +230,10 @@ function main(): void {
     return i >= 0 ? argv[i + 1] : undefined;
   };
   const profileKey = flag("profile");
+  const renderer = flag("renderer") ?? "webgpu";
+  if (renderer !== "webgpu" && renderer !== "css") {
+    throw new Error(`sweep: --renderer takes webgpu or css, not '${renderer}'`);
+  }
   // Scene restriction, forwarded to compare. Its use here is to check that an
   // optimum does not depend on a subset of cells — the pressed scenes in
   // particular, whose native side carries no press pose.
@@ -204,7 +247,8 @@ function main(): void {
   mkdirSync(WORK, { recursive: true });
   const points = grid(axes);
   process.stderr.write(
-    `sweep: ${points.length} point(s) over ${axes.map((a) => `${a.path}[${a.values.length}]`).join(" × ")}\n`,
+    `sweep: ${renderer} tier, ${points.length} point(s) over ` +
+      `${axes.map((a) => `${a.path}[${a.values.length}]`).join(" × ")}\n`,
   );
 
   const results: { readonly label: string; readonly score: Score }[] = [];
@@ -213,7 +257,7 @@ function main(): void {
     const label = point.map((p) => `${p.path.split(".").pop() ?? p.path}=${p.value}`).join(" ");
     const profilePath = resolve(WORK, `profile-${index}.json`);
     const matrixPath = resolve(WORK, `matrix-${index}.json`);
-    writeFileSync(profilePath, `${JSON.stringify(patchFrom(point, base), null, 2)}\n`);
+    writeFileSync(profilePath, `${JSON.stringify(documentFrom(point, base), null, 2)}\n`);
     /*
      * Delete any matrix already at this path before measuring into it.
      *
@@ -238,6 +282,8 @@ function main(): void {
         profilePath,
         "--out-matrix",
         matrixPath,
+        "--renderer",
+        renderer,
         ...(profileKey === undefined ? [] : ["--profile", profileKey]),
         ...(scenes === undefined ? [] : ["--scene", scenes]),
       ],
