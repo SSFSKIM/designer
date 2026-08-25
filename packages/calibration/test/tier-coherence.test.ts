@@ -30,6 +30,7 @@ import {
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_SOURCE_OPTICS,
   REDUCED_TRANSPARENCY_FROST,
+  STRONG_BORDER,
   cssTierOptics,
   foregroundDeclarations,
   gpuTierForegroundLevel,
@@ -202,6 +203,45 @@ describe("tier coherence (K5)", () => {
     expect(painted.blurRadius).not.toBe(
       cssTierOpticsUnderPolicy(cssTierOptics(patch).regular, policy.material).blurRadius,
     );
+  });
+
+  /*
+   * The strong border, the last of the fold's mirrored constants — and the one
+   * that crosses the boundary *unconverted*, deliberately. `borderAlphaPerRimAlpha`
+   * is fitted for the nominal regime, where the renderer's ambient rim and this
+   * tier's drawn border are different constructs; a near-opaque accessibility
+   * floor is not that regime, and at α = 0.95 the compositing difference the
+   * mapping corrects for has collapsed. So the pin is equality, and equality is
+   * what makes the shipped pair byte-identical on both tiers.
+   */
+  it("draws one strong border on both tiers, patch included", () => {
+    expect(STRONG_BORDER.borderWidth).toBe(DEFAULT_MATERIAL_PROFILE.strongBorderRim.rimWidth);
+    expect(STRONG_BORDER.borderAlpha).toBe(DEFAULT_MATERIAL_PROFILE.strongBorderRim.rimAlpha);
+
+    const patch = { strongBorderRim: { rimWidth: 4, rimAlpha: 0.5 } };
+    const policy = resolveAccessibilityPolicy({
+      reducedTransparency: false,
+      reducedMotion: false,
+      increasedContrast: true,
+      forcedColors: false,
+      reducedTransparencySupported: true,
+    });
+    expect(policy.material.border).toBe("strong");
+
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const rendered = rendererOpticsUnderPolicy(profile.optics.regular, policy.material, profile);
+    const painted = cssTierOpticsUnderPolicy(
+      cssTierOptics(patch).regular,
+      policy.material,
+      resolvedPolicyFold(patch),
+    );
+
+    expect(painted.borderWidth).toBe(rendered.rimWidth);
+    expect(painted.borderAlpha).toBe(rendered.rimAlpha);
+    // And the patch actually moved both numbers, so the equality cannot be
+    // passing on the shipped pair by accident.
+    expect(painted.borderWidth).not.toBe(STRONG_BORDER.borderWidth);
+    expect(painted.borderAlpha).not.toBe(STRONG_BORDER.borderAlpha);
   });
 
   it("follows a profile patch on both sides at once", () => {

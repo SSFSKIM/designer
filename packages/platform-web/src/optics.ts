@@ -518,26 +518,60 @@ export function occlusionAlphaUnderPolicy(
 }
 
 /**
+ * A drawn border rather than a rim highlight (§Accessibility: "stronger borders").
+ *
+ * **These cross the tier boundary unconverted, and that is a decision.** Every
+ * other renderer quantity this tier reads goes through `CssTierMapping` —
+ * `rimAlpha` in particular becomes `borderAlpha` via `borderAlphaPerRimAlpha`.
+ * That constant is fitted for the *nominal* regime, where the renderer's ambient
+ * rim highlight and this tier's drawn border are different constructs and the
+ * fitted number is what absorbs the difference. The strong-border regime is not
+ * that: it is an accessibility floor stated in near-opaque terms, and at near
+ * opacity the thing the mapping exists to correct for stops existing — a line at
+ * α = 0.95 reads the same whether it composites in linear light or in encoded
+ * sRGB. A constant fitted on the nominal rim has nothing true to say about it,
+ * and applying one anyway would cost the identity that makes this safe: 0.95
+ * would stop being 0.95.
+ *
+ * The trade, stated rather than hidden: an author who patches
+ * `strongBorderRim.rimAlpha` well below opaque leaves the near-opaque regime the
+ * identity is justified by, and the two tiers will then measurably diverge. That
+ * is their informed choice about an accessibility floor they chose to lower, not
+ * something the mapping should silently correct.
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.strongBorderRim`
+ * (`rimWidth`, `rimAlpha`) and is pinned in both directions by
+ * `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export const STRONG_BORDER: Pick<MaterialOptics, "borderWidth" | "borderAlpha"> = {
+  borderWidth: 2,
+  borderAlpha: 0.95,
+};
+
+/**
  * The profile fields the *policy* fold reads, as opposed to the ones the tier
  * conversion reads.
  *
  * `cssTierOptics` converts a profile's per-variant optics into this tier's alpha
- * space and hands back numbers. These two are different: they are multipliers the
- * accessibility regime applies to whatever numbers it is given, so they survive
- * the conversion untouched and cannot ride along inside the converted optics.
- * They therefore travel beside them, as one value rather than as loose scalars —
- * two bare `number`s at a call site are one transposition away from being the
- * bug they exist to prevent.
+ * space and hands back numbers. These are different: they are what the
+ * accessibility regime does to whatever numbers it is given, so they survive the
+ * conversion — as multipliers, or in the strong border's case as an identity —
+ * and cannot ride along inside the converted optics. They therefore travel
+ * beside them, as one value rather than as loose scalars: bare `number`s side by
+ * side at a call site are one transposition away from being the bug they exist
+ * to prevent.
  */
 export interface PolicyFoldConstants {
   readonly increasedOcclusionLift: number;
   readonly reducedTransparencyFrost: number;
+  readonly strongBorder: Pick<MaterialOptics, "borderWidth" | "borderAlpha">;
 }
 
 /** The shipped profile's policy constants — the mirrored defaults. */
 export const POLICY_FOLD_CONSTANTS: PolicyFoldConstants = {
   increasedOcclusionLift: INCREASED_OCCLUSION_LIFT,
   reducedTransparencyFrost: REDUCED_TRANSPARENCY_FROST,
+  strongBorder: STRONG_BORDER,
 };
 
 /**
@@ -545,7 +579,7 @@ export const POLICY_FOLD_CONSTANTS: PolicyFoldConstants = {
  * (`withMaterialOverrides`): a field the patch does not name keeps the mirrored
  * default.
  *
- * Both are *patchable* profile fields and the renderer already honours the
+ * All three are *patchable* profile fields and the renderer already honours the
  * patched values. Anything on this side that models what the renderer drew — the
  * GPU tier's foreground decision — or that paints its own folded material — the
  * CSS tier — has to resolve them the same way, or a calibration patch would move
@@ -553,16 +587,21 @@ export const POLICY_FOLD_CONSTANTS: PolicyFoldConstants = {
  * decision-vs-render divergence Decision Log #32(b) exists to prevent, and the
  * tier gap K5 (#32(a)) closed, reappearing through the patch rather than through
  * a second copy of the constant.
+ *
+ * The strong border merges per field, not as a whole, because the renderer's
+ * `withMaterialOverrides` does: a patch naming only the width keeps the mirrored
+ * alpha rather than dropping it.
  */
 export function resolvedPolicyFold(patch?: RendererMaterialProfile): PolicyFoldConstants {
   return {
     increasedOcclusionLift: patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT,
     reducedTransparencyFrost: patch?.reducedTransparencyFrost ?? REDUCED_TRANSPARENCY_FROST,
+    strongBorder: {
+      borderWidth: patch?.strongBorderRim?.rimWidth ?? STRONG_BORDER.borderWidth,
+      borderAlpha: patch?.strongBorderRim?.rimAlpha ?? STRONG_BORDER.borderAlpha,
+    },
   };
 }
-
-/** A drawn border rather than a rim highlight (§Accessibility: "stronger borders"). */
-const STRONG_BORDER = { borderWidth: 2, borderAlpha: 0.95 } as const;
 
 /** Ambient tint pulled back under increased contrast. */
 const REDUCED_TINT_SATURATION = 1;
@@ -603,7 +642,7 @@ export function opticsUnderPolicy(
     ),
   };
 
-  if (policy.border === "strong") next = { ...next, ...STRONG_BORDER };
+  if (policy.border === "strong") next = { ...next, ...fold.strongBorder };
 
   if (policy.ambientTint === "reduced") next = { ...next, saturation: REDUCED_TINT_SATURATION };
   else if (policy.ambientTint === "none") next = { ...next, saturation: 1 };

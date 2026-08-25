@@ -212,6 +212,43 @@ describe("the CSS tier (the fallback is the design)", () => {
     expect(Number.parseFloat(strong["border-width"] ?? "0")).toBeGreaterThan(1);
   });
 
+  it("draws the strong border the profile patch names, not the shipped one", () => {
+    // The third and last of the fold's mirrored constants. `strongBorderRim` is
+    // patchable and the renderer already draws with the patched rim, so this tier
+    // holding its own copy would put a different accessibility floor on a demoted
+    // surface than on the one the renderer paints. The pair crosses unconverted —
+    // see `STRONG_BORDER` for why the nominal rim's mapping has nothing to say
+    // about a near-opaque line — which is what makes `toBe` the right assertion
+    // here rather than a tolerance.
+    const policy = resolveAccessibilityPolicy(systemWith({ increasedContrast: true }));
+    const drawnWith = (
+      strongBorderRim?: { rimWidth?: number; rimAlpha?: number },
+    ): { width: string | undefined; colour: string | undefined } => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        policy,
+        ...(strongBorderRim === undefined
+          ? {}
+          : { policyFold: resolvedPolicyFold({ strongBorderRim }) }),
+      });
+      return { width: declarations["border-width"], colour: declarations["--vitrea-border-color"] };
+    };
+
+    expect(drawnWith({ rimWidth: 4, rimAlpha: 0.5 }).width).toBe("4px");
+    expect(drawnWith({ rimWidth: 4, rimAlpha: 0.5 }).colour).toContain("0.5)");
+    // Both directions: thinner and more transparent as readily as thicker and
+    // more opaque, since a patch is a calibration result and not a floor.
+    expect(drawnWith({ rimWidth: 1, rimAlpha: 0.2 }).width).toBe("1px");
+    expect(drawnWith({ rimWidth: 1, rimAlpha: 0.2 }).colour).toContain("0.2)");
+    // The renderer merges this rim per field, so a patch naming only the width
+    // has to keep the mirrored alpha rather than dropping it.
+    expect(drawnWith({ rimWidth: 4 }).colour).toBe(drawnWith().colour);
+    // And no patch is byte-identical to before the field could be threaded.
+    expect(drawnWith()).toEqual(drawnWith({ rimWidth: 2, rimAlpha: 0.95 }));
+    expect(drawnWith().width).toBe("2px");
+    expect(drawnWith().colour).toContain("0.95)");
+  });
+
   it("drops the glass entirely under forced colors and uses system colors", () => {
     const forced = cssTierDeclarations({
       ...surface,
