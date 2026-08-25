@@ -1,0 +1,217 @@
+{
+  "$comment": [
+    "The canonical scene matrix — C7's single source of truth, read by BOTH the",
+    "native SwiftUI harness (Sources/) and the web calibration page",
+    "(packages/calibration/scene/). Geometry lives here rather than in either",
+    "renderer because the spec's diff is only meaningful when both sides place",
+    "the same shape at the same place: 'identical pre-rendered raster",
+    "backgrounds so font-rasterisation differences never pollute the diff'",
+    "generalises to geometry, and two hand-kept copies of a rect would drift.",
+    "All lengths are logical (CSS/point) px; the capture scale multiplies them."
+  ],
+  "version": 1,
+  "canvas": { "width": 320, "height": 200 },
+
+  "backgrounds": {
+    "light-solid": {
+      "kind": "solid",
+      "srgb": [242, 242, 247],
+      "$comment": "System light grey. The flat case: no backdrop detail, so tint and rim read alone."
+    },
+    "dark-solid": {
+      "kind": "solid",
+      "srgb": [28, 28, 30],
+      "$comment": "System dark. Pairs with the dark-scheme profiles."
+    },
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [0, 0, 0],
+      "b": [255, 255, 255],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    },
+    "impulse": {
+      "kind": "impulse",
+      "background": [0, 0, 0],
+      "foreground": [255, 255, 255],
+      "size": 4,
+      "spacing": 64,
+      "$comment": "Spec-mandated. A grid of small bright squares on black approximates a 2-D impulse train: the material's response to it IS the blur kernel, and the spacing keeps neighbouring responses from overlapping at any plausible sigma. A literal single pixel is too little energy to measure at 1x."
+    },
+    "photo": {
+      "kind": "synthetic-photo",
+      "seed": 20260825,
+      "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+    },
+    "hc-text": {
+      "kind": "text-rows",
+      "background": [255, 255, 255],
+      "foreground": [0, 0, 0],
+      "rowHeight": 14,
+      "barHeight": 6,
+      "$comment": "High-contrast text, drawn as GEOMETRIC BARS, not glyphs. Real text would reintroduce exactly the font-rasterisation difference the spec's raster-background rule exists to eliminate; bars keep the high-frequency black-on-white structure that stresses the material's legibility handling."
+    }
+  },
+
+  "components": {
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [120, 44],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    },
+    "rrect-sm": { "kind": "rrect", "size": [64, 32], "radius": 8 },
+    "rrect-md": { "kind": "rrect", "size": [160, 96], "radius": 20 },
+    "rrect-lg": {
+      "kind": "rrect",
+      "size": [280, 160],
+      "radius": 34,
+      "$comment": "The size sweep exists because Apple's material is size-parameterised: a larger surface must show deeper shadow and stronger lensing over the same backdrop (parent acceptance #2). r/side = 0.2125, safely under Apple's 0.327083 saturation point, so these corners stay comparable (S2)."
+    },
+    "toolbar-group": {
+      "kind": "group",
+      "items": [
+        { "kind": "capsule", "size": [44, 44] },
+        { "kind": "capsule", "size": [44, 44] },
+        { "kind": "capsule", "size": [44, 44] }
+      ],
+      "spacing": 12,
+      "$comment": "Three siblings inside one GlassEffectContainer / GlassGroup — the container-scoped sampling case. Spacing 12 is inside plausible merge distance, so this also shows whether the two implementations union proximity the same way."
+    },
+    "glass-over-glass": {
+      "kind": "stack",
+      "base": { "kind": "rrect", "size": [220, 130], "radius": 24 },
+      "over": { "kind": "rrect", "size": [120, 56], "radius": 16, "offset": [0, -8] },
+      "$comment": "S1's mandated scene: an overlay-plane proxy necessarily samples the BASE plane's rendered output, so the overlay's material must be calibrated against an already-glassed backdrop, not raw content. Without this scene the overlay tier has no ground truth at all."
+    }
+  },
+
+  "states": {
+    "rest": { "$comment": "No interaction." },
+    "pressed": {
+      "$comment": "Apple's interactive() press response. Scriptable natively by driving the view's press state; on the web by the runtime's pressed interaction state. Motion is C9's axis — this is the settled pressed pose, not a transient."
+    }
+  },
+
+  "scenes": [
+    { "id": "light-solid__capsule-button__rest", "background": "light-solid", "component": "capsule-button", "state": "rest" },
+    { "id": "dark-solid__capsule-button__rest", "background": "dark-solid", "component": "capsule-button", "state": "rest" },
+    { "id": "checkerboard__capsule-button__rest", "background": "checkerboard", "component": "capsule-button", "state": "rest" },
+    { "id": "impulse__capsule-button__rest", "background": "impulse", "component": "capsule-button", "state": "rest" },
+    { "id": "photo__capsule-button__rest", "background": "photo", "component": "capsule-button", "state": "rest" },
+    { "id": "hc-text__capsule-button__rest", "background": "hc-text", "component": "capsule-button", "state": "rest" },
+
+    { "id": "light-solid__rrect-md__rest", "background": "light-solid", "component": "rrect-md", "state": "rest" },
+    { "id": "dark-solid__rrect-md__rest", "background": "dark-solid", "component": "rrect-md", "state": "rest" },
+    { "id": "checkerboard__rrect-md__rest", "background": "checkerboard", "component": "rrect-md", "state": "rest" },
+    { "id": "impulse__rrect-md__rest", "background": "impulse", "component": "rrect-md", "state": "rest" },
+    { "id": "photo__rrect-md__rest", "background": "photo", "component": "rrect-md", "state": "rest" },
+    { "id": "hc-text__rrect-md__rest", "background": "hc-text", "component": "rrect-md", "state": "rest" },
+
+    { "id": "checkerboard__rrect-sm__rest", "background": "checkerboard", "component": "rrect-sm", "state": "rest" },
+    { "id": "photo__rrect-sm__rest", "background": "photo", "component": "rrect-sm", "state": "rest" },
+    { "id": "checkerboard__rrect-lg__rest", "background": "checkerboard", "component": "rrect-lg", "state": "rest" },
+    { "id": "photo__rrect-lg__rest", "background": "photo", "component": "rrect-lg", "state": "rest" },
+
+    { "id": "checkerboard__toolbar-group__rest", "background": "checkerboard", "component": "toolbar-group", "state": "rest" },
+    { "id": "photo__toolbar-group__rest", "background": "photo", "component": "toolbar-group", "state": "rest" },
+    { "id": "checkerboard__glass-over-glass__rest", "background": "checkerboard", "component": "glass-over-glass", "state": "rest" },
+    { "id": "photo__glass-over-glass__rest", "background": "photo", "component": "glass-over-glass", "state": "rest" },
+
+    { "id": "checkerboard__capsule-button__pressed", "background": "checkerboard", "component": "capsule-button", "state": "pressed" },
+    { "id": "photo__capsule-button__pressed", "background": "photo", "component": "capsule-button", "state": "pressed" },
+    { "id": "checkerboard__rrect-md__pressed", "background": "checkerboard", "component": "rrect-md", "state": "pressed" },
+    { "id": "photo__rrect-md__pressed", "background": "photo", "component": "rrect-md", "state": "pressed" }
+  ],
+
+  "profiles": [
+    {
+      "key": "apple-macos-26.5-1x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "The primary profile: every scene."
+    },
+    {
+      "key": "apple-macos-26.5-1x-dark-standard",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "dark-solid__capsule-button__rest",
+        "checkerboard__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "dark-solid__rrect-md__rest",
+        "checkerboard__rrect-md__rest",
+        "photo__rrect-md__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-26.5-1x-light-reduced-transparency",
+      "colorScheme": "light",
+      "a11y": "reduced-transparency",
+      "scenes": [
+        "checkerboard__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__rrect-md__rest",
+        "photo__rrect-md__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-26.5-1x-light-increased-contrast",
+      "colorScheme": "light",
+      "a11y": "increased-contrast",
+      "scenes": [
+        "checkerboard__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__rrect-md__rest",
+        "photo__rrect-md__rest"
+      ]
+    }
+  ],
+
+  "split": {
+    "$comment": [
+      "calibration / validation / holdout, per the spec's anti-overfitting rule.",
+      "The split is declared HERE, as data, and the holdout ids are deliberately",
+      "not referenced by any tuning code — C9 tunes against 'calibration', checks",
+      "itself on 'validation', and may read 'holdout' only to report a final",
+      "number it did not fit to. The assignment is by SCENE, not by profile, so a",
+      "holdout scene stays holdout in every colour scheme and a11y mode.",
+      "",
+      "What went into holdout is a judgement, not a random draw: the axes tuning",
+      "would most like to peek at. hc-text (the legibility case), rrect-lg (the",
+      "far end of the size parameterisation), and glass-over-glass (the stacked",
+      "case S1 forced) are each the scene where overfitting would be least",
+      "visible and most damaging."
+    ],
+    "holdout": [
+      "hc-text__capsule-button__rest",
+      "hc-text__rrect-md__rest",
+      "checkerboard__rrect-lg__rest",
+      "photo__rrect-lg__rest",
+      "checkerboard__glass-over-glass__rest",
+      "photo__glass-over-glass__rest"
+    ],
+    "validation": [
+      "impulse__capsule-button__rest",
+      "impulse__rrect-md__rest",
+      "photo__rrect-sm__rest",
+      "photo__toolbar-group__rest",
+      "photo__capsule-button__pressed",
+      "photo__rrect-md__pressed"
+    ],
+    "calibration": [
+      "light-solid__capsule-button__rest",
+      "dark-solid__capsule-button__rest",
+      "checkerboard__capsule-button__rest",
+      "photo__capsule-button__rest",
+      "light-solid__rrect-md__rest",
+      "dark-solid__rrect-md__rest",
+      "checkerboard__rrect-md__rest",
+      "photo__rrect-md__rest",
+      "checkerboard__rrect-sm__rest",
+      "checkerboard__toolbar-group__rest",
+      "checkerboard__capsule-button__pressed",
+      "checkerboard__rrect-md__pressed"
+    ]
+  }
+}
