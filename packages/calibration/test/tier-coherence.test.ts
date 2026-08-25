@@ -23,17 +23,26 @@
  * three.
  */
 
+import { resolveAccessibilityPolicy } from "vitrea";
 import {
+  CSS_TIER_MAPPING,
+  FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_SOURCE_OPTICS,
   cssTierOptics,
+  foregroundDeclarations,
+  gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
+  resolvedOcclusionLift,
+  sourceOptics,
 } from "@vitrea/platform-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
   INCREASED_OCCLUSION_LIFT as RENDERER_OCCLUSION_LIFT,
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
+  opticsUnderPolicy as rendererOpticsUnderPolicy,
+  withMaterialOverrides,
 } from "@vitrea/renderer-webgpu";
 import { describe, expect, it } from "vitest";
 
@@ -94,6 +103,63 @@ describe("tier coherence (K5)", () => {
         12,
       );
     }
+  });
+
+  /*
+   * Decision Log #32(b): one tier's ink is decided against that tier's own
+   * material. The lift is a patchable profile field and the renderer composites
+   * with the patched value, so a decision taken at the *default* lift models a
+   * material the renderer did not draw — the same divergence #32(b) closed,
+   * arriving through the patch instead of through a second constant. Held here
+   * rather than in platform-web because only this package may read both sides.
+   */
+  it("decides the GPU tier's ink against the alpha the renderer composites, under a patched lift", () => {
+    // A lift below the shipped one, on a low-alpha material, over a dark backdrop:
+    // the region where the two answers are not merely different numbers but
+    // different inks. Nothing selects such a profile today; a calibration pass
+    // fitting the lift is exactly what the patch field exists for.
+    const patch = { optics: { regular: { tintAlpha: 0.1 } }, increasedOcclusionLift: 0.05 };
+    const policy = resolveAccessibilityPolicy({
+      reducedTransparency: true,
+      reducedMotion: false,
+      increasedContrast: false,
+      forcedColors: false,
+      reducedTransparencySupported: true,
+    });
+    expect(policy.material.occlusion).toBe("increased");
+
+    // What the renderer composites: its own profile merge, its own fold.
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const rendered = rendererOpticsUnderPolicy(profile.optics.regular, policy.material, profile);
+
+    // What platform-web decides the ink against. Same alpha, to the bit — not to
+    // a tolerance: these are the same derivation over the same numbers, and any
+    // gap at all is the profile field failing to reach one of the two.
+    const decided = occlusionAlphaUnderPolicy(
+      sourceOptics(patch).regular.tintAlpha,
+      policy.material.occlusion,
+      resolvedOcclusionLift(patch),
+    );
+    expect(decided).toBe(rendered.tintAlpha);
+
+    // And the ink it buys, against the ink the default lift would have bought.
+    const backdrop = 0.05;
+    const levelAt = (tintAlpha: number): number =>
+      gpuTierForegroundLevel({ ...sourceOptics(patch).regular, tintAlpha }, backdrop);
+    const inkAt = (tintAlpha: number): string | undefined =>
+      foregroundDeclarations({ policy, level: levelAt(tintAlpha) })["--vitrea-foreground"];
+    const atDefaultLift = occlusionAlphaUnderPolicy(
+      sourceOptics(patch).regular.tintAlpha,
+      policy.material.occlusion,
+      INCREASED_OCCLUSION_LIFT,
+    );
+
+    // The two levels straddle the crossover rather than sitting near it: the
+    // divergence publishes the wrong ink, it does not merely round differently.
+    expect(levelAt(rendered.tintAlpha)).toBeLessThan(CSS_TIER_MAPPING.foregroundCrossover);
+    expect(levelAt(atDefaultLift)).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
+    expect(inkAt(rendered.tintAlpha)).toBe(FOREGROUND_INK.light);
+    expect(inkAt(atDefaultLift)).toBe(FOREGROUND_INK.dark);
   });
 
   it("follows a profile patch on both sides at once", () => {

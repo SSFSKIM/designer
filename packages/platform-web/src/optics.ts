@@ -514,6 +514,24 @@ export function occlusionAlphaUnderPolicy(
   }
 }
 
+/**
+ * The lift a profile patch resolves to, by the renderer's own merge rule
+ * (`withMaterialOverrides`): a field the patch does not name keeps the mirrored
+ * default.
+ *
+ * The lift is a *patchable* profile field, and the renderer composites with the
+ * patched value. Anything on this side that models what the renderer drew — the
+ * GPU tier's foreground decision — or that paints its own lifted material — the
+ * CSS tier's fold — has to resolve it the same way, or a calibration patch would
+ * move the material without moving the decision taken against it. That is the
+ * decision-vs-render divergence Decision Log #32(b) exists to prevent, and the
+ * tier gap K5 (#32(a)) closed, reappearing through the patch rather than through
+ * a second copy of the constant.
+ */
+export function resolvedOcclusionLift(patch?: RendererMaterialProfile): number {
+  return patch?.increasedOcclusionLift ?? INCREASED_OCCLUSION_LIFT;
+}
+
 /** A drawn border rather than a rim highlight (§Accessibility: "stronger borders"). */
 const STRONG_BORDER = { borderWidth: 2, borderAlpha: 0.95 } as const;
 
@@ -526,10 +544,18 @@ const REDUCED_TINT_SATURATION = 1;
  * core says which regime applies; nothing here re-decides that. Each branch is
  * one axis of `ResolvedMaterialPolicy`, so a new axis in core surfaces as a
  * missing branch here rather than as silence.
+ *
+ * `lift` is the resolved `increasedOcclusionLift` of the profile these optics
+ * were derived from (`resolvedOcclusionLift`). It is a parameter because this
+ * function receives no profile: the optics arriving here are already converted to
+ * this tier's alpha space, and the patch that produced them is only in scope at
+ * the call site. The default is the shipped constant, so an unpatched caller
+ * folds exactly the numbers it always did.
  */
 export function opticsUnderPolicy(
   optics: MaterialOptics,
   policy: ResolvedMaterialPolicy,
+  lift: number = INCREASED_OCCLUSION_LIFT,
 ): MaterialOptics {
   let next = optics;
 
@@ -539,7 +565,7 @@ export function opticsUnderPolicy(
     next = { ...next, blurRadius: 0 };
   }
 
-  next = { ...next, tintAlpha: occlusionAlphaUnderPolicy(next.tintAlpha, policy.occlusion) };
+  next = { ...next, tintAlpha: occlusionAlphaUnderPolicy(next.tintAlpha, policy.occlusion, lift) };
 
   if (policy.border === "strong") next = { ...next, ...STRONG_BORDER };
 

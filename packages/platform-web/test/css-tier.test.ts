@@ -125,6 +125,39 @@ describe("the CSS tier (the fallback is the design)", () => {
     expect(occlusionAlphaUnderPolicy(1, "increased")).toBe(1);
   });
 
+  it("folds the lift the profile patch names, not the shipped one", () => {
+    // The lift is a profile field the renderer already honours, so a patch that
+    // names it moves the material the GPU tier composites. This tier has to fold
+    // the same number or a demoted surface would paint an occlusion the renderer
+    // never drew — K5's gap, reappearing through the patch rather than through a
+    // second copy of the constant.
+    const optics = cssTierOptics({ optics: { regular: { tintAlpha: 0.1 } } });
+    const policy = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
+    const foldedWith = (increasedOcclusionLift?: number): number =>
+      Number(
+        cssTierDeclarations({
+          ...surface,
+          optics: optics.regular,
+          policy,
+          ...(increasedOcclusionLift === undefined ? {} : { increasedOcclusionLift }),
+        })["--vitrea-occlusion"],
+      );
+
+    // The token is emitted to three decimals, so the expectation rounds the same
+    // way rather than settling for a tolerance that would also pass on the
+    // shipped lift.
+    const nominal = optics.regular.tintAlpha;
+    const emitted = (alpha: number): number => Math.round(alpha * 1000) / 1000;
+    expect(foldedWith(0.05)).toBe(emitted(nominal + 0.05 * (1 - nominal)));
+    expect(foldedWith(0.9)).toBe(emitted(nominal + 0.9 * (1 - nominal)));
+    // A patched lift below the shipped one lifts less, which is the direction an
+    // absolute-floor reading of the policy could not express at all.
+    expect(foldedWith(0.05)).toBeLessThan(foldedWith());
+    expect(foldedWith(0.9)).toBeGreaterThan(foldedWith());
+    // And no patch is byte-identical to before the field could be threaded.
+    expect(foldedWith()).toBe(foldedWith(INCREASED_OCCLUSION_LIFT));
+  });
+
   it("restores the pre-C9a lift, expressed relatively", () => {
     // The fraction is not a new number: it is the old floor read as a proportion
     // of the headroom it closed, so at the old nominal the policy is unchanged.

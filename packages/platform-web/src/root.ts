@@ -88,6 +88,7 @@ import {
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
+  resolvedOcclusionLift,
   sourceOptics,
   type CssTierMapping,
   type MaterialOptics,
@@ -452,6 +453,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * and not the CSS tier's reproduction of it (Decision Log #32(b)).
    */
   let gpuOptics = sourceOptics(options.materialProfile);
+  /**
+   * The lift the profile resolves to, held alongside the two tiers' optics
+   * because it is the one policy constant neither of them can carry: it applies
+   * to whatever alpha they arrive at rather than being one of those alphas.
+   * Patchable, and the renderer composites with the patched value — so the
+   * foreground decision and this tier's own fold both have to use it or they
+   * would model a material nothing draws.
+   */
+  let occlusionLift = resolvedOcclusionLift(options.materialProfile);
 
   const bridge: GlassRendererBridge | undefined = wantsWebGPU
     ? createGlassRendererBridge({
@@ -622,7 +632,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
       const variant = groupRecord.descriptor.material?.variant ?? "regular";
       const baseOptics = cssOptics[variant];
-      const optics = opticsUnderPolicy(baseOptics, accessibility.material);
+      const optics = opticsUnderPolicy(baseOptics, accessibility.material, occlusionLift);
       const state = stateFor(groupId) ?? resolved.state;
 
       const members = [...hosts.values()].filter((record) => record.groupId === groupId);
@@ -739,6 +749,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           radii: record.radii,
           optics: baseOptics,
           mapping: cssMapping,
+          increasedOcclusionLift: occlusionLift,
           policy: accessibility,
           foreground: hint,
         });
@@ -802,6 +813,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                       tintAlpha: occlusionAlphaUnderPolicy(
                         gpuOptics[variant].tintAlpha,
                         accessibility.material.occlusion,
+                        occlusionLift,
                       ),
                     },
                     hintedBackdrop,
@@ -1100,6 +1112,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // handing the CSS tier its own alpha would be re-opening K5's gap by hand.
       cssOptics = cssTierOptics(profile, cssMapping);
       gpuOptics = sourceOptics(profile);
+      occlusionLift = resolvedOcclusionLift(profile);
       bridge?.setMaterialProfile(profile);
     },
 
