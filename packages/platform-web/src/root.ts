@@ -366,29 +366,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   };
 
   /**
-   * Whether there is a renderer that can draw here, as the bridge reports it.
+   * Set if the renderer chunk cannot be resolved at all.
    *
-   * A device is not a renderer. Between the adapter resolving and the WGSL chunk
-   * arriving there is a window in which WebGPU is available and nothing can draw
-   * with it, and a group resolved onto the WebGPU tier in that window would be
-   * claiming a capability that is painting nothing. So core's probe reads
-   * `"available"` only when both halves are true — and this half does *not*
-   * withdraw on device loss, which is what keeps a lost device reported as
-   * `device-lost` rather than as `no-webgpu`.
+   * A device with no renderer behind it draws nothing, and a group resolved onto
+   * the WebGPU tier there would be reporting a capability that is painting
+   * nothing. `no-webgpu` is the honest name for it — there is no GPU tier in
+   * this session, and its recovery is truthfully `"none"`. Note what this is
+   * *not* set by: a lost device. core only raises `device-lost` where `webgpu`
+   * is `"available"`, so clearing availability on loss would collapse a fault
+   * that recovers into one that does not.
    */
-  let rendererUsable = false;
+  let rendererUnavailable = false;
 
   const bridge: GlassRendererBridge | undefined = wantsWebGPU
     ? createGlassRendererBridge({
         layers,
         diagnostics: platformDiagnostics,
-        onRendererUsable: (usable) => {
-          rendererUsable = usable;
-          if (webgpu !== undefined) {
-            setProbe({
-              webgpu: usable && webgpu.status.available ? "available" : "unavailable",
-            });
-          }
+        onRendererUnavailable: () => {
+          rendererUnavailable = true;
+          setProbe({ webgpu: "unavailable" });
         },
       })
     : undefined;
@@ -405,7 +401,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // requested here by construction — "available" or "unavailable" is
           // the whole range, never "not-requested".
           setProbe({
-            webgpu: status.available && rendererUsable ? "available" : "unavailable",
+            webgpu: status.available && !rendererUnavailable ? "available" : "unavailable",
             deviceHealth: status.deviceHealth,
           });
           if (status.deviceHealth === "lost") {

@@ -32,14 +32,15 @@
  * re-adding the group instead would throw away its cached field target twice a
  * frame.
  *
- * ## Honesty
+ * ## What it does not own
  *
- * The renderer being *loadable* and the renderer being *attached* are different
- * facts, and only the second one may set core's probe to `"available"`. A group
- * that resolved to the WebGPU tier while the chunk was still in flight would be
- * a surface reporting a capability that is not drawing it — precisely the
- * pretence X2 exists to prevent. So availability is reported by this module,
- * after the attach, and withdrawn the moment the device goes.
+ * X2's resolved state. core decides which tier a group is on, from a platform
+ * probe about the *browser*, and this module reads that answer rather than
+ * arguing with it. It raises exactly one capability fact of its own — the
+ * renderer chunk failing to resolve, which is `no-webgpu` in substance and has
+ * no other honest name. Everything else it can fail at costs it the drawing and
+ * nothing more, because inventing a state X2 does not enumerate would be the
+ * same pretence from the other direction.
  */
 
 import {
@@ -100,18 +101,19 @@ export interface GlassRendererBridgeOptions {
   readonly layers: GlassLayerManager;
   readonly diagnostics: PlatformDiagnosticsChannel;
   /**
-   * Whether there is a renderer that *can* draw here: the chunk resolved and the
-   * plane canvases accepted a `"webgpu"` context.
+   * Raised once, if the renderer chunk cannot be resolved at all.
    *
-   * Deliberately not "is drawing right now". It feeds core's three-valued
-   * `PlatformProbe.webgpu` (X2's K1 amendment), which pairs with a separate
-   * `deviceHealth` — and core only raises `device-lost` where `webgpu` is
-   * `"available"`, because a device can only be lost if there was one to lose.
-   * Withdrawing this on loss would collapse a recoverable fault into
-   * `no-webgpu`, whose honest recovery is `"none"`. So it latches true and only
-   * ever reports false for a fault no device can fix.
+   * That is the one bridge-side failure with no honest name but `no-webgpu`:
+   * there is no GPU tier in this session and nothing recovers it, which is
+   * exactly what that reason's `"none"` recovery says. Everything else the
+   * bridge can fail at — a canvas refusing a context, a device dying — either
+   * has its own reason in X2 or is a transient, and neither may touch this. In
+   * particular a lost device must not: core only raises `device-lost` where
+   * `webgpu` is `"available"`, so withdrawing availability on loss would
+   * collapse a fault whose recovery is `"device-restored"` into one whose
+   * recovery is `"none"`.
    */
-  readonly onRendererUsable: (usable: boolean) => void;
+  readonly onRendererUnavailable: () => void;
   /** The X7 seam, swappable so a unit test needs no GPU. */
   readonly load?: () => Promise<WebGPURendererModule>;
 }
@@ -270,10 +272,8 @@ export function createGlassRendererBridge(
   let device: GPUDevice | undefined;
   let format: GPUTextureFormat | undefined;
   let destroyed = false;
-  /** Latched once the canvases have accepted a context; see `onRendererUsable`. */
-  let usable = false;
+  /** Latched: a canvas that refused a context will not accept one later either. */
   let canvasesRefused = false;
-  let announced = false;
 
   const contexts = new Map<GlassPlane, PlaneContexts>();
   const textures = new Map<string, GlassBackdropTexture>();
@@ -291,55 +291,86 @@ export function createGlassRendererBridge(
   const active = (): boolean =>
     !destroyed && renderer !== undefined && renderer.ready && contexts.size > 0;
 
-  const announce = (): void => {
-    const next = usable && !canvasesRefused;
-    if (next === announced) return;
-    announced = next;
-    options.onRendererUsable(next);
-  };
-
   // -- canvases -------------------------------------------------------------
 
+  /**
+   * Give every plane's canvas pair a configured `"webgpu"` context.
+   *
+   * Failure here is reported and survived rather than thrown. It is not a
+   * platform fact — X2 has no reason for it and none of the enumerated states
+   * describes it — so what it costs is the drawing, not the state: `active()`
+   * goes false, the CSS tier is untouched, and the diagnostic names what
+   * happened. Refusing to build the root over it would take down an app for a
+   * fault it cannot act on.
+   */
   const configureCanvases = (gpu: GPUDevice): void => {
     // `getPreferredCanvasFormat` is the format the compositor does not have to
     // convert. The renderer's pipelines are keyed by target format, so handing it
     // the canvas' own format costs one more cached pipeline and no copy.
     format = navigator.gpu?.getPreferredCanvasFormat() ?? "bgra8unorm";
     contexts.clear();
+    if (canvasesRefused) return;
+
     for (const layers of options.layers.planes) {
       const optics = canvasContext(layers.opticsCanvas);
       const highlight = canvasContext(layers.highlightCanvas);
-      if (optics === undefined || highlight === undefined) {
+      try {
+        if (optics === undefined || highlight === undefined) {
+          throw new Error('getContext("webgpu") returned null');
+        }
+        // Premultiplied because that is what the optics pass writes (X5: linear
+        // premultiplied light, sRGB-encoded on the way out) and what its
+        // `PREMULTIPLIED_OVER` blend assumes. Declaring "opaque" would make the
+        // glass a solid rectangle over the page.
+        for (const context of [optics, highlight]) {
+          context.configure({ device: gpu, format, alphaMode: "premultiplied" });
+        }
+        contexts.set(layers.plane, { optics, highlight });
+      } catch (error) {
         options.diagnostics.report({
           code: "webgpu-canvas-unavailable",
           severity: "warning",
           subjects: [layers.plane],
-          message: `The "${layers.plane}" plane's canvases refused a "webgpu" context, so the GPU tier cannot paint into X1's sandwich. This session renders on the CSS tier.`,
+          message: `The "${layers.plane}" plane's canvases could not be configured for WebGPU (${error instanceof Error ? error.message : String(error)}), so the GPU tier cannot paint into X1's sandwich.`,
         });
-        // Permanent, not transient: no replacement device makes a canvas that
-        // refused a context accept one.
+        // Latched: no replacement device makes a canvas that refused a context
+        // accept one, and retrying every frame would be a diagnostic storm.
         canvasesRefused = true;
         contexts.clear();
         return;
       }
-      // Premultiplied because that is what the optics pass writes (X5: linear
-      // premultiplied light, sRGB-encoded on the way out) and what its
-      // `PREMULTIPLIED_OVER` blend assumes. Declaring "opaque" here would make
-      // the glass a solid rectangle over the page.
-      for (const context of [optics, highlight]) {
-        context.configure({ device: gpu, format, alphaMode: "premultiplied" });
-      }
-      contexts.set(layers.plane, { optics, highlight });
     }
-    if (contexts.size > 0) usable = true;
   };
 
+  /**
+   * Release the contexts and blank the canvases.
+   *
+   * Both halves are needed, and the second one is the surprise: `unconfigure()`
+   * hands the device back, but the last presented frame stays on screen —
+   * measured, over a canvas whose context was already released. Left there it
+   * would sit above the CSS-tier glass that just took over, showing two
+   * materials at once with nothing to say which is live. Acceptance #5 asks for
+   * a degradation that looks intentional, and a ghost of the tier that just died
+   * is the opposite.
+   *
+   * Resizing is what actually clears a canvas' backing store, whatever context
+   * it holds. 1×1 rather than 0 because a zero-sized canvas is not a legal
+   * WebGPU surface, and the next frame's `resizeCanvases` restores the real
+   * extent either way.
+   */
   const unconfigureCanvases = (): void => {
     for (const plane of contexts.values()) {
       plane.optics.unconfigure();
       plane.highlight.unconfigure();
     }
     contexts.clear();
+
+    for (const layers of options.layers.planes) {
+      for (const canvas of [layers.opticsCanvas, layers.highlightCanvas]) {
+        canvas.width = 1;
+        canvas.height = 1;
+      }
+    }
   };
 
   // -- backdrop providers ---------------------------------------------------
@@ -413,7 +444,6 @@ export function createGlassRendererBridge(
     renderer.attachDevice(gpu, ownership);
     configureCanvases(gpu);
     rebuildProviders();
-    announce();
   };
 
   const detach = (): void => {
@@ -426,7 +456,6 @@ export function createGlassRendererBridge(
     device = undefined;
     liveGroups.clear();
     pending = undefined;
-    announce();
   };
 
   const ensureModule = async (): Promise<WebGPURendererModule | undefined> => {
@@ -437,8 +466,9 @@ export function createGlassRendererBridge(
           code: "webgpu-renderer-load-failed",
           severity: "warning",
           subjects: [],
-          message: `The WebGPU renderer could not be loaded (${error instanceof Error ? error.message : String(error)}). This session renders on the CSS tier; core reports demotionReason "no-webgpu".`,
+          message: `The WebGPU renderer could not be loaded (${error instanceof Error ? error.message : String(error)}). This session renders on the CSS tier; core reports demotionReason "no-webgpu", whose recovery is honestly "none".`,
         });
+        options.onRendererUnavailable();
         return undefined;
       },
     );
@@ -461,10 +491,7 @@ export function createGlassRendererBridge(
       }
       if (status.device === device) return;
 
-      if ((await ensureModule()) === undefined) {
-        announce();
-        return;
-      }
+      if ((await ensureModule()) === undefined) return;
       // A second device on the same renderer is a replacement, and the renderer
       // draws a generation boundary at that point — every resource built under
       // the old one is unusable, which is why the providers are rebuilt above.
@@ -554,8 +581,15 @@ export function createGlassRendererBridge(
       return renderer;
     },
 
+    /**
+     * Awaits the device handshake and whatever it started — deliberately without
+     * starting a load of its own.
+     *
+     * A session with no adapter must download no WGSL. Forcing the import here
+     * to have something to await would do exactly that, on the one machine where
+     * the bytes can never be used, and X7's whole promise is about that machine.
+     */
     async ready() {
-      await ensureModule();
       await deviceSync;
     },
 

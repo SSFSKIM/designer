@@ -7,6 +7,39 @@ export async function gotoHarness(page: Page): Promise<void> {
   await page.waitForSelector("html[data-harness-ready='1']");
 }
 
+/** What the page reports about this machine's adapter. Mirrors the harness. */
+export interface AdapterReport {
+  readonly ok: boolean;
+  readonly why?: string;
+  readonly vendor?: string;
+  readonly architecture?: string;
+  readonly isFallback?: boolean;
+}
+
+const ALLOW_FALLBACK = process.env.VITREA_ALLOW_FALLBACK_ADAPTER === "1";
+
+/**
+ * The `e2e/gpu` gate: fail, never skip.
+ *
+ * C6 established both halves of this. An absent adapter means the suite was run
+ * on a machine it cannot answer for, and a skipped test reads as a passing one
+ * in every report. A *software* adapter is worse than absent: it answers every
+ * question plausibly and none of them about the thing acceptance #2 asks, which
+ * is whether real glass renders on real hardware.
+ */
+export function requireHardwareAdapter(report: AdapterReport): void {
+  expect(report.ok, `no WebGPU adapter on this machine: ${report.why ?? "unknown"}`).toBe(true);
+
+  if (report.isFallback === true && !ALLOW_FALLBACK) {
+    throw new Error(
+      `The adapter is a software fallback (${report.vendor ?? "?"}/${report.architecture ?? "?"}). ` +
+        "A GPU tier verified on a CPU rasteriser is not the tier this suite is about. " +
+        'Launch with Playwright\'s full Chromium binary (channel: "chromium"), or set ' +
+        "VITREA_ALLOW_FALLBACK_ADAPTER=1 to measure the software path deliberately.",
+    );
+  }
+}
+
 export interface Rgb {
   readonly r: number;
   readonly g: number;
