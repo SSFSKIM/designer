@@ -3,7 +3,7 @@
  *
  * The app hands vitrea an element it authored: a real `<button>`, `<div>` or
  * whatever the control is. vitrea never creates it, never wraps it, and never
- * replaces its content. That is what keeps `@vitrea/react`'s `GlassSurface
+ * replaces its content. That is what keeps `vitrea-react`'s `GlassSurface
  * asChild` thin — it clones a child and calls `registerHost` — and what keeps a
  * future Vue or Web-Components adapter from duplicating anything.
  *
@@ -29,7 +29,7 @@
  * dirty the geometry it is animating.
  */
 
-import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "@vitrea/core";
+import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "vitrea";
 
 export interface GlassHostOptions {
   /** The app's own element. Must already be inside `plane(plane).hostLayer`. */

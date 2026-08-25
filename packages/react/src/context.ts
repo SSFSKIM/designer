@@ -1,13 +1,13 @@
 /**
  * The three contexts the bindings pass down, and nothing else.
  *
- * They are deliberately small. `@vitrea/react` is thin by policy (§Repo layout):
+ * They are deliberately small. `vitrea-react` is thin by policy (§Repo layout):
  * it owns React lifecycle and JSX shape, and every decision it does not own
  * lives in `platform-web`, `core` or `motion`. So the contexts carry handles,
  * not state — the runtime state stays where it is authored.
  */
 
-import type { GlassPlane } from "@vitrea/core";
+import type { GlassPlane } from "vitrea";
 import type { GlassRoot, VitreaDiagnostic } from "@vitrea/platform-web";
 import type { MotionProfile } from "@vitrea/motion";
 import { createContext, useContext } from "react";
@@ -61,7 +61,7 @@ export function useGlassRootHandle(): GlassRootHandle {
   const handle = useContext(GlassRootContext);
   if (handle === null) {
     throw new Error(
-      "@vitrea/react: this component must be rendered inside a <GlassRoot>. The root owns the " +
+      "vitrea-react: this component must be rendered inside a <GlassRoot>. The root owns the " +
         "planes every glass surface lives in (X1), so there is nowhere to register without one.",
     );
   }
@@ -78,7 +78,7 @@ export function useGlassGroupId(explicit?: string): string {
   const groupId = explicit ?? group?.groupId;
   if (groupId === undefined) {
     throw new Error(
-      "@vitrea/react: no glass group in scope. Wrap this surface in a <GlassGroup> (a group is " +
+      "vitrea-react: no glass group in scope. Wrap this surface in a <GlassGroup> (a group is " +
         "what shares one backdrop source and one sampling proxy) or pass an explicit groupId.",
     );
   }

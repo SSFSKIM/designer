@@ -109,7 +109,7 @@ export const pure = tseslint.config(
               message: "Package boundary: platform-web depends on core, never the other way round.",
             },
             {
-              name: "@vitrea/react",
+              name: "vitrea-react",
               message: "Package boundary: bindings depend on the runtime, never the other way round.",
             },
           ],

@@ -5,7 +5,7 @@
  * places because no one place can see all of them:
  *
  *  - **The chunk boundary** — WGSL sits behind a dynamic import and lands in its
- *    own chunk. `@vitrea/core`'s `bundle-shape.test.ts` reads `dist/` and proves
+ *    own chunk. `vitrea`'s `bundle-shape.test.ts` reads `dist/` and proves
  *    it on the built artifact, which is the only place a chunk exists.
  *  - **Nothing static reaches it** — the bridge imports core's seam and not the
  *    renderer, so treeshaking can drop the renderer from an entry chunk. Also a

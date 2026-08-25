@@ -30,7 +30,7 @@
  * matter how many frames they run for.
  */
 
-import type { GlassScene, Rect } from "@vitrea/core";
+import type { GlassScene, Rect } from "vitrea";
 
 import { readRect, readViewport, type LayoutReadMeter, type ViewportReading } from "./measure";
 

@@ -1,9 +1,11 @@
-NOTICE — Licensing provenance for designer
-===========================================
+NOTICE — Licensing provenance for designer and vitrea
+======================================================
 
-designer is a Claude Code plugin maintained by Minhyeok Kim (SSFSKIM).
-This file explains which parts of the repository are covered by which terms.
-It supplements, and does not replace, LICENSE (Apache License 2.0).
+This repository is dual-artifact, both maintained by Minhyeok Kim (SSFSKIM):
+the designer Claude Code plugin (skills/) and the vitrea Liquid Glass material
+runtime (packages/, apps/). This file explains which parts of the repository
+are covered by which terms. It supplements, and does not replace, LICENSE
+(Apache License 2.0).
 
 Copyright (c) 2026 Minhyeok Kim
 
@@ -11,7 +13,7 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not
 use these files except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
 
-Four categories of content exist in this repository:
+Five categories of content exist in this repository:
 
 1. Original work
 -----------------
@@ -73,6 +75,27 @@ The same applies to `Figma Design/`, which holds this project's own notes
 from interviewing Figma Make about its design workflow. The notes are
 original work; any product behavior they describe belongs to its owner.
 
+5. vitrea — the material runtime (`packages/`, `apps/`)
+--------------------------------------------------------
+`packages/` and `apps/` hold vitrea, this repository's second artifact: a
+TypeScript library replicating Apple's Liquid Glass material on the web. It is
+original work written from scratch for this project. Copyright (c) 2026
+Minhyeok Kim, licensed under the Apache License 2.0 in LICENSE. No Apple code,
+asset, or framework is included, adapted, or redistributed.
+
+Two published npm packages come out of it -- `vitrea` and `vitrea-react` --
+each shipping its own copy of LICENSE and a package-scoped NOTICE
+(`packages/core/NOTICE`, `packages/react/NOTICE`) carrying the trademark
+clause below. The remaining workspace packages are internal, never published,
+and bundled into those two.
+
+`apps/reference-apple/fixtures/` holds screen captures of Apple's own
+rendering of its Liquid Glass material on macOS 26.5. They exist solely as
+measurement ground truth -- the reference a fidelity claim is diffed against
+-- and are quoted for comparison, analysis, and verification. They are not
+original work, are not licensed under this repository's LICENSE, and remain
+the property of their copyright holder.
+
 Trademarks
 -----------
 "Figma" and "Figma Make" are trademarks of Figma, Inc. This project is not
@@ -81,8 +104,20 @@ integration or a Figma plugin. Figma and Figma Make are named here only to
 describe the workflow this skill reconstructs and to credit the source of
 the method, never as a claim of origin, endorsement, or association.
 
-"Braun", "Vitsœ", and "Apple" are trademarks of their respective owners and
-appear here only in historical and descriptive reference.
+"Liquid Glass" is the name of Apple Inc.'s design language. vitrea references
+it descriptively -- to state what material the library replicates and what its
+fidelity is measured against -- never as a claim of origin, endorsement, or
+association. "Apple", "macOS", "SwiftUI", "Safari", and "Metal" are trademarks
+of Apple Inc. and appear only in that descriptive sense. vitrea is not
+affiliated with, endorsed by, or sponsored by Apple Inc. It is not an Apple
+product, not built on Apple frameworks, and not a port of Apple code: it is an
+independent open-source reimplementation of a published visual material,
+calibrated against captures of Apple's own rendering.
+
+"Braun" and "Vitsœ" are trademarks of their respective owners and appear here
+only in historical and descriptive reference. "React" is a trademark of Meta
+Platforms, Inc.; "Chromium", "Chrome", "Firefox", and "WebKit" are trademarks
+of their respective owners, named only to state per-engine behavior.
 
 Contact
 -------

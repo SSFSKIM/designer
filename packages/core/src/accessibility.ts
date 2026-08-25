@@ -5,7 +5,7 @@
  * The spec puts this in `core` as *policy*: what an accessibility preference
  * means for the material and for motion. `platform-web` reads the media queries
  * and hands the answers in as plain booleans (X4 — core never touches a media
- * query, a `window`, or anything else browser-shaped), and `@vitrea/react`'s
+ * query, a `window`, or anything else browser-shaped), and `vitrea-react`'s
  * `GlassRoot` supplies the per-root prop overrides. The decision itself is one
  * pure fold, so the same inputs always yield the same policy and a test can
  * enumerate every input there is.

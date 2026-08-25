@@ -114,7 +114,7 @@ export function mergeSlotProps(
 export function renderAsChild(children: ReactNode, slotProps: SlotProps): ReactElement {
   if (!isValidElement(children)) {
     throw new Error(
-      "@vitrea/react: `asChild` needs exactly one React element as its child — vitrea registers " +
+      "vitrea-react: `asChild` needs exactly one React element as its child — vitrea registers " +
         "the element you authored rather than creating one (platform-web's host contract), so " +
         "there has to be one to register.",
     );

@@ -11,7 +11,7 @@
  *
  * ## Why core is imported by relative path
  *
- * `@vitrea/core` reaches this package through a dynamic import (X7's lazy seam),
+ * `vitrea` reaches this package through a dynamic import (X7's lazy seam),
  * so a package-level dependency back on core would close a cycle that neither
  * `pnpm -r build` nor `tsc` can order. The two modules used here — `scene` and
  * `scheduler` — import only geometry and motion types, both of which *are*

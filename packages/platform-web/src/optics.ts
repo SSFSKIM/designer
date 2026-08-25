@@ -14,7 +14,7 @@
  * measured against Apple.
  */
 
-import type { MaterialVariant, ResolvedMaterialPolicy } from "@vitrea/core";
+import type { MaterialVariant, ResolvedMaterialPolicy } from "vitrea";
 
 export interface MaterialOptics {
   /**

@@ -37,7 +37,7 @@
 import { rendererError } from "./errors";
 
 /**
- * Structurally identical to `@vitrea/core`'s `WebGPUAvailability` (X2's K1
+ * Structurally identical to `vitrea`'s `WebGPUAvailability` (X2's K1
  * amendment, Decision Log #21c). Declared here rather than imported because this
  * package sits *below* core in the dependency graph — core reaches the renderer
  * through a dynamic import, so an import back would close a cycle. A test pins

@@ -13,7 +13,7 @@
  * implicitly (a `ZStack` centres its children) and the DOM does not.
  */
 
-import { DEFAULT_GROUP_SAMPLING } from "@vitrea/core";
+import { DEFAULT_GROUP_SAMPLING } from "vitrea";
 import type { ShapeFamily } from "@vitrea/geometry";
 import type { GlassPlane } from "@vitrea/platform-web";
 

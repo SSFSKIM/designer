@@ -1,6 +1,6 @@
 import { defineConfig } from "tsup";
 
-// X7 — publish surface. @vitrea/core is a real dependency of this package, so it
+// X7 — publish surface. vitrea is a real dependency of this package, so it
 // stays external; the private internals are bundled in.
 const BUNDLED_INTERNALS = /^@vitrea\/(platform-web|geometry|motion)$/;
 
@@ -19,7 +19,7 @@ export default defineConfig({
   // modules — so rollup-plugin-dts leaves those siblings external and emits
   // `import { GlassHostHandle } from "./backdrop-proxy"` into `dist/index.d.ts`,
   // pointing at a file that was never published. Resolving everything inlines the
-  // whole chain; `@vitrea/core` and `react` stay external because tsup externalises
+  // whole chain; `vitrea` and `react` stay external because tsup externalises
   // declared dependencies and peers regardless of this flag.
   // `test/publish-shape.test.ts` asserts the emitted `.d.ts` on the built artifact.
   //

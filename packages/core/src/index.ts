@@ -1,5 +1,5 @@
 /**
- * @vitrea/core — the platform-free heart of the runtime.
+ * vitrea — the platform-free heart of the runtime.
  *
  * One of the two published packages (X7). The internal @vitrea/* packages are
  * bundled into this artifact at build time, so this package's published

@@ -7,7 +7,7 @@
  *    scheduler, no DOM. This is what the golden suite and the benchmark drive, and
  *    what makes the optical maths testable without standing up the whole runtime.
  *  - **`frameParticipant`** — the same work split across core's `write` and
- *    `render` phases, so `@vitrea/core`'s scheduler drives it alongside
+ *    `render` phases, so `vitrea`'s scheduler drives it alongside
  *    platform-web's DOM participant. Pyramid rebuilds land in `write` because that
  *    is the phase core hands them out in; drawing lands in `render`, with the graph
  *    frozen.

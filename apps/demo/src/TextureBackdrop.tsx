@@ -20,7 +20,7 @@
  * frame, however many groups sample it.
  */
 
-import { useGlassRoot, useGlassTicker } from "@vitrea/react";
+import { useGlassRoot, useGlassTicker } from "vitrea-react";
 import { useEffect, useRef, type ReactNode } from "react";
 
 export interface TextureBackdropProps {

@@ -29,7 +29,7 @@ import { fieldModule, highlightModule, opticsModule } from "./wgsl";
  * Usage masks are computed on FIRST USE, never at module scope.
  *
  * `GPUTextureUsage` is a browser global, and this module is imported outside a
- * browser: `@vitrea/core`'s lazy seam resolves this package in Node to check the
+ * browser: `vitrea`'s lazy seam resolves this package in Node to check the
  * renderer's shape (`packages/core/test/renderer-seam.test.ts`). A mask evaluated
  * at module scope makes the whole package throw on import there — a
  * `ReferenceError` from a file that never intended to run, in a test that only

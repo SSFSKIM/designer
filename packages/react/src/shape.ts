@@ -90,7 +90,7 @@ export function assertSharedCornerReference(
   if (referenceA === referenceB) return referenceA;
 
   throw new Error(
-    `@vitrea/react: a morph's two ends must share a corner reference, but ${a.label} resolves to ` +
+    `vitrea-react: a morph's two ends must share a corner reference, but ${a.label} resolves to ` +
       `"${referenceA}" and ${b.label} to "${referenceB}". The two are separate fits to different ` +
       "curves, not two points on one axis, so an interpolated corner between them has no measured " +
       `error bound (X8, Decision Log #22a). Give both ends the same profile — profile={${APPLE_LIKE_SMOOTHING}} ` +

@@ -1,4 +1,4 @@
-import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitrea/core";
+import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "vitrea";
 import { describe, expect, it } from "vitest";
 
 import { cssTierDeclarations, CSS_TIER_TOKENS } from "../src/css-tier";

@@ -1,6 +1,6 @@
 /**
  * What the renderer consumes each frame, and why it is declared here rather than
- * imported from `@vitrea/core`.
+ * imported from `vitrea`.
  *
  * The renderer sits **below** core in the dependency graph: core reaches it
  * through a dynamic import (X7's lazy seam), so importing core back would close a
