@@ -16,7 +16,7 @@
  * around silently.
  */
 
-import type { GlassGroupState, ResolvedAccessibilityPolicy } from "vitrea";
+import type { GlassGroupState, ResolvedAccessibilityPolicy } from "@vitreajs/vitrea";
 import type { GlassRoot } from "@vitrea/platform-web";
 import { createContext, useContext } from "react";
 

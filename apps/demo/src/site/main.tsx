@@ -7,7 +7,7 @@
  * afterwards.
  */
 
-import { GlassRoot } from "vitrea-react";
+import { GlassRoot } from "@vitreajs/vitrea-react";
 import { StrictMode, useState, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 

@@ -1,5 +1,5 @@
 {
-  "name": "vitrea-react",
+  "name": "@vitreajs/vitrea-react",
   "version": "0.1.0",
   "description": "React bindings for vitrea: GlassRoot, GlassGroup, GlassSurface and the v1 controls.",
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "vitrea": "workspace:^"
+    "@vitreajs/vitrea": "workspace:^"
   },
   "peerDependencies": {
     "react": ">=19.0.0"

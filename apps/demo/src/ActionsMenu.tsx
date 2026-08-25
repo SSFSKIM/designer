@@ -25,7 +25,7 @@
  * menu needs, and each is one line.
  */
 
-import { APPLE_LIKE_SMOOTHING, GlassMorph, useToolbarItem } from "vitrea-react";
+import { APPLE_LIKE_SMOOTHING, GlassMorph, useToolbarItem } from "@vitreajs/vitrea-react";
 import { useButton, useMenu, useMenuItem, useMenuTrigger } from "react-aria";
 import { Item, useMenuTriggerState, useTreeState } from "react-stately";
 import { useEffect, useRef, type Key, type ReactNode, type RefObject } from "react";

@@ -23,7 +23,7 @@
  * three.
  */
 
-import { resolveAccessibilityPolicy } from "vitrea";
+import { resolveAccessibilityPolicy } from "@vitreajs/vitrea";
 import {
   CSS_TIER_MAPPING,
   FOREGROUND_INK,

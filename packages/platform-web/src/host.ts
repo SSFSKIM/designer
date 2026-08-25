@@ -29,7 +29,7 @@
  * dirty the geometry it is animating.
  */
 
-import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "vitrea";
+import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "@vitreajs/vitrea";
 
 export interface GlassHostOptions {
   /** The app's own element. Must already be inside `plane(plane).hostLayer`. */

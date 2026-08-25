@@ -33,7 +33,7 @@
  * subtree lays out exactly as if it were a direct child of the host layer.
  */
 
-import type { GlassPlane } from "vitrea";
+import type { GlassPlane } from "@vitreajs/vitrea";
 import { useContext, useLayoutEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 

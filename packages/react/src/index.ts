@@ -93,16 +93,16 @@ export type {
   GlassPlane,
   MaterialVariant,
   ResolvedAccessibilityPolicy,
-} from "vitrea";
+} from "@vitreajs/vitrea";
 
 /**
  * The one-liner that satisfies the clear variant's dimming requirement. Core
  * refuses a clear surface without a policy rather than inventing a scrim, and
  * names this constant when it does — so the bindings surface it too.
  */
-export { DEFAULT_CLEAR_DIMMING } from "vitrea";
+export { DEFAULT_CLEAR_DIMMING } from "@vitreajs/vitrea";
 
-import { GLASS_PLANES, type GlassPlane } from "vitrea";
+import { GLASS_PLANES, type GlassPlane } from "@vitreajs/vitrea";
 import { DEFAULT_MOTION_PROFILE, type MotionProfile } from "@vitrea/motion";
 
 /**

@@ -24,7 +24,7 @@
     "test:e2e:gpu": "playwright test --project=chromium-gpu"
   },
   "dependencies": {
-    "vitrea": "workspace:^"
+    "@vitreajs/vitrea": "workspace:^"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",

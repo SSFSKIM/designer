@@ -55,7 +55,7 @@ import {
   type RendererMaterialProfile,
   type VitreaDiagnostic,
 } from "@vitrea/platform-web";
-import type { GlassGroupState } from "vitrea";
+import type { GlassGroupState } from "@vitreajs/vitrea";
 
 import { CANVAS, SCENE_IDS, resolveScene, type PlacedScene } from "./scenes";
 

@@ -104,6 +104,12 @@ importers:
 
   apps/demo:
     dependencies:
+      '@vitreajs/vitrea':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@vitreajs/vitrea-react':
+        specifier: workspace:*
+        version: link:../../packages/react
       react:
         specifier: 'catalog:'
         version: 19.2.8
@@ -116,12 +122,6 @@ importers:
       react-stately:
         specifier: 'catalog:'
         version: 3.49.0(react@19.2.8)
-      vitrea:
-        specifier: workspace:*
-        version: link:../../packages/core
-      vitrea-react:
-        specifier: workspace:*
-        version: link:../../packages/react
     devDependencies:
       '@axe-core/playwright':
         specifier: 'catalog:'
@@ -177,6 +177,9 @@ importers:
       '@vitrea/renderer-webgpu':
         specifier: workspace:*
         version: link:../renderer-webgpu
+      '@vitreajs/vitrea':
+        specifier: workspace:*
+        version: link:../core
       eslint:
         specifier: 'catalog:'
         version: 10.9.0
@@ -195,9 +198,6 @@ importers:
       vitest:
         specifier: 'catalog:'
         version: 4.1.11(@types/node@26.2.0)(jsdom@30.0.1)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.27.7)(tsx@4.20.6)(yaml@2.9.0))
-      vitrea:
-        specifier: workspace:*
-        version: link:../core
 
   packages/core:
     devDependencies:
@@ -252,7 +252,7 @@ importers:
 
   packages/platform-web:
     dependencies:
-      vitrea:
+      '@vitreajs/vitrea':
         specifier: workspace:^
         version: link:../core
     devDependencies:
@@ -289,7 +289,7 @@ importers:
 
   packages/react:
     dependencies:
-      vitrea:
+      '@vitreajs/vitrea':
         specifier: workspace:^
         version: link:../core
     devDependencies:

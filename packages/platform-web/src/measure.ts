@@ -14,7 +14,7 @@
  * worth defending — not "the steady state touches nothing except styles".
  */
 
-import type { Rect } from "vitrea";
+import type { Rect } from "@vitreajs/vitrea";
 
 export interface LayoutReadCounters {
   readonly rects: number;

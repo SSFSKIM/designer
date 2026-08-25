@@ -49,7 +49,7 @@ import {
   type ResolvedForegroundAdaptation,
   type ResolvedMaterial,
   type ShapeFamily,
-} from "vitrea";
+} from "@vitreajs/vitrea";
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { readHostChannels, type SurfaceChannelValues } from "./channels";

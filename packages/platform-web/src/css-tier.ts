@@ -31,7 +31,7 @@ import type {
   CornerRadii,
   ForegroundMode,
   ResolvedAccessibilityPolicy,
-} from "vitrea";
+} from "@vitreajs/vitrea";
 
 import {
   CSS_TIER_MAPPING,

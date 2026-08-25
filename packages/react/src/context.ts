@@ -7,7 +7,7 @@
  * not state — the runtime state stays where it is authored.
  */
 
-import type { GlassPlane } from "vitrea";
+import type { GlassPlane } from "@vitreajs/vitrea";
 import type { GlassRoot, VitreaDiagnostic } from "@vitrea/platform-web";
 import type { MotionProfile } from "@vitrea/motion";
 import { createContext, useContext } from "react";

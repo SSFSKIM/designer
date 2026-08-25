@@ -2,7 +2,7 @@ import {
   NOMINAL_ACCESSIBILITY_POLICY,
   resolveAccessibilityPolicy,
   type ResolvedAccessibilityPolicy,
-} from "vitrea";
+} from "@vitreajs/vitrea";
 import { describe, expect, it } from "vitest";
 
 import {

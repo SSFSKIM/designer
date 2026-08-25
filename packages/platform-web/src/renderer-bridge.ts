@@ -49,7 +49,7 @@ import {
   type GlassPlane,
   type GlassRenderer,
   type WebGPURendererModule,
-} from "vitrea";
+} from "@vitreajs/vitrea";
 import { groupUnionFromMergeDistance } from "@vitrea/geometry";
 
 import { IDLE_CHANNELS, type SurfaceChannelValues } from "./channels";

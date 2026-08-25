@@ -32,7 +32,7 @@
  * and the accessibility tree pass straight through to the host DOM.
  */
 
-import { GLASS_PLANES, type GlassPlane } from "vitrea";
+import { GLASS_PLANES, type GlassPlane } from "@vitreajs/vitrea";
 
 export { GLASS_PLANES, type GlassPlane };
 

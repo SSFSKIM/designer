@@ -33,7 +33,7 @@ import type {
   AccessibilityOverrides,
   GlassGroupState,
   ResolvedAccessibilityPolicy,
-} from "vitrea";
+} from "@vitreajs/vitrea";
 import { DEFAULT_MOTION_PROFILE, withReducedMotion, type MotionProfile } from "@vitrea/motion";
 import {
   consoleDiagnosticSink,

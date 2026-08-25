@@ -30,7 +30,7 @@
  * matter how many frames they run for.
  */
 
-import type { GlassScene, Rect } from "vitrea";
+import type { GlassScene, Rect } from "@vitreajs/vitrea";
 
 import { readRect, readViewport, type LayoutReadMeter, type ViewportReading } from "./measure";
 

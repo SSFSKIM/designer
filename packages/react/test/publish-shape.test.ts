@@ -43,8 +43,8 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
   const runtime = readFileSync(entryPath, "utf8");
   const types = readFileSync(typesPath, "utf8");
 
-  it("depends on nothing but vitrea and the React peer at runtime", () => {
-    expect(specifiersIn(runtime).sort()).toEqual(["react", "react/jsx-runtime", "vitrea"]);
+  it("depends on nothing but @vitreajs/vitrea and the React peer at runtime", () => {
+    expect(specifiersIn(runtime).sort()).toEqual(["@vitreajs/vitrea", "react", "react/jsx-runtime"]);
   });
 
   it("bundles the internal packages instead of importing them", () => {
@@ -55,7 +55,7 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
   it("emits declarations that resolve — nothing points at an unpublished file", () => {
     const relative = specifiersIn(types).filter((specifier) => specifier.startsWith("."));
     expect(relative).toEqual([]);
-    expect(specifiersIn(types).sort()).toEqual(["react", "vitrea"]);
+    expect(specifiersIn(types).sort()).toEqual(["@vitreajs/vitrea", "react"]);
   });
 
   it("declares the components an app imports", () => {

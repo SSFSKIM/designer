@@ -9,7 +9,7 @@
  * and on this page it is a feature rather than debug chrome.
  */
 
-import { useGlassCapabilities, useGlassDiagnostics } from "vitrea-react";
+import { useGlassCapabilities, useGlassDiagnostics } from "@vitreajs/vitrea-react";
 import type { ReactNode } from "react";
 
 const AXES = [

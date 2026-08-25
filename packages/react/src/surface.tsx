@@ -36,7 +36,7 @@
  * a shape change: a transform cannot dirty the rect it is animating.
  */
 
-import type { ForegroundAdaptation, GlassPlane, MaterialVariant } from "vitrea";
+import type { ForegroundAdaptation, GlassPlane, MaterialVariant } from "@vitreajs/vitrea";
 import type { GlassHostHandle } from "@vitrea/platform-web";
 import {
   useContext,

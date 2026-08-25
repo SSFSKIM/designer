@@ -15,7 +15,7 @@
  * tell it the truth about what it could ask.
  */
 
-import type { SystemAccessibilityPreferences } from "vitrea";
+import type { SystemAccessibilityPreferences } from "@vitreajs/vitrea";
 
 /** The four preferences §Accessibility names, and the query that answers each. */
 export const ACCESSIBILITY_MEDIA_QUERIES = {

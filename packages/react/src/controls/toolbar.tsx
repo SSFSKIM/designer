@@ -24,7 +24,7 @@
  * registration order, and nothing to keep in sync when children reorder.
  */
 
-import type { GlassPlane } from "vitrea";
+import type { GlassPlane } from "@vitreajs/vitrea";
 import {
   createContext,
   useCallback,

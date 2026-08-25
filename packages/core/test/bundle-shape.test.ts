@@ -93,7 +93,7 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
 });
 
 describe("publish surface (X7)", () => {
-  it("leaves exactly vitrea and vitrea-react publishable", () => {
+  it("leaves exactly @vitreajs/vitrea and @vitreajs/vitrea-react publishable", () => {
     const packagesDir = join(packageRoot, "..");
     const publishable = readdirSync(packagesDir)
       .filter((entry) => statSync(join(packagesDir, entry)).isDirectory())
@@ -108,6 +108,6 @@ describe("publish surface (X7)", () => {
       .map((manifest) => manifest.name)
       .sort();
 
-    expect(publishable).toEqual(["vitrea", "vitrea-react"]);
+    expect(publishable).toEqual(["@vitreajs/vitrea", "@vitreajs/vitrea-react"]);
   });
 });

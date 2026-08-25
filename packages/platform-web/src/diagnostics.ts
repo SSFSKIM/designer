@@ -13,7 +13,7 @@
  * third package ever needs findings of its own.
  */
 
-import type { Diagnostic, DiagnosticSeverity } from "vitrea";
+import type { Diagnostic, DiagnosticSeverity } from "@vitreajs/vitrea";
 
 export const PLATFORM_DIAGNOSTIC_CODES = [
   /** A registered host is not inside its plane's host layer, so the sandwich cannot order it. */

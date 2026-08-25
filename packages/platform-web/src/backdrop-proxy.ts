@@ -23,7 +23,7 @@
  * which is the one of the two that does not also need a second element.
  */
 
-import { GLASS_PLANES, rectsOverlap, type GlassPlane, type Rect } from "vitrea";
+import { GLASS_PLANES, rectsOverlap, type GlassPlane, type Rect } from "@vitreajs/vitrea";
 
 import type { PlaneLayers } from "./planes";
 import { resolveProxyGeometry, type ProxyGeometryInput, type ProxyMember } from "./proxy-geometry";

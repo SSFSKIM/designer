@@ -16,7 +16,7 @@ export default defineConfig({
   root: packageRoot,
   resolve: {
     alias: {
-      "vitrea": `${packages}core/src/index.ts`,
+      "@vitreajs/vitrea": `${packages}core/src/index.ts`,
       "@vitrea/geometry": `${packages}geometry/src/index.ts`,
       "@vitrea/motion": `${packages}motion/src/index.ts`,
       "@vitrea/renderer-webgpu": `${packages}renderer-webgpu/src/index.ts`,
