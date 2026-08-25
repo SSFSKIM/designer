@@ -16,10 +16,11 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json",
+    "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json",
     "test": "vitest run",
     "diff": "tsx cli/diff.ts",
-    "compare": "tsx cli/compare.ts"
+    "compare": "tsx cli/compare.ts",
+    "capture:web": "tsx scripts/capture-web.ts"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",

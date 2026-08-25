@@ -156,6 +156,9 @@ importers:
       '@vitrea/core':
         specifier: workspace:*
         version: link:../core
+      '@vitrea/motion':
+        specifier: workspace:*
+        version: link:../motion
       '@vitrea/platform-web':
         specifier: workspace:*
         version: link:../platform-web

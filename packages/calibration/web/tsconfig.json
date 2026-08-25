@@ -1,0 +1,26 @@
+{
+  "$comment": [
+    "The scene page is browser code that lives inside a Node package, so it",
+    "cannot share the package's own tsconfig: it needs the DOM lib the CLI must",
+    "not have, and it imports the runtime packages by source through Vite's",
+    "aliases. Separate rather than merged, so `web/` gaining the DOM never",
+    "silently grants it to `src/`.",
+    "",
+    "Inert unless invoked — the package's `lint` script has to name it."
+  ],
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": [],
+    "resolveJsonModule": true,
+    "paths": {
+      "@vitrea/core": ["../../core/src/index.ts"],
+      "@vitrea/geometry": ["../../geometry/src/index.ts"],
+      "@vitrea/motion": ["../../motion/src/index.ts"],
+      "@vitrea/platform-web": ["../../platform-web/src/index.ts"],
+      "@vitrea/renderer-webgpu": ["../../renderer-webgpu/src/index.ts"]
+    }
+  },
+  "include": ["*.ts", "../../renderer-webgpu/types"],
+  "exclude": ["vite.config.ts"]
+}

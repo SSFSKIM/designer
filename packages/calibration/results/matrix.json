@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "cells": [
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-standard",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8",
+          "sceneId": "checkerboard__capsule-button__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "texture",
+      "capturedAt": "2026-08-25T07:57:57.661Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.04248966106049126,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.4679598204871943,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.03720461658446831,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9155291721514363,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.07407270411760444,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.03870241276778081,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.13622013318826795,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.9551400440214253,
+          "units": "oklab"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "blurSigma": {
+          "value": 50.62279796733577,
+          "units": "px"
+        },
+        "blurFitResidual": {
+          "value": 62.985920279446134,
+          "units": "ratio"
+        },
+        "luminanceSlopeNative": {
+          "value": 1,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.06252024173799395,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.5926916999846575,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 1,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.10703291584575902,
+          "units": "ratio"
+        },
+        "tintDeltaL": {
+          "value": 0.06368757277905668,
+          "units": "oklab"
+        },
+        "tintDeltaA": {
+          "value": 5.155653681754302e-12,
+          "units": "oklab"
+        },
+        "tintDeltaB": {
+          "value": 2.3738847554355402e-9,
+          "units": "oklab"
+        },
+        "tintChromaDelta": {
+          "value": 2.3738903540084007e-9,
+          "units": "oklab"
+        },
+        "tintHueShift": {
+          "value": 8.309166332765017e-8,
+          "units": "degrees"
+        },
+        "rimPeakLuminance": {
+          "value": 0.0010788191521190482,
+          "units": "luminance"
+        },
+        "rimPeakDistance": {
+          "value": 11,
+          "units": "px"
+        },
+        "rimFwhm": {
+          "value": 0.9166202210197198,
+          "units": "px"
+        },
+        "shadowPeakDarkening": {
+          "value": 0.00017342837786538565,
+          "units": "luminance"
+        },
+        "shadowPeakDistance": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowDecayLength": {
+          "value": 0.6321205588285577,
+          "units": "px"
+        }
+      }
+    }
+  ]
+}
