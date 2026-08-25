@@ -98,6 +98,40 @@ test.describe("the layout is legal", () => {
     expect(authored).toEqual([]);
   });
 
+  /*
+   * The collapsed breakpoint is where §9 is easiest to break, and it broke twice
+   * while this page was being built: once because the group gap shrank with the
+   * breakpoint and fell under the 48px two sampling paddings need, and once because
+   * the behaviour stage's three groups did not fit the band at all.
+   */
+  for (const size of [
+    { width: 375, height: 812, label: "a phone" },
+    { width: 320, height: 640, label: "the reflow floor" },
+  ]) {
+    test(`the behaviour stage still fits its three groups at ${size.label}`, async ({ page }) => {
+      await page.setViewportSize({ width: size.width, height: size.height });
+      await gotoSite(page);
+      await showSection(page, "behavior");
+
+      await expect(page.getByTestId("authoring-findings")).toHaveCount(0);
+
+      // And every control is inside the band rather than clipped out of it.
+      const stage = await page.locator(".stage").first().boundingBox();
+      if (stage === null) throw new Error("the stage has no box");
+      const hosts = await page.evaluate(() =>
+        [...document.querySelectorAll("[data-vitrea-node]")].map((host) => {
+          const rect = host.getBoundingClientRect();
+          return { bottom: rect.bottom, right: rect.right };
+        }),
+      );
+      expect(hosts.length).toBeGreaterThan(0);
+      for (const host of hosts) {
+        expect(host.bottom).toBeLessThanOrEqual(stage.y + stage.height + 1);
+        expect(host.right).toBeLessThanOrEqual(stage.x + stage.width + 1);
+      }
+    });
+  }
+
   test("all glass lives in the plane's host layer, and the page has one plane pair", async ({
     page,
   }) => {

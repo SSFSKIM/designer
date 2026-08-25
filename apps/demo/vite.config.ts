@@ -89,7 +89,11 @@ export default defineConfig({
       // app through core's lazy dynamic import, so without an alias `pnpm dev`
       // silently ran whatever was last built into `dist/`. Aliasing it does not
       // weaken X7 — the import is still dynamic, so the renderer is still a chunk
-      // of its own that a CSS-tier session never fetches.
+      // of its own that a CSS-tier session never fetches. Deliberately *not*
+      // mirrored in `tsconfig.json`: nothing here imports the renderer by name, so
+      // the only effect a path mapping would have is to pull its source into this
+      // app's typecheck, which then wants the WebGPU DOM declarations the renderer
+      // carries locally (Decision Log #23e).
       "@vitrea/renderer-webgpu": `${packages}renderer-webgpu/src/index.ts`,
     },
   },

@@ -373,9 +373,18 @@ code {
  * Fixed, because X1 puts glass in viewport-fixed planes. `.stage--mirror` is the
  * same box expressed inside the plane, whose layers are already `inset: 0` on a
  * fixed root, so `absolute` there resolves against the same rectangle.
+ *
+ * The `z-index` is load-bearing rather than defensive. `.section` is
+ * `position: relative`, so every section is a positioned element painting in the
+ * same step as this one, and among positioned siblings with `z-index: auto` the
+ * later one in DOM order wins — which put the narrative's own text over the
+ * instrument at the collapsed breakpoint, where the two occupy the same pixels.
+ * A `z-index` does not form a Backdrop Root (Filter Effects 2 says so explicitly),
+ * so it is safe to set under a plane whose proxies sample this element.
  */
 .stage {
   position: fixed;
+  z-index: 1;
   top: 0;
   right: 0;
   width: var(--stage-width);
@@ -433,11 +442,17 @@ code {
   padding: var(--space-7) var(--space-6) var(--space-6) var(--space-6);
 }
 
+/*
+ * Three rows, and only the last one flexes: the pair and the panel switch keep
+ * their intrinsic height so the pair's top edge is a function of the padding
+ * alone, which is what lets the mirror line up with one `auto` row of its own. The
+ * figures take whatever is left and scroll inside it.
+ */
 .stage__inner {
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr);
   gap: var(--space-5);
   padding: var(--space-7) var(--space-6) var(--space-5);
 }
@@ -467,7 +482,9 @@ code {
 .pair__raster {
   display: block;
   width: 320px;
-  height: 200px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 320 / 200;
   outline: 1px solid var(--stage-rule);
 }
 
@@ -513,6 +530,14 @@ code {
 
 .readout--figures dd {
   color: var(--stage-ink);
+}
+
+/*
+ * Shown only in the collapsed layout, where the two panels cannot both be on
+ * screen at a size worth comparing.
+ */
+.panel-switch {
+  display: none;
 }
 
 .note--slot {
@@ -693,38 +718,110 @@ code {
  * scroll with the column, because the glass inside it is positioned in viewport
  * coordinates by construction.
  */
+/*
+ * The intentional collapse: the instrument becomes a band across the *bottom* of
+ * the viewport and the narrative takes the full width above it.
+ *
+ * Bottom rather than top, and that is `DESIGN.md` §9 rather than taste. A
+ * `GlassMorph` platter is a registered box at the plane layer's origin for a frame
+ * or two before it pins, so the viewport's top-left corner has to stay clear of
+ * glass — and a top band puts the behaviour stage's toolbar 16px from that corner.
+ * With the band at the bottom the corner belongs to the masthead, which is
+ * ordinary DOM, exactly as it does in the wide layout. It is also the better
+ * reading order on a phone: the narrative starts where reading starts, and the
+ * instrument sits where a floating toolbar would.
+ *
+ * The stage cannot become sticky or scroll with the column: the glass inside it is
+ * positioned in viewport coordinates by construction.
+ */
 @media (max-width: 900px) {
   .column {
     width: 100%;
     max-width: none;
-    padding: calc(46vh + var(--space-6)) var(--space-5) var(--space-8);
+    padding: var(--space-6) var(--space-5) calc(46vh + var(--space-7));
   }
 
   .stage {
+    top: auto;
+    bottom: 0;
     width: 100%;
     height: 46vh;
     border-left: 0;
-    border-bottom: 1px solid var(--paper-4);
+    border-top: 1px solid var(--paper-4);
   }
 
   .stage--mirror {
-    border-bottom-color: transparent;
+    border-top-color: transparent;
   }
 
-  .stage__stack,
+  /* One panel at a time, at a size worth looking at. */
+  .panel-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: var(--font-mono);
+    font-size: var(--type-data-size);
+    color: var(--stage-ink);
+  }
+
+  .panel-switch legend {
+    padding: 0;
+    color: var(--stage-ink-dim);
+  }
+
+  .panel-switch label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .pair[data-panel="live"] .pair__cell[data-cell="native"],
+  .pair[data-panel="native"] .pair__cell[data-cell="live"] {
+    display: none;
+  }
+
+  .pair__raster {
+    max-height: calc(46vh - 10rem);
+  }
+
+  /*
+   * The padding tightens, the gap does not. `DESIGN.md` §9 needs more than 48px of
+   * clear space between two sampling groups, and the behaviour stage puts three of
+   * them in this band; a gap that shrank with the breakpoint would make the page
+   * report the overlap it exists to avoid.
+   */
+  .stage__stack {
+    padding: var(--space-5);
+  }
+
   .stage__inner {
     padding: var(--space-5);
-    gap: var(--space-6);
+    gap: var(--space-5);
+  }
+
+  .plate--lg,
+  .plate--sm {
+    max-width: 100%;
   }
 
   .section__marker {
     left: calc(-1 * var(--space-4));
   }
+
+  .stage__legend {
+    left: var(--space-5);
+    right: var(--space-5);
+    bottom: var(--space-4);
+  }
 }
 
 @media (max-width: 560px) {
   .column {
-    padding-top: calc(40vh + var(--space-5));
+    padding-bottom: calc(52vh + var(--space-6));
   }
 
   /* The readout's two columns become two rows: a 13rem label column plus a value
@@ -739,8 +836,18 @@ code {
     padding-top: var(--space-1);
   }
 
+  /*
+   * Taller, not shorter. The behaviour stage has to hold three sampling groups at
+   * more than 48px apart, which needs about 260px however narrow the viewport is,
+   * and 52vh clears that on a 640px-tall phone with room to spare.
+   */
   .stage {
-    height: 40vh;
+    height: 52vh;
+  }
+
+  .stage__stack {
+    padding: var(--space-4);
+    gap: 3.5rem;
   }
 
   .stage__legend {
@@ -754,6 +861,10 @@ code {
 
   .section {
     padding-left: var(--space-4);
+  }
+
+  .pair__raster {
+    max-height: calc(52vh - 10rem);
   }
 }
 

@@ -68,9 +68,19 @@ const RANGES = [
 
 type Range = (typeof RANGES)[number]["value"];
 
+export type ReferencePanel = "live" | "native";
+
 export interface StageProps {
   readonly mode: StageMode;
   readonly scene: ReferenceScene;
+  /**
+   * Which half of the pair the collapsed layout shows. Two 320px panels do not fit
+   * side by side on a phone, and scaling them both down far enough to fit makes a
+   * fidelity comparison unreadable, so the narrow layout shows one at a time and
+   * the wide layout ignores this entirely (`site.css` decides which applies).
+   */
+  readonly panel: ReferencePanel;
+  readonly onPanelChange: (next: ReferencePanel) => void;
   readonly animate: boolean;
   readonly lastAction: string | null;
   readonly onAction: (key: string) => void;
@@ -93,8 +103,8 @@ export function StageGround(props: StageProps): ReactNode {
     >
       {mode === "reference" ? (
         <div className="stage__inner">
-          <div className="pair">
-            <figure className="pair__cell">
+          <div className="pair" data-panel={props.panel}>
+            <figure className="pair__cell" data-cell="live">
               <img
                 className="pair__raster"
                 src={scene.backgroundFile}
@@ -110,7 +120,7 @@ export function StageGround(props: StageProps): ReactNode {
                 </span>
               </figcaption>
             </figure>
-            <figure className="pair__cell">
+            <figure className="pair__cell" data-cell="native">
               <img
                 className="pair__raster"
                 src={scene.nativeCapture}
@@ -124,6 +134,24 @@ export function StageGround(props: StageProps): ReactNode {
               </figcaption>
             </figure>
           </div>
+
+          {/* Only ever operable in the collapsed layout; `site.css` hides it above
+              the breakpoint, where both panels are on screen at once. */}
+          <fieldset className="panel-switch">
+            <legend>Panel</legend>
+            {(["live", "native"] as const).map((value) => (
+              <label key={value}>
+                <input
+                  type="radio"
+                  name="reference-panel"
+                  value={value}
+                  checked={props.panel === value}
+                  onChange={() => props.onPanelChange(value)}
+                />
+                {value === "live" ? "vitrea, live" : "macOS 26.5"}
+              </label>
+            ))}
+          </fieldset>
 
           {report === undefined ? (
             <p className="note note--slot">
@@ -185,8 +213,8 @@ export function StageGlass(props: StageProps): ReactNode {
     return (
       <div className="stage stage--mirror" data-mode={mode} role="region" aria-label="Live vitrea render">
         <div className="stage__inner">
-          <div className="pair">
-            <div className="pair__cell pair__cell--mirror">
+          <div className="pair" data-panel={props.panel}>
+            <div className="pair__cell pair__cell--mirror" data-cell="live">
               <div className="pair__raster pair__raster--mirror">
                 <GlassGroup id="reference" backdrop={{ kind: "texture", id: RASTER_SOURCE_ID }}>
                   <GlassSurface
@@ -195,19 +223,27 @@ export function StageGlass(props: StageProps): ReactNode {
                     capsule={scene.box.capsule}
                     radius={scene.box.radius}
                     thickness={8}
+                    /*
+                     * Percentages of the canvas, not pixels. The raster is 320x200
+                     * at full size and scales down at the collapsed breakpoint, and
+                     * the surface has to scale with it or the pair stops being a
+                     * comparison. At full size these resolve to exactly the
+                     * integers `scenes.json` implies, which is what the suite
+                     * asserts.
+                     */
                     style={{
-                      left: `${scene.box.left}px`,
-                      top: `${scene.box.top}px`,
-                      width: `${scene.box.width}px`,
-                      height: `${scene.box.height}px`,
+                      left: `${(scene.box.left / CANVAS.width) * 100}%`,
+                      top: `${(scene.box.top / CANVAS.height) * 100}%`,
+                      width: `${(scene.box.width / CANVAS.width) * 100}%`,
+                      height: `${(scene.box.height / CANVAS.height) * 100}%`,
                     }}
                     data-testid="scene-surface"
                   />
                 </GlassGroup>
               </div>
             </div>
-            {/* Holds the native cell's place so the pair wraps identically here. */}
-            <div className="pair__cell pair__cell--mirror" aria-hidden="true">
+            {/* Holds the native cell's place so the pair lays out identically here. */}
+            <div className="pair__cell pair__cell--mirror" data-cell="native" aria-hidden="true">
               <div className="pair__raster pair__raster--mirror" />
             </div>
           </div>

@@ -23,7 +23,14 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { MEASURED_CELL_COUNT } from "./calibration";
 import { DiagnosticsReadout, GroupReadout } from "./Readout";
 import { REFERENCE_SCENES, NATIVE_PROFILE, type ReferenceScene } from "./scenes";
-import { GROUPS_BY_MODE, RASTER_SOURCE_ID, StageGlass, StageGround, type StageMode } from "./Stage";
+import {
+  GROUPS_BY_MODE,
+  RASTER_SOURCE_ID,
+  StageGlass,
+  StageGround,
+  type ReferencePanel,
+  type StageMode,
+} from "./Stage";
 
 export interface Overrides {
   readonly reducedMotion: AccessibilityOverride;
@@ -104,6 +111,7 @@ export function Site(props: SiteProps): ReactNode {
   const active = useActiveSection();
   const [scene, setScene] = useState<ReferenceScene>(DEFAULT_SCENE);
   const [lastAction, setLastAction] = useState<string | null>(null);
+  const [panel, setPanel] = useState<ReferencePanel>("live");
   const { overrides, onOverridesChange } = props;
 
   const mode = useMemo<StageMode>(
@@ -132,6 +140,8 @@ export function Site(props: SiteProps): ReactNode {
   const stageProps = {
     mode,
     scene,
+    panel,
+    onPanelChange: setPanel,
     animate: policy?.reducedMotion !== true,
     lastAction,
     onAction: setLastAction,
