@@ -103,4 +103,85 @@ describe("the CSS tier (the fallback is the design)", () => {
       expect(declarations[token]).toBeDefined();
     }
   });
+
+  describe("X6's hint reaching the tier (Decision Log #28(b), corrective K4)", () => {
+    it("gives a group hinted with a dark backdrop the explicit light foreground token", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        foreground: { mode: "author-hint", tone: "dark" },
+      });
+
+      expect(declarations.color).toBe("#f5f5f7");
+      expect(declarations["--vitrea-foreground"]).toBe("#f5f5f7");
+      expect(declarations.color).not.toContain("light-dark");
+    });
+
+    it("gives a group hinted with a light backdrop the explicit dark foreground token", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        foreground: { mode: "author-hint", tone: "light" },
+      });
+
+      expect(declarations.color).toBe("#1c1c1e");
+      expect(declarations["--vitrea-foreground"]).toBe("#1c1c1e");
+    });
+
+    it("leaves an unhinted group byte-identical to today's light-dark() default", () => {
+      const unhinted = cssTierDeclarations(surface);
+      const noHintAvailable = cssTierDeclarations({ ...surface, foreground: { mode: "fixed" } });
+
+      expect(unhinted.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(noHintAvailable).toEqual(unhinted);
+    });
+
+    it("keeps light-dark() for a mixed tone — there is no single explicit answer", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        foreground: { mode: "author-hint", tone: "mixed" },
+      });
+
+      expect(declarations.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+    });
+
+    it("keeps light-dark() for a fixed mode, even if a tone somehow rode along", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        foreground: { mode: "fixed", tone: "dark" },
+      });
+
+      expect(declarations.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+    });
+
+    it("keeps light-dark() for a sampled-async mode — the CSS tier never gets exact analysis", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        foreground: { mode: "sampled-async", tone: "dark" },
+      });
+
+      expect(declarations.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+    });
+
+    it("lets increased contrast's near-monochrome outrank a dark-backdrop hint", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        policy: resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
+        foreground: { mode: "author-hint", tone: "dark" },
+      });
+
+      // Accessibility policy wins: still the near-monochrome light-dark(), not
+      // the hint's explicit light token.
+      expect(declarations.color).toBe("light-dark(#000, #fff)");
+    });
+
+    it("lets forced-colors outrank a dark-backdrop hint", () => {
+      const declarations = cssTierDeclarations({
+        ...surface,
+        policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
+        foreground: { mode: "author-hint", tone: "dark" },
+      });
+
+      expect(declarations.color).toBe("CanvasText");
+      expect(declarations.background).toBe("Canvas");
+    });
+  });
 });

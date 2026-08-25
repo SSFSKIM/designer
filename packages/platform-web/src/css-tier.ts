@@ -22,7 +22,12 @@
  * declarations — that is §Accessibility, applied.
  */
 
-import type { CornerRadii, ResolvedAccessibilityPolicy } from "@vitrea/core";
+import type {
+  BackdropTone,
+  CornerRadii,
+  ForegroundMode,
+  ResolvedAccessibilityPolicy,
+} from "@vitrea/core";
 
 import { opticsUnderPolicy, type MaterialOptics } from "./optics";
 
@@ -44,10 +49,26 @@ export type CssTierToken = (typeof CSS_TIER_TOKENS)[number];
 /** Declarations as a plain record: property name to value, ready for `style.setProperty`. */
 export type StyleDeclarations = Record<string, string>;
 
+/**
+ * X6's hint, already resolved by core — this tier consumes it, never
+ * re-derives it. `tone` is absent whenever core resolved no hint (a
+ * `fixed`-mode group, or `author-hint` with nothing to report).
+ */
+export interface CssTierForegroundHint {
+  readonly mode: ForegroundMode;
+  readonly tone?: BackdropTone;
+}
+
 export interface CssTierSurface {
   readonly radii: CornerRadii;
   readonly optics: MaterialOptics;
   readonly policy: ResolvedAccessibilityPolicy;
+  /**
+   * The group's resolved foreground adaptation (§Foreground adaptation). Absent
+   * is the pre-K4 default: no hint reaches this tier, so it keeps the
+   * `light-dark()` fallback unchanged.
+   */
+  readonly foreground?: CssTierForegroundHint;
 }
 
 /**
@@ -108,10 +129,21 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
   const filter = `blur(${px(optics.blurRadius)}) saturate(${optics.saturation})`;
   const tint = rgba(TINT_RGB, optics.tintAlpha);
   const border = rgba(BORDER_RGB, optics.borderAlpha);
+
+  // X6's one honesty-core mechanism, reaching the tier most visitors get
+  // (Decision Log #28(b), corrective K4): an `author-hint` mode with a
+  // declared light or dark tone gets that tier's explicit foreground token
+  // instead of the `color-scheme`-driven `light-dark()` default — a dark
+  // backdrop gets the light token and vice versa. A "mixed" tone, a "fixed" or
+  // "sampled-async" mode, or no hint at all keep `light-dark()`: there is no
+  // single explicit answer to prefer instead. Accessibility policy outranks
+  // the hint — near-monochrome (increased contrast; forced-colors takes the
+  // early return above) is never overridden by it.
+  const hintedTone = surface.foreground?.mode === "author-hint" ? surface.foreground.tone : undefined;
+  const adaptiveForeground =
+    hintedTone === "dark" ? "#f5f5f7" : hintedTone === "light" ? "#1c1c1e" : "light-dark(#1c1c1e, #f5f5f7)";
   const foreground =
-    policy.material.foreground === "near-monochrome"
-      ? "light-dark(#000, #fff)"
-      : "light-dark(#1c1c1e, #f5f5f7)";
+    policy.material.foreground === "near-monochrome" ? "light-dark(#000, #fff)" : adaptiveForeground;
 
   return {
     "border-radius": radius,
