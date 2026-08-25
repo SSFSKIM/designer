@@ -431,23 +431,33 @@ function adapterString(report: SceneReport): string {
   const identity = [adapter.vendor, adapter.architecture].filter(Boolean).join("/") || "unnamed";
   const detail = adapter.description ?? adapter.device;
   const named = detail === undefined || detail === "" ? identity : `${identity} (${detail})`;
-  return adapter.isFallback === true ? `software-fallback: ${named}` : named;
+  // The cell records the measured verdict, including "not measurable" — an
+  // unlabelled identity here would read as a hardware capture.
+  if (adapter.isFallback === true) return `software-fallback: ${named}`;
+  if (adapter.isFallback === undefined) return `unverified-class: ${named}`;
+  return named;
 }
 
 /**
  * Why a webgpu request cannot honestly be captured as a GPU-tier cell here.
  *
- * Returns `undefined` when it can. Both an absent adapter and a software one
- * count: the second answers every question plausibly and none of them about
- * whether real glass renders on real hardware.
+ * Returns `undefined` when it can. An absent adapter counts, a software one
+ * counts — it answers every question plausibly and none of them about whether
+ * real glass renders on real hardware — and so does one whose class could not be
+ * read, because a cell captured against an unidentified rasteriser is a fidelity
+ * claim about nothing in particular.
  */
 function gpuTierRefusal(report: SceneReport): string | undefined {
   if (!report.adapter.ok) {
     return `no WebGPU adapter (${report.adapter.why ?? "unknown"})`;
   }
-  if (report.adapter.isFallback === true && !ALLOW_FALLBACK_ADAPTER) {
+  if (report.adapter.isFallback !== false && !ALLOW_FALLBACK_ADAPTER) {
+    const what =
+      report.adapter.isFallback === true
+        ? "the adapter is a software fallback"
+        : "the adapter's class could not be read";
     return (
-      `the adapter is a software fallback (${adapterString(report)}); ` +
+      `${what} (${adapterString(report)}); ` +
       "set VITREA_ALLOW_FALLBACK_ADAPTER=1 to measure the software path deliberately"
     );
   }

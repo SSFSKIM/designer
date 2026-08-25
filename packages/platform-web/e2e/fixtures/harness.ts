@@ -41,7 +41,8 @@ export interface AdapterReport {
   readonly why?: string;
   readonly vendor?: string;
   readonly architecture?: string;
-  readonly isFallback?: boolean;
+  /** `true` software, `false` measured hardware, `undefined` unmeasurable. */
+  readonly isFallback?: boolean | undefined;
 }
 
 export interface SurfaceSpec {
@@ -117,6 +118,24 @@ const makeStubDevice = (): StubDevice => {
 };
 
 const px = (value: string): number => Number.parseFloat(value.replace("px", "")) || 0;
+
+/**
+ * Is this adapter a CPU rasteriser? `undefined` means *nobody could tell*.
+ *
+ * `isFallbackAdapter` lives on `GPUAdapterInfo`; read off the `GPUAdapter` — as
+ * this used to — it is `undefined` on current Chromium, so the gate in
+ * `../support.ts` reported "hardware" for SwiftShader and never fired. The
+ * distinction between `false` and `undefined` is the whole point of the return
+ * type: a verdict nobody computed must not read as a clean bill of health.
+ */
+const softwareAdapter = (info: GPUAdapterInfo): boolean | undefined => {
+  const flagged = (info as { isFallbackAdapter?: boolean }).isFallbackAdapter;
+  if (typeof flagged === "boolean") return flagged;
+  // The flag is the authority; this is only for a build that stops exposing it,
+  // where Chromium's own software adapter still names itself.
+  if (info.vendor === "google" && info.architecture === "swiftshader") return true;
+  return undefined;
+};
 
 let root: GlassRoot | undefined;
 let device: StubDevice | undefined;
@@ -495,11 +514,7 @@ const api = {
         ok: true,
         vendor: info.vendor,
         architecture: info.architecture,
-        // `isFallbackAdapter` lives on `GPUAdapterInfo`, not on the adapter — it
-        // moved there in the spec, and reading it off the adapter (as this did)
-        // is `undefined` on current Chromium, which left the software-adapter
-        // gate in `../support.ts` unable to ever fire.
-        isFallback: (info as { isFallbackAdapter?: boolean }).isFallbackAdapter === true,
+        isFallback: softwareAdapter(info),
       };
     } catch (error) {
       return { ok: false, why: error instanceof Error ? error.message : String(error) };

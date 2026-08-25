@@ -35,12 +35,31 @@ interface AdapterReport {
   readonly why?: string;
   readonly vendor?: string;
   readonly architecture?: string;
-  readonly isFallback?: boolean;
+  /** `true` software, `false` measured hardware, `undefined` unmeasurable. */
+  readonly isFallback?: boolean | undefined;
   readonly timestamps?: boolean;
 }
 
 let device: GPUDevice | undefined;
 let adapterReport: AdapterReport = { ok: false, why: "not probed" };
+
+/**
+ * Is this adapter a CPU rasteriser? `undefined` means *nobody could tell*.
+ *
+ * `isFallbackAdapter` lives on `GPUAdapterInfo`; read off the `GPUAdapter` — as
+ * this used to — it is `undefined` on current Chromium, so the gate in
+ * `../support.ts` reported "hardware" for SwiftShader and never fired. Goldens
+ * and benchmark numbers are what hangs on this, so `false` and `undefined` are
+ * kept apart: a verdict nobody computed must not read as a clean bill of health.
+ */
+function softwareAdapter(info: GPUAdapterInfo): boolean | undefined {
+  const flagged = (info as { isFallbackAdapter?: boolean }).isFallbackAdapter;
+  if (typeof flagged === "boolean") return flagged;
+  // The flag is the authority; this is only for a build that stops exposing it,
+  // where Chromium's own software adapter still names itself.
+  if (info.vendor === "google" && info.architecture === "swiftshader") return true;
+  return undefined;
+}
 
 /**
  * WebGPU reports validation failures through an event, not an exception, so a
@@ -61,7 +80,7 @@ async function ensureDevice(): Promise<GPUDevice> {
   device = await adapter.requestDevice(
     timestamps ? { requiredFeatures: ["timestamp-query"] } : {},
   );
-  const fallback = (adapter as { isFallbackAdapter?: boolean }).isFallbackAdapter === true;
+  const fallback = softwareAdapter(info);
   device.addEventListener("uncapturederror", (event) => {
     gpuErrors.push((event as GPUUncapturedErrorEvent).error.message);
   });

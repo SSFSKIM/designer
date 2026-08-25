@@ -45,7 +45,8 @@ export interface AdapterReport {
   readonly why?: string;
   readonly vendor?: string;
   readonly architecture?: string;
-  readonly isFallback?: boolean;
+  /** `true` software, `false` measured hardware, `undefined` unmeasurable. */
+  readonly isFallback?: boolean | undefined;
   readonly timestamps?: boolean;
 }
 
@@ -60,21 +61,43 @@ export async function openHarness(page: Page): Promise<AdapterReport> {
 }
 
 /**
- * Skip with a reason where there is no adapter; fail where the adapter is a
- * software fallback and nobody asked for one.
+ * Skip with a reason where there is no adapter; fail where the adapter is not a
+ * measured hardware one and nobody asked for that.
+ *
+ * Only `isFallback === false` counts as hardware. `undefined` means the harness
+ * could not read the adapter's class at all, and an unmeasured adapter is not a
+ * verified one — goldens regenerated against it would be a record of whatever
+ * happened to answer.
  */
 export function requireHardwareAdapter(report: AdapterReport): void {
   if (!report.ok) {
     expect(report.ok, `no WebGPU adapter on this machine: ${report.why ?? "unknown"}`).toBe(true);
   }
-  if (report.isFallback === true && !ALLOW_FALLBACK) {
+  if (report.isFallback === false) return;
+
+  const named = `${report.vendor ?? "?"}/${report.architecture ?? "?"}`;
+  const what =
+    report.isFallback === true
+      ? `a software fallback (${named})`
+      : `of unmeasurable class (${named} — this build exposes no isFallbackAdapter to read)`;
+
+  if (!ALLOW_FALLBACK) {
     throw new Error(
-      `The adapter is a software fallback (${report.vendor ?? "?"}/${report.architecture ?? "?"}). ` +
+      `The adapter is ${what}. ` +
         "Goldens and benchmark numbers from a CPU rasteriser are not what they claim to be. " +
-        "Launch with Playwright's full Chromium binary (channel: \"chromium\"), or set " +
+        'Launch with Playwright\'s full Chromium binary (channel: "chromium"), or set ' +
         "VITREA_ALLOW_FALLBACK_ADAPTER=1 to measure the software path deliberately.",
     );
   }
+
+  // The opt-in was taken, so the run has to say what it measured — loudest when
+  // the goldens themselves are being rewritten from it.
+  console.warn(
+    `[gpu] the adapter is ${what}. ` +
+      (UPDATING_GOLDENS
+        ? "The goldens this run writes will be a record of that rasteriser, not of hardware."
+        : "Numbers and comparisons from this run describe that rasteriser, not hardware."),
+  );
 }
 
 export interface Raster {

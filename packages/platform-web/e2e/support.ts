@@ -13,7 +13,8 @@ export interface AdapterReport {
   readonly why?: string;
   readonly vendor?: string;
   readonly architecture?: string;
-  readonly isFallback?: boolean;
+  /** `true` software, `false` measured hardware, `undefined` unmeasurable. */
+  readonly isFallback?: boolean | undefined;
 }
 
 const ALLOW_FALLBACK = process.env.VITREA_ALLOW_FALLBACK_ADAPTER === "1";
@@ -34,12 +35,20 @@ const ALLOW_FALLBACK = process.env.VITREA_ALLOW_FALLBACK_ADAPTER === "1";
  */
 export function requireHardwareAdapter(report: AdapterReport): void {
   expect(report.ok, `no WebGPU adapter on this machine: ${report.why ?? "unknown"}`).toBe(true);
-  if (report.isFallback !== true) return;
+
+  // Only a measured `false` is hardware: `undefined` means the harness could not
+  // tell, and an unmeasured adapter must not pass as a verified one.
+  if (report.isFallback === false) return;
 
   const named = `${report.vendor ?? "?"}/${report.architecture ?? "?"}`;
+  const what =
+    report.isFallback === true
+      ? `a software fallback (${named})`
+      : `of unmeasurable class (${named} — this build exposes no isFallbackAdapter to read)`;
+
   if (!ALLOW_FALLBACK) {
     throw new Error(
-      `The adapter is a software fallback (${named}). ` +
+      `The adapter is ${what}. ` +
         "A GPU tier verified on a CPU rasteriser is not the tier this suite is about. " +
         'Launch with Playwright\'s full Chromium binary (channel: "chromium"), or set ' +
         "VITREA_ALLOW_FALLBACK_ADAPTER=1 to measure the software path deliberately.",
@@ -47,7 +56,7 @@ export function requireHardwareAdapter(report: AdapterReport): void {
   }
 
   const note =
-    `measuring the GPU tier on a SOFTWARE adapter (${named}). ` +
+    `measuring the GPU tier on ${report.isFallback === true ? `a SOFTWARE adapter (${named})` : what}. ` +
     "Behaviour is under test here; how real glass looks on real hardware is not, " +
     "and that coverage lives on developer machines.";
   test.info().annotations.push({ type: "software-adapter", description: note });

@@ -74,7 +74,26 @@ export interface AdapterReport {
   readonly architecture?: string;
   readonly device?: string;
   readonly description?: string;
-  readonly isFallback?: boolean;
+  /** `true` software, `false` measured hardware, `undefined` unmeasurable. */
+  readonly isFallback?: boolean | undefined;
+}
+
+/**
+ * Is this adapter a CPU rasteriser? `undefined` means *nobody could tell*.
+ *
+ * `isFallbackAdapter` lives on `GPUAdapterInfo`; read off the `GPUAdapter` — as
+ * this used to — it is `undefined` on current Chromium, so every cell recorded
+ * `isFallback: false` for SwiftShader too and the capture script's own refusal
+ * could never fire. A cell is fidelity ground truth, so the unmeasured case is
+ * kept distinct from the measured-hardware one rather than collapsed into it.
+ */
+function softwareAdapter(info: GPUAdapterInfo): boolean | undefined {
+  const flagged = (info as { isFallbackAdapter?: boolean }).isFallbackAdapter;
+  if (typeof flagged === "boolean") return flagged;
+  // The flag is the authority; this is only for a build that stops exposing it,
+  // where Chromium's own software adapter still names itself.
+  if (info.vendor === "google" && info.architecture === "swiftshader") return true;
+  return undefined;
 }
 
 export interface GroupReport {
@@ -196,7 +215,7 @@ async function probeAdapter(): Promise<AdapterReport> {
       architecture: info.architecture,
       device: info.device,
       description: info.description,
-      isFallback: (found as { isFallbackAdapter?: boolean }).isFallbackAdapter === true,
+      isFallback: softwareAdapter(info),
     };
   } catch (error) {
     return { ok: false, why: error instanceof Error ? error.message : String(error) };
