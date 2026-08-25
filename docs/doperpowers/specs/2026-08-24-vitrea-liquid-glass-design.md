@@ -363,7 +363,7 @@ Vue/Svelte/Web-Components adapters; Sheet, Slider, Toggle, TabBar, Popover, Sear
 | C8 React bindings & components | merge (70 unit + 31×3-engine Playwright; acceptances #1/#3/#4/#6 evidenced; axe clean ×3 engines) | landed 2026-08-25, verified on main (chain exit 0) |
 | K2 platform-web→renderer bridge (corrective) | merge (923 unit tests; GPU glass end to end; acceptance #2's mechanism visible: larger plate lenses harder) | landed 2026-08-25, verified on main (chain exit 0) |
 | C9 fidelity, demo & release | decomposed 2026-08-25 (see §C9 closing cut) | C9a, C9b, C9c landed (rename verified across 82 files; dry-runs clean: vitrea 248kB / vitrea-react 234kB packed, self-contained dts, lazy WGSL); K5 landed — C9d's gate order now open at step 2 (golden regeneration behind the isolation proof) |
-| K5 tier-coherence opacity (corrective, platform-web) | merge 62853ab (CSS-tier mapping seam + 30 dom-tier cells committed, matrix 30→60; tier-switch interior ratio 3.19→0.99) | landed 2026-08-25 |
+| K5 tier-coherence opacity (corrective, platform-web) | merge d82cdd4 (CSS-tier mapping seam + 30 dom-tier cells committed, matrix 30→60; tier-switch interior ratio 3.19→0.99; foreground rule corrected, demo contrast 1.24→3.53/pass) | landed 2026-08-25; 1079 unit tests, platform-web e2e 254/254 |
 | K4 CSS-tier foreground hint wiring (corrective, platform-web) | merge aee60d9 (8 unit + 1 pixel test; a11y-over-hint precedence asserted) | landed 2026-08-25, verified on main (chain exit 0) |
 
 ## C9 closing cut (decomposed at dispatch, 2026-08-25 — real fixtures in hand)
