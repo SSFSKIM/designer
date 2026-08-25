@@ -48,3 +48,9 @@ coverage/
 
 # Written and removed again by packages/core/test/purity-law.test.ts
 *.purity-seed.ts
+
+# Web-side calibration captures. Derived and cheap to regenerate
+# (`pnpm --filter @vitrea/calibration run capture:web -- --all`, about a minute),
+# unlike apps/reference-apple/fixtures/, which is machine-specific ground truth
+# and IS committed. The measurements taken from these live in results/.
+packages/calibration/web-captures/

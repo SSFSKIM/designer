@@ -16,13 +16,24 @@
   "files": ["dist"],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "lint": "eslint . && tsc --noEmit",
-    "test": "vitest run"
+    "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json",
+    "test": "vitest run",
+    "diff": "tsx cli/diff.ts",
+    "compare": "tsx cli/compare.ts",
+    "capture:web": "tsx scripts/capture-web.ts"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:",
     "@types/node": "catalog:",
+    "@types/pngjs": "catalog:",
+    "@vitrea/core": "workspace:*",
+    "@vitrea/motion": "workspace:*",
+    "@vitrea/platform-web": "workspace:*",
     "eslint": "catalog:",
+    "pngjs": "catalog:",
+    "tsx": "catalog:",
     "typescript": "catalog:",
+    "vite": "catalog:",
     "vitest": "catalog:"
   }
 }

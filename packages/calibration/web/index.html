@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>vitrea calibration scene</title>
+    <style>
+      /*
+       * Nothing here may form a Backdrop Root. No opacity, filter, mask,
+       * clip-path, mix-blend-mode or transform on any ancestor of the glass
+       * planes: the CSS tier's proxies live inside those planes, and such a style
+       * would re-root their backdrop so they sampled nothing. That is S1's
+       * finding, and it is why this stylesheet is as short as it is.
+       */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        /*
+         * The page ground. Deliberately opaque black rather than transparent:
+         * a screenshot of a transparent page composites against whatever the
+         * capture path chooses, and "whatever it chooses" is not a measurable
+         * quantity. The raster covers the stage completely, so this shows only
+         * where a misconfiguration has left it uncovered — visibly.
+         */
+        background: #000;
+      }
+
+      /*
+       * The measured region, pinned to the viewport origin so its coordinates
+       * and the glass planes' viewport-fixed coordinates are the same numbers.
+       * `scene.ts` checks that the viewport is exactly this size.
+       */
+      #stage {
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+        font: 12px/1.4 ui-monospace, monospace;
+        color: #f66;
+      }
+
+      /* The committed raster, at 1:1. Sizing comes from the scene matrix. */
+      #stage img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /*
+       * A bare material body: no text, no background, no border of its own. The
+       * scenes carry no glyphs for the reason apps/reference-apple/README.md
+       * gives, and every visual declaration on a glass host belongs to the CSS
+       * tier, which writes them itself.
+       */
+      .glass-host {
+        position: absolute;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage"></div>
+    <script type="module" src="./scene.ts"></script>
+  </body>
+</html>

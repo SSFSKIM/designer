@@ -1,0 +1,26 @@
+{
+  "$comment": [
+    "The capture driver is Node code that reaches into browser code: it imports",
+    "the scene page's report type, and `page.evaluate` callbacks are typed",
+    "against the DOM. So it needs both libs, which is why it does not share the",
+    "package's own tsconfig — `src/` is a Node CLI and must stay DOM-free.",
+    "",
+    "Inert unless invoked — the package's `lint` script has to name it."
+  ],
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@vitrea/core": ["../../core/src/index.ts"],
+      "@vitrea/geometry": ["../../geometry/src/index.ts"],
+      "@vitrea/motion": ["../../motion/src/index.ts"],
+      "@vitrea/platform-web": ["../../platform-web/src/index.ts"],
+      "@vitrea/renderer-webgpu": ["../../renderer-webgpu/src/index.ts"]
+    }
+  },
+  "include": ["*.ts", "../web/*.ts", "../../renderer-webgpu/types"],
+  "exclude": ["../web/vite.config.ts"]
+}
