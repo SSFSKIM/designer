@@ -789,11 +789,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * Only this pair is written here. The tint, blur and border belong to
            * whichever tier is painting the body, and that is the canvas.
            */
-          const level = hintedBackdropLuminance(hint, cssMapping);
+          const hintedBackdrop = hintedBackdropLuminance(hint, cssMapping);
           const ink = foregroundDeclarations({
             policy: accessibility,
             mapping: cssMapping,
-            ...(level === undefined
+            ...(hintedBackdrop === undefined
               ? {}
               : {
                   level: gpuTierForegroundLevel(
@@ -804,7 +804,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                         accessibility.material.occlusion,
                       ),
                     },
-                    level,
+                    hintedBackdrop,
                   ),
                 }),
           });

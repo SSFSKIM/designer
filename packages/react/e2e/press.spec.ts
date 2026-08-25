@@ -38,34 +38,52 @@ async function trace(page: Page, count: number, property: string) {
 }
 
 /**
- * Wait until a channel is inside a window, checking every animation frame.
+ * Wait until a channel has **crossed** a threshold, and report where it was when
+ * that was first observed.
  *
- * Both continuity tests need to act on a surface that is *mid-flight*, and a
- * fixed sleep cannot promise that: the drivers are frame-rate invariant, so a
- * browser running long frames arrives sooner in wall-clock terms than one
- * running short ones. Waiting for the value itself is what makes the setup say
- * what it means.
+ * Both continuity tests need to act on a surface that is *mid-flight*, and a fixed
+ * sleep cannot promise that: the drivers are frame-rate invariant, so a browser
+ * running long frames arrives sooner in wall-clock terms than one running short
+ * ones. Waiting for the value itself is what makes the setup say what it means.
+ *
+ * **A crossing rather than a window, and that is the whole fix.** This used to wait
+ * for the channel to be *inside* a range, polled per frame — and a window can be
+ * stepped straight over. A spring is closed-form in time, so one long frame moves
+ * it as far as the frame was long, and under three-engine contention a Firefox
+ * frame is long enough to take the release from above the window to below it
+ * between two polls. The wait then never resolved and the test died on its
+ * thirty-second timeout, having measured nothing. A crossing predicate cannot be
+ * stepped over: once true it stays true, so the only thing a long frame costs is
+ * precision about *where* the crossing was caught — which is why the value is
+ * returned rather than re-read over a second round trip.
  */
-async function waitForChannelBetween(
+async function waitForChannelPast(
   page: Page,
   property: string,
-  low: number,
-  high: number,
-): Promise<void> {
-  await page.waitForFunction(
-    ([name, lo, hi]) => {
+  threshold: number,
+  direction: "above" | "below",
+): Promise<number> {
+  const handle = await page.waitForFunction(
+    ([name, limit, side]) => {
       const button = [...document.querySelectorAll("button")].find(
         (element) => element.textContent?.trim() === "Share",
       );
-      if (button === undefined) return false;
+      if (button === undefined) return null;
       const value = Number.parseFloat(
         getComputedStyle(button).getPropertyValue(name as string),
       );
-      return value > (lo as number) && value < (hi as number);
+      if (Number.isNaN(value)) return null;
+      const past = side === "above" ? value > (limit as number) : value < (limit as number);
+      return past ? { value } : null;
     },
-    [property, low, high] as const,
+    [property, threshold, direction] as const,
     { polling: "raf" },
   );
+  // `waitForFunction` resolves only on a truthy return, so the handle is the
+  // object the predicate built; the type does not know that.
+  const observed = await handle.jsonValue();
+  if (observed === null) throw new Error(`waitForChannelPast(${property}) resolved with nothing`);
+  return observed.value;
 }
 
 test.beforeEach(async ({ page }) => {
@@ -122,8 +140,9 @@ test("releasing mid-press redirects rather than snapping or restarting", async (
 
   await share.hover();
   await page.mouse.down();
-  // Mid-flight, by the channel's own value rather than by a clock.
-  await waitForChannelBetween(page, PRESS, 0.2, 0.9);
+  // Mid-flight, by the channel's own value rather than by a clock. The press is
+  // rising, so "past 0.2 going up" is the crossing.
+  await waitForChannelPast(page, PRESS, 0.2, "above");
 
   const samples = trace(page, 10, PRESS);
   await page.mouse.up();
@@ -142,35 +161,120 @@ test("releasing mid-press redirects rather than snapping or restarting", async (
       (after[i - 1] ?? 1) + 0.02,
     );
   }
-  expect(after[after.length - 1] ?? 1).toBeLessThan(peak - 0.1);
+  expect(
+    after[after.length - 1] ?? 1,
+    `the release did not descend — samples were ${after.map((v) => v.toFixed(3)).join(" ")}`,
+  ).toBeLessThan(peak - 0.1);
   expectContinuous(after, "release");
 });
 
+/*
+ * The mirror of the release test, and the one place this suite dispatches its own
+ * pointer event rather than driving Playwright's mouse.
+ *
+ * The property is redirection: re-pressed while the release is still travelling,
+ * the channel turns and climbs from where the release had got to rather than from
+ * rest. Producing that state needs the driver observed mid-flight and *then*
+ * interrupted — and the press channel's response is 260 ms, which is the same
+ * order as a Playwright round trip on a loaded machine. Observing from Node and
+ * interrupting from Node therefore raced: measured over five three-engine runs,
+ * one of them re-pressed after the release had already landed and the assertion
+ * that catches exactly that ("the re-press restarted from rest") fired. Nothing
+ * about the product was wrong; the scenario had not been produced.
+ *
+ * So the observation and the interruption happen in the same frame, in the page.
+ * That costs the real-pointer path here — and the real-pointer path is covered by
+ * the two tests above, which drive `page.mouse` end to end. What is under test in
+ * this one is the interaction machine's redirect, and it reaches that through the
+ * same `onPointerDown` React attaches for a trusted event.
+ */
 test("re-pressing mid-release continues the same trajectory", async ({ page }) => {
   const share = page.getByRole("button", { name: "Share" });
 
   await share.hover();
   await page.mouse.down();
-  await waitForChannelBetween(page, PRESS, 0.8, 1.1);
-  await page.mouse.up();
-  // Catch the release on its way down, not after it has landed.
-  await waitForChannelBetween(page, PRESS, 0.25, 0.75);
+  await waitForChannelPast(page, PRESS, 0.8, "above");
 
-  const atRepress = await channel(share, PRESS);
-  const samples = trace(page, 10, PRESS);
-  await page.mouse.down();
-  const after = await samples;
+  /*
+   * Armed BEFORE the release, on an already-resolved element handle.
+   *
+   * Both halves of that matter, and the second one is what took three attempts to
+   * see. An `evaluate` issued after `mouse.up()` has to cross the bridge before its
+   * loop starts, and on a loaded Firefox that crossing was long enough for the whole
+   * release to land — which reads exactly like "the re-press restarted from rest",
+   * the thing this test exists to catch. But issuing it *before* `mouse.up()` is not
+   * enough either when it goes through a Locator: a Locator resolves its selector
+   * first and only sends the evaluate once that round trip answers, so the
+   * already-sent `mouse.up()` still won at random. Playwright preserves message
+   * order on one connection, so the fix is to make the arming a *single* message —
+   * one handle, resolved up front, then one evaluate.
+   *
+   * The diagnostic that settled it is in the failure message: the loop's very first
+   * observation was -0.038, past the release's undershoot, with the ten frames after
+   * it climbing cleanly to 1.03. The product was redirecting correctly every time;
+   * the harness was arriving after the event.
+   */
+  const handle = await share.elementHandle();
+  if (handle === null) throw new Error("the Share button has no handle");
+  const armed = handle.evaluate(
+    (element, [property, threshold, frames]) =>
+      new Promise<{ atRepress: number; after: number[] }>((resolve) => {
+        const read = (): number =>
+          Number.parseFloat(getComputedStyle(element).getPropertyValue(property as string));
+        const box = element.getBoundingClientRect();
+        const after: number[] = [];
+        let atRepress: number | undefined;
+
+        const step = (): void => {
+          const value = read();
+          if (atRepress === undefined) {
+            // Still waiting for the release to be observably in flight. A crossing,
+            // not a window: once true it stays true, so a long frame cannot step
+            // over it.
+            if (value < (threshold as number)) {
+              atRepress = value;
+              element.dispatchEvent(
+                new PointerEvent("pointerdown", {
+                  bubbles: true,
+                  isPrimary: true,
+                  pointerId: 1,
+                  button: 0,
+                  buttons: 1,
+                  clientX: box.x + box.width / 2,
+                  clientY: box.y + box.height / 2,
+                }),
+              );
+              after.push(value);
+            }
+            requestAnimationFrame(step);
+            return;
+          }
+          after.push(value);
+          if (after.length >= (frames as number)) {
+            element.dispatchEvent(
+              new PointerEvent("pointerup", { bubbles: true, isPrimary: true, pointerId: 1 }),
+            );
+            resolve({ atRepress, after });
+            return;
+          }
+          requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }),
+    [PRESS, 0.75, 10] as const,
+  );
   await page.mouse.up();
+  const { atRepress, after } = await armed;
 
   // The mirror of the release: the fall turns into a climb, and the climb starts
   // from wherever the fall had got to rather than from zero.
   const trough = Math.min(...after);
   const turn = after.indexOf(trough);
-  // Redirected mid-flight rather than restarted from rest: the climb begins
-  // from a value the release was passing through, not from zero. The exact
-  // value is not asserted — reading a channel and then dispatching an event are
-  // separate round trips, and the spring keeps moving between them.
-  expect(trough, "the re-press restarted from rest").toBeGreaterThan(0.05);
+  const trail = after.map((value) => value.toFixed(3)).join(" ");
+  expect(
+    trough,
+    `the re-press restarted from rest — caught at ${atRepress.toFixed(3)}, then ${trail}`,
+  ).toBeGreaterThan(0.05);
   expect(trough).toBeLessThan(atRepress + 0.35);
   for (let i = turn + 1; i < after.length; i += 1) {
     expect(after[i] ?? 0, `frame ${i} fell again after the re-press`).toBeGreaterThanOrEqual(

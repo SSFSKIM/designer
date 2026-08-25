@@ -333,19 +333,8 @@ export function cssTintAlpha(
 }
 
 /**
- * Which space a tier's material is composited in — the one axis on which the two
- * tiers' arithmetic genuinely differs.
- *
- * The renderer lerps toward the tint in **linear light** and the page shows the
- * encoded result; the CSS tier lays `rgba()` over a `backdrop-filter`ed backdrop
- * that the page composites in **encoded sRGB**. `cssTintAlpha` exists because of
- * this difference, and so does this parameter.
- */
-export type CompositeSpace = "linear" | "encoded";
-
-/**
- * The level the glyphs actually sit on, encoded sRGB 0..1 — the one derivation
- * both tiers read (Decision Log #32(b)).
+ * The level the glyphs actually sit on, encoded sRGB 0..1 — one rule, one function
+ * per compositing space (Decision Log #32(b)).
  *
  * **Why the foreground cannot be chosen from the backdrop alone.** X6's hint
  * describes what is *behind the group*, and K4 wired that straight to the
@@ -354,34 +343,27 @@ export type CompositeSpace = "linear" | "encoded";
  * measured opacity it is wrong — what a reader sees behind the text is
  * `mix(backdrop, tint, α)`, and once α is 0.78 that is the tint. A dark hint over
  * a white-tinted material was producing near-white ink on a near-white surface;
- * measured on the demo, WCAG contrast 1.24 against a 4.5 floor, and measured
- * again on the GPU tier at 1.57 before that tier published a foreground at all.
+ * measured on the demo, WCAG contrast 1.24 against a 4.5 floor, and measured again
+ * on the GPU tier at 1.57 before that tier published a foreground at all.
  *
- * So the tone is one input to the decision rather than the decision. The hint's
- * `luminance` is a linear quantity by X6's definition; where the composite
- * happens in encoded space it is encoded on the way in, and where it happens in
- * linear light the mix is taken first and encoded after. Both roads end in an
- * encoded level, because that is what a reader's eye is presented with and what
- * `CssTierMapping.foregroundCrossover` is measured on.
+ * So the tone is one input to the decision rather than the decision. There are two
+ * functions and not one because the two tiers genuinely composite in different
+ * spaces — the same difference `cssTintAlpha` exists for — and the mix has to be
+ * taken where it actually happens: luminance is a linear combination of channels,
+ * so the encoded-space mix wants the luminance *of the encoded tint*, which is not
+ * the encoding of the tint's linear luminance. Both roads end in an encoded level,
+ * because that is what a reader is presented with and what
+ * `CssTierMapping.foregroundCrossover` is measured on. What is shared is the
+ * decision the level feeds: `foregroundDeclarations` in `css-tier.ts`, which both
+ * tiers call.
  *
  * Precision is deliberately not the goal here: the output feeds one threshold
  * between two ink tokens, and what matters is that the decision follows the tint
  * once the tint dominates. It is not a contrast calculation and does not claim to
  * be one — an app that needs a guaranteed ratio sets the foreground itself.
  */
-export function foregroundLevel(
-  material: { readonly tintAlpha: number; readonly tintLuminance: number },
-  backdropLuminance: number,
-  space: CompositeSpace,
-): number {
-  const { tintAlpha, tintLuminance } = material;
-  if (space === "linear") {
-    return srgbEncode((1 - tintAlpha) * backdropLuminance + tintAlpha * tintLuminance);
-  }
-  return (1 - tintAlpha) * srgbEncode(backdropLuminance) + tintAlpha * srgbEncode(tintLuminance);
-}
 
-/** `foregroundLevel` for this tier's own optics, whose tint is already encoded. */
+/** The CSS tier: `rgba()` over a `backdrop-filter`ed backdrop, composited encoded. */
 export function cssTierForegroundLevel(
   optics: MaterialOptics,
   backdropLuminance: number,
@@ -391,23 +373,20 @@ export function cssTierForegroundLevel(
     optics.tint[1] / 255,
     optics.tint[2] / 255,
   ]);
-  // The tint arrives encoded (`Rgb255`), so its luminance is already the encoded
-  // quantity the mix wants — hence `srgbEncode` is applied to the backdrop only,
-  // which is what `space: "encoded"` does with a linear tint. Decoding to re-encode
-  // would be the same number by a longer road.
+  // The tint arrives encoded (`Rgb255`), so its luminance is already the quantity
+  // the encoded mix wants; only the backdrop, which X6 defines as linear, is
+  // encoded on the way in.
   return (1 - optics.tintAlpha) * srgbEncode(backdropLuminance) + optics.tintAlpha * tint;
 }
 
-/** `foregroundLevel` for the renderer's material, which composites in linear light. */
+/** The renderer: a lerp toward the tint in linear light, encoded for display. */
 export function gpuTierForegroundLevel(
   source: MaterialSourceOptics,
   backdropLuminance: number,
 ): number {
-  return foregroundLevel(
-    { tintAlpha: source.tintAlpha, tintLuminance: luminance(source.tint) },
-    backdropLuminance,
-    "linear",
-  );
+  const mixed =
+    (1 - source.tintAlpha) * backdropLuminance + source.tintAlpha * luminance(source.tint);
+  return srgbEncode(mixed);
 }
 
 /**

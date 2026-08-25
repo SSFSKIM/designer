@@ -17,8 +17,8 @@ import {
   MATERIAL_OPTICS,
   MATERIAL_SOURCE_OPTICS,
   cssTierOptics,
+  cssTierForegroundLevel,
   cssTintAlpha,
-  foregroundLevel,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
 } from "../src/optics";
@@ -412,19 +412,29 @@ describe("the CSS tier (the fallback is the design)", () => {
  * composites in.
  */
 describe("the foreground rule, shared across the tiers", () => {
-  const white = { tintAlpha: 0.62, tintLuminance: 1 };
+  it("reaches the same side of the crossover from either composite", () => {
+    // The property that matters is the *ink*, not the number. Same material, same
+    // backdrop, two compositing spaces: the two levels are genuinely different
+    // quantities — the CSS tier reads higher here, because its converted alpha is
+    // 0.781 where the renderer's is 0.62 — and they still land on the same side of
+    // the crossover, which is why a demotion does not change the ink. That the
+    // numbers differ at all is the coherence floor `optics.ts` states rather than
+    // a defect in either, so it is asserted rather than smoothed over.
+    const gpu = gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS.regular, 0.16);
+    const css = cssTierForegroundLevel(MATERIAL_OPTICS.regular, 0.16);
 
-  it("reaches the same level from either composite, and by different arithmetic", () => {
-    // Same material, same backdrop; the linear-light lerp encoded after lands
-    // above the encoded overlay, because encoding is concave. Both are past the
-    // crossover here, which is why the two tiers agree on the ink while
-    // disagreeing on the number — the coherence floor `optics.ts` states.
-    const linear = foregroundLevel(white, 0.16, "linear");
-    const encoded = foregroundLevel(white, 0.16, "encoded");
+    expect(gpu).not.toBe(css);
+    expect(gpu).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
+    expect(css).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
 
-    expect(linear).toBeGreaterThan(encoded);
-    expect(linear).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
-    expect(encoded).toBeGreaterThan(CSS_TIER_MAPPING.foregroundCrossover);
+    // And the same on the other side of it: the clear variant's alpha is low
+    // enough that the backdrop dominates on both tiers.
+    expect(gpuTierForegroundLevel(MATERIAL_SOURCE_OPTICS.clear, 0.05)).toBeLessThan(
+      CSS_TIER_MAPPING.foregroundCrossover,
+    );
+    expect(cssTierForegroundLevel(MATERIAL_OPTICS.clear, 0.05)).toBeLessThan(
+      CSS_TIER_MAPPING.foregroundCrossover,
+    );
   });
 
   it("follows the tint once the tint dominates, and the backdrop while it does not", () => {
