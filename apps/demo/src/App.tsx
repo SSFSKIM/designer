@@ -9,9 +9,16 @@
  *  - **#1** an ordinary React tree wrapped in `GlassRoot`, with real DOM controls
  *    over ordinary page content: selectable prose behind the glass, buttons that
  *    are `<button>`s, a toolbar that is a toolbar.
+ *  - **#2** the texture upgrade: the right-hand region registers its own canvas
+ *    as a GPU-ownable backdrop, so where WebGPU is available its glass genuinely
+ *    bends the bands behind it, and the larger plate lenses harder than the small
+ *    one over the same backdrop.
  *  - **#3** press feedback on every control, driven by the interaction machine.
  *  - **#4** the toolbar's Actions button morphing into a menu platter on the
  *    overlay plane.
+ *  - **#5** honest degradation: the same page on a browser with no WebGPU — or
+ *    with the renderer chunk unreachable — renders presentable CSS-tier glass,
+ *    and the panel names the demotion instead of hiding it.
  *  - **#6** the accessibility policy, overridable from the panel, and the
  *    variant-mixing warning on demand.
  *
