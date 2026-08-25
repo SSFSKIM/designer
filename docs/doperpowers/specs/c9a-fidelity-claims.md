@@ -381,7 +381,7 @@ half-dark/half-light field. A `scenes.json` addition.
 Swept `rimAlpha` × `specularGain`; the grid is flat to 1.01×. The reference's
 light-scheme rim peaks measure 0.0003 to 0.0012 of linear luminance on the solid
 and checkerboard scenes, while one 8-bit code step at the interior level those
-scenes sit at (≈0.81) is 0.0079 — the signal is four to twenty-six times below
+scenes sit at (≈0.81) is 0.0079 — the signal is seven to twenty-six times below
 the capture's own resolution. Only the photo scenes carry a rim above it.
 
 The dark scheme is different: rim peaks of 0.041 to 0.055 are comfortably
