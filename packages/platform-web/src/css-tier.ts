@@ -17,9 +17,13 @@
  * element's `backdrop-filter` filters what is behind it, and its own children
  * paint on top.
  *
- * Every number is an advisory default, calibration-delegated (C7). What is not
- * advisory is the *shape* of the mapping from core's resolved policy regimes to
- * declarations — that is §Accessibility, applied.
+ * **This file holds no optical number of its own** (corrective K5). Every one it
+ * paints with arrives on `surface.optics`, which `optics.ts` derives from the
+ * material profile the root carries — so retuning the material moves this tier
+ * too, instead of leaving it two-and-a-bit times more transparent than the GPU
+ * tier the way C9a measured it. What is not derived is the *shape* of the
+ * mapping from core's resolved policy regimes to declarations — that is
+ * §Accessibility, applied, and it stays here.
  */
 
 import type {
@@ -29,7 +33,7 @@ import type {
   ResolvedAccessibilityPolicy,
 } from "@vitrea/core";
 
-import { opticsUnderPolicy, type MaterialOptics } from "./optics";
+import { opticsUnderPolicy, type MaterialOptics, type Rgb255 } from "./optics";
 
 /**
  * The custom properties the tier publishes. A GPU-tier surface writes the same
@@ -82,14 +86,10 @@ const MONOTONIC_EASING = "cubic-bezier(0.4, 0, 0.2, 1)";
 const NOMINAL_DURATION_MS = 240;
 const REDUCED_DURATION_MS = 120;
 
-/** Light-scheme glass tints toward white; the dark scheme is a token swap, not a branch. */
-const TINT_RGB = "255, 255, 255";
-const BORDER_RGB = "255, 255, 255";
-
 const px = (value: number): string => `${Math.round(value * 100) / 100}px`;
 
-const rgba = (rgb: string, alpha: number): string =>
-  `rgba(${rgb}, ${Math.round(alpha * 1000) / 1000})`;
+const rgba = (rgb: Rgb255, alpha: number): string =>
+  `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${Math.round(alpha * 1000) / 1000})`;
 
 /**
  * The declarations for one surface on the CSS tier.
@@ -127,8 +127,8 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
   }
 
   const filter = `blur(${px(optics.blurRadius)}) saturate(${optics.saturation})`;
-  const tint = rgba(TINT_RGB, optics.tintAlpha);
-  const border = rgba(BORDER_RGB, optics.borderAlpha);
+  const tint = rgba(optics.tint, optics.tintAlpha);
+  const border = rgba(optics.border, optics.borderAlpha);
 
   // X6's one honesty-core mechanism, reaching the tier most visitors get
   // (Decision Log #28(b), corrective K4): an `author-hint` mode with a
@@ -156,8 +156,10 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     "backdrop-filter": filter,
     "-webkit-backdrop-filter": filter,
     // A soft ambient shadow is what makes the fallback read as a floating
-    // surface rather than a flat translucent box.
-    "box-shadow": `0 ${px(optics.borderWidth * 6)} ${px(optics.blurRadius * 3)} rgba(0, 0, 0, 0.18)`,
+    // surface rather than a flat translucent box. It is also the one thing this
+    // tier draws that the reference material does not (see `CssTierMapping`'s
+    // shadow fields), so its numbers are mapping constants like the rest.
+    "box-shadow": `0 ${px(optics.shadowOffset)} ${px(optics.shadowBlur)} rgba(0, 0, 0, ${optics.shadowAlpha})`,
     transition: transitionFor(policy),
     "--vitrea-tint": tint,
     "--vitrea-occlusion": String(Math.round(optics.tintAlpha * 1000) / 1000),

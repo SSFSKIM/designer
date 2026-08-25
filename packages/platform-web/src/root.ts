@@ -77,7 +77,13 @@ import {
   type AccessibilityFeed,
   type MediaMatcher,
 } from "./media-policy";
-import { MATERIAL_OPTICS, opticsUnderPolicy, type MaterialOptics } from "./optics";
+import {
+  CSS_TIER_MAPPING,
+  cssTierOptics,
+  opticsUnderPolicy,
+  type CssTierMapping,
+  type MaterialOptics,
+} from "./optics";
 import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } from "./planes";
 import {
   describeProbeFailure,
@@ -110,14 +116,27 @@ export interface GlassRootOptions {
   readonly renderer?: "css" | "webgpu";
   readonly webgpu?: { readonly device?: GPUDevice; readonly powerPreference?: GPUPowerPreference };
   /**
-   * Optical tunables for the GPU tier, forwarded to the renderer unchanged.
+   * Optical tunables for the material, honoured by **both** tiers.
    *
    * A patch over the renderer's own `DEFAULT_MATERIAL_PROFILE`, which is where
-   * every optical number lives (C7 calibrates them there). Nothing on this side
-   * reads or restates a value; a CSS-tier root ignores it, because the CSS tier's
-   * numbers are `optics.ts`'s own.
+   * every optical number lives (C7 calibrates them there). The GPU tier receives
+   * it unchanged; the CSS tier derives its declarations from the same patch
+   * through `cssTierOptics`, because the two composite differently and a shared
+   * number is not a shared material (corrective K5 — before it, a CSS-tier root
+   * ignored this entirely and drew at more than twice the GPU tier's
+   * transparency).
    */
   readonly materialProfile?: RendererMaterialProfile;
+  /**
+   * The CSS tier's side of that crossing: what a renderer quantity costs to
+   * express as `backdrop-filter` plus an sRGB overlay.
+   *
+   * Calibration's seam, not an application knob — the shipped mapping is tuned
+   * against the dom-tier cells and an app that replaces it is choosing a
+   * different material for its CSS-tier visitors. `@vitrea/react` deliberately
+   * does not surface it.
+   */
+  readonly cssTierMapping?: Partial<CssTierMapping>;
   /** Drive frames from `requestAnimationFrame`. Default true; tests step manually. */
   readonly autoStart?: boolean;
   readonly matcher?: MediaMatcher;
@@ -235,9 +254,9 @@ export interface GlassRoot {
 
   setAccessibilityOverrides(overrides: AccessibilityOverrides): void;
   /**
-   * Replace the GPU tier's optical tunables. A no-op on a CSS-tier root, so an
-   * app can call it unconditionally. The patch replaces rather than accumulates,
-   * which is the renderer's rule; this only forwards it.
+   * Replace the material's optical tunables, on whichever tier is drawing. The
+   * patch replaces rather than accumulates, which is the renderer's rule; the
+   * CSS tier re-derives its declarations from the same patch.
    */
   setMaterialProfile(profile: RendererMaterialProfile): void;
   readonly accessibility: ResolvedAccessibilityPolicy;
@@ -403,6 +422,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * that recovers into one that does not.
    */
   let rendererUnavailable = false;
+
+  /**
+   * This tier's numbers, derived from the one profile the root carries. Held in
+   * a binding rather than read from the module constant so `setMaterialProfile`
+   * moves both tiers — the next frame's declarations are rebuilt from it, and
+   * the per-host serialised diff writes only what actually changed.
+   */
+  const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
+  let cssOptics = cssTierOptics(options.materialProfile, cssMapping);
 
   const bridge: GlassRendererBridge | undefined = wantsWebGPU
     ? createGlassRendererBridge({
@@ -572,7 +600,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       if (groupRecord === undefined) continue;
 
       const variant = groupRecord.descriptor.material?.variant ?? "regular";
-      const baseOptics = MATERIAL_OPTICS[variant];
+      const baseOptics = cssOptics[variant];
       const optics = opticsUnderPolicy(baseOptics, accessibility.material);
       const state = stateFor(groupId) ?? resolved.state;
 
@@ -960,7 +988,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
               record.host,
               cssTierDeclarations({
                 radii: record.radii,
-                optics: MATERIAL_OPTICS.regular,
+                optics: cssOptics.regular,
                 policy: scene.accessibilityPolicy(),
               }),
             );
@@ -983,6 +1011,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     },
 
     setMaterialProfile(profile) {
+      // Both tiers, from one call. The CSS side re-derives rather than being
+      // told: the mapping is what knows the crossing's cost, and a caller
+      // handing the CSS tier its own alpha would be re-opening K5's gap by hand.
+      cssOptics = cssTierOptics(profile, cssMapping);
       bridge?.setMaterialProfile(profile);
     },
 
