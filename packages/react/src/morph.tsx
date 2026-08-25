@@ -1,0 +1,376 @@
+/**
+ * `GlassMorph` — one surface, two shapes (parent acceptance #4).
+ *
+ * A toolbar button becomes a menu platter as **one continuous material
+ * transition**, not a crossfade of two surfaces. That distinction is the whole
+ * feature, and it is what dictates the structure here: there is exactly one
+ * registered glass host for the pair's whole life, and what interpolates is X8's
+ * channel set — `{ center, size, radii, smoothing, thickness }` — every channel a
+ * number, every number on its own spring. The DOM content inside the platter
+ * swaps; the glass never does.
+ *
+ * ## Matched geometry, measured rather than declared
+ *
+ * Both ends are measured, so a menu whose items grow does not need a hard-coded
+ * size. The closed end is a spacer that holds the button's footprint in whatever
+ * layout the app wrote; the open end is the platter's own content, laid out at
+ * `width: max-content` inside a clipped box, so its natural size is readable on
+ * the frame it mounts without ever being painted at that size.
+ *
+ * ## The corner reference (Decision Log #22a)
+ *
+ * The two ends must be fit against the *same* reference curve. `"circular"` sits
+ * on the Figma smoothing axis and `"continuous"` on the Apple-direct fit, and
+ * they are separate fits rather than two points on one axis — an interpolated
+ * corner between them has no measured error bound. `assertSharedCornerReference`
+ * refuses that pair at the API boundary, where the prop is still nameable.
+ *
+ * ## Interruption
+ *
+ * Every channel is an interruptible spring, and opening or closing only
+ * `retarget`s: position and velocity carry across untouched. Reversing mid-flight
+ * therefore redirects the trajectory the platter is already on. The state channels
+ * ride the interaction machine in parallel, and the machine's own `advance`
+ * returns the clamped delta the geometry drivers are stepped with, so one capped
+ * frame boundary governs the whole morph.
+ *
+ * ## Unit promotion (X1)
+ *
+ * Opening promotes the surface to the overlay plane as a unit — body, semantic
+ * host and highlight together — so the transition renders on one canvas pair and
+ * the platter's glass correctly occludes the toolbar's DOM beneath it. The demotion
+ * waits until the closing morph has finished: a plane change mid-flight would be a
+ * seam in the middle of the transition the plane exists to avoid.
+ */
+
+import type { GlassPlane } from "@vitrea/core";
+import type { GlassHostHandle } from "@vitrea/platform-web";
+import { createDriver, createInteractionMachine, type MotionDriver } from "@vitrea/motion";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
+
+import { useGlassRootHandle } from "./context";
+import { GLASS_CHANNEL_PROPERTIES } from "./interaction";
+import { assertSharedCornerReference, smoothingFor, type GlassCornerProfile } from "./shape";
+import { GlassSurface } from "./surface";
+
+export type GlassMorphPlacement = "below-start" | "below-end" | "above-start" | "above-end";
+
+export interface GlassMorphState {
+  readonly open: boolean;
+  /** True while the geometry springs are still travelling. */
+  readonly morphing: boolean;
+}
+
+export interface GlassMorphProps {
+  readonly open: boolean;
+  readonly children: (state: GlassMorphState) => ReactNode;
+  /** Corner profile of the closed end. The open end must share its reference. */
+  readonly profile?: GlassCornerProfile | undefined;
+  readonly openProfile?: GlassCornerProfile | undefined;
+  readonly radius?: number | undefined;
+  readonly openRadius?: number | undefined;
+  readonly thickness?: number | undefined;
+  readonly openThickness?: number | undefined;
+  readonly placement?: GlassMorphPlacement | undefined;
+  /** Gap between the closed footprint and the open platter, in CSS px. */
+  readonly gap?: number | undefined;
+  readonly plane?: GlassPlane | undefined;
+  readonly openPlane?: GlassPlane | undefined;
+  readonly groupId?: string | undefined;
+  readonly nodeId?: string | undefined;
+  readonly className?: string | undefined;
+  readonly style?: CSSProperties | undefined;
+  readonly "aria-label"?: string | undefined;
+  /** Fired when the geometry settles, with the end it settled at. */
+  readonly onMorphEnd?: ((open: boolean) => void) | undefined;
+}
+
+const CLOSED_RADIUS = 14;
+const OPEN_RADIUS = 20;
+const CLOSED_THICKNESS = 8;
+const OPEN_THICKNESS = 14;
+const DEFAULT_GAP = 8;
+
+interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+const num = (value: number): string => value.toFixed(3);
+
+/** Where the open platter sits relative to the closed footprint. */
+function placeOpen(anchor: Rect, size: { width: number; height: number }, placement: GlassMorphPlacement, gap: number): Rect {
+  const x = placement.endsWith("start") ? anchor.x : anchor.x + anchor.width - size.width;
+  const y = placement.startsWith("below")
+    ? anchor.y + anchor.height + gap
+    : anchor.y - size.height - gap;
+  return { x, y, width: size.width, height: size.height };
+}
+
+export function GlassMorph(props: GlassMorphProps): ReactNode {
+  const {
+    open,
+    children,
+    profile,
+    openProfile = profile,
+    radius = CLOSED_RADIUS,
+    openRadius = OPEN_RADIUS,
+    thickness = CLOSED_THICKNESS,
+    openThickness = OPEN_THICKNESS,
+    placement = "below-start",
+    gap = DEFAULT_GAP,
+    plane = "base",
+    openPlane = "overlay",
+    groupId,
+    nodeId,
+    className,
+    style,
+    onMorphEnd,
+  } = props;
+
+  // Both ends resolved against the same reference, or nothing renders. The
+  // refusal is the guarantee; a silently blended corner would be unmeasured.
+  assertSharedCornerReference(
+    { label: "`profile` (the closed end)", profile },
+    { label: "`openProfile` (the open end)", profile: openProfile },
+  );
+
+  const { ticker, profile: motionProfile } = useGlassRootHandle();
+
+  const [spacer, setSpacer] = useState<HTMLDivElement | null>(null);
+  const [content, setContent] = useState<HTMLDivElement | null>(null);
+  const [handle, setHandle] = useState<GlassHostHandle | null>(null);
+  const [pinned, setPinned] = useState(false);
+  const [morphing, setMorphing] = useState(false);
+  const [closedSize, setClosedSize] = useState<{ width: number; height: number } | null>(null);
+
+  const machine = useMemo(() => createInteractionMachine({ profile: motionProfile }), [motionProfile]);
+
+  /** Seeds for the geometry drivers. Only the first values matter; the rest retarget. */
+  const seed = useRef({ radius, smoothing: smoothingFor(profile), thickness });
+
+  /**
+   * The geometry half of X8, one driver per channel. §Motion gives position,
+   * size and radius their own springs: they do not share a `t`, and a solver
+   * that assumed they did would be wrong about interruption.
+   */
+  const drivers = useMemo(() => {
+    const { channels } = motionProfile;
+    return {
+      x: createDriver(channels.position, 0),
+      y: createDriver(channels.position, 0),
+      width: createDriver(channels.size, 0),
+      height: createDriver(channels.size, 0),
+      radius: createDriver(channels.radius, seed.current.radius),
+      smoothing: createDriver(channels.radius, seed.current.smoothing),
+      thickness: createDriver(channels.radius, seed.current.thickness),
+    } satisfies Record<string, MotionDriver>;
+  }, [motionProfile]);
+
+  const openRef = useRef(open);
+  openRef.current = open;
+  const settledRef = useRef(true);
+  const onMorphEndRef = useRef(onMorphEnd);
+  onMorphEndRef.current = onMorphEnd;
+
+  /** The closed footprint, live: it follows whatever layout the app wrote. */
+  const anchorRect = useCallback((): Rect | null => {
+    if (spacer === null) return null;
+    const rect = spacer.getBoundingClientRect();
+    return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+  }, [spacer]);
+
+  /**
+   * The natural size of whatever end is currently mounted. `width: max-content`
+   * on the content node is what makes this readable while the platter itself is
+   * still clipped to the other end's box.
+   */
+  const contentSize = useCallback((): { width: number; height: number } | null => {
+    if (content === null) return null;
+    return { width: content.offsetWidth, height: content.offsetHeight };
+  }, [content]);
+
+  /** Point every geometry driver at the end `open` names. */
+  const retarget = useCallback(
+    (place: boolean) => {
+      const anchor = anchorRect();
+      if (anchor === null) return;
+
+      const target = openRef.current
+        ? placeOpen(anchor, contentSize() ?? anchor, placement, gap)
+        : anchor;
+
+      const geometry: readonly [MotionDriver, number][] = [
+        [drivers.x, target.x],
+        [drivers.y, target.y],
+        [drivers.width, target.width],
+        [drivers.height, target.height],
+        [drivers.radius, openRef.current ? openRadius : radius],
+        [drivers.smoothing, smoothingFor(openRef.current ? openProfile : profile)],
+        [drivers.thickness, openRef.current ? openThickness : thickness],
+      ];
+
+      for (const [driver, value] of geometry) {
+        if (place) driver.jumpTo(value);
+        else driver.retarget(value);
+      }
+      if (!place) {
+        settledRef.current = false;
+        setMorphing(true);
+      }
+    },
+    [anchorRect, contentSize, drivers, gap, openProfile, openRadius, openThickness, placement, profile, radius, thickness],
+  );
+
+  // Measure the closed end once, then pin. The pinned box equals the natural
+  // one, so the extra commit is invisible.
+  useLayoutEffect(() => {
+    if (content === null || pinned) return;
+    setClosedSize({ width: content.offsetWidth, height: content.offsetHeight });
+    setPinned(true);
+  }, [content, pinned]);
+
+  useLayoutEffect(() => {
+    if (!pinned) return;
+    retarget(true);
+  }, [pinned, retarget]);
+
+  // Opening promotes as a unit before the geometry moves, so the whole
+  // transition renders on the destination plane's canvas pair.
+  useLayoutEffect(() => {
+    if (!pinned || handle === null) return;
+    if (open && handle.plane !== openPlane) handle.promoteTo(openPlane);
+    retarget(false);
+    machine.applyFlags({
+      disabled: false,
+      morphing: true,
+      pressed: false,
+      hovered: false,
+      focused: false,
+    });
+  }, [handle, machine, open, openPlane, pinned, retarget]);
+
+  // Realign the closed end with its footprint when the layout under it moves.
+  useEffect(() => {
+    if (spacer === null) return;
+    const realign = (): void => {
+      if (!openRef.current && settledRef.current) retarget(true);
+    };
+    const observer = new ResizeObserver(realign);
+    observer.observe(spacer);
+    window.addEventListener("resize", realign);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", realign);
+    };
+  }, [retarget, spacer]);
+
+  useEffect(() => {
+    if (handle === null || !pinned) return;
+    const host = handle.host;
+    let lastRadius = -1;
+
+    return ticker.subscribe((rawDtMs) => {
+      // One capped frame boundary for the whole morph: the machine applies the
+      // profile's FramePolicy and hands back what it applied.
+      const dtMs = machine.advance(rawDtMs);
+      if (dtMs > 0) {
+        for (const driver of Object.values(drivers)) driver.advance(dtMs);
+      }
+
+      host.style.left = `${num(drivers.x.value)}px`;
+      host.style.top = `${num(drivers.y.value)}px`;
+      host.style.width = `${num(drivers.width.value)}px`;
+      host.style.height = `${num(drivers.height.value)}px`;
+      host.style.setProperty(GLASS_CHANNEL_PROPERTIES.glow, num(machine.value("glow")));
+
+      const nextRadius = Math.max(drivers.radius.value, 0);
+      if (Math.abs(nextRadius - lastRadius) > 0.25) {
+        lastRadius = nextRadius;
+        handle.update({
+          radii: [nextRadius, nextRadius, nextRadius, nextRadius],
+          smoothing: drivers.smoothing.value,
+          thickness: drivers.thickness.value,
+        });
+      }
+
+      const settled =
+        drivers.x.settled && drivers.y.settled && drivers.width.settled && drivers.height.settled;
+      if (settled === settledRef.current) return;
+      settledRef.current = settled;
+      if (!settled) return;
+
+      setMorphing(false);
+      machine.applyFlags({
+        disabled: false,
+        morphing: false,
+        pressed: false,
+        hovered: false,
+        focused: false,
+      });
+      // Demote only once the platter has finished shrinking: a plane change
+      // mid-flight is the seam the overlay plane exists to avoid.
+      if (!openRef.current && handle.plane !== plane) handle.promoteTo(plane);
+      onMorphEndRef.current?.(openRef.current);
+    });
+  }, [drivers, handle, machine, pinned, plane, ticker]);
+
+  const state: GlassMorphState = { open, morphing };
+
+  const surfaceStyle: CSSProperties = {
+    ...style,
+    // Until the first measurement the platter sits in normal flow, which is what
+    // makes the closed footprint whatever the app's own layout says it is.
+    position: pinned ? "fixed" : "static",
+    overflow: "hidden",
+  };
+
+  return (
+    <>
+      <div
+        ref={setSpacer}
+        aria-hidden="true"
+        data-vitrea-morph-anchor=""
+        style={{
+          // Holds the closed footprint in the app's layout while the platter is
+          // out of flow. Zero until measured, so the first pass measures the
+          // platter itself rather than a box that is already reserving space.
+          width: closedSize?.width ?? 0,
+          height: closedSize?.height ?? 0,
+          visibility: "hidden",
+          pointerEvents: "none",
+        }}
+      />
+      <GlassSurface
+        plane={plane}
+        radius={radius}
+        thickness={thickness}
+        morphing={morphing}
+        style={surfaceStyle}
+        {...(className === undefined ? {} : { className })}
+        {...(profile === undefined ? {} : { profile })}
+        {...(groupId === undefined ? {} : { groupId })}
+        {...(nodeId === undefined ? {} : { nodeId })}
+        {...(props["aria-label"] === undefined ? {} : { "aria-label": props["aria-label"] })}
+        data-vitrea-morph=""
+        data-vitrea-morph-open={open ? "" : undefined}
+        onHost={setHandle}
+      >
+        <div ref={setContent} data-vitrea-morph-content="" style={{ width: "max-content" }}>
+          {children(state)}
+        </div>
+      </GlassSurface>
+    </>
+  );
+}

@@ -8,15 +8,21 @@ allowBuilds:
 # One version per tool for the whole workspace. Packages reference these with
 # "catalog:" so a bump happens in exactly one place.
 catalog:
+  "@axe-core/playwright": 4.13.0
   "@changesets/cli": 3.0.1
   "@eslint/js": 10.0.1
   "@playwright/test": 1.62.1
+  "@testing-library/react": 16.3.2
+  "@testing-library/user-event": 14.6.6
   "@types/node": 26.2.0
   "@types/pngjs": 6.0.5
   "@types/react": 19.2.18
   "@types/react-dom": 19.2.5
   "@vitejs/plugin-react": 6.1.0
+  axe-core: 4.13.0
   eslint: 10.9.0
+  react-aria: 3.51.0
+  react-stately: 3.49.0
   jsdom: 30.0.1
   pngjs: 7.0.0
   react: 19.2.8
