@@ -25,6 +25,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
+import { CSS_TIER_MAPPING, type CssTierMapping } from "@vitrea/platform-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
   withMaterialOverrides,
@@ -35,6 +36,8 @@ interface TunedProfile {
   readonly profileKey: string;
   readonly colorSpace: string;
   readonly patch: MaterialProfilePatch;
+  /** K5's half of the same document: what the crossing to the CSS tier costs. */
+  readonly cssTierMapping?: Partial<CssTierMapping>;
   readonly identityWithRuntimeDefault?: boolean;
   readonly measurement: {
     readonly objectiveBefore: number;
@@ -112,6 +115,20 @@ describe("tuned calibration profiles", () => {
     }
   });
 
+  it("pins the CSS tier's shipped mapping to the light-standard profile too (K5)", () => {
+    // The same both-directions pin as the renderer's, one tier along. Without it
+    // the mapping's tuned constant and its record can drift, which is the exact
+    // shape of the gap K5 closed — one tier retuned, the other left behind.
+    expect(LIGHT.cssTierMapping?.referenceBackdropLuminance).toBe(0.02);
+    expect(CSS_TIER_MAPPING.referenceBackdropLuminance).toBe(
+      LIGHT.cssTierMapping?.referenceBackdropLuminance,
+    );
+    // The dark profile deliberately records no mapping: the crossing is a
+    // property of the two pipelines, not of the colour scheme, and one fitted
+    // level serves both. Recorded so its absence reads as a decision.
+    expect(DARK.cssTierMapping).toBeUndefined();
+  });
+
   it("gives every entry a status from the closed set the profiles use", () => {
     // An entry with an unrecognised status is a number whose provenance nobody
     // has to read — which is the failure the seed profile's status field exists
@@ -123,6 +140,7 @@ describe("tuned calibration profiles", () => {
       "not-discriminating",
       "not-discriminable",
       "not-measurable-by-this-matrix",
+      "not-measurable-by-this-objective",
       "unmeasurable-as-specified",
       "declined",
     ]);

@@ -50,7 +50,125 @@
     "adaptiveTintLight": [1, 1, 1]
   },
 
+  "cssTierMapping": {
+    "referenceBackdropLuminance": 0.02
+  },
+
   "entries": {
+    "cssTierMapping.referenceBackdropLuminance": {
+      "status": "measured",
+      "value": 0.02,
+      "previousAdvisory": "none — the CSS tier held its own untuned tintAlpha of 0.28 instead of a mapping",
+      "tier": "dom",
+      "method": [
+        "K5. The CSS tier does not carry the renderer's alpha; it converts it,",
+        "because the renderer lerps toward the tint in LINEAR light while the page",
+        "composites an rgba() overlay in ENCODED sRGB. cssTintAlpha solves for the",
+        "alpha that reproduces the renderer's composite at one declared backdrop",
+        "level, and this constant is that level. At the shipped profile it yields a",
+        "CSS-tier alpha of 0.781 from the renderer's 0.62.",
+        "",
+        "Fitted against the CROSS-TIER difference (packages/calibration/cli",
+        "/tier-delta.ts) rather than against the fixtures, over the 17 measurable",
+        "light calibration and validation cells with both tiers captured. Swept at",
+        "0.005, 0.01, 0.02, 0.035, 0.05, 0.10, 0.18, 0.30:",
+        "",
+        "  bRef    ratio gpu/css mean/worst   cross-tier dE mean/worst   css-vs-native dE",
+        "  0.005   0.964 / 1.034             0.00778 / 0.01547          0.01179",
+        "  0.01    0.970 / 1.039             0.00777 / 0.01533          0.01167",
+        "  0.02    0.988 / 1.067             0.00796 / 0.01507          0.01131",
+        "  0.035   1.006 / 1.104             0.00831 / 0.01588          0.01099",
+        "  0.05    1.018 / 1.129             0.00854 / 0.01643          0.01103",
+        "  0.10    1.051 / 1.195             0.00931 / 0.01843          0.01034",
+        "  0.18    1.092 / 1.283             0.01034 / 0.02267          0.00978",
+        "  0.30    1.135 / 1.379             0.01152 / 0.02695          0.00940",
+        "",
+        "0.02 minimises the cross-tier dE on the WORST cell, which is the per-cell",
+        "criterion the methodology asks for. The mean is flat across 0.005 to 0.05",
+        "(1.10x), so this is choosing the best worst case inside flatness, not",
+        "claiming a sharp optimum."
+      ],
+      "whyCoherenceAndNotFidelity": [
+        "The two objectives disagree monotonically and in opposite directions:",
+        "coherence improves toward the low end, the CSS tier's own fidelity against",
+        "Apple toward the high end. They can disagree because the GPU tier is not",
+        "itself exactly on the reference, so the point that best matches the GPU",
+        "tier is not the point that best matches Apple.",
+        "",
+        "Coherence was chosen. A CSS tier fitted independently against the fixtures",
+        "is free to drift from the GPU tier again as soon as either is retuned —",
+        "which is exactly how the gap K5 exists to close was opened, by C9a tuning",
+        "one tier's constant. A CONVERTED tier inherits the GPU tier's fidelity by",
+        "construction and cannot drift without the conversion drifting.",
+        "",
+        "The price is measured and stated rather than hidden: the CSS tier's dE",
+        "against Apple lands at 0.0113 where an independently-fitted 0.30 would have",
+        "reached 0.0094, against the GPU tier's own 0.0097. All three are well inside",
+        "the 0.07 mean-dE threshold C9a proposed."
+      ],
+      "doesNotClose": [
+        "Exact coherence is unreachable and the arithmetic says so before any",
+        "capture does. Matching the two composites for the shipped white tint needs",
+        "a CSS alpha of 0.761 over a backdrop at linear luminance 0.05 and 0.635 at",
+        "0.8 — a 1.2x spread with no single scalar in it, because one pipeline",
+        "applies its transfer function before the blend and the other after. The",
+        "measured floor is what remains: cross-tier dE 0.0080 mean and 0.0151 worst,",
+        "and an interior level within 1.2% in the mean and 6.7% on the worst cell.",
+        "",
+        "The fitted value is also not the physical reading of its name. The mapping's",
+        "FORM comes from the transfer functions, but the fitted scalar absorbs every",
+        "other difference between the pipelines too — the CSS tier's saturate(), the",
+        "renderer's body-blur LOD chain — so 0.02 is far below any canonical scene's",
+        "mean backdrop and must not be read as one."
+      ]
+    },
+
+    "cssTierMapping.borderAlphaPerRimAlpha": {
+      "status": "declined",
+      "value": 1.95,
+      "tier": "dom",
+      "method": [
+        "Swept at 0, 0.6 and 1.95 with the tint frozen at the chosen level. The",
+        "cross-tier dE spans 0.00791 to 0.00796 and the fixture dE 0.01121 to",
+        "0.01131 — a 1.01x grid, the same flatness C9a measured sweeping the GPU",
+        "tier's rimAlpha against specularGain. The fixtures do not identify it.",
+        "",
+        "Declined on C9a's own precedent and for one further reason of this tier's.",
+        "Dropping the border to zero buys 0.0001 of dE while removing half of what",
+        "makes an unfiltered surface legible, and S1's undetectable failure class",
+        "says a missed demotion must be a fidelity loss rather than a broken UI.",
+        "Winning a flat grid by deleting the feature the estimator measures is",
+        "fitting the estimator."
+      ]
+    },
+
+    "cssTierMapping.shadow": {
+      "status": "not-measurable-by-this-objective",
+      "value": { "shadowOffset": 6, "shadowBlur": 24, "shadowAlpha": 0.18 },
+      "tier": "dom",
+      "method": [
+        "The CSS tier's box-shadow is the one thing it draws that the reference",
+        "material does not: C9a measured both sides at approximately zero outside",
+        "the contour, while this shadow puts material there. It is what drives the",
+        "dom tier's silhouette area to as much as 2.36x the declared component area",
+        "and its silhouette IoU to a mean of 0.676 — a measurement of the shadow's",
+        "extent rather than of the shape, which is why the dom tier's shape axis is",
+        "not gated against the texture tier's thresholds.",
+        "",
+        "Attributed rather than assumed: the IoU mean is 0.6755 to 0.6756 at EVERY",
+        "point of every sweep above, moving in the fourth decimal while the tint",
+        "alpha moved by a third and the border alpha went to zero. Nothing but the",
+        "shadow owns that axis.",
+        "",
+        "Not tuned, because the objective this package fits against has no term",
+        "outside the contour, and because removing it is a design decision rather",
+        "than a measurement: the repo's effects policy says the fallback is the",
+        "design, and the ambient shadow is what makes an unfiltered surface read as",
+        "floating rather than as a flat translucent box. Recorded as a parent",
+        "decision with the number attached."
+      ]
+    },
+
     "tintAlpha": {
       "status": "measured",
       "value": 0.62,

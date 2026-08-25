@@ -130,8 +130,17 @@ export interface CssTierMapping {
    * The one constant that closes K5's gap. `cssTintAlpha` solves for the alpha
    * that reproduces the renderer's linear-light composite *at this backdrop
    * level* once the page has composited in encoded sRGB; either side of it the
-   * two tiers differ, monotonically and measurably. Fitting it is fitting where
-   * in the canonical backdrop range the agreement should be exact.
+   * two tiers differ, monotonically and measurably.
+   *
+   * **Its fitted value is not the physical reading of its name, and that is a
+   * finding rather than a naming slip.** The form of the mapping comes from the
+   * two transfer functions, so the name describes the mechanism exactly. But the
+   * fitted scalar also absorbs every *other* difference between the two
+   * pipelines — the CSS tier's `saturate()`, which the renderer has no
+   * counterpart for, and the renderer's own body-blur LOD chain — so the level
+   * that minimises the measured cross-tier difference (0.02) is far below any
+   * canonical scene's mean backdrop. A reader who took 0.02 for "the typical
+   * backdrop" would be reading it wrong.
    */
   readonly referenceBackdropLuminance: number;
   /**
@@ -179,16 +188,49 @@ export interface CssTierMapping {
 }
 
 export const CSS_TIER_MAPPING: CssTierMapping = {
-  // MEASURED (K5), against apple-macos-26.5-1x-light-standard on the CSS tier,
-  // Chromium only — the one engine whose backdrop-filter output is capturable
-  // (S1). See docs/doperpowers/specs/c9a-fidelity-claims.md §3.
-  referenceBackdropLuminance: 0.18,
+  /*
+   * MEASURED (K5), against apple-macos-26.5-1x-light-standard on the CSS tier,
+   * Chromium only — the one engine whose backdrop-filter output is capturable
+   * (S1). See docs/doperpowers/specs/c9a-fidelity-claims.md §3.
+   *
+   * Fitted against the CROSS-TIER difference, not against the fixtures, and the
+   * two disagree. Over 0.005 … 0.30 the cross-tier ΔE rises monotonically
+   * (0.0078 → 0.0115) while the CSS tier's own ΔE against Apple *falls*
+   * monotonically (0.0118 → 0.0094): coherence and independent fidelity pull
+   * opposite ways, because the GPU tier is not itself exactly on the reference.
+   *
+   * Coherence wins, deliberately. A CSS tier fitted independently against Apple
+   * is free to drift from the GPU tier again the moment either is retuned, which
+   * is precisely how K5's gap opened; a converted one inherits the GPU tier's
+   * fidelity by construction. The price is measured and small — the CSS tier's ΔE
+   * against Apple ends at 0.0113 against the GPU tier's own 0.0097, well inside
+   * the 0.07 threshold C9a proposed.
+   *
+   * 0.02 rather than the flat region's other candidates because it minimises the
+   * cross-tier ΔE on the *worst cell* (0.0151), which is the per-cell criterion
+   * the methodology asks for. The region 0.005 … 0.05 spans 1.10× on the mean —
+   * flat, so this is picking the best worst case inside flatness rather than
+   * claiming a sharp optimum.
+   */
+  referenceBackdropLuminance: 0.02,
   minimumTintContrast: 1e-3,
   // Left at 1: the two tiers stay on one σ, which is also what makes core's 24px
   // `samplingPadding` exactly S1's 3σ floor. C9a found σ unidentifiable from
   // this fixture set (§6.1) and nothing on the CSS tier changes that.
   blurSigmaScale: 1,
   saturation: { regular: 1.8, clear: 1.4 },
+  /*
+   * DECLINED (K5), on C9a's own precedent for the GPU tier's rim.
+   *
+   * Swept at 0, 0.6 and 1.95 with the tint frozen: the cross-tier ΔE spans
+   * 0.00791 … 0.00796 and the fixture ΔE 0.01121 … 0.01131. A 1.01× grid — the
+   * same flatness C9a measured on `rimAlpha` × `specularGain` — so the fixtures
+   * do not identify it. Dropping it to zero buys 0.0001 of ΔE and costs the
+   * tier its contrast floor: S1's undetectable failure class means an engine that
+   * reports support and renders no filter must still leave a legible surface, and
+   * the border is half of what carries that. Deleting the feature the estimator
+   * measures to win a flat grid is fitting the estimator.
+   */
   borderAlphaPerRimAlpha: 1.95,
   borderWidth: 1,
   shadowOffset: 6,

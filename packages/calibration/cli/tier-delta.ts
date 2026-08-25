@@ -222,13 +222,24 @@ function main(): void {
   const worst = (values: readonly number[], pick: "min" | "max"): number =>
     pick === "min" ? Math.min(...values) : Math.max(...values);
 
-  // The interior ratio is the headline: it is the quantity the gap was in, and
-  // the one a reader can restate as "the CSS tier is N× as transparent".
+  /*
+   * The interior ratio is the headline: it is the quantity the gap was in, and
+   * the one a reader can restate as "the CSS tier is N× as transparent".
+   *
+   * Its worst case is the largest DEPARTURE FROM ONE in either direction, not the
+   * largest ratio. Reporting `max` alone hid every cell where the CSS tier had
+   * become the more opaque of the two — which after tuning is most of them, so
+   * the honest worst case was being understated. The two directions are also
+   * reported separately, because "the fallback is heavier" and "the fallback is
+   * lighter" are different things for a reader to see on a demotion.
+   */
   const ratios = rows.map((row) => row.interiorGpu / row.interiorCss);
+  const departures = ratios.map((ratio) => Math.abs(ratio - 1));
   say("");
   say(
-    `n=${rows.length}  interior ratio gpu/css mean ${mean(ratios).toFixed(3)} worst ` +
-      `${worst(ratios, "max").toFixed(3)}   ` +
+    `n=${rows.length}  interior ratio gpu/css mean ${mean(ratios).toFixed(3)} worst departure ` +
+      `${worst(departures, "max").toFixed(3)} (range ${worst(ratios, "min").toFixed(3)}…` +
+      `${worst(ratios, "max").toFixed(3)})   ` +
       `cross-tier SSIM mean ${mean(rows.map((r) => r.ssimBetweenTiers)).toFixed(4)} worst ` +
       `${worst(rows.map((r) => r.ssimBetweenTiers), "min").toFixed(4)}   ` +
       `cross-tier dE mean ${mean(rows.map((r) => r.deltaEBetweenTiers)).toFixed(5)} worst ` +
