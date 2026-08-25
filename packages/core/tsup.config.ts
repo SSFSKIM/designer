@@ -18,6 +18,6 @@ export default defineConfig({
   sourcemap: true,
   // `ignoreDeprecations` is scoped to the declaration pass because tsup injects
   // the deprecated `baseUrl` there. Drop it when tsup stops doing that.
-  dts: { resolve: [/^@vitrea\//], compilerOptions: { ignoreDeprecations: "6.0" } },
+  dts: { resolve: true, compilerOptions: { ignoreDeprecations: "6.0" } },
   noExternal: [/^@vitrea\//],
 });
