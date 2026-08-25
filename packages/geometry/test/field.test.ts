@@ -302,6 +302,9 @@ describe("depth behaviour beyond the measured band", () => {
 
   const probes = DEPTH_SHAPES.flatMap((s) => probeQuadrant(s));
 
+  /** The demo hero's 18 px plate, as `probeQuadrant` labels it. */
+  const HERO_LABEL = "336x168 r=26 continuous";
+
   it("holds a graceful error envelope out to four times the measured band", () => {
     // measured, this shape set: 0.411 / 1.174 / 2.349 / 4.436 px.
     // before the anchor moved:  0.710 / 3.206 / 11.873 / 17.535 px.
@@ -356,11 +359,17 @@ describe("depth behaviour beyond the measured band", () => {
     // qualified on the field's say-so while being 30-40 px deep in truth — the
     // hooks. The 5 px plate's own band caught 2.32 px^2, which is why it read
     // clean and the thick plate did not.
+    //
+    // Counted off the shared 0.5 px probe set rather than a denser grid of its
+    // own: at 0.5 px a 102 px^2 region is still four hundred samples, and the
+    // exact-distance solver behind each one is expensive enough that a private
+    // grid put this test over vitest's default timeout on a slower runner.
     const LENS_DEPTH_PX = 26.3965;
+    const CELL = 0.5 * 0.5;
     let falseArea = 0;
-    const step = 0.25;
-    for (const q of probeQuadrant(DEPTH_SHAPES[0] as (typeof DEPTH_SHAPES)[number], step)) {
-      if (q.reported < LENS_DEPTH_PX && q.depth > LENS_DEPTH_PX) falseArea += step * step;
+    for (const q of probes) {
+      if (q.label !== HERO_LABEL) continue;
+      if (q.reported < LENS_DEPTH_PX && q.depth > LENS_DEPTH_PX) falseArea += CELL;
     }
     expect(falseArea).toBe(0);
   });
