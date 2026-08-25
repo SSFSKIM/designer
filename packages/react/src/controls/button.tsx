@@ -20,12 +20,18 @@
  * finding.
  */
 
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ComponentPropsWithRef, ReactNode } from "react";
 
 import { GlassSurface, type GlassSurfaceOwnProps } from "../surface";
 import { useToolbarItem } from "./toolbar";
 
-type ButtonAttributes = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color">;
+/**
+ * `ComponentPropsWithRef` rather than `ButtonHTMLAttributes`, so `ref` is part of
+ * the contract: an accessibility primitive composed over this button — a menu
+ * trigger, a tooltip anchor — needs the element, and React 19 passes `ref` as an
+ * ordinary prop that has to be declared to be accepted.
+ */
+type ButtonAttributes = Omit<ComponentPropsWithRef<"button">, "color">;
 
 export interface GlassButtonProps
   extends ButtonAttributes,

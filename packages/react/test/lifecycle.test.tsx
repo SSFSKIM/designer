@@ -8,6 +8,7 @@
 
 import { describe, expect, it } from "vitest";
 import { act } from "react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 
 import { GlassGroup, GlassSurface } from "../src/index";
@@ -62,6 +63,37 @@ describe("GlassGroup", () => {
     expect(source?.descriptor.kind).toBe("texture");
     expect(harness.root().capabilities("a")?.configuredSource).toBe("texture");
     expect(harness.root().capabilities("b")?.configuredSource).toBe("texture");
+  });
+
+  it("patches its descriptor on a re-render rather than re-registering it", () => {
+    // Inline object props are how anyone writes this, and a fresh literal every
+    // render must not reach core's registry: registering an existing id is a
+    // structural throw, and the group's surfaces hold leases that make the
+    // removal half of a re-register a no-op — so the throw is what an app would
+    // actually see.
+    function Rerendering(): ReactNode {
+      const [tone, setTone] = useState<"light" | "dark">("light");
+      return (
+        <GlassGroup id="g" hint={{ tone, luminance: 0.2 }} samplingPadding={24}>
+          <button type="button" onClick={() => setTone("dark")}>
+            flip
+          </button>
+          <GlassSurface nodeId="one" />
+        </GlassGroup>
+      );
+    }
+
+    const harness = renderGlass(<Rerendering />);
+    expect(harness.root().scene.glassGroup("g")?.descriptor.backdrop?.tone).toBe("light");
+
+    expect(() =>
+      act(() => {
+        harness.result.getByText("flip").click();
+      }),
+    ).not.toThrow();
+
+    expect(harness.root().scene.glassGroup("g")?.descriptor.backdrop?.tone).toBe("dark");
+    expect(harness.root().scene.glassNode("one")).toBeDefined();
   });
 
   it("carries the sampling geometry X1 constrains", () => {
@@ -127,6 +159,31 @@ describe("GlassSurface registration", () => {
     expect(() => harness.result.unmount()).not.toThrow();
   });
 
+  it("survives a re-render with inline object props, patching instead of re-registering", () => {
+    function Rerendering(): ReactNode {
+      const [mode, setMode] = useState<"fixed" | "author-hint">("fixed");
+      return (
+        <GlassGroup id="g">
+          <button type="button" onClick={() => setMode("author-hint")}>
+            flip
+          </button>
+          <GlassSurface nodeId="one" foreground={{ mode }} />
+        </GlassGroup>
+      );
+    }
+
+    const harness = renderGlass(<Rerendering />);
+    expect(harness.root().scene.glassNode("one")?.descriptor.foreground?.mode).toBe("fixed");
+
+    expect(() =>
+      act(() => {
+        harness.result.getByText("flip").click();
+      }),
+    ).not.toThrow();
+
+    expect(harness.root().scene.glassNode("one")?.descriptor.foreground?.mode).toBe("author-hint");
+  });
+
   it("renders in place when it is already inside its plane, and portals otherwise", () => {
     const harness = renderGlass(
       <GlassGroup id="g">
@@ -138,7 +195,11 @@ describe("GlassSurface registration", () => {
 
     const outer = harness.result.getByTestId("outer");
     const inner = harness.result.getByTestId("inner");
-    expect(outer.parentElement).toBe(harness.root().plane("base").hostLayer);
+    // Through the portal mount node, which is `display: contents` and exists so a
+    // plane change can move the subtree instead of rebuilding it.
+    expect(outer.closest('[data-vitrea-layer="semantic-host"]')).toBe(
+      harness.root().plane("base").hostLayer,
+    );
     expect(outer.contains(inner)).toBe(true);
   });
 });

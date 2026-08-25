@@ -86,11 +86,21 @@ export { createGlassTicker, type GlassTicker, type GlassTickListener } from "./t
 export type {
   AccessibilityOverride,
   AccessibilityOverrides,
+  BackdropHint,
+  DimmingPolicy,
+  ForegroundAdaptation,
   GlassGroupState,
   GlassPlane,
   MaterialVariant,
   ResolvedAccessibilityPolicy,
 } from "@vitrea/core";
+
+/**
+ * The one-liner that satisfies the clear variant's dimming requirement. Core
+ * refuses a clear surface without a policy rather than inventing a scrim, and
+ * names this constant when it does — so the bindings surface it too.
+ */
+export { DEFAULT_CLEAR_DIMMING } from "@vitrea/core";
 
 import { GLASS_PLANES, type GlassPlane } from "@vitrea/core";
 import { DEFAULT_MOTION_PROFILE, type MotionProfile } from "@vitrea/motion";

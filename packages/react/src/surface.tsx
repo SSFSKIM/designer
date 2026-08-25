@@ -140,6 +140,18 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   const smoothing = smoothingFor(profile);
   const radii = useMemo(() => radiiFor(radius), [radius]);
 
+  /**
+   * Everything that is patchable rather than identity, held in a ref.
+   *
+   * Registration must not depend on any of it. `<GlassSurface foreground={{ mode:
+   * "fixed" }}>` is an inline literal on every render, and re-registering an
+   * existing node id is a structural throw in core — so the shape props travel
+   * through `update`, and only the id, the group, the plane, the element and the
+   * shape *family* can require a new registration.
+   */
+  const patch = useRef({ radii, smoothing, thickness, order, variant, foreground });
+  patch.current = { radii, smoothing, thickness, order, variant, foreground };
+
   // Held in a ref so a fresh closure each render never re-registers the host.
   const onHostRef = useRef(onHost);
   onHostRef.current = onHost;
@@ -147,6 +159,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   useLayoutEffect(() => {
     if (root === null || host === null) return;
 
+    const initial = patch.current;
     const releaseLease = group?.retain();
     const registered = root.registerHost({
       host,
@@ -154,16 +167,22 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       nodeId,
       plane: declaredPlane,
       shapeFamily: capsule ? "capsule" : "fixed-rounded-rect",
-      radii,
-      smoothing,
-      thickness,
-      ...(order === undefined ? {} : { order }),
-      ...(variant === undefined ? {} : { variant }),
-      ...(foreground === undefined ? {} : { foreground }),
+      radii: initial.radii,
+      smoothing: initial.smoothing,
+      thickness: initial.thickness,
+      ...(initial.order === undefined ? {} : { order: initial.order }),
+      ...(initial.variant === undefined ? {} : { variant: initial.variant }),
+      ...(initial.foreground === undefined ? {} : { foreground: initial.foreground }),
       // React owns placement, so platform-web must not move the element: it
-      // records the parent it inserted into, and a foreign `append` would leave
-      // React's removal path pointing at the wrong parent.
+      // records the parent it inserted into, and its synthetic events are
+      // delegated to the portal container the element sits under. The plane
+      // change becomes a re-render, and `PlanePortal` moves its own mount node.
       onPlaneChange: (next) => {
+        // Reparenting is a removal followed by an insertion, and removing a
+        // focused element resets focus to the body. platform-web restores focus
+        // when it moves the element itself; a consumer that takes placement over
+        // owns the restore too, and a morph that silently dropped keyboard focus
+        // would be a real accessibility regression.
         const active = host.ownerDocument.activeElement;
         focusToRestore.current =
           active instanceof HTMLElement && host.contains(active) ? active : null;
@@ -180,7 +199,19 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       registered.release();
       releaseLease?.();
     };
-  }, [capsule, declaredPlane, foreground, group, groupId, host, nodeId, order, radii, root, smoothing, thickness, variant]);
+  }, [capsule, declaredPlane, group, groupId, host, nodeId, root]);
+
+  /** Runs after the commit that moved the node, which is when focus is restorable. */
+  useLayoutEffect(() => {
+    const target = focusToRestore.current;
+    focusToRestore.current = null;
+    if (target !== null && target.ownerDocument.activeElement !== target) target.focus();
+  }, [activePlane]);
+
+  // `foreground` is keyed by content for the same reason the group's policy is:
+  // an inline literal is a new object every render, and patching on identity
+  // would write the same values forever.
+  const foregroundKey = JSON.stringify(foreground);
 
   useEffect(() => {
     handle?.update({
@@ -189,22 +220,9 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       thickness,
       ...(order === undefined ? {} : { order }),
       variant,
-      foreground,
+      foreground: patch.current.foreground,
     });
-  }, [foreground, handle, order, radii, smoothing, thickness, variant]);
-
-  /**
-   * Reparenting is a removal followed by an insertion, and removing a focused
-   * element resets focus to the body. platform-web restores focus when it moves
-   * the element itself; when the consumer takes placement over — which a React
-   * binding must — the restore is the consumer's too, and it has to happen after
-   * the commit that moved the node.
-   */
-  useLayoutEffect(() => {
-    const target = focusToRestore.current;
-    focusToRestore.current = null;
-    if (target !== null && target.ownerDocument.activeElement !== target) target.focus();
-  }, [activePlane]);
+  }, [foregroundKey, handle, order, radii, smoothing, thickness, variant]);
 
   /**
    * A capsule's radius is half its shorter side, and only the measured box knows

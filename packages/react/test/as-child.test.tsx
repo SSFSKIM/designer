@@ -43,7 +43,9 @@ describe("composeRefs", () => {
     const seen: (HTMLDivElement | null)[] = [];
     const element = document.createElement("div");
 
-    composeRefs<HTMLDivElement>(object, (value) => seen.push(value))(element);
+    composeRefs<HTMLDivElement>(object, (value) => {
+      seen.push(value);
+    })(element);
 
     expect(object.current).toBe(element);
     expect(seen).toEqual([element]);
@@ -68,7 +70,7 @@ describe("GlassSurface asChild", () => {
       </GlassGroup>,
     );
 
-    const host = harness.root().plane("base").hostLayer.firstElementChild;
+    const host = harness.root().plane("base").hostLayer.querySelector("[data-vitrea-node]");
     expect(host?.tagName).toBe("BUTTON");
     expect(host?.id).toBe("mine");
     expect(host?.className).toBe("app");
@@ -100,7 +102,9 @@ describe("GlassSurface asChild", () => {
     }
 
     const harness = renderGlass(<Probe />);
-    expect(captured).toBe(harness.root().plane("base").hostLayer.firstElementChild);
+    expect(captured).toBe(
+      harness.root().plane("base").hostLayer.querySelector("[data-vitrea-node]"),
+    );
   });
 
   it("chains the app's handler with the surface's own interaction wiring", () => {

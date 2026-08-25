@@ -157,14 +157,16 @@ export function GlassSegmentedControl<T extends string = string>(
     const x = element.offsetLeft + indicatorInset;
     const width = element.offsetWidth - indicatorInset * 2;
 
-    if (!placed.current) {
-      machine.driver("position").jumpTo(x);
-      machine.driver("size").jumpTo(width);
-      placed.current = true;
-      return;
-    }
     machine.driver("position").retarget(x);
     machine.driver("size").retarget(width);
+    if (placed.current) return;
+
+    // The first measurement places the indicator rather than sliding it in from
+    // wherever a driver happened to start. `jumpTo` moves the value and leaves
+    // the target alone, so it comes after the retarget, never instead of it.
+    machine.driver("position").jumpTo(x, 0);
+    machine.driver("size").jumpTo(width, 0);
+    placed.current = true;
   }, [indicatorInset, machine, track, value]);
 
   useLayoutEffect(retarget, [retarget]);

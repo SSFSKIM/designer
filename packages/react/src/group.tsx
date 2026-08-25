@@ -26,6 +26,7 @@ import type {
   BackdropResolutionPolicy,
   DimmingPolicy,
   ForegroundAdaptation,
+  MaterialProfile,
   MaterialVariant,
   SourceProbe,
 } from "@vitrea/core";
@@ -118,6 +119,16 @@ export interface GlassGroupProps {
   readonly samplingPadding?: number | undefined;
 }
 
+/** The patchable half of a group's descriptor: everything that is not identity. */
+interface GroupPolicy {
+  readonly material: MaterialProfile | undefined;
+  readonly backdrop: BackdropHint | undefined;
+  readonly foreground: ForegroundAdaptation | undefined;
+  readonly morphNamespace: string | undefined;
+  readonly mergeDistance: number | undefined;
+  readonly samplingPadding: number | undefined;
+}
+
 export function GlassGroup(props: GlassGroupProps): ReactNode {
   const {
     children,
@@ -151,34 +162,62 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
     releaseSource.current = undefined;
   }, [groupId, root]);
 
-  const material = useMemo(
-    () =>
-      variant === undefined && dimming === undefined
-        ? undefined
-        : {
-            variant: variant ?? "regular",
-            ...(dimming === undefined ? {} : { dimming }),
-          },
-    [dimming, variant],
+  /**
+   * The policy half of the descriptor, as a value.
+   *
+   * Compared by content rather than by identity, because `<GlassGroup hint={{
+   * tone: "dark" }}>` is the way anyone writes this and an inline literal is a
+   * fresh object on every render. Keying on identity would re-run the effect on
+   * every parent render — and re-registering an existing id is a structural
+   * throw in core, not a warning.
+   */
+  const policy: GroupPolicy = useMemo(
+    () => ({
+      material:
+        variant === undefined && dimming === undefined
+          ? undefined
+          : { variant: variant ?? "regular", ...(dimming === undefined ? {} : { dimming }) },
+      backdrop: hint,
+      foreground,
+      morphNamespace,
+      mergeDistance,
+      samplingPadding,
+    }),
+    [dimming, foreground, hint, mergeDistance, morphNamespace, samplingPadding, variant],
   );
+  // `JSON.stringify` drops undefined values, so an absent prop and an explicitly
+  // undefined one produce the same key — which is what they mean here.
+  const policyKey = JSON.stringify(policy);
+
+  /** Identity, not policy: only these can require a different group. */
+  const sourceId = backdrop?.id;
+  const sourceKind = backdrop?.kind;
+
+  // Held in refs so registration reads the current policy without listing it as
+  // a dependency — a group's identity is its id and its source, nothing else.
+  const policyRef = useRef(policy);
+  policyRef.current = policy;
+  const backdropRef = useRef(backdrop);
+  backdropRef.current = backdrop;
 
   useLayoutEffect(() => {
     if (root === null) return;
 
-    const sourceId = backdrop?.id;
+    const texture = backdropRef.current;
     releaseSource.current =
-      backdrop?.kind === "texture" ? retainTextureSource(root, backdrop) : undefined;
+      texture?.kind === "texture" ? retainTextureSource(root, texture) : undefined;
 
+    const current = policyRef.current;
     root.registerGroup({
       id: groupId,
       ...(sourceId === undefined ? {} : { backdropSourceId: sourceId }),
-      ...(material === undefined ? {} : { material }),
-      ...(hint === undefined ? {} : { backdrop: hint }),
-      ...(estimator === undefined ? {} : { estimator }),
-      ...(foreground === undefined ? {} : { foreground }),
-      ...(morphNamespace === undefined ? {} : { morphNamespace }),
-      ...(mergeDistance === undefined ? {} : { mergeDistance }),
-      ...(samplingPadding === undefined ? {} : { samplingPadding }),
+      ...(current.material === undefined ? {} : { material: current.material }),
+      ...(current.backdrop === undefined ? {} : { backdrop: current.backdrop }),
+      ...(current.foreground === undefined ? {} : { foreground: current.foreground }),
+      ...(current.morphNamespace === undefined ? {} : { morphNamespace: current.morphNamespace }),
+      ...(current.mergeDistance === undefined ? {} : { mergeDistance: current.mergeDistance }),
+      ...(current.samplingPadding === undefined ? {} : { samplingPadding: current.samplingPadding }),
+      ...(estimatorRef.current === undefined ? {} : { estimator: estimatorRef.current }),
     });
     registered.current = true;
     disposed.current = false;
@@ -187,22 +226,30 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
       disposed.current = true;
       if (leases.current === 0) removeGroup();
     };
-    // `material` and the hint objects are compared by identity on purpose: an
-    // inline literal re-registering every render would be a bug the app can see
-    // and fix with a memo, whereas a deep compare would hide it.
-  }, [
-    backdrop,
-    estimator,
-    foreground,
-    groupId,
-    hint,
-    material,
-    mergeDistance,
-    morphNamespace,
-    removeGroup,
-    root,
-    samplingPadding,
-  ]);
+  }, [groupId, removeGroup, root, sourceId, sourceKind]);
+
+  const estimatorRef = useRef(estimator);
+  estimatorRef.current = estimator;
+
+  /**
+   * Policy changes patch the descriptor. core's `DescriptorPatch` is built for
+   * exactly this: a key present with `undefined` clears an override, an absent
+   * key keeps it — which is what `<GlassGroup hint={undefined}>` should mean.
+   */
+  useLayoutEffect(() => {
+    if (root === null || !registered.current) return;
+    root.scene.updateGlassGroup(groupId, {
+      material: policy.material,
+      backdrop: policy.backdrop,
+      estimator,
+      foreground: policy.foreground,
+      morphNamespace: policy.morphNamespace,
+      mergeDistance: policy.mergeDistance,
+      samplingPadding: policy.samplingPadding,
+    });
+    // `policy` is keyed by content; `estimator` carries a method, so identity is
+    // the only comparison available for it.
+  }, [estimator, groupId, policyKey, root]);
 
   const handle: GlassGroupHandle = useMemo(
     () => ({

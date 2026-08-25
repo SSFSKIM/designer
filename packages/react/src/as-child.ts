@@ -19,7 +19,15 @@
  * wins over the surface's.
  */
 
-import { cloneElement, isValidElement, type CSSProperties, type ReactElement, type ReactNode, type Ref } from "react";
+import {
+  cloneElement,
+  isValidElement,
+  type CSSProperties,
+  type ReactElement,
+  type ReactNode,
+  type Ref,
+  type RefCallback,
+} from "react";
 
 /** Props a slot merges into its child. Loose by necessity: the child is arbitrary. */
 export type SlotProps = Record<string, unknown> & {
@@ -35,7 +43,7 @@ export type SlotProps = Record<string, unknown> & {
  * `props` and both have to be honoured — dropping the child's would silently
  * break whatever the app was measuring or focusing.
  */
-export function composeRefs<T>(...refs: readonly (Ref<T> | undefined)[]): Ref<T> {
+export function composeRefs<T>(...refs: readonly (Ref<T> | undefined)[]): RefCallback<T> {
   return (value: T | null) => {
     const cleanups: (() => void)[] = [];
     for (const ref of refs) {

@@ -44,7 +44,21 @@ export function createGlassTicker(options: GlassTickerOptions = {}): GlassTicker
   const notify = (dtMs: number, timeMs: number): void => {
     // Copied before iterating: a listener that unsubscribes itself mid-tick —
     // a surface unmounting on a click — must not skip the listener after it.
-    for (const listener of [...listeners]) listener(dtMs, timeMs);
+    for (const listener of [...listeners]) {
+      try {
+        listener(dtMs, timeMs);
+      } catch (error) {
+        // One subscriber must not take the bus down with it. Every surface,
+        // indicator and morph in a tree shares this loop, so a throw here would
+        // silently freeze every listener registered after the failing one —
+        // which reads as "the morph does not animate", not as "there is a bug".
+        // Rethrowing on a microtask keeps the error intact for devtools and for
+        // whatever reports uncaught errors, and keeps the frame going.
+        queueMicrotask(() => {
+          throw error;
+        });
+      }
+    }
   };
 
   const loop = (timeMs: number): void => {

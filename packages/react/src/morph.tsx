@@ -58,6 +58,7 @@ import {
 } from "react";
 
 import { useGlassRootHandle } from "./context";
+import { OutsidePlaneScope } from "./plane-portal";
 import { GLASS_CHANNEL_PROPERTIES } from "./interaction";
 import { assertSharedCornerReference, smoothingFor, type GlassCornerProfile } from "./shape";
 import { GlassSurface } from "./surface";
@@ -201,6 +202,25 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
     return { width: content.offsetWidth, height: content.offsetHeight };
   }, [content]);
 
+  /**
+   * The platter's box, from the drivers.
+   *
+   * Written from the frame loop, and once more the moment the surface is
+   * placed. Both matter: without the second call there is one frame in which the
+   * platter is already out of flow but not yet positioned, and a fixed box with
+   * no offsets sits at its static position — which the surrounding layout has
+   * just reflowed out from under it.
+   */
+  const writeGeometry = useCallback(
+    (host: HTMLElement) => {
+      host.style.left = `${num(drivers.x.value)}px`;
+      host.style.top = `${num(drivers.y.value)}px`;
+      host.style.width = `${num(drivers.width.value)}px`;
+      host.style.height = `${num(drivers.height.value)}px`;
+    },
+    [drivers],
+  );
+
   /** Point every geometry driver at the end `open` names. */
   const retarget = useCallback(
     (place: boolean) => {
@@ -222,8 +242,14 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
       ];
 
       for (const [driver, value] of geometry) {
-        if (place) driver.jumpTo(value);
-        else driver.retarget(value);
+        // Retarget always, jump only when placing. `jumpTo` moves where the
+        // channel *is* and deliberately leaves where it is *going* alone — it is
+        // the one operation that breaks continuity, so it does not get to decide
+        // a destination. Placing without retargeting first therefore drops the
+        // surface at the right spot and immediately springs it back to whatever
+        // the old target was, which for a fresh driver is zero.
+        driver.retarget(value);
+        if (place) driver.jumpTo(value, 0);
       }
       if (!place) {
         settledRef.current = false;
@@ -233,25 +259,56 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
     [anchorRect, contentSize, drivers, gap, openProfile, openRadius, openThickness, placement, profile, radius, thickness],
   );
 
-  // Measure the closed end once, then pin. The pinned box equals the natural
-  // one, so the extra commit is invisible.
-  useLayoutEffect(() => {
+  /**
+   * Measure the closed end, then pin. The pinned box equals the natural one, so
+   * the extra commit is invisible.
+   *
+   * Measured on a frame rather than in a layout effect, and that is not caution:
+   * layout effects run child-first, so a surface inside a portalled subtree runs
+   * its own measurement before the ancestor that attaches that subtree to the
+   * document — and an element in a detached tree measures zero. Waiting for a
+   * frame makes the measurement independent of where in a tree the morph sits.
+   */
+  useEffect(() => {
     if (content === null || pinned) return;
-    setClosedSize({ width: content.offsetWidth, height: content.offsetHeight });
-    setPinned(true);
-  }, [content, pinned]);
+    return ticker.subscribe(() => {
+      const width = content.offsetWidth;
+      const height = content.offsetHeight;
+      if (width === 0 || height === 0) return;
+      setClosedSize({ width, height });
+      setPinned(true);
+    });
+  }, [content, pinned, ticker]);
 
-  useLayoutEffect(() => {
-    if (!pinned) return;
-    retarget(true);
-  }, [pinned, retarget]);
+  /**
+   * Place once, then only ever animate.
+   *
+   * The distinction matters more than it looks: `jumpTo` is the one operation
+   * that breaks continuity, and a mount is the only moment a surface has no
+   * history to be continuous with. Everything after it retargets, including a
+   * reversal mid-flight.
+   */
+  const placed = useRef(false);
+  const wasOpen = useRef(open);
 
-  // Opening promotes as a unit before the geometry moves, so the whole
-  // transition renders on the destination plane's canvas pair.
   useLayoutEffect(() => {
     if (!pinned || handle === null) return;
+
+    const first = !placed.current;
+    const changed = wasOpen.current !== open;
+    placed.current = true;
+    wasOpen.current = open;
+    if (!first && !changed) return;
+
+    // Promote as a unit before the geometry moves, so the whole transition
+    // renders on the destination plane's canvas pair.
     if (open && handle.plane !== openPlane) handle.promoteTo(openPlane);
-    retarget(false);
+
+    retarget(first);
+    if (first) {
+      writeGeometry(handle.host);
+      return;
+    }
     machine.applyFlags({
       disabled: false,
       morphing: true,
@@ -259,13 +316,15 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
       hovered: false,
       focused: false,
     });
-  }, [handle, machine, open, openPlane, pinned, retarget]);
+  }, [handle, machine, open, openPlane, pinned, retarget, writeGeometry]);
 
   // Realign the closed end with its footprint when the layout under it moves.
   useEffect(() => {
-    if (spacer === null) return;
+    if (spacer === null || handle === null) return;
     const realign = (): void => {
-      if (!openRef.current && settledRef.current) retarget(true);
+      if (openRef.current || !settledRef.current) return;
+      retarget(true);
+      writeGeometry(handle.host);
     };
     const observer = new ResizeObserver(realign);
     observer.observe(spacer);
@@ -274,7 +333,7 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
       observer.disconnect();
       window.removeEventListener("resize", realign);
     };
-  }, [retarget, spacer]);
+  }, [handle, retarget, spacer, writeGeometry]);
 
   useEffect(() => {
     if (handle === null || !pinned) return;
@@ -289,10 +348,7 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
         for (const driver of Object.values(drivers)) driver.advance(dtMs);
       }
 
-      host.style.left = `${num(drivers.x.value)}px`;
-      host.style.top = `${num(drivers.y.value)}px`;
-      host.style.width = `${num(drivers.width.value)}px`;
-      host.style.height = `${num(drivers.height.value)}px`;
+      writeGeometry(host);
       host.style.setProperty(GLASS_CHANNEL_PROPERTIES.glow, num(machine.value("glow")));
 
       const nextRadius = Math.max(drivers.radius.value, 0);
@@ -324,7 +380,7 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
       if (!openRef.current && handle.plane !== plane) handle.promoteTo(plane);
       onMorphEndRef.current?.(openRef.current);
     });
-  }, [drivers, handle, machine, pinned, plane, ticker]);
+  }, [drivers, handle, machine, pinned, plane, ticker, writeGeometry]);
 
   const state: GlassMorphState = { open, morphing };
 
@@ -352,11 +408,22 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
           pointerEvents: "none",
         }}
       />
+      {/* Outside the surrounding plane scope, so the platter portals into a node
+          of its own — which is what lets a promotion move it rather than rebuild
+          it. Its box comes from the springs, so it never needed the layout it
+          gives up; the spacer above holds its place in the app's own flow. */}
+      <OutsidePlaneScope>
       <GlassSurface
         plane={plane}
         radius={radius}
         thickness={thickness}
         morphing={morphing}
+        // The platter is the press target while it is collapsed, and stops being
+        // one once it is a menu: the content inside it becomes the thing being
+        // pressed. This is also why a morph's collapsed content must not be a
+        // glass surface of its own — two surfaces nested in one plane is exactly
+        // the overlap X1 forbids, and the platter is already the material.
+        interactive={!open}
         style={surfaceStyle}
         {...(className === undefined ? {} : { className })}
         {...(profile === undefined ? {} : { profile })}
@@ -365,12 +432,35 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
         {...(props["aria-label"] === undefined ? {} : { "aria-label": props["aria-label"] })}
         data-vitrea-morph=""
         data-vitrea-morph-open={open ? "" : undefined}
+        // Published because "still travelling" is something a stylesheet and a
+        // test both need to see, and because it is the state in which the
+        // content inside is deliberately not an activation target.
+        data-vitrea-morphing={morphing ? "" : undefined}
         onHost={setHandle}
       >
-        <div ref={setContent} data-vitrea-morph-content="" style={{ width: "max-content" }}>
+        <div
+          ref={setContent}
+          data-vitrea-morph-content=""
+          style={{
+            width: "max-content",
+            /*
+             * Content in flight is not an activation target.
+             *
+             * A menu activates on pointer *up* — that is the platform behaviour
+             * that lets you press a trigger, drag to an item and release on it —
+             * and a platter that is still growing slides its items under a
+             * cursor that has not moved. Without this, the press that opened the
+             * menu picks whichever item happened to arrive under it, and which
+             * one that is depends on the frame the release lands in. Interaction
+             * resumes the moment the geometry settles.
+             */
+            pointerEvents: morphing ? "none" : undefined,
+          }}
+        >
           {children(state)}
         </div>
       </GlassSurface>
+      </OutsidePlaneScope>
     </>
   );
 }

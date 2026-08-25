@@ -95,6 +95,9 @@ const write = (host: HTMLElement, property: string, value: string, last: Map<str
 /** Four decimals: below a tenth of a device pixel at any plausible scale. */
 const num = (value: number): string => value.toFixed(4);
 
+/** What `num` prints for an unchanged scale, so an identity transform is skipped. */
+const IDENTITY_SCALE = num(1);
+
 export function useGlassInteraction(options: GlassInteractionOptions): GlassInteraction {
   const { handle, host, ticker, profile, interactive, disabled, morphing } = options;
 
@@ -146,8 +149,13 @@ export function useGlassInteraction(options: GlassInteractionOptions): GlassInte
   );
 
   useEffect(() => {
-    applyFlags({ disabled, morphing });
-  }, [applyFlags, disabled, morphing]);
+    // Dropping the handlers does not drop the state they set. A surface that
+    // stops being interactive mid-press would otherwise stay compressed and lit
+    // for good, because nothing is left listening for the release.
+    applyFlags(
+      interactive ? { disabled, morphing } : { disabled, morphing, pressed: false, hovered: false },
+    );
+  }, [applyFlags, disabled, interactive, morphing]);
 
   // The flags can settle before the host exists — a surface mounted `disabled`
   // reaches its state on the first render and registers on the next. Pushing the
@@ -174,18 +182,36 @@ export function useGlassInteraction(options: GlassInteractionOptions): GlassInte
     if (host === null) return;
     const last = written.current;
 
+    const compression = machine.driver("pressCompression");
+
     return ticker.subscribe((dtMs) => {
       machine.advance(dtMs);
 
-      const press = machine.value("pressCompression");
+      /*
+       * A settled driver is *at* its target, and the kernel says so with a
+       * predicate rather than by snapping the value — springs integrate in
+       * closed form and approach zero without reaching it. Reading the predicate
+       * is what makes "no press" mean no press: comparing the raw value against
+       * zero leaves a surface wearing `scale(1)` for ever, and whether it does is
+       * a matter of how many frames the engine happened to run.
+       */
+      const press = compression.settled && compression.target === 0 ? 0 : compression.value;
       const glow = machine.value("glow");
       const lens = machine.value("lensStrength");
 
-      // Composed on top of the measured rect. `undefined` at rest so a settled
-      // surface carries no transform at all rather than an identity one.
-      handle?.setOwnedTransform(
-        press <= 0 ? undefined : `scale(${num(1 - press * profile.pressCompressionScale)})`,
-      );
+      /*
+       * Composed on top of the measured rect, and absent rather than identity
+       * when there is nothing to express.
+       *
+       * The test is the *emitted* scale, not the raw channel: a spring
+       * approaches zero without arriving, so a compression of 1e-4 is still a
+       * positive number and still writes `scale(1.0000)` — a transform that says
+       * nothing, on a surface that is not being pressed. How long that lingers
+       * depends on how many frames the engine ran, which is no basis for whether
+       * an element carries a transform.
+       */
+      const scaled = num(1 - press * profile.pressCompressionScale);
+      handle?.setOwnedTransform(scaled === IDENTITY_SCALE ? undefined : `scale(${scaled})`);
 
       write(host, GLASS_CHANNEL_PROPERTIES.press, num(press), last);
       write(host, GLASS_CHANNEL_PROPERTIES.glow, num(glow), last);

@@ -30,6 +30,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useId,
   useMemo,
   useState,
   type FocusEvent as ReactFocusEvent,
@@ -41,17 +42,29 @@ import {
 import { GlassGroup, type GlassGroupProps } from "../group";
 import { PlanePortal } from "../plane-portal";
 
-/** The attribute a toolbar item marks itself with. Public: tests and dev tools read it. */
+/**
+ * The attribute a toolbar item marks itself with, carrying its toolbar's id.
+ *
+ * The id matters because membership is not containment. A control that portals
+ * itself — a morph platter that will be promoted to the overlay plane, for
+ * instance — is not a DOM descendant of the toolbar, and it is still one of its
+ * items: it is reachable with the arrows, it holds the single tab stop when it is
+ * the active one, and a screen reader should read it inside the toolbar. Marking
+ * the owner lets the toolbar find its items wherever they ended up.
+ */
 export const TOOLBAR_ITEM_ATTRIBUTE = "data-vitrea-toolbar-item";
 
-export type ToolbarItemProps = { readonly "data-vitrea-toolbar-item"?: "" };
+export type ToolbarItemProps = { readonly "data-vitrea-toolbar-item"?: string };
 
-const ToolbarContext = createContext<boolean>(false);
+const ToolbarContext = createContext<string | null>(null);
 
 /** Props that opt a control into the toolbar's roving tab order. `{}` outside one. */
 export function useToolbarItem(): ToolbarItemProps {
-  const inToolbar = useContext(ToolbarContext);
-  return useMemo(() => (inToolbar ? { [TOOLBAR_ITEM_ATTRIBUTE]: "" as const } : {}), [inToolbar]);
+  const toolbarId = useContext(ToolbarContext);
+  return useMemo(
+    () => (toolbarId === null ? {} : { [TOOLBAR_ITEM_ATTRIBUTE]: toolbarId }),
+    [toolbarId],
+  );
 }
 
 export type ToolbarOrientation = "horizontal" | "vertical";
@@ -70,10 +83,20 @@ export interface GlassToolbarProps
   readonly groupProps?: Omit<GlassGroupProps, "children"> | undefined;
 }
 
-const focusableItems = (toolbar: HTMLElement): HTMLElement[] =>
-  [...toolbar.querySelectorAll<HTMLElement>(`[${TOOLBAR_ITEM_ATTRIBUTE}]`)].filter(
+/**
+ * This toolbar's items, in document order, wherever they live.
+ *
+ * Searched from the document rather than from the toolbar element, because a
+ * portalled or promoted item is still a member — see `TOOLBAR_ITEM_ATTRIBUTE`.
+ * `querySelectorAll` returns document order, which for a toolbar whose items sit
+ * in one row is the reading order the arrows should follow.
+ */
+const itemsOf = (toolbar: HTMLElement, toolbarId: string): HTMLElement[] => {
+  const selector = `[${TOOLBAR_ITEM_ATTRIBUTE}="${CSS.escape(toolbarId)}"]`;
+  return [...toolbar.ownerDocument.querySelectorAll<HTMLElement>(selector)].filter(
     (item) => !item.hasAttribute("disabled") && item.getAttribute("aria-disabled") !== "true",
   );
+};
 
 export function GlassToolbar(props: GlassToolbarProps): ReactNode {
   const {
@@ -86,47 +109,75 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
   } = props;
 
   const [toolbar, setToolbar] = useState<HTMLDivElement | null>(null);
+  const generatedId = useId();
+  const toolbarId = `vitrea-toolbar${generatedId}`;
 
   /** Exactly one item is reachable by Tab; the rest are reached by arrows. */
   const roveTo = useCallback(
     (target: HTMLElement | null) => {
       if (toolbar === null) return;
-      const items = focusableItems(toolbar);
+      const items = itemsOf(toolbar, toolbarId);
       const active = target ?? items[0] ?? null;
       for (const item of items) item.tabIndex = item === active ? 0 : -1;
+
+      /*
+       * `aria-owns` for the items that are not descendants.
+       *
+       * Membership is not containment here, and the accessibility tree has to
+       * agree with the arrows: an item a screen reader hears outside the toolbar
+       * while Tab and the arrows treat it as inside is worse than either
+       * behaviour alone. `aria-owns` is the platform's own answer to that, and
+       * an id is assigned where the item has none because that is what it takes.
+       */
+      const external = items.filter((item) => !toolbar.contains(item));
+      for (const item of external) {
+        if (item.id === "") item.id = `${toolbarId}-item-${external.indexOf(item)}`;
+      }
+      const owns = external.map((item) => item.id).join(" ");
+      if (owns === "") toolbar.removeAttribute("aria-owns");
+      else toolbar.setAttribute("aria-owns", owns);
     },
-    [toolbar],
+    [toolbar, toolbarId],
   );
 
   useEffect(() => {
     if (toolbar === null) return;
     roveTo(null);
-    // Children come and go — a menu opening, a control disabling itself — and the
-    // tab stop has to survive that. Watching the subtree costs nothing until one
-    // of those happens.
+    /*
+     * Items come and go — a menu opening, a control disabling itself, a platter
+     * promoted to another plane — and the tab stop has to survive all of it.
+     * Watching the whole document is what membership-without-containment costs;
+     * it is filtered to the mutations that can change the item set, and it costs
+     * nothing until one happens.
+     */
     const observer = new MutationObserver(() => {
-      const items = focusableItems(toolbar);
+      const items = itemsOf(toolbar, toolbarId);
       const current = items.find((item) => item.tabIndex === 0);
       roveTo(current ?? null);
     });
-    observer.observe(toolbar, { childList: true, subtree: true, attributes: true, attributeFilter: ["disabled", "aria-disabled"] });
+    observer.observe(toolbar.ownerDocument.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["disabled", "aria-disabled", TOOLBAR_ITEM_ATTRIBUTE],
+    });
     return () => observer.disconnect();
-  }, [roveTo, toolbar]);
+  }, [roveTo, toolbar, toolbarId]);
 
   const onFocus = useCallback(
     (event: ReactFocusEvent<HTMLDivElement>) => {
       const target = event.target;
-      if (target instanceof HTMLElement && target.hasAttribute(TOOLBAR_ITEM_ATTRIBUTE)) {
+      if (target instanceof HTMLElement && target.getAttribute(TOOLBAR_ITEM_ATTRIBUTE) === toolbarId) {
         roveTo(target);
       }
     },
-    [roveTo],
+    [roveTo, toolbarId],
   );
 
   const onKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLDivElement>) => {
       if (toolbar === null) return;
-      const items = focusableItems(toolbar);
+      const items = itemsOf(toolbar, toolbarId);
       if (items.length === 0) return;
 
       const next = orientation === "horizontal" ? "ArrowRight" : "ArrowDown";
@@ -147,7 +198,7 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
       roveTo(target);
       target.focus();
     },
-    [orientation, roveTo, toolbar],
+    [orientation, roveTo, toolbar, toolbarId],
   );
 
   const content = (
@@ -160,7 +211,7 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
         onFocus={onFocus}
         onKeyDown={onKeyDown}
       >
-        <ToolbarContext.Provider value={true}>{children}</ToolbarContext.Provider>
+        <ToolbarContext.Provider value={toolbarId}>{children}</ToolbarContext.Provider>
       </div>
     </PlanePortal>
   );
