@@ -57,6 +57,7 @@ const GROUPS = [
   { id: "dom-region", label: "dom-region (arbitrary DOM)" },
   { id: "texture-region", label: "texture-region (registered texture)" },
   { id: "toolbar", label: "toolbar" },
+  { id: "toolbar-menu", label: "toolbar-menu (the morph)" },
 ] as const;
 
 const RANGES = [
@@ -231,7 +232,23 @@ export function App(): ReactNode {
         <GlassButton className="control" disabled>
           Disabled
         </GlassButton>
-        <ActionsMenu onAction={setLastAction} />
+        {/*
+          The morph gets a sampling group of its own, and a gap wide enough that
+          the two groups' padded proxies do not meet.
+
+          Both are forced by the same thing: `GlassMorph` leaves its closed platter
+          in the plane host layer's own flow until it has measured itself, so for a
+          frame or two there is a registered box at the plane's origin. Inside the
+          toolbar's group that transient stretches the group's proxy union across
+          the whole viewport, and every other group on the plane then reports an
+          overlap that its settled layout does not have. See `DESIGN.md` §9; this
+          was the source of Decision Log #24's demo-diagnostics item.
+        */}
+        <div className="toolbar__menu">
+          <GlassGroup id="toolbar-menu">
+            <ActionsMenu onAction={setLastAction} />
+          </GlassGroup>
+        </div>
       </GlassToolbar>
         </nav>
       </PlanePortal>

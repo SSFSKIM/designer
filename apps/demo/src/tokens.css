@@ -1,0 +1,146 @@
+/*
+ * The survey-plate token file. Values live here and nowhere else; `DESIGN.md`
+ * owns which token does which job.
+ *
+ * Two grounds, because the page is a document with an instrument set into it: the
+ * `--paper-*` ramp is the document, the `--stage-*` set is the instrument window.
+ * The stage is not a dark *theme* of the page — it is a different surface with its
+ * own hierarchy, derived rather than inverted, which is why its text sits at
+ * L 0.93 rather than at white and why its steps go up in lightness from the
+ * ground exactly as the paper ramp's do.
+ *
+ * Authored in OKLCH because the ramps need perceptually even steps; the lightness
+ * jumps are deliberately smaller at the light end, where a small surface shift is
+ * most visible.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ── The document ground: cool neutral, hue 232 ─────────────────────────── */
+  --paper-0: oklch(0.995 0.002 232);
+  --paper-1: oklch(0.982 0.004 232);
+  --paper-2: oklch(0.966 0.006 232);
+  --paper-3: oklch(0.938 0.008 232);
+  --paper-4: oklch(0.893 0.011 232);
+  --paper-5: oklch(0.818 0.013 232);
+  /*
+   * `paper-6` and `paper-7` are pinned by contrast rather than by the ramp's own
+   * even spacing: 6 is the lightest step that still clears 3:1 on the ground (it
+   * is the only ramp step allowed to draw a control boundary) and 7 is the
+   * lightest that clears 4.5:1 on `paper-3` as well as on the ground, so
+   * secondary text can sit on a muted surface. `paper-5` is 1.59:1 and is
+   * therefore a decorative hairline only, never a control boundary.
+   */
+  --paper-6: oklch(0.63 0.015 232);
+  --paper-7: oklch(0.512 0.017 232);
+  --paper-8: oklch(0.378 0.016 232);
+  --paper-9: oklch(0.228 0.014 232);
+
+  /* Semantic aliases. Components use these, never the ramp directly. */
+  --background: var(--paper-2);
+  --foreground: var(--paper-9);
+  --card: var(--paper-1);
+  --muted: var(--paper-3);
+  --muted-foreground: var(--paper-7);
+  --border: var(--paper-5);
+  --border-strong: var(--paper-6);
+
+  /* ── The instrument window ─────────────────────────────────────────────── */
+  --stage-0: oklch(0.188 0.017 232);
+  --stage-1: oklch(0.244 0.019 232);
+  --stage-ink: oklch(0.930 0.008 232);
+  --stage-ink-dim: oklch(0.762 0.011 232);
+  --stage-rule: rgb(255 255 255 / 0.13);
+  --stage-graticule: rgb(255 255 255 / 0.055);
+
+  /*
+   * ── The one accent ─────────────────────────────────────────────────────
+   *
+   * Oxide orange: the colour a survey benchmark and a USGS index contour are
+   * printed in. It marks a measurement or a current position, and nothing else.
+   * Retuned rather than reused on the stage, per the dark-surface rule: higher
+   * lightness, slightly lower chroma so it does not vibrate against the graticule.
+   */
+  --accent: oklch(0.548 0.142 45);
+  --accent-strong: oklch(0.470 0.140 44);
+  --accent-stage: oklch(0.742 0.128 52);
+  --accent-foreground: oklch(0.990 0.004 60);
+
+  /* ── Type ──────────────────────────────────────────────────────────────── */
+  /*
+   * No webfonts, and that is a decision rather than a shortfall: the site must
+   * build to a self-contained static directory with no external request, and a
+   * bundled face would put a third-party licence obligation into a repo whose
+   * NOTICE is another child's deliverable. The stance is carried by the mono
+   * inversion and by the rules, not by a purchased face.
+   */
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", "Roboto Mono", Menlo,
+    Consolas, monospace;
+  --font-ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+
+  --type-display-size: clamp(1.875rem, 3.4vw, 2.625rem);
+  --type-display-line: 1.06;
+  --type-display-track: -0.02em;
+
+  --type-h2-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  --type-h2-line: 1.16;
+  --type-h2-track: -0.015em;
+
+  --type-h3-size: 1.0625rem;
+  --type-h3-line: 1.3;
+  --type-h3-track: -0.005em;
+
+  --type-lead-size: 1.125rem;
+  --type-lead-line: 1.5;
+
+  --type-body-size: 1rem;
+  --type-body-line: 1.62;
+  --type-body-track: -0.002em;
+
+  --type-small-size: 0.875rem;
+  --type-small-line: 1.55;
+
+  --type-label-size: 0.6875rem;
+  --type-label-line: 1.3;
+  --type-label-track: 0.1em;
+
+  --type-data-size: 0.75rem;
+  --type-data-line: 1.45;
+
+  /* ── Space, radius, motion ─────────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Frame surfaces take --radius-0. Roundness belongs to the material. */
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-3: 8px;
+
+  --duration-fast: 120ms;
+  --duration-standard: 180ms;
+  --duration-slow: 260ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Layout constants the stage and the column both need to agree on. */
+  --column-width: 45%;
+  --stage-width: 55%;
+  --measure: 66ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-standard: 1ms;
+    --duration-slow: 1ms;
+  }
+}

@@ -4,6 +4,10 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "types": ["vite/client"],
+    // The site reads `scenes.json` (the geometry contract both renderers read) and
+    // `matrix.json` (the calibration results) directly, so that no number and no
+    // rectangle on the page is a second hand-kept copy of one.
+    "resolveJsonModule": true,
     // Mirrors `vite.config.ts`'s aliases, so the typecheck reads the same source
     // the dev server bundles. Resolving to `dist` instead would typecheck the
     // playground against a build that may not exist yet.
@@ -15,5 +19,5 @@
       "@vitrea/react": ["../../packages/react/src/index.ts"],
     }
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src", "vite.config.ts", "../reference-apple/scenes.json", "../../packages/calibration/results/matrix.json"]
 }

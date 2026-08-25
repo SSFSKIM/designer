@@ -293,21 +293,30 @@ body {
 /* ── Controls ─────────────────────────────────────────────────────────────── */
 
 /*
- * Centred without a transform. A transformed ancestor makes `position: fixed`
- * descendants resolve against it instead of the viewport, and the morph platter
- * is exactly such a descendant.
+ * Start-aligned rather than centred, and without a transform.
+ *
+ * No transform, because a transformed ancestor makes `position: fixed`
+ * descendants resolve against it instead of the viewport, and the morph platter is
+ * exactly such a descendant. Not centred, because the morph's anchor spacer grows
+ * from zero to its measured size on the second frame: under `margin-inline: auto`
+ * that growth re-centres the whole toolbar and moves buttons that are already
+ * registered, and core then compares two bounds measured in different epochs and
+ * reports an overlap that never existed on screen. Start-aligned, the growth only
+ * extends the row to the right. See `DESIGN.md` §9.
  */
 .toolbar {
   position: absolute;
   bottom: 2.5rem;
-  left: 0;
-  right: 26rem;
-  width: max-content;
-  margin-inline: auto;
+  left: 2.5rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
   pointer-events: none;
+}
+
+/* Wide enough that the toolbar group's proxy and the morph group's do not meet. */
+.toolbar__menu {
+  margin-left: 3.5rem;
 }
 
 .segmented-wrap {
@@ -419,6 +428,16 @@ body {
 /* The morph platter */
 
 .platter {
+  /*
+   * Constrains the closed platter *before* it pins. Until it has measured itself
+   * `GlassMorph` leaves it in the plane host layer's own flow, and a block-level
+   * div there is as wide as the viewport. That box is registered, so a
+   * viewport-wide one overlaps every other surface on the plane and inflates its
+   * group's proxy union across the whole viewport. Both were the source of this
+   * playground's own overlap diagnostics (Decision Log #24); see
+   * `apps/demo/DESIGN.md` §9.
+   */
+  width: max-content;
   display: block;
   color: var(--vitrea-foreground, var(--ink));
 }

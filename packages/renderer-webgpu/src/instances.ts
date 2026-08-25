@@ -213,6 +213,53 @@ export function groupFieldRect(
   };
 }
 
+/** A rectangle in whole device pixels: what a viewport and a scissor take. */
+export interface DevicePixelRect {
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+}
+
+/**
+ * A group's field rect in device pixels, clipped to the plane canvas.
+ *
+ * `groupFieldRect` grows the surface union by the rim and bulge margin, so a
+ * surface within a few CSS px of the viewport's top or left edge produces a rect
+ * with a negative origin. The optics and highlight passes set that rect as the
+ * canvas viewport *and* scissor, and `setScissorRect` takes unsigned values, so an
+ * unclipped rect is a hard `RangeError` out of the WebGPU binding rather than a
+ * clipped draw. A toolbar pinned to the left edge is enough to reach it.
+ *
+ * Returns `undefined` where nothing of the rect is on the canvas, which is the
+ * caller's signal to skip the group entirely.
+ *
+ * The caller must derive the instance frame from the returned rect rather than
+ * from the CSS rect it passed in. The field texture is allocated at this size and
+ * `fs_optics` reads it by `uv` over the viewport, so a viewport that moved without
+ * the texture and the instance origin moving with it would stretch the glass
+ * instead of clipping it. What clipping costs is the part of the field outside the
+ * canvas, which is the part nothing can see.
+ */
+export function clipFieldRectToCanvas(
+  snapped: Rect,
+  devicePixelRatio: number,
+  canvasDevice: readonly [number, number],
+): DevicePixelRect | undefined {
+  const left = Math.max(0, Math.round(snapped.x * devicePixelRatio));
+  const top = Math.max(0, Math.round(snapped.y * devicePixelRatio));
+  const right = Math.min(
+    canvasDevice[0],
+    Math.round((snapped.x + snapped.width) * devicePixelRatio),
+  );
+  const bottom = Math.min(
+    canvasDevice[1],
+    Math.round((snapped.y + snapped.height) * devicePixelRatio),
+  );
+  if (right <= left || bottom <= top) return undefined;
+  return { x: left, y: top, width: right - left, height: bottom - top };
+}
+
 /** The same rect snapped outward to whole device pixels. */
 export function snapRectToDevicePixels(rect: Rect, devicePixelRatio: number): Rect {
   const x = Math.floor(rect.x * devicePixelRatio) / devicePixelRatio;

@@ -43,6 +43,7 @@ import { rendererError } from "./errors";
 import { createGpuContext, type GpuContext } from "./gpu-context";
 import { createGovernor, type Governor } from "./governor";
 import {
+  clipFieldRectToCanvas,
   groupFieldRect,
   packInstances,
   resolveSurfaces,
@@ -439,16 +440,39 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       }
 
       const union = unionOf(input);
-      const rectCss = snapRectToDevicePixels(groupFieldRect(surfaces, union), dpr);
-      const rectDevice: DeviceRect = {
-        x: Math.round(rectCss.x * dpr),
-        y: Math.round(rectCss.y * dpr),
-        width: Math.max(1, Math.round(rectCss.width * dpr)),
-        height: Math.max(1, Math.round(rectCss.height * dpr)),
-      };
-      if (rectDevice.width <= 0 || rectDevice.height <= 0) continue;
+      /*
+       * Clipped to the plane canvas, and clipped once, so that three things go on
+       * describing the same rectangle.
+       *
+       * `groupFieldRect` grows the surface union by the rim and bulge margin, so a
+       * surface within a few CSS px of the viewport's top or left edge produces a
+       * rect with a negative origin. `opticsPass` and `highlightPass` scissor to
+       * this rect on the plane canvas and `setScissorRect` takes unsigned values,
+       * so an unclipped rect is a hard `RangeError` out of the WebGPU binding
+       * rather than a clipped draw. A toolbar pinned to the left edge is enough to
+       * hit it.
+       *
+       * The clip has to reach the instance frame too. The field texture is
+       * allocated at this rect's size and `fs_optics` reads it by `uv` over the
+       * *viewport*, so moving the viewport without moving the texture and the
+       * instance origin with it would stretch the glass instead of clipping it.
+       * That is why the origin handed to `packInstances` is derived from the
+       * clipped device rect rather than from the CSS rect it came from. What is
+       * lost is the part of the field that lies outside the canvas, which is the
+       * part nothing can see.
+       *
+       * A group entirely on screen is unaffected: `snapRectToDevicePixels` has
+       * already put both edges on device-pixel boundaries, so the arithmetic below
+       * reproduces the previous origin and extent exactly.
+       */
+      const snapped = snapRectToDevicePixels(groupFieldRect(surfaces, union), dpr);
+      const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
+      if (rectDevice === undefined) continue;
 
-      const packed = packInstances(surfaces, [rectCss.x, rectCss.y]);
+      const packed = packInstances(surfaces, [
+        rectDevice.x * cssPerDevice,
+        rectDevice.y * cssPerDevice,
+      ]);
       const fields = passes.fieldPass(encoder, {
         groupId: input.groupId,
         family: governor.knobs.fieldFamily,
