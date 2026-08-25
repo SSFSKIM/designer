@@ -53,6 +53,10 @@ coverage/
 # eslint.config.mjs. Nothing here is part of any package's build or test graph.
 .vitrea-tmp/
 
+# Root-level scratch (pasted reviews, one-off notes). Untracked files here
+# would otherwise trip `pnpm publish`'s clean-working-tree check.
+tmp/
+
 # Web-side calibration captures. Derived and cheap to regenerate
 # (`pnpm --filter @vitrea/calibration run capture:web -- --all`, about a minute),
 # unlike apps/reference-apple/fixtures/, which is machine-specific ground truth
