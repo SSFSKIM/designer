@@ -49,6 +49,7 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 import {
   GLASS_CHANNEL_PROPERTIES,
   createGlassRoot,
+  type CssTierMapping,
   type GlassHostHandle,
   type GlassRoot,
   type RendererMaterialProfile,
@@ -119,6 +120,13 @@ export interface SceneReport {
    * command line that happened to inject it.
    */
   readonly materialProfile: RendererMaterialProfile | null;
+  /**
+   * What the crossing to `backdrop-filter` was priced at for this capture, or
+   * `null` for the shipped mapping (corrective K5). Only the dom tier renders
+   * through it, but it is reported on every capture: a GPU-tier cell that
+   * carried a mapping and did not use it is a fact a reader of the pair needs.
+   */
+  readonly cssTierMapping: Partial<CssTierMapping> | null;
   readonly groups: readonly GroupReport[];
   readonly surfaces: readonly SurfaceReport[];
   readonly webgpu: Record<string, unknown> | undefined;
@@ -157,6 +165,12 @@ declare global {
      * defaults, which is what an uncalibrated capture must be.
      */
     __vitreaMaterialProfile?: RendererMaterialProfile;
+    /**
+     * The CSS tier's half of the same document, injected the same way. Absent
+     * means the shipped mapping, which is what an untuned dom-tier capture must
+     * be.
+     */
+    __vitreaCssTierMapping?: Partial<CssTierMapping>;
   }
 }
 
@@ -353,9 +367,11 @@ async function build(): Promise<SceneReport> {
   // number, and reading one here to "check" it would put a second copy of the
   // material's constants in the harness.
   const materialProfile = window.__vitreaMaterialProfile;
+  const cssTierMapping = window.__vitreaCssTierMapping;
   const root = createGlassRoot({
     renderer: requestedRenderer,
     ...(materialProfile === undefined ? {} : { materialProfile }),
+    ...(cssTierMapping === undefined ? {} : { cssTierMapping }),
     // Dev mode on: the overlap and padding checks are exactly the findings that
     // would invalidate a capture, and they are cheaper to read here than to
     // rediscover in a diff.
@@ -537,6 +553,7 @@ async function build(): Promise<SceneReport> {
     },
     pressed: placed.pressed,
     materialProfile: materialProfile ?? null,
+    cssTierMapping: cssTierMapping ?? null,
     groups,
     surfaces: placed.surfaces.map((surface) => ({
       nodeId: surface.nodeId,

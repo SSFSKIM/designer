@@ -17,6 +17,7 @@ import { DEFAULT_GROUP_UNION, groupUnionFromMergeDistance } from "@vitrea/geomet
 import { describe, expect, it } from "vitest";
 
 import { IDLE_CHANNELS } from "../src/channels";
+import { MATERIAL_OPTICS } from "../src/optics";
 import { toRendererGroups, toRendererResolution } from "../src/renderer-bridge";
 import type {
   GlassFrameRenderInput,
@@ -66,7 +67,7 @@ const node = (overrides: Partial<GlassNodeRenderInput> = {}): GlassNodeRenderInp
   channels: IDLE_CHANNELS,
   material: { variant: "regular", adaptation: "adaptive" },
   foreground: { adaptation: { mode: "fixed" } },
-  optics: { blurRadius: 8, saturation: 1.8, tintAlpha: 0.28, borderAlpha: 0.35, borderWidth: 1 },
+  optics: MATERIAL_OPTICS.regular,
   refraction: { state: "true", accessibilityCap: "true", effective: "true" },
   ownedTransform: undefined,
   ...overrides,

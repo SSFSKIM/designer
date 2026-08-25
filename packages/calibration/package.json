@@ -22,6 +22,7 @@
     "test": "vitest run",
     "diff": "tsx cli/diff.ts",
     "compare": "tsx cli/compare.ts",
+    "tier-delta": "tsx cli/tier-delta.ts",
     "capture:web": "tsx scripts/capture-web.ts"
   },
   "devDependencies": {
