@@ -26,5 +26,10 @@ export default defineConfig({
   // `ignoreDeprecations` is scoped to the declaration pass because tsup injects
   // the deprecated `baseUrl` there. Drop it when tsup stops doing that.
   dts: { resolve: true, compilerOptions: { ignoreDeprecations: "6.0" } },
+  // Both halves of the React peer, named rather than inferred. `react-dom` is a
+  // devDependency as well (the test environment installs it), and a bundled
+  // renderer lands in the artifact as CJS behind esbuild's dynamic-require shim —
+  // which throws on the first native-ESM import of the package.
+  external: ["react", "react-dom"],
   noExternal: [BUNDLED_INTERNALS],
 });

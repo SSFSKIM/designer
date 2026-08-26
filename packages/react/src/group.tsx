@@ -30,7 +30,7 @@ import type {
   MaterialVariant,
   SourceProbe,
 } from "@vitreajs/vitrea";
-import type { GlassRoot as PlatformGlassRoot } from "@vitrea/platform-web";
+import { DEFAULT_DOM_SOURCE_ID, type GlassRoot as PlatformGlassRoot } from "@vitrea/platform-web";
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 
 import { GlassGroupContext, useGlassRoot, type GlassGroupHandle } from "./context";
@@ -60,7 +60,7 @@ export type GlassBackdrop = GlassTextureBackdrop | GlassDomBackdrop;
 const DEFAULT_SOURCE_PROBE: SourceProbe = { taint: "clean", textureCompatibility: "compatible" };
 
 /**
- * How many groups are currently using each texture source, per root.
+ * How many groups are currently using each source this package registered, per root.
  *
  * Sources are root-scoped and groups are not, so the count cannot live on a
  * group: two groups sampling one video is the case the source registry exists to
@@ -71,30 +71,56 @@ const DEFAULT_SOURCE_PROBE: SourceProbe = { taint: "clean", textureCompatibility
  */
 const sourceLeases = new WeakMap<PlatformGlassRoot, Map<string, number>>();
 
-function retainTextureSource(root: PlatformGlassRoot, backdrop: GlassTextureBackdrop): () => void {
+/**
+ * Register the group's source if it needs one, and hand back its release.
+ *
+ * Both kinds go through here. A `dom` backdrop with an id is a *named* dom
+ * source — a second arbitrary-DOM region alongside the root's shared one — and
+ * core validates the group's `backdropSourceId` on registration either way, so
+ * forwarding an id without registering it is the difference between a named dom
+ * backdrop and an `Unknown backdrop source` throw.
+ *
+ * `undefined` for the two cases with nothing to own: no backdrop at all, and the
+ * default dom backdrop, whose source belongs to the root.
+ */
+function retainBackdropSource(
+  root: PlatformGlassRoot,
+  backdrop: GlassBackdrop,
+): (() => void) | undefined {
+  const id = backdrop.id;
+  if (id === undefined) return undefined;
+
   const counts = sourceLeases.get(root) ?? new Map<string, number>();
   sourceLeases.set(root, counts);
 
-  const held = counts.get(backdrop.id) ?? 0;
-  if (held === 0 && root.scene.backdropSource(backdrop.id) === undefined) {
-    root.registerBackdropSource({
-      id: backdrop.id,
-      kind: "texture",
-      probe: backdrop.probe ?? DEFAULT_SOURCE_PROBE,
-      ...(backdrop.resolution === undefined ? {} : { resolution: backdrop.resolution }),
-    });
+  const held = counts.get(id) ?? 0;
+  if (held === 0) {
+    // A source this package did not register is not this package's to remove —
+    // `id: "vitrea.dom"` names the root's own shared source, and an app may
+    // register its own texture before mounting the group that samples it.
+    if (root.scene.backdropSource(id) !== undefined) return undefined;
+    root.registerBackdropSource(
+      backdrop.kind === "texture"
+        ? {
+            id,
+            kind: "texture",
+            probe: backdrop.probe ?? DEFAULT_SOURCE_PROBE,
+            ...(backdrop.resolution === undefined ? {} : { resolution: backdrop.resolution }),
+          }
+        : { id, kind: "dom" },
+    );
   }
-  counts.set(backdrop.id, held + 1);
+  counts.set(id, held + 1);
 
   return () => {
-    const remaining = (counts.get(backdrop.id) ?? 1) - 1;
+    const remaining = (counts.get(id) ?? 1) - 1;
     if (remaining > 0) {
-      counts.set(backdrop.id, remaining);
+      counts.set(id, remaining);
       return;
     }
-    counts.delete(backdrop.id);
-    if (root.scene.backdropSource(backdrop.id) !== undefined) {
-      root.scene.removeBackdropSource(backdrop.id);
+    counts.delete(id);
+    if (root.scene.backdropSource(id) !== undefined) {
+      root.scene.removeBackdropSource(id);
     }
   };
 }
@@ -189,12 +215,19 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
   // undefined one produce the same key — which is what they mean here.
   const policyKey = JSON.stringify(policy);
 
-  /** Identity, not policy: only these can require a different group. */
+  /**
+   * The source, as a pair of primitives to key the patch effect on.
+   *
+   * Not identity: a group's identity is its id alone. Swapping the backdrop is a
+   * patch, because re-registering is a throw — and the group's own children hold
+   * leases that make the removal half of a re-register a no-op, so re-running
+   * registration on a source change would hand core a still-registered id.
+   */
   const sourceId = backdrop?.id;
   const sourceKind = backdrop?.kind;
 
   // Held in refs so registration reads the current policy without listing it as
-  // a dependency — a group's identity is its id and its source, nothing else.
+  // a dependency — a group's identity is its id, nothing else.
   const policyRef = useRef(policy);
   policyRef.current = policy;
   const backdropRef = useRef(backdrop);
@@ -203,14 +236,13 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
   useLayoutEffect(() => {
     if (root === null) return;
 
-    const texture = backdropRef.current;
-    releaseSource.current =
-      texture?.kind === "texture" ? retainTextureSource(root, texture) : undefined;
+    const initial = backdropRef.current;
+    releaseSource.current = initial === undefined ? undefined : retainBackdropSource(root, initial);
 
     const current = policyRef.current;
     root.registerGroup({
       id: groupId,
-      ...(sourceId === undefined ? {} : { backdropSourceId: sourceId }),
+      ...(initial?.id === undefined ? {} : { backdropSourceId: initial.id }),
       ...(current.material === undefined ? {} : { material: current.material }),
       ...(current.backdrop === undefined ? {} : { backdrop: current.backdrop }),
       ...(current.foreground === undefined ? {} : { foreground: current.foreground }),
@@ -226,7 +258,7 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
       disposed.current = true;
       if (leases.current === 0) removeGroup();
     };
-  }, [groupId, removeGroup, root, sourceId, sourceKind]);
+  }, [groupId, removeGroup, root]);
 
   const estimatorRef = useRef(estimator);
   estimatorRef.current = estimator;
@@ -235,10 +267,19 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
    * Policy changes patch the descriptor. core's `DescriptorPatch` is built for
    * exactly this: a key present with `undefined` clears an override, an absent
    * key keeps it — which is what `<GlassGroup hint={undefined}>` should mean.
+   *
+   * The backdrop rides along, because a source swap is a patch too and core
+   * validates the new id here exactly as it does on registration.
    */
   useLayoutEffect(() => {
     if (root === null || !registered.current) return;
+
+    // Retain before release, in that order: core refuses to remove a source a
+    // group still references, and the group referencing it is this one.
+    const next = backdropRef.current;
+    const releaseNext = next === undefined ? undefined : retainBackdropSource(root, next);
     root.scene.updateGlassGroup(groupId, {
+      backdropSourceId: sourceId ?? DEFAULT_DOM_SOURCE_ID,
       material: policy.material,
       backdrop: policy.backdrop,
       estimator,
@@ -247,9 +288,11 @@ export function GlassGroup(props: GlassGroupProps): ReactNode {
       mergeDistance: policy.mergeDistance,
       samplingPadding: policy.samplingPadding,
     });
+    releaseSource.current?.();
+    releaseSource.current = releaseNext;
     // `policy` is keyed by content; `estimator` carries a method, so identity is
     // the only comparison available for it.
-  }, [estimator, groupId, policyKey, root]);
+  }, [estimator, groupId, policyKey, root, sourceId, sourceKind]);
 
   const handle: GlassGroupHandle = useMemo(
     () => ({

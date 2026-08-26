@@ -91,12 +91,17 @@ export interface GlassToolbarProps
  * `querySelectorAll` returns document order, which for a toolbar whose items sit
  * in one row is the reading order the arrows should follow.
  */
-const itemsOf = (toolbar: HTMLElement, toolbarId: string): HTMLElement[] => {
+const membersOf = (toolbar: HTMLElement, toolbarId: string): HTMLElement[] => {
   const selector = `[${TOOLBAR_ITEM_ATTRIBUTE}="${CSS.escape(toolbarId)}"]`;
-  return [...toolbar.ownerDocument.querySelectorAll<HTMLElement>(selector)].filter(
-    (item) => !item.hasAttribute("disabled") && item.getAttribute("aria-disabled") !== "true",
-  );
+  return [...toolbar.ownerDocument.querySelectorAll<HTMLElement>(selector)];
 };
+
+const isEnabled = (item: HTMLElement): boolean =>
+  !item.hasAttribute("disabled") && item.getAttribute("aria-disabled") !== "true";
+
+/** The members the arrows and the tab stop can land on. */
+const itemsOf = (toolbar: HTMLElement, toolbarId: string): HTMLElement[] =>
+  membersOf(toolbar, toolbarId).filter(isEnabled);
 
 export function GlassToolbar(props: GlassToolbarProps): ReactNode {
   const {
@@ -116,9 +121,15 @@ export function GlassToolbar(props: GlassToolbarProps): ReactNode {
   const roveTo = useCallback(
     (target: HTMLElement | null) => {
       if (toolbar === null) return;
-      const items = itemsOf(toolbar, toolbarId);
-      const active = target ?? items[0] ?? null;
-      for (const item of items) item.tabIndex = item === active ? 0 : -1;
+      const members = membersOf(toolbar, toolbarId);
+      const items = members.filter(isEnabled);
+      const active = target !== null && items.includes(target) ? target : (items[0] ?? null);
+      // Cleared across *every* member, not only the reachable ones. An item that
+      // has just disabled itself is out of `items` while its `tabIndex` is still
+      // the one this toolbar handed it — two tab stops, one of them on a control
+      // that no longer takes activation.
+      for (const item of members) item.tabIndex = -1;
+      if (active !== null) active.tabIndex = 0;
 
       /*
        * `aria-owns` for the items that are not descendants.

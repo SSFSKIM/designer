@@ -44,7 +44,27 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
   const types = readFileSync(typesPath, "utf8");
 
   it("depends on nothing but @vitreajs/vitrea and the React peer at runtime", () => {
-    expect(specifiersIn(runtime).sort()).toEqual(["@vitreajs/vitrea", "react", "react/jsx-runtime"]);
+    expect(specifiersIn(runtime).sort()).toEqual([
+      "@vitreajs/vitrea",
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+    ]);
+  });
+
+  /*
+   * `react-dom` by name, and no require shim — two halves of one assertion.
+   *
+   * The specifier set above passed while `react-dom` was being *inlined*, because
+   * inlined code has no specifier to list: a peer that is missing from the
+   * externals looks identical to a peer that was never imported. What the bundled
+   * copy does have is esbuild's `__require` shim around its CJS entry, and that
+   * shim throws `Dynamic require of "react" is not supported` on the first
+   * native-ESM import of the artifact — a publish blocker no other check sees.
+   */
+  it("imports react-dom rather than inlining a renderer", () => {
+    expect(specifiersIn(runtime)).toContain("react-dom");
+    expect(runtime).not.toContain("Dynamic require");
   });
 
   it("bundles the internal packages instead of importing them", () => {

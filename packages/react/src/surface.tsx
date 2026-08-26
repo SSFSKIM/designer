@@ -50,7 +50,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { renderAsChild } from "./as-child";
+import { mergeSlotProps, renderAsChild } from "./as-child";
 import { GlassGroupContext, useGlassGroupId, useGlassRootHandle } from "./context";
 import { useGlassInteraction } from "./interaction";
 import { PlanePortal } from "./plane-portal";
@@ -252,9 +252,17 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
     morphing,
   });
 
+  /**
+   * The interaction handlers chained with the consumer's, never spread over them.
+   *
+   * `<GlassButton onPointerDown={…}>` is the ordinary way to write this, and a
+   * spread would silently drop it: the material would still light up and the
+   * app's own handler would never run. `mergeSlotProps` is the same merge
+   * `asChild` performs one level down, in the same order — the surface's handler
+   * first, then the one the consumer passed.
+   */
   const slotProps = {
-    ...rest,
-    ...handlers,
+    ...mergeSlotProps({ ...handlers }, rest),
     ref: setHost,
     "data-vitrea-surface": "",
   };

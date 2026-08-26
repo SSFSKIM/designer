@@ -142,6 +142,39 @@ describe("GlassToolbar", () => {
     expect(document.activeElement).toBe(one);
   });
 
+  it("moves the tab stop off an item that has just disabled itself", async () => {
+    // The item set is filtered before the tab indices are assigned, so an item
+    // that leaves the set keeps whatever index it was last given: the toolbar
+    // hands the stop to its new first item and the page ends up with two.
+    function Disabling(): ReactNode {
+      const [disabled, setDisabled] = useState(false);
+      return (
+        <>
+          <button type="button" onClick={() => setDisabled(true)}>
+            disable
+          </button>
+          <GlassToolbar aria-label="Actions">
+            <GlassButton {...(disabled ? { "aria-disabled": true } : {})}>One</GlassButton>
+            <GlassButton>Two</GlassButton>
+          </GlassToolbar>
+        </>
+      );
+    }
+
+    const harness = renderGlass(<Disabling />);
+    const one = harness.result.getByRole("button", { name: "One" });
+    const two = harness.result.getByRole("button", { name: "Two" });
+    expect([one.tabIndex, two.tabIndex]).toEqual([0, -1]);
+
+    // `await`, because the toolbar watches the item set with a MutationObserver
+    // and its records arrive on a microtask.
+    await act(async () => {
+      harness.result.getByText("disable").click();
+    });
+
+    expect([one.tabIndex, two.tabIndex]).toEqual([-1, 0]);
+  });
+
   it("creates one group, so its members share a proxy and merge as one material", () => {
     const harness = renderGlass(
       <GlassToolbar aria-label="Actions">

@@ -10,9 +10,9 @@
  */
 
 import { fireEvent } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-import { GlassGroup, GLASS_CHANNEL_PROPERTIES, GlassButton } from "../src/index";
+import { GlassGroup, GLASS_CHANNEL_PROPERTIES, GlassButton, GlassSurface } from "../src/index";
 import { renderGlass } from "./harness";
 
 const channel = (element: HTMLElement, name: keyof typeof GLASS_CHANNEL_PROPERTIES): number =>
@@ -58,6 +58,51 @@ describe("interaction state", () => {
       harness.root().scene.glassNode(button.getAttribute("data-vitrea-node") ?? "")?.descriptor
         .interaction,
     ).toBe("disabled");
+  });
+});
+
+/*
+ * A consumer's handler and the material's are both real.
+ *
+ * The interaction handlers cover nine of the events an app is most likely to
+ * pass — every pointer event, focus, blur, and both key events — so spreading
+ * them over the consumer's props drops exactly the handlers a control is
+ * normally written with, and drops them silently: the glass still lights up.
+ */
+describe("consumer handlers", () => {
+  it("chains them with the material's rather than replacing them", () => {
+    const onPointerDown = vi.fn();
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface nodeId="one" interactive data-testid="surface" onPointerDown={onPointerDown} />
+      </GlassGroup>,
+    );
+
+    const surface = harness.result.getByTestId("surface");
+    fireEvent.pointerDown(surface, { clientX: 10, clientY: 4 });
+
+    expect(onPointerDown).toHaveBeenCalledTimes(1);
+    expect(harness.root().scene.glassNode("one")?.descriptor.interaction).toBe("pressed");
+  });
+
+  it("chains them on the asChild path too, where the child's are chained already", () => {
+    const onSurface = vi.fn();
+    const onChild = vi.fn();
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface asChild nodeId="one" interactive onPointerDown={onSurface}>
+          <button type="button" onPointerDown={onChild}>
+            Share
+          </button>
+        </GlassSurface>
+      </GlassGroup>,
+    );
+
+    fireEvent.pointerDown(harness.result.getByRole("button"), { clientX: 10, clientY: 4 });
+
+    expect(onSurface).toHaveBeenCalledTimes(1);
+    expect(onChild).toHaveBeenCalledTimes(1);
+    expect(harness.root().scene.glassNode("one")?.descriptor.interaction).toBe("pressed");
   });
 });
 

@@ -44,7 +44,7 @@
  */
 
 import type { GlassPlane } from "@vitreajs/vitrea";
-import type { GlassHostHandle } from "@vitrea/platform-web";
+import { HOST_ATTRIBUTES, type GlassHostHandle } from "@vitrea/platform-web";
 import { createDriver, createInteractionMachine, type MotionDriver } from "@vitrea/motion";
 import {
   useCallback,
@@ -318,22 +318,81 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
     });
   }, [handle, machine, open, openPlane, pinned, retarget, writeGeometry]);
 
-  // Realign the closed end with its footprint when the layout under it moves.
+  /**
+   * Realign the closed end with its footprint when the layout under it moves.
+   *
+   * A pinned platter is `position: fixed` and its offsets are viewport numbers,
+   * so anything that *moves* the spacer invalidates them — not only anything that
+   * resizes it. A sibling appearing above it in a column, an ancestor's padding
+   * changing, a text node growing two lines: none of those resize the spacer, and
+   * all of them leave the platter somewhere the footprint no longer is.
+   *
+   * So the watch is the spacer's whole containing subtree, and the guard is the
+   * anchor itself: a rect equal to the one the drivers are already sitting on is
+   * not a reflow. That guard is what keeps this off the per-frame path — the
+   * alternative, polling `getBoundingClientRect`, is a layout read every frame in
+   * the steady state §Geometry promises none in.
+   */
   useEffect(() => {
     if (spacer === null || handle === null) return;
+
+    let last: Rect | null = null;
     const realign = (): void => {
       if (openRef.current || !settledRef.current) return;
+      const anchor = anchorRect();
+      if (anchor === null) return;
+      if (
+        last !== null &&
+        anchor.x === last.x &&
+        anchor.y === last.y &&
+        anchor.width === last.width &&
+        anchor.height === last.height
+      ) {
+        return;
+      }
+      last = anchor;
       retarget(true);
       writeGeometry(handle.host);
     };
-    const observer = new ResizeObserver(realign);
-    observer.observe(spacer);
+
+    // The chain of boxes the spacer sits inside, up to the plane's host layer or
+    // the body. Its top is the subtree a reflow can reach the spacer from: a
+    // plane layer is `position: absolute; inset: 0`, so nothing outside one moves
+    // what is laid out within it.
+    const chain: HTMLElement[] = [];
+    for (let node: HTMLElement | null = spacer; node !== null; node = node.parentElement) {
+      chain.push(node);
+      if (node.dataset.vitreaLayer !== undefined || node === node.ownerDocument.body) break;
+    }
+
+    const resize = new ResizeObserver(realign);
+    for (const node of chain) resize.observe(node);
+
+    const mutations = new MutationObserver((records) => {
+      // vitrea's own per-frame writes land on host elements' `style`, this
+      // platter's included. They are the frame loop, not the app's layout.
+      const layout = records.some(
+        (record) =>
+          record.type !== "attributes" ||
+          !(record.target instanceof HTMLElement) ||
+          !record.target.hasAttribute(HOST_ATTRIBUTES.node),
+      );
+      if (layout) realign();
+    });
+    mutations.observe(chain[chain.length - 1] ?? spacer, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      characterData: true,
+    });
+
     window.addEventListener("resize", realign);
     return () => {
-      observer.disconnect();
+      resize.disconnect();
+      mutations.disconnect();
       window.removeEventListener("resize", realign);
     };
-  }, [handle, retarget, spacer, writeGeometry]);
+  }, [anchorRect, handle, retarget, spacer, writeGeometry]);
 
   useEffect(() => {
     if (handle === null || !pinned) return;
@@ -361,8 +420,11 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
         });
       }
 
-      const settled =
-        drivers.x.settled && drivers.y.settled && drivers.width.settled && drivers.height.settled;
+      // Every channel X8 interpolates, not only the box. A same-box morph — a
+      // platter that only rounds its corners or thickens — travels entirely in
+      // the shape drivers, and a predicate blind to them calls it settled on the
+      // frame it starts.
+      const settled = Object.values(drivers).every((driver) => driver.settled);
       if (settled === settledRef.current) return;
       settledRef.current = settled;
       if (!settled) return;

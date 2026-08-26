@@ -65,6 +65,79 @@ describe("GlassGroup", () => {
     expect(harness.root().capabilities("b")?.configuredSource).toBe("texture");
   });
 
+  it("registers a named dom source, so a dom backdrop is not one undocumented id", () => {
+    // `backdrop={{ kind: "dom", id }}` is a second arbitrary-DOM region beside the
+    // root's shared one. Forwarding the id without registering it made every value
+    // but the root's own private default an `Unknown backdrop source` throw.
+    const harness = renderGlass(<GlassGroup id="g" backdrop={{ kind: "dom", id: "hero" }} />);
+
+    expect(harness.root().scene.backdropSource("hero")?.descriptor.kind).toBe("dom");
+    expect(harness.root().scene.glassGroup("g")?.descriptor.backdropSourceId).toBe("hero");
+
+    harness.result.unmount();
+  });
+
+  it("borrows a source it did not register rather than owning it", () => {
+    // `id: "vitrea.dom"` names the root's own shared dom source, and an app may
+    // register a texture itself before mounting the group that samples it.
+    // Registering over one is a duplicate-id throw; removing one on unmount would
+    // take the root's default backdrop out from under every other group.
+    function Toggle(): ReactNode {
+      const [shown, setShown] = useState(true);
+      return (
+        <>
+          <button type="button" onClick={() => setShown(false)}>
+            hide
+          </button>
+          {shown ? <GlassGroup id="a" backdrop={{ kind: "dom", id: "vitrea.dom" }} /> : null}
+          <GlassGroup id="b" />
+        </>
+      );
+    }
+
+    const harness = renderGlass(<Toggle />);
+    expect(harness.root().scene.glassGroup("a")?.descriptor.backdropSourceId).toBe("vitrea.dom");
+
+    act(() => {
+      harness.result.getByText("hide").click();
+    });
+    expect(harness.root().scene.backdropSource("vitrea.dom")).toBeDefined();
+    expect(harness.root().capabilities("b")?.configuredSource).toBe("dom");
+  });
+
+  it("swaps its source by patching, with a surface still holding a lease", () => {
+    // A source change used to re-run registration, and the child's lease makes the
+    // removal half of that a no-op — so core saw `registerGroup` on an id it still
+    // holds and threw `Duplicate glass group id`.
+    function Swapping(): ReactNode {
+      const [id, setId] = useState("a");
+      return (
+        <GlassGroup id="g" backdrop={{ kind: "texture", id }}>
+          <button type="button" onClick={() => setId("b")}>
+            flip
+          </button>
+          <GlassSurface nodeId="one" />
+        </GlassGroup>
+      );
+    }
+
+    const harness = renderGlass(<Swapping />);
+    expect(harness.root().scene.glassGroup("g")?.descriptor.backdropSourceId).toBe("a");
+
+    expect(() =>
+      act(() => {
+        harness.result.getByText("flip").click();
+      }),
+    ).not.toThrow();
+
+    expect(harness.root().scene.glassGroup("g")?.descriptor.backdropSourceId).toBe("b");
+    expect(harness.root().scene.backdropSource("b")).toBeDefined();
+    // The old source goes with the last group that referenced it, and not before:
+    // core refuses to remove one any group still points at.
+    expect(harness.root().scene.backdropSource("a")).toBeUndefined();
+    expect(harness.root().scene.glassNode("one")).toBeDefined();
+  });
+
   it("patches its descriptor on a re-render rather than re-registering it", () => {
     // Inline object props are how anyone writes this, and a fresh literal every
     // render must not reach core's registry: registering an existing id is a
