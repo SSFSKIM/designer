@@ -646,9 +646,13 @@ in every capture path, so there is nothing to threshold there and the manual pag
 remains their only evidence — still open, and now carried as an unchecked item in
 `docs/doperpowers/specs/c9d-release-checklist.md`.
 
-**The shape rows are C9d's and post-date the freeze the perceptual rows were set
-against.** They are proposals about an axis whose measurement changed, not a
-re-fit of anything: no constant moved to produce them.
+**Both holdout observation columns post-date the freeze the perceptual rows were
+set against.** The shape rows are C9d's, on an axis the `box-shadow` removal made
+meaningful; the perceptual *observations* moved across that same removal in the
+Decision Log #32(c) re-measure — worst holdout SSIM 0.9131 → 0.9205, worst
+holdout ΔE mean 0.0606 → 0.0560. The proposed bounds predate it unchanged (SSIM
+≥ 0.90 and ΔE ≤ 0.08 both before and after), so no constant moved to produce
+these rows and no gate was loosened to accommodate them.
 
 ---
 

@@ -11,6 +11,16 @@
  *   # the holdout cells, once, after tuning has frozen
  *   pnpm --filter @vitrea/calibration run compare -- --set holdout
  *
+ * Two escapes exist and both name what they switch off, because both switch off
+ * a check on whether the output is evidence:
+ *
+ *   --write-partial          write `results/matrix.json` even though cells
+ *                            failed. The file then mixes this run's cells with
+ *                            an earlier run's; the default is to leave it alone.
+ *   --allow-material-free    measure fixtures marked `materialRendered: false`.
+ *                            Every number over one of those is web-glass against
+ *                            a bare background (Decision Log #26a).
+ *
  * Everything the run needs is read from committed data rather than passed in:
  * each scene's background and split membership come from `scenes.json`, and each
  * native fixture's path, capture method and emptiness come from the harness's own
@@ -44,7 +54,7 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -57,6 +67,7 @@ import {
   type FixtureSet,
   type ResultMatrix,
 } from "../src/index";
+import { isCaptureFresh, shouldWriteMatrix } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell } from "./measure";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -134,6 +145,8 @@ interface Options {
   readonly sets: readonly FixtureSet[];
   readonly renderer: "webgpu" | "css";
   readonly skipCapture: boolean;
+  readonly writePartial: boolean;
+  readonly allowMaterialFree: boolean;
   readonly materialProfile: string | undefined;
   readonly matrixPath: string;
   readonly silhouetteThreshold: number;
@@ -172,6 +185,8 @@ function parseOptions(argv: readonly string[]): Options {
     sets,
     renderer,
     skipCapture: argv.includes("--skip-capture"),
+    writePartial: argv.includes("--write-partial"),
+    allowMaterialFree: argv.includes("--allow-material-free"),
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
     matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
@@ -214,6 +229,18 @@ function plan(spec: SceneSpec, manifest: Manifest, options: Options): PlannedCel
         );
       }
       if (!options.sets.includes(declared)) continue;
+
+      if (!fixture.materialRendered && !options.allowMaterialFree) {
+        // Decision Log #26a refused material-free captures as fixtures: they are
+        // pixel-identical to their backgrounds, so a fidelity number over one
+        // measures the backdrop, not the material. Refusing here rather than
+        // printing a caveat afterwards — by then the matrix is already written.
+        throw new Error(
+          `compare: '${fixture.sceneId}' (${profile.profileKey}) is marked materialRendered: false, ` +
+            `so a fidelity number over it measures the backdrop rather than the material ` +
+            `(Decision Log #26a). Pass --allow-material-free to measure it anyway.`,
+        );
+      }
 
       const scene = spec.scenes.find((s) => s.id === fixture.sceneId);
       if (scene === undefined) {
@@ -315,6 +342,10 @@ function main(): void {
     );
   }
 
+  // Read before the capture step, so every artifact the measure loop selects can
+  // be asked whether this run wrote it. See `isCaptureFresh`.
+  const runStartedAt = Date.now();
+
   if (!options.skipCapture) {
     for (const colorScheme of ["light", "dark"] as const) {
       const subset = planned.filter((cell) => cell.colorScheme === colorScheme);
@@ -341,6 +372,14 @@ function main(): void {
         `${cell.profileKey} / ${cell.sceneId}: no ${options.renderer}-tier capture on disk ` +
           `(${missing.map((p) => p.replace(`${PACKAGE_ROOT}/`, "")).join(", ")})` +
           (options.skipCapture ? " — running with --skip-capture; drop it to capture now" : ""),
+      );
+      continue;
+    }
+
+    if (!options.skipCapture && !isCaptureFresh(statSync(webCell).mtimeMs, runStartedAt)) {
+      failures.push(
+        `${cell.profileKey} / ${cell.sceneId}: the ${options.renderer}-tier capture on disk predates ` +
+          `this run — capture-web resolved another tier; check its FELL BACK line`,
       );
       continue;
     }
@@ -386,9 +425,15 @@ function main(): void {
     }
   }
 
-  mkdirSync(dirname(options.matrixPath), { recursive: true });
-  writeFileSync(options.matrixPath, `${serializeResultMatrix(matrix, { pretty: true })}\n`);
-  process.stderr.write(`matrix → ${options.matrixPath} (${matrix.cells.size} cell(s) total)\n`);
+  // The per-cell `report.cell__*.json` written above are scratch and always
+  // land, so a partial run stays inspectable. The matrix is the official artifact
+  // and only a whole run may replace it.
+  const writeMatrix = shouldWriteMatrix(failures.length, options.writePartial);
+  if (writeMatrix) {
+    mkdirSync(dirname(options.matrixPath), { recursive: true });
+    writeFileSync(options.matrixPath, `${serializeResultMatrix(matrix, { pretty: true })}\n`);
+    process.stderr.write(`matrix → ${options.matrixPath} (${matrix.cells.size} cell(s) total)\n`);
+  }
 
   // ---------------------------------------------------------------------------
   // The table. Per cell, the numbers a tuning pass steers by — each as the pair
@@ -494,6 +539,13 @@ function main(): void {
     say("");
     say(`── ${failures.length} cell(s) COULD NOT BE MEASURED ────────────`);
     for (const failure of failures) say(`  ${failure}`);
+    say(
+      writeMatrix
+        ? `  --write-partial: ${options.matrixPath} WAS WRITTEN and now mixes this run's cells with ` +
+            `whatever an earlier run left under the keys above.`
+        : `  ${options.matrixPath} was left UNCHANGED. Fix the cells above and re-run, or pass ` +
+            `--write-partial to write the matrix with these cells missing.`,
+    );
     // A cell that could not be measured is a hole in the matrix, and a run that
     // exits 0 with holes in it invites a claim built on partial coverage.
     process.exitCode = 1;
