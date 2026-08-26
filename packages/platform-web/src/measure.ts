@@ -74,9 +74,20 @@ export function readRect(meter: LayoutReadMeter, element: Element): Rect {
   return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
 }
 
-export function readComputedStyle(meter: LayoutReadMeter, element: Element): CSSStyleDeclaration {
+/**
+ * `view` is threaded rather than read off the module scope, like every other
+ * browser handle in this package. A root can be driven against a document in
+ * another window — an iframe, a popped-out panel, a test's own jsdom instance —
+ * and a style or viewport read that reached for the ambient global there would
+ * silently describe a different window than the one being measured.
+ */
+export function readComputedStyle(
+  meter: LayoutReadMeter,
+  element: Element,
+  view: Window,
+): CSSStyleDeclaration {
   bump(meter, "styles");
-  return getComputedStyle(element);
+  return view.getComputedStyle(element);
 }
 
 /**
@@ -90,11 +101,11 @@ export function readComputedStyle(meter: LayoutReadMeter, element: Element): CSS
  * happened to start with. Flushing between the two writes is what makes the
  * transition apply to state changes rather than to existing at all.
  */
-export function flushStyle(meter: LayoutReadMeter, element: Element): void {
+export function flushStyle(meter: LayoutReadMeter, element: Element, view: Window): void {
   bump(meter, "styles");
   // Reading any resolved value forces the recalc; `opacity` is cheap and has no
   // layout dependency.
-  void getComputedStyle(element).opacity;
+  void view.getComputedStyle(element).opacity;
 }
 
 export interface ViewportReading {
@@ -103,11 +114,11 @@ export interface ViewportReading {
   readonly devicePixelRatio: number;
 }
 
-export function readViewport(meter: LayoutReadMeter): ViewportReading {
+export function readViewport(meter: LayoutReadMeter, view: Window): ViewportReading {
   bump(meter, "viewport");
   return {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    devicePixelRatio: window.devicePixelRatio,
+    width: view.innerWidth,
+    height: view.innerHeight,
+    devicePixelRatio: view.devicePixelRatio,
   };
 }

@@ -109,17 +109,23 @@ export interface GlassRendererBridgeOptions {
   readonly layers: GlassLayerManager;
   readonly diagnostics: PlatformDiagnosticsChannel;
   /**
-   * Raised once, if the renderer chunk cannot be resolved at all.
+   * Raised once, for a bridge-side failure that ends the GPU tier for this
+   * session.
    *
-   * That is the one bridge-side failure with no honest name but `no-webgpu`:
-   * there is no GPU tier in this session and nothing recovers it, which is
-   * exactly what that reason's `"none"` recovery says. Everything else the
-   * bridge can fail at — a canvas refusing a context, a device dying — either
-   * has its own reason in X2 or is a transient, and neither may touch this. In
-   * particular a lost device must not: core only raises `device-lost` where
-   * `webgpu` is `"available"`, so withdrawing availability on loss would
-   * collapse a fault whose recovery is `"device-restored"` into one whose
-   * recovery is `"none"`.
+   * Two of them qualify, and they qualify for the same reason: the renderer chunk
+   * failing to resolve, and a plane's canvas refusing a `"webgpu"` context. Both
+   * are permanent — no replacement device makes a refused canvas accept one, and
+   * a failed chunk load is not retried — and after either there is no GPU tier in
+   * this session at all, which is exactly what `no-webgpu`'s `"none"` recovery
+   * says. Withholding it for the canvas case is what left a session with neither
+   * tier painting and `health: "ok"`: the bridge had stopped drawing and core
+   * still believed WebGPU was live, so it kept the CSS tier stood down for a
+   * renderer that had nothing to paint into.
+   *
+   * A *transient* must never touch this. In particular a lost device must not:
+   * core only raises `device-lost` where `webgpu` is `"available"`, so
+   * withdrawing availability on loss would collapse a fault whose recovery is
+   * `"device-restored"` into one whose recovery is `"none"`.
    */
   readonly onRendererUnavailable: () => void;
   /** The X7 seam, swappable so a unit test needs no GPU. */
@@ -144,15 +150,53 @@ export interface GlassRendererBridge {
   syncDevice(status: WebGPUStatus): void;
   setBackdropTexture(sourceId: string, texture: GlassBackdropTexture | undefined): void;
   /**
+   * Whether pixels have been handed over for this source id.
+   *
+   * Answers the supply question, not the provider question: a texture handed over
+   * before the device arrives has no provider yet and is still supplied. core
+   * folds this into `SourceProbe.supply`, so a texture group nobody has given
+   * pixels to resolves honestly instead of claiming `gpu-texture` / `true` /
+   * `exact` over nothing.
+   */
+  hasBackdropTexture(sourceId: string): boolean;
+  /**
+   * The source ids whose content changes every frame by kind — video and live
+   * canvas (§GPU device ownership).
+   *
+   * The bridge is the only side that knows a source's kind, and the kind is what
+   * decides this: an imported external texture expires at task end and a canvas
+   * is repainted by its owner, so both are dirty on every frame that samples
+   * them, whereas a decoded image never changes and must not be re-imported at
+   * all.
+   */
+  perFrameBackdropSources(): readonly string[];
+  /**
    * Replace the renderer's optical tunables. A patch replaces rather than
    * accumulates — that is the renderer's rule, and this only forwards it.
    * Applied to a renderer that has not loaded yet as soon as it does.
    */
   setMaterialProfile(profile: RendererMaterialProfile): void;
-  /** The frame's `write` phase: CPU state only, no GPU work. */
-  write(input: GlassFrameRenderInput, rebuilds: readonly RebuildRequest[]): void;
-  /** The frame's `render` phase, with the scene graph frozen. */
-  render(): void;
+  /**
+   * The frame's `write` phase: CPU state only, no GPU work.
+   *
+   * `consumeRebuilds` is a thunk rather than a list because consuming is
+   * destructive: core commits `builtEpoch` when it hands a rebuild out, so a set
+   * consumed on the caller's side and then dropped by the guard below would leave
+   * those sources clean with nothing built for them — and a one-shot dirty mark
+   * (a static raster imported once at startup, a device-loss recovery) would be
+   * gone for good. Handing the *ability* to consume across the seam puts the
+   * decision behind the one predicate that knows whether anything can be built.
+   */
+  write(input: GlassFrameRenderInput, consumeRebuilds: () => readonly RebuildRequest[]): void;
+  /**
+   * The frame's `render` phase, with the scene graph frozen.
+   *
+   * Returns the source ids the renderer was handed a rebuild for and could not
+   * build — read after the frame's last plane, which is where the renderer has
+   * finished accumulating them. The caller owes those sources a fresh dirty mark;
+   * see `GlassRenderer.unbuiltSources`.
+   */
+  render(): readonly string[];
   destroy(): void;
 }
 
@@ -328,12 +372,16 @@ export function createGlassRendererBridge(
   /**
    * Give every plane's canvas pair a configured `"webgpu"` context.
    *
-   * Failure here is reported and survived rather than thrown. It is not a
-   * platform fact — X2 has no reason for it and none of the enumerated states
-   * describes it — so what it costs is the drawing, not the state: `active()`
-   * goes false, the CSS tier is untouched, and the diagnostic names what
-   * happened. Refusing to build the root over it would take down an app for a
-   * fault it cannot act on.
+   * Failure here is reported and survived rather than thrown: refusing to build
+   * the root over it would take down an app for a fault it cannot act on. But it
+   * is not survived *silently*. A refusal is latched, and a latched refusal means
+   * this session has no GPU tier — so it raises `onRendererUnavailable`, which
+   * withdraws WebGPU availability and hands the surfaces back to the CSS tier.
+   *
+   * The earlier claim that "the CSS tier is untouched" was the bug: the CSS tier
+   * steps aside for every group core resolved onto the WebGPU tier, so a bridge
+   * that stops painting without saying so leaves *neither* tier drawing, for the
+   * rest of the session, while every group reports `health: "ok"`.
    */
   const configureCanvases = (gpu: GPUDevice): void => {
     // `getPreferredCanvasFormat` is the format the compositor does not have to
@@ -367,8 +415,12 @@ export function createGlassRendererBridge(
         });
         // Latched: no replacement device makes a canvas that refused a context
         // accept one, and retrying every frame would be a diagnostic storm.
+        // Latched also means session-permanent, which is the same class as a
+        // failed chunk load — so the tier is withdrawn rather than left in a
+        // state where nothing paints and nothing says why.
         canvasesRefused = true;
         contexts.clear();
+        options.onRendererUnavailable();
         return;
       }
     }
@@ -424,12 +476,19 @@ export function createGlassRendererBridge(
   const buildProvider = (sourceId: string, texture: GlassBackdropTexture): void => {
     if (rendererModule === undefined || device === undefined || renderer === undefined) return;
 
+    // The device generation this provider's storage is being made under. Stated
+    // rather than defaulted: a provider that leaves it at 0 while the renderer is
+    // already on generation 1 gets invalidated the first time a device is
+    // replaced, throwing away storage that was built for the live device.
+    const generation = renderer.deviceStatus.generation;
+
     const provider =
       texture.kind === "video"
         ? rendererModule.createVideoProvider({
             id: sourceId,
             device,
             source: { kind: "element", element: texture.video },
+            generation,
           })
         : rendererModule.createCopyProvider({
             id: sourceId,
@@ -441,6 +500,7 @@ export function createGlassRendererBridge(
             // changes; that difference is what lets a static backdrop rebuild
             // nothing at all (§Core model's invariant).
             live: texture.kind === "canvas",
+            generation,
           });
 
     renderer.registerBackdrop(provider);
@@ -541,9 +601,15 @@ export function createGlassRendererBridge(
 
   // -- the frame ------------------------------------------------------------
 
-  const write = (input: GlassFrameRenderInput, rebuilds: readonly RebuildRequest[]): void => {
+  const write = (
+    input: GlassFrameRenderInput,
+    consumeRebuilds: () => readonly RebuildRequest[],
+  ): void => {
     if (!active() || renderer === undefined) {
       pending = undefined;
+      // Deliberately without consuming. Nothing here can build a pyramid this
+      // frame, and consuming would spend the claim anyway — see `write` on the
+      // interface for what that costs.
       return;
     }
 
@@ -564,15 +630,15 @@ export function createGlassRendererBridge(
 
     pending = {
       input,
-      rebuilds,
+      rebuilds: consumeRebuilds(),
       planes: toRendererGroups(input, (sourceId) => providers.has(sourceId)),
     };
   };
 
-  const render = (): void => {
+  const render = (): readonly string[] => {
     const frame = pending;
     pending = undefined;
-    if (frame === undefined || !active() || renderer === undefined) return;
+    if (frame === undefined || !active() || renderer === undefined) return [];
 
     const drawn = new Set<string>();
     for (const group of frame.planes[0]?.groups ?? []) drawn.add(group.groupId);
@@ -596,9 +662,11 @@ export function createGlassRendererBridge(
         highlight: targets.highlight.getCurrentTexture().createView(),
         ...(format === undefined ? {} : { format }),
         // The dirty set is handed out once per frame by contract, so only the
-        // first plane's draw carries it. Passing it twice would have the ledger
-        // refuse the duplicate every frame — correct, but it would report a
-        // violation this code committed on purpose.
+        // first plane's draw carries it. The renderer's rebuild ledger is keyed
+        // by frame id and would recognise a second pass over the same requests
+        // as the duplicate it is — correctly refusing it, and counting a
+        // violation this code would have committed deliberately. Handing it over
+        // once says the same thing without the false report.
         rebuild: first ? frame.rebuilds : [],
         resolution,
         clear: true,
@@ -609,6 +677,10 @@ export function createGlassRendererBridge(
     // Analysis stats come back asynchronously and drive the adaptive tint; the
     // renderer resolves whatever has landed and never blocks on it.
     void renderer.collectAdaptation();
+
+    // Read after the last plane, which is the only point where the frame's
+    // accumulation is complete.
+    return renderer.unbuiltSources;
   };
 
   return {
@@ -646,6 +718,19 @@ export function createGlassRendererBridge(
       }
       textures.set(sourceId, texture);
       buildProvider(sourceId, texture);
+    },
+
+    hasBackdropTexture(sourceId) {
+      // `textures`, not `providers`: a texture supplied before the device lands
+      // has no provider yet, and reporting it absent would demote the group for
+      // the length of the device handshake.
+      return textures.has(sourceId);
+    },
+
+    perFrameBackdropSources() {
+      return [...textures]
+        .filter(([, texture]) => texture.kind !== "image")
+        .map(([sourceId]) => sourceId);
     },
 
     setMaterialProfile(profile) {

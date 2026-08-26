@@ -88,17 +88,26 @@ describe("the renderer's participant satisfies core's", () => {
 });
 
 describe("the WebGPU availability union", () => {
-  it("has exactly core's members, in the same spelling", () => {
+  it("spells every value it produces the way core spells it", () => {
     // K1's amendment (Decision Log #21c) added "not-requested"; the renderer feeds
     // this straight into core's PlatformProbe, so a drift here would be a state the
     // transition table has no row for.
+    //
+    // The relation is containment, not equality, and the direction is the one
+    // that matters: everything this package can report must be something core
+    // resolves. Core's union is the wider one — it also carries `"pending"`, the
+    // window in which a host has a device and whatever draws with it is not ready
+    // yet. This package is *that thing*, so it never has a reading of its own
+    // readiness to publish, and the value belongs to the layer that owns the
+    // startup handshake.
     const mine: readonly WebGPUAvailability[] = ["not-requested", "unavailable", "available"];
-    expect([...WEBGPU_AVAILABILITIES].sort()).toEqual([...mine].sort());
+    for (const value of mine) expect([...WEBGPU_AVAILABILITIES]).toContain(value);
+    expect([...WEBGPU_AVAILABILITIES].filter((value) => !mine.includes(value as never))).toEqual([
+      "pending",
+    ]);
 
-    const fromCore = assignable<CoreWebGPUAvailability>("not-requested");
-    const toMine: WebGPUAvailability = fromCore;
-    const back: CoreWebGPUAvailability = toMine;
-    expect(back).toBe("not-requested");
+    const toCore: CoreWebGPUAvailability = assignable<WebGPUAvailability>("not-requested");
+    expect(toCore).toBe("not-requested");
   });
 
   it("is what a fresh renderer reports before anything is attached", () => {

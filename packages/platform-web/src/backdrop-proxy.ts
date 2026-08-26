@@ -1,5 +1,7 @@
 /**
- * The backdrop-proxy elements: one per sampling group, in the group's plane.
+ * The backdrop-proxy elements: one per sampling group *per plane* it has members
+ * on — a group that straddles two planes is two filtered surfaces, because each
+ * plane has its own canvas pair to sit behind.
  *
  * `proxy-geometry.ts` decides the box, the mask and the padding; this module
  * owns the elements that carry them, and three properties of the element set
@@ -54,12 +56,25 @@ export interface BackdropProxyManager {
    * and remove. Idempotent — calling it twice with the same requests writes the
    * same DOM and reports nothing new.
    *
-   * Returns the groups whose proxy element was created or moved to another
-   * plane. Those are exactly the ones whose backdrop-root chain is new and has
-   * to be re-audited; every other group's chain is the one already scored.
+   * Returns the group ids whose proxy element was created, or whose group gained
+   * a plane. Those are exactly the ones with a backdrop-root chain nothing has
+   * scored yet; every other group's chain is the one already audited. Groups are
+   * deduplicated, because a split group creating two elements in one sync is one
+   * group to re-audit.
    */
   sync(requests: readonly ProxyRequest[], environment: ProxyEnvironment): readonly string[];
-  proxyFor(groupId: string): HTMLElement | undefined;
+  /**
+   * The group's proxy element in one plane.
+   *
+   * The plane is part of the question, not a detail of it: a group whose members
+   * straddle two planes gets *one proxy per plane* (§the rendering contract puts
+   * one canvas pair in each), and the two sit under different ancestors, so they
+   * are two different backdrop-root chains with two different geometries.
+   */
+  proxyFor(groupId: string, plane: GlassPlane): HTMLElement | undefined;
+  /** Every plane this group currently has a proxy in. */
+  planesOf(groupId: string): readonly GlassPlane[];
+  /** Drops the group's proxy in every plane. */
   remove(groupId: string): void;
   destroy(): void;
 }
@@ -72,9 +87,20 @@ export interface ProxyEnvironment {
 
 const PROXY_STYLE = "position:absolute;pointer-events:none";
 
+/**
+ * The entry key: a group *and* a plane.
+ *
+ * A group with members on two planes needs a proxy in each — one canvas pair per
+ * plane means one filtered surface per plane — and keying by group alone made
+ * the two planes fight over a single element: whichever request came last won it,
+ * so one plane's surfaces sampled the other plane's box.
+ */
+const keyOf = (groupId: string, plane: GlassPlane): string => `${plane}␟${groupId}`;
+
 interface ProxyEntry {
   readonly element: HTMLElement;
-  plane: GlassPlane;
+  readonly groupId: string;
+  readonly plane: GlassPlane;
 }
 
 export function createBackdropProxyManager(
@@ -87,10 +113,11 @@ export function createBackdropProxyManager(
   const create = (groupId: string, plane: GlassPlane): ProxyEntry => {
     const element = doc.createElement("div");
     element.setAttribute("data-vitrea-proxy", groupId);
+    element.setAttribute("data-vitrea-proxy-plane", plane);
     element.setAttribute("aria-hidden", "true");
     element.setAttribute("style", PROXY_STYLE);
-    const entry: ProxyEntry = { element, plane };
-    entries.set(groupId, entry);
+    const entry: ProxyEntry = { element, groupId, plane };
+    entries.set(keyOf(groupId, plane), entry);
     return entry;
   };
 
@@ -101,7 +128,8 @@ export function createBackdropProxyManager(
   return {
     sync(requests, environment) {
       const live = new Set<string>();
-      const created: string[] = [];
+      /** Group ids whose chain is new this sync. A Set, so a split group counts once. */
+      const created = new Set<string>();
       const boxes: { readonly groupId: string; readonly plane: GlassPlane; readonly box: Rect }[] =
         [];
 
@@ -116,7 +144,8 @@ export function createBackdropProxyManager(
         } satisfies ProxyGeometryInput);
 
         if (geometry === undefined) continue;
-        live.add(request.groupId);
+        const key = keyOf(request.groupId, request.plane);
+        live.add(key);
 
         for (const finding of geometry.findings) {
           report(request.groupId, finding.code, finding.message, finding.severity);
@@ -124,8 +153,13 @@ export function createBackdropProxyManager(
 
         boxes.push({ groupId: request.groupId, plane: request.plane, box: geometry.box });
 
-        const entry = entries.get(request.groupId) ?? create(request.groupId, request.plane);
-        entry.plane = request.plane;
+        const existing = entries.get(key);
+        // A missing entry covers both cases the audit cares about, and they are
+        // the same case: a first-time group and a group that moved planes both
+        // arrive here with no element for this plane, so both get a chain nothing
+        // has scored.
+        if (existing === undefined) created.add(request.groupId);
+        const entry = existing ?? create(request.groupId, request.plane);
 
         // σ comes from the material, never back-derived from the padding: the
         // padding may legitimately exceed 3σ, and deriving σ from it would make
@@ -158,38 +192,46 @@ export function createBackdropProxyManager(
         }
       }
 
-      for (const [groupId, entry] of entries) {
-        if (!live.has(groupId)) {
+      for (const [key, entry] of entries) {
+        if (!live.has(key)) {
           entry.element.remove();
-          entries.delete(groupId);
+          entries.delete(key);
         }
       }
 
       // Re-sequence every plane's proxy layer from the requests' stable keys, so
       // paint order is the contract's and not the DOM's memory of insertion.
       const ordered = [...requests]
-        .filter((request) => live.has(request.groupId))
+        .filter((request) => live.has(keyOf(request.groupId, request.plane)))
         .sort((a, b) => a.order - b.order || a.groupId.localeCompare(b.groupId));
 
       for (const plane of GLASS_PLANES) {
         const forPlane = ordered
           .filter((request) => request.plane === plane)
-          .map((request) => entries.get(request.groupId)?.element)
+          .map((request) => entries.get(keyOf(request.groupId, plane))?.element)
           .filter((element): element is HTMLElement => element !== undefined);
         options.plane(plane).proxyLayer.replaceChildren(...forPlane);
       }
 
-      return created;
+      return [...created];
     },
 
-    proxyFor(groupId) {
-      return entries.get(groupId)?.element;
+    proxyFor(groupId, plane) {
+      return entries.get(keyOf(groupId, plane))?.element;
+    },
+
+    planesOf(groupId) {
+      return [...entries.values()]
+        .filter((entry) => entry.groupId === groupId)
+        .map((entry) => entry.plane);
     },
 
     remove(groupId) {
-      const entry = entries.get(groupId);
-      entry?.element.remove();
-      entries.delete(groupId);
+      for (const [key, entry] of entries) {
+        if (entry.groupId !== groupId) continue;
+        entry.element.remove();
+        entries.delete(key);
+      }
     },
 
     destroy() {

@@ -17,6 +17,9 @@
  * fact that they belong to the **source** and not to the group, plus the
  * dirty-epoch accounting that makes the invariant enforceable: a dirty source
  * yields **at most one rebuild per frame**, serving every group that samples it.
+ * That hand-out is provisional for as long as the frame is — a frame that throws
+ * gives its claims back (`rollbackDirtyBackdropSources`), because a spent claim
+ * with nothing built behind it would leave the source clean forever.
  *
  * Two failure modes are kept deliberately distinct:
  *
@@ -345,6 +348,21 @@ export interface GlassScene {
    * with the same id returns nothing, which is the §Core model invariant.
    */
   consumeDirtyBackdropSources(frameId: number): readonly BackdropRebuildRequest[];
+  /**
+   * Give back what `frameId` took, because the frame did not finish.
+   *
+   * Consuming commits `builtEpoch` at hand-out rather than at completion — core
+   * has no view of the wire and cannot wait for one. That is right while the
+   * frame runs to its end, and a lie the moment it does not: a claim spent on a
+   * frame that threw leaves the source sitting clean at an epoch whose pixels
+   * were never imported, and nothing ever marks it dirty again. Restoring the
+   * pre-consume epochs makes the commit provisional for exactly as long as the
+   * frame is.
+   *
+   * Returns the source ids restored. Idempotent, and a no-op for any frame id
+   * other than the one that consumed.
+   */
+  rollbackDirtyBackdropSources(frameId: number): readonly string[];
 
   resolve(): SceneResolution;
   checkSamePlaneOverlap(): readonly PlaneOverlap[];
@@ -415,6 +433,12 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
   };
   let overrides: AccessibilityOverrides = options.accessibilityOverrides ?? {};
   let consumedFrameId: number | undefined;
+  /**
+   * What `consumedFrameId`'s hand-out committed, and what it committed *over* —
+   * the ledger `rollbackDirtyBackdropSources` unwinds. One frame's worth, because
+   * a rollback only ever concerns the frame that is failing right now.
+   */
+  let consumedEpochs: readonly { readonly id: string; readonly builtEpoch: number }[] = [];
   let framePhase: FramePhase | undefined;
 
   /**
@@ -724,10 +748,33 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         built.push(record);
       }
 
+      consumedEpochs = built.map((record) => ({
+        id: record.descriptor.id,
+        builtEpoch: record.builtEpoch,
+      }));
       for (const record of built) {
         sources.set(record.descriptor.id, { ...record, builtEpoch: record.dirtyEpoch });
       }
       return requests;
+    },
+
+    rollbackDirtyBackdropSources(frameId) {
+      if (consumedFrameId !== frameId) return [];
+      const restored: string[] = [];
+      for (const { id, builtEpoch } of consumedEpochs) {
+        const record = sources.get(id);
+        // Gone since the hand-out. Nothing to restore, and nothing to say about
+        // it: a removed source has no pyramid anyone is waiting for.
+        if (record === undefined) continue;
+        // `dirtyEpoch` is left exactly as it stands. Anything that marked the
+        // source dirty after the hand-out is a real change this frame's failed
+        // claim has no business erasing, and restoring the older `builtEpoch`
+        // under it re-opens the gap either way.
+        sources.set(id, { ...record, builtEpoch });
+        restored.push(id);
+      }
+      consumedEpochs = [];
+      return restored;
     },
 
     resolve() {

@@ -9,12 +9,16 @@
  *
  * ## Resolution rules
  *
- * 0. **WebGPU not requested is not a fault.** A root configured for the CSS
- *    tier never had WebGPU in play; `platform.webgpu: "not-requested"` forces
- *    `activeRenderer: "css"` the same way a renderer fault would, but names no
- *    fault, so a group with nothing else wrong resolves `health: "ok"` —
- *    labeling intent as a fault would invert the honesty doctrine (X2's K1
- *    amendment, Decision Log #21c).
+ * 0. **WebGPU not requested is not a fault, and neither is WebGPU not ready
+ *    yet.** A root configured for the CSS tier never had WebGPU in play;
+ *    `platform.webgpu: "not-requested"` forces `activeRenderer: "css"` the same
+ *    way a renderer fault would, but names no fault, so a group with nothing
+ *    else wrong resolves `health: "ok"` — labeling intent as a fault would
+ *    invert the honesty doctrine (X2's K1 amendment, Decision Log #21c).
+ *    `"pending"` resolves identically, for the same reason read forwards: a root
+ *    that asked for WebGPU and is still bringing it up has not failed at
+ *    anything, and answering `no-webgpu` — whose recovery is honestly `"none"` —
+ *    would be a terminal answer to a request still in flight.
  * 1. **Renderer faults** — no WebGPU, a lost device, or a governor tier switch —
  *    drop `activeRenderer` to `"css"`. Nothing else can.
  * 2. **Sampling faults** demote the backdrop path without touching the
@@ -30,6 +34,12 @@
  * 4. **`exact` analysis needs a GPU texture.** Otherwise a declared hint or an
  *    estimator provider yields `"hint"` (X6), and nothing yields `"none"`.
  * 5. **One reason is reported, by precedence** — see `REASON_PRECEDENCE`.
+ * 6. **A texture source with no pixels behind it is a sampling fault.** The app
+ *    declared a texture and the runtime has nothing to read, so the group draws
+ *    tint, rim and glow over an unsampled backdrop and says so
+ *    (`no-texture-supplied`). Reporting `gpu-texture` / `true` / `exact` for a
+ *    source nobody supplied is the loudest possible version of the pretence this
+ *    file exists to prevent.
  */
 
 import type { ConfiguredSource, DemotionReason, GlassGroupState } from "./state";
@@ -38,18 +48,36 @@ import type { ConfiguredSource, DemotionReason, GlassGroupState } from "./state"
  * Whether WebGPU is in play for this root at all, distinct from whether it
  * *works* — a root configured for the CSS tier never asks, and that is a
  * choice, not a fault (X2's K1 amendment, Decision Log #21c).
+ *
+ * The question is three-state on the way up, not two: between "asked for" and
+ * "answered" there is a startup window in which the answer is not known yet, and
+ * a host that has to publish *something* during it has only honest options if
+ * the union has a name for it. `"pending"` is that name.
  */
-export const WEBGPU_AVAILABILITIES = ["not-requested", "unavailable", "available"] as const;
+export const WEBGPU_AVAILABILITIES = [
+  "not-requested",
+  "pending",
+  "unavailable",
+  "available",
+] as const;
 
 export type WebGPUAvailability = (typeof WEBGPU_AVAILABILITIES)[number];
 
 /** Platform-wide probe results. platform-web produces these; core only reads them. */
 export interface PlatformProbe {
   /**
-   * `"available"` — a WebGPU adapter and device were obtained. `"unavailable"`
-   * — WebGPU was requested but no adapter or device could be obtained.
-   * `"not-requested"` — this root never asked for WebGPU at all (its renderer
-   * is CSS by choice), which resolves honestly rather than as a fault.
+   * `"available"` — a WebGPU adapter and device were obtained *and* whatever
+   * draws with them is ready to paint. `"unavailable"` — WebGPU was requested
+   * but no adapter, device or renderer could be had. `"pending"` — requested,
+   * and the answer has not arrived yet; resolves exactly as `"not-requested"`
+   * does, so a group is on the CSS tier without being demoted while the GPU tier
+   * starts. `"not-requested"` — this root never asked for WebGPU at all (its
+   * renderer is CSS by choice), which resolves honestly rather than as a fault.
+   *
+   * The two CSS-without-a-fault values resolve alike and stay tellable apart on
+   * purpose: a host reads them back to distinguish "CSS by choice" from "CSS
+   * while WebGPU starts", which is the difference between a final answer and a
+   * provisional one.
    */
   readonly webgpu: WebGPUAvailability;
   /** `backdrop-filter` is supported and actually filters. */
@@ -69,6 +97,22 @@ export interface SourceProbe {
   readonly taint: "clean" | "tainted";
   /** Whether an app-supplied view satisfies the declared usage/format/dimension requirements. */
   readonly textureCompatibility: "compatible" | "incompatible";
+  /**
+   * Whether pixels have actually been handed over for this source.
+   *
+   * `TextureBackdropSource` declares that a source *is* a texture and carries no
+   * pixels — core may not know what an `HTMLCanvasElement` is (X4) — so the
+   * declaration and the supply are two separate events, and a group can sit
+   * between them for as long as the app takes. Only the platform layer knows
+   * which side of that gap a source is on, so it folds the fact in here, exactly
+   * as it folds a per-group proxy verdict into `backdropProxyConformance`
+   * (Decision Log #21a).
+   *
+   * Optional, defaulting to `"supplied"`: core cannot see the pixels either way,
+   * and a resolver that assumed absence would demote every source registered
+   * through a host that does not report this at all.
+   */
+  readonly supply?: "supplied" | "absent";
 }
 
 /**
@@ -116,6 +160,7 @@ export type CapabilityInputs =
 const REASON_PRECEDENCE: readonly DemotionReason[] = [
   "no-webgpu",
   "device-lost",
+  "no-texture-supplied",
   "tainted-source",
   "incompatible-texture",
   "no-backdrop-filter",
@@ -162,6 +207,11 @@ export const DEMOTION_RECOVERY: Readonly<Record<DemotionReason, RecoveryContract
     explanation:
       "The supplied texture view does not satisfy the declared usage, format or dimension requirements. Register a conforming source.",
   },
+  "no-texture-supplied": {
+    trigger: "source-replaced",
+    explanation:
+      "The source is declared as a texture and no pixels have been handed over for it yet, so there is nothing to sample. Supply the canvas, image or video behind it — the group keeps drawing tint, rim and glow until then.",
+  },
   "device-lost": {
     trigger: "device-restored",
     explanation:
@@ -191,8 +241,15 @@ function applicableFaults(inputs: CapabilityInputs): readonly DemotionReason[] {
   }
 
   if (configuredSource === "texture") {
-    if (inputs.source.taint === "tainted") faults.add("tainted-source");
-    if (inputs.source.textureCompatibility === "incompatible") faults.add("incompatible-texture");
+    if (inputs.source.supply === "absent") {
+      // Taint and compatibility are claims *about supplied pixels*. With none
+      // handed over there is nothing for them to be true or false of, so raising
+      // them here would name a fault about a thing that does not exist.
+      faults.add("no-texture-supplied");
+    } else {
+      if (inputs.source.taint === "tainted") faults.add("tainted-source");
+      if (inputs.source.textureCompatibility === "incompatible") faults.add("incompatible-texture");
+    }
   } else {
     if (!platform.backdropFilter) {
       faults.add("no-backdrop-filter");
@@ -239,6 +296,7 @@ const RENDERER_FAULTS: readonly DemotionReason[] = [
 const SAMPLING_FAULTS: readonly DemotionReason[] = [
   "tainted-source",
   "incompatible-texture",
+  "no-texture-supplied",
   "no-backdrop-filter",
 ];
 
@@ -254,11 +312,13 @@ export function resolveGlassGroupState(inputs: CapabilityInputs): GlassGroupStat
   const rendererDemoted = faults.some((fault) => RENDERER_FAULTS.includes(fault));
   const samplingDemoted = faults.some((fault) => SAMPLING_FAULTS.includes(fault));
 
-  // A root that never requested WebGPU forces the same renderer a fault would,
-  // without being one: it names nothing in `faults`, so a group with no other
-  // fault reports `health: "ok"` (rule 0 above).
-  const cssByChoice = inputs.platform.webgpu === "not-requested";
-  const activeRenderer = cssByChoice || rendererDemoted ? "css" : "webgpu";
+  // A root that never requested WebGPU — or that is still bringing it up —
+  // forces the same renderer a fault would, without being one: neither names
+  // anything in `faults`, so a group with no other fault reports `health: "ok"`
+  // (rule 0 above).
+  const cssWithoutFault =
+    inputs.platform.webgpu === "not-requested" || inputs.platform.webgpu === "pending";
+  const activeRenderer = cssWithoutFault || rendererDemoted ? "css" : "webgpu";
 
   const sampling = ((): Pick<GlassGroupState, "samplingBackend" | "refraction"> => {
     if (activeRenderer === "css") {

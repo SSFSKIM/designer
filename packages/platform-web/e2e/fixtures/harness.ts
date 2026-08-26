@@ -117,6 +117,80 @@ const makeStubDevice = (): StubDevice => {
   return { lost, destroy: () => undefined, resolveLost: (reason) => settle({ reason }) };
 };
 
+let restoreCanvasContexts: (() => void) | undefined;
+
+/**
+ * The rest of the fake GPU stack that `appDevice` implies.
+ *
+ * A stand-in device on its own is half a fiction, and the missing half shows:
+ * `GPUCanvasContext.configure` rejects anything that is not a real `GPUDevice`,
+ * so the bridge's canvases refuse, the bridge cannot paint, and the root
+ * correctly withdraws the GPU tier and hands the surfaces back to the CSS tier.
+ * That is the right answer to "there is no GPU here", and it is not the question
+ * these specs ask: they are about the WebGPU tier's *bookkeeping* — which tier a
+ * group resolves to, where its proxy goes, how promotion and the probe behave —
+ * none of which needs a pixel.
+ *
+ * So the fiction is completed rather than abandoned: a canvas context that
+ * accepts the stand-in device, and a renderer that consumes frames and draws
+ * nothing. `e2e/gpu` uses neither — it runs against a real adapter, because that
+ * is the only thing that proves the drawing.
+ */
+const installStubGpuStack = (): (() => Promise<never>) => {
+  const original = HTMLCanvasElement.prototype.getContext;
+  function patched(this: HTMLCanvasElement, id: string, ...rest: unknown[]): unknown {
+    if (id !== "webgpu") {
+      return (original as unknown as (...args: unknown[]) => unknown).call(this, id, ...rest);
+    }
+    return {
+      configure: () => undefined,
+      unconfigure: () => undefined,
+      getCurrentTexture: () => ({ createView: () => ({}) }),
+    };
+  }
+  (HTMLCanvasElement.prototype as { getContext: unknown }).getContext = patched;
+  restoreCanvasContexts = () => {
+    (HTMLCanvasElement.prototype as { getContext: unknown }).getContext = original;
+    restoreCanvasContexts = undefined;
+  };
+
+  const renderer = {
+    backend: "webgpu",
+    ready: true,
+    passes: [],
+    shaderSource: "",
+    deviceStatus: { generation: 1 },
+    capabilityInput: { webgpu: "available", deviceHealth: "ok" },
+    unbuiltSources: [] as readonly string[],
+    viewport: { widthCss: 0, heightCss: 0, devicePixelRatio: 1 },
+    governor: undefined,
+    instrumentation: undefined,
+    attachDevice: () => undefined,
+    replaceDevice: () => undefined,
+    markWebGPUUnavailable: () => undefined,
+    registerBackdrop: () => undefined,
+    unregisterBackdrop: () => undefined,
+    backdrop: () => undefined,
+    setViewport: () => undefined,
+    setGroup: () => undefined,
+    removeGroup: () => undefined,
+    setAccessibility: () => undefined,
+    setMaterialProfile: () => undefined,
+    drawFrame: () => ({ groupsDrawn: 0, rebuilds: 0, skipped: [], unbuilt: [] }),
+    collectAdaptation: async () => undefined,
+    frameParticipant: () => ({ id: "vitrea.renderer-webgpu" }),
+    destroy: () => undefined,
+  };
+
+  const module = {
+    createWebGPURenderer: () => renderer,
+    createCopyProvider: (options: { id: string }) => ({ id: options.id }),
+    createVideoProvider: (options: { id: string }) => ({ id: options.id }),
+  };
+
+  return () => Promise.resolve(module) as unknown as Promise<never>;
+};
+
 const px = (value: string): number => Number.parseFloat(value.replace("px", "")) || 0;
 
 /**
@@ -147,14 +221,16 @@ const diagnostics: DiagnosticRecord[] = [];
 
 const api = {
   async createRoot(spec: RootSpec = {}): Promise<void> {
+    restoreCanvasContexts?.();
     device = spec.appDevice === true ? makeStubDevice() : undefined;
+    const load = device === undefined ? undefined : installStubGpuStack();
     root = createGlassRoot({
       renderer: spec.renderer ?? "css",
       devMode: spec.devMode ?? true,
       autoStart: false,
-      ...(device === undefined
+      ...(device === undefined || load === undefined
         ? {}
-        : { webgpu: { device: device as unknown as GPUDevice } }),
+        : { webgpu: { device: device as unknown as GPUDevice, load } }),
       diagnosticSink: (diagnostic: VitreaDiagnostic) => {
         diagnostics.push({
           origin: diagnostic.origin,
@@ -650,6 +726,10 @@ const api = {
     standaloneLayers?.destroy();
     standaloneLayers = undefined;
     device = undefined;
+    // The stub stack is a per-root fiction, and `canvasPixels` reads a real 2D
+    // context off a real canvas — so it has to come off with the root that asked
+    // for it.
+    restoreCanvasContexts?.();
     textureCanvases.clear();
     document.body.removeAttribute("style");
     document.getElementById("scroller")?.scrollTo(0, 0);

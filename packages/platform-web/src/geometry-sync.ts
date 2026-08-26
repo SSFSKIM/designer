@@ -23,11 +23,17 @@
  * | font / layout completion | text metrics arriving late and reflowing hosts |
  * | `invalidateGeometry()` | whatever no observer can see |
  *
- * **Vitrea-owned transforms never re-read the DOM.** A `transform` does not
- * change a border-box rect, so `ResizeObserver` does not fire for one and this
- * module never marks anything dirty because of one. Press compression, lensing
- * deformation and morph interpolation therefore run at zero reads per frame, no
- * matter how many frames they run for.
+ * **Vitrea-owned transforms never re-read the DOM while they run.** A
+ * `transform` does not change a border-box rect, so `ResizeObserver` does not
+ * fire for one and this module never marks anything dirty because of one. Press
+ * compression, lensing deformation and morph interpolation therefore run at zero
+ * reads per frame, no matter how many frames they run for.
+ *
+ * Their *end* is a read, and has to be. `getBoundingClientRect` reports the
+ * transformed box, so whatever was measured while one was live describes the
+ * deformed surface; `root`'s `setOwnedTransform` marks the host dirty on the
+ * edge where the transform is cleared, which costs one read per gesture and
+ * leaves the steady state untouched.
  */
 
 import type { GlassScene, Rect } from "@vitreajs/vitrea";
@@ -144,7 +150,7 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
 
     read() {
       if (viewportDirty) {
-        viewport = readViewport(meter);
+        viewport = readViewport(meter, view);
         viewportDirty = false;
       }
       if (dirty.size === 0) return;

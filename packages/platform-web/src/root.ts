@@ -49,6 +49,7 @@ import {
   type ResolvedForegroundAdaptation,
   type ResolvedMaterial,
   type ShapeFamily,
+  type WebGPURendererModule,
 } from "@vitreajs/vitrea";
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
@@ -98,6 +99,7 @@ import {
   describeProbeFailure,
   probeGroup,
   probePlatform,
+  type BackdropRootBreak,
   type GroupProbeReport,
   type PlatformProbeReport,
 } from "./probe";
@@ -123,7 +125,32 @@ export interface GlassRootOptions {
   readonly diagnosticSink?: VitreaDiagnosticSink;
   /** Which renderer this root wires. Default `"css"`; see the module comment. */
   readonly renderer?: "css" | "webgpu";
-  readonly webgpu?: { readonly device?: GPUDevice; readonly powerPreference?: GPUPowerPreference };
+  readonly webgpu?: {
+    readonly device?: GPUDevice;
+    readonly powerPreference?: GPUPowerPreference;
+    /**
+     * An app-owned device was lost and only the app can replace it.
+     *
+     * The app owns the resources that would have to be re-registered, so vitrea
+     * reports the loss and waits rather than inventing a device it was not given
+     * (§GPU device ownership). Answer it by building a new device and handing it
+     * to `root.replaceDevice`; without both halves wired, app-owned device loss
+     * is terminal.
+     */
+    readonly onReplacementNeeded?: () => void;
+    /**
+     * Resolve the renderer module yourself, instead of through X7's dynamic
+     * import.
+     *
+     * The seam already exists one layer down, on the bridge; this forwards it.
+     * Two callers want it: a build that cannot code-split and would rather hand
+     * the renderer over directly than have a dynamic import it must inline
+     * anyway, and a test that needs the GPU tier's *bookkeeping* — tier
+     * resolution, proxies, plane structure — on a machine with no adapter. The
+     * default is the lazy import, and a CSS-tier bundle still carries no WGSL.
+     */
+    readonly load?: () => Promise<WebGPURendererModule>;
+  };
   /**
    * Optical tunables for the material, honoured by **both** tiers.
    *
@@ -183,7 +210,16 @@ export interface GlassNodeRenderInput {
     readonly accessibilityCap: RefractionQuality;
     readonly effective: RefractionQuality;
   };
-  /** Vitrea-owned visual transform, composed on top of `bounds`. */
+  /**
+   * The vitrea-owned visual transform currently on the host, for reporting only.
+   *
+   * A renderer must not compose it on top of `bounds`. Press compression, lensing
+   * deformation and morph interpolation reach the GPU tier through `channels` —
+   * the motion drivers' outputs, which is the one channel §Motion puts them on —
+   * and folding this string in as well would apply the same deformation twice.
+   * It travels because a devtool inspecting a frame wants to see what vitrea
+   * wrote to the element, and nothing else reads it.
+   */
   readonly ownedTransform: string | undefined;
 }
 
@@ -243,8 +279,15 @@ export interface GlassRoot {
    *
    * core's `TextureBackdropSource` declares that a source *is* a texture and
    * carries no pixels — it may not know what an `HTMLCanvasElement` is (X4). This
-   * is where the canvas, image or video arrives, and it is the only wiring the
-   * GPU tier needs beyond `renderer: "webgpu"`. Passing `undefined` withdraws it.
+   * is where the canvas, image or video arrives. Passing `undefined` withdraws
+   * it.
+   *
+   * Supplying pixels marks the source dirty, so the next frame imports them: the
+   * pyramid is rebuilt from the dirty-epoch ledger and nothing else, and a supply
+   * that did not raise the epoch would sit unimported until something else
+   * happened to. That covers the one-shot case — a decoded image handed over
+   * once. A **video or canvas** source changes every frame by kind, and the frame
+   * loop re-marks those itself, so an app does not re-mark them per frame either.
    *
    * A no-op on a CSS-tier root, so an app can call it unconditionally.
    */
@@ -270,6 +313,15 @@ export interface GlassRoot {
   setMaterialProfile(profile: RendererMaterialProfile): void;
   readonly accessibility: ResolvedAccessibilityPolicy;
   readonly webgpu: WebGPUStatus | undefined;
+  /**
+   * Hand in a replacement for a lost app-owned device.
+   *
+   * The other half of `webgpu.onReplacementNeeded`: WebGPU has no cross-device
+   * resource sharing, so every group stays demoted with `device-lost` until a
+   * device arrives here and the renderer's re-registration handshake completes.
+   * A no-op on a CSS-tier root.
+   */
+  replaceDevice(device: GPUDevice): void;
   /** The renderer bridge, on a `renderer: "webgpu"` root. Diagnostic surface. */
   readonly rendererBridge: GlassRendererBridge | undefined;
   /**
@@ -375,9 +427,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   let probe: PlatformProbe = {
     // A root that wires no GPU never asked for one — "not-requested", not
     // "unavailable". core resolves that as a choice, not a fault (X2's K1
-    // amendment, Decision Log #21c); `wantsWebGPU` roots start "unavailable"
-    // until `webgpu.start()` resolves.
-    webgpu: wantsWebGPU ? "unavailable" : "not-requested",
+    // amendment, Decision Log #21c).
+    //
+    // A `wantsWebGPU` root starts "pending", which is the same amendment read
+    // forwards. It did ask, and the answer has not arrived: "unavailable" would
+    // resolve to `no-webgpu`, whose recovery is honestly `"none"` — a terminal
+    // answer to a request still in flight, and the same inversion #21c fixed for
+    // CSS-by-choice. "pending" resolves to the CSS tier with no fault named, so
+    // the surfaces paint while the GPU tier comes up and nothing claims a loss
+    // that has not happened.
+    webgpu: wantsWebGPU ? "pending" : "not-requested",
     backdropFilter: platformProbe.support.supported,
     backdropProxyConformance: "pass",
     deviceHealth: "ok",
@@ -426,11 +485,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   };
 
   /**
-   * Set if the renderer chunk cannot be resolved at all.
+   * Set if this session has no GPU tier at all — the renderer chunk could not be
+   * resolved, or a plane's canvas refused a `"webgpu"` context.
    *
-   * A device with no renderer behind it draws nothing, and a group resolved onto
-   * the WebGPU tier there would be reporting a capability that is painting
-   * nothing. `no-webgpu` is the honest name for it — there is no GPU tier in
+   * A device with nothing painting behind it draws nothing, and a group resolved
+   * onto the WebGPU tier there would be reporting a capability that is painting
+   * nothing. `no-webgpu` is the honest name for both — there is no GPU tier in
    * this session, and its recovery is truthfully `"none"`. Note what this is
    * *not* set by: a lost device. core only raises `device-lost` where `webgpu`
    * is `"available"`, so clearing availability on loss would collapse a fault
@@ -470,6 +530,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         ...(options.materialProfile === undefined
           ? {}
           : { materialProfile: options.materialProfile }),
+        ...(options.webgpu?.load === undefined ? {} : { load: options.webgpu.load }),
         onRendererUnavailable: () => {
           rendererUnavailable = true;
           setProbe({ webgpu: "unavailable" });
@@ -477,20 +538,62 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       })
     : undefined;
 
+  /**
+   * Whether the bridge has finished settling for the *current* device.
+   *
+   * The bridge's work is serialised and asynchronous — resolve the renderer
+   * chunk, attach the device, configure two canvases per plane — so there is a
+   * window after the device arrives in which nothing can paint yet. Publishing
+   * `"available"` inside that window is what made every GPU page load blank: core
+   * resolved the groups onto the WebGPU tier, `root`'s write phase stripped their
+   * CSS declarations, and the bridge was not drawing yet.
+   */
+  let bridgeSettled = false;
+  /** Guards a late settle from answering for a device that has since been replaced. */
+  let deviceEpoch = 0;
+
+  /**
+   * What `PlatformProbe.webgpu` should say right now, for a root that asked.
+   *
+   * Availability is the *paintability* question, not the device question: the
+   * whole point of the value is to tell core which tier is drawing, and a device
+   * with nothing behind it draws nothing. The one exception is a lost device,
+   * which stays `"available"` on purpose — core raises `device-lost` only where
+   * WebGPU is available, so withdrawing it there would collapse a fault whose
+   * recovery is `"device-restored"` into one whose recovery is `"none"`.
+   */
+  const availabilityFor = (status: WebGPUStatus): PlatformProbe["webgpu"] => {
+    if (!status.available || rendererUnavailable) return "unavailable";
+    if (status.deviceHealth === "lost") return "available";
+    if (!bridgeSettled) return "pending";
+    return bridge?.active === true ? "available" : "unavailable";
+  };
+
   const webgpu: WebGPULifecycle | undefined = wantsWebGPU
     ? createWebGPULifecycle({
         ...(options.webgpu?.device === undefined ? {} : { device: options.webgpu.device }),
         ...(options.webgpu?.powerPreference === undefined
           ? {}
           : { powerPreference: options.webgpu.powerPreference }),
+        ...(options.webgpu?.onReplacementNeeded === undefined
+          ? {}
+          : { onReplacementNeeded: options.webgpu.onReplacementNeeded }),
         onStatusChange: (status) => {
+          const epoch = (deviceEpoch += 1);
+          bridgeSettled = false;
           bridge?.syncDevice(status);
           // This callback only exists on a `wantsWebGPU` root, so WebGPU was
-          // requested here by construction — "available" or "unavailable" is
-          // the whole range, never "not-requested".
-          setProbe({
-            webgpu: status.available && !rendererUnavailable ? "available" : "unavailable",
-            deviceHealth: status.deviceHealth,
+          // requested here by construction — "not-requested" is out of range.
+          setProbe({ webgpu: availabilityFor(status), deviceHealth: status.deviceHealth });
+          // `syncDevice` was queued synchronously above, so the bridge's own
+          // settle promise already covers it. Re-publishing afterwards is what
+          // turns "pending" into the real answer — and it is an answer either
+          // way: a bridge that settles inactive is a session with no GPU tier
+          // painting, which is `"unavailable"` however healthy the device is.
+          void (bridge?.ready() ?? Promise.resolve()).then(() => {
+            if (epoch !== deviceEpoch) return;
+            bridgeSettled = true;
+            setProbe({ webgpu: availabilityFor(status), deviceHealth: status.deviceHealth });
           });
           if (status.deviceHealth === "lost") {
             platformDiagnostics.report({
@@ -530,15 +633,49 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * on the strength of an audit that could not run yet would demote every group
    * for one frame at startup.
    */
-  const auditGroup = (groupId: string, plane: GlassPlane): GroupProbeReport => {
+  const auditPlane = (groupId: string, plane: GlassPlane): GroupProbeReport => {
     // A group demoted by this very probe has no proxy — demotion removes it —
     // so auditing only groups that *have* one would make `probe-failed`
     // unrecoverable, and every demotion reason is required to name a recovery.
     // The plane's proxy layer stands in: the walk starts at `from`'s parent, so
     // both start at the plane root and audit exactly the same chain. The proxy
     // layer is vitrea's own element and carries no trigger by construction.
-    const from = proxies.proxyFor(groupId) ?? layers.plane(plane).proxyLayer;
-    const report = probeGroup({ groupId, proxy: from }, platformProbe, meter);
+    const from = proxies.proxyFor(groupId, plane) ?? layers.plane(plane).proxyLayer;
+    return probeGroup({ groupId, proxy: from, window: view }, platformProbe, meter);
+  };
+
+  /**
+   * Layer 2 for one group, over every plane it has surfaces on.
+   *
+   * A split group has one proxy per plane, sitting under different ancestors —
+   * two chains, either of which can be re-rooted on its own. The group's report
+   * is therefore the union: it passes only where every plane passes, because a
+   * group whose second plane samples nothing is not a group in good health, and
+   * auditing only the first plane made the second one's re-rooting invisible.
+   */
+  const auditGroup = (groupId: string, planes: Iterable<GlassPlane>): GroupProbeReport => {
+    const breaks: BackdropRootBreak[] = [];
+    let verdict: GroupProbeReport["verdict"] = "pass";
+    let reach = platformProbe.reach;
+    let audited = false;
+
+    for (const plane of planes) {
+      const perPlane = auditPlane(groupId, plane);
+      audited = true;
+      reach = perPlane.reach;
+      if (perPlane.verdict === "fail") {
+        verdict = "fail";
+        breaks.push(...perPlane.breaks);
+      }
+    }
+
+    const report: GroupProbeReport = audited
+      ? { groupId, verdict, breaks, reach }
+      : // Nothing measured yet, so nothing to walk. Presumed passing, for the
+        // same reason the first frame presumes it: refusing to render on an
+        // audit that could not run would demote every group at startup.
+        { groupId, verdict: "pass", breaks: [], reach };
+
     const previous = probeReports.get(groupId);
     probeReports.set(groupId, report);
 
@@ -573,7 +710,22 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       ? effectiveGroupState({
           configuredSource: "texture",
           platform: probe,
-          source: source.descriptor.probe,
+          // Whether pixels were ever handed over is a platform-side fact — core
+          // holds a declaration, the bridge holds the canvas — folded into the
+          // per-source probe the same way this group's own proxy verdict is
+          // folded into `backdropProxyConformance` (Decision Log #21a). Only
+          // asked where there is a bridge to ask: on a CSS-tier root nothing
+          // samples a texture at all, and "no pixels supplied" would be naming a
+          // loss the tier never had.
+          source:
+            bridge === undefined
+              ? source.descriptor.probe
+              : {
+                  ...source.descriptor.probe,
+                  supply: bridge.hasBackdropTexture(source.descriptor.id)
+                    ? "supplied"
+                    : "absent",
+                },
           governor,
           hint,
           probe: verdictFor(groupId),
@@ -622,8 +774,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
     const nodesByPlane = new Map<GlassPlane, GlassNodeRenderInput[]>();
-    /** Every group with something measured, and the plane its proxy belongs in. */
-    const auditablePlanes = new Map<string, GlassPlane>();
+    /**
+     * Every group with something measured, and *every* plane its proxies belong
+     * in. Recording only the first measured member's plane audited a split
+     * group's chain on one plane and left the other unchecked for the session.
+     */
+    const auditablePlanes = new Map<string, Set<GlassPlane>>();
 
     for (const resolved of resolution.groups) {
       const groupId = resolved.groupId;
@@ -642,8 +798,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           (entry): entry is { record: HostRecord; bounds: Rect } => entry.bounds !== undefined,
         );
 
-      const firstPlane = measured[0]?.record.plane;
-      if (firstPlane !== undefined) auditablePlanes.set(groupId, firstPlane);
+      const planesMeasured = new Set(measured.map((entry) => entry.record.plane));
+      if (planesMeasured.size > 0) auditablePlanes.set(groupId, planesMeasured);
 
       groupInputs.push({
         groupId,
@@ -666,7 +822,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // filters in place on the host, so a group there gets no proxy at all —
       // which is exactly why probe-failed demotes to it.
       if (state.activeRenderer === "webgpu" && state.samplingBackend === "css-backdrop") {
-        for (const plane of new Set(measured.map((entry) => entry.record.plane))) {
+        for (const plane of planesMeasured) {
           const inPlane = measured.filter((entry) => entry.record.plane === plane);
           proxyRequests.push({
             groupId,
@@ -765,7 +921,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             for (const [property, value] of Object.entries(declarations)) {
               if (property !== "transition") record.host.style.setProperty(property, value);
             }
-            flushStyle(meter, record.host);
+            flushStyle(meter, record.host, view);
             record.cssMaterialized = true;
           }
 
@@ -843,8 +999,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // inside the frame where its reads are counted — a per-frame audit would
     // perform a computed-style read per ancestor per group forever, and the
     // steady state is supposed to read nothing at all.
-    for (const [groupId, plane] of auditablePlanes) {
-      if (staleProbes === "all" || staleProbes.has(groupId)) auditGroup(groupId, plane);
+    for (const [groupId, planes] of auditablePlanes) {
+      // `!probeReports.has(groupId)` is the third condition and it is not
+      // redundant: the stale set starts at `"all"` and is emptied after the first
+      // frame, so without it a group whose first measured frame comes later is
+      // never audited at all — it inherits the presumed pass forever, and a late
+      // group can claim a healthy GPU proxy path over a re-rooted chain
+      // indefinitely.
+      if (staleProbes === "all" || staleProbes.has(groupId) || !probeReports.has(groupId)) {
+        auditGroup(groupId, planes);
+      }
     }
     staleProbes = new Set();
 
@@ -871,12 +1035,37 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // (§Core model's invariant). Consuming it on a CSS root would be pointless
       // work, so only a wired bridge asks.
       if (bridge !== undefined && renderInput !== undefined) {
-        bridge.write(renderInput, context.consumeDirtyBackdropSources());
+        // A video's imported external texture expires at task end and a live
+        // canvas is repainted by its owner, so both are stale by the time the
+        // next frame samples them. Nothing else marks them: the app is not
+        // required to re-mark a source per frame, and before this a video froze
+        // on its first imported frame forever.
+        for (const sourceId of bridge.perFrameBackdropSources()) {
+          if (scene.backdropSource(sourceId) !== undefined) {
+            scene.markBackdropSourceDirty(sourceId);
+          }
+        }
+        // The thunk, not the set: consuming commits `builtEpoch`, so the decision
+        // belongs behind the bridge's own active/renderer guard rather than in
+        // front of it. Consumed here and dropped there, a one-shot dirty mark —
+        // a static raster imported once at startup, a device-loss recovery —
+        // would be spent on a frame that built nothing and never come back.
+        bridge.write(renderInput, () => context.consumeDirtyBackdropSources());
       }
     },
     // Drawing belongs to `render`, with the graph frozen — the same split the
     // renderer's own frame participant uses.
-    render: () => bridge?.render(),
+    render: () => {
+      // What the renderer was handed and could not build. core committed
+      // `builtEpoch` when it handed the request out, so an unbuilt source is
+      // sitting clean at an epoch nobody imported; re-marking it costs one frame
+      // of latency and needs no new core surface.
+      for (const sourceId of bridge?.render() ?? []) {
+        if (scene.backdropSource(sourceId) !== undefined) {
+          scene.markBackdropSourceDirty(sourceId);
+        }
+      }
+    },
   });
 
   const runFrame = (timeMs?: number): FrameReport => {
@@ -904,6 +1093,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     setBackdropTexture(sourceId, texture) {
       bridge?.setBackdropTexture(sourceId, texture);
+      // Supplying pixels is a content change, and a content change that does not
+      // raise the dirty epoch is invisible: the pyramid is rebuilt from that
+      // ledger and nothing else. Before this, every caller in the repo reached
+      // through `root.scene.markBackdropSourceDirty` by hand — including this
+      // package's own e2e harness — while the doc above claimed this was the only
+      // wiring the GPU tier needed.
+      if (texture !== undefined && scene.backdropSource(sourceId) !== undefined) {
+        scene.markBackdropSourceDirty(sourceId);
+      }
     },
 
     registerGroup(descriptor) {
@@ -929,6 +1127,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         smoothing: hostOptions.smoothing ?? DEFAULT_HOST_SHAPE.smoothing,
         thickness: hostOptions.thickness ?? DEFAULT_HOST_SHAPE.thickness,
       };
+
+      // An inline-style read, not a computed one: the app's own declaration
+      // block, which forces no recalculation and costs the read meter nothing.
+      // vitrea writes `transform` on a registered host and removes it on release,
+      // so an app value sitting there is not composed with — it is destroyed, on
+      // the first press or morph, with nothing to say why.
+      if (devMode && hostOptions.host.style.transform !== "") {
+        platformDiagnostics.report({
+          code: "host-inline-transform",
+          severity: "warning",
+          subjects: [nodeId],
+          message: `Host "${nodeId}" was registered carrying an inline transform (${hostOptions.host.style.transform}). vitrea owns the transform property on a registered host — press compression, lensing and morph all write it — so this value will be overwritten and then removed. Move it to an ancestor or a descendant element, or express it as a vitrea shape declaration.`,
+        });
+      }
 
       const hostLayer = layers.plane(plane).hostLayer;
       if (!hostLayer.contains(hostOptions.host) && devMode) {
@@ -1010,7 +1222,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             ...("interaction" in patch ? { interaction: patch.interaction } : {}),
             ...("foreground" in patch ? { foreground: patch.foreground } : {}),
           });
-          geometry.markDirty(nodeId);
+          // Deliberately no `markDirty`. No field of `GlassHostPatch` can move
+          // the host's border box — radii, smoothing, thickness, order, variant,
+          // interaction and foreground are all material or sequencing — so a
+          // re-measure here would read the same numbers at a cost. It was also
+          // actively harmful: `getBoundingClientRect` reports the *transformed*
+          // box, so an update landing while a vitrea-owned transform was live
+          // (the press spring, mid-release) wrote the compressed rect into the
+          // scene, and `setOwnedTransform` deliberately does not re-dirty, so it
+          // stayed there.
         },
 
         invalidateGeometry() {
@@ -1056,11 +1276,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         },
 
         setOwnedTransform(transform) {
+          const had = record.ownedTransform !== undefined;
           record.ownedTransform = transform;
           if (transform === undefined) record.host.style.removeProperty("transform");
           else record.host.style.setProperty("transform", transform);
-          // Deliberately no `markDirty`: a transform does not change a border-box
-          // rect, so re-reading would measure the same numbers at a cost.
+          // Setting or changing one marks nothing: `ResizeObserver` does not fire
+          // for a transform, and the frames a press or a morph runs for are
+          // exactly the frames that must stay at zero reads.
+          //
+          // *Clearing* one is different, and the difference is the bug this line
+          // fixes. `getBoundingClientRect` reports the transformed box, so any
+          // measurement taken while the transform was live is a measurement of
+          // the compressed surface — around twelve times the geometry error
+          // budget for a release-time press. Marking on the defined → undefined
+          // edge is what re-reads the true border box once, and only once.
+          if (had && transform === undefined) geometry.markDirty(nodeId);
         },
 
         release() {
@@ -1099,10 +1329,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     probeReport: (groupId) => probeReports.get(groupId),
 
     revalidateProbe() {
-      for (const groupId of probeReports.keys()) {
-        const plane =
-          [...hosts.values()].find((record) => record.groupId === groupId)?.plane ?? "base";
-        auditGroup(groupId, plane);
+      for (const groupId of [...probeReports.keys()]) {
+        const planes = new Set(
+          [...hosts.values()]
+            .filter((record) => record.groupId === groupId)
+            .map((record) => record.plane),
+        );
+        // A group with no hosts left still gets its chain re-walked, at the base
+        // plane's proxy layer, so a hand-called revalidation never silently skips
+        // a group it holds a report for.
+        auditGroup(groupId, planes.size === 0 ? ["base"] : planes);
       }
     },
 
@@ -1126,6 +1362,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     get webgpu() {
       return webgpu?.status;
+    },
+
+    replaceDevice(device) {
+      webgpu?.replaceDevice(device);
     },
 
     rendererBridge: bridge,

@@ -46,6 +46,12 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
   "webgpu-canvas-unavailable",
   /** A cross-plane promotion was requested for a node that is already there. */
   "redundant-promotion",
+  /**
+   * A host was registered carrying an inline `transform` vitrea did not write.
+   * vitrea owns that property on a registered host and will overwrite and remove
+   * it, so the app's value is destroyed rather than composed with.
+   */
+  "host-inline-transform",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

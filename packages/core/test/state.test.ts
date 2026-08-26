@@ -26,6 +26,7 @@ describe("GlassGroupState (X2)", () => {
       "no-backdrop-filter",
       "tainted-source",
       "incompatible-texture",
+      "no-texture-supplied",
       "device-lost",
       "probe-failed",
       "governor",

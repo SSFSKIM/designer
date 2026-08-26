@@ -21,6 +21,7 @@ export const DEMOTION_REASONS = [
   "no-backdrop-filter",
   "tainted-source",
   "incompatible-texture",
+  "no-texture-supplied",
   "device-lost",
   "probe-failed",
   "governor",

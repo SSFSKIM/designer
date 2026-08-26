@@ -105,6 +105,14 @@ export interface GroupProbeInput {
   readonly proxy: Element;
   /** Where to stop the walk, exclusive. The document element is the correct root. */
   readonly stopAt?: Element | null;
+  /**
+   * The window whose computed styles the walk reads. Threaded rather than taken
+   * from the module scope, and required rather than defaulted: the audited chain
+   * belongs to the proxy's own document, which is not necessarily the ambient
+   * one, and a silent fallback to the ambient window would read a different
+   * window's styles for a chain in this one.
+   */
+  readonly window: Window;
 }
 
 /** Layer 2, per group. Deterministic, synchronous, allocation-light. */
@@ -121,7 +129,7 @@ export function probeGroup(
     from: input.proxy,
     stopAt: input.stopAt ?? null,
     readStyle: (element) => {
-      const style = readComputedStyle(meter, element);
+      const style = readComputedStyle(meter, element, input.window);
       return (property) => style.getPropertyValue(property);
     },
   });

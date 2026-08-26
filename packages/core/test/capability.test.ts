@@ -220,6 +220,44 @@ describe("demotion transitions — every reason in the enum", () => {
     expect(state.samplingBackend).toBe("none");
   });
 
+  it("no-texture-supplied: a declared texture nobody handed pixels to samples nothing", () => {
+    const state = resolveGlassGroupState({
+      ...healthyTexture,
+      source: { taint: "clean", textureCompatibility: "compatible", supply: "absent" },
+    });
+
+    // The loudest version of the pretence this file exists to prevent would be
+    // gpu-texture / true / exact over a source with no pixels behind it.
+    expect(state).toEqual({
+      configuredSource: "texture",
+      activeRenderer: "webgpu",
+      samplingBackend: "none",
+      refraction: "none",
+      analysis: "none",
+      health: "demoted",
+      demotionReason: "no-texture-supplied",
+    } satisfies GlassGroupState);
+  });
+
+  it("no-texture-supplied outranks taint and compatibility, which describe pixels that are not there", () => {
+    const state = resolveGlassGroupState({
+      ...healthyTexture,
+      source: { taint: "tainted", textureCompatibility: "incompatible", supply: "absent" },
+    });
+
+    expect(state.demotionReason).toBe("no-texture-supplied");
+  });
+
+  it("treats an unstated supply as supplied, because core cannot see pixels either way", () => {
+    expect(resolveGlassGroupState(healthyTexture).samplingBackend).toBe("gpu-texture");
+    expect(
+      resolveGlassGroupState({
+        ...healthyTexture,
+        source: { taint: "clean", textureCompatibility: "compatible", supply: "supplied" },
+      }),
+    ).toEqual(resolveGlassGroupState(healthyTexture));
+  });
+
   it("device-lost: the renderer falls back while recovery runs", () => {
     const state = resolveGlassGroupState(withPlatform(healthyTexture, { deviceHealth: "lost" }));
 
@@ -284,6 +322,10 @@ describe("demotion transitions — every reason in the enum", () => {
       withPlatform(healthyDom, { backdropFilter: false }),
       { ...healthyTexture, source: { taint: "tainted", textureCompatibility: "compatible" } },
       { ...healthyTexture, source: { taint: "clean", textureCompatibility: "incompatible" } },
+      {
+        ...healthyTexture,
+        source: { taint: "clean", textureCompatibility: "compatible", supply: "absent" },
+      },
       withPlatform(healthyTexture, { deviceHealth: "lost" }),
       withPlatform(healthyDom, { backdropProxyConformance: "fail" }),
       { ...healthyTexture, governor: "demote-tier" },
@@ -338,6 +380,14 @@ describe("recovery transitions", () => {
       repaired: healthyDom,
     },
     {
+      reason: "no-texture-supplied",
+      broken: {
+        ...healthyTexture,
+        source: { taint: "clean", textureCompatibility: "compatible", supply: "absent" },
+      },
+      repaired: healthyTexture,
+    },
+    {
       reason: "governor",
       broken: { ...healthyTexture, governor: "demote-tier" },
       repaired: healthyTexture,
@@ -367,6 +417,7 @@ describe("recovery transitions", () => {
     expect(DEMOTION_RECOVERY["no-backdrop-filter"].trigger).toBe("probe-repassed");
     expect(DEMOTION_RECOVERY["tainted-source"].trigger).toBe("source-replaced");
     expect(DEMOTION_RECOVERY["incompatible-texture"].trigger).toBe("source-replaced");
+    expect(DEMOTION_RECOVERY["no-texture-supplied"].trigger).toBe("source-replaced");
     expect(DEMOTION_RECOVERY["device-lost"].trigger).toBe("device-restored");
     expect(DEMOTION_RECOVERY["probe-failed"].trigger).toBe("probe-repassed");
     expect(DEMOTION_RECOVERY.governor.trigger).toBe("pressure-released");
@@ -457,13 +508,15 @@ function everyInput(): readonly CapabilityInputs[] {
               all.push({ configuredSource: "dom", platform, governor, hint });
               for (const taint of ["clean", "tainted"] as const) {
                 for (const textureCompatibility of ["compatible", "incompatible"] as const) {
-                  all.push({
-                    configuredSource: "texture",
-                    platform,
-                    source: { taint, textureCompatibility },
-                    governor,
-                    hint,
-                  });
+                  for (const supply of ["supplied", "absent"] as const) {
+                    all.push({
+                      configuredSource: "texture",
+                      platform,
+                      source: { taint, textureCompatibility, supply },
+                      governor,
+                      hint,
+                    });
+                  }
                 }
               }
             }
@@ -479,9 +532,10 @@ describe("laws that hold across the whole input space", () => {
   const inputs = everyInput();
 
   it("sweeps every combination of every axis", () => {
-    // 3 webgpu x 2 backdropFilter x 2 conformance x 2 deviceHealth x 3 governor
-    // x 3 hint = 216 platform states; each yields 1 dom case and 4 texture cases.
-    expect(inputs).toHaveLength(216 * 5);
+    // 4 webgpu x 2 backdropFilter x 2 conformance x 2 deviceHealth x 3 governor
+    // x 3 hint = 288 platform states; each yields 1 dom case and 8 texture cases
+    // (taint x compatibility x supply).
+    expect(inputs).toHaveLength(288 * 9);
   });
 
   it("never mutates configuredSource — the property the honesty core exists for", () => {
@@ -528,30 +582,40 @@ describe("laws that hold across the whole input space", () => {
     }
   });
 
-  it("treats a CSS-tier fallback as a demotion, unless WebGPU was never requested", () => {
+  it("treats a CSS-tier fallback as a demotion, unless WebGPU was never requested or is still starting", () => {
     // X2's K1 amendment: a CSS-by-choice root lands on the CSS tier too, but
-    // landing there by choice is not landing there by fault.
+    // landing there by choice is not landing there by fault — and neither is
+    // landing there for the frames before the GPU tier has answered.
     for (const input of inputs) {
       const state = resolveGlassGroupState(input);
-      if (state.activeRenderer === "css" && input.platform.webgpu !== "not-requested") {
+      if (
+        state.activeRenderer === "css" &&
+        input.platform.webgpu !== "not-requested" &&
+        input.platform.webgpu !== "pending"
+      ) {
         expect(state.health).toBe("demoted");
       }
     }
   });
 
-  it("never reports no-webgpu or device-lost when WebGPU was never requested", () => {
+  it("never reports no-webgpu or device-lost while WebGPU is unrequested or pending", () => {
     for (const input of inputs) {
-      if (input.platform.webgpu !== "not-requested") continue;
+      if (input.platform.webgpu === "unavailable" || input.platform.webgpu === "available") {
+        continue;
+      }
       const state = resolveGlassGroupState(input);
       expect(state.demotionReason).not.toBe("no-webgpu");
       expect(state.demotionReason).not.toBe("device-lost");
     }
   });
 
-  it("resolves a css-by-choice group with nothing else wrong to health ok", () => {
+  it("resolves a group on the CSS tier without a fault — by choice or while pending — to health ok", () => {
     for (const input of inputs) {
-      if (input.platform.webgpu !== "not-requested") continue;
+      if (input.platform.webgpu === "unavailable" || input.platform.webgpu === "available") {
+        continue;
+      }
       if (input.governor === "demote-tier") continue;
+      if (input.configuredSource === "texture" && input.source.supply === "absent") continue;
       if (input.configuredSource === "texture" && input.source.taint === "tainted") continue;
       if (
         input.configuredSource === "texture" &&
@@ -566,6 +630,18 @@ describe("laws that hold across the whole input space", () => {
       expect(state.health).toBe("ok");
       expect(state.demotionReason).toBeUndefined();
       expect(state.activeRenderer).toBe("css");
+    }
+  });
+
+  it("resolves pending exactly as not-requested does, on every other axis", () => {
+    for (const input of inputs) {
+      if (input.platform.webgpu !== "pending") continue;
+      const asNotRequested = resolveGlassGroupState({
+        ...input,
+        platform: { ...input.platform, webgpu: "not-requested" },
+      } as CapabilityInputs);
+
+      expect(resolveGlassGroupState(input)).toEqual(asNotRequested);
     }
   });
 
@@ -594,6 +670,10 @@ describe("laws that hold across the whole input space", () => {
           break;
         case "incompatible-texture":
           expect(input.source?.textureCompatibility).toBe("incompatible");
+          break;
+        case "no-texture-supplied":
+          expect(input.configuredSource).toBe("texture");
+          expect(input.source?.supply).toBe("absent");
           break;
         case "no-backdrop-filter":
           expect(input.configuredSource).toBe("dom");
@@ -626,16 +706,22 @@ describe("laws that hold across the whole input space", () => {
       }
     }
 
-    // All 1080 input combinations collapse to 49 states: 29 for texture groups,
+    // All 2592 input combinations collapse to 55 states: 35 for texture groups,
     // 20 for dom groups. Pinned so that adding a state has to be a deliberate
     // act rather than a side effect of touching the resolver.
     //
     // Was 43 (25 texture, 18 dom) on 720 combinations before X2's K1 amendment
     // (Decision Log #21c) added `webgpu: "not-requested"` alongside the prior
-    // two-valued axis. The 6 new states are exactly the healthy, undemoted
-    // mirror of the 6 that already existed at `webgpu: "unavailable"` with no
-    // other fault — same shape, `health: "ok"` instead of
-    // `demoted`/`no-webgpu`, because choosing the CSS tier is not a fault.
-    expect(distinct.size).toBe(49);
+    // two-valued axis; that took it to 49 (29 texture, 20 dom) on 1080. Its 6 new
+    // states were exactly the healthy, undemoted mirror of the 6 that already
+    // existed at `webgpu: "unavailable"` with no other fault — same shape,
+    // `health: "ok"` instead of `demoted`/`no-webgpu`, because choosing the CSS
+    // tier is not a fault.
+    //
+    // `webgpu: "pending"` adds none at all, which is the whole claim being made
+    // about it: it resolves identically to `"not-requested"`. The 6 states since
+    // then are the `no-texture-supplied` family — a texture group whose pixels
+    // never arrived, on either tier, with and without a hint to analyse.
+    expect(distinct.size).toBe(55);
   });
 });

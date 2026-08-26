@@ -173,6 +173,15 @@ export function createFrameScheduler(options: FrameSchedulerOptions): FrameSched
             proxyOverlaps = scene.checkGroupProxyOverlap();
           }
         }
+      } catch (error) {
+        // The frame is over and nothing downstream of the throw ran, so whatever
+        // rebuilds it claimed were spent on nothing. Consuming commits
+        // `builtEpoch` at hand-out, so leaving them spent would leave those
+        // sources looking clean at an epoch no renderer ever built — a one-shot
+        // dirty mark destroyed by an exception somewhere else entirely. Giving
+        // them back costs the frame nothing it still had.
+        scene.rollbackDirtyBackdropSources(frame.id);
+        throw error;
       } finally {
         // A hook that throws still ends the frame. Left at the failing phase, the
         // scene would report the host's own error recovery — tearing the failed

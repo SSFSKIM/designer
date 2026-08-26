@@ -12,13 +12,25 @@
  * rather than one of its assertions.
  */
 
-import { NOMINAL_ACCESSIBILITY_POLICY, type GlassGroupState } from "@vitreajs/vitrea";
+import {
+  NOMINAL_ACCESSIBILITY_POLICY,
+  type BackdropProvider,
+  type GlassGroupState,
+  type GlassRenderer,
+  type WebGPURendererModule,
+} from "@vitreajs/vitrea";
 import { DEFAULT_GROUP_UNION, groupUnionFromMergeDistance } from "@vitrea/geometry";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { IDLE_CHANNELS } from "../src/channels";
+import { createPlatformDiagnosticsChannel } from "../src/diagnostics";
 import { MATERIAL_OPTICS } from "../src/optics";
-import { toRendererGroups, toRendererResolution } from "../src/renderer-bridge";
+import { createGlassLayerManager } from "../src/planes";
+import {
+  createGlassRendererBridge,
+  toRendererGroups,
+  toRendererResolution,
+} from "../src/renderer-bridge";
 import type {
   GlassFrameRenderInput,
   GlassGroupRenderInput,
@@ -283,5 +295,215 @@ describe("toRendererResolution", () => {
     );
 
     expect(resolution.groups).toHaveLength(1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The bridge itself, against a stubbed X7 seam
+// ---------------------------------------------------------------------------
+
+/**
+ * The `load` option exists so this half needs no adapter. What it buys is the
+ * two decisions that are about *when* the bridge acts rather than what it
+ * converts: whether a frame that cannot draw is allowed to spend core's rebuild
+ * claims, and what the bridge answers about a source's pixels.
+ */
+function stubModule(): {
+  readonly module: WebGPURendererModule;
+  readonly renderer: {
+    ready: boolean;
+    unbuiltSources: readonly string[];
+    readonly registered: { id: string; generation: number }[];
+    readonly drawn: unknown[];
+  };
+} {
+  const registered: { id: string; generation: number }[] = [];
+  const drawn: unknown[] = [];
+  const renderer = {
+    backend: "webgpu" as const,
+    ready: true,
+    unbuiltSources: [] as readonly string[],
+    registered,
+    drawn,
+    deviceStatus: { generation: 7 },
+    attachDevice: () => {},
+    replaceDevice: () => {},
+    registerBackdrop: (provider: { id: string; generation: number }) => {
+      registered.push({ id: provider.id, generation: provider.generation });
+    },
+    unregisterBackdrop: (sourceId: string) => {
+      const at = registered.findIndex((entry) => entry.id === sourceId);
+      if (at >= 0) registered.splice(at, 1);
+    },
+    setViewport: () => {},
+    setAccessibility: () => {},
+    setMaterialProfile: () => {},
+    setGroup: () => {},
+    removeGroup: () => {},
+    drawFrame: (args: unknown) => {
+      drawn.push(args);
+      return { groupsDrawn: 0, rebuilds: 0, skipped: [], unbuilt: [] };
+    },
+    collectAdaptation: async () => {},
+    destroy: () => {},
+  };
+
+  const module = {
+    createWebGPURenderer: () => renderer as unknown as GlassRenderer,
+    createCopyProvider: (options: { id: string; generation?: number }) =>
+      ({ id: options.id, generation: options.generation ?? 0 }) as unknown as BackdropProvider,
+    createVideoProvider: (options: { id: string; generation?: number }) =>
+      ({ id: options.id, generation: options.generation ?? 0 }) as unknown as BackdropProvider,
+  } satisfies WebGPURendererModule;
+
+  return { module, renderer };
+}
+
+/** jsdom canvases refuse every context; the bridge only needs a configurable one. */
+const stubCanvasContexts = (): (() => void) => {
+  const original = HTMLCanvasElement.prototype.getContext;
+  (HTMLCanvasElement.prototype as { getContext: unknown }).getContext = () => ({
+    configure: () => {},
+    unconfigure: () => {},
+    getCurrentTexture: () => ({ createView: () => ({}) }),
+  });
+  return () => {
+    (HTMLCanvasElement.prototype as { getContext: unknown }).getContext = original;
+  };
+};
+
+const idleDevice = (): GPUDevice =>
+  ({ lost: new Promise<never>(() => {}), destroy: () => {} }) as unknown as GPUDevice;
+
+async function attachedBridge(): Promise<{
+  readonly bridge: ReturnType<typeof createGlassRendererBridge>;
+  readonly renderer: ReturnType<typeof stubModule>["renderer"];
+  readonly restore: () => void;
+  readonly unavailable: () => number;
+}> {
+  const restore = stubCanvasContexts();
+  const { module, renderer } = stubModule();
+  let unavailable = 0;
+  const bridge = createGlassRendererBridge({
+    layers: createGlassLayerManager({ document }),
+    diagnostics: createPlatformDiagnosticsChannel(),
+    onRendererUnavailable: () => {
+      unavailable += 1;
+    },
+    load: async () => module,
+  });
+  bridge.syncDevice({
+    available: true,
+    deviceHealth: "ok",
+    ownership: "vitrea",
+    device: idleDevice(),
+  });
+  await bridge.ready();
+  return { bridge, renderer, restore, unavailable: () => unavailable };
+}
+
+describe("the dirty set is consumed only where something can build it", () => {
+  it("does not consume on a bridge that cannot draw", () => {
+    const bridge = createGlassRendererBridge({
+      layers: createGlassLayerManager({ document }),
+      diagnostics: createPlatformDiagnosticsChannel(),
+      onRendererUnavailable: () => {},
+      load: async () => stubModule().module,
+    });
+    const consume = vi.fn(() => []);
+
+    // No device yet, so `active()` is false. Consuming here would still commit
+    // `builtEpoch` in core — and the one-shot dirty mark a startup raster or a
+    // device-loss recovery depends on would be spent on a frame that built
+    // nothing, with nothing to mark it dirty again.
+    bridge.write(frame([group()], [{ plane: "base", nodes: [node()] }]), consume);
+
+    expect(consume).not.toHaveBeenCalled();
+  });
+
+  it("consumes exactly once on a bridge that can", async () => {
+    const { bridge, restore } = await attachedBridge();
+    const consume = vi.fn(() => []);
+
+    expect(bridge.active).toBe(true);
+    bridge.write(frame([group()], [{ plane: "base", nodes: [node()] }]), consume);
+
+    expect(consume).toHaveBeenCalledTimes(1);
+    restore();
+  });
+
+  it("carries the rebuilds on the first plane's draw and no other", async () => {
+    const { bridge, renderer, restore } = await attachedBridge();
+    const rebuild = { sourceId: "src", epoch: 1, resolution: "native", groupIds: ["g1"] };
+    bridge.write(
+      frame([group()], [{ plane: "base", nodes: [node()] }, { plane: "overlay", nodes: [] }]),
+      () => [rebuild] as never,
+    );
+    bridge.render();
+
+    const rebuilds = renderer.drawn.map((args) => (args as { rebuild: unknown[] }).rebuild);
+    expect(rebuilds).toEqual([[rebuild], []]);
+    restore();
+  });
+
+  it("hands back the sources the renderer could not build", async () => {
+    const { bridge, renderer, restore } = await attachedBridge();
+    renderer.unbuiltSources = ["src"];
+    bridge.write(frame([group()], [{ plane: "base", nodes: [node()] }]), () => []);
+
+    expect(bridge.render()).toEqual(["src"]);
+    restore();
+  });
+});
+
+describe("what the bridge knows about a source's pixels", () => {
+  const canvas = { kind: "canvas", canvas: document.createElement("canvas") } as const;
+  const image = { kind: "image", image: document.createElement("img") } as const;
+  const video = { kind: "video", video: document.createElement("video") } as const;
+
+  it("answers the supply question, not the provider question", () => {
+    const bridge = createGlassRendererBridge({
+      layers: createGlassLayerManager({ document }),
+      diagnostics: createPlatformDiagnosticsChannel(),
+      onRendererUnavailable: () => {},
+      load: async () => stubModule().module,
+    });
+
+    expect(bridge.hasBackdropTexture("src")).toBe(false);
+    // No device, so no provider was built — and the pixels are still supplied.
+    // Reporting them absent would demote the group for the whole handshake.
+    bridge.setBackdropTexture("src", canvas);
+    expect(bridge.hasBackdropTexture("src")).toBe(true);
+    bridge.setBackdropTexture("src", undefined);
+    expect(bridge.hasBackdropTexture("src")).toBe(false);
+  });
+
+  it("names video and canvas as per-frame, and a decoded image as not", () => {
+    const bridge = createGlassRendererBridge({
+      layers: createGlassLayerManager({ document }),
+      diagnostics: createPlatformDiagnosticsChannel(),
+      onRendererUnavailable: () => {},
+      load: async () => stubModule().module,
+    });
+    bridge.setBackdropTexture("live-canvas", canvas);
+    bridge.setBackdropTexture("still", image);
+    bridge.setBackdropTexture("clip", video);
+
+    expect([...bridge.perFrameBackdropSources()].sort()).toEqual(["clip", "live-canvas"]);
+  });
+
+  it("builds providers at the renderer's current generation, not at zero", async () => {
+    const { bridge, renderer, restore } = await attachedBridge();
+    bridge.setBackdropTexture("src", canvas);
+    bridge.setBackdropTexture("clip", video);
+
+    // A provider left at generation 0 while the renderer is already past it is
+    // invalidated on the first device replacement, throwing away storage that was
+    // built for the live device.
+    expect(renderer.registered).toEqual([
+      { id: "src", generation: 7 },
+      { id: "clip", generation: 7 },
+    ]);
+    restore();
   });
 });

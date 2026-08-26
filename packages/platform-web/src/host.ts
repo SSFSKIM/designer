@@ -25,8 +25,21 @@
  * measured rect, once per frame, in the read phase. One source of truth, and it
  * is the reason vitrea's own transforms (press compression, morph deformation)
  * are composed on top analytically instead of being written back into the shape:
- * a transform does not change a border-box rect, so no owned animation can ever
- * dirty the geometry it is animating.
+ * `ResizeObserver` does not fire for a transform, so no owned animation dirties
+ * the geometry it is animating and the frames it runs for stay at zero reads.
+ *
+ * What that reasoning does *not* license is measuring while one is live.
+ * `getBoundingClientRect` reports the transformed box, not the border box, so a
+ * read taken mid-press describes the compressed surface. Vitrea therefore
+ * measures around its own transforms: never during one, and once on the edge
+ * where one is cleared.
+ *
+ * ## vitrea owns `transform` on a registered host
+ *
+ * The press, lensing and morph drivers all write that one property, so an inline
+ * `transform` the app puts on a host is overwritten while the host is registered
+ * and removed when it is released — not composed with. Registration reports it in
+ * dev mode. Put the app's own transform on an ancestor or a descendant instead.
  */
 
 import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "@vitreajs/vitrea";
@@ -92,6 +105,11 @@ export interface GlassHostHandle {
   readonly groupId: string;
   readonly host: HTMLElement;
   readonly plane: GlassPlane;
+  /**
+   * Patch the declared material shape. Never re-measures: no field here can move
+   * the host's border box, and measuring anyway is how a press-time update wrote
+   * a transform-compressed rect into the scene.
+   */
   update(patch: GlassHostPatch): void;
   /**
    * Mark this host's geometry stale. The escape hatch for a layout change no
@@ -103,7 +121,13 @@ export interface GlassHostHandle {
   promoteTo(plane: GlassPlane): void;
   /**
    * Vitrea-owned visual transform, composed on top of the measured rect.
-   * Writing it never dirties geometry, which is the point.
+   *
+   * Setting or changing one never dirties geometry, which is the point: an
+   * animation that re-measured every frame would defeat the zero-read steady
+   * state. *Clearing* one marks the host dirty exactly once, because
+   * `getBoundingClientRect` reports the transformed box and any rect measured
+   * while the transform was live describes the deformed surface rather than the
+   * real one.
    */
   setOwnedTransform(transform: string | undefined): void;
   release(): void;

@@ -409,6 +409,97 @@ describe("a hook that throws", () => {
     scene.setNodeBounds("node", { x: 0, y: 0, width: 10, height: 10 });
     expect(diagnostics.reported).toEqual([]);
   });
+
+  it("gives back the rebuilds the failed frame claimed, so a one-shot dirty mark survives", () => {
+    const scene = seeded();
+    const scheduler = createFrameScheduler({ scene });
+    let handed = 0;
+    scheduler.addParticipant({
+      id: "renderer",
+      write: (context) => {
+        handed = context.consumeDirtyBackdropSources().length;
+      },
+      render: () => {
+        throw new Error("device lost mid-render");
+      },
+    });
+
+    // The one dirty mark this source will ever get — a static raster imported
+    // once, or a device-loss recovery. Nothing re-marks it.
+    scene.markBackdropSourceDirty("src");
+    expect(() => scheduler.runFrame({ id: 1, timeMs: 0 })).toThrow(/device lost/);
+
+    expect(handed).toBe(1);
+    // Consuming committed `builtEpoch` at hand-out, and the frame died before
+    // anything was built. Left committed, the source would sit clean at an epoch
+    // whose pixels were never imported, forever.
+    expect(scene.backdropSource("src")?.builtEpoch).toBe(0);
+    expect(scene.dirtyBackdropSources().map((source) => source.descriptor.id)).toEqual(["src"]);
+  });
+
+  it("lets the next frame actually build what the failed one gave back", () => {
+    const scene = seeded();
+    const scheduler = createFrameScheduler({ scene });
+    let fail = true;
+    const epochs: number[] = [];
+    scheduler.addParticipant({
+      id: "renderer",
+      write: (context) => {
+        for (const request of context.consumeDirtyBackdropSources()) epochs.push(request.epoch);
+      },
+      render: () => {
+        if (fail) throw new Error("first frame dies");
+      },
+    });
+
+    scene.markBackdropSourceDirty("src");
+    expect(() => scheduler.runFrame({ id: 1, timeMs: 0 })).toThrow();
+    fail = false;
+    const recovered = scheduler.runFrame({ id: 2, timeMs: 16 });
+
+    expect(epochs).toEqual([1, 1]);
+    expect(recovered.pendingSources).toEqual([]);
+    expect(scene.backdropSource("src")?.builtEpoch).toBe(1);
+  });
+
+  it("leaves a dirty mark that arrived after the hand-out alone", () => {
+    const scene = seeded();
+    const scheduler = createFrameScheduler({ scene });
+    scheduler.addParticipant({
+      id: "renderer",
+      write: (context) => void context.consumeDirtyBackdropSources(),
+      render: () => {
+        // A live source keeps changing while the frame is failing; the rollback
+        // restores the older `builtEpoch` and must not touch `dirtyEpoch`.
+        scene.markBackdropSourceDirty("src");
+        throw new Error("boom");
+      },
+    });
+
+    scene.markBackdropSourceDirty("src");
+    expect(() => scheduler.runFrame({ id: 1, timeMs: 0 })).toThrow();
+
+    expect(scene.backdropSource("src")?.dirtyEpoch).toBe(2);
+    expect(scene.backdropSource("src")?.builtEpoch).toBe(0);
+  });
+
+  it("rolls back only the frame that consumed, and only once", () => {
+    const scene = seeded();
+    const scheduler = createFrameScheduler({ scene });
+    scheduler.addParticipant({
+      id: "renderer",
+      write: (context) => void context.consumeDirtyBackdropSources(),
+    });
+
+    scene.markBackdropSourceDirty("src");
+    scheduler.runFrame({ id: 1, timeMs: 0 });
+
+    expect(scene.rollbackDirtyBackdropSources(2)).toEqual([]);
+    expect(scene.backdropSource("src")?.builtEpoch).toBe(1);
+    expect(scene.rollbackDirtyBackdropSources(1)).toEqual(["src"]);
+    expect(scene.backdropSource("src")?.builtEpoch).toBe(0);
+    expect(scene.rollbackDirtyBackdropSources(1)).toEqual([]);
+  });
 });
 
 describe("measurement is scoped to the read phase", () => {
