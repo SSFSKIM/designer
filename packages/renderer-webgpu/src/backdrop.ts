@@ -36,6 +36,18 @@
  * stalls, which is why the two cases are separate provider inputs rather than one
  * permissive union.
  *
+ * ## Device generations
+ *
+ * The same WebGPU fact has a second consequence, and it is the one easiest to get
+ * wrong: a provider closes over the device it was built with, so when that device
+ * dies the provider holds storage nothing can bind and a texture handle nothing
+ * will complain about. `invalidate(generation, device)` is how a provider crosses
+ * that boundary — new device adopted, old storage dropped, re-import armed — and
+ * `generation` is the tag that says which side of it the provider is on. The
+ * app-texture provider is the exception on purpose: the renderer cannot re-make
+ * someone else's texture, so it refuses rather than binding a foreign-device view
+ * that would render nothing and report nothing.
+ *
  * ## Validation at registration
  *
  * Also X3: app-supplied views "must satisfy declared usage/format/dimension
@@ -91,6 +103,13 @@ export interface FrameInfoView {
 export interface BackdropProvider {
   readonly id: string;
   readonly kind: BackdropKind;
+  /**
+   * The device generation this provider's storage belongs to (`device.ts`'s
+   * counter). A provider built under one generation holds nothing a later
+   * generation can bind, and the failure is silent — so the number is here to be
+   * compared, cheaply, before anything of the provider's is used.
+   */
+  readonly generation: number;
   /** True when content may have changed since the last successful import. */
   isDirty(): boolean;
   /** X3: at frame start. Throws `source-unavailable` if the source cannot serve. */
@@ -99,6 +118,21 @@ export interface BackdropProvider {
   release(): void;
   /** Called once the import pass has consumed the frame's pixels. */
   markImported(): void;
+  /**
+   * Adopt `device` at `generation`: the device that built this provider's storage
+   * is gone.
+   *
+   * Every provider closes over the device it was built with, so a reset that only
+   * cleared the dirty flags would re-import onto the dead device and hand the new
+   * one a foreign texture. Hence the device travels with the call.
+   *
+   * A provider whose storage the renderer allocated drops it and arms a
+   * re-import, so recovery flows through the ordinary dirty path. A provider
+   * wrapping the *app's* own texture cannot be re-pointed at all — WebGPU has no
+   * cross-device sharing, and the app owns the texture — so it refuses every
+   * later `acquire` with a typed error instead of binding a foreign-device view.
+   */
+  invalidate(generation: number, device: BackdropDevice): void;
   /**
    * Re-declare the source's extent. Implemented where the renderer allocates the
    * storage (image, canvas); absent where the source declares its own size.
@@ -169,14 +203,17 @@ export interface CopyProviderOptions {
    * (§Core model invariant).
    */
   readonly live?: boolean;
+  /** The device generation this provider is being built under. See `BackdropProvider.generation`. */
+  readonly generation?: number;
 }
 
 export function createCopyProvider(options: CopyProviderOptions): BackdropProvider {
-  const { device } = options;
+  let device = options.device;
   const size = { epoch: 0, width: options.width, height: options.height };
   const live = options.live ?? options.kind === "canvas";
   let dirty = true;
   let texture: GPUTexture | undefined;
+  let generation = options.generation ?? 0;
 
   const ensureTexture = (): GPUTexture => {
     if (texture !== undefined && texture.width === size.width && texture.height === size.height) {
@@ -197,6 +234,10 @@ export function createCopyProvider(options: CopyProviderOptions): BackdropProvid
   return {
     id: options.id,
     kind: options.kind,
+
+    get generation() {
+      return generation;
+    },
 
     isDirty() {
       return dirty || live;
@@ -246,6 +287,17 @@ export function createCopyProvider(options: CopyProviderOptions): BackdropProvid
       dirty = false;
     },
 
+    invalidate(next, nextDevice) {
+      generation = next;
+      device = nextDevice;
+      // The upload texture belonged to the dead device. Dropping it and arming
+      // the dirty flag is the whole recovery: the next acquire allocates on the
+      // new device and re-copies, through the same path a content change takes.
+      texture?.destroy();
+      texture = undefined;
+      dirty = true;
+    },
+
     resize(width, height) {
       const changed = size.width !== width || size.height !== height;
       trackSize(size, width, height);
@@ -275,17 +327,24 @@ export interface VideoProviderOptions {
     | { readonly kind: "element"; readonly element: HTMLVideoElement }
     | { readonly kind: "frames"; readonly next: () => VideoFrame | undefined };
   readonly colorSpace?: BackdropColorSpace;
+  /** The device generation this provider is being built under. See `BackdropProvider.generation`. */
+  readonly generation?: number;
 }
 
 export function createVideoProvider(options: VideoProviderOptions): BackdropProvider {
-  const { device } = options;
+  let device = options.device;
   const size = { epoch: 0, width: 0, height: 0 };
   let ownedFrame: VideoFrame | undefined;
   let acquired = false;
+  let generation = options.generation ?? 0;
 
   return {
     id: options.id,
     kind: "video",
+
+    get generation() {
+      return generation;
+    },
 
     isDirty() {
       // `importExternalTexture` handles expire at task end, so a video is dirty
@@ -328,11 +387,23 @@ export function createVideoProvider(options: VideoProviderOptions): BackdropProv
         source = frame;
       }
 
-      const texture = device.importExternalTexture({
-        label: `vitrea:backdrop:${options.id}:external`,
-        source,
-        colorSpace: "srgb",
-      });
+      let texture: GPUExternalTexture;
+      try {
+        texture = device.importExternalTexture({
+          label: `vitrea:backdrop:${options.id}:external`,
+          source,
+          colorSpace: "srgb",
+        });
+      } catch (error) {
+        // The frame is already this provider's to close, and a throw here leaves
+        // `acquired` false — so no release is queued and the next acquire would
+        // overwrite `ownedFrame`, leaking one decoder buffer per failure until
+        // playback stalls. Closing before the rethrow keeps the ownership rule
+        // ("close ownership held by the provider") true on the failure path too.
+        ownedFrame?.close();
+        ownedFrame = undefined;
+        throw error;
+      }
       acquired = true;
 
       return {
@@ -357,6 +428,17 @@ export function createVideoProvider(options: VideoProviderOptions): BackdropProv
 
     markImported() {
       // A video is dirty again immediately; nothing to record.
+    },
+
+    invalidate(next, nextDevice) {
+      generation = next;
+      device = nextDevice;
+      // An external texture from the dead device is already gone — imports expire
+      // at task end — so all that is owed here is the frame this provider holds
+      // and the acquire/release pairing, which the loss interrupted mid-flight.
+      ownedFrame?.close();
+      ownedFrame = undefined;
+      acquired = false;
     },
 
     destroy() {
@@ -386,6 +468,8 @@ export interface GradientProviderOptions {
   readonly direction?: readonly [number, number];
   readonly width?: number;
   readonly height?: number;
+  /** The device generation this provider is being built under. See `BackdropProvider.generation`. */
+  readonly generation?: number;
 }
 
 /**
@@ -464,24 +548,30 @@ export function createGradientProvider(options: GradientProviderOptions): Backdr
 
   let texture: GPUTexture | undefined;
   let uploaded = false;
+  let device = options.device;
+  let generation = options.generation ?? 0;
 
   return {
     id: options.id,
     kind: "gradient",
+
+    get generation() {
+      return generation;
+    },
 
     isDirty() {
       return !uploaded;
     },
 
     acquire() {
-      texture ??= options.device.createTexture({
+      texture ??= device.createTexture({
         label: `vitrea:backdrop:${options.id}:gradient`,
         size: { width, height, depthOrArrayLayers: 1 },
         format: "rgba8unorm",
         usage: copyUsage(),
       });
       if (!uploaded) {
-        options.device.queue.writeTexture(
+        device.queue.writeTexture(
           { texture },
           texels,
           { bytesPerRow: width * 4, rowsPerImage: height },
@@ -506,6 +596,18 @@ export function createGradientProvider(options: GradientProviderOptions): Backdr
 
     markImported() {
       uploaded = true;
+    },
+
+    invalidate(next, nextDevice) {
+      generation = next;
+      device = nextDevice;
+      // A gradient is static, so `uploaded` is the only thing standing between it
+      // and a silent black backdrop after a loss: without the reset the next
+      // acquire hands out a view of a texture the dead device made and never
+      // writes the texels again. The pixels themselves are CPU-side and survive.
+      texture?.destroy();
+      texture = undefined;
+      uploaded = false;
     },
 
     destroy() {
@@ -548,6 +650,12 @@ export interface AppTextureProviderOptions {
   readonly alphaMode?: BackdropAlphaMode;
   /** Whether the app's values are sRGB-encoded. A float target is usually linear. */
   readonly encoded?: boolean;
+  /**
+   * The device generation the app's texture belongs to. See
+   * `BackdropProvider.generation` — this is the number `acquire` refuses against
+   * once the renderer has moved on to a later device.
+   */
+  readonly generation?: number;
 }
 
 /**
@@ -619,9 +727,16 @@ export function createAppTextureProvider(options: AppTextureProviderOptions): Ba
     height: options.texture.height,
   };
 
+  const builtGeneration = options.generation ?? 0;
+  let generation = builtGeneration;
+
   return {
     id: options.id,
     kind: "app-texture-view",
+
+    get generation() {
+      return generation;
+    },
 
     isDirty() {
       // The app may redraw into its own texture at any time and the renderer has
@@ -631,6 +746,19 @@ export function createAppTextureProvider(options: AppTextureProviderOptions): Ba
     },
 
     acquire() {
+      // One integer compare, which is the only check available: a
+      // `GPUTextureView` carries no evidence of the device that made it, and
+      // binding one from a superseded device produces no error the renderer can
+      // see — only a pass that quietly renders nothing. X3's "never discovered at
+      // draw time" cuts the other way here, so the refusal is loud and names the
+      // handshake that clears it.
+      if (generation !== builtGeneration) {
+        throw rendererError(
+          "source-unavailable",
+          `Backdrop "${options.id}" wraps a GPUTexture from device generation ${builtGeneration}, and the renderer is now on generation ${generation}. WebGPU has no cross-device texture sharing: unregister this source and register the replacement texture the app made on the new device.`,
+          options.id,
+        );
+      }
       return {
         sourceId: options.id,
         binding: {
@@ -652,6 +780,13 @@ export function createAppTextureProvider(options: AppTextureProviderOptions): Ba
 
     markImported() {
       // Nothing to record.
+    },
+
+    invalidate(next) {
+      // Nothing to drop and nothing to re-point: the texture is the app's, made
+      // on a device this provider does not own. Recording the generation is what
+      // turns the next acquire into a refusal.
+      generation = next;
     },
 
     destroy() {

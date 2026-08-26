@@ -64,7 +64,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   rim : vec4f,
   /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
   light : vec4f,
-  /// hasBackdrop, fieldSize.xy, unused
+  /// hasBackdrop, fieldSize.xy, fieldUpsampled
   flags : vec4f,
 };
 
@@ -74,6 +74,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 @group(0) @binding(3) var backdropSampler : sampler;
 @group(0) @binding(4) var backdropChain : texture_2d<f32>;
 @group(0) @binding(5) var backdropBody : texture_2d<f32>;
+@group(0) @binding(6) var fieldSampler : sampler;
 
 /// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
 /// side. Symmetric, so the rim is a band on the boundary rather than a plateau
@@ -85,9 +86,21 @@ fn rim_weight(d : f32, width : f32) -> f32 {
 
 @fragment
 fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
-  let texel = vec2i(in.uv * ou.flags.yz);
-  let field = textureLoad(fieldTexture, texel, 0);
-  let aux = textureLoad(auxTexture, texel, 0);
+  // Nominally the field is one texel per device pixel, so the read is an exact
+  // load and no filter touches the distance or the normal. Under the governor's
+  // 'refractionResolutionScale' the field was rasterised smaller than the group's
+  // rect, and then it has to be filtered: a nearest read would quantise the
+  // contour to the coarse grid and the rim would step along it.
+  var field : vec4f;
+  var aux : vec4f;
+  if (ou.flags.w > 0.5) {
+    field = textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0);
+    aux = textureSampleLevel(auxTexture, fieldSampler, in.uv, 0.0);
+  } else {
+    let texel = vec2i(in.uv * ou.flags.yz);
+    field = textureLoad(fieldTexture, texel, 0);
+    aux = textureLoad(auxTexture, texel, 0);
+  }
 
   let d = field.x;
   let normal = field.yz;

@@ -285,8 +285,13 @@ async function runScene(
   scene: Scene,
   family?: "rsupn" | "rsup",
   materialProfile?: MaterialProfilePatch,
+  governorLevel?: number,
 ): Promise<SceneRun> {
   const run = await setUpScene(scene, materialProfile);
+  // The rung first, the family second: a caller naming both means "this rung,
+  // but hold the field family", which is how the family comparison isolates one
+  // knob at a time.
+  if (governorLevel !== undefined) run.renderer.governor.setLevel(governorLevel);
   if (family !== undefined) run.renderer.governor.set({ fieldFamily: family });
   const frames = scene.warmupFrames ?? 1;
   for (let frame = 1; frame <= frames; frame += 1) {
@@ -345,6 +350,38 @@ const api = {
   }> {
     const scene = sceneByName(name);
     const run = await runScene(scene, family, materialProfile);
+    try {
+      const target = scene.capture === "highlight" ? run.highlight : run.optics;
+      const bytes = await readback(await ensureDevice(), target.texture, run.width, run.height);
+      if (gpuErrors.length > 0) {
+        throw new Error(`WebGPU reported ${gpuErrors.length} error(s): ${gpuErrors.join(" | ")}`);
+      }
+      return { width: run.width, height: run.height, pixels: toBase64(bytes) };
+    } finally {
+      run.dispose();
+    }
+  },
+
+  /**
+   * Render one scene at a rung of the governor's ladder.
+   *
+   * Rungs 2 and 3 turn `refractionResolutionScale` down, which rasterises the
+   * group's field targets below device resolution and makes the optics and
+   * highlight passes *filter* what they read instead of indexing it. That branch
+   * exists only under the knob, so it is compiled and executed nowhere else — and
+   * a WebGPU validation failure is an event rather than an exception, so nothing
+   * but a real adapter can say whether the branch is legal. Hence this seam.
+   */
+  async renderAtGovernorLevel(
+    name: string,
+    level: number,
+  ): Promise<{
+    readonly width: number;
+    readonly height: number;
+    readonly pixels: string;
+  }> {
+    const scene = sceneByName(name);
+    const run = await runScene(scene, undefined, undefined, level);
     try {
       const target = scene.capture === "highlight" ? run.highlight : run.optics;
       const bytes = await readback(await ensureDevice(), target.texture, run.width, run.height);

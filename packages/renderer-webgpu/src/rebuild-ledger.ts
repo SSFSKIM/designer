@@ -19,7 +19,12 @@
  */
 
 export interface RebuildLedger {
-  /** Begin a frame. Clears the per-frame tally. */
+  /**
+   * Begin a frame. Clears the per-frame tally — unless `frameId` is the frame
+   * already being recorded, which is not a new frame and must not reopen the
+   * tally. The renderer draws one plane per call with the same `FrameInfo`, so
+   * that case is the ordinary one rather than the exception.
+   */
   beginFrame(frameId: number): void;
   readonly frameId: number | undefined;
   /**
@@ -51,6 +56,15 @@ export function createRebuildLedger(): RebuildLedger {
 
   return {
     beginFrame(next) {
+      // Repeating a frame id is not a new frame, and clearing the tally for one
+      // would quietly hand every source a second rebuild. The renderer calls
+      // `drawFrame` once per PLANE with the same `FrameInfo`, so this is the
+      // ordinary case rather than a defensive one: without the guard the
+      // "at most once per dirty source per frame" invariant is unguarded across
+      // planes, and `countInFrame` reports 0 for a frame that rebuilt.
+      // `FrameInfo.id` is contractually monotonic (core/src/frame.ts), so
+      // equality is the whole test.
+      if (frameId === next) return;
       frameId = next;
       perFrame.clear();
     },

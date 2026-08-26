@@ -158,7 +158,16 @@ export function createDeviceHost(options: DeviceHostOptions = {}): DeviceHost {
       if (reacquire === undefined) return;
       recovery = (async () => {
         const replacement = await reacquire();
-        if (destroyed || replacement === undefined) return;
+        // A `destroy()` that lands while the re-request is in flight still has to
+        // account for what the re-request produced. Returning without destroying
+        // it leaks a whole GPUDevice on the one path where this module IS the
+        // owner — the host has no handle to it, because it never learned the
+        // reacquire had finished.
+        if (destroyed) {
+          replacement?.destroy();
+          return;
+        }
+        if (replacement === undefined) return;
         attach(replacement, "vitrea");
       })();
     });

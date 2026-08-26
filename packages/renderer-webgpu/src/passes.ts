@@ -60,6 +60,14 @@ export interface FieldPassArgs {
   readonly cssPerDevice: number;
   /** Coverage ramp width in CSS px. One device pixel, unless the governor widens it. */
   readonly coverageRampCss: number;
+  /**
+   * The governor's `refractionResolutionScale`, 0 < s <= 1. The field targets are
+   * allocated at `rectDevice * s` and the optics and highlight passes upsample
+   * them; the *rect* is unchanged, so the group still covers the same pixels.
+   * `1` is the nominal path and takes exactly the arithmetic it took before the
+   * knob existed.
+   */
+  readonly renderScale: number;
   readonly instances: Float32Array;
   readonly instanceCount: number;
   readonly union: { readonly neckWidth: number; readonly maxBulge: number; readonly separationThreshold: number };
@@ -68,8 +76,15 @@ export interface FieldPassArgs {
 export interface FieldTargets {
   readonly field: GPUTexture;
   readonly aux: GPUTexture;
+  /** The field textures' extent in texels — the group's rect times `renderScale`. */
   readonly width: number;
   readonly height: number;
+  /**
+   * True when that extent is smaller than the group's rect, so a reader has to
+   * filter rather than index. False on the nominal path, where one texel is one
+   * device pixel and the read is an exact `textureLoad`.
+   */
+  readonly upsampled: boolean;
 }
 
 export interface OpticsPassArgs {
@@ -240,8 +255,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
     placeholderView,
 
     fieldPass(encoder, args) {
-      const width = Math.max(1, Math.round(args.rectDevice.width));
-      const height = Math.max(1, Math.round(args.rectDevice.height));
+      // The rect the group occupies on the canvas, and the extent the field is
+      // rasterised at. They differ only under the governor's resolution knob, and
+      // at scale 1 the second is the first — `Math.round(w * 1)` on an integer.
+      const rectWidth = Math.max(1, Math.round(args.rectDevice.width));
+      const rectHeight = Math.max(1, Math.round(args.rectDevice.height));
+      const width = Math.max(1, Math.round(args.rectDevice.width * args.renderScale));
+      const height = Math.max(1, Math.round(args.rectDevice.height * args.renderScale));
 
       const field = pool.acquire(poolKey.groupField(args.groupId), {
         width,
@@ -261,11 +281,18 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // Twelve floats: screen, unionP, counts. The group's origin is deliberately
       // absent — instance centres are packed relative to it, so the shader works
       // in group-local coordinates and never adds it back.
+      //
+      // `screen.xy` is the group's extent in DEVICE px, not the target's, because
+      // the shader multiplies it by `screen.z` to recover group-local CSS. Under
+      // the resolution knob the target shrinks while the group does not, and it
+      // is the group the geometry is expressed in.
       const slot = uniformSlot(`field:${args.groupId}`, 12);
-      slot.data[0] = width;
-      slot.data[1] = height;
+      slot.data[0] = rectWidth;
+      slot.data[1] = rectHeight;
       slot.data[2] = args.cssPerDevice;
-      slot.data[3] = args.coverageRampCss;
+      // One TARGET pixel wide, so the analytic coverage stays one texel of
+      // antialiasing however coarse the target is. At scale 1 the ratio is 1.
+      slot.data[3] = args.coverageRampCss * (rectWidth / width);
       slot.data[4] = args.union.neckWidth;
       slot.data[5] = args.union.maxBulge;
       slot.data[6] = args.union.separationThreshold;
@@ -315,7 +342,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
       pass.draw(3);
       pass.end();
 
-      return { field, aux, width, height };
+      return {
+        field,
+        aux,
+        width,
+        height,
+        upsampled: width !== rectWidth || height !== rectHeight,
+      };
     },
 
     opticsPass(encoder, args) {
@@ -352,7 +385,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[28] = args.backdrop === undefined ? 0 : 1;
       d[29] = args.fields.width;
       d[30] = args.fields.height;
-      d[31] = 0;
+      d[31] = args.fields.upsampled ? 1 : 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -377,6 +410,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 3, resource: context.chainSampler },
             { binding: 4, resource: chain },
             { binding: 5, resource: body },
+            // Linear, no mips: the field targets have one level, and this is only
+            // read at all when the governor shrank them below the group's rect.
+            { binding: 6, resource: context.flatSampler },
           ],
         }),
       );
@@ -405,7 +441,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[15] = 0;
       d[16] = args.fields.width;
       d[17] = args.fields.height;
-      d[18] = 0;
+      d[18] = args.fields.upsampled ? 1 : 0;
       d[19] = 0;
       slot.write();
 
@@ -425,6 +461,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 0, resource: { buffer: slot.buffer } },
             { binding: 1, resource: args.fields.field.createView() },
             { binding: 2, resource: args.fields.aux.createView() },
+            { binding: 3, resource: context.flatSampler },
           ],
         }),
       );

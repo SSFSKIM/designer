@@ -21,9 +21,21 @@
  *    resolution change, so nothing resamples and nothing shimmers as it engages.
  *    **Conditional on the f32 cross-check** (Decision Log #20) — and the check
  *    has now been run, so the condition is met. See `FAMILY_C_CROSS_CHECK`.
- * 2. **`refractionResolutionScale`** — the group field and optics render at a
- *    fraction of device resolution and upsample. Quadratic saving on the two
- *    heaviest passes, and the most visible step, so it comes second.
+ * 2. **`refractionResolutionScale`** — the group's **field** targets are
+ *    rasterised at a fraction of device resolution, and the optics and highlight
+ *    passes filter them instead of indexing them (`passes.ts`, and the
+ *    `fieldUpsampled` flag both shaders branch on). Quadratic saving on the pass
+ *    that evaluates the pseudo-SDF union per pixel per member, and the most
+ *    visible step, so it comes second.
+ *
+ *    What it does **not** yet do is shrink the optics and highlight passes
+ *    themselves: those still render at full device resolution into the plane
+ *    canvases, because rendering them smaller means an offscreen target and a
+ *    resolve pass rather than a change of extent. So rungs 2 and 3 deliver the
+ *    field's quadratic saving and the cadence saving, not the full quadratic
+ *    saving on both heavy passes. Recorded here rather than implied, because a
+ *    ladder whose rungs are priced for savings they do not deliver is a ladder
+ *    core's policy will walk too far down.
  * 3. **`adaptationCadenceHz`** — how often analysis is reduced and read back.
  *    Cheapest of the three in visual terms because the values it feeds are
  *    already low-passed over hundreds of milliseconds; dropping the cadence
@@ -35,7 +47,11 @@ export type FieldFamily = "rsupn" | "rsup";
 export interface GovernorKnobs {
   /** Which pseudo-SDF family the field pass compiles. */
   readonly fieldFamily: FieldFamily;
-  /** Device-resolution fraction for the field and optics passes, 0 < s <= 1. */
+  /**
+   * Device-resolution fraction the group's field targets are rasterised at,
+   * 0 < s <= 1. The optics and highlight passes upsample what they read. See the
+   * module note for what this does and does not save.
+   */
   readonly refractionResolutionScale: number;
   /** Analysis reduction + readback rate. 0 disables adaptation entirely. */
   readonly adaptationCadenceHz: number;

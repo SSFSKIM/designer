@@ -114,11 +114,26 @@ export interface PyramidStore {
     encoder: GPUCommandEncoder,
   ): PyramidBuildOutcome;
   /**
-   * Everything that must happen after `queue.submit`: provider releases, and
-   * starting the analysis readback maps. Both are ordering-critical — see the
-   * implementation.
+   * Release every provider acquired this frame.
+   *
+   * Split from `afterSubmit` because the two halves have opposite failure rules.
+   * A release is owed whether or not the frame reached the queue — an acquired
+   * `VideoFrame` held across a frame stalls decoding — so this belongs in a
+   * `finally` around the whole encode/submit. Call it after `queue.submit` on the
+   * success path: an imported external texture must outlive the submission that
+   * samples it.
+   */
+  releaseAcquired(): void;
+  /**
+   * Start the analysis readback maps. **Success path only**: `mapAsync` makes a
+   * buffer unavailable to submits from the moment it is called, so starting a map
+   * for a copy that was never submitted is its own bug — see `requestStats`.
    */
   afterSubmit(): void;
+  /**
+   * The source's pyramid, or `undefined` when it has none the pool still owns.
+   * A caller may bind what this returns without checking anything further.
+   */
   resources(sourceId: string): PyramidResources | undefined;
   /** Copy a source's stats into a staging buffer and map it. Cadence-gated by the caller. */
   requestStats(sourceId: string, encoder: GPUCommandEncoder): boolean;
@@ -208,6 +223,26 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         entryPoint: "cs_analysis",
       },
     }));
+
+  /**
+   * The source's resources, or `undefined` when the handles it recorded are no
+   * longer the pool's.
+   *
+   * The pool owns the lifetime of both textures and can destroy them without this
+   * store hearing about it — a size-epoch sweep, a device-loss `clear()`. The
+   * recorded handles then name destroyed textures, and binding one is a WebGPU
+   * validation error that takes the whole plane's encoder down with it. Two
+   * identity compares turn that into "there is no backdrop this frame", which the
+   * optics pass already has a placeholder for: unrefracted glass for a frame,
+   * rather than a dropped one.
+   */
+  const liveResources = (sourceId: string): PyramidResources | undefined => {
+    const target = resources.get(sourceId);
+    if (target === undefined) return undefined;
+    if (pool.peek(poolKey.backdropChain(sourceId)) !== target.chain) return undefined;
+    if (pool.peek(poolKey.backdropBody(sourceId)) !== target.body) return undefined;
+    return target;
+  };
 
   const mipView = (texture: GPUTexture, level: number): GPUTextureView =>
     texture.createView({ baseMipLevel: level, mipLevelCount: 1, dimension: "2d" });
@@ -502,7 +537,11 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     },
 
     build(request, provider, encoder) {
-      const existing = resources.get(request.sourceId);
+      // The LIVE resources, not merely the recorded ones: a clean-skip against a
+      // handle the pool has already destroyed would leave the source with no
+      // usable pyramid and no way back — the skip is exactly what stops the
+      // reallocation that would heal it.
+      const existing = liveResources(request.sourceId);
       if (
         existing !== undefined &&
         existing.builtEpoch >= request.epoch &&
@@ -565,9 +604,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       return { status: "built", resources: target };
     },
 
-    afterSubmit() {
-      // Providers first, in acquisition order. A provider that throws on release
-      // must not strand the others — a leaked VideoFrame stalls decoding.
+    releaseAcquired() {
+      // In acquisition order. A provider that throws on release must not strand
+      // the others — a leaked VideoFrame stalls decoding.
       while (pendingRelease.length > 0) {
         const provider = pendingRelease.shift();
         try {
@@ -576,8 +615,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
           // Deliberately swallowed; see above.
         }
       }
+    },
 
-      // Then the readback maps, now that the copies they read are in the queue.
+    afterSubmit() {
+      // The readback maps, now that the copies they read are in the queue.
       while (pendingMaps.length > 0) {
         const sourceId = pendingMaps.shift();
         if (sourceId === undefined) continue;
@@ -603,11 +644,11 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     },
 
     resources(sourceId) {
-      return resources.get(sourceId);
+      return liveResources(sourceId);
     },
 
     requestStats(sourceId, encoder) {
-      const target = resources.get(sourceId);
+      const target = liveResources(sourceId);
       if (target === undefined) return false;
 
       let readback = readbacks.get(sourceId);

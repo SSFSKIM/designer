@@ -21,10 +21,22 @@
  * ## Device generations
  *
  * Everything GPU-shaped hangs off a `GpuContext` tagged with the device generation
- * that made it. On loss the context is dropped whole and every backdrop is marked
- * for re-import, so recovery flows through the ordinary
- * one-rebuild-per-dirty-source-per-frame path instead of a special case — which
+ * that made it. On loss the context is dropped whole, and the first frame on the
+ * replacement re-points every registered provider at the new device and marks it
+ * for re-import — so recovery flows through the ordinary
+ * one-rebuild-per-dirty-source-per-frame path instead of a special case, which
  * means the recovery path is exercised by the same tests as the steady state.
+ *
+ * `ensureContext` is where that happens rather than the loss teardown, and the
+ * reason is timing: the teardown runs while there is no device to adopt, and this
+ * is the one place that knows both that a generation was superseded and what
+ * replaced it. It also runs before anything acquires on the new device, which the
+ * teardown cannot promise.
+ *
+ * The one provider that cannot be re-pointed is a backdrop over the *app's* own
+ * texture: WebGPU has no cross-device sharing and the renderer does not own the
+ * texture, so that provider refuses instead, and the refused rebuild is reported
+ * through `unbuiltSources` for the host to act on.
  */
 
 import { DEFAULT_GROUP_UNION, type GroupUnionParams } from "@vitrea/geometry";
@@ -137,6 +149,12 @@ export interface DrawFrameResult {
   readonly groupsDrawn: number;
   readonly rebuilds: number;
   readonly skipped: readonly { readonly groupId: string; readonly reason: string }[];
+  /**
+   * Source ids core handed out a rebuild for that this frame did **not** build.
+   * The same list as `GlassRenderer.unbuiltSources` — see it for what a caller
+   * owes.
+   */
+  readonly unbuilt: readonly string[];
 }
 
 export interface WebGPURendererOptions {
@@ -169,6 +187,25 @@ export interface GlassRenderer {
   readonly capabilityInput: DeviceCapabilityInput;
   readonly governor: Governor;
   readonly instrumentation: RendererInstrumentation;
+  /**
+   * The source ids the most recent frame was handed a rebuild for and did not
+   * build — because no provider is registered under the id, or because the
+   * provider could not serve a frame.
+   *
+   * This exists because core commits `builtEpoch` when it *hands out* the
+   * request, not when the renderer finishes: a request dropped here is a claim
+   * spent on nothing, and the source would sit clean at an epoch whose pixels
+   * were never imported. Core has no view of this side of the wire, so the
+   * renderer names the losses and the platform layer re-dirties them — one frame
+   * of latency, and no new core surface.
+   *
+   * Accumulated across the frame's planes, not per `drawFrame` call: a host draws
+   * one plane per call with the same frame id and hands the dirty set to the
+   * first of them only, so a later plane's empty answer must not erase what the
+   * first one found. Read after the frame's last plane, or after the
+   * participant's `render` phase. Empty on every ordinary frame.
+   */
+  readonly unbuiltSources: readonly string[];
 
   attachDevice(device: GPUDevice, ownership?: DeviceOwnership): void;
   replaceDevice(device: GPUDevice): void;
@@ -225,6 +262,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     devicePixelRatio: 1,
   };
   let context: GpuContext | undefined;
+  /**
+   * The last device generation a context was built for. Kept apart from
+   * `context` because it has to survive `dropContext()` — the loss teardown runs
+   * long before the replacement arrives, and "which generation did the providers
+   * build against" is the question the replacement has to answer.
+   */
+  let builtGeneration: number | undefined;
   let store: PyramidStore | undefined;
   let runner: PassRunner | undefined;
   let framesDrawn = 0;
@@ -235,6 +279,24 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     | undefined;
   let pendingEncoder: GPUCommandEncoder | undefined;
   let pendingRebuilds = 0;
+  let pendingUnbuilt: string[] = [];
+  let unbuiltFrameId: number | undefined;
+
+  /**
+   * Accumulate the frame's unbuilt sources, across planes.
+   *
+   * A host draws one plane per `drawFrame` with the same frame id and hands the
+   * dirty set to the first of them only, so the later planes' empty lists must
+   * not erase what the first one found. Same rule as the rebuild ledger's, for
+   * the same reason: a repeated frame id is one frame.
+   */
+  const recordUnbuilt = (frameId: number, ids: readonly string[]): void => {
+    if (unbuiltFrameId !== frameId) {
+      unbuiltFrameId = frameId;
+      pendingUnbuilt = [];
+    }
+    for (const id of ids) if (!pendingUnbuilt.includes(id)) pendingUnbuilt.push(id);
+  };
 
   const governor = createGovernor({
     ...(options.familyCVerified === undefined ? {} : { familyCVerified: options.familyCVerified }),
@@ -274,10 +336,26 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     const device = host.requireDevice();
     const generation = host.status.generation;
     if (context === undefined || context.generation !== generation) {
+      const superseded = builtGeneration;
       dropContext();
       context = createGpuContext(device, generation);
+      builtGeneration = generation;
       store = createPyramidStore(context);
       runner = createPassRunner(context);
+      // The providers outlive the context, and every one of them closes over the
+      // device it was built with. Re-pointing them here — rather than in the loss
+      // teardown — is what makes the timing right: this is the one place that
+      // knows both that a device generation was superseded and what replaced it,
+      // and it runs before any provider is acquired on the new device.
+      //
+      // Only a real transition invalidates. A provider registered before any
+      // device existed has built nothing to throw away, and one already tagged
+      // with this generation was built for this device.
+      if (superseded !== undefined && superseded !== generation) {
+        for (const provider of providers.values()) {
+          if (provider.generation !== generation) provider.invalidate(generation, device);
+        }
+      }
     }
     return {
       context,
@@ -365,13 +443,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     encoder: GPUCommandEncoder,
     requests: readonly RebuildRequestView[],
     frameTimeMs: number,
-  ): number {
+  ): { built: number; unbuilt: readonly string[] } {
     const { store: pyramids } = ensureContext();
     let built = 0;
+    const unbuilt: string[] = [];
 
     for (const request of requests) {
       const provider = providers.get(request.sourceId);
-      if (provider === undefined) continue;
+      if (provider === undefined) {
+        // Core spent the claim on a source this renderer has never heard of — a
+        // group registered ahead of its backdrop, or a source unregistered
+        // between the hand-out and here.
+        unbuilt.push(request.sourceId);
+        continue;
+      }
 
       const variant = variantOf(
         [...groups.values()].find(
@@ -392,6 +477,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         encoder,
       );
       if (outcome.status === "built") built += 1;
+      // "clean" and "duplicate" are both honest answers — the source already has
+      // the pixels this epoch asked for. "unavailable" is not: the claim is spent
+      // and nothing was imported.
+      else if (outcome.status === "unavailable") unbuilt.push(request.sourceId);
     }
 
     // Analysis readback, cadence-gated by the governor. Every source with a
@@ -404,7 +493,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       if (pyramids.requestStats(sourceId, encoder)) lastReadbackAt.set(sourceId, frameTimeMs);
     }
 
-    return built;
+    return { built, unbuilt };
   }
 
   function drawGroups(
@@ -485,6 +574,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         rectDevice,
         cssPerDevice,
         coverageRampCss: cssPerDevice,
+        // Ladder rungs 2 and 3 turn this down; rung 0 and 1 leave it at 1, which
+        // is the extent the group's rect already had.
+        renderScale: governor.knobs.refractionResolutionScale,
         instances: packed.data,
         instanceCount: packed.count,
         union,
@@ -578,7 +670,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       drawn += 1;
     }
 
-    return { groupsDrawn: drawn, rebuilds: pendingRebuilds, skipped };
+    return { groupsDrawn: drawn, rebuilds: pendingRebuilds, skipped, unbuilt: [...pendingUnbuilt] };
   }
 
   return {
@@ -600,6 +692,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     },
 
     governor,
+
+    get unbuiltSources() {
+      return pendingUnbuilt;
+    },
 
     get instrumentation() {
       const pool = context?.pool.stats;
@@ -675,8 +771,15 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       // A resize bumps the size epoch, which is what invalidates every dependent
       // allocation (§GPU device ownership) — group field textures included, since
       // their device extent is a function of the DPR.
+      //
+      // The bump alone, deliberately: `pool.acquire` destroys and reallocates a
+      // stale-epoch entry on next use, so every allocation is replaced exactly
+      // when it is next needed. Sweeping here instead destroyed the backdrop
+      // chain and body textures *immediately*, and a static source rebuilds
+      // nothing — so the very next frame bound two destroyed textures and lost
+      // the whole plane's encoder to a validation error. Deferring costs one
+      // frame's worth of superseded textures and nothing else.
       context?.pool.bumpSizeEpoch();
-      context?.pool.sweep();
     },
 
     get viewport() {
@@ -733,18 +836,31 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         label: `vitrea:frame:${args.frame.id}`,
       });
 
-      pendingRebuilds = runRebuilds(encoder, rebuildRequests(args.rebuild), args.frame.timeMs);
+      let result: DrawFrameResult;
+      try {
+        const rebuilt = runRebuilds(encoder, rebuildRequests(args.rebuild), args.frame.timeMs);
+        pendingRebuilds = rebuilt.built;
+        recordUnbuilt(args.frame.id, rebuilt.unbuilt);
 
-      if (args.clear !== false) {
-        passes.clearPass(encoder, args.optics);
-        if (args.highlight !== undefined) passes.clearPass(encoder, args.highlight);
+        if (args.clear !== false) {
+          passes.clearPass(encoder, args.optics);
+          if (args.highlight !== undefined) passes.clearPass(encoder, args.highlight);
+        }
+
+        result = drawGroups(encoder, args.resolution);
+
+        args.timing?.resolve(encoder);
+        gpu.device.queue.submit([encoder.finish()]);
+        // Success path only: starting a readback map for a copy that never
+        // reached the queue is its own bug (see `requestStats`).
+        pyramids.afterSubmit();
+      } finally {
+        // Owed whether or not the frame reached the queue. A throw anywhere above
+        // leaves an acquired video held across the frame, and the next acquire
+        // then fails the frame-protocol check — self-healing, but only after a
+        // wasted frame and a decoder buffer nobody released.
+        pyramids.releaseAcquired();
       }
-
-      const result = drawGroups(encoder, args.resolution);
-
-      args.timing?.resolve(encoder);
-      gpu.device.queue.submit([encoder.finish()]);
-      pyramids.afterSubmit();
 
       // Advance the adaptation filters by the real frame delta. The drivers are
       // frame-rate invariant by construction (§Motion), so a dropped frame and two
@@ -779,11 +895,21 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // Core hands out the frame's rebuilds here and only here: one pass over
           // the dirty set per frame id, which is the §Core model invariant's other
           // half. This renderer's own ledger is what proves it kept its side.
-          pendingRebuilds = runRebuilds(
-            pendingEncoder,
-            frameContext.consumeDirtyBackdropSources(),
-            frameContext.frame.timeMs,
-          );
+          try {
+            const rebuilt = runRebuilds(
+              pendingEncoder,
+              frameContext.consumeDirtyBackdropSources(),
+              frameContext.frame.timeMs,
+            );
+            pendingRebuilds = rebuilt.built;
+            recordUnbuilt(frameContext.frame.id, rebuilt.unbuilt);
+          } catch (error) {
+            // Nothing will submit this encoder, so the releases owed for what was
+            // already acquired have to happen here rather than in `render`.
+            pendingEncoder = undefined;
+            pyramids.releaseAcquired();
+            throw error;
+          }
         },
 
         render: (frameContext: FrameContextView) => {
@@ -793,14 +919,18 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           const passes = runner as PassRunner;
           const pyramids = store as PyramidStore;
 
-          if (targets !== undefined) {
-            passes.clearPass(encoder, targets.optics);
-            if (targets.highlight !== undefined) passes.clearPass(encoder, targets.highlight);
-            drawGroups(encoder, frameContext.resolution);
-          }
+          try {
+            if (targets !== undefined) {
+              passes.clearPass(encoder, targets.optics);
+              if (targets.highlight !== undefined) passes.clearPass(encoder, targets.highlight);
+              drawGroups(encoder, frameContext.resolution);
+            }
 
-          context.device.queue.submit([encoder.finish()]);
-          pyramids.afterSubmit();
+            context.device.queue.submit([encoder.finish()]);
+            pyramids.afterSubmit();
+          } finally {
+            pyramids.releaseAcquired();
+          }
 
           const delta =
             lastFrameTimeMs === undefined ? 0 : frameContext.frame.timeMs - lastFrameTimeMs;
@@ -833,6 +963,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       groups.clear();
       adaptation.clear();
       lastReadbackAt.clear();
+      pendingUnbuilt = [];
+      unbuiltFrameId = undefined;
+      builtGeneration = undefined;
       dropContext();
       host.destroy();
     },

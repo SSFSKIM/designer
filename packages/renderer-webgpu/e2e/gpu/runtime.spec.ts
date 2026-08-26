@@ -139,3 +139,75 @@ test.describe("@gpu the governor's field families agree", () => {
     expect(ratio).toBeLessThan(1.005);
   });
 });
+
+test.describe("@gpu the governor's resolution rungs", () => {
+  test("rungs 2 and 3 render the same material through a coarser field", async ({ page }) => {
+    // `refractionResolutionScale` was defined and never read: rungs 2 and 3 used
+    // to deliver a cadence saving and nothing else. Now they rasterise the
+    // group's field targets below device resolution, and the optics and highlight
+    // passes filter what they read — a shader branch that exists only under the
+    // knob and is therefore compiled and run nowhere else.
+    //
+    // Two things have to hold, and they pull in opposite directions. The rung
+    // must actually change the output, or the knob is still inert; and it must
+    // still render the same material, or the ladder's "within a tier" promise is
+    // a fiction. So this measures coverage rather than bytes: the silhouette is
+    // the material's identity, and the interior shading is what a coarser field
+    // is allowed to move.
+    const report = await openHarness(page);
+    requireHardwareAdapter(report);
+
+    const capture = async (level: number) =>
+      Buffer.from(
+        (
+          await page.evaluate(
+            (rung) => window.vitrea.renderAtGovernorLevel("refraction-checkerboard", rung),
+            level,
+          )
+        ).pixels,
+        "base64",
+      );
+
+    const nominal = await capture(0);
+    const rung2 = await capture(2);
+    const rung3 = await capture(3);
+
+    // Nothing the device could not do: a validation failure here draws nothing
+    // and reports nothing unless asked.
+    const errors = await page.evaluate(() => window.vitrea.errors());
+    expect(errors, `WebGPU reported: ${errors.join(" | ")}`).toEqual([]);
+
+    const covered = (bytes: Buffer): number => {
+      let sum = 0;
+      for (let i = 3; i < bytes.length; i += 4) sum += bytes[i] ?? 0;
+      return sum / 255;
+    };
+    const changed = (a: Buffer, b: Buffer): number => {
+      let moved = 0;
+      for (let i = 0; i < a.length; i += 4) {
+        for (let channel = 0; channel < 3; channel += 1) {
+          if (Math.abs((a[i + channel] ?? 0) - (b[i + channel] ?? 0)) > 2) {
+            moved += 1;
+            break;
+          }
+        }
+      }
+      return moved;
+    };
+
+    const base = covered(nominal);
+    expect(base, "the nominal rung covered nothing").toBeGreaterThan(1000);
+
+    for (const [level, coarse] of [
+      [2, rung2],
+      [3, rung3],
+    ] as const) {
+      // Same silhouette: the group covers the pixels it always did.
+      const ratio = covered(coarse) / base;
+      expect(ratio, `rung ${level} coverage ratio`).toBeGreaterThan(0.98);
+      expect(ratio, `rung ${level} coverage ratio`).toBeLessThan(1.02);
+      // And the knob is not inert — a coarser field moves the refracted interior.
+      expect(changed(nominal, coarse), `rung ${level} changed no pixels`).toBeGreaterThan(100);
+    }
+  });
+});

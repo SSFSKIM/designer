@@ -82,6 +82,24 @@ describe("the ledger on its own", () => {
     expect(ledger.peakPerSourcePerFrame).toBe(1);
   });
 
+  it("treats a repeated frame id as the same frame, not a new one", () => {
+    // `drawFrame` is called once per PLANE with the same `FrameInfo`, so this is
+    // the ordinary case. Clearing the tally on the second call would hand every
+    // source a second rebuild — the invariant unguarded across planes — and
+    // `countInFrame` would report 0 for a frame that rebuilt.
+    const ledger = createRebuildLedger();
+    ledger.beginFrame(7);
+    expect(ledger.claim("bg")).toBe(true);
+
+    ledger.beginFrame(7);
+
+    expect(ledger.countInFrame("bg")).toBe(1);
+    expect(ledger.claim("bg")).toBe(false);
+    expect(ledger.rebuilds).toBe(1);
+    expect(ledger.refusedDuplicates).toBe(1);
+    expect(ledger.peakPerSourcePerFrame).toBe(1);
+  });
+
   it("resets the tally at a frame boundary but not the totals", () => {
     const ledger = createRebuildLedger();
     ledger.beginFrame(1);

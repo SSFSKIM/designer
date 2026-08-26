@@ -474,3 +474,136 @@ describe("the procedural gradient provider", () => {
     expect(frame.sizeEpoch).toBe(0);
   });
 });
+
+describe("a failed import", () => {
+  it("closes the VideoFrame it had already taken ownership of", () => {
+    // `ownedFrame` is assigned before the import, and a throw there leaves
+    // `acquired` false — so no release is queued and the next acquire overwrites
+    // it. One leaked decoder buffer per failure, unbounded, and playback stalls.
+    const { device } = fakeDevice();
+    const close = vi.fn();
+    const provider = createVideoProvider({
+      id: "vid",
+      device: {
+        ...device,
+        importExternalTexture: () => {
+          throw new Error("import failed");
+        },
+      },
+      source: {
+        kind: "frames",
+        next: () => ({ displayWidth: 8, displayHeight: 8, close }) as unknown as VideoFrame,
+      },
+    });
+
+    expect(() => provider.acquire({ id: 1, timeMs: 0 })).toThrowError(/import failed/);
+    expect(close).toHaveBeenCalledTimes(1);
+
+    // And the failure did not consume the acquire: the next frame is an ordinary
+    // one rather than a frame-protocol error.
+    expect(() => provider.acquire({ id: 2, timeMs: 16 })).toThrowError(/import failed/);
+    expect(close).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe("a device generation boundary", () => {
+  it("re-points a copy provider at the new device and re-copies", () => {
+    // Every provider closes over the device it was built with. Resetting the
+    // dirty flag without the device would re-copy onto the dead one.
+    const first = fakeDevice();
+    const second = fakeDevice();
+    const provider = createCopyProvider({
+      id: "img",
+      kind: "image",
+      device: first.device,
+      source: {} as ImageBitmap,
+      width: 64,
+      height: 32,
+      generation: 1,
+    });
+
+    provider.acquire({ id: 1, timeMs: 0 });
+    provider.markImported();
+    expect(provider.isDirty()).toBe(false);
+    expect(first.textures).toHaveLength(1);
+
+    provider.invalidate(2, second.device);
+
+    expect(provider.generation).toBe(2);
+    expect(provider.isDirty()).toBe(true);
+    provider.acquire({ id: 2, timeMs: 16 });
+    expect(second.textures).toHaveLength(1);
+    expect(second.copies).toHaveLength(1);
+    expect(first.copies).toHaveLength(1);
+  });
+
+  it("re-uploads a gradient, whose texels are CPU-side but whose texture was not", () => {
+    const first = fakeDevice();
+    const second = fakeDevice();
+    const provider = createGradientProvider({
+      id: "grad",
+      device: first.device,
+      stops: linearGradientStops([0, 0, 0], [1, 1, 1]),
+      generation: 1,
+    });
+
+    provider.acquire({ id: 1, timeMs: 0 });
+    provider.markImported();
+
+    provider.invalidate(2, second.device);
+    expect(provider.isDirty()).toBe(true);
+    provider.acquire({ id: 2, timeMs: 16 });
+
+    expect(second.writes).toHaveLength(1);
+    expect(second.textures).toHaveLength(1);
+  });
+
+  it("clears a video's held frame and its acquire, which the loss interrupted", () => {
+    const first = fakeDevice();
+    const second = fakeDevice();
+    const close = vi.fn();
+    const provider = createVideoProvider({
+      id: "vid",
+      device: first.device,
+      source: {
+        kind: "frames",
+        next: () => ({ displayWidth: 8, displayHeight: 8, close }) as unknown as VideoFrame,
+      },
+      generation: 1,
+    });
+
+    provider.acquire({ id: 1, timeMs: 0 });
+    provider.invalidate(2, second.device);
+
+    expect(close).toHaveBeenCalledTimes(1);
+    // The interrupted acquire is not still outstanding.
+    expect(() => provider.acquire({ id: 2, timeMs: 16 })).not.toThrow();
+    expect(second.imports).toHaveLength(1);
+  });
+
+  it("refuses an app texture instead of binding it to a device that never made it", () => {
+    // The one provider that cannot be re-pointed: the renderer does not own the
+    // texture, and WebGPU has no cross-device sharing.
+    const first = fakeDevice();
+    const second = fakeDevice();
+    const provider = createAppTextureProvider({
+      id: "bg",
+      device: first.device,
+      texture: appTexture(),
+      generation: 1,
+    });
+
+    expect(() => provider.acquire({ id: 1, timeMs: 0 })).not.toThrow();
+
+    provider.invalidate(2, second.device);
+
+    expect(provider.generation).toBe(2);
+    expect(() => provider.acquire({ id: 2, timeMs: 16 })).toThrowError(RendererError);
+    try {
+      provider.acquire({ id: 2, timeMs: 16 });
+    } catch (error) {
+      expect((error as RendererError).code).toBe("source-unavailable");
+      expect((error as RendererError).message).toMatch(/generation 1/);
+    }
+  });
+});

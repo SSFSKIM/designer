@@ -247,6 +247,18 @@ describe("the passes bind what they read", () => {
     expect(source).not.toContain("backdropChain");
   });
 
+  it("reads the field exactly when it is one texel per device pixel", () => {
+    // The governor's resolution knob rasterises the field below the group's rect,
+    // and then the read has to filter. Nominally it must not: an exact
+    // `textureLoad` is what keeps the default path's arithmetic where it was, and
+    // a shader that only sampled would move every golden by a filter tap.
+    for (const source of [opticsModule(), highlightModule()]) {
+      expect(source).toContain("textureLoad(fieldTexture, texel, 0)");
+      expect(source).toContain("textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0)");
+      expect(source).toContain("var fieldSampler : sampler");
+    }
+  });
+
   it("writes two field targets, so per-surface optics survive the union", () => {
     const source = fieldPassSource("rsupn");
     expect(source).toContain("@location(0) field : vec4f");

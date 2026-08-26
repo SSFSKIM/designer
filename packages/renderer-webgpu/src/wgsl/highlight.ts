@@ -38,13 +38,14 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
   glow : vec4f,
   /// highlight colour, linear light (xyz), unused (w)
   colour : vec4f,
-  /// fieldSize.xy, unused (zw)
+  /// fieldSize.xy, fieldUpsampled (z), unused (w)
   flags : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> hu : HighlightUniforms;
 @group(0) @binding(1) var fieldTexture : texture_2d<f32>;
 @group(0) @binding(2) var auxTexture : texture_2d<f32>;
+@group(0) @binding(3) var fieldSampler : sampler;
 
 const TAU = 6.283185307179586;
 
@@ -57,9 +58,19 @@ fn angle_delta(a : f32, b : f32) -> f32 {
 
 @fragment
 fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
-  let texel = vec2i(in.uv * hu.flags.xy);
-  let field = textureLoad(fieldTexture, texel, 0);
-  let aux = textureLoad(auxTexture, texel, 0);
+  // Exact load nominally; filtered when the governor's resolution knob had the
+  // field rasterised below the group's rect. The sweep rides the rim, which is
+  // the one place a nearest read of a coarse field would show its grid.
+  var field : vec4f;
+  var aux : vec4f;
+  if (hu.flags.z > 0.5) {
+    field = textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0);
+    aux = textureSampleLevel(auxTexture, fieldSampler, in.uv, 0.0);
+  } else {
+    let texel = vec2i(in.uv * hu.flags.xy);
+    field = textureLoad(fieldTexture, texel, 0);
+    aux = textureLoad(auxTexture, texel, 0);
+  }
   let d = field.x;
   let normal = field.yz;
   let coverage = field.w;

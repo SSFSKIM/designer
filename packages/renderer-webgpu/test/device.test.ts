@@ -145,6 +145,37 @@ describe("a vitrea-owned device", () => {
     host.destroy();
     expect(fake.destroyed()).toBe(true);
   });
+
+  it("destroys a replacement that arrives after the host was torn down", async () => {
+    // A `destroy()` landing while the re-request is in flight still has to
+    // account for what the re-request produced. Abandoning it leaks a whole
+    // GPUDevice on the one path where this module IS the owner, and the host has
+    // no handle to it — it never learned the reacquire had finished.
+    const first = fakeDevice();
+    const replacement = fakeDevice();
+    let handOver: (() => void) | undefined;
+    const arrival = new Promise<void>((resolve) => {
+      handOver = resolve;
+    });
+
+    const host = createDeviceHost({
+      reacquire: async () => {
+        await arrival;
+        return replacement.device;
+      },
+    });
+    host.attach(first.device, "vitrea");
+
+    first.lose("unknown");
+    await flush();
+
+    host.destroy();
+    handOver?.();
+    await host.settled();
+
+    expect(replacement.destroyed()).toBe(true);
+    expect(host.status.device).toBeUndefined();
+  });
 });
 
 describe("an app-owned device", () => {
