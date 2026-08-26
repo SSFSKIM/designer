@@ -560,8 +560,12 @@ prevent it. On the perceptual axis, holdout is the binding case.
 | shape | contour distance p95 | ≤ 5.0 px | 4.0000 | 2.8284 |
 | perceptual | SSIM mean | ≥ 0.88 | 0.9113 | 0.9007 |
 | perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0247 | 0.0548 |
-| perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1409 | 0.1337 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1070 | 0.1337 |
 | perceptual | edge-weighted mean | ≤ 0.11 | 0.0491 | 0.0923 |
+
+*Correction: the ΔE p95 cal+val cell originally read 0.1409, which is the dark
+profile's figure; this table is the light profile, whose matrix value is 0.1070.
+The gate was derived with headroom over both, so the threshold is unaffected.*
 
 **Gate the shape axis only on a well-conditioned cell.** Predicate:
 `silhouetteAreaNative ≥ 0.95 × the declared component area`. The luminance-delta

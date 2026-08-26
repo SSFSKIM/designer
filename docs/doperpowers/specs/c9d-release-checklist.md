@@ -185,7 +185,8 @@ Adopting them is a human judgement about what "close enough to Apple" means for
 this library's public claim. It is the last thing standing between acceptance #7
 and closed, and no amount of further measurement decides it.
 
-### [ ] 2.3 Turn on GitHub Pages, once
+### [x] 2.3 Turn on GitHub Pages, once — done; `pages.yml` deploys green and the
+live demo was verified at DPR 1 and 2 after the #40 fix
 
 Repository settings → **Pages** → Build and deployment → Source: **GitHub
 Actions**. Until this is set, `pages.yml` fails at the deploy step with "Pages
