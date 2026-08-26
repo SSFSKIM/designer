@@ -15,8 +15,9 @@
  *
  * `GlassGroup`'s `backdrop` prop declares the source to core, which is what keeps
  * `configuredSource: "texture"` true through any demotion; `setBackdropTexture`
- * hands over the pixels, which core cannot hold (X4). The source is marked dirty
- * on each repaint, feeding core's dirty-epoch accounting: at most one pyramid
+ * hands over the pixels, which core cannot hold (X4). A canvas source is
+ * per-frame by nature, so the platform re-marks it dirty on every frame it can
+ * draw; core's dirty-epoch accounting still bounds that to at most one pyramid
  * rebuild per dirty source per frame, however many groups sample it.
  */
 
@@ -120,17 +121,6 @@ export function StageBackdrop(props: StageBackdropProps): ReactNode {
         context.lineTo(width, y + 0.5);
       }
       context.stroke();
-
-      /*
-       * Only where a group actually declares this source. The canvas is the
-       * stage's ground in every mode, but it is a *registered texture* only in the
-       * modes whose groups name it; the behaviour mode's groups sample arbitrary
-       * DOM through the browser's own `backdrop-filter` instead, and marking a
-       * source no group declared is an error rather than a no-op.
-       */
-      if (root.scene.backdropSource(props.sourceId) !== undefined) {
-        root.scene.markBackdropSourceDirty(props.sourceId);
-      }
     });
 
     return () => {

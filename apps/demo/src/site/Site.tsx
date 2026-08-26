@@ -123,18 +123,16 @@ export function Site(props: SiteProps): ReactNode {
    * The fixture raster, handed to the renderer as the reference cell's texture.
    *
    * `GlassGroup`'s `backdrop` prop declares the source; this hands over the pixels,
-   * which core cannot hold (X4). Registering the very raster the native harness
-   * composited over is what makes the pair a comparison rather than an
-   * illustration: both sides sample the same bytes.
+   * which core cannot hold (X4) — and handing them over is the whole wiring, since
+   * `setBackdropTexture` marks the source dirty itself. Registering the very
+   * raster the native harness composited over is what makes the pair a comparison
+   * rather than an illustration: both sides sample the same bytes.
    */
   const rasterRef = useRef<HTMLImageElement | null>(null);
   useEffect(() => {
     const image = rasterRef.current;
     if (root === null || image === null) return;
     root.setBackdropTexture(RASTER_SOURCE_ID, { kind: "image", image });
-    if (root.scene.backdropSource(RASTER_SOURCE_ID) !== undefined) {
-      root.scene.markBackdropSourceDirty(RASTER_SOURCE_ID);
-    }
   }, [root, scene]);
 
   const stageProps = {
@@ -149,9 +147,6 @@ export function Site(props: SiteProps): ReactNode {
       rasterRef.current = image;
       if (root === null) return;
       root.setBackdropTexture(RASTER_SOURCE_ID, { kind: "image", image });
-      if (root.scene.backdropSource(RASTER_SOURCE_ID) !== undefined) {
-        root.scene.markBackdropSourceDirty(RASTER_SOURCE_ID);
-      }
     },
   } as const;
 

@@ -15,8 +15,9 @@
  * Where it is not, the declaration still stands and the panel reports the
  * demotion by name.
  *
- * The source is marked dirty on every frame it repaints, which is what feeds
- * core's dirty-epoch accounting: at most one pyramid rebuild per dirty source per
+ * A canvas source is per-frame by nature, so the platform re-marks it dirty on
+ * every frame it can draw — the demo only paints. Core's dirty-epoch accounting
+ * still bounds the cost: at most one pyramid rebuild per dirty source per
  * frame, however many groups sample it.
  */
 
@@ -70,8 +71,6 @@ export function TextureBackdrop(props: TextureBackdropProps): ReactNode {
         context.ellipse(width / 2, y, width * 0.72, 96, 0, 0, Math.PI * 2);
         context.fill();
       }
-
-      root.scene.markBackdropSourceDirty(props.sourceId);
     });
 
     return () => {
