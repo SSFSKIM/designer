@@ -20,7 +20,19 @@ have one, so the Xcode toolchain stays out of the JavaScript graph.
 ./capture.sh capture --method nsview-cachedisplay   # explicit material-free fallback
 ```
 
-`VITREA_SCALE=2 ./capture.sh ...` targets the spec's canonical 2x profiles.
+`VITREA_SCALE=2 ./capture.sh ...` targets the spec's canonical 2x profiles. It
+needs **both** a 2x display and `-2x-` profile entries in `scenes.json`, and
+neither exists yet — see "The scale axis cannot reach 2x here" below. Run
+`./capture.sh backgrounds` before `./capture.sh capture` at any scale: capture
+composites the backgrounds it renders in memory and records their paths, but only
+the `backgrounds` subcommand writes those files, so capture verifies each recorded
+PNG is pixel-identical to what it composited and refuses if it is stale.
+
+`capture` stages the whole bundle in `fixtures/.staging-<uuid>` and promotes each
+profile directory and `manifest.json` into place with an atomic replace only at the
+end, so an aborted run leaves the previously committed fixtures — and the manifest
+that describes them — exactly as they were. Any failure removes its own staging
+directory; a hard crash may leave one behind, and it is safe to delete.
 
 `build.sh` invokes `swiftc` from the Xcode toolchain **directly**, with an
 explicit `-sdk`, rather than through `xcodebuild` or SwiftPM. There is no
@@ -108,6 +120,14 @@ Two divergences are worth recording, because both changed this harness's design:
    ScreenCaptureKit to twice the window size would upsample, not render at 2x, so
    the harness records the real scale and files a caveat instead. A Retina display
    or a HiDPI display mode is what closes this.
+
+   `VITREA_SCALE=2` is therefore only half of a 2x run. Fixture directories and
+   manifest keys are the profile key verbatim, and `scenes.json` declares `-1x-`
+   profiles only — so a genuine 2x capture would write 640×400 pixels under keys
+   claiming 1x. The harness checks the selected profile keys against the
+   scale it is actually about to capture at and refuses before writing anything;
+   the 2x recapture session has to add `-2x-` profile entries to `scenes.json`
+   first.
 
 ## A note on the toolchain gate
 

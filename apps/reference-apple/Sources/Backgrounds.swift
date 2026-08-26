@@ -172,4 +172,18 @@ enum Backgrounds {
                     userInfo: [NSLocalizedDescriptionKey: "PNG finalize failed for \(path)"])
     }
   }
+
+  /// Read a PNG back. The counterpart to `writePNG`, and the only way to check
+  /// that a file on disk is still what the generator produces today — a question
+  /// `capture` has to answer, because it composites backgrounds it renders in
+  /// memory while recording the path to a file it never writes.
+  static func readPNG(from path: String) throws -> CGImage {
+    let url = URL(fileURLWithPath: path)
+    guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+          let image = CGImageSourceCreateImageAtIndex(source, 0, nil) else {
+      throw NSError(domain: "vitrea.png", code: 3,
+                    userInfo: [NSLocalizedDescriptionKey: "no readable PNG at \(path)"])
+    }
+    return image
+  }
 }

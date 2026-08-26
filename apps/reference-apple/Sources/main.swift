@@ -26,7 +26,16 @@ func fixturesDir() -> String {
   ProcessInfo.processInfo.environment["VITREA_FIXTURES"] ?? "\(ROOT)/fixtures"
 }
 
+/// Set while a capture run holds an unpublished fixture bundle in a staging
+/// directory. Every abort goes through `fail`, so this is where the half-written
+/// bundle gets removed — the previously committed fixtures and the manifest that
+/// describes them are then left exactly as they were.
+nonisolated(unsafe) var stagingDirectory: String?
+
 func fail(_ message: String) -> Never {
+  if let staging = stagingDirectory {
+    try? FileManager.default.removeItem(atPath: staging)
+  }
   FileHandle.standardError.write(("error: " + message + "\n").data(using: .utf8)!)
   exit(1)
 }
@@ -155,11 +164,53 @@ func runCapture(method: CaptureMethod) {
 
   // Backgrounds first: every scene composites one, and they must be the same
   // bytes the web side loads.
+  //
+  // The split between the two subcommands is deliberate — `backgrounds` needs no
+  // window, no permission and no GUI session — so `capture` renders each raster
+  // fresh in memory and writes none of them. That leaves one hazard: it records a
+  // *path* in the manifest. Change a background definition in scenes.json without
+  // re-running `backgrounds`, and the pixels composited here, the file the
+  // manifest names, and the file the web calibration page loads are three
+  // different images at the same scale, with nothing in the bytes to say so. So
+  // capture proves the path it records instead of trusting it.
   var backgroundImages: [String: CGImage] = [:]
   var backgroundFiles: [String: String] = [:]
   for (id, bg) in spec.backgrounds {
-    backgroundImages[id] = Backgrounds.render(bg, canvas: canvas, scale: scale)
-    backgroundFiles[id] = "backgrounds/\(id)@\(Int(scale))x.png"
+    let image = Backgrounds.render(bg, canvas: canvas, scale: scale)
+    let relative = "backgrounds/\(id)@\(Int(scale))x.png"
+
+    let onDisk: CGImage
+    do { onDisk = try Backgrounds.readPNG(from: "\(root)/\(relative)") }
+    catch {
+      fail("""
+        background '\(id)': \(relative) is missing or unreadable under \(root). \
+        capture composites the background it renders in memory and records this \
+        path, but only './capture.sh backgrounds' writes the file. Run that at \
+        scale \(Int(scale))x first, then re-run capture.
+        """)
+    }
+
+    let cmp: (mad: Double, maxDelta: Int)
+    do { cmp = try Capture.compare(image, onDisk) }
+    catch {
+      fail("""
+        background '\(id)': \(relative) is not the raster this run renders — \
+        \(error.localizedDescription). Run './capture.sh backgrounds' at scale \
+        \(Int(scale))x first, then re-run capture.
+        """)
+    }
+    guard cmp.maxDelta == 0 else {
+      fail("""
+        background '\(id)': \(relative) is stale — the committed PNG differs from \
+        the raster this run renders (mad=\(cmp.mad), max=\(cmp.maxDelta)). Every \
+        fixture would composite pixels that neither the manifest's background path \
+        nor the web calibration page loads. Run './capture.sh backgrounds' to \
+        regenerate it, then re-run capture.
+        """)
+    }
+
+    backgroundImages[id] = image
+    backgroundFiles[id] = relative
   }
 
   var profileManifests: [ProfileManifest] = []
@@ -189,6 +240,26 @@ func runCapture(method: CaptureMethod) {
       a fidelity reference and no fidelity claim may cite them.
       """)
   }
+
+  // The bundle is staged, never written in place. `record` writes its PNGs under
+  // this directory and `finish` promotes each profile directory and the manifest
+  // with an atomic per-path replace.
+  //
+  // Writing PNGs straight into the final profile directories while the manifest
+  // lands only at the very end means a mid-run abort leaves the OLD manifest
+  // describing a partly overwritten mix of two runs — worst case, a failed
+  // cachedisplay run leaving material-free pixels under a manifest that asserts
+  // materialRendered: true, which is exactly the honesty guard this app exists to
+  // hold. Staging also means a promoted profile directory replaces its
+  // predecessor wholesale, so a profile's files are always the ones its manifest
+  // entry describes rather than those plus leftovers from an earlier matrix.
+  let staging = "\(root)/.staging-\(UUID().uuidString)"
+  do {
+    try FileManager.default.createDirectory(atPath: staging, withIntermediateDirectories: true)
+  } catch {
+    fail("creating the staging directory \(staging): \(error.localizedDescription)")
+  }
+  stagingDirectory = staging
 
   func finish() {
     // The measured emptiness summary. Stated as a count, because "the material
@@ -222,10 +293,36 @@ func runCapture(method: CaptureMethod) {
 
     let enc = JSONEncoder()
     enc.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
+    let stagedManifest = URL(fileURLWithPath: "\(staging)/manifest.json")
     do {
-      try enc.encode(manifest).write(to: URL(fileURLWithPath: "\(root)/manifest.json"))
-      print("manifest → \(root)/manifest.json")
-    } catch { fail("writing manifest: \(error.localizedDescription)") }
+      try enc.encode(manifest).write(to: stagedManifest)
+    } catch { fail("writing the staged manifest: \(error.localizedDescription)") }
+
+    // Publish. Profile directories first, the manifest last, each one an atomic
+    // replacement of a single path, so the interval in which the bundle could be
+    // read half-updated is a handful of renames rather than the whole capture run.
+    let fm = FileManager.default
+    func promote(_ staged: URL, to published: URL) throws {
+      // `replaceItemAt` needs something to replace; a profile captured for the
+      // first time has no predecessor, so that case is a plain move.
+      if fm.fileExists(atPath: published.path) {
+        _ = try fm.replaceItemAt(published, withItemAt: staged)
+      } else {
+        try fm.moveItem(at: staged, to: published)
+      }
+    }
+    do {
+      for p in profileManifests {
+        try promote(URL(fileURLWithPath: "\(staging)/\(p.profileKey)"),
+                    to: URL(fileURLWithPath: "\(root)/\(p.profileKey)"))
+      }
+      try promote(stagedManifest, to: URL(fileURLWithPath: "\(root)/manifest.json"))
+    } catch {
+      fail("publishing the fixture bundle from \(staging): \(error.localizedDescription)")
+    }
+    try? fm.removeItem(atPath: staging)
+    stagingDirectory = nil
+    print("manifest → \(root)/manifest.json")
 
     for c in caveats { print("CAVEAT: \(c)") }
     NSApp.terminate(nil)
@@ -290,10 +387,33 @@ func runCapture(method: CaptureMethod) {
     finish()
     return
   }
+  // Fixture directory names and manifest profile keys are `profile.key` verbatim,
+  // and the key is where the scale of a fixture is *stated*. Nothing downstream
+  // re-measures it, and a PNG carries no record of the scale it was captured at,
+  // so a run whose keys claim another scale mislabels every fixture it writes with
+  // no trace in the bytes. VITREA_SCALE=2 against today's all-1x profiles is the
+  // live case: it would file 2x pixels under '-1x-' keys.
+  let scaleToken = "-\(Int(backingScale))x-"
+  let mislabelled = Set(work.map { $0.0.key }.filter { !$0.contains(scaleToken) })
+  if !mislabelled.isEmpty {
+    fail("""
+      capturing at \(backingScale)x, but these selected profile keys do not say \
+      '\(scaleToken)': \(mislabelled.sorted().joined(separator: ", ")). Fixture \
+      directories and manifest keys are the profile key verbatim, so every fixture \
+      would be \(Int(canvas.width * backingScale))x\(Int(canvas.height * backingScale)) \
+      pixels filed under a key claiming a different scale. Add \(Int(backingScale))x \
+      profile entries to scenes.json first.
+      """)
+  }
+
   let order = interleaved(work)
   print("capturing \(order.count) fixtures via \(method.rawValue) at \(backingScale)x (interleaved)")
 
   var byProfile: [String: [FixtureEntry]] = [:]
+  /// The colour space the captured images actually carry, per profile. Recorded as
+  /// an observation rather than restating the space the capture path requested, so
+  /// the manifest field is something a later check can bind against.
+  var colorSpaceByProfile: [String: String] = [:]
 
   /// Capture one scene, then recurse to the next — the on-screen paths need the
   /// run loop to turn between scenes for the window server to composite the new
@@ -309,7 +429,9 @@ func runCapture(method: CaptureMethod) {
           a11yMode: profile.a11y,
           display: DisplayInfo(requestedScale: scale, actualBackingScale: backingScale,
                                pixelSize: [Int(canvas.width * backingScale), Int(canvas.height * backingScale)],
-                               colorSpace: "sRGB"),
+                               // Falls back to the requested space only when the
+                               // image reports none at all.
+                               colorSpace: colorSpaceByProfile[profile.key] ?? "sRGB"),
           fixtures: entries))
       }
       finish()
@@ -327,12 +449,14 @@ func runCapture(method: CaptureMethod) {
                          canvas: canvas, pressed: scene.state == "pressed")
       .profileEnvironment(colorScheme: profile.colorScheme, a11y: profile.a11y)
 
-    let dir = "\(root)/\(profile.key)"
+    let dir = "\(staging)/\(profile.key)"
     let file = "\(scene.id).png"
 
     func record(_ image: CGImage, _ deterministic: Bool?, _ noise: Double?) {
       do { try Backgrounds.writePNG(image, to: "\(dir)/\(file)") }
       catch { fail("writing \(file): \(error.localizedDescription)") }
+
+      colorSpaceByProfile[profile.key] = (image.colorSpace?.name).map { $0 as String } ?? "sRGB"
 
       // Measure how much the component actually contributed, rather than assuming
       // it contributed anything.

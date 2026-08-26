@@ -8,8 +8,13 @@
 #   ./capture.sh capture --method nsview-cachedisplay
 #
 # VITREA_SCALE=2 ./capture.sh ...  to target the spec's canonical 2x profiles on a
-# Retina machine. On a 1x display the harness records the real backingScaleFactor
-# and adds a caveat rather than pretending the request was honoured.
+# Retina machine. Two things have to be true, and neither is today:
+#   - the display must actually be 2x. On a 1x display the harness records the real
+#     backingScaleFactor and adds a caveat rather than pretending the request was
+#     honoured.
+#   - scenes.json must declare 2x profiles. Fixture directories and manifest keys
+#     are the profile key verbatim, so capture refuses rather than file 2x pixels
+#     under the '-1x-' keys that are the only ones scenes.json currently has.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
