@@ -4,6 +4,27 @@ import { defineConfig } from "tsup";
 // stays external; the private internals are bundled in.
 const BUNDLED_INTERNALS = /^@vitrea\/(platform-web|geometry|motion)$/;
 
+/**
+ * The two WebGPU names *this* artifact's declarations use, declared inside it.
+ *
+ * The doctrine, and why an empty global interface rather than a dependency on
+ * `@webgpu/types`, is written out in `packages/core/tsup.config.ts`. The short
+ * version: an empty interface merges with a real declaration of the same name, so
+ * the block is inert wherever the consumer already has WebGPU types and keeps
+ * `GPUDevice` interoperable with their own WebGPU calls; a type alias cannot
+ * merge at all, so `GPUPowerPreference` is module-local, where it shadows the
+ * global for this one file. Its two members are the whole spec union, so nothing
+ * is widened away.
+ *
+ * `test/publish-shape.test.ts` compiles the built `dist/index.d.ts` with no DOM
+ * lib and no `types`, and fails if any `GPU` name is unresolved.
+ */
+const WEBGPU_AMBIENT = `declare global {
+  interface GPUDevice {}
+}
+type GPUPowerPreference = "low-power" | "high-performance";
+`;
+
 export default defineConfig({
   entry: ["src/index.ts"],
   format: ["esm"],
@@ -25,7 +46,11 @@ export default defineConfig({
   //
   // `ignoreDeprecations` is scoped to the declaration pass because tsup injects
   // the deprecated `baseUrl` there. Drop it when tsup stops doing that.
-  dts: { resolve: true, compilerOptions: { ignoreDeprecations: "6.0" } },
+  dts: {
+    resolve: true,
+    banner: WEBGPU_AMBIENT,
+    compilerOptions: { ignoreDeprecations: "6.0" },
+  },
   // Both halves of the React peer, named rather than inferred. `react-dom` is a
   // devDependency as well (the test environment installs it), and a bundled
   // renderer lands in the artifact as CJS behind esbuild's dynamic-require shim —
