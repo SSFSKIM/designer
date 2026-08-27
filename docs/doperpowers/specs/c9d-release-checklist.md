@@ -11,7 +11,10 @@ says exactly what to do. **Nothing here is checked on the strength of an
 expectation** — a box is ticked only where this document can name the run that
 produced it.
 
-Branch: `c9d-release`. Nothing is pushed and nothing is published.
+Branch: `c9d-release`, since merged to `main`. **v1 (0.1.0) published 2026-08-26**;
+of the human items only 2.1 (the labeled per-engine manual pass) remains open,
+and it gates conformance-table rows, not the release — the runtime fails closed
+on `"unverified"`.
 
 ---
 
@@ -192,12 +195,21 @@ Repository settings → **Pages** → Build and deployment → Source: **GitHub
 Actions**. Until this is set, `pages.yml` fails at the deploy step with "Pages
 site not found" rather than deploying somewhere unexpected. One click, once.
 
-### [ ] 2.4 Publish — needs npm 2FA
+### [x] 2.4 Publish — done 2026-08-26
 
-The working tree must be clean first: `pnpm publish` refuses on an unclean tree
-(`ERR_PNPM_GIT_UNCLEAN`), and right now the untracked `tmp/` directory is enough
-to trip it. It holds two design-review notes that are not this branch's and were
-deliberately left alone.
+**Published by the user (the second-factor holder) on 2026-08-26**; registry
+`time.modified` 2026-08-26T14:54:25.932Z, both packages at 0.1.0. Verified at
+recomposition by a cold scratch install outside the workspace:
+`npm install @vitreajs/vitrea @vitreajs/vitrea-react react react-dom` resolves,
+both entry points import under native ESM in node (41 and 33 exports), and
+`@vitreajs/vitrea-react`'s registry metadata carries `react`/`react-dom` as
+`>=19.0.0` peers — the review round's inlining defect (Decision Log #41(b))
+confirmed absent from the shipped bytes.
+
+The working tree had to be clean first: `pnpm publish` refuses on an unclean
+tree (`ERR_PNPM_GIT_UNCLEAN`); the untracked `tmp/` directory that would have
+tripped it is `.gitignore`d. It holds two design-review notes that are not this
+branch's and were deliberately left alone.
 
 Then, from the repository root, after the branch is merged to `main`:
 
