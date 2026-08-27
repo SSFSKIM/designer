@@ -1,5 +1,44 @@
 # @vitreajs/vitrea-react
 
+## 0.1.1
+
+### Patch Changes
+
+- Docs: everything the first cold consumer had to discover by reading `.d.ts` and
+  WGSL is now in the READMEs.
+  
+  The texture backdrop's declare-then-supply two-step (`backdrop={{ kind:
+  "texture", id }}` then `setBackdropTexture`) with its placement contract — the
+  source is cover-fitted over the whole viewport, not the group, so an app that
+  also paints the image must use the same mapping. A "Testing your app" section:
+  Playwright's bundled headless shell has no working WebGPU, so tests silently run
+  the CSS tier; the working recipe is `channel: "chromium"` plus the WebGPU flags,
+  and the capabilities readout can be believed either way. The per-tier DOM truth:
+  `[data-vitrea-proxy]` elements exist only where the GPU tier samples through the
+  browser's backdrop-filter; the CSS tier writes the material on the host itself.
+  The surface sizing model (surfaces have no intrinsic size). The react export
+  list gains its four missing entries, including `APPLE_LIKE_SMOOTHING`, and the
+  `demotionReason` union in the core README gains its missing
+  `"no-texture-supplied"` member.
+- d85011a: Fix: the published `.d.ts` files typecheck for a consumer with `skipLibCheck: false`.
+  
+  Both artifacts named WebGPU globals — `GPUDevice`, `GPUTextureView`,
+  `GPUPowerPreference` and eleven more — that nothing in the tarball declared. This
+  workspace resolved them out of `lib.dom.d.ts`, which only ships the WebGPU
+  interfaces from TypeScript 6.0 onward, so a consumer on TypeScript 5 read 29
+  `TS2304`s out of `node_modules`.
+  
+  Each artifact now declares those names itself: the interfaces empty and global, so
+  they merge with the consumer's real WebGPU types wherever they have them, and the
+  two string-union aliases module-local, because a type alias cannot merge. Nothing
+  was added to either package's dependencies, and the emitted JavaScript is
+  unchanged. Verified with `skipLibCheck: false` on TypeScript 5.8, 5.9, 6.0 and
+  7.0, with the DOM lib, with `@types/web` in place of it, and alongside a
+  consumer's own `@webgpu/types`.
+- Updated dependencies
+- Updated dependencies [d85011a]
+  - @vitreajs/vitrea@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes

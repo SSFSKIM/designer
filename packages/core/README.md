@@ -35,6 +35,13 @@ geometry kernel, the motion kernel, the DOM host layer and the WebGPU renderer
 are internal and bundled into them at publish time, so an app installs two
 packages and gets zero transitive runtime dependencies beyond React itself.
 
+**TypeScript.** The published declarations resolve on their own, on any
+TypeScript version, with no `types` entry and nothing extra installed —
+including with `skipLibCheck: false`. The WebGPU type names the artifacts use
+are declared inside them, and they merge with your own WebGPU types
+(TypeScript 6's DOM lib, `@types/web`, or `@webgpu/types`) rather than
+competing with them.
+
 ### Which package you actually import from
 
 | You are… | Install | Import |
