@@ -96,6 +96,69 @@ than have it render a `<div>` — which is how the menu is composed, over whiche
 accessible menu primitive your app already uses. This package deliberately takes
 no dependency on one.
 
+**A surface has no intrinsic size**, and this is the one thing about it that
+surprises people. vitrea declares neither position nor size for a host: it
+measures the box your CSS produced, once per frame, and fits the material to it.
+The element is portalled into its plane's host layer, which is a
+`position: absolute; inset: 0` overlay, so a surface places itself the way any
+overlay child does. Give it your own width, height and positioning — a
+`<GlassSurface>` with no styles of its own is as tall as its content and nothing
+more. Position and size are never props, because a measured rect is the single
+source of truth that lets press compression and morph deformation be composed
+transforms rather than shape changes.
+
+### A texture backdrop
+
+`backdrop={{ kind: "texture", id }}` moves a group onto the GPU texture path, and
+it is deliberately two steps: the prop **declares** the source, and the root
+handle **supplies** the pixels. `@vitreajs/vitrea` is platform-free and may not
+hold an `HTMLImageElement`, so the declaration cannot carry one.
+
+```tsx
+import { GlassGroup, GlassSurface, useGlassRoot } from "@vitreajs/vitrea-react";
+
+function Hero() {
+  const root = useGlassRoot();
+
+  return (
+    <>
+      {/* Declare. `configuredSource` stays "texture" through any demotion. */}
+      <GlassGroup id="hero" backdrop={{ kind: "texture", id: "hero" }}>
+        <GlassSurface radius={26} thickness={18}>…</GlassSurface>
+      </GlassGroup>
+
+      {/* Supply. The id joins the two halves; the order does not matter, and
+          `setBackdropTexture` marks the source dirty itself. */}
+      <img
+        src="/hero.jpg"
+        alt=""
+        onLoad={(event) =>
+          root?.setBackdropTexture("hero", { kind: "image", image: event.currentTarget })
+        }
+      />
+    </>
+  );
+}
+```
+
+`{ kind: "canvas", canvas }` and `{ kind: "video", video }` are the other two
+forms — a video and a live canvas are re-imported every frame that samples them,
+a decoded image once — and `undefined` withdraws a source's pixels. Declaring a
+texture and never supplying one is not a silent hole: the group reports
+`health: "demoted"` with `demotionReason: "no-texture-supplied"` and goes on
+drawing tint, rim and glow.
+
+**Where the texture is placed.** The renderer maps the source over the **whole
+viewport**, cover-fit — filling it, with the overflow cropped symmetrically, the
+same geometry as `object-fit: cover` on a `position: fixed; inset: 0` element.
+Not over the group, and not over the surface. So if your app also paints that
+image — the usual case, since the picture is on the page and the glass sits on it
+— the two mappings have to agree. An `<img>` sized to a region under a texture
+mapped to the viewport samples a different crop of the same file, and the
+mismatch shows up as the glass revealing the wrong part of the picture, which
+reads convincingly like a lensing artefact rather than a registration error.
+Paint your copy viewport-sized and `object-fit: cover`.
+
 ### Seeing what actually resolved
 
 ```tsx
@@ -135,11 +198,25 @@ condition. The full model is documented in
 `asChild` seams; `radiiFor`, `smoothingFor`, `capsuleRadius`,
 `cornerReferenceFor`, `assertSharedCornerReference` for shapes.
 
+**Frames** — `createGlassTicker`, the rAF loop the bindings drive their motion
+from. One per tree, whatever the surface count; its `advance()` steps time by
+hand, which is the path a test with no animation frames takes.
+
 **Constants and defaults** — `DEFAULT_CLEAR_DIMMING` (the one-liner that
 satisfies the clear variant's dimming requirement — the runtime refuses a clear
 surface without a policy rather than inventing a scrim),
-`DEFAULT_GLASS_MOTION_PROFILE`, `GLASS_ROOT_ACCESSIBILITY_DEFAULTS`,
-`SUPPORTED_PLANES`, `GLASS_CHANNEL_PROPERTIES`.
+`APPLE_LIKE_SMOOTHING` (the Apple-matching corner on the interpolable smoothing
+axis — a `GlassMorph` pair needs it, because `"continuous"` and the numeric axis
+are separate fits to different curves and an interpolated corner between the two
+has no measured error bound; authoring this number at both ends keeps the morph
+on one axis), `DEFAULT_GLASS_MOTION_PROFILE`,
+`GLASS_ROOT_ACCESSIBILITY_DEFAULTS`, `SUPPORTED_PLANES`,
+`GLASS_CHANNEL_PROPERTIES`.
+
+**DOM attribute names** — `TOOLBAR_ITEM_ATTRIBUTE` (`data-vitrea-toolbar-item`,
+which marks an item's owning toolbar wherever the item has been portalled to) and
+`PLANE_MOUNT_ATTRIBUTE` (`data-vitrea-mount`). Both are public because tests and
+dev tooling read them.
 
 ### Contract limits worth knowing before you design around it
 
@@ -223,6 +300,49 @@ Where WebGPU is missing, every group resolves to the CSS tier with
 `demotionReason: "no-webgpu"`, renders presentable glass, and logs no errors. The
 CSS tier is a hard requirement of the design, not a courtesy — which is why it has
 its own renderer rather than a degraded code path.
+
+---
+
+## Testing your app
+
+**Trust the readout; check the launcher.** `useGlassCapabilities()` reports what
+resolved, so a `demotionReason: "no-webgpu"` means that session really had no
+WebGPU. The environment is the part worth checking, because Playwright's bundled
+headless shell resolves WebGPU to a SwiftShader adapter while `channel: "chromium"`
+— the full browser binary — resolves it to real hardware. A suite that never asks
+for the channel runs green on the CSS tier and every readout in it honestly says
+`no-webgpu`: nothing looks broken, it is simply the other tier.
+
+```ts
+// playwright.config.ts
+projects: [
+  {
+    name: "chromium-gpu",
+    use: {
+      channel: "chromium",
+      launchOptions: {
+        args: ["--enable-unsafe-webgpu", "--enable-features=Vulkan,WebGPU"],
+      },
+    },
+  },
+],
+```
+
+Serve the page over `http://localhost` while you are at it: `navigator.gpu` is
+undefined outside a secure context, and on `file://` or `data:` URLs its absence
+reads exactly like "no WebGPU on this machine". A test that means to assert the
+GPU tier should fail when no adapter answers rather than skip.
+
+**What is in the DOM depends on the tier.** `[data-vitrea-proxy]` elements exist
+only for a group resolved to `activeRenderer: "webgpu"` with
+`samplingBackend: "css-backdrop"` — the GPU tier sampling arbitrary DOM — and
+there is one per group *per plane* it has members on. A GPU-tier group on a
+texture backdrop has none, because there is nothing in the page to filter. And on
+the CSS tier there are no proxy elements at all: that tier applies
+`backdrop-filter` in place, on each glass host element, which is what keeps a
+host's own text and icons above its filter without any layering. So assert the
+CSS tier by reading a host's computed `backdrop-filter`, `background-color` and
+`border-color`, and assert the tier itself with `useGlassCapabilities()`.
 
 ---
 

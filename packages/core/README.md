@@ -93,6 +93,15 @@ sampling unit — one backdrop proxy, one blur, shared between its members:
 </GlassGroup>
 ```
 
+**A surface has no intrinsic size.** vitrea declares neither position nor size
+for one: it measures the box your CSS produced, once per frame, and fits the
+material to it. The element itself is portalled into its plane's host layer,
+which is a `position: absolute; inset: 0` overlay, so a surface places itself the
+way any overlay child does — give it your own width, height and positioning, and
+it will be exactly as big as you made it. This is also why press compression and
+morph deformation are composed transforms rather than shape changes: a transform
+cannot dirty the rect it is animating.
+
 And to see what the runtime actually resolved to, rather than what you asked for:
 
 ```tsx
@@ -139,8 +148,8 @@ interface GlassGroupState {
   analysis:        "exact" | "hint" | "none";
   health:          "ok" | "demoted";
   demotionReason?: "no-webgpu" | "no-backdrop-filter" | "tainted-source"
-                 | "incompatible-texture" | "device-lost" | "probe-failed"
-                 | "governor";
+                 | "incompatible-texture" | "no-texture-supplied" | "device-lost"
+                 | "probe-failed" | "governor";
 }
 ```
 
@@ -164,7 +173,7 @@ point.
 
 | Configuration | What you get |
 | --- | --- |
-| **texture + exact** — you register an image, video, canvas or procedural texture as the group's backdrop | Full refraction. Edge lensing visibly bends the backdrop; a larger surface lenses deeper than a small one over the same content. Luminance, variance and edge-density analysis run on the GPU. |
+| **texture + exact** — you register an image, video or canvas as the group's backdrop | Full refraction. Edge lensing visibly bends the backdrop; a larger surface lenses deeper than a small one over the same content. Luminance, variance and edge-density analysis run on the GPU. |
 | **dom + hint** — arbitrary page content, plus a `hint` (or an estimator provider) | The browser compositor does the blur through a masked backdrop proxy; the GPU renders rim lensing, tint, glow and morphs. Adaptation comes from your hint. |
 | **dom + none** — arbitrary page content, no hint (the default) | Fixed regular material, geometry-driven rim and specular, foreground from tokens or `color-scheme`. |
 
@@ -172,6 +181,62 @@ vitrea does not automatically pixel-analyse arbitrary DOM, and never claims to.
 There is a built-in best-effort estimator that reads known background colours and
 images where CORS permits, and it is documented as an estimator every place it
 appears — not as pixel analysis, because that is not what it is.
+
+### Registering a texture backdrop
+
+The texture path is two steps, and it is two because of the purity law above:
+`vitrea` may not hold an `HTMLImageElement`, so it cannot be the thing you hand
+pixels to. The group **declares** the source; the root **supplies** it.
+
+```tsx
+import { GlassGroup, GlassSurface, useGlassRoot } from "@vitreajs/vitrea-react";
+
+function Hero() {
+  const root = useGlassRoot();
+
+  return (
+    <>
+      {/* 1. Declare. `configuredSource` stays "texture" through any demotion. */}
+      <GlassGroup id="hero" backdrop={{ kind: "texture", id: "hero" }}>
+        <GlassSurface radius={26} thickness={18}>…</GlassSurface>
+      </GlassGroup>
+
+      {/* 2. Supply. The id is what joins the two halves; the order does not
+             matter, and `setBackdropTexture` marks the source dirty itself, so
+             handing the pixels over is the whole wiring. */}
+      <img
+        src="/hero.jpg"
+        alt=""
+        onLoad={(event) =>
+          root?.setBackdropTexture("hero", { kind: "image", image: event.currentTarget })
+        }
+      />
+    </>
+  );
+}
+```
+
+The other two forms are `{ kind: "canvas", canvas }` and `{ kind: "video", video }`.
+A video and a live canvas are re-imported on every frame that samples them; a
+decoded image is imported once. Passing `undefined` withdraws a source's pixels.
+
+Declaring a texture and never supplying one is not a silent hole: the group
+resolves to `health: "demoted"` with `demotionReason: "no-texture-supplied"` and
+keeps drawing tint, rim and glow. The readout names the missing half.
+
+**Where the texture is placed.** The renderer maps the source over the **whole
+viewport**, cover-fit — it fills the viewport and the overflow is cropped
+symmetrically, the same geometry as `object-fit: cover` on a
+`position: fixed; inset: 0` element. Not over the group, and not over the
+surface.
+
+This matters whenever your app paints the same image itself, which is the usual
+case: the picture is on the page and the glass sits on top of it. The two
+mappings have to agree. An `<img>` sized to a region, under a texture mapped to
+the viewport, samples a different crop of the same file — and the mismatch
+appears as the glass showing the wrong part of the picture, which reads
+convincingly like a lensing artefact rather than a registration error. Paint your
+copy viewport-sized and `object-fit: cover`, or accept that the two will differ.
 
 ### Tiers degrade within themselves before they switch
 
@@ -311,6 +376,68 @@ errors. Asking for the GPU tier is not the same as getting it, and
   a support query.
 - v1 corner radii are uniform. The `radii` API keeps its four-component shape,
   but a non-uniform set is a dev-mode error; per-corner algebra is post-v1.
+
+---
+
+## Testing your app
+
+### The readout is trustworthy; the environment may not be
+
+`useGlassCapabilities()` reports what resolved. If it says
+`demotionReason: "no-webgpu"`, that session genuinely had no WebGPU — the
+readout is not the thing to doubt. What is worth doubting is the environment,
+because one browser-automation default removes WebGPU without removing anything
+you would notice.
+
+**Playwright's bundled headless shell hands back a software adapter.** This repo
+measures three different answers on one machine depending on how Chromium is
+launched: the default headless shell resolves to a SwiftShader adapter, while
+`channel: "chromium"` — the full browser binary — resolves to real hardware. A
+suite that never asks for the channel runs entirely green on the CSS tier, and
+every readout in it honestly says `no-webgpu`, which is what makes this the worst
+kind of failure: nothing is broken, it is just the other tier, and the
+instrumentation agrees with the wrong answer.
+
+```ts
+// playwright.config.ts
+projects: [
+  {
+    name: "chromium-gpu",
+    use: {
+      channel: "chromium",
+      launchOptions: {
+        args: ["--enable-unsafe-webgpu", "--enable-features=Vulkan,WebGPU"],
+      },
+    },
+  },
+],
+```
+
+Two further requirements are not optional. `navigator.gpu` is undefined outside a
+secure context, so serve the page over `http://localhost` — on `file://` and
+`data:` URLs the absence reads exactly like "no WebGPU on this machine". And a
+test that means to assert the GPU tier should **fail** when no adapter answers
+rather than skip, and fail rather than quietly accept a software one; otherwise
+it asserts nothing.
+
+### What is in the DOM differs by tier
+
+The backdrop-proxy elements are not a general debugging landmark. A
+`[data-vitrea-proxy]` element exists only where the GPU tier is sampling
+arbitrary DOM:
+
+| Resolved state | What the runtime puts in the DOM |
+| --- | --- |
+| `activeRenderer: "webgpu"`, `samplingBackend: "css-backdrop"` | one `[data-vitrea-proxy]` per group **per plane** it has members on |
+| `activeRenderer: "webgpu"`, `samplingBackend: "gpu-texture"` | no proxy — the backdrop is a GPU texture, so there is nothing in the page to filter |
+| `activeRenderer: "css"` | no proxies at all: the CSS tier applies `backdrop-filter` **in place**, on each glass host element |
+
+So "find the proxy" is an assertion about one resolved state, not about the
+dom-backdrop path in general — and its absence on the CSS tier is the design
+rather than a fault, which is also why `probe-failed` can demote to that tier at
+all: the very thing that failed is not on its path. To assert the CSS tier, read
+the host element's own computed `backdrop-filter`, `background-color` and
+`border-color`. To assert which tier you are on, read `useGlassCapabilities()`.
 
 ---
 
