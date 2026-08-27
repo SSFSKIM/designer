@@ -35,7 +35,7 @@ import { useCallback, useId, useLayoutEffect, useMemo, useRef, type ReactNode } 
 
 import { GlassGroupContext, useGlassRoot, type GlassGroupHandle } from "./context";
 
-/** A GPU-ownable backdrop: an image, video, canvas, or procedural texture. */
+/** A GPU-ownable backdrop: an image, video, or canvas — the three `GlassBackdropTexture` kinds. */
 export interface GlassTextureBackdrop {
   readonly kind: "texture";
   /** Stable id; the same texture registered by two groups is registered once. */
