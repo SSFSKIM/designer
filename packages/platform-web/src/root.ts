@@ -98,10 +98,12 @@ import {
 } from "./optics";
 import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } from "./planes";
 import {
+  describeEngineDefect,
   describeProbeFailure,
   probeGroup,
   probePlatform,
   type BackdropRootBreak,
+  type EngineDefectHazard,
   type GroupProbeReport,
   type PlatformProbeReport,
 } from "./probe";
@@ -666,6 +668,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   const auditGroup = (groupId: string, planes: Iterable<GlassPlane>): GroupProbeReport => {
     const breaks: BackdropRootBreak[] = [];
+    // Collected across every plane, like `breaks`: a split group's second plane
+    // can sit under a rounded, clipping ancestor the first one does not.
+    const engineDefects: EngineDefectHazard[] = [];
     let verdict: GroupProbeReport["verdict"] = "pass";
     let reach = platformProbe.reach;
     let audited = false;
@@ -674,6 +679,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       const perPlane = auditPlane(groupId, plane);
       audited = true;
       reach = perPlane.reach;
+      engineDefects.push(...perPlane.engineDefects);
       if (perPlane.verdict === "fail") {
         verdict = "fail";
         breaks.push(...perPlane.breaks);
@@ -681,11 +687,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     }
 
     const report: GroupProbeReport = audited
-      ? { groupId, verdict, breaks, reach }
+      ? { groupId, verdict, breaks, engineDefects, reach }
       : // Nothing measured yet, so nothing to walk. Presumed passing, for the
         // same reason the first frame presumes it: refusing to render on an
         // audit that could not run would demote every group at startup.
-        { groupId, verdict: "pass", breaks: [], reach };
+        { groupId, verdict: "pass", breaks: [], engineDefects: [], reach };
 
     const previous = probeReports.get(groupId);
     probeReports.set(groupId, report);
@@ -697,6 +703,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         subjects: [groupId],
         message: describeProbeFailure(report),
       });
+    }
+
+    /*
+     * Layer 3's per-group advisory (Decision Log #39). A warning rather than an
+     * error, and never a demotion: the engine drops the filter without saying
+     * so and no readback path in the page can see it, so the honest act is to
+     * name the defect, its repro and its workarounds and let the author decide.
+     * The channel dedupes on code plus subjects, so a group that stays in the
+     * hazardous shape says this once per session rather than once per audit.
+     */
+    if (devMode) {
+      for (const hazard of report.engineDefects) {
+        platformDiagnostics.report({
+          code: "engine-known-defect",
+          severity: "warning",
+          subjects: [groupId, hazard.defect.id],
+          message: describeEngineDefect(groupId, hazard.defect, hazard.ancestor),
+        });
+      }
     }
     return report;
   };
@@ -819,6 +844,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           groupId,
           verdict: "pass",
           breaks: [],
+          engineDefects: [],
           reach: platformProbe.reach,
         },
         backdropSourceId: groupRecord.descriptor.backdropSourceId,

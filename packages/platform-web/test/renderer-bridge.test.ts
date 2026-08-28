@@ -88,7 +88,7 @@ const node = (overrides: Partial<GlassNodeRenderInput> = {}): GlassNodeRenderInp
 const group = (overrides: Partial<GlassGroupRenderInput> = {}): GlassGroupRenderInput => ({
   groupId: "g1",
   state: WEBGPU_TEXTURE_STATE,
-  probe: { groupId: "g1", verdict: "pass", breaks: [], reach: "verified" },
+  probe: { groupId: "g1", verdict: "pass", breaks: [], engineDefects: [], reach: "verified" },
   backdropSourceId: "src",
   variant: "regular",
   samplingPadding: 24,

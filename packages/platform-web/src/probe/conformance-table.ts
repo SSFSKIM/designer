@@ -37,7 +37,25 @@
  * WebKit 18.6 row is exactly such a closure: the user's labeled manual pass of
  * 2026-08-28 on retail Safari 18.6 / macOS 15.7.7 (archived in
  * `spikes/s1-proxy-topology/manual-evidence/`). Gecko's gate is still open.
+ *
+ * ## Defects are a second axis, and they fail the other way
+ *
+ * A row's conformance fields say what an engine *can* do, and an unmeasured one
+ * says `"unverified"` so the runtime under-promises. A row's `defects` say what
+ * a named version does *wrong* in a shape vitrea builds, and an unmeasured
+ * version claims none — because a defect is an accusation, and one made without
+ * evidence is noise in a channel whose value is that it only speaks when it has
+ * something. The two directions are deliberate and they are not in tension: the
+ * conservative answer to "does this work?" is "we do not know"; the conservative
+ * answer to "is this broken?" is also "we do not know", and only one of those
+ * warrants a warning. `engine-defects.ts` holds the entries and their scan.
  */
+
+import {
+  CHROMIUM_152_PATH_CLIP_NO_OP,
+  CHROMIUM_PATH_CLIP_DEFECT_MIN_VERSION,
+  type EngineDefect,
+} from "./engine-defects";
 
 export const ENGINE_FAMILIES = ["chromium", "gecko", "webkit", "unknown"] as const;
 
@@ -69,6 +87,15 @@ export interface EngineConformanceRow {
    * recorded so it can be relaxed per engine once measured.
    */
   readonly backdropRootTriggers: "normative" | "partial" | "unverified";
+  /**
+   * Known defects in this version range that vitrea's own construction can walk
+   * into — reported per group, because whether one bites depends on where the
+   * application mounted the plane root. Empty on every row that has none, which
+   * is the honest default: unlike the conformance fields above, an *unmeasured*
+   * version claims no defect rather than a conservative one, because a defect is
+   * a claim that something is broken. See `engine-defects.ts`.
+   */
+  readonly defects: readonly EngineDefect[];
   /** Why each field above says what it says. Non-empty by test. */
   readonly evidence: readonly string[];
 }
@@ -83,23 +110,55 @@ export interface EngineConformanceRow {
  */
 const CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT = 1_750_000;
 
+/**
+ * Everything the Chromium 113 row measured, which 152 did not change.
+ *
+ * Split out rather than duplicated so that the newer row states its *one*
+ * difference and nothing else: a re-measured conformance field would then be a
+ * visible edit in one place, and a row that silently drifted from its parent
+ * cannot happen.
+ */
+const CHROMIUM_MEASURED_CONFORMANCE = {
+  rasterisesBackdropFilter: "yes",
+  edgeMode: "mirror",
+  referenceFilterInBackdrop: true,
+  maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
+  transform3dHazard: "none",
+  backdropRootTriggers: "normative",
+} as const satisfies Partial<EngineConformanceRow>;
+
+const CHROMIUM_MEASURED_EVIDENCE: readonly string[] = [
+  "S1: 122 capture variants across headless Chromium 151.0.7922.34 and retail Chrome 151.0.7922.172 — proxy topology confirmed byte-exact; samplingPadding >= 3σ byte-exact at blur(8px), blur(20px) and blur(40px).",
+  "S1 Q5: all thirteen backdrop-root fixtures reproduce in both builds (97.77 clean / 0 re-rooted, and 97.58 / 0 in retail Chrome).",
+  "S1 Q3: transform and translate3d on an ancestor are byte-identical to the untransformed case; WPT backdrop-filter-nested-3d-transform-perspective passes in Chrome.",
+  "S1 Q3d: filter silently dropped above ~1.75-3.0 Mpx of device-pixel proxy area under software rasterisation; never dropped in GPU-composited retail Chrome up to 7.20 Mpx.",
+  "S1 Q5: CSS.supports('backdrop-filter','url(#x)') is true in all three engines and only Chromium renders it (WebKit bug 245510, Gecko bug 1887451).",
+];
+
+/**
+ * Rows are matched in order by `version >= minVersion`, so a **narrower range
+ * has to come first** — the WebKit pair below the Chromium pair works the same
+ * way. Getting this order wrong is silent: 152 would take the 113 row and the
+ * defect it carries would never be seen.
+ */
 export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
   {
     family: "chromium",
-    minVersion: 113,
-    rasterisesBackdropFilter: "yes",
-    edgeMode: "mirror",
-    referenceFilterInBackdrop: true,
-    maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
-    transform3dHazard: "none",
-    backdropRootTriggers: "normative",
+    minVersion: CHROMIUM_PATH_CLIP_DEFECT_MIN_VERSION,
+    ...CHROMIUM_MEASURED_CONFORMANCE,
+    defects: [CHROMIUM_152_PATH_CLIP_NO_OP],
     evidence: [
-      "S1: 122 capture variants across headless Chromium 151.0.7922.34 and retail Chrome 151.0.7922.172 — proxy topology confirmed byte-exact; samplingPadding >= 3σ byte-exact at blur(8px), blur(20px) and blur(40px).",
-      "S1 Q5: all thirteen backdrop-root fixtures reproduce in both builds (97.77 clean / 0 re-rooted, and 97.58 / 0 in retail Chrome).",
-      "S1 Q3: transform and translate3d on an ancestor are byte-identical to the untransformed case; WPT backdrop-filter-nested-3d-transform-perspective passes in Chrome.",
-      "S1 Q3d: filter silently dropped above ~1.75-3.0 Mpx of device-pixel proxy area under software rasterisation; never dropped in GPU-composited retail Chrome up to 7.20 Mpx.",
-      "S1 Q5: CSS.supports('backdrop-filter','url(#x)') is true in all three engines and only Chromium renders it (WebKit bug 245510, Gecko bug 1887451).",
+      ...CHROMIUM_MEASURED_EVIDENCE,
+      "Every conformance field above is the 151 row's, unchanged: the 152 regression is a defect in one construction, not a change in what the engine can do, so it is recorded as a defect rather than by downgrading a field. Downgrading `rasterisesBackdropFilter` would demote every Chromium 152 session including the overwhelming majority that never build the failing shape.",
+      "The regression itself: spikes/s1-proxy-topology/chrome152-regression/REPORT.md — 12-cell x 2-build matrix, verified repro, bug report drafted (parent Decision Log #39).",
     ],
+  },
+  {
+    family: "chromium",
+    minVersion: 113,
+    ...CHROMIUM_MEASURED_CONFORMANCE,
+    defects: [],
+    evidence: CHROMIUM_MEASURED_EVIDENCE,
   },
   {
     family: "gecko",
@@ -110,6 +169,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "partial",
+    defects: [],
     evidence: [
       "S1 §Environmental blocker: Firefox 153/154 renders backdrop-filter as a no-op in every capture path tried (Playwright headless and headed, retail --screenshot, WebDriver BiDi) while CSS filter, mix-blend-mode and opacity render correctly in the same images — so this machine cannot measure it, which is not the same as the engine not doing it.",
       "S1: WPT stable runs show Firefox 154 passing many backdrop-filter reftests, and -webkit-backdrop-filter has shipped for years, so live rendering is presumed functional pending the manual gate (spikes/s1-proxy-topology/pages/manual-check.html).",
@@ -127,6 +187,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "normative",
+    defects: [],
     evidence: [
       "Manual pass, retail Safari 18.6 on macOS 15.7.7 (user, 2026-08-28), spikes/s1-proxy-topology/pages/manual-check.html — the run Decision Log #17 said was the only oracle for this engine. Screenshots: manual-evidence/2026-08-28-safari-18.6-macos-15.7.7-{c1,d1}.png. The row claims 18.6 forward under the table's convention (every row claims its floor and newer until superseded); a retail Safari 26 spot-check would tighten it and remains cheap.",
       "rasterisesBackdropFilter: the D1 control tile renders blurred, so the portaled masked proxy paints in retail WebKit — the same construct every automated capture path renders as a no-op.",
@@ -145,6 +206,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "partial",
+    defects: [],
     evidence: [
       "S1 §Environmental blocker: Playwright WebKit 26.5 and the system WKWebView on macOS 26.5.2 both render backdrop-filter as a no-op in every snapshot path (takeSnapshot with afterScreenUpdates, headless and headed) while the CSS filter control in the same image is correct. Real Safari 26 could not be driven at all.",
       "S1: -webkit-backdrop-filter has shipped since Safari 9 and is in wide production use; WPT stable runs show Safari 26.6 passing many backdrop-filter reftests. Live rendering is presumed functional pending the manual gate.",
@@ -168,6 +230,7 @@ export const CONSERVATIVE_ROW: EngineConformanceRow = {
   maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
   transform3dHazard: "unverified",
   backdropRootTriggers: "unverified",
+  defects: [],
   evidence: [
     "Not measured. S1's layer-3 design requires the runtime to fail closed: an engine or version no row covers gets the conservative answer on every axis rather than the nearest optimistic one.",
   ],

@@ -31,18 +31,29 @@
  * under-detects.
  */
 
-import { auditBackdropRootChain, type BackdropRootBreak } from "./backdrop-root";
+import {
+  auditBackdropRootChain,
+  describeElement,
+  type BackdropRootBreak,
+} from "./backdrop-root";
 import {
   conformanceRowFor,
   detectEngine,
   type EngineConformanceRow,
   type EngineIdentity,
 } from "./conformance-table";
+import {
+  defectsOnChain,
+  roundedClipOf,
+  type AncestorClip,
+  type EngineDefect,
+} from "./engine-defects";
 import { checkSupportGate, type SupportGateResult, type SupportsPredicate } from "./support-gate";
 import { readComputedStyle, type LayoutReadMeter } from "../measure";
 
 export * from "./backdrop-root";
 export * from "./conformance-table";
+export * from "./engine-defects";
 export * from "./support-gate";
 
 /**
@@ -67,11 +78,28 @@ export interface PlatformProbeReport {
   readonly reach: ProbeReach;
 }
 
+/** A recorded engine defect this group's chain actually walks into. */
+export interface EngineDefectHazard {
+  readonly defect: EngineDefect;
+  readonly ancestor: AncestorClip;
+}
+
 export interface GroupProbeReport {
   readonly groupId: string;
   readonly verdict: "pass" | "fail";
   /** Empty on a pass. Each entry names an element and the property that re-roots. */
   readonly breaks: readonly BackdropRootBreak[];
+  /**
+   * Layer 3's per-group half: defects recorded against **this engine version**
+   * whose structural precondition this chain satisfies (`engine-defects.ts`).
+   *
+   * Deliberately not part of `verdict`. The verdict drives tier resolution, and
+   * these are unmeasurable by construction — the engine drops the filter without
+   * saying so, and no readback path can see it (S1 Q5). Demoting on a structural
+   * match would trade a *possibly* unfrosted GPU tier for a *certainly* lower
+   * one, on a guess. So it is reported and nothing more.
+   */
+  readonly engineDefects: readonly EngineDefectHazard[];
   readonly reach: ProbeReach;
 }
 
@@ -122,8 +150,22 @@ export function probeGroup(
   meter: LayoutReadMeter,
 ): GroupProbeReport {
   if (!platform.support.supported) {
-    return { groupId: input.groupId, verdict: "fail", breaks: [], reach: "unsupported" };
+    return {
+      groupId: input.groupId,
+      verdict: "fail",
+      breaks: [],
+      engineDefects: [],
+      reach: "unsupported",
+    };
   }
+
+  const { defects } = platform.conformance;
+  /**
+   * Rounded, clipping ancestors, nearest first — collected on layer 2's walk
+   * rather than by a second one, because each ancestor's computed style is read
+   * exactly once and that read is metered.
+   */
+  const clipping: AncestorClip[] = [];
 
   const breaks = auditBackdropRootChain({
     from: input.proxy,
@@ -132,12 +174,25 @@ export function probeGroup(
       const style = readComputedStyle(meter, element, input.window);
       return (property) => style.getPropertyValue(property);
     },
+    // Skipped entirely where the engine has nothing on the books, which is every
+    // engine and version but one: no defects, no property lookups.
+    ...(defects.length === 0
+      ? {}
+      : {
+          observe: (element: Element, style: (property: string) => string) => {
+            const clip = roundedClipOf(style);
+            if (clip !== undefined) {
+              clipping.push({ element, describe: describeElement(element), ...clip });
+            }
+          },
+        }),
   });
 
   return {
     groupId: input.groupId,
     verdict: breaks.length === 0 ? "pass" : "fail",
     breaks,
+    engineDefects: defectsOnChain(defects, clipping),
     reach: platform.reach,
   };
 }

@@ -380,6 +380,30 @@ Where WebGPU is missing, every group resolves to the CSS tier with
 CSS tier is a hard requirement of the design, not a courtesy — which is why it has
 its own renderer rather than a degraded code path.
 
+### One known engine defect: Chromium 152 and a rounded, clipping ancestor
+
+Chromium 152 drops `backdrop-filter` entirely on an element with
+`clip-path: path()` when an ancestor has `overflow` other than `visible`
+**together with** a `border-radius`. All three ingredients are required; every
+basic-shape `clip-path` is unaffected. vitrea's GPU-tier backdrop proxies are
+exactly that shape, so this can reach a real page.
+
+**With the default mount it cannot**: `GlassRoot`'s planes are `position: fixed`
+children of `<body>`, above any rounded, clipping container. It becomes
+reachable only if you pass your own `container` and that container sits inside
+one — a rounded card, modal or scroll area. There the proxies lose their frost
+silently: the engine logs nothing, and no readback path in a page can observe
+`backdrop-filter` output at all.
+
+So the runtime says it for you. In dev mode, a group whose proxy chain has that
+shape on Chromium 152 or newer emits `engine-known-defect` — a **warning**, never
+a demotion, because nothing here is measurable and demoting on a structural match
+would trade a possibly-unfrosted GPU tier for a certainly-lower one. The message
+names the ancestor, the three workarounds (mount at the default; remove either
+the radius or the overflow from that ancestor; or use a geometry a basic shape
+can express) and the verified repro. The bug report is drafted at
+[`spikes/s1-proxy-topology/chrome152-regression/`](https://github.com/SSFSKIM/designer/blob/main/spikes/s1-proxy-topology/chrome152-regression/REPORT.md).
+
 ---
 
 ## Testing your app

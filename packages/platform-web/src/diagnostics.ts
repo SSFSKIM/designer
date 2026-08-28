@@ -65,6 +65,13 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * structure. "Don't use Liquid Glass in the content layer."
    */
   "glass-in-content-layer",
+  /**
+   * This engine version has a recorded defect, and this group's proxy chain has
+   * the structure that triggers it. Advisory, never a demotion: the failure is
+   * unmeasurable from inside the page, so the runtime names it and the
+   * workarounds rather than guessing. See `probe/engine-defects.ts`.
+   */
+  "engine-known-defect",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

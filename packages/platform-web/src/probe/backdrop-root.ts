@@ -128,6 +128,18 @@ export interface AuditOptions {
    */
   readonly stopAt: Element | null;
   readonly readStyle: (element: Element) => StyleLookup;
+  /**
+   * Anything else that needs a per-ancestor look, riding along on this walk.
+   *
+   * The chain is walked once and each ancestor's computed style read once —
+   * that read is metered, and the steady state is supposed to read nothing at
+   * all, so a second question about the same chain must not become a second
+   * walk. Layer 3's engine-defect scan is the caller that needs it: whether a
+   * known engine defect bites depends on ancestors that are not backdrop-root
+   * triggers, and asking here costs one property lookup rather than a whole
+   * traversal.
+   */
+  readonly observe?: (element: Element, style: StyleLookup) => void;
 }
 
 /**
@@ -145,7 +157,7 @@ export interface AuditOptions {
  * per group and not per document.
  */
 export function auditBackdropRootChain(options: AuditOptions): readonly BackdropRootBreak[] {
-  const { from, stopAt, readStyle } = options;
+  const { from, stopAt, readStyle, observe } = options;
   const breaks: BackdropRootBreak[] = [];
 
   // The proxy carries backdrop-filter itself; it is a Backdrop Root only for its
@@ -153,10 +165,12 @@ export function auditBackdropRootChain(options: AuditOptions): readonly Backdrop
   let element = from.parentElement;
 
   while (element !== null && element !== stopAt && element !== document.documentElement) {
-    const triggers = backdropRootTriggers(readStyle(element));
+    const style = readStyle(element);
+    const triggers = backdropRootTriggers(style);
     if (triggers.length > 0) {
       breaks.push({ element, describe: describeElement(element), triggers });
     }
+    observe?.(element, style);
     element = element.parentElement;
   }
 
