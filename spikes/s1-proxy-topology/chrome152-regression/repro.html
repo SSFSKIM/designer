@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>backdrop-filter no-op: clip-path:path() under rounded overflow ancestor</title>
+<style>
+  body { margin: 20px; background: #111; color: #eee; font: 14px system-ui; }
+  .scene {
+    position: relative; width: 320px; height: 160px; display: inline-block; margin-right: 16px;
+    background: repeating-conic-gradient(#fff 0% 25%, #000 0% 50%) 0 0 / 16px 16px;
+    overflow: hidden;          /* ingredient 1 */
+    border-radius: 6px;        /* ingredient 2 */
+  }
+  .glass {
+    position: absolute; left: 40px; top: 45px; width: 240px; height: 70px;
+    backdrop-filter: blur(14px) saturate(1.8);
+  }
+  /* ingredient 3 — identical geometry, expressed two ways: */
+  #broken .glass { clip-path: path('M22,0H218A22,22 0 0 1 240,22V48A22,22 0 0 1 218,70H22A22,22 0 0 1 0,48V22A22,22 0 0 1 22,0Z'); }
+  #control .glass { clip-path: inset(0 round 22px); }
+</style>
+<p>Both tiles carry an identical <code>backdrop-filter: blur(14px)</code> panel with the
+same rounded-rect clip — left as <code>clip-path: path(…)</code>, right as
+<code>clip-path: inset(0 round 22px)</code>. <b>Expected: both panels blur the
+checkerboard identically</b> (Chrome 151, Firefox, and Safari all render them
+identically). <b>Actual in Chrome 152: the left panel's filter is a complete
+no-op</b> — sharp checkerboard through where the blur should be.</p>
+<div class="scene" id="broken"><div class="glass"></div></div>
+<div class="scene" id="control"><div class="glass"></div></div>
+<p>Remove either ancestor ingredient (<code>overflow: hidden</code> or
+<code>border-radius</code>) from <code>.scene</code> and the <code>path()</code>
+panel renders again. Every basic-shape <code>clip-path</code> value
+(<code>inset()</code>, <code>circle()</code>, <code>polygon()</code>) is
+unaffected; only <code>path()</code> breaks.</p>
