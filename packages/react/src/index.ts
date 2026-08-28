@@ -65,7 +65,12 @@ export {
 
 export { useGlassRoot, type GlassRootHandle, type RecordedDiagnostic } from "./context";
 export { GLASS_CHANNEL_PROPERTIES } from "./interaction";
-export { PlanePortal, PLANE_MOUNT_ATTRIBUTE, type PlanePortalProps } from "./plane-portal";
+export {
+  PlanePortal,
+  PLANE_ANCHOR_ATTRIBUTE,
+  PLANE_MOUNT_ATTRIBUTE,
+  type PlanePortalProps,
+} from "./plane-portal";
 export {
   APPLE_LIKE_SMOOTHING,
   assertSharedCornerReference,

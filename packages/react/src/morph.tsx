@@ -49,6 +49,7 @@ import { createDriver, createInteractionMachine, type MotionDriver } from "@vitr
 import {
   useCallback,
   useEffect,
+  useId,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -58,7 +59,7 @@ import {
 } from "react";
 
 import { useGlassRootHandle } from "./context";
-import { OutsidePlaneScope } from "./plane-portal";
+import { OutsidePlaneScope, PLANE_ANCHOR_ATTRIBUTE } from "./plane-portal";
 import { GLASS_CHANNEL_PROPERTIES } from "./interaction";
 import { assertSharedCornerReference, smoothingFor, type GlassCornerProfile } from "./shape";
 import { GlassSurface } from "./surface";
@@ -446,6 +447,20 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
 
   const state: GlassMorphState = { open, morphing };
 
+  /*
+   * Where the platter logically sits, published for anything that has to reason
+   * about the author's sequence rather than the DOM's.
+   *
+   * The spacer already holds the closed footprint in the app's own layout, which
+   * makes it exactly the element that answers "where did this come from" — and
+   * the platter itself cannot answer it, because it is hoisted into a plane host
+   * layer whose child order is an accident of effect order and of whichever
+   * plane it was last promoted to. The platter carries the id as
+   * `PLANE_ANCHOR_ATTRIBUTE`, which is how `GlassToolbar` finds it — from the
+   * item, upwards, so it works wherever the app marked the item.
+   */
+  const anchorId = `vitrea-morph-anchor${useId()}`;
+
   const surfaceStyle: CSSProperties = {
     ...style,
     // Until the first measurement the platter sits in normal flow, which is what
@@ -458,6 +473,7 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
     <>
       <div
         ref={setSpacer}
+        id={anchorId}
         aria-hidden="true"
         data-vitrea-morph-anchor=""
         style={{
@@ -493,6 +509,7 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
         {...(nodeId === undefined ? {} : { nodeId })}
         {...(props["aria-label"] === undefined ? {} : { "aria-label": props["aria-label"] })}
         data-vitrea-morph=""
+        {...{ [PLANE_ANCHOR_ATTRIBUTE]: anchorId }}
         data-vitrea-morph-open={open ? "" : undefined}
         // Published because "still travelling" is something a stylesheet and a
         // test both need to see, and because it is the state in which the

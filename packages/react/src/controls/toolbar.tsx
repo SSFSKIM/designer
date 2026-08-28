@@ -40,7 +40,7 @@ import {
 } from "react";
 
 import { GlassGroup, type GlassGroupProps } from "../group";
-import { PlanePortal } from "../plane-portal";
+import { PlanePortal, PLANE_ANCHOR_ATTRIBUTE } from "../plane-portal";
 
 /**
  * The attribute a toolbar item marks itself with, carrying its toolbar's id.
@@ -84,16 +84,58 @@ export interface GlassToolbarProps
 }
 
 /**
- * This toolbar's items, in document order, wherever they live.
+ * Where an item sits in the author's sequence: itself, or the placeholder it
+ * left behind when it was hoisted out of the toolbar.
+ *
+ * The anchor is only trusted while it is inside this toolbar. An anchor
+ * elsewhere in the document is not a position in *this* sequence, and following
+ * it would be worse than the DOM order it replaced.
+ */
+const logicalNodeOf = (toolbar: HTMLElement, item: HTMLElement): HTMLElement => {
+  // Upwards from the item, not off the item itself: an app marks whichever
+  // element it likes as the toolbar item, at whatever depth inside the hoisted
+  // subtree, and the marker belongs to the subtree's root.
+  const hoisted = item.closest(`[${PLANE_ANCHOR_ATTRIBUTE}]`);
+  const anchorId = hoisted?.getAttribute(PLANE_ANCHOR_ATTRIBUTE);
+  if (anchorId === undefined || anchorId === null || anchorId === "") return item;
+  const anchor = toolbar.ownerDocument.getElementById(anchorId);
+  return anchor !== null && toolbar.contains(anchor) ? anchor : item;
+};
+
+/**
+ * This toolbar's items, in the order the author wrote them, wherever they live.
  *
  * Searched from the document rather than from the toolbar element, because a
  * portalled or promoted item is still a member — see `TOOLBAR_ITEM_ATTRIBUTE`.
- * `querySelectorAll` returns document order, which for a toolbar whose items sit
- * in one row is the reading order the arrows should follow.
+ *
+ * What `querySelectorAll` hands back is *document* order, and for an item that
+ * has been hoisted into a plane's host layer that is the author's order only by
+ * luck: where the mount lands among the layer's children depends on effect
+ * order, on how many commits the tree took to settle, and on promotion history,
+ * since opening and closing a morph re-appends its mount at the end. Measured
+ * both ways — a toolbar that portals itself puts a nested morph's platter
+ * *first*, and that is the tab stop the consumer reported; the demo's
+ * playground, whose app portals the whole `<nav>`, happens to put it *last*.
+ * So each item is placed by its anchor (`PLANE_ANCHOR_ATTRIBUTE`) where it has one,
+ * and items still inside the toolbar come first — which is also the order the
+ * accessibility tree reports, since `aria-owns` appends owned elements after an
+ * element's DOM children. The arrows, the tab stop and a screen reader then
+ * agree, which the ordering before this did not manage.
  */
 const membersOf = (toolbar: HTMLElement, toolbarId: string): HTMLElement[] => {
   const selector = `[${TOOLBAR_ITEM_ATTRIBUTE}="${CSS.escape(toolbarId)}"]`;
-  return [...toolbar.ownerDocument.querySelectorAll<HTMLElement>(selector)];
+  const found = [...toolbar.ownerDocument.querySelectorAll<HTMLElement>(selector)];
+  const placed = found.map((item) => ({ item, at: logicalNodeOf(toolbar, item) }));
+
+  return placed
+    .sort((a, b) => {
+      const inside = Number(!toolbar.contains(a.at)) - Number(!toolbar.contains(b.at));
+      if (inside !== 0) return inside;
+      if (a.at === b.at) return 0;
+      const relation = a.at.compareDocumentPosition(b.at);
+      return (relation & Node.DOCUMENT_POSITION_FOLLOWING) === 0 ? 1 : -1;
+    })
+    .map((entry) => entry.item);
 };
 
 const isEnabled = (item: HTMLElement): boolean =>

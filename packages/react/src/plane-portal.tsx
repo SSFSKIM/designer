@@ -47,6 +47,31 @@ export interface PlanePortalProps {
 /** Attribute on the mount node. Public, because tests and dev tooling read it. */
 export const PLANE_MOUNT_ATTRIBUTE = "data-vitrea-mount";
 
+/**
+ * On a hoisted subtree's root: the id of the in-flow element that marks where
+ * the subtree came from.
+ *
+ * A subtree portalled into a plane's host layer leaves the app's own flow, and
+ * its position among that layer's children is then an accident — of effect
+ * order, of how many commits the tree took to settle, and of promotion history,
+ * since a plane change re-appends the mount and moves it to the end. Measured
+ * both ways: a toolbar that portals itself puts a nested morph's platter
+ * *first*, while the demo's playground, whose app portals the whole `<nav>`,
+ * puts it *last*. Neither is the author's order except by luck, so anything that
+ * has to reason about the author's sequence cannot read it off the document.
+ *
+ * So a component that hoists content and leaves a placeholder behind names that
+ * placeholder here. `GlassMorph` does: its spacer already holds the closed
+ * platter's footprint in the app's layout, which makes it exactly the element
+ * that says where the platter belongs. A consumer looks the marker up from the
+ * element it cares about *upwards* — `element.closest()` — so it works wherever
+ * in the hoisted subtree that element sits, and whoever put it there.
+ *
+ * Public, because `GlassToolbar` reads it across a package boundary and a test
+ * or a devtool has the same question.
+ */
+export const PLANE_ANCHOR_ATTRIBUTE = "data-vitrea-plane-anchor";
+
 function createMountNode(): HTMLElement {
   const element = document.createElement("div");
   element.setAttribute(PLANE_MOUNT_ATTRIBUTE, "");

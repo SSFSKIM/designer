@@ -97,6 +97,54 @@ test("focus reaches the toolbar once, and arrows move within it", async ({ page 
   await expect(page.getByRole("button", { name: "Actions" })).toBeFocused();
 });
 
+test("the one tab stop is the toolbar's first control, not its hoisted last one", async ({
+  page,
+}) => {
+  /*
+   * A 0.1.1 consumer's observation: the hoisted morph trigger held the toolbar's
+   * single tab stop. Correct ARIA, wrong sequence.
+   *
+   * **A guard rather than a reproduction, and labelled as one.** Measured on
+   * this page with the fix reverted, the platter's mount lands *last* — this app
+   * portals the whole `<nav>` itself, so the toolbar renders in place and only
+   * the morph hoists — and the stop was already on Share. The order was right by
+   * luck, which is the property the fix removes. The reproduction lives in
+   * `test/toolbar-order.test.tsx`, where a toolbar that portals itself lands the
+   * platter first.
+   *
+   * Asserted on `tabIndex` rather than by pressing Tab: Safari ships with "press
+   * Tab to highlight each item" off, so a Tab traversal would measure a browser
+   * preference on one of the three engines this suite runs. The identity of the
+   * tab stop is the same fact without that confound.
+   */
+  const stops = await page.evaluate(() =>
+    [...document.querySelectorAll<HTMLElement>("[data-vitrea-toolbar-item]")]
+      .filter((item) => item.tabIndex === 0)
+      .map((item) => (item.textContent ?? "").replace(/\s+/g, " ").trim()),
+  );
+
+  expect(stops).toHaveLength(1);
+  expect(stops[0]).toBe("Share");
+});
+
+test("End reaches the hoisted trigger, and wrapping past it lands on the first control", async ({
+  page,
+}) => {
+  // The other end of the same sequence, and the same kind of guard: it holds on
+  // this page whichever way the mount happened to land, and it is what would
+  // catch the order drifting the next time the app's portal structure changes.
+  await page.getByRole("button", { name: "Share" }).focus();
+
+  await page.keyboard.press("End");
+  await expect(page.getByRole("button", { name: "Actions" })).toBeFocused();
+
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("button", { name: "Share" })).toBeFocused();
+
+  await page.keyboard.press("Home");
+  await expect(page.getByRole("button", { name: "Share" })).toBeFocused();
+});
+
 test("a disabled control is disabled to the platform, not merely styled", async ({ page }) => {
   const disabled = page.getByRole("button", { name: "Disabled", disabled: true });
   await expect(disabled).toBeDisabled();
