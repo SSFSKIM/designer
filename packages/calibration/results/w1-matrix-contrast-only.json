@@ -1,0 +1,2005 @@
+{
+  "schemaVersion": 3,
+  "cells": [
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "css",
+          "samplingBackend": "css-backdrop",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "checkerboard__capsule-button__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "dom",
+      "capturedAt": "2026-08-28T17:14:31.752Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.026617339748045175,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.2293161118950473,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.024865064977050846,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9589942282164037,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.30660837034468186,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.013558598787562224,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.08119372449975576,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.997025185154763,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 2794,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 5332,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.486100950987564,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 21.540659228538015,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 19,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 5.331368351715313,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 7.93040694077963,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 95.50604176708426,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 95.50604176708426,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.056131573079425505,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 95.52408194519178,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "blurSigmaWeb": {
+          "value": 2.305413287068742,
+          "units": "px"
+        },
+        "blurFitResidualWeb": {
+          "value": 0.27302410547006134,
+          "units": "ratio"
+        },
+        "luminanceSlopeNative": {
+          "value": -0.5609522314242648,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.10810343107176332,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9244322787294101,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.7648496083962738,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.38173138648913163,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.22643393192827377,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.8561703751201581,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.7780046429576194,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.12168933428775948,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.29682281603439503,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.07427096386891417,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.3269266587605872,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.45401009095113737,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.4241845708850804,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": 0.000011826157569949647,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": 3.433914264050486e-11,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.000004358037782925539,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 1.581101644054783e-8,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": 0.000012591555988586832,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": 1.5811053730222758e-8,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -69.56761382457111,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": -2.772754612578865e-7,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 2.1094237467877974e-15,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.07026835767346151,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 5,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 0.4373015873015875,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 2.851365458169534,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.005568365031990462,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0.07066233709302418,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 4.379672226710982,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 2.3529748162101987,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "checkerboard__capsule-button__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "texture",
+      "capturedAt": "2026-08-28T17:14:19.873Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.021709231932775522,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.18414983944457833,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.019829075517243607,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9660584369590822,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.4445432111311189,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.009488157636383708,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.06602605011155664,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.9999999934735468,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 2794,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 4954,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.5035901416650495,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 20.024984394500787,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 17.11724276862369,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 4.59104280375729,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 7.310552288116237,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.39594362630765656,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.39422099791141074,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.056131573079425505,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.37610069259958934,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "blurSigmaWeb": {
+          "value": 0.5206984537533392,
+          "units": "px"
+        },
+        "blurFitResidualWeb": {
+          "value": 0.157378679999422,
+          "units": "ratio"
+        },
+        "luminanceSlopeNative": {
+          "value": -0.5609522314242648,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.1286704206859141,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9244322787294101,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.7916550081380657,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.38173138648913163,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.2666734334484291,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.8561703751201581,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.8073128259738606,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.12168933428775948,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.29682281603439503,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.08145901992200322,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.3269266587605872,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.45401009095113737,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.4355915582941859,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": 0.000011826157569949647,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": 3.5262182063178216e-11,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.000004358037782925539,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 1.6236199662511552e-8,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": 0.000012591555988586832,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": 1.6236237954108215e-8,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -69.56761382457111,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": 3.698380197647566e-7,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 2.1094237467877974e-15,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.05096214721348602,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 5,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 0.4373015873015875,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 0.7441927234938328,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.005568365031990462,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0.09510945056747346,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 4.379672226710982,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 4.940741874071823,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "css",
+          "samplingBackend": "css-backdrop",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "checkerboard__rrect-md__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "checkerboard__rrect-md__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "dom",
+      "capturedAt": "2026-08-28T17:14:31.513Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.06183522360035058,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.2546984449721813,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.06510067993916413,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.930877685437766,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.3286514843313838,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.030364784378723742,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.09032449944276051,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.997025185154763,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 8060,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 15654,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.4909776799748507,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 47,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 40,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 12.45756991104937,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 18.1974848940439,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 49484.82391877432,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 49484.82391877432,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.0644762706045318,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 49484.88103373548,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "blurSigmaWeb": {
+          "value": 2.305413287068742,
+          "units": "px"
+        },
+        "blurFitResidualWeb": {
+          "value": 0.27302410547006134,
+          "units": "ratio"
+        },
+        "luminanceSlopeNative": {
+          "value": -0.617214518582609,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.13303989395522217,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9608604963508405,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.7595752858889617,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.4481250011504745,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.3316861752841803,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.9195086551554795,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.7684886286601553,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.06699751861042183,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.23051930664902295,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.057754916886897954,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.25001770159424314,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.5662671188151389,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.5098157689721579,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": 0.000010279046688876914,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": 4.1270764583600794e-11,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.000003194847027432335,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 1.9002826034952847e-8,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": 0.000010753495521846634,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": 1.900287085128694e-8,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -72.53284584056799,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": 4.489898799420189e-7,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0.00011135358813751939,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.06555003892636124,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 5,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 1.2423314012584763,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 2.634140412278085,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.005303830442712227,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0.13193787061700427,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 5.252143306952821,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 6.526781543710344,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "checkerboard__rrect-md__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "checkerboard__rrect-md__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "texture",
+      "capturedAt": "2026-08-28T17:14:19.625Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.04933277913832599,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.20089726198559105,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.052043703569291645,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9485987847589369,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.464802269488443,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.020900889709732404,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.06905461442216569,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.617422592369989,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 8060,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 14782,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.49705072748721985,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 46,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 39.01281840626232,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 11.783019898803705,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 17.731549491576033,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.22428838437801596,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.21746978558887545,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.0644762706045318,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.1751435798206053,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "blurSigmaWeb": {
+          "value": 0.5206984537533392,
+          "units": "px"
+        },
+        "blurFitResidualWeb": {
+          "value": 0.157378679999422,
+          "units": "ratio"
+        },
+        "luminanceSlopeNative": {
+          "value": -0.617214518582609,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.18669615937408326,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9608604963508405,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.7953182969046263,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.4481250011504745,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.373670748745752,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.9195086551554795,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.8078264763167857,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.06699751861042183,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.23051930664902295,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.07635923894323698,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.25001770159424314,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.5662671188151389,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.5251854224116476,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": 0.000010279046688876914,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": 4.251510254960067e-11,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.000003194847027432335,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 1.957571299504579e-8,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": 0.000010753495521846634,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": 1.9575759162759163e-8,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -72.53284584056799,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": 2.416625335399658e-7,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0.00011135358813751939,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.04775561520609206,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 5,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 1.2423314012584763,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 1.1592518142568298,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.005303830442712227,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0.15499276235314027,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 5.252143306952821,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 6.205440167098605,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "css",
+          "samplingBackend": "css-backdrop",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "photo__capsule-button__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "photo__capsule-button__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "dom",
+      "capturedAt": "2026-08-28T17:14:31.686Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.0438963561474912,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.25289822276672885,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.02650795077284216,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9477903692352154,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.285036960905159,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.012458575500306148,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.0907493247639709,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.5966512761914994,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 5095,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 5585,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.8816067653276956,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 7.211102550927978,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 5,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 2.219273862438291,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 2.6807999387660972,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.051955018355876584,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.04175282037673538,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.0511633733112189,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.05327095200813288,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "luminanceSlopeNative": {
+          "value": -0.21686708632496438,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.32006843759636283,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9431735512001213,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.6862508339280713,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.005360459180661303,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.0808929594154939,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.8969439312366112,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.7544799160038191,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.21317029129186213,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.26467450172651374,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.10055575796736477,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.08935512283127894,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.3646078006812281,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.31107624211336016,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": -0.018077904324019234,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": -0.014401427995894,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.007985014833593596,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 0.005674474603050594,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": -0.0193649513670212,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": -0.015362455563930314,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -100.54907317260565,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": -11.775753674785033,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.10211980374203011,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 12,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 0,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 1.6591209216651825,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.0007077264178622537,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 6,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 0.6321205588285577,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 0,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "photo__capsule-button__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "photo__capsule-button__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "texture",
+      "capturedAt": "2026-08-28T17:14:19.802Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.04167808248548107,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.30672333422835,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.027130229303985752,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9505305297980786,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.6717163305658063,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.011941094467740766,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.11309636728168668,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.6024904316838109,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 5095,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 5144,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.9326160815402038,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 4.47213595499958,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 2.8284271247461903,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 1.1541325139431342,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 1.4624327941547792,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.08516441888765965,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.07003592557319592,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.0511633733112189,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.08176765768665833,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "luminanceSlopeNative": {
+          "value": -0.21686708632496438,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.28737432813574887,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9431735512001213,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.6274454440840674,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.005360459180661303,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.053634846983187656,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.8969439312366112,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.6887051133225682,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.21317029129186213,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.26467450172651374,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.11087762176540208,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.08935512283127894,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.3646078006812281,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.28378720382930633,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": -0.018077904324019234,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": -0.014534797929341592,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.007985014833593596,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 0.0063371454803671234,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": -0.0193649513670212,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": -0.01583765745189307,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -100.54907317260565,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": -5.040777733771126,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.13443969726130456,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 12,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 0,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 0.6699450118496562,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.0007077264178622537,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 5,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 0.6321205588285577,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 0,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "css",
+          "samplingBackend": "css-backdrop",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "photo__rrect-md__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "photo__rrect-md__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "dom",
+      "capturedAt": "2026-08-28T17:14:31.616Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.09504750871604432,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.29743178947453197,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.07081349563496722,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9161360481914937,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.46347873759056274,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.03141481330392489,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.1089135073630352,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.6190162639915673,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 15277,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 16104,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.9319706950686449,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 7.0710678118654755,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 4,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 2.1336137791521472,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 2.5059928172283334,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.07706494302710866,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.0738930038662353,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.060888848246318655,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "luminanceSlopeNative": {
+          "value": -0.024115685645408426,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.324696270687332,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9541183234445035,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.6792565666702625,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.00019410045522494368,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.1995355493881139,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.9489177734688806,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.7492773493026381,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.21565009811831987,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.18847723666928357,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.07914796056484193,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.10888613155800361,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.3803110311855229,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.3063869188048801,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": -0.019259511885618752,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": -0.015742770303899256,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.014835684911050973,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 0.012227441167361797,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": -0.024309874051153302,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": -0.019932296969114166,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": 7.159378592744197,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": 1.2015298217234687,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.06090717329150486,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 12,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 0,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 1.551109406150934,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.0016199313596340775,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 6,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 0.43570122843747794,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 0,
+          "units": "px"
+        }
+      }
+    },
+    {
+      "key": {
+        "profileKey": "apple-macos-26.5-1x-light-increased-contrast",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=light, animations=disabled, frames=8, accessibility=increasedContrast (others explicitly off), materialProfile=packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:ef98ddd5aff4 sections=renderer+cssTierMapping",
+          "sceneId": "photo__rrect-md__rest",
+          "pixelSize": [
+            320,
+            200
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "photo__rrect-md__rest"
+      },
+      "fixtureSet": "calibration",
+      "tier": "texture",
+      "capturedAt": "2026-08-28T17:14:19.734Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.09454451971982225,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0.33398250294335186,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.07470503259485674,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9264392618053373,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": -0.4664692879330563,
+          "units": "ratio"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.030623725517764443,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0.12363006597900582,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.5817951070372457,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 15277,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 15060,
+          "units": "px^2"
+        },
+        "silhouetteIoU": {
+          "value": 0.9728815763803083,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 2,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 1,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 0.8052690816167178,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 0.9027960181605278,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.09007774189276496,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.08055095545527553,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.06381752936837566,
+          "units": "1/px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "luminanceSlopeNative": {
+          "value": -0.024115685645408426,
+          "units": "ratio"
+        },
+        "luminanceSlopeWeb": {
+          "value": 0.3113611899111093,
+          "units": "ratio"
+        },
+        "luminanceOffsetNative": {
+          "value": 0.9541183234445035,
+          "units": "luminance"
+        },
+        "luminanceOffsetWeb": {
+          "value": 0.6242178874463776,
+          "units": "luminance"
+        },
+        "luminanceR2Native": {
+          "value": 0.00019410045522494368,
+          "units": "ratio"
+        },
+        "luminanceR2Web": {
+          "value": 0.13381045958035764,
+          "units": "ratio"
+        },
+        "interiorMeanNative": {
+          "value": 0.9489177734688806,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.6913629586009452,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.21565009811831987,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.18847723666928357,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.09268127845801448,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 0.10888613155800361,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.3803110311855229,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.2823301206611697,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": -0.019259511885618752,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": -0.015937607874307536,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": 0.014835684911050973,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 0.012277841109212317,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": -0.024309874051153302,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": -0.02011843117333329,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": 7.159378592744197,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": 0.2120887314040516,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.1446890068534642,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 12,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 0,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 0.5758626421210973,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.0016199313596340775,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 0.43570122843747794,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 0,
+          "units": "px"
+        }
+      }
+    }
+  ]
+}

@@ -223,6 +223,18 @@ function readJson<T>(path: string): T {
 const MATRIX = readJson<ResultMatrix>(resolve(PACKAGE_ROOT, "results", "matrix.json"));
 const SCENES = readJson<SceneMatrix>(resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json"));
 
+/**
+ * W1's staged six-profile matrix, measured 2026-08-29 against the recaptured
+ * bed (`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`, W1 G3).
+ *
+ * It is staged beside `matrix.json` rather than replacing it, because the
+ * thresholds for its four new profiles are proposals and adoption is a human
+ * gate. What it *can* be held to today is the gate that was already adopted:
+ * the light-standard profile in it is an independent recapture of the profile
+ * §5's tables were set on, so every bound above must still hold over it.
+ */
+const W1_MATRIX = readJson<ResultMatrix>(resolve(PACKAGE_ROOT, "results", "w1-matrix.json"));
+
 /** `tier / set / scene / profile` — every failure message starts with this. */
 function name(cell: Cell): string {
   return `${cell.tier} / ${cell.fixtureSet} / ${cell.key.sceneId} / ${cell.key.profileKey}`;
@@ -456,7 +468,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26)", () => {
      * carries a coherence axis, this fails and the row above gets wired up
      * alongside the ratio.
      */
-    for (const cell of MATRIX.cells) {
+    for (const cell of [...MATRIX.cells, ...W1_MATRIX.cells]) {
       expect(
         cell,
         `${name(cell)}: a coherence axis is now on the record — enforce ` +
@@ -465,4 +477,67 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26)", () => {
       ).not.toHaveProperty("coherence");
     }
   });
+});
+
+/**
+ * The same gate, over W1's recapture — and nothing more.
+ *
+ * W1 G3 re-measured all six profiles of the widened bed. Four of those profiles
+ * (both 2× keys and both accessibility keys) have no adopted thresholds and get
+ * none here: their tables are proposals in W1's report, and adopting a threshold
+ * is a human gate rather than a measuring session's. What is enforceable today,
+ * and is enforced below, is that the *already-adopted* bounds survive an
+ * independent recapture of the profile they were set on — measured on another
+ * day, through a re-keyed capture path, on the same frozen configuration.
+ *
+ * Strengthen-only by construction: it adds cells to the adopted gate's coverage
+ * and reuses `TEXTURE_TIER_LIGHT` and `DOM_TIER_LIGHT` verbatim, so no bound can
+ * drift here without drifting in the tables above.
+ */
+describe("the adopted gate over W1's recaptured matrix (wave spec W1 G3)", () => {
+  const gatedIn = (tier: "texture" | "dom"): readonly Cell[] =>
+    W1_MATRIX.cells.filter((cell) => cell.tier === tier && cell.key.profileKey === GATED_PROFILE);
+
+  it("carries the whole widened bed, with the gated profile intact inside it", () => {
+    expect(W1_MATRIX.schemaVersion).toBe(3);
+    // Six native profiles on two tiers. Stated as the partition rather than a
+    // bare total, so a profile going missing cannot be absorbed by another's
+    // cells arriving.
+    const perProfile = new Map<string, number>();
+    for (const cell of W1_MATRIX.cells) {
+      perProfile.set(cell.key.profileKey, (perProfile.get(cell.key.profileKey) ?? 0) + 1);
+    }
+    expect(Object.fromEntries([...perProfile].sort())).toEqual({
+      "apple-macos-26.5-1x-dark-standard": 12,
+      "apple-macos-26.5-1x-light-increased-contrast": 8,
+      "apple-macos-26.5-1x-light-reduced-transparency": 8,
+      "apple-macos-26.5-1x-light-standard": 48,
+      "apple-macos-26.5-2x-dark-standard": 12,
+      "apple-macos-26.5-2x-light-standard": 48,
+    });
+    expect(gatedIn("texture")).toHaveLength(GATED_CELLS_PER_TIER);
+    expect(gatedIn("dom")).toHaveLength(GATED_CELLS_PER_TIER);
+  });
+
+  for (const [tier, table, bound] of [
+    ["texture", TEXTURE_TIER_LIGHT, "TEXTURE_TIER_LIGHT"],
+    ["dom", DOM_TIER_LIGHT, "DOM_TIER_LIGHT"],
+  ] as const) {
+    it(`holds ${bound} over the recaptured ${tier}-tier light cells`, () => {
+      const cells = gatedIn(tier);
+      const shapeCells = cells.filter((cell) => cell.shape !== undefined);
+      expect(shapeCells).toHaveLength(GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length);
+
+      for (const [axis, metric, comparison, threshold] of table) {
+        const applicable =
+          axis === "shape" ? shapeCells.filter((cell) => isWellConditioned(cell)) : cells;
+        for (const cell of applicable) {
+          const measured = reading(cell, axis, metric);
+          const because = `W1 recapture — ${name(cell)}: ${metric} = ${measured.toPrecision(5)}, gate ${comparison} ${threshold}`;
+          if (comparison === "≥") expect(measured, because).toBeGreaterThanOrEqual(threshold);
+          else expect(measured, because).toBeLessThanOrEqual(threshold);
+        }
+      }
+    });
+  }
 });
