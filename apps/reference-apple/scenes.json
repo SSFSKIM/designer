@@ -165,6 +165,27 @@
         "checkerboard__rrect-md__rest",
         "photo__rrect-md__rest"
       ]
+    },
+    {
+      "key": "apple-macos-26.5-2x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "Wave 1 / W1: the canonical 2x claim surface, every scene. Captured on a virtual HiDPI display (backingScaleFactor 2); the harness skips scale-mismatched profiles per run, so 1x and 2x keys coexist here."
+    },
+    {
+      "key": "apple-macos-26.5-2x-dark-standard",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "dark-solid__capsule-button__rest",
+        "checkerboard__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "dark-solid__rrect-md__rest",
+        "checkerboard__rrect-md__rest",
+        "photo__rrect-md__rest"
+      ],
+      "$comment": "Wave 1 / W1: the 1x dark subset, at 2x."
     }
   ],
 

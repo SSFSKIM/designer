@@ -390,19 +390,30 @@ func runCapture(method: CaptureMethod) {
   // Fixture directory names and manifest profile keys are `profile.key` verbatim,
   // and the key is where the scale of a fixture is *stated*. Nothing downstream
   // re-measures it, and a PNG carries no record of the scale it was captured at,
-  // so a run whose keys claim another scale mislabels every fixture it writes with
-  // no trace in the bytes. VITREA_SCALE=2 against today's all-1x profiles is the
-  // live case: it would file 2x pixels under '-1x-' keys.
+  // so capturing a profile whose key claims another scale would mislabel every
+  // fixture it writes with no trace in the bytes. Since Wave 1 declared the 2x
+  // profiles alongside the 1x ones, the mismatch is a skip-and-record like the
+  // accessibility gate above, not a failure: each run captures exactly the
+  // profiles whose stated scale is the one this display actually renders, and
+  // the run still fails when that leaves nothing.
   let scaleToken = "-\(Int(backingScale))x-"
-  let mislabelled = Set(work.map { $0.0.key }.filter { !$0.contains(scaleToken) })
-  if !mislabelled.isEmpty {
+  let scaleSkipped = Set(work.map { $0.0.key }.filter { !$0.contains(scaleToken) }).sorted()
+  work.removeAll { !$0.0.key.contains(scaleToken) }
+  if !scaleSkipped.isEmpty {
+    caveats.append("""
+      Profiles not captured because this display renders at \(backingScale)x and \
+      their keys state another scale: \(scaleSkipped.joined(separator: ", ")). A \
+      profile is only captured on a display whose backingScaleFactor matches its \
+      key — a mismatched run would file \
+      \(Int(canvas.width * backingScale))x\(Int(canvas.height * backingScale))-pixel \
+      fixtures under a key claiming a different scale, with no trace in the bytes.
+      """)
+  }
+  guard !work.isEmpty else {
     fail("""
-      capturing at \(backingScale)x, but these selected profile keys do not say \
-      '\(scaleToken)': \(mislabelled.sorted().joined(separator: ", ")). Fixture \
-      directories and manifest keys are the profile key verbatim, so every fixture \
-      would be \(Int(canvas.width * backingScale))x\(Int(canvas.height * backingScale)) \
-      pixels filed under a key claiming a different scale. Add \(Int(backingScale))x \
-      profile entries to scenes.json first.
+      capturing at \(backingScale)x, but no selected profile key says \
+      '\(scaleToken)'. Add \(Int(backingScale))x profile entries to scenes.json \
+      first — fixture directories and manifest keys are the profile key verbatim.
       """)
   }
 
