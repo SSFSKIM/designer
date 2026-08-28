@@ -26,6 +26,14 @@ struct DisplayInfo: Codable {
   let actualBackingScale: Double
   let pixelSize: [Int]
   let colorSpace: String
+  /// The display the capture window was on, and its colour profile. Captured
+  /// bytes depend on the display's colour context — measured 2026-08-29:
+  /// photo-backed cells shifted up to 4/255 across an EDID renegotiation of the
+  /// same physical panel — so the identity is evidence a reproduction attempt
+  /// can bind against, not decoration. Optional: manifests from before the
+  /// field carry no claim.
+  let displayName: String?
+  let displayColorProfile: String?
 }
 
 struct FixtureEntry: Codable {

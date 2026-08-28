@@ -59,8 +59,12 @@ func generateBackgrounds() {
   let spec = loadSpec()
   let scale = captureScale()
   let dir = "\(fixturesDir())/backgrounds"
-  var written: [String: String] = [:]
+  var count = 0
 
+  // No index file: it was keyed by bare id and rewritten wholesale per run, so a
+  // run at one scale silently repointed every other scale's consumers at the
+  // wrong raster. The manifest's scale-qualified background map is the only
+  // lookup now, and every consumer reads it.
   for (id, bg) in spec.backgrounds.sorted(by: { $0.key < $1.key }) {
     let image = Backgrounds.render(bg, canvas: spec.canvas.cgSize, scale: scale)
     let name = "\(id)@\(Int(scale))x.png"
@@ -72,12 +76,10 @@ func generateBackgrounds() {
     let cmp = (try? Capture.compare(image, again)) ?? (mad: -1, maxDelta: -1)
     let mark = cmp.maxDelta == 0 ? "byte-stable" : "UNSTABLE mad=\(cmp.mad) max=\(cmp.maxDelta)"
     print("  \(name)  \(image.width)x\(image.height)  \(mark)")
-    written[id] = "backgrounds/\(name)"
+    count += 1
   }
 
-  let index = try! JSONSerialization.data(withJSONObject: written, options: [.prettyPrinted, .sortedKeys])
-  try? index.write(to: URL(fileURLWithPath: "\(dir)/index.json"))
-  print("\(written.count) backgrounds → \(dir)")
+  print("\(count) backgrounds → \(dir)")
 }
 
 // MARK: - probe
@@ -477,7 +479,9 @@ func runCapture(method: CaptureMethod) {
                                pixelSize: [Int(canvas.width * backingScale), Int(canvas.height * backingScale)],
                                // Falls back to the requested space only when the
                                // image reports none at all.
-                               colorSpace: colorSpaceByProfile[profile.key] ?? "sRGB"),
+                               colorSpace: colorSpaceByProfile[profile.key] ?? "sRGB",
+                               displayName: window?.screen?.localizedName,
+                               displayColorProfile: window?.screen?.colorSpace?.localizedName),
           fixtures: entries,
           caveats: profile.a11y == "increased-contrast" ? couplingNote.map { [$0] } : nil))
       }
@@ -551,10 +555,28 @@ func runCapture(method: CaptureMethod) {
           Task { @MainActor in
             let px = CGSize(width: canvas.width * backingScale, height: canvas.height * backingScale)
             do {
-              let a = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
-              let b = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
-              let cmp = try? Capture.compare(a, b)
-              record(a, cmp.map { $0.maxDelta == 0 }, cmp?.mad)
+              // The material's tone adaptation is an animation over seconds, and two
+              // captures milliseconds apart agree mid-flight — a "byte-stable" reading
+              // that is not settled. Measured 2026-08-29: under concurrent system load,
+              // individual cells flipped between an adapted and a mid-adaptation byte
+              // state across runs (max deltas 31–36/255), while every run's paired
+              // captures agreed. Settledness is therefore byte-identity across a real
+              // interval: dwell first, then capture at 1s spacing until two consecutive
+              // captures agree. The bounded retry keeps a never-settling cell from
+              // hanging the run; it records NOISY, which is the honest state.
+              try await Task.sleep(nanoseconds: 1_750_000_000)
+              var previous = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
+              var settled = false
+              var lastMad = 0.0
+              for _ in 0..<7 {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                let next = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
+                let cmp = try Capture.compare(previous, next)
+                lastMad = cmp.mad
+                previous = next
+                if cmp.maxDelta == 0 { settled = true; break }
+              }
+              record(previous, settled, settled ? 0 : lastMad)
             } catch {
               fail(error.localizedDescription)
             }
