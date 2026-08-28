@@ -132,12 +132,16 @@ that count is closed too.
 
 ### [~] 2.1 The labeled per-engine manual-page pass — WebKit done 2026-08-28, Gecko still open
 
-**WebKit half closed by the user's labeled retail-Safari-26 run of 2026-08-28**
+**WebKit half closed by the user's labeled retail-Safari run of 2026-08-28 —
+on Safari 18.6 / macOS 15.7.7** (their screenshots are committed beside the
+record; the run the checklist asked for named Safari 26, and the row is keyed
+at the measured 18.6, claiming forward per the table's convention — a retail
+Safari 26 spot-check stays cheap and optional)
 (verbatim record: `spikes/s1-proxy-topology/manual-evidence/2026-08-28-d1-webkit-labeled.md`).
 Three of the four fields moved on it — `rasterisesBackdropFilter: "yes"`,
 `backdropRootTriggers: "normative"` (D1's labeled set is exactly the Filter
 Effects 2 normative membership), `transform3dHazard` confirmed staying
-`"perspective-preserve3d"` — as a new `webkit / minVersion: 26` row;
+`"perspective-preserve3d"` — as a new `webkit / minVersion: 18.6` row;
 `edgeMode` stays `"unverified"` because section C measures mask extent, not
 the sampling edge mode. **The Firefox run has not happened**; the gecko row is
 unchanged and fails closed.

@@ -29,14 +29,14 @@
  * under-promises rather than over-promises.
  *
  * Where an engine's behaviour was *not measurable* — Gecko, and WebKit below
- * 26, where every automated capture path renders `backdrop-filter` as a no-op
+ * 18.6, where every automated capture path renders `backdrop-filter` as a no-op
  * while the engines render it live — the row says `"unverified"`. It does not
  * say `"no"`: capture-path blindness is not feature breakage (Decision Log
  * #17), and the honest record is an open gate, closed by
  * `spikes/s1-proxy-topology/pages/manual-check.html` in a real browser. The
- * WebKit 26 row is exactly such a closure: the user's labeled manual pass of
- * 2026-08-28 (archived in `spikes/s1-proxy-topology/manual-evidence/`). Gecko's
- * gate is still open.
+ * WebKit 18.6 row is exactly such a closure: the user's labeled manual pass of
+ * 2026-08-28 on retail Safari 18.6 / macOS 15.7.7 (archived in
+ * `spikes/s1-proxy-topology/manual-evidence/`). Gecko's gate is still open.
  */
 
 export const ENGINE_FAMILIES = ["chromium", "gecko", "webkit", "unknown"] as const;
@@ -120,7 +120,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
   },
   {
     family: "webkit",
-    minVersion: 26,
+    minVersion: 18.6,
     rasterisesBackdropFilter: "yes",
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
@@ -128,7 +128,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "normative",
     evidence: [
-      "Manual pass, retail Safari 26 (user, 2026-08-28), spikes/s1-proxy-topology/pages/manual-check.html — the run Decision Log #17 said was the only oracle for this engine.",
+      "Manual pass, retail Safari 18.6 on macOS 15.7.7 (user, 2026-08-28), spikes/s1-proxy-topology/pages/manual-check.html — the run Decision Log #17 said was the only oracle for this engine. Screenshots: manual-evidence/2026-08-28-safari-18.6-macos-15.7.7-{c1,d1}.png. The row claims 18.6 forward under the table's convention (every row claims its floor and newer until superseded); a retail Safari 26 spot-check would tighten it and remains cheap.",
       "rasterisesBackdropFilter: the D1 control tile renders blurred, so the portaled masked proxy paints in retail WebKit — the same construct every automated capture path renders as a no-op.",
       "backdropRootTriggers: D1 fully labeled. Root-forming: opacity 0.99, filter blur(0px), filter grayscale(0), mask-image, clip-path inset(0), mix-blend-mode multiply, will-change opacity. Harmless: control, filter none, contain paint, isolation isolate, will-change transform, translate3d(0,0,0). That is exactly the Filter Effects 2 normative membership — identity filter values still re-root (the value's presence matters, not its effect) and isolation: isolate does not re-root despite creating a stacking context — so layer 2's pinned trigger list is behavior-exact here, not an over-trigger.",
       "edgeMode stays unverified deliberately: the manual page's section C measures mask extent (the padded box stands proud as a blurred halo, confirming the panel-shaped mask is load-bearing), which is not an observation of the sampling edge mode.",
