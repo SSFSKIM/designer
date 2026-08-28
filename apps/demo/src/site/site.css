@@ -656,11 +656,14 @@ code {
  * reference's reading of the state: Apple's disabled glass controls keep their
  * material and recede in their content.
  *
- * And the dim goes on `.control__label` rather than on `.control`, because
- * `platform-web` writes the host's `color` as an inline style every frame. An app
- * rule on the host loses to that, silently — the declaration parses, cascades, and
- * never applies. The published `--vitrea-foreground` is the seam an app is meant
- * to build on, and building on it means styling something the runtime does not own.
+ * The dim goes on `.control__label` rather than on `.control`, which used to be
+ * forced: `platform-web` wrote the host's `color` as an inline style every frame,
+ * so an app rule on the host lost to it silently — the declaration parsed,
+ * cascaded, and never applied. Since Decision Log #34(c) the runtime's ink arrives
+ * through a zero-specificity `:where()` rule instead and a host rule would win, so
+ * this is now a choice rather than a workaround. It stays on the label because
+ * that is the element whose ink the measurement below is about, and moving it
+ * would re-open a measured number for no gain.
  *
  * 72% is measured, not chosen: `e2e/contrast.spec.ts` composites the ink's alpha
  * over the element's own rendered pixels, and this is about as far as the label can

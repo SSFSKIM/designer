@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 import {
   cssTierDeclarations,
   foregroundDeclarations,
+  foregroundInk,
   hintedBackdropLuminance,
   CSS_TIER_TOKENS,
 } from "../src/css-tier";
@@ -257,7 +258,7 @@ describe("the CSS tier (the fallback is the design)", () => {
 
     expect(forced["backdrop-filter"]).toBe("none");
     expect(forced.background).toBe("Canvas");
-    expect(forced.color).toBe("CanvasText");
+    expect(forced["--vitrea-foreground"]).toBe("CanvasText");
     expect(forced["border-color"]).toBe("CanvasText");
   });
 
@@ -408,11 +409,10 @@ describe("the CSS tier (the fallback is the design)", () => {
       });
 
       // Opaque enough that the tint is what the text sits on.
-      expect(regular.color).toBe("#1c1c1e");
       expect(regular["--vitrea-foreground"]).toBe("#1c1c1e");
-      expect(regular.color).not.toContain("light-dark");
+      expect(regular["--vitrea-foreground"]).not.toContain("light-dark");
       // Transparent enough that the dark backdrop is.
-      expect(clear.color).toBe("#f5f5f7");
+      expect(clear["--vitrea-foreground"]).toBe("#f5f5f7");
     });
 
     it("prefers the hint's own luminance over the tone's coarse reading", () => {
@@ -430,8 +430,8 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "dark", luminance: 0.45 },
       });
 
-      expect(coarse.color).toBe("#f5f5f7");
-      expect(declared.color).toBe("#1c1c1e");
+      expect(coarse["--vitrea-foreground"]).toBe("#f5f5f7");
+      expect(declared["--vitrea-foreground"]).toBe("#1c1c1e");
     });
 
     it("gives a group hinted with a light backdrop the explicit dark foreground token", () => {
@@ -440,7 +440,6 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "light" },
       });
 
-      expect(declarations.color).toBe("#1c1c1e");
       expect(declarations["--vitrea-foreground"]).toBe("#1c1c1e");
     });
 
@@ -448,7 +447,7 @@ describe("the CSS tier (the fallback is the design)", () => {
       const unhinted = cssTierDeclarations(surface);
       const noHintAvailable = cssTierDeclarations({ ...surface, foreground: { mode: "fixed" } });
 
-      expect(unhinted.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(unhinted["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
       expect(noHintAvailable).toEqual(unhinted);
     });
 
@@ -458,7 +457,7 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "mixed" },
       });
 
-      expect(declarations.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });
 
     it("keeps light-dark() for a fixed mode, even if a tone somehow rode along", () => {
@@ -467,7 +466,7 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "fixed", tone: "dark" },
       });
 
-      expect(declarations.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });
 
     it("keeps light-dark() for a sampled-async mode — the CSS tier never gets exact analysis", () => {
@@ -476,7 +475,7 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "sampled-async", tone: "dark" },
       });
 
-      expect(declarations.color).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });
 
     it("lets increased contrast's near-monochrome outrank a dark-backdrop hint", () => {
@@ -488,7 +487,7 @@ describe("the CSS tier (the fallback is the design)", () => {
 
       // Accessibility policy wins: still the near-monochrome light-dark(), not
       // the hint's explicit light token.
-      expect(declarations.color).toBe("light-dark(#000, #fff)");
+      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#000, #fff)");
     });
 
     it("lets forced-colors outrank a dark-backdrop hint", () => {
@@ -498,7 +497,7 @@ describe("the CSS tier (the fallback is the design)", () => {
         foreground: { mode: "author-hint", tone: "dark" },
       });
 
-      expect(declarations.color).toBe("CanvasText");
+      expect(declarations["--vitrea-foreground"]).toBe("CanvasText");
       expect(declarations.background).toBe("Canvas");
     });
   });
@@ -556,14 +555,50 @@ describe("the foreground rule, shared across the tiers", () => {
     expect(clear).toBeLessThan(CSS_TIER_MAPPING.foregroundCrossover);
   });
 
-  it("hands back both the token and the resolved colour, always in step", () => {
+  /*
+   * Decision Log #34(c). The runtime decides the ink and publishes it — as the
+   * token, and as nothing else. It used to hand back `color` too, and the host
+   * got both inline, which put the runtime's answer above every application
+   * rule short of `!important`: an app styling a glass host watched its
+   * declaration parse, cascade and silently never apply, while being told to
+   * build on the token sitting on that same element.
+   *
+   * The colour itself is unchanged and still asserted, one call up, through
+   * `foregroundInk`. What is asserted here is the *shape* of the write, which
+   * is the half that was the defect.
+   */
+  it("publishes the ink as the token and never as an inline colour", () => {
     for (const level of [0, 0.4, 0.5, 1]) {
       const declarations = foregroundDeclarations({
         policy: NOMINAL_ACCESSIBILITY_POLICY,
         level,
       });
-      expect(declarations.color).toBe(declarations["--vitrea-foreground"]);
+      expect(Object.keys(declarations)).toEqual(["--vitrea-foreground"]);
+      expect(declarations["--vitrea-foreground"]).toBe(
+        foregroundInk({ policy: NOMINAL_ACCESSIBILITY_POLICY, level }),
+      );
     }
+
+    // Every regime, including the two that take a platform palette rather than
+    // the adaptive answer — a `color` leaking back in under forced colors would
+    // be the same defect wearing the accessibility branch.
+    for (const policy of [
+      NOMINAL_ACCESSIBILITY_POLICY,
+      resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
+      resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
+    ]) {
+      expect(Object.keys(foregroundDeclarations({ policy }))).toEqual(["--vitrea-foreground"]);
+    }
+
+    // And the full CSS-tier record, which composes the pair in: the tier writes
+    // the whole material inline, so this is where a stray `color` would ride.
+    expect(cssTierDeclarations(surface).color).toBeUndefined();
+    expect(
+      cssTierDeclarations({
+        ...surface,
+        policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
+      }).color,
+    ).toBeUndefined();
   });
 
   it("keeps accessibility policy above the hint, on either tier", () => {
@@ -571,13 +606,13 @@ describe("the foreground rule, shared across the tiers", () => {
       foregroundDeclarations({
         policy: resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
         level: 0.95,
-      }).color,
+      })["--vitrea-foreground"],
     ).toBe("light-dark(#000, #fff)");
     expect(
       foregroundDeclarations({
         policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
         level: 0.95,
-      }).color,
+      })["--vitrea-foreground"],
     ).toBe("CanvasText");
   });
 

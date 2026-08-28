@@ -76,6 +76,7 @@ import {
   type GlassHostOptions,
   type GlassHostPatch,
 } from "./host";
+import { installInkStylesheet, type InkStylesheetHandle } from "./ink-stylesheet";
 import { checkLayerModel } from "./layer-model";
 import { createLayoutReadMeter, flushStyle, type LayoutReadMeter, type ViewportReading } from "./measure";
 import {
@@ -422,6 +423,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     ...(options.zIndex === undefined ? {} : { zIndex: options.zIndex }),
     document: view.document,
   });
+
+  /*
+   * The runtime's ink, at a precedence an application can beat (Decision Log
+   * #34(c)). The host carries the `--vitrea-foreground` token and nothing else;
+   * the `color` that resolves it lives in one static `:where()` rule installed
+   * here. See `ink-stylesheet.ts` for why that, and why it is prepended rather
+   * than adopted.
+   */
+  const inkStylesheet: InkStylesheetHandle = installInkStylesheet(view.document);
 
   const wantsWebGPU = (options.renderer ?? "css") === "webgpu";
 
@@ -1411,6 +1421,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       bridge?.destroy();
       webgpu?.destroy();
       layers.destroy();
+      inkStylesheet.dispose();
       hosts.clear();
       probeReports.clear();
     },

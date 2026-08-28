@@ -62,10 +62,10 @@ async function inkOf(target: Locator): Promise<readonly { readonly rgb: Channels
   return target.evaluate((element) => {
     /*
      * Every element that actually paints glyphs, not just the one that was
-     * selected. A control may hold its label in a child — it has to, where the
-     * runtime writes the host's own `color` inline — and then the host's computed
-     * colour is not the colour a reader sees. Measuring the selected element alone
-     * would score the ink the app *stopped* using.
+     * selected. A control may hold its label in a child — this page's disabled
+     * state does — and then the host's computed colour is not the colour a reader
+     * sees. Measuring the selected element alone would score the ink the app
+     * *stopped* using.
      */
     const painters: Element[] = [];
     const walk = (node: Element): void => {

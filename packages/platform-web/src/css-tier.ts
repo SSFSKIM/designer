@@ -126,8 +126,7 @@ export function hintedBackdropLuminance(
 }
 
 /**
- * The foreground pair — `color` and the token an app styles against — for one
- * surface, on **either** tier (Decision Log #32(b)).
+ * The runtime's ink for one surface, on **either** tier (Decision Log #32(b)).
  *
  * Split out of `cssTierDeclarations` because the decision is not the CSS tier's:
  * it is the runtime's answer to "what ink is readable on the material this group
@@ -141,29 +140,46 @@ export function hintedBackdropLuminance(
  * composite space of whichever tier is drawing. Absent means there was nothing to
  * decide from.
  */
-export function foregroundDeclarations(input: {
+export function foregroundInk(input: {
   readonly policy: ResolvedAccessibilityPolicy;
   readonly level?: number;
   readonly mapping?: CssTierMapping;
-}): StyleDeclarations {
+}): string {
   const mapping = input.mapping ?? CSS_TIER_MAPPING;
   const { material } = input.policy;
 
   // forced-colors takes the platform's palette, and it is not a dimmer version of
   // the adaptive answer — it is a different one.
-  if (material.glass === "none") return { color: "CanvasText", "--vitrea-foreground": "CanvasText" };
+  if (material.glass === "none") return "CanvasText";
 
   // Accessibility policy outranks the hint: near-monochrome is never overridden.
-  const colour =
-    material.foreground === "near-monochrome"
-      ? "light-dark(#000, #fff)"
-      : input.level === undefined
-        ? FOREGROUND_DEFAULT
-        : input.level >= mapping.foregroundCrossover
-          ? FOREGROUND_INK.dark
-          : FOREGROUND_INK.light;
+  return material.foreground === "near-monochrome"
+    ? "light-dark(#000, #fff)"
+    : input.level === undefined
+      ? FOREGROUND_DEFAULT
+      : input.level >= mapping.foregroundCrossover
+        ? FOREGROUND_INK.dark
+        : FOREGROUND_INK.light;
+}
 
-  return { color: colour, "--vitrea-foreground": colour };
+/**
+ * The ink as the runtime writes it: **the token, and only the token**
+ * (Decision Log #34(c)).
+ *
+ * This used to hand back `color` as well, and the host got both inline. The
+ * colour was right and the precedence was wrong: an inline declaration outranks
+ * every application rule short of `!important`, so an app styling a glass host
+ * lost silently while being told to build on the token published on that same
+ * element. The `color` now comes from `ink-stylesheet.ts`, one static
+ * `:where()` rule that resolves this very token — so the seam is the mechanism
+ * rather than a copy of it, and an app rule that names the host wins.
+ */
+export function foregroundDeclarations(input: {
+  readonly policy: ResolvedAccessibilityPolicy;
+  readonly level?: number;
+  readonly mapping?: CssTierMapping;
+}): StyleDeclarations {
+  return { "--vitrea-foreground": foregroundInk(input) };
 }
 
 /**
