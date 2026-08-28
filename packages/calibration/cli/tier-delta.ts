@@ -140,7 +140,13 @@ function main(): void {
       }
 
       const scene = spec.scenes.find((entry) => entry.id === fixture.sceneId);
-      const backgroundFile = scene === undefined ? undefined : manifest.backgrounds[scene.background];
+      // Scaled key first (schema-2 merged manifests), bare name as the schema-1 fallback.
+      const scaleToken = /-(\d+)x-/.exec(profile.profileKey)?.[1] ?? "1";
+      const backgroundFile =
+        scene === undefined
+          ? undefined
+          : (manifest.backgrounds[`${scene.background}@${scaleToken}x`] ??
+             manifest.backgrounds[scene.background]);
       if (backgroundFile === undefined) {
         skipped.push(`${profile.profileKey} / ${fixture.sceneId}: no background on record`);
         continue;

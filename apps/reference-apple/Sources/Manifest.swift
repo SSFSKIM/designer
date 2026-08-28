@@ -60,6 +60,13 @@ struct ProfileManifest: Codable {
   let a11yMode: String
   let display: DisplayInfo
   let fixtures: [FixtureEntry]
+  /// Facts about THESE fixtures that must travel with them across runs — e.g.
+  /// the macOS toggle-coupling under which the increased-contrast profile was
+  /// captured. Run-level `FixtureManifest.caveats` describe only the run that
+  /// wrote the file and are replaced wholesale each run; anything profile-scoped
+  /// belongs here, where the multi-run merge preserves it. Optional so
+  /// schema-1 manifests still decode.
+  let caveats: [String]?
 }
 
 struct FixtureManifest: Codable {
@@ -70,8 +77,11 @@ struct FixtureManifest: Codable {
   let backgrounds: [String: String]
   let profiles: [ProfileManifest]
   let split: SplitDeclaration
-  /// Known, deliberate deviations from the spec's canonical conditions. Empty is
-  /// a claim; a populated list is the reason a claim must be qualified.
+  /// Known, deliberate deviations from the spec's canonical conditions in THE
+  /// RUN THAT WROTE THIS FILE (skip notes, emptiness counts). Replaced wholesale
+  /// each run — profile-scoped facts live on `ProfileManifest.caveats`, which
+  /// the multi-run merge preserves. Empty is a claim; a populated list is the
+  /// reason a claim must be qualified.
   let caveats: [String]
 
   struct SplitDeclaration: Codable {

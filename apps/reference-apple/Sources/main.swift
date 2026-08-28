@@ -275,13 +275,36 @@ func runCapture(method: CaptureMethod) {
         """)
     }
 
+    // The capture model is multi-run by construction — every scale and every
+    // accessibility mode needs its own run — so the manifest MERGES: this run's
+    // profiles replace same-key entries and every other previously recorded
+    // profile is carried forward, so the one manifest.json always describes
+    // every fixture directory beside it. Background keys carry the scale
+    // ("checkerboard@2x") because a merged manifest spans scales; bare legacy
+    // keys are dropped on merge — every post-schema-2 run rewrites its own.
+    let scaledBackgrounds = Dictionary(uniqueKeysWithValues:
+      backgroundFiles.map { ("\($0.key)@\(Int(backingScale))x", $0.value) })
+    var mergedProfiles = profileManifests
+    var mergedBackgrounds = scaledBackgrounds
+    let rootManifest = URL(fileURLWithPath: "\(root)/manifest.json")
+    if let data = try? Data(contentsOf: rootManifest),
+       let previous = try? JSONDecoder().decode(FixtureManifest.self, from: data) {
+      let capturedKeys = Set(profileManifests.map(\.profileKey))
+      mergedProfiles += previous.profiles.filter { !capturedKeys.contains($0.profileKey) }
+      for (key, value) in previous.backgrounds
+      where key.contains("@") && mergedBackgrounds[key] == nil {
+        mergedBackgrounds[key] = value
+      }
+    }
+    mergedProfiles.sort { $0.profileKey < $1.profileKey }
+
     let manifest = FixtureManifest(
-      schemaVersion: 1,
+      schemaVersion: 2,
       sceneSpecVersion: spec.version,
       generatedAt: Environment.timestamp(),
       hardware: Environment.hardware(),
-      backgrounds: backgroundFiles,
-      profiles: profileManifests,
+      backgrounds: mergedBackgrounds,
+      profiles: mergedProfiles,
       split: .init(calibration: spec.split.calibration,
                    validation: spec.split.validation,
                    holdout: spec.split.holdout,
@@ -364,6 +387,18 @@ func runCapture(method: CaptureMethod) {
   // would be a mislabelled fixture, so it is skipped rather than captured — and
   // the skip is recorded, because a quietly missing profile is its own kind of lie.
   let systemA11y = SystemAccessibility.current
+  // Profile-scoped, not run-scoped: this fact must travel with the fixtures it
+  // describes, so it lands on the profile's own manifest entry below.
+  let couplingNote: String? =
+    (systemA11y == "increased-contrast" && SystemAccessibility.reduceTransparency)
+    ? """
+      Captured with reduce-transparency also on. That is not contamination: \
+      macOS couples the toggles (Increase Contrast force-enables Reduce \
+      Transparency, and the transparency checkbox cannot be uncleared while \
+      contrast is on — user-verified 2026-08-29), so this is the only reachable \
+      increased-contrast state and the one a real user sees.
+      """
+    : nil
   var work: [(ProfileSpec, SceneEntry)] = []
   var skipped: [String] = []
   for profile in spec.profiles {
@@ -443,7 +478,8 @@ func runCapture(method: CaptureMethod) {
                                // Falls back to the requested space only when the
                                // image reports none at all.
                                colorSpace: colorSpaceByProfile[profile.key] ?? "sRGB"),
-          fixtures: entries))
+          fixtures: entries,
+          caveats: profile.a11y == "increased-contrast" ? couplingNote.map { [$0] } : nil))
       }
       finish()
       return

@@ -246,9 +246,17 @@ function plan(spec: SceneSpec, manifest: Manifest, options: Options): PlannedCel
       if (scene === undefined) {
         throw new Error(`compare: the manifest has a fixture for '${fixture.sceneId}', which scenes.json lacks`);
       }
-      const backgroundFile = manifest.backgrounds[scene.background];
+      // Schema-2 manifests key backgrounds per scale ("checkerboard@2x"),
+      // because one merged manifest describes every scale's fixtures at once;
+      // the bare-name fallback keeps schema-1 manifests readable.
+      const scaleToken = /-(\d+)x-/.exec(profile.profileKey)?.[1] ?? "1";
+      const backgroundFile =
+        manifest.backgrounds[`${scene.background}@${scaleToken}x`] ??
+        manifest.backgrounds[scene.background];
       if (backgroundFile === undefined) {
-        throw new Error(`compare: the manifest has no background '${scene.background}'`);
+        throw new Error(
+          `compare: the manifest has no background '${scene.background}' at ${scaleToken}x`,
+        );
       }
 
       cells.push({

@@ -159,9 +159,19 @@ enum SystemAccessibility {
   }
 
   /// The profile a11y token matching the machine's current state.
+  ///
+  /// Contrast is checked FIRST, and the order is a measurement, not a
+  /// preference: on macOS 26.5, turning on Increase Contrast force-enables
+  /// Reduce Transparency and the transparency checkbox cannot be uncleared
+  /// while contrast is on (user-verified 2026-08-29, Wave 1 / W1). So
+  /// (contrast on, transparency off) is unreachable, and the coupled state is
+  /// the only increased-contrast state a real user can be in — the
+  /// increased-contrast profile therefore captures exactly what a user who
+  /// enabled Increase Contrast sees, reduced transparency included. The
+  /// capture driver records that coupling as a manifest caveat.
   static var current: String {
-    if reduceTransparency { return "reduced-transparency" }
     if increaseContrast { return "increased-contrast" }
+    if reduceTransparency { return "reduced-transparency" }
     return "standard"
   }
 }
