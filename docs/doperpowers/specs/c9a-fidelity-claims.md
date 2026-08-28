@@ -654,6 +654,146 @@ holdout ΔE mean 0.0606 → 0.0560. The proposed bounds predate it unchanged (SS
 ≥ 0.90 and ΔE ≤ 0.08 both before and after), so no constant moved to produce
 these rows and no gate was loosened to accommodate them.
 
+### 5.1 The 2× tables, adopted 2026-08-29
+
+W1 of the post-v1 wave widened the bed to six native profiles and re-measured
+every one of them (`2026-08-29-w1-g3-measurement.md`). The user adopted its
+`apple-macos-26.5-2x-light-standard` proposals as written, on the same doctrine
+as the 1× tables above: per cell, per tier, **bounded by the holdout column**.
+Both are enforced in `packages/calibration/test/adopted-thresholds.test.ts`
+beside the 1× tables, which are unchanged in every digit.
+
+#### Texture tier, `apple-macos-26.5-2x-light-standard`
+
+| axis | metric | adopted | worst cal+val | worst holdout |
+| --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.85 | 0.8784 | 0.9592 |
+| shape | contour distance mean | ≤ 5.0 device px | 3.7556 | 1.1963 |
+| shape | contour distance p95 | ≤ 10.0 device px | 8.0000 | 5.6569 |
+| perceptual | SSIM mean | ≥ 0.93 | 0.9582 | 0.9584 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0247 | 0.0546 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1070 | 0.1333 |
+| perceptual | edge-weighted mean | ≤ 0.12 | 0.0494 | 0.1002 |
+
+#### Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`
+
+| axis | metric | adopted | worst cal+val | worst holdout |
+| --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.85 | 0.8967 | 0.9360 |
+| shape | contour distance mean | ≤ 4.0 device px | 2.3912 | 2.2484 |
+| shape | contour distance p95 | ≤ 8.0 device px | 5.3852 | 5.0000 |
+| perceptual | SSIM mean | ≥ 0.92 | 0.9684 | 0.9509 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0274 | 0.0559 |
+| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0128 | 0.0313 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.899 … 1.068 | 0.845 … 1.041 |
+
+The shape rows carry the same well-conditioned-cell predicate, with the declared
+area scaled by the square of the backing scale — `scenes.json` declares
+components in points and a 2× silhouette is measured in device pixels, so an
+unscaled comparison would clear the predicate four times over and stop biting at
+exactly the scale where the extractor is most likely to be doing something
+interesting. Neither 2× light table excludes a single cell under it.
+
+**Three movements, each measured rather than inherited.** This is the whole
+reason the 2× tables are not a copy of the 1× ones with a scale note attached:
+
+- **The colour bounds are the 1× bounds unchanged, because the measurements
+  are.** Worst holdout ΔE mean is 0.0546 at 2× against 0.0548 at 1×; ΔE p95
+  0.1333 against 0.1337; across the 24 light cells of each scale the ΔE mean
+  agrees to within 0.0011. These are scale-free quantities and they behaved like
+  it, so importing the bound is the honest move and re-deriving it would have
+  been arithmetic dressed up as evidence.
+- **The contour bounds are the 1× bounds doubled, because contour distance is a
+  device-pixel quantity.** The same geometric error is twice as many pixels at
+  twice the sampling density, and the measurements scale with the device pixel
+  ratio almost exactly (texture p95 worst 4.0000 → 8.0000 on cal+val, 2.8284 →
+  5.6569 on holdout). Doubling the bound holds the *geometry* tolerance
+  constant; keeping the 1× number would have silently tightened it by 2×.
+- **The SSIM bounds are tighter than 1×'s, deliberately.** SSIM reads
+  systematically higher at 2× — +0.014 in the mean, because a fixed pixel window
+  covers finer sampling — so the 1× number would have been slack here. The
+  bounds are set from the 2× numbers with §5's own ~2–3% margin over the measured
+  worst (texture ≥ 0.93 against a worst of 0.9582; dom ≥ 0.92 against 0.9509),
+  which is a genuinely stronger gate than 1×'s, not a rounder one.
+
+### 5.2 Coherence is enforced from the matrix, not from prose
+
+The coherence rows were, until W1, the one part of these tables that no test
+could hold. They are a **web-against-web** measurement — the two tiers' own
+captures, with no fixture in the comparison — and `web-captures/` is not
+committed, so nothing in the repository carried the quantity. The adopted-gate
+test recorded the bound in a comment and asserted that no cell had a coherence
+axis, as a tripwire for the day one did.
+
+Cell schema **4** is that day (wave Decision Log 9). A dom-tier cell now carries
+a `coherence` axis measured against its texture twin — the same profile key and
+scene rendered through vitrea's shader math instead of the engine's blur —
+holding the two quantities the rows need: whole-canvas cross-tier OKLab ΔE mean,
+and the interior-level ratio GPU ÷ CSS under the native silhouette. Both bounds
+are now enforced per cell, over **both** light-standard profiles, from
+`results/matrix.json`.
+
+Four properties of that axis are worth stating, because each is a decision:
+
+- **It belongs to the dom-tier cell.** The pair has one number; storing it on
+  both halves would create two records of one quantity that can disagree, and
+  would make the direction of the ratio ambiguous. The CSS tier is also the one
+  that moves — C9a's >2× `tintAlpha` gap was a renderer constant retuned without
+  the CSS mapping following it.
+- **It is written by `cli/compare.ts`, the one sanctioned matrix writer.** The
+  two tiers are two `compare` invocations into one matrix, so the dom run simply
+  reads the texture capture the earlier run left in the same scene directory. No
+  second CLI enriches the matrix after the fact, which keeps "what wrote this
+  file" a one-word answer.
+- **Absent, never zeroed, in both of the ways it can be.** The whole axis is
+  absent when the twin capture is not on disk; the ratio alone is absent where
+  the native silhouette is empty and there is no shared interior to sample —
+  which is the same single scene (`light-solid__rrect-md__rest`) the shape axis
+  is absent on, at both scales.
+- **The recorded ratio is cross-checked against an independent derivation.**
+  Each tier's `material.interiorMeanWeb` is that tier's interior level under the
+  same native silhouette, so the ratio is re-derivable from the matrix by
+  division; the test requires the two to agree. An axis the gate trusts because
+  the gate has no other source for it is not evidence.
+
+### 5.3 What is still not gated, and the one exclusion that moved
+
+**Four profiles are measured and not gated.** `1x-dark-standard`,
+`2x-dark-standard`, `1x-light-reduced-transparency` and
+`1x-light-increased-contrast` each declare **calibration scenes only** — no
+validation, no holdout. The column every bound in this document is bounded by
+does not exist for them, and setting one from a calibration-only measurement
+would certify overfitting in the doctrine's own words. This is v1's
+dark-provisional reasoning (§5, "Texture tier, dark") transferred unchanged, and
+it is the user's decision of 2026-08-29 (wave Decision Log 9) rather than an
+omission.
+
+They are not unmeasured, and the distinction matters: their figures are
+tabulated in W1's G3 report, and their coherence axis is asserted **present** in
+the adopted-gate test — measured, not gated. The approved close is to give them
+a split rather than to relax the doctrine: the split is declared per scene, so
+extending their native scene sets to include a validation and a holdout scene
+earns them one, and gating follows from that.
+
+**The 1× dark checkerboard-capsule exclusion is instrument-scoped, and 2× proves
+it.** §5's well-conditioned predicate excludes
+`checkerboard__capsule-button__rest` in the dark profile because the extractor
+recovers only 88.9% of the declared capsule there — a dark material over black
+squares is genuinely indistinguishable from them at 1× sampling. The same scene,
+same material, same backdrop **passes the predicate at 2×**: recovery 100.2%,
+IoU 0.9538 against 0.8434, contour p95 5.81 device px against 15.0. The v1
+figures described the instrument at 1×, not the material, which is exactly what
+the predicate was adopted to keep out of the gate — and the 2× cell is the
+independent confirmation that the exclusion was scoped correctly. The exclusion
+stands at 1×; it does not generalise to the material.
+
+The increased-contrast profile's two checkerboard scenes fail the same predicate
+the other way round, recovering 53–57%: there the extractor loses the
+*brightened* material over the checkerboard's white squares. Those four cells
+(two scenes × two tiers) are named in the test alongside the two dark ones, and
+all six are in ungated profiles — **neither light-standard table excludes
+anything, at either scale**.
+
 ---
 
 ## 6. What could not be measured, and why

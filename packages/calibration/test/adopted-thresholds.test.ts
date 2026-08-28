@@ -17,31 +17,45 @@
  * one, deliberately: a gate that calibration passes and holdout fails would
  * certify overfitting rather than prevent it.
  *
+ * ## The second adoption: W1 G3 (2026-08-29)
+ *
+ * The wave's W1 child re-measured a widened bed — six native profiles across
+ * colour scheme, backing scale and accessibility state — and the user adopted
+ * three decisions on it (`2026-08-28-post-v1-wave.md`, Decision Log 9):
+ *
+ *   1. **The 2× light-standard tables are gated**, on the same doctrine and from
+ *      the same holdout column. They are `*_2X_LIGHT` below, and §5's rationale
+ *      for why they are not simply the 1× numbers is in the claims doc's §5.1.
+ *   2. **Cross-tier coherence is gated from the matrix**, not from prose. Schema
+ *      4 puts a `coherence` axis on the dom-tier cell, so the row that used to be
+ *      a tripwire in this file is now an assertion over real numbers.
+ *   3. **The four provisional profiles stay ungated.** Named below, with the
+ *      reason, rather than left out.
+ *
+ * `results/matrix.json` is now W1's six-profile measurement — the v1 60-cell
+ * matrix it supersedes is in git history. The 1× tables are unchanged by that
+ * promotion, in every digit: the widened bed re-measured the profile they were
+ * set on rather than replacing it.
+ *
  * ## What §5 does not gate, and why it is absent here
  *
  * Stated because an absent assertion is otherwise indistinguishable from a
  * forgotten one, and each of these is a decision §5 argues for:
  *
- *   - **The dark profile is provisional, not gated.** It declares no validation
- *     and no holdout scenes, so nothing in it is held out, and two of its six
- *     cells cannot measure the material at all. A dark-scheme claim needs its own
- *     split before it can be gated at the light profile's level. The twelve dark
- *     cells are named below as the cells the gate leaves, not skipped silently.
+ *   - **Four profiles are provisional, not gated.** See `UNGATED_PROFILES`.
  *   - **The material axis is not gated.** The sub-metrics that would identify the
  *     material are either unidentifiable on this fixture set (blur sigma, §6.1)
  *     or below the capture's own quantisation (the light-scheme rim, §6.2). A
  *     threshold on a quantity the fixtures cannot resolve is a number that gets
  *     met by accident. Its `interiorMeanWeb` field is read here for one purpose
- *     only — the coherence ratio, which is a cross-tier quantity, not a
- *     fidelity one.
+ *     only — cross-checking the coherence ratio, which is a cross-tier quantity,
+ *     not a fidelity one.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
  *     vitrea's pressed pose against Apple's rest pose. They are still gated on
  *     the shape and perceptual axes — §5's own worst-case figures include them —
  *     but no press claim rests on that.
- *   - **One coherence row cannot be enforced from here at all.** See
- *     `COHERENCE_ROWS` and the last test in the file.
  */
 
 import { readFileSync } from "node:fs";
@@ -80,21 +94,54 @@ const DOM_TIER_LIGHT: readonly GateRow[] = [
 ];
 
 /**
- * §5's coherence rows — a property of the *pair*, so neither tier's cell carries
- * them and both are derived across the two.
+ * Texture tier, `apple-macos-26.5-2x-light-standard`. Claims §5.1, adopted
+ * 2026-08-29; transcribed row for row exactly as the 1× tables are.
  *
- * The interior-level ratio is derivable and enforced. `material.interiorMeanWeb`
- * is each tier's own interior level measured under the **native** silhouette
- * (`cli/measure.ts` masks both sides with it, so the two tiers report over one
- * pixel set), which is exactly the quantity `cli/tier-delta.ts` divides. The
- * ratio computed here reproduces §5's tabulated range to three decimals.
+ * Not the 1× numbers, and not uniformly looser than them. The three movements
+ * each have a measured reason, stated once in §5.1 and once here because a
+ * reader of this file should not have to open another to know whether a bound
+ * was reasoned or copied: the **colour bounds are the 1× bounds unchanged**
+ * (the measurements are — holdout ΔE mean 0.0546 at 2× against 0.0548 at 1×);
+ * the **contour bounds are the 1× bounds doubled** (contour distance is a
+ * device-pixel quantity, and the geometry error did not move); the **SSIM bound
+ * is tighter than 1×'s** (SSIM reads systematically +0.014 higher at 2×, so
+ * importing the 1× number would have been slack at this scale).
+ */
+const TEXTURE_TIER_2X_LIGHT: readonly GateRow[] = [
+  ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.85],
+  ["shape", /*      */ "contourDistanceMean", /* */ "≤", 5.0],
+  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 10.0],
+  ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.93],
+  ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.07],
+  ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.17],
+  ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.12],
+];
+
+/** Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`. */
+const DOM_TIER_2X_LIGHT: readonly GateRow[] = [
+  ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.85],
+  ["shape", /*      */ "contourDistanceMean", /* */ "≤", 4.0],
+  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 8.0],
+  ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.92],
+  ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.08],
+];
+
+/**
+ * §5's coherence rows — a property of the *pair*, so they are gated off the
+ * dom-tier cell's `coherence` axis, which is where schema 4 records them.
  *
- * The cross-tier ΔE is not derivable from the committed matrix: it is a
- * web-against-web pixel comparison of the two tiers' PNG captures, and
- * `web-captures/` is not committed — `results/matrix.json` is the only committed
- * artifact, and schema 3 carries no coherence axis. The number is recorded here
- * so the adopted table is complete in one place, and the last test in this file
- * is the tripwire that fires when a future schema makes it enforceable.
+ * The same two bounds carry both light profiles: the quantities are scale-free
+ * (a whole-canvas ΔE and a ratio of two levels), and W1 measured them agreeing
+ * across the two scales to the third decimal. So there is one table here rather
+ * than a 1× and a 2× copy, and a divergence between the scales would show up as
+ * a failure rather than as two tables drifting apart.
+ *
+ * **This replaces a tripwire.** Through schema 3 the cross-tier ΔE was not
+ * derivable from anything committed — it is a web-against-web comparison of two
+ * PNGs, and `web-captures/` is not in the repository — so this file carried the
+ * number in prose plus a test asserting that no cell had a coherence axis, to
+ * fire the day one did. W1 G3 made it derivable (Decision Log 9), and the
+ * assertions below are what that tripwire was waiting for.
  */
 const COHERENCE_ROWS = {
   crossTierOklabDeltaEMean: { bound: "≤", threshold: 0.05 },
@@ -103,14 +150,14 @@ const COHERENCE_ROWS = {
 
 /**
  * §5's well-conditioned-cell predicate, which qualifies the **shape rows only**
- * (both tables carry it, unchanged).
+ * (every table carries it, unchanged).
  *
  * The luminance-delta extractor finds the component by differencing against its
  * backdrop, so it loses any part of the material whose level coincides with the
  * backdrop's. Where that happens the IoU and contour figures describe the
  * extractor rather than the geometry, and gating them would be gating the
- * instrument. `silhouetteAreaNative` is on the record in every cell (schema 3)
- * precisely so this can be machine-checked.
+ * instrument. `silhouetteAreaNative` is on the record in every cell (schema 3
+ * onward) precisely so this can be machine-checked.
  */
 const WELL_CONDITIONED_AREA_RATIO = 0.95;
 
@@ -118,20 +165,78 @@ const WELL_CONDITIONED_AREA_RATIO = 0.95;
 // The cells the gate covers — stated, not discovered
 // ---------------------------------------------------------------------------
 
-const GATED_PROFILE = "apple-macos-26.5-1x-light-standard";
-const PROVISIONAL_PROFILE = "apple-macos-26.5-1x-dark-standard";
-
-/** The renderer each tier is captured through. §5's dom table names its own. */
+/** The renderer each tier is captured through. §5's dom tables name their own. */
 const RENDERER_OF_TIER = { texture: "webgpu", dom: "css" } as const;
 
-/** The whole matrix, and how it partitions. Asserted, so a shrink cannot pass. */
-const MATRIX_CELLS = 60;
+interface GatedProfile {
+  readonly profileKey: string;
+  readonly texture: readonly GateRow[];
+  readonly dom: readonly GateRow[];
+  /** The table constants' own names, so a failure message points at the source. */
+  readonly names: { readonly texture: string; readonly dom: string };
+}
+
+const GATED_PROFILES: readonly GatedProfile[] = [
+  {
+    profileKey: "apple-macos-26.5-1x-light-standard",
+    texture: TEXTURE_TIER_LIGHT,
+    dom: DOM_TIER_LIGHT,
+    names: { texture: "TEXTURE_TIER_LIGHT", dom: "DOM_TIER_LIGHT" },
+  },
+  {
+    profileKey: "apple-macos-26.5-2x-light-standard",
+    texture: TEXTURE_TIER_2X_LIGHT,
+    dom: DOM_TIER_2X_LIGHT,
+    names: { texture: "TEXTURE_TIER_2X_LIGHT", dom: "DOM_TIER_2X_LIGHT" },
+  },
+];
+
+/**
+ * The four profiles the gate leaves, and the one reason all four share.
+ *
+ * Each declares **calibration scenes only** — no validation and no holdout — so
+ * the column every bound in this file is bounded by does not exist for them.
+ * Adopting a threshold from a calibration-only measurement would certify
+ * overfitting in the doctrine's own words, which is v1's dark-provisional
+ * reasoning transferred unchanged (wave spec Decision Log 9, approved by the
+ * user 2026-08-29 together with the two adoptions above).
+ *
+ * They are not unmeasured. Every one of them is in the matrix on both tiers,
+ * their figures are tabulated in `2026-08-29-w1-g3-measurement.md`, and their
+ * coherence axis is asserted **present** below — measured, not gated. The
+ * approved close is to give them a split: the split is declared per scene, so
+ * extending their native scene sets to include a validation and a holdout scene
+ * earns them one, and gating follows from that rather than from a decision to
+ * relax the doctrine.
+ */
+const UNGATED_PROFILES = [
+  "apple-macos-26.5-1x-dark-standard",
+  "apple-macos-26.5-1x-light-increased-contrast",
+  "apple-macos-26.5-1x-light-reduced-transparency",
+  "apple-macos-26.5-2x-dark-standard",
+] as const;
+
+/**
+ * The whole matrix, and how it partitions — asserted per profile rather than as
+ * a bare total, so a profile going missing cannot be absorbed by another's cells
+ * arriving. Six native profiles × two web tiers.
+ */
+const MATRIX_PARTITION: Readonly<Record<string, number>> = {
+  "apple-macos-26.5-1x-dark-standard": 12,
+  "apple-macos-26.5-1x-light-increased-contrast": 8,
+  "apple-macos-26.5-1x-light-reduced-transparency": 8,
+  "apple-macos-26.5-1x-light-standard": 48,
+  "apple-macos-26.5-2x-dark-standard": 12,
+  "apple-macos-26.5-2x-light-standard": 48,
+};
+
+const MATRIX_CELLS = 136;
 const GATED_CELLS_PER_TIER = 24;
-const PROVISIONAL_CELLS_PER_TIER = 6;
 
 /**
  * The one gated scene that carries no shape and no material axis, on either
- * tier — so four of the 48 gated cells' shape rows have nothing to gate.
+ * tier and at either scale — so two of each gated profile's 48 cells have
+ * nothing for the shape rows to gate.
  *
  * Not a fault and not a gap in the gate: over a solid backdrop of the material's
  * own tone the reference sits within the extractor's 0.02 threshold of its
@@ -144,20 +249,31 @@ const NO_SHAPE_AXIS_SCENES = ["light-solid__rrect-md__rest"] as const;
 
 /**
  * Every cell the well-conditioned predicate excludes, across the whole matrix —
- * gated or not, named rather than dropped.
+ * gated or not, named rather than dropped. All six are in ungated profiles.
  *
- * Both are the same scene on the two tiers, both in the provisional dark
- * profile, and they are the case §5 describes: a dark material over a
+ * Two families, one mechanism. In the **1× dark** profile a dark material over a
  * black-and-white checkerboard is genuinely indistinguishable from the black
  * squares it covers, so the native silhouette comes back at 4324 px where the
- * declared capsule is 4865, with holes punched through its own interior. **The
- * light gate excludes nothing** — every gated shape row is gated on a
- * well-conditioned cell. That is a property of today's matrix, not a
- * simplification: it is asserted below in both directions.
+ * declared capsule is 4865, with holes punched through its own interior. In the
+ * **increased-contrast** profile the failure runs the other way: the extractor
+ * loses the brightened material over the checkerboard's white squares, and both
+ * of that profile's checkerboard scenes recover only 53–57% of their declared
+ * area.
+ *
+ * Two things this list is asserted for, beyond its own contents. **The light
+ * gate excludes nothing** — every gated shape row, at both scales, is gated on a
+ * well-conditioned cell. And **2× repaired the dark cell**: the same scene that
+ * fails at 1× passes the predicate at 2× (recovery 100.2%, IoU 0.9538), which is
+ * what makes the 1× exclusion an instrument-scoped one rather than a statement
+ * about the material.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -182,6 +298,7 @@ interface Cell {
   readonly shape?: AxisReport;
   readonly perceptual?: AxisReport;
   readonly material?: AxisReport;
+  readonly coherence?: AxisReport;
 }
 
 interface ResultMatrix {
@@ -223,24 +340,16 @@ function readJson<T>(path: string): T {
 const MATRIX = readJson<ResultMatrix>(resolve(PACKAGE_ROOT, "results", "matrix.json"));
 const SCENES = readJson<SceneMatrix>(resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json"));
 
-/**
- * W1's staged six-profile matrix, measured 2026-08-29 against the recaptured
- * bed (`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`, W1 G3).
- *
- * It is staged beside `matrix.json` rather than replacing it, because the
- * thresholds for its four new profiles are proposals and adoption is a human
- * gate. What it *can* be held to today is the gate that was already adopted:
- * the light-standard profile in it is an independent recapture of the profile
- * §5's tables were set on, so every bound above must still hold over it.
- */
-const W1_MATRIX = readJson<ResultMatrix>(resolve(PACKAGE_ROOT, "results", "w1-matrix.json"));
-
 /** `tier / set / scene / profile` — every failure message starts with this. */
 function name(cell: Cell): string {
   return `${cell.tier} / ${cell.fixtureSet} / ${cell.key.sceneId} / ${cell.key.profileKey}`;
 }
 
-function reading(cell: Cell, axis: "shape" | "perceptual" | "material", field: string): number {
+function reading(
+  cell: Cell,
+  axis: "shape" | "perceptual" | "material" | "coherence",
+  field: string,
+): number {
   const entry = cell[axis]?.[field];
   if (typeof entry !== "object") {
     // A metric that vanished from the schema must not read as a cell that
@@ -313,12 +422,28 @@ function declaredAreaOf(cell: Cell): number {
   return declaredComponentArea(componentId);
 }
 
-/** §5's predicate, evaluated. Cells with no shape axis are not candidates. */
+/**
+ * §5's predicate, evaluated — in **declared units**.
+ *
+ * `scenes.json` declares component sizes in points, and a 2× cell's silhouette
+ * is measured in device pixels, so the declared area is scaled by the square of
+ * the profile's backing scale before the comparison. Without that a 2× cell
+ * would clear a 1× area threshold roughly four times over and the predicate
+ * would stop biting at exactly the scale where the extractor is most likely to
+ * be doing something interesting.
+ */
+function backingScaleOf(profileKey: string): number {
+  const scale = /-(\d+)x-/.exec(profileKey)?.[1];
+  if (scale === undefined) throw new Error(`${profileKey}: no backing scale in the profile key`);
+  return Number(scale);
+}
+
 function isWellConditioned(cell: Cell): boolean {
   if (cell.shape === undefined) return true;
+  const scale = backingScaleOf(cell.key.profileKey);
   return (
     reading(cell, "shape", "silhouetteAreaNative") >=
-    WELL_CONDITIONED_AREA_RATIO * declaredAreaOf(cell)
+    WELL_CONDITIONED_AREA_RATIO * declaredAreaOf(cell) * scale * scale
   );
 }
 
@@ -326,75 +451,91 @@ function isWellConditioned(cell: Cell): boolean {
 // Selection
 // ---------------------------------------------------------------------------
 
-const gated = (tier: "texture" | "dom"): readonly Cell[] =>
-  MATRIX.cells.filter((cell) => cell.tier === tier && cell.key.profileKey === GATED_PROFILE);
-
-const provisional = MATRIX.cells.filter((cell) => cell.key.profileKey === PROVISIONAL_PROFILE);
+const cellsOf = (profileKey: string, tier?: "texture" | "dom"): readonly Cell[] =>
+  MATRIX.cells.filter(
+    (cell) => cell.key.profileKey === profileKey && (tier === undefined || cell.tier === tier),
+  );
 
 // ---------------------------------------------------------------------------
 
-describe("the adopted fidelity gate (claims §5, adopted 2026-08-26)", () => {
+describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 and 2026-08-29)", () => {
   it("reads the schema it was written against", () => {
-    // The field names below were verified against schema 3. A schema bump is a
+    // The field names below were verified against schema 4. A schema bump is a
     // reason to re-verify them, not to trust that they survived.
-    expect(MATRIX.schemaVersion).toBe(3);
+    expect(MATRIX.schemaVersion).toBe(4);
   });
 
-  it("covers exactly the light-profile cells, and names the twelve it leaves", () => {
-    // Total, in both directions: the gated cells plus the provisional ones
+  it("covers exactly the two light profiles, and names the four it leaves", () => {
+    const perProfile = new Map<string, number>();
+    for (const cell of MATRIX.cells) {
+      perProfile.set(cell.key.profileKey, (perProfile.get(cell.key.profileKey) ?? 0) + 1);
+    }
+    expect(Object.fromEntries([...perProfile].sort())).toEqual(MATRIX_PARTITION);
+
+    // Total, in both directions: the gated profiles plus the ungated ones
     // account for the whole matrix, so no cell is outside the statement.
     expect(MATRIX.cells).toHaveLength(MATRIX_CELLS);
-    expect(gated("texture")).toHaveLength(GATED_CELLS_PER_TIER);
-    expect(gated("dom")).toHaveLength(GATED_CELLS_PER_TIER);
-    expect(provisional).toHaveLength(2 * PROVISIONAL_CELLS_PER_TIER);
-    expect(gated("texture").length + gated("dom").length + provisional.length).toBe(MATRIX_CELLS);
+    expect(Object.values(MATRIX_PARTITION).reduce((a, b) => a + b, 0)).toBe(MATRIX_CELLS);
+    expect(
+      [...GATED_PROFILES.map((profile) => profile.profileKey), ...UNGATED_PROFILES].sort(),
+    ).toEqual(Object.keys(MATRIX_PARTITION).sort());
 
-    // And every gated cell is the engine and renderer §5's tables name. A cell
-    // captured through anything else is not the cell the thresholds were set on.
-    for (const tier of ["texture", "dom"] as const) {
-      for (const cell of gated(tier)) {
-        expect(cell.key.web.engine, name(cell)).toBe("chromium");
-        expect(cell.key.web.renderer, name(cell)).toBe(RENDERER_OF_TIER[tier]);
+    for (const { profileKey } of GATED_PROFILES) {
+      for (const tier of ["texture", "dom"] as const) {
+        const cells = cellsOf(profileKey, tier);
+        expect(cells, `${profileKey} / ${tier}`).toHaveLength(GATED_CELLS_PER_TIER);
+        // And every gated cell is the engine and renderer §5's tables name. A
+        // cell captured through anything else is not the cell the thresholds
+        // were set on.
+        for (const cell of cells) {
+          expect(cell.key.web.engine, name(cell)).toBe("chromium");
+          expect(cell.key.web.renderer, name(cell)).toBe(RENDERER_OF_TIER[tier]);
+        }
       }
     }
   });
 
-  for (const [tier, table, bound] of [
-    ["texture", TEXTURE_TIER_LIGHT, "TEXTURE_TIER_LIGHT"],
-    ["dom", DOM_TIER_LIGHT, "DOM_TIER_LIGHT"],
-  ] as const) {
-    it(`gates all ${GATED_CELLS_PER_TIER} ${tier}-tier light cells against ${bound}`, () => {
-      const cells = gated(tier);
-      const shapeCells = cells.filter((cell) => cell.shape !== undefined);
+  for (const profile of GATED_PROFILES) {
+    for (const tier of ["texture", "dom"] as const) {
+      const table = profile[tier];
+      const constant = profile.names[tier];
+      it(`gates all ${GATED_CELLS_PER_TIER} ${tier}-tier ${profile.profileKey} cells against ${constant}`, () => {
+        const cells = cellsOf(profile.profileKey, tier);
+        const shapeCells = cells.filter((cell) => cell.shape !== undefined);
 
-      // The shape rows gate one cell fewer than the perceptual rows, for the one
-      // named reason. Derived from the name so a second such scene cannot arrive
-      // unnoticed and shrink the gate by one.
-      expect(shapeCells).toHaveLength(GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length);
-      expect(
-        cells
-          .filter((cell) => cell.shape === undefined)
-          .map((cell) => cell.key.sceneId)
-          .sort(),
-      ).toEqual([...NO_SHAPE_AXIS_SCENES].sort());
-
-      for (const [axis, metric, comparison, threshold] of table) {
-        // Shape rows carry the well-conditioned predicate; perceptual rows do not.
-        const applicable =
-          axis === "shape" ? shapeCells.filter((cell) => isWellConditioned(cell)) : cells;
+        // The shape rows gate one cell fewer than the perceptual rows, for the
+        // one named reason. Derived from the name so a second such scene cannot
+        // arrive unnoticed and shrink the gate by one.
+        expect(shapeCells).toHaveLength(GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length);
         expect(
-          applicable,
-          `${tier} / ${metric}: the gate must cover every applicable cell`,
-        ).toHaveLength(axis === "shape" ? GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length : GATED_CELLS_PER_TIER);
+          cells
+            .filter((cell) => cell.shape === undefined)
+            .map((cell) => cell.key.sceneId)
+            .sort(),
+        ).toEqual([...NO_SHAPE_AXIS_SCENES].sort());
 
-        for (const cell of applicable) {
-          const measured = reading(cell, axis, metric);
-          const because = `${name(cell)}: ${metric} = ${measured.toPrecision(5)}, gate ${comparison} ${threshold}`;
-          if (comparison === "≥") expect(measured, because).toBeGreaterThanOrEqual(threshold);
-          else expect(measured, because).toBeLessThanOrEqual(threshold);
+        for (const [axis, metric, comparison, threshold] of table) {
+          // Shape rows carry the well-conditioned predicate; perceptual rows do not.
+          const applicable =
+            axis === "shape" ? shapeCells.filter((cell) => isWellConditioned(cell)) : cells;
+          expect(
+            applicable,
+            `${tier} / ${metric}: the gate must cover every applicable cell`,
+          ).toHaveLength(
+            axis === "shape"
+              ? GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length
+              : GATED_CELLS_PER_TIER,
+          );
+
+          for (const cell of applicable) {
+            const measured = reading(cell, axis, metric);
+            const because = `${name(cell)}: ${metric} = ${measured.toPrecision(5)}, gate ${comparison} ${threshold}`;
+            if (comparison === "≥") expect(measured, because).toBeGreaterThanOrEqual(threshold);
+            else expect(measured, because).toBeLessThanOrEqual(threshold);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   it("machine-checks the well-conditioned predicate and names every cell it excludes", () => {
@@ -408,136 +549,138 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26)", () => {
     // excluded nothing at all would mean the areas had stopped being measured.
     expect(excluded.length).toBeGreaterThan(0);
     for (const cell of MATRIX.cells.filter((candidate) => !isWellConditioned(candidate))) {
-      expect(cell.key.profileKey, `${name(cell)} is excluded, so it must be outside the gate`).toBe(
-        PROVISIONAL_PROFILE,
-      );
-      // The numbers §5 quotes for it, so the exclusion is legible and not merely
-      // a boolean: the extractor loses 12% of the declared capsule here.
-      expect(reading(cell, "shape", "silhouetteAreaNative")).toBeLessThan(
-        WELL_CONDITIONED_AREA_RATIO * declaredAreaOf(cell),
-      );
-    }
-  });
-
-  it("holds the two tiers' interior levels inside §5's coherence ratio", () => {
-    const { min, max } = COHERENCE_ROWS.interiorLevelRatioGpuOverCss;
-    const byScene = new Map<string, { texture?: Cell; dom?: Cell }>();
-    for (const cell of MATRIX.cells) {
-      if (cell.key.profileKey !== GATED_PROFILE) continue;
-      const pair = byScene.get(cell.key.sceneId) ?? {};
-      if (cell.tier === "texture") pair.texture = cell;
-      else pair.dom = cell;
-      byScene.set(cell.key.sceneId, pair);
-    }
-
-    let pairs = 0;
-    for (const [sceneId, pair] of byScene) {
-      const { texture, dom } = pair;
-      expect(texture, `${sceneId}: coherence is a property of the pair`).toBeDefined();
-      expect(dom, `${sceneId}: coherence is a property of the pair`).toBeDefined();
-      if (texture === undefined || dom === undefined) continue;
-      // The material axis is absent on both tiers together, for the one named
-      // scene, so a one-sided absence would be a real fault rather than a skip.
-      expect(texture.material === undefined, sceneId).toBe(dom.material === undefined);
-      if (texture.material === undefined) {
-        expect([...NO_SHAPE_AXIS_SCENES], "a scene with no interior to sample").toContain(sceneId);
-        continue;
-      }
-
-      const ratio =
-        reading(texture, "material", "interiorMeanWeb") /
-        reading(dom, "material", "interiorMeanWeb");
-      const because = `${sceneId}: interior level gpu ÷ css = ${ratio.toPrecision(4)}, gate ${min}…${max}`;
-      expect(ratio, because).toBeGreaterThanOrEqual(min);
-      expect(ratio, because).toBeLessThanOrEqual(max);
-      pairs += 1;
-    }
-
-    expect(pairs, "every gated scene with a material on both tiers is a coherence pair").toBe(
-      GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length,
-    );
-  });
-
-  it("cannot enforce the cross-tier ΔE row from the committed matrix, and trips when it can", () => {
-    /*
-     * The adopted bound is ΔE mean ≤ 0.05 between the two tiers' own captures.
-     * That is a web-against-web measurement with no fixture in it, which
-     * `cli/tier-delta.ts` computes from two PNGs — and the PNGs live in the
-     * uncommitted `web-captures/`, so nothing in the repository holds the
-     * quantity. Recorded as a tripwire rather than an omission: the day a cell
-     * carries a coherence axis, this fails and the row above gets wired up
-     * alongside the ratio.
-     */
-    for (const cell of [...MATRIX.cells, ...W1_MATRIX.cells]) {
       expect(
-        cell,
-        `${name(cell)}: a coherence axis is now on the record — enforce ` +
-          `crossTierOklabDeltaEMean ${COHERENCE_ROWS.crossTierOklabDeltaEMean.bound} ` +
-          `${COHERENCE_ROWS.crossTierOklabDeltaEMean.threshold} here`,
-      ).not.toHaveProperty("coherence");
+        UNGATED_PROFILES as readonly string[],
+        `${name(cell)} is excluded, so it must be outside the gate`,
+      ).toContain(cell.key.profileKey);
+      // The exclusion is legible and not merely a boolean: the area it turns on
+      // is on the record and below the predicate's right-hand side.
+      const scale = backingScaleOf(cell.key.profileKey);
+      expect(reading(cell, "shape", "silhouetteAreaNative")).toBeLessThan(
+        WELL_CONDITIONED_AREA_RATIO * declaredAreaOf(cell) * scale * scale,
+      );
+    }
+
+    // The 1× dark exclusion is scoped to the instrument at 1×, not to the
+    // material: the same scene at 2× recovers the whole declared capsule and is
+    // gated like any other cell. Asserted so a future reader cannot mistake the
+    // exclusion for a property of dark glass over a checkerboard.
+    for (const cell of cellsOf("apple-macos-26.5-2x-dark-standard")) {
+      if (cell.key.sceneId !== "checkerboard__capsule-button__rest") continue;
+      expect(isWellConditioned(cell), `${name(cell)}: 2× repairs the 1× exclusion`).toBe(true);
     }
   });
-});
 
-/**
- * The same gate, over W1's recapture — and nothing more.
- *
- * W1 G3 re-measured all six profiles of the widened bed. Four of those profiles
- * (both 2× keys and both accessibility keys) have no adopted thresholds and get
- * none here: their tables are proposals in W1's report, and adopting a threshold
- * is a human gate rather than a measuring session's. What is enforceable today,
- * and is enforced below, is that the *already-adopted* bounds survive an
- * independent recapture of the profile they were set on — measured on another
- * day, through a re-keyed capture path, on the same frozen configuration.
- *
- * Strengthen-only by construction: it adds cells to the adopted gate's coverage
- * and reuses `TEXTURE_TIER_LIGHT` and `DOM_TIER_LIGHT` verbatim, so no bound can
- * drift here without drifting in the tables above.
- */
-describe("the adopted gate over W1's recaptured matrix (wave spec W1 G3)", () => {
-  const gatedIn = (tier: "texture" | "dom"): readonly Cell[] =>
-    W1_MATRIX.cells.filter((cell) => cell.tier === tier && cell.key.profileKey === GATED_PROFILE);
+  for (const { profileKey } of GATED_PROFILES) {
+    it(`enforces the coherence rows over ${profileKey}, from the matrix`, () => {
+      const dom = cellsOf(profileKey, "dom");
+      const { min, max } = COHERENCE_ROWS.interiorLevelRatioGpuOverCss;
+      const deltaE = COHERENCE_ROWS.crossTierOklabDeltaEMean;
 
-  it("carries the whole widened bed, with the gated profile intact inside it", () => {
-    expect(W1_MATRIX.schemaVersion).toBe(3);
-    // Six native profiles on two tiers. Stated as the partition rather than a
-    // bare total, so a profile going missing cannot be absorbed by another's
-    // cells arriving.
-    const perProfile = new Map<string, number>();
-    for (const cell of W1_MATRIX.cells) {
-      perProfile.set(cell.key.profileKey, (perProfile.get(cell.key.profileKey) ?? 0) + 1);
-    }
-    expect(Object.fromEntries([...perProfile].sort())).toEqual({
-      "apple-macos-26.5-1x-dark-standard": 12,
-      "apple-macos-26.5-1x-light-increased-contrast": 8,
-      "apple-macos-26.5-1x-light-reduced-transparency": 8,
-      "apple-macos-26.5-1x-light-standard": 48,
-      "apple-macos-26.5-2x-dark-standard": 12,
-      "apple-macos-26.5-2x-light-standard": 48,
-    });
-    expect(gatedIn("texture")).toHaveLength(GATED_CELLS_PER_TIER);
-    expect(gatedIn("dom")).toHaveLength(GATED_CELLS_PER_TIER);
-  });
+      // Coherence is a property of the pair, so it is present on every dom cell
+      // whose texture twin was captured — which, in this matrix, is all of them.
+      expect(dom.filter((cell) => cell.coherence !== undefined)).toHaveLength(
+        GATED_CELLS_PER_TIER,
+      );
 
-  for (const [tier, table, bound] of [
-    ["texture", TEXTURE_TIER_LIGHT, "TEXTURE_TIER_LIGHT"],
-    ["dom", DOM_TIER_LIGHT, "DOM_TIER_LIGHT"],
-  ] as const) {
-    it(`holds ${bound} over the recaptured ${tier}-tier light cells`, () => {
-      const cells = gatedIn(tier);
-      const shapeCells = cells.filter((cell) => cell.shape !== undefined);
-      expect(shapeCells).toHaveLength(GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length);
+      let ratios = 0;
+      for (const cell of dom) {
+        const measured = reading(cell, "coherence", "crossTierOklabDeltaEMean");
+        expect(
+          measured,
+          `${name(cell)}: cross-tier ΔE mean = ${measured.toPrecision(4)}, gate ${deltaE.bound} ${deltaE.threshold}`,
+        ).toBeLessThanOrEqual(deltaE.threshold);
 
-      for (const [axis, metric, comparison, threshold] of table) {
-        const applicable =
-          axis === "shape" ? shapeCells.filter((cell) => isWellConditioned(cell)) : cells;
-        for (const cell of applicable) {
-          const measured = reading(cell, axis, metric);
-          const because = `W1 recapture — ${name(cell)}: ${metric} = ${measured.toPrecision(5)}, gate ${comparison} ${threshold}`;
-          if (comparison === "≥") expect(measured, because).toBeGreaterThanOrEqual(threshold);
-          else expect(measured, because).toBeLessThanOrEqual(threshold);
+        // The ratio is absent exactly where there is no interior to sample, and
+        // that is the same one scene the shape axis is absent on. Absent, never
+        // zeroed — so its absence is checked against the reason, not skipped.
+        if (cell.coherence?.interiorLevelRatioGpuOverCss === undefined) {
+          expect([...NO_SHAPE_AXIS_SCENES], "a scene with no interior to sample").toContain(
+            cell.key.sceneId,
+          );
+          continue;
         }
+        const ratio = reading(cell, "coherence", "interiorLevelRatioGpuOverCss");
+        const because = `${name(cell)}: interior level gpu ÷ css = ${ratio.toPrecision(4)}, gate ${min}…${max}`;
+        expect(ratio, because).toBeGreaterThanOrEqual(min);
+        expect(ratio, because).toBeLessThanOrEqual(max);
+        ratios += 1;
       }
+      expect(ratios, "every scene with a material on both tiers is a coherence pair").toBe(
+        GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length,
+      );
+    });
+
+    it(`cross-checks ${profileKey}'s recorded ratio against the two tiers' own levels`, () => {
+      /*
+       * The coherence axis is written by `cli/measure.ts` during the dom-tier
+       * run, from the texture capture on disk. The same ratio is independently
+       * derivable from the matrix itself — each tier's `material.interiorMeanWeb`
+       * is that tier's interior level under the *native* silhouette, which is the
+       * identical quantity over the identical mask.
+       *
+       * Deriving it a second way and requiring the two to agree is what keeps the
+       * axis from being a number the gate trusts because the gate has no other
+       * source for it.
+       */
+      const twin = new Map(
+        cellsOf(profileKey, "texture").map((cell) => [cell.key.sceneId, cell] as const),
+      );
+      let checked = 0;
+      for (const cell of cellsOf(profileKey, "dom")) {
+        if (cell.coherence?.interiorLevelRatioGpuOverCss === undefined) continue;
+        const texture = twin.get(cell.key.sceneId);
+        expect(texture, `${cell.key.sceneId}: coherence is a property of the pair`).toBeDefined();
+        if (texture === undefined) continue;
+        const derived =
+          reading(texture, "material", "interiorMeanWeb") /
+          reading(cell, "material", "interiorMeanWeb");
+        expect(
+          reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+          `${name(cell)}: the recorded ratio must be the two tiers' own levels, divided`,
+        ).toBeCloseTo(derived, 9);
+        checked += 1;
+      }
+      expect(checked).toBe(GATED_CELLS_PER_TIER - NO_SHAPE_AXIS_SCENES.length);
     });
   }
+
+  it("measures coherence on the four ungated profiles without gating it", () => {
+    /*
+     * Decision Log 9 (wave spec, user-approved 2026-08-29): these profiles are
+     * calibration-only, so no bound over them can be bounded by a holdout column,
+     * and a gate set from calibration alone would certify overfitting. They are
+     * measured all the same — the figures are in W1's G3 report, and a reader who
+     * wants to know how far apart the tiers draw a dark or a high-contrast scene
+     * has the number on the record rather than a gap.
+     *
+     * What IS asserted is presence, in both directions: the axis is on every one
+     * of their dom cells, and the ratio is absent on exactly the cells whose
+     * native silhouette is empty. A profile that silently stopped carrying
+     * coherence would otherwise look the same as one that was never gated.
+     */
+    for (const profileKey of UNGATED_PROFILES) {
+      const dom = cellsOf(profileKey, "dom");
+      expect(dom.length, profileKey).toBeGreaterThan(0);
+      for (const cell of dom) {
+        expect(cell.coherence, `${name(cell)}: coherence measured, not gated`).toBeDefined();
+        expect(
+          cell.coherence?.interiorLevelRatioGpuOverCss === undefined,
+          `${name(cell)}: the ratio exists exactly where a shared interior does`,
+        ).toBe(cell.material === undefined);
+      }
+    }
+  });
+
+  it("carries a coherence axis on the dom tier and nowhere else", () => {
+    // The pair has one number, so it lives on one side of the pair. A texture
+    // cell that grew one would mean two records of the same quantity, which can
+    // disagree — and the direction (GPU ÷ CSS) would then be ambiguous.
+    for (const cell of MATRIX.cells) {
+      if (cell.tier === "dom") continue;
+      expect(cell, `${name(cell)}: coherence belongs to the dom-tier cell`).not.toHaveProperty(
+        "coherence",
+      );
+    }
+  });
 });
