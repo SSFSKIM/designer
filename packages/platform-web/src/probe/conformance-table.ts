@@ -28,12 +28,15 @@
  * row covers gets `CONSERVATIVE_ROW`.** Failing closed means a stale table
  * under-promises rather than over-promises.
  *
- * Where an engine's behaviour was *not measurable* — Gecko and WebKit here,
- * where every automated capture path renders `backdrop-filter` as a no-op while
- * the engines render it live — the row says `"unverified"`. It does not say
- * `"no"`: capture-path blindness is not feature breakage (Decision Log #17), and
- * the honest record is an open gate, closed by
- * `spikes/s1-proxy-topology/pages/manual-check.html` in a real browser.
+ * Where an engine's behaviour was *not measurable* — Gecko, and WebKit below
+ * 26, where every automated capture path renders `backdrop-filter` as a no-op
+ * while the engines render it live — the row says `"unverified"`. It does not
+ * say `"no"`: capture-path blindness is not feature breakage (Decision Log
+ * #17), and the honest record is an open gate, closed by
+ * `spikes/s1-proxy-topology/pages/manual-check.html` in a real browser. The
+ * WebKit 26 row is exactly such a closure: the user's labeled manual pass of
+ * 2026-08-28 (archived in `spikes/s1-proxy-topology/manual-evidence/`). Gecko's
+ * gate is still open.
  */
 
 export const ENGINE_FAMILIES = ["chromium", "gecko", "webkit", "unknown"] as const;
@@ -113,6 +116,24 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "Gecko bug 1887451: reference filters inside backdrop-filter are unsupported.",
       "Gecko bug 1816561 (open) and WPT backdrop-filter-nested-3d-transform-perspective failing in Firefox 154: ancestor perspective/preserve-3d is a live hazard.",
       "WPT backdrop-filter-backdrop-root-mask fails in Firefox 154, so an ancestor mask may not re-root there and layer 2 over-triggers — the fail-safe direction.",
+    ],
+  },
+  {
+    family: "webkit",
+    minVersion: 26,
+    rasterisesBackdropFilter: "yes",
+    edgeMode: "unverified",
+    referenceFilterInBackdrop: false,
+    maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
+    transform3dHazard: "perspective-preserve3d",
+    backdropRootTriggers: "normative",
+    evidence: [
+      "Manual pass, retail Safari 26 (user, 2026-08-28), spikes/s1-proxy-topology/pages/manual-check.html — the run Decision Log #17 said was the only oracle for this engine.",
+      "rasterisesBackdropFilter: the D1 control tile renders blurred, so the portaled masked proxy paints in retail WebKit — the same construct every automated capture path renders as a no-op.",
+      "backdropRootTriggers: D1 fully labeled. Root-forming: opacity 0.99, filter blur(0px), filter grayscale(0), mask-image, clip-path inset(0), mix-blend-mode multiply, will-change opacity. Harmless: control, filter none, contain paint, isolation isolate, will-change transform, translate3d(0,0,0). That is exactly the Filter Effects 2 normative membership — identity filter values still re-root (the value's presence matters, not its effect) and isolation: isolate does not re-root despite creating a stacking context — so layer 2's pinned trigger list is behavior-exact here, not an over-trigger.",
+      "edgeMode stays unverified deliberately: the manual page's section C measures mask extent (the padded box stands proud as a blurred halo, confirming the panel-shaped mask is load-bearing), which is not an observation of the sampling edge mode.",
+      "transform3dHazard: translate3d(0,0,0) measured harmless, consistent with the hazard being specifically ancestor perspective/preserve-3d — WebKit bugs 252181 and 201987 remain open.",
+      "WebKit bug 245510: reference filters inside backdrop-filter are refused (unchanged by this run).",
     ],
   },
   {

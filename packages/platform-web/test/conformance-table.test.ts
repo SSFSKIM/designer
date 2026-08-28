@@ -51,16 +51,32 @@ describe("the per-engine conformance table (S1 probe layer 3)", () => {
     expect(Number.isFinite(row.maxProxyAreaDevicePx)).toBe(true);
   });
 
-  it("records Gecko and WebKit as unverified rather than as failing", () => {
+  it("records Gecko, and WebKit below 26, as unverified rather than as failing", () => {
     // S1 could neither confirm nor narrow them: backdrop-filter renders as a
     // no-op in every automated capture path on this machine while rendering
     // live. Capture blindness is not feature breakage (Decision Log #17).
     for (const engine of [
       { family: "gecko", version: 154 },
-      { family: "webkit", version: 26.5 },
+      { family: "webkit", version: 25 },
     ] as const) {
       expect(conformanceRowFor(engine).rasterisesBackdropFilter).toBe("unverified");
     }
+  });
+
+  it("carries the measured WebKit 26 row from the labeled manual pass", () => {
+    // The 2026-08-28 retail-Safari run through manual-check.html — the one
+    // oracle Decision Log #17 left open for this engine. D1's fully-labeled
+    // breaker tiles matched Filter Effects 2's normative membership exactly,
+    // so the trigger claim is "normative", not "partial"; edgeMode stays
+    // unverified because section C measures mask extent, not the sampling
+    // edge mode.
+    const row = conformanceRowFor({ family: "webkit", version: 26.5 });
+    expect(row.minVersion).toBe(26);
+    expect(row.rasterisesBackdropFilter).toBe("yes");
+    expect(row.backdropRootTriggers).toBe("normative");
+    expect(row.edgeMode).toBe("unverified");
+    expect(row.referenceFilterInBackdrop).toBe(false);
+    expect(row.transform3dHazard).toBe("perspective-preserve3d");
   });
 
   it("records the reference-filter gap that CSS.supports cannot see", () => {
