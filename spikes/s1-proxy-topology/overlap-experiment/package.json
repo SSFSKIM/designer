@@ -1,0 +1,13 @@
+{
+  "name": "s1-overlap-experiment",
+  "private": true,
+  "type": "module",
+  "description": "Follow-up spike to S1 (backdrop proxy topology): where does the cross-group backdrop leak actually stop mattering? Findings are the deliverable; this is not product code.",
+  "scripts": {
+    "run": "node harness/run.mjs"
+  },
+  "devDependencies": {
+    "pngjs": "^7.0.0",
+    "playwright": "1.62.1"
+  }
+}
