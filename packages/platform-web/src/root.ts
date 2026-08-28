@@ -1126,6 +1126,24 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     registerBackdropSource(descriptor) {
       scene.registerBackdropSource(descriptor);
+      /*
+       * The other order (#41(k)). `setBackdropTexture` marks the source dirty so
+       * the next frame imports it, but only where the scene already knows the
+       * source — before this, a texture handed over first was held by the bridge
+       * and then never marked at all, so the pixels sat unimported until
+       * something *else* happened to dirty the source. On a one-shot image
+       * source nothing else ever does.
+       *
+       * Every path in this repo declares first, which is exactly why this went
+       * unnoticed; both READMEs promise the opposite ("the id joins the two
+       * halves; the order does not matter"), and a cached `<img>` whose `onLoad`
+       * fires before the group's effect runs is the ordinary way an app gets
+       * there. Marked through the same call `setBackdropTexture` uses, so the
+       * two orders converge on one epoch bump rather than on two mechanisms.
+       */
+      if (bridge?.hasBackdropTexture(descriptor.id) === true) {
+        scene.markBackdropSourceDirty(descriptor.id);
+      }
     },
 
     setBackdropTexture(sourceId, texture) {

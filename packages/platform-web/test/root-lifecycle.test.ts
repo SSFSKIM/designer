@@ -287,6 +287,87 @@ describe("the setBackdropTexture seam", () => {
 
     expect(() => instance.setBackdropTexture("never-registered", canvasTexture)).not.toThrow();
   });
+
+  /*
+   * Supply, then declare (#41(k)).
+   *
+   * Both READMEs promise the two halves commute — "the id joins the two halves;
+   * the order does not matter" — and every path in this repo happens to declare
+   * first, which is exactly why the other order was never exercised. A cached
+   * `<img>` whose `onLoad` fires before the group's effect has run is the
+   * ordinary way an app arrives at it.
+   */
+  /**
+   * An **image** source, deliberately, because it is the only kind that stays
+   * stuck. A canvas or video source is re-marked every frame by kind
+   * (`perFrameBackdropSources`), so it recovers on the next frame whatever the
+   * declaration order; a decoded image is handed over exactly once, and if that
+   * hand-over raises no epoch nothing ever raises one.
+   */
+  const imageTexture = { kind: "image", image: document.createElement("img") } as const;
+
+  const declareSource = (instance: GlassRoot): void => {
+    instance.registerBackdropSource({
+      id: "src",
+      kind: "texture",
+      probe: { taint: "clean", textureCompatibility: "compatible" },
+    });
+  };
+
+  it("imports an image handed over before its source was declared", () => {
+    const instance = root({ renderer: "webgpu" });
+
+    instance.setBackdropTexture("src", imageTexture);
+    declareSource(instance);
+    withHost(instance, { sourceId: "src" });
+
+    // The bridge held the pixels all along — that half always worked, and is
+    // what made the failure so quiet: the group reported a supplied source and
+    // full health while nothing was ever imported.
+    expect(instance.rendererBridge?.hasBackdropTexture("src")).toBe(true);
+
+    // The half that was missing.
+    expect(instance.scene.dirtyBackdropSources().map((source) => source.descriptor.id)).toEqual([
+      "src",
+    ]);
+  });
+
+  it("hands that image to the renderer for rebuild, once", () => {
+    // The observable an app actually cares about: the pixels reach a rebuild.
+    // Asserting the epoch alone would leave the seam between the ledger and the
+    // hand-out untested, and that seam is where a doubled mark would show — the
+    // source would still read dirty after the frame that rebuilt it.
+    const instance = root({ renderer: "webgpu" });
+
+    instance.setBackdropTexture("src", imageTexture);
+    declareSource(instance);
+    withHost(instance, { sourceId: "src" });
+
+    instance.runFrame(0);
+    expect(instance.scene.consumeDirtyBackdropSources(999).map((entry) => entry.sourceId)).toEqual([
+      "src",
+    ]);
+    expect(instance.scene.dirtyBackdropSources()).toEqual([]);
+
+    instance.runFrame(16);
+    expect(instance.scene.dirtyBackdropSources()).toEqual([]);
+  });
+
+  it("declares clean where nothing was ever supplied", () => {
+    // The guard is `hasBackdropTexture`, not "this is a texture source": a
+    // declaration on its own has no pixels to import and must not claim a
+    // rebuild the renderer would then do over nothing.
+    const instance = root({ renderer: "webgpu" });
+
+    instance.registerBackdropSource({
+      id: "src",
+      kind: "texture",
+      probe: { taint: "clean", textureCompatibility: "compatible" },
+    });
+    withHost(instance, { sourceId: "src" });
+
+    expect(instance.scene.dirtyBackdropSources()).toEqual([]);
+  });
 });
 
 describe("app-owned device replacement", () => {
