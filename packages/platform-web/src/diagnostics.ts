@@ -52,6 +52,19 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * it, so the app's value is destroyed rather than composed with.
    */
   "host-inline-transform",
+  /**
+   * A registered host sits inside another registered host's content — the
+   * material applied to both layers, which Apple names a failure. Structural and
+   * registration-time; core's `same-plane-overlap` is the geometric, per-frame
+   * finding about X1's sandwich and says nothing across planes. See
+   * `layer-model.ts`.
+   */
+  "glass-inside-glass",
+  /**
+   * A host was registered on a content-layer element — a list or table
+   * structure. "Don't use Liquid Glass in the content layer."
+   */
+  "glass-in-content-layer",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

@@ -109,6 +109,38 @@ it will be exactly as big as you made it. This is also why press compression and
 morph deformation are composed transforms rather than shape changes: a transform
 cannot dirty the rect it is animating.
 
+### Glass is a controls-layer material
+
+There is one placement rule, and Apple states it as a prohibition rather than as
+advice: **"Don't use Liquid Glass in the content layer."** The material exists to
+separate the things you can act on from the things you are reading; putting it on
+both collapses that distinction. Apple names both failure modes: "including it in
+the content layer can result in unnecessary complexity and a confusing visual
+hierarchy", and, for stacking, "avoid applying the material to both layers.
+Instead, use fills, transparency, and vibrancy for the top elements."
+
+So: glass on the toolbar, not on the article you are reading through it. Glass on
+the row's button, not on the row. And glass on the control, never on the control *and* its
+container. Lists and tables are the case Apple calls out by name, and they are
+the case a web glass library gets wrong most often, because `asChild` will glass
+a `<tr>` as readily as a `<button>`.
+
+vitrea now checks the two compositions that are decidable from structure, at
+registration, in dev mode only:
+
+| code | fires when | what it tells you |
+| --- | --- | --- |
+| `glass-inside-glass` | a registered host sits inside another registered host's subtree | which pair, and to keep the material on whichever of the two is the control while the other takes a fill, a translucency or a vibrant foreground |
+| `glass-in-content-layer` | a host is registered on an element whose resolved ARIA role is a list or table structure | which element and which role, and either to move the glass onto the control the row holds or — if it really is a controls-layer container — to give it the role it means, at which point the check stands down |
+
+Both are advisory findings on the diagnostics channel rather than throws, and
+both are `devMode`-only: the check runs once per `registerHost` call and never
+from a frame, so a production build pays nothing for it. What vitrea does *not*
+check is the rest of the rule — whether anything is actually scrolling under a
+surface, whether a non-interactive label has been glassed, whether glass and
+content intersect at rest. Those need judgement or a per-frame observation, and a
+diagnostic that fires on a correct page is worse than no diagnostic.
+
 And to see what the runtime actually resolved to, rather than what you asked for:
 
 ```tsx

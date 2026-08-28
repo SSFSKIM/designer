@@ -36,6 +36,11 @@ const AUTHORING_CODES = [
   "merge-distance-below-effective-padding",
   "proxy-area-over-cap",
   "proxy-overlap-after-enforcement",
+  // The layer model. Apple makes glass a controls-layer material and names
+  // glass-on-glass a failure; these two fire when this page's own composition
+  // breaks that rule, so an empty list here is the page's claim to obey it.
+  "glass-inside-glass",
+  "glass-in-content-layer",
 ];
 
 /** `scenes.json`: canvas 320x200, capsule-button 120x44, centred. */

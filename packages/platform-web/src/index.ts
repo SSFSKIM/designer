@@ -20,6 +20,7 @@ export * from "./diagnostics";
 export * from "./geometry-sync";
 export * from "./group-state";
 export * from "./host";
+export * from "./layer-model";
 export * from "./measure";
 export * from "./media-policy";
 export * from "./optics";

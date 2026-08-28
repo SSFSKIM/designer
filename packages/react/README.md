@@ -107,6 +107,43 @@ more. Position and size are never props, because a measured rect is the single
 source of truth that lets press compression and morph deformation be composed
 transforms rather than shape changes.
 
+### Where a surface belongs: the controls layer
+
+`GlassSurface` will glass whatever element you hand it, and there is one place it
+should not go. Apple states it as a prohibition rather than as advice — **"Don't
+use Liquid Glass in the content layer"** — because the material's whole job is to
+separate what you can act on from what you are reading, and glass on both sides
+of that line collapses it. The same rule read the other way is why `GlassToolbar`
+is deliberately *not* a glass surface: stacking the material on itself is a
+failure Apple names outright ("avoid applying the material to both layers.
+Instead, use fills, transparency, and vibrancy for the top elements"), so the
+toolbar is a plain container and the platter you see is its members' fields
+merging.
+
+In practice: glass on the button, not on the row it sits in; glass on the
+toolbar's controls, not on the toolbar and its controls; and never on a list or a
+table, which is the case Apple calls out by name and the one `asChild` makes
+easiest to get wrong.
+
+Two dev-mode diagnostics now say so instead of leaving it to the docs:
+
+- **`glass-inside-glass`** — a surface registered inside another surface's
+  subtree. It names both nodes and tells you to keep the material on whichever of
+  the two is the control, giving the other a fill, a translucency or a vibrant
+  foreground. Not the same finding as core's `same-plane-overlap`: that one is
+  geometric and about the paint sandwich, this one is structural and still fires
+  when the nesting crosses planes.
+- **`glass-in-content-layer`** — a surface registered on an element whose
+  resolved ARIA role is a list or table structure (`<ul>`, `<li>`, `<tr>`,
+  `role="row"`, and so on). An explicit `role` wins over the tag's implicit one,
+  so `<ul role="menu">` is a controls-layer container and says nothing; the
+  message names that escape.
+
+Both run once per registration, in `devMode` only, and never from a frame — a
+production build pays nothing for them. Both arrive on the diagnostics channel
+like every other finding, so `useGlassDiagnostics` puts them on screen if you
+want them there rather than in the console.
+
 ### A texture backdrop
 
 `backdrop={{ kind: "texture", id }}` moves a group onto the GPU texture path, and
@@ -231,6 +268,48 @@ dev tooling read them.
   non-uniform set is a dev-mode error.
 - Mixing `regular` and `clear` variants inside one group raises a dev-mode
   warning, mirroring Apple's own guidance.
+
+---
+
+## Styling a glass host
+
+A glass host is your element. The runtime writes to it every frame — the tint,
+the border, the blur, and a set of custom properties — but it never takes the
+element's styling away from you.
+
+The properties it publishes, on every host, on **both** tiers:
+
+| Property | What it carries |
+| --- | --- |
+| `--vitrea-foreground` | The ink the runtime resolved as readable on the material this group is drawing. |
+| `--vitrea-tint` | The tint colour, with its alpha. |
+| `--vitrea-occlusion` | That alpha on its own, `0`–`1`. |
+| `--vitrea-border-color` | The rim colour. |
+| `--vitrea-blur` | The frost radius, in CSS px, after accessibility policy. |
+
+Read them the way the demo does, with your own value as the fallback so a tier
+that published nothing degrades to your design rather than to nothing:
+
+```css
+.my-panel__label {
+  color: var(--vitrea-foreground, var(--my-ink));
+}
+```
+
+**Your own `color` rule on the host wins.** The runtime's ink reaches the host
+through a single zero-specificity rule (`:where([data-vitrea-node])`) installed
+first in the document's `<head>`, so any selector of yours that names the
+element — a class, an id, an attribute, a tag — overrides it, and so does an
+equally weak one by source order. Up to 0.1.1 the ink was written as an inline
+`color` instead, which meant an application rule on a glass host parsed,
+cascaded, and silently never applied; that is fixed.
+
+Two properties the runtime does own outright, and which you should style around
+rather than on:
+
+- **`background`** on the host — the CSS tier writes the shorthand every frame,
+  so a `background-image` of yours is clobbered. Put it on a pseudo-element.
+- **`transform`** on the host, while a press or a morph is running.
 
 ---
 

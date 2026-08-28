@@ -84,6 +84,8 @@ const AUTHORING_CODES = new Set([
   "proxy-area-over-cap",
   "proxy-overlap-after-enforcement",
   "redundant-promotion",
+  "glass-inside-glass",
+  "glass-in-content-layer",
 ]);
 
 export function DiagnosticsReadout(): ReactNode {

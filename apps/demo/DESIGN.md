@@ -183,7 +183,7 @@ Both halves must hold, and the page must remain fully usable with all of it off.
 ## 9. Glass placement law (domain-specific)
 
 The dev-mode checks in `vitrea` are part of this page's definition of done,
-so three placement rules are law rather than preference. `pnpm --filter demo dev`
+so four placement rules are law rather than preference. `pnpm --filter demo dev`
 must report zero diagnostics.
 
 1. **Two-group separation.** Two sampling groups on one plane must sit more than
@@ -199,3 +199,8 @@ must report zero diagnostics.
    start-aligned, never auto-centered, so the anchor spacer growing from zero to
    its measured size cannot move its siblings and produce a phantom overlap
    between two hosts measured in different epochs.
+4. **Glass is a controls-layer material.** No glass surface is rendered inside
+   another glass surface's content, and none is registered on a list or table
+   element. Apple names both compositions a failure, and `vitrea` now says so:
+   `glass-inside-glass` and `glass-in-content-layer`. A container that wants
+   the material puts it on the control it holds, not on both.

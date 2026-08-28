@@ -76,6 +76,7 @@ import {
   type GlassHostOptions,
   type GlassHostPatch,
 } from "./host";
+import { checkLayerModel } from "./layer-model";
 import { createLayoutReadMeter, flushStyle, type LayoutReadMeter, type ViewportReading } from "./measure";
 import {
   browserMediaMatcher,
@@ -1150,6 +1151,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           subjects: [nodeId],
           message: `Host "${nodeId}" is not inside the "${plane}" plane's host layer, so X1's sandwich cannot order it: its glass body would paint somewhere other than behind it. Render or portal the element into root.plane("${plane}").hostLayer.`,
         });
+      }
+
+      // The layer model, checked where it is decidable: registration is the
+      // moment the app declares this element is glass, and the compositions the
+      // rule forbids are structural, so nothing here belongs in a frame. Run
+      // before `hosts.set` — `Node.contains` is true for self, and the candidate
+      // must not be able to match itself. Production never reaches this call.
+      if (devMode) {
+        checkLayerModel(
+          { nodeId, host: hostOptions.host },
+          hosts.values(),
+          (diagnostic) => platformDiagnostics.report(diagnostic),
+        );
       }
 
       const record: HostRecord = {
