@@ -60,9 +60,20 @@ test.describe("probe layer 3 — the engine conformance table", () => {
       return window.h.platformProbe();
     });
 
-    // Chromium was confirmed byte-exact; Gecko and WebKit are an open gate, not
-    // a failure — capture blindness is not feature breakage.
-    expect(probe.rasterises).toBe(probe.engine === "chromium" ? "yes" : "unverified");
+    /*
+     * Which gates are closed, as the table records them.
+     *
+     * Chromium was confirmed byte-exact by S1. WebKit was an open gate until
+     * the user's labeled manual pass of 2026-08-28 on retail Safari 18.6 /
+     * macOS 15.7.7 closed it, and the row has claimed 18.6-and-forward since —
+     * this assertion was left behind by that landing and has been red on WebKit
+     * since. Gecko's gate is still open, and "unverified" there is an open gate
+     * rather than a failure: capture blindness is not feature breakage
+     * (Decision Log #17).
+     */
+    const measured =
+      probe.engine === "chromium" || (probe.engine === "webkit" && Number(probe.version) >= 18.6);
+    expect(probe.rasterises).toBe(measured ? "yes" : "unverified");
   });
 });
 
