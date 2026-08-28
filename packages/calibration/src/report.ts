@@ -425,7 +425,66 @@ export function motionAxisReport(input: {
   };
 }
 
-export type AxisReport = ShapeAxisReport | MaterialAxisReport | PerceptualAxisReport | MotionAxisReport;
+/**
+ * The coherence axis: how far apart the two tiers draw the same scene.
+ *
+ * Every other axis is a *fidelity* axis — web against native. This one has no
+ * fixture in it at all: it is the dom-tier capture against its texture twin, the
+ * same profile key and the same scene rendered through vitrea's own shader math
+ * instead of the engine's blur. Two tiers can each sit inside their own
+ * thresholds and still be visibly different from each other, and a demotion is
+ * exactly where a reader sees the pair side by side rather than each beside
+ * Apple. C9a measured what that costs when nobody is watching: the CSS tier's
+ * `tintAlpha` was 0.28 against the renderer's 0.62, a >2× opacity change on
+ * losing a GPU device.
+ *
+ * **It belongs to the dom-tier cell**, not the texture one, because the CSS tier
+ * is the one that moves — and because a quantity stored on both halves of a pair
+ * is a quantity that can disagree with itself. The direction is fixed as GPU ÷
+ * CSS so the number reads the same way wherever it is quoted.
+ *
+ * Absent, never zeroed, in both of the ways it can be:
+ *
+ *   - **The whole axis is absent** when the twin capture is not on disk. A cell
+ *     measured on one tier alone is not a coherence data point, and pairing it
+ *     with itself would be measuring nothing.
+ *   - **`interiorLevelRatioGpuOverCss` alone is absent** when the scene has no
+ *     interior to sample — over a solid backdrop of the material's own tone the
+ *     native silhouette is empty, so there is no shared mask for a level. The
+ *     cross-tier ΔE is whole-canvas and survives that.
+ */
+export interface CoherenceAxisReport {
+  readonly axis: "coherence";
+  /** Whole-canvas OKLab ΔE between the two tiers' own captures. */
+  readonly crossTierOklabDeltaEMean: MetricValue;
+  /**
+   * Each tier's interior level under the **native** silhouette, divided. The
+   * same mask both sides, for the reason `measure.ts` gives: two masks would let
+   * the tiers report levels over different pixel sets, and the whole question is
+   * what each does over the same region.
+   */
+  readonly interiorLevelRatioGpuOverCss?: MetricValue;
+}
+
+export function coherenceAxisReport(input: {
+  readonly crossTierOklabDeltaEMean: number;
+  readonly interiorLevelRatioGpuOverCss?: number;
+}): CoherenceAxisReport {
+  return {
+    axis: "coherence",
+    crossTierOklabDeltaEMean: metricValue(input.crossTierOklabDeltaEMean, "oklab"),
+    ...(input.interiorLevelRatioGpuOverCss === undefined
+      ? {}
+      : { interiorLevelRatioGpuOverCss: metricValue(input.interiorLevelRatioGpuOverCss, "ratio") }),
+  };
+}
+
+export type AxisReport =
+  | ShapeAxisReport
+  | MaterialAxisReport
+  | PerceptualAxisReport
+  | MotionAxisReport
+  | CoherenceAxisReport;
 
 // ---------------------------------------------------------------------------
 // Cells and the matrix
@@ -446,6 +505,8 @@ export interface CellResult {
   readonly material?: MaterialAxisReport;
   readonly perceptual?: PerceptualAxisReport;
   readonly motion?: MotionAxisReport;
+  /** Dom-tier cells only, and only where the texture twin was on disk. */
+  readonly coherence?: CoherenceAxisReport;
 }
 
 /**
@@ -460,8 +521,16 @@ export interface CellResult {
  * 3 (C9a): the shape axis carries each side's extracted silhouette area, so a
  * reader — or a gate — can tell a shape difference from a failure of the
  * extractor to find the shape. See `ShapeAxisReport`.
+ *
+ * 4 (W1 G3): dom-tier cells carry the `coherence` axis. Through schema 3 the
+ * cross-tier bound lived in prose only — it is a web-against-web quantity, and
+ * `web-captures/` is not committed, so nothing in the repository held it and no
+ * test could fail on it. A version-3 cell cannot be read as a version-4 one
+ * because absent coherence means two different things across the bump: "this
+ * schema has no such axis" before, "this cell's twin was not on disk" after.
+ * See `CoherenceAxisReport`.
  */
-export const RESULT_MATRIX_SCHEMA_VERSION = 3;
+export const RESULT_MATRIX_SCHEMA_VERSION = 4;
 
 /** Cells indexed by their serialised key. */
 export interface ResultMatrix {

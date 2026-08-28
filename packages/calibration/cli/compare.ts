@@ -497,6 +497,8 @@ function main(): void {
   const measured: { readonly planned: PlannedCell; readonly cell: CellResult; readonly notes: readonly string[] }[] =
     [];
   const failures: string[] = [];
+  /** Dom-tier scenes whose texture twin was not on disk, so they carry no coherence. */
+  const coherenceless = new Set<string>();
 
   process.stderr.write(`\n── measure (${planned.length} cell(s)) ─────────────────────────────\n`);
   for (const cell of planned) {
@@ -525,10 +527,31 @@ function main(): void {
       continue;
     }
 
+    /*
+     * The other half of the coherence pair (schema 4).
+     *
+     * A `compare` run renders one tier — `--renderer` is a single value, and the
+     * two tiers are two invocations writing into one matrix. So the texture
+     * capture is simply read off disk from the same scene directory: it is the
+     * capture the `webgpu` run wrote there, and it is the same capture that run's
+     * own cell in this matrix was measured from. Nothing is re-rendered and
+     * nothing is inferred; a missing twin leaves the axis absent.
+     *
+     * This is why coherence is computed here rather than by a second CLI
+     * enriching the written matrix: the matrix stays writable by exactly one
+     * sanctioned path.
+     */
+    const twinPng = resolve(captureDir, `${cell.sceneId}__webgpu.png`);
+    const textureTwinPath = options.renderer === "css" && existsSync(twinPng) ? twinPng : undefined;
+    if (options.renderer === "css" && textureTwinPath === undefined) {
+      coherenceless.add(cell.sceneId);
+    }
+
     try {
       const outcome = measureCell({
         nativePath: resolve(FIXTURES, cell.fixture.file),
         webPath: webPng,
+        ...(textureTwinPath === undefined ? {} : { textureTwinPath }),
         backgroundPath: resolve(FIXTURES, cell.backgroundFile),
         profileKey: cell.profileKey,
         sceneId: cell.sceneId,
@@ -670,6 +693,17 @@ function main(): void {
     say(
       `material axis absent on ${noMaterial.size} cell(s): ${[...noMaterial].join(", ")}. ` +
         `See the per-cell notes — absent means not identifiable on that scene, never zero.`,
+    );
+  }
+  if (options.renderer === "css") {
+    const withCoherence = measured.filter((row) => row.cell.coherence !== undefined).length;
+    say(
+      `coherence axis on ${withCoherence} of ${measured.length} dom cell(s) — this tier against its ` +
+        `texture twin, web against web` +
+        (coherenceless.size === 0
+          ? "."
+          : `; absent on ${coherenceless.size} scene(s) with no webgpu capture on disk: ` +
+            `${[...coherenceless].join(", ")}. Run the webgpu tier first to pair them.`),
     );
   }
   for (const caveat of manifest.caveats) say(`caveat: ${caveat}`);

@@ -27,6 +27,7 @@ import { readFileSync } from "node:fs";
 import {
   blurEdgeSpread,
   contourDistance,
+  coherenceAxisReport,
   cornerCurvature,
   decodePng,
   edgeWeightedDifference,
@@ -47,6 +48,7 @@ import {
   tintResponse,
   type CalibrationImage,
   type CellResult,
+  type CoherenceAxisReport,
   type EdgeSpreadReport,
   type FidelityTier,
   type FixtureSet,
@@ -64,6 +66,15 @@ export interface MeasureInput {
   readonly profileKey: string;
   readonly sceneId: string;
   readonly webCellPath: string;
+  /**
+   * The **texture** tier's capture of this same profile and scene, when one is on
+   * disk — the other half of the coherence pair (schema 4).
+   *
+   * Only meaningful on a `dom` measurement, and optional there: a scene captured
+   * on one tier alone is not a coherence data point. Absent means the axis is
+   * absent, never that the tiers agreed.
+   */
+  readonly textureTwinPath?: string;
   readonly tier: FidelityTier;
   readonly fixtureSet: FixtureSet;
   readonly blurAxis: "x" | "y";
@@ -263,6 +274,39 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
     );
   }
 
+  /*
+   * The coherence axis: this capture against its texture twin, web against web,
+   * with no fixture in the comparison at all (schema 4, `CoherenceAxisReport`).
+   *
+   * Computed here rather than in a second pass over the written matrix, because
+   * both quantities need pixels — and the pixels, the native silhouette that
+   * masks the interiors, and the very cell this belongs to are all already in
+   * hand at this point. A pass that re-derived them from a matrix would be
+   * re-decoding four PNGs to recover a mask this function just built.
+   *
+   * Dom-tier only. The pair has one number, so it is stored on one side of it,
+   * and the CSS tier is the side that moves.
+   */
+  let coherence: CoherenceAxisReport | undefined;
+  if (input.tier === "dom" && input.textureTwinPath !== undefined) {
+    const twin = loadImage(input.textureTwinPath);
+    coherence = coherenceAxisReport({
+      // Whole-canvas, exactly as `cli/tier-delta.ts` reports it: the dom tier's
+      // shadow is part of what a viewer sees on a demotion, so it is not masked
+      // out of the comparison the demotion is judged by.
+      crossTierOklabDeltaEMean: oklabDeltaE(twin, web).mean,
+      // Absent — not zero, and not one — where no interior exists to sample.
+      // `material` is present on exactly the cells that have a shared mask, so
+      // its presence is the condition rather than a second empty-silhouette test.
+      ...(material === undefined
+        ? {}
+        : {
+            interiorLevelRatioGpuOverCss:
+              interiorLevel(twin, { interior: nativeSil }).mean / material.interiorMeanWeb.value,
+          }),
+    });
+  }
+
   const cell: CellResult = {
     key: resultCellKey(input.profileKey, loadWebCell(input.webCellPath), input.sceneId),
     fixtureSet: input.fixtureSet,
@@ -273,6 +317,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
     // are for — never "measured as zero". No motion axis: this is a still pair.
     ...(shape === undefined ? {} : { shape }),
     ...(material === undefined ? {} : { material }),
+    ...(coherence === undefined ? {} : { coherence }),
   };
 
   return { cell, notes };
