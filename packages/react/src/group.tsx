@@ -141,7 +141,22 @@ export interface GlassGroupProps {
   readonly foreground?: ForegroundAdaptation | undefined;
   /** Scope for matched-geometry ids, so two morph pairs cannot collide. */
   readonly morphNamespace?: string | undefined;
+  /**
+   * Proximity-union threshold within the group, in CSS px. Defaults to the
+   * group's resolved `samplingPadding`.
+   */
   readonly mergeDistance?: number | undefined;
+  /**
+   * How far the group's backdrop proxy extends past its members' shapes, in
+   * CSS px.
+   *
+   * **Leave it unset unless you mean it.** The default is 3σ of the blur the
+   * material is actually drawing with — the same floor the runtime enforces —
+   * so it is correct at the nominal blur (24) *and* under an accessibility
+   * preference that enlarges the frost (42 under reduced transparency). Writing
+   * a number pins it: it stops following the blur, and one the blur has outgrown
+   * is raised to the floor with a dev-mode warning naming what happened.
+   */
   readonly samplingPadding?: number | undefined;
 }
 

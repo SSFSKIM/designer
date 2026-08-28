@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 
+import { DEFAULT_GROUP_SAMPLING } from "@vitreajs/vitrea";
+
 import { MATERIAL_OPTICS, requiredSamplingPadding, SAMPLING_PADDING_SIGMA_MULTIPLE } from "../src/optics";
 import {
   resolveProxyGeometry,
+  resolveSamplingGeometry,
   roundedRectPath,
   type ProxyGeometry,
   type ProxyGeometryInput,
@@ -177,5 +180,82 @@ describe("the mask path builder", () => {
 
     expect(path).not.toContain("A");
     expect(path.trimEnd().endsWith("Z")).toBe(true);
+  });
+});
+
+/*
+ * The default padding, derived rather than constant.
+ *
+ * core defaults `samplingPadding` to 24, and 24 is 3σ at the regular material's
+ * nominal σ of 8 — the same floor this module enforces, because one number was
+ * written from the other. They part company the moment an accessibility
+ * preference moves σ: `reducedTransparency` frosts at 1.75×, so σ becomes 14,
+ * the floor becomes 42, and a group that never declared a padding is below a
+ * floor it was written to sit exactly on. A 0.1.1 consumer flipped one prop and
+ * got seven warnings about geometry they had never authored.
+ */
+describe("the default sampling geometry, derived from the blur the material draws with", () => {
+  it("is byte-identical to the constant it replaces at the nominal blur", () => {
+    // The whole neutrality argument. Not "close to" 24 — 24, so every committed
+    // box, golden and pixel assertion stands unchanged.
+    expect(resolveSamplingGeometry({ samplingPadding: undefined, mergeDistance: undefined, blurRadius: MATERIAL_OPTICS.regular.blurRadius })).toEqual({
+      samplingPadding: DEFAULT_GROUP_SAMPLING.samplingPadding,
+      mergeDistance: DEFAULT_GROUP_SAMPLING.mergeDistance,
+    });
+  });
+
+  it("follows the blur up when an accessibility policy raises it", () => {
+    // σ = 8 × 1.75 under reduced transparency.
+    expect(
+      resolveSamplingGeometry({ samplingPadding: undefined, mergeDistance: undefined, blurRadius: 14 }),
+    ).toEqual({ samplingPadding: 42, mergeDistance: 42 });
+  });
+
+  it("lands exactly on the floor it used to fall under", () => {
+    for (const blurRadius of [8, 14, 20, 40]) {
+      const { samplingPadding } = resolveSamplingGeometry({
+        samplingPadding: undefined,
+        mergeDistance: undefined,
+        blurRadius,
+      });
+      expect(samplingPadding).toBe(requiredSamplingPadding(blurRadius));
+      // And therefore raises nothing and warns about nothing, at any blur.
+      expect(
+        codes(resolved({ ...base, samplingPadding, mergeDistance: samplingPadding, blurRadius })),
+      ).toEqual([]);
+    }
+  });
+
+  it("leaves an authored padding alone, and its warning with it", () => {
+    // An authored number is a statement about that app's geometry. Deriving over
+    // the top of it would be the runtime overruling an author, which is a worse
+    // defect than the one this fixes.
+    expect(
+      resolveSamplingGeometry({ samplingPadding: 24, mergeDistance: undefined, blurRadius: 14 }),
+    ).toEqual({ samplingPadding: 24, mergeDistance: 24 });
+    expect(codes(resolved({ ...base, samplingPadding: 24, mergeDistance: 24, blurRadius: 14 }))).toEqual([
+      "sampling-padding-below-3-sigma",
+      "merge-distance-below-effective-padding",
+    ]);
+  });
+
+  it("keeps core's rule that mergeDistance defaults to the resolved padding", () => {
+    // Not to `DEFAULT_GROUP_SAMPLING.mergeDistance`: core resolves `{ padding: 60 }`
+    // alone to `{ 60, 60 }`, and the derived default has to inherit that rule
+    // rather than invent a second one.
+    expect(
+      resolveSamplingGeometry({ samplingPadding: 60, mergeDistance: undefined, blurRadius: 14 }),
+    ).toEqual({ samplingPadding: 60, mergeDistance: 60 });
+    expect(
+      resolveSamplingGeometry({ samplingPadding: undefined, mergeDistance: 100, blurRadius: 14 }),
+    ).toEqual({ samplingPadding: 42, mergeDistance: 100 });
+  });
+
+  it("derives nothing to pad where the policy removed the blur entirely", () => {
+    // forced-colors resolves `frost: "none"`, so there is no sampling region to
+    // reserve and 3 × 0 is the honest answer rather than a floor to defend.
+    expect(
+      resolveSamplingGeometry({ samplingPadding: undefined, mergeDistance: undefined, blurRadius: 0 }),
+    ).toEqual({ samplingPadding: 0, mergeDistance: 0 });
   });
 });

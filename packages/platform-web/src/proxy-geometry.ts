@@ -71,6 +71,59 @@ export interface ProxyGeometry {
   readonly findings: readonly ProxyFinding[];
 }
 
+/** What core resolved, plus what the author actually wrote. */
+export interface DeclaredSamplingGeometry {
+  /** `undefined` where the author never set one and core defaulted it. */
+  readonly samplingPadding: number | undefined;
+  readonly mergeDistance: number | undefined;
+  /** σ of the group's blur after accessibility policy, in CSS px. */
+  readonly blurRadius: number;
+}
+
+export interface SamplingGeometry {
+  readonly samplingPadding: number;
+  readonly mergeDistance: number;
+}
+
+/**
+ * The group's sampling geometry, with the **default** derived from the blur the
+ * material is actually drawing with.
+ *
+ * core defaults `samplingPadding` to the constant 24, and 24 was never arbitrary:
+ * it is 3σ at the regular material's nominal σ of 8, which is exactly the floor
+ * enforced below. The two agreed because one was written from the other — and
+ * they stop agreeing the moment an accessibility preference moves σ.
+ * `reducedTransparency` multiplies frost by 1.75, so σ becomes 14, the floor
+ * becomes 42, and every group in the page that never declared a padding is
+ * suddenly below a floor it was written to sit exactly on. A 0.1.1 consumer
+ * flipped one prop and got a burst of warnings about geometry they had never
+ * authored — the library's own default tripping the library's own rule under
+ * the library's own accessibility mode.
+ *
+ * So the default follows σ instead of a constant. Two properties make this a
+ * repair rather than a re-tune:
+ *
+ * - **It is byte-identical at the nominal state.** 3 × 8 = 24 is the constant it
+ *   replaces, not a number near it, so every committed box and every golden
+ *   stands unchanged.
+ * - **An authored value is untouched, warning included.** A padding the author
+ *   wrote is a statement about their geometry, and one that cannot cover the
+ *   blur is still worth saying so. Deriving over the top of it would be the
+ *   runtime overruling an author, which is a worse defect than the one this
+ *   fixes. `mergeDistance` follows core's own rule — it defaults to the resolved
+ *   padding — with the derived padding substituted.
+ *
+ * What this deliberately does **not** do is suppress anything. The floor below
+ * still enforces, still warns when an authored value is under it, and the
+ * cross-group overlap check is untouched: a page whose groups sit too close for
+ * an enlarged blur is a real finding, and going quiet about it under exactly the
+ * preference that enlarges the blur would be the worst possible moment to.
+ */
+export function resolveSamplingGeometry(input: DeclaredSamplingGeometry): SamplingGeometry {
+  const samplingPadding = input.samplingPadding ?? requiredSamplingPadding(input.blurRadius);
+  return { samplingPadding, mergeDistance: input.mergeDistance ?? samplingPadding };
+}
+
 const area = (rect: Rect): number => rect.width * rect.height;
 
 /** A member with no measured extent contributes nothing — it has not been read yet. */

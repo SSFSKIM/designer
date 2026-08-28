@@ -97,6 +97,7 @@ import {
   type MaterialOptics,
 } from "./optics";
 import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } from "./planes";
+import { resolveSamplingGeometry } from "./proxy-geometry";
 import {
   describeEngineDefect,
   describeProbeFailure,
@@ -837,6 +838,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       const planesMeasured = new Set(measured.map((entry) => entry.record.plane));
       if (planesMeasured.size > 0) auditablePlanes.set(groupId, planesMeasured);
 
+      /*
+       * The group's sampling geometry, with the **default** derived from the
+       * blur this group is actually drawing with rather than from a constant
+       * (see `resolveSamplingGeometry`). core cannot do this: σ lives in the
+       * material, which is this package's, and core's own 24 is 3σ at the
+       * nominal σ of 8 — right until an accessibility preference moves σ. An
+       * authored value is passed straight through, warning and all.
+       */
+      const sampling = resolveSamplingGeometry({
+        samplingPadding: groupRecord.descriptor.samplingPadding,
+        mergeDistance: groupRecord.descriptor.mergeDistance,
+        blurRadius: optics.blurRadius,
+      });
+
       groupInputs.push({
         groupId,
         state,
@@ -849,8 +864,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         },
         backdropSourceId: groupRecord.descriptor.backdropSourceId,
         variant,
-        samplingPadding: resolved.sampling.samplingPadding,
-        mergeDistance: resolved.sampling.mergeDistance,
+        samplingPadding: sampling.samplingPadding,
+        mergeDistance: sampling.mergeDistance,
         declaredMergeDistance: groupRecord.descriptor.mergeDistance,
         blurRadius: optics.blurRadius,
       });
@@ -875,8 +890,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 entry.record.radii[3],
               ],
             })),
-            samplingPadding: resolved.sampling.samplingPadding,
-            mergeDistance: resolved.sampling.mergeDistance,
+            samplingPadding: sampling.samplingPadding,
+            mergeDistance: sampling.mergeDistance,
             blurRadius: optics.blurRadius,
             saturation: optics.saturation,
           });
