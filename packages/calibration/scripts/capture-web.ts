@@ -135,12 +135,82 @@ interface MaterialProfileFile {
   readonly cssTierMapping: NonNullable<SceneReport["cssTierMapping"]> | undefined;
 }
 
+/**
+ * The accessibility flags a capture may be rendered under (`--accessibility`).
+ *
+ * Named in the kebab-case of the media queries and of the native profile keys,
+ * so `--accessibility increased-contrast` reads the same as the profile it is
+ * capturing for. `reduced-motion` is accepted for completeness even though the
+ * still scenes carry no motion, because leaving it out would make the flag set
+ * a subset of the runtime's without saying why.
+ */
+const ACCESSIBILITY_FLAGS = {
+  "reduced-transparency": "reducedTransparency",
+  "increased-contrast": "increasedContrast",
+  "reduced-motion": "reducedMotion",
+} as const;
+
+type AccessibilityFlagName = keyof typeof ACCESSIBILITY_FLAGS;
+
+/** `AccessibilityOverrides` as the page receives it: every overridable flag stated. */
+type AccessibilityRequest = Readonly<
+  Record<(typeof ACCESSIBILITY_FLAGS)[AccessibilityFlagName], boolean>
+>;
+
+/**
+ * Parse `--accessibility a,b` into a fully-stated override set.
+ *
+ * Every overridable flag is stated, including the ones not named — an override
+ * set that left them to `"system"` would make the capture depend on whatever the
+ * browser's media queries answer, which for `prefers-reduced-transparency` is
+ * "not queryable at all" on Chromium. The whole reason the native side has
+ * accessibility *profiles* is that this state is not something to leave implicit.
+ *
+ * The empty string is refused rather than read as "none": passing the flag is a
+ * statement about the render, and a statement of nothing is a typo.
+ */
+function parseAccessibility(raw: string): AccessibilityRequest {
+  const names = raw.split(",").map((part) => part.trim()).filter(Boolean);
+  if (names.length === 0) {
+    throw new Error(
+      `--accessibility needs at least one of: ${Object.keys(ACCESSIBILITY_FLAGS).join(", ")}. ` +
+        "Omit the flag entirely for the browser's own preferences.",
+    );
+  }
+  const request: Record<string, boolean> = {
+    reducedTransparency: false,
+    increasedContrast: false,
+    reducedMotion: false,
+  };
+  for (const name of names) {
+    const key = ACCESSIBILITY_FLAGS[name as AccessibilityFlagName];
+    if (key === undefined) {
+      throw new Error(
+        `--accessibility does not know "${name}"; it takes ` +
+          `${Object.keys(ACCESSIBILITY_FLAGS).join(", ")}.`,
+      );
+    }
+    request[key] = true;
+  }
+  return request as AccessibilityRequest;
+}
+
+/** How the cell names the accessibility state a capture ran under. Never omitted. */
+function accessibilityLabel(request: AccessibilityRequest | undefined): string {
+  if (request === undefined) return "accessibility=browser-preferences";
+  const on = Object.entries(request)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
+  return `accessibility=${on.join("+")} (others explicitly off)`;
+}
+
 interface Options {
   readonly sceneIds: readonly string[];
   readonly renderer: "css" | "webgpu";
   readonly scale: number;
   readonly frames: number;
   readonly colorScheme: "light" | "dark";
+  readonly accessibility: AccessibilityRequest | undefined;
   readonly outDir: string;
   readonly materialProfile: MaterialProfileFile | undefined;
 }
@@ -156,6 +226,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let scale = 1;
   let frames = 8;
   let colorScheme: "light" | "dark" = "light";
+  let accessibility: AccessibilityRequest | undefined;
   let outDir = DEFAULT_OUT;
   let materialProfile: MaterialProfileFile | undefined;
   let all = false;
@@ -198,6 +269,10 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
         index += 1;
         break;
       }
+      case "--accessibility":
+        accessibility = parseAccessibility(next(index, argument));
+        index += 1;
+        break;
       case "--out":
         outDir = resolve(process.cwd(), next(index, argument));
         index += 1;
@@ -225,7 +300,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     throw new Error(`These are not in the scene matrix: ${unknown.join(", ")}`);
   }
 
-  return { sceneIds, renderer, scale, frames, colorScheme, outDir, materialProfile };
+  return { sceneIds, renderer, scale, frames, colorScheme, accessibility, outDir, materialProfile };
 }
 
 /**
@@ -555,12 +630,35 @@ async function captureScene(
       `viewport=${first.report.canvas.width}x${first.report.canvas.height} ` +
       `deviceScaleFactor=${options.scale}, colorScheme=${options.colorScheme}, ` +
       `animations=disabled, frames=${first.report.frames}, ` +
+      `${accessibilityLabel(options.accessibility)}, ` +
       materialProfileLabel(options.materialProfile),
     sceneId,
     pixelSize: [decoded.width, decoded.height],
     deterministic: identical,
     repeatNoise: difference,
   };
+
+  /*
+   * The accessibility counterpart of the renderer check above: a capture filed
+   * under an accessibility profile whose policy did not actually resolve is
+   * indistinguishable, in the pixels, from a standard-profile capture — and it
+   * would be measured against a native fixture taken with the OS toggle on. So
+   * the request is checked against the page's own resolved policy rather than
+   * assumed to have landed.
+   */
+  if (options.accessibility !== undefined) {
+    const resolved = first.report.accessibilityPolicy;
+    const disagreements = (
+      ["reducedTransparency", "increasedContrast", "reducedMotion"] as const
+    ).filter((flag) => resolved[flag] !== options.accessibility?.[flag]);
+    if (disagreements.length > 0) {
+      problems.push(
+        `The accessibility overrides did not resolve: ${disagreements
+          .map((flag) => `${flag} asked ${String(options.accessibility?.[flag])} got ${String(resolved[flag])}`)
+          .join(", ")}. The capture is not the accessibility state it is filed under.`,
+      );
+    }
+  }
 
   if (activeRenderers.size > 1) {
     problems.push(
@@ -592,6 +690,7 @@ async function captureScene(
         capturedAt: new Date().toISOString(),
         requestedRenderer: options.renderer,
         colorScheme: options.colorScheme,
+        accessibility: options.accessibility ?? null,
         materialProfile:
           options.materialProfile === undefined
             ? null
@@ -666,6 +765,15 @@ async function main(): Promise<void> {
         { patch: profile.patch, cssTierMapping: profile.cssTierMapping },
       );
       say(`material profile: ${materialProfileLabel(profile)}`);
+    }
+
+    // Same init-script placement, same reason: the CSS tier writes its
+    // declarations from the resolved policy on the first frame.
+    if (options.accessibility !== undefined) {
+      await context.addInitScript((request: AccessibilityRequest) => {
+        window.__vitreaAccessibilityOverrides = request;
+      }, options.accessibility);
+      say(accessibilityLabel(options.accessibility));
     }
 
     for (const sceneId of options.sceneIds) {

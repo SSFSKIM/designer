@@ -55,7 +55,11 @@ import {
   type RendererMaterialProfile,
   type VitreaDiagnostic,
 } from "@vitrea/platform-web";
-import type { GlassGroupState } from "@vitreajs/vitrea";
+import type {
+  AccessibilityOverrides,
+  GlassGroupState,
+  ResolvedAccessibilityPolicy,
+} from "@vitreajs/vitrea";
 
 import { CANVAS, SCENE_IDS, resolveScene, type PlacedScene } from "./scenes";
 
@@ -146,6 +150,27 @@ export interface SceneReport {
    * carried a mapping and did not use it is a fact a reader of the pair needs.
    */
   readonly cssTierMapping: Partial<CssTierMapping> | null;
+  /**
+   * The accessibility flags this capture was rendered under, or `null` for
+   * "whatever the browser's own media queries say" — which on a Playwright
+   * context with no accessibility emulation is every flag off.
+   *
+   * W1 needs this because the native reference has accessibility *profiles*:
+   * macOS answers `reduce-transparency` and `increase-contrast` as read-only
+   * environment values, so the native side captures one profile per System
+   * Settings state. The web side has no such environment — `prefers-reduced-
+   * transparency` is not emulable in Chromium — so the equivalent state is
+   * stated through the runtime's own per-root override, which is the API an
+   * application uses for exactly this (§Accessibility policy).
+   */
+  readonly accessibilityOverrides: AccessibilityOverrides | null;
+  /**
+   * What the fold above actually resolved to. The override is the *request*;
+   * this is the answer, read back off the root — so a capture filed under an
+   * accessibility profile carries proof that the policy took, rather than the
+   * flag that was passed in. Same honesty rule as `renderer`.
+   */
+  readonly accessibilityPolicy: ResolvedAccessibilityPolicy;
   readonly groups: readonly GroupReport[];
   readonly surfaces: readonly SurfaceReport[];
   readonly webgpu: Record<string, unknown> | undefined;
@@ -190,6 +215,12 @@ declare global {
      * be.
      */
     __vitreaCssTierMapping?: Partial<CssTierMapping>;
+    /**
+     * The accessibility state to render this capture under, injected the same
+     * way. Absent means the browser's own media queries, which is what an
+     * accessibility-free capture must be.
+     */
+    __vitreaAccessibilityOverrides?: AccessibilityOverrides;
   }
 }
 
@@ -222,20 +253,36 @@ async function probeAdapter(): Promise<AdapterReport> {
   }
 }
 
-/** The native harness's own background index — the filename convention's one home. */
-async function backgroundUrl(id: string): Promise<string> {
-  const response = await fetch(`${REFERENCE_MOUNT}/backgrounds/index.json`);
+/**
+ * Where the raster for this background lives, at this capture's scale.
+ *
+ * Read off the fixture **manifest**, which is the same map `cli/compare.ts` and
+ * `cli/tier-delta.ts` read, under the same scaled-first rule
+ * (`"checkerboard@2x"`, falling back to the bare name for a schema-1 manifest).
+ * Three consumers, one lookup.
+ *
+ * It used to read `backgrounds/index.json`, and that file cannot answer this
+ * question: the harness rewrites it wholesale per run, keyed by bare id, so
+ * after the 2x run every entry named a 640×400 raster and a 1x capture would
+ * have composited a background of the wrong size. That is the same wholesale-
+ * replacement fault the manifest was moved to schema 2 to fix; the manifest is
+ * where the fix already lives.
+ */
+async function backgroundUrl(id: string, scale: number): Promise<string> {
+  const response = await fetch(`${REFERENCE_MOUNT}/manifest.json`);
   if (!response.ok) {
     throw new Error(
-      `The reference background index is not being served (${response.status}). ` +
+      `The reference fixture manifest is not being served (${response.status}). ` +
         "Run apps/reference-apple/capture.sh backgrounds first.",
     );
   }
-  const index = (await response.json()) as Record<string, string>;
-  const relative = index[id];
+  const manifest = (await response.json()) as { backgrounds?: Record<string, string> };
+  const index = manifest.backgrounds ?? {};
+  const scaled = `${id}@${scale}x`;
+  const relative = index[scaled] ?? index[id];
   if (relative === undefined) {
     throw new Error(
-      `The reference index carries no background "${id}"; it has: ${Object.keys(index).join(", ")}.`,
+      `The manifest carries no background "${scaled}"; it has: ${Object.keys(index).join(", ")}.`,
     );
   }
   return `${REFERENCE_MOUNT}/${relative}`;
@@ -363,7 +410,7 @@ async function build(): Promise<SceneReport> {
     );
   }
 
-  const url = await backgroundUrl(placed.backgroundId);
+  const url = await backgroundUrl(placed.backgroundId, requestedScale);
   const image = await loadBackground(url);
   if (image.naturalWidth !== CANVAS.width * requestedScale) {
     problems.push(
@@ -387,10 +434,16 @@ async function build(): Promise<SceneReport> {
   // material's constants in the harness.
   const materialProfile = window.__vitreaMaterialProfile;
   const cssTierMapping = window.__vitreaCssTierMapping;
+  const accessibilityOverrides = window.__vitreaAccessibilityOverrides;
   const root = createGlassRoot({
     renderer: requestedRenderer,
     ...(materialProfile === undefined ? {} : { materialProfile }),
     ...(cssTierMapping === undefined ? {} : { cssTierMapping }),
+    // Handed to the root at construction rather than set afterwards: the CSS
+    // tier writes its declarations from the resolved policy on the first frame,
+    // so a later `setAccessibilityOverrides` would leave the first frames drawn
+    // under the nominal policy — the same trap the material patch has.
+    ...(accessibilityOverrides === undefined ? {} : { accessibilityOverrides }),
     // Dev mode on: the overlap and padding checks are exactly the findings that
     // would invalidate a capture, and they are cheaper to read here than to
     // rediscover in a diff.
@@ -573,6 +626,8 @@ async function build(): Promise<SceneReport> {
     pressed: placed.pressed,
     materialProfile: materialProfile ?? null,
     cssTierMapping: cssTierMapping ?? null,
+    accessibilityOverrides: accessibilityOverrides ?? null,
+    accessibilityPolicy: root.accessibility,
     groups,
     surfaces: placed.surfaces.map((surface) => ({
       nodeId: surface.nodeId,

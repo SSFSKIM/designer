@@ -114,6 +114,13 @@ function main(): void {
   const scenes = list("scene");
   const profileKeys = list("profile");
   const capturesRoot = resolve(PACKAGE_ROOT, flag("captures") ?? "web-captures");
+  /**
+   * The suffix `compare --web-accessibility` gave a profile's capture tree, for
+   * reading back a non-default accessibility run. Passed rather than derived:
+   * this CLI reads captures off disk and has no opinion about which web-side
+   * accessibility state produced them.
+   */
+  const variantSuffix = flag("variant") ?? "";
 
   const spec = readJson<{ readonly scenes: readonly SceneEntry[] }>(resolve(REFERENCE, "scenes.json"));
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
@@ -126,7 +133,14 @@ function main(): void {
     for (const fixture of profile.fixtures) {
       if (scenes !== undefined && !scenes.includes(fixture.sceneId)) continue;
 
-      const directory = resolve(capturesRoot, profile.colorScheme, fixture.sceneId);
+      // Keyed by profile key, exactly as `compare` writes them (see its
+      // captureDirFor): every profile shares the same scene ids, so anything
+      // narrower would pair one profile's GPU capture with another's CSS one.
+      const directory = resolve(
+        capturesRoot,
+        `${profile.profileKey}${variantSuffix}`,
+        fixture.sceneId,
+      );
       const gpuPath = resolve(directory, `${fixture.sceneId}__webgpu.png`);
       const cssPath = resolve(directory, `${fixture.sceneId}__css.png`);
       if (!existsSync(gpuPath) || !existsSync(cssPath)) {
@@ -206,14 +220,17 @@ function main(): void {
   say("web-vs-web: how differently the two tiers draw the same scene. No fixture in the first four columns.");
   say("");
   say(
-    "set          scene                                        interior gpu/css   ratio    SSIM     dE(tiers)   dE vs native gpu/css",
+    "set          profile                       scene                                        interior gpu/css   ratio    SSIM     dE(tiers)   dE vs native gpu/css",
   );
-  say("-".repeat(142));
-  for (const row of rows.sort((a, b) => a.sceneId.localeCompare(b.sceneId))) {
+  say("-".repeat(172));
+  for (const row of rows.sort(
+    (a, b) => a.profileKey.localeCompare(b.profileKey) || a.sceneId.localeCompare(b.sceneId),
+  )) {
     const ratio = row.interiorCss === 0 ? Number.POSITIVE_INFINITY : row.interiorGpu / row.interiorCss;
     say(
       [
         row.fixtureSet.padEnd(12),
+        row.profileKey.replace(/^apple-macos-[\d.]+-/, "").padEnd(29),
         row.sceneId.padEnd(44),
         `${row.interiorGpu.toFixed(4)}/${row.interiorCss.toFixed(4)}`.padStart(15),
         ratio.toFixed(3).padStart(8),

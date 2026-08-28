@@ -51,6 +51,20 @@
  * matrix that is serialised once. The alternative (a subprocess per scene) made a
  * full re-measure slow enough to discourage running one, which is the wrong
  * incentive for the only thing that tells you whether a tuning change helped.
+ *
+ * ## The capture is keyed by native profile, not by colour scheme (W1)
+ *
+ * The native side has six profiles across three axes — colour scheme, backing
+ * scale, and accessibility state — and every one of them is a *browser context*
+ * property on the web side: `colorScheme`, `deviceScaleFactor`, and the runtime's
+ * per-root accessibility overrides. So a capture run is per profile, and the
+ * directory a capture lands in is keyed by the profile key.
+ *
+ * It used to be keyed by colour scheme alone, which was right while `1x` and
+ * `standard` were the only values the other two axes had. With the wider bed it
+ * would have had the 2x run overwrite the 1x one and both accessibility profiles
+ * overwrite light-standard — silently, and with plausible numbers, which is the
+ * exact failure the scheme keying was introduced to prevent.
  */
 
 import { spawnSync } from "node:child_process";
@@ -100,13 +114,18 @@ interface FixtureEntry {
   readonly identicalToBackground?: boolean;
 }
 
+interface ManifestProfile {
+  readonly profileKey: string;
+  readonly colorScheme: "light" | "dark";
+  /** The System Settings state the fixtures were captured under. */
+  readonly a11yMode: string;
+  readonly display?: { readonly actualBackingScale?: number };
+  readonly fixtures: readonly FixtureEntry[];
+}
+
 interface Manifest {
   readonly backgrounds: Readonly<Record<string, string>>;
-  readonly profiles: readonly {
-    readonly profileKey: string;
-    readonly colorScheme: "light" | "dark";
-    readonly fixtures: readonly FixtureEntry[];
-  }[];
+  readonly profiles: readonly ManifestProfile[];
   readonly caveats: readonly string[];
 }
 
@@ -115,6 +134,74 @@ function readJson<T>(path: string): T {
     throw new Error(`compare: ${path} does not exist. Has the native harness been run?`);
   }
   return JSON.parse(readFileSync(path, "utf8")) as T;
+}
+
+// ---------------------------------------------------------------------------
+// The accessibility axis: what the web side renders for a native profile
+// ---------------------------------------------------------------------------
+
+/**
+ * **The coupling.** macOS force-enables Reduce Transparency when Increase
+ * Contrast is on, and the transparency checkbox cannot be uncleared while
+ * contrast is on — the user measured it directly, and the harness stamps the
+ * coupling on the profile's own manifest entry. So the native
+ * `-increased-contrast` reference embodies BOTH flags by construction: there is
+ * no single-flag increased-contrast state on that platform to capture.
+ *
+ * vitrea's two axes are independent. `prefers-contrast: more` and
+ * `prefers-reduced-transparency: reduce` are separate media queries, and a web
+ * user on a platform that decouples them can be in contrast-only. So "what
+ * should the web side render against this fixture?" has two defensible answers,
+ * and the flag exists because they measure different things rather than because
+ * one is unsettled:
+ *
+ *   as-captured    (default) both flags on — the state a native user in this
+ *                  mode is actually in, and therefore the like-for-like diff.
+ *                  This is the fidelity number.
+ *   contrast-only  contrast alone — vitrea's own `prefers-contrast` response,
+ *                  measured against the only reference that exists for it. This
+ *                  is a *bound* on the contrast-only path, not a fidelity claim:
+ *                  its reference is a coupled capture.
+ *
+ * On every other profile the two modes are identical, and the capture directory
+ * is only suffixed where they actually differ — so switching the mode never
+ * re-captures a profile the choice does not reach.
+ */
+const WEB_ACCESSIBILITY_MODES = ["as-captured", "contrast-only"] as const;
+type WebAccessibilityMode = (typeof WEB_ACCESSIBILITY_MODES)[number];
+
+/** The `--accessibility` argument for a profile, or `undefined` for none. */
+function webAccessibilityFlags(
+  a11yMode: string,
+  mode: WebAccessibilityMode,
+): readonly string[] | undefined {
+  switch (a11yMode) {
+    case "standard":
+      return undefined;
+    case "reduced-transparency":
+      return ["reduced-transparency"];
+    case "increased-contrast":
+      return mode === "contrast-only"
+        ? ["increased-contrast"]
+        : ["reduced-transparency", "increased-contrast"];
+    default:
+      throw new Error(
+        `compare: the manifest declares a11yMode '${a11yMode}', which this run does not know how ` +
+          `to render on the web side. Add it to webAccessibilityFlags with the coupling it implies.`,
+      );
+  }
+}
+
+/**
+ * The capture-directory suffix for a non-default mode, empty where the mode
+ * changes nothing. Keeping it empty matters: a suffix on an unaffected profile
+ * would fork one profile's captures into two identical trees and make the
+ * matrices from the two modes incomparable for no reason.
+ */
+function webAccessibilityVariant(a11yMode: string, mode: WebAccessibilityMode): string {
+  const chosen = webAccessibilityFlags(a11yMode, mode);
+  const asCaptured = webAccessibilityFlags(a11yMode, "as-captured");
+  return String(chosen) === String(asCaptured) ? "" : `__web-${mode}`;
 }
 
 /**
@@ -148,6 +235,7 @@ interface Options {
   readonly writePartial: boolean;
   readonly allowMaterialFree: boolean;
   readonly materialProfile: string | undefined;
+  readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly silhouetteThreshold: number;
 }
@@ -179,6 +267,14 @@ function parseOptions(argv: readonly string[]): Options {
   const scenes = list("scene");
   const profileKeys = list("profile");
 
+  const webAccessibility = (flag("web-accessibility") ?? "as-captured") as WebAccessibilityMode;
+  if (!WEB_ACCESSIBILITY_MODES.includes(webAccessibility)) {
+    throw new Error(
+      `compare: --web-accessibility takes ${WEB_ACCESSIBILITY_MODES.join("|")}, ` +
+        `not '${webAccessibility}'`,
+    );
+  }
+
   return {
     scenes,
     profileKeys,
@@ -188,6 +284,7 @@ function parseOptions(argv: readonly string[]): Options {
     writePartial: argv.includes("--write-partial"),
     allowMaterialFree: argv.includes("--allow-material-free"),
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
+    webAccessibility,
     matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
   };
@@ -197,6 +294,10 @@ function parseOptions(argv: readonly string[]): Options {
 interface PlannedCell {
   readonly profileKey: string;
   readonly colorScheme: "light" | "dark";
+  /** The backing scale the native fixture was captured at; the web `deviceScaleFactor`. */
+  readonly scale: number;
+  /** The native System Settings state; translated for the web side by `webAccessibilityFlags`. */
+  readonly a11yMode: string;
   readonly sceneId: string;
   readonly fixtureSet: FixtureSet;
   readonly fixture: FixtureEntry;
@@ -259,9 +360,26 @@ function plan(spec: SceneSpec, manifest: Manifest, options: Options): PlannedCel
         );
       }
 
+      /*
+       * The scale comes off the profile's recorded display, not off its key.
+       * The key states the scale a profile CLAIMS and the harness refuses a
+       * mismatched run, so the two agree — but the display record is the
+       * observation, and a capture's deviceScaleFactor should be set from what
+       * was measured rather than from what a string says.
+       */
+      const scale = profile.display?.actualBackingScale;
+      if (scale === undefined) {
+        throw new Error(
+          `compare: ${profile.profileKey} records no display.actualBackingScale, so the web ` +
+            `capture's deviceScaleFactor cannot be matched to it. Re-run the native harness.`,
+        );
+      }
+
       cells.push({
         profileKey: profile.profileKey,
         colorScheme: profile.colorScheme,
+        scale,
+        a11yMode: profile.a11yMode,
         sceneId: fixture.sceneId,
         fixtureSet: declared,
         fixture,
@@ -281,37 +399,46 @@ function plan(spec: SceneSpec, manifest: Manifest, options: Options): PlannedCel
 }
 
 /**
- * Where a capture lives, keyed by colour scheme.
+ * Where a profile's captures live: `web-captures/<profileKey><variant>/<scene>`.
  *
- * The scheme has to be in the path. The light and dark profiles share scene ids
- * by design — the same geometry over the same backdrop is exactly the comparison
- * the scheme axis exists to make — so a directory keyed on the scene id alone
- * has the dark run overwrite the light one, and the light profile then gets
- * measured against a dark web capture. Silently, and with plausible numbers.
+ * The profile key has to be in the path. Every profile shares the same scene
+ * ids by design — the same geometry over the same backdrop under a different
+ * scheme, scale or accessibility state is exactly the comparison those axes
+ * exist to make — so a directory keyed on anything narrower has one profile's
+ * run overwrite another's, and the second profile then gets measured against
+ * the first's web capture. Silently, and with plausible numbers.
  */
-function captureDirFor(colorScheme: "light" | "dark", sceneId: string): string {
-  return resolve(PACKAGE_ROOT, "web-captures", colorScheme, sceneId);
+function captureRootFor(profileKey: string, variant: string): string {
+  return resolve(PACKAGE_ROOT, "web-captures", `${profileKey}${variant}`);
 }
 
-function captureFor(
-  planned: readonly PlannedCell[],
-  colorScheme: "light" | "dark",
-  options: Options,
-): void {
-  // One invocation per colour scheme: the scheme is a browser-context property,
-  // so it cannot vary within a capture run, but every scene under it can share
-  // one browser and one dev server.
+function captureDirFor(profileKey: string, variant: string, sceneId: string): string {
+  return resolve(captureRootFor(profileKey, variant), sceneId);
+}
+
+function captureFor(planned: readonly PlannedCell[], options: Options): void {
+  // One invocation per profile: colour scheme, device scale factor and the
+  // accessibility overrides are all browser-context or per-root properties, so
+  // none of them can vary within a capture run — but every scene under one
+  // profile shares one browser and one dev server.
+  const first = planned[0];
+  if (first === undefined) return;
   const sceneIds = [...new Set(planned.map((cell) => cell.sceneId))];
-  run(`web capture (${colorScheme}, ${sceneIds.length} scene(s))`, "npx", [
+  const accessibility = webAccessibilityFlags(first.a11yMode, options.webAccessibility);
+  const variant = webAccessibilityVariant(first.a11yMode, options.webAccessibility);
+  run(`web capture (${first.profileKey}${variant}, ${sceneIds.length} scene(s))`, "npx", [
     "tsx",
     "scripts/capture-web.ts",
     ...sceneIds,
     "--renderer",
     options.renderer,
     "--color-scheme",
-    colorScheme,
+    first.colorScheme,
+    "--scale",
+    `${first.scale}`,
+    ...(accessibility === undefined ? [] : ["--accessibility", accessibility.join(",")]),
     "--out",
-    resolve(PACKAGE_ROOT, "web-captures", colorScheme),
+    captureRootFor(first.profileKey, variant),
     ...(options.materialProfile === undefined ? [] : ["--material-profile", options.materialProfile]),
   ]);
 }
@@ -355,9 +482,11 @@ function main(): void {
   const runStartedAt = Date.now();
 
   if (!options.skipCapture) {
-    for (const colorScheme of ["light", "dark"] as const) {
-      const subset = planned.filter((cell) => cell.colorScheme === colorScheme);
-      if (subset.length > 0) captureFor(subset, colorScheme, options);
+    for (const profileKey of [...new Set(planned.map((cell) => cell.profileKey))]) {
+      captureFor(
+        planned.filter((cell) => cell.profileKey === profileKey),
+        options,
+      );
     }
   }
 
@@ -371,7 +500,11 @@ function main(): void {
 
   process.stderr.write(`\n── measure (${planned.length} cell(s)) ─────────────────────────────\n`);
   for (const cell of planned) {
-    const captureDir = captureDirFor(cell.colorScheme, cell.sceneId);
+    const captureDir = captureDirFor(
+      cell.profileKey,
+      webAccessibilityVariant(cell.a11yMode, options.webAccessibility),
+      cell.sceneId,
+    );
     const webPng = resolve(captureDir, `${cell.sceneId}__${options.renderer}.png`);
     const webCell = resolve(captureDir, `cell__${options.renderer}.json`);
     const missing = [webPng, webCell].filter((path) => !existsSync(path));
@@ -451,17 +584,18 @@ function main(): void {
   const noMaterial = new Set<string>();
   say("");
   say(
-    "set         profile  scene                                        IoU    cMean   SSIM    dE     " +
+    "set         profile                        scene                                        IoU    cMean   SSIM    dE     " +
       "  lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W",
   );
-  say("-".repeat(196));
+  say("-".repeat(222));
   for (const { planned: cell, cell: result } of measured) {
-    const scheme = cell.colorScheme === "light" ? "light" : "dark ";
+    // The profile axes, minus the platform prefix every row shares.
+    const profile = cell.profileKey.replace(/^apple-macos-[\d.]+-/, "");
     if (result.material === undefined) noMaterial.add(cell.sceneId);
     say(
       [
         cell.fixtureSet.padEnd(11),
-        scheme.padEnd(8),
+        profile.padEnd(29),
         cell.sceneId.padEnd(44),
         fixed(metric(result, "shape", "silhouetteIoU"), 3).padStart(6),
         fixed(metric(result, "shape", "contourDistanceMean"), 2).padStart(7),
@@ -479,8 +613,14 @@ function main(): void {
   // well as mean, because a per-cell threshold is what the methodology asks for
   // and a mean can hide the one cell that fails it.
   say("");
-  for (const set of options.sets) {
-    const rows = measured.filter((row) => row.planned.fixtureSet === set);
+  // Per profile AND per set. A worst case pooled across profiles would let the
+  // widest profile's cell stand in for every profile's, which is the opposite of
+  // what a per-profile threshold table needs.
+  for (const [profileKey, set] of [...new Set(measured.map((row) => row.planned.profileKey))]
+    .flatMap((profileKey) => options.sets.map((set) => [profileKey, set] as const))) {
+    const rows = measured.filter(
+      (row) => row.planned.fixtureSet === set && row.planned.profileKey === profileKey,
+    );
     if (rows.length === 0) continue;
     const collect = (axis: "shape" | "perceptual", field: string): number[] =>
       rows.flatMap((row) => {
@@ -498,7 +638,8 @@ function main(): void {
       return `${name} mean ${mean.toFixed(digits)} worst ${extreme.toFixed(digits)}`;
     };
     say(
-      `${set.padEnd(11)} n=${String(rows.length).padStart(2)}  ` +
+      `${profileKey.replace(/^apple-macos-[\d.]+-/, "").padEnd(29)} ${set.padEnd(11)} ` +
+        `n=${String(rows.length).padStart(2)}  ` +
         [
           summarise("IoU", iou, "min", 4),
           summarise("contour p95", contour, "max", 2),
@@ -534,6 +675,22 @@ function main(): void {
   for (const caveat of manifest.caveats) say(`caveat: ${caveat}`);
   if (options.materialProfile !== undefined) {
     say(`material profile applied to the web side: ${options.materialProfile}`);
+  }
+
+  // Every profile's web-side accessibility state, printed whether or not the
+  // default was used: which flags a capture rendered under is not something a
+  // reader of these numbers should have to infer from the profile key.
+  for (const profileKey of [...new Set(measured.map((row) => row.planned.profileKey))]) {
+    const a11yMode = measured.find((row) => row.planned.profileKey === profileKey)?.planned.a11yMode;
+    if (a11yMode === undefined) continue;
+    const flags = webAccessibilityFlags(a11yMode, options.webAccessibility);
+    say(
+      `web accessibility for ${profileKey} (native ${a11yMode}): ` +
+        (flags === undefined ? "browser preferences, no overrides" : flags.join(" + ")) +
+        (webAccessibilityVariant(a11yMode, options.webAccessibility) === ""
+          ? ""
+          : ` — MODE ${options.webAccessibility}, which is not the state the native fixture was captured in`),
+    );
   }
 
   const notes = measured.flatMap((row) => row.notes.map((note) => `${row.planned.sceneId}: ${note}`));
