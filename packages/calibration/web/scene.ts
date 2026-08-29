@@ -137,6 +137,17 @@ export interface SceneReport {
   };
   readonly pressed: boolean;
   /**
+   * The author tint this capture actually rendered, as the CSS colour the
+   * runtime was handed, or `null` for an untinted scene.
+   *
+   * Reported for the same reason `pressed` and `accessibilityPolicy` are: a
+   * tinted scene id is a claim, and a cell that carried the id but drew no tint
+   * would read as a fidelity finding about the tint rather than as a wiring
+   * fault. The value is what was passed, so a reader can check it against the
+   * matrix's own integers.
+   */
+  readonly tint: string | null;
+  /**
    * The optical tunables this capture ran on, or `null` for the renderer's own
    * defaults. A fidelity number is only interpretable against the numbers that
    * produced it, so the patch travels with the report rather than living in the
@@ -517,6 +528,11 @@ async function build(): Promise<SceneReport> {
       radii: [surface.radius, surface.radius, surface.radius, surface.radius],
       variant: "regular",
       ...(placed.pressed ? { interaction: "pressed" as const } : {}),
+      // W3's author tint, on the host rather than on the group's material
+      // profile — the node-level override is the counterpart of the native
+      // side's `Glass.tint(_:)`, which configures the Glass VALUE the component
+      // renders and not the container it sits in.
+      ...(placed.tint === undefined ? {} : { tint: placed.tint }),
     });
     handles.set(surface.nodeId, handle);
     if (placed.pressed) applyPressedPose(host, handle);
@@ -624,6 +640,7 @@ async function build(): Promise<SceneReport> {
       naturalHeight: image.naturalHeight,
     },
     pressed: placed.pressed,
+    tint: placed.tint ?? null,
     materialProfile: materialProfile ?? null,
     cssTierMapping: cssTierMapping ?? null,
     accessibilityOverrides: accessibilityOverrides ?? null,

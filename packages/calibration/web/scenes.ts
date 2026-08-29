@@ -52,6 +52,18 @@ export interface SceneEntry {
   readonly background: string;
   readonly component: string;
   readonly state: string;
+  /** A key into the matrix's `tints` registry. Absent on every untinted scene. */
+  readonly tint?: string;
+}
+
+/**
+ * An author tint as the matrix declares it: sRGB components 0…255 and an
+ * optional alpha, which is the tint's STRENGTH — `Color.opacity` on the native
+ * side and a CSS colour's alpha here are the same axis.
+ */
+interface TintSpec {
+  readonly srgb: readonly [number, number, number];
+  readonly alpha?: number;
 }
 
 /** One glass surface, placed in viewport CSS px, ready for `registerHost`. */
@@ -101,12 +113,37 @@ export interface PlacedScene {
   readonly canvas: CanvasSize;
   readonly backgroundId: string;
   readonly pressed: boolean;
+  /**
+   * The scene's author tint as a CSS colour, or absent for an untinted scene.
+   *
+   * Scene-level rather than surface-level because that is where the native side
+   * puts it: `material()` returns one configured `Glass` value and all three
+   * component arms render it, so a tinted group or stack tints every body. A
+   * per-surface tint here would be a shape the matrix cannot declare.
+   */
+  readonly tint?: string;
   readonly groups: readonly PlacedGroup[];
   readonly surfaces: readonly PlacedSurface[];
 }
 
 const components = matrix.components as unknown as Record<string, ComponentSpec>;
 const scenes = matrix.scenes as readonly SceneEntry[];
+const tints = matrix.tints as unknown as Record<string, TintSpec | undefined>;
+
+/**
+ * A declared tint, as the CSS colour `registerHost({ tint })` parses.
+ *
+ * Formatted from the matrix's own INTEGERS rather than from a hex string, which
+ * is what keeps the two sides on one number: the native side divides the same
+ * three integers by 255, and a hex round-trip would introduce a second
+ * representation for the two implementations to disagree about. Alpha is the
+ * strength on both sides, so it rides in the same colour rather than becoming a
+ * separate knob.
+ */
+const cssColour = (spec: TintSpec): string => {
+  const [r, g, b] = spec.srgb;
+  return `rgb(${r} ${g} ${b} / ${spec.alpha ?? 1})`;
+};
 
 export const CANVAS: CanvasSize = matrix.canvas;
 
@@ -161,12 +198,28 @@ export function resolveScene(sceneId: string): PlacedScene {
     throw new Error(`Scene "${sceneId}" names component "${scene.component}", which is absent.`);
   }
 
+  // Refuse rather than guess, the same posture the native harness takes at load:
+  // an unresolvable tint id would otherwise render an UNTINTED surface under a
+  // tinted scene id, and the resulting cell would read as a fidelity finding
+  // about the tint rather than as the missing declaration it is.
+  let tint: string | undefined;
+  if (scene.tint !== undefined) {
+    const spec = tints[scene.tint];
+    if (spec === undefined) {
+      throw new Error(
+        `Scene "${sceneId}" names tint "${scene.tint}", which the matrix's tints registry lacks.`,
+      );
+    }
+    tint = cssColour(spec);
+  }
+
   const canvas = CANVAS;
   const common = {
     scene,
     canvas,
     backgroundId: scene.background,
     pressed: scene.state === "pressed",
+    ...(tint === undefined ? {} : { tint }),
   } as const;
 
   if (isGroup(component)) {

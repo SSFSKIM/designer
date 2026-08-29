@@ -351,6 +351,7 @@ export function StageGlass(props: StageProps): ReactNode {
                     capsule={scene.box.capsule}
                     radius={scene.box.radius}
                     thickness={8}
+                    {...(scene.tint === undefined ? {} : { tint: scene.tint })}
                     /*
                      * Percentages of the canvas, not pixels. The raster is 320x200
                      * at full size and scales down at the collapsed breakpoint, and

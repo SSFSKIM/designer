@@ -37,6 +37,16 @@ export interface ReferenceScene {
   readonly box: SceneBox;
   /** Relative to the site root, so the build can rewrite it. */
   readonly nativeCapture: string;
+  /**
+   * W3's author tint as a CSS colour, absent on an untinted scene.
+   *
+   * The pair puts a live surface beside a native capture, so this has to be
+   * carried: a tinted scene whose live half rendered untinted would show a
+   * colour difference the visitor would read as vitrea's fidelity rather than
+   * as the missing prop it is. Formatted from the matrix's own integers for the
+   * same reason the placement rule is reproduced rather than restated.
+   */
+  readonly tint?: string;
 }
 
 export const CANVAS: { readonly width: number; readonly height: number } = matrix.canvas;
@@ -49,6 +59,19 @@ type ShapeSpec = { readonly kind: string; readonly size?: readonly [number, numb
 const components = matrix.components as unknown as Record<string, ShapeSpec>;
 const backgrounds = matrix.backgrounds as unknown as Record<string, unknown>;
 const split = matrix.split as unknown as Record<string, readonly string[]>;
+const tints = matrix.tints as unknown as Record<
+  string,
+  { readonly srgb: readonly [number, number, number]; readonly alpha?: number } | undefined
+>;
+
+/** The declared tint as a CSS colour, with its alpha carrying the strength. */
+const tintOf = (id: string | undefined): string | undefined => {
+  if (id === undefined) return undefined;
+  const spec = tints[id];
+  if (spec === undefined) return undefined;
+  const [r, g, b] = spec.srgb;
+  return `rgb(${r} ${g} ${b} / ${spec.alpha ?? 1})`;
+};
 
 const setOf = (id: string): ReferenceScene["fixtureSet"] =>
   split.holdout?.includes(id) === true
@@ -77,12 +100,19 @@ function boxOf(spec: ShapeSpec): SceneBox | null {
 
 /** Every scene the pair can show, in the order `scenes.json` declares them. */
 export const REFERENCE_SCENES: readonly ReferenceScene[] = (
-  matrix.scenes as readonly { id: string; background: string; component: string; state: string }[]
+  matrix.scenes as readonly {
+    id: string;
+    background: string;
+    component: string;
+    state: string;
+    tint?: string;
+  }[]
 )
   .flatMap((scene) => {
     const spec = components[scene.component];
     const box = spec === undefined ? null : boxOf(spec);
     if (box === null || backgrounds[scene.background] === undefined) return [];
+    const tint = tintOf(scene.tint);
     return [
       {
         id: scene.id,
@@ -93,6 +123,7 @@ export const REFERENCE_SCENES: readonly ReferenceScene[] = (
         fixtureSet: setOf(scene.id),
         box,
         nativeCapture: `fixtures/${NATIVE_PROFILE}/${scene.id}.png`,
+        ...(tint === undefined ? {} : { tint }),
       } satisfies ReferenceScene,
     ];
   })
