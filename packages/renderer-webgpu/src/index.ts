@@ -5,10 +5,17 @@
  * The lazy half of X7: nothing here is reachable from `vitrea`'s entry
  * chunk, so a CSS-tier consumer never downloads WGSL. `vitrea` reaches this
  * package through a single dynamic import, which is also why this package imports
- * `@vitrea/geometry` and `@vitrea/motion` but **never `vitrea`** — an import
- * back would close a dependency cycle. The handful of core-shaped types the
- * renderer reads are declared structurally in `render-model.ts`, and core's own
- * types satisfy them without an adapter.
+ * `@vitrea/geometry`, `@vitrea/motion` and `@vitrea/policy` but **never
+ * `vitrea`** — an import back would close a dependency cycle. All three are pure
+ * leaves that depend on nothing, which is what makes them safe to sit on from
+ * under core. The handful of core-shaped types the renderer reads are declared
+ * structurally in `render-model.ts`, and core's own types satisfy them without an
+ * adapter.
+ *
+ * `@vitrea/policy` is the newest of the three and the one that is here for this
+ * package's sake: the refraction ladder of Decision Log #19 has to read the same
+ * to the shaders and to the CSS tier, and until Decision Log #23(d) it was written
+ * out twice because there was no module on both sides of core to put it in.
  *
  * Where to start reading:
  *

@@ -1,47 +1,33 @@
 /**
- * The dual-cap rule (Decision Log #19, ratified with C4's landing).
+ * The dual-cap rule (Decision Log #19, ratified with C4's landing), read from the
+ * one module that owns it.
  *
  * Two independent things cap refraction: the accessibility policy's ceiling
  * (core's `ResolvedMaterialPolicy.refraction`, a regime — `nominal | reduced |
  * none`) and the group's resolved capability state (X2's `RefractionQuality` —
  * `true | approximate | none`, what the sampling backend can actually deliver).
  * **Renderers honour the lower of the two.** That sentence is only meaningful
- * against an ordering, so the ordering lives here, once, and both C5's CSS tier
- * and C6's shaders read it from the same place.
- */
-
-import type { RefractionQuality, ResolvedMaterialPolicy } from "@vitreajs/vitrea";
-
-/** Weakest first. `RefractionQuality`'s own declaration order is not an ordering. */
-export const REFRACTION_LADDER = ["none", "approximate", "true"] as const satisfies readonly RefractionQuality[];
-
-export function refractionRank(quality: RefractionQuality): number {
-  return REFRACTION_LADDER.indexOf(quality);
-}
-
-/**
- * The accessibility regime as a rung on the same ladder.
+ * against an ordering, and C5's CSS tier and C6's shaders have to read the same
+ * one.
  *
- * `reduced` maps to `approximate` rather than to something between: the ladder
- * has three rungs and "less refraction than true lensing" is exactly the
- * rim-lensing approximation. `nominal` maps to the top rung, which is a cap of
- * "uncapped" — it can never raise a state, only fail to lower it.
+ * The ladder was authored here until Decision Log #23(d), with a second copy in
+ * `@vitrea/renderer-webgpu`'s `material.ts`, because the renderer sits *below*
+ * core and this package sits above it, so there was no module both could import.
+ * `@vitrea/policy` is that module: a pure leaf under everything, which the
+ * renderer takes as a direct dependency and this package reads the same symbols
+ * from. This file stays because `index.ts` star-exports it and these four names
+ * are part of the published surface — it is now a re-export and nothing else.
+ *
+ * One signature widened in the move. `accessibilityRefractionCap` took a whole
+ * `ResolvedMaterialPolicy` here and reads exactly one axis of it, so the shared
+ * one takes the axis (`RefractionPolicyView`); core's policy still satisfies it
+ * structurally, and so does the renderer's narrower `MaterialPolicyView`, which is
+ * what let the two implementations become one.
  */
-export function accessibilityRefractionCap(policy: ResolvedMaterialPolicy): RefractionQuality {
-  switch (policy.refraction) {
-    case "nominal":
-      return "true";
-    case "reduced":
-      return "approximate";
-    case "none":
-      return "none";
-  }
-}
 
-/** The lower of the two caps. Symmetric — neither argument is privileged. */
-export function effectiveRefraction(
-  a: RefractionQuality,
-  b: RefractionQuality,
-): RefractionQuality {
-  return refractionRank(a) <= refractionRank(b) ? a : b;
-}
+export {
+  accessibilityRefractionCap,
+  effectiveRefraction,
+  REFRACTION_LADDER,
+  refractionRank,
+} from "@vitrea/policy";

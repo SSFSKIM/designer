@@ -117,6 +117,18 @@ describe("the WebGPU availability union", () => {
   });
 });
 
+/**
+ * These two now assert something stronger than they were written to.
+ *
+ * They were a drift check between two hand-written copies of the ladder, this
+ * package's and core's. Since Decision Log #23(d) there is one copy, in
+ * `@vitrea/policy`, and core's `RefractionQuality` is derived from it — so what
+ * this compares is the shared ladder against the type core actually publishes,
+ * reached the long way round through `../../core/src/state`. That is the pin that
+ * still has to hold: `@vitrea/policy` sits below core and cannot import it, so
+ * nothing in the type system stops the ladder from growing a rung core has never
+ * heard of. Only this test does.
+ */
 describe("the refraction ladder", () => {
   it("covers exactly X2's RefractionQuality", () => {
     const mine: readonly RefractionQuality[] = REFRACTION_LADDER;

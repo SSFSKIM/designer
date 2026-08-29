@@ -41,6 +41,13 @@
  * the tier-coherence claim is worded around.
  */
 
+import {
+  accessibilityRefractionCap,
+  DEFAULT_REFRACTION_SCALE,
+  REFRACTION_LADDER,
+  type RefractionQuality,
+  type RefractionScale,
+} from "@vitrea/policy";
 import type { MaterialVariant, ResolvedMaterialPolicy } from "@vitreajs/vitrea";
 
 import type { RendererMaterialProfile } from "./renderer-bridge";
@@ -229,16 +236,9 @@ export function backdropToneAdaptation(
 export function backdropToneUnderPolicy(
   material: ResolvedMaterialPolicy,
   tone: TintToneConstants = TINT_TONE,
-  refractionScale: Readonly<Record<"none" | "approximate" | "true", number>> =
-    MATERIAL_SOURCE_REFRACTION_SCALE,
+  refractionScale: RefractionScale = MATERIAL_SOURCE_REFRACTION_SCALE,
 ): number {
-  const rung =
-    material.refraction === "nominal"
-      ? "true"
-      : material.refraction === "reduced"
-        ? "approximate"
-        : "none";
-  return tintToneAdaptation(material.ambientTint, tone) * refractionScale[rung];
+  return tintToneAdaptation(material.ambientTint, tone) * refractionScale[accessibilityRefractionCap(material)];
 }
 
 /**
@@ -453,7 +453,7 @@ export interface MaterialSourceSize {
    * The refraction ladder's scales, carried here because the size law folds under
    * the accessibility regime through them — see `sizeThicknessUnderPolicy`.
    */
-  readonly refractionScale: Readonly<Record<"none" | "approximate" | "true", number>>;
+  readonly refractionScale: RefractionScale;
 }
 
 export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
@@ -466,30 +466,36 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeSpanMax: 96,
   sizeScatterGainMax: 1,
   sizeOcclusionGain: 0,
-  refractionScale: { none: 0, approximate: 0.45, true: 1 },
+  refractionScale: DEFAULT_REFRACTION_SCALE,
 };
 
 /**
- * How much of a depth simulation each rung of the refraction ladder allows —
- * mirroring `@vitrea/renderer-webgpu`'s `MaterialProfile.refractionScale`.
+ * How much of a depth simulation each rung of the refraction ladder allows.
  *
  * This tier never refracts, so it had no use for these until the size law needed
  * to fold under a preference (`sizeThicknessUnderPolicy`): the ladder is already
  * the profile's statement of how much depth a regime permits, and re-deriving a
  * second such number for the size law would be two answers to one question.
- * Patchable, and pinned against the renderer's by the tier-coherence test.
+ *
+ * It was a hand-written mirror of `@vitrea/renderer-webgpu`'s
+ * `MaterialProfile.refractionScale` — in fact one of *three* copies of the same
+ * table, counting the one `MATERIAL_SOURCE_SIZE` above carried — held together by
+ * the tier-coherence test. Decision Log #23(d) made it the same table:
+ * `@vitrea/policy` authors the default beside the ladder it is keyed by, and both
+ * tiers name it. Nothing else about the mapping changed, and no number moved.
+ *
+ * Still patchable, and the merge below is still this tier's own: the two tiers
+ * agreeing on the *default* is not the same claim as the two tiers merging a
+ * calibration patch the same way, and tier-coherence goes on pinning the second.
  */
-export const MATERIAL_SOURCE_REFRACTION_SCALE: Readonly<Record<"none" | "approximate" | "true", number>> =
-  { none: 0, approximate: 0.45, true: 1 };
+export const MATERIAL_SOURCE_REFRACTION_SCALE: RefractionScale = DEFAULT_REFRACTION_SCALE;
 
-export function sourceRefractionScale(
-  patch?: RendererMaterialProfile,
-): Readonly<Record<"none" | "approximate" | "true", number>> {
-  return {
-    none: patch?.refractionScale?.none ?? MATERIAL_SOURCE_REFRACTION_SCALE.none,
-    approximate: patch?.refractionScale?.approximate ?? MATERIAL_SOURCE_REFRACTION_SCALE.approximate,
-    true: patch?.refractionScale?.true ?? MATERIAL_SOURCE_REFRACTION_SCALE.true,
-  };
+export function sourceRefractionScale(patch?: RendererMaterialProfile): RefractionScale {
+  const scale = {} as Record<RefractionQuality, number>;
+  for (const rung of REFRACTION_LADDER) {
+    scale[rung] = patch?.refractionScale?.[rung] ?? MATERIAL_SOURCE_REFRACTION_SCALE[rung];
+  }
+  return scale;
 }
 
 /** The size-law constants under a profile patch, by the renderer's merge rule. */
@@ -531,22 +537,23 @@ export function sizeThickness(
  * flat in span (0.9465 at 44 px, 0.9526 at 96), so there is no depth there for a
  * size term to add.
  *
- * Restated rather than imported from `refraction.ts`'s ladder for the same reason
- * the optics are mirrored, and pinned against the renderer's own numbers by
- * `packages/calibration/test/tier-coherence.test.ts`.
+ * The regime→rung map used to be re-inlined here, and again in
+ * `backdropToneUnderPolicy` above, even though this package already exported the
+ * function that does it: `refraction.ts` sat in the same package, and the copies
+ * were kept anyway "for the same reason the optics are mirrored". That reason
+ * never applied — the mirroring exists because the two *composites* differ, and
+ * a three-arm map from a preference to a ladder rung is not a composite. Decision
+ * Log #23(d) folded all of them onto `@vitrea/policy`'s one
+ * `accessibilityRefractionCap`, which is the same function the shaders call.
+ * `packages/calibration/test/tier-coherence.test.ts` still pins the numbers this
+ * produces against the renderer's own.
  */
 export function sizeThicknessUnderPolicy(
   spanPx: number,
   material: ResolvedMaterialPolicy,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
 ): number {
-  const rung =
-    material.refraction === "nominal"
-      ? "true"
-      : material.refraction === "reduced"
-        ? "approximate"
-        : "none";
-  return sizeThickness(spanPx, size) * size.refractionScale[rung];
+  return sizeThickness(spanPx, size) * size.refractionScale[accessibilityRefractionCap(material)];
 }
 
 /**

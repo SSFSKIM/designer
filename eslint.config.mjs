@@ -15,7 +15,7 @@
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 
-/** Browser globals that `core`, `geometry` and `motion` must never touch (X4). */
+/** Browser globals that `core`, `geometry`, `motion` and `policy` must never touch (X4). */
 const FORBIDDEN_BROWSER_GLOBALS = [
   "window",
   "document",
@@ -49,7 +49,7 @@ const NODE_BUILTIN_PATTERNS = [
 ];
 
 const PURITY_MESSAGE =
-  "X4 (purity law): core, geometry and motion never reference the DOM. Move browser access to @vitreajs/vitrea-web.";
+  "X4 (purity law): core, geometry, motion and policy never reference the DOM. Move browser access to @vitreajs/vitrea-web.";
 
 /**
  * Timers and clocks. `core` is passive by contract: it never schedules and never
@@ -88,7 +88,15 @@ export const base = tseslint.config(
   },
 );
 
-/** core, geometry, motion — no DOM, no Node built-ins, no downstream imports. */
+/**
+ * core, geometry, motion, policy — no DOM, no Node built-ins, no downstream
+ * imports.
+ *
+ * `policy` is held to the same rule for a reason the other three do not have:
+ * it exists to be importable from *both* sides of core (Decision Log #23(d)), so
+ * the ban on downstream imports is what keeps the renderer, which sits below
+ * core, able to depend on it at all.
+ */
 export const pure = tseslint.config(
   ...base,
   {

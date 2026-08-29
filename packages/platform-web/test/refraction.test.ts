@@ -1,3 +1,18 @@
+/**
+ * The dual cap, fed by the real resolver — the half of the rule that needs core.
+ *
+ * The ladder itself moved to `@vitrea/policy` with Decision Log #23(d), and its
+ * algebra is swept exhaustively there (`policy/test/refraction.test.ts`:
+ * symmetry, idempotence, associativity, "a cap only ever lowers"). This file did
+ * not move with it and is not a duplicate of that one. What it pins is the
+ * *wiring*, which a package below core structurally cannot reach: that
+ * `resolveAccessibilityPolicy` actually turns a reduced-transparency preference
+ * into the rung the ladder calls `approximate`, and forced colours into `none`.
+ * A rewrite of core's accessibility table that silently stopped producing those
+ * regimes would leave the algebra tests green and this file red, which is the
+ * whole reason it stays above core.
+ */
+
 import {
   NOMINAL_ACCESSIBILITY_POLICY,
   resolveAccessibilityPolicy,

@@ -19,23 +19,34 @@
  * **The lower of the two wins**, and this module folds them into one scalar before
  * anything reaches a uniform, so the shader has no way to honour the wrong one.
  *
- * The ordering mirrors `platform-web`'s `REFRACTION_LADDER`, which serves the CSS
- * tier. It is restated rather than imported because this package sits *below*
- * core in the dependency graph and platform-web sits above it. That the two
- * copies must agree is a real (if small) seam — see the note in the C6 report.
+ * The ordering is `@vitrea/policy`'s, and so is the fold. It used to be restated
+ * here — this package sits *below* core in the dependency graph and platform-web
+ * sits above it, so for most of v1 there was no module both tiers could see and
+ * the CSS tier carried a second copy. Decision Log #23(d) closed that seam by
+ * putting the ladder in a pure leaf underneath everything, which the renderer can
+ * depend on directly (alongside `@vitrea/geometry`) with no cycle to close. The
+ * two copies can no longer disagree because there is only one.
  */
+
+import {
+  accessibilityRefractionCap,
+  DEFAULT_REFRACTION_SCALE,
+  REFRACTION_LADDER,
+  type RefractionQuality,
+} from "@vitrea/policy";
 
 import type { Rgb } from "./color";
 import { srgbToLinear } from "./color";
 
-/** X2's `RefractionQuality`, restated. Weakest first — the declaration order IS the ladder. */
-export const REFRACTION_LADDER = ["none", "approximate", "true"] as const;
-
-export type RefractionQuality = (typeof REFRACTION_LADDER)[number];
-
-export function refractionRank(quality: RefractionQuality): number {
-  return REFRACTION_LADDER.indexOf(quality);
-}
+// Re-exported under the names this package and its tests already know them by,
+// so nothing downstream has to learn where the ladder went.
+export {
+  accessibilityRefractionCap,
+  effectiveRefraction,
+  REFRACTION_LADDER,
+  refractionRank,
+  type RefractionQuality,
+} from "@vitrea/policy";
 
 /**
  * The slice of core's `ResolvedAccessibilityPolicy["material"]` the renderer
@@ -61,23 +72,6 @@ export const NOMINAL_MATERIAL_POLICY: MaterialPolicyView = {
   ambientTint: "nominal",
   foreground: "adaptive",
 };
-
-/** The accessibility regime as a rung on the same ladder. */
-export function accessibilityRefractionCap(policy: MaterialPolicyView): RefractionQuality {
-  switch (policy.refraction) {
-    case "nominal":
-      return "true";
-    case "reduced":
-      return "approximate";
-    case "none":
-      return "none";
-  }
-}
-
-/** The lower of two caps. Symmetric — neither argument is privileged. */
-export function effectiveRefraction(a: RefractionQuality, b: RefractionQuality): RefractionQuality {
-  return refractionRank(a) <= refractionRank(b) ? a : b;
-}
 
 /** The two variants, declared as data so a profile merge can walk them. */
 export const MATERIAL_VARIANTS = ["regular", "clear"] as const;
@@ -450,11 +444,12 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   adaptiveLuminanceLow: 0.12,
   adaptiveLuminanceHigh: 0.42,
 
-  refractionScale: {
-    none: 0,
-    approximate: 0.45,
-    true: 1,
-  },
+  // Authored in `@vitrea/policy` alongside the ladder it is keyed by, because the
+  // CSS tier needs the same table and used to hold two more copies of it
+  // (Decision Log #23(d)). The profile is still what the shaders read and still
+  // what `withMaterialOverrides` replaces — only the *default* literal moved, and
+  // it moved unchanged.
+  refractionScale: DEFAULT_REFRACTION_SCALE,
 
   /*
    * MEASURED (W2), against the settled apple-macos-26.5 bed, and set from the
