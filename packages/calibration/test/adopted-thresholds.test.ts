@@ -269,6 +269,15 @@ interface KnownGapExclusion {
   readonly tracking: string;
 }
 
+/*
+ * Three figures moved by W2's size-law retune and are re-quoted from the
+ * regenerated matrix: the two `dark-solid` capsule ΔE p95 rows (0.6272 → 0.6244
+ * at 1×, → 0.6242 at 2×) and the 2× `impulse` one (0.6647 → 0.6633). The capsule
+ * span is 44 px, barely into the law's band, so the movement is small — and it is
+ * movement in the honest direction, since the retune improved every well-posed
+ * cell it touched. Nothing about the class changed: the same seven rows, the same
+ * bounds, and every one of them still fails, which the property below enforces.
+ */
 const KNOWN_RENDERER_GAP_EXCLUSIONS: readonly KnownGapExclusion[] = [
   {
     profileKey: "apple-macos-26.5-1x-light-standard",
@@ -276,7 +285,7 @@ const KNOWN_RENDERER_GAP_EXCLUSIONS: readonly KnownGapExclusion[] = [
     tier: "texture",
     axis: "perceptual",
     metric: "oklabDeltaEP95",
-    measured: 0.6272,
+    measured: 0.6244,
     bound: "≤ 0.17",
     reason: KNOWN_GAP_REASON,
     tracking: KNOWN_GAP_TRACKING,
@@ -320,7 +329,7 @@ const KNOWN_RENDERER_GAP_EXCLUSIONS: readonly KnownGapExclusion[] = [
     tier: "texture",
     axis: "perceptual",
     metric: "oklabDeltaEP95",
-    measured: 0.6272,
+    measured: 0.6242,
     bound: "≤ 0.17",
     reason: KNOWN_GAP_REASON,
     tracking: KNOWN_GAP_TRACKING,
@@ -331,7 +340,7 @@ const KNOWN_RENDERER_GAP_EXCLUSIONS: readonly KnownGapExclusion[] = [
     tier: "texture",
     axis: "perceptual",
     metric: "oklabDeltaEP95",
-    measured: 0.6647,
+    measured: 0.6633,
     bound: "≤ 0.17",
     reason: KNOWN_GAP_REASON,
     tracking: KNOWN_GAP_TRACKING,

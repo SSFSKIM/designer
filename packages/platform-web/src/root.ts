@@ -96,7 +96,10 @@ import {
   opticsUnderPolicy,
   resolvedPolicyFold,
   resolvedTintTone,
+  sizeScatterSigmaAt,
+  sizeThicknessUnderPolicy,
   sourceOptics,
+  sourceSize,
   tintedCssOptics,
   tintedSourceOptics,
   tintToneAdaptation,
@@ -551,6 +554,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * lands as a data change and moves both tiers at once.
    */
   let tintTone = resolvedTintTone(options.materialProfile);
+  /**
+   * The profile's size law (W2), held for the same reason as `policyFold`: the
+   * constants multiply a surface's span rather than being numbers either tier's
+   * optics can carry, and both the CSS declarations and the group's sampling
+   * floor need them from the *same* profile the renderer is drawing with.
+   */
+  let sizeConstants = sourceSize(options.materialProfile);
   /** One CSS-colour parser per root, memoised by string. See `tint.ts`. */
   const parseTint = createTintParser(view.document);
 
@@ -862,11 +872,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * material, which is this package's, and core's own 24 is 3σ at the
        * nominal σ of 8 — right until an accessibility preference moves σ. An
        * authored value is passed straight through, warning and all.
+       *
+       * Taken over the group's **largest** member since the size law (W2): σ is
+       * now per surface, and a floor derived from the nominal would starve a
+       * platter's proxy by exactly the scattering gain — the widest kernel any
+       * member samples with is what S1's 3σ rule is about. A group with nothing
+       * measured yet has no span to take, and falls back to the nominal σ.
        */
+      const groupSpanPx = measured.reduce(
+        (widest, entry) => Math.max(widest, Math.min(entry.bounds.width, entry.bounds.height)),
+        0,
+      );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
         mergeDistance: groupRecord.descriptor.mergeDistance,
-        blurRadius: optics.blurRadius,
+        blurRadius: sizeScatterSigmaAt(
+          optics.blurRadius,
+          sizeThicknessUnderPolicy(groupSpanPx, accessibility.material, sizeConstants),
+          sizeConstants,
+        ),
       });
 
       groupInputs.push({
@@ -1019,6 +1043,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           policyFold,
           policy: accessibility,
           foreground: hint,
+          // The size law's input, from the host's own measured border box — the
+          // same shorter-extent span the renderer resolves per surface (W2).
+          spanPx: Math.min(bounds.width, bounds.height),
+          size: sizeConstants,
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {
@@ -1536,6 +1564,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       gpuOptics = sourceOptics(profile);
       policyFold = resolvedPolicyFold(profile);
       tintTone = resolvedTintTone(profile);
+      sizeConstants = sourceSize(profile);
       bridge?.setMaterialProfile(profile);
     },
 

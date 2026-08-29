@@ -252,6 +252,54 @@ test.describe("the layout is legal", () => {
   });
 });
 
+/*
+ * The size sweep is a comparison too, and its whole claim rests on the one thing
+ * a screenshot cannot show: that the three plates differ ONLY in size. If a
+ * future edit gave the big plate more authored thickness, the stage would still
+ * look right and would have stopped demonstrating anything — which is exactly the
+ * conflation this sweep replaced. So the control is asserted rather than trusted.
+ *
+ * The optical result deliberately is not asserted here. Whether the largest plate
+ * lenses harder is a per-pixel property of the GPU tier, and this page renders on
+ * the CSS tier on any runner without an adapter; the renderer's own unit tests
+ * pin the law's shape and `packages/calibration` measures its magnitude against
+ * the reference. What this case owns is the experiment's design.
+ */
+test.describe("the size sweep is a controlled comparison", () => {
+  test("three plates, three sizes across the law's band, one authored thickness", async ({
+    page,
+  }) => {
+    await gotoSite(page);
+    await showSection(page, "material");
+
+    // Scoped to the stage rather than to `#material`: the narrative column and
+    // the instrument are siblings, and the section id names only the column.
+    const plates = page.locator(".stage--mirror[data-mode='material'] .plate--sweep");
+    await expect(plates).toHaveCount(3);
+
+    const boxes = await plates.evaluateAll((elements) =>
+      elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          span: Math.round(Math.min(rect.width, rect.height)),
+          thickness: element.getAttribute("data-sweep-thickness"),
+        };
+      }),
+    );
+
+    // Descending in the DOM, and genuinely separated: a sweep whose steps are
+    // within a few px of each other is not a sweep.
+    const spans = boxes.map((box) => box.span);
+    expect(spans).toEqual([...spans].sort((a, b) => b - a));
+    expect(spans[0] as number).toBeGreaterThan((spans[2] as number) * 2);
+
+    // The control. Every plate carries the same thickness, whatever that value is
+    // — this asserts they agree, not what they agree on.
+    const thicknesses = new Set(boxes.map((box) => box.thickness));
+    expect(thicknesses.size).toBe(1);
+  });
+});
+
 test.describe("the reference pair is a comparison", () => {
   test("both sides load, and the native capture is a real image", async ({ page }) => {
     await gotoSite(page);

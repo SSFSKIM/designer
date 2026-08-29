@@ -40,9 +40,14 @@ import {
   CSS_TIER_MAPPING,
   cssTierForegroundBounds,
   cssTierForegroundLevel,
+  MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
+  sizeOcclusionAlphaAt,
+  sizeScatterSigmaAt,
+  sizeThicknessUnderPolicy,
   type CssTierMapping,
   type MaterialOptics,
+  type MaterialSourceSize,
   type PolicyFoldConstants,
   type Rgb255,
 } from "./optics";
@@ -121,6 +126,22 @@ export interface CssTierSurface {
    * GPU tier does not draw. Absent keeps the shipped set.
    */
   readonly policyFold?: PolicyFoldConstants;
+  /**
+   * The surface's **shorter** border-box extent in CSS px — the size law's input
+   * (W2). A larger surface frosts more and occludes more, on this tier as on the
+   * GPU one, through the same two functions.
+   *
+   * Absent means no size law: the declarations come out exactly as they did
+   * before the law existed. That is the honest default for a caller who has not
+   * measured the host, because this function is pure and cannot measure one
+   * itself, and inventing a span would make a small control render as a slab.
+   */
+  readonly spanPx?: number;
+  /**
+   * The size-law constants `spanPx` is resolved against — the profile's, when the
+   * root carries a patch. Defaults to the shipped mirror, like `mapping`.
+   */
+  readonly size?: MaterialSourceSize;
 }
 
 /**
@@ -283,7 +304,29 @@ function pressGlowLayer(optics: MaterialOptics): string {
 export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations {
   const { policy } = surface;
   const mapping = surface.mapping ?? CSS_TIER_MAPPING;
-  const optics = opticsUnderPolicy(surface.optics, policy.material, surface.policyFold);
+  const policyOptics = opticsUnderPolicy(surface.optics, policy.material, surface.policyFold);
+  /*
+   * The size law, applied after the accessibility fold and before anything is
+   * written (W2). Two facets reach this tier — a wider blur and a higher tint
+   * alpha — and both come from the same functions the GPU tier resolves its own
+   * from, so the two tiers cannot scatter or occlude differently for one span.
+   *
+   * A surface with no declared span keeps `policyOptics` untouched, which is what
+   * makes every existing caller and every golden unchanged by the law's landing.
+   */
+  const size = surface.size ?? MATERIAL_SOURCE_SIZE;
+  const sizeK =
+    surface.spanPx === undefined
+      ? 0
+      : sizeThicknessUnderPolicy(surface.spanPx, policy.material, size);
+  const optics: MaterialOptics =
+    sizeK === 0
+      ? policyOptics
+      : {
+          ...policyOptics,
+          blurRadius: sizeScatterSigmaAt(policyOptics.blurRadius, sizeK, size),
+          tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
+        };
   const radius = surface.radii.map(px).join(" ");
 
   // forced-colors: "system colors, borders, no glass" (§Accessibility). Nothing

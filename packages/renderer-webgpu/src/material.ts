@@ -51,6 +51,17 @@ export interface MaterialPolicyView {
   readonly foreground: "adaptive" | "near-monochrome";
 }
 
+/** Nominal accessibility material policy — nothing capped. Mirrors core's. */
+export const NOMINAL_MATERIAL_POLICY: MaterialPolicyView = {
+  glass: "material",
+  frost: "nominal",
+  refraction: "nominal",
+  occlusion: "nominal",
+  border: "nominal",
+  ambientTint: "nominal",
+  foreground: "adaptive",
+};
+
 /** The accessibility regime as a rung on the same ladder. */
 export function accessibilityRefractionCap(policy: MaterialPolicyView): RefractionQuality {
   switch (policy.refraction) {
@@ -132,21 +143,99 @@ export interface MaterialProfile {
   readonly refractionScale: Readonly<Record<RefractionQuality, number>>;
 
   /**
-   * The size-parameterised lens depth — parent acceptance #2's mechanism.
+   * **The size law's one curve** — the span band over which the material stops
+   * reading as a thin sheet and starts reading as a thick slab (W2).
    *
-   * Below `lensSpanMin` a surface gets its authored thickness and nothing more;
-   * above `lensSpanMax` it gets `lensSizeGainMax` times it. The final clamp to the
-   * shorter *half* extent is what keeps a small control from being all lens: a
-   * 24 px-tall button cannot bend more than 12 px of backdrop however thick it is
-   * authored.
+   * Apple states one mechanism and lists its consequences: as glass "morphs to
+   * larger sizes… its material characteristics change to simulate a thicker, more
+   * substantial material. It casts deeper, richer shadows, has more pronounced
+   * lensing and refraction effects, and a softer scattering of light" (S219). One
+   * mechanism means one curve: `sizeThickness(span)` is a smoothstep from
+   * `sizeSpanMin` to `sizeSpanMax`, and **every** thickness-derived facet is a
+   * gain on it — the lens (`lensSizeGainMax`), the scattering
+   * (`sizeScatterGainMax`), the occlusion (`sizeOcclusionGain`) and the inner
+   * shadow (`sizeShadowGainMax`). Two curves would be two mechanisms, and the
+   * reference only has one.
    *
    * A smoothstep rather than a straight ratio, so two surfaces of nearly the same
-   * size never read as differently thick, and so the gain saturates instead of
-   * growing without bound on a full-width platter.
+   * size never read as differently thick, and so every gain saturates instead of
+   * growing without bound on a full-width platter. Below `sizeSpanMin` the whole
+   * law is **exactly inert**: a small control renders as it did before the law
+   * existed, which is what makes the law additive rather than a global retune.
+   *
+   * MEASURED (W2, on the settled bed): the band is where the reference's own
+   * size-dependence happens. Over a fixed checkerboard backdrop the light-standard
+   * reference passes 0.244 of the backdrop's contrast at a 32 px span, 0.230 at
+   * 44 px and 0.144 at 96 px, and its backdrop correlation falls 0.634 → 0.606 →
+   * 0.475 across the same three — so the movement is essentially complete by 96 px
+   * and has barely started at 32. See the claims doc's size-law section.
    */
-  readonly lensSpanMin: number;
-  readonly lensSpanMax: number;
+  readonly sizeSpanMin: number;
+  readonly sizeSpanMax: number;
+
+  /**
+   * The lens's gain on the size curve — "more pronounced lensing and refraction".
+   *
+   * `lensDepthPx` is `thickness × lensSizeGain(span)`, clamped to the shorter
+   * *half* extent. The clamp is what keeps a small control from being all lens: a
+   * 24 px-tall button cannot bend more than 12 px of backdrop however thick it is
+   * authored.
+   */
   readonly lensSizeGainMax: number;
+
+  /**
+   * The scattering gain — "a softer scattering of light". How many times wider
+   * the material's body blur runs at full size.
+   *
+   * **The facet the settled bed identifies most directly.** Two backdrops
+   * disagree in exactly the way a widening kernel predicts and an opacity change
+   * does not. Over the checkerboard — all of whose structure sits at one 16 px
+   * period, and whose surroundings carry the same mean as its interior — the
+   * reference's retained contrast falls 41% from a 32 px span to a 96 px one while
+   * its interior *level* stays put (0.607 → 0.641). Over the synthetic photo —
+   * broadband, and with surroundings whose mean differs from the mask's — the
+   * retained contrast barely moves between 44 px and 96 px (0.546 → 0.544) while
+   * the level converges toward the neighbourhood (0.585 → 0.628). A larger alpha
+   * would have moved both backdrops' contrast together and pulled both levels
+   * toward the tint; a wider kernel moves exactly what moved.
+   *
+   * Both tiers carry it, from one function (`sizeScatterSigma`): the CSS tier
+   * multiplies its `blur()` σ, and the GPU tier lerps its body sample toward the
+   * chain level whose blur is that σ.
+   */
+  readonly sizeScatterGainMax: number;
+
+  /**
+   * The occlusion gain — "a larger size is more opaque. A smaller size is
+   * clearer" (S284). The fraction of the *remaining* transparency the size law
+   * closes at full size.
+   *
+   * Relative rather than absolute, for `increasedOcclusionLift`'s reason: a floor
+   * dies silently the moment nominal passes it, and a fraction of the headroom
+   * cannot. It also composes correctly with the accessibility lift — under reduced
+   * transparency nominal is already near 1, so the size law has almost no headroom
+   * left to close, which is exactly what the reference does there (its transmission
+   * reads 0.011 at a 44 px span and 0.014 at 96 px — no size dependence, because
+   * there is none left to have).
+   */
+  readonly sizeOcclusionGain: number;
+
+  /**
+   * The inner shadow's gain — "casts deeper, richer shadows". A multiplier on
+   * `shadowDepth` at full size.
+   *
+   * **Coupled by construction, not fitted, and the difference is stated rather
+   * than hidden.** The fixtures cannot identify it: the reference's peak darkening
+   * outside its contour measures 0.0000–0.0001 on almost every calibration scene
+   * and vitrea's measures the same order (C9a, `shadowFalloff`), so there is no
+   * measured gap for a sweep to close, and what this renderer's `shadowDepth`
+   * scales is an *inner* shadow whose contribution to the interior level is
+   * degenerate with the tint's — two constants, one observable. So the direction
+   * comes from Apple's sentence and the magnitude is held to what the objective is
+   * flat over, with that flatness recorded. GPU tier only: the CSS tier's shadow is
+   * an outer `box-shadow` the reference does not cast at all (Decision Log #32(c)).
+   */
+  readonly sizeShadowGainMax: number;
 
   /** Chain LOD per CSS px of lens depth, and how much sharper the rim samples. */
   readonly lensBodyLodPerPx: number;
@@ -329,9 +418,65 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
     true: 1,
   },
 
-  lensSpanMin: 28,
-  lensSpanMax: 420,
+  /*
+   * MEASURED (W2), against the settled apple-macos-26.5 bed, and set from the
+   * REFERENCE's own size-dependence rather than from the objective's minimum.
+   *
+   * The band was 28…420 while it served the lens alone and nothing had measured
+   * it, which put the whole canonical range (32…160 px) inside the first 17% of
+   * the curve. What the settled reference actually does, over a fixed checkerboard
+   * backdrop: it passes 0.244 of the backdrop's contrast at a 32 px span, 0.230 at
+   * 44 px and 0.144 at 96 px. So 6% of the movement happens between 32 and 44 and
+   * the rest between 44 and 96, and it is finished by 96 — which is what these two
+   * numbers are. `sizeSpanMin` is also the smallest canonical component's span, so
+   * that component is the law's exact zero by construction.
+   *
+   * The tuning objective would rather have 64 (0.1568 against 0.1637 on the rest
+   * cells, a 4% win inside a grid that spans 1.07×). Declined, and the reason is
+   * recorded rather than the win taken: the gain comes entirely from the interior
+   * *level* term, whose residual is the backdrop tone-adaptation gap that wave
+   * child W7 is chartered to close — so a band fitted to 64 would be using the
+   * size law as a proxy for a mechanism vitrea does not have yet, against the
+   * reference's own measurement of where its size-dependence lives, and W7 would
+   * have to unpick it. See the claims doc's size-law section.
+   */
+  sizeSpanMin: 32,
+  sizeSpanMax: 96,
   lensSizeGainMax: 2.6,
+
+  /*
+   * MEASURED (W2), each with its own status — see the fields' notes.
+   *
+   * `sizeScatterGainMax` = 1: implemented on both tiers and inert, because the
+   * canonical fixtures cannot resolve it. The objective is flat to 1.00× over
+   * gains 1…6, and that is not the backdrop chain's depth talking: re-run with the
+   * chain deepened (MIN_LEVEL_EXTENT 8 → 4, which lifts the reachable σ on the
+   * 320×200 canvas from 1.2× to 2.4×) the grid is still flat to 1.00× and still
+   * best at 1. A number the fixtures cannot see is a number that will be met by
+   * accident, so this ships at the identity with the mechanism in place.
+   *
+   * `sizeOcclusionGain` = 0: fitted, and the fit is a boundary optimum with real
+   * leverage against it — the objective rises monotonically, 0.168 → 0.224 across
+   * 0…0.5, a 1.33× spread. The diagnosis is not a tuning failure: vitrea's
+   * interior sits 0.16–0.19 above the reference's at every span because the
+   * reference's level is set by backdrop tone adaptation toward roughly 0.63 while
+   * vitrea lerps toward a white tint, so making a large surface *more* opaque can
+   * only take it further from the reference. The facet is Apple's ("a larger size
+   * is more opaque"); the axis that would let it fit is W7's.
+   *
+   * `sizeShadowGainMax` = 1.4: fitted on the calibration REST cells, where the
+   * grid 1.0/1.2/1.4/1.6/1.8/2.2 reads 0.1577/0.1551/0.1533/0.1530/0.1529/0.1531.
+   * 1.4 through 2.2 are one flat region (0.25% apart); 1.4 is the point inside it
+   * that costs the checks least (ΔE 0.01282 against the baseline's 0.01290, SSIM
+   * 0.9671 against 0.9689) and it is the per-cell minimum on both well-conditioned
+   * span-96 rest cells. The pressed cells prefer 2.4 monotonically and are
+   * excluded from the fit on §6.3's grounds — their native side carries no press
+   * pose, so they compare two different states and cannot arbitrate a material
+   * constant.
+   */
+  sizeScatterGainMax: 1,
+  sizeOcclusionGain: 0,
+  sizeShadowGainMax: 1.4,
 
   lensBodyLodPerPx: 0.16,
   lensRimLodBias: 2.5,
@@ -367,9 +512,12 @@ export const ADAPTIVE_TINT_DARK = DEFAULT_MATERIAL_PROFILE.adaptiveTintDark;
 export const ADAPTIVE_TINT_LIGHT = DEFAULT_MATERIAL_PROFILE.adaptiveTintLight;
 export const ADAPTIVE_LUMINANCE_LOW = DEFAULT_MATERIAL_PROFILE.adaptiveLuminanceLow;
 export const ADAPTIVE_LUMINANCE_HIGH = DEFAULT_MATERIAL_PROFILE.adaptiveLuminanceHigh;
-export const LENS_SPAN_MIN = DEFAULT_MATERIAL_PROFILE.lensSpanMin;
-export const LENS_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.lensSpanMax;
+export const SIZE_SPAN_MIN = DEFAULT_MATERIAL_PROFILE.sizeSpanMin;
+export const SIZE_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeSpanMax;
 export const LENS_SIZE_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.lensSizeGainMax;
+export const SIZE_SCATTER_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax;
+export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
+export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
 export const LENS_BODY_LOD_PER_PX = DEFAULT_MATERIAL_PROFILE.lensBodyLodPerPx;
 export const LENS_RIM_LOD_BIAS = DEFAULT_MATERIAL_PROFILE.lensRimLodBias;
 
@@ -387,9 +535,12 @@ export interface MaterialProfilePatch {
   readonly adaptiveLuminanceLow?: number;
   readonly adaptiveLuminanceHigh?: number;
   readonly refractionScale?: Readonly<Partial<Record<RefractionQuality, number>>>;
-  readonly lensSpanMin?: number;
-  readonly lensSpanMax?: number;
+  readonly sizeSpanMin?: number;
+  readonly sizeSpanMax?: number;
   readonly lensSizeGainMax?: number;
+  readonly sizeScatterGainMax?: number;
+  readonly sizeOcclusionGain?: number;
+  readonly sizeShadowGainMax?: number;
   readonly lensBodyLodPerPx?: number;
   readonly lensRimLodBias?: number;
   readonly reducedTransparencyFrost?: number;
@@ -436,9 +587,12 @@ export function withMaterialOverrides(
     adaptiveLuminanceLow: patch.adaptiveLuminanceLow ?? base.adaptiveLuminanceLow,
     adaptiveLuminanceHigh: patch.adaptiveLuminanceHigh ?? base.adaptiveLuminanceHigh,
     refractionScale,
-    lensSpanMin: patch.lensSpanMin ?? base.lensSpanMin,
-    lensSpanMax: patch.lensSpanMax ?? base.lensSpanMax,
+    sizeSpanMin: patch.sizeSpanMin ?? base.sizeSpanMin,
+    sizeSpanMax: patch.sizeSpanMax ?? base.sizeSpanMax,
     lensSizeGainMax: patch.lensSizeGainMax ?? base.lensSizeGainMax,
+    sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
+    sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
+    sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensBodyLodPerPx: patch.lensBodyLodPerPx ?? base.lensBodyLodPerPx,
     lensRimLodBias: patch.lensRimLodBias ?? base.lensRimLodBias,
     reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
@@ -596,16 +750,156 @@ const smoothstep = (edge0: number, edge1: number, x: number): number => {
   return t * t * (3 - 2 * t);
 };
 
-/** The lens's size gain — see `MaterialProfile.lensSpanMin` for what it is for. */
+/**
+ * **The size law's one input**: how thick a surface of this span reads, 0…1.
+ *
+ * Every thickness-derived facet is a gain on this number and on nothing else —
+ * see `MaterialProfile.sizeSpanMin`. Exactly 0 at or below `sizeSpanMin`, so the
+ * whole law is inert on a small control, and exactly 1 at or above `sizeSpanMax`,
+ * so nothing keeps growing off the end of the canonical range.
+ *
+ * Mirrored by `@vitrea/platform-web`'s `sizeThickness`, pinned in both directions
+ * by `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export function sizeThickness(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return smoothstep(profile.sizeSpanMin, profile.sizeSpanMax, spanPx);
+}
+
+/**
+ * The size law under an accessibility regime — the fold every other optic gets,
+ * and the law does not get to skip it.
+ *
+ * **MEASURED (W2), and it was measured the hard way.** The law was first landed
+ * unfolded, and the regeneration caught it: under both accessibility profiles the
+ * large-span cells' ΔE p95 rose past their adopted bounds while every
+ * light-standard cell improved. The reason is legible in the reference. Under
+ * reduce-transparency Apple's material is nearly opaque and its interior level is
+ * *flat* in span (0.9465 at a 44 px span, 0.9526 at 96), where in the standard
+ * profile it is not — so a size term that deepens the material's own shadow is
+ * modelling something the accessibility reference does not do, and vitrea's
+ * accessibility fold already under-occludes against it (W1's Surprise), so the
+ * extra depth compounds an error instead of closing one.
+ *
+ * The scale is the profile's own refraction ladder rather than a new constant,
+ * read at the **accessibility** cap alone: 1 nominal, 0.45 reduced, 0 none. That
+ * is the number that already means "how much depth this preference allows", and
+ * the law is nothing but a depth simulation. Deliberately not the *resolved* cap,
+ * which also carries the group's sampling capability — a group demoted to a CSS
+ * proxy should still look as thick as it is, because being demoted is not a
+ * statement about the material.
+ *
+ * One consequence, stated rather than hidden: the lens displacement is scaled by
+ * `refractionScale` again in the shader, so under a reduced regime the size
+ * gain's contribution to it is scaled twice. That is the safe direction — a
+ * preference asking for less refraction gets less — and the base thickness, which
+ * is most of the depth, is scaled exactly once.
+ */
+export function sizeThicknessUnderPolicy(
+  spanPx: number,
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return (
+    sizeThickness(spanPx, profile) * profile.refractionScale[accessibilityRefractionCap(policy)]
+  );
+}
+
+/** The lens's size gain — see `MaterialProfile.lensSizeGainMax`. */
 export function lensSizeGain(
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
-  return (
-    1 +
-    (profile.lensSizeGainMax - 1) *
-      smoothstep(profile.lensSpanMin, profile.lensSpanMax, spanPx)
-  );
+  return 1 + (profile.lensSizeGainMax - 1) * sizeThickness(spanPx, profile);
+}
+
+/** `lensSizeGain` for a surface whose thickness factor the policy has already folded. */
+export function lensSizeGainFromThickness(
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return 1 + (profile.lensSizeGainMax - 1) * thickness;
+}
+
+/**
+ * The body blur σ a surface of this span actually runs at — the scattering facet.
+ *
+ * One function for both tiers, which is what stops them scattering differently:
+ * `platform-web` calls its mirror of this to write `blur()`, and this package
+ * calls it to derive the chain level the optics pass lerps its body sample
+ * toward. It is also what a group's `samplingPadding` floor must be taken over —
+ * a wider blur needs a wider proxy, and the group's floor is set by its *largest*
+ * member (S1's 3σ rule, applied to the σ the material will really use).
+ */
+export function sizeScatterSigma(
+  sigmaPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeScatterSigmaAt(sigmaPx, sizeThickness(spanPx, profile), profile);
+}
+
+/**
+ * The same, for a caller that has already resolved the thickness factor — which
+ * is every caller with a policy to fold under.
+ *
+ * The two-function shape is deliberate and it is mirrored on the CSS tier: the
+ * thickness form is the law, the span form is the convenience that computes an
+ * unfolded thickness for it. One formula, so a policy fold cannot end up applied
+ * to one facet and not another.
+ */
+export function sizeScatterSigmaAt(
+  sigmaPx: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * thickness);
+}
+
+/**
+ * The occlusion alpha a surface of this span carries — the opacity facet.
+ *
+ * Composes with `occlusionAlphaUnderPolicy` rather than replacing it: both close
+ * a fraction of whatever transparency is left, so the order they are applied in
+ * changes the result by less than either term and neither can cancel the other.
+ * The accessibility policy is applied first, because a preference outranks a
+ * material law.
+ */
+export function sizeOcclusionAlpha(
+  alpha: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeOcclusionAlphaAt(alpha, sizeThickness(spanPx, profile), profile);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeOcclusionAlphaAt(
+  alpha: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(1, alpha + profile.sizeOcclusionGain * thickness * (1 - alpha));
+}
+
+/** The inner shadow's depth at this span — see `MaterialProfile.sizeShadowGainMax`. */
+export function sizeShadowDepth(
+  shadowDepth: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeShadowDepthAt(shadowDepth, sizeThickness(spanPx, profile), profile);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeShadowDepthAt(
+  shadowDepth: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return shadowDepth * (1 + (profile.sizeShadowGainMax - 1) * thickness);
 }
 
 export function lensDepthPx(

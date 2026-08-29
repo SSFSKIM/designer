@@ -60,6 +60,17 @@ export interface PyramidResources {
   readonly sizeEpoch: number;
   /** The dirty epoch the last successful rebuild satisfied. */
   readonly builtEpoch: number;
+  /**
+   * The body blur's σ in **level-0 texels** — the CSS-px σ the material asked
+   * for, through the same cover fit and plan downscale the build applied.
+   *
+   * Published because the conversion is only knowable here: it needs the frame's
+   * real extent, which is exactly why `bodySigmaCss` arrives in CSS px. The size
+   * law's scattering facet consumes it (W2) — the optics pass widens the body blur
+   * per surface by sampling the chain, and it cannot find the level to measure
+   * from without knowing where the body already sits.
+   */
+  readonly bodySigmaTexels: number;
 }
 
 export interface PyramidInstrumentation {
@@ -253,6 +264,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     bodyLevel: number,
     sizeEpoch: number,
     builtEpoch: number,
+    bodySigmaTexels: number,
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const bodyWidth = (plan.levels[bodyLevel] ?? plan.levels[0] as { width: number; height: number }).width;
@@ -295,6 +307,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       stats,
       sizeEpoch,
       builtEpoch,
+      bodySigmaTexels,
     };
     resources.set(sourceId, next);
     return next;
@@ -578,13 +591,15 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
           ? Math.max(frame.width / viewportW, frame.height / viewportH)
           : 1;
       const planScale = frame.width > 0 ? plan.width / frame.width : 1;
-      const bodyPlan = bodyBlurPlan(request.bodySigmaCss * cover * planScale, plan);
+      const bodySigmaTexels = request.bodySigmaCss * cover * planScale;
+      const bodyPlan = bodyBlurPlan(bodySigmaTexels, plan);
       const target = allocate(
         request.sourceId,
         plan,
         bodyPlan.level,
         frame.sizeEpoch,
         request.epoch,
+        bodySigmaTexels,
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);

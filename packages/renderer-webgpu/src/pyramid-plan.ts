@@ -116,6 +116,25 @@ export function planPyramid(
  */
 export const CHAIN_SIGMA_AT_LEVEL_1 = 1.2;
 
+/**
+ * The **continuous** chain level whose blur is σ level-0 texels — the same
+ * doubling `bodyBlurPlan` steps through, inverted and left continuous because its
+ * one consumer samples the chain trilinearly rather than picking a level.
+ *
+ * The size law's scattering facet needs it (W2). The body texture is one blur for
+ * a whole backdrop source — built at most once per source per frame, so it cannot
+ * be per-surface — while the chain beside it carries every octave at once. So the
+ * optics pass reaches a wider kernel per surface by sampling the chain, and this
+ * is the origin it measures its extra octaves from. Below level 1's own σ there
+ * is no coarser level to name, so the answer ramps linearly to 0 at σ = 0 rather
+ * than diverging the way a bare logarithm would.
+ */
+export function chainLodForSigma(sigmaTexels: number): number {
+  if (!(sigmaTexels > 0)) return 0;
+  if (sigmaTexels <= CHAIN_SIGMA_AT_LEVEL_1) return sigmaTexels / CHAIN_SIGMA_AT_LEVEL_1;
+  return 1 + Math.log2(sigmaTexels / CHAIN_SIGMA_AT_LEVEL_1);
+}
+
 export function bodyBlurPlan(
   sigmaPx: number,
   plan: PyramidPlan,

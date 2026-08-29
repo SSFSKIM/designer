@@ -280,6 +280,30 @@ substance as it grows, and that shows up as shadow, lensing, scattering,
 opacity, and a switch in which adaptation it performs. vitrea implements exactly
 one of the five, and it is the one Apple quantifies least.
 
+> **Annotated after wave child W2 landed the size law (2026-08-30).** The
+> statuses above are the pre-W2 ones and stay as the before-state; what changed
+> is recorded in the claims doc's §5.7 rather than restated here, because this
+> document is the enumeration and that one is the measurement. In short: vitrea
+> now derives all four *parametric* facets from one shared curve rather than one.
+> The lens and the inner shadow ship with fitted gains; the scattering and the
+> occlusion ship with the mechanism built on both tiers and its constant at the
+> identity, because the settled bed cannot identify the first and fits the second
+> to zero until W7's tone axis exists.
+>
+> The fifth row — the size-gated light/dark flip — is still `absent`, and now has
+> a measurement attached: over `dark-solid` the reference's 44 px capsule adapts
+> until the extractor finds no silhouette at all, while its 96 px rrect sits at
+> 0.454 and does not adapt (over `impulse`, 0.013 against 0.412). It gates an
+> adaptation vitrea does not perform, so it belongs with W7, which can key it off
+> the curve W2 built.
+>
+> One correction this table should carry rather than pass on: the second row's
+> "the gap itself is measured" cites C9a §4.1's transmission figures, whose
+> *direction* the settled bed reverses. §5.7 explains why neither reading is a
+> clean measurement of size — that estimator runs across backdrops, which is
+> exactly where tone adaptation lives — and measures it within one backdrop
+> instead.
+
 ### 3.3 Light/dark adaptation
 
 > **The one place where vitrea's measurement contradicts Apple's documentation,

@@ -65,6 +65,8 @@ export const WGSL_INSTANCE_STRUCT = `struct Instance {
   glow   : f32,     // 52  interaction channel value, 0..1
   lensDepth : f32,  // 56  CPU-resolved lens depth in CSS px (material.ts), already scaled by the lensStrength channel
   tintK  : f32,     // 60  author tint strength, 0..1 — the seed itself is a group uniform
+  sizeK  : f32,     // 64  the size law's thickness factor, 0..1 — material.ts's sizeThickness(span)
+  _pad   : f32,     // 68  stride padding: vec2f aligns the struct to 8, so 72 is the next legal size
 };`;
 
 /** `FieldSample` mirrors geometry's, minus `kink`: the shader has no use for it. */
@@ -277,15 +279,29 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // field but its members are not one size, and carrying them per pixel is what
 // lets a 40 px button and a 320 px platter share a field pass and still lens by
 // their own depth — parent acceptance #2 inside a GlassEffectContainer.
-//   aux = (lensDepthPx, glow, thicknessPx, tintStrength)
+//   aux = (lensDepthPx, glow, sizeK, tintStrength)
 //
-// The fourth slot carried the press channel until W3 and no shader ever read
-// it — press compression is resolved on the CPU, as a transform on the surface's
-// own size (instances.ts). It now carries the author tint's strength, which does
-// need to be per pixel: one control tinted inside a toolbar of plain ones is the
-// composition Apple's guidance describes, and the group is one optics pass. The
-// press value is still packed into the instance buffer, unchanged, for a future
-// consumer that wants it per pixel; it simply no longer rides here.
+// The third and fourth slots both changed hands, and neither of the values they
+// used to carry was ever read by a fragment stage. 'thick' left because
+// 'lensDepth' is the thickness times the size gain, so the raw number told the
+// shader nothing the depth had not already said; 'press' left because press
+// compression is resolved on the CPU, as a transform on the surface's own size
+// (instances.ts). Both are still packed into the instance buffer, unchanged, for
+// a future consumer that wants them per pixel; they simply no longer ride here.
+//
+// What replaced them are the two quantities that genuinely have to be per pixel,
+// because a group is one field pass and one optics pass while its members are
+// not one thing:
+//
+//   'sizeK'        — the size law's thickness factor (W2). A 40 px button and a
+//                    320 px platter in one container lens, scatter, occlude and
+//                    shadow by their own size.
+//   'tintStrength' — the author tint's strength (W3). One emphasised control
+//                    among plain ones is the composition Apple's guidance
+//                    describes; the seed itself is a group uniform.
+//
+// They compose rather than compete: the size law moves what the material does to
+// the backdrop, the tint moves what colour it does it in.
 
 @group(0) @binding(0) var<uniform> fu : FieldUniforms;
 @group(0) @binding(1) var<storage, read> instances : array<Instance>;
@@ -306,7 +322,7 @@ fn eval_instance(i : u32, p : vec2f) -> Member {
   var m : Member;
   m.d = f.d + s.inset;
   m.g = f.g;
-  m.aux = vec4f(s.lensDepth, s.glow, s.thick, s.tintK);
+  m.aux = vec4f(s.lensDepth, s.glow, s.sizeK, s.tintK);
   return m;
 }
 

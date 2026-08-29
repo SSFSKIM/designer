@@ -39,6 +39,7 @@ import {
   WGSL_SMOOTH_UNION,
 } from "../src/wgsl";
 import { ANALYSIS_GRID, ANALYSIS_WORKGROUP } from "../src/wgsl/analysis";
+import { INSTANCE_FLOATS } from "../src/instances";
 
 const MODULES: readonly (readonly [string, string])[] = [
   ["field:rsupn", fieldModule("rsupn")],
@@ -162,14 +163,31 @@ describe("the instance struct", () => {
     }
   });
 
-  it("declares X8's geometry plus the render channels, and pads to 64 bytes", () => {
+  it("declares X8's geometry plus the render channels, and pads to a legal stride", () => {
     for (const name of ["centre", "half", "inset", "thick", "press", "glow", "lensDepth"]) {
       expect(WGSL_INSTANCE_STRUCT).toContain(name);
     }
-    // 16 members of 4 bytes, the last one padding.
+    // And the two per-pixel scalars the fragment stages actually read, which are
+    // what took the struct past 16 floats: the size law's thickness factor (W2)
+    // and the author tint's strength (W3).
+    for (const name of ["sizeK", "tintK"]) {
+      expect(WGSL_INSTANCE_STRUCT).toContain(name);
+    }
+
+    /*
+     * The stride RULE, rather than the current number.
+     *
+     * `centre` and `half` are `vec2f`, which aligns the struct to 8 bytes, so
+     * WGSL requires its size to be a multiple of 8 — a storage array of a
+     * 68-byte struct is invalid, and the failure arrives as a pipeline-creation
+     * error at runtime, which no amount of TypeScript would have caught. Pinning
+     * the rule instead of the count is what keeps this useful the next time a
+     * per-pixel scalar is added, and it still pins the two sides together.
+     */
     const members = WGSL_INSTANCE_STRUCT.match(/^\s+\w+\s*:\s*(f32|vec2f)/gm) ?? [];
     const floats = members.reduce((sum, m) => sum + (m.includes("vec2f") ? 2 : 1), 0);
-    expect(floats).toBe(16);
+    expect(floats).toBe(INSTANCE_FLOATS);
+    expect((floats * 4) % 8).toBe(0);
   });
 });
 

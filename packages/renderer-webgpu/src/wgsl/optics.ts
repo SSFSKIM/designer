@@ -14,22 +14,30 @@
  * the group's bounds is touched — §Performance envelope prices the field and
  * optics passes on exactly that assumption.
  *
- * ## Refraction, and why it scales with size
+ * ## The size law, and the four things it moves
  *
  * Parent acceptance #2 asks for the *mechanism*, not a look: "a larger surface
  * shows deeper shadow and stronger lensing than a small button over the same
- * backdrop." Apple's material is size-parameterised, so lens depth is not the
- * authored thickness alone — `material.ts` resolves
+ * backdrop." Apple states it as one mechanism with four consequences — a larger
+ * surface "casts deeper, richer shadows, has more pronounced lensing and
+ * refraction effects, and a softer scattering of light" (S219), and "a larger
+ * size is more opaque. A smaller size is clearer" (S284) — so this pass reads one
+ * per-pixel number and applies four gains to it.
+ *
+ * The number is `aux.z`, `material.ts`'s `sizeThickness(span)`, resolved per
+ * surface on the CPU and carried **per pixel** through the field pass's union.
+ * That is what lets a 40 px button and a 320 px platter share one group's field
+ * pass and still read as different thicknesses. The lens's share of it arrives
+ * pre-folded, because it is a length rather than a gain:
  *
  * ```
- * lensDepthPx = min(thickness * sizeGain(span), span / 2)
+ * lensDepthPx = min(thickness * lensSizeGain(span), span / 2)
  * ```
  *
- * per surface, and the field pass carries the result **per pixel** through the
- * union. That is what lets a 40 px button and a 320 px platter share one group's
- * field pass and still lens by their own depth. The clamp is what keeps a small
- * control from being all lens: a 24 px-tall button cannot bend more than 12 px of
- * backdrop however thick it is authored.
+ * The clamp is what keeps a small control from being all lens: a 24 px-tall
+ * button cannot bend more than 12 px of backdrop however thick it is authored.
+ * The other three — scattering, occlusion, inner shadow — are applied below, each
+ * multiplied by `sizeK`, so every one of them is exactly inert at `sizeK = 0`.
  *
  * The displacement is the normal times a profile that peaks at the rim and dies in
  * the interior, where the glass is flat and shows the backdrop straight through.
@@ -70,6 +78,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   light : vec4f,
   /// hasBackdrop, fieldSize.xy, fieldUpsampled
   flags : vec4f,
+  /// the size law's gains (W2): scatterGainMax, occlusionGain, shadowGainMax,
+  /// bodyChainLod — the last being the chain level whose blur already matches the
+  /// body texture, which is what the scattering term measures its octaves from
+  size : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -118,6 +130,10 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
 
   // Per-pixel, unioned through the field pass. See the module note.
   let lensDepth = max(aux.x, 1e-4);
+  // The size law's thickness factor for whichever surface owns this pixel, 0..1.
+  // Zero on anything at or below the profile's 'sizeSpanMin', and every term
+  // below multiplies by it — so a small control takes the pre-law path exactly.
+  let sizeK = clamp(aux.z, 0.0, 1.0);
   // '-d' is depth inside the surface, so the profile runs 1 at the contour to 0
   // at 'lensDepth' inward, and the square makes the falloff read as curvature
   // rather than as a linear ramp.
@@ -133,15 +149,31 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let bodyLod = clamp(lensDepth * ou.lens.y, 0.0, ou.lens.w);
   let lod = clamp(bodyLod - ou.lens.z * profile, 0.0, ou.lens.w);
 
+  /*
+   * The scattering facet of the size law: "a softer scattering of light".
+   *
+   * The body texture is one blur for the whole backdrop source — it is built once
+   * per source per frame, so it cannot be per-surface. The chain beside it can:
+   * 'size.w' is the chain level whose blur already matches that body, so
+   * 'size.w + log2(scatterGain)' is the level whose blur is 'scatterGain' times
+   * wider, and lerping the body toward it by 'sizeK' widens the kernel with the
+   * surface. At sizeK = 0 the weight is zero and the body sample stands alone,
+   * which is what makes the whole facet inert on a small control.
+   */
+  let scatterGain = 1.0 + (ou.size.x - 1.0) * sizeK;
+  let scatterLod = clamp(ou.size.w + log2(max(scatterGain, 1e-4)), 0.0, ou.lens.w);
+
   var backdrop = vec3f(0.0);
   if (ou.flags.x > 0.5) {
     let lensSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, lod);
     let bodySample = textureSampleLevel(backdropBody, backdropSampler, straightUv, 0.0);
+    let scatterSample = textureSampleLevel(backdropChain, backdropSampler, straightUv, scatterLod);
     // Premultiplied linear in, straight colour out: the material composites over
     // whatever is behind it, so a partially transparent backdrop must not darken
     // the glass.
     let lensColour = lensSample.rgb / max(lensSample.a, 1e-6);
-    let bodyColour = bodySample.rgb / max(bodySample.a, 1e-6);
+    let scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
+    let bodyColour = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, sizeK);
     backdrop = mix(bodyColour, lensColour, profile);
   }
 
@@ -161,6 +193,11 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // material transmits — so the tone is taken against the same light the tint is
   // about to be mixed into, and a tinted surface over a dark backdrop settles to a
   // shade of the author's colour rather than sitting on it as paint.
+  //
+  // That 'backdrop' is also where the size law's scattering has already been
+  // applied (above), and that is the right order rather than a coincidence: a
+  // large surface diffuses more of what is behind it, so the tone the tint maps
+  // to should be the diffused light, not the sharp light nobody sees through it.
   var tintColour = neutral;
   if (aux.w > 0.0) {
     let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722));
@@ -173,15 +210,24 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     tintColour = mix(neutral, tone, clamp(aux.w, 0.0, 1.0));
   }
 
-  // The tint layer's ALPHA is untouched by any of the above. It is the material's
-  // occlusion — what reduced transparency lifts, and the axis the system's own
-  // Clear-to-Tinted preference runs on — and an author choosing a colour does not
-  // get to move it.
-  var colour = mix(backdrop, tintColour, ou.tint.w);
+  // The tint layer's ALPHA is untouched by the author's colour. It is the
+  // material's occlusion — what reduced transparency lifts, and the axis the
+  // system's own Clear-to-Tinted preference runs on — and an author choosing a
+  // colour does not get to move it.
+  //
+  // The size law does move it, and the two do not collide: "a larger size is more
+  // opaque, a smaller size is clearer" is a statement about how much material
+  // there is, not about what colour it is. A fraction of whatever transparency
+  // the resolved alpha still has, for the reason 'increasedOcclusionLift' is a
+  // fraction — see material.ts.
+  let tintAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
+  var colour = mix(backdrop, tintColour, tintAlpha);
 
   // Inner shadow: the material's own occlusion, deepest where the lens is
-  // strongest, which is what makes a thicker surface read as heavier.
-  colour = colour * (1.0 - profile * ou.light.z * ou.light.w);
+  // strongest, which is what makes a thicker surface read as heavier — and the
+  // shadow facet of the size law deepens it further with the span.
+  let shadowDepth = ou.light.z * (1.0 + (ou.size.z - 1.0) * sizeK);
+  colour = colour * (1.0 - profile * shadowDepth * ou.light.w);
 
   // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
   // the specular term is the same edge lit from 'light.xy'.

@@ -99,8 +99,8 @@ describe("withMaterialOverrides", () => {
     });
     expect(next.lensSizeGainMax).toBe(4);
     expect(next.glowGain).toBe(0.1);
-    expect(next.lensSpanMin).toBe(DEFAULT_MATERIAL_PROFILE.lensSpanMin);
-    expect(next.lensSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.lensSpanMax);
+    expect(next.sizeSpanMin).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMin);
+    expect(next.sizeSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMax);
     expect(next.sweepGain).toBe(DEFAULT_MATERIAL_PROFILE.sweepGain);
     expect(next.lightDirection).toEqual(DEFAULT_MATERIAL_PROFILE.lightDirection);
   });
@@ -182,7 +182,7 @@ describe("the foldings read the profile they are given", () => {
   });
 
   it("gains the lens by the profile's saturation, and lods by its rate", () => {
-    // Well past `lensSpanMax`, so the smoothstep has saturated and the gain is
+    // Well past `sizeSpanMax`, so the smoothstep has saturated and the gain is
     // exactly the profile's maximum.
     expect(lensSizeGain(4000, profile)).toBeCloseTo(4, 12);
     expect(lensDepthPx(8, 4000, profile)).toBeCloseTo(32, 12);

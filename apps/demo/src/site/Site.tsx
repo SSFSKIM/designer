@@ -211,11 +211,21 @@ export function Site(props: SiteProps): ReactNode {
             why the optics run on the GPU.
           </p>
           <p className="body">
-            Both plates in the window belong to one sampling group over one
-            registered texture. The upper plate carries 18px of material thickness
-            and the lower one 5px, so the upper plate bends the backdrop further at
-            its edges and sits on a deeper shadow. Same backdrop, same group, two
-            depths.
+            All three plates in the window belong to one sampling group over one
+            registered texture, and all three are authored at the same 8px material
+            thickness. The only thing that differs is how big they are — their short
+            sides are 40, 68 and 112 px. Watch the edges: the largest plate bends the
+            backdrop further and sits on a deeper shadow than the smallest, and
+            nothing on this page asked it to.
+          </p>
+          <p className="body">
+            That is the size law, and it is measured rather than styled. Apple&rsquo;s
+            material &ldquo;simulates a thicker, more substantial material&rdquo; as
+            it grows, and the settled macOS 26.5 reference does exactly that: over
+            one fixed backdrop it passes 0.244 of that backdrop&rsquo;s contrast at a
+            32px span, 0.230 at 44px and 0.144 at 96px. vitrea&rsquo;s band is fitted
+            to where that movement happens, so a control at 40px sits at the
+            law&rsquo;s floor and a platter past 96px at its ceiling.
           </p>
           <Fields legend="Renderer">
             <RendererField requested={props.requestedRenderer} />

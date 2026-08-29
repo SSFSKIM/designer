@@ -290,6 +290,190 @@ export function sourceGlow(patch?: RendererMaterialProfile): MaterialSourceGlow 
 }
 
 /**
+ * The size law's constants, mirrored — the slice of the material profile that
+ * depends on **how big a surface is** rather than on which variant it is (W2).
+ *
+ * A mirror for `MaterialSourceOptics`'s reason: platform-web cannot import the
+ * renderer (X7 keeps it behind core's lazy seam), so the numbers are restated and
+ * `packages/calibration/test/tier-coherence.test.ts` pins them in both directions.
+ * Unlike the optics they are **not per variant**: a surface's span is a fact about
+ * the surface, and Apple states the rule about the material ("a larger size is
+ * more opaque… it casts deeper, richer shadows… and a softer scattering of
+ * light"), not about regular versus clear.
+ *
+ * Two of the three facets reach this tier. The scattering multiplies `blur()`'s σ
+ * and the occlusion lifts the tint alpha; the inner shadow has no counterpart to
+ * gain here, because this tier's only shadow is an outer `box-shadow` the
+ * reference does not cast and whose alpha ships at zero (Decision Log #32(c)).
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.sizeSpanMin`,
+ * `.sizeSpanMax`, `.sizeScatterGainMax` and `.sizeOcclusionGain`.
+ */
+export interface MaterialSourceSize {
+  readonly sizeSpanMin: number;
+  readonly sizeSpanMax: number;
+  readonly sizeScatterGainMax: number;
+  readonly sizeOcclusionGain: number;
+  /**
+   * The refraction ladder's scales, carried here because the size law folds under
+   * the accessibility regime through them — see `sizeThicknessUnderPolicy`.
+   */
+  readonly refractionScale: Readonly<Record<"none" | "approximate" | "true", number>>;
+}
+
+export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
+  // MEASURED (W2). The band is where the settled reference's own size-dependence
+  // happens; both gains ship at the identity, one because the fixtures cannot
+  // resolve it and one because the fit puts it there. The reasons are stated
+  // where the numbers are authored — `@vitrea/renderer-webgpu`'s
+  // `DEFAULT_MATERIAL_PROFILE` — because this is a mirror, not a second opinion.
+  sizeSpanMin: 32,
+  sizeSpanMax: 96,
+  sizeScatterGainMax: 1,
+  sizeOcclusionGain: 0,
+  refractionScale: { none: 0, approximate: 0.45, true: 1 },
+};
+
+/**
+ * How much of a depth simulation each rung of the refraction ladder allows —
+ * mirroring `@vitrea/renderer-webgpu`'s `MaterialProfile.refractionScale`.
+ *
+ * This tier never refracts, so it had no use for these until the size law needed
+ * to fold under a preference (`sizeThicknessUnderPolicy`): the ladder is already
+ * the profile's statement of how much depth a regime permits, and re-deriving a
+ * second such number for the size law would be two answers to one question.
+ * Patchable, and pinned against the renderer's by the tier-coherence test.
+ */
+export const MATERIAL_SOURCE_REFRACTION_SCALE: Readonly<Record<"none" | "approximate" | "true", number>> =
+  { none: 0, approximate: 0.45, true: 1 };
+
+export function sourceRefractionScale(
+  patch?: RendererMaterialProfile,
+): Readonly<Record<"none" | "approximate" | "true", number>> {
+  return {
+    none: patch?.refractionScale?.none ?? MATERIAL_SOURCE_REFRACTION_SCALE.none,
+    approximate: patch?.refractionScale?.approximate ?? MATERIAL_SOURCE_REFRACTION_SCALE.approximate,
+    true: patch?.refractionScale?.true ?? MATERIAL_SOURCE_REFRACTION_SCALE.true,
+  };
+}
+
+/** The size-law constants under a profile patch, by the renderer's merge rule. */
+export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize {
+  return {
+    sizeSpanMin: patch?.sizeSpanMin ?? MATERIAL_SOURCE_SIZE.sizeSpanMin,
+    sizeSpanMax: patch?.sizeSpanMax ?? MATERIAL_SOURCE_SIZE.sizeSpanMax,
+    sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
+    sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
+    refractionScale: sourceRefractionScale(patch),
+  };
+}
+
+
+/**
+ * How thick a surface of this span reads, 0…1 — the size law's one input, and the
+ * mirror of the renderer's `sizeThickness`.
+ *
+ * `spanPx` is the surface's **shorter** border-box extent, which is what the
+ * renderer takes too: a 320×44 toolbar is a thin strip whichever way it is long.
+ */
+export function sizeThickness(
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return smoothstep(size.sizeSpanMin, size.sizeSpanMax, spanPx);
+}
+
+/**
+ * The size law under an accessibility regime — the fold every other optic gets,
+ * and the mirror of the renderer's `sizeThicknessUnderPolicy`.
+ *
+ * The scale is the refraction ladder read at the **accessibility** cap, because
+ * that is already the number meaning "how much depth this preference allows" and
+ * the whole law is a depth simulation. It is measured rather than assumed: with
+ * the law unfolded, both accessibility profiles' large-span cells crossed their
+ * adopted ΔE bounds while every light-standard cell improved — under
+ * reduce-transparency Apple's material is nearly opaque and its interior level is
+ * flat in span (0.9465 at 44 px, 0.9526 at 96), so there is no depth there for a
+ * size term to add.
+ *
+ * Restated rather than imported from `refraction.ts`'s ladder for the same reason
+ * the optics are mirrored, and pinned against the renderer's own numbers by
+ * `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export function sizeThicknessUnderPolicy(
+  spanPx: number,
+  material: ResolvedMaterialPolicy,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  const rung =
+    material.refraction === "nominal"
+      ? "true"
+      : material.refraction === "reduced"
+        ? "approximate"
+        : "none";
+  return sizeThickness(spanPx, size) * size.refractionScale[rung];
+}
+
+/**
+ * The `blur()` σ a surface of this span runs at — the scattering facet.
+ *
+ * Also what a group's `samplingPadding` floor has to be taken over, at the
+ * group's **largest** member: S1's 3σ rule is about the widest kernel any member
+ * will actually sample with, and a floor derived from the nominal σ would starve a
+ * large surface's proxy by exactly the gain.
+ */
+export function sizeScatterSigma(
+  sigmaPx: number,
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return sizeScatterSigmaAt(sigmaPx, sizeThickness(spanPx, size), size);
+}
+
+/**
+ * The same, for a caller that has already resolved the thickness factor — which
+ * is every caller that has a policy to fold under.
+ *
+ * The two-function shape is deliberate and it is the same on both tiers: the
+ * thickness form is the law, and the span form is the convenience that computes
+ * an unfolded thickness for it. One formula, so a policy fold cannot accidentally
+ * be applied to one facet and not another.
+ */
+export function sizeScatterSigmaAt(
+  sigmaPx: number,
+  thickness: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return sigmaPx * (1 + (size.sizeScatterGainMax - 1) * thickness);
+}
+
+/**
+ * The tint alpha a surface of this span carries — the occlusion facet.
+ *
+ * Applied **after** `opticsUnderPolicy`, on this tier's own converted alpha,
+ * which is where `occlusionAlphaUnderPolicy` already applies the accessibility
+ * lift. Both close a fraction of whatever transparency is left, so they compose
+ * in either order to within less than either term, and a preference outranking a
+ * material law is the order that reads correctly.
+ */
+export function sizeOcclusionAlpha(
+  alpha: number,
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return sizeOcclusionAlphaAt(alpha, sizeThickness(spanPx, size), size);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeOcclusionAlphaAt(
+  alpha: number,
+  thickness: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return clamp01(alpha + size.sizeOcclusionGain * thickness * (1 - alpha));
+}
+
+/**
  * The glow's alpha at the press point for a given `glow` channel value.
  *
  * The renderer's fragment is `radial² · glowGain · glow`; this is that product at

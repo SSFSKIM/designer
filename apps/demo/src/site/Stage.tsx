@@ -80,6 +80,35 @@ const RANGES = [
   { value: "month", label: "Month" },
 ] as const;
 
+/**
+ * The size sweep's steps — the material stage's controlled comparison (W2).
+ *
+ * One authored thickness for all three, declared once here rather than three
+ * times at the call sites, because it is the sweep's **control**: if the plates
+ * ever stopped agreeing on it the stage would look the same and would have
+ * stopped demonstrating the size law. `spanPx` is each plate's short side, and
+ * `site.css` is where the boxes are actually sized — these numbers are the label
+ * and the e2e's expectation, and the CSS carries the same three.
+ *
+ * The three straddle the shipped profile's own band (32…96 px): the first sits at
+ * the law's floor, the last past its ceiling, the middle one mid-curve.
+ *
+ * The sweep also carries the author tint's demonstration (W3), on its largest
+ * plate. The two features share this stage rather than taking turns on it because
+ * sharing it is the better demonstration of both: the tint control changes what
+ * the material's tint layer is made of and leaves `--vitrea-occlusion` exactly
+ * where it was, while the plate it sits on goes on reading thicker than its two
+ * neighbours. A tinted platter is still a platter. `testId` is what the tint's own
+ * e2e reads, and it needs one tinted plate and one plain one to compare.
+ */
+const SWEEP_THICKNESS = 8;
+
+const SIZE_SWEEP = [
+  { step: "c", spanPx: 112, radius: 26, tinted: true, testId: "tinted-plate" },
+  { step: "b", spanPx: 68, radius: 18, tinted: false, testId: undefined },
+  { step: "a", spanPx: 40, radius: 12, tinted: false, testId: "untinted-plate" },
+] as const;
+
 type Range = (typeof RANGES)[number]["value"];
 
 export type ReferencePanel = "live" | "native";
@@ -212,7 +241,7 @@ export function StageGround(props: StageProps): ReactNode {
           <StageBackdrop sourceId={TEXTURE_SOURCE_ID} animate={props.animate} />
           <p className="stage__legend">
             {mode === "material"
-              ? "One sampling group, two surfaces. The larger plate carries more material thickness, so it lenses harder over the same backdrop."
+              ? "One sampling group, three surfaces, one authored thickness. Only the size differs — and the larger a surface gets, the harder it lenses and the deeper it sits."
               : mode === "behavior"
                 ? "Three sampling groups over arbitrary DOM. Press any control, slide the range, open the menu."
                 : "One surface, under whatever the accessibility controls beside it resolve to."}
@@ -287,28 +316,40 @@ export function StageGlass(props: StageProps): ReactNode {
         {mode === "material" ? (
           <GlassGroup id="material" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }} hint={STAGE_HINT}>
             {/*
+              The size law, as a controlled comparison (W2). Every plate declares
+              the SAME authored thickness, so the only thing that differs between
+              them is how big they are — which is the whole claim: Apple's material
+              "simulates a thicker, more substantial material" as it grows, and
+              nothing here is telling it to.
+
+              Three steps rather than two, because the law is a curve with a floor
+              and a ceiling and two points cannot show a curve. The plates' short
+              spans (40, 68 and 112 px) straddle the profile's own band: the first
+              is at the law's zero, the last is past its saturation, and the middle
+              one is genuinely mid-curve. They are also one sampling group over one
+              registered texture, so the comparison is over identical backdrop
+              pixels rather than over three separate samplings of a moving one.
+
               One short line each, and nothing else. `DESIGN.md` §8: prose does not
               go on glass, because a material never carries information and because
               small text over a translucent surface on a moving backdrop cannot be
               held to a contrast ratio. What these plates mean is in the column.
             */}
-            <GlassSurface
-              className="plate plate--lg"
-              radius={26}
-              thickness={18}
-              tint={props.tint}
-              data-testid="tinted-plate"
-            >
-              <strong>{props.tint === null ? "18px thick" : "18px, tinted"}</strong>
-            </GlassSurface>
-            <GlassSurface
-              className="plate plate--sm"
-              radius={14}
-              thickness={5}
-              data-testid="untinted-plate"
-            >
-              <strong>5px</strong>
-            </GlassSurface>
+            {SIZE_SWEEP.map((step) => (
+              <GlassSurface
+                key={step.step}
+                className={`plate plate--sweep plate--sweep-${step.step}`}
+                radius={step.radius}
+                thickness={SWEEP_THICKNESS}
+                data-sweep-thickness={SWEEP_THICKNESS}
+                data-testid={step.testId}
+                {...(step.tinted ? { tint: props.tint } : {})}
+              >
+                <strong>
+                  {step.spanPx}px{step.tinted && props.tint !== null ? ", tinted" : ""}
+                </strong>
+              </GlassSurface>
+            ))}
           </GlassGroup>
         ) : null}
 

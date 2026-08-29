@@ -593,6 +593,41 @@ code {
   padding: var(--space-3);
 }
 
+/*
+ * The size sweep (W2). Three plates whose SHORT spans are 40, 68 and 112 px,
+ * because the short span is what the material's size law is a function of and
+ * because those three straddle the shipped profile's band: the first sits at the
+ * law's floor, the last past its ceiling, the middle one mid-curve. The numbers
+ * are in px rather than rem for exactly that reason — a rem-relative plate would
+ * cross the band whenever the reader changed their text size, and then the sweep
+ * would be demonstrating the browser's font setting rather than the material.
+ *
+ * Heights are `height`, not `min-height`: a plate that grew to fit its label
+ * would leave the band it was chosen to sit in. The smallest is 40px against a
+ * 22px h3 line box, so every label still fits at the one type size the contrast
+ * suite holds `.plate strong` to — the plate's size is what is being shown, and
+ * shrinking a label to fit would have moved it under the large-text floor.
+ */
+.plate--sweep {
+  padding: var(--space-2) var(--space-4);
+  place-content: center;
+}
+
+.plate--sweep-a {
+  width: 9rem;
+  height: 40px;
+}
+
+.plate--sweep-b {
+  width: 13rem;
+  height: 68px;
+}
+
+.plate--sweep-c {
+  width: 18rem;
+  height: 112px;
+}
+
 .plate strong {
   font-size: var(--type-h3-size);
   line-height: var(--type-h3-line);
@@ -909,7 +944,8 @@ code {
   }
 
   .plate--lg,
-  .plate--sm {
+  .plate--sm,
+  .plate--sweep {
     max-width: 100%;
   }
 

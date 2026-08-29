@@ -118,6 +118,16 @@ export interface OpticsPassArgs {
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
+  /**
+   * The size law's gains (W2), applied per pixel against the field pass's
+   * `sizeK` channel. `bodyChainLod` is not a gain but the chain level whose blur
+   * already matches the body texture — the origin the scattering term measures
+   * its extra octaves from, which only the pyramid that built the body knows.
+   */
+  readonly sizeScatterGainMax: number;
+  readonly sizeOcclusionGain: number;
+  readonly sizeShadowGainMax: number;
+  readonly bodyChainLod: number;
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -356,7 +366,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 40);
+      const slot = uniformSlot(`optics:${args.groupId}`, 44);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -401,6 +411,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[37] = args.fields.width;
       d[38] = args.fields.height;
       d[39] = args.fields.upsampled ? 1 : 0;
+      d[40] = args.sizeScatterGainMax;
+      d[41] = args.sizeOcclusionGain;
+      d[42] = args.sizeShadowGainMax;
+      d[43] = args.bodyChainLod;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

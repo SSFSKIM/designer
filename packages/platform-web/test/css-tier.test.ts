@@ -17,6 +17,7 @@ import {
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_OPTICS,
   MATERIAL_SOURCE_OPTICS,
+  MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
   cssTierOptics,
   cssTierForegroundLevel,
@@ -663,5 +664,116 @@ describe("the foreground rule, shared across the tiers", () => {
     expect(hintedBackdropLuminance({ mode: "author-hint", tone: "mixed" })).toBeUndefined();
     expect(hintedBackdropLuminance({ mode: "fixed", tone: "dark" })).toBeUndefined();
     expect(hintedBackdropLuminance(undefined)).toBeUndefined();
+  });
+});
+
+/*
+ * The size law on this tier (W2). Apple's rule is about the material, so it has
+ * to reach the tier most visitors get, not only the shader — a demoted platter
+ * that stopped being thick would be K5's gap on a new axis.
+ *
+ * The constants are patched here rather than read from the shipped profile
+ * deliberately. What is being pinned is that the tier *applies* the law and where
+ * it applies it; the shipped magnitudes belong to the bed, and a test written
+ * over them would fail every time the bed is re-measured while proving nothing
+ * about this file.
+ */
+describe("the size law reaches the CSS tier", () => {
+  const size = {
+    sizeSpanMin: 40,
+    sizeSpanMax: 200,
+    sizeScatterGainMax: 2.5,
+    sizeOcclusionGain: 0.4,
+    refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
+  } as const;
+  const at = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size });
+  const blurOf = (declarations: Record<string, string>): number =>
+    Number.parseFloat((declarations["--vitrea-blur"] ?? "0px").replace("px", ""));
+  const occlusionOf = (declarations: Record<string, string>): number =>
+    Number.parseFloat(declarations["--vitrea-occlusion"] ?? "0");
+
+  it("changes nothing at all for a caller that declares no span", () => {
+    // The property that makes the law additive: every pre-law caller, every
+    // golden, and the release path's clear-declarations call are untouched.
+    expect(cssTierDeclarations({ ...surface, size })).toEqual(cssTierDeclarations(surface));
+  });
+
+  it("leaves a small control exactly where it was", () => {
+    expect(at(size.sizeSpanMin)).toEqual(cssTierDeclarations(surface));
+    expect(at(12)).toEqual(cssTierDeclarations(surface));
+  });
+
+  it("frosts and occludes a platter more, and monotonically between", () => {
+    const small = at(size.sizeSpanMin);
+    const platter = at(400);
+    expect(blurOf(platter)).toBeCloseTo(blurOf(small) * size.sizeScatterGainMax, 6);
+    expect(occlusionOf(platter)).toBeGreaterThan(occlusionOf(small));
+
+    let previousBlur = -Infinity;
+    let previousOcclusion = -Infinity;
+    for (const span of [0, 40, 60, 96, 140, 200, 400]) {
+      const declarations = at(span);
+      expect(blurOf(declarations), `blur at span ${span}`).toBeGreaterThanOrEqual(previousBlur);
+      expect(occlusionOf(declarations), `occlusion at span ${span}`).toBeGreaterThanOrEqual(
+        previousOcclusion,
+      );
+      previousBlur = blurOf(declarations);
+      previousOcclusion = occlusionOf(declarations);
+    }
+  });
+
+  it("writes the widened blur into the filter the browser actually runs", () => {
+    // Not only the published token: `--vitrea-blur` is documentation and
+    // `backdrop-filter` is the material, and the two moving apart would be a
+    // surface that reports a frost it does not have.
+    const platter = at(400);
+    expect(platter["backdrop-filter"]).toContain(`blur(${blurOf(platter)}px)`);
+    expect(platter["-webkit-backdrop-filter"]).toBe(platter["backdrop-filter"]);
+  });
+
+  it("stays out of the way of forced colours, at every span", () => {
+    // `glass: "none"` is a different surface, not a dimmer one — so the law has
+    // nothing to gain there and must not smuggle a blur back in.
+    const forced = resolveAccessibilityPolicy(systemWith({ forcedColors: true }));
+    for (const span of [12, 96, 400]) {
+      const declarations = cssTierDeclarations({ ...surface, policy: forced, spanPx: span, size });
+      expect(declarations["backdrop-filter"], `span ${span}`).toBe("none");
+      expect(declarations["--vitrea-blur"]).toBe("0px");
+      expect(declarations["--vitrea-occlusion"]).toBe("1");
+    }
+  });
+
+  /*
+   * The fold, which is not decoration: the law was first landed without it and
+   * the calibration regeneration caught both accessibility profiles' large-span
+   * cells crossing their adopted ΔE bounds. Under reduce-transparency Apple's
+   * material is nearly opaque and its interior level is flat in span, so a size
+   * term has nothing to add there — which is the rule the rest of the material
+   * already followed through `opticsUnderPolicy`.
+   */
+  it("weakens under reduced transparency, and stops under forced colours", () => {
+    const reduced = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
+    const nominalPlatter = at(400);
+    const reducedPlatter = cssTierDeclarations({ ...surface, policy: reduced, spanPx: 400, size });
+    const reducedSmall = cssTierDeclarations({ ...surface, policy: reduced, spanPx: 40, size });
+
+    // The preference's own frost still lands in full — the fold is on the size
+    // law, not on the preference.
+    expect(blurOf(reducedSmall)).toBeCloseTo(blurOf(at(40)) * REDUCED_TRANSPARENCY_FROST, 6);
+
+    // And the size law's *addition* on top of it is scaled by the ladder's
+    // reduced rung rather than applied whole.
+    const added = (declarations: Record<string, string>, base: number): number =>
+      blurOf(declarations) / base - 1;
+    expect(added(reducedPlatter, blurOf(reducedSmall))).toBeCloseTo(
+      added(nominalPlatter, blurOf(at(40))) * MATERIAL_SOURCE_SIZE.refractionScale.approximate,
+      6,
+    );
+
+    // Still a law, not an off switch: a platter under the preference is still
+    // frostier than a control under it.
+    expect(blurOf(reducedPlatter)).toBeGreaterThan(blurOf(reducedSmall));
+    expect(occlusionOf(reducedPlatter)).toBeGreaterThanOrEqual(occlusionOf(reducedSmall));
+    expect(occlusionOf(reducedPlatter)).toBeLessThanOrEqual(1);
   });
 });

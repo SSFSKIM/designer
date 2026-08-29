@@ -67,6 +67,7 @@ import {
   adaptationStrength,
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
+  NOMINAL_MATERIAL_POLICY,
   opticsUnderPolicy,
   tintToneAdaptation,
   withMaterialOverrides,
@@ -77,6 +78,7 @@ import {
 } from "./material";
 import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
 import { createPyramidStore, type PyramidStore } from "./pyramid";
+import { chainLodForSigma } from "./pyramid-plan";
 import type {
   FrameContextView,
   FrameParticipantView,
@@ -101,16 +103,15 @@ export const RENDERER_PASS_IDS = [
   HIGHLIGHT_PASS_ID,
 ] as const;
 
-/** Nominal accessibility material policy — nothing capped. Mirrors core's. */
-export const NOMINAL_MATERIAL_POLICY: MaterialPolicyView = {
-  glass: "material",
-  frost: "nominal",
-  refraction: "nominal",
-  occlusion: "nominal",
-  border: "nominal",
-  ambientTint: "nominal",
-  foreground: "adaptive",
-};
+/*
+ * `NOMINAL_MATERIAL_POLICY` now lives in `material.ts` and is re-exported here so
+ * every existing importer is unaffected. It moved because `instances.ts` needs it
+ * as a default — the size law folds under the policy, so surface resolution takes
+ * one — and instances sits below this module in the graph, so importing it from
+ * here would have closed a cycle. It was always a material constant that happened
+ * to be declared beside the renderer that first used it.
+ */
+export { NOMINAL_MATERIAL_POLICY } from "./material";
 
 export interface ViewportState {
   /** Viewport size in CSS px. */
@@ -538,9 +539,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const input = entry.input;
       if (input.surfaces.length === 0) continue;
 
+      // The frame's resolved material policy, read before the surfaces rather
+      // than after: the size law folds under it (W2), so surface resolution needs
+      // it to decide how thick each member reads.
+      const policy = resolution?.accessibility.material ?? accessibility;
+
       let surfaces: readonly ResolvedSurface[];
       try {
-        surfaces = resolveSurfaces(input, governor.knobs.fieldFamily, material);
+        surfaces = resolveSurfaces(input, governor.knobs.fieldFamily, material, policy);
       } catch (error) {
         skipped.push({
           groupId: input.groupId,
@@ -598,7 +604,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       });
 
       const state = stateOf(input, resolution);
-      const policy = resolution?.accessibility.material ?? accessibility;
       const variant = variantOf(input);
       const optics = opticsUnderPolicy(material.optics[variant], policy, material);
 
@@ -665,6 +670,15 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         lightDirection: material.lightDirection,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
+        // The size law's gains, per group (W2); the per-pixel factor they
+        // multiply rides the field pass's aux channel, so one uniform serves a
+        // group whose members are not one size. `bodyChainLod` is where the body
+        // blur already sits on the chain — only the pyramid that built it knows
+        // the CSS-px-to-texel conversion, so it publishes the σ and this converts.
+        sizeScatterGainMax: material.sizeScatterGainMax,
+        sizeOcclusionGain: material.sizeOcclusionGain,
+        sizeShadowGainMax: material.sizeShadowGainMax,
+        bodyChainLod: chainLodForSigma(pyramid?.bodySigmaTexels ?? 0),
         backdrop:
           pyramid === undefined || policy.glass === "none"
             ? undefined

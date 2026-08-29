@@ -444,6 +444,18 @@ parameter or a new pass, which is beyond a tunable.
 
 ### 4.1 The tint has no size term, and the reference's does
 
+> **Superseded in its direction, its numbers and its recommendation by §5.7
+> (W2, 2026-08-30); kept here as the before-state.** The table below was measured
+> on the v1 mixed bed, and the settled bed reverses it — the reference's
+> transmission *falls* with span (0.210 at 32 px to 0.045 at 96 px) rather than
+> rising. Neither reading is a clean measurement of size in any case: the
+> estimator runs *across* backdrops, which is exactly where §5.4's tone
+> adaptation lives, and an adapting level is indistinguishable from a small
+> transmission in it. §5.7 measures the size law *within* a fixed backdrop, where
+> it is unambiguous, and lands on a different facet. The parent-impact item this
+> section raised is closed there — including the "inverse of the lens gain"
+> recommendation below, which is wrong in the direction it names.
+
 Regressing each side's interior level against the backdrop level under the same
 mask, across the calibration scenes, recovers the material's un-attenuated
 transmission. The reference's varies systematically with the surface's shorter
@@ -942,6 +954,258 @@ press-glow fix and their tables would be adopted from numbers that had just
 moved. Their proposed tables are in W1's G3 measurement report, ready to adopt
 once that settles. They remain fully measured — both tiers, coherence axis
 present — and named here rather than omitted.
+
+### 5.7 The size law, measured (W2, 2026-08-30)
+
+**Added by W2** of the post-v1 wave
+(`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`), whose purpose was §4.1's
+parent-impact item and the coverage matrix's §3.2: Apple derives five facets from
+a surface's size and vitrea implemented one. Every figure below is measured
+against the **settled** six-profile bed, and every constant is fitted against
+calibration cells only, with the holdout column read once after the configuration
+was frozen.
+
+**No adopted bound was edited, added or removed by this section.**
+
+#### What the reference actually does with size
+
+Two things have to be held apart, and §4.1 did not hold them apart because the
+mixed v1 bed could not.
+
+**Across backdrops**, the reference's interior level barely follows the backdrop
+at all, and follows it less as the surface grows: solving the level jointly over
+the checkerboard (backdrop 0.50) and photo (0.21) cells of one component gives a
+transmission of 0.210 at a 32 px span, 0.070 at 44 px and 0.045 at 96 px, toward
+a common level near 0.62–0.65. That reads like "a larger size is more opaque" —
+and it is **not safe to fit against**, because the same two cells are where
+backdrop tone adaptation lives (§5.4), and tone adaptation moves the level toward
+a target regardless of the backdrop, which is indistinguishable from a small
+transmission. §4.1 reported the *opposite* direction (0.88 at 32 px falling to
+0.56 at 96 px) from the unsettled bed; neither number is a clean measurement of
+size, and the corrected direction agrees with Apple's prose rather than
+contradicting it.
+
+**Within one fixed backdrop**, where tone adaptation is a constant, the size
+dependence is unambiguous. Over the checkerboard the fraction of the backdrop's
+own contrast that survives the material — `interiorStdDevNative` ÷
+`interiorStdDevBackdrop`, the quantity `interiorLevel`'s own note calls the
+material's frosting strength — falls monotonically with the span, in every
+profile that can measure it:
+
+| profile | 32 px | 44 px | 44 px (group) | 96 px |
+| --- | --- | --- | --- | --- |
+| `1x-light-standard` | 0.244 | 0.230 | 0.270 | 0.144 |
+| `2x-light-standard` | 0.261 | 0.247 | 0.266 | 0.081 |
+| `1x-dark-standard` | — | 0.132 | — | 0.068 |
+| `2x-dark-standard` | — | 0.119 | — | 0.046 |
+| `1x-light-reduced-transparency` | — | 0.160 | — | 0.095 |
+
+and the backdrop **correlation** falls with it (1× light: 0.634 → 0.606 → 0.475;
+2× light: 0.599 → 0.572 → 0.365; 1× dark: 0.434 → 0.253). Correlation is the
+useful second observable because, under an affine model, it depends on the
+material's kernel alone and not at all on its alpha — so a fall in both says the
+material is not merely passing less, it is passing it more diffusely.
+
+Six independent profile × span comparisons, one direction. `1x-light-increased-
+contrast`'s checkerboard cells are excluded: they fail §5's conditioning
+predicate (53–57% recovery), so their statistics describe the extractor.
+
+#### Which facet, and the one discriminator the bed offers
+
+The checkerboard and the photo disagree in a way that tells them apart. The
+checkerboard's structure sits at one 16 px period and its surroundings have the
+same mean as its interior; the photo is broadband and its surroundings do not.
+
+- Over the checkerboard the retained contrast falls 41% from 32 px to 96 px while
+  the interior **level** stays put (0.607 → 0.605 → 0.641).
+- Over the photo the retained contrast barely moves between 44 and 96 px (0.546 →
+  0.544) while the level converges toward the neighbourhood (0.585 → 0.628).
+
+A larger alpha would have moved both backdrops' contrast together and pulled both
+levels toward the tint. A wider kernel moves exactly what moved: it kills the
+checkerboard's one period without touching its mean, and it pulls the photo's
+interior toward backdrop the mask does not cover. The evidence favours
+**scattering** over opacity — which is Apple's own third consequence, "a softer
+scattering of light".
+
+#### The coupling
+
+One mechanism, so one curve. `sizeThickness(span)` is a smoothstep from
+`sizeSpanMin` to `sizeSpanMax` in the material profile, and every
+thickness-derived facet is a gain on it and on nothing else: the lens
+(`lensSizeGainMax`), the scattering (`sizeScatterGainMax`), the occlusion
+(`sizeOcclusionGain`) and the inner shadow (`sizeShadowGainMax`). Below
+`sizeSpanMin` the whole law is exactly inert, which is what makes it additive
+rather than a global retune.
+
+It reaches the GPU tier **per pixel**: the factor is resolved per surface on the
+CPU and rides the field pass's `aux` channel through the group's union, so a
+44 px button and a 280 px platter in one `GlassEffectContainer` read as different
+thicknesses from one field pass. It reaches the CSS tier per surface, through the
+same two functions, from the host's own measured border box. The constants live
+in `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE`, are patchable like
+every other optic, and are mirrored in `@vitrea/platform-web`'s
+`MATERIAL_SOURCE_SIZE` with `packages/calibration/test/tier-coherence.test.ts`
+pinning the two in both directions.
+
+**The law folds under the accessibility policy**, through the profile's own
+refraction ladder read at the accessibility cap (1 / 0.45 / 0). This was measured
+rather than designed in: landed unfolded, the law improved every light-standard
+cell and pushed both accessibility profiles' large-span cells past their adopted
+ΔE bounds. The reference says why — under reduce-transparency its material is
+nearly opaque and its interior level is *flat* in span (0.947 at 44 px, 0.953 at
+96) — and vitrea's accessibility fold already under-occludes against it (W1's
+Surprise), so extra simulated depth compounds an error rather than closing one.
+Deliberately the accessibility cap and not the *resolved* one: a group demoted to
+a CSS proxy is drawing the same material, and being demoted is not a statement
+about how thick it is.
+
+#### The fit
+
+Fitted on the light-standard calibration cells, against this package's declared
+objective (mean of |Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|, linear
+light), with SSIM and ΔE read as checks.
+
+**The band, 32…96 px.** Set from the reference's own movement above, not from the
+objective. It was 28…420 while it served the lens alone and nothing had measured
+it, which put the entire canonical range inside the first 17% of the curve. Over
+`sizeSpanMax` ∈ {420, 160, 128, 96, 64} the objective reads 0.1762 / 0.1718 /
+0.1700 / 0.1670 / 0.1633 — monotone, and it would rather have 64. **Declined,
+with the reason recorded:** that gain comes entirely from the interior-level
+term, whose residual is the tone-adaptation gap W7 is chartered to close, so a
+band fitted to 64 would be using the size law as a proxy for a mechanism vitrea
+does not have — against the reference's own measurement of where its
+size-dependence lives — and W7 would have to unpick it.
+
+**The inner shadow, 1.4.** Fitted on the calibration **rest** cells, where the
+grid 1.0 / 1.2 / 1.4 / 1.6 / 1.8 / 2.2 reads 0.1577 / 0.1551 / 0.1533 / 0.1530 /
+0.1529 / 0.1531. 1.4 through 2.2 is one flat region 0.25% wide; 1.4 is the point
+inside it that costs the checks least (ΔE 0.01282 against a baseline 0.01290;
+SSIM 0.9671 against 0.9689) and it is the per-cell minimum on both
+well-conditioned span-96 rest cells. The pressed cells prefer 2.4 monotonically
+and are excluded from the fit on §6.3's grounds: their native side carries no
+press pose, so they compare two different states and cannot arbitrate a material
+constant.
+
+**The scattering, 1 — implemented and not identifiable.** The objective is flat
+to 1.00× over gains 1…6 and best at 1. That is not the backdrop chain's depth
+talking, which was the obvious suspicion: on the 320×200 canonical canvas the
+chain stops at a 20×12 level, capping the reachable σ at 1.2× the body's, so the
+sweep was re-run with `MIN_LEVEL_EXTENT` temporarily lowered from 8 to 4 (raising
+the cap to 2.4×) and the grid stayed flat to 1.00× and stayed best at 1. The
+architectural constant was restored. This is §6.1's situation on a second axis:
+the canonical fixtures cannot resolve the quantity, so it ships at the identity
+with the mechanism in place. **What it would need:** a canonical canvas large
+enough for a deeper chain, which is a `scenes.json` change and therefore a scope
+question rather than a re-run.
+
+**The occlusion, 0 — implemented and fitted to a boundary.** Unlike the
+scattering this one has real leverage against it: over 0 / 0.15 / 0.30 / 0.50 the
+objective rises monotonically 0.1680 → 0.1849 → 0.2018 → 0.2240, a 1.33× spread,
+with the mean term, ΔE and SSIM all worsening together. The diagnosis is not a
+tuning failure. vitrea's interior sits 0.16–0.19 above the reference's at *every*
+span, because the reference's level is set by backdrop tone adaptation toward
+roughly 0.63 while vitrea lerps toward a white tint — so making a large surface
+more opaque can only take it further away. The facet is Apple's, stated three
+times over (§3.2); the axis that would let it fit is W7's, and the seam is built
+so W7 can fit it without building anything.
+
+#### Fit, validation and holdout
+
+Measured once, on the frozen configuration, over the full regenerated bed — all
+six profiles, both tiers, fresh captures, 168 cells. Worst cell per set, with the
+pre-W2 figure first. The two defect-excluded scenes' perceptual rows (§5.4) are
+left out of these worsts, as the gate leaves them out.
+
+| profile | tier | set | ΔE mean | SSIM | edge-weighted |
+| --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | calibration | 0.0496 → **0.0495** | 0.9088 → **0.9088** | 0.0573 → **0.0571** |
+| | | validation | 0.0533 → **0.0532** | 0.9046 → **0.9046** | 0.0537 → **0.0535** |
+| | | holdout | 0.0548 → **0.0547** | 0.9026 → **0.8934** | 0.0923 → **0.0845** |
+| `2x-light-standard` | texture | calibration | 0.0496 → **0.0495** | 0.9592 → **0.9565** | 0.0537 → **0.0534** |
+| | | validation | 0.0533 → **0.0532** | 0.9582 → **0.9578** | 0.0525 → **0.0523** |
+| | | holdout | 0.0546 → **0.0545** | 0.9593 → **0.9566** | 0.1002 → **0.0941** |
+| `1x-light-reduced-transparency` | texture | calibration | 0.0105 → **0.0115** | 0.9851 → **0.9849** | 0.0298 → **0.0332** |
+| | | validation | 0.0067 → **0.0068** | 0.9611 → **0.9609** | 0.0257 → **0.0258** |
+| | | holdout | 0.0300 → **0.0312** | 0.9883 → **0.9843** | 0.0807 → **0.0847** |
+| `1x-light-increased-contrast` | texture | calibration | 0.0177 → **0.0186** | 0.9359 → **0.9314** | 0.0646 → **0.0677** |
+| | | validation | 0.0115 → **0.0115** | 0.9253 → **0.9252** | 0.0451 → **0.0451** |
+| | | holdout | 0.0463 → **0.0474** | 0.8864 → **0.8812** | 0.1445 → **0.1479** |
+
+The dom tier is **unchanged in every digit**, on every profile and every set, and
+that is a result rather than an omission: the two facets the CSS tier carries fit
+to the identity, and the two that moved are GPU-tier features the CSS tier has no
+counterpart for. Both dark profiles' texture figures move only in the fourth
+decimal and improve slightly (worst calibration ΔE mean 0.0216 → 0.0206 at 1×).
+
+Read the light-standard rows as the claim: **every ΔE and every edge-weighted
+figure improves or holds, and SSIM pays for it.** The improvement concentrates
+exactly where the law acts — on the 1× texture tier, ΔE mean falls 0.0466 →
+0.0435 on `checkerboard__rrect-lg__rest` (holdout, span 160), 0.0159 → 0.0142 on
+`checkerboard__rrect-md__rest`, 0.0247 → 0.0222 on `impulse__rrect-md__rest`, and
+edge-weighted falls on every span-96-and-above cell — while every span-32 cell is
+byte-unchanged, which is the inertness property observed rather than asserted.
+The accessibility profiles pay a little and stay inside their bounds, which is
+the fold working: a weakened law, not an absent one.
+
+#### These figures survive the author tint landing beside them
+
+W3's tint (Decision Log 12) landed in the same cut and touches the same seams —
+the material profile's constants, the optics pass, and the CSS tier's mirror — so
+the bed above was re-verified rather than assumed after the two were composed.
+Four scenes spanning the law's whole band (`checkerboard__rrect-sm__rest` at the
+floor, `photo__capsule-button__rest` mid-curve, `checkerboard__rrect-md__rest` at
+the ceiling, and `photo__toolbar-group__rest` for the group case) were re-measured
+on both tiers against the committed matrix: **72 measured values, every one
+bit-identical.** The tint's zero-strength identity is real, so no cell in the
+matrix describes a configuration that no longer exists, and the holdout column
+above was not re-spent.
+
+The composition contract holds in both directions, and the two features meet in
+three places. In the **optics pass** the tint decides what colour the tint layer
+is made of and the size law decides that layer's *alpha* and the blur beneath it,
+so `mix(backdrop, tintColour, tintAlpha)` takes one operand from each and neither
+can move the other's. In the **field pass** they take one per-pixel channel each
+(`aux.z` the thickness factor, `aux.w` the tint strength) out of an instance
+struct widened from 16 floats to 18 for the purpose. On the **CSS tier** the
+tint is folded into `optics.tint` before `cssTierDeclarations` runs and the size
+law then moves `blurRadius` and `tintAlpha` on top of it — the same order the
+shader takes. The one place the two genuinely interact is the right way round:
+the tone map reads `backdrop` *after* the scattering has been applied to it, so a
+large surface's tint maps against the diffused light a reader actually sees
+through it rather than the sharp light nobody does.
+
+#### Three margins to watch
+
+Nothing fails, and two of these are narrower than they were.
+
+- **Cross-tier interior ratio, light profiles: 0.844 → 0.818 against a gated
+  floor of 0.80.** On `photo__glass-over-glass__rest` (holdout). This is the
+  size law's coherence cost, and its mechanism is plain: the GPU tier's two
+  active facets deepen a large surface and the CSS tier has no counterpart for
+  either, so the pair diverges precisely on the surfaces the law acts on.
+  Closing it means giving the CSS tier an inner shadow, which is a new tier
+  feature with its own calibration question, not a constant.
+- **Texture-tier SSIM, `1x-light-standard` holdout: 0.9026 → 0.8934 against
+  ≥ 0.88.** On `checkerboard__glass-over-glass__rest`. SSIM falls monotonically
+  with the shadow gain across the whole sweep; 1.4 is the low end of the flat
+  region partly for this reason.
+- **The dark profiles' cross-tier interior ratio improved**, which is worth
+  saying because it was W1's standing watch item: 1.2412 → 1.1998 at 1× and
+  1.2377 → 1.1956 at 2×, against a ceiling of 1.25. The retune moved the dark
+  cells *away* from the ceiling rather than through it.
+
+#### What this does not close
+
+Two of Apple's five size-derived facets remain absent rather than inert.
+**Size-gated light/dark adaptation** (§3.2, row 3) is measurable on this bed and
+striking — over the `dark-solid` backdrop the 44 px capsule adapts until it has
+no separable silhouette at all, while the 96 px rrect sits at 0.454 and does not
+adapt; over `impulse` the same pair reads 0.013 against 0.412 — but it is a gate
+on an adaptation vitrea does not perform, so it belongs to W7 with the axis it
+gates, and W7 can key it off `sizeThickness` when it lands. **Ambient colour
+spill on large surfaces** (row 4) needs sampling beside a surface rather than
+behind it, and is untouched.
 
 ---
 

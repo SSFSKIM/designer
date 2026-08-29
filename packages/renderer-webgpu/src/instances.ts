@@ -42,11 +42,27 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 
 import { rendererError } from "./errors";
 import type { FieldFamily } from "./governor";
-import { DEFAULT_MATERIAL_PROFILE, lensDepthPx, type MaterialProfile } from "./material";
+import {
+  DEFAULT_MATERIAL_PROFILE,
+  lensSizeGainFromThickness,
+  NOMINAL_MATERIAL_POLICY,
+  sizeThicknessUnderPolicy,
+  type MaterialPolicyView,
+  type MaterialProfile,
+} from "./material";
 import { IDLE_CHANNELS, type GroupRenderInput, type Rect, type SurfaceChannels, type SurfaceInput } from "./render-model";
 
-/** 16 floats, 64 bytes, matching `WGSL_INSTANCE_STRUCT`. */
-export const INSTANCE_FLOATS = 16;
+/**
+ * 18 floats, 72 bytes, matching `WGSL_INSTANCE_STRUCT`.
+ *
+ * It was 16 until W2 and W3 landed in the same cut, each needing a per-surface
+ * scalar the fragment stage reads per pixel — the size law's thickness factor and
+ * the author tint's strength. 17 is not a legal stride: `centre` and `half` are
+ * `vec2f`, which aligns the struct to 8 bytes, so its size has to be a multiple
+ * of 8 and 72 is the next one up. The eighteenth float is that padding, written
+ * as zero rather than left to whatever the buffer held.
+ */
+export const INSTANCE_FLOATS = 18;
 export const INSTANCE_BYTES = INSTANCE_FLOATS * 4;
 
 export interface ResolvedSurface {
@@ -59,11 +75,21 @@ export interface ResolvedSurface {
   readonly inset: number;
   readonly centre: readonly [number, number];
   readonly channels: SurfaceChannels;
-  /** Shorter extent in CSS px — what the lens's size gain is a function of. */
+  /** Shorter extent in CSS px — what the whole size law is a function of. */
   readonly spanPx: number;
   readonly lensDepthPx: number;
   /** The author tint's strength, 0 where the surface is untinted. */
   readonly tintStrength: number;
+  /**
+   * The size law's thickness factor for this surface, 0…1 (`sizeThickness`).
+   *
+   * Resolved here rather than in the fragment stage because it is a property of
+   * the surface, and the group's field is one texture: a 44 px button and a
+   * 280 px platter in the same `GlassEffectContainer` have to read as different
+   * thicknesses, so the factor rides the union per pixel like the lens depth —
+   * and like the tint strength above it, for the same reason.
+   */
+  readonly sizeThickness: number;
 }
 
 const channelsOf = (input: SurfaceInput): SurfaceChannels => ({
@@ -87,6 +113,7 @@ export function resolveSurfaces(
   group: GroupRenderInput,
   family: FieldFamily,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  policy: MaterialPolicyView = NOMINAL_MATERIAL_POLICY,
 ): readonly ResolvedSurface[] {
   const byId = new Map<string, SurfaceInput>();
   for (const surface of group.surfaces) {
@@ -165,6 +192,10 @@ export function resolveSurfaces(
     const inset = surface.concentricOf?.inset ?? 0;
 
     const spanPx = Math.min(shape.channels.size[0], shape.channels.size[1]);
+    // The size law's one input, already folded under the accessibility regime —
+    // see `sizeThicknessUnderPolicy`. Resolved once here so the lens depth and the
+    // per-pixel factor cannot disagree about how thick this surface reads.
+    const thickness = sizeThicknessUnderPolicy(spanPx, policy, profile);
     return {
       nodeId: surface.nodeId,
       shape,
@@ -173,7 +204,11 @@ export function resolveSurfaces(
       centre: [fieldSource.channels.center[0], fieldSource.channels.center[1]],
       channels,
       spanPx,
-      lensDepthPx: lensDepthPx(shape.channels.thickness, spanPx, profile),
+      lensDepthPx: Math.min(
+        Math.max(shape.channels.thickness, 0) * lensSizeGainFromThickness(thickness, profile),
+        spanPx * 0.5,
+      ),
+      sizeThickness: thickness,
       tintStrength: Math.min(1, Math.max(0, surface.tint?.strength ?? 0)),
     };
   });
@@ -312,6 +347,11 @@ export function packInstances(
     // The shader's `tintK` slot, and the only per-surface half of the author
     // tint: the seed is a group uniform, this is how much of it this pixel gets.
     data[o + 15] = s.tintStrength;
+    // The size law's per-pixel input. Resolved on the CPU from the surface's own
+    // span so the fragment stage has no geometry to re-derive and no profile
+    // constant of its own — see `ResolvedSurface.sizeThickness`.
+    data[o + 16] = s.sizeThickness;
+    data[o + 17] = 0;
   }
 
   return { data, count: surfaces.length };

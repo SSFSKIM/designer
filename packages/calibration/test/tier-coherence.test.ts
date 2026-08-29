@@ -23,13 +23,14 @@
  * three.
  */
 
-import { resolveAccessibilityPolicy } from "@vitreajs/vitrea";
+import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
 import {
   CSS_TIER_MAPPING,
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
+  MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
   TINT_TONE,
@@ -40,10 +41,16 @@ import {
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy as cssTierOpticsUnderPolicy,
+  requiredSamplingPadding,
   resolvedPolicyFold,
   resolvedTintTone,
+  sizeOcclusionAlpha as cssSizeOcclusionAlpha,
+  sizeScatterSigma as cssSizeScatterSigma,
+  sizeThickness as cssSizeThickness,
+  sizeThicknessUnderPolicy as cssSizeThicknessUnderPolicy,
   sourceGlow,
   sourceOptics,
+  sourceSize,
   tintTone as cssTierTintTone,
   tintToneAdaptation as cssTierTintToneAdaptation,
 } from "@vitrea/platform-web";
@@ -53,6 +60,11 @@ import {
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
+  NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
+  sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
+  sizeScatterSigma as rendererSizeScatterSigma,
+  sizeThickness as rendererSizeThickness,
+  sizeThicknessUnderPolicy as rendererSizeThicknessUnderPolicy,
   tintTone as rendererTintTone,
   tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
@@ -335,6 +347,127 @@ describe("tier coherence (K5)", () => {
     // comparison with the CSS tier unlit — the defect — is outside it.
     const unlit = cssTierForegroundLevel(cssTierOptics(patch).regular, backdrop);
     expect(gpu / unlit).toBeGreaterThan(1.25);
+  });
+
+  /*
+   * The size law's mirror (W2). The same doctrine one facet along: the law's
+   * constants live in the renderer's profile, platform-web restates the slice it
+   * needs, and a drift between the two would make a demoted platter scatter and
+   * occlude differently from the one the GPU tier was drawing a frame earlier —
+   * exactly K5's defect, on a new axis. Pinned in both directions, and through a
+   * patch, so a retune moves both or neither.
+   */
+  it("mirrors the size law's constants, patch included", () => {
+    expect(MATERIAL_SOURCE_SIZE.sizeSpanMin).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMin);
+    expect(MATERIAL_SOURCE_SIZE.sizeSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMax);
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterGainMax).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeOcclusionGain).toBe(DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain);
+
+    const patch = {
+      sizeSpanMin: 40,
+      sizeSpanMax: 200,
+      sizeScatterGainMax: 2.5,
+      sizeOcclusionGain: 0.4,
+    };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = sourceSize(patch);
+    expect(mirrored.sizeSpanMin).toBe(profile.sizeSpanMin);
+    expect(mirrored.sizeSpanMax).toBe(profile.sizeSpanMax);
+    expect(mirrored.sizeScatterGainMax).toBe(profile.sizeScatterGainMax);
+    expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
+    // And the patch really moved them, so none of the equalities above is the
+    // default agreeing with itself.
+    expect(mirrored.sizeSpanMax).not.toBe(MATERIAL_SOURCE_SIZE.sizeSpanMax);
+  });
+
+  it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
+    const patch = { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 2.5, sizeOcclusionGain: 0.4 };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = sourceSize(patch);
+    for (const span of [0, 40, 44, 96, 120, 200, 400]) {
+      expect(cssSizeThickness(span, mirrored), `span ${span}`).toBeCloseTo(
+        rendererSizeThickness(span, profile),
+        12,
+      );
+      expect(cssSizeScatterSigma(8, span, mirrored), `span ${span}`).toBeCloseTo(
+        rendererSizeScatterSigma(8, span, profile),
+        12,
+      );
+      expect(cssSizeOcclusionAlpha(0.5, span, mirrored), `span ${span}`).toBeCloseTo(
+        rendererSizeOcclusionAlpha(0.5, span, profile),
+        12,
+      );
+    }
+  });
+
+  /*
+   * The fold has to be one fold. Both tiers weaken the size law under a
+   * preference through the refraction ladder, and the ladder is patchable — so a
+   * profile that moved `refractionScale.approximate` and only one tier followed
+   * would put a demoted platter at a different thickness from the one the GPU
+   * tier had been drawing, which is K5's defect on this axis.
+   */
+  it("folds the size law under a preference identically on both tiers", () => {
+    const patch = {
+      sizeSpanMin: 40,
+      sizeSpanMax: 200,
+      sizeScatterGainMax: 2.5,
+      refractionScale: { approximate: 0.3 },
+    };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = sourceSize(patch);
+    expect(mirrored.refractionScale.approximate).toBe(profile.refractionScale.approximate);
+
+    const cases = [
+      ["nominal", "nominal"],
+      ["reduced", "reduced"],
+      ["none", "none"],
+    ] as const;
+    for (const [cssRefraction, rendererRefraction] of cases) {
+      for (const span of [0, 40, 96, 400]) {
+        const css = cssSizeThicknessUnderPolicy(
+          span,
+          { ...NOMINAL_ACCESSIBILITY_POLICY.material, refraction: cssRefraction },
+          mirrored,
+        );
+        const renderer = rendererSizeThicknessUnderPolicy(
+          span,
+          { ...RENDERER_NOMINAL_POLICY, refraction: rendererRefraction },
+          profile,
+        );
+        expect(css, `${cssRefraction} at span ${span}`).toBeCloseTo(renderer, 12);
+      }
+    }
+    // And the patched rung really is what both used, so neither equality above is
+    // two defaults agreeing.
+    expect(
+      cssSizeThicknessUnderPolicy(
+        400,
+        { ...NOMINAL_ACCESSIBILITY_POLICY.material, refraction: "reduced" },
+        mirrored,
+      ),
+    ).toBeCloseTo(0.3, 12);
+  });
+
+  /*
+   * The scattering facet's own S1 consequence: a wider blur needs a wider proxy.
+   * The CSS tier writes `blur(σ)` per surface and core's `samplingPadding` floor
+   * is 3σ, so a group whose largest member scatters at the gain must pad for that
+   * σ and not for the nominal. This pins the arithmetic the root applies.
+   */
+  it("keeps the 3σ padding floor over the σ a large surface will really use", () => {
+    const patch = { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 2.5 };
+    const mirrored = sourceSize(patch);
+    const nominal = cssTierOptics(patch).regular.blurRadius;
+    const platter = cssSizeScatterSigma(nominal, 400, mirrored);
+    expect(platter).toBeCloseTo(nominal * 2.5, 12);
+    expect(requiredSamplingPadding(platter)).toBeCloseTo(3 * platter, 12);
+    expect(requiredSamplingPadding(platter)).toBeGreaterThan(requiredSamplingPadding(nominal));
+    // A small control is unchanged, which is what makes the wider floor a cost
+    // only the surfaces that earn it pay.
+    expect(cssSizeScatterSigma(nominal, 40, mirrored)).toBeCloseTo(nominal, 12);
   });
 
   it("follows a profile patch on both sides at once", () => {

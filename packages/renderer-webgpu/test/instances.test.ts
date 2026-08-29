@@ -48,8 +48,13 @@ const group = (surfaces: readonly SurfaceInput[]): GroupRenderInput => ({
 });
 
 describe("the packed layout", () => {
-  it("is sixteen floats: X8's geometry plus the six derived floats plus the channels", () => {
-    expect(INSTANCE_FLOATS).toBe(16);
+  it("is eighteen floats: X8's geometry, the six derived floats, the channels and the two per-pixel scalars", () => {
+    // Sixteen until W2 and W3 each needed a per-surface scalar that the fragment
+    // stage reads per pixel — the size law's thickness factor and the author
+    // tint's strength. Seventeen is not a legal stride (`vec2f` aligns the struct
+    // to 8 bytes), so the eighteenth float is padding; `wgsl-contract.test.ts`
+    // pins that rule against the WGSL declaration itself.
+    expect(INSTANCE_FLOATS).toBe(18);
 
     const resolved = resolveSurfaces(group([surface()]), "rsupn");
     const { data, count } = packInstances(resolved, [0, 0]);
