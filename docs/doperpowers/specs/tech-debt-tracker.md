@@ -50,6 +50,53 @@ reports when the system asks for nothing, so pinning an override would gut it.
 That case genuinely requires the machine's preferences to be off, and it is the
 one that should stay loud about it.
 
+## The shape axis mis-segments a glowing interior over a near-tone backdrop
+
+*Found 2026-08-30, fixing the W1/coherence press-glow divergence.*
+
+`extractSilhouette`'s `luminance-delta` rule calls a pixel "inside" when it
+differs from the shared background raster by more than 0.02 linear luminance
+(`DEFAULT_SILHOUETTE_THRESHOLD`). The press glow sweeps the interior smoothly
+from the material's own level up toward the highlight, so on a dark backdrop it
+*crosses* the backdrop's level somewhere inside the surface — and the extractor
+punches a ring-shaped hole through the middle of the silhouette there. The
+contour trace then runs around the hole, and the shape axis reports a contour
+error that is a segmentation artifact rather than a geometry one.
+
+Measured on `photo__capsule-button__pressed`: both tiers now read contour p95
+12.93/13.0 at 1× and 26.0/27.0 at 2× with IoU ~0.86, against ~0.92 and 4–6px for
+the same surface unlit. The texture tier has carried these figures since the
+scene was added; the dom tier joined it once it started drawing the glow. The
+dark profile's own `$comment` already names the underlying property — over a
+backdrop of its own tone the reference sits within 0.02 of it — so this is that
+limit reaching the web side through a new route.
+
+**The fix shape:** the extractor needs a rule that does not assume the surface is
+monotonically separated from its backdrop — hole-filling the mask before the
+contour trace is the cheap version; extracting the web silhouette from alpha over
+a transparent capture is the honest one, and would need the capture harness to
+render the scene twice. Either is a calibration-instrument change and must not be
+made by tuning the 0.02 threshold, which would move every cell.
+
+Until then: **the dark profiles' contour thresholds cannot be proposed from this
+cell** (the post-v1 wave's W1/coherence entry already parks them behind the fix,
+for what turns out to be this reason).
+
+## The CSS tier's press glow does not fall across the label
+
+*Found 2026-08-30, same fix.*
+
+X1's sandwich puts the highlight canvas above the semantic host precisely so a
+highlight can fall across the label. The CSS tier has no layer above the host, so
+its press glow — a `background-image` on the host itself — paints under the text.
+The interior level is coherent between the tiers; what a pressed label looks like
+is not.
+
+**The fix shape:** an `::after` rule in `ink-stylesheet.ts` carrying the same
+gradient, fed the numbers through custom properties. It must not introduce
+`opacity`, `filter`, `mask`, `clip-path` or `mix-blend-mode` on anything the
+proxies live inside (`planes.ts`'s constraint), which a plain background does not.
+
 ## `merge-distance-below-padding` still quotes the retired 17/255
 
 *Found 2026-08-30, extending that narrowing to core.*
