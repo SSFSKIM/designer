@@ -1,14 +1,29 @@
 # W1 G3 — the six-profile web-side measurement (2026-08-29)
 
 Child of `2026-08-28-post-v1-wave.md` (W1, gate G3). This document records the
-measurement half of G3 and carries the PROPOSED threshold tables to the human
-gate. Nothing in it is enforced; adoption is a decision, and the enforced
-tables live in `packages/calibration/test/adopted-thresholds.test.ts` only
-after that decision. Evidence commits: `a3b4d00` (capture machinery),
-`5205017` (the matrix + strengthen-only test). Matrices:
-`packages/calibration/results/w1-matrix.json` (136 cells, schema 3) and
-`results/w1-matrix-contrast-only.json` (8 cells), both written via
-`compare --out-matrix`; the committed `results/matrix.json` is byte-unchanged.
+measurement half of G3 and the threshold tables it carried to the human gate.
+Evidence commits: `a3b4d00` (capture machinery), `5205017` (the matrix +
+strengthen-only test).
+
+> **STATUS — superseded in part (2026-08-30).** The gate ruled (Decision Log 9,
+> then Decision Log 11) and most of this document is now history rather than a
+> proposal:
+>
+> - **Adopted and enforced** in `packages/calibration/test/adopted-thresholds.test.ts`:
+>   the `2x-light-standard` tables (both tiers), the schema-4 coherence axis, and
+>   — as of 2026-08-30 — the `reduced-transparency` and `increased-contrast`
+>   tables. The claims doc §5.1/§5.6 carries them.
+> - **Still proposals, and the only live content here:** the two dark profiles'
+>   tables, restated at the end of this document against the settled bed. They
+>   are held back until their cross-tier figures settle after the press-glow fix.
+> - **The matrices below are retired.** `results/w1-matrix.json` (136 cells,
+>   schema 3) was measured on the pre-settled bed and is deleted;
+>   `results/matrix.json` is now the settled 168-cell schema-4 matrix.
+>   `results/w1-matrix-contrast-only.json` (8 cells) is unchanged and still the
+>   bound on the contrast-only state.
+> - **Every figure below is pre-settled-bed.** The reference was re-baselined on
+>   2026-08-30 after the settledness defect was found; figures that moved are
+>   corrected in claims §5, not here.
 
 ## Headline results
 
@@ -76,7 +91,13 @@ higher at 2× (+0.014 mean; fixed pixel window over finer sampling), so the
 proposal keeps §5's ~2–3% margin over the measured worst instead of
 importing the 1× number, which would be slack at this scale.
 
-## NOT proposed — the three provisional profiles
+## NOT proposed at the time — the three provisional profiles
+
+*(Two of the three — both accessibility profiles — were adopted on 2026-08-30
+once W1's split extension gave them a holdout column. See the settled-bed dark
+tables at the end of this document for the pair that remains.)*
+
+### As measured on the pre-settled bed
 
 `2x-dark-standard`, `1x-light-reduced-transparency`,
 `1x-light-increased-contrast`: calibration cells only, no validation, no
@@ -121,9 +142,10 @@ Watch item (binding on W2/W3's awareness, advisory on their means): both dark
 profiles sit within 0.9% of the interior-ratio ceiling. Any retune that
 lightens the CSS tier in dark crosses 1.25.
 
-Enforcing the cross-tier row from the matrix (instead of prose) needs a
-schema-4 `coherence` axis on the cell — a design decision at the human gate.
-The measurements say it would pass everywhere today.
+Enforcing the cross-tier row from the matrix (instead of prose) needed a
+schema-4 `coherence` axis on the cell. **That was approved and built** (Decision
+Log 9): dom-tier cells carry the axis, and both bounds are enforced over both
+light-standard profiles from `results/matrix.json`. See claims §5.2.
 
 ## Findings routed elsewhere
 
@@ -137,3 +159,51 @@ The measurements say it would pass everywhere today.
 - `apps/reference-apple/fixtures/backgrounds/index.json` is unread; delete or
   scale-qualify at the next batched harness rebuild.
 - The 2× holdout is SPENT for this configuration; W2/W3 must not fit to it.
+
+## The dark pair — proposed against the SETTLED bed (2026-08-30)
+
+The only live proposals left in this document. Both profiles gained a split in
+W1's extension (two validation, two holdout scenes), so a holdout-bounded table
+is now possible for them; both are held back from adoption until their
+cross-tier figures settle after the press-glow fix (`b5c2660`), per Decision
+Log 11. Same doctrine as every table here: **bounded by the holdout column**.
+
+### `apple-macos-26.5-1x-dark-standard`
+
+| axis | metric | proposed | tex cal+val / holdout | dom cal+val / holdout |
+| --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.85 | 0.8655 / 0.9943 | 0.8565 / 0.9739 |
+| shape | contour distance mean | ≤ 3.0 | 2.5349 / 0.2791 | 2.6003 / 1.1136 |
+| shape | contour distance p95 | ≤ 14.0 | 13.0000 / 1.0000 | 12.9322 / 2.2361 |
+| perceptual | SSIM mean | ≥ 0.89 | 0.9334 / 0.9209 | 0.9186 / 0.8961 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0216 / 0.0668 | 0.0241 / 0.0732 |
+| perceptual | OKLab ΔE p95 | ≤ 0.19 | 0.1771 / 0.1581 | 0.1771 / 0.1713 |
+| perceptual | edge-weighted mean | ≤ 0.03 | 0.0080 / 0.0114 | 0.0132 / 0.0203 |
+
+### `apple-macos-26.5-2x-dark-standard`
+
+| axis | metric | proposed | tex cal+val / holdout | dom cal+val / holdout |
+| --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.85 | 0.8705 / 0.9955 | 0.8594 / 0.9741 |
+| shape | contour distance mean | ≤ 6.0 | 5.3368 / 0.4527 | 5.0450 / 2.2128 |
+| shape | contour distance p95 | ≤ 28.0 | 27.0000 / 2.0000 | 26.0000 / 5.0000 |
+| perceptual | SSIM mean | ≥ 0.92 | 0.9482 / 0.9511 | 0.9446 / 0.9423 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0216 / 0.0665 | 0.0241 / 0.0729 |
+| perceptual | OKLab ΔE p95 | ≤ 0.19 | 0.1771 / 0.1577 | 0.1771 / 0.1700 |
+| perceptual | edge-weighted mean | ≤ 0.03 | 0.0092 / 0.0124 | 0.0128 / 0.0179 |
+
+**Read the contour rows with their caveat.** They are wide because of one cell:
+`photo__capsule-button__pressed` on the dom tier, whose IoU fell from 0.915 to
+0.857 and whose contour p95 rose to 12.9 (1×) and 26.0 (2×) when the press-glow
+fix landed. That is a **segmentation artifact, not geometry**: the extractor's
+0.02 luminance-delta rule punches a ring hole through a now-glowing interior —
+the same artifact the texture tier always carried on that cell. It is recorded in
+the tech-debt tracker, and it is a second reason the dark tables should not be
+adopted from today's numbers. Drop that one cell and 1× dark's worst contour p95
+falls to 7.0.
+
+Everything else in the dark pair is comfortable: worst holdout SSIM 0.8961,
+worst holdout ΔE mean 0.0732, and the coherence axis — the thing that found the
+press-glow defect in the first place — now reads 1.032…1.241 at 1× and
+1.032…1.238 at 2×, inside the light profiles' adopted 0.80…1.25 band on every
+cell.

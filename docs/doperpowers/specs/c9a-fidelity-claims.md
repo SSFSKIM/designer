@@ -50,9 +50,15 @@ webgpu`, `samplingBackend: gpu-texture`, adapter `apple/metal-3`, colour space
 Every capture was **byte-identical over two independent page loads**.
 
 **Coverage: 60 of 60 cells measured** — all 30 texture-tier and, since K5, all 30
-dom-tier — in one `results/matrix.json` (`schemaVersion 3`), captured in a
-reproducible interleaved order (FNV-1a of `profileKey|sceneId`, matching the
-native harness's own permutation).
+dom-tier — captured in a reproducible interleaved order (FNV-1a of
+`profileKey|sceneId`, matching the native harness's own permutation).
+
+*Superseded as an artifact, not as a claim.* `results/matrix.json` now holds W1's
+**settled six-profile bed**: 168 cells, `schemaVersion 4`, two backing scales ×
+light/dark × two accessibility profiles, each dom cell carrying the coherence
+axis (§5.2). This section describes the v1 measurement those claims were first
+made on; §5's tables were re-verified against the settled bed and their bounds
+did not move. The 60-cell v1 matrix is in git history.
 
 C9a measured 18 dom-tier cells and deliberately did *not* commit them, because
 that tier was untuned and committing the numbers would have put a configuration
@@ -555,13 +561,23 @@ prevent it. On the perceptual axis, holdout is the binding case.
 
 | axis | metric | proposed | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.82 | 0.8489 | 0.9612 |
-| shape | contour distance mean | ≤ 2.5 px | 1.9336 | 0.5590 |
+| shape | silhouette IoU | ≥ 0.82 | 0.8489 | 0.9620 |
+| shape | contour distance mean | ≤ 2.5 px | 1.9336 | 0.5450 |
 | shape | contour distance p95 | ≤ 5.0 px | 4.0000 | 2.8284 |
-| perceptual | SSIM mean | ≥ 0.88 | 0.9113 | 0.9007 |
-| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0247 | 0.0548 |
+| perceptual | SSIM mean | ≥ 0.88 | 0.9046 | 0.9026 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0533 | 0.0548 |
 | perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1070 | 0.1337 |
-| perceptual | edge-weighted mean | ≤ 0.11 | 0.0491 | 0.0923 |
+| perceptual | edge-weighted mean | ≤ 0.11 | 0.0573 | 0.0923 |
+
+*The observation columns above were re-measured on the **settled** reference bed
+(2026-08-30). The v1 bed's stability check spanned milliseconds while Apple's
+material adapts its tone over seconds, so it recorded a mixture of settled and
+mid-adaptation states; the harness now dwells and converges, and every cell is
+attested by paired independent runs. The adopted **bounds** did not move — not
+one digit — but the worst cal+val figures they were compared against did, most
+visibly SSIM (0.9113 → 0.9046 at 1×) and ΔE mean (0.0247 → 0.0533), because the
+settled reference is darker on every adapting component. Two scenes moved far
+enough to fail, and they are §5.4.*
 
 *Correction: the ΔE p95 cal+val cell originally read 0.1409, which is the dark
 profile's figure; this table is the light profile, whose matrix value is 0.1070.
@@ -612,13 +628,13 @@ shadow's removal made meaningful.
 
 | axis | metric | proposed | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.85 | 0.8969 | 0.9357 |
+| shape | silhouette IoU | ≥ 0.85 | 0.8987 | 0.9368 |
 | shape | contour distance mean | ≤ 2.0 px | 1.2456 | 1.1081 |
-| shape | contour distance p95 | ≤ 4.0 px | 2.8284 | 2.8284 |
-| perceptual | SSIM mean | ≥ 0.90 | 0.9304 | 0.9205 |
-| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0273 | 0.0560 |
-| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0124 | 0.0313 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.895 … 1.067 | 0.844 … 1.040 |
+| shape | contour distance p95 | ≤ 4.0 px | 2.8284 | 2.2361 |
+| perceptual | SSIM mean | ≥ 0.90 | 0.9036 | 0.9205 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0535 | 0.0560 |
+| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0124 | 0.0312 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.893 … 1.080 | 0.844 … 1.040 |
 
 The shape rows carry the texture tier's own well-conditioned-cell predicate
 unchanged (`silhouetteAreaNative ≥ 0.95 ×` the declared component area), for the
@@ -667,25 +683,25 @@ beside the 1× tables, which are unchanged in every digit.
 
 | axis | metric | adopted | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.85 | 0.8784 | 0.9592 |
-| shape | contour distance mean | ≤ 5.0 device px | 3.7556 | 1.1963 |
+| shape | silhouette IoU | ≥ 0.85 | 0.8768 | 0.9596 |
+| shape | contour distance mean | ≤ 5.0 device px | 3.7548 | 1.1849 |
 | shape | contour distance p95 | ≤ 10.0 device px | 8.0000 | 5.6569 |
-| perceptual | SSIM mean | ≥ 0.93 | 0.9582 | 0.9584 |
-| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0247 | 0.0546 |
+| perceptual | SSIM mean | ≥ 0.93 | 0.9582 | 0.9593 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0533 | 0.0546 |
 | perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1070 | 0.1333 |
-| perceptual | edge-weighted mean | ≤ 0.12 | 0.0494 | 0.1002 |
+| perceptual | edge-weighted mean | ≤ 0.12 | 0.0537 | 0.1002 |
 
 #### Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`
 
 | axis | metric | adopted | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.85 | 0.8967 | 0.9360 |
-| shape | contour distance mean | ≤ 4.0 device px | 2.3912 | 2.2484 |
+| shape | silhouette IoU | ≥ 0.85 | 0.8978 | 0.9363 |
+| shape | contour distance mean | ≤ 4.0 device px | 2.3744 | 2.2484 |
 | shape | contour distance p95 | ≤ 8.0 device px | 5.3852 | 5.0000 |
-| perceptual | SSIM mean | ≥ 0.92 | 0.9684 | 0.9509 |
-| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0274 | 0.0559 |
+| perceptual | SSIM mean | ≥ 0.92 | 0.9679 | 0.9509 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0534 | 0.0559 |
 | coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0128 | 0.0313 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.899 … 1.068 | 0.845 … 1.041 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.895 … 1.080 | 0.845 … 1.041 |
 
 The shape rows carry the same well-conditioned-cell predicate, with the declared
 area scaled by the square of the backing scale — `scenes.json` declares
@@ -793,6 +809,139 @@ the other way round, recovering 53–57%: there the extractor loses the
 (two scenes × two tiers) are named in the test alongside the two dark ones, and
 all six are in ungated profiles — **neither light-standard table excludes
 anything, at either scale**.
+
+### 5.4 The one limitation the adopted gate does not cover
+
+**vitrea does not follow Apple's backdrop tone adaptation.** Apple's material
+adapts its appearance continuously to the luminance behind it: a light-scheme
+capsule over a black backdrop settles to near-black. vitrea has no such axis —
+its material profiles are discrete per colour scheme — so over an extreme
+backdrop the reference all but disappears while vitrea keeps drawing a light
+capsule. Measured on the settled bed, over `impulse` (black) the reference's
+interior level is 0.013 in linear light where vitrea's is 0.631; over
+`dark-solid` the reference falls within the extractor's own 0.02 threshold of
+its background, so it has no separable silhouette at all.
+
+This is the largest measured fidelity gap in the project and the only thing that
+fails an adopted bound:
+
+| profile | tier | scene | row | measured | adopted bound |
+| --- | --- | --- | --- | --- | --- |
+| 1x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6272 | ≤ 0.17 |
+| 1x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6633 | ≤ 0.17 |
+| 2x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6272 | ≤ 0.17 |
+| 2x-light | texture | dark-solid__capsule-button__rest | SSIM | 0.9259 | ≥ 0.93 |
+| 2x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6647 | ≤ 0.17 |
+| 2x-light | texture | impulse__capsule-button__rest | SSIM | 0.9200 | ≥ 0.93 |
+| 2x-light | dom | impulse__capsule-button__rest | SSIM | 0.9191 | ≥ 0.92 |
+
+**These seven rows are excluded from the gate as a labelled known renderer gap**
+(user ruling, 2026-08-30, wave Decision Log 11), and the exclusion is a *distinct
+class* from §5's conditioning predicate. The predicate drops rows whose extractor
+could not find the component — the number describes the instrument. These rows
+were measured perfectly well; what they record is a defect vitrea is known to
+have. Conflating the two would let a real gap hide inside a measurement caveat.
+
+The exclusion lives in `adopted-thresholds.test.ts` as
+`KNOWN_RENDERER_GAP_EXCLUSIONS`: one entry per row, each carrying the reason
+above, a tracking pointer, and the measured figure. Four properties are enforced
+rather than promised — every entry must **still fail** its bound, its `measured`
+must match the committed matrix, its reason and tracking must be non-empty, and
+the class may not grow beyond the two named scenes' perceptual rows in the two
+light profiles. Nothing was loosened: every bound is unchanged and every excluded
+cell is named.
+
+**The fix is chartered as wave child W7** (backdrop tone adaptation), whose
+acceptance is that these two scenes re-enter the gate and pass *at the adopted
+bounds* — the exclusion dissolves rather than widens. Because the entries are
+data, W7's landing makes the still-fails test fail, which names them for
+deletion; deleting them re-arms the gate with no threshold edited.
+
+### 5.5 What the settled bed changed about §5's own exclusions
+
+**v1's canonical ill-conditioned cell repaired itself.** §5 argued for the
+well-conditioned predicate on `checkerboard__capsule-button__rest` in the dark
+profile, where the extractor recovered 88.9% of the declared capsule and produced
+the worst shape figures in the whole v1 matrix. On the settled bed that cell
+recovers **100.8%** at 1× (IoU 0.9561) and 100.3% at 2× (IoU 0.9543), and it is
+gated like any other cell. The v1 exclusion was **instrument-caused** — an
+unsettled capture, not a property of dark glass over a checkerboard. The
+predicate itself is unchanged and still earns its place; only this example is
+retired.
+
+**A new conditioning failure replaced it, in all four standard profiles.**
+`impulse__capsule-button__rest` now recovers **0.3%** of its declared capsule on
+every standard profile at both scales. That is the same tone adaptation §5.4
+describes, seen through the extractor instead of through ΔE: the settled
+reference over a black backdrop is nearly invisible, so there is almost no
+silhouette to find. Its shape rows are excluded by the predicate — correctly,
+since they would measure the extractor — while its perceptual rows are the ones
+§5.4 excludes as the renderer gap. Two different exclusion classes on one cell,
+for two different reasons, is exactly why they are kept apart.
+
+**`dark-solid__capsule-button__rest` lost its shape axis in the light profiles.**
+Same mechanism, one step further: the reference is now within 0.02 of its own
+backdrop, so `cli/measure.ts` records the cell with its perceptual axis alone
+rather than inventing a shape.
+
+**The 2× `rrect-md` quantization dither.** The settled bed's paired-run
+attestation reports this cell reproducing to a maximum of 1/255 on fewer than
+0.5% of its pixels rather than byte-identically — a quantization dither in the
+capture path, not a settledness failure. It is well inside every bound the cell
+is gated on and is recorded here so a future reader does not mistake the one
+non-byte-identical attestation for an unsettled capture.
+
+### 5.6 The accessibility tables, adopted 2026-08-30
+
+W1's split extension gave every provisional profile two validation and two
+holdout scenes, which is what these tables were waiting for: a bound needs a
+binding column, and calibration-only profiles had none. Both are adopted as
+proposed and enforced beside the light-standard tables.
+
+#### `apple-macos-26.5-1x-light-reduced-transparency`
+
+| axis | metric | texture | dom |
+| --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.87 | ≥ 0.89 |
+| shape | contour distance mean | ≤ 1.5 px | ≤ 1.5 px |
+| shape | contour distance p95 | ≤ 3.5 px | ≤ 3.5 px |
+| perceptual | SSIM mean | ≥ 0.96 | ≥ 0.91 |
+| perceptual | OKLab ΔE mean | ≤ 0.04 | ≤ 0.04 |
+| perceptual | OKLab ΔE p95 | ≤ 0.08 | ≤ 0.07 |
+| perceptual | edge-weighted mean | ≤ 0.10 | ≤ 0.11 |
+
+The tightest table in this document, and that is the measurement rather than
+ambition: the reduce-transparency material is nearly opaque on both sides, so
+there is very little backdrop left for the two to disagree about — worst holdout
+ΔE mean 0.0300 against light-standard's 0.0548.
+
+#### `apple-macos-26.5-1x-light-increased-contrast`
+
+| axis | metric | texture | dom |
+| --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.85 | ≥ 0.80 |
+| shape | contour distance mean | ≤ 1.8 px | ≤ 2.6 px |
+| shape | contour distance p95 | ≤ 3.2 px | ≤ 5.5 px |
+| perceptual | SSIM mean | ≥ 0.86 | ≥ 0.83 |
+| perceptual | OKLab ΔE mean | ≤ 0.06 | ≤ 0.07 |
+| perceptual | OKLab ΔE p95 | ≤ 0.10 | ≤ 0.09 |
+| perceptual | edge-weighted mean | ≤ 0.17 | ≤ 0.18 |
+
+The loosest, for two measured reasons. Its reference is the **coupled** state —
+macOS force-enables reduce transparency with increase contrast, so no
+single-flag reference exists to capture (Decision Log 8) — and vitrea's
+accessibility material under-occludes against it. That gap is on the material
+axis, which is not gated; what reaches this table is its perceptual shadow. Its
+shape rows also gate the fewest cells of any adopted table: three of its eight
+scenes per tier fail the conditioning predicate, because the brightened material
+is lost over the checkerboard's white squares.
+
+**The dark pair stays ungated.** `1x-dark-standard` and `2x-dark-standard` have
+a split now too, but their cross-tier figures were re-measured across the
+press-glow fix and their tables would be adopted from numbers that had just
+moved. Their proposed tables are in W1's G3 measurement report, ready to adopt
+once that settles. They remain fully measured — both tiers, coherence axis
+present — and named here rather than omitted.
 
 ---
 
