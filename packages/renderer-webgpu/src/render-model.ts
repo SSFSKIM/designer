@@ -36,6 +36,7 @@ import type {
   ShapeFamily,
 } from "@vitrea/geometry";
 
+import type { Rgb } from "./color";
 import type { MaterialPolicyView, MaterialVariant, RefractionQuality } from "./material";
 
 /** Viewport-space rectangle in CSS px. Matches core's `Rect`. */
@@ -124,6 +125,24 @@ export interface GroupRenderInput {
   readonly refraction: RefractionQuality;
   /** True where X2 resolved `analysis: "exact"`; gates adaptive tint. */
   readonly analysisExact: boolean;
+  /**
+   * The backdrop source's own average colour, linear light — what backdrop tone
+   * adaptation (W7) adapts toward, and the luminance it decides from.
+   *
+   * A **per-source scalar rather than a per-pixel sample**, and that is why it
+   * arrives from outside rather than being read off the pyramid. The host measures
+   * it once from the pixels it already supplied and both tiers then read the
+   * identical number: the CSS tier cannot sample per pixel at all, and a per-pixel
+   * GPU adaptation beside a per-surface CSS one puts the two tiers on different
+   * pictures wherever the backdrop has structure — measured on the impulse cell at
+   * an interior level ratio of 79 against a gated band of 0.80…1.25. It is also
+   * what the reference does: its capsule over a sparse bright grid is a *flat*
+   * body, not a window onto the grid.
+   *
+   * Absent means the adaptation stands down for this group, rather than falling
+   * back to a level nobody measured.
+   */
+  readonly backdropTone?: Rgb;
   readonly variant?: MaterialVariant;
   /** Overrides the calibration-delegated union defaults. */
   readonly union?: GroupUnionParams;

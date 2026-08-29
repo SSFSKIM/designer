@@ -43,7 +43,7 @@ import { DEFAULT_GROUP_UNION, type GroupUnionParams } from "@vitrea/geometry";
 
 import { createAdaptationState, readbackDue, type AdaptationState } from "./analysis";
 import type { BackdropProvider } from "./backdrop";
-import { OUTPUT_TEXTURE_FORMAT } from "./color";
+import { OUTPUT_TEXTURE_FORMAT, relativeLuminance } from "./color";
 import {
   createDeviceHost,
   type DeviceCapabilityInput,
@@ -65,6 +65,8 @@ import {
 import {
   accessibilityRefractionCap,
   adaptationStrength,
+  backdropToneSizeBiasUnderPolicy,
+  backdropToneUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
@@ -679,6 +681,30 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeOcclusionGain: material.sizeOcclusionGain,
         sizeShadowGainMax: material.sizeShadowGainMax,
         bodyChainLod: chainLodForSigma(pyramid?.bodySigmaTexels ?? 0),
+        /*
+         * Backdrop tone adaptation (W7). Both policy folds resolve here, on the
+         * CPU, so the shader carries the curve and not the regime.
+         *
+         * The strength is zero unless the host measured a backdrop tone for this
+         * group. That is not a defensive default: this axis moves the material
+         * onto a colour, and the only colour it may move onto is one somebody
+         * measured. A group whose backdrop nobody could read keeps the scheme's
+         * own material, on both tiers alike.
+         */
+        backdropTone: [
+          material.backdropToneLow,
+          material.backdropToneHigh,
+          backdropToneSizeBiasUnderPolicy(policy, material),
+          input.backdropTone === undefined
+            ? 0
+            : backdropToneUnderPolicy(policy, material) * material.backdropToneMax,
+        ],
+        backdropToneColour: [
+          input.backdropTone?.[0] ?? 0,
+          input.backdropTone?.[1] ?? 0,
+          input.backdropTone?.[2] ?? 0,
+          input.backdropTone === undefined ? 0 : relativeLuminance(input.backdropTone),
+        ],
         backdrop:
           pyramid === undefined || policy.glass === "none"
             ? undefined

@@ -213,168 +213,30 @@ const DOM_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.18],
 ];
 
-// ---------------------------------------------------------------------------
-// The defect-class exclusion — a known renderer gap, enumerated
-// ---------------------------------------------------------------------------
-
-const KNOWN_GAP_REASON =
-  "Apple's material continuously adapts its appearance to backdrop luminance — a " +
-  "light-scheme capsule over a black or near-black backdrop settles to near-black — " +
-  "and vitrea has no such axis: its material profiles are discrete per colour scheme. " +
-  "Over these two extreme backdrops the reference all but disappears while vitrea " +
-  "keeps drawing a light capsule, so the perceptual rows measure the missing axis " +
-  "rather than a tuning error. Nothing here is loosened: the bound is unchanged and " +
-  "the cell is named.";
-
-const KNOWN_GAP_TRACKING = "wave child W7 (backdrop tone adaptation), post-v1 wave spec";
-
-/**
- * One entry per gated row that a known renderer gap — not a tuning miss and not
- * an instrument artefact — currently fails.
- *
- * **This is a second, distinct exclusion class**, and the distinction is the
- * point. `PREDICATE_EXCLUDES` below drops shape rows whose *extractor* could not
- * find the component: the number there describes the instrument, so gating it
- * would gate the instrument. These entries drop rows the instrument measured
- * perfectly well; what they exclude is a defect vitrea is known to have and has
- * a chartered fix for. Conflating the two would let a real gap hide inside a
- * measurement caveat.
- *
- * Four properties are enforced below rather than promised:
- *
- *   - **Every entry must still fail.** An entry whose row now passes is a stale
- *     exclusion, and the test says so by name. That is what makes W7's landing
- *     force its own cleanup: when the gap closes, these rows pass, this file
- *     fails, and the fix is to DELETE the entries — at which point the adopted
- *     bounds re-arm unchanged, because nothing about them was ever edited.
- *   - **`measured` must match the matrix.** The figure quoted here is the one a
- *     reader will cite; if it drifts from the cell, the citation is fiction.
- *   - **Every entry carries a reason and a tracking pointer**, both non-empty.
- *     An exclusion nobody owns is a silently lowered bar.
- *   - **The class cannot quietly grow.** Its scope — which profiles, scenes and
- *     axes it may touch — is asserted, so a future failure elsewhere cannot be
- *     resolved by appending a row here.
- */
-interface KnownGapExclusion {
-  readonly profileKey: string;
-  readonly sceneId: string;
-  readonly tier: "texture" | "dom";
-  readonly axis: "shape" | "perceptual";
-  readonly metric: string;
-  /** The figure as measured on the committed matrix, for citation. */
-  readonly measured: number;
-  /** The adopted bound this row fails, restated so the entry reads alone. */
-  readonly bound: string;
-  readonly reason: string;
-  readonly tracking: string;
-}
-
 /*
- * Three figures moved by W2's size-law retune and are re-quoted from the
- * regenerated matrix: the two `dark-solid` capsule ΔE p95 rows (0.6272 → 0.6244
- * at 1×, → 0.6242 at 2×) and the 2× `impulse` one (0.6647 → 0.6633). The capsule
- * span is 44 px, barely into the law's band, so the movement is small — and it is
- * movement in the honest direction, since the retune improved every well-posed
- * cell it touched. Nothing about the class changed: the same seven rows, the same
- * bounds, and every one of them still fails, which the property below enforces.
+ * ---------------------------------------------------------------------------
+ * The defect-class exclusion is GONE (W7, 2026-08-30) — and it dissolved rather
+ * than being widened, which is the whole point of how it was built.
+ * ---------------------------------------------------------------------------
+ *
+ * Seven perceptual rows lived here from 2026-08-30 (wave Decision Log 11): the
+ * `dark-solid` and `impulse` capsule scenes in the two light-standard profiles,
+ * excluded as a LABELLED known renderer gap because Apple's material adapts its
+ * appearance to backdrop luminance and vitrea's had no such axis. Worst of them
+ * was an OKLab ΔE p95 of 0.6633 against a bound of ≤ 0.17.
+ *
+ * The entries were data, and one of the four properties enforced around them was
+ * that every entry must **still fail**. So when W7 landed the axis, those rows
+ * passed, this file failed, and it named them for deletion — which is what
+ * happened here. Every adopted bound is exactly the number it was; none was
+ * touched in either direction. The same rows now read ΔE p95 0.0000 and 0.0372,
+ * and SSIM 0.9792 and 0.9678 against ≥ 0.93.
+ *
+ * Nothing replaces the mechanism, deliberately. An exclusion class standing empty
+ * is a lowered bar with nothing in it, and the pattern — entries as data, with
+ * still-fails, quote-the-matrix, carry-a-reason and cannot-grow enforced around
+ * them — is in this file's history for the next gap that needs it.
  */
-const KNOWN_RENDERER_GAP_EXCLUSIONS: readonly KnownGapExclusion[] = [
-  {
-    profileKey: "apple-macos-26.5-1x-light-standard",
-    sceneId: "dark-solid__capsule-button__rest",
-    tier: "texture",
-    axis: "perceptual",
-    metric: "oklabDeltaEP95",
-    measured: 0.6244,
-    bound: "≤ 0.17",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-  {
-    profileKey: "apple-macos-26.5-1x-light-standard",
-    sceneId: "impulse__capsule-button__rest",
-    tier: "texture",
-    axis: "perceptual",
-    metric: "oklabDeltaEP95",
-    measured: 0.6633,
-    bound: "≤ 0.17",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-  {
-    profileKey: "apple-macos-26.5-2x-light-standard",
-    sceneId: "dark-solid__capsule-button__rest",
-    tier: "texture",
-    axis: "perceptual",
-    metric: "ssimMean",
-    measured: 0.9259,
-    bound: "≥ 0.93",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-  {
-    profileKey: "apple-macos-26.5-2x-light-standard",
-    sceneId: "impulse__capsule-button__rest",
-    tier: "texture",
-    axis: "perceptual",
-    metric: "ssimMean",
-    measured: 0.92,
-    bound: "≥ 0.93",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-  {
-    profileKey: "apple-macos-26.5-2x-light-standard",
-    sceneId: "dark-solid__capsule-button__rest",
-    tier: "texture",
-    axis: "perceptual",
-    metric: "oklabDeltaEP95",
-    measured: 0.6242,
-    bound: "≤ 0.17",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-  {
-    profileKey: "apple-macos-26.5-2x-light-standard",
-    sceneId: "impulse__capsule-button__rest",
-    tier: "texture",
-    axis: "perceptual",
-    metric: "oklabDeltaEP95",
-    measured: 0.6633,
-    bound: "≤ 0.17",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-  {
-    profileKey: "apple-macos-26.5-2x-light-standard",
-    sceneId: "impulse__capsule-button__rest",
-    tier: "dom",
-    axis: "perceptual",
-    metric: "ssimMean",
-    measured: 0.9191,
-    bound: "≥ 0.92",
-    reason: KNOWN_GAP_REASON,
-    tracking: KNOWN_GAP_TRACKING,
-  },
-];
-
-/** The only scenes and profiles the defect class is allowed to touch. */
-const KNOWN_GAP_SCOPE = {
-  scenes: ["dark-solid__capsule-button__rest", "impulse__capsule-button__rest"],
-  profileKeys: ["apple-macos-26.5-1x-light-standard", "apple-macos-26.5-2x-light-standard"],
-  axes: ["perceptual"],
-} as const;
-
-function isKnownGap(cell: Cell, axis: string, metric: string): boolean {
-  return KNOWN_RENDERER_GAP_EXCLUSIONS.some(
-    (entry) =>
-      entry.profileKey === cell.key.profileKey &&
-      entry.sceneId === cell.key.sceneId &&
-      entry.tier === cell.tier &&
-      entry.axis === axis &&
-      entry.metric === metric,
-  );
-}
 
 /**
  * §5's well-conditioned-cell predicate, which qualifies the **shape rows only**
@@ -484,9 +346,13 @@ const MATRIX_CELLS = 168;
  * background, so the native silhouette is empty and `cli/measure.ts` records the
  * cell with its perceptual axis alone rather than inventing a shape. On the
  * settled bed `dark-solid__capsule-button__rest` joined this list in the light
- * profiles: the reference capsule over a near-black backdrop now settles to
- * that backdrop, which is the same tone adaptation the defect class above is
- * about, seen through the extractor instead of through ΔE.
+ * profiles: the reference capsule over a near-black backdrop settles to that
+ * backdrop, which is backdrop tone adaptation seen through the extractor instead
+ * of through ΔE.
+ *
+ * This list is about the REFERENCE's silhouette, so W7 landing the same
+ * adaptation on vitrea's side does not move it. Both sides now vanish into that
+ * backdrop, which is the point — but the extractor still has nothing to find.
  */
 const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
   "apple-macos-26.5-1x-light-standard": [
@@ -510,8 +376,10 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * **increased-contrast** profile the brightened material is lost over the
  * checkerboard's white squares (and over its hc-text holdout scene). In all four
  * **standard** profiles the `impulse` capsule is lost over a black backdrop — new
- * on the settled bed, and the extractor's view of the same tone adaptation W7
- * exists to fix.
+ * on the settled bed, and the extractor's view of the backdrop tone adaptation
+ * W7 has since given vitrea. It stays here after W7: the recovery figure is the
+ * NATIVE silhouette's, and the reference over a black backdrop is as invisible as
+ * it ever was.
  *
  * What is NOT here any more is v1's canonical example. The 1× dark
  * `checkerboard__capsule-button__rest` cell was §5's whole argument for this
@@ -721,12 +589,6 @@ const predicateExcludedCount = (profileKey: string, tier: string): number =>
   PREDICATE_EXCLUDES.filter((line) => line.startsWith(`${tier} / `) && line.endsWith(` / ${profileKey}`))
     .length;
 
-/** How many cells of this profile, tier and metric the defect class drops. */
-const knownGapCount = (profileKey: string, tier: string, metric: string): number =>
-  KNOWN_RENDERER_GAP_EXCLUSIONS.filter(
-    (entry) => entry.profileKey === profileKey && entry.tier === tier && entry.metric === metric,
-  ).length;
-
 // ---------------------------------------------------------------------------
 
 describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)", () => {
@@ -788,22 +650,22 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
 
         for (const [axis, metric, comparison, threshold] of table) {
           // Shape rows carry the well-conditioned predicate; perceptual rows do
-          // not. Both carry the defect class, which is enumerated per metric.
-          const applicable = (axis === "shape" ? shapeCells.filter(isWellConditioned) : cells).filter(
-            (cell) => !isKnownGap(cell, axis, metric),
-          );
+          // not. Nothing else qualifies either any more — the defect class that
+          // used to sit beside the predicate dissolved with W7 (see the note
+          // above), so a perceptual row now covers every cell of its profile.
+          const applicable = axis === "shape" ? shapeCells.filter(isWellConditioned) : cells;
 
-          // The expected count comes from the enumerated exclusion lists, never
+          // The expected count comes from the enumerated exclusion list, never
           // from the matrix — so a gate that quietly stopped covering a cell
           // fails here rather than passing with less work to do.
           const expected =
             axis === "shape"
               ? profile.cellsPerTier - noShape.length - predicateExcludedCount(profile.profileKey, tier)
-              : profile.cellsPerTier - knownGapCount(profile.profileKey, tier, metric);
+              : profile.cellsPerTier;
           expect(
             applicable,
             `${tier} / ${metric}: the gate must cover every applicable cell`,
-          ).toHaveLength(expected - (axis === "shape" ? knownGapCount(profile.profileKey, tier, metric) : 0));
+          ).toHaveLength(expected);
           expect(applicable.length, `${tier} / ${metric}: nothing left to gate`).toBeGreaterThan(0);
 
           for (const cell of applicable) {
@@ -816,88 +678,6 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
       });
     }
   }
-
-  // -------------------------------------------------------------------------
-  // The defect class, held to its own contract
-  // -------------------------------------------------------------------------
-
-  describe("the known-renderer-gap exclusions", () => {
-    it("still fail their adopted bound, every one of them", () => {
-      /*
-       * The mechanism that makes W7 clean up after itself. When the adaptation
-       * axis lands, these rows pass; this test then fails and names the entries,
-       * and the fix is to DELETE them. The adopted bounds re-arm unchanged at
-       * that moment because nothing about them was ever edited to accommodate
-       * the gap — the rows were skipped, not loosened.
-       */
-      const stale: string[] = [];
-      for (const entry of KNOWN_RENDERER_GAP_EXCLUSIONS) {
-        const cell = MATRIX.cells.find(
-          (candidate) =>
-            candidate.key.profileKey === entry.profileKey &&
-            candidate.key.sceneId === entry.sceneId &&
-            candidate.tier === entry.tier,
-        );
-        expect(cell, `${entry.sceneId} / ${entry.profileKey} / ${entry.tier}: no such cell`).toBeDefined();
-        if (cell === undefined) continue;
-
-        const measured = reading(cell, entry.axis, entry.metric);
-        const [comparison, threshold] = entry.bound.split(" ") as [string, string];
-        const passes =
-          comparison === "≥" ? measured >= Number(threshold) : measured <= Number(threshold);
-        if (passes) {
-          stale.push(
-            `${name(cell)} / ${entry.metric} now reads ${measured.toPrecision(5)} and PASSES ` +
-              `${entry.bound} — delete this entry from KNOWN_RENDERER_GAP_EXCLUSIONS`,
-          );
-        }
-      }
-      expect(stale, "exclusions whose gap has closed — delete them and the gate re-arms").toEqual([]);
-    });
-
-    it("quote the figure the matrix actually holds", () => {
-      // The `measured` field is what a reader cites. If it drifts from the cell,
-      // the citation is fiction and the claims doc inherits the fiction.
-      for (const entry of KNOWN_RENDERER_GAP_EXCLUSIONS) {
-        const cell = MATRIX.cells.find(
-          (candidate) =>
-            candidate.key.profileKey === entry.profileKey &&
-            candidate.key.sceneId === entry.sceneId &&
-            candidate.tier === entry.tier,
-        );
-        if (cell === undefined) continue;
-        expect(
-          reading(cell, entry.axis, entry.metric),
-          `${name(cell)} / ${entry.metric}: the entry quotes ${entry.measured}`,
-        ).toBeCloseTo(entry.measured, 3);
-      }
-    });
-
-    it("each carry a reason and a tracking pointer", () => {
-      // An exclusion nobody owns is a silently lowered bar.
-      for (const entry of KNOWN_RENDERER_GAP_EXCLUSIONS) {
-        const where = `${entry.sceneId} / ${entry.profileKey} / ${entry.tier} / ${entry.metric}`;
-        expect(entry.reason.length, `${where}: needs a reason`).toBeGreaterThan(40);
-        expect(entry.tracking, `${where}: needs a tracking pointer`).toContain("W7");
-      }
-    });
-
-    it("cannot grow beyond the scope the ruling gave them", () => {
-      /*
-       * Decision Log 11 excluded two named scenes' perceptual rows in the two
-       * light-standard profiles, and nothing else. Without this, a future
-       * failure anywhere could be resolved by appending a row here, which is
-       * exactly the silent loosening the labelled class exists to prevent.
-       */
-      for (const entry of KNOWN_RENDERER_GAP_EXCLUSIONS) {
-        expect(KNOWN_GAP_SCOPE.scenes as readonly string[]).toContain(entry.sceneId);
-        expect(KNOWN_GAP_SCOPE.profileKeys as readonly string[]).toContain(entry.profileKey);
-        expect(KNOWN_GAP_SCOPE.axes as readonly string[]).toContain(entry.axis);
-      }
-      // And it is not vacuous: the class must be doing work, or it should be gone.
-      expect(KNOWN_RENDERER_GAP_EXCLUSIONS.length).toBeGreaterThan(0);
-    });
-  });
 
   it("machine-checks the well-conditioned predicate and names every cell it excludes", () => {
     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(cell)).map(name).sort();

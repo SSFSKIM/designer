@@ -25,9 +25,14 @@
 
 import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
 import {
+  BACKDROP_TONE,
   CSS_TIER_MAPPING,
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
+  adaptedSourceOptics,
+  backdropToneAdaptation as cssBackdropToneAdaptation,
+  backdropToneUnderPolicy as cssBackdropToneUnderPolicy,
+  resolvedBackdropTone,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
   MATERIAL_SOURCE_SIZE,
@@ -58,6 +63,10 @@ import {
   DEFAULT_MATERIAL_PROFILE,
   INCREASED_OCCLUSION_LIFT as RENDERER_OCCLUSION_LIFT,
   MATERIAL_VARIANTS,
+  adaptedTintAlpha,
+  adaptedTintColour,
+  backdropToneAdaptation as rendererBackdropToneAdaptation,
+  backdropToneUnderPolicy as rendererBackdropToneUnderPolicy,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
@@ -540,6 +549,143 @@ describe("tier coherence (K5)", () => {
           foreground: "adaptive",
         }),
       );
+    }
+  });
+
+  /*
+   * ## Backdrop tone adaptation (W7)
+   *
+   * This axis is the one where a mirror drift is not a shade of difference but a
+   * different picture: at full strength it replaces the material's colour with
+   * the backdrop's own, so two tiers disagreeing about *how much* or *onto what*
+   * draw two different surfaces. That is not hypothetical — it is what the
+   * coherence gate caught while the axis was being fitted, at an interior level
+   * ratio of 79 against a band of 0.80…1.25, and it is why the tone itself is
+   * resolved once per group by the host and handed to both tiers rather than
+   * sampled independently on each.
+   */
+  it("mirrors the renderer's backdrop-tone constants, patch included", () => {
+    expect(BACKDROP_TONE.max).toBe(DEFAULT_MATERIAL_PROFILE.backdropToneMax);
+    expect(BACKDROP_TONE.low).toBe(DEFAULT_MATERIAL_PROFILE.backdropToneLow);
+    expect(BACKDROP_TONE.high).toBe(DEFAULT_MATERIAL_PROFILE.backdropToneHigh);
+    expect(BACKDROP_TONE.sizeBias).toBe(DEFAULT_MATERIAL_PROFILE.backdropToneSizeBias);
+
+    const patch = {
+      backdropToneMax: 0.7,
+      backdropToneLow: 0.05,
+      backdropToneHigh: 0.3,
+      backdropToneSizeBias: 0.2,
+    };
+    const rendered = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = resolvedBackdropTone(patch);
+    expect(mirrored.max).toBe(rendered.backdropToneMax);
+    expect(mirrored.low).toBe(rendered.backdropToneLow);
+    expect(mirrored.high).toBe(rendered.backdropToneHigh);
+    expect(mirrored.sizeBias).toBe(rendered.backdropToneSizeBias);
+    expect(mirrored.high).not.toBe(BACKDROP_TONE.high);
+  });
+
+  it("evaluates the same adaptation curve on both sides, at every span and every level", () => {
+    const patch = { backdropToneLow: 0.05, backdropToneHigh: 0.3, backdropToneSizeBias: 0.2 };
+    const rendered = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = resolvedBackdropTone(patch);
+    for (const profilePair of [
+      [DEFAULT_MATERIAL_PROFILE, BACKDROP_TONE] as const,
+      [rendered, mirrored] as const,
+    ]) {
+      const [rendererProfile, cssTone] = profilePair;
+      for (const backdrop of [0, 0.004, 0.0117, 0.05, 0.1, 0.2, 0.5, 0.891, 1]) {
+        for (const thickness of [0, 0.0923, 0.25, 0.5, 1]) {
+          expect(
+            cssBackdropToneAdaptation(backdrop, thickness, cssTone),
+            `backdrop ${backdrop} thickness ${thickness}`,
+          ).toBeCloseTo(
+            rendererBackdropToneAdaptation(backdrop, thickness, rendererProfile),
+            12,
+          );
+        }
+      }
+    }
+  });
+
+  it("folds the adaptation under a preference identically on both tiers", () => {
+    // Two folds, both patchable: `ambientTint` for the contrast regimes and the
+    // refraction ladder at the accessibility cap for reduced transparency. A
+    // profile that moved either and only one tier followed would put a demoted
+    // surface at a different adaptation from the one the GPU tier was drawing.
+    const patch = { reducedTintAdaptation: 0.6, refractionScale: { approximate: 0.3 } };
+    const rendered = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const preferences = (
+      flags: Partial<Record<"reducedTransparency" | "increasedContrast" | "forcedColors", boolean>>,
+    ) => ({
+      reducedTransparency: false,
+      reducedMotion: false,
+      increasedContrast: false,
+      forcedColors: false,
+      reducedTransparencySupported: true,
+      ...flags,
+    });
+    for (const flags of [
+      {},
+      { reducedTransparency: true },
+      { increasedContrast: true },
+      { reducedTransparency: true, increasedContrast: true },
+      { forcedColors: true },
+    ]) {
+      const policy = resolveAccessibilityPolicy(preferences(flags)).material;
+      expect(
+        cssBackdropToneUnderPolicy(
+          policy,
+          resolvedTintTone(patch),
+          sourceSize(patch).refractionScale,
+        ),
+        JSON.stringify(flags),
+      ).toBeCloseTo(rendererBackdropToneUnderPolicy(policy, rendered), 12);
+    }
+  });
+
+  it("adapts one material onto one backdrop to the same colour and alpha on both tiers", () => {
+    const backdrop = [0.02, 0.013, 0.03] as const;
+    for (const adaptation of [0, 0.1, 0.256, 0.5, 0.9, 1]) {
+      const source = sourceOptics()["regular"];
+      const css = adaptedSourceOptics(source, backdrop, adaptation);
+      const rendererColour = adaptedTintColour(
+        DEFAULT_MATERIAL_PROFILE.optics.regular.tint,
+        backdrop,
+        adaptation,
+        DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha,
+      );
+      expect(css.tintAlpha, `adaptation ${adaptation}`).toBeCloseTo(
+        adaptedTintAlpha(DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha, adaptation),
+        12,
+      );
+      for (const index of [0, 1, 2] as const) {
+        expect(css.tint[index], `adaptation ${adaptation} channel ${index}`).toBeCloseTo(
+          rendererColour[index] as number,
+          12,
+        );
+      }
+    }
+  });
+
+  it("converges the interior on the backdrop's tone — the property the pair exists for", () => {
+    // Both tiers state the adaptation as a (colour, alpha) pair, and the pair is
+    // only right if the composite it produces is the interior lerped toward the
+    // backdrop's tone. Checked here rather than in either package because it is
+    // the equation the two mirrors have to agree on, not a fact about one of them.
+    const tone = [0.02, 0.013, 0.03] as const;
+    const nominal = DEFAULT_MATERIAL_PROFILE.optics.regular;
+    const sharpBackdrop = [0.5, 0.5, 0.5] as const;
+    for (const adaptation of [0, 0.25, 0.5, 1]) {
+      const alpha = adaptedTintAlpha(nominal.tintAlpha, adaptation);
+      const colour = adaptedTintColour(nominal.tint, tone, adaptation, nominal.tintAlpha);
+      for (const index of [0, 1, 2] as const) {
+        const unadapted =
+          sharpBackdrop[index] * (1 - nominal.tintAlpha) + nominal.tint[index] * nominal.tintAlpha;
+        const expected = unadapted + (tone[index] - unadapted) * adaptation;
+        const actual = sharpBackdrop[index] * (1 - alpha) + (colour[index] as number) * alpha;
+        expect(actual, `adaptation ${adaptation} channel ${index}`).toBeCloseTo(expected, 12);
+      }
     }
   });
 });

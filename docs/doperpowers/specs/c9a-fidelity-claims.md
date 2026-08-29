@@ -27,6 +27,18 @@ dom-tier shape threshold, which the shadow's removal made meaningful). **The
 texture tier is untouched here as well: the 30 texture cells in
 `packages/calibration/results/matrix.json` are byte-identical across this child.**
 
+**Amended by W7 (2026-08-30).** Backdrop tone adaptation landed, and it is so far
+the only amendment that *removes* a limitation rather than adding a claim.
+Sections touched: §5.4 (**rewritten** — the seven excluded rows re-entered the
+adopted gate and pass at unchanged bounds, and the exclusion was deleted; the
+before-state is kept inside it), §5.8 (new — the measurement, the law, the fit,
+and the full re-verification), §5.7 (annotated: the size-derived facet it left
+open is closed, and the band 32…96 is now pinned by a second independent
+measurement), §4.3 (annotated — its *evidence* is superseded by the settled bed;
+its parent-impact item still stands). Every adopted threshold in §5 is untouched
+in both directions, and `results/matrix.json` is regenerated over all six profiles
+and both tiers from fresh captures.
+
 Every claim below is scoped to a **native profile × web cell**, per X9. Nothing
 here says "pixel-identical to Apple", and nothing here is a pass verdict — the
 thresholds in §5 are *proposals for the human gate*, not self-certification.
@@ -499,6 +511,26 @@ parameter.
 
 ### 4.3 Nothing selects a profile from the colour scheme
 
+> **Half superseded by §5.8 (W7, 2026-08-30); the parent-impact item itself still
+> stands.** The heading's claim is unchanged — nothing in the runtime reads
+> `prefers-color-scheme`, and a host still hands the dark profile in by name. What
+> is superseded is the *evidence* this section gives for its middle paragraph. The
+> sentence below reporting that the reference's interior "rises monotonically with
+> the backdrop across the whole canonical range (0.680 at a backdrop of 0.003…)"
+> was measured on the v1 mixed bed, and the settled bed reverses it at the dark
+> end: over a backdrop of 0.0117 the light-scheme 44 px capsule reads **0.0117**,
+> byte-identical to its own background, not 0.68. So the reference *does* respond
+> to the backdrop, continuously and size-gated, and C9a's inversion was wrong in
+> its direction rather than in its existence. The mechanism is measured and built
+> in §5.8. Kept here as the before-state, as §4.1 is.
+>
+> The two findings are compatible and the distinction is the useful part: the
+> **colour scheme** sets the material's neutral (0.809 against 0.055 over the same
+> bright checkerboard, which this section measured correctly), and **backdrop
+> adaptation** moves the material away from that neutral toward what is behind it.
+> C9a saw the first and could not see the second, because the bed it had was
+> caught mid-adaptation on exactly the cells where the second one lives.
+
 The single largest fidelity gap found in this child was not a constant being
 wrong but a *mechanism* being wrong.
 
@@ -822,7 +854,45 @@ the other way round, recovering 53–57%: there the extractor loses the
 all six are in ungated profiles — **neither light-standard table excludes
 anything, at either scale**.
 
-### 5.4 The one limitation the adopted gate does not cover
+### 5.4 The limitation the adopted gate did not cover — closed by W7
+
+> **REWRITTEN 2026-08-30 by W7.** This section recorded the project's largest
+> measured fidelity gap and the seven rows it cost, held out of the gate as a
+> labelled known renderer gap. The gap is closed: the axis is built, the rows
+> re-entered the gate at their unchanged bounds, and the exclusion was deleted.
+> The before-state is kept below in full, because a claim that a gap closed is
+> only worth reading beside the gap.
+
+**vitrea now follows Apple's backdrop tone adaptation.** The measurement, the
+law and its constants are §5.8; this section records the seven rows and what they
+read now.
+
+| profile | tier | scene | row | before | after | adopted bound |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6244 | **0.0000** | ≤ 0.17 |
+| 1x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6633 | **0.0324** | ≤ 0.17 |
+| 2x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6242 | **0.0000** | ≤ 0.17 |
+| 2x-light | texture | dark-solid__capsule-button__rest | SSIM | 0.9259 | **0.9792** | ≥ 0.93 |
+| 2x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6633 | **0.0372** | ≤ 0.17 |
+| 2x-light | texture | impulse__capsule-button__rest | SSIM | 0.9200 | **0.9678** | ≥ 0.93 |
+| 2x-light | dom | impulse__capsule-button__rest | SSIM | 0.9191 | **0.9682** | ≥ 0.92 |
+
+**Not one bound moved.** The rows were skipped, never loosened, and they now pass
+the same numbers they failed. `KNOWN_RENDERER_GAP_EXCLUSIONS` is gone from
+`adopted-thresholds.test.ts`, with a dated note where it stood; the perceptual
+rows of both light-standard tables now cover every cell of their profile, which
+is asserted by count rather than assumed.
+
+The mechanism that produced that cleanup is worth keeping in mind for the next
+gap. The exclusion was **data with four properties enforced around it**: every
+entry must *still fail* its bound, its quoted figure must match the committed
+matrix, it must carry a reason and a tracking pointer, and the class could not
+grow beyond the scenes the ruling named. The first of those is what made the
+close self-executing — when the axis landed, the rows passed, the test failed and
+named the entries, and the fix was to delete them.
+
+<details>
+<summary>The before-state, as this section read from 2026-08-30 until W7</summary>
 
 **vitrea does not follow Apple's backdrop tone adaptation.** Apple's material
 adapts its appearance continuously to the luminance behind it: a light-scheme
@@ -835,39 +905,15 @@ interior level is 0.013 in linear light where vitrea's is 0.631; over
 its background, so it has no separable silhouette at all.
 
 This is the largest measured fidelity gap in the project and the only thing that
-fails an adopted bound:
+fails an adopted bound. The seven rows were excluded from the gate as a labelled
+known renderer gap (user ruling, 2026-08-30, wave Decision Log 11), and the
+exclusion was a *distinct class* from §5's conditioning predicate: the predicate
+drops rows whose extractor could not find the component, where the number
+describes the instrument. These rows were measured perfectly well; what they
+recorded was a defect vitrea was known to have. Conflating the two would let a
+real gap hide inside a measurement caveat.
 
-| profile | tier | scene | row | measured | adopted bound |
-| --- | --- | --- | --- | --- | --- |
-| 1x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6272 | ≤ 0.17 |
-| 1x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6633 | ≤ 0.17 |
-| 2x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6272 | ≤ 0.17 |
-| 2x-light | texture | dark-solid__capsule-button__rest | SSIM | 0.9259 | ≥ 0.93 |
-| 2x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6647 | ≤ 0.17 |
-| 2x-light | texture | impulse__capsule-button__rest | SSIM | 0.9200 | ≥ 0.93 |
-| 2x-light | dom | impulse__capsule-button__rest | SSIM | 0.9191 | ≥ 0.92 |
-
-**These seven rows are excluded from the gate as a labelled known renderer gap**
-(user ruling, 2026-08-30, wave Decision Log 11), and the exclusion is a *distinct
-class* from §5's conditioning predicate. The predicate drops rows whose extractor
-could not find the component — the number describes the instrument. These rows
-were measured perfectly well; what they record is a defect vitrea is known to
-have. Conflating the two would let a real gap hide inside a measurement caveat.
-
-The exclusion lives in `adopted-thresholds.test.ts` as
-`KNOWN_RENDERER_GAP_EXCLUSIONS`: one entry per row, each carrying the reason
-above, a tracking pointer, and the measured figure. Four properties are enforced
-rather than promised — every entry must **still fail** its bound, its `measured`
-must match the committed matrix, its reason and tracking must be non-empty, and
-the class may not grow beyond the two named scenes' perceptual rows in the two
-light profiles. Nothing was loosened: every bound is unchanged and every excluded
-cell is named.
-
-**The fix is chartered as wave child W7** (backdrop tone adaptation), whose
-acceptance is that these two scenes re-enter the gate and pass *at the adopted
-bounds* — the exclusion dissolves rather than widens. Because the entries are
-data, W7's landing makes the still-fails test fail, which names them for
-deletion; deleting them re-arms the gate with no threshold edited.
+</details>
 
 ### 5.5 What the settled bed changed about §5's own exclusions
 
@@ -1206,6 +1252,323 @@ on an adaptation vitrea does not perform, so it belongs to W7 with the axis it
 gates, and W7 can key it off `sizeThickness` when it lands. **Ambient colour
 spill on large surfaces** (row 4) needs sampling beside a surface rather than
 behind it, and is untouched.
+
+> **CLOSED, the first of them, by W7 (2026-08-30) — see §5.8.** The size-gated
+> adaptation is now implemented on both tiers and it does key off `sizeThickness`,
+> exactly as this paragraph anticipated: the thickness enters the adaptation
+> curve's *argument*, so a thicker surface reads its backdrop as brighter and
+> holds its own appearance longer. Measured on the same two cells this paragraph
+> quotes, vitrea's 96 px surface over `dark-solid` now reads 0.4545 against the
+> reference's 0.4542 and its 44 px capsule is within a code step of the backdrop.
+> **Ambient colour spill remains untouched.**
+>
+> W7 also settled one of this section's own numbers from the other direction. The
+> band 32…96 is now pinned twice over: W2 set it from the reference's
+> transmission, and the tone axis independently requires it — a band ending at 64
+> lifts the 44 px capsule out of full adaptation (ΔE p95 0.0000 → 0.1560) and one
+> ending at 128 over-adapts the 96 px surface (0.0199 → 0.1139). The objective's
+> 3% preference for 64 survives W7 and is declined again, now for a second reason
+> as well as the first.
+
+### 5.8 Backdrop tone adaptation, measured (W7, 2026-08-30)
+
+**Added by W7** of the post-v1 wave
+(`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`), whose purpose was §5.4's
+gap: Apple's material takes on the tone of a dark enough backdrop instead of
+sitting in front of it, and vitrea had no such axis at all. Every figure below is
+measured against the **settled** six-profile bed, every constant is fitted
+against calibration cells only, and the holdout column was read once after the
+configuration was frozen.
+
+**No adopted bound was edited, added or removed by this section.** Seven rows
+that had been held out of the gate re-entered it and pass (§5.4).
+
+#### The observable that isolates the adaptation from everything else
+
+The obvious measurement is the wrong one. A material's interior level over a
+backdrop is transmission and tint and adaptation together, and this bed's
+backdrops differ in structure as well as in level, so reading adaptation off the
+level directly is the same confusion §4.1 fell into from the other side.
+
+There is one quantity in this bed that cancels all of it: the **separation
+between the light and the dark reference over the same backdrop, on the same
+component**. Under an adaptation that moves the material's tint toward its
+backdrop, that separation is `(1 − α)(1 − a)(tint_light − tint_dark)` — so the
+transmission `α`, the backdrop's own structure, and each scheme's tint all cancel,
+and what survives is `a`. Normalised at the checkerboard, where nothing adapts:
+
+| backdrop (linear) | span 44 px | span 96 px |
+| --- | --- | --- |
+| 0.5000 (`checkerboard`) | 0.000 | 0.000 |
+| 0.205 / 0.216 (`photo`) | 0.030 | 0.028 |
+| 0.0117 (`dark-solid`) | **1.000** | **0.256** |
+| 0.0049 (`impulse`) | **1.000** | — |
+
+The 2× bed reproduces every one of those to three decimals — 0.2553 against
+0.2556 on the one figure that is not a boundary — which is a reproducibility
+check the axis gets for free from the widened bed.
+
+Two facts follow, and the whole design is downstream of them. The adaptation is
+**off across the entire ordinary range** and turns on only below roughly a fifth
+of the backdrop scale, so it cannot disturb a cell that already passes. And it is
+**size-gated hard**: the same backdrop, the same material, 1.000 against 0.256.
+
+#### The law
+
+One curve, four constants, in the material profile beside the size law's:
+
+```
+x = backdropLuminance + backdropToneSizeBias · sizeThickness(span)
+a = backdropToneMax · (1 − smoothstep(backdropToneLow, backdropToneHigh, x))
+```
+
+`backdropToneMax` 1, `backdropToneLow` 0.02, `backdropToneHigh` 0.14,
+`backdropToneSizeBias` 0.09.
+
+The size term enters the curve's **argument** rather than its amplitude: a
+thicker surface reads its backdrop as brighter than it is, which is what more
+material between the viewer and the backdrop means. That is not a stylistic
+choice between two equivalent forms. An amplitude gate (`a = A(span) · f(bd)`)
+fits the two calibration points by construction and then predicts 0.256 for the
+96 px surface over `impulse`, where the argument form predicts 0.34; the
+validation cell reads 0.356.
+
+`a` then moves the material by converging its **interior** on the backdrop's own
+tone — `mix(interior, tone, a)` — which the renderer expresses as a (colour,
+alpha) pair so that one composite does it:
+
+```
+tint'  = (tint · (1 − a) · α + tone · a) / α'        α' = α + a(1 − α)
+```
+
+At `a = 1` the tint is the tone and the alpha is 1, so the surface *is* its
+backdrop's tone and keeps only its rim, its inner shadow and its lensing. That is
+what the reference does: `dark-solid__capsule-button__rest` is byte-identical to
+its own background in every standard profile, at both scales, in **both colour
+schemes**.
+
+Solving the pair rather than lerping the colour and the alpha separately is
+load-bearing and was measured, not reasoned: lerped independently, a partially
+adapted surface gets *lighter* than the one it started from — more opaque toward a
+tint that is still mostly neutral — and the 96 px cells caught it at once
+(interior 0.4545 → 0.5179 against a reference of 0.4542).
+
+**The scheme semantics.** The axis is *within* a colour scheme: the profile sets
+the neutral and this moves away from it, toward whatever is actually behind the
+surface. So the dark profile runs the same law with the same constants and does
+not double-adapt — and the bed confirms it, because over `dark-solid` and
+`impulse` the light and dark references are the **same pixels**. A crossover
+between two scheme tints would have been the other design, and it would have had
+nothing left to say about a dark material over a darker backdrop.
+
+**Where the backdrop is sampled, and why it is one number per group.** The tone a
+group adapts onto is resolved once, by the host, and handed to both tiers: X6's
+declared hint where the app gave one (its luminance, or the coarse reading of a
+`dark`/`light` tone), otherwise the linear-light average of the backdrop texture
+the app supplied, and otherwise nothing — with nothing meaning *no adaptation* on
+either tier rather than a guessed level.
+
+Per group rather than per pixel is the referee's ruling, not a convenience. The
+first build read the backdrop per pixel on the GPU tier and one average on the
+CSS tier, which is the natural capability of each; over the `impulse` backdrop
+that put the two tiers at a cross-tier interior level ratio of **79** against a
+gated band of 0.80…1.25. The two tiers blur their backdrops in *different spaces*
+— this renderer in linear light, `backdrop-filter` in the encoded one — so a fully
+adapted material that still transmits shows different pixels on the two tiers by
+construction. A material that shows a colour is tier-independent. Resolved once
+per group, the same cell reads a ratio of **1.000**.
+
+What that costs is stated rather than hidden: a surface over a locally dark corner
+of a brightly-averaged backdrop source does not adapt to the corner. The bed
+cannot see the difference (its only spatially varying backdrops sit far above the
+curve's high edge, where the adaptation is zero either way), so nothing here is
+fitted to it — it is a capability limit with a capture that would test it: a scene
+whose backdrop is dark under the component and bright elsewhere.
+
+#### The fit
+
+Fitted on the light-standard calibration cells, against this package's declared
+objective (mean of |Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|, linear
+light), with SSIM and ΔE read as checks. Every constant was set from the
+reference-side measurement above **first** and then confirmed against the
+objective, and the objective agrees with all four:
+
+| axis | grid | best | spread |
+| --- | --- | --- | --- |
+| `backdropToneHigh` | 0.08 / 0.11 / 0.14 / 0.17 / 0.20 | **0.14** | 1.16× |
+| `backdropToneSizeBias` | 0.05 / 0.07 / 0.09 / 0.11 / 0.13 | **0.09** | 1.24× |
+| `backdropToneLow` | 0 / 0.01 / 0.02 / 0.03 / 0.04 | **0.02** | 1.04× |
+| `backdropToneMax` | 0 / 0.5 / 0.8 / 1 | **1** | 1.10× |
+
+The axis switched off (`backdropToneMax` 0) is the pre-W7 configuration exactly,
+and it reads the objective 0.16372 — W2's own closing figure, reproduced. On:
+**0.14887**, a 9.1% improvement, with both checks moving the same way (ΔE 0.01299
+→ 0.00796, SSIM 0.9620 → 0.9667). It is monotone in the strength, which is the
+shape a real mechanism has and a fitted artefact usually does not.
+
+**The dark end of the band is not identifiable from this bed, and the fit says
+so.** The reference's backdrops jump from 0.0117 to 0.205 with nothing in between,
+so `backdropToneLow` is bounded only by "at or below the darkest calibration
+backdrop" — its grid is flat to 1.04×. What the two dark backdrops *do* pin is the
+curve's slope near zero, because the 96 px surface reads 0.256 at 0.0117 and 0.356
+at 0.0039: a measured intermediate rather than a step. Closing the rest of it
+needs native captures at intermediate backdrop levels — three or four solid
+backgrounds between linear 0.01 and 0.20 — which is a `scenes.json` addition and
+therefore a scope question rather than a re-run.
+
+One coincidence worth naming rather than leaving for a reader to find: the 44 px
+capsule's effective backdrop over `dark-solid` is 0.0117 + 0.09 × 0.0923 =
+**0.0200**, and `backdropToneLow` is 0.02. Its full adaptation is therefore exact
+but not margined. That is the law working rather than a fit to an edge — a 48 px
+capsule would adapt slightly less, which is what a continuous size gate means —
+and the objective picks 0.02 independently of it. But a future retune that moves
+`sizeSpanMin`/`Max` moves this too, which is the coupling §5.7's band note now
+records from the other side.
+
+#### Continuity
+
+The acceptance asks for a continuous adaptation with intermediate backdrops
+measured rather than only the extremes, and this bed can only half answer it. What
+is measured on the reference is three distinct levels across the transition —
+0.0039, 0.0117 and 0.205 — with the response strictly between at the middle one.
+That establishes a transition rather than a step, and it fixes the slope near
+zero; it does not establish the shape of the knee, which is the paragraph above.
+
+What *is* measured across the whole range is vitrea's own response, in three
+places, because a discontinuity in the thing we built is the failure this axis is
+most exposed to. The curve is sampled at 2000 points per span in the renderer's
+unit suite, with a bounded step between neighbours and a flat derivative at both
+edges. Sixteen flat backdrops from black to mid-grey are rendered in a browser and
+read back off the surface's own pixels, asserting monotone movement and no jump
+larger than a third of the whole excursion
+(`packages/platform-web/e2e/pixel/backdrop-tone-pixels.spec.ts`). And the demo
+carries a control that walks a real surface through the transition, which is the
+version a reader can see.
+
+#### Accessibility
+
+The adaptation folds under a preference, through two existing constants and no new
+one. `ambientTint` — the axis the wave's composition contract names for how far
+the material may move its colour — carries increased contrast (× 0.35) and forced
+colours (× 0, and the optics pass stands down before it reaches here). The
+refraction ladder read at the **accessibility cap** carries reduced transparency
+(× 0.45), which touches no tint axis at all and would otherwise get the adaptation
+at full strength — and full strength dissolves a surface into its backdrop, which
+is precisely the occlusion that preference asked to be *raised*.
+
+**Measured, not assumed, and the measurement is that nothing moves**: both
+accessibility profiles' cells are bit-identical across this change, on both tiers,
+every metric. That is not the fold working — it is that neither profile's scene
+set contains a backdrop dark enough for this axis to act on at all. So the fold is
+a statement about which way to be wrong, and it is unmeasured. Closing it needs a
+`dark-solid` or `impulse` scene in the accessibility profiles' scene lists, which
+is a capture session rather than a threshold.
+
+The reference does say something adjacent, and it points the same way: under
+reduce-transparency its material is nearly opaque and *flat* in the backdrop
+across the whole range the bed covers (interior 0.9558 / 0.9557 / 0.9556 at
+backdrops 0.529 / 0.500 / 0.205), where the standard material is already moving.
+
+#### What this did not close
+
+**The occlusion gain is still zero, and W2's diagnosis of why was wrong.** W2
+fitted `sizeOcclusionGain` to a boundary optimum and recorded the reason as the
+missing tone axis — "the axis that would let it fit is W7's". The axis now exists
+and the sweep is unchanged in shape: 0 / 0.1 / 0.2 / 0.35 / 0.5 reads 0.1489 →
+0.2000, monotone, a 1.34× spread. The seam stays wired and inert.
+
+The real residual is visible in the same numbers and is neither size nor tone:
+vitrea's interior sits ~0.18 above the reference's in the **middle** of the
+backdrop range (0.7911 against 0.6053 over the checkerboard, 44 px), where this
+axis is inert by construction and the size law has nothing to say. That is the
+material's own transmission — a `tintAlpha` of 0.62 toward a white tint gives 0.79
+over a 0.5 backdrop where the reference gives 0.61 — and moving it is a retune of
+C9a's fitted constant, which would move every cell in the matrix and every adopted
+bound with it. Named here as the next parent-impact item on this axis; not touched.
+
+#### Fit, validation and holdout
+
+Measured once, on the frozen configuration, over the full regenerated bed — all
+six profiles, both tiers, fresh captures, 168 cells. Worst cell per set, with the
+pre-W7 figure first. The two formerly-excluded scenes are **included** in these
+worsts on both sides, unlike §5.7's table, because they are gated cells again.
+
+| profile | tier | set | ΔE mean | SSIM | edge-weighted | ΔE p95 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | calibration | 0.0495 → **0.0196** | 0.9088 → **0.9107** | 0.0571 → **0.0341** | 0.6244 → **0.0983** |
+|  |  | validation | 0.0532 → **0.0189** | 0.9046 → **0.9413** | 0.0535 → **0.0324** | 0.6633 → **0.0918** |
+|  |  | holdout | **0.0547** (unmoved) | **0.8934** (unmoved) | **0.0845** (unmoved) | **0.1339** (unmoved) |
+|  | dom | calibration | 0.0508 → **0.0181** | 0.9080 → **0.9304** | 0.0587 → **0.0422** | 0.6213 → **0.0862** |
+|  |  | validation | 0.0535 → **0.0182** | 0.9036 → **0.9534** | 0.0524 → **0.0403** | 0.6429 → **0.0818** |
+|  |  | holdout | **0.0560** (unmoved) | **0.9205** (unmoved) | **0.1070** (unmoved) | **0.1090** (unmoved) |
+| `2x-light-standard` | texture | calibration | 0.0495 → **0.0201** | 0.9259 → **0.9565** | 0.0534 → **0.0376** | 0.6242 → **0.0827** |
+|  |  | validation | 0.0532 → **0.0192** | 0.9200 → **0.9578** | 0.0523 → **0.0293** | 0.6633 → **0.0911** |
+|  |  | holdout | **0.0545** (unmoved) | **0.9566** (unmoved) | **0.0941** (unmoved) | **0.1335** (unmoved) |
+|  | dom | calibration | 0.0507 → **0.0181** | 0.9251 → **0.9679** | 0.0557 → **0.0400** | 0.6213 → **0.0790** |
+|  |  | validation | 0.0534 → **0.0184** | 0.9191 → **0.9682** | 0.0506 → **0.0416** | 0.6429 → **0.0832** |
+|  |  | holdout | **0.0559** (unmoved) | **0.9509** (unmoved) | **0.1040** (unmoved) | **0.1084** (unmoved) |
+| `1x-dark-standard` | texture | calibration | 0.0206 → **0.0205** | 0.9335 → **0.9408** | 0.0075 → **0.0067** | 0.1366 → **0.1200** |
+|  |  | validation | 0.0155 → **0.0087** | 0.9348 → **0.9546** | **0.0065** (unmoved) | 0.1764 → **0.0924** |
+|  |  | holdout | **0.0674** (unmoved) | **0.9196** (unmoved) | **0.0118** (unmoved) | **0.1597** (unmoved) |
+|  | dom | calibration | 0.0241 → **0.0227** | 0.9186 → **0.9268** | **0.0132** (unmoved) | 0.1405 → **0.1281** |
+|  |  | validation | 0.0164 → **0.0090** | 0.9320 → **0.9542** | **0.0064** (unmoved) | 0.1771 → **0.0938** |
+|  |  | holdout | **0.0732** (unmoved) | **0.8961** (unmoved) | **0.0203** (unmoved) | **0.1713** (unmoved) |
+| `2x-dark-standard` | texture | calibration | 0.0207 → **0.0203** | 0.9537 → **0.9611** | 0.0088 → **0.0072** | 0.1366 → **0.1177** |
+|  |  | validation | 0.0155 → **0.0090** | 0.9483 → **0.9678** | **0.0069** (unmoved) | 0.1771 → **0.0949** |
+|  |  | holdout | **0.0671** (unmoved) | **0.9510** (unmoved) | **0.0127** (unmoved) | **0.1594** (unmoved) |
+|  | dom | calibration | 0.0241 → **0.0226** | 0.9446 → **0.9528** | 0.0128 → **0.0112** | 0.1405 → **0.1260** |
+|  |  | validation | 0.0164 → **0.0094** | 0.9469 → **0.9682** | **0.0066** (unmoved) | 0.1771 → **0.0998** |
+|  |  | holdout | **0.0729** (unmoved) | **0.9423** (unmoved) | **0.0179** (unmoved) | **0.1700** (unmoved) |
+| `1x-light-reduced-transparency` | texture | calibration | **0.0115** (unmoved) | **0.9849** (unmoved) | **0.0332** (unmoved) | **0.0552** (unmoved) |
+|  |  | validation | **0.0068** (unmoved) | **0.9609** (unmoved) | **0.0258** (unmoved) | **0.0431** (unmoved) |
+|  |  | holdout | **0.0312** (unmoved) | **0.9843** (unmoved) | **0.0847** (unmoved) | **0.0741** (unmoved) |
+|  | dom | calibration | **0.0119** (unmoved) | **0.9643** (unmoved) | **0.0383** (unmoved) | **0.0427** (unmoved) |
+|  |  | validation | **0.0054** (unmoved) | **0.9674** (unmoved) | **0.0223** (unmoved) | **0.0331** (unmoved) |
+|  |  | holdout | **0.0336** (unmoved) | **0.9345** (unmoved) | **0.0913** (unmoved) | **0.0586** (unmoved) |
+| `1x-light-increased-contrast` | texture | calibration | **0.0186** (unmoved) | **0.9314** (unmoved) | **0.0677** (unmoved) | **0.0735** (unmoved) |
+|  |  | validation | **0.0115** (unmoved) | **0.9252** (unmoved) | **0.0451** (unmoved) | **0.0559** (unmoved) |
+|  |  | holdout | **0.0474** (unmoved) | **0.8812** (unmoved) | **0.1479** (unmoved) | **0.0901** (unmoved) |
+|  | dom | calibration | **0.0220** (unmoved) | **0.9204** (unmoved) | **0.0735** (unmoved) | **0.0559** (unmoved) |
+|  |  | validation | **0.0131** (unmoved) | **0.9240** (unmoved) | **0.0494** (unmoved) | **0.0483** (unmoved) |
+|  |  | holdout | **0.0539** (unmoved) | **0.8581** (unmoved) | **0.1566** (unmoved) | **0.0727** (unmoved) |
+
+Read the light-standard rows as the claim: **every calibration and validation
+figure improves, on every metric and both tiers, and not one of the 168 cells
+moves the wrong way on any metric.** 140 cells are bit-identical to the pre-W7
+bed — the axis is exactly inert above its knee, observed rather than asserted —
+and the 28 that move are the four dark-backdrop scenes across the four standard
+profiles and both tiers. The two accessibility profiles are bit-identical
+throughout, for the reason §Accessibility above gives: neither has a backdrop
+this axis can act on.
+
+**The holdout is unmoved, in every digit, on every profile and both tiers — and
+that is a weaker result than it looks.** It discharges the half it can: the
+configuration was frozen before this column was read, and nothing the fit could
+not see regressed. It cannot discharge the other half, because the holdout scenes
+are `hc-text`, `rrect-lg` and `glass-over-glass`, whose backdrops all sit far
+above the curve's high edge. **This axis has no holdout scene.** What validated it
+is the validation set — `impulse__capsule-button__rest` and
+`impulse__rrect-md__rest`, neither fitted to, both moving the whole way (ΔE p95
+0.6633 → 0.0324 and 0.1101 → 0.0257 on the 1× texture tier) — plus the
+independent agreement of the 2× bed, and the size gate's argument form predicting
+0.34 at the validation cell against a measured 0.356. A dark-backdrop holdout
+scene is what would close it properly, and it is the same `scenes.json` addition
+the band's dark end needs.
+
+#### Three margins, after
+
+- **Cross-tier interior ratio, light profiles: 0.8182, unchanged to the digit.**
+  On `photo__glass-over-glass__rest` (holdout), against a gated floor of 0.80 —
+  the project's tightest margin, W2's, and W7 did not touch it. That is the
+  inertness property showing up where it matters most: that cell's backdrop is
+  0.219, an order of magnitude above the curve's high edge. The *ceiling* on the
+  same profiles improved, 1.0799 → 1.0284, because the cell that used to hold it
+  now reads exactly 1.000.
+- **Cross-tier ΔE mean: 0.0349, unchanged**, on `photo__rrect-lg__rest` against a
+  bound of 0.05. Every cell whose coherence figure moved, moved down.
+- **The dark profiles' interior-ratio ceiling: 1.1998 at 1× and 1.1956 at 2×,
+  unchanged**, against 1.25. W2's watch item stays where W2 left it.
+
 
 ---
 

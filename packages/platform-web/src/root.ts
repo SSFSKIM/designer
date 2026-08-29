@@ -86,17 +86,23 @@ import {
   type MediaMatcher,
 } from "./media-policy";
 import {
+  adaptedSourceOptics,
+  backdropToneAdaptation,
+  backdropToneUnderPolicy,
   boundedForegroundLevel,
   CSS_TIER_MAPPING,
+  cssOpticsFromSource,
   cssTierOptics,
   gpuTierForegroundBounds,
   gpuTierForegroundLevel,
   linearTint,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
+  resolvedBackdropTone,
   resolvedPolicyFold,
   resolvedTintTone,
   sizeScatterSigmaAt,
+  sizeThickness,
   sizeThicknessUnderPolicy,
   sourceOptics,
   sourceSize,
@@ -104,8 +110,14 @@ import {
   tintedSourceOptics,
   tintToneAdaptation,
   type CssTierMapping,
+  type LinearRgb,
   type MaterialOptics,
 } from "./optics";
+import {
+  BACKDROP_TONE_CADENCE_MS,
+  sampleBackdropTone,
+  type BackdropToneSample,
+} from "./backdrop-tone";
 import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } from "./planes";
 import { resolveSamplingGeometry } from "./proxy-geometry";
 import { createTintParser, resolveTintDeclaration } from "./tint";
@@ -259,6 +271,17 @@ export interface GlassGroupRenderInput {
    * exactly rather than inheriting the proxy default.
    */
   readonly declaredMergeDistance: number | undefined;
+  /**
+   * The backdrop's own average colour in linear light (W7) — X6's declared hint
+   * where there is one, otherwise measured from the pixels the app supplied for
+   * this group's backdrop source, and absent where neither exists.
+   *
+   * Resolved here, once per group, precisely so both tiers read the same number:
+   * backdrop tone adaptation moves the material onto this colour, and two tiers
+   * moving onto different colours is a coherence failure rather than a rounding
+   * difference.
+   */
+  readonly backdropTone?: readonly [number, number, number];
 }
 
 export interface GlassPlaneRenderInput {
@@ -561,6 +584,54 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * floor need them from the *same* profile the renderer is drawing with.
    */
   let sizeConstants = sourceSize(options.materialProfile);
+  /**
+   * The backdrop tone adaptation's curve (W7), from the same profile. The GPU
+   * tier evaluates it per pixel; this tier evaluates it once per surface against
+   * whatever it knows of the backdrop — see `backdropTone` below.
+   */
+  let backdropToneConstants = resolvedBackdropTone(options.materialProfile);
+  /**
+   * What this tier knows about each backdrop source's own colour, in linear
+   * light — the input the adaptation cannot get any other way here.
+   *
+   * Held on the root rather than in the bridge because a CSS-tier root has no
+   * bridge and needs the answer just the same: `setBackdropTexture` is how an app
+   * hands over its backdrop's pixels, and until now a root without a renderer
+   * dropped them. Re-read whenever the app says the content changed, which is the
+   * same ledger the GPU tier rebuilds its pyramid from.
+   */
+  const suppliedTextures = new Map<string, GlassBackdropTexture>();
+  const backdropTones = new Map<
+    string,
+    { readonly epoch: number; readonly atMs: number; readonly sample: BackdropToneSample | undefined }
+  >();
+  /**
+   * The source's tone, re-read when the app says its content changed and no more
+   * often than `BACKDROP_TONE_CADENCE_MS`.
+   *
+   * Two bounds because one is not enough. The dirty epoch is the same ledger the
+   * GPU tier rebuilds its pyramid from, so a static image is read exactly once —
+   * but a canvas or video backdrop re-marks itself every frame, and a per-frame
+   * `getImageData` of a page-sized backdrop is a real cost for a number that
+   * moves slowly. The cadence is the second bound, and it is the same judgement
+   * the GPU tier's own analysis readback already makes about this quantity.
+   *
+   * The first read is never delayed: a surface must not paint unadapted and then
+   * change its mind a quarter of a second later.
+   */
+  const backdropToneFor = (sourceId: string): BackdropToneSample | undefined => {
+    const texture = suppliedTextures.get(sourceId);
+    if (texture === undefined) return undefined;
+    const epoch = scene.backdropSource(sourceId)?.dirtyEpoch ?? 0;
+    const held = backdropTones.get(sourceId);
+    const now = view.performance?.now() ?? 0;
+    if (held !== undefined && (held.epoch === epoch || now - held.atMs < BACKDROP_TONE_CADENCE_MS)) {
+      return held.sample;
+    }
+    const sample = sampleBackdropTone(texture);
+    backdropTones.set(sourceId, { epoch, atMs: now, sample });
+    return sample;
+  };
   /** One CSS-colour parser per root, memoised by string. See `tint.ts`. */
   const parseTint = createTintParser(view.document);
 
@@ -866,6 +937,41 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       if (planesMeasured.size > 0) auditablePlanes.set(groupId, planesMeasured);
 
       /*
+       * What this group's backdrop is, for backdrop tone adaptation (W7) —
+       * resolved ONCE, here, and handed to both tiers.
+       *
+       * Once and per group is the point. The two tiers have to adapt onto the
+       * same colour by the same amount or they draw different pictures wherever
+       * the backdrop has structure, and the coherence bound is what that costs
+       * (measured at an interior level ratio of 79 when the GPU tier read the
+       * backdrop per pixel and this tier read one average).
+       *
+       * The order is the app's statements in the order they deserve: X6's declared
+       * hint first, which is core's own rule for `resolveBackdropHint`; then the
+       * pixels the app handed over for the backdrop source; then nothing, which
+       * means neither tier adapts. Nothing is not a fallback level — a guessed
+       * backdrop would dissolve an untinted surface into a page it never measured.
+       *
+       * A hint carries a level and not a colour, so the tone it stands for is
+       * achromatic; only the sampled path can move the material's hue.
+       */
+      const declaredHint = resolved.hint.availability === "author-hint" ? resolved.hint.hint : undefined;
+      const declaredLuminance =
+        declaredHint === undefined
+          ? undefined
+          : (declaredHint.luminance ??
+            (declaredHint.tone === "dark" || declaredHint.tone === "light"
+              ? cssMapping.toneLuminance[declaredHint.tone]
+              : undefined));
+      const backdropTone: BackdropToneSample | undefined =
+        declaredLuminance === undefined
+          ? backdropToneFor(groupRecord.descriptor.backdropSourceId)
+          : {
+              rgb: [declaredLuminance, declaredLuminance, declaredLuminance],
+              luminance: declaredLuminance,
+            };
+
+      /*
        * The group's sampling geometry, with the **default** derived from the
        * blur this group is actually drawing with rather than from a constant
        * (see `resolveSamplingGeometry`). core cannot do this: σ lives in the
@@ -909,6 +1015,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         mergeDistance: sampling.mergeDistance,
         declaredMergeDistance: groupRecord.descriptor.mergeDistance,
         blurRadius: optics.blurRadius,
+        ...(backdropTone === undefined ? {} : { backdropTone: backdropTone.rgb }),
       });
 
       // The proxy path belongs to the WebGPU tier's dom sampling. The CSS tier
@@ -991,17 +1098,59 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           hintedBackdropLuminance(hint, cssMapping) ?? cssMapping.referenceBackdropLuminance;
         const toneAdaptation = tintToneAdaptation(accessibility.material.ambientTint, tintTone);
         const seed = material.tint === undefined ? undefined : linearTint(material.tint);
-        const nodeBaseOptics = tintedCssOptics(
-          baseOptics,
-          gpuOptics[variant],
-          seed,
-          toneBackdrop,
-          toneAdaptation,
-          cssMapping,
-          tintTone,
-        );
+
+        /*
+         * Backdrop tone adaptation (W7) — step two of the composition contract,
+         * between the profile's neutral and the author's tint. The backdrop it
+         * adapts onto was resolved once for the whole group, above, and the GPU
+         * tier is handed the same value: one tone, one amount, two tiers.
+         *
+         * The size gate is per surface, from the host's own measured border box,
+         * and it takes the UNFOLDED thickness — the gate is geometric, and the
+         * policy has its own fold on the strength beside it.
+         */
+        const backdropAdaptation =
+          backdropTone === undefined
+            ? 0
+            : backdropToneAdaptation(
+                backdropTone.luminance,
+                sizeThickness(Math.min(bounds.width, bounds.height), sizeConstants),
+                backdropToneConstants,
+              ) *
+              backdropToneUnderPolicy(
+                accessibility.material,
+                tintTone,
+                sizeConstants.refractionScale,
+              );
+
+        const nodeBaseOptics =
+          backdropAdaptation <= 0
+            ? tintedCssOptics(
+                baseOptics,
+                gpuOptics[variant],
+                seed,
+                toneBackdrop,
+                toneAdaptation,
+                cssMapping,
+                tintTone,
+              )
+            : cssOpticsFromSource(
+                baseOptics,
+                tintedSourceOptics(
+                  adaptedSourceOptics(
+                    gpuOptics[variant],
+                    backdropTone?.rgb as LinearRgb | undefined,
+                    backdropAdaptation,
+                  ),
+                  seed,
+                  toneBackdrop,
+                  toneAdaptation,
+                  tintTone,
+                ),
+                cssMapping,
+              );
         const nodeOptics =
-          seed === undefined
+          seed === undefined && backdropAdaptation <= 0
             ? optics
             : opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold);
 
@@ -1270,6 +1419,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     setBackdropTexture(sourceId, texture) {
       bridge?.setBackdropTexture(sourceId, texture);
+      // Held on this side too (W7). The bridge is the GPU tier's, and a CSS-tier
+      // root has none — but the backdrop's own tone is what the CSS tier's
+      // adaptation is missing, and these are exactly the pixels that answer it.
+      if (texture === undefined) {
+        suppliedTextures.delete(sourceId);
+        backdropTones.delete(sourceId);
+      } else {
+        suppliedTextures.set(sourceId, texture);
+        backdropTones.delete(sourceId);
+      }
       // Supplying pixels is a content change, and a content change that does not
       // raise the dirty epoch is invisible: the pyramid is rebuilt from that
       // ledger and nothing else. Before this, every caller in the repo reached
@@ -1565,6 +1724,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       policyFold = resolvedPolicyFold(profile);
       tintTone = resolvedTintTone(profile);
       sizeConstants = sourceSize(profile);
+      backdropToneConstants = resolvedBackdropTone(profile);
       bridge?.setMaterialProfile(profile);
     },
 

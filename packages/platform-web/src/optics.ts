@@ -156,6 +156,130 @@ export const TINT_TONE: TintToneConstants = {
 };
 
 /**
+ * Backdrop tone adaptation's curve, mirrored (W7).
+ *
+ * Apple's material takes the tone of a dark enough backdrop instead of sitting in
+ * front of it, and it does so by size: over the settled bed's `dark-solid` the
+ * reference's 44 px capsule adapts completely while its 96 px rrect keeps three
+ * quarters of its own appearance. `sizeBias` is that gate, and it enters the
+ * curve's argument rather than its amplitude — a thicker surface reads its
+ * backdrop as brighter than it is.
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.backdropTone*`, pinned in
+ * both directions by `packages/calibration/test/tier-coherence.test.ts`. The
+ * numbers are authored there, with the measurement that chose them; this is a
+ * mirror, not a second opinion.
+ */
+export interface BackdropToneConstants {
+  readonly max: number;
+  readonly low: number;
+  readonly high: number;
+  readonly sizeBias: number;
+}
+
+export const BACKDROP_TONE: BackdropToneConstants = {
+  max: 1,
+  low: 0.02,
+  high: 0.14,
+  sizeBias: 0.09,
+};
+
+/** The adaptation constants under a profile patch, by the renderer's merge rule. */
+export function resolvedBackdropTone(patch?: RendererMaterialProfile): BackdropToneConstants {
+  return {
+    max: patch?.backdropToneMax ?? BACKDROP_TONE.max,
+    low: patch?.backdropToneLow ?? BACKDROP_TONE.low,
+    high: patch?.backdropToneHigh ?? BACKDROP_TONE.high,
+    sizeBias: patch?.backdropToneSizeBias ?? BACKDROP_TONE.sizeBias,
+  };
+}
+
+/**
+ * How far the material's tint is pulled onto its backdrop, 0…1, before the
+ * accessibility fold. Mirrors the renderer's `backdropToneAdaptation`.
+ *
+ * `thickness` is the size law's own factor, and it must be the **unfolded**
+ * `sizeThickness`: the gate is geometric, and no preference changes how much
+ * material stands between the viewer and the backdrop. (The shader is handed the
+ * folded thickness and a bias pre-divided by the same cap; this tier has both
+ * quantities in hand and takes the honest one directly.)
+ */
+export function backdropToneAdaptation(
+  backdropLuminance: number,
+  thickness: number,
+  tone: BackdropToneConstants = BACKDROP_TONE,
+): number {
+  const x = backdropLuminance + tone.sizeBias * clamp01(thickness);
+  const span = Math.max(tone.high - tone.low, 1e-6);
+  const t = clamp01((x - tone.low) / span);
+  return clamp01(tone.max) * (1 - t * t * (3 - 2 * t));
+}
+
+/**
+ * How much of the adaptation survives an accessibility regime — the mirror of the
+ * renderer's `backdropToneUnderPolicy`, and the same two folds.
+ *
+ * `ambientTint` is the axis the wave's composition contract names for how far the
+ * material may move its colour, and it is what carries increased contrast and
+ * forced colours. The refraction ladder read at the accessibility cap carries
+ * reduced transparency, which touches no tint axis at all: at full strength this
+ * axis dissolves a surface into its backdrop, which is precisely the occlusion
+ * that preference asked to be *raised*, so the preference wins.
+ */
+export function backdropToneUnderPolicy(
+  material: ResolvedMaterialPolicy,
+  tone: TintToneConstants = TINT_TONE,
+  refractionScale: Readonly<Record<"none" | "approximate" | "true", number>> =
+    MATERIAL_SOURCE_REFRACTION_SCALE,
+): number {
+  const rung =
+    material.refraction === "nominal"
+      ? "true"
+      : material.refraction === "reduced"
+        ? "approximate"
+        : "none";
+  return tintToneAdaptation(material.ambientTint, tone) * refractionScale[rung];
+}
+
+/**
+ * The material with the backdrop's tone folded onto its neutral tint — step two
+ * of the composition contract (colour scheme → **backdrop adaptation** → author
+ * tint), and the mirror of the renderer's `adaptedTintColour` and
+ * `adaptedTintAlpha`.
+ *
+ * `backdrop` is the backdrop's **average** colour in linear light, because a
+ * fully adapted material shows its backdrop's tone and a tone is a mean.
+ *
+ * Both the colour and the alpha move, and the alpha is the half a cross-tier
+ * measurement forced. An adapting material stops transmitting as it takes its
+ * backdrop's tone — the settled reference over the `impulse` backdrop is a flat
+ * body with the grid hidden behind it. Adapting the colour alone left the
+ * material fully transparent at full strength, and a transparent material cannot
+ * cohere across these two tiers: the renderer blurs its backdrop in linear light
+ * and `backdrop-filter` blurs in the encoded space, so over a high-dynamic-range
+ * backdrop they show different pixels by construction. Measured: GPU over CSS
+ * interior ratio 23.5 against a gated band of 0.80…1.25. A material that shows a
+ * colour is tier-independent; one that shows its backdrop is not.
+ */
+export function adaptedSourceOptics(
+  source: MaterialSourceOptics,
+  backdrop: LinearRgb | undefined,
+  adaptation: number,
+): MaterialSourceOptics {
+  const k = clamp01(adaptation);
+  if (backdrop === undefined || k <= 0) return source;
+  const alpha = source.tintAlpha + k * (1 - source.tintAlpha);
+  if (alpha <= 0) return source;
+  // The pair that makes the interior CONVERGE on the backdrop's tone, rather than
+  // two independently lerped parameters — see the renderer's `adaptedTintColour`
+  // for the cells that caught the difference.
+  const weight = (1 - k) * source.tintAlpha;
+  const mix = (index: 0 | 1 | 2): number =>
+    (source.tint[index] * weight + backdrop[index] * k) / alpha;
+  return { ...source, tint: [mix(0), mix(1), mix(2)], tintAlpha: alpha };
+}
+
+/**
  * An author's seed in the working space.
  *
  * Core carries the colour the author wrote — sRGB-encoded, because that is what
@@ -779,9 +903,29 @@ export function tintedCssOptics(
   tone: TintToneConstants = TINT_TONE,
 ): MaterialOptics {
   if (tint === undefined || tint.strength <= 0) return base;
-  const tinted = tintedSourceOptics(source, tint, backdropLuminance, toneAdaptation, tone);
-  const alpha = cssTintAlpha(tinted, mapping);
-  return { ...base, tintAlpha: alpha, tint: cssTintColor(tinted, alpha, mapping) };
+  return cssOpticsFromSource(
+    base,
+    tintedSourceOptics(source, tint, backdropLuminance, toneAdaptation, tone),
+    mapping,
+  );
+}
+
+/**
+ * The same conversion, for a source the caller has already displaced — the
+ * backdrop adaptation reaches this tier through here (W7), and the author tint
+ * through `tintedCssOptics` above.
+ *
+ * Split out because the adaptation moves the material's colour on a surface that
+ * carries no author tint at all, and every displacement has to land through one
+ * conversion or the tier would gain a second set of numbers to drift.
+ */
+export function cssOpticsFromSource(
+  base: MaterialOptics,
+  source: MaterialSourceOptics,
+  mapping: CssTierMapping = CSS_TIER_MAPPING,
+): MaterialOptics {
+  const alpha = cssTintAlpha(source, mapping);
+  return { ...base, tintAlpha: alpha, tint: cssTintColor(source, alpha, mapping) };
 }
 
 /**

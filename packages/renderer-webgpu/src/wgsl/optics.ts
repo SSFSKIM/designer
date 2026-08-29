@@ -82,6 +82,14 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// bodyChainLod — the last being the chain level whose blur already matches the
   /// body texture, which is what the scattering term measures its octaves from
   size : vec4f,
+  /// backdrop tone adaptation (W7): backdropToneLow, backdropToneHigh, the size
+  /// bias ALREADY divided by the accessibility refraction cap (so that it may be
+  /// multiplied by the policy-folded 'sizeK' below and still mean the geometric
+  /// thickness), and the strength the accessibility policy resolved — zero where
+  /// the host could not measure a backdrop tone, which stands the axis down
+  toneAdapt : vec4f,
+  /// the backdrop source's own average colour, linear (xyz), and its luminance (w)
+  toneColour : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -182,6 +190,59 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // is what a 'hint' or 'none' group gets.
   let neutral = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
 
+  let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722));
+
+  /*
+   * Backdrop tone adaptation (W7) — step two of the composition contract, between
+   * the colour scheme's neutral and the author's tint.
+   *
+   * Read against 'toneColour': the backdrop SOURCE's own average, measured by the
+   * host from the pixels it supplied and handed to both tiers as one number. Not a
+   * per-pixel sample, and that is the load-bearing choice — see
+   * 'GroupRenderInput.backdropTone' for the cross-tier measurement that settled
+   * it, and note that the reference agrees: its capsule over a sparse bright grid
+   * is a flat body rather than a window onto the grid.
+   *
+   * 'sizeK' is still per pixel, so a container holding a small control and a large
+   * platter adapts each of them by its own thickness out of one pass.
+   *
+   * Strength is zero where the host measured no tone, and the whole axis stands
+   * down where there is no backdrop at all rather than reading the zero vector as
+   * a black backdrop and dissolving the surface into nothing.
+   *
+   * Written out instead of calling smoothstep() so that a profile patched with
+   * low >= high degrades to a step rather than to NaN.
+   */
+  var toneAdapt = 0.0;
+  if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0) {
+    let toneX = ou.toneColour.w + ou.toneAdapt.z * sizeK;
+    let toneT = clamp(
+      (toneX - ou.toneAdapt.x) / max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6),
+      0.0,
+      1.0,
+    );
+    toneAdapt = clamp(ou.toneAdapt.w, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
+  }
+  /*
+   * Both the colour and the alpha move, together and not separately. What the
+   * adaptation means is that the INTERIOR converges on the backdrop's tone —
+   * mix(interior, tone, k) — and this is the (colour, alpha) pair that composites
+   * to exactly that. Lerping the two independently makes a partially adapted
+   * surface lighter than it started (more opaque toward a tint still mostly
+   * neutral), which the 96 px cells caught at once: interior 0.4545 → 0.5179
+   * against a reference of 0.4542. The alpha half is not a colour axis reaching
+   * the occlusion axis — an adapting material stops transmitting, which is what
+   * the reference's flat body over the impulse grid is. See 'adaptedTintColour'
+   * and 'adaptedTintAlpha' in material.ts.
+   */
+  let sizedAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
+  let adaptedAlpha = sizedAlpha + toneAdapt * (1.0 - sizedAlpha);
+  var adapted = neutral;
+  if (toneAdapt > 0.0 && adaptedAlpha > 0.0) {
+    adapted =
+      (neutral * ((1.0 - toneAdapt) * sizedAlpha) + ou.toneColour.rgb * toneAdapt) / adaptedAlpha;
+  }
+
   // The author tint. 'aux.w' is the per-pixel strength, unioned in the field pass,
   // so a toolbar can carry one tinted control among plain ones; the seed is a
   // group uniform. At strength 0 this is the identity and the material is the one
@@ -198,16 +259,19 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // applied (above), and that is the right order rather than a coincidence: a
   // large surface diffuses more of what is behind it, so the tone the tint maps
   // to should be the diffused light, not the sharp light nobody sees through it.
-  var tintColour = neutral;
+  //
+  // It displaces the ADAPTED neutral, not the raw one: a full-strength tint is its
+  // own adaptation and replaces this axis outright, while a partial one moves with
+  // it. That order is the wave's composition contract, in one line.
+  var tintColour = adapted;
   if (aux.w > 0.0) {
-    let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722));
     let t = smoothstep(ou.tone.z, ou.tone.w, backdropLuma);
     let low = ou.seed.rgb * ou.tone.x;
     let high = ou.seed.rgb + (vec3f(1.0) - ou.seed.rgb) * ou.tone.y;
     // 'seed.w' is the contrast regime's grip on the excursion, never on the hue:
     // at 0 the material shows the author's colour flat and stops responding.
     let tone = mix(ou.seed.rgb, mix(low, high, t), clamp(ou.seed.w, 0.0, 1.0));
-    tintColour = mix(neutral, tone, clamp(aux.w, 0.0, 1.0));
+    tintColour = mix(adapted, tone, clamp(aux.w, 0.0, 1.0));
   }
 
   // The tint layer's ALPHA is untouched by the author's colour. It is the
@@ -220,8 +284,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // there is, not about what colour it is. A fraction of whatever transparency
   // the resolved alpha still has, for the reason 'increasedOcclusionLift' is a
   // fraction — see material.ts.
-  let tintAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
-  var colour = mix(backdrop, tintColour, tintAlpha);
+  //
+  // The backdrop adaptation moves it, above, and the author's colour does not.
+  var colour = mix(backdrop, tintColour, adaptedAlpha);
 
   // Inner shadow: the material's own occlusion, deepest where the lens is
   // strongest, which is what makes a thicker surface read as heavier — and the

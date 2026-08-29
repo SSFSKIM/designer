@@ -88,6 +88,13 @@ export interface TextureGroupSpec {
   /** Canvas backing-store size, in texture px. */
   readonly width?: number;
   readonly height?: number;
+  /**
+   * Paint the backdrop a flat CSS colour instead of the default bands.
+   *
+   * For backdrop tone adaptation (W7), where what matters is the backdrop's own
+   * *level* — and a flat backdrop is the only one whose level is unarguable.
+   */
+  readonly fill?: string;
 }
 
 export interface DiagnosticRecord {
@@ -612,12 +619,19 @@ const api = {
     canvas.height = spec.height ?? 512;
 
     // A backdrop worth refracting: hard edges, so lensing has something to bend.
+    // Or a flat one, where the question is the backdrop's level rather than its
+    // structure.
     const context = canvas.getContext("2d");
     if (context !== null) {
-      const band = canvas.height / 8;
-      for (let i = 0; i < 8; i += 1) {
-        context.fillStyle = i % 2 === 0 ? "#ff3b30" : "#0a84ff";
-        context.fillRect(0, i * band, canvas.width, band);
+      if (spec.fill !== undefined) {
+        context.fillStyle = spec.fill;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+      } else {
+        const band = canvas.height / 8;
+        for (let i = 0; i < 8; i += 1) {
+          context.fillStyle = i % 2 === 0 ? "#ff3b30" : "#0a84ff";
+          context.fillRect(0, i * band, canvas.width, band);
+        }
       }
     }
 

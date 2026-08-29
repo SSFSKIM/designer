@@ -340,6 +340,18 @@ const MATERIAL_PATCH_KEYS = new Set([
   "increasedOcclusionLift",
   "strongBorderRim",
   "reducedTintAdaptation",
+  // The author tint's tone map (W3) and the backdrop tone adaptation (W7). The
+  // tint four were missed when they landed, so this set has been one child stale
+  // since; the guard refuses rather than mis-measures, which is why it surfaced as
+  // a failed sweep point instead of as plausible numbers. Added together.
+  "tintToneFloor",
+  "tintToneCeilMix",
+  "tintToneLow",
+  "tintToneHigh",
+  "backdropToneMax",
+  "backdropToneLow",
+  "backdropToneHigh",
+  "backdropToneSizeBias",
   "lightDirection",
   "sweepBandRadians",
   "glowRadiusCss",

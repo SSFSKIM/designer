@@ -271,6 +271,13 @@ export function toRendererGroups(
           variant: group.variant,
           union: groupUnionFromMergeDistance(group.declaredMergeDistance),
           ...(sampled ? { backdropSourceId: sourceId } : {}),
+          // The backdrop's own average colour (W7), measured once on this side so
+          // both tiers adapt onto the same tone by the same amount. Forwarded only
+          // where the group is actually sampling that source: a group with no
+          // backdrop has no tone to take.
+          ...(sampled && group.backdropTone !== undefined
+            ? { backdropTone: group.backdropTone }
+            : {}),
         };
       }),
   }));

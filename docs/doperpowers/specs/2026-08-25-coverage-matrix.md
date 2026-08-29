@@ -303,6 +303,18 @@ one of the five, and it is the one Apple quantifies least.
 > clean measurement of size — that estimator runs across backdrops, which is
 > exactly where tone adaptation lives — and measures it within one backdrop
 > instead.
+>
+> **The fifth row is CLOSED (W7, 2026-08-30).** The size-gated light/dark flip is
+> implemented on both tiers and keys off the same `sizeThickness` curve, exactly
+> as the paragraph above anticipated — the thickness enters the adaptation curve's
+> *argument*, so a thicker surface reads its backdrop as brighter and holds its own
+> appearance longer. The claims doc's §5.8 is the measurement; §3.3's box above is
+> where the flip itself is resolved. The band 32…96 is now pinned by both children
+> independently: W2 set it from the reference's transmission, and the tone axis
+> requires it (a band ending at 64 lifts the 44 px capsule out of full adaptation;
+> one ending at 128 over-adapts the 96 px surface). Of the five facets, four are
+> now derived from the shared curve with fitted or identity constants and the fifth
+> — **ambient colour spill on large surfaces** — remains the only one absent.
 
 ### 3.3 Light/dark adaptation
 
@@ -324,6 +336,38 @@ one of the five, and it is the one Apple quantifies least.
 > threshold gates the flip. **Resolving this is a prerequisite for any adaptive
 > tint work**, because C9a already spent a tuning round on an inversion that the
 > reference does not perform and had to make the crossover inert to undo it.
+
+> **RESOLVED (W7, 2026-08-30): the answer is (c), and (a) and (b) are wrong.**
+> Annotated in place by the child that measured it, under the convention W2 used
+> in §3.2; the measurement is the claims doc's §5.8 and this document stays the
+> enumeration.
+>
+> The contradiction was an artefact of the bed. C9a measured the *mixed* v1
+> capture set, which was caught mid-adaptation on precisely the cells the flip
+> lives in (wave Surprise, 2026-08-30). On the settled bed a custom `glassEffect`
+> view flips exactly as Apple says it does — so (a) is wrong, the flip is not
+> reserved for system bars — and it does so at rest on a static still, so (b) is
+> wrong too: scrolling is not the trigger. **(c) was right**, and the threshold is
+> measured: over a backdrop of linear 0.0117 the light-scheme 44 px capsule reads
+> 0.0117, byte-identical to its own background *and* to the dark-scheme capsule
+> over the same backdrop, while a 96 px surface over that backdrop keeps three
+> quarters of its own appearance. The canonical sizes straddle the gate rather
+> than sitting above it, which is why one bed showed both halves of the
+> contradiction.
+>
+> One correction the resolution carries: it is not a *flip between two schemes*.
+> Both schemes converge on the same value — the backdrop's own tone — so the
+> scheme sets the neutral and the adaptation moves away from it. That also settles
+> the tension this table's last row names between scheme-keying and
+> luminance-keying: macOS 26.5 does both, in series, and they are not alternatives.
+>
+> Two rows change. **"Small elements flip light/dark to the underlying content"**
+> becomes `present, measured`: the axis is implemented on both tiers with fitted
+> constants and a per-group backdrop reading, and the seven adopted-gate rows it
+> used to cost re-entered the gate and pass at unchanged bounds. **"Foreground
+> mirrors the material's flip"** is no longer mirroring nothing — the ink is
+> decided against the adapted material on both tiers. What stays `absent` is the
+> row below them: nothing still selects a profile from the colour scheme.
 
 | native behavior | what Apple says | citation | vitrea status | notes |
 | --- | --- | --- | --- | --- |

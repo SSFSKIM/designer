@@ -128,6 +128,20 @@ export interface OpticsPassArgs {
   readonly sizeOcclusionGain: number;
   readonly sizeShadowGainMax: number;
   readonly bodyChainLod: number;
+  /**
+   * Backdrop tone adaptation (W7): `[low, high, sizeBiasUnderPolicy, strength]`.
+   *
+   * The bias is the profile's own divided by the accessibility refraction cap
+   * (`backdropToneSizeBiasUnderPolicy`), because the shader multiplies it by the
+   * policy-folded `sizeK` while the gate it expresses is geometric.
+   */
+  readonly backdropTone: readonly [number, number, number, number];
+  /**
+   * The backdrop source's average colour in linear light, and its luminance —
+   * what the adaptation adapts toward, measured by the host. `backdropTone`'s
+   * strength is 0 where there is none, so this is not read.
+   */
+  readonly backdropToneColour: readonly [number, number, number, number];
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -366,7 +380,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 44);
+      const slot = uniformSlot(`optics:${args.groupId}`, 52);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -415,6 +429,17 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[41] = args.sizeOcclusionGain;
       d[42] = args.sizeShadowGainMax;
       d[43] = args.bodyChainLod;
+      d[44] = args.backdropTone[0];
+      // The shader divides by `max(high - low, 1e-6)` rather than calling
+      // `smoothstep`, so a coinciding pair degrades to a step instead of a NaN —
+      // but the floor is kept here too so both tiers see the same edges.
+      d[45] = Math.max(args.backdropTone[1], args.backdropTone[0] + 1e-4);
+      d[46] = args.backdropTone[2];
+      d[47] = args.backdropTone[3];
+      d[48] = args.backdropToneColour[0];
+      d[49] = args.backdropToneColour[1];
+      d[50] = args.backdropToneColour[2];
+      d[51] = args.backdropToneColour[3];
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

@@ -14,6 +14,7 @@
  */
 
 export * from "./backdrop-proxy";
+export * from "./backdrop-tone";
 export * from "./channels";
 export * from "./css-tier";
 export * from "./diagnostics";

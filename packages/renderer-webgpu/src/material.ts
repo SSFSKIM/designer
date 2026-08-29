@@ -294,6 +294,44 @@ export interface MaterialProfile {
   readonly tintToneHigh: number;
 
   /**
+   * **Backdrop tone adaptation (W7)** — the axis Apple's material has and this
+   * one did not: over a dark enough backdrop the material stops being a lighter
+   * thing in front of it and takes the backdrop's own tone.
+   *
+   * The mechanism is one mix, and it is deliberately the *tint colour* rather
+   * than the tint alpha: `backdropToneMax` at full strength makes the tint equal
+   * the sampled backdrop, so `mix(backdrop, tint, tintAlpha)` collapses to the
+   * backdrop exactly and the surface is left with its rim, its inner shadow and
+   * its lensing and nothing else. That is what the settled reference does —
+   * `dark-solid__capsule-button__rest` is byte-identical to its own background
+   * in every standard profile, at both scales, in both colour schemes.
+   *
+   * `backdropToneLow`/`backdropToneHigh` are the backdrop luminances (linear)
+   * the two ends are reached at, crossed with a smoothstep for the same reason
+   * `tintToneLow`/`High` are.
+   *
+   * `backdropToneSizeBias` is the size gate, and it is not decoration: the same
+   * backdrop moves a small surface and a large one by very different amounts.
+   * Over `dark-solid` the reference's 44 px capsule adapts completely while its
+   * 96 px rrect keeps three quarters of its own appearance, measured on both
+   * scales independently and agreeing to three decimals. The bias enters the
+   * curve's *argument* rather than its amplitude — a thicker surface behaves as
+   * though its backdrop were brighter, which is what more material between the
+   * viewer and the backdrop means — because an amplitude gate cannot reproduce
+   * the second dark backdrop (`impulse`) and this does.
+   *
+   * The axis is WITHIN a colour scheme. The scheme picks the neutral; this moves
+   * the material away from that neutral toward what is actually behind it. So the
+   * dark profile runs the same law with the same constants and does not
+   * double-adapt: over `dark-solid` its capsule collapses onto the backdrop too,
+   * and the light and dark references become the same pixels there.
+   */
+  readonly backdropToneMax: number;
+  readonly backdropToneLow: number;
+  readonly backdropToneHigh: number;
+  readonly backdropToneSizeBias: number;
+
+  /**
    * Advisory light direction, in viewport coordinates with y pointing down: a
    * little left of straight overhead, which is where Apple's material reads its
    * specular from.
@@ -496,6 +534,43 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   tintToneLow: 0.02,
   tintToneHigh: 0.65,
 
+  /*
+   * MEASURED (W7), against the settled apple-macos-26.5 bed, on the light and
+   * dark standard profiles jointly and at both scales.
+   *
+   * The observable these four are set from is the one quantity in this bed that
+   * isolates adaptation from everything else: the *separation* between the light
+   * and dark references over the same backdrop, on the same component. Under this
+   * mechanism that separation is `(1 − tintAlpha)(1 − a)(tintLight − tintDark)`,
+   * so the material's transmission, the backdrop's structure and each scheme's
+   * own tint all cancel and what is left is `a`. Normalised at the checkerboard,
+   * where nothing adapts, it reads:
+   *
+   *   span 44: 0.000 at backdrop 0.500, 0.030 at 0.205, 1.000 at 0.0117, 1.000 at 0.0049
+   *   span 96: 0.000 at backdrop 0.500, 0.028 at 0.216, 0.256 at 0.0117
+   *
+   * and the 2× bed reproduces every one of those to three decimals (0.2553
+   * against 0.2556 on the one that is not a boundary). Two facts follow. The
+   * adaptation is off across the whole ordinary range and turns on only below
+   * roughly a fifth of the backdrop scale — so it cannot disturb a cell that
+   * already passes. And it is size-gated hard: same backdrop, same material, 1.000
+   * against 0.256.
+   *
+   * The band's dark end is not identifiable from this bed and the fit says so:
+   * the reference's backdrops jump from 0.0117 to 0.205 with nothing in between,
+   * so `backdropToneLow` is bounded only by "at or below the darkest calibration
+   * backdrop". What the two dark backdrops DO pin is the curve's slope near zero —
+   * the 96 px surface reads 0.256 at 0.0117 and 0.356 at 0.0039, which is a
+   * measured intermediate rather than a step, and it is what fixes
+   * `backdropToneSizeBias` against `backdropToneHigh`. `impulse__rrect-md__rest`
+   * is a VALIDATION cell and was not fitted to: the calibration set predicts
+   * 0.34 there and the cell reads 0.356.
+   */
+  backdropToneMax: 1,
+  backdropToneLow: 0.02,
+  backdropToneHigh: 0.14,
+  backdropToneSizeBias: 0.09,
+
   lightDirection: [-0.3714, -0.9285],
   sweepBandRadians: 0.55,
   glowRadiusCss: 44,
@@ -520,6 +595,10 @@ export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
 export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
 export const LENS_BODY_LOD_PER_PX = DEFAULT_MATERIAL_PROFILE.lensBodyLodPerPx;
 export const LENS_RIM_LOD_BIAS = DEFAULT_MATERIAL_PROFILE.lensRimLodBias;
+export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
+export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
+export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
+export const BACKDROP_TONE_SIZE_BIAS = DEFAULT_MATERIAL_PROFILE.backdropToneSizeBias;
 
 /**
  * A profile patch: any subset, to any depth, of what a profile holds.
@@ -551,6 +630,10 @@ export interface MaterialProfilePatch {
   readonly tintToneCeilMix?: number;
   readonly tintToneLow?: number;
   readonly tintToneHigh?: number;
+  readonly backdropToneMax?: number;
+  readonly backdropToneLow?: number;
+  readonly backdropToneHigh?: number;
+  readonly backdropToneSizeBias?: number;
   readonly lightDirection?: readonly [number, number];
   readonly sweepBandRadians?: number;
   readonly glowRadiusCss?: number;
@@ -603,6 +686,10 @@ export function withMaterialOverrides(
     tintToneCeilMix: patch.tintToneCeilMix ?? base.tintToneCeilMix,
     tintToneLow: patch.tintToneLow ?? base.tintToneLow,
     tintToneHigh: patch.tintToneHigh ?? base.tintToneHigh,
+    backdropToneMax: patch.backdropToneMax ?? base.backdropToneMax,
+    backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
+    backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
+    backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
     lightDirection: patch.lightDirection ?? base.lightDirection,
     sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,
     glowRadiusCss: patch.glowRadiusCss ?? base.glowRadiusCss,
@@ -742,6 +829,153 @@ export function tintedTintColour(
     neutral[1] + (tone[1] - neutral[1]) * k,
     neutral[2] + (tone[2] - neutral[2]) * k,
   ];
+}
+
+/**
+ * **Backdrop tone adaptation, the curve** — how far this surface's tint is pulled
+ * onto the backdrop it is looking at, 0…1, before any accessibility fold.
+ *
+ * `thickness` is the size law's own factor (`sizeThickness`), and it enters the
+ * curve's argument rather than scaling its result: a thicker surface reads its
+ * backdrop as brighter than it is, so it holds its own appearance longer. See
+ * `MaterialProfile.backdropToneSizeBias` for the measurement that shape came from.
+ *
+ * Exported for the same reason `tintTone` is: the CSS tier evaluates it at one
+ * backdrop level, the foreground decision has to be taken against the material the
+ * surface actually shows, and `WGSL_OPTICS_PASS` mirrors it per pixel. One curve,
+ * three consumers, no second implementation.
+ */
+export function backdropToneAdaptation(
+  backdropLuminance: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const x = backdropLuminance + profile.backdropToneSizeBias * Math.min(1, Math.max(0, thickness));
+  const span = Math.max(profile.backdropToneHigh - profile.backdropToneLow, 1e-6);
+  const t = Math.min(1, Math.max(0, (x - profile.backdropToneLow) / span));
+  return Math.min(1, Math.max(0, profile.backdropToneMax)) * (1 - t * t * (3 - 2 * t));
+}
+
+/**
+ * How much of the backdrop adaptation survives an accessibility regime.
+ *
+ * Two folds, each with its own reason, and the product is what the material gets.
+ *
+ * `ambientTint` is the axis the wave's composition contract names for "how far
+ * the material may move its colour", and it is what carries increased contrast
+ * (narrowed toward the scheme's own neutral) and forced colours (no material to
+ * adapt — the optics pass stands down before it reaches here).
+ *
+ * The refraction ladder read at the **accessibility cap** carries reduced
+ * transparency, which touches no tint axis at all and would otherwise get the
+ * adaptation at full strength — and adaptation at full strength dissolves the
+ * surface into its backdrop, which is precisely the occlusion that preference
+ * asked to be *raised*. A policy has to win against a material law, so it does.
+ * The same cap, for the same reason, that `sizeThicknessUnderPolicy` reads.
+ *
+ * Deliberately unmeasured rather than fitted: neither accessibility profile's
+ * scene set contains a backdrop dark enough for this axis to act on, so the fold
+ * is a statement about which way to be wrong, not a number the bed chose. It is
+ * named in the claims doc with the capture that would close it.
+ */
+export function backdropToneUnderPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return tintToneAdaptation(policy, profile) * profile.refractionScale[accessibilityRefractionCap(policy)];
+}
+
+/**
+ * The size bias to hand a consumer that will multiply it by a **policy-folded**
+ * thickness (`sizeThicknessUnderPolicy`) — the shader and the CSS tier both do.
+ *
+ * The gate is geometric: it says how much material stands between the viewer and
+ * the backdrop, which no preference changes. But there is one thickness in the
+ * pipeline and it is the folded one (it rides `aux.z` through the field pass's
+ * union, and widening `aux` for a second copy of the same quantity would be a
+ * per-pixel channel spent on arithmetic). Dividing the bias by the same cap
+ * restores the geometric product exactly: `bias' * thickness_folded ===
+ * bias * thickness_raw`, pinned as a test rather than promised here.
+ *
+ * At `cap = none` the fold above is already 0, so the adaptation is off and the
+ * bias is not read; 0 is returned rather than an infinity.
+ */
+export function backdropToneSizeBiasUnderPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const cap = profile.refractionScale[accessibilityRefractionCap(policy)];
+  return cap <= 0 ? 0 : profile.backdropToneSizeBias / cap;
+}
+
+/**
+ * The neutral tint after the backdrop has had its say — step two of the wave's
+ * composition contract (colour scheme → **backdrop adaptation** → author tint).
+ *
+ * `backdrop` is the **averaged** light the surface's body transmits, not one
+ * pixel's lens-displaced sample: a fully adapted material shows its backdrop's
+ * tone, and a tone is a mean. Over a flat backdrop the two are the same value and
+ * the surface disappears into it exactly, which is what the reference's capsule
+ * over `dark-solid` does — byte-identical to its own background.
+ */
+export function adaptedTintColour(
+  neutral: Rgb,
+  backdrop: Rgb,
+  adaptation: number,
+  tintAlpha: number,
+): Rgb {
+  const k = Math.min(1, Math.max(0, adaptation));
+  if (k === 0) return neutral;
+  // The pair (colour, alpha) that makes the interior composite CONVERGE on the
+  // backdrop's tone: mix(mix(b, T, α), M, k) === mix(b, T', α') exactly, with α'
+  // from `adaptedTintAlpha`. Solving it here rather than lerping the two
+  // parameters separately is the difference between an adaptation and a
+  // brightening — a lerped alpha over a still-mostly-neutral tint makes a
+  // partially adapted surface *lighter* than the one it started from, which the
+  // 96 px cells caught immediately (interior 0.4545 → 0.5179 against a reference
+  // of 0.4542).
+  const alpha = adaptedTintAlpha(tintAlpha, k);
+  if (alpha <= 0) return neutral;
+  const wNeutral = (1 - k) * tintAlpha;
+  return [
+    (neutral[0] * wNeutral + backdrop[0] * k) / alpha,
+    (neutral[1] * wNeutral + backdrop[1] * k) / alpha,
+    (neutral[2] * wNeutral + backdrop[2] * k) / alpha,
+  ];
+}
+
+/**
+ * The material's occlusion once the backdrop has had its say — the second half of
+ * the adaptation, and the half a cross-tier measurement forced.
+ *
+ * An adapting material does not merely take its backdrop's colour, it stops
+ * transmitting: the settled reference's capsule over the `impulse` backdrop is a
+ * flat body at its backdrop's own mean, with the impulse grid *hidden* behind it
+ * (interior standard deviation 0.0008 against the backdrop's 0.056), not a
+ * transparent pane showing it through.
+ *
+ * Adapting the colour alone made the material fully transparent at full strength,
+ * and that is where the two tiers part company: this one blurs its backdrop in
+ * linear light and the CSS tier's `backdrop-filter` blurs in the encoded space, so
+ * over a high-dynamic-range backdrop a transparent material renders *different
+ * pixels* on the two tiers by construction. Measured on that cell, GPU over CSS
+ * interior ratio 23.5 against a gated band of 0.80…1.25 — a hard failure of the
+ * cross-tier bound, and the reason this exists. A material that shows its
+ * backdrop's mean is a colour, and a colour is tier-independent.
+ *
+ * The same "fraction of what is left" shape as `increasedOcclusionLift`, and for
+ * the same reason: it lifts strictly for every nominal below 1, whatever a later
+ * tuning pass moves nominal to.
+ *
+ * This is the one place a colour axis reaches the alpha, and it is not an
+ * exception to the composition contract's rule that an author's tint may not:
+ * that rule is about an *author's* choice not moving the material's occlusion.
+ * This is the material's own response to its surroundings, which is what the
+ * occlusion axis is for.
+ */
+export function adaptedTintAlpha(tintAlpha: number, adaptation: number): number {
+  const k = Math.min(1, Math.max(0, adaptation));
+  return tintAlpha + k * (1 - tintAlpha);
 }
 
 const smoothstep = (edge0: number, edge1: number, x: number): number => {
