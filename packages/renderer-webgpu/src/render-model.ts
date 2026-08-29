@@ -67,6 +67,12 @@ export const IDLE_CHANNELS: SurfaceChannels = {
   lensStrength: 1,
 };
 
+/** An author tint as this package takes it: a seed in linear light, and a strength. */
+export interface MaterialTintInput {
+  readonly color: readonly [number, number, number];
+  readonly strength: number;
+}
+
 export interface SurfaceInput {
   readonly nodeId: string;
   readonly family: ShapeFamily;
@@ -75,6 +81,17 @@ export interface SurfaceInput {
   /** Defaults to `"apple-continuous"` — see the module note. */
   readonly reference?: CornerReference;
   readonly variant?: MaterialVariant;
+  /**
+   * The author's tint (core's `ResolvedMaterial.tint`), in **linear** light —
+   * the host converts, because this package's whole optical model is linear and
+   * the seed is about to be mixed into it.
+   *
+   * The strength travels per surface and reaches the fragment stage per pixel;
+   * the seed colour is resolved once per group, because a group is one optics
+   * pass. Core warns when a group's members ask for different seeds
+   * (`tint-mixing`), and the first tinted member's colour is the one drawn.
+   */
+  readonly tint?: MaterialTintInput;
   readonly channels?: Partial<SurfaceChannels>;
   /**
    * X8 rider 2. When present this surface renders as `parentField + inset`, and

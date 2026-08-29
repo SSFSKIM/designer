@@ -181,6 +181,30 @@ export interface MaterialProfile {
   readonly reducedTintAdaptation: number;
 
   /**
+   * The author tint's tone map — Apple's "range of tones **mapped to content
+   * brightness underneath**" (S219), as four numbers.
+   *
+   * The seed the author gives is not the colour the material paints. It is the
+   * middle of a range: over a dark backdrop the material shows a shade of the
+   * seed (`tintToneFloor`, a multiple of it in linear light, so hue and
+   * chromaticity survive); over a bright one it shows the seed washed toward
+   * white (`tintToneCeilMix`), which is what Apple's "changing its hue,
+   * brightness and saturation… without deviating too much from the intended
+   * color" describes. `tintToneLow`/`tintToneHigh` are the backdrop luminances
+   * the two ends are reached at, crossed with a smoothstep for the same reason
+   * `lensSpanMin`/`lensSpanMax` are.
+   *
+   * **Advisory and calibration-delegated**, like every other number in this
+   * profile: they are chosen so a tinted surface reads as coloured glass rather
+   * than as paint, and the tinted-capture extension fits them. Nothing here is
+   * measured yet, and no claim rests on these values.
+   */
+  readonly tintToneFloor: number;
+  readonly tintToneCeilMix: number;
+  readonly tintToneLow: number;
+  readonly tintToneHigh: number;
+
+  /**
    * Advisory light direction, in viewport coordinates with y pointing down: a
    * little left of straight overhead, which is where Apple's material reads its
    * specular from.
@@ -317,6 +341,16 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   strongBorderRim: { rimWidth: 2, rimAlpha: 0.95 },
   reducedTintAdaptation: 0.35,
 
+  // ADVISORY (W3). The span 0.02 … 0.65 covers most of the canonical backdrop
+  // range (0.003 … 0.891 linear), and the two ends are deliberately symmetric —
+  // 0.45 of the seed's brightness at the dark end, 0.45 of the way to white at
+  // the bright end — so the seed itself sits mid-range and the excursion reads
+  // as glass rather than as two different colours.
+  tintToneFloor: 0.45,
+  tintToneCeilMix: 0.45,
+  tintToneLow: 0.02,
+  tintToneHigh: 0.65,
+
   lightDirection: [-0.3714, -0.9285],
   sweepBandRadians: 0.55,
   glowRadiusCss: 44,
@@ -362,6 +396,10 @@ export interface MaterialProfilePatch {
   readonly increasedOcclusionLift?: number;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
   readonly reducedTintAdaptation?: number;
+  readonly tintToneFloor?: number;
+  readonly tintToneCeilMix?: number;
+  readonly tintToneLow?: number;
+  readonly tintToneHigh?: number;
   readonly lightDirection?: readonly [number, number];
   readonly sweepBandRadians?: number;
   readonly glowRadiusCss?: number;
@@ -407,6 +445,10 @@ export function withMaterialOverrides(
     increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
     reducedTintAdaptation: patch.reducedTintAdaptation ?? base.reducedTintAdaptation,
+    tintToneFloor: patch.tintToneFloor ?? base.tintToneFloor,
+    tintToneCeilMix: patch.tintToneCeilMix ?? base.tintToneCeilMix,
+    tintToneLow: patch.tintToneLow ?? base.tintToneLow,
+    tintToneHigh: patch.tintToneHigh ?? base.tintToneHigh,
     lightDirection: patch.lightDirection ?? base.lightDirection,
     sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,
     glowRadiusCss: patch.glowRadiusCss ?? base.glowRadiusCss,
@@ -464,6 +506,88 @@ export function adaptationStrength(
     case "none":
       return 0;
   }
+}
+
+/**
+ * How much of the tint's tone excursion survives the contrast regime.
+ *
+ * The tone map is the tinted material's response to what is behind it, so it
+ * rides the axis that already governs exactly that — `ambientTint` — rather
+ * than inventing a second one. Under increased contrast the range narrows
+ * toward the bare seed, which is the direction W1 measured Apple's own
+ * accessibility material moving (its interior "has all but stopped
+ * transmitting the backdrop"); under forced colours there is no material to
+ * tint at all and the caller never reaches here.
+ *
+ * The author's colour is never changed by a policy. Only how far the material
+ * is allowed to move it is.
+ */
+export function tintToneAdaptation(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  switch (policy.ambientTint) {
+    case "nominal":
+      return 1;
+    case "reduced":
+      return profile.reducedTintAdaptation;
+    case "none":
+      return 0;
+  }
+}
+
+/**
+ * The tone the seed shows over a given backdrop, in linear light — the CPU
+ * statement of what `WGSL_OPTICS_PASS` evaluates per pixel.
+ *
+ * Exported because two other things have to agree with the shader without being
+ * it: the CSS tier converts this quantity into one flat `rgba()`, and the
+ * foreground decision has to be taken against the material the surface actually
+ * shows. A second implementation of the curve is how those two drift, so there
+ * is one, here, and the shader mirrors it line for line.
+ */
+export function tintTone(
+  seed: Rgb,
+  backdropLuminance: number,
+  toneAdaptation: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): Rgb {
+  const t = smoothstep(profile.tintToneLow, profile.tintToneHigh, backdropLuminance);
+  const k = Math.min(1, Math.max(0, toneAdaptation));
+  const channel = (index: 0 | 1 | 2): number => {
+    const s = seed[index];
+    const low = s * profile.tintToneFloor;
+    const high = s + (1 - s) * profile.tintToneCeilMix;
+    return s + (low + (high - low) * t - s) * k;
+  };
+  return [channel(0), channel(1), channel(2)];
+}
+
+/**
+ * The material's tint colour once an author tint is folded onto the neutral one.
+ *
+ * `neutral` is what the material would tint with on its own — the profile's
+ * tint, already crossed with whatever adaptation the renderer resolved. The
+ * author's tone displaces it by `strength` and nothing else: the tint alpha,
+ * which is the material's occlusion and the axis every accessibility policy and
+ * the system's own Clear/Tinted preference operate on, is untouched here by
+ * construction.
+ */
+export function tintedTintColour(
+  neutral: Rgb,
+  tint: { readonly color: Rgb; readonly strength: number } | undefined,
+  backdropLuminance: number,
+  toneAdaptation: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): Rgb {
+  if (tint === undefined) return neutral;
+  const tone = tintTone(tint.color, backdropLuminance, toneAdaptation, profile);
+  const k = Math.min(1, Math.max(0, tint.strength));
+  return [
+    neutral[0] + (tone[0] - neutral[0]) * k,
+    neutral[1] + (tone[1] - neutral[1]) * k,
+    neutral[2] + (tone[2] - neutral[2]) * k,
+  ];
 }
 
 const smoothstep = (edge0: number, edge1: number, x: number): number => {

@@ -60,6 +60,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   tint : vec4f,
   /// adapted tint colour, linear light (xyz), adaptation strength (w)
   adapt : vec4f,
+  /// author tint seed, linear light (xyz), tone adaptation under the contrast regime (w)
+  seed : vec4f,
+  /// tintToneFloor, tintToneCeilMix, tintToneLow, tintToneHigh
+  tone : vec4f,
   /// rimWidthPx, rimAlpha, specularPower, specularGain
   rim : vec4f,
   /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
@@ -144,7 +148,35 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // Adaptive tint. 'adapt.w' is the strength the accessibility policy and the
   // group's analysis quality already agreed on; at 0 the fixed tint stands, which
   // is what a 'hint' or 'none' group gets.
-  let tintColour = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
+  let neutral = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
+
+  // The author tint. 'aux.w' is the per-pixel strength, unioned in the field pass,
+  // so a toolbar can carry one tinted control among plain ones; the seed is a
+  // group uniform. At strength 0 this is the identity and the material is the one
+  // the calibration bed measures, byte for byte.
+  //
+  // Apple's mechanism, not a fill: the seed is the middle of a range of tones
+  // 'mapped to content brightness underneath'. 'backdrop' is what this pixel is
+  // actually looking through — lens-displaced, LOD-sampled, already the thing the
+  // material transmits — so the tone is taken against the same light the tint is
+  // about to be mixed into, and a tinted surface over a dark backdrop settles to a
+  // shade of the author's colour rather than sitting on it as paint.
+  var tintColour = neutral;
+  if (aux.w > 0.0) {
+    let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722));
+    let t = smoothstep(ou.tone.z, ou.tone.w, backdropLuma);
+    let low = ou.seed.rgb * ou.tone.x;
+    let high = ou.seed.rgb + (vec3f(1.0) - ou.seed.rgb) * ou.tone.y;
+    // 'seed.w' is the contrast regime's grip on the excursion, never on the hue:
+    // at 0 the material shows the author's colour flat and stops responding.
+    let tone = mix(ou.seed.rgb, mix(low, high, t), clamp(ou.seed.w, 0.0, 1.0));
+    tintColour = mix(neutral, tone, clamp(aux.w, 0.0, 1.0));
+  }
+
+  // The tint layer's ALPHA is untouched by any of the above. It is the material's
+  // occlusion — what reduced transparency lifts, and the axis the system's own
+  // Clear-to-Tinted preference runs on — and an author choosing a colour does not
+  // get to move it.
   var colour = mix(backdrop, tintColour, ou.tint.w);
 
   // Inner shadow: the material's own occlusion, deepest where the lens is

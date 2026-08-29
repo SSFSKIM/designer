@@ -69,6 +69,21 @@ export interface GlassSurfaceOwnProps {
    * its group; without one core refuses it, renders regular, and says so.
    */
   readonly variant?: MaterialVariant | undefined;
+  /**
+   * Colour the glass — Apple's `Glass.tint(_:)`, as any CSS colour.
+   *
+   * The colour is a **seed**, not a fill: the material maps it to a range of
+   * tones against the backdrop behind this surface, so a tinted button over
+   * dark content settles to a shade of the colour rather than sitting on the
+   * page as paint. The colour's own alpha is the tint's strength —
+   * `rgb(255 149 0 / 50%)` is a half-strength orange — and it never changes how
+   * opaque the material is, which stays the calibrated value the accessibility
+   * policies and the system's own glass preference operate on.
+   *
+   * `null` clears a tint inherited from the group. Tint sparingly: Apple's
+   * guidance is one emphasised control, not a coloured toolbar.
+   */
+  readonly tint?: string | null | undefined;
   readonly profile?: GlassCornerProfile | undefined;
   /** Uniform corner radius in CSS px (X8 rider 3). Ignored when `capsule`. */
   readonly radius?: number | undefined;
@@ -109,6 +124,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
     plane: declaredPlane = "base",
     order,
     variant,
+    tint,
     profile,
     radius = DEFAULT_RADIUS,
     capsule = false,
@@ -149,8 +165,8 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
    * through `update`, and only the id, the group, the plane, the element and the
    * shape *family* can require a new registration.
    */
-  const patch = useRef({ radii, smoothing, thickness, order, variant, foreground });
-  patch.current = { radii, smoothing, thickness, order, variant, foreground };
+  const patch = useRef({ radii, smoothing, thickness, order, variant, tint, foreground });
+  patch.current = { radii, smoothing, thickness, order, variant, tint, foreground };
 
   // Held in a ref so a fresh closure each render never re-registers the host.
   const onHostRef = useRef(onHost);
@@ -172,6 +188,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       thickness: initial.thickness,
       ...(initial.order === undefined ? {} : { order: initial.order }),
       ...(initial.variant === undefined ? {} : { variant: initial.variant }),
+      ...(initial.tint === undefined ? {} : { tint: initial.tint }),
       ...(initial.foreground === undefined ? {} : { foreground: initial.foreground }),
       // React owns placement, so platform-web must not move the element: it
       // records the parent it inserted into, and its synthetic events are
@@ -220,9 +237,10 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       thickness,
       ...(order === undefined ? {} : { order }),
       variant,
+      tint,
       foreground: patch.current.foreground,
     });
-  }, [foregroundKey, handle, order, radii, smoothing, thickness, variant]);
+  }, [foregroundKey, handle, order, radii, smoothing, thickness, tint, variant]);
 
   /**
    * A capsule's radius is half its shorter side, and only the measured box knows

@@ -95,6 +95,16 @@ export interface StageProps {
    */
   readonly panel: ReferencePanel;
   readonly onPanelChange: (next: ReferencePanel) => void;
+  /**
+   * The author tint on the thick plate — a CSS colour, or `null` for none.
+   *
+   * Only the thick plate takes it, deliberately. Apple's guidance is to colour
+   * one control for emphasis rather than a whole container, and one tinted
+   * surface beside an untinted one in the same group is also the composition
+   * worth showing: tint strength is a per-pixel quantity, so the two plates come
+   * out of a single optics pass wearing different colours.
+   */
+  readonly tint: string | null;
   readonly animate: boolean;
   readonly lastAction: string | null;
   readonly onAction: (key: string) => void;
@@ -282,10 +292,21 @@ export function StageGlass(props: StageProps): ReactNode {
               small text over a translucent surface on a moving backdrop cannot be
               held to a contrast ratio. What these plates mean is in the column.
             */}
-            <GlassSurface className="plate plate--lg" radius={26} thickness={18}>
-              <strong>18px thick</strong>
+            <GlassSurface
+              className="plate plate--lg"
+              radius={26}
+              thickness={18}
+              tint={props.tint}
+              data-testid="tinted-plate"
+            >
+              <strong>{props.tint === null ? "18px thick" : "18px, tinted"}</strong>
             </GlassSurface>
-            <GlassSurface className="plate plate--sm" radius={14} thickness={5}>
+            <GlassSurface
+              className="plate plate--sm"
+              radius={14}
+              thickness={5}
+              data-testid="untinted-plate"
+            >
               <strong>5px</strong>
             </GlassSurface>
           </GlassGroup>

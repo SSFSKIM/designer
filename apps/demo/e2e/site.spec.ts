@@ -209,6 +209,47 @@ test.describe("the layout is legal", () => {
     );
     expect(misplaced).toEqual([]);
   });
+
+  /*
+   * The tint control, and the claim the page makes beside it.
+   *
+   * The page says a tint colours the material without making it more opaque, and
+   * that it lands on one plate rather than on the group. Both are checkable from
+   * the published tokens, which is better than a screenshot here: `--vitrea-tint`
+   * and `--vitrea-occlusion` are what the runtime decided, so this asserts the
+   * decision rather than a rendering of it.
+   */
+  test("the tint control colours one plate and leaves the material's opacity alone", async ({
+    page,
+  }) => {
+    await gotoSite(page, "?renderer=css");
+    await showSection(page, "material");
+
+    const read = async (): Promise<{ tinted: string; plain: string; occlusion: string }> =>
+      page.evaluate(() => {
+        const styleOf = (id: string) =>
+          document.querySelector<HTMLElement>(`[data-testid="${id}"]`)?.style;
+        return {
+          tinted: styleOf("tinted-plate")?.getPropertyValue("--vitrea-tint") ?? "",
+          plain: styleOf("untinted-plate")?.getPropertyValue("--vitrea-tint") ?? "",
+          occlusion: styleOf("tinted-plate")?.getPropertyValue("--vitrea-occlusion") ?? "",
+        };
+      });
+
+    const before = await read();
+    expect(before.tinted).toBe(before.plain);
+
+    await page.getByTestId("tint-select").selectOption("orange");
+    await expect.poll(async () => (await read()).tinted).not.toBe(before.tinted);
+
+    const after = await read();
+    // One plate takes the colour; its neighbour in the same group does not.
+    expect(after.plain).toBe(before.plain);
+    // And the occlusion stays within a rounding step of where it was: the tint is
+    // a colour axis, and the tier conversion re-solves its alpha for the new
+    // colour rather than the tint moving how much material there is.
+    expect(Math.abs(Number(after.occlusion) - Number(before.occlusion))).toBeLessThan(0.1);
+  });
 });
 
 test.describe("the reference pair is a comparison", () => {

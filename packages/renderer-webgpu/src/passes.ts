@@ -107,6 +107,10 @@ export interface OpticsPassArgs {
   readonly tintAlpha: number;
   readonly adaptTint: readonly [number, number, number];
   readonly adaptStrength: number;
+  /** The group's author tint seed in linear light, and the tone map it is read through. */
+  readonly tintSeed: readonly [number, number, number];
+  readonly tintToneAdaptation: number;
+  readonly tintTone: readonly [number, number, number, number];
   readonly rimWidth: number;
   readonly rimAlpha: number;
   readonly specularPower: number;
@@ -352,7 +356,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 32);
+      const slot = uniformSlot(`optics:${args.groupId}`, 40);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -374,18 +378,29 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[17] = args.adaptTint[1];
       d[18] = args.adaptTint[2];
       d[19] = args.adaptStrength;
-      d[20] = args.rimWidth;
-      d[21] = args.rimAlpha;
-      d[22] = args.specularPower;
-      d[23] = args.specularGain;
-      d[24] = args.lightDirection[0];
-      d[25] = args.lightDirection[1];
-      d[26] = args.shadowDepth;
-      d[27] = args.shadowAlpha;
-      d[28] = args.backdrop === undefined ? 0 : 1;
-      d[29] = args.fields.width;
-      d[30] = args.fields.height;
-      d[31] = args.fields.upsampled ? 1 : 0;
+      d[20] = args.tintSeed[0];
+      d[21] = args.tintSeed[1];
+      d[22] = args.tintSeed[2];
+      d[23] = args.tintToneAdaptation;
+      d[24] = args.tintTone[0];
+      d[25] = args.tintTone[1];
+      d[26] = args.tintTone[2];
+      // WGSL's `smoothstep` is undefined when its edges coincide, so the high
+      // edge is floored above the low one here rather than trusted from a
+      // profile — the same guard `union_blend` makes for its separation.
+      d[27] = Math.max(args.tintTone[3], args.tintTone[2] + 1e-4);
+      d[28] = args.rimWidth;
+      d[29] = args.rimAlpha;
+      d[30] = args.specularPower;
+      d[31] = args.specularGain;
+      d[32] = args.lightDirection[0];
+      d[33] = args.lightDirection[1];
+      d[34] = args.shadowDepth;
+      d[35] = args.shadowAlpha;
+      d[36] = args.backdrop === undefined ? 0 : 1;
+      d[37] = args.fields.width;
+      d[38] = args.fields.height;
+      d[39] = args.fields.upsampled ? 1 : 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

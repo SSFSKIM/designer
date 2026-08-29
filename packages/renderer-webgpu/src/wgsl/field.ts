@@ -64,7 +64,7 @@ export const WGSL_INSTANCE_STRUCT = `struct Instance {
   press  : f32,     // 48  interaction channel value, 0..1
   glow   : f32,     // 52  interaction channel value, 0..1
   lensDepth : f32,  // 56  CPU-resolved lens depth in CSS px (material.ts), already scaled by the lensStrength channel
-  _pad   : f32,     // 60
+  tintK  : f32,     // 60  author tint strength, 0..1 — the seed itself is a group uniform
 };`;
 
 /** `FieldSample` mirrors geometry's, minus `kink`: the shader has no use for it. */
@@ -277,7 +277,15 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // field but its members are not one size, and carrying them per pixel is what
 // lets a 40 px button and a 320 px platter share a field pass and still lens by
 // their own depth — parent acceptance #2 inside a GlassEffectContainer.
-//   aux = (lensDepthPx, glow, thicknessPx, press)
+//   aux = (lensDepthPx, glow, thicknessPx, tintStrength)
+//
+// The fourth slot carried the press channel until W3 and no shader ever read
+// it — press compression is resolved on the CPU, as a transform on the surface's
+// own size (instances.ts). It now carries the author tint's strength, which does
+// need to be per pixel: one control tinted inside a toolbar of plain ones is the
+// composition Apple's guidance describes, and the group is one optics pass. The
+// press value is still packed into the instance buffer, unchanged, for a future
+// consumer that wants it per pixel; it simply no longer rides here.
 
 @group(0) @binding(0) var<uniform> fu : FieldUniforms;
 @group(0) @binding(1) var<storage, read> instances : array<Instance>;
@@ -298,7 +306,7 @@ fn eval_instance(i : u32, p : vec2f) -> Member {
   var m : Member;
   m.d = f.d + s.inset;
   m.g = f.g;
-  m.aux = vec4f(s.lensDepth, s.glow, s.thick, s.press);
+  m.aux = vec4f(s.lensDepth, s.glow, s.thick, s.tintK);
   return m;
 }
 

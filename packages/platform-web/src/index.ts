@@ -45,4 +45,5 @@ export * from "./proxy-geometry";
 export * from "./refraction";
 export * from "./renderer-bridge";
 export * from "./root";
+export * from "./tint";
 export * from "./webgpu";

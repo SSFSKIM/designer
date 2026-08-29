@@ -378,6 +378,12 @@ check.
 - **Tier coherence is a Chromium measurement of a material's level**, on one
   profile, at 1×. It does not say the two tiers are identical, and it does not
   hold on Gecko or WebKit — nothing measurable does there.
+- **No fidelity claim for the author tint.** `GlassSurface`'s `tint` prop is
+  implemented on both tiers and visually verified on both, but every constant in
+  the tone curve that turns an author's colour into "a range of tones mapped to
+  content brightness underneath" is an advisory default. The tinted native
+  captures that would fit them are a scheduled extension of the capture harness;
+  until they exist the tint's appearance is designed, not calibrated.
 
 ---
 
@@ -415,6 +421,12 @@ errors. Asking for the GPU tier is not the same as getting it, and
   a support query.
 - v1 corner radii are uniform. The `radii` API keeps its four-component shape,
   but a non-uniform set is a dev-mode error; per-corner algebra is post-v1.
+- **One author tint seed per group.** A tint is declared per surface and its
+  strength is honoured per surface, but a group is one optics pass and carries
+  one seed, so two *different* tint colours in one group raise a dev-mode warning
+  and the WebGPU tier draws them all in the first surface's colour. One coloured
+  control among plain ones — Apple's own guidance for tinting — is the supported
+  composition.
 
 ---
 

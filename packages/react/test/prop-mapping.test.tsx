@@ -125,3 +125,53 @@ describe("GlassSurface → GlassNodeDescriptor", () => {
     expect(after?.descriptor.groupId).toBe("g");
   });
 });
+
+describe("the tint prop", () => {
+  it("parses the author's colour into the seed core carries, alpha as strength", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface nodeId="one" tint="rgba(255, 149, 0, 0.5)" />
+      </GlassGroup>,
+    );
+
+    const tint = harness.root().scene.glassNode("one")?.descriptor.tint;
+    expect(tint?.color[0]).toBeCloseTo(1, 6);
+    expect(tint?.color[1]).toBeCloseTo(149 / 255, 6);
+    expect(tint?.strength).toBeCloseTo(0.5, 6);
+  });
+
+  it("leaves an untinted surface with no tint declared at all", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface nodeId="one" />
+      </GlassGroup>,
+    );
+    expect(harness.root().scene.glassNode("one")?.descriptor.tint).toBeUndefined();
+  });
+
+  it("patches the seed in place when the prop changes, without re-registering", () => {
+    function Recolourable(): ReactNode {
+      const [tint, setTint] = useState<string | null>("rgb(255, 0, 0)");
+      return (
+        <GlassGroup id="g">
+          <button type="button" onClick={() => setTint(null)}>
+            clear
+          </button>
+          <GlassSurface nodeId="one" tint={tint} />
+        </GlassGroup>
+      );
+    }
+
+    const harness = renderGlass(<Recolourable />);
+    expect(harness.root().scene.glassNode("one")?.descriptor.tint?.color).toEqual([1, 0, 0]);
+
+    act(() => {
+      harness.result.getByText("clear").click();
+    });
+
+    // `null` is the author clearing the tint, which is a value rather than an
+    // absence — the same distinction `Glass.tint(nil)` makes.
+    expect(harness.root().scene.glassNode("one")?.descriptor.tint).toBeNull();
+    expect(harness.root().scene.glassNode("one")?.descriptor.groupId).toBe("g");
+  });
+});

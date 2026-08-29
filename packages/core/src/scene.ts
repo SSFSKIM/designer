@@ -69,8 +69,10 @@ import {
   type ResolvedForegroundAdaptation,
 } from "./foreground";
 import {
+  checkTintMixing,
   checkVariantMixing,
   resolveMaterial,
+  type GlassTint,
   type MaterialProfile,
   type MaterialVariant,
   type ResolvedMaterial,
@@ -214,6 +216,11 @@ export interface GlassNodeDescriptor {
   readonly zSlot: ZSlot;
   /** Inherits the group's material profile when absent. */
   readonly variant?: MaterialVariant;
+  /**
+   * Overrides the group's tint seed. `null` clears an inherited one, the way
+   * `Glass.tint(nil)` does; absent inherits.
+   */
+  readonly tint?: GlassTint | null;
   readonly interaction?: InteractionState;
   /** Overrides the group's adaptation for this surface. */
   readonly foreground?: ForegroundAdaptation;
@@ -810,13 +817,25 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         const profile: MaterialProfile = group.descriptor.material ?? { variant: "regular" };
         const members = nodesOfGroup(groupId);
 
+        const tinted: { nodeId: string; tint?: GlassTint }[] = [];
+
         for (const node of members) {
           const nodeId = node.descriptor.id;
+          // `null` is the author clearing an inherited tint (`Glass.tint(nil)`)
+          // and `undefined` is inheritance, so the coalesce is explicit rather
+          // than `??`, which would treat the two the same.
+          const declaredTint =
+            node.descriptor.tint === undefined ? profile.tint : node.descriptor.tint;
           const material = resolveMaterial({
             variant: node.descriptor.variant ?? profile.variant,
             ...(profile.dimming === undefined ? {} : { dimming: profile.dimming }),
+            ...(declaredTint === undefined || declaredTint === null ? {} : { tint: declaredTint }),
             nodeId,
             diagnostics,
+          });
+          tinted.push({
+            nodeId,
+            ...(material.tint === undefined ? {} : { tint: material.tint }),
           });
           resolvedNodes.push({
             nodeId,
@@ -838,6 +857,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
             })),
             diagnostics,
           });
+          checkTintMixing({ groupId, members: tinted, diagnostics });
         }
       }
 

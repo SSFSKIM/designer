@@ -62,6 +62,8 @@ export interface ResolvedSurface {
   /** Shorter extent in CSS px — what the lens's size gain is a function of. */
   readonly spanPx: number;
   readonly lensDepthPx: number;
+  /** The author tint's strength, 0 where the surface is untinted. */
+  readonly tintStrength: number;
 }
 
 const channelsOf = (input: SurfaceInput): SurfaceChannels => ({
@@ -172,6 +174,7 @@ export function resolveSurfaces(
       channels,
       spanPx,
       lensDepthPx: lensDepthPx(shape.channels.thickness, spanPx, profile),
+      tintStrength: Math.min(1, Math.max(0, surface.tint?.strength ?? 0)),
     };
   });
 }
@@ -306,7 +309,9 @@ export function packInstances(
     // `material.ts`, already scaled by the `lensStrength` motion channel, so the
     // fragment stage multiplies nothing it could get wrong.
     data[o + 14] = s.lensDepthPx * Math.min(1, Math.max(0, s.channels.lensStrength));
-    data[o + 15] = 0;
+    // The shader's `tintK` slot, and the only per-surface half of the author
+    // tint: the seed is a group uniform, this is how much of it this pixel gets.
+    data[o + 15] = s.tintStrength;
   }
 
   return { data, count: surfaces.length };

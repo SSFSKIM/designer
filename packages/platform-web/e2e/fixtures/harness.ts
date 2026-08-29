@@ -56,6 +56,8 @@ export interface SurfaceSpec {
   readonly radius?: number;
   readonly label?: string;
   readonly order?: number;
+  /** An author tint, as any CSS colour. Its alpha is the tint's strength. */
+  readonly tint?: string;
   /**
    * What element the app authored. A text input is worth having alongside the
    * button because engines differ on whether Tab visits buttons at all — Safari
@@ -284,6 +286,7 @@ const api = {
       radii: [radius, radius, radius, radius],
       ...(spec.nodeId === undefined ? {} : { nodeId: spec.nodeId }),
       ...(spec.order === undefined ? {} : { order: spec.order }),
+      ...(spec.tint === undefined ? {} : { tint: spec.tint }),
     });
     handles.set(handle.nodeId, handle);
     return handle.nodeId;

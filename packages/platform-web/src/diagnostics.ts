@@ -73,6 +73,12 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * workarounds rather than guessing. See `probe/engine-defects.ts`.
    */
   "engine-known-defect",
+  /**
+   * An author tint was declared in a colour syntax this engine could not
+   * resolve, so the surface rendered untinted. Parsing is this layer's job (the
+   * value is a CSS colour and the browser is the parser), so the finding is too.
+   */
+  "tint-unparseable",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

@@ -86,18 +86,26 @@ import {
   type MediaMatcher,
 } from "./media-policy";
 import {
+  boundedForegroundLevel,
   CSS_TIER_MAPPING,
   cssTierOptics,
+  gpuTierForegroundBounds,
   gpuTierForegroundLevel,
+  linearTint,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
   resolvedPolicyFold,
+  resolvedTintTone,
   sourceOptics,
+  tintedCssOptics,
+  tintedSourceOptics,
+  tintToneAdaptation,
   type CssTierMapping,
   type MaterialOptics,
 } from "./optics";
 import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } from "./planes";
 import { resolveSamplingGeometry } from "./proxy-geometry";
+import { createTintParser, resolveTintDeclaration } from "./tint";
 import {
   describeEngineDefect,
   describeProbeFailure,
@@ -536,6 +544,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * or they would model a material nothing draws.
    */
   let policyFold = resolvedPolicyFold(options.materialProfile);
+  /**
+   * The author tint's tone map, from the same profile — the curve that turns a
+   * seed into Apple's "range of tones mapped to content brightness underneath".
+   * Rebuilt by `setMaterialProfile` alongside the rest, so a calibrated tone
+   * lands as a data change and moves both tiers at once.
+   */
+  let tintTone = resolvedTintTone(options.materialProfile);
+  /** One CSS-colour parser per root, memoised by string. See `tint.ts`. */
+  const parseTint = createTintParser(view.document);
 
   const bridge: GlassRendererBridge | undefined = wantsWebGPU
     ? createGlassRendererBridge({
@@ -900,15 +917,69 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
       for (const { record, bounds } of measured) {
         const nodeRecord = scene.glassNode(record.nodeId);
+        // `null` clears an inherited tint and `undefined` inherits, so the two
+        // cannot be collapsed with `??` — the same distinction core's own
+        // resolution makes.
+        const declaredTint =
+          nodeRecord?.descriptor.tint === undefined
+            ? groupRecord.descriptor.material?.tint
+            : nodeRecord.descriptor.tint;
         const material: ResolvedMaterial = resolveMaterial({
           variant: nodeRecord?.descriptor.variant ?? variant,
           ...(groupRecord.descriptor.material?.dimming === undefined
             ? {}
             : { dimming: groupRecord.descriptor.material.dimming }),
+          ...(declaredTint === undefined || declaredTint === null ? {} : { tint: declaredTint }),
           nodeId: record.nodeId,
           diagnostics: coreDiagnostics,
         });
         const foreground = resolution.nodes.find((node) => node.nodeId === record.nodeId)?.foreground;
+
+        // X6's hint reaches both tiers here: the node's resolved mode plus the
+        // group's resolved hint tone, both already computed by core — this
+        // consumes that resolution rather than repeating it. Resolved before the
+        // material because a tinted surface's tone is read against the backdrop
+        // the hint describes.
+        const hint = {
+          mode: (foreground ?? { adaptation: { mode: "fixed" as const } }).adaptation.mode,
+          ...(resolved.hint.hint?.tone === undefined ? {} : { tone: resolved.hint.hint.tone }),
+          // X6's optional luminance, forwarded rather than re-derived. Both tiers
+          // need it because the foreground depends on how much of the backdrop
+          // the material lets through, not only on its tone.
+          ...(resolved.hint.hint?.luminance === undefined
+            ? {}
+            : { luminance: resolved.hint.hint.luminance }),
+        };
+
+        /*
+         * The author tint, folded into this surface's material.
+         *
+         * The GPU tier evaluates the tone per pixel against the backdrop it is
+         * already sampling. Nothing on this side can: a CSS declaration is one
+         * colour, so the tone is taken at one backdrop level — the hinted one
+         * where the app declared it, the mapping's reference level otherwise.
+         * That is the same single-level approximation `cssTintAlpha` already
+         * makes for the untinted material, on the same reasoning, and it is why
+         * the tier-coherence claim is worded around a declared backdrop rather
+         * than a range.
+         */
+        const toneBackdrop =
+          hintedBackdropLuminance(hint, cssMapping) ?? cssMapping.referenceBackdropLuminance;
+        const toneAdaptation = tintToneAdaptation(accessibility.material.ambientTint, tintTone);
+        const seed = material.tint === undefined ? undefined : linearTint(material.tint);
+        const nodeBaseOptics = tintedCssOptics(
+          baseOptics,
+          gpuOptics[variant],
+          seed,
+          toneBackdrop,
+          toneAdaptation,
+          cssMapping,
+          tintTone,
+        );
+        const nodeOptics =
+          seed === undefined
+            ? optics
+            : opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold);
 
         const input: GlassNodeRenderInput = {
           nodeId: record.nodeId,
@@ -926,7 +997,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           channels: readHostChannels(record.host, bounds),
           material,
           foreground: foreground ?? { adaptation: { mode: "fixed" } },
-          optics,
+          optics: nodeOptics,
           refraction: {
             state: state.refraction,
             accessibilityCap: cap,
@@ -939,23 +1010,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         list.push(input);
         nodesByPlane.set(record.plane, list);
 
-        // The CSS tier paints if and only if it is the active renderer. X6's
-        // hint reaches it here: the node's resolved mode plus the group's
-        // resolved hint tone, both already computed by core — this call
-        // consumes that resolution rather than repeating it.
-        const hint = {
-          mode: (foreground ?? { adaptation: { mode: "fixed" as const } }).adaptation.mode,
-          ...(resolved.hint.hint?.tone === undefined ? {} : { tone: resolved.hint.hint.tone }),
-          // X6's optional luminance, forwarded rather than re-derived. Both tiers
-          // need it because the foreground depends on how much of the backdrop
-          // the material lets through, not only on its tone.
-          ...(resolved.hint.hint?.luminance === undefined
-            ? {}
-            : { luminance: resolved.hint.hint.luminance }),
-        };
+        // The CSS tier paints if and only if it is the active renderer.
         const declarations = cssTierDeclarations({
           radii: record.radii,
-          optics: baseOptics,
+          optics: nodeBaseOptics,
+          ...(material.tint === undefined ? {} : { tint: material.tint }),
           mapping: cssMapping,
           policyFold,
           policy: accessibility,
@@ -1009,24 +1068,44 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * whichever tier is painting the body, and that is the canvas.
            */
           const hintedBackdrop = hintedBackdropLuminance(hint, cssMapping);
+          /*
+           * The material the renderer is drawing, tinted and folded: the seed
+           * displaces its tint colour and the occlusion regime lifts its alpha,
+           * which is the pair the level behind the glyphs is a function of. The
+           * ink therefore follows an author tint automatically — a dark tint
+           * takes the light token — rather than being decided against a material
+           * the tier stopped drawing the moment a colour was set.
+           */
+          const gpuMaterial = {
+            ...tintedSourceOptics(
+              gpuOptics[variant],
+              seed,
+              toneBackdrop,
+              toneAdaptation,
+              tintTone,
+            ),
+            tintAlpha: occlusionAlphaUnderPolicy(
+              gpuOptics[variant].tintAlpha,
+              accessibility.material.occlusion,
+              policyFold.increasedOcclusionLift,
+            ),
+          };
+          // Same rule as the CSS tier's: a declared tint can decide the ink with
+          // no hint at all, wherever the level's whole range lands on one side of
+          // the crossover. See `boundedForegroundLevel`.
+          const level =
+            hintedBackdrop !== undefined
+              ? gpuTierForegroundLevel(gpuMaterial, hintedBackdrop)
+              : seed === undefined
+                ? undefined
+                : boundedForegroundLevel(
+                    gpuTierForegroundBounds(gpuMaterial),
+                    cssMapping.foregroundCrossover,
+                  );
           const ink = foregroundDeclarations({
             policy: accessibility,
             mapping: cssMapping,
-            ...(hintedBackdrop === undefined
-              ? {}
-              : {
-                  level: gpuTierForegroundLevel(
-                    {
-                      ...gpuOptics[variant],
-                      tintAlpha: occlusionAlphaUnderPolicy(
-                        gpuOptics[variant].tintAlpha,
-                        accessibility.material.occlusion,
-                        policyFold.increasedOcclusionLift,
-                      ),
-                    },
-                    hintedBackdrop,
-                  ),
-                }),
+            ...(level === undefined ? {} : { level }),
           });
           const serialisedInk = JSON.stringify(ink);
           if (record.gpuForegroundApplied !== serialisedInk) {
@@ -1273,6 +1352,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         },
         zSlot: { plane, order },
         ...(hostOptions.variant === undefined ? {} : { variant: hostOptions.variant }),
+        // Parsed here, once, rather than per frame: the value is a CSS colour
+        // string and the browser is the parser, so the seam between "what the
+        // author wrote" and "what core carries" is registration.
+        ...(hostOptions.tint === undefined
+          ? {}
+          : {
+              tint:
+                resolveTintDeclaration(
+                  hostOptions.tint,
+                  parseTint,
+                  nodeId,
+                  platformDiagnostics,
+                ) ?? null,
+            }),
         ...(hostOptions.interaction === undefined ? {} : { interaction: hostOptions.interaction }),
         ...(hostOptions.foreground === undefined ? {} : { foreground: hostOptions.foreground }),
       });
@@ -1302,6 +1395,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             },
             zSlot: { plane: record.plane, order: record.order },
             ...("variant" in patch ? { variant: patch.variant } : {}),
+            ...("tint" in patch
+              ? {
+                  tint: resolveTintDeclaration(
+                    patch.tint,
+                    parseTint,
+                    nodeId,
+                    platformDiagnostics,
+                  ),
+                }
+              : {}),
             ...("interaction" in patch ? { interaction: patch.interaction } : {}),
             ...("foreground" in patch ? { foreground: patch.foreground } : {}),
           });
@@ -1432,6 +1535,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       cssOptics = cssTierOptics(profile, cssMapping);
       gpuOptics = sourceOptics(profile);
       policyFold = resolvedPolicyFold(profile);
+      tintTone = resolvedTintTone(profile);
       bridge?.setMaterialProfile(profile);
     },
 

@@ -22,6 +22,8 @@ export const DIAGNOSTIC_CODES = [
   "same-plane-overlap",
   /** `regular` and `clear` nodes share one GlassGroup (§Material variants). */
   "variant-mixing",
+  /** Two different author tint seeds share one GlassGroup, which is one optics pass (§Material tint). */
+  "tint-mixing",
   /** A group's `mergeDistance` is below its `samplingPadding`, so proxies can double-filter (X1). */
   "merge-distance-below-padding",
   /** A group's padded proxy samples pixels a neighbouring group paints, so the filter applies twice (X1). */

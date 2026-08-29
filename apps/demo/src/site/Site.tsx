@@ -69,6 +69,23 @@ const DEFAULT_SCENE: ReferenceScene = (() => {
   return found;
 })();
 
+/**
+ * The tint control's options.
+ *
+ * A `<select>` rather than a colour picker, and a short list rather than a
+ * spectrum: the point on the page is that a tint is a *seed read through a tone
+ * map*, which reads across a few well-separated hues and a half-strength case
+ * far better than it does across a continuum nobody stops on. The half-strength
+ * entry carries its alpha in the colour, which is how the API takes it.
+ */
+const TINT_OPTIONS = [
+  { label: "none", name: "None", value: null },
+  { label: "orange", name: "Orange", value: "#ff9500" },
+  { label: "blue", name: "Blue", value: "#0a84ff" },
+  { label: "green", name: "Green", value: "#30d158" },
+  { label: "orange-half", name: "Orange, half strength", value: "rgb(255 149 0 / 50%)" },
+] as const;
+
 const OVERRIDE_FIELDS = [
   ["reducedMotion", "Reduced motion"],
   ["reducedTransparency", "Reduced transparency"],
@@ -112,6 +129,8 @@ export function Site(props: SiteProps): ReactNode {
   const [scene, setScene] = useState<ReferenceScene>(DEFAULT_SCENE);
   const [lastAction, setLastAction] = useState<string | null>(null);
   const [panel, setPanel] = useState<ReferencePanel>("live");
+  const [tintOption, setTintOption] = useState<string>("none");
+  const tint = TINT_OPTIONS.find((entry) => entry.label === tintOption)?.value ?? null;
   const { overrides, onOverridesChange } = props;
 
   const mode = useMemo<StageMode>(
@@ -140,6 +159,7 @@ export function Site(props: SiteProps): ReactNode {
     scene,
     panel,
     onPanelChange: setPanel,
+    tint,
     animate: policy?.reducedMotion !== true,
     lastAction,
     onAction: setLastAction,
@@ -200,6 +220,33 @@ export function Site(props: SiteProps): ReactNode {
           <Fields legend="Renderer">
             <RendererField requested={props.requestedRenderer} />
           </Fields>
+          <Fields legend="Tint">
+            <label className="field">
+              <span className="field__label">Tint</span>
+              <select
+                value={tintOption}
+                onChange={(event) => setTintOption(event.target.value)}
+                data-testid="tint-select"
+              >
+                {TINT_OPTIONS.map((entry) => (
+                  <option key={entry.label} value={entry.label}>
+                    {entry.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </Fields>
+          <p className="body">
+            The tint is a seed, not a fill. Apple&rsquo;s material maps a chosen
+            colour to a range of tones against the brightness behind it, and a solid
+            fill is the failure the same session names &mdash; &ldquo;completely
+            opaque, and breaks the visual character of Liquid Glass&rdquo;. So the
+            colour here changes what the material&rsquo;s tint layer is made of and
+            never how opaque it is: the thick plate stays as transparent as the thin
+            one beside it, and the backdrop still moves through both. The colour
+            lands on one plate rather than the group, which is also the guidance
+            &mdash; colour one control for emphasis, not every control.
+          </p>
           {GROUPS_BY_MODE.material.map((group) => (
             <GroupReadout key={group.id} id={group.id} label={group.label} />
           ))}

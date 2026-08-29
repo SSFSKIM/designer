@@ -121,6 +121,137 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
 };
 
 /**
+ * The author tint's tone map, mirrored — the curve that makes a tint a tint.
+ *
+ * Apple's tint is "a **range of tones** that are mapped to content brightness
+ * underneath the tinted element" (S219), and a flat overlay of the author's
+ * colour is the failure the same session names. So the seed is read through
+ * this curve before anything composites it: over a dark backdrop the material
+ * shows `floor` times the seed in linear light (a shade, hue intact), over a
+ * bright one the seed `ceilMix` of the way to white, crossed with a smoothstep
+ * between the two backdrop luminances.
+ *
+ * `reducedAdaptation` is how much of that excursion survives increased
+ * contrast — the `ambientTint` axis, which already governs the material's
+ * response to its surroundings, rather than a second policy of its own.
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.tintTone*` and
+ * `.reducedTintAdaptation`, pinned in both directions by
+ * `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export interface TintToneConstants {
+  readonly floor: number;
+  readonly ceilMix: number;
+  readonly low: number;
+  readonly high: number;
+  readonly reducedAdaptation: number;
+}
+
+export const TINT_TONE: TintToneConstants = {
+  floor: 0.45,
+  ceilMix: 0.45,
+  low: 0.02,
+  high: 0.65,
+  reducedAdaptation: 0.35,
+};
+
+/**
+ * An author's seed in the working space.
+ *
+ * Core carries the colour the author wrote — sRGB-encoded, because that is what
+ * a CSS colour is — and every optical stage on both sides of the tier boundary
+ * works in linear light. One decode, at the edge where the seed enters the
+ * optics, so no downstream stage has to know which space it was handed.
+ */
+export function linearTint(tint: {
+  readonly color: readonly [number, number, number];
+  readonly strength: number;
+}): { readonly color: LinearRgb; readonly strength: number } {
+  return {
+    color: [
+      srgbDecode(tint.color[0]),
+      srgbDecode(tint.color[1]),
+      srgbDecode(tint.color[2]),
+    ],
+    strength: clamp01(tint.strength),
+  };
+}
+
+/** The tone constants under a profile patch, by the renderer's own merge rule. */
+export function resolvedTintTone(patch?: RendererMaterialProfile): TintToneConstants {
+  return {
+    floor: patch?.tintToneFloor ?? TINT_TONE.floor,
+    ceilMix: patch?.tintToneCeilMix ?? TINT_TONE.ceilMix,
+    low: patch?.tintToneLow ?? TINT_TONE.low,
+    high: patch?.tintToneHigh ?? TINT_TONE.high,
+    reducedAdaptation: patch?.reducedTintAdaptation ?? TINT_TONE.reducedAdaptation,
+  };
+}
+
+/**
+ * How much of the tone excursion the contrast regime allows.
+ *
+ * Mirrors the renderer's `tintToneAdaptation`. The author's colour is never
+ * changed by a policy — only how far the material is allowed to move it.
+ */
+export function tintToneAdaptation(
+  ambientTint: ResolvedMaterialPolicy["ambientTint"],
+  tone: TintToneConstants = TINT_TONE,
+): number {
+  switch (ambientTint) {
+    case "nominal":
+      return 1;
+    case "reduced":
+      return tone.reducedAdaptation;
+    case "none":
+      return 0;
+  }
+}
+
+/** The tone a seed shows over a given backdrop, linear light. Mirrors the renderer's `tintTone`. */
+export function tintTone(
+  seed: LinearRgb,
+  backdropLuminance: number,
+  toneAdaptation: number,
+  tone: TintToneConstants = TINT_TONE,
+): LinearRgb {
+  const t = smoothstep(tone.low, tone.high, backdropLuminance);
+  const k = clamp01(toneAdaptation);
+  const channel = (index: 0 | 1 | 2): number => {
+    const s = seed[index];
+    const low = s * tone.floor;
+    const high = s + (1 - s) * tone.ceilMix;
+    return s + (low + (high - low) * t - s) * k;
+  };
+  return [channel(0), channel(1), channel(2)];
+}
+
+/**
+ * The renderer's material for one tinted surface — the quantity this tier then
+ * converts, and the quantity the GPU tier's foreground decision is taken against.
+ *
+ * The seed displaces the material's tint **colour** by its strength and leaves
+ * the alpha exactly where the profile put it. That split is the whole design:
+ * the colour axis is the author's (`Glass.tint(_:)`), the alpha axis is the
+ * material's occlusion — what reduced transparency lifts, and where the system's
+ * own Clear-to-Tinted preference will land.
+ */
+export function tintedSourceOptics(
+  source: MaterialSourceOptics,
+  tint: { readonly color: LinearRgb; readonly strength: number } | undefined,
+  backdropLuminance: number,
+  toneAdaptation: number,
+  tone: TintToneConstants = TINT_TONE,
+): MaterialSourceOptics {
+  if (tint === undefined || tint.strength <= 0) return source;
+  const shown = tintTone(tint.color, backdropLuminance, toneAdaptation, tone);
+  const k = clamp01(tint.strength);
+  const mix = (index: 0 | 1 | 2): number =>
+    source.tint[index] + (shown[index] - source.tint[index]) * k;
+  return { ...source, tint: [mix(0), mix(1), mix(2)] };
+}
+
+/**
  * The renderer's press-glow constants, mirrored — and the one slice of the
  * material that crosses this boundary with **no conversion at all**.
  *
@@ -346,12 +477,25 @@ function srgbEncode(linear: number): number {
   return clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * Math.pow(clamped, 1 / 2.4) - 0.055;
 }
 
+/** The same transfer function, decode direction — an author's colour into the working space. */
+function srgbDecode(encoded: number): number {
+  const clamped = Math.min(1, Math.max(0, encoded));
+  return clamped <= 0.04045 ? clamped / 12.92 : Math.pow((clamped + 0.055) / 1.055, 2.4);
+}
+
 /** Rec. 709 relative luminance, the weighting X5's linear-light pipeline uses. */
 function luminance(rgb: LinearRgb): number {
   return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 }
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
+
+/** The renderer's own `smoothstep`, restated — same degradation to a step at a zero span. */
+function smoothstep(edge0: number, edge1: number, x: number): number {
+  if (edge1 <= edge0) return x < edge0 ? 0 : 1;
+  const t = clamp01((x - edge0) / (edge1 - edge0));
+  return t * t * (3 - 2 * t);
+}
 
 function encodeRgb(rgb: LinearRgb): Rgb255 {
   return [
@@ -390,6 +534,70 @@ export function cssTintAlpha(
 
   const composited = backdrop * (1 - source.tintAlpha) + tint * source.tintAlpha;
   return clamp01((srgbEncode(composited) - encodedBackdrop) / span);
+}
+
+/**
+ * The encoded colour that reproduces the renderer's composite, channel for
+ * channel, at the declared reference backdrop.
+ *
+ * `cssTintAlpha` solves one scalar on **luminance**, which is all a white tint
+ * ever needed — an achromatic overlay at the solved alpha lands on the right
+ * colour by construction. A chromatic tint does not: the alpha that matches the
+ * luminance leaves the hue sitting wherever the two transfer functions put it,
+ * and the error grows with saturation. So the colour is solved too, from the
+ * same equation and the same alpha:
+ *
+ * ```
+ * E(b)(1 − α′) + C′·α′ = E(b(1 − α) + t·α)      per channel
+ * ```
+ *
+ * For an achromatic tint this returns exactly `encodeRgb(tint)` — the solve is
+ * the same equation `cssTintAlpha` already satisfied — so it is a strict
+ * extension of the mapping rather than a second one, and the untinted material
+ * is untouched by it. Where a channel's answer falls outside the gamut it
+ * clamps, and the two tiers then differ on that channel by whatever the clamp
+ * cost; that is the same coherence floor this module's header states, reached by
+ * saturation instead of by backdrop.
+ */
+export function cssTintColor(
+  source: MaterialSourceOptics,
+  cssAlpha: number,
+  mapping: CssTierMapping = CSS_TIER_MAPPING,
+): Rgb255 {
+  if (cssAlpha <= mapping.minimumTintContrast) return encodeRgb(source.tint);
+  const backdrop = mapping.referenceBackdropLuminance;
+  const encodedBackdrop = srgbEncode(backdrop);
+  const channel = (index: 0 | 1 | 2): number => {
+    const composited = backdrop * (1 - source.tintAlpha) + source.tint[index] * source.tintAlpha;
+    const solved = (srgbEncode(composited) - encodedBackdrop * (1 - cssAlpha)) / cssAlpha;
+    return Math.round(clamp01(solved) * 255);
+  };
+  return [channel(0), channel(1), channel(2)];
+}
+
+/**
+ * This tier's numbers for a surface whose material carries an author tint.
+ *
+ * Everything but the tint colour and its alpha is the untinted conversion,
+ * unchanged, because nothing else about the material moved. The two that do move
+ * go through the **same** mapping the profile's own tint goes through — the
+ * alpha through `cssTintAlpha`, the colour through `cssTintColor` — so the tier
+ * stays derived rather than gaining a second set of numbers to drift. A tint of
+ * zero strength returns the base optics identically.
+ */
+export function tintedCssOptics(
+  base: MaterialOptics,
+  source: MaterialSourceOptics,
+  tint: { readonly color: LinearRgb; readonly strength: number } | undefined,
+  backdropLuminance: number,
+  toneAdaptation: number,
+  mapping: CssTierMapping = CSS_TIER_MAPPING,
+  tone: TintToneConstants = TINT_TONE,
+): MaterialOptics {
+  if (tint === undefined || tint.strength <= 0) return base;
+  const tinted = tintedSourceOptics(source, tint, backdropLuminance, toneAdaptation, tone);
+  const alpha = cssTintAlpha(tinted, mapping);
+  return { ...base, tintAlpha: alpha, tint: cssTintColor(tinted, alpha, mapping) };
 }
 
 /**
@@ -447,6 +655,49 @@ export function gpuTierForegroundLevel(
   const mixed =
     (1 - source.tintAlpha) * backdropLuminance + source.tintAlpha * luminance(source.tint);
   return srgbEncode(mixed);
+}
+
+/**
+ * A level the ink can be chosen from **without knowing the backdrop** — or
+ * nothing, where the backdrop still decides it.
+ *
+ * Both level functions are monotonic in the backdrop, so evaluating them at 0
+ * and at 1 brackets every level the surface can reach. When the whole bracket
+ * lands on one side of the crossover the ink is decided for any backdrop
+ * whatsoever, and returning a level from inside it is not a guess: it is the
+ * answer the hinted path would have produced, established from the material
+ * alone.
+ *
+ * **Used only where the material carries an author tint**, deliberately. A tint
+ * is the app declaring what colour this surface is, and taking the ink decision
+ * from a declaration is honouring it — the alternative is a saturated surface
+ * wearing `light-dark()` ink chosen by a colour scheme that knows nothing about
+ * it. The profile's own neutral tint is a different thing: a calibration
+ * constant, on the material the measured bed describes, and the same bracket
+ * would silently re-decide the ink on every untinted surface in the library.
+ * That change is real and probably right — an untinted surface at the measured
+ * 0.62 is already too opaque for the scheme to be deciding — but it belongs with
+ * the adaptation work that owns the untinted material's behaviour, not here.
+ */
+export function boundedForegroundLevel(
+  bounds: readonly [number, number],
+  crossover: number,
+): number | undefined {
+  if (bounds[0] >= crossover) return bounds[0];
+  if (bounds[1] < crossover) return bounds[1];
+  return undefined;
+}
+
+/** Every level this tier's surface can reach, over the darkest and brightest backdrops. */
+export function cssTierForegroundBounds(optics: MaterialOptics): readonly [number, number] {
+  return [cssTierForegroundLevel(optics, 0), cssTierForegroundLevel(optics, 1)];
+}
+
+/** The same bracket on the renderer's composite. */
+export function gpuTierForegroundBounds(
+  source: MaterialSourceOptics,
+): readonly [number, number] {
+  return [gpuTierForegroundLevel(source, 0), gpuTierForegroundLevel(source, 1)];
 }
 
 /**

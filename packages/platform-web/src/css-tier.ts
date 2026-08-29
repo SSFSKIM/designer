@@ -30,12 +30,15 @@ import type {
   BackdropTone,
   CornerRadii,
   ForegroundMode,
+  GlassTint,
   ResolvedAccessibilityPolicy,
 } from "@vitreajs/vitrea";
 
 import { GLASS_CHANNEL_PROPERTIES } from "./channels";
 import {
+  boundedForegroundLevel,
   CSS_TIER_MAPPING,
+  cssTierForegroundBounds,
   cssTierForegroundLevel,
   opticsUnderPolicy,
   type CssTierMapping,
@@ -87,6 +90,15 @@ export interface CssTierForegroundHint {
 export interface CssTierSurface {
   readonly radii: CornerRadii;
   readonly optics: MaterialOptics;
+  /**
+   * The author tint this surface's `optics` were derived with
+   * (`tintedCssOptics`) — the colour is already in there and is not read again
+   * here.
+   *
+   * It travels anyway because one decision needs to know a tint was *declared*
+   * rather than calibrated: the ink. See `boundedForegroundLevel`.
+   */
+  readonly tint?: GlassTint;
   readonly policy: ResolvedAccessibilityPolicy;
   /**
    * The group's resolved foreground adaptation (§Foreground adaptation). Absent
@@ -326,6 +338,20 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
    * two composite spaces is what stops the tiers disagreeing about the ink.
    */
   const hintedLuminance = hintedBackdropLuminance(surface.foreground, mapping);
+  /*
+   * A tinted surface with no hint is not undecidable. The level is monotonic in
+   * the backdrop, so bracketing it over the whole range often decides the ink
+   * outright — and a surface the app declared a colour for is exactly the case
+   * where taking that decision is honouring the declaration rather than guessing.
+   * Where the bracket straddles the crossover the backdrop really does decide,
+   * and the `light-dark()` default stands.
+   */
+  const level =
+    hintedLuminance !== undefined
+      ? cssTierForegroundLevel(optics, hintedLuminance)
+      : surface.tint === undefined
+        ? undefined
+        : boundedForegroundLevel(cssTierForegroundBounds(optics), mapping.foregroundCrossover);
 
   return {
     "border-radius": radius,
@@ -360,9 +386,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     ...foregroundDeclarations({
       policy,
       mapping,
-      ...(hintedLuminance === undefined
-        ? {}
-        : { level: cssTierForegroundLevel(optics, hintedLuminance) }),
+      ...(level === undefined ? {} : { level }),
     }),
   };
 }

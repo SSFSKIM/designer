@@ -54,6 +54,7 @@ import { groupUnionFromMergeDistance } from "@vitrea/geometry";
 
 import { IDLE_CHANNELS, type SurfaceChannelValues } from "./channels";
 import type { PlatformDiagnosticsChannel } from "./diagnostics";
+import { linearTint } from "./optics";
 import type { GlassLayerManager } from "./planes";
 import type { GlassFrameRenderInput } from "./root";
 import type { WebGPUStatus } from "./webgpu";
@@ -289,6 +290,10 @@ function toSurfaceInput(node: GlassFrameRenderInput["planes"][number]["nodes"][n
       thickness: node.thickness,
     },
     variant: node.material.variant,
+    // Decoded into the renderer's working space here rather than carried as the
+    // author wrote it: everything past this seam is linear light, and core is
+    // deliberately free of colour-space knowledge.
+    ...(node.material.tint === undefined ? {} : { tint: linearTint(node.material.tint) }),
     channels: node.channels,
   };
 }

@@ -32,6 +32,7 @@ import {
   MATERIAL_SOURCE_OPTICS,
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
+  TINT_TONE,
   cssTierForegroundLevel,
   cssTierOptics,
   foregroundDeclarations,
@@ -40,8 +41,11 @@ import {
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy as cssTierOpticsUnderPolicy,
   resolvedPolicyFold,
+  resolvedTintTone,
   sourceGlow,
   sourceOptics,
+  tintTone as cssTierTintTone,
+  tintToneAdaptation as cssTierTintToneAdaptation,
 } from "@vitrea/platform-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
@@ -49,6 +53,8 @@ import {
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
+  tintTone as rendererTintTone,
+  tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
 } from "@vitrea/renderer-webgpu";
 import { describe, expect, it } from "vitest";
@@ -343,5 +349,64 @@ describe("tier coherence (K5)", () => {
     expect(css.tint).not.toEqual(cssTierOptics().regular.tint);
     // And the renderer's own default is untouched by having been read.
     expect(DEFAULT_MATERIAL_PROFILE.optics.regular).toEqual(gpu);
+  });
+
+  /**
+   * The author tint's tone map — the newest mirrored slice, and the one most
+   * exposed to drift, because the curve deliberately exists twice: once in the
+   * shader, evaluated per pixel against the backdrop it is already sampling, and
+   * once on the CPU, where the CSS tier's single colour and both tiers' ink
+   * decisions are taken against it. A mirror that moved on one side would decide
+   * the ink against a material nobody draws — Decision Log #32(b)'s failure,
+   * arriving through a different door.
+   */
+  it("mirrors the renderer's tint tone constants, patch included", () => {
+    expect(TINT_TONE.floor).toBe(DEFAULT_MATERIAL_PROFILE.tintToneFloor);
+    expect(TINT_TONE.ceilMix).toBe(DEFAULT_MATERIAL_PROFILE.tintToneCeilMix);
+    expect(TINT_TONE.low).toBe(DEFAULT_MATERIAL_PROFILE.tintToneLow);
+    expect(TINT_TONE.high).toBe(DEFAULT_MATERIAL_PROFILE.tintToneHigh);
+    expect(TINT_TONE.reducedAdaptation).toBe(DEFAULT_MATERIAL_PROFILE.reducedTintAdaptation);
+
+    const patch = {
+      tintToneFloor: 0.2,
+      tintToneCeilMix: 0.8,
+      tintToneLow: 0.1,
+      tintToneHigh: 0.4,
+      reducedTintAdaptation: 0.6,
+    };
+    const rendered = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const mirrored = resolvedTintTone(patch);
+    expect(mirrored.floor).toBe(rendered.tintToneFloor);
+    expect(mirrored.ceilMix).toBe(rendered.tintToneCeilMix);
+    expect(mirrored.low).toBe(rendered.tintToneLow);
+    expect(mirrored.high).toBe(rendered.tintToneHigh);
+    expect(mirrored.reducedAdaptation).toBe(rendered.reducedTintAdaptation);
+  });
+
+  it("evaluates the same tone curve on both sides, at both ends and in between", () => {
+    const seed = [0.8, 0.2, 0.05] as const;
+    for (const backdrop of [0, 0.02, 0.2, 0.5, 0.9, 1]) {
+      const renderer = rendererTintTone(seed, backdrop, 1);
+      const mirror = cssTierTintTone(seed, backdrop, 1);
+      for (const index of [0, 1, 2] as const) {
+        expect(mirror[index], `backdrop ${backdrop}`).toBeCloseTo(renderer[index], 12);
+      }
+    }
+  });
+
+  it("reads the accessibility regime the same way on both sides", () => {
+    for (const ambientTint of ["nominal", "reduced", "none"] as const) {
+      expect(cssTierTintToneAdaptation(ambientTint)).toBe(
+        rendererTintToneAdaptation({
+          glass: "material",
+          frost: "nominal",
+          refraction: "nominal",
+          occlusion: "nominal",
+          border: "nominal",
+          ambientTint,
+          foreground: "adaptive",
+        }),
+      );
+    }
   });
 });

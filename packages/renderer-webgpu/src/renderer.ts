@@ -68,6 +68,7 @@ import {
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
   opticsUnderPolicy,
+  tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
   type MaterialProfile,
@@ -398,6 +399,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
   const variantOf = (input: GroupRenderInput): MaterialVariant => input.variant ?? "regular";
 
+  /**
+   * The one tint seed this group's optics pass draws with.
+   *
+   * A group is one pass and one uniform, so the seed is per group while the
+   * strength is per pixel — enough for the composition Apple's guidance actually
+   * describes (one emphasised control among plain ones) and not enough for two
+   * hues in one container, which core reports as `tint-mixing`. The first tinted
+   * drawn member wins, deterministically, rather than an average nobody chose.
+   */
+  const groupTintSeed = (input: GroupRenderInput): readonly [number, number, number] | undefined =>
+    input.surfaces.find(
+      (surface) => surface.fieldReferenceOnly !== true && (surface.tint?.strength ?? 0) > 0,
+    )?.tint?.color;
+
   const stateOf = (
     input: GroupRenderInput,
     resolution: SceneResolutionView | undefined,
@@ -623,6 +638,26 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           adapt?.observed === true
             ? adaptationStrength(policy, state.analysisExact, material)
             : 0,
+        /*
+         * `glass: "none"` is forced colours, and it takes the author's tint with
+         * the rest of the material.
+         *
+         * The pass keeps running — it is what paints the surface at all on this
+         * tier — but with no backdrop and an opaque occlusion, so whatever colour
+         * sits here IS the surface. An author tint arriving into that lands as a
+         * flat fill of the author's colour where the platform's palette is
+         * required, which is the one composition forced colours exists to
+         * prevent. Falling back to the material's own tint reproduces exactly
+         * what an untinted surface draws.
+         */
+        tintSeed: (policy.glass === "none" ? undefined : groupTintSeed(input)) ?? optics.tint,
+        tintToneAdaptation: tintToneAdaptation(policy, material),
+        tintTone: [
+          material.tintToneFloor,
+          material.tintToneCeilMix,
+          material.tintToneLow,
+          material.tintToneHigh,
+        ],
         rimWidth: optics.rimWidth,
         rimAlpha: optics.rimAlpha,
         specularPower: optics.specularPower,

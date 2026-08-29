@@ -107,6 +107,76 @@ more. Position and size are never props, because a measured rect is the single
 source of truth that lets press compression and morph deformation be composed
 transforms rather than shape changes.
 
+### Colouring a surface: `tint`
+
+```tsx
+<GlassToolbar aria-label="Document actions">
+  <GlassButton onClick={publish} tint="#ff9500">Publish</GlassButton>
+  <GlassButton onClick={duplicate}>Duplicate</GlassButton>
+  <GlassButton onClick={remove}>Delete</GlassButton>
+</GlassToolbar>
+```
+
+`tint` takes **any CSS colour** — a hex, an `rgb()`, a named colour, an
+`oklch()`, whatever your design tokens are already written in. It is the
+supported way to colour glass, and it exists because the obvious alternative is a
+documented failure: a background colour on the host element is a solid fill, and
+Apple names exactly that — *"it is completely opaque and breaks the visual
+character of Liquid Glass."*
+
+**The colour you pass is a seed, not a fill.** Apple's material "generates a
+range of tones that are mapped to content brightness underneath the tinted
+element", and vitrea does the same: the seed is read through a tone curve against
+the backdrop the surface is already sampling, so one orange settles to a deep
+amber over dark content and a bright wash over light content, and the backdrop
+keeps coming through either way. On the WebGPU tier that happens per pixel,
+inside the optics pass, against the same lens-displaced sample the material
+refracts. On the CSS tier — which has one colour per element to work with — the
+tone is resolved at one backdrop level and converted through the same mapping the
+material's own tint goes through, so the two tiers stay derived from one document
+instead of holding two sets of numbers.
+
+**A tint changes what colour the material is, never how opaque it is.** That
+separation is deliberate, and it is what keeps the accessibility story intact:
+opacity is the material's occlusion, which is the axis *Reduce Transparency*
+lifts and where a system-level glass preference lands. A tinted surface under an
+accessibility preference therefore gets *more of the author's colour*, not a
+different one.
+
+The colour's own **alpha is the tint's strength** — `rgb(255 149 0 / 50%)` is a
+half-strength orange, the same way `Color.orange.opacity(0.5)` is in SwiftUI — so
+subtlety is expressed in the colour rather than in a second prop. `tint={null}`
+clears a tint inherited from the group.
+
+Three things worth knowing before you reach for it:
+
+- **Tint sparingly.** Apple's guidance is to colour one element that benefits
+  from emphasis — a primary action, a status indicator — and explicitly not the
+  backgrounds of several controls at once: *"when every element is tinted,
+  nothing stands out."*
+- **A group carries one seed.** A `GlassGroup` is one sampling region and one
+  optics pass, which is exactly enough for the composition above (one coloured
+  control among plain ones) and not enough for two different hues in one group.
+  Asking for two raises a dev-mode warning naming the fix, which is to give the
+  second surface its own group.
+- **The ink follows the tint.** vitrea publishes `--vitrea-foreground` against
+  the material it is actually drawing, so a dark tint gets the light ink without
+  you declaring anything — including on a group with no backdrop hint at all,
+  wherever the tint decides the answer for every possible backdrop.
+
+Under **forced colours** the tint goes with the rest of the material: there is no
+glass to colour, and the surface takes the platform's palette.
+
+**What is measured, and what is not.** The tint is implemented on both tiers and
+visually verified on both — that a tinted surface takes the colour, that its
+untinted neighbour in the same group does not, and that the backdrop still
+transmits through it rather than being replaced by paint. **It carries no
+fidelity number.** Every constant in the tone curve is an advisory default, and
+the tinted native captures that would fit them are a scheduled extension of the
+capture harness, not something this release measured. When those land, the curve
+becomes a data change and the claim below gains a tint section; until then, treat
+the tint's *appearance* as designed rather than as calibrated.
+
 ### Where a surface belongs: the controls layer
 
 `GlassSurface` will glass whatever element you hand it, and there is one place it
@@ -268,6 +338,11 @@ dev tooling read them.
   non-uniform set is a dev-mode error.
 - Mixing `regular` and `clear` variants inside one group raises a dev-mode
   warning, mirroring Apple's own guidance.
+- One `tint` seed per group. Two different tint colours inside one `GlassGroup`
+  raise a dev-mode warning: a group is one optics pass, so the WebGPU tier draws
+  them all in the first surface's colour while the CSS tier honours each. Per
+  surface, tint *strength* is unrestricted — one coloured control among plain
+  ones is the supported composition.
 
 ---
 
@@ -361,9 +436,12 @@ Apple's `Glass.interactive(true)` opts the material into responding to press
 input rather than posing it pressed, and the native "pressed" captures are
 byte-identical to their rest counterparts; **no adopted pass/fail thresholds**,
 only proposals awaiting a human gate; **1× scale only**, with both
-accessibility-mode profiles still uncaptured; and **no claim that the two tiers
-are identical**, nor that the coherence figure above holds on Gecko or WebKit,
-where nothing about `backdrop-filter` is measurable at all.
+accessibility-mode profiles still uncaptured; **no fidelity claim for the author
+tint**, whose tone curve is advisory until the tinted native captures are taken
+(see `tint` above — implemented and visually verified on both tiers, measured on
+neither); and **no claim that the two tiers are identical**, nor that the
+coherence figure above holds on Gecko or WebKit, where nothing about
+`backdrop-filter` is measurable at all.
 
 ---
 

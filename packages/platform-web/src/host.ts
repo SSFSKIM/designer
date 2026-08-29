@@ -44,6 +44,16 @@
 
 import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "@vitreajs/vitrea";
 
+/**
+ * An author tint, as an app writes it: **any CSS colour the browser can parse**,
+ * with its alpha read as the tint's strength (`rgb(255 149 0 / 50%)` is a
+ * half-strength orange, exactly as `Color.orange.opacity(0.5)` is in SwiftUI).
+ *
+ * `null` clears a tint inherited from the group, the way `Glass.tint(nil)` does.
+ * `undefined` inherits.
+ */
+export type TintDeclaration = string | null;
+
 export interface GlassHostOptions {
   /** The app's own element. Must already be inside `plane(plane).hostLayer`. */
   readonly host: HTMLElement;
@@ -61,6 +71,8 @@ export interface GlassHostOptions {
   /** Material thickness in CSS px, driving lensing depth and shadow. */
   readonly thickness?: number;
   readonly variant?: MaterialVariant;
+  /** Overrides the group's tint seed. See `TintDeclaration`. */
+  readonly tint?: TintDeclaration;
   readonly interaction?: InteractionState;
   readonly foreground?: ForegroundAdaptation;
   /**
@@ -95,6 +107,7 @@ export interface GlassHostPatch {
   readonly smoothing?: number;
   readonly thickness?: number;
   readonly variant?: MaterialVariant | undefined;
+  readonly tint?: TintDeclaration | undefined;
   readonly interaction?: InteractionState | undefined;
   readonly foreground?: ForegroundAdaptation | undefined;
   readonly order?: number;
