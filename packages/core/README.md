@@ -221,6 +221,18 @@ There is a built-in best-effort estimator that reads known background colours an
 images where CORS permits, and it is documented as an estimator every place it
 appears — not as pixel analysis, because that is not what it is.
 
+**The backdrop reading decides the material's own appearance too, not only the
+foreground.** Apple's material stops being a lighter thing in front of a dark
+enough backdrop and takes that backdrop's tone; vitrea does the same, size-gated,
+so a 44 px control disappears into a near-black backdrop while a large panel over
+the same one keeps most of its own appearance. Read the table above with that in
+mind: **texture + exact** measures the tone from the pixels you supplied,
+**dom + hint** adapts to the tone your hint declares, and **dom + none** does not
+adapt at all — it will not guess a backdrop it has not been shown, on either tier.
+Nothing happens above roughly a fifth of the luminance range, so an ordinary page
+is untouched. Measured against the macOS 26.5 reference; the law and its numbers
+are in `docs/doperpowers/specs/c9a-fidelity-claims.md` §5.8.
+
 ### Registering a texture backdrop
 
 The texture path is two steps, and it is two because of the purity law above:

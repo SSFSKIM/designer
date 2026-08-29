@@ -13,6 +13,11 @@
  * over backdrop detail, and a 32px grid plus broad hue transitions is the cheapest
  * honest source of both high and low spatial frequency.
  *
+ * The ground under both is a prop rather than a constant, because one stage needs
+ * to move it: backdrop tone adaptation (W7) is a function of how dark the backdrop
+ * is, and a page cannot show a reader a transition it has no way to cross. Every
+ * other stage passes nothing and gets the window's own colour, unchanged.
+ *
  * `GlassGroup`'s `backdrop` prop declares the source to core, which is what keeps
  * `configuredSource: "texture"` true through any demotion; `setBackdropTexture`
  * hands over the pixels, which core cannot hold (X4). A canvas source is
@@ -24,10 +29,34 @@
 import { useGlassRoot, useGlassTicker } from "@vitreajs/vitrea-react";
 import { useEffect, useRef, type ReactNode } from "react";
 
+/**
+ * What the ground under the graticule is made of.
+ *
+ * Two numbers rather than one, because the backdrop tone stage (W7) needs the
+ * ground to be a *stated* level and the other stages need it to be the window's
+ * own colour. `fill` is the base colour the canvas clears to; `field` scales the
+ * chromatic lobes' alpha, and at 0 the lobes are not drawn at all.
+ *
+ * A flat achromatic ground is not a plainer version of the usual one, it is the
+ * bed the tone axis was measured on: a group adapts onto ONE resolved backdrop
+ * colour, so a surface only settles into its backdrop *exactly* where the
+ * backdrop is the same everywhere under it. Over the drifting field the same
+ * adaptation would put a flat average-coloured patch on a graded ground, and the
+ * page would be showing an approximation while claiming a convergence.
+ */
+export interface StageGroundPaint {
+  readonly fill: string;
+  readonly field: number;
+}
+
+/** The instrument window's own ground: the colour every stage but the tone one uses. */
+export const DEFAULT_GROUND: StageGroundPaint = { fill: "#0c151a", field: 1 };
+
 export interface StageBackdropProps {
   readonly sourceId: string;
   /** Held still under reduced motion; the grid alone still carries the detail. */
   readonly animate: boolean;
+  readonly ground?: StageGroundPaint;
 }
 
 const GRID = 32;
@@ -57,8 +86,16 @@ export function StageBackdrop(props: StageBackdropProps): ReactNode {
   const root = useGlassRoot();
   const ticker = useGlassTicker();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  /*
+   * Both of these are read inside the ticker rather than closed over, for the
+   * same reason: the subscription is set up once per source and re-subscribing on
+   * every ground change would drop a frame each time the reader moved the slider,
+   * which is the one motion this page is asking them to watch.
+   */
   const animateRef = useRef(props.animate);
   animateRef.current = props.animate;
+  const groundRef = useRef(props.ground ?? DEFAULT_GROUND);
+  groundRef.current = props.ground ?? DEFAULT_GROUND;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -83,30 +120,31 @@ export function StageBackdrop(props: StageBackdropProps): ReactNode {
 
       if (animateRef.current) phase += dtMs / 9000;
 
+      const ground = groundRef.current;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
-      context.fillStyle = "#0c151a";
+      context.fillStyle = ground.fill;
       context.fillRect(0, 0, width, height);
 
       // The field, first: broad low-frequency colour for the lens to bend.
-      context.globalCompositeOperation = "lighter";
-      for (let lobe = 0; lobe < LOBES; lobe += 1) {
-        const t = lobe / LOBES;
-        const cx = width * (0.2 + 0.6 * ((t + phase * 0.6) % 1));
-        const cy = height * (0.18 + 0.64 * ((t * 0.7 + phase) % 1));
-        const radius = Math.max(width, height) * 0.52;
-        const gradient = context.createRadialGradient(cx, cy, 0, cx, cy, radius);
-        const hue = (lobe * 78 + phase * 90) % 360;
-        gradient.addColorStop(
-          0,
-          `oklch(${LOBE_LIGHTNESS} ${LOBE_CHROMA} ${hue} / ${LOBE_ALPHA})`,
-        );
-        gradient.addColorStop(1, `oklch(${LOBE_LIGHTNESS} ${LOBE_CHROMA} ${hue} / 0)`);
-        context.fillStyle = gradient;
-        context.beginPath();
-        context.arc(cx, cy, radius, 0, Math.PI * 2);
-        context.fill();
+      if (ground.field > 0) {
+        context.globalCompositeOperation = "lighter";
+        for (let lobe = 0; lobe < LOBES; lobe += 1) {
+          const t = lobe / LOBES;
+          const cx = width * (0.2 + 0.6 * ((t + phase * 0.6) % 1));
+          const cy = height * (0.18 + 0.64 * ((t * 0.7 + phase) % 1));
+          const radius = Math.max(width, height) * 0.52;
+          const gradient = context.createRadialGradient(cx, cy, 0, cx, cy, radius);
+          const hue = (lobe * 78 + phase * 90) % 360;
+          const alpha = LOBE_ALPHA * ground.field;
+          gradient.addColorStop(0, `oklch(${LOBE_LIGHTNESS} ${LOBE_CHROMA} ${hue} / ${alpha})`);
+          gradient.addColorStop(1, `oklch(${LOBE_LIGHTNESS} ${LOBE_CHROMA} ${hue} / 0)`);
+          context.fillStyle = gradient;
+          context.beginPath();
+          context.arc(cx, cy, radius, 0, Math.PI * 2);
+          context.fill();
+        }
+        context.globalCompositeOperation = "source-over";
       }
-      context.globalCompositeOperation = "source-over";
 
       // The graticule, second: the high-frequency half, and the stance's own mark.
       context.strokeStyle = "rgb(255 255 255 / 0.11)";

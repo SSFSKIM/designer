@@ -12,7 +12,9 @@
 
 import { describe, expect, it } from "vitest";
 
+import { WGSL_OPTICS_PASS } from "../src/wgsl";
 import {
+  adaptedTintAlpha,
   adaptedTintColour,
   backdropToneAdaptation,
   backdropToneSizeBiasUnderPolicy,
@@ -295,5 +297,57 @@ describe("the scheme semantics — one law, applied inside whichever scheme is a
       backdropToneAdaptation(0.0117, CAPSULE, DEFAULT_MATERIAL_PROFILE),
       12,
     );
+  });
+});
+
+describe("adaptedTintAlpha, and the surface's own appearance", () => {
+  it("lifts the occlusion by the fraction of transparency the adaptation takes", () => {
+    // The same "fraction of what is left" shape as `increasedOcclusionLift`, so it
+    // lifts strictly for every nominal below 1 whatever a retune moves nominal to.
+    expect(adaptedTintAlpha(ALPHA, 0)).toBe(ALPHA);
+    expect(adaptedTintAlpha(ALPHA, 1)).toBe(1);
+    expect(adaptedTintAlpha(0.1, 0.5)).toBeCloseTo(0.55, 12);
+    expect(adaptedTintAlpha(ALPHA, 0.5)).toBeGreaterThan(ALPHA);
+  });
+
+  it("clamps rather than extrapolating past either end", () => {
+    expect(adaptedTintAlpha(ALPHA, -1)).toBe(ALPHA);
+    expect(adaptedTintAlpha(ALPHA, 2)).toBe(1);
+  });
+});
+
+/*
+ * The shader is where the per-pixel half of this axis lives, and there is no WGSL
+ * compiler in a Node test — `e2e/gpu` compiles it on a real adapter. What can be
+ * checked here is what the string must contain, in the spirit of
+ * `wgsl-contract.test.ts`: three properties whose absence would be silent.
+ */
+describe("the optics pass's statement of the axis", () => {
+  it("carries both uniform slots the CPU writes", () => {
+    expect(WGSL_OPTICS_PASS).toContain("toneAdapt : vec4f");
+    expect(WGSL_OPTICS_PASS).toContain("toneColour : vec4f");
+  });
+
+  it("stands the axis down with no backdrop and with no measured tone", () => {
+    // Two guards, and both matter: the backdrop vector is a zero rather than a
+    // measurement where there is none, and a group whose tone nobody could read
+    // gets a strength of zero rather than a guessed level. Reading either as a
+    // black backdrop would dissolve the surface into nothing.
+    expect(WGSL_OPTICS_PASS).toContain("if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0)");
+  });
+
+  it("evaluates the curve without smoothstep, so a collapsed band is not a NaN", () => {
+    const body = WGSL_OPTICS_PASS.slice(WGSL_OPTICS_PASS.indexOf("var toneAdapt"));
+    const curve = body.slice(0, body.indexOf("let sizedAlpha"));
+    expect(curve).not.toContain("smoothstep");
+    expect(curve).toContain("max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6)");
+  });
+
+  it("fades the rim, the specular and the inner shadow on the one factor", () => {
+    // The marks that say a surface is here rather than what is behind it. All of
+    // them, or the surface leaves an outline where the reference leaves nothing.
+    expect(WGSL_OPTICS_PASS).toContain("let present = 1.0 - toneAdapt;");
+    expect(WGSL_OPTICS_PASS).toContain("profile * shadowDepth * ou.light.w * present");
+    expect(WGSL_OPTICS_PASS).toContain("rw * (ou.rim.y + spec) * present");
   });
 });

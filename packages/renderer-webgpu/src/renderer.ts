@@ -609,6 +609,28 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const variant = variantOf(input);
       const optics = opticsUnderPolicy(material.optics[variant], policy, material);
 
+      /*
+       * Backdrop tone adaptation (W7). Both policy folds resolve here, on the
+       * CPU, so the shaders carry the curve and not the regime — and the optics
+       * and highlight passes are handed the same four numbers, because a
+       * highlight that outlived the surface it belongs to is exactly what two
+       * copies of one curve produce.
+       *
+       * The strength is zero unless the host measured a backdrop tone for this
+       * group. That is not a defensive default: this axis moves the material onto
+       * a colour, and the only colour it may move onto is one somebody measured.
+       */
+      const backdropTone: readonly [number, number, number, number] = [
+        material.backdropToneLow,
+        material.backdropToneHigh,
+        backdropToneSizeBiasUnderPolicy(policy, material),
+        input.backdropTone === undefined
+          ? 0
+          : backdropToneUnderPolicy(policy, material) * material.backdropToneMax,
+      ];
+      const backdropToneLevel =
+        input.backdropTone === undefined ? 0 : relativeLuminance(input.backdropTone);
+
       // Decision Log #19's dual cap, resolved once, on the CPU.
       const refraction = effectiveRefraction(
         accessibilityRefractionCap(policy),
@@ -681,29 +703,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeOcclusionGain: material.sizeOcclusionGain,
         sizeShadowGainMax: material.sizeShadowGainMax,
         bodyChainLod: chainLodForSigma(pyramid?.bodySigmaTexels ?? 0),
-        /*
-         * Backdrop tone adaptation (W7). Both policy folds resolve here, on the
-         * CPU, so the shader carries the curve and not the regime.
-         *
-         * The strength is zero unless the host measured a backdrop tone for this
-         * group. That is not a defensive default: this axis moves the material
-         * onto a colour, and the only colour it may move onto is one somebody
-         * measured. A group whose backdrop nobody could read keeps the scheme's
-         * own material, on both tiers alike.
-         */
-        backdropTone: [
-          material.backdropToneLow,
-          material.backdropToneHigh,
-          backdropToneSizeBiasUnderPolicy(policy, material),
-          input.backdropTone === undefined
-            ? 0
-            : backdropToneUnderPolicy(policy, material) * material.backdropToneMax,
-        ],
+        backdropTone,
         backdropToneColour: [
           input.backdropTone?.[0] ?? 0,
           input.backdropTone?.[1] ?? 0,
           input.backdropTone?.[2] ?? 0,
-          input.backdropTone === undefined ? 0 : relativeLuminance(input.backdropTone),
+          backdropToneLevel,
         ],
         backdrop:
           pyramid === undefined || policy.glass === "none"
@@ -739,6 +744,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           glowRadiusCss: material.glowRadiusCss,
           glowGain: material.glowGain,
           colour: optics.highlight,
+          // The same four numbers the optics pass took, so the two passes fade
+          // the surface on one curve rather than on two copies of it.
+          backdropTone,
+          backdropToneLevel,
         });
       }
 

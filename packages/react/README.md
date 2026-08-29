@@ -81,6 +81,21 @@ automatically pixel-analyse arbitrary DOM and never claims to — the hint (or a
 estimator provider) is the one mechanism, and it is documented as a hint
 everywhere it appears.
 
+**The hint also decides how the material itself looks over a dark backdrop.**
+Apple's Liquid Glass stops being a lighter thing in front of a dark enough
+backdrop and takes that backdrop's own tone; vitrea now does the same, so the
+tone you declare is the tone a small surface settles into. The threshold is low —
+nothing happens above roughly a fifth of the luminance range — and the effect is
+size-gated: a 44 px control over a near-black backdrop disappears into it, while
+a large panel over the same backdrop keeps most of its own appearance. Measured
+against the reference rather than styled;
+`docs/doperpowers/specs/c9a-fidelity-claims.md` §5.8 has the numbers.
+
+Where you register a **texture** backdrop, vitrea measures that source's average
+tone from the pixels you handed over and needs no hint for this. Where it has
+neither, the material does not adapt at all, on either tier — it will not guess a
+backdrop it has not been shown.
+
 ### Surfaces outside a control
 
 ```tsx

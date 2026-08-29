@@ -339,7 +339,27 @@ code {
   border-radius: var(--radius-0);
 }
 
+/*
+ * The one continuous control on the page, and it is native.
+ *
+ * The backdrop tone stage needs the reader to cross a transition rather than
+ * choose between its ends, so this is the one place a `<select>` will not do. It
+ * stays an unstyled `input[type="range"]`: the platform's own thumb and track come
+ * with keyboard stepping, Home and End, touch targets and every assistive
+ * behaviour a rebuilt slider has to re-earn, and none of that is worth spending to
+ * match the page's ruled hairlines. `accent-color` is the whole restyle, and it is
+ * the accent this page reserves for a current position — which is what a slider
+ * thumb is.
+ */
+.field__range {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
 .field select:focus-visible,
+.field__range:focus-visible,
 .jump a:focus-visible,
 .column a:focus-visible {
   outline: 2px solid var(--accent);

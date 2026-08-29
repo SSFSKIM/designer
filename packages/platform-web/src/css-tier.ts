@@ -112,6 +112,17 @@ export interface CssTierSurface {
    */
   readonly foreground?: CssTierForegroundHint;
   /**
+   * The backdrop this surface is actually over, linear 0..1 — X6's declared hint
+   * where there is one, otherwise the tone measured from the backdrop source the
+   * app supplied (W7). Absent where neither exists.
+   *
+   * Distinct from `foreground` and strictly wider than it: `hintedBackdropLuminance`
+   * answers only for an *author* hint, and the backdrop adaptation can move this
+   * surface's material a long way on a tone nobody declared. The ink has to be
+   * decided against the material the surface is actually drawing.
+   */
+  readonly backdropLuminance?: number;
+  /**
    * The mapping the optics were derived through. Only its foreground constants
    * are read here — the rest already did their work in `cssTierOptics` — but the
    * two have to be the same document, or the ink would be chosen against a
@@ -380,7 +391,17 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
    * the GPU tier needs the same answer over its own composite, and one rule with
    * two composite spaces is what stops the tiers disagreeing about the ink.
    */
-  const hintedLuminance = hintedBackdropLuminance(surface.foreground, mapping);
+  /*
+   * A *measured* backdrop tone counts here exactly as a declared one does (W7).
+   * `hintedBackdropLuminance` answers for an author hint and nothing else, so
+   * without this a group whose backdrop vitrea had actually measured — and whose
+   * material had just adapted onto it — fell through to the `light-dark()`
+   * default. The adaptation can take a surface from near-white to near-black, and
+   * ink that stays where the colour scheme put it is the K4/#32(b) failure
+   * arriving through a third door.
+   */
+  const hintedLuminance =
+    surface.backdropLuminance ?? hintedBackdropLuminance(surface.foreground, mapping);
   /*
    * A tinted surface with no hint is not undecidable. The level is monotonic in
    * the backdrop, so bracketing it over the whole range often decides the ink

@@ -606,18 +606,27 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     { readonly epoch: number; readonly atMs: number; readonly sample: BackdropToneSample | undefined }
   >();
   /**
-   * The source's tone, re-read when the app says its content changed and no more
+   * The source's tone, re-read when its content can have changed and no more
    * often than `BACKDROP_TONE_CADENCE_MS`.
    *
-   * Two bounds because one is not enough. The dirty epoch is the same ledger the
-   * GPU tier rebuilds its pyramid from, so a static image is read exactly once —
-   * but a canvas or video backdrop re-marks itself every frame, and a per-frame
-   * `getImageData` of a page-sized backdrop is a real cost for a number that
-   * moves slowly. The cadence is the second bound, and it is the same judgement
-   * the GPU tier's own analysis readback already makes about this quantity.
+   * **"Can have changed" is a property of the source kind, not of the ledger**,
+   * and that distinction is a defect this got wrong once. An `image` source is
+   * one decode: it changes only when the app hands over a different texture,
+   * which clears this cache directly, so the dirty epoch is a complete account of
+   * it. A `canvas` or `video` source is *content the app is drawing*, and on a
+   * CSS-tier root nothing marks its epoch at all — there is no pyramid to rebuild
+   * — so an epoch-only rule read the tone once at first paint and froze it there
+   * forever. Measured on the demo: three surfaces stuck on the tone of a section
+   * the reader had already scrolled past.
    *
-   * The first read is never delayed: a surface must not paint unadapted and then
-   * change its mind a quarter of a second later.
+   * So a live source is re-read on the cadence regardless of its epoch, and that
+   * cadence is what keeps it affordable: a per-frame `getImageData` of a
+   * page-sized backdrop would be a real cost for a number that moves slowly, and
+   * the GPU tier's own analysis readback makes the same judgement about the same
+   * quantity.
+   *
+   * The first read is never delayed either way: a surface must not paint
+   * unadapted and change its mind a quarter of a second later.
    */
   const backdropToneFor = (sourceId: string): BackdropToneSample | undefined => {
     const texture = suppliedTextures.get(sourceId);
@@ -625,8 +634,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const epoch = scene.backdropSource(sourceId)?.dirtyEpoch ?? 0;
     const held = backdropTones.get(sourceId);
     const now = view.performance?.now() ?? 0;
-    if (held !== undefined && (held.epoch === epoch || now - held.atMs < BACKDROP_TONE_CADENCE_MS)) {
-      return held.sample;
+    if (held !== undefined) {
+      const stale = texture.kind === "image" ? held.epoch !== epoch : true;
+      if (!stale || now - held.atMs < BACKDROP_TONE_CADENCE_MS) return held.sample;
     }
     const sample = sampleBackdropTone(texture);
     backdropTones.set(sourceId, { epoch, atMs: now, sample });
@@ -1192,6 +1202,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           policyFold,
           policy: accessibility,
           foreground: hint,
+          // The backdrop this surface is over, declared or measured — the ink is
+          // decided against the material the surface actually draws, and this axis
+          // can move that material a long way on a tone nobody declared (W7).
+          ...(backdropTone === undefined ? {} : { backdropLuminance: backdropTone.luminance }),
           // The size law's input, from the host's own measured border box — the
           // same shorter-extent span the renderer resolves per surface (W2).
           spanPx: Math.min(bounds.width, bounds.height),
@@ -1244,25 +1258,45 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * Only this pair is written here. The tint, blur and border belong to
            * whichever tier is painting the body, and that is the canvas.
            */
-          const hintedBackdrop = hintedBackdropLuminance(hint, cssMapping);
           /*
-           * The material the renderer is drawing, tinted and folded: the seed
-           * displaces its tint colour and the occlusion regime lifts its alpha,
-           * which is the pair the level behind the glyphs is a function of. The
-           * ink therefore follows an author tint automatically — a dark tint
-           * takes the light token — rather than being decided against a material
-           * the tier stopped drawing the moment a colour was set.
+           * The backdrop the ink is decided against: a *measured* tone counts
+           * here exactly as a declared one does (W7). Before this the ink asked
+           * only `hintedBackdropLuminance`, which answers for an author hint and
+           * nothing else — so a group whose backdrop vitrea had actually measured,
+           * and whose material had just adapted onto it, still fell through to the
+           * `light-dark()` default. That is the wrong direction to be wrong in:
+           * the adaptation can take a surface from near-white to near-black while
+           * the ink stays where the colour scheme put it, which is the K4/#32(b)
+           * failure arriving through a third door.
+           */
+          const measuredBackdrop = backdropTone?.luminance;
+          const hintedBackdrop = hintedBackdropLuminance(hint, cssMapping) ?? measuredBackdrop;
+          /*
+           * The material the renderer is drawing, adapted, tinted and folded: the
+           * backdrop moves its neutral, the seed displaces that, and the occlusion
+           * regime lifts its alpha — which is the pair the level behind the glyphs
+           * is a function of. The ink therefore follows both an author tint and
+           * the backdrop adaptation automatically, rather than being decided
+           * against a material the tier stopped drawing.
            */
           const gpuMaterial = {
             ...tintedSourceOptics(
-              gpuOptics[variant],
+              adaptedSourceOptics(
+                gpuOptics[variant],
+                backdropTone?.rgb as LinearRgb | undefined,
+                backdropAdaptation,
+              ),
               seed,
               toneBackdrop,
               toneAdaptation,
               tintTone,
             ),
             tintAlpha: occlusionAlphaUnderPolicy(
-              gpuOptics[variant].tintAlpha,
+              adaptedSourceOptics(
+                gpuOptics[variant],
+                backdropTone?.rgb as LinearRgb | undefined,
+                backdropAdaptation,
+              ).tintAlpha,
               accessibility.material.occlusion,
               policyFold.increasedOcclusionLift,
             ),

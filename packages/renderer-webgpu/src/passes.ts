@@ -161,6 +161,14 @@ export interface HighlightPassArgs {
   readonly glowRadiusCss: number;
   readonly glowGain: number;
   readonly colour: readonly [number, number, number];
+  /**
+   * The optics pass's `backdropTone` and the backdrop's own luminance, forwarded
+   * unchanged (W7). A highlight is the material catching light, and a material
+   * that has taken its backdrop's tone is not there to catch any — so this pass
+   * evaluates the same curve off the same numbers rather than a second copy.
+   */
+  readonly backdropTone: readonly [number, number, number, number];
+  readonly backdropToneLevel: number;
 }
 
 export interface PassRunner {
@@ -475,7 +483,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     highlightPass(encoder, args) {
-      const slot = uniformSlot(`highlight:${args.groupId}`, 20);
+      const slot = uniformSlot(`highlight:${args.groupId}`, 28);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -497,6 +505,14 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[17] = args.fields.height;
       d[18] = args.fields.upsampled ? 1 : 0;
       d[19] = 0;
+      d[20] = args.backdropTone[0];
+      d[21] = Math.max(args.backdropTone[1], args.backdropTone[0] + 1e-4);
+      d[22] = args.backdropTone[2];
+      d[23] = args.backdropTone[3];
+      d[24] = args.backdropToneLevel;
+      d[25] = 0;
+      d[26] = 0;
+      d[27] = 0;
       slot.write();
 
       const pipeline = highlightPipeline(args.targetFormat);

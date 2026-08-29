@@ -91,6 +91,26 @@ describe("the material one backdrop reading produces", () => {
     }
   });
 
+  it("fades the rim as it goes, because a vanished surface has no lit edge", () => {
+    // The reference says so on a calibration cell rather than by inference: its
+    // capsule over the dark-solid backdrop is byte-identical to that background,
+    // rim included. Left in, this tier's border is a white outline around a
+    // surface that is meant not to be there — which is exactly what it was, until
+    // this axis made the body dark enough to see it against.
+    const tone = [0.0117, 0.0117, 0.0117] as const;
+    expect(adaptedSourceOptics(source, tone, 1).rimAlpha).toBe(0);
+    expect(adaptedSourceOptics(source, tone, 0.5).rimAlpha).toBeCloseTo(source.rimAlpha / 2, 12);
+    expect(adaptedSourceOptics(source, tone, 0).rimAlpha).toBe(source.rimAlpha);
+  });
+
+  it("carries that fade into the declared border, and nowhere else", () => {
+    const tone = [0.0117, 0.0117, 0.0117] as const;
+    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1)).borderAlpha).toBe(0);
+    // …and an unadapted source declares the shipped border exactly, so the
+    // conversion is not a second opinion about it.
+    expect(cssOpticsFromSource(base, source).borderAlpha).toBeCloseTo(base.borderAlpha, 12);
+  });
+
   it("reaches the CSS declaration through the one conversion the tier already has", () => {
     // `cssOpticsFromSource` is `tintedCssOptics`'s tail, split out so the
     // adaptation lands through the same alpha-and-colour solve the profile's own

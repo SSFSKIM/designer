@@ -28,6 +28,7 @@ import {
   RASTER_SOURCE_ID,
   StageGlass,
   StageGround,
+  TONE_GROUND,
   type ReferencePanel,
   type StageMode,
 } from "./Stage";
@@ -53,6 +54,7 @@ interface SectionSpec {
 
 const SECTIONS: readonly SectionSpec[] = [
   { id: "material", title: "The material", mode: "material" },
+  { id: "tone", title: "Taking the tone of the backdrop", mode: "tone" },
   { id: "reference", title: "Measured against the real thing", mode: "reference" },
   { id: "behavior", title: "Behaviour", mode: "behavior" },
   { id: "access", title: "Accessibility is a resolved state", mode: "access" },
@@ -131,6 +133,13 @@ export function Site(props: SiteProps): ReactNode {
   const [panel, setPanel] = useState<ReferencePanel>("live");
   const [tintOption, setTintOption] = useState<string>("none");
   const tint = TINT_OPTIONS.find((entry) => entry.label === tintOption)?.value ?? null;
+  /*
+   * The tone stage's one variable, held in the slider's own integer thousandths
+   * and converted where it is used. The state is the control's value rather than
+   * the physical quantity so that nothing has to round back into the step grid.
+   */
+  const [groundStep, setGroundStep] = useState<number>(TONE_GROUND.initial);
+  const groundLevel = TONE_GROUND.level(groundStep);
   const { overrides, onOverridesChange } = props;
 
   const mode = useMemo<StageMode>(
@@ -160,6 +169,7 @@ export function Site(props: SiteProps): ReactNode {
     panel,
     onPanelChange: setPanel,
     tint,
+    groundLevel,
     animate: policy?.reducedMotion !== true,
     lastAction,
     onAction: setLastAction,
@@ -265,6 +275,94 @@ export function Site(props: SiteProps): ReactNode {
 
         <Section spec={SECTIONS[1]} active={active}>
           <p className="body">
+            Liquid Glass does not always sit in front of what is behind it. Over a
+            dark enough backdrop it takes that backdrop&rsquo;s tone and settles
+            into it, and the settled macOS 26.5 reference is unambiguous about how
+            far that goes: a 44px capsule over a near-black backdrop comes out
+            byte-identical to its own background, while a 96px surface over the
+            same backdrop keeps about three quarters of its own appearance. So it
+            is one axis with two inputs &mdash; how dark the backdrop is, and how
+            big the surface is.
+          </p>
+          <Fields legend="Backdrop">
+            <label className="field">
+              <span className="field__label">Ground level</span>
+              <input
+                className="field__range"
+                type="range"
+                min={TONE_GROUND.min}
+                max={TONE_GROUND.max}
+                step={TONE_GROUND.step}
+                value={groundStep}
+                onChange={(event) => setGroundStep(Number(event.target.value))}
+                aria-valuetext={`${groundLevel.toFixed(3)} linear`}
+                data-testid="ground-level"
+              />
+              <span className="field__hint" data-testid="ground-level-readout">
+                {groundLevel.toFixed(3)} linear. The curve is flat above 0.14 and
+                saturated below 0.02; everything between those two is the
+                transition.
+              </span>
+            </label>
+          </Fields>
+          <p className="body">
+            The window&rsquo;s ground is one flat grey under the graticule while you
+            are here, which is the bed this was measured on rather than a plainer
+            version of the usual one. A group adapts onto one resolved backdrop
+            colour, so a surface only
+            joins its backdrop exactly where that backdrop is the same everywhere
+            underneath it; over the drifting field above, the same adaptation would
+            put a flat average-coloured patch on a graded ground and this page would
+            be claiming a convergence while showing an approximation.
+          </p>
+          <p className="body">
+            The three plates are the same three as the sweep above &mdash; 40, 68
+            and 112px short spans, one authored thickness of 8px, nothing else
+            differing. Drag the ground down and they come apart: the 40px plate
+            takes the ground&rsquo;s own colour exactly &mdash; at the bottom stop
+            its body and its rim are both the backdrop, and its label is the only
+            thing left marking where it is &mdash; while the 68px plate is most of
+            the way there and the 112px plate has barely moved. That is the size
+            gate, and it is the size law again rather than a second rule. A
+            thicker surface reads its backdrop as brighter than it is, so it holds
+            its own appearance longer &mdash; the thickness enters the curve&rsquo;s
+            argument, not its result.
+          </p>
+          <p className="body">
+            Nothing else on this page does this, and the reason is a number. Every
+            other group here declares{" "}
+            <code>{'hint={{ tone: "dark", luminance: 0.16 }}'}</code>, because the
+            instrument window is dark and the runtime cannot see that for itself
+            &mdash; and 0.16 is above the band, so the axis never fires. The
+            slider&rsquo;s top stop is that same 0.16: take it there and these
+            plates are the plates from the previous section.
+          </p>
+          <p className="body">
+            This group declares its level too, and both halves of that are
+            deliberate. A stated fact beats a reading, and this page paints the
+            ground it is standing on, so it is not estimating anything. It also has
+            to: the runtime picks each plate&rsquo;s ink against the material that
+            plate is actually showing, and it can only do that for a group whose
+            backdrop was declared. Watch the labels as you drag &mdash; the 40px
+            plate&rsquo;s ink turns light as its body goes dark, while the 112px
+            plate&rsquo;s stays dark on a body that is still light: one group, two
+            answers, in the same frame. An app that cannot state its backdrop still
+            gets the adaptation, from the pixels it registered: one average per
+            source, re-read when the source says its content changed.
+          </p>
+          <p className="note">
+            Reduced transparency folds this axis down rather than through. That
+            preference asked for more occlusion, and a surface dissolving into its
+            backdrop is the opposite of it; a material law does not get to outrank a
+            policy. Under forced colours there is no material to adapt at all.
+          </p>
+          {GROUPS_BY_MODE.tone.map((group) => (
+            <GroupReadout key={group.id} id={group.id} label={group.label} />
+          ))}
+        </Section>
+
+        <Section spec={SECTIONS[2]} active={active}>
+          <p className="body">
             The left panel is this browser rendering the scene now. The right panel
             is a screen capture of Apple&rsquo;s own <code>glassEffect</code> on
             macOS 26.5, taken through ScreenCaptureKit because Liquid Glass is
@@ -326,7 +424,7 @@ export function Site(props: SiteProps): ReactNode {
           </ul>
         </Section>
 
-        <Section spec={SECTIONS[2]} active={active}>
+        <Section spec={SECTIONS[3]} active={active}>
           <p className="body">
             Press any control in the window. Pointer-down produces a glow at the
             press point and about one per cent of compression on a spring; release
@@ -354,7 +452,7 @@ export function Site(props: SiteProps): ReactNode {
           ))}
         </Section>
 
-        <Section spec={SECTIONS[3]} active={active}>
+        <Section spec={SECTIONS[4]} active={active}>
           <p className="body">
             Reduced motion removes overshoot, deformation and shimmer travel while
             keeping positional continuity. Reduced transparency frosts the material
@@ -422,7 +520,7 @@ export function Site(props: SiteProps): ReactNode {
           </p>
         </Section>
 
-        <Section spec={SECTIONS[4]} active={active}>
+        <Section spec={SECTIONS[5]} active={active}>
           <p className="body">
             There are two renderers, and the difference between them is stated rather
             than smoothed over.
@@ -495,7 +593,7 @@ export function Site(props: SiteProps): ReactNode {
           </ul>
         </Section>
 
-        <Section spec={SECTIONS[5]} active={active}>
+        <Section spec={SECTIONS[6]} active={active}>
           <pre className="code" tabIndex={0}>
             <code>{"npm install @vitreajs/vitrea @vitreajs/vitrea-react"}</code>
           </pre>

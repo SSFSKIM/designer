@@ -17,7 +17,8 @@
  */
 
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
+import { PNG } from "pngjs";
 
 /**
  * The codes that name a mistake in *this page's* layout, as opposed to something
@@ -85,7 +86,7 @@ test.describe("the layout is legal", () => {
     // The readout is the page's own claim; assert the claim and the channel agree.
     await expect(page.getByTestId("authoring-clean")).toBeVisible();
 
-    for (const id of ["material", "reference", "behavior", "access", "tiers", "install"]) {
+    for (const id of ["material", "tone", "reference", "behavior", "access", "tiers", "install"]) {
       await showSection(page, id);
     }
     // Back to a section that shows the readout, so a late finding would be visible.
@@ -142,8 +143,11 @@ test.describe("the layout is legal", () => {
     ).toHaveText("increased");
 
     // The behaviour stage is where the toolbar and the menu's group both mount,
-    // and their gap is the geometry the finding was about.
+    // and their gap is the geometry the finding was about. The tone stage is the
+    // one whose material this preference moves furthest, since the fold lands on
+    // the backdrop adaptation directly.
     await showSection(page, "behavior");
+    await showSection(page, "tone");
     await showSection(page, "material");
 
     await expect(page.getByTestId("authoring-findings")).toHaveCount(0);
@@ -297,6 +301,208 @@ test.describe("the size sweep is a controlled comparison", () => {
     // — this asserts they agree, not what they agree on.
     const thicknesses = new Set(boxes.map((box) => box.thickness));
     expect(thicknesses.size).toBe(1);
+  });
+});
+
+/*
+ * Backdrop tone adaptation (W7), pinned as the demonstration the page claims.
+ *
+ * Three claims, and the page makes all three in prose beside the control: that the
+ * material follows the ground *continuously* rather than switching, that the
+ * follow is gated by size so the small surface converges on the backdrop while the
+ * large one does not, and that the runtime — not the page — re-decides each
+ * surface's ink against the material that surface ended up showing.
+ *
+ * Read from `--vitrea-tint` on the CSS tier, and the query string says so. That is
+ * the tier's published decision rather than a rendering of it, which is the same
+ * reason the tint case reads tokens: the GPU tier publishes only the foreground
+ * pair (the body is the canvas's), and whether this runner has an adapter at all is
+ * a property of the machine. The cross-tier bound is what makes one tier's answer
+ * a statement about both, and `packages/calibration` is where that is enforced.
+ */
+test.describe("backdrop tone adaptation is on screen", () => {
+  /** The backdrop, from the backdrop: one texel of the canvas the group samples. */
+  const groundOf = (page: Page): Promise<readonly [number, number, number]> =>
+    page.evaluate(() => {
+      const canvas = document.querySelector<HTMLCanvasElement>(".stage__canvas");
+      const context = canvas?.getContext("2d") ?? null;
+      if (canvas === null || context === null) throw new Error("the stage has no canvas");
+      // Off the graticule: its lines are drawn on a 32px grid starting at 32.
+      const dpr = window.devicePixelRatio;
+      const data = context.getImageData(Math.round(16 * dpr), Math.round(16 * dpr), 1, 1).data;
+      return [data[0] ?? 0, data[1] ?? 0, data[2] ?? 0] as const;
+    });
+
+  const channel = (value: number): number => {
+    const v = value / 255;
+    return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  };
+
+  const levelOf = (rgb: readonly [number, number, number]): number =>
+    0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
+
+  const tintOf = (page: Page, step: string): Promise<string> =>
+    page
+      .getByTestId(`tone-plate-${step}`)
+      .evaluate((element) => (element as HTMLElement).style.getPropertyValue("--vitrea-tint"));
+
+  /**
+   * What a published material is actually showing: composited over the backdrop
+   * underneath it, in the encoded space the browser composites in.
+   *
+   * The tint alone would not answer the question. A fully adapted surface reaches
+   * its backdrop as a *pair* — the colour moves and the alpha goes to 1 together,
+   * because that is the only pair whose interior composite converges — so a test
+   * that watched either one on its own would be watching half of the mechanism.
+   */
+  const bodyOf = (tint: string, ground: readonly [number, number, number]): number => {
+    const parts = (tint.match(/[\d.]+/g) ?? []).map(Number);
+    const [r = 0, g = 0, b = 0, alpha = 1] = parts;
+    const over = (index: 0 | 1 | 2, colour: number): number =>
+      alpha * colour + (1 - alpha) * (ground[index] ?? 0);
+    return levelOf([over(0, r), over(1, g), over(2, b)]);
+  };
+
+  const bodyAt = async (
+    page: Page,
+    step: string,
+    ground: readonly [number, number, number],
+  ): Promise<number> => bodyOf(await tintOf(page, step), ground);
+
+  /**
+   * The plate as it is actually drawn — median pixel, so the label's glyphs (a few
+   * per cent of the area) cannot move it.
+   *
+   * The arithmetic above reads the tier's published decision, which is the right
+   * subject for the size gate and the ordering. This one reads pixels, because one
+   * claim is about the composite rather than the decision: a fully adapted surface
+   * is byte-identical to its own background, rim included, and no token says that.
+   */
+  const renderedOf = async (target: Locator): Promise<readonly [number, number, number]> => {
+    const png = PNG.sync.read(await target.screenshot());
+    const pixels: { readonly rgb: readonly [number, number, number]; readonly y: number }[] = [];
+    for (let i = 0; i < png.data.length; i += 4) {
+      if ((png.data[i + 3] ?? 0) < 200) continue;
+      const rgb = [png.data[i] ?? 0, png.data[i + 1] ?? 0, png.data[i + 2] ?? 0] as const;
+      pixels.push({ rgb, y: levelOf(rgb) });
+    }
+    pixels.sort((a, b) => a.y - b.y);
+    return pixels[Math.floor(pixels.length / 2)]?.rgb ?? [0, 0, 0];
+  };
+
+  const setGround = async (page: Page, value: string): Promise<void> => {
+    await page.getByTestId("ground-level").fill(value);
+    // The material transitions; the readout does not, so it is the settled signal
+    // that the control took rather than a timeout hoping it did.
+    await expect(page.getByTestId("ground-level-readout")).toContainText(
+      `${(Number(value) / 1000).toFixed(3)} linear`,
+    );
+    await page.waitForTimeout(400);
+  };
+
+  test("the plates track the ground control, and the small one converges where the large one does not", async ({
+    page,
+  }) => {
+    await gotoSite(page, "?renderer=css");
+    await showSection(page, "tone");
+
+    // The top stop is `STAGE_HINT`'s own 0.16, which is past the curve's high edge.
+    // Every plate is its unadapted self there, and that is the page's stated reason
+    // the rest of the site looks untouched by this feature.
+    await setGround(page, "160");
+    const flatGround = await groundOf(page);
+    const unadaptedTint = await tintOf(page, "c");
+    expect(await tintOf(page, "a")).toBe(unadaptedTint);
+    expect(await tintOf(page, "b")).toBe(unadaptedTint);
+    const flatSmall = bodyOf(unadaptedTint, flatGround);
+
+    // The bottom stop. The 40px plate reaches the backdrop; the 112px plate is
+    // still a light glass body over the same pixels, in the same sampling group.
+    await setGround(page, "2");
+    const darkGround = await groundOf(page);
+    const groundLevel = levelOf(darkGround);
+    const dark = {
+      a: await bodyAt(page, "a", darkGround),
+      b: await bodyAt(page, "b", darkGround),
+      c: await bodyAt(page, "c", darkGround),
+    };
+    /*
+     * The counterfactual, and it is the only fair one: the SAME material the top
+     * stop published, over the ground the bottom stop paints. A plate is darker
+     * over a darker backdrop whether or not it adapts — the material is
+     * translucent — so a comparison across two grounds would credit the axis with
+     * the backdrop's own move.
+     */
+    const unadapted = bodyOf(unadaptedTint, darkGround);
+
+    // Converged: not "darker", the backdrop's own level.
+    expect(Math.abs(dark.a - groundLevel)).toBeLessThan(0.002);
+    // Held: the largest plate is still nearer the material it started as than the
+    // backdrop it is standing on, over the same pixels and in the same group.
+    expect(unadapted - dark.c).toBeLessThan(dark.c - groundLevel);
+    // And the gate is ordered by span, which is the whole claim of the sweep.
+    expect(dark.a).toBeLessThan(dark.b);
+    expect(dark.b).toBeLessThan(dark.c);
+
+    /*
+     * The same convergence on the pixels. A rounding step of tolerance, not zero:
+     * the claim is that the surface reaches its background, and holding a demo to
+     * an exact byte would make a one-step retune of the material read as a broken
+     * page. The 112px plate is checked against the same ground so the tolerance is
+     * doing work rather than being satisfied by everything.
+     */
+    const smallPixel = await renderedOf(page.getByTestId("tone-plate-a"));
+    const largePixel = await renderedOf(page.getByTestId("tone-plate-c"));
+    for (const index of [0, 1, 2] as const) {
+      expect(Math.abs((smallPixel[index] ?? 0) - (darkGround[index] ?? 0))).toBeLessThanOrEqual(1);
+      expect(Math.abs((largePixel[index] ?? 0) - (darkGround[index] ?? 0))).toBeGreaterThan(32);
+    }
+
+    /*
+     * Continuity, which is the claim a two-state feature would also pass the
+     * assertions above. Every intermediate stop lands strictly between the two
+     * ends and never goes backwards, so what the reader drags through is a curve
+     * rather than a switch with a transition painted on it.
+     */
+    let previous = dark.a;
+    for (const value of ["20", "40", "60", "80", "100"]) {
+      await setGround(page, value);
+      const level = await bodyAt(page, "a", await groundOf(page));
+      expect(level, `at ${value}`).toBeGreaterThan(previous);
+      expect(level, `at ${value}`).toBeLessThan(flatSmall);
+      previous = level;
+    }
+
+    // And the control is a control: the keyboard moves it like anything else.
+    await page.getByTestId("ground-level").focus();
+    await page.keyboard.press("Home");
+    await expect(page.getByTestId("ground-level-readout")).toContainText("0.002 linear");
+  });
+
+  /*
+   * The ink is the runtime's, per surface, and this is the assertion that says so.
+   *
+   * At the bottom stop the 40px plate's body has gone dark and the 112px plate's
+   * has not, in one sampling group over one backdrop — so the two must be given
+   * different foregrounds in the same frame. Nothing on this page chooses that;
+   * the group states its backdrop level and the runtime resolves the rest.
+   */
+  test("the runtime gives the adapted plate a different ink from its unadapted neighbour", async ({
+    page,
+  }) => {
+    await gotoSite(page, "?renderer=css");
+    await showSection(page, "tone");
+
+    const inkOf = (step: string): Promise<string> =>
+      page
+        .getByTestId(`tone-plate-${step}`)
+        .evaluate((element) => (element as HTMLElement).style.getPropertyValue("--vitrea-foreground"));
+
+    await setGround(page, "160");
+    expect(await inkOf("a")).toBe(await inkOf("c"));
+
+    await setGround(page, "2");
+    expect(await inkOf("a")).not.toBe(await inkOf("c"));
   });
 });
 

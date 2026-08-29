@@ -40,6 +40,13 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
   colour : vec4f,
   /// fieldSize.xy, fieldUpsampled (z), unused (w)
   flags : vec4f,
+  /// backdrop tone adaptation (W7), exactly as the optics pass takes it:
+  /// backdropToneLow, backdropToneHigh, the size bias already divided by the
+  /// accessibility refraction cap, and the resolved strength — zero where there
+  /// is no measured backdrop tone, which stands the fade down
+  toneAdapt : vec4f,
+  /// the backdrop source's own average luminance (x); yzw unused
+  toneLevel : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> hu : HighlightUniforms;
@@ -96,7 +103,32 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
   // whose members glow independently does not need a pass each.
   let press = radial * radial * hu.glow.w * aux.y;
 
-  let intensity = clamp(sweep + press, 0.0, 1.0) * coverage;
+  /*
+   * Backdrop tone adaptation (W7) fades this pass with the rest of the surface's
+   * own appearance. A highlight is the material catching light, and a material
+   * that has taken its backdrop's tone is not there to catch any — the settled
+   * reference's capsule over a near-black backdrop is byte-identical to that
+   * background, sweep included.
+   *
+   * The curve is the optics pass's, evaluated the same way off the same uniforms
+   * and the same per-pixel 'sizeK', because two statements of one curve is how
+   * they drift. This pass would otherwise have gone on drawing a bright crescent
+   * around a surface the optics pass had made invisible — measured at 60 pixels
+   * past 2/255, peaking at 97/255, on exactly that cell.
+   */
+  let sizeK = clamp(aux.z, 0.0, 1.0);
+  var toneAdapt = 0.0;
+  if (hu.toneAdapt.w > 0.0) {
+    let toneX = hu.toneLevel.x + hu.toneAdapt.z * sizeK;
+    let toneT = clamp(
+      (toneX - hu.toneAdapt.x) / max(hu.toneAdapt.y - hu.toneAdapt.x, 1e-6),
+      0.0,
+      1.0,
+    );
+    toneAdapt = clamp(hu.toneAdapt.w, 0.0, 1.0) * (1.0 - toneT * toneT * (3.0 - 2.0 * toneT));
+  }
+
+  let intensity = clamp(sweep + press, 0.0, 1.0) * coverage * (1.0 - toneAdapt);
   if (intensity <= 0.0) {
     return vec4f(0.0);
   }

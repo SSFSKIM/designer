@@ -872,10 +872,10 @@ read now.
 | 1x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6244 | **0.0000** | ≤ 0.17 |
 | 1x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6633 | **0.0324** | ≤ 0.17 |
 | 2x-light | texture | dark-solid__capsule-button__rest | ΔE p95 | 0.6242 | **0.0000** | ≤ 0.17 |
-| 2x-light | texture | dark-solid__capsule-button__rest | SSIM | 0.9259 | **0.9792** | ≥ 0.93 |
+| 2x-light | texture | dark-solid__capsule-button__rest | SSIM | 0.9259 | **1.0000** | ≥ 0.93 |
 | 2x-light | texture | impulse__capsule-button__rest | ΔE p95 | 0.6633 | **0.0372** | ≤ 0.17 |
-| 2x-light | texture | impulse__capsule-button__rest | SSIM | 0.9200 | **0.9678** | ≥ 0.93 |
-| 2x-light | dom | impulse__capsule-button__rest | SSIM | 0.9191 | **0.9682** | ≥ 0.92 |
+| 2x-light | texture | impulse__capsule-button__rest | SSIM | 0.9200 | **0.9832** | ≥ 0.93 |
+| 2x-light | dom | impulse__capsule-button__rest | SSIM | 0.9191 | **0.9812** | ≥ 0.92 |
 
 **Not one bound moved.** The rows were skipped, never loosened, and they now pass
 the same numbers they failed. `KNOWN_RENDERER_GAP_EXCLUSIONS` is gone from
@@ -1353,6 +1353,26 @@ adapted surface gets *lighter* than the one it started from — more opaque towa
 tint that is still mostly neutral — and the 96 px cells caught it at once
 (interior 0.4545 → 0.5179 against a reference of 0.4542).
 
+**Everything that says "a surface is here" fades on the same factor** — the rim,
+the specular, the inner shadow and the highlight pass's sweep, all by `1 − a`. That
+is not symmetry for its own sake; it is a calibration cell rather than an
+inference, because `dark-solid__capsule-button__rest` is byte-identical to its own
+background *rim included*, and a material that has taken its backdrop's tone has
+no lit edge to show because there is no light in front of it to show one with.
+
+It was also invisible until this axis existed, which is the more useful half of
+the finding. A rim of up to 130/255 had been sitting unnoticed inside a bright
+capsule body; with the body gone it was a white outline around a surface meant not
+to be there — 60 to 595 pixels past 2/255 depending on the pass, against a cell
+whose ΔE p95 already read 0.0000. W3 recorded the same class from the other
+direction (a bypass that happens to match its expected output is one feature away
+from being visible); this is the version where the term is real and merely hidden.
+Folding all four took `dark-solid__capsule-button__rest` on the texture tier to
+**OKLab ΔE max 0.0000 and SSIM 1.0000** — vitrea's light-scheme capsule over that
+backdrop is now byte-identical to the reference capture, which is the only cell in
+this document that has ever read that way. On the dom tier the same cell's ΔE max
+went 0.6764 → 0.0051, within 2/255 at every pixel.
+
 **The scheme semantics.** The axis is *within* a colour scheme: the profile sets
 the neutral and this moves away from it, toward whatever is actually behind the
 surface. So the dark profile runs the same law with the same constants and does
@@ -1469,6 +1489,35 @@ reduce-transparency its material is nearly opaque and *flat* in the backdrop
 across the whole range the bed covers (interior 0.9558 / 0.9557 / 0.9556 at
 backdrops 0.529 / 0.500 / 0.205), where the standard material is already moving.
 
+#### Two defects the bed could not see, and the demo could
+
+Neither showed up in 168 cells, because the calibration scenes carry no text and
+their backdrops do not move. Both are recorded because the class matters more than
+the two instances: **this axis moves the material a long way, so every decision
+that was taken against the material has to be re-checked, and every input it reads
+has to be re-read.**
+
+**The ink was decided against a backdrop the runtime had measured and then
+ignored.** `hintedBackdropLuminance` answers for an *author* hint and nothing else,
+so a group whose tone vitrea had measured — and whose material had just adapted
+onto it — fell through to the `light-dark()` default. Measured on the demo: a plate
+at `rgba(231, 231, 232, 0.811)` carrying the light ink. The adaptation can take a
+surface from near-white to near-black while the ink stays where the colour scheme
+put it, which is K4 / Decision Log #32(b)'s failure arriving through a third door.
+Both tiers now decide the ink against the backdrop they actually resolved —
+declared or measured — and against the *adapted* material.
+
+**A live backdrop's measured tone was read once and frozen.** The cache re-read on
+the scene's dirty epoch, which is a complete account of an `image` source and none
+at all of a `canvas` or `video` one: on a CSS-tier root nothing marks their epoch,
+because there is no pyramid to rebuild. Surfaces adapted onto whatever had been on
+screen at first paint and stayed there. A live source is now re-read on the cadence
+regardless of its epoch, and the cadence is what keeps that affordable.
+
+Neither fix changed a pixel in the bed. The full 168 cells were regenerated after
+them and reproduce the pre-fix run identically, reading for reading — which is also
+the strongest web-side reproducibility attestation this bed has been given.
+
 #### What this did not close
 
 **The occlusion gain is still zero, and W2's diagnosis of why was wrong.** W2
@@ -1499,25 +1548,25 @@ worsts on both sides, unlike §5.7's table, because they are gated cells again.
 |  |  | validation | 0.0532 → **0.0189** | 0.9046 → **0.9413** | 0.0535 → **0.0324** | 0.6633 → **0.0918** |
 |  |  | holdout | **0.0547** (unmoved) | **0.8934** (unmoved) | **0.0845** (unmoved) | **0.1339** (unmoved) |
 |  | dom | calibration | 0.0508 → **0.0181** | 0.9080 → **0.9304** | 0.0587 → **0.0422** | 0.6213 → **0.0862** |
-|  |  | validation | 0.0535 → **0.0182** | 0.9036 → **0.9534** | 0.0524 → **0.0403** | 0.6429 → **0.0818** |
+|  |  | validation | 0.0535 → **0.0182** | 0.9036 → **0.9551** | 0.0524 → **0.0403** | 0.6429 → **0.0818** |
 |  |  | holdout | **0.0560** (unmoved) | **0.9205** (unmoved) | **0.1070** (unmoved) | **0.1090** (unmoved) |
 | `2x-light-standard` | texture | calibration | 0.0495 → **0.0201** | 0.9259 → **0.9565** | 0.0534 → **0.0376** | 0.6242 → **0.0827** |
 |  |  | validation | 0.0532 → **0.0192** | 0.9200 → **0.9578** | 0.0523 → **0.0293** | 0.6633 → **0.0911** |
 |  |  | holdout | **0.0545** (unmoved) | **0.9566** (unmoved) | **0.0941** (unmoved) | **0.1335** (unmoved) |
 |  | dom | calibration | 0.0507 → **0.0181** | 0.9251 → **0.9679** | 0.0557 → **0.0400** | 0.6213 → **0.0790** |
-|  |  | validation | 0.0534 → **0.0184** | 0.9191 → **0.9682** | 0.0506 → **0.0416** | 0.6429 → **0.0832** |
+|  |  | validation | 0.0534 → **0.0184** | 0.9191 → **0.9707** | 0.0506 → **0.0416** | 0.6429 → **0.0832** |
 |  |  | holdout | **0.0559** (unmoved) | **0.9509** (unmoved) | **0.1040** (unmoved) | **0.1084** (unmoved) |
-| `1x-dark-standard` | texture | calibration | 0.0206 → **0.0205** | 0.9335 → **0.9408** | 0.0075 → **0.0067** | 0.1366 → **0.1200** |
-|  |  | validation | 0.0155 → **0.0087** | 0.9348 → **0.9546** | **0.0065** (unmoved) | 0.1764 → **0.0924** |
+| `1x-dark-standard` | texture | calibration | 0.0206 → **0.0205** | 0.9335 → **0.9456** | 0.0075 → **0.0067** | 0.1366 → **0.1200** |
+|  |  | validation | 0.0155 → **0.0087** | 0.9348 → **0.9627** | **0.0065** (unmoved) | 0.1764 → **0.0924** |
 |  |  | holdout | **0.0674** (unmoved) | **0.9196** (unmoved) | **0.0118** (unmoved) | **0.1597** (unmoved) |
-|  | dom | calibration | 0.0241 → **0.0227** | 0.9186 → **0.9268** | **0.0132** (unmoved) | 0.1405 → **0.1281** |
-|  |  | validation | 0.0164 → **0.0090** | 0.9320 → **0.9542** | **0.0064** (unmoved) | 0.1771 → **0.0938** |
+|  | dom | calibration | 0.0241 → **0.0227** | 0.9186 → **0.9271** | **0.0132** (unmoved) | 0.1405 → **0.1281** |
+|  |  | validation | 0.0164 → **0.0090** | 0.9320 → **0.9679** | **0.0064** (unmoved) | 0.1771 → **0.0938** |
 |  |  | holdout | **0.0732** (unmoved) | **0.8961** (unmoved) | **0.0203** (unmoved) | **0.1713** (unmoved) |
-| `2x-dark-standard` | texture | calibration | 0.0207 → **0.0203** | 0.9537 → **0.9611** | 0.0088 → **0.0072** | 0.1366 → **0.1177** |
-|  |  | validation | 0.0155 → **0.0090** | 0.9483 → **0.9678** | **0.0069** (unmoved) | 0.1771 → **0.0949** |
+| `2x-dark-standard` | texture | calibration | 0.0207 → **0.0203** | 0.9537 → **0.9631** | 0.0088 → **0.0072** | 0.1366 → **0.1177** |
+|  |  | validation | 0.0155 → **0.0090** | 0.9483 → **0.9763** | **0.0069** (unmoved) | 0.1771 → **0.0949** |
 |  |  | holdout | **0.0671** (unmoved) | **0.9510** (unmoved) | **0.0127** (unmoved) | **0.1594** (unmoved) |
-|  | dom | calibration | 0.0241 → **0.0226** | 0.9446 → **0.9528** | 0.0128 → **0.0112** | 0.1405 → **0.1260** |
-|  |  | validation | 0.0164 → **0.0094** | 0.9469 → **0.9682** | **0.0066** (unmoved) | 0.1771 → **0.0998** |
+|  | dom | calibration | 0.0241 → **0.0226** | 0.9446 → **0.9552** | 0.0128 → **0.0112** | 0.1405 → **0.1260** |
+|  |  | validation | 0.0164 → **0.0094** | 0.9469 → **0.9785** | **0.0066** (unmoved) | 0.1771 → **0.0998** |
 |  |  | holdout | **0.0729** (unmoved) | **0.9423** (unmoved) | **0.0179** (unmoved) | **0.1700** (unmoved) |
 | `1x-light-reduced-transparency` | texture | calibration | **0.0115** (unmoved) | **0.9849** (unmoved) | **0.0332** (unmoved) | **0.0552** (unmoved) |
 |  |  | validation | **0.0068** (unmoved) | **0.9609** (unmoved) | **0.0258** (unmoved) | **0.0431** (unmoved) |

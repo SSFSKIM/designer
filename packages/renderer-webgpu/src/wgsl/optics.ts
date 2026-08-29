@@ -288,18 +288,38 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // The backdrop adaptation moves it, above, and the author's colour does not.
   var colour = mix(backdrop, tintColour, adaptedAlpha);
 
+  /*
+   * Everything below is the surface's own APPEARANCE — the marks that say a
+   * surface is here rather than what is behind it — and all of it fades with the
+   * adaptation, on the one factor.
+   *
+   * That is not symmetry for its own sake; it is what the reference does, and it
+   * is a calibration cell rather than an inference: the reference's capsule over
+   * the dark-solid backdrop is byte-identical to that background, rim included. A
+   * material that has taken its backdrop's tone has no lit edge to show, because
+   * there is no light in front of it to show one with.
+   *
+   * The gap was invisible until this axis existed. A rim of up to 130/255 sat
+   * unnoticed inside a bright capsule body; with the body gone it is a white
+   * outline around a surface that should not be there at all — 595 pixels past
+   * 2/255 on that one cell, and OKLab ΔE max 0.47 where p95 already read 0.0000.
+   * The same lesson W3 recorded from the other direction: a term that happens to
+   * be hidden is one feature away from being visible.
+   */
+  let present = 1.0 - toneAdapt;
+
   // Inner shadow: the material's own occlusion, deepest where the lens is
   // strongest, which is what makes a thicker surface read as heavier — and the
   // shadow facet of the size law deepens it further with the span.
   let shadowDepth = ou.light.z * (1.0 + (ou.size.z - 1.0) * sizeK);
-  colour = colour * (1.0 - profile * shadowDepth * ou.light.w);
+  colour = colour * (1.0 - profile * shadowDepth * ou.light.w * present);
 
   // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
   // the specular term is the same edge lit from 'light.xy'.
   let rw = rim_weight(d, ou.rim.x);
   let facing = dot(normal, ou.light.xy);
   let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
-  colour = colour + vec3f(rw * (ou.rim.y + spec));
+  colour = colour + vec3f(rw * (ou.rim.y + spec) * present);
 
   return encode_output(max(colour, vec3f(0.0)), coverage);
 }`;

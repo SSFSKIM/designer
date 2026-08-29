@@ -276,7 +276,18 @@ export function adaptedSourceOptics(
   const weight = (1 - k) * source.tintAlpha;
   const mix = (index: 0 | 1 | 2): number =>
     (source.tint[index] * weight + backdrop[index] * k) / alpha;
-  return { ...source, tint: [mix(0), mix(1), mix(2)], tintAlpha: alpha };
+  return {
+    ...source,
+    tint: [mix(0), mix(1), mix(2)],
+    tintAlpha: alpha,
+    // The rim fades with the adaptation, and it is this tier's border that reads
+    // it (`borderAlphaPerRimAlpha`). A material that has taken its backdrop's tone
+    // has no lit edge to show, and the reference agrees on a calibration cell
+    // rather than by inference: `dark-solid__capsule-button__rest` is
+    // byte-identical to its own background, rim included. Left in, the border is a
+    // white outline around a surface that is meant not to be there.
+    rimAlpha: source.rimAlpha * (1 - k),
+  };
 }
 
 /**
@@ -925,7 +936,16 @@ export function cssOpticsFromSource(
   mapping: CssTierMapping = CSS_TIER_MAPPING,
 ): MaterialOptics {
   const alpha = cssTintAlpha(source, mapping);
-  return { ...base, tintAlpha: alpha, tint: cssTintColor(source, alpha, mapping) };
+  return {
+    ...base,
+    tintAlpha: alpha,
+    tint: cssTintColor(source, alpha, mapping),
+    // Derived rather than inherited from `base`, because the backdrop adaptation
+    // is allowed to move the rim and this is the one conversion it lands through.
+    // Identical to `base`'s for every source that did not move it — the same
+    // expression `cssTierOptics` uses, on the same constant.
+    borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha),
+  };
 }
 
 /**

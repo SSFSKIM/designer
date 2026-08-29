@@ -40,10 +40,10 @@ import { useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "../ActionsMenu";
 import { REPORTS_BY_SCENE } from "./calibration";
-import { StageBackdrop } from "./StageBackdrop";
+import { DEFAULT_GROUND, StageBackdrop, type StageGroundPaint } from "./StageBackdrop";
 import { CANVAS, type ReferenceScene } from "./scenes";
 
-export type StageMode = "material" | "reference" | "behavior" | "access";
+export type StageMode = "material" | "tone" | "reference" | "behavior" | "access";
 
 export const TEXTURE_SOURCE_ID = "vitrea.site.stage";
 export const RASTER_SOURCE_ID = "vitrea.site.raster";
@@ -51,6 +51,7 @@ export const RASTER_SOURCE_ID = "vitrea.site.raster";
 /** The groups each mode puts on the base plane, for the runtime readout. */
 export const GROUPS_BY_MODE: Record<StageMode, readonly { id: string; label: string }[]> = {
   material: [{ id: "material", label: "material (registered texture)" }],
+  tone: [{ id: "tone", label: "tone (registered texture, declared level)" }],
   reference: [{ id: "reference", label: "reference (fixture raster as texture)" }],
   behavior: [
     { id: "behavior-bar", label: "behavior-bar (arbitrary DOM)" },
@@ -109,6 +110,60 @@ const SIZE_SWEEP = [
   { step: "a", spanPx: 40, radius: 12, tinted: false, testId: "untinted-plate" },
 ] as const;
 
+/**
+ * The backdrop tone stage's ground control (W7).
+ *
+ * The reader drives ONE number: the linear luminance of the flat ground the
+ * instrument window is painted in, which is also the level this stage's group
+ * declares as its backdrop hint. The two are the same number by construction —
+ * the page paints that ground, so it is not estimating anything when it says what
+ * it is.
+ *
+ * The stops are the axis's own, not a comfortable range around it. Below the
+ * curve's `backdropToneLow` (0.02 linear) a small surface is fully adapted; above
+ * its `backdropToneHigh` (0.14) nothing adapts at all, whatever its size. `max` is
+ * `STAGE_HINT`'s own 0.16 rather than a round number, because that is the answer to
+ * the question this stage raises: the rest of the page declares 0.16, 0.16 is past
+ * the band, and that is the entire reason the other stages look untouched by this
+ * feature. Sliding to the top reproduces them.
+ *
+ * `initial` is mid-band on purpose. It is the one setting at which the three
+ * plates are all visibly *different* from each other, so the stage opens on the
+ * size gate rather than on either of its ends.
+ *
+ * They are counted in integer THOUSANDTHS, and that is not a formatting choice. A range
+ * input validates its value against `min + n * step` in binary floating point, and
+ * a 0.002 grid does not land on the decimals it is written with — `0.002 * 5` is
+ * not `0.01` — so a fractional slider rejects most of its own positions the moment
+ * anything sets one by value. The reader sees the quantity itself either way: the
+ * field prints it, and `aria-valuetext` announces it.
+ */
+export const TONE_GROUND = {
+  min: 2,
+  max: 160,
+  step: 2,
+  initial: 30,
+  /** Thousandths back to the linear luminance the material is a function of. */
+  level: (thousandths: number): number => thousandths / 1000,
+} as const;
+
+/**
+ * The ground colour for a declared linear level — the sRGB transfer function, and
+ * grey rather than the window's hue.
+ *
+ * Achromatic because the hint this stage declares carries a level and not a
+ * colour, so the material adapts onto a grey; a ground with hue in it would leave
+ * the adapted plate a visibly different colour from the backdrop it is supposed to
+ * have joined, and the page would be demonstrating the hint's one documented
+ * coarseness rather than the axis.
+ */
+function groundFill(level: number): string {
+  const clamped = Math.min(1, Math.max(0, level));
+  const encoded = clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * clamped ** (1 / 2.4) - 0.055;
+  const channel = Math.round(encoded * 255);
+  return `rgb(${channel} ${channel} ${channel})`;
+}
+
 type Range = (typeof RANGES)[number]["value"];
 
 export type ReferencePanel = "live" | "native";
@@ -134,6 +189,14 @@ export interface StageProps {
    * out of a single optics pass wearing different colours.
    */
   readonly tint: string | null;
+  /**
+   * The tone stage's backdrop level, linear 0..1 — what the reader is driving.
+   *
+   * It reaches the material twice over, and both are the same statement: it is the
+   * ground the canvas is painted in, and it is the `luminance` this stage's group
+   * declares. Ignored by every other mode, whose ground is the window's own.
+   */
+  readonly groundLevel: number;
   readonly animate: boolean;
   readonly lastAction: string | null;
   readonly onAction: (key: string) => void;
@@ -146,6 +209,8 @@ export function StageGround(props: StageProps): ReactNode {
   const { mode, scene } = props;
   const reports = REPORTS_BY_SCENE.get(scene.id) ?? [];
   const report = reports[0];
+  const ground: StageGroundPaint =
+    mode === "tone" ? { fill: groundFill(props.groundLevel), field: 0 } : DEFAULT_GROUND;
 
   return (
     <div
@@ -238,14 +303,24 @@ export function StageGround(props: StageProps): ReactNode {
         </div>
       ) : (
         <>
-          <StageBackdrop sourceId={TEXTURE_SOURCE_ID} animate={props.animate} />
-          <p className="stage__legend">
-            {mode === "material"
-              ? "One sampling group, three surfaces, one authored thickness. Only the size differs — and the larger a surface gets, the harder it lenses and the deeper it sits."
-              : mode === "behavior"
-                ? "Three sampling groups over arbitrary DOM. Press any control, slide the range, open the menu."
-                : "One surface, under whatever the accessibility controls beside it resolve to."}
-          </p>
+          <StageBackdrop sourceId={TEXTURE_SOURCE_ID} animate={props.animate} ground={ground} />
+          {/*
+            No caption on the tone stage, and it is the same rule that keeps prose
+            off the glass: this is the one ground on the page whose lightness the
+            reader is driving, and no single ink can be held to a contrast ratio
+            across the whole sweep — at the top stop the dim stage ink measures
+            2.4:1 against the ground it is sitting on. What that stage means is in
+            the column, beside the control that moves it.
+          */}
+          {mode === "tone" ? null : (
+            <p className="stage__legend">
+              {mode === "material"
+                ? "One sampling group, three surfaces, one authored thickness. Only the size differs — and the larger a surface gets, the harder it lenses and the deeper it sits."
+                : mode === "behavior"
+                  ? "Three sampling groups over arbitrary DOM. Press any control, slide the range, open the menu."
+                  : "One surface, under whatever the accessibility controls beside it resolve to."}
+            </p>
+          )}
           <p className="visually-hidden" role="status">
             {props.lastAction === null ? "" : `Last action: ${props.lastAction}`}
           </p>
@@ -348,6 +423,50 @@ export function StageGlass(props: StageProps): ReactNode {
                 <strong>
                   {step.spanPx}px{step.tinted && props.tint !== null ? ", tinted" : ""}
                 </strong>
+              </GlassSurface>
+            ))}
+          </GlassGroup>
+        ) : null}
+
+        {mode === "tone" ? (
+          /*
+           * Backdrop tone adaptation (W7), as the same controlled comparison the
+           * size sweep already is.
+           *
+           * The plates are literally `SIZE_SWEEP` — the same three short spans,
+           * the same one authored thickness — because the two stages are one
+           * story: the size law says a bigger surface reads thicker, and this axis
+           * is gated by that same thickness, so a surface that already looked more
+           * substantial also holds its own appearance longer over a dark backdrop.
+           * Re-deriving a second set of spans here would let the two drift and
+           * would break the reader's ability to carry the first stage into this
+           * one. `tinted` and `testId` belong to the sweep's other claim (W3) and
+           * are not read here; this stage tints nothing, because a declared colour
+           * is step three of the composition contract and would confound step two.
+           *
+           * The group declares its backdrop level rather than leaving it to be
+           * measured, and that is not a shortcut. X6's rule is that a stated fact
+           * beats a reading, this page paints the ground it is standing on, and —
+           * the part that is not optional — the runtime's foreground decision only
+           * has a backdrop to reason about when a group declares one. Without the
+           * hint the material would still adapt and the ink would still be chosen
+           * against a backdrop nobody described, which on a fully adapted 40px
+           * plate is the wrong ink on a surface that has just gone dark.
+           */
+          <GlassGroup
+            id="tone"
+            backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }}
+            hint={{ tone: "dark", luminance: props.groundLevel }}
+          >
+            {SIZE_SWEEP.map((step) => (
+              <GlassSurface
+                key={step.step}
+                className={`plate plate--sweep plate--sweep-${step.step}`}
+                radius={step.radius}
+                thickness={SWEEP_THICKNESS}
+                data-testid={`tone-plate-${step.step}`}
+              >
+                <strong>{step.spanPx}px</strong>
               </GlassSurface>
             ))}
           </GlassGroup>
