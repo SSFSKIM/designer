@@ -46,7 +46,16 @@ export {
   type VideoProviderOptions,
   type WebGPURendererModule,
 } from "./renderer-seam";
-export type { ShapeChannels, ShapeFamily, CornerProfile, Vec2, CornerRadii } from "@vitrea/geometry";
+export type {
+  ShapeChannels,
+  ShapeFamily,
+  CornerProfile,
+  // A scene-model field since Decision Log #23(c), so anyone registering a node
+  // has to be able to name it.
+  CornerReference,
+  Vec2,
+  CornerRadii,
+} from "@vitrea/geometry";
 export type { MotionChannel, MotionDriverKind, InteractionState } from "@vitrea/motion";
 
 /**

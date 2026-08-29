@@ -35,7 +35,7 @@
  * `scheduler.ts`).
  */
 
-import type { ShapeChannels, ShapeFamily } from "@vitrea/geometry";
+import type { CornerReference, ShapeChannels, ShapeFamily } from "@vitrea/geometry";
 import type { InteractionState } from "@vitrea/motion";
 
 import {
@@ -206,6 +206,29 @@ export interface GlassGroupRecord {
   readonly state?: GlassGroupState;
   /** Per-group governor override; falls back to the scene-wide pressure. */
   readonly governor?: GovernorPressure;
+  /**
+   * Per-group platform probe override; falls back to the scene-wide probe.
+   *
+   * Most of `PlatformProbe` genuinely is scene-wide — there is one device per
+   * root, and whether the engine has `backdrop-filter` is a fact about the
+   * engine. `backdropProxyConformance` is the exception, and S1 measured why:
+   * the backdrop-root audit is per group, "not per document, because different
+   * groups can sit under different ancestors". A group whose proxy chain is
+   * re-rooted must demote alone.
+   */
+  readonly platform?: PlatformProbe;
+}
+
+/**
+ * X8 rider 2: this surface is a level set of another surface's field, inset by a
+ * fixed distance — a segmented control's indicator inside its track, drawn as
+ * one field rather than two shapes that happen to nest.
+ */
+export interface ConcentricParent {
+  /** The parent surface. Must be registered, and must share this node's group. */
+  readonly nodeId: string;
+  /** CSS px inward from the parent's contour. */
+  readonly inset: number;
 }
 
 export interface GlassNodeDescriptor {
@@ -214,6 +237,26 @@ export interface GlassNodeDescriptor {
   readonly shapeFamily: ShapeFamily;
   readonly shape: ShapeChannels;
   readonly zSlot: ZSlot;
+  /**
+   * Which of geometry's two corner references this shape is fit against
+   * (Decision Log #22(a) — two separate fits, not two points on one axis).
+   * Defaults to `"apple-continuous"` at the renderer.
+   *
+   * A scene-model field since Decision Log #23(c). In v1 it was a render input
+   * the browser layer never set, so a shape authored on the Figma smoothing axis
+   * was silently resolved against the Apple fit, and a binding that wanted to
+   * refuse a cross-reference morph had to mirror geometry's private mapping to
+   * do it. The reference travels with the shape now.
+   */
+  readonly reference?: CornerReference;
+  /**
+   * X8 rider 2's parent edge, likewise a scene-model field since #23(c).
+   *
+   * The link is validated here rather than at draw time: an unknown parent, a
+   * parent in another group and a cycle are all refusals at registration, where
+   * the caller that made the mistake is still on the stack.
+   */
+  readonly concentricOf?: ConcentricParent;
   /** Inherits the group's material profile when absent. */
   readonly variant?: MaterialVariant;
   /**
@@ -342,7 +385,25 @@ export interface GlassScene {
   /** Measured viewport geometry, from the read phase. */
   setNodeBounds(id: string, bounds: Rect, clip?: readonly Rect[]): void;
 
-  setPlatformProbe(probe: PlatformProbe): void;
+  /**
+   * Scene-wide by default; per group when `groupId` is given.
+   *
+   * The per-group form exists for `backdropProxyConformance` (Decision Log
+   * #21(a), #23(c)). S1's backdrop-root audit is per group — different groups
+   * sit under different ancestors — so a scene-wide-only probe forced the
+   * browser layer either to demote every group when one failed, or to bypass
+   * `resolve()` and call the pure resolver itself with the verdict folded in.
+   * It chose the second, honestly and in the open, and this setter is what
+   * retires it: with the verdict in the scene, `ResolvedGroup.state` and the
+   * host's per-group answer are the same answer again.
+   *
+   * A per-group probe REPLACES the scene-wide one for that group rather than
+   * merging with it, exactly as `setGovernorPressure` does. Merging would be a
+   * second precedence rule sitting beside `REASON_PRECEDENCE`, and the caller
+   * that knows the group's verdict is the same caller that holds the scene-wide
+   * probe it was derived from.
+   */
+  setPlatformProbe(probe: PlatformProbe, groupId?: string): void;
   setSourceProbe(sourceId: string, probe: SourceProbe): void;
   /** Scene-wide by default; per group when `groupId` is given. */
   setGovernorPressure(pressure: GovernorPressure, groupId?: string): void;
@@ -500,6 +561,63 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
   const nodesOfGroup = (groupId: string): readonly GlassNodeRecord[] =>
     [...nodes.values()].filter((node) => node.descriptor.groupId === groupId);
 
+  const concentricChildrenOf = (nodeId: string): readonly GlassNodeRecord[] =>
+    [...nodes.values()].filter((node) => node.descriptor.concentricOf?.nodeId === nodeId);
+
+  /**
+   * X8 rider 2's three refusals, all at registration.
+   *
+   * The parent edge is the scene model's first node→node reference, and every
+   * other cross-reference in here (`node.groupId`, `group.backdropSourceId`) is
+   * checked where it is written rather than where it is read. Doing the same for
+   * this one moves the cycle check off the renderer's draw path, where it was a
+   * `pass-input` error per frame, onto the one call that can actually be blamed
+   * for it.
+   *
+   * Same group, because the renderer resolves a concentric child against the
+   * parent's *instance* — and instances are packed per group, so a cross-group
+   * parent is not in the buffer at all.
+   */
+  function requireConcentricParent(descriptor: GlassNodeDescriptor): void {
+    const link = descriptor.concentricOf;
+    if (link === undefined) return;
+
+    if (link.nodeId === descriptor.id) {
+      throw new GlassSceneError(
+        "in-use",
+        `Glass node "${descriptor.id}" is its own concentric parent. A surface cannot be a level set of its own field.`,
+      );
+    }
+
+    const parent = nodes.get(link.nodeId);
+    if (parent === undefined) {
+      throw unknown("glass node", link.nodeId);
+    }
+    if (parent.descriptor.groupId !== descriptor.groupId) {
+      throw new GlassSceneError(
+        "in-use",
+        `Glass node "${descriptor.id}" is concentric on "${link.nodeId}", which is in group "${parent.descriptor.groupId}" rather than "${descriptor.groupId}". ` +
+          "A concentric child is drawn as a level set of its parent's field, and fields are resolved per group (X8 rider 2).",
+      );
+    }
+
+    // Walk up from the parent. The chain is finite because every existing link
+    // was checked the same way, so the only cycle a new one can close is back
+    // to this node.
+    const seen = new Set<string>([descriptor.id]);
+    let ancestor: string | undefined = link.nodeId;
+    while (ancestor !== undefined) {
+      if (seen.has(ancestor)) {
+        throw new GlassSceneError(
+          "in-use",
+          `Concentric parent "${link.nodeId}" would put glass node "${descriptor.id}" in a cycle (${[...seen].join(" → ")} → ${ancestor}). A level set has to bottom out in a shape.`,
+        );
+      }
+      seen.add(ancestor);
+      ancestor = nodes.get(ancestor)?.descriptor.concentricOf?.nodeId;
+    }
+  }
+
   /**
    * dom sources are never rebuildable: the browser compositor does their blur,
    * so the GPU builds no pyramid for them at all (§Core model invariant).
@@ -513,16 +631,17 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
   ): CapabilityInputs {
     const source = requireSource(group.descriptor.backdropSourceId);
     const pressure = group.governor ?? governor;
+    const probe = group.platform ?? platform;
 
     return source.descriptor.kind === "texture"
       ? {
           configuredSource: "texture",
-          platform,
+          platform: probe,
           source: source.descriptor.probe,
           governor: pressure,
           hint,
         }
-      : { configuredSource: "dom", platform, governor: pressure, hint };
+      : { configuredSource: "dom", platform: probe, governor: pressure, hint };
   }
 
   /**
@@ -646,6 +765,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     registerGlassNode(descriptor) {
       if (nodes.has(descriptor.id)) throw duplicate("glass node", descriptor.id);
       requireGroup(descriptor.groupId);
+      requireConcentricParent(descriptor);
       guardFrozenScene(descriptor.id);
       nodes.set(descriptor.id, { descriptor });
     },
@@ -654,6 +774,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       const record = requireNode(id);
       const descriptor = applyPatch(record.descriptor, patch);
       requireGroup(descriptor.groupId);
+      requireConcentricParent(descriptor);
       guardFrozenScene(id);
       nodes.set(id, { ...record, descriptor });
     },
@@ -661,6 +782,15 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     removeGlassNode(id) {
       requireNode(id);
       guardFrozenScene(id);
+      const children = concentricChildrenOf(id);
+      if (children.length > 0) {
+        throw new GlassSceneError(
+          "in-use",
+          `Glass node "${id}" is the concentric parent of ${children.map((node) => `"${node.descriptor.id}"`).join(", ")}. ` +
+            "A child drawn as a level set of this field has no shape of its own once it is gone — " +
+            "remove the children first, or clear their `concentricOf`.",
+        );
+      }
       nodes.delete(id);
     },
 
@@ -687,8 +817,13 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       nodes.set(id, { ...record, bounds, ...(clip === undefined ? {} : { clip }) });
     },
 
-    setPlatformProbe(probe) {
-      platform = probe;
+    setPlatformProbe(probe, groupId) {
+      if (groupId === undefined) {
+        platform = probe;
+        return;
+      }
+      const record = requireGroup(groupId);
+      groups.set(groupId, { ...record, platform: probe });
     },
 
     setSourceProbe(sourceId, probe) {

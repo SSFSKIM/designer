@@ -134,6 +134,43 @@ describe("toRendererGroups", () => {
     expect(surface?.variant).toBe("regular");
   });
 
+  /*
+   * The last link of Decision Log #23(c)'s chain. Both fields existed on
+   * `SurfaceInput` in v1 and this function set neither, so the renderer defaulted
+   * the reference for every surface and never saw a parent link at all. Absence
+   * is asserted alongside presence because the renderer's default only applies to
+   * a field that is genuinely not there.
+   */
+  it("forwards the corner reference and the concentric link, and omits them when unset", () => {
+    const [carried] = toRendererGroups(
+      frame(
+        [group()],
+        [
+          {
+            plane: "base",
+            nodes: [
+              node({ nodeId: "track" }),
+              node({
+                nodeId: "indicator",
+                reference: "figma-smoothing",
+                concentricOf: { nodeId: "track", inset: 5 },
+              }),
+            ],
+          },
+        ],
+      ),
+      always,
+    );
+    const surfaces = carried?.groups[0]?.surfaces ?? [];
+    const track = surfaces.find((surface) => surface.nodeId === "track");
+    const indicator = surfaces.find((surface) => surface.nodeId === "indicator");
+
+    expect(indicator?.reference).toBe("figma-smoothing");
+    expect(indicator?.concentricOf).toEqual({ nodeId: "track", inset: 5 });
+    expect(Object.hasOwn(track ?? {}, "reference")).toBe(false);
+    expect(Object.hasOwn(track ?? {}, "concentricOf")).toBe(false);
+  });
+
   it("carries the channel values straight through", () => {
     const channels = { press: 0.3, glow: 0.9, sweep: 0.1, lensStrength: 1.2, pressPoint: [150, 70] as const };
     const [base] = toRendererGroups(

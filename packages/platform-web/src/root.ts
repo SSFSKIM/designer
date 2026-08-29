@@ -32,11 +32,14 @@ import {
   createDiagnosticsChannel,
   createFrameScheduler,
   createGlassScene,
+  resolveGlassGroupState,
   resolveMaterial,
   type AccessibilityOverrides,
   type BackdropSourceDescriptor,
   type FrameInfo,
   type FrameReport,
+  type ConcentricParent,
+  type CornerReference,
   type GlassGroupDescriptor,
   type GlassGroupState,
   type GlassPlane,
@@ -67,7 +70,7 @@ import {
   type VitreaDiagnosticSink,
 } from "./diagnostics";
 import { createGeometrySync, type GeometrySync } from "./geometry-sync";
-import { effectiveGroupState, type ProbeVerdict } from "./group-state";
+import { foldProbeVerdict, groupCapabilityInputs, type ProbeVerdict } from "./group-state";
 import {
   DEFAULT_HOST_SHAPE,
   HOST_ATTRIBUTES,
@@ -218,6 +221,18 @@ export interface GlassNodeRenderInput {
   readonly shapeFamily: ShapeFamily;
   readonly radii: readonly [number, number, number, number];
   readonly smoothing: number;
+  /**
+   * Which corner reference the shape is fit against, absent where the app did
+   * not say and the renderer's `"apple-continuous"` default applies.
+   *
+   * Carried since Decision Log #23(c). Before that the renderer *had* the field
+   * and nothing ever set it, so every surface took the default — including one
+   * authored on the Figma smoothing axis, which is a different fit rather than a
+   * different point on the same one.
+   */
+  readonly reference?: CornerReference;
+  /** X8 rider 2's parent edge, absent for an ordinary surface. */
+  readonly concentricOf?: ConcentricParent;
   readonly thickness: number;
   /**
    * The motion drivers' outputs for this surface, read off the host's own inline
@@ -573,9 +588,40 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     scene.setAccessibilityOverrides(options.accessibilityOverrides);
   }
 
+  /**
+   * A group's own proxy-audit verdict. `pass` until layer 2 has run for it, for
+   * the same reason the first frame presumes it: refusing to render on an audit
+   * that could not run would demote every group at startup.
+   *
+   * Declared here rather than beside `stateFor` because `setProbe` composes with
+   * it, and `setProbe` runs from the WebGPU lifecycle's own callbacks.
+   */
+  const verdictFor = (groupId: string): ProbeVerdict =>
+    probeReports.get(groupId)?.verdict ?? "pass";
+
+  /**
+   * Publish one group's own probe into the scene: the scene-wide facts, narrowed
+   * by that group's proxy-audit verdict (Decision Log #23(c)).
+   *
+   * Re-published rather than merged in core, because the group's probe is a
+   * *derivative* of the scene-wide one: when a device is lost or WebGPU settles,
+   * every group's override has to be rebuilt from the new scene-wide answer, or
+   * a group that failed its audit once would keep answering with a stale
+   * `webgpu` availability forever. That is what `setProbe` below does, and it is
+   * why the override replaces rather than merges — one place composes, and it is
+   * here.
+   */
+  const publishGroupProbe = (groupId: string): void => {
+    if (scene.glassGroup(groupId) === undefined) return;
+    scene.setPlatformProbe(foldProbeVerdict(probe, verdictFor(groupId)), groupId);
+  };
+
   const setProbe = (next: Partial<PlatformProbe>): void => {
     probe = { ...probe, ...next };
     scene.setPlatformProbe(probe);
+    // Every group's override is composed from the scene-wide probe, so a change
+    // to it invalidates all of them.
+    for (const groupId of probeReports.keys()) publishGroupProbe(groupId);
   };
 
   /**
@@ -850,6 +896,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     const previous = probeReports.get(groupId);
     probeReports.set(groupId, report);
+    // Into the scene, so `resolve()` and `capabilities()` give one answer.
+    publishGroupProbe(groupId);
 
     if (report.verdict === "fail" && previous?.verdict !== "fail" && devMode) {
       platformDiagnostics.report({
@@ -881,9 +929,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     return report;
   };
 
-  const verdictFor = (groupId: string): ProbeVerdict =>
-    probeReports.get(groupId)?.verdict ?? "pass";
-
   const stateFor = (groupId: string): GlassGroupState | undefined => {
     const record = scene.glassGroup(groupId);
     if (record === undefined) return undefined;
@@ -897,37 +942,46 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         : "none";
     const governor = record.governor ?? "none";
 
-    return source.descriptor.kind === "texture"
-      ? effectiveGroupState({
-          configuredSource: "texture",
-          platform: probe,
-          // Whether pixels were ever handed over is a platform-side fact — core
-          // holds a declaration, the bridge holds the canvas — folded into the
-          // per-source probe the same way this group's own proxy verdict is
-          // folded into `backdropProxyConformance` (Decision Log #21a). Only
-          // asked where there is a bridge to ask: on a CSS-tier root nothing
-          // samples a texture at all, and "no pixels supplied" would be naming a
-          // loss the tier never had.
-          source:
-            bridge === undefined
-              ? source.descriptor.probe
-              : {
-                  ...source.descriptor.probe,
-                  supply: bridge.hasBackdropTexture(source.descriptor.id)
-                    ? "supplied"
-                    : "absent",
-                },
-          governor,
-          hint,
-          probe: verdictFor(groupId),
-        })
-      : effectiveGroupState({
-          configuredSource: "dom",
-          platform: probe,
-          governor,
-          hint,
-          probe: verdictFor(groupId),
-        });
+    /*
+     * The group's own probe, off the scene record where `auditGroup` published
+     * it — not folded here a second time. Before core carried a per-group probe
+     * this function did the fold itself, which meant the scene's `resolve()` and
+     * this getter could disagree about the same group. They cannot now: one
+     * value, composed in one place (`publishGroupProbe`).
+     *
+     * The fallback is the scene-wide probe, for a group that has been registered
+     * but not yet audited.
+     */
+    const platform = record.platform ?? probe;
+
+    return resolveGlassGroupState(
+      groupCapabilityInputs(
+        source.descriptor.kind === "texture"
+          ? {
+              configuredSource: "texture",
+              platform,
+              // Whether pixels were ever handed over is a platform-side fact —
+              // core holds a declaration, the bridge holds the canvas — folded
+              // into the per-source probe the same way this group's own proxy
+              // verdict is folded into `backdropProxyConformance` (Decision Log
+              // #21a). Only asked where there is a bridge to ask: on a CSS-tier
+              // root nothing samples a texture at all, and "no pixels supplied"
+              // would be naming a loss the tier never had.
+              source:
+                bridge === undefined
+                  ? source.descriptor.probe
+                  : {
+                      ...source.descriptor.probe,
+                      supply: bridge.hasBackdropTexture(source.descriptor.id)
+                        ? "supplied"
+                        : "absent",
+                    },
+              governor,
+              hint,
+            }
+          : { configuredSource: "dom", platform, governor, hint },
+      ),
+    );
   };
 
   /**
@@ -1219,6 +1273,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           shapeFamily: record.shapeFamily,
           radii: record.radii,
           smoothing: record.smoothing,
+          /*
+           * Off the scene descriptor, not off the host record — these two are
+           * scene-model fields now (Decision Log #23(c)) and mirroring them here
+           * would be a second copy that could disagree with core's. Spread
+           * conditionally so an absent field stays absent: the renderer's own
+           * default for `reference` is `"apple-continuous"`, and writing an
+           * explicit `undefined` would be a different thing from not saying.
+           */
+          ...(nodeRecord?.descriptor.reference === undefined
+            ? {}
+            : { reference: nodeRecord.descriptor.reference }),
+          ...(nodeRecord?.descriptor.concentricOf === undefined
+            ? {}
+            : { concentricOf: nodeRecord.descriptor.concentricOf }),
           thickness: record.thickness,
           // An inline-style read: the same declaration block a binding wrote
           // into, never the cascade. It forces no style recalculation, so the
@@ -1654,6 +1722,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           thickness: shape.thickness,
         },
         zSlot: { plane, order },
+        ...(hostOptions.reference === undefined ? {} : { reference: hostOptions.reference }),
+        // Refused here on an unknown parent, a cross-group parent or a cycle —
+        // core's own checks, on the call that can be blamed for it.
+        ...(hostOptions.concentricOf === undefined
+          ? {}
+          : { concentricOf: hostOptions.concentricOf }),
         ...(hostOptions.variant === undefined ? {} : { variant: hostOptions.variant }),
         // Parsed here, once, rather than per frame: the value is a CSS colour
         // string and the browser is the parser, so the seam between "what the
@@ -1697,6 +1771,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
               thickness: record.thickness,
             },
             zSlot: { plane: record.plane, order: record.order },
+            // `in patch` rather than `!== undefined`, like the overrides below
+            // it: a key present with `undefined` clears, an absent key keeps —
+            // core's own patch rule, and the only way to say "back to the
+            // default fit" or "no longer concentric".
+            ...("reference" in patch ? { reference: patch.reference } : {}),
+            ...("concentricOf" in patch ? { concentricOf: patch.concentricOf } : {}),
             ...("variant" in patch ? { variant: patch.variant } : {}),
             ...("tint" in patch
               ? {

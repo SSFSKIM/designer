@@ -33,6 +33,17 @@ const entryPath = join(distDir, "index.js");
 const typesPath = join(distDir, "index.d.ts");
 
 /**
+ * Both halves, because a half-built `dist/` is a real state.
+ *
+ * These suites skip when the package has not been built — CI builds first, a
+ * developer running `pnpm test` alone may not have. Guarding on the runtime
+ * entry alone turns an interrupted or failed declaration pass into an `ENOENT`
+ * crash inside `describe`, which reads as a broken test rather than as an
+ * unbuilt package.
+ */
+const built = existsSync(entryPath) && existsSync(typesPath);
+
+/**
  * Typecheck one declaration file with no DOM lib, no `types` and `skipLibCheck`
  * off — the consumer whose `lib.dom.d.ts` has no WebGPU in it, which is every
  * TypeScript before 6.0, and the only configuration available in this workspace
@@ -97,7 +108,7 @@ const specifiersIn = (source: string): string[] => {
   return [...found];
 };
 
-describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
+describe.skipIf(!built)("built artifact shape (X7)", () => {
   const runtime = readFileSync(entryPath, "utf8");
   const types = readFileSync(typesPath, "utf8");
 
@@ -180,7 +191,7 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
  * DOM lib has, which is why the artifact has to carry it, and the assertion is
  * therefore scoped to `GPU`-prefixed names rather than to a clean compile.
  */
-describe.skipIf(!existsSync(entryPath))("published declarations resolve alone (X7)", () => {
+describe.skipIf(!built)("published declarations resolve alone (X7)", () => {
   it("names no WebGPU global the artifact does not declare", () => {
     const output = typecheckDeclarations("index.d.ts", "tsconfig.published-dts.json");
 

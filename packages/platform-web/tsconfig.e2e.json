@@ -2,7 +2,15 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["node"]
+    "types": ["node"],
+    // `e2e/fixtures/vanilla.ts` imports this package by its published name, the
+    // way a consumer does — so the specifier is under test rather than assumed.
+    // Mapped to source, matching `e2e/vite.config.ts`'s alias: without it this
+    // typecheck resolves to `dist/`, which makes `lint` depend on `build`
+    // having run and reports a stale artifact as a type error.
+    "paths": {
+      "@vitreajs/vitrea-web": ["./src/index.ts"]
+    }
   },
   "include": ["e2e", "playwright.config.ts"]
 }

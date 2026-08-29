@@ -84,6 +84,54 @@ describe("GlassSurface → GlassNodeDescriptor", () => {
     expect(descriptor?.zSlot).toEqual({ plane: "overlay", order: 3 });
   });
 
+  /*
+   * The corner reference reaches the scene (Decision Log #23(c)).
+   *
+   * It did not in v1: this binding computed it, used it only to refuse a
+   * cross-reference morph, and threw it away — so `profile="circular"` and
+   * `profile={0.6}`, which both sit on the Figma smoothing axis, were drawn
+   * against the Apple-direct fit like everything else. `smoothing` alone cannot
+   * say which curve it is a point on, because the two are separate fits rather
+   * than two points on one axis (#22(a)).
+   */
+  it("sends the corner reference the profile resolves to, not only its smoothing", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface nodeId="figma" profile={0.6} />
+        <GlassSurface nodeId="circular" profile="circular" />
+        <GlassSurface nodeId="continuous" profile="continuous" />
+        <GlassSurface nodeId="unsaid" />
+      </GlassGroup>,
+    );
+
+    const referenceOf = (nodeId: string) =>
+      harness.root().scene.glassNode(nodeId)?.descriptor.reference;
+
+    expect(referenceOf("figma")).toBe("figma-smoothing");
+    expect(referenceOf("circular")).toBe("figma-smoothing");
+    expect(referenceOf("continuous")).toBe("apple-continuous");
+    // The default is the renderer's to apply, and the binding's `profile`
+    // default is `"continuous"` — so this one is stated rather than omitted.
+    expect(referenceOf("unsaid")).toBe("apple-continuous");
+  });
+
+  it("re-sends it when the profile changes rather than only at registration", () => {
+    const harness = renderGlass(
+      <GlassGroup id="g">
+        <GlassSurface nodeId="one" profile="continuous" />
+      </GlassGroup>,
+    );
+    expect(harness.root().scene.glassNode("one")?.descriptor.reference).toBe("apple-continuous");
+
+    harness.rerender(
+      <GlassGroup id="g">
+        <GlassSurface nodeId="one" profile="circular" />
+      </GlassGroup>,
+    );
+
+    expect(harness.root().scene.glassNode("one")?.descriptor.reference).toBe("figma-smoothing");
+  });
+
   it("declares a capsule as one, and never declares position or size", () => {
     const harness = renderGlass(
       <GlassGroup id="g">

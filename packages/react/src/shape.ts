@@ -3,18 +3,26 @@
  *
  * `@vitrea/geometry` already owns the mapping from `profile` to a corner
  * reference and a smoothing number — but it owns it inside `resolveShape`, and
- * `platform-web`'s host registration takes a bare `smoothing` number rather than
- * a `ShapeSpec`. Decision Log #23c is why: the corner *reference* is a render
- * input in v1, not a scene-model field, so it never reaches core. This module is
- * the one place that gap is bridged, and it mirrors geometry's private
- * `referenceFor` exactly rather than inventing a second mapping.
+ * `platform-web`'s host registration takes a bare `smoothing` number and a bare
+ * `reference` rather than a `ShapeSpec`. So this module splits one prop into the
+ * two fields registration wants, mirroring geometry's private `referenceFor`
+ * exactly rather than inventing a second mapping.
+ *
+ * **What changed at Decision Log #23(c).** The corner reference used to be a
+ * render input the browser layer never set, so it never reached core at all:
+ * `GlassSurface` computed it here only to *refuse* a bad morph, and then threw
+ * it away, and every surface was drawn against the Apple fit whatever its
+ * profile said. It is a scene-model field now and `GlassSurface` sends it, so a
+ * `profile={0.6}` surface is finally resolved on the axis that number lives on.
  *
  * The consequence a caller has to know about is the morph rule (Decision Log
  * #22a): `"circular"` sits on the Figma smoothing axis and `"continuous"` on the
  * Apple-direct fit, and the two are separate fits rather than two points on one
  * axis — so a morph across them has no measured error bound and geometry throws.
  * `assertSharedCornerReference` raises that as a dev-mode error at the API
- * boundary, where the prop that caused it is still visible.
+ * boundary, where the prop that caused it is still visible. It stays even though
+ * the reference now travels: geometry's own refusal fires deep in `morphShapes`,
+ * on shapes, with no prop left to name.
  */
 
 import {

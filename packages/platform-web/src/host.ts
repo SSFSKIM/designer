@@ -42,7 +42,7 @@
  * dev mode. Put the app's own transform on an ancestor or a descendant instead.
  */
 
-import type { CornerRadii, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "@vitreajs/vitrea";
+import type { ConcentricParent, CornerRadii, CornerReference, ForegroundAdaptation, GlassPlane, InteractionState, MaterialVariant, ShapeFamily } from "@vitreajs/vitrea";
 
 /**
  * An author tint, as an app writes it: **any CSS colour the browser can parse**,
@@ -68,6 +68,27 @@ export interface GlassHostOptions {
   readonly radii?: CornerRadii;
   /** 0 = circular corners, 1 = maximum continuous-curvature smoothing. */
   readonly smoothing?: number;
+  /**
+   * Which of geometry's two corner references this shape is fit against.
+   * Defaults to `"apple-continuous"`.
+   *
+   * `smoothing` alone does not determine this: the two references are separate
+   * fits to different curves rather than two points on one axis (Decision Log
+   * #22(a)), so a shape authored on the Figma smoothing axis and resolved
+   * against the Apple fit is a shape drawn against a curve nobody asked for.
+   * Until Decision Log #23(c) there was no way to say which, and every surface
+   * got the Apple fit.
+   */
+  readonly reference?: CornerReference;
+  /**
+   * Draw this surface as a level set of another surface's field, inset by a
+   * fixed distance (X8 rider 2) — a segmented control's indicator inside its
+   * track, as one field rather than two shapes that happen to nest.
+   *
+   * The parent must be registered, and in the same group. Both are refused at
+   * registration rather than at draw time.
+   */
+  readonly concentricOf?: ConcentricParent;
   /** Material thickness in CSS px, driving lensing depth and shadow. */
   readonly thickness?: number;
   readonly variant?: MaterialVariant;
@@ -105,6 +126,10 @@ export const DEFAULT_HOST_SHAPE: HostShapeDeclaration = {
 export interface GlassHostPatch {
   readonly radii?: CornerRadii;
   readonly smoothing?: number;
+  /** `undefined` clears the override, returning the surface to the default fit. */
+  readonly reference?: CornerReference | undefined;
+  /** `undefined` clears the link, returning the surface to a shape of its own. */
+  readonly concentricOf?: ConcentricParent | undefined;
   readonly thickness?: number;
   readonly variant?: MaterialVariant | undefined;
   readonly tint?: TintDeclaration | undefined;

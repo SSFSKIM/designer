@@ -296,6 +296,15 @@ function toSurfaceInput(node: GlassFrameRenderInput["planes"][number]["nodes"][n
       smoothing: node.smoothing,
       thickness: node.thickness,
     },
+    /*
+     * The two fields the renderer has always had and nothing ever set (Decision
+     * Log #23(c)). They are scene-model fields now and travel on the render
+     * input, so this is a forward rather than a derivation — and left absent
+     * where the scene left them absent, so the renderer's own
+     * `"apple-continuous"` default still decides for a surface that never said.
+     */
+    ...(node.reference === undefined ? {} : { reference: node.reference }),
+    ...(node.concentricOf === undefined ? {} : { concentricOf: node.concentricOf }),
     variant: node.material.variant,
     // Decoded into the renderer's working space here rather than carried as the
     // author wrote it: everything past this seam is linear light, and core is

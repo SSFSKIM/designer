@@ -54,7 +54,13 @@ import { mergeSlotProps, renderAsChild } from "./as-child";
 import { GlassGroupContext, useGlassGroupId, useGlassRootHandle } from "./context";
 import { useGlassInteraction } from "./interaction";
 import { PlanePortal } from "./plane-portal";
-import { capsuleRadius, radiiFor, smoothingFor, type GlassCornerProfile } from "./shape";
+import {
+  capsuleRadius,
+  cornerReferenceFor,
+  radiiFor,
+  smoothingFor,
+  type GlassCornerProfile,
+} from "./shape";
 
 export interface GlassSurfaceOwnProps {
   /** Register the app's own element instead of rendering a `<div>`. */
@@ -154,6 +160,15 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   useEffect(() => setActivePlane(declaredPlane), [declaredPlane]);
 
   const smoothing = smoothingFor(profile);
+  /*
+   * Which curve the smoothing number is a point on. Sent since Decision Log
+   * #23(c) made it a scene-model field: the two references are separate fits
+   * rather than two points on one axis (#22(a)), so a shape authored on the
+   * Figma axis and resolved against the Apple fit is drawn against a curve
+   * nobody asked for — which is what happened to every surface while the field
+   * existed on the renderer and nothing set it.
+   */
+  const reference = cornerReferenceFor(profile);
   const radii = useMemo(() => radiiFor(radius), [radius]);
 
   /**
@@ -165,8 +180,8 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
    * through `update`, and only the id, the group, the plane, the element and the
    * shape *family* can require a new registration.
    */
-  const patch = useRef({ radii, smoothing, thickness, order, variant, tint, foreground });
-  patch.current = { radii, smoothing, thickness, order, variant, tint, foreground };
+  const patch = useRef({ radii, smoothing, reference, thickness, order, variant, tint, foreground });
+  patch.current = { radii, smoothing, reference, thickness, order, variant, tint, foreground };
 
   // Held in a ref so a fresh closure each render never re-registers the host.
   const onHostRef = useRef(onHost);
@@ -185,6 +200,7 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
       shapeFamily: capsule ? "capsule" : "fixed-rounded-rect",
       radii: initial.radii,
       smoothing: initial.smoothing,
+      reference: initial.reference,
       thickness: initial.thickness,
       ...(initial.order === undefined ? {} : { order: initial.order }),
       ...(initial.variant === undefined ? {} : { variant: initial.variant }),
@@ -234,13 +250,14 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
     handle?.update({
       radii,
       smoothing,
+      reference,
       thickness,
       ...(order === undefined ? {} : { order }),
       variant,
       tint,
       foreground: patch.current.foreground,
     });
-  }, [foregroundKey, handle, order, radii, smoothing, thickness, tint, variant]);
+  }, [foregroundKey, handle, order, radii, reference, smoothing, thickness, tint, variant]);
 
   /**
    * A capsule's radius is half its shorter side, and only the measured box knows

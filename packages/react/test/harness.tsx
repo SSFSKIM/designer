@@ -25,6 +25,15 @@ export interface Harness {
   tick(dtMs: number): void;
   /** `frame` then `tick`, `count` times — the ordering the live loops produce. */
   run(count: number, dtMs?: number): void;
+  /**
+   * Re-render the children under the *same* root.
+   *
+   * `result.rerender` cannot do this: what it replaces is the whole element that
+   * was rendered, wrapper included, so calling it directly would unmount and
+   * rebuild the `GlassRoot` — and a test about a prop change would silently be
+   * testing a fresh registration instead.
+   */
+  rerender(children: ReactNode): void;
 }
 
 interface CaptureProps {
@@ -43,7 +52,7 @@ export function renderGlass(
   let platformRoot: PlatformGlassRoot | null = null;
   let ticker: GlassTicker | null = null;
 
-  const result = render(
+  const tree = (content: ReactNode): ReactNode => (
     <GlassRoot autoStart={false} {...rootProps}>
       <Capture
         onReady={(next, nextTicker) => {
@@ -51,9 +60,11 @@ export function renderGlass(
           ticker = nextTicker;
         }}
       />
-      {children}
-    </GlassRoot>,
+      {content}
+    </GlassRoot>
   );
+
+  const result = render(tree(children));
 
   let elapsed = 0;
 
@@ -79,6 +90,9 @@ export function renderGlass(
         harness.frame(elapsed + dtMs);
         harness.tick(dtMs);
       }
+    },
+    rerender(next) {
+      result.rerender(tree(next));
     },
   };
 
