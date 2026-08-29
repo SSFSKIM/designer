@@ -141,8 +141,13 @@
         "photo__capsule-button__rest",
         "dark-solid__rrect-md__rest",
         "checkerboard__rrect-md__rest",
-        "photo__rrect-md__rest"
-      ]
+        "photo__rrect-md__rest",
+        "impulse__capsule-button__rest",
+        "photo__capsule-button__pressed",
+        "photo__rrect-lg__rest",
+        "checkerboard__glass-over-glass__rest"
+      ],
+      "$comment": "Wave 1 / G3 adoption: extended past calibration-only so the profile has a declared split (2 validation + 2 holdout; the split is per SCENE, so membership follows automatically). Holdout picks cover the size extreme (rrect-lg) and the stacked case (glass-over-glass) — the families the split comment names as where overfitting hides."
     },
     {
       "key": "apple-macos-26.5-1x-light-reduced-transparency",
@@ -152,8 +157,13 @@
         "checkerboard__capsule-button__rest",
         "photo__capsule-button__rest",
         "checkerboard__rrect-md__rest",
-        "photo__rrect-md__rest"
-      ]
+        "photo__rrect-md__rest",
+        "photo__toolbar-group__rest",
+        "photo__capsule-button__pressed",
+        "hc-text__capsule-button__rest",
+        "photo__rrect-lg__rest"
+      ],
+      "$comment": "Wave 1 / G3 adoption: extended past calibration-only for a declared split (2 validation + 2 holdout). hc-text as holdout is deliberate — legibility is the axis this mode exists for."
     },
     {
       "key": "apple-macos-26.5-1x-light-increased-contrast",
@@ -163,8 +173,13 @@
         "checkerboard__capsule-button__rest",
         "photo__capsule-button__rest",
         "checkerboard__rrect-md__rest",
-        "photo__rrect-md__rest"
-      ]
+        "photo__rrect-md__rest",
+        "photo__toolbar-group__rest",
+        "photo__capsule-button__pressed",
+        "hc-text__capsule-button__rest",
+        "photo__rrect-lg__rest"
+      ],
+      "$comment": "Wave 1 / G3 adoption: same extension as reduced-transparency (the profiles must stay scene-comparable — macOS couples the toggles, so this mode's captures embody both)."
     },
     {
       "key": "apple-macos-26.5-2x-light-standard",
@@ -183,9 +198,13 @@
         "photo__capsule-button__rest",
         "dark-solid__rrect-md__rest",
         "checkerboard__rrect-md__rest",
-        "photo__rrect-md__rest"
+        "photo__rrect-md__rest",
+        "impulse__capsule-button__rest",
+        "photo__capsule-button__pressed",
+        "photo__rrect-lg__rest",
+        "checkerboard__glass-over-glass__rest"
       ],
-      "$comment": "Wave 1 / W1: the 1x dark subset, at 2x."
+      "$comment": "Wave 1 / W1: the 1x dark subset, at 2x — extended with the same split scenes as 1x dark (G3 adoption; the profiles stay scene-comparable across scale)."
     }
   ],
 

@@ -14,10 +14,9 @@
     "photo@2x" : "backgrounds/photo@2x.png"
   },
   "caveats" : [
-    "Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).",
-    "Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes."
+    "Profiles not captured because the system is in accessibility mode 'increased-contrast' and these claim another: apple-macos-26.5-1x-light-standard, apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-2x-light-standard, apple-macos-26.5-2x-dark-standard. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display)."
   ],
-  "generatedAt" : "2026-08-28T16:55:56Z",
+  "generatedAt" : "2026-08-29T16:16:13Z",
   "hardware" : {
     "cpu" : "Apple M2 Pro",
     "model" : "Mac14,12",
@@ -33,6 +32,8 @@
       "display" : {
         "actualBackingScale" : 1,
         "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
         "pixelSize" : [
           320,
           200
@@ -42,8 +43,8 @@
       "fixtures" : [
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:07Z",
-          "deltaFromBackground" : 8.951182291666667,
+          "capturedAt" : "2026-08-29T15:40:43Z",
+          "deltaFromBackground" : 8.985760416666666,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/checkerboard__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -56,7 +57,21 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:11Z",
+          "capturedAt" : "2026-08-29T15:41:36Z",
+          "deltaFromBackground" : 55.02994270833333,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-dark-standard/checkerboard__glass-over-glass__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__glass-over-glass__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:41:42Z",
           "deltaFromBackground" : 28.9118125,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/checkerboard__rrect-md__rest.png",
@@ -70,13 +85,13 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:09Z",
-          "deltaFromBackground" : 0.07479166666666667,
+          "capturedAt" : "2026-08-29T15:41:06Z",
+          "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest.png",
           "fixtureSet" : "calibration",
           "height" : 200,
-          "identicalToBackground" : false,
+          "identicalToBackground" : true,
           "materialRendered" : true,
           "repeatNoise" : 0,
           "sceneId" : "dark-solid__capsule-button__rest",
@@ -84,7 +99,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:13Z",
+          "capturedAt" : "2026-08-29T15:42:00Z",
           "deltaFromBackground" : 2.8107083333333334,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest.png",
@@ -98,8 +113,36 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:13Z",
-          "deltaFromBackground" : 4.890947916666667,
+          "capturedAt" : "2026-08-29T15:40:46Z",
+          "deltaFromBackground" : 1.5173125,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-dark-standard/impulse__capsule-button__rest.png",
+          "fixtureSet" : "validation",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "impulse__capsule-button__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:42:22Z",
+          "deltaFromBackground" : 2.341213541666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-dark-standard/photo__capsule-button__pressed.png",
+          "fixtureSet" : "validation",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__pressed",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:41:57Z",
+          "deltaFromBackground" : 2.341213541666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/photo__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -112,8 +155,22 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:08Z",
-          "deltaFromBackground" : 12.668885416666667,
+          "capturedAt" : "2026-08-29T15:41:16Z",
+          "deltaFromBackground" : 33.99225,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-dark-standard/photo__rrect-lg__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__rrect-lg__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:40:57Z",
+          "deltaFromBackground" : 12.668932291666666,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-dark-standard/photo__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -136,6 +193,8 @@
       "display" : {
         "actualBackingScale" : 1,
         "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
         "pixelSize" : [
           320,
           200
@@ -145,8 +204,8 @@
       "fixtures" : [
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:55Z",
-          "deltaFromBackground" : 9.865645833333334,
+          "capturedAt" : "2026-08-29T16:15:50Z",
+          "deltaFromBackground" : 9.865635416666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -159,8 +218,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:56Z",
-          "deltaFromBackground" : 30.19784375,
+          "capturedAt" : "2026-08-29T16:16:10Z",
+          "deltaFromBackground" : 30.197822916666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -173,8 +232,36 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:56Z",
-          "deltaFromBackground" : 9.640921875,
+          "capturedAt" : "2026-08-29T16:16:03Z",
+          "deltaFromBackground" : 8.594734375,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "hc-text__capsule-button__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:15:57Z",
+          "deltaFromBackground" : 9.640947916666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__pressed.png",
+          "fixtureSet" : "validation",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__pressed",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:16:00Z",
+          "deltaFromBackground" : 9.640947916666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -187,8 +274,22 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:56Z",
-          "deltaFromBackground" : 31.099713541666667,
+          "capturedAt" : "2026-08-29T16:16:13Z",
+          "deltaFromBackground" : 97.798734375,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__rrect-lg__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:16:06Z",
+          "deltaFromBackground" : 31.099770833333334,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -197,6 +298,20 @@
           "materialRendered" : true,
           "repeatNoise" : 0,
           "sceneId" : "photo__rrect-md__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:15:53Z",
+          "deltaFromBackground" : 9.013098958333334,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest.png",
+          "fixtureSet" : "validation",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__toolbar-group__rest",
           "width" : 320
         }
       ],
@@ -208,6 +323,8 @@
       "display" : {
         "actualBackingScale" : 1,
         "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
         "pixelSize" : [
           320,
           200
@@ -217,7 +334,7 @@
       "fixtures" : [
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:21Z",
+          "capturedAt" : "2026-08-29T16:07:34Z",
           "deltaFromBackground" : 9.65715625,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__capsule-button__rest.png",
@@ -231,7 +348,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:20Z",
+          "capturedAt" : "2026-08-29T16:07:11Z",
           "deltaFromBackground" : 29.8606875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-reduced-transparency/checkerboard__rrect-md__rest.png",
@@ -245,8 +362,36 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:21Z",
-          "deltaFromBackground" : 9.583083333333333,
+          "capturedAt" : "2026-08-29T16:07:31Z",
+          "deltaFromBackground" : 7.77965625,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-reduced-transparency/hc-text__capsule-button__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "hc-text__capsule-button__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:07:18Z",
+          "deltaFromBackground" : 9.583130208333333,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__pressed.png",
+          "fixtureSet" : "validation",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__pressed",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:07:14Z",
+          "deltaFromBackground" : 9.583130208333333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-reduced-transparency/photo__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -259,8 +404,22 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:53:21Z",
-          "deltaFromBackground" : 30.732557291666666,
+          "capturedAt" : "2026-08-29T16:07:24Z",
+          "deltaFromBackground" : 95.74661458333334,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-lg__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__rrect-lg__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:07:28Z",
+          "deltaFromBackground" : 30.73260416666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-reduced-transparency/photo__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -269,6 +428,20 @@
           "materialRendered" : true,
           "repeatNoise" : 0,
           "sceneId" : "photo__rrect-md__rest",
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T16:07:21Z",
+          "deltaFromBackground" : 9.135265625,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-reduced-transparency/photo__toolbar-group__rest.png",
+          "fixtureSet" : "validation",
+          "height" : 200,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__toolbar-group__rest",
           "width" : 320
         }
       ],
@@ -280,6 +453,8 @@
       "display" : {
         "actualBackingScale" : 1,
         "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
         "pixelSize" : [
           320,
           200
@@ -289,8 +464,8 @@
       "fixtures" : [
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:14Z",
-          "deltaFromBackground" : 9.202416666666666,
+          "capturedAt" : "2026-08-29T15:42:18Z",
+          "deltaFromBackground" : 8.953744791666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__pressed.png",
           "fixtureSet" : "calibration",
@@ -303,8 +478,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:12Z",
-          "deltaFromBackground" : 9.3535625,
+          "capturedAt" : "2026-08-29T15:41:51Z",
+          "deltaFromBackground" : 8.953744791666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -317,8 +492,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:14Z",
-          "deltaFromBackground" : 54.9286875,
+          "capturedAt" : "2026-08-29T15:42:07Z",
+          "deltaFromBackground" : 54.929197916666666,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest.png",
           "fixtureSet" : "holdout",
@@ -331,7 +506,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:08Z",
+          "capturedAt" : "2026-08-29T15:40:53Z",
           "deltaFromBackground" : 85.931953125,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest.png",
@@ -345,7 +520,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:13Z",
+          "capturedAt" : "2026-08-29T15:42:04Z",
           "deltaFromBackground" : 28.79371875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__pressed.png",
@@ -359,7 +534,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:11Z",
+          "capturedAt" : "2026-08-29T15:41:39Z",
           "deltaFromBackground" : 28.79371875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest.png",
@@ -373,8 +548,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:07Z",
-          "deltaFromBackground" : 3.8197760416666666,
+          "capturedAt" : "2026-08-29T15:40:39Z",
+          "deltaFromBackground" : 3.6321197916666668,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest.png",
           "fixtureSet" : "calibration",
@@ -387,8 +562,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:10Z",
-          "deltaFromBackground" : 8.839083333333333,
+          "capturedAt" : "2026-08-29T15:41:21Z",
+          "deltaFromBackground" : 8.516083333333333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest.png",
           "fixtureSet" : "calibration",
@@ -401,13 +576,13 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:15Z",
-          "deltaFromBackground" : 14.542895833333333,
+          "capturedAt" : "2026-08-29T15:42:25Z",
+          "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest.png",
           "fixtureSet" : "calibration",
           "height" : 200,
-          "identicalToBackground" : false,
+          "identicalToBackground" : true,
           "materialRendered" : true,
           "repeatNoise" : 0,
           "sceneId" : "dark-solid__capsule-button__rest",
@@ -415,7 +590,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:12Z",
+          "capturedAt" : "2026-08-29T15:41:54Z",
           "deltaFromBackground" : 35.59858333333333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest.png",
@@ -429,8 +604,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:06Z",
-          "deltaFromBackground" : 7.761864583333334,
+          "capturedAt" : "2026-08-29T15:40:36Z",
+          "deltaFromBackground" : 7.709609375,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest.png",
           "fixtureSet" : "holdout",
@@ -443,7 +618,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:09Z",
+          "capturedAt" : "2026-08-29T15:41:10Z",
           "deltaFromBackground" : 24.125208333333333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest.png",
@@ -457,8 +632,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:07Z",
-          "deltaFromBackground" : 16.39540625,
+          "capturedAt" : "2026-08-29T15:40:50Z",
+          "deltaFromBackground" : 1.5173125,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest.png",
           "fixtureSet" : "validation",
@@ -471,7 +646,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:08Z",
+          "capturedAt" : "2026-08-29T15:41:00Z",
           "deltaFromBackground" : 40.2735625,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest.png",
@@ -485,8 +660,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:06Z",
-          "deltaFromBackground" : 0.3542708333333333,
+          "capturedAt" : "2026-08-29T15:40:33Z",
+          "deltaFromBackground" : 0.353875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -499,7 +674,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:14Z",
+          "capturedAt" : "2026-08-29T15:42:10Z",
           "deltaFromBackground" : 0.23408333333333334,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest.png",
@@ -513,8 +688,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:10Z",
-          "deltaFromBackground" : 8.290921875,
+          "capturedAt" : "2026-08-29T15:41:28Z",
+          "deltaFromBackground" : 6.122786458333334,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__pressed.png",
           "fixtureSet" : "validation",
@@ -527,8 +702,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:09Z",
-          "deltaFromBackground" : 8.290921875,
+          "capturedAt" : "2026-08-29T15:41:13Z",
+          "deltaFromBackground" : 6.122786458333334,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -541,8 +716,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:14Z",
-          "deltaFromBackground" : 43.098296875,
+          "capturedAt" : "2026-08-29T15:42:13Z",
+          "deltaFromBackground" : 42.76855729166667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest.png",
           "fixtureSet" : "holdout",
@@ -555,8 +730,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:09Z",
-          "deltaFromBackground" : 62.58240625,
+          "capturedAt" : "2026-08-29T15:41:03Z",
+          "deltaFromBackground" : 62.582453125,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest.png",
           "fixtureSet" : "holdout",
@@ -569,8 +744,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:11Z",
-          "deltaFromBackground" : 20.746447916666668,
+          "capturedAt" : "2026-08-29T15:41:31Z",
+          "deltaFromBackground" : 20.746494791666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-md__pressed.png",
           "fixtureSet" : "validation",
@@ -583,8 +758,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:06Z",
-          "deltaFromBackground" : 20.746447916666668,
+          "capturedAt" : "2026-08-29T15:40:30Z",
+          "deltaFromBackground" : 20.746494791666667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -597,8 +772,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:10Z",
-          "deltaFromBackground" : 3.5854583333333334,
+          "capturedAt" : "2026-08-29T15:41:25Z",
+          "deltaFromBackground" : 2.449921875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest.png",
           "fixtureSet" : "validation",
@@ -611,8 +786,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:52:12Z",
-          "deltaFromBackground" : 7.439770833333333,
+          "capturedAt" : "2026-08-29T15:41:47Z",
+          "deltaFromBackground" : 5.738109375,
           "deterministic" : true,
           "file" : "apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest.png",
           "fixtureSet" : "validation",
@@ -632,6 +807,8 @@
       "display" : {
         "actualBackingScale" : 2,
         "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
         "pixelSize" : [
           640,
           400
@@ -641,8 +818,8 @@
       "fixtures" : [
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:54Z",
-          "deltaFromBackground" : 8.705678385416666,
+          "capturedAt" : "2026-08-29T15:56:29Z",
+          "deltaFromBackground" : 8.93760546875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-dark-standard/checkerboard__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -655,8 +832,22 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:47Z",
-          "deltaFromBackground" : 29.469592447916668,
+          "capturedAt" : "2026-08-29T15:56:36Z",
+          "deltaFromBackground" : 55.54582421875,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-2x-dark-standard/checkerboard__glass-over-glass__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 400,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__glass-over-glass__rest",
+          "width" : 640
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:55:11Z",
+          "deltaFromBackground" : 29.469201822916666,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-dark-standard/checkerboard__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -669,13 +860,13 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:53Z",
-          "deltaFromBackground" : 0.07527604166666667,
+          "capturedAt" : "2026-08-29T15:56:16Z",
+          "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest.png",
           "fixtureSet" : "calibration",
           "height" : 400,
-          "identicalToBackground" : false,
+          "identicalToBackground" : true,
           "materialRendered" : true,
           "repeatNoise" : 0,
           "sceneId" : "dark-solid__capsule-button__rest",
@@ -683,7 +874,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:52Z",
+          "capturedAt" : "2026-08-29T15:56:03Z",
           "deltaFromBackground" : 2.810567708333333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest.png",
@@ -697,8 +888,36 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:56Z",
-          "deltaFromBackground" : 4.895579427083334,
+          "capturedAt" : "2026-08-29T15:56:13Z",
+          "deltaFromBackground" : 1.5144609375,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-2x-dark-standard/impulse__capsule-button__rest.png",
+          "fixtureSet" : "validation",
+          "height" : 400,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "impulse__capsule-button__rest",
+          "width" : 640
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:55:24Z",
+          "deltaFromBackground" : 2.368217447916667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-2x-dark-standard/photo__capsule-button__pressed.png",
+          "fixtureSet" : "validation",
+          "height" : 400,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__pressed",
+          "width" : 640
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:56:59Z",
+          "deltaFromBackground" : 2.368217447916667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-dark-standard/photo__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -711,8 +930,22 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:50Z",
-          "deltaFromBackground" : 12.688733072916667,
+          "capturedAt" : "2026-08-29T15:55:47Z",
+          "deltaFromBackground" : 34.03868229166667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-2x-dark-standard/photo__rrect-lg__rest.png",
+          "fixtureSet" : "holdout",
+          "height" : 400,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__rrect-lg__rest",
+          "width" : 640
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-08-29T15:55:41Z",
+          "deltaFromBackground" : 12.688725260416666,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-dark-standard/photo__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -732,6 +965,8 @@
       "display" : {
         "actualBackingScale" : 2,
         "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
         "pixelSize" : [
           640,
           400
@@ -741,8 +976,8 @@
       "fixtures" : [
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:50Z",
-          "deltaFromBackground" : 9.33603125,
+          "capturedAt" : "2026-08-29T15:55:50Z",
+          "deltaFromBackground" : 8.900798177083333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__pressed.png",
           "fixtureSet" : "calibration",
@@ -755,8 +990,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:48Z",
-          "deltaFromBackground" : 9.33603125,
+          "capturedAt" : "2026-08-29T15:55:18Z",
+          "deltaFromBackground" : 8.900798177083333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -769,8 +1004,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:47Z",
-          "deltaFromBackground" : 55.49447786458333,
+          "capturedAt" : "2026-08-29T15:55:15Z",
+          "deltaFromBackground" : 55.50200260416667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest.png",
           "fixtureSet" : "holdout",
@@ -783,7 +1018,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:56Z",
+          "capturedAt" : "2026-08-29T15:56:55Z",
           "deltaFromBackground" : 86.5850390625,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__rrect-lg__rest.png",
@@ -797,8 +1032,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:48Z",
-          "deltaFromBackground" : 29.41803515625,
+          "capturedAt" : "2026-08-29T15:55:27Z",
+          "deltaFromBackground" : 29.417876302083332,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__pressed.png",
           "fixtureSet" : "calibration",
@@ -811,8 +1046,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:53Z",
-          "deltaFromBackground" : 29.41803515625,
+          "capturedAt" : "2026-08-29T15:56:20Z",
+          "deltaFromBackground" : 29.417876302083332,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -825,8 +1060,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:51Z",
-          "deltaFromBackground" : 3.81403515625,
+          "capturedAt" : "2026-08-29T15:56:00Z",
+          "deltaFromBackground" : 3.6151796875,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__rrect-sm__rest.png",
           "fixtureSet" : "calibration",
@@ -839,8 +1074,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:48Z",
-          "deltaFromBackground" : 8.830639322916667,
+          "capturedAt" : "2026-08-29T15:55:21Z",
+          "deltaFromBackground" : 8.484645833333333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/checkerboard__toolbar-group__rest.png",
           "fixtureSet" : "calibration",
@@ -853,13 +1088,13 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:51Z",
-          "deltaFromBackground" : 14.543234375,
+          "capturedAt" : "2026-08-29T15:55:57Z",
+          "deltaFromBackground" : 0,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/dark-solid__capsule-button__rest.png",
           "fixtureSet" : "calibration",
           "height" : 400,
-          "identicalToBackground" : false,
+          "identicalToBackground" : true,
           "materialRendered" : true,
           "repeatNoise" : 0,
           "sceneId" : "dark-solid__capsule-button__rest",
@@ -867,8 +1102,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:55Z",
-          "deltaFromBackground" : 35.598505208333336,
+          "capturedAt" : "2026-08-29T15:56:49Z",
+          "deltaFromBackground" : 35.59772395833333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -881,8 +1116,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:49Z",
-          "deltaFromBackground" : 7.811434895833333,
+          "capturedAt" : "2026-08-29T15:55:31Z",
+          "deltaFromBackground" : 7.826233072916667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/hc-text__capsule-button__rest.png",
           "fixtureSet" : "holdout",
@@ -895,8 +1130,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:53Z",
-          "deltaFromBackground" : 24.863733072916666,
+          "capturedAt" : "2026-08-29T15:56:23Z",
+          "deltaFromBackground" : 24.86353125,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/hc-text__rrect-md__rest.png",
           "fixtureSet" : "holdout",
@@ -909,8 +1144,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:54Z",
-          "deltaFromBackground" : 16.39815625,
+          "capturedAt" : "2026-08-29T15:56:39Z",
+          "deltaFromBackground" : 1.5144609375,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/impulse__capsule-button__rest.png",
           "fixtureSet" : "validation",
@@ -923,8 +1158,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:49Z",
-          "deltaFromBackground" : 40.2663125,
+          "capturedAt" : "2026-08-29T15:55:37Z",
+          "deltaFromBackground" : 40.266140625,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/impulse__rrect-md__rest.png",
           "fixtureSet" : "validation",
@@ -937,8 +1172,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:50Z",
-          "deltaFromBackground" : 0.35388020833333333,
+          "capturedAt" : "2026-08-29T15:55:44Z",
+          "deltaFromBackground" : 0.35370833333333335,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/light-solid__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -951,8 +1186,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:53Z",
-          "deltaFromBackground" : 0.23415625,
+          "capturedAt" : "2026-08-29T15:56:26Z",
+          "deltaFromBackground" : 0.23417708333333334,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/light-solid__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -965,8 +1200,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:54Z",
-          "deltaFromBackground" : 8.254858072916667,
+          "capturedAt" : "2026-08-29T15:56:33Z",
+          "deltaFromBackground" : 5.958638020833333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__capsule-button__pressed.png",
           "fixtureSet" : "validation",
@@ -979,8 +1214,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:55Z",
-          "deltaFromBackground" : 8.254858072916667,
+          "capturedAt" : "2026-08-29T15:56:42Z",
+          "deltaFromBackground" : 5.958638020833333,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__capsule-button__rest.png",
           "fixtureSet" : "calibration",
@@ -993,8 +1228,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:49Z",
-          "deltaFromBackground" : 43.115986979166664,
+          "capturedAt" : "2026-08-29T15:55:34Z",
+          "deltaFromBackground" : 42.789119791666664,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest.png",
           "fixtureSet" : "holdout",
@@ -1007,7 +1242,7 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:52Z",
+          "capturedAt" : "2026-08-29T15:56:07Z",
           "deltaFromBackground" : 62.612040364583336,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__rrect-lg__rest.png",
@@ -1021,8 +1256,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:55Z",
-          "deltaFromBackground" : 20.75407421875,
+          "capturedAt" : "2026-08-29T15:56:46Z",
+          "deltaFromBackground" : 20.7538515625,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__rrect-md__pressed.png",
           "fixtureSet" : "validation",
@@ -1035,8 +1270,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:56Z",
-          "deltaFromBackground" : 20.75407421875,
+          "capturedAt" : "2026-08-29T15:56:52Z",
+          "deltaFromBackground" : 20.7538515625,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__rrect-md__rest.png",
           "fixtureSet" : "calibration",
@@ -1049,8 +1284,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:52Z",
-          "deltaFromBackground" : 3.57448046875,
+          "capturedAt" : "2026-08-29T15:56:10Z",
+          "deltaFromBackground" : 2.452108072916667,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__rrect-sm__rest.png",
           "fixtureSet" : "validation",
@@ -1063,8 +1298,8 @@
         },
         {
           "captureMethod" : "screencapturekit",
-          "capturedAt" : "2026-08-28T16:55:51Z",
-          "deltaFromBackground" : 7.394903645833334,
+          "capturedAt" : "2026-08-29T15:55:54Z",
+          "deltaFromBackground" : 5.7341927083333335,
           "deterministic" : true,
           "file" : "apple-macos-26.5-2x-light-standard/photo__toolbar-group__rest.png",
           "fixtureSet" : "validation",
