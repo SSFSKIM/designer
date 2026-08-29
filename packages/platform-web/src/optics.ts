@@ -74,6 +74,15 @@ export interface MaterialOptics {
   readonly shadowOffset: number;
   readonly shadowBlur: number;
   readonly shadowAlpha: number;
+  /**
+   * The press glow's reach in CSS px and its peak alpha, at `glow` = 1.
+   *
+   * The renderer's own numbers, **unconverted** — see `MaterialSourceGlow`.
+   */
+  readonly glowRadius: number;
+  readonly glowGain: number;
+  /** The glow's colour, sRGB 0..255 — the profile's highlight, encoded. */
+  readonly glow: Rgb255;
 }
 
 /**
@@ -110,6 +119,57 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
   // canonical scene matrix has no clear-variant scene.
   clear: { blurSigma: 4, tint: [1, 1, 1], tintAlpha: 0.1, rimAlpha: 0.14, highlight: [1, 1, 1] },
 };
+
+/**
+ * The renderer's press-glow constants, mirrored — and the one slice of the
+ * material that crosses this boundary with **no conversion at all**.
+ *
+ * `cssTintAlpha` exists because the body composites in two different spaces: the
+ * renderer lerps toward the tint in linear light and the page lays an `rgba()`
+ * overlay in encoded sRGB. The glow does not have that problem. The renderer's
+ * highlight pass encodes before it blends — `encode_output` premultiplies
+ * `linear_to_srgb(colour)` into a non-sRGB canvas format, so the blend runs on
+ * encoded values under premultiplied source-over — which is exactly what a CSS
+ * `rgba()` gradient over the tint does. The two are the same composite, so the
+ * gain and the radius are the same numbers, and converting them would be
+ * inventing a difference rather than correcting one.
+ *
+ * Top-level rather than per-variant because the renderer's profile carries them
+ * there: one press glow, whichever variant the surface is drawn in.
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.glowRadiusCss` and
+ * `.glowGain`, pinned in both directions by
+ * `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export interface MaterialSourceGlow {
+  /** The glow's reach in CSS px, measured from the press point. */
+  readonly radiusCss: number;
+  /** Peak alpha at the press point, at `glow` = 1. */
+  readonly gain: number;
+}
+
+export const MATERIAL_SOURCE_GLOW: MaterialSourceGlow = { radiusCss: 44, gain: 0.6 };
+
+/** The glow constants under a profile patch, by the renderer's own merge rule. */
+export function sourceGlow(patch?: RendererMaterialProfile): MaterialSourceGlow {
+  return {
+    radiusCss: patch?.glowRadiusCss ?? MATERIAL_SOURCE_GLOW.radiusCss,
+    gain: patch?.glowGain ?? MATERIAL_SOURCE_GLOW.gain,
+  };
+}
+
+/**
+ * The glow's alpha at the press point for a given `glow` channel value.
+ *
+ * The renderer's fragment is `radial² · glowGain · glow`; this is that product at
+ * `radial` = 1, which is the peak the CSS tier's gradient starts from. Exported
+ * for the same reason `cssTintAlpha` is: a reader checking the tiers against each
+ * other should be able to evaluate the quantity rather than read it off a
+ * gradient string.
+ */
+export function glowAlpha(optics: MaterialOptics, glow: number): number {
+  return clamp01(optics.glowGain) * clamp01(glow);
+}
 
 /**
  * Everything the tier boundary costs, as numbers.
@@ -421,6 +481,7 @@ export function cssTierOptics(
   mapping: CssTierMapping = CSS_TIER_MAPPING,
 ): Readonly<Record<MaterialVariant, MaterialOptics>> {
   const resolved = {} as Record<MaterialVariant, MaterialOptics>;
+  const glow = sourceGlow(patch);
   for (const variant of ["regular", "clear"] as const) {
     const source = sourceOptics(patch)[variant];
     resolved[variant] = {
@@ -434,6 +495,12 @@ export function cssTierOptics(
       shadowOffset: mapping.shadowOffset,
       shadowBlur: mapping.shadowBlur,
       shadowAlpha: mapping.shadowAlpha,
+      // Unconverted, and the mapping carries no constant for them — see
+      // `MaterialSourceGlow`. The colour is the highlight, which is also what the
+      // border reads: one highlight, two features that use it.
+      glowRadius: glow.radiusCss,
+      glowGain: clamp01(glow.gain),
+      glow: encodeRgb(source.highlight),
     };
   }
   return resolved;

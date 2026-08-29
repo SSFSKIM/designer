@@ -28,15 +28,19 @@ import {
   CSS_TIER_MAPPING,
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
+  MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
+  cssTierForegroundLevel,
   cssTierOptics,
   foregroundDeclarations,
+  glowAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy as cssTierOpticsUnderPolicy,
   resolvedPolicyFold,
+  sourceGlow,
   sourceOptics,
 } from "@vitrea/platform-web";
 import {
@@ -48,6 +52,12 @@ import {
   withMaterialOverrides,
 } from "@vitrea/renderer-webgpu";
 import { describe, expect, it } from "vitest";
+
+/** IEC 61966-2-1, encode direction — the same spec constant both tiers restate. */
+const srgbEncode = (linear: number): number => {
+  const clamped = Math.min(1, Math.max(0, linear));
+  return clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * clamped ** (1 / 2.4) - 0.055;
+};
 
 describe("tier coherence (K5)", () => {
   it("mirrors every renderer optic the CSS tier's mapping reads, per variant", () => {
@@ -242,6 +252,83 @@ describe("tier coherence (K5)", () => {
     // passing on the shipped pair by accident.
     expect(painted.borderWidth).not.toBe(STRONG_BORDER.borderWidth);
     expect(painted.borderAlpha).not.toBe(STRONG_BORDER.borderAlpha);
+  });
+
+  /*
+   * The press glow, and the reason this pin exists at all (W1/coherence, the
+   * post-v1 wave's first cross-tier finding).
+   *
+   * The GPU tier drew the press illumination and the CSS tier drew none, so the
+   * two tiers agreed on a resting surface and diverged the moment one was held
+   * down. Invisible in the light scheme — a lerp toward white over a material
+   * already at encoded 0.85 moves the interior by ~2% — and enormous in the dark
+   * one, where the same lerp over encoded 0.26 nearly doubles it. The measured
+   * cell: `photo__capsule-button__pressed`, interior level GPU/CSS 1.964 at 1×
+   * and 1.985 at 2×, against 0.937 for the worst light profile on the same scene.
+   *
+   * Unlike `tintAlpha`, the glow crosses the boundary UNCONVERTED, and that is a
+   * finding rather than an omission: the renderer's highlight pass encodes to
+   * sRGB before it blends (`encode_output` premultiplies `linear_to_srgb(c)` and
+   * the target is a non-sRGB canvas format), so it is already doing what an
+   * `rgba()` layer does. `cssTintAlpha` exists because the body composites in
+   * linear light; the glow does not, so there is nothing to solve for.
+   */
+  it("mirrors the renderer's press-glow constants, patch included", () => {
+    expect(MATERIAL_SOURCE_GLOW.gain).toBe(DEFAULT_MATERIAL_PROFILE.glowGain);
+    expect(MATERIAL_SOURCE_GLOW.radiusCss).toBe(DEFAULT_MATERIAL_PROFILE.glowRadiusCss);
+
+    const patch = { glowGain: 0.25, glowRadiusCss: 12 };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    expect(sourceGlow(patch).gain).toBe(profile.glowGain);
+    expect(sourceGlow(patch).radiusCss).toBe(profile.glowRadiusCss);
+    // And it reaches the numbers the tier actually paints with, not only the
+    // mirror — the patch moved both, so neither equality is the default's.
+    expect(cssTierOptics(patch).regular.glowGain).toBe(profile.glowGain);
+    expect(cssTierOptics(patch).regular.glowRadius).toBe(profile.glowRadiusCss);
+    expect(cssTierOptics(patch).regular.glowGain).not.toBe(MATERIAL_SOURCE_GLOW.gain);
+    expect(cssTierOptics(patch).regular.glowRadius).not.toBe(MATERIAL_SOURCE_GLOW.radiusCss);
+  });
+
+  it("illuminates a held dark-scheme surface to the same level on both tiers", () => {
+    // The reproduction of W1/coherence, as arithmetic rather than as a capture:
+    // the dark profile a host passes for dark mode, over the `photo` backdrop's
+    // measured level, at the pressed pose's settled glow of 1.
+    const patch = {
+      optics: { regular: { tint: [0.05, 0.05, 0.05] as const, tintAlpha: 0.97 } },
+    };
+    const backdrop = 0.2;
+    const glow = 1;
+
+    // Both tiers' glow is a source-over lerp toward the highlight in ENCODED
+    // sRGB, so the level after it is the same arithmetic over each tier's own
+    // pre-glow level. What must not differ is the alpha.
+    const highlight = MATERIAL_SOURCE_OPTICS.regular.highlight;
+    const encodedHighlight =
+      0.2126 * srgbEncode(highlight[0]) +
+      0.7152 * srgbEncode(highlight[1]) +
+      0.0722 * srgbEncode(highlight[2]);
+    const lit = (level: number, alpha: number): number =>
+      level * (1 - alpha) + encodedHighlight * alpha;
+
+    const gpu = lit(
+      gpuTierForegroundLevel(sourceOptics(patch).regular, backdrop),
+      sourceGlow(patch).gain * glow,
+    );
+    const css = lit(
+      cssTierForegroundLevel(cssTierOptics(patch).regular, backdrop),
+      glowAlpha(cssTierOptics(patch).regular, glow),
+    );
+
+    // The gated bound the light profiles are held to. Before the CSS tier drew
+    // the glow this ratio was ~1.9 on the measured cell, and the arithmetic here
+    // reproduces it: an unlit CSS level against a lit GPU one.
+    expect(gpu / css).toBeGreaterThan(0.8);
+    expect(gpu / css).toBeLessThan(1.25);
+
+    // And the glow is doing the work rather than the bound being wide: the same
+    // comparison with the CSS tier unlit — the defect — is outside it.
+    const unlit = cssTierForegroundLevel(cssTierOptics(patch).regular, backdrop);
+    expect(gpu / unlit).toBeGreaterThan(1.25);
   });
 
   it("follows a profile patch on both sides at once", () => {

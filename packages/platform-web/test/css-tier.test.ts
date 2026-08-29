@@ -32,6 +32,10 @@ const surface = {
   policy: NOMINAL_ACCESSIBILITY_POLICY,
 };
 
+/** The shipped surface with one optic overridden — for pinning a single seam. */
+const declarationsOf = (optics: Partial<typeof MATERIAL_OPTICS.regular>) =>
+  cssTierDeclarations({ ...surface, optics: { ...MATERIAL_OPTICS.regular, ...optics } });
+
 const systemWith = (flags: Record<string, boolean>) => ({
   reducedTransparency: false,
   reducedMotion: false,
@@ -48,7 +52,7 @@ describe("the CSS tier (the fallback is the design)", () => {
     // filter silently no-ops still has to read as a legible surface.
     const declarations = cssTierDeclarations(surface);
 
-    expect(declarations.background).toBeTruthy();
+    expect(declarations["background-color"]).toBeTruthy();
     expect(declarations["border-color"]).toBeTruthy();
     expect(declarations["border-width"]).toBeTruthy();
   });
@@ -257,7 +261,7 @@ describe("the CSS tier (the fallback is the design)", () => {
     });
 
     expect(forced["backdrop-filter"]).toBe("none");
-    expect(forced.background).toBe("Canvas");
+    expect(forced["background-color"]).toBe("Canvas");
     expect(forced["--vitrea-foreground"]).toBe("CanvasText");
     expect(forced["border-color"]).toBe("CanvasText");
   });
@@ -297,7 +301,7 @@ describe("the CSS tier (the fallback is the design)", () => {
       const declarations = cssTierDeclarations(surface);
       const optics = MATERIAL_OPTICS.regular;
 
-      expect(declarations.background).toBe(
+      expect(declarations["background-color"]).toBe(
         `rgba(${optics.tint.join(", ")}, ${optics.tintAlpha.toFixed(3)})`,
       );
       expect(declarations["border-color"]).toBe(
@@ -314,6 +318,40 @@ describe("the CSS tier (the fallback is the design)", () => {
           optics: { ...optics, shadowOffset: 6, shadowBlur: 24, shadowAlpha: 0.18 },
         })["box-shadow"],
       ).toBe("0 6px 24px rgba(0, 0, 0, 0.18)");
+    });
+
+    it("paints the press illumination the GPU tier draws, keyed off the glow channel", () => {
+      // W1/coherence: this tier drew no glow at all, so the two tiers agreed on a
+      // resting surface and diverged the moment one was held down — 1.96x on the
+      // dark-scheme pressed capsule, where a lerp toward white over a dark
+      // material is the whole interior rather than 2% of it.
+      const optics = MATERIAL_OPTICS.regular;
+      const layer = cssTierDeclarations(surface)["background-image"] ?? "";
+
+      // The renderer's radius, and its `pressPoint ?? centre` fallback.
+      expect(layer).toContain(`circle ${optics.glowRadius}px`);
+      expect(layer).toContain("at var(--vitrea-press-x, 50%) var(--vitrea-press-y, 50%)");
+      // The peak is the gain, scaled by the driver's own output rather than
+      // baked in — the declarations stay frame-invariant and the browser tracks
+      // the channel.
+      const white = optics.glow.join(", ");
+      expect(layer).toContain(
+        `rgba(${white}, calc(var(--vitrea-glow, 0) * ${optics.glowGain})) 0%`,
+      );
+      // `radial²` falloff, sampled: a quarter of the way out the renderer is at
+      // (1 - 0.25)^2 = 0.5625 of the gain.
+      const quarterOut = Math.round(optics.glowGain * 0.5625 * 10000) / 10000;
+      expect(layer).toContain(
+        `rgba(${white}, calc(var(--vitrea-glow, 0) * ${quarterOut})) 25%`,
+      );
+      expect(layer).toContain(`rgba(${white}, 0) 100%`);
+
+      // And the tint stays on its own longhand: an app writing a malformed
+      // `--vitrea-glow` may lose the illumination, never the contrast floor.
+      expect(declarationsOf({ glowGain: 0 })["background-image"]).toBe("none");
+      expect(declarationsOf({ glowGain: 0 })["background-color"]).toBe(
+        cssTierDeclarations(surface)["background-color"],
+      );
     });
 
     it("converts the profile's alpha rather than copying it", () => {
@@ -498,7 +536,7 @@ describe("the CSS tier (the fallback is the design)", () => {
       });
 
       expect(declarations["--vitrea-foreground"]).toBe("CanvasText");
-      expect(declarations.background).toBe("Canvas");
+      expect(declarations["background-color"]).toBe("Canvas");
     });
   });
 });

@@ -103,7 +103,7 @@ describe("forced-colors", () => {
 
     const host = harness.result.getByTestId("surface");
     // jsdom lower-cases system colour keywords; the identity is what matters.
-    expect(host.style.getPropertyValue("background").toLowerCase()).toBe("canvas");
+    expect(host.style.getPropertyValue("background-color").toLowerCase()).toBe("canvas");
     // The ink, read where the runtime now writes it: the published token rather
     // than an inline `color` (Decision Log #34(c)). Same value and same regime —
     // what moved is the precedence, so an app rule on a glass host can win.

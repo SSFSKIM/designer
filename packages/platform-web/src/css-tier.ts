@@ -33,6 +33,7 @@ import type {
   ResolvedAccessibilityPolicy,
 } from "@vitreajs/vitrea";
 
+import { GLASS_CHANNEL_PROPERTIES } from "./channels";
 import {
   CSS_TIER_MAPPING,
   cssTierForegroundLevel,
@@ -199,6 +200,69 @@ const rgba = (rgb: Rgb255, alpha: number): string =>
   `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${Math.round(alpha * 1000) / 1000})`;
 
 /**
+ * Where the gradient samples the renderer's falloff. Five stops over a quadratic
+ * is a piecewise-linear approximation whose worst error is `Δ²/8 · |f″|` = 1.6%
+ * of the gain — under half a step of 8-bit alpha at the shipped 0.6, and well
+ * inside the coherence floor the mapping's own header states.
+ */
+const GLOW_STOPS = [0, 0.25, 0.5, 0.75, 1] as const;
+
+/**
+ * The press illumination, as one background layer (W1/coherence).
+ *
+ * §Motion's `glow` channel is the fast-attack / slow-decay driver's output, and
+ * until this the CSS tier ignored it: the GPU tier's highlight pass drew the
+ * glow and this tier drew nothing, so the two tiers agreed on a resting surface
+ * and diverged the moment one was held down. The divergence is invisible in the
+ * light scheme and enormous in the dark one, for the reason a lerp toward white
+ * always is — over a material already at encoded 0.85 it moves the interior by
+ * ~2%, over one at 0.26 it nearly doubles it. Measured at 1.96× on
+ * `photo__capsule-button__pressed` in both dark profiles.
+ *
+ * Three things make this a conversion-free reproduction rather than an
+ * approximation of one (see `MaterialSourceGlow` for the composite):
+ *
+ *  - the renderer's fragment is `radial² · glowGain · glow` with
+ *    `radial = clamp(1 − d/glowRadiusCss, 0, 1)`, so the stops carry `(1 − t)²`
+ *    and the gradient's ending shape carries the radius;
+ *  - `glow` stays a `var()` rather than being folded into the number, so the
+ *    declarations remain frame-invariant — the browser tracks the driver, and
+ *    root.ts's write cache is not defeated once per frame by a moving alpha;
+ *  - the press point is the same fallback the renderer takes
+ *    (`pressPoint ?? centre`): a binding publishes `--vitrea-press-x/y` in
+ *    host-local px, and a surface pressed by anything else glows from its middle.
+ *
+ * Painted on `background-image` rather than folded into the `background`
+ * shorthand deliberately. The channel is an app-writable custom property, and an
+ * invalid one poisons the declaration that references it — on the shorthand that
+ * would take the tint down with it, and the tint is this tier's contrast floor
+ * when `backdrop-filter` no-ops (S1's undetectable failure class).
+ *
+ * Two residuals, stated rather than hidden. The host wears the press compression
+ * as a `transform`, so this radius scales with the element while the renderer's
+ * is in viewport px — 0.66px on 44 at the shipped `pressCompressionScale` of
+ * 0.015. And a background layer sits *under* the host's own text, where X1 puts
+ * the renderer's highlight canvas *over* it: on this tier a press does not light
+ * the label. That is the sandwich's asymmetry (the CSS tier has no layer above
+ * the semantic host at all), not a choice made here.
+ */
+function pressGlowLayer(optics: MaterialOptics): string {
+  const stops = GLOW_STOPS.map((t) => {
+    const falloff = Math.round((1 - t) ** 2 * optics.glowGain * 10000) / 10000;
+    const [r, g, b] = optics.glow;
+    const alpha =
+      falloff === 0 ? "0" : `calc(var(${GLASS_CHANNEL_PROPERTIES.glow}, 0) * ${falloff})`;
+    return `rgba(${r}, ${g}, ${b}, ${alpha}) ${t * 100}%`;
+  });
+
+  return (
+    `radial-gradient(circle ${px(optics.glowRadius)} at ` +
+    `var(${GLASS_CHANNEL_PROPERTIES.pressX}, 50%) var(${GLASS_CHANNEL_PROPERTIES.pressY}, 50%), ` +
+    `${stops.join(", ")})`
+  );
+}
+
+/**
  * The declarations for one surface on the CSS tier.
  *
  * Pure: the same surface always yields the same record, which is what makes the
@@ -217,7 +281,8 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
   if (policy.material.glass === "none") {
     return {
       "border-radius": radius,
-      background: "Canvas",
+      "background-color": "Canvas",
+      "background-image": "none",
       "border-style": "solid",
       "border-width": px(optics.borderWidth),
       "border-color": "CanvasText",
@@ -264,8 +329,13 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
 
   return {
     "border-radius": radius,
-    // The tint is the contrast floor: it is here whether or not the blur lands.
-    background: tint,
+    // The tint is the contrast floor: it is here whether or not the blur lands,
+    // and it stays on its own longhand so nothing layered above it can take it
+    // down — see `pressGlowLayer`.
+    "background-color": tint,
+    // A profile is entitled to switch the illumination off, and a zero gain is
+    // then a layer that paints nothing every frame rather than an absent one.
+    "background-image": optics.glowGain > 0 ? pressGlowLayer(optics) : "none",
     "border-style": "solid",
     "border-width": px(optics.borderWidth),
     "border-color": border,
