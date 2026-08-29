@@ -114,3 +114,54 @@ did not merge) and nothing has measured *it*.
 **The fix shape:** either measure the unmerged within-group case and quote what
 it actually is, or drop the magnitude and let the message describe the mechanism
 alone. Quoting a borrowed number is the one option that should not survive.
+
+## `packages/react`'s press and morph specs are flaky on Firefox
+
+*Found 2026-08-30, running the suites for the tint API (W3).*
+
+Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
+on the `firefox` project on any given run, and a **different** subset each time:
+across three consecutive runs of one unchanged tree the failures were
+{morph reversal, press compression, glow attack/decay, keyboard press}, then
+{morph reversal, press compression}, then {press compression, glow, keyboard}.
+Chromium and WebKit pass every time. Every affected case asserts a *driver output
+at a moment* — a compression partway through a spring, a glow between attack and
+decay — so the likely mechanism is Firefox's frame pacing under Playwright rather
+than anything in the motion drivers.
+
+This is invisible in CI because the react e2e suite is not run there
+(`.github/workflows/ci.yml` runs only `@vitrea/platform-web`'s), which is its own
+half of the problem: a suite nobody runs is a suite nobody can trust.
+
+**The fix shape:** make the assertions bracket the driver's trajectory rather
+than sample it — poll for the channel to cross a threshold, the way the
+accessibility specs already `expect.poll` — and then put the suite in CI, because
+a flake visible only locally will keep being triaged as "probably pre-existing"
+by everyone who meets it.
+
+## The untinted material's ink is still decided by the colour scheme
+
+*Found 2026-08-30, building the tint API (W3).*
+
+`boundedForegroundLevel` decides a surface's ink with no backdrop hint at all
+whenever the level's whole reachable range lands on one side of the crossover —
+provably, because the level is monotonic in the backdrop. W3 wires it in only for
+surfaces carrying an **author** tint, leaving the untinted material's behaviour
+exactly as it was.
+
+The same reasoning applies to the untinted material, and there it would fix a
+real defect: at the measured `tintAlpha` of 0.62 the CSS tier's converted alpha
+is ~0.78, so a hintless surface is at least 78% of the way to its (white) tint,
+and `light-dark()` in a dark colour scheme then puts the light ink on a near-white
+surface. That is K5's failure class, still reachable through the no-hint path.
+
+Left alone deliberately: it changes `--vitrea-foreground` on every untinted
+surface in the library, and the untinted material's behaviour belongs with the
+child that owns its adaptation (W7) rather than with the one that added a colour
+axis.
+
+**The fix shape:** drop the `surface.tint === undefined` guard on `level` in
+`packages/platform-web/src/css-tier.ts`, and the matching `seed === undefined`
+guard in the GPU tier's ink in `root.ts`, then re-baseline whatever pins
+`light-dark(` for a hintless surface. Worth doing with W7's measurements in hand,
+not before.
