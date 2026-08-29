@@ -18,7 +18,7 @@ import { expect, type Locator, type Page } from "@playwright/test";
  * returns none. Left unpinned, the same assertion would read a real value on one
  * engine and `none` on another, for a reason that has nothing to do with the
  * binding under test. The GPU tier's own drawing is asserted where it can be
- * asserted honestly: `@vitrea/platform-web`'s `e2e/gpu` suite, against a real
+ * asserted honestly: `@vitreajs/vitrea-web`'s `e2e/gpu` suite, against a real
  * adapter.
  */
 export async function gotoPlayground(page: Page): Promise<void> {

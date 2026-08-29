@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>vitrea — a glass root from plain JavaScript</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      /* Something for the glass to sample. The same 24px checkerboard the rest
+         of this suite uses, so a starved blur shows up rather than hides. */
+      #scene {
+        position: absolute;
+        inset: 0;
+        background-color: #3a5a80;
+        background-image: linear-gradient(45deg, #1b2b3f 25%, transparent 25%, transparent 75%, #1b2b3f 75%),
+          linear-gradient(45deg, #1b2b3f 25%, transparent 25%, transparent 75%, #1b2b3f 75%);
+        background-size: 48px 48px;
+        background-position: 0 0, 24px 24px;
+      }
+
+      /* The app's own styling of its own element. vitrea writes the material;
+         the type, the padding and the layout stay the app's. */
+      .glass-host {
+        display: grid;
+        place-items: center;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        font: 600 13px/1 system-ui, sans-serif;
+        color: var(--vitrea-foreground, #fff);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scene"></div>
+    <script type="module" src="./vanilla.ts"></script>
+  </body>
+</html>

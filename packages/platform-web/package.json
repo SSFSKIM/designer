@@ -1,9 +1,15 @@
 {
-  "name": "@vitrea/platform-web",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Internal: DOM host registration, plane management, backdrop proxies, CSS-tier renderer, WebGPU lifecycle. Bundled into vitrea-react at publish.",
+  "name": "@vitreajs/vitrea-web",
+  "version": "0.1.1",
+  "description": "Framework-agnostic browser host for vitrea: mount a glass root from any framework, or none. DOM host registration, plane management, backdrop proxies, CSS-tier renderer, WebGPU lifecycle.",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/SSFSKIM/designer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SSFSKIM/designer.git",
+    "directory": "packages/platform-web"
+  },
+  "keywords": ["liquid-glass", "webgpu", "material", "glass", "ui", "backdrop-filter", "vanilla-js"],
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -14,9 +20,12 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": ["dist", "LICENSE", "NOTICE"],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsup",
     "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
     "test": "vitest run",
     "test:e2e": "playwright test",
@@ -34,6 +43,7 @@
     "eslint": "catalog:",
     "jsdom": "catalog:",
     "pngjs": "catalog:",
+    "tsup": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"

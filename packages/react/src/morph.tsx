@@ -44,7 +44,7 @@
  */
 
 import type { GlassPlane } from "@vitreajs/vitrea";
-import { HOST_ATTRIBUTES, type GlassHostHandle } from "@vitrea/platform-web";
+import { HOST_ATTRIBUTES, type GlassHostHandle } from "@vitreajs/vitrea-web";
 import { createDriver, createInteractionMachine, type MotionDriver } from "@vitrea/motion";
 import {
   useCallback,

@@ -8,12 +8,23 @@
  * their own rather than a widened union in core, so this module mirrors core's
  * channel with platform codes and the root fans both into a single sink.
  *
- * Recorded for the parent: making `DiagnosticsChannel` generic over its code
- * union would let both channels be one, and is the shape worth having if a
- * third package ever needs findings of its own.
+ * That generic channel now exists (Decision Log #23(c)): core's
+ * `createDiagnosticsChannel` is parameterised by its code union, and everything
+ * below is an instantiation of it. What stays here is what is genuinely this
+ * layer's: the code registry, the two-space union a host sees, and the console
+ * sink. The dedupe rule, the retention rule and the key separator have one
+ * definition in the workspace and it is core's.
+ *
+ * `PlatformDiagnostic` and `PlatformDiagnosticsChannel` are kept as names rather
+ * than inlined at their ~30 use sites: they are the vocabulary this package's
+ * modules are written in, and an alias costs nothing.
  */
 
-import type { Diagnostic, DiagnosticSeverity } from "@vitreajs/vitrea";
+import {
+  createDiagnosticsChannel,
+  type Diagnostic,
+  type DiagnosticsChannel,
+} from "@vitreajs/vitrea";
 
 export const PLATFORM_DIAGNOSTIC_CODES = [
   /** A registered host is not inside its plane's host layer, so the sandwich cannot order it. */
@@ -79,17 +90,22 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * value is a CSS colour and the browser is the parser), so the finding is too.
    */
   "tint-unparseable",
+  /**
+   * A listener registered through `GlassRoot.subscribe` threw, and was
+   * unsubscribed. A listener that throws once throws every frame, so keeping it
+   * would turn one adapter's bug into an unbounded storm — and, on a root whose
+   * frames are driven by hand, into a throwing `runFrame`.
+   */
+  "frame-listener-failed",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];
 
-export interface PlatformDiagnostic {
-  readonly code: PlatformDiagnosticCode;
-  readonly severity: DiagnosticSeverity;
-  /** Group, node or plane ids. With `code`, the dedupe key. */
-  readonly subjects: readonly string[];
-  readonly message: string;
-}
+/**
+ * One platform finding. Structurally what it always was — core's `Diagnostic`
+ * over this package's code space rather than core's.
+ */
+export type PlatformDiagnostic = Diagnostic<PlatformDiagnosticCode>;
 
 /** What a host sees. Tagged, because the two code spaces must stay tellable apart. */
 export type VitreaDiagnostic =
@@ -98,36 +114,25 @@ export type VitreaDiagnostic =
 
 export type VitreaDiagnosticSink = (diagnostic: VitreaDiagnostic) => void;
 
-export interface PlatformDiagnosticsChannel {
-  report(diagnostic: PlatformDiagnostic): void;
-  readonly reported: readonly PlatformDiagnostic[];
-  clear(): void;
-}
+export type PlatformDiagnosticsChannel = DiagnosticsChannel<PlatformDiagnosticCode>;
 
-const KEY_SEPARATOR = "␟";
-
+/**
+ * This layer's channel.
+ *
+ * Dedupe is not optional here, and that is the one behavioural difference from
+ * core's factory rather than an oversight: every platform finding is produced by
+ * a check that re-runs on registration, on mutation or per frame, so a channel
+ * that repeated them would drown its own console sink. The signature stays a
+ * bare sink rather than core's options bag because that is what ~30 call sites
+ * in this package pass.
+ */
 export function createPlatformDiagnosticsChannel(
   sink?: (diagnostic: PlatformDiagnostic) => void,
 ): PlatformDiagnosticsChannel {
-  const retained: PlatformDiagnostic[] = [];
-  const seen = new Set<string>();
-
-  return {
-    report(diagnostic) {
-      const key = [diagnostic.code, ...diagnostic.subjects].join(KEY_SEPARATOR);
-      if (seen.has(key)) return;
-      seen.add(key);
-      retained.push(diagnostic);
-      sink?.(diagnostic);
-    },
-    get reported() {
-      return retained;
-    },
-    clear() {
-      retained.length = 0;
-      seen.clear();
-    },
-  };
+  return createDiagnosticsChannel<PlatformDiagnosticCode>({
+    dedupe: true,
+    ...(sink === undefined ? {} : { sink }),
+  });
 }
 
 /**

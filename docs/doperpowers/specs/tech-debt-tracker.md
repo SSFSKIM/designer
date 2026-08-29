@@ -21,7 +21,7 @@ operating system's own settings, and Playwright can emulate neither (it covers
 who has macOS *Reduce Transparency* switched on — or a capture session that
 switched it on and did not switch it back — runs a different suite from CI's.
 
-Observed: with `reduceTransparency = 1` system-wide, seven `@vitrea/platform-web`
+Observed: with `reduceTransparency = 1` system-wide, seven `@vitreajs/vitrea-web`
 e2e cases fail on a clean tree, in four specs — `e2e/shared/proxies.spec.ts`,
 `e2e/shared/media-policy.spec.ts`, `e2e/shared/probe.spec.ts` and
 `e2e/pixel/proxy-pixels.spec.ts`. They fail with σ = 14 artifacts where they
@@ -130,7 +130,7 @@ decay — so the likely mechanism is Firefox's frame pacing under Playwright rat
 than anything in the motion drivers.
 
 This is invisible in CI because the react e2e suite is not run there
-(`.github/workflows/ci.yml` runs only `@vitrea/platform-web`'s), which is its own
+(`.github/workflows/ci.yml` runs only `@vitreajs/vitrea-web`'s), which is its own
 half of the problem: a suite nobody runs is a suite nobody can trust.
 
 **The fix shape:** make the assertions bracket the driver's trajectory rather

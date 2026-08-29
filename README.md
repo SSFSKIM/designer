@@ -91,11 +91,16 @@ a versioned harness that diffs against native captures. Glass labels stay real
 DOM: a `GlassButton` is a `<button>`, focusable and announced as one.
 
 ```bash
-npm install @vitreajs/vitrea @vitreajs/vitrea-react
+npm install @vitreajs/vitrea-react          # React
+npm install @vitreajs/vitrea-web            # plain JS, or your own adapter
 ```
 
 - **[`@vitreajs/vitrea`](./packages/core/README.md)** — the framework-agnostic runtime:
   scene model, capability and tier resolution, material and accessibility policy.
+  No DOM code at all.
+- **[`@vitreajs/vitrea-web`](./packages/platform-web/README.md)** — the browser host:
+  `createGlassRoot`, element registration, planes, backdrop proxies, the CSS tier
+  and the WebGPU lifecycle. Mounts a root from any framework, or none.
 - **[`@vitreajs/vitrea-react`](./packages/react/README.md)** — the declarative surface:
   `GlassRoot`, `GlassGroup`, `GlassSurface`, and the v1 controls.
 - **The public demo** — `apps/demo`, with side-by-side native reference pairs.
@@ -109,11 +114,14 @@ npm install @vitreajs/vitrea @vitreajs/vitrea-react
 
 The workspace is a pnpm monorepo. Seven packages under `packages/` — `core`,
 `geometry`, `motion`, `platform-web`, `renderer-webgpu`, `react`, `calibration` —
-of which exactly two are ever published, under the unscoped names above. The rest
-keep their `@vitrea/*` workspace names, never publish, and are bundled into those
-two at publish time, so an app installs two packages and gets no transitive
-runtime dependency beyond React. `apps/reference-apple` is the native SwiftUI
-capture harness the fidelity claims are measured against.
+of which exactly three are ever published, under the `@vitreajs` names above.
+They layer the way React's own packages do: a pure runtime, a DOM host over it,
+framework bindings over that, each externalising the one below so a page that
+mounts roots through two of them still holds one copy of each. The remaining four
+keep their `@vitrea/*` workspace names, never publish, and are bundled in at
+publish time, so an app gets no transitive runtime dependency outside this
+project beyond React. `apps/reference-apple` is the native SwiftUI capture
+harness the fidelity claims are measured against.
 
 ```bash
 pnpm install

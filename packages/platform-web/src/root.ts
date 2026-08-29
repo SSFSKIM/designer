@@ -373,9 +373,51 @@ export interface GlassRoot {
   /** Run one frame by hand. `start()` runs them from rAF instead. */
   runFrame(timeMs?: number): FrameReport;
   renderInput(): GlassFrameRenderInput | undefined;
+  /**
+   * Join this root's frame loop. Returns the unsubscribe.
+   *
+   * The root already owns a cadence — five scene phases per frame, driven by rAF
+   * when `autoStart` is on and by `runFrame` when it is not. Before this seam
+   * existed, a binding that needed per-frame work of its own (advance a spring,
+   * re-read a value the scene does not push) had no way to join it and ran a
+   * *second* `requestAnimationFrame` loop beside the first. That is what
+   * `vitrea-react`'s ticker did, and what every other adapter would have copied:
+   * two loops, two wake-ups per frame, and an ordering between them that nothing
+   * declares.
+   *
+   * Listeners run **after** the frame, in subscription order, so what they
+   * observe is the frame's settled result rather than a half-run scene. `deltaMs`
+   * is the gap since this root's previous frame and is `0` on the first one; a
+   * caller that integrates motion should cap it rather than trust it, because a
+   * backgrounded tab delivers an arbitrarily large first step on return.
+   *
+   * A listener that throws is reported as `frame-listener-failed` and
+   * unsubscribed — one adapter's bad frame must not stop the material from
+   * drawing, and a listener that throws once throws every frame.
+   */
+  subscribe(listener: GlassFrameListener): () => void;
   start(): void;
   stop(): void;
   destroy(): void;
+}
+
+/**
+ * A per-frame callback registered through `GlassRoot.subscribe`.
+ *
+ * Deliberately *not* handed the `FrameReport`: the report is the scheduler's
+ * account of its own phases, and a listener that read it would be coupled to
+ * core's phase model rather than to the passage of time. Everything else a
+ * listener needs is already reachable from the root it subscribed to.
+ */
+export type GlassFrameListener = (frame: GlassFrameTick) => void;
+
+export interface GlassFrameTick {
+  /** The frame's ordinal on this root, from 1. */
+  readonly id: number;
+  /** The timestamp this frame ran at, in the units the driver supplies. */
+  readonly timeMs: number;
+  /** Elapsed since this root's previous frame; `0` on the first. */
+  readonly deltaMs: number;
 }
 
 interface HostRecord {
@@ -417,6 +459,10 @@ interface HostRecord {
    */
   gpuForegroundApplied: string | undefined;
 }
+
+/** A thrown value, said out loud. Anything can be thrown; only `Error` explains itself. */
+const describeError = (error: unknown): string =>
+  error instanceof Error ? `${error.name}: ${error.message}` : String(error);
 
 /** Attributes the CSS tier writes, so stepping aside can remove exactly them. */
 const clearDeclarations = (host: HTMLElement, declarations: StyleDeclarations): void => {
@@ -1410,9 +1456,45 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     },
   });
 
+  const frameListeners = new Set<GlassFrameListener>();
+  let lastFrameTimeMs: number | undefined;
+
   const runFrame = (timeMs?: number): FrameReport => {
     frameId += 1;
-    return scheduler.runFrame({ id: frameId, timeMs: timeMs ?? 0 });
+    const at = timeMs ?? 0;
+    const report = scheduler.runFrame({ id: frameId, timeMs: at });
+
+    // After the frame, so a listener observes a settled scene. Snapshotted
+    // because a listener may unsubscribe itself or another one mid-notify.
+    const deltaMs = lastFrameTimeMs === undefined ? 0 : at - lastFrameTimeMs;
+    lastFrameTimeMs = at;
+    const tick: GlassFrameTick = { id: frameId, timeMs: at, deltaMs };
+    for (const listener of [...frameListeners]) {
+      if (!frameListeners.has(listener)) continue;
+      try {
+        listener(tick);
+      } catch (error) {
+        /*
+         * Drop it rather than let it stop the loop. A listener that throws on
+         * one frame throws on every frame, so keeping it subscribed turns one
+         * adapter's bug into an unbounded diagnostic storm and — where the
+         * caller drives frames by hand rather than from rAF — into a thrown
+         * `runFrame`, which stops the material drawing entirely.
+         */
+        frameListeners.delete(listener);
+        platformDiagnostics.report({
+          code: "frame-listener-failed",
+          severity: "error",
+          subjects: [`frame-${String(frameId)}`],
+          message:
+            `A frame listener threw and was unsubscribed: ${describeError(error)}. ` +
+            "Frame listeners run after the scene has settled and must not throw — " +
+            "catch inside the listener and report through your own channel.",
+        });
+      }
+    }
+
+    return report;
   };
 
   const loop = (timeMs: number): void => {
@@ -1785,6 +1867,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     runFrame,
     renderInput: () => renderInput,
 
+    subscribe(listener) {
+      frameListeners.add(listener);
+      return () => {
+        frameListeners.delete(listener);
+      };
+    },
+
     start() {
       if (rafHandle === undefined) rafHandle = view.requestAnimationFrame(loop);
     },
@@ -1810,6 +1899,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       inkStylesheet.dispose();
       hosts.clear();
       probeReports.clear();
+      frameListeners.clear();
     },
   };
 

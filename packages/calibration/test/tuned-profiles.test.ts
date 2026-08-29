@@ -25,7 +25,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { CSS_TIER_MAPPING, type CssTierMapping } from "@vitrea/platform-web";
+import { CSS_TIER_MAPPING, type CssTierMapping } from "@vitreajs/vitrea-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
   withMaterialOverrides,

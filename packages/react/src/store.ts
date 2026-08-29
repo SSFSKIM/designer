@@ -17,7 +17,7 @@
  */
 
 import type { GlassGroupState, ResolvedAccessibilityPolicy } from "@vitreajs/vitrea";
-import type { GlassRoot } from "@vitrea/platform-web";
+import type { GlassRoot } from "@vitreajs/vitrea-web";
 import { createContext, useContext } from "react";
 
 type Listener = () => void;

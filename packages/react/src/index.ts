@@ -3,7 +3,7 @@
  * `docs/doperpowers/specs/2026-08-24-vitrea-liquid-glass-design.md`).
  *
  * The second published package (X7), and thin by policy: it maps React lifecycle
- * and JSX onto `@vitrea/platform-web` registration and owns no material, no
+ * and JSX onto `@vitreajs/vitrea-web` registration and owns no material, no
  * geometry and no motion of its own. Everything it decides, it decides about
  * React — when to register, where to portal, which element to clone. Everything
  * else is a call into a package that already owns the answer, so a later Vue,

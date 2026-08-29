@@ -1,14 +1,21 @@
 /**
- * X7 — proof that `vitrea-react`'s published artifact has the shape the spec
- * promises: internals bundled in, zero runtime dependencies beyond `vitrea`
- * and the React peer, and — the one this suite added — a `.d.ts` that resolves.
+ * X7 — proof that the framework-agnostic host's published artifact has the
+ * shape the spec promises: one runtime dependency (`@vitreajs/vitrea`), the
+ * still-private internals bundled in, and declarations that resolve on their
+ * own, on any TypeScript, with nothing installed.
+ *
+ * This package became publishable in the post-v1 API round (Decision Log
+ * #30(c)): until then the browser host reached npm only inlined inside
+ * `@vitreajs/vitrea-react`, so `vitrea` alone could not mount a root and a
+ * vanilla-JS or Vue or Svelte consumer had no entry at all.
  *
  * The declaration check is not decoration. rollup-plugin-dts leaves a
  * re-exported name external when the package it came from re-exports through
  * `export *` from several sibling modules, and it then emits
  * `import { GlassHostHandle } from "./backdrop-proxy"` into an artifact where no
- * such file exists. The runtime bundle is perfectly correct while the types are
- * unusable, so nothing but a declaration-side assertion catches it.
+ * such file exists — this package's own `src/index.ts` is exactly that shape,
+ * twenty `export *`s deep. The runtime bundle is perfectly correct while the
+ * types are unusable, so nothing but a declaration-side assertion catches it.
  *
  * Reads `dist/`, so it needs `pnpm build` to have run (CI builds first).
  */
@@ -31,12 +38,12 @@ const typesPath = join(distDir, "index.d.ts");
  * TypeScript before 6.0, and the only configuration available in this workspace
  * where an undeclared `GPU` name in the artifact is visible.
  *
- * The config lands in the package root because resolving `react` and
- * `@vitreajs/vitrea` out of the declaration file has to start there. That pulls
- * vitrea's own `dist/index.d.ts` into the program as well, so this check covers
- * the pair the way a consumer installs it.
+ * The config lands in the package root because resolving `@vitreajs/vitrea` out
+ * of the declaration file has to start there. That pulls vitrea's own
+ * `dist/index.d.ts` into the program as well, so this check covers the pair the
+ * way a consumer installs it.
  */
-const typecheckDeclarations = (fileName: string, configName: string) => {
+const typecheckDeclarations = (fileName: string, configName: string): string => {
   const configPath = join(packageRoot, configName);
   writeFileSync(
     configPath,
@@ -66,11 +73,11 @@ const typecheckDeclarations = (fileName: string, configName: string) => {
   }
 };
 
-/** `Cannot find name 'GPUDevice'`, `Cannot find name 'GPUPowerPreference'`. */
+/** `Cannot find name 'GPUDevice'`, `Cannot find name 'GPUTextureFormat'`. */
 const UNRESOLVED_GPU_NAME = /Cannot find name 'GPU\w+'/g;
 
 /** The banner is one blank-line free block, so the first blank line is its end. */
-const splitAmbient = (declarations: string) => {
+const splitAmbient = (declarations: string): { ambient: string; rest: string } => {
   const end = declarations.indexOf("\n\n");
   return { ambient: declarations.slice(0, end), rest: declarations.slice(end + 2) };
 };
@@ -78,8 +85,8 @@ const splitAmbient = (declarations: string) => {
 /**
  * Every module specifier a file imports or re-exports from.
  *
- * Comments are stripped first: this package's own prose quotes module-ish
- * strings, and a doc comment is not a dependency.
+ * Comments are stripped first: this package's prose quotes module-ish strings,
+ * and a doc comment is not a dependency.
  */
 const specifiersIn = (source: string): string[] => {
   const code = source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
@@ -94,78 +101,39 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
   const runtime = readFileSync(entryPath, "utf8");
   const types = readFileSync(typesPath, "utf8");
 
-  it("depends on nothing but the two vitrea packages and the React peer at runtime", () => {
-    expect(specifiersIn(runtime).sort()).toEqual([
-      "@vitreajs/vitrea",
-      "@vitreajs/vitrea-web",
-      "react",
-      "react-dom",
-      "react/jsx-runtime",
-    ]);
-  });
-
-  /*
-   * `react-dom` by name, and no require shim — two halves of one assertion.
-   *
-   * The specifier set above passed while `react-dom` was being *inlined*, because
-   * inlined code has no specifier to list: a peer that is missing from the
-   * externals looks identical to a peer that was never imported. What the bundled
-   * copy does have is esbuild's `__require` shim around its CJS entry, and that
-   * shim throws `Dynamic require of "react" is not supported` on the first
-   * native-ESM import of the artifact — a publish blocker no other check sees.
-   */
-  it("imports react-dom rather than inlining a renderer", () => {
-    expect(specifiersIn(runtime)).toContain("react-dom");
-    expect(runtime).not.toContain("Dynamic require");
+  it("depends on nothing but @vitreajs/vitrea at runtime", () => {
+    expect(specifiersIn(runtime).sort()).toEqual(["@vitreajs/vitrea"]);
   });
 
   it("bundles the still-private internals instead of importing them", () => {
-    expect(runtime).not.toMatch(/["']@vitrea\/(geometry|motion|platform-web)["']/);
+    expect(runtime).not.toMatch(/["']@vitrea\/(geometry|motion|renderer-webgpu)["']/);
   });
 
   /*
-   * The host arrives by specifier, and that is the point of publishing it.
-   *
-   * While the host was bundled in here, an app that mounted one root through
-   * these bindings and another through the vanilla entry got two copies of it:
-   * two head-prepended ink stylesheets, two plane managers, two host registries,
-   * neither able to see the other's nodes. Inlining is invisible to the
-   * specifier list above — an inlined package has no specifier to list — so the
-   * absence of the host's own DOM constants is the half that has teeth.
+   * `@vitreajs/vitrea` external, not inlined — and the two halves are different
+   * assertions. An inlined copy has no specifier to list, so the set above
+   * cannot tell "externalised" from "never imported"; what a second copy of core
+   * would bring with it is core's own scene machinery, and a page holding two
+   * scenes holds two answers to every capability question.
    */
-  it("imports the host rather than inlining a second copy of it", () => {
-    expect(specifiersIn(runtime)).toContain("@vitreajs/vitrea-web");
-    expect(runtime).not.toContain("data-vitrea-node"); // the host's, and only the host's
+  it("shares one runtime with its consumers rather than inlining a second", () => {
+    expect(specifiersIn(runtime)).toContain("@vitreajs/vitrea");
+    expect(runtime).not.toContain("frame-phase-violation"); // core's, and only core's
   });
 
   it("emits declarations that resolve — nothing points at an unpublished file", () => {
     const relative = specifiersIn(types).filter((specifier) => specifier.startsWith("."));
     expect(relative).toEqual([]);
-    expect(specifiersIn(types).sort()).toEqual([
-      "@vitreajs/vitrea",
-      "@vitreajs/vitrea-web",
-      "react",
-    ]);
+    expect(specifiersIn(types).sort()).toEqual(["@vitreajs/vitrea"]);
   });
 
-  /*
-   * Two dependencies, both published by this project, and the types come with
-   * them. The emitted declarations name `GPUPowerPreference`, which this
-   * workspace resolves out of `lib.dom.d.ts` and the tarball resolved out of
-   * nothing — one of the 29 `TS2304`s a cold consumer on TypeScript 5 read out
-   * of `node_modules` with `skipLibCheck: false`. It is declared inside the
-   * artifact rather than pulled from `@webgpu/types`, so the dependency set did
-   * not grow, and a `reference types` directive reappearing here would mean it
-   * effectively had.
-   */
-  it("declares exactly its two vitrea dependencies, and no type dependency either", () => {
+  it("declares exactly one dependency, and no type dependency either", () => {
     const manifest = JSON.parse(readFileSync(join(packageRoot, "package.json"), "utf8")) as {
       dependencies?: Record<string, string>;
+      private?: boolean;
     };
-    expect(manifest.dependencies ?? {}).toEqual({
-      "@vitreajs/vitrea": "workspace:^",
-      "@vitreajs/vitrea-web": "workspace:^",
-    });
+    expect(manifest.dependencies ?? {}).toEqual({ "@vitreajs/vitrea": "workspace:^" });
+    expect(manifest.private ?? false).toBe(false);
     expect(types).not.toContain("reference types");
   });
 
@@ -177,21 +145,23 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
     expect(ambient).toBe(
       'declare global {\n  interface GPUDevice {}\n}\ntype GPUPowerPreference = "low-power" | "high-performance";',
     );
-    // Types only: a value here would undo "nothing but vitrea and the peer".
+    // Types only: a value here would undo "nothing but vitrea".
     expect(ambient).not.toMatch(/\bdeclare (const|var|let|function|class)\b/);
   });
 
-  it("declares the components an app imports", () => {
+  /*
+   * The entry a vanilla consumer actually reaches for. `createGlassRoot` was
+   * always the one entry point an app needs — it was simply unreachable from
+   * npm. These names are the mounting path in `README.md`'s quickstart and in
+   * `e2e/fixtures/vanilla.ts`, so a rename that broke either would break here.
+   */
+  it("exports the vanilla mounting path", () => {
     for (const name of [
-      "GlassRoot",
-      "GlassGroup",
-      "GlassSurface",
-      "GlassMorph",
-      "GlassButton",
-      "GlassIconButton",
-      "GlassToolbar",
-      "GlassSegmentedControl",
-      "useGlassCapabilities",
+      "createGlassRoot",
+      "GLASS_PLANES",
+      "HOST_ATTRIBUTES",
+      "GLASS_CHANNEL_PROPERTIES",
+      "consoleDiagnosticSink",
     ]) {
       expect(types).toContain(name);
       expect(runtime).toContain(name);
@@ -202,10 +172,13 @@ describe.skipIf(!existsSync(entryPath))("built artifact shape (X7)", () => {
 /**
  * The consumer's typecheck, run from in here.
  *
- * Names from the rest of the DOM (`ImageBitmap`, `OffscreenCanvas`) are expected
- * to be unresolved with no DOM lib and are not this test's business — every
- * TypeScript's DOM lib has those. WebGPU is the half that only TypeScript 6's
- * has, which is why the artifact has to carry it.
+ * Unlike core's and vitrea-react's, *this* artifact's declarations name the DOM
+ * on purpose — it is the DOM host, and `HTMLElement` is in half its signatures.
+ * So the compile below reports plenty of `Cannot find name 'HTMLElement'`, and
+ * those are not this test's business: every TypeScript's DOM lib has them, and a
+ * browser consumer configures one. WebGPU is the half that only TypeScript 6's
+ * DOM lib has, which is why the artifact has to carry it, and the assertion is
+ * therefore scoped to `GPU`-prefixed names rather than to a clean compile.
  */
 describe.skipIf(!existsSync(entryPath))("published declarations resolve alone (X7)", () => {
   it("names no WebGPU global the artifact does not declare", () => {
@@ -218,8 +191,8 @@ describe.skipIf(!existsSync(entryPath))("published declarations resolve alone (X
   /*
    * Teeth. Without this the check above passes for a build that emits nothing at
    * all. Stripping this package's banner leaves `GPUPowerPreference` unresolved
-   * and not `GPUDevice` — vitrea's own banner declares that one globally, and its
-   * declarations are in the program either way.
+   * and not `GPUDevice` — vitrea's own banner declares that one globally, and
+   * its declarations are in the program either way.
    */
   it("would notice: strip the ambient block and the check goes red", () => {
     const stripped = "stripped.d.ts";

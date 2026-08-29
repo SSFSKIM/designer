@@ -54,7 +54,7 @@ import {
   type GlassRoot,
   type RendererMaterialProfile,
   type VitreaDiagnostic,
-} from "@vitrea/platform-web";
+} from "@vitreajs/vitrea-web";
 import type {
   AccessibilityOverrides,
   GlassGroupState,

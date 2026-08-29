@@ -8,7 +8,7 @@
  */
 
 import type { GlassPlane } from "@vitreajs/vitrea";
-import type { GlassRoot, VitreaDiagnostic } from "@vitrea/platform-web";
+import type { GlassRoot, VitreaDiagnostic } from "@vitreajs/vitrea-web";
 import type { MotionProfile } from "@vitrea/motion";
 import { createContext, useContext } from "react";
 

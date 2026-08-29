@@ -8,7 +8,7 @@
  * profile the root carries, which closes it *provided the mapping's input is the
  * renderer's own profile*. That proviso is what this file holds.
  *
- * It cannot be held by an import. `@vitrea/platform-web` has no dependency on
+ * It cannot be held by an import. `@vitreajs/vitrea-web` has no dependency on
  * `@vitrea/renderer-webgpu` and must not gain one: the renderer loads behind
  * core's lazy seam so a CSS-tier visitor never downloads WGSL (X7), and a static
  * import of the renderer's material module from the package that serves the CSS
@@ -58,7 +58,7 @@ import {
   sourceSize,
   tintTone as cssTierTintTone,
   tintToneAdaptation as cssTierTintToneAdaptation,
-} from "@vitrea/platform-web";
+} from "@vitreajs/vitrea-web";
 import {
   DEFAULT_MATERIAL_PROFILE,
   INCREASED_OCCLUSION_LIFT as RENDERER_OCCLUSION_LIFT,

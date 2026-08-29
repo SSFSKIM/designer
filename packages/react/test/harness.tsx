@@ -13,7 +13,7 @@ import { act } from "react";
 import type { ReactNode } from "react";
 
 import { GlassRoot, useGlassRoot, useGlassTicker, type GlassRootProps } from "../src/index";
-import type { GlassRoot as PlatformGlassRoot } from "@vitrea/platform-web";
+import type { GlassRoot as PlatformGlassRoot } from "@vitreajs/vitrea-web";
 import type { GlassTicker } from "../src/ticker";
 
 export interface Harness {

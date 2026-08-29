@@ -41,7 +41,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@vitreajs/vitrea": "workspace:^"
+    "@vitreajs/vitrea": "workspace:^",
+    "@vitreajs/vitrea-web": "workspace:^"
   },
   "peerDependencies": {
     "react": ">=19.0.0",
@@ -58,7 +59,6 @@
     "@vitejs/plugin-react": "catalog:",
     "@vitrea/geometry": "workspace:*",
     "@vitrea/motion": "workspace:*",
-    "@vitrea/platform-web": "workspace:*",
     "eslint": "catalog:",
     "jsdom": "catalog:",
     "react": "catalog:",

@@ -30,7 +30,7 @@ import type {
   MaterialVariant,
   SourceProbe,
 } from "@vitreajs/vitrea";
-import { DEFAULT_DOM_SOURCE_ID, type GlassRoot as PlatformGlassRoot } from "@vitrea/platform-web";
+import { DEFAULT_DOM_SOURCE_ID, type GlassRoot as PlatformGlassRoot } from "@vitreajs/vitrea-web";
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type ReactNode } from "react";
 
 import { GlassGroupContext, useGlassRoot, type GlassGroupHandle } from "./context";

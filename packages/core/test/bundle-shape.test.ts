@@ -226,8 +226,23 @@ describe.skipIf(!existsSync(entryPath))("published declarations resolve alone (X
   }, 120_000);
 });
 
+/**
+ * Three published packages, and the set is closed on purpose.
+ *
+ * It was two until the post-v1 API round published the browser host in its own
+ * right (Decision Log #30(c)): before that, `vitrea` alone could not mount a
+ * root and the host reached npm only inlined inside `vitrea-react`, so a
+ * vanilla-JS, Vue or Svelte consumer had no entry at all. The layering is
+ * React's own — a pure runtime, a DOM host over it, framework bindings over
+ * that — and each artifact externalises the one below it, so a page that mounts
+ * roots through two of them still gets one copy of each.
+ *
+ * The remaining `@vitrea/*` packages stay private and bundled. This assertion
+ * is the guard on that: a package that quietly loses `"private": true` starts
+ * being published on the next release, and nothing else would notice.
+ */
 describe("publish surface (X7)", () => {
-  it("leaves exactly @vitreajs/vitrea and @vitreajs/vitrea-react publishable", () => {
+  it("leaves exactly the three @vitreajs packages publishable", () => {
     const packagesDir = join(packageRoot, "..");
     const publishable = readdirSync(packagesDir)
       .filter((entry) => statSync(join(packagesDir, entry)).isDirectory())
@@ -242,6 +257,10 @@ describe("publish surface (X7)", () => {
       .map((manifest) => manifest.name)
       .sort();
 
-    expect(publishable).toEqual(["@vitreajs/vitrea", "@vitreajs/vitrea-react"]);
+    expect(publishable).toEqual([
+      "@vitreajs/vitrea",
+      "@vitreajs/vitrea-react",
+      "@vitreajs/vitrea-web",
+    ]);
   });
 });

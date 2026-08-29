@@ -1,8 +1,17 @@
 import { defineConfig } from "tsup";
 
-// X7 — publish surface. vitrea is a real dependency of this package, so it
-// stays external; the private internals are bundled in.
-const BUNDLED_INTERNALS = /^@vitrea\/(platform-web|geometry|motion)$/;
+// X7 — publish surface. `@vitreajs/vitrea` and `@vitreajs/vitrea-web` are real
+// dependencies of this package, so tsup leaves them external; the still-private
+// internals are bundled in.
+//
+// The host layer moved out of this artifact when it was published in its own
+// right (Decision Log #30(c)). Externalising it is not only a size saving: a
+// page that mounts one root through these bindings and another through the
+// vanilla entry must get *one* copy of the host, or it gets two ink
+// stylesheets, two plane managers and two registries that cannot see each
+// other. `test/publish-shape.test.ts` asserts the specifier survives in the
+// built artifact.
+const BUNDLED_INTERNALS = /^@vitrea\/(geometry|motion)$/;
 
 /**
  * The two WebGPU names *this* artifact's declarations use, declared inside it.
@@ -35,7 +44,7 @@ export default defineConfig({
   treeshake: true,
   sourcemap: true,
   // `dts.resolve: true` rather than a package-name list, and the difference is
-  // load-bearing. A list matches the *specifier* `@vitrea/platform-web`, but that
+  // load-bearing. A list matches the *specifier* `@vitreajs/vitrea-web`, but that
   // package's own `.d.ts` re-exports through `export *` from a dozen sibling
   // modules — so rollup-plugin-dts leaves those siblings external and emits
   // `import { GlassHostHandle } from "./backdrop-proxy"` into `dist/index.d.ts`,

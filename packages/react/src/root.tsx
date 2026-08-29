@@ -41,7 +41,7 @@ import {
   type GlassRoot as PlatformGlassRoot,
   type VitreaDiagnostic,
   type VitreaDiagnosticSink,
-} from "@vitrea/platform-web";
+} from "@vitreajs/vitrea-web";
 import {
   useCallback,
   useEffect,
@@ -199,13 +199,29 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     store.poll();
   }, [increasedContrast, reducedMotion, reducedTransparency, root, store]);
 
+  /*
+   * The bindings' motion runs on the root's frame loop, not on one of their own.
+   *
+   * The root already owns a cadence, and until it grew `subscribe` there was no
+   * way to join it — so these bindings ran a second `requestAnimationFrame`
+   * beside it, with no declared ordering between the two. Now the ticker is
+   * advanced from the root's own frame, after the scene has settled, which means
+   * one wake-up per frame and a defined order: the scene resolves, then the
+   * springs step against it.
+   *
+   * `ticker.start()` is still there and still runs rAF — a consumer driving a
+   * bare `createGlassTicker` has no root to borrow a loop from. It is simply no
+   * longer what `GlassRoot` uses.
+   */
   useEffect(() => {
     if (root === null) return;
-    const unsubscribe = ticker.subscribe(() => store.poll());
-    if (autoStart) ticker.start();
+    const unsubscribePoll = ticker.subscribe(() => store.poll());
+    const unsubscribeFrames = autoStart
+      ? root.subscribe(({ deltaMs }) => ticker.advance(deltaMs))
+      : undefined;
     return () => {
-      unsubscribe();
-      ticker.stop();
+      unsubscribePoll();
+      unsubscribeFrames?.();
     };
   }, [autoStart, root, store, ticker]);
 

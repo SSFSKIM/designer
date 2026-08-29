@@ -114,7 +114,7 @@ test.describe("the layout is legal", () => {
    * clearance between neighbouring groups, where the mechanism it names — one
    * proxy's box covering a neighbour's painted pixels — needs only 42
    * (`spikes/s1-proxy-topology/overlap-experiment/`, and the demo-shaped
-   * reproduction in `@vitrea/platform-web`'s `e2e/shared/accessible-padding`).
+   * reproduction in `@vitreajs/vitrea-web`'s `e2e/shared/accessible-padding`).
    * The behaviour stage's three groups sit inside that difference.
    *
    * What this case can see depends on the machine, and that is worth stating:

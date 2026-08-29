@@ -171,15 +171,15 @@ importers:
       '@vitrea/motion':
         specifier: workspace:*
         version: link:../motion
-      '@vitrea/platform-web':
-        specifier: workspace:*
-        version: link:../platform-web
       '@vitrea/renderer-webgpu':
         specifier: workspace:*
         version: link:../renderer-webgpu
       '@vitreajs/vitrea':
         specifier: workspace:*
         version: link:../core
+      '@vitreajs/vitrea-web':
+        specifier: workspace:*
+        version: link:../platform-web
       eslint:
         specifier: 'catalog:'
         version: 10.9.0
@@ -277,6 +277,9 @@ importers:
       pngjs:
         specifier: 'catalog:'
         version: 7.0.0
+      tsup:
+        specifier: 'catalog:'
+        version: 8.5.1(postcss@8.5.26)(tsx@4.20.6)(typescript@6.0.3)(yaml@2.9.0)
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -292,6 +295,9 @@ importers:
       '@vitreajs/vitrea':
         specifier: workspace:^
         version: link:../core
+      '@vitreajs/vitrea-web':
+        specifier: workspace:^
+        version: link:../platform-web
     devDependencies:
       '@axe-core/playwright':
         specifier: 'catalog:'
@@ -323,9 +329,6 @@ importers:
       '@vitrea/motion':
         specifier: workspace:*
         version: link:../motion
-      '@vitrea/platform-web':
-        specifier: workspace:*
-        version: link:../platform-web
       eslint:
         specifier: 'catalog:'
         version: 10.9.0

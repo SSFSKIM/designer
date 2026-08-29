@@ -21,19 +21,29 @@ below it, never instead of it.
 ## Install
 
 ```bash
-npm install @vitreajs/vitrea @vitreajs/vitrea-react
+npm install @vitreajs/vitrea-react
 ```
 
-The library is called vitrea and publishes under the npm scope `@vitreajs`.
-`@vitreajs/vitrea` is this package's one declared dependency and React is a
-peer (`>=19`). Everything else — the DOM host layer, the geometry kernel, the
-motion kernel, the WebGPU renderer — is internal and bundled in at publish
-time. There is no state library, no animation library, and no accessibility
-library in here.
+The library is called vitrea and publishes under the npm scope `@vitreajs`. This
+package declares two dependencies, both of them ours and both installed for you:
+`@vitreajs/vitrea` (the pure runtime) and `@vitreajs/vitrea-web` (the browser
+host). React is a peer (`>=19`). Everything else — the geometry kernel, the
+motion kernel, the WebGPU renderer — is internal and bundled in at publish time.
+There is no state library, no animation library, and no accessibility library in
+here.
 
-In v1 this package is also the **only** way to render glass in a browser: `vitrea`
-itself contains no DOM code by design, and the host layer ships bundled inside
-this artifact.
+The host is a **dependency rather than an inlined copy**, and that is deliberate:
+a page that mounts one root through these bindings and another through
+[`@vitreajs/vitrea-web`](../platform-web/README.md) directly must share one host,
+or it gets two plane managers and two host registries that cannot see each
+other's nodes. It also means React is no longer the only way to render glass in a
+browser, which it was until 0.2.
+
+**What this package adds over the host.** JSX, lifecycle, the `asChild` seam, the
+v1 controls, and the interaction wiring that turns pointer and keyboard events
+into the material's channels. It adds no material, no geometry and no motion —
+those all live below it, which is why a later Vue, Svelte or Web-Components
+adapter duplicates nothing but the lifecycle.
 
 ---
 

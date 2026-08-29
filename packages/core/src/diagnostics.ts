@@ -12,6 +12,26 @@
  * source — are *not* diagnostics. Those throw `GlassSceneError`, because
  * continuing past them would leave a half-built scene. Diagnostics carry the
  * recoverable, per-frame, policy-level findings instead.
+ *
+ * ## One channel, several code spaces
+ *
+ * The channel is generic over its code union and core's own union is only its
+ * default instantiation. That is what lets the browser layer — which detects
+ * things core cannot name, like a host placed outside its plane — have a code
+ * space of its own without a second copy of the machinery, and it is why the
+ * dedupe rule, the retention rule and the key separator have exactly one
+ * definition in the workspace (Decision Log #21(b), #23(c)).
+ *
+ * Two properties are load-bearing and deliberately *not* generalised:
+ *
+ *  - **A diagnostic carries no origin tag.** Which code space a finding came
+ *    from is the channel's business, added on the way out to a host's sink, not
+ *    a field every emitter has to write. `platform-web`'s `layer-model.ts` is
+ *    the proof: it is a pure function that takes a bare `report` callback, and
+ *    an origin tag in the payload would have rewritten every emitter in it.
+ *  - **`report` stays assignable to `(d) => void`.** Checkers take the
+ *    capability to report, never the channel, so a module that emits findings
+ *    knows nothing about retention or dedupe.
  */
 
 export type DiagnosticSeverity = "warning" | "error";
@@ -46,8 +66,15 @@ export const DIAGNOSTIC_CODES = [
 
 export type DiagnosticCode = (typeof DIAGNOSTIC_CODES)[number];
 
-export interface Diagnostic {
-  readonly code: DiagnosticCode;
+/**
+ * One finding, over whichever code space the channel was opened on.
+ *
+ * `Code` defaults to core's own union, so `Diagnostic` unqualified still means
+ * exactly what it meant before the channel became generic and every existing
+ * annotation of it still reads.
+ */
+export interface Diagnostic<Code extends string = DiagnosticCode> {
+  readonly code: Code;
   readonly severity: DiagnosticSeverity;
   /**
    * The ids this finding is about — group, node, or source. Together with
@@ -58,19 +85,21 @@ export interface Diagnostic {
   readonly message: string;
 }
 
-export type DiagnosticSink = (diagnostic: Diagnostic) => void;
+export type DiagnosticSink<Code extends string = DiagnosticCode> = (
+  diagnostic: Diagnostic<Code>,
+) => void;
 
-export interface DiagnosticsChannel {
-  report(diagnostic: Diagnostic): void;
+export interface DiagnosticsChannel<Code extends string = DiagnosticCode> {
+  report(diagnostic: Diagnostic<Code>): void;
   /** Findings retained since construction or the last `clear()`. */
-  readonly reported: readonly Diagnostic[];
+  readonly reported: readonly Diagnostic<Code>[];
   /** Forget what was seen, so a condition that returns is reported again. */
   clear(): void;
 }
 
-export interface DiagnosticsChannelOptions {
+export interface DiagnosticsChannelOptions<Code extends string = DiagnosticCode> {
   /** Where findings go. Omitted in tests and in hosts that only read `reported`. */
-  readonly sink?: DiagnosticSink;
+  readonly sink?: DiagnosticSink<Code>;
   /** Collapse repeats of the same code+subjects. Default true. */
   readonly dedupe?: boolean;
 }
@@ -78,18 +107,18 @@ export interface DiagnosticsChannelOptions {
 /** Separator for the dedupe key — a unit separator, so no realistic id collides. */
 const KEY_SEPARATOR = "␟";
 
-const keyOf = (diagnostic: Diagnostic): string =>
+const keyOf = (diagnostic: Diagnostic<string>): string =>
   [diagnostic.code, ...diagnostic.subjects].join(KEY_SEPARATOR);
 
-export function createDiagnosticsChannel(
-  options: DiagnosticsChannelOptions = {},
-): DiagnosticsChannel {
+export function createDiagnosticsChannel<Code extends string = DiagnosticCode>(
+  options: DiagnosticsChannelOptions<Code> = {},
+): DiagnosticsChannel<Code> {
   const { sink, dedupe = true } = options;
-  const retained: Diagnostic[] = [];
+  const retained: Diagnostic<Code>[] = [];
   const seen = new Set<string>();
 
   return {
-    report(diagnostic: Diagnostic): void {
+    report(diagnostic: Diagnostic<Code>): void {
       if (dedupe) {
         const key = keyOf(diagnostic);
         if (seen.has(key)) return;
@@ -98,7 +127,7 @@ export function createDiagnosticsChannel(
       retained.push(diagnostic);
       sink?.(diagnostic);
     },
-    get reported(): readonly Diagnostic[] {
+    get reported(): readonly Diagnostic<Code>[] {
       return retained;
     },
     clear(): void {

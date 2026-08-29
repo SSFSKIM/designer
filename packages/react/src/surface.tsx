@@ -37,7 +37,7 @@
  */
 
 import type { ForegroundAdaptation, GlassPlane, MaterialVariant } from "@vitreajs/vitrea";
-import type { GlassHostHandle } from "@vitrea/platform-web";
+import type { GlassHostHandle } from "@vitreajs/vitrea-web";
 import {
   useContext,
   useEffect,

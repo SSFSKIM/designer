@@ -1,5 +1,5 @@
 /**
- * `@vitrea/platform-web` — the browser layer.
+ * `@vitreajs/vitrea-web` — the browser layer.
  *
  * The only package allowed to touch the DOM (X4). core, geometry and motion are
  * pure and passive; everything browser-shaped lives here: host registration and

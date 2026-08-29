@@ -83,7 +83,7 @@ export default defineConfig({
       "@vitreajs/vitrea": `${packages}core/src/index.ts`,
       "@vitrea/geometry": `${packages}geometry/src/index.ts`,
       "@vitrea/motion": `${packages}motion/src/index.ts`,
-      "@vitrea/platform-web": `${packages}platform-web/src/index.ts`,
+      "@vitreajs/vitrea-web": `${packages}platform-web/src/index.ts`,
       "@vitreajs/vitrea-react": `${packages}react/src/index.ts`,
       // The renderer too, and it was worth the trouble to notice: it reaches the
       // app through core's lazy dynamic import, so without an alias `pnpm dev`

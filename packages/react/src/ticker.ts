@@ -1,11 +1,13 @@
 /**
  * The frame ticker the bindings drive their motion from.
  *
- * `platform-web`'s root runs its own `requestAnimationFrame` loop for the five
- * scene phases, and it exposes no way to join it — `createFrameScheduler` is
- * private to `createGlassRoot`. So the bindings run one loop of their own, and
- * one is all it takes: every surface, indicator and morph in a tree shares this
- * ticker, so the cost is a single rAF callback whatever the surface count.
+ * This is a fan-out, not a clock. Every surface, indicator and morph in a tree
+ * subscribes here, and `GlassRoot` advances it from the *root's* frame loop
+ * (`GlassRoot.subscribe`) — so a mounted tree costs one wake-up per frame and
+ * the springs step in a defined order, after the scene has resolved. Before that
+ * seam existed this module ran a second `requestAnimationFrame` beside the
+ * root's, which is what `start()` below still does for a consumer driving a bare
+ * ticker with no root to borrow a loop from.
  *
  * The delta arrives raw. `@vitrea/motion` applies the capped-step rule at the
  * frame boundary — `InteractionMachine.advance` clamps with the profile's own

@@ -35,7 +35,7 @@
  * values, and the tier that is drawing consumes them.
  */
 
-import { GLASS_CHANNEL_PROPERTIES, type GlassHostHandle } from "@vitrea/platform-web";
+import { GLASS_CHANNEL_PROPERTIES, type GlassHostHandle } from "@vitreajs/vitrea-web";
 import {
   createInteractionMachine,
   type InteractionFlags,

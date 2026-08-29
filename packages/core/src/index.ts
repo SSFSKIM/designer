@@ -7,7 +7,7 @@
  *
  * Pure and passive: no DOM, no Node built-ins (X4), no timers and no clocks.
  * Every probe result, media-query answer and layout rect arrives as plain data;
- * @vitrea/platform-web owns the browser and drives the frames.
+ * @vitreajs/vitrea-web owns the browser and drives the frames.
  *
  * The modules, roughly in dependency order:
  *

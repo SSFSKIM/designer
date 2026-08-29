@@ -28,12 +28,20 @@ selectable, focusable, IME-capable, and announced by a screen reader as a button
 npm install @vitreajs/vitrea @vitreajs/vitrea-react
 ```
 
-The library is called vitrea and publishes under the npm scope `@vitreajs`.
-`@vitreajs/vitrea` is the framework-agnostic runtime, `@vitreajs/vitrea-react`
-the declarative surface. These two are the only published packages: the
-geometry kernel, the motion kernel, the DOM host layer and the WebGPU renderer
-are internal and bundled into them at publish time, so an app installs two
-packages and gets zero transitive runtime dependencies beyond React itself.
+The library is called vitrea and publishes under the npm scope `@vitreajs`, in
+three packages that layer the way React's own do — a pure runtime, a DOM host
+over it, framework bindings over that:
+
+| Package | What it is | Depends on |
+| --- | --- | --- |
+| `@vitreajs/vitrea` | the framework-agnostic runtime: scene model, capability and tier resolution, material and accessibility policy. No DOM code at all. | nothing |
+| `@vitreajs/vitrea-web` | the browser host: element registration, plane management, backdrop proxies, the CSS-tier renderer, the WebGPU lifecycle. **Mounts a root from any framework, or none.** | `@vitreajs/vitrea` |
+| `@vitreajs/vitrea-react` | the declarative surface: `GlassRoot`, `GlassGroup`, `GlassSurface` and the v1 controls. | both of the above |
+
+Installing the React bindings pulls the other two in, so a React app still runs
+one `npm install` and gets no transitive runtime dependency outside this project
+beyond React itself. The geometry kernel, the motion kernel and the WebGPU
+renderer stay internal and are bundled in at publish time.
 
 **TypeScript.** The published declarations resolve on their own, on any
 TypeScript version, with no `types` entry and nothing extra installed —
@@ -46,20 +54,23 @@ competing with them.
 
 | You are… | Install | Import |
 | --- | --- | --- |
-| writing a React app | `@vitreajs/vitrea @vitreajs/vitrea-react` | `@vitreajs/vitrea-react` for components, `@vitreajs/vitrea` for types |
-| reading the resolved capability state | either | `@vitreajs/vitrea` |
-| writing a Vue/Svelte/WC adapter | `@vitreajs/vitrea` | not yet supported — see below |
+| writing a React app | `@vitreajs/vitrea-react` | `@vitreajs/vitrea-react` for components, `@vitreajs/vitrea` for types |
+| writing plain JavaScript, or a Vue/Svelte/Web-Components adapter | `@vitreajs/vitrea-web` | `@vitreajs/vitrea-web` for `createGlassRoot`, `@vitreajs/vitrea` for types |
+| reading the resolved capability state | any of them | `@vitreajs/vitrea` |
 
-**One honest limit up front.** `vitrea` contains no DOM code at all, by design
+**Which one has the DOM in it.** `vitrea` contains no DOM code at all, by design
 (the purity law: the core, geometry and motion packages never touch `window`,
-`document` or `HTMLElement`). The browser host layer — element registration,
-plane management, backdrop proxies, the CSS-tier renderer, the WebGPU lifecycle —
-ships bundled *inside* `vitrea-react`. So in v1 the only way to render glass in a
-browser is through the React bindings. `vitrea` on its own gives you the scene
-model, the capability and tier resolver, the material and accessibility policy,
-and the frame-scheduler contract; it does not give you a mounted root. A
-framework-agnostic host entry point is post-v1 work, not a thing you can reach
-today by installing `vitrea` alone.
+`document` or `HTMLElement`). So `vitrea` on its own gives you the scene model,
+the capability and tier resolver, the material and accessibility policy, and the
+frame-scheduler contract — but not a mounted root. `vitrea-web` is the package
+that mounts one, and it is a peer of the React bindings rather than something
+hidden inside them: the same `createGlassRoot` the bindings use is the one a
+vanilla page calls. See [`@vitreajs/vitrea-web`](../platform-web/README.md) for
+the imperative quickstart.
+
+> Until 0.2 the host layer shipped bundled *inside* `vitrea-react`, so React was
+> the only way to render glass in a browser. That is what publishing this package
+> retired.
 
 ---
 

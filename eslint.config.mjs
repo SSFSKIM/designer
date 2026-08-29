@@ -49,7 +49,7 @@ const NODE_BUILTIN_PATTERNS = [
 ];
 
 const PURITY_MESSAGE =
-  "X4 (purity law): core, geometry and motion never reference the DOM. Move browser access to @vitrea/platform-web.";
+  "X4 (purity law): core, geometry and motion never reference the DOM. Move browser access to @vitreajs/vitrea-web.";
 
 /**
  * Timers and clocks. `core` is passive by contract: it never schedules and never
@@ -105,7 +105,7 @@ export const pure = tseslint.config(
           patterns: NODE_BUILTIN_PATTERNS,
           paths: [
             {
-              name: "@vitrea/platform-web",
+              name: "@vitreajs/vitrea-web",
               message: "Package boundary: platform-web depends on core, never the other way round.",
             },
             {

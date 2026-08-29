@@ -17,6 +17,11 @@ export default defineConfig({
   resolve: {
     alias: {
       "@vitreajs/vitrea": `${packages}core/src/index.ts`,
+      // `fixtures/vanilla.ts` imports this package the way a consumer does — by
+      // its published name, not by a relative path — so the specifier and the
+      // public surface behind it are both under test. Aliased to source like
+      // everything else here; `test/publish-shape.test.ts` covers the artifact.
+      "@vitreajs/vitrea-web": `${packageRoot}src/index.ts`,
       "@vitrea/geometry": `${packages}geometry/src/index.ts`,
       "@vitrea/motion": `${packages}motion/src/index.ts`,
       "@vitrea/renderer-webgpu": `${packages}renderer-webgpu/src/index.ts`,

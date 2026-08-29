@@ -15,7 +15,7 @@
 
 import { DEFAULT_GROUP_SAMPLING } from "@vitreajs/vitrea";
 import type { ShapeFamily } from "@vitrea/geometry";
-import type { GlassPlane } from "@vitrea/platform-web";
+import type { GlassPlane } from "@vitreajs/vitrea-web";
 
 // Vite resolves this through `server.fs.allow`; it is the native harness's own
 // file, not a copy. See `vite.config.ts`.

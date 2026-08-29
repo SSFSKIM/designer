@@ -1090,7 +1090,7 @@ CPU and rides the field pass's `aux` channel through the group's union, so a
 thicknesses from one field pass. It reaches the CSS tier per surface, through the
 same two functions, from the host's own measured border box. The constants live
 in `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE`, are patchable like
-every other optic, and are mirrored in `@vitrea/platform-web`'s
+every other optic, and are mirrored in `@vitreajs/vitrea-web`'s
 `MATERIAL_SOURCE_SIZE` with `packages/calibration/test/tier-coherence.test.ts`
 pinning the two in both directions.
 

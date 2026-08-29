@@ -262,7 +262,7 @@ export interface MaterialProfile {
    * (0.62 − 0.28) / (1 − 0.28) = 0.4722, which reproduces the old floor exactly at
    * the old nominal. At today's nominal it reads 0.62 → 0.799.
    *
-   * Mirrored by `@vitrea/platform-web`'s `INCREASED_OCCLUSION_LIFT`, and pinned in
+   * Mirrored by `@vitreajs/vitrea-web`'s `INCREASED_OCCLUSION_LIFT`, and pinned in
    * both directions by `packages/calibration/test/tier-coherence.test.ts`.
    */
   readonly increasedOcclusionLift: number;
@@ -362,7 +362,7 @@ export const INCREASED_OCCLUSION_LIFT = 0.4722;
 
 /**
  * The occlusion alpha a resolved policy asks for, given whatever nominal the
- * material carries. Mirrors `@vitrea/platform-web`'s `occlusionAlphaUnderPolicy`.
+ * material carries. Mirrors `@vitreajs/vitrea-web`'s `occlusionAlphaUnderPolicy`.
  */
 export function occlusionAlphaUnderPolicy(
   nominal: number,
@@ -992,7 +992,7 @@ const smoothstep = (edge0: number, edge1: number, x: number): number => {
  * whole law is inert on a small control, and exactly 1 at or above `sizeSpanMax`,
  * so nothing keeps growing off the end of the canonical range.
  *
- * Mirrored by `@vitrea/platform-web`'s `sizeThickness`, pinned in both directions
+ * Mirrored by `@vitreajs/vitrea-web`'s `sizeThickness`, pinned in both directions
  * by `packages/calibration/test/tier-coherence.test.ts`.
  */
 export function sizeThickness(
