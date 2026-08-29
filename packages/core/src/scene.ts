@@ -279,7 +279,10 @@ export interface PlaneOverlap {
   readonly nodeIds: readonly [string, string];
 }
 
-/** Two groups whose padded backdrop proxies would overlap in one plane (X1). */
+/**
+ * Two groups close enough in one plane that one group's padded proxy would
+ * sample the pixels the other one paints (X1).
+ */
 export interface ProxyOverlap {
   readonly plane: GlassPlane;
   readonly groupIds: readonly [string, string];
@@ -368,8 +371,8 @@ export interface GlassScene {
   checkSamePlaneOverlap(): readonly PlaneOverlap[];
   /**
    * The cross-group half of X1's proxy geometry. `mergeDistance` only unions
-   * members *within* a group, so two neighbouring groups can still put two
-   * padded proxies over the same pixels — which S1 measured double-filtering.
+   * members *within* a group, so a neighbouring group's proxy can still sample
+   * the pixels this one paints — which S1 measured double-filtering.
    */
   checkGroupProxyOverlap(): readonly ProxyOverlap[];
 }
@@ -884,10 +887,17 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     checkGroupProxyOverlap() {
       if (!devMode) return [];
 
-      // One padded box per (group, plane): the region that group's proxy would
-      // cover. A group with nothing measured yet contributes none.
-      const boxes: { readonly groupId: string; readonly plane: GlassPlane; readonly box: Rect }[] =
-        [];
+      // Two rects per (group, plane), because the check turns on the difference
+      // between them: the padded box is everything that group's proxy *samples*,
+      // and the unpadded union is everything it *paints* — a proxy is masked to
+      // its members' shapes, so nothing of it lands outside that union. A group
+      // with nothing measured yet contributes neither.
+      const boxes: {
+        readonly groupId: string;
+        readonly plane: GlassPlane;
+        readonly box: Rect;
+        readonly clipUnion: Rect;
+      }[] = [];
 
       for (const group of groups.values()) {
         const groupId = group.descriptor.id;
@@ -903,10 +913,28 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         }
 
         for (const [plane, union] of byPlane) {
-          boxes.push({ groupId, plane, box: inflateRect(union, padding) });
+          boxes.push({ groupId, plane, box: inflateRect(union, padding), clipUnion: union });
         }
       }
 
+      // The predicate is one group's padded box against the *other group's
+      // painted region*, not against its padded box.
+      //
+      // Double filtering needs one proxy's sampled region to contain another
+      // proxy's already filtered output. The second proxy paints only inside its
+      // own clip union and its box reaches one padding beyond that, so a
+      // box-against-box test fires out to the *sum* of the two paddings — and
+      // over the outer part of that range the boxes meet only where neither
+      // group has drawn anything, which is a region no filter can pick up. The
+      // measurement is `spikes/s1-proxy-topology/overlap-experiment/`: 81
+      // byte-deterministic cells over three blur radii and four backdrop
+      // classes, with zero cross-group leak at every separation at or past one
+      // padding, converging on the geometric bound from below.
+      //
+      // Symmetric on purpose. Only the later-painted group is ever contaminated,
+      // so an order-aware form would halve this again — but paint order is the
+      // platform's to decide and a finding that comes and goes with it is worse
+      // diagnostics than a statement about the layout.
       const overlaps: ProxyOverlap[] = [];
       for (let i = 0; i < boxes.length; i += 1) {
         for (let j = i + 1; j < boxes.length; j += 1) {
@@ -914,7 +942,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
           const b = boxes[j];
           if (a === undefined || b === undefined) continue;
           if (a.plane !== b.plane || a.groupId === b.groupId) continue;
-          if (!rectsOverlap(a.box, b.box)) continue;
+          if (!rectsOverlap(a.box, b.clipUnion) && !rectsOverlap(b.box, a.clipUnion)) continue;
 
           const groupIds: readonly [string, string] = [a.groupId, b.groupId];
           overlaps.push({ plane: a.plane, groupIds });
@@ -922,7 +950,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
             code: "group-proxy-overlap",
             severity: "warning",
             subjects: [...groupIds],
-            message: `Groups "${groupIds[0]}" and "${groupIds[1]}" sit close enough in the "${a.plane}" plane that their padded backdrop proxies overlap, and X1 says the filter then applies twice over that region — paint-order dependent, measured drifting up to 17/255. mergeDistance cannot help: it only unions members inside one group. Either put these surfaces in one group so they share a proxy, or separate them by more than the sum of their samplingPadding.`,
+            message: `Groups "${groupIds[0]}" and "${groupIds[1]}" sit close enough in the "${a.plane}" plane that one group's padded backdrop proxy samples the pixels the other group paints, and X1 says the filter then applies twice over them — paint-order dependent, and steeply distance-dependent: measured at most 3/255 at a 1.5σ gap, mean 0.43 / max 4 at 1σ, mean 2.56 / max 15 at 0.25σ, and byte-identical zero once the gap reaches the padding. mergeDistance cannot help: it only unions members inside one group. Either put these surfaces in one group so they share a proxy, or separate them by at least the larger group's samplingPadding.`,
           });
         }
       }

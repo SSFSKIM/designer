@@ -530,6 +530,12 @@ describe("cross-group proxy overlap (X1, dev mode)", () => {
       subjects: ["left", "right"],
     });
     expect(diagnostics.reported[0]?.message).toContain("mergeDistance cannot help");
+    // The magnitudes quoted are the ones measured at separations this check
+    // fires at. It used to quote 17/255, which is S1's 0.4σ stress row and which
+    // the overlap experiment re-measured as mostly the clip path's corner
+    // antialiasing — a constant cost of splitting, not a leak.
+    expect(diagnostics.reported[0]?.message).toContain("3/255 at a 1.5σ gap");
+    expect(diagnostics.reported[0]?.message).not.toContain("17/255");
     // The per-group constraint is satisfied, which is exactly why this second
     // check has to exist.
     expect(diagnostics.reported.map((finding) => finding.code)).not.toContain(
@@ -537,11 +543,68 @@ describe("cross-group proxy overlap (X1, dev mode)", () => {
     );
   });
 
-  it("says nothing when the gap exceeds the sum of the paddings", () => {
+  it("says nothing when the groups are nowhere near each other", () => {
     const { scene, diagnostics } = neighbours(200, 60);
 
     expect(scene.checkGroupProxyOverlap()).toEqual([]);
     expect(diagnostics.reported).toEqual([]);
+  });
+
+  it("says nothing where the padded boxes meet but neither group paints there", () => {
+    // 80px apart at a 60px padding: the two padded boxes do intersect — they
+    // reach 120px between them — but they meet over a strip outside both
+    // groups' shapes, and a proxy paints nothing outside its own clip union. So
+    // neither filter has the other's output in its input, and the double
+    // filtering this check names cannot occur. Measured byte-identical at three
+    // blur radii and four backdrop classes:
+    // `spikes/s1-proxy-topology/overlap-experiment/`.
+    const { scene, diagnostics } = neighbours(80, 60);
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([]);
+    expect(diagnostics.reported).toEqual([]);
+  });
+
+  it("puts the boundary at one padding, where the mechanism runs out of geometry", () => {
+    // Exactly one padding of painted gap and the box edge lands on the
+    // neighbour's shape edge: touching is not sampling, the same positive-area
+    // rule the same-plane check uses. One pixel closer and it is.
+    expect(neighbours(60, 60).scene.checkGroupProxyOverlap()).toEqual([]);
+    expect(neighbours(59, 60).scene.checkGroupProxyOverlap()).toEqual([
+      { plane: "base", groupIds: ["left", "right"] },
+    ]);
+  });
+
+  it("fires on the wider group's reach even where the narrower group has none", () => {
+    // The paddings need not match, and the check is symmetric in the pair rather
+    // than in the numbers: the 90px group's box covers its neighbour's shapes
+    // long before the 10px group's box gets anywhere near.
+    const diagnostics = createDiagnosticsChannel();
+    const scene = createGlassScene({ platform: workingPlatform, diagnostics });
+    scene.registerBackdropSource({ id: "page", kind: "dom" });
+
+    for (const [id, x, padding] of [
+      ["narrow", 0, 10],
+      ["wide", 120, 90],
+    ] as const) {
+      scene.registerGlassGroup({
+        id,
+        backdropSourceId: "page",
+        samplingPadding: padding,
+        mergeDistance: padding,
+      });
+      scene.registerGlassNode({
+        id: `${id}-node`,
+        groupId: id,
+        shapeFamily: "capsule",
+        shape,
+        zSlot: { plane: "base", order: 0 },
+      });
+      scene.setNodeBounds(`${id}-node`, rect(x, 0));
+    }
+
+    expect(scene.checkGroupProxyOverlap()).toEqual([
+      { plane: "base", groupIds: ["narrow", "wide"] },
+    ]);
   });
 
   it("says nothing about surfaces that share one group — one group, one proxy", () => {
