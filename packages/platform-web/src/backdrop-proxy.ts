@@ -130,8 +130,14 @@ export function createBackdropProxyManager(
       const live = new Set<string>();
       /** Group ids whose chain is new this sync. A Set, so a split group counts once. */
       const created = new Set<string>();
-      const boxes: { readonly groupId: string; readonly plane: GlassPlane; readonly box: Rect }[] =
-        [];
+      const boxes: {
+        readonly groupId: string;
+        readonly plane: GlassPlane;
+        /** The padded box: everything this proxy *samples*. */
+        readonly box: Rect;
+        /** The unpadded shape union: everything this proxy *paints*. */
+        readonly clipUnion: Rect;
+      }[] = [];
 
       for (const request of requests) {
         const geometry = resolveProxyGeometry({
@@ -151,7 +157,12 @@ export function createBackdropProxyManager(
           report(request.groupId, finding.code, finding.message, finding.severity);
         }
 
-        boxes.push({ groupId: request.groupId, plane: request.plane, box: geometry.box });
+        boxes.push({
+          groupId: request.groupId,
+          plane: request.plane,
+          box: geometry.box,
+          clipUnion: geometry.clipUnion,
+        });
 
         const existing = entries.get(key);
         // A missing entry covers both cases the audit cares about, and they are
@@ -174,20 +185,38 @@ export function createBackdropProxyManager(
         );
       }
 
-      // core runs this same check against the *authored* padding, so a pair that
-      // only overlaps once the 3σ floor has been applied is invisible to it —
-      // and that pair double-filters exactly as measurably as any other.
+      // The predicate is padded box against the *neighbour's painted region*,
+      // not against the neighbour's padded box.
+      //
+      // Chaining needs one proxy's box to contain another proxy's already
+      // filtered output. A group paints only inside its clip union, and its box
+      // extends one padding beyond that — so a box-against-box test fires out to
+      // *twice* the padding, and over the outer half of that range the boxes
+      // intersect in a region neither group paints into. The double filtering
+      // this message describes provably does not happen there: 81
+      // byte-deterministic cells over 3 blur radii and 4 backdrop classes found
+      // zero leak at every separation at or beyond one padding
+      // (`spikes/s1-proxy-topology/overlap-experiment/`).
+      //
+      // Symmetric on purpose. Only the later-painted group is ever contaminated,
+      // and the paint order here is deterministic, so this could halve again —
+      // but a finding that appears and disappears as ordering changes is worse
+      // diagnostics than a statement about the layout.
+      //
+      // core runs its own overlap test against the *authored* padding, so a pair
+      // that only comes within reach once the 3σ floor is applied is invisible
+      // to it — and that pair double-filters exactly as measurably as any other.
       for (let i = 0; i < boxes.length; i += 1) {
         for (let j = i + 1; j < boxes.length; j += 1) {
           const a = boxes[i];
           const b = boxes[j];
           if (a === undefined || b === undefined || a.plane !== b.plane) continue;
-          if (!rectsOverlap(a.box, b.box)) continue;
+          if (!rectsOverlap(a.box, b.clipUnion) && !rectsOverlap(b.box, a.clipUnion)) continue;
           diagnostics.report({
             code: "proxy-overlap-after-enforcement",
             severity: "warning",
             subjects: [a.groupId, b.groupId],
-            message: `The padded proxies of groups "${a.groupId}" and "${b.groupId}" overlap in the "${a.plane}" plane once the samplingPadding ≥ 3σ floor is applied, so the backdrop filter applies twice over the overlap — paint-order dependent, measured drifting up to 17/255. Put these surfaces in one group so they share a proxy, separate them further, or lower the group's blur radius.`,
+            message: `Groups "${a.groupId}" and "${b.groupId}" sit close enough in the "${a.plane}" plane that one group's padded proxy box — its sampling region, the shape union grown by the effective samplingPadding once the ≥ 3σ floor is applied — covers the other group's own shapes, so the later-painted group filters over pixels the earlier one already filtered and the backdrop filter applies twice there. Paint-order dependent, and it falls off steeply with separation: measured at most 3/255 at a 1.5σ gap, mean 0.43 / max 4 at 1σ, mean 2.56 / max 15 at 0.25σ, and byte-identical zero once the gap reaches the padding. Put these surfaces in one group so they share a proxy, separate them by at least the larger group's effective samplingPadding, or lower the group's blur radius.`,
           });
         }
       }

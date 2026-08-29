@@ -91,20 +91,47 @@ test.describe("the same-plane overlap dev-error", () => {
     // double-filters exactly as measurably as any other.
     const codes = await page.evaluate(async () => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
-      // Authored padding of 2 keeps core's own check quiet at a 60px gap; the
-      // 3σ floor for the regular material's σ = 8 raises it to 24, and 24 + 24
-      // then exceeds the gap.
+      // σ is stated rather than inherited: Chromium answers
+      // `prefers-reduced-transparency` from the machine's own setting, and the
+      // floor these cases are about is 3σ.
+      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
+      // Authored padding of 2 keeps core's own check quiet at a 20px gap; the
+      // 3σ floor for the regular material's σ = 8 raises it to 24, so each
+      // group's padded box then covers the other group's own shapes.
       window.h.addGroup("a", { samplingPadding: 2, mergeDistance: 2 });
       window.h.addGroup("b", { samplingPadding: 2, mergeDistance: 2 });
       window.h.addSurface({ groupId: "a", left: 100, top: 500, width: 100, height: 40 });
-      window.h.addSurface({ groupId: "b", left: 240, top: 500, width: 100, height: 40 });
+      window.h.addSurface({ groupId: "b", left: 220, top: 500, width: 100, height: 40 });
       window.h.frame(2);
       return window.h.diagnosticCodes();
     });
 
     expect(codes).toContain("sampling-padding-below-3-sigma");
     expect(codes).toContain("proxy-overlap-after-enforcement");
-    // core could not have seen it: at the authored padding the boxes are 56px apart.
+    // core could not have seen it: at the authored padding the boxes are 16px apart.
     expect(codes).not.toContain("group-proxy-overlap");
+  });
+
+  test("stays quiet where the padded boxes meet but neither group paints", async ({ page }) => {
+    // The narrowed predicate. At a 40px gap and a 24px padding the two padded
+    // boxes still intersect — over an 8px strip outside both clips, which neither
+    // proxy draws into. The overlap experiment measured that band byte-identical
+    // at three blur radii and four backdrop classes, so the mechanism the
+    // warning names provably does not occur here.
+    // See `spikes/s1-proxy-topology/overlap-experiment/`.
+    const codes = await page.evaluate(async () => {
+      await window.h.createRoot({ renderer: "webgpu", appDevice: true });
+      // σ = 8 stated, so the padding under test is 24 whatever the machine's own
+      // reduced-transparency setting says.
+      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
+      window.h.addGroup("far-a");
+      window.h.addGroup("far-b");
+      window.h.addSurface({ groupId: "far-a", left: 100, top: 700, width: 100, height: 40 });
+      window.h.addSurface({ groupId: "far-b", left: 240, top: 700, width: 100, height: 40 });
+      window.h.frame(2);
+      return window.h.diagnosticCodes();
+    });
+
+    expect(codes).not.toContain("proxy-overlap-after-enforcement");
   });
 });

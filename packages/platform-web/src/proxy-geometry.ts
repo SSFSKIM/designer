@@ -62,6 +62,15 @@ export interface ProxyGeometryInput {
 export interface ProxyGeometry {
   /** The proxy element's border box, in viewport CSS px. */
   readonly box: Rect;
+  /**
+   * The *unpadded* member-bounds union, in viewport CSS px — the region this
+   * proxy can actually paint into, since the clip path never leaves it.
+   *
+   * `box` is this rect inflated by `effectivePadding`; the difference between
+   * the two is sampled but never drawn, which is what the cross-group overlap
+   * check in `backdrop-proxy.ts` needs to tell apart.
+   */
+  readonly clipUnion: Rect;
   /** `clip-path` value: the exact member-shape union, in proxy-local px. */
   readonly clipPath: string;
   /** The mask's sub-rects in proxy-local px — the same geometry the path encodes. */
@@ -115,9 +124,12 @@ export interface SamplingGeometry {
  *
  * What this deliberately does **not** do is suppress anything. The floor below
  * still enforces, still warns when an authored value is under it, and the
- * cross-group overlap check is untouched: a page whose groups sit too close for
- * an enlarged blur is a real finding, and going quiet about it under exactly the
- * preference that enlarges the blur would be the worst possible moment to.
+ * cross-group overlap check still fires wherever an enlarged blur really does
+ * put one group's sampling region over another group's shapes — going quiet
+ * about that under exactly the preference that enlarges the blur would be the
+ * worst possible moment to. What that check no longer does is accuse a pair
+ * whose padded boxes merely meet outside both clips; `backdrop-proxy.ts` carries
+ * the measurement.
  */
 export function resolveSamplingGeometry(input: DeclaredSamplingGeometry): SamplingGeometry {
   const samplingPadding = input.samplingPadding ?? requiredSamplingPadding(input.blurRadius);
@@ -248,6 +260,7 @@ export function resolveProxyGeometry(input: ProxyGeometryInput): ProxyGeometry |
 
   return {
     box,
+    clipUnion: union,
     clipPath: `path("${subpaths.join(" ")}")`,
     maskBounds,
     effectivePadding: capped,

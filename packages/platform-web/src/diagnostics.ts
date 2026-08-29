@@ -25,9 +25,10 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
   /** The proxy would exceed the engine's device-pixel area limit, where the filter may vanish. */
   "proxy-area-over-cap",
   /**
-   * Two groups' proxies overlap once the 3σ floor has been applied. core checks
-   * this against the *authored* padding, so only this layer can see the pairs
-   * that enforcement created.
+   * One group's padded proxy box reaches into another group's painted region
+   * once the 3σ floor has been applied, so the filter runs twice over those
+   * pixels. core checks proxy proximity against the *authored* padding, so only
+   * this layer can see the pairs that enforcement created.
    */
   "proxy-overlap-after-enforcement",
   /** An ancestor of the group's proxy re-roots its backdrop; the group demoted. */

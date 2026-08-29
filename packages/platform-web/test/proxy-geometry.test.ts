@@ -50,6 +50,10 @@ describe("proxy geometry (X1, as S1 measured it)", () => {
     // that halo at mean 102.92/255.
     expect(geometry.clipPath.startsWith("path(")).toBe(true);
     expect(geometry.maskBounds).toEqual([{ x: 30, y: 30, width: 120, height: 44 }]);
+    // The same union in viewport coordinates: what this proxy *paints*, as
+    // against the box it *samples*. The cross-group overlap check needs the two
+    // told apart, because the padding between them is a region nothing draws in.
+    expect(geometry.clipUnion).toEqual({ x: 100, y: 100, width: 120, height: 44 });
   });
 
   it("raises a padding below 3σ to 3σ, and says so", () => {
@@ -89,6 +93,8 @@ describe("proxy geometry (X1, as S1 measured it)", () => {
     const geometry = resolved({ ...base, members: [member(100, 100), member(260, 100)] });
 
     expect(geometry.box).toEqual({ x: 76, y: 76, width: 328, height: 92 });
+    // Every member, not just the first: the painted rect is the whole union.
+    expect(geometry.clipUnion).toEqual({ x: 100, y: 100, width: 280, height: 44 });
     expect(geometry.maskBounds).toHaveLength(2);
     // One proxy per sampling group, never one per member.
     expect(geometry.clipPath.match(/M/g)).toHaveLength(2);

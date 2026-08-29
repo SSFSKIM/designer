@@ -104,6 +104,58 @@ test.describe("the layout is legal", () => {
   });
 
   /*
+   * §9 under the preference that stresses it hardest.
+   *
+   * Reduced transparency multiplies frost by 1.75, so σ becomes 14 and every
+   * group's derived sampling padding becomes 42. That is what the placement law
+   * has to survive, and it is the state in which the cross-group overlap check
+   * used to over-report: a padded-box-against-padded-box test wanted 84px of
+   * clearance between neighbouring groups, where the mechanism it names — one
+   * proxy's box covering a neighbour's painted pixels — needs only 42
+   * (`spikes/s1-proxy-topology/overlap-experiment/`, and the demo-shaped
+   * reproduction in `@vitrea/platform-web`'s `e2e/shared/accessible-padding`).
+   * The behaviour stage's three groups sit inside that difference.
+   *
+   * What this case can see depends on the machine, and that is worth stating:
+   * the proxy path belongs to the WebGPU tier's dom sampling, so on a runner
+   * with no adapter this page renders on the CSS tier, filters in place on each
+   * host, and builds no proxies for the check to run over. There it is the
+   * core-level rules — same-plane overlap, proxy proximity, variants,
+   * merge distance — that are being asserted under the preference; on a machine
+   * with an adapter it is the whole set.
+   */
+  test("the layout stays legal under reduced transparency too", async ({ page }) => {
+    const problems: string[] = [];
+    page.on("console", (message) => {
+      if (message.text().includes("[vitrea:")) problems.push(message.text());
+    });
+    page.on("pageerror", (error) => problems.push(`pageerror: ${error.message}`));
+
+    await gotoSite(page);
+    await showSection(page, "access");
+    await page.getByLabel("Reduced transparency").selectOption("true");
+
+    // The preference really is resolved on — a clean findings list under a
+    // preference that never took effect would be proving nothing.
+    await expect(
+      page.locator("#access .readout__row", { hasText: "Frost" }).locator("dd"),
+    ).toHaveText("increased");
+
+    // The behaviour stage is where the toolbar and the menu's group both mount,
+    // and their gap is the geometry the finding was about.
+    await showSection(page, "behavior");
+    await showSection(page, "material");
+
+    await expect(page.getByTestId("authoring-findings")).toHaveCount(0);
+    await expect(page.getByTestId("authoring-clean")).toBeVisible();
+
+    const authored = problems.filter((line) =>
+      AUTHORING_CODES.some((code) => line.includes(code)),
+    );
+    expect(authored).toEqual([]);
+  });
+
+  /*
    * The collapsed breakpoint is where §9 is easiest to break, and it broke twice
    * while this page was being built: once because the group gap shrank with the
    * breakpoint and fell under the 48px two sampling paddings need, and once because

@@ -14,10 +14,14 @@
  * authored.
  *
  * Six of those seven were the default tripping the rule it was written from, and
- * they are what the derived default removes. The seventh is a different animal
- * and it stays: two groups sitting closer than their enlarged sampling regions
- * is a statement about the page's layout, and the moment the blur grows is the
- * worst possible moment to go quiet about it.
+ * they are what the derived default removes. The seventh — the cross-group
+ * overlap warning at the demo's own 56px gap — was a false positive, and the
+ * measurement that showed it is `spikes/s1-proxy-topology/overlap-experiment/`:
+ * at σ = 14 and a 42px padding the two proxies are byte-identical whether they
+ * are painted together or apart, because a proxy's box reaches its neighbour's
+ * *painted* pixels only while the gap is under one padding. The check now says
+ * that, so it still fires below one padding — where the leak is real — and stops
+ * accusing a layout with 14px of clearance to spare.
  *
  * Playwright rather than jsdom: proxies exist only where members have measured
  * rects, and a jsdom test here would be asserting a stubbed layout.
@@ -30,7 +34,14 @@ import { gotoHarness } from "../support";
 /** The playground's own gap between the toolbar group and the morph's group. */
 const DEMO_GROUP_GAP = 56;
 
-/** Two sampling regions at σ = 14 need 42 + 42 to stop overlapping. */
+/**
+ * A gap under the σ = 14 padding of 42, so one group's box covers the other's
+ * shapes and the leak the warning names is really there — measured at up to
+ * 3/255 around this separation, and larger as it closes further.
+ */
+const TIGHT_GROUP_GAP = 28;
+
+/** Comfortably past one padding, where every measured cell is byte-identical. */
 const CLEAR_GROUP_GAP = 88;
 
 /** What the derived default fixes: the two findings about the default itself. */
@@ -53,6 +64,13 @@ async function buildDemoShapedScene(
   await page.evaluate(
     async ([gap, declared]) => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
+      // The pre-flip state is stated rather than inherited. Chromium answers
+      // `prefers-reduced-transparency` from the operating system's own setting,
+      // so on a machine where a person (or another harness) has it switched on,
+      // every "before" frame here would already be the "after" — and since the
+      // diagnostics channel dedupes by code and subjects, the findings would all
+      // land before the clear and none of these tests would see anything.
+      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
       const group = (id: string): void => {
         window.h.addGroup(
           id,
@@ -113,20 +131,37 @@ test("flipping reduced transparency stops warning about the default it chose its
   expect(await findingsOf(page, DEFAULT_PADDING_CODES)).toEqual([]);
 });
 
-test("what is left is about the layout, and goes when the layout gives it room", async ({
+test("the seventh finding was a false positive, and the measurement is why it is gone", async ({
   page,
 }) => {
   await gotoHarness(page);
   await buildDemoShapedScene(page);
 
-  // The seventh finding. Not the default's fault and not suppressed: at σ = 14
-  // the two groups' sampling regions genuinely reach into each other, and S1
-  // measured that leak growing as groups get closer. The advice it gives —
-  // separate them further — is the advice that works, and this proves it does.
+  // 56px of gap against a 42px padding: the two padded boxes do intersect, but
+  // only over a 28px strip outside both clips, which neither proxy paints into.
+  // Rendered at exactly this σ and padding over a checkerboard and a photo-class
+  // backdrop, the split and the single topology are byte-identical — the double
+  // filtering the warning names does not happen here.
+  expect(await findingsOf(page, ALL_PADDING_CODES)).toEqual([]);
+});
+
+test("and it still fires where the leak is real, under the very preference that grows it", async ({
+  page,
+}) => {
+  await gotoHarness(page);
+  // Close the gap to under one padding and the toolbar's box now covers the
+  // menu group's own shapes. This is the conservatism that stays: the leak here
+  // is small (single-digit /255) but real and paint-order dependent, and going
+  // quiet about it under the preference that enlarged the blur would invert the
+  // diagnostics doctrine.
+  await buildDemoShapedScene(page, { gap: TIGHT_GROUP_GAP });
+
   expect(await findingsOf(page, ["proxy-overlap-after-enforcement"])).toEqual([
     "proxy-overlap-after-enforcement(toolbar,toolbar-menu)",
   ]);
 
+  // And it goes when the layout gives it room — the advice it gives is the
+  // advice that works.
   await buildDemoShapedScene(page, { gap: CLEAR_GROUP_GAP });
   expect(await findingsOf(page, ALL_PADDING_CODES)).toEqual([]);
 });
@@ -169,6 +204,9 @@ test("nothing moves at the nominal state, which is where every golden was taken"
   // to" — the same number, so every committed box stays byte-identical.
   const result = await page.evaluate(async () => {
     await window.h.createRoot({ renderer: "webgpu", appDevice: true });
+    // Nominal is stated, not inherited: the machine's own reduced-transparency
+    // setting reaches Chromium's media query and would move σ under this test.
+    window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
     window.h.addGroup("g");
     window.h.addSurface({ groupId: "g", left: 200, top: 200, width: 140, height: 44 });
     window.h.frame(3);
