@@ -100,9 +100,10 @@ func runProbe() {
     fail("probe needs the checkerboard background and capsule-button component")
   }
   let bg = Backgrounds.render(bgSpec, canvas: canvas, scale: scale)
-  let entry = SceneEntry(id: "probe", background: "checkerboard", component: "capsule-button", state: "rest")
+  let entry = SceneEntry(id: "probe", background: "checkerboard", component: "capsule-button",
+                         state: "rest", tint: nil)
   let view = SceneView(scene: entry, component: component, backgroundImage: bg,
-                       canvas: canvas, pressed: false)
+                       canvas: canvas, pressed: false, tint: nil)
 
   print("== capture path probe ==")
   print("hardware: \(Environment.hardware().model), \(Environment.hardware().osVersion)")
@@ -496,8 +497,12 @@ func runCapture(method: CaptureMethod) {
       fail("scene '\(scene.id)' is not fully resolvable — scenes.json validation should have caught this")
     }
 
+    // `validate()` has already refused any scene naming a tint the registry does
+    // not hold, so a nil here means the scene declared none.
+    let tint = scene.tint.flatMap { spec.tints?[$0]?.color }
+
     let view = SceneView(scene: scene, component: component, backgroundImage: bg,
-                         canvas: canvas, pressed: scene.state == "pressed")
+                         canvas: canvas, pressed: scene.state == "pressed", tint: tint)
       .profileEnvironment(colorScheme: profile.colorScheme, a11y: profile.a11y)
 
     let dir = "\(staging)/\(profile.key)"

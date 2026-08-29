@@ -82,7 +82,7 @@ provisional ones.
 
 ## What is committed today
 
-- `fixtures/backgrounds/` — the six shared raster backgrounds, **byte-stable** and
+- `fixtures/backgrounds/` — the seven shared raster backgrounds, **byte-stable** and
   genuinely useful now. Both renderers composite these exact PNGs, which is the
   spec's rule that font and asset rasterisation must never reach the diff.
 - `fixtures/<profile-key>/` + `fixtures/manifest.json` — the matrix captured via

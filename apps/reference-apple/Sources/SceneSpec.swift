@@ -1,5 +1,6 @@
 import Foundation
 import CoreGraphics
+import SwiftUI
 
 /// The decoded form of `scenes.json`.
 ///
@@ -99,11 +100,34 @@ extension ComponentSpec: Decodable {
   }
 }
 
+/// An author tint, as `Glass.tint(_:)` takes it. sRGB components 0…255 and an
+/// optional alpha, which is the tint's STRENGTH on both sides: SwiftUI's
+/// `Color.opacity` and vitrea's colour-alpha are the same axis.
+struct TintSpec: Decodable {
+  let srgb: [Int]
+  let alpha: Double?
+
+  /// `Color(.sRGB, …)` explicitly rather than `Color(red:green:blue:)`: the whole
+  /// pipeline is sRGB-locked (X5) and the capture's observed colour space is
+  /// `kCGColorSpaceSRGB`, so the one place a colour enters the native side should
+  /// name the space rather than inherit a default.
+  var color: Color {
+    Color(.sRGB,
+          red:     Double(srgb[0]) / 255,
+          green:   Double(srgb[1]) / 255,
+          blue:    Double(srgb[2]) / 255,
+          opacity: alpha ?? 1)
+  }
+}
+
 struct SceneEntry: Decodable {
   let id: String
   let background: String
   let component: String
   let state: String
+  /// Absent on every scene that predates W3, which is what keeps the existing
+  /// bed byte-identical: no tint declared, no `.tint(_:)` applied.
+  let tint: String?
 }
 
 /// Which scenes a profile captures: every scene, or a named subset.
@@ -153,6 +177,10 @@ struct SceneSpecFile: Decodable {
   let canvas: CanvasSize
   let backgrounds: [String: BackgroundSpec]
   let components: [String: ComponentSpec]
+  /// W3's author-tint registry, declared beside `backgrounds` and `components`
+  /// rather than smuggled into either. Optional so a spec file that predates W3
+  /// still decodes.
+  let tints: [String: TintSpec]?
   let scenes: [SceneEntry]
   let profiles: [ProfileSpec]
   let split: SplitSpec
@@ -179,6 +207,15 @@ struct SceneSpecFile: Decodable {
     for s in scenes {
       if backgrounds[s.background] == nil { problems.append("scene '\(s.id)': no background '\(s.background)'") }
       if components[s.component] == nil { problems.append("scene '\(s.id)': no component '\(s.component)'") }
+      // A scene naming a tint the registry does not hold must fail HERE. The
+      // resolution at the capture call site is a dictionary lookup, so an
+      // unknown id would otherwise resolve to nil and file a silently untinted
+      // capture under a tinted scene id — the one failure mode that puts an
+      // untinted cell into a tinted matrix with nothing in the bytes to say so.
+      if let t = s.tint, tints?[t] == nil { problems.append("scene '\(s.id)': no tint '\(t)'") }
+    }
+    for (id, t) in (tints ?? [:]) where t.srgb.count != 3 {
+      problems.append("tint '\(id)': srgb must have 3 components, got \(t.srgb.count)")
     }
     for p in profiles {
       if case .some(let want) = p.scenes {

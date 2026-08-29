@@ -61,6 +61,9 @@ struct SceneView: View {
   let backgroundImage: CGImage
   let canvas: CGSize
   let pressed: Bool
+  /// Resolved from `scenes.json`'s `tints` registry by the caller; nil for every
+  /// scene that declares none.
+  let tint: Color?
 
   var body: some View {
     ZStack {
@@ -71,12 +74,17 @@ struct SceneView: View {
     .clipped()
   }
 
-  /// `interactive()` is what Apple's own controls use for press response, and the
-  /// pressed pose is what the `pressed` scenes measure. It is applied to the
-  /// `Glass` value, not the view — that is the API shape, and it is also why the
-  /// pressed state is a material property here rather than a transform.
+  /// The `Glass` value's non-geometric configuration, in one place.
+  ///
+  /// `interactive()` is what Apple's own controls use for press response, and
+  /// the pressed pose is what the `pressed` scenes measure. `tint(_:)` is the
+  /// same kind of thing — a modifier on the `Glass` value rather than on the
+  /// view — which is exactly why the web side models a tint as material rather
+  /// than as a style on the host element.
   private func material(_ base: Glass = .regular) -> Glass {
-    pressed ? base.interactive(true) : base
+    var glass = pressed ? base.interactive(true) : base
+    if let tint { glass = glass.tint(tint) }
+    return glass
   }
 
   @ViewBuilder
