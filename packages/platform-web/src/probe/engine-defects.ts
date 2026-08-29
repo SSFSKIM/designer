@@ -133,16 +133,34 @@ const RADIUS_PROPERTIES = [
 ];
 
 /**
- * Whether this element clips with rounded corners, and the values that say so.
+ * The clipping `overflow` value on this element, verbatim, or `undefined` if it
+ * does not clip.
  *
  * The shorthand *and* the longhands are read, because environments disagree
  * about which of the two a computed style resolves: browsers expand
  * `overflow: hidden` into both axes, jsdom reports the shorthand and leaves the
  * longhands at their initial values. Reading both is what makes one reader
  * correct in a browser and in the tests that fabricate a chain without one.
+ *
+ * Exported for the geometry clip chain (Decision Log #41(k)), which asks the
+ * same question about the same ancestors and would otherwise define "clips" a
+ * second time. That the two definitions must agree is not a coincidence to be
+ * preserved by discipline: an ancestor that crops a surface geometrically is an
+ * ancestor that crops it optically.
+ */
+export function clipsContentOf(style: StyleLookup): string | undefined {
+  return OVERFLOW_PROPERTIES.map((property) => style(property)).find(clipsContent);
+}
+
+/**
+ * Whether this element clips with rounded corners, and the values that say so.
+ *
+ * The *rounded* half is what layer 3 needs: Chromium ≥152 drops
+ * `backdrop-filter` under a rounded clipping ancestor specifically, and a
+ * square-cornered one is not the hazard.
  */
 export function roundedClipOf(style: StyleLookup): { overflow: string; borderRadius: string } | undefined {
-  const overflow = OVERFLOW_PROPERTIES.map((property) => style(property)).find(clipsContent);
+  const overflow = clipsContentOf(style);
   if (overflow === undefined) return undefined;
 
   const borderRadius = RADIUS_PROPERTIES.map((property) => style(property)).find(roundsCorners);

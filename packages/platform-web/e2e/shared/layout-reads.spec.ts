@@ -144,12 +144,27 @@ test.describe("zero layout reads at steady state", () => {
         await window.h.settle();
         window.h.frame(1);
       }
-      return window.h.meter();
+      return { meter: window.h.meter(), clip: window.h.nodeClip("inside") };
     });
 
-    // Only the host inside the scrolled subtree moved; `contains` answers that
-    // without reading anything.
-    expect(result.rects).toBe(1);
+    /*
+     * Two rects, and the exact number is the point.
+     *
+     * One is the host inside the scrolled subtree — the only host that moved,
+     * and `contains` answers which one without reading anything. The other is
+     * the scroller itself: since Decision Log #41(k) a measured host publishes
+     * the clip windows its ancestors impose, and a scroll moves the host
+     * relative to the window without changing which ancestors clip it, so the
+     * window's rect is re-read while the computed-style walk that found it is
+     * not repeated.
+     *
+     * The host *outside* the scroller is still not measured, which is what this
+     * test is about. Were it, this would read 3 — plus nothing for its clip
+     * chain, because nothing clips it.
+     */
+    expect(result.meter.rects).toBe(2);
+    expect(result.clip).toHaveLength(1);
+    expect(result.meter.styles).toBe(0);
   });
 
   test("counts the backdrop-root audit's style reads as reads", async ({ page }) => {

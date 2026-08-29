@@ -999,7 +999,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const external = records.some(
       (record) => record.target instanceof Node && !layers.root.contains(record.target),
     );
-    if (external) staleProbes = "all";
+    if (!external) return;
+    staleProbes = "all";
+    /*
+     * The geometry clip chain goes stale on exactly the same events (Decision
+     * Log #41(k)): an app style change can add or remove an `overflow` on an
+     * ancestor, and which ancestors clip is cached per host so that a scroll
+     * costs rect reads rather than style reads. Nothing else observes it — a
+     * `ResizeObserver` does not fire for an `overflow` change, and `MutationObserver`
+     * is already here for the probe's identical problem.
+     *
+     * Only the *cache* is dropped. Nothing is marked dirty by this, so a page
+     * whose app CSS churns does not start re-measuring every host; the chain is
+     * re-walked the next time a host is measured for a reason of its own.
+     */
+    geometry.invalidateClipChains();
   });
   styleObserver.observe(view.document.documentElement, {
     attributes: true,
@@ -1138,16 +1152,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             groupId,
             plane,
             order: Math.min(...inPlane.map((entry) => entry.record.order)),
-            members: inPlane.map((entry) => ({
-              nodeId: entry.record.nodeId,
-              bounds: entry.bounds,
-              radii: [
-                entry.record.radii[0],
-                entry.record.radii[1],
-                entry.record.radii[2],
-                entry.record.radii[3],
-              ],
-            })),
+            members: inPlane.map((entry) => {
+              // The clip chain the read phase measured alongside the box
+              // (Decision Log #41(k)). A proxy sits in the plane layer, not
+              // inside whatever is cropping the host, so nothing narrows it for
+              // us — the geometry has to carry the crop or the glass paints
+              // outside the scroller that was supposed to contain it.
+              const clip = scene.glassNode(entry.record.nodeId)?.clip;
+              return {
+                nodeId: entry.record.nodeId,
+                bounds: entry.bounds,
+                radii: [
+                  entry.record.radii[0],
+                  entry.record.radii[1],
+                  entry.record.radii[2],
+                  entry.record.radii[3],
+                ] as const,
+                ...(clip === undefined ? {} : { clip }),
+              };
+            }),
             samplingPadding: sampling.samplingPadding,
             mergeDistance: sampling.mergeDistance,
             blurRadius: optics.blurRadius,

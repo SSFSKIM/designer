@@ -65,6 +65,27 @@ export interface SurfaceSpec {
    * includes text fields in the sequential focus order.
    */
   readonly as?: "button" | "input";
+  /**
+   * The id of an element to append into, instead of the plane's host layer.
+   *
+   * The app owns placement, and "the app put this host inside its own scroller"
+   * is the shape the clip chain exists for (#41(k)). `addScroller` builds one.
+   */
+  readonly into?: string;
+}
+
+/** An app-owned scrolling container, for the clip-chain scenario. */
+export interface ScrollerSpec {
+  readonly id: string;
+  readonly left: number;
+  readonly top: number;
+  readonly width: number;
+  readonly height: number;
+  readonly plane?: GlassPlane;
+  /** Anything that clips. Defaults to `auto`. */
+  readonly overflow?: string;
+  /** How tall the scrolled content is. Defaults to 2000. */
+  readonly contentHeight?: number;
 }
 
 export interface RootSpec {
@@ -282,8 +303,13 @@ const api = {
     host.style.height = `${spec.height}px`;
 
     // The app owns placement: it renders (or portals) into the plane's host
-    // layer, and vitrea never moves the element. This is the asChild contract.
-    glassRoot.plane(plane).hostLayer.append(host);
+    // layer — or into a container of its own inside it — and vitrea never moves
+    // the element. This is the asChild contract.
+    const into =
+      spec.into === undefined
+        ? undefined
+        : document.querySelector<HTMLElement>(`#${spec.into}-content`);
+    (into ?? glassRoot.plane(plane).hostLayer).append(host);
 
     const radius = spec.radius ?? 22;
     const handle = glassRoot.registerHost({
@@ -376,6 +402,51 @@ const api = {
 
   nodePlane(nodeId: string): string | undefined {
     return api.requireRoot().scene.glassNode(nodeId)?.descriptor.zSlot.plane;
+  },
+
+  /** The measured border box core is holding. Unclipped, as the browser reports it. */
+  nodeBounds(nodeId: string): BoxReading | undefined {
+    const bounds = api.requireRoot().scene.glassNode(nodeId)?.bounds;
+    return bounds === undefined
+      ? undefined
+      : { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height };
+  },
+
+  /** The ancestor clip chain core is holding for this node, nearest first (#41(k)). */
+  nodeClip(nodeId: string): readonly BoxReading[] | undefined {
+    const clip = api.requireRoot().scene.glassNode(nodeId)?.clip;
+    return clip?.map((rect) => ({
+      x: rect.x,
+      y: rect.y,
+      width: rect.width,
+      height: rect.height,
+    }));
+  },
+
+  /**
+   * An `overflow: auto` scroller in the plane's host layer, with a tall spacer
+   * so it genuinely scrolls. Surfaces go inside it via `addSurface({ into })`.
+   */
+  addScroller(spec: ScrollerSpec): void {
+    const scroller = document.createElement("div");
+    scroller.id = spec.id;
+    scroller.style.cssText =
+      `position:absolute;left:${String(spec.left)}px;top:${String(spec.top)}px;` +
+      `width:${String(spec.width)}px;height:${String(spec.height)}px;` +
+      `overflow:${spec.overflow ?? "auto"};pointer-events:none`;
+    const content = document.createElement("div");
+    content.id = `${spec.id}-content`;
+    content.style.cssText = `position:relative;height:${String(spec.contentHeight ?? 2000)}px`;
+    scroller.append(content);
+    api
+      .requireRoot()
+      .plane(spec.plane ?? "base")
+      .hostLayer.append(scroller);
+  },
+
+  /** Scroll one of `addScroller`'s containers. The page's own scroller is `scrollTo`. */
+  scrollScroller(id: string, top: number): void {
+    document.querySelector<HTMLElement>(`#${id}`)?.scrollTo(0, top);
   },
 
   promote(nodeId: string, plane: GlassPlane): void {

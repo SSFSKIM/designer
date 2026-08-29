@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   GLASS_PLANES,
+  clipRect,
   compareZSlot,
   inflateRect,
   rectsOverlap,
@@ -106,5 +107,63 @@ describe("union and inflate — the proxy-box arithmetic", () => {
     expect(rectsOverlap(left, right)).toBe(true);
     // The same pair stops overlapping once the gap exceeds both paddings.
     expect(rectsOverlap(left, inflateRect(rect(200, 0, 40, 40), 60))).toBe(false);
+  });
+});
+
+/**
+ * The clip chain's arithmetic (Decision Log #41(k)).
+ *
+ * A border box is measured unclipped, so it says where a surface is and not
+ * what of it is visible. Everything downstream that reasons about area — the
+ * overlap checks, the proxy's painted region — needs the second answer, and
+ * this is the one place the two are reconciled.
+ */
+describe("clipping a rect to its ancestors' windows", () => {
+  it("returns the rect untouched when nothing clips", () => {
+    const box = rect(10, 10, 100, 40);
+
+    // `undefined` and `[]` are the same statement, and the common case: a
+    // surface with no clipping ancestor pays nothing for the feature.
+    expect(clipRect(box, undefined)).toEqual(box);
+    expect(clipRect(box, [])).toEqual(box);
+  });
+
+  it("crops to the window, edge by edge", () => {
+    const box = rect(0, 0, 100, 100);
+
+    expect(clipRect(box, [rect(20, 30, 100, 100)])).toEqual({
+      x: 20,
+      y: 30,
+      width: 80,
+      height: 70,
+    });
+  });
+
+  it("intersects every window in the chain, not just the nearest", () => {
+    const box = rect(0, 0, 100, 100);
+    // Nested scrollers: the visible region is what survives both.
+    const nested = clipRect(box, [rect(10, 0, 100, 100), rect(0, 0, 40, 100)]);
+
+    expect(nested).toEqual({ x: 10, y: 0, width: 30, height: 100 });
+  });
+
+  /*
+   * Zero rather than negative, and it matters downstream: `rectsOverlap`
+   * refuses a zero-extent rect and the proxy geometry treats one as absent, so
+   * "scrolled entirely out of view" needs no special case anywhere else.
+   */
+  it("collapses to zero extent when the windows exclude it entirely", () => {
+    const outside = clipRect(rect(0, 0, 50, 50), [rect(200, 200, 50, 50)]);
+
+    expect(outside.width).toBe(0);
+    expect(outside.height).toBe(0);
+    expect(rectsOverlap(outside, rect(200, 200, 50, 50))).toBe(false);
+  });
+
+  it("is idempotent, so folding a chain twice says the same thing", () => {
+    const chain = [rect(10, 10, 60, 60)];
+    const once = clipRect(rect(0, 0, 100, 100), chain);
+
+    expect(clipRect(once, chain)).toEqual(once);
   });
 });

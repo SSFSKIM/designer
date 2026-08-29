@@ -78,6 +78,7 @@ import {
   type ResolvedMaterial,
 } from "./material";
 import {
+  clipRect,
   inflateRect,
   rectsOverlap,
   unionRect,
@@ -1009,22 +1010,37 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     checkSamePlaneOverlap() {
       if (!devMode) return [];
 
-      const measured = [...nodes.values()].filter(
-        (node): node is GlassNodeRecord & { readonly bounds: Rect } => node.bounds !== undefined,
-      );
+      /*
+       * Visible extents, not border boxes (Decision Log #41(k)).
+       *
+       * `bounds` is measured unclipped, so under an `overflow: scroll` ancestor
+       * it describes where the surface *is* rather than what of it is showing —
+       * and a surface scrolled out of its scroller kept accusing every surface
+       * whose box it happened to pass over on the way, with a hard error about
+       * a sandwich that never had to order them. Folding the clip chain first is
+       * the whole fix: a fully scrolled-out surface intersects to zero extent,
+       * and `rectsOverlap` already refuses a zero-extent rect.
+       */
+      const measured = [...nodes.values()]
+        .filter(
+          (node): node is GlassNodeRecord & { readonly bounds: Rect } => node.bounds !== undefined,
+        )
+        .map((node) => ({ node, visible: clipRect(node.bounds, node.clip) }));
 
       const overlaps: PlaneOverlap[] = [];
       // Pairwise: v1's benchmark scene is eight surfaces, so a sweep line would
       // buy nothing but code. Revisit if a scene ever holds dozens.
       for (let i = 0; i < measured.length; i += 1) {
         for (let j = i + 1; j < measured.length; j += 1) {
-          const a = measured[i];
-          const b = measured[j];
+          const a = measured[i]?.node;
+          const b = measured[j]?.node;
           if (a === undefined || b === undefined) continue;
 
           const plane = a.descriptor.zSlot.plane;
           if (plane !== b.descriptor.zSlot.plane) continue;
-          if (!rectsOverlap(a.bounds, b.bounds)) continue;
+          if (!rectsOverlap(measured[i]?.visible ?? a.bounds, measured[j]?.visible ?? b.bounds)) {
+            continue;
+          }
 
           const nodeIds: readonly [string, string] = [a.descriptor.id, b.descriptor.id];
           overlaps.push({ plane, nodeIds });
@@ -1062,9 +1078,17 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         for (const node of nodesOfGroup(groupId)) {
           const { bounds } = node;
           if (bounds === undefined) continue;
+          // The painted region is what an ancestor lets through, not the border
+          // box (Decision Log #41(k)). The predicate below rests on "a proxy
+          // paints only inside its own clip union", and a union built from
+          // unclipped boxes made that sentence false the moment a member sat in
+          // a scroller: the group claimed — and accused neighbours over — a
+          // region it could not paint a pixel of.
+          const visible = clipRect(bounds, node.clip);
+          if (visible.width <= 0 || visible.height <= 0) continue;
           const plane = node.descriptor.zSlot.plane;
           const grown = byPlane.get(plane);
-          byPlane.set(plane, grown === undefined ? bounds : unionRect(grown, bounds));
+          byPlane.set(plane, grown === undefined ? visible : unionRect(grown, visible));
         }
 
         for (const [plane, union] of byPlane) {

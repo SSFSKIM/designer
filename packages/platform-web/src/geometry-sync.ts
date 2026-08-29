@@ -34,11 +34,44 @@
  * deformed surface; `root`'s `setOwnedTransform` marks the host dirty on the
  * edge where the transform is cleared, which costs one read per gesture and
  * leaves the steady state untouched.
+ *
+ * ## The clip chain (Decision Log #41(k))
+ *
+ * A border box says where a surface *is*, not what of it is *visible*. Under an
+ * `overflow: scroll` ancestor the two are different things: the browser reports
+ * the full box wherever it has scrolled to, including entirely outside the
+ * scroller. Everything downstream believed the box — so a surface scrolled out
+ * of view still claimed its area, still reported same-plane overlaps against
+ * surfaces it could never touch, and still had a proxy painting glass outside
+ * the scroller that was supposed to crop it.
+ *
+ * So each measured host is published with the clip windows its clipping
+ * ancestors impose, and core's `clipRect` folds them. Two costs, both deliberate:
+ *
+ * - **The chain is cached per host, its rects are not.** Which ancestors clip is
+ *   structural and changes rarely; where they are changes on every scroll. So
+ *   the computed-style walk runs once per host and the rect reads run per
+ *   measurement — the alternative was a style read per ancestor per scroll
+ *   event, on exactly the page this feature is for.
+ * - **A stale chain is possible**, and `invalidateClipChains` is the answer: the
+ *   root calls it from the same mutation observer that re-runs the backdrop-root
+ *   probe, because "an ancestor's `overflow` changed" and "an ancestor's
+ *   `filter` changed" are the same class of event and neither has an observer of
+ *   its own.
+ *
+ * The steady state is untouched: nothing dirty still measures nothing.
  */
 
 import type { GlassScene, Rect } from "@vitreajs/vitrea";
 
-import { readRect, readViewport, type LayoutReadMeter, type ViewportReading } from "./measure";
+import { clipsContentOf } from "./probe/engine-defects";
+import {
+  readComputedStyle,
+  readRect,
+  readViewport,
+  type LayoutReadMeter,
+  type ViewportReading,
+} from "./measure";
 
 export interface TrackedHost {
   readonly nodeId: string;
@@ -58,6 +91,15 @@ export interface GeometrySync {
   untrack(nodeId: string): void;
   markDirty(nodeId: string): void;
   markAllDirty(): void;
+  /**
+   * Forget which ancestors clip, so the next measurement re-walks for it.
+   *
+   * Which ancestors clip is structural: it changes when the app changes an
+   * `overflow`, or moves a host into a different subtree. Neither has an
+   * observer, and both are visible in the attribute mutations the root already
+   * watches for the backdrop-root probe — so the root calls this from there.
+   */
+  invalidateClipChains(): void;
   /** The read phase. Measures every dirty host exactly once, then clears the set. */
   read(): void;
   /** Last measured viewport, or `undefined` before the first read. */
@@ -72,6 +114,11 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
 
   const tracked = new Map<string, TrackedHost>();
   const dirty = new Set<string>();
+  /**
+   * The clipping ancestors of each tracked host, nearest first — the elements,
+   * not their rects. Absent until the host's first measurement.
+   */
+  const clipChains = new Map<string, readonly Element[]>();
   let viewport: ViewportReading | undefined;
   /** Set on the first read and whenever the viewport changes, so the DPR is fresh. */
   let viewportDirty = true;
@@ -119,6 +166,52 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
     }
   };
 
+  /**
+   * The clipping ancestors between a host and the document, nearest first.
+   *
+   * The predicate is `clipsContentOf`, borrowed from layer 3's engine-defect scan
+   * rather than written again: "any `overflow` token other than `visible` clips"
+   * is the same question there and here, it is already unit-tested across the
+   * `hidden` / `clip` / `auto` / `scroll` matrix and the three longhands, and two
+   * definitions of "clips" would eventually disagree. Layer 3 needs the *rounded*
+   * half on top of it, which is why `roundedClipOf` is now expressed over this
+   * one rather than the other way round.
+   *
+   * The walk runs to the document element rather than stopping at the plane
+   * layer. A host's clipping ancestors are the app's own elements, and the plane
+   * layer is not one of them — vitrea appends into it, so a host's real
+   * containment chain is the one the app built underneath. Stopping early would
+   * miss a scroller the app wrapped the whole page in.
+   */
+  const clipChainOf = (element: Element): readonly Element[] => {
+    const chain: Element[] = [];
+    for (
+      let ancestor = element.parentElement;
+      ancestor !== null && ancestor !== view.document.documentElement;
+      ancestor = ancestor.parentElement
+    ) {
+      // One computed style per ancestor, read through the meter like everything
+      // else here, then queried several times off the same declaration.
+      const style = readComputedStyle(meter, ancestor, view);
+      if (clipsContentOf((property) => style.getPropertyValue(property)) !== undefined) {
+        chain.push(ancestor);
+      }
+    }
+    return chain;
+  };
+
+  const clipOf = (host: TrackedHost): readonly Rect[] | undefined => {
+    let chain = clipChains.get(host.nodeId);
+    if (chain === undefined) {
+      chain = clipChainOf(host.element);
+      clipChains.set(host.nodeId, chain);
+    }
+    if (chain.length === 0) return undefined;
+    // Rects every time: which ancestors clip is structural, where they are is
+    // not, and a scroll moves them without changing the set.
+    return chain.map((ancestor) => readRect(meter, ancestor));
+  };
+
   const onViewportResize = (): void => markAllDirty();
 
   // Text metrics arriving late reflow hosts after the frame that registered
@@ -135,6 +228,8 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
     track(host) {
       tracked.set(host.nodeId, host);
       dirty.add(host.nodeId);
+      // A re-registration under the same id may sit somewhere else entirely.
+      clipChains.delete(host.nodeId);
       resizeObserver.observe(host.element);
     },
 
@@ -143,10 +238,15 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       if (host !== undefined) resizeObserver.unobserve(host.element);
       tracked.delete(nodeId);
       dirty.delete(nodeId);
+      clipChains.delete(nodeId);
     },
 
     markDirty,
     markAllDirty,
+
+    invalidateClipChains() {
+      clipChains.clear();
+    },
 
     read() {
       if (viewportDirty) {
@@ -160,7 +260,8 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
         const host = tracked.get(nodeId);
         if (host === undefined) continue;
         const rect: Rect = readRect(meter, host.element);
-        scene.setNodeBounds(nodeId, rect);
+        const clip = clipOf(host);
+        scene.setNodeBounds(nodeId, rect, clip);
         measured.push(nodeId);
       }
       dirty.clear();
@@ -183,6 +284,7 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       fonts?.removeEventListener("loadingdone", onFontsDone);
       tracked.clear();
       dirty.clear();
+      clipChains.clear();
     },
   };
 }

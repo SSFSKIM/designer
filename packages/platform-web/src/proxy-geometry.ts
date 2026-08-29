@@ -24,7 +24,7 @@
  * element that carries the result is `backdrop-proxy.ts`'s job.
  */
 
-import { inflateRect, unionRect, type CornerRadii, type Rect } from "@vitreajs/vitrea";
+import { clipRect, inflateRect, unionRect, type CornerRadii, type Rect } from "@vitreajs/vitrea";
 
 import { requiredSamplingPadding } from "./optics";
 
@@ -33,6 +33,17 @@ export interface ProxyMember {
   readonly nodeId: string;
   readonly bounds: Rect;
   readonly radii: CornerRadii;
+  /**
+   * The clip windows this member's ancestors impose, viewport space, from the
+   * read phase (Decision Log #41(k)). Absent for a member nothing clips, which
+   * is the common case.
+   *
+   * A proxy is not inside the app's scroller — it lives in the plane layer — so
+   * nothing crops it on the browser's behalf. Before this travelled, a surface
+   * scrolled halfway out of an `overflow: scroll` ancestor had its glass painted
+   * in full, outside the box that was supposed to be cropping it.
+   */
+  readonly clip?: readonly Rect[];
 }
 
 export type ProxyFindingCode =
@@ -63,12 +74,19 @@ export interface ProxyGeometry {
   /** The proxy element's border box, in viewport CSS px. */
   readonly box: Rect;
   /**
-   * The *unpadded* member-bounds union, in viewport CSS px — the region this
-   * proxy can actually paint into, since the clip path never leaves it.
+   * The *unpadded* union of the members' visible extents, in viewport CSS px —
+   * the region this proxy can actually paint into, since the clip path never
+   * leaves it.
+   *
+   * "Visible" rather than "measured" since Decision Log #41(k): a member's
+   * border box is reported unclipped, so a union built from boxes claimed
+   * regions an ancestor was cropping and the sentence above was false under any
+   * `overflow: scroll`. The cross-group overlap check in `backdrop-proxy.ts`
+   * rests on exactly that sentence.
    *
    * `box` is this rect inflated by `effectivePadding`; the difference between
-   * the two is sampled but never drawn, which is what the cross-group overlap
-   * check in `backdrop-proxy.ts` needs to tell apart.
+   * the two is sampled but never drawn, which is what the overlap check needs to
+   * tell apart.
    */
   readonly clipUnion: Rect;
   /** `clip-path` value: the exact member-shape union, in proxy-local px. */
@@ -138,9 +156,53 @@ export function resolveSamplingGeometry(input: DeclaredSamplingGeometry): Sampli
 
 const area = (rect: Rect): number => rect.width * rect.height;
 
-/** A member with no measured extent contributes nothing — it has not been read yet. */
+/**
+ * A member with no extent contributes nothing.
+ *
+ * Two different states collapse onto this one predicate on purpose: a host that
+ * has not been read yet, and a host its ancestors have cropped to nothing —
+ * scrolled out of its scroller, or inside a collapsed panel. Neither can be
+ * painted and neither should pull the group's proxy towards it, so "not there"
+ * is one answer rather than two.
+ */
 const isMeasured = (member: ProxyMember): boolean =>
   member.bounds.width > 0 && member.bounds.height > 0;
+
+/**
+ * A member reduced to the part of it its ancestors let through.
+ *
+ * The radii go square on every corner whose edge the clip moved, which is what
+ * a rectangular crop of a rounded rect actually looks like: crop the right-hand
+ * third of a pill and the left corners stay round, the cut edge is straight.
+ * Keeping the radii would put a rounded corner in the middle of a scroller,
+ * which reads as a rendering fault rather than as a crop.
+ *
+ * The clip is folded as rects, which is where the approximation is: a rounded
+ * clipping ancestor is carried as its bounding box (see core's `clipRect`), so a
+ * surface tucked into a rounded scroller's own corner is treated as marginally
+ * more visible than it is. The error is bounded by that ancestor's radius.
+ */
+function clipMember(member: ProxyMember): ProxyMember {
+  if (member.clip === undefined || member.clip.length === 0) return member;
+
+  const bounds = clipRect(member.bounds, member.clip);
+  if (bounds.width <= 0 || bounds.height <= 0) return { ...member, bounds };
+
+  const leftCut = bounds.x > member.bounds.x;
+  const topCut = bounds.y > member.bounds.y;
+  const rightCut = bounds.x + bounds.width < member.bounds.x + member.bounds.width;
+  const bottomCut = bounds.y + bounds.height < member.bounds.y + member.bounds.height;
+
+  const [tl, tr, br, bl] = member.radii;
+  const radii: CornerRadii = [
+    leftCut || topCut ? 0 : tl,
+    topCut || rightCut ? 0 : tr,
+    rightCut || bottomCut ? 0 : br,
+    bottomCut || leftCut ? 0 : bl,
+  ];
+
+  return { ...member, bounds, radii };
+}
 
 /**
  * A rounded rectangle as an SVG path, in the coordinate space of the rect.
@@ -203,7 +265,10 @@ function paddingUnderAreaCap(
 }
 
 export function resolveProxyGeometry(input: ProxyGeometryInput): ProxyGeometry | undefined {
-  const members = input.members.filter(isMeasured);
+  // Clipped first, then filtered: a member its ancestors crop to nothing is as
+  // absent as an unmeasured one, and everything below this line works on the
+  // region the group can actually paint rather than on border boxes.
+  const members = input.members.map(clipMember).filter(isMeasured);
   if (members.length === 0) return undefined;
 
   const findings: ProxyFinding[] = [];

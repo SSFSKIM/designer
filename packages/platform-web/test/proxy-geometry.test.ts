@@ -265,3 +265,79 @@ describe("the default sampling geometry, derived from the blur the material draw
     ).toEqual({ samplingPadding: 0, mergeDistance: 0 });
   });
 });
+
+/**
+ * The ancestor clip chain, folded into the proxy (Decision Log #41(k)).
+ *
+ * A proxy sits in the plane layer, not inside whatever is cropping its members,
+ * so nothing narrows it on the browser's behalf. Every number below therefore
+ * comes from the *visible* extent rather than the border box — and the
+ * `clipUnion` in particular, because `backdrop-proxy.ts`'s cross-group overlap
+ * predicate rests on the sentence "a proxy paints only inside its own clip
+ * union", which a union of unclipped boxes made false.
+ */
+describe("members their ancestors clip", () => {
+  const clipped = (clip: readonly { x: number; y: number; width: number; height: number }[]) =>
+    resolved({ ...base, members: [{ ...member(100, 100), clip }] });
+
+  it("shrinks the painted region to what the clip lets through", () => {
+    // 44 tall, the bottom 24 cropped away by a window ending at y = 120.
+    const geometry = clipped([{ x: 0, y: 0, width: 1000, height: 120 }]);
+
+    expect(geometry.clipUnion).toEqual({ x: 100, y: 100, width: 120, height: 20 });
+    // And the sampled box follows it: padding is measured from the visible
+    // region, not from a box the ancestor is hiding.
+    expect(geometry.box).toEqual({ x: 76, y: 76, width: 168, height: 68 });
+  });
+
+  it("squares the corners the clip cut, and leaves the others alone", () => {
+    const arcs = (geometry: ProxyGeometry): number =>
+      (geometry.clipPath.match(/A /g) ?? []).length;
+
+    // A rectangular crop of a rounded rect has a straight cut edge. Keeping the
+    // radii would put a rounded corner in the middle of a scroller, which reads
+    // as a rendering fault rather than as a crop.
+    expect(arcs(resolved(base))).toBe(4);
+    expect(arcs(clipped([{ x: 0, y: 0, width: 1000, height: 120 }]))).toBe(2); // bottom cut
+    expect(arcs(clipped([{ x: 0, y: 110, width: 1000, height: 1000 }]))).toBe(2); // top cut
+    expect(arcs(clipped([{ x: 110, y: 0, width: 1000, height: 1000 }]))).toBe(2); // left cut
+    // Cut on two adjacent sides: only the far corner survives.
+    expect(arcs(clipped([{ x: 110, y: 110, width: 1000, height: 1000 }]))).toBe(1);
+  });
+
+  it("drops a member its ancestors hide completely", () => {
+    const geometry = resolveProxyGeometry({
+      ...base,
+      members: [{ ...member(100, 100), clip: [{ x: 0, y: 500, width: 100, height: 100 }] }],
+    });
+
+    // The same answer as an unmeasured member, and deliberately so: neither can
+    // be painted, so "not there" is one state rather than two.
+    expect(geometry).toBeUndefined();
+  });
+
+  it("keeps a group alive on the members that are still visible", () => {
+    const geometry = resolved({
+      ...base,
+      members: [
+        { ...member(100, 100), clip: [{ x: 0, y: 500, width: 100, height: 100 }] },
+        member(400, 100),
+      ],
+    });
+
+    expect(geometry.clipUnion).toEqual({ x: 400, y: 100, width: 120, height: 44 });
+  });
+
+  it("intersects every window in the chain", () => {
+    const geometry = clipped([
+      { x: 0, y: 0, width: 1000, height: 120 },
+      { x: 140, y: 0, width: 1000, height: 1000 },
+    ]);
+
+    expect(geometry.clipUnion).toEqual({ x: 140, y: 100, width: 80, height: 20 });
+  });
+
+  it("changes nothing for a member with no clipping ancestor", () => {
+    expect(resolved(base)).toEqual(resolved({ ...base, members: [{ ...member(100, 100) }] }));
+  });
+});
