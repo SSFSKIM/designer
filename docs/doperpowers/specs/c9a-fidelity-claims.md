@@ -39,6 +39,19 @@ its parent-impact item still stands). Every adopted threshold in §5 is untouche
 in both directions, and `results/matrix.json` is regenerated over all six profiles
 and both tiers from fresh captures.
 
+**Amended by the recalibration cascade (2026-08-31) — and the amendment is a
+scope warning, not a result.** Every figure and every fitted constant in this
+document predates the discovery that the whole capture bed recorded Liquid
+Glass's **inactive** appearance (wave Decision Log 14). Measured against the
+active bed, the material carries an outer shadow vitrea does not draw at all,
+which breaks the silhouette extractor the shape *and* material axes are built on
+— so the cascade produced a damage report and stopped rather than fitting against
+a corrupted objective. Sections touched: **§5.11 (new)** — the active-bed damage
+report, the shadow's measurement, what each stage's refit would have been, and
+the three rulings the gate now owes. Nothing else in this document was edited:
+no bound moved, no constant moved, `results/matrix.json` is untouched, and every
+section above §5.11 must now be read as a description of the inactive pose.
+
 Every claim below is scoped to a **native profile × web cell**, per X9. Nothing
 here says "pixel-identical to Apple", and nothing here is a pass verdict — the
 thresholds in §5 are *proposals for the human gate*, not self-certification.
@@ -1796,6 +1809,230 @@ The hue-independence and size-independence checks, and the dark-scheme and
 accessibility assumption checks, are all unanswered for the same reason: with no
 hue in the bed, the second-hue validation cell and the second-hue holdout cell
 are byte-identical to their orange twins and would have "passed" trivially.
+
+### 5.11 The active-pose bed: the damage report, and why the cascade stopped (2026-08-31)
+
+> **Read this before any figure above it.** Every number in §1 through §5.10, and
+> every constant those sections fitted, was measured against Liquid Glass's
+> **inactive** appearance. The capture window was borderless and never overrode
+> `canBecomeKey`, so it was never key, the app was never active, and the window
+> server drew the inactive material through every capture the project has ever
+> taken (wave Decision Log 14). Those are correct measurements of the wrong state.
+> The inactive bed is kept in git history deliberately — it is the ready-made
+> reference for a future window-focus-aware material — but it is no longer the
+> reference this document claims against.
+
+The active bed is `973fd7e`: **121 native fixtures**, six profiles, each cell the
+byte state at least two of three independent runs share exactly (the active
+material is byte-reproducible per *cell*, not per *run*). The recalibration
+cascade began by regenerating the whole web side against it with **every constant
+unchanged**, so that what the pose costs could be read before anything moved.
+That regeneration is `results/2026-08-31-active-bed-stage0.json` — 182 cells,
+six profiles × both tiers, calibration and validation only. **The holdout column
+was not opened.** No constant was fitted, and none of §5's bounds is re-adopted,
+re-proposed or amended by this section; the cascade stopped before it could
+honestly do either, and the rest of this section is why.
+
+#### The finding: the active material casts an outer shadow, and the inactive one casts none
+
+This is not a constant that drifted. It is a facet of Apple's material that no
+capture in this project had ever seen, and it invalidates the instrument.
+
+On `checkerboard__capsule-button__rest` in `1x-light-standard`, measured outside
+the declared component's own rectangle:
+
+| bed | max abs. luminance difference from the backdrop, outside the component | pixels past the 0.02 extraction threshold |
+| --- | --- | --- |
+| inactive (`973fd7e~1`) | **0.0003** | **0** |
+| active (`973fd7e`) | **0.2546** | **4740** |
+
+The shadow is present in every profile, at both scales, in both colour schemes.
+It is a downward-offset, multiplicative occlusion — it darkens the backdrop in
+proportion to the backdrop's own light, so it is strongest under a bright
+backdrop and analytically invisible over a dark one. Peak darkening and reach
+from the component's edge at 1×, `1x-light-standard`:
+
+| scene | above | below | beside |
+| --- | --- | --- | --- |
+| `light-solid__capsule-button__rest` (44 px) | −0.034 / 22 px | −0.082 / 39 px | −0.057 / 30 px |
+| `light-solid__rrect-md__rest` (96 px) | −0.057 / 24 px | −0.135 / 41 px | −0.097 / 33 px |
+| `checkerboard__capsule-button__rest` | −0.078 / 21 px | −0.255 / 45 px | −0.177 / 36 px |
+| `dark-solid__capsule-button__rest` | 0.000 / 0 px | −0.001 / 0 px | 0.000 / 0 px |
+
+It grows with the surface's span, and the reach roughly doubles in device pixels
+at 2×, which is what a shadow specified in points does.
+
+**vitrea draws nothing there at all.** Across every calibration and validation
+scene of `1x-light-standard`, the mean absolute departure from the backdrop
+outside the component is **0.0000 on vitrea's side** and 0.0022…0.0153 on the
+reference's, over a shadow footprint covering **8.5% to 29.6% of the canvas**.
+
+The bitter part of that is on the record already, in this repository, with the
+right number attached to the wrong conclusion. C9a's light-standard profile
+records `cssTierMapping.shadow` as *"the one thing [the CSS tier] draws that the
+reference material does not: C9a measured both sides at approximately zero
+outside the contour"*, and notes that the tier's `box-shadow` drove its silhouette
+area to 2.36× the declared component area and its IoU to a mean of 0.676. C9d
+then removed it (Decision Log #32(c)) — `shadowOffset`, `shadowBlur` and
+`shadowAlpha` all ship at 0. The active reference casts a shadow of very nearly
+that description, and the deleted triple (offset 6, blur 24, alpha 0.18) was
+closer to the truth than what ships. The measurement was right; the reference was
+the inactive one.
+
+#### Why this stops the cascade rather than merely costing it rows
+
+The shape axis extracts a silhouette by differencing the capture against the
+background raster it was composited over — *"anything that differs from the known
+background by more than a threshold is inside"*. That premise is exactly what the
+active material falsifies: the reference's own shadow differs from the
+background, so the extractor returns the component **and its shadow** as one body.
+Native silhouette areas run about twice the declared component area (the
+checkerboard capsule: 9836 px against a declared 4865), and §5's well-conditioned
+predicate cannot catch it, because that predicate guards against *under*-recovery
+and has no ceiling.
+
+The damage is not confined to the shape rows, and this is the part that decides
+the question. `material.interiorMean*` and `interiorStdDev*` are sampled **under
+the native silhouette**, on both sides — so the interior statistics are now
+averaged over a region that is roughly half shadowed backdrop. On the flat
+`light-solid` capsule the reference's interior standard deviation reads 0.0623
+where the true interior is uniform to the digit. Those three quantities are the
+whole of this package's declared tuning objective
+(`|Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|`, `scripts/sweep.ts`),
+so **every fit in the cascade would have been run against a corrupted objective.**
+
+And the perceptual rows, which are whole-canvas and therefore sound as
+measurements, now carry a constant penalty from a facet vitrea does not
+implement. Fitting the material to absorb it would be the error W2 declined a
+band optimum to avoid and W7 named again: using one mechanism as a proxy for a
+missing one. Re-adopting a bound over it would certify the gap as acceptable
+fidelity, which is what Decision Log 11 refused for a smaller gap.
+
+#### The damage report, per profile × tier
+
+Calibration + validation, active bed, constants unchanged. Worst reading against
+each adopted bound, with the number of cells failing it.
+
+| profile | tier | shape rows | SSIM | ΔE mean | ΔE p95 | edge-weighted |
+| --- | --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | **FAIL** IoU 0.092 (21/26), cMean 28.5 (22/26), cP95 63.0 (23/26) | FAIL 0.8646 (1/27) | PASS 0.0381 | FAIL 0.2510 (5/27) | PASS 0.0448 |
+| | dom | **FAIL** IoU 0.092 (20/26), cMean 28.5 (23/26), cP95 63.0 (23/26) | FAIL 0.8842 (2/27) | PASS 0.0417 | — | — |
+| `2x-light-standard` | texture | **FAIL** IoU 0.098 (21/26), cMean 69.9 (22/26), cP95 124.0 (23/26) | FAIL 0.8937 (2/27) | PASS 0.0380 | FAIL 0.2503 (5/27) | PASS 0.0488 |
+| | dom | **FAIL** IoU 0.098 (20/26), cMean 69.9 (23/26), cP95 124.0 (23/26) | FAIL 0.9041 (2/27) | PASS 0.0417 | — | — |
+| `1x-light-reduced-transparency` | texture | **FAIL** IoU 0.564 (7/7), cMean 10.5 (7/7), cP95 27.0 (7/7) | PASS 0.9614 | PASS 0.0132 | FAIL 0.1406 (1/7) | PASS 0.0242 |
+| | dom | **FAIL** IoU 0.529 (7/7), cMean 9.6 (7/7), cP95 25.1 (7/7) | PASS 0.9642 | PASS 0.0159 | FAIL 0.1725 (1/7) | PASS 0.0304 |
+| `1x-light-increased-contrast` | texture | **FAIL** IoU 0.356 (7/8), cMean 13.4 (8/8), cP95 35.0 (8/8) | PASS 0.9106 | PASS 0.0236 | PASS 0.0837 | PASS 0.0733 |
+| | dom | **FAIL** IoU 0.368 (7/8), cMean 12.5 (8/8), cP95 35.0 (8/8) | PASS 0.9072 | PASS 0.0266 | PASS 0.0732 | PASS 0.0794 |
+
+Read it as three separate results.
+
+**The shape axis is gone, on every gated profile and both tiers**, and it is the
+instrument rather than the geometry that failed. It cannot be re-proposed at any
+number: a bound loose enough to admit an IoU of 0.09 would not be a shape claim.
+
+**The perceptual axis mostly holds, and on ΔE it holds comfortably** — the
+worst ΔE mean anywhere is 0.0417 against bounds of 0.07 and 0.08, and every
+edge-weighted row passes with two to four times the margin. SSIM misses on one or
+two cells per light-standard profile, all of them `checkerboard__rrect-md__*`, by
+0.002…0.016.
+
+**Every ΔE p95 failure is a tinted cell.** Five in each light-standard profile
+and one under reduced transparency, worst 0.2510 on
+`checkerboard__capsule-button__rest-tint-blue`, against provisional tone-curve
+constants that have now been fitted to nothing on either bed. Untinted, the ΔE
+p95 row passes everywhere.
+
+#### What the refits would have been — measured, not fitted
+
+None of the following moved a constant. They are stated so the gate can price the
+cascade, and each is measured on a **clean analytic mask**: the declared
+component geometry, centred as `scenes.json` places it, eroded by 4 pt so no edge
+pixel enters — which is a diagnostic, not a proposal for the instrument.
+
+**Stage 1, the base material.** W7 named the mid-range transmission residual as
+the next cut's item, on the inactive bed: vitrea 0.79 over a 0.5 backdrop where
+the reference read 0.61. The brief for this cascade asked whether the active pose
+moves it. **It does not.** Over the checkerboard at a 44 px span the reference
+reads 0.6129 and vitrea 0.8043 — a residual of **+0.191** against the inactive
+bed's +0.186. What is new is that it is plainly *size-dependent*: at 96 px the
+same pair reads 0.6792 against 0.7841, a residual of +0.105.
+
+Two things follow that the inactive bed could not say. The retune is **large and
+in the direction C9a moved away from**: matching an interior of 0.613 over a 0.5
+backdrop with a white tint needs an effective alpha near 0.23, where the shipped
+`tintAlpha` is 0.62 — C9a raised it from an advisory 0.28, and the advisory was
+closer to the active material than the fitted value is. And `blurSigma` may
+finally be identifiable (§6.1): the active reference retains far more of the
+backdrop's structure than vitrea does — interior standard deviation 0.1358
+against 0.0176 on the checkerboard capsule, a factor of eight — which is a signal
+well clear of the quantisation that made §6.1's sweep flat.
+
+**Stage 2, the size law.** The residual above is size-dependent, but not in the
+direction `sizeOcclusionGain` could absorb: vitrea is too *bright*, and occlusion
+toward a white tint makes a large surface brighter still. The gain's boundary
+optimum at 0 survives the pose change, for the third time and now for a reason
+that is neither W2's nor W7's — it will only become fittable after the tint the
+size law is a gain on has been re-fitted.
+
+**Stage 3, backdrop adaptation.** Unmeasured here, deliberately: its observable
+is the light-versus-dark separation over one backdrop, its only transition-band
+scene is `mid-dark-solid__capsule-button__rest`, and that scene is **holdout**.
+Reading it now would spend the column §5.9 already spent once.
+
+**The accessibility folds are worse than W1 measured, not better.** Under
+increased contrast the reference's interior now sits at 0.982…0.992 where vitrea
+reaches 0.831…0.893 — the material has all but stopped transmitting, and
+`increasedOcclusionLift` is under-set by roughly 0.09…0.16 of interior level.
+Under reduced transparency the two agree within 0.06.
+
+**Stage 4, the tint — the bed is finally good, and the news is a simplification.**
+The hue is unambiguously present. On three of the five calibration backdrops the
+reference's tinted interior is the declared seed **exactly**, in linear light,
+with a per-channel standard deviation of **0.000**: `systemOrange` renders
+(1.0000, 0.2961, 0.0000), which is sRGB (255, 149, 0) and nothing else. Over the
+two structured backdrops it is the same seed scaled by 0.81…0.83 with a small
+spread. So Apple's tinted material is a nearly opaque surface at the author's
+colour, modulated only slightly by what is behind it — not the ±45% excursion
+phase 1 assumed.
+
+That is a **fit the existing four constants can express**, which is the good news:
+`tintToneFloor` → 1 and `tintToneCeilMix` → 0 degenerate the curve to the seed
+itself, leaving `tintToneLow`/`High` unidentifiable, in the same way
+`adaptiveTint` fitted to an inert crossover in §7. No shape change is implied.
+What is *not* in that curve is the size of the error: vitrea renders the tint at
+roughly 45% of the seed over `dark-solid` (0.4508, 0.1356, 0.0000 against the
+reference's 1.0000, 0.2961, 0.0000) and desaturates it over `photo`. That is the
+tinted material's opacity, which rides `tintAlpha` — so Stage 4 cannot be fitted
+before Stage 1, and Stage 1 cannot be fitted before the instrument is decided.
+
+#### What the human gate has to decide
+
+Three things, in this order, none of which is a constant.
+
+1. **The outer shadow is a renderer feature vitrea does not have, on either
+   tier.** It is measured, its mechanism is named, and it is the largest
+   unmodelled facet in the project — larger in canvas footprint than the tone
+   adaptation W7 was chartered for. Building it is a wave-sized item on both
+   tiers (the CSS tier's is a `box-shadow` it used to draw; the GPU tier has only
+   an *inner* shadow today).
+2. **The instrument's extraction rule needs a ruling before any shape claim can
+   exist again.** "Everything that differs from the background is the surface" is
+   false for the active material. Every alternative is a design decision with a
+   cost — bounding the search to the declared geometry makes IoU partly
+   tautological; discriminating the shadow by its gradient is fragile; excluding
+   the shape axis outright retires a claim v1 shipped. This is not a call a
+   calibration run should take by itself.
+3. **Whether any bound may be re-adopted before (1).** The recommendation here is
+   no. The perceptual rows would pass, and they would pass over a reference facet
+   vitrea renders as zero across a fifth of the canvas; adopting them would be
+   the certify-the-defect move Decision Log 11 rejected when the gap was smaller.
+
+Until those are answered, §5's tables stand as adopted **against the inactive
+bed**, `results/matrix.json` is unchanged, and
+`KNOWN_RENDERER_GAP_EXCLUSIONS` stays empty — the outer-shadow gap is measured
+and mechanism-named, which is the bar for an entry, but it fails the class's own
+"cannot grow" property by a wide margin: it would have to swallow every shape row
+in the document.
 
 ---
 
