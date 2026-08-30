@@ -188,7 +188,10 @@ function value(cell: CellResult, axis: "material" | "perceptual" | "shadow", fie
   return report?.[field]?.value;
 }
 
-interface Score {
+/** Which objective ranks the grid. Both are always computed and printed. */
+export type Objective = "interior" | "shadow";
+
+export interface Score {
   readonly objective: number;
   readonly meanTerm: number;
   readonly sdTerm: number;
@@ -201,7 +204,7 @@ interface Score {
   readonly cells: number;
 }
 
-function score(matrixJson: string): Score {
+export function score(matrixJson: string, objective: Objective): Score {
   const cells = listCellResults(deserializeResultMatrix(matrixJson)).filter(
     (cell) => cell.fixtureSet === "calibration",
   );
@@ -250,12 +253,32 @@ function score(matrixJson: string): Score {
     measured += 1;
   }
 
-  if (measured === 0) throw new Error("sweep: no calibration cell carried a material axis");
+  /*
+   * The interior objective is undefined without a material axis, and a cell that
+   * cannot measure the material must not look like one that measures it
+   * perfectly — so an empty set is a refusal rather than a zero.
+   *
+   * Conditioned on the interior objective actually being RANKED on, though. A
+   * shadow-objective sweep scoped to shadow-only cells is a legitimate run: over
+   * a solid backdrop of the material's own tone the native silhouette is empty,
+   * so `cli/measure.ts` records the cell with no material axis at all, while its
+   * exterior metrics are present and are exactly what such a sweep is ranking.
+   * Throwing there discarded an objective that had just been computed correctly.
+   */
+  if (measured === 0 && objective === "interior") {
+    throw new Error(
+      "sweep: no calibration cell carried a material axis, so the interior objective " +
+        "is undefined here. If you meant to sweep the outer shadow, pass --objective shadow.",
+    );
+  }
+  if (shadowCells === 0 && objective === "shadow") {
+    throw new Error("sweep: no calibration cell carried a shadow axis, so the shadow objective is undefined here.");
+  }
   return {
-    objective: (meanTerm + sdTerm + rimTerm) / measured,
-    meanTerm: meanTerm / measured,
-    sdTerm: sdTerm / measured,
-    rimTerm: rimTerm / measured,
+    objective: measured === 0 ? Number.NaN : (meanTerm + sdTerm + rimTerm) / measured,
+    meanTerm: measured === 0 ? Number.NaN : meanTerm / measured,
+    sdTerm: measured === 0 ? Number.NaN : sdTerm / measured,
+    rimTerm: measured === 0 ? Number.NaN : rimTerm / measured,
     shadow: shadowCells === 0 ? Number.NaN : shadowTerm / shadowCells,
     shadowCells,
     deltaE: deltaE / Math.max(1, perceptualCount),
@@ -276,7 +299,7 @@ function main(): void {
   if (renderer !== "webgpu" && renderer !== "css") {
     throw new Error(`sweep: --renderer takes webgpu or css, not '${renderer}'`);
   }
-  const objective = flag("objective") ?? "interior";
+  const objective = (flag("objective") ?? "interior") as Objective;
   if (objective !== "interior" && objective !== "shadow") {
     throw new Error(`sweep: --objective takes interior or shadow, not '${objective}'`);
   }
@@ -340,10 +363,12 @@ function main(): void {
       process.stderr.write(`sweep: point '${label}' failed; skipping it rather than scoring a partial run\n`);
       continue;
     }
-    results.push({ label, score: score(readFileSync(matrixPath, "utf8")) });
+    results.push({ label, score: score(readFileSync(matrixPath, "utf8"), objective) });
   }
 
   const say = (line: string): void => void process.stdout.write(`${line}\n`);
+  const num = (value: number, digits: number): string =>
+    Number.isNaN(value) ? "—" : value.toFixed(digits);
   say("");
   say("interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light");
   say("shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light");
@@ -358,11 +383,11 @@ function main(): void {
   for (const { label, score: s } of sorted) {
     say(
       label.padEnd(46) +
-        s.objective.toFixed(5).padStart(11) +
-        s.meanTerm.toFixed(5).padStart(10) +
-        s.sdTerm.toFixed(5).padStart(9) +
-        s.rimTerm.toFixed(5).padStart(9) +
-        (Number.isNaN(s.shadow) ? "—" : s.shadow.toFixed(5)).padStart(10) +
+        num(s.objective, 5).padStart(11) +
+        num(s.meanTerm, 5).padStart(10) +
+        num(s.sdTerm, 5).padStart(9) +
+        num(s.rimTerm, 5).padStart(9) +
+        num(s.shadow, 5).padStart(10) +
         s.deltaE.toFixed(5).padStart(9) +
         s.ssim.toFixed(4).padStart(8) +
         String(s.cells).padStart(4) +
@@ -384,8 +409,16 @@ function main(): void {
   }
 }
 
+/*
+ * Only run when this file is the entry point. `score` is exported so the guard
+ * conditioning it on the chosen objective can be pinned in the unit suite, and an
+ * import must not launch a grid of browser captures to get at it.
+ */
+const invokedDirectly =
+  process.argv[1] !== undefined && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
 try {
-  main();
+  if (invokedDirectly) main();
 } catch (error) {
   process.stderr.write(`sweep: ${error instanceof Error ? error.message : String(error)}\n`);
   process.exit(1);

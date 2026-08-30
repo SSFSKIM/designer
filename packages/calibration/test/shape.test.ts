@@ -6,8 +6,10 @@ import {
   distanceToSeeds,
   extractSilhouette,
   silhouetteArea,
+  silhouetteHoleCount,
   squaredEuclideanDistanceTransform,
   traceContour,
+  type Silhouette,
 } from "../src/silhouette";
 import { alphaMaskImage, discPredicate, maskFromPredicate, rectPredicate, solidLuminance } from "./synthesise";
 
@@ -241,3 +243,51 @@ function roundedRect(
     return Math.hypot(dx, dy) <= radius;
   };
 }
+
+/**
+ * The topology arm's primitive (2026-08-31). Area cannot tell a shape difference
+ * from a shape measurement failure once both sides are bounded to the declared
+ * region; the number of extra boundaries a contour trace has to walk can.
+ */
+describe("silhouetteHoleCount", () => {
+  const grid = (rows: readonly string[]): Silhouette => ({
+    width: (rows[0] as string).length,
+    height: rows.length,
+    mask: Uint8Array.from(rows.join("").split("").map((c) => (c === "#" ? 1 : 0))),
+  });
+  const full = (rows: readonly string[]): Silhouette =>
+    grid(rows.map((r) => "#".repeat(r.length)));
+
+  it("counts nothing for a solid silhouette filling its region", () => {
+    const rows = ["#####", "#####", "#####"];
+    expect(silhouetteHoleCount(grid(rows), full(rows))).toBe(0);
+  });
+
+  it("counts a single enclosed hole", () => {
+    const rows = ["#####", "##.##", "#####"];
+    expect(silhouetteHoleCount(grid(rows), full(rows))).toBe(1);
+  });
+
+  it("counts separated holes separately — the quantity the contour trace pays", () => {
+    const rows = ["#######", "#.###.#", "#######"];
+    expect(silhouetteHoleCount(grid(rows), full(rows))).toBe(2);
+  });
+
+  it("does not count a bite out of the edge, which is a shape difference", () => {
+    // Open to the region border, so the contour trace meets no extra boundary.
+    const rows = ["#####", "#####", "##..."];
+    expect(silhouetteHoleCount(grid(rows), full(rows))).toBe(0);
+  });
+
+  it("treats the region's own boundary as open, not as a hole wall", () => {
+    // The mask fills a disc inside a larger region: everything outside the disc
+    // reaches the region edge, so there is no hole even though the mask is small.
+    const region = full(["#####", "#####", "#####"]);
+    const mask = grid(["..#..", ".###.", "..#.."]);
+    expect(silhouetteHoleCount(mask, region)).toBe(0);
+  });
+
+  it("refuses a region of another size rather than guessing the correspondence", () => {
+    expect(() => silhouetteHoleCount(grid(["##"]), full(["###"]))).toThrow();
+  });
+});

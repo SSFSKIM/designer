@@ -129,6 +129,70 @@ export function extractSilhouette(image: CalibrationImage, extractor: Silhouette
   return { width: image.width, height: image.height, mask };
 }
 
+/**
+ * How many interior holes a silhouette has inside its search region.
+ *
+ * A hole is a 4-connected run of region pixels the mask excludes that never
+ * reaches the region's border. Counted rather than measured by area on purpose:
+ * the quantity a contour metric is hostage to is the NUMBER of extra boundaries
+ * it has to trace, not how much they enclose — 72 one-pixel holes cost the trace
+ * far more than one hole of 72 pixels.
+ *
+ * 4-connectivity for the holes, which is the conservative pairing against the
+ * mask's implicit 8-connectivity: a diagonal chain of excluded pixels is read as
+ * separate holes rather than one, so this over-counts rather than under-counts,
+ * and a predicate built on it fails safe.
+ *
+ * `region` bounds the search exactly as extraction did. Without it the whole
+ * exterior would read as one enormous hole, which is why it is required rather
+ * than optional.
+ */
+export function silhouetteHoleCount(silhouette: Silhouette, region: Silhouette): number {
+  assertSameGrid(silhouette, region, "silhouetteHoleCount");
+  const { width, height } = silhouette;
+  const seen = new Uint8Array(width * height);
+  const stack: number[] = [];
+  let holes = 0;
+
+  const excluded = (i: number): boolean =>
+    (region.mask[i] ?? 0) !== 0 && (silhouette.mask[i] ?? 0) === 0;
+
+  for (let start = 0; start < seen.length; start += 1) {
+    if (seen[start] === 1 || !excluded(start)) continue;
+    // One flood fill per component; `touchesBorder` decides after it completes,
+    // so a component is never miscounted by the order its pixels are visited.
+    let touchesBorder = false;
+    seen[start] = 1;
+    stack.push(start);
+    while (stack.length > 0) {
+      const index = stack.pop() as number;
+      const x = index % width;
+      const y = (index - x) / width;
+      if (x === 0 || y === 0 || x === width - 1 || y === height - 1) touchesBorder = true;
+      for (const neighbour of [
+        x > 0 ? index - 1 : -1,
+        x < width - 1 ? index + 1 : -1,
+        y > 0 ? index - width : -1,
+        y < height - 1 ? index + width : -1,
+      ]) {
+        if (neighbour < 0) continue;
+        if (seen[neighbour] === 1) continue;
+        // A neighbour outside the region is the region's edge, not a hole wall:
+        // reaching one means this component is open to the outside.
+        if ((region.mask[neighbour] ?? 0) === 0) {
+          touchesBorder = true;
+          continue;
+        }
+        if ((silhouette.mask[neighbour] ?? 0) !== 0) continue;
+        seen[neighbour] = 1;
+        stack.push(neighbour);
+      }
+    }
+    if (!touchesBorder) holes += 1;
+  }
+  return holes;
+}
+
 /** Two silhouettes must be the same size to be compared. */
 export function assertSameGrid(a: Silhouette, b: Silhouette, context = "silhouette comparison"): void {
   if (a.width !== b.width || a.height !== b.height) {

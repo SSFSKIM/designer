@@ -43,7 +43,9 @@ import { parseProfileKey, type FidelityTier, type FixtureSet } from "./profile";
  * The units this package reports in. A closed set, so a report cannot carry a
  * number whose meaning is only in a comment somewhere.
  */
-export const METRIC_UNITS = ["ratio", "px", "px^2", "1/px", "luminance", "oklab", "ms", "degrees", "px/ms"] as const;
+// "count" is a cardinality rather than a measurement — the silhouette hole
+// counts, whose whole point is how MANY extra boundaries a contour trace meets.
+export const METRIC_UNITS = ["ratio", "px", "px^2", "1/px", "luminance", "oklab", "ms", "degrees", "px/ms", "count"] as const;
 
 export type MetricUnits = (typeof METRIC_UNITS)[number];
 
@@ -202,6 +204,33 @@ export interface ShapeAxisReport {
   readonly componentRegionArea: MetricValue;
   /** Outward dilation of the declared geometry, device px. Zero on this bed. */
   readonly componentRegionMargin: MetricValue;
+  /**
+   * Interior holes in each side's extracted silhouette — connected components of
+   * the search region that the mask excludes and that do not touch the region's
+   * border.
+   *
+   * The conditioning question that area cannot answer. §5.12 proposed a web-side
+   * ARM on the area predicate; the recalibration cascade measured that such an
+   * arm gates the wrong cells. The degenerate cell that motivated it was repaired
+   * by the refit (recovery 0.888 → 1.000), while the cells that now mis-measure
+   * recover 94.8…96.2% of their region — above any usable floor — and read an
+   * IoU of 0.96 beside a contour distance of 65 px. What breaks the contour
+   * metric is topology: the trace walks every boundary it finds, so a mask with
+   * 72 interior holes reports those hole boundaries as distance from the other
+   * side's outline.
+   *
+   * The mechanism is a tier interaction rather than a renderer error. The two
+   * tiers blur in different colour spaces — this renderer in linear light,
+   * `backdrop-filter` in the encoded one — so over a high-contrast backdrop the
+   * CSS tier transmits enough structure that interior pixels coincide with the
+   * backdrop's own level and the extractor punches them out. Measured zero on the
+   * native side and on the texture tier of the very same cells.
+   *
+   * On the record per cell for the same reason `silhouetteArea*` is: a gate
+   * cannot condition on what the matrix does not carry.
+   */
+  readonly silhouetteHolesNative: MetricValue;
+  readonly silhouetteHolesWeb: MetricValue;
   readonly silhouetteIoU: MetricValue;
   readonly contourDistanceMax: MetricValue;
   readonly contourDistanceP95: MetricValue;
@@ -219,6 +248,8 @@ export function shapeAxisReport(input: {
   readonly silhouetteAreaWeb: number;
   readonly componentRegionArea: number;
   readonly componentRegionMarginPx: number;
+  readonly silhouetteHolesNative: number;
+  readonly silhouetteHolesWeb: number;
   readonly silhouetteIoU: number;
   readonly contourDistance: ContourDistanceReport;
   readonly cornerCurvature: CornerCurvatureReport;
@@ -229,6 +260,8 @@ export function shapeAxisReport(input: {
     silhouetteAreaWeb: metricValue(input.silhouetteAreaWeb, "px^2"),
     componentRegionArea: metricValue(input.componentRegionArea, "px^2"),
     componentRegionMargin: metricValue(input.componentRegionMarginPx, "px"),
+    silhouetteHolesNative: metricValue(input.silhouetteHolesNative, "count"),
+    silhouetteHolesWeb: metricValue(input.silhouetteHolesWeb, "count"),
     silhouetteIoU: metricValue(input.silhouetteIoU, "ratio"),
     contourDistanceMax: metricValue(input.contourDistance.maxPx, "px"),
     contourDistanceP95: metricValue(input.contourDistance.p95Px, "px"),

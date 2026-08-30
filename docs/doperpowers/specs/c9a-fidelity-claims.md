@@ -2484,8 +2484,22 @@ in the encoded one. At σ = 8 the checkerboard's 16 px period was washed out; at
 the refitted σ = 3 the CSS tier transmits enough of it that interior pixels
 coincide with the backdrop's own level and the extractor punches holes.
 
+> **CORRECTED 2026-08-31 — read §5.14 before this finding.** The paragraph after
+> the table attributes the deficit to `sizeOcclusionGain` and says vitrea "is not
+> too transparent at 32, 44 or 96". Both halves are wrong, and what found it is
+> arithmetic on the shipped constants rather than a new measurement.
+> `sizeThickness` is `smoothstep(32, 96, span)`, which is exactly 1 for **every**
+> span at or above 96 — so a gain on it takes the same value on `rrect-md`
+> (span 96), `glass-over-glass` (130) and `rrect-lg` (160) and provably cannot
+> separate them. And the deficit is already present at span 96 in *calibration*:
+> over `photo` the residual is −0.086 at 96 against −0.102 at 160. The real
+> attribution is two other things — the size band's top and the accessibility
+> occlusion constants — and it is §5.14. **The measurements below stand; the
+> diagnosis does not.** One naming error with them: `rrect-lg` is 280×160 and the
+> size law reads `min(width, height)`, so its span is **160**, not 280.
+
 **(2) The largest surfaces fail perceptually, and the reason is a facet the
-calibration set could not identify.** Every remaining failure is on a span-280
+calibration set could not identify.** Every remaining failure is on a span-160
 `rrect-lg` or the `glass-over-glass` stack, and all of them say the same thing:
 
 | profile | tier | cell | reference interior | vitrea | residual |
@@ -2605,6 +2619,200 @@ until it lands.**
    every other row on that cell comfortable. Decision Log 13 kept the curve's
    shape for this wave; this is the first bound it has ever failed, and the
    two-axis rework it was deferred to is the natural home for it.
+
+### 5.14 The adoption round: the span coda is void, and the gate cannot flip yet (2026-08-31)
+
+Decision Log 16 adopted §5.13 in full, chartered a span coda to close the one
+falsified constant, and granted W7's mid-dark miss a documented exceedance. This
+section is what executing that found. **The instrument work landed; the suite
+flip did not**, and the reason is a correction to §5.13's own diagnosis rather
+than anything the coda measured — the coda could not run as designed.
+
+#### The coda is void, and it is arithmetic rather than a measurement
+
+The charter was one capture session adding about two calibration spans in the
+128–192 band plus a fresh large holdout cell, then a single-constant fit of
+`sizeOcclusionGain` with everything else frozen. Both halves fail before a
+camera is involved.
+
+**A gain on a saturated curve cannot separate saturated cells.** The size law's
+one input is `sizeThickness(span) = smoothstep(sizeSpanMin, sizeSpanMax, span)`
+with the band at 32…96, so it is exactly 1 at every span at or above 96:
+
+| span | 32 | 44 | 96 | 128 | 130 | 160 | 192 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| thickness | 0.000 | 0.092 | **1.000** | **1.000** | **1.000** | **1.000** | **1.000** |
+
+`sizeOcclusionGain` enters as `α' = α + g · thickness · (1 − α)`. At thickness 1
+that is one number, identical for `rrect-md` (span 96), `glass-over-glass` (130)
+and `rrect-lg` (160) — so no value of the gain can move them apart, and new
+calibration cells at 128 or 192 land on the same point of the curve the span-96
+cells already occupy. They would add cells and no information.
+
+**And the canonical canvas cannot host the band anyway.** Components are centred
+on 320×200, so a span of *S* leaves (200 − S)/2 above and below, against a
+reference shadow reaching 39–41 px below a light-standard surface (§5.12):
+
+| span | 96 | 128 | 144 | 160 | 176 | 192 |
+| --- | --- | --- | --- | --- | --- | --- |
+| vertical margin | 52 px | 36 px | 28 px | 20 px | 12 px | 4 px |
+| width at `rrect-lg`'s aspect | 168 | 224 | 252 | 280 | 308 | **336 — off-canvas** |
+
+Every span from 128 up clips the reference's own shadow, and 192 does not fit at
+all. Nothing "larger than `rrect-lg`" exists to capture as a fresh holdout:
+`rrect-lg` is already the largest surface the canvas holds, and its shadow is
+already clipped. **No capture session was run.** Spending an activation window
+on a fit that arithmetic says is unidentifiable would have been worse than
+saying so.
+
+#### What the deficit actually is — two mechanisms, neither of them the gain
+
+**The band's top, not a gain on it.** Past span 96 the reference keeps changing
+and vitrea cannot: over `photo` the reference reads 0.6649 at span 96 and 0.6855
+at 160, while vitrea reads 0.5787 and 0.5835 — flat, because every facet of the
+size law is saturated there. That is `sizeSpanMax` set too low, and it is the one
+constant that *would* separate those cells. It also needs no new captures at all:
+at a band top of 160 the bed's existing spans spread across the curve rather than
+collapsing onto it —
+
+| `sizeSpanMax` | thickness at 44 / 96 / 130 / 160 |
+| --- | --- |
+| 96 (shipped) | 0.092 / **1.000 / 1.000 / 1.000** |
+| 160 | 0.025 / 0.500 / 0.861 / 1.000 |
+
+— though the top would then be set largely by cells at 96 and below, since
+`rrect-lg` and `glass-over-glass` are holdout and must stay unfitted.
+
+**The accessibility occlusion constants were never refitted, and that is this
+cascade's own gap.** Stage 0 measured the fold under-occluding and §5.11 recorded
+it ("the accessibility folds are worse than W1 measured"); no stage then fitted
+`increasedOcclusionLift` or `reducedTransparencyFrost`. The consequence is on the
+record as a *calibration* residual, not a large-surface one:
+
+| profile | cell | span | set | reference | vitrea | residual |
+| --- | --- | --- | --- | --- | --- | --- |
+| increased contrast | `photo__rrect-md__rest` | 96 | **calibration** | 0.9566 | 0.7834 | −0.173 |
+| increased contrast | `photo__rrect-lg__rest` | 160 | holdout | 0.9691 | 0.7833 | −0.186 |
+| reduced transparency | `photo__rrect-md__rest` | 96 | **calibration** | 0.8930 | 0.7768 | −0.116 |
+| reduced transparency | `photo__rrect-lg__rest` | 160 | holdout | 0.8920 | 0.7794 | −0.113 |
+
+The two spans miss by the same amount, which is the whole point: this is not a
+size effect and the holdout cells are not where it lives. Six of the failing rows
+in §5.13's holdout table are this, and it is fittable on calibration cells that
+already exist.
+
+#### Why the gate cannot flip
+
+Decision Log 16 adopts "the refit's passing tables". After the topology predicate
+below, the rows that still fail are these, and none of them is an instrument
+artefact:
+
+| profile | tier | row | worst | bound | mechanism |
+| --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | SSIM | 0.8189 | ≥ 0.88 | band top |
+| | | ΔE p95 | 0.1944 | ≤ 0.17 | band top |
+| | dom | SSIM | 0.6744 | ≥ 0.90 | band top |
+| `2x-light-standard` | texture | SSIM | 0.8750 | ≥ 0.93 | band top |
+| | | ΔE p95 | 0.1942 | ≤ 0.17 | band top |
+| | dom | SSIM | 0.7904 | ≥ 0.92 | band top |
+| `1x-light-reduced-transparency` | texture | SSIM | 0.9593 | ≥ 0.96 | accessibility fold |
+| | dom | ΔE mean / p95 | 0.0427 / 0.0816 | ≤ 0.04 / 0.07 | accessibility fold |
+| `1x-light-increased-contrast` | texture | SSIM / ΔE mean / edge | 0.8509 / 0.0659 / 0.1827 | ≥ 0.86 / ≤ 0.06 / ≤ 0.17 | accessibility fold |
+| | dom | ΔE mean / p95 / edge | 0.0758 / 0.1150 / 0.1988 | ≤ 0.07 / 0.09 / 0.18 | accessibility fold |
+
+Enforcing a suite that omits its SSIM and ΔE p95 rows on the flagship profile
+would be a weaker gate than the one it replaces, and excluding these cells as
+documented exceedances would certify a measured 0.17-of-interior transparency
+error as acceptable fidelity — the move Decision Log 11 refused and Decision Log
+16 refused again for the tint. So `results/matrix.json` stays where it is, on the
+inactive-bed schema-4 gate, for one more round. That is not a good state: the
+enforced suite currently gates the shipped material against a *retired*
+reference. It is the lesser of the two, and it should not survive another cut.
+
+**One visible consequence.** `apps/demo`'s `site.spec.ts` case "every scene's
+figures come from the primary cell" fails on
+`dark-solid__capsule-button__rest-tint-orange`, and it is a direct dependent of
+this: the demo reads `results/matrix.json`, the tinted scenes are declared in the
+scene set, and the inactive-bed matrix has no tinted cells because that bed's
+tints carried no colour (§5.10). The adopted constants do not repair it and were
+never going to — **the matrix flip is what repairs it**, and the active-bed
+matrix carries all twelve tinted cells per light profile. It is red for a
+correct reason and goes green with the adoption.
+
+#### The topology predicate, built and measured
+
+§5.13 proposed a simply-connected arm; Decision Log 16 chartered it. It is built:
+`silhouetteHoleCount` counts 4-connected runs of region pixels the mask excludes
+that never reach the region border, and every cell now records
+`silhouetteHolesNative` and `silhouetteHolesWeb` beside its areas. The whole
+matrix was regenerated to add them and **20,293 measured values are identical to
+the pre-addition run, with zero differing** — so the instrument change is
+provably inert, and §5.13's holdout figures are the same measurement rather than
+a second spend.
+
+The predicate that follows has three arms — native area ≥ 0.95 of the region, web
+area on the same floor, and simple connectivity on the contour rows only (IoU is
+a set overlap and a hole is a genuine set difference; the contour trace is the
+metric that walks phantom boundaries). Measured, it costs a great deal:
+
+- **101 of 234** shape-bearing cells carry at least one interior hole.
+- The contour rows lose **50** cells to the topology arm and **27** to the two
+  area arms.
+- On `1x-light-increased-contrast` the contour rows end up gating **zero** cells,
+  on both tiers. A row that gates nothing is not a gate, so those two rows should
+  be dropped from that table rather than kept vacuous.
+
+It does fix what it was built for — with it, the light-standard contour rows go
+from failing at 15.34 mean / 65.0 p95 to passing at 0.50 / 4.29 — and the cell it
+cannot reach is `hc-text__rrect-md__rest`, which has **no holes at all** and
+loses 4–7% of its region to a ragged boundary over high-frequency text, reading a
+contour p95 of 24 px at 1× and 34–49 px at 2×.
+
+**A better fix exists and is recommended instead.** The contour metric compares
+all traced boundaries; what it means to compare is each mask's *outer* outline. A
+contour distance measured between outer contours would be immune to holes by
+construction, would need no predicate arm, and would not cost 50 cells. That is a
+metric change rather than a gate change — it moves every contour figure in the
+matrix and would need its own regeneration and a fresh read — so it is proposed
+here rather than taken.
+
+**Corner curvature is never gated, and now for a recorded reason.** No adopted
+table has ever included it, and this pass is the evidence for keeping it that
+way: on cells whose IoU is 0.96 and whose area recovery is 0.96…0.99, the ratio
+`cornerCurvatureWeb / cornerCurvatureNative` reaches 496×, 800× and 8125×. The
+estimator's instability has nothing to do with area recovery, so no conditioning
+predicate would rescue it.
+
+#### The tint's gamut clip, recorded as a limitation
+
+Decision Log 16 chartered this to the backlog rather than to a fix, and it
+belongs beside the tinted tables. A fully saturated author tint drives the
+cross-tier interior ratio to **1.6493** against a band of 0.80…1.25, and the
+cause is not the material: to reproduce the GPU tier's composite the CSS tier
+would have to declare an `rgba()` colour brighter than sRGB can express, so
+`cssTintColor` clips at 255 and renders a weaker tint. Isolated to the
+saturation rather than the opacity — at the same alpha a shaded tone lands within
+0.07 of one 8-bit code while the bare seed misses by 5.59, and at C9a's old alpha
+of 0.62 the bare seed still missed by 3.82. The fix is to solve the CSS alpha and
+colour jointly under the gamut constraint instead of solving the alpha on
+luminance and deriving the colour. **No tinted coherence bound is proposed until
+it lands**, and `packages/platform-web/test/tint.test.ts` pins the shortfall so
+it cannot drift unnoticed.
+
+#### What one more round needs
+
+Three fits, all on calibration cells that already exist, then **one** fresh
+holdout read of the whole configuration:
+
+1. `increasedOcclusionLift` and `reducedTransparencyFrost` — the gap this cascade
+   left, worth six of the ten failing rows.
+2. `sizeSpanMax` — the band's top, which is what the falsification actually
+   names, with `sizeOcclusionGain` refitted after it since the gain only becomes
+   identifiable once the curve stops saturating inside the bed.
+3. A disclosure that must ride with them: §5.13's holdout column has been read,
+   so whoever fits these has seen which holdout cells fail. The fit must be
+   declared and gridded before it runs, on calibration cells only, and the
+   contamination stated in the record.
 
 ---
 
