@@ -3889,6 +3889,188 @@ every cell across an arm's runs as deterministic, noisy, bistable or multi-state
 using the same rule `materialize` publishes by, and it reproduces §5.20's reading
 exactly when pointed at those two runs (45 deterministic, 1 noisy, 8 bistable).
 
+### 5.22 The stability study: what four runs settled, and what the auto-lock stopped (2026-08-31)
+
+The study ran. It got four runs in before the machine locked itself, and the four
+were enough to settle three of the six hypotheses, to measure a hard constraint
+nobody knew was there, and to establish the single most important fact about this
+bed. It was **not** enough to answer the question the study was chartered for, and
+that is stated plainly at the end.
+
+#### The bed is a two-state system with byte-reproducible attractors
+
+The headline, and it is not a hedge. Six cells, five attested runs, **two capture
+sessions hours apart**:
+
+| cell | 5.20 run E | 5.20 run F | a1 | b1 | a2 | distinct states |
+| --- | --- | --- | --- | --- | --- | --- |
+| `photo__rrect-md__rest` | A | B | B | A | A | **2** |
+| `hc-text__capsule-button__rest` | A | B | B | B | A | **2** |
+| `photo__capsule-button__pressed` | A | A | B | B | A | **2** |
+| `checkerboard__toolbar-group__rest` | A | B | A | A | A | **2** |
+| `photo__toolbar-group__rest` | A | B | A | B | A | **2** |
+| `checkerboard__capsule-button__rest` (dark) | A | B | A | A | A | **2** |
+
+Thirty observations. Every one lands on one of **exactly two SHA-256 values per
+cell, and never a third** — and the same two values recur across sessions
+separated by hours, a rebuild, and a re-grant. This is not noise, not drift, not
+warm-up, and not a gradient across the run. **It is a bistable system with two
+stable, byte-reproducible attractors**, and it is the reason a majority vote over
+three runs was never going to work: there is nothing to average toward.
+
+It also settles what the two states are *not*. Every observation above is
+attested `presentedActive: true` on both sides, so the two attractors are not the
+active and inactive poses of Decision Log 14. That axis is real, separate, and
+measured below.
+
+#### The auto-lock, measured to the second
+
+The machine locks its own screen after a fixed idle interval, and `caffeinate -d`
+does not prevent it. The per-cell idle recording added for this study measures
+exactly where it happened:
+
+| run | protocol | cells | idle range | attested active |
+| --- | --- | --- | --- | --- |
+| `a1` | baseline | 54 | 79…273 s | **54 / 54** |
+| `b1` | interstitial 1.5 s | 54 | 296…563 s | **54 / 54** |
+| `a2` | baseline | 54 | 584…773 s | **46 / 54** |
+| `b2` | interstitial 1.5 s | 54 | 796…1054 s | **0 / 54** |
+
+In `a2` the last attested cell is order 45 at **idle 745.9 s** and the first
+unattested is order 46 at **idle 750.3 s**; the failures are a contiguous suffix,
+orders 46 through 53. `b2` is unattested from its first cell.
+
+**So the usable unattended capture window on this machine is 746 seconds — twelve
+minutes and twenty-six seconds** — and the transition is sharp rather than gradual.
+Past it every capture records the material's inactive pose, which is precisely the
+defect DL14 exists to prevent.
+
+Two things worked exactly as they were built to. **`presentedActive` caught every
+affected cell** — 8 of 54 and 54 of 54, mechanically, with no judgement involved —
+and the classifier now refuses to give an unattested cell a verdict at all rather
+than reading a lone surviving observation as stability. And **the pre-flight probe
+paid for itself**: the earlier watcher run aborted before spending an hour, on a
+window that would not become key.
+
+#### The classification, on what survived
+
+Arm A, runs `a1` and `a2`, over the 46 cells both runs attested:
+
+```
+deterministic 42 · noisy 1 · bistable 3 · multi-state 0 · unattested 8
+```
+
+| cell | order | maxDelta | px changed | coherence |
+| --- | --- | --- | --- | --- |
+| `photo__rrect-md__rest` | 0 | 6 | 12571 | 0.977 |
+| `hc-text__capsule-button__rest` | 2 | 47 | 14527 | 1.000 |
+| `photo__capsule-button__pressed` | 24 | 48 | 19271 | 1.000 |
+
+Arm B has one attested run and Arm C none, so **neither can be classified**.
+
+#### The hypotheses
+
+- **H1 — a neutral reset collapses the bistability. UNEVALUATED.** One
+  interstitial run survived; an arm cannot be classified from one run. The single
+  weak observation is that `b1` disagreed with `a1` on two of the six known
+  bistable cells, so the interstitial does not force a canonical state on first
+  contact — but one run is not evidence and this is not reported as any.
+- **H1b — order permutation moves the bistable set. UNEVALUATED.** No permuted
+  run survived.
+- **H2′ — the discriminator is backdrop structure, not level. SUPPORTED, still
+  short of significant.** All three bistable cells here sit on structured
+  backdrops (`photo`, `hc-text`), none on a uniform one, consistent with §5.21's
+  0-of-13. No uniform-backdrop cell has yet been bistable in any session.
+- **H3 — tint engagement rides the same state machine. ANSWERED, AND NO.** The
+  tint-dropout caveat fired on exactly the two runs that lost attestation (`a2`,
+  `b2`) and on neither clean run, and `a2`'s unattested cells include its tinted
+  ones. **Tint dropout is a symptom of the inactive pose, not a second state
+  machine** — which also retires the open question from §5.10, where colour loss
+  was attributed to something "inside the material". It was lost focus.
+- **H4 — the settledness test cannot distinguish the attractors. CONFIRMED.**
+  Bistable cells settle in **1.385** comparisons on average against **1.278** for
+  every other cell, with the same shape (most agree on the first comparison, a
+  few take two or three). The test measures whether the picture stopped moving,
+  and both attractors are equally stopped. The cheapest possible fix is therefore
+  ruled out.
+- **H5 — start-of-run enrichment. STILL SUPPORTED.** The three bistable cells sit
+  at orders 0, 2 and 24; two of three in the first three captured, matching
+  §5.21's three-of-first-five.
+
+#### The doctrine proposal
+
+Five parts. The first is measured, the second is counterintuitive, the third is
+arithmetic, the fourth is the existing rule made binding, and the fifth is honest
+about what is not yet known.
+
+**1. Unlocked throughout, attested per cell.** A run is only evidence if its
+session was unlocked for the whole of it. The mechanical test already exists and
+already works: **every cell must carry `presentedActive: true`, and a run with any
+unattested cell is void rather than partial.** The lock check belongs in the
+harness beside the idle guard — it lives in the study chain today only because
+putting it in Swift costs a rebuild and a permission re-grant.
+
+**2. The idle bar needs a ceiling as well as a floor.** This is the part nobody
+would guess. Too *little* idle means a human is present and perturbing the
+capture; too *much* means the machine has locked itself and every subsequent cell
+is the wrong material. The bar is therefore an interval: **idle ≥ 60 s at the
+start, and the run must be projected to finish before the machine's own lock
+threshold** — 746 s here, and a per-machine measurement rather than a constant,
+because it is a user setting.
+
+**3. Run count: fourteen, not three, and not eight.** The observed minority state
+holds between **20% and 40%** of the draws. To see a state at 20% frequency at
+least once:
+
+| true frequency | runs for 90% | for 95% | for 99% |
+| --- | --- | --- | --- |
+| 0.50 | 4 | 5 | 7 |
+| 0.40 | 5 | 6 | 10 |
+| 0.30 | 7 | 9 | 13 |
+| 0.20 | **11** | **14** | 21 |
+| 0.10 | 22 | 29 | 44 |
+
+**A cell is only "deterministic" to the confidence its run count buys.** Three
+runs — the doctrine this cascade has used throughout — gives a 51% chance of
+missing a 20%-frequency second state, which is how a bed with at least eight
+bistable cells was frozen and fitted against. The proposal is **14 runs per
+protocol**, and a bed frozen on fewer must say in the record what confidence it
+bought.
+
+**4. Per-cell agreement: unanimity, under the structured/incidental rule.** Any
+structured disagreement between attested runs bars the cell from a freezable bed;
+differences at or below one 8-bit code, or scattered rather than regional, resolve
+by majority as before. This is §5.19's arm, promoted from a materialisation check
+to a freezing precondition.
+
+**5. State control: unknown, and the study must be re-run to know it.** H1 is the
+question the whole study exists to answer and it has no answer yet.
+
+#### What stopped it, and what it needs
+
+The study needs roughly seventy minutes and the machine gives twelve and a half.
+That is the whole of it. Two ways past, and the choice is the gate's because the
+second changes what an attestation means:
+
+- **Disable the lock timeout for the study window** (System Settings → Lock
+  Screen). Nothing in the instrument changes and every attestation keeps its
+  current meaning. Costs one manual setting change and its restoration.
+- **Inject a synthetic no-op input event between runs** to hold the lock timer
+  off. This works unattended and forever, but `hidIdleSeconds` would stop meaning
+  "no human is present", so the idle guard would have to be re-founded on
+  something else. `presentedActive` would carry the whole burden.
+
+The first is recommended: it is reversible, it changes no measurement, and the
+attestation that caught this failure keeps working. `caffeinate -u` was measured
+during the study and does **not** reset `HIDIdleTime` (895 → 915 s while held), so
+it can hold a display awake without blinding the idle guard — but it did not
+prevent this lock, and is not a substitute for the setting.
+
+Four runs are preserved whole at
+`/Users/new/.claude/jobs/5c70e47f/tmp/dl20snap-{a1,b1,a2,b2}`. No bed was
+materialised, no constant was fitted, no holdout was read, and the committed bed
+was restored on the study's own exit path.
+
 ---
 
 ## 6. What could not be measured, and why

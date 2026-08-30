@@ -41,7 +41,18 @@ type CellClass =
   | "deterministic"
   | "bistable"
   | "multi-state"
-  | "noisy";
+  | "noisy"
+  /**
+   * At least one contributing run did not attest the window key and the app
+   * active while this cell was captured.
+   *
+   * Liquid Glass renders a flat, unfocused pose in that state, so the bytes are
+   * a photograph of the wrong material. This is not a verdict about the cell and
+   * must never be averaged in with one — measured 2026-08-31, a session that
+   * auto-locked mid-study turned eight cells of one run and all 54 of the next
+   * into exactly this, and the attestation caught every one.
+   */
+  | "unattested";
 
 interface CellVerdict {
   readonly cell: string;
@@ -93,9 +104,14 @@ function verdictFor(
   const byHash = new Map<string, { runs: string[]; settled: boolean }>();
   const images = new Map<string, Uint8Array>();
   const positions = new Set<number>();
+  const unattested: string[] = [];
   for (const run of runs) {
     const path = resolve(run.dir, profile, `${scene}.png`);
     if (!existsSync(path)) continue;
+    if (run.entries.get(cell)?.["presentedActive"] !== true) {
+      unattested.push(run.label);
+      continue;
+    }
     const data = new Uint8Array(readFileSync(path));
     const hash = sha(data);
     images.set(hash, data);
@@ -116,6 +132,14 @@ function verdictFor(
     .sort((a, b) => b.runs.length - a.runs.length);
   const orderIndex = positions.size === 1 ? [...positions][0] : undefined;
   const base = { cell, profile, scene, variants, orderPositions: positions.size } as const;
+
+  // A cell is only classified over the runs that attested it. Fewer than two of
+  // those and there is nothing to compare, so it is reported as unattested
+  // rather than silently read as stable — which is what a single surviving
+  // observation would otherwise look like.
+  if (unattested.length > 0 && variants.length < 2) {
+    return { ...base, verdict: "unattested", ...(orderIndex === undefined ? {} : { orderIndex }) };
+  }
 
   if (variants.length <= 1) {
     return { ...base, verdict: "deterministic", ...(orderIndex === undefined ? {} : { orderIndex }) };
@@ -167,11 +191,35 @@ function main(): void {
     }
   }
 
+  if (argv.includes("--json")) {
+    process.stdout.write(
+      `${JSON.stringify(
+        {
+          arm: label,
+          runs: runs.map((r) => r.label),
+          cells: verdicts.map((v) => ({
+            cell: v.cell,
+            profile: v.profile,
+            scene: v.scene,
+            verdict: v.verdict,
+            orderPositions: v.orderPositions,
+            ...(v.orderIndex === undefined ? {} : { orderIndex: v.orderIndex }),
+            variants: v.variants.map((x) => ({ sha: x.sha256.slice(0, 12), runs: x.runs, settled: x.settled })),
+            ...(v.worst === undefined ? {} : { worst: v.worst }),
+          })),
+        },
+        null,
+        2,
+      )}\n`,
+    );
+    return;
+  }
+
   const counts = new Map<CellClass, number>();
   for (const v of verdicts) counts.set(v.verdict, (counts.get(v.verdict) ?? 0) + 1);
   process.stdout.write(
     `arm '${label}': ${runs.length} run(s) [${runs.map((r) => r.label).join(", ")}], ${verdicts.length} cell(s)\n` +
-      `  ${(["deterministic", "noisy", "bistable", "multi-state"] as CellClass[])
+      `  ${(["deterministic", "noisy", "bistable", "multi-state", "unattested"] as CellClass[])
         .map((k) => `${k} ${counts.get(k) ?? 0}`)
         .join(" · ")}\n`,
   );
