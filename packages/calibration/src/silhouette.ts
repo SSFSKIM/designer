@@ -15,6 +15,11 @@
  * Hence two extractors over one mask type, rather than one extractor with a
  * hidden assumption.
  *
+ * Both extractors take an optional **search region** (schema 5). The
+ * luminance-delta rule's premise — anything differing from the background is the
+ * surface — is false for a material that casts a shadow, and the region is what
+ * bounds it back to the geometry the scene declares. See `component-region.ts`.
+ *
  * ## Why the distance transform is exact
  *
  * Contour distance is the shape axis's headline number, so an approximate
@@ -41,18 +46,39 @@ export interface Silhouette {
   readonly mask: Uint8Array;
 }
 
+/**
+ * Where the extractor is allowed to look.
+ *
+ * Both rules below answer "is this pixel the surface?" from the pixel alone, and
+ * for the luminance-delta rule that answer became wrong when the reference
+ * gained an outer shadow: shadowed backdrop differs from the backdrop, so the
+ * rule returned the component *and its shadow* as one body (claims §5.11). A
+ * search region is the ruled fix (wave Decision Log 15) — the scene's own
+ * declared geometry, supplied by `componentRegion`, never anything derived from
+ * the image being measured.
+ *
+ * A pixel outside the region is outside the silhouette whatever it contains.
+ * That is the whole mechanism, and it is why area recovery becomes partly
+ * assumed: see `component-region.ts` for what the axis no longer claims.
+ */
+interface RegionBounded {
+  /** Absent means the whole canvas — the pre-schema-5 rule, unchanged. */
+  readonly region?: Silhouette;
+}
+
 /** Alpha above a threshold is inside. For captures taken over transparency. */
-export interface AlphaThresholdExtractor {
+export interface AlphaThresholdExtractor extends RegionBounded {
   readonly kind: "alpha";
   /** Normalised 0..1; 0.5 is the natural choice for an antialiased edge. */
   readonly threshold: number;
 }
 
 /**
- * Anything that differs from the known background by more than a threshold is
- * inside. For opaque native composites over a shared raster background.
+ * Anything that differs from the known background by more than a threshold —
+ * **and lies inside the search region** — is inside. For opaque native
+ * composites over a shared raster background.
  */
-export interface LuminanceDeltaExtractor {
+export interface LuminanceDeltaExtractor extends RegionBounded {
   readonly kind: "luminance-delta";
   readonly background: CalibrationImage;
   /** Absolute linear-light luminance difference, 0..1. */
@@ -65,10 +91,19 @@ export type SilhouetteExtractor = AlphaThresholdExtractor | LuminanceDeltaExtrac
 export function extractSilhouette(image: CalibrationImage, extractor: SilhouetteExtractor): Silhouette {
   const count = image.width * image.height;
   const mask = new Uint8Array(count);
+  const region = extractor.region;
+  if (region !== undefined && (region.width !== image.width || region.height !== image.height)) {
+    throw new CalibrationError(
+      "dimension-mismatch",
+      `extractSilhouette: a ${region.width}x${region.height} search region cannot bound a ` +
+        `${image.width}x${image.height} capture.`,
+    );
+  }
 
   if (extractor.kind === "alpha") {
     const cutoff = extractor.threshold * 255;
     for (let i = 0; i < count; i += 1) {
+      if (region !== undefined && (region.mask[i] ?? 0) === 0) continue;
       mask[i] = (image.data[i * 4 + 3] ?? 0) >= cutoff ? 1 : 0;
     }
     return { width: image.width, height: image.height, mask };
@@ -77,6 +112,7 @@ export function extractSilhouette(image: CalibrationImage, extractor: Silhouette
   assertComparable(image, extractor.background, "extractSilhouette(luminance-delta)");
   const background = extractor.background;
   for (let i = 0; i < count; i += 1) {
+    if (region !== undefined && (region.mask[i] ?? 0) === 0) continue;
     const src = i * 4;
     const own = linearRgbLuminance(
       srgbByteToLinear(image.data[src] ?? 0),

@@ -22,7 +22,8 @@
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   createResultMatrix,
@@ -34,6 +35,16 @@ import {
   type FixtureSet,
 } from "../src/index";
 import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell, type MeasureInput } from "./measure";
+import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
+
+const REFERENCE = resolve(
+  fileURLToPath(new URL(".", import.meta.url)),
+  "..",
+  "..",
+  "..",
+  "apps",
+  "reference-apple",
+);
 
 interface Args extends MeasureInput {
   readonly matrix?: string;
@@ -61,12 +72,23 @@ function parseArgs(argv: readonly string[]): Args {
   };
 
   const profileKey = need("profile");
-  if (parseProfileKey(profileKey) === null) {
+  const profile = parseProfileKey(profileKey);
+  if (profile === null) {
     throw new Error(
       `diff: --profile '${profileKey}' does not match X9's profile-key grammar ` +
         `(apple-<platform>-<os>-<scale>x-<scheme>-<a11y>)`,
     );
   }
+
+  /*
+   * The declared geometry the instrument bounds its search to (schema 5), read
+   * from the scene matrix rather than taken as a flag. The scene id and the
+   * profile key between them already determine it, and a hand-passed rect could
+   * disagree with the one the harnesses laid the scene out from — which would be
+   * indistinguishable from a fidelity finding.
+   */
+  const sceneId = need("scene");
+  const geometry = readSceneGeometry(REFERENCE);
 
   const tier = map.get("tier") ?? "texture";
   if (tier !== "texture" && tier !== "dom") {
@@ -105,12 +127,15 @@ function parseArgs(argv: readonly string[]): Args {
     nativePath: need("native"),
     webPath: need("web"),
     profileKey,
-    sceneId: need("scene"),
+    sceneId,
     webCellPath: need("web-cell"),
     tier: tier as FidelityTier,
     fixtureSet: fixtureSet as FixtureSet,
     blurAxis,
     silhouetteThreshold: Number(map.get("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
+    component: declaredComponentOf(geometry, sceneId),
+    canvas: geometry.canvas,
+    scale: profile.scale,
     ...(backgroundPath === undefined ? {} : { backgroundPath }),
     ...(matrix === undefined ? {} : { matrix }),
     ...(out === undefined ? {} : { out }),

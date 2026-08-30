@@ -31,6 +31,7 @@ import type {
   TintResponseReport,
 } from "./metrics/material";
 import type { MorphSilhouetteTrajectoryReport } from "./metrics/motion";
+import type { ShadowFieldReport } from "./metrics/shadow";
 import type { EdgeWeightedDifferenceReport, OklabDeltaEReport, SsimReport } from "./metrics/perceptual";
 import { parseProfileKey, type FidelityTier, type FixtureSet } from "./profile";
 
@@ -153,10 +154,25 @@ export function serializeResultCellKey(key: ResultCellKey): string {
 // Axis reports
 // ---------------------------------------------------------------------------
 
+/**
+ * The shape axis, **bounded to the declared component region** from schema 5.
+ *
+ * What it claims: each side fills, and stays inside, the geometry the scene
+ * matrix declares — coverage, contour position and corner profile within that
+ * region, which is the corner-and-edge fidelity the axis exists for.
+ *
+ * What it no longer claims: area recovery. The search region is the declaration
+ * itself (see `component-region.ts`), so a surface drawn *larger* than declared
+ * is clipped to the declaration and reads as a match, and the reference's own
+ * silhouette saturates the region wherever its shadow does. Both sides' areas
+ * are therefore bounded above by `componentRegionArea` by construction — which
+ * is why that number is on the record, and why the conditioning predicate reads
+ * as a floor with an *assumed* ceiling rather than as a two-sided measurement.
+ */
 export interface ShapeAxisReport {
   readonly axis: "shape";
   /**
-   * Extracted silhouette area per side, in pixels.
+   * Extracted silhouette area per side, in pixels, inside the declared region.
    *
    * Reported because it is how a reader tells a shape *difference* from a shape
    * *measurement failure*, and the two are not distinguishable from IoU alone.
@@ -166,9 +182,8 @@ export interface ShapeAxisReport {
    * that case. A dark material over a black-and-white checkerboard is genuinely
    * indistinguishable from the black squares it covers: measured, the native
    * silhouette comes back at 4324 px where the declared capsule is 4865, holes
-   * punched through its own interior, while the web side comes back at 5127 by
-   * picking up its own halo. The IoU and contour figures for such a cell describe
-   * the extractor, not the geometry.
+   * punched through its own interior. The IoU and contour figures for such a cell
+   * describe the extractor, not the geometry.
    *
    * A gate can therefore condition on these: an area far from the declared
    * component's is a cell whose shape axis should not be gated. That check is
@@ -176,6 +191,17 @@ export interface ShapeAxisReport {
    */
   readonly silhouetteAreaNative: MetricValue;
   readonly silhouetteAreaWeb: MetricValue;
+  /**
+   * Area of the search region both silhouettes were cut out of, in pixels — the
+   * declared geometry as rasterised, dilated by `componentRegionMargin`.
+   *
+   * The ceiling of the conditioning predicate, and the number that makes the
+   * axis's assumption auditable per cell: a silhouette at this value has been
+   * clipped by the bound rather than measured to it.
+   */
+  readonly componentRegionArea: MetricValue;
+  /** Outward dilation of the declared geometry, device px. Zero on this bed. */
+  readonly componentRegionMargin: MetricValue;
   readonly silhouetteIoU: MetricValue;
   readonly contourDistanceMax: MetricValue;
   readonly contourDistanceP95: MetricValue;
@@ -191,6 +217,8 @@ export interface ShapeAxisReport {
 export function shapeAxisReport(input: {
   readonly silhouetteAreaNative: number;
   readonly silhouetteAreaWeb: number;
+  readonly componentRegionArea: number;
+  readonly componentRegionMarginPx: number;
   readonly silhouetteIoU: number;
   readonly contourDistance: ContourDistanceReport;
   readonly cornerCurvature: CornerCurvatureReport;
@@ -199,6 +227,8 @@ export function shapeAxisReport(input: {
     axis: "shape",
     silhouetteAreaNative: metricValue(input.silhouetteAreaNative, "px^2"),
     silhouetteAreaWeb: metricValue(input.silhouetteAreaWeb, "px^2"),
+    componentRegionArea: metricValue(input.componentRegionArea, "px^2"),
+    componentRegionMargin: metricValue(input.componentRegionMarginPx, "px"),
     silhouetteIoU: metricValue(input.silhouetteIoU, "ratio"),
     contourDistanceMax: metricValue(input.contourDistance.maxPx, "px"),
     contourDistanceP95: metricValue(input.contourDistance.p95Px, "px"),
@@ -479,11 +509,147 @@ export function coherenceAxisReport(input: {
   };
 }
 
+/**
+ * The shadow axis: what each side does to the backdrop it does not cover.
+ *
+ * Its own axis from schema 5, because the outer shadow turned out to be a facet
+ * of Apple's material rather than a detail of it — a downward-offset
+ * multiplicative occlusion over 8.5–29.6% of the canvas that vitrea renders as
+ * exactly zero (claims §5.11, wave Decision Log 15). The material axis's
+ * `shadow*` pair stays where it is and keeps its meaning as an isotropic summary
+ * profiled from the extracted silhouette; this axis is the directional
+ * description a renderer can be fitted against, measured from the *declared*
+ * contour so it is not hostage to what the extractor recovered.
+ *
+ * Every figure is per side, by the same estimator over the same exterior, since
+ * a gap is not a quantity until both halves are measured the same way.
+ *
+ * **Absent, never zeroed**, in four distinguishable ways:
+ *
+ *   - The normalised block — strength, extents, offsets, falloff — is absent
+ *     where the backdrop cannot support a ratio. A shadow removes a fraction of
+ *     the light behind it, and over `dark-solid` or `impulse` there is none to
+ *     remove, so no shadow of any strength is recoverable there.
+ *     `backdropSupport` records how far short the scene fell.
+ *   - `offset*` is absent where no direction reached the occlusion threshold.
+ *     That is what a renderer drawing no shadow produces, and an undefined
+ *     displacement recorded as undefined is not the same claim as (0, 0).
+ *   - `centroidOffset*` is absent where too little of the exterior is occluded
+ *     for a mass centroid to describe the shadow rather than the backdrop.
+ *   - `falloffLength`/`falloffResidual` are absent where the profile has too few
+ *     rings above the threshold to fit, or does not decay.
+ *
+ * `meanDeparture*` is the one figure present on every scene: an absolute
+ * luminance difference is defined even where a ratio is not, and it is what
+ * claims §5.11 quoted (0.0000 on vitrea's side against 0.0022…0.0153 on the
+ * reference's).
+ */
+export interface ShadowAxisReport {
+  readonly axis: "shadow";
+  /** Pixels outside the declared region — the population every figure is over. */
+  readonly exteriorArea: MetricValue;
+  readonly backdropMeanLuminance: MetricValue;
+  readonly backdropSupport: MetricValue;
+  readonly meanDepartureNative: MetricValue;
+  readonly meanDepartureWeb: MetricValue;
+  readonly strengthPeakNative?: MetricValue;
+  readonly strengthPeakWeb?: MetricValue;
+  readonly strengthPeakDistanceNative?: MetricValue;
+  readonly strengthPeakDistanceWeb?: MetricValue;
+  readonly extentAboveNative?: MetricValue;
+  readonly extentAboveWeb?: MetricValue;
+  readonly extentBelowNative?: MetricValue;
+  readonly extentBelowWeb?: MetricValue;
+  readonly extentLeftNative?: MetricValue;
+  readonly extentLeftWeb?: MetricValue;
+  readonly extentRightNative?: MetricValue;
+  readonly extentRightWeb?: MetricValue;
+  readonly offsetXNative?: MetricValue;
+  readonly offsetXWeb?: MetricValue;
+  readonly offsetYNative?: MetricValue;
+  readonly offsetYWeb?: MetricValue;
+  readonly centroidOffsetXNative?: MetricValue;
+  readonly centroidOffsetXWeb?: MetricValue;
+  readonly centroidOffsetYNative?: MetricValue;
+  readonly centroidOffsetYWeb?: MetricValue;
+  readonly falloffLengthNative?: MetricValue;
+  readonly falloffLengthWeb?: MetricValue;
+  readonly falloffResidualNative?: MetricValue;
+  readonly falloffResidualWeb?: MetricValue;
+}
+
+/** Spread one side's optional figure in under its own name, or leave it out. */
+function sided(
+  suffix: "Native" | "Web",
+  values: Readonly<Record<string, number | undefined>>,
+  units: Readonly<Record<string, MetricUnits>>,
+): Record<string, MetricValue> {
+  const out: Record<string, MetricValue> = {};
+  for (const [name, value] of Object.entries(values)) {
+    const unit = units[name];
+    if (value === undefined || unit === undefined) continue;
+    out[`${name}${suffix}`] = metricValue(value, unit);
+  }
+  return out;
+}
+
+const SHADOW_FIELD_UNITS: Readonly<Record<string, MetricUnits>> = {
+  strengthPeak: "ratio",
+  strengthPeakDistance: "px",
+  extentAbove: "px",
+  extentBelow: "px",
+  extentLeft: "px",
+  extentRight: "px",
+  offsetX: "px",
+  offsetY: "px",
+  centroidOffsetX: "px",
+  centroidOffsetY: "px",
+  falloffLength: "px",
+  falloffResidual: "ratio",
+};
+
+const shadowFieldValues = (side: ShadowFieldReport): Readonly<Record<string, number | undefined>> => ({
+  strengthPeak: side.strengthPeak,
+  strengthPeakDistance: side.strengthPeakDistancePx,
+  extentAbove: side.extentAbovePx,
+  extentBelow: side.extentBelowPx,
+  extentLeft: side.extentLeftPx,
+  extentRight: side.extentRightPx,
+  offsetX: side.offsetXPx,
+  offsetY: side.offsetYPx,
+  centroidOffsetX: side.centroidOffsetXPx,
+  centroidOffsetY: side.centroidOffsetYPx,
+  falloffLength: side.falloffLengthPx,
+  falloffResidual: side.falloffResidual,
+});
+
+/**
+ * The exterior, the backdrop level and the backdrop support are properties of
+ * the *scene* — the same region and the same backdrop on both sides — so they
+ * are reported once rather than as a pair that could disagree with itself.
+ */
+export function shadowAxisReport(input: {
+  readonly native: ShadowFieldReport;
+  readonly web: ShadowFieldReport;
+}): ShadowAxisReport {
+  return {
+    axis: "shadow",
+    exteriorArea: metricValue(input.native.exteriorAreaPx, "px^2"),
+    backdropMeanLuminance: metricValue(input.native.backdropMeanLuminance, "luminance"),
+    backdropSupport: metricValue(input.native.backdropSupport, "ratio"),
+    meanDepartureNative: metricValue(input.native.meanDeparture, "luminance"),
+    meanDepartureWeb: metricValue(input.web.meanDeparture, "luminance"),
+    ...sided("Native", shadowFieldValues(input.native), SHADOW_FIELD_UNITS),
+    ...sided("Web", shadowFieldValues(input.web), SHADOW_FIELD_UNITS),
+  };
+}
+
 export type AxisReport =
   | ShapeAxisReport
   | MaterialAxisReport
   | PerceptualAxisReport
   | MotionAxisReport
+  | ShadowAxisReport
   | CoherenceAxisReport;
 
 // ---------------------------------------------------------------------------
@@ -505,6 +671,8 @@ export interface CellResult {
   readonly material?: MaterialAxisReport;
   readonly perceptual?: PerceptualAxisReport;
   readonly motion?: MotionAxisReport;
+  /** Present wherever a backdrop and a declared region were both available. */
+  readonly shadow?: ShadowAxisReport;
   /** Dom-tier cells only, and only where the texture twin was on disk. */
   readonly coherence?: CoherenceAxisReport;
 }
@@ -529,8 +697,29 @@ export interface CellResult {
  * because absent coherence means two different things across the bump: "this
  * schema has no such axis" before, "this cell's twin was not on disk" after.
  * See `CoherenceAxisReport`.
+ *
+ * 5 (post-v1 wave, Decision Log 15): **the instrument became two axes.** Shape
+ * extraction is bounded to the declared component region, and the outer shadow
+ * became a measured axis of its own. A version-4 cell cannot be read as a
+ * version-5 one in either direction, and the reason is not a field list:
+ *
+ *   - every schema-4 `shape` and `material` figure was measured under a
+ *     whole-canvas silhouette that, on the active-pose bed, contained the
+ *     reference's shadow as well as its component — native areas at roughly
+ *     twice the declared, interior statistics averaged over half-shadowed
+ *     backdrop. Reading those beside schema-5 figures as the same quantity is
+ *     the specific misreading this bump exists to prevent;
+ *   - absent `shadow` means two different things across the bump: "this schema
+ *     has no such axis" before, "no backdrop or no declared region was available
+ *     for this cell" after.
+ *
+ * `results/matrix.json` is deliberately left at schema 4. Decision Log 15 ruling
+ * 3 keeps the inactive-bed gate enforced, as the historically-labelled suite,
+ * until the one honest post-W8 pass — so the committed matrix and the schema
+ * this build writes are different versions on purpose, and
+ * `test/adopted-thresholds.test.ts` pins both numbers to say so.
  */
-export const RESULT_MATRIX_SCHEMA_VERSION = 4;
+export const RESULT_MATRIX_SCHEMA_VERSION = 5;
 
 /** Cells indexed by their serialised key. */
 export interface ResultMatrix {

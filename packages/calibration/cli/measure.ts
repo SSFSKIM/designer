@@ -16,6 +16,13 @@
  * against that same backdrop. Without one, this reports the shape and perceptual
  * axes and says so; it does not guess a material number.
  *
+ * **The declaration bounds the search, and the shadow is its own axis** (schema
+ * 5, wave Decision Log 15). Differencing against the backdrop finds the
+ * component *and anything else that differs from it* — which on the active-pose
+ * bed is the reference's outer shadow. So extraction is bounded to the geometry
+ * `scenes.json` declares, and what happens outside that geometry is measured
+ * separately rather than swallowed.
+ *
  * **No thresholds and no verdict.** Nothing here decides whether a number is
  * good. What counts as close enough is per tier and per engine cell, decided
  * against holdout fixtures, and it is C9's — see docs/doperpowers/specs/
@@ -26,6 +33,7 @@ import { readFileSync } from "node:fs";
 
 import {
   blurEdgeSpread,
+  componentRegion,
   contourDistance,
   coherenceAxisReport,
   cornerCurvature,
@@ -39,7 +47,9 @@ import {
   perceptualAxisReport,
   resultCellKey,
   rimIntensity,
+  shadowAxisReport,
   shadowFalloff,
+  shadowField,
   shapeAxisReport,
   silhouetteArea,
   silhouetteIoU,
@@ -47,14 +57,17 @@ import {
   ssim,
   tintResponse,
   type CalibrationImage,
+  type CanvasSize,
   type CellResult,
   type CoherenceAxisReport,
+  type DeclaredComponent,
   type EdgeSpreadReport,
   type FidelityTier,
   type FixtureSet,
   type LuminanceTransferReport,
   type MaterialAxisReport,
   type PerceptualAxisReport,
+  type ShadowAxisReport,
   type ShapeAxisReport,
   type WebCell,
 } from "../src/index";
@@ -86,6 +99,21 @@ export interface MeasureInput {
    * light-solid backdrop differs from it far less than over a checkerboard.
    */
   readonly silhouetteThreshold: number;
+  /**
+   * The scene matrix's declaration of where the component is (schema 5).
+   *
+   * Not optional, and not derivable from the capture. It bounds the shape axis's
+   * search — the rule that "anything differing from the background is the
+   * surface" is false for a material that casts a shadow — and it is the contour
+   * the shadow axis profiles outward from. See `src/component-region.ts`.
+   */
+  readonly component: DeclaredComponent;
+  /** The canvas the component is centred in, in points. */
+  readonly canvas: CanvasSize;
+  /** Device pixels per point: the profile's backing scale. */
+  readonly scale: number;
+  /** Outward dilation of the declared region, device px. Defaults to zero. */
+  readonly componentRegionMarginPx?: number;
 }
 
 export interface MeasureOutcome {
@@ -136,12 +164,38 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
   const web = loadImage(input.webPath);
   const background = input.backgroundPath === undefined ? undefined : loadImage(input.backgroundPath);
 
+  /*
+   * The declared search region (schema 5).
+   *
+   * Built from the scene matrix and the profile's backing scale, never from the
+   * pixels: an image-derived bound would be the same circularity in a longer
+   * form, since the shadow that broke the old rule is in the very pixels the
+   * bound would be fitted to. Building it here also checks the capture against
+   * the declaration — a capture that is not `canvas × scale` was framed
+   * differently from the scene whose geometry this is.
+   */
+  const region = componentRegion(input.component, {
+    canvas: input.canvas,
+    scale: input.scale,
+    width: native.width,
+    height: native.height,
+    ...(input.componentRegionMarginPx === undefined
+      ? {}
+      : { marginPx: input.componentRegionMarginPx }),
+  });
+
   // Silhouettes. With a background we can difference against it, which is the
   // only way to find the component in an opaque native composite; without one we
   // fall back to alpha, which only works for a capture taken over transparency.
+  // Either way the search is bounded to the declared region.
   const extractor = background
-    ? ({ kind: "luminance-delta", background, threshold: input.silhouetteThreshold } as const)
-    : ({ kind: "alpha", threshold: 0.5 } as const);
+    ? ({
+        kind: "luminance-delta",
+        background,
+        threshold: input.silhouetteThreshold,
+        region: region.silhouette,
+      } as const)
+    : ({ kind: "alpha", threshold: 0.5, region: region.silhouette } as const);
 
   const nativeSil = extractSilhouette(native, extractor);
   const webSil = extractSilhouette(web, extractor);
@@ -161,13 +215,15 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
       .join(" and ");
     notes.push(
       `shape axis NOT MEASURED: the ${empty} silhouette is empty at threshold ` +
-        `${String(input.silhouetteThreshold)} — that capture is indistinguishable from its ` +
-        `background, so there is no contour to compare.`,
+        `${String(input.silhouetteThreshold)} inside the declared component region — that capture is ` +
+        `indistinguishable from its background there, so there is no contour to compare.`,
     );
   } else {
     shape = shapeAxisReport({
       silhouetteAreaNative: nativeArea,
       silhouetteAreaWeb: webArea,
+      componentRegionArea: region.areaPx,
+      componentRegionMarginPx: region.marginPx,
       silhouetteIoU: silhouetteIoU(nativeSil, webSil),
       contourDistance: contourDistance(nativeSil, webSil),
       cornerCurvature: cornerCurvature(nativeSil, webSil),
@@ -196,6 +252,13 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
      * The shape axis above deliberately still compares the two silhouettes
      * against each other — that is its whole job, and it is the axis that would
      * be made vacuous by sharing a mask.
+     *
+     * From schema 5 that native silhouette is bounded to the declared region,
+     * which is what makes these statistics interior statistics again. Under the
+     * whole-canvas rule the mask contained the reference's shadow as well as its
+     * component, so `interiorMean*`, `interiorStdDev*` and the rim — the whole
+     * of this package's declared tuning objective — were averaged over a region
+     * roughly half shadowed backdrop (claims §5.11).
      */
     const interior = nativeSil;
 
@@ -275,6 +338,32 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
   }
 
   /*
+   * The shadow axis (schema 5): what each side does to the backdrop it does not
+   * cover, measured OUTSIDE the declared region.
+   *
+   * Needs a backdrop and nothing else — in particular it does not need either
+   * silhouette, which is the point. It is measured on cells whose shape and
+   * material axes are absent (a material invisible against its own backdrop
+   * still casts a shadow), and its own absences are its own: over `dark-solid`
+   * and `impulse` there is no light behind the component to remove, so the
+   * normalised figures are absent with the support recorded, never zeroed.
+   */
+  let shadow: ShadowAxisReport | undefined;
+  if (background !== undefined) {
+    const nativeShadow = shadowField(native, background, region);
+    const webShadow = shadowField(web, background, region);
+    shadow = shadowAxisReport({ native: nativeShadow, web: webShadow });
+    if (nativeShadow.unmeasurableReason !== undefined) {
+      notes.push(
+        `shadow axis NOT NORMALISED: ${nativeShadow.unmeasurableReason} The absolute departure ` +
+          `(meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.`,
+      );
+    }
+  } else {
+    notes.push("shadow axis NOT MEASURED: no background given (absent, not zero).");
+  }
+
+  /*
    * The coherence axis: this capture against its texture twin, web against web,
    * with no fixture in the comparison at all (schema 4, `CoherenceAxisReport`).
    *
@@ -317,6 +406,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
     // are for — never "measured as zero". No motion axis: this is a still pair.
     ...(shape === undefined ? {} : { shape }),
     ...(material === undefined ? {} : { material }),
+    ...(shadow === undefined ? {} : { shadow }),
     ...(coherence === undefined ? {} : { coherence }),
   };
 

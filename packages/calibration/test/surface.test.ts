@@ -26,6 +26,10 @@ describe("package surface", () => {
       "squaredEuclideanDistanceTransform",
       "aggregate",
       "CalibrationError",
+      // The declared geometry the instrument bounds its search to (schema 5).
+      "placeComponent",
+      "componentRegion",
+      "DEFAULT_COMPONENT_REGION_MARGIN_PX",
       // Axes.
       "silhouetteIoU",
       "contourDistance",
@@ -35,6 +39,7 @@ describe("package surface", () => {
       "tintResponse",
       "rimIntensity",
       "shadowFalloff",
+      "shadowField",
       "edgeWeightedDifference",
       "ssim",
       "oklabDeltaE",
@@ -50,6 +55,8 @@ describe("package surface", () => {
       "materialAxisReport",
       "perceptualAxisReport",
       "motionAxisReport",
+      "shadowAxisReport",
+      "coherenceAxisReport",
     ]) {
       expect(calibration, name).toHaveProperty(name);
     }

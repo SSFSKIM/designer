@@ -56,11 +56,28 @@
  *     vitrea's pressed pose against Apple's rest pose. They are still gated on
  *     the shape and perceptual axes — §5's own worst-case figures include them —
  *     but no press claim rests on that.
+ *   - **The shadow axis is not gated, and must not be yet.** Schema 5 measures
+ *     it (claims §5.12) and vitrea reads zero across it on every cell. A bound
+ *     over that would certify the gap, which is the move Decision Log 11
+ *     refused at a smaller size; the axis gets its first bound from the cascade
+ *     after W8 renders a shadow to bound.
+ *
+ * ## What this file is measuring, after the instrument changed
+ *
+ * Everything below is the **inactive-bed** suite, gated as historically
+ * labelled. Wave Decision Log 15 ruling 3 holds `results/matrix.json` where it
+ * is — schema 4, whole-canvas extraction — until the one honest post-W8 pass,
+ * because re-adopting a bound over a reference facet vitrea renders as zero
+ * would certify the defect. So this file gates a schema-4 matrix while the build
+ * writes schema 5, and the first assertion pins both numbers so that stays a
+ * decision rather than drift.
  */
 
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+
+import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
 
 // ---------------------------------------------------------------------------
 // §5, transcribed
@@ -248,6 +265,17 @@ const DOM_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
  * extractor rather than the geometry, and gating them would be gating the
  * instrument. `silhouetteAreaNative` is on the record in every cell (schema 3
  * onward) precisely so this can be machine-checked.
+ *
+ * **It is a floor with no ceiling, and on this matrix that is a known hole.**
+ * The predicate guards under-recovery only, so it cannot catch the opposite
+ * failure — and the opposite failure is what the active-pose bed found: an
+ * extractor that returns the component *and its shadow* produces areas at
+ * roughly twice the declared, which this predicate passes (claims §5.11).
+ * Schema 5 closes it at the source rather than here, by bounding extraction to
+ * the declared region and recording `componentRegionArea` as the ceiling that
+ * bound imposes; the numbers below are the inactive-bed suite, gated as
+ * historically labelled per wave Decision Log 15 ruling 3, and they keep the
+ * predicate they were adopted with.
  */
 const WELL_CONDITIONED_AREA_RATIO = 0.95;
 
@@ -606,10 +634,21 @@ const predicateExcludedCount = (profileKey: string, tier: string): number =>
 // ---------------------------------------------------------------------------
 
 describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)", () => {
-  it("reads the schema it was written against", () => {
-    // The field names below were verified against schema 4. A schema bump is a
-    // reason to re-verify them, not to trust that they survived.
+  it("reads the schema it was written against, which is no longer the one the build writes", () => {
+    // The field names below were verified against schema 4, and this matrix is
+    // still a schema-4 file. That is deliberate, not drift: wave Decision Log 15
+    // ruling 3 keeps the inactive-bed gate enforced as the historically
+    // labelled suite until the one honest post-W8 pass, so `results/matrix.json`
+    // is not regenerated — while the build has moved to schema 5, whose shape
+    // and material figures are measured under a *bounded* silhouette and are
+    // therefore not the same quantities as the ones gated here.
+    //
+    // Both numbers are pinned so the divergence stays a decision. When the
+    // post-W8 matrix replaces this one, these two become equal again and the
+    // tables above must be re-verified against the new instrument, not assumed
+    // to have survived it.
     expect(MATRIX.schemaVersion).toBe(4);
+    expect(RESULT_MATRIX_SCHEMA_VERSION).toBe(5);
   });
 
   it("covers four profiles of the settled bed, and names the two it leaves", () => {

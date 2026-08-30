@@ -89,6 +89,7 @@ import {
 } from "../src/index";
 import { isCaptureFresh, shouldWriteMatrix } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell } from "./measure";
+import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
@@ -317,6 +318,12 @@ interface Options {
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly silhouetteThreshold: number;
+  /**
+   * Outward dilation of the declared search region, device px. Absent means the
+   * package default, which is zero — see `DEFAULT_COMPONENT_REGION_MARGIN_PX`
+   * for why a margin costs more than it buys against a shadow-casting reference.
+   */
+  readonly componentRegionMarginPx: number | undefined;
 }
 
 function parseOptions(argv: readonly string[]): Options {
@@ -367,6 +374,8 @@ function parseOptions(argv: readonly string[]): Options {
     webAccessibility,
     matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
+    componentRegionMarginPx:
+      flag("region-margin") === undefined ? undefined : Number(flag("region-margin")),
   };
 }
 
@@ -546,7 +555,11 @@ function say(line: string): void {
   process.stdout.write(`${line}\n`);
 }
 
-function metric(cell: CellResult, axis: "shape" | "material" | "perceptual", field: string): number | undefined {
+function metric(
+  cell: CellResult,
+  axis: "shape" | "material" | "perceptual" | "shadow",
+  field: string,
+): number | undefined {
   const report = cell[axis] as Record<string, { value: number } | undefined> | undefined;
   return report?.[field]?.value;
 }
@@ -559,6 +572,10 @@ function main(): void {
   const options = parseOptions(process.argv.slice(2));
   const spec = readJson<SceneSpec>(resolve(REFERENCE, "scenes.json"));
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
+  // The same file, projected onto the geometry the instrument bounds its search
+  // to (schema 5). Read through the shared resolver so `compare`, `diff` and
+  // `tier-delta` cannot end up bounding three different regions.
+  const geometry = readSceneGeometry(REFERENCE);
 
   const colourlessTints = options.allowColourlessTints
     ? undefined
@@ -683,6 +700,14 @@ function main(): void {
         fixtureSet: cell.fixtureSet,
         blurAxis: "x",
         silhouetteThreshold: options.silhouetteThreshold,
+        component: declaredComponentOf(geometry, cell.sceneId),
+        canvas: geometry.canvas,
+        // The measured backing scale, not the one the key claims — the same
+        // observation the web capture's deviceScaleFactor was set from.
+        scale: cell.scale,
+        ...(options.componentRegionMarginPx === undefined
+          ? {}
+          : { componentRegionMarginPx: options.componentRegionMarginPx }),
       });
       matrix = upsertCellResult(matrix, outcome.cell);
       measured.push({ planned: cell, cell: outcome.cell, notes: outcome.notes });
@@ -781,6 +806,45 @@ function main(): void {
   }
 
   // ---------------------------------------------------------------------------
+  // The shadow axis (schema 5). Its own block rather than more columns above:
+  // it is a description of a facet, not a residual, and the reference's numbers
+  // are what a renderer gets fitted against.
+  //
+  // A dash is an ABSENT figure, never a zero — over a backdrop with no light to
+  // remove there is no occlusion ratio to report, and a side that reached the
+  // threshold in no direction has no offset.
+  // ---------------------------------------------------------------------------
+  const unnormalisedShadow = new Set<string>();
+  say("");
+  say("── the shadow axis: what each side does to the backdrop it does not cover ────────────");
+  say(
+    "profile                       scene                                        support  strength N/W     " +
+      "extent above/below/left/right N       W                 offset y N/W     falloff N/W",
+  );
+  say("-".repeat(200));
+  for (const { planned: cell, cell: result } of measured) {
+    if (result.shadow === undefined) continue;
+    if (metric(result, "shadow", "strengthPeakNative") === undefined) {
+      unnormalisedShadow.add(cell.sceneId);
+    }
+    const extents = (side: "Native" | "Web"): string =>
+      (["extentAbove", "extentBelow", "extentLeft", "extentRight"] as const)
+        .map((field) => fixed(metric(result, "shadow", `${field}${side}`), 0).padStart(3))
+        .join("/");
+    say(
+      [
+        cell.profileKey.replace(/^apple-macos-[\d.]+-/, "").padEnd(29),
+        cell.sceneId.padEnd(44),
+        fixed(metric(result, "shadow", "backdropSupport"), 2).padStart(7),
+        `${fixed(metric(result, "shadow", "strengthPeakNative"), 4).padStart(7)}/${fixed(metric(result, "shadow", "strengthPeakWeb"), 4).padStart(7)}`,
+        ` ${extents("Native")}  ${extents("Web")}`,
+        `  ${fixed(metric(result, "shadow", "offsetYNative"), 1).padStart(6)}/${fixed(metric(result, "shadow", "offsetYWeb"), 1).padStart(6)}`,
+        `  ${fixed(metric(result, "shadow", "falloffLengthNative"), 1).padStart(6)}/${fixed(metric(result, "shadow", "falloffLengthWeb"), 1).padStart(6)}`,
+      ].join(" "),
+    );
+  }
+
+  // ---------------------------------------------------------------------------
   // What this run does and does not show. Every caveat that would make a number
   // misleading is printed, never left to a reader who happens to open the JSON.
   // ---------------------------------------------------------------------------
@@ -813,6 +877,20 @@ function main(): void {
     say(
       `material axis absent on ${noMaterial.size} cell(s): ${[...noMaterial].join(", ")}. ` +
         `See the per-cell notes — absent means not identifiable on that scene, never zero.`,
+    );
+  }
+  say(
+    `the shape axis is BOUNDED to the declared component region (margin ` +
+      `${String(options.componentRegionMarginPx ?? 0)} device px): within it, coverage, contour and ` +
+      `corner profile are measured as before; outside it nothing is recovered, so a surface drawn ` +
+      `LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read ` +
+      `silhouetteArea{Native,Web} against componentRegionArea.`,
+  );
+  if (unnormalisedShadow.size > 0) {
+    say(
+      `shadow axis NOT NORMALISED on ${unnormalisedShadow.size} cell(s): ` +
+        `${[...unnormalisedShadow].join(", ")}. Their backdrops carry too little light for an occlusion ` +
+        `ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.`,
     );
   }
   if (options.renderer === "css") {

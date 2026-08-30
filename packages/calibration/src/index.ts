@@ -12,9 +12,12 @@
  *   shares: one capture representation, the sRGB↔linear boundary under X5,
  *   silhouette extraction with an exact distance transform, and the order
  *   statistics and fits the metrics report through.
- * - `metrics/shape`, `metrics/material`, `metrics/perceptual`, `metrics/motion`
- *   — the four axes, reported separately so a win on one can never mask a loss
- *   on another.
+ * - `component-region` — the scene matrix's declared geometry, placed and
+ *   rasterised: the search region that bounds extraction and the exact contour
+ *   distance the shadow axis profiles by.
+ * - `metrics/shape`, `metrics/material`, `metrics/perceptual`, `metrics/motion`,
+ *   `metrics/shadow` — the axes, reported separately so a win on one can never
+ *   mask a loss on another.
  * - `report` — X9's result side: the per-cell key (native profile × web cell ×
  *   scene), the per-axis reports, and the result matrix.
  *
@@ -39,9 +42,11 @@ export * from "./color";
 export * from "./stats";
 export * from "./image";
 export * from "./silhouette";
+export * from "./component-region";
 
 export * from "./metrics/shape";
 export * from "./metrics/material";
+export * from "./metrics/shadow";
 export * from "./metrics/perceptual";
 export * from "./metrics/motion";
 

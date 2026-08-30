@@ -17,35 +17,21 @@ import { DEFAULT_GROUP_SAMPLING } from "@vitreajs/vitrea";
 import type { ShapeFamily } from "@vitrea/geometry";
 import type { GlassPlane } from "@vitreajs/vitrea-web";
 
+// Placement is the calibration library's, not a second copy of it: the
+// instrument bounds its shape search and profiles its shadow axis from exactly
+// this layout (schema 5), so the page and the measurement must lay the
+// declaration out through one function or the difference between them would
+// read as a fidelity finding. Imported by module rather than through the barrel,
+// which pulls `pngjs` and `node:buffer` in for the PNG decoder.
+import { placeComponent, type CanvasSize, type DeclaredComponent, type PlacedShape } from "../src/component-region";
+
 // Vite resolves this through `server.fs.allow`; it is the native harness's own
 // file, not a copy. See `vite.config.ts`.
 import matrix from "../../../apps/reference-apple/scenes.json";
 
-export interface CanvasSize {
-  readonly width: number;
-  readonly height: number;
-}
+export type { CanvasSize };
 
-interface ShapeSpec {
-  readonly kind: string;
-  readonly size: readonly [number, number];
-  readonly radius?: number;
-  readonly offset?: readonly [number, number];
-}
-
-interface GroupSpec {
-  readonly kind: "group";
-  readonly items: readonly ShapeSpec[];
-  readonly spacing: number;
-}
-
-interface StackSpec {
-  readonly kind: "stack";
-  readonly base: ShapeSpec;
-  readonly over: ShapeSpec;
-}
-
-type ComponentSpec = ShapeSpec | GroupSpec | StackSpec;
+type ComponentSpec = DeclaredComponent;
 
 export interface SceneEntry {
   readonly id: string;
@@ -149,42 +135,21 @@ export const CANVAS: CanvasSize = matrix.canvas;
 
 export const SCENE_IDS: readonly string[] = scenes.map((entry) => entry.id);
 
-/**
- * A capsule's corner radius is half its short side — the value that makes the
- * shape a stadium, which is what `Capsule()` draws. Derived rather than declared
- * because `scenes.json` gives capsules no radius: for a capsule there is only
- * one, and a second copy of it here could disagree with the native side's.
- */
-const radiusOf = (spec: ShapeSpec): number =>
-  spec.kind === "capsule" ? Math.min(spec.size[0], spec.size[1]) / 2 : (spec.radius ?? 0);
+const familyOf = (shape: PlacedShape): ShapeFamily =>
+  shape.kind === "capsule" ? "capsule" : "fixed-rounded-rect";
 
-const familyOf = (spec: ShapeSpec): ShapeFamily =>
-  spec.kind === "capsule" ? "capsule" : "fixed-rounded-rect";
+/** The box `registerHost` needs, straight off the shared placement. */
+const boxOf = (shape: PlacedShape): { left: number; top: number; width: number; height: number } => ({
+  left: shape.left,
+  top: shape.top,
+  width: shape.width,
+  height: shape.height,
+});
 
-/**
- * Centre a box in the canvas, then apply the scene's own offset.
- *
- * This is `ZStack`'s default alignment, spelled out. `Math.round` matches
- * SwiftUI laying out on the point grid at 1x; every size in the current matrix
- * centres to an integer anyway, so the rounding is a guard against a future
- * odd-sized component rather than a live correction.
- */
-const place = (
-  spec: ShapeSpec,
-  canvas: CanvasSize,
-): { left: number; top: number; width: number; height: number } => {
-  const [width, height] = spec.size;
-  const [offsetX, offsetY] = spec.offset ?? [0, 0];
-  return {
-    left: Math.round((canvas.width - width) / 2) + offsetX,
-    top: Math.round((canvas.height - height) / 2) + offsetY,
-    width,
-    height,
-  };
-};
-
-const isGroup = (spec: ComponentSpec): spec is GroupSpec => spec.kind === "group";
-const isStack = (spec: ComponentSpec): spec is StackSpec => spec.kind === "stack";
+const isGroup = (spec: ComponentSpec): spec is Extract<ComponentSpec, { kind: "group" }> =>
+  spec.kind === "group";
+const isStack = (spec: ComponentSpec): spec is Extract<ComponentSpec, { kind: "stack" }> =>
+  spec.kind === "stack";
 
 export function resolveScene(sceneId: string): PlacedScene {
   const scene = scenes.find((entry) => entry.id === sceneId);
@@ -222,32 +187,26 @@ export function resolveScene(sceneId: string): PlacedScene {
     ...(tint === undefined ? {} : { tint }),
   } as const;
 
+  // The shared layout: group items left to right, a stack's base before its
+  // overlay, a lone shape on its own. Identity is attached here; the geometry is
+  // not restated.
+  const placed = placeComponent(component, canvas);
+  const surfaceAt = (index: number, nodeId: string, groupId: string, plane: GlassPlane): PlacedSurface => {
+    const shape = placed[index];
+    if (shape === undefined) {
+      throw new Error(`Scene "${sceneId}" declares no shape at position ${index}.`);
+    }
+    return { nodeId, groupId, plane, family: familyOf(shape), ...boxOf(shape), radius: shape.radius };
+  };
+
   if (isGroup(component)) {
     // One group for the whole row, and `spacing` doing double duty exactly as it
     // does natively: the gap between siblings AND the container's merge
     // distance. Rendering these as independent groups would measure a scene the
     // matrix does not declare.
-    const total =
-      component.items.reduce((sum, item) => sum + item.size[0], 0) +
-      component.spacing * (component.items.length - 1);
-    const height = Math.max(...component.items.map((item) => item.size[1]));
-    let left = Math.round((canvas.width - total) / 2);
-
-    const surfaces: PlacedSurface[] = [];
-    for (const [index, item] of component.items.entries()) {
-      surfaces.push({
-        nodeId: `item-${index}`,
-        groupId: "component",
-        plane: "base",
-        family: familyOf(item),
-        left,
-        top: Math.round((canvas.height - height) / 2) + Math.round((height - item.size[1]) / 2),
-        width: item.size[0],
-        height: item.size[1],
-        radius: radiusOf(item),
-      });
-      left += item.size[0] + component.spacing;
-    }
+    const surfaces: PlacedSurface[] = placed.map((_shape, index) =>
+      surfaceAt(index, `item-${index}`, "component", "base"),
+    );
 
     /*
      * X1 floors the merge distance at the sampling padding, and the floor bites
@@ -305,22 +264,8 @@ export function resolveScene(sceneId: string): PlacedScene {
         { id: "component-over", source: "dom" },
       ],
       surfaces: [
-        {
-          nodeId: "base",
-          groupId: "component",
-          plane: "base",
-          family: familyOf(component.base),
-          ...place(component.base, canvas),
-          radius: radiusOf(component.base),
-        },
-        {
-          nodeId: "over",
-          groupId: "component-over",
-          plane: "overlay",
-          family: familyOf(component.over),
-          ...place(component.over, canvas),
-          radius: radiusOf(component.over),
-        },
+        surfaceAt(0, "base", "component", "base"),
+        surfaceAt(1, "over", "component-over", "overlay"),
       ],
     };
   }
@@ -328,15 +273,6 @@ export function resolveScene(sceneId: string): PlacedScene {
   return {
     ...common,
     groups: [{ id: "component", source: "texture" }],
-    surfaces: [
-      {
-        nodeId: "body",
-        groupId: "component",
-        plane: "base",
-        family: familyOf(component),
-        ...place(component, canvas),
-        radius: radiusOf(component),
-      },
-    ],
+    surfaces: [surfaceAt(0, "body", "component", "base")],
   };
 }

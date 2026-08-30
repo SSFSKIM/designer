@@ -46,11 +46,13 @@ import {
   extractSilhouette,
   interiorLevel,
   oklabDeltaE,
+  parseProfileKey,
   silhouetteArea,
   ssim,
   type CalibrationImage,
   type Silhouette,
 } from "../src/index";
+import { componentRegionFor, readSceneGeometry } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
@@ -124,6 +126,7 @@ function main(): void {
 
   const spec = readJson<{ readonly scenes: readonly SceneEntry[] }>(resolve(REFERENCE, "scenes.json"));
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
+  const geometry = readSceneGeometry(REFERENCE);
 
   const rows: Row[] = [];
   const skipped: string[] = [];
@@ -176,13 +179,29 @@ function main(): void {
        * `measure` makes and for the same reason: two different masks would let
        * the two tiers report levels over different pixel sets, and the whole
        * question is what each tier does over the *same* region. It also keeps
-       * the CSS tier's shadow — which its own extracted silhouette swallows —
-       * out of the level, so the interior columns compare material to material.
+       * each side's shadow out of the level, so the interior columns compare
+       * material to material.
+       *
+       * Bounded to the declared component region (schema 5), for the reason the
+       * whole instrument now is: differencing against the backdrop finds the
+       * shadow as well as the component, and an interior level averaged over
+       * half-shadowed backdrop is not an interior level.
        */
+      const scale = parseProfileKey(profile.profileKey)?.scale;
+      if (scale === undefined) {
+        skipped.push(`${profile.profileKey}: not a profile key, so no backing scale to place the region at`);
+        continue;
+      }
+      const region = componentRegionFor(geometry, fixture.sceneId, {
+        scale,
+        width: native.width,
+        height: native.height,
+      });
       const interior: Silhouette = extractSilhouette(native, {
         kind: "luminance-delta",
         background,
         threshold: SILHOUETTE_THRESHOLD,
+        region: region.silhouette,
       });
       if (silhouetteArea(interior) === 0) {
         // Real and informative: over a solid backdrop of its own tone the
