@@ -67,7 +67,7 @@ echo "swiftc → $APP/Contents/MacOS/VitreaReference"
   -swift-version 6 \
   -sdk "$SDK" \
   -target arm64-apple-macos26.0 \
-  -framework AppKit -framework ScreenCaptureKit \
+  -framework AppKit -framework ScreenCaptureKit -framework IOKit \
   -o "$APP/Contents/MacOS/VitreaReference" \
   "$HERE"/Sources/*.swift
 

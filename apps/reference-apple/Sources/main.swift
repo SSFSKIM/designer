@@ -166,9 +166,48 @@ func runProbe() {
 
 // MARK: - capture
 
+/// The protocol knobs a stability study needs, and a normal capture leaves alone.
+///
+/// Defaults reproduce the capture every committed bed was taken under, so a run
+/// with no study flags is the same run it always was.
+struct CaptureOptions {
+  var runLabel: String?
+  /// Permutes the capture order. Absent keeps the fixed stable order, which is
+  /// what makes two ordinary runs comparable — see `interleaved`.
+  var orderSeed: UInt64?
+  /// Seconds to dwell on a neutral field before each cell, giving every cell the
+  /// same starting state instead of the previous cell's settled one.
+  var resetInterstitialSeconds: Double?
+  /// Refuse the run unless the machine has been idle at least this long.
+  var minIdleSeconds: Double?
+}
+
 @MainActor
-func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
+func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: CaptureOptions) {
   let spec = loadSpec()
+
+  // The idle gate, before anything is rendered. A capture taken while somebody
+  // is using the machine is not a measurement of the material, and on 2026-08-31
+  // a chain ran through exactly that without anything in the record saying so.
+  let idleAtStart = Environment.hidIdleSeconds()
+  let userActive = Environment.userIsActiveAsserted()
+  if let bar = options.minIdleSeconds {
+    guard let idle = idleAtStart else {
+      fail("""
+        --min-idle-seconds \(bar) was asked for, but IOHIDSystem did not answer. \
+        A run cannot claim an idle machine on a reading it does not have.
+        """)
+    }
+    if idle < bar {
+      fail("""
+        the machine has been idle \(String(format: "%.1f", idle))s, under the \
+        \(String(format: "%.1f", bar))s this run requires\
+        \(userActive == true ? ", and a user-activity assertion is held" : ""). \
+        Liquid Glass adapts over seconds and a disturbed session captures the \
+        adaptation rather than the material. Leave the machine alone and re-run.
+        """)
+    }
+  }
   let scale = captureScale()
   let canvas = spec.canvas.cgSize
   let root = fixturesDir()
@@ -223,6 +262,12 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
     backgroundImages[id] = image
     backgroundFiles[id] = relative
   }
+
+  // The interstitial's neutral field, built once. Mid-grey rather than black or
+  // white: a reset should start the material from a level that is not itself one
+  // of the states it is suspected of settling into. It is never written and
+  // never captured — the manifest records the dwell instead.
+  let neutralField = Backgrounds.render(.solid(srgb: [128, 128, 128]), canvas: canvas, scale: scale)
 
   var profileManifests: [ProfileManifest] = []
   var caveats: [String] = []
@@ -326,7 +371,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
     mergedProfiles.sort { $0.profileKey < $1.profileKey }
 
     let manifest = FixtureManifest(
-      schemaVersion: 2,
+      schemaVersion: 3,
       sceneSpecVersion: spec.version,
       generatedAt: Environment.timestamp(),
       hardware: Environment.hardware(),
@@ -342,7 +387,18 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
                      A 'recorded' scene is captured and committed and read by nothing: \
                      no fit, no self-check, no bound and no claim may cite it.
                      """),
-      caveats: caveats)
+      caveats: caveats,
+      captureProtocol: .init(
+        runLabel: options.runLabel,
+        orderSeed: options.orderSeed,
+        resetInterstitialSeconds: options.resetInterstitialSeconds,
+        minIdleSeconds: options.minIdleSeconds,
+        hidIdleSecondsAtStart: idleAtStart,
+        // Read here rather than at the top: a run that was quiet when it started
+        // and busy when it ended is the case worth catching, and only the second
+        // reading catches it.
+        hidIdleSecondsAtEnd: Environment.hidIdleSeconds(),
+        userIsActiveAtStart: userActive))
 
     let enc = JSONEncoder()
     enc.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
@@ -396,9 +452,17 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
   /// rather than using `Hashable`, because Swift's string hashing is seeded per
   /// process: `hashValue` would reorder the matrix on every run, and a capture
   /// order that changes between runs is not comparable between runs.
-  func interleaved(_ items: [(ProfileSpec, SceneEntry)]) -> [(ProfileSpec, SceneEntry)] {
+  /// A seed permutes it, and the seed is recorded in the manifest.
+  ///
+  /// The default — no seed — is still the one fixed order, because that is what
+  /// makes two ordinary runs comparable. A seeded run is deliberately *not*
+  /// comparable with an unseeded one on order-sensitive grounds, which is the
+  /// point: permuting the order is how "does position in the run decide which
+  /// cells are unstable" becomes a question the bed can answer instead of a
+  /// story about it.
+  func interleaved(_ items: [(ProfileSpec, SceneEntry)], seed: UInt64?) -> [(ProfileSpec, SceneEntry)] {
     func fnv1a(_ s: String) -> UInt64 {
-      var h: UInt64 = 0xcbf2_9ce4_8422_2325
+      var h: UInt64 = seed ?? 0xcbf2_9ce4_8422_2325
       for byte in s.utf8 {
         h ^= UInt64(byte)
         h = h &* 0x0000_0100_0000_01b3
@@ -482,7 +546,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
       """)
   }
 
-  let order = interleaved(work)
+  let order = interleaved(work, seed: options.orderSeed)
   print("capturing \(order.count) fixtures via \(method.rawValue) at \(backingScale)x (interleaved)")
 
   var byProfile: [String: [FixtureEntry]] = [:]
@@ -671,7 +735,8 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
     let dir = "\(staging)/\(profile.key)"
     let file = "\(scene.id).png"
 
-    func record(_ image: CGImage, _ deterministic: Bool?, _ noise: Double?) {
+    func record(_ image: CGImage, _ deterministic: Bool?, _ noise: Double?,
+                settleIterations: Int? = nil, settleSeconds: Double? = nil) {
       do { try Backgrounds.writePNG(image, to: "\(dir)/\(file)") }
       catch { fail("writing \(file): \(error.localizedDescription)") }
 
@@ -683,6 +748,9 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
       let chroma = (try? Capture.chromaShift(image, background: bg)) ?? nil
       byProfile[profile.key, default: []].append(FixtureEntry(
         sceneId: scene.id, file: "\(profile.key)/\(file)", fixtureSet: set,
+        orderIndex: index,
+        hidIdleSeconds: Environment.hidIdleSeconds(),
+        settleIterations: settleIterations, settleSeconds: settleSeconds,
         captureMethod: method.rawValue, materialRendered: method.materialRendered,
         width: image.width, height: image.height,
         deterministic: deterministic, repeatNoise: noise,
@@ -710,12 +778,21 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
 
     case .cacheDisplay, .screenCaptureKit:
       guard let w = window else { fail("on-screen capture needs a window") }
-      w.contentView = NSHostingView(rootView: view)
-      w.displayIfNeeded()
-      // Two turns of the run loop plus a short settle: the first lets AppKit lay
-      // out the new content, the wait lets the window server composite it. Without
-      // it the first capture of each scene is the previous scene's material.
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+
+      // The reset interstitial, when asked for: a neutral field held long enough
+      // for the material to settle on it, so this cell begins from a state the
+      // protocol chose rather than from whatever the previous cell left behind.
+      // It is a step in the protocol and never a fixture — nothing is captured
+      // or recorded here, and the manifest names the dwell instead.
+      func beginScene() {
+        w.contentView = NSHostingView(rootView: view)
+        w.displayIfNeeded()
+        // Two turns of the run loop plus a short settle: the first lets AppKit lay
+        // out the new content, the wait lets the window server composite it. Without
+        // it the first capture of each scene is the previous scene's material.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { afterLayout() }
+      }
+      func afterLayout() {
         if method == .cacheDisplay {
           guard let a = try? Capture.cacheDisplay(w), let b = try? Capture.cacheDisplay(w) else {
             fail("cacheDisplay failed for \(scene.id)")
@@ -736,19 +813,31 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
               // interval: dwell first, then capture at 1s spacing until two consecutive
               // captures agree. The bounded retry keeps a never-settling cell from
               // hanging the run; it records NOISY, which is the honest state.
+              //
+              // The iteration count and elapsed dwell are recorded from
+              // 2026-08-31: this loop asks whether the image STOPPED MOVING, which
+              // is not the same as whether it converged to the same place. A cell
+              // that agrees on the first comparison and one that agrees on the
+              // sixth are different evidence, and both previously recorded the
+              // identical `deterministic: true`.
+              let began = Date()
               try await Task.sleep(nanoseconds: 1_750_000_000)
               var previous = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
               var settled = false
               var lastMad = 0.0
+              var iterations = 0
               for _ in 0..<7 {
                 try await Task.sleep(nanoseconds: 1_000_000_000)
+                iterations += 1
                 let next = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
                 let cmp = try Capture.compare(previous, next)
                 lastMad = cmp.mad
                 previous = next
                 if cmp.maxDelta == 0 { settled = true; break }
               }
-              record(previous, settled, settled ? 0 : lastMad)
+              record(previous, settled, settled ? 0 : lastMad,
+                     settleIterations: iterations,
+                     settleSeconds: Date().timeIntervalSince(began))
             } catch {
               fail(error.localizedDescription)
             }
@@ -756,6 +845,12 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
           }
         }
       }
+
+      guard let dwell = options.resetInterstitialSeconds else { return beginScene() }
+      w.contentView = NSHostingView(rootView: RasterBackground(image: neutralField, canvas: canvas)
+        .frame(width: canvas.width, height: canvas.height))
+      w.displayIfNeeded()
+      DispatchQueue.main.asyncAfter(deadline: .now() + dwell) { beginScene() }
     }
   }
 
@@ -803,10 +898,41 @@ struct Harness {
       // published; with it, the run publishes and says so in the manifest. Same
       // posture as `--method`: the harness does not decide this quietly.
       let allow = args.contains("--allow-colourless-tints")
-      runGUI { runCapture(method: method, allowColourlessTints: allow) }
+
+      // The study knobs. Every one of them defaults to the capture every
+      // committed bed was taken under, so a run that names none of them is the
+      // run it always was — and any run that names one records it in the
+      // manifest, because a protocol nobody wrote down is how two beds come to
+      // disagree with no way to ask why.
+      func number(_ flag: String) -> Double? {
+        guard let raw = value(of: flag, in: args) else { return nil }
+        guard let parsed = Double(raw), parsed >= 0 else {
+          fail("\(flag) takes a non-negative number of seconds, not '\(raw)'")
+        }
+        return parsed
+      }
+      var options = CaptureOptions()
+      options.runLabel = value(of: "--run-label", in: args)
+      if let raw = value(of: "--order-seed", in: args) {
+        guard let seed = UInt64(raw) else { fail("--order-seed takes an unsigned integer, not '\(raw)'") }
+        options.orderSeed = seed
+      }
+      options.resetInterstitialSeconds = number("--reset-interstitial")
+      options.minIdleSeconds = number("--min-idle-seconds")
+      runGUI { runCapture(method: method, allowColourlessTints: allow, options: options) }
 
     default:
-      fail("usage: harness [backgrounds|probe|tint-doctor|capture [--method <m>]]")
+      fail("""
+        usage: harness [backgrounds|probe|tint-doctor|capture [options]]
+
+        capture options:
+          --method <m>                swiftui-image-renderer | nsview-cachedisplay | screencapturekit
+          --allow-colourless-tints    publish a bed whose tints did not reach the material
+          --run-label <s>             recorded in the manifest, so a study's arms are separable
+          --order-seed <n>            permute the capture order; absent keeps the one stable order
+          --reset-interstitial <s>    dwell on a neutral field before each cell
+          --min-idle-seconds <s>      refuse the run unless the machine has been idle this long
+        """)
     }
   }
 

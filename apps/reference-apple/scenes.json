@@ -112,6 +112,12 @@
     },
     "rrect-sm": { "kind": "rrect", "size": [64, 32], "radius": 8 },
     "rrect-md": { "kind": "rrect", "size": [160, 96], "radius": 20 },
+    "rrect-ml": {
+      "kind": "rrect",
+      "size": [224, 128],
+      "radius": 27,
+      "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. Expect the truncation guard to withdraw the downward extent here (clearance 35.5 px against that reach) while sigma and amplitude survive; that is the instrument working, not a defect in the cell. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant. Declared without committed fixtures while the stability study runs (claims 5.21): the study publishes no bed, and compare refuses a planned cell with no capture rather than inventing one."
+    },
     "rrect-lg": {
       "kind": "rrect",
       "size": [280, 160],
@@ -194,6 +200,10 @@
     { "id": "impulse__rrect-md__rest", "background": "impulse", "component": "rrect-md", "state": "rest" },
     { "id": "photo__rrect-md__rest", "background": "photo", "component": "rrect-md", "state": "rest" },
     { "id": "hc-text__rrect-md__rest", "background": "hc-text", "component": "rrect-md", "state": "rest" },
+
+    { "id": "light-solid__rrect-ml__rest", "background": "light-solid", "component": "rrect-ml", "state": "rest" },
+    { "id": "checkerboard__rrect-ml__rest", "background": "checkerboard", "component": "rrect-ml", "state": "rest" },
+    { "id": "photo__rrect-ml__rest", "background": "photo", "component": "rrect-ml", "state": "rest" },
 
     { "id": "checkerboard__rrect-sm__rest", "background": "checkerboard", "component": "rrect-sm", "state": "rest" },
     { "id": "photo__rrect-sm__rest", "background": "photo", "component": "rrect-sm", "state": "rest" },
@@ -440,6 +450,9 @@
       "dark-solid__rrect-md__rest",
       "checkerboard__rrect-md__rest",
       "photo__rrect-md__rest",
+      "light-solid__rrect-ml__rest",
+      "checkerboard__rrect-ml__rest",
+      "photo__rrect-ml__rest",
       "checkerboard__rrect-sm__rest",
       "checkerboard__toolbar-group__rest",
 

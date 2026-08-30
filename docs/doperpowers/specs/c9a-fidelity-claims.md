@@ -3685,6 +3685,153 @@ removed and re-added for `VitreaReference` before it can start. The evidence for
 this section — both runs whole, run G's refusal and its log — is preserved at
 `/Users/new/.claude/jobs/5c70e47f/tmp/dl19-evidence/`.
 
+### 5.21 The stability study, declared before it runs (2026-08-31)
+
+Decision Log 20 puts the study before everything else and makes its product a
+capture-protocol doctrine. This section is the declaration: hypotheses,
+predictions, and what would refute each, written before a single study run
+exists. One of the predictions needed no new evidence and is **tested here, in
+the same breath it is declared** — the result is below, including the part that
+does not go the way DL20's working hypothesis expects.
+
+#### What the existing data already says
+
+Three facts, all read off the two runs of §5.20 and the harness source.
+
+**The capture order was identical in all three runs.** `interleaved()` sorts by a
+written-out FNV-1a hash of the cell key, deliberately, because "Swift's string
+hashing is seeded per process … a capture order that changes between runs is not
+comparable between runs". So the path through the matrix was *the same path*
+every time. **A hysteresis driven purely by scene order therefore cannot explain
+run-to-run disagreement**, because the order did not vary. Whatever varies is
+either the state the run begins in, or something that is not the path.
+
+**The disagreeing cells are scattered, not contiguous.** Positions 0, 2, 4, 21,
+32, 34, 49, 50 in a 54-cell order. A single uncontrolled initial state carried
+forward by hysteresis would produce a *prefix* of affected cells, and this is not
+one — but three of the eight sit in the first five captured, against five in the
+remaining forty-nine. Under a uniform null that is **P(≥3 in the first 5) =
+0.019**, and it widens to 0.086 by the first eight, so it is a start-of-run
+effect rather than a general position effect.
+
+**The harness already knew.** The settle loop carries this comment, dated
+2026-08-29: *"the material's tone adaptation is an animation over seconds … under
+concurrent system load, individual cells flipped between an adapted and a
+mid-adaptation byte state across runs (max deltas 31–36/255), while every run's
+paired captures agreed."* That is §5.20's finding, found two days earlier, with
+the same magnitudes. The fix then was to dwell 1.75 s and require two captures a
+second apart to agree. **It is not sufficient, and the reason is visible in its
+own shape: it tests whether the image stopped moving, not whether it converged to
+the same place.** Two captures a second apart agree in either attractor.
+
+#### H2, tested now: not supported as stated
+
+DL20 predicts the bistable cells cluster on mid-luminance backdrops. Against the
+eight state-ambiguous cells:
+
+| backdrop | ambiguous / total | character |
+| --- | --- | --- |
+| `checkerboard` | 4 / 15 | structured, mean ≈ 0.5 |
+| `photo` | 3 / 19 | structured, mean 0.214 |
+| `hc-text` | 1 / 3 | structured, high local contrast |
+| `impulse` | 0 / 4 | structured, overwhelmingly dark |
+| `light-solid` | 0 / 4 | uniform 0.891 |
+| `dark-solid` | 0 / 7 | uniform 0.0117 |
+| `mid-dark-solid` | 0 / 2 | uniform 0.0595 |
+
+**Mean luminance does not order this.** `photo` at 0.214 and `checkerboard` at 0.5
+both flip; `mid-dark-solid` at 0.0595 sits between `dark-solid` and `photo` and
+does not. What the eight do share is that **every one of them sits on a spatially
+non-uniform backdrop, and none on a uniform one** — 0 of 13 uniform-backdrop
+cells against 8 of 41 structured ones. Under a uniform null that is P = 0.092:
+suggestive, not significant, on n = 13. `impulse` is the case that keeps it
+honest, being structured and stable, though its structure is sparse and dark.
+
+So H2 is replaced rather than confirmed, and the replacement is a prediction the
+study can settle.
+
+#### The hypotheses, and what refutes each
+
+- **H1 — a neutral reset before each cell collapses the bistability.** Prediction:
+  across eight interstitial-protocol runs, cells classified bistable fall to zero
+  or near it, while the same cells are bistable across eight baseline runs.
+  *Refuted if* bistability survives the interstitial at a similar rate — which
+  would mean the state is not inherited from the previous cell at all.
+- **H1b — order permutation moves the set.** Prediction: under permuted baseline
+  orders, *which* cells are bistable changes. **This one is already in tension
+  with the record**: the order never varied and the set still varied, so if
+  permutation moves the set it is via position-in-run, not via which scene came
+  before. *Refuted if* the bistable set is stable across seeds.
+- **H2′ — the discriminator is backdrop *structure*, not mean level.** A spatially
+  varying backdrop gives the adaptation a distribution rather than a level, and a
+  distribution can straddle a decision boundary a single level cannot. Prediction:
+  bistability rate on `checkerboard`/`photo`/`hc-text` materially exceeds the rate
+  on `light-solid`/`dark-solid`/`mid-dark-solid` across sixteen runs. *Refuted if*
+  a uniform-backdrop cell is bistable, or if the rates converge.
+- **H3 — tint engagement rides the same state machine.** The refused run lost its
+  tints across *both profiles at once*, not cell by cell, and two of the eight
+  ambiguous cells are tinted. Prediction: tint dropout is a **run-level** event
+  correlated with run conditions, not a per-cell draw; and within a run, a tinted
+  cell's state agrees with its untinted twin's. *Refuted if* dropout appears on
+  some tinted cells and not others within one run.
+- **H4 — the settledness test cannot see this.** Prediction: the newly recorded
+  settle-iteration counts show bistable cells settling no more slowly than stable
+  ones, so `deterministic: true` carries no information about which attractor was
+  reached. *Refuted if* bistable cells take systematically more iterations — which
+  would make the existing attestation a usable detector after all, and would be
+  the cheapest possible fix.
+- **H5 — start-of-run warm-up.** There is no dwell before the first cell; the
+  window is presented and cell 0 is captured 0.25 s later. Prediction: the
+  first-captured cells stay over-represented among the bistable across eight
+  baseline runs, and a warm-up removes it. *Refuted if* the enrichment disappears
+  across more runs, making the P = 0.019 a small-sample artefact.
+
+#### The harness the study runs on
+
+Built in one pass, since the rebuild was already spent, and defaulting in every
+case to the capture every committed bed was taken under — a run naming no study
+flag is the run it always was.
+
+- **`--reset-interstitial <s>`**: a uniform mid-grey field presented before each
+  cell and held for `s` seconds. Mid-grey because a reset should start from a
+  level that is not itself one of the states under suspicion. It is a protocol
+  step and never a fixture: nothing is captured or recorded during it, and the
+  manifest names the dwell instead.
+- **`--min-idle-seconds <s>`**: the run refuses to start unless `IOHIDSystem`'s
+  own idle counter clears the bar, and refuses outright if the counter cannot be
+  read — a run must not claim an idle machine on a reading it does not have.
+  Idle is also sampled **per cell**, so a run disturbed halfway through says which
+  half, and the power manager's `UserIsActive` assertion is recorded beside it as
+  an independent witness.
+- **`--order-seed <n>`**: reseeds the FNV-1a basis, permuting the order. Absent
+  keeps the one stable order, because that is what makes two ordinary runs
+  comparable.
+- **`--run-label <s>`**, so a study's arms are separable by name.
+- Every fixture now records **`orderIndex`**, **`hidIdleSeconds`**,
+  **`settleIterations`** and **`settleSeconds`**; every run records the protocol
+  block above. Manifest schema **3**: the bump marks the first manifests that can
+  be asked *how* a bed was produced, which no earlier bed can answer.
+
+#### The study, and what it may not do
+
+Roughly eight runs of the baseline protocol and eight with the interstitial, over
+`1x-light-standard` and `1x-dark-standard` including the tint scenes (H3 needs
+them) and the three `rrect-ml` span-128 scenes, order permuted across runs within
+each arm, every run idle-guarded. Each run is snapshotted whole before anything
+is decided, and **no bed is published, no constant is fitted and no holdout is
+read** — the study measures the instrument, not the material.
+
+Every cell is then classified per arm as deterministic, bistable (naming its
+states), or refused, and the product is a doctrine proposal: the run count, the
+idle bar, the per-cell agreement bar, and the state-control mechanism if H1 holds.
+That proposal comes back to the gate, as every doctrine has.
+
+One consequence of declaring the span-128 scenes now: until the study yields a
+publishable bed, the declaration names three scenes with no committed fixture.
+`compare` refuses a planned cell with no capture rather than inventing one, so
+this fails loudly and safely — the condition §5.17 avoided, taken deliberately
+here because producing that bed is what the study is for.
+
 ---
 
 ## 6. What could not be measured, and why

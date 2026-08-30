@@ -1,4 +1,6 @@
 import Foundation
+import IOKit
+import IOKit.pwr_mgt
 import CoreGraphics
 
 /// The fixture manifest — X9's native side, written next to the PNGs.
@@ -39,7 +41,29 @@ struct DisplayInfo: Codable {
 struct FixtureEntry: Codable {
   let sceneId: String
   let file: String
-  let fixtureSet: String        // calibration | validation | holdout
+  let fixtureSet: String        // calibration | validation | holdout | recorded
+  /// Position in this run's capture order, 0-based.
+  ///
+  /// Recorded because the order is a *condition of the capture*, not a detail of
+  /// it: the material's tone adaptation is an animation over seconds, so where a
+  /// cell sits in the run is part of what produced its bytes. Without this, a
+  /// run captured under a permuted order cannot be compared with one that was
+  /// not, and the 2026-08-31 finding that the first cells captured are
+  /// over-represented among the unstable ones could not have been checked at all.
+  let orderIndex: Int?
+  /// Seconds since the last user input, at the moment this cell was captured.
+  ///
+  /// Per cell rather than per run, so a run disturbed halfway through says which
+  /// half. The run-level minimum falls out of these.
+  let hidIdleSeconds: Double?
+  /// How many settle comparisons this cell needed, and how long it dwelled.
+  ///
+  /// `deterministic` says two captures a second apart agreed; these say how hard
+  /// that was to reach. A cell that agrees on the first comparison and one that
+  /// takes six are not the same evidence, and the difference was invisible
+  /// before.
+  let settleIterations: Int?
+  let settleSeconds: Double?
   let captureMethod: String
   let materialRendered: Bool
   let width: Int
@@ -108,6 +132,11 @@ struct ProfileManifest: Codable {
 }
 
 struct FixtureManifest: Codable {
+  /// 3 since 2026-08-31: every fixture now records its position in the capture
+  /// order, the machine's idle time when it was taken and how long it took to
+  /// settle, and the run records the protocol it was captured under. The bump is
+  /// not a field list — it marks the first manifests that can be asked *how* a
+  /// bed was produced, which every bed before this one cannot answer.
   let schemaVersion: Int
   let sceneSpecVersion: Int
   let generatedAt: String
@@ -121,6 +150,34 @@ struct FixtureManifest: Codable {
   /// the multi-run merge preserves. Empty is a claim; a populated list is the
   /// reason a claim must be qualified.
   let caveats: [String]
+  /// How this run was produced. Optional so schema-2 manifests still decode.
+  let captureProtocol: CaptureProtocol?
+
+  /// The protocol this run was captured under.
+  ///
+  /// A bed is only comparable with another bed when both were produced the same
+  /// way, and until 2026-08-31 nothing in the record said how. This block is what
+  /// makes a stability study possible: two runs that disagree can be asked
+  /// whether they were run differently before they are asked what the material
+  /// did.
+  struct CaptureProtocol: Codable {
+    /// Free-text label for the run, so a study's arms are separable by name.
+    let runLabel: String?
+    /// Permutation seed for the capture order. Absent is the fixed, stable order
+    /// every bed before this was captured under.
+    let orderSeed: UInt64?
+    /// Neutral-field dwell inserted before each cell, in seconds. Absent means
+    /// no interstitial: each cell begins from whatever the previous one left.
+    let resetInterstitialSeconds: Double?
+    /// The idle bar this run was required to clear, and what it actually saw.
+    let minIdleSeconds: Double?
+    let hidIdleSecondsAtStart: Double?
+    let hidIdleSecondsAtEnd: Double?
+    /// Whether the power manager reported a user-activity assertion held at the
+    /// start of the run. `nil` means the query failed, which is not the same as
+    /// `false` and is recorded as itself.
+    let userIsActiveAtStart: Bool?
+  }
 
   struct SplitDeclaration: Codable {
     let calibration: [String]
@@ -133,6 +190,41 @@ struct FixtureManifest: Codable {
 }
 
 enum Environment {
+  /// Seconds since the last user input event, read from IOHIDSystem's own
+  /// counter.
+  ///
+  /// The direct measure of the thing that matters: not "is the screen unlocked"
+  /// but "is anybody touching this machine". On 2026-08-31 a capture chain ran
+  /// against a session that was unlocked, on console, and being used, and the
+  /// two facts were indistinguishable from the manifest. `nil` means the query
+  /// failed, which is not the same as "idle" and must never be read as one.
+  static func hidIdleSeconds() -> Double? {
+    let service = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("IOHIDSystem"))
+    guard service != 0 else { return nil }
+    defer { IOObjectRelease(service) }
+    var properties: Unmanaged<CFMutableDictionary>?
+    guard IORegistryEntryCreateCFProperties(service, &properties, kCFAllocatorDefault, 0) == KERN_SUCCESS,
+          let dict = properties?.takeRetainedValue() as? [String: Any],
+          let idle = dict["HIDIdleTime"] as? NSNumber
+    else { return nil }
+    return idle.doubleValue / 1_000_000_000
+  }
+
+  /// Whether the power manager reports a user-activity assertion held right now.
+  ///
+  /// A second, independent witness to the same question, because the two can
+  /// disagree: an assertion can be held by a process while the HID counter
+  /// climbs. Recording both means a disturbed run can be told apart from a quiet
+  /// one after the fact rather than argued about.
+  static func userIsActiveAsserted() -> Bool? {
+    var assertions: Unmanaged<CFDictionary>?
+    guard IOPMCopyAssertionsStatus(&assertions) == kIOReturnSuccess,
+          let dict = assertions?.takeRetainedValue() as? [String: Any]
+    else { return nil }
+    guard let level = dict["UserIsActive"] as? NSNumber else { return false }
+    return level.intValue > 0
+  }
+
   static func hardware() -> HardwareInfo {
     HardwareInfo(
       model: sysctl("hw.model"),
