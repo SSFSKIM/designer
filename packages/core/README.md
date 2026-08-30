@@ -25,7 +25,8 @@ selectable, focusable, IME-capable, and announced by a screen reader as a button
 ## Install
 
 ```bash
-npm install @vitreajs/vitrea @vitreajs/vitrea-react
+npm install @vitreajs/vitrea-react          # React
+npm install @vitreajs/vitrea-web            # plain JS, or your own adapter
 ```
 
 The library is called vitrea and publishes under the npm scope `@vitreajs`, in
