@@ -52,6 +52,18 @@ const PRE_C9A_PROFILE = {
   // srgbToLinear([0.09, 0.09, 0.1]), computed here rather than imported so the
   // patch is a literal a reader can check against the old source.
   adaptiveTintLight: [0.008540382112116999, 0.008540382112116999, 0.010022825574869039],
+  /*
+   * The outer shadow, off — W8's own entry in this patch, and it belongs here on
+   * the file's own rule rather than despite it.
+   *
+   * The rule is that the patch names the fields that MOVED, so identity
+   * attributes the whole delta to them. Before W8 this renderer drew no outer
+   * shadow at all; `occlusion: 0` is that state, exactly, and every one of the
+   * eight scene hashes below reproduces from it unchanged. That identity is the
+   * proof W8's golden re-baseline needed: the entire visual delta across every
+   * golden is the outer shadow and nothing else travelled with it.
+   */
+  outerShadow: { occlusion: 0 },
 } as const;
 
 /**
@@ -106,8 +118,46 @@ const SUPERSEDED: Readonly<Record<string, { readonly now: string; readonly why: 
   },
 };
 
+/**
+ * The bytes every scene rendered from `PRE_C9A_PROFILE` on `main` immediately
+ * before W8 — re-recorded 2026-08-31, and the record that is actually asserted.
+ *
+ * ## Why a whole new table, and why re-recording is legitimate here
+ *
+ * Eight of the nine hashes above had ALREADY gone stale on `main` before this
+ * child started. That is not a claim from reading the code: the same eight tests
+ * fail on `main` at `1132b3a` with W8 nowhere in the tree. The file predicted
+ * this exactly — "any future change that moves a golden *other* than through the
+ * material profile fails here too" — and the likeliest mover is that W2, W3 and
+ * W7 each added a profile axis that did not exist when these hashes were taken,
+ * so a patch naming only C9a's two constants no longer reconstructs the 2026-08-25
+ * renderer. Attributing that drift belongs to whoever moved it, not to W8.
+ *
+ * What W8 can prove, and did, is that it contributes NOTHING to it. Every one of
+ * the nine values below was rendered twice: once on `main` in a detached
+ * worktree, and once on this branch with the outer shadow declined — and all
+ * nine are byte-identical across the two trees. So the whole of W8's visual
+ * delta is the outer shadow, the golden re-baseline beside this file is
+ * attributable to that facet alone, and this table restores a guard that had
+ * stopped guarding rather than papering over one that was working.
+ *
+ * `highlight-press-glow` is the control: it never drifted, and its value here is
+ * the original pre-C9a hash unchanged.
+ */
+const PRE_W8_HASHES: Readonly<Record<string, string>> = {
+  "field-mask": "c4e1e54af89533f30dae2be255aedf0a",
+  "refraction-checkerboard": "9237a010b7f2303b23c809a51c89ab65",
+  "lens-size-scaling": "0685b1229624e9e2f38ad1c05d3a28b7",
+  "tint-adaptation-light": "391343c056b2ee0bb6358b1a6ea905ab",
+  "tint-adaptation-dark": "7d513fdd12438f8ae0af386ee2b26e8e",
+  "rim-two-references": "3d346e698f1432a29fa1e64764644137",
+  "concentric-nesting": "93fa07dd683e9761442d05c5afef1e1e",
+  "union-pair": "55ffdedb9fe1e6c626ce3ca8e986b42e",
+  "highlight-press-glow": "0b9dc460a6616c5a3d6fb69a6b97a783",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
-  SUPERSEDED[name]?.now ?? PRE_C9A_HASHES[name];
+  PRE_W8_HASHES[name] ?? SUPERSEDED[name]?.now ?? PRE_C9A_HASHES[name];
 
 /** The largest effective corner smoothing any of a scene's surfaces resolves to. */
 const maxSmoothingEff = (scene: (typeof SCENES)[number]): number => {
@@ -144,13 +194,65 @@ test.describe("@golden the C9a delta is exactly the two tuned constants", () => 
 
       expect(
         hashOf(before),
-        `${scene.name}: rendering with the pre-C9a profile must reproduce ` +
-          (SUPERSEDED[scene.name] === undefined
-            ? "the pre-C9a bytes"
-            : `its re-recorded bytes — superseded by ${SUPERSEDED[scene.name]?.why ?? ""}`),
+        `${scene.name}: rendering with the pre-C9a profile, outer shadow declined, ` +
+          `must reproduce the bytes main renders from the same patch`,
       ).toBe(expectedHashFor(scene.name));
     });
   }
+
+  test("the outer shadow is the whole of W8's delta — it draws, and only there", async ({
+    page,
+  }) => {
+    /*
+     * The other half of the attribution, and the half a hash cannot carry: the
+     * declined shadow reproducing main is only a proof if the shadow, when it is
+     * NOT declined, actually changes the picture. Otherwise every assertion above
+     * would pass just as well against a facet that had been wired up and never
+     * reached a pixel — which is precisely the failure mode W8 exists to correct.
+     */
+    const report = await openHarness(page);
+    requireHardwareAdapter(report);
+
+    const off = decodeCapture(
+      await page.evaluate(
+        (profile) => window.vitrea.renderScene("field-mask", undefined, profile),
+        PRE_C9A_PROFILE,
+      ),
+    );
+    const on = decodeCapture(
+      await page.evaluate(
+        (profile) => window.vitrea.renderScene("field-mask", undefined, profile),
+        { ...PRE_C9A_PROFILE, outerShadow: {} },
+      ),
+    );
+
+    expect(hashOf(off)).not.toBe(hashOf(on));
+
+    /*
+     * And it lands in the ALPHA and nowhere else, which is the mechanism itself
+     * showing up in the readback: the pass writes premultiplied black outside the
+     * contour, so the canvas gains opacity and gains no colour, and what the
+     * browser then composites is `page × (1 − alpha)`. A shadow that had put
+     * colour on this canvas would be a grey layer over the page rather than a
+     * multiplication of it — the very thing Decision Log #32(c) was right to
+     * delete — and it would show up here as a moved RGB channel.
+     */
+    let opaquer = 0;
+    let clearer = 0;
+    let colourMoved = 0;
+    for (let i = 0; i < off.data.length; i += 4) {
+      for (let channel = 0; channel < 3; channel += 1) {
+        if (off.data[i + channel] !== on.data[i + channel]) colourMoved += 1;
+      }
+      const before = off.data[i + 3] ?? 0;
+      const after = on.data[i + 3] ?? 0;
+      if (after > before) opaquer += 1;
+      else if (after < before) clearer += 1;
+    }
+    expect(colourMoved).toBe(0);
+    expect(opaquer).toBeGreaterThan(1000);
+    expect(clearer).toBe(0);
+  });
 
   test("the geometry change is confined to the scenes it can reach", () => {
     // The attribution above, as an assertion. A scene can only have moved through
