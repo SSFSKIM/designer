@@ -335,9 +335,12 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
       split: .init(calibration: spec.split.calibration,
                    validation: spec.split.validation,
                    holdout: spec.split.holdout,
+                   recorded: spec.split.recorded ?? [],
                    note: """
                      Holdout scene ids are declared here, as data. Tuning code must \
-                     read the 'calibration' list; it must never name a holdout scene.
+                     read the 'calibration' list; it must never name a holdout scene. \
+                     A 'recorded' scene is captured and committed and read by nothing: \
+                     no fit, no self-check, no bound and no claim may cite it.
                      """),
       caveats: caveats)
 

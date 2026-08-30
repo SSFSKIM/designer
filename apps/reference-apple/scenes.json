@@ -365,7 +365,20 @@
 
   "split": {
     "$comment": [
-      "calibration / validation / holdout, per the spec's anti-overfitting rule.",
+      "calibration / validation / holdout / recorded. The first three are the",
+      "anti-overfitting split. The fourth, 'recorded', means captured, committed",
+      "and read by NOTHING: no fit, no self-check, no bound and no claim. It",
+      "exists because 'in the bed, in no set' was previously unsayable, which is",
+      "how the four pressed scenes came to hold fitted and checked roles they",
+      "could not honestly carry (Decision Log 19 ruling 1, claims 5.18): on this",
+      "bed the native pressed capture is a byte-copy of its rest twin on eleven",
+      "of twelve fixtures, while the web side renders a real pressed pose - so",
+      "every one of those cells compared vitrea's pressed render against Apple's",
+      "rest render, and two of them sat in 'validation' as copies of",
+      "'calibration' cells, where the held-out check could not have failed. They",
+      "stay captured because they are the only cells that could ever answer the",
+      "pressed question, and the next wave's pressed+motion charter needs them.",
+      "",
       "The split is declared HERE, as data, and the holdout ids are deliberately",
       "not referenced by any tuning code — C9 tunes against 'calibration', checks",
       "itself on 'validation', and may read 'holdout' only to report a final",
@@ -414,8 +427,6 @@
       "impulse__rrect-md__rest",
       "photo__rrect-sm__rest",
       "photo__toolbar-group__rest",
-      "photo__capsule-button__pressed",
-      "photo__rrect-md__pressed",
 
       "checkerboard__capsule-button__rest-tint-blue",
       "photo__rrect-md__rest-tint-orange"
@@ -431,8 +442,6 @@
       "photo__rrect-md__rest",
       "checkerboard__rrect-sm__rest",
       "checkerboard__toolbar-group__rest",
-      "checkerboard__capsule-button__pressed",
-      "checkerboard__rrect-md__pressed",
 
       "dark-solid__capsule-button__rest-tint-orange",
       "impulse__capsule-button__rest-tint-orange",
@@ -441,6 +450,12 @@
       "light-solid__capsule-button__rest-tint-orange",
       "photo__capsule-button__rest-tint-blue",
       "photo__capsule-button__rest-tint-orange-half"
+    ],
+    "recorded": [
+      "checkerboard__capsule-button__pressed",
+      "photo__capsule-button__pressed",
+      "checkerboard__rrect-md__pressed",
+      "photo__rrect-md__pressed"
     ]
   }
 }

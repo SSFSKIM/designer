@@ -97,8 +97,11 @@ const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
 const REFERENCE = resolve(REPO_ROOT, "apps", "reference-apple");
 const FIXTURES = resolve(REFERENCE, "fixtures");
 
-const FIXTURE_SETS = ["calibration", "validation", "holdout"] as const;
-/** Holdout is opt-in. The default is what a tuning loop is allowed to look at. */
+const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded"] as const;
+/**
+ * Holdout is opt-in and `recorded` is opt-in twice over: the default is what a
+ * tuning loop is allowed to look at, and a recorded cell is never that.
+ */
 const DEFAULT_SETS: readonly FixtureSet[] = ["calibration", "validation"];
 
 interface SceneEntry {

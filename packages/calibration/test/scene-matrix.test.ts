@@ -43,14 +43,14 @@ interface Matrix {
   readonly tints: Record<string, { readonly srgb: readonly number[]; readonly alpha?: number }>;
   readonly scenes: readonly SceneEntry[];
   readonly profiles: readonly { readonly key: string; readonly scenes: "all" | readonly string[] }[];
-  readonly split: Record<"calibration" | "validation" | "holdout", readonly string[]>;
+  readonly split: Record<"calibration" | "validation" | "holdout" | "recorded", readonly string[]>;
 }
 
 const MATRIX = JSON.parse(
   readFileSync(resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json"), "utf8"),
 ) as Matrix;
 
-const SETS = ["calibration", "validation", "holdout"] as const;
+const SETS = ["calibration", "validation", "holdout", "recorded"] as const;
 const IDS = new Set(MATRIX.scenes.map((scene) => scene.id));
 const setOf = (id: string): string | undefined =>
   SETS.find((set) => MATRIX.split[set].includes(id));
@@ -114,6 +114,38 @@ describe("the scene matrix resolves", () => {
   });
 });
 
+describe("the pressed cells are recorded, not fitted (Decision Log 19 ruling 1)", () => {
+  const pressed = MATRIX.scenes.filter((scene) => scene.state === "pressed");
+
+  it("keeps them in the matrix — they are captured evidence, not deleted", () => {
+    // The bed still captures them: the appearance exists, it is just not one
+    // this wave can fit to. Deleting them would throw away the only cells that
+    // could ever answer the pressed question.
+    expect(pressed.length).toBeGreaterThan(0);
+  });
+
+  it("gives every one of them the recorded role, and none a fitted or checked one", () => {
+    // Why: on 2026-08-31 eleven of the twelve pressed fixtures were byte-copies
+    // of their rest twin, and two of those copies sat in `validation` against
+    // rest cells in `calibration` — so the held-out self-check on them was
+    // reading the fit's own training data and could not have failed. Until the
+    // pressed pose is captured for real, a pressed cell may carry no role that
+    // any fit, check or bound reads. Claims §5.18.
+    const misplaced = pressed.filter((scene) => setOf(scene.id) !== "recorded");
+    expect(misplaced.map((scene) => scene.id)).toEqual([]);
+  });
+
+  it("leaves each of their rest twins in a fitted or checked set, unmoved", () => {
+    // The dedupe removes the duplicate, not the measurement. Every pressed cell
+    // was a copy of a rest cell that is still doing its job.
+    for (const scene of pressed) {
+      const twin = scene.id.replace(/__pressed$/, "__rest");
+      expect(IDS.has(twin), twin).toBe(true);
+      expect(["calibration", "validation", "holdout"]).toContain(setOf(twin));
+    }
+  });
+});
+
 describe("W3's tinted cells", () => {
   const tinted = MATRIX.scenes.filter((scene) => scene.tint !== undefined);
 
@@ -121,7 +153,7 @@ describe("W3's tinted cells", () => {
     const bySet = Object.fromEntries(
       SETS.map((set) => [set, tinted.filter((scene) => setOf(scene.id) === set).length]),
     );
-    expect(bySet).toEqual({ calibration: 7, validation: 2, holdout: 3 });
+    expect(bySet).toEqual({ calibration: 7, validation: 2, holdout: 3, recorded: 0 });
   });
 
   it("sweep five backdrop levels on the calibration set", () => {

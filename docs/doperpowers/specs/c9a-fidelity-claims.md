@@ -3474,6 +3474,217 @@ is known to be unnecessary.
 The span-128 round is therefore still unrun, and it is no longer the first thing
 in the queue.
 
+### 5.19 Decision Log 19, built and declared before the bed is materialised (2026-08-31)
+
+§5.18's two findings were adjudicated the same day. Ruling 1 retires the pressed
+cells from every fitted and checked role; ruling 2 gives the materialisation step
+a way to tell a noisy cell from a two-state one. **Both are written here before
+the runs they will be applied to have been looked at**, on the protocol §5.15
+established: the rule is committed, then the data decides, rather than the other
+way round.
+
+#### Ruling 2, the bimodality arm
+
+The doctrine it amends took three runs of a cell and published whichever bytes at
+least two of them shared. That is right for noise — a wrong answer scattered
+around a right one, where a majority finds the right one — and wrong for a state.
+On `photo__capsule-button__rest`'s pressed twin the runs split one against two
+between two *settled* appearances 32 codes apart, and the majority rule named a
+winner and recorded nothing.
+
+The evidence the old rule never used is already in the manifest: **the harness
+captures every cell twice and attests it `deterministic` when the two agree.** A
+variant that is settled inside its own run is a value the machine returns on
+purpose. So the arm asks two questions before it counts anything.
+
+1. **Is each variant settled?** Every run that produced it must have attested the
+   cell byte-stable. Absent attestation counts as unsettled: this wants a positive
+   claim, not silence read as one.
+2. **Do they differ structurally?** Two summaries decide it, both over the whole
+   raster, against the leading variant:
+   - `maxDelta ≤ 1` — **incidental.** One 8-bit code is the raster's own
+     quantisation step. This is a floor, not a tolerance: there is no appearance
+     that lives half a code away from another one.
+   - otherwise `coherence ≥ 0.5` — **structured**, where coherence is the fraction
+     of changed pixels having a 4-neighbour that also changed. Isolated speckle
+     scores 0 by construction; any contiguous region past about 4×4 px scores
+     above 0.8, because a region's interior grows as its area and its boundary as
+     its perimeter. The cut is the midpoint of a separation, not a level anything
+     sits near, and every classification prints its measured coherence so the
+     separation stays checkable.
+
+A cell whose settled variants differ structurally is **STATE-AMBIGUOUS**: nothing
+is published for it and the run stops. Structure is tested *before* the count, so
+a 2–1 split cannot publish whichever state happened to win two runs. A cell whose
+variants differ only incidentally resolves by majority exactly as before, and a
+cell with no plurality at all is refused as it was.
+
+Two things fall out that are worth naming. The arm never publishes bytes from one
+run under **another run's manifest entry** — the old script restored a PNG from
+run E and left run G's checksum and attestations describing it, which no reader
+could have caught. And a role is re-derived from the scene matrix at
+materialisation, with every change printed, because a role is a property of the
+declaration and cannot change a pixel.
+
+Pinned by nine cases in `test/plurality.test.ts`, including the two the ruling
+names: a cell where the odd run out differs by 6 codes on four isolated pixels
+still resolves by majority, and a cell where it differs by 32 codes over a
+contiguous block refuses and names both variants. Two more guard the edges — a
+whole region off by a single code stays incidental, and a variant its own run
+never settled is not evidence of a second state.
+
+**What it will do to the new runs is not known as this is written.** If any
+`rrect-ml` cell comes back state-ambiguous, that is a finding about the band's
+own cells and it routes to the gate rather than being resolved here.
+
+#### Ruling 1, the recorded role
+
+Four scenes — `checkerboard__capsule-button__pressed`,
+`checkerboard__rrect-md__pressed`, `photo__capsule-button__pressed` and
+`photo__rrect-md__pressed` — leave `calibration` and `validation`. They are not
+deleted: they stay declared, captured and committed, because they are the only
+cells that could ever answer the pressed question and §5.18's evidence is what
+the next wave's charter will be built on.
+
+They need a role that says "in the bed, in no set", and that was previously
+unsayable — which is exactly how they came to hold a fitted one. So the split
+gains a fourth role, **`recorded`**: captured, committed, measurable, and read by
+no fit, no self-check, no bound and no claim. It is opt-in twice over — not in
+`compare`'s default sets, and not in the sweep's calibration filter.
+
+The Swift spec loader gains it too, checks it *first* in the role lookup so a
+scene retired from tuning cannot keep an old membership by being named twice, and
+now **fails the load when a scene appears in two lists at all** — a role decided
+by the order of an if-chain is the same class of defect as an unassigned scene,
+and it only became reachable once there was a fourth role to move a scene into.
+
+Three tests pin the ruling: every pressed scene holds `recorded`, none holds a
+fitted or checked role, and each of their rest twins is still in a set and
+unmoved. The dedupe removes the duplicate, not the measurement.
+
+**Every held-out claim in this document is re-scoped to rest cells by this
+ruling**, and §5.20 states what that costs: the two validation cells that were
+byte-copies of calibration cells were never evidence, so removing them does not
+weaken the self-check — it stops it overstating.
+
+### 5.20 The arm's first reading: five calibration cells are bistable (2026-08-31)
+
+§5.19's rule, applied to the runs it was written before. The capture chain ran
+and did not finish, and what stopped it is the same phenomenon §5.18 found, an
+order of magnitude larger than it looked.
+
+#### What ran
+
+The session was unlocked and the gate probed open **through the existing build**,
+before anything was touched: `isKeyWindow: true`, `NSApp.isActive: true`,
+`ScreenCaptureKit: OK`. The scene matrix was extended with the three `rrect-ml`
+cells exactly as §5.17 declared them, and phase 1 began — three runs over
+`1x-light-standard` and `1x-dark-standard`, 54 cells each, twenty seconds apart.
+
+**Run G never published.** The harness refused it, on its own guard:
+
+> The author tint did not reach the material in this run. Byte-identical captures
+> declaring different seeds: `checkerboard__capsule-button__rest-tint-orange` and
+> `…-tint-blue` are byte-identical (same scene, tints 'orange' vs 'blue').
+
+That is the defect of §5.10 — the one Decision Log 14's active-pose re-baseline
+was believed to have closed. Runs E and F, minutes earlier on the same binary,
+carried their tints and published. **So the tint reaching the material is not
+fixed and not broken; it is intermittent**, and the committed bed's tinted cells
+are a draw from that process that happened to come up carrying colour.
+
+Nothing was retried. Re-running until the tint guard passes would select the
+state the guard exists to detect, which is the contamination §5.19's arm was
+built to stop, not a way around it.
+
+#### What the arm said about the two runs that did publish
+
+Both runs attest **every one of their 54 cells `presentedActive: true` and
+`deterministic: true`** — the app was active, the window was key, and each cell
+was captured twice and agreed with itself. There is no unsettled reading here to
+blame.
+
+They disagree on nine cells. Run through `cli/materialize.ts`:
+
+```
+54 cell(s) over 2 profile(s) from 2 run(s): 45 unanimous, 0 voted, 9 refused (8 state-ambiguous)
+```
+
+| cell | role | maxDelta | px changed | coherence |
+| --- | --- | --- | --- | --- |
+| `1x-light` `photo__toolbar-group__rest` | validation | 48 | 23000 | 1.000 |
+| `1x-light` `photo__capsule-button__rest-tint-orange` | calibration | 20 | 19271 | 1.000 |
+| `1x-light` `hc-text__capsule-button__rest` | **holdout** | 47 | 14527 | 1.000 |
+| `1x-light` `checkerboard__toolbar-group__rest` | calibration | 48 | 14326 | 1.000 |
+| `1x-light` `photo__rrect-md__rest` | calibration | 6 | 12571 | 0.977 |
+| `1x-light` `checkerboard__capsule-button__pressed` | recorded | 48 | 12424 | 1.000 |
+| `1x-dark` `checkerboard__capsule-button__rest` | calibration | 50 | 4940 | 1.000 |
+| `1x-dark` `checkerboard__capsule-button__rest-tint-orange` | calibration | 18 | 4940 | 1.000 |
+| `1x-light` `dark-solid__capsule-button__rest` | calibration | ≤ 1 | — | *incidental* |
+
+**The declared thresholds separated the two populations without being tuned to
+them.** Every structured cell came back at coherence 0.977 to 1.000; the single
+disagreement the arm called incidental is the cell that is pixel-identical to its
+own background, differing by one 8-bit code. Nothing landed anywhere near the 0.5
+cut, which is what §5.19 predicted and the reason the number does not carry
+weight.
+
+**Five of the eight are calibration cells**, one is validation, and one is
+**holdout** — `hc-text__capsule-button__rest`, a cell the doctrine says may be
+read exactly once. One of the five, `photo__rrect-md__rest`, is among the eight
+tone-inert untinted rest cells the base material was fitted on in §5.13. **The
+bed the whole cascade fitted against is bistable in the cells it fitted on.**
+
+**And neither run is the good one.** Of the differing cells, `checkerboard__`
+`toolbar-group__rest`, `photo__rrect-md__rest`, `checkerboard__capsule-button__rest`
+and three others match the committed bed on run E, while `photo__toolbar-group__rest`
+and `hc-text__capsule-button__rest` match it on run F. The state is drawn per
+cell, per run — not a pose the whole capture falls into and not a run that went
+wrong.
+
+#### The one clean result
+
+The three span-128 cells — `light-solid__`, `checkerboard__` and
+`photo__rrect-ml__rest` — came back **byte-identical across both runs**. The
+band's own new cells are stable. They are not published, because a bed cannot be
+half-materialised around eight cells that cannot be resolved, but the capture
+that was blocked in §5.17 and again in §5.18 is not what failed here.
+
+#### A confound this data cannot separate
+
+A `UserIsActive` power assertion naming the internal keyboard and trackpad began
+at **06:08:49 — during run G** — and was still held when the chain was inspected
+at 06:11:39. Somebody was at the machine while the chain ran. That cannot be
+separated from the material's own behaviour with these runs, and it does not
+explain the nine-cell split between runs E and F, which finished at 06:02:57 and
+06:06:36 respectively, before the assertion began. It is recorded because it is
+true, because "the session is unlocked" and "the session is undisturbed" are
+different claims, and because an autonomous capture chain needs the second one.
+
+#### What this stops, and what landed anyway
+
+Decision Log 19's steps 3 to 6 — dedupe, refit-compare, the band fit, the flip —
+all need a bed. There is no reproducible bed to fit on, so none of them ran, and
+**`results/matrix.json` is untouched** as it has been throughout this cascade.
+The committed bed is restored byte-exactly and the `rrect-ml` scenes are withdrawn
+from the declaration, because a declared scene with no published fixture puts the
+declared and captured beds out of agreement — the same reason §5.17 kept them a
+plan.
+
+What did land is everything that does not need a bed: §5.19's bimodality arm and
+its nine pins, the `recorded` role, and ruling 1's re-declared partition — 17
+calibration, 6 validation, 10 holdout, 4 recorded, no scene unassigned and none
+named twice. The arm's first act was to refuse to publish, which is the outcome
+it exists to make possible.
+
+One cost to name plainly: the spec loader had to learn the fourth role, so the
+harness was rebuilt, and **the rebuild invalidated the Screen Recording grant**
+(`ScreenCaptureKit: BLOCKED` on the post-build probe, with the window still key
+and the app still active). The next capture session needs Screen Recording
+removed and re-added for `VitreaReference` before it can start. The evidence for
+this section — both runs whole, run G's refusal and its log — is preserved at
+`/Users/new/.claude/jobs/5c70e47f/tmp/dl19-evidence/`.
+
 ---
 
 ## 6. What could not be measured, and why

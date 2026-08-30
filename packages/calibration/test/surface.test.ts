@@ -10,7 +10,7 @@ import * as calibration from "../src/index";
 describe("package surface", () => {
   it("still exports C1's X9 vocabulary", () => {
     expect(calibration.METRIC_AXES).toEqual(["shape", "material", "motion", "perceptual"]);
-    expect(calibration.FIXTURE_SETS).toEqual(["calibration", "validation", "holdout"]);
+    expect(calibration.FIXTURE_SETS).toEqual(["calibration", "validation", "holdout", "recorded"]);
     expect(calibration.PROFILE_KEY_PATTERN.test("apple-macos-26.5-2x-light-standard")).toBe(true);
     expect(calibration.parseProfileKey("apple-ios-26.5-3x-dark-increased-contrast")?.scale).toBe(3);
   });

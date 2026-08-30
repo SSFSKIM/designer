@@ -46,7 +46,21 @@ export function parseProfileKey(key: string): NativeProfile | null {
   };
 }
 
-/** Fixtures split three ways so tuning cannot quietly become overfitting. */
-export const FIXTURE_SETS = ["calibration", "validation", "holdout"] as const;
+/**
+ * Fixture roles, so tuning cannot quietly become overfitting.
+ *
+ * The first three are the anti-overfitting split: fit on `calibration`, check
+ * yourself on `validation`, read `holdout` once at the end.
+ *
+ * `recorded` is a fourth role and not a fourth set. It names a fixture that is
+ * captured, committed and measurable, and that **no fit, self-check, bound or
+ * claim may read** — a cell kept for the evidence it carries rather than for the
+ * question it answers. It exists because a role of "in the bed, in no set" was
+ * previously unsayable, so a cell that should have carried none of the three was
+ * given one of them by default (claims §5.18: four `__pressed` fixtures that are
+ * byte-copies of their `__rest` twins, two of them sitting in `validation` as
+ * copies of `calibration` cells).
+ */
+export const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded"] as const;
 
 export type FixtureSet = (typeof FIXTURE_SETS)[number];

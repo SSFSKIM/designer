@@ -43,6 +43,7 @@ export * from "./stats";
 export * from "./image";
 export * from "./silhouette";
 export * from "./component-region";
+export * from "./plurality";
 
 export * from "./metrics/shape";
 export * from "./metrics/material";

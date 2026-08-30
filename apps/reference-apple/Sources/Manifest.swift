@@ -126,6 +126,8 @@ struct FixtureManifest: Codable {
     let calibration: [String]
     let validation: [String]
     let holdout: [String]
+    /// Captured and committed, read by nothing. See `SplitSpec.recorded`.
+    let recorded: [String]
     let note: String
   }
 }

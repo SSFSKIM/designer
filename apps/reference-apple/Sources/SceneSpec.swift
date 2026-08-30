@@ -160,11 +160,19 @@ struct SplitSpec: Decodable {
   let holdout: [String]
   let validation: [String]
   let calibration: [String]
+  /// Captured and committed, read by nothing. Optional so a spec file written
+  /// before the role existed still decodes; absent means the list is empty.
+  let recorded: [String]?
 
-  /// Which set a scene belongs to. An unassigned scene is a spec bug, not a
+  /// Which role a scene holds. An unassigned scene is a spec bug, not a
   /// default — a scene silently treated as `calibration` is exactly how a
   /// holdout leaks into tuning.
+  ///
+  /// `recorded` is checked first because it is the role that *removes* a scene
+  /// from every set, and a scene that has been retired from tuning must not keep
+  /// its old membership by being named twice.
   func set(for sceneId: String) -> String? {
+    if (recorded ?? []).contains(sceneId) { return "recorded" }
     if holdout.contains(sceneId) { return "holdout" }
     if validation.contains(sceneId) { return "validation" }
     if calibration.contains(sceneId) { return "calibration" }
@@ -201,8 +209,21 @@ struct SceneSpecFile: Decodable {
     for s in scenes where split.set(for: s.id) == nil {
       problems.append("scene '\(s.id)' is in no split set")
     }
-    for id in split.holdout + split.validation + split.calibration where !ids.contains(id) {
+    for id in split.holdout + split.validation + split.calibration + (split.recorded ?? []) where !ids.contains(id) {
       problems.append("split names '\(id)', which is not a scene")
+    }
+    // A scene in two lists has two roles, and `set(for:)` would silently return
+    // whichever it checks first. That is the same class of bug as an unassigned
+    // scene — a role decided by the order of an if-chain rather than by the
+    // declaration — and it became reachable the moment a fourth role existed to
+    // move a scene INTO while its old membership stayed behind.
+    var seen: [String: String] = [:]
+    for (role, list) in [("calibration", split.calibration), ("validation", split.validation),
+                         ("holdout", split.holdout), ("recorded", split.recorded ?? [])] {
+      for id in list {
+        if let already = seen[id] { problems.append("scene '\(id)' is in both '\(already)' and '\(role)'") }
+        else { seen[id] = role }
+      }
     }
     for s in scenes {
       if backgrounds[s.background] == nil { problems.append("scene '\(s.id)': no background '\(s.background)'") }

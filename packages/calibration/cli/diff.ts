@@ -33,6 +33,7 @@ import {
   upsertCellResult,
   RESULT_MATRIX_SCHEMA_VERSION,
   type FidelityTier,
+  FIXTURE_SETS,
   type FixtureSet,
 } from "../src/index";
 import { matrixSchemaRefusal } from "./gates";
@@ -98,8 +99,8 @@ function parseArgs(argv: readonly string[]): Args {
   }
 
   const fixtureSet = map.get("fixture-set") ?? "calibration";
-  if (fixtureSet !== "calibration" && fixtureSet !== "validation" && fixtureSet !== "holdout") {
-    throw new Error(`diff: --fixture-set must be calibration|validation|holdout, got '${fixtureSet}'`);
+  if (!(FIXTURE_SETS as readonly string[]).includes(fixtureSet)) {
+    throw new Error(`diff: --fixture-set must be ${FIXTURE_SETS.join("|")}, got '${fixtureSet}'`);
   }
 
   const blurAxis = map.get("blur-axis") ?? "x";
