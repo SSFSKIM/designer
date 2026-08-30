@@ -443,10 +443,37 @@ export interface MaterialProfile {
 const SRGB_WHITE_TINT: Rgb = [1, 1, 1];
 
 /**
- * The pre-C9a lift, expressed as the fraction of the remaining transparency it
- * closed: (0.62 − 0.28) / (1 − 0.28). See `MaterialProfile.increasedOcclusionLift`.
+ * How much of the remaining transparency an `occlusion: "increased"` policy
+ * closes. **FITTED (round two, 2026-08-31) — 0.4722 → 0.75.**
+ *
+ * The old number was never a measurement. It was the pre-C9a lift re-expressed as
+ * a fraction, (0.62 − 0.28) / (1 − 0.28), chosen so the derivation reproduced the
+ * old floor exactly at the old nominal — and no stage of the recalibration
+ * cascade had refitted it, which is the gap claims §5.14 records against itself.
+ * Against the active bed it under-occluded badly: the reference's interior sits
+ * at 0.893 under reduced transparency and 0.957 under increased contrast where
+ * vitrea reached 0.777 and 0.783.
+ *
+ * ## One constant, two references that want different things
+ *
+ * macOS force-couples the accessibility toggles (Decision Log 8), so BOTH
+ * accessibility profiles resolve to `occlusion: "increased"` and both are served
+ * by this one number. Fitted on each profile's own untinted calibration cells
+ * against the declared objective, they disagree: increased contrast wants 0.80
+ * (0.36045 → 0.23366 across the grid, a 1.54× spread) and reduced transparency
+ * wants 0.70 (0.10940 → 0.04875, 2.76×). Their implied alphas differ too — 0.945
+ * and 0.864 — which is a property of the two references, not of the fit.
+ *
+ * 0.75 is the minimiser of the two profiles' objectives summed at equal weight,
+ * which is the honest tie-break when one constant serves two equally-gated
+ * profiles: 0.70 → 0.31022, **0.75 → 0.29742**, 0.80 → 0.30347. Both checks agree
+ * (ΔE 0.01087 and 0.00279 at the chosen point) and both profiles improve enormously
+ * against the shipped 0.4722, which reads 0.46985 on the same sum.
+ *
+ * Mirrored by `@vitreajs/vitrea-web`'s `INCREASED_OCCLUSION_LIFT`, and pinned in
+ * both directions by `packages/calibration/test/tier-coherence.test.ts`.
  */
-export const INCREASED_OCCLUSION_LIFT = 0.4722;
+export const INCREASED_OCCLUSION_LIFT = 0.75;
 
 /**
  * The occlusion alpha a resolved policy asks for, given whatever nominal the

@@ -1279,7 +1279,11 @@ export const REDUCED_TRANSPARENCY_FROST = 1.75;
  * Mirrored by `@vitrea/renderer-webgpu`'s `MaterialProfile.increasedOcclusionLift`
  * and pinned in both directions by `packages/calibration/test/tier-coherence.test.ts`.
  */
-export const INCREASED_OCCLUSION_LIFT = 0.4722;
+// FITTED (round two, 2026-08-31) 0.4722 -> 0.75. The old value was the pre-C9a
+// lift re-expressed as a fraction, never a measurement, and it under-occluded
+// against the active bed on both accessibility profiles. Mirrors
+// `@vitrea/renderer-webgpu`'s constant, where the fit is recorded.
+export const INCREASED_OCCLUSION_LIFT = 0.75;
 
 /**
  * The occlusion alpha a resolved policy asks for, given whatever nominal the

@@ -2509,8 +2509,8 @@ calibration set could not identify.** Every remaining failure is on a span-160
 | `1x-light-reduced-transparency` | texture | `photo__rrect-lg__rest` | 0.8920 | 0.7794 | **−0.113** |
 | `1x-light-increased-contrast` | texture | `photo__rrect-lg__rest` | 0.9691 | 0.7833 | **−0.186** |
 
-vitrea is systematically **too transparent at a 280 pt span**, and it is not too
-transparent at 32, 44 or 96. That is exactly `sizeOcclusionGain`, which ships at
+vitrea is systematically **too transparent at a 160 pt span** (`rrect-lg`, whose
+280 is its *width*), and it is not too transparent at 32, 44 or 96. That is exactly `sizeOcclusionGain`, which ships at
 0 — and the reason it ships at 0 is that the calibration set cannot identify it:
 the size band saturates at 96 and every fit cell sits at or below the band's top,
 so the gain has no leverage anywhere in the fit. The per-cell calibration
@@ -2589,7 +2589,7 @@ untinted ones. Bounded by the holdout column, with §5's own margin.
 
 The ΔE bounds are looser than the untinted tables' and the reason is not the
 tint: the worst tinted holdout figure is `photo__rrect-lg__rest-tint-orange`,
-which is the span-280 residual of finding (2) wearing a tint. At a 44 px span the
+which is the span-160 residual of finding (2) wearing a tint. At a 44 px span the
 tinted cells read ΔE mean 0.0056…0.0274.
 
 **The tinted coherence ceiling breaks, with a named mechanism.** Cross-tier ΔE is
@@ -2942,6 +2942,136 @@ cell sets and the bounds above were written and committed before any constant
 moved, so a fit steered toward the holdout would show up as a departure from this
 section. Anyone auditing it should diff what §5.16 reports against what this
 section promised.
+
+### 5.16 Round two, reported against the declaration (2026-08-31)
+
+What §5.15 promised, executed. Staged matrix
+`results/2026-08-31-round-two.json` — schema 5, 242 cells, six profiles × both
+tiers, all three sets, on the outer-contour instrument. One constant moved. The
+holdout was read once. **Nine rows still fail, so this routes to the human gate
+rather than to a third round.**
+
+#### What the fits found
+
+**Fit A succeeded, and it was the larger of the two gaps.**
+`increasedOcclusionLift` moves **0.4722 → 0.75**. The old value was never a
+measurement: it was the pre-C9a absolute floor re-expressed as a fraction so the
+new form would reproduce the old behaviour at the old nominal. Against the active
+bed it under-occluded badly on both accessibility profiles.
+
+The two profiles disagree about the right lift, exactly as §5.15 predicted they
+would, because macOS couples the toggles and one constant serves both:
+
+| lift | increased contrast | reduced transparency | sum |
+| --- | --- | --- | --- |
+| 0.4722 (shipped) | 0.36045 | 0.10940 | 0.46985 |
+| 0.70 | 0.26147 | **0.04875** | 0.31022 |
+| **0.75 (chosen)** | 0.24739 | 0.05003 | **0.29742** |
+| 0.80 | **0.23366** | 0.06981 | 0.30347 |
+| 0.90 | 0.24056 | 0.11082 | 0.35138 |
+
+0.75 is the minimiser of the equal-weight sum, which is the honest tie-break when
+one constant serves two equally-gated profiles. `reducedTransparencyFrost` was
+swept as declared and is **flat to 1.03× over 1.0…3.5** — unidentifiable, so it
+stays at 1.75.
+
+The effect on the interior level is not subtle:
+
+| profile | cell | reference | round one | round two |
+| --- | --- | --- | --- | --- |
+| reduced transparency | `photo__rrect-md__rest` | 0.8930 | 0.7768 | **0.8930** |
+| reduced transparency | `photo__capsule-button__rest` | 0.8927 | 0.7793 | **0.8952** |
+| increased contrast | `photo__rrect-md__rest` | 0.9566 | 0.7834 | **0.8970** |
+| increased contrast | `photo__capsule-button__rest` | 0.9188 | 0.7860 | **0.8992** |
+
+**Eight failing rows became passing rows**, and every perceptual row on both
+accessibility profiles now passes: increased-contrast texture SSIM 0.8509 →
+0.8639, ΔE mean 0.0659 → 0.0357, edge-weighted 0.1827 → 0.1133; the dom tier's
+ΔE mean 0.0758 → 0.0479, p95 0.1150 → 0.0531, edge 0.1988 → 0.1402; reduced
+transparency's dom ΔE mean 0.0427 → 0.0175 and p95 0.0816 → 0.0277.
+
+**Fit B found nothing, and the reason is the same bind one level up.**
+`sizeSpanMax` was swept over 96 / 128 / 160 / 192 / 224 and the objective is
+**monotone against widening** — 0.09346 at 96 rising to 0.09861 at 224, a 1.06×
+spread. `sizeOcclusionGain` then reads 0.09346 at 0 against 0.09341 at 0.05: a
+0.05% difference, its fifth boundary result. Both stay where they are.
+
+The cause is structural and worth stating precisely, because it is not "the fit
+failed": **the calibration set's largest span *is* the band's current top.** The
+eight fit cells sit at spans 32, 44 and 96, so widening the band can only lower
+`sizeThickness` at 96 and weaken a size law the objective already likes. The
+spans that would separate a band ending at 96 from one ending at 160 — 130 and
+160 — exist in this bed **only in the holdout**. §5.14 corrected the deficit's
+attribution from the gain to the band; round two shows the band is no more
+identifiable from calibration cells than the gain was.
+
+**The flagship profile is bit-identical across round two**, on every perceptual
+row of both light-standard profiles at both tiers. `increasedOcclusionLift` is
+reached only by an accessibility policy, and that inertness is observed rather
+than asserted.
+
+#### The nine failing rows, by mechanism
+
+| # | profile | tier | row | worst | bound | class |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | `1x-light-standard` | texture | SSIM | 0.8189 | ≥ 0.88 | band |
+| 2 | | texture | ΔE p95 | 0.1944 | ≤ 0.17 | band |
+| 3 | | dom | SSIM | 0.6744 | ≥ 0.90 | band |
+| 4 | `2x-light-standard` | texture | SSIM | 0.8750 | ≥ 0.93 | band |
+| 5 | | texture | ΔE p95 | 0.1942 | ≤ 0.17 | band |
+| 6 | | dom | SSIM | 0.7904 | ≥ 0.92 | band |
+| 7 | | dom | contour p95 | 10.00 | ≤ 8.0 | declared bound refuted |
+| 8 | `1x-light-reduced-transparency` | dom | contour p95 | 5.00 | ≤ 3.5 | declared bound refuted |
+| 9 | | texture | SSIM | 0.9595 | ≥ 0.96 | marginal |
+
+**Rows 1–6 are the band, unchanged and unmovable here.** Every one is on
+`checkerboard__rrect-lg__rest` (span 160) or a `glass-over-glass` cell (span
+130) — the two holdout scenes whose spans lie above the band's top, which is
+precisely why they are the cells that expose the deficit and precisely why they
+cannot be fitted to.
+
+**Rows 7 and 8 are the pre-registered bounds doing their job.** §5.15 declared
+the contour bounds from calibration and validation alone, because DL17 required
+the declaration to precede the holdout read. The holdout refuted two of them, on
+their first-ever read under the outer-contour metric: `2x-light-standard` dom p95
+reads 10.00 device px on `checkerboard__glass-over-glass__rest` against a
+declared 8.0 (cal+val was 5.00), and `1x-light-reduced-transparency` dom p95
+reads 5.00 on `hc-text__capsule-button__rest` against a declared 3.5 (cal+val was
+0.00). Both are single raster steps at their scale.
+
+**These two are deliberately not amended here.** Widening a bound after seeing
+the holdout figure that broke it is exactly the contamination §5.15's protocol
+exists to prevent, and doing it silently would make the pre-registration
+worthless. They are reported as refuted and routed to the gate.
+
+**Row 9 misses by 0.0005**, on `photo__toolbar-group__rest`, a validation cell,
+against a bound adopted on the inactive bed. Round one read 0.9593 and round two
+0.9595. It is a calibration-side figure, so proposing an amendment does not
+consume anything: **≥ 0.95 is the honest active-bed value**, on the same G3
+doctrine as §5.15's two amendments, and the gate can take it or leave the row
+failing.
+
+#### What this round did and did not change about the adoption
+
+The accessibility half of §5.14's blocker is **closed**. The band half is not,
+and it now has a sharper name: not a missing gain, and not a bound that needs
+widening, but a bed whose calibration cells cannot see the span range where the
+deficit lives. Closing it needs one of three things, and all three are the gate's
+to choose:
+
+1. **Give the band calibration cells between 96 and 160.** The canvas can host a
+   span of 128 (36 px of vertical margin), at the cost of clipping the
+   reference's own shadow below it — so the cell would carry a material axis and
+   no usable shadow axis. That is a real trade rather than a free win.
+2. **Enlarge the canonical canvas**, which §5.7 already named as the thing the
+   scatter gain would need too, and which re-beds every fixture.
+3. **Accept the band at 96 and record the large-surface deficit as a measured
+   limitation**, gating the flagship profile's SSIM and ΔE p95 rows on the cells
+   that are not above the band. That is the only one of the three that needs no
+   captures, and it is also the one that narrows what the claim covers.
+
+`results/matrix.json` is unchanged, the gate has not flipped, and the demo's
+`site.spec.ts` tinted-cell assertion stays red for the reason §5.14 gives.
 
 ---
 

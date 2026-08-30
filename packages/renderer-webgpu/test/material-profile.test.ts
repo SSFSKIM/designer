@@ -176,9 +176,32 @@ describe("the foldings read the profile they are given", () => {
     expect(occlusionAlphaUnderPolicy(1, "increased")).toBe(1);
   });
 
-  it("restores the pre-C9a lift, expressed relatively", () => {
-    expect(occlusionAlphaUnderPolicy(0.28, "increased")).toBeCloseTo(0.62, 3);
-    expect(INCREASED_OCCLUSION_LIFT).toBeCloseTo((0.62 - 0.28) / (1 - 0.28), 4);
+  it("is a fitted lift now, not the pre-C9a floor re-expressed", () => {
+    /*
+     * This asserted that the relative form reproduced the old absolute floor
+     * exactly — `occlusionAlphaUnderPolicy(0.28, "increased") === 0.62`, and the
+     * constant equal to (0.62 − 0.28) / (1 − 0.28). That was the right assertion
+     * for a number whose only justification was continuity: it had never been
+     * measured against anything.
+     *
+     * Round two fitted it against the active bed (2026-08-31) on both
+     * accessibility profiles' calibration cells, under the protocol declared in
+     * claims §5.15, and it moved 0.4722 → 0.75. The old identity is false by
+     * construction now, so what is pinned is the property the relative form
+     * exists for rather than the number it used to reproduce.
+     */
+    expect(INCREASED_OCCLUSION_LIFT).toBeCloseTo(0.75, 6);
+
+    // The form's whole point: a FRACTION of the remaining transparency, which
+    // cannot die silently the way an absolute floor does once nominal passes it.
+    for (const nominal of [0.1, 0.28, 0.46, 0.8]) {
+      expect(occlusionAlphaUnderPolicy(nominal, "increased"), `nominal ${nominal}`).toBeCloseTo(
+        nominal + INCREASED_OCCLUSION_LIFT * (1 - nominal),
+        12,
+      );
+    }
+    // At the shipped nominal, which is what the accessibility profiles run on.
+    expect(occlusionAlphaUnderPolicy(0.46, "increased")).toBeCloseTo(0.865, 3);
   });
 
   it("gains the lens by the profile's saturation, and lods by its rate", () => {

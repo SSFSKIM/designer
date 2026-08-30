@@ -63,7 +63,8 @@
       "occlusion": 0.285,
       "reducedTransparencyOcclusion": 0.7
     },
-    "backdropToneLow": 0.03
+    "backdropToneLow": 0.03,
+    "increasedOcclusionLift": 0.75
   },
   "cssTierMapping": {
     "referenceBackdropLuminance": 0.02
@@ -370,6 +371,34 @@
         "would pin vitrea to a value and leave the reference where it was. That is",
         "worth doing for reproducibility and worthless as a fidelity measurement;",
         "it is recorded as a scope question rather than resolved here."
+      ]
+    },
+    "increasedOcclusionLift": {
+      "status": "measured",
+      "value": 0.75,
+      "previous": 0.4722,
+      "method": [
+        "Round two of the recalibration cascade, under the protocol declared in claims 5.15",
+        "before the fit ran. One constant serves BOTH accessibility profiles, because macOS",
+        "force-couples the toggles and both resolve occlusion: increased (Decision Log 8).",
+        "Fitted on each profile's own untinted calibration cells against the declared",
+        "interior objective; they disagree, and 0.75 is the minimiser of their equal-weight",
+        "sum:",
+        "",
+        "  lift     increased-contrast   reduced-transparency   sum",
+        "  0.4722   0.36045              0.10940                0.46985",
+        "  0.70     0.26147              0.04875                0.31022",
+        "  0.75     0.24739              0.05003                0.29742   <- chosen",
+        "  0.80     0.23366              0.06981                0.30347",
+        "  0.90     0.24056              0.11082                0.35138"
+      ],
+      "doesNotClose": [
+        "The two references want different lifts (implied alphas 0.945 under increased",
+        "contrast and 0.864 under reduced transparency). A single constant cannot serve both,",
+        "and separating them needs a reference from a platform that decouples the toggles -",
+        "a new capture bed, not a threshold. Also unclosed: the increased-contrast",
+        "reference's interior standard deviation, which vitrea does not reproduce and which",
+        "dominates that profile's residual objective at 0.18."
       ]
     }
   },

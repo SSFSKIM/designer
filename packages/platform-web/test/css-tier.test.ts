@@ -149,7 +149,7 @@ describe("the CSS tier (the fallback is the design)", () => {
     // 0.781/0.884 were the conversion of C9a's inactive-bed tint alpha of 0.62;
     // these are the conversion of the cascade's refitted 0.46 (2026-08-31).
     expect(nominal).toBeCloseTo(0.665, 3);
-    expect(reduced).toBeCloseTo(0.823, 3);
+    expect(reduced).toBeCloseTo(0.916, 3);
     expect(reduced).toBeGreaterThan(nominal);
   });
 
@@ -208,11 +208,20 @@ describe("the CSS tier (the fallback is the design)", () => {
     expect(foldedWith()).toBe(foldedWith(INCREASED_OCCLUSION_LIFT));
   });
 
-  it("restores the pre-C9a lift, expressed relatively", () => {
-    // The fraction is not a new number: it is the old floor read as a proportion
-    // of the headroom it closed, so at the old nominal the policy is unchanged.
-    expect(occlusionAlphaUnderPolicy(0.28, "increased")).toBeCloseTo(0.62, 3);
-    expect(INCREASED_OCCLUSION_LIFT).toBeCloseTo((0.62 - 0.28) / (1 - 0.28), 4);
+  it("is a fitted lift now, not the pre-C9a floor re-expressed", () => {
+    // It used to be the old absolute floor read as a proportion of the headroom
+    // it closed, so the policy was unchanged at the old nominal — a continuity
+    // argument rather than a measurement. Round two fitted it against the active
+    // bed on both accessibility profiles' calibration cells (claims §5.15/§5.16)
+    // and it moved 0.4722 -> 0.75, so the old identity no longer holds. What is
+    // worth pinning is the relative FORM, mirrored from the renderer.
+    expect(INCREASED_OCCLUSION_LIFT).toBeCloseTo(0.75, 6);
+    for (const nominal of [0.1, 0.28, 0.46, 0.8]) {
+      expect(occlusionAlphaUnderPolicy(nominal, "increased"), `nominal ${nominal}`).toBeCloseTo(
+        nominal + INCREASED_OCCLUSION_LIFT * (1 - nominal),
+        12,
+      );
+    }
   });
 
   it("strengthens the border under increased contrast", () => {
