@@ -97,6 +97,20 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * frames are driven by hand, into a throwing `runFrame`.
    */
   "frame-listener-failed",
+  /**
+   * A host declared four different corner radii. v1's corner algebra is
+   * mirror-symmetric by construction (X8 rider 3), so the two tiers answer
+   * differently and neither answer is what the app asked for — the CSS tier
+   * renders the four radii through `border-radius`, and the GPU tier resolves
+   * the shape against the first one.
+   *
+   * A finding rather than a throw: the surface still draws, and refusing a
+   * registration over a corner would take a page down for a rounding. It is
+   * raised **here**, at the boundary, because the only other place that notices
+   * is `@vitrea/geometry`'s own refusal — which fires per frame, from inside the
+   * renderer, on a shape that no longer names the call that declared it.
+   */
+  "non-uniform-radii",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

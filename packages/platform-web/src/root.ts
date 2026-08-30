@@ -596,6 +596,42 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * Declared here rather than beside `stateFor` because `setProbe` composes with
    * it, and `setProbe` runs from the WebGPU lifecycle's own callbacks.
    */
+  /**
+   * X8 rider 3, said out loud at the boundary that accepted it.
+   *
+   * `CornerRadii` is a Vec4 all the way down — the channel vector carries four,
+   * the CSS tier writes four through `border-radius`, the proxy's mask path
+   * draws four — and v1's *corner algebra* is mirror-symmetric by construction,
+   * built on `|x|, |y|` with one corner reach and one coefficient set. So four
+   * different radii are accepted by every layer and honoured by only some of
+   * them: the CSS tier draws what the app asked for, and the GPU tier resolves
+   * the shape against `radii[0]`.
+   *
+   * `@vitrea/geometry` refuses this already, and its refusal is deliberate and
+   * well argued — but it fires per frame, from inside the renderer, on a
+   * `ShapeChannels` that no longer knows which `registerHost` call produced it,
+   * and only on the tier that happens to be drawing. Naming it here costs one
+   * comparison per registration and puts the finding next to the declaration.
+   *
+   * A warning, not a throw. The surface draws either way, and taking a page down
+   * over a corner would be the wrong trade for a limit the roadmap intends to
+   * lift.
+   */
+  const reportNonUniformRadii = (
+    nodeId: string,
+    radii: readonly [number, number, number, number],
+  ): void => {
+    const spread = Math.max(...radii) - Math.min(...radii);
+    if (spread <= 1e-9) return;
+
+    platformDiagnostics.report({
+      code: "non-uniform-radii",
+      severity: "warning",
+      subjects: [nodeId],
+      message: `Host "${nodeId}" declared four different corner radii ([${radii.join(", ")}]), and v1 renders them differently on each tier: the CSS tier draws all four through border-radius, and the WebGPU tier resolves the shape against ${String(radii[0])} on every corner, because v1's corner algebra is mirror-symmetric by construction (X8 rider 3). Give the surface one radius until per-corner radii land, or accept that the two tiers will not agree on this surface.`,
+    });
+  };
+
   const verdictFor = (groupId: string): ProbeVerdict =>
     probeReports.get(groupId)?.verdict ?? "pass";
 
@@ -1685,6 +1721,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         });
       }
 
+      if (devMode) reportNonUniformRadii(nodeId, shape.radii);
+
       const hostLayer = layers.plane(plane).hostLayer;
       if (!hostLayer.contains(hostOptions.host) && devMode) {
         platformDiagnostics.report({
@@ -1781,6 +1819,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
         update(patch: GlassHostPatch) {
           if (patch.radii !== undefined) record.radii = patch.radii;
+          // Checked on patch as well as on registration: a capsule's radius is
+          // recomputed every time its box changes, and a morph writes radii on
+          // every frame it runs for.
+          if (devMode && patch.radii !== undefined) reportNonUniformRadii(nodeId, record.radii);
           if (patch.smoothing !== undefined) record.smoothing = patch.smoothing;
           if (patch.thickness !== undefined) record.thickness = patch.thickness;
           if (patch.order !== undefined) record.order = patch.order;
