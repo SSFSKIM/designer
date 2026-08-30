@@ -32,6 +32,131 @@ test.beforeEach(async ({ page }) => {
   await gotoPlayground(page);
 });
 
+/*
+ * Decision Log #28(d) — what the platter is before it has placed itself.
+ *
+ * The closed end is measured on a frame, so registration and placement are one
+ * or two frames apart, and `registerHost` marks the node dirty the moment it
+ * runs: whatever box the platter has in that window is measured, published, and
+ * fed to X1's overlap checks. The window cannot be closed by ordering — a layout
+ * effect inside a portalled subtree runs before the ancestor that attaches it,
+ * which is why the measurement waits for a frame at all — so what has to be true
+ * instead is that the platter claims no box it does not occupy.
+ *
+ * Recorded in the page from the document's first frame, because that is the only
+ * place the window is observable: by the time a Node-side call could ask, the
+ * platter has pinned. The engines disagree about nothing here, so all three run
+ * it — this is layout, not `backdrop-filter`.
+ */
+test("the closed platter claims no box before it pins", async ({ page }) => {
+  await page.addInitScript(() => {
+    const samples: { x: number; y: number; width: number; height: number }[] = [];
+    (window as unknown as { __platterBoxes: typeof samples }).__platterBoxes = samples;
+    const record = (): boolean => {
+      const element = document.querySelector("[data-vitrea-morph]");
+      if (element === null) return false;
+      const box = element.getBoundingClientRect();
+      samples.push({ x: box.x, y: box.y, width: box.width, height: box.height });
+      return true;
+    };
+    // The first sample comes from a mutation record, not from a frame. React
+    // commits between frames and the runtime registers its own frame callback
+    // during that commit — ahead of this one — so a frame-driven sampler can
+    // arrive after the pin has already happened and never see the state it
+    // exists to observe. A MutationObserver runs on the microtask checkpoint
+    // after the commit, which is before any frame at all.
+    //
+    // Observing the *document*, not `document.documentElement`: an init script
+    // runs before the parser has produced an `<html>` element on Chromium and
+    // WebKit, so the latter is null there and observing it throws — silently,
+    // taking the rest of this script with it.
+    const observer = new MutationObserver(() => {
+      if (record()) observer.disconnect();
+    });
+    observer.observe(document, { childList: true, subtree: true });
+    // The rest are frames, and the recording ends on the pin rather than after a
+    // fixed count of them. A headless page competing with four other workers is
+    // given frames at whatever rate the engine feels like, so a recording that
+    // asks for twenty of them is asking for a timeout on a property that needs
+    // three. The pin is a state the DOM can be asked about: the platter standing
+    // on the footprint the spacer holds.
+    let frames = 0;
+    const step = (): void => {
+      record();
+      const last = samples[samples.length - 1];
+      const footprint = document
+        .querySelector("[data-vitrea-morph-anchor]")
+        ?.getBoundingClientRect();
+      if (
+        last !== undefined &&
+        footprint !== undefined &&
+        footprint.width > 0 &&
+        Math.abs(last.width - footprint.width) < 2 &&
+        Math.abs(last.y - footprint.y) < 2
+      ) {
+        (window as unknown as { __platterPinned: boolean }).__platterPinned = true;
+        return;
+      }
+      frames += 1;
+      if (frames < 600) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+  // The suite's `beforeEach` has already navigated, and an init script only
+  // applies to a navigation that follows it.
+  await page.reload();
+  // The recording runs to its own end rather than to the caller's: the platter
+  // is not morphing on arrival, so `morphSettled` would return on the frame it
+  // is asked, which is inside the window being recorded.
+  await page.waitForFunction(
+    () => (window as unknown as { __platterPinned?: boolean }).__platterPinned === true,
+  );
+
+  const samples = await page.evaluate(
+    () =>
+      (
+        window as unknown as {
+          __platterBoxes: { x: number; y: number; width: number; height: number }[];
+        }
+      ).__platterBoxes,
+  );
+  // Frames before the pin and frames after it, so neither half is asserted
+  // vacuously: the platter is in the DOM from its first commit and the sampler
+  // is registered before the runtime's own frame callback.
+  const settled = samples[samples.length - 1];
+  expect(settled, "the recording caught no frames").toBeDefined();
+  const footprint = settled ?? { x: 0, y: 0, width: 0, height: 0 };
+  expect(footprint.width * footprint.height).toBeGreaterThan(0);
+
+  /*
+   * Two states and nothing between them.
+   *
+   * *Collapsed* is the honest answer to "where is this surface" before it has
+   * been placed: a box with no area overlaps nothing, unions to nothing a proxy
+   * can sample, and hit-tests as nothing. In the DOM the floor is 2×2 rather
+   * than 0×0, because a collapsed element still paints the 1px border the glass
+   * tier gives it and a border-box width cannot go below its own borders.
+   *
+   * *Placed* is the closed footprint. Anything else is a claim on space the
+   * platter does not hold, and the one this replaces was the whole width of the
+   * viewport at its origin — a block box in a host layer that is
+   * `position: absolute; inset: 0`.
+   */
+  for (const [index, box] of samples.entries()) {
+    if (box.width <= 4 && box.height <= 4) continue;
+    const drift = Math.max(
+      Math.abs(box.x - footprint.x),
+      Math.abs(box.y - footprint.y),
+      Math.abs(box.width - footprint.width),
+      Math.abs(box.height - footprint.height),
+    );
+    expect(
+      drift,
+      `frame ${String(index)} claimed a box the platter does not hold: ${JSON.stringify(box)}`,
+    ).toBeLessThan(2);
+  }
+});
+
 test("one surface carries the pair — the node id never changes", async ({ page }) => {
   const platter = page.locator(PLATTER);
   const before = await platter.getAttribute("data-vitrea-node");

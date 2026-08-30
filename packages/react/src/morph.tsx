@@ -207,10 +207,13 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
    * The platter's box, from the drivers.
    *
    * Written from the frame loop, and once more the moment the surface is
-   * placed. Both matter: without the second call there is one frame in which the
-   * platter is already out of flow but not yet positioned, and a fixed box with
-   * no offsets sits at its static position — which the surrounding layout has
-   * just reflowed out from under it.
+   * placed. Both matter, and the second one more than it looks: the placing
+   * commit is exactly where React drops the explicit zero box the unplaced
+   * platter carries (see `surfaceStyle`), and a `fixed` element with no offsets
+   * falls back to its *static* position — the plane host layer's origin, which
+   * is the box the zero box exists to avoid. Style lands in the commit's
+   * mutation phase and this runs in the layout effect after it, so the two are
+   * one frame, not two.
    */
   const writeGeometry = useCallback(
     (host: HTMLElement) => {
@@ -461,12 +464,57 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
    */
   const anchorId = `vitrea-morph-anchor${useId()}`;
 
+  /*
+   * Out of flow from the first commit, and empty until it has been placed
+   * (Decision Log #28(d)).
+   *
+   * The platter used to sit in normal flow until the closed end was measured, on
+   * the reasoning that flow is what makes the closed footprint the app's own
+   * layout. That reasoning was already carried by the spacer above — the platter
+   * never contributed to the app's layout at all, because the layout it was in
+   * was the *plane host layer's*, and a host layer is `position: absolute;
+   * inset: 0` over the viewport. A block-level box there is not "wherever the app
+   * put it": it is the full width of the viewport, at the viewport's origin.
+   *
+   * That box was registered. `GlassSurface` registers in its layout effect and
+   * `registerHost` ends in `geometry.track`, which marks the node dirty on the
+   * spot, so the next read phase measured it and published it — into
+   * `checkSamePlaneOverlap`, which then reported the platter overlapping every
+   * surface on the plane, and into `checkGroupProxyOverlap`, which stretched the
+   * platter's group's proxy union from the origin to wherever the group really
+   * was. The demo's `DESIGN.md` §9 rule 2 is that transient written up as law:
+   * keep the top-left corner clear of glass, and give a morph its own group.
+   *
+   * Ordering cannot close the window. Placement needs a measurement, and the
+   * measurement waits for a frame on purpose (see the pin effect above): layout
+   * effects run child-first, so a morph inside a portalled subtree would measure
+   * itself before the ancestor that attaches that subtree to the document. So the
+   * fix is not to place sooner but to claim nothing until placed — an explicitly
+   * empty box, which overlaps nothing, unions to nothing a proxy can sample, and
+   * hit-tests as nothing. Its measured floor is 2×2 rather than 0×0, because the
+   * collapsed platter still paints the 1px border the material gives it and a
+   * border-box width cannot go below its own borders; the `realign` effect then
+   * moves it onto the spacer's position as soon as anything reflows, so what the
+   * scene sees is a point at the footprint rather than a box at the origin.
+   *
+   * The measurement is unaffected: `contentSize` reads the *content* node, and
+   * `width: max-content` is intrinsic, so it resolves from the content itself
+   * rather than from the platter that clips it. Rejected on the way here:
+   * parking the empty box offscreen instead of at the origin, which reads as
+   * tidier and is worse — a group's proxy union is the union of its members'
+   * bounds, so a member parked a viewport away drags that union with it, and the
+   * one composition it would newly break (a morph sharing a group) is the one
+   * this is meant to make safe. Empty is inert wherever it sits; distance is not.
+   *
+   * The offsets are written out rather than left to `auto` for the same reason
+   * `writeGeometry` runs on the placing commit: a `fixed` box with no offsets
+   * sits at its *static* position, which is the box this is getting rid of.
+   */
   const surfaceStyle: CSSProperties = {
     ...style,
-    // Until the first measurement the platter sits in normal flow, which is what
-    // makes the closed footprint whatever the app's own layout says it is.
-    position: pinned ? "fixed" : "static",
+    position: "fixed",
     overflow: "hidden",
+    ...(pinned ? {} : { left: 0, top: 0, width: 0, height: 0 }),
   };
 
   return (
@@ -477,9 +525,12 @@ export function GlassMorph(props: GlassMorphProps): ReactNode {
         aria-hidden="true"
         data-vitrea-morph-anchor=""
         style={{
-          // Holds the closed footprint in the app's layout while the platter is
-          // out of flow. Zero until measured, so the first pass measures the
-          // platter itself rather than a box that is already reserving space.
+          // Holds the closed footprint in the app's layout. The platter is out
+          // of flow for its whole life, so this is the only element that ever
+          // stands in the app's own layout for it — and it is zero until the
+          // measurement arrives, because until then there is no footprint to
+          // reserve. That growth from zero is a reflow of whatever sits beside
+          // it, which is the other half of the demo's §9 law.
           width: closedSize?.width ?? 0,
           height: closedSize?.height ?? 0,
           visibility: "hidden",

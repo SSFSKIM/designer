@@ -189,12 +189,27 @@ must report zero diagnostics.
 1. **Two-group separation.** Two sampling groups on one plane must sit more than
    the sum of their `samplingPadding` apart, which at the 24px advisory default
    means **more than 48px of clear space** between their member bounds.
-2. **The origin corner stays clear.** `GlassMorph` renders its closed platter in
-   the plane host layer's own flow until it has measured itself, which puts a
-   registered box at the viewport origin for one to two frames. So no glass
-   surface may occupy the top-left `160×64` of the viewport, and a morph is
-   always given **its own `groupId`** so that transient cannot inflate a
-   neighbour's proxy union.
+2. **The origin corner stays clear.** No glass surface may occupy the top-left
+   `160×64` of the viewport, and a morph is always given **its own `groupId`**.
+
+   *Written for the behaviour this page was built against:* `GlassMorph` used to
+   render its closed platter in the plane host layer's own flow until it had
+   measured itself, and a block box in a layer that is `position: absolute;
+   inset: 0` is the full width of the viewport at the viewport's origin. That box
+   was registered, so for one to two frames it overlapped every surface on the
+   plane and stretched its group's proxy union across the page.
+
+   *Since Decision Log #28(d)* the platter is out of flow from its first commit
+   and explicitly empty until it has been placed, so the transient is a collapsed
+   point — 2×2, the floor a 1px-bordered box can reach — that `same-plane-overlap`
+   can no longer fire on at all. The rule is kept rather than deleted because what
+   remains is real and smaller: an unplaced platter still joins its group's
+   sampling union, so a morph sharing a group with other surfaces would still drag
+   that union toward the origin. The `groupId` half is therefore still load-bearing;
+   the `160×64` half is now belt-and-braces, and a page that wants that corner may
+   take it, with `pnpm --filter demo dev` reporting zero diagnostics as the proof.
+   `packages/react/e2e/morph.spec.ts` asserts the library-side property directly —
+   the platter is collapsed or standing on its footprint, never anything between.
 3. **No post-mount reflow of glass.** A container holding a morph is laid out
    start-aligned, never auto-centered, so the anchor spacer growing from zero to
    its measured size cannot move its siblings and produce a phantom overlap

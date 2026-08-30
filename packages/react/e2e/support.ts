@@ -28,9 +28,31 @@ export async function gotoPlayground(page: Page): Promise<void> {
   await page.goto("/playground/?renderer=css");
   await page.waitForSelector("[data-vitrea-root]");
   await expect(page.getByRole("toolbar", { name: "Playground actions" })).toBeVisible();
+  // The pin asked for as "is the platter standing on its footprint yet", which
+  // is the property every caller below actually depends on — they read
+  // coordinates off the trigger, and a platter that has not pinned is still
+  // collapsed at wherever it was last placed.
+  //
+  // Since Decision Log #28(d) the platter is `position: fixed` from its first
+  // commit, so the older "is it fixed yet" question is answered yes before the
+  // answer means anything. "Does it have a box" is not the replacement either: a
+  // collapsed platter still reports the 1px border it paints on each side, so it
+  // measures 2×2 rather than 0×0, and a caller that waited on `width > 0` read
+  // its coordinates one frame early — measured at 21px of vertical drift, which
+  // is half a control and lands a press off the trigger.
   await page.waitForFunction(() => {
     const platter = document.querySelector("[data-vitrea-morph]");
-    return platter !== null && getComputedStyle(platter).position === "fixed";
+    const spacer = document.querySelector("[data-vitrea-morph-anchor]");
+    if (platter === null || spacer === null) return false;
+    const box = platter.getBoundingClientRect();
+    const footprint = spacer.getBoundingClientRect();
+    if (footprint.width === 0 || footprint.height === 0) return false;
+    return (
+      Math.abs(box.x - footprint.x) < 2 &&
+      Math.abs(box.y - footprint.y) < 2 &&
+      Math.abs(box.width - footprint.width) < 2 &&
+      Math.abs(box.height - footprint.height) < 2
+    );
   });
 }
 
