@@ -142,6 +142,18 @@ export interface OpticsPassArgs {
    * strength is 0 where there is none, so this is not read.
    */
   readonly backdropToneColour: readonly [number, number, number, number];
+  /**
+   * The outer shadow (W8): `[alpha, sigmaCss, spreadCss, offsetFieldUv]`.
+   *
+   * `alpha` is already in the canvas's compositing space (`outerShadowAlpha`) and
+   * already folded under the accessibility policy; the size law is per pixel and
+   * stays in the shader. The offset arrives as a **field-texture UV** rather than
+   * as CSS px, because only the caller knows how tall the rect the field was
+   * rasterised into is.
+   */
+  readonly outerShadow: readonly [number, number, number, number];
+  /** The outer shadow's size-law gain — see `MaterialOuterShadow.sizeGain`. */
+  readonly outerShadowSizeGain: number;
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -388,7 +400,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 52);
+      const slot = uniformSlot(`optics:${args.groupId}`, 60);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -448,6 +460,14 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[49] = args.backdropToneColour[1];
       d[50] = args.backdropToneColour[2];
       d[51] = args.backdropToneColour[3];
+      d[52] = args.outerShadow[0];
+      d[53] = args.outerShadow[1];
+      d[54] = args.outerShadow[2];
+      d[55] = args.outerShadow[3];
+      d[56] = args.outerShadowSizeGain;
+      d[57] = 0;
+      d[58] = 0;
+      d[59] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

@@ -35,6 +35,7 @@ import {
   resolvedBackdropTone,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
+  MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
@@ -46,6 +47,11 @@ import {
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy as cssTierOpticsUnderPolicy,
+  outerShadowAlpha as cssOuterShadowAlpha,
+  outerShadowFalloff as cssOuterShadowFalloff,
+  outerShadowUnderPolicy as cssOuterShadowUnderPolicy,
+  sizeOuterShadowOcclusionAt as cssSizeOuterShadowOcclusionAt,
+  sourceOuterShadow,
   requiredSamplingPadding,
   resolvedPolicyFold,
   resolvedTintTone,
@@ -69,6 +75,10 @@ import {
   backdropToneUnderPolicy as rendererBackdropToneUnderPolicy,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
+  outerShadowAlpha as rendererOuterShadowAlpha,
+  outerShadowFalloff as rendererOuterShadowFalloff,
+  outerShadowUnderPolicy as rendererOuterShadowUnderPolicy,
+  sizeOuterShadowOcclusionAt as rendererSizeOuterShadowOcclusionAt,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
   sizeScatterSigma as rendererSizeScatterSigma,
@@ -688,4 +698,142 @@ describe("tier coherence (K5)", () => {
       }
     }
   });
+
+  /*
+   * The outer shadow (W8), and this is the mirror with the most riding on it.
+   *
+   * Every other facet here has the two tiers approximating one another — a
+   * `backdrop-filter` is not a lens, a `border` is not a rim band. The shadow is
+   * the one facet where both tiers do literally the same thing: composite a pure
+   * black layer at one alpha over whatever is behind, which is a multiplicative
+   * occlusion by compositing algebra alone. So they can be held to the same
+   * numbers AND the same result, and the only stated residual is the blur kernel
+   * (a browser approximates the Gaussian; the shader evaluates it).
+   */
+  it("mirrors the renderer's outer-shadow constants, patch included", () => {
+    const renderer = DEFAULT_MATERIAL_PROFILE.outerShadow;
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.offsetPx).toBe(renderer.offsetPx);
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.sigmaPx).toBe(renderer.sigmaPx);
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.spreadPx).toBe(renderer.spreadPx);
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.occlusion).toBe(renderer.occlusion);
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.reducedTransparencyOcclusion).toBe(
+      renderer.reducedTransparencyOcclusion,
+    );
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.sizeGain).toBe(renderer.sizeGain);
+    // Field for field, so a constant the renderer grows cannot sit unmirrored.
+    expect(Object.keys(MATERIAL_SOURCE_OUTER_SHADOW).sort()).toEqual(Object.keys(renderer).sort());
+
+    const patch = {
+      outerShadow: {
+        offsetPx: 12,
+        sigmaPx: 30,
+        spreadPx: -2,
+        occlusion: 0.5,
+        reducedTransparencyOcclusion: 0.25,
+        sizeGain: 0.4,
+      },
+    };
+    const rendered = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch).outerShadow;
+    const mirrored = sourceOuterShadow(patch);
+    expect(mirrored).toEqual({ ...rendered });
+    expect(mirrored.sigmaPx).not.toBe(MATERIAL_SOURCE_OUTER_SHADOW.sigmaPx);
+
+    // And a PARTIAL patch merges the same way on both sides — one named constant
+    // keeps the other five, which is what makes a one-constant calibration patch
+    // legal rather than a silent five-constant reset.
+    const partial = { outerShadow: { occlusion: 0.2 } };
+    expect(sourceOuterShadow(partial)).toEqual({
+      ...withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, partial).outerShadow,
+    });
+  });
+
+  it("evaluates one falloff and one alpha conversion on both sides", () => {
+    for (const sigma of [1, 8, 15.55, 31.1]) {
+      for (const d of [-60, -31.1, -8, -1, 0, 1, 8, 31.1, 60]) {
+        expect(cssOuterShadowFalloff(d, sigma), `sigma ${sigma} at ${d}`).toBe(
+          rendererOuterShadowFalloff(d, sigma),
+        );
+      }
+    }
+    for (const occlusion of [0, 0.06, 0.18, 0.33, 0.5, 1]) {
+      expect(cssOuterShadowAlpha(occlusion), `occlusion ${occlusion}`).toBe(
+        rendererOuterShadowAlpha(occlusion),
+      );
+    }
+  });
+
+  it("folds the shadow under a preference identically on both tiers, patch included", () => {
+    const patch = { outerShadow: { occlusion: 0.4, reducedTransparencyOcclusion: 0.3 } };
+    for (const pair of [
+      [DEFAULT_MATERIAL_PROFILE, MATERIAL_SOURCE_OUTER_SHADOW] as const,
+      [withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch), sourceOuterShadow(patch)] as const,
+    ]) {
+      const [rendererProfile, cssShadow] = pair;
+      for (const flags of [
+        {},
+        { reducedTransparency: true },
+        { increasedContrast: true },
+        { reducedTransparency: true, increasedContrast: true },
+        { forcedColors: true },
+      ]) {
+        const resolved = resolveAccessibilityPolicy({
+          reducedTransparency: false,
+          reducedMotion: false,
+          increasedContrast: false,
+          forcedColors: false,
+          reducedTransparencySupported: true,
+          ...flags,
+        });
+        const css = cssOuterShadowUnderPolicy(cssShadow, resolved.material);
+        const gpu = rendererOuterShadowUnderPolicy(resolved.material, rendererProfile);
+        expect(css.occlusion, JSON.stringify(flags)).toBe(gpu.occlusion);
+        expect(css.sigmaPx).toBe(gpu.sigmaPx);
+        expect(css.offsetPx).toBe(gpu.offsetPx);
+        expect(css.spreadPx).toBe(gpu.spreadPx);
+      }
+    }
+  });
+
+  it("resolves one span to the same shadow amplitude on both tiers", () => {
+    const patch = { outerShadow: { sizeGain: 0.5 } };
+    const rendererProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const cssShadow = sourceOuterShadow(patch);
+    for (const span of [0, 24, 32, 44, 64, 96, 160, 4000]) {
+      const thickness = cssSizeThickness(span, MATERIAL_SOURCE_SIZE);
+      expect(rendererSizeThickness(span), `span ${span}`).toBe(thickness);
+      expect(cssSizeOuterShadowOcclusionAt(0.33, thickness, cssShadow), `span ${span}`).toBe(
+        rendererSizeOuterShadowOcclusionAt(0.33, thickness, rendererProfile),
+      );
+    }
+  });
+
+  it("composites one backdrop to the same pixel on both tiers, and to black over black", () => {
+    /*
+     * The result, not just the constants — and in the space both tiers actually
+     * composite in, which is encoded sRGB on each: a `box-shadow` under the
+     * page's compositor, and a premultiplied canvas under the same one.
+     *
+     * The zero-over-black property is the reference's own signature — its
+     * `dark-solid` cells are byte-identical to their background — and here it is
+     * a consequence of the shadow's colour rather than a case either tier
+     * handles.
+     */
+    const shadow = cssOuterShadowUnderPolicy(
+      MATERIAL_SOURCE_OUTER_SHADOW,
+      NOMINAL_ACCESSIBILITY_POLICY.material,
+    );
+    const alpha = cssOuterShadowAlpha(shadow.occlusion);
+    expect(alpha).toBe(rendererOuterShadowAlpha(DEFAULT_MATERIAL_PROFILE.outerShadow.occlusion));
+
+    for (const linear of [0, 0.0117, 0.2141, 0.5, 0.891, 1]) {
+      const encoded = srgbEncode(linear);
+      // The CSS tier: `box-shadow` of rgba(0,0,0,alpha), source-over.
+      const css = encoded * (1 - alpha) + 0 * alpha;
+      // The GPU tier: premultiplied (0,0,0,alpha) over the page, same algebra.
+      const gpu = 0 + encoded * (1 - alpha);
+      expect(css, `backdrop ${linear}`).toBeCloseTo(gpu, 15);
+    }
+    expect(srgbEncode(0) * (1 - alpha)).toBe(0);
+  });
+
 });

@@ -108,6 +108,7 @@ import {
   sizeThickness,
   sizeThicknessUnderPolicy,
   sourceOptics,
+  sourceOuterShadow,
   sourceSize,
   tintedCssOptics,
   tintedSourceOptics,
@@ -712,6 +713,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * floor need them from the *same* profile the renderer is drawing with.
    */
   let sizeConstants = sourceSize(options.materialProfile);
+  /**
+   * The outer shadow's constants (W8), from the same profile and held for the
+   * same reason: both tiers cast the one shadow, so a calibrated one has to reach
+   * this tier's `box-shadow` and the renderer's field rect from a single document.
+   */
+  let outerShadowConstants = sourceOuterShadow(options.materialProfile);
   /**
    * The backdrop tone adaptation's curve (W7), from the same profile. The GPU
    * tier evaluates it per pixel; this tier evaluates it once per surface against
@@ -1383,6 +1390,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // same shorter-extent span the renderer resolves per surface (W2).
           spanPx: Math.min(bounds.width, bounds.height),
           size: sizeConstants,
+          outerShadow: outerShadowConstants,
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {
@@ -1985,6 +1993,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       policyFold = resolvedPolicyFold(profile);
       tintTone = resolvedTintTone(profile);
       sizeConstants = sourceSize(profile);
+      outerShadowConstants = sourceOuterShadow(profile);
       backdropToneConstants = resolvedBackdropTone(profile);
       bridge?.setMaterialProfile(profile);
     },

@@ -71,6 +71,9 @@ import {
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
   opticsUnderPolicy,
+  outerShadowAlpha,
+  outerShadowReachPx,
+  outerShadowUnderPolicy,
   tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -583,7 +586,21 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * already put both edges on device-pixel boundaries, so the arithmetic below
        * reproduces the previous origin and extent exactly.
        */
-      const snapped = snapRectToDevicePixels(groupFieldRect(surfaces, union), dpr);
+      /*
+       * The outer shadow (W8) is resolved before the rect, because it is what
+       * sizes the rect: the optics pass scissors to this rectangle, so the pad has
+       * to reach as far as the shadow draws or the facet is sliced off at the
+       * contour. Both folds land here on the CPU — the accessibility regime and
+       * the linear-to-compositing-space conversion — so the shader carries the
+       * curve and not the regime, as every other axis does.
+       */
+      const shadow = outerShadowUnderPolicy(policy, material);
+      const shadowReachPx = outerShadowReachPx(shadow);
+
+      const snapped = snapRectToDevicePixels(
+        groupFieldRect(surfaces, union, undefined, shadowReachPx),
+        dpr,
+      );
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
       if (rectDevice === undefined) continue;
 
@@ -710,6 +727,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           input.backdropTone?.[2] ?? 0,
           backdropToneLevel,
         ],
+        outerShadow: [
+          outerShadowAlpha(shadow.occlusion),
+          shadow.sigmaPx,
+          shadow.spreadPx,
+          // The offset in field-texture UV. The field spans exactly this rect, so
+          // one CSS px is one over the rect's CSS height however the governor
+          // scaled the rasterisation.
+          shadow.offsetPx / Math.max(rectDevice.height * cssPerDevice, 1e-6),
+        ],
+        outerShadowSizeGain: shadow.sizeGain,
         backdrop:
           pyramid === undefined || policy.glass === "none"
             ? undefined

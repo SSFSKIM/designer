@@ -90,6 +90,16 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   toneAdapt : vec4f,
   /// the backdrop source's own average colour, linear (xyz), and its luminance (w)
   toneColour : vec4f,
+  /// the outer shadow (W8): its compositing-space alpha before the size law (x),
+  /// the blur's sigma in group-local CSS px (y), the silhouette's outward spread
+  /// in the same units (z), and the downward offset expressed in field-texture UV
+  /// (w) — a UV so the offset silhouette is one texture read rather than a
+  /// gradient extrapolation, which is exact only on a straight edge and a capsule
+  /// is mostly not one
+  shadow : vec4f,
+  /// the outer shadow's size-law gain (x), read against the casting surface's own
+  /// thickness; y…w are the padding a uniform's vec4 alignment requires
+  shadowSize : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -106,6 +116,59 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 fn rim_weight(d : f32, width : f32) -> f32 {
   let t = clamp(1.0 - abs(d) / max(width, 1e-4), 0.0, 1.0);
   return t * t;
+}
+
+/// The Gaussian CDF the outer shadow's edge falls off by: 1 deep inside the
+/// shadow's silhouette, 0.5 exactly on it, 0 far outside. The tanh form of the
+/// normal CDF — WGSL has no erf, and this is within 1.8e-4 of it everywhere,
+/// which is 0.015 of one 8-bit code at the shipped occlusion. Mirrors
+/// material.ts's 'outerShadowFalloff' term for term.
+fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
+  let x = -signedDistance / max(sigma, 1e-4);
+  return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+}
+
+/// The outer shadow's alpha at this pixel (W8).
+///
+/// The shadow is the group's OWN field, translated down by 'shadow.w' in field
+/// UV and outset by 'shadow.z', then blurred. Reading the offset silhouette from
+/// the field texture rather than extrapolating the local distance along the
+/// normal is what keeps a corner a corner: the first-order estimate is exact only
+/// on a straight edge, and a capsule is mostly not one.
+///
+/// The value is an ALPHA on pure black, so what it composites to is the backdrop
+/// times '1 - alpha' — multiplicative occlusion, and exactly zero over black,
+/// with no branch for it.
+fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
+  if (ou.shadow.x <= 0.0) {
+    return 0.0;
+  }
+  let shadowUv = clamp(vec2f(uv.x, uv.y - ou.shadow.w), vec2f(0.0), vec2f(1.0));
+  var shadowField : vec4f;
+  var shadowAux : vec4f;
+  if (upsampled > 0.5) {
+    shadowField = textureSampleLevel(fieldTexture, fieldSampler, shadowUv, 0.0);
+    shadowAux = textureSampleLevel(auxTexture, fieldSampler, shadowUv, 0.0);
+  } else {
+    let texel = clamp(vec2i(shadowUv * fieldSize), vec2i(0), vec2i(fieldSize) - vec2i(1));
+    shadowField = textureLoad(fieldTexture, texel, 0);
+    shadowAux = textureLoad(auxTexture, texel, 0);
+  }
+
+  // The size law reaches the amplitude and nothing else — the reference's three
+  // lengths are span-invariant across 32…160 px. The gain rides the thickness of
+  // the surface that CAST the shadow, which is the one read at the offset
+  // position rather than the one under the pixel being shaded.
+  //
+  // Applied on '1 - alpha' rather than on the alpha: the gain is a fraction of
+  // the remaining transparency in LINEAR light ('sizeOuterShadowOcclusionAt'),
+  // and (1 - occ) is exactly what raising to 1/2.4 turns into (1 - alpha), so the
+  // two forms are the same law and neither needs the other's space.
+  let sizeK = clamp(shadowAux.z, 0.0, 1.0);
+  let sizeFold = pow(max(1.0 - ou.shadowSize.x * sizeK, 0.0), 1.0 / 2.4);
+  let alpha = 1.0 - (1.0 - ou.shadow.x) * sizeFold;
+
+  return alpha * outer_shadow_falloff(shadowField.x - ou.shadow.z, ou.shadow.y);
 }
 
 @fragment
@@ -129,8 +192,19 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let d = field.x;
   let normal = field.yz;
   let coverage = field.w;
+
+  /*
+   * The outer shadow (W8) sits UNDER the material, so it is resolved before the
+   * body and carried into the output's alpha rather than into its colour: the
+   * pass writes premultiplied black there, and premultiplied black over the page
+   * IS the multiplication. Outside the contour that is the whole of what this
+   * pixel is; inside it the surface covers the shadow, exactly as a 'box-shadow'
+   * is clipped out of its own border box, and the two meet across the coverage
+   * ramp with no seam because it is one expression.
+   */
+  let shadowAlpha = outer_shadow_alpha(in.uv, ou.flags.w, ou.flags.yz);
   if (coverage <= 0.0) {
-    return vec4f(0.0);
+    return vec4f(0.0, 0.0, 0.0, shadowAlpha);
   }
 
   let viewport01 = in.position.xy / ou.screen.xy;
@@ -321,5 +395,10 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
   colour = colour + vec3f(rw * (ou.rim.y + spec) * present);
 
-  return encode_output(max(colour, vec3f(0.0)), coverage);
+  // The material over its own shadow over the page, in one premultiplied vector:
+  // the colour is the surface's, weighted by its coverage, and the alpha is what
+  // the two of them together leave the page — 'coverage' from the surface, and
+  // the shadow filling whatever transparency is left.
+  let body = encode_output(max(colour, vec3f(0.0)), coverage);
+  return vec4f(body.rgb, body.a + shadowAlpha * (1.0 - body.a));
 }`;

@@ -40,13 +40,19 @@ import {
   CSS_TIER_MAPPING,
   cssTierForegroundBounds,
   cssTierForegroundLevel,
+  cssShadowBlurRadius,
+  MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
+  outerShadowAlpha,
+  outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
+  sizeOuterShadowOcclusionAt,
   sizeScatterSigmaAt,
   sizeThicknessUnderPolicy,
   type CssTierMapping,
   type MaterialOptics,
+  type MaterialSourceOuterShadow,
   type MaterialSourceSize,
   type PolicyFoldConstants,
   type Rgb255,
@@ -153,6 +159,16 @@ export interface CssTierSurface {
    * root carries a patch. Defaults to the shipped mirror, like `mapping`.
    */
   readonly size?: MaterialSourceSize;
+  /**
+   * The outer shadow's constants (W8) — the profile's, when the root carries a
+   * patch. Defaults to the shipped mirror.
+   *
+   * Unlike the size law this does NOT stand down when absent: the shadow is a
+   * facet of the material rather than a function of a measurement the caller may
+   * not have, so a surface that declares nothing still casts the shipped one. It
+   * is `occlusion: 0` in the profile that turns it off, on either tier.
+   */
+  readonly outerShadow?: MaterialSourceOuterShadow;
 }
 
 /**
@@ -338,6 +354,24 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
           blurRadius: sizeScatterSigmaAt(policyOptics.blurRadius, sizeK, size),
           tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
         };
+  /*
+   * The outer shadow (W8), through the same two folds and in the same order: the
+   * accessibility regime first, because a preference outranks a material law, and
+   * the size law on the result.
+   *
+   * The declaration is written from the profile's own lengths rather than from
+   * anything of this tier's, which is the whole point of the facet moving out of
+   * `CssTierMapping` — one shadow, two renderers.
+   */
+  const shadowSource = outerShadowUnderPolicy(
+    surface.outerShadow ?? MATERIAL_SOURCE_OUTER_SHADOW,
+    policy.material,
+  );
+  const shadowOcclusion = sizeOuterShadowOcclusionAt(
+    shadowSource.occlusion,
+    sizeK,
+    shadowSource,
+  );
   const radius = surface.radii.map(px).join(" ");
 
   // forced-colors: "system colors, borders, no glass" (§Accessibility). Nothing
@@ -432,16 +466,17 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     "backdrop-filter": filter,
     "-webkit-backdrop-filter": filter,
     /*
-     * No ambient shadow (Decision Log #32(c)). The reference material casts none,
-     * and K5 measured this one owning the dom tier's entire shape axis — see
-     * `CssTierMapping`'s shadow fields. The declaration stays rather than being
-     * dropped, because a profile is entitled to restore one and the property then
-     * has to be written every frame like the rest of the material.
+     * The outer shadow (W8), and it is a `box-shadow` of pure BLACK on purpose,
+     * not for want of a colour: black is what turns source-over into a multiply,
+     * which is what makes this tier's shadow the reference's multiplicative
+     * occlusion rather than a grey smear laid on top of the page. It is exactly
+     * inert over a black backdrop, as the reference is, and no branch here
+     * arranges that — see `MaterialSourceOuterShadow`.
+     *
+     * `cssShadowBlurRadius` is where the two blur conventions meet: this property
+     * takes twice the Gaussian's σ, while `filter: blur()` above takes σ itself.
      */
-    "box-shadow":
-      optics.shadowAlpha === 0
-        ? "none"
-        : `0 ${px(optics.shadowOffset)} ${px(optics.shadowBlur)} rgba(0, 0, 0, ${optics.shadowAlpha})`,
+    "box-shadow": outerShadowDeclaration(shadowSource, shadowOcclusion),
     transition: transitionFor(policy),
     "--vitrea-tint": tint,
     "--vitrea-occlusion": String(Math.round(optics.tintAlpha * 1000) / 1000),
@@ -453,6 +488,24 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
       ...(level === undefined ? {} : { level }),
     }),
   };
+}
+
+/**
+ * The `box-shadow` value for a resolved outer shadow.
+ *
+ * `"none"` at zero occlusion rather than a transparent shadow, so a profile that
+ * declines the facet costs the compositor nothing — and so the property still
+ * gets written every frame, because a material that stopped writing one of its
+ * own declarations leaves whatever was last there.
+ */
+function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, occlusion: number): string {
+  if (!(occlusion > 0)) return "none";
+  const alpha = Math.round(outerShadowAlpha(occlusion) * 1000) / 1000;
+  if (alpha <= 0) return "none";
+  return (
+    `0 ${px(shadow.offsetPx)} ${px(cssShadowBlurRadius(shadow.sigmaPx))} ` +
+    `${px(shadow.spreadPx)} rgba(0, 0, 0, ${alpha})`
+  );
 }
 
 function transitionFor(policy: ResolvedAccessibilityPolicy): string {

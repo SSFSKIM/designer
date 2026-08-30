@@ -33,6 +33,7 @@ import {
   NOMINAL_MATERIAL_POLICY,
   occlusionAlphaUnderPolicy,
   sizeOcclusionAlpha,
+  sizeOuterShadowOcclusion,
   sizeOcclusionAlphaAt,
   sizeScatterSigma,
   sizeScatterSigmaAt,
@@ -56,6 +57,7 @@ const GAINED: MaterialProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, 
   sizeScatterGainMax: 2.5,
   sizeOcclusionGain: 0.4,
   sizeShadowGainMax: 1.8,
+  outerShadow: { sizeGain: 0.6 },
 });
 
 const SPANS = [0, 1, 20, 40, 41, 60, 96, 120, 199, 200, 201, 400, 4000];
@@ -117,6 +119,15 @@ describe("every thickness-derived facet rides that one curve", () => {
       nominal: 0.35,
       saturated: 0.35 * GAINED.sizeShadowGainMax,
     },
+    {
+      // W8. The outer shadow's AMPLITUDE is the only part of it a span may move:
+      // its offset, blur and spread are span-invariant in the reference across
+      // 32…160 px, which is a measurement rather than an omission.
+      name: "outer shadow",
+      at: (span) => sizeOuterShadowOcclusion(0.33, span, GAINED),
+      nominal: 0.33,
+      saturated: 0.33 + GAINED.outerShadow.sizeGain * (1 - 0.33),
+    },
   ];
 
   for (const facet of facets) {
@@ -144,12 +155,14 @@ describe("every thickness-derived facet rides that one curve", () => {
       sizeScatterGainMax: 1,
       sizeOcclusionGain: 0,
       sizeShadowGainMax: 1,
+      outerShadow: { sizeGain: 0 },
     });
     for (const span of SPANS) {
       expect(lensSizeGain(span, off)).toBeCloseTo(1, 12);
       expect(sizeScatterSigma(8, span, off)).toBeCloseTo(8, 12);
       expect(sizeOcclusionAlpha(0.5, span, off)).toBeCloseTo(0.5, 12);
       expect(sizeShadowDepth(0.35, span, off)).toBeCloseTo(0.35, 12);
+      expect(sizeOuterShadowOcclusion(0.33, span, off)).toBeCloseTo(0.33, 12);
     }
   });
 });

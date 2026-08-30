@@ -218,14 +218,23 @@ export function resolveSurfaces(
  * The group's field-pass rect, in viewport CSS px.
  *
  * Padded by whatever can reach beyond a surface's own contour: the rim band, the
- * union's bulge cap, and one coverage pixel. Not padded by the lens depth — the
- * lens displaces where the backdrop is *sampled from*, not where the material is
- * *drawn*, so paying for it here would widen every group's field pass for nothing.
+ * union's bulge cap, one coverage pixel, and — since W8 — the outer shadow's
+ * reach. Not padded by the lens depth — the lens displaces where the backdrop is
+ * *sampled from*, not where the material is *drawn*, so paying for it here would
+ * widen every group's field pass for nothing.
+ *
+ * The shadow is the one term that is genuinely large: `outerShadowReachPx` runs
+ * to roughly 45 CSS px at the shipped profile, against a rim-and-bulge pad of
+ * about 3. It is not optional — the optics pass scissors to this rect, so a rect
+ * that stops at the contour draws no shadow at all — and it is not unconditional
+ * either: a profile whose shadow occlusion is zero has a reach of zero and pays
+ * exactly what it used to.
  */
 export function groupFieldRect(
   surfaces: readonly ResolvedSurface[],
   union: GroupUnionParams = DEFAULT_GROUP_UNION,
   rimWidthPx = 2,
+  outerShadowReachPx = 0,
 ): Rect {
   if (surfaces.length === 0) return { x: 0, y: 0, width: 0, height: 0 };
 
@@ -243,7 +252,7 @@ export function groupFieldRect(
     maxY = Math.max(maxY, cy + h / 2);
   }
 
-  const pad = rimWidthPx + union.maxBulge + 1;
+  const pad = Math.max(rimWidthPx + union.maxBulge + 1, Math.max(outerShadowReachPx, 0));
   return {
     x: minX - pad,
     y: minY - pad,

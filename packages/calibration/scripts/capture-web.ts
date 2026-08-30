@@ -352,6 +352,9 @@ const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneLow",
   "backdropToneHigh",
   "backdropToneSizeBias",
+  // The outer shadow (W8). One key, six constants under it — a nested block like
+  // `strongBorderRim`, so the cascade's fit lands as `{ outerShadow: { … } }`.
+  "outerShadow",
   "lightDirection",
   "sweepBandRadians",
   "glowRadiusCss",
@@ -359,7 +362,16 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sweepGain",
 ]);
 
-/** Every key the CSS tier's `CssTierMapping` may be patched at (corrective K5). */
+/**
+ * Every key the CSS tier's `CssTierMapping` may be patched at (corrective K5).
+ *
+ * `shadowOffset`, `shadowBlur` and `shadowAlpha` were here until W8 and are not
+ * any more: the outer shadow stopped being a CSS-only decoration and became a
+ * material facet both tiers draw, so it moved into the renderer patch above. They
+ * are removed rather than left as harmless spellings, because a key this set
+ * accepts and nothing reads is exactly the silently-measured-the-defaults failure
+ * the guard exists for.
+ */
 const CSS_TIER_MAPPING_KEYS = new Set([
   "referenceBackdropLuminance",
   "minimumTintContrast",
@@ -367,9 +379,6 @@ const CSS_TIER_MAPPING_KEYS = new Set([
   "saturation",
   "borderAlphaPerRimAlpha",
   "borderWidth",
-  "shadowOffset",
-  "shadowBlur",
-  "shadowAlpha",
 ]);
 
 /**
