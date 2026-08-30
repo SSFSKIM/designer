@@ -165,3 +165,62 @@ axis.
 guard in the GPU tier's ink in `root.ts`, then re-baseline whatever pins
 `light-dark(` for a hintless surface. Worth doing with W7's measurements in hand,
 not before.
+
+---
+
+## The renderer's eight GPU goldens are stale, and have been since W2
+
+*Found 2026-08-30, during the deferred API round (W5).*
+
+`packages/renderer-webgpu`'s golden suite fails 16 of 22 on a clean tree at
+`b6dcbac` — both `e2e/golden/scenes.spec.ts` (each scene against its committed
+PNG) and `e2e/golden/isolation.spec.ts` (each scene re-rendered under the
+pre-C9a profile). `field-mask` reports a max channel delta of 8 against an
+allowed 4; the largest is `lens-size-scaling` at 32.
+
+Nothing is wrong with the renderer. The goldens were last recorded at `f028b2a`,
+and `packages/renderer-webgpu/src/material.ts` has changed twice since — W2's
+size law (`21e87ed`) and W7's backdrop tone adaptation (`7eec80c`). Both moved
+the material on purpose. Neither re-recorded the bed, and nothing caught it,
+because `pnpm run ci` runs no Playwright at all and `.github/workflows/ci.yml`
+runs only `platform-web`'s suite.
+
+**Why this matters more than a red suite.** The golden bed is the only
+instrument that can say a renderer change left the pixels alone. W5 needed
+exactly that twice: the refraction-ladder dedup proved byte-identity by running
+the bed before and after and showing the *failure figures* and the rendered-byte
+md5s unchanged, which works but is a workaround; and per-corner radii were
+re-deferred partly because a change to v1's corner algebra cannot be landed
+against a bed that cannot say whether it moved.
+
+**The fix shape:** re-record the eight goldens, as a fidelity judgment against
+the calibration cells rather than a mechanical `goldens:regen` — Decision Log
+#30(d) is explicit that regeneration is a judgment, and `isolation.spec.ts`'s
+`SUPERSEDED` mechanism exists to carry the argument for why a delta is correct.
+It belongs to whoever owns the material change (W2 and W7 between them), not to
+an API round. Worth pairing with the second half of the problem: a suite CI does
+not run is a suite nobody can trust, which is already recorded above for the
+react specs and is the same root cause here.
+
+---
+
+## `vitrea-web`'s published declarations alias core's `RefractionQuality`
+
+*Found 2026-08-30, during the refraction-ladder dedup (W5).*
+
+`packages/platform-web`'s emitted `dist/index.d.ts` imports core's
+`RefractionQuality` as `RefractionQuality$1`, because `root.ts` takes the type
+from `@vitreajs/vitrea` while the package's own re-exports carry
+`@vitrea/policy`'s. The two are structurally identical and no consumer can tell,
+so this is cosmetic.
+
+It is recorded rather than fixed because the obvious fix is arguably the wrong
+one: `root.ts` taking a core type from core is correct layering, and re-pointing
+it at the leaf package to tidy a declaration would invert that. Core itself used
+to have the same collision and no longer does, so the workspace is net one
+better off either way.
+
+**The fix shape:** if it is worth doing at all, have `@vitreajs/vitrea`
+re-export policy's type as the identity it already is and confirm the two
+resolve to one declaration in the emitted `.d.ts` — a build-output check, not a
+source change.
