@@ -212,6 +212,26 @@ an API round. Worth pairing with the second half of the problem: a suite CI does
 not run is a suite nobody can trust, which is already recorded above for the
 react specs and is the same root cause here.
 
+**Updated 2026-08-31 (the recalibration cascade).** Still red, now 16 of 34, and
+deliberately not re-recorded here. The material moved a third time and much
+further — eleven constants, refitted against the active-pose bed (claims §5.13) —
+so every golden and every isolation case is stale by construction rather than by
+neglect. Re-recording was declined for a reason the earlier entry did not have:
+the refitted material is a **proposal awaiting the human gate**, and baking an
+unadopted configuration into the golden bed would make the bed assert a claim
+nobody has approved. The regeneration should ride the adoption, in one commit
+with it.
+
+One structural note for whoever does it. `isolation.spec.ts` is built to prove
+that "the C9a delta is exactly the two tuned constants" by re-rendering each
+scene under a patch that restores the pre-C9a values of `tintAlpha` and
+`adaptiveTint`. That argument cannot be made at all now: the cascade moved
+`blurSigma`, `shadowAlpha`, `sizeShadowGainMax`, both tint-tone constants, two
+backdrop-tone constants and two outer-shadow amplitudes as well, so a two-constant
+patch no longer isolates anything. The spec needs its patch widened to the full
+refitted set — or its claim restated as "the delta is exactly the constants this
+profile names", which is the version that survives the next retune too.
+
 ---
 
 ## `vitrea-web`'s published declarations alias core's `RefractionQuality`

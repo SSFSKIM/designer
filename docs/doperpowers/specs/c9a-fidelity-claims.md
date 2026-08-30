@@ -2385,6 +2385,227 @@ edits its own numbers without saying so is not evidence.
   tallied per cell and named per scene, which are different numbers and are
   printed as both.
 
+### 5.13 The active-bed refit, and the holdout that falsified part of it (2026-08-31)
+
+The recalibration cascade, resumed after W8 built the outer shadow and the
+instrument became two axes (§5.12). Every constant in the material was refitted
+against the **active-pose** bed on **calibration cells only**; validation was read
+as a self-check; and the holdout column was opened **once**, at the end, against a
+frozen configuration. Staged matrix: `results/2026-08-31-active-bed-refit.json`,
+schema 5, 242 cells, six profiles × both tiers, all three sets.
+
+**Nothing in this section is adopted.** `results/matrix.json` is untouched, the
+enforced suite still runs the inactive-bed gate as the historically-labelled
+suite (Decision Log 15 ruling 3), and the tables below are proposals. Three
+findings go to the human gate rather than into a threshold, and they are named at
+the end.
+
+#### What moved, and what the fit said
+
+| constant | before | after | the fit |
+| --- | --- | --- | --- |
+| `optics.regular.tintAlpha` | 0.62 | **0.46** | interior optimum on the 8 tone-inert untinted rest cells (0.38 → 0.16945, 0.46 → 0.15704, 0.54 → 0.17248); ΔE and SSIM agree |
+| `optics.regular.blurSigma` | 8 | **3** | identifiable for the first time — the spread term triples from σ 3 to σ 6 |
+| `optics.regular.shadowAlpha` | 0.55 | **0.05** | objective 0.14615 → 0.09333, both checks improving; the largest single gain in the cascade |
+| `sizeShadowGainMax` | 1.4 | **1** | its facet is now inert, so the grid is flat to 0.2% — the identity rather than a stale fitted number |
+| `backdropToneSizeBias` | 0.09 | **0.13** | the validation cell decided it (below) |
+| `backdropToneLow` | 0.02 | **0.03** | repairs §5.8's own flagged "exact but not margined" edge at no cost to the objective |
+| `tintToneFloor` | 0.45 | **1** | monotone, 2.09× spread — the curve fits to the identity |
+| `tintToneCeilMix` | 0.45 | **0** | as above |
+| `outerShadow.occlusion` | 0.33 | **0.285** | interior optimum, 2.23× spread, flat to 1% across 0.255…0.315 |
+| `outerShadow.reducedTransparencyOcclusion` | 0.566 | **0.70** | sharp, 3.83× spread; 0.285 × 0.70 = 0.1995 against the reference's measured 0.203 |
+| dark profile `outerShadow.occlusion` | *(inherited)* | **0.09** | interior optimum on the dark calibration cells, 2.06× spread |
+
+Unchanged with reasons: `rimAlpha` and `rimWidth` (the rim was never mis-set —
+see below), `sizeOcclusionGain` and `sizeScatterGainMax` and the band 32…96,
+`lensSizeGainMax` 2.6, the dark profile's `tintAlpha` 0.97 and tint level 0.05,
+`backdropToneMax`/`High`, W8's shadow geometry, and
+`cssTierMapping.referenceBackdropLuminance` 0.02 (its grid spans 1.11× and the
+checks disagree with the objective, so the constant stays where K5's cross-tier
+derivation put it).
+
+Three results are worth more than the table.
+
+**The inner shadow was suppressing a rim that was there all along.** The active
+reference's contour is *brighter* than its own body — a rim peak of 0.025…0.129
+above baseline, always at one pixel deep — while vitrea read 0.0000 with its peak
+8 to 12 px in, meaning it had no edge feature at all. The rim constants were
+never the problem; `shadowAlpha` at 0.55 was darkening the contour faster than
+the rim lit it. On the inactive bed the reference's own rim read 0.0000…0.0041,
+which is what §6.2 recorded as "below the capture's quantisation" — **that
+finding described the inactive pose and is withdrawn.**
+
+**Apple's author tint is the seed, not a range of tones.** On three of the five
+calibration backdrops the reference's tinted interior is the declared colour
+exactly, in linear light, at a per-channel standard deviation of **0.000**:
+`systemOrange` renders (1.0000, 0.2961, 0.0000). The tone curve therefore fits to
+the identity, and `tintToneLow`/`High` now describe nothing. What makes the tint
+work anyway is the composition order Decision Log 12 fixed: over a dark backdrop
+the *adaptation* supplies the opacity and the tint supplies the colour, so
+`dark-solid__capsule-button__rest-tint-orange` lands at 0.4275 against a
+reference of 0.4257 without the tint touching the alpha at all.
+
+**The size bias was decided by a validation cell, against the estimator §5.8 was
+fitted on.** The light-versus-dark separation estimator says a 96 pt surface over
+the darkest backdrop adapts by 0.30; the reference's own interior level says it
+does not (0.4844, against 0.466 unadapted at the refitted alpha and 0.3566
+adapted). `impulse__rrect-md__rest` — validation, fitted to by neither — renders
+0.2858 against a reference of 0.4358 at the old bias (ΔE 0.02344) and 0.4594 at
+the new one (ΔE 0.00378). The estimator's algebra cancels transmission only if
+both schemes share one tint alpha, and the refitted profiles are at 0.46 and
+0.97, so it is no longer the primary evidence for this constant.
+
+#### The one holdout pass
+
+Read once, on the frozen configuration, over all six profiles and both tiers.
+**Every ΔE mean row holds, on every gated profile and both tiers**, with the
+worst untinted holdout figure 0.0587 against bounds of 0.07 and 0.08. So does
+every silhouette IoU row, every edge-weighted row on the light-standard profiles,
+and every row of both reduced-transparency shape tables.
+
+What fails divides cleanly into two mechanisms and one marginal miss, and none of
+the three is a number a threshold should absorb.
+
+**(1) The contour rows fail on an instrument artefact, measured.** The CSS tier's
+extracted silhouette over a checkerboard carries interior holes, and the contour
+metric walks every hole boundary. Counted directly on the captures:
+
+| cell | tier | interior holes, reference | interior holes, vitrea | area recovered | IoU | contour mean / p95 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard__rrect-lg__rest` (holdout) | dom | 0 | **72** | 96.5% | 0.9653 | 15.34 / 65.0 |
+| `checkerboard__rrect-md__rest` | dom | 0 | 22 | 96.2% | 0.9617 | 6.59 / 36.0 |
+| `checkerboard__capsule-button__rest` | dom | 0 | 6 | 96.2% | 0.9622 | 2.17 / 15.3 |
+| the same three | texture | 0 | **0** | 98.9…99.5% | 0.969…0.989 | ≤ 0.91 / ≤ 2.59 |
+
+IoU stays at 0.96 while the contour explodes, which is the signature. The
+mechanism is the one §5.8 already named for the tone axis: **the two tiers blur
+in different colour spaces** — this renderer in linear light, `backdrop-filter`
+in the encoded one. At σ = 8 the checkerboard's 16 px period was washed out; at
+the refitted σ = 3 the CSS tier transmits enough of it that interior pixels
+coincide with the backdrop's own level and the extractor punches holes.
+
+**(2) The largest surfaces fail perceptually, and the reason is a facet the
+calibration set could not identify.** Every remaining failure is on a span-280
+`rrect-lg` or the `glass-over-glass` stack, and all of them say the same thing:
+
+| profile | tier | cell | reference interior | vitrea | residual |
+| --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | `photo__rrect-lg__rest` | 0.6855 | 0.5835 | **−0.102** |
+| `1x-light-standard` | texture | `photo__glass-over-glass__rest` | 0.7064 | 0.5381 | **−0.168** |
+| `1x-light-reduced-transparency` | texture | `photo__rrect-lg__rest` | 0.8920 | 0.7794 | **−0.113** |
+| `1x-light-increased-contrast` | texture | `photo__rrect-lg__rest` | 0.9691 | 0.7833 | **−0.186** |
+
+vitrea is systematically **too transparent at a 280 pt span**, and it is not too
+transparent at 32, 44 or 96. That is exactly `sizeOcclusionGain`, which ships at
+0 — and the reason it ships at 0 is that the calibration set cannot identify it:
+the size band saturates at 96 and every fit cell sits at or below the band's top,
+so the gain has no leverage anywhere in the fit. The per-cell calibration
+residuals already pointed the right way (web − reference falls with span in every
+backdrop) but the grid was flat to 1.04×.
+
+**This is a holdout falsification of a fitted constant**, and the discipline's
+answer is that it cannot be repaired here: the column is spent, and refitting the
+gain against the cells that exposed it is the definition of what the holdout
+exists to prevent. It needs calibration cells above the band — one or two spans
+between 128 and 280 — which is a `scenes.json` addition and a capture session.
+
+**(3) W7's mid-dark holdout misses one bound by 4%.** On
+`mid-dark-solid__capsule-button__rest` the texture tier reads OKLab ΔE p95
+**0.1775** against the adopted ≤ 0.17, at both scales. Everything else on that
+cell is comfortable — SSIM 0.9761, ΔE mean 0.0147, IoU 1.0000, contour 0.000,
+cross-tier coherence inside its band — and the dom tier passes. It is the only
+adopted bound that the tone axis itself fails, it is 4.4% over, and it is on the
+one scene the wave chartered specifically to bind that axis, so it is reported
+rather than absorbed.
+
+#### The threshold proposals
+
+**Held wherever they re-verify.** Every ΔE mean row, every IoU row, both
+reduced-transparency shape tables, both increased-contrast shape tables and the
+cross-tier ΔE coherence row (worst 0.0360 against ≤ 0.05) re-verify against the
+active bed at their adopted numbers and are proposed **unchanged**.
+
+**Not proposed as amended — referred instead.** The contour rows and the
+large-surface perceptual rows are not re-proposed at looser numbers, because in
+both cases the honest fix is a change to something other than the bound: a
+topology arm on the conditioning predicate for the first, and a capture session
+for the second. Loosening a contour bound to 65 px would be certifying an
+extractor artefact as geometry, and loosening SSIM to admit a −0.186 interior
+error would be the certify-the-defect move Decision Log 11 refused.
+
+**The conditioning predicate's web-side arm — the ruling §5.12 asked for.**
+§5.12 flagged one degenerate web-side cell (`light-solid`, where vitrea's specular
+rim crossed the backdrop's level, recovering 4328 px of a 4872 px region with a
+ring of holes and a corner curvature of 8.65 1/px) and left the choice between an
+exclusion and a predicate to this pass. **The answer is neither, and then a third
+thing.**
+
+- The motivating cell is **repaired** by the refit: area recovery 0.888 → 1.000,
+  IoU 0.9990, corner curvature 0.0558 against the reference's 0.0558. The inner
+  shadow was what pushed vitrea's rim across the backdrop, and it is now 0.05.
+- An **area arm would not work**. The cells that now mis-measure recover
+  94.8…96.2% of their region — above any floor worth setting — while the eleven
+  cells a 0.95 arm would exclude read IoU 0.94…0.98 and measure geometry fine.
+- What breaks the metric is **topology, not area**: 72 holes at 96.5% recovery.
+  So the proposed arm is a **simply-connected test on both sides' extracted
+  silhouettes**, excluding the shape rows where either side's mask has interior
+  holes. It is proposed, not built — a new instrument rule belongs to the gate
+  that adopts it.
+
+**Corner curvature must not be gated.** No adopted table includes it, and this
+pass is the evidence for keeping it that way: on cells whose IoU is 0.96 and
+whose area recovery is 0.96…0.99, `cornerCurvatureWeb / cornerCurvatureNative`
+reaches 496×, 800× and 8125×. The estimator is unstable in a way that has nothing
+to do with area recovery, which is the same conclusion §6.2's rim candidate
+reached from the other direction.
+
+**PROPOSED — the tinted cells, holdout-bounded.** The tint has its own axis and
+no adopted bound, so these are new tables rather than an extension of the
+untinted ones. Bounded by the holdout column, with §5's own margin.
+
+| axis | metric | texture, proposed | dom, proposed | worst cal+val | worst holdout |
+| --- | --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.88 | ≥ 0.92 | 0.9165 / 0.9677 | 0.9358 / 0.9659 |
+| shape | contour distance mean | ≤ 1.5 px | ≤ 1.2 px | 0.5577 / 0.4207 | 0.8255 / 0.5715 |
+| shape | contour distance p95 | ≤ 4.0 px | ≤ 3.5 px | 2.8284 / 2.8284 | 3.0000 / 2.0000 |
+| perceptual | SSIM mean | ≥ 0.93 | ≥ 0.89 | 0.9499 / 0.9503 | 0.9732 / 0.9150 |
+| perceptual | OKLab ΔE mean | ≤ 0.10 | ≤ 0.10 | 0.0274 / 0.0241 | 0.0811 / 0.0766 |
+| perceptual | OKLab ΔE p95 | ≤ 0.20 | ≤ 0.18 | 0.1736 / 0.1264 | 0.1771 / 0.1567 |
+| perceptual | edge-weighted mean | ≤ 0.07 | ≤ 0.07 | 0.0317 / 0.0195 | 0.0449 / 0.0440 |
+
+The ΔE bounds are looser than the untinted tables' and the reason is not the
+tint: the worst tinted holdout figure is `photo__rrect-lg__rest-tint-orange`,
+which is the span-280 residual of finding (2) wearing a tint. At a 44 px span the
+tinted cells read ΔE mean 0.0056…0.0274.
+
+**The tinted coherence ceiling breaks, with a named mechanism.** Cross-tier ΔE is
+comfortable on every tinted cell (worst 0.0360 against ≤ 0.05), but the interior
+ratio reaches **1.6493** on `checkerboard__capsule-button__rest-tint-blue`
+against a band of 0.80…1.25, with 1.3705 and 1.2655 behind it. The cause is
+measured and is not the material: a fully saturated tint needs the CSS tier to
+declare an `rgba()` colour brighter than sRGB can express, so `cssTintColor`
+clips at 255 and the CSS tier renders a weaker tint than the GPU tier. Isolated —
+at the same alpha a *shaded* tone lands within 0.07 of one 8-bit code and the
+bare seed misses by 5.59, and at C9a's old alpha of 0.62 the bare seed still
+missed by 3.82, so it is the saturation and not the opacity. Fixing it means
+solving the CSS alpha and colour **jointly** under the gamut constraint instead
+of solving the alpha on luminance and deriving the colour. **Named as the next
+parent-impact item on this axis; no coherence bound is proposed for tinted cells
+until it lands.**
+
+#### What the gate owes a decision on
+
+1. **`sizeOcclusionGain` is falsified at 0 and cannot be refitted here.** The bed
+   needs calibration spans above 96; until it has them, vitrea is measurably too
+   transparent on large surfaces and three profiles' large-surface rows cannot
+   pass.
+2. **The contour rows need the topology arm before they can be gated at all**, on
+   either tier, at the refitted blur.
+3. **W7's mid-dark holdout misses ΔE p95 by 4.4%** (0.1775 against ≤ 0.17) with
+   every other row on that cell comfortable. Decision Log 13 kept the curve's
+   shape for this wave; this is the first bound it has ever failed, and the
+   two-axis rework it was deferred to is the natural home for it.
+
 ---
 
 ## 6. What could not be measured, and why
