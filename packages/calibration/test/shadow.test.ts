@@ -221,4 +221,56 @@ describe("the shadow axis", () => {
     expect(field.extentBelowPx ?? 0).toBeGreaterThan(field.extentAbovePx ?? 0);
     expect(field.strengthPeak ?? 0).toBeGreaterThan(0.2);
   });
+
+  /**
+   * The same shadow in two windows. Built on one body slid down the canvas, so
+   * the shadow, the backdrop and the region's own geometry are identical between
+   * the two reads and the only thing that changes is how much room the frame
+   * leaves below it.
+   */
+  const slidDown = (offsetYPx: number) => {
+    const region = componentRegion(
+      { kind: "rrect", size: [80, 60], radius: 10, offset: [0, offsetYPx] },
+      { canvas: CANVAS, scale: 1, width: CANVAS.width, height: CANVAS.height },
+    );
+    const render = fromLinearLuminance(CANVAS.width, CANVAS.height, (x, y) => {
+      if ((region.silhouette.mask[y * CANVAS.width + x] ?? 0) !== 0) return 0.3;
+      const outward = Math.max(0, distanceTo(region, x, y));
+      return 0.6 * (1 - 0.45 * Math.exp(-outward / 6));
+    });
+    return { region, field: shadowField(render, backdrop, region) };
+  };
+
+  it("reads a shadow's true reach through a window that holds it", () => {
+    // 0.45·e^(−s/6) crosses the 0.01 threshold at 6·ln(45) ≈ 22.8 px, and the
+    // frame is 70 px away below and 60 px either side, so nothing is clipped.
+    const { field } = slidDown(0);
+
+    expect(field.truncatedSides).toEqual([]);
+    expect(field.clearanceBelowPx).toBeGreaterThan(69);
+    expect(field.extentBelowPx ?? 0).toBeGreaterThan(20);
+    expect(field.extentBelowPx ?? 0).toBeLessThan(26);
+    expect(field.offsetYPx).toBeDefined();
+  });
+
+  it("refuses the same reach when the canvas cuts in, rather than reporting the window", () => {
+    // The identical shadow with the body slid to 8 px off the bottom edge. The
+    // walk is still well above threshold when the capture ends, so what it would
+    // report below is the frame's size — the reading vitrea's own bed produced
+    // on `photo__rrect-lg__rest`, where a 20 px margin read σ ≈ 8% low.
+    const { field } = slidDown(62);
+
+    expect(field.clearanceBelowPx).toBeGreaterThan(7);
+    expect(field.clearanceBelowPx).toBeLessThan(9);
+    expect(field.truncatedSides).toEqual(["below"]);
+    expect(field.extentBelowPx).toBeUndefined();
+    // The pair that side belongs to goes with it: half a difference is not a
+    // displacement when one of the two terms is the frame.
+    expect(field.offsetYPx).toBeUndefined();
+
+    // The three sides the window still holds are measurements, and they stay.
+    expect(field.extentAbovePx ?? 0).toBeGreaterThan(20);
+    expect(field.extentLeftPx ?? 0).toBeGreaterThan(20);
+    expect(field.offsetXPx).toBeDefined();
+  });
 });

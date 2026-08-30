@@ -606,6 +606,18 @@ export interface ShadowAxisReport {
   readonly exteriorArea: MetricValue;
   readonly backdropMeanLuminance: MetricValue;
   readonly backdropSupport: MetricValue;
+  /**
+   * Distance from the declared contour to the canvas edge on each side — the
+   * measuring window, a property of the scene and so reported once.
+   *
+   * An `extent*` absent beside one of these says the walk was still qualifying
+   * when the capture ran out, which is the one reading absence would otherwise
+   * be indistinguishable from a scene with no shadow to find.
+   */
+  readonly clearanceAbove: MetricValue;
+  readonly clearanceBelow: MetricValue;
+  readonly clearanceLeft: MetricValue;
+  readonly clearanceRight: MetricValue;
   readonly meanDepartureNative: MetricValue;
   readonly meanDepartureWeb: MetricValue;
   readonly strengthPeakNative?: MetricValue;
@@ -720,6 +732,10 @@ export function shadowAxisReport(input: {
     exteriorArea: metricValue(input.native.exteriorAreaPx, "px^2"),
     backdropMeanLuminance: metricValue(input.native.backdropMeanLuminance, "luminance"),
     backdropSupport: metricValue(input.native.backdropSupport, "ratio"),
+    clearanceAbove: metricValue(input.native.clearanceAbovePx, "px"),
+    clearanceBelow: metricValue(input.native.clearanceBelowPx, "px"),
+    clearanceLeft: metricValue(input.native.clearanceLeftPx, "px"),
+    clearanceRight: metricValue(input.native.clearanceRightPx, "px"),
     meanDepartureNative: metricValue(input.native.meanDeparture, "luminance"),
     meanDepartureWeb: metricValue(input.web.meanDeparture, "luminance"),
     ...sided("Native", shadowFieldValues(input.native), SHADOW_FIELD_UNITS),

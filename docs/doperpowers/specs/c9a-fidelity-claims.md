@@ -2385,6 +2385,85 @@ edits its own numbers without saying so is not evidence.
   tallied per cell and named per scene, which are different numbers and are
   printed as both.
 
+#### Correction (2026-08-31): the extents were not guarded against the frame
+
+The axis walked rings outward until the departure stopped qualifying, and never
+asked whether the walk had run out of *canvas* rather than out of shadow. Where a
+component leaves less margin than the reference's shadow needs, that walk reports
+the size of the window under the shadow's name — and the σ fitted over the same
+profile comes back biased with it, because the rings past the frame are averaged
+over an annulus the frame has eaten.
+
+Measured on the active bed at 1× light-standard, texture tier:
+
+| backdrop | span | margin | σ | extent below |
+| --- | --- | --- | --- | --- |
+| `photo` | 96 | 52 px | 17.31 | 36 |
+| `photo` | 130 | 35 px | 17.52 | 35 |
+| `photo` | **160** | **20 px** | **15.86** | **33** |
+| `checkerboard` | 96 | 52 px | 17.75 | 37 |
+| `checkerboard` | 130 | 35 px | 17.69 | 38 |
+| `checkerboard` | **160** | **20 px** | **17.55** | **35** |
+
+**σ falls about 8% on `photo` at the clipped span, where the two roomier spans
+agree within 1%**, and the same cell reads 31.93 at 2× against 34.8…35.8
+everywhere else. The cause is geometric and has nothing to do with the material:
+`rrect-lg` is a 160 pt span on a 200 pt canvas, so 20 pt of margin has to hold a
+shadow that reaches 33…37 pt below.
+
+**The guard.** Every side now reports `clearance*` — the distance from the
+declared contour to the canvas edge on that side, a property of the scene and so
+reported once — and withdraws that side's extent when the walk did not finish
+inside it. The test is on the ring that *ends* the walk rather than the last one
+that qualified: an extent of `e` is a statement that ring `e` failed to qualify,
+rings are unit-wide and span `[e, e + 1)`, so the reading rests on a whole ring
+only while `e + 1 ≤ clearance`. The one ring of guard band is the ring's own
+width, not a chosen tolerance. `offset*` goes with the pair it belongs to, since
+half a difference is not a displacement when one of its two terms is the frame.
+This is the axis's existing "absent, never zeroed" discipline applied to a second
+way of not knowing, and it needs no new constant.
+
+**What it changes in this section: nothing, and that is checkable.** Every
+calibration and validation cell on this bed clears the frame by at least **51.5
+device px**, and the closest any measured reach comes to the frame is **14.5 px**
+— `photo__rrect-md__rest` under increased contrast. The table above, the
+`16.2…18.4` and `32.9…37.2` σ ranges, the 142-cell family comparison and vitrea's
+baseline counts are all over the 182 calibration-and-validation cells of
+`results/2026-08-31-active-bed-bounded-instrument.json`, whose holdout column was
+never opened. No figure in §5.12 moves.
+
+One reading in it is now scoped, though. "σ … moves by under 15% across backdrop,
+span, colour scheme and accessibility state" is a claim over the spans this bed
+measures cleanly — 32 to 96 pt. It is **not** contradicted by the 15.86 at span
+160: that reading was the window, and it is withdrawn rather than admitted as an
+exception. What the bed can honestly say about span above 96 pt is nothing, which
+is the same gap §5.16 found from the other direction.
+
+**What it changes elsewhere.** Re-measuring `results/2026-08-31-round-two.json`
+through the corrected instrument — same captures, same constants, `--skip-capture`
+so nothing was re-rendered — moves **32 cells, every one of them holdout**:
+`photo__rrect-lg__rest` and `checkerboard__rrect-lg__rest` on all four sides
+(clearance 19.5 px at 1×, 39.5 at 2×), `photo__rrect-lg__rest-tint-orange` the
+same, and both `glass-over-glass` cells below only (clearance 34.5 px at 1×; still
+truncated at 2×, where the reach doubles in device px and 69.5 px is no longer
+enough). Nothing outside the shadow axis changed on any cell, and inside it
+nothing but the extents, the offsets and the new clearances. No bound reads an
+extent, so no gate outcome moves.
+
+The staged matrices dated before this one — `active-bed-stage0`, `active-bed-refit`,
+`active-bed-adoption-candidate`, `active-bed-bounded-instrument` and
+`outer-contour-calval` — keep the pre-guard reading and are **not** regenerated.
+They were written under superseded constants, so re-running them on today's tree
+would restate history rather than correct it. Where they carry a `rrect-lg` or
+`glass-over-glass` extent, it is the window's number.
+
+**And a mis-attribution of my own, withdrawn.** §5.17 first reported this finding
+with the sentence *"§5.12's shadow table quotes those figures as measurements of
+the reference."* It does not: that table is calibration and validation only, and
+neither scene appears in it. The biased figures were quoted in §5.17 itself, as
+the finding, which is the only place they ever appeared. The finding was right and
+the pointer was wrong.
+
 ### 5.13 The active-bed refit, and the holdout that falsified part of it (2026-08-31)
 
 The recalibration cascade, resumed after W8 built the outer shadow and the
@@ -3133,23 +3212,55 @@ with no absence and no caveat. The truncation biases it visibly:
 Sigma falls 8% on `photo` at the clipped span while the two unclipped spans agree
 within 1%, and the same cell reads 31.93 at 2x against 34.8–35.8 elsewhere. **This
 is in the committed record now**, for `rrect-lg` and less severely for
-`glass-over-glass` — §5.12's shadow table quotes those figures as measurements of
-the reference.
+`glass-over-glass`.
+
+> **Correction (2026-08-31).** The sentence that stood here added "— §5.12's
+> shadow table quotes those figures as measurements of the reference." It does
+> not. §5.12's shadow table is calibration and validation only, its holdout
+> column was never opened, and neither scene appears in it; the figures above are
+> read from the holdout-bearing staged matrices and this section is the only
+> place they were ever quoted. The finding is unaffected — the biased readings
+> were in the committed matrices — but the pointer was wrong.
 
 The guard needs no new constant: an extent walk that reaches the canvas edge has
 been truncated, and a truncated field must record the shadow axis **absent**, on
 the same "absent, never zeroed" discipline the axis already applies where the
-backdrop cannot support a ratio. Landing it moves the shadow figures on two scene
-families and therefore needs a regeneration and a re-read, which is why it is
-reported here rather than taken.
+backdrop cannot support a ratio.
 
-**It also refines DL18's premise, in vitrea's favour.** A span-128 component
-leaves 36 px of margin, which is *more* than the 35 px of the `glass-over-glass`
-cells whose fitted sigma is within 1% of unclipped. So the span-128 cell is
-expected to carry a **usable-but-marginal** shadow axis rather than none — the
-trade DL18 stated is milder than it assumed. It should still be barred from any
-shadow-constant fit on principle: it is a band cell, and its margin sits right at
-the edge of where the bias sets in.
+> **Landed (2026-08-31), after the session lock stopped the capture.** The guard
+> is in `metrics/shadow.ts`, pinned by two synthetic reads of one shadow in two
+> windows, and `results/2026-08-31-round-two.json` is re-measured through it from
+> the same captures with no constant touched. It withdraws 32 cells' worth of
+> extents, **every one of them holdout**, and moves nothing on any calibration or
+> validation cell — those clear the frame by at least 51.5 device px. The full
+> account, the new `clearance*` figures and the derivation of the one-ring guard
+> band are in §5.12's dated correction.
+
+**It also refines DL18's premise, and the guard then refines the refinement.** A
+span-128 component leaves 36 px of margin, which is *more* than the 35 px of the
+`glass-over-glass` cells whose fitted sigma is within 1% of unclipped — so the
+cell was expected to carry a **usable-but-marginal** shadow axis rather than none.
+Half of that survives the guard and half does not, and the split is worth stating
+before the capture rather than discovering it after:
+
+- **σ and the amplitude survive**, and that part of the refinement stands. It is
+  a measurement: at margin 35 the fitted σ is within 1% of the roomy cells, and
+  36 px is more margin than that.
+- **The extent below will be withdrawn.** The guard truncates a side when the
+  ring that ended the walk is not wholly inside the clearance, the reference
+  reaches 33…37 px down, and a span-128 component's clearance is 35.5 px. So the
+  instrument will very likely record the downward extent absent on exactly these
+  cells — which is what DL18 predicted, arrived at by a different route, and the
+  reason its instruction was to verify rather than assume. The guard has already
+  done this to the margin-35 `glass-over-glass` cells: their σ is untouched and
+  their extent below is gone.
+
+**The bar stands either way.** These cells are barred from every shadow-constant
+fit — not because the axis is unmeasurable on them, but because a band cell whose
+margin sits at the edge of where the bias sets in is the last place a shadow
+constant should be estimated from. Recorded here as part of the declaration, so
+the bar is a commitment made before the numbers exist rather than a choice made
+after seeing them.
 
 #### The span-128 cells, declared before capture
 
@@ -3163,7 +3274,7 @@ One new component, sitting between `rrect-md` (span 96) and `rrect-lg` (160):
 ```jsonc
 "rrect-ml": {
   "kind": "rrect", "size": [224, 128], "radius": 27,
-  "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant."
+  "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. Expect the truncation guard to withdraw the downward extent here (clearance 35.5 px against that reach) while sigma and amplitude survive; that is the instrument working, not a defect in the cell. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant."
 }
 ```
 

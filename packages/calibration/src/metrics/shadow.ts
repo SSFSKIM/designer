@@ -135,9 +135,13 @@ export interface ShadowProfileSample {
  *
  *   - everything normalised is absent when the backdrop cannot support a ratio
  *     (`backdropSupport` says how far short it fell);
+ *   - `extent*` is absent on a side whose walk runs into the canvas edge, because
+ *     what it would report there is the size of the window and not the reach of
+ *     the shadow — `clearance*` is the window it ran out of;
  *   - `offset*` is absent when no direction reached the occlusion threshold at
  *     all, which is what a renderer that draws no shadow produces — an undefined
- *     displacement, recorded as undefined rather than as (0, 0);
+ *     displacement, recorded as undefined rather than as (0, 0) — and absent per
+ *     pair when either of that pair's two sides is truncated;
  *   - `centroidOffset*` is absent when too little of the exterior is occluded
  *     for a mass centroid to describe the shadow rather than the backdrop;
  *   - each falloff pair is absent when fewer than three rings past ring 0 clear
@@ -164,6 +168,32 @@ export interface ShadowFieldReport {
   readonly extentBelowPx?: number;
   readonly extentLeftPx?: number;
   readonly extentRightPx?: number;
+  /**
+   * Distance from the declared contour to the canvas edge on each side, device
+   * px — the measuring window itself, always present.
+   *
+   * Reported because it is the datum the truncation rule is decided on: an
+   * extent that is absent beside a clearance of 20 says "the shadow was still
+   * going when the capture ended 20 px out", where absence alone would not
+   * distinguish that from a scene with no shadow to measure.
+   */
+  readonly clearanceAbovePx: number;
+  readonly clearanceBelowPx: number;
+  readonly clearanceLeftPx: number;
+  readonly clearanceRightPx: number;
+  /**
+   * Sides whose extent walk reached the canvas edge, in the order of
+   * `SHADOW_DIRECTIONS`; empty when the window held the whole departure.
+   *
+   * Non-empty is a caveat on the *pooled* figures too, not just on the sides it
+   * names: rings past a truncated side's clearance are averaged over an
+   * incomplete annulus, which pulls `falloffSigmaPx` toward the window. Measured
+   * on this bed at roughly 8% low for a σ ≈ 17 px shadow read through a 20 px
+   * margin. The pooled figures are still reported — a biased σ with its bias
+   * named is worth more than a hole — but a fit that takes σ as ground truth
+   * should exclude cells where this is non-empty.
+   */
+  readonly truncatedSides: readonly ShadowDirection[];
   /** Displacement implied by the reach: half the difference of opposing extents. */
   readonly offsetXPx?: number;
   readonly offsetYPx?: number;
@@ -245,6 +275,42 @@ function extentOf(means: readonly (number | undefined)[], threshold: number): nu
     previousQualified = qualified;
   }
   return extent;
+}
+
+/**
+ * How far the exterior runs before the capture ends, per side, in pixels from
+ * the declared contour.
+ *
+ * The minimum over the whole border line rather than the distance at its middle:
+ * the frame comes closest to the contour somewhere along that line, and that is
+ * where the walk runs out of pixels first.
+ */
+function clearanceOf(
+  region: ComponentRegion,
+  width: number,
+  height: number,
+): Map<ShadowDirection, number> {
+  const at = (x: number, y: number): number => region.signedDistancePx[y * width + x] ?? 0;
+  let above = Number.POSITIVE_INFINITY;
+  let below = Number.POSITIVE_INFINITY;
+  for (let x = 0; x < width; x += 1) {
+    above = Math.min(above, at(x, 0));
+    below = Math.min(below, at(x, height - 1));
+  }
+  let left = Number.POSITIVE_INFINITY;
+  let right = Number.POSITIVE_INFINITY;
+  for (let y = 0; y < height; y += 1) {
+    left = Math.min(left, at(0, y));
+    right = Math.min(right, at(width - 1, y));
+  }
+  // Negative where the declared region overruns the frame: there is no exterior
+  // on that side at all, which is a clearance of zero and truncation of anything.
+  return new Map<ShadowDirection, number>([
+    ["above", Math.max(0, above)],
+    ["below", Math.max(0, below)],
+    ["left", Math.max(0, left)],
+    ["right", Math.max(0, right)],
+  ]);
 }
 
 /** Below one pixel a falloff describes the raster, not the material. */
@@ -407,11 +473,17 @@ export function shadowField(
     );
   }
 
+  const clearance = clearanceOf(region, width, height);
   const base: ShadowFieldReport = {
     exteriorAreaPx: exteriorCount,
     backdropMeanLuminance: backdropSum / exteriorCount,
     backdropSupport: supportedCount / exteriorCount,
     meanDeparture: departureSum / exteriorCount,
+    clearanceAbovePx: clearance.get("above") ?? 0,
+    clearanceBelowPx: clearance.get("below") ?? 0,
+    clearanceLeftPx: clearance.get("left") ?? 0,
+    clearanceRightPx: clearance.get("right") ?? 0,
+    truncatedSides: [],
     profile: [],
   };
   if (base.backdropSupport < minSupport) {
@@ -509,6 +581,23 @@ export function shadowField(
   const right = extents.get("right") ?? 0;
   const reached = Math.max(above, below, left, right) > 0;
 
+  // A walk that was still qualifying at the frame's own reach did not end there
+  // — the capture did. Reporting the number it stopped on would be a measurement
+  // of the window wearing the shadow's name, so the side goes absent instead.
+  //
+  // The test is on the ring that *ends* the walk, not on the last one that
+  // qualified: an extent of `e` says ring `e` failed to qualify, so ring `e` is
+  // the reading the number rests on. Rings are unit-wide and span `[e, e + 1)`,
+  // so that ring is whole only while `e + 1 ≤ clearance`; past there the frame
+  // has begun to eat the annulus the mean is taken over, and a ring missing the
+  // part of itself nearest the shadow is exactly the ring that stops a walk
+  // early. One ring of guard band, derived from the ring's own width rather
+  // than chosen.
+  const truncatedSides = SHADOW_DIRECTIONS.filter(
+    (direction) => (extents.get(direction) ?? 0) + 1 > (clearance.get(direction) ?? 0),
+  );
+  const truncated = new Set<ShadowDirection>(truncatedSides);
+
   // Both families over the same points, the same objective and the same two free
   // parameters, so the pair of residuals is a comparison rather than two
   // unrelated numbers. The search runs to twice the profile's own reach, which
@@ -523,12 +612,16 @@ export function shadowField(
     ...base,
     strengthPeak: peak.occlusion,
     strengthPeakDistancePx: peak.distancePx,
-    extentAbovePx: above,
-    extentBelowPx: below,
-    extentLeftPx: left,
-    extentRightPx: right,
-    ...(reached
-      ? { offsetXPx: (right - left) / 2, offsetYPx: (below - above) / 2 }
+    ...(truncated.has("above") ? {} : { extentAbovePx: above }),
+    ...(truncated.has("below") ? {} : { extentBelowPx: below }),
+    ...(truncated.has("left") ? {} : { extentLeftPx: left }),
+    ...(truncated.has("right") ? {} : { extentRightPx: right }),
+    truncatedSides,
+    ...(reached && !truncated.has("left") && !truncated.has("right")
+      ? { offsetXPx: (right - left) / 2 }
+      : {}),
+    ...(reached && !truncated.has("above") && !truncated.has("below")
+      ? { offsetYPx: (below - above) / 2 }
       : {}),
     ...(mass > 0 && massFraction >= minMass
       ? {
