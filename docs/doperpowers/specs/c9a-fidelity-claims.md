@@ -2036,6 +2036,255 @@ in the document.
 
 ---
 
+### 5.12 The two-axis instrument: a bounded shape axis and a measured shadow axis (2026-08-31)
+
+§5.11 ended with three questions for the human gate. All three were answered on
+2026-08-31 (wave Decision Log 15): W8 is chartered to build the shadow on both
+tiers, no bound may be re-adopted before it, and **the instrument becomes two
+honest axes** — shape extraction bounded to the declared component region, and
+the outer shadow measured as an axis of its own. This section is what the second
+ruling means operationally: the rule each axis now follows, what each claims,
+what each no longer claims, and the reference's numbers for W8 and the cascade to
+consume.
+
+Nothing here proposes, adopts or amends a threshold. The shadow axis has no bound
+at all and must not acquire one until W8 renders a shadow to bound — a bound over
+a facet vitrea draws as zero is the certify-the-defect move Decision Log 11
+refused.
+
+#### The bounding rule, and why its margin is zero
+
+The search region is the component's own declaration in `scenes.json` —
+`placeComponent` centres it exactly as `ZStack` and the DOM do, the union of its
+rounded rects is rasterised by pixel-centre containment at the profile's backing
+scale, and extraction returns nothing outside it. The region is derived from the
+*declaration*, never from the image: an image-derived bound would be the same
+circularity in a longer form, because the shadow that broke the old rule is in
+the very pixels the bound would be fitted to.
+
+The design called for "a small margin for real edge softness". **Measured, there
+is none to allow**, and the margin ships at zero as a result. A margin exists to
+admit the antialiased boundary band; on this bed the reference's occlusion field
+begins at the contour with no gap, so the first pixel ring outside the declared
+contour is already fully-developed shadow — mean occlusion 0.05…0.19 of the
+backdrop's own level, over `1x-light-standard`. Every outward pixel of margin
+therefore admits shadow-darkened backdrop into the reference's silhouette and
+almost none into a renderer that draws no shadow. The cost is direct and
+monotone from the first fraction of a pixel:
+
+| margin, device px | `photo__capsule-button__rest` IoU | `light-solid__capsule-button__rest` IoU |
+| --- | --- | --- |
+| 0 | 1.000 | 0.888 |
+| 0.5 | 0.978 | 0.856 |
+| 1 | 0.970 | 0.850 |
+| 2 | 0.942 | 0.817 |
+| 3 | 0.912 | 0.779 |
+
+Every point of that decline is the shadow re-entering the axis the bound exists
+to keep it out of. So the bound is the declaration itself, and the shape axis's
+noise floor stays what it always was: the raster grid, ±0.5 px. The margin
+remains a parameter (`--region-margin`, `componentRegionMargin` in every cell)
+because it is a judgement about a bed rather than a law — a reference that casts
+no shadow could afford one — and the value it was measured at is on the record
+per cell.
+
+#### What the shape axis claims now, and what it no longer claims
+
+**Claims.** Each side fills, and stays inside, the geometry the scene declares:
+coverage of the declared region, contour position within it, and corner profile.
+That is the corner-and-edge fidelity the axis exists for, and it is intact — a
+surface whose corners are too tight, whose body is misplaced, or which fails to
+reach its declared contour reads exactly as it did before.
+
+**No longer claims: area recovery.** Both silhouettes are bounded above by
+`componentRegionArea` by construction, so a surface drawn *larger* than its
+declaration is clipped to the declaration and reads as a match. Over-fill is not
+measurable against a shadow-casting reference by luminance differencing at all,
+at any margin — the two are the same pixels — and the honest form of that is to
+bound both sides identically and say so rather than to report a number that
+mixes them. `silhouetteAreaNative`, `silhouetteAreaWeb` and
+`componentRegionArea` are all in the cell so a reader can see which of them
+saturated.
+
+**The conditioning predicate changes shape.** §5's well-conditioned rule is a
+floor — `silhouetteAreaNative ≥ 0.95 × declared` — with no ceiling, which is
+exactly why it could not catch the confound §5.11 found: a silhouette at twice
+the declared area passes a floor. Under the bound the ceiling is imposed rather
+than measured, so the predicate's honest statement becomes *floor measured,
+ceiling assumed*, and any future gate should read `silhouetteArea*` against
+`componentRegionArea` rather than against the declared area alone.
+
+**And it needs a web-side arm.** With the bound in place the reference fills the
+region on essentially every cell whose backdrop supports the measurement —
+`silhouetteAreaNative / componentRegionArea` has a median of 1.000 over those 142
+cells, and the only readings under 0.95 are increased contrast over the
+checkerboard (0.62, 0.65: the near-opaque material matches the light squares it
+covers) and `photo__capsule-button__rest-tint-blue` (0.71). So the cell that is
+now badly conditioned is typically a *web-side* one:
+over `light-solid`, vitrea's specular rim crosses the backdrop's own level, its
+extracted silhouette comes back at 4328 px of a 4872 px region with a ring of
+holes at its edge, and the contour traced round that reads a corner curvature of
+8.65 1/px against the reference's 0.056. That figure describes the extractor, not
+vitrea's corners. The predicate the post-W8 gate adopts should condition on both
+sides' areas; this document records the reason rather than proposing the number.
+
+#### The shadow axis, defined
+
+Measured **outside** the declared region, on both sides, by one estimator, in
+linear light. The quantity is *occlusion* — `(backdrop − rendered) / backdrop` —
+not absolute darkening, because the reference's shadow removes a fraction of the
+light behind it and the same shadow is therefore a large drop over a bright
+backdrop and an invisible one over a dark one. Normalising is what makes a
+shadow's description comparable across the five backdrops the bed puts one
+surface over.
+
+Distances are exact distances to the *declared* contour, not to an extracted one,
+so the axis is not hostage to what the extractor recovered — it reports on cells
+whose shape axis is absent entirely.
+
+| figure | definition |
+| --- | --- |
+| `meanDeparture{Native,Web}` | mean `backdrop − rendered` over the whole exterior, linear light, signed. Absolute, so it is defined on every scene; negative means that side brightens its surround on balance. |
+| `backdropSupport` | fraction of the exterior whose backdrop clears 0.05 linear luminance — the level below which a ratio is arithmetic on no information. |
+| `strengthPeak{Native,Web}` | deepest one-pixel-ring mean occlusion, pooled over all four directions, with `strengthPeakDistance` saying where it sits. |
+| `extent{Above,Below,Left,Right}{Native,Web}` | how far the occlusion reaches in that direction, in pixels from the declared contour: the outermost ring of a qualifying consecutive pair, where qualifying is a ring mean ≥ 0.01 occlusion. Directions are sectors split on the component's own bounding-box diagonals, so "beside" a capsule is the region past its caps. |
+| `offset{X,Y}{Native,Web}` | the displacement the reach implies: half the difference of opposing extents. This is the offset a renderer is fitted to. |
+| `centroidOffset{X,Y}{Native,Web}` | the occlusion-mass centroid minus the component's centre. A different question from the offset — where the darkening actually sits on the canvas — and inflated relative to it, because only the visible half of the field is in the integral. |
+| `falloffLength{Native,Web}` | exponential decay length fitted from the peak outward, with `falloffResidual` reporting how exponential the profile really is, as a fraction of the peak. |
+
+**Absent, never zeroed**, in four distinguishable ways: the whole normalised
+block is absent where the backdrop cannot support a ratio; `offset*` is absent
+where no direction reached the threshold, which is what a renderer drawing no
+shadow produces — an undefined displacement recorded as undefined rather than as
+(0, 0); `centroidOffset*` is absent where too little of the exterior is occluded
+for a centroid to describe the shadow rather than the backdrop's own support
+pattern; the falloff pair is absent where the profile has too few rings to fit or
+does not decay.
+
+**Two confounds the axis does not remove, and flags instead.** The innermost ring
+belongs to each side's own edge as much as to the shadow — over `photo` the
+reference's rim spills one pixel past the contour and reads −0.276 occlusion
+there, which is why the extent rule requires a qualifying *pair* rather than
+taking the first crossing. And under increased contrast the reference draws a
+hard border stroke: on `photo__capsule-button__rest` the ring-0 mean is 0.560
+against a shadow of 0.096 at ring 1, so `strengthPeak` on that profile is the
+border, not the shadow. `strengthPeakDistance` (0 rather than 1) and
+`falloffResidual` (0.13…0.14 rather than 0.03…0.08) are what expose it, and the
+border itself is a renderer feature W8 should know about.
+
+#### The reference's shadow, measured
+
+Staged matrix `results/2026-08-31-active-bed-bounded-instrument.json` — schema 5,
+182 cells, six profiles × both tiers, calibration and validation, over the active
+bed with **every constant unchanged**. The holdout column was not opened.
+Untinted rest scenes, texture tier; extents in device pixels from the declared
+contour.
+
+| profile | scene | span | support | strength | above/below/left/right | offset y | falloff λ | residual |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | `light-solid__capsule-button` | 44 | 1.00 | 0.0644 | 15 / 29 / 25 / 25 | 7.0 | 13.6 | 0.039 |
+| | `checkerboard__capsule-button` | 44 | 0.50 | 0.1895 | 24 / 39 / 32 / 34 | 7.5 | 11.9 | 0.071 |
+| | `photo__capsule-button` | 44 | 1.00 | 0.1710 | 24 / 39 / 32 / 34 | 7.5 | 11.6 | 0.076 |
+| | `checkerboard__rrect-sm` | 32 | 0.50 | 0.1838 | 24 / 39 / 31 / 33 | 7.5 | 11.8 | 0.074 |
+| | `light-solid__rrect-md` | 96 | 1.00 | 0.1063 | 19 / 34 / 28 / 28 | 7.5 | 12.3 | 0.053 |
+| | `photo__rrect-md` | 96 | 1.00 | 0.1017 | 20 / 36 / 28 / 30 | 8.0 | 12.2 | 0.050 |
+| | `photo__toolbar-group` | 44 | 1.00 | 0.1690 | 25 / 40 / 32 / 32 | 7.5 | 11.8 | 0.076 |
+| `2x-light-standard` | `light-solid__capsule-button` | 44 | 1.00 | 0.0679 | 30 / 59 / 50 / 50 | 14.5 | 27.7 | 0.036 |
+| | `checkerboard__capsule-button` | 44 | 0.50 | 0.1906 | 48 / 77 / 65 / 67 | 14.5 | 23.8 | 0.072 |
+| | `photo__capsule-button` | 44 | 1.00 | 0.1763 | 48 / 79 / 64 / 67 | 15.5 | 23.6 | 0.075 |
+| | `light-solid__rrect-md` | 96 | 1.00 | 0.1100 | 38 / 68 / 56 / 56 | 15.0 | 24.8 | 0.055 |
+| | `photo__rrect-md` | 96 | 1.00 | 0.1063 | 38 / 72 / 57 / 59 | 17.0 | 24.6 | 0.049 |
+| `1x-dark-standard` | `checkerboard__capsule-button` | 44 | 0.50 | 0.0829 | 7 / 23 / 19 / 18 | 8.0 | 13.0 | 0.123 |
+| | `photo__capsule-button` | 44 | 1.00 | 0.0355 | 8 / 26 / 16 / 20 | 9.0 | 13.7 | 0.030 |
+| | `checkerboard__rrect-md` | 96 | 0.50 | 0.1492 | 20 / 36 / 31 / 29 | 8.0 | 12.1 | 0.049 |
+| | `photo__rrect-md` | 96 | 1.00 | 0.0988 | 19 / 36 / 28 / 29 | 8.5 | 12.6 | 0.049 |
+| `2x-dark-standard` | `photo__capsule-button` | 44 | 1.00 | 0.0589 | 17 / 52 / 33 / 39 | 17.5 | 26.0 | 0.061 |
+| | `photo__rrect-md` | 96 | 1.00 | 0.0997 | 37 / 73 / 56 / 58 | 18.0 | 25.0 | 0.051 |
+| `1x-light-reduced-transparency` | `photo__capsule-button` | 44 | 1.00 | 0.0962 | 20 / 35 / 28 / 29 | 7.5 | 12.3 | 0.060 |
+| | `photo__rrect-md` | 96 | 1.00 | 0.1019 | 20 / 37 / 29 / 29 | 8.5 | 12.4 | 0.055 |
+| `1x-light-increased-contrast` | `photo__capsule-button` | 44 | 1.00 | 0.5599 † | 20 / 35 / 28 / 29 | 7.5 | 10.9 | 0.137 |
+| | `photo__rrect-md` | 96 | 1.00 | 0.4784 † | 20 / 37 / 29 / 29 | 8.5 | 11.1 | 0.128 |
+
+† the border stroke, not the shadow — see the confound above. The shadow proper
+on those cells is 0.096 at ring 1.
+
+Four things follow, and they are descriptions rather than proposals.
+
+**The geometry is specified in points and is stable.** Every extent, the offset
+and the falloff length double between 1× and 2× — offset 7.0…8.0 px at 1× against
+14.5…18.0 at 2×, falloff 11.6…13.6 against 23.6…27.7. So the shadow is roughly a
+**7.5 pt downward offset with a ~12 pt falloff**, reaching about 20 pt above, 37
+pt below and 30 pt beside a light-standard surface at the 1% level.
+
+**The geometry barely depends on the span; the strength does, and inconsistently.**
+At 1× light-standard the extents move by a few pixels between a 32 pt and a 96 pt
+component, in *both* directions depending on backdrop — but the strength moves by
+a factor of 1.7 over `light-solid` (0.064 → 0.106, growing with span) and by 0.6
+over `photo` (0.171 → 0.102, shrinking). A purely multiplicative occlusion would
+give one normalised strength per surface whatever the backdrop; these do not.
+**The multiplicative model describes the shadow's shape well and its amplitude
+only approximately**, and W8's `span-coupling` and `backdrop-multiplicativity`
+parameters are where that has to be resolved. This refines §5.11's "it grows with
+the surface's span": what grows is the darkening over a bright backdrop, not the
+reach.
+
+**The dark scheme casts a weaker, differently-shaped shadow.** On the same
+`photo__capsule-button` cell the strength falls from 0.171 light to 0.035 dark,
+and the reach above the component from 24 px to 8 px while the reach below barely
+moves (39 → 26). W8 needs a per-scheme shadow, not one shadow dimmed.
+
+**Reduced transparency keeps the shadow; increased contrast adds a border.** The
+reduced-transparency reference's shadow is within a few percent of the standard
+one in geometry (offset 7.5…8.5, falloff 12.3…12.4) at about half the strength.
+Increased contrast keeps the same geometry and adds the stroke above.
+
+#### vitrea's baseline: zero, honestly recorded
+
+Across the same 182 cells, vitrea's side of the shadow axis reads:
+
+| figure | vitrea, texture tier | vitrea, dom tier |
+| --- | --- | --- |
+| `meanDepartureWeb` | −0.0079…+0.0014 luminance | −0.0140…+0.0041 luminance |
+| `extent*Web` | **0 in all four directions on 39 of the 71** cells that carry a normalised block | 0 in all four on 26 of 71 |
+| `offsetY Web` | **absent** on exactly those cells — an undefined displacement recorded as undefined, not as (0, 0) | as above |
+| `falloffLengthWeb` | absent where nothing reached; 0.70…3.71 px on the 51 cells across both tiers where a near-contour halo exists | as above |
+
+On every 1×-light-standard untinted rest scene over `photo`, both tiers read
+**0 / 0 / 0 / 0** with `strengthPeakWeb` of 0.0000 and no offset at all; over
+`light-solid` the same holds except for 2…3 px on the capsule's two sides on the
+texture tier. The overall sign is the more telling number: vitrea's mean
+departure is
+*negative* on most cells — where the reference darkens its surround, vitrea very
+slightly brightens it.
+
+Where vitrea does read a non-zero extent it is at most 3 px at 1× and 7 px at 2×,
+on the checkerboard, dark-scheme and tinted scenes, and it is its **own
+material's edge** rather than a shadow. Two things separate the two beyond doubt:
+its peak sits at ring 0 and decays with a length of 0.7…3.7 px where the
+reference's decays with 10.8…27.7, and it is present only where the backdrop is
+high-contrast enough for an antialiased edge to register. That is the honest
+reading and not an error — the axis is measuring something real that is an order
+of magnitude short in reach and has no displacement at all.
+
+#### Schema and gate state
+
+`RESULT_MATRIX_SCHEMA_VERSION` is **5**. The bump is not a field list: every
+schema-4 `shape` and `material` figure was measured under a whole-canvas
+silhouette that, on the active bed, contained the reference's shadow as well as
+its component, so reading a version-4 figure beside a version-5 one as the same
+quantity is the specific misreading the version exists to prevent.
+
+`results/matrix.json` stays at schema 4 and is not regenerated, per Decision Log
+15 ruling 3: the inactive-bed gate stays enforced as the historically labelled
+suite until the one honest post-W8 pass. `test/adopted-thresholds.test.ts` now
+pins **both** numbers — the committed matrix at 4 and the build at 5 — so the
+divergence is a decision on the record rather than drift, and its
+well-conditioned predicate carries the floor-with-no-ceiling limitation in
+writing. `KNOWN_RENDERER_GAP_EXCLUSIONS` stays empty. No threshold is proposed,
+adopted or amended by this section, on either axis.
+
+---
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
