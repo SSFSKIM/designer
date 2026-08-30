@@ -3832,6 +3832,63 @@ publishable bed, the declaration names three scenes with no committed fixture.
 this fails loudly and safely — the condition §5.17 avoided, taken deliberately
 here because producing that bed is what the study is for.
 
+#### Addendum (2026-08-31): the study did not start, and the reason is a precondition nobody had written down
+
+The Screen Recording grant was re-added by hand and the go-ahead given. The study
+did not run, and what stopped it is worth the doctrine's first entry.
+
+**Timeline.** At 06:47 the post-rebuild probe read `isKeyWindow: true`,
+`NSApp.isActive: true`, and `ScreenCaptureKit: BLOCKED` with the explicit
+TCC-denied message — the expected state after a rebuild. The grant was then done
+by hand. At 06:53 the next probe read **`isKeyWindow: false`,
+`NSApp.isActive: false`** and a ScreenCaptureKit *stream* failure rather than a
+denial. A second probe at 06:56, taken after waiting for the machine to be
+properly idle, read exactly the same. `NSWorkspace.frontmostApplication` was
+**`loginwindow`**, and `CGSSessionScreenIsLocked` was **true**.
+
+The machine was locked, deliberately, in the minute after the grant was granted.
+
+**Why that is not a small thing.** A locked session refuses activation and blocks
+ScreenCaptureKit *whatever the grant says*, so the grant itself could not be
+verified — the probe cannot tell "not granted" from "granted, but locked". And a
+capture taken in that state would record the material's inactive pose, which is
+the defect Decision Log 14 exists to prevent.
+
+**The precondition, stated properly.** Everything written so far asked for an
+*undisturbed* machine, and the harness's idle guard enforces exactly that. But
+undisturbed and unlocked are different claims, and on this machine they pull
+against each other: the study needs about seventy minutes during which nobody
+touches the machine *and* the screen does not lock. Leaving the machine alone is
+the natural way to satisfy the first and it defeats the second. This is the third
+time a locked session has stopped this wave (§5.17, §5.18, here), and it has been
+read as bad luck twice.
+
+So the doctrine gains a precondition before it has any measurements in it: **a
+freezable bed requires a session that is unlocked for the whole run, idle for the
+whole run, and attested as both in the manifest.** A `caffeinate -d` assertion is
+now held for four hours, which stops a *timeout* lock; it cannot stop a
+deliberate one, and this one was deliberate.
+
+**What is staged.** The study chain is written and syntax-checked, and it opens
+with a pre-flight probe that refuses to spend an hour of runs unless the window
+becomes key *and* ScreenCaptureKit answers — the permission wall is reported, not
+retried, per DL20. Its sixteen runs are **interleaved rather than blocked**
+(`a1 b1 a2 b2 c1 a3 b3 …`), which is a correction to the declaration: running six
+baseline runs and then six interstitial runs would confound the protocol arm with
+anything that drifts across seventy minutes, and the whole question is whether the
+protocol or the clock explains a difference. A lock check guards every run, in the
+chain rather than in Swift, so it costs no rebuild and no further re-grant — it
+belongs in the harness the next time a rebuild is warranted for another reason.
+
+`--allow-colourless-tints` is set for every study run, deliberately: a tint-dropout
+run is the evidence H3 needs, and refusing to publish it would destroy the only
+pixels that could answer the question. No bed is materialised either way.
+
+The reading instrument is built and committed too — `cli/stability.ts` classifies
+every cell across an arm's runs as deterministic, noisy, bistable or multi-state,
+using the same rule `materialize` publishes by, and it reproduces §5.20's reading
+exactly when pointed at those two runs (45 deterministic, 1 noisy, 8 bistable).
+
 ---
 
 ## 6. What could not be measured, and why
