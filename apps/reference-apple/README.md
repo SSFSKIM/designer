@@ -16,9 +16,18 @@ have one, so the Xcode toolchain stays out of the JavaScript graph.
 ```sh
 ./capture.sh backgrounds     # the shared raster backgrounds (no GUI, no permission)
 ./capture.sh probe           # measure which capture paths work on this machine
+./capture.sh tint-doctor     # what each tinted scene hands Glass.tint(_:) (no GUI, no permission)
 ./capture.sh capture         # the fixture matrix (ScreenCaptureKit; needs the TCC grant)
 ./capture.sh capture --method nsview-cachedisplay   # explicit material-free fallback
 ```
+
+`tint-doctor` answers, without opening a window or capturing anything, where a
+lost tint colour was lost: the `Color` each registry entry builds, what SwiftUI's
+own `Color.resolve(in:)` and AppKit's `NSColor` make of it, and — because `Glass`
+is `Equatable` and its equality is colour-sensitive — whether the resulting
+material value still tells two hues apart. That last probe is the one that
+separates "this harness dropped the seed" from "the material ignored it", and it
+needs no TCC grant to answer.
 
 `VITREA_SCALE=2 ./capture.sh ...` targets the spec's canonical 2x profiles. It
 needs **both** a 2x display and `-2x-` profile entries in `scenes.json`, and
@@ -102,7 +111,10 @@ The spec's assumptions held better than expected. On macOS 26.5.2 with Xcode 26.
 `Glass.interactive()`, `Glass.tint(_:)`, `glassEffectID(_:in:)`, plus
 `GlassButtonStyle` / `GlassProminentButtonStyle`.
 
-Two divergences are worth recording, because both changed this harness's design:
+Compiling is a weaker claim than taking effect, and `Glass.tint(_:)` is where the
+difference bit — see divergence 3.
+
+Three divergences are worth recording, because each changed this harness's design:
 
 1. **Accessibility modes are not settable per view.**
    `\.accessibilityReduceTransparency`, `\.accessibilityDifferentiateWithoutColor`
@@ -128,6 +140,64 @@ Two divergences are worth recording, because both changed this harness's design:
    scale it is actually about to capture at and refuses before writing anything;
    the 2x recapture session has to add `-2x-` profile entries to `scenes.json`
    first.
+
+3. **`Glass.tint(_:)` compiles, is called correctly, and its hue does not reach
+   the composited material.** The 2026-08-30 bed's 18 tinted cells carry the
+   tint's strength and none of its colour: `systemOrange` and `systemBlue` came
+   back byte-identical over three backdrops at both scales.
+
+   `tint-doctor` localises that, and the answer is not in this harness. On macOS
+   26.5.2 / Xcode 26.6 / SDK `MacOSX26.5.sdk`, for every registry tint:
+
+   - the `Color` resolves to exactly its declared sRGB triple and alpha, under
+     `Color.resolve(in:)` in both colour schemes and under
+     `NSColor(_:).usingColorSpace(.sRGB)`;
+   - the `Glass` value **does** carry the hue —
+     `Glass.regular.tint(orange) != Glass.regular.tint(blue)`, against a control
+     proving that equality is colour-sensitive (the same colour built twice
+     compares equal, and one hue at two alphas compares distinct).
+
+   So the seed reaches the material value intact and is discarded somewhere
+   between there and the window server's composite. What survives is achromatic:
+   measured against the untinted twins, the tint pulls the interior toward a
+   neutral grey near 140/255 at an effective alpha near 0.23, uniformly across
+   R/G/B, and declaring alpha 0.5 halves that. Strength honoured, hue dropped.
+
+   The harness's own usage is the documented one — `Glass.tint(_ color: Color?)`
+   applied to the `Glass` value, exactly as the SDK declares it — so there is no
+   spelling here left to correct. What the harness does now is refuse to publish a
+   bed in that state: see "The tint attestation" below.
+
+## The tint attestation
+
+Every tinted capture records the colour it applied and whether any of it came out
+the other side. The fixture entry carries a `tint` object — the declared sRGB and
+alpha, what `Color.resolve(in:)` made of them, the resolved chroma, and the two
+booleans `tint-doctor` reports — plus a `chromaShift` field on **every** fixture,
+tinted or not, measuring the chroma the component added over its own backdrop.
+The untinted cells are the control: untinted Liquid Glass slightly desaturates
+(this bed reads −3.9…0.0), so "did a tint add colour" is only answerable against
+that baseline.
+
+At the end of a run, before anything is promoted out of staging, two tests run:
+
+- **Identity.** Two scenes sharing a backdrop, component and state, differing only
+  in which tint they declare, must not produce identical files. No threshold and
+  no colour model — `systemOrange` and `systemBlue` are not the same colour. This
+  is the test that condemns.
+- **Response.** A tinted capture's `chromaShift` must exceed its untinted twin's
+  by more than 1.0 (0…255 chroma units). Weaker, because it needs a floor, but it
+  reaches the case identity cannot: a bed declaring one seed per scene has no
+  identical pair to find.
+
+A run that fails either **publishes nothing** — the committed fixtures and
+manifest are left exactly as they were — and prints every offending cell.
+`--allow-colourless-tints` publishes anyway with the finding recorded in the
+manifest's caveats, mirroring `compare.ts`'s flag of the same name on the
+consumer side. A tint that is lost *before* the API instead (a resolved colour
+that has gone grey, or a `Glass` value that stops distinguishing hues) fails
+immediately at the cell, because that would be a fault in this harness rather
+than in the material.
 
 ## A note on the toolchain gate
 

@@ -165,6 +165,48 @@ enum Capture {
     return (sum / Double(pa.count / 4 * 3), maxDelta)
   }
 
+  /// How much CHROMA the component added to its own backdrop, over the pixels it
+  /// actually changed.
+  ///
+  /// The tinted-capture attestation's measured half. `TintAttestation` records the
+  /// colour handed to `Glass.tint(_:)`; this records whether any colour came out
+  /// the other side, and the two together are what make a colourless tint bed
+  /// impossible to file silently. A declared hue that composites to a neutral
+  /// scrim lands here as ~0 — the same mechanical refusal `identicalToBackground`
+  /// offers for an empty capture.
+  ///
+  /// Per-pixel chroma is `max(r,g,b) - min(r,g,b)`: crude next to a real
+  /// colour-appearance model, and deliberately so — it needs no white point, no
+  /// gamut and no assumptions, and the question it answers is only "is there any
+  /// hue here at all". Measured against the background's OWN chroma at the same
+  /// pixels, because a photo backdrop is already colourful and the untinted
+  /// material's own desaturation has to be visible as the negative it is.
+  ///
+  /// Returns nil when the component changed nothing (there is no region to measure).
+  static func chromaShift(_ image: CGImage, background: CGImage) throws -> Double? {
+    let pa = try rgba(image), pb = try rgba(background)
+    guard pa.count == pb.count else {
+      throw CaptureError(message: "chromaShift: size mismatch \(pa.count) vs \(pb.count)")
+    }
+    var sum = 0.0
+    var n = 0
+    var i = 0
+    while i < pa.count {
+      let ar = Int(pa[i]), ag = Int(pa[i + 1]), ab = Int(pa[i + 2])
+      let br = Int(pb[i]), bg = Int(pb[i + 1]), bb = Int(pb[i + 2])
+      // Threshold 2/255, matching the noise floor the repeat-capture check tolerates:
+      // below it, "changed" is indistinguishable from capture jitter.
+      if abs(ar - br) > 2 || abs(ag - bg) > 2 || abs(ab - bb) > 2 {
+        let ac = max(ar, max(ag, ab)) - min(ar, min(ag, ab))
+        let bc = max(br, max(bg, bb)) - min(br, min(bg, bb))
+        sum += Double(ac - bc)
+        n += 1
+      }
+      i += 4
+    }
+    return n == 0 ? nil : sum / Double(n)
+  }
+
   /// Decode to straight (non-premultiplied) sRGB RGBA8 — the form the TypeScript
   /// metrics read after a PNG decode, so a comparison made here and a comparison
   /// made there are the same comparison.

@@ -59,6 +59,25 @@ struct FixtureEntry: Codable {
   /// Mean absolute RGB difference from the background raster, 0..255. A positive
   /// number is the amount of signal the component actually contributed.
   let deltaFromBackground: Double?
+  /// How much CHROMA the component added over its own backdrop, 0..255, across
+  /// the pixels it changed — see `Capture.chromaShift`.
+  ///
+  /// Recorded for every fixture, not only tinted ones, because the untinted cells
+  /// are the control: an untinted Liquid Glass body desaturates slightly (this
+  /// bed's untinted cells read −3.9…0.0), so "did a tint add colour" is only
+  /// answerable against that baseline. Optional: manifests from before the field
+  /// carry no claim.
+  let chromaShift: Double?
+  /// What this capture handed to `Glass.tint(_:)`, and whether any of it came out
+  /// the other side. nil on every scene that declares no tint.
+  ///
+  /// The tint counterpart of `identicalToBackground`: a fact promoted out of prose
+  /// and into a typed field so it can be refused mechanically. The 2026-08-30 bed
+  /// recorded 18 tinted fixtures as `materialRendered: true, deterministic: true`
+  /// while the material was neutral glass, and nothing in the bundle said so — it
+  /// took a downstream fit to notice. A capture that records the colour it applied
+  /// beside the colour it observed cannot repeat that.
+  var tint: TintAttestation?
   let capturedAt: String
 }
 

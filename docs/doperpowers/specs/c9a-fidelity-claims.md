@@ -1704,12 +1704,43 @@ tinted native cells, and in each one the material is neutral glass:
 
 The tint's **alpha** did arrive: `…-tint-orange-half` differs from
 `…-tint-orange`. So the registry was read and the strength was honoured; only the
-colour was lost. The harness's Swift wiring reads correct by inspection
-(`SceneViews.material()` applies `Glass.tint(_:)` to the `Glass` value, and
-`main.swift` resolves the registry entry), so distinguishing "the seed never
-reached `Glass`" from "`Glass.tint(_:)` ignored it on this OS build" needs a
-rebuild — which invalidates the harness's TCC grant and therefore belongs to the
-scheduled capture session, not to a measurement run.
+colour was lost.
+
+**Where it is lost, measured 2026-08-30 on the rebuild.** The question this
+section left open — "the seed never reached `Glass`" versus "`Glass.tint(_:)`
+ignored it on this OS build" — is answered, and the answer needed no capture. The
+harness's new `./capture.sh tint-doctor` reports, on macOS 26.5.2 / Xcode 26.6 /
+SDK `MacOSX26.5.sdk`, for all three registry tints:
+
+- `Color.resolve(in:)` returns **exactly** the declared sRGB triple and alpha, in
+  both colour schemes — `orange` resolves `sRGB(255.0, 149.0, 0.0) a=1.0000`,
+  `blue` resolves `sRGB(10.0, 132.0, 255.0) a=1.0000`, `orange-half` resolves the
+  orange triple at `a=0.5000`. `NSColor(_:).usingColorSpace(.sRGB)` agrees, in
+  `sRGB IEC61966-2.1`.
+- the **`Glass` value carries the hue**. `Glass` is `Equatable`, so this is
+  decidable offline: `Glass.regular.tint(orange) != Glass.regular.tint(blue)`, and
+  each registry tint is distinguishable from a reference hue at the same alpha.
+  Two controls make that meaningful rather than vacuous — the same colour built
+  twice compares **equal** (so equality is colour-sensitive), and one hue at two
+  alphas compares **distinct** (so alpha is carried too).
+
+So the seed reaches the material value intact, and is discarded between there and
+the window server's composite. Fitting the committed bed's tinted cells against
+their untinted twins recovers what does survive: a channel-uniform pull toward a
+neutral grey near **140/255 at an effective alpha near 0.23**, halving to ~0.117
+when the declared alpha is 0.5. That rules out a merely desaturated tint —
+`systemOrange` and `systemBlue` differ in luminance (161 vs 115 by Rec.709), so
+even a greyscale conversion of the correct tint would have produced two different
+files. The hue is not compressed; it is absent.
+
+**This is not a usage error in the harness.** `Glass.tint(_ color: Color?)` is
+the SDK's own declaration, applied to the `Glass` value beside `interactive()`,
+which is Apple's documented shape. There is no alternative spelling left to try
+from here; what remains is an OS-side behaviour, and the one thing that would
+close it is a granted capture on a build where it is fixed. The harness now
+**refuses to publish** a bed in this state rather than filing it (§ the tint
+attestation in `apps/reference-apple/README.md`), so this finding cannot recur
+silently.
 
 **What follows from it, operationally.** No tone-curve constant is fitted, no
 tint threshold is proposed, and the four constants stay provisional. The tinted

@@ -159,7 +159,7 @@ func runProbe() {
 // MARK: - capture
 
 @MainActor
-func runCapture(method: CaptureMethod) {
+func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
   let spec = loadSpec()
   let scale = captureScale()
   let canvas = spec.canvas.cgSize
@@ -464,11 +464,129 @@ func runCapture(method: CaptureMethod) {
   /// the manifest field is something a later check can bind against.
   var colorSpaceByProfile: [String: String] = [:]
 
+  /// The scene this one would be if it declared no tint.
+  ///
+  /// Per contract X2 a tint is not a key axis and not a fourth id segment: it
+  /// folds into the THIRD segment as a suffix on the state
+  /// (`photo__capsule-button__rest-tint-orange`). Stripping that suffix is
+  /// therefore how a tinted cell names its own control, and it is a pure function
+  /// of the id — no registry lookup, so it stays correct for a tint id nobody
+  /// remembered to register.
+  func untintedTwinId(of sceneId: String) -> String? {
+    let parts = sceneId.components(separatedBy: "__")
+    guard parts.count == 3, let marker = parts[2].range(of: "-tint-") else { return nil }
+    return "\(parts[0])__\(parts[1])__\(parts[2][..<marker.lowerBound])"
+  }
+
+  /// Close the tint attestation: compare what each tinted capture APPLIED against
+  /// what its pixels actually show, and refuse to publish a bed whose tints did
+  /// not reach the material.
+  ///
+  /// Two tests, deliberately unlike each other:
+  ///
+  ///   IDENTITY   Two scenes that share a backdrop, a component and a state and
+  ///              differ only in which tint they declare cannot produce identical
+  ///              files if the seed reached the material — `systemOrange` and
+  ///              `systemBlue` are not the same colour. No threshold, no colour
+  ///              model, nothing to tune. This is the test that condemns.
+  ///   RESPONSE   Chroma added over the backdrop, against the same scene captured
+  ///              untinted. Weaker (it needs a floor), but it reaches the case
+  ///              identity cannot: a bed declaring one seed per scene has no
+  ///              identical pair to find, and would otherwise sail through.
+  ///
+  /// Both run at the end rather than per cell, because the interleaved order puts
+  /// a scene and its twin arbitrarily far apart — and because failing here, before
+  /// the staged bundle is promoted, leaves the committed fixtures untouched.
+  ///
+  /// Mutates the captured `byProfile` directly rather than taking it `inout`: the
+  /// caller is a sibling nested function over the same local, and passing it as an
+  /// inout argument would be an overlapping access to a variable both already
+  /// capture.
+  func attestTints() {
+    var colourless: [String] = []
+    var identicalPairs: [String] = []
+
+    // Over a snapshot of the keys, not over the dictionary: the body mutates
+    // `byProfile`, and iterating the collection being mutated is a subtlety this
+    // does not need. Sorted so a failure report reads the same way twice.
+    for profileKey in byProfile.keys.sorted() {
+      let entries = byProfile[profileKey] ?? []
+      let chromaById = Dictionary(uniqueKeysWithValues: entries.map { ($0.sceneId, $0.chromaShift) })
+
+      // RESPONSE.
+      for i in entries.indices where entries[i].tint != nil {
+        let id = entries[i].sceneId
+        guard let twinId = untintedTwinId(of: id),
+              let twinChroma = chromaById[twinId] ?? nil,
+              let own = entries[i].chromaShift else { continue }
+        let reached = (own - twinChroma) > TintResolver.chromaResponseFloor
+        byProfile[profileKey]?[i].tint?.untintedTwinChromaShift = twinChroma
+        byProfile[profileKey]?[i].tint?.colourReachedMaterial = reached
+        if !reached {
+          colourless.append(String(
+            format: "%@/%@: chroma %.4f vs untinted twin %.4f (+%.4f, floor %.1f)",
+            profileKey, id, own, twinChroma, own - twinChroma, TintResolver.chromaResponseFloor))
+        }
+      }
+
+      // IDENTITY. Grouped by the control they share, so the members of a group
+      // differ only in their declared tint.
+      var groups: [String: [FixtureEntry]] = [:]
+      for e in entries where e.tint != nil {
+        guard let twinId = untintedTwinId(of: e.sceneId) else { continue }
+        groups[twinId, default: []].append(e)
+      }
+      for (twinId, members) in groups where members.count > 1 {
+        for a in members.indices {
+          for b in (a + 1)..<members.count {
+            guard members[a].tint?.tintId != members[b].tint?.tintId else { continue }
+            // Read back what was actually written, so this compares the published
+            // artefact rather than an in-memory value that could differ from it.
+            guard let da = try? Data(contentsOf: URL(fileURLWithPath: "\(staging)/\(members[a].file)")),
+                  let db = try? Data(contentsOf: URL(fileURLWithPath: "\(staging)/\(members[b].file)")),
+                  da == db else { continue }
+            identicalPairs.append(
+              "\(profileKey): \(members[a].sceneId) and \(members[b].sceneId) are byte-identical " +
+              "(same scene '\(twinId)', tints '\(members[a].tint?.tintId ?? "?")' vs " +
+              "'\(members[b].tint?.tintId ?? "?")')")
+          }
+        }
+      }
+    }
+
+    guard !colourless.isEmpty || !identicalPairs.isEmpty else { return }
+    let report = """
+      The author tint did not reach the material in this run.
+
+      \(identicalPairs.isEmpty ? "" : "Byte-identical captures declaring different seeds:\n  - "
+        + identicalPairs.sorted().joined(separator: "\n  - ") + "\n")
+      \(colourless.isEmpty ? "" : "Tinted captures whose chroma response matches their untinted twin:\n  - "
+        + colourless.sorted().joined(separator: "\n  - ") + "\n")
+      Every tint resolved correctly before the API — './capture.sh tint-doctor' \
+      reports the sRGB the Glass value carried — so the colour was lost inside the \
+      material, not in this harness. These fixtures record the untinted material \
+      under a tinted scene id; no tint number may be fitted on them.
+      """
+    if allowColourlessTints {
+      caveats.append(report + "\n\nPublished anyway: --allow-colourless-tints was passed.")
+      print("CAVEAT: the tint did not reach the material; publishing because --allow-colourless-tints was passed")
+    } else {
+      fail(report + """
+
+
+        Nothing was published; the committed fixtures and manifest are unchanged. \
+        Pass --allow-colourless-tints to publish this bed anyway, with the finding \
+        recorded in the manifest's caveats.
+        """)
+    }
+  }
+
   /// Capture one scene, then recurse to the next — the on-screen paths need the
   /// run loop to turn between scenes for the window server to composite the new
   /// content, which a `for` loop would never let happen.
   func step(_ index: Int) {
     guard index < order.count else {
+      attestTints()
       for profile in spec.profiles {
         let entries = (byProfile[profile.key] ?? []).sorted { $0.sceneId < $1.sceneId }
         guard !entries.isEmpty else { continue }
@@ -499,7 +617,25 @@ func runCapture(method: CaptureMethod) {
 
     // `validate()` has already refused any scene naming a tint the registry does
     // not hold, so a nil here means the scene declared none.
-    let tint = scene.tint.flatMap { spec.tints?[$0]?.color }
+    let tintSpec = scene.tint.flatMap { id in spec.tints?[id].map { (id, $0) } }
+    let tint = tintSpec?.1.color
+    let attestation = tintSpec.map { TintResolver.attest(id: $0.0, spec: $0.1) }
+
+    // The pre-render half of the tint attestation, checked before a pixel exists
+    // because it is answerable there: if the declared hue is already gone from the
+    // resolved `Color` or from the `Glass` value built out of it, the fault is in
+    // this harness and capturing would only photograph it.
+    if let a = attestation, !a.colourSurvivedResolution || !a.glassValueDistinguishesHue {
+      fail("""
+        scene '\(scene.id)': the tint '\(a.tintId)' lost its colour BEFORE the \
+        material. Declared sRGB\(a.declaredSRGB) a=\(a.declaredAlpha); \
+        Color.resolve(in:) gave \(a.resolvedSRGB) a=\(a.resolvedOpacity) \
+        (chroma \(a.resolvedChroma)); the Glass value \
+        \(a.glassValueDistinguishesHue ? "does" : "does NOT") tell that hue apart \
+        from another at the same alpha. This is a harness fault, not an OS one — \
+        run './capture.sh tint-doctor' for the per-tint breakdown.
+        """)
+    }
 
     let view = SceneView(scene: scene, component: component, backgroundImage: bg,
                          canvas: canvas, pressed: scene.state == "pressed", tint: tint)
@@ -517,6 +653,7 @@ func runCapture(method: CaptureMethod) {
       // Measure how much the component actually contributed, rather than assuming
       // it contributed anything.
       let vsBackground = try? Capture.compare(image, bg)
+      let chroma = (try? Capture.chromaShift(image, background: bg)) ?? nil
       byProfile[profile.key, default: []].append(FixtureEntry(
         sceneId: scene.id, file: "\(profile.key)/\(file)", fixtureSet: set,
         captureMethod: method.rawValue, materialRendered: method.materialRendered,
@@ -524,6 +661,8 @@ func runCapture(method: CaptureMethod) {
         deterministic: deterministic, repeatNoise: noise,
         identicalToBackground: vsBackground.map { $0.maxDelta == 0 },
         deltaFromBackground: vsBackground?.mad,
+        chromaShift: chroma.map { (($0 * 10000).rounded()) / 10000 },
+        tint: attestation,
         capturedAt: Environment.timestamp()))
 
       let d = deterministic.map { $0 ? " byte-stable" : " NOISY(\(noise ?? -1))" } ?? ""
@@ -619,16 +758,27 @@ struct Harness {
     case "probe":
       runGUI { runProbe() }
 
+    case "tint-doctor":
+      // No window and no TCC grant: every question it answers is about values —
+      // the Color a registry entry builds, what SwiftUI resolves it to, and
+      // whether the resulting Glass still tells two hues apart.
+      runTintDoctor()
+
     case "capture":
       let raw = value(of: "--method", in: args) ?? "screencapturekit"
       guard let method = CaptureMethod(rawValue: raw) else {
         fail("unknown --method '\(raw)'. One of: " +
              "swiftui-image-renderer, nsview-cachedisplay, screencapturekit")
       }
-      runGUI { runCapture(method: method) }
+      // The producer-side twin of `compare.ts --allow-colourless-tints`. Without
+      // it a bed whose tints did not reach the material is refused rather than
+      // published; with it, the run publishes and says so in the manifest. Same
+      // posture as `--method`: the harness does not decide this quietly.
+      let allow = args.contains("--allow-colourless-tints")
+      runGUI { runCapture(method: method, allowColourlessTints: allow) }
 
     default:
-      fail("usage: harness [backgrounds|probe|capture [--method <m>]]")
+      fail("usage: harness [backgrounds|probe|tint-doctor|capture [--method <m>]]")
     }
   }
 
