@@ -3347,6 +3347,133 @@ Then the chain runs autonomously — rebuild, TCC re-grant, three runs per profi
 with 2-of-3 plurality and `presentedActive` attested per cell, web captures, the
 declared band fit, one holdout read, and the flip.
 
+### 5.18 The capture ran, and it found the reference bed is bistable (2026-08-31)
+
+The session unlocked at 04:41 and the chain was armed. It got two steps in and
+stopped on a stop condition, and what stopped it is not about span 128 at all: on
+the evidence below, **`__pressed` has almost never been captured on this bed, and
+two cells of one profile changed appearance between runs of a single session.**
+Nothing was fitted, nothing was flipped, and the committed bed is restored
+byte-exactly. The section is the finding.
+
+#### What ran, and what it cost
+
+The gate was probed through the **existing** build before anything was touched,
+because a rebuild invalidates the TCC grant and there is no way back from that
+without a human at the machine:
+
+```
+window canBecomeKey: true, isKeyWindow: true, isMainWindow: true, NSApp.isActive: true
+ScreenCaptureKit: OK 320x200 — the material path is available
+```
+
+**And the rebuild turned out to be unnecessary.** `loadSpec()` reads
+`$ROOT/scenes.json` at run time (`Sources/main.swift:44`), and `ROOT` is derived
+from `#filePath` against a source tree that has not moved, so extending the scene
+matrix is pure data: the binary that already holds the grant reads the new scenes
+on its next launch. Every plan since Decision Log 16 has budgeted a rebuild and a
+TCC re-grant for a scene addition, and neither is needed. That is worth knowing
+before the next session is designed around a risk it does not have.
+
+`scenes.json` was extended exactly as §5.17 declared it, and phase 1 ran: three
+capture runs over `1x-light-standard` and `1x-dark-standard` (54 cells each) with
+20 s between them, then the 2-of-3 plurality. It came out clean on its own terms
+— **51 cells kept from run G, 3 restored on an E = F plurality, 0 unresolved,
+`presentedActive` true on every fixture of every profile** — and the three
+`rrect-ml` fixtures captured without complaint.
+
+#### The bed moved, and only on three cells
+
+Against the committed bed, the fresh capture differs on exactly three PNGs, all
+in `1x-light-standard`:
+
+| cell | max delta | what moved |
+| --- | --- | --- |
+| `dark-solid__capsule-button__rest` | 1 code on 2 px | noise, on the cell that is pixel-identical to its background anyway |
+| `checkerboard__toolbar-group__rest` | **48** | all three capsule interiors +32 codes (204.9 / 204.0 / 203.2 → 236.6 / 236.3 / 235.9); the surround's darkening against its own background weakens from −0.99 to −0.33 |
+| `photo__capsule-button__pressed` | **48** | interior 201.44 → 234.49; surround darkening −0.85 → −0.29 |
+
+The same **+32…33 code brightening of the glass body with a weaker outer shadow**,
+on two different backdrops. It is not the inactive pose: the retired inactive
+bed's own `photo__capsule-button__pressed` reads 203.69 interior — within 2 codes
+of the *active* rest cell — and the new capture differs from it by 57.
+
+**The second one flipped mid-session.** Per-run digests on
+`photo__capsule-button__pressed`:
+
+| run | digest | reads as |
+| --- | --- | --- |
+| E | `6a125e3fc28b` | **identical to the committed bytes, and to `photo__capsule-button__rest`** |
+| F | `20e88e3fe31c` | the brightened appearance |
+| G | `20e88e3fe31c` | the same |
+
+Same binary, same settings, same window, twenty seconds apart. The plurality
+doctrine then did what it is built to do and took F = G as the cell's state — but
+this was not noise being averaged out, it was a **bistable state being settled by
+majority vote**. `checkerboard__toolbar-group__rest` agreed across all three runs
+of this session and disagrees with the previous one, which is the same phenomenon
+observed one session out.
+
+#### The structural half: `__pressed` is a duplicate of `__rest`
+
+Checking the whole committed bed rather than the two cells that moved:
+
+**Eleven of the twelve `__pressed` fixtures are byte-identical to their `__rest`
+twin.** Not close — the same SHA-256. It holds at `HEAD`, at `973fd7e` where the
+active bed landed, and in the retired **inactive** bed before it. The single
+exception, in every one of those three states, is
+`2x-dark-standard / photo__capsule-button__pressed`.
+
+So the pressed pose has essentially never been in this bed, and the one cell that
+does carry it is the one the coherence axis's dark-and-pressed tier split was
+found on. What the fitted sets actually contain:
+
+| cell | set | byte-identical to | that cell's set |
+| --- | --- | --- | --- |
+| `checkerboard__capsule-button__pressed` | calibration | `checkerboard__capsule-button__rest` | calibration |
+| `checkerboard__rrect-md__pressed` | calibration | `checkerboard__rrect-md__rest` | calibration |
+| `photo__capsule-button__pressed` | **validation** | `photo__capsule-button__rest` | **calibration** |
+| `photo__rrect-md__pressed` | **validation** | `photo__rrect-md__rest` | **calibration** |
+
+Two consequences, and the second is the serious one. Any objective or table that
+averages over the calibration set has been counting two of its scenes twice. And
+**two of the validation set's cells are byte-copies of calibration cells**, so on
+those two the self-check has been reading the fit's own training data and could
+not have failed. That is a defect in the anti-overfitting split itself, not in
+any constant fitted under it.
+
+#### Why this stopped the chain rather than being noted in passing
+
+Three reasons, and each on its own is a stop condition this cascade was given:
+
+- **A calibration cell moved by 48 codes.** `checkerboard__toolbar-group__rest` is
+  in the calibration set, so every constant round one and round two fitted was
+  fitted against bytes that the machine no longer reproduces. Running the band fit
+  on the new bed would be fitting one increment on top of a bed that shifted
+  underneath the rest of the stack.
+- **The bed is bistable and the doctrine cannot see it.** Plurality resolves three
+  runs by majority, which is right for noise and wrong for a state flip. A bed
+  frozen by majority vote on a bistable cell is not the reproducible reference the
+  flip is supposed to enforce against.
+- **The split defect is the gate's to rule on.** Whether the validation set's two
+  duplicate cells are repaired, replaced or recorded as a limitation changes what
+  every "confirmed on held-out data" sentence in this document means.
+
+#### What was done with it
+
+The committed bed is **restored byte-exactly** (`git checkout -- apps/reference-apple`),
+`scenes.json` is back to its declared-but-unextended state so the declared and
+captured beds stay in agreement, and `results/matrix.json` is untouched as it has
+been throughout. The captured run is preserved outside the repository at
+`/Users/new/.claude/jobs/5c70e47f/tmp/dl18-evidence/` — run E's and run G's
+`photo__capsule-button__pressed`, run G's `checkerboard__toolbar-group__rest`, the
+three `rrect-ml` fixtures and run G's manifest — and the whole phase is
+reproducible in about eleven minutes on an unlocked session, now that the rebuild
+is known to be unnecessary.
+
+The span-128 round is therefore still unrun, and it is no longer the first thing
+in the queue.
+
 ---
 
 ## 6. What could not be measured, and why
