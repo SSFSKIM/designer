@@ -1733,14 +1733,53 @@ when the declared alpha is 0.5. That rules out a merely desaturated tint —
 even a greyscale conversion of the correct tint would have produced two different
 files. The hue is not compressed; it is absent.
 
-**This is not a usage error in the harness.** `Glass.tint(_ color: Color?)` is
+**The call itself is Apple's documented one.** `Glass.tint(_ color: Color?)` is
 the SDK's own declaration, applied to the `Glass` value beside `interactive()`,
-which is Apple's documented shape. There is no alternative spelling left to try
-from here; what remains is an OS-side behaviour, and the one thing that would
-close it is a granted capture on a build where it is fixed. The harness now
-**refuses to publish** a bed in this state rather than filing it (§ the tint
-attestation in `apps/reference-apple/README.md`), so this finding cannot recur
-silently.
+which is the shape both Apple's SwiftUI documentation and WWDC25 session 323 use.
+So the loss is not in the spelling — it is in the conditions the material was
+rendered under, and there the harness was at fault.
+
+**The capture window could never become key.** Apple documents
+`NSWindow.canBecomeKey` as "`true` if the window has a title bar or a resize bar,
+`false` otherwise" — and this harness captures through a **borderless** window, by
+design, so that a window capture needs no cropping. Measured on the rebuild, the
+capture window reported `canBecomeKey: false, isKeyWindow: false, isMainWindow:
+false, NSApp.isActive: false`, and it did so through every capture of every
+committed fixture. The app also took `.accessory` activation policy, which keeps
+it from becoming active at all.
+
+That matters because Liquid Glass has an active and an inactive appearance, and
+the window server chooses between them from exactly this state. Multiple
+independent developer reports describe the inactive one as flat and neutral, with
+the tint dropped — a Ghostty maintainer ("when they lose focus, the glass style
+changes too… window background color is also ignored"), a second Ghostty thread
+("the system makes it flat and gray"), and, on this harness's exact stack of an
+`NSHostingView` inside a floating borderless panel, a Hacking with Swift forum
+report that "the glass effect turns into a simple blur when the app is not
+focused". Apple's own framing of the tint makes the mechanism plain: from "Meet
+Liquid Glass", "selecting a color generates a range of tones that are **mapped to
+content brightness underneath** the tinted element". A tint is a hue mapped onto a
+sampled backdrop; render the inactive material and there is no mapping left, and
+the only parameter still carrying meaning is the tint's alpha — which is precisely
+what the bed measured.
+
+This is a hypothesis with a verified precondition, not a proven cause. What is
+measured: the window was never key, and `canBecomeKey` is now `true` because
+`Capture.CaptureWindow` overrides it. What is **not** yet measured: whether the
+window actually becomes key in a real session, and whether the hue then lands.
+Neither could be checked here — this machine's session refuses to activate the
+app at all (`NSApp.isActive` stays false even when launched through
+LaunchServices, and AppleScript automation of System Events times out), which is
+an environment limitation rather than a code result. **Closing this needs one
+granted capture in an interactive login session**, which the scheduled re-capture
+already requires.
+
+Two guards now stand behind it. Every fixture records `presentedActive` — was the
+window key, in an active app, at the moment it was taken — and a run that
+captures any fixture inactive says so in the manifest's caveats. And a bed whose
+tints did not reach the material **refuses to publish** rather than filing itself
+(§ the tint attestation in `apps/reference-apple/README.md`). Neither of the two
+findings this section records can now recur silently.
 
 **What follows from it, operationally.** No tone-curve constant is fitted, no
 tint threshold is proposed, and the four constants stay provisional. The tinted

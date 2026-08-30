@@ -130,11 +130,19 @@ func runProbe() {
   // Path 2 and 3 need a live window.
   let window = Capture.makeWindow(canvas: canvas)
   window.contentView = NSHostingView(rootView: view)
-  window.makeKeyAndOrderFront(nil)
-  NSApp.activate(ignoringOtherApps: true)
+  Capture.present(window)
   print("window backingScaleFactor: \(window.backingScaleFactor)")
 
   DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+    // Is the capture window KEY? Liquid Glass has an active and an inactive
+    // appearance and the window server picks between them; the inactive one is
+    // reported flat and neutral, which is the appearance a tint would seem to
+    // vanish into. A borderless window returns false from `canBecomeKey` unless a
+    // subclass says otherwise, so this is a property of how the window is made
+    // rather than of the machine — and it is measurable without capturing.
+    print("window canBecomeKey: \(window.canBecomeKey), isKeyWindow: \(window.isKeyWindow), " +
+          "isMainWindow: \(window.isMainWindow), NSApp.isActive: \(NSApp.isActive)")
+
     if let a = try? Capture.cacheDisplay(window), let b = try? Capture.cacheDisplay(window),
        let cmp = try? Capture.compare(a, b) {
       print("cacheDisplay: \(a.width)x\(a.height), repeat mad=\(cmp.mad) max=\(cmp.maxDelta)")
@@ -222,10 +230,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
   // One reusable window for the on-screen paths, so window creation cost and any
   // first-window compositing warm-up do not land on the first scene only.
   let window: NSWindow? = (method == .imageRenderer) ? nil : Capture.makeWindow(canvas: canvas)
-  if let w = window {
-    w.makeKeyAndOrderFront(nil)
-    NSApp.activate(ignoringOtherApps: true)
-  }
+  if let w = window { Capture.present(w) }
   let backingScale = Double(window?.backingScaleFactor ?? CGFloat(scale))
   if method != .imageRenderer && backingScale != scale {
     caveats.append("""
@@ -268,6 +273,25 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
     // The measured emptiness summary. Stated as a count, because "the material
     // did not render" is a claim a reader should be able to check against a number.
     let all = profileManifests.flatMap(\.fixtures)
+
+    // The material's ACTIVE appearance is the one every fidelity claim means, and
+    // it is a condition of the capture rather than a property of the scene — so
+    // it is counted here, beside the emptiness summary, rather than assumed.
+    let inactive = all.filter { $0.presentedActive == false }
+    if !inactive.isEmpty {
+      caveats.append("""
+        \(inactive.count) of \(all.count) fixtures were captured while the window \
+        was NOT key or the app was NOT active. Liquid Glass renders a flat, \
+        neutral INACTIVE appearance in that state — it is where the 2026-08-30 \
+        bed's author tints went — so these fixtures record the material's \
+        unfocused pose regardless of what their profile key says. The harness now \
+        makes its borderless window key-capable and activates before presenting \
+        (Capture.present); a run that still reports this was denied activation by \
+        the session, and needs an interactive login session with nothing stealing \
+        focus.
+        """)
+    }
+
     let empty = all.filter { $0.identicalToBackground == true }
     if !empty.isEmpty {
       caveats.append("""
@@ -662,6 +686,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool) {
         identicalToBackground: vsBackground.map { $0.maxDelta == 0 },
         deltaFromBackground: vsBackground?.mad,
         chromaShift: chroma.map { (($0 * 10000).rounded()) / 10000 },
+        presentedActive: window.map { Capture.isActivelyPresented($0) },
         tint: attestation,
         capturedAt: Environment.timestamp()))
 
@@ -792,10 +817,17 @@ struct Harness {
     let app = NSApplication.shared
     let driver = Driver(action: action)
     app.delegate = driver
-    // .accessory rather than .regular: the harness needs a real on-screen window
-    // for the capture paths, but it should not steal the Dock or the menu bar
-    // while doing it.
-    app.setActivationPolicy(.accessory)
+    // .regular, not .accessory. The harness used to take .accessory so it would
+    // not claim the Dock or the menu bar while capturing — polite, and wrong:
+    // an .accessory app does not become active, a window of an inactive app
+    // cannot become key, and Liquid Glass renders its flat inactive appearance
+    // for a window that is not key. The whole committed bed was captured that
+    // way. Claiming the Dock for the length of a capture run is the cheaper
+    // cost by a wide margin; `VITREA_ACTIVATION_POLICY=accessory` restores the
+    // old behaviour for anyone who needs the harness to stay out of the way and
+    // is not capturing material.
+    let policy = ProcessInfo.processInfo.environment["VITREA_ACTIVATION_POLICY"]
+    app.setActivationPolicy(policy == "accessory" ? .accessory : .regular)
     withExtendedLifetime(driver) { app.run() }
   }
 }

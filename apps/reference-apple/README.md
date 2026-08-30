@@ -114,7 +114,7 @@ The spec's assumptions held better than expected. On macOS 26.5.2 with Xcode 26.
 Compiling is a weaker claim than taking effect, and `Glass.tint(_:)` is where the
 difference bit — see divergence 3.
 
-Three divergences are worth recording, because each changed this harness's design:
+Four divergences are worth recording, because each changed this harness's design:
 
 1. **Accessibility modes are not settable per view.**
    `\.accessibilityReduceTransparency`, `\.accessibilityDifferentiateWithoutColor`
@@ -164,9 +164,39 @@ Three divergences are worth recording, because each changed this harness's desig
    R/G/B, and declaring alpha 0.5 halves that. Strength honoured, hue dropped.
 
    The harness's own usage is the documented one — `Glass.tint(_ color: Color?)`
-   applied to the `Glass` value, exactly as the SDK declares it — so there is no
-   spelling here left to correct. What the harness does now is refuse to publish a
-   bed in that state: see "The tint attestation" below.
+   applied to the `Glass` value, exactly as the SDK declares it. The fault was not
+   the call but the conditions it was made under: see divergence 4.
+
+4. **The capture window could never become key, so the whole bed recorded the
+   material's INACTIVE appearance.** Apple documents `NSWindow.canBecomeKey` as
+   "`true` if the window has a title bar or a resize bar, `false` otherwise" — and
+   this harness captures through a **borderless** window on purpose, so that a
+   window capture needs no cropping or titlebar subtraction. Measured: before the
+   fix the capture window reported `canBecomeKey: false, isKeyWindow: false,
+   isMainWindow: false, NSApp.isActive: false`, through every capture of every
+   committed fixture. The app also took `.accessory` activation policy, which
+   keeps it from becoming active at all.
+
+   Liquid Glass has an active and an inactive appearance and the window server
+   picks between them from that state, with the inactive one widely reported as
+   flat and neutral. Apple defines the tint as "a range of tones that are mapped
+   to content brightness underneath" — a hue mapped onto a sampled backdrop — so
+   the inactive material has nothing for a hue to land on, and only the tint's
+   alpha still means anything. That is exactly the bed's measurement.
+
+   The fix is three changes, all in this harness: `Capture.CaptureWindow`
+   overrides `canBecomeKey`/`canBecomeMain`; `Capture.present(_:)` activates the
+   app **before** making the window key, rather than the reverse; and the app now
+   takes `.regular` activation policy (`VITREA_ACTIVATION_POLICY=accessory`
+   restores the old behaviour for non-capture use). `canBecomeKey` is verified
+   `true`. Whether the window then actually becomes key, and whether the hue
+   lands, is **not** verified — this machine's session refuses to activate the app
+   at all, so that proof needs one granted capture in an interactive login
+   session.
+
+   Because it is unproven, it is also recorded: every fixture carries
+   `presentedActive`, and a run that captures anything inactive says so in the
+   manifest's caveats.
 
 ## The tint attestation
 

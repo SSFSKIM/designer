@@ -68,6 +68,17 @@ struct FixtureEntry: Codable {
   /// answerable against that baseline. Optional: manifests from before the field
   /// carry no claim.
   let chromaShift: Double?
+  /// Was the capture window KEY, in an ACTIVE app, at the moment this was taken?
+  ///
+  /// Liquid Glass has an active and an inactive appearance and the window server
+  /// picks between them from this state; the inactive one is flat and neutral. A
+  /// fixture captured `false` here is a capture of the material's unfocused pose,
+  /// whatever its profile key says. The whole bed committed on 2026-08-30 was
+  /// taken through a borderless window that could not become key at all — see
+  /// `Capture.CaptureWindow`. Optional: manifests from before the field carry no
+  /// claim, and `nil` also covers the offscreen `swiftui-image-renderer` path,
+  /// which has no window to be key.
+  let presentedActive: Bool?
   /// What this capture handed to `Glass.tint(_:)`, and whether any of it came out
   /// the other side. nil on every scene that declares no tint.
   ///

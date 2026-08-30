@@ -66,13 +66,32 @@ enum Capture {
 
   // MARK: - Live window
 
+  /// A borderless window that can still become key.
+  ///
+  /// `NSWindow.canBecomeKey` is documented as "`true` if the window has a title
+  /// bar or a resize bar, `false` otherwise" — so the borderless window this
+  /// harness needs is, by default, one that can never be key. That is not a
+  /// cosmetic detail: Liquid Glass has an active and an inactive appearance, the
+  /// window server picks between them from key/active state, and the inactive one
+  /// is flat and neutral. Captured through a permanently non-key window, the whole
+  /// bed records the material's *unfocused* pose — and an author tint, whose whole
+  /// definition is a hue mapped onto a sampled backdrop, has nothing to land on.
+  ///
+  /// Measured 2026-08-30: before this override the capture window reported
+  /// `canBecomeKey: false, isKeyWindow: false, isMainWindow: false,
+  /// NSApp.isActive: false`, through every capture of every committed fixture.
+  final class CaptureWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { true }
+  }
+
   /// A borderless window sized exactly to the canvas, so a window capture needs
   /// no cropping and no titlebar subtraction — both of which are places a
   /// one-pixel offset creeps into every fixture at once.
   @MainActor
   static func makeWindow(canvas: CGSize) -> NSWindow {
-    let w = NSWindow(contentRect: NSRect(origin: .zero, size: canvas),
-                     styleMask: [.borderless], backing: .buffered, defer: false)
+    let w = CaptureWindow(contentRect: NSRect(origin: .zero, size: canvas),
+                          styleMask: [.borderless], backing: .buffered, defer: false)
     w.isOpaque = true
     w.backgroundColor = .black
     w.hasShadow = false
@@ -82,6 +101,29 @@ enum Capture {
     w.ignoresMouseEvents = true
     w.center()
     return w
+  }
+
+  /// Put the capture window on screen AND make it the key window of an active app.
+  ///
+  /// Ordering matters and is the reason this is a function rather than two lines at
+  /// each call site: a window cannot be key while its application is inactive, so
+  /// the app is activated first and the window made key afterwards. The reverse
+  /// order — which is what the harness did through every committed capture — leaves
+  /// the window ordered front but never key, and Liquid Glass then renders its
+  /// inactive, neutral appearance.
+  @MainActor
+  static func present(_ window: NSWindow) {
+    NSApp.activate(ignoringOtherApps: true)
+    window.orderFrontRegardless()
+    window.makeKeyAndOrderFront(nil)
+    window.makeKey()
+  }
+
+  /// Whether the material is being rendered in its ACTIVE appearance, which is the
+  /// one every fidelity claim means. Sampled at capture time rather than assumed.
+  @MainActor
+  static func isActivelyPresented(_ window: NSWindow) -> Bool {
+    window.isKeyWindow && NSApp.isActive
   }
 
   @MainActor
