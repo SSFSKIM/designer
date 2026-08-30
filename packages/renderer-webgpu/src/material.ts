@@ -473,24 +473,48 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
     // `platform-web`'s CSS-tier blur on the same number — and makes core's 24 px
     // `samplingPadding` advisory exactly the 3σ S1 measured.
     regular: {
-      blurSigma: 8,
+      /*
+       * REFITTED (recalibration cascade, 2026-08-31) against the ACTIVE-pose bed.
+       * C9a's 0.62 and σ = 8 were fitted against the inactive material and are
+       * kept in git history, not here.
+       *
+       * `blurSigma` 3 is the first value this constant has ever had that the
+       * fixtures could identify. §6.1 called it unidentifiable because the
+       * inactive reference passed almost no backdrop structure; the active one
+       * passes a great deal (interior standard deviation 0.1358 over the
+       * checkerboard against vitrea's 0.0176 at σ = 8), so the objective's spread
+       * term now bites — it triples from σ = 3 to σ = 6 at a fixed alpha.
+       *
+       * `tintAlpha` 0.46 is the minimiser over the eight tone-inert untinted rest
+       * calibration cells, a genuine interior optimum (0.38 → 0.16945, 0.46 →
+       * 0.15704, 0.54 → 0.17248) with ΔE and SSIM agreeing. It remains true that
+       * no single value is right for every scene: a lerp toward one tint colour
+       * implies an alpha of 0.24 over the checkerboard and 0.47 over the photo at
+       * the same 44 px span, which is the lerp-versus-multiply question C9a
+       * recorded and nobody has acted on. Claims §5.13.
+       */
+      blurSigma: 3,
       tint: srgbToLinear(SRGB_WHITE_TINT),
-      // MEASURED (C9a), against apple-macos-26.5-1x-light-standard. The advisory
-      // 0.28 made vitrea's regular material roughly half as opaque as the
-      // reference: regressing interior level against backdrop level across the
-      // calibration scenes puts Apple's transmission at 0.26 of the backdrop
-      // where vitrea's was 0.70. 0.62 is the minimiser of the declared tuning
-      // objective; see docs/doperpowers/specs/c9a-fidelity-claims.md, and note
-      // that no single value can be right for every size — Apple's opacity falls
-      // with surface span (0.88 at 32 px to 0.56 at 96 px) and this renderer has
-      // no size term on the tint.
-      tintAlpha: 0.62,
+      tintAlpha: 0.46,
       rimWidth: 1.5,
       rimAlpha: 0.18,
       specularPower: 6,
       specularGain: 0.55,
       shadowDepth: 0.35,
-      shadowAlpha: 0.55,
+      /*
+       * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
+       * improvement in the cascade: the objective falls 0.14615 → 0.09333 with
+       * ΔE and SSIM both improving.
+       *
+       * The active reference's contour is BRIGHTER than its own body — a rim peak
+       * of 0.025…0.129 above baseline, always at one pixel deep. vitrea's read
+       * 0.0000 with its peak 8-12 px in, meaning it had no edge feature at all:
+       * the inner shadow at 0.55 was darkening the contour faster than the rim lit
+       * it. The rim constants themselves did not move; the thing suppressing them
+       * did. On the inactive bed the reference's rim was 0.0000…0.0041 and this
+       * was invisible, which is what §6.2 recorded as "below quantisation".
+       */
+      shadowAlpha: 0.05,
       highlight: srgbToLinear(SRGB_WHITE_TINT),
     },
     // Persistently more transparent, so it frosts less and tints less.
@@ -600,10 +624,32 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * excluded from the fit on §6.3's grounds — their native side carries no press
    * pose, so they compare two different states and cannot arbitrate a material
    * constant.
+   *
+   * ## Re-fitted against the ACTIVE bed (2026-08-31)
+   *
+   * `sizeScatterGainMax` stays 1 and is now POSITIVELY identified rather than
+   * flat: with `blurSigma` refitted to 3 the objective rises 6-7% at gains 2 and
+   * 4, so the identity is the optimum instead of a tie.
+   *
+   * `sizeOcclusionGain` stays 0, a boundary result for the fourth time and for a
+   * fourth distinct reason. The reasoning above is retired: the per-cell residual
+   * now points the gain's way in every backdrop (web − reference falls with span
+   * — checkerboard +0.105/+0.112/+0.046 at 32/44/96 px, photo −0.004/−0.087,
+   * light-solid −0.028/+0.001), so the facet finally has the right sign. What it
+   * does not have is magnitude: over 0/0.05/0.10/0.15 × spans ending 96/128/160
+   * the whole grid is flat to 1.04×, and a 0.2% preference is not evidence. It
+   * ships at the identity because the bed cannot identify it, not because the
+   * mechanism is wrong.
+   *
+   * `sizeShadowGainMax` 1.4 → 1. Its evidence dissolved rather than reversing:
+   * this is a gain on the INNER SHADOW, and the inner shadow was refitted from
+   * `shadowAlpha` 0.55 to 0.05, so there is almost nothing left for it to gain
+   * on. The grid 1.0/1.4/2.2 is flat to 0.2%. Carrying a fitted-looking 1.4 whose
+   * measurement no longer exists would be the worse of the two errors.
    */
   sizeScatterGainMax: 1,
   sizeOcclusionGain: 0,
-  sizeShadowGainMax: 1.4,
+  sizeShadowGainMax: 1,
 
   lensBodyLodPerPx: 0.16,
   lensRimLodBias: 2.5,
@@ -618,8 +664,25 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // 0.45 of the seed's brightness at the dark end, 0.45 of the way to white at
   // the bright end — so the seed itself sits mid-range and the excursion reads
   // as glass rather than as two different colours.
-  tintToneFloor: 0.45,
-  tintToneCeilMix: 0.45,
+  /*
+   * FITTED (2026-08-31, active bed) — and the fit is that THE CURVE IS THE
+   * IDENTITY. `floor` → 1 and `ceilMix` → 0 make `tintTone` return the seed
+   * unchanged at every backdrop, which leaves `low` and `high` describing
+   * nothing at all; they keep their provisional values so a bed that can
+   * identify them has somewhere to land, exactly as `adaptiveTint` keeps two
+   * equal ends.
+   *
+   * Monotone and uncontested over floor ∈ {0.45, 0.7, 0.85, 1} × ceilMix ∈
+   * {0, 0.2, 0.45}: objective 0.26523 → 0.12676, a 2.09× spread, with ΔE
+   * (0.01331 → 0.00831) and SSIM (0.9749 → 0.9788) agreeing. The reference
+   * says the same thing directly — on three of the five calibration backdrops
+   * its tinted interior is the declared seed EXACTLY in linear light, at a
+   * per-channel standard deviation of 0.000. Apple's tint is the author's
+   * colour, not a range of tones mapped to it; S219's wording described the
+   * inactive material's residue. Claims §5.13.
+   */
+  tintToneFloor: 1,
+  tintToneCeilMix: 0,
   tintToneLow: 0.02,
   tintToneHigh: 0.65,
 
@@ -656,12 +719,60 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * 0.34 there and the cell reads 0.356.
    */
   backdropToneMax: 1,
-  backdropToneLow: 0.02,
+  backdropToneLow: 0.03,
   backdropToneHigh: 0.14,
-  backdropToneSizeBias: 0.09,
+  /*
+   * REFITTED 0.09 → 0.13 (2026-08-31, active bed). The law's SHAPE is untouched
+   * (Decision Log 13 stands; the two-axis rework is next wave) and `max`, `low`
+   * and `high` are unmoved — only the size gate widened.
+   *
+   * What it changes is one cell: a 96 pt surface over the darkest backdrop now
+   * barely adapts, where at 0.09 it adapted by a quarter. Two independent reads
+   * of the reference disagreed about that and the validation set broke the tie.
+   * The light-versus-dark separation estimator §5.8 fitted on says the 96 pt
+   * surface adapts by 0.30; the reference's own interior LEVEL says it does not
+   * (0.4844, against 0.466 for an unadapted surface at the refitted tint alpha
+   * and 0.3566 for an adapted one). Measured once on
+   * `impulse__rrect-md__rest`, which is validation and was fitted to by
+   * neither: 0.09 renders 0.2858 against a reference of 0.4358 at ΔE 0.02344;
+   * 0.13 renders 0.4594 at ΔE 0.00378, six times better. The separation
+   * estimator's algebra assumes the two colour schemes share one tint alpha,
+   * and this profile pair does not (0.46 against 0.97) — recorded in §5.13 as
+   * the reason it is no longer the primary evidence for this constant.
+   */
+  backdropToneSizeBias: 0.13,
 
   /*
-   * PROVISIONAL (W8). Extracted from the active bed's native fixtures directly —
+   * FITTED (recalibration cascade, 2026-08-31). W8's geometry SURVIVES the fit
+   * unchanged — `sigmaPx` 15.55, `offsetPx` 7.95, `spreadPx` 3.10 — and only the
+   * two amplitudes moved: `occlusion` 0.33 → 0.285 and
+   * `reducedTransparencyOcclusion` 0.566 → 0.70. The dark scheme's amplitude
+   * (0.09) lands as a profile patch, not as a branch here.
+   *
+   * The fit is `scripts/sweep.ts --objective shadow`, whose term is the mean over
+   * calibration cells of |Δ meanDeparture| — the light each side removes from the
+   * whole exterior, in linear light, which is the one commensurate quantity the
+   * facet has. The amplitude is a genuine interior optimum over 0.18…0.44 (a
+   * 2.23× spread) and flat to 1.04% across 0.255…0.315, which is exactly the
+   * scene-to-scene amplitude spread the reference itself shows. The geometry is
+   * NOT identifiable against this objective — σ ∈ {13.5, 15.55, 17.5} × offset ∈
+   * {6.5, 7.95, 9.4} spans 1.04× with 15.55 the argmin — because an integral over
+   * the exterior is insensitive to how the darkening is distributed within it.
+   * W8's own two-dimensional fit against the occlusion field measures the
+   * geometry far more powerfully (RMS 0.0021 over 142,550 pixels), and the
+   * instrument's independent shadow axis agrees, so the geometry stands on those
+   * two and this objective is not asked to re-decide it.
+   *
+   * `reducedTransparencyOcclusion` 0.70 is sharp where the amplitude is flat: a
+   * 3.83× spread over 0.45…0.95 with a clear minimum. It also reconciles two
+   * routes — 0.285 × 0.70 = 0.1995 against the reference's directly measured
+   * reduce-transparency amplitude of 0.203 at a 44 px span. W8's 0.566 was the
+   * ratio of the reference's two amplitudes; this is the ratio that makes
+   * vitrea's shadow match the reference's under the preference, and the two
+   * differ because the base amplitude is a compromise across scenes whose spread
+   * is much wider in the standard profile than under reduced transparency.
+   *
+   * Extracted from the active bed's native fixtures directly —
    * `results/2026-08-31-active-bed-stage0.json` measured the gap, these numbers
    * measure the facet — and left provisional deliberately: X1 gives the fit to
    * the recalibration cascade, which owns the holdout discipline. This child owns
@@ -703,8 +814,8 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
     offsetPx: 7.95,
     sigmaPx: 15.55,
     spreadPx: 3.1,
-    occlusion: 0.33,
-    reducedTransparencyOcclusion: 0.566,
+    occlusion: 0.285,
+    reducedTransparencyOcclusion: 0.7,
     sizeGain: 0,
   },
 

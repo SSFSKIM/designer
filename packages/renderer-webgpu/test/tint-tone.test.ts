@@ -3,11 +3,22 @@
  * an untinted material is untouched, and a tinted one is a *range* rather than
  * a fill.
  *
- * The curve's constants are advisory and calibration-delegated, so nothing here
- * asserts a number the tinted-capture extension will fit. What it asserts is
- * shape — monotonicity in the backdrop, hue preserved at the dark end, the seed
- * reachable, the excursion bounded, and the accessibility fold collapsing the
- * response without touching the colour.
+ * The curve's constants were advisory and calibration-delegated, and the
+ * recalibration cascade fitted them (2026-08-31): against the active-pose bed
+ * the reference's tinted interior IS the declared seed, to a per-channel
+ * standard deviation of 0.000 on three of five calibration backdrops, so
+ * `tintToneFloor` fits to 1 and `tintToneCeilMix` to 0 and **the shipped curve
+ * is the identity**.
+ *
+ * That splits this file's job in two, and the split is deliberate rather than a
+ * concession. The MECHANISM is still a range mapped to content brightness, and
+ * it is still exercised here — on `EXCURSION`, an explicit profile carrying the
+ * pre-cascade constants, so every shape property (monotonicity in the backdrop,
+ * hue preserved at the dark end, the wash toward white, the accessibility fold
+ * narrowing the response without moving the colour) is proven of the curve
+ * rather than of a particular fit. What the DEFAULT profile does is a separate,
+ * named assertion, because "the fitted constants make this inert" is a
+ * measurement worth failing on if someone changes it by accident.
  */
 
 import { describe, expect, it } from "vitest";
@@ -25,6 +36,19 @@ import {
 const seed: Rgb = [0.8, 0.2, 0.05];
 const white: Rgb = [1, 1, 1];
 
+/**
+ * A profile whose tone curve has an excursion to test. These are the constants
+ * W3 phase 1 shipped provisionally and the cascade replaced; they are kept here
+ * as the non-degenerate case rather than in the default, which is where the
+ * measurement put the identity.
+ */
+const EXCURSION = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+  tintToneFloor: 0.45,
+  tintToneCeilMix: 0.45,
+  tintToneLow: 0.02,
+  tintToneHigh: 0.65,
+});
+
 const policy = (patch: Partial<MaterialPolicyView> = {}): MaterialPolicyView => ({
   glass: "material",
   frost: "nominal",
@@ -39,9 +63,27 @@ const policy = (patch: Partial<MaterialPolicyView> = {}): MaterialPolicyView => 
 const luminance = (rgb: Rgb): number => 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 
 describe("tintTone", () => {
+  it("is the IDENTITY at the fitted constants — Apple's tint is the seed", () => {
+    /*
+     * The cascade's result, asserted as a result rather than left implicit in the
+     * absence of an excursion. On the active bed the reference's tinted interior
+     * is the declared seed exactly: `systemOrange` renders linear
+     * (1.0000, 0.2961, 0.0000), which is sRGB (255, 149, 0) and nothing else,
+     * with a per-channel standard deviation of 0.000 over `dark-solid`,
+     * `impulse` and `light-solid`. Fitted, floor → 1 and ceilMix → 0 monotonically
+     * (objective 0.26523 → 0.12676 over the grid, ΔE and SSIM agreeing).
+     *
+     * `tintToneLow` and `tintToneHigh` therefore describe nothing at the shipped
+     * constants, which is why they are not asserted here — see the profile.
+     */
+    for (const backdrop of [0, 0.1, 0.3, 0.6, 0.9, 1]) {
+      expect(tintTone(seed, backdrop, 1)).toEqual(seed);
+    }
+  });
+
   it("rises with the backdrop — the range is mapped to content brightness", () => {
     const levels = [0, 0.1, 0.3, 0.6, 0.9, 1].map((backdrop) =>
-      luminance(tintTone(seed, backdrop, 1)),
+      luminance(tintTone(seed, backdrop, 1, EXCURSION)),
     );
     for (let i = 1; i < levels.length; i += 1) {
       expect(levels[i] as number).toBeGreaterThanOrEqual(levels[i - 1] as number);
@@ -50,7 +92,7 @@ describe("tintTone", () => {
   });
 
   it("keeps the seed's hue at the dark end, where the tone is a shade of it", () => {
-    const dark = tintTone(seed, 0, 1);
+    const dark = tintTone(seed, 0, 1, EXCURSION);
     // A scalar multiple in linear light: chromaticity, and therefore hue, is the
     // same colour seen with less light.
     expect(dark[0] / seed[0]).toBeCloseTo(dark[1] / seed[1], 10);
@@ -59,7 +101,7 @@ describe("tintTone", () => {
   });
 
   it("washes toward white at the bright end rather than clipping the seed", () => {
-    const bright = tintTone(seed, 1, 1);
+    const bright = tintTone(seed, 1, 1, EXCURSION);
     for (const index of [0, 1, 2] as const) {
       expect(bright[index]).toBeGreaterThanOrEqual(seed[index]);
       expect(bright[index]).toBeLessThanOrEqual(1);
@@ -84,8 +126,8 @@ describe("tintTone", () => {
   });
 
   it("narrows, without moving the colour, at a partial adaptation", () => {
-    const full = tintTone(seed, 0, 1);
-    const partial = tintTone(seed, 0, 0.35);
+    const full = tintTone(seed, 0, 1, EXCURSION);
+    const partial = tintTone(seed, 0, 0.35, EXCURSION);
     expect(partial[0]).toBeGreaterThan(full[0]);
     expect(partial[0]).toBeLessThan(seed[0]);
   });

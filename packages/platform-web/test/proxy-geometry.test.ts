@@ -75,8 +75,13 @@ describe("proxy geometry (X1, as S1 measured it)", () => {
     expect(SAMPLING_PADDING_SIGMA_MULTIPLE).toBe(3);
     // Verified byte-exact at three radii spanning 5× (S1 Q1).
     expect([8, 20, 40].map(requiredSamplingPadding)).toEqual([24, 60, 120]);
-    // core's 24px advisory default is exactly 3σ at the regular variant's σ.
-    expect(requiredSamplingPadding(MATERIAL_OPTICS.regular.blurRadius)).toBe(24);
+    // And at the shipped material's own σ, whatever it is. This used to read
+    // `toBe(24)` because core's advisory was 3σ at the σ = 8 the material then
+    // had; the cascade refitted σ to 3 (2026-08-31) and the relationship, not the
+    // number, is what this line was ever asserting.
+    expect(requiredSamplingPadding(MATERIAL_OPTICS.regular.blurRadius)).toBe(
+      MATERIAL_OPTICS.regular.blurRadius * SAMPLING_PADDING_SIGMA_MULTIPLE,
+    );
   });
 
   it("reports when enforcement pushes the padding past the group's mergeDistance", () => {
@@ -201,13 +206,30 @@ describe("the mask path builder", () => {
  * got seven warnings about geometry they had never authored.
  */
 describe("the default sampling geometry, derived from the blur the material draws with", () => {
-  it("is byte-identical to the constant it replaces at the nominal blur", () => {
-    // The whole neutrality argument. Not "close to" 24 — 24, so every committed
-    // box, golden and pixel assertion stands unchanged.
-    expect(resolveSamplingGeometry({ samplingPadding: undefined, mergeDistance: undefined, blurRadius: MATERIAL_OPTICS.regular.blurRadius })).toEqual({
-      samplingPadding: DEFAULT_GROUP_SAMPLING.samplingPadding,
-      mergeDistance: DEFAULT_GROUP_SAMPLING.mergeDistance,
+  it("is exactly 3σ of the shipped blur, and no longer core's constant", () => {
+    /*
+     * W6's neutrality argument was that the derivation reproduced core's 24
+     * exactly, because 24 is 3σ at σ = 8. The recalibration cascade refitted σ to
+     * 3 against the active-pose bed (2026-08-31), so the derivation now yields 9
+     * and the two numbers have parted company — which is the derivation working
+     * rather than failing. The invariant was never the 24; it was the multiple.
+     *
+     * core's advisory stays at 24 deliberately. Its only stated requirement is to
+     * be at least 3σ of the group's blur, and at the refitted σ it clears that
+     * with room to spare. Lowering a public default for tidiness rather than for
+     * a measurement would change behaviour for every consumer that never reaches
+     * this derivation, and this is the path that actually ships.
+     */
+    const blurRadius = MATERIAL_OPTICS.regular.blurRadius;
+    expect(
+      resolveSamplingGeometry({ samplingPadding: undefined, mergeDistance: undefined, blurRadius }),
+    ).toEqual({
+      samplingPadding: requiredSamplingPadding(blurRadius),
+      mergeDistance: requiredSamplingPadding(blurRadius),
     });
+    expect(requiredSamplingPadding(blurRadius)).toBeLessThanOrEqual(
+      DEFAULT_GROUP_SAMPLING.samplingPadding,
+    );
   });
 
   it("follows the blur up when an accessibility policy raises it", () => {

@@ -34,6 +34,7 @@ import {
   tintTone,
   tintToneAdaptation,
   TINT_TONE,
+  type TintToneConstants,
 } from "../src/optics";
 import { createTintParser, resolveTintDeclaration } from "../src/tint";
 import { createPlatformDiagnosticsChannel } from "../src/diagnostics";
@@ -42,6 +43,15 @@ const base = cssTierOptics().regular;
 const source = sourceOptics().regular;
 /** A saturated orange, so a hue error would be visible rather than rounding. */
 const orange = linearTint(glassTint([1, 0.584, 0]));
+
+/**
+ * A tone curve with an excursion to test. The recalibration cascade fitted the
+ * shipped curve to the identity (2026-08-31) because the active-pose reference's
+ * tinted material IS the seed, so the mechanism's shape properties are exercised
+ * here on W3 phase 1's provisional constants rather than on constants that make
+ * the mechanism inert.
+ */
+const EXCURSION: TintToneConstants = { ...TINT_TONE, floor: 0.45, ceilMix: 0.45, low: 0.02, high: 0.65 };
 
 const materialPolicy = (patch: Partial<ResolvedMaterialPolicy> = {}): ResolvedMaterialPolicy => ({
   glass: "material",
@@ -159,7 +169,18 @@ describe("the CSS-tier conversion", () => {
   });
 
   it("lands the tinted composite on the renderer's, channel for channel, at the reference backdrop", () => {
-    const tinted = tintedSourceOptics(source, orange, CSS_TIER_MAPPING.referenceBackdropLuminance, 1);
+    // Read on a tone that stays inside the gamut. `EXCURSION`'s floor of 0.45
+    // shades the seed, so the colour the CSS tier has to declare is reachable and
+    // the conversion is exact to within its own rounding. The full-saturation
+    // case is the test below, and it is a different result rather than a looser
+    // version of this one.
+    const tinted = tintedSourceOptics(
+      source,
+      orange,
+      CSS_TIER_MAPPING.referenceBackdropLuminance,
+      1,
+      EXCURSION,
+    );
     const alpha = cssTintAlpha(tinted, CSS_TIER_MAPPING);
     const colour = cssTintColor(tinted, alpha, CSS_TIER_MAPPING);
     const backdrop = CSS_TIER_MAPPING.referenceBackdropLuminance;
@@ -173,6 +194,50 @@ describe("the CSS-tier conversion", () => {
       // in the reals and quantised on the way out.
       expect(Math.abs(gpu - css)).toBeLessThan(1.5 / 255);
     }
+  });
+
+  it("cannot reach a FULLY SATURATED tint, and the shortfall is the sRGB gamut", () => {
+    /*
+     * A measured limit of the crossing, recorded rather than absorbed into the
+     * bound above. The cascade fitted the tone curve to the identity, so a
+     * full-strength author tint now hands this tier the bare seed — linear
+     * (1, 0.3, 0) for `systemOrange`. The GPU tier composites toward that in
+     * linear light; to reproduce the same result the CSS tier would have to
+     * declare an `rgba()` colour brighter than sRGB can express, so
+     * `cssTintColor` clips at 255 and the composite falls short.
+     *
+     * Isolated to the curve rather than to the alpha: at the same tint alpha the
+     * shaded tone above lands within 0.07 of one code, and the bare seed misses
+     * by 5.59. At C9a's old alpha of 0.62 the bare seed still missed, by 3.82 —
+     * so this is the saturation, not the opacity.
+     *
+     * Fixing it means solving the alpha and the colour JOINTLY under the gamut
+     * constraint instead of solving the alpha on luminance and deriving the
+     * colour, which is a CSS-tier mechanism change and is named as the next
+     * parent-impact item on this axis in claims §5.13. What the coherence gate
+     * measures on real cells is in the same section.
+     */
+    const tinted = tintedSourceOptics(source, orange, CSS_TIER_MAPPING.referenceBackdropLuminance, 1);
+    const alpha = cssTintAlpha(tinted, CSS_TIER_MAPPING);
+    const colour = cssTintColor(tinted, alpha, CSS_TIER_MAPPING);
+    const backdrop = CSS_TIER_MAPPING.referenceBackdropLuminance;
+
+    // The channel that clips is the one the seed saturates, and it clips at 255.
+    expect(tinted.tint[0]).toBeCloseTo(orange.color[0], 12);
+    expect(colour[0]).toBe(255);
+
+    const worst = Math.max(
+      ...([0, 1, 2] as const).map((index) => {
+        const gpu = srgbEncode(
+          backdrop * (1 - tinted.tintAlpha) + tinted.tint[index] * tinted.tintAlpha,
+        );
+        const css = srgbEncode(backdrop) * (1 - alpha) + (colour[index] / 255) * alpha;
+        return Math.abs(gpu - css);
+      }),
+    );
+    // Bounded and on the record: under six 8-bit codes, and never zero.
+    expect(worst).toBeGreaterThan(1.5 / 255);
+    expect(worst).toBeLessThan(6 / 255);
   });
 
   it("carries the seed's hue into the declared colour", () => {
@@ -294,11 +359,30 @@ describe("accessibility still wins", () => {
   });
 
   it("collapses the tone range, not the colour, when the ambient regime narrows", () => {
-    const wide = tintedSourceOptics(source, orange, 0.9, tintToneAdaptation("nominal"));
-    const narrow = tintedSourceOptics(source, orange, 0.9, tintToneAdaptation("none"));
+    /*
+     * Read on a curve that HAS a range. The cascade fitted the shipped curve to
+     * the identity (floor 1, ceilMix 0 — the reference's tinted material is the
+     * seed), so at the default constants there is no excursion for a regime to
+     * narrow and this property would pass vacuously. `EXCURSION` carries W3 phase
+     * 1's provisional constants for exactly that reason: the fold is a mechanism
+     * and has to be proven of the mechanism.
+     */
+    const wide = tintedSourceOptics(source, orange, 0.9, tintToneAdaptation("nominal"), EXCURSION);
+    const narrow = tintedSourceOptics(source, orange, 0.9, tintToneAdaptation("none"), EXCURSION);
     for (const index of [0, 1, 2] as const) {
       expect(narrow.tint[index]).toBeCloseTo(orange.color[index], 12);
     }
     expect(wide.tint[2]).toBeGreaterThan(narrow.tint[2]);
+  });
+
+  it("at the shipped constants the regime has no range left to narrow", () => {
+    // The same statement from the other side, so the identity is asserted rather
+    // than inferred from the test above having to reach for another profile.
+    const wide = tintedSourceOptics(source, orange, 0.9, tintToneAdaptation("nominal"));
+    const narrow = tintedSourceOptics(source, orange, 0.9, tintToneAdaptation("none"));
+    expect(wide.tint).toEqual(narrow.tint);
+    for (const index of [0, 1, 2] as const) {
+      expect(wide.tint[index]).toBeCloseTo(orange.color[index], 12);
+    }
   });
 });

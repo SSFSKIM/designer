@@ -113,10 +113,11 @@ export interface MaterialSourceOptics {
 
 /** Mirrors `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE.optics`. */
 export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSourceOptics>> = {
-  // σ = 8 for the regular variant, which is what makes core's 24px advisory
-  // exactly 3σ. `tintAlpha` 0.62 is C9a's measured value, and carrying it here
-  // rather than a second advisory is the whole point of K5.
-  regular: { blurSigma: 8, tint: [1, 1, 1], tintAlpha: 0.62, rimAlpha: 0.18, highlight: [1, 1, 1] },
+  // σ = 3 and `tintAlpha` 0.46 are the recalibration cascade's active-bed values
+  // (2026-08-31); carrying them here rather than a second advisory is the whole
+  // point of K5. core's `samplingPadding` advisory derives from the resolved blur
+  // (W6), so it follows this number down rather than needing its own edit.
+  regular: { blurSigma: 3, tint: [1, 1, 1], tintAlpha: 0.46, rimAlpha: 0.18, highlight: [1, 1, 1] },
   // Persistently more transparent, so it frosts less and tints less — and it
   // carries its own dimming policy from core. Uncalibrated in either tier: the
   // canonical scene matrix has no clear-variant scene.
@@ -150,9 +151,13 @@ export interface TintToneConstants {
   readonly reducedAdaptation: number;
 }
 
+// FITTED (2026-08-31, active bed): the curve is the IDENTITY. `floor` 1 and
+// `ceilMix` 0 make `tintTone` return the seed at every backdrop, so `low` and
+// `high` describe nothing and are kept only so a future bed can identify them —
+// the same shape of result as `adaptiveTint`'s equal ends. See claims §5.13.
 export const TINT_TONE: TintToneConstants = {
-  floor: 0.45,
-  ceilMix: 0.45,
+  floor: 1,
+  ceilMix: 0,
   low: 0.02,
   high: 0.65,
   reducedAdaptation: 0.35,
@@ -182,9 +187,9 @@ export interface BackdropToneConstants {
 
 export const BACKDROP_TONE: BackdropToneConstants = {
   max: 1,
-  low: 0.02,
+  low: 0.03,
   high: 0.14,
-  sizeBias: 0.09,
+  sizeBias: 0.13,
 };
 
 /** The adaptation constants under a profile patch, by the renderer's merge rule. */
@@ -543,8 +548,8 @@ export const MATERIAL_SOURCE_OUTER_SHADOW: MaterialSourceOuterShadow = {
   offsetPx: 7.95,
   sigmaPx: 15.55,
   spreadPx: 3.1,
-  occlusion: 0.33,
-  reducedTransparencyOcclusion: 0.566,
+  occlusion: 0.285,
+  reducedTransparencyOcclusion: 0.7,
   sizeGain: 0,
 };
 

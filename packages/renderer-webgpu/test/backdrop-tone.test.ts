@@ -67,15 +67,31 @@ describe("the adaptation curve", () => {
     expect(backdropToneAdaptation(0.0117, RRECT_SM)).toBeCloseTo(1, 6);
   });
 
-  it("holds most of a large surface's own appearance over the same backdrop", () => {
-    // The measured figure is 0.256 (light-against-dark separation, 1× and 2×
-    // agreeing to three decimals); the fitted curve lands at 0.241, six per cent
-    // under it, which is the residual the claims doc quotes. This is the size
-    // gate, and it is the whole reason the axis is not a single luminance curve.
-    const fitted = backdropToneAdaptation(0.0117, RRECT_MD);
-    expect(fitted).toBeGreaterThan(0.18);
-    expect(fitted).toBeLessThan(0.32);
-    expect(Math.abs(fitted - 0.256)).toBeLessThan(0.05);
+  it("holds ALL of a large surface's own appearance over the same backdrop", () => {
+    /*
+     * REFITTED 2026-08-31, and the assertion flipped from "most" to "all".
+     *
+     * W7 fitted this against the light-versus-dark separation estimator, which
+     * put the 96 px surface's adaptation at 0.256 and the curve at 0.241. The
+     * active bed's own interior LEVEL disagrees: the reference reads 0.4844
+     * there, against 0.466 for an unadapted surface at the refitted tint alpha
+     * and 0.3566 for one adapted by a quarter.
+     *
+     * The tie was broken on `impulse__rrect-md__rest`, which is a validation
+     * scene and was fitted to by neither setting. At the old size bias vitrea
+     * renders 0.2858 against a reference of 0.4358 (ΔE 0.02344); at the refitted
+     * 0.13 it renders 0.4594 (ΔE 0.00378) — six times better. So the size gate is
+     * harder than W7 measured: a 96 pt surface over the darkest calibration
+     * backdrop does not adapt at all.
+     *
+     * The estimator was not wrong so much as inapplicable — its algebra cancels
+     * the transmission only if both colour schemes share one tint alpha, and the
+     * refitted profiles are at 0.46 and 0.97. Claims §5.13.
+     */
+    expect(backdropToneAdaptation(0.0117, RRECT_MD)).toBe(0);
+    // Still a size GATE rather than an off switch: the same backdrop under a
+    // capsule adapts completely, which is the contrast the axis exists to draw.
+    expect(backdropToneAdaptation(0.0117, CAPSULE)).toBeCloseTo(1, 4);
   });
 
   it("is monotone in the backdrop and in the span", () => {
@@ -150,15 +166,25 @@ describe("the adaptation curve", () => {
 
 describe("the size gate and the size law's band", () => {
   it("is what the band 32…96 buys: the two dark cells cannot both be right otherwise", () => {
-    // Measured (W7): a band ending at 64 lifts the 44 px capsule's effective
-    // backdrop past the curve's low edge and it stops adapting fully; a band
-    // ending at 128 over-adapts the 96 px surface. The tone axis pins the same
-    // 32…96 W2 set from the reference's transmission — two independent
-    // measurements, one band.
+    /*
+     * Measured (W7, re-measured by the cascade 2026-08-31): a band ending at 64
+     * lifts the 44 px capsule's effective backdrop past the curve's low edge and
+     * it stops adapting fully; a band ending at 128 makes the 96 px surface adapt
+     * where the fitted band leaves it alone. The tone axis pins the same 32…96 W2
+     * set from the reference's transmission — two independent measurements, one
+     * band, and the band survived a refit of every constant around it.
+     *
+     * The wide arm's figure moved with the size bias (0.09 → 0.13): the 96 px
+     * surface reads 0.2047 at a band of 128 against exactly 0 at the fitted band,
+     * where before it read over 0.4 against 0.241. The discriminator is the same
+     * and it is now a cleaner one — a band that is too wide turns the axis on for
+     * a surface the reference says it is off for.
+     */
     const narrow = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { sizeSpanMax: 64 });
     const wide = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { sizeSpanMax: 128 });
     expect(backdropToneAdaptation(0.0117, sizeThickness(44, narrow), narrow)).toBeLessThan(0.95);
-    expect(backdropToneAdaptation(0.0117, sizeThickness(96, wide), wide)).toBeGreaterThan(0.4);
+    expect(backdropToneAdaptation(0.0117, sizeThickness(96, wide), wide)).toBeGreaterThan(0.15);
+    expect(backdropToneAdaptation(0.0117, RRECT_MD)).toBe(0);
   });
 });
 
@@ -278,12 +304,19 @@ describe("the scheme semantics — one law, applied inside whichever scheme is a
     for (const index of [0, 1, 2] as const) {
       expect(adapted[index]).toBeCloseTo(nearBlack[index], 4);
     }
-    const partial = adaptedTintColour(
-      darkNeutral,
-      nearBlack,
-      backdropToneAdaptation(0.0117, RRECT_MD),
-      ALPHA,
-    );
+    /*
+     * A partial adaptation has to be read at a thickness the refitted size gate
+     * still leaves inside the transition — the 96 px surface over this backdrop
+     * now sits past the curve's high edge entirely (see "holds ALL of a large
+     * surface's own appearance"), so it is no longer an example of a partial
+     * anything. Half thickness is, and the property under test is the same one:
+     * the material moves from its own scheme's neutral toward the backdrop
+     * without ever crossing to the other scheme's tint.
+     */
+    const partialAdaptation = backdropToneAdaptation(0.0117, 0.5);
+    expect(partialAdaptation).toBeGreaterThan(0);
+    expect(partialAdaptation).toBeLessThan(1);
+    const partial = adaptedTintColour(darkNeutral, nearBlack, partialAdaptation, ALPHA);
     expect(partial[0]).toBeGreaterThan(nearBlack[0]);
     expect(partial[0]).toBeLessThan(darkNeutral[0]);
   });

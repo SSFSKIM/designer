@@ -117,13 +117,21 @@ describe("tier coherence (K5)", () => {
     expect(Object.keys(MATERIAL_SOURCE_OPTICS).sort()).toEqual([...MATERIAL_VARIANTS].sort());
   });
 
-  it("keeps the two tiers on one blur sigma, which is also S1's 3σ floor", () => {
-    // core's 24px `samplingPadding` advisory is 3σ at σ = 8. If the CSS tier's
-    // blur ever stopped being the renderer's, that arithmetic would silently
-    // stop holding for one of the two tiers.
+  it("keeps the two tiers on one blur sigma, and core's padding at 3σ of it", () => {
+    /*
+     * If the CSS tier's blur ever stopped being the renderer's, S1's 3σ sampling
+     * floor would silently stop holding for one of the two tiers.
+     *
+     * This used to assert `blurRadius * 3 === 24`, which was the same invariant
+     * with σ = 8 substituted into it. The recalibration cascade refitted σ to 3
+     * against the active bed, and 24 was the only part of that line describing a
+     * constant rather than a relationship — W6 already made core's advisory
+     * DERIVE from the resolved blur precisely so this number follows the material
+     * instead of being maintained beside it. The invariant is the multiple.
+     */
     const css = cssTierOptics();
     expect(css.regular.blurRadius).toBe(DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma);
-    expect(css.regular.blurRadius * 3).toBe(24);
+    expect(requiredSamplingPadding(css.regular.blurRadius)).toBe(css.regular.blurRadius * 3);
   });
 
   it("derives a different alpha from the same profile, in the direction the composites imply", () => {

@@ -53,6 +53,32 @@
  * error, so including them would double-count it, but a point that improves the
  * objective while worsening ΔE is a point to distrust.
  *
+ * ## The second objective, for the facet the first one cannot see (2026-08-31)
+ *
+ * The objective above is measured *inside* the component's region, so it is
+ * exactly blind to the outer shadow (W8) — sweeping a shadow constant against it
+ * returns a flat grid, which reads as "not identifiable" when the truth is "not
+ * looked at". Schema 5's shadow axis supplies the matching quantity on the other
+ * side of the contour:
+ *
+ *     mean over measured calibration cells of |Δ meanDeparture|
+ *
+ * where `meanDeparture` is the mean of `backdrop − rendered` over the whole
+ * exterior in linear light, and the Δ is web minus native. One term in one unit,
+ * for the same reason the first objective has three commensurate ones and no
+ * weights: the shadow's entire content is how much of the surround's light it
+ * removes, and a second term (a peak, an extent) would re-aggregate the same
+ * error under an invented exchange rate. It is made absolute per cell rather than
+ * pooled, so a cell that darkens too much cannot cancel one that darkens too
+ * little. It is also defined on every cell — including the dark backdrops where
+ * the normalised block is absent — because it is an absolute quantity.
+ *
+ * Both objectives are computed and printed on every run; `--objective shadow`
+ * only changes which one sorts the table and names the best point. A shadow
+ * constant that improves the exterior while moving the interior is a point to
+ * distrust in the way the ΔE and SSIM checks already guard against, and the
+ * cheapest way to see it is to have both columns in front of you.
+ *
  * Holdout is never swept. This script cannot select it: it passes
  * `--set calibration` and no holdout id appears anywhere in this file.
  */
@@ -157,7 +183,7 @@ function grid(axes: readonly Axis[]): { readonly path: string; readonly value: n
   return points;
 }
 
-function value(cell: CellResult, axis: "material" | "perceptual", field: string): number | undefined {
+function value(cell: CellResult, axis: "material" | "perceptual" | "shadow", field: string): number | undefined {
   const report = cell[axis] as Record<string, { value: number } | undefined> | undefined;
   return report?.[field]?.value;
 }
@@ -167,6 +193,9 @@ interface Score {
   readonly meanTerm: number;
   readonly sdTerm: number;
   readonly rimTerm: number;
+  /** The shadow objective: mean |Δ meanDeparture| over the exterior, linear light. */
+  readonly shadow: number;
+  readonly shadowCells: number;
   readonly deltaE: number;
   readonly ssim: number;
   readonly cells: number;
@@ -183,8 +212,19 @@ function score(matrixJson: string): Score {
   let ssim = 0;
   let measured = 0;
   let perceptualCount = 0;
+  let shadowTerm = 0;
+  let shadowCells = 0;
 
   for (const cell of cells) {
+    // The exterior objective, independent of everything above: a cell with no
+    // shadow axis contributes nothing rather than a zero, on the same rule.
+    const dn = value(cell, "shadow", "meanDepartureNative");
+    const dw = value(cell, "shadow", "meanDepartureWeb");
+    if (dn !== undefined && dw !== undefined) {
+      shadowTerm += Math.abs(dw - dn);
+      shadowCells += 1;
+    }
+
     const e = value(cell, "perceptual", "oklabDeltaEMean");
     const s = value(cell, "perceptual", "ssimMean");
     if (e !== undefined && s !== undefined) {
@@ -216,6 +256,8 @@ function score(matrixJson: string): Score {
     meanTerm: meanTerm / measured,
     sdTerm: sdTerm / measured,
     rimTerm: rimTerm / measured,
+    shadow: shadowCells === 0 ? Number.NaN : shadowTerm / shadowCells,
+    shadowCells,
     deltaE: deltaE / Math.max(1, perceptualCount),
     ssim: ssim / Math.max(1, perceptualCount),
     cells: measured,
@@ -234,6 +276,11 @@ function main(): void {
   if (renderer !== "webgpu" && renderer !== "css") {
     throw new Error(`sweep: --renderer takes webgpu or css, not '${renderer}'`);
   }
+  const objective = flag("objective") ?? "interior";
+  if (objective !== "interior" && objective !== "shadow") {
+    throw new Error(`sweep: --objective takes interior or shadow, not '${objective}'`);
+  }
+  const rank = (s: Score): number => (objective === "shadow" ? s.shadow : s.objective);
   // Scene restriction, forwarded to compare. Its use here is to check that an
   // optimum does not depend on a subset of cells — the pressed scenes in
   // particular, whose native side carries no press pose.
@@ -298,12 +345,16 @@ function main(): void {
 
   const say = (line: string): void => void process.stdout.write(`${line}\n`);
   say("");
-  say("objective = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light");
-  say("SSIM and dE are CHECKS, not terms of the objective.");
+  say("interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light");
+  say("shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light");
+  say(`ranked on the ${objective.toUpperCase()} objective. SSIM and dE are CHECKS, not terms of either.`);
   say("");
-  say(`${"point".padEnd(46)}${"objective".padStart(11)}${"|Δmean|".padStart(10)}${"|Δsd|".padStart(9)}${"|Δrim|".padStart(9)}${"dE".padStart(9)}${"SSIM".padStart(8)}${"n".padStart(4)}`);
-  say("-".repeat(106));
-  const sorted = [...results].sort((a, b) => a.score.objective - b.score.objective);
+  say(
+    `${"point".padEnd(46)}${"interior".padStart(11)}${"|Δmean|".padStart(10)}${"|Δsd|".padStart(9)}` +
+      `${"|Δrim|".padStart(9)}${"shadow".padStart(10)}${"dE".padStart(9)}${"SSIM".padStart(8)}${"n".padStart(4)}${"ns".padStart(4)}`,
+  );
+  say("-".repeat(120));
+  const sorted = [...results].sort((a, b) => rank(a.score) - rank(b.score));
   for (const { label, score: s } of sorted) {
     say(
       label.padEnd(46) +
@@ -311,20 +362,22 @@ function main(): void {
         s.meanTerm.toFixed(5).padStart(10) +
         s.sdTerm.toFixed(5).padStart(9) +
         s.rimTerm.toFixed(5).padStart(9) +
+        (Number.isNaN(s.shadow) ? "—" : s.shadow.toFixed(5)).padStart(10) +
         s.deltaE.toFixed(5).padStart(9) +
         s.ssim.toFixed(4).padStart(8) +
-        String(s.cells).padStart(4),
+        String(s.cells).padStart(4) +
+        String(s.shadowCells).padStart(4),
     );
   }
   const best = sorted[0];
   if (best !== undefined) {
     say("");
-    say(`best: ${best.label}  objective ${best.score.objective.toFixed(5)}`);
+    say(`best: ${best.label}  ${objective} ${rank(best.score).toFixed(5)}`);
     const worst = sorted[sorted.length - 1];
     if (worst !== undefined && worst !== best) {
       say(
-        `spread across the grid: ${best.score.objective.toFixed(5)} … ${worst.score.objective.toFixed(5)} ` +
-          `(${(worst.score.objective / best.score.objective).toFixed(2)}×). A flat grid means the optimum ` +
+        `spread across the grid: ${rank(best.score).toFixed(5)} … ${rank(worst.score).toFixed(5)} ` +
+          `(${(rank(worst.score) / rank(best.score)).toFixed(2)}×). A flat grid means the optimum ` +
           `is weakly identified, which is information about the fixtures, not a reason to pick harder.`,
       );
     }

@@ -146,8 +146,10 @@ describe("the CSS tier (the fallback is the design)", () => {
     );
 
     // The shipped material, as converted for this tier, and the lift it gets.
-    expect(nominal).toBeCloseTo(0.781, 3);
-    expect(reduced).toBeCloseTo(0.884, 3);
+    // 0.781/0.884 were the conversion of C9a's inactive-bed tint alpha of 0.62;
+    // these are the conversion of the cascade's refitted 0.46 (2026-08-31).
+    expect(nominal).toBeCloseTo(0.665, 3);
+    expect(reduced).toBeCloseTo(0.823, 3);
     expect(reduced).toBeGreaterThan(nominal);
   });
 
@@ -363,11 +365,13 @@ describe("the CSS tier (the fallback is the design)", () => {
 
     it("converts the profile's alpha rather than copying it", () => {
       // The two tiers composite in different spaces, so the same material is a
-      // different alpha here. Copying 0.62 across would have been the mistake
-      // C9a declined to make; the conversion is what the seam exists for.
-      expect(MATERIAL_SOURCE_OPTICS.regular.tintAlpha).toBe(0.62);
-      expect(MATERIAL_OPTICS.regular.tintAlpha).not.toBe(0.62);
-      expect(MATERIAL_OPTICS.regular.tintAlpha).toBeGreaterThan(0.62);
+      // different alpha here. Copying the source number across would have been
+      // the mistake C9a declined to make; the conversion is what the seam exists
+      // for. The source is the cascade's 0.46 (2026-08-31), not C9a's 0.62.
+      const source = MATERIAL_SOURCE_OPTICS.regular.tintAlpha;
+      expect(source).toBe(0.46);
+      expect(MATERIAL_OPTICS.regular.tintAlpha).not.toBe(source);
+      expect(MATERIAL_OPTICS.regular.tintAlpha).toBeGreaterThan(source);
     });
 
     it("moves with a profile patch, and only where the patch reaches", () => {
@@ -771,10 +775,24 @@ describe("the size law reaches the CSS tier", () => {
     // reduced rung rather than applied whole.
     const added = (declarations: Record<string, string>, base: number): number =>
       blurOf(declarations) / base - 1;
-    expect(added(reducedPlatter, blurOf(reducedSmall))).toBeCloseTo(
-      added(nominalPlatter, blurOf(at(40))) * MATERIAL_SOURCE_SIZE.refractionScale.approximate,
-      6,
-    );
+    /*
+     * Three decimals rather than six, and the reason is the medium rather than
+     * the law. `--vitrea-blur` is emitted through `px()`, which rounds to two
+     * decimal places, so this ratio-of-ratios carries that quantisation divided
+     * by the blur it is taken over. At the σ = 8 this was written against the
+     * error sat under 1e-6; at the cascade's refitted σ = 3 (2026-08-31) the same
+     * 0.005px rounding is 2.7× larger relative to the number, and lands at 7e-4.
+     * The identity itself is exact — it is the declaration that is quantised.
+     */
+    expect(
+      Math.abs(
+        added(reducedPlatter, blurOf(reducedSmall)) -
+          added(nominalPlatter, blurOf(at(40))) * MATERIAL_SOURCE_SIZE.refractionScale.approximate,
+      ),
+      // The budget, derived rather than picked: `px()` rounds to 0.01, the ratio
+      // is taken over a blur of `blurOf(reducedSmall)`, and two rounded terms
+      // enter it — so 2 x 0.005 / blur, which at the shipped sigma is 1.9e-3.
+    ).toBeLessThan((2 * 0.005) / blurOf(reducedSmall));
 
     // Still a law, not an off switch: a platter under the preference is still
     // frostier than a control under it.

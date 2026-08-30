@@ -76,10 +76,15 @@ describe("tuned calibration profiles", () => {
   });
 
   it("records the measured light-scheme tint alpha, not the advisory one", () => {
-    // Named explicitly rather than only through the identity above, so the one
-    // number C9a actually moved is legible in the test as well as in the profile.
-    expect(LIGHT.patch.optics?.regular?.tintAlpha).toBe(0.62);
-    expect(DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha).toBe(0.62);
+    // Named explicitly rather than only through the identity above, so the number
+    // that moves most is legible in the test as well as in the profile.
+    //
+    // 0.28 was the advisory, 0.62 was C9a's fit against the INACTIVE material,
+    // and 0.46 is the recalibration cascade's fit against the active bed
+    // (2026-08-31). The three are on the record here in order because the middle
+    // one is the kind of number a reader would otherwise assume had never moved.
+    expect(LIGHT.patch.optics?.regular?.tintAlpha).toBe(0.46);
+    expect(DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha).toBe(0.46);
   });
 
   it("leaves the backdrop tint crossover inert by default", () => {
