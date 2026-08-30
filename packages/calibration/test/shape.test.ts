@@ -5,6 +5,7 @@ import { contourCurvature, contourDistance, cornerCurvature, silhouetteIoU } fro
 import {
   distanceToSeeds,
   extractSilhouette,
+  fillSilhouetteHoles,
   silhouetteArea,
   silhouetteHoleCount,
   squaredEuclideanDistanceTransform,
@@ -289,5 +290,70 @@ describe("silhouetteHoleCount", () => {
 
   it("refuses a region of another size rather than guessing the correspondence", () => {
     expect(() => silhouetteHoleCount(grid(["##"]), full(["###"]))).toThrow();
+  });
+});
+
+/**
+ * The outer-contour correction (2026-08-31, wave Decision Log 17). A contour
+ * comparison compares outlines; a hole punched through a mask's interior is not
+ * part of its outline, and letting it enter made the metric report the extractor
+ * instead of the geometry.
+ */
+describe("contourDistance is measured between OUTER contours", () => {
+  const grid = (rows: readonly string[]): Silhouette => ({
+    width: (rows[0] as string).length,
+    height: rows.length,
+    mask: Uint8Array.from(rows.join("").split("").map((c) => (c === "#" ? 1 : 0))),
+  });
+
+  const solid = [
+    ".........",
+    ".#######.",
+    ".#######.",
+    ".#######.",
+    ".#######.",
+    ".#######.",
+    ".........",
+  ];
+  const holed = [
+    ".........",
+    ".#######.",
+    ".##.#.##.",
+    ".#######.",
+    ".#.#.#.#.",
+    ".#######.",
+    ".........",
+  ];
+
+  it("fills interior holes and leaves the outside alone", () => {
+    const filled = fillSilhouetteHoles(grid(holed));
+    expect(filled.mask).toEqual(grid(solid).mask);
+  });
+
+  it("reads zero between a holed mask and its own solid outline", () => {
+    // The whole point: five interior holes cost the comparison nothing, because
+    // the outline they sit inside is identical.
+    const distance = contourDistance(grid(holed), grid(solid));
+    expect(distance.maxPx).toBe(0);
+    expect(distance.meanPx).toBe(0);
+  });
+
+  it("still sees a real outline difference", () => {
+    // One column narrower on the right: the metric must not have gone blind.
+    const narrower = grid([
+      ".........",
+      ".######..",
+      ".######..",
+      ".######..",
+      ".######..",
+      ".######..",
+      ".........",
+    ]);
+    expect(contourDistance(grid(solid), narrower).maxPx).toBeGreaterThan(0);
+  });
+
+  it("leaves IoU seeing the holes, because a hole IS a set difference", () => {
+    // The two axes answer different questions and must keep disagreeing here.
+    expect(silhouetteIoU(grid(holed), grid(solid))).toBeLessThan(1);
   });
 });

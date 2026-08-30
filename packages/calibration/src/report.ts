@@ -231,6 +231,20 @@ export interface ShapeAxisReport {
    */
   readonly silhouetteHolesNative: MetricValue;
   readonly silhouetteHolesWeb: MetricValue;
+  /**
+   * Connected bodies in each side's hole-filled silhouette, and in the declared
+   * region itself — the conditioning statement the contour rows carry.
+   *
+   * A mask the extractor has broken into pieces has more outlines than the
+   * surface does, and the contour metric compares outlines. The count to beat is
+   * the REGION's own, not 1, so a genuinely multi-body component is not
+   * penalised for being one: `toolbar-group` declares three capsules and its
+   * region has three components. That is what keeps this free of a chosen
+   * threshold.
+   */
+  readonly silhouetteBodiesNative: MetricValue;
+  readonly silhouetteBodiesWeb: MetricValue;
+  readonly componentRegionBodies: MetricValue;
   readonly silhouetteIoU: MetricValue;
   readonly contourDistanceMax: MetricValue;
   readonly contourDistanceP95: MetricValue;
@@ -250,6 +264,9 @@ export function shapeAxisReport(input: {
   readonly componentRegionMarginPx: number;
   readonly silhouetteHolesNative: number;
   readonly silhouetteHolesWeb: number;
+  readonly silhouetteBodiesNative: number;
+  readonly silhouetteBodiesWeb: number;
+  readonly componentRegionBodies: number;
   readonly silhouetteIoU: number;
   readonly contourDistance: ContourDistanceReport;
   readonly cornerCurvature: CornerCurvatureReport;
@@ -262,6 +279,9 @@ export function shapeAxisReport(input: {
     componentRegionMargin: metricValue(input.componentRegionMarginPx, "px"),
     silhouetteHolesNative: metricValue(input.silhouetteHolesNative, "count"),
     silhouetteHolesWeb: metricValue(input.silhouetteHolesWeb, "count"),
+    silhouetteBodiesNative: metricValue(input.silhouetteBodiesNative, "count"),
+    silhouetteBodiesWeb: metricValue(input.silhouetteBodiesWeb, "count"),
+    componentRegionBodies: metricValue(input.componentRegionBodies, "count"),
     silhouetteIoU: metricValue(input.silhouetteIoU, "ratio"),
     contourDistanceMax: metricValue(input.contourDistance.maxPx, "px"),
     contourDistanceP95: metricValue(input.contourDistance.p95Px, "px"),

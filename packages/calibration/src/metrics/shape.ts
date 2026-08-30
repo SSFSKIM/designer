@@ -18,6 +18,7 @@ import {
   assertSameGrid,
   boundaryMask,
   distanceToSeeds,
+  fillSilhouetteHoles,
   sampleContourAt,
   traceContour,
   type ContourPath,
@@ -76,12 +77,36 @@ export interface ContourDistanceReport {
  * Distances come from an exact Euclidean distance transform between pixel
  * centres (see `squaredEuclideanDistanceTransform`); the grid is the floor, so
  * sub-0.5px figures mean "within the raster", not "measured".
+ *
+ * ## The boundary is the OUTER contour, and that is a correction (2026-08-31)
+ *
+ * This measured the boundary of each mask *as extracted*, which marks every
+ * pixel adjacent to a non-mask pixel — including the walls of interior holes.
+ * That was harmless while both sides' masks were solid and became the dominant
+ * term when they stopped being: over a high-contrast backdrop the CSS tier
+ * transmits enough structure that interior pixels coincide with the backdrop's
+ * own level and the extractor punches them out. On
+ * `checkerboard__rrect-lg__rest` that produced 72 holes and a contour mean of
+ * 15.34 px beside a silhouette IoU of 0.9653 — a number describing the extractor,
+ * not the geometry, and one no threshold should ever have had to absorb.
+ *
+ * A hole is not part of a silhouette's outline. Both masks are therefore
+ * hole-filled before their boundaries are taken, so what is compared is what the
+ * axis has always claimed to compare: where each side's outer edge sits. The
+ * previous remedy — a topology arm on the conditioning predicate — is recorded in
+ * the claims doc (§5.14) as the measurement that motivated this, and was rejected
+ * for costing 77 cells and leaving one profile's contour rows gating nothing.
+ *
+ * The hole counts themselves stay on every cell (`silhouetteHoles*`): filling a
+ * hole for the contour's sake must not make the hole invisible, and IoU still
+ * sees it, because a hole is a genuine set difference even when it is not an
+ * outline difference.
  */
 export function contourDistance(a: Silhouette, b: Silhouette): ContourDistanceReport {
   assertSameGrid(a, b, "contourDistance");
 
-  const boundaryA = boundaryMask(a);
-  const boundaryB = boundaryMask(b);
+  const boundaryA = boundaryMask(fillSilhouetteHoles(a));
+  const boundaryB = boundaryMask(fillSilhouetteHoles(b));
   const distanceToA = distanceToSeeds(boundaryA, a.width, a.height);
   const distanceToB = distanceToSeeds(boundaryB, b.width, b.height);
 

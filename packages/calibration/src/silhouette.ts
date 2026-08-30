@@ -130,7 +130,113 @@ export function extractSilhouette(image: CalibrationImage, extractor: Silhouette
 }
 
 /**
+ * The same silhouette with its interior holes filled — the region enclosed by
+ * the mask's OUTER contour, which is what a contour comparison means to compare.
+ *
+ * "Outside" is the image border rather than any search region's border: a
+ * bounded mask is surrounded by zeros that reach the border, so they are
+ * correctly left alone, and anything the flood cannot reach is enclosed by the
+ * mask. That is exactly a hole, with no extra argument needed to say so.
+ *
+ * 4-connected on the background, the conservative pairing against the mask's
+ * 8-connected boundary tracing: a diagonal seam of excluded pixels stays
+ * unfilled rather than being closed over, so this fills no more than it must.
+ */
+export function fillSilhouetteHoles(silhouette: Silhouette): Silhouette {
+  const { width, height, mask } = silhouette;
+  const outside = new Uint8Array(width * height);
+  const stack: number[] = [];
+
+  const push = (index: number): void => {
+    if (outside[index] === 1 || (mask[index] ?? 0) !== 0) return;
+    outside[index] = 1;
+    stack.push(index);
+  };
+  for (let x = 0; x < width; x += 1) {
+    push(x);
+    push((height - 1) * width + x);
+  }
+  for (let y = 0; y < height; y += 1) {
+    push(y * width);
+    push(y * width + width - 1);
+  }
+  while (stack.length > 0) {
+    const index = stack.pop() as number;
+    const x = index % width;
+    const y = (index - x) / width;
+    if (x > 0) push(index - 1);
+    if (x < width - 1) push(index + 1);
+    if (y > 0) push(index - width);
+    if (y < height - 1) push(index + width);
+  }
+
+  const filled = new Uint8Array(width * height);
+  for (let i = 0; i < filled.length; i += 1) {
+    filled[i] = (mask[i] ?? 0) !== 0 || outside[i] === 0 ? 1 : 0;
+  }
+  return { width, height, mask: filled };
+}
+
+/**
+ * How many connected bodies a silhouette has, counting a hole-filled mask with
+ * 8-connectivity — the same connectivity the contour tracer walks.
+ *
+ * The number the contour axis needs beside its distances. The metric compares
+ * outlines; a mask the extractor has broken into pieces has more outlines than
+ * the surface does, and the extra ones sit wherever the material's level
+ * happened to coincide with the backdrop's rather than where a boundary is.
+ * Measured on `photo__rrect-md__rest-tint-orange` at 2x: the reference is one
+ * body and the CSS tier is four, and the largest fragment sits INSIDE a ring
+ * punched through the surface's lower-right quadrant.
+ *
+ * Compared against the declared region's own count rather than against 1, so a
+ * genuinely multi-body component passes: `toolbar-group` declares three capsules
+ * and its region has three components, so three is correct there and two would
+ * be a real loss. That is what makes this a conditioning statement with no
+ * threshold in it — the count to beat is declared, not chosen.
+ */
+export function silhouetteBodyCount(silhouette: Silhouette): number {
+  const filled = fillSilhouetteHoles(silhouette);
+  const { width, height, mask } = filled;
+  const seen = new Uint8Array(width * height);
+  const stack: number[] = [];
+  let bodies = 0;
+
+  for (let start = 0; start < seen.length; start += 1) {
+    if (seen[start] === 1 || (mask[start] ?? 0) === 0) continue;
+    bodies += 1;
+    seen[start] = 1;
+    stack.push(start);
+    while (stack.length > 0) {
+      const index = stack.pop() as number;
+      const x = index % width;
+      const y = (index - x) / width;
+      for (let dy = -1; dy <= 1; dy += 1) {
+        for (let dx = -1; dx <= 1; dx += 1) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+          const neighbour = ny * width + nx;
+          if (seen[neighbour] === 1 || (mask[neighbour] ?? 0) === 0) continue;
+          seen[neighbour] = 1;
+          stack.push(neighbour);
+        }
+      }
+    }
+  }
+  return bodies;
+}
+
+/**
  * How many interior holes a silhouette has inside its search region.
+ *
+ * Kept, and no longer gated on. This is the measurement that motivated the
+ * outer-contour metric (wave Decision Log 17): a topology ARM on the
+ * conditioning predicate was built, measured to cost 77 cells and to leave the
+ * increased-contrast contour rows gating nothing, and replaced by making the
+ * metric itself immune. The counts stay on every cell because they are how a
+ * reader tells an extractor that punched holes from one that merely missed area.
  *
  * A hole is a 4-connected run of region pixels the mask excludes that never
  * reaches the region's border. Counted rather than measured by area on purpose:

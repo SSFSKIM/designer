@@ -47,6 +47,9 @@ function cell(key: ResultCellKey, overrides: Partial<CellResult> = {}): CellResu
       componentRegionMarginPx: 0,
       silhouetteHolesNative: 0,
       silhouetteHolesWeb: 0,
+      silhouetteBodiesNative: 1,
+      silhouetteBodiesWeb: 1,
+      componentRegionBodies: 1,
       silhouetteIoU: 0.9987,
       contourDistance: { maxPx: 1.41, p95Px: 1, meanPx: 0.32, rmsPx: 0.51, sampleCount: 812 },
       cornerCurvature: {

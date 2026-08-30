@@ -2814,6 +2814,135 @@ holdout read of the whole configuration:
    declared and gridded before it runs, on calibration cells only, and the
    contamination stated in the record.
 
+### 5.15 Round two, declared before it runs (2026-08-31)
+
+Wave Decision Log 17 upheld both of §5.14's refusals and chartered two things:
+the outer-contour instrument, and a round-two fit whose grid and objective are
+**written down before the fit executes**. This section is that declaration. It
+was committed before any constant moved and before the round-two holdout was
+read, so a reader can check what was promised against what was reported.
+
+#### The instrument, landed first
+
+`contourDistance` now measures between each mask's **outer** contour: both
+silhouettes are hole-filled before their boundaries are taken. A hole is not part
+of an outline, and letting hole walls in made the metric report the extractor
+rather than the geometry — `checkerboard__rrect-lg__rest` read a contour mean of
+15.34 px beside an IoU of 0.9653.
+
+Regenerated over calibration and validation, **71 contour cells moved and 103 did
+not, and not one non-contour value changed** — the change is scoped exactly to
+what it should touch. The worst readings collapse: 15.34 mean / 65.0 p95 → 0.605
+/ 5.00; 12.99 / 74.0 → 0.762 / 4.00; 12.13 / 40.95 → 1.23 / 2.00.
+
+The topology *arm* §5.14 built is withdrawn from the gate and kept in the record
+as the measurement that motivated this. `silhouetteHoles{Native,Web}` stay on
+every cell, because filling a hole for the contour's sake must not make the hole
+invisible — and IoU still sees it, since a hole is a genuine set difference even
+when it is not an outline difference.
+
+#### The conditioning predicate, in final form
+
+Two arms, and **neither introduces a chosen number**:
+
+1. **Area, both sides**: `silhouetteArea{Native,Web} ≥ 0.95 × componentRegionArea`.
+   The existing floor, now asked of both sides rather than of the native one alone.
+2. **Bodies, both sides**: `silhouetteBodies{Native,Web} ≤ componentRegionBodies`.
+   The contour metric compares outlines; a mask the extractor has broken into
+   pieces has more outlines than the surface does. The count to beat is the
+   *declared region's own*, so a genuinely multi-body component is not penalised —
+   `toolbar-group` declares three capsules and its region has three bodies.
+
+The second arm exists because hole-filling does not merge fragments: on
+`photo__rrect-md__rest-tint-orange` at 2× the reference is one body and the CSS
+tier is four, with the largest fragment sitting inside a ring punched through the
+surface's lower-right quadrant. Both counts are recorded per cell, so the
+predicate is machine-checkable.
+
+#### The contour bounds, declared
+
+Measured over calibration and validation only, under the predicate above. The
+rule: **hold every adopted bound the measurements clear, and amend only where
+they cannot** — the G3 amendment doctrine, with an amended value set at the
+smallest half-pixel step reaching 1.4× the worst measurement.
+
+| profile | tier | n | IoU worst | mean worst | p95 worst | IoU | mean | p95 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | 22 | 0.9690 | 0.759 | 2.24 | ≥ 0.82 | ≤ 2.5 | ≤ 5.0 |
+| | dom | 18 | 0.9565 | 0.604 | 5.00 | ≥ 0.85 | ≤ 2.0 | **≤ 7.0 (amended)** |
+| `2x-light-standard` | texture | 21 | 0.9525 | 1.829 | 5.00 | ≥ 0.85 | ≤ 5.0 | ≤ 10.0 |
+| | dom | 18 | 0.9584 | 0.762 | 5.00 | ≥ 0.85 | ≤ 4.0 | ≤ 8.0 |
+| `1x-light-reduced-transparency` | texture | 6 | 0.9881 | 0.366 | 1.00 | ≥ 0.87 | ≤ 1.5 | ≤ 3.5 |
+| | dom | 6 | 1.0000 | 0.000 | 0.00 | ≥ 0.89 | ≤ 1.5 | ≤ 3.5 |
+| `1x-light-increased-contrast` | texture | 6 | 0.9768 | 1.159 | 8.20 | ≥ 0.85 | ≤ 1.8 | **≤ 11.5 (amended)** |
+| | dom | 5 | 0.9963 | 0.062 | 1.00 | ≥ 0.80 | ≤ 2.6 | ≤ 5.5 |
+
+**Two amendments, each with its measured driver, and neither is an instrument
+artefact** — both driving cells are single-bodied and clear the area floor.
+
+- `1x-light-standard` dom p95, 4.0 → 7.0, driven by
+  `checkerboard__rrect-md__pressed` at 5.00 with a mean of 0.604 and an IoU of
+  0.9565: a localised outline difference over about 5% of the boundary, not a
+  displacement of the surface.
+- `1x-light-increased-contrast` texture p95, 3.2 → 11.5, driven by
+  `photo__capsule-button__rest-tint-orange` at 8.20 with a mean of 1.159 and an
+  IoU of 0.9768. **This is the weakest row in the document and is flagged as
+  such.** The mechanism is that profile's own border: the increased-contrast
+  reference draws a hard border stroke (§5.12 measured its ring-0 occlusion at
+  0.560 against a shadow of 0.096), and the extractor localises that stroke
+  differently on a tinted capsule than it does vitrea's rim. A gate that would
+  rather drop this row than widen it nearly four-fold has a good argument, and
+  this section does not pretend otherwise.
+
+#### The round-two fits, declared
+
+**Objective.** `scripts/sweep.ts`'s default interior objective, unchanged: the
+mean over calibration cells of `|Δ interior mean| + |Δ interior stdDev| +
+|Δ rim peak|` in linear light, with ΔE and SSIM read as checks. Everything not
+named below is frozen at §5.13's refit.
+
+**Fit A — the accessibility fold**, the gap this cascade left. One structural
+fact shapes it: `increasedOcclusionLift` is the single lift the
+`occlusion: "increased"` policy applies, and **both** accessibility profiles
+resolve to that policy, because macOS couples the toggles. So one constant serves
+two references that want different things — implied alphas of 0.864 under reduced
+transparency and 0.945 under increased contrast, needing lifts of 0.748 and 0.898
+at the refitted nominal of 0.46. A compromise is the expected outcome here, not a
+failure of the fit.
+
+- `increasedOcclusionLift`: 0.4722 (current), 0.60, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95
+- `reducedTransparencyFrost`: 1.0, 1.75 (current), 2.5, 3.5
+- Cells: each accessibility profile's own untinted calibration cells.
+
+**Fit B — the size band**, in this order because the gain is unidentifiable until
+the curve stops saturating inside the bed (§5.14's argument):
+
+- `sizeSpanMax`: 96 (current), 128, 160, 192, 224
+- then `sizeOcclusionGain`: 0 (current), 0.05, 0.10, 0.20, 0.35
+- Cells: the eight tone-inert untinted rest calibration cells of
+  `1x-light-standard` — the same set §5.13's base material was fitted on.
+
+**A coupling stated in advance.** Widening the band lowers `sizeThickness` at
+span 96, which lowers the tone curve's argument `x = backdrop + bias · thickness`
+and therefore *increases* adaptation on the span-96 dark-backdrop cells. The tone
+constants stay frozen; that movement is a measured consequence of the band, and
+the objective will see it, because `dark-solid__rrect-md__rest` is in the fit set.
+If the band's optimum only looks good by breaking the tone axis, the objective
+says so rather than hiding it.
+
+**Then one fresh holdout read** of the frozen result, reported against the bounds
+declared above.
+
+#### The contamination, stated plainly
+
+§5.13's holdout column **has already been read**, so whoever runs these fits — me
+— knows which holdout cells fail and by how much. That cannot be undone. The
+declared protocol is the mitigation and not a cure: the grids, the objective, the
+cell sets and the bounds above were written and committed before any constant
+moved, so a fit steered toward the holdout would show up as a departure from this
+section. Anyone auditing it should diff what §5.16 reports against what this
+section promised.
+
 ---
 
 ## 6. What could not be measured, and why
