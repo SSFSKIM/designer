@@ -272,9 +272,22 @@ describe("the passes bind what they read", () => {
     // a shader that only sampled would move every golden by a filter tap.
     for (const source of [opticsModule(), highlightModule()]) {
       expect(source).toContain("textureLoad(fieldTexture, texel, 0)");
-      expect(source).toContain("textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0)");
       expect(source).toContain("var fieldSampler : sampler");
     }
+    /*
+     * The COORDINATE differs between the two, and that is W8 rather than drift.
+     * The optics pass is scissored to the field's own rect, so it reads at its own
+     * uv. The highlight pass is not any more — the shadow grew the field rect by
+     * its reach and the highlight was scoped back to the surface's rect, because
+     * it returns on `coverage <= 0` and was paying to rasterise the difference —
+     * so it reads through the remap the two rects imply. Either way the nominal
+     * path is the exact load above.
+     */
+    expect(opticsModule()).toContain("textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0)");
+    expect(highlightModule()).toContain(
+      "textureSampleLevel(fieldTexture, fieldSampler, fieldUv, 0.0)",
+    );
+    expect(highlightModule()).toContain("let fieldUv = in.uv * hu.fieldFit.xy + hu.fieldFit.zw;");
   });
 
   it("writes two field targets, so per-surface optics survive the union", () => {

@@ -77,10 +77,6 @@ export interface MaterialOptics {
   readonly border: Rgb255;
   /** Border width in CSS px. */
   readonly borderWidth: number;
-  /** The ambient drop shadow: vertical offset and blur in CSS px, and its alpha. */
-  readonly shadowOffset: number;
-  readonly shadowBlur: number;
-  readonly shadowAlpha: number;
   /**
    * The press glow's reach in CSS px and its peak alpha, at `glow` = 1.
    *
@@ -498,6 +494,137 @@ export function sourceRefractionScale(patch?: RendererMaterialProfile): Refracti
   return scale;
 }
 
+/**
+ * The outer shadow's constants, mirrored (W8).
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.outerShadow`, field for
+ * field and value for value, for `MaterialSourceOptics`'s reason — and this is
+ * the mirror that matters most, because this is the one facet where the two tiers
+ * paint the *same* thing by the *same* algebra rather than one approximating the
+ * other. See `MaterialOuterShadow` for how the numbers were measured; the reasons
+ * live where the numbers are authored, because this is a mirror.
+ *
+ * ## Why a `box-shadow` is an honest multiplicative occlusion
+ *
+ * The reference removes a fraction of the backdrop's own light — it darkens a
+ * bright backdrop hard, a dark one barely, and a black one not at all. A
+ * `box-shadow` is a constant colour composited source-over, which sounds like the
+ * opposite; it is not, because the colour is BLACK:
+ *
+ *   out = (1 − α)·backdrop + α·black = backdrop·(1 − α)
+ *
+ * Source-over collapses onto multiply exactly when the source is zero, so this
+ * tier's shadow is multiplicative by construction and vanishes over black for the
+ * same reason the reference's does, with no branch for it. The `sd` the browser
+ * blurs is the element's own border box with its own radii, which is the
+ * silhouette the reference casts.
+ *
+ * The one real gap is the SPACE. The reference's fraction is of linear light; a
+ * browser composites in encoded sRGB. `outerShadowAlpha` converts, and the
+ * residual is 2.1 of 255 at worst across every backdrop level — stated, not
+ * hidden, and below the reference bed's own ±4/255 reproducibility.
+ *
+ * The second gap is the KERNEL: `box-shadow` blurs with a browser-chosen
+ * approximation of a Gaussian rather than a true one, so the two tiers agree on
+ * the shadow's extent, offset, spread and amplitude, and only approximately on
+ * the shape of its edge.
+ */
+export interface MaterialSourceOuterShadow {
+  readonly offsetPx: number;
+  readonly sigmaPx: number;
+  readonly spreadPx: number;
+  readonly occlusion: number;
+  readonly reducedTransparencyOcclusion: number;
+  readonly sizeGain: number;
+}
+
+/** Mirrors `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE.outerShadow`. */
+export const MATERIAL_SOURCE_OUTER_SHADOW: MaterialSourceOuterShadow = {
+  offsetPx: 7.95,
+  sigmaPx: 15.55,
+  spreadPx: 3.1,
+  occlusion: 0.33,
+  reducedTransparencyOcclusion: 0.566,
+  sizeGain: 0,
+};
+
+/** The outer shadow's constants under a profile patch, by the renderer's merge rule. */
+export function sourceOuterShadow(patch?: RendererMaterialProfile): MaterialSourceOuterShadow {
+  return { ...MATERIAL_SOURCE_OUTER_SHADOW, ...patch?.outerShadow };
+}
+
+/** sRGB's power-law exponent — the one `outerShadowAlpha` inverts. Mirrored. */
+export const SRGB_ENCODING_EXPONENT = 2.4;
+
+/**
+ * The compositing-space alpha that reproduces a linear-light occlusion — the
+ * mirror of the renderer's `outerShadowAlpha`, and the conversion this tier's
+ * `box-shadow` is written through.
+ */
+export function outerShadowAlpha(occlusion: number): number {
+  const occ = clamp01(occlusion);
+  return 1 - Math.pow(1 - occ, 1 / SRGB_ENCODING_EXPONENT);
+}
+
+/**
+ * The Gaussian CDF the shadow's edge falls off by — the mirror of the renderer's
+ * `outerShadowFalloff`.
+ *
+ * This tier does not evaluate it to paint: `box-shadow` owns its own blur. It is
+ * mirrored so the two tiers can be held to one curve where it matters — the
+ * shadow's reach, and the analytic zero over black — rather than only to one set
+ * of constants.
+ */
+export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
+  const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
+  return 0.5 * (1 + Math.tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+}
+
+/**
+ * `box-shadow`'s blur radius for a Gaussian σ.
+ *
+ * CSS Backgrounds 3 defines the blur radius as twice the standard deviation of
+ * the Gaussian the shadow is blurred by — the opposite convention from
+ * `filter: blur()`, whose parameter IS σ (see `MaterialOptics.blurRadius`). Two
+ * lengths, two conventions, one profile: this is where they are reconciled, and
+ * getting it wrong would halve or double the shadow's extent silently.
+ */
+export function cssShadowBlurRadius(sigmaPx: number): number {
+  return 2 * sigmaPx;
+}
+
+/**
+ * The outer shadow's peak occlusion at this thickness — the mirror of the
+ * renderer's `sizeOuterShadowOcclusionAt`. Exactly the identity at the shipped
+ * gain of 0.
+ */
+export function sizeOuterShadowOcclusionAt(
+  occlusion: number,
+  thickness: number,
+  shadow: MaterialSourceOuterShadow = MATERIAL_SOURCE_OUTER_SHADOW,
+): number {
+  return Math.min(1, occlusion + shadow.sizeGain * thickness * (1 - occlusion));
+}
+
+/**
+ * The outer shadow under an accessibility regime — the mirror of the renderer's
+ * `outerShadowUnderPolicy`.
+ *
+ * `frost` is the axis reduced transparency alone sets, and the amplitude it
+ * multiplies by is measured rather than assumed. Under forced colours the
+ * material is gone and its shadow goes with it.
+ */
+export function outerShadowUnderPolicy(
+  shadow: MaterialSourceOuterShadow,
+  policy: ResolvedMaterialPolicy,
+): MaterialSourceOuterShadow {
+  if (policy.glass === "none" || policy.frost === "none") return { ...shadow, occlusion: 0 };
+  if (policy.frost === "increased") {
+    return { ...shadow, occlusion: shadow.occlusion * shadow.reducedTransparencyOcclusion };
+  }
+  return shadow;
+}
+
 /** The size-law constants under a profile patch, by the renderer's merge rule. */
 export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize {
   return {
@@ -686,29 +813,18 @@ export interface CssTierMapping {
    * derivation.
    */
   readonly borderWidth: number;
-  /**
-   * The ambient drop shadow — offset and blur in CSS px, and its alpha.
-   *
-   * **Zero, as of Decision Log #32(c).** The seam stays because a profile is
-   * entitled to put one back; the shipped value is the reference's, which is
-   * none. K5 measured what the shadow was costing: it owned the dom tier's whole
-   * shape axis, and turning it off — nothing else — moved silhouette IoU from
-   * 0.676 to 0.942 and contour p95 from 18.7px to 2.2px, with perceptual and
-   * cross-tier agreement improving too. It had survived until then on the repo's
-   * effects policy ("the fallback is the design", so it has to read as a floating
-   * surface); the parent ruled fidelity-first is the tiebreaker and "reads as
-   * Apple" outranks "reads as floating".
-   *
-   * The tier does not lose its contrast floor with it. What keeps a surface
-   * legible when `backdrop-filter` no-ops is the tint and the border, which is
-   * what `e2e/pixel/css-tier-pixels.spec.ts` asserts, and neither is a shadow.
-   *
-   * Absolute px rather than multiples of σ, so that a frost preference cannot
-   * change the surface's apparent footprint if a profile does restore one.
+  /*
+   * The ambient drop shadow used to be a CSS-ONLY constant here — a triple of
+   * 6 px / 24 px / 0.18 that Decision Log #32(c) then zeroed, on the measurement
+   * that it "is the one thing this tier draws that the reference material does
+   * not". W8 moved it out of this mapping altogether: the reference's ACTIVE
+   * material does cast one, so it is a facet of the material rather than a
+   * decoration of this tier, and it lives in the mirrored profile block
+   * `MATERIAL_SOURCE_OUTER_SHADOW` where both tiers read one set of numbers. The
+   * K5 measurement stands and its cause is now known — the extractor was
+   * measuring the shadow's extent as the surface's shape, and the reference it was
+   * measured against had none because the window was never key.
    */
-  readonly shadowOffset: number;
-  readonly shadowBlur: number;
-  readonly shadowAlpha: number;
 
   /**
    * The backdrop level an X6 hint's `tone` stands for when it carries no
@@ -775,14 +891,6 @@ export const CSS_TIER_MAPPING: CssTierMapping = {
    */
   borderAlphaPerRimAlpha: 1.95,
   borderWidth: 1,
-  /*
-   * MEASURED (K5) and REMOVED (Decision Log #32(c)). See `CssTierMapping`'s
-   * shadow fields for the numbers and the reasoning; the surface's own contrast
-   * floor is the tint and the border, not this.
-   */
-  shadowOffset: 0,
-  shadowBlur: 0,
-  shadowAlpha: 0,
   // A hint that names only a tone is a coarse statement, and these are the coarse
   // readings of it: near-black and near-white. An app that wants the foreground
   // decided finely passes `luminance`, which X6's hint already carries.
@@ -1098,9 +1206,6 @@ export function cssTierOptics(
       borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha),
       border: encodeRgb(source.highlight),
       borderWidth: mapping.borderWidth,
-      shadowOffset: mapping.shadowOffset,
-      shadowBlur: mapping.shadowBlur,
-      shadowAlpha: mapping.shadowAlpha,
       // Unconverted, and the mapping carries no constant for them — see
       // `MaterialSourceGlow`. The colour is the highlight, which is also what the
       // border reads: one highlight, two features that use it.

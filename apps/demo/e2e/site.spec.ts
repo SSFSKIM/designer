@@ -712,3 +712,141 @@ test.describe("the accessibility floor", () => {
     expect(overflow.code).toBe(true);
   });
 });
+
+/*
+ * W8. The reference's active material casts an outer shadow across up to a third
+ * of the canvas, and vitrea drew exactly none of it on either tier. The unit
+ * tests hold the mechanism; what has to be true HERE is that it reaches the page
+ * a reader actually looks at, and that it is the multiplicative occlusion the
+ * reference measures rather than a grey layer that happens to resemble one.
+ *
+ * The tone stage is the controlled comparison, and it is the right one rather
+ * than a convenient one: its ground is a single declared level a reader can
+ * drag, and a multiplicative occlusion removes a FRACTION of the light behind
+ * it — so the same shadow that is plainly there over the bright end of that
+ * control has almost nothing left to remove at the dark end. Apple's own bed
+ * shows exactly that: its `dark-solid` cells are byte-identical to their
+ * background, shadow included.
+ */
+test.describe("the outer shadow is on screen", () => {
+  const toLinear = (value: number): number => {
+    const v = value / 255;
+    return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  };
+  const luminanceOf = (r: number, g: number, b: number): number =>
+    0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+
+  /** The median luminance of one rectangle of the page, in linear light. */
+  const medianLuminance = async (
+    page: Page,
+    clip: { x: number; y: number; width: number; height: number },
+  ): Promise<number> => {
+    const png = PNG.sync.read(await page.screenshot({ clip }));
+    const values: number[] = [];
+    for (let i = 0; i < png.data.length; i += 4) {
+      values.push(luminanceOf(png.data[i] ?? 0, png.data[i + 1] ?? 0, png.data[i + 2] ?? 0));
+    }
+    values.sort((a, b) => a - b);
+    return values[Math.floor(values.length / 2)] ?? 0;
+  };
+
+  /**
+   * The shadow just under a plate, and the same ground beside it — one row, one
+   * paint, so the only thing that differs between the two readings is the shadow.
+   *
+   * The reference sits 60 CSS px past the plate's right edge, comfortably outside
+   * the shadow's measured sideways reach of about 35, and the stage stacks its
+   * plates in a column so nothing else is on that row.
+   */
+  const shadowUnder = async (
+    page: Page,
+    testId: string,
+  ): Promise<{ readonly ground: number; readonly shadowed: number }> => {
+    const box = await page.getByTestId(testId).boundingBox();
+    if (box === null) throw new Error(`${testId} has no box`);
+    const y = box.y + box.height + 3;
+    const shadowed = await medianLuminance(page, {
+      x: box.x + 20,
+      y,
+      width: Math.max(box.width - 40, 8),
+      height: 6,
+    });
+    const ground = await medianLuminance(page, {
+      x: box.x + box.width + 60,
+      y,
+      width: 40,
+      height: 6,
+    });
+    return { ground, shadowed };
+  };
+
+  const setGroundLevel = async (page: Page, value: string): Promise<void> => {
+    await page.getByTestId("ground-level").fill(value);
+    await expect(page.getByTestId("ground-level-readout")).toContainText(
+      `${(Number(value) / 1000).toFixed(3)} linear`,
+    );
+    await page.waitForTimeout(400);
+  };
+
+  test("every surface writes a real shadow: black, downward, blurred", async ({ page }) => {
+    await gotoSite(page, "?renderer=css");
+    await showSection(page, "material");
+
+    for (const testId of ["untinted-plate", "tinted-plate"]) {
+      const shadow = await page
+        .getByTestId(testId)
+        .evaluate((element) => getComputedStyle(element).boxShadow);
+
+      // Pure black, and that is the mechanism rather than a palette choice: a
+      // black layer composited source-over IS a multiply, and only a black one is.
+      expect(shadow, testId).toMatch(/^rgba\(0, 0, 0, /);
+      const lengths = (shadow.match(/-?[\d.]+px/g) ?? []).map((length) =>
+        Number(length.slice(0, -2)),
+      );
+      const [offsetX = 0, offsetY = 0, blur = 0, spread = 0] = lengths;
+      expect(offsetX, `${testId} offset-x`).toBe(0);
+      expect(offsetY, `${testId} offset-y`).toBeGreaterThan(0);
+      // The blur dominates the offset — the reference's shadow is a wide soft
+      // field a little below the surface, not a hard drop.
+      expect(blur, `${testId} blur`).toBeGreaterThan(2 * offsetY);
+      expect(spread, `${testId} spread`).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  test("it darkens a bright ground and has nothing to take from a dark one", async ({ page }) => {
+    await gotoSite(page, "?renderer=css");
+    await showSection(page, "tone");
+
+    // The two ends of the stage's own control: its ground runs 0.002 to 0.160
+    // linear, because the axis it was built for lives down there.
+    await setGroundLevel(page, "160");
+    const bright = await shadowUnder(page, "tone-plate-c");
+    await setGroundLevel(page, "2");
+    const dark = await shadowUnder(page, "tone-plate-c");
+
+    // Over the bright end it is plainly there — a real fraction of the light
+    // behind it, not a rounding difference.
+    expect(bright.ground).toBeGreaterThan(0.05);
+    expect((bright.ground - bright.shadowed) / bright.ground).toBeGreaterThan(0.03);
+
+    /*
+     * And at the dark end it is analytically absent. Stated in ABSOLUTE luminance
+     * rather than as a fraction, because the fraction is what a multiplication
+     * holds constant and the absolute darkening is what collapses with the light
+     * available — which is the property being asserted.
+     */
+    expect(dark.ground - dark.shadowed).toBeLessThan((bright.ground - bright.shadowed) / 10);
+  });
+
+  test("it goes with the glass under forced colours", async ({ browser }) => {
+    // Not a dimmer shadow — none. A surface that has become a flat system fill
+    // has no elevation to cast one from, and a shadow that outlived the glass is
+    // the composition the regime exists to prevent.
+    const context = await browser.newContext({ forcedColors: "active" });
+    const forced = await context.newPage();
+    await gotoSite(forced, "?renderer=css");
+    await showSection(forced, "material");
+    await expect(forced.getByTestId("untinted-plate")).toHaveCSS("box-shadow", "none");
+    await context.close();
+  });
+});

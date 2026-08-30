@@ -71,6 +71,10 @@ import {
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
   opticsUnderPolicy,
+  outerShadowAlpha,
+  outerShadowReachPx,
+  outerShadowUnderPolicy,
+  sizeOuterShadowOcclusionAt,
   tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -583,9 +587,64 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * already put both edges on device-pixel boundaries, so the arithmetic below
        * reproduces the previous origin and extent exactly.
        */
-      const snapped = snapRectToDevicePixels(groupFieldRect(surfaces, union), dpr);
+      /*
+       * The outer shadow (W8) is resolved before the rect, because it is what
+       * sizes the rect: the optics pass scissors to this rectangle, so the pad has
+       * to reach as far as the shadow draws or the facet is sliced off at the
+       * contour. Both folds land here on the CPU — the accessibility regime and
+       * the linear-to-compositing-space conversion — so the shader carries the
+       * curve and not the regime, as every other axis does.
+       */
+      const shadow = outerShadowUnderPolicy(policy, material);
+      /*
+       * The pad covers the DEEPEST shadow any member of this group can emit,
+       * which is not the group's base amplitude. The size law amplifies the
+       * amplitude per surface and the shader reads the CASTING surface's own
+       * thickness, so a rect padded from the base while a thick platter emitted
+       * more would slice that surface's shadow off at the scissor — and the CSS
+       * tier, having no scissor, would go on drawing it, which is a cross-tier
+       * divergence rather than a cost. The gain ships at the identity, so this is
+       * inert today and correct for whatever the cascade fits.
+       *
+       * A maximum over the members rather than the thickest member's value,
+       * because a profile is entitled to a negative gain and then the THINNEST
+       * surface is the one that reaches furthest.
+       */
+      let reachOcclusion = shadow.occlusion;
+      for (const surface of surfaces) {
+        reachOcclusion = Math.max(
+          reachOcclusion,
+          sizeOuterShadowOcclusionAt(shadow.occlusion, surface.sizeThickness, material),
+        );
+      }
+      const shadowReachPx = outerShadowReachPx({ ...shadow, occlusion: reachOcclusion });
+
+      const snapped = snapRectToDevicePixels(
+        groupFieldRect(surfaces, union, undefined, shadowReachPx),
+        dpr,
+      );
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
       if (rectDevice === undefined) continue;
+
+      /*
+       * The surface's OWN rect — the rect every pass used before W8, and the one
+       * the highlight pass still uses.
+       *
+       * The shadow made the field rect several times larger on a small control,
+       * and the highlight draws nothing out there: `fs_highlight` returns on
+       * `coverage <= 0`, so those fragments were rasterised, read twice and
+       * thrown away. On the benchmark's mobile scene that was 1.0 ms of a 3.1 ms
+       * frame, interleaved against the same scene with the shadow declined. The
+       * optics pass cannot be scoped this way — it is what draws the shadow.
+       */
+      const surfaceRectDevice: DeviceRect =
+        shadowReachPx === 0
+          ? rectDevice
+          : (clipFieldRectToCanvas(
+              snapRectToDevicePixels(groupFieldRect(surfaces, union), dpr),
+              dpr,
+              viewportDevice,
+            ) ?? rectDevice);
 
       const packed = packInstances(surfaces, [
         rectDevice.x * cssPerDevice,
@@ -710,6 +769,17 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           input.backdropTone?.[2] ?? 0,
           backdropToneLevel,
         ],
+        outerShadow: [
+          outerShadowAlpha(shadow.occlusion),
+          shadow.sigmaPx,
+          shadow.spreadPx,
+          // The offset in field-texture UV. The field spans exactly this rect, so
+          // one CSS px is one over the rect's CSS height however the governor
+          // scaled the rasterisation.
+          shadow.offsetPx / Math.max(rectDevice.height * cssPerDevice, 1e-6),
+        ],
+        outerShadowSizeGain: shadow.sizeGain,
+        outerShadowRectCssHeight: rectDevice.height * cssPerDevice,
         backdrop:
           pyramid === undefined || policy.glass === "none"
             ? undefined
@@ -731,7 +801,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           groupId: input.groupId,
           target: active.highlight,
           targetFormat: active.format,
-          rectDevice,
+          // The surface's own rect, not the shadow's — see `surfaceRectDevice`.
+          rectDevice: surfaceRectDevice,
+          fieldRectDevice: rectDevice,
           fields,
           viewportDevice,
           cssPerDevice,

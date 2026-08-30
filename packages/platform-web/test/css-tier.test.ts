@@ -17,6 +17,7 @@ import {
   INCREASED_OCCLUSION_LIFT,
   MATERIAL_OPTICS,
   MATERIAL_SOURCE_OPTICS,
+  MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
   cssTierOptics,
@@ -24,7 +25,10 @@ import {
   cssTintAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
+  outerShadowAlpha,
+  outerShadowFalloff,
   resolvedPolicyFold,
+  sourceOuterShadow,
 } from "../src/optics";
 
 const surface = {
@@ -308,17 +312,19 @@ describe("the CSS tier (the fallback is the design)", () => {
       expect(declarations["border-color"]).toBe(
         `rgba(${optics.border.join(", ")}, ${optics.borderAlpha.toFixed(3)})`,
       );
-      // The shadow is gone (Decision Log #32(c)) and the declaration says so
-      // rather than writing a zero-sized one, but the seam is still derived: a
-      // profile that restores a shadow gets it painted.
-      expect(optics.shadowAlpha).toBe(0);
-      expect(declarations["box-shadow"]).toBe("none");
+      // The outer shadow (W8) is derived the same way: nothing in this file
+      // chooses its lengths, and a profile that declines it stops it being drawn.
+      const shadow = MATERIAL_SOURCE_OUTER_SHADOW;
+      expect(declarations["box-shadow"]).toBe(
+        `0 ${shadow.offsetPx}px ${2 * shadow.sigmaPx}px ${shadow.spreadPx}px ` +
+          `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(shadow.occlusion) * 1000) / 1000})`,
+      );
       expect(
         cssTierDeclarations({
           ...surface,
-          optics: { ...optics, shadowOffset: 6, shadowBlur: 24, shadowAlpha: 0.18 },
+          outerShadow: { ...shadow, occlusion: 0 },
         })["box-shadow"],
-      ).toBe("0 6px 24px rgba(0, 0, 0, 0.18)");
+      ).toBe("none");
     });
 
     it("paints the press illumination the GPU tier draws, keyed off the glow channel", () => {
@@ -775,5 +781,181 @@ describe("the size law reaches the CSS tier", () => {
     expect(blurOf(reducedPlatter)).toBeGreaterThan(blurOf(reducedSmall));
     expect(occlusionOf(reducedPlatter)).toBeGreaterThanOrEqual(occlusionOf(reducedSmall));
     expect(occlusionOf(reducedPlatter)).toBeLessThanOrEqual(1);
+  });
+});
+
+/*
+ * W8. The reference's active material casts an outer shadow across up to a third
+ * of the canvas and vitrea rendered exactly zero of it — the largest fidelity gap
+ * the project has measured. These pin the MECHANISM rather than the fitted
+ * constants: the constants are provisional and the cascade owns them, but a
+ * shadow that stopped being multiplicative, or that started painting over black,
+ * would be a different facet wearing the same numbers.
+ */
+describe("the outer shadow reaches the CSS tier", () => {
+  const shadowOf = (declarations: Record<string, string>): string => {
+    const value = declarations["box-shadow"];
+    if (value === undefined) throw new Error("no box-shadow written");
+    return value;
+  };
+  /** The alpha out of a `box-shadow: … rgba(0, 0, 0, α)` declaration. */
+  const alphaOf = (declarations: Record<string, string>): number => {
+    const value = shadowOf(declarations);
+    if (value === "none") return 0;
+    const match = /rgba\(0, 0, 0, ([\d.]+)\)$/.exec(value);
+    if (match?.[1] === undefined) throw new Error(`unparsed box-shadow: ${value}`);
+    return Number(match[1]);
+  };
+
+  it("writes the profile's own lengths, with box-shadow's blur convention applied", () => {
+    // `filter: blur()` takes σ; `box-shadow` takes twice it (CSS Backgrounds 3).
+    // Getting this wrong halves or doubles the shadow's reach in silence, so it
+    // is asserted against the σ the profile states rather than against a literal.
+    const shadow = MATERIAL_SOURCE_OUTER_SHADOW;
+    expect(shadowOf(cssTierDeclarations(surface))).toBe(
+      `0 ${shadow.offsetPx}px ${2 * shadow.sigmaPx}px ${shadow.spreadPx}px ` +
+        `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(shadow.occlusion) * 1000) / 1000})`,
+    );
+    // Downward, never up: the reference's shadow is offset toward the bottom of
+    // the screen on every profile, backdrop, span and scale in the bed.
+    expect(shadow.offsetPx).toBeGreaterThan(0);
+  });
+
+  it("is a multiplicative occlusion, and therefore analytically zero over black", () => {
+    /*
+     * The claim the whole facet rests on. A `box-shadow` is a constant colour
+     * composited source-over, which is not a multiply — UNLESS the colour is
+     * black, and then `(1 - a)·backdrop + a·0` IS `backdrop·(1 - a)`. So the
+     * colour is load-bearing and this asserts it, and then asserts the property
+     * it buys: over a black backdrop the shadow changes nothing at all, which is
+     * exactly what the reference's `dark-solid` cells measure (byte-identical to
+     * their own background).
+     */
+    expect(shadowOf(cssTierDeclarations(surface))).toContain("rgba(0, 0, 0, ");
+
+    const alpha = alphaOf(cssTierDeclarations(surface));
+    const over = (backdrop: number): number => backdrop * (1 - alpha);
+    expect(over(0)).toBe(0);
+    // And in proportion everywhere else: twice the light behind it, twice the
+    // light removed.
+    expect(over(0.5)).toBeCloseTo(over(1) / 2, 12);
+  });
+
+  it("converts the reference's LINEAR occlusion into the alpha a browser composites with", () => {
+    /*
+     * The one honest gap on this tier, measured rather than waved at. The
+     * reference removes a fraction of the backdrop's linear light; a browser
+     * composites `box-shadow` in encoded sRGB. `outerShadowAlpha` inverts the
+     * transfer function's power law, which makes the conversion independent of
+     * the backdrop — and what is left is the transfer function's linear toe.
+     *
+     * This measures that residual across the whole backdrop range and holds it
+     * under one 8-bit code step's worth of slack, against a reference bed whose
+     * own run-to-run reproducibility is +/-4 of 255 (Decision Log 10).
+     */
+    const occlusion = MATERIAL_SOURCE_OUTER_SHADOW.occlusion;
+    const alpha = outerShadowAlpha(occlusion);
+    const encode = (linear: number): number =>
+      linear <= 0.0031308 ? 12.92 * linear : 1.055 * linear ** (1 / 2.4) - 0.055;
+
+    let worstCodes = 0;
+    for (let i = 0; i <= 200; i += 1) {
+      const linear = 0.004 * (1 / 0.004) ** (i / 200);
+      const reference = encode(linear * (1 - occlusion));
+      const painted = encode(linear) * (1 - alpha);
+      worstCodes = Math.max(worstCodes, Math.abs(reference - painted) * 255);
+    }
+    expect(worstCodes).toBeLessThan(3);
+
+    // Exact at the ends, whatever the constants become: no occlusion is no
+    // shadow, and total occlusion is opaque black.
+    expect(outerShadowAlpha(0)).toBe(0);
+    expect(outerShadowAlpha(1)).toBe(1);
+  });
+
+  it("falls off as a Gaussian's integral — the shape a box-shadow's blur is", () => {
+    const sigma = MATERIAL_SOURCE_OUTER_SHADOW.sigmaPx;
+    // Half exactly on the silhouette's own edge, monotone outward, and gone by
+    // three sigma — the three properties that make it a blurred silhouette
+    // rather than a ramp or a step.
+    expect(outerShadowFalloff(0, sigma)).toBeCloseTo(0.5, 6);
+    expect(outerShadowFalloff(-3 * sigma, sigma)).toBeGreaterThan(0.998);
+    expect(outerShadowFalloff(3 * sigma, sigma)).toBeLessThan(0.002);
+    let previous = 1;
+    for (let d = -2 * sigma; d <= 2 * sigma; d += sigma / 8) {
+      const value = outerShadowFalloff(d, sigma);
+      expect(value).toBeLessThanOrEqual(previous);
+      previous = value;
+    }
+  });
+
+  it("dims under reduced transparency and goes out under forced colours", () => {
+    /*
+     * MEASURED, which the charter asked for before the fold was written. The
+     * reference's shadow under reduce-transparency is the same shadow at 0.566
+     * of the amplitude — it neither vanishes nor intensifies — and the
+     * increased-contrast reference reproduces the reduced-transparency number to
+     * four decimals, because macOS force-couples the toggles (Decision Log 8).
+     */
+    const nominal = alphaOf(cssTierDeclarations(surface));
+    const reduced = alphaOf(
+      cssTierDeclarations({
+        ...surface,
+        policy: resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })),
+      }),
+    );
+    expect(reduced).toBeGreaterThan(0);
+    expect(reduced).toBeLessThan(nominal);
+
+    // Forced colours is not a dimmer material, it is a different surface — and a
+    // shadow that outlived the glass it belonged to would be the one composition
+    // the regime exists to prevent.
+    expect(
+      shadowOf(
+        cssTierDeclarations({
+          ...surface,
+          policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
+        }),
+      ),
+    ).toBe("none");
+  });
+
+  it("follows a profile patch, and a profile may decline it outright", () => {
+    const patched = sourceOuterShadow({ outerShadow: { occlusion: 0.5, offsetPx: 12 } });
+    expect(patched.occlusion).toBe(0.5);
+    expect(patched.offsetPx).toBe(12);
+    // Unnamed fields keep the mirrored default, which is the renderer's own merge
+    // rule and the reason a partial calibration patch is legal.
+    expect(patched.sigmaPx).toBe(MATERIAL_SOURCE_OUTER_SHADOW.sigmaPx);
+
+    expect(shadowOf(cssTierDeclarations({ ...surface, outerShadow: patched }))).toBe(
+      `0 12px ${2 * patched.sigmaPx}px ${patched.spreadPx}px ` +
+        `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(0.5) * 1000) / 1000})`,
+    );
+    expect(
+      shadowOf(cssTierDeclarations({ ...surface, outerShadow: { ...patched, occlusion: 0 } })),
+    ).toBe("none");
+  });
+
+  it("rides the size law's one curve, and is inert at the shipped gain", () => {
+    /*
+     * The seam, and its measured emptiness. The reference's THREE LENGTHS are
+     * span-invariant across 32…160 px, so nothing but the amplitude may couple;
+     * the amplitude's own coupling points in opposite directions in the two
+     * colour schemes, so the shipped gain is the identity and this pins that a
+     * span cannot move the shadow until somebody fits one.
+     */
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.sizeGain).toBe(0);
+    const small = cssTierDeclarations({ ...surface, spanPx: 24, size: MATERIAL_SOURCE_SIZE });
+    const platter = cssTierDeclarations({ ...surface, spanPx: 320, size: MATERIAL_SOURCE_SIZE });
+    expect(shadowOf(platter)).toBe(shadowOf(small));
+
+    // With a gain, the same curve moves it — and only the amplitude, never the
+    // lengths, which is the half of the facet the bed actually settled.
+    const gained = { ...MATERIAL_SOURCE_OUTER_SHADOW, sizeGain: 0.5 };
+    const thin = cssTierDeclarations({ ...surface, spanPx: 24, outerShadow: gained });
+    const thick = cssTierDeclarations({ ...surface, spanPx: 320, outerShadow: gained });
+    expect(alphaOf(thick)).toBeGreaterThan(alphaOf(thin));
+    expect(shadowOf(thin).split("rgba")[0]).toBe(shadowOf(thick).split("rgba")[0]);
   });
 });

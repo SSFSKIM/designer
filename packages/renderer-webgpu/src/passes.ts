@@ -142,6 +142,29 @@ export interface OpticsPassArgs {
    * strength is 0 where there is none, so this is not read.
    */
   readonly backdropToneColour: readonly [number, number, number, number];
+  /**
+   * The outer shadow (W8): `[alpha, sigmaCss, spreadCss, offsetFieldUv]`.
+   *
+   * `alpha` is already in the canvas's compositing space (`outerShadowAlpha`) and
+   * already folded under the accessibility policy; the size law is per pixel and
+   * stays in the shader. The offset arrives as a **field-texture UV** rather than
+   * as CSS px, because only the caller knows how tall the rect the field was
+   * rasterised into is.
+   */
+  readonly outerShadow: readonly [number, number, number, number];
+  /** The outer shadow's size-law gain — see `MaterialOuterShadow.sizeGain`. */
+  readonly outerShadowSizeGain: number;
+  /**
+   * The field rect's height in CSS px — what the shadow's shift converts through
+   * when it lands outside the field texture.
+   *
+   * The rect is clipped to the canvas and its pad is only the shadow's reach, so
+   * the shift runs off the top of the texture both for a surface near the
+   * viewport's top edge and, always, for the topmost band of every group. The
+   * shader reconstructs the distance it could not read; this is the scale it
+   * reconstructs in.
+   */
+  readonly outerShadowRectCssHeight: number;
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -169,6 +192,29 @@ export interface HighlightPassArgs {
    */
   readonly backdropTone: readonly [number, number, number, number];
   readonly backdropToneLevel: number;
+  /**
+   * The rect the FIELD textures were rasterised into, which since W8 is bigger
+   * than `rectDevice`.
+   *
+   * The outer shadow made the field rect grow by the shadow's reach — about 46
+   * CSS px against the rim-and-bulge margin's 3 — and this pass draws nothing out
+   * there: `fs_highlight` returns on `coverage <= 0`, so every one of those
+   * fragments was rasterised, read twice and discarded. So the pass keeps the
+   * small rect as its viewport and scissor and reads the field through the remap
+   * this pair implies.
+   *
+   * **Worth less than it looks, and the number is here rather than a hope.** A/B
+   * against the same tree without this scoping, three interleaved bench runs
+   * each, comparing the shadow-on to shadow-off ratio on the mobile scene: 3.11
+   * against 3.35 at the median, with the two ranges overlapping (2.92…3.37
+   * against 3.20…3.62). So this recovers roughly 7% of the shadow's cost, not the
+   * third this pass's own timestamp suggested — most of that timestamp is the
+   * field texture's write draining into the next pass rather than this pass's own
+   * fragments. It stays because it is strictly less work for byte-identical
+   * output (the `highlight-press-glow` golden does not move), not because the
+   * benchmark can see it clearly.
+   */
+  readonly fieldRectDevice: DeviceRect;
 }
 
 export interface PassRunner {
@@ -388,7 +434,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 52);
+      const slot = uniformSlot(`optics:${args.groupId}`, 60);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -448,6 +494,14 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[49] = args.backdropToneColour[1];
       d[50] = args.backdropToneColour[2];
       d[51] = args.backdropToneColour[3];
+      d[52] = args.outerShadow[0];
+      d[53] = args.outerShadow[1];
+      d[54] = args.outerShadow[2];
+      d[55] = args.outerShadow[3];
+      d[56] = args.outerShadowSizeGain;
+      d[57] = args.outerShadowRectCssHeight;
+      d[58] = 0;
+      d[59] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -483,7 +537,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     highlightPass(encoder, args) {
-      const slot = uniformSlot(`highlight:${args.groupId}`, 28);
+      const slot = uniformSlot(`highlight:${args.groupId}`, 32);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -513,6 +567,19 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[25] = 0;
       d[26] = 0;
       d[27] = 0;
+      /*
+       * This pass's uv into the field texture's uv (W8). The field rect is the
+       * one the shadow needs; this pass is scoped to the one the surface needs,
+       * which is smaller, so the two no longer index one-to-one.
+       *
+       * Derived from the two rects rather than passed in already-divided, so the
+       * one place that knows both is the one place that computes it.
+       */
+      const fieldRect = args.fieldRectDevice;
+      d[28] = args.rectDevice.width / Math.max(fieldRect.width, 1e-6);
+      d[29] = args.rectDevice.height / Math.max(fieldRect.height, 1e-6);
+      d[30] = (args.rectDevice.x - fieldRect.x) / Math.max(fieldRect.width, 1e-6);
+      d[31] = (args.rectDevice.y - fieldRect.y) / Math.max(fieldRect.height, 1e-6);
       slot.write();
 
       const pipeline = highlightPipeline(args.targetFormat);

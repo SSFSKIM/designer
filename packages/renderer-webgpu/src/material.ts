@@ -104,6 +104,97 @@ export interface MaterialRim {
 }
 
 /**
+ * The outer shadow (W8) — the material's own occlusion of the backdrop *outside*
+ * its contour, and the largest single facet the project has measured.
+ *
+ * Not the same quantity as `MaterialOptics.shadowDepth`/`shadowAlpha`, which are
+ * the *inner* shadow: that one darkens the material's own body near its contour,
+ * this one darkens what is behind and beside the surface. Profile-level rather
+ * than per-variant, because the bed measures it per profile and never varied the
+ * variant.
+ *
+ * ## The mechanism, as measured
+ *
+ * The reference's shadow is the component's OWN rounded silhouette, outset by
+ * `spreadPx`, translated down by `offsetPx`, blurred by a Gaussian of standard
+ * deviation `sigmaPx`, and applied MULTIPLICATIVELY: the backdrop keeps
+ * `1 − occlusion·falloff` of its own light. Fitted in two dimensions against the
+ * active bed, that model reproduces the reference to an RMS of 0.0021 in
+ * occlusion over 142,550 pixels on the finest cell, and the same three lengths
+ * describe every profile, backdrop, span and scale in the bed.
+ *
+ * **Multiplicative, and not additively.** Mirrored pixel pairs either side of a
+ * capsule over the `photo` backdrop see the same shadow over different backdrop
+ * luminances: the darkening's ratio tracks the backdrop's ratio to 4.5% while a
+ * constant-subtraction model misses by 79% of the signal. So the shadow is
+ * analytically INVISIBLE over black — `dark-solid` cells are byte-identical to
+ * their background — and that property is what both tiers reproduce exactly,
+ * because a fully transparent black composited over anything leaves it alone and
+ * black times anything is black.
+ *
+ * ## Lengths, in points
+ *
+ * Every length below is in CSS px and the 2× bed proves it: `sigmaPx` measures
+ * 15.5 at 1× and 31.0 at 2× device px, `offsetPx` 7.9 and 15.8. A shadow
+ * specified in points is what doubles that way.
+ *
+ * They are also SPAN-INVARIANT, which is a positive measurement rather than an
+ * absence: across spans of 32, 44, 96 and 160 px the fitted σ stays within
+ * 15.4…15.9 and the offset within 6.9…8.1. The size law reaches the amplitude
+ * (`sizeGain`) and nothing else.
+ */
+export interface MaterialOuterShadow {
+  /** Downward translation of the shadow's silhouette, CSS px. */
+  readonly offsetPx: number;
+  /** Gaussian σ the silhouette is blurred by, CSS px. A `box-shadow` blur is 2σ. */
+  readonly sigmaPx: number;
+  /** Outward spread of the silhouette before the blur, CSS px. */
+  readonly spreadPx: number;
+  /**
+   * Peak occlusion: the fraction of the backdrop's own LINEAR light removed deep
+   * inside the shadow. Zero stands the whole facet down, pad and all.
+   */
+  readonly occlusion: number;
+  /**
+   * What reduced transparency does to `occlusion` — MEASURED, not assumed, which
+   * is what the charter asked for before the fold was written.
+   *
+   * The reference's shadow under `reduce transparency` is the same shadow at
+   * 0.566 of the amplitude: 0.1830/0.3259, 0.1884/0.3309 and 0.1882/0.3314 on the
+   * three structured backdrops at a 44 px span, with σ, offset and spread
+   * unmoved. It does not vanish and it does not intensify.
+   *
+   * The `increased contrast` reference reproduces the reduced-transparency
+   * amplitude to four decimals (0.1830, 0.1884, 0.1882 — the same numbers), which
+   * is Decision Log 8's finding again: macOS force-couples the two toggles, so the
+   * contrast reference IS the reduced-transparency state and the bed cannot
+   * separate them. The fold therefore keys on `frost`, the axis reduced
+   * transparency alone sets, rather than on the contrast axes it would be
+   * indistinguishable on here.
+   */
+  readonly reducedTransparencyOcclusion: number;
+  /**
+   * The size law's grip on the amplitude: the fraction of the REMAINING
+   * transparency a full-thickness surface's shadow closes, on
+   * `sizeOcclusionGain`'s relative form.
+   *
+   * Ships at 0 — the identity — and the reason is a measurement rather than an
+   * absence of one. Fitted per scene at a frozen geometry, the amplitude's span
+   * dependence points in OPPOSITE directions in the two colour schemes: light
+   * standard falls from 0.326 to 0.196 between a 44 px and a 96 px span over
+   * `photo` (and 0.331 → 0.285 over `checkerboard`, 0.331 → 0.245 over
+   * `hc-text`), while dark standard RISES from 0.060 to 0.177 to 0.274 across 44,
+   * 96 and 160 px. Under reduced transparency it is flat (0.183, 0.192, 0.165).
+   * One monotone gain on one thickness curve cannot be all three, and any
+   * non-zero value fitted to one scheme is wrong in the other — the same shape of
+   * finding Decision Log 13 recorded for W7's curve ("surface size is its own
+   * axis"). The seam ships so the cascade can fit it if a two-axis rework lands;
+   * the value stays at the identity until something can identify it.
+   */
+  readonly sizeGain: number;
+}
+
+/**
  * Every number the material runs on, in one place.
  *
  * The same seam `@vitrea/motion`'s `MotionProfile` opens for the drivers, for the
@@ -324,6 +415,9 @@ export interface MaterialProfile {
   readonly backdropToneLow: number;
   readonly backdropToneHigh: number;
   readonly backdropToneSizeBias: number;
+
+  /** The outer shadow (W8) — see `MaterialOuterShadow`. */
+  readonly outerShadow: MaterialOuterShadow;
 
   /**
    * Advisory light direction, in viewport coordinates with y pointing down: a
@@ -566,6 +660,54 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneHigh: 0.14,
   backdropToneSizeBias: 0.09,
 
+  /*
+   * PROVISIONAL (W8). Extracted from the active bed's native fixtures directly —
+   * `results/2026-08-31-active-bed-stage0.json` measured the gap, these numbers
+   * measure the facet — and left provisional deliberately: X1 gives the fit to
+   * the recalibration cascade, which owns the holdout discipline. This child owns
+   * the mechanism.
+   *
+   * Method: for each `rest` fixture, the occlusion field `1 − L_capture/L_background`
+   * in linear Rec.709 luminance, over every pixel outside the declared component
+   * geometry with a backdrop bright enough to carry a signal; fitted in two
+   * dimensions against `occlusion · Φ(−sd/σ)`, where `sd` is the signed distance
+   * to the component's own rounded silhouette translated down by `offsetPx` and
+   * outset by `spreadPx`.
+   *
+   * The fit and its residual, on `1x-light-standard` and `2x-light-standard`:
+   *
+   *   backdrop      span   occlusion   σ (1×/2×)   offset (1×/2×)   RMS
+   *   photo           44     0.323     15.5/31.1     7.9/15.8     0.0021
+   *   checkerboard    44     0.338     15.7/31.0     8.0/15.9     0.0016
+   *   hc-text         44     0.339     15.7/31.1     8.0/15.9     0.0014
+   *   photo           32     0.321     15.5/30.9     8.1/16.2     0.0018
+   *   mid-dark-solid  44     0.310        —            —          0.0079
+   *
+   * — against a peak occlusion of 0.24, so the model carries the facet to under
+   * 1% of its own amplitude, over up to 142,550 pixels per cell. The three
+   * lengths are the consensus across every well-conditioned cell; `occlusion` is
+   * the light-standard amplitude at a span the size law leaves alone.
+   *
+   * What the amplitude does NOT yet have is a mechanism for its scene-to-scene
+   * spread. Over the flat near-white `light-solid` backdrop the same fit reads
+   * 0.123 rather than 0.33, reproducibly and at both scales, while the other flat
+   * backdrop (`mid-dark-solid`, linear 0.0595) reads 0.310 — so it is not a
+   * function of the backdrop's luminance, its structure, or the material's
+   * interior level, and no compositing model in either colour space produces both.
+   * The dark-scheme profile is a separate amplitude entirely (0.046…0.061 at a
+   * 44 px span — the dark material's shadow is nearly invisible) and lands as a
+   * profile patch, not as a branch here. Both are stated in the claims doc as the
+   * open question the cascade's fit inherits.
+   */
+  outerShadow: {
+    offsetPx: 7.95,
+    sigmaPx: 15.55,
+    spreadPx: 3.1,
+    occlusion: 0.33,
+    reducedTransparencyOcclusion: 0.566,
+    sizeGain: 0,
+  },
+
   lightDirection: [-0.3714, -0.9285],
   sweepBandRadians: 0.55,
   glowRadiusCss: 44,
@@ -594,6 +736,7 @@ export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
 export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
 export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
 export const BACKDROP_TONE_SIZE_BIAS = DEFAULT_MATERIAL_PROFILE.backdropToneSizeBias;
+export const OUTER_SHADOW = DEFAULT_MATERIAL_PROFILE.outerShadow;
 
 /**
  * A profile patch: any subset, to any depth, of what a profile holds.
@@ -629,6 +772,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneLow?: number;
   readonly backdropToneHigh?: number;
   readonly backdropToneSizeBias?: number;
+  readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
   readonly sweepBandRadians?: number;
   readonly glowRadiusCss?: number;
@@ -685,6 +829,7 @@ export function withMaterialOverrides(
     backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
     backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
+    outerShadow: { ...base.outerShadow, ...patch.outerShadow },
     lightDirection: patch.lightDirection ?? base.lightDirection,
     sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,
     glowRadiusCss: patch.glowRadiusCss ?? base.glowRadiusCss,
@@ -1129,6 +1274,152 @@ export function sizeShadowDepthAt(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
   return shadowDepth * (1 + (profile.sizeShadowGainMax - 1) * thickness);
+}
+
+/**
+ * The outer shadow's peak occlusion at this span — see
+ * `MaterialOuterShadow.sizeGain`. At the shipped gain of 0 this is the identity,
+ * exactly, which is the point.
+ */
+export function sizeOuterShadowOcclusion(
+  occlusion: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return sizeOuterShadowOcclusionAt(occlusion, sizeThickness(spanPx, profile), profile);
+}
+
+/** The same, for a caller that has already resolved the thickness factor. */
+export function sizeOuterShadowOcclusionAt(
+  occlusion: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(1, occlusion + profile.outerShadow.sizeGain * thickness * (1 - occlusion));
+}
+
+/**
+ * The outer shadow under an accessibility regime.
+ *
+ * One branch per axis that can reach it, on `opticsUnderPolicy`'s rule. `frost`
+ * is the axis reduced transparency alone sets, and the amplitude it multiplies by
+ * is measured — see `MaterialOuterShadow.reducedTransparencyOcclusion`. Under
+ * forced colours the material is gone, so its shadow goes with it rather than
+ * outliving the surface that cast it.
+ */
+export function outerShadowUnderPolicy(
+  policy: MaterialPolicyView,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): MaterialOuterShadow {
+  const shadow = profile.outerShadow;
+  if (policy.glass === "none" || policy.frost === "none") return { ...shadow, occlusion: 0 };
+  if (policy.frost === "increased") {
+    return { ...shadow, occlusion: shadow.occlusion * shadow.reducedTransparencyOcclusion };
+  }
+  return shadow;
+}
+
+/**
+ * The Gaussian CDF the shadow's edge falls off by, at a signed distance OUTSIDE
+ * the shadow's own silhouette: 1 deep inside, 0.5 exactly on it, 0 far outside.
+ *
+ * A Gaussian-blurred silhouette is what `box-shadow` specifies and what the
+ * reference measures, so this is the one curve, evaluated identically by both
+ * tiers and by the shader. Written as the tanh form rather than as `erf` because
+ * WGSL has no `erf` and a curve the shader cannot evaluate is not one shape: the
+ * approximation's worst error is 1.8e-4 across the whole line, which at the
+ * shipped occlusion is 0.015 of one 8-bit code.
+ */
+/** sRGB's power-law exponent — the one `outerShadowAlpha` inverts. */
+export const SRGB_ENCODING_EXPONENT = 2.4;
+
+export function outerShadowFalloff(signedDistancePx: number, sigmaPx: number): number {
+  const x = -signedDistancePx / Math.max(sigmaPx, 1e-4);
+  return 0.5 * (1 + Math.tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
+}
+
+/**
+ * The compositing-space alpha that reproduces a linear-light occlusion.
+ *
+ * Both tiers paint the shadow the same way — a pure BLACK layer at some alpha,
+ * composited source-over — and that is already a multiplicative occlusion by
+ * compositing algebra alone: `out = (1 − α)·backdrop + α·0 = backdrop·(1 − α)`.
+ * The shadow's colour being zero is what collapses source-over onto multiply, and
+ * it is also why the facet is exactly inert over black on both tiers, with no
+ * special case anywhere.
+ *
+ * What does NOT come free is the space. The reference removes a fraction of the
+ * backdrop's LINEAR light; a browser composites a `box-shadow` — and a
+ * premultiplied canvas — in ENCODED sRGB. So the same visual result needs a
+ * different alpha, and the conversion is exact under sRGB's power law:
+ * `enc(L(1−occ)) = enc(L)·(1−α)` gives `α = 1 − (1−occ)^(1/2.4)`, independent of
+ * the backdrop, which is the same conversion `cssTintAlpha` performs for the tint
+ * and the same reason it exists.
+ *
+ * The residual is the transfer function's linear toe, and it is small and stated:
+ * across every backdrop level from 0.004 to 1.0 the worst departure from the
+ * reference's own composite is 2.1 of 255 at the shipped occlusion, against a bed
+ * whose own reproducibility is ±4 of 255 (Decision Log 10). A per-pixel exact
+ * conversion is not available to either tier — `box-shadow` takes one alpha, and
+ * the canvas composites outside the shader — so this is the honest floor rather
+ * than a shortcut.
+ */
+export function outerShadowAlpha(occlusion: number): number {
+  const occ = Math.min(1, Math.max(0, occlusion));
+  return 1 - Math.pow(1 - occ, 1 / SRGB_ENCODING_EXPONENT);
+}
+
+/**
+ * How far past a surface's own contour the shadow can still change a pixel, CSS
+ * px — the margin the GPU tier has to rasterise into, since a scissor rect that
+ * stops at the contour would slice the facet off.
+ *
+ * The cut-off is where the shadow stops moving an 8-bit code over a white
+ * backdrop, and it is taken against the **compositing-space alpha** rather than
+ * against the linear occlusion, because the alpha is what the canvas actually
+ * writes: `page × (1 − α·falloff)` moves one code when `α·falloff` reaches
+ * 1/255. Thresholding the linear occlusion instead over-allocated by about 5 CSS
+ * px on every edge at the shipped constants — pure cost on a facet already
+ * measured at 3.2× the frame's GPU time.
+ *
+ * `shadow.occlusion` must be the EFFECTIVE amplitude — after the accessibility
+ * fold and after the size law — which is the caller's to resolve, because only
+ * it knows the group's membership. A pad taken from the base amplitude while the
+ * shader emits an amplified one slices the deepest surface's shadow off at the
+ * scissor, while the CSS tier, which has no scissor, goes on drawing it.
+ *
+ * The solve runs over the signed distance to the shadow's OWN silhouette, which
+ * may be negative — a pixel just outside the contour is already inside the
+ * offset, spread silhouette — so `occlusion = 0`, and any amplitude too faint to
+ * move a code anywhere, both fall out as a reach of zero rather than needing a
+ * case of their own.
+ */
+export function outerShadowReachPx(shadow: MaterialOuterShadow): number {
+  const alpha = outerShadowAlpha(shadow.occlusion);
+  if (!(alpha > 0)) return 0;
+  const cutoff = 1 / 255 / alpha;
+  // Even a pixel the silhouette covers outright cannot move a code.
+  if (cutoff >= 1) return 0;
+
+  const sigma = Math.max(shadow.sigmaPx, 1e-4);
+  // Bisected on the falloff itself, so the reach cannot disagree with what the
+  // shader draws.
+  let lo = -(8 * sigma + Math.abs(shadow.offsetPx) + Math.abs(shadow.spreadPx));
+  let hi = 8 * sigma;
+  for (let i = 0; i < 48; i += 1) {
+    const mid = (lo + hi) / 2;
+    if (outerShadowFalloff(mid, sigma) > cutoff) lo = mid;
+    else hi = mid;
+  }
+
+  /*
+   * Back to a distance from the COMPONENT's contour, in whichever direction
+   * reaches furthest — the pad is applied to all four edges, so one bound has to
+   * cover them all. The offset enters by magnitude (downward when positive,
+   * upward when negative) and the spread carries its own sign, because a
+   * negative spread pulls every direction in together.
+   */
+  return Math.max(0, hi + Math.abs(shadow.offsetPx) + shadow.spreadPx);
 }
 
 export function lensDepthPx(

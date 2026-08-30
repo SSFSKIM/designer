@@ -50,6 +50,45 @@ const CONFIGS = [
     devicePixelRatio: 3,
     family: "rsup" as const,
   },
+  /*
+   * What the outer shadow costs (W8), as a row rather than as an argument.
+   *
+   * The facet is not free, and the reason is structural: the field, optics and
+   * highlight passes are all confined to the group's field rect, so a shadow
+   * reaching about 46 CSS px has to be rasterised into a rect padded by 46 rather
+   * than by the rim-and-bulge 3. On this scene's small controls that is a
+   * multiple of the fragments rather than a margin on them.
+   *
+   * Measured against the same scene at `occlusion: 0`, which takes the pad to
+   * exactly zero — a profile that declines the shadow pays what it paid before
+   * the facet existed, and this row is what says so. Interleaved with the rest,
+   * because two numbers from two processes measure the GPU's clock state at least
+   * as much as they measure the renderer (see the methodology note above).
+   *
+   * **The verdict, recorded rather than asserted, as this file's rule is.** On
+   * `apple / metal-3`: the shadow costs about **2.8x** the frame's GPU time on the
+   * mobile scene (median ratio 2.79 over three runs), taking it from roughly 40%
+   * of the ~2 ms hypothesis to roughly 115%. It came down from 3.35 in two steps,
+   * each measured on this row: scoping the highlight pass back to the surface's
+   * own rect (3.35 → 3.11), and thresholding the field pad on the
+   * compositing-space alpha the canvas actually writes rather than on the linear
+   * occlusion, which had been over-allocating five CSS px on every edge
+   * (3.11 → 2.79). That is the facet's
+   * footprint arriving, not an inefficiency in how it is drawn: the shadow covers
+   * 8.5–29.6% of the canvas in the reference, and every pixel of it has to be
+   * written by something. What is not inherent is the FIELD pass rasterising the
+   * whole enlarged rect at full resolution to feed a term whose own detail is a
+   * 15 px Gaussian — a dedicated low-resolution shadow pass is the structural fix,
+   * and it is a design change rather than a tuning one, so it is recorded here for
+   * the next cut rather than taken now.
+   */
+  {
+    label: "mobile-390x844@3 shadow-off",
+    widthCss: 390,
+    heightCss: 844,
+    devicePixelRatio: 3,
+    materialProfile: { outerShadow: { occlusion: 0 } },
+  },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is
   // comparable either.
@@ -114,7 +153,7 @@ test.describe("@bench the performance envelope", () => {
     // The ordering control. Within 25% of the row it repeats, or the interleaving
     // is not doing its job and none of the comparisons above mean anything.
     const first = measurement.results[0]?.gpuMsPerFrame;
-    const control = measurement.results[3]?.gpuMsPerFrame;
+    const control = measurement.results.at(-1)?.gpuMsPerFrame;
     if (first !== undefined && control !== undefined) {
       expect(
         Math.abs(Math.log2(control / first)),
