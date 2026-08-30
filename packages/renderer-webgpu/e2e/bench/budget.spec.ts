@@ -66,9 +66,14 @@ const CONFIGS = [
    * as much as they measure the renderer (see the methodology note above).
    *
    * **The verdict, recorded rather than asserted, as this file's rule is.** On
-   * `apple / metal-3`, six runs: the shadow costs about **3.2x** the frame's GPU
-   * time on the mobile scene (median ratio 3.11, range 2.92…3.62), taking it from
-   * roughly 40% of the ~2 ms hypothesis to roughly 130%. That is the facet's
+   * `apple / metal-3`: the shadow costs about **2.8x** the frame's GPU time on the
+   * mobile scene (median ratio 2.79 over three runs), taking it from roughly 40%
+   * of the ~2 ms hypothesis to roughly 115%. It came down from 3.35 in two steps,
+   * each measured on this row: scoping the highlight pass back to the surface's
+   * own rect (3.35 → 3.11), and thresholding the field pad on the
+   * compositing-space alpha the canvas actually writes rather than on the linear
+   * occlusion, which had been over-allocating five CSS px on every edge
+   * (3.11 → 2.79). That is the facet's
    * footprint arriving, not an inefficiency in how it is drawn: the shadow covers
    * 8.5–29.6% of the canvas in the reference, and every pixel of it has to be
    * written by something. What is not inherent is the FIELD pass rasterising the

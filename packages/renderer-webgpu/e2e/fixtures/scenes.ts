@@ -286,7 +286,49 @@ export const LENS_DEPTH_SCENE: Scene = {
   ],
 };
 
-export const ALL_SCENES: readonly Scene[] = [...SCENES, LENS_DEPTH_SCENE];
+/**
+ * The outer shadow's field-extent case (W8): one surface tight against the
+ * viewport's top edge, and the identical surface clear of it.
+ *
+ * The shadow is read from the group's own field texture at an OFFSET position —
+ * the field one shadow-offset above the pixel being shaded. That rect is clipped
+ * to the canvas, so for a surface within the shadow's reach of the top there are
+ * no rows up there to read, and a clamp would repeat the edge texel: a distance
+ * too small, and therefore a flat, too-dark band exactly where the shadow should
+ * be fading out. The two scenes are identical apart from where the surface sits,
+ * so the shadow above each of them must agree once one is shifted onto the other.
+ *
+ * DPR 1 and no backdrop: this is read back and differenced rather than committed,
+ * and the shadow lands in the canvas's ALPHA, which a backdrop would only add
+ * noise to.
+ */
+const shadowEdgeScene = (name: string, centreY: number): Scene => ({
+  name,
+  widthCss: 240,
+  heightCss: 260,
+  devicePixelRatio: 1,
+  measureOnly: true,
+  backdrop: { kind: "none" },
+  groups: [
+    group("g", [rect("s", [120, centreY], [120, 44])], {
+      noBackdrop: true,
+      refraction: "none",
+      analysisExact: false,
+    }),
+  ],
+});
+
+/** Top edge of the surface at y = 8 — well inside the shadow's ~41 px reach. */
+export const SHADOW_TOP_EDGE_SCENE: Scene = shadowEdgeScene("shadow-top-edge", 30);
+/** The same surface 100 px lower, where the field rect is not clipped at all. */
+export const SHADOW_MID_CANVAS_SCENE: Scene = shadowEdgeScene("shadow-mid-canvas", 130);
+
+export const ALL_SCENES: readonly Scene[] = [
+  ...SCENES,
+  LENS_DEPTH_SCENE,
+  SHADOW_TOP_EDGE_SCENE,
+  SHADOW_MID_CANVAS_SCENE,
+];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);
 

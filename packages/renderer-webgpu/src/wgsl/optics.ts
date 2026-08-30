@@ -98,7 +98,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// is mostly not one
   shadow : vec4f,
   /// the outer shadow's size-law gain (x), read against the casting surface's own
-  /// thickness; y…w are the padding a uniform's vec4 alignment requires
+  /// thickness, and the field rect's height in CSS px (y) — the conversion the
+  /// shadow's shift needs when it lands outside the texture; z and w are the
+  /// padding a uniform's vec4 alignment requires
   shadowSize : vec4f,
 };
 
@@ -143,7 +145,28 @@ fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
   if (ou.shadow.x <= 0.0) {
     return 0.0;
   }
-  let shadowUv = clamp(vec2f(uv.x, uv.y - ou.shadow.w), vec2f(0.0), vec2f(1.0));
+  /*
+   * The shift can leave the field texture, and clamping alone reads a lie there.
+   *
+   * Two ways it happens, and the second is not an edge case: the rect is clipped
+   * to the canvas, so a surface within the shadow's reach of the viewport's TOP
+   * has no rows above it to shift into; and even unclipped, the rect's pad is the
+   * shadow's reach, so the topmost band of every group needs rows a further
+   * 'offset' above that. Clamped, both repeat the edge texel — a distance that is
+   * too SMALL, which reads as a flat, too-dark falloff exactly where the shadow
+   * should be fading out, and diverges from the CSS tier, which has no texture to
+   * run out of.
+   *
+   * Reconstructed instead of clamped. A signed distance field is 1-Lipschitz, and
+   * in the region this happens in — directly above the surface — moving away from
+   * it increases the distance by exactly the displacement. So adding back the
+   * distance that was clamped off is exact there, and past the surface's corners
+   * it over-estimates, which errs toward LESS shadow rather than more.
+   */
+  let shiftedY = uv.y - ou.shadow.w;
+  let clampedOffCss =
+    (max(0.0, -shiftedY) + max(0.0, shiftedY - 1.0)) * ou.shadowSize.y;
+  let shadowUv = clamp(vec2f(uv.x, shiftedY), vec2f(0.0), vec2f(1.0));
   var shadowField : vec4f;
   var shadowAux : vec4f;
   if (upsampled > 0.5) {
@@ -168,7 +191,7 @@ fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
   let sizeFold = pow(max(1.0 - ou.shadowSize.x * sizeK, 0.0), 1.0 / 2.4);
   let alpha = 1.0 - (1.0 - ou.shadow.x) * sizeFold;
 
-  return alpha * outer_shadow_falloff(shadowField.x - ou.shadow.z, ou.shadow.y);
+  return alpha * outer_shadow_falloff(shadowField.x + clampedOffCss - ou.shadow.z, ou.shadow.y);
 }
 
 @fragment

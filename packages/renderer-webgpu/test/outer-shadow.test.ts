@@ -28,6 +28,7 @@ import {
   outerShadowReachPx,
   outerShadowUnderPolicy,
   sizeOuterShadowOcclusion,
+  sizeOuterShadowOcclusionAt,
   SRGB_ENCODING_EXPONENT,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -274,19 +275,77 @@ describe("the outer shadow under the accessibility regime and the size law", () 
 });
 
 describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
-  it("stops where the occlusion falls under one code step, and not before", () => {
+  it("stops where the shadow stops moving a code, measured in the space it writes", () => {
     const reach = outerShadowReachPx(OUTER_SHADOW);
     // Far enough to draw the facet: the reference's own measured extent runs to
     // roughly 45 px below a 1x surface.
-    expect(reach).toBeGreaterThan(40);
-    expect(reach).toBeLessThan(60);
+    expect(reach).toBeGreaterThan(35);
+    expect(reach).toBeLessThan(55);
 
-    // At the reach, there is nothing left to paint; a little inside it, there is.
-    const at = (d: number): number =>
-      OUTER_SHADOW.occlusion *
-      outerShadowFalloff(d - OUTER_SHADOW.offsetPx - OUTER_SHADOW.spreadPx, OUTER_SHADOW.sigmaPx);
-    expect(at(reach) * 255).toBeLessThan(1);
-    expect(at(reach - 8) * 255).toBeGreaterThan(1);
+    /*
+     * The threshold is on the COMPOSITING-SPACE alpha, not on the linear
+     * occlusion, and the difference is not academic — it is five CSS px of pad on
+     * every edge of every group, on a facet measured at 3.2x the frame's GPU
+     * time. What the canvas writes is `page × (1 − α·falloff)`, so one 8-bit code
+     * moves when `α·falloff` reaches 1/255; the linear occlusion is a larger
+     * number and thresholding it reaches further than anything can be seen at.
+     */
+    const alpha = outerShadowAlpha(OUTER_SHADOW.occlusion);
+    const codesAt = (d: number): number =>
+      alpha *
+      outerShadowFalloff(
+        d - OUTER_SHADOW.offsetPx - OUTER_SHADOW.spreadPx,
+        OUTER_SHADOW.sigmaPx,
+      ) *
+      255;
+    expect(codesAt(reach)).toBeLessThan(1);
+    expect(codesAt(reach - 4)).toBeGreaterThan(1);
+
+    // And it is strictly tighter than the same solve run on the linear occlusion,
+    // which is the bug this replaced.
+    const linearThresholded = (() => {
+      let d = 0;
+      while (OUTER_SHADOW.occlusion * outerShadowFalloff(d - 11.05, 15.55) * 255 > 1) d += 0.01;
+      return d;
+    })();
+    expect(reach).toBeLessThan(linearThresholded);
+    expect(linearThresholded - reach).toBeGreaterThan(3);
+  });
+
+  it("covers the deepest shadow the size law can amplify a member to", () => {
+    /*
+     * The pad is the scissor, and the shader amplifies the amplitude per surface
+     * against the CASTING surface's thickness. A rect padded from the group's BASE
+     * amplitude while a thick member emits more slices that member's shadow off at
+     * the scissor — and the CSS tier, which has no scissor, goes on drawing it, so
+     * the two tiers disagree on a facet they otherwise draw identically.
+     *
+     * The gain ships at the identity, so today the two are equal; the property
+     * that has to hold is that the reach FOLLOWS the amplitude, for whatever the
+     * cascade fits.
+     */
+    expect(outerShadowReachPx({ ...OUTER_SHADOW, occlusion: OUTER_SHADOW.occlusion })).toBe(
+      outerShadowReachPx(OUTER_SHADOW),
+    );
+
+    const gained = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      outerShadow: { sizeGain: 1 },
+    });
+    const amplified = sizeOuterShadowOcclusionAt(OUTER_SHADOW.occlusion, 1, gained);
+    expect(amplified).toBe(1);
+    const amplifiedReach = outerShadowReachPx({ ...OUTER_SHADOW, occlusion: amplified });
+    expect(amplifiedReach).toBeGreaterThan(outerShadowReachPx(OUTER_SHADOW));
+    // The margin the base-amplitude pad would have sliced off.
+    expect(amplifiedReach - outerShadowReachPx(OUTER_SHADOW)).toBeGreaterThan(4);
+
+    // Monotone in the amplitude, so a maximum over a group's members is a correct
+    // upper bound however the gain is signed.
+    let previous = 0;
+    for (const occlusion of [0.05, 0.1, 0.2, 0.33, 0.5, 0.8, 1]) {
+      const reach = outerShadowReachPx({ ...OUTER_SHADOW, occlusion });
+      expect(reach, `occlusion ${occlusion}`).toBeGreaterThanOrEqual(previous);
+      previous = reach;
+    }
   });
 
   it("is exactly zero when a profile declines the shadow, so nothing pays for it", () => {
@@ -347,6 +406,18 @@ describe("the shader draws the shadow the CPU resolved", () => {
     expect(WGSL_OPTICS_PASS).toContain("fn outer_shadow_falloff(");
     expect(WGSL_OPTICS_PASS).toContain("fn outer_shadow_alpha(");
     expect(WGSL_OPTICS_PASS).toContain("uv.y - ou.shadow.w");
+    /*
+     * And the shift's own edge case, which is not an edge case: the field rect is
+     * clipped to the canvas AND padded only by the shadow's reach, so the rows the
+     * shift needs are missing both for a surface near the viewport's top and, for
+     * every group, in its topmost band. A clamp alone repeats the edge texel — a
+     * distance too SMALL, which paints a flat, too-dark falloff exactly where the
+     * shadow should be fading out. The distance that was clamped off is added
+     * back, which is exact directly above a surface because a signed distance
+     * field is 1-Lipschitz.
+     */
+    expect(WGSL_OPTICS_PASS).toContain("clampedOffCss");
+    expect(WGSL_OPTICS_PASS).toContain("shadowField.x + clampedOffCss - ou.shadow.z");
     // The tanh form's coefficients, mirrored digit for digit from
     // `outerShadowFalloff` — the two evaluate one curve or they evaluate two.
     expect(WGSL_OPTICS_PASS).toContain("0.7978845608028654");

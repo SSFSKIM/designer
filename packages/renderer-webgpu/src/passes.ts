@@ -154,6 +154,17 @@ export interface OpticsPassArgs {
   readonly outerShadow: readonly [number, number, number, number];
   /** The outer shadow's size-law gain — see `MaterialOuterShadow.sizeGain`. */
   readonly outerShadowSizeGain: number;
+  /**
+   * The field rect's height in CSS px — what the shadow's shift converts through
+   * when it lands outside the field texture.
+   *
+   * The rect is clipped to the canvas and its pad is only the shadow's reach, so
+   * the shift runs off the top of the texture both for a surface near the
+   * viewport's top edge and, always, for the topmost band of every group. The
+   * shader reconstructs the distance it could not read; this is the scale it
+   * reconstructs in.
+   */
+  readonly outerShadowRectCssHeight: number;
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -488,7 +499,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[54] = args.outerShadow[2];
       d[55] = args.outerShadow[3];
       d[56] = args.outerShadowSizeGain;
-      d[57] = 0;
+      d[57] = args.outerShadowRectCssHeight;
       d[58] = 0;
       d[59] = 0;
       slot.write();

@@ -74,6 +74,7 @@ import {
   outerShadowAlpha,
   outerShadowReachPx,
   outerShadowUnderPolicy,
+  sizeOuterShadowOcclusionAt,
   tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -595,7 +596,28 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * curve and not the regime, as every other axis does.
        */
       const shadow = outerShadowUnderPolicy(policy, material);
-      const shadowReachPx = outerShadowReachPx(shadow);
+      /*
+       * The pad covers the DEEPEST shadow any member of this group can emit,
+       * which is not the group's base amplitude. The size law amplifies the
+       * amplitude per surface and the shader reads the CASTING surface's own
+       * thickness, so a rect padded from the base while a thick platter emitted
+       * more would slice that surface's shadow off at the scissor — and the CSS
+       * tier, having no scissor, would go on drawing it, which is a cross-tier
+       * divergence rather than a cost. The gain ships at the identity, so this is
+       * inert today and correct for whatever the cascade fits.
+       *
+       * A maximum over the members rather than the thickest member's value,
+       * because a profile is entitled to a negative gain and then the THINNEST
+       * surface is the one that reaches furthest.
+       */
+      let reachOcclusion = shadow.occlusion;
+      for (const surface of surfaces) {
+        reachOcclusion = Math.max(
+          reachOcclusion,
+          sizeOuterShadowOcclusionAt(shadow.occlusion, surface.sizeThickness, material),
+        );
+      }
+      const shadowReachPx = outerShadowReachPx({ ...shadow, occlusion: reachOcclusion });
 
       const snapped = snapRectToDevicePixels(
         groupFieldRect(surfaces, union, undefined, shadowReachPx),
@@ -757,6 +779,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           shadow.offsetPx / Math.max(rectDevice.height * cssPerDevice, 1e-6),
         ],
         outerShadowSizeGain: shadow.sizeGain,
+        outerShadowRectCssHeight: rectDevice.height * cssPerDevice,
         backdrop:
           pyramid === undefined || policy.glass === "none"
             ? undefined

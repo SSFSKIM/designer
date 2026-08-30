@@ -1374,26 +1374,52 @@ export function outerShadowAlpha(occlusion: number): number {
  * px — the margin the GPU tier has to rasterise into, since a scissor rect that
  * stops at the contour would slice the facet off.
  *
- * The cut-off is where the occlusion falls under one 8-bit code over a white
- * backdrop; below that there is nothing left to draw and every extra pixel is
- * paid for on every frame. At `occlusion = 0` the whole facet is off and the
- * reach is exactly zero, so a profile that declines the shadow also declines its
- * cost.
+ * The cut-off is where the shadow stops moving an 8-bit code over a white
+ * backdrop, and it is taken against the **compositing-space alpha** rather than
+ * against the linear occlusion, because the alpha is what the canvas actually
+ * writes: `page × (1 − α·falloff)` moves one code when `α·falloff` reaches
+ * 1/255. Thresholding the linear occlusion instead over-allocated by about 5 CSS
+ * px on every edge at the shipped constants — pure cost on a facet already
+ * measured at 3.2× the frame's GPU time.
+ *
+ * `shadow.occlusion` must be the EFFECTIVE amplitude — after the accessibility
+ * fold and after the size law — which is the caller's to resolve, because only
+ * it knows the group's membership. A pad taken from the base amplitude while the
+ * shader emits an amplified one slices the deepest surface's shadow off at the
+ * scissor, while the CSS tier, which has no scissor, goes on drawing it.
+ *
+ * The solve runs over the signed distance to the shadow's OWN silhouette, which
+ * may be negative — a pixel just outside the contour is already inside the
+ * offset, spread silhouette — so `occlusion = 0`, and any amplitude too faint to
+ * move a code anywhere, both fall out as a reach of zero rather than needing a
+ * case of their own.
  */
 export function outerShadowReachPx(shadow: MaterialOuterShadow): number {
-  if (!(shadow.occlusion > 0)) return 0;
-  const cutoff = 1 / 255 / shadow.occlusion;
-  if (cutoff >= 0.5) return 0;
-  // The distance at which the falloff has fallen to `cutoff`, by bisection on the
-  // curve itself — so the reach can never disagree with what the shader draws.
-  let lo = 0;
-  let hi = 8 * Math.max(shadow.sigmaPx, 1e-4);
-  for (let i = 0; i < 40; i += 1) {
+  const alpha = outerShadowAlpha(shadow.occlusion);
+  if (!(alpha > 0)) return 0;
+  const cutoff = 1 / 255 / alpha;
+  // Even a pixel the silhouette covers outright cannot move a code.
+  if (cutoff >= 1) return 0;
+
+  const sigma = Math.max(shadow.sigmaPx, 1e-4);
+  // Bisected on the falloff itself, so the reach cannot disagree with what the
+  // shader draws.
+  let lo = -(8 * sigma + Math.abs(shadow.offsetPx) + Math.abs(shadow.spreadPx));
+  let hi = 8 * sigma;
+  for (let i = 0; i < 48; i += 1) {
     const mid = (lo + hi) / 2;
-    if (outerShadowFalloff(mid, shadow.sigmaPx) > cutoff) lo = mid;
+    if (outerShadowFalloff(mid, sigma) > cutoff) lo = mid;
     else hi = mid;
   }
-  return hi + Math.max(shadow.offsetPx, 0) + Math.max(shadow.spreadPx, 0);
+
+  /*
+   * Back to a distance from the COMPONENT's contour, in whichever direction
+   * reaches furthest — the pad is applied to all four edges, so one bound has to
+   * cover them all. The offset enters by magnitude (downward when positive,
+   * upward when negative) and the spread carries its own sign, because a
+   * negative spread pulls every direction in together.
+   */
+  return Math.max(0, hi + Math.abs(shadow.offsetPx) + shadow.spreadPx);
 }
 
 export function lensDepthPx(
