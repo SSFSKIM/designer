@@ -47,6 +47,14 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
   toneAdapt : vec4f,
   /// the backdrop source's own average luminance (x); yzw unused
   toneLevel : vec4f,
+  /// this pass's uv into the FIELD texture's uv: scale (xy), offset (zw).
+  ///
+  /// The identity for a pass whose scissor is the field's own rect, and not the
+  /// identity since W8: the outer shadow made the field rect much larger than
+  /// anything this pass draws in, so the highlight is scoped back to the rect it
+  /// had before and reads the field through this remap instead. Derived from the
+  /// two rects by highlightPass in passes.ts.
+  fieldFit : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> hu : HighlightUniforms;
@@ -68,13 +76,14 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
   // Exact load nominally; filtered when the governor's resolution knob had the
   // field rasterised below the group's rect. The sweep rides the rim, which is
   // the one place a nearest read of a coarse field would show its grid.
+  let fieldUv = in.uv * hu.fieldFit.xy + hu.fieldFit.zw;
   var field : vec4f;
   var aux : vec4f;
   if (hu.flags.z > 0.5) {
-    field = textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0);
-    aux = textureSampleLevel(auxTexture, fieldSampler, in.uv, 0.0);
+    field = textureSampleLevel(fieldTexture, fieldSampler, fieldUv, 0.0);
+    aux = textureSampleLevel(auxTexture, fieldSampler, fieldUv, 0.0);
   } else {
-    let texel = vec2i(in.uv * hu.flags.xy);
+    let texel = vec2i(fieldUv * hu.flags.xy);
     field = textureLoad(fieldTexture, texel, 0);
     aux = textureLoad(auxTexture, texel, 0);
   }

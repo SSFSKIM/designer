@@ -604,6 +604,26 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       const rectDevice: DeviceRect | undefined = clipFieldRectToCanvas(snapped, dpr, viewportDevice);
       if (rectDevice === undefined) continue;
 
+      /*
+       * The surface's OWN rect — the rect every pass used before W8, and the one
+       * the highlight pass still uses.
+       *
+       * The shadow made the field rect several times larger on a small control,
+       * and the highlight draws nothing out there: `fs_highlight` returns on
+       * `coverage <= 0`, so those fragments were rasterised, read twice and
+       * thrown away. On the benchmark's mobile scene that was 1.0 ms of a 3.1 ms
+       * frame, interleaved against the same scene with the shadow declined. The
+       * optics pass cannot be scoped this way — it is what draws the shadow.
+       */
+      const surfaceRectDevice: DeviceRect =
+        shadowReachPx === 0
+          ? rectDevice
+          : (clipFieldRectToCanvas(
+              snapRectToDevicePixels(groupFieldRect(surfaces, union), dpr),
+              dpr,
+              viewportDevice,
+            ) ?? rectDevice);
+
       const packed = packInstances(surfaces, [
         rectDevice.x * cssPerDevice,
         rectDevice.y * cssPerDevice,
@@ -758,7 +778,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           groupId: input.groupId,
           target: active.highlight,
           targetFormat: active.format,
-          rectDevice,
+          // The surface's own rect, not the shadow's — see `surfaceRectDevice`.
+          rectDevice: surfaceRectDevice,
+          fieldRectDevice: rectDevice,
           fields,
           viewportDevice,
           cssPerDevice,

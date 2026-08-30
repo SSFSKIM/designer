@@ -181,6 +181,29 @@ export interface HighlightPassArgs {
    */
   readonly backdropTone: readonly [number, number, number, number];
   readonly backdropToneLevel: number;
+  /**
+   * The rect the FIELD textures were rasterised into, which since W8 is bigger
+   * than `rectDevice`.
+   *
+   * The outer shadow made the field rect grow by the shadow's reach — about 46
+   * CSS px against the rim-and-bulge margin's 3 — and this pass draws nothing out
+   * there: `fs_highlight` returns on `coverage <= 0`, so every one of those
+   * fragments was rasterised, read twice and discarded. So the pass keeps the
+   * small rect as its viewport and scissor and reads the field through the remap
+   * this pair implies.
+   *
+   * **Worth less than it looks, and the number is here rather than a hope.** A/B
+   * against the same tree without this scoping, three interleaved bench runs
+   * each, comparing the shadow-on to shadow-off ratio on the mobile scene: 3.11
+   * against 3.35 at the median, with the two ranges overlapping (2.92…3.37
+   * against 3.20…3.62). So this recovers roughly 7% of the shadow's cost, not the
+   * third this pass's own timestamp suggested — most of that timestamp is the
+   * field texture's write draining into the next pass rather than this pass's own
+   * fragments. It stays because it is strictly less work for byte-identical
+   * output (the `highlight-press-glow` golden does not move), not because the
+   * benchmark can see it clearly.
+   */
+  readonly fieldRectDevice: DeviceRect;
 }
 
 export interface PassRunner {
@@ -503,7 +526,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     highlightPass(encoder, args) {
-      const slot = uniformSlot(`highlight:${args.groupId}`, 28);
+      const slot = uniformSlot(`highlight:${args.groupId}`, 32);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -533,6 +556,19 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[25] = 0;
       d[26] = 0;
       d[27] = 0;
+      /*
+       * This pass's uv into the field texture's uv (W8). The field rect is the
+       * one the shadow needs; this pass is scoped to the one the surface needs,
+       * which is smaller, so the two no longer index one-to-one.
+       *
+       * Derived from the two rects rather than passed in already-divided, so the
+       * one place that knows both is the one place that computes it.
+       */
+      const fieldRect = args.fieldRectDevice;
+      d[28] = args.rectDevice.width / Math.max(fieldRect.width, 1e-6);
+      d[29] = args.rectDevice.height / Math.max(fieldRect.height, 1e-6);
+      d[30] = (args.rectDevice.x - fieldRect.x) / Math.max(fieldRect.width, 1e-6);
+      d[31] = (args.rectDevice.y - fieldRect.y) / Math.max(fieldRect.height, 1e-6);
       slot.write();
 
       const pipeline = highlightPipeline(args.targetFormat);

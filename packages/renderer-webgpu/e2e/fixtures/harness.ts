@@ -734,6 +734,17 @@ const api = {
       readonly heightCss: number;
       readonly devicePixelRatio: number;
       readonly family?: "rsupn" | "rsup";
+      /**
+       * Optical constants for this row — the same seam the isolation proof uses.
+       *
+       * It is here so that the cost of a FACET can be measured rather than
+       * argued: two rows differing only in a profile field are drawn interleaved
+       * in one process, which is the only methodology this benchmark trusts (see
+       * the spec's note on the 1.9x spread the sequential shape produced on
+       * identical work). Comparing two runs in two trees measures the GPU's clock
+       * state at least as much as it measures the renderer.
+       */
+      readonly materialProfile?: MaterialProfilePatch;
     }[];
     readonly rounds: number;
     readonly warmup: number;
@@ -755,7 +766,7 @@ const api = {
 
     const runs = await Promise.all(
       input.configs.map(async (config) => {
-        const run = await setUpScene(benchScene(config));
+        const run = await setUpScene(benchScene(config), config.materialProfile);
         if (config.family !== undefined) run.renderer.governor.set({ fieldFamily: config.family });
         return {
           config,
