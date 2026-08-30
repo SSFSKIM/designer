@@ -83,11 +83,12 @@ import {
   deserializeResultMatrix,
   serializeResultMatrix,
   upsertCellResult,
+  RESULT_MATRIX_SCHEMA_VERSION,
   type CellResult,
   type FixtureSet,
   type ResultMatrix,
 } from "../src/index";
-import { isCaptureFresh, shouldWriteMatrix } from "./gates";
+import { isCaptureFresh, matrixSchemaRefusal, shouldWriteMatrix } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
@@ -568,6 +569,39 @@ function fixed(value: number | undefined, digits: number): string {
   return value === undefined ? "  —   " : value.toFixed(digits);
 }
 
+/**
+ * A tally of cells an axis was absent on, and the scenes they belong to.
+ *
+ * Both halves are needed and they are different sizes: the count is how much
+ * evidence is missing, the scene list is where to look for it. Collapsing to
+ * scene ids alone — which is what a bare `Set<sceneId>` does — reports one
+ * twelfth of the former under its name on a six-profile, two-tier run.
+ */
+class Absences {
+  private readonly cells = new Set<string>();
+  private readonly scenes = new Set<string>();
+
+  add(profileKey: string, sceneId: string, tier: string): void {
+    this.cells.add(`${profileKey}|${sceneId}|${tier}`);
+    this.scenes.add(sceneId);
+  }
+
+  get cellCount(): number {
+    return this.cells.size;
+  }
+
+  get sceneNames(): readonly string[] {
+    return [...this.scenes];
+  }
+
+  /** "N cell(s) across M scene(s): a, b, c" — never one standing in for the other. */
+  describe(): string {
+    return (
+      `${this.cellCount} cell(s) across ${this.scenes.size} scene(s): ${this.sceneNames.join(", ")}`
+    );
+  }
+}
+
 function main(): void {
   const options = parseOptions(process.argv.slice(2));
   const spec = readJson<SceneSpec>(resolve(REFERENCE, "scenes.json"));
@@ -600,6 +634,25 @@ function main(): void {
         `spent and the scenes are no longer a holdout for the new configuration.\n` +
         `${"!".repeat(72)}\n\n`,
     );
+  }
+
+  /*
+   * Refuse an unwritable target BEFORE capturing anything.
+   *
+   * The matrix is only deserialised after the capture step, so a target this
+   * build cannot merge into would otherwise cost a whole browser run before
+   * failing — and during the schema-4/5 interregnum the *default* target is
+   * exactly such a file. See `matrixSchemaRefusal`.
+   */
+  if (existsSync(options.matrixPath)) {
+    const existing: unknown = JSON.parse(readFileSync(options.matrixPath, "utf8"));
+    const version = (existing as { schemaVersion?: unknown }).schemaVersion;
+    const refusal =
+      typeof version === "number"
+        ? matrixSchemaRefusal(version, RESULT_MATRIX_SCHEMA_VERSION, options.matrixPath)
+        : `${options.matrixPath} has no numeric schemaVersion, so it is not a result matrix.`;
+    // Unprefixed: `main`'s own catch prefixes every message with `compare:`.
+    if (refusal !== undefined) throw new Error(refusal);
   }
 
   // Read before the capture step, so every artifact the measure loop selects can
@@ -737,7 +790,16 @@ function main(): void {
   // it is, native beside web, because a gap is not a quantity until both halves
   // are shown.
   // ---------------------------------------------------------------------------
-  const noMaterial = new Set<string>();
+  /*
+   * Absences are counted per CELL and *named* per scene.
+   *
+   * The two are not the same number and the difference is not small: every scene
+   * appears once per profile and once per tier, so a set of scene ids counts a
+   * twelfth of what is missing on a six-profile two-tier run. Reporting the
+   * shorter number under the longer number's label understates exactly the
+   * evidence a reader is being warned about.
+   */
+  const noMaterial = new Absences();
   say("");
   say(
     "set         profile                        scene                                        IoU    cMean   SSIM    dE     " +
@@ -747,7 +809,7 @@ function main(): void {
   for (const { planned: cell, cell: result } of measured) {
     // The profile axes, minus the platform prefix every row shares.
     const profile = cell.profileKey.replace(/^apple-macos-[\d.]+-/, "");
-    if (result.material === undefined) noMaterial.add(cell.sceneId);
+    if (result.material === undefined) noMaterial.add(cell.profileKey, cell.sceneId, result.tier);
     say(
       [
         cell.fixtureSet.padEnd(11),
@@ -814,18 +876,18 @@ function main(): void {
   // remove there is no occlusion ratio to report, and a side that reached the
   // threshold in no direction has no offset.
   // ---------------------------------------------------------------------------
-  const unnormalisedShadow = new Set<string>();
+  const unnormalisedShadow = new Absences();
   say("");
   say("── the shadow axis: what each side does to the backdrop it does not cover ────────────");
   say(
     "profile                       scene                                        support  strength N/W     " +
-      "extent above/below/left/right N       W                 offset y N/W     falloff N/W",
+      "extent above/below/left/right N       W                 offset y N/W     blur sigma N/W",
   );
   say("-".repeat(200));
   for (const { planned: cell, cell: result } of measured) {
     if (result.shadow === undefined) continue;
     if (metric(result, "shadow", "strengthPeakNative") === undefined) {
-      unnormalisedShadow.add(cell.sceneId);
+      unnormalisedShadow.add(cell.profileKey, cell.sceneId, result.tier);
     }
     const extents = (side: "Native" | "Web"): string =>
       (["extentAbove", "extentBelow", "extentLeft", "extentRight"] as const)
@@ -839,7 +901,7 @@ function main(): void {
         `${fixed(metric(result, "shadow", "strengthPeakNative"), 4).padStart(7)}/${fixed(metric(result, "shadow", "strengthPeakWeb"), 4).padStart(7)}`,
         ` ${extents("Native")}  ${extents("Web")}`,
         `  ${fixed(metric(result, "shadow", "offsetYNative"), 1).padStart(6)}/${fixed(metric(result, "shadow", "offsetYWeb"), 1).padStart(6)}`,
-        `  ${fixed(metric(result, "shadow", "falloffLengthNative"), 1).padStart(6)}/${fixed(metric(result, "shadow", "falloffLengthWeb"), 1).padStart(6)}`,
+        `  ${fixed(metric(result, "shadow", "falloffSigmaNative"), 1).padStart(6)}/${fixed(metric(result, "shadow", "falloffSigmaWeb"), 1).padStart(6)}`,
       ].join(" "),
     );
   }
@@ -873,9 +935,9 @@ function main(): void {
   } else {
     say(`All native fixtures used here carry the composited material (materialRendered: true).`);
   }
-  if (noMaterial.size > 0) {
+  if (noMaterial.cellCount > 0) {
     say(
-      `material axis absent on ${noMaterial.size} cell(s): ${[...noMaterial].join(", ")}. ` +
+      `material axis absent on ${noMaterial.describe()}. ` +
         `See the per-cell notes — absent means not identifiable on that scene, never zero.`,
     );
   }
@@ -886,11 +948,11 @@ function main(): void {
       `LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read ` +
       `silhouetteArea{Native,Web} against componentRegionArea.`,
   );
-  if (unnormalisedShadow.size > 0) {
+  if (unnormalisedShadow.cellCount > 0) {
     say(
-      `shadow axis NOT NORMALISED on ${unnormalisedShadow.size} cell(s): ` +
-        `${[...unnormalisedShadow].join(", ")}. Their backdrops carry too little light for an occlusion ` +
-        `ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.`,
+      `shadow axis NOT NORMALISED on ${unnormalisedShadow.describe()}. Those backdrops carry too little ` +
+        `light for an occlusion ratio to exist; the absolute departure is still reported and every ` +
+        `ratio is absent, not zero.`,
     );
   }
   if (options.renderer === "css") {

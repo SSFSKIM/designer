@@ -1,16 +1,18 @@
 /**
- * The `compare` orchestrator's two self-checks.
+ * The `compare` orchestrator's self-checks.
  *
- * Both exist because the CLI's failure mode is not a crash — it is a
- * `results/matrix.json` that reads as evidence and is not one. Neither condition
- * is reachable from a unit test through the CLI itself (one needs a GPU that
- * refuses WebGPU, the other a browser capture), so the decisions are pure
+ * They exist because the CLI's failure mode is not a crash — it is a
+ * `results/matrix.json` that reads as evidence and is not one, or an hour of
+ * capture spent on a target that was never writable. None of the conditions is
+ * reachable from a unit test through the CLI itself (one needs a GPU that
+ * refuses WebGPU, another a browser capture), so the decisions are pure
  * functions and this is where they are pinned.
  */
 
 import { describe, expect, it } from "vitest";
 
-import { isCaptureFresh, shouldWriteMatrix } from "../cli/gates";
+import { isCaptureFresh, matrixSchemaRefusal, shouldWriteMatrix } from "../cli/gates";
+import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
 
 describe("isCaptureFresh", () => {
   it("rejects an artifact left by an earlier run", () => {
@@ -44,5 +46,27 @@ describe("shouldWriteMatrix", () => {
 
   it("writes a run with holes only when asked explicitly", () => {
     expect(shouldWriteMatrix(1, true)).toBe(true);
+  });
+});
+
+describe("matrixSchemaRefusal", () => {
+  it("permits a target this build wrote", () => {
+    expect(
+      matrixSchemaRefusal(RESULT_MATRIX_SCHEMA_VERSION, RESULT_MATRIX_SCHEMA_VERSION, "results/x.json"),
+    ).toBeUndefined();
+  });
+
+  it("refuses the frozen inactive-bed matrix by name, and says where to write instead", () => {
+    // The interregnum case, and the one a default invocation lands on: the
+    // committed matrix is schema 4 by ruling, this build writes 5. Checked
+    // before capture, so the refusal costs nothing but a message.
+    const refusal = matrixSchemaRefusal(4, 5, "results/matrix.json");
+    expect(refusal).toContain("results/matrix.json");
+    expect(refusal).toContain("schema-4");
+    expect(refusal).toContain("--out-matrix");
+  });
+
+  it("refuses a target from a newer build too, not only an older one", () => {
+    expect(matrixSchemaRefusal(6, 5, "results/next.json")).toBeDefined();
   });
 });

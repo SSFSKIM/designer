@@ -537,7 +537,10 @@ export function coherenceAxisReport(input: {
  *   - `centroidOffset*` is absent where too little of the exterior is occluded
  *     for a mass centroid to describe the shadow rather than the backdrop.
  *   - `falloffLength`/`falloffResidual` are absent where the profile has too few
- *     rings above the threshold to fit, or does not decay.
+ *     rings past the body's own edge ring to fit, or when that family's fit
+ *     lands on an impossible amplitude or a sub-pixel scale. The two families
+ *     are absent independently: a profile can be describable as a blurred edge
+ *     and not as an exponential, which on this bed is the usual case.
  *
  * `meanDeparture*` is the one figure present on every scene: an absolute
  * luminance difference is defined even where a ratio is not, and it is what
@@ -572,6 +575,27 @@ export interface ShadowAxisReport {
   readonly centroidOffsetXWeb?: MetricValue;
   readonly centroidOffsetYNative?: MetricValue;
   readonly centroidOffsetYWeb?: MetricValue;
+  /**
+   * The blurred-edge model's Gaussian σ — the blur radius a renderer's shadow
+   * takes as a parameter, and the family this bed's profiles are in. This is the
+   * figure a shadow mechanism should be fitted against.
+   */
+  readonly falloffSigmaNative?: MetricValue;
+  readonly falloffSigmaWeb?: MetricValue;
+  readonly falloffSigmaResidualNative?: MetricValue;
+  readonly falloffSigmaResidualWeb?: MetricValue;
+  /**
+   * The same fit's amplitude at the contour — the strength figure a mechanism is
+   * fitted to, separated from σ so "same shadow, dimmer" and "different shadow"
+   * are different readings. `strengthPeak*` stays as the raw ring maximum.
+   */
+  readonly falloffAmplitudeNative?: MetricValue;
+  readonly falloffAmplitudeWeb?: MetricValue;
+  /**
+   * The exponential alternative, fitted over the same points with the same
+   * objective and the same free-parameter count — kept so the family question
+   * stays answerable from the record rather than by assertion.
+   */
   readonly falloffLengthNative?: MetricValue;
   readonly falloffLengthWeb?: MetricValue;
   readonly falloffResidualNative?: MetricValue;
@@ -604,6 +628,9 @@ const SHADOW_FIELD_UNITS: Readonly<Record<string, MetricUnits>> = {
   offsetY: "px",
   centroidOffsetX: "px",
   centroidOffsetY: "px",
+  falloffSigma: "px",
+  falloffSigmaResidual: "ratio",
+  falloffAmplitude: "ratio",
   falloffLength: "px",
   falloffResidual: "ratio",
 };
@@ -619,6 +646,9 @@ const shadowFieldValues = (side: ShadowFieldReport): Readonly<Record<string, num
   offsetY: side.offsetYPx,
   centroidOffsetX: side.centroidOffsetXPx,
   centroidOffsetY: side.centroidOffsetYPx,
+  falloffSigma: side.falloffSigmaPx,
+  falloffSigmaResidual: side.falloffSigmaResidual,
+  falloffAmplitude: side.falloffAmplitude,
   falloffLength: side.falloffLengthPx,
   falloffResidual: side.falloffResidual,
 });

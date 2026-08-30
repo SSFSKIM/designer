@@ -2150,7 +2150,24 @@ whose shape axis is absent entirely.
 | `extent{Above,Below,Left,Right}{Native,Web}` | how far the occlusion reaches in that direction, in pixels from the declared contour: the outermost ring of a qualifying consecutive pair, where qualifying is a ring mean ≥ 0.01 occlusion. Directions are sectors split on the component's own bounding-box diagonals, so "beside" a capsule is the region past its caps. |
 | `offset{X,Y}{Native,Web}` | the displacement the reach implies: half the difference of opposing extents. This is the offset a renderer is fitted to. |
 | `centroidOffset{X,Y}{Native,Web}` | the occlusion-mass centroid minus the component's centre. A different question from the offset — where the darkening actually sits on the canvas — and inflated relative to it, because only the visible half of the field is in the integral. |
-| `falloffLength{Native,Web}` | exponential decay length fitted from the peak outward, with `falloffResidual` reporting how exponential the profile really is, as a fraction of the peak. |
+| `falloffSigma{Native,Web}` | the blur radius of the **blurred-edge** model `amplitude × (1 − Φ(d/σ))`, with `falloffSigmaResidual` as a fraction of the peak. This is the parameter a renderer's shadow takes. |
+| `falloffAmplitude{Native,Web}` | the same fit's occlusion at the contour — the strength figure, separated from σ and estimated clear of the body's own edge ring. |
+| `falloffLength{Native,Web}` | the **exponential** alternative's decay length, fitted over the same points with the same objective and the same free-parameter count, with `falloffResidual` beside it. |
+
+**The falloff is fitted in two families on purpose.** A shadow is a filled shape
+convolved with a blur kernel, so the profile outside it should be a blurred
+*edge*; the obvious alternative is an ambient-occlusion-shaped exponential. Both
+are fitted over the same rings with the same objective and two free parameters
+each — the amplitude solves in closed form for any trial scale — so the pair of
+residuals is a comparison rather than two unrelated numbers, and neither family
+can win on flexibility. Reporting the winner alone would turn a finding into an
+assumption; reporting both keeps the question answerable from the record. The
+blurred edge's σ is measured with the shadow's own edge pinned to the declared
+contour, which is what keeps the model identified — only the tail beyond the
+component is visible, and with a free edge position amplitude, offset and σ trade
+against one another along a valley — at the price that σ absorbs the shadow's
+spread and the spread of its directional offset, and so reads somewhat above the
+blur radius a renderer would be given.
 
 **Absent, never zeroed**, in four distinguishable ways: the whole normalised
 block is absent where the backdrop cannot support a ratio; `offset*` is absent
@@ -2158,19 +2175,30 @@ where no direction reached the threshold, which is what a renderer drawing no
 shadow produces — an undefined displacement recorded as undefined rather than as
 (0, 0); `centroidOffset*` is absent where too little of the exterior is occluded
 for a centroid to describe the shadow rather than the backdrop's own support
-pattern; the falloff pair is absent where the profile has too few rings to fit or
-does not decay.
+pattern; each falloff family is absent independently where its own fit lands on
+an impossible amplitude or a sub-pixel scale.
 
-**Two confounds the axis does not remove, and flags instead.** The innermost ring
-belongs to each side's own edge as much as to the shadow — over `photo` the
-reference's rim spills one pixel past the contour and reads −0.276 occlusion
-there, which is why the extent rule requires a qualifying *pair* rather than
-taking the first crossing. And under increased contrast the reference draws a
-hard border stroke: on `photo__capsule-button__rest` the ring-0 mean is 0.560
-against a shadow of 0.096 at ring 1, so `strengthPeak` on that profile is the
-border, not the shadow. `strengthPeakDistance` (0 rather than 1) and
-`falloffResidual` (0.13…0.14 rather than 0.03…0.08) are what expose it, and the
-border itself is a renderer feature W8 should know about.
+**Where the body's own edge is kept out, and where it is left in.** Ring 0 — the
+first pixel outside the declared contour — belongs to each side's own edge as
+much as to the shadow. Over `photo` the reference's rim spills into it and reads
+−0.276 occlusion; under increased contrast the reference draws a hard border
+stroke there, 0.560 against a shadow of 0.096 one pixel further out. Two rules
+follow, and between them they are why the accessibility profiles now read like
+every other profile:
+
+- **the extents require a qualifying adjacent *pair***, so a lone ring 0 is not
+  reach. The pair is strict in both directions — the walk starts unqualified
+  rather than crediting ring 0 with a phantom predecessor, and an unmeasurable
+  ring breaks adjacency rather than being stepped over;
+- **the falloff is fitted from ring 1 outward.** Anchoring it on ring 0 fits the
+  border instead of the shadow: with ring 0 in, the two accessibility profiles
+  return a blur scale under a pixel and a residual forty times the rest of the
+  bed's, and with it out they return σ = 17.6…18.0, the same as everywhere else.
+
+`strengthPeak` still reports the raw maximum over *every* ring with its distance,
+so the spike itself stays visible and is not quietly smoothed away: on
+`photo__capsule-button__rest` under increased contrast it reads 0.560 at ring 0
+where `falloffAmplitude` reads 0.203, and that gap is the border.
 
 #### The reference's shadow, measured
 
@@ -2180,63 +2208,105 @@ bed with **every constant unchanged**. The holdout column was not opened.
 Untinted rest scenes, texture tier; extents in device pixels from the declared
 contour.
 
-| profile | scene | span | support | strength | above/below/left/right | offset y | falloff λ | residual |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `1x-light-standard` | `light-solid__capsule-button` | 44 | 1.00 | 0.0644 | 15 / 29 / 25 / 25 | 7.0 | 13.6 | 0.039 |
-| | `checkerboard__capsule-button` | 44 | 0.50 | 0.1895 | 24 / 39 / 32 / 34 | 7.5 | 11.9 | 0.071 |
-| | `photo__capsule-button` | 44 | 1.00 | 0.1710 | 24 / 39 / 32 / 34 | 7.5 | 11.6 | 0.076 |
-| | `checkerboard__rrect-sm` | 32 | 0.50 | 0.1838 | 24 / 39 / 31 / 33 | 7.5 | 11.8 | 0.074 |
-| | `light-solid__rrect-md` | 96 | 1.00 | 0.1063 | 19 / 34 / 28 / 28 | 7.5 | 12.3 | 0.053 |
-| | `photo__rrect-md` | 96 | 1.00 | 0.1017 | 20 / 36 / 28 / 30 | 8.0 | 12.2 | 0.050 |
-| | `photo__toolbar-group` | 44 | 1.00 | 0.1690 | 25 / 40 / 32 / 32 | 7.5 | 11.8 | 0.076 |
-| `2x-light-standard` | `light-solid__capsule-button` | 44 | 1.00 | 0.0679 | 30 / 59 / 50 / 50 | 14.5 | 27.7 | 0.036 |
-| | `checkerboard__capsule-button` | 44 | 0.50 | 0.1906 | 48 / 77 / 65 / 67 | 14.5 | 23.8 | 0.072 |
-| | `photo__capsule-button` | 44 | 1.00 | 0.1763 | 48 / 79 / 64 / 67 | 15.5 | 23.6 | 0.075 |
-| | `light-solid__rrect-md` | 96 | 1.00 | 0.1100 | 38 / 68 / 56 / 56 | 15.0 | 24.8 | 0.055 |
-| | `photo__rrect-md` | 96 | 1.00 | 0.1063 | 38 / 72 / 57 / 59 | 17.0 | 24.6 | 0.049 |
-| `1x-dark-standard` | `checkerboard__capsule-button` | 44 | 0.50 | 0.0829 | 7 / 23 / 19 / 18 | 8.0 | 13.0 | 0.123 |
-| | `photo__capsule-button` | 44 | 1.00 | 0.0355 | 8 / 26 / 16 / 20 | 9.0 | 13.7 | 0.030 |
-| | `checkerboard__rrect-md` | 96 | 0.50 | 0.1492 | 20 / 36 / 31 / 29 | 8.0 | 12.1 | 0.049 |
-| | `photo__rrect-md` | 96 | 1.00 | 0.0988 | 19 / 36 / 28 / 29 | 8.5 | 12.6 | 0.049 |
-| `2x-dark-standard` | `photo__capsule-button` | 44 | 1.00 | 0.0589 | 17 / 52 / 33 / 39 | 17.5 | 26.0 | 0.061 |
-| | `photo__rrect-md` | 96 | 1.00 | 0.0997 | 37 / 73 / 56 / 58 | 18.0 | 25.0 | 0.051 |
-| `1x-light-reduced-transparency` | `photo__capsule-button` | 44 | 1.00 | 0.0962 | 20 / 35 / 28 / 29 | 7.5 | 12.3 | 0.060 |
-| | `photo__rrect-md` | 96 | 1.00 | 0.1019 | 20 / 37 / 29 / 29 | 8.5 | 12.4 | 0.055 |
-| `1x-light-increased-contrast` | `photo__capsule-button` | 44 | 1.00 | 0.5599 † | 20 / 35 / 28 / 29 | 7.5 | 10.9 | 0.137 |
-| | `photo__rrect-md` | 96 | 1.00 | 0.4784 † | 20 / 37 / 29 / 29 | 8.5 | 11.1 | 0.128 |
+| profile | scene | span | support | amplitude | above/below/left/right | offset y | σ | σ residual | vs. exponential |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | `light-solid__capsule-button` | 44 | 1.00 | 0.137 | 15 / 29 / 25 / 25 | 7.0 | 17.9 | 0.0108 | 2.7× |
+| | `checkerboard__capsule-button` | 44 | 0.50 | 0.370 | 24 / 39 / 32 / 34 | 7.5 | 18.0 | 0.0046 | 6.9× |
+| | `photo__capsule-button` | 44 | 1.00 | 0.361 | 24 / 39 / 32 / 34 | 7.5 | 18.0 | 0.0060 | 6.0× |
+| | `checkerboard__rrect-sm` | 32 | 0.50 | 0.366 | 24 / 39 / 31 / 33 | 7.5 | 17.9 | 0.0050 | 6.5× |
+| | `light-solid__rrect-md` | 96 | 1.00 | 0.223 | 19 / 34 / 28 / 28 | 7.5 | 17.6 | 0.0082 | 3.8× |
+| | `photo__rrect-md` | 96 | 1.00 | 0.212 | 20 / 36 / 28 / 30 | 8.0 | 17.3 | 0.0046 | 6.2× |
+| | `photo__toolbar-group` | 44 | 1.00 | 0.358 | 25 / 40 / 32 / 32 | 7.5 | 18.2 | 0.0068 | 5.4× |
+| `2x-light-standard` | `light-solid__capsule-button` | 44 | 1.00 | 0.139 | 30 / 59 / 50 / 50 | 14.5 | 35.8 | 0.0104 | 2.5× |
+| | `checkerboard__capsule-button` | 44 | 0.50 | 0.373 | 48 / 77 / 65 / 67 | 14.5 | 36.2 | 0.0053 | 6.4× |
+| | `photo__capsule-button` | 44 | 1.00 | 0.365 | 48 / 79 / 64 / 67 | 15.5 | 36.3 | 0.0061 | 5.9× |
+| | `light-solid__rrect-md` | 96 | 1.00 | 0.226 | 38 / 68 / 56 / 56 | 15.0 | 35.5 | 0.0086 | 3.8× |
+| | `photo__rrect-md` | 96 | 1.00 | 0.215 | 38 / 72 / 57 / 59 | 17.0 | 34.8 | 0.0045 | 6.1× |
+| `1x-dark-standard` | `checkerboard__capsule-button` | 44 | 0.50 | 0.067 | 7 / 23 / 19 / 18 | 8.0 | 18.4 | 0.0103 | 1.1× |
+| | `photo__capsule-button` | 44 | 1.00 | 0.069 | 8 / 26 / 16 / 20 | 9.0 | 16.2 | 0.0157 | 1.7× |
+| | `checkerboard__rrect-md` | 96 | 0.50 | 0.257 | 20 / 36 / 31 / 29 | 8.0 | 17.7 | 0.0065 | 4.3× |
+| | `photo__rrect-md` | 96 | 1.00 | 0.195 | 19 / 36 / 28 / 29 | 8.5 | 17.4 | 0.0045 | 6.1× |
+| `2x-dark-standard` | `photo__capsule-button` | 44 | 1.00 | 0.069 | 17 / 52 / 33 / 39 | 17.5 | 32.9 | 0.0104 | 1.8× |
+| | `photo__rrect-md` | 96 | 1.00 | 0.198 | 37 / 73 / 56 / 58 | 18.0 | 35.0 | 0.0051 | 5.7× |
+| `1x-light-reduced-transparency` | `photo__capsule-button` | 44 | 1.00 | 0.203 | 20 / 35 / 28 / 29 | 7.5 | 17.8 | 0.0092 | 3.8× |
+| | `photo__rrect-md` | 96 | 1.00 | 0.215 | 20 / 37 / 29 / 29 | 8.5 | 17.7 | 0.0054 | 6.0× |
+| `1x-light-increased-contrast` | `photo__capsule-button` | 44 | 1.00 | 0.203 | 20 / 35 / 28 / 29 | 7.5 | 17.8 | 0.0016 | 3.8× |
+| | `photo__rrect-md` | 96 | 1.00 | 0.215 | 20 / 37 / 29 / 29 | 8.5 | 17.7 | 0.0011 | 6.0× |
 
-† the border stroke, not the shadow — see the confound above. The shadow proper
-on those cells is 0.096 at ring 1.
+The last column is the exponential's residual divided by the blurred edge's, on
+the same points.
 
 Four things follow, and they are descriptions rather than proposals.
 
-**The geometry is specified in points and is stable.** Every extent, the offset
-and the falloff length double between 1× and 2× — offset 7.0…8.0 px at 1× against
-14.5…18.0 at 2×, falloff 11.6…13.6 against 23.6…27.7. So the shadow is roughly a
-**7.5 pt downward offset with a ~12 pt falloff**, reaching about 20 pt above, 37
-pt below and 30 pt beside a light-standard surface at the 1% level.
+**The shadow is a Gaussian blur, and the instrument now says so from the data.**
+The blurred edge fits better than the exponential on **all 142 normalised cells**
+— residual 0.001…0.019 against 0.005…0.037 — at equal parameter count, so this is
+the family the profiles are in and not an artefact of a more flexible model. It
+is also the family a renderer implements: `box-shadow` and a GPU shadow pass both
+take a blur radius, so the instrument and the mechanism now speak the same
+language and the cascade can fit one against the other directly.
 
-**The geometry barely depends on the span; the strength does, and inconsistently.**
-At 1× light-standard the extents move by a few pixels between a 32 pt and a 96 pt
-component, in *both* directions depending on backdrop — but the strength moves by
-a factor of 1.7 over `light-solid` (0.064 → 0.106, growing with span) and by 0.6
-over `photo` (0.171 → 0.102, shrinking). A purely multiplicative occlusion would
-give one normalised strength per surface whatever the backdrop; these do not.
-**The multiplicative model describes the shadow's shape well and its amplitude
-only approximately**, and W8's `span-coupling` and `backdrop-multiplicativity`
-parameters are where that has to be resolved. This refines §5.11's "it grows with
-the surface's span": what grows is the darkening over a bright backdrop, not the
-reach.
+**One geometry, specified in points, across the whole bed.** σ is 16.2…18.4
+device px on every 1× profile and 32.9…37.2 on every 2× one — it doubles with the
+backing scale and moves by under 15% across backdrop, span, colour scheme and
+accessibility state. The reach-implied offset behaves the same way: 7.0…9.0 px at
+1×, 14.0…18.0 at 2×. So the reference's shadow is, to the precision this bed
+supports, **a single point-specified shadow: about a 7.5 pt downward offset with
+a σ ≈ 17.8 pt blur**, reaching roughly 20 pt above, 37 pt below and 30 pt beside
+a light-standard surface at the 1% iso-occlusion level. (σ is measured with the
+shadow's edge pinned to the declared contour, so it absorbs the spread and the
+directional offset and reads above the blur radius a renderer would be given —
+W8's independent mechanism fit puts that at 15.55 CSS px with a +3.10 spread,
+which is the same shadow described in the parameterisation a renderer takes.)
 
-**The dark scheme casts a weaker, differently-shaped shadow.** On the same
-`photo__capsule-button` cell the strength falls from 0.171 light to 0.035 dark,
-and the reach above the component from 24 px to 8 px while the reach below barely
-moves (39 → 26). W8 needs a per-scheme shadow, not one shadow dimmed.
+**What varies is the amplitude, not the geometry.** Between a 32 pt and a 96 pt
+component at 1× light-standard, σ moves from 17.9 to 17.6 while the amplitude
+moves from 0.366 to 0.212; between `light-solid` and `photo` under the same 44 pt
+capsule, σ moves from 17.9 to 18.0 while the amplitude moves from 0.137 to 0.361.
+A purely multiplicative occlusion would give one amplitude per surface whatever
+the backdrop, and these do not. **The multiplicative model describes the shadow's
+geometry very well and its amplitude only approximately**, which is what W8's
+`span-coupling` and `backdrop-multiplicativity` parameters have to resolve. This
+refines §5.11's "it grows with the surface's span": what changes with span and
+backdrop is the darkening, not the reach.
 
-**Reduced transparency keeps the shadow; increased contrast adds a border.** The
-reduced-transparency reference's shadow is within a few percent of the standard
-one in geometry (offset 7.5…8.5, falloff 12.3…12.4) at about half the strength.
-Increased contrast keeps the same geometry and adds the stroke above.
+**Reduced transparency and increased contrast share one shadow, and the border is
+separate.** Both accessibility profiles return the same amplitude and the same σ
+to three digits (0.203 / 17.8 on `photo__capsule-button`), and outside the first
+ring their `photo` fixtures are pixel-identical — the increased-contrast
+difference is the border stroke and the interior, not the shadow. So the shadow
+is one facet across all four gated profiles, and the border is a second one that
+W8 should build separately.
+
+#### Correction (2026-08-30): the dark scheme is the same shadow, dimmer
+
+The paragraph this replaces read "the dark scheme casts a weaker,
+differently-shaped shadow", on the evidence that the reach above the component
+falls from 24 px to 8 px between light and dark while the reach below barely
+moves. **The measurements stand; the interpretation was wrong, and it is
+withdrawn.**
+
+The extents are an *iso-occlusion* contour: they mark where the ring mean crosses
+0.01, so a shadow of identical geometry at a lower amplitude crosses that level
+sooner, and it crosses it soonest where the shadow is thinnest — which is above
+the component, on the far side of a downward offset. The apparent collapse of the
+upward reach is therefore the threshold moving, not the shadow.
+
+Two independent lines of evidence say so. W8 refitted the dark cells with the
+*light* geometry and only the amplitude free: it costs 3–7% of an already small
+residual, and one geometry with one amplitude per profile predicts the
+per-direction extents in this table from a single calibration point (light
+24/40/32 against the measured 24/39/32–34; dark 10/26/18 against 8/26/16–20;
+reduced transparency 20/36/28 against 20/35/28–29). And this axis, refitted in
+the family the profiles are actually in, now says the same thing on its own:
+**dark σ is 16.2…18.4 against light's 17.3…18.2 — the same number — while the
+amplitude falls from 0.361 to 0.069 on the same `photo__capsule-button` cell.**
+Same geometry, one fifth the strength.
+
+What W8 needs is therefore an amplitude per colour scheme, not a shadow per
+colour scheme. Separating `falloffAmplitude` from `falloffSigma` is the change
+that makes that readable off a cell rather than inferred from a threshold
+crossing, and it is why the amplitude is now on the record beside the extents.
 
 #### vitrea's baseline: zero, honestly recorded
 
@@ -2245,26 +2315,25 @@ Across the same 182 cells, vitrea's side of the shadow axis reads:
 | figure | vitrea, texture tier | vitrea, dom tier |
 | --- | --- | --- |
 | `meanDepartureWeb` | −0.0079…+0.0014 luminance | −0.0140…+0.0041 luminance |
-| `extent*Web` | **0 in all four directions on 39 of the 71** cells that carry a normalised block | 0 in all four on 26 of 71 |
-| `offsetY Web` | **absent** on exactly those cells — an undefined displacement recorded as undefined, not as (0, 0) | as above |
-| `falloffLengthWeb` | absent where nothing reached; 0.70…3.71 px on the 51 cells across both tiers where a near-contour halo exists | as above |
+| `extent*Web` | **0 in all four directions on 43 of the 71** cells that carry a normalised block | 0 in all four on 29 of 71 |
+| `offsetYWeb` | **absent** on exactly those cells — an undefined displacement recorded as undefined, not as (0, 0); present on 28 of 71 | present on 42 of 71 |
+| `falloffSigmaWeb` | absent on 62 of 71; 1.96…4.77 px on the nine cells with a near-contour halo | absent on 64 of 71; 1.47…3.45 px on seven |
 
 On every 1×-light-standard untinted rest scene over `photo`, both tiers read
 **0 / 0 / 0 / 0** with `strengthPeakWeb` of 0.0000 and no offset at all; over
 `light-solid` the same holds except for 2…3 px on the capsule's two sides on the
 texture tier. The overall sign is the more telling number: vitrea's mean
-departure is
-*negative* on most cells — where the reference darkens its surround, vitrea very
-slightly brightens it.
+departure is *negative* on most cells — where the reference darkens its surround,
+vitrea very slightly brightens it.
 
 Where vitrea does read a non-zero extent it is at most 3 px at 1× and 7 px at 2×,
 on the checkerboard, dark-scheme and tinted scenes, and it is its **own
 material's edge** rather than a shadow. Two things separate the two beyond doubt:
-its peak sits at ring 0 and decays with a length of 0.7…3.7 px where the
-reference's decays with 10.8…27.7, and it is present only where the backdrop is
-high-contrast enough for an antialiased edge to register. That is the honest
-reading and not an error — the axis is measuring something real that is an order
-of magnitude short in reach and has no displacement at all.
+its peak sits at ring 0, and where a blur radius can be fitted at all it is
+1.5…4.8 px against the reference's 16.2…37.2 — an order of magnitude, in the one
+parameter that describes a shadow's geometry. That is the honest reading and not
+an error: the axis is measuring something real that is nowhere near the facet it
+would have to reproduce, and has no displacement at all.
 
 #### Schema and gate state
 
@@ -2282,6 +2351,39 @@ divergence is a decision on the record rather than drift, and its
 well-conditioned predicate carries the floor-with-no-ceiling limitation in
 writing. `KNOWN_RENDERER_GAP_EXCLUSIONS` stays empty. No threshold is proposed,
 adopted or amended by this section, on either axis.
+
+The frozen matrix is also the *default* target of `compare` and of `diff
+--matrix`, which during the interregnum is a path that cannot succeed. Both CLIs
+now check the target's schema **before** doing any work — before the browser
+capture, in `compare`'s case — and refuse it by name, citing the ruling and
+naming `--out-matrix` as the way past. A run that was never going to be writable
+should cost a message, not an hour.
+
+#### What this section corrects, and when
+
+Two figures and one reading in the first version of this section (2026-08-31)
+were wrong, and the staged matrix was regenerated on the same tree to replace
+them. Recorded rather than silently overwritten, because a claims document that
+edits its own numbers without saying so is not evidence.
+
+- **The falloff family.** The axis originally fitted only an exponential decay,
+  and reported λ ≈ 12 pt. A shadow is a blurred edge, not an exponential; refitted
+  in both families at equal parameter count the blurred edge wins on all 142
+  normalised cells, and σ ≈ 17.8 pt replaces λ ≈ 12 pt as the geometric figure.
+  W8's independent mechanism fit had reached the same conclusion from the other
+  direction (Gaussian RMS 0.00233 against the exponential's 0.00527 over 585
+  points), which is what prompted the recheck.
+- **The dark-scheme reading**, withdrawn above.
+- **Vitrea's small reads.** The extent rule credited ring 0 with a qualifying
+  predecessor, so a lone edge-halo ring reported a one-pixel reach in every
+  direction and — worse — a *defined* offset of (0, 0), on a side whose offset
+  the doctrine says must be absent. Seven cells carried that; the counts in
+  vitrea's table above are the corrected ones.
+- **A count that was not a count.** The run's caveat block reported cells absent
+  from an axis by counting distinct *scene* names, so each tier's 20 unnormalised
+  cells — 40 across the staged matrix — were announced as six. Absences are now
+  tallied per cell and named per scene, which are different numbers and are
+  printed as both.
 
 ---
 

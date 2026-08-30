@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { componentRegion, type ComponentRegion, type DeclaredComponent } from "../src/component-region";
 import type { CalibrationImage } from "../src/image";
 import { shadowField } from "../src/metrics/shadow";
+import { normalCdf } from "../src/stats";
 import { fromLinearLuminance, solidLuminance } from "./synthesise";
 
 /**
@@ -84,10 +85,12 @@ describe("the shadow axis", () => {
     expect(sideways).toBeGreaterThan(24);
     expect(sideways).toBeLessThan(35);
 
+    // The decay length comes back, though the pooled profile of an *offset*
+    // shadow is a mean of four differently-displaced exponentials rather than
+    // one, so which family fits it best is not a fair question here — that is
+    // what the equal-terms test below is for.
     expect(field.falloffLengthPx ?? 0).toBeGreaterThan(decayPx * 0.8);
     expect(field.falloffLengthPx ?? 0).toBeLessThan(decayPx * 1.2);
-    // An exponential really is the right description of this one, and the
-    // residual is what says so.
     expect(field.falloffResidual ?? 1).toBeLessThan(0.1);
 
     // The mass centroid describes the same displacement, inflated because only
@@ -116,6 +119,76 @@ describe("the shadow axis", () => {
     expect(field.offsetYPx).toBeUndefined();
     expect(field.centroidOffsetYPx).toBeUndefined();
     expect(field.falloffLengthPx).toBeUndefined();
+    expect(field.falloffSigmaPx).toBeUndefined();
+  });
+
+  it("refuses a lone qualifying ring at the contour as reach, and so reports no offset", () => {
+    // A one-pixel darkening ring hugging the contour is a body's own antialiased
+    // edge, not a shadow, and it is the case the consecutive-pair rule exists to
+    // reject. Crediting ring 0 with a phantom predecessor would report a 1 px
+    // reach in all four directions and — worse — a defined offset of (0, 0),
+    // which the doctrine reserves for a displacement that was actually measured.
+    const haloOnly = fromLinearLuminance(CANVAS.width, CANVAS.height, (x, y) => {
+      if ((REGION.silhouette.mask[y * CANVAS.width + x] ?? 0) !== 0) return 0.3;
+      return distanceTo(REGION, x, y) < 1 ? 0.6 * 0.7 : 0.6;
+    });
+    const field = shadowField(haloOnly, backdrop, REGION);
+
+    // The ring is real and the strength records it — at ring 0, which is what
+    // says it is an edge.
+    expect(field.strengthPeak ?? 0).toBeGreaterThan(0.25);
+    expect(field.strengthPeakDistancePx).toBe(0);
+
+    expect(field.extentAbovePx).toBe(0);
+    expect(field.extentBelowPx).toBe(0);
+    expect(field.extentLeftPx).toBe(0);
+    expect(field.extentRightPx).toBe(0);
+    expect(field.offsetXPx).toBeUndefined();
+    expect(field.offsetYPx).toBeUndefined();
+    // And nothing beyond that ring is left to fit a falloff to.
+    expect(field.falloffSigmaPx).toBeUndefined();
+    expect(field.falloffLengthPx).toBeUndefined();
+  });
+
+  /**
+   * An un-offset surround whose occlusion follows `shape` of the distance from
+   * the declared contour — so the pooled ring profile IS that shape, and the two
+   * families are being asked a fair question.
+   */
+  const surroundWith = (amplitude: number, shape: (distance: number) => number): CalibrationImage =>
+    fromLinearLuminance(CANVAS.width, CANVAS.height, (x, y) => {
+      if ((REGION.silhouette.mask[y * CANVAS.width + x] ?? 0) !== 0) return 0.3;
+      return 0.6 * (1 - amplitude * shape(Math.max(0, distanceTo(REGION, x, y))));
+    });
+
+  it("recovers the blur radius of a blurred-edge shadow — the shape a real one has", () => {
+    // A filled body convolved with a Gaussian, which is what `box-shadow` and a
+    // GPU shadow pass both produce, so σ is the parameter a renderer is given.
+    const sigmaPx = 12;
+    const field = shadowField(
+      surroundWith(0.45, (d) => 1 - normalCdf(d / sigmaPx)),
+      backdrop,
+      REGION,
+    );
+
+    expect(field.falloffSigmaPx ?? 0).toBeGreaterThan(sigmaPx * 0.85);
+    expect(field.falloffSigmaPx ?? 0).toBeLessThan(sigmaPx * 1.15);
+    expect(field.falloffSigmaResidual ?? 1).toBeLessThan(0.05);
+  });
+
+  it("compares the two families on equal terms — each wins on its own profile", () => {
+    // The reason both are reported. Same points, same objective, two free
+    // parameters each, so neither can win on flexibility: whichever family a
+    // profile is actually in is the one with the smaller residual. A test that
+    // only ever showed the Gaussian winning would not distinguish "the bed's
+    // shadows are Gaussian" from "this estimator always says Gaussian".
+    const gaussian = shadowField(surroundWith(0.45, (d) => 1 - normalCdf(d / 12)), backdrop, REGION);
+    expect(gaussian.falloffSigmaResidual ?? 1).toBeLessThan(gaussian.falloffResidual ?? 1);
+
+    const exponential = shadowField(surroundWith(0.45, (d) => Math.exp(-d / 12)), backdrop, REGION);
+    expect(exponential.falloffResidual ?? 1).toBeLessThan(exponential.falloffSigmaResidual ?? 1);
+    expect(exponential.falloffLengthPx ?? 0).toBeGreaterThan(12 * 0.85);
+    expect(exponential.falloffLengthPx ?? 0).toBeLessThan(12 * 1.15);
   });
 
   it("leaves every normalised figure absent over a backdrop with no light to remove", () => {

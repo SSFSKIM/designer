@@ -31,9 +31,11 @@ import {
   parseProfileKey,
   serializeResultMatrix,
   upsertCellResult,
+  RESULT_MATRIX_SCHEMA_VERSION,
   type FidelityTier,
   type FixtureSet,
 } from "../src/index";
+import { matrixSchemaRefusal } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell, type MeasureInput } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
@@ -145,6 +147,21 @@ function parseArgs(argv: readonly string[]): Args {
 
 function main(): void {
   const args = parseArgs(process.argv.slice(2));
+
+  // Checked before measuring, and for the reason `compare` checks before
+  // capturing: a matrix written under another schema can be neither read nor
+  // merged into, and `results/matrix.json` is frozen under one for the duration
+  // of the interregnum. See `matrixSchemaRefusal`.
+  if (args.matrix !== undefined && existsSync(args.matrix)) {
+    const onDisk: unknown = JSON.parse(readFileSync(args.matrix, "utf8"));
+    const version = (onDisk as { schemaVersion?: unknown }).schemaVersion;
+    const refusal =
+      typeof version === "number"
+        ? matrixSchemaRefusal(version, RESULT_MATRIX_SCHEMA_VERSION, args.matrix)
+        : `${args.matrix} has no numeric schemaVersion, so it is not a result matrix.`;
+    if (refusal !== undefined) throw new Error(`diff: ${refusal}`);
+  }
+
   const { cell, notes } = measureCell(args);
 
   const reportJson = JSON.stringify(cell, null, 2);

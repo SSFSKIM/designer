@@ -31,6 +31,19 @@
  * difference is defined even where a ratio is not, and it is the figure claims
  * §5.11 quoted.
  *
+ * ## The falloff is fitted in two families, not one
+ *
+ * A shadow is a filled shape convolved with a blur kernel, so the profile
+ * outside it should be a blurred *edge* — `1 − Φ(d/σ)` — and σ is the parameter
+ * a renderer's shadow actually takes. The obvious alternative, an
+ * ambient-occlusion-shaped exponential, is a different family with the same
+ * number of free parameters, so both are fitted over the same points with the
+ * same objective and both residuals are reported. On this bed the blurred edge
+ * wins on every cell, by 1.1× to 6.9× in RMS, and returns one σ — about 17.8 pt,
+ * doubling in device pixels between 1× and 2× — across every backdrop, span,
+ * colour scheme and accessibility state. Reporting the pair rather than the
+ * winner is what keeps that a finding instead of an assumption.
+ *
  * ## No thresholds
  *
  * Two constants below select *where a measurement is possible* — the backdrop
@@ -43,6 +56,7 @@
 
 import { CalibrationError } from "../errors";
 import { assertComparable, linearLuminance, type CalibrationImage } from "../image";
+import { minimiseGoldenSection, normalCdf } from "../stats";
 import type { ComponentRegion } from "../component-region";
 
 /** Which side of the component a ring sample sits on. */
@@ -126,8 +140,9 @@ export interface ShadowProfileSample {
  *     displacement, recorded as undefined rather than as (0, 0);
  *   - `centroidOffset*` is absent when too little of the exterior is occluded
  *     for a mass centroid to describe the shadow rather than the backdrop;
- *   - `falloffLength*` is absent when fewer than three rings clear the threshold
- *     beyond the peak, or when the profile does not decay.
+ *   - each falloff pair is absent when fewer than three rings past ring 0 clear
+ *     the threshold, or when that family's fit lands on an impossible amplitude
+ *     or a sub-pixel scale.
  */
 export interface ShadowFieldReport {
   /** Pixels outside the declared region — the population every figure is over. */
@@ -155,9 +170,30 @@ export interface ShadowFieldReport {
   /** Occlusion-mass centroid minus the component's centre, device px. */
   readonly centroidOffsetXPx?: number;
   readonly centroidOffsetYPx?: number;
-  /** Exponential decay length fitted beyond the peak, in pixels. */
+  /**
+   * Gaussian blur radius of the blurred-edge model, in pixels — the parameter a
+   * renderer's shadow takes, and on this bed the family the profile is actually
+   * in. Read `falloffSigmaResidual` beside it.
+   */
+  readonly falloffSigmaPx?: number;
+  readonly falloffSigmaResidual?: number;
+  /**
+   * The blurred-edge model's occlusion at the declared contour.
+   *
+   * The amplitude half of the same fit, and the honest strength figure: it is
+   * estimated from the profile beyond the body's own edge ring, where
+   * `strengthPeak` is a raw ring maximum that the edge — or an accessibility
+   * border — can capture. Separating it from σ is what lets a difference between
+   * two cells be read as "same shadow, dimmer" or "different shadow".
+   */
+  readonly falloffAmplitude?: number;
+  /**
+   * Exponential decay length, in pixels, fitted over the same points with the
+   * same objective and the same number of free parameters. Kept as the
+   * falsifier: two families with two residuals let the profile say which one it
+   * is in, where one family with one residual only says how well that one did.
+   */
   readonly falloffLengthPx?: number;
-  /** RMS fit residual as a fraction of the peak — how exponential it really is. */
   readonly falloffResidual?: number;
   /** The ring means the figures above are read off. */
   readonly profile: readonly ShadowProfileSample[];
@@ -179,22 +215,31 @@ function directionOf(region: ComponentRegion, x: number, y: number): ShadowDirec
 
 /**
  * How far the departure reaches in one direction, in pixels from the declared
- * contour.
+ * contour: the outermost ring of a qualifying *adjacent pair*.
  *
- * The outermost ring of a qualifying *pair*, rather than the first crossing.
- * Both guards are earned: the innermost ring is where each side's own edge
- * lives, and it can read negative — the reference's rim spills one pixel past
- * the contour on `photo__capsule-button__rest` and reads −0.276 there, which a
- * first-crossing rule would report as a shadow of zero extent — while requiring
- * two consecutive qualifying rings keeps one noisy far ring from inventing
- * reach. A side with no shadow reads 0, which is a measurement.
+ * A pair rather than a first crossing, because the innermost ring is where each
+ * side's own edge lives and it can read anything — the reference's rim spills
+ * one pixel past the contour on `photo__capsule-button__rest` and reads −0.276
+ * there, which a first-crossing rule would report as a shadow of zero extent —
+ * while requiring two consecutive rings keeps one noisy far ring from inventing
+ * reach.
+ *
+ * The pair is strict in both directions. A lone qualifying ring 0 is exactly the
+ * edge-halo case the rule exists to reject, so the walk starts *unqualified*
+ * rather than crediting ring 0 with a phantom predecessor; and an unmeasurable
+ * ring breaks adjacency rather than being stepped over, since two rings either
+ * side of a gap are not evidence that the departure was continuous across it.
+ * A side with no shadow reads 0, which is a measurement.
  */
 function extentOf(means: readonly (number | undefined)[], threshold: number): number {
   let extent = 0;
-  let previousQualified = true;
+  let previousQualified = false;
   for (let ring = 0; ring < means.length; ring += 1) {
     const mean = means[ring];
-    if (mean === undefined) continue;
+    if (mean === undefined) {
+      previousQualified = false;
+      continue;
+    }
     const qualified = mean >= threshold;
     if (qualified && previousQualified) extent = ring + 1;
     previousQualified = qualified;
@@ -202,48 +247,107 @@ function extentOf(means: readonly (number | undefined)[], threshold: number): nu
   return extent;
 }
 
-/** Least-squares fit of `ln(occlusion)` against distance, from the peak outward. */
-function fitExponentialDecay(
-  profile: readonly ShadowProfileSample[],
-  peakIndex: number,
-  threshold: number,
-): { readonly lengthPx: number; readonly residual: number } | undefined {
-  const points = profile.slice(peakIndex).filter((sample) => sample.occlusion > threshold);
-  if (points.length < 3) return undefined;
+/** Below one pixel a falloff describes the raster, not the material. */
+const RASTER_SCALE_FLOOR_PX = 1;
 
-  let sumX = 0;
-  let sumY = 0;
-  for (const point of points) {
-    sumX += point.distancePx;
-    sumY += Math.log(point.occlusion);
-  }
-  const meanX = sumX / points.length;
-  const meanY = sumY / points.length;
-  let covariance = 0;
-  let variance = 0;
-  for (const point of points) {
-    const dx = point.distancePx - meanX;
-    covariance += dx * (Math.log(point.occlusion) - meanY);
-    variance += dx * dx;
-  }
-  if (variance === 0) return undefined;
-  const slope = covariance / variance;
-  // A profile that grows outward is not a falloff, and 1/slope would be a
-  // confident number describing something this fit does not model.
-  if (slope >= 0) return undefined;
-
-  const intercept = meanY - slope * meanX;
-  const peak = profile[peakIndex]?.occlusion ?? 0;
-  let squares = 0;
-  for (const point of points) {
-    const predicted = Math.exp(intercept + slope * point.distancePx);
-    squares += (predicted - point.occlusion) ** 2;
-  }
-  return {
-    lengthPx: -1 / slope,
-    residual: peak > 0 ? Math.sqrt(squares / points.length) / peak : Number.POSITIVE_INFINITY,
-  };
+/** A falloff model fitted to the occlusion profile, and how well it describes it. */
+interface FalloffFit {
+  /** The model's scale parameter, in pixels. */
+  readonly scalePx: number;
+  /** Fitted amplitude at the declared contour, in occlusion. */
+  readonly amplitude: number;
+  /** RMS residual as a fraction of the profile's peak — how right the family is. */
+  readonly residual: number;
 }
+
+/**
+ * The rings a falloff is fitted over: from **ring 1** outward, while the
+ * occlusion clears the threshold.
+ *
+ * Ring 0 is excluded on principle rather than by taste. It is the one ring that
+ * belongs to the body's own edge as much as to the shadow — antialiasing, the
+ * specular rim, and under `increased-contrast` a hard border stroke that reads
+ * 0.560 occlusion against a shadow of 0.096 one pixel further out. Anchoring a
+ * falloff there fits the border instead of the shadow: with ring 0 in, the two
+ * accessibility profiles return a blur scale under a pixel and a residual forty
+ * times the rest of the bed's; with it out they return the same σ as every other
+ * profile. `strengthPeak` still reports the raw maximum over every ring, with
+ * its distance, so the spike itself stays visible.
+ */
+function falloffPoints(
+  profile: readonly ShadowProfileSample[],
+  threshold: number,
+): readonly ShadowProfileSample[] {
+  return profile.filter((sample) => sample.distancePx >= 1 && sample.occlusion > threshold);
+}
+
+/**
+ * Least squares in the data domain, with the amplitude solved in closed form.
+ *
+ * Both families are `amplitude × shape(distance / scale)` with the amplitude
+ * entering linearly through the origin, so for any trial scale the best
+ * amplitude has a one-line solution and the search is one-dimensional. That is
+ * what makes the two fits *comparable*: same points, same objective, two free
+ * parameters each, so the residuals decide which family the profile is in
+ * rather than the parameter count deciding it for them.
+ */
+function fitScaledShape(
+  points: readonly ShadowProfileSample[],
+  peak: number,
+  shape: (distance: number, scale: number) => number,
+  searchTo: number,
+): FalloffFit | undefined {
+  if (points.length < 3 || peak <= 0 || searchTo <= RASTER_SCALE_FLOOR_PX) return undefined;
+
+  const amplitudeFor = (scale: number): number => {
+    let numerator = 0;
+    let denominator = 0;
+    for (const point of points) {
+      const basis = shape(point.distancePx, scale);
+      numerator += basis * point.occlusion;
+      denominator += basis * basis;
+    }
+    return denominator > 0 ? numerator / denominator : 0;
+  };
+  const rmsAt = (scale: number): number => {
+    const amplitude = amplitudeFor(scale);
+    let squares = 0;
+    for (const point of points) {
+      squares += (amplitude * shape(point.distancePx, scale) - point.occlusion) ** 2;
+    }
+    return Math.sqrt(squares / points.length);
+  };
+
+  const scalePx = minimiseGoldenSection(rmsAt, RASTER_SCALE_FLOOR_PX, searchTo);
+  const amplitude = amplitudeFor(scalePx);
+
+  // Two refusals, both physical rather than tuned. An amplitude above 1 would
+  // have the material removing more light than the backdrop emits, which is the
+  // signature of a degenerate fit trading amplitude against scale on a truncated
+  // tail; and a scale at the raster floor describes the grid, not the shadow.
+  if (!Number.isFinite(scalePx) || !Number.isFinite(amplitude)) return undefined;
+  if (amplitude > 1 || scalePx <= RASTER_SCALE_FLOOR_PX * 1.001) return undefined;
+
+  return { scalePx, amplitude, residual: rmsAt(scalePx) / peak };
+}
+
+/**
+ * The blurred-edge model: `amplitude × (1 − Φ(distance / σ))`.
+ *
+ * This is what a shadow *is* — a filled shape convolved with a Gaussian — so σ
+ * is the blur radius a renderer is given, and `box-shadow` and a GPU shadow pass
+ * both take exactly that parameter. The shadow's own edge is pinned to the
+ * declared contour rather than fitted, which keeps the model at two free
+ * parameters and, more importantly, keeps it identified: only the tail beyond
+ * the component is visible, and with a free edge position the amplitude, the
+ * offset and σ trade against one another along a valley. The price of pinning it
+ * is that σ absorbs the shadow's spread and the spread of its own directional
+ * offset, so it reads somewhat above the blur radius a renderer would be given.
+ */
+const blurredEdgeShape = (distance: number, sigma: number): number => 1 - normalCdf(distance / sigma);
+
+/** The ambient-occlusion-shaped alternative: `amplitude × e^(−distance/λ)`. */
+const exponentialShape = (distance: number, length: number): number => Math.exp(-distance / length);
 
 /**
  * Measure one render's occlusion of its own backdrop, outside the declared
@@ -405,7 +509,14 @@ export function shadowField(
   const right = extents.get("right") ?? 0;
   const reached = Math.max(above, below, left, right) > 0;
 
-  const decay = fitExponentialDecay(profile, peakIndex, threshold);
+  // Both families over the same points, the same objective and the same two free
+  // parameters, so the pair of residuals is a comparison rather than two
+  // unrelated numbers. The search runs to twice the profile's own reach, which
+  // is well past any scale that could describe it.
+  const points = falloffPoints(profile, threshold);
+  const searchTo = 2 * Math.max(...profile.map((sample) => sample.distancePx), RASTER_SCALE_FLOOR_PX);
+  const gaussian = fitScaledShape(points, peak.occlusion, blurredEdgeShape, searchTo);
+  const exponential = fitScaledShape(points, peak.occlusion, exponentialShape, searchTo);
   const massFraction = supportedCount > 0 ? massCount / supportedCount : 0;
 
   return {
@@ -425,7 +536,16 @@ export function shadowField(
           centroidOffsetYPx: massY / mass - region.centreY,
         }
       : {}),
-    ...(decay === undefined ? {} : { falloffLengthPx: decay.lengthPx, falloffResidual: decay.residual }),
+    ...(gaussian === undefined
+      ? {}
+      : {
+          falloffSigmaPx: gaussian.scalePx,
+          falloffSigmaResidual: gaussian.residual,
+          falloffAmplitude: gaussian.amplitude,
+        }),
+    ...(exponential === undefined
+      ? {}
+      : { falloffLengthPx: exponential.scalePx, falloffResidual: exponential.residual }),
     profile,
   };
 }
