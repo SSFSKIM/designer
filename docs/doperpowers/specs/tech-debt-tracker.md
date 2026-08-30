@@ -11,6 +11,39 @@ record.
 
 ---
 
+## The reference harness does not attest that a tint reached the material
+
+*Found 2026-08-30, when the tinted bed turned out to carry no colour.*
+
+`apps/reference-apple/` refuses a scene that names a tint id the registry does
+not hold — the W3 plan's "refuse rather than guess" rule — but nothing checks the
+step after that. The 2026-08-30 capture session resolved every tint, applied
+`Glass.tint(_:)`, honoured the tint's *alpha*, and produced 18 fixtures whose
+material is neutral glass: `systemOrange` and `systemBlue` came back
+byte-identical over three backdrops at both scales. The manifest recorded them as
+`materialRendered: true, deterministic: true` with plausible
+`deltaFromBackground` values, so nothing in the committed bed said anything was
+wrong. It took a downstream fit to notice.
+
+`packages/calibration/cli/compare.ts` now derives the fault and skips the tint
+axis (`colourlessTintEvidence`), which keeps the numbers out of the matrix — but
+that is a consumer catching a producer's silence, and it only works because the
+bed happens to declare two seeds over one scene. A bed with one seed per scene
+would sail through.
+
+**The fix shape**, for whoever schedules the next rebuild: record the resolved
+tint on the fixture entry (the sRGB triple and alpha actually handed to
+`Glass.tint(_:)`), and have the harness compare a tinted capture against its
+untinted twin the way it already compares every capture against its background —
+`Capture.compare` is right there, and `deltaFromBackground` is the same shape of
+check. A tinted fixture whose chroma response matches its untinted twin's should
+fail the capture, not ship. Diagnosing the underlying drop belongs to that same
+session: the Swift wiring reads correct, so the question is whether the seed
+reaches `Glass` or whether `Glass.tint(_:)` ignores it on this OS build, and
+answering it needs the rebuild anyway.
+
+---
+
 ## The e2e suites inherit the machine's accessibility settings
 
 *Found 2026-08-29, during the overlap-check narrowing.*

@@ -66,11 +66,16 @@ dom-tier — captured in a reproducible interleaved order (FNV-1a of
 `profileKey|sceneId`, matching the native harness's own permutation).
 
 *Superseded as an artifact, not as a claim.* `results/matrix.json` now holds W1's
-**settled six-profile bed**: 168 cells, `schemaVersion 4`, two backing scales ×
+**settled six-profile bed**: 176 cells, `schemaVersion 4`, two backing scales ×
 light/dark × two accessibility profiles, each dom cell carrying the coherence
 axis (§5.2). This section describes the v1 measurement those claims were first
 made on; §5's tables were re-verified against the settled bed and their bounds
 did not move. The 60-cell v1 matrix is in git history.
+
+The count reached 176 from W7's 168 by W7's own holdout scene arriving in the
+four standard profiles (§5.9). It did **not** reach 192: `scenes.json` declares
+12 tinted scenes and the harness captured them, but that capture carried no tint
+colour, so the tint axis is absent from the matrix by derivation (§5.10).
 
 C9a measured 18 dom-tier cells and deliberately did *not* commit them, because
 that tier was untuned and committing the numbers would have put a configuration
@@ -1618,6 +1623,109 @@ the band's dark end needs.
 - **The dark profiles' interior-ratio ceiling: 1.1998 at 1× and 1.1956 at 2×,
   unchanged**, against 1.25. W2's watch item stays where W2 left it.
 
+### 5.9 The adaptation axis finally has a holdout — and the curve fails it
+
+§5.8 closed with "**this axis has no holdout scene**", and named the fix: a
+backdrop inside the curve's transition band. `mid-dark-solid` (a neutral 69/255
+grey, linear 0.0595) is that scene, captured 2026-08-30 and declared holdout in
+`scenes.json`. It was measured **once**, against the configuration §5.8 froze,
+with nothing tuned before or after. Two answers came back and they disagree.
+
+**On the adopted gate it passes everything, at both scales and on both tiers.**
+
+| profile | tier | IoU | contour mean / p95 | SSIM | ΔE mean / p95 | edge-weighted |
+| --- | --- | --- | --- | --- | --- | --- |
+| `1x-light-standard` | texture | 0.9579 | 0.61 / 2.83 | 0.9817 | 0.01036 / 0.1267 | 0.0181 |
+|  | dom | 0.9363 | 1.10 / 2.24 | 0.9751 | 0.00941 / 0.1068 | 0.0180 |
+| `2x-light-standard` | texture | 0.9558 | 1.32 / 5.66 | 0.9863 | 0.01049 / 0.1267 | 0.0170 |
+|  | dom | 0.9355 | 2.23 / 5.00 | 0.9825 | 0.00950 / 0.1068 | 0.0166 |
+| `1x-dark-standard` | texture | — | — | 0.9791 | 0.00324 / 0.0383 | 0.0016 |
+| `2x-dark-standard` | texture | — | — | 0.9859 | 0.00328 / 0.0383 | 0.0018 |
+
+Every light-standard row clears its adopted bound with room (the tightest is ΔE
+p95 at 0.1267 against ≤ 0.17). Cross-tier coherence on the cell is 0.0031 against
+≤ 0.05, and the interior ratio 0.9095 against 0.80…1.25. The dark rows carry no
+shape or material axis: under the dark scheme the reference over this backdrop is
+inside the extractor's 0.02 threshold of it, which is itself the finding that the
+dark scheme adapts here and the light one does not.
+
+**On the mechanism it fails, by a factor of five.** The estimator is §5.8's own —
+the light-versus-dark separation over one backdrop, in which transmission,
+backdrop structure and both scheme neutrals cancel — with the unadapted
+separation taken from the two off-curve backdrops of the same component:
+
+| cell | curve argument *x* | adaptation, measured | the curve's prediction |
+| --- | --- | --- | --- |
+| capsule over `dark-solid` | 0.0200 | **1.000** | 1.000 |
+| capsule over `mid-dark-solid` | 0.0678 | **0.127** (0.13…0.17 over baseline choices) | **0.650** |
+| `rrect-md` over `dark-solid` | 0.1017 | **0.218** | 0.241 |
+
+The two rows the law was fitted on come back right. The row it had never seen
+comes back at a fifth of prediction, and the miss is **not a scaling error that a
+retune absorbs**: adaptation rises from 0.127 to 0.218 as *x* rises from 0.0678
+to 0.1017, and any curve of the form `1 − smoothstep(low, high, x)` is monotone
+decreasing in *x*. Backdrop luminance plus a size term *inside the argument*
+cannot produce these three numbers at once. The size dependence is a separate
+axis, not a shift along the same one — which is exactly the shape question a
+holdout exists to ask, and it could not be asked until a scene varied backdrop
+and size independently inside the band.
+
+Read on the same estimator, vitrea executes the constants faithfully: 0.6497
+measured against the curve's 0.6502. The implementation is not the defect. The
+consequence is on the interior level, where the reference sits at 0.4442 (linear)
+and vitrea at 0.2623 over a 0.0595 backdrop — vitrea over-adapts by 0.18, which
+the perceptual rows survive only because a capsule's interior is a small part of
+the canvas.
+
+**Nothing was tuned in response, and this column is now spent.** A curve of a
+different *shape* is a design change, not a retune, and it goes back through the
+wave spec. The scene stays holdout for whatever replaces the law.
+
+### 5.10 The author tint is still unmeasured — and now the reason is named
+
+W3 phase 1 landed the tint API, both tiers and the tone curve's four constants at
+**provisional** values, and stated that nothing rested on them. That is still
+true, and the capture session meant to close it did not.
+
+**The tinted fixtures carry no colour.** The bed committed on 2026-08-30 has 18
+tinted native cells, and in each one the material is neutral glass:
+
+- `photo__capsule-button__rest-tint-blue` is **byte-identical** to
+  `photo__capsule-button__rest-tint-orange`, at both scales. So are the
+  `checkerboard` and `dark-solid` capsule pairs. `systemOrange` and `systemBlue`
+  cannot render to the same bytes, so the seed did not reach the material.
+- Every tinted cell's native `tintChromaDelta` — the chroma the material adds
+  over its own backdrop — lies in −0.0215…+0.0014, which is the same band the
+  **untinted** cells occupy (−0.0151…+0.0000). vitrea's own tinted render reads
+  +0.030…+0.134 on the same cells, which is what an author tint looks like.
+- The tinted interiors are their untinted twins scaled by a channel-uniform
+  factor (over `photo`, R/G/B ratios 0.724 / 0.741 / 0.728 — an orange tint would
+  spread those by several times).
+
+The tint's **alpha** did arrive: `…-tint-orange-half` differs from
+`…-tint-orange`. So the registry was read and the strength was honoured; only the
+colour was lost. The harness's Swift wiring reads correct by inspection
+(`SceneViews.material()` applies `Glass.tint(_:)` to the `Glass` value, and
+`main.swift` resolves the registry entry), so distinguishing "the seed never
+reached `Glass`" from "`Glass.tint(_:)` ignored it on this OS build" needs a
+rebuild — which invalidates the harness's TCC grant and therefore belongs to the
+scheduled capture session, not to a measurement run.
+
+**What follows from it, operationally.** No tone-curve constant is fitted, no
+tint threshold is proposed, and the four constants stay provisional. The tinted
+cells are **absent from `results/matrix.json`** rather than present with numbers
+that would measure the untinted material under a tinted scene id — and that
+absence is derived, not remembered: `cli/compare.ts`'s `colourlessTintEvidence`
+finds the byte-identical pair and skips the tint axis on every profile, because
+one binary in one session cannot have dropped the seed for those two scenes
+alone. `--allow-colourless-tints` measures them anyway and says why. A
+re-captured bed admits them automatically, and the fit the W3 plan designed can
+then run unchanged.
+
+The hue-independence and size-independence checks, and the dark-scheme and
+accessibility assumption checks, are all unanswered for the same reason: with no
+hue in the bed, the second-hue validation cell and the second-hue holdout cell
+are byte-identical to their orange twins and would have "passed" trivially.
 
 ---
 

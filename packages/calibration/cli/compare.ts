@@ -20,6 +20,11 @@
  *   --allow-material-free    measure fixtures marked `materialRendered: false`.
  *                            Every number over one of those is web-glass against
  *                            a bare background (Decision Log #26a).
+ *   --allow-colourless-tints measure tinted scenes on a bed whose capture session
+ *                            demonstrably dropped the author tint's colour. Every
+ *                            number over one of those is the UNTINTED material
+ *                            filed under a tinted scene id — see
+ *                            `colourlessTintEvidence`.
  *
  * Everything the run needs is read from committed data rather than passed in:
  * each scene's background and split membership come from `scenes.json`, and each
@@ -68,6 +73,7 @@
  */
 
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -98,6 +104,8 @@ interface SceneEntry {
   readonly background: string;
   readonly component: string;
   readonly state: string;
+  /** A key into the matrix's `tints` registry (W3). Absent on an untinted scene. */
+  readonly tint?: string;
 }
 
 interface SceneSpec {
@@ -204,6 +212,76 @@ function webAccessibilityVariant(a11yMode: string, mode: WebAccessibilityMode): 
   return String(chosen) === String(asCaptured) ? "" : `__web-${mode}`;
 }
 
+// ---------------------------------------------------------------------------
+// The tint axis: admitted only by a bed that demonstrably carried colour
+// ---------------------------------------------------------------------------
+
+/**
+ * Evidence that this bed's capture session did not carry the author tint's
+ * COLOUR into the material — or `undefined` when it did.
+ *
+ * The test is byte-identity and nothing else, which is what makes it
+ * unarguable: two scenes that share a background, a component and a state and
+ * differ only in *which* tint they declare cannot render to the same bytes if
+ * the seed reached the material. `systemOrange` and `systemBlue` are not the
+ * same colour. When they produce the same file, the seed was dropped somewhere
+ * between the registry and the composite, and every number measured over a
+ * tinted fixture is a measurement of the UNTINTED material wearing a tinted
+ * scene id — the exact failure the tint plan's "refuse rather than guess" rule
+ * at the harness's own load step was written to prevent, one level deeper.
+ *
+ * **Why one duplicate condemns the whole tint axis rather than the pair.** A
+ * manifest is written by one binary in one capture session. A tint path that
+ * dropped the seed for `photo__capsule-button__rest-tint-blue` dropped it for
+ * every other tinted scene in that same session too; the pairs are merely where
+ * the drop is *visible*, because they are the only places the bed declares two
+ * seeds over one scene. Admitting `light-solid__capsule-button__rest-tint-orange`
+ * on the grounds that nothing contradicts it would be filing the untinted
+ * material under a tinted key with no duplicate left to expose it.
+ *
+ * No threshold and no colour model on purpose. A chroma-response floor would be
+ * a number that a bed could meet by accident, and this question does not need
+ * one to be answered.
+ */
+interface ColourlessTintEvidence {
+  readonly profileKey: string;
+  readonly scenes: readonly [string, string];
+}
+
+function colourlessTintEvidence(
+  spec: SceneSpec,
+  manifest: Manifest,
+): ColourlessTintEvidence | undefined {
+  const sceneById = new Map(spec.scenes.map((scene) => [scene.id, scene]));
+  const digest = (file: string): string =>
+    createHash("sha256").update(readFileSync(resolve(FIXTURES, file))).digest("hex");
+
+  for (const profile of manifest.profiles) {
+    // Grouped by everything a tint is orthogonal to, so the only difference
+    // left inside a group is the declared seed.
+    const groups = new Map<string, FixtureEntry[]>();
+    for (const fixture of profile.fixtures) {
+      const scene = sceneById.get(fixture.sceneId);
+      if (scene?.tint === undefined) continue;
+      const base = `${scene.background}|${scene.component}|${scene.state}`;
+      groups.set(base, [...(groups.get(base) ?? []), fixture]);
+    }
+    for (const group of groups.values()) {
+      if (group.length < 2) continue;
+      const byDigest = new Map<string, string>();
+      for (const fixture of group) {
+        const hash = digest(fixture.file);
+        const twin = byDigest.get(hash);
+        if (twin !== undefined) {
+          return { profileKey: profile.profileKey, scenes: [twin, fixture.sceneId] };
+        }
+        byDigest.set(hash, fixture.sceneId);
+      }
+    }
+  }
+  return undefined;
+}
+
 /**
  * FNV-1a, 32-bit. Deliberately this and not a language hash: the native harness
  * orders its own captures by the same function over the same key, and a
@@ -234,6 +312,7 @@ interface Options {
   readonly skipCapture: boolean;
   readonly writePartial: boolean;
   readonly allowMaterialFree: boolean;
+  readonly allowColourlessTints: boolean;
   readonly materialProfile: string | undefined;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
@@ -283,6 +362,7 @@ function parseOptions(argv: readonly string[]): Options {
     skipCapture: argv.includes("--skip-capture"),
     writePartial: argv.includes("--write-partial"),
     allowMaterialFree: argv.includes("--allow-material-free"),
+    allowColourlessTints: argv.includes("--allow-colourless-tints"),
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
     webAccessibility,
     matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
@@ -305,7 +385,12 @@ interface PlannedCell {
   readonly order: number;
 }
 
-function plan(spec: SceneSpec, manifest: Manifest, options: Options): PlannedCell[] {
+function plan(
+  spec: SceneSpec,
+  manifest: Manifest,
+  options: Options,
+  colourlessTints: ColourlessTintEvidence | undefined,
+): PlannedCell[] {
   const setOf = (sceneId: string): FixtureSet => {
     for (const set of FIXTURE_SETS) {
       if (spec.split[set]?.includes(sceneId) === true) return set;
@@ -330,6 +415,20 @@ function plan(spec: SceneSpec, manifest: Manifest, options: Options): PlannedCel
         );
       }
       if (!options.sets.includes(declared)) continue;
+
+      /*
+       * Skipped, not failed. A bed that dropped the tint colour is a property of
+       * the capture session, not of this run — so the untinted cells around these
+       * still measure and still write a matrix, and the skip is reported in the
+       * caveats block where a reader of the numbers will see it.
+       */
+      if (
+        colourlessTints !== undefined &&
+        !options.allowColourlessTints &&
+        spec.scenes.find((s) => s.id === fixture.sceneId)?.tint !== undefined
+      ) {
+        continue;
+      }
 
       if (!fixture.materialRendered && !options.allowMaterialFree) {
         // Decision Log #26a refused material-free captures as fixtures: they are
@@ -461,9 +560,18 @@ function main(): void {
   const spec = readJson<SceneSpec>(resolve(REFERENCE, "scenes.json"));
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
 
-  const planned = plan(spec, manifest, options);
+  const colourlessTints = options.allowColourlessTints
+    ? undefined
+    : colourlessTintEvidence(spec, manifest);
+
+  const planned = plan(spec, manifest, options, colourlessTints);
   if (planned.length === 0) {
-    throw new Error("compare: the filters selected no cells. Check --scene / --profile / --set.");
+    throw new Error(
+      "compare: the filters selected no cells. Check --scene / --profile / --set." +
+        (colourlessTints === undefined
+          ? ""
+          : " Every tinted scene is being skipped — see --allow-colourless-tints."),
+    );
   }
 
   if (options.sets.includes("holdout")) {
@@ -678,6 +786,18 @@ function main(): void {
   // ---------------------------------------------------------------------------
   say("");
   say("── what this run does and does not show ────────────");
+  if (colourlessTints !== undefined) {
+    const tinted = spec.scenes.filter((scene) => scene.tint !== undefined).length;
+    say(
+      `THE TINT AXIS IS ABSENT from this run: all ${tinted} tinted scene(s) were skipped, on every ` +
+        `profile. This bed's capture session did not carry the author tint's COLOUR into the ` +
+        `material — ${colourlessTints.scenes[0]} and ${colourlessTints.scenes[1]} declare different ` +
+        `seeds and their ${colourlessTints.profileKey} fixtures are byte-identical, which one ` +
+        `binary in one session cannot have done for those two alone. Re-capture the bed to measure ` +
+        `the tint; pass --allow-colourless-tints to measure the untinted material under the tinted ` +
+        `ids anyway.`,
+    );
+  }
   const withoutMaterial = manifest.profiles
     .flatMap((p) => p.fixtures)
     .filter((f) => !f.materialRendered);

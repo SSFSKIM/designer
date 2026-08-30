@@ -462,9 +462,10 @@ input rather than posing it pressed, and the native "pressed" captures are
 byte-identical to their rest counterparts; **no adopted pass/fail thresholds**,
 only proposals awaiting a human gate; **1× scale only**, with both
 accessibility-mode profiles still uncaptured; **no fidelity claim for the author
-tint**, whose tone curve is advisory until the tinted native captures are taken
-(see `tint` above — implemented and visually verified on both tiers, measured on
-neither); and **no claim that the two tiers are identical**, nor that the
+tint**, whose tone curve is advisory until a tinted native bed exists that
+carries colour — the 2026-08-30 captures carry the tint's strength but not its
+seed (see `tint` above — implemented and visually verified on both tiers,
+measured on neither); and **no claim that the two tiers are identical**, nor that the
 coherence figure above holds on Gecko or WebKit, where nothing about
 `backdrop-filter` is measurable at all.
 

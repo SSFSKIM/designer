@@ -406,8 +406,10 @@ check.
   implemented on both tiers and visually verified on both, but every constant in
   the tone curve that turns an author's colour into "a range of tones mapped to
   content brightness underneath" is an advisory default. The tinted native
-  captures that would fit them are a scheduled extension of the capture harness;
-  until they exist the tint's appearance is designed, not calibrated.
+  captures that would fit them were taken on 2026-08-30 and could not be used:
+  they carry the tint's strength but not its colour, so two scenes declaring
+  different seeds came back byte-identical (claims §5.10). Until a re-captured
+  bed exists the tint's appearance is designed, not calibrated.
 
 ---
 

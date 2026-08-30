@@ -270,14 +270,14 @@ interface GatedProfile {
 const GATED_PROFILES: readonly GatedProfile[] = [
   {
     profileKey: "apple-macos-26.5-1x-light-standard",
-    cellsPerTier: 24,
+    cellsPerTier: 25,
     texture: TEXTURE_TIER_LIGHT,
     dom: DOM_TIER_LIGHT,
     names: { texture: "TEXTURE_TIER_LIGHT", dom: "DOM_TIER_LIGHT" },
   },
   {
     profileKey: "apple-macos-26.5-2x-light-standard",
-    cellsPerTier: 24,
+    cellsPerTier: 25,
     texture: TEXTURE_TIER_2X_LIGHT,
     dom: DOM_TIER_2X_LIGHT,
     names: { texture: "TEXTURE_TIER_2X_LIGHT", dom: "DOM_TIER_2X_LIGHT" },
@@ -325,17 +325,31 @@ const UNGATED_PROFILES = [
  * The whole matrix, and how it partitions — asserted per profile rather than as
  * a bare total, so a profile going missing cannot be absorbed by another's cells
  * arriving. Six native profiles × two web tiers, on the settled bed.
+ *
+ * **The bed the counts are over (2026-08-30).** `scenes.json` declares 37 scenes
+ * and the harness captured 121 native fixtures, but only 25 scenes reach this
+ * matrix. The difference is W3's 12 tinted scenes, and they are absent for a
+ * reason `cli/compare.ts` derives rather than remembers: that capture session
+ * dropped the author tint's COLOUR, which its own bytes prove — scenes declaring
+ * `systemOrange` and `systemBlue` over one backdrop came back byte-identical.
+ * `colourlessTintEvidence` finds that and skips the tint axis on every profile,
+ * so the counts here are also the assertion that no untinted material got filed
+ * under a tinted scene id. A re-captured bed admits the tinted cells again and
+ * these numbers move with it.
+ *
+ * What DID arrive is W7's `mid-dark-solid__capsule-button__rest`, in the four
+ * standard profiles — one cell per profile per tier, the +2 on each count below.
  */
 const MATRIX_PARTITION: Readonly<Record<string, number>> = {
-  "apple-macos-26.5-1x-dark-standard": 20,
+  "apple-macos-26.5-1x-dark-standard": 22,
   "apple-macos-26.5-1x-light-increased-contrast": 16,
   "apple-macos-26.5-1x-light-reduced-transparency": 16,
-  "apple-macos-26.5-1x-light-standard": 48,
-  "apple-macos-26.5-2x-dark-standard": 20,
-  "apple-macos-26.5-2x-light-standard": 48,
+  "apple-macos-26.5-1x-light-standard": 50,
+  "apple-macos-26.5-2x-dark-standard": 22,
+  "apple-macos-26.5-2x-light-standard": 50,
 };
 
-const MATRIX_CELLS = 168;
+const MATRIX_CELLS = 176;
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
