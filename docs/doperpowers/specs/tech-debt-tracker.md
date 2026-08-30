@@ -133,6 +133,16 @@ This is invisible in CI because the react e2e suite is not run there
 (`.github/workflows/ci.yml` runs only `@vitreajs/vitrea-web`'s), which is its own
 half of the problem: a suite nobody runs is a suite nobody can trust.
 
+*Re-measured 2026-08-30, at the end of the deferred API round (W5), over four
+consecutive full runs of one unchanged tree: **0, 2, 4, 4** failures, always from
+the same four candidates and always only on `firefox`.* Two things that adds.
+First, a fully clean run happens — so "it passed" is not evidence that a change
+is safe, and the only usable signal is the distribution over several runs.
+Second, the rate drifts within a session: W5's morph child measured the *same*
+baseline at 0, 6 and 7 failures an hour earlier. Anything triaging against this
+entry should compare distributions rather than single runs, and should expect
+the comparison to be noisy in both directions.
+
 **The fix shape:** make the assertions bracket the driver's trajectory rather
 than sample it — poll for the channel to cross a threshold, the way the
 accessibility specs already `expect.poll` — and then put the suite in CI, because
