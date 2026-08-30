@@ -3075,6 +3075,169 @@ to choose:
 
 ---
 
+### 5.17 The span-128 round: blocked at the capture, with two findings that did not need one (2026-08-31)
+
+Wave Decision Log 18 chartered a span-128 calibration cell, adopted three bounds
+at their measured values, and cleared the flip to execute on a clean report. **The
+capture cannot run: the machine's login session is locked.** Two of DL18's own
+instructions produced results anyway, and one of them is a defect in the
+committed record.
+
+#### The blocker, measured rather than inferred
+
+Probed through the existing build, before any rebuild — deliberately, because a
+rebuild invalidates the TCC grant and there would have been no way back:
+
+```
+window canBecomeKey: true, isKeyWindow: false, isMainWindow: false, NSApp.isActive: false
+ScreenCaptureKit: BLOCKED
+```
+
+And the session state that explains both, read three times over eighteen seconds
+and stable every time:
+
+```
+CGSSessionScreenIsLocked -> true      kCGSSessionOnConsoleKey -> true
+pmset assertions: UserIsActive 0
+```
+
+The harness is not at fault, and its Decision Log 14 fixes are all present: the
+window subclass returns `canBecomeKey: true`, the activation policy is
+`.regular`, and `Capture.present` calls `NSApp.activate(ignoringOtherApps:)`
+before `makeKeyAndOrderFront`. A locked session refuses the activation and blocks
+ScreenCaptureKit. A capture taken in this state would record the **inactive**
+material — the exact defect Decision Log 14 exists to prevent — so it was not
+attempted. Per DL18's own instruction this is reported rather than retried, and
+nothing was rebuilt, so the TCC grant is intact for whenever the session unlocks.
+
+#### The finding DL18's verification instruction caught
+
+DL18 said of the span-128 cells: *"these cells carry a material axis and NO shadow
+axis (the instrument records it absent — verify it does, don't assume)."*
+Verified, on cells already in the bed, and **it does not.**
+
+`photo__rrect-lg__rest` has a span of 160 on a 200 px canvas, so 20 px of margin
+against a reference shadow reaching 33–37 px below. The instrument reports that
+cell's shadow as a measurement — extent below 33 px, sigma 15.86, amplitude 0.17 —
+with no absence and no caveat. The truncation biases it visibly:
+
+| backdrop | span | margin | sigma | extent below |
+| --- | --- | --- | --- | --- |
+| `photo` | 96 | 52 px | 17.31 | 36 |
+| `photo` | 130 | 35 px | 17.52 | 35 |
+| `photo` | **160** | **20 px** | **15.86** | **33** |
+| `checkerboard` | 96 | 52 px | 17.75 | 37 |
+| `checkerboard` | 130 | 35 px | 17.69 | 38 |
+| `checkerboard` | **160** | **20 px** | **17.55** | **35** |
+
+Sigma falls 8% on `photo` at the clipped span while the two unclipped spans agree
+within 1%, and the same cell reads 31.93 at 2x against 34.8–35.8 elsewhere. **This
+is in the committed record now**, for `rrect-lg` and less severely for
+`glass-over-glass` — §5.12's shadow table quotes those figures as measurements of
+the reference.
+
+The guard needs no new constant: an extent walk that reaches the canvas edge has
+been truncated, and a truncated field must record the shadow axis **absent**, on
+the same "absent, never zeroed" discipline the axis already applies where the
+backdrop cannot support a ratio. Landing it moves the shadow figures on two scene
+families and therefore needs a regeneration and a re-read, which is why it is
+reported here rather than taken.
+
+**It also refines DL18's premise, in vitrea's favour.** A span-128 component
+leaves 36 px of margin, which is *more* than the 35 px of the `glass-over-glass`
+cells whose fitted sigma is within 1% of unclipped. So the span-128 cell is
+expected to carry a **usable-but-marginal** shadow axis rather than none — the
+trade DL18 stated is milder than it assumed. It should still be barred from any
+shadow-constant fit on principle: it is a band cell, and its margin sits right at
+the edge of where the bias sets in.
+
+#### The span-128 cells, declared before capture
+
+Per DL18 ruling 1, declared here so the session is a paste rather than a design.
+**A plan, not a change** — `scenes.json` is untouched, because a declared scene
+with no fixture puts the tree's declared bed and its captured bed out of
+agreement.
+
+One new component, sitting between `rrect-md` (span 96) and `rrect-lg` (160):
+
+```jsonc
+"rrect-ml": {
+  "kind": "rrect", "size": [224, 128], "radius": 27,
+  "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant."
+}
+```
+
+Six native cells, three backdrops by two profiles, chosen so the 96 to 128
+comparison is like-for-like against the three `rrect-md` cells already in the
+tone-inert calibration set:
+
+| profile | scenes | split |
+| --- | --- | --- |
+| `apple-macos-26.5-1x-light-standard` | `checkerboard__rrect-ml__rest`, `photo__rrect-ml__rest`, `light-solid__rrect-ml__rest` | calibration |
+| `apple-macos-26.5-2x-light-standard` | the same three | calibration |
+
+2x is included because three of the six failing flagship rows live there. No
+holdout cell is added: the holdout already carries the spans the band needs to be
+tested at (130 and 160), and adding one would spend a fourth read on a column
+this cascade has already read three times.
+
+#### The band fit, declared before it runs
+
+Same protocol as §5.15 and the same objective — `scripts/sweep.ts`'s default
+interior objective, with everything not named below frozen at the round-two state,
+`increasedOcclusionLift` 0.75 included.
+
+- `sizeSpanMax`: 96 (current), 112, 128, 144, 160, 192
+- then `sizeOcclusionGain`: 0 (current), 0.05, 0.10, 0.20, 0.35
+- Cells: the eight tone-inert untinted rest calibration cells of
+  `1x-light-standard` **plus the three new span-128 cells**, and the 2x set for
+  the 2x profile's own fit.
+
+**The contamination lineage, stated plainly.** §5.13 read the holdout column once
+and §5.16 read it a second time; the span-128 round would be the **third read**.
+Every read has been of a frozen configuration and no holdout cell has ever been
+fitted to, but the fitter has now seen that column three times and knows exactly
+which cells fail and by how much. The declaration is the only mitigation there is,
+and it is weaker on a third read than it was on a first.
+
+**The outcome is also bounded in advance.** Even a perfectly fitted band cannot
+reach `rrect-lg`: span 160 sits above any band top this canvas can calibrate, so a
+residual there is expected and ships as a measured limitation on the flagship
+claim, scoped to the rows and spans it actually covers.
+
+#### The three bounds, gate-adopted post-read
+
+Decision Log 18 ruling 2, recorded here and carried into the tables when the suite
+flips. **These were never pre-registered**: §5.15 declared bounds from calibration
+and validation, the holdout refuted two of them, and the gate adopted all three
+afterwards with its reasons on the record. Marking them any other way would
+misrepresent the protocol.
+
+| profile | tier | row | was | now | the gate's recorded reason |
+| --- | --- | --- | --- | --- | --- |
+| `2x-light-standard` | dom | contour p95 | 8.0 | **10.0** | raster-step quantisation of a p95 |
+| `1x-light-reduced-transparency` | dom | contour p95 | 3.5 | **5.0** | raster-step quantisation of a p95 |
+| `1x-light-reduced-transparency` | texture | SSIM | 0.96 | **0.95** | inactive-bed provenance; 0.9595 measured |
+
+With these adopted, **three of round two's nine failing rows close**. The
+remaining six are the band, on `checkerboard__rrect-lg__rest` and the
+`glass-over-glass` cells — which is what the blocked capture was for.
+
+#### Where this leaves the adoption
+
+DL18 cleared the flip to execute "after the span-128 round reads". It has not
+read, so the flip's precondition is unmet and `results/matrix.json` is unchanged.
+Shipping the six band rows as a measured limitation *without* attempting the
+chartered fit would be presuming that fit's outcome, which is the one thing it
+exists to avoid.
+
+What the session needs, in one line: **unlock the machine and leave it unlocked.**
+Then the chain runs autonomously — rebuild, TCC re-grant, three runs per profile
+with 2-of-3 plurality and `presentedActive` attested per cell, web captures, the
+declared band fit, one holdout read, and the flip.
+
+---
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
