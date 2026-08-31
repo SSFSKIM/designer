@@ -4247,6 +4247,83 @@ partial runs from the locked attempt at `dl20-partial-locked/`. No bed was
 materialised, no constant fitted, no holdout read; the committed bed was restored
 on the study's own exit path.
 
+### 5.24 The reset sweep, declared before it runs (2026-08-31)
+
+Decision Log 21 adopted all five doctrine items and chartered a sweep of the
+reset's strength before the final bed is captured. §5.23 tested exactly one reset
+— a 1.5 s neutral field — so the question of whether the residual thirteen cells
+are a floor or an artefact of an under-powered reset is open. This is the
+declaration; nothing below has been run.
+
+#### The ranking statistic, and what it can resolve
+
+The comparison is `U(n)` — unstable cells (bistable + multi-state) over `n` runs
+of one protocol — and it is only comparable at equal `n`, because §5.23 measured
+it climbing with every run.
+
+`U(4)` is the working statistic, and its noise is measured rather than assumed.
+Taking all fifteen four-run subsets of §5.23's six-run arms:
+
+| protocol | U(4) min | median | max | sd |
+| --- | --- | --- | --- | --- |
+| baseline | 17 | 24.0 | 29 | 3.43 |
+| reset 1.5 s | 6 | 9.0 | 12 | 1.69 |
+
+The two do not overlap — baseline's *worst* subset beats the reset's *best* — so
+`U(4)` separates protocols that differ as much as these do. **Declared
+discrimination threshold: a difference of 5 or more in `U(4)` is a ranking; less
+than that is declared indistinguishable**, and among indistinguishable protocols
+the *shorter* dwell wins, because dwell is paid 54 times per run and again on
+every one of the final bed's seventeen.
+
+#### The grid
+
+**Four runs per point, fixed order, idle-guarded, lock-checked, focus-attested,
+bed restored on every exit.** Two points are already measured on the same machine,
+the same day, under the same conditions, and are reused rather than re-run:
+
+| point | dwell | reset carries | runs | status |
+| --- | --- | --- | --- | --- |
+| D0 | none | — | 4 (of §5.23's arm A) | measured, U(4) median 24 |
+| D0.5 | 0.5 s | bare neutral field | 4 | **to run** |
+| D1.5 | 1.5 s | bare neutral field | 4 (of §5.23's arm B) | measured, U(4) median 9 |
+| D3 | 3 s | bare neutral field | 4 | **to run** |
+| D6 | 6 s | bare neutral field | 4 | **to run** |
+| G | winning dwell | **a glass surface** | 4 | **to run, after a rebuild** |
+
+Ten seconds is deliberately left out of the first pass. A run costs
+`200 + 54 × dwell` seconds, so D6 is already 35 minutes for four runs and D10
+would be 49; if the curve is still falling at 6 s the point gets added, and if it
+has flattened it would only buy cost.
+
+#### The glass-bearing reset, specified
+
+The bare field resets the *backdrop* the material adapts to, but it removes the
+material entirely, so each cell's surface is created afresh against a neutral
+field. **G resets to a canonical glass state instead**: the neutral field with one
+fixed surface on it — an untinted `capsule-button` at rest, the same one before
+every cell whatever that cell contains — so the state machine starts from one
+known glass configuration rather than from no glass at all.
+
+Fixed rather than matched to the upcoming cell, deliberately. A reset that varied
+with what came next would be fifty-four different reset states, which is the
+condition being removed rather than a cure for it.
+
+It needs a harness change and therefore a rebuild, and a rebuild costs the Screen
+Recording grant. So the dwell points run first on the committed binary, the glass
+point runs after one rebuild, and that rebuild is deliberately batched with the
+accessibility-toggle coordination the final bed needs anyway — one interruption
+for the human, not two.
+
+#### What would stop this
+
+If no two adjacent dwell points differ by 5 or more in `U(4)`, and the whole
+sweep sits inside the threshold, then the sweep cannot rank and that routes to the
+gate rather than being resolved by picking a favourite. If the curve is flat from
+0.5 s onward, the finding is that dwell is not the axis and the reset's benefit is
+categorical — present or absent — which is itself an answer and changes what the
+glass point is testing.
+
 ---
 
 ## 6. What could not be measured, and why
