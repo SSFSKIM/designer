@@ -178,6 +178,15 @@ struct CaptureOptions {
   /// Seconds to dwell on a neutral field before each cell, giving every cell the
   /// same starting state instead of the previous cell's settled one.
   var resetInterstitialSeconds: Double?
+  /// Put a canonical glass surface on the neutral field during that dwell.
+  ///
+  /// A bare field resets the *backdrop* but removes the material, so each cell's
+  /// surface is created afresh against neutral. This resets to a known *glass*
+  /// state instead: one fixed untinted capsule at rest, the same one before every
+  /// cell whatever that cell contains. Fixed rather than matched to the cell
+  /// ahead, deliberately — a reset that varied with what came next would be as
+  /// many reset states as there are cells, which is the condition being removed.
+  var resetCarriesGlass: Bool = false
   /// Refuse the run unless the machine has been idle at least this long.
   var minIdleSeconds: Double?
 }
@@ -268,6 +277,13 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
   // of the states it is suspected of settling into. It is never written and
   // never captured — the manifest records the dwell instead.
   let neutralField = Backgrounds.render(.solid(srgb: [128, 128, 128]), canvas: canvas, scale: scale)
+  /// The canonical surface for `--reset-glass`, resolved once and reused.
+  let resetComponent = spec.components["capsule-button"]
+  if options.resetCarriesGlass && resetComponent == nil {
+    fail("--reset-glass needs a 'capsule-button' component in scenes.json to reset onto; the spec declares none.")
+  }
+  let resetScene = SceneEntry(id: "__reset__", background: "__neutral__",
+                              component: "capsule-button", state: "rest", tint: nil)
 
   var profileManifests: [ProfileManifest] = []
   var caveats: [String] = []
@@ -392,6 +408,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
         runLabel: options.runLabel,
         orderSeed: options.orderSeed,
         resetInterstitialSeconds: options.resetInterstitialSeconds,
+        resetCarriesGlass: options.resetCarriesGlass,
         minIdleSeconds: options.minIdleSeconds,
         hidIdleSecondsAtStart: idleAtStart,
         // Read here rather than at the top: a run that was quiet when it started
@@ -847,8 +864,15 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
       }
 
       guard let dwell = options.resetInterstitialSeconds else { return beginScene() }
-      w.contentView = NSHostingView(rootView: RasterBackground(image: neutralField, canvas: canvas)
-        .frame(width: canvas.width, height: canvas.height))
+      if options.resetCarriesGlass, let resetComponent {
+        w.contentView = NSHostingView(rootView:
+          SceneView(scene: resetScene, component: resetComponent, backgroundImage: neutralField,
+                    canvas: canvas, pressed: false, tint: nil)
+            .profileEnvironment(colorScheme: profile.colorScheme, a11y: profile.a11y))
+      } else {
+        w.contentView = NSHostingView(rootView: RasterBackground(image: neutralField, canvas: canvas)
+          .frame(width: canvas.width, height: canvas.height))
+      }
       w.displayIfNeeded()
       DispatchQueue.main.asyncAfter(deadline: .now() + dwell) { beginScene() }
     }
@@ -918,6 +942,10 @@ struct Harness {
         options.orderSeed = seed
       }
       options.resetInterstitialSeconds = number("--reset-interstitial")
+      options.resetCarriesGlass = args.contains("--reset-glass")
+      if options.resetCarriesGlass && options.resetInterstitialSeconds == nil {
+        fail("--reset-glass needs --reset-interstitial <s>: a reset with no dwell is not a reset.")
+      }
       options.minIdleSeconds = number("--min-idle-seconds")
       runGUI { runCapture(method: method, allowColourlessTints: allow, options: options) }
 
@@ -931,6 +959,7 @@ struct Harness {
           --run-label <s>             recorded in the manifest, so a study's arms are separable
           --order-seed <n>            permute the capture order; absent keeps the one stable order
           --reset-interstitial <s>    dwell on a neutral field before each cell
+          --reset-glass               that dwell carries a canonical glass surface
           --min-idle-seconds <s>      refuse the run unless the machine has been idle this long
         """)
     }

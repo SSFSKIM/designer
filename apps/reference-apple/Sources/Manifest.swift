@@ -169,6 +169,8 @@ struct FixtureManifest: Codable {
     /// Neutral-field dwell inserted before each cell, in seconds. Absent means
     /// no interstitial: each cell begins from whatever the previous one left.
     let resetInterstitialSeconds: Double?
+    /// Whether that dwell carried a canonical glass surface rather than a bare field.
+    let resetCarriesGlass: Bool?
     /// The idle bar this run was required to clear, and what it actually saw.
     let minIdleSeconds: Double?
     let hidIdleSecondsAtStart: Double?
