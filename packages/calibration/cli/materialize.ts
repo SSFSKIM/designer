@@ -17,6 +17,16 @@
  * Nothing is written unless every cell resolves. A bed half-published under a
  * manifest describing the other half is the failure mode the harness's own
  * staging discipline exists to prevent, and this inherits it.
+ *
+ * `--frequency-settle` is the freezing mode Decision Log 21 adopted, and it is
+ * deliberately a separate flag rather than a fallback. Under it a cell that holds
+ * more than one settled state is published at its **majority** state and marked
+ * `frequencySettled` in the manifest, with the observed frequencies beside it, so
+ * a reader can see that the cell was decided by counting rather than by agreement.
+ * A tie is still refused: frequency cannot settle what has no majority. The bed
+ * also gains a provenance block naming the run count and the confidence that
+ * count buys, because "deterministic" is only ever a claim about how hard anyone
+ * looked.
  */
 import { copyFileSync, existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -122,6 +132,7 @@ function parseArgs(argv: readonly string[]): {
   runs: { label: string; dir: string }[];
   profiles: string[];
   apply: boolean;
+  frequencySettle: boolean;
 } {
   const runs: { label: string; dir: string }[] = [];
   const profiles: string[] = [];
@@ -140,8 +151,23 @@ function parseArgs(argv: readonly string[]): {
     }
   }
   if (runs.length < 2) throw new Error("materialize: give at least two --run LABEL=DIR snapshots.");
-  return { runs, profiles, apply: argv.includes("--apply") };
+  return {
+    runs,
+    profiles,
+    apply: argv.includes("--apply"),
+    frequencySettle: argv.includes("--frequency-settle"),
+  };
 }
+
+/**
+ * The chance a state held by a fraction `p` of draws would have been seen at
+ * least once in `n` runs.
+ *
+ * Reported rather than assumed, because §5.23 measured minority states as low as
+ * one draw in six and a bed is only "unanimous" to the confidence its run count
+ * buys.
+ */
+const confidenceAt = (n: number, p: number): number => 1 - Math.pow(1 - p, n);
 
 function main(): void {
   const options = parseArgs(process.argv.slice(2));
@@ -180,24 +206,66 @@ function main(): void {
         return differenceSummary(left.data, right.data, left.width, left.height);
       });
       decisions.push({ cell, profile, scene, outcome });
-      if (outcome.kind !== "refused") {
-        const winner = outcome.chosen.runs[0] as string;
+      // Under --frequency-settle a state-ambiguous cell is published at its
+      // majority rather than refused — but only if it HAS a majority. A tie has
+      // no frequency to settle by and stays refused whatever the flag says.
+      let settled: CaptureVariant | undefined;
+      let settleNote: Record<string, unknown> | undefined;
+      if (options.frequencySettle && outcome.kind === "refused" && outcome.stateAmbiguous) {
+        const ranked = [...variants].sort((a, b) => b.runs.length - a.runs.length);
+        const top = ranked[0] as CaptureVariant;
+        const tied = ranked.filter((v) => v.runs.length === top.runs.length).length > 1;
+        if (!tied) {
+          settled = top;
+          settleNote = {
+            frequencySettled: true,
+            observedStates: ranked.length,
+            stateFrequencies: ranked.map((v) => ({
+              sha256: v.sha256,
+              runs: v.runs.length,
+              share: Number((v.runs.length / runs.length).toFixed(4)),
+            })),
+          };
+        }
+      }
+
+      const chosen = outcome.kind !== "refused" ? outcome.chosen : settled;
+      if (chosen !== undefined) {
+        const winner = chosen.runs[0] as string;
         const entry = runs.find((r) => r.label === winner)?.entries.get(cell);
         if (entry === undefined) throw new Error(`${cell}: run ${winner} published bytes with no manifest entry.`);
-        publish.push({ from: resolve(options.runs.find((r) => r.label === winner)?.dir ?? "", profile, name), profile, scene, entry });
+        publish.push({
+          from: resolve(options.runs.find((r) => r.label === winner)?.dir ?? "", profile, name),
+          profile,
+          scene,
+          entry: settleNote === undefined ? entry : { ...entry, ...settleNote },
+        });
       }
     }
   }
 
-  const refused = decisions.filter((d) => d.outcome.kind === "refused");
+  const settledCells = new Set(publish.filter((p) => p.entry["frequencySettled"] === true).map((p) => `${p.profile}/${p.scene}`));
+  const refused = decisions.filter(
+    (d) => d.outcome.kind === "refused" && !settledCells.has(d.cell),
+  );
   const voted = decisions.filter((d) => d.outcome.kind === "voted");
   const ambiguous = refused.filter((d) => d.outcome.kind === "refused" && d.outcome.stateAmbiguous);
 
+  const settledCount = settledCells.size;
   process.stdout.write(
     `${decisions.length} cell(s) over ${profiles.length} profile(s) from ${runs.length} run(s): ` +
-      `${decisions.length - voted.length - refused.length} unanimous, ${voted.length} voted, ` +
+      `${decisions.length - voted.length - refused.length - settledCount} unanimous, ` +
+      `${voted.length} voted, ${settledCount} frequency-settled, ` +
       `${refused.length} refused (${ambiguous.length} state-ambiguous)\n`,
   );
+  for (const cell of [...settledCells].sort()) {
+    const entry = publish.find((p) => `${p.profile}/${p.scene}` === cell)?.entry;
+    const freqs = (entry?.["stateFrequencies"] ?? []) as { sha256: string; runs: number; share: number }[];
+    process.stdout.write(
+      `  settled  ${cell} -> ${freqs.map((f) => `${f.sha256.slice(0, 8)}×${f.runs}`).join(" / ")} ` +
+        `(majority share ${(freqs[0]?.share ?? 0).toFixed(2)})\n`,
+    );
+  }
   for (const d of voted) {
     if (d.outcome.kind !== "voted") continue;
     process.stdout.write(`  voted    ${d.cell} → ${d.outcome.chosen.runs.join("")}; ${d.outcome.reason}\n`);
@@ -241,6 +309,27 @@ function main(): void {
     if (p.entry["fixtureSet"] !== role) rerolled.push(`${p.profile}/${p.scene}: ${String(p.entry["fixtureSet"])} → ${role}`);
     profile.fixtures[at] = entry;
   }
+  // The bed's own provenance. "Unanimous" is a claim about how hard anyone
+  // looked, so the run count and what it buys travel with the bytes.
+  const settledEntries = publish.filter((p) => p.entry["frequencySettled"] === true);
+  (manifest as unknown as { bedProvenance?: unknown }).bedProvenance = {
+    runs: runs.length,
+    runLabels: runs.map((r) => r.label),
+    cellsPublished: publish.length,
+    unanimousOrVoted: publish.length - settledEntries.length,
+    frequencySettled: settledEntries.length,
+    frequencySettledCells: settledEntries.map((p) => `${p.profile}/${p.scene}`).sort(),
+    confidenceBought: {
+      note:
+        "probability a state held by fraction p of draws would have been seen at least once " +
+        `in ${runs.length} runs`,
+      atP0_50: Number(confidenceAt(runs.length, 0.5).toFixed(4)),
+      atP0_33: Number(confidenceAt(runs.length, 0.33).toFixed(4)),
+      atP0_25: Number(confidenceAt(runs.length, 0.25).toFixed(4)),
+      atP0_167: Number(confidenceAt(runs.length, 0.167).toFixed(4)),
+      atP0_10: Number(confidenceAt(runs.length, 0.1).toFixed(4)),
+    },
+  };
   const split = (JSON.parse(readFileSync(SCENES, "utf8")) as { split?: Record<string, unknown> }).split ?? {};
   const declaration = manifest as unknown as { split?: Record<string, unknown> };
   if (declaration.split !== undefined) {
@@ -250,7 +339,12 @@ function main(): void {
   }
   for (const line of rerolled) process.stdout.write(`  re-rolled ${line}\n`);
   writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-  process.stdout.write(`\nbed materialised: ${publish.length} cell(s) written with their own run's manifest entry.\n`);
+  process.stdout.write(
+    `\nbed materialised: ${publish.length} cell(s) written with their own run's manifest entry` +
+      (settledEntries.length > 0 ? `, ${settledEntries.length} of them frequency-settled` : "") +
+      `. Provenance: ${runs.length} runs, ` +
+      `${(confidenceAt(runs.length, 0.167) * 100).toFixed(1)}% confidence at a one-in-six minority.\n`,
+  );
 }
 
 try {
