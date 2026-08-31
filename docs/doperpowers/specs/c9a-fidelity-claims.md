@@ -4359,6 +4359,92 @@ and it now waits on **both** preconditions — an unlocked session and a Screen
 Recording grant that actually answers — before spending a run. The rebuild for the
 glass reset has been taken in the same window, so one human visit clears both.
 
+### 5.25 The reset sweep, reported: six seconds, and the glass makes no difference (2026-08-31)
+
+Sixteen new runs against §5.24's declaration, plus eight reused from §5.23 on the
+same machine under the same conditions. **Every run came back 54 of 54 attested**,
+out to 7784 seconds of idle — the wake assertion held throughout, which is the
+corrected doctrine item 1 working.
+
+#### The dwell curve
+
+`U(4)` is the declared statistic — unstable cells over four runs — and its
+declared discrimination threshold is 5.
+
+| point | dwell | U(4) | deterministic | run cost |
+| --- | --- | --- | --- | --- |
+| D0 | none | 19 | 33 | ~200 s |
+| D0.5 | 0.5 s | 14 | 37 | ~227 s |
+| D1.5 | 1.5 s | 10 | 41 | ~281 s |
+| **D3** | 3 s | **21** | 31 | ~362 s |
+| D6 | 6 s | **6** | 47 | ~524 s |
+
+**D3 is worse than no reset at all, and it is not one unlucky run.** All four of
+its three-run subsets score 12, 16, 18 and 19 — a distribution sitting on top of
+D0's own 10, 17, 17, 18. Every other point's subsets are cleanly below. So the
+curve is **non-monotone and reproducibly so**: better at 0.5 s, better again at
+1.5 s, back to baseline at 3 s, best by far at 6 s.
+
+The honest reading is that this is not a smooth "more dwell is more reset". A
+mechanism that would produce it: the reset itself drives an adaptation animation,
+and handing the real scene over while that animation is mid-flight is worse than
+never starting it — 3 s would then be near the worst phase to interrupt at. That
+is a hypothesis the sweep suggests and does not test, and it is recorded as one.
+
+#### Resolving D6 against D1.5
+
+At four runs D6 (6) and D1.5 (10) differ by 4, one short of the declared
+threshold, and the declared tie-break prefers the shorter dwell on cost. Rather
+than settle the wave's most consequential protocol choice on a one-unit margin,
+two more D6 runs were taken so the pair could be compared at the run count that
+actually matters:
+
+| protocol | U(6) | U(5) over all six subsets |
+| --- | --- | --- |
+| D1.5 | 13 | 9, 10, 11, 11, 12, 13 |
+| **D6** | **6** | 3, 4, 5, 6, 6, 6 |
+
+A gap of 7 at n=6, above the threshold, with **no overlap at all** between the
+two subset distributions. This is not a change to the ranking rule — the rule is
+applied unchanged — it is the acquisition of enough data to apply it where it
+bites.
+
+**D6 has also stopped discovering.** Its count is 6 at four runs, 6 at five and 6
+at six, where the baseline climbed about six cells per run and never flattened.
+A protocol whose instability estimate has converged is a different kind of object
+from one whose estimate is still a lower bound.
+
+#### The glass point: no effect, and that is the informative result
+
+Four runs at 6 s with the reset carrying a canonical untinted capsule instead of
+a bare field:
+
+| reset at 6 s | U(4) |
+| --- | --- |
+| bare neutral field | 6 |
+| **carrying a glass surface** | **6** |
+
+Identical, a difference of zero against a threshold of five. **Whether a surface
+is present during the reset makes no difference whatever**, which says the
+carry-over being cleared lives in the *backdrop adaptation* rather than in any
+per-surface state: resetting what the material looks at is the whole of the
+effect, and what it looks at it *with* is irrelevant. That is worth more than a
+win would have been, because it names where the state lives.
+
+One nuance the counts hide: the two six-cell sets share only two members. The
+residual is therefore **not a stubborn subset of hard cells** but a low-rate draw
+that can land on any cell — while remaining, at six seconds, a draw of about six.
+
+#### The winning protocol
+
+**A six-second bare neutral field before every cell.** It ties the glass variant
+on the statistic and wins on simplicity, and it beats every shorter dwell
+decisively. It costs 524 seconds per 54-cell run against the baseline's 200, and
+that is the price of the bed being worth freezing.
+
+The final bed is captured under it: seventeen runs per phase, per adopted doctrine
+item 3, buying 95.6% confidence against a one-in-six minority state.
+
 ---
 
 ## 6. What could not be measured, and why
