@@ -4324,6 +4324,41 @@ gate rather than being resolved by picking a favourite. If the curve is flat fro
 categorical — present or absent — which is itself an answer and changes what the
 glass point is testing.
 
+#### Addendum (2026-08-31): the sweep's first attempt, and a correction to doctrine item 1
+
+The dwell sweep started and lost its later runs, and the cause is worth the
+doctrine entry it produces.
+
+Runs `d05-1` and `d3-1` came back 54/54 attested. `d6-1` came back **40/54**, and
+`d05-2`, `d3-2` and `d6-2` came back **0/54** — the session had dropped to
+`loginwindow` partway through the third run, at around 1000 seconds of idle. The
+attestation caught all of it, and the tint-dropout caveat fired on exactly the
+same runs, which is §5.23's H3 result reproducing itself unprompted.
+
+**The cause was mine.** At the close of the previous round I released the
+`caffeinate` wake assertions as a courtesy, having read them as a temporary
+workaround for the lock. They were not a workaround; they were load-bearing.
+
+**And that corrects doctrine item 1.** The proposal said "unlocked throughout",
+and the user duly disabled the password lock — `sysadminctl` reports
+`screenLock is off` and `pmset` reports `displaysleep 0`. **That is not
+sufficient.** With no assertion held, the session still descends to `loginwindow`
+on its own, and once there neither `caffeinate -u` nor dismissing the screen saver
+brings it back: the state is only recoverable by a human. §5.23's sixteen clean
+runs to 3038 seconds of idle were clean *because* a wake assertion was held for
+their whole duration, which at the time read as incidental.
+
+So item 1 becomes: **a capture campaign requires the password lock disabled AND a
+display-wake assertion held for the whole of it.** Either alone is not enough, the
+failure is silent from the operator's side, and the only mechanical detector is
+the per-cell focus attestation — which is exactly why item 1 makes a run with any
+unattested cell void rather than partial.
+
+The sweep is re-armed from a clean start with the assertion held for eight hours,
+and it now waits on **both** preconditions — an unlocked session and a Screen
+Recording grant that actually answers — before spending a run. The rebuild for the
+glass reset has been taken in the same window, so one human visit clears both.
+
 ---
 
 ## 6. What could not be measured, and why
