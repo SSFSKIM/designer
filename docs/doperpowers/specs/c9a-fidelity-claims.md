@@ -4071,6 +4071,182 @@ Four runs are preserved whole at
 materialised, no constant was fitted, no holdout was read, and the committed bed
 was restored on the study's own exit path.
 
+### 5.23 The stability study, completed: the reset works, and three hypotheses dissolved (2026-08-31)
+
+The lock was disabled, the sixteen runs ran, and **every one of them came back
+54 of 54 attested** — app active, window key, each cell settled against itself —
+across idle times from 69 to 3038 seconds. The 746-second wall of §5.22 is gone
+and the study is the first complete one this wave has had.
+
+Three arms, interleaved rather than blocked so the protocol cannot be confounded
+with anything that drifts across an hour:
+
+| arm | protocol | runs | deterministic | noisy | **unstable** |
+| --- | --- | --- | --- | --- | --- |
+| A | baseline, fixed order | 6 | 23 | 2 | **29 / 54** |
+| B | reset interstitial 1.5 s, fixed order | 6 | 38 | 3 | **13 / 54** |
+| C | baseline, permuted order | 4 | 26 | 1 | **27 / 54** |
+
+#### The finding that reframes everything before it
+
+Instability is not a property of a few odd cells. **Over half the bed is
+bistable**, and the only reason it looked like eight cells in §5.20 and three in
+§5.22 is that those readings had two runs to see it with.
+
+| runs | arm A unstable | arm B unstable |
+| --- | --- | --- |
+| 2 | 5 | 8 |
+| 3 | 10 | 10 |
+| 4 | 19 | 10 |
+| 5 | 24 | 12 |
+| 6 | **29** | **13** |
+
+Baseline discovery climbs by about six cells per run and **has not saturated at
+six**. Eleven of arm A's twenty-nine revealed their second state exactly once in
+six runs — at five runs they would have read as deterministic. Twenty-eight of
+the twenty-nine hold exactly two states; one holds three.
+
+**Every bed this cascade has fitted against was accepted on three runs**, which
+against the observed minority frequencies is a coin-flip's chance of seeing the
+second state at all. That is not a defect in any particular fit. It is the reason
+the fits kept disagreeing with each other.
+
+#### H1 and H1b: the reset works, and the path is causal
+
+**H1 — SUPPORTED, and the mechanism is confirmed.** A 1.5 s neutral field before
+each cell cuts instability from **29 to 13**. The stronger evidence is the shape
+rather than the level: baseline discovery grows without saturating, while the
+interstitial arm plateaus after run three (10, 10, 12, 13). The reset removes the
+dominant mechanism outright rather than merely damping it. Its residual is a
+different, smaller population — eleven of B's thirteen are also in A's
+twenty-nine, and the two that are not are `photo__rrect-md__rest` and
+`photo__rrect-ml__rest`.
+
+**H1b — SUPPORTED.** At the same four runs, permuting the order gives **27**
+unstable against the fixed order's **19**, and the two sets overlap by only 0.59
+(Jaccard): ten cells are unstable only under permutation, two only under the fixed
+order. Varying the path both increases instability and moves it.
+
+Together these vindicate Decision Log 20's working hypothesis in refined form:
+**the previous cell's settled state carries into the next one, a neutral reset
+largely removes that carry-over, and varying the path exposes more of it.** The
+naive version was wrong only in its prediction that a fixed order would make runs
+reproducible — §5.21 showed it does not, because the carry-over has a stochastic
+component as well as a path-dependent one. Both parts are now measured.
+
+#### H2, H2′ and H5: all three dissolve
+
+**H2 (mid-luminance) and H2′ (backdrop structure) are both REFUTED.**
+
+| backdrop | unstable / total | kind |
+| --- | --- | --- |
+| `mid-dark-solid` | 2 / 2 | uniform |
+| `hc-text` | 2 / 3 | structured |
+| `checkerboard` | 9 / 15 | structured |
+| `dark-solid` | 4 / 7 | uniform |
+| `photo` | 10 / 19 | structured |
+| `impulse` | 2 / 4 | structured |
+| `light-solid` | 0 / 4 | uniform |
+
+Uniform backdrops run **6/13 = 46%** against structured backdrops' **23/41 =
+56%** — no meaningful separation, and `mid-dark-solid` is fully bistable at 2 of
+2. §5.21's striking 0-of-13 on uniform backdrops was an artefact of having two
+runs.
+
+**H5 (start-of-run enrichment) is REFUTED** on the same grounds: the first ten
+cells captured run 6/10 unstable against 23/44 for the rest, which is nothing.
+§5.21's P = 0.019 was the same artefact.
+
+**The meta-finding is worth more than any of the three.** At two runs the
+instrument sees five of twenty-nine unstable cells, and *which* five is
+arbitrary — so any pattern found among them is a pattern in the sampling, not in
+the material. Three hypotheses were built on such patterns and all three died the
+moment the sample was adequate. This is the argument for the run count below, made
+by the study on itself.
+
+#### H3 and H4: settled
+
+**H3 — ANSWERED, AND NO.** Across all sixteen fully attested runs, **not one
+tint dropout occurred**. §5.22 found dropout on exactly the two runs that lost
+attestation and on neither clean one. Tint engagement does not ride the
+bistability's state machine; **tint dropout is a symptom of the unfocused pose**,
+which retires §5.10's attribution of colour loss to something "inside the
+material". Tinted cells are affected by the bistability like everything else
+(11 of 15 unstable in arm A) — they are not special.
+
+**H4 — CONFIRMED.** Unstable cells settle in **1.207** comparisons on average
+against **1.060** for stable ones (3.20 s against 3.04 s). The gap is a seventh of
+one comparison and cannot classify anything. The existing settledness attestation
+measures whether the picture stopped moving, and both attractors are equally
+stopped.
+
+#### The completed doctrine proposal
+
+**1. Unlocked throughout, attested per cell.** Measured both ways: with the lock
+on, everything past 746 s of idle is the unfocused pose (§5.22); with it off, all
+sixteen runs held attestation to 3038 s. A run with any unattested cell is void
+rather than partial. The lock check belongs in the harness beside the idle guard;
+it lives in the study chain today only to avoid spending a rebuild and a
+permission re-grant.
+
+**2. The idle bar is an interval, not a floor.** Too little idle means a human is
+perturbing the capture — the guard held run `b2` back for 76 s on exactly this
+during the study, after the idle counter reset mid-run. Too much means the machine
+has locked itself. Floor 60 s; ceiling the machine's own lock threshold unless the
+lock is disabled for the session. Per-cell idle stays recorded either way.
+
+**3. Run count: seventeen for 95% confidence, and six is not enough.** The
+observed minority share runs from **0.167 to 0.50**, median 0.33.
+
+| minority frequency | runs for 90% | for 95% | for 99% |
+| --- | --- | --- | --- |
+| 0.50 | 4 | 5 | 7 |
+| 0.33 | 6 | 8 | 12 |
+| 0.25 | 9 | 11 | 17 |
+| **0.167** | 13 | **17** | 26 |
+| 0.10 | 22 | 29 | 44 |
+
+Eleven of twenty-nine cells showed their second state exactly once in six runs, so
+six runs is itself an undercount and the true minimum frequency may be lower than
+0.167. **A bed frozen on fewer runs must record the confidence it bought.** Three
+— this cascade's standing doctrine — buys about half.
+
+**4. Per-cell agreement: unanimity, under the structured/incidental rule.** Any
+structured disagreement between attested runs bars the cell; differences at or
+below one 8-bit code, or scattered rather than regional, still resolve by
+majority. §5.19's arm, promoted from a materialisation check to a freezing
+precondition.
+
+**5. State control: adopt the reset interstitial — and it is not sufficient.**
+1.5 s of neutral field before each cell is necessary and cheap and it more than
+halves the problem. It does not solve it. **Thirteen cells remain bistable under
+the best protocol tested, eight of them calibration cells and three holdout**, and
+twelve of the thirteen showed their second state exactly once in six runs, so that
+thirteen is very likely an undercount too.
+
+#### What this means for the flip
+
+Plainly: **the bed cannot be frozen as it stands.** The best protocol this study
+found still leaves at least thirteen cells taking two byte-exact states, and eight
+of those are cells the constants are fitted on. Freezing that bed into an enforced
+suite would enforce one arbitrary draw. Three ways forward, and the choice is the
+gate's:
+
+- **Find a stronger reset.** The dwell was 1.5 s and untested at any other value;
+  the obvious next experiment is a sweep of it, and of an interstitial that carries
+  a glass surface rather than a bare field.
+- **Exclude the residual cells** from the frozen bed and record them as a measured
+  limitation, which costs eight calibration cells and three holdout cells.
+- **Freeze a per-cell state** by adopting the majority state under a 17-run
+  protocol and recording that a bistable cell was resolved by frequency rather
+  than by agreement — the honest version of what the old doctrine did silently.
+
+All sixteen runs are preserved at
+`/Users/new/.claude/jobs/5c70e47f/tmp/dl20snap-{a1…a6,b1…b6,c1…c4}`, and the four
+partial runs from the locked attempt at `dl20-partial-locked/`. No bed was
+materialised, no constant fitted, no holdout read; the committed bed was restored
+on the study's own exit path.
+
 ---
 
 ## 6. What could not be measured, and why
