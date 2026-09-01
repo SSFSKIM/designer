@@ -4447,6 +4447,130 @@ item 3, buying 95.6% confidence against a one-in-six minority state.
 
 ---
 
+### 5.26 The flip, attempted: the instrument is fixed, and the residual is one mechanism (2026-09-01)
+
+The close ran to its last step and stopped there. Everything the flip was asked
+to carry is built, verified and pushed on `flip/frozen-active-bed`; `main` keeps
+a green suite because the flip does not land green, and what keeps it red is a
+finding rather than a bookkeeping gap.
+
+#### What the flip carries, and what verifies it
+
+`results/matrix.json` becomes the frozen active bed — schema 5, 230 cells — and
+the retired inactive bed is preserved as
+`results/2026-08-30-inactive-bed-matrix.json`. `sizeOcclusionGain` lands at 0.05
+in both the WebGPU material and its CSS mirror.
+
+The enforced suite adopts **§5.15's conditioning predicate in its final form**,
+which it had never implemented: two arms, both sides, compared against the
+cell's own `componentRegionArea` and `componentRegionBodies`. What it replaces
+asked only the NATIVE side, against a points area from `scenes.json` multiplied
+by the square of the backing scale.
+
+That gap was load-bearing, not cosmetic. Two cells it had been gating:
+
+- `photo__rrect-lg__rest-tint-orange` (holdout) reads **one native body against
+  seven web bodies**, 11 holes, an IoU still of 0.968, and a contour p95 of
+  **67 px** against a bound of 4. The p95 was measuring the distance between
+  fragments of a broken mask. The old predicate saw a native area of 0.958 and
+  passed it.
+- `hc-text__rrect-md__rest` (holdout) recovers 1.000 of its region natively and
+  **0.934 on the web side**. Gated at a contour p95 of 24 px against a bound
+  of 4, for the same reason: nobody was asking the web side.
+
+The implementation is checked against §5.15's own published table rather than
+against itself. Evaluated over `results/2026-08-31-round-two.json` — the bed
+that table was measured on — it reproduces **all eight declared cell counts
+exactly**: 22/18, 21/18, 6/6, 6/5.
+
+Adopted with it: §5.15's two declared contour amendments (`1x-light-standard`
+dom p95 4.0 → 7.0; `increased-contrast` texture p95 3.2 → 11.5), and Decision
+Log 18 ruling 2's three bounds at their measured values, each marked
+**gate-adopted post-read** and never pre-registered (`2x` dom p95 8.0 → 10.0;
+reduced-transparency dom p95 3.5 → 5.0; reduced-transparency texture SSIM
+0.96 → 0.95).
+
+Together these remove **all eighteen contour failures**. The exclusion list is
+re-derived from the frozen bed at 60 cells, each named and classified by the arm
+that fires. One cell *leaves* it: `hc-text__capsule-button__rest` in increased
+contrast recovered 0.519 on the retired bed and recovers **0.982** on the frozen
+one, so that profile now gates strictly more of itself than it used to. **Both
+accessibility profiles come back completely clean.**
+
+#### The residual: twenty-five fidelity rows and eight coherence rows, one cause
+
+They fall on the two light-standard profiles only, and they are not scattered.
+SSIM against the reference degrades **monotonically with surface area — but only
+over a high-spatial-frequency backdrop**. `1x-light-standard`, by component, in
+increasing declared area:
+
+| tier | backdrop | `rrect-sm` | `capsule` | `rrect-md` | `rrect-ml` | `rrect-lg` |
+| --- | --- | --- | --- | --- | --- | --- |
+| `dom` | `checkerboard` | 0.986 | 0.964 | 0.883 | 0.795 | **0.688** |
+| `dom` | `photo` | 0.986 | 0.977 | 0.962 | 0.944 | 0.926 |
+| `dom` | `light-solid` | 0.987 | 0.978 | 0.970 | — | — |
+| `texture` | `checkerboard` | 0.993 | 0.964 | 0.913 | 0.865 | **0.831** |
+| `texture` | `photo` | 0.999 | 0.986 | 0.996 | 0.994 | 0.991 |
+| `texture` | `light-solid` | 0.990 | 0.997 | 0.996 | — | — |
+
+Over a photo the texture tier is flat at 0.99 across a twenty-two-fold range of
+area. Over the checkerboard it falls away. The backdrop that breaks it is not
+the one with the most colour variety; it is the one with the highest **spatial
+frequency**. Size and spatial frequency interact, and neither alone predicts the
+miss.
+
+The cross-tier axis reads the same mechanism from the other side. A tinted
+capsule over the checkerboard has the two renderers disagreeing about interior
+level by 64% — **1.635**, against a 0.8…1.25 bound — while the same tint over a
+photo agrees to 5% (1.056) and over a solid to 0.1% (1.001). Ranked, the
+divergence follows backdrop structure exactly: checkerboard 1.635 and 1.370,
+`hc-text` 1.265, `light-solid` 1.243, photo 1.056 and 0.962.
+
+`platform-web/src/backdrop-tone.ts` states the cause on the CSS side in its own
+header, as an acknowledged limit of that tier: **one backdrop mean per source,
+not per surface**, fed to a non-linear tone map. Averaging before a non-linear
+map is not the same as mapping before the average, and the gap between them is
+widest exactly where the backdrop is bimodal. That file also nominates its
+referee — "the cross-tier bound is the referee, and it is enforced from the
+matrix on every gated cell." The tint scenes have now put such cells in the
+matrix for the first time, and the referee has ruled against the approximation.
+
+#### Why this stops the close rather than widening a bound
+
+`sizeOcclusionGain` is a **size** term, and it was fitted in this very round. The
+residual is still size-monotonic after adopting it, and it is size-monotonic **on
+holdout** — `checkerboard__rrect-lg__rest` at 0.688 and
+`checkerboard__glass-over-glass__rest` at 0.808 are both holdout cells. A single
+linear size term does not express this, which is Decision Log 21's declared stop
+condition reached exactly as written: a holdout surprise that falsifies a fitted
+form.
+
+The two moves that would make the suite green are both closed:
+
+- **Widening the bounds** would mean carrying a 0.688 SSIM under a 0.90 bound and
+  a 1.64 ratio under a 1.25 one. That is not the G3 amendment doctrine, which
+  amends where a measurement cannot be met and holds everywhere else; it is
+  abandoning the rows on the cells that most need them.
+- **A documented exceedance** is the move Decision Log 11 refused once and
+  Decision Log 16 refused again for the tint. Nothing measured here argues for
+  reopening it — if anything the size law makes the case stronger, because the
+  exceedance would be granted precisely to the largest surfaces.
+
+So the flip waits, and what it waits on is a modelling question rather than a
+gate question: **how backdrop tone is sampled as a function of surface size over
+structured content**, on both tiers. The GPU tier reads a neighbourhood and the
+CSS tier reads one number per source, which is why the CSS tier is worse at every
+size — but the GPU tier fails too (0.831 at `rrect-lg`), so this is not only the
+CSS tier's known coarseness. That is the next wave's first question, and it is a
+better-posed one than the cascade started with.
+
+> **Superseded in its conclusion, not in its measurement (Decision Log 22).**
+> The gate did not accept "the flip waits". It ruled that the flip lands, with
+> every one of these rows converted to a regression floor and its claim narrowed
+> in writing, and it chartered the question above as **W9**. §5.27 is that
+> landing. Everything measured in this section stands exactly as recorded — what
+> changed is what was done about it.
+
 ### 5.27 The landing: thirty-three claims narrowed, and what CI now enforces (2026-09-01)
 
 Decision Log 22 lands the flip. The thirty-three rows §5.26 measured do not
