@@ -1,0 +1,335 @@
+{
+  "materializedFrom": [
+    "w9snap-probe-1",
+    "w9snap-probe-2",
+    "w9snap-probe-3",
+    "w9snap-probe-4",
+    "w9snap-probe-5",
+    "w9snap-probe-6",
+    "w9snap-probe-7"
+  ],
+  "rule": "majority byte-state per cell across seven attested runs (frequency-settled, claims 5.30); shares recorded per cell",
+  "auditResult": "7/7 runs 56/56 presentedActive",
+  "toolchain": {
+    "hardware": {
+      "cpu": "Apple M2 Pro",
+      "model": "Mac14,12",
+      "osBuild": "25F84",
+      "osVersion": "Version 26.5.2 (Build 25F84)",
+      "sdk": "MacOSX26.5.sdk",
+      "xcodeVersion": "Xcode 26.6 Build version 17F113"
+    }
+  },
+  "cells": {
+    "checkerboard-4__rrect-sm__rest": {
+      "sha256": "8cc1804bc702167a",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-4__capsule-button__rest": {
+      "sha256": "06cc0123a4b46777",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-4__rrect-md__rest": {
+      "sha256": "3d5bd842c49addec",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-4__rrect-ml__rest": {
+      "sha256": "025da09b5c21564b",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-4__rrect-lg__rest": {
+      "sha256": "a60e2e635e8dbf40",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-8__rrect-sm__rest": {
+      "sha256": "0569491ac24ed278",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-8__capsule-button__rest": {
+      "sha256": "60438329e83f1462",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "checkerboard-8__rrect-md__rest": {
+      "sha256": "68741b95ae067459",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "checkerboard-8__rrect-ml__rest": {
+      "sha256": "0c66b9d85aebd358",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-8__rrect-lg__rest": {
+      "sha256": "08cfe303ee1c74f2",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "checkerboard__rrect-sm__rest": {
+      "sha256": "9b67afa2366b32ed",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__capsule-button__rest": {
+      "sha256": "6f94450ebb5059bd",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__rrect-md__rest": {
+      "sha256": "e6699199cfdeab04",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__rrect-ml__rest": {
+      "sha256": "90c5b4564f328180",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__rrect-lg__rest": {
+      "sha256": "73afcca3dd15c076",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-32__rrect-sm__rest": {
+      "sha256": "5f52d07df235f4d3",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-32__capsule-button__rest": {
+      "sha256": "531bcf085f3ed5a2",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-32__rrect-md__rest": {
+      "sha256": "acf1a22c8062d19b",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-32__rrect-ml__rest": {
+      "sha256": "8b6184e7748f8ccb",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-32__rrect-lg__rest": {
+      "sha256": "468628ea6661cf75",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-64__rrect-sm__rest": {
+      "sha256": "d8fa3219d528ea52",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-64__capsule-button__rest": {
+      "sha256": "56250e83b1234733",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-64__rrect-md__rest": {
+      "sha256": "6649308c2b210f35",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-64__rrect-ml__rest": {
+      "sha256": "2c52b08fb261b2c6",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-64__rrect-lg__rest": {
+      "sha256": "d5da3213a8e1993e",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-lc16__rrect-sm__rest": {
+      "sha256": "5d9d99b1dde7d325",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "checkerboard-lc16__capsule-button__rest": {
+      "sha256": "745efc131220f735",
+      "share": "5/7",
+      "states": 2,
+      "minorityShares": [
+        "2/7"
+      ]
+    },
+    "checkerboard-lc16__rrect-md__rest": {
+      "sha256": "b7e233b99357d45d",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-lc16__rrect-ml__rest": {
+      "sha256": "f434f8672f4fbea8",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-lc16__rrect-lg__rest": {
+      "sha256": "e312ba7d87892524",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text-7__rrect-sm__rest": {
+      "sha256": "b715fd6d8a4c098a",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text-7__rrect-md__rest": {
+      "sha256": "83fb2f4b1fffb5de",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text-7__rrect-lg__rest": {
+      "sha256": "af263e4b18178227",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text__rrect-sm__rest": {
+      "sha256": "fcb2921711819fb0",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text__rrect-md__rest": {
+      "sha256": "bf9298e5a52e7ac9",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text__rrect-lg__rest": {
+      "sha256": "79e641c2ccb40c76",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text-28__rrect-sm__rest": {
+      "sha256": "ceed816e146ead0f",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text-28__rrect-md__rest": {
+      "sha256": "cfe8c7edc4334d04",
+      "share": "7/7",
+      "states": 1
+    },
+    "hc-text-28__rrect-lg__rest": {
+      "sha256": "494664a3b9f1035c",
+      "share": "7/7",
+      "states": 1
+    },
+    "light-solid__rrect-sm__rest": {
+      "sha256": "11eb56b7dd627296",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "light-solid__rrect-md__rest": {
+      "sha256": "0ccb59b478192c0d",
+      "share": "7/7",
+      "states": 1
+    },
+    "light-solid__rrect-lg__rest": {
+      "sha256": "a43476dc79ce7e94",
+      "share": "7/7",
+      "states": 1
+    },
+    "dark-solid__rrect-sm__rest": {
+      "sha256": "5bd00ed70c5262fd",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "dark-solid__rrect-md__rest": {
+      "sha256": "c065de41be8afede",
+      "share": "7/7",
+      "states": 1
+    },
+    "dark-solid__rrect-lg__rest": {
+      "sha256": "1cce37cf8a218633",
+      "share": "7/7",
+      "states": 1
+    },
+    "mid-dark-solid__rrect-sm__rest": {
+      "sha256": "92f0c4d6a6166f24",
+      "share": "7/7",
+      "states": 1
+    },
+    "mid-dark-solid__rrect-md__rest": {
+      "sha256": "88bba8fc498998c9",
+      "share": "5/7",
+      "states": 2,
+      "minorityShares": [
+        "2/7"
+      ]
+    },
+    "mid-dark-solid__rrect-lg__rest": {
+      "sha256": "9bc4076c3690ca46",
+      "share": "7/7",
+      "states": 1
+    },
+    "photo__rrect-sm__rest": {
+      "sha256": "ce5dc8e456ca409c",
+      "share": "7/7",
+      "states": 1
+    },
+    "photo__rrect-md__rest": {
+      "sha256": "87034346ff005b5b",
+      "share": "4/7",
+      "states": 2,
+      "minorityShares": [
+        "3/7"
+      ]
+    },
+    "photo__rrect-lg__rest": {
+      "sha256": "4f8792eda6c16431",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-4__capsule-button__rest-tint-orange": {
+      "sha256": "cb7892ac46c1bbd3",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-8__capsule-button__rest-tint-orange": {
+      "sha256": "d91fb81714a804e2",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__capsule-button__rest-tint-orange": {
+      "sha256": "ffcec06f305d52ce",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ]
+    },
+    "checkerboard-32__capsule-button__rest-tint-orange": {
+      "sha256": "98bb6dc6763abee7",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard-64__capsule-button__rest-tint-orange": {
+      "sha256": "5edfc67896cc0238",
+      "share": "7/7",
+      "states": 1
+    }
+  }
+}

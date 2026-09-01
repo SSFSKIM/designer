@@ -1,0 +1,660 @@
+{
+  "declaredIn": "claims 5.30",
+  "snapshots": [
+    "w9snap-probe-1",
+    "w9snap-probe-2",
+    "w9snap-probe-3",
+    "w9snap-probe-4",
+    "w9snap-probe-5",
+    "w9snap-probe-6",
+    "w9snap-probe-7"
+  ],
+  "silhouetteThreshold": 0.02,
+  "bandLimitedK": 0.005,
+  "overallRms": {
+    "P0 current-model": 0.10703382017127695,
+    "P1 map-then-average": 0.06825837878241581,
+    "P2 band-limited": 0.06825837878241581,
+    "P3 encoded-mean": 0.04003213491634537
+  },
+  "rows": [
+    {
+      "id": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "set": "recorded",
+      "measured": 0.6207051161575099,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7836030362506035,
+      "p1": 0.6008568000016079,
+      "p3": 0.6311603833517965,
+      "p2": 0.6008568000016079
+    },
+    {
+      "id": "checkerboard__rrect-lg__rest",
+      "background": "checkerboard",
+      "component": "rrect-lg",
+      "set": "recorded",
+      "measured": 0.7066000802911361,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7950258364366233,
+      "p1": 0.7201567693875759,
+      "p3": 0.676614658018036,
+      "p2": 0.7201567693875759
+    },
+    {
+      "id": "checkerboard__rrect-md__rest",
+      "background": "checkerboard",
+      "component": "rrect-md",
+      "set": "recorded",
+      "measured": 0.6829432893850579,
+      "sigma": 0,
+      "p0": 0.786025487911467,
+      "p1": 0.7108669969849851,
+      "p3": 0.6584480293976117,
+      "p2": 0.7108669969849851
+    },
+    {
+      "id": "checkerboard__rrect-ml__rest",
+      "background": "checkerboard",
+      "component": "rrect-ml",
+      "set": "recorded",
+      "measured": 0.6936250532151739,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.791264135458416,
+      "p1": 0.7162722948920319,
+      "p3": 0.6690281090731824,
+      "p2": 0.7162722948920319
+    },
+    {
+      "id": "checkerboard__rrect-sm__rest",
+      "background": "checkerboard",
+      "component": "rrect-sm",
+      "set": "recorded",
+      "measured": 0.6284668118515734,
+      "sigma": 0,
+      "p0": 0.7814545762684204,
+      "p1": 0.5032893192261096,
+      "p3": 0.6069591097063546,
+      "p2": 0.5032893192261096
+    },
+    {
+      "id": "checkerboard-32__capsule-button__rest",
+      "background": "checkerboard-32",
+      "component": "capsule-button",
+      "set": "calibration",
+      "measured": 0.6281467633851816,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7836030362506035,
+      "p1": 0.6008568000016079,
+      "p3": 0.6311603833517965,
+      "p2": 0.6008568000016079
+    },
+    {
+      "id": "checkerboard-32__rrect-lg__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-lg",
+      "set": "calibration",
+      "measured": 0.699985469394902,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7950218544088206,
+      "p1": 0.7201518837414834,
+      "p3": 0.6766092806436668,
+      "p2": 0.7201518837414834
+    },
+    {
+      "id": "checkerboard-32__rrect-md__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-md",
+      "set": "calibration",
+      "measured": 0.6865376889443604,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.786025487911467,
+      "p1": 0.7108669969849851,
+      "p3": 0.6584480293976117,
+      "p2": 0.7108669969849851
+    },
+    {
+      "id": "checkerboard-32__rrect-ml__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-ml",
+      "set": "calibration",
+      "measured": 0.6916100359406856,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.791264135458416,
+      "p1": 0.7162722948920319,
+      "p3": 0.6690281090731824,
+      "p2": 0.7162722948920319
+    },
+    {
+      "id": "checkerboard-32__rrect-sm__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.6327397865044485,
+      "sigma": 0,
+      "p0": 0.7814545762684204,
+      "p1": 0.5032893192261096,
+      "p3": 0.6069591097063546,
+      "p2": 0.5032893192261096
+    },
+    {
+      "id": "checkerboard-4__capsule-button__rest",
+      "background": "checkerboard-4",
+      "component": "capsule-button",
+      "set": "calibration",
+      "measured": 0.6134352494535205,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7836030362506035,
+      "p1": 0.6008568000016079,
+      "p3": 0.6311603833517965,
+      "p2": 0.6008568000016079
+    },
+    {
+      "id": "checkerboard-4__rrect-lg__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-lg",
+      "set": "calibration",
+      "measured": 0.7085622141561337,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7950258364366233,
+      "p1": 0.7201567693875759,
+      "p3": 0.676614658018036,
+      "p2": 0.7201567693875759
+    },
+    {
+      "id": "checkerboard-4__rrect-md__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-md",
+      "set": "calibration",
+      "measured": 0.6820739008330612,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.786025487911467,
+      "p1": 0.7108669969849851,
+      "p3": 0.6584480293976117,
+      "p2": 0.7108669969849851
+    },
+    {
+      "id": "checkerboard-4__rrect-ml__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-ml",
+      "set": "validation",
+      "measured": 0.6950563324655152,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.791264135458416,
+      "p1": 0.7162722948920319,
+      "p3": 0.6690281090731824,
+      "p2": 0.7162722948920319
+    },
+    {
+      "id": "checkerboard-4__rrect-sm__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.6190729214076937,
+      "sigma": 0,
+      "p0": 0.7814545762684204,
+      "p1": 0.5032893192261096,
+      "p3": 0.6069591097063546,
+      "p2": 0.5032893192261096
+    },
+    {
+      "id": "checkerboard-64__capsule-button__rest",
+      "background": "checkerboard-64",
+      "component": "capsule-button",
+      "set": "validation",
+      "measured": 0.6228068187853684,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.8160343432403863,
+      "p1": 0.6561509775460007,
+      "p3": 0.6815252465160205,
+      "p2": 0.6561509775460007
+    },
+    {
+      "id": "checkerboard-64__rrect-lg__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-lg",
+      "set": "holdout",
+      "measured": 0.6972954594813998,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7959011242107976,
+      "p1": 0.7212316378541692,
+      "p3": 0.6777990996370117,
+      "p2": 0.7212316378541692
+    },
+    {
+      "id": "checkerboard-64__rrect-md__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-md",
+      "set": "calibration",
+      "measured": 0.657884310707605,
+      "sigma": 0,
+      "p0": 0.7687549178484058,
+      "p1": 0.6906120098780799,
+      "p3": 0.6365288160542553,
+      "p2": 0.6906120098780799
+    },
+    {
+      "id": "checkerboard-64__rrect-ml__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-ml",
+      "set": "calibration",
+      "measured": 0.674962609991906,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7948634115806676,
+      "p1": 0.7206487814571494,
+      "p3": 0.6738844976439837,
+      "p2": 0.7206487814571494
+    },
+    {
+      "id": "checkerboard-64__rrect-sm__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.9632005162839771,
+      "sigma": 0,
+      "p0": 0.9713147455922819,
+      "p1": 0.9713147455922819,
+      "p3": 0.9713147455922819,
+      "p2": 0.9713147455922819
+    },
+    {
+      "id": "checkerboard-8__capsule-button__rest",
+      "background": "checkerboard-8",
+      "component": "capsule-button",
+      "set": "holdout",
+      "measured": 0.6176262474991042,
+      "sigma": 0.07923046417194261,
+      "p0": 0.7836030362506035,
+      "p1": 0.6008568000016079,
+      "p3": 0.6311603833517965,
+      "p2": 0.6008568000016079
+    },
+    {
+      "id": "checkerboard-8__rrect-lg__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-lg",
+      "set": "holdout",
+      "measured": 0.7061314859523902,
+      "sigma": 0.0000026911593649422942,
+      "p0": 0.7950258364366233,
+      "p1": 0.7201567693875759,
+      "p3": 0.676614658018036,
+      "p2": 0.7201567693875759
+    },
+    {
+      "id": "checkerboard-8__rrect-md__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-md",
+      "set": "holdout",
+      "measured": 0.6830009293027844,
+      "sigma": 0.000006807687510757659,
+      "p0": 0.786025487911467,
+      "p1": 0.7108669969849851,
+      "p3": 0.6584480293976117,
+      "p2": 0.7108669969849851
+    },
+    {
+      "id": "checkerboard-8__rrect-ml__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-ml",
+      "set": "holdout",
+      "measured": 0.6935260832247482,
+      "sigma": 0,
+      "p0": 0.791264135458416,
+      "p1": 0.7162722948920319,
+      "p3": 0.6690281090731824,
+      "p2": 0.7162722948920319
+    },
+    {
+      "id": "checkerboard-8__rrect-sm__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-sm",
+      "set": "holdout",
+      "measured": 0.6248928326879793,
+      "sigma": 0,
+      "p0": 0.7814545762684204,
+      "p1": 0.5032893192261096,
+      "p3": 0.6069591097063546,
+      "p2": 0.5032893192261096
+    },
+    {
+      "id": "checkerboard-lc16__capsule-button__rest",
+      "background": "checkerboard-lc16",
+      "component": "capsule-button",
+      "set": "calibration",
+      "measured": 0.8066861712846892,
+      "sigma": 0.042017300851350865,
+      "p0": 0.7794646515393618,
+      "p1": 0.762869319779857,
+      "p3": 0.7565231095078024,
+      "p2": 0.762869319779857
+    },
+    {
+      "id": "checkerboard-lc16__rrect-lg__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-lg",
+      "set": "holdout",
+      "measured": 0.813778596149965,
+      "sigma": 0,
+      "p0": 0.789742546886175,
+      "p1": 0.7793210853398829,
+      "p3": 0.7711554309153484,
+      "p2": 0.7793210853398829
+    },
+    {
+      "id": "checkerboard-lc16__rrect-md__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-md",
+      "set": "validation",
+      "measured": 0.79268766299568,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.776496772536697,
+      "p1": 0.7656410707995064,
+      "p3": 0.7562578206406376,
+      "p2": 0.7656410707995064
+    },
+    {
+      "id": "checkerboard-lc16__rrect-ml__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-ml",
+      "set": "calibration",
+      "measured": 0.802697826953921,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7864915314358958,
+      "p1": 0.7760376113415459,
+      "p3": 0.7672534847648498,
+      "p2": 0.7760376113415459
+    },
+    {
+      "id": "checkerboard-lc16__rrect-sm__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.8109152137826403,
+      "sigma": 0.03232864709756717,
+      "p0": 0.7800295893447549,
+      "p1": 0.7583959511465591,
+      "p3": 0.754787222315334,
+      "p2": 0.7583959511465591
+    },
+    {
+      "id": "hc-text__rrect-lg__rest",
+      "background": "hc-text",
+      "component": "rrect-lg",
+      "set": "calibration",
+      "measured": 0.810653761224387,
+      "sigma": 0,
+      "p0": 0.8610846848058287,
+      "p1": 0.8036879558766021,
+      "p3": 0.7739746831317652,
+      "p2": 0.8036879558766021
+    },
+    {
+      "id": "hc-text__rrect-md__rest",
+      "background": "hc-text",
+      "component": "rrect-md",
+      "set": "recorded",
+      "measured": 0.73676513043747,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.8253083299625669,
+      "p1": 0.7588821673143007,
+      "p3": 0.7140074362099801,
+      "p2": 0.7588821673143007
+    },
+    {
+      "id": "hc-text__rrect-sm__rest",
+      "background": "hc-text",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.7622205359502316,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.7865994156330283,
+      "p1": 0.5135858786061653,
+      "p3": 0.6152586746123464,
+      "p2": 0.5135858786061653
+    },
+    {
+      "id": "hc-text-28__rrect-lg__rest",
+      "background": "hc-text-28",
+      "component": "rrect-lg",
+      "set": "holdout",
+      "measured": 0.8001426393552302,
+      "sigma": 0,
+      "p0": 0.8648634891769417,
+      "p1": 0.8084036581556548,
+      "p3": 0.7796989250078046,
+      "p2": 0.8084036581556548
+    },
+    {
+      "id": "hc-text-28__rrect-md__rest",
+      "background": "hc-text-28",
+      "component": "rrect-md",
+      "set": "calibration",
+      "measured": 0.717873848212075,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.849774544421565,
+      "p1": 0.7891139412253511,
+      "p3": 0.7506439193946297,
+      "p2": 0.7891139412253511
+    },
+    {
+      "id": "hc-text-28__rrect-sm__rest",
+      "background": "hc-text-28",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.7498802315144489,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.8336758612863874,
+      "p1": 0.6118712181430617,
+      "p3": 0.6946580181348617,
+      "p2": 0.6118712181430617
+    },
+    {
+      "id": "hc-text-7__rrect-lg__rest",
+      "background": "hc-text-7",
+      "component": "rrect-lg",
+      "set": "calibration",
+      "measured": 0.8122598944167739,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.8562142724521093,
+      "p1": 0.7975705025277318,
+      "p3": 0.7665878927643341,
+      "p2": 0.7975705025277318
+    },
+    {
+      "id": "hc-text-7__rrect-md__rest",
+      "background": "hc-text-7",
+      "component": "rrect-md",
+      "set": "validation",
+      "measured": 0.7472859123721765,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.8280806615449122,
+      "p1": 0.7623182811985078,
+      "p3": 0.7181193640031042,
+      "p2": 0.7623182811985078
+    },
+    {
+      "id": "hc-text-7__rrect-sm__rest",
+      "background": "hc-text-7",
+      "component": "rrect-sm",
+      "set": "calibration",
+      "measured": 0.6846944600902929,
+      "sigma": 1.1102230246251565e-16,
+      "p0": 0.836758476849271,
+      "p1": 0.6184235741121881,
+      "p3": 0.6998773866984003,
+      "p2": 0.6184235741121881
+    }
+  ],
+  "equalMeanPair": [
+    {
+      "component": "rrect-sm",
+      "fullContrast": 0.6284668118515734,
+      "lowContrast": 0.8109152137826403,
+      "measuredGap": -0.18244840193106693,
+      "sigmaPooled": 0.022859805589276545
+    },
+    {
+      "component": "capsule-button",
+      "fullContrast": 0.6207051161575099,
+      "lowContrast": 0.8066861712846892,
+      "measuredGap": -0.18598105512717933,
+      "sigmaPooled": 0.02971071835914549
+    },
+    {
+      "component": "rrect-md",
+      "fullContrast": 0.6829432893850579,
+      "lowContrast": 0.79268766299568,
+      "measuredGap": -0.10974437361062217,
+      "sigmaPooled": 7.850462293418876e-17
+    },
+    {
+      "component": "rrect-ml",
+      "fullContrast": 0.6936250532151739,
+      "lowContrast": 0.802697826953921,
+      "measuredGap": -0.10907277373874713,
+      "sigmaPooled": 1.1102230246251565e-16
+    },
+    {
+      "component": "rrect-lg",
+      "fullContrast": 0.7066000802911361,
+      "lowContrast": 0.813778596149965,
+      "measuredGap": -0.10717851585882887,
+      "sigmaPooled": 7.850462293418876e-17
+    }
+  ],
+  "multiState": [
+    {
+      "id": "checkerboard-8__capsule-button__rest",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.6176262474991042
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.8440461583550817
+        }
+      ]
+    },
+    {
+      "id": "checkerboard-8__rrect-md__rest",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.6830009293027844
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.6829814747152665
+        }
+      ]
+    },
+    {
+      "id": "checkerboard-8__rrect-lg__rest",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.7061314859523902
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.7061237953239194
+        }
+      ]
+    },
+    {
+      "id": "checkerboard-lc16__rrect-sm__rest",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.8109152137826403
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.9033020181567796
+        }
+      ]
+    },
+    {
+      "id": "checkerboard-lc16__capsule-button__rest",
+      "states": [
+        {
+          "share": 0.7142857142857143,
+          "level": 0.8066861712846892
+        },
+        {
+          "share": 0.2857142857142857,
+          "level": 0.8996954315606497
+        }
+      ]
+    },
+    {
+      "id": "light-solid__rrect-sm__rest",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.9713147455922819
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.972371414940023
+        }
+      ]
+    },
+    {
+      "id": "dark-solid__rrect-sm__rest",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.035263892859937265
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.7459954896173671
+        }
+      ]
+    },
+    {
+      "id": "mid-dark-solid__rrect-md__rest",
+      "states": [
+        {
+          "share": 0.7142857142857143,
+          "level": 0.5625987066529282
+        },
+        {
+          "share": 0.2857142857142857,
+          "level": 0.5625929321416455
+        }
+      ]
+    },
+    {
+      "id": "photo__rrect-md__rest",
+      "states": [
+        {
+          "share": 0.5714285714285714,
+          "level": 0.6648902661746974
+        },
+        {
+          "share": 0.42857142857142855,
+          "level": 0.6648700172466948
+        }
+      ]
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange",
+      "states": [
+        {
+          "share": 0.8571428571428571,
+          "level": 0.36031071681504606
+        },
+        {
+          "share": 0.14285714285714285,
+          "level": 0.40672999341481314
+        }
+      ]
+    }
+  ],
+  "unattested": []
+}

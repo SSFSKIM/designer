@@ -5086,6 +5086,101 @@ Stop conditions are the W9 spec's: a measurement no hypothesis fits goes
 back to the design table as a finding; a two-state epidemic on the new
 backdrops reopens the doctrine question before scoring.
 
+### 5.31 The probe, reported: the reference averages in the space this project calls wrong (2026-09-02)
+
+Seven runs — the five declared plus two targeted top-ups the bimodality arm
+demanded — every one 56/56 `presentedActive` by the per-cell audit. The
+materialized majority-state bed, the per-cell state shares, and the full
+score table are committed under
+`packages/calibration/results/2026-09-02-w9-probe/`. Scores are byte-stable
+between the five-run and seven-run passes.
+
+#### The verdicts, by the declared rules
+
+| hypothesis | RMS | verdict |
+| --- | --- | --- |
+| P0 — current model, `R(linear mean)` | 0.1070 | **REJECTED** (2.68× best, residuals systematically signed) |
+| P1 — map-then-average, `Σ wᵢ R(lᵢ)` | 0.0683 | not rejected by the 2× rule (1.71×); dominated everywhere |
+| P2 — band-limited, one fitted `k` | 0.0683 | **no support** — `k` ran to the grid bottom to impersonate P1 |
+| P3 — encoded-space mean, `R(linear(Σ wᵢ encode(lᵢ)))` | **0.0400** | **the winner** |
+
+Three structural facts carry more weight than the RMS ranking:
+
+1. **Pitch does not matter.** P3's residual on `rrect-md` is +0.024 ± 0.003
+   from pitch 4 to pitch 64 — flat. The response is a function of the
+   backdrop's *composition* under the footprint, not of its spatial
+   frequency. (Where composition itself changes with pitch — a centred
+   `rrect-sm` inside one 64-px cell — the footprint statistics predict the
+   jump: measured 0.9632 against 0.9713 predicted, over a uniform white
+   cell.) H2 dissolves; the pitch axis was worth capturing precisely
+   because it produced this null.
+2. **The equal-mean pair is the discriminator it was designed to be — and
+   it discriminated in an unplanned direction.** The full-contrast
+   checkerboard renders 0.107–0.186 DARKER than its linear-equal-mean
+   low-contrast twin, at every size, far beyond run noise. No
+   linear-luminance model can produce any gap from equal means without a
+   contrast term — but the pair is only equal in linear space. In encoded
+   space the two backdrops differ hugely, and P3 predicts the gap's
+   direction and 80–90% of its magnitude at every size (−0.148 vs −0.182
+   on `rrect-sm`, −0.095 vs −0.107 on `rrect-lg`). What section 5.30 posed
+   as a contrast term (H4) is mostly encoded-space averaging wearing a
+   disguise.
+3. **H4's remainder is second-order.** After P3, the pair residual is
+   −0.011 to −0.013 on the three zero-noise components (above their
+   degenerate 3σ bar of zero) and inside the bar on the two components
+   that have run noise. A real, sign-consistent, ~0.01 extra darkening
+   with contrast — recorded, an order of magnitude below the phenomenon
+   P3 explains, and no constant is added for it now (the W9 spec's
+   standing caution).
+
+The tint rides the same input, descriptively: the orange capsule's interior
+is 0.3585–0.3609 across the whole pitch sweep — flat, as a mean-input model
+predicts.
+
+#### The sentence this project has to say out loud
+
+`backdrop-tone.ts` converts every texel to linear light before averaging,
+documents that choice as correctness, and sizes `SAMPLE_EXTENT` around the
+measured five-fold error that encoded-space averaging produced on the
+impulse backdrop. The GPU tier's backdrop chain decodes sRGB at import and
+keeps every mip level in premultiplied linear float — the same conviction,
+enforced in hardware. The probe says the reference's tone response behaves
+as if the backdrop were averaged in ENCODED space and the material's
+response applied to that. Averaging in the physically-correct space is the
+approximation; averaging in the "wrong" space is the reference. (Why the
+GPU tier still missed less than the CSS tier: its per-pixel locality is a
+partial map-then-average by construction, which lands between P0 and the
+reference — exactly the measured ordering.)
+
+This also collapses the §5.24-era trap into a feature: the browser's
+`drawImage` downsampling averages in encoded space, which is no longer the
+error `SAMPLE_EXTENT` exists to outrun but the model itself. That
+simplification is the fit phase's to bank, not this section's.
+
+#### The two-state material, on the new backdrops
+
+Ten of 56 cells drew two byte-states across seven runs — minority share
+14–29%, every minority the BRIGHTER, less-adapted attractor, scattered
+across runs (no bad run; per-cell draws, the DL20/21 signature on fresh
+backdrops). Not an epidemic; the declared stop condition does not fire.
+The one that matters most: `dark-solid__rrect-sm__rest` drew its
+light-appearance state once (0.7460 against a settled 0.0353) — on a DARK
+SOLID, the strongest evidence yet that the attractor pair is the
+material's light/dark appearance itself, not a backdrop-measurement
+artifact. Majority-state (frequency-settled) aggregation is what every
+number above uses; a mean would have dragged that anchor to 0.177 and
+poisoned every small-component prediction.
+
+#### What the fit phase inherits
+
+The operational model, one sentence: **the tone axes' input is the encoded-
+space mean of the backdrop behind the surface.** Both tiers currently feed
+them a linear-space mean (global on CSS, kernel-local on GPU). The
+implementation seam, the constants (if any), and the re-fit run under the
+W9 spec's phases 2–5: declared protocol on the probe's calibration split,
+one read of its holdout, and the thirty-three §5.27 floors as the
+untouched referee.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds

@@ -183,6 +183,19 @@ held — but **no TCC re-grant**, because nothing rebuilds.
   measured on the old bed's backdrops) → the doctrine question reopens
   before any hypothesis is scored.
 
+**Status: COMPLETE 2026-09-02.** Seven runs (five declared + two top-ups
+the bimodality arm demanded for four load-bearing two-state cells), every
+run 56/56 attested by the per-cell audit; neither stop condition fired.
+Findings in claims §5.31; the materialized majority-state bed with per-cell
+state shares at `packages/calibration/results/2026-09-02-w9-probe/`. The
+verdict: **encoded-space averaging (H3) wins at RMS 0.0400** — 2.68× better
+than the current model, predicting the equal-mean pair's direction and
+80–90% of its magnitude at every size; pitch is a null axis (H2 dissolved);
+H4 survives only as a ~0.01 second-order remainder, recorded and not
+modelled. One capture incident: a focus steal by Chrome aborted the top-up
+preflight once ("window not key"); a synthetic Finder activation cleared
+it — no HID input, idle guard unaffected.
+
 ## Beyond the probe (advisory sketch — each step opens with its own decision round)
 
 2. **The model round.** A Decision Log entry with the probe's numbers; pick
@@ -223,6 +236,18 @@ held — but **no TCC re-grant**, because nothing rebuilds.
    re-grant needed since nothing rebuilds.
 
 ## Revision Notes
+
+- 2026-09-02 (the probe reported): Phase 1 COMPLETE the same day it was
+  chartered — seven attested runs, verdicts under the declared rules,
+  claims §5.31. The winning model is one nobody proposed at open in this
+  form: the reference's tone input behaves as the backdrop's ENCODED-space
+  mean, the exact averaging convention both tiers were deliberately built
+  to avoid. The advisory model-candidate sketch in "Beyond the probe" is
+  OVERTURNED in part by this evidence: per-pixel map-then-average on the
+  GPU tier (P1) is dominated by the encoded-mean input and is no longer
+  the leading candidate; the CSS histogram idea survives only as the
+  mechanism for computing an encoded mean it already had. Decision Log 2
+  carries the model round.
 
 - 2026-09-02 (opening): spec authored at W9 open, grounded in a fresh read of
   both tiers' code paths, the dormant analysis stats, and the scene

@@ -30,6 +30,7 @@
  * writes one JSON, and prints the tables a findings section quotes.
  */
 
+import { createHash } from "node:crypto";
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 
@@ -160,12 +161,14 @@ interface CellRun {
   readonly run: string;
   readonly level: number;
   readonly attested: boolean;
+  readonly bytes: string;
 }
 interface CellAggregate {
   readonly scene: SceneRow;
   readonly runs: CellRun[];
   mean: number;
   sigma: number;
+  states?: ReadonlyArray<{ share: number; level: number }>;
   unattestedRuns: string[];
   /** Backdrop under this cell's interior mask: linear levels + weights. */
   bgMeanLinear: number;
@@ -191,11 +194,14 @@ for (const snap of snapshots) {
   for (const scene of spec.scenes) {
     const png = join(snap, PROFILE, `${scene.id}.png`);
     let native: CalibrationImage;
+    let buffer: Buffer;
     try {
-      native = decodePng(readFileSync(png));
+      buffer = readFileSync(png);
+      native = decodePng(buffer);
     } catch {
       continue;
     }
+    const bytes = createHash("sha256").update(buffer).digest("hex").slice(0, 10);
     const background = backgroundOf(scene.background);
     const region = componentRegion(spec.components[scene.component] as never, {
       canvas: spec.canvas,
@@ -247,16 +253,40 @@ for (const snap of snapshots) {
       cells.set(scene.id, cell);
     }
     const isAttested = attested.get(scene.id) === true;
-    cell.runs.push({ run, level, attested: isAttested });
+    cell.runs.push({ run, level, attested: isAttested, bytes });
     if (!isAttested) cell.unattestedRuns.push(run);
   }
 }
 
+/*
+ * Frequency-settled aggregation, the doctrine's own move (DL21): a two-state
+ * cell takes its MAJORITY state's value with the observed shares recorded, and
+ * a tie refuses rather than votes. A mean across states would manufacture a
+ * level the reference never rendered — the dark-solid rrect-sm anchor's one
+ * light-state run would drag 0.035 to 0.177 and corrupt every small-component
+ * prediction downstream. σ is still reported across ALL attested runs (state
+ * flips included), because that is the run-to-run noise the declared H4 bar
+ * reads — conservative exactly where bimodality is present.
+ */
 for (const cell of cells.values()) {
-  const levels = cell.runs.filter((r) => r.attested).map((r) => r.level);
-  const used = levels.length > 0 ? levels : cell.runs.map((r) => r.level);
-  cell.mean = used.reduce((s, v) => s + v, 0) / used.length;
-  cell.sigma = Math.sqrt(used.reduce((s, v) => s + (v - cell.mean) ** 2, 0) / used.length);
+  const used = cell.runs.filter((r) => r.attested);
+  const pool = used.length > 0 ? used : cell.runs;
+  const byState = new Map<string, CellRun[]>();
+  for (const run of pool) {
+    const group = byState.get(run.bytes) ?? [];
+    group.push(run);
+    byState.set(run.bytes, group);
+  }
+  const groups = [...byState.values()].sort((a, b) => b.length - a.length);
+  const top = groups[0] ?? pool;
+  if (groups.length > 1 && groups[1]?.length === top.length) {
+    throw new Error(`${cell.scene.id}: state TIE at ${top.length}:${top.length} — refused, top up before scoring`);
+  }
+  cell.mean = top[0]?.level ?? 0;
+  const all = pool.map((r) => r.level);
+  const meanAll = all.reduce((s, v) => s + v, 0) / all.length;
+  cell.sigma = Math.sqrt(all.reduce((s, v) => s + (v - meanAll) ** 2, 0) / all.length);
+  cell.states = groups.map((g) => ({ share: g.length / pool.length, level: g[0]?.level ?? 0 }));
 }
 
 // ---- The empirical response curves ------------------------------------------
@@ -397,6 +427,10 @@ const unattested = [...cells.values()]
   .filter((c) => c.unattestedRuns.length > 0)
   .map((c) => ({ id: c.scene.id, runs: c.unattestedRuns }));
 
+const multiState = [...cells.values()]
+  .filter((c) => (c.states?.length ?? 0) > 1)
+  .map((c) => ({ id: c.scene.id, states: c.states }));
+
 const output = {
   declaredIn: "claims 5.30",
   snapshots: snapshots.map((s) => basename(s)),
@@ -405,6 +439,7 @@ const output = {
   overallRms: overall,
   rows: scoredRows.sort((a, b) => a.id.localeCompare(b.id)),
   equalMeanPair: h4,
+  multiState,
   unattested,
 };
 writeFileSync(outPath, JSON.stringify(output, null, 2));
@@ -426,6 +461,13 @@ for (const pair of h4) {
     console.log(
       `  ${pair.component.padEnd(16)} ${pair.fullContrast?.toFixed(4)} | ${pair.lowContrast?.toFixed(4)} | ${pair.measuredGap?.toFixed(4)} | ${(3 * (pair.sigmaPooled ?? 0)).toFixed(4)}`,
     );
+  }
+}
+if (multiState.length > 0) {
+  console.log(`\nmulti-state cells (majority level used, shares recorded): ${multiState.length}`);
+  for (const m of multiState) {
+    const shares = (m.states ?? []).map((s) => `${(s.share * 100).toFixed(0)}%@${s.level.toFixed(4)}`).join(" vs ");
+    console.log(`  ${m.id}: ${shares}`);
   }
 }
 if (unattested.length > 0) {
