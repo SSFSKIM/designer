@@ -5478,6 +5478,135 @@ bed. Renderer and platform-web suites are green; the golden e2e suite
 is green without re-recording (its scenes pin the profile seam and
 carry no host tone sample).
 
+### 5.36 The tint pathway, measured: an opaque shade of the seed, not a wash (2026-09-02)
+
+W10 opened on W9's Deferred with the six cross-tier ratio floors on tinted
+capsules (1.27–1.64 against 0.80…1.25) and one standing account of them:
+§5.13's "the CSS tier clips a saturated tint at 255 and renders it weaker".
+The first thing this section records is that the account was measured
+against the wrong side. The reference's own interior mean sits on the CSS
+tier's side of every one of those ratios — `checkerboard` orange native
+0.3603, CSS 0.3440, **GPU 0.4712**; `checkerboard` blue 0.2064 / 0.2347 /
+**0.3837**; `hc-text` orange 0.3709 / 0.3835 / **0.4852**. The GPU tier is
+the tier that is wrong, by +0.11…+0.18, and the CSS tier lands near the
+reference by an accident of its alpha mapping (a tint whose luminance sits
+near the reference backdrop level makes `cssTintAlpha`'s solve nearly
+ill-conditioned, and it happens to solve high). Nothing about the gamut
+boundary is load-bearing.
+
+**What the reference actually renders**, read per pixel from the frozen
+bed's fixtures and the W9 probe's tinted cells (native fixture against its
+own untinted twin, capsule core eroded 5 px from the silhouette to exclude
+the rim):
+
+1. **The tinted material is opaque and hue-preserving.** Over every solid
+   backdrop the tinted capsule's core is one colour to the byte — light-solid
+   `(254, 148, 0)`, dark-solid and impulse `(255, 148, 0)`, standard
+   deviation 0.0000 — and that colour is the seed. Over structured content
+   the per-pixel colour is the seed **times a scalar**: the G/R ratio reads
+   0.295 on every orange cell at every pitch (the rendered seed's own ratio,
+   148/255 → 0.296), and the blue channel stays at exactly 0. A translucent
+   tint over a white checker cell would desaturate toward white; the
+   reference renders a *brighter orange*, not a paler one.
+2. **The scalar is linear in the untinted material's own luminance at the
+   same pixel.** With `u` the linear luminance of the untinted twin's pixel,
+   `shade = c₀ + c₁·u` fits every light-standard cell at per-pixel RMS
+   0.002–0.003:
+
+   | cell | n px | c₀ | c₁ | rms | u range |
+   | --- | --- | --- | --- | --- | --- |
+   | probe `checkerboard-4` orange | 3540 | 0.539 | 0.477 | 0.0023 | 0.45…0.79 |
+   | probe `checkerboard-8` orange | 3540 | 0.533 | 0.483 | 0.0031 | 0.42…0.82 |
+   | probe `checkerboard` (16) orange | 3540 | 0.530 | 0.487 | 0.0024 | 0.43…0.81 |
+   | probe `checkerboard-32` orange | 3540 | 0.531 | 0.482 | 0.0031 | 0.39…0.87 |
+   | probe `checkerboard-64` orange | 3540 | 0.520 | 0.501 | 0.0024 | 0.37…0.80 |
+   | canonical `photo` orange (1x) | 3540 | 0.549 | 0.454 | 0.0027 | 0.53…0.66 |
+   | canonical `hc-text` orange (1x) | 3540 | 0.541 | 0.470 | 0.0026 | 0.44…0.85 |
+   | canonical `checkerboard` blue (1x) | 3540 | 0.561 | 0.454 | 0.0028 | 0.43…0.81 |
+   | canonical `photo` blue (1x) | 3540 | 0.576 | 0.430 | 0.0029 | 0.53…0.66 |
+   | canonical `light-solid` orange (1x) | 3540 | — | — | — | u = 0.97, shade 0.99 |
+   | canonical `checkerboard` orange (**2x**) | ×4 | 0.532 | 0.482 | 0.0030 | — |
+   | canonical `hc-text` orange (**2x**) | ×4 | 0.539 | 0.473 | 0.0022 | — |
+
+   Pooled over the 1x cells: `shade = 0.543 + 0.468·u`, RMS 0.0060. The mean
+   shade over the checkerboard is **pitch-invariant** (0.821…0.830 from
+   4 px to 64 px cells) while its per-pixel spread grows with pitch (sd
+   0.025 → 0.099) — exactly what a law linear in a blurred, pitch-invariant
+   mean produces. The same law predicts the cells it was not read from:
+   `photo__rrect-lg` and `rrect-md` (u 0.686 / 0.665 → interior 0.362 /
+   0.357 against native 0.3673 / 0.3650), the accessibility references
+   (increased-contrast u 0.98 → shade 0.99, measured 0.990;
+   reduced-transparency u 0.89 → 0.96, measured 0.956) **with no regime
+   constant** — the folds enter through `u`, which already carries them.
+   Hue: the blue cells fit with c₀ higher by ≈0.03; recorded as the law's
+   residual on the second hue, not modelled.
+3. **Strength composites in encoded space.** `photo` orange-half is, per
+   pixel and per channel, the 0.501 mix in **sRGB-encoded** space between
+   the untinted twin and the full-tinted twin (RMS 0.0019 at 1x, 0.0018 at
+   2x). The same mix in linear light fits at weight 0.70 with RMS 0.0525
+   and channel-dependent weights (0.45 / 0.57 / 0.78) — falsified. The tint
+   is a layer of one opaque colour composited over the material at the
+   author's opacity, in the display's encoded space, which is what a
+   Core Animation layer with `opacity` does.
+4. **Two regimes where the shade is 1.** The light scheme's collapsed cells
+   (dark-solid, impulse — W7's `k = 1`) render the pure seed; and the DARK
+   scheme renders the pure seed over checkerboard and photo alike (shade
+   1.015, sd 0.008, over an untinted material at u = 0.105 — the law would
+   say 0.59). One reading covers both: the shade tracks the material's
+   luminance relative to its own opaque body level, and both regimes are
+   "a dark body". That reading is a hypothesis — the dark bed has no tinted
+   cell over a light backdrop to separate it from "the dark scheme does not
+   shade" — so the dark profiles gate the shade off (`tintShadeStrength: 0`,
+   the same shape as `backdropToneResponseStrength`) and the light scheme
+   folds it by `(1 − k)`. The mid-collapse regime (mid-dark-solid,
+   k ≈ 0.65) is unmeasured on tinted cells; the fold is the linear
+   interpolation and is declared as such.
+
+**Why vitrea misses.** Both tiers implement the wave's composition contract
+literally: the author's colour displaces the adapted neutral and the tint
+layer's alpha is the *material's* — `mix(backdrop, seed, α ≈ 0.6…0.7)`. That
+is a wash: the checker shows through at full contrast (GPU interior sd 0.148
+against native 0.048), the white cells desaturate it, and the mean lands
+wherever `(1 − α)·backdrop` puts it. The tone map W3 shipped (`tintTone*`,
+fitted to identity in §5.13 because a wash has no tone to fit) was the
+right idea aimed at the wrong quantity: Apple's "range of tones mapped to
+content brightness underneath" is a range of **shades of an opaque colour**,
+from `c₀ ≈ 0.53` of the seed at black content to the seed itself at white,
+read off the material's own local luminance.
+
+**The dry run.** Applying the law with (0.53, 0.47) to each tier's *existing*
+untinted capture — no code changed — and reading the interior mean over the
+native silhouette:
+
+| cell | native | GPU now | CSS now | GPU under law | CSS under law | ratio now | ratio under law |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard` capsule orange (cal) | 0.3603 | 0.4712 | 0.3440 | 0.3627 | 0.3498 | 1.370 | **1.037** |
+| `checkerboard` capsule blue (val) | 0.2064 | 0.3837 | 0.2347 | 0.2018 | 0.1946 | 1.635 | **1.037** |
+| `hc-text` capsule orange (hol) | 0.3709 | 0.4852 | 0.3835 | 0.3714 | 0.3668 | 1.265 | **1.012** |
+| `light-solid` capsule orange (cal) | 0.4319 | 0.5585 | 0.4807 | 0.4218 | 0.4241 | 1.162 | 0.995 |
+| `photo` capsule orange (cal) | 0.3520 | 0.3245 | 0.3349 | 0.3503 | 0.3640 | 0.969 | 0.962 |
+| `photo` capsule blue (cal) | 0.2063 | 0.2380 | 0.2233 | 0.1959 | 0.2036 | 1.066 | 0.963 |
+| `photo` rrect-lg orange (hol) | 0.3673 | 0.3387 | 0.3434 | 0.3589 | 0.3727 | 0.986 | 0.963 |
+| `photo` rrect-md orange (val) | 0.3650 | 0.3360 | 0.3436 | 0.3581 | 0.3720 | 0.978 | 0.963 |
+| `dark-solid` / `impulse` orange (cal) | 0.4257 / 0.4254 | 0.4275 | 0.4268 | 0.4275 | 0.4275 | 1.002 | 1.000 |
+
+Every tinted cell lands within 0.012 of the reference on both tiers and
+the six floored ratios read 1.01–1.04 against a band of 0.80…1.25. A
+prediction from the untinted captures is not the referee — the tiers'
+untinted `u` is itself an approximation, per-source on the CSS tier — but
+it is the strongest pre-implementation read this project has had.
+
+**The declared protocol (X1, the fresh-split rule).** The six floored rows
+are spent holdout and are never fitted against. The two shade constants are
+fitted by per-pixel least squares on the **five probe tinted cells** alone
+(`checkerboard-{4,8,16,32,64}` orange capsules, native against native —
+vitrea does not enter the fit); every canonical tinted row on every profile
+is then the referee, read once from a from-scratch matrix rebuild. The
+objective is the per-pixel scalar-shade residual, declared here before the
+fit runs. Hue independence rides the blue validation and holdout cells;
+size independence rides the photo rrects; scheme independence is *not*
+claimed (finding 4).
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
