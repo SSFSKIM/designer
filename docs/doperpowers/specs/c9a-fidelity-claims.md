@@ -5181,6 +5181,52 @@ W9 spec's phases 2–5: declared protocol on the probe's calibration split,
 one read of its holdout, and the thirty-three §5.27 floors as the
 untouched referee.
 
+### 5.32 The verification read, and the declared W7 refit (2026-09-02)
+
+The encoded-mean input landed on both tiers and the verification ran: 39
+probe calibration+validation cells re-rendered through the standard
+pipeline (two contour-degenerate extreme-footprint cells written under
+`--write-partial`, named in the run log) against the frequency-settled
+probe bed. **The input model is right and the response to it misses**, the
+case Decision Log 2's tuned-only-if-verification-misses clause reserved:
+
+- vitrea renders the equal-mean pair nearly identically (0.7320 vs 0.7328
+  on the capsule) where the reference gaps them by 0.19 — the corrected
+  input (0.214 for the black/white checker) lands ABOVE
+  `backdropToneHigh` (0.14), so W7 adaptation is zero exactly where the
+  reference still adapts.
+- a fresh solid cell exposes a pre-existing size-coupling failure:
+  `mid-dark-solid__rrect-sm` renders 0.1375 against the reference's
+  0.4561. Solids are invariant under the input swap, so this was always
+  wrong and simply never measured — the old bed had no mid-dark small
+  cell.
+- structured-cell interior deltas fell from the old model's scale to
+  +0.04…+0.15, short of the ~0.04 the probe's winning model reaches.
+
+#### The declared refit
+
+Three constants, the sweep script's standing objective (mean over probe
+CALIBRATION cells of |Δ interior mean| + |Δ interior stdDev| + |Δ rim
+peak|, web − native), declared before running:
+
+- `backdropToneLow` ∈ {0.01, 0.02, 0.03, 0.05}
+- `backdropToneHigh` ∈ {0.14, 0.3, 0.5, 0.8}
+- `backdropToneSizeBias` ∈ {0.05, 0.13, 0.25, 0.4}
+
+Holdout untouched; validation read after the pick; ONE probe-holdout read
+at the end of the round, per X1.
+
+**The falsification condition, stated before the sweep:** the reference's
+response strengths, derived from the probe bed, are ≈0.97 at input 0.012,
+≈0.41 at 0.06 (small component), with a long ≈0.12 tail at 0.214 — a
+steep knee plus a shallow tail. If NO grid point brings the solid and
+structured calibration cells inside 0.05 interior-mean error together,
+the single-smoothstep form of the W7 response is falsified on this
+richer bed, and a form round (Decision Log 3 of the W9 spec) opens with
+the probe's own measured response curves as the candidate shape. The
+sweep then was not wasted: its best point is the honest measurement of
+what the current form can do.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
