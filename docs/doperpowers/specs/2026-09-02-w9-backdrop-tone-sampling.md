@@ -235,6 +235,29 @@ it — no HID input, idle guard unaffected.
    unlocked throughout, screen lock and display sleep off, wake held, no TCC
    re-grant needed since nothing rebuilds.
 
+2. **The model round (2026-09-02, user-approved as recommended).** The
+   tone axes' input becomes the ENCODED-SPACE mean of the backdrop behind
+   the surface, on both tiers — the probe's winning model, adopted as an
+   averaging-space swap with no new constants. H4's ~0.01 remainder stays
+   unmodelled (the standing caution); the confirm-on-a-second-profile
+   option was declined on the mechanism's scale-free record. Implementation
+   shape, from the probe's own evidence: the reference reads
+   **per-footprint**, not per-source — the pitch-64 `rrect-sm` cell whose
+   footprint sits inside one uniform white cell rendered white-adapted
+   (0.9632, footprint-predicted 0.9713) where any source-mean input would
+   have predicted ~0.61. So: the CSS tier's read swaps to an exact
+   encoded-space mean at its existing per-source granularity (its
+   granularity limit stands as documented); the GPU tier's analysis
+   reduction gains an encoded-mean statistic for the source-level tone
+   input, and the per-pixel path carries the source-level correction ratio
+   so locality is preserved while the mean matches the model exactly.
+   A dedicated encoded-space pyramid for true per-footprint GPU means is
+   named as the escalation if the referee demands it, not built
+   speculatively. Then: web captures of the probe scenes, the declared
+   verification (nothing tuned unless verification misses, and then only
+   under a declared grid), ONE read of the probe holdout, and the
+   thirty-three floors as the untouched referee.
+
 ## Revision Notes
 
 - 2026-09-02 (the probe reported): Phase 1 COMPLETE the same day it was
