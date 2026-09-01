@@ -796,7 +796,19 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         backdropToneAnchorX: material.backdropToneAnchorX,
         backdropToneResponseThin: material.backdropToneResponseThin,
         backdropToneResponseThick: material.backdropToneResponseThick,
-        backdropToneResponseStrength: material.backdropToneResponseStrength,
+        // The response law rides only the UN-DEGRADED regime, for the same
+        // provenance reason the dark profiles set its strength to 0: the
+        // anchors are standard-light-reference measurements, and the
+        // accessibility references behave differently (nearly opaque, flat in
+        // span — W2). Measured before this gate existed: reduced-transparency
+        // photo ΔE p95 0.007 → 0.048 and cross-tier ratio 0.99 → 0.86. Where
+        // any policy fold touches the tone axis, the solve stands down and the
+        // collapse alone runs, exactly the pre-W9 behaviour those profiles
+        // were fitted on.
+        backdropToneResponseStrength:
+          backdropToneUnderPolicy(policy, material) >= 0.999
+            ? material.backdropToneResponseStrength
+            : 0,
         backdropToneLinearMean:
           input.backdropToneLinearLuminance ?? backdropToneLevel,
         outerShadow: [

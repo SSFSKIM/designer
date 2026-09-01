@@ -308,7 +308,61 @@ it — no HID input, idle guard unaffected.
      constants land, ONE probe-holdout read at round end, then the
      frozen-bed referee.
 
+## Deferred (follow-up charters seeded by the referee, 2026-09-02)
+
+Each is real work with measured evidence behind it; none blocks this
+round's close. In rough value order:
+
+- **The tint pathway** — the six cross-tier ratio floors on tinted
+  capsules (1.27–1.64 against 0.8…1.25) are identical before and after
+  every W9 change: a full-strength author tint displaces the
+  adaptation, so the tinted material's cross-tier coherence is its own
+  mechanism. The probe's tinted cells (required mix strengths ≈ 2.5)
+  are the evidence base a tint round starts from.
+- **The dark response surface** — the dark reference's settled levels
+  over the probe's backdrops, so `backdropToneResponseStrength` can
+  come off the dark profiles. Needs a dark-scheme probe (the DL21
+  capture doctrine applies unchanged); the canonical dark bed's four
+  measurable cells are too thin to anchor it.
+- **Interior structure (the `ssimMean` axis)** — the checkerboard
+  rrect cells miss their SSIM bounds by 0.02–0.21 under every tone
+  configuration ever measured; the metric reads the interior's texture
+  (refraction contrast, frost structure), which no tone law moves.
+  A structure round would start from the interiorStdDev evidence the
+  compare already collects.
+- **Per-footprint tone (the encoded pyramid)** — the small-footprint
+  remainder (+0.05…0.09, worsening with pitch; checker-64 capsule
+  +0.090 on validation): the per-source input reads the whole backdrop
+  where the reference reads the footprint. Decision Log 2 named the
+  escalation; the referee kept its floors pinned rather than demanding
+  it this round.
+- **Nested-glass tone** — glass-over-glass cells measure no backdrop
+  tone (the axis stands down over a glass backdrop), so their eight
+  floors never moved. Whether the reference's inner surface adapts to
+  what is under BOTH panes is an unmeasured question for the topology
+  work the charter scoped out.
+- **The accessibility response surfaces** — the regime gate stands the
+  solve down under folds because the RT/IC references behave
+  differently (nearly opaque, flat in span); their own response, if
+  any, is unmeasured.
+
 ## Revision Notes
+
+- 2026-09-02 (the referee ran; the charter's single-mechanism premise
+  partially falsified by its own cure): six of the thirty-three floors
+  met their adopted bounds and restore as claims — every ΔE floor on a
+  non-glass texture cell, including the chartered mid-dark capsule at
+  nineteen times better (claims §5.35). Seven `ssimMean` floors on
+  checkerboard cells are violated by ≤ 0.0072 — the measured price of
+  landing the interior mean — and moving a floor is a decision, taken
+  to the user as this round's close. The remaining twenty floors never
+  touched the tone mechanism at all and re-attribute to three named
+  owners (tint pathway, nested-glass stand-down, interior structure);
+  "done = all 33 floors removed" was chartered on an attribution the
+  referee has now measured to be one-third right. Three provenance
+  gates landed on the way (scheme, tone-colour/level split, regime),
+  each with its before/after in §5.35. Deferred gains the follow-up
+  charters below.
 
 - 2026-09-02 (the law implemented; all three declared reads green in
   structure): Decision Log 3's response-curve law is live on both tiers

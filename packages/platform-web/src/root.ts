@@ -1352,7 +1352,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 backdropTone,
                 surfaceThickness,
                 backdropAdaptation,
-                backdropTonePolicyStrength * Math.min(1, Math.max(0, backdropToneConstants.max)),
+                // The response law rides only the UN-DEGRADED regime — the
+                // renderer's own gate, mirrored: its anchors are
+                // standard-reference measurements, and a policy fold on the
+                // tone axis means a reference this law was never measured on.
+                (backdropTonePolicyStrength >= 0.999 ? 1 : 0) *
+                  Math.min(1, Math.max(0, backdropToneConstants.max)),
                 backdropToneResponse,
               );
 

@@ -5402,6 +5402,73 @@ model work is CLOSED; what remains is the referee (§5.27's 33 floors on
 the frozen canonical bed) with the constants landed in the profile
 document.
 
+### 5.35 The referee: six floors met, one trade, and the mechanism re-attributed (2026-09-02)
+
+The frozen canonical bed was re-measured end to end — six profiles, both
+tiers, twelve per-profile compare runs each under its own profile
+document, holdout included (the one read of the new frozen
+configuration). Three corrective findings surfaced by the first runs are
+part of this record, each measured before and after:
+
+1. **The response surface is scheme-scoped.** The anchors are LIGHT
+   reference measurements; the dark profiles inheriting them read ΔE
+   p95 0.08 → 0.58. `backdropToneResponseStrength` now stands the law
+   down where its anchors carry no provenance — the dark profiles set
+   0, the collapse still runs, and the dark bed is restored.
+2. **The tone COLOUR and the tone LEVEL are different quantities.**
+   Decision Log 2's swap had moved the collapse target onto the
+   encoded reading; on the impulse grid the two means differ 2.6× and
+   the validated capsule read ΔE p95 0.03 → 0.12. The sample now
+   carries both (linear colour for the collapse, encoded level for the
+   band and the response), and impulse is restored.
+3. **The law rides only the un-degraded regime.** The accessibility
+   references behave differently (nearly opaque, flat in span — W2),
+   and the solve under their folds read reduced-transparency photo ΔE
+   0.007 → 0.048 and cross-tier ratio 0.99 → 0.86. Where any policy
+   fold touches the tone axis the solve stands down; those profiles
+   are restored.
+
+**The verdict on the thirty-three floors:**
+
+- **Six floors MET their adopted bounds** — every ΔE floor on a
+  non-glass texture cell, both scales: `photo__rrect-lg` tinted
+  (0.0760 → 0.0628 against ≤ 0.07), `light-solid` tinted capsule
+  (0.1726 → 0.1032 against ≤ 0.17), and `mid-dark-solid` capsule
+  (0.1775 → **0.0095** against ≤ 0.17 — the cell class the wave was
+  chartered on, nineteen times better). These claims restore.
+- **Seven floors are VIOLATED, all `ssimMean`, all checkerboard
+  rrect-lg/ml cells, by 0.0002–0.0072**: the solve lands the interior
+  MEAN on the reference (0.7435 → 0.6946 against native 0.6999 on the
+  1x texture cell) and pays a sliver of structural similarity for it.
+  A measured trade, not an accident — the ratchet construct forbids
+  moving a floor without a decision, so this is the round's open
+  decision, not a fait accompli.
+- **Twenty floors are unmet and essentially unchanged**, in exactly
+  three classes, which is the referee's second finding: §5.26's
+  attribution of all thirty-three rows to ONE mechanism (tone sampled
+  without regard to size) is now partially FALSIFIED by its own cure.
+  The tone mechanism owned the ΔE/level rows and fixed all six. What
+  it never touched: the six cross-tier ratio floors on TINTED capsules
+  (identical to four decimals — a full-strength author tint displaces
+  the adaptation, so their miss is the tint pathway's); the
+  glass-over-glass rows (pixel-identical — no backdrop tone is
+  measured for nested glass, the axis stands down); and the
+  checkerboard `ssimMean` rows (a structure metric the tone axis does
+  not own — the same rows the trade above brushes). Three mechanisms,
+  three future owners; floors stay pinned for all twenty.
+
+Beyond the floors, the whole-bed regression scan against the frozen
+matrix: 43 cells move worse by more than 0.005, all ≤ 0.033, all
+inside their adopted gates — dominated by light-standard dom-tier
+coherence ratios drifting 1.08 → 1.10 (band 0.8…1.25) and dom photo ΔE
+p95 tails (+0.013 against gates at 0.17). The measurement predicates
+also moved in the good direction: cells previously excluded as
+degenerate became well-conditioned (the coherence cell that measured
+1.64 reads 1.10), so the gate-coverage literals re-record with the new
+bed. Renderer and platform-web suites are green; the golden e2e suite
+is green without re-recording (its scenes pin the profile seam and
+carry no host tone sample).
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
