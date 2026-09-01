@@ -63,7 +63,10 @@ const HERE = fileURLToPath(new URL(".", import.meta.url));
 const PACKAGE_ROOT = resolve(HERE, "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "../..");
 const VITE_CONFIG = resolve(PACKAGE_ROOT, "web/vite.config.ts");
-const SCENES_JSON = resolve(REPO_ROOT, "apps/reference-apple/scenes.json");
+// `VITREA_SCENES` is the probe-bed override the whole pipeline honours (the
+// native harness, compare, the vite fixtures mount) — one convention.
+const SCENES_JSON =
+  process.env["VITREA_SCENES"] ?? resolve(REPO_ROOT, "apps/reference-apple/scenes.json");
 const DEFAULT_OUT = resolve(PACKAGE_ROOT, "web-captures");
 
 /**

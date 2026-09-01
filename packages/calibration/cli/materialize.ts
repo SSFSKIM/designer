@@ -43,8 +43,11 @@ import {
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
-const FIXTURES = resolve(REPO_ROOT, "apps", "reference-apple", "fixtures");
-const SCENES = resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json");
+// The probe-bed env overrides the whole pipeline honours (claims §5.30).
+const FIXTURES =
+  process.env["VITREA_FIXTURES"] ?? resolve(REPO_ROOT, "apps", "reference-apple", "fixtures");
+const SCENES =
+  process.env["VITREA_SCENES"] ?? resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json");
 
 /**
  * The declared role of every scene, read from the scene matrix rather than from

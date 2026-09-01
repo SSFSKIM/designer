@@ -35,8 +35,13 @@ export interface SceneGeometryMatrix {
   readonly scenes: readonly SceneGeometryEntry[];
 }
 
-export function readSceneGeometry(referenceRoot: string): SceneGeometryMatrix {
-  const path = resolve(referenceRoot, "scenes.json");
+/**
+ * `from` is the reference root by default; a path ending in `.json` is taken as
+ * the scenes file itself — how `VITREA_SCENES` (a probe bed's scene matrix,
+ * claims §5.30) reaches the geometry without a second resolution rule.
+ */
+export function readSceneGeometry(from: string): SceneGeometryMatrix {
+  const path = from.endsWith(".json") ? from : resolve(from, "scenes.json");
   if (!existsSync(path)) {
     throw new Error(`scene geometry: ${path} does not exist.`);
   }

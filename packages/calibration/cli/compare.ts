@@ -95,7 +95,14 @@ import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
 const REFERENCE = resolve(REPO_ROOT, "apps", "reference-apple");
-const FIXTURES = resolve(REFERENCE, "fixtures");
+/*
+ * The same env overrides the native harness honours (`VITREA_SCENES`, a scenes
+ * file; `VITREA_FIXTURES`, a fixtures dir), so a probe bed (claims §5.30)
+ * measures through this pipeline end to end while the canonical layout — and
+ * the frozen bed under it — stays untouched.
+ */
+const SCENES = process.env["VITREA_SCENES"] ?? resolve(REFERENCE, "scenes.json");
+const FIXTURES = process.env["VITREA_FIXTURES"] ?? resolve(REFERENCE, "fixtures");
 
 const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded"] as const;
 /**
@@ -521,7 +528,10 @@ function plan(
  * the first's web capture. Silently, and with plausible numbers.
  */
 function captureRootFor(profileKey: string, variant: string): string {
-  return resolve(PACKAGE_ROOT, "web-captures", `${profileKey}${variant}`);
+  // `VITREA_WEB_CAPTURES` rides with the other probe-bed overrides above, so a
+  // probe run cannot overwrite the canonical captures under the same profile key.
+  const root = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
+  return resolve(root, `${profileKey}${variant}`);
 }
 
 function captureDirFor(profileKey: string, variant: string, sceneId: string): string {
@@ -607,12 +617,12 @@ class Absences {
 
 function main(): void {
   const options = parseOptions(process.argv.slice(2));
-  const spec = readJson<SceneSpec>(resolve(REFERENCE, "scenes.json"));
+  const spec = readJson<SceneSpec>(SCENES);
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
   // The same file, projected onto the geometry the instrument bounds its search
   // to (schema 5). Read through the shared resolver so `compare`, `diff` and
   // `tier-delta` cannot end up bounding three different regions.
-  const geometry = readSceneGeometry(REFERENCE);
+  const geometry = readSceneGeometry(SCENES);
 
   const colourlessTints = options.allowColourlessTints
     ? undefined

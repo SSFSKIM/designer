@@ -15,8 +15,14 @@ const webRoot = fileURLToPath(new URL(".", import.meta.url));
 const packages = fileURLToPath(new URL("../..", import.meta.url));
 const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
 
-/** Where the native harness committed the shared rasters. */
-const REFERENCE_FIXTURES = resolve(repoRoot, "apps/reference-apple/fixtures");
+/**
+ * Where the native harness committed the shared rasters. `VITREA_FIXTURES` is
+ * the probe-bed override the whole pipeline honours (claims §5.30): the dev
+ * server inherits it from `capture-web`, so the browser fetches the probe's own
+ * backgrounds while the canonical fixtures stay untouched.
+ */
+const REFERENCE_FIXTURES =
+  process.env["VITREA_FIXTURES"] ?? resolve(repoRoot, "apps/reference-apple/fixtures");
 
 /** URL prefix the page fetches backgrounds under. */
 export const REFERENCE_MOUNT = "/reference-fixtures";
@@ -76,13 +82,27 @@ export default defineConfig({
   root: webRoot,
   plugins: [referenceFixtures()],
   resolve: {
-    alias: {
-      "@vitreajs/vitrea": `${packages}core/src/index.ts`,
-      "@vitrea/geometry": `${packages}geometry/src/index.ts`,
-      "@vitrea/motion": `${packages}motion/src/index.ts`,
-      "@vitreajs/vitrea-web": `${packages}platform-web/src/index.ts`,
-      "@vitrea/renderer-webgpu": `${packages}renderer-webgpu/src/index.ts`,
-    },
+    alias: [
+      // The scene page imports the canonical scenes.json statically; under the
+      // probe-bed override the SAME import must resolve to the probe's scene
+      // matrix, or the page and the driver would disagree about what exists.
+      ...(process.env["VITREA_SCENES"] === undefined
+        ? []
+        : [
+            {
+              // Anchored over the whole specifier: a regex find REPLACES the
+              // matched span, so a suffix match would leave the relative prefix
+              // glued onto an absolute path.
+              find: /^.*\/apps\/reference-apple\/scenes\.json$/,
+              replacement: process.env["VITREA_SCENES"],
+            },
+          ]),
+      { find: "@vitreajs/vitrea", replacement: `${packages}core/src/index.ts` },
+      { find: "@vitrea/geometry", replacement: `${packages}geometry/src/index.ts` },
+      { find: "@vitrea/motion", replacement: `${packages}motion/src/index.ts` },
+      { find: "@vitreajs/vitrea-web", replacement: `${packages}platform-web/src/index.ts` },
+      { find: "@vitrea/renderer-webgpu", replacement: `${packages}renderer-webgpu/src/index.ts` },
+    ],
   },
   server: {
     port: SCENE_SERVER_PORT,
