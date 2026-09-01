@@ -668,6 +668,28 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * ships at the identity because the bed cannot identify it, not because the
    * mechanism is wrong.
    *
+   * ## Re-fitted against the FROZEN bed (2026-09-01)
+   *
+   * `sizeOcclusionGain` 0 → **0.05**, and this is the first time the bed could
+   * see it. Every earlier fit was a boundary result because calibration held no
+   * span above `sizeSpanMax`, so the curve this gain rides was saturated at every
+   * cell that could vote. The frozen bed adds three span-128 `rrect-ml`
+   * calibration cells, and with them the grid stops being flat: 0.05 is the
+   * optimum at **both** backing scales independently — 1× 0.08288 against the
+   * identity's 0.08374, 2× 0.09338 against 0.09557 — and ΔE and SSIM move the
+   * same way at both.
+   *
+   * It is still a small number and it is reported as one: a 1.0% preference at
+   * 1×, against the 0.2% this doc rightly refused a round ago. What changed is
+   * not the margin's size but that it now reproduces on an independent profile
+   * instead of resting on one flat grid.
+   *
+   * `sizeSpanMax` stays 96, and that is now a measurement rather than an
+   * assumption. With a span-128 cell voting, the grid rises monotonically —
+   * 96/112/128/144/160/192 reading 0.0837/0.0858/0.0943/0.1060/0.1171/0.1300 —
+   * so the band's top is where it was, and the suspicion that the bed simply
+   * could not see above it is answered rather than inherited.
+   *
    * `sizeShadowGainMax` 1.4 → 1. Its evidence dissolved rather than reversing:
    * this is a gain on the INNER SHADOW, and the inner shadow was refitted from
    * `shadowAlpha` 0.55 to 0.05, so there is almost nothing left for it to gain
@@ -675,7 +697,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * measurement no longer exists would be the worse of the two errors.
    */
   sizeScatterGainMax: 1,
-  sizeOcclusionGain: 0,
+  sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
   lensBodyLodPerPx: 0.16,

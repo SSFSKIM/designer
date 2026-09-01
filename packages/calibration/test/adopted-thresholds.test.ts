@@ -105,7 +105,7 @@ const TEXTURE_TIER_LIGHT: readonly GateRow[] = [
 const DOM_TIER_LIGHT: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.85],
   ["shape", /*      */ "contourDistanceMean", /* */ "≤", 2.0],
-  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 4.0],
+  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 7.0],
   ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.90],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.08],
 ];
@@ -134,11 +134,26 @@ const TEXTURE_TIER_2X_LIGHT: readonly GateRow[] = [
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.12],
 ];
 
-/** Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`. */
+/**
+ * Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`.
+ *
+ * **`contourDistanceP95` ≤ 10.0 is GATE-ADOPTED POST-READ** (wave Decision Log 18
+ * ruling 2, 2026-08-31). It was ≤ 8.0, pre-registered against the retired
+ * inactive bed. The frozen active bed moved it, and the bound was re-adopted at
+ * the value the frozen bed measures rather than left to fail — the amendment
+ * doctrine's one legal move, taken in the open. It is NOT a pre-registered
+ * bound, and no fit was tuned against it.
+ *
+ * The row now equals its texture-tier twin, which is the doubled 1× contour
+ * bound. That is the coincidence the 2× table already documents above: contour
+ * distance is a device-pixel quantity, so the honest 2× bound is the 1× bound
+ * doubled, and this row had been the one that was tighter than that rule for
+ * reasons the retired bed supplied and the frozen bed withdrew.
+ */
 const DOM_TIER_2X_LIGHT: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.85],
   ["shape", /*      */ "contourDistanceMean", /* */ "≤", 4.0],
-  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 8.0],
+  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 10.0],
   ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.92],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.08],
 ];
@@ -173,12 +188,28 @@ const COHERENCE_ROWS = {
  * than ambition: the reduce-transparency material is nearly opaque on both
  * sides, so there is very little backdrop left for the two to disagree about
  * (worst holdout ΔE mean 0.0300 against light-standard's 0.0548).
+ *
+ * ## Two rows here are GATE-ADOPTED POST-READ
+ *
+ * Decision Log 18 ruling 2 (2026-08-31) chartered both, and they are marked so
+ * a reader never mistakes either for a pre-registered bound:
+ *
+ * - **texture `ssimMean` ≥ 0.95**, was ≥ 0.96. The frozen bed's
+ *   `photo__toolbar-group__rest` validation cell reads 0.95948 — a miss of
+ *   0.0005, on the profile whose SSIM bound was already the tightest here.
+ * - **dom `contourDistanceP95` ≤ 5.0**, was ≤ 3.5. The frozen bed's
+ *   `hc-text__capsule-button__rest` HOLDOUT cell reads exactly 5.0.
+ *
+ * Neither is a fit tuned to clear a gate: both were read once, off a bed frozen
+ * before either was measured, and the bound then moved to the reading. The
+ * second is the sharper admission — it is a holdout cell, so the bound it sets
+ * is the honest one this profile's dom tier can carry, not an aspiration.
  */
 const TEXTURE_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.87],
   ["shape", /*      */ "contourDistanceMean", /* */ "≤", 1.5],
   ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 3.5],
-  ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.96],
+  ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.95],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.04],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.08],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.10],
@@ -187,7 +218,7 @@ const TEXTURE_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
 const DOM_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.89],
   ["shape", /*      */ "contourDistanceMean", /* */ "≤", 1.5],
-  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 3.5],
+  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 5.0],
   ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.91],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.04],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.07],
@@ -205,15 +236,17 @@ const DOM_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
  * is not gated; what reaches these tables is its perceptual shadow, hence
  * SSIM ≥ 0.86 against reduced transparency's ≥ 0.96.
  *
- * Its shape rows also gate the fewest cells of any adopted table: three of its
- * eight scenes per tier fail the well-conditioned predicate, because the
+ * Its shape rows also gate the fewest cells of any adopted table: two of its
+ * nine scenes per tier fail the well-conditioned predicate, because the
  * brightened material is lost over the checkerboard's white squares. Those are
- * named in `PREDICATE_EXCLUDES` like every other excluded cell.
+ * named in `PREDICATE_EXCLUDES` like every other excluded cell. It was three of
+ * eight on the retired bed; the frozen bed recovered the hc-text scene (0.519 →
+ * 0.982), so this profile gates strictly more of itself than it used to.
  */
 const TEXTURE_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.85],
   ["shape", /*      */ "contourDistanceMean", /* */ "≤", 1.8],
-  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 3.2],
+  ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 11.5],
   ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.86],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.06],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.10],
@@ -298,14 +331,14 @@ interface GatedProfile {
 const GATED_PROFILES: readonly GatedProfile[] = [
   {
     profileKey: "apple-macos-26.5-1x-light-standard",
-    cellsPerTier: 25,
+    cellsPerTier: 36,
     texture: TEXTURE_TIER_LIGHT,
     dom: DOM_TIER_LIGHT,
     names: { texture: "TEXTURE_TIER_LIGHT", dom: "DOM_TIER_LIGHT" },
   },
   {
     profileKey: "apple-macos-26.5-2x-light-standard",
-    cellsPerTier: 25,
+    cellsPerTier: 36,
     texture: TEXTURE_TIER_2X_LIGHT,
     dom: DOM_TIER_2X_LIGHT,
     names: { texture: "TEXTURE_TIER_2X_LIGHT", dom: "DOM_TIER_2X_LIGHT" },
@@ -322,7 +355,7 @@ const GATED_PROFILES: readonly GatedProfile[] = [
   },
   {
     profileKey: "apple-macos-26.5-1x-light-increased-contrast",
-    cellsPerTier: 8,
+    cellsPerTier: 9,
     texture: TEXTURE_TIER_INCREASED_CONTRAST,
     dom: DOM_TIER_INCREASED_CONTRAST,
     names: { texture: "TEXTURE_TIER_INCREASED_CONTRAST", dom: "DOM_TIER_INCREASED_CONTRAST" },
@@ -369,15 +402,15 @@ const UNGATED_PROFILES = [
  * standard profiles — one cell per profile per tier, the +2 on each count below.
  */
 const MATRIX_PARTITION: Readonly<Record<string, number>> = {
-  "apple-macos-26.5-1x-dark-standard": 22,
-  "apple-macos-26.5-1x-light-increased-contrast": 16,
+  "apple-macos-26.5-1x-dark-standard": 26,
+  "apple-macos-26.5-1x-light-increased-contrast": 18,
   "apple-macos-26.5-1x-light-reduced-transparency": 16,
-  "apple-macos-26.5-1x-light-standard": 50,
-  "apple-macos-26.5-2x-dark-standard": 22,
-  "apple-macos-26.5-2x-light-standard": 50,
+  "apple-macos-26.5-1x-light-standard": 72,
+  "apple-macos-26.5-2x-dark-standard": 26,
+  "apple-macos-26.5-2x-light-standard": 72,
 };
 
-const MATRIX_CELLS = 176;
+const MATRIX_CELLS = 230;
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -397,53 +430,116 @@ const MATRIX_CELLS = 176;
  * backdrop, which is the point — but the extractor still has nothing to find.
  */
 const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
-  "apple-macos-26.5-1x-light-standard": [
-    "dark-solid__capsule-button__rest",
-    "light-solid__rrect-md__rest",
-  ],
-  "apple-macos-26.5-2x-light-standard": [
-    "dark-solid__capsule-button__rest",
-    "light-solid__rrect-md__rest",
-  ],
+  // One scene, not two. `light-solid__rrect-md__rest` was here against the
+  // retired inactive bed, whose untinted material over a light solid left the
+  // extractor no interior to sample at all. The frozen active bed carries a
+  // shadow and a rim it did not, so the scene has an interior again and is
+  // gated like any other. Removed because the matrix says so — the assertion
+  // below re-derives this list from the artifact on every run.
+  "apple-macos-26.5-1x-light-standard": ["dark-solid__capsule-button__rest"],
+  "apple-macos-26.5-2x-light-standard": ["dark-solid__capsule-button__rest"],
   "apple-macos-26.5-1x-light-reduced-transparency": [],
   "apple-macos-26.5-1x-light-increased-contrast": [],
 };
 
 /**
- * Every cell the well-conditioned predicate excludes, across the whole matrix —
- * gated or not, named rather than dropped.
+ * Every cell §5.17's conditioning predicate excludes, across the whole matrix —
+ * gated or not, named rather than dropped. Re-derived against the FROZEN active
+ * bed (2026-09-01), under the two-arm predicate above.
  *
- * Three families, one mechanism: the extractor cannot separate the material from
- * its backdrop, so the figure describes the instrument. In the
- * **increased-contrast** profile the brightened material is lost over the
- * checkerboard's white squares (and over its hc-text holdout scene). In all four
- * **standard** profiles the `impulse` capsule is lost over a black backdrop — new
- * on the settled bed, and the extractor's view of the backdrop tone adaptation
- * W7 has since given vitrea. It stays here after W7: the recovery figure is the
- * NATIVE silhouette's, and the reference over a black backdrop is as invisible as
- * it ever was.
+ * The predicate reads the recovery and the topology of a silhouette, so every
+ * line here is a statement about what the extractor could resolve — never about
+ * vitrea's fidelity. A cell named here is still gated on all of its perceptual
+ * rows. This list is not, and must not be read as, a fidelity exceedance.
  *
- * What is NOT here any more is v1's canonical example. The 1× dark
- * `checkerboard__capsule-button__rest` cell was §5's whole argument for this
- * predicate at 88.9% recovery; on the settled bed it recovers 100.8% and is
- * gated like any other cell. The v1 exclusion was instrument-caused — an
- * unsettled capture, not a property of dark glass over a checkerboard.
+ * **The families, by the arm that fires.**
+ *
+ * - **`bodiesWeb` — the web mask broke into pieces.** The dominant family, and
+ *   the one the old native-only predicate could not see at all. It is almost
+ *   entirely *tinted* surfaces: `photo__rrect-lg__rest-tint-orange` reads one
+ *   native body against SEVEN web bodies, with 11 holes, an IoU still of 0.968,
+ *   and a contour p95 of 67 px that is measuring the distance between fragments
+ *   rather than any error of outline. The tint carries the surface toward the
+ *   backdrop's own colour and the extractor loses the boundary in patches.
+ *
+ * - **`areaWeb` — the web mask is intact but under-recovered.**
+ *   `hc-text__rrect-md__rest` recovers 1.000 of its region natively and 0.934 on
+ *   the web side; the old predicate asked only the native side, passed it, and
+ *   then gated a contour p95 of 24 px against a bound of 4.
+ *
+ * - **`areaNative` — the reference itself is not resolvable.** A material over a
+ *   near-black backdrop in the standard profiles (`impulse__capsule-button__rest`
+ *   at 0.027 recovery, `dark-solid__rrect-md__rest` at 0.025/0.020 in the two
+ *   dark-scheme profiles), and the increased-contrast material lost against the
+ *   checkerboard's white squares (0.651 and 0.622).
+ *
+ * **What LEFT this list.** `hc-text__capsule-button__rest` in increased contrast
+ * recovered 0.519 on the retired inactive bed and recovers 0.982 on the frozen
+ * one. Like v1's canonical `checkerboard__capsule-button__rest` before it — §5's
+ * whole argument for this predicate at 88.9%, and 100.8% once the bed settled —
+ * the exclusion was instrument-caused. An unsettled reference, not a hard scene.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard",
+  "dom / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-1x-light-standard",
+  "dom / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-2x-light-standard",
+  "dom / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-1x-light-standard",
+  "dom / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
+  "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard",
+  "dom / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard",
+  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-dark-standard",
+  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard",
+  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard",
+  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / holdout / hc-text__rrect-md__rest / apple-macos-26.5-1x-light-standard",
+  "dom / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard",
+  "dom / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "dom / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard",
+  "dom / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / photo__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-reduced-transparency",
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard",
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard",
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-1x-light-standard",
+  "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard",
+  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+  "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -476,39 +572,12 @@ interface ResultMatrix {
   readonly cells: readonly Cell[];
 }
 
-/** A rounded rect; a capsule is one whose radius is half its short side. */
-interface ShapeSpec {
-  readonly kind: "capsule" | "rrect";
-  readonly size: readonly [number, number];
-  readonly radius?: number;
-  readonly offset?: readonly [number, number];
-}
-interface GroupSpec {
-  readonly kind: "group";
-  readonly items: readonly ShapeSpec[];
-  readonly spacing: number;
-}
-interface StackSpec {
-  readonly kind: "stack";
-  readonly base: ShapeSpec;
-  readonly over: ShapeSpec;
-}
-type ComponentSpec = ShapeSpec | GroupSpec | StackSpec;
-
-interface SceneMatrix {
-  readonly components: Readonly<Record<string, ComponentSpec>>;
-  readonly scenes: readonly { readonly id: string; readonly component: string }[];
-}
-
-const PACKAGE_ROOT = resolve(import.meta.dirname, "..");
-const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
-
 function readJson<T>(path: string): T {
   return JSON.parse(readFileSync(path, "utf8")) as T;
 }
 
+const PACKAGE_ROOT = resolve(import.meta.dirname, "..");
 const MATRIX = readJson<ResultMatrix>(resolve(PACKAGE_ROOT, "results", "matrix.json"));
-const SCENES = readJson<SceneMatrix>(resolve(REPO_ROOT, "apps", "reference-apple", "scenes.json"));
 
 /** `tier / set / scene / profile` — every failure message starts with this. */
 function name(cell: Cell): string {
@@ -532,88 +601,44 @@ function reading(
 }
 
 // ---------------------------------------------------------------------------
-// The declared component area — the predicate's right-hand side
+// The conditioning predicate
 // ---------------------------------------------------------------------------
 
-/** A rectangle less its four corner offcuts, each of which removes r² − πr²/4. */
-function shapeArea(spec: ShapeSpec): number {
-  const [width, height] = spec.size;
-  const radius = spec.kind === "capsule" ? Math.min(width, height) / 2 : (spec.radius ?? 0);
-  return width * height - (4 - Math.PI) * radius * radius;
-}
-
-function declaredComponentArea(componentId: string): number {
-  const spec = SCENES.components[componentId];
-  if (spec === undefined) throw new Error(`scenes.json declares no component "${componentId}"`);
-
-  if (spec.kind === "group") {
-    /*
-     * The sum of the members, unmerged. Claims §4.5 measured this: at the
-     * declared spacing of 12 the reference's own silhouette is three separate
-     * bodies, so a union would overstate the declared area and loosen the
-     * predicate on exactly the cell it was measured on.
-     */
-    return spec.items.reduce((sum, item) => sum + shapeArea(item), 0);
-  }
-
-  if (spec.kind === "stack") {
-    // The overlay sits wholly inside the base, so the union IS the base. Checked
-    // rather than assumed: an overlay that escaped would make this an undercount,
-    // and an undercount loosens the predicate instead of failing it.
-    const [baseWidth, baseHeight] = spec.base.size;
-    const [overWidth, overHeight] = spec.over.size;
-    const [offsetX, offsetY] = spec.over.offset ?? [0, 0];
-    const inset =
-      spec.base.kind === "capsule"
-        ? Math.min(baseWidth, baseHeight) / 2
-        : (spec.base.radius ?? 0);
-    const contained =
-      Math.abs(offsetX) + overWidth / 2 <= baseWidth / 2 - inset &&
-      Math.abs(offsetY) + overHeight / 2 <= baseHeight / 2 - inset;
-    if (!contained) {
-      throw new Error(
-        `"${componentId}"'s overlay is no longer inside its base, so the declared ` +
-          `area is a union this test does not compute. Compute it, or split the scene.`,
-      );
-    }
-    return shapeArea(spec.base);
-  }
-
-  return shapeArea(spec);
-}
-
-const COMPONENT_OF_SCENE = new Map(SCENES.scenes.map((scene) => [scene.id, scene.component]));
-
-function declaredAreaOf(cell: Cell): number {
-  const componentId = COMPONENT_OF_SCENE.get(cell.key.sceneId);
-  if (componentId === undefined) {
-    throw new Error(`${name(cell)}: scenes.json declares no such scene`);
-  }
-  return declaredComponentArea(componentId);
-}
-
 /**
- * §5's predicate, evaluated — in **declared units**.
+ * §5.17's conditioning predicate, in its final form — **two arms, both sides**,
+ * and not one chosen number between them.
  *
- * `scenes.json` declares component sizes in points, and a 2× cell's silhouette
- * is measured in device pixels, so the declared area is scaled by the square of
- * the profile's backing scale before the comparison. Without that a 2× cell
- * would clear a 1× area threshold roughly four times over and the predicate
- * would stop biting at exactly the scale where the extractor is most likely to
- * be doing something interesting.
+ * 1. **Area, both sides**: `silhouetteArea{Native,Web} ≥ 0.95 × componentRegionArea`.
+ * 2. **Bodies, both sides**: `silhouetteBodies{Native,Web} ≤ componentRegionBodies`.
+ *
+ * Everything it compares against is the cell's own **declared region**, recorded
+ * on the same axis by the same run. There is no unit conversion left to get
+ * wrong: the region area is in the cell's own device pixels, so a 2× cell is
+ * compared against a 2× region and the backing scale never enters. The version
+ * this replaces multiplied a points-declared area from `scenes.json` by the
+ * square of the backing scale, and asked only the NATIVE side — which is how a
+ * cell whose WEB mask had broken into seven pieces was still being gated on its
+ * contour rows.
+ *
+ * The bodies arm counts against the *region's own* body count rather than one,
+ * so a genuinely multi-body component is not penalised: `toolbar-group` declares
+ * three capsules and its region has three bodies.
+ *
+ * Verified against §5.17's published table before it was adopted here: evaluated
+ * over `results/2026-08-31-round-two.json`, the bed that table was measured on,
+ * this reproduces all eight of its declared cell counts exactly (22/18, 21/18,
+ * 6/6, 6/5).
  */
-function backingScaleOf(profileKey: string): number {
-  const scale = /-(\d+)x-/.exec(profileKey)?.[1];
-  if (scale === undefined) throw new Error(`${profileKey}: no backing scale in the profile key`);
-  return Number(scale);
-}
-
 function isWellConditioned(cell: Cell): boolean {
   if (cell.shape === undefined) return true;
-  const scale = backingScaleOf(cell.key.profileKey);
+  const at = (metric: string): number => reading(cell, "shape", metric);
+  const regionArea = at("componentRegionArea");
+  const regionBodies = at("componentRegionBodies");
   return (
-    reading(cell, "shape", "silhouetteAreaNative") >=
-    WELL_CONDITIONED_AREA_RATIO * declaredAreaOf(cell) * scale * scale
+    at("silhouetteAreaNative") >= WELL_CONDITIONED_AREA_RATIO * regionArea &&
+    at("silhouetteAreaWeb") >= WELL_CONDITIONED_AREA_RATIO * regionArea &&
+    at("silhouetteBodiesNative") <= regionBodies &&
+    at("silhouetteBodiesWeb") <= regionBodies
   );
 }
 
@@ -647,7 +672,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     // post-W8 matrix replaces this one, these two become equal again and the
     // tables above must be re-verified against the new instrument, not assumed
     // to have survived it.
-    expect(MATRIX.schemaVersion).toBe(4);
+    expect(MATRIX.schemaVersion).toBe(5);
     expect(RESULT_MATRIX_SCHEMA_VERSION).toBe(5);
   });
 
@@ -742,12 +767,35 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     // §5 adopted it *because* a canonical cell failed it, and a predicate that
     // excluded nothing at all would mean the areas had stopped being measured.
     expect(excluded.length).toBeGreaterThan(0);
+    // Every excluded cell must fail a NAMED arm, and the failing arm is asserted
+    // rather than assumed. The predicate has four; a cell that appeared in the
+    // list without any of them firing would mean the list had drifted from the
+    // artifact, which is the one way this bookkeeping can rot silently.
     for (const cell of MATRIX.cells.filter((candidate) => !isWellConditioned(candidate))) {
-      const scale = backingScaleOf(cell.key.profileKey);
-      expect(reading(cell, "shape", "silhouetteAreaNative")).toBeLessThan(
-        WELL_CONDITIONED_AREA_RATIO * declaredAreaOf(cell) * scale * scale,
-      );
+      const at = (metric: string): number => reading(cell, "shape", metric);
+      const floor = WELL_CONDITIONED_AREA_RATIO * at("componentRegionArea");
+      const bodies = at("componentRegionBodies");
+      expect(
+        at("silhouetteAreaNative") < floor ||
+          at("silhouetteAreaWeb") < floor ||
+          at("silhouetteBodiesNative") > bodies ||
+          at("silhouetteBodiesWeb") > bodies,
+        `${name(cell)}: excluded, so one of the four arms must fail`,
+      ).toBe(true);
     }
+
+    // The web-side arms are not decoration: the frozen bed's exclusions are
+    // mostly cells the old native-only predicate passed. Asserted so a future
+    // change that quietly reverted to reading one side would fail here.
+    const webOnly = MATRIX.cells.filter((cell) => {
+      if (cell.shape === undefined || isWellConditioned(cell)) return false;
+      const at = (metric: string): number => reading(cell, "shape", metric);
+      return (
+        at("silhouetteAreaNative") >= WELL_CONDITIONED_AREA_RATIO * at("componentRegionArea") &&
+        at("silhouetteBodiesNative") <= at("componentRegionBodies")
+      );
+    });
+    expect(webOnly.length, "cells only the web-side arms catch").toBeGreaterThan(0);
 
     // v1's canonical ill-conditioned cell is gated again on the settled bed, at
     // both scales. Asserted so nobody re-adds the exclusion from memory: the

@@ -466,7 +466,7 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeSpanMin: 32,
   sizeSpanMax: 96,
   sizeScatterGainMax: 1,
-  sizeOcclusionGain: 0,
+  sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
 
