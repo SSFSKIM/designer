@@ -45,6 +45,8 @@ import {
 } from "../src/index";
 import { DEFAULT_SILHOUETTE_THRESHOLD } from "../cli/measure";
 
+const say = (line: string): void => void process.stdout.write(`${line}\n`);
+
 const PROFILE = "apple-macos-26.5-1x-light-standard";
 const K_GRID = [0.005, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32];
 const SOLID_ANCHORS = ["dark-solid", "mid-dark-solid", "light-solid"];
@@ -444,34 +446,34 @@ const output = {
 };
 writeFileSync(outPath, JSON.stringify(output, null, 2));
 
-console.log(`runs: ${snapshots.length}, cells: ${cells.size}, scored (non-recorded structured): ${scoringSet.length}`);
-console.log(`\nRMS per hypothesis (P2 at k=${bestK}):`);
-for (const [name, value] of Object.entries(overall)) console.log(`  ${name}: ${value.toFixed(4)}`);
-console.log("\npitch × component (measured | P0 | P1):");
+say(`runs: ${snapshots.length}, cells: ${cells.size}, scored (non-recorded structured): ${scoringSet.length}`);
+say(`\nRMS per hypothesis (P2 at k=${bestK}):`);
+for (const [name, value] of Object.entries(overall)) say(`  ${name}: ${value.toFixed(4)}`);
+say("\npitch × component (measured | P0 | P1):");
 for (const row of scoredRows.filter((r) => r.background.startsWith("checkerboard"))) {
-  console.log(
+  say(
     `  ${row.id.padEnd(44)} ${row.measured.toFixed(4)} | ${row.p0.toFixed(4)} | ${row.p1.toFixed(4)} (${row.set})`,
   );
 }
-console.log("\nequal-mean pair (full | lc | gap | 3σ):");
+say("\nequal-mean pair (full | lc | gap | 3σ):");
 for (const pair of h4) {
   if ("note" in pair) {
-    console.log(`  ${pair.component}: ${pair.note ?? ""}`);
+    say(`  ${pair.component}: ${pair.note ?? ""}`);
   } else {
-    console.log(
+    say(
       `  ${pair.component.padEnd(16)} ${pair.fullContrast?.toFixed(4)} | ${pair.lowContrast?.toFixed(4)} | ${pair.measuredGap?.toFixed(4)} | ${(3 * (pair.sigmaPooled ?? 0)).toFixed(4)}`,
     );
   }
 }
 if (multiState.length > 0) {
-  console.log(`\nmulti-state cells (majority level used, shares recorded): ${multiState.length}`);
+  say(`\nmulti-state cells (majority level used, shares recorded): ${multiState.length}`);
   for (const m of multiState) {
     const shares = (m.states ?? []).map((s) => `${(s.share * 100).toFixed(0)}%@${s.level.toFixed(4)}`).join(" vs ");
-    console.log(`  ${m.id}: ${shares}`);
+    say(`  ${m.id}: ${shares}`);
   }
 }
 if (unattested.length > 0) {
-  console.log(`\nUNATTESTED cells (excluded from means): ${unattested.length}`);
-  for (const u of unattested) console.log(`  ${u.id}: ${u.runs.join(", ")}`);
+  say(`\nUNATTESTED cells (excluded from means): ${unattested.length}`);
+  for (const u of unattested) say(`  ${u.id}: ${u.runs.join(", ")}`);
 }
-console.log(`\n→ ${outPath}`);
+say(`\n→ ${outPath}`);

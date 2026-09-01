@@ -31,7 +31,7 @@
 import { LowPassHysteresisDriver } from "@vitrea/motion";
 
 import { DEFAULT_MATERIAL_PROFILE, type MaterialProfile } from "./material";
-import type { Rgb } from "./color";
+import { srgbToLinearChannel, type Rgb } from "./color";
 
 /** The four floats the reduction writes. */
 export interface BackdropStats {
@@ -54,7 +54,11 @@ export const ZERO_STATS: BackdropStats = {
 
 export function statsFromBuffer(values: ArrayLike<number>): BackdropStats {
   return {
-    luminance: values[0] ?? 0,
+    // The reduction publishes the ENCODED-space mean (the W9 model, claims
+    // §5.31) and this is its one decode: every consumer downstream — the
+    // drivers, `adaptiveTint`'s fitted thresholds — still speaks linear light,
+    // and a solid backdrop reads identically under either convention.
+    luminance: srgbToLinearChannel(values[0] ?? 0),
     variance: values[1] ?? 0,
     edgeDensity: values[2] ?? 0,
     sampleCount: values[3] ?? 0,

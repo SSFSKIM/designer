@@ -165,6 +165,12 @@ export interface OpticsPassArgs {
    * reconstructs in.
    */
   readonly outerShadowRectCssHeight: number;
+  /**
+   * The W9 tone-input correction ratio (claims §5.31): the encoded-space tone
+   * level over the linear mean, multiplying the per-pixel tint-tone input so
+   * its spatial mean matches the model. 1 where unmeasured.
+   */
+  readonly toneInputRatio: number;
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -500,7 +506,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[55] = args.outerShadow[3];
       d[56] = args.outerShadowSizeGain;
       d[57] = args.outerShadowRectCssHeight;
-      d[58] = 0;
+      d[58] = args.toneInputRatio;
       d[59] = 0;
       slot.write();
 

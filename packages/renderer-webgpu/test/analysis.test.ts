@@ -17,6 +17,7 @@ import {
   statsFromBuffer,
   ZERO_STATS,
 } from "../src/analysis";
+import { linearToSrgbChannel } from "../src/color";
 import {
   ADAPTIVE_LUMINANCE_HIGH,
   ADAPTIVE_LUMINANCE_LOW,
@@ -35,13 +36,17 @@ const stats = (luminance: number, variance = 0.05, edge = 0.1) => ({
 });
 
 describe("stats decoding", () => {
-  it("reads the four floats the reduction writes", () => {
-    expect(statsFromBuffer([0.3, 0.02, 0.15, 4096])).toEqual({
-      luminance: 0.3,
-      variance: 0.02,
-      edgeDensity: 0.15,
-      sampleCount: 4096,
-    });
+  it("reads the four floats the reduction writes, decoding the encoded-space mean once", () => {
+    // The reduction publishes the luminance channel as an ENCODED-space mean —
+    // the W9 model (claims §5.31) — and `statsFromBuffer` is its single decode,
+    // so consumers keep speaking linear light. Feeding the encoded form of 0.3
+    // and reading 0.3 back is that contract stated as arithmetic.
+    const encoded = linearToSrgbChannel(0.3);
+    const stats = statsFromBuffer([encoded, 0.02, 0.15, 4096]);
+    expect(stats.luminance).toBeCloseTo(0.3, 10);
+    expect(stats.variance).toBe(0.02);
+    expect(stats.edgeDensity).toBe(0.15);
+    expect(stats.sampleCount).toBe(4096);
   });
 
   it("treats a short buffer as zeroes rather than as undefined", () => {

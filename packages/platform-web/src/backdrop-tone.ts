@@ -18,7 +18,8 @@
  *    source is real pixels, supplied through `setBackdropTexture` because the GPU
  *    tier needs them; when the CSS tier is the one drawing, the same pixels
  *    answer the same question. This is the function below: one downsampled read,
- *    averaged in linear light, giving a colour as well as a level.
+ *    averaged in encoded space and decoded once (the W9 model — see the
+ *    referee section), giving a colour as well as a level.
  * 3. **Nothing.** No hint, no readable source — then this tier does not adapt,
  *    which is exactly what it did before this axis existed. Guessing a level
  *    would be the one failure mode that matters: `CSS_TIER_MAPPING`'s
@@ -36,66 +37,70 @@
  * fallback. The cross-tier bound is the referee, and it is enforced from the
  * matrix on every gated cell.
  *
- * ### The referee has ruled, and it ruled against this (2026-09-01)
+ * ### The referee ruled, and W9's probe answered it (2026-09-02)
  *
- * The tint scenes put qualifying cells in the matrix for the first time, and the
- * trade above does not hold on backdrops with high spatial contrast. Eight
- * coherence rows now fail. Ranked by backdrop, the two tiers' interior levels
- * diverge exactly as this header's own caveat predicts they would:
+ * The 2026-09-01 reading of the failure blamed this tier's coarseness: one
+ * number per source, averaged and then mapped, widest where the backdrop is
+ * most bimodal (`checkerboard` + tint diverged 1.638 against a 0.8…1.25
+ * cross-tier bound). That reading was half right. W9's reference probe
+ * (claims §5.31, seven attested runs over a pitch and contrast sweep) found
+ * the averaging is not the sin — the SPACE is. The reference's tone response
+ * behaves as if the backdrop were averaged in its ENCODED form and the
+ * material's response applied to that; averaging in linear light — which this
+ * file did deliberately, and documented as correctness — was the
+ * approximation. An equal-linear-mean pair of checkerboards, indistinguishable
+ * to any linear reading, renders 0.11–0.19 apart on the reference, and the
+ * encoded-space mean predicts both the direction and most of the magnitude.
  *
- * | backdrop | worst ratio | verdict |
- * | --- | --- | --- |
- * | `checkerboard` + tint | 1.638 | far outside 0.8…1.25 |
- * | `hc-text` + tint | 1.266 | outside |
- * | `light-solid` + tint | 1.243 | inside, barely |
- * | `photo` + tint | 1.056 | inside |
- * | solid, untinted | 1.001 | inside |
+ * So the mean below is taken in encoded space and decoded once at the end
+ * (Decision Log 2 of the W9 spec). What remains of the old caveat is
+ * granularity: this is still one number per source rather than per surface,
+ * the probe measured the reference reading per-footprint, and the cross-tier
+ * bound is still the referee, enforced from the matrix on every gated cell.
  *
- * The mechanism is the one sentence above: **one number per source**, fed to a
- * non-linear tone map. Averaging a bimodal backdrop and then mapping is not the
- * same as mapping and then averaging, and the gap is widest where the backdrop
- * is most bimodal. A checkerboard is the extreme case; a photograph is nearly
- * the null case, which is why it passes.
- *
- * It is not only this tier. The GPU tier reads a neighbourhood rather than a
- * source mean and it misses too, by less — so locality alone is not the fix, and
- * "restate the cover-fit mapping here" is not the remedy this points to. Claims
- * §5.26 has the measurement, §5.27 has what stopped being claimed, and W9 owns
- * re-posing the question for both tiers. Until then the divergence is held at
- * its measured value by a regression floor: it may not get worse.
- *
- * The read is a `drawImage` downsample: the browser averages in the texture's own
- * encoded space and this converts each surviving texel to linear before the mean,
- * so the answer is a linear mean of encoded blocks rather than a true linear mean.
- * `SAMPLE_EXTENT` is what makes that difference small; it is not zero, and the
- * adaptation curve's dead zone (nothing happens above a fifth of the backdrop
- * scale) is where the remaining error lands.
+ * The read is a `drawImage` downsample. The browser averages in the texture's
+ * own encoded space — which under the W9 model is no longer a trap to outrun
+ * but the model itself. `SAMPLE_EXTENT`'s history and what its size still
+ * buys are on the constant.
  */
 
 import type { GlassBackdropTexture } from "./renderer-bridge";
 
-/** A backdrop's average colour in linear light, and its Rec. 709 luminance. */
+/**
+ * A backdrop's tone reading: linear-light colour and Rec. 709 luminance,
+ * derived per the W9 model — the mean is taken in ENCODED space and decoded
+ * once (claims §5.31; a solid backdrop is identical under either convention,
+ * which is why every solid-fitted constant survived the swap unchanged).
+ */
 export interface BackdropToneSample {
   readonly rgb: readonly [number, number, number];
   readonly luminance: number;
+  /**
+   * The linear-space mean's luminance — the OLD convention's number, kept so a
+   * per-pixel consumer (the GPU tier's tint tone map) can express how far the
+   * model input sits from the linear mean its samples average to, as one ratio.
+   */
+  readonly linearLuminance: number;
 }
 
 /**
  * The longest edge the backdrop is drawn at before it is averaged.
  *
- * Set by a measured trap rather than by a budget. `drawImage` downsamples in the
- * texture's own **encoded** space, and the encoded mean of a block is not the
- * encoded form of its linear mean — for a block that is a quarter white and three
- * quarters black the two differ by five times. At 32 px the calibration bed's
- * impulse backdrop (4 px squares on a 64 px grid) reported a linear mean of
- * 0.0008 against its true 0.0039, and the CSS tier rendered a fully adapted
- * capsule five times too dark. Drawing at up to 512 puts the bed's backdrops at
- * or near 1:1, where the error is a rounding one.
+ * This constant's history is a lesson in conventions. It was set to 512 by a
+ * measured trap: under the original linear-mean convention, `drawImage`'s
+ * encoded-space downsampling made a 32 px read of the impulse backdrop report
+ * 0.0008 against a true linear 0.0039, and a capsule rendered five times too
+ * dark. W9 then measured the reference itself (claims §5.31) and found its
+ * tone input behaves as an ENCODED-space mean — the very averaging the trap
+ * story treated as the error. Under the current convention the browser's
+ * downsample and this function's accumulation happen in the same space, the
+ * composition of the two box filters is exact up to rounding, and the extent
+ * no longer guards correctness at all.
  *
- * It does not vanish for a backdrop larger than this — a 4K page averages 8×8
- * blocks in the wrong space — and that is a stated limit of this tier's reading,
- * not a defect the number can fix. The readback is 1 MB at the cap, once per
- * declared content change.
+ * It stays at 512 for provenance continuity — every committed capture read at
+ * this extent — and lowering it is now a pure readback-cost optimisation
+ * (1 MB at the cap, once per declared content change) to be taken
+ * deliberately, with the e2e pins re-verified, not as a drive-by.
  */
 export const SAMPLE_EXTENT = 512;
 
@@ -181,6 +186,7 @@ export function sampleBackdropTone(
     let r = 0;
     let g = 0;
     let b = 0;
+    let linear = 0;
     let weight = 0;
     for (let i = 0; i < data.length; i += 4) {
       // Alpha-weighted: a backdrop source with transparent regions has not
@@ -188,14 +194,33 @@ export function sampleBackdropTone(
       // a dark backdrop for a page that has none.
       const a = (data[i + 3] as number) / 255;
       if (a <= 0) continue;
-      r += srgbDecode((data[i] as number) / 255) * a;
-      g += srgbDecode((data[i + 1] as number) / 255) * a;
-      b += srgbDecode((data[i + 2] as number) / 255) * a;
+      // Accumulated ENCODED, decoded once after the mean — the W9 model. The
+      // reference's tone response tracks the encoded-space mean of a structured
+      // backdrop, not its linear mean (claims §5.31's equal-mean pair is the
+      // proof: identical linear means, 0.11–0.19 apart on the reference). The
+      // linear mean rides along so per-pixel consumers can carry the model as
+      // one correction ratio against samples that average linearly.
+      const er = (data[i] as number) / 255;
+      const eg = (data[i + 1] as number) / 255;
+      const eb = (data[i + 2] as number) / 255;
+      r += er * a;
+      g += eg * a;
+      b += eb * a;
+      linear +=
+        (0.2126 * srgbDecode(er) + 0.7152 * srgbDecode(eg) + 0.0722 * srgbDecode(eb)) * a;
       weight += a;
     }
     if (weight <= 0) return undefined;
-    const rgb: readonly [number, number, number] = [r / weight, g / weight, b / weight];
-    return { rgb, luminance: 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2] };
+    const rgb: readonly [number, number, number] = [
+      srgbDecode(r / weight),
+      srgbDecode(g / weight),
+      srgbDecode(b / weight),
+    ];
+    return {
+      rgb,
+      luminance: 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2],
+      linearLuminance: linear / weight,
+    };
   } catch {
     return undefined;
   }

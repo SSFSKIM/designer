@@ -143,6 +143,15 @@ export interface GroupRenderInput {
    * back to a level nobody measured.
    */
   readonly backdropTone?: Rgb;
+  /**
+   * The backdrop's LINEAR-space mean luminance, beside `backdropTone`'s
+   * encoded-space reading (W9, claims §5.31). The per-pixel tint-tone input
+   * samples a chain that averages linearly, so the optics pass multiplies it by
+   * `luminance(backdropTone) / backdropToneLinearLuminance` — locality is
+   * preserved and the input's spatial mean matches the model exactly. Absent
+   * (or equal to the tone's luminance) collapses the ratio to 1.
+   */
+  readonly backdropToneLinearLuminance?: number;
   readonly variant?: MaterialVariant;
   /** Overrides the calibration-delegated union defaults. */
   readonly union?: GroupUnionParams;

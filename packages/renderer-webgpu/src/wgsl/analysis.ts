@@ -35,7 +35,10 @@
 export const ANALYSIS_WORKGROUP = 64;
 export const ANALYSIS_GRID = 64;
 
-/** `stats` layout: mean luminance, variance, edge density, sample count. */
+/**
+ * `stats` layout: mean luminance (ENCODED-space mean, decoded once by the host —
+ * the W9 model, claims §5.31), variance (linear), edge density, sample count.
+ */
 export const ANALYSIS_STATS_FLOATS = 4;
 
 export const WGSL_ANALYSIS_PASS = `struct AnalysisUniforms {
@@ -51,6 +54,7 @@ export const WGSL_ANALYSIS_PASS = `struct AnalysisUniforms {
 @group(0) @binding(3) var<storage, read_write> stats : array<f32>;
 
 var<workgroup> partialLum  : array<f32, ${ANALYSIS_WORKGROUP}>;
+var<workgroup> partialTone : array<f32, ${ANALYSIS_WORKGROUP}>;
 var<workgroup> partialSq   : array<f32, ${ANALYSIS_WORKGROUP}>;
 var<workgroup> partialEdge : array<f32, ${ANALYSIS_WORKGROUP}>;
 
@@ -66,6 +70,7 @@ fn lum_at(uv : vec2f) -> f32 {
 fn cs_analysis(@builtin(local_invocation_index) lane : u32) {
   let total = u32(au.grid.x * au.grid.y);
   var sumLum = 0.0;
+  var sumTone = 0.0;
   var sumSq = 0.0;
   var sumEdge = 0.0;
   var n = 0.0;
@@ -81,7 +86,15 @@ fn cs_analysis(@builtin(local_invocation_index) lane : u32) {
     let dx = lum_at(uv + vec2f(au.texel.x, 0.0)) - lum_at(uv - vec2f(au.texel.x, 0.0));
     let dy = lum_at(uv + vec2f(0.0, au.texel.y)) - lum_at(uv - vec2f(0.0, au.texel.y));
 
+    // The published luminance accumulates ENCODED — the W9 model (claims
+    // 5.31): the reference's tone responses track the encoded-space mean of a
+    // structured backdrop, not its linear mean. The host decodes the mean once
+    // on readback, so every consumer downstream still speaks linear light.
+    // The linear sum stays, because the variance fold below needs a mean in
+    // the same space as its squares; variance and edge density stay linear —
+    // nothing tonal reads them.
     sumLum = sumLum + c;
+    sumTone = sumTone + linear_to_srgb(vec3f(c, c, c)).x;
     sumSq = sumSq + c * c;
     sumEdge = sumEdge + length(vec2f(dx, dy)) * 0.5;
     n = n + 1.0;
@@ -90,6 +103,7 @@ fn cs_analysis(@builtin(local_invocation_index) lane : u32) {
   }
 
   partialLum[lane] = sumLum;
+  partialTone[lane] = sumTone;
   partialSq[lane] = sumSq;
   partialEdge[lane] = sumEdge;
   workgroupBarrier();
@@ -100,6 +114,7 @@ fn cs_analysis(@builtin(local_invocation_index) lane : u32) {
     if (stride == 0u) { break; }
     if (lane < stride) {
       partialLum[lane] = partialLum[lane] + partialLum[lane + stride];
+      partialTone[lane] = partialTone[lane] + partialTone[lane + stride];
       partialSq[lane] = partialSq[lane] + partialSq[lane + stride];
       partialEdge[lane] = partialEdge[lane] + partialEdge[lane + stride];
     }
@@ -110,7 +125,8 @@ fn cs_analysis(@builtin(local_invocation_index) lane : u32) {
   if (lane == 0u) {
     let count = max(f32(total), 1.0);
     let mean = partialLum[0] / count;
-    stats[0] = mean;
+    // stats[0] is the ENCODED-space mean; the host decodes it once (W9).
+    stats[0] = partialTone[0] / count;
     stats[1] = max(partialSq[0] / count - mean * mean, 0.0);
     stats[2] = partialEdge[0] / count;
     stats[3] = count;

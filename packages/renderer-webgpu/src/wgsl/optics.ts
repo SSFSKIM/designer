@@ -99,8 +99,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   shadow : vec4f,
   /// the outer shadow's size-law gain (x), read against the casting surface's own
   /// thickness, and the field rect's height in CSS px (y) — the conversion the
-  /// shadow's shift needs when it lands outside the texture; z and w are the
-  /// padding a uniform's vec4 alignment requires
+  /// shadow's shift needs when it lands outside the texture; z is the W9
+  /// tone-input correction ratio (encoded-space tone level over the linear mean,
+  /// claims 5.31) multiplying the per-pixel tint-tone input, 1 where unmeasured;
+  /// w is the padding a uniform's vec4 alignment requires
   shadowSize : vec4f,
 };
 
@@ -287,7 +289,13 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // is what a 'hint' or 'none' group gets.
   let neutral = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
 
-  let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722));
+  // The tint tone map's per-pixel input, corrected onto the W9 model
+  // (claims 5.31): the chain averages in linear light, the reference's tone
+  // response tracks the ENCODED-space mean, and 'shadowSize.z' is the
+  // host-measured ratio between the two, so the input's spatial mean lands on
+  // the model while locality is preserved. 'backdrop' itself stays physical —
+  // the correction applies to the tone READING, never to what refracts.
+  let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722)) * ou.shadowSize.z;
 
   /*
    * Backdrop tone adaptation (W7) — step two of the composition contract, between

@@ -274,9 +274,15 @@ export function toRendererGroups(
           // The backdrop's own average colour (W7), measured once on this side so
           // both tiers adapt onto the same tone by the same amount. Forwarded only
           // where the group is actually sampling that source: a group with no
-          // backdrop has no tone to take.
+          // backdrop has no tone to take. The linear mean rides along as the
+          // denominator of the W9 correction ratio (claims §5.31).
           ...(sampled && group.backdropTone !== undefined
-            ? { backdropTone: group.backdropTone }
+            ? {
+                backdropTone: group.backdropTone,
+                ...(group.backdropToneLinearLuminance === undefined
+                  ? {}
+                  : { backdropToneLinearLuminance: group.backdropToneLinearLuminance }),
+              }
             : {}),
         };
       }),

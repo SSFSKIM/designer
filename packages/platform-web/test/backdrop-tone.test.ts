@@ -47,11 +47,13 @@ describe("sampleBackdropTone", () => {
   });
 
   it("draws at or below 1:1 — the cap is a ceiling, not a target", () => {
-    // The trap this guards: `drawImage` downsamples in the texture's ENCODED
-    // space, and the encoded mean of a block is not the encoded form of its
-    // linear mean. At a small fixed extent the calibration bed's impulse backdrop
-    // read five times too dark. The constant is asserted rather than described so
-    // that lowering it is a deliberate act with this comment attached.
+    // Once this guarded a measured trap (encoded-space downsampling under a
+    // linear-mean convention read the impulse backdrop five times too dark).
+    // W9 adopted the encoded-space mean as the model itself (claims §5.31), so
+    // the extent now buys only rounding headroom and provenance continuity with
+    // every committed capture. Still asserted, so that lowering it is a
+    // deliberate act — a readback-cost change with the e2e pins re-verified —
+    // with this comment attached.
     expect(SAMPLE_EXTENT).toBeGreaterThanOrEqual(512);
   });
 });

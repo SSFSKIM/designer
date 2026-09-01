@@ -298,6 +298,15 @@ export interface GlassGroupRenderInput {
    * difference.
    */
   readonly backdropTone?: readonly [number, number, number];
+  /**
+   * The same backdrop's LINEAR-space mean luminance — the denominator of the
+   * W9 correction ratio. A per-pixel consumer whose samples average linearly
+   * (the GPU tier's blurred chain) multiplies its input by
+   * `luminance(backdropTone) / backdropToneLinearLuminance` so the input's
+   * spatial mean matches the encoded-space model exactly (claims §5.31).
+   * Absent exactly where `backdropTone` is.
+   */
+  readonly backdropToneLinearLuminance?: number;
 }
 
 export interface GlassPlaneRenderInput {
@@ -1136,6 +1145,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           : {
               rgb: [declaredLuminance, declaredLuminance, declaredLuminance],
               luminance: declaredLuminance,
+              // A declared hint carries no structure to correct for: the tone
+              // input IS the declaration, so the linear mean equals it and the
+              // W9 correction ratio resolves to 1.
+              linearLuminance: declaredLuminance,
             };
 
       /*
@@ -1182,7 +1195,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         mergeDistance: sampling.mergeDistance,
         declaredMergeDistance: groupRecord.descriptor.mergeDistance,
         blurRadius: optics.blurRadius,
-        ...(backdropTone === undefined ? {} : { backdropTone: backdropTone.rgb }),
+        ...(backdropTone === undefined
+          ? {}
+          : {
+              backdropTone: backdropTone.rgb,
+              backdropToneLinearLuminance: backdropTone.linearLuminance,
+            }),
       });
 
       // The proxy path belongs to the WebGPU tier's dom sampling. The CSS tier
