@@ -21,6 +21,34 @@ import { expect, test, type Locator, type Page } from "@playwright/test";
 import { PNG } from "pngjs";
 
 /**
+ * The size law's grip on this tier's tint alpha, mirrored from
+ * `@vitrea/platform-web`'s `MATERIAL_SOURCE_SIZE.sizeOcclusionGain`.
+ *
+ * Written as a literal rather than imported so this file stays a black-box read
+ * of the rendered DOM: a test that imported the constant that produced the value
+ * it is checking would agree with the renderer by construction. It is used only
+ * as a CEILING — `alpha + gain · thickness · (1 − alpha)` cannot exceed `alpha`
+ * by more than `gain` for any span — so a drift in the constant loosens this
+ * bound rather than silently invalidating it, and the assertions above stay true
+ * statements about the page.
+ */
+const SIZE_OCCLUSION_GAIN = 0.05;
+
+/** `rgba(r, g, b, a)` → `"r,g,b"`, so a colour can be compared without its alpha. */
+const colourOf = (tint: string): string =>
+  (/rgba?\(([^)]*)\)/.exec(tint)?.[1] ?? "")
+    .split(",")
+    .slice(0, 3)
+    .map((part) => part.trim())
+    .join(",");
+
+/** `rgba(r, g, b, a)` → `a`. Absent alpha is opaque, per CSS. */
+const alphaOf = (tint: string): number => {
+  const parts = (/rgba?\(([^)]*)\)/.exec(tint)?.[1] ?? "").split(",");
+  return parts.length < 4 ? 1 : Number((parts[3] ?? "1").trim());
+};
+
+/**
  * The codes that name a mistake in *this page's* layout, as opposed to something
  * the browser could not offer. `DESIGN.md` §9 is about the first set only: a
  * machine with no WebGPU adapter reports `webgpu-unavailable`, and that finding is
@@ -241,7 +269,22 @@ test.describe("the layout is legal", () => {
       });
 
     const before = await read();
-    expect(before.tinted).toBe(before.plain);
+    /*
+     * Both plates start untinted, so both carry the same white — but NOT the same
+     * alpha, and that stopped being true when `sizeOcclusionGain` was adopted at
+     * 0.05 against the frozen bed (claims §5.13's re-fit block). On this tier the
+     * size law's occlusion lifts the tint alpha, and these two plates are 112 px
+     * and 40 px, so the lift reaches them differently. Cross-plate equality was a
+     * fair proxy for "untinted" only while that gain was the identity.
+     *
+     * So the colour is asserted exactly and the alpha is bounded by the lift's own
+     * ceiling: `alpha + gain · thickness · (1 − alpha)` can exceed `alpha` by at
+     * most `gain`, whatever the spans are.
+     */
+    expect(colourOf(before.tinted)).toBe(colourOf(before.plain));
+    expect(Math.abs(alphaOf(before.tinted) - alphaOf(before.plain))).toBeLessThanOrEqual(
+      SIZE_OCCLUSION_GAIN,
+    );
 
     await page.getByTestId("tint-select").selectOption("orange");
     await expect.poll(async () => (await read()).tinted).not.toBe(before.tinted);
@@ -411,10 +454,31 @@ test.describe("backdrop tone adaptation is on screen", () => {
     // the rest of the site looks untouched by this feature.
     await setGround(page, "160");
     const flatGround = await groundOf(page);
-    const unadaptedTint = await tintOf(page, "c");
-    expect(await tintOf(page, "a")).toBe(unadaptedTint);
-    expect(await tintOf(page, "b")).toBe(unadaptedTint);
-    const flatSmall = bodyOf(unadaptedTint, flatGround);
+    const unadaptedTint = { a: await tintOf(page, "a"), b: await tintOf(page, "b"), c: await tintOf(page, "c") };
+    /*
+     * At the top stop no plate has adapted, and the three used to be byte-equal
+     * here. They are not any more: `sizeOcclusionGain` was adopted at 0.05 against
+     * the frozen bed, and on this tier the size law's occlusion lifts the tint
+     * alpha, so plates of 40, 68 and 112 px against a 32…96 band separate by it.
+     *
+     * That is the size law, not the adaptation this test is about, so the check
+     * becomes the shape the size law predicts and the adaptation cannot fake:
+     * same colour, ordered by span, and separated by no more than the lift's own
+     * ceiling. Adaptation at the bottom stop moves the small plate all the way to
+     * the backdrop's level — an order of magnitude past this — so a plate that had
+     * adapted here could not satisfy it.
+     */
+    expect(colourOf(unadaptedTint.a)).toBe(colourOf(unadaptedTint.c));
+    expect(colourOf(unadaptedTint.b)).toBe(colourOf(unadaptedTint.c));
+    expect(alphaOf(unadaptedTint.a)).toBeLessThanOrEqual(alphaOf(unadaptedTint.b));
+    expect(alphaOf(unadaptedTint.b)).toBeLessThanOrEqual(alphaOf(unadaptedTint.c));
+    expect(alphaOf(unadaptedTint.c) - alphaOf(unadaptedTint.a)).toBeLessThanOrEqual(
+      SIZE_OCCLUSION_GAIN,
+    );
+    // Each plate's own counterfactual, per plate. Using one plate's tint as every
+    // plate's baseline was harmless while the three were equal; with the size law
+    // live it would credit the adaptation axis with the size law's separation.
+    const flatSmall = bodyOf(unadaptedTint.a, flatGround);
 
     // The bottom stop. The 40px plate reaches the backdrop; the 112px plate is
     // still a light glass body over the same pixels, in the same sampling group.
@@ -433,7 +497,7 @@ test.describe("backdrop tone adaptation is on screen", () => {
      * translucent — so a comparison across two grounds would credit the axis with
      * the backdrop's own move.
      */
-    const unadapted = bodyOf(unadaptedTint, darkGround);
+    const unadapted = bodyOf(unadaptedTint.c, darkGround);
 
     // Converged: not "darker", the backdrop's own level.
     expect(Math.abs(dark.a - groundLevel)).toBeLessThan(0.002);

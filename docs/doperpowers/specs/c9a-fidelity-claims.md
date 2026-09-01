@@ -626,9 +626,9 @@ prevent it. On the perceptual axis, holdout is the binding case.
 | shape | silhouette IoU | ≥ 0.82 | 0.8489 | 0.9620 |
 | shape | contour distance mean | ≤ 2.5 px | 1.9336 | 0.5450 |
 | shape | contour distance p95 | ≤ 5.0 px | 4.0000 | 2.8284 |
-| perceptual | SSIM mean | ≥ 0.88 | 0.9046 | 0.9026 |
-| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0533 | 0.0548 |
-| perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1070 | 0.1337 |
+| perceptual | SSIM mean | ≥ 0.88 · **UNMET ×3 (§5.27)** | 0.9046 | 0.9026 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 · **UNMET ×1 (§5.27)** | 0.0533 | 0.0548 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1070 | 0.1337 |
 | perceptual | edge-weighted mean | ≤ 0.11 | 0.0573 | 0.0923 |
 
 *The observation columns above were re-measured on the **settled** reference bed
@@ -693,10 +693,10 @@ shadow's removal made meaningful.
 | shape | silhouette IoU | ≥ 0.85 | 0.8987 | 0.9368 |
 | shape | contour distance mean | ≤ 2.0 px | 1.2456 | 1.1081 |
 | shape | contour distance p95 | ≤ 4.0 px | 2.8284 | 2.2361 |
-| perceptual | SSIM mean | ≥ 0.90 | 0.9036 | 0.9205 |
+| perceptual | SSIM mean | ≥ 0.90 · **UNMET ×4 (§5.27)** | 0.9036 | 0.9205 |
 | perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0535 | 0.0560 |
 | coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0124 | 0.0312 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.893 … 1.080 | 0.844 … 1.040 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 · **UNMET ×4 (§5.27)** | 0.893 … 1.080 | 0.844 … 1.040 |
 
 The shape rows carry the texture tier's own well-conditioned-cell predicate
 unchanged (`silhouetteAreaNative ≥ 0.95 ×` the declared component area), for the
@@ -748,9 +748,9 @@ beside the 1× tables, which are unchanged in every digit.
 | shape | silhouette IoU | ≥ 0.85 | 0.8768 | 0.9596 |
 | shape | contour distance mean | ≤ 5.0 device px | 3.7548 | 1.1849 |
 | shape | contour distance p95 | ≤ 10.0 device px | 8.0000 | 5.6569 |
-| perceptual | SSIM mean | ≥ 0.93 | 0.9582 | 0.9593 |
-| perceptual | OKLab ΔE mean | ≤ 0.07 | 0.0533 | 0.0546 |
-| perceptual | OKLab ΔE p95 | ≤ 0.17 | 0.1070 | 0.1333 |
+| perceptual | SSIM mean | ≥ 0.93 · **UNMET ×4 (§5.27)** | 0.9582 | 0.9593 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 · **UNMET ×1 (§5.27)** | 0.0533 | 0.0546 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1070 | 0.1333 |
 | perceptual | edge-weighted mean | ≤ 0.12 | 0.0537 | 0.1002 |
 
 #### Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`
@@ -760,10 +760,10 @@ beside the 1× tables, which are unchanged in every digit.
 | shape | silhouette IoU | ≥ 0.85 | 0.8978 | 0.9363 |
 | shape | contour distance mean | ≤ 4.0 device px | 2.3744 | 2.2484 |
 | shape | contour distance p95 | ≤ 8.0 device px | 5.3852 | 5.0000 |
-| perceptual | SSIM mean | ≥ 0.92 | 0.9679 | 0.9509 |
+| perceptual | SSIM mean | ≥ 0.92 · **UNMET ×4 (§5.27)** | 0.9679 | 0.9509 |
 | perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0534 | 0.0559 |
 | coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0128 | 0.0313 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 | 0.895 … 1.080 | 0.845 … 1.041 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 · **UNMET ×4 (§5.27)** | 0.895 … 1.080 | 0.845 … 1.041 |
 
 The shape rows carry the same well-conditioned-cell predicate, with the declared
 area scaled by the square of the backing scale — `scenes.json` declares
@@ -4446,6 +4446,99 @@ The final bed is captured under it: seventeen runs per phase, per adopted doctri
 item 3, buying 95.6% confidence against a one-in-six minority state.
 
 ---
+
+### 5.27 The landing: thirty-three claims narrowed, and what CI now enforces (2026-09-01)
+
+Decision Log 22 lands the flip. The thirty-three rows §5.26 measured do not
+disappear and are not excused: **each keeps its adopted bound as a claim, marked
+UNMET, and CI enforces a regression floor pinned at what the bed measures.**
+Nothing here is widened and nothing is excepted. The claim narrows, in writing,
+which is the founding rule this document was started under.
+
+The distinction that makes this legitimate rather than cosmetic: a bound says
+*vitrea is this good*; a floor says *vitrea is no worse than this*. The first is
+a claim and can be false. The second is a ratchet and cannot be met by moving it.
+Every row below states both, so no reader can mistake one for the other.
+
+**Mechanism** for all thirty-three: §5.26 — backdrop tone sampled without regard
+to surface size over high-spatial-frequency content, on both tiers. **Owner**:
+W9. **Epsilon**: a floor sits 0.001 below its measurement (0.005 for the
+coherence ratio), rounded away from it at four decimals, so re-measurement cannot
+fail CI on an unchanged renderer. The captures are deterministic, so that
+headroom is against constants moving in their last digit and nothing else.
+
+**`1x-light-standard` · texture tier**
+
+| scene | set | metric | claimed | measured | enforced floor |
+| --- | --- | --- | --- | --- | --- |
+| `photo__rrect-lg__rest-tint-orange` | holdout | `oklabDeltaEMean` | ≤ 0.07 **UNMET** | 0.0760 | ≤ 0.0771 |
+| `checkerboard__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1909 | ≤ 0.1919 |
+| `light-solid__capsule-button__rest-tint-orange` | calibration | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1726 | ≤ 0.1737 |
+| `mid-dark-solid__capsule-button__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1775 | ≤ 0.1785 |
+| `photo__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1906 | ≤ 0.1917 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 | ≥ 0.8399 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 | ≥ 0.8295 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 | ≥ 0.8636 |
+
+**`1x-light-standard` · dom tier**
+
+| scene | set | metric | claimed | measured | enforced floor |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest-tint-blue` | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.6353 | ≤ 1.6404 |
+| `checkerboard__capsule-button__rest-tint-orange` | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.3695 | ≤ 1.3746 |
+| `hc-text__capsule-button__rest-tint-orange` | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.2651 | ≤ 1.2701 |
+| `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7958 | ≥ 0.7907 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.8078 | ≥ 0.8068 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 | ≥ 0.6872 |
+| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.8826 | ≥ 0.8816 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.7950 | ≥ 0.794 |
+
+**`2x-light-standard` · texture tier**
+
+| scene | set | metric | claimed | measured | enforced floor |
+| --- | --- | --- | --- | --- | --- |
+| `photo__rrect-lg__rest-tint-orange` | holdout | `oklabDeltaEMean` | ≤ 0.07 **UNMET** | 0.0760 | ≤ 0.077 |
+| `checkerboard__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1909 | ≤ 0.1919 |
+| `light-solid__capsule-button__rest-tint-orange` | calibration | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1726 | ≤ 0.1737 |
+| `mid-dark-solid__capsule-button__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1775 | ≤ 0.1785 |
+| `photo__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1901 | ≤ 0.1912 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 | ≥ 0.8752 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 | ≥ 0.8812 |
+| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.9266 | ≥ 0.9256 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 | ≥ 0.8886 |
+
+**`2x-light-standard` · dom tier**
+
+| scene | set | metric | claimed | measured | enforced floor |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest-tint-blue` | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.6377 | ≤ 1.6428 |
+| `checkerboard__capsule-button__rest-tint-orange` | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.3698 | ≤ 1.3748 |
+| `hc-text__capsule-button__rest-tint-orange` | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.2657 | ≤ 1.2708 |
+| `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7967 | ≥ 0.7916 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.8460 | ≥ 0.8449 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 | ≥ 0.798 |
+| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.9058 | ≥ 0.9048 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.8480 | ≥ 0.847 |
+
+#### What the floors do and do not buy
+
+They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
+which additionally proves — as a test, not a promise — that every floor stands on
+a bound that was genuinely missed, that no floor is tighter than the measurement
+it was pinned from, that none names a cell the gate does not reach, and that the
+set is exactly 33 rows. A floor cannot be added by accident, and adding
+one deliberately means editing a count that sits next to this section's number.
+
+Verified by mutation rather than by inspection: worsening a floored cell fails
+CI, improving one passes, and improving one **past its adopted bound** also
+passes. That last case matters — a construct that punished the improvement it
+exists to invite would be worse than no construct.
+
+What they do not buy is any change to what vitrea claims. Every row above is a
+row where the shipped material is measurably not matching Apple's, and eight of
+them are on holdout cells. The honest summary of this landing is that the gate
+stopped being a statement about quality and became, on these thirty-three rows,
+a statement about direction.
 
 ## 6. What could not be measured, and why
 

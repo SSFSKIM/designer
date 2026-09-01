@@ -36,6 +36,34 @@
  * fallback. The cross-tier bound is the referee, and it is enforced from the
  * matrix on every gated cell.
  *
+ * ### The referee has ruled, and it ruled against this (2026-09-01)
+ *
+ * The tint scenes put qualifying cells in the matrix for the first time, and the
+ * trade above does not hold on backdrops with high spatial contrast. Eight
+ * coherence rows now fail. Ranked by backdrop, the two tiers' interior levels
+ * diverge exactly as this header's own caveat predicts they would:
+ *
+ * | backdrop | worst ratio | verdict |
+ * | --- | --- | --- |
+ * | `checkerboard` + tint | 1.638 | far outside 0.8…1.25 |
+ * | `hc-text` + tint | 1.266 | outside |
+ * | `light-solid` + tint | 1.243 | inside, barely |
+ * | `photo` + tint | 1.056 | inside |
+ * | solid, untinted | 1.001 | inside |
+ *
+ * The mechanism is the one sentence above: **one number per source**, fed to a
+ * non-linear tone map. Averaging a bimodal backdrop and then mapping is not the
+ * same as mapping and then averaging, and the gap is widest where the backdrop
+ * is most bimodal. A checkerboard is the extreme case; a photograph is nearly
+ * the null case, which is why it passes.
+ *
+ * It is not only this tier. The GPU tier reads a neighbourhood rather than a
+ * source mean and it misses too, by less — so locality alone is not the fix, and
+ * "restate the cover-fit mapping here" is not the remedy this points to. Claims
+ * §5.26 has the measurement, §5.27 has what stopped being claimed, and W9 owns
+ * re-posing the question for both tiers. Until then the divergence is held at
+ * its measured value by a regression floor: it may not get worse.
+ *
  * The read is a `drawImage` downsample: the browser averages in the texture's own
  * encoded space and this converts each surviving texel to linear before the mean,
  * so the answer is a linear mean of encoded blocks rather than a true linear mean.

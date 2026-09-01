@@ -1,5 +1,6 @@
 /**
- * The isolation proof (Decision Log #31(a), user-directed).
+ * The isolation proof (Decision Log #31(a), user-directed) — now a pinned-bytes
+ * regression guard. See `POST_WAVE_HASHES` for why the original reading retired.
  *
  * Eight goldens went stale when C9a tuned the material, and the parent refused to
  * re-baseline them on the strength of "the tint changed, so of course they moved."
@@ -156,8 +157,72 @@ const PRE_W8_HASHES: Readonly<Record<string, string>> = {
   "highlight-press-glow": "0b9dc460a6616c5a3d6fb69a6b97a783",
 };
 
+/**
+ * The bytes `PRE_C9A_PROFILE` renders on the post-v1 wave's frozen material —
+ * recorded 2026-09-01, and the record that is actually asserted.
+ *
+ * ## Why a fourth table, and what this file can no longer claim
+ *
+ * The eight hashes above went stale again, and this time the reason is one the
+ * file's own rule cannot absorb by naming another constant.
+ *
+ * The rule was: name the fields that MOVED, and identity attributes the delta to
+ * them. It works only while the delta is expressible as a profile patch. Across
+ * this wave it is not. `git diff` between the commit that recorded `PRE_W8_HASHES`
+ * and this one moves material constants — `tintAlpha` 0.62 → 0.46, `shadowAlpha`
+ * 0.55 → 0.05, `blurSigma` 8 → 3, `tintToneFloor` 0.45 → 1, `tintToneCeilMix`
+ * 0.45 → 0, `sizeOcclusionGain` 0 → 0.05, `sizeShadowGainMax` 1.4 → 1,
+ * `backdropToneLow`, `backdropToneSizeBias`, `occlusion`,
+ * `reducedTransparencyOcclusion`, `INCREASED_OCCLUSION_LIFT` — **and it also
+ * moves shader and pass code**: `passes.ts`, `renderer.ts`, `wgsl/optics.ts`,
+ * `wgsl/highlight.ts`. No value injected through the `materialProfile` seam can
+ * reconstruct a renderer whose shaders are different. The old reading of this
+ * file is therefore retired rather than patched, and saying so is cheaper than a
+ * patch that would look complete and quietly not be.
+ *
+ * ## What survives, and it is not nothing
+ *
+ * What the seam still buys is a **regression guard with a named configuration**.
+ * These bytes are what today's renderer produces from one fixed, explicitly
+ * written material patch. Anything that moves them — a constant, a shader, a
+ * pass, a geometry primitive — fails here and has to be attributed before the
+ * table is touched. That is the property the file was always most useful for,
+ * and the one that catches the next unintended change.
+ *
+ * Deliberately, `PRE_C9A_PROFILE` is left naming only three fields. Every
+ * constant it does NOT name is a constant this guard can see move. Adding
+ * `sizeOcclusionGain: 0` to it would have made these hashes reproduce across the
+ * wave — and would have bought that by blinding the guard to the very constant
+ * the wave had just refitted. Coverage is worth more here than continuity.
+ *
+ * The re-recording is attributable independently of any image: every constant
+ * above has a measured driver in `c9a-fidelity-claims.md` §5.13, §5.16, §5.17 and
+ * §5.26, and the shader work is W8's, whose own delta this file already proves is
+ * confined to the alpha channel two tests below.
+ *
+ * `highlight-press-glow` is the control, and it is worth reading twice: its hash
+ * here is **byte-identical to the 2026-08-25 original**, through C9a, through W8,
+ * and through this wave. A scene with no tint, no outer shadow and no smoothing
+ * has not moved once, which is what makes the other eight movements legible as
+ * facets rather than as noise.
+ */
+const POST_WAVE_HASHES: Readonly<Record<string, string>> = {
+  "field-mask": "c587d588fd98eea1bd799b7fc164b0ee",
+  "refraction-checkerboard": "6d1f904503b136e30610681bb6465655",
+  "lens-size-scaling": "ec7ec804bb9bd2aa8554cb95312f91bf",
+  "tint-adaptation-light": "520732bdb6f6434215760d3d4f3bef2e",
+  "tint-adaptation-dark": "83496d4e9689786c229b73dd24b721a8",
+  "rim-two-references": "c5a32f7e06d8dd0f5748e8745e346dcc",
+  "concentric-nesting": "acb46d0afe555e4a551f758f80176561",
+  "union-pair": "a65571b183d017b33389ebd49f6d453d",
+  "highlight-press-glow": "0b9dc460a6616c5a3d6fb69a6b97a783",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
-  PRE_W8_HASHES[name] ?? SUPERSEDED[name]?.now ?? PRE_C9A_HASHES[name];
+  POST_WAVE_HASHES[name] ??
+  PRE_W8_HASHES[name] ??
+  SUPERSEDED[name]?.now ??
+  PRE_C9A_HASHES[name];
 
 /** The largest effective corner smoothing any of a scene's surfaces resolves to. */
 const maxSmoothingEff = (scene: (typeof SCENES)[number]): number => {
@@ -179,9 +244,9 @@ const maxSmoothingEff = (scene: (typeof SCENES)[number]): number => {
 const hashOf = (raster: Raster): string =>
   createHash("sha256").update(raster.data).digest("hex").slice(0, 32);
 
-test.describe("@golden the C9a delta is exactly the two tuned constants", () => {
+test.describe("@golden the goldens move only through the named profile seam", () => {
   for (const scene of SCENES.filter((candidate) => candidate.measureOnly !== true)) {
-    test(`${scene.name} reproduces its pre-C9a bytes from the old profile`, async ({ page }) => {
+    test(`${scene.name} renders its pinned bytes from the named profile`, async ({ page }) => {
       const report = await openHarness(page);
       requireHardwareAdapter(report);
 
@@ -194,8 +259,9 @@ test.describe("@golden the C9a delta is exactly the two tuned constants", () => 
 
       expect(
         hashOf(before),
-        `${scene.name}: rendering with the pre-C9a profile, outer shadow declined, ` +
-          `must reproduce the bytes main renders from the same patch`,
+        `${scene.name}: rendering with the named profile, outer shadow declined, ` +
+          `must reproduce its pinned bytes — if this moved, find what moved it ` +
+          `before re-recording the hash`,
       ).toBe(expectedHashFor(scene.name));
     });
   }

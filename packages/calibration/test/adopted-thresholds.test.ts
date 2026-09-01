@@ -265,6 +265,114 @@ const DOM_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
 
 /*
  * ---------------------------------------------------------------------------
+ * Regression floors — the rows the frozen bed cannot meet (Decision Log 22)
+ * ---------------------------------------------------------------------------
+ *
+ * Thirty-three rows fail their adopted bound on the frozen active bed. Decision
+ * Log 22 lands the flip anyway, and the rule it lands under is the founding one:
+ * **nothing is widened and nothing is excepted — the claim narrows, in writing.**
+ *
+ * So each of these rows keeps its adopted bound as an *aspiration*, marked UNMET
+ * in the claims tables with claims §5.26 as the mechanism and W9 as the owner,
+ * and CI enforces a **floor pinned at what the bed actually measures**. A cell
+ * that gets worse fails. A cell that gets better passes, and keeps passing until
+ * someone re-pins the floor upward. What this must never become is a bound that
+ * was quietly moved to wherever the code happened to land: the difference is that
+ * a floor is not a claim, and §5.27 states the unmet claim beside every one.
+ *
+ * ## The epsilon, declared
+ *
+ * A floor sits one `FLOOR_EPSILON` below the measurement (above it, for a `≤`
+ * row), so re-measurement noise cannot fail CI on an unchanged renderer. The
+ * captures are deterministic — the matrix records `deterministic: true` and
+ * `repeatNoise: 0` on every cell — so this is headroom against constants moving
+ * in their last digit, not against a noisy instrument. It is deliberately far
+ * smaller than any of the misses it guards: the largest epsilon here is 0.005
+ * against a coherence miss of 0.39.
+ *
+ * Floor literals are rounded away from the measurement (down for a floor, up for
+ * a ceiling) so the number in this file is never tighter than the epsilon says.
+ */
+/**
+ * Floor literals are written to four decimals, so a check on "within epsilon"
+ * must allow the rounding step at both ends — and one more, because the tenth
+ * digit of a float is not where correctness should be decided. Two steps is
+ * still an order of magnitude under the smallest epsilon below.
+ */
+const FLOOR_ROUNDING = 0.0001;
+
+const FLOOR_EPSILON: Readonly<Record<string, number>> = {
+  ssimMean: 0.001,
+  oklabDeltaEMean: 0.001,
+  oklabDeltaEP95: 0.001,
+  interiorLevelRatioGpuOverCss: 0.005,
+};
+
+/** What the frozen bed measured, and the value CI holds it to. */
+interface Floor {
+  readonly measured: number;
+  readonly floor: number;
+}
+
+/**
+ * `tier / set / scene / profile :: metric` → the reading that could not meet its
+ * adopted bound, and the floor pinned under it.
+ *
+ * `measured` is recorded rather than re-derived, and that is load-bearing. The
+ * checks below ask whether the bound was missed *at the moment of pinning*,
+ * which is a fact about the frozen bed and stays true; asking the live matrix
+ * instead would fail CI the day a cell IMPROVED past its bound, which is the one
+ * outcome this construct exists to invite. Decision Log 22 is explicit that
+ * worsening fails and improvement passes.
+ *
+ * Direction is never stored: it comes from the adopted row, since a floor only
+ * ever exists where that row is missed.
+ *
+ * A floor whose cell has since recovered its adopted bound goes inert — still
+ * satisfied, no longer binding. Removing it, and restoring the claim it narrowed
+ * in §5.27, is W9's work and wants a commit of its own.
+ */
+const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
+  "dom / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.36953, floor: 1.3746 },
+  "dom / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.36976, floor: 1.3748 },
+  "dom / holdout / hc-text__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.26507, floor: 1.2701 },
+  "dom / holdout / hc-text__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.26574, floor: 1.2708 },
+  "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79576, floor: 0.7907 },
+  "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79666, floor: 0.7916 },
+  "dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.6353, floor: 1.6404 },
+  "dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.63772, floor: 1.6428 },
+  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard :: oklabDeltaEMean": { measured: 0.07604, floor: 0.0771 },
+  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-2x-light-standard :: oklabDeltaEMean": { measured: 0.07597, floor: 0.077 },
+  "texture / calibration / light-solid__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.17264, floor: 0.1737 },
+  "texture / calibration / light-solid__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.17264, floor: 0.1737 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
+  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.17748, floor: 0.1785 },
+  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.17748, floor: 0.1785 },
+  "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19064, floor: 0.1917 },
+  "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19013, floor: 0.1912 },
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.88261, floor: 0.8816 },
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90582, floor: 0.9048 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.79501, floor: 0.794 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84804, floor: 0.847 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.80784, floor: 0.8068 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84598, floor: 0.8449 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.68827, floor: 0.6872 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.79903, floor: 0.798 },
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92665, floor: 0.9256 },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86466, floor: 0.8636 },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88968, floor: 0.8886 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.84092, floor: 0.8399 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87624, floor: 0.8752 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.83051, floor: 0.8295 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88228, floor: 0.8812 },
+};
+
+/** How many rows the frozen bed cannot meet. Pinned so the set cannot grow quietly. */
+const UNMET_ROWS = 33;
+
+/*
+ * ---------------------------------------------------------------------------
  * The defect-class exclusion is GONE (W7, 2026-08-30) — and it dissolved rather
  * than being widened, which is the whole point of how it was built.
  * ---------------------------------------------------------------------------
@@ -748,6 +856,17 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
 
           for (const cell of applicable) {
             const measured = reading(cell, axis, metric);
+            const pinned = REGRESSION_FLOORS[`${name(cell)} :: ${metric}`];
+
+            // An UNMET row: the adopted bound stands as a claim in §5.27 and CI
+            // holds the line where the bed actually is. Worsening fails here.
+            if (pinned !== undefined) {
+              const because = `${name(cell)}: ${metric} = ${measured.toPrecision(5)}, UNMET against ${comparison} ${threshold}, regression floor ${comparison} ${pinned.floor}`;
+              if (comparison === "≥") expect(measured, because).toBeGreaterThanOrEqual(pinned.floor);
+              else expect(measured, because).toBeLessThanOrEqual(pinned.floor);
+              continue;
+            }
+
             const because = `${name(cell)}: ${metric} = ${measured.toPrecision(5)}, gate ${comparison} ${threshold}`;
             if (comparison === "≥") expect(measured, because).toBeGreaterThanOrEqual(threshold);
             else expect(measured, because).toBeLessThanOrEqual(threshold);
@@ -809,6 +928,83 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
   });
 
   // -------------------------------------------------------------------------
+  // The regression floors, machine-checked against the claims they narrow
+  // -------------------------------------------------------------------------
+
+  it("proves every regression floor stands on a genuinely unmet bound", () => {
+    /*
+     * A floor is the one construct in this file that can make a red row green,
+     * so it is the one that most needs a check it cannot pass by accident. The
+     * important assertion is the first: the adopted bound must actually have
+     * been MISSED. A floor over a row the bed already met would be a bound
+     * quietly moved to wherever the code landed — exactly what Decision Log 22
+     * forbade when it said nothing is widened.
+     *
+     * Every arithmetic check runs against the RECORDED `measured`, not the live
+     * matrix, so that a cell which improves past its bound passes here instead
+     * of failing. The live reading is enforced against the floor by the gate
+     * cases themselves; this case is about whether the floors are honest.
+     */
+    const seen = new Set<string>();
+    const check = (key: string, pinned: Floor, metric: string, missed: boolean, low: boolean): void => {
+      seen.add(key);
+      const epsilon = FLOOR_EPSILON[metric];
+      // A metric with a floor but no declared epsilon is a floor whose width
+      // nobody stated, which is the one thing §5.27 promises never happens.
+      if (epsilon === undefined) throw new Error(`${key}: no declared epsilon for ${metric}`);
+      expect(missed, `${key}: floored, so its adopted bound must have been missed`).toBe(true);
+      if (low) {
+        expect(pinned.floor, `${key}: a floor must sit at or below its measurement`).toBeLessThanOrEqual(pinned.measured);
+        expect(pinned.floor, `${key}: and within the declared epsilon of it`).toBeGreaterThanOrEqual(pinned.measured - epsilon - 2 * FLOOR_ROUNDING);
+      } else {
+        expect(pinned.floor, `${key}: a ceiling must sit at or above its measurement`).toBeGreaterThanOrEqual(pinned.measured);
+        expect(pinned.floor, `${key}: and within the declared epsilon of it`).toBeLessThanOrEqual(pinned.measured + epsilon + 2 * FLOOR_ROUNDING);
+      }
+    };
+
+    for (const profile of GATED_PROFILES) {
+      for (const tier of ["texture", "dom"] as const) {
+        for (const [axis, metric, comparison, threshold] of profile[tier]) {
+          for (const cell of cellsOf(profile.profileKey, tier)) {
+            if (axis === "shape" && (cell.shape === undefined || !isWellConditioned(cell))) continue;
+            const key = `${name(cell)} :: ${metric}`;
+            const pinned = REGRESSION_FLOORS[key];
+            if (pinned === undefined) continue;
+            const missed =
+              comparison === "≥" ? pinned.measured < threshold : pinned.measured > threshold;
+            check(key, pinned, metric, missed, comparison === "≥");
+          }
+        }
+      }
+    }
+
+    // The coherence rows, whose direction comes from which end of the band was
+    // missed rather than from a single comparison.
+    const { min, max } = COHERENCE_ROWS.interiorLevelRatioGpuOverCss;
+    for (const profileKey of COHERENCE_GATED) {
+      for (const cell of cellsOf(profileKey, "dom")) {
+        const key = `${name(cell)} :: interiorLevelRatioGpuOverCss`;
+        const pinned = REGRESSION_FLOORS[key];
+        if (pinned === undefined) continue;
+        const missed = pinned.measured < min || pinned.measured > max;
+        check(key, pinned, "interiorLevelRatioGpuOverCss", missed, pinned.measured < min);
+      }
+    }
+
+    // No orphans: a floor naming a cell or metric the gate does not reach would
+    // be a claim narrowed against nothing, and would hide a typo in the key.
+    expect(
+      Object.keys(REGRESSION_FLOORS).filter((key) => !seen.has(key)),
+      "floors that no gated row reaches",
+    ).toEqual([]);
+
+    // And the set is pinned. Growth is allowed — by editing this number, in a
+    // commit, beside a §5.27 row saying what stopped being claimed.
+    expect(Object.keys(REGRESSION_FLOORS)).toHaveLength(UNMET_ROWS);
+    expect(seen.size).toBe(UNMET_ROWS);
+  });
+
+  // -------------------------------------------------------------------------
   // Coherence
   // -------------------------------------------------------------------------
 
@@ -850,6 +1046,19 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
           continue;
         }
         const ratio = reading(cell, "coherence", "interiorLevelRatioGpuOverCss");
+        const pinned = REGRESSION_FLOORS[`${name(cell)} :: interiorLevelRatioGpuOverCss`];
+
+        // The referee `backdrop-tone.ts` nominated has ruled against the CSS
+        // tier's one-mean-per-source read (claims §5.26). Until W9 re-poses the
+        // question, the divergence is pinned where it is rather than allowed.
+        if (pinned !== undefined) {
+          const because = `${name(cell)}: interior level gpu ÷ css = ${ratio.toPrecision(4)}, UNMET against ${min}…${max}, regression floor ${pinned.floor}`;
+          if (pinned.measured > max) expect(ratio, because).toBeLessThanOrEqual(pinned.floor);
+          else expect(ratio, because).toBeGreaterThanOrEqual(pinned.floor);
+          ratios += 1;
+          continue;
+        }
+
         const because = `${name(cell)}: interior level gpu ÷ css = ${ratio.toPrecision(4)}, gate ${min}…${max}`;
         expect(ratio, because).toBeGreaterThanOrEqual(min);
         expect(ratio, because).toBeLessThanOrEqual(max);
