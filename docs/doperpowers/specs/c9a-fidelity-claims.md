@@ -4830,6 +4830,93 @@ correcting an inconsistency rather than adding a licence: the same cell is alrea
 excluded from the shape rows for the same measured reason, and a gate that trusts
 a two-percent sample on one axis while refusing it on another is not one rule.
 
+### 5.29 The profile SHA named the file, not the material (2026-09-01)
+
+The landing review returned one finding and it was real. Recorded here because it
+is a provenance defect in the instrument, and because the artifacts it affects are
+committed and cannot be re-captured.
+
+#### What was wrong
+
+`scripts/capture-web.ts` hashes the calibration profile FILE and writes the digest
+into every cell's `capturePath`, under a stated contract: *"A capture whose optics
+cannot be reproduced from what the cell records is not a data point."*
+
+But the optics are not the file. They are the renderer's
+`DEFAULT_MATERIAL_PROFILE` with the file's `patch` merged over it, and
+`withMaterialOverrides` leaves any key the patch omits at its default. So a
+constant that moves in the renderer's TypeScript and is not named in the patch
+changes the rendered material while leaving the file — and the recorded digest —
+untouched.
+
+`sizeOcclusionGain` did exactly that. §5.26 refitted it 0 → 0.05, no profile
+named it, and the committed artifacts show the consequence directly:
+
+| artifact | rendered with | light-profile SHA in `capturePath` |
+| --- | --- | --- |
+| `results/2026-08-31-round-two.json` | `sizeOcclusionGain` = 0 | `2b828ba5d3c2` |
+| `results/matrix.json` (frozen bed) | `sizeOcclusionGain` = **0.05** | `2b828ba5d3c2` |
+
+**One label, two materials.** The captures themselves are sound — each was
+rendered with whatever the code held at the time — but the record cannot tell the
+two apart, which is the one thing it exists to do.
+
+Nor was this catchable by the test that was supposed to catch it.
+`tuned-profiles.test.ts` asserted that applying the light patch to the renderer's
+default changes nothing, and that assertion passes *whatever* an unnamed constant
+is set to, because an omitted key is left at its default by construction. The
+guard was structurally blind in exactly the direction the defect travelled.
+
+#### The fix, in two layers
+
+1. **The patch now names every constant the calibration pipeline fitted** — 26 key
+   paths, listed as `FITTED_CONSTANTS` in the test — rather than only those that
+   happened to differ from a default. For the light profile the patch is still the
+   identity; the point is that it is now an identity that *says what it asserts*
+   instead of being silent. The dark profile stays a difference document, because
+   padding it with values identical to the default would destroy the very
+   distinction that makes the light profile's identity claim meaningful.
+
+2. **`resolvedMaterialSha256`** — a digest over the fully resolved material
+   (default + patch, keys sorted), recorded in both profiles and recomputed by the
+   test. It moves when the rendered material moves, *whatever* moved it and
+   wherever that constant lives. This is the layer that needs no maintained list
+   and no judgment about what counts as fitted.
+
+Both were verified by mutation rather than by inspection:
+
+| mutation | old guard | new guards |
+| --- | --- | --- |
+| move a **fitted** default (`sizeOcclusionGain`) | passed | 2 cases fail |
+| move an **unnamed** default (`glowGain`) | passed | 1 case fails (the fingerprint) |
+| drop a fitted key from the patch | passed | 1 case fails (the named set) |
+
+The middle row is the one worth reading: no list of fitted constants, however
+carefully maintained, would have caught a change to `glowGain`. The fingerprint
+does, and that is why both layers exist rather than the tidier one.
+
+#### What is NOT repaired, and must not be misread
+
+**The committed matrices still carry `2b828ba5d3c2`.** They are records of
+captures that happened, and rewriting a recorded digest to a value that was not
+what the file hashed to at capture time would be falsifying provenance to make it
+look better. The frozen bed's cells therefore cite a profile file that does not
+name every constant they were rendered with.
+
+The correct reading of any `capturePath` digest dated on or before 2026-09-01:
+**it identifies the profile file, not the resolved material.** For those artifacts
+the material is pinned instead by the commit — `results/matrix.json` was
+regenerated at `263f004`, whose tree holds the renderer defaults it was rendered
+with. From this section forward the digest identifies both, and the fingerprint is
+what makes that true.
+
+Three stale `entries` records in the light profile were corrected while in there:
+`tintAlpha` still asserted 0.62 against a shipped 0.46, `blurSigma` still read
+"unchanged-deliberately" at 8 against a shipped 3, and `shadowFalloff` still gave
+`shadowAlpha` 0.55 against a shipped 0.05. Each keeps its original prose and sweep
+tables — a bound's history is part of the claim — under a `supersededValue` that
+states what actually ships.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds

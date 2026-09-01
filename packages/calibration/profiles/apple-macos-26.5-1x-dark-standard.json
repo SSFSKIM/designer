@@ -1,6 +1,6 @@
 {
   "$comment": [
-    "TUNED MATERIAL CONSTANTS for the dark-standard profile \u2014 C9a.",
+    "TUNED MATERIAL CONSTANTS for the dark-standard profile — C9a.",
     "",
     "A real patch, not the identity: only one scheme's numbers can be the",
     "runtime default, and the default is light-standard. An application in dark",
@@ -8,8 +8,8 @@
     "",
     "    createGlassRoot({ materialProfile: patch })",
     "",
-    "Nothing selects it automatically yet. That is C9a's parent-impact item \u2014 the",
-    "runtime has no colour-scheme input to the material \u2014 and until it lands, dark",
+    "Nothing selects it automatically yet. That is C9a's parent-impact item — the",
+    "runtime has no colour-scheme input to the material — and until it lands, dark",
     "mode is correct only for a host that passes this itself.",
     "",
     "READ THE BASIS BEFORE THE NUMBERS. This profile rests on FOUR measurable",
@@ -26,13 +26,43 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+  "resolvedMaterialSha256": "ede2069579689b99",
+  "$comment-provenance": [
+    "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
+    "",
+    "`capture-web.ts` hashes THIS FILE and writes the digest into every cell's",
+    "capturePath, so that a capture's optics can be reproduced from what the cell",
+    "records. But the optics are not this file: they are the renderer's",
+    "DEFAULT_MATERIAL_PROFILE with `patch` merged over it. A constant that moves in",
+    "the renderer's defaults and is not named here changes the rendered material",
+    "while leaving this file — and therefore the recorded SHA — untouched. Two",
+    "different materials then claim the same configuration, which is the exact",
+    "failure `capture-web.ts`'s own MATERIAL_PATCH_KEYS comment describes: plausible",
+    "numbers, wrong configuration, and no error anywhere.",
+    "",
+    "`sizeOcclusionGain` did this. It was refitted 0 -> 0.05 against the frozen bed",
+    "(claims 5.26), the rendered material changed, and this file did not.",
+    "",
+    "Two fixes, because they guard different things:",
+    "This profile's `patch` stays a DIFFERENCE document — it names what the dark",
+    "scheme retunes and nothing else, which is what makes the light profile's",
+    "identity claim meaningful. So fix (1) does not apply here; padding it with",
+    "constants identical to the default would destroy exactly the distinction the",
+    "file exists to draw.",
+    "",
+    "`resolvedMaterialSha256` closes the hole for this profile instead: a digest over",
+    "the fully RESOLVED material (DEFAULT_MATERIAL_PROFILE + patch, keys sorted,",
+    "first 16 hex), recomputed by tuned-profiles.test.ts. It moves when the resolved",
+    "material moves, whatever moved it — including a renderer default this patch",
+    "deliberately declines to mention."
+  ],
   "measurement": {
-    "fixtures": "apps/reference-apple/fixtures \u2014 6 ScreenCaptureKit captures, materialRendered true, deterministic",
+    "fixtures": "apps/reference-apple/fixtures — 6 ScreenCaptureKit captures, materialRendered true, deterministic",
     "cellsUsedForFitting": 4,
     "cellsUnmeasurable": 2,
-    "fixtureSets": "calibration only \u2014 the dark profile declares no validation or holdout scenes, which is itself a limit on what this profile can claim",
+    "fixtureSets": "calibration only — the dark profile declares no validation or holdout scenes, which is itself a limit on what this profile can claim",
     "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, srgb",
-    "objective": "mean over calibration cells of |\u0394 interior mean| + |\u0394 interior stdDev| + |\u0394 rim peak|, linear light",
+    "objective": "mean over calibration cells of |Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|, linear light",
     "objectiveBefore": 0.39186,
     "objectiveAfter": 0.1112,
     "reproduce": "npx tsx scripts/sweep.ts --profile apple-macos-26.5-1x-dark-standard --base <this patch> --axis optics.regular.tintAlpha=0.62,0.75,0.85,0.92,0.97"
@@ -73,7 +103,7 @@
       "units": "linear-light rgb",
       "method": [
         "The reference's dark interior sits at 0.048 to 0.060 across all four",
-        "measurable cells and barely moves with the backdrop under it \u2014 0.0545 over",
+        "measurable cells and barely moves with the backdrop under it — 0.0545 over",
         "a backdrop of 0.570 against 0.0479 over 0.213. 0.05 is that level."
       ]
     },
@@ -98,7 +128,7 @@
         "transmission from the spread ratio and from the mean separately, a multiply",
         "model agrees with itself to within a factor of 1.3, 0.6, 1.2 and 0.5 on the",
         "four cells; the lerp is off by three to nine times. That is evidence for a",
-        "hypothesis, not a proof \u2014 four cells at factor-two scatter \u2014 and it is",
+        "hypothesis, not a proof — four cells at factor-two scatter — and it is",
         "recorded as parent-impact rather than acted on, because a blend mode is a",
         "new renderer parameter and not a tunable."
       ]
@@ -110,15 +140,15 @@
         "This is the one place the sweep found a large win and it was not taken.",
         "",
         "The dark scheme is where the reference's rim is strongest and genuinely",
-        "measurable \u2014 peaks of 0.041 to 0.055, well clear of the code step at these",
-        "dark levels \u2014 and after the tint tune the rim becomes the dominant error",
+        "measurable — peaks of 0.041 to 0.055, well clear of the code step at these",
+        "dark levels — and after the tint tune the rim becomes the dominant error",
         "term (0.084 of the 0.111 objective). Sweeping rimAlpha to 0.02 and",
         "specularGain to 0.10 halves the objective to 0.0591 and lifts SSIM from",
         "0.953 to 0.966.",
         "",
         "It was declined on three grounds. The residual bottoms out at almost exactly",
         "the mean of the reference's own rim peaks, which means the win comes from",
-        "vitrea's rim going to ZERO rather than from it matching \u2014 removing a feature",
+        "vitrea's rim going to ZERO rather than from it matching — removing a feature",
         "the reference demonstrably has. The per-cell direction is not consistent:",
         "on three cells vitrea's rim is too bright and on the fourth it is too dim",
         "(0.0099 against 0.0478), so the mean is not describing a single error. And",
@@ -153,5 +183,5 @@
     }
   },
   "recalibratedAt": "2026-08-31",
-  "$comment-recalibration": "REFITTED against the ACTIVE-pose reference. tintAlpha 0.97 and the tint level 0.05 SURVIVE the pose change: swept over 0.80/0.88/0.94/0.97 the objective moves 9% with 0.88 marginally ahead (0.12097 against 0.12309) while the dE check prefers 0.97 (0.01454 against 0.01583) \u2014 a disagreement inside the grid's own noise on a profile that is not gated, so the adopted value stands. What is new here is the outer shadow's amplitude: 0.09, fitted on this profile's calibration cells (--objective shadow, a 2.06x spread with a genuine interior minimum, flat to 1.02% across 0.07..0.12). The dark material's shadow is one fifth the light one's at the same geometry. Everything else is inherited from the refitted default."
+  "$comment-recalibration": "REFITTED against the ACTIVE-pose reference. tintAlpha 0.97 and the tint level 0.05 SURVIVE the pose change: swept over 0.80/0.88/0.94/0.97 the objective moves 9% with 0.88 marginally ahead (0.12097 against 0.12309) while the dE check prefers 0.97 (0.01454 against 0.01583) — a disagreement inside the grid's own noise on a profile that is not gated, so the adopted value stands. What is new here is the outer shadow's amplitude: 0.09, fitted on this profile's calibration cells (--objective shadow, a 2.06x spread with a genuine interior minimum, flat to 1.02% across 0.07..0.12). The dark material's shadow is one fifth the light one's at the same geometry. Everything else is inherited from the refitted default."
 }

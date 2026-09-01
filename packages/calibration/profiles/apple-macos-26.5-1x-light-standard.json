@@ -1,6 +1,6 @@
 {
   "$comment": [
-    "TUNED MATERIAL CONSTANTS for the light-standard profile \u2014 C9a.",
+    "TUNED MATERIAL CONSTANTS for the light-standard profile — C9a.",
     "",
     "This file supersedes nothing: apple-macos-26.5.seed.json remains the record",
     "of what C7 could and could not answer, and every material entry there is",
@@ -12,12 +12,15 @@
     "",
     "    createGlassRoot({ materialProfile: patch })",
     "",
-    "For THIS profile the patch is deliberately the identity \u2014 the renderer's",
+    "For THIS profile the patch is deliberately the identity — the renderer's",
     "DEFAULT_MATERIAL_PROFILE already carries these numbers, because light-standard",
-    "is the profile the shipped default targets. A test pins that equality, so the",
-    "file and the runtime cannot drift apart silently. The dark sibling is a real",
-    "patch, since only one set of numbers can be the default.",
-    "",
+    "is the profile the shipped default targets. Since 2026-09-01 the patch names",
+    "every constant the calibration pipeline FITTED, not only the ones that happened",
+    "to differ from a default, so the identity is an assertion rather than a silence",
+    "— see `$comment-provenance`. A test pins the equality AND the resolved",
+    "fingerprint, so the file and the runtime cannot drift apart silently. The dark",
+    "sibling stays a real difference patch, since only one set of numbers can be the",
+    "default.",
     "Every number is stated with what moved it and what it did NOT close."
   ],
   "profileKey": "apple-macos-26.5-1x-light-standard",
@@ -27,12 +30,43 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
+  "resolvedMaterialSha256": "5ebfe95b5d9f1dbc",
+  "$comment-provenance": [
+    "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
+    "",
+    "`capture-web.ts` hashes THIS FILE and writes the digest into every cell's",
+    "capturePath, so that a capture's optics can be reproduced from what the cell",
+    "records. But the optics are not this file: they are the renderer's",
+    "DEFAULT_MATERIAL_PROFILE with `patch` merged over it. A constant that moves in",
+    "the renderer's defaults and is not named here changes the rendered material",
+    "while leaving this file — and therefore the recorded SHA — untouched. Two",
+    "different materials then claim the same configuration, which is the exact",
+    "failure `capture-web.ts`'s own MATERIAL_PATCH_KEYS comment describes: plausible",
+    "numbers, wrong configuration, and no error anywhere.",
+    "",
+    "`sizeOcclusionGain` did this. It was refitted 0 -> 0.05 against the frozen bed",
+    "(claims 5.26), the rendered material changed, and this file did not.",
+    "",
+    "Two fixes, because they guard different things:",
+    "",
+    "1. `patch` now names EVERY constant the calibration pipeline fitted or measured",
+    "   for this profile, not only the ones that happened to differ from a default.",
+    "   For this profile the patch is still the identity — that is the point — but it",
+    "   is now an identity that SAYS what it is asserting.",
+    "",
+    "2. `resolvedMaterialSha256` is a digest over the fully RESOLVED material",
+    "   (DEFAULT_MATERIAL_PROFILE + patch, keys sorted, first 16 hex). It moves when",
+    "   the resolved material moves, whatever moved it and wherever that constant",
+    "   lives. tuned-profiles.test.ts recomputes it, so a renderer default cannot",
+    "   change without either this file being re-recorded or the suite going red.",
+    "   That is the guarantee the file hash alone could not make."
+  ],
   "measurement": {
-    "fixtures": "apps/reference-apple/fixtures \u2014 24 ScreenCaptureKit captures, materialRendered true, deterministic",
+    "fixtures": "apps/reference-apple/fixtures — 24 ScreenCaptureKit captures, materialRendered true, deterministic",
     "cellsUsedForFitting": 11,
     "fixtureSets": "calibration only; validation checked but never fitted; holdout untouched until the freeze",
     "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, srgb",
-    "objective": "mean over calibration cells of |\u0394 interior mean| + |\u0394 interior stdDev| + |\u0394 rim peak|, linear light \u2014 see packages/calibration/scripts/sweep.ts",
+    "objective": "mean over calibration cells of |Δ interior mean| + |Δ interior stdDev| + |Δ rim peak|, linear light — see packages/calibration/scripts/sweep.ts",
     "objectiveBefore": 0.43401,
     "objectiveAfter": 0.10736,
     "reproduce": "npx tsx scripts/sweep.ts --profile apple-macos-26.5-1x-light-standard --axis optics.regular.tintAlpha=0.45,0.55,0.62,0.70,0.80"
@@ -61,10 +95,23 @@
     "tintToneCeilMix": 0,
     "outerShadow": {
       "occlusion": 0.285,
-      "reducedTransparencyOcclusion": 0.7
+      "reducedTransparencyOcclusion": 0.7,
+      "offsetPx": 7.95,
+      "sigmaPx": 15.55,
+      "spreadPx": 3.1,
+      "sizeGain": 0
     },
     "backdropToneLow": 0.03,
-    "increasedOcclusionLift": 0.75
+    "increasedOcclusionLift": 0.75,
+    "sizeSpanMin": 32,
+    "sizeSpanMax": 96,
+    "lensSizeGainMax": 2.6,
+    "sizeScatterGainMax": 1,
+    "sizeOcclusionGain": 0.05,
+    "tintToneLow": 0.02,
+    "tintToneHigh": 0.65,
+    "backdropToneMax": 1,
+    "backdropToneHigh": 0.14
   },
   "cssTierMapping": {
     "referenceBackdropLuminance": 0.02
@@ -73,7 +120,7 @@
     "cssTierMapping.referenceBackdropLuminance": {
       "status": "measured",
       "value": 0.02,
-      "previousAdvisory": "none \u2014 the CSS tier held its own untuned tintAlpha of 0.28 instead of a mapping",
+      "previousAdvisory": "none — the CSS tier held its own untuned tintAlpha of 0.28 instead of a mapping",
       "tier": "dom",
       "method": [
         "K5. The CSS tier does not carry the renderer's alpha; it converts it,",
@@ -111,7 +158,7 @@
         "tier is not the point that best matches Apple.",
         "",
         "Coherence was chosen. A CSS tier fitted independently against the fixtures",
-        "is free to drift from the GPU tier again as soon as either is retuned \u2014",
+        "is free to drift from the GPU tier again as soon as either is retuned —",
         "which is exactly how the gap K5 exists to close was opened, by C9a tuning",
         "one tier's constant. A CONVERTED tier inherits the GPU tier's fidelity by",
         "construction and cannot drift without the conversion drifting.",
@@ -125,15 +172,15 @@
         "Exact coherence is unreachable and the arithmetic says so before any",
         "capture does. Matching the two composites for the shipped white tint needs",
         "a CSS alpha of 0.761 over a backdrop at linear luminance 0.05 and 0.635 at",
-        "0.8 \u2014 a 1.2x spread with no single scalar in it, because one pipeline",
+        "0.8 — a 1.2x spread with no single scalar in it, because one pipeline",
         "applies its transfer function before the blend and the other after. The",
         "measured floor is what remains: cross-tier dE 0.0080 mean and 0.0151 worst,",
         "and an interior level within 1.2% in the mean and 6.7% on the worst cell.",
         "",
         "The fitted value is also not the physical reading of its name. The mapping's",
         "FORM comes from the transfer functions, but the fitted scalar absorbs every",
-        "other difference between the pipelines too \u2014 the CSS tier's saturate(), the",
-        "renderer's body-blur LOD chain \u2014 so 0.02 is far below any canonical scene's",
+        "other difference between the pipelines too — the CSS tier's saturate(), the",
+        "renderer's body-blur LOD chain — so 0.02 is far below any canonical scene's",
         "mean backdrop and must not be read as one."
       ]
     },
@@ -144,7 +191,7 @@
       "method": [
         "Swept at 0, 0.6 and 1.95 with the tint frozen at the chosen level. The",
         "cross-tier dE spans 0.00791 to 0.00796 and the fixture dE 0.01121 to",
-        "0.01131 \u2014 a 1.01x grid, the same flatness C9a measured sweeping the GPU",
+        "0.01131 — a 1.01x grid, the same flatness C9a measured sweeping the GPU",
         "tier's rimAlpha against specularGain. The fixtures do not identify it.",
         "",
         "Declined on C9a's own precedent and for one further reason of this tier's.",
@@ -168,7 +215,7 @@
         "material does not: C9a measured both sides at approximately zero outside",
         "the contour, while this shadow puts material there. It is what drives the",
         "dom tier's silhouette area to as much as 2.36x the declared component area",
-        "and its silhouette IoU to a mean of 0.676 \u2014 a measurement of the shadow's",
+        "and its silhouette IoU to a mean of 0.676 — a measurement of the shadow's",
         "extent rather than of the shape, which is why the dom tier's shape axis is",
         "not gated against the texture tier's thresholds.",
         "",
@@ -205,17 +252,27 @@
         "number comes from it."
       ],
       "doesNotClose": [
-        "Apple's opacity falls with surface size \u2014 implied alpha 0.88 at a 32 px",
-        "span, 0.74 at 44 px, 0.56 at 96 px \u2014 and this renderer has no size term on",
+        "Apple's opacity falls with surface size — implied alpha 0.88 at a 32 px",
+        "span, 0.74 at 44 px, 0.56 at 96 px — and this renderer has no size term on",
         "the tint. 0.62 is therefore a compromise across the size sweep, and the",
-        "residual |\u0394 interior mean| of 0.071 is dominated by it rather than by",
+        "residual |Δ interior mean| of 0.071 is dominated by it rather than by",
         "anything a better single value would fix. A size-parameterised tint alpha",
         "is C9a's parent-impact item."
+      ],
+      "supersededOn": "2026-08-31",
+      "supersededValue": 0.46,
+      "supersededBy": "claims 5.13 — refitted against the ACTIVE-pose bed; 0.62 was the inactive-bed fit",
+      "$comment-superseded": [
+        "STALE RECORD, CORRECTED 2026-09-01. `value` below is 0.62 and the shipped",
+        "constant is 0.46. The prose and the sweep tables under `method` describe the",
+        "fit that produced the OLD number and are kept verbatim, because a bound's history",
+        "is part of the claim — but the value this file asserts is `supersededValue`,",
+        "and `patch` is the authority either way."
       ]
     },
     "adaptiveTint": {
       "status": "measured",
-      "value": "both ends white \u2014 the backdrop crossover is inert by default",
+      "value": "both ends white — the backdrop crossover is inert by default",
       "previousAdvisory": "dark end white, light end sRGB [0.09, 0.09, 0.1]",
       "method": [
         "The reference's interior rises monotonically with the backdrop under it",
@@ -232,7 +289,7 @@
       "doesNotClose": [
         "The two ends are global rather than per-variant, so the clear variant",
         "inherits this. Clear has no calibration scenes, so it is uncalibrated",
-        "either way \u2014 the seed profile already records that as doubly blocked."
+        "either way — the seed profile already records that as doubly blocked."
       ]
     },
     "blurSigma": {
@@ -240,20 +297,30 @@
       "value": 8,
       "method": [
         "Swept at 2, 4, 6 and 8 against the objective. The optimum sits at 4 and",
-        "beats 8 by 2%, which is inside the flatness of the grid \u2014 the whole two",
-        "dimensional (tintAlpha \u00d7 blurSigma) sweep spans only 1.08x. The fixtures do",
+        "beats 8 by 2%, which is inside the flatness of the grid — the whole two",
+        "dimensional (tintAlpha × blurSigma) sweep spans only 1.08x. The fixtures do",
         "not identify this constant, and the reason is structural rather than",
         "statistical: no canonical background resolves a step edge at this sigma.",
         "The checkerboard's 16 px cell bounds any measurable window to about one",
         "period, and the impulse background is a sparse train rather than a step.",
         "",
-        "Moving it would also break a documented relationship \u2014 sigma 8 is what",
+        "Moving it would also break a documented relationship — sigma 8 is what",
         "makes core's 24 px samplingPadding advisory exactly the 3-sigma floor S1",
         "measured, and it is what keeps this package and platform-web's CSS tier on",
         "one number. Two percent of a quantity the fixtures cannot resolve does not",
         "buy that."
       ],
-      "wouldNeed": "A canonical background with one large step edge \u2014 a half-dark/half-light field \u2014 which is a scenes.json addition and therefore a scope question, not a re-run."
+      "wouldNeed": "A canonical background with one large step edge — a half-dark/half-light field — which is a scenes.json addition and therefore a scope question, not a re-run.",
+      "supersededOn": "2026-08-31",
+      "supersededValue": 3,
+      "supersededBy": "claims 5.16 — identifiable for the first time on the active bed; the 'unchanged-deliberately' verdict below was the INACTIVE bed's",
+      "$comment-superseded": [
+        "STALE RECORD, CORRECTED 2026-09-01. `value` below is 8 and the shipped",
+        "constant is 3. The prose and the sweep tables under `method` describe the",
+        "fit that produced the OLD number and are kept verbatim, because a bound's history",
+        "is part of the claim — but the value this file asserts is `supersededValue`,",
+        "and `patch` is the authority either way."
+      ]
     },
     "rimIntensity": {
       "status": "unchanged-deliberately",
@@ -265,7 +332,7 @@
       },
       "method": [
         "Swept rimAlpha at 0.04, 0.09 and 0.18 against specularGain at 0.15, 0.35",
-        "and 0.55. The grid is flat to 1.01x \u2014 no leverage at all on this profile.",
+        "and 0.55. The grid is flat to 1.01x — no leverage at all on this profile.",
         "",
         "The reason is quantisation. The reference's light-scheme rim peaks measure",
         "0.0003 to 0.0012 of linear luminance on the solid and checkerboard scenes,",
@@ -276,7 +343,7 @@
         "",
         "Retuning against that would be fitting the estimator, not the material."
       ],
-      "wouldNeed": "The 2x profile, which puts four times the samples under the same rim band and lifts it clear of the code step. That is an external gate \u2014 a Retina display."
+      "wouldNeed": "The 2x profile, which puts four times the samples under the same rim band and lifts it clear of the code step. That is an external gate — a Retina display."
     },
     "shadowFalloff": {
       "status": "not-discriminating",
@@ -290,10 +357,21 @@
         "calibration scene, and vitrea's measures the same order. There is no",
         "measured gap to close, so nothing was changed.",
         "",
-        "Note that these two constants do not drive that metric anyway \u2014 in this",
+        "Note that these two constants do not drive that metric anyway — in this",
         "renderer they scale an INNER shadow inside the contour, which the",
         "interior-level term already accounts for. The exterior falloff the metric",
         "reads is the CSS tier's box-shadow, a different tier's constant."
+      ],
+      "supersededOn": "2026-08-31",
+      "supersededValue": {
+        "shadowDepth": 0.35,
+        "shadowAlpha": 0.05
+      },
+      "supersededBy": "claims 5.13 — shadowAlpha 0.55 -> 0.05; the rim was always there, the inner shadow was drowning it",
+      "$comment-superseded": [
+        "STALE RECORD, CORRECTED 2026-09-01. `value.shadowAlpha` below is 0.55 and the",
+        "shipped constant is 0.05. The 'not-discriminating' verdict was the inactive",
+        "bed's; the active bed discriminates it sharply."
       ]
     },
     "cornerSmoothing": {
@@ -333,7 +411,7 @@
         "settles it: the toolbar-group scene yields three separate bodies on both",
         "sides, at 1572/1572/1570 px for the reference and 1769/1765/1756 px for",
         "vitrea, against 1520 px for an unmerged 44 px capsule. Neither side fills",
-        "the 12 px gaps \u2014 a full fill would add 23% to the group's area, and the",
+        "the 12 px gaps — a full fill would add 23% to the group's area, and the",
         "reference adds 3.3%.",
         "",
         "So the scene has no union in it to compare. Confirmed by sweeping the",
@@ -352,7 +430,7 @@
         "The same component count exposes something the union hypothesis was hiding:",
         "vitrea's material extends further past its contour than the reference's. Per",
         "capsule, the reference's silhouette sits 0.37 px outside the declared shape",
-        "and vitrea's sits 1.73 px outside \u2014 about 1.4 px of extra bleed at the 0.02",
+        "and vitrea's sits 1.73 px outside — about 1.4 px of extra bleed at the 0.02",
         "detection threshold. It is what drives the group scene's silhouette IoU down",
         "to 0.884, the worst of any well-conditioned calibration cell, since three",
         "small bodies make IoU unusually sensitive to a uniform dilation. Not tuned:",
@@ -365,7 +443,7 @@
       "method": [
         "C7's scoping item, and it stands: scenes.json declares no thickness",
         "channel, so the web side uses platform-web's 8 px host default while",
-        "SwiftUI uses whatever its material does \u2014 a quantity Apple does not",
+        "SwiftUI uses whatever its material does — a quantity Apple does not",
         "expose. Adding the field to the scene matrix would let both sides honour",
         "one number, but only the web side can actually be set to it, so the field",
         "would pin vitrea to a value and leave the reference where it was. That is",

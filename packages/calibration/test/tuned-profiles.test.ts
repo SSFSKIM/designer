@@ -21,6 +21,7 @@
  * apply.
  */
 
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -39,12 +40,82 @@ interface TunedProfile {
   /** K5's half of the same document: what the crossing to the CSS tier costs. */
   readonly cssTierMapping?: Partial<CssTierMapping>;
   readonly identityWithRuntimeDefault?: boolean;
+  /** Digest over the RESOLVED material — see the profile's `$comment-provenance`. */
+  readonly resolvedMaterialSha256: string;
   readonly measurement: {
     readonly objectiveBefore: number;
     readonly objectiveAfter: number;
     readonly cellsUsedForFitting: number;
   };
   readonly entries: Readonly<Record<string, { readonly status: string }>>;
+}
+
+/**
+ * Every constant the calibration pipeline fitted or measured for the
+ * light-standard profile, as a flat key path into the patch.
+ *
+ * This list is the deliberate, maintained half of the provenance guard — the
+ * fingerprint case below is the half that needs no maintenance. It is kept
+ * because the fingerprint can only say *that* something moved, and a reader
+ * asking "is this number recorded anywhere?" needs an answer that names it.
+ *
+ * A constant belongs here when a measurement chose its value. Structural
+ * defaults the wave never fitted are deliberately absent — `rimAlpha`,
+ * `specularGain`, the glow and sweep constants — and the profile's own `entries`
+ * record why each of those was left alone.
+ */
+const FITTED_CONSTANTS = [
+  // C9a and the recalibration cascade, on the optics
+  "optics.regular.blurSigma",
+  "optics.regular.tintAlpha",
+  "optics.regular.shadowAlpha",
+  "adaptiveTintDark",
+  "adaptiveTintLight",
+  // W2's size law, and the cascade's refit of the gain the bed could finally see
+  "sizeSpanMin",
+  "sizeSpanMax",
+  "lensSizeGainMax",
+  "sizeScatterGainMax",
+  "sizeOcclusionGain",
+  "sizeShadowGainMax",
+  // W3's tint tone map
+  "tintToneFloor",
+  "tintToneCeilMix",
+  "tintToneLow",
+  "tintToneHigh",
+  // W7's backdrop tone adaptation
+  "backdropToneMax",
+  "backdropToneLow",
+  "backdropToneHigh",
+  "backdropToneSizeBias",
+  // W8's outer shadow, fitted under the cascade's shadow objective
+  "outerShadow.offsetPx",
+  "outerShadow.sigmaPx",
+  "outerShadow.spreadPx",
+  "outerShadow.occlusion",
+  "outerShadow.reducedTransparencyOcclusion",
+  "outerShadow.sizeGain",
+  // The accessibility fold, one constant serving both coupled profiles
+  "increasedOcclusionLift",
+] as const;
+
+/**
+ * A digest over a resolved material profile: keys sorted, then SHA-256, first 16
+ * hex. Sorting makes the digest a property of the values rather than of
+ * declaration order, so re-ordering the renderer's literal cannot fail the pin.
+ */
+function fingerprint(resolved: unknown): string {
+  const canonical = (value: unknown): unknown =>
+    Array.isArray(value)
+      ? value.map(canonical)
+      : value !== null && typeof value === "object"
+        ? Object.fromEntries(
+            Object.keys(value as object)
+              .sort()
+              .map((key) => [key, canonical((value as Record<string, unknown>)[key])]),
+          )
+        : value;
+  return createHash("sha256").update(JSON.stringify(canonical(resolved))).digest("hex").slice(0, 16);
 }
 
 const PROFILES = resolve(import.meta.dirname, "..", "profiles");
@@ -73,6 +144,67 @@ describe("tuned calibration profiles", () => {
     expect(LIGHT.identityWithRuntimeDefault).toBe(true);
     const applied = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, LIGHT.patch);
     expect(applied).toEqual(DEFAULT_MATERIAL_PROFILE);
+  });
+
+  /*
+   * The identity above is necessary and it is NOT sufficient, which is what the
+   * landing review found on 2026-09-01 and what the next two cases exist for.
+   *
+   * `withMaterialOverrides` leaves any key the patch omits at its default, so a
+   * patch that stays silent about a constant passes the identity whatever that
+   * constant is set to. `sizeOcclusionGain` was refitted 0 -> 0.05 against the
+   * frozen bed, the rendered material changed, and every assertion in this file
+   * still passed — while `capture-web.ts` went on hashing an unchanged profile
+   * into every cell's `capturePath` as the record of what had been applied.
+   *
+   * Two different guarantees are needed, so there are two cases.
+   */
+
+  it("makes the light patch NAME every fitted constant, not just the ones that differ", () => {
+    /*
+     * The named-set guarantee, for a human reading the file. The light patch is
+     * the identity by construction, so this cannot be checked by comparing
+     * values — only by requiring the keys to be present. A constant the
+     * calibration pipeline chose and the patch does not mention is a number with
+     * no recorded provenance, whatever its value happens to be.
+     */
+    const leaves = (patch: object, prefix = ""): string[] =>
+      Object.entries(patch).flatMap(([key, value]) =>
+        value !== null && typeof value === "object" && !Array.isArray(value)
+          ? leaves(value as object, `${prefix}${key}.`)
+          : [`${prefix}${key}`],
+      );
+    const named = new Set(leaves(LIGHT.patch));
+    for (const constant of FITTED_CONSTANTS) {
+      expect(named, `${constant}: fitted by the calibration pipeline, unnamed in the patch`).toContain(
+        constant,
+      );
+    }
+  });
+
+  it("pins the RESOLVED material by fingerprint, so a default cannot move unrecorded", () => {
+    /*
+     * The completeness guarantee, and the one that does not depend on anybody
+     * maintaining a list. The digest is over the fully resolved material rather
+     * than over the patch, so it moves when the rendered material moves — whatever
+     * moved it, and wherever that constant lives. A renderer default can no longer
+     * change without either the profile being re-recorded or this going red.
+     *
+     * Keys are sorted before hashing so the digest is a property of the values and
+     * not of anyone's declaration order.
+     */
+    for (const profile of [LIGHT, DARK]) {
+      const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
+      expect(
+        fingerprint(resolved),
+        `${profile.profileKey}: the resolved material no longer matches the recorded ` +
+          `fingerprint — re-record resolvedMaterialSha256 and say in the profile what moved`,
+      ).toBe(profile.resolvedMaterialSha256);
+    }
+
+    // And the two profiles resolve differently, so the fingerprint is discriminating
+    // rather than a constant that would match anything.
+    expect(LIGHT.resolvedMaterialSha256).not.toBe(DARK.resolvedMaterialSha256);
   });
 
   it("records the measured light-scheme tint alpha, not the advisory one", () => {
