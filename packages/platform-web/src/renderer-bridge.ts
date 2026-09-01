@@ -279,6 +279,9 @@ export function toRendererGroups(
           ...(sampled && group.backdropTone !== undefined
             ? {
                 backdropTone: group.backdropTone,
+                ...(group.backdropToneLevel === undefined
+                  ? {}
+                  : { backdropToneLevel: group.backdropToneLevel }),
                 ...(group.backdropToneLinearLuminance === undefined
                   ? {}
                   : { backdropToneLinearLuminance: group.backdropToneLinearLuminance }),

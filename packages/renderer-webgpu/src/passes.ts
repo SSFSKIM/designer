@@ -180,6 +180,9 @@ export interface OpticsPassArgs {
   readonly backdropToneAnchorX: readonly [number, number, number];
   readonly backdropToneResponseThin: readonly [number, number, number];
   readonly backdropToneResponseThick: readonly [number, number, number];
+  /** The response law's per-profile authority (0 on dark profiles) — see
+   * `MaterialProfile.backdropToneResponseStrength`. */
+  readonly backdropToneResponseStrength: number;
   /**
    * The backdrop's LINEAR-space mean under the same weighting as the tone
    * colour — what the response solve composites against. Falls back to the
@@ -532,7 +535,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[64] = args.backdropToneResponseThin[0];
       d[65] = args.backdropToneResponseThin[1];
       d[66] = args.backdropToneResponseThin[2];
-      d[67] = 0;
+      d[67] = args.backdropToneResponseStrength;
       d[68] = args.backdropToneResponseThick[0];
       d[69] = args.backdropToneResponseThick[1];
       d[70] = args.backdropToneResponseThick[2];

@@ -454,6 +454,22 @@ export interface MaterialProfile {
   readonly backdropToneResponseThin: readonly [number, number, number];
   readonly backdropToneResponseThick: readonly [number, number, number];
 
+  /**
+   * How much authority the response law has in THIS profile, 0…1 (W9).
+   *
+   * The anchors above are measurements of the LIGHT reference's settled
+   * appearance. The dark scheme's material settles at its own levels over the
+   * same backdrops (0.809 light against 0.055 dark over one checkerboard,
+   * §5.8), so a dark profile running the light response surface brightens the
+   * dark material toward the wrong scheme's appearance — measured on the
+   * canonical dark bed as ΔE p95 0.08 → 0.58 before this constant existed.
+   * The dark profiles set it to 0: the collapse (whose target is the
+   * backdrop, not a scheme's appearance) still runs there, and a dark
+   * response surface is follow-up work that needs the dark reference probed,
+   * not an assumption.
+   */
+  readonly backdropToneResponseStrength: number;
+
   /** The outer shadow (W8) — see `MaterialOuterShadow`. */
   readonly outerShadow: MaterialOuterShadow;
 
@@ -858,6 +874,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneAnchorX: [0.1104, 0.2706, 0.9505],
   backdropToneResponseThin: [0.0126, 0.4561, 0.9713],
   backdropToneResponseThick: [0.4953, 0.5744, 0.9358],
+  backdropToneResponseStrength: 1,
 
   /*
    * FITTED (recalibration cascade, 2026-08-31). W8's geometry SURVIVES the fit
@@ -967,6 +984,8 @@ export const BACKDROP_TONE_SIZE_BIAS = DEFAULT_MATERIAL_PROFILE.backdropToneSize
 export const BACKDROP_TONE_ANCHOR_X = DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX;
 export const BACKDROP_TONE_RESPONSE_THIN = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThin;
 export const BACKDROP_TONE_RESPONSE_THICK = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThick;
+export const BACKDROP_TONE_RESPONSE_STRENGTH =
+  DEFAULT_MATERIAL_PROFILE.backdropToneResponseStrength;
 export const OUTER_SHADOW = DEFAULT_MATERIAL_PROFILE.outerShadow;
 
 /**
@@ -1006,6 +1025,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneAnchorX?: readonly [number, number, number];
   readonly backdropToneResponseThin?: readonly [number, number, number];
   readonly backdropToneResponseThick?: readonly [number, number, number];
+  readonly backdropToneResponseStrength?: number;
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
   readonly sweepBandRadians?: number;
@@ -1066,6 +1086,8 @@ export function withMaterialOverrides(
     backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
     backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
     backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,
+    backdropToneResponseStrength:
+      patch.backdropToneResponseStrength ?? base.backdropToneResponseStrength,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },
     lightDirection: patch.lightDirection ?? base.lightDirection,
     sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,

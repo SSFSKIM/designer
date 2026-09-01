@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "b8d1af84fcf1b55b",
+  "resolvedMaterialSha256": "e648db2a108bbcc3",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -37,7 +37,15 @@
     "what is behind it), so the constants stay unnamed here and the fingerprint",
     "records the inheritance. Anchors were measured on the LIGHT 1x probe bed;",
     "whether the dark reference's response shares them is a referee question,",
-    "not an assumption this file hides."
+    "not an assumption this file hides.",
+    "",
+    "MEASURED, same day: it does NOT share them. Running the light response",
+    "surface on this scheme brightened the dark material toward the light",
+    "scheme's appearance — canonical dark bed dE p95 0.08 -> 0.58, ssim 0.95 ->",
+    "0.51 — so `patch.backdropToneResponseStrength: 0` stands the response law",
+    "down here. The collapse (whose target is the backdrop, not a scheme's",
+    "appearance) still runs. A dark response surface needs the dark reference",
+    "probed; recorded as follow-up work in the W9 spec's Deferred."
   ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
@@ -80,6 +88,7 @@
     "reproduce": "npx tsx scripts/sweep.ts --profile apple-macos-26.5-1x-dark-standard --base <this patch> --axis optics.regular.tintAlpha=0.62,0.75,0.85,0.92,0.97"
   },
   "patch": {
+    "backdropToneResponseStrength": 0,
     "optics": {
       "regular": {
         "tint": [

@@ -687,8 +687,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           ? 0
           : backdropToneUnderPolicy(policy, material) * material.backdropToneMax,
       ];
+      // The tone LEVEL is the encoded-space reading (W9); the tone COLOUR stays
+      // the physical linear mean the collapse converges onto. Hosts that predate
+      // the split fall back to the colour's own luminance.
       const backdropToneLevel =
-        input.backdropTone === undefined ? 0 : relativeLuminance(input.backdropTone);
+        input.backdropTone === undefined
+          ? 0
+          : (input.backdropToneLevel ?? relativeLuminance(input.backdropTone));
       /*
        * The W9 correction ratio (claims §5.31): the tone input is the
        * encoded-space mean, but the chain the tint map samples per pixel
@@ -791,6 +796,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         backdropToneAnchorX: material.backdropToneAnchorX,
         backdropToneResponseThin: material.backdropToneResponseThin,
         backdropToneResponseThick: material.backdropToneResponseThick,
+        backdropToneResponseStrength: material.backdropToneResponseStrength,
         backdropToneLinearMean:
           input.backdropToneLinearLuminance ?? backdropToneLevel,
         outerShadow: [

@@ -206,12 +206,16 @@ export interface BackdropToneResponseConstants {
   readonly anchorX: readonly [number, number, number];
   readonly thin: readonly [number, number, number];
   readonly thick: readonly [number, number, number];
+  /** The law's per-profile authority, 0…1 — 0 on dark profiles, whose response
+   * is unmeasured (the anchors are LIGHT-reference measurements). */
+  readonly strength: number;
 }
 
 export const BACKDROP_TONE_RESPONSE: BackdropToneResponseConstants = {
   anchorX: [0.1104, 0.2706, 0.9505],
   thin: [0.0126, 0.4561, 0.9713],
   thick: [0.4953, 0.5744, 0.9358],
+  strength: 1,
 };
 
 /** The response constants under a profile patch, by the renderer's merge rule. */
@@ -222,6 +226,7 @@ export function resolvedBackdropToneResponse(
     anchorX: patch?.backdropToneAnchorX ?? BACKDROP_TONE_RESPONSE.anchorX,
     thin: patch?.backdropToneResponseThin ?? BACKDROP_TONE_RESPONSE.thin,
     thick: patch?.backdropToneResponseThick ?? BACKDROP_TONE_RESPONSE.thick,
+    strength: patch?.backdropToneResponseStrength ?? BACKDROP_TONE_RESPONSE.strength,
   };
 }
 
@@ -285,14 +290,17 @@ export function toneRespondedSourceOptics(
 ): MaterialSourceOptics {
   const k = clamp01(adaptation);
   const alpha = source.tintAlpha;
-  if (strength <= 0 || alpha <= 1e-3 || k >= 0.995) return source;
+  const responseStrength = clamp01(strength) * clamp01(response.strength);
+  if (responseStrength <= 0 || alpha <= 1e-3 || k >= 0.995) return source;
   const encodedInput = srgbEncode(clamp01(sample.luminance));
   const anchor = Math.max(response.anchorX[0], 1e-4);
   const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
-  const authority = authorityT * authorityT * (3 - 2 * authorityT);
+  const authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
   if (authority <= 0) return source;
   const target = backdropToneResponseLevel(encodedInput, thickness, response);
-  const preCollapse = (target - k * sample.luminance) / (1 - k);
+  // The collapse's mean pull is toward L(the LINEAR mean colour), not toward
+  // the encoded level — the shader's own comment, mirrored.
+  const preCollapse = (target - k * sample.linearLuminance) / (1 - k);
   const tintLuma =
     0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
   const nominal = (1 - alpha) * sample.linearLuminance + alpha * tintLuma;

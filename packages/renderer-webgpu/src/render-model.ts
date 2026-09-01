@@ -144,12 +144,23 @@ export interface GroupRenderInput {
    */
   readonly backdropTone?: Rgb;
   /**
-   * The backdrop's LINEAR-space mean luminance, beside `backdropTone`'s
+   * The backdrop's ENCODED-space tone level (W9, claims §5.31–§5.34): the mean
+   * taken in sRGB-encoded space, decoded once — the input the reference's tone
+   * response tracks, feeding the collapse band's argument and the response
+   * curve. Distinct from `backdropTone` on any structured backdrop: the
+   * COLOUR is the physical linear mean (what the collapse converges onto —
+   * on the impulse grid the two differ 2.6×, and converging onto the encoded
+   * reading was a measured ΔE p95 0.03 → 0.12 regression), while the LEVEL is
+   * the encoded reading. Absent falls back to `backdropTone`'s own luminance.
+   */
+  readonly backdropToneLevel?: number;
+  /**
+   * The backdrop's LINEAR-space mean luminance, beside `backdropToneLevel`'s
    * encoded-space reading (W9, claims §5.31). The per-pixel tint-tone input
    * samples a chain that averages linearly, so the optics pass multiplies it by
-   * `luminance(backdropTone) / backdropToneLinearLuminance` — locality is
+   * `backdropToneLevel / backdropToneLinearLuminance` — locality is
    * preserved and the input's spatial mean matches the model exactly. Absent
-   * (or equal to the tone's luminance) collapses the ratio to 1.
+   * (or equal to the tone's level) collapses the ratio to 1.
    */
   readonly backdropToneLinearLuminance?: number;
   readonly variant?: MaterialVariant;

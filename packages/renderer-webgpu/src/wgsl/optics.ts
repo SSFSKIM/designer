@@ -109,7 +109,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// quantity the response solve composites against
   toneAnchor : vec4f,
   /// the response law's thin row: the reference's settled interior levels at the
-  /// three anchors for a surface of sizeThickness 0 (xyz); w unused
+  /// three anchors for a surface of sizeThickness 0 (xyz); w is the law's
+  /// per-profile authority — 0 on dark profiles, whose response is unmeasured
   toneRowThin : vec4f,
   /// the thick row (sizeThickness saturated), same layout
   toneRowThick : vec4f,
@@ -406,13 +407,17 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   var solvedNeutral = neutral;
   var solvedAlpha = sizedAlpha;
-  if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0 && sizedAlpha > 1e-3 && toneAdapt < 0.995) {
+  if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0 && ou.toneRowThin.w > 0.0 &&
+      sizedAlpha > 1e-3 && toneAdapt < 0.995) {
     let encodedInput = srgb_encode(ou.toneColour.w);
     let anchor = max(ou.toneAnchor.x, 1e-4);
-    let authority = smoothstep(anchor * 0.5, anchor, encodedInput);
+    let authority =
+      smoothstep(anchor * 0.5, anchor, encodedInput) * clamp(ou.toneRowThin.w, 0.0, 1.0);
     if (authority > 0.0) {
       let response = tone_response(encodedInput, sizeK);
-      let preCollapse = (response - toneAdapt * ou.toneColour.w) / (1.0 - toneAdapt);
+      // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
+      // mean, which toneAnchor.w carries — not toward the encoded level.
+      let preCollapse = (response - toneAdapt * ou.toneAnchor.w) / (1.0 - toneAdapt);
       let neutralLuma = dot(neutral, vec3f(0.2126, 0.7152, 0.0722));
       let nominal = (1.0 - sizedAlpha) * ou.toneAnchor.w + sizedAlpha * neutralLuma;
       let shift = (preCollapse - nominal) / sizedAlpha * authority * ou.toneAdapt.w;

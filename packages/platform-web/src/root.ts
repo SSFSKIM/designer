@@ -301,10 +301,18 @@ export interface GlassGroupRenderInput {
    */
   readonly backdropTone?: readonly [number, number, number];
   /**
+   * The same backdrop's ENCODED-space tone level (W9): the mean taken in sRGB
+   * space, decoded once — the reading the reference's tone response tracks,
+   * feeding the collapse band's argument and the response curve, where
+   * `backdropTone` itself is the LINEAR mean the collapse converges onto.
+   * Absent exactly where `backdropTone` is.
+   */
+  readonly backdropToneLevel?: number;
+  /**
    * The same backdrop's LINEAR-space mean luminance — the denominator of the
    * W9 correction ratio. A per-pixel consumer whose samples average linearly
    * (the GPU tier's blurred chain) multiplies its input by
-   * `luminance(backdropTone) / backdropToneLinearLuminance` so the input's
+   * `backdropToneLevel / backdropToneLinearLuminance` so the input's
    * spatial mean matches the encoded-space model exactly (claims §5.31).
    * Absent exactly where `backdropTone` is.
    */
@@ -1207,6 +1215,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           ? {}
           : {
               backdropTone: backdropTone.rgb,
+              backdropToneLevel: backdropTone.luminance,
               backdropToneLinearLuminance: backdropTone.linearLuminance,
             }),
       });

@@ -52,11 +52,14 @@
  * to any linear reading, renders 0.11–0.19 apart on the reference, and the
  * encoded-space mean predicts both the direction and most of the magnitude.
  *
- * So the mean below is taken in encoded space and decoded once at the end
- * (Decision Log 2 of the W9 spec). What remains of the old caveat is
- * granularity: this is still one number per source rather than per surface,
- * the probe measured the reference reading per-footprint, and the cross-tier
- * bound is still the referee, enforced from the matrix on every gated cell.
+ * So the tone LEVEL below is taken in encoded space and decoded once at the
+ * end (Decision Log 2 of the W9 spec), while the tone COLOUR stays the linear
+ * mean — the two consumers read different physics, and the canonical impulse
+ * cell measured the difference when the colour briefly followed the level
+ * (see the loop comment). What remains of the old caveat is granularity: this
+ * is still one number per source rather than per surface, the probe measured
+ * the reference reading per-footprint, and the cross-tier bound is still the
+ * referee, enforced from the matrix on every gated cell.
  *
  * The read is a `drawImage` downsample. The browser averages in the texture's
  * own encoded space — which under the W9 model is no longer a trap to outrun
@@ -67,16 +70,20 @@
 import type { GlassBackdropTexture } from "./renderer-bridge";
 
 /**
- * A backdrop's tone reading: linear-light colour and Rec. 709 luminance,
- * derived per the W9 model — the mean is taken in ENCODED space and decoded
- * once (claims §5.31; a solid backdrop is identical under either convention,
- * which is why every solid-fitted constant survived the swap unchanged).
+ * A backdrop's tone reading, in the W9 model's two spaces (claims §5.31–§5.34).
+ * A solid backdrop is identical under both, which is why every solid-fitted
+ * constant survived the convention work unchanged.
  */
 export interface BackdropToneSample {
+  /** The LINEAR-space mean colour — the physical average light, what the
+   * collapse converges onto. */
   readonly rgb: readonly [number, number, number];
+  /** The ENCODED-space mean's level, decoded once — the tone input the
+   * reference's response tracks; feeds the collapse band and the response
+   * curve. */
   readonly luminance: number;
   /**
-   * The linear-space mean's luminance — the OLD convention's number, kept so a
+   * The linear mean's luminance — `rgb`'s own, kept as a named scalar so a
    * per-pixel consumer (the GPU tier's tint tone map) can express how far the
    * model input sits from the linear mean its samples average to, as one ratio.
    */
@@ -186,7 +193,9 @@ export function sampleBackdropTone(
     let r = 0;
     let g = 0;
     let b = 0;
-    let linear = 0;
+    let er = 0;
+    let eg = 0;
+    let eb = 0;
     let weight = 0;
     for (let i = 0; i < data.length; i += 4) {
       // Alpha-weighted: a backdrop source with transparent regions has not
@@ -194,32 +203,36 @@ export function sampleBackdropTone(
       // a dark backdrop for a page that has none.
       const a = (data[i + 3] as number) / 255;
       if (a <= 0) continue;
-      // Accumulated ENCODED, decoded once after the mean — the W9 model. The
-      // reference's tone response tracks the encoded-space mean of a structured
-      // backdrop, not its linear mean (claims §5.31's equal-mean pair is the
-      // proof: identical linear means, 0.11–0.19 apart on the reference). The
-      // linear mean rides along so per-pixel consumers can carry the model as
-      // one correction ratio against samples that average linearly.
-      const er = (data[i] as number) / 255;
-      const eg = (data[i + 1] as number) / 255;
-      const eb = (data[i + 2] as number) / 255;
-      r += er * a;
-      g += eg * a;
-      b += eb * a;
-      linear +=
-        (0.2126 * srgbDecode(er) + 0.7152 * srgbDecode(eg) + 0.0722 * srgbDecode(eb)) * a;
+      // TWO means, one pass, because the two consumers read different physics
+      // (W9, claims §5.31–§5.34). The tone LEVEL is the ENCODED-space mean,
+      // decoded once — the reference's tone response tracks it (the equal-mean
+      // pair is the proof: identical linear means, 0.11–0.19 apart on the
+      // reference). The tone COLOUR is the LINEAR mean — the physical average
+      // light the collapse converges onto; converging onto the encoded reading
+      // instead was a measured ΔE p95 0.03 → 0.12 regression on the impulse
+      // grid, whose two means differ 2.6×.
+      const pr = (data[i] as number) / 255;
+      const pg = (data[i + 1] as number) / 255;
+      const pb = (data[i + 2] as number) / 255;
+      er += pr * a;
+      eg += pg * a;
+      eb += pb * a;
+      r += srgbDecode(pr) * a;
+      g += srgbDecode(pg) * a;
+      b += srgbDecode(pb) * a;
       weight += a;
     }
     if (weight <= 0) return undefined;
-    const rgb: readonly [number, number, number] = [
-      srgbDecode(r / weight),
-      srgbDecode(g / weight),
-      srgbDecode(b / weight),
+    const rgb: readonly [number, number, number] = [r / weight, g / weight, b / weight];
+    const level: readonly [number, number, number] = [
+      srgbDecode(er / weight),
+      srgbDecode(eg / weight),
+      srgbDecode(eb / weight),
     ];
     return {
       rgb,
-      luminance: 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2],
-      linearLuminance: linear / weight,
+      luminance: 0.2126 * level[0] + 0.7152 * level[1] + 0.0722 * level[2],
+      linearLuminance: 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2],
     };
   } catch {
     return undefined;

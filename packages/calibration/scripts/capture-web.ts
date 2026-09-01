@@ -355,6 +355,12 @@ const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneLow",
   "backdropToneHigh",
   "backdropToneSizeBias",
+  // The backdrop tone response (W9): the anchors of R(encodedMean, thickness),
+  // measured constants in the profile document like every other key here.
+  "backdropToneAnchorX",
+  "backdropToneResponseThin",
+  "backdropToneResponseThick",
+  "backdropToneResponseStrength",
   // The outer shadow (W8). One key, six constants under it — a nested block like
   // `strongBorderRim`, so the cascade's fit lands as `{ outerShadow: { … } }`.
   "outerShadow",
