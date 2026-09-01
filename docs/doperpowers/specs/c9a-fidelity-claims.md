@@ -4962,6 +4962,123 @@ Three stale `entries` records in the light profile were corrected while in there
 tables — a bound's history is part of the claim — under a `supersededValue` that
 states what actually ships.
 
+### 5.30 The W9 probe, declared before it runs (2026-09-02)
+
+W9's Decision Log 1 (spec:
+`docs/doperpowers/specs/2026-09-02-w9-backdrop-tone-sampling.md`) opens the
+next wave probe-first: measure what the reference renders over structured
+content as surface size and backdrop pitch vary, before any model is
+designed. This section is the declaration — grid, split, scoring
+statistics and verdict rules committed before the first capture, in the
+§5.24 pattern. The probe fits nothing and freezes no bed; its product is
+findings.
+
+#### The grid — 56 cells, one profile, all data-only
+
+Profile: `apple-macos-26.5-1x-light-standard` only. The mechanism §5.26
+measured is scale-free in every prior reading, and hypothesis
+discrimination does not need the 2x display reconfiguration. All new
+backgrounds reuse EXISTING kinds (`checkerboard`, `text-rows`), so nothing
+rebuilds and no TCC re-grant happens; the probe runs from its own scenes
+file (`apps/reference-apple/scenes-w9-probe.json` via `VITREA_SCENES`) into
+its own fixtures dir (`VITREA_FIXTURES`), leaving the frozen bed untouched.
+
+New backgrounds (seven): `checkerboard-4`, `checkerboard-8`,
+`checkerboard-32`, `checkerboard-64` (black/white at those cell pitches,
+joining the existing 16); `checkerboard-lc16` — cell 16 at LOW contrast,
+`a=[128,128,128]`, `b=[229,229,229]`, chosen so its linear mean (0.4997)
+matches the black/white pair's 0.5 to 0.06%; `hc-text-7` (rowHeight 7,
+barHeight 3 — the existing 14:6 duty exactly) and `hc-text-28` (28/12).
+
+Scenes: the five-component size sweep (`rrect-sm`, `capsule-button`,
+`rrect-md`, `rrect-ml`, `rrect-lg`; 21.9× area) over every checkerboard
+pitch and the low-contrast pair; the three-component sweep (`rrect-sm`,
+`rrect-md`, `rrect-lg`) over `hc-text-{7,14,28}` and the response anchors
+`light-solid`, `dark-solid`, `mid-dark-solid` plus `photo` as the broadband
+control; `rest-tint-orange` on `capsule-button` over checkerboard
+{4, 8, 16, 32, 64}. 56 cells.
+
+#### The split, declared now for the LATER fit
+
+The probe reads everything; the split binds the fit phase that follows it.
+Rule first, list second: **any probe cell that duplicates a frozen-bed cell
+whose twin was holdout or floored takes the `recorded` role** — readable by
+the study, forbidden to every fit and claim — so the frozen bed's floored
+rows stay an untouched referee and no spent-holdout geometry re-enters a
+fit role. The fit phase fits the pitch law on cells the frozen bed has
+never seen.
+
+- **recorded (8):** all five `checkerboard` (16) rest cells + its tint
+  capsule (frozen twins floored/holdout), `hc-text__rrect-md__rest` at 14
+  (frozen holdout twin), `photo__rrect-lg__rest` (frozen holdout twin).
+- **holdout (9):** the ENTIRE `checkerboard-8` column — five rest cells
+  plus its tint capsule (an interpolation pitch, never fitted) — and the
+  three large-surface extremes `checkerboard-64__rrect-lg`,
+  `checkerboard-lc16__rrect-lg`, `hc-text-28__rrect-lg` (corner
+  extrapolation). One read, per X1.
+- **validation (5):** `checkerboard-4__rrect-ml`,
+  `checkerboard-64__capsule-button`, `checkerboard-lc16__rrect-md`,
+  `hc-text-7__rrect-md`, `checkerboard-64` tint capsule.
+- **calibration (34):** the remainder.
+
+#### The scoring statistics
+
+Interior level `L` per cell: mean linear luminance over the native
+capture's interior region under the native silhouette, the coherence
+metric's own interior definition (`packages/calibration/src/metrics/`).
+
+**The empirical response curve replaces any vitrea constant in scoring.**
+For each anchored component, `R_c(l)` is monotone (PCHIP) interpolation of
+the measured interiors over `dark-solid` (linear luminance 0.0117),
+`mid-dark-solid` (0.0595) and `light-solid` (0.8910), captured in the
+same runs. `R` for `capsule-button` and `rrect-ml` interpolates the
+anchored components in log-area. Inputs outside the anchor range clamp to
+it — a declared approximation, reported alongside every score it touches.
+
+For a two-level backdrop with linear levels `{l_i}` and weights `{w_i}`,
+with `μ = Σ wᵢ lᵢ` and `μ_enc = linear(Σ wᵢ encode(lᵢ))` — where levels
+AND weights are **measured from the rendered background raster**, never
+assumed from the parameters. (Declared after the dry-run rasters and
+before any capture: the canvas does not divide evenly at every pitch —
+`checkerboard-64`'s measured linear mean is 0.4720, not 0.5, because
+200 px holds 3.125 rows of 64 — and the text-rows duty rounds per pitch,
+0.7504 at 7 against 0.7652 at 28. Raster-measured statistics make every
+prediction self-consistent with what the reference was actually shown;
+the equal-mean pair survives the check at 0.5000 vs 0.4997.)
+
+- **P0 — the current model:** `R_c(μ)`.
+- **P1 — map-then-average (H1):** `Σ wᵢ R_c(lᵢ)`.
+- **P3 — encoded-space averaging (H3):** `R_c(μ_enc)`.
+- **P2 — band-limited input (H2):** `mix(P0, P1, g)` with
+  `g = smoothstep(0, 1, pitch / (k · span_c))`, `span_c` the component's
+  short side, and `k` the ONE free parameter, grid-searched on calibration
+  cells only over the declared grid
+  `k ∈ {0.005, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32}`.
+
+Score per hypothesis: RMS of `P − L` over the structured, non-`recorded`
+rest cells, reported overall and per pitch, next to the raw per-cell
+curves. **Verdict rules, declared:** a hypothesis is REJECTED when its RMS
+exceeds twice the best hypothesis's AND its residuals are pitch-monotone
+(structure, not noise). **H4 (a contrast term) survives** only if the best
+luminance-only model's residual on the equal-mean pair
+(`checkerboard` 16 vs `checkerboard-lc16`, per component) exceeds three
+times the pooled run-to-run σ of those cells' interiors. The tint cells
+are descriptive, not scored — the tint pick rides the same input, but its
+gamut clip (§5.13) is a confound the rest state does not carry.
+
+#### Protocol and provenance
+
+The DL21 winning protocol verbatim: 6 s bare neutral reset before each
+cell, stable order, unlocked + wake attested per cell with the per-cell
+audit as the completion criterion, `--min-idle-seconds 45`, bimodality arm
+on the five runs; a state-ambiguous cell that a score depends on is topped
+up before scoring. Five runs record the confidence they bought (the
+seventeen-run bar applies only to a bed freezing into the enforced suite,
+which this is not). Every run snapshots whole before anything reads it.
+Stop conditions are the W9 spec's: a measurement no hypothesis fits goes
+back to the design table as a finding; a two-state epidemic on the new
+backdrops reopens the doctrine question before scoring.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds

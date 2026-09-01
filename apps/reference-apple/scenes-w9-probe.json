@@ -1,0 +1,707 @@
+{
+  "$comment": [
+    "W9 probe scene matrix \u2014 claims 5.30's declared grid, and NOTHING else",
+    "reads this file. It runs through VITREA_SCENES into its own fixtures dir,",
+    "so the canonical scenes.json and the frozen bed stay untouched. Every",
+    "background reuses an existing kind: nothing rebuilds, no TCC re-grant.",
+    "The split below binds the FIT PHASE that follows the probe; the probe",
+    "itself fits nothing. 'recorded' cells duplicate frozen-bed geometry whose",
+    "twins were holdout or floored \u2014 readable by the study, forbidden to fits."
+  ],
+  "version": 2,
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "light-solid": {
+      "kind": "solid",
+      "srgb": [
+        242,
+        242,
+        247
+      ],
+      "$comment": "System light grey. The flat case: no backdrop detail, so tint and rim read alone."
+    },
+    "dark-solid": {
+      "kind": "solid",
+      "srgb": [
+        28,
+        28,
+        30
+      ],
+      "$comment": "System dark. Pairs with the dark-scheme profiles."
+    },
+    "mid-dark-solid": {
+      "kind": "solid",
+      "srgb": [
+        69,
+        69,
+        69
+      ],
+      "$comment": [
+        "W7's missing holdout backdrop, and the ONLY reason this background exists.",
+        "W7's measured tone-adaptation law is a smoothstep DOWN over a curve",
+        "argument of backdropLuminance + 0.09*sizeThickness(span), with edges at",
+        "0.14 and 0.02 \u2014 so the whole axis lives between those two luminances, and",
+        "every backdrop the bed already had sits OUTSIDE that band: dark-solid at",
+        "linear 0.0117 is below the lower edge (fully adapted), and every other one",
+        "\u2014 hc-text, checkerboard, photo, light-solid \u2014 is above the upper edge",
+        "(not adapting at all). The axis therefore landed with a holdout that",
+        "proves no regression and cannot validate the mechanism (W7 Surprise,",
+        "2026-08-30: 'a bed gap, not a discipline breach').",
+        "",
+        "Measured, not asserted. Each committed 1x raster's linear-light mean by",
+        "Rec.709 \u2014 the same rule the runtime samples a backdrop with \u2014 evaluated",
+        "against the landed constants at a capsule-button's 44px span",
+        "(sizeThickness = smoothstep(32, 96, 44) = 0.09229, so the size term adds",
+        "+0.00831 to the curve's argument):",
+        "",
+        "  impulse         0.003750  ->  1.000000   pinned at the ceiling",
+        "  dark-solid      0.011711  ->  0.999999   pinned at the ceiling",
+        "  mid-dark-solid  0.059511  ->  0.650196   ON THE SLOPE",
+        "  photo           0.214065  ->  0.000000   off the curve",
+        "  checkerboard    0.500000  ->  0.000000   off the curve",
+        "  hc-text         0.740031  ->  0.000000   off the curve",
+        "  light-solid     0.890969  ->  0.000000   off the curve",
+        "",
+        "For a capsule the curve saturates at 1 at or below linear 0.011694 and",
+        "reaches 0 at or above 0.131694. Every backdrop the bed had was outside",
+        "that window, so every dark cell was pinned flat against a rail and",
+        "carried no gradient at all: a refit could reshape the curve freely",
+        "without moving a single committed pixel. That is the gap, measured, and",
+        "mid-dark-solid at 0.650196 is the one point on the slope that closes it.",
+        "",
+        "A neutral 69/255 grey is linear 0.059511 by Rec.709 \u2014 squarely inside the",
+        "transition, and far enough from both edges that the size term (up to",
+        "+0.09 for a maximally thick span) cannot push it out of the band. Neutral",
+        "rather than tinted on purpose: the axis is a function of LUMINANCE, so a",
+        "chromatic backdrop would confound the one thing this scene measures."
+      ]
+    },
+    "photo": {
+      "kind": "synthetic-photo",
+      "seed": 20260825,
+      "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+    },
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    },
+    "hc-text": {
+      "kind": "text-rows",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "foreground": [
+        0,
+        0,
+        0
+      ],
+      "rowHeight": 14,
+      "barHeight": 6,
+      "$comment": "High-contrast text, drawn as GEOMETRIC BARS, not glyphs. Real text would reintroduce exactly the font-rasterisation difference the spec's raster-background rule exists to eliminate; bars keep the high-frequency black-on-white structure that stresses the material's legibility handling."
+    },
+    "checkerboard-4": {
+      "kind": "checkerboard",
+      "cell": 4,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "W9 probe pitch axis (claims 5.30): the canonical checkerboard at cell 4."
+    },
+    "checkerboard-8": {
+      "kind": "checkerboard",
+      "cell": 8,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "W9 probe pitch axis (claims 5.30): the canonical checkerboard at cell 8."
+    },
+    "checkerboard-32": {
+      "kind": "checkerboard",
+      "cell": 32,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "W9 probe pitch axis (claims 5.30): the canonical checkerboard at cell 32."
+    },
+    "checkerboard-64": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "W9 probe pitch axis (claims 5.30): the canonical checkerboard at cell 64."
+    },
+    "checkerboard-lc16": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        128,
+        128,
+        128
+      ],
+      "b": [
+        229,
+        229,
+        229
+      ],
+      "$comment": "W9 probe equal-mean pair (claims 5.30): linear mean 0.4997 vs the black/white pair's 0.5 (0.06% off), at 3.6:1 contrast instead of full. Discriminates a contrast term (H4) from every luminance-only model."
+    },
+    "hc-text-7": {
+      "kind": "text-rows",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "foreground": [
+        0,
+        0,
+        0
+      ],
+      "rowHeight": 7,
+      "barHeight": 3,
+      "$comment": "W9 probe second structured family (claims 5.30): the canonical 14:6 duty at half pitch."
+    },
+    "hc-text-28": {
+      "kind": "text-rows",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "foreground": [
+        0,
+        0,
+        0
+      ],
+      "rowHeight": 28,
+      "barHeight": 12,
+      "$comment": "W9 probe second structured family (claims 5.30): the canonical duty at double pitch."
+    }
+  },
+  "components": {
+    "rrect-sm": {
+      "kind": "rrect",
+      "size": [
+        64,
+        32
+      ],
+      "radius": 8
+    },
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    },
+    "rrect-md": {
+      "kind": "rrect",
+      "size": [
+        160,
+        96
+      ],
+      "radius": 20
+    },
+    "rrect-ml": {
+      "kind": "rrect",
+      "size": [
+        224,
+        128
+      ],
+      "radius": 27,
+      "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. Expect the truncation guard to withdraw the downward extent here (clearance 35.5 px against that reach) while sigma and amplitude survive; that is the instrument working, not a defect in the cell. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant. Declared without committed fixtures while the stability study runs (claims 5.21): the study publishes no bed, and compare refuses a planned cell with no capture rather than inventing one."
+    },
+    "rrect-lg": {
+      "kind": "rrect",
+      "size": [
+        280,
+        160
+      ],
+      "radius": 34,
+      "$comment": "The size sweep exists because Apple's material is size-parameterised: a larger surface must show deeper shadow and stronger lensing over the same backdrop (parent acceptance #2). r/side = 0.2125, safely under Apple's 0.327083 saturation point, so these corners stay comparable (S2)."
+    }
+  },
+  "tints": {
+    "orange": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "$comment": "systemOrange. Warm, far from the material's neutral white, and the hue Apple's own tinting examples use."
+    }
+  },
+  "states": {
+    "rest": {
+      "$comment": "No interaction."
+    }
+  },
+  "scenes": [
+    {
+      "id": "checkerboard-4__rrect-sm__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__capsule-button__rest",
+      "background": "checkerboard-4",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__rrect-md__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__rrect-ml__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__rrect-lg__rest",
+      "background": "checkerboard-4",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-8__rrect-sm__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-8__capsule-button__rest",
+      "background": "checkerboard-8",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-8__rrect-md__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-8__rrect-ml__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-8__rrect-lg__rest",
+      "background": "checkerboard-8",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-sm__rest",
+      "background": "checkerboard",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-md__rest",
+      "background": "checkerboard",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-ml__rest",
+      "background": "checkerboard",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-lg__rest",
+      "background": "checkerboard",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-32__rrect-sm__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-32__capsule-button__rest",
+      "background": "checkerboard-32",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-32__rrect-md__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-32__rrect-ml__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-32__rrect-lg__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__rrect-sm__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__capsule-button__rest",
+      "background": "checkerboard-64",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__rrect-md__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__rrect-ml__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__rrect-lg__rest",
+      "background": "checkerboard-64",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-lc16__rrect-sm__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-lc16__capsule-button__rest",
+      "background": "checkerboard-lc16",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-lc16__rrect-md__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-lc16__rrect-ml__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-lc16__rrect-lg__rest",
+      "background": "checkerboard-lc16",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text-7__rrect-sm__rest",
+      "background": "hc-text-7",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text-7__rrect-md__rest",
+      "background": "hc-text-7",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text-7__rrect-lg__rest",
+      "background": "hc-text-7",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text__rrect-sm__rest",
+      "background": "hc-text",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text__rrect-md__rest",
+      "background": "hc-text",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text__rrect-lg__rest",
+      "background": "hc-text",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text-28__rrect-sm__rest",
+      "background": "hc-text-28",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text-28__rrect-md__rest",
+      "background": "hc-text-28",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "hc-text-28__rrect-lg__rest",
+      "background": "hc-text-28",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-sm__rest",
+      "background": "light-solid",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-md__rest",
+      "background": "light-solid",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-lg__rest",
+      "background": "light-solid",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-sm__rest",
+      "background": "dark-solid",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-md__rest",
+      "background": "dark-solid",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-lg__rest",
+      "background": "dark-solid",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "mid-dark-solid__rrect-sm__rest",
+      "background": "mid-dark-solid",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "mid-dark-solid__rrect-md__rest",
+      "background": "mid-dark-solid",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "mid-dark-solid__rrect-lg__rest",
+      "background": "mid-dark-solid",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "photo__rrect-sm__rest",
+      "background": "photo",
+      "component": "rrect-sm",
+      "state": "rest"
+    },
+    {
+      "id": "photo__rrect-md__rest",
+      "background": "photo",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "photo__rrect-lg__rest",
+      "background": "photo",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__capsule-button__rest-tint-orange",
+      "background": "checkerboard-4",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    },
+    {
+      "id": "checkerboard-8__capsule-button__rest-tint-orange",
+      "background": "checkerboard-8",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    },
+    {
+      "id": "checkerboard-32__capsule-button__rest-tint-orange",
+      "background": "checkerboard-32",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    },
+    {
+      "id": "checkerboard-64__capsule-button__rest-tint-orange",
+      "background": "checkerboard-64",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-26.5-1x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "The probe's one profile \u2014 the mechanism is scale-free in every prior reading (claims 5.30)."
+    }
+  ],
+  "split": {
+    "$comment": [
+      "Declared 2026-09-02 in claims 5.30, before the first capture.",
+      "Binds the fit phase; the probe reads everything."
+    ],
+    "calibration": [
+      "checkerboard-4__rrect-sm__rest",
+      "checkerboard-4__capsule-button__rest",
+      "checkerboard-4__rrect-md__rest",
+      "checkerboard-4__rrect-lg__rest",
+      "checkerboard-32__rrect-sm__rest",
+      "checkerboard-32__capsule-button__rest",
+      "checkerboard-32__rrect-md__rest",
+      "checkerboard-32__rrect-ml__rest",
+      "checkerboard-32__rrect-lg__rest",
+      "checkerboard-64__rrect-sm__rest",
+      "checkerboard-64__rrect-md__rest",
+      "checkerboard-64__rrect-ml__rest",
+      "checkerboard-lc16__rrect-sm__rest",
+      "checkerboard-lc16__capsule-button__rest",
+      "checkerboard-lc16__rrect-ml__rest",
+      "hc-text-7__rrect-sm__rest",
+      "hc-text-7__rrect-lg__rest",
+      "hc-text__rrect-sm__rest",
+      "hc-text__rrect-lg__rest",
+      "hc-text-28__rrect-sm__rest",
+      "hc-text-28__rrect-md__rest",
+      "light-solid__rrect-sm__rest",
+      "light-solid__rrect-md__rest",
+      "light-solid__rrect-lg__rest",
+      "dark-solid__rrect-sm__rest",
+      "dark-solid__rrect-md__rest",
+      "dark-solid__rrect-lg__rest",
+      "mid-dark-solid__rrect-sm__rest",
+      "mid-dark-solid__rrect-md__rest",
+      "mid-dark-solid__rrect-lg__rest",
+      "photo__rrect-sm__rest",
+      "photo__rrect-md__rest",
+      "checkerboard-4__capsule-button__rest-tint-orange",
+      "checkerboard-32__capsule-button__rest-tint-orange"
+    ],
+    "validation": [
+      "checkerboard-4__rrect-ml__rest",
+      "checkerboard-64__capsule-button__rest",
+      "checkerboard-lc16__rrect-md__rest",
+      "hc-text-7__rrect-md__rest",
+      "checkerboard-64__capsule-button__rest-tint-orange"
+    ],
+    "holdout": [
+      "checkerboard-8__rrect-sm__rest",
+      "checkerboard-8__capsule-button__rest",
+      "checkerboard-8__rrect-md__rest",
+      "checkerboard-8__rrect-ml__rest",
+      "checkerboard-8__rrect-lg__rest",
+      "checkerboard-8__capsule-button__rest-tint-orange",
+      "checkerboard-64__rrect-lg__rest",
+      "checkerboard-lc16__rrect-lg__rest",
+      "hc-text-28__rrect-lg__rest"
+    ],
+    "recorded": [
+      "checkerboard__rrect-sm__rest",
+      "checkerboard__capsule-button__rest",
+      "checkerboard__rrect-md__rest",
+      "checkerboard__rrect-ml__rest",
+      "checkerboard__rrect-lg__rest",
+      "checkerboard__capsule-button__rest-tint-orange",
+      "hc-text__rrect-md__rest",
+      "photo__rrect-lg__rest"
+    ]
+  }
+}
