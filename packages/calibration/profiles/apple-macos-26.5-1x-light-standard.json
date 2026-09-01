@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "5ebfe95b5d9f1dbc",
+  "resolvedMaterialSha256": "f2ce40d955149c1b",
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
     "",
@@ -90,7 +90,7 @@
       1
     ],
     "sizeShadowGainMax": 1,
-    "backdropToneSizeBias": 0.13,
+    "backdropToneSizeBias": 0.05,
     "tintToneFloor": 1,
     "tintToneCeilMix": 0,
     "outerShadow": {
@@ -101,7 +101,7 @@
       "spreadPx": 3.1,
       "sizeGain": 0
     },
-    "backdropToneLow": 0.03,
+    "backdropToneLow": 0.02,
     "increasedOcclusionLift": 0.75,
     "sizeSpanMin": 32,
     "sizeSpanMax": 96,
@@ -111,12 +111,68 @@
     "tintToneLow": 0.02,
     "tintToneHigh": 0.65,
     "backdropToneMax": 1,
-    "backdropToneHigh": 0.14
+    "backdropToneHigh": 0.055,
+    "backdropToneAnchorX": [
+      0.1104,
+      0.2706,
+      0.9505
+    ],
+    "backdropToneResponseThin": [
+      0.0126,
+      0.4561,
+      0.9713
+    ],
+    "backdropToneResponseThick": [
+      0.4953,
+      0.5744,
+      0.9358
+    ]
   },
   "cssTierMapping": {
     "referenceBackdropLuminance": 0.02
   },
   "entries": {
+    "backdropToneResponse": {
+      "status": "measured",
+      "value": {
+        "backdropToneAnchorX": [0.1104, 0.2706, 0.9505],
+        "backdropToneResponseThin": [0.0126, 0.4561, 0.9713],
+        "backdropToneResponseThick": [0.4953, 0.5744, 0.9358],
+        "backdropToneLow": 0.02,
+        "backdropToneHigh": 0.055,
+        "backdropToneSizeBias": 0.05
+      },
+      "previous": {
+        "backdropToneLow": 0.03,
+        "backdropToneHigh": 0.14,
+        "backdropToneSizeBias": 0.13
+      },
+      "method": [
+        "W9 (claims 5.30-5.34). The probe falsified the mix-toward-backdrop form:",
+        "six cells need mix strengths outside [0,1], because the reference adapts",
+        "toward the material's own light/dark appearance, which coincides with the",
+        "backdrop tone only over dark-solid. The interior mean now follows",
+        "R(encodedMean, sizeThickness) through the three solid anchors' settled",
+        "levels; the anchor values are MEASUREMENTS from the frequency-settled",
+        "probe bed (seven attested runs), not tuned numbers — thick rows pool the",
+        "96 and 160 px rrects (+/-0.012). The four mix constants now own texture",
+        "collapse alone, re-scoped to their measured domain: full at dark-solid",
+        "for thin surfaces including the 44 px capsule, zero by mid-dark-solid,",
+        "where the old band's partial collapse was the measured 0.1375-vs-0.4561",
+        "overshoot. Probe-bed reads at these constants: calibration interior",
+        "objective 0.0691 (falsified form's best point: 0.1063), validation and",
+        "holdout reproducing the same error structure with nothing new."
+      ],
+      "doesNotClose": [
+        "Small footprints over structured backdrops (+0.05..0.09, worsening with",
+        "pitch): the per-source tone input reads the whole backdrop where the",
+        "reference reads the footprint. The encoded-space pyramid is the named",
+        "escalation if the 33-floor referee demands it. Also unclosed: the tinted",
+        "capsules (0.11-0.15), which render identically before and after W9 —",
+        "a full-strength author tint displaces the adaptation, so their miss is",
+        "pre-existing and rides the referee per the charter."
+      ]
+    },
     "cssTierMapping.referenceBackdropLuminance": {
       "status": "measured",
       "value": 0.02,

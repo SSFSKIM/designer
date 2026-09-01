@@ -26,7 +26,19 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "ede2069579689b99",
+  "resolvedMaterialSha256": "b8d1af84fcf1b55b",
+  "$comment-w9": [
+    "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
+    "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
+    "band re-scoped (low 0.02, high 0.055, sizeBias 0.05) and the response-curve",
+    "anchors added (backdropToneAnchorX/ResponseThin/ResponseThick). The dark",
+    "profile runs the same law with the same constants by the axis's own design",
+    "(the scheme picks the neutral; the adaptation moves the material toward",
+    "what is behind it), so the constants stay unnamed here and the fingerprint",
+    "records the inheritance. Anchors were measured on the LIGHT 1x probe bed;",
+    "whether the dark reference's response shares them is a referee question,",
+    "not an assumption this file hides."
+  ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
     "",

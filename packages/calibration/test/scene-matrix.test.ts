@@ -217,44 +217,45 @@ describe("W7's backdrop-adaptation holdout", () => {
     expect(MATRIX.scenes.find((scene) => scene.id === HOLDOUT)?.tint).toBeUndefined();
   });
 
-  it("sits on the adaptation curve's slope, where no other backdrop does", () => {
+  it("sits strictly ABOVE the collapse band, at every canonical size", () => {
     /*
-     * This is the assertion the scene exists for, and it is written against the
-     * renderer's OWN constants rather than against a copied number — so if a
-     * later fit moves the curve out from under this backdrop, the holdout stops
-     * being able to validate the axis and this fails, instead of the bed
-     * quietly returning to W7's landing state.
+     * REWRITTEN BY W9 (claims §5.33–§5.34). The original assertion held this
+     * backdrop on the collapse curve's slope, and it fired exactly as designed
+     * when the fit moved the curve — but the move was the round's finding, not
+     * a regression: the reference's small surface over mid-dark keeps a
+     * textured body at 0.4561, and the old band's partial collapse here WAS
+     * the measured 0.1375-vs-0.4561 overshoot. The binding property inverts:
+     * mid-dark-solid is now the band's upper-edge GUARD. If any size of
+     * surface collapses over this backdrop, the overshoot is back.
      *
-     * Strictly inside (0, 1): a cell pinned at either rail carries no gradient,
-     * and a fit could reshape the curve without moving one of its pixels.
+     * The collapse slope itself is no longer exercised by any canonical cell —
+     * by design, the knee is a near-binary size snap bounded by the capsule
+     * (full) and the 96 px rrect (none) over dark-solid below; its interior is
+     * validated by the probe bed's frequency-settled cells instead.
      */
-    const adaptation = adaptationOver("mid-dark-solid");
-    expect(adaptation).toBeGreaterThan(0.15);
-    expect(adaptation).toBeLessThan(0.85);
+    for (const thickness of [0, 0.093, 0.5, 1]) {
+      expect(
+        backdropToneAdaptation(
+          luminanceOf("mid-dark-solid"),
+          thickness,
+          DEFAULT_MATERIAL_PROFILE,
+        ),
+      ).toBe(0);
+    }
   });
 
-  it("is the only solid backdrop that is not pinned at a rail", () => {
+  it("brackets the collapse's size snap over dark-solid: capsule full, 96 px none", () => {
     /*
-     * Why W7 landed with no holdout able to validate it (Surprise, 2026-08-30).
-     * Every other declared solid drives the adaptation to a rail — measured over
-     * the committed 1x rasters, the four generated backdrops do too
-     * (impulse 0.0038 and dark-solid 0.0117 at the ceiling; photo 0.2141,
-     * checkerboard 0.5000, hc-text 0.7400, light-solid 0.8910 at the floor).
-     *
-     * A cell at a rail proves the axis did not regress and can prove nothing
-     * else: the curve's shape is free to move underneath it.
+     * The two-rail pin the W9 band was placed by (claims §5.33): the reference
+     * collapses its 44 px capsule onto dark-solid byte-identically — which
+     * needs adaptation EXACTLY 1, since the rim and body fade on (1 − k) — and
+     * leaves its 96 px rrect essentially unadapted. Both written against the
+     * renderer's own constants, so a band edge cannot drift out from under
+     * either without this failing.
      */
-    const solids = Object.keys(MATRIX.backgrounds).filter(
-      (id) => MATRIX.backgrounds[id]?.kind === "solid" && id !== "mid-dark-solid",
-    );
-    expect(solids.length).toBeGreaterThan(0);
-    for (const id of solids) {
-      // Not exact equality: dark-solid sits 0.000017 above the saturation point
-      // and so reads 0.99999994. The tolerance is far under 8-bit resolution, so
-      // "pinned" here means pinned as far as any capture could ever show.
-      const adaptation = adaptationOver(id);
-      const distanceToRail = Math.min(adaptation, 1 - adaptation);
-      expect(distanceToRail, `${id} → ${String(adaptation)}`).toBeLessThan(1e-4);
-    }
+    expect(adaptationOver("dark-solid")).toBe(1);
+    expect(
+      backdropToneAdaptation(luminanceOf("dark-solid"), 1, DEFAULT_MATERIAL_PROFILE),
+    ).toBe(0);
   });
 });

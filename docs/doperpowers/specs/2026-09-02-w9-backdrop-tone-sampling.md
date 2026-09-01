@@ -310,6 +310,18 @@ it — no HID input, idle guard unaffected.
 
 ## Revision Notes
 
+- 2026-09-02 (the law implemented; all three declared reads green in
+  structure): Decision Log 3's response-curve law is live on both tiers
+  (claims §5.34). Calibration 0.0691 against the falsified form's
+  0.1063; validation and holdout reproduce calibration's error
+  structure exactly — every remaining >0.05 cell is either the declared
+  small-footprint remainder or the pre-existing tint pathway, both of
+  which ride the referee. One design amendment discovered by
+  measurement, recorded in the log entry's spirit rather than
+  re-litigated: the solve needs an ALPHA half (the light attractor is
+  the material gone opaque-bright; a white neutral cannot carry an
+  upward shift). The round's model work is closed; the referee is next.
+
 - 2026-09-02 (the refit falsified the mix form): the declared 64-point
   W7 sweep completed and its falsification condition FIRED — no grid
   point brings solids and structure inside 0.05 together (claims §5.33).

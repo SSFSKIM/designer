@@ -5336,6 +5336,72 @@ the backdrop-statistics dump live with the job records
 64-point ranking is in the sweep log. The decision this evidence feeds
 is the W9 spec's Decision Log 3.
 
+### 5.34 The response-curve law, implemented and read out (2026-09-02)
+
+Decision Log 3 adopted; implemented on both tiers the same day
+(renderer commit `cb19a9f`). What landed, in the mechanism's own terms:
+
+- **The tone solve.** Per pixel on the GPU tier (mirrored per source on
+  the CSS tier), the scheme neutral's luma is shifted in closed form so
+  the composite `mean = (1 − k)·M₀ + k·toneLuma` lands on
+  `R(encodedInput, sizeThickness)` — the monotone curve through the
+  three solid anchors, thin/thick rows smoothstepped in thickness. Two
+  measured corrections shaped the final form: the solve compensates the
+  collapse's own mean pull (so the two never double-count), and where
+  the light scheme's white neutral clamps an upward shift, the
+  remainder is carried by the tint ALPHA — the light attractor is the
+  material gone opaque-bright, the same "an adapting material stops
+  transmitting" the collapse's alpha half was measured on. Without the
+  alpha half, every upward cell (lc16, mid-dark md/lg, photo-md,
+  light-solid-sm) rendered byte-identical to its unadapted self.
+- **The collapse re-scope.** `low 0.03 → 0.02`, `high 0.14 → 0.055`,
+  `sizeBias 0.13 → 0.05`: full collapse at dark-solid for thin
+  surfaces including the 44 px capsule, zero by mid-dark-solid. The old
+  band's partial collapse at 0.0595 WAS the mid-dark-small overshoot
+  §5.32 discovered (0.1375 against 0.4561); under the re-scoped band
+  plus the solve that cell reads 0.0086. `impulse__rrect-md`'s argument
+  lands at 0.0539 against the new high (k ≈ 0.003 against the old
+  band's 0.008 — the unadapted render that cell validated), and the
+  solve's authority is zero at impulse's input by the fade-out rule.
+- **One WGSL lesson for the file that can't test itself:** `target` is
+  a reserved word, and a shader that fails to parse renders nothing
+  while every TypeScript suite stays green — the flat-background
+  capture was the only symptom. The compile check is cheap; run it.
+
+The three reads, in the declared order, all against the frozen probe
+bed at the shipped constants (patch-only profile, no tuning anywhere in
+this round):
+
+| read | cells | result |
+|---|---|---|
+| calibration | 31 measurable | interior objective **0.0691** (falsified form's best: 0.1063; pre-W9 shipped: 0.4340→0.1074 era); mean-term 0.0250; median cell 0.0131; 5 cells > 0.05 |
+| validation | 5, never fitted | 0.0003 / 0.0089 / 0.0175 on ml + lc16-md + hc-text-7-md; misses only checker-64 capsule (+0.090) and its tint twin (0.154) |
+| holdout | 9, the ONE read | six cells ≤ 0.0122 including all three large extremes; checker-8 sm/capsule +0.054/+0.060; tint twin 0.111 |
+
+Every cell above 0.05, on every set, falls in exactly two classes, both
+declared before the reads:
+
+1. **Small footprints over structured backdrops** (+0.05…0.09,
+   worsening with pitch): the per-source tone input reads the whole
+   backdrop where the reference reads the footprint, plus the
+   second-order texture remainder. This is the H4-and-locality
+   remainder Decision Log 3 left unmodelled, and the encoded-space
+   pyramid (per-footprint GPU means) is the escalation Decision Log 2
+   named if the referee demands it.
+2. **The tint pathway** (0.11–0.15): the tinted capsules render
+   IDENTICALLY before and after the whole W9 change — a full-strength
+   author tint displaces the adaptation per the composition contract,
+   so these cells never touched the solve. Their miss is pre-existing
+   and newly measured on these backgrounds, not a W9 regression; tint
+   coherence rides the referee per the charter.
+
+The holdout's error structure matches calibration's exactly — the same
+two classes at the same magnitudes, nothing new — which is the
+generalization the probe's split was designed to test. The round's
+model work is CLOSED; what remains is the referee (§5.27's 33 floors on
+the frozen canonical bed) with the constants landed in the profile
+document.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
