@@ -64,13 +64,30 @@
  *
  * ## What this file is measuring, after the instrument changed
  *
- * Everything below is the **inactive-bed** suite, gated as historically
- * labelled. Wave Decision Log 15 ruling 3 holds `results/matrix.json` where it
- * is — schema 4, whole-canvas extraction — until the one honest post-W8 pass,
- * because re-adopting a bound over a reference facet vitrea renders as zero
- * would certify the defect. So this file gates a schema-4 matrix while the build
- * writes schema 5, and the first assertion pins both numbers so that stays a
- * decision rather than drift.
+ * Everything below is the **frozen active-bed** suite (2026-09-01), schema 5,
+ * 230 cells. The inactive bed this replaced is preserved as
+ * `results/2026-08-30-inactive-bed-matrix.json`; Decision Log 15 ruling 3 had
+ * held the enforced matrix there until the one honest post-W8 pass, because
+ * re-adopting a bound over a reference facet vitrea rendered as zero would have
+ * certified the defect. W8 rendered the shadow, the cascade fitted against the
+ * new bed, and Decision Log 22 landed the flip.
+ *
+ * ## The third adoption: the flip, with floors (Decision Log 22, 2026-09-01)
+ *
+ * Two things arrived together and they pull in opposite directions, so both are
+ * stated:
+ *
+ *   1. **The gate got stricter.** §5.17's conditioning predicate is implemented
+ *      in full — two arms, both sides — where this file had been asking only the
+ *      native side against a points area scaled by the backing scale squared. It
+ *      had been gating contour rows on cells whose web mask was in seven pieces.
+ *      Both accessibility profiles now pass everything they claim.
+ *   2. **Thirty-three rows could not be met, and were not excused.** They keep
+ *      their adopted bound as a claim marked UNMET in §5.27, and CI enforces a
+ *      `REGRESSION_FLOORS` entry pinned at what the bed measures. A floor is not
+ *      a bound: it says "no worse than this", it cannot be satisfied by moving
+ *      it, and a cell that improves past its bound passes. W9 owns removing
+ *      them. See claims §5.26 for the one mechanism behind all thirty-three.
  */
 
 import { readFileSync } from "node:fs";
@@ -475,12 +492,20 @@ const GATED_PROFILES: readonly GatedProfile[] = [
  *
  * They have a split now — W1's extension gave every provisional profile two
  * validation and two holdout scenes, which is what promoted the two
- * accessibility profiles into `GATED_PROFILES` above. The dark pair is held back
- * for a different reason: its cross-tier figures are under active investigation
- * after the settled re-baseline, and a table set from numbers that are about to
- * be re-measured would be adopted twice. Their proposed tables are in W1's G3
- * measurement report, ready to adopt once the re-measure lands (wave Decision
- * Log 11).
+ * accessibility profiles into `GATED_PROFILES` above.
+ *
+ * **Current status (2026-09-01): the re-measure has LANDED, and adoption is
+ * prepared but not taken.** The reason this comment used to give — that the dark
+ * pair's figures were mid-investigation and a table set from them would be
+ * adopted twice — expired when the frozen active bed landed. Both profiles are
+ * measured on it, on both tiers, across calibration, validation and holdout.
+ * Their would-be tables are computed row by row against that bed and proposed in
+ * claims §5.28, in the same form every adoption in this wave was proposed.
+ *
+ * What is missing is only the gate. Adopting a table is the user's call at the
+ * release, not the cascade's, so the pair stays here until that call is made —
+ * held back by a decision that has not been asked for yet rather than by a
+ * measurement that has not been taken.
  *
  * They are not unmeasured. Both are in the matrix on both tiers, and their
  * coherence axis is asserted PRESENT below — measured, not gated.
@@ -493,21 +518,25 @@ const UNGATED_PROFILES = [
 /**
  * The whole matrix, and how it partitions — asserted per profile rather than as
  * a bare total, so a profile going missing cannot be absorbed by another's cells
- * arriving. Six native profiles × two web tiers, on the settled bed.
+ * arriving. Six native profiles × two web tiers, on the frozen active bed.
  *
- * **The bed the counts are over (2026-08-30).** `scenes.json` declares 37 scenes
- * and the harness captured 121 native fixtures, but only 25 scenes reach this
- * matrix. The difference is W3's 12 tinted scenes, and they are absent for a
- * reason `cli/compare.ts` derives rather than remembers: that capture session
- * dropped the author tint's COLOUR, which its own bytes prove — scenes declaring
- * `systemOrange` and `systemBlue` over one backdrop came back byte-identical.
- * `colourlessTintEvidence` finds that and skips the tint axis on every profile,
- * so the counts here are also the assertion that no untinted material got filed
- * under a tinted scene id. A re-captured bed admits the tinted cells again and
- * these numbers move with it.
+ * **The bed the counts are over (2026-09-01): the FROZEN ACTIVE bed.**
  *
- * What DID arrive is W7's `mid-dark-solid__capsule-button__rest`, in the four
- * standard profiles — one cell per profile per tier, the +2 on each count below.
+ * The tinted scenes are HERE. The retired inactive bed carried none of them —
+ * that capture session had dropped the author tint's COLOUR, which its own bytes
+ * proved when scenes declaring `systemOrange` and `systemBlue` over one backdrop
+ * came back byte-identical, and `cli/compare.ts` skipped the axis on every
+ * profile rather than filing untinted material under a tinted scene id. The
+ * re-captured bed carries the colour, `colourlessTintEvidence` no longer fires,
+ * and W3's twelve tinted scenes are admitted and gated. That is most of the
+ * growth from 176 cells to 230.
+ *
+ * The tinted cells gate under the general light-standard tables rather than under
+ * tint tables of their own — a stricter outcome than §5.13 proposed, recorded
+ * there — and ten of the floored rows in §5.27 are tinted cells.
+ *
+ * Also here is W7's `mid-dark-solid__capsule-button__rest`, in the four standard
+ * profiles, one cell per profile per tier.
  */
 const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-26.5-1x-dark-standard": 26,

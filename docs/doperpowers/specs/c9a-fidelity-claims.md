@@ -623,13 +623,23 @@ prevent it. On the perceptual axis, holdout is the binding case.
 
 | axis | metric | proposed | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.82 | 0.8489 | 0.9620 |
-| shape | contour distance mean | ≤ 2.5 px | 1.9336 | 0.5450 |
-| shape | contour distance p95 | ≤ 5.0 px | 4.0000 | 2.8284 |
-| perceptual | SSIM mean | ≥ 0.88 · **UNMET ×3 (§5.27)** | 0.9046 | 0.9026 |
-| perceptual | OKLab ΔE mean | ≤ 0.07 · **UNMET ×1 (§5.27)** | 0.0533 | 0.0548 |
-| perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1070 | 0.1337 |
-| perceptual | edge-weighted mean | ≤ 0.11 | 0.0573 | 0.0923 |
+| shape | silhouette IoU | ≥ 0.82 | 0.9700 | 0.9787 |
+| shape | contour distance mean | ≤ 2.50 px | 0.3348 | 0.3337 |
+| shape | contour distance p95 | ≤ 5.00 px | 1.0000 | 1.4142 |
+| perceptual | SSIM mean | ≥ 0.88 · **UNMET ×3 (§5.27)** | 0.8647 | 0.8305 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 · **UNMET ×1 (§5.27)** | 0.0329 | 0.0760 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1726 | 0.1909 |
+| perceptual | edge-weighted mean | ≤ 0.11 | 0.0337 | 0.0682 |
+
+> **Re-measured on the FROZEN ACTIVE bed (2026-09-01).** Every bound and every
+> observation column in this section and in §5.1 is now what
+> `packages/calibration/test/adopted-thresholds.test.ts` enforces against
+> `results/matrix.json`, so the file's own doctrine holds again: a reviewer can
+> hold that file beside this table and diff the two by eye. Amended rows cite the
+> section that adopted them; rows the frozen bed cannot meet are marked UNMET
+> with their per-cell floors in §5.27. The figures below are the frozen bed's,
+> not the retired inactive bed's, and they moved substantially — the retired
+> bed's numbers are preserved in `results/2026-08-30-inactive-bed-matrix.json`.
 
 *The observation columns above were re-measured on the **settled** reference bed
 (2026-08-30). The v1 bed's stability check spanned milliseconds while Apple's
@@ -690,13 +700,13 @@ shadow's removal made meaningful.
 
 | axis | metric | proposed | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.85 | 0.8987 | 0.9368 |
-| shape | contour distance mean | ≤ 2.0 px | 1.2456 | 1.1081 |
-| shape | contour distance p95 | ≤ 4.0 px | 2.8284 | 2.2361 |
-| perceptual | SSIM mean | ≥ 0.90 · **UNMET ×4 (§5.27)** | 0.9036 | 0.9205 |
-| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0535 | 0.0560 |
-| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0124 | 0.0312 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 · **UNMET ×4 (§5.27)** | 0.893 … 1.080 | 0.844 … 1.040 |
+| shape | silhouette IoU | ≥ 0.85 | 0.9622 | 0.9653 |
+| shape | contour distance mean | ≤ 2.00 px | 0.5807 | 0.6668 |
+| shape | contour distance p95 | ≤ 7.00 px · **amended §5.15** | 5.0000 | 5.0000 |
+| perceptual | SSIM mean | ≥ 0.90 · **UNMET ×4 (§5.27)** | 0.7950 | 0.6883 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0422 | 0.0719 |
+| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0258 | 0.0403 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 · **UNMET ×4 (§5.27)** | 0.890 … 1.635 | 0.796 … 1.265 |
 
 The shape rows carry the texture tier's own well-conditioned-cell predicate
 unchanged (`silhouetteAreaNative ≥ 0.95 ×` the declared component area), for the
@@ -745,25 +755,25 @@ beside the 1× tables, which are unchanged in every digit.
 
 | axis | metric | adopted | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.85 | 0.8768 | 0.9596 |
-| shape | contour distance mean | ≤ 5.0 device px | 3.7548 | 1.1849 |
-| shape | contour distance p95 | ≤ 10.0 device px | 8.0000 | 5.6569 |
-| perceptual | SSIM mean | ≥ 0.93 · **UNMET ×4 (§5.27)** | 0.9582 | 0.9593 |
-| perceptual | OKLab ΔE mean | ≤ 0.07 · **UNMET ×1 (§5.27)** | 0.0533 | 0.0546 |
-| perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1070 | 0.1333 |
-| perceptual | edge-weighted mean | ≤ 0.12 | 0.0537 | 0.1002 |
+| shape | silhouette IoU | ≥ 0.85 | 0.9519 | 0.9784 |
+| shape | contour distance mean | ≤ 5.00 device px | 0.4677 | 0.6411 |
+| shape | contour distance p95 | ≤ 10.0 device px | 3.0000 | 3.0325 |
+| perceptual | SSIM mean | ≥ 0.93 · **UNMET ×4 (§5.27)** | 0.8897 | 0.8762 |
+| perceptual | OKLab ΔE mean | ≤ 0.07 · **UNMET ×1 (§5.27)** | 0.0331 | 0.0760 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1726 | 0.1909 |
+| perceptual | edge-weighted mean | ≤ 0.12 | 0.0340 | 0.0682 |
 
 #### Dom tier, `apple-macos-26.5-2x-light-standard`, Chromium, `renderer: css`
 
 | axis | metric | adopted | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- |
-| shape | silhouette IoU | ≥ 0.85 | 0.8978 | 0.9363 |
-| shape | contour distance mean | ≤ 4.0 device px | 2.3744 | 2.2484 |
-| shape | contour distance p95 | ≤ 8.0 device px | 5.3852 | 5.0000 |
-| perceptual | SSIM mean | ≥ 0.92 · **UNMET ×4 (§5.27)** | 0.9679 | 0.9509 |
-| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0534 | 0.0559 |
-| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0128 | 0.0313 |
-| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 · **UNMET ×4 (§5.27)** | 0.895 … 1.080 | 0.845 … 1.041 |
+| shape | silhouette IoU | ≥ 0.85 | 0.9643 | 0.9674 |
+| shape | contour distance mean | ≤ 4.00 device px | 1.134 | 1.2546 |
+| shape | contour distance p95 | ≤ 10.0 device px · **amended §5.26** | 9.4083 | 10.0000 |
+| perceptual | SSIM mean | ≥ 0.92 · **UNMET ×4 (§5.27)** | 0.8480 | 0.7990 |
+| perceptual | OKLab ΔE mean | ≤ 0.08 | 0.0412 | 0.0719 |
+| coherence | cross-tier OKLab ΔE mean | ≤ 0.05 | 0.0259 | 0.0411 |
+| coherence | interior level, GPU ÷ CSS | 0.80 … 1.25 · **UNMET ×4 (§5.27)** | 0.891 … 1.638 | 0.797 … 1.266 |
 
 The shape rows carry the same well-conditioned-cell predicate, with the declared
 area scaled by the square of the backing scale — `scenes.json` declares
@@ -835,6 +845,24 @@ Four properties of that axis are worth stating, because each is a decision:
   the gate has no other source for it is not evidence.
 
 ### 5.3 What is still not gated, and the one exclusion that moved
+
+> **CORRECTED 2026-09-01.** The paragraph below was true when written and is not
+> true now. **Every one of the six profiles carries validation and holdout scenes
+> on the frozen bed**, per tier: `1x-dark-standard` and `2x-dark-standard` at
+> 18 calibration / 2 validation / 6 holdout, reduced transparency at 10 / 2 / 4,
+> increased contrast at 12 / 2 / 4, and the two light-standard profiles at
+> 40 / 12 / 20. W1's split extension is what changed it, and it is exactly the
+> "approved close" the original paragraph named — the split was given rather than
+> the doctrine relaxed.
+>
+> The consequence followed for two of the four: **both accessibility profiles are
+> now gated**, their tables adopted 2026-08-30 in §5.6. The dark pair is still
+> ungated, but no longer for the reason below — the holdout column exists, so
+> what is missing is a gate decision rather than a measurement. Their would-be
+> tables are computed row by row against the frozen bed and PROPOSED in §5.28.
+>
+> The original reasoning is kept intact below, because a bound's history is part
+> of the claim.
 
 **Four profiles are measured and not gated.** `1x-dark-standard`,
 `2x-dark-standard`, `1x-light-reduced-transparency` and
@@ -979,9 +1007,9 @@ proposed and enforced beside the light-standard tables.
 | axis | metric | texture | dom |
 | --- | --- | --- | --- |
 | shape | silhouette IoU | ≥ 0.87 | ≥ 0.89 |
-| shape | contour distance mean | ≤ 1.5 px | ≤ 1.5 px |
-| shape | contour distance p95 | ≤ 3.5 px | ≤ 3.5 px |
-| perceptual | SSIM mean | ≥ 0.96 | ≥ 0.91 |
+| shape | contour distance mean | ≤ 1.50 px | ≤ 1.50 px |
+| shape | contour distance p95 | ≤ 3.50 px | ≤ 5.00 px · **amended §5.26** |
+| perceptual | SSIM mean | ≥ 0.95 · **amended §5.26** | ≥ 0.91 |
 | perceptual | OKLab ΔE mean | ≤ 0.04 | ≤ 0.04 |
 | perceptual | OKLab ΔE p95 | ≤ 0.08 | ≤ 0.07 |
 | perceptual | edge-weighted mean | ≤ 0.10 | ≤ 0.11 |
@@ -991,17 +1019,34 @@ ambition: the reduce-transparency material is nearly opaque on both sides, so
 there is very little backdrop left for the two to disagree about — worst holdout
 ΔE mean 0.0300 against light-standard's 0.0548.
 
+Two of its rows were **amended post-read** against the frozen active bed, under
+Decision Log 18 ruling 2 and recorded in §5.26: texture SSIM 0.96 → 0.95, driven
+by a validation cell reading 0.95948, and dom contour p95 3.5 → 5.0, driven by a
+HOLDOUT cell reading exactly 5.0. Neither is a pre-registered bound and neither
+was fitted to — both were read once off a bed frozen before they were measured,
+and the bound then moved to the reading. Every other row here is unchanged, and
+this profile carries **no** floored rows: it meets everything it now claims.
+
 #### `apple-macos-26.5-1x-light-increased-contrast`
 
 | axis | metric | texture | dom |
 | --- | --- | --- | --- |
 | shape | silhouette IoU | ≥ 0.85 | ≥ 0.80 |
-| shape | contour distance mean | ≤ 1.8 px | ≤ 2.6 px |
-| shape | contour distance p95 | ≤ 3.2 px | ≤ 5.5 px |
+| shape | contour distance mean | ≤ 1.80 px | ≤ 2.60 px |
+| shape | contour distance p95 | ≤ 11.50 px · **amended §5.15** | ≤ 5.50 px |
 | perceptual | SSIM mean | ≥ 0.86 | ≥ 0.83 |
 | perceptual | OKLab ΔE mean | ≤ 0.06 | ≤ 0.07 |
 | perceptual | OKLab ΔE p95 | ≤ 0.10 | ≤ 0.09 |
 | perceptual | edge-weighted mean | ≤ 0.17 | ≤ 0.18 |
+
+Its texture contour p95 was **amended 3.2 → 11.5** by §5.15's declared round-two
+fit, driven by `photo__capsule-button__rest-tint-orange` at 8.20 with a mean of
+1.159 and an IoU of 0.9768. §5.15 flagged that row as the weakest in this document
+and it stays flagged: a gate that would rather drop the row than widen it
+nearly four-fold has a good argument. It survives because the driving cell is
+single-bodied and clears the area floor — an outline difference, not a displaced
+surface — and because this profile, like reduced transparency, carries **no**
+floored rows.
 
 The loosest, for two measured reasons. Its reference is the **coupled** state —
 macOS force-enables reduce transparency with increase contrast, so no
@@ -2656,11 +2701,39 @@ reached from the other direction.
 no adopted bound, so these are new tables rather than an extension of the
 untinted ones. Bounded by the holdout column, with §5's own margin.
 
+> **SUPERSEDED 2026-09-01 — by a stricter outcome, not by a looser one
+> (Decision Log 22, parent ruling at recomposition).** These tables were never
+> adopted and will not be. The tinted cells landed in the enforced suite gated by
+> the **general light-standard tables**, which are tighter than every row proposed
+> below — texture SSIM ≥ 0.88 against the ≥ 0.93 here is the only row where the
+> proposal was stricter, and the tinted cells clear the general bound at 0.8647
+> only by being floored, not by a separate table. Ten tinted rows are floored as
+> UNMET in §5.27.
+>
+> The wave therefore ships **no tint-specific gate**. That is deliberate: a
+> separate table for tinted cells would have set a second, looser standard for the
+> feature this wave added, which is the shape of certification Decision Log 11 and
+> Decision Log 16 both refused. Holding tinted cells to the untinted bounds and
+> recording where they miss is the stricter reading, and it is what shipped.
+>
+> **One mechanism below is now half of a larger one, and is worth carrying
+> forward.** The paragraph on the tinted coherence ceiling attributes the 1.6493
+> interior ratio to sRGB gamut clipping in `cssTintColor`, with isolation evidence
+> that it is saturation and not opacity. §5.26 later measured the same rows and
+> attributed them to backdrop tone sampled without regard to surface size. Neither
+> reading is wrong and **W9 should treat them as one problem**: the tone map
+> chooses the tint colour, and how saturated that choice is decides how hard the
+> CSS tier clips it. That predicts exactly the ranking §5.26 measured — checkerboard
+> 1.635, `hc-text` 1.265, `light-solid` 1.243, photo 1.056, untinted solid 1.001 —
+> because a bimodal backdrop drives the tone map to the most saturated choice.
+> §5.26's charter says the mechanism is in how the backdrop is sampled; this
+> section says the damage is done at the gamut boundary. Both are load-bearing.
+
 | axis | metric | texture, proposed | dom, proposed | worst cal+val | worst holdout |
 | --- | --- | --- | --- | --- | --- |
 | shape | silhouette IoU | ≥ 0.88 | ≥ 0.92 | 0.9165 / 0.9677 | 0.9358 / 0.9659 |
-| shape | contour distance mean | ≤ 1.5 px | ≤ 1.2 px | 0.5577 / 0.4207 | 0.8255 / 0.5715 |
-| shape | contour distance p95 | ≤ 4.0 px | ≤ 3.5 px | 2.8284 / 2.8284 | 3.0000 / 2.0000 |
+| shape | contour distance mean | ≤ 1.50 px | ≤ 1.2 px | 0.5577 / 0.4207 | 0.8255 / 0.5715 |
+| shape | contour distance p95 | ≤ 4.00 px | ≤ 3.5 px | 2.8284 / 2.8284 | 3.0000 / 2.0000 |
 | perceptual | SSIM mean | ≥ 0.93 | ≥ 0.89 | 0.9499 / 0.9503 | 0.9732 / 0.9150 |
 | perceptual | OKLab ΔE mean | ≤ 0.10 | ≤ 0.10 | 0.0274 / 0.0241 | 0.0811 / 0.0766 |
 | perceptual | OKLab ΔE p95 | ≤ 0.20 | ≤ 0.18 | 0.1736 / 0.1264 | 0.1771 / 0.1567 |
@@ -2702,7 +2775,11 @@ until it lands.**
 ### 5.14 The adoption round: the span coda is void, and the gate cannot flip yet (2026-08-31)
 
 Decision Log 16 adopted §5.13 in full, chartered a span coda to close the one
-falsified constant, and granted W7's mid-dark miss a documented exceedance. This
+falsified constant, and granted W7's mid-dark miss a documented exceedance —
+*which was superseded before it was ever exercised: the cell ships **floored**
+rather than excused, enforced at 0.1785 against an unmoved ≤ 0.17 claim listed
+UNMET in §5.27, because Decision Log 22's floors replaced the exceedance
+mechanism wholesale.* This
 section is what executing that found. **The instrument work landed; the suite
 flip did not**, and the reason is a correction to §5.13's own diagnosis rather
 than anything the coda measured — the coda could not run as designed.
@@ -4663,6 +4740,95 @@ row where the shipped material is measurably not matching Apple's, and eight of
 them are on holdout cells. The honest summary of this landing is that the gate
 stopped being a statement about quality and became, on these thirty-three rows,
 a statement about direction.
+
+### 5.28 PROPOSED — the dark pair's tables, computed against the frozen bed (2026-09-01)
+
+The last two ungated profiles. §5.3's reason for holding them back — no validation
+or holdout column to bound against — **expired**: W1's split extension gave
+`1x-dark-standard` and `2x-dark-standard` 18 calibration, 2 validation and 6
+holdout cells per tier, and the frozen active bed measures all of them on both
+tiers.
+
+So this is a proposal in the same form every adoption in this wave took, and it is
+**not** applied to the enforced suite. Adopting a table is the gate's call at the
+release; the cascade's job is to compute it honestly and hand it over.
+
+**How the bounds were derived.** §5.15's declared margin rule, unchanged: for a
+`≤` row, the smallest half-step reaching 1.4× the worst measurement (1% step for
+the unitless ones); for a `≥` row, 0.02 below the worst, floored to the
+hundredth. The worst is taken over **both** columns rather than holdout alone —
+holdout still *sets* the bound's honesty, but a table a calibration cell violates
+is not enforceable, and one row here needs that (`2x-dark` dom contour p95 reads
+2.0 on calibration against 1.0 on holdout).
+
+#### `apple-macos-26.5-1x-dark-standard`
+
+| axis | metric | texture, proposed | dom, proposed | texture cv / ho | dom cv / ho |
+| --- | --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.93 | ≥ 0.93 | 0.9807 / 0.9523 | 0.9821 / 0.9523 |
+| shape | contour distance mean | ≤ 0.5 px | ≤ 0.5 px | 0.3366 / 0.3024 | 0.3115 / 0.2370 |
+| shape | contour distance p95 | ≤ 1.5 px | ≤ 1.5 px | 1.0000 / 1.0000 | 1.0000 / 1.0000 |
+| perceptual | SSIM mean | ≥ 0.87 | ≥ 0.83 | 0.9311 / 0.8976 | 0.9069 / 0.8597 |
+| perceptual | OKLab ΔE mean | ≤ 0.09 | ≤ 0.09 | 0.0286 / 0.0595 | 0.0308 / 0.0639 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 | ≤ 0.18 | 0.1161 / 0.1156 | 0.1195 / 0.1283 |
+| perceptual | edge-weighted mean | ≤ 0.04 | ≤ 0.05 | 0.0102 / 0.0244 | 0.0163 / 0.0305 |
+
+#### `apple-macos-26.5-2x-dark-standard`
+
+| axis | metric | texture, proposed | dom, proposed | texture cv / ho | dom cv / ho |
+| --- | --- | --- | --- | --- | --- |
+| shape | silhouette IoU | ≥ 0.93 | ≥ 0.93 | 0.9922 / 0.9509 | 0.9856 / 0.9507 |
+| shape | contour distance mean | ≤ 1.0 device px | ≤ 0.5 device px | 0.2948 / 0.4185 | 0.2630 / 0.3321 |
+| shape | contour distance p95 | ≤ 1.5 device px | ≤ 3.0 device px | 1.0000 / 1.0000 | 2.0000 / 1.0000 |
+| perceptual | SSIM mean | ≥ 0.88 | ≥ 0.85 | 0.9446 / 0.9079 | 0.9280 / 0.8795 |
+| perceptual | OKLab ΔE mean | ≤ 0.09 | ≤ 0.09 | 0.0287 / 0.0598 | 0.0308 / 0.0642 |
+| perceptual | OKLab ΔE p95 | ≤ 0.17 | ≤ 0.19 | 0.1161 / 0.1168 | 0.1195 / 0.1295 |
+| perceptual | edge-weighted mean | ≤ 0.04 | ≤ 0.05 | 0.0110 / 0.0248 | 0.0160 / 0.0301 |
+
+**Every one of the 28 rows passes**, on both columns, with no floor and no
+exceedance. That is worth stating plainly because it is unusual in this document:
+the dark pair is the *cleanest* pair of profiles the frozen bed measures. The
+mechanism §5.26 charters to W9 needs a bright, high-spatial-frequency backdrop to
+bite, and the dark bed's backdrops do not supply one.
+
+#### The coherence rows, and the one row NOT proposed
+
+Cross-tier ΔE is comfortable and **is** proposed at the light profiles' own
+bound: worst 0.0155 at 1× and 0.0159 at 2×, against ≤ 0.05.
+
+The **interior-level ratio is not proposed**, and the reason is an instrument one
+rather than a fidelity one. Both profiles are inside the 0.80…1.25 band on every
+cell but one, and that cell is the same on both: `dark-solid__rrect-md__rest`,
+reading 1.589 at 1× and 1.855 at 2×.
+
+It is also the cell the conditioning predicate **already excludes on both arms**,
+recovering 0.025 of its declared region at 1× and 0.020 at 2× — dark glass over a
+dark solid under a dark scheme, which the extractor cannot separate at all. The
+interior level is therefore being sampled over roughly two percent of the surface,
+and a ratio of two such samples is measuring the instrument.
+
+The clean fix is available and is deliberately left to the gate: **extend the
+conditioning predicate to the coherence rows**, which currently carry it only on
+the shape rows. That is a new instrument rule, and by this document's standing
+practice a new instrument rule belongs to the gate that adopts it, not to the
+pass that notices it is needed. With that extension both profiles would pass the
+interior-ratio row unmodified.
+
+#### What the gate is being asked
+
+One question, with three defensible answers:
+
+1. **Adopt all 30 rows** (28 fidelity + cross-tier ΔE ×2) and leave the
+   interior-ratio row ungated, as §5.13 already left it for tinted cells.
+2. **Adopt all 30 and the predicate extension**, gating the interior ratio too.
+   Strictly more coverage; costs one new instrument rule.
+3. **Adopt nothing yet.** Defensible only if the dark bed is expected to move,
+   and nothing measured suggests it is.
+
+The cascade's recommendation is **(2)**, because the predicate extension is
+correcting an inconsistency rather than adding a licence: the same cell is already
+excluded from the shape rows for the same measured reason, and a gate that trusts
+a two-percent sample on one axis while refusing it on another is not one rule.
 
 ## 6. What could not be measured, and why
 

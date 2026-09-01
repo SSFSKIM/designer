@@ -178,9 +178,9 @@ not before.
 
 ---
 
-## The renderer's eight GPU goldens are stale, and have been since W2
+## ~~The renderer's eight GPU goldens are stale, and have been since W2~~ — CLOSED 2026-09-01
 
-*Found 2026-08-30, during the deferred API round (W5).*
+*Found 2026-08-30, during the deferred API round (W5). Closed by the flip's landing (`263f004`).*
 
 `packages/renderer-webgpu`'s golden suite fails 16 of 22 on a clean tree at
 `b6dcbac` — both `e2e/golden/scenes.spec.ts` (each scene against its committed
@@ -231,6 +231,35 @@ backdrop-tone constants and two outer-shadow amplitudes as well, so a two-consta
 patch no longer isolates anything. The spec needs its patch widened to the full
 refitted set — or its claim restated as "the delta is exactly the constants this
 profile names", which is the version that survives the next retune too.
+
+**CLOSED 2026-09-01, in `263f004`, riding the adoption exactly as the entry above
+asked.** Decision Log 22 landed the flip; the goldens were re-recorded in the same
+commit that adopted the material, so the bed never asserted an unapproved claim.
+Eight moved; `highlight-press-glow` did not, and its hash is still byte-identical
+to the 2026-08-25 original through C9a, W8 and this wave — which is what makes the
+other eight legible as facets rather than as drift.
+
+The structural note above was right and the resolution went further than either
+option it offered. Widening the patch to the full refitted set would not have
+worked: the wave also moved **shader and pass code** (`passes.ts`, `renderer.ts`,
+`wgsl/optics.ts`, `wgsl/highlight.ts`), and no value injected through the material
+profile seam can reconstruct a renderer whose shaders differ. So the
+reconstruct-the-old-renderer reading was retired rather than patched, and
+`isolation.spec.ts` is now a **pinned-bytes regression guard over a named
+configuration**: these are the bytes today's renderer produces from one explicitly
+written patch, and anything that moves them — constant, shader, pass or geometry —
+fails and must be attributed before the table is touched.
+
+`sizeOcclusionGain` was deliberately left OUT of that patch. Naming it would have
+made the hashes reproduce across the wave, and would have bought that by blinding
+the guard to the very constant the wave had just refitted. Coverage beat
+continuity.
+
+**What is NOT closed** is the second half this entry named: a suite CI does not
+run is a suite nobody can trust. `pnpm run ci` still runs no Playwright, and
+`.github/workflows/ci.yml` still runs only `platform-web`'s suite, so the bed can
+go stale again silently. That remains open under the react-specs entry above and
+is the reason this debt was found by a person rather than by a build.
 
 ---
 
