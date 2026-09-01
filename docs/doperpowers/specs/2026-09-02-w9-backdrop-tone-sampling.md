@@ -260,6 +260,20 @@ it — no HID input, idle guard unaffected.
 
 ## Revision Notes
 
+- 2026-09-02 (the refit falsified the mix form): the declared 64-point
+  W7 sweep completed and its falsification condition FIRED — no grid
+  point brings solids and structure inside 0.05 together (claims §5.33).
+  The endpoint diagnostic behind it is stronger than the clause
+  anticipated: six cells need strengths outside [0, 1] entirely, so the
+  mix's TARGET (collapse onto the backdrop tone) is wrong, not just the
+  smoothstep in front of it — the reference adapts toward the material's
+  own light/dark appearance, which coincides with the backdrop only on
+  dark-solid, the background W7 was fitted on. The candidate the clause
+  named — interior tone as the anchored response curve of the encoded
+  mean — evaluates at RMS 0.0337 on the same bed with no fitting beyond
+  the probe's anchors. Decision Log 3 (the form round) is OPEN; the
+  decision is the user's per this spec's phase-gating rule.
+
 - 2026-09-02 (the probe reported): Phase 1 COMPLETE the same day it was
   chartered — seven attested runs, verdicts under the declared rules,
   claims §5.31. The winning model is one nobody proposed at open in this

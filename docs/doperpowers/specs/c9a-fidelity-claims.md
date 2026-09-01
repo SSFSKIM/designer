@@ -5227,6 +5227,115 @@ the probe's own measured response curves as the candidate shape. The
 sweep then was not wasted: its best point is the honest measurement of
 what the current form can do.
 
+### 5.33 The refit sweep, and the falsification of the mix form (2026-09-02)
+
+The declared 64-point sweep ran to completion on the 32 measurable probe
+calibration cells. Best point `Low=0.05 High=0.3 SizeBias=0.25` at
+interior objective 0.10633 (spread across the grid 0.106…0.350, 3.29×;
+the runner-up `SizeBias=0.4` within 0.0005 — the optimum is a plateau,
+not a peak). **The falsification condition fired: zero of the 64 points
+bring the solid and structured calibration cells inside 0.05
+interior-mean error together.** At the best point the worst solid sits
+at 0.0698, 14 of 23 structured cells miss (worst 0.2568,
+`photo__rrect-sm`), and the misses run in BOTH directions —
+checkerboard capsules render too bright by ~0.10 while photo and lc16
+render too dark by up to 0.26. No monotone strength curve over one
+argument fixes misses of opposite sign at neighbouring inputs. A
+bookkeeping caution for anyone re-reading the ranking: the per-point
+measured-cell count drifts (26–31 of 32; contour extraction fails where
+a candidate's interior hugs its backdrop), so points are not scored on
+identical cell sets — immaterial to the falsification verdict, which no
+point passes on the cells it did measure.
+
+#### The endpoint diagnostic: the mix's target is wrong, not its curve
+
+Two diagnostic captures with degenerate constants — strength pinned to 0
+(`Low=0.0001 High=0.0002 Bias=0`) and to 1 (`Low=0.98 High=0.99
+Bias=0`) — bracket the mix's reachable span per cell. Because compare's
+contour step fails exactly on the cells that matter most (dark solids at
+pinned strength), all three quantities were re-measured under ONE
+interior definition: the probe's own native-mask `interiorLevel`
+(§5.30's silhouette from the first run, settled native level by
+majority byte-state). Required strength per cell is then
+`(native − web₀) / (web₁ − web₀)`:
+
+| encoded input | cell | web₀ (s=0) | web₁ (s=1) | reference | s required |
+|---|---|---|---|---|---|
+| 0.110 | dark-solid sm | 0.4744 | 0.0117 | 0.0126 | **0.998** |
+| 0.110 | dark-solid md | 0.4933 | 0.0117 | 0.4844 | 0.018 |
+| 0.110 | dark-solid lg | 0.4922 | 0.0117 | 0.5061 | −0.029 |
+| 0.271 | mid-dark sm | 0.4994 | 0.0595 | 0.4561 | 0.098 |
+| 0.271 | mid-dark lg | 0.5163 | 0.0595 | 0.5862 | **−0.153** |
+| 0.443 | photo sm | 0.5584 | 0.1516 | 0.5559 | 0.006 |
+| 0.500 | checker-32 sm | 0.7321 | 0.2160 | 0.6327 | 0.193 |
+| 0.500 | checker-32 lg | 0.7434 | 0.2160 | 0.7000 | 0.082 |
+| 0.623 | hc-text-7 sm | 0.7852 | 0.5207 | 0.6847 | 0.380 |
+| 0.698 | checker-lc16 sm | 0.7365 | 0.4448 | 0.8109 | **−0.255** |
+| 0.950 | light-solid sm | 0.9432 | 0.8902 | 0.9713 | **−0.531** |
+| 0.950 | light-solid md | 0.9408 | 0.8907 | 0.9373 | 0.070 |
+
+(Full 32-cell table in the diagnostic artefacts; the excerpt carries
+every structural fact.) Three of them:
+
+1. **Six cells need strength outside [0, 1].** On lc16, mid-dark md/lg,
+   photo-md and light-solid-sm the reference settles BRIGHTER than the
+   strength-0 render — outside the mix's entire reachable span. W7's
+   full-strength target is the backdrop tone (`mix(backdrop, tint, α)`
+   collapses onto the backdrop); the reference's light-solid-sm settles
+   at 0.9713, above the white backdrop itself (0.891 linear). The
+   adapted appearance is the material's own light-state appearance —
+   the same attractor the probe saw as the minority state in two-state
+   cells — which merely COINCIDES with the backdrop on dark-solid, the
+   one background W7 was originally fitted on. The target is wrong, not
+   the strength curve in front of it.
+2. **The size response on dark-solid is near-binary** (sm collapses at
+   0.998 while md/lg sit at ≈0) where checkerboards show a gentle
+   0.19→0.08 decay — no single curve over one biased argument produces
+   both.
+3. **At equal encoded input the reference's settled interior is
+   structure-invariant.** lc16 (bimodal checker, linear mean 0.49) and
+   hc-text (text rows, linear mean 0.695) share encoded mean ≈0.69 and
+   settle at the same interior ≈0.81 across components — the interior
+   tone is a FUNCTION of the encoded mean, which is §5.31's P3 stated
+   as a rendering law.
+
+#### The candidate form, evaluated on this bed
+
+The response-curve law the falsification clause named: interior tone
+target = `R_size(encodedMean)`, the monotone (Fritsch–Carlson) curve
+through the three solid anchors' settled levels per component, log-area
+interpolation between anchored components — evaluated with NO fitting
+beyond the anchors the probe already measured:
+
+- Solids exact by construction (they ARE the anchors). Overall RMS
+  0.0337 against the smoothstep best point's 0.1063.
+- 23 of 30 non-tint cells inside 0.05; the 7 misses concentrate on the
+  smallest footprints over structured backdrops (photo sm +0.073,
+  hc-text-7 sm +0.074, hc-text sm −0.081, hc-text-28 md +0.064,
+  checker-4 sm/capsule +0.054/+0.065, checker-32 capsule +0.051) —
+  second-order footprint-texture effects beyond the mean, the H4
+  territory Decision Log 2 left unmodelled, here larger than the ~0.01
+  the equal-mean pair suggested.
+- One implementation caution measured here, not deferred: the DARK
+  anchor's size dependence is itself a steep knee. Log-area
+  interpolation between rrect anchors would give the 44 px capsule a
+  smeared dark anchor (0.22) where the canonical reference demands full
+  collapse (`dark-solid__capsule-button` byte-identical to its
+  background, §5.27). The anchor-level-versus-size functions must carry
+  that knee; the smoothstep may yet live THERE, in the size axis of an
+  anchor row, where the data actually shows one.
+- The tint-orange capsules need required strengths ≈2.5 under the mix —
+  under the response-curve law the tone target applies to the neutral
+  material's luma and the tint's chroma must ride it; the design of
+  that coupling is part of the form change, and tint coherence rides
+  the same acceptance (W9 charter).
+
+Diagnostic artefacts: endpoint matrices, native-mask level tables, and
+the backdrop-statistics dump live with the job records
+(`w9-endpoint-*.json`, `w9-bg-stats.json`, `w9-refit-matrices/`); the
+64-point ranking is in the sweep log. The decision this evidence feeds
+is the W9 spec's Decision Log 3.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
