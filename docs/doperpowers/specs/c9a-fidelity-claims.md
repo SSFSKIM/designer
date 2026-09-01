@@ -5044,7 +5044,14 @@ before any capture: the canvas does not divide evenly at every pitch —
 200 px holds 3.125 rows of 64 — and the text-rows duty rounds per pitch,
 0.7504 at 7 against 0.7652 at 28. Raster-measured statistics make every
 prediction self-consistent with what the reference was actually shown;
-the equal-mean pair survives the check at 0.5000 vs 0.4997.)
+the equal-mean pair survives the check at 0.5000 vs 0.4997. Measured,
+specifically, UNDER THE INTERIOR MASK — the backdrop behind the surface,
+not the whole canvas: a centred `rrect-sm` at pitch 64 sits entirely
+inside one checker cell, so its effective backdrop is uniform, and the
+footprint histogram degenerates to one level exactly as the material
+would see it. The blur kernel does pull surround from beyond the
+footprint; that is a declared first-order approximation of the input,
+reported with the scores.)
 
 - **P0 — the current model:** `R_c(μ)`.
 - **P1 — map-then-average (H1):** `Σ wᵢ R_c(lᵢ)`.
