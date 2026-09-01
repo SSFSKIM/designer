@@ -258,6 +258,56 @@ it — no HID input, idle guard unaffected.
    under a declared grid), ONE read of the probe holdout, and the
    thirty-three floors as the untouched referee.
 
+3. **The form round (2026-09-02, user-approved as recommended).** The
+   refit sweep falsified the single-smoothstep mix form under §5.32's
+   pre-stated condition, and the endpoint diagnostic (claims §5.33)
+   showed the failure is the TARGET, not the curve: six cells need
+   strengths outside [0, 1] because the reference adapts toward the
+   material's own light/dark appearance, which coincides with the
+   backdrop tone only on dark-solid. Adopted: **the response-curve
+   law** — the interior tone becomes `R_size(encodedMean)`, the
+   monotone (Fritsch–Carlson) curve through the three solid anchors'
+   settled levels, with the anchor levels as functions of size. RMS
+   0.0337 on the probe calibration bed with zero fitting beyond the
+   probe's anchors, against the falsified form's best 0.1063. The
+   two-sided-mix alternative was declined (reconstructs the same curve
+   indirectly with more constants); keep-and-re-pin was declined as a
+   charter breach.
+
+   Implementation shape (binding where stated):
+   - **The mechanism splits in two.** (a) THE TONE SOLVE (new): per
+     pixel, evaluate `R(toneX, sizeK)` and shift the scheme NEUTRAL's
+     luma so the nominal composited interior mean lands on R — nominal
+     mean `M₀ = (1−α)·bgLinear + α·neutralLuma`, solved before the
+     collapse mix and compensating the collapse's own mean pull so the
+     two never double-count. Chroma is untouched; the author tint
+     applies after, per the composition contract's existing order.
+     (b) THE COLLAPSE MIX (unchanged): the existing smoothstep-gated
+     convergence onto the backdrop tone keeps its mechanism and its
+     constants — its validated domain is exactly the near-black knee
+     (byte-identical dark-solid collapse, the near-binary size snap),
+     and on structured backdrops it is already zero. Binding: the
+     response law owns the interior MEAN; the collapse mix owns
+     TEXTURE loss; neither reaches into the other's axis.
+   - **Constants added: the response surface's anchors.** Three anchor
+     inputs (the solid anchors' encoded means, 0.1104/0.2706/0.9505)
+     and per-anchor level rows as functions of sizeK, fitted to the
+     probe's settled levels (sm/md/lg per anchor) plus the canonical
+     capsule collapse evidence on the dark row — the dark row's size
+     dependence is a steep knee and the row fit must carry it (claims
+     §5.33). Named profile constants, both tiers, one document.
+   - **Both tiers, one law.** GPU: in-shader solve (toneX, backdrop
+     linear mean, neutral, α, sizeK are all present or one uniform slot
+     away). CSS: the same formulas on the layer model at its documented
+     per-source granularity.
+   - The known remainder (~0.05–0.08 on the smallest footprints over
+     structured backdrops) stays unmodelled THIS round; the referee
+     (33 floors) is the arbiter, and a second-order term is a later
+     declared round only if floors demand it. Verification order
+     unchanged: probe-bed re-verify, validation read after the
+     constants land, ONE probe-holdout read at round end, then the
+     frozen-bed referee.
+
 ## Revision Notes
 
 - 2026-09-02 (the refit falsified the mix form): the declared 64-point
