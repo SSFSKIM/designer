@@ -299,20 +299,33 @@ function main(): void {
     copyFileSync(p.from, resolve(FIXTURES, p.profile, `${p.scene}.png`));
     const profile = manifest.profiles?.find((m) => m.profileKey === p.profile);
     if (profile === undefined) continue;
-    const at = profile.fixtures?.findIndex((f) => f.sceneId === p.scene) ?? -1;
-    if (at < 0 || profile.fixtures === undefined) continue;
+    if (profile.fixtures === undefined) continue;
+    const at = profile.fixtures.findIndex((f) => f.sceneId === p.scene);
     const role = roles.get(p.scene);
     if (role === undefined) {
       throw new Error(`${p.profile}/${p.scene}: the scene matrix gives it no role, so it cannot be published.`);
     }
     const entry = { ...p.entry, fixtureSet: role } as { sceneId?: string };
     if (p.entry["fixtureSet"] !== role) rerolled.push(`${p.profile}/${p.scene}: ${String(p.entry["fixtureSet"])} → ${role}`);
-    profile.fixtures[at] = entry;
+    // Appended when the scene is new to this bed. Replacing only what already
+    // existed would copy a new cell's PNG in and leave the manifest silent about
+    // it — a fixture on disk that the record does not describe, which is the one
+    // thing the manifest exists to make impossible.
+    if (at < 0) profile.fixtures.push(entry);
+    else profile.fixtures[at] = entry;
+    profile.fixtures.sort((a, b) => (a.sceneId ?? "").localeCompare(b.sceneId ?? ""));
   }
   // The bed's own provenance. "Unanimous" is a claim about how hard anyone
   // looked, so the run count and what it buys travel with the bytes.
   const settledEntries = publish.filter((p) => p.entry["frequencySettled"] === true);
-  (manifest as unknown as { bedProvenance?: unknown }).bedProvenance = {
+  // Accumulated, not replaced: the bed is materialised one phase at a time
+  // (each phase's runs cover only its own profiles), so a provenance block that
+  // overwrote itself would leave the finished bed claiming to have been built
+  // from whichever phase happened to run last.
+  const provenanceHost = manifest as unknown as { bedProvenance?: unknown[] };
+  const priorProvenance = Array.isArray(provenanceHost.bedProvenance) ? provenanceHost.bedProvenance : [];
+  const thisPhase = {
+    profiles: profiles.slice().sort(),
     runs: runs.length,
     runLabels: runs.map((r) => r.label),
     cellsPublished: publish.length,
@@ -330,6 +343,12 @@ function main(): void {
       atP0_10: Number(confidenceAt(runs.length, 0.1).toFixed(4)),
     },
   };
+  provenanceHost.bedProvenance = [
+    ...priorProvenance.filter(
+      (p) => JSON.stringify((p as { profiles?: unknown }).profiles) !== JSON.stringify(thisPhase.profiles),
+    ),
+    thisPhase,
+  ];
   const split = (JSON.parse(readFileSync(SCENES, "utf8")) as { split?: Record<string, unknown> }).split ?? {};
   const declaration = manifest as unknown as { split?: Record<string, unknown> };
   if (declaration.split !== undefined) {
