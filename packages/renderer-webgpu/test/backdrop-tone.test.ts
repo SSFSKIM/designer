@@ -116,11 +116,18 @@ describe("the adaptation curve", () => {
     // range, and no neighbouring pair may move by more than the smoothstep's own
     // maximum slope allows.
     const steps = 2000;
+    // The bound is the smoothstep's own maximum slope over the profile's band,
+    // not a literal: the W9 re-scoped band (claims §5.33) is narrow by design,
+    // so the curve is steep, and what continuity forbids is a JUMP, not a
+    // steep-but-smooth transition.
+    const { backdropToneLow, backdropToneHigh, backdropToneMax } = DEFAULT_MATERIAL_PROFILE;
+    const bound =
+      ((1.5 * backdropToneMax) / Math.max(backdropToneHigh - backdropToneLow, 1e-6) / steps) * 1.2;
     for (const thickness of [0, CAPSULE, 0.5, RRECT_MD]) {
       let previous = backdropToneAdaptation(0, thickness);
       for (let i = 1; i <= steps; i += 1) {
         const value = backdropToneAdaptation(i / steps, thickness);
-        expect(Math.abs(value - previous)).toBeLessThan(0.01);
+        expect(Math.abs(value - previous)).toBeLessThan(bound);
         previous = value;
       }
     }
@@ -174,16 +181,16 @@ describe("the size gate and the size law's band", () => {
      * set from the reference's transmission — two independent measurements, one
      * band, and the band survived a refit of every constant around it.
      *
-     * The wide arm's figure moved with the size bias (0.09 → 0.13): the 96 px
-     * surface reads 0.2047 at a band of 128 against exactly 0 at the fitted band,
-     * where before it read over 0.4 against 0.241. The discriminator is the same
-     * and it is now a cleaner one — a band that is too wide turns the axis on for
-     * a surface the reference says it is off for.
+     * The wide arm's figure moved with the size bias twice (0.09 → 0.13, then
+     * the W9 re-scope to 0.05 with the narrow collapse band, claims §5.33): the
+     * magnitudes shrank with the band, but the discriminator is unchanged — a
+     * band that is too wide turns the axis on for a surface the reference says
+     * it is off for, and the fitted band leaves the 96 px surface at exactly 0.
      */
     const narrow = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { sizeSpanMax: 64 });
     const wide = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { sizeSpanMax: 128 });
     expect(backdropToneAdaptation(0.0117, sizeThickness(44, narrow), narrow)).toBeLessThan(0.95);
-    expect(backdropToneAdaptation(0.0117, sizeThickness(96, wide), wide)).toBeGreaterThan(0.15);
+    expect(backdropToneAdaptation(0.0117, sizeThickness(96, wide), wide)).toBeGreaterThan(0.05);
     expect(backdropToneAdaptation(0.0117, RRECT_MD)).toBe(0);
   });
 });

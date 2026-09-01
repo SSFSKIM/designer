@@ -416,6 +416,44 @@ export interface MaterialProfile {
   readonly backdropToneHigh: number;
   readonly backdropToneSizeBias: number;
 
+  /**
+   * **The backdrop tone response (W9)** — the law that owns the interior MEAN,
+   * where the four constants above own texture collapse and nothing else.
+   *
+   * The W9 probe falsified the mix-toward-backdrop form outright (claims
+   * §5.33): six cells need mix strengths outside [0, 1], because the
+   * reference adapts toward the material's own light/dark appearance, which
+   * coincides with the backdrop's tone only over `dark-solid` — the one
+   * background the mix was fitted on. What the probe measured instead is a
+   * LAW: at equal encoded-space backdrop mean the reference's settled
+   * interior is the same number regardless of the backdrop's structure
+   * (checker vs text rows, 0.81 both at input 0.69), so the interior level is
+   * a function `R(encodedMean, thickness)` and these constants are that
+   * function's anchors.
+   *
+   * `backdropToneAnchorX` is the three solid anchors' encoded-space means —
+   * measured backdrop luminances, not tuned. `backdropToneResponseThin` and
+   * `...Thick` are the reference's settled interior levels at those anchors
+   * for a thin surface (`sizeThickness` 0, the 32 px rrect) and a thick one
+   * (saturated, the 96 px+ rrects pooled — their residual spread ±0.012 is
+   * the accepted cost of `sizeSpanMax` saturation, claims §5.33). Between
+   * the rows: smoothstep in thickness; between the anchors: monotone
+   * (Fritsch–Carlson) interpolation in the ENCODED input, the space the
+   * probe validated to RMS 0.034 with zero fitting.
+   *
+   * Below the dark anchor the surface has no data (the probe's grid floor
+   * is `dark-solid`), and the one validation cell down there —
+   * `impulse__rrect-md`, backdrop 0.0039, reference 0.4358 — reads DARKER
+   * than the dark anchor's thick row, so clamping would regress it. The
+   * solve's authority fades to zero from the dark anchor downward
+   * (smoothstep over the anchor's own lower half, no new constant); the
+   * extreme-dark region stays with the collapse constants that were fitted
+   * on it.
+   */
+  readonly backdropToneAnchorX: readonly [number, number, number];
+  readonly backdropToneResponseThin: readonly [number, number, number];
+  readonly backdropToneResponseThick: readonly [number, number, number];
+
   /** The outer shadow (W8) — see `MaterialOuterShadow`. */
   readonly outerShadow: MaterialOuterShadow;
 
@@ -767,9 +805,21 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * is a VALIDATION cell and was not fitted to: the calibration set predicts
    * 0.34 there and the cell reads 0.356.
    */
+  /*
+   * RE-SCOPED (W9, claims §5.33). The four mix constants now own TEXTURE
+   * COLLAPSE alone — the interior mean moved to the response law below — and
+   * their band contracts to the one domain the collapse is real in: full at
+   * `dark-solid` (0.0117) for thin surfaces including the 44 px capsule
+   * (byte-identical collapse, arg 0.0164 ≤ low with margin), zero by
+   * `mid-dark-solid` (0.0595), where the reference's small surface keeps a
+   * textured body at 0.4561 and the old band's partial collapse (k = 0.81)
+   * was the measured 0.1375-vs-0.4561 overshoot. `impulse__rrect-md`
+   * (arg 0.0539) keeps k ≈ 0.003 against the old band's 0.008 — the same
+   * unadapted render that cell validated.
+   */
   backdropToneMax: 1,
-  backdropToneLow: 0.03,
-  backdropToneHigh: 0.14,
+  backdropToneLow: 0.02,
+  backdropToneHigh: 0.055,
   /*
    * REFITTED 0.09 → 0.13 (2026-08-31, active bed). The law's SHAPE is untouched
    * (Decision Log 13 stands; the two-axis rework is next wave) and `max`, `low`
@@ -788,8 +838,26 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * estimator's algebra assumes the two colour schemes share one tint alpha,
    * and this profile pair does not (0.46 against 0.97) — recorded in §5.13 as
    * the reason it is no longer the primary evidence for this constant.
+   *
+   * RE-SCOPED 0.13 → 0.05 with the band above (W9): the bias's one remaining
+   * job is keeping the thick surface's collapse argument above `high` at the
+   * dark anchor (0.0117 + 0.05 = 0.0617 > 0.055) while the thin capsule's
+   * stays below `low` — the near-binary size snap the probe measured
+   * (claims §5.33). The smooth size trend on structured backdrops, which the
+   * old wide band tried and failed to carry, belongs to the response law's
+   * thickness axis now.
    */
-  backdropToneSizeBias: 0.13,
+  backdropToneSizeBias: 0.05,
+
+  /*
+   * MEASURED (W9 probe, claims §5.30–§5.33): the anchors are the probe bed's
+   * settled reference levels, frequency-settled over seven attested runs,
+   * under the probe's own native-mask interior. Thick rows pool the 96 px
+   * and 160 px rrects (±0.012). Not tuned; re-measured only by a new probe.
+   */
+  backdropToneAnchorX: [0.1104, 0.2706, 0.9505],
+  backdropToneResponseThin: [0.0126, 0.4561, 0.9713],
+  backdropToneResponseThick: [0.4953, 0.5744, 0.9358],
 
   /*
    * FITTED (recalibration cascade, 2026-08-31). W8's geometry SURVIVES the fit
@@ -896,6 +964,9 @@ export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
 export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
 export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
 export const BACKDROP_TONE_SIZE_BIAS = DEFAULT_MATERIAL_PROFILE.backdropToneSizeBias;
+export const BACKDROP_TONE_ANCHOR_X = DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX;
+export const BACKDROP_TONE_RESPONSE_THIN = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThin;
+export const BACKDROP_TONE_RESPONSE_THICK = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThick;
 export const OUTER_SHADOW = DEFAULT_MATERIAL_PROFILE.outerShadow;
 
 /**
@@ -932,6 +1003,9 @@ export interface MaterialProfilePatch {
   readonly backdropToneLow?: number;
   readonly backdropToneHigh?: number;
   readonly backdropToneSizeBias?: number;
+  readonly backdropToneAnchorX?: readonly [number, number, number];
+  readonly backdropToneResponseThin?: readonly [number, number, number];
+  readonly backdropToneResponseThick?: readonly [number, number, number];
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
   readonly sweepBandRadians?: number;
@@ -989,6 +1063,9 @@ export function withMaterialOverrides(
     backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
     backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
+    backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
+    backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
+    backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },
     lightDirection: patch.lightDirection ?? base.lightDirection,
     sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,
@@ -1300,6 +1377,71 @@ export function sizeThickness(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
   return smoothstep(profile.sizeSpanMin, profile.sizeSpanMax, spanPx);
+}
+
+/**
+ * The backdrop tone response `R(encodedInput, thickness)` (W9) — the settled
+ * interior level the reference shows over a backdrop whose ENCODED-space mean
+ * is `encodedInput`, for a surface of the given (unfolded) thickness. See
+ * `MaterialProfile.backdropToneAnchorX` for what the anchors are and where the
+ * law's authority ends.
+ *
+ * Monotone (Fritsch–Carlson) interpolation through the three anchors, clamped
+ * to their span; smoothstep between the thin and thick rows. Mirrored by
+ * `@vitreajs/vitrea-web` and by the optics shader, pinned by
+ * `tier-coherence.test.ts`.
+ */
+export function backdropToneResponse(
+  encodedInput: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const xs = profile.backdropToneAnchorX;
+  const f = smoothstep(0, 1, thickness);
+  const ys = [0, 1, 2].map(
+    (i) =>
+      (profile.backdropToneResponseThin[i] ?? 0) +
+      ((profile.backdropToneResponseThick[i] ?? 0) - (profile.backdropToneResponseThin[i] ?? 0)) *
+        f,
+  ) as [number, number, number];
+
+  const x = Math.min(xs[2], Math.max(xs[0], encodedInput));
+  const h0 = xs[1] - xs[0];
+  const h1 = xs[2] - xs[1];
+  const d0 = (ys[1] - ys[0]) / h0;
+  const d1 = (ys[2] - ys[1]) / h1;
+  // Interior slope: the Fritsch–Carlson harmonic mean, 0 across a sign change,
+  // which is what keeps the curve monotone between monotone anchors.
+  const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+  const seg = x <= xs[1] ? 0 : 1;
+  const h = seg === 0 ? h0 : h1;
+  const t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+  const y0 = seg === 0 ? ys[0] : ys[1];
+  const y1 = seg === 0 ? ys[1] : ys[2];
+  const s0 = seg === 0 ? d0 : m1;
+  const s1 = seg === 0 ? m1 : d1;
+  return (
+    y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
+    s0 * h * t * (1 - t) * (1 - t) +
+    y1 * t * t * (3 - 2 * t) +
+    s1 * h * t * t * (t - 1)
+  );
+}
+
+/**
+ * How much authority the response law has at this input, 0…1 (W9).
+ *
+ * Full on its measured domain (the dark anchor upward), fading to zero over
+ * the dark anchor's own lower half — below it the only evidence is
+ * `impulse__rrect-md`, which the collapse constants were fitted on and the
+ * response surface would contradict. Derived from the anchor, not a constant.
+ */
+export function backdropToneSolveWeight(
+  encodedInput: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const anchor = profile.backdropToneAnchorX[0];
+  return smoothstep(anchor * 0.5, anchor, encodedInput);
 }
 
 /**

@@ -102,6 +102,7 @@ import {
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
   resolvedBackdropTone,
+  resolvedBackdropToneResponse,
   resolvedPolicyFold,
   resolvedTintTone,
   sizeScatterSigmaAt,
@@ -113,6 +114,7 @@ import {
   tintedCssOptics,
   tintedSourceOptics,
   tintToneAdaptation,
+  toneRespondedSourceOptics,
   type CssTierMapping,
   type LinearRgb,
   type MaterialOptics,
@@ -735,6 +737,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let backdropToneConstants = resolvedBackdropTone(options.materialProfile);
   /**
+   * The backdrop tone response's anchors (W9), from the same profile — the law
+   * that owns the interior mean, where the collapse constants above own
+   * texture. See the renderer's `MaterialProfile.backdropToneAnchorX`.
+   */
+  let backdropToneResponse = resolvedBackdropToneResponse(options.materialProfile);
+  /**
    * What this tier knows about each backdrop source's own colour, in linear
    * light — the input the adaptation cannot get any other way here.
    *
@@ -1303,25 +1311,47 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
          * and it takes the UNFOLDED thickness — the gate is geometric, and the
          * policy has its own fold on the strength beside it.
          */
+        const surfaceThickness = sizeThickness(
+          Math.min(bounds.width, bounds.height),
+          sizeConstants,
+        );
+        const backdropTonePolicyStrength = backdropToneUnderPolicy(
+          accessibility.material,
+          tintTone,
+          sizeConstants.refractionScale,
+        );
         const backdropAdaptation =
           backdropTone === undefined
             ? 0
             : backdropToneAdaptation(
                 backdropTone.luminance,
-                sizeThickness(Math.min(bounds.width, bounds.height), sizeConstants),
+                surfaceThickness,
                 backdropToneConstants,
-              ) *
-              backdropToneUnderPolicy(
-                accessibility.material,
-                tintTone,
-                sizeConstants.refractionScale,
+              ) * backdropTonePolicyStrength;
+
+        /*
+         * The response solve (W9) runs whenever a backdrop tone was measured —
+         * it is not gated on the collapse being non-zero, because the law it
+         * lands (the interior mean tracking the backdrop's encoded mean) is
+         * exactly the behaviour the collapse's narrow band no longer carries.
+         */
+        const respondedSource =
+          backdropTone === undefined
+            ? gpuOptics[variant]
+            : toneRespondedSourceOptics(
+                gpuOptics[variant],
+                backdropTone,
+                surfaceThickness,
+                backdropAdaptation,
+                backdropTonePolicyStrength * Math.min(1, Math.max(0, backdropToneConstants.max)),
+                backdropToneResponse,
               );
 
         const nodeBaseOptics =
-          backdropAdaptation <= 0
+          backdropAdaptation <= 0 && backdropTone === undefined
             ? tintedCssOptics(
                 baseOptics,
-                gpuOptics[variant],
+                respondedSource,
                 seed,
                 toneBackdrop,
                 toneAdaptation,
@@ -1332,7 +1362,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 baseOptics,
                 tintedSourceOptics(
                   adaptedSourceOptics(
-                    gpuOptics[variant],
+                    respondedSource,
                     backdropTone?.rgb as LinearRgb | undefined,
                     backdropAdaptation,
                   ),
@@ -1344,7 +1374,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 cssMapping,
               );
         const nodeOptics =
-          seed === undefined && backdropAdaptation <= 0
+          seed === undefined && backdropAdaptation <= 0 && backdropTone === undefined
             ? optics
             : opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold);
 
@@ -1481,7 +1511,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           const gpuMaterial = {
             ...tintedSourceOptics(
               adaptedSourceOptics(
-                gpuOptics[variant],
+                respondedSource,
                 backdropTone?.rgb as LinearRgb | undefined,
                 backdropAdaptation,
               ),
@@ -1492,7 +1522,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             ),
             tintAlpha: occlusionAlphaUnderPolicy(
               adaptedSourceOptics(
-                gpuOptics[variant],
+                respondedSource,
                 backdropTone?.rgb as LinearRgb | undefined,
                 backdropAdaptation,
               ).tintAlpha,
@@ -2013,6 +2043,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       sizeConstants = sourceSize(profile);
       outerShadowConstants = sourceOuterShadow(profile);
       backdropToneConstants = resolvedBackdropTone(profile);
+      backdropToneResponse = resolvedBackdropToneResponse(profile);
       bridge?.setMaterialProfile(profile);
     },
 

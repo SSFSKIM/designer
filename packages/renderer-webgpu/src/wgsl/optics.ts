@@ -104,6 +104,15 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// claims 5.31) multiplying the per-pixel tint-tone input, 1 where unmeasured;
   /// w is the padding a uniform's vec4 alignment requires
   shadowSize : vec4f,
+  /// the backdrop tone response's anchors (W9): the three solid anchors'
+  /// ENCODED-space means (xyz), and the backdrop's linear-space mean (w) — the
+  /// quantity the response solve composites against
+  toneAnchor : vec4f,
+  /// the response law's thin row: the reference's settled interior levels at the
+  /// three anchors for a surface of sizeThickness 0 (xyz); w unused
+  toneRowThin : vec4f,
+  /// the thick row (sizeThickness saturated), same layout
+  toneRowThick : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -113,6 +122,42 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 @group(0) @binding(4) var backdropChain : texture_2d<f32>;
 @group(0) @binding(5) var backdropBody : texture_2d<f32>;
 @group(0) @binding(6) var fieldSampler : sampler;
+
+/// One encoded sRGB channel from a linear one — the space the backdrop tone
+/// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
+fn srgb_encode(c : f32) -> f32 {
+  let x = clamp(c, 0.0, 1.0);
+  return select(1.055 * pow(x, 1.0 / 2.4) - 0.055, x * 12.92, x <= 0.0031308);
+}
+
+/// The backdrop tone response R(encodedInput, sizeK) (W9): monotone
+/// (Fritsch–Carlson) interpolation through the three anchors, clamped to their
+/// span; smoothstep between the thin and thick rows. Mirrors material.ts's
+/// 'backdropToneResponse' term for term — the constants are authored there.
+fn tone_response(x : f32, sizeK : f32) -> f32 {
+  let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+  let ys = mix(ou.toneRowThin.xyz, ou.toneRowThick.xyz, vec3f(f));
+  let xs = ou.toneAnchor.xyz;
+  let xc = clamp(x, xs.x, xs.z);
+  let h0 = max(xs.y - xs.x, 1e-4);
+  let h1 = max(xs.z - xs.y, 1e-4);
+  let d0 = (ys.y - ys.x) / h0;
+  let d1 = (ys.z - ys.y) / h1;
+  // The interior slope: the harmonic mean where the secants agree, 0 across a
+  // sign change — what keeps the curve monotone between monotone anchors.
+  var m1 = 0.0;
+  if (d0 * d1 > 0.0) { m1 = 2.0 * d0 * d1 / (d0 + d1); }
+  var h = h0; var t = (xc - xs.x) / h0;
+  var y0 = ys.x; var y1 = ys.y; var s0 = d0; var s1 = m1;
+  if (xc > xs.y) {
+    h = h1; t = (xc - xs.y) / h1;
+    y0 = ys.y; y1 = ys.z; s0 = m1; s1 = d1;
+  }
+  return y0 * (1.0 + 2.0 * t) * (1.0 - t) * (1.0 - t)
+       + s0 * h * t * (1.0 - t) * (1.0 - t)
+       + y1 * t * t * (3.0 - 2.0 * t)
+       + s1 * h * t * t * (t - 1.0);
+}
 
 /// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
 /// side. Symmetric, so the rim is a band on the boundary rather than a plateau
@@ -341,11 +386,66 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * and 'adaptedTintAlpha' in material.ts.
    */
   let sizedAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
-  let adaptedAlpha = sizedAlpha + toneAdapt * (1.0 - sizedAlpha);
-  var adapted = neutral;
+
+  /*
+   * The backdrop tone response solve (W9) — the law that owns the interior
+   * MEAN, where the collapse below owns texture and nothing else (claims
+   * §5.33). The composite under this mechanism reduces exactly to
+   * mean = (1 − k)·M₀ + k·toneLuma with M₀ = (1 − α)·bgLinear + α·L(neutral),
+   * so the neutral's tone is solved in closed form: shift its luma so the
+   * post-collapse mean lands on R(encodedInput, sizeK), the reference's own
+   * measured response. Chroma is untouched — the shift is achromatic — and
+   * the author tint still displaces the result per the composition contract.
+   *
+   * Three stand-downs, each measured rather than defensive: the whole axis is
+   * off where no backdrop tone was measured (same gate as the collapse); the
+   * solve's authority fades to zero below the dark anchor, where the only
+   * evidence is the impulse cell the collapse constants were fitted on; and
+   * at k → 1 the collapse owns the pixel outright, so the solve's
+   * extrapolation is never evaluated against a vanishing (1 − k).
+   */
+  var solvedNeutral = neutral;
+  var solvedAlpha = sizedAlpha;
+  if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0 && sizedAlpha > 1e-3 && toneAdapt < 0.995) {
+    let encodedInput = srgb_encode(ou.toneColour.w);
+    let anchor = max(ou.toneAnchor.x, 1e-4);
+    let authority = smoothstep(anchor * 0.5, anchor, encodedInput);
+    if (authority > 0.0) {
+      let response = tone_response(encodedInput, sizeK);
+      let preCollapse = (response - toneAdapt * ou.toneColour.w) / (1.0 - toneAdapt);
+      let neutralLuma = dot(neutral, vec3f(0.2126, 0.7152, 0.0722));
+      let nominal = (1.0 - sizedAlpha) * ou.toneAnchor.w + sizedAlpha * neutralLuma;
+      let shift = (preCollapse - nominal) / sizedAlpha * authority * ou.toneAdapt.w;
+      solvedNeutral = clamp(neutral + vec3f(shift), vec3f(0.0), vec3f(1.0));
+      /*
+       * The light attractor needs OPACITY. The light scheme's neutral is
+       * already at white, so an upward shift clamps to nothing — and the
+       * reference's light-adapted state is the material gone opaque-bright,
+       * the same "an adapting material stops transmitting" the collapse's
+       * alpha half was measured on. Whatever the clamp truncated is carried
+       * by the alpha, solved against the same composite and folded by the
+       * same authority. One-sided by design: darkward opacity is the
+       * collapse's own axis with its own fitted constants.
+       */
+      let solvedLuma = dot(solvedNeutral, vec3f(0.2126, 0.7152, 0.0722));
+      let achieved = (1.0 - sizedAlpha) * ou.toneAnchor.w + sizedAlpha * solvedLuma;
+      if (preCollapse > achieved + 1e-4 && solvedLuma > ou.toneAnchor.w + 1e-3) {
+        let alphaTarget = clamp(
+          (preCollapse - ou.toneAnchor.w) / (solvedLuma - ou.toneAnchor.w),
+          sizedAlpha,
+          1.0,
+        );
+        solvedAlpha = mix(sizedAlpha, alphaTarget, authority * ou.toneAdapt.w);
+      }
+    }
+  }
+
+  let adaptedAlpha = solvedAlpha + toneAdapt * (1.0 - solvedAlpha);
+  var adapted = solvedNeutral;
   if (toneAdapt > 0.0 && adaptedAlpha > 0.0) {
     adapted =
-      (neutral * ((1.0 - toneAdapt) * sizedAlpha) + ou.toneColour.rgb * toneAdapt) / adaptedAlpha;
+      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + ou.toneColour.rgb * toneAdapt) /
+      adaptedAlpha;
   }
 
   // The author tint. 'aux.w' is the per-pixel strength, unioned in the field pass,

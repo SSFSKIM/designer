@@ -171,6 +171,21 @@ export interface OpticsPassArgs {
    * its spatial mean matches the model. 1 where unmeasured.
    */
   readonly toneInputRatio: number;
+  /**
+   * The backdrop tone response's anchors (W9): the three solid anchors'
+   * encoded-space means, and the reference's settled interior levels there for
+   * a thin (`sizeThickness` 0) and a thick (saturated) surface. See
+   * `MaterialProfile.backdropToneAnchorX`.
+   */
+  readonly backdropToneAnchorX: readonly [number, number, number];
+  readonly backdropToneResponseThin: readonly [number, number, number];
+  readonly backdropToneResponseThick: readonly [number, number, number];
+  /**
+   * The backdrop's LINEAR-space mean under the same weighting as the tone
+   * colour — what the response solve composites against. Falls back to the
+   * tone level where the host measured no separate linear mean.
+   */
+  readonly backdropToneLinearMean: number;
   readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
 }
 
@@ -440,7 +455,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 60);
+      const slot = uniformSlot(`optics:${args.groupId}`, 72);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -508,6 +523,20 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[57] = args.outerShadowRectCssHeight;
       d[58] = args.toneInputRatio;
       d[59] = 0;
+      // The response law's anchors and rows (W9), and the linear backdrop mean
+      // the solve composites against.
+      d[60] = args.backdropToneAnchorX[0];
+      d[61] = args.backdropToneAnchorX[1];
+      d[62] = args.backdropToneAnchorX[2];
+      d[63] = args.backdropToneLinearMean;
+      d[64] = args.backdropToneResponseThin[0];
+      d[65] = args.backdropToneResponseThin[1];
+      d[66] = args.backdropToneResponseThin[2];
+      d[67] = 0;
+      d[68] = args.backdropToneResponseThick[0];
+      d[69] = args.backdropToneResponseThick[1];
+      d[70] = args.backdropToneResponseThick[2];
+      d[71] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

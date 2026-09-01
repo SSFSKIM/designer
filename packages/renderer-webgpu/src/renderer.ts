@@ -783,6 +783,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           backdropToneLevel,
         ],
         toneInputRatio,
+        // The response law's anchors (W9) and the linear backdrop mean its
+        // solve composites against. The shader re-derives the encoded input
+        // from `backdropToneLevel`, so the fourth slot carries the linear
+        // mean — the one quantity the solve needs that the tone colour does
+        // not already hold.
+        backdropToneAnchorX: material.backdropToneAnchorX,
+        backdropToneResponseThin: material.backdropToneResponseThin,
+        backdropToneResponseThick: material.backdropToneResponseThick,
+        backdropToneLinearMean:
+          input.backdropToneLinearLuminance ?? backdropToneLevel,
         outerShadow: [
           outerShadowAlpha(shadow.occlusion),
           shadow.sigmaPx,

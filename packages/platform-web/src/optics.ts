@@ -187,10 +187,139 @@ export interface BackdropToneConstants {
 
 export const BACKDROP_TONE: BackdropToneConstants = {
   max: 1,
-  low: 0.03,
-  high: 0.14,
-  sizeBias: 0.13,
+  low: 0.02,
+  high: 0.055,
+  sizeBias: 0.05,
 };
+
+/**
+ * The backdrop tone response (W9), mirrored — the law that owns the interior
+ * MEAN, where the four collapse constants above own texture and nothing else.
+ *
+ * `anchorX` is the three solid anchors' ENCODED-space backdrop means; `thin`
+ * and `thick` are the reference's settled interior levels there at
+ * `sizeThickness` 0 and saturated. Authored in the renderer's material.ts
+ * (`backdropToneAnchorX` and friends, with the probe evidence); this is a
+ * mirror, not a second opinion — pinned by `tier-coherence.test.ts`.
+ */
+export interface BackdropToneResponseConstants {
+  readonly anchorX: readonly [number, number, number];
+  readonly thin: readonly [number, number, number];
+  readonly thick: readonly [number, number, number];
+}
+
+export const BACKDROP_TONE_RESPONSE: BackdropToneResponseConstants = {
+  anchorX: [0.1104, 0.2706, 0.9505],
+  thin: [0.0126, 0.4561, 0.9713],
+  thick: [0.4953, 0.5744, 0.9358],
+};
+
+/** The response constants under a profile patch, by the renderer's merge rule. */
+export function resolvedBackdropToneResponse(
+  patch?: RendererMaterialProfile,
+): BackdropToneResponseConstants {
+  return {
+    anchorX: patch?.backdropToneAnchorX ?? BACKDROP_TONE_RESPONSE.anchorX,
+    thin: patch?.backdropToneResponseThin ?? BACKDROP_TONE_RESPONSE.thin,
+    thick: patch?.backdropToneResponseThick ?? BACKDROP_TONE_RESPONSE.thick,
+  };
+}
+
+/**
+ * The response curve `R(encodedInput, thickness)` — the settled interior level
+ * the reference shows at this encoded-space backdrop mean. Mirrors the
+ * renderer's `backdropToneResponse` term for term: monotone (Fritsch–Carlson)
+ * interpolation through the anchors, clamped to their span, smoothstep between
+ * the rows.
+ */
+export function backdropToneResponseLevel(
+  encodedInput: number,
+  thickness: number,
+  response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+): number {
+  const xs = response.anchorX;
+  const tk = clamp01(thickness);
+  const f = tk * tk * (3 - 2 * tk);
+  const ys = [0, 1, 2].map(
+    (i) => (response.thin[i] ?? 0) + ((response.thick[i] ?? 0) - (response.thin[i] ?? 0)) * f,
+  ) as [number, number, number];
+
+  const x = Math.min(xs[2], Math.max(xs[0], encodedInput));
+  const h0 = Math.max(xs[1] - xs[0], 1e-4);
+  const h1 = Math.max(xs[2] - xs[1], 1e-4);
+  const d0 = (ys[1] - ys[0]) / h0;
+  const d1 = (ys[2] - ys[1]) / h1;
+  const m1 = d0 * d1 <= 0 ? 0 : (2 * d0 * d1) / (d0 + d1);
+  const seg = x <= xs[1] ? 0 : 1;
+  const h = seg === 0 ? h0 : h1;
+  const t = (x - (seg === 0 ? xs[0] : xs[1])) / h;
+  const y0 = seg === 0 ? ys[0] : ys[1];
+  const y1 = seg === 0 ? ys[1] : ys[2];
+  const s0 = seg === 0 ? d0 : m1;
+  const s1 = seg === 0 ? m1 : d1;
+  return (
+    y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
+    s0 * h * t * (1 - t) * (1 - t) +
+    y1 * t * t * (3 - 2 * t) +
+    s1 * h * t * t * (t - 1)
+  );
+}
+
+/**
+ * The response solve on a source's neutral tint (W9) — the CSS half of the
+ * shader's `solvedNeutral`, mirrored on the same closed form. The composite
+ * under `adaptedSourceOptics` reduces to
+ * `mean = (1 − k)·((1 − α)·bgLinear + α·L(tint)) + k·toneLuminance`, so the
+ * tint's luma is shifted, achromatically, to land the post-collapse mean on
+ * `R(encodedInput, thickness)`. The solve's authority fades to zero below the
+ * dark anchor (the impulse domain the collapse constants were fitted on) and
+ * stands down entirely at k → 1, where the collapse owns the surface.
+ */
+export function toneRespondedSourceOptics(
+  source: MaterialSourceOptics,
+  sample: { readonly luminance: number; readonly linearLuminance: number },
+  thickness: number,
+  adaptation: number,
+  strength: number,
+  response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+): MaterialSourceOptics {
+  const k = clamp01(adaptation);
+  const alpha = source.tintAlpha;
+  if (strength <= 0 || alpha <= 1e-3 || k >= 0.995) return source;
+  const encodedInput = srgbEncode(clamp01(sample.luminance));
+  const anchor = Math.max(response.anchorX[0], 1e-4);
+  const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
+  const authority = authorityT * authorityT * (3 - 2 * authorityT);
+  if (authority <= 0) return source;
+  const target = backdropToneResponseLevel(encodedInput, thickness, response);
+  const preCollapse = (target - k * sample.luminance) / (1 - k);
+  const tintLuma =
+    0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
+  const nominal = (1 - alpha) * sample.linearLuminance + alpha * tintLuma;
+  const shift = ((preCollapse - nominal) / alpha) * authority * clamp01(strength);
+  const tint: [number, number, number] = [
+    clamp01(source.tint[0] + shift),
+    clamp01(source.tint[1] + shift),
+    clamp01(source.tint[2] + shift),
+  ];
+  // The light attractor needs OPACITY (the shader's own comment, mirrored): a
+  // neutral already at white clamps every upward shift to nothing, and the
+  // reference's light-adapted state is the material gone opaque-bright. The
+  // truncated remainder is carried by the alpha, solved against the same
+  // composite and folded by the same authority. One-sided: darkward opacity is
+  // the collapse's axis.
+  const solvedLuma = 0.2126 * tint[0] + 0.7152 * tint[1] + 0.0722 * tint[2];
+  const achieved = (1 - alpha) * sample.linearLuminance + alpha * solvedLuma;
+  let tintAlpha = source.tintAlpha;
+  if (preCollapse > achieved + 1e-4 && solvedLuma > sample.linearLuminance + 1e-3) {
+    const alphaTarget = Math.min(
+      1,
+      Math.max(alpha, (preCollapse - sample.linearLuminance) / (solvedLuma - sample.linearLuminance)),
+    );
+    tintAlpha = alpha + (alphaTarget - alpha) * authority * clamp01(strength);
+  }
+  return { ...source, tint, tintAlpha };
+}
 
 /** The adaptation constants under a profile patch, by the renderer's merge rule. */
 export function resolvedBackdropTone(patch?: RendererMaterialProfile): BackdropToneConstants {
