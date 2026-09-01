@@ -1,4 +1,4 @@
-# @vitreajs/vitrea
+# @vitreajs/vitrea-web
 
 ## 0.2.0
 
@@ -29,6 +29,35 @@
   
   Tint sparingly. Apple's guidance is one emphasised control, not a coloured
   toolbar, and the API is shaped for that rather than for theming.
+- 0ffd246: Glass now adapts to how light or dark the content behind it is.
+  
+  Apple's material continuously changes its appearance with backdrop luminance — a
+  light-scheme capsule over black content settles to near-black. vitrea had no such
+  axis at all: material profiles were discrete per colour scheme, so a surface
+  looked the same over a photograph and over a black field. That was this project's
+  largest measured fidelity gap.
+  
+  **This changes how your existing surfaces look over dark or busy backdrops**, and
+  it is continuous rather than a two-state switch — intermediate backdrops land
+  between the ends, on a measured curve.
+  
+  Where each tier gets its answer, because they differ and the difference is worth
+  knowing:
+  
+  - **The WebGPU tier** reads the pixels it is already sampling to refract, so
+    adaptation is local to each surface's own neighbourhood.
+  - **The CSS tier** has no pixels. It asks, in order: an explicit
+    `backdropLuminance` you set on the surface; then the backdrop source you have
+    already handed over via `GlassGroup`'s `backdrop` prop, read once and averaged;
+    then nothing at all, in which case it does not adapt. It never guesses a level.
+  
+  So on the CSS tier the adaptation is one reading per backdrop **source**, not per
+  surface — two surfaces over different corners of the same image get the same
+  answer. If you need better than that on that tier, set `backdropLuminance`
+  yourself.
+  
+  Accessibility policies still win: reduce-transparency and increase-contrast
+  resolve after adaptation, not before.
 - aca1d25: The scene model grows the three fields another package was already carrying.
   
   All three were recorded together in Decision Log #23(c) as the same shape — "core
@@ -121,82 +150,75 @@
   Rounded clipping ancestors are folded as their bounding boxes — stated in
   `clipRect`'s own documentation, and always erring towards reporting more surface
   rather than less.
-
-## 0.1.1
+- 5ac6cc3: A host with four different corner radii now says so, at registration.
+  
+  Per-corner radii are still post-v1 (X8 rider 3: v1's corner algebra is
+  mirror-symmetric by construction). What changed is that the limit is honest at
+  the boundary that accepts it. `CornerRadii` is a Vec4 in every type along the
+  path and the CSS tier renders four radii correctly through `border-radius`, so
+  four different radii look supported right up until the WebGPU tier resolves the
+  shape against the first one — or `@vitrea/geometry` throws from inside a frame,
+  on a shape that no longer names the registration that produced it.
+  
+  The new `non-uniform-radii` diagnostic fires in dev mode from `registerHost` and
+  from any `update` that patches radii, names both tiers' answers, and dedupes per
+  surface. It is a warning: the surface still draws, and taking a page down over a
+  corner would be the wrong trade for a limit the roadmap intends to lift.
+- 0ffd246: Glass surfaces now cast an outer shadow.
+  
+  The reference material casts one and vitrea rendered zero across its entire
+  footprint — by canvas coverage, the largest visible gap the project had measured.
+  Every glass surface now sits on the page instead of being pasted onto it.
+  
+  **This changes how every existing surface looks.** The shadow is drawn on both
+  tiers from the same profile constants: a `box-shadow` on the CSS tier, and
+  field-derived occlusion outside the component on the WebGPU tier.
+  
+  Two properties are worth knowing because they are what makes it read as a shadow
+  rather than as a grey halo:
+  
+  - **It darkens, it does not paint.** The shadow multiplies what is behind it
+    rather than laying grey over it, so it takes a lot from a bright ground and
+    almost nothing from a dark one — the same behaviour a real shadow has, and
+    measured against the reference rather than assumed.
+  - **It is coupled to the size law.** A larger, thicker surface casts a deeper
+    shadow, on the same single thickness curve the other size-derived facets ride.
+  
+  It respects the accessibility policies, and it goes away with the glass under
+  forced colours rather than surviving as decoration on a flattened surface.
+  
+  Cost, stated because it is not free: on the mobile bench the facet measures
+  2.79× frame time. A dedicated low-resolution shadow pass is the known optimisation
+  and has not been built yet — the current GPU path rasterises the enlarged rect at
+  full resolution to feed the blur.
+- 0ffd246: Large surfaces now read as thicker glass, the way the reference does.
+  
+  Apple derives five separate facets from a surface's thickness and size; vitrea
+  implemented one of them (lensing depth). The remaining four are now coupled to
+  the same curve, so a wide surface refracts deeper, scatters more softly, occludes
+  more of its backdrop and casts a deeper inner shadow than a small one cut from
+  the same material.
+  
+  **This changes how your existing surfaces look**, and the change is by design. It
+  is larger the wider the surface is: below about 32 CSS px on the shorter side
+  nothing moves, and above about 96 px the facets are at full strength. A row of
+  small controls will look essentially as it did; a large panel will look
+  noticeably deeper.
+  
+  One mechanism drives all four, not four independent knobs — a single smoothstep
+  between those two spans, with each facet taking a gain on it. That is deliberate:
+  the reference has one size law, and two curves would have been two mechanisms it
+  does not have.
+  
+  Nothing new to call. `thickness` on a surface still means what it meant, and the
+  span the law reads is the surface's own measured box. If you need the old
+  behaviour for a specific surface, the gains are reachable through the material
+  profile seam.
 
 ### Patch Changes
 
-- Docs: everything the first cold consumer had to discover by reading `.d.ts` and
-  WGSL is now in the READMEs.
-  
-  The texture backdrop's declare-then-supply two-step (`backdrop={{ kind:
-  "texture", id }}` then `setBackdropTexture`) with its placement contract — the
-  source is cover-fitted over the whole viewport, not the group, so an app that
-  also paints the image must use the same mapping. A "Testing your app" section:
-  Playwright's bundled headless shell has no working WebGPU, so tests silently run
-  the CSS tier; the working recipe is `channel: "chromium"` plus the WebGPU flags,
-  and the capabilities readout can be believed either way. The per-tier DOM truth:
-  `[data-vitrea-proxy]` elements exist only where the GPU tier samples through the
-  browser's backdrop-filter; the CSS tier writes the material on the host itself.
-  The surface sizing model (surfaces have no intrinsic size). The react export
-  list gains its four missing entries, including `APPLE_LIKE_SMOOTHING`, and the
-  `demotionReason` union in the core README gains its missing
-  `"no-texture-supplied"` member.
-- d85011a: Fix: the published `.d.ts` files typecheck for a consumer with `skipLibCheck: false`.
-  
-  Both artifacts named WebGPU globals — `GPUDevice`, `GPUTextureView`,
-  `GPUPowerPreference` and eleven more — that nothing in the tarball declared. This
-  workspace resolved them out of `lib.dom.d.ts`, which only ships the WebGPU
-  interfaces from TypeScript 6.0 onward, so a consumer on TypeScript 5 read 29
-  `TS2304`s out of `node_modules`.
-  
-  Each artifact now declares those names itself: the interfaces empty and global, so
-  they merge with the consumer's real WebGPU types wherever they have them, and the
-  two string-union aliases module-local, because a type alias cannot merge. Nothing
-  was added to either package's dependencies, and the emitted JavaScript is
-  unchanged. Verified with `skipLibCheck: false` on TypeScript 5.8, 5.9, 6.0 and
-  7.0, with the DOM lib, with `@types/web` in place of it, and alongside a
-  consumer's own `@webgpu/types`.
-
-## 0.1.0
-
-### Minor Changes
-
-- 1595af5: Initial public release.
-  
-  vitrea is a production-oriented, reference-calibrated material compositor for
-  semantic web controls: a TypeScript replication of Apple's Liquid Glass material
-  on the web, with real-time size-parameterized lensing, per-element backdrop
-  adaptation, container-scoped sampling groups, and shape-to-shape morphing. Glass
-  labels stay real DOM — a `GlassButton` is a `<button>`, focusable and announced
-  as one.
-  
-  **Two tiers, and the runtime tells you which one you got.** The WebGPU texture
-  tier does vitrea's own shader math over a GPU-owned backdrop; the CSS tier is a
-  first-class renderer rather than a degraded path, because WebGPU is not
-  everywhere. `useGlassCapabilities()` reports the resolved state per group —
-  `configuredSource` survives demotion, every demotion names both a reason and its
-  recovery condition, and choosing the CSS tier deliberately resolves healthy
-  rather than as a fault.
-  
-  **Components:** `GlassRoot`, `GlassGroup`, `GlassSurface` (with `asChild`),
-  `GlassMorph`, `GlassButton`, `GlassIconButton`, `GlassToolbar`,
-  `GlassSegmentedControl`. Backdrops: image, video, canvas, procedural gradient,
-  and arbitrary DOM. Accessibility: `prefers-reduced-motion`,
-  `prefers-reduced-transparency`, `prefers-contrast` and `forced-colors` each
-  resolve to a declared material or motion consequence, the first three
-  overridable per root.
-  
-  **Fidelity is measured, and scoped.** The texture tier is reference-calibrated
-  against 30 ScreenCaptureKit captures of Apple's `glassEffect` on macOS 26.5. Full
-  claims, and everything that could not be measured, are in
-  `docs/doperpowers/specs/c9a-fidelity-claims.md`. Nothing here is pixel-identical
-  to Apple's material, no press-state claim is made, and the CSS tier carries a
-  Chromium-only figure — it converts the material the root carries rather than
-  holding one of its own, so a demotion keeps the same material to within 1.3% of
-  its interior level in the mean.
-  
-  Published under the `@vitreajs` scope:
-  `npm install @vitreajs/vitrea @vitreajs/vitrea-react`. The geometry, motion,
-  DOM host and WebGPU renderer packages are internal and bundled in, so these
-  two carry no transitive runtime dependency beyond React (a peer, `>=19`).
+- Updated dependencies [0ffd246]
+- Updated dependencies [aca1d25]
+- Updated dependencies [c1cee6e]
+- Updated dependencies [b0392eb]
+  - @vitreajs/vitrea@0.2.0
