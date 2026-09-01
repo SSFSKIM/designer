@@ -4680,18 +4680,26 @@ coherence ratio), rounded away from it at four decimals, so re-measurement canno
 fail CI on an unchanged renderer. The captures are deterministic, so that
 headroom is against constants moving in their last digit and nothing else.
 
+> **Amended by W9 (2026-09-02, §5.35).** Six rows below are struck: their
+> adopted bounds are MET on the re-measured bed and the claims are restored
+> (`photo__rrect-lg` tinted ΔE-mean 0.0628, `light-solid` tinted capsule
+> ΔE-p95 0.1032, `mid-dark-solid` capsule ΔE-p95 0.0095 — each at both
+> scales). Seven `ssimMean` rows carry a second measurement and a re-pinned
+> floor, by decision: the response law lands the interior mean and pays
+> 0.0002–0.0072 of SSIM for it. The count is 27.
+
 **`1x-light-standard` · texture tier**
 
 | scene | set | metric | claimed | measured | enforced floor |
 | --- | --- | --- | --- | --- | --- |
-| `photo__rrect-lg__rest-tint-orange` | holdout | `oklabDeltaEMean` | ≤ 0.07 **UNMET** | 0.0760 | ≤ 0.0771 |
+| ~~`photo__rrect-lg__rest-tint-orange`~~ | holdout | `oklabDeltaEMean` | ≤ 0.07 **MET (W9)** | 0.0760 → 0.0628 | — |
 | `checkerboard__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1909 | ≤ 0.1919 |
-| `light-solid__capsule-button__rest-tint-orange` | calibration | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1726 | ≤ 0.1737 |
-| `mid-dark-solid__capsule-button__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1775 | ≤ 0.1785 |
+| ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
+| ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
 | `photo__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1906 | ≤ 0.1917 |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 | ≥ 0.8399 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 | ≥ 0.8295 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 | ≥ 0.8636 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 → 0.8233 (W9 trade) | ≥ 0.8222 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 → 0.8620 (W9 trade) | ≥ 0.8610 |
 
 **`1x-light-standard` · dom tier**
 
@@ -4702,21 +4710,21 @@ headroom is against constants moving in their last digit and nothing else.
 | `hc-text__capsule-button__rest-tint-orange` | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.2651 | ≤ 1.2701 |
 | `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7958 | ≥ 0.7907 |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.8078 | ≥ 0.8068 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 | ≥ 0.6872 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 → 0.6850 (W9 trade) | ≥ 0.6839 |
 | `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.8826 | ≥ 0.8816 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.7950 | ≥ 0.794 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.7950 → 0.7929 (W9 trade) | ≥ 0.7919 |
 
 **`2x-light-standard` · texture tier**
 
 | scene | set | metric | claimed | measured | enforced floor |
 | --- | --- | --- | --- | --- | --- |
-| `photo__rrect-lg__rest-tint-orange` | holdout | `oklabDeltaEMean` | ≤ 0.07 **UNMET** | 0.0760 | ≤ 0.077 |
+| ~~`photo__rrect-lg__rest-tint-orange`~~ | holdout | `oklabDeltaEMean` | ≤ 0.07 **MET (W9)** | 0.0760 → 0.0628 | — |
 | `checkerboard__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1909 | ≤ 0.1919 |
-| `light-solid__capsule-button__rest-tint-orange` | calibration | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1726 | ≤ 0.1737 |
-| `mid-dark-solid__capsule-button__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1775 | ≤ 0.1785 |
+| ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
+| ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
 | `photo__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1901 | ≤ 0.1912 |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 | ≥ 0.8752 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 | ≥ 0.8812 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) | ≥ 0.8790 |
 | `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.9266 | ≥ 0.9256 |
 | `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 | ≥ 0.8886 |
 
@@ -4729,9 +4737,9 @@ headroom is against constants moving in their last digit and nothing else.
 | `hc-text__capsule-button__rest-tint-orange` | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.2657 | ≤ 1.2708 |
 | `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7967 | ≥ 0.7916 |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.8460 | ≥ 0.8449 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 | ≥ 0.798 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 → 0.7970 (W9 trade) | ≥ 0.7959 |
 | `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.9058 | ≥ 0.9048 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.8480 | ≥ 0.847 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.8480 → 0.8468 (W9 trade) | ≥ 0.8458 |
 
 #### What the floors do and do not buy
 
@@ -4739,8 +4747,9 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows. A floor cannot be added by accident, and adding
-one deliberately means editing a count that sits next to this section's number.
+set is exactly 33 rows (27 after W9, §5.35). A floor cannot be added by
+accident, and adding one deliberately means editing a count that sits next to
+this section's number.
 
 Verified by mutation rather than by inspection: worsening a floored cell fails
 CI, improving one passes, and improving one **past its adopted bound** also

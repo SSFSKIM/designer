@@ -1,6 +1,9 @@
 # W9 — Backdrop tone sampling under size × spatial frequency
 
-**Opened 2026-09-02.** Child of the post-v1 wave
+**Opened 2026-09-02. CLOSED 2026-09-02** (Decision Log 4) — six floors
+restored, seven re-pinned by decision, twenty re-attributed to the three
+Deferred charters below; the encoded-mean input model and the
+response-curve law are live on both tiers. Child of the post-v1 wave
 (`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`), chartered there as the
 next wave's opener by Decision Log 22 and the Deferred section "W9 — backdrop
 tone as a function of surface size (the next wave's opener)". Grounded in
@@ -307,6 +310,23 @@ it — no HID input, idle guard unaffected.
      unchanged: probe-bed re-verify, validation read after the
      constants land, ONE probe-holdout read at round end, then the
      frozen-bed referee.
+
+4. **The close (2026-09-02, user-approved, both as recommended).**
+   (a) **The seven `ssimMean` floors re-pin** at their new measurements
+   (down ≤ 0.0072), the trade documented in §5.27 and the enforcement
+   test: floors exist to catch UNINTENDED regression, this one is
+   measured, understood, and bought six restored claims; "reject the
+   trade" would have given back the interior-mean gains for a metric
+   the tone law does not own. (b) **W9 CLOSES**, its twenty remaining
+   floors re-attributed to three named mechanisms in Deferred, the
+   parent wave's tracking row updated, the next opener to be picked
+   from Deferred on its own decision round. The charter's "done = all
+   33 floors removed" was chartered on §5.26's single-mechanism
+   attribution, which the referee measured to be one-third right;
+   closing on the honest result (six restored, seven traded, twenty
+   re-owned, three provenance gates, the encoded-mean input model and
+   the response-curve law both live on both tiers) is the spirit of
+   the founding rule — the claim narrows in writing.
 
 ## Deferred (follow-up charters seeded by the referee, 2026-09-02)
 

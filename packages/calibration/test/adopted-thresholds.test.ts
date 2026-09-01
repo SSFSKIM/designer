@@ -424,35 +424,45 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79666, floor: 0.7916 },
   "dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.6353, floor: 1.6404 },
   "dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.63772, floor: 1.6428 },
-  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard :: oklabDeltaEMean": { measured: 0.07604, floor: 0.0771 },
-  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-2x-light-standard :: oklabDeltaEMean": { measured: 0.07597, floor: 0.077 },
-  "texture / calibration / light-solid__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.17264, floor: 0.1737 },
-  "texture / calibration / light-solid__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.17264, floor: 0.1737 },
+  // W9 (claims §5.35) REMOVED six floors here — photo__rrect-lg tinted
+  // oklabDeltaEMean, light-solid tinted capsule oklabDeltaEP95, and
+  // mid-dark-solid capsule oklabDeltaEP95, each at both scales — because the
+  // response-curve law brought every one of them inside its adopted bound
+  // (the mid-dark capsule 0.1775 → 0.0095). Their claims are restored in
+  // §5.27's tables and gate as ordinary rows again.
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
-  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.17748, floor: 0.1785 },
-  "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.17748, floor: 0.1785 },
   "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19064, floor: 0.1917 },
   "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19013, floor: 0.1912 },
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.88261, floor: 0.8816 },
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90582, floor: 0.9048 },
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.79501, floor: 0.794 },
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84804, floor: 0.847 },
+  // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
+  // floors on the checkerboard rrect-lg/ml cells, each DOWN by 0.0002–0.0072:
+  // the response-curve law lands the interior MEAN on the reference and pays
+  // a sliver of structural similarity for it — a measured, decided trade
+  // that bought the six restored claims above, not a regression that slipped.
+  // The SSIM axis on these cells is re-attributed to a structure round the
+  // W9 spec's Deferred charters; the floors keep ratcheting from here.
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.79293, floor: 0.7919 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84682, floor: 0.8458 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.80784, floor: 0.8068 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84598, floor: 0.8449 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.68827, floor: 0.6872 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.79903, floor: 0.798 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.68498, floor: 0.6839 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.79697, floor: 0.7959 },
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92665, floor: 0.9256 },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86466, floor: 0.8636 },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86201, floor: 0.861 },
   "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88968, floor: 0.8886 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.84092, floor: 0.8399 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87624, floor: 0.8752 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.83051, floor: 0.8295 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88228, floor: 0.8812 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.82327, floor: 0.8222 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88002, floor: 0.879 },
 };
 
-/** How many rows the frozen bed cannot meet. Pinned so the set cannot grow quietly. */
-const UNMET_ROWS = 33;
+/**
+ * How many rows the frozen bed cannot meet. Pinned so the set cannot grow
+ * quietly. 33 at the §5.27 landing; 27 after W9 restored six (claims §5.35).
+ */
+const UNMET_ROWS = 27;
 
 /*
  * ---------------------------------------------------------------------------
@@ -703,15 +713,18 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * one. Like v1's canonical `checkerboard__capsule-button__rest` before it — §5's
  * whole argument for this predicate at 88.9%, and 100.8% once the bed settled —
  * the exclusion was instrument-caused. An unsettled reference, not a hard scene.
+ *
+ * **What left it with W9 (2026-09-02, claims §5.35).** Eight rows, none
+ * joining: the dom-tier checkerboard rrect-sm/md and toolbar-group cells at
+ * both scales, and `hc-text__rrect-md__rest` on three of its four rows. Every
+ * one was an `areaWeb` exclusion — the web silhouette under-recovered because
+ * the surface's interior sat too close to the backdrop for the extractor.
+ * Landing the interior mean on the reference moved them clear (all eight now
+ * read IoU ≥ 0.99, contour p95 ≤ 1 px), so they gate as ordinary cells.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard",
-  "dom / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-1x-light-standard",
-  "dom / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-2x-light-standard",
-  "dom / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-1x-light-standard",
-  "dom / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "dom / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard",
@@ -723,8 +736,6 @@ const PREDICATE_EXCLUDES = [
   "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard",
   "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
-  "dom / holdout / hc-text__rrect-md__rest / apple-macos-26.5-1x-light-standard",
-  "dom / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard",
@@ -754,7 +765,6 @@ const PREDICATE_EXCLUDES = [
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
-  "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-1x-light-standard",
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
