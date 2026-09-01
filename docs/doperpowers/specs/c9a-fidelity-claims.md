@@ -631,8 +631,10 @@ prevent it. On the perceptual axis, holdout is the binding case.
 | perceptual | OKLab ΔE p95 | ≤ 0.17 · **UNMET ×4 (§5.27)** | 0.1726 | 0.1909 |
 | perceptual | edge-weighted mean | ≤ 0.11 | 0.0337 | 0.0682 |
 
-> **Re-measured on the FROZEN ACTIVE bed (2026-09-01).** Every bound and every
-> observation column in this section and in §5.1 is now what
+> **Re-measured on the FROZEN ACTIVE bed (2026-09-01).** The enforced suite gates
+> **six profiles**: the two light-standard tables in this section and §5.1, the two
+> accessibility tables in §5.6, and the dark pair adopted in §5.28. Every bound and
+> every observation column in this section and in §5.1 is now what
 > `packages/calibration/test/adopted-thresholds.test.ts` enforces against
 > `results/matrix.json`, so the file's own doctrine holds again: a reviewer can
 > hold that file beside this table and diff the two by eye. Amended rows cite the
@@ -821,6 +823,16 @@ and the interior-level ratio GPU ÷ CSS under the native silhouette. Both bounds
 are now enforced per cell, over **both** light-standard profiles, from
 `results/matrix.json`.
 
+> **Extended 2026-09-01: the conditioning predicate now carries these rows.** The
+> shape rows had always skipped a cell whose silhouette the extractor could not
+> resolve; these rows did not, and the inconsistency had a cost. The interior
+> ratio samples each tier's level **under the native silhouette**, so a cell whose
+> native mask is 2% of its declared region yields a ratio of two degenerate
+> samples — which is exactly what `dark-solid__rrect-md__rest` was doing at 1.589
+> and 1.855. It was already excluded from the shape rows by the same measurement.
+> One rule on both axes; see §5.28. The exclusion is by measurement and never by
+> name, and a pin asserts both halves of that.
+
 Four properties of that axis are worth stating, because each is a decision:
 
 - **It belongs to the dom-tier cell.** The pair has one number; storing it on
@@ -855,11 +867,11 @@ Four properties of that axis are worth stating, because each is a decision:
 > "approved close" the original paragraph named — the split was given rather than
 > the doctrine relaxed.
 >
-> The consequence followed for two of the four: **both accessibility profiles are
-> now gated**, their tables adopted 2026-08-30 in §5.6. The dark pair is still
-> ungated, but no longer for the reason below — the holdout column exists, so
-> what is missing is a gate decision rather than a measurement. Their would-be
-> tables are computed row by row against the frozen bed and PROPOSED in §5.28.
+> The consequence followed for all four, in two steps: **both accessibility
+> profiles** were gated 2026-08-30 (§5.6), and **the dark pair** was gated
+> 2026-09-01 (§5.28), all 28 of its fidelity rows passing on both columns. There
+> are now **no ungated profiles**. This section's title — "what is still not
+> gated" — survives only for the axes below it, not for any profile.
 >
 > The original reasoning is kept intact below, because a bound's history is part
 > of the claim.
@@ -4741,7 +4753,7 @@ them are on holdout cells. The honest summary of this landing is that the gate
 stopped being a statement about quality and became, on these thirty-three rows,
 a statement about direction.
 
-### 5.28 PROPOSED — the dark pair's tables, computed against the frozen bed (2026-09-01)
+### 5.28 ADOPTED — the dark pair's tables, and the predicate on both axes (2026-09-01)
 
 The last two ungated profiles. §5.3's reason for holding them back — no validation
 or holdout column to bound against — **expired**: W1's split extension gave
@@ -4749,9 +4761,18 @@ or holdout column to bound against — **expired**: W1's split extension gave
 holdout cells per tier, and the frozen active bed measures all of them on both
 tiers.
 
-So this is a proposal in the same form every adoption in this wave took, and it is
-**not** applied to the enforced suite. Adopting a table is the gate's call at the
-release; the cascade's job is to compute it honestly and hand it over.
+> **ADOPTED 2026-09-01, user-approved, both parts as proposed.** The tables below
+> are enforced by `packages/calibration/test/adopted-thresholds.test.ts`, and
+> option (2) of the question this section originally posed was taken: the
+> conditioning predicate now carries the coherence rows as well as the shape rows.
+> With that, **every profile in the matrix is gated** and `UNGATED_PROFILES` is
+> empty for the first time since the gate existed. The section is kept in its
+> proposing voice below, with the outcome recorded at the end, because a table is
+> easier to trust when the argument that produced it is still visible.
+
+This was written as a proposal in the same form every adoption in this wave took.
+Adopting a table is the gate's call at the release; the cascade's job was to
+compute it honestly and hand it over.
 
 **How the bounds were derived.** §5.15's declared margin rule, unchanged: for a
 `≤` row, the smallest half-step reaching 1.4× the worst measurement (1% step for
@@ -4829,6 +4850,30 @@ The cascade's recommendation is **(2)**, because the predicate extension is
 correcting an inconsistency rather than adding a licence: the same cell is already
 excluded from the shape rows for the same measured reason, and a gate that trusts
 a two-percent sample on one axis while refusing it on another is not one rule.
+
+#### What the gate decided (2026-09-01)
+
+**Option (2), both parts.** The 28 fidelity rows and the cross-tier ΔE row on both
+profiles are enforced, and the conditioning predicate extends to the coherence
+rows — so the interior-ratio row is enforced for the dark pair too, with the
+degenerate cell excluded by the same measurement that already excludes it from the
+shape rows.
+
+Landed with three properties worth stating, because each was verified by mutation
+rather than by reading:
+
+- **The exclusion is by measurement, never by name.** The pin asserts
+  `dark-solid__rrect-md__rest` FAILS a predicate arm and recovers under 5% of its
+  region. Make that cell resolvable in a future bed and the pin fails — which is
+  correct: the cell would then deserve gating, and nothing should route around
+  that.
+- **The extension did not empty the row.** A well-conditioned dark cell is still
+  gated on its ratio, asserted directly; drifting one out of band fails the suite.
+- **No floor was orphaned.** All eight coherence-floored light-standard cells pass
+  the predicate, so extending it left §5.27's set at exactly 33.
+
+The enforced suite now gates **six profiles** — 27 cases, 230 assertions' worth of
+matrix — against a single bed.
 
 ### 5.29 The profile SHA named the file, not the material (2026-09-01)
 

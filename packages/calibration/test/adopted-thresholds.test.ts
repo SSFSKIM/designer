@@ -42,7 +42,9 @@
  * Stated because an absent assertion is otherwise indistinguishable from a
  * forgotten one, and each of these is a decision §5 argues for:
  *
- *   - **Four profiles are provisional, not gated.** See `UNGATED_PROFILES`.
+ *   - **No profile is ungated any more.** Four were when this list was written;
+ *     the last two adopted 2026-09-01. `UNGATED_PROFILES` is kept empty because
+ *     its emptiness is the end of that story — see its docstring.
  *   - **The material axis is not gated.** The sub-metrics that would identify the
  *     material are either unidentifiable on this fixture set (blur sigma, §6.1)
  *     or below the capture's own quantisation (the light-scheme rim, §6.2). A
@@ -280,6 +282,70 @@ const DOM_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.18],
 ];
 
+/**
+ * The dark pair, both tiers and both scales — **adopted 2026-09-01**, the wave's
+ * last gate decision and the end of `UNGATED_PROFILES`.
+ *
+ * Proposed in claims §5.28 against the frozen bed and adopted as proposed. §5.3's
+ * reason for holding these back — no validation or holdout column to bound
+ * against — expired when W1's split extension gave each profile 18 calibration,
+ * 2 validation and 6 holdout cells per tier. What was left was a gate decision,
+ * not a measurement, and this is it.
+ *
+ * **All 28 rows pass on both columns, with no floor and no exceedance.** That is
+ * unusual in this file and it has a measured reason rather than a lucky one: the
+ * mechanism claims §5.26 charters to W9 needs a bright, high-spatial-frequency
+ * backdrop to bite, and the dark bed's backdrops do not supply one. The dark pair
+ * is the cleanest pair of profiles the frozen bed measures.
+ *
+ * Derived by §5.15's declared margin rule — for a `≤` row the smallest half-step
+ * reaching 1.4× the worst measurement (1% step for the unitless ones), for a `≥`
+ * row 0.02 below the worst, floored to the hundredth. The worst is taken over
+ * BOTH columns rather than holdout alone: holdout still sets the bound's honesty,
+ * but a table a calibration cell violates is not enforceable, and `2x-dark`'s dom
+ * contour p95 needs exactly that (2.0 on calibration against 1.0 on holdout).
+ */
+const TEXTURE_TIER_DARK: readonly GateRow[] = [
+  ["shape", /*      */ "silhouetteIoU",       "≥", 0.93],
+  ["shape", /*      */ "contourDistanceMean", "≤", 0.5],
+  ["shape", /*      */ "contourDistanceP95",  "≤", 1.5],
+  ["perceptual", /* */ "ssimMean",            "≥", 0.87],
+  ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
+  ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.17],
+  ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.04],
+];
+
+const DOM_TIER_DARK: readonly GateRow[] = [
+  ["shape", /*      */ "silhouetteIoU",       "≥", 0.93],
+  ["shape", /*      */ "contourDistanceMean", "≤", 0.5],
+  ["shape", /*      */ "contourDistanceP95",  "≤", 1.5],
+  ["perceptual", /* */ "ssimMean",            "≥", 0.83],
+  ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
+  ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.18],
+  ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.05],
+];
+
+/** The same pair at 2×. Contour rows are device-pixel quantities; the rest are scale-free. */
+const TEXTURE_TIER_2X_DARK: readonly GateRow[] = [
+  ["shape", /*      */ "silhouetteIoU",       "≥", 0.93],
+  ["shape", /*      */ "contourDistanceMean", "≤", 1.0],
+  ["shape", /*      */ "contourDistanceP95",  "≤", 1.5],
+  ["perceptual", /* */ "ssimMean",            "≥", 0.88],
+  ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
+  ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.17],
+  ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.04],
+];
+
+const DOM_TIER_2X_DARK: readonly GateRow[] = [
+  ["shape", /*      */ "silhouetteIoU",       "≥", 0.93],
+  ["shape", /*      */ "contourDistanceMean", "≤", 0.5],
+  ["shape", /*      */ "contourDistanceP95",  "≤", 3.0],
+  ["perceptual", /* */ "ssimMean",            "≥", 0.85],
+  ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
+  ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.19],
+  ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.05],
+];
+
 /*
  * ---------------------------------------------------------------------------
  * Regression floors — the rows the frozen bed cannot meet (Decision Log 22)
@@ -485,32 +551,50 @@ const GATED_PROFILES: readonly GatedProfile[] = [
     dom: DOM_TIER_INCREASED_CONTRAST,
     names: { texture: "TEXTURE_TIER_INCREASED_CONTRAST", dom: "DOM_TIER_INCREASED_CONTRAST" },
   },
+  {
+    profileKey: "apple-macos-26.5-1x-dark-standard",
+    cellsPerTier: 13,
+    texture: TEXTURE_TIER_DARK,
+    dom: DOM_TIER_DARK,
+    names: { texture: "TEXTURE_TIER_DARK", dom: "DOM_TIER_DARK" },
+  },
+  {
+    profileKey: "apple-macos-26.5-2x-dark-standard",
+    cellsPerTier: 13,
+    texture: TEXTURE_TIER_2X_DARK,
+    dom: DOM_TIER_2X_DARK,
+    names: { texture: "TEXTURE_TIER_2X_DARK", dom: "DOM_TIER_2X_DARK" },
+  },
 ];
 
 /**
- * The two profiles the gate still leaves, and why.
+ * The profiles the gate leaves ungated: **none, since 2026-09-01.**
  *
- * They have a split now — W1's extension gave every provisional profile two
- * validation and two holdout scenes, which is what promoted the two
- * accessibility profiles into `GATED_PROFILES` above.
+ * This list is kept, empty, because its emptiness is the end of a story the rest
+ * of the file tells and a deleted constant would tell nothing. It held four
+ * profiles for most of the wave, then two, and now zero.
  *
- * **Current status (2026-09-01): the re-measure has LANDED, and adoption is
- * prepared but not taken.** The reason this comment used to give — that the dark
- * pair's figures were mid-investigation and a table set from them would be
- * adopted twice — expired when the frozen active bed landed. Both profiles are
- * measured on it, on both tiers, across calibration, validation and holdout.
- * Their would-be tables are computed row by row against that bed and proposed in
- * claims §5.28, in the same form every adoption in this wave was proposed.
+ * How it emptied, in order. W1's split extension gave every provisional profile
+ * validation and holdout scenes, which is what a bound in this document must be
+ * set against; that promoted the two **accessibility** profiles on 2026-08-30
+ * (§5.6). The **dark pair** stayed behind one more round — not for want of
+ * measurement but because its figures were mid-investigation, and a table set
+ * from numbers about to be re-measured would be adopted twice. The frozen active
+ * bed settled them, claims §5.28 proposed their tables row by row against it, and
+ * the gate adopted all 28 fidelity rows on 2026-09-01. Every one passes on both
+ * columns.
  *
- * What is missing is only the gate. Adopting a table is the user's call at the
- * release, not the cascade's, so the pair stays here until that call is made —
- * held back by a decision that has not been asked for yet rather than by a
- * measurement that has not been taken.
- *
- * They are not unmeasured. Both are in the matrix on both tiers, and their
- * coherence axis is asserted PRESENT below — measured, not gated.
+ * So `MATRIX_PARTITION` below is now entirely gated profiles, and the assertion
+ * that the gated and ungated sets together account for the whole matrix has
+ * become the stronger statement that the gated set alone does.
  */
-const UNGATED_PROFILES = [
+const UNGATED_PROFILES: readonly string[] = [];
+
+/**
+ * The dark pair, named where the file needs to talk about them as a pair rather
+ * than as two entries in `GATED_PROFILES`.
+ */
+const DARK_PROFILES = [
   "apple-macos-26.5-1x-dark-standard",
   "apple-macos-26.5-2x-dark-standard",
 ] as const;
@@ -575,6 +659,10 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
   // below re-derives this list from the artifact on every run.
   "apple-macos-26.5-1x-light-standard": ["dark-solid__capsule-button__rest"],
   "apple-macos-26.5-2x-light-standard": ["dark-solid__capsule-button__rest"],
+  // The same scene, the same reason, in the two profiles adopted 2026-09-01: a
+  // dark solid under a dark scheme leaves no interior to sample either.
+  "apple-macos-26.5-1x-dark-standard": ["dark-solid__capsule-button__rest"],
+  "apple-macos-26.5-2x-dark-standard": ["dark-solid__capsule-button__rest"],
   "apple-macos-26.5-1x-light-reduced-transparency": [],
   "apple-macos-26.5-1x-light-increased-contrast": [],
 };
@@ -824,9 +912,15 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     // account for the whole matrix, so no cell is outside the statement.
     expect(MATRIX.cells).toHaveLength(MATRIX_CELLS);
     expect(Object.values(MATRIX_PARTITION).reduce((a, b) => a + b, 0)).toBe(MATRIX_CELLS);
+    // Since 2026-09-01 this is the stronger statement it used to approximate:
+    // the GATED set alone accounts for the whole matrix. `UNGATED_PROFILES` is
+    // still summed in so that re-adding a provisional profile keeps this honest
+    // rather than silently failing here for the wrong reason.
     expect(
       [...GATED_PROFILES.map((profile) => profile.profileKey), ...UNGATED_PROFILES].sort(),
     ).toEqual(Object.keys(MATRIX_PARTITION).sort());
+    expect(UNGATED_PROFILES, "every profile in the matrix is gated").toHaveLength(0);
+    expect(GATED_PROFILES).toHaveLength(6);
 
     for (const { profileKey, cellsPerTier } of GATED_PROFILES) {
       for (const tier of ["texture", "dom"] as const) {
@@ -948,7 +1042,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     // v1's canonical ill-conditioned cell is gated again on the settled bed, at
     // both scales. Asserted so nobody re-adds the exclusion from memory: the
     // 88.9% recovery was an unsettled capture, not dark glass over a checkerboard.
-    for (const profileKey of UNGATED_PROFILES) {
+    for (const profileKey of DARK_PROFILES) {
       for (const cell of cellsOf(profileKey)) {
         if (cell.key.sceneId !== "checkerboard__capsule-button__rest") continue;
         expect(isWellConditioned(cell), `${name(cell)}: settled, this cell conditions fine`).toBe(true);
@@ -1012,6 +1106,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     const { min, max } = COHERENCE_ROWS.interiorLevelRatioGpuOverCss;
     for (const profileKey of COHERENCE_GATED) {
       for (const cell of cellsOf(profileKey, "dom")) {
+        if (!isWellConditioned(cell)) continue;
         const key = `${name(cell)} :: interiorLevelRatioGpuOverCss`;
         const pinned = REGRESSION_FLOORS[key];
         if (pinned === undefined) continue;
@@ -1038,14 +1133,32 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
   // -------------------------------------------------------------------------
 
   /*
-   * Gated on the two light-standard profiles only. The accessibility tables
-   * adopted on 2026-08-30 are the seven fidelity rows as proposed; their
-   * coherence figures are measured and reported but were not part of that
-   * adoption, so they are asserted present below rather than bounded here.
+   * Gated on the two light-standard profiles and, since 2026-09-01, the dark pair.
+   * The accessibility tables adopted on 2026-08-30 are the seven fidelity rows as
+   * proposed; their coherence figures are measured and reported but were not part
+   * of that adoption, so they are asserted present below rather than bounded here.
+   *
+   * ## The conditioning predicate now carries these rows too (adopted 2026-09-01)
+   *
+   * One rule on both axes. The shape rows have always skipped a cell whose
+   * silhouette the extractor could not resolve; the coherence rows did not, and
+   * that inconsistency had a cost the dark pair made visible.
+   * `interiorLevelRatioGpuOverCss` samples each tier's interior level **under the
+   * native silhouette**, so a cell whose native mask is 2% of its declared region
+   * is a ratio of two tiny samples — `dark-solid__rrect-md__rest` reads 1.589 at
+   * 1× and 1.855 at 2× for exactly that reason, and it is already excluded from
+   * the shape rows by the same measurement.
+   *
+   * A gate that trusts a two-percent sample on one axis while refusing it on
+   * another is not one rule, so the predicate now applies to both. It excludes by
+   * MEASUREMENT and never by name — the pin below asserts the degenerate cell
+   * fails an arm rather than appearing on a list, and that a well-conditioned cell
+   * is still gated.
    */
   const COHERENCE_GATED = [
     "apple-macos-26.5-1x-light-standard",
     "apple-macos-26.5-2x-light-standard",
+    ...DARK_PROFILES,
   ] as const;
 
   for (const profileKey of COHERENCE_GATED) {
@@ -1060,6 +1173,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
       expect(dom.filter((cell) => cell.coherence !== undefined)).toHaveLength(dom.length);
 
       let ratios = 0;
+      let skipped = 0;
       for (const cell of dom) {
         const measured = reading(cell, "coherence", "crossTierOklabDeltaEMean");
         expect(
@@ -1074,6 +1188,15 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
           expect([...noShape], "a scene with no interior to sample").toContain(cell.key.sceneId);
           continue;
         }
+        // The conditioning predicate, on this axis too (adopted 2026-09-01). The
+        // ratio is sampled under the native silhouette, so a cell the extractor
+        // could not resolve gives a ratio of two degenerate samples. Skipped by
+        // measurement, and counted as skipped rather than as a gated pair.
+        if (!isWellConditioned(cell)) {
+          skipped += 1;
+          continue;
+        }
+
         const ratio = reading(cell, "coherence", "interiorLevelRatioGpuOverCss");
         const pinned = REGRESSION_FLOORS[`${name(cell)} :: interiorLevelRatioGpuOverCss`];
 
@@ -1093,9 +1216,11 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
         expect(ratio, because).toBeLessThanOrEqual(max);
         ratios += 1;
       }
-      expect(ratios, "every scene with a material on both tiers is a coherence pair").toBe(
-        dom.length - noShape.length,
-      );
+      expect(
+        ratios + skipped,
+        "every scene with a material on both tiers is a coherence pair",
+      ).toBe(dom.length - noShape.length);
+      expect(ratios, "the predicate must not empty this row").toBeGreaterThan(0);
     });
 
     it(`cross-checks ${profileKey}'s recorded ratio against the two tiers' own levels`, () => {
@@ -1133,11 +1258,13 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
 
   it("measures coherence on every profile the rows do not gate", () => {
     /*
-     * The two dark profiles are ungated entirely (their tables await a
-     * re-measure); the two accessibility profiles are gated on their fidelity
-     * rows but not on coherence. Both cases are measured, and presence is what
-     * is asserted here — a profile that silently stopped carrying coherence
-     * would otherwise look exactly like one that was never gated on it.
+     * One case left, since the dark pair's adoption on 2026-09-01: the two
+     * accessibility profiles are gated on their fidelity rows but not on
+     * coherence, because the 2026-08-30 adoption was the seven fidelity rows as
+     * proposed and their coherence figures were not part of it.
+     *
+     * Presence is what is asserted — a profile that silently stopped carrying
+     * coherence would otherwise look exactly like one that was never gated on it.
      */
     const notCoherenceGated = [
       ...UNGATED_PROFILES,
@@ -1153,6 +1280,56 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
           cell.coherence?.interiorLevelRatioGpuOverCss === undefined,
           `${name(cell)}: the ratio exists exactly where a shared interior does`,
         ).toBe(cell.material === undefined);
+      }
+    }
+  });
+
+  it("excludes the degenerate coherence cell by measurement, and gates its neighbours", () => {
+    /*
+     * The pin for the predicate extension adopted 2026-09-01, and it is written
+     * to fail in both directions.
+     *
+     * The exclusion must be earned by the measurement, not by the scene id. So
+     * the degenerate cell is asserted to FAIL a named arm — if a future bed
+     * resolves `dark-solid__rrect-md__rest` properly, this fails and the cell
+     * goes back to being gated, which is the correct outcome and not a
+     * maintenance burden to route around.
+     *
+     * And the extension must not have quietly emptied the row: a well-conditioned
+     * dark cell is asserted to still be gated on its ratio.
+     */
+    const degenerate = MATRIX.cells.filter(
+      (cell) =>
+        cell.tier === "dom" &&
+        cell.key.sceneId === "dark-solid__rrect-md__rest" &&
+        (DARK_PROFILES as readonly string[]).includes(cell.key.profileKey),
+    );
+    expect(degenerate, "the cell the extension exists for").toHaveLength(DARK_PROFILES.length);
+
+    for (const cell of degenerate) {
+      const at = (metric: string): number => reading(cell, "shape", metric);
+      // Excluded, and excluded because the extractor recovered almost nothing —
+      // roughly 2% of the declared region, not a borderline miss of the floor.
+      expect(isWellConditioned(cell), `${name(cell)}: must fail the predicate`).toBe(false);
+      expect(at("silhouetteAreaNative") / at("componentRegionArea")).toBeLessThan(0.05);
+      // And its ratio is the out-of-band number the extension exists to keep out.
+      const ratio = reading(cell, "coherence", "interiorLevelRatioGpuOverCss");
+      expect(ratio).toBeGreaterThan(COHERENCE_ROWS.interiorLevelRatioGpuOverCss.max);
+    }
+
+    // The other side of the pin: the row still bites on this profile.
+    for (const profileKey of DARK_PROFILES) {
+      const gated = cellsOf(profileKey, "dom").filter(
+        (cell) =>
+          isWellConditioned(cell) &&
+          cell.coherence?.interiorLevelRatioGpuOverCss !== undefined,
+      );
+      expect(gated.length, `${profileKey}: the ratio row must still gate cells`).toBeGreaterThan(5);
+      for (const cell of gated) {
+        const ratio = reading(cell, "coherence", "interiorLevelRatioGpuOverCss");
+        const { min, max } = COHERENCE_ROWS.interiorLevelRatioGpuOverCss;
+        expect(ratio, `${name(cell)}: well-conditioned, so gated`).toBeGreaterThanOrEqual(min);
+        expect(ratio, `${name(cell)}: well-conditioned, so gated`).toBeLessThanOrEqual(max);
       }
     }
   });
