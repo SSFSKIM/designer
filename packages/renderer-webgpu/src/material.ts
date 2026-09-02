@@ -36,7 +36,7 @@ import {
 } from "@vitrea/policy";
 
 import type { Rgb } from "./color";
-import { srgbToLinear } from "./color";
+import { linearToSrgbChannel, relativeLuminance, srgbToLinear, srgbToLinearChannel } from "./color";
 
 // Re-exported under the names this package and its tests already know them by,
 // so nothing downstream has to learn where the ladder went.
@@ -355,28 +355,39 @@ export interface MaterialProfile {
   readonly reducedTintAdaptation: number;
 
   /**
-   * The author tint's tone map — Apple's "range of tones **mapped to content
-   * brightness underneath**" (S219), as four numbers.
+   * The author tint's shade law (W10) — Apple's "range of tones **mapped to
+   * content brightness underneath**" (S219), measured per pixel on the frozen
+   * bed and the W9 probe (claims §5.36).
    *
-   * The seed the author gives is not the colour the material paints. It is the
-   * middle of a range: over a dark backdrop the material shows a shade of the
-   * seed (`tintToneFloor`, a multiple of it in linear light, so hue and
-   * chromaticity survive); over a bright one it shows the seed washed toward
-   * white (`tintToneCeilMix`), which is what Apple's "changing its hue,
-   * brightness and saturation… without deviating too much from the intended
-   * color" describes. `tintToneLow`/`tintToneHigh` are the backdrop luminances
-   * the two ends are reached at, crossed with a smoothstep for the same reason
-   * `lensSpanMin`/`lensSpanMax` are.
+   * The tinted material is an OPAQUE, hue-preserving shade of the seed: the seed
+   * times a scalar, and the scalar is linear in the luminance the untinted
+   * material shows at the same pixel — `mix(tintShadeDark, tintShadeLight, u)`,
+   * clamped so a shade is never brighter than the seed. Over black content the
+   * reference shows about half the seed's light; over white it shows the seed
+   * itself; over a checkerboard it shows both, cell by cell, with the seed's
+   * chromaticity intact to three decimals at every pitch measured. That layer
+   * composites over the material at the AUTHOR's opacity (the colour's alpha) in
+   * the encoded space — the half-strength cell is the 0.501 encoded-space mix
+   * of its untinted and full-tinted twins, per channel — so the material's own
+   * alpha is not what a tinted surface shows.
    *
-   * **Advisory and calibration-delegated**, like every other number in this
-   * profile: they are chosen so a tinted surface reads as coloured glass rather
-   * than as paint, and the tinted-capture extension fits them. Nothing here is
-   * measured yet, and no claim rests on these values.
+   * `tintShadeStrength` is the law's provenance gate: 1 where the constants were
+   * measured (the light scheme), 0 where they were not — the dark scheme
+   * renders the pure seed over every backdrop it was measured on, which is
+   * consistent with "a shade relative to the material's own body level" but is
+   * not yet separable from "no shading in the dark scheme". The collapse (W7)
+   * folds the shade out the same way, because a collapsed material IS a dark
+   * body and the reference renders the pure seed there too.
+   *
+   * MEASURED, both scales, twelve light-standard cells across three pitches:
+   * fitted on the five probe cells only (17 700 px, RMS 0.0035) and refereed by
+   * every canonical tinted row. Mirrored by `@vitreajs/vitrea-web`'s
+   * `TINT_SHADE`, pinned in both directions by
+   * `packages/calibration/test/tier-coherence.test.ts`.
    */
-  readonly tintToneFloor: number;
-  readonly tintToneCeilMix: number;
-  readonly tintToneLow: number;
-  readonly tintToneHigh: number;
+  readonly tintShadeDark: number;
+  readonly tintShadeLight: number;
+  readonly tintShadeStrength: number;
 
   /**
    * **Backdrop tone adaptation (W7)** — the axis Apple's material has and this
@@ -762,32 +773,23 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   strongBorderRim: { rimWidth: 2, rimAlpha: 0.95 },
   reducedTintAdaptation: 0.35,
 
-  // ADVISORY (W3). The span 0.02 … 0.65 covers most of the canonical backdrop
-  // range (0.003 … 0.891 linear), and the two ends are deliberately symmetric —
-  // 0.45 of the seed's brightness at the dark end, 0.45 of the way to white at
-  // the bright end — so the seed itself sits mid-range and the excursion reads
-  // as glass rather than as two different colours.
   /*
-   * FITTED (2026-08-31, active bed) — and the fit is that THE CURVE IS THE
-   * IDENTITY. `floor` → 1 and `ceilMix` → 0 make `tintTone` return the seed
-   * unchanged at every backdrop, which leaves `low` and `high` describing
-   * nothing at all; they keep their provisional values so a bed that can
-   * identify them has somewhere to land, exactly as `adaptiveTint` keeps two
-   * equal ends.
+   * MEASURED (W10, 2026-09-02) — per-pixel least squares of the reference's
+   * tinted pixel against its own untinted pixel on the five W9-probe tinted
+   * checkerboard cells (pitch 4…64 px, 17 700 px): shade = 0.5289 + 0.4886·u,
+   * RMS 0.0035. Out of sample on the canonical bed the orange cells fit at
+   * RMS 0.003 with zero bias; blue sits 0.011 darker (the second hue's
+   * residual, recorded and unmodelled). The light end extrapolates past 1 and
+   * is clamped in `tintShade`. Claims §5.36.
    *
-   * Monotone and uncontested over floor ∈ {0.45, 0.7, 0.85, 1} × ceilMix ∈
-   * {0, 0.2, 0.45}: objective 0.26523 → 0.12676, a 2.09× spread, with ΔE
-   * (0.01331 → 0.00831) and SSIM (0.9749 → 0.9788) agreeing. The reference
-   * says the same thing directly — on three of the five calibration backdrops
-   * its tinted interior is the declared seed EXACTLY in linear light, at a
-   * per-channel standard deviation of 0.000. Apple's tint is the author's
-   * colour, not a range of tones mapped to it; S219's wording described the
-   * inactive material's residue. Claims §5.13.
+   * §5.13's earlier "the curve is the identity" fit was made on the material's
+   * MEAN over solid backdrops, where u is either ~0.97 (shade 1.0) or the
+   * collapse has already folded the shade out — the identity was the law's
+   * two endpoints, seen without anything between them.
    */
-  tintToneFloor: 1,
-  tintToneCeilMix: 0,
-  tintToneLow: 0.02,
-  tintToneHigh: 0.65,
+  tintShadeDark: 0.5289,
+  tintShadeLight: 1.0175,
+  tintShadeStrength: 1,
 
   /*
    * MEASURED (W7), against the settled apple-macos-26.5 bed, on the light and
@@ -1014,10 +1016,9 @@ export interface MaterialProfilePatch {
   readonly increasedOcclusionLift?: number;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
   readonly reducedTintAdaptation?: number;
-  readonly tintToneFloor?: number;
-  readonly tintToneCeilMix?: number;
-  readonly tintToneLow?: number;
-  readonly tintToneHigh?: number;
+  readonly tintShadeDark?: number;
+  readonly tintShadeLight?: number;
+  readonly tintShadeStrength?: number;
   readonly backdropToneMax?: number;
   readonly backdropToneLow?: number;
   readonly backdropToneHigh?: number;
@@ -1075,10 +1076,9 @@ export function withMaterialOverrides(
     increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
     reducedTintAdaptation: patch.reducedTintAdaptation ?? base.reducedTintAdaptation,
-    tintToneFloor: patch.tintToneFloor ?? base.tintToneFloor,
-    tintToneCeilMix: patch.tintToneCeilMix ?? base.tintToneCeilMix,
-    tintToneLow: patch.tintToneLow ?? base.tintToneLow,
-    tintToneHigh: patch.tintToneHigh ?? base.tintToneHigh,
+    tintShadeDark: patch.tintShadeDark ?? base.tintShadeDark,
+    tintShadeLight: patch.tintShadeLight ?? base.tintShadeLight,
+    tintShadeStrength: patch.tintShadeStrength ?? base.tintShadeStrength,
     backdropToneMax: patch.backdropToneMax ?? base.backdropToneMax,
     backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
@@ -1177,57 +1177,70 @@ export function tintToneAdaptation(
 }
 
 /**
- * The tone the seed shows over a given backdrop, in linear light — the CPU
- * statement of what `WGSL_OPTICS_PASS` evaluates per pixel.
+ * The shade the seed is shown at over a material of luminance `u` (W10) — the
+ * CPU statement of what `WGSL_OPTICS_PASS` evaluates per pixel.
+ *
+ * `u` is the linear luminance of the UNTINTED material at the pixel — what the
+ * surface would show with no author tint, backdrop included. `grip` is how much
+ * of the excursion is allowed: the contrast regime's `tintToneAdaptation`, the
+ * profile's provenance gate `tintShadeStrength`, and `(1 − collapse)` for W7's
+ * axis, multiplied by the caller; at 0 the shade is 1 and the layer is the bare
+ * seed. Clamped at 1 because a shade brighter than the seed is not a shade — the
+ * fitted light end sits just past 1 (claims §5.36).
  *
  * Exported because two other things have to agree with the shader without being
- * it: the CSS tier converts this quantity into one flat `rgba()`, and the
- * foreground decision has to be taken against the material the surface actually
- * shows. A second implementation of the curve is how those two drift, so there
- * is one, here, and the shader mirrors it line for line.
+ * it: the CSS tier folds this layer into its one `rgba()`, and the foreground
+ * decision has to be taken against the material the surface actually shows. A
+ * second implementation is how those two drift, so there is one, here.
  */
-export function tintTone(
+export function tintShade(
+  materialLuminance: number,
+  grip: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const u = Math.min(1, Math.max(0, materialLuminance));
+  const shade = Math.min(1, Math.max(0, profile.tintShadeDark + (profile.tintShadeLight - profile.tintShadeDark) * u));
+  const k = Math.min(1, Math.max(0, grip));
+  return 1 + (shade - 1) * k;
+}
+
+/** The opaque layer an author tint paints: the seed at its shade, linear light. */
+export function tintShadeLayer(
   seed: Rgb,
-  backdropLuminance: number,
-  toneAdaptation: number,
+  materialLuminance: number,
+  grip: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): Rgb {
-  const t = smoothstep(profile.tintToneLow, profile.tintToneHigh, backdropLuminance);
-  const k = Math.min(1, Math.max(0, toneAdaptation));
-  const channel = (index: 0 | 1 | 2): number => {
-    const s = seed[index];
-    const low = s * profile.tintToneFloor;
-    const high = s + (1 - s) * profile.tintToneCeilMix;
-    return s + (low + (high - low) * t - s) * k;
-  };
-  return [channel(0), channel(1), channel(2)];
+  const shade = tintShade(materialLuminance, grip, profile);
+  return [seed[0] * shade, seed[1] * shade, seed[2] * shade];
 }
 
 /**
- * The material's tint colour once an author tint is folded onto the neutral one.
+ * The tinted material's colour once the author's layer composites over it.
  *
- * `neutral` is what the material would tint with on its own — the profile's
- * tint, already crossed with whatever adaptation the renderer resolved. The
- * author's tone displaces it by `strength` and nothing else: the tint alpha,
- * which is the material's occlusion and the axis every accessibility policy and
- * the system's own Clear/Tinted preference operate on, is untouched here by
- * construction.
+ * The layer is opaque and lands at the AUTHOR's opacity (`strength`), in the
+ * encoded space — a `CALayer` with `opacity` over the material, which is how the
+ * reference's half-strength cell measures (claims §5.36 finding 3). `material`
+ * is the untinted composite at this pixel, linear; the result is linear too.
+ * At strength 0 the material is returned untouched, so an untinted surface is
+ * byte-identical to before this axis existed.
  */
-export function tintedTintColour(
-  neutral: Rgb,
+export function tintedMaterialColour(
+  material: Rgb,
   tint: { readonly color: Rgb; readonly strength: number } | undefined,
-  backdropLuminance: number,
-  toneAdaptation: number,
+  grip: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): Rgb {
-  if (tint === undefined) return neutral;
-  const tone = tintTone(tint.color, backdropLuminance, toneAdaptation, profile);
-  const k = Math.min(1, Math.max(0, tint.strength));
-  return [
-    neutral[0] + (tone[0] - neutral[0]) * k,
-    neutral[1] + (tone[1] - neutral[1]) * k,
-    neutral[2] + (tone[2] - neutral[2]) * k,
-  ];
+  if (tint === undefined || tint.strength <= 0) return material;
+  const s = Math.min(1, Math.max(0, tint.strength));
+  const layer = tintShadeLayer(tint.color, relativeLuminance(material), grip, profile);
+  const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
+  const channel = (index: 0 | 1 | 2): number => {
+    const from = linearToSrgbChannel(clamp01(material[index]));
+    const to = linearToSrgbChannel(clamp01(layer[index]));
+    return srgbToLinearChannel(from + (to - from) * s);
+  };
+  return [channel(0), channel(1), channel(2)];
 }
 
 /**

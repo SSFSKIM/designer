@@ -104,7 +104,7 @@ import {
   resolvedBackdropTone,
   resolvedBackdropToneResponse,
   resolvedPolicyFold,
-  resolvedTintTone,
+  resolvedTintShade,
   sizeScatterSigmaAt,
   sizeThickness,
   sizeThicknessUnderPolicy,
@@ -118,6 +118,7 @@ import {
   type CssTierMapping,
   type LinearRgb,
   type MaterialOptics,
+  type MaterialSourceOptics,
 } from "./optics";
 import {
   BACKDROP_TONE_CADENCE_MS,
@@ -719,12 +720,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let policyFold = resolvedPolicyFold(options.materialProfile);
   /**
-   * The author tint's tone map, from the same profile — the curve that turns a
+   * The author tint's shade law (W10), from the same profile — what turns a
    * seed into Apple's "range of tones mapped to content brightness underneath".
-   * Rebuilt by `setMaterialProfile` alongside the rest, so a calibrated tone
+   * Rebuilt by `setMaterialProfile` alongside the rest, so a calibrated shade
    * lands as a data change and moves both tiers at once.
    */
-  let tintTone = resolvedTintTone(options.materialProfile);
+  let tintShade = resolvedTintShade(options.materialProfile);
   /**
    * The profile's size law (W2), held for the same reason as `policyFold`: the
    * constants multiply a surface's span rather than being numbers either tier's
@@ -1307,7 +1308,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
          */
         const toneBackdrop =
           hintedBackdropLuminance(hint, cssMapping) ?? cssMapping.referenceBackdropLuminance;
-        const toneAdaptation = tintToneAdaptation(accessibility.material.ambientTint, tintTone);
+        const toneAdaptation = tintToneAdaptation(accessibility.material.ambientTint, tintShade);
         const seed = material.tint === undefined ? undefined : linearTint(material.tint);
 
         /*
@@ -1326,7 +1327,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         );
         const backdropTonePolicyStrength = backdropToneUnderPolicy(
           accessibility.material,
-          tintTone,
+          tintShade,
           sizeConstants.refractionScale,
         );
         const backdropAdaptation =
@@ -1361,36 +1362,51 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 backdropToneResponse,
               );
 
+        /*
+         * The author tint (W10) composites LAST, over the converted material:
+         * an opaque layer of the seed at its shade, at the author's opacity,
+         * folded into this tier's one `rgba()` in the encoded space it actually
+         * composites in. The shade reads the material's luminance at one level
+         * per source — the measured backdrop where the host sampled one, the
+         * hint or the mapping's reference otherwise — and its grip is the
+         * regime's, the profile's provenance gate's, and `(1 − collapse)`: a
+         * collapsed material is a dark body, and the reference paints the pure
+         * seed on one.
+         */
+        const adaptedSource = adaptedSourceOptics(
+          respondedSource,
+          backdropTone?.rgb as LinearRgb | undefined,
+          backdropAdaptation,
+        );
+        // The material the shade is read off is the one the tier draws: the
+        // occlusion regime's lift is part of it (the increased-contrast
+        // reference is at u ≈ 0.98 and shades to 0.99, measured), so the tint
+        // composites AFTER the policy fold, on both tiers.
+        const policySource: MaterialSourceOptics = {
+          ...adaptedSource,
+          tintAlpha: occlusionAlphaUnderPolicy(
+            adaptedSource.tintAlpha,
+            accessibility.material.occlusion,
+            policyFold.increasedOcclusionLift,
+          ),
+        };
+        const tintBackdrop = backdropTone?.linearLuminance ?? toneBackdrop;
+        const tintGrip = toneAdaptation * tintShade.strength * (1 - backdropAdaptation);
         const nodeBaseOptics =
           backdropAdaptation <= 0 && backdropTone === undefined
-            ? tintedCssOptics(
-                baseOptics,
-                respondedSource,
-                seed,
-                toneBackdrop,
-                toneAdaptation,
-                cssMapping,
-                tintTone,
-              )
-            : cssOpticsFromSource(
-                baseOptics,
-                tintedSourceOptics(
-                  adaptedSourceOptics(
-                    respondedSource,
-                    backdropTone?.rgb as LinearRgb | undefined,
-                    backdropAdaptation,
-                  ),
-                  seed,
-                  toneBackdrop,
-                  toneAdaptation,
-                  tintTone,
-                ),
-                cssMapping,
-              );
+            ? baseOptics
+            : cssOpticsFromSource(baseOptics, adaptedSource, cssMapping);
         const nodeOptics =
           seed === undefined && backdropAdaptation <= 0 && backdropTone === undefined
             ? optics
-            : opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold);
+            : tintedCssOptics(
+                opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold),
+                policySource,
+                seed,
+                tintBackdrop,
+                tintGrip,
+                tintShade,
+              );
 
         const input: GlassNodeRenderInput = {
           nodeId: record.nodeId,
@@ -1522,28 +1538,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
            * the backdrop adaptation automatically, rather than being decided
            * against a material the tier stopped drawing.
            */
-          const gpuMaterial = {
-            ...tintedSourceOptics(
-              adaptedSourceOptics(
-                respondedSource,
-                backdropTone?.rgb as LinearRgb | undefined,
-                backdropAdaptation,
-              ),
-              seed,
-              toneBackdrop,
-              toneAdaptation,
-              tintTone,
-            ),
-            tintAlpha: occlusionAlphaUnderPolicy(
-              adaptedSourceOptics(
-                respondedSource,
-                backdropTone?.rgb as LinearRgb | undefined,
-                backdropAdaptation,
-              ).tintAlpha,
-              accessibility.material.occlusion,
-              policyFold.increasedOcclusionLift,
-            ),
-          };
+          const gpuMaterial = tintedSourceOptics(policySource, seed, tintBackdrop, tintGrip, tintShade);
           // Same rule as the CSS tier's: a declared tint can decide the ink with
           // no hint at all, wherever the level's whole range lands on one side of
           // the crossover. See `boundedForegroundLevel`.
@@ -2053,7 +2048,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       cssOptics = cssTierOptics(profile, cssMapping);
       gpuOptics = sourceOptics(profile);
       policyFold = resolvedPolicyFold(profile);
-      tintTone = resolvedTintTone(profile);
+      tintShade = resolvedTintShade(profile);
       sizeConstants = sourceSize(profile);
       outerShadowConstants = sourceOuterShadow(profile);
       backdropToneConstants = resolvedBackdropTone(profile);

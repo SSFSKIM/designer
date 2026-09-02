@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "e648db2a108bbcc3",
+  "resolvedMaterialSha256": "9ec21d0e186ca3d3",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -46,6 +46,19 @@
     "down here. The collapse (whose target is the backdrop, not a scheme's",
     "appearance) still runs. A dark response surface needs the dark reference",
     "probed; recorded as follow-up work in the W9 spec's Deferred."
+  ],
+  "$comment-w10": [
+    "RE-RECORDED 2026-09-02 (W10, claims 5.36): the author tint became an opaque",
+    "shade of the seed on both tiers (tintShadeDark/Light, measured on the LIGHT",
+    "probe bed). The dark reference renders the PURE seed over checkerboard and",
+    "photo (shade 1.015, sd 0.008, against 0.59 the light law would give), so",
+    "`patch.tintShadeStrength: 0` stands the shade down here — the layer is the",
+    "bare seed at the author's opacity, which is what this scheme's three tinted",
+    "cells measure. Whether that is 'no shading in the dark scheme' or 'a shade",
+    "relative to the material's own body level' needs a dark tinted cell over a",
+    "light backdrop; recorded in the W10 spec's Deferred. Fingerprint",
+    "e648db2a108bbcc3 -> 9ec21d0e186ca3d3 (the renderer's tint-tone defaults",
+    "replaced by the shade defaults, plus this gate)."
   ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
@@ -89,6 +102,7 @@
   },
   "patch": {
     "backdropToneResponseStrength": 0,
+    "tintShadeStrength": 0,
     "optics": {
       "regular": {
         "tint": [

@@ -70,7 +70,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   adapt : vec4f,
   /// author tint seed, linear light (xyz), tone adaptation under the contrast regime (w)
   seed : vec4f,
-  /// tintToneFloor, tintToneCeilMix, tintToneLow, tintToneHigh
+  /// the author tint's shade law (W10): tintShadeDark, tintShadeLight,
+  /// tintShadeStrength (the profile's provenance gate), unused
   tone : vec4f,
   /// rimWidthPx, rimAlpha, specularPower, specularGain
   rim : vec4f,
@@ -99,10 +100,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   shadow : vec4f,
   /// the outer shadow's size-law gain (x), read against the casting surface's own
   /// thickness, and the field rect's height in CSS px (y) — the conversion the
-  /// shadow's shift needs when it lands outside the texture; z is the W9
-  /// tone-input correction ratio (encoded-space tone level over the linear mean,
-  /// claims 5.31) multiplying the per-pixel tint-tone input, 1 where unmeasured;
-  /// w is the padding a uniform's vec4 alignment requires
+  /// shadow's shift needs when it lands outside the texture; zw are the padding
+  /// a uniform's vec4 alignment requires
   shadowSize : vec4f,
   /// the backdrop tone response's anchors (W9): the three solid anchors'
   /// ENCODED-space means (xyz), and the backdrop's linear-space mean (w) — the
@@ -335,14 +334,6 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // is what a 'hint' or 'none' group gets.
   let neutral = mix(ou.tint.rgb, ou.adapt.rgb, ou.adapt.w);
 
-  // The tint tone map's per-pixel input, corrected onto the W9 model
-  // (claims 5.31): the chain averages in linear light, the reference's tone
-  // response tracks the ENCODED-space mean, and 'shadowSize.z' is the
-  // host-measured ratio between the two, so the input's spatial mean lands on
-  // the model while locality is preserved. 'backdrop' itself stays physical —
-  // the correction applies to the tone READING, never to what refracts.
-  let backdropLuma = dot(backdrop, vec3f(0.2126, 0.7152, 0.0722)) * ou.shadowSize.z;
-
   /*
    * Backdrop tone adaptation (W7) — step two of the composition contract, between
    * the colour scheme's neutral and the author's tint.
@@ -453,50 +444,43 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
       adaptedAlpha;
   }
 
-  // The author tint. 'aux.w' is the per-pixel strength, unioned in the field pass,
-  // so a toolbar can carry one tinted control among plain ones; the seed is a
-  // group uniform. At strength 0 this is the identity and the material is the one
-  // the calibration bed measures, byte for byte.
-  //
-  // Apple's mechanism, not a fill: the seed is the middle of a range of tones
-  // 'mapped to content brightness underneath'. 'backdrop' is what this pixel is
-  // actually looking through — lens-displaced, LOD-sampled, already the thing the
-  // material transmits — so the tone is taken against the same light the tint is
-  // about to be mixed into, and a tinted surface over a dark backdrop settles to a
-  // shade of the author's colour rather than sitting on it as paint.
-  //
-  // That 'backdrop' is also where the size law's scattering has already been
-  // applied (above), and that is the right order rather than a coincidence: a
-  // large surface diffuses more of what is behind it, so the tone the tint maps
-  // to should be the diffused light, not the sharp light nobody sees through it.
-  //
-  // It displaces the ADAPTED neutral, not the raw one: a full-strength tint is its
-  // own adaptation and replaces this axis outright, while a partial one moves with
-  // it. That order is the wave's composition contract, in one line.
-  var tintColour = adapted;
-  if (aux.w > 0.0) {
-    let t = smoothstep(ou.tone.z, ou.tone.w, backdropLuma);
-    let low = ou.seed.rgb * ou.tone.x;
-    let high = ou.seed.rgb + (vec3f(1.0) - ou.seed.rgb) * ou.tone.y;
-    // 'seed.w' is the contrast regime's grip on the excursion, never on the hue:
-    // at 0 the material shows the author's colour flat and stops responding.
-    let tone = mix(ou.seed.rgb, mix(low, high, t), clamp(ou.seed.w, 0.0, 1.0));
-    tintColour = mix(adapted, tone, clamp(aux.w, 0.0, 1.0));
-  }
+  // The material, untinted: the adapted neutral over what this pixel looks
+  // through, at the material's own occlusion. That alpha is what reduced
+  // transparency lifts and what the size law thickens ("a larger size is more
+  // opaque" is a statement about how much material there is), and the backdrop
+  // adaptation moved it above. The author's colour never touches it — but not
+  // for the reason the composition contract first gave (claims §5.36).
+  var colour = mix(backdrop, adapted, adaptedAlpha);
 
-  // The tint layer's ALPHA is untouched by the author's colour. It is the
-  // material's occlusion — what reduced transparency lifts, and the axis the
-  // system's own Clear-to-Tinted preference runs on — and an author choosing a
-  // colour does not get to move it.
+  // The author tint (W10). 'aux.w' is the per-pixel strength, unioned in the
+  // field pass, so a toolbar can carry one tinted control among plain ones; the
+  // seed is a group uniform. At strength 0 this is the identity and the material
+  // is the one the calibration bed measures, byte for byte.
   //
-  // The size law does move it, and the two do not collide: "a larger size is more
-  // opaque, a smaller size is clearer" is a statement about how much material
-  // there is, not about what colour it is. A fraction of whatever transparency
-  // the resolved alpha still has, for the reason 'increasedOcclusionLift' is a
-  // fraction — see material.ts.
+  // Apple's mechanism, measured per pixel: the tinted material is an OPAQUE
+  // layer of the seed at a shade that is linear in the luminance the untinted
+  // material shows at this pixel — about half the seed's light over black
+  // content, the seed itself over white, the seed's chromaticity intact
+  // throughout. That layer composites over the material at the AUTHOR's
+  // opacity in the encoded space, which is what a CALayer with 'opacity' does
+  // and how the reference's half-strength cell measures. So a tinted surface
+  // over a checkerboard shows the checker as light and dark ORANGE, not as
+  // orange glass with the checker behind it — the material's own alpha is not
+  // what a tinted surface shows.
   //
-  // The backdrop adaptation moves it, above, and the author's colour does not.
-  var colour = mix(backdrop, tintColour, adaptedAlpha);
+  // 'seed.w' is the contrast regime's grip on the excursion, never on the hue;
+  // 'tone.z' is the profile's provenance gate (the dark scheme renders the pure
+  // seed); and '1 − toneAdapt' folds the shade out where the collapse has made
+  // the material a dark body, where the reference renders the pure seed too.
+  // At zero grip the layer is the bare seed — the author's colour, flat.
+  if (aux.w > 0.0) {
+    let u = dot(colour, vec3f(0.2126, 0.7152, 0.0722));
+    let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) * (1.0 - toneAdapt);
+    let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
+    let layer = ou.seed.rgb * shade;
+    let s = clamp(aux.w, 0.0, 1.0);
+    colour = srgb_to_linear(mix(linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0))), linear_to_srgb(layer), vec3f(s)));
+  }
 
   /*
    * Everything below is the surface's own APPEARANCE — the marks that say a

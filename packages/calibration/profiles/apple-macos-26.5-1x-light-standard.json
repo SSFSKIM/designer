@@ -30,7 +30,12 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "a0a4e10280297ff7",
+  "resolvedMaterialSha256": "d082adbb28493c31",
+  "$comment-sha-history": [
+    "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
+    "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
+    "(tintShadeDark/Light/Strength) — see entries.tintShade."
+  ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
     "",
@@ -91,8 +96,9 @@
     ],
     "sizeShadowGainMax": 1,
     "backdropToneSizeBias": 0.05,
-    "tintToneFloor": 1,
-    "tintToneCeilMix": 0,
+    "tintShadeDark": 0.5289,
+    "tintShadeLight": 1.0175,
+    "tintShadeStrength": 1,
     "outerShadow": {
       "occlusion": 0.285,
       "reducedTransparencyOcclusion": 0.7,
@@ -108,8 +114,6 @@
     "lensSizeGainMax": 2.6,
     "sizeScatterGainMax": 1,
     "sizeOcclusionGain": 0.05,
-    "tintToneLow": 0.02,
-    "tintToneHigh": 0.65,
     "backdropToneMax": 1,
     "backdropToneHigh": 0.055,
     "backdropToneAnchorX": [
@@ -133,6 +137,41 @@
     "referenceBackdropLuminance": 0.02
   },
   "entries": {
+    "tintShade": {
+      "status": "measured",
+      "value": {
+        "tintShadeDark": 0.5289,
+        "tintShadeLight": 1.0175,
+        "tintShadeStrength": 1
+      },
+      "previous": {
+        "tintToneFloor": 1,
+        "tintToneCeilMix": 0,
+        "tintToneLow": 0.02,
+        "tintToneHigh": 0.65
+      },
+      "method": [
+        "W10 (claims 5.36). The reference's tinted material is an OPAQUE,",
+        "hue-preserving shade of the seed: per pixel, seed x (dark + (light - dark)",
+        "x u) with u the linear luminance of the untinted material at the same",
+        "pixel, composited over the material at the author's opacity in encoded",
+        "space (the half-strength cell is the 0.501 sRGB mix of its untinted and",
+        "full-tinted twins, RMS 0.0019). Fitted by per-pixel least squares on the",
+        "five W9-probe tinted checkerboard cells ONLY (pitch 4..64 px, 17 700 px,",
+        "native against native — vitrea never enters the fit): RMS 0.0035. Out of",
+        "sample on the canonical bed the orange cells fit at RMS 0.003 with zero",
+        "bias; blue sits 0.011 darker (the second hue's residual, unmodelled).",
+        "The light end extrapolates past 1 and is clamped in the law. This",
+        "replaces W3's tone map, whose identity fit (5.13) was the law's two",
+        "endpoints seen on solid backdrops with nothing between them."
+      ],
+      "doesNotClose": [
+        "The dark scheme (pure seed measured; strength 0 on the dark profiles),",
+        "the mid-collapse regime (no tinted cell on W7's slope; the (1 - k) fold is",
+        "declared, not measured), and the blue hue's +0.03 residual on the dark",
+        "end."
+      ]
+    },
     "backdropToneResponse": {
       "status": "measured",
       "value": {

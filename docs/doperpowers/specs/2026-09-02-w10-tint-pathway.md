@@ -131,15 +131,50 @@ tinted   = decode( mix( encode(material), encode(layer), s ) )  (s: author stren
 
 ## Decision Log
 
-1. *(open — see the round's question)* **The contract overturn and the
-   protocol.** (a) Wave Decision Log 12's clause "the tint occupies the
-   colour axis only, its strength carried by the colour's own alpha" is
-   overturned in its first half by §5.36: a full-strength author tint is an
-   opaque layer, and the material's alpha is not what the tinted surface
-   shows. The strength-as-alpha half stands and is measured to be an
-   encoded-space layer opacity. This is a `[parent-impact]` on the wave
-   spec, recorded there at close. (b) The fit protocol as declared in
-   §5.36.
+1. **The contract overturn and the protocol (2026-09-02, user-approved,
+   both as recommended).** (a) Wave Decision Log 12's clause "the tint
+   occupies the colour axis only, its strength carried by the colour's own
+   alpha" is overturned in its first half by §5.36: a full-strength author
+   tint is an opaque layer, and the material's alpha is not what the tinted
+   surface shows. The strength-as-alpha half stands and is measured to be
+   an encoded-space layer opacity. This is a `[parent-impact]` on the wave
+   spec, recorded there at close. "Keep the wash; shade only the colour"
+   was declined as contradicting the measurement (GPU interior sd 0.148
+   against native 0.048); "probe first" was declined because the
+   light-scheme law is already read at 0.002 RMS on twelve cells across
+   three pitches and two scales, and a capture session would only reach
+   the regimes this round defers. (b) The fit protocol as declared in
+   §5.36 — probe cells only; "probe + canonical calibration" was declined
+   because `checkerboard` orange IS one of the six floors.
+
+   Implementation shape, as landed (binding where stated):
+   - **Both tiers, one law.** GPU: after the untinted composite
+     `mix(backdrop, adapted, alpha)`, the shader reads that pixel's
+     luminance `u`, paints `seed × mix(1, clamp(mix(dark, light, u)), grip)`
+     and composites it in encoded space at the per-pixel strength.
+     CSS: `tintedCssOptics` folds the same layer into the tier's one
+     `rgba()` exactly (`α″ = 1 − (1 − s)(1 − α′)`, convex colour), with
+     `u` read once per source at the measured backdrop's linear
+     luminance (hint or reference otherwise). Binding: the tint
+     composites AFTER the accessibility fold on both tiers, because the
+     shade reads the material the tier actually draws (the
+     increased-contrast reference is at u ≈ 0.98 and shades to 0.99).
+   - **Grip** = `tintToneAdaptation(regime) × tintShadeStrength ×
+     (1 − collapse)`. The regime grip is the contract's existing
+     `ambientTint` fold; the strength is the profile's provenance gate
+     (dark profiles 0); the collapse fold is §5.36 finding 4.
+   - **Constants replaced, not added beside.** `tintTone{Floor, CeilMix,
+     Low, High}` → `tintShade{Dark, Light, Strength}` on the profile, the
+     patch, the mirror, the capture allowlist and both profile documents
+     (fingerprints re-recorded: light `a0a4e1…` → `d082ad…`, dark
+     `e648db…` → `9ec21d…`). The W9 per-pixel tone-input correction
+     ratio, whose only consumer was the old map's input, is removed with
+     it — the shade reads the material's own linear luminance, which is
+     the quantity §5.36 measured.
+   - **Fitted under the protocol:** `tintShadeDark 0.5289`,
+     `tintShadeLight 1.0175` (17 700 px, RMS 0.0035; clamped at 1 in the
+     law). Out of sample on the canonical bed: orange 0.003 RMS, no bias;
+     blue −0.011 (the hue residual, deferred).
 
 ## Deferred
 

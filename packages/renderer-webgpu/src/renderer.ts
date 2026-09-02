@@ -694,20 +694,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         input.backdropTone === undefined
           ? 0
           : (input.backdropToneLevel ?? relativeLuminance(input.backdropTone));
-      /*
-       * The W9 correction ratio (claims §5.31): the tone input is the
-       * encoded-space mean, but the chain the tint map samples per pixel
-       * averages linearly, so the shader multiplies its input by this ratio to
-       * land the spatial mean on the model without giving up locality. Clamped
-       * hard — a near-black backdrop's ratio is a division by almost nothing,
-       * and a tone input should never move a sample by more than the model's
-       * own worst measured factor (~2.4 on the black/white checkerboard).
-       */
-      const toneInputRatio =
-        input.backdropTone === undefined || input.backdropToneLinearLuminance === undefined
-          ? 1
-          : Math.min(4, Math.max(0.25, backdropToneLevel / Math.max(input.backdropToneLinearLuminance, 1e-4)));
-
       // Decision Log #19's dual cap, resolved once, on the CPU.
       const refraction = effectiveRefraction(
         accessibilityRefractionCap(policy),
@@ -758,12 +744,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
          */
         tintSeed: (policy.glass === "none" ? undefined : groupTintSeed(input)) ?? optics.tint,
         tintToneAdaptation: tintToneAdaptation(policy, material),
-        tintTone: [
-          material.tintToneFloor,
-          material.tintToneCeilMix,
-          material.tintToneLow,
-          material.tintToneHigh,
-        ],
+        tintShade: [material.tintShadeDark, material.tintShadeLight, material.tintShadeStrength],
         rimWidth: optics.rimWidth,
         rimAlpha: optics.rimAlpha,
         specularPower: optics.specularPower,
@@ -787,7 +768,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           input.backdropTone?.[2] ?? 0,
           backdropToneLevel,
         ],
-        toneInputRatio,
         // The response law's anchors (W9) and the linear backdrop mean its
         // solve composites against. The shader re-derives the encoded input
         // from `backdropToneLevel`, so the fourth slot carries the linear

@@ -107,10 +107,11 @@ export interface OpticsPassArgs {
   readonly tintAlpha: number;
   readonly adaptTint: readonly [number, number, number];
   readonly adaptStrength: number;
-  /** The group's author tint seed in linear light, and the tone map it is read through. */
+  /** The group's author tint seed in linear light, and the shade law it is painted through (W10). */
   readonly tintSeed: readonly [number, number, number];
   readonly tintToneAdaptation: number;
-  readonly tintTone: readonly [number, number, number, number];
+  /** `[tintShadeDark, tintShadeLight, tintShadeStrength]`. */
+  readonly tintShade: readonly [number, number, number];
   readonly rimWidth: number;
   readonly rimAlpha: number;
   readonly specularPower: number;
@@ -165,12 +166,6 @@ export interface OpticsPassArgs {
    * reconstructs in.
    */
   readonly outerShadowRectCssHeight: number;
-  /**
-   * The W9 tone-input correction ratio (claims §5.31): the encoded-space tone
-   * level over the linear mean, multiplying the per-pixel tint-tone input so
-   * its spatial mean matches the model. 1 where unmeasured.
-   */
-  readonly toneInputRatio: number;
   /**
    * The backdrop tone response's anchors (W9): the three solid anchors'
    * encoded-space means, and the reference's settled interior levels there for
@@ -484,13 +479,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[21] = args.tintSeed[1];
       d[22] = args.tintSeed[2];
       d[23] = args.tintToneAdaptation;
-      d[24] = args.tintTone[0];
-      d[25] = args.tintTone[1];
-      d[26] = args.tintTone[2];
-      // WGSL's `smoothstep` is undefined when its edges coincide, so the high
-      // edge is floored above the low one here rather than trusted from a
-      // profile — the same guard `union_blend` makes for its separation.
-      d[27] = Math.max(args.tintTone[3], args.tintTone[2] + 1e-4);
+      d[24] = args.tintShade[0];
+      d[25] = args.tintShade[1];
+      d[26] = args.tintShade[2];
+      d[27] = 0;
       d[28] = args.rimWidth;
       d[29] = args.rimAlpha;
       d[30] = args.specularPower;
@@ -524,7 +516,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[55] = args.outerShadow[3];
       d[56] = args.outerShadowSizeGain;
       d[57] = args.outerShadowRectCssHeight;
-      d[58] = args.toneInputRatio;
+      d[58] = 0;
       d[59] = 0;
       // The response law's anchors and rows (W9), and the linear backdrop mean
       // the solve composites against.

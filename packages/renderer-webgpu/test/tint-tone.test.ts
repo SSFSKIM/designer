@@ -1,32 +1,23 @@
 /**
- * The author tint's tone map, and the two properties everything else rests on:
- * an untinted material is untouched, and a tinted one is a *range* rather than
- * a fill.
+ * The author tint's shade law (W10), and the properties everything else rests
+ * on: an untinted material is untouched, a tinted one is an OPAQUE shade of the
+ * seed rather than a wash of it, and the author's strength is a layer opacity.
  *
- * The curve's constants were advisory and calibration-delegated, and the
- * recalibration cascade fitted them (2026-08-31): against the active-pose bed
- * the reference's tinted interior IS the declared seed, to a per-channel
- * standard deviation of 0.000 on three of five calibration backdrops, so
- * `tintToneFloor` fits to 1 and `tintToneCeilMix` to 0 and **the shipped curve
- * is the identity**.
- *
- * That splits this file's job in two, and the split is deliberate rather than a
- * concession. The MECHANISM is still a range mapped to content brightness, and
- * it is still exercised here — on `EXCURSION`, an explicit profile carrying the
- * pre-cascade constants, so every shape property (monotonicity in the backdrop,
- * hue preserved at the dark end, the wash toward white, the accessibility fold
- * narrowing the response without moving the colour) is proven of the curve
- * rather than of a particular fit. What the DEFAULT profile does is a separate,
- * named assertion, because "the fitted constants make this inert" is a
- * measurement worth failing on if someone changes it by accident.
+ * The law was measured per pixel on the reference (claims §5.36): the tinted
+ * pixel is the seed times a scalar linear in the untinted pixel's luminance,
+ * hue intact, composited at the author's opacity in the encoded space. The
+ * constants are fitted on the W9 probe's tinted cells alone and refereed by the
+ * canonical bed; what is asserted here is the SHAPE, on the default profile,
+ * because the shape is what the shader mirrors line for line.
  */
 
 import { describe, expect, it } from "vitest";
 
 import {
   DEFAULT_MATERIAL_PROFILE,
-  tintedTintColour,
-  tintTone,
+  tintedMaterialColour,
+  tintShade,
+  tintShadeLayer,
   tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -35,19 +26,7 @@ import {
 
 const seed: Rgb = [0.8, 0.2, 0.05];
 const white: Rgb = [1, 1, 1];
-
-/**
- * A profile whose tone curve has an excursion to test. These are the constants
- * W3 phase 1 shipped provisionally and the cascade replaced; they are kept here
- * as the non-degenerate case rather than in the default, which is where the
- * measurement put the identity.
- */
-const EXCURSION = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
-  tintToneFloor: 0.45,
-  tintToneCeilMix: 0.45,
-  tintToneLow: 0.02,
-  tintToneHigh: 0.65,
-});
+const grey: Rgb = [0.3, 0.3, 0.3];
 
 const policy = (patch: Partial<MaterialPolicyView> = {}): MaterialPolicyView => ({
   glass: "material",
@@ -60,110 +39,101 @@ const policy = (patch: Partial<MaterialPolicyView> = {}): MaterialPolicyView => 
   ...patch,
 });
 
-const luminance = (rgb: Rgb): number => 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+const encode = (c: number): number =>
+  c <= 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
 
-describe("tintTone", () => {
-  it("is the IDENTITY at the fitted constants — Apple's tint is the seed", () => {
-    /*
-     * The cascade's result, asserted as a result rather than left implicit in the
-     * absence of an excursion. On the active bed the reference's tinted interior
-     * is the declared seed exactly: `systemOrange` renders linear
-     * (1.0000, 0.2961, 0.0000), which is sRGB (255, 149, 0) and nothing else,
-     * with a per-channel standard deviation of 0.000 over `dark-solid`,
-     * `impulse` and `light-solid`. Fitted, floor → 1 and ceilMix → 0 monotonically
-     * (objective 0.26523 → 0.12676 over the grid, ΔE and SSIM agreeing).
-     *
-     * `tintToneLow` and `tintToneHigh` therefore describe nothing at the shipped
-     * constants, which is why they are not asserted here — see the profile.
-     */
-    for (const backdrop of [0, 0.1, 0.3, 0.6, 0.9, 1]) {
-      expect(tintTone(seed, backdrop, 1)).toEqual(seed);
-    }
+describe("tintShade", () => {
+  it("is about half the seed over black content and the seed itself over white", () => {
+    // The measured range of tones: 0.5289 at u = 0, reaching 1 before u = 1 and
+    // clamped there — a shade brighter than the seed is not a shade.
+    expect(tintShade(0, 1)).toBeCloseTo(DEFAULT_MATERIAL_PROFILE.tintShadeDark, 12);
+    expect(tintShade(1, 1)).toBe(1);
+    expect(DEFAULT_MATERIAL_PROFILE.tintShadeLight).toBeGreaterThanOrEqual(1);
   });
 
-  it("rises with the backdrop — the range is mapped to content brightness", () => {
-    const levels = [0, 0.1, 0.3, 0.6, 0.9, 1].map((backdrop) =>
-      luminance(tintTone(seed, backdrop, 1, EXCURSION)),
-    );
+  it("rises with the material's luminance — the range is mapped to content brightness", () => {
+    const levels = [0, 0.1, 0.3, 0.6, 0.9, 1].map((u) => tintShade(u, 1));
     for (let i = 1; i < levels.length; i += 1) {
       expect(levels[i] as number).toBeGreaterThanOrEqual(levels[i - 1] as number);
     }
     expect(levels[levels.length - 1] as number).toBeGreaterThan(levels[0] as number);
   });
 
-  it("keeps the seed's hue at the dark end, where the tone is a shade of it", () => {
-    const dark = tintTone(seed, 0, 1, EXCURSION);
-    // A scalar multiple in linear light: chromaticity, and therefore hue, is the
-    // same colour seen with less light.
+  it("is linear in the luminance between its ends", () => {
+    const mid = tintShade(0.5, 1);
+    expect(mid).toBeCloseTo(
+      DEFAULT_MATERIAL_PROFILE.tintShadeDark +
+        (DEFAULT_MATERIAL_PROFILE.tintShadeLight - DEFAULT_MATERIAL_PROFILE.tintShadeDark) * 0.5,
+      12,
+    );
+  });
+
+  it("collapses to the bare seed at zero grip, and narrows toward it at a partial one", () => {
+    expect(tintShade(0, 0)).toBe(1);
+    const partial = tintShade(0, 0.35);
+    expect(partial).toBeGreaterThan(tintShade(0, 1));
+    expect(partial).toBeLessThan(1);
+  });
+
+  it("follows a patched profile, so the law is a data change", () => {
+    const flat = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      tintShadeDark: 1,
+      tintShadeLight: 1,
+    });
+    expect(tintShade(0, 1, flat)).toBe(1);
+    expect(tintShade(0.5, 1, flat)).toBe(1);
+  });
+});
+
+describe("tintShadeLayer", () => {
+  it("keeps the seed's hue — the layer is a scalar multiple in linear light", () => {
+    const dark = tintShadeLayer(seed, 0, 1);
     expect(dark[0] / seed[0]).toBeCloseTo(dark[1] / seed[1], 10);
     expect(dark[1] / seed[1]).toBeCloseTo(dark[2] / seed[2], 10);
     expect(dark[0]).toBeLessThan(seed[0]);
   });
 
-  it("washes toward white at the bright end rather than clipping the seed", () => {
-    const bright = tintTone(seed, 1, 1, EXCURSION);
+  it("never brightens a channel past the seed", () => {
+    const bright = tintShadeLayer(seed, 1, 1);
     for (const index of [0, 1, 2] as const) {
-      expect(bright[index]).toBeGreaterThanOrEqual(seed[index]);
-      expect(bright[index]).toBeLessThanOrEqual(1);
+      expect(bright[index]).toBeLessThanOrEqual(seed[index]);
     }
-    // Saturation falls: the dimmest channel gains proportionally the most.
-    expect(bright[2] / seed[2]).toBeGreaterThan(bright[0] / seed[0]);
-  });
-
-  it("stays near the intended colour — the whole range is a tone of the seed", () => {
-    for (const backdrop of [0, 0.25, 0.5, 0.75, 1]) {
-      const tone = tintTone(seed, backdrop, 1);
-      // Ordering of the channels is what makes a colour recognisable as itself.
-      expect(tone[0]).toBeGreaterThan(tone[1]);
-      expect(tone[1]).toBeGreaterThan(tone[2]);
-    }
-  });
-
-  it("collapses to the bare seed when the contrast regime allows no excursion", () => {
-    for (const backdrop of [0, 0.5, 1]) {
-      expect(tintTone(seed, backdrop, 0)).toEqual(seed);
-    }
-  });
-
-  it("narrows, without moving the colour, at a partial adaptation", () => {
-    const full = tintTone(seed, 0, 1, EXCURSION);
-    const partial = tintTone(seed, 0, 0.35, EXCURSION);
-    expect(partial[0]).toBeGreaterThan(full[0]);
-    expect(partial[0]).toBeLessThan(seed[0]);
-  });
-
-  it("follows a patched profile, so the curve is a data change", () => {
-    const flat = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
-      tintToneFloor: 1,
-      tintToneCeilMix: 0,
-    });
-    expect(tintTone(seed, 0, 1, flat)).toEqual(seed);
-    expect(tintTone(seed, 1, 1, flat)).toEqual(seed);
   });
 });
 
-describe("tintedTintColour", () => {
+describe("tintedMaterialColour", () => {
   it("is the identity with no tint — the untinted material is not touched", () => {
-    expect(tintedTintColour(white, undefined, 0.3, 1)).toBe(white);
+    expect(tintedMaterialColour(grey, undefined, 1)).toBe(grey);
   });
 
   it("is the identity at zero strength", () => {
-    expect(tintedTintColour(white, { color: seed, strength: 0 }, 0.3, 1)).toEqual(white);
+    expect(tintedMaterialColour(grey, { color: seed, strength: 0 }, 1)).toBe(grey);
   });
 
-  it("displaces the neutral tint by the strength, and only by the strength", () => {
-    const tone = tintTone(seed, 0.3, 1);
-    const half = tintedTintColour(white, { color: seed, strength: 0.5 }, 0.3, 1);
+  it("is OPAQUE at full strength: the material underneath decides the shade, not the colour", () => {
+    // Two very different materials, one seed, one hue: both results are scalar
+    // multiples of the seed, and the darker material gets the darker shade.
+    const overGrey = tintedMaterialColour(grey, { color: seed, strength: 1 }, 1);
+    const overWhite = tintedMaterialColour(white, { color: seed, strength: 1 }, 1);
+    for (const result of [overGrey, overWhite]) {
+      expect(result[0] / seed[0]).toBeCloseTo(result[1] / seed[1], 6);
+      expect(result[1] / seed[1]).toBeCloseTo(result[2] / seed[2], 6);
+    }
+    expect(overGrey[0]).toBeLessThan(overWhite[0]);
+    // Over white the layer IS the seed.
     for (const index of [0, 1, 2] as const) {
-      expect(half[index]).toBeCloseTo((white[index] + tone[index]) / 2, 12);
+      expect(overWhite[index]).toBeCloseTo(seed[index], 6);
     }
   });
 
-  it("reaches the tone at full strength", () => {
-    const full = tintedTintColour(white, { color: seed, strength: 1 }, 0.3, 1);
-    const tone = tintTone(seed, 0.3, 1);
+  it("composites the author's strength in the ENCODED space, as the reference measures", () => {
+    // claims §5.36 finding 3: the half-strength cell is the 0.501 mix in sRGB
+    // of the untinted and full-tinted twins, per channel — and NOT the mix in
+    // linear light, which fits at a different weight per channel.
+    const full = tintedMaterialColour(grey, { color: seed, strength: 1 }, 1);
+    const half = tintedMaterialColour(grey, { color: seed, strength: 0.5 }, 1);
     for (const index of [0, 1, 2] as const) {
-      expect(full[index]).toBeCloseTo(tone[index], 12);
+      expect(encode(half[index])).toBeCloseTo((encode(grey[index]) + encode(full[index])) / 2, 10);
     }
   });
 });

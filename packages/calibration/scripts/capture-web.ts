@@ -347,10 +347,9 @@ const MATERIAL_PATCH_KEYS = new Set([
   // tint four were missed when they landed, so this set has been one child stale
   // since; the guard refuses rather than mis-measures, which is why it surfaced as
   // a failed sweep point instead of as plausible numbers. Added together.
-  "tintToneFloor",
-  "tintToneCeilMix",
-  "tintToneLow",
-  "tintToneHigh",
+  "tintShadeDark",
+  "tintShadeLight",
+  "tintShadeStrength",
   "backdropToneMax",
   "backdropToneLow",
   "backdropToneHigh",

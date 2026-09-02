@@ -125,41 +125,41 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
 };
 
 /**
- * The author tint's tone map, mirrored — the curve that makes a tint a tint.
+ * The author tint's shade law, mirrored (W10) — what makes a tint a tint.
  *
  * Apple's tint is "a **range of tones** that are mapped to content brightness
- * underneath the tinted element" (S219), and a flat overlay of the author's
- * colour is the failure the same session names. So the seed is read through
- * this curve before anything composites it: over a dark backdrop the material
- * shows `floor` times the seed in linear light (a shade, hue intact), over a
- * bright one the seed `ceilMix` of the way to white, crossed with a smoothstep
- * between the two backdrop luminances.
+ * underneath the tinted element" (S219), and the range was measured per pixel
+ * (claims §5.36): the tinted material is an OPAQUE layer of the seed at a shade
+ * linear in the luminance the untinted material shows at that pixel — `dark`
+ * of the seed over black content, the seed itself over white, hue intact —
+ * composited over the material at the author's opacity in the encoded space.
+ * Over a checkerboard the reference shows light and dark orange, not orange
+ * glass with the checker behind it.
  *
- * `reducedAdaptation` is how much of that excursion survives increased
- * contrast — the `ambientTint` axis, which already governs the material's
- * response to its surroundings, rather than a second policy of its own.
+ * `strength` is the law's provenance gate (1 where measured, 0 on the dark
+ * scheme, which renders the pure seed). `reducedAdaptation` is how much of the
+ * excursion survives increased contrast — the `ambientTint` axis, which already
+ * governs the material's response to its surroundings, rather than a second
+ * policy of its own.
  *
- * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.tintTone*` and
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.tintShade*` and
  * `.reducedTintAdaptation`, pinned in both directions by
  * `packages/calibration/test/tier-coherence.test.ts`.
  */
-export interface TintToneConstants {
-  readonly floor: number;
-  readonly ceilMix: number;
-  readonly low: number;
-  readonly high: number;
+export interface TintShadeConstants {
+  readonly dark: number;
+  readonly light: number;
+  readonly strength: number;
   readonly reducedAdaptation: number;
 }
 
-// FITTED (2026-08-31, active bed): the curve is the IDENTITY. `floor` 1 and
-// `ceilMix` 0 make `tintTone` return the seed at every backdrop, so `low` and
-// `high` describe nothing and are kept only so a future bed can identify them —
-// the same shape of result as `adaptiveTint`'s equal ends. See claims §5.13.
-export const TINT_TONE: TintToneConstants = {
-  floor: 1,
-  ceilMix: 0,
-  low: 0.02,
-  high: 0.65,
+// MEASURED (W10, 2026-09-02): fitted on the W9 probe's five tinted cells,
+// refereed by the canonical bed. The numbers are authored in the renderer's
+// profile with the measurement that chose them; this is a mirror.
+export const TINT_SHADE: TintShadeConstants = {
+  dark: 0.5289,
+  light: 1.0175,
+  strength: 1,
   reducedAdaptation: 0.35,
 };
 
@@ -373,10 +373,10 @@ export function backdropToneAdaptation(
  */
 export function backdropToneUnderPolicy(
   material: ResolvedMaterialPolicy,
-  tone: TintToneConstants = TINT_TONE,
+  shade: TintShadeConstants = TINT_SHADE,
   refractionScale: RefractionScale = MATERIAL_SOURCE_REFRACTION_SCALE,
 ): number {
-  return tintToneAdaptation(material.ambientTint, tone) * refractionScale[accessibilityRefractionCap(material)];
+  return tintToneAdaptation(material.ambientTint, shade) * refractionScale[accessibilityRefractionCap(material)];
 }
 
 /**
@@ -450,78 +450,96 @@ export function linearTint(tint: {
   };
 }
 
-/** The tone constants under a profile patch, by the renderer's own merge rule. */
-export function resolvedTintTone(patch?: RendererMaterialProfile): TintToneConstants {
+/** The shade constants under a profile patch, by the renderer's own merge rule. */
+export function resolvedTintShade(patch?: RendererMaterialProfile): TintShadeConstants {
   return {
-    floor: patch?.tintToneFloor ?? TINT_TONE.floor,
-    ceilMix: patch?.tintToneCeilMix ?? TINT_TONE.ceilMix,
-    low: patch?.tintToneLow ?? TINT_TONE.low,
-    high: patch?.tintToneHigh ?? TINT_TONE.high,
-    reducedAdaptation: patch?.reducedTintAdaptation ?? TINT_TONE.reducedAdaptation,
+    dark: patch?.tintShadeDark ?? TINT_SHADE.dark,
+    light: patch?.tintShadeLight ?? TINT_SHADE.light,
+    strength: patch?.tintShadeStrength ?? TINT_SHADE.strength,
+    reducedAdaptation: patch?.reducedTintAdaptation ?? TINT_SHADE.reducedAdaptation,
   };
 }
 
 /**
- * How much of the tone excursion the contrast regime allows.
+ * How much of the shade excursion the contrast regime allows.
  *
  * Mirrors the renderer's `tintToneAdaptation`. The author's colour is never
  * changed by a policy — only how far the material is allowed to move it.
  */
 export function tintToneAdaptation(
   ambientTint: ResolvedMaterialPolicy["ambientTint"],
-  tone: TintToneConstants = TINT_TONE,
+  shade: TintShadeConstants = TINT_SHADE,
 ): number {
   switch (ambientTint) {
     case "nominal":
       return 1;
     case "reduced":
-      return tone.reducedAdaptation;
+      return shade.reducedAdaptation;
     case "none":
       return 0;
   }
 }
 
-/** The tone a seed shows over a given backdrop, linear light. Mirrors the renderer's `tintTone`. */
-export function tintTone(
+/**
+ * The shade a seed is painted at over a material of luminance `u`. Mirrors the
+ * renderer's `tintShade`: linear between the two ends, clamped so a shade is
+ * never brighter than the seed, folded toward 1 by `grip` (the regime's
+ * adaptation × the profile's provenance gate × (1 − collapse)).
+ */
+export function tintShade(
+  materialLuminance: number,
+  grip: number,
+  shade: TintShadeConstants = TINT_SHADE,
+): number {
+  const u = clamp01(materialLuminance);
+  const level = clamp01(shade.dark + (shade.light - shade.dark) * u);
+  return 1 + (level - 1) * clamp01(grip);
+}
+
+/** The opaque layer an author tint paints, linear light. Mirrors the renderer's `tintShadeLayer`. */
+export function tintShadeLayer(
   seed: LinearRgb,
-  backdropLuminance: number,
-  toneAdaptation: number,
-  tone: TintToneConstants = TINT_TONE,
+  materialLuminance: number,
+  grip: number,
+  shade: TintShadeConstants = TINT_SHADE,
 ): LinearRgb {
-  const t = smoothstep(tone.low, tone.high, backdropLuminance);
-  const k = clamp01(toneAdaptation);
-  const channel = (index: 0 | 1 | 2): number => {
-    const s = seed[index];
-    const low = s * tone.floor;
-    const high = s + (1 - s) * tone.ceilMix;
-    return s + (low + (high - low) * t - s) * k;
-  };
-  return [channel(0), channel(1), channel(2)];
+  const level = tintShade(materialLuminance, grip, shade);
+  return [seed[0] * level, seed[1] * level, seed[2] * level];
+}
+
+/** The luminance the untinted material shows over a backdrop of the given luminance. */
+function materialLuminance(source: MaterialSourceOptics, backdropLuminance: number): number {
+  const alpha = clamp01(source.tintAlpha);
+  return (1 - alpha) * backdropLuminance + alpha * luminance(source.tint);
 }
 
 /**
- * The renderer's material for one tinted surface — the quantity this tier then
- * converts, and the quantity the GPU tier's foreground decision is taken against.
+ * The renderer's material for one tinted surface, as one linear-light source —
+ * the quantity the GPU tier's foreground decision is taken against.
  *
- * The seed displaces the material's tint **colour** by its strength and leaves
- * the alpha exactly where the profile put it. That split is the whole design:
- * the colour axis is the author's (`Glass.tint(_:)`), the alpha axis is the
- * material's occlusion — what reduced transparency lifts, and where the system's
- * own Clear-to-Tinted preference will land.
+ * The author's layer is opaque and lands at the author's opacity (W10), so
+ * both the colour AND the alpha move: the folded alpha is `1 − (1 − s)(1 − α)`
+ * and the colour is the alpha-weighted mix of the material's tint and the
+ * layer. That fold is exact in the encoded space the layer composites in
+ * (`tintedCssOptics` does it there); this linear-light statement of it is
+ * exact at strength 0 and 1 and a threshold-grade approximation between, which
+ * is all the ink decision reads from it.
  */
 export function tintedSourceOptics(
   source: MaterialSourceOptics,
   tint: { readonly color: LinearRgb; readonly strength: number } | undefined,
   backdropLuminance: number,
-  toneAdaptation: number,
-  tone: TintToneConstants = TINT_TONE,
+  grip: number,
+  shade: TintShadeConstants = TINT_SHADE,
 ): MaterialSourceOptics {
   if (tint === undefined || tint.strength <= 0) return source;
-  const shown = tintTone(tint.color, backdropLuminance, toneAdaptation, tone);
-  const k = clamp01(tint.strength);
+  const s = clamp01(tint.strength);
+  const layer = tintShadeLayer(tint.color, materialLuminance(source, backdropLuminance), grip, shade);
+  const alpha = clamp01(source.tintAlpha);
+  const folded = 1 - (1 - s) * (1 - alpha);
   const mix = (index: 0 | 1 | 2): number =>
-    source.tint[index] + (shown[index] - source.tint[index]) * k;
-  return { ...source, tint: [mix(0), mix(1), mix(2)] };
+    ((1 - s) * alpha * source.tint[index] + s * layer[index]) / folded;
+  return { ...source, tint: [mix(0), mix(1), mix(2)], tintAlpha: folded };
 }
 
 /**
@@ -1152,30 +1170,45 @@ export function cssTintColor(
 }
 
 /**
- * This tier's numbers for a surface whose material carries an author tint.
+ * This tier's numbers for a surface whose material carries an author tint (W10).
  *
- * Everything but the tint colour and its alpha is the untinted conversion,
- * unchanged, because nothing else about the material moved. The two that do move
- * go through the **same** mapping the profile's own tint goes through — the
- * alpha through `cssTintAlpha`, the colour through `cssTintColor` — so the tier
- * stays derived rather than gaining a second set of numbers to drift. A tint of
- * zero strength returns the base optics identically.
+ * `css` is the untinted material already converted (`cssOpticsFromSource`): one
+ * `rgba()` layer over the blurred backdrop, composited encoded. The author's
+ * layer is another `rgba()` — the seed at its shade, opaque, at the author's
+ * opacity — over THAT, and two encoded-space layers fold into one exactly:
+ *
+ * ```
+ * α″ = 1 − (1 − s)(1 − α′)
+ * C″ = ((1 − s)·α′·C′ + s·E(layer)) / α″      per channel
+ * ```
+ *
+ * Convex in both colours, so the fold never leaves the gamut — the clip §5.13
+ * attributed the tinted coherence miss to cannot occur here. Everything but the
+ * tint colour and its alpha is the untinted conversion, unchanged; a tint of
+ * zero strength returns `css` identically.
+ *
+ * The shade is read at ONE luminance per source, this tier's granularity: the
+ * GPU tier's tracks the checker cell by cell, this tier paints one orange. The
+ * mean lands; the structure cost is the tier's known one.
  */
 export function tintedCssOptics(
-  base: MaterialOptics,
+  css: MaterialOptics,
   source: MaterialSourceOptics,
   tint: { readonly color: LinearRgb; readonly strength: number } | undefined,
   backdropLuminance: number,
-  toneAdaptation: number,
-  mapping: CssTierMapping = CSS_TIER_MAPPING,
-  tone: TintToneConstants = TINT_TONE,
+  grip: number,
+  shade: TintShadeConstants = TINT_SHADE,
 ): MaterialOptics {
-  if (tint === undefined || tint.strength <= 0) return base;
-  return cssOpticsFromSource(
-    base,
-    tintedSourceOptics(source, tint, backdropLuminance, toneAdaptation, tone),
-    mapping,
+  if (tint === undefined || tint.strength <= 0) return css;
+  const s = clamp01(tint.strength);
+  const layer = encodeRgb(
+    tintShadeLayer(tint.color, materialLuminance(source, backdropLuminance), grip, shade),
   );
+  const alpha = clamp01(css.tintAlpha);
+  const folded = 1 - (1 - s) * (1 - alpha);
+  const channel = (index: 0 | 1 | 2): number =>
+    Math.round(((1 - s) * alpha * css.tint[index] + s * layer[index]) / folded);
+  return { ...css, tintAlpha: folded, tint: [channel(0), channel(1), channel(2)] };
 }
 
 /**

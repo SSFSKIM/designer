@@ -39,7 +39,7 @@ import {
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
-  TINT_TONE,
+  TINT_SHADE,
   cssTierForegroundLevel,
   cssTierOptics,
   foregroundDeclarations,
@@ -54,7 +54,7 @@ import {
   sourceOuterShadow,
   requiredSamplingPadding,
   resolvedPolicyFold,
-  resolvedTintTone,
+  resolvedTintShade,
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
   sizeScatterSigma as cssSizeScatterSigma,
   sizeThickness as cssSizeThickness,
@@ -62,7 +62,7 @@ import {
   sourceGlow,
   sourceOptics,
   sourceSize,
-  tintTone as cssTierTintTone,
+  tintShadeLayer as cssTierTintShadeLayer,
   tintToneAdaptation as cssTierTintToneAdaptation,
 } from "@vitreajs/vitrea-web";
 import {
@@ -84,7 +84,7 @@ import {
   sizeScatterSigma as rendererSizeScatterSigma,
   sizeThickness as rendererSizeThickness,
   sizeThicknessUnderPolicy as rendererSizeThicknessUnderPolicy,
-  tintTone as rendererTintTone,
+  tintShadeLayer as rendererTintShadeLayer,
   tintToneAdaptation as rendererTintToneAdaptation,
   withMaterialOverrides,
 } from "@vitrea/renderer-webgpu";
@@ -512,44 +512,43 @@ describe("tier coherence (K5)", () => {
   });
 
   /**
-   * The author tint's tone map — the newest mirrored slice, and the one most
-   * exposed to drift, because the curve deliberately exists twice: once in the
-   * shader, evaluated per pixel against the backdrop it is already sampling, and
-   * once on the CPU, where the CSS tier's single colour and both tiers' ink
-   * decisions are taken against it. A mirror that moved on one side would decide
-   * the ink against a material nobody draws — Decision Log #32(b)'s failure,
-   * arriving through a different door.
+   * The author tint's shade law (W10) — the slice most exposed to drift,
+   * because the law deliberately exists twice: once in the shader, evaluated
+   * per pixel against the material it has just composited, and once on the
+   * CPU, where the CSS tier's single colour and both tiers' ink decisions are
+   * taken against it. A mirror that moved on one side would decide the ink
+   * against a material nobody draws — Decision Log #32(b)'s failure, arriving
+   * through a different door.
    */
-  it("mirrors the renderer's tint tone constants, patch included", () => {
-    expect(TINT_TONE.floor).toBe(DEFAULT_MATERIAL_PROFILE.tintToneFloor);
-    expect(TINT_TONE.ceilMix).toBe(DEFAULT_MATERIAL_PROFILE.tintToneCeilMix);
-    expect(TINT_TONE.low).toBe(DEFAULT_MATERIAL_PROFILE.tintToneLow);
-    expect(TINT_TONE.high).toBe(DEFAULT_MATERIAL_PROFILE.tintToneHigh);
-    expect(TINT_TONE.reducedAdaptation).toBe(DEFAULT_MATERIAL_PROFILE.reducedTintAdaptation);
+  it("mirrors the renderer's tint shade constants, patch included", () => {
+    expect(TINT_SHADE.dark).toBe(DEFAULT_MATERIAL_PROFILE.tintShadeDark);
+    expect(TINT_SHADE.light).toBe(DEFAULT_MATERIAL_PROFILE.tintShadeLight);
+    expect(TINT_SHADE.strength).toBe(DEFAULT_MATERIAL_PROFILE.tintShadeStrength);
+    expect(TINT_SHADE.reducedAdaptation).toBe(DEFAULT_MATERIAL_PROFILE.reducedTintAdaptation);
 
     const patch = {
-      tintToneFloor: 0.2,
-      tintToneCeilMix: 0.8,
-      tintToneLow: 0.1,
-      tintToneHigh: 0.4,
+      tintShadeDark: 0.2,
+      tintShadeLight: 0.8,
+      tintShadeStrength: 0.5,
       reducedTintAdaptation: 0.6,
     };
     const rendered = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
-    const mirrored = resolvedTintTone(patch);
-    expect(mirrored.floor).toBe(rendered.tintToneFloor);
-    expect(mirrored.ceilMix).toBe(rendered.tintToneCeilMix);
-    expect(mirrored.low).toBe(rendered.tintToneLow);
-    expect(mirrored.high).toBe(rendered.tintToneHigh);
+    const mirrored = resolvedTintShade(patch);
+    expect(mirrored.dark).toBe(rendered.tintShadeDark);
+    expect(mirrored.light).toBe(rendered.tintShadeLight);
+    expect(mirrored.strength).toBe(rendered.tintShadeStrength);
     expect(mirrored.reducedAdaptation).toBe(rendered.reducedTintAdaptation);
   });
 
-  it("evaluates the same tone curve on both sides, at both ends and in between", () => {
+  it("paints the same shaded layer on both sides, at both ends and in between", () => {
     const seed = [0.8, 0.2, 0.05] as const;
-    for (const backdrop of [0, 0.02, 0.2, 0.5, 0.9, 1]) {
-      const renderer = rendererTintTone(seed, backdrop, 1);
-      const mirror = cssTierTintTone(seed, backdrop, 1);
-      for (const index of [0, 1, 2] as const) {
-        expect(mirror[index], `backdrop ${backdrop}`).toBeCloseTo(renderer[index], 12);
+    for (const material of [0, 0.02, 0.2, 0.5, 0.9, 1]) {
+      for (const grip of [0, 0.35, 1]) {
+        const renderer = rendererTintShadeLayer(seed, material, grip);
+        const mirror = cssTierTintShadeLayer(seed, material, grip);
+        for (const index of [0, 1, 2] as const) {
+          expect(mirror[index], `material ${material} grip ${grip}`).toBeCloseTo(renderer[index], 12);
+        }
       }
     }
   });
@@ -654,7 +653,7 @@ describe("tier coherence (K5)", () => {
       expect(
         cssBackdropToneUnderPolicy(
           policy,
-          resolvedTintTone(patch),
+          resolvedTintShade(patch),
           sourceSize(patch).refractionScale,
         ),
         JSON.stringify(flags),

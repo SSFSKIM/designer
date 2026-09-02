@@ -79,10 +79,9 @@ const FITTED_CONSTANTS = [
   "sizeOcclusionGain",
   "sizeShadowGainMax",
   // W3's tint tone map
-  "tintToneFloor",
-  "tintToneCeilMix",
-  "tintToneLow",
-  "tintToneHigh",
+  "tintShadeDark",
+  "tintShadeLight",
+  "tintShadeStrength",
   // W7's backdrop tone adaptation
   "backdropToneMax",
   "backdropToneLow",

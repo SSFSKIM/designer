@@ -22,7 +22,7 @@ import {
   DEFAULT_MATERIAL_PROFILE,
   sizeThickness,
   sizeThicknessUnderPolicy,
-  tintedTintColour,
+  tintedMaterialColour,
   withMaterialOverrides,
   type MaterialPolicyView,
   type Rgb,
@@ -279,22 +279,25 @@ describe("adaptedTintColour, and the composition order", () => {
   });
 
   it("comes BEFORE the author tint: a full-strength tint is its own adaptation", () => {
-    // The contract, in one assertion. The shader mixes the tone onto the adapted
-    // neutral, so at strength 1 the adaptation is replaced outright.
+    // The contract, in one assertion (W10 form). A fully collapsed material is a
+    // dark body, and the reference renders the pure seed there — so the tint
+    // layer composites over the adapted material with the shade folded out by
+    // the collapse, and at strength 1 the result is the seed whatever the
+    // adaptation did underneath.
     const seed: Rgb = [0.8, 0.2, 0.05];
     const adapted = adaptedTintColour(white, nearBlack, 1, ALPHA);
-    const tintedOverAdapted = tintedTintColour(adapted, { color: seed, strength: 1 }, 0.01, 1);
-    const tintedOverNeutral = tintedTintColour(white, { color: seed, strength: 1 }, 0.01, 1);
+    const collapsed = 1;
+    const tintedOverAdapted = tintedMaterialColour(adapted, { color: seed, strength: 1 }, 1 - collapsed);
     for (const index of [0, 1, 2] as const) {
-      expect(tintedOverAdapted[index]).toBeCloseTo(tintedOverNeutral[index] as number, 12);
+      expect(tintedOverAdapted[index]).toBeCloseTo(seed[index], 6);
     }
   });
 
   it("and a partial tint moves with it", () => {
     const seed: Rgb = [0.8, 0.2, 0.05];
     const adapted = adaptedTintColour(white, nearBlack, 1, ALPHA);
-    const half = tintedTintColour(adapted, { color: seed, strength: 0.5 }, 0.01, 1);
-    const unadapted = tintedTintColour(white, { color: seed, strength: 0.5 }, 0.01, 1);
+    const half = tintedMaterialColour(adapted, { color: seed, strength: 0.5 }, 0);
+    const unadapted = tintedMaterialColour(white, { color: seed, strength: 0.5 }, 1);
     expect(half[0]).toBeLessThan(unadapted[0] as number);
   });
 });
