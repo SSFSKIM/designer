@@ -5708,6 +5708,199 @@ scales). The enforced count reads 23.
 Renderer, platform-web and calibration suites are green; the golden e2e suite
 is green without re-recording (its scenes carry no author tint).
 
+### 5.38 The remaining twenty-three floors, measured: three mechanisms, one of them a defect (2026-09-02)
+
+The twenty-three rows §5.27 still floors after W10 fall into exactly three
+classes by cell — ten on the two `glass-over-glass` cells (four ΔE p95, two
+cross-tier ratios, four SSIM), eleven `ssimMean` rows on the checkerboard
+rrect cells (`md`, `ml` calibration; `lg` holdout), and the two W10 instrument
+rows — and this section measured each class per pixel before any charter was
+written. The instrument used is a numpy replica of the compare's SSIM (11×11
+Gaussian window, σ 1.5, stride 1, encoded luma, whole crop) that reproduces
+every one of the twenty checkerboard rrect rows in `results/matrix.json` to
+four decimals, so the decompositions below are of the enforced number, not of
+a proxy for it. Native references, backdrop plates and the W9 probe bed
+(`results/2026-09-02-w9-probe/`) are the evidence; nothing was recaptured.
+
+#### 1. The SSIM bound is whole-crop, and the size trend is coverage
+
+`ssimMean` averages every window of the 320×200 crop, glass or not. Splitting
+it at the component's rectangle:
+
+| `1x-light-standard` | `rrect-sm` | `capsule` | `rrect-md` | `rrect-ml` | `rrect-lg` |
+| --- | --- | --- | --- | --- | --- |
+| glass share of the windows | 0.036 | 0.092 | 0.265 | 0.493 | 0.768 |
+| in-rect SSIM, texture | 0.806 | 0.639 | 0.734 | 0.784 | 0.803 |
+| in-rect SSIM, dom | 0.693 | 0.664 | 0.635 | 0.653 | 0.629 |
+| whole-crop SSIM, texture (the gated number) | 0.993 | 0.964 | 0.912 | 0.862 | 0.823 |
+
+(2x: texture in-rect 0.840 / 0.693 / 0.841 / 0.891 / 0.914; dom 0.738 / 0.721 /
+0.773 / 0.810 / 0.807.) Inside the glass the similarity is **not**
+size-monotonic — the capsule is the worst cell on the texture tier and
+`rrect-lg` is among the best. §5.26's "degrades monotonically with surface
+area" is the glass's share of the crop, and the bound a large surface has to
+meet is therefore a bound on the glass itself: for the 1x `rrect-lg` texture
+row to read 0.88, its in-rect SSIM must reach ≈ 0.88; for the dom row to read
+0.90, ≈ 0.91. Nothing about this changes what is claimed; it changes where the
+work is.
+
+#### 2. Where the loss lives: three regions
+
+The whole-crop deficit (1 − SSIM) summed by signed distance from the contour,
+as a share of the cell's total (negative is inside):
+
+| cell | deep body (< −24 px) | rim band (−24…0 px) | outside (> 0 px) |
+| --- | --- | --- | --- |
+| 1x `rrect-lg` texture (0.823) | 39% | 45% | 16% |
+| 1x `rrect-lg` dom (0.685) | 45% | 42% | 12% |
+| 1x `rrect-ml` texture (0.862) | 29% | 55% | 24% |
+| 1x `rrect-md` dom (0.882) | 21% | 58% | 21% |
+| 2x `rrect-lg` texture (0.880) | 10% | 38% | 52% |
+| 2x `rrect-lg` dom (0.797) | 27% | 39% | 34% |
+
+The **rim band** is the largest term at 1x on both tiers, and within it the
+ring 4–8 px inside the contour alone carries 17–25% of a cell's deficit at a
+window SSIM of 0.26–0.43. The **outside** band dominates at 2x, where the same
+11 px window is half the physical size; it is not the outer shadow's
+amplitude — the shadow band's linear level matches the reference to 0.005 on
+both tiers and both scales (1x `[4,12)` px below: native 0.423, GPU 0.428, CSS
+0.425) — it is the windows that straddle the contour, and on the CSS tier the
+contour band itself (0.534 against native 0.398: the 1 px border, no rim).
+No phase offset anywhere: every interior correlates best with the plate at
+zero shift.
+
+#### 3. The deep body: a heavy blur, a faint sharp leak, and opacity that keeps rising
+
+On the probe bed (five pitches × five spans, native 1x) a single Gaussian
+does not fit the reference's interior — jointly across pitches its RMS is
+0.023–0.046 of linear luminance and the per-pitch σ is non-monotone (1.5 /
+1.2 / 2.5 / 3.5 px at pitches 8 / 16 / 32 / 64 on `rrect-md`). The row
+profiles say why: at pitch 16 the `rrect-lg` interior is a ±0.015 swing with
+crisp 8 px transitions; at pitch 32 it swings 0.55↔0.84 and at pitch 64
+0.46↔0.90 with 24–32 px transitions; pitches 4 and 8 are gone. Two components
+fit: **Y = a + t₁·G_σ₁(plate) + t₂·G₁(plate)**, one σ₁ per span, joint over
+the five pitches —
+
+| span (1x, native) | σ₁ (CSS px) | a (level) | t₁ (heavy) | t₂ (sharp leak) | RMS |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-md` 96 | 8.5 | 0.416 | 0.296 | 0.235 | 0.015 |
+| `rrect-ml` 128 | 9.0 | 0.438 | 0.335 | 0.171 | 0.0145 |
+| `rrect-lg` 160 | 9.0 | 0.464 | 0.363 | 0.112 | 0.016 |
+
+— a heavy blur near σ 9 that does not move past span 96, a sharp leak that
+halves from 96 to 160, and a level that keeps rising. (`rrect-sm` and the
+capsule are lens band nearly edge to edge and carry no deep body to fit.)
+vitrea's body at pitch 16 (per cell, same model): GPU σ 3.8 (nominal 3; the
+pyramid chain adds), t 0.41, a 0.485 — **identical at 96, 128 and 160**; CSS σ
+3.0 exactly, t 0.563, a 0.362, identical at every span. Contrast survival
+(`interiorStdDev` native ÷ backdrop) over the size sweep: reference 0.31 /
+0.28 / 0.226 / 0.173 / 0.13; GPU 0.32 / 0.29 / 0.205 / 0.205 / 0.204; CSS
+0.35 / 0.33 / 0.33 / 0.33 / 0.33. The size law's scatter facet exists on both
+tiers (`sizeScatterGainMax`, the `scatterLod` mix in the optics pass and
+`sizeScatterSigmaAt` on the CSS tier) and **ships at the identity**; the band
+top at 96 (§5.14) stops the level too. §6.1's "blur sigma is not identifiable
+from these backgrounds" is superseded: the probe's pitch axis identifies it.
+
+**The two scales disagree in the reference.** At 1x a large surface is nearly
+opaque with a faint crisp checker; at 2x it is a soft, moderate-contrast blur
+(2x `rrect-md` fits a single Gaussian at σ 6.0 device px = 3.0 pt, t 0.41, r²
+0.985, while 2x `rrect-ml`/`rrect-lg` fit no aligned Gaussian of the plate at
+any σ — the structure is there and phase-aligned, correlation 0.92, but its
+shape is not Gaussian). The 2x reference also retains more contrast at every
+span (0.327 / 0.310 / 0.254 / 0.204 / 0.162). A law written once in CSS px
+cannot land both scales; the 2x bed has no probe pitches. Recorded, not
+resolved.
+
+#### 4. The dry run: the body law alone meets one floor; the rim band decides the rest
+
+vitrea's capture with its deep body replaced by the reference's fitted law
+(the same cell's a, t₁, t₂, σ₁; hue kept), then with the rim band also
+replaced by native pixels — whole-crop SSIM, against the adopted bound:
+
+| cell | bound | measured | → body law | → + native rim band |
+| --- | --- | --- | --- | --- |
+| 1x `rrect-md` texture | 0.88 | 0.912 | 0.926 | 0.983 |
+| 1x `rrect-md` dom | 0.90 | 0.882 | 0.898 | 0.972 |
+| 1x `rrect-ml` texture | 0.88 | 0.862 | **0.884** | 0.968 |
+| 1x `rrect-ml` dom | 0.90 | 0.793 | 0.834 | 0.954 |
+| 1x `rrect-lg` texture | 0.88 | 0.823 | 0.871 | 0.972 |
+| 1x `rrect-lg` dom | 0.90 | 0.685 | 0.785 | 0.956 |
+| 2x `rrect-md` dom | 0.92 | 0.906 | 0.907 | 0.959 |
+| 2x `rrect-ml` texture | 0.93 | 0.889 | 0.890 | 0.941 |
+| 2x `rrect-ml` dom | 0.92 | 0.847 | 0.858 | 0.930 |
+| 2x `rrect-lg` texture | 0.93 | 0.880 | 0.886 | 0.943 |
+| 2x `rrect-lg` dom | 0.92 | 0.797 | 0.831 | 0.931 |
+
+The body law is real and moves every 1x cell 0.014–0.10; it discharges one
+floor by itself. With the rim band matched every cell sits 0.03–0.10 above
+its bound. The CSS tier has no lens by contract (`refraction: "none"`, §4's
+coherence wording), so its rim band is a contract question rather than a
+fit — but the band arithmetic says the contract is not what keeps the
+calibration cells red: with the body and outside bands matched, 1x `rrect-md`
+and `rrect-ml` dom would read ≈ 0.92 and ≈ 0.91 against 0.90, and only the
+holdout `rrect-lg` (≈ 0.87) and the nested cells would stay under. The lens
+band on the GPU tier is a fit (`lensDepth`, the `(1 − depth)²` profile, the
+rim-biased LOD, the 4–8 px ring), against the probe's pitch-32/64 cells where
+the reference's lens is plainly resolved.
+
+#### 5. Nested glass: the GPU tier's upper pane is a flat constant
+
+Per region, linear luminance, both backdrops and both scales agree to 0.003:
+
+| region (`photo`, 1x) | plate | native | GPU tier | CSS tier |
+| --- | --- | --- | --- | --- |
+| upper pane, inset 8 pt | 0.191 | **0.893** (σ 0.011) | **0.468** (σ 0.0000) | 0.899 (σ 0.013) |
+| base only, upper dilated 12 pt | 0.234 | 0.656 | 0.642 | 0.712 |
+| base ∪ upper (the gated interior) | 0.219 | 0.706 | 0.597 | 0.751 |
+
+(`checkerboard`: upper 0.905 / 0.468 / 0.869; base-only 0.671 / 0.671 /
+0.625.) The GPU tier's upper pane is the bytes 182,182,182 everywhere. The
+mechanism is in the optics pass: a surface whose group has no backdrop source
+(`flags.x = 0` — the nested group resolves `css-backdrop` per §6.4, and a
+proxy is emitted for it per group) skips the body block, so `backdrop` stays
+`vec3f(0)`, `colour = mix(0, adapted, adaptedAlpha)` bakes black in, and
+`encode_output(colour, coverage)` writes it **opaque** — a white tint at α 0.46
+over black is 0.46 linear, plus the rim and inner-shadow terms, 0.468. The
+DOM's blurred base glass beneath the canvas never shows through. A defect,
+not a law: the CSS tier, which filters in place, lands the upper pane within
+0.006 of the reference on `photo`. It owns the four ΔE p95 rows (0.19 is the
+pane), both ratio rows (0.597 ÷ 0.751 = 0.795), and the pane's share of the
+four nested SSIM rows. With the pane composited premultiplied over the proxy
+at the CSS tier's level, the GPU interior predicts ≈ 0.70 against native
+0.706 and the ratio ≈ 0.93. The CSS base pane's +0.056 on `photo` is the dom
+tier's standing photo level (0.729 against 0.673 on `rrect-lg`), inside its
+bounds and not this class.
+
+#### 6. The extractor: the luminance-delta rule cuts holes on the native side too
+
+`photo__rrect-md__rest-tint-orange`, the same rule the compare applies
+(|ΔY_linear| ≥ 0.02 against the plate, inside the declared region, no
+morphology):
+
+| side | 1x holes (px) | 2x holes (px) | hole |ΔY| mean | OKLab ΔE at the holes, min |
+| --- | --- | --- | --- | --- |
+| native | 2 (64, 44) | 6 (1672, 258, 175, …) | 0.010 | 0.124 |
+| GPU tier | 4 (430, 65, 50, 1) | 4 (1958, 195, 2, 2) | 0.010 | 0.123 |
+| CSS tier | 1 (61) | 1 (234) | 0.009 | 0.120 |
+
+The holes are where an opaque orange's luminance meets the photo's own
+(plate 0.37, capture 0.38); the reference's mask has them as well. In OKLab
+the same pixels sit ≥ 0.12 from the plate, and the mask's own 1st percentile
+is 0.11. **A ΔE rule at 0.02, 0.03 or 0.05 recovers 1.000 of the region with
+zero holes on all twelve measured sides**, the `photo` nested cells included
+(GPU 4 and 10 holes today). The interior mask is the native silhouette, so
+the rule is bed-wide: every cell's shape and material numbers re-read from
+the captures on disk (no recapture; SSIM and ΔE are whole-crop and do not
+move), the predicate's exclusion list re-derives, and §5.15's published
+counts restate.
+
+#### What this section does not do
+
+It fixes nothing and fits nothing. The three classes are chartered as one
+composite round with three children in
+`docs/doperpowers/specs/2026-09-02-w11-remaining-floors.md`; the order,
+the cut and the protocol are that document's Decision Log 1.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
