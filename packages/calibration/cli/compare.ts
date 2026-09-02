@@ -89,7 +89,7 @@ import {
   type ResultMatrix,
 } from "../src/index";
 import { isCaptureFresh, matrixSchemaRefusal, shouldWriteMatrix } from "./gates";
-import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell } from "./measure";
+import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -329,6 +329,7 @@ interface Options {
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
   readonly silhouetteThreshold: number;
+  readonly silhouetteChromaThreshold: number;
   /**
    * Outward dilation of the declared search region, device px. Absent means the
    * package default, which is zero — see `DEFAULT_COMPONENT_REGION_MARGIN_PX`
@@ -385,6 +386,9 @@ function parseOptions(argv: readonly string[]): Options {
     webAccessibility,
     matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
+    silhouetteChromaThreshold: Number(
+      flag("silhouette-chroma-threshold") ?? `${DEFAULT_SILHOUETTE_CHROMA_THRESHOLD}`,
+    ),
     componentRegionMarginPx:
       flag("region-margin") === undefined ? undefined : Number(flag("region-margin")),
   };
@@ -766,6 +770,7 @@ function main(): void {
         fixtureSet: cell.fixtureSet,
         blurAxis: "x",
         silhouetteThreshold: options.silhouetteThreshold,
+        silhouetteChromaThreshold: options.silhouetteChromaThreshold,
         component: declaredComponentOf(geometry, cell.sceneId),
         canvas: geometry.canvas,
         // The measured backing scale, not the one the key claims — the same

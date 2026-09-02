@@ -102,6 +102,12 @@ export interface MeasureInput {
    */
   readonly silhouetteThreshold: number;
   /**
+   * OKLab a/b distance that counts as "the component is here" where the
+   * luminance delta does not (W11b) — the arm that finds an opaque tint
+   * sitting at its backdrop's own level. See `LuminanceDeltaExtractor`.
+   */
+  readonly silhouetteChromaThreshold: number;
+  /**
    * The scene matrix's declaration of where the component is (schema 5).
    *
    * Not optional, and not derivable from the capture. It bounds the shape axis's
@@ -125,6 +131,13 @@ export interface MeasureOutcome {
 }
 
 export const DEFAULT_SILHOUETTE_THRESHOLD = 0.02;
+/**
+ * The chroma arm's threshold on OKLab a/b distance (W11b, claims §5.40).
+ * Declared at 0.03 before the bed-wide run: the hole pixels it exists for sit
+ * at ≥ 0.12, the masks' own first percentile at 0.11, and every cell measured
+ * gives the same mask at 0.02, 0.03 and 0.05.
+ */
+export const DEFAULT_SILHOUETTE_CHROMA_THRESHOLD = 0.03;
 
 function loadImage(path: string): CalibrationImage {
   return decodePng(readFileSync(path));
@@ -195,6 +208,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
         kind: "luminance-delta",
         background,
         threshold: input.silhouetteThreshold,
+        chromaThreshold: input.silhouetteChromaThreshold,
         region: region.silhouette,
       } as const)
     : ({ kind: "alpha", threshold: 0.5, region: region.silhouette } as const);

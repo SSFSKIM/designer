@@ -143,8 +143,83 @@ two-component body model and its constants; the rim-band decomposition; the
 - **Contracts:** X1, X2, X4 (owner).
 - **Design inheritance:** §5.38 §6 — advisory (the threshold is the child's;
   0.03 is the measured midpoint with a 4× margin to the hole pixels' 0.12).
+  **Overturned in part at dispatch (Revision Note, 2026-09-02):** §5.38 §6
+  measured a pure OKLab-ΔE rule on `photo` cells only; on the bed's other
+  backdrops it is a regression, not a replacement — see the declaration.
 - **Required:** required.
-- **Status:** not-dispatched (dispatchable now; lands before W11c's referee).
+- **Status:** landed (2026-09-02; Decision Log 3, claims §5.40). The
+  declaration below preceded the bed-wide run and every prediction in it
+  held.
+
+#### W11b declaration (written before the first bed-wide run, 2026-09-02)
+
+**The rule.** A pixel inside the declared region is inside the silhouette
+iff
+
+    |Y_lin(capture) − Y_lin(plate)| ≥ 0.02   OR   ‖ab_OK(capture) − ab_OK(plate)‖ ≥ 0.03
+
+— the existing luminance-delta arm, unchanged in threshold and space, plus
+a second arm on OKLab chroma (the a/b plane, the neutral axis excluded)
+that fires where a surface differs from what is behind it in colour at a
+matched luminance. The two arms are orthogonal by construction and the
+rule is a **strict superset** of the current one: no pixel the luminance
+arm admits is dropped, so area recovery cannot fall and a hole cannot open
+on any cell; the only outcomes the change can produce are holes closing,
+fragments joining, and — the one to watch — a stray chroma fragment.
+
+**Why not the advisory rule.** A pure OKLab-ΔE ≥ t rule replaces the
+luminance arm with OKLab lightness, whose sensitivity to linear luminance
+falls with level (dL/dY ≈ Y^(−2/3)/3: at Y 0.9 a ΔY of 0.02 is ΔL 0.007).
+Measured on the captures on disk (`w11b-sensitivity`), at t = 0.03 it
+drops the light-solid `rrect-md` reference to 0.031 of its region in seven
+bodies, the light-solid capsule to 0.102, the `hc-text` `rrect-md`
+reference to 0.948 with four holes, and punches 22 holes in the CSS
+checkerboard `rrect-md`; at t = 0.02 the light-solid `rrect-md` reference
+still reads 0.060. It also admits the near-black cells (impulse, dark
+solid) where OKLab's cube root puts one code value of luminance noise at
+ΔL ≈ 0.07 — a threshold-crossing that is capture noise, not a surface. The
+union rule leaves every one of those cells byte-identical and fixes every
+tinted one.
+
+**The threshold.** 0.03 on Δab. The hole pixels §5.38 §6 measured sit at
+Δab ≥ 0.12 (the orange over the photo's orange differs in chroma, not in
+luminance); the masks' own 1st percentile is 0.11. Across 0.02 / 0.03 /
+0.05 every cell measured gives an identical mask — the outcome is
+insensitive to the threshold over a 2.5× range, which is the evidence that
+the rule is not being fitted to the bed. Neutral captures over neutral
+plates have a/b of exactly zero on both sides, so the arm is inert wherever
+no colour is present.
+
+**What will move.** Shape and material rows on cells whose mask changes —
+predicted: the twelve tinted `photo` cells across the six profiles and both
+tiers, the `hc-text` tinted capsule, the increased-contrast `photo` tinted
+capsule, and the `orange-half` capsule; the `photo` nested cells' residual
+holes. Predicted to leave the exclusion list: the `bodiesWeb` tinted family
+(`photo__capsule-button__rest-tint-{orange,blue}` on every profile that has
+them, `photo__rrect-lg__rest-tint-orange` dom, `photo__rrect-md__rest-tint-
+orange` dom, the three W10 joiners). Predicted MET: the two W10 contour
+floors on `photo__rrect-md__rest-tint-orange` (the hole was the miss).
+**What will not move:** every `perceptual` column (whole-crop, mask-free —
+asserted byte-identical against the W11a-close matrix); every cell whose
+capture is neutral; the `areaNative` exclusions (near-black references,
+increased-contrast over the checkerboard's white); the `areaWeb` `hc-text`
+family (white glass over white differs in nothing).
+
+**Stop conditions.** Any cell whose `silhouetteBodies` count RISES (a stray
+chroma fragment); any cell whose mask exceeds its declared region (impossible
+by construction — the region bounds both arms — but asserted); any
+`perceptual` value that moves by more than floating-point noise. Any of the
+three stops the adoption and the finding is recorded before the rule is
+changed.
+
+**Protocol.** The rule lands behind `--silhouette-chroma-threshold` with
+the package default at the declared 0.03; the dry run writes a scratch
+matrix from the captures on disk (`--skip-capture`, all twelve
+profile × renderer runs); the referee compares it column by column with the
+W11a-close matrix, checks the stops, re-derives the exclusion list and the
+per-profile gated counts, and then — only then — the same runs write
+`results/matrix.json`. No capture is taken; the web PNGs stay byte-identical
+by construction.
 
 ### W11c: Interior structure — the body law, the lens band, and the CSS contract — controlled
 
@@ -259,7 +334,7 @@ only W11c's referee captures the web side).
 | child | spec / evidence | status |
 | --- | --- | --- |
 | W11a | LANDED 2026-09-02 — claims §5.39; the optics pass's unsampled path writes a premultiplied layer at the host's compositing-space pair (`unsampledMaterial`, the CSS tier's alpha on the renderer's tint); 6 floors MET and removed, 2 texture SSIM floors ratcheted up, 2 dom SSIM floors unchanged; enforced count 17; 248/254 captures byte-identical, the 6 that differ are the nested GPU cells | landed |
-| W11b | — | not-dispatched |
+| W11b | LANDED 2026-09-02 — claims §5.40; the extractor's luminance rule gains an OKLab chroma arm (Δab ≥ 0.03, `--silhouette-chroma-threshold`), a strict superset declared before the bed-wide run; 0 stops, all 230 perceptual rows byte-identical, 23 cells leave the exclusion list and none join, the two W10 contour floors met and removed; enforced count 15; matrix re-measured from the captures on disk (no capture) | landed |
 | W11c | — | not-dispatched |
 
 ## Decision Log
@@ -332,6 +407,32 @@ calibration cell that does not exist.
 **Close.** W11a landed on its acceptance; W11b dispatches next per Decision
 Log 1.
 
+### Decision Log 3 — W11b's rule, its referee, and close (2026-09-02)
+
+**The rule chosen, and the advisory overturned.** §5.38 §6 (advisory) named
+a pure OKLab-ΔE rule; the child's sensitivity run on the captures on disk
+falsified it as a replacement (light-solid `rrect-md` reference to 0.031 of
+its region in seven bodies at ΔE ≥ 0.03; 22 holes in the CSS checkerboard
+`rrect-md`; near-black noise admitted) and adopted the union instead: the
+luminance arm unchanged, plus an OKLab a/b arm at 0.03. Rejected: pure ΔE
+(above); replacing the threshold space wholesale (any single-space rule
+trades one backdrop family for another); a holes arm on the predicate (it
+would have EXCLUDED the twenty-three cells rather than measured them). The
+overturn is recorded on the child section as a Revision Note and in §5.40.
+
+**The referee.** Every declared stop clear; every declared prediction held
+(the tinted `bodiesWeb` family left the exclusion list, the W10 floors met,
+the perceptual columns byte-identical, the `areaNative` and `hc-text`
+families unmoved). Two floors removed; count 17 → 15; 23 cells newly gate
+and every one meets its bounds. Adopted from the scratch matrix (the same
+deterministic runs; §5.40's adoption note).
+
+**Consequence for W11c (X4).** The mask is now the union rule's; W11c's
+referee reads through it. The material targets on the checkerboard cells
+W11c owns did not move (neutral over neutral), so W11c's fit is unaffected.
+
+**Close.** W11b landed on its acceptance; W11c is the last child.
+
 ## Surprises & Discoveries
 
 - **The nested fix touched the whole GPU-over-DOM path.** Every `dom`-source
@@ -344,6 +445,11 @@ Log 1.
   body was opaque and needed a different one as a layer; each surfaced as
   a measured miss rather than in review (§5.39, the two corrective
   findings).
+- **The advisory extractor rule was a regression everywhere it had not been
+  measured.** A pure OKLab-ΔE rule looked complete on the `photo` cells and
+  would have lost the light-solid reference almost entirely (§5.40). The
+  lesson generalises: a replacement instrument rule needs the whole bed's
+  backdrop families in its dry run, not the cells that motivated it.
 - **The SSIM size trend was coverage.** In-glass SSIM is flat-to-better with
   size; the capsule is the worst cell on the texture tier (§5.38 §1).
 - **The nested pane was never rendered.** The GPU tier's upper pane has been
@@ -360,6 +466,11 @@ Pending — written at recomposition, after the single X1 rebuild.
 
 ## Revision Notes
 
+- 2026-09-02 (W11b landed; Decision Log 3): the extractor's chroma arm
+  declared, dry-run, refereed and adopted the same day; two floors removed,
+  count 15; W11b's advisory inheritance (§5.38 §6's pure-ΔE rule) overturned
+  with the sensitivity evidence, recorded on the child section. One Surprise
+  added. W11c is next.
 - 2026-09-02 (W11a landed; Decision Log 2): six floors removed, two
   ratcheted up, count 17; the Tracking Map row and claims §5.39 carry the
   evidence. Two Surprises added. W11b is next.

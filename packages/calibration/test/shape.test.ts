@@ -47,6 +47,45 @@ describe("silhouette extraction", () => {
     expect(silhouetteArea(silhouette)).toBe(100);
     expect(composite.data[3]).toBe(0);
   });
+
+  it("finds a coloured surface at its backdrop's own luminance through the chroma arm (W11b)", () => {
+    // A mid-grey plate; a 10x10 block of a reddish colour whose LINEAR luminance
+    // sits within 0.011 of the grey's (bytes 203/89/89 against 128/128/128), and
+    // a 10x10 block of a neutral three code steps brighter (131) — inside neither
+    // arm. The luminance arm alone sees nothing; the chroma arm sees the colour
+    // and, being on a/b only, still nothing of the neutral.
+    const size = 20;
+    const plate = new Uint8Array(size * size * 4).fill(128);
+    for (let i = 3; i < plate.length; i += 4) plate[i] = 255;
+    const background = { width: size, height: size, data: plate };
+    const data = new Uint8Array(plate);
+    for (let y = 0; y < 10; y += 1) {
+      for (let x = 0; x < 10; x += 1) {
+        const tinted = (y * size + x) * 4;
+        data[tinted] = 203;
+        data[tinted + 1] = 89;
+        data[tinted + 2] = 89;
+        const neutral = ((y + 10) * size + x + 10) * 4;
+        data[neutral] = 131;
+        data[neutral + 1] = 131;
+        data[neutral + 2] = 131;
+      }
+    }
+    const image = { width: size, height: size, data };
+
+    const luminanceOnly = extractSilhouette(image, { kind: "luminance-delta", background, threshold: 0.02 });
+    expect(silhouetteArea(luminanceOnly)).toBe(0);
+
+    const withChroma = extractSilhouette(image, {
+      kind: "luminance-delta",
+      background,
+      threshold: 0.02,
+      chromaThreshold: 0.03,
+    });
+    expect(silhouetteArea(withChroma)).toBe(100);
+    expect(withChroma.mask[0]).toBe(1);
+    expect(withChroma.mask[15 * size + 15]).toBe(0);
+  });
 });
 
 describe("distance transform", () => {

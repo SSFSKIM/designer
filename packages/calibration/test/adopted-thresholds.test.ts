@@ -433,12 +433,12 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // response-curve law brought every one of them inside its adopted bound
   // (the mid-dark capsule 0.1775 → 0.0095). Their claims are restored in
   // §5.27's tables and gate as ordinary rows again.
-  // W10 (claims §5.37): the cell conditions now that the tint is opaque, and its
-  // two contour rows miss on ONE interior hole the luminance-delta extractor
-  // cuts where the orange tint sits over the photo's own orange (IoU 0.992).
-  // An instrument floor, not a material one; the extractor is the Deferred item.
-  "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard :: contourDistanceMean": { measured: 5.8893, floor: 5.9 },
-  "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard :: contourDistanceP95": { measured: 33, floor: 33.1 },
+  // W10 (claims §5.37) PINNED two contour floors here on
+  // photo__rrect-md__rest-tint-orange (1x texture, 5.8893 / 33 px) — an
+  // instrument floor, ONE interior hole the luminance-delta extractor cut where
+  // the orange tint sat over the photo's own orange. W11b (claims §5.40) gave
+  // the extractor a chroma arm and REMOVED them: the cell reads IoU 1.000 and
+  // contour 0 / 0 under the declared rule, the claims restored in §5.27.
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.88261, floor: 0.8816 },
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90582, floor: 0.9048 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
@@ -474,9 +474,10 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * 23 after W10 restored the six tinted coherence rows and pinned two contour
  * rows on a cell the predicate newly admits (claims §5.37); 17 after W11a
  * restored the six nested-glass rows the unrendered upper pane had floored
- * (claims §5.39).
+ * (claims §5.39); 15 after W11b's chroma arm closed the hole those two contour
+ * rows were pinned on (claims §5.40).
  */
-const UNMET_ROWS = 17;
+const UNMET_ROWS = 15;
 
 /*
  * ---------------------------------------------------------------------------
@@ -747,31 +748,34 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * both scales. The extractor is still a luminance-delta rule, and an opaque
  * orange over the photo's own orange region is invisible to it — see the
  * contour floors pinned on the `rrect-md` cell it newly admits.
+ *
+ * **What left it with W11b (2026-09-02, claims §5.40).** Twenty-three rows,
+ * none joining: the whole `bodiesWeb` tinted family and the `areaWeb` tinted
+ * remainder — `photo__capsule-button__rest-tint-{orange,blue,orange-half}` on
+ * every profile that carries them, `photo__rrect-md` and `photo__rrect-lg`
+ * tinted on the dom tier, and the 2x-dark untinted `photo` capsule. The
+ * extractor gained a chroma arm (OKLab a/b distance ≥ 0.03 beside the
+ * luminance delta), so an opaque tint at its backdrop's own luminance is no
+ * longer a hole: every one of the twenty-three reads IoU ≥ 0.995 and contour
+ * p95 ≤ 1 px, and gates as an ordinary cell. What remains below is the
+ * `areaNative` family (references invisible over near-black, and the
+ * increased-contrast material over the checkerboard's white), the `areaWeb`
+ * `hc-text` family (white glass over white differs in nothing), the 2x
+ * texture-tier checkerboard family and `hc-text__rrect-md` at 2x — unchanged,
+ * and none of them a colour question.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "dom / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard",
-  "dom / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard",
-  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-dark-standard",
-  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-increased-contrast",
-  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-reduced-transparency",
-  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard",
-  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard",
-  "dom / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
-  "dom / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard",
-  "dom / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
-  "dom / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard",
-  "dom / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
@@ -779,17 +783,6 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "texture / calibration / photo__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-dark-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-increased-contrast",
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-reduced-transparency",
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-orange-half / apple-macos-26.5-1x-light-standard",
-  "texture / calibration / photo__capsule-button__rest-tint-orange-half / apple-macos-26.5-2x-light-standard",
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",

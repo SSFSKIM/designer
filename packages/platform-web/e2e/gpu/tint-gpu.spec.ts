@@ -17,12 +17,7 @@
 
 import { expect, test } from "@playwright/test";
 
-import {
-  channelDelta,
-  gotoHarness,
-  requireHardwareAdapter,
-  sample,
-} from "../support";
+import { channelDelta, gotoHarness, requireHardwareAdapter, sample } from "../support";
 
 const TINTED = { x: 300, y: 200, width: 220, height: 120 };
 const PLAIN = { x: 300, y: 360, width: 220, height: 120 };
@@ -63,9 +58,7 @@ test("draws the tint inside the optics pass, per surface", async ({ page }) => {
 
   // The tier under test, not the fallback. Without this the whole file would be
   // re-asserting the CSS tier.
-  expect(built?.activeRenderer, `resolved ${JSON.stringify(built)}`).toBe(
-    "webgpu",
-  );
+  expect(built?.activeRenderer, `resolved ${JSON.stringify(built)}`).toBe("webgpu");
 
   const tinted = (await sample(page, TINTED)).at(110, 60);
   const plain = (await sample(page, PLAIN)).at(110, 60);
@@ -91,10 +84,10 @@ test.describe("the tinted surface is a material", () => {
   }) => {
     // The harness page's backdrop under this panel is uniform, so the "backdrop
     // still varies through it" reading belongs to the CSS-tier spec, whose scene
-    // has variation to show. What this scene *can* answer is the other half of the
-    // same claim, and the sharper one: the surface is not the colour that was
-    // asked for. A fill would be exactly `#ff9500`; a tint is that colour's tone
-    // composited with what is behind it, inside a body that still has a rim.
+    // has variation to show. What this scene *can* answer is the other half of
+    // the same claim, and the sharper one: the surface is not the colour that
+    // was asked for. A fill would be exactly `#ff9500`; a tint is that colour's
+    // tone composited with what is behind it, inside a body that still has a rim.
     await gotoHarness(page);
     requireHardwareAdapter(await page.evaluate(() => window.h.adapter()));
 
@@ -124,8 +117,8 @@ test.describe("the tinted surface is a material", () => {
       `the surface reads ${JSON.stringify(centre)}, which is the seed itself`,
     ).toBeGreaterThan(8);
 
-    // And the rim is still on it, which a fill has no way to produce: white light
-    // added to a channel the orange seed leaves at zero.
+    // And the rim is still on it, which a fill has no way to produce: white
+    // light added to a channel the orange seed leaves at zero.
     const rim = panel.at(0.5, 60);
     expect(
       rim.b,
@@ -135,9 +128,7 @@ test.describe("the tinted surface is a material", () => {
   });
 });
 
-test("gives up the material and the colour together under forced colours", async ({
-  page,
-}) => {
+test("gives up the material and the colour together under forced colours", async ({ page }) => {
   // The policy that removes the material removes the tint with it — on the tier
   // that was drawing the tint inside a canvas, which is where "the tint vanishes"
   // has to mean the canvas stops painting rather than a declaration changing.

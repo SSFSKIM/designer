@@ -37,7 +37,7 @@ import {
   type FixtureSet,
 } from "../src/index";
 import { matrixSchemaRefusal } from "./gates";
-import { DEFAULT_SILHOUETTE_THRESHOLD, measureCell, type MeasureInput } from "./measure";
+import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell, type MeasureInput } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
 const REFERENCE = resolve(
@@ -136,6 +136,9 @@ function parseArgs(argv: readonly string[]): Args {
     fixtureSet: fixtureSet as FixtureSet,
     blurAxis,
     silhouetteThreshold: Number(map.get("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
+    silhouetteChromaThreshold: Number(
+      map.get("silhouette-chroma-threshold") ?? `${DEFAULT_SILHOUETTE_CHROMA_THRESHOLD}`,
+    ),
     component: declaredComponentOf(geometry, sceneId),
     canvas: geometry.canvas,
     scale: profile.scale,

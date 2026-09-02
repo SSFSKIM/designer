@@ -4706,6 +4706,12 @@ headroom is against constants moving in their last digit and nothing else.
 > (0.8409 → 0.8796 against 0.88; 0.8762 → 0.8948 against 0.93); their floors
 > ratchet UP to the new measurement. The two dom-tier rows on the same cell
 > are untouched (the CSS tier was never the defect). The count is 17.
+>
+> **Amended by W11b (2026-09-02, §5.40).** The two W10 instrument rows are
+> struck: under the extractor's chroma arm the cell reads IoU 1.000 and
+> contour 0 / 0 px, the claims restored. No row is added — twenty-three
+> cells the predicate had excluded now gate, and every one of them meets
+> every adopted shape bound. The count is 15.
 
 **`1x-light-standard` · texture tier**
 
@@ -4719,8 +4725,8 @@ headroom is against constants moving in their last digit and nothing else.
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 → 0.8796 (W11a ratchet) | ≥ 0.8786 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 → 0.8233 (W9 trade) | ≥ 0.8222 |
 | `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 → 0.8620 (W9 trade) | ≥ 0.8610 |
-| `photo__rrect-md__rest-tint-orange` | validation | `contourDistanceMean` | ≤ 2.5 px **UNMET (W10, instrument)** | 5.8893 | ≤ 5.9 |
-| `photo__rrect-md__rest-tint-orange` | validation | `contourDistanceP95` | ≤ 5.0 px **UNMET (W10, instrument)** | 33 | ≤ 33.1 |
+| ~~`photo__rrect-md__rest-tint-orange`~~ | validation | `contourDistanceMean` | ≤ 2.5 px **MET (W11b)** | 5.8893 → 0.0000 | — |
+| ~~`photo__rrect-md__rest-tint-orange`~~ | validation | `contourDistanceP95` | ≤ 5.0 px **MET (W11b)** | 33 → 0 | — |
 
 **`1x-light-standard` · dom tier**
 
@@ -4768,7 +4774,7 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39). A floor cannot be added by
+set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40). A floor cannot be added by
 accident, and adding one deliberately means editing a count that sits next to
 this section's number.
 
@@ -6030,6 +6036,106 @@ the optics uniform.
 > DOM proxy's `backdrop-filter`, sampled by the browser and not the shader,
 > and it carries no lens (`refraction: "approximate"`) — but the pane is now
 > the material over that frost, and the cells measure as such.
+
+### 5.40 W11b: the silhouette extractor gains a chroma arm — two floors met, twenty-three cells gate (2026-09-02)
+
+An instrument change, declared before it ran (W11 spec, "W11b declaration")
+and refereed from the captures on disk: no pixel was rendered or captured,
+and every web PNG is the W11a-close byte for byte.
+
+**The rule.** Inside the declared region a pixel is the surface iff
+|ΔY_linear| ≥ 0.02 **or** ‖Δab_OKLab‖ ≥ 0.03 against the plate — the
+luminance-delta arm exactly as it was, plus an arm on OKLab's a/b plane
+that fires where a surface differs from what is behind it in colour at a
+matched luminance. The arms are orthogonal, the second is inert wherever
+both sides are neutral (a/b are exactly zero), and the rule is a strict
+superset of the old one: area cannot fall, holes cannot open, and the one
+thing the change could do wrong — admit a stray chroma fragment — is a
+declared stop. Shipped as `--silhouette-chroma-threshold`, default 0.03.
+
+**Why not §5.38 §6's rule.** That section measured a pure OKLab-ΔE rule on
+`photo` cells alone and reported it recovering every one. It does — and on
+the rest of the bed it is a regression, because OKLab lightness is *less*
+sensitive to linear luminance than the luminance arm near white
+(dL/dY ≈ Y^(−2/3)/3: at Y 0.9 a ΔY of 0.02 is a ΔL of 0.007) and *more*
+sensitive near black, where a single code value is ΔL ≈ 0.07. Measured on
+the captures on disk at ΔE ≥ 0.03: the light-solid `rrect-md` reference
+drops to 0.031 of its region in seven bodies, the light-solid capsule to
+0.102, the `hc-text` `rrect-md` reference to 0.948 with four holes, and the
+CSS checkerboard `rrect-md` takes 22 holes; at 0.02 the light-solid
+`rrect-md` reference still reads 0.060. The union rule leaves every one of
+those cells byte-identical. §5.38 §6's finding stands for what it measured
+and is superseded as a rule.
+
+**The threshold.** The hole pixels the arm exists for sit at Δab ≥ 0.12 and
+the masks' own first percentile at 0.11; 0.03 is a 4× margin. At 0.02,
+0.03 and 0.05 every cell measured produces the identical mask — the
+outcome is insensitive to the threshold across a 2.5× range, which is what
+"not fitted to the bed" looks like as a number.
+
+**The referee** (scratch matrix from the captures on disk, all twelve
+profile × renderer runs, compared column by column with the W11a-close
+matrix):
+
+- **Stops: none.** No cell's body count rose on either side; no mask
+  exceeded its region; every `perceptual` value on all 230 cells is
+  byte-identical (whole-crop metrics see no mask).
+- **62 cells moved** on a shape, material or coherence value — every
+  `photo`-backdrop cell on every profile and tier, untinted included (a
+  white material over a saturated pixel differs from it in chroma where it
+  happens to match in luminance; those were edge and hole pixels), plus three
+  tinted capsules over neutral plates by a sub-pixel contour mean
+  (0.033 → 0.022 px). The reference's own masks closed too: the 2x-dark
+  untinted `photo` capsule's native holes 17 → 5, the 2x-dark tinted one's
+  14 → 0, `photo__rrect-lg` at 2x-dark 41 → 0.
+- **The two W10 floors MET**: `photo__rrect-md__rest-tint-orange` 1x
+  texture reads IoU 0.9917 → **1.0000**, contour mean 5.889 → **0.000**,
+  p95 33 → **0** px. Removed; the claims restored in §5.27.
+- **Twenty-three cells LEFT the exclusion list, none joined** (52 → 29):
+  the entire `bodiesWeb` tinted family. Before → after on the worst of them:
+  `photo__capsule-button__rest-tint-blue` 2x dom, IoU 0.857 → 0.9997, p95
+  37.07 → 0, nine web bodies → one; `photo__rrect-lg__rest-tint-orange` 2x
+  dom, p95 132 → 0, contour mean 30.4 → 0.03, five bodies → one;
+  `photo__rrect-md__rest-tint-orange` 2x dom, p95 68 → 0. Every one of the
+  twenty-three reads IoU ≥ 0.995 and p95 ≤ 1 px and **meets every adopted
+  shape bound** as an ordinary gated cell — no floor is pinned by this
+  change.
+- **What the mask moved underneath the material axis:** `interiorMeanNative`
+  by at most 0.0047 (the tinted blue capsule, whose mask was 0.71 of its
+  region) and by at most 0.0012 on any untinted cell; the cross-tier ratio
+  by at most 0.010. The tuning objective's targets on tinted cells are now
+  read over the whole surface rather than 70–96% of it.
+- **Gated shape cells, calibration + validation, before → after** (§5.15's
+  counts restated on the new masks):
+
+  | profile | texture | dom |
+  | --- | --- | --- |
+  | `1x-light-standard` | 21 → 24 | 21 → 24 |
+  | `2x-light-standard` | 18 → 21 | 21 → 24 |
+  | `1x-light-reduced-transparency` | 5 → 6 | 5 → 6 |
+  | `1x-light-increased-contrast` | 4 → 5 | 4 → 5 |
+  | `1x-dark-standard` | 6 → 7 | 6 → 7 |
+  | `2x-dark-standard` | 5 → 7 | 6 → 7 |
+
+  (Holdout adds the `photo__rrect-lg` tinted dom cell at each light scale.)
+  The 29 exclusions that remain are the `areaNative` family (references
+  invisible over near-black; the increased-contrast material over the
+  checkerboard's white), the `areaWeb` `hc-text` family (white glass over
+  white differs in nothing, in luminance or in chroma), the 2x texture-tier
+  checkerboard family, and `hc-text__rrect-md` at 2x — none of them a
+  colour question.
+
+**Enforcement.** Two floors removed; `UNMET_ROWS` 17 → 15;
+`PREDICATE_EXCLUDES` re-recorded at 29 with the family account above; the
+per-profile coverage counts derive from it and moved with it. A unit test
+pins the arm: a reddish block within 0.011 of its plate's linear luminance
+is invisible to the luminance arm and whole under the chroma arm, while a
+neutral block three code values off stays outside both.
+
+**The adoption note.** The scratch matrix the referee read is the one
+adopted as `results/matrix.json`: the same twelve `--skip-capture` runs
+over the same captures are deterministic to the byte, and re-running them
+to write the canonical file would have changed only twelve timestamps.
 
 ## 6. What could not be measured, and why
 

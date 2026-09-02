@@ -35,7 +35,7 @@
  * ~0.5px should be read as "within the grid", not as a measurement.
  */
 
-import { srgbByteToLinear, linearRgbLuminance } from "./color";
+import { srgbByteToLinear, linearRgbLuminance, srgbByteToOklab } from "./color";
 import { CalibrationError } from "./errors";
 import { assertComparable, type CalibrationImage } from "./image";
 
@@ -83,6 +83,24 @@ export interface LuminanceDeltaExtractor extends RegionBounded {
   readonly background: CalibrationImage;
   /** Absolute linear-light luminance difference, 0..1. */
   readonly threshold: number;
+  /**
+   * The chroma arm (W11b, claims §5.40): a pixel whose OKLab a/b differs from
+   * the background's by at least this is inside too, whatever its luminance.
+   *
+   * The luminance arm alone cuts a hole wherever a coloured surface meets its
+   * own level in the backdrop — an opaque orange over the photo's orange region
+   * — and it does so on the REFERENCE as much as on the web side. The arm is on
+   * the a/b plane only, so it is orthogonal to the luminance rule and exactly
+   * inert on neutral captures over neutral plates, whose a/b are zero on both
+   * sides; the rule with it is a strict superset of the rule without it. Absent
+   * means the pre-W11b rule, byte for byte.
+   *
+   * Not OKLab ΔE, deliberately: replacing the luminance arm with OKLab lightness
+   * was measured to lose the light-solid reference almost entirely (dL/dY falls
+   * with level, so a 0.02 luminance step near white is a 0.007 lightness step)
+   * and to admit one code value of near-black noise.
+   */
+  readonly chromaThreshold?: number;
 }
 
 export type SilhouetteExtractor = AlphaThresholdExtractor | LuminanceDeltaExtractor;
@@ -111,20 +129,31 @@ export function extractSilhouette(image: CalibrationImage, extractor: Silhouette
 
   assertComparable(image, extractor.background, "extractSilhouette(luminance-delta)");
   const background = extractor.background;
+  const chroma = extractor.chromaThreshold;
   for (let i = 0; i < count; i += 1) {
     if (region !== undefined && (region.mask[i] ?? 0) === 0) continue;
     const src = i * 4;
-    const own = linearRgbLuminance(
-      srgbByteToLinear(image.data[src] ?? 0),
-      srgbByteToLinear(image.data[src + 1] ?? 0),
-      srgbByteToLinear(image.data[src + 2] ?? 0),
-    );
-    const base = linearRgbLuminance(
-      srgbByteToLinear(background.data[src] ?? 0),
-      srgbByteToLinear(background.data[src + 1] ?? 0),
-      srgbByteToLinear(background.data[src + 2] ?? 0),
-    );
-    mask[i] = Math.abs(own - base) >= extractor.threshold ? 1 : 0;
+    const r = image.data[src] ?? 0;
+    const g = image.data[src + 1] ?? 0;
+    const b = image.data[src + 2] ?? 0;
+    const br = background.data[src] ?? 0;
+    const bg = background.data[src + 1] ?? 0;
+    const bb = background.data[src + 2] ?? 0;
+    const own = linearRgbLuminance(srgbByteToLinear(r), srgbByteToLinear(g), srgbByteToLinear(b));
+    const base = linearRgbLuminance(srgbByteToLinear(br), srgbByteToLinear(bg), srgbByteToLinear(bb));
+    if (Math.abs(own - base) >= extractor.threshold) {
+      mask[i] = 1;
+      continue;
+    }
+    // The chroma arm, asked only where the luminance arm said no. A neutral
+    // pixel over a neutral plate is a no-op here: both a/b are exactly zero.
+    if (chroma !== undefined && !(r === g && g === b && br === bg && bg === bb)) {
+      const p = srgbByteToOklab(r, g, b);
+      const q = srgbByteToOklab(br, bg, bb);
+      const da = p.a - q.a;
+      const db = p.b - q.b;
+      if (Math.sqrt(da * da + db * db) >= chroma) mask[i] = 1;
+    }
   }
   return { width: image.width, height: image.height, mask };
 }
