@@ -49,6 +49,7 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 import {
   GLASS_CHANNEL_PROPERTIES,
   createGlassRoot,
+  type UnsampledMaterial,
   type CssTierMapping,
   type GlassHostHandle,
   type GlassRoot,
@@ -107,6 +108,8 @@ export interface GroupReport {
   readonly declaredSpacing?: number;
   readonly state: GlassGroupState | undefined;
   readonly probeVerdict: string | undefined;
+  /** The layer pair an unsampled GPU-tier group composited at (W11a); `null` where none. */
+  readonly unsampledMaterial: UnsampledMaterial | null;
 }
 
 export interface SurfaceReport {
@@ -603,6 +606,12 @@ async function build(): Promise<SceneReport> {
     ...(group.declaredSpacing === undefined ? {} : { declaredSpacing: group.declaredSpacing }),
     state: root.capabilities(group.id),
     probeVerdict: root.probeReport(group.id)?.verdict,
+    // The layer pair the GPU tier was handed where it sampled nothing (W11a),
+    // published so a capture says what alpha an unsampled surface composited
+    // at rather than leaving it to be inferred from the pixels.
+    unsampledMaterial:
+      root.renderInput()?.groups.find((entry) => entry.groupId === group.id)?.unsampledMaterial ??
+      null,
   }));
 
   // The one thing a capture may not do: claim a renderer it did not get. The

@@ -116,6 +116,8 @@ import {
   tintedSourceOptics,
   tintToneAdaptation,
   toneRespondedSourceOptics,
+  unsampledMaterials,
+  type UnsampledMaterial,
   type CssTierMapping,
   type LinearRgb,
   type MaterialOptics,
@@ -319,6 +321,14 @@ export interface GlassGroupRenderInput {
    * Absent exactly where `backdropTone` is.
    */
   readonly backdropToneLinearLuminance?: number;
+  /**
+   * The material a GPU-tier group writes as a LAYER when it samples nothing
+   * (W11a): the renderer's tint at the CSS tier's alpha, because the browser
+   * composites that layer in the same encoded space the CSS tier's `rgba()`
+   * lands in. Present exactly where the WebGPU tier is drawing over a DOM
+   * proxy or over the page; never on a group sampling a texture.
+   */
+  readonly unsampledMaterial?: UnsampledMaterial;
 }
 
 export interface GlassPlaneRenderInput {
@@ -711,6 +721,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * and not the CSS tier's reproduction of it (Decision Log #32(b)).
    */
   let gpuOptics = sourceOptics(options.materialProfile);
+  /**
+   * The pair a GPU-tier group writes when it has no texture to sample (W11a):
+   * the renderer's tint at this tier's alpha, one number for both tiers.
+   */
+  let unsampled = unsampledMaterials(options.materialProfile, cssMapping);
   /**
    * The profile's policy constants, held alongside the two tiers' optics because
    * they are the part of the profile neither tier's optics can carry: they
@@ -1220,6 +1235,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
               backdropToneLevel: backdropTone.luminance,
               backdropToneLinearLuminance: backdropTone.linearLuminance,
             }),
+        // The layer pair travels only where the GPU tier is the one drawing and
+        // has nothing to sample — over its proxy, or over the page (W11a).
+        ...(state.activeRenderer === "webgpu" && state.samplingBackend !== "gpu-texture"
+          ? { unsampledMaterial: unsampled[variant] }
+          : {}),
       });
 
       // The proxy path belongs to the WebGPU tier's dom sampling. The CSS tier
@@ -2058,6 +2078,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // handing the CSS tier its own alpha would be re-opening K5's gap by hand.
       cssOptics = cssTierOptics(profile, cssMapping);
       gpuOptics = sourceOptics(profile);
+      unsampled = unsampledMaterials(profile, cssMapping);
       policyFold = resolvedPolicyFold(profile);
       tintShade = resolvedTintShade(profile);
       sizeConstants = sourceSize(profile);

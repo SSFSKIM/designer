@@ -215,6 +215,37 @@ describe("toRendererGroups", () => {
     expect(base?.groups[0]?.analysisExact).toBe(false);
   });
 
+  it("hands an unsampled group the host's layer pair, and a sampled group none (W11a)", () => {
+    const pair = { tint: [1, 1, 1] as const, tintAlpha: 0.66 };
+
+    // A dom-mode group draws over its proxy: the pair goes with it.
+    const [dom] = toRendererGroups(
+      frame(
+        [group({ state: WEBGPU_DOM_STATE, backdropSourceId: "vitrea.dom", unsampledMaterial: pair })],
+        [{ plane: "base", nodes: [node()] }],
+      ),
+      always,
+    );
+    expect(dom?.groups[0]?.unsampledMaterial).toEqual(pair);
+
+    // A texture group whose pixels never arrived draws over the page: the pair
+    // goes with it too, because the shader takes the same unsampled path.
+    const [starved] = toRendererGroups(
+      frame([group({ unsampledMaterial: pair })], [{ plane: "base", nodes: [node()] }]),
+      never,
+    );
+    expect(starved?.groups[0]?.backdropSourceId).toBeUndefined();
+    expect(starved?.groups[0]?.unsampledMaterial).toEqual(pair);
+
+    // A sampled group composites in the shader; the pair must not travel.
+    const [sampled] = toRendererGroups(
+      frame([group({ unsampledMaterial: pair })], [{ plane: "base", nodes: [node()] }]),
+      always,
+    );
+    expect(sampled?.groups[0]?.backdropSourceId).toBe("src");
+    expect(sampled?.groups[0]?.unsampledMaterial).toBeUndefined();
+  });
+
   it("omits a group core resolved to the CSS tier", () => {
     // The CSS tier is painting this group's host in the same frame. Drawing it
     // here too would put two materials on one surface.

@@ -666,7 +666,29 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
       const state = stateOf(input, resolution);
       const variant = variantOf(input);
-      const optics = opticsUnderPolicy(material.optics[variant], policy, material);
+      const sourceId = input.backdropSourceId;
+      const pyramid = sourceId === undefined ? undefined : pyramids.resources(sourceId);
+      const adapt =
+        sourceId === undefined ? undefined : adaptationFor(sourceId).values;
+      /*
+       * A group with no pyramid to sample writes its material as a layer the
+       * browser composites (W11a; see `GroupRenderInput.unsampledMaterial`), so
+       * where the host resolved the compositing-space pair it replaces the
+       * profile's — before the policy fold, which then lands on it exactly as
+       * the CSS tier's fold lands on the same numbers.
+       */
+      const nominalOptics = material.optics[variant];
+      const optics = opticsUnderPolicy(
+        pyramid === undefined && input.unsampledMaterial !== undefined
+          ? {
+              ...nominalOptics,
+              tint: input.unsampledMaterial.tint,
+              tintAlpha: input.unsampledMaterial.tintAlpha,
+            }
+          : nominalOptics,
+        policy,
+        material,
+      );
 
       /*
        * Backdrop tone adaptation (W7). Both policy folds resolve here, on the
@@ -700,11 +722,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         state.refraction,
       );
       const refractionScale = material.refractionScale[refraction];
-
-      const sourceId = input.backdropSourceId;
-      const pyramid = sourceId === undefined ? undefined : pyramids.resources(sourceId);
-      const adapt =
-        sourceId === undefined ? undefined : adaptationFor(sourceId).values;
 
       passes.opticsPass(encoder, {
         groupId: input.groupId,

@@ -17,7 +17,12 @@
 
 import { expect, test } from "@playwright/test";
 
-import { channelDelta, gotoHarness, requireHardwareAdapter, sample } from "../support";
+import {
+  channelDelta,
+  gotoHarness,
+  requireHardwareAdapter,
+  sample,
+} from "../support";
 
 const TINTED = { x: 300, y: 200, width: 220, height: 120 };
 const PLAIN = { x: 300, y: 360, width: 220, height: 120 };
@@ -58,7 +63,9 @@ test("draws the tint inside the optics pass, per surface", async ({ page }) => {
 
   // The tier under test, not the fallback. Without this the whole file would be
   // re-asserting the CSS tier.
-  expect(built?.activeRenderer, `resolved ${JSON.stringify(built)}`).toBe("webgpu");
+  expect(built?.activeRenderer, `resolved ${JSON.stringify(built)}`).toBe(
+    "webgpu",
+  );
 
   const tinted = (await sample(page, TINTED)).at(110, 60);
   const plain = (await sample(page, PLAIN)).at(110, 60);
@@ -68,49 +75,69 @@ test("draws the tint inside the optics pass, per surface", async ({ page }) => {
   expect(warmth(tinted)).toBeGreaterThan(warmth(plain) + 30);
 });
 
-test("stays glass on the GPU tier — a material, not a fill of the author's colour", async ({
-  page,
-}) => {
-  // The harness page's backdrop under this panel is uniform, so the "backdrop
-  // still varies through it" reading belongs to the CSS-tier spec, whose scene
-  // has variation to show. What this scene *can* answer is the other half of the
-  // same claim, and the sharper one: the surface is not the colour that was
-  // asked for. A fill would be exactly `#ff9500`; a tint is that colour's tone
-  // composited with what is behind it, inside a body that still has a rim.
-  await gotoHarness(page);
-  requireHardwareAdapter(await page.evaluate(() => window.h.adapter()));
+test.describe("the tinted surface is a material", () => {
+  // The rim is a 1.5 CSS px band with a squared falloff. At DPR 1 the whole of
+  // it shares one pixel with the coverage ramp, so no fully-covered pixel is
+  // inside it and "the rim is still on it" cannot be read off a screenshot at
+  // all; the read below was 2 CSS px in — outside the band — and measured the
+  // inner shadow at the quantisation floor until W10's brighter opaque shade
+  // put it exactly on the threshold (W11a). At DPR 2 the first device pixel
+  // inside the straight left edge sits 0.75 CSS px in: fully covered, and at a
+  // quarter of the rim's peak.
+  test.use({ deviceScaleFactor: 2 });
 
-  await page.evaluate(async () => {
-    await window.h.createRoot({ renderer: "webgpu" });
-    window.h.addGroup("g");
-    window.h.addSurface({
-      groupId: "g",
-      nodeId: "panel",
-      left: 300,
-      top: 200,
-      width: 220,
-      height: 120,
-      radius: 26,
-      label: "",
-      tint: "#ff9500",
+  test("stays glass on the GPU tier — a material, not a fill of the author's colour", async ({
+    page,
+  }) => {
+    // The harness page's backdrop under this panel is uniform, so the "backdrop
+    // still varies through it" reading belongs to the CSS-tier spec, whose scene
+    // has variation to show. What this scene *can* answer is the other half of the
+    // same claim, and the sharper one: the surface is not the colour that was
+    // asked for. A fill would be exactly `#ff9500`; a tint is that colour's tone
+    // composited with what is behind it, inside a body that still has a rim.
+    await gotoHarness(page);
+    requireHardwareAdapter(await page.evaluate(() => window.h.adapter()));
+
+    await page.evaluate(async () => {
+      await window.h.createRoot({ renderer: "webgpu" });
+      window.h.addGroup("g");
+      window.h.addSurface({
+        groupId: "g",
+        nodeId: "panel",
+        left: 300,
+        top: 200,
+        width: 220,
+        height: 120,
+        radius: 26,
+        label: "",
+        tint: "#ff9500",
+      });
+      window.h.frame(3);
     });
-    window.h.frame(3);
+
+    const panel = await sample(page, TINTED);
+    const centre = panel.at(110, 60);
+    const seed = { r: 255, g: 149, b: 0 };
+
+    expect(
+      channelDelta(centre, seed),
+      `the surface reads ${JSON.stringify(centre)}, which is the seed itself`,
+    ).toBeGreaterThan(8);
+
+    // And the rim is still on it, which a fill has no way to produce: white light
+    // added to a channel the orange seed leaves at zero.
+    const rim = panel.at(0.5, 60);
+    expect(
+      rim.b,
+      `rim ${JSON.stringify(rim)} against centre ${JSON.stringify(centre)}`,
+    ).toBeGreaterThan(centre.b + 8);
+    expect(channelDelta(centre, rim)).toBeGreaterThan(8);
   });
-
-  const panel = await sample(page, TINTED);
-  const centre = panel.at(110, 60);
-  const seed = { r: 255, g: 149, b: 0 };
-
-  expect(
-    channelDelta(centre, seed),
-    `the surface reads ${JSON.stringify(centre)}, which is the seed itself`,
-  ).toBeGreaterThan(8);
-
-  // And the rim is still on it, which a fill has no way to produce.
-  expect(channelDelta(centre, panel.at(2, 60))).toBeGreaterThan(2);
 });
 
-test("gives up the material and the colour together under forced colours", async ({ page }) => {
+test("gives up the material and the colour together under forced colours", async ({
+  page,
+}) => {
   // The policy that removes the material removes the tint with it — on the tier
   // that was drawing the tint inside a canvas, which is where "the tint vanishes"
   // has to mean the canvas stops painting rather than a declaration changing.

@@ -118,7 +118,7 @@ two-component body model and its constants; the rim-band decomposition; the
   prediction) — advisory; the first read is the shader's output for
   `flags.x = 0` and the highlight pass's behaviour on the same surface.
 - **Required:** required.
-- **Status:** not-dispatched (dispatchable now).
+- **Status:** landed (2026-09-02; Decision Log 2, claims §5.39).
 
 ### W11b: The silhouette extractor — a colour-aware rule, bed-wide — controlled (instrument)
 
@@ -258,13 +258,18 @@ only W11c's referee captures the web side).
 
 | child | spec / evidence | status |
 | --- | --- | --- |
-| W11a | — | not-dispatched |
+| W11a | LANDED 2026-09-02 — claims §5.39; the optics pass's unsampled path writes a premultiplied layer at the host's compositing-space pair (`unsampledMaterial`, the CSS tier's alpha on the renderer's tint); 6 floors MET and removed, 2 texture SSIM floors ratcheted up, 2 dom SSIM floors unchanged; enforced count 17; 248/254 captures byte-identical, the 6 that differ are the nested GPU cells | landed |
 | W11b | — | not-dispatched |
 | W11c | — | not-dispatched |
 
 ## Decision Log
 
-### Decision Log 1 — the cut, the order, and what the user decides (2026-09-02, opened; awaiting the round)
+### Decision Log 1 — the cut, the order, and what the user decides (2026-09-02; DECIDED the same day)
+
+**Decided (user, 2026-09-02):** the cut and the order approved as
+recommended (W11a → W11b → W11c); W11a dispatched immediately; W11c's G3
+question (CSS-tier lens versus narrowing the claim) decided at W11c's
+referee with the measured residual in hand, not now.
 
 **The cut.** Three children by mechanism, as measured in §5.38, rather than
 one round over all twenty-three or a round per metric. Rejected: one round
@@ -283,8 +288,62 @@ now or at W11c's referee — the recommendation is the referee, because the
 §5.38 arithmetic says the calibration dom rows may meet without a lens and
 the decision is cheaper with that read in hand.
 
+### Decision Log 2 — W11a's referee and close (2026-09-02)
+
+**Verdict.** All six chartered floors MET on the re-captured bed (ΔE p95
+0.19 → 0.07–0.12 against ≤ 0.17; the `photo` cross-tier ratio 0.796 → 0.918
+against ≥ 0.8), removed with their claims restored; the two texture-tier
+nested SSIM floors improved (0.8409 → 0.8796, 0.8762 → 0.8948) and stay
+unmet, **ratcheted up** to the new measurement rather than left at the
+old one — a floor is what the bed measures; the two dom-tier nested SSIM
+floors byte-unchanged. Enforced count 23 → 17. The child's acceptance is met
+in every clause (the byte-identity scan: 248 of 254 captures unchanged, the
+six that differ being exactly the nested GPU captures; the `field-mask`
+golden re-recorded as the one golden on the path; the isolation hash
+re-recorded with its attribution; unit tests on the pair's path end to end).
+
+**What the child changed beyond the charter, and why.** Two forms in the
+layer had to be chosen where the composite had been a single expression:
+the outer shadow fills `1 − coverage` (a `box-shadow` clipped out of its
+border box; the first form filled the layer's own transparency and read the
+pane at 0.811), and the rim carries its light in the layer's opacity (the
+first form, white over the layer at the rim's weight, is short of the
+additive term by the rim times the whole composite; the carried form is
+exact for an opaque layer). Both are recorded in §5.39. One instrument
+finding beside them: the platform-web GPU suite's rim read on a tinted
+dom-mode panel had been sampling outside the rim band and sitting on its
+own threshold since W10; it now reads inside the band at DPR 2.
+
+**The pair is the host's, not the profile's.** The browser composites the
+layer in encoded sRGB, so the alpha the layer is written at is the CSS
+tier's (`cssTintAlpha` at the mapping's reference level, 0.665) on the
+renderer's own tint — resolved once by the host and forwarded only to groups
+that sample nothing. Rejected: writing the profile's linear alpha (0.46)
+and letting the tiers differ; solving a per-pixel alpha in the shader
+against a backdrop it cannot see.
+
+**The residual is recorded, not fitted.** The GPU pane sits 0.014–0.020
+under the reference; the reference's effective encoded alpha back-solves
+near 0.72 against 0.669. Both nested cells are holdout. Whether the
+reference's pane carries the size law, the base's rim, or a nested tone
+response is W9's Deferred "nested-glass tone" charter and needs a
+calibration cell that does not exist.
+
+**Close.** W11a landed on its acceptance; W11b dispatches next per Decision
+Log 1.
+
 ## Surprises & Discoveries
 
+- **The nested fix touched the whole GPU-over-DOM path.** Every `dom`-source
+  group on the GPU tier — the ordinary React usage, not only the nested
+  scene — had been an opaque grey slab over its proxy (the material mixed
+  over black, written opaque). The calibration bed saw it only on the nested
+  cells because every other canonical scene samples a texture (§5.39).
+- **A layer is not a composite with alpha.** Two of the shader's terms
+  (the outer shadow's fill, the rim's added light) had one form when the
+  body was opaque and needed a different one as a layer; each surfaced as
+  a measured miss rather than in review (§5.39, the two corrective
+  findings).
 - **The SSIM size trend was coverage.** In-glass SSIM is flat-to-better with
   size; the capsule is the worst cell on the texture tier (§5.38 §1).
 - **The nested pane was never rendered.** The GPU tier's upper pane has been
@@ -301,5 +360,10 @@ Pending — written at recomposition, after the single X1 rebuild.
 
 ## Revision Notes
 
+- 2026-09-02 (W11a landed; Decision Log 2): six floors removed, two
+  ratcheted up, count 17; the Tracking Map row and claims §5.39 carry the
+  evidence. Two Surprises added. W11b is next.
+- 2026-09-02 (Decision Log 1 decided by the user): the cut and order
+  approved, W11a dispatched, G3 deferred to W11c's referee.
 - 2026-09-02 — opened. §5.38 measured; three children cut; Decision Log 1
   awaiting the user's round.

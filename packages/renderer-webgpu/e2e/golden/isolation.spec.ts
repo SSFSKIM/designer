@@ -218,7 +218,27 @@ const POST_WAVE_HASHES: Readonly<Record<string, string>> = {
   "highlight-press-glow": "0b9dc460a6616c5a3d6fb69a6b97a783",
 };
 
+/**
+ * `field-mask` after W11a (2026-09-02) — the one golden on the UNSAMPLED path,
+ * re-recorded with the attribution the file asks for.
+ *
+ * W11a changed what the optics pass writes for a group with no backdrop to
+ * sample: a premultiplied LAYER of the material at its own alpha, composited by
+ * the browser, where before it wrote the material mixed over black as an opaque
+ * pixel (claims §5.38 §5 — the nested-glass upper pane rendering as a flat
+ * 0.468). The change is a branch on `flags.x`, so it can reach exactly the
+ * scenes that bind no backdrop, and `field-mask` (`noBackdrop: true`) is the
+ * only golden that does. The attribution is asserted rather than described:
+ * the other eight hashes in `POST_WAVE_HASHES` reproduce unchanged in the same
+ * run, `highlight-press-glow` among them — a scene that is ALSO unsampled but
+ * captures the highlight canvas, which this change never touches.
+ */
+const W11A_HASHES: Readonly<Record<string, string>> = {
+  "field-mask": "06473282f886a2ecc81f19c257bd515e",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W11A_HASHES[name] ??
   POST_WAVE_HASHES[name] ??
   PRE_W8_HASHES[name] ??
   SUPERSEDED[name]?.now ??

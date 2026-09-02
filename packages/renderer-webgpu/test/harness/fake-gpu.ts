@@ -107,6 +107,9 @@ export function createFakeGpu(): FakeGpu {
     buffers.push(record);
     const bytes = new ArrayBuffer(Number(descriptor.size));
     return {
+      // On the handle as well as the record, the way a real `GPUBuffer` carries
+      // it: a test intercepting `queue.writeBuffer` sees only the handle.
+      label: record.label,
       size: descriptor.size,
       mapAsync: async () => undefined,
       getMappedRange: () => bytes,

@@ -1392,6 +1392,38 @@ export function cssTierOptics(
   return resolved;
 }
 
+/** The pair a GPU-tier group that samples nothing writes as its layer (W11a). */
+export interface UnsampledMaterial {
+  /** The profile's tint, linear light — the renderer encodes it on the way out. */
+  readonly tint: LinearRgb;
+  /** The CSS tier's alpha for the same material: `cssTintAlpha` at the mapping's reference level. */
+  readonly tintAlpha: number;
+}
+
+/**
+ * The material as a GPU-tier group writes it when it has NO backdrop to sample
+ * (W11a): a `css-backdrop` group, whose frost is a DOM proxy under the canvas,
+ * or a `none` group over the page. The optics pass writes such a surface as a
+ * premultiplied layer and the browser composites it in encoded sRGB — the same
+ * space this tier's `rgba()` lands in, and the same reason `cssTintAlpha`
+ * exists. So the pair is this tier's: the renderer's own tint (linear, encoded
+ * once on output) at the alpha the mapping solved for the CSS tier, so a
+ * nested surface reads the same on both tiers by construction rather than by
+ * two fits. The renderer folds the accessibility policy over it exactly as
+ * `cssTierDeclarations` folds it over the CSS tier's copy.
+ */
+export function unsampledMaterials(
+  patch?: RendererMaterialProfile,
+  mapping: CssTierMapping = CSS_TIER_MAPPING,
+): Readonly<Record<MaterialVariant, UnsampledMaterial>> {
+  const resolved = {} as Record<MaterialVariant, UnsampledMaterial>;
+  for (const variant of ["regular", "clear"] as const) {
+    const source = sourceOptics(patch)[variant];
+    resolved[variant] = { tint: source.tint, tintAlpha: cssTintAlpha(source, mapping) };
+  }
+  return resolved;
+}
+
 /**
  * This tier's numbers under the shipped profile and the shipped mapping.
  *

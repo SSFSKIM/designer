@@ -429,9 +429,13 @@ describe("the shader draws the shadow the CPU resolved", () => {
     // and the shadow's alpha. Over the page that is `page · (1 - alpha)` — the
     // multiplication — and over nothing it is nothing.
     expect(WGSL_OPTICS_PASS).toContain("return vec4f(0.0, 0.0, 0.0, shadowAlpha);");
-    // And under the surface it fills whatever transparency the material left,
-    // rather than being switched off at the coverage ramp and leaving a seam.
-    expect(WGSL_OPTICS_PASS).toContain("body.a + shadowAlpha * (1.0 - body.a)");
+    // And across the coverage ramp it fills whatever the surface's COVERAGE
+    // leaves, rather than being switched off at the ramp and leaving a seam —
+    // but only the coverage: a translucent surface (W11a's layer form) shows
+    // the page through it, never its own shadow, exactly as a `box-shadow` is
+    // clipped out of its border box.
+    expect(WGSL_OPTICS_PASS).toContain("body.a + shadowAlpha * (1.0 - coverage)");
+    expect(WGSL_OPTICS_PASS).not.toContain("shadowAlpha * (1.0 - body.a)");
   });
 
   it("declares the uniform it reads, so the pass and the shader cannot drift", () => {

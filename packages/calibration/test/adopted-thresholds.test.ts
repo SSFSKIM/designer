@@ -420,8 +420,13 @@ interface Floor {
  * in §5.27, is W9's work and wants a commit of its own.
  */
 const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
-  "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79576, floor: 0.7907 },
-  "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79666, floor: 0.7916 },
+  // W11a (claims §5.39) REMOVED six floors here — the two dom-tier
+  // interiorLevelRatioGpuOverCss rows on photo__glass-over-glass__rest
+  // (0.796 → 0.918 against ≥ 0.8) and the four texture-tier oklabDeltaEP95
+  // rows on both nested cells (0.19 → 0.07–0.12 against ≤ 0.17), because the
+  // GPU tier's upper pane now composites over the glass beneath it instead
+  // of over black. Their claims are restored in §5.27 and gate as ordinary
+  // rows again.
   // W9 (claims §5.35) REMOVED six floors here — photo__rrect-lg tinted
   // oklabDeltaEMean, light-solid tinted capsule oklabDeltaEP95, and
   // mid-dark-solid capsule oklabDeltaEP95, each at both scales — because the
@@ -434,10 +439,6 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // An instrument floor, not a material one; the extractor is the Deferred item.
   "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard :: contourDistanceMean": { measured: 5.8893, floor: 5.9 },
   "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard :: contourDistanceP95": { measured: 33, floor: 33.1 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
-  "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19064, floor: 0.1917 },
-  "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19013, floor: 0.1912 },
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.88261, floor: 0.8816 },
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90582, floor: 0.9048 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
@@ -456,8 +457,13 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92665, floor: 0.9256 },
   "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86201, floor: 0.861 },
   "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88968, floor: 0.8886 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.84092, floor: 0.8399 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87624, floor: 0.8752 },
+  // W11a (claims §5.39) RATCHETED these two UP (0.84092 → 0.87961, 0.87624 →
+  // 0.89482): the nested cell's upper pane now composites over the base glass
+  // and the texture-tier SSIM improved without reaching its bound (0.88 / 0.93).
+  // The remainder is the base pane's interior structure, W11c's. The dom-tier
+  // pair on the same cell is byte-unchanged — the CSS tier was never the defect.
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87961, floor: 0.8786 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.89482, floor: 0.8938 },
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.82327, floor: 0.8222 },
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88002, floor: 0.879 },
 };
@@ -466,9 +472,11 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * How many rows the frozen bed cannot meet. Pinned so the set cannot grow
  * quietly. 33 at the §5.27 landing; 27 after W9 restored six (claims §5.35);
  * 23 after W10 restored the six tinted coherence rows and pinned two contour
- * rows on a cell the predicate newly admits (claims §5.37).
+ * rows on a cell the predicate newly admits (claims §5.37); 17 after W11a
+ * restored the six nested-glass rows the unrendered upper pane had floored
+ * (claims §5.39).
  */
-const UNMET_ROWS = 23;
+const UNMET_ROWS = 17;
 
 /*
  * ---------------------------------------------------------------------------

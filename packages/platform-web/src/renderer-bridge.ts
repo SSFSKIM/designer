@@ -271,6 +271,13 @@ export function toRendererGroups(
           variant: group.variant,
           union: groupUnionFromMergeDistance(group.declaredMergeDistance),
           ...(sampled ? { backdropSourceId: sourceId } : {}),
+          // With nothing bound the optics pass writes the material as a layer
+          // the browser composites (W11a), and the host's compositing-space
+          // pair is what it writes. Never beside a bound source: a sampled
+          // group composites in the shader and the pair would be a lie there.
+          ...(!sampled && group.unsampledMaterial !== undefined
+            ? { unsampledMaterial: group.unsampledMaterial }
+            : {}),
           // The backdrop's own average colour (W7), measured once on this side so
           // both tiers adapt onto the same tone by the same amount. Forwarded only
           // where the group is actually sampling that source: a group with no

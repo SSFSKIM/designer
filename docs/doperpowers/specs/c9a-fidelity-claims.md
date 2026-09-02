@@ -4696,17 +4696,27 @@ headroom is against constants moving in their last digit and nothing else.
 > luminance-delta extractor cuts where an opaque orange sits over the photo's
 > own orange; an instrument floor with the extractor as its owner. The count
 > is 23.
+>
+> **Amended by W11a (2026-09-02, §5.39).** Six rows on the two nested-glass
+> cells are struck: the four `oklabDeltaEP95` rows (0.19 → 0.07–0.12 against
+> ≤ 0.17) and the two `interiorLevelRatioGpuOverCss` rows (0.796 → 0.918
+> against ≥ 0.8), MET once the GPU tier's upper pane composites over the
+> glass beneath it instead of over black. The two texture-tier `ssimMean`
+> rows on `checkerboard__glass-over-glass__rest` improve and stay unmet
+> (0.8409 → 0.8796 against 0.88; 0.8762 → 0.8948 against 0.93); their floors
+> ratchet UP to the new measurement. The two dom-tier rows on the same cell
+> are untouched (the CSS tier was never the defect). The count is 17.
 
 **`1x-light-standard` · texture tier**
 
 | scene | set | metric | claimed | measured | enforced floor |
 | --- | --- | --- | --- | --- | --- |
 | ~~`photo__rrect-lg__rest-tint-orange`~~ | holdout | `oklabDeltaEMean` | ≤ 0.07 **MET (W9)** | 0.0760 → 0.0628 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1909 | ≤ 0.1919 |
+| ~~`checkerboard__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1909 → 0.1221 | — |
 | ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
 | ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
-| `photo__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1906 | ≤ 0.1917 |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 | ≥ 0.8399 |
+| ~~`photo__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1906 → 0.0744 | — |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 → 0.8796 (W11a ratchet) | ≥ 0.8786 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 → 0.8233 (W9 trade) | ≥ 0.8222 |
 | `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 → 0.8620 (W9 trade) | ≥ 0.8610 |
 | `photo__rrect-md__rest-tint-orange` | validation | `contourDistanceMean` | ≤ 2.5 px **UNMET (W10, instrument)** | 5.8893 | ≤ 5.9 |
@@ -4719,7 +4729,7 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`checkerboard__capsule-button__rest-tint-blue`~~ | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.6353 → 1.0049 | — |
 | ~~`checkerboard__capsule-button__rest-tint-orange`~~ | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.3695 → 0.9996 | — |
 | ~~`hc-text__capsule-button__rest-tint-orange`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.2651 → 0.9383 | — |
-| `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7958 | ≥ 0.7907 |
+| ~~`photo__glass-over-glass__rest`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **MET (W11a)** | 0.7958 → 0.9180 | — |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.8078 | ≥ 0.8068 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 → 0.6850 (W9 trade) | ≥ 0.6839 |
 | `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.8826 | ≥ 0.8816 |
@@ -4730,11 +4740,11 @@ headroom is against constants moving in their last digit and nothing else.
 | scene | set | metric | claimed | measured | enforced floor |
 | --- | --- | --- | --- | --- | --- |
 | ~~`photo__rrect-lg__rest-tint-orange`~~ | holdout | `oklabDeltaEMean` | ≤ 0.07 **MET (W9)** | 0.0760 → 0.0628 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1909 | ≤ 0.1919 |
+| ~~`checkerboard__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1909 → 0.1221 | — |
 | ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
 | ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
-| `photo__glass-over-glass__rest` | holdout | `oklabDeltaEP95` | ≤ 0.17 **UNMET** | 0.1901 | ≤ 0.1912 |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 | ≥ 0.8752 |
+| ~~`photo__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1901 → 0.0759 | — |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a ratchet) | ≥ 0.8938 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) | ≥ 0.8790 |
 | `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.9266 | ≥ 0.9256 |
 | `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 | ≥ 0.8886 |
@@ -4746,7 +4756,7 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`checkerboard__capsule-button__rest-tint-blue`~~ | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.6377 → 1.0092 | — |
 | ~~`checkerboard__capsule-button__rest-tint-orange`~~ | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.3698 → 1.0037 | — |
 | ~~`hc-text__capsule-button__rest-tint-orange`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.2657 → 0.9410 | — |
-| `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7967 | ≥ 0.7916 |
+| ~~`photo__glass-over-glass__rest`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **MET (W11a)** | 0.7967 → 0.9184 | — |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.8460 | ≥ 0.8449 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 → 0.7970 (W9 trade) | ≥ 0.7959 |
 | `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.9058 | ≥ 0.9048 |
@@ -4758,7 +4768,7 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37). A floor cannot be added by
+set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39). A floor cannot be added by
 accident, and adding one deliberately means editing a count that sits next to
 this section's number.
 
@@ -5900,6 +5910,126 @@ It fixes nothing and fits nothing. The three classes are chartered as one
 composite round with three children in
 `docs/doperpowers/specs/2026-09-02-w11-remaining-floors.md`; the order,
 the cut and the protocol are that document's Decision Log 1.
+
+### 5.39 W11a: the nested pane composites over the glass beneath it — six floors met, two ratchet up (2026-09-02)
+
+The repair §5.38 §5 predicted, landed and refereed the same day. No
+constant moved and nothing was fitted; the two nested cells are holdout and
+stayed that way.
+
+**The change.** A group with no pyramid to sample — a `css-backdrop` group
+whose frost is a DOM proxy beneath the canvas, or a `none` group over the
+page — used to leave the optics pass as the material mixed over BLACK and
+written opaque. It now leaves as a **premultiplied layer**: the adapted
+colour at the material's alpha, with the author tint, the inner shadow and
+the rim each restated in the form that composites to the same thing, and
+the outer shadow filling only what the surface's *coverage* leaves. The
+browser composites that layer in encoded sRGB — the same space the CSS
+tier's `rgba()` lands in — so the pair it is written at is the CSS tier's:
+the renderer's own tint at the alpha `cssTintAlpha` solves at the mapping's
+reference level (0.665 on the shipped profile), resolved once by the host
+(`unsampledMaterial`) and handed through the bridge to exactly the groups
+that sample nothing. The optics pass is gated on `flags.x`, so a sampled
+group takes the pre-W11a path byte for byte.
+
+**Two corrective findings on the way**, each measured before and after.
+
+1. The first wiring kept the shadow's old fill, `body.a + shadowAlpha·(1 −
+   body.a)`, which with an opaque body had always meant "the shadow fills
+   the coverage ramp" but with a translucent layer means "the shadow fills
+   the layer's own transparency" — the pane read 0.811 instead of 0.873,
+   darkened by its own shadow showing through it. A `box-shadow` is clipped
+   out of its border box; the shadow now fills `1 − coverage` and nothing
+   else, and every sampled cell is unchanged by it (an opaque body's
+   coverage and alpha are one quantity).
+2. The rim, by arithmetic rather than by a miss. Added light has no
+   premultiplied form — a canvas colour may not exceed its alpha — and the
+   first layer form took white over the layer at the rim's weight, which is
+   short of the additive term by the rim times the whole composite. The
+   layer now carries the light in its opacity, `(a·c + rim, a + rim)`,
+   which composites to the additive term short of only `rim × dst` — exact
+   wherever the layer is opaque, which a full-strength author tint always
+   is. What the platform-web GPU suite found on the way was an instrument
+   fault, not a shader one: its "the rim is still on it" read on a tinted
+   dom-mode panel sampled 2 CSS px inside the contour, outside the 1.5 px
+   rim band, and had sat exactly on its threshold of 2 code values since
+   W10's brighter shade — before W11a and under every layer form alike. At
+   DPR 1 no fully covered pixel is inside the band at all. The read now
+   runs at DPR 2 one device pixel inside the straight edge, where the rim's
+   white lifts the seed's zero blue channel by more than 8.
+
+**The referee** — the GPU tier re-captured on all six profiles, the CSS
+tier on the nested scenes (the dom-tier ratio reads the GPU twin):
+
+- **Byte identity.** 248 of the 254 web captures on disk are byte-identical
+  to the W10-close bed. The six that differ are the six nested-scene GPU
+  captures (light and dark, both scales) and nothing else — the change
+  reaches exactly the path it was aimed at, and the untinted, un-nested bed
+  is provably untouched.
+- **The pane.** Linear luminance over the upper pane's interior (inset
+  8 pt), `photo` 1x: native 0.893, GPU **0.468 → 0.873**, CSS 0.899;
+  `checkerboard`: native 0.905, GPU **0.468 → 0.891**, CSS 0.869. The gated
+  interior (both panes) on `photo`: native 0.706, GPU 0.597 → 0.689, CSS
+  0.751; the 2x cells agree to 0.001. The GPU pane is now the arithmetic
+  of the layer over the proxy — E(0.873) = 0.669 + 0.331·E(0.642), where
+  0.642 is the GPU tier's own base pane — and the 0.026 it sits under the
+  CSS tier is the CSS tier's brighter base (0.712, the dom tier's standing
+  `photo` level, §5.38), not the pane.
+- **Six floors MET**, both scales: `checkerboard__glass-over-glass__rest`
+  texture ΔE p95 0.1909 → 0.1221, `photo__glass-over-glass__rest` texture ΔE
+  p95 0.1906 → 0.0744 (1x) and 0.1901 → 0.0759 (2x), against ≤ 0.17; the
+  `photo` dom-tier cross-tier ratio 0.7958 → 0.9180 (1x) and 0.7967 →
+  0.9184 (2x), against ≥ 0.8. Beside them, on the same cells: texture ΔE
+  mean 0.047 → 0.029 and 0.038 → 0.021, edge-weighted mean 0.054 → 0.015,
+  `photo` texture SSIM 0.957 → 0.994, the cross-tier ΔE mean 0.039 → 0.022,
+  and the `photo` GPU silhouette's four (1x) and ten (2x) holes gone
+  (IoU 0.996 → 1.000) — the holes were the flat grey pane meeting the
+  photo's level.
+- **Two floors ratchet up.** The texture `ssimMean` on the checkerboard
+  nested cell improves and stays unmet: 0.8409 → **0.8796** against 0.88 at
+  1x (0.0004 short), 0.8762 → 0.8948 against 0.93 at 2x. The floors move to
+  0.8786 and 0.8938: a floor records what the bed measures, and a cell that
+  improved is held at its improvement. The remainder is the interior
+  structure W11c owns — the base pane is a checkerboard rrect like any
+  other. The two dom-tier SSIM floors are byte-unchanged (0.8069, 0.8460).
+- **An instrument note for W11b.** On the checkerboard nested cell the
+  reference's own silhouette carries 10 holes at 1x and 26 at 2x under the
+  luminance-delta rule (the pane's lit rim and its white interior meeting
+  white squares), and the repaired GPU capture now carries 4 at 2x where it
+  had none — a lit pane over white is within 0.02 of the plate. The predicate
+  has no holes arm, nothing gates on it, and it is the extractor's question.
+- **The dark nested cells** moved by less than a code value — interior mean
+  +0.0004, ΔE p95 +0.006 at 1x — inside every dark bound (§5.28); the dark
+  pane's alpha is its own profile's through the same mapping.
+- **The residual, recorded and not fitted.** The GPU pane sits 0.020 under
+  the reference on `photo` and 0.014 on `checkerboard`; back-solving the
+  reference's pane against its own base pane gives an effective encoded
+  alpha near 0.72 against the mapping's 0.669. Whether that is the size law
+  the reference applies to a 56 pt pane, the base's own rim under the pane,
+  or a nested tone response (W9's Deferred "nested-glass tone") is a
+  question for a calibration cell that does not exist — both nested cells
+  are holdout, and the discipline forbids reading the answer off them.
+
+**Enforcement.** Six floors removed and their claims restored in §5.27; two
+re-pinned upward; `UNMET_ROWS` 23 → 17; the predicate's exclusion list is
+unchanged (the `photo` nested GPU cell already conditioned at 0.996). Golden
+e2e: `field-mask` — the one golden on the unsampled path (`noBackdrop`) —
+re-recorded, its centre going from an opaque 121 to (121, α 121): the body
+alone, no shadow under it; the isolation guard's hash for that scene
+re-recorded with the attribution the file demands (the other eight
+reproduce unchanged in the same run, `highlight-press-glow` — also unsampled,
+captured from the highlight canvas — among them). Unit tests pin the pair's
+path end to end: the host resolves it only on a live GPU tier over a proxy
+or the page and never on a sampled or CSS-tier group; the bridge forwards it
+only beside an unbound source; the renderer writes it, and only it, into
+the optics uniform.
+
+> **§6.4 is amended by this section.** "The glass-over-glass cells are a
+> mixed-backend claim" described, as a fidelity property, a pane that was
+> never rendered. The mixed backend stands — the upper pane's frost is the
+> DOM proxy's `backdrop-filter`, sampled by the browser and not the shader,
+> and it carries no lens (`refraction: "approximate"`) — but the pane is now
+> the material over that frost, and the cells measure as such.
 
 ## 6. What could not be measured, and why
 

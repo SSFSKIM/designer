@@ -99,9 +99,11 @@ const group = (
 
 export const SCENES: readonly Scene[] = [
   {
-    // The field pass alone: an opaque tint over no backdrop is exactly the group's
-    // coverage, so this golden fails on any change to the field, the corner
-    // algebra, or the coverage ramp — and on nothing else.
+    // The field pass alone, and the unsampled path (W11a): a group with no
+    // backdrop leaves the optics pass as a premultiplied layer — the material's
+    // tint at its own alpha, times the coverage — so this golden fails on any
+    // change to the field, the corner algebra, the coverage ramp, or the layer
+    // form the browser composites for a surface over a DOM proxy or the page.
     ...VIEWPORT,
     name: "field-mask",
     backdrop: { kind: "none" },

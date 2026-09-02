@@ -451,6 +451,31 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // adaptation moved it above. The author's colour never touches it — but not
   // for the reason the composition contract first gave (claims §5.36).
   var colour = mix(backdrop, adapted, adaptedAlpha);
+  /*
+   * How much of this pixel the SURFACE owns, as the canvas will composite it.
+   *
+   * With a backdrop the composite above is the whole pixel — the pass sampled
+   * what is behind the surface and mixed it in, so the output is opaque inside
+   * the contour and the page beneath the canvas never shows. With no backdrop
+   * the composite is not here to make: a 'css-backdrop' group's blurred
+   * backdrop is a DOM proxy under this canvas, a 'none' group's is the page
+   * itself, and the browser is the compositor. So the material leaves as a
+   * LAYER — the adapted colour at the material's own alpha, premultiplied on
+   * the way out — and every term below that would have shaped the composite
+   * shapes the layer instead, in the form that composites to the same thing.
+   *
+   * Before W11a this path mixed the material over a black backdrop and wrote
+   * it opaque: a nested surface over glass rendered as a flat 0.468 where the
+   * reference reads 0.89 (claims §5.38 §5). The rows that floored were that
+   * grey. The pair the layer is written at is the host's
+   * ('GroupRenderInput.unsampledMaterial'): the browser composites this canvas
+   * in encoded sRGB, so the alpha is the CSS tier's, not the linear profile's.
+   */
+  var bodyAlpha = 1.0;
+  if (ou.flags.x <= 0.5) {
+    colour = adapted;
+    bodyAlpha = adaptedAlpha;
+  }
 
   // The author tint (W10). 'aux.w' is the per-pixel strength, unioned in the
   // field pass, so a toolbar can carry one tinted control among plain ones; the
@@ -474,12 +499,26 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // the material a dark body, where the reference renders the pure seed too.
   // At zero grip the layer is the bare seed — the author's colour, flat.
   if (aux.w > 0.0) {
-    let u = dot(colour, vec3f(0.2126, 0.7152, 0.0722));
+    // The untinted material's luminance at this pixel. Over a backdrop that is
+    // the composite; as a layer it is the layer over the tone the host measured
+    // for the group — zero where nothing was measured, the same reference-level
+    // convention the CSS tier's 'materialLuminance' takes (within its 0.02).
+    let u = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722)) + (1.0 - bodyAlpha) * ou.toneColour.w;
     let grip = clamp(ou.seed.w, 0.0, 1.0) * clamp(ou.tone.z, 0.0, 1.0) * (1.0 - toneAdapt);
     let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
     let layer = ou.seed.rgb * shade;
     let s = clamp(aux.w, 0.0, 1.0);
-    colour = srgb_to_linear(mix(linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0))), linear_to_srgb(layer), vec3f(s)));
+    let encodedMaterial = linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0)));
+    let encodedLayer = linear_to_srgb(layer);
+    if (ou.flags.x > 0.5) {
+      colour = srgb_to_linear(mix(encodedMaterial, encodedLayer, vec3f(s)));
+    } else {
+      // The opaque layer at the author's opacity over the material's own layer,
+      // premultiplied: the fold 'tintedCssOptics' makes into one rgba.
+      let premultiplied = (1.0 - s) * bodyAlpha * encodedMaterial + s * encodedLayer;
+      bodyAlpha = 1.0 - (1.0 - s) * (1.0 - bodyAlpha);
+      colour = srgb_to_linear(premultiplied / max(bodyAlpha, 1e-6));
+    }
   }
 
   /*
@@ -506,19 +545,46 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // strongest, which is what makes a thicker surface read as heavier — and the
   // shadow facet of the size law deepens it further with the span.
   let shadowDepth = ou.light.z * (1.0 + (ou.size.z - 1.0) * sizeK);
-  colour = colour * (1.0 - profile * shadowDepth * ou.light.w * present);
+  // A multiplicative occlusion of the whole composite. As a layer that is the
+  // colour scaled and the alpha raised — (k·a·c, 1 − k·(1 − a)) composites to
+  // k times what (a·c, a) would — and at bodyAlpha 1 it is the plain product.
+  let shadowKeep = 1.0 - profile * shadowDepth * ou.light.w * present;
+  let shadowedAlpha = 1.0 - shadowKeep * (1.0 - bodyAlpha);
+  colour = colour * (shadowKeep * bodyAlpha / max(shadowedAlpha, 1e-6));
+  bodyAlpha = shadowedAlpha;
 
   // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
   // the specular term is the same edge lit from 'light.xy'.
   let rw = rim_weight(d, ou.rim.x);
   let facing = dot(normal, ou.light.xy);
   let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
-  colour = colour + vec3f(rw * (ou.rim.y + spec) * present);
+  let rim = rw * (ou.rim.y + spec) * present;
+  if (ou.flags.x > 0.5) {
+    colour = colour + vec3f(rim);
+  } else {
+    // Added light has no premultiplied form of its own — a canvas colour may
+    // not exceed its alpha — so the layer carries the light in its opacity:
+    // (a·c + rim, a + rim) composites to dst·(1 − a) + a·c + rim − rim·dst,
+    // the additive term short of rim × dst. Exact wherever the layer is
+    // opaque (an author tint at full strength, or a lit contour pixel whose
+    // alpha the rim fills), and never further off than the rim times what
+    // shows through — where the mix form ("white over the layer at the rim's
+    // weight") is short by the rim times the whole composite, which halved
+    // the rim on a tinted panel.
+    let carried = clamp(bodyAlpha + rim, 0.0, 1.0);
+    colour = min((colour * bodyAlpha + vec3f(rim)) / max(carried, 1e-6), vec3f(1.0));
+    bodyAlpha = carried;
+  }
 
   // The material over its own shadow over the page, in one premultiplied vector:
-  // the colour is the surface's, weighted by its coverage, and the alpha is what
-  // the two of them together leave the page — 'coverage' from the surface, and
-  // the shadow filling whatever transparency is left.
-  let body = encode_output(max(colour, vec3f(0.0)), coverage);
-  return vec4f(body.rgb, body.a + shadowAlpha * (1.0 - body.a));
+  // the colour is the surface's, weighted by its coverage and by however much of
+  // the pixel the layer owns, and the alpha is what the two of them together
+  // leave the page. The shadow fills only what the surface's COVERAGE leaves —
+  // clipped out of the silhouette exactly as a 'box-shadow' is clipped out of
+  // its border box — never what the layer's own transparency leaves: a
+  // translucent surface shows the page through it, not its own shadow. (With
+  // an opaque body the two are the same quantity, which is how the shadow was
+  // first written and why the difference only surfaced with the layer form.)
+  let body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
+  return vec4f(body.rgb, body.a + shadowAlpha * (1.0 - coverage));
 }`;
