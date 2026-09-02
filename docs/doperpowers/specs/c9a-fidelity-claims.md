@@ -4687,6 +4687,15 @@ headroom is against constants moving in their last digit and nothing else.
 > scales). Seven `ssimMean` rows carry a second measurement and a re-pinned
 > floor, by decision: the response law lands the interior mean and pays
 > 0.0002–0.0072 of SSIM for it. The count is 27.
+>
+> **Amended by W10 (2026-09-02, §5.37).** The six `interiorLevelRatioGpuOverCss`
+> rows on tinted capsules are struck: MET on the re-measured bed at 0.94–1.01
+> against 0.80…1.25, the claims restored. Two contour rows are ADDED on
+> `photo__rrect-md__rest-tint-orange` (1x texture, validation) — a cell the
+> conditioning predicate newly admits, whose miss is one interior hole the
+> luminance-delta extractor cuts where an opaque orange sits over the photo's
+> own orange; an instrument floor with the extractor as its owner. The count
+> is 23.
 
 **`1x-light-standard` · texture tier**
 
@@ -4700,14 +4709,16 @@ headroom is against constants moving in their last digit and nothing else.
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 | ≥ 0.8399 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 → 0.8233 (W9 trade) | ≥ 0.8222 |
 | `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 → 0.8620 (W9 trade) | ≥ 0.8610 |
+| `photo__rrect-md__rest-tint-orange` | validation | `contourDistanceMean` | ≤ 2.5 px **UNMET (W10, instrument)** | 5.8893 | ≤ 5.9 |
+| `photo__rrect-md__rest-tint-orange` | validation | `contourDistanceP95` | ≤ 5.0 px **UNMET (W10, instrument)** | 33 | ≤ 33.1 |
 
 **`1x-light-standard` · dom tier**
 
 | scene | set | metric | claimed | measured | enforced floor |
 | --- | --- | --- | --- | --- | --- |
-| `checkerboard__capsule-button__rest-tint-blue` | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.6353 | ≤ 1.6404 |
-| `checkerboard__capsule-button__rest-tint-orange` | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.3695 | ≤ 1.3746 |
-| `hc-text__capsule-button__rest-tint-orange` | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.2651 | ≤ 1.2701 |
+| ~~`checkerboard__capsule-button__rest-tint-blue`~~ | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.6353 → 1.0049 | — |
+| ~~`checkerboard__capsule-button__rest-tint-orange`~~ | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.3695 → 0.9996 | — |
+| ~~`hc-text__capsule-button__rest-tint-orange`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.2651 → 0.9383 | — |
 | `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7958 | ≥ 0.7907 |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.8078 | ≥ 0.8068 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 → 0.6850 (W9 trade) | ≥ 0.6839 |
@@ -4732,9 +4743,9 @@ headroom is against constants moving in their last digit and nothing else.
 
 | scene | set | metric | claimed | measured | enforced floor |
 | --- | --- | --- | --- | --- | --- |
-| `checkerboard__capsule-button__rest-tint-blue` | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.6377 | ≤ 1.6428 |
-| `checkerboard__capsule-button__rest-tint-orange` | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.3698 | ≤ 1.3748 |
-| `hc-text__capsule-button__rest-tint-orange` | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **UNMET** | 1.2657 | ≤ 1.2708 |
+| ~~`checkerboard__capsule-button__rest-tint-blue`~~ | validation | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.6377 → 1.0092 | — |
+| ~~`checkerboard__capsule-button__rest-tint-orange`~~ | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.3698 → 1.0037 | — |
+| ~~`hc-text__capsule-button__rest-tint-orange`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.2657 → 0.9410 | — |
 | `photo__glass-over-glass__rest` | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **UNMET** | 0.7967 | ≥ 0.7916 |
 | `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.8460 | ≥ 0.8449 |
 | `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 → 0.7970 (W9 trade) | ≥ 0.7959 |
@@ -4747,7 +4758,7 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows (27 after W9, §5.35). A floor cannot be added by
+set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37). A floor cannot be added by
 accident, and adding one deliberately means editing a count that sits next to
 this section's number.
 
@@ -5606,6 +5617,96 @@ objective is the per-pixel scalar-shade residual, declared here before the
 fit runs. Hue independence rides the blue validation and holdout cells;
 size independence rides the photo rrects; scheme independence is *not*
 claimed (finding 4).
+
+
+**The fit, run under the protocol (same day).** 17 700 pixels over the five
+probe cells: `shade = 0.5289 + 0.4886·u`, RMS 0.0035 — `tintShadeDark 0.5289`,
+`tintShadeLight 1.0175` (clamped at 1 in the law; the clamp bites only above
+u = 0.964, past every structured cell's range). Out of sample on the canonical
+bed, native against native: `hc-text` orange RMS 0.0034 (bias −0.0002),
+`photo` orange 0.0029 (−0.0000), `checkerboard` blue 0.0121 (−0.0108), `photo`
+blue 0.0134 (−0.0129). The blue bias is the hue residual, carried to the
+referee uncorrected.
+
+### 5.37 The W10 referee: six floors met, the untinted bed byte-identical, one instrument row (2026-09-02)
+
+The frozen canonical bed re-measured end to end — six profiles, both tiers,
+twelve per-profile compare runs under their own profile documents, the
+holdout read once. One corrective finding surfaced by the first CSS-tier run
+is part of the record: the tinted fold had been applied to the node optics
+the GPU tier's foreground reads and not to the optics the CSS declarations
+are built from (`cssTierDeclarations` applies the policy and size folds
+itself, so it takes the pre-policy optics), and the first CSS captures were
+the untinted material — `light-solid` tinted at 0.983, the untinted level.
+The fold now lands on the declarations' input, with the shade read off the
+policy- and size-folded source, and the CSS runs were repeated.
+
+**The verdict on the six floors — all MET, restored as claims:**
+
+| cell | set | ratio before (1x / 2x) | ratio after (1x / 2x) | band |
+| --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest-tint-blue` | validation | 1.6353 / 1.6377 | **1.0049 / 1.0092** | 0.80…1.25 |
+| `checkerboard__capsule-button__rest-tint-orange` | calibration | 1.3695 / 1.3698 | **0.9996 / 1.0037** | 0.80…1.25 |
+| `hc-text__capsule-button__rest-tint-orange` | holdout | 1.2651 / 1.2657 | **0.9383 / 0.9410** | 0.80…1.25 |
+
+Every tinted row on every profile reads a ratio of 0.94–1.02, and both tiers
+land on the reference rather than on each other: the light-standard 1x bed,
+before → after —
+
+| cell | set | tier | interior mean (native) | ΔE mean | ΔE p95 | SSIM |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard` capsule blue | validation | GPU | 0.3837 → 0.2099 (0.2064) | 0.0150 → 0.0034 | 0.1523 → 0.0110 | 0.9501 → 0.9869 |
+| | | CSS | 0.2347 → 0.2088 | 0.0101 → 0.0047 | 0.0790 → 0.0145 | 0.9506 → 0.9780 |
+| `checkerboard` capsule orange | calibration | GPU | 0.4712 → 0.3717 (0.3603) | 0.0111 → 0.0034 | 0.1061 → 0.0122 | 0.9590 → 0.9859 |
+| | | CSS | 0.3440 → 0.3719 | 0.0088 → 0.0048 | 0.0606 → 0.0161 | 0.9556 → 0.9768 |
+| `hc-text` capsule orange | holdout | GPU | 0.4852 → 0.3810 (0.3709) | 0.0109 → 0.0032 | 0.1106 → 0.0147 | 0.9733 → 0.9875 |
+| | | CSS | 0.3835 → 0.4060 | 0.0064 → 0.0042 | 0.0549 → 0.0237 | 0.9681 → 0.9819 |
+| `light-solid` capsule orange | calibration | GPU | 0.5585 → 0.4317 (0.4319) | 0.0111 → 0.0041 | 0.1032 → 0.0215 | 0.9825 → 0.9878 |
+| | | CSS | 0.4807 → 0.4316 | 0.0059 → 0.0038 | 0.0352 → 0.0181 | 0.9845 → 0.9844 |
+| `photo` capsule blue | calibration | GPU | 0.2380 → 0.2060 (0.2063) | 0.0084 → 0.0023 | 0.0805 → 0.0078 | 0.9822 → 0.9850 |
+| `photo` capsule orange | calibration | GPU | 0.3245 → 0.3591 (0.3520) | 0.0076 → 0.0023 | 0.0776 → 0.0065 | 0.9852 → 0.9863 |
+| `photo` capsule orange-half | calibration | GPU | 0.4708 → 0.4580 (0.4382) | 0.0070 → 0.0029 | 0.0715 → 0.0152 | 0.9859 → 0.9864 |
+| `photo` rrect-lg orange | holdout | GPU | 0.3387 → 0.3652 (0.3673) | 0.0628 → 0.0070 | 0.1398 → 0.0178 | 0.9825 → 0.9931 |
+| | | CSS | 0.3434 → 0.3677 | 0.0544 → 0.0124 | 0.1175 → 0.0214 | 0.9253 → 0.9360 |
+| `photo` rrect-md orange | validation | GPU | 0.3360 → 0.3656 (0.3650) | 0.0214 → 0.0029 | 0.1023 → 0.0094 | 0.9927 → 0.9960 |
+
+The collapsed cells (`dark-solid`, `impulse`) are unchanged to the digit, as
+the `(1 − k)` fold predicts. The blue cells land within 0.004 of the
+reference on the GPU tier despite the −0.011 hue residual in the shade,
+because the blue seed's luminance is low enough that the residual is worth
+0.003 of interior; the hue term stays deferred on that evidence. The
+`orange-half` cell carries the largest remaining GPU-tier miss (+0.020),
+consistent with the CSS tier's +0.049 on the same cell: both tiers read the
+half-strength layer slightly bright, a second-order question for the
+strength axis rather than the shade.
+
+**The whole-bed regression scan** against the W9-close matrix: every
+UNTINTED cell is byte-identical on both tiers — the untinted path is
+untouched by construction and the scan confirms it. Of the tinted readings,
+143 moved better by more than 0.005 and 15 moved worse, fourteen of them
+contour distances on `photo`-tinted cells (the extractor class below) and one
+a 0.012 coherence drift on the increased-contrast tinted capsule
+(0.9996 → 0.9876, inside the band).
+
+**One instrument row.** `photo__rrect-md__rest-tint-orange` (1x, GPU tier,
+validation) was excluded from the shape rows by the conditioning predicate
+(`bodiesWeb` 3 — the wash fragmented its silhouette) and now conditions
+(one body, area 0.963, IoU 0.992), so it is gated — and its contour rows miss
+(mean 5.89 px against ≤ 2.5, p95 33 px against ≤ 5). The miss is ONE interior
+hole: the luminance-delta extractor cuts the silhouette wherever the pixel is
+within 0.02 of the backdrop's luminance, and an opaque orange over the
+photo's own orange region is exactly that (the native fixture has two such
+holes, the web capture four; the 2x twin's holes coincide and read p95 0.0).
+By decision (W10 Decision Log 2) the two rows are pinned as floors with the
+extractor as their owner — a colour-aware silhouette rule, or a holes arm on
+the predicate, is the Deferred charter — and the exclusion list re-records:
+three texture rows leave it (the `photo` rrect-lg tinted cells at both
+scales and this one) and three join on a single stray fragment each (the
+increased-contrast `photo` tinted capsule, the `orange-half` capsule at both
+scales). The enforced count reads 23.
+
+Renderer, platform-web and calibration suites are green; the golden e2e suite
+is green without re-recording (its scenes carry no author tint).
 
 ## 6. What could not be measured, and why
 

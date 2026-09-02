@@ -107,6 +107,7 @@ import {
   resolvedTintShade,
   sizeScatterSigmaAt,
   sizeThickness,
+  sizeOcclusionAlphaAt,
   sizeThicknessUnderPolicy,
   sourceOptics,
   sourceOuterShadow,
@@ -1379,34 +1380,44 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           backdropAdaptation,
         );
         // The material the shade is read off is the one the tier draws: the
-        // occlusion regime's lift is part of it (the increased-contrast
-        // reference is at u ≈ 0.98 and shades to 0.99, measured), so the tint
-        // composites AFTER the policy fold, on both tiers.
+        // occlusion regime's lift and the size law's thickening are part of
+        // it (the increased-contrast reference is at u ≈ 0.98 and shades to
+        // 0.99, measured). `cssTierDeclarations` applies those two folds
+        // itself, after this, on the alpha alone — at full strength the folded
+        // alpha is already 1 and they are no-ops; at a partial strength they
+        // thicken the remaining material, which is the composite's own order.
         const policySource: MaterialSourceOptics = {
           ...adaptedSource,
-          tintAlpha: occlusionAlphaUnderPolicy(
-            adaptedSource.tintAlpha,
-            accessibility.material.occlusion,
-            policyFold.increasedOcclusionLift,
+          tintAlpha: sizeOcclusionAlphaAt(
+            occlusionAlphaUnderPolicy(
+              adaptedSource.tintAlpha,
+              accessibility.material.occlusion,
+              policyFold.increasedOcclusionLift,
+            ),
+            sizeThicknessUnderPolicy(
+              Math.min(bounds.width, bounds.height),
+              accessibility.material,
+              sizeConstants,
+            ),
+            sizeConstants,
           ),
         };
         const tintBackdrop = backdropTone?.linearLuminance ?? toneBackdrop;
         const tintGrip = toneAdaptation * tintShade.strength * (1 - backdropAdaptation);
-        const nodeBaseOptics =
+        const nodeBaseOptics = tintedCssOptics(
           backdropAdaptation <= 0 && backdropTone === undefined
             ? baseOptics
-            : cssOpticsFromSource(baseOptics, adaptedSource, cssMapping);
+            : cssOpticsFromSource(baseOptics, adaptedSource, cssMapping),
+          policySource,
+          seed,
+          tintBackdrop,
+          tintGrip,
+          tintShade,
+        );
         const nodeOptics =
           seed === undefined && backdropAdaptation <= 0 && backdropTone === undefined
             ? optics
-            : tintedCssOptics(
-                opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold),
-                policySource,
-                seed,
-                tintBackdrop,
-                tintGrip,
-                tintShade,
-              );
+            : opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold);
 
         const input: GlassNodeRenderInput = {
           nodeId: record.nodeId,

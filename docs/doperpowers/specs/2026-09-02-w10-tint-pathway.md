@@ -1,6 +1,9 @@
 # W10 — The tint pathway
 
-**Opened 2026-09-02.** Child of the post-v1 wave
+**Opened 2026-09-02. CLOSED 2026-09-02** (Decision Log 2) — the six floors
+removed as met claims, the tint law live on both tiers, W3's tone map
+replaced, one instrument row pinned with its owner named. Child of the
+post-v1 wave
 (`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`), chartered by W9's
 Deferred entry "The tint pathway" (`2026-09-02-w9-backdrop-tone-sampling.md`,
 Decision Log 4: "the next opener is picked from Deferred on its own decision
@@ -176,8 +179,34 @@ tinted   = decode( mix( encode(material), encode(layer), s ) )  (s: author stren
      law). Out of sample on the canonical bed: orange 0.003 RMS, no bias;
      blue −0.011 (the hue residual, deferred).
 
+2. **The close (2026-09-02, user-approved, both as recommended).** The
+   referee (claims §5.37) met all six floors — the ratios read 0.94–1.01
+   against 0.80…1.25 — with every tinted row inside its adopted bounds on
+   all six profiles and every untinted cell byte-identical. (a) The one
+   new red row, `photo__rrect-md__rest-tint-orange` (1x, GPU tier), whose
+   contour rows miss on one extractor hole now that the predicate admits
+   it, is **pinned as two floors with the extractor as its owner** rather
+   than closed by a predicate change this round (a holes arm would move
+   the adopted predicate across the whole bed) or by holding the round
+   open for a colour-aware extractor (bed-wide re-cut for a row the
+   charter never owned). (b) **W10 CLOSES.** The charter's "done" — six
+   floors removed, both tiers, tone map replaced — is met in full; the
+   enforced count reads 23; §5.27 is amended; the wave spec carries the
+   `[parent-impact]` on Decision Log 12 and W10's tracking row.
+
 ## Deferred
 
+- **The silhouette extractor on tinted content.** The luminance-delta
+  rule cuts a hole wherever an opaque tint's luminance meets the
+  backdrop's — an orange over the photo's orange — and the conditioning
+  predicate has no holes arm, so a cell can condition and then miss its
+  contour rows on a hole (§5.37). Owner of the two W10-pinned floors. A
+  colour-aware (OKLab ΔE) extractor, or a holes arm on the predicate,
+  each a bed-wide change that wants its own declared round.
+- **The half-strength layer.** Both tiers read `orange-half` slightly
+  bright (GPU +0.020, CSS +0.049 against the reference's 0.4382), the
+  largest tinted miss left; the strength axis's composite, not the
+  shade's, and inside every adopted bound.
 - **The dark tint surface.** The dark scheme renders the pure seed over
   checkerboard and photo (§5.36 finding 4). Whether that is "no shading in
   the dark scheme" or "shade relative to the material's own body level"
@@ -192,4 +221,25 @@ tinted   = decode( mix( encode(material), encode(layer), s ) )  (s: author stren
 
 ## Revision Notes
 
-*(none yet)*
+- 2026-09-02 (the referee ran; W10 CLOSED): all six floors met (claims
+  §5.37) — checkerboard blue 1.635 → 1.005/1.009, orange 1.370 →
+  1.000/1.004, hc-text 1.265 → 0.938/0.941 — with both tiers landing on
+  the reference (GPU interior 0.4712 → 0.3717 against native 0.3603 on
+  the chartered checkerboard cell; `photo__rrect-lg` tinted ΔE mean
+  0.0628 → 0.0070) and the untinted bed byte-identical. One corrective
+  finding on the way: the CSS fold had been applied to the optics the
+  GPU foreground reads rather than to the declarations' input, and the
+  first CSS captures were untinted — fixed, re-run. One instrument row
+  pinned by decision; Deferred gains the extractor and the half-strength
+  charters. Two of §5.13's standing statements are overturned by
+  measurement and recorded as such: the identity tone map, and the
+  gamut-clip account of the coherence floors.
+
+- 2026-09-02 (the law landed on both tiers, Decision Log 1): the fit ran
+  under the declared protocol (`tintShadeDark 0.5289`, `tintShadeLight
+  1.0175`, RMS 0.0035 on 17 700 probe pixels) and the implementation
+  replaced W3's tone map on the renderer, the mirror, the profile
+  documents (fingerprints re-recorded) and the capture allowlist, with the
+  W9 tone-input ratio removed as dead plumbing. Renderer 329, platform-web
+  329, calibration 230 tests green; lint clean; golden e2e 23 passed
+  without re-recording.

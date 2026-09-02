@@ -389,6 +389,10 @@ const FLOOR_EPSILON: Readonly<Record<string, number>> = {
   oklabDeltaEMean: 0.001,
   oklabDeltaEP95: 0.001,
   interiorLevelRatioGpuOverCss: 0.005,
+  // Contour distances are pixel-grid quantities on a deterministic capture; the
+  // headroom is a tenth of a pixel, against misses of several pixels (W10).
+  contourDistanceMean: 0.1,
+  contourDistanceP95: 0.1,
 };
 
 /** What the frozen bed measured, and the value CI holds it to. */
@@ -416,20 +420,20 @@ interface Floor {
  * in §5.27, is W9's work and wants a commit of its own.
  */
 const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
-  "dom / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.36953, floor: 1.3746 },
-  "dom / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.36976, floor: 1.3748 },
-  "dom / holdout / hc-text__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.26507, floor: 1.2701 },
-  "dom / holdout / hc-text__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.26574, floor: 1.2708 },
   "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79576, floor: 0.7907 },
   "dom / holdout / photo__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 0.79666, floor: 0.7916 },
-  "dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.6353, floor: 1.6404 },
-  "dom / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard :: interiorLevelRatioGpuOverCss": { measured: 1.63772, floor: 1.6428 },
   // W9 (claims §5.35) REMOVED six floors here — photo__rrect-lg tinted
   // oklabDeltaEMean, light-solid tinted capsule oklabDeltaEP95, and
   // mid-dark-solid capsule oklabDeltaEP95, each at both scales — because the
   // response-curve law brought every one of them inside its adopted bound
   // (the mid-dark capsule 0.1775 → 0.0095). Their claims are restored in
   // §5.27's tables and gate as ordinary rows again.
+  // W10 (claims §5.37): the cell conditions now that the tint is opaque, and its
+  // two contour rows miss on ONE interior hole the luminance-delta extractor
+  // cuts where the orange tint sits over the photo's own orange (IoU 0.992).
+  // An instrument floor, not a material one; the extractor is the Deferred item.
+  "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard :: contourDistanceMean": { measured: 5.8893, floor: 5.9 },
+  "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard :: contourDistanceP95": { measured: 33, floor: 33.1 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: oklabDeltaEP95": { measured: 0.19088, floor: 0.1919 },
   "texture / holdout / photo__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: oklabDeltaEP95": { measured: 0.19064, floor: 0.1917 },
@@ -460,9 +464,11 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
 
 /**
  * How many rows the frozen bed cannot meet. Pinned so the set cannot grow
- * quietly. 33 at the §5.27 landing; 27 after W9 restored six (claims §5.35).
+ * quietly. 33 at the §5.27 landing; 27 after W9 restored six (claims §5.35);
+ * 23 after W10 restored the six tinted coherence rows and pinned two contour
+ * rows on a cell the predicate newly admits (claims §5.37).
  */
-const UNMET_ROWS = 27;
+const UNMET_ROWS = 23;
 
 /*
  * ---------------------------------------------------------------------------
@@ -721,6 +727,18 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * the surface's interior sat too close to the backdrop for the extractor.
  * Landing the interior mean on the reference moved them clear (all eight now
  * read IoU ≥ 0.99, contour p95 ≤ 1 px), so they gate as ordinary cells.
+ *
+ * **What moved with W10 (2026-09-02, claims §5.37).** The `bodiesWeb` family's
+ * account above — "the tint carries the surface toward the backdrop's own
+ * colour and the extractor loses the boundary in patches" — was the wash's
+ * doing, and the opaque tint dissolves most of it: the texture-tier
+ * `photo__rrect-lg` tinted rows at both scales and `photo__rrect-md` tinted at
+ * 1x now condition (IoU 0.992–0.994) and gate. Three texture rows JOIN, each a
+ * single stray fragment (`bodiesWeb` 2 against 1, area ≥ 0.968): the
+ * increased-contrast `photo` tinted capsule and the `orange-half` capsule at
+ * both scales. The extractor is still a luminance-delta rule, and an opaque
+ * orange over the photo's own orange region is invisible to it — see the
+ * contour floors pinned on the `rrect-md` cell it newly admits.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -757,10 +775,13 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-1x-light-standard",
   "texture / calibration / photo__capsule-button__rest-tint-blue / apple-macos-26.5-2x-light-standard",
   "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-reduced-transparency",
   "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-1x-light-standard",
   "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-dark-standard",
   "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange-half / apple-macos-26.5-1x-light-standard",
+  "texture / calibration / photo__capsule-button__rest-tint-orange-half / apple-macos-26.5-2x-light-standard",
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -768,13 +789,10 @@ const PREDICATE_EXCLUDES = [
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
-  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-1x-light-standard",
-  "texture / holdout / photo__rrect-lg__rest-tint-orange / apple-macos-26.5-2x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
-  "texture / validation / photo__rrect-md__rest-tint-orange / apple-macos-26.5-1x-light-standard",
 ] as const;
 
 // ---------------------------------------------------------------------------
