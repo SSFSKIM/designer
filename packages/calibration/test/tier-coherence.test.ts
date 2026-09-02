@@ -56,7 +56,9 @@ import {
   resolvedPolicyFold,
   resolvedTintShade,
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
+  scatterThickness as cssScatterThickness,
   sizeScatterSigma as cssSizeScatterSigma,
+  sizeScatterSigmaAt as cssSizeScatterSigmaAt,
   sizeThickness as cssSizeThickness,
   sizeThicknessUnderPolicy as cssSizeThicknessUnderPolicy,
   sourceGlow,
@@ -82,7 +84,9 @@ import {
   sizeOuterShadowOcclusionAt as rendererSizeOuterShadowOcclusionAt,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
+  scatterThickness as rendererScatterThickness,
   sizeScatterSigma as rendererSizeScatterSigma,
+  sizeScatterSigmaAt as rendererSizeScatterSigmaAt,
   sizeThickness as rendererSizeThickness,
   sizeThicknessUnderPolicy as rendererSizeThicknessUnderPolicy,
   tintShadeLayer as rendererTintShadeLayer,
@@ -409,12 +413,18 @@ describe("tier coherence (K5)", () => {
     expect(MATERIAL_SOURCE_SIZE.sizeScatterGainMax).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax,
     );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterFloor).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterFloor);
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterSpanMax).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax,
+    );
     expect(MATERIAL_SOURCE_SIZE.sizeOcclusionGain).toBe(DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain);
 
     const patch = {
       sizeSpanMin: 40,
       sizeSpanMax: 200,
       sizeScatterGainMax: 2.5,
+      sizeScatterFloor: 0.25,
+      sizeScatterSpanMax: 320,
       sizeOcclusionGain: 0.4,
     };
     const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
@@ -422,10 +432,47 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeSpanMin).toBe(profile.sizeSpanMin);
     expect(mirrored.sizeSpanMax).toBe(profile.sizeSpanMax);
     expect(mirrored.sizeScatterGainMax).toBe(profile.sizeScatterGainMax);
+    expect(mirrored.sizeScatterFloor).toBe(profile.sizeScatterFloor);
+    expect(mirrored.sizeScatterSpanMax).toBe(profile.sizeScatterSpanMax);
     expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
     // And the patch really moved them, so none of the equalities above is the
     // default agreeing with itself.
     expect(mirrored.sizeSpanMax).not.toBe(MATERIAL_SOURCE_SIZE.sizeSpanMax);
+  });
+
+  /*
+   * The scatter facet's own curve (W11c, claims §5.41): a floor at any span and
+   * a band top past the thickness curve's, folded on the rise and not on the
+   * floor. One function shape on both tiers, pinned over spans and folds, on
+   * the shipped profile AND on a patch — so a retune of the floor or the top
+   * moves the CSS tier's `blur()` and the GPU tier's chain mix together.
+   */
+  it("mixes toward the heavy blur by the same scatter thickness on both tiers", () => {
+    const patches = [
+      undefined,
+      { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 6, sizeScatterFloor: 0.25, sizeScatterSpanMax: 320 },
+    ] as const;
+    for (const patch of patches) {
+      const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch ?? {});
+      const mirrored = sourceSize(patch);
+      for (const span of [24, 32, 44, 96, 128, 160, 256, 400]) {
+        for (const fold of [0, 0.45, 1]) {
+          const css = cssScatterThickness(span, fold, mirrored);
+          const gpu = rendererScatterThickness(span, fold, profile);
+          expect(css, `span ${span} fold ${fold}`).toBeCloseTo(gpu, 12);
+          expect(cssSizeScatterSigmaAt(1.25, css, mirrored), `σ at span ${span} fold ${fold}`).toBeCloseTo(
+            rendererSizeScatterSigmaAt(1.25, gpu, profile),
+            12,
+          );
+        }
+        // The floor is unfolded on both tiers: fold 0 leaves it, and only it.
+        expect(cssScatterThickness(span, 0, mirrored)).toBeCloseTo(mirrored.sizeScatterFloor, 12);
+      }
+    }
+    // The shipped numbers, stated: the floor's σ and the platter's.
+    expect(cssSizeScatterSigma(1.25, 32)).toBeCloseTo(1.25 * (1 + 7 * 0.4), 12);
+    expect(rendererScatterThickness(160, 1)).toBeGreaterThan(rendererScatterThickness(96, 1));
+    expect(rendererScatterThickness(96, 1)).toBeGreaterThan(rendererScatterThickness(44, 1));
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
@@ -504,16 +551,26 @@ describe("tier coherence (K5)", () => {
    * σ and not for the nominal. This pins the arithmetic the root applies.
    */
   it("keeps the 3σ padding floor over the σ a large surface will really use", () => {
-    const patch = { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 2.5 };
+    const patch = { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 2.5, sizeScatterFloor: 0, sizeScatterSpanMax: 200 };
     const mirrored = sourceSize(patch);
     const nominal = cssTierOptics(patch).regular.blurRadius;
     const platter = cssSizeScatterSigma(nominal, 400, mirrored);
     expect(platter).toBeCloseTo(nominal * 2.5, 12);
     expect(requiredSamplingPadding(platter)).toBeCloseTo(3 * platter, 12);
     expect(requiredSamplingPadding(platter)).toBeGreaterThan(requiredSamplingPadding(nominal));
-    // A small control is unchanged, which is what makes the wider floor a cost
-    // only the surfaces that earn it pay.
+    // With the floor off, a small control is unchanged, which is what makes the
+    // wider floor a cost only the surfaces that earn it pay.
     expect(cssSizeScatterSigma(nominal, 40, mirrored)).toBeCloseTo(nominal, 12);
+
+    // And on the shipped profile the floor is on: every surface with a span
+    // frosts at σ 1.25 · (1 + 7 · 0.4) = 4.75 at least, so the padding a group
+    // needs is 3σ of THAT — 14.25 CSS px on a small control, ~23.7 on a 160 px
+    // platter — never the nominal σ's 3.75. core's advisory 24 still clears both.
+    const shipped = cssTierOptics().regular.blurRadius;
+    expect(shipped).toBe(1.25);
+    expect(cssSizeScatterSigma(shipped, 32)).toBeCloseTo(4.75, 12);
+    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeCloseTo(14.25, 12);
+    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 160))).toBeLessThanOrEqual(24);
   });
 
   it("follows a profile patch on both sides at once", () => {

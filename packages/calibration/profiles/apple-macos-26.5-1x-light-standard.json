@@ -30,11 +30,15 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "d082adbb28493c31",
+  "resolvedMaterialSha256": "6a05cebf0b528101",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
-    "(tintShadeDark/Light/Strength) — see entries.tintShade."
+    "(tintShadeDark/Light/Strength) — see entries.tintShade.",
+    "d082adbb28493c31 -> 6a05cebf0b528101 (2026-09-03, W11c G1): the body law —",
+    "blurSigma 3 -> 1.25, sizeScatterGainMax 1 -> 8, and the scatter facet's own",
+    "curve (sizeScatterFloor 0.4, sizeScatterSpanMax 256, new) — see",
+    "entries.scatter."
   ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
@@ -79,7 +83,7 @@
   "patch": {
     "optics": {
       "regular": {
-        "blurSigma": 3,
+        "blurSigma": 1.25,
         "tintAlpha": 0.46,
         "shadowAlpha": 0.05
       }
@@ -112,7 +116,9 @@
     "sizeSpanMin": 32,
     "sizeSpanMax": 96,
     "lensSizeGainMax": 2.6,
-    "sizeScatterGainMax": 1,
+    "sizeScatterGainMax": 8,
+    "sizeScatterFloor": 0.4,
+    "sizeScatterSpanMax": 256,
     "sizeOcclusionGain": 0.05,
     "backdropToneMax": 1,
     "backdropToneHigh": 0.055,
@@ -137,6 +143,51 @@
     "referenceBackdropLuminance": 0.02
   },
   "entries": {
+    "scatter": {
+      "status": "measured",
+      "value": {
+        "optics.regular.blurSigma": 1.25,
+        "sizeScatterGainMax": 8,
+        "sizeScatterFloor": 0.4,
+        "sizeScatterSpanMax": 256
+      },
+      "previous": {
+        "optics.regular.blurSigma": 3,
+        "sizeScatterGainMax": 1
+      },
+      "method": [
+        "W11c G1 (claims 5.41). The reference's interior over structured content",
+        "is two components, read off the W9 probe bed across checkerboard pitches",
+        "8/16/32/64 and spans 32/44/96/128/160: a sharp one near sigma 1.25 CSS px",
+        "and a heavy one near sigma 10, mixed by a share that is about 0.4 at",
+        "spans of 32-44 and still rising at 160. In vitrea's own scatter form",
+        "(body blur mixed toward a chain level gain times wider) that is body",
+        "sigma 1.25, gain 8, and a mix with a FLOOR of 0.4 rising from sizeSpanMin",
+        "to its own band top of 256 — the one-curve size law (sizeSpanMax 96)",
+        "can express neither the floor nor a top past 96, and moving sizeSpanMax",
+        "would move the lens, the occlusion and W9's response rows.",
+        "",
+        "DECLARED FIT, rrect-lg held out: joint least squares over the twenty",
+        "fit cells with the per-span level and transmission as nuisance",
+        "parameters, RMS 0.0164 on the fit set (current model 0.0457) and 0.0174",
+        "on the held-out rrect-lg (current 0.0366). Each constant sits at a clear",
+        "minimum of its sweep: sigma 1.0/1.25/1.5/2.0 -> 0.0177/0.0164/0.0190/",
+        "0.0260; floor 0.3/0.35/0.4/0.45/0.5 -> 0.0175/0.0165/0.0164/0.0174/",
+        "0.0194; gain 6/7/8/10 -> 0.0180/0.0165/0.0164/0.0191; band top 192/224/",
+        "256/320 -> 0.0247/0.0182/0.0164/0.0174. The photo family (structure",
+        "fixed, level free) improves under the same law, 0.0153 -> 0.0135.",
+        "",
+        "The floor is NOT folded under an accessibility preference (it is the",
+        "material's frost at any size); the span-dependent rise folds like every",
+        "other facet. Fitted at 1x only; 2x is a prediction the referee reads."
+      ],
+      "doesNotClose": [
+        "The rim band (G2) — the lens's contribution to the interior structure,",
+        "which the dry run shows is the larger term on rrect-lg.",
+        "The 2x reference's interior, a moderate single Gaussian with no sharp",
+        "component, which no law in either unit reconciles with 1x."
+      ]
+    },
     "tintShade": {
       "status": "measured",
       "value": {

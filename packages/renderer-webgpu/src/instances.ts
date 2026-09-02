@@ -81,13 +81,15 @@ export interface ResolvedSurface {
   /** The author tint's strength, 0 where the surface is untinted. */
   readonly tintStrength: number;
   /**
-   * The size law's thickness factor for this surface, 0…1 (`sizeThickness`).
+   * The size law's thickness factor for this surface, 0…1 (`sizeThickness`),
+   * folded under the accessibility policy.
    *
-   * Resolved here rather than in the fragment stage because it is a property of
-   * the surface, and the group's field is one texture: a 44 px button and a
-   * 280 px platter in the same `GlassEffectContainer` have to read as different
-   * thicknesses, so the factor rides the union per pixel like the lens depth —
-   * and like the tint strength above it, for the same reason.
+   * Resolved here because it is a property of the surface, and the lens depth
+   * above is derived from it on the CPU. It no longer rides the field pass:
+   * since W11c the scatter facet has a curve of its own with a band top past
+   * `sizeSpanMax`, so the per-pixel slot carries the SPAN (`spanPx`) and the
+   * fragment stage evaluates both curves from it — see `wgsl/field.ts`'s
+   * `aux` note.
    */
   readonly sizeThickness: number;
 }
@@ -356,10 +358,12 @@ export function packInstances(
     // The shader's `tintK` slot, and the only per-surface half of the author
     // tint: the seed is a group uniform, this is how much of it this pixel gets.
     data[o + 15] = s.tintStrength;
-    // The size law's per-pixel input. Resolved on the CPU from the surface's own
-    // span so the fragment stage has no geometry to re-derive and no profile
-    // constant of its own — see `ResolvedSurface.sizeThickness`.
-    data[o + 16] = s.sizeThickness;
+    // The size law's per-pixel input: the surface's own span, in CSS px. The
+    // fragment stage evaluates the thickness curve AND the scatter curve from it
+    // (W11c), with the band constants and the accessibility fold as uniforms —
+    // one slot, two curves, and nothing the CPU resolved that the shader has to
+    // re-derive from geometry it cannot see.
+    data[o + 16] = s.spanPx;
     data[o + 17] = 0;
   }
 

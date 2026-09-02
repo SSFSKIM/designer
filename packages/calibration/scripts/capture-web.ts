@@ -337,6 +337,9 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sizeScatterGainMax",
   "sizeOcclusionGain",
   "sizeShadowGainMax",
+  // The scatter facet's own curve (W11c): its floor and band top.
+  "sizeScatterFloor",
+  "sizeScatterSpanMax",
   "lensBodyLodPerPx",
   "lensRimLodBias",
   "reducedTransparencyFrost",

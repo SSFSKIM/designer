@@ -65,7 +65,7 @@ export const WGSL_INSTANCE_STRUCT = `struct Instance {
   glow   : f32,     // 52  interaction channel value, 0..1
   lensDepth : f32,  // 56  CPU-resolved lens depth in CSS px (material.ts), already scaled by the lensStrength channel
   tintK  : f32,     // 60  author tint strength, 0..1 — the seed itself is a group uniform
-  sizeK  : f32,     // 64  the size law's thickness factor, 0..1 — material.ts's sizeThickness(span)
+  span   : f32,     // 64  the surface's shorter extent, CSS px — the size law's input, both curves (W11c)
   _pad   : f32,     // 68  stride padding: vec2f aligns the struct to 8, so 72 is the next legal size
 };`;
 
@@ -279,7 +279,7 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // field but its members are not one size, and carrying them per pixel is what
 // lets a 40 px button and a 320 px platter share a field pass and still lens by
 // their own depth — parent acceptance #2 inside a GlassEffectContainer.
-//   aux = (lensDepthPx, glow, sizeK, tintStrength)
+//   aux = (lensDepthPx, glow, spanPx, tintStrength)
 //
 // The third and fourth slots both changed hands, and neither of the values they
 // used to carry was ever read by a fragment stage. 'thick' left because
@@ -293,15 +293,26 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // because a group is one field pass and one optics pass while its members are
 // not one thing:
 //
-//   'sizeK'        — the size law's thickness factor (W2). A 40 px button and a
-//                    320 px platter in one container lens, scatter, occlude and
-//                    shadow by their own size.
+//   'spanPx'       — the size law's input (W2): the surface's shorter extent in
+//                    CSS px. A 40 px button and a 320 px platter in one container
+//                    lens, scatter, occlude and shadow by their own size. Until
+//                    W11c this slot carried the folded thickness factor itself;
+//                    the scatter facet now rides a curve with a different band
+//                    top, so the span travels and each consumer evaluates its own
+//                    curve from it with the bands and the fold as uniforms.
 //   'tintStrength' — the author tint's strength (W3). One emphasised control
 //                    among plain ones is the composition Apple's guidance
 //                    describes; the seed itself is a group uniform.
 //
 // They compose rather than compete: the size law moves what the material does to
 // the backdrop, the tint moves what colour it does it in.
+//
+// One consequence of carrying the span rather than the thickness, stated so it
+// is not mistaken for a drift: the union below blends 'aux' linearly between two
+// members, so a pixel in the neck between a button and a platter now blends
+// their SPANS and evaluates the curves on the blend, where it used to blend the
+// evaluated thicknesses. Inside either member the two are identical; only the
+// smooth-min neck differs, and nothing measured claims a value there.
 
 @group(0) @binding(0) var<uniform> fu : FieldUniforms;
 @group(0) @binding(1) var<storage, read> instances : array<Instance>;
@@ -322,7 +333,7 @@ fn eval_instance(i : u32, p : vec2f) -> Member {
   var m : Member;
   m.d = f.d + s.inset;
   m.g = f.g;
-  m.aux = vec4f(s.lensDepth, s.glow, s.sizeK, s.tintK);
+  m.aux = vec4f(s.lensDepth, s.glow, s.span, s.tintK);
   return m;
 }
 

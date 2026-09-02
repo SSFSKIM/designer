@@ -168,11 +168,13 @@ describe("the instance struct", () => {
       expect(WGSL_INSTANCE_STRUCT).toContain(name);
     }
     // And the two per-pixel scalars the fragment stages actually read, which are
-    // what took the struct past 16 floats: the size law's thickness factor (W2)
+    // what took the struct past 16 floats: the size law's input (W2; the SPAN
+    // since W11c, so the scatter facet can ride a curve with its own band top)
     // and the author tint's strength (W3).
-    for (const name of ["sizeK", "tintK"]) {
+    for (const name of ["span", "tintK"]) {
       expect(WGSL_INSTANCE_STRUCT).toContain(name);
     }
+    expect(WGSL_INSTANCE_STRUCT).not.toContain("sizeK");
 
     /*
      * The stride RULE, rather than the current number.

@@ -236,11 +236,12 @@ export interface MaterialProfile {
    * substantial material. It casts deeper, richer shadows, has more pronounced
    * lensing and refraction effects, and a softer scattering of light" (S219). One
    * mechanism means one curve: `sizeThickness(span)` is a smoothstep from
-   * `sizeSpanMin` to `sizeSpanMax`, and **every** thickness-derived facet is a
-   * gain on it — the lens (`lensSizeGainMax`), the scattering
-   * (`sizeScatterGainMax`), the occlusion (`sizeOcclusionGain`) and the inner
-   * shadow (`sizeShadowGainMax`). Two curves would be two mechanisms, and the
-   * reference only has one.
+   * `sizeSpanMin` to `sizeSpanMax`, and the thickness-derived facets are gains
+   * on it — the lens (`lensSizeGainMax`), the occlusion (`sizeOcclusionGain`)
+   * and the inner shadow (`sizeShadowGainMax`). The scattering was one of them
+   * until W11c measured its curve to be a different one (a floor at small
+   * spans, a band top past 96 — see `sizeScatterFloor`); it now rides its own,
+   * from the same `sizeSpanMin`, and this band is untouched by it.
    *
    * A smoothstep rather than a straight ratio, so two surfaces of nearly the same
    * size never read as differently thick, and so every gain saturates instead of
@@ -287,8 +288,40 @@ export interface MaterialProfile {
    * Both tiers carry it, from one function (`sizeScatterSigma`): the CSS tier
    * multiplies its `blur()` σ, and the GPU tier lerps its body sample toward the
    * chain level whose blur is that σ.
+   *
+   * MEASURED (W11c G1, claims §5.41), and no longer a gain on `sizeThickness`
+   * alone — see `sizeScatterFloor` and `sizeScatterSpanMax` below for the curve
+   * it rides. 8: the heavy component of the reference's interior sits near σ 10
+   * CSS px against a body σ of 1.25, and the gain sweep has a clear minimum at
+   * 8 (RMS 0.0164 against 0.0180 at 6 and 0.0191 at 10 on the probe bed).
    */
   readonly sizeScatterGainMax: number;
+
+  /**
+   * **The scattering facet's own curve** (W11c G1, claims §5.41).
+   *
+   * The reference's interior over structured content is two components, read
+   * off the W9 probe bed across four checkerboard pitches and five spans: a
+   * sharp one near σ 1.25 CSS px and a heavy one near σ 10, mixed by a share
+   * that is already ≈ 0.4 at spans of 32–44 and still rising at 160 (0.52 at
+   * 96, 0.64 at 128, 0.76 at 160). `sizeThickness` — zero at `sizeSpanMin` and
+   * saturated at `sizeSpanMax` = 96 — can express neither the floor nor a band
+   * top past 96, and moving `sizeSpanMax` would move the lens, the occlusion,
+   * the inner shadow and W9's thin/thick response rows with it. So the scatter
+   * mix rides its own curve:
+   *
+   * ```
+   * kScatter = floor + (1 − floor) · smoothstep(sizeSpanMin, sizeScatterSpanMax, span) · fold
+   * ```
+   *
+   * The floor is the material's own frost and is **not** folded under an
+   * accessibility preference; the span-dependent rise is a depth effect and
+   * folds like every other facet (`scatterThickness`). Fitted with `rrect-lg`
+   * held out: floor 0.40 (0.0175 at 0.3, 0.0174 at 0.45), band top 256 (0.0182
+   * at 224, 0.0174 at 320); the held-out cell's residual 0.0366 → 0.0174.
+   */
+  readonly sizeScatterFloor: number;
+  readonly sizeScatterSpanMax: number;
 
   /**
    * The occlusion gain — "a larger size is more opaque. A smaller size is
@@ -585,7 +618,12 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        * the same 44 px span, which is the lerp-versus-multiply question C9a
        * recorded and nobody has acted on. Claims §5.13.
        */
-      blurSigma: 3,
+      // 1.25 since W11c G1 (claims §5.41): the reference's interior over
+      // structured content is a sharp component near σ 1.25 plus a heavy one
+      // the scatter facet now supplies (`sizeScatterFloor`); the cascade's 3
+      // (claims §5.16) was the one Gaussian that best split the difference on
+      // a bed with no pitch axis to tell the two apart.
+      blurSigma: 1.25,
       tint: srgbToLinear(SRGB_WHITE_TINT),
       tintAlpha: 0.46,
       rimWidth: 1.5,
@@ -761,7 +799,14 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * on. The grid 1.0/1.4/2.2 is flat to 0.2%. Carrying a fitted-looking 1.4 whose
    * measurement no longer exists would be the worse of the two errors.
    */
-  sizeScatterGainMax: 1,
+  // MEASURED (W11c G1, claims §5.41): the scatter facet off the identity, on
+  // its own curve — see `MaterialProfile.sizeScatterFloor`. The paragraph
+  // above records why the identity was the right answer while `blurSigma`
+  // was 3 and the bed had no pitch axis; the W9 probe's pitch axis is what
+  // identified the two-component interior this expresses.
+  sizeScatterGainMax: 8,
+  sizeScatterFloor: 0.4,
+  sizeScatterSpanMax: 256,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -975,6 +1020,8 @@ export const SIZE_SPAN_MIN = DEFAULT_MATERIAL_PROFILE.sizeSpanMin;
 export const SIZE_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeSpanMax;
 export const LENS_SIZE_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.lensSizeGainMax;
 export const SIZE_SCATTER_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax;
+export const SIZE_SCATTER_FLOOR = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor;
+export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax;
 export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
 export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
 export const LENS_BODY_LOD_PER_PX = DEFAULT_MATERIAL_PROFILE.lensBodyLodPerPx;
@@ -1008,6 +1055,8 @@ export interface MaterialProfilePatch {
   readonly sizeSpanMax?: number;
   readonly lensSizeGainMax?: number;
   readonly sizeScatterGainMax?: number;
+  readonly sizeScatterFloor?: number;
+  readonly sizeScatterSpanMax?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensBodyLodPerPx?: number;
@@ -1068,6 +1117,8 @@ export function withMaterialOverrides(
     sizeSpanMax: patch.sizeSpanMax ?? base.sizeSpanMax,
     lensSizeGainMax: patch.lensSizeGainMax ?? base.lensSizeGainMax,
     sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
+    sizeScatterFloor: patch.sizeScatterFloor ?? base.sizeScatterFloor,
+    sizeScatterSpanMax: patch.sizeScatterSpanMax ?? base.sizeScatterSpanMax,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensBodyLodPerPx: patch.lensBodyLodPerPx ?? base.lensBodyLodPerPx,
@@ -1549,11 +1600,32 @@ export function sizeScatterSigma(
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
-  return sizeScatterSigmaAt(sigmaPx, sizeThickness(spanPx, profile), profile);
+  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, profile), profile);
 }
 
 /**
- * The same, for a caller that has already resolved the thickness factor — which
+ * **The scattering facet's input** (W11c G1): how far toward its heavy blur a
+ * surface of this span mixes, 0…1 — `MaterialProfile.sizeScatterFloor`'s curve.
+ *
+ * `fold` is the accessibility fold every facet takes (the refraction ladder read
+ * at the preference's cap, `sizeThicknessUnderPolicy`'s factor). It scales the
+ * span-dependent rise and NOT the floor: the floor is the frost the material
+ * has at any size, the rise is the depth a preference is entitled to remove.
+ *
+ * Mirrored by `@vitreajs/vitrea-web`'s `scatterThickness`, pinned by
+ * `packages/calibration/test/tier-coherence.test.ts` over spans and folds.
+ */
+export function scatterThickness(
+  spanPx: number,
+  fold: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const floor = Math.min(1, Math.max(0, profile.sizeScatterFloor));
+  return floor + (1 - floor) * smoothstep(profile.sizeSpanMin, profile.sizeScatterSpanMax, spanPx) * fold;
+}
+
+/**
+ * The same, for a caller that has already resolved the scatter thickness — which
  * is every caller with a policy to fold under.
  *
  * The two-function shape is deliberate and it is mirrored on the CSS tier: the
@@ -1563,10 +1635,10 @@ export function sizeScatterSigma(
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
-  thickness: number,
+  scatter: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
-  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * thickness);
+  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * scatter);
 }
 
 /**

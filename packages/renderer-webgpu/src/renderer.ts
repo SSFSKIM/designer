@@ -778,6 +778,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeOcclusionGain: material.sizeOcclusionGain,
         sizeShadowGainMax: material.sizeShadowGainMax,
         bodyChainLod: chainLodForSigma(pyramid?.bodySigmaTexels ?? 0),
+        // The size law's curves (W11c): the shader evaluates the thickness and
+        // the scatter mix per pixel from the span the field carries, under the
+        // same fold `sizeThicknessUnderPolicy` applies on the CPU.
+        sizeSpanMin: material.sizeSpanMin,
+        sizeSpanMax: material.sizeSpanMax,
+        sizeScatterFloor: material.sizeScatterFloor,
+        sizeScatterSpanMax: material.sizeScatterSpanMax,
+        sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         backdropTone,
         backdropToneColour: [
           input.backdropTone?.[0] ?? 0,
@@ -856,9 +864,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           glowGain: material.glowGain,
           colour: optics.highlight,
           // The same four numbers the optics pass took, so the two passes fade
-          // the surface on one curve rather than on two copies of it.
+          // the surface on one curve rather than on two copies of it — and the
+          // same band and fold, since the curve is evaluated off the span.
           backdropTone,
           backdropToneLevel,
+          sizeSpanMin: material.sizeSpanMin,
+          sizeSpanMax: material.sizeSpanMax,
+          sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         });
       }
 

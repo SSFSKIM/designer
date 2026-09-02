@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "9ec21d0e186ca3d3",
+  "resolvedMaterialSha256": "d84e8fc4261c0440",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -59,6 +59,18 @@
     "light backdrop; recorded in the W10 spec's Deferred. Fingerprint",
     "e648db2a108bbcc3 -> 9ec21d0e186ca3d3 (the renderer's tint-tone defaults",
     "replaced by the shade defaults, plus this gate)."
+  ],
+  "$comment-w11c": [
+    "RE-RECORDED 2026-09-03 (W11c G1, the body law): what moved is the renderer's",
+    "DEFAULTS again, inherited unnamed by this difference document — the regular",
+    "blurSigma 3 -> 1.25, the scatter gain 1 -> 8, and the scattering facet's",
+    "own curve (sizeScatterFloor 0.4, sizeScatterSpanMax 256) in place of the",
+    "thickness band it used to ride. The law was fitted on the LIGHT 1x probe",
+    "bed; whether the dark reference's interior shares the sharp-plus-heavy",
+    "composition is the W11c referee's question for this scheme's cells (a",
+    "declared stop is any dark cell leaving its bounds), not an assumption this",
+    "file hides. Fingerprint 9ec21d0e186ca3d3 -> d84e8fc4261c0440 (the four",
+    "defaults above; the patch itself is unchanged)."
   ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",

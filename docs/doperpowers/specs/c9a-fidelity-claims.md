@@ -4712,6 +4712,17 @@ headroom is against constants moving in their last digit and nothing else.
 > contour 0 / 0 px, the claims restored. No row is added — twenty-three
 > cells the predicate had excluded now gate, and every one of them meets
 > every adopted shape bound. The count is 15.
+>
+> **Amended by W11c G1 (2026-09-03, §5.42).** The three 1x texture-tier
+> `ssimMean` rows on `checkerboard__rrect-ml`, `__glass-over-glass` and
+> `__rrect-lg` are struck: MET on the re-captured bed (0.8963 / 0.8987 /
+> 0.8934 against ≥ 0.88) under the two-component body law, the claims
+> restored. The eight dom-tier `ssimMean` rows carry a further measurement
+> and a floor ratcheted UP (by 0.011–0.152; the CSS tier's single blur is
+> the law's mixed-σ form, its claim narrowed in §5.42 §5). The four 2x
+> texture-tier `ssimMean` rows carry a further measurement and a floor
+> re-pinned DOWN by decision (0.0015–0.0083; the law is fitted at 1x, the
+> 2x reference is a different object, W11 Decision Log 5). The count is 12.
 
 **`1x-light-standard` · texture tier**
 
@@ -4722,9 +4733,9 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
 | ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
 | ~~`photo__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1906 → 0.0744 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8409 → 0.8796 (W11a ratchet) | ≥ 0.8786 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.88 **UNMET** | 0.8305 → 0.8233 (W9 trade) | ≥ 0.8222 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.88 **UNMET** | 0.8647 → 0.8620 (W9 trade) | ≥ 0.8610 |
+| ~~`checkerboard__glass-over-glass__rest`~~ | holdout | `ssimMean` | ≥ 0.88 **MET (W11c G1)** | 0.8409 → 0.8796 (W11a) → 0.8987 | — |
+| ~~`checkerboard__rrect-lg__rest`~~ | holdout | `ssimMean` | ≥ 0.88 **MET (W11c G1)** | 0.8305 → 0.8233 (W9 trade) → 0.8934 | — |
+| ~~`checkerboard__rrect-ml__rest`~~ | calibration | `ssimMean` | ≥ 0.88 **MET (W11c G1)** | 0.8647 → 0.8620 (W9 trade) → 0.8963 | — |
 | ~~`photo__rrect-md__rest-tint-orange`~~ | validation | `contourDistanceMean` | ≤ 2.5 px **MET (W11b)** | 5.8893 → 0.0000 | — |
 | ~~`photo__rrect-md__rest-tint-orange`~~ | validation | `contourDistanceP95` | ≤ 5.0 px **MET (W11b)** | 33 → 0 | — |
 
@@ -4736,10 +4747,10 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`checkerboard__capsule-button__rest-tint-orange`~~ | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.3695 → 0.9996 | — |
 | ~~`hc-text__capsule-button__rest-tint-orange`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.2651 → 0.9383 | — |
 | ~~`photo__glass-over-glass__rest`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **MET (W11a)** | 0.7958 → 0.9180 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.8078 | ≥ 0.8068 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 → 0.6850 (W9 trade) | ≥ 0.6839 |
-| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.8826 | ≥ 0.8816 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.7950 → 0.7929 (W9 trade) | ≥ 0.7919 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.8078 → 0.8499 (W11c G1 ratchet) | ≥ 0.8489 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.9 **UNMET** | 0.6883 → 0.6850 (W9 trade) → 0.8372 (W11c G1 ratchet) | ≥ 0.8361 |
+| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.8826 → 0.8963 (W11c G1 ratchet) | ≥ 0.8952 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.9 **UNMET** | 0.7950 → 0.7929 (W9 trade) → 0.8481 (W11c G1 ratchet) | ≥ 0.8470 |
 
 **`2x-light-standard` · texture tier**
 
@@ -4750,10 +4761,10 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
 | ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
 | ~~`photo__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1901 → 0.0759 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a ratchet) | ≥ 0.8938 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) | ≥ 0.8790 |
-| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.9266 | ≥ 0.9256 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 | ≥ 0.8886 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a ratchet) → 0.8896 (W11c G1, re-pinned by decision) | ≥ 0.8885 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) → 0.8785 (W11c G1, re-pinned by decision) | ≥ 0.8775 |
+| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.9266 → 0.9234 (W11c G1, re-pinned by decision) | ≥ 0.9224 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 → 0.8810 (W11c G1, re-pinned by decision) | ≥ 0.8800 |
 
 **`2x-light-standard` · dom tier**
 
@@ -4763,10 +4774,10 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`checkerboard__capsule-button__rest-tint-orange`~~ | calibration | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.3698 → 1.0037 | — |
 | ~~`hc-text__capsule-button__rest-tint-orange`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≤ 1.25 **MET (W10)** | 1.2657 → 0.9410 | — |
 | ~~`photo__glass-over-glass__rest`~~ | holdout | `interiorLevelRatioGpuOverCss` | ≥ 0.8 **MET (W11a)** | 0.7967 → 0.9184 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.8460 | ≥ 0.8449 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 → 0.7970 (W9 trade) | ≥ 0.7959 |
-| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.9058 | ≥ 0.9048 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.8480 → 0.8468 (W9 trade) | ≥ 0.8458 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.8460 → 0.8687 (W11c G1 ratchet) | ≥ 0.8677 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.92 **UNMET** | 0.7990 → 0.7970 (W9 trade) → 0.8696 (W11c G1 ratchet) | ≥ 0.8686 |
+| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.9058 → 0.9169 (W11c G1 ratchet) | ≥ 0.9159 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.92 **UNMET** | 0.8480 → 0.8468 (W9 trade) → 0.8765 (W11c G1 ratchet) | ≥ 0.8754 |
 
 #### What the floors do and do not buy
 
@@ -4774,7 +4785,7 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40). A floor cannot be added by
+set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40; 12 after W11c G1, §5.42). A floor cannot be added by
 accident, and adding one deliberately means editing a count that sits next to
 this section's number.
 
@@ -6136,6 +6147,322 @@ neutral block three code values off stays outside both.
 adopted as `results/matrix.json`: the same twelve `--skip-capture` runs
 over the same captures are deterministic to the byte, and re-running them
 to write the canonical file would have changed only twelve timestamps.
+
+### 5.41 W11c, gate G1: the body law measured in vitrea's own form, and the declared fit (2026-09-03)
+
+§5.38 §3 described the reference's deep interior over structured content
+as a heavy blur plus a sharp leak. This section refits it in the form the
+GPU tier can actually render — a body blur mixed toward a coarser chain
+level by a per-surface weight — and in the form the CSS tier can render —
+one `blur()` widened with span — and declares the fit that lands. The
+evidence is the W9 probe bed (native 1x, `checkerboard` at pitches 8 / 16
+/ 32 / 64 × spans 32 / 44 / 96 / 128 / 160), the canonical 1x and 2x
+captures, and the `photo` family as the null check. Nothing here is a
+capture; the referee is §5.42.
+
+#### 1. What the floored cells actually show at pitch 16
+
+Fitting each canonical pitch-16 reference interior on its own to a single
+Gaussian of the plate, `Y = a + t·G_σ(P)`:
+
+| 1x, native | σ (CSS px) | t | a | RMS |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` (32) | 1.25 | 0.340 | 0.444 | 0.011 |
+| `capsule` (44) | 1.25 | 0.331 | 0.448 | 0.010 |
+| `rrect-md` (96) | 1.25 | 0.246 | 0.556 | 0.012 |
+| `rrect-ml` (128) | 1.25 | 0.165 | 0.609 | 0.012 |
+| `rrect-lg` (160) | 1.00 | 0.093 | 0.659 | 0.013 |
+
+The reference at pitch 16 is a **sharp, faint** checker — σ ≈ 1.25 and an
+amplitude that falls from 0.34 to 0.09 with span — over a rising level.
+vitrea's GPU body at the same pitch fits σ 3.8, t 0.41 at every span from
+96 up (§5.38 §3); the CSS tier σ 3.0, t 0.56. The structure the SSIM
+window compares is a mid-amplitude blur against a low-amplitude edge, and
+that, not the mean, is the fifteen floored rows.
+
+Why the sharp component looks faint: the heavy component (σ ≈ 9–10) has
+flattened a 16 px checker entirely (contrast factor e^(−2π²σ²/p²) ≈ 0.002),
+so it contributes level and nothing else at this pitch, and only the leak's
+share of the transmission is visible. At pitch 32 and 64 the heavy
+component is resolved and the two add — which is why the probe's pitch
+axis identifies both where the canonical bed could identify neither
+(§6.1).
+
+#### 2. The reference in vitrea's form
+
+GPU form: `Y = a + t·[(1 − k)·G_σb(P) + k·G_σb·gain(P)]`, one (σb, gain)
+for the bed, k per span, (a, t) per span as nuisance (the level laws are
+W2's and W9's). CSS form: `Y = a + t·G_σb·(1+(gain−1)k)(P)`. Joint over the
+four pitches, all five spans, k = smoothstep(32, spanMax, span) with
+spanMax free:
+
+| form | best | RMS | current model |
+| --- | --- | --- | --- |
+| GPU | σb 2.0, gain 5, spanMax 256 | 0.0236 | 0.0416 (σ 3.8, k = 0) |
+| CSS | σb 1.5, gain 5, spanMax 320 | 0.0363 | 0.0387 (σ 3, k = 0) |
+
+The GPU form halves the residual but stays well above the unconstrained
+two-component fit (0.016, §5.38 §3), and the per-pitch residual says why:
+at pitch 16 the model over-retains contrast (std 0.066 against 0.042 on
+`rrect-lg`) and at pitch 8 under-retains it — a σ 2 body is neither the
+reference's sharp component nor its heavy one. The two-component fit's
+own weights make the shape of the missing constraint explicit: the heavy
+component's share is **0.56 at span 96, 0.66 at 128, 0.76 at 160** — a
+slow, nearly linear rise that is already above half at the band top the
+size law saturates at, and that a smoothstep from zero at 32 cannot
+reproduce.
+
+**With a floor** — `k = k₀ + (1 − k₀)·smoothstep(32, spanMax, span)`:
+
+| k₀ | σb | gain | spanMax | RMS (all five spans) |
+| --- | --- | --- | --- | --- |
+| 0.4 | 1.25 | 8 | 256 | **0.0169** |
+| 0.3 | 1.25 | 8 | 256 | 0.0173 |
+| 0.5 | 1.25 | 8 | 320 | 0.0174 |
+| 0.4 | 1.0 | 10 | 256 | 0.0176 |
+
+— the two-component ideal, reached inside the renderable form. Per span
+the weight reads 0.40 / 0.40 / 0.52 / 0.64 / 0.76; the heavy σ is 10 CSS px.
+Per pitch on `rrect-lg` the interior std now tracks the reference at every
+pitch (0.057 / 0.042 / 0.117 / 0.159 native against 0.039 / 0.053 / 0.109 /
+0.163 modelled).
+
+#### 3. The photo family does not pay
+
+The same structure (σb, gain, k(span)) laid over the `photo` plate, with
+only (a, t) per span free, against the native `photo` interiors:
+
+| 1x native | current (σ 3.8, k 0) | fitted law |
+| --- | --- | --- |
+| `rrect-sm` | 0.0046 | 0.0040 |
+| `capsule` | 0.0044 | 0.0047 |
+| `rrect-md` | 0.0103 | 0.0099 |
+| `rrect-ml` | 0.0146 | 0.0132 |
+| `rrect-lg` | 0.0178 | 0.0154 |
+| overall | 0.0153 | **0.0135** |
+
+A law fitted on checkerboards improves the photo structure slightly. It
+rides only structured content by construction (a broadband backdrop is
+close to invariant under a change of blur width at these amplitudes), and
+the null family confirms it rather than merely tolerating it.
+
+#### 4. The SSIM dry run, body only
+
+vitrea's capture with its deep body replaced by the fitted law at the
+reference cell's own level and transmission, rim band and outside
+untouched, whole-crop SSIM against the adopted bound:
+
+| cell | bound | before | body law |
+| --- | --- | --- | --- |
+| 1x `rrect-md` texture | 0.88 | 0.912 | 0.926 |
+| 1x `rrect-ml` texture | 0.88 | 0.862 | **0.883** |
+| 1x `rrect-lg` texture | 0.88 | 0.823 | 0.870 |
+
+`rrect-ml` meets on the body alone; `rrect-lg` is left with the rim band,
+which §5.38 §2 measured at 45% of its deficit — gate G2's. The dom rows
+(CSS, single Gaussian) reach 0.893 / 0.820 / 0.769 against 0.90 in the
+same dry run: the CSS form cannot carry a sharp leak, and those rows are
+G3's question at the referee.
+
+#### 5. The 2x bed disagrees, and the decision on it
+
+The 2x reference interior at pitch 16 fits a single Gaussian at σ 3 CSS
+px, t 0.41 on `rrect-md` (r² 0.985) — no sharp leak, moderate contrast —
+which is close to vitrea's *current* model (2x `rrect-md` texture SSIM
+0.927 against 0.93). The 1x law applied at 2x moves two texture rows
+slightly the wrong way in the dry run (`rrect-md` 0.927 → 0.925, `rrect-ml`
+0.889 → 0.884) and the dom rows up. No law in CSS px or in device px
+produces both beds: in device px the 1x heavy component is σ 9 with a σ 1
+leak and the 2x one σ 6 with none. The 2x bed was captured on a virtual
+HiDPI display (§6.2's external gate). **Decided (W11 Decision Log 4): the
+law is fitted at 1x and predicted at 2x; 2x structure rows that do not
+meet are held by decision with the claim narrowed to the 1x bed, and a 2x
+regression past a floor stops the adoption.**
+
+#### 6. The declared fit
+
+Fit set: the twenty probe cells at spans 32 / 44 / 96 / 128; `rrect-lg`
+held out. Grid: k₀ ∈ {0.2…0.6}, σb ∈ {1.0…2.0}, gain ∈ {4…12}, spanMax ∈
+{128…320}.
+
+| | k₀ | σb | gain | spanMax | RMS fit | RMS holdout `rrect-lg` |
+| --- | --- | --- | --- | --- | --- | --- |
+| **declared** | **0.40** | **1.25** | **8** | **256** | **0.0164** | **0.0174** |
+| runner-up | 0.35 | 1.25 | 7 | 256 | 0.0165 | 0.0172 |
+| current model | — | 3.8 | 1 | 96 | 0.0457 | 0.0366 |
+
+Each constant sits at a clear minimum of its own sweep with the others
+held (σb: 1.0 → 0.0177, 1.25 → 0.0164, 1.5 → 0.0190; k₀: 0.3 → 0.0175, 0.4
+→ 0.0164, 0.5 → 0.0194; gain: 6 → 0.0180, 8 → 0.0164, 10 → 0.0191;
+spanMax: 192 → 0.0247, 256 → 0.0164, 320 → 0.0174). The holdout falls
+from 0.0366 to 0.0174 without having been fitted to.
+
+**What lands** (W11 Decision Log 4): `blurSigma` 3 → 1.25 (K5: one number
+on both tiers); `sizeScatterGainMax` 1 → 8; two new constants,
+`sizeScatterFloor` 0.4 and `sizeScatterSpanMax` 256, giving the scattering
+facet its own curve `k = floor + (1 − floor)·smoothstep(sizeSpanMin,
+sizeScatterSpanMax, span)·fold` (the floor unfolded, the rise folded by the
+accessibility cap like every facet). `sizeThickness` and the lens,
+occlusion, inner-shadow and W9 response rows that ride it are untouched
+and must read byte-identical on every solid cell's level. The GPU tier
+mixes its body toward a fixed heavy level at σb·gain by the scatter
+weight; the CSS tier widens its one blur on the same constants. The
+constants are profile fields, so the isolation guard's attribution holds
+through the `materialProfile` seam for the constants and is re-recorded
+for the shader plumbing beside them.
+
+### 5.42 W11c, gate G1 refereed: three 1x floors met, the 2x rows re-pinned by decision, the CSS contract narrowed (2026-09-03)
+
+**Claim.** The two-component body law §5.41 §6 declared (`blurSigma` 1.25,
+`sizeScatterGainMax` 8, `sizeScatterFloor` 0.40, `sizeScatterSpanMax` 256:
+the GPU tier mixes a sharp σ 1.25 body toward a σ 10 scatter by `kScatter`,
+the CSS tier runs one `blur()` at the mixed σ) was implemented on both
+tiers, the bed re-captured on both tiers over all six profiles, and
+refereed cell by cell against the W11b close. The three 1x texture-tier
+`ssimMean` floors on `checkerboard__rrect-ml`, `__glass-over-glass` and
+`__rrect-lg` are MET and removed; every dom-tier floor rose without
+meeting and ratchets up; the four 2x texture-tier floors regressed by
+0.0015–0.0083 — the direction §5.41 §5 predicted — and are re-pinned by
+decision (W11 Decision Log 5). The enforced count is 12. Nothing outside
+the structured-backdrop class moved.
+
+#### 1. The referee bed
+
+Twelve `compare.ts` runs (`--material-profile` on the light and dark
+profile documents, `--renderer webgpu` and `css`, `--set
+calibration,validation,holdout --write-partial`), 254 captures, 230 cells,
+both accessibility preferences read 0 on the machine before the capture.
+A driver note for X1: a cell's key carries its capture path, and the
+capture path names the material profile document; when the document's
+content changes, the twelve runs append their rows beside the previous
+ones (460 cells) rather than replacing them. The canonical matrix was
+reduced to the newest cell per (profile, scene, tier) before any reading —
+`rm results/matrix.json` first, as X1 says, is the same thing done
+earlier.
+
+#### 2. The declared stops, none fired
+
+| stop (§5.41 §6, Decision Log 4) | reading |
+| --- | --- |
+| a solid-backdrop cell moves by more than one code value | light-, mid-dark- and dark-solid: every perceptual and material row identical to the W11b close |
+| a `photo` cell leaves its bounds | none; max ΔSSIM 0.0033, max Δ(ΔE-mean) 0.0015, max Δ(interior mean) 0.0018 |
+| a dark-profile cell leaves its bounds | none; the largest dark move is `checkerboard__glass-over-glass` dom, 0.8597 → 0.8504 against ≥ 0.83 |
+| a 2x floor crossed | **four crossed** — §4; the declaration's own prediction, and the decision it asked for |
+
+The `impulse` family moved ≤ 0.0006. No cell newly misses an adopted
+bound; the predicate's exclusion list is unchanged (the enforcement test's
+`PREDICATE_EXCLUDES` still equals the machine's output).
+
+#### 3. The fifteen floors, before and after
+
+| cell | tier | 1x before → after (bound) | 2x before → after (bound) |
+| --- | --- | --- | --- |
+| `checkerboard__rrect-md__rest` | texture | 0.9122 → 0.9270 (≥ 0.88; met before and after) | 0.9266 → 0.9234 (≥ 0.93) **re-pinned** |
+| `checkerboard__rrect-ml__rest` | texture | 0.8620 → **0.8963 MET** (≥ 0.88) | 0.8893 → 0.8810 (≥ 0.93) **re-pinned** |
+| `checkerboard__glass-over-glass__rest` | texture | 0.8796 → **0.8987 MET** (≥ 0.88) | 0.8948 → 0.8896 (≥ 0.93) **re-pinned** |
+| `checkerboard__rrect-lg__rest` | texture | 0.8233 → **0.8934 MET** (≥ 0.88) | 0.8800 → 0.8785 (≥ 0.93) **re-pinned** |
+| `checkerboard__rrect-md__rest` | dom | 0.8819 → 0.8963 (≥ 0.90) ratchet | 0.9055 → 0.9169 (≥ 0.92) ratchet |
+| `checkerboard__rrect-ml__rest` | dom | 0.7929 → 0.8481 (≥ 0.90) ratchet | 0.8468 → 0.8765 (≥ 0.92) ratchet |
+| `checkerboard__glass-over-glass__rest` | dom | 0.8069 → 0.8499 (≥ 0.90) ratchet | 0.8454 → 0.8687 (≥ 0.92) ratchet |
+| `checkerboard__rrect-lg__rest` | dom | 0.6850 → 0.8372 (≥ 0.90) ratchet | 0.7970 → 0.8696 (≥ 0.92) ratchet |
+
+The structure the floors measure, read through the mask (interior
+standard deviation, web against native, 1x): the GPU tier now sits on the
+reference at every span — `rrect-lg` 0.102 → 0.064 against 0.065,
+`rrect-ml` 0.102 → 0.082 against 0.087, `rrect-md` 0.103 → 0.099 against
+0.113, the nested cell 0.132 → 0.123 against 0.132 — where before G1 it
+carried a size-invariant 0.10. The texture-tier interior means did not
+move (≤ 0.0008 on every cell): the law rides structure only, as declared.
+
+§5.41 §4's dry run predicted 0.926 / 0.883 / 0.870 for the 1x texture
+`rrect-md` / `rrect-ml` / `rrect-lg`; the bed reads 0.927 / 0.896 / 0.893.
+The dry run replaced the deep body only; the landed law also runs under
+the rim band and the outside band, and those windows moved with it.
+`rrect-lg` — the holdout, excluded from the fit — meets by 0.013.
+
+#### 4. The 2x rows: the predicted crossing, and the decision
+
+§5.41 §5 predicted `rrect-md` 0.927 → 0.925 and `rrect-ml` 0.889 → 0.884
+at 2x; the bed reads 0.9266 → 0.9234 and 0.8893 → 0.8810, and the two
+holdout rows go with them (`glass-over-glass` 0.8948 → 0.8896, `rrect-lg`
+0.8800 → 0.8785). Every 2x dom row rose, by 0.011–0.073. The 2x
+reference's interior is one moderate Gaussian with no sharp leak (§5.41
+§5), and the law that reproduces the 1x reference over-resolves it on the
+texture tier by these amounts. Decision Log 4 made the crossing a stop;
+the user's decision on it (W11 Decision Log 5): **adopt G1 and re-pin the
+four floors at the new measurements**, the claim on these rows narrowed to
+the 1x bed until a Retina capture exists (the 2x bed was captured on a
+virtual HiDPI display, §6.2). The alternative — holding G1 back — would
+have surrendered three met floors and every dom improvement against four
+regressions under 0.01.
+
+#### 5. The CSS tier: measured, and the contract narrowed (gate G3)
+
+The dom rows rose everywhere and meet nowhere. The measurement behind
+that, on the probe bed (native 1x, pitches 8 / 16 / 32 / 64, level and
+transmission free per span, shared across pitches):
+
+| span | `kScatter` | GPU law RMS | CSS σ today (mixed) | its RMS | best single σ | its RMS |
+| --- | --- | --- | --- | --- | --- | --- |
+| 32 | 0.400 | 0.0280 | 4.75 | 0.0708 | 2.25 | 0.0519 |
+| 44 | 0.405 | 0.0281 | 4.79 | 0.0784 | 1.50 | 0.0192 |
+| 96 | 0.519 | 0.0138 | 5.79 | 0.0615 | 2.00 | 0.0333 |
+| 128 | 0.636 | 0.0148 | 6.82 | 0.0491 | 2.50 | 0.0361 |
+| 160 | 0.764 | 0.0174 | 7.93 | 0.0376 | 6.00 | 0.0342 |
+
+One Gaussian cannot be both sharp and faint the way the reference's two
+components are (§5.41 §1): at the CSS tier's own transmission a sharp σ
+renders the checker too strong (the pre-G1 state, σ 3.0 / t 0.56, SSIM
+0.882 on `rrect-md`) and the mixed σ renders it too soft (today, 0.896;
+interior standard deviation 0.069 against the reference's 0.113 on
+`rrect-md`, 0.026 against 0.065 on `rrect-lg`). The best single σ halves
+the residual on the probe and stays 2–3× the GPU law's; a dry run at the
+reference's own transmission lifts `rrect-md` dom to 0.910, but the tier
+does not own that transmission and the number is an upper bound. Two
+side-effects of the softer blur are on the record: the CSS tier's interior
+mean on the checkerboard cells fell by 0.008–0.012 (`rrect-lg` 0.644 →
+0.632 against the reference's 0.707 — an encoded-space `blur()` moves the
+linear mean with its σ on a black-and-white plate; §5.40's ΔE-mean on the
+same cells still improved, by 0.003–0.015), and the five `hc-text` cells
+that moved (X3's out-of-class scan: GPU +0.007 / +0.008, CSS −0.013 /
+−0.027 at 1x, all inside bounds; `hc-text__rrect-md` dom reads 0.9029
+against ≥ 0.90) are the same fact on text.
+
+**What Chromium can do.** Two sibling elements over the same backdrop —
+the first at `backdrop-filter: blur(1.25px)`, the second at `blur(9.92px)`
+with `opacity: 0.4` — render 0.6·G₁.₂₅ + 0.4·G₁₀ of the backdrop to RMS
+0.0011 in encoded luma (a third of a code value; the mix is taken in
+encoded sRGB, as `blur()` itself is). The same second layer as a **child**
+of the first renders the first alone: a nested `backdrop-filter` under a
+filtered parent is inert. So the law is expressible in CSS, but only as a
+second layer drawn after the sharp one and under the host's content —
+which is not the tier's in-place, no-proxy form (`css-tier.ts`: the filter
+sits on the host element itself and nothing is layered) and puts the rim's
+painting order in question. And the dom rows' deficit after the body is
+the rim band (§5.38 §2), which no CSS form carries.
+
+**Decided (user, W11 Decision Log 5).** G3 narrows the claim: the CSS
+tier's body is the law's single-blur form at the mixed σ, the dom floors
+ratchet to the new measurements, and the two-layer form is chartered as
+deferred work with the evidence above (W11 spec, Deferred). The dom rows'
+adopted bounds stay as claims the tier does not meet.
+
+#### 6. What changed on the tiers
+
+Renderer: `sizeScatterFloor` and `sizeScatterSpanMax` on the material
+identity; the aux channel carries the surface's span, and both curves
+(`sizeThickness` for the lens, the occlusion and the inner shadow;
+`scatterThickness` for the body mix) are computed per pixel in the optics
+and highlight passes from uniforms; the heavy tap's LOD is
+`log2(sizeScatterGainMax)` above the body's. CSS tier: `scatterThickness`
+drives `blur()`'s σ and `sizeThickness` the occlusion alpha — the two
+facets no longer share one curve. Five goldens re-recorded
+(`refraction-checkerboard`, `lens-size-scaling`, `rim-two-references`,
+`concentric-nesting`, `union-pair`), the isolation hashes attributed: the
+two checkerboard scenes carry the delta, the gradient scenes move by at
+most one code value, the flat and unsampled scenes are byte-identical.
+`sizeThickness` and the lens, occlusion and W9 rows are untouched, and the
+solid and photo levels in §2 say so.
 
 ## 6. What could not be measured, and why
 

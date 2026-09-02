@@ -120,15 +120,28 @@ export interface OpticsPassArgs {
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
   /**
-   * The size law's gains (W2), applied per pixel against the field pass's
-   * `sizeK` channel. `bodyChainLod` is not a gain but the chain level whose blur
-   * already matches the body texture — the origin the scattering term measures
-   * its extra octaves from, which only the pyramid that built the body knows.
+   * The size law's gains (W2), applied per pixel against the thickness the
+   * shader evaluates from the field pass's span channel. `bodyChainLod` is not
+   * a gain but the chain level whose blur already matches the body texture —
+   * the origin the scattering term measures its extra octaves from, which only
+   * the pyramid that built the body knows.
    */
   readonly sizeScatterGainMax: number;
   readonly sizeOcclusionGain: number;
   readonly sizeShadowGainMax: number;
   readonly bodyChainLod: number;
+  /**
+   * The size law's curves (W11c): the thickness band and the scatter facet's
+   * own floor and band top, plus the accessibility fold every span-dependent
+   * rise multiplies by — the refraction ladder at the preference's cap, the
+   * same factor `sizeThicknessUnderPolicy` applies on the CPU. The shader
+   * evaluates both curves per pixel from the span the field pass carries.
+   */
+  readonly sizeSpanMin: number;
+  readonly sizeSpanMax: number;
+  readonly sizeScatterFloor: number;
+  readonly sizeScatterSpanMax: number;
+  readonly sizeFold: number;
   /**
    * Backdrop tone adaptation (W7): `[low, high, sizeBiasUnderPolicy, strength]`.
    *
@@ -211,6 +224,13 @@ export interface HighlightPassArgs {
    */
   readonly backdropTone: readonly [number, number, number, number];
   readonly backdropToneLevel: number;
+  /**
+   * The thickness band and the accessibility fold (W11c), so this pass evaluates
+   * the size curve off the per-pixel span exactly as the optics pass does.
+   */
+  readonly sizeSpanMin: number;
+  readonly sizeSpanMax: number;
+  readonly sizeFold: number;
   /**
    * The rect the FIELD textures were rasterised into, which since W8 is bigger
    * than `rectDevice`.
@@ -453,7 +473,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 72);
+      const slot = uniformSlot(`optics:${args.groupId}`, 76);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -482,7 +502,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[24] = args.tintShade[0];
       d[25] = args.tintShade[1];
       d[26] = args.tintShade[2];
-      d[27] = 0;
+      d[27] = args.sizeFold;
       d[28] = args.rimWidth;
       d[29] = args.rimAlpha;
       d[30] = args.specularPower;
@@ -532,6 +552,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[69] = args.backdropToneResponseThick[1];
       d[70] = args.backdropToneResponseThick[2];
       d[71] = 0;
+      d[72] = args.sizeScatterFloor;
+      d[73] = args.sizeScatterSpanMax;
+      d[74] = args.sizeSpanMin;
+      d[75] = args.sizeSpanMax;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -594,9 +618,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[22] = args.backdropTone[2];
       d[23] = args.backdropTone[3];
       d[24] = args.backdropToneLevel;
-      d[25] = 0;
-      d[26] = 0;
-      d[27] = 0;
+      d[25] = args.sizeSpanMin;
+      d[26] = args.sizeSpanMax;
+      d[27] = args.sizeFold;
       /*
        * This pass's uv into the field texture's uv (W8). The field rect is the
        * one the shadow needs; this pass is scoped to the one the surface needs,

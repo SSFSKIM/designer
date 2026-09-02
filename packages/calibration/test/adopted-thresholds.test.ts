@@ -439,8 +439,21 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // the orange tint sat over the photo's own orange. W11b (claims §5.40) gave
   // the extractor a chroma arm and REMOVED them: the cell reads IoU 1.000 and
   // contour 0 / 0 under the declared rule, the claims restored in §5.27.
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.88261, floor: 0.8816 },
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90582, floor: 0.9048 },
+  // W11c G1 (claims §5.42; W11 Decision Log 5, user decision 2026-09-03)
+  // REMOVED three floors here — the 1x texture-tier ssimMean rows on
+  // checkerboard rrect-ml, glass-over-glass and rrect-lg (0.862 / 0.880 /
+  // 0.823 → 0.896 / 0.899 / 0.893 against ≥ 0.88) — because the body is now
+  // the reference's two-component law (a sharp σ 1.25 body mixed toward a
+  // σ 10 scatter). Their claims are restored in §5.27. The eight dom-tier
+  // rows below RATCHET UP by 0.011–0.152 (the CSS tier's one blur() runs at
+  // the law's mixed σ and cannot carry its sharp component; the claim is
+  // narrowed to that form, §5.42 §5). The four 2x texture-tier rows RE-PIN
+  // DOWN by 0.0015–0.0083: the law is fitted at 1x and the 2x reference is
+  // a different object (§5.41 §5); the crossing was the dry run's own
+  // prediction and is accepted by decision, the claim narrowed to the 1x bed
+  // until a Retina capture exists.
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.89628, floor: 0.8952 },
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91695, floor: 0.9159 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
   // floors on the checkerboard rrect-lg/ml cells, each DOWN by 0.0002–0.0072:
   // the response-curve law lands the interior MEAN on the reference and pays
@@ -448,24 +461,20 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // that bought the six restored claims above, not a regression that slipped.
   // The SSIM axis on these cells is re-attributed to a structure round the
   // W9 spec's Deferred charters; the floors keep ratcheting from here.
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.79293, floor: 0.7919 },
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84682, floor: 0.8458 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.80784, floor: 0.8068 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.84598, floor: 0.8449 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.68498, floor: 0.6839 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.79697, floor: 0.7959 },
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92665, floor: 0.9256 },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86201, floor: 0.861 },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88968, floor: 0.8886 },
-  // W11a (claims §5.39) RATCHETED these two UP (0.84092 → 0.87961, 0.87624 →
-  // 0.89482): the nested cell's upper pane now composites over the base glass
-  // and the texture-tier SSIM improved without reaching its bound (0.88 / 0.93).
-  // The remainder is the base pane's interior structure, W11c's. The dom-tier
-  // pair on the same cell is byte-unchanged — the CSS tier was never the defect.
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87961, floor: 0.8786 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.89482, floor: 0.8938 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.82327, floor: 0.8222 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88002, floor: 0.879 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.84806, floor: 0.847 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87649, floor: 0.8754 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.8499, floor: 0.8489 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86872, floor: 0.8677 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.83717, floor: 0.8361 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.8696, floor: 0.8686 },
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92342, floor: 0.9224 },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88104, floor: 0.88 },
+  // W11a (claims §5.39) RATCHETED the nested cell's two texture rows UP once
+  // its upper pane composited over the base glass (0.84092 → 0.87961,
+  // 0.87624 → 0.89482); W11c G1 (claims §5.42) MET the 1x row and re-pinned
+  // the 2x one with the rest of the 2x family above.
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88958, floor: 0.8885 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87855, floor: 0.8775 },
 };
 
 /**
@@ -475,9 +484,10 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * rows on a cell the predicate newly admits (claims §5.37); 17 after W11a
  * restored the six nested-glass rows the unrendered upper pane had floored
  * (claims §5.39); 15 after W11b's chroma arm closed the hole those two contour
- * rows were pinned on (claims §5.40).
+ * rows were pinned on (claims §5.40); 12 after W11c's body law met the three
+ * 1x texture-tier structure rows (claims §5.42).
  */
-const UNMET_ROWS = 15;
+const UNMET_ROWS = 12;
 
 /*
  * ---------------------------------------------------------------------------

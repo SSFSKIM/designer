@@ -24,10 +24,13 @@
  * size is more opaque. A smaller size is clearer" (S284) — so this pass reads one
  * per-pixel number and applies four gains to it.
  *
- * The number is `aux.z`, `material.ts`'s `sizeThickness(span)`, resolved per
- * surface on the CPU and carried **per pixel** through the field pass's union.
- * That is what lets a 40 px button and a 320 px platter share one group's field
- * pass and still read as different thicknesses. The lens's share of it arrives
+ * The number is `aux.z`, the surface's span in CSS px, carried **per pixel**
+ * through the field pass's union; this pass evaluates `material.ts`'s
+ * `sizeThickness(span)` from it, and — since W11c — the scatter facet's own
+ * curve beside it (`scatterThickness`: a floor and a band top past
+ * `sizeSpanMax`, measured on the reference's two-component interior). That is
+ * what lets a 40 px button and a 320 px platter share one group's field pass
+ * and still read as different thicknesses. The lens's share of it arrives
  * pre-folded, because it is a length rather than a gain:
  *
  * ```
@@ -36,8 +39,10 @@
  *
  * The clamp is what keeps a small control from being all lens: a 24 px-tall
  * button cannot bend more than 12 px of backdrop however thick it is authored.
- * The other three — scattering, occlusion, inner shadow — are applied below, each
- * multiplied by `sizeK`, so every one of them is exactly inert at `sizeK = 0`.
+ * The occlusion and the inner shadow are applied below, each multiplied by
+ * `sizeK`, so both are exactly inert at `sizeK = 0`; the scattering is applied
+ * by `kScatter`, whose floor keeps it at the material's own frost on a small
+ * control rather than at nothing.
  *
  * The displacement is the normal times a profile that peaks at the rim and dies in
  * the interior, where the glass is flat and shows the backdrop straight through.
@@ -71,7 +76,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// author tint seed, linear light (xyz), tone adaptation under the contrast regime (w)
   seed : vec4f,
   /// the author tint's shade law (W10): tintShadeDark, tintShadeLight,
-  /// tintShadeStrength (the profile's provenance gate), unused
+  /// tintShadeStrength (the profile's provenance gate); and (w) the size law's
+  /// accessibility fold — the refraction ladder read at the preference's cap,
+  /// which every facet's span-dependent rise is multiplied by (W11c)
   tone : vec4f,
   /// rimWidthPx, rimAlpha, specularPower, specularGain
   rim : vec4f,
@@ -113,6 +120,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   toneRowThin : vec4f,
   /// the thick row (sizeThickness saturated), same layout
   toneRowThick : vec4f,
+  /// the size law's bands (W11c): the scatter facet's floor (x) and its own
+  /// band top (y), and the thickness curve's sizeSpanMin (z) and sizeSpanMax
+  /// (w) — both curves start at z; the fold they multiply by is tone.w
+  scatter : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -234,7 +245,14 @@ fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
   // the remaining transparency in LINEAR light ('sizeOuterShadowOcclusionAt'),
   // and (1 - occ) is exactly what raising to 1/2.4 turns into (1 - alpha), so the
   // two forms are the same law and neither needs the other's space.
-  let sizeK = clamp(shadowAux.z, 0.0, 1.0);
+  // The thickness curve off the casting surface's span (W11c: the span rides
+  // the field), written as the body's own is below.
+  let castT = clamp(
+    (shadowAux.z - ou.scatter.z) / max(ou.scatter.w - ou.scatter.z, 1e-6),
+    0.0,
+    1.0,
+  );
+  let sizeK = clamp(castT * castT * (3.0 - 2.0 * castT) * clamp(ou.tone.w, 0.0, 1.0), 0.0, 1.0);
   let sizeFold = pow(max(1.0 - ou.shadowSize.x * sizeK, 0.0), 1.0 / 2.4);
   let alpha = 1.0 - (1.0 - ou.shadow.x) * sizeFold;
 
@@ -282,10 +300,27 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
 
   // Per-pixel, unioned through the field pass. See the module note.
   let lensDepth = max(aux.x, 1e-4);
-  // The size law's thickness factor for whichever surface owns this pixel, 0..1.
-  // Zero on anything at or below the profile's 'sizeSpanMin', and every term
-  // below multiplies by it — so a small control takes the pre-law path exactly.
-  let sizeK = clamp(aux.z, 0.0, 1.0);
+  // The size law's two curves off the span of whichever surface owns this pixel
+  // (W11c). 'sizeK' is the thickness factor, 0..1: zero on anything at or below
+  // the profile's 'sizeSpanMin', saturated at 'sizeSpanMax', folded under the
+  // preference — the occlusion, the inner shadow and the tone response multiply
+  // by it, so a small control takes the pre-law path exactly. 'kScatter' is the
+  // scatter facet's own mix, floor + (1 - floor) · smoothstep to
+  // 'sizeScatterSpanMax' · fold: the floor is the material's frost at any size
+  // and is not folded, the rise is depth and is. Both written out as
+  // smoothsteps with a guarded denominator, so a profile that collapses a band
+  // degrades to a step rather than to NaN.
+  let span = aux.z;
+  let fold = clamp(ou.tone.w, 0.0, 1.0);
+  let thickT = clamp((span - ou.scatter.z) / max(ou.scatter.w - ou.scatter.z, 1e-6), 0.0, 1.0);
+  let sizeK = clamp(thickT * thickT * (3.0 - 2.0 * thickT) * fold, 0.0, 1.0);
+  let scatterFloor = clamp(ou.scatter.x, 0.0, 1.0);
+  let scatterT = clamp((span - ou.scatter.z) / max(ou.scatter.y - ou.scatter.z, 1e-6), 0.0, 1.0);
+  let kScatter = clamp(
+    scatterFloor + (1.0 - scatterFloor) * scatterT * scatterT * (3.0 - 2.0 * scatterT) * fold,
+    0.0,
+    1.0,
+  );
   // '-d' is depth inside the surface, so the profile runs 1 at the contour to 0
   // at 'lensDepth' inward, and the square makes the falloff read as curvature
   // rather than as a linear ramp.
@@ -307,13 +342,14 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * The body texture is one blur for the whole backdrop source — it is built once
    * per source per frame, so it cannot be per-surface. The chain beside it can:
    * 'size.w' is the chain level whose blur already matches that body, so
-   * 'size.w + log2(scatterGain)' is the level whose blur is 'scatterGain' times
-   * wider, and lerping the body toward it by 'sizeK' widens the kernel with the
-   * surface. At sizeK = 0 the weight is zero and the body sample stands alone,
-   * which is what makes the whole facet inert on a small control.
+   * 'size.w + log2(sizeScatterGainMax)' is the level whose blur is the gain times
+   * wider — the HEAVY component, at one fixed level — and lerping the body toward
+   * it by 'kScatter' is what the reference's interior measures (W11c, claims
+   * §5.41): a sharp component near the body's σ and a heavy one near σ 10, mixed
+   * by a share that is ≈ 0.4 on a small control and rises with the span. The
+   * mix, not the level, is what the span moves.
    */
-  let scatterGain = 1.0 + (ou.size.x - 1.0) * sizeK;
-  let scatterLod = clamp(ou.size.w + log2(max(scatterGain, 1e-4)), 0.0, ou.lens.w);
+  let scatterLod = clamp(ou.size.w + log2(max(ou.size.x, 1e-4)), 0.0, ou.lens.w);
 
   var backdrop = vec3f(0.0);
   if (ou.flags.x > 0.5) {
@@ -325,7 +361,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // the glass.
     let lensColour = lensSample.rgb / max(lensSample.a, 1e-6);
     let scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
-    let bodyColour = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, sizeK);
+    let bodyColour = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
     backdrop = mix(bodyColour, lensColour, profile);
   }
 

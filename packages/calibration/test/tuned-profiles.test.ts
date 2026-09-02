@@ -78,6 +78,9 @@ const FITTED_CONSTANTS = [
   "sizeScatterGainMax",
   "sizeOcclusionGain",
   "sizeShadowGainMax",
+  // W11c's scatter curve — the facet's own floor and band top (claims §5.41)
+  "sizeScatterFloor",
+  "sizeScatterSpanMax",
   // W3's tint tone map
   "tintShadeDark",
   "tintShadeLight",

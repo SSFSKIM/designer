@@ -45,7 +45,10 @@ export const WGSL_HIGHLIGHT_PASS = `struct HighlightUniforms {
   /// accessibility refraction cap, and the resolved strength — zero where there
   /// is no measured backdrop tone, which stands the fade down
   toneAdapt : vec4f,
-  /// the backdrop source's own average luminance (x); yzw unused
+  /// the backdrop source's own average luminance (x), and the size law's band
+  /// and fold — sizeSpanMin (y), sizeSpanMax (z), the accessibility fold (w) —
+  /// so this pass evaluates the thickness curve off the per-pixel span exactly
+  /// as the optics pass does (W11c: the span rides the field, not the factor)
   toneLevel : vec4f,
   /// this pass's uv into the FIELD texture's uv: scale (xy), offset (zw).
   ///
@@ -125,7 +128,14 @@ fn fs_highlight(in : FullscreenOut) -> @location(0) vec4f {
    * around a surface the optics pass had made invisible — measured at 60 pixels
    * past 2/255, peaking at 97/255, on exactly that cell.
    */
-  let sizeK = clamp(aux.z, 0.0, 1.0);
+  // The thickness curve off the per-pixel span, written out as the optics pass
+  // writes it, so the two passes fade on one curve and not on two copies.
+  let spanT = clamp(
+    (aux.z - hu.toneLevel.y) / max(hu.toneLevel.z - hu.toneLevel.y, 1e-6),
+    0.0,
+    1.0,
+  );
+  let sizeK = clamp(spanT * spanT * (3.0 - 2.0 * spanT) * hu.toneLevel.w, 0.0, 1.0);
   var toneAdapt = 0.0;
   if (hu.toneAdapt.w > 0.0) {
     let toneX = hu.toneLevel.x + hu.toneAdapt.z * sizeK;

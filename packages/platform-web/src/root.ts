@@ -105,6 +105,7 @@ import {
   resolvedBackdropToneResponse,
   resolvedPolicyFold,
   resolvedTintShade,
+  scatterThickness,
   sizeScatterSigmaAt,
   sizeThickness,
   sizeOcclusionAlphaAt,
@@ -1207,7 +1208,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         mergeDistance: groupRecord.descriptor.mergeDistance,
         blurRadius: sizeScatterSigmaAt(
           optics.blurRadius,
-          sizeThicknessUnderPolicy(groupSpanPx, accessibility.material, sizeConstants),
+          scatterThickness(
+            groupSpanPx,
+            sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
+            sizeConstants,
+          ),
           sizeConstants,
         ),
       });

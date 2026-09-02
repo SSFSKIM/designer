@@ -37,6 +37,7 @@ import {
   sizeOcclusionAlphaAt,
   sizeScatterSigma,
   sizeScatterSigmaAt,
+  scatterThickness,
   sizeShadowDepth,
   sizeShadowDepthAt,
   sizeThickness,
@@ -55,6 +56,11 @@ const GAINED: MaterialProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, 
   sizeSpanMax: 200,
   lensSizeGainMax: 3,
   sizeScatterGainMax: 2.5,
+  // The scatter facet's own curve (W11c) collapsed onto the thickness band, so
+  // the "one curve" properties below still test every facet on one band; the
+  // floor and the separate top get their own describe further down.
+  sizeScatterFloor: 0,
+  sizeScatterSpanMax: 200,
   sizeOcclusionGain: 0.4,
   sizeShadowGainMax: 1.8,
   outerShadow: { sizeGain: 0.6 },
@@ -307,6 +313,51 @@ describe("the occlusion facet composes with the accessibility lift", () => {
   });
 });
 
+describe("the scattering facet's own curve (W11c)", () => {
+  // The measured shape: a floor at small spans, a band top past the thickness
+  // curve's, and a fold that reaches the rise and not the floor.
+  const OWN: MaterialProfile = withMaterialOverrides(GAINED, {
+    sizeScatterFloor: 0.4,
+    sizeScatterSpanMax: 400,
+  });
+
+  it("starts at the floor below the band, not at zero", () => {
+    expect(scatterThickness(0, 1, OWN)).toBeCloseTo(0.4, 12);
+    expect(scatterThickness(OWN.sizeSpanMin, 1, OWN)).toBeCloseTo(0.4, 12);
+    expect(sizeScatterSigma(8, OWN.sizeSpanMin, OWN)).toBeCloseTo(8 * (1 + 1.5 * 0.4), 12);
+  });
+
+  it("keeps rising past the thickness curve's top and saturates at its own", () => {
+    // sizeSpanMax is 200 here; the thickness curve is done, the scatter is not.
+    expect(sizeThickness(200, OWN)).toBe(1);
+    expect(scatterThickness(200, 1, OWN)).toBeLessThan(1);
+    expect(scatterThickness(300, 1, OWN)).toBeGreaterThan(scatterThickness(200, 1, OWN));
+    expect(scatterThickness(400, 1, OWN)).toBeCloseTo(1, 12);
+    expect(scatterThickness(4000, 1, OWN)).toBeCloseTo(1, 12);
+    expect(sizeScatterSigma(8, 4000, OWN)).toBeCloseTo(8 * OWN.sizeScatterGainMax, 12);
+  });
+
+  it("folds the rise under a preference and never the floor", () => {
+    expect(scatterThickness(4000, 0, OWN)).toBeCloseTo(0.4, 12);
+    expect(scatterThickness(4000, 0.5, OWN)).toBeCloseTo(0.4 + 0.6 * 0.5, 12);
+    expect(scatterThickness(OWN.sizeSpanMin, 0, OWN)).toBeCloseTo(0.4, 12);
+  });
+
+  it("collapses onto the thickness curve when the profile says so", () => {
+    for (const span of SPANS) {
+      expect(scatterThickness(span, 1, GAINED)).toBeCloseTo(sizeThickness(span, GAINED), 12);
+    }
+  });
+
+  it("leaves the thickness curve, and every facet on it, untouched", () => {
+    for (const span of SPANS) {
+      expect(sizeThickness(span, OWN)).toBe(sizeThickness(span, GAINED));
+      expect(lensSizeGain(span, OWN)).toBe(lensSizeGain(span, GAINED));
+      expect(sizeOcclusionAlpha(0.5, span, OWN)).toBe(sizeOcclusionAlpha(0.5, span, GAINED));
+    }
+  });
+});
+
 describe("the scattering facet reaches the chain the optics pass samples", () => {
   it("names the level whose blur is the σ asked for, continuously", () => {
     expect(chainLodForSigma(0)).toBe(0);
@@ -369,12 +420,17 @@ describe("the law reaches the shader per surface, not per group", () => {
     expect(platter?.lensDepthPx).toBeGreaterThan(button?.lensDepthPx as number);
   });
 
-  it("packs the thickness where the field pass reads it", () => {
+  it("packs the span where the field pass reads it, so the shader evaluates both curves", () => {
+    // W11c: the slot used to carry the folded thickness; it carries the span now,
+    // because the scatter facet's curve has a band top the thickness curve does
+    // not, and only the span can be evaluated on both.
     const resolved = resolveSurfaces(group, "rsupn", GAINED);
     const packed = packInstances(resolved, [0, 0]);
     for (const [index, surface] of resolved.entries()) {
-      expect(packed.data[index * INSTANCE_FLOATS + 16]).toBeCloseTo(surface.sizeThickness, 6);
+      expect(packed.data[index * INSTANCE_FLOATS + 16]).toBeCloseTo(surface.spanPx, 6);
     }
+    expect(resolved.find((s) => s.nodeId === "button")?.spanPx).toBe(40);
+    expect(resolved.find((s) => s.nodeId === "platter")?.spanPx).toBe(280);
   });
 
   it("still clamps the lens to the shorter half extent, however thick it is authored", () => {

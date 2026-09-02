@@ -283,3 +283,33 @@ better off either way.
 re-export policy's type as the identity it already is and confirm the two
 resolve to one declaration in the emitted `.d.ts` — a build-output check, not a
 source change.
+
+## Ten `vitrea-web` chromium e2e cases fail at HEAD with nominal system settings
+
+*Found 2026-09-03, during W11c G1's verification (the worker reproduced all ten
+by stashing the change; the seven padding/proxy cases were already failing in
+W11a's run on 2026-09-02).* System `reduceTransparency` and `increaseContrast`
+both read 0, so this is not the entry above.
+
+- Seven still expect the CSS tier's blur from before the 2026-08-31 refit
+  (σ = 8, padding 24): `e2e/shared/accessible-padding.spec.ts` (four cases:
+  "and it still fires where the leak is real…", "the geometry really is at
+  the floor…", "an author's own padding keeps their number…", "nothing moves
+  at the nominal state…"), `e2e/shared/overlap.spec.ts` ("reports an overlap
+  that only the 3σ floor creates") and `e2e/shared/proxies.spec.ts` ("raises
+  a padding below 3σ of the group's blur…", "emits both spellings of the
+  filter"). The fix is to derive their expected numbers from the resolved
+  material (`requiredSamplingPadding(cssTierOptics().regular.blurRadius)` and
+  the scatter-widened σ at the surface's span since W11c) rather than from
+  literals.
+- Three pixel cases read identical values at HEAD and after W11c:
+  `e2e/pixel/backdrop-tone-pixels.spec.ts` ("an ordinary backdrop moves
+  nothing at all" reads 0.773 where it expects no movement; "the response
+  across the transition is continuous and monotone" reads 0.666) and
+  `e2e/pixel/tint-pixels.spec.ts` ("stays glass — the backdrop still varies
+  through a tinted surface", spread 0). Unattributed; they need their own
+  read against the W9/W10 laws (the tone response and the opaque tint both
+  moved what these assert on) before anything is re-recorded.
+
+The `chromium-gpu` project (nine cases) and the renderer's golden/gpu suites
+are green; these ten are the CSS-tier project only.

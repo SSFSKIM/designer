@@ -237,7 +237,44 @@ const W11A_HASHES: Readonly<Record<string, string>> = {
   "field-mask": "06473282f886a2ecc81f19c257bd515e",
 };
 
+/**
+ * Five goldens after W11c G1, the body law (2026-09-03) — re-recorded with the
+ * attribution the file asks for, and the first re-baseline whose delta is NOT
+ * expressible through the profile seam.
+ *
+ * W11c changed the FORM of the interior, not a constant of it. Before, the body
+ * was mixed toward a heavier sample whose mip level itself rose with the
+ * thickness (`log2(1 + (gain − 1) · sizeK)`), so a small control had no heavy
+ * component at all. The reference's interior is a sharp component plus a heavy
+ * one at every span (claims §5.38 §4), so the heavy tap now sits at the full
+ * gain and the scattering facet has its OWN curve — a floor at any span and a
+ * band top past the thickness band (`sizeScatterFloor`, `sizeScatterSpanMax`) —
+ * with `blurSigma` 3 → 1.25 and the gain 1 → 8 refitted around it. No patch
+ * over the new shader can reproduce the old one: the old form has no floor to
+ * name and ties the heavy tap's level to the thickness, which the new form does
+ * not. So `PRE_C9A_PROFILE` stays what it is and these five hashes are the new
+ * pins, taken in the same run as the isolation below.
+ *
+ * The attribution is in which scenes did NOT move. The law is a blur of what is
+ * behind the glass, so it can move only structure: the two checkerboard scenes
+ * carry the delta (`refraction-checkerboard` max 10 / mean 0.65 code values
+ * against the committed goldens, `lens-size-scaling` max 4 / mean 0.37), the
+ * three gradient scenes move by at most ONE code value (a Gaussian over a linear
+ * ramp is the ramp), and the four that have no structure to blur — the two flat
+ * `tint-adaptation-*` backdrops and the two unsampled scenes, `field-mask` and
+ * `highlight-press-glow` — reproduce their hashes byte-for-byte. The control has
+ * still not moved once since 2026-08-25.
+ */
+const W11C_HASHES: Readonly<Record<string, string>> = {
+  "refraction-checkerboard": "2f64282dbe199da49a2eccfcfd12e989",
+  "lens-size-scaling": "0f5fdbd3664b1f8e04150d45328161c8",
+  "rim-two-references": "220b7249d17570bf343050330178bc05",
+  "concentric-nesting": "e48ffeaa324370afd0a5cdf89b8ff64c",
+  "union-pair": "8e2df1d44ab52baeb9a3307b8aa5f97e",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W11C_HASHES[name] ??
   W11A_HASHES[name] ??
   POST_WAVE_HASHES[name] ??
   PRE_W8_HASHES[name] ??

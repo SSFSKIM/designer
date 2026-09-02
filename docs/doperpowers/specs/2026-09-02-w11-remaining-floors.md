@@ -251,7 +251,10 @@ by construction.
     ≈ 0.91–0.92 against 0.90), the holdout dom rows are held by decision
     under the refraction contract with the claim narrowed in writing. If
     they do not, the child opens a decision round on a CSS-tier lens
-    approximation versus narrowing, with the measured gap.
+    approximation versus narrowing, with the measured gap. **Decided at
+    G1's referee (Decision Log 5): narrowed** — the CSS body is the law's
+    single-blur form; the two-layer form Chromium can render is deferred
+    with its evidence.
 - **Edges:** blocked-by: W11b (referee only; the fit may start on the
   current masks); blocks: recomposition.
 - **Contracts:** X1, X2, X3, X4 (consumer).
@@ -262,8 +265,8 @@ by construction.
   or a device-pixel term — the latter overturns "lengths in points" and
   needs its own decision).
 - **Required:** G1 and G2 required; G3 conditional as stated.
-- **Status:** not-dispatched (dispatchable now for the fit; referee waits on
-  W11b).
+- **Status:** in-flight — G1 LANDED 2026-09-03 (claims §5.42; Decision
+  Log 5), G3 decided there; G2 (the GPU lens band) in flight.
 
 ## Cross-Child Contracts
 
@@ -316,6 +319,22 @@ not the mask); its referee waits for W11b.
 
 ## Deferred / Out of Scope
 
+**Chartered, deferred (Decision Log 5) — the two-layer CSS body.** Give
+the CSS tier the two-component law as a second `backdrop-filter` layer:
+a sibling drawn after the sharp layer at σ_b·√(gain² − 1) with `opacity`
+= `kScatter` (the sharp layer at σ_b; the composition σ is the law's σ_b·
+gain), the host's tint, rim and content painted above both. Evidence:
+§5.42 §5 (the sibling form reproduces the mix to RMS 0.0011 in Chromium;
+the child form is inert; `css-tier.ts`'s in-place doctrine and the rim's
+painting order are the design questions). Acceptance sketch: the dom
+checkerboard interiors read the GPU tier's structure (standard deviation
+within 0.01 of native at every span), the dom checkerboard means recover
+their pre-G1 level, `hc-text` dom rows recover their pre-G1 SSIM, and no
+tier-coherence test loosens; the two constants stay shared (K5). Cost the
+charter must weigh: two backdrop blurs per surface at the CSS tier;
+WebKit's handling of `opacity` on a `backdrop-filter` element is
+unmeasured.
+
 **Deferred (may return):** the outside band's contour-straddling loss
 (measured, not attributed; the shadow amplitude is right); the 2x
 reference's non-Gaussian interior structure (the 2x bed has no probe
@@ -335,7 +354,7 @@ only W11c's referee captures the web side).
 | --- | --- | --- |
 | W11a | LANDED 2026-09-02 — claims §5.39; the optics pass's unsampled path writes a premultiplied layer at the host's compositing-space pair (`unsampledMaterial`, the CSS tier's alpha on the renderer's tint); 6 floors MET and removed, 2 texture SSIM floors ratcheted up, 2 dom SSIM floors unchanged; enforced count 17; 248/254 captures byte-identical, the 6 that differ are the nested GPU cells | landed |
 | W11b | LANDED 2026-09-02 — claims §5.40; the extractor's luminance rule gains an OKLab chroma arm (Δab ≥ 0.03, `--silhouette-chroma-threshold`), a strict superset declared before the bed-wide run; 0 stops, all 230 perceptual rows byte-identical, 23 cells leave the exclusion list and none join, the two W10 contour floors met and removed; enforced count 15; matrix re-measured from the captures on disk (no capture) | landed |
-| W11c | — | not-dispatched |
+| W11c | IN FLIGHT — **G1 LANDED 2026-09-03** (claims §5.41 declared, §5.42 refereed; Decision Logs 4–5): body σ 1.25, scatter gain 8, floor 0.40, scatter band top 256, fitted on the probe with `rrect-lg` held out; twelve-run referee, 0 stops outside the predicted 2x crossing; three 1x texture floors MET and removed, eight dom floors ratcheted up, four 2x texture floors re-pinned by decision; enforced count 12. **G3 decided:** the CSS claim narrowed, the two-layer CSS body deferred with evidence. **G2 in flight** | in-flight |
 
 ## Decision Log
 
@@ -433,8 +452,128 @@ W11c owns did not move (neutral over neutral), so W11c's fit is unaffected.
 
 **Close.** W11b landed on its acceptance; W11c is the last child.
 
+### Decision Log 4 — W11c opened: the body law's form, the 2x position, the order (2026-09-03; user-decided)
+
+**Evidence the round was decided on** (probe bed, native 1x, five spans ×
+four pitches; §5.41 carries the tables). In vitrea's own scatter form —
+`body = mix(G_σb, G_σb·gain, k)` — the reference is reproduced at RMS
+0.0169 (current model 0.0416) only when the mix has a **floor** (k ≈ 0.4 at
+spans ≤ 44) and its own band (k still rising at 160; best span max 256):
+body σ 1.25, heavy σ 10. The existing `sizeThickness` band (0 at 32,
+saturated at 96) reaches RMS 0.024 at best. The photo family improves under
+the same law (0.0153 → 0.0135). The 2x reference's interior is a different
+object — a moderate single Gaussian (σ 3 CSS px, t 0.41 on `rrect-md`) with
+no sharp leak — which vitrea's current model already nearly matches; the
+1x law moves two 2x texture rows slightly the wrong way in the dry run.
+
+**Decided (user, 2026-09-03):**
+
+1. **G1's form: the scatter facet gets its own curve.** Two new profile
+   constants, `sizeScatterFloor` and `sizeScatterSpanMax`, so
+   `kScatter = floor + (1 − floor)·smoothstep(sizeSpanMin, scatterSpanMax,
+   span)` (folded by the accessibility cap like every facet); `blurSigma`
+   is refit (K5: one number on both tiers); `sizeScatterGainMax` comes off
+   the identity. `sizeThickness` itself — and with it the lens, the
+   occlusion, the inner shadow and W9's thin/thick response rows — is
+   untouched and must read byte-identical on every solid and photo cell's
+   level. Rejected: reusing the existing band (cannot reach the floor;
+   `rrect-ml` texture stays 0.001 short); keeping σ 3 and widening only
+   (the reference's sharp component is near σ 1.25; RMS 0.026 at best).
+2. **The 2x position: fit at 1x, predict 2x, hold by decision.** The law
+   is fitted on the 1x probe alone. 2x rows that do not meet are held as
+   floors with the claim narrowed to the 1x bed until a Retina capture
+   exists; a 2x regression past a floor is a stop. Rejected: a device-pixel
+   law (overturns "lengths in points" and the 2x reference carries no leak
+   to fit); a separate 2x constant set (no 2x probe; three spans to fit on).
+3. **G1 then G2, separate capture-and-referee cycles**, for clean
+   attribution.
+
+**G1 declaration (written before the fit that lands).** Fit set: the probe
+bed's `checkerboard-{8,16,32,64}` × `{rrect-sm, capsule-button, rrect-md,
+rrect-ml}` (twenty native 1x cells); `rrect-lg` is holdout and excluded
+from the objective. Free: `blurSigma`, `sizeScatterGainMax`,
+`sizeScatterFloor`, `sizeScatterSpanMax`; per-cell level and transmission
+are nuisance parameters (other rounds' laws own them). Held: every other
+constant. Objective: RMS of linear luminance over the deep interior, joint
+across pitches within a span. Validation: the photo family's structure RMS
+must not rise; 2x by prediction. Referee: the twelve-run capture, whole-bed
+scan against the W11b-close matrix. **Stops:** any solid-backdrop cell
+moving by more than one code value; any photo cell leaving its bounds; any
+2x floor crossed; any dark-profile cell leaving its bounds.
+
+### Decision Log 5 — G1's referee: the 2x stop, the CSS tier, and the close (2026-09-03; user-decided)
+
+**Verdict.** Twelve runs, whole bed against the W11b close (claims §5.42).
+No declared stop fired outside the one the declaration predicted: solid
+and impulse cells unchanged, `photo` cells inside bounds (max ΔSSIM
+0.0033), dark cells inside bounds, no cell newly missing a bound, the
+exclusion list unchanged. Three 1x texture-tier floors MET (0.8963 /
+0.8987 / 0.8934 against 0.88; `rrect-lg` was the holdout) and removed;
+eight dom-tier floors rose by 0.011–0.152 and ratchet up; four 2x
+texture-tier floors crossed by 0.0015–0.0083. Enforced count 15 → 12.
+
+**Decided (user, 2026-09-03):**
+
+1. **The 2x stop: adopt G1 and re-pin the four 2x floors** at the new
+   measurements, the claim on those rows narrowed to the 1x bed until a
+   Retina capture exists. Rejected: holding G1 back (three met floors and
+   every dom improvement against four regressions under 0.01).
+2. **G3: narrow the claim, charter the two-layer CSS body as deferred
+   work.** Measured first (§5.42 §5): a single blur cannot be both sharp
+   and faint; the mixed σ the tier runs today is the worst single form on
+   the probe (RMS 0.049–0.078 against a best single σ at 0.019–0.052 and
+   the GPU law at 0.014–0.028); Chromium renders the two-component law
+   exactly as two sibling `backdrop-filter` layers with the heavy one's
+   `opacity` as the mix weight (RMS 0.0011), and not at all as a nested
+   child. Rejected for now: building the two-layer form inside W11c (it
+   changes the tier's in-place, no-proxy doctrine and the rim's painting
+   order, for an expected yield of about one dom floor, the rest of the
+   dom deficit being the rim band no CSS form carries); narrowing without
+   a charter (the evidence is fresh and the route is real).
+
+**Driver note (X1).** A cell's key carries its capture path, which names
+the material profile document; when the document's content changes the
+twelve runs append beside the previous rows instead of replacing them.
+`rm results/matrix.json` before the rebuild, or reduce to the newest cell
+per (profile, scene, tier) — the referee did the latter, the canonical
+rebuild at recomposition does the former.
+
+**Findings recorded, not acted on.** The CSS tier's checkerboard interior
+mean fell 0.008–0.012 (an encoded-space blur's mean moves with σ), and
+`hc-text__rrect-md` dom at 1x now reads 0.9029 against ≥ 0.90 — the
+nearest any gated row sits to its bound. Both belong to the deferred
+two-layer child.
+
 ## Surprises & Discoveries
 
+- **Chromium mixes a `backdrop-filter` layer by its opacity — and ignores
+  a nested one.** A second sibling layer with the heavy blur at `opacity:
+  0.4` over a sharp-blur sibling renders the exact 0.6 / 0.4 mix of the two
+  blurs (RMS 0.0011, encoded space); the same layer as a child of the
+  sharp one renders nothing of its own. The CSS tier can carry a
+  two-component body, but only as a sibling drawn after the host's own
+  filter — the fact the deferred charter is built on (§5.42 §5).
+- **The CSS tier's level on a structured backdrop moves with its σ.** A
+  `blur()` runs in encoded sRGB; on a black-and-white plate its linear
+  mean is a function of how much of the checker survives, so G1's softer
+  σ lowered the dom checkerboard interiors by 0.008–0.012 with no change
+  to any tint constant. The GPU tier, blurring in linear light, held its
+  means to 0.0008 (§5.42 §3, §5).
+
+- **The rim band is where the reference is smooth and vitrea is sharp.**
+  G2's first readings (2026-09-03, `w11c-lens*` in the job scratch): at
+  the 16 px pitch the reference's band inside the contour is a bright rim
+  of ≤ 3 px and then ≈ 20 px of structureless glass about 6% darker than
+  the deep interior, with checker edges displaced by 7–11 px at depths 8–12
+  on the resolved pitches; vitrea's band is a dark ring at depth 1–4 and
+  then a sharply refracted, compressed checker (the rim LOD is biased
+  sharper by design, `lensRimLodBias` 2.5) whose displacement is attenuated
+  by the lens profile twice (magnitude × mix weight) and confined to ≈ 6 px.
+  A synthesis model of "displaced plate" fits vitrea's own band at RMS
+  0.015 and the reference's at 0.05–0.07 with every parameter at its grid
+  edge — the reference's band is not that model. G2's declaration will
+  start from a 2-D measurement of the band on the pitch-32/64 probe cells
+  rather than from the current shader's form.
 - **The nested fix touched the whole GPU-over-DOM path.** Every `dom`-source
   group on the GPU tier — the ordinary React usage, not only the nested
   scene — had been an opaque grey slab over its proxy (the material mixed
@@ -466,6 +605,11 @@ Pending — written at recomposition, after the single X1 rebuild.
 
 ## Revision Notes
 
+- 2026-09-03 (W11c G1 landed; Decision Log 5): the twelve-run referee
+  read against the W11b close; three floors removed, eight ratcheted up,
+  four re-pinned down by decision, count 12; G3 decided (narrowed; the
+  two-layer CSS body chartered as deferred with its evidence); the X1
+  driver note added. Two Surprises added. G2 is next.
 - 2026-09-02 (W11b landed; Decision Log 3): the extractor's chroma arm
   declared, dry-run, refereed and adopted the same day; two floors removed,
   count 15; W11b's advisory inheritance (§5.38 §6's pure-ΔE rule) overturned

@@ -48,6 +48,7 @@ import {
   outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
   sizeOuterShadowOcclusionAt,
+  scatterThickness,
   sizeScatterSigmaAt,
   sizeThicknessUnderPolicy,
   type CssTierMapping,
@@ -57,6 +58,7 @@ import {
   type PolicyFoldConstants,
   type Rgb255,
 } from "./optics";
+import { accessibilityRefractionCap } from "./refraction";
 
 /** The two ink tokens the adaptive foreground chooses between. */
 export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
@@ -346,12 +348,24 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     surface.spanPx === undefined
       ? 0
       : sizeThicknessUnderPolicy(surface.spanPx, policy.material, size);
+  // The scatter facet's own curve (W11c): a floor on any surface with a span,
+  // rising under the same fold as the thickness — so a spanless surface still
+  // keeps `policyOptics` untouched, and a small one with a span frosts at the
+  // floor rather than at nothing.
+  const scatterK =
+    surface.spanPx === undefined
+      ? 0
+      : scatterThickness(
+          surface.spanPx,
+          size.refractionScale[accessibilityRefractionCap(policy.material)],
+          size,
+        );
   const optics: MaterialOptics =
-    sizeK === 0
+    sizeK === 0 && scatterK === 0
       ? policyOptics
       : {
           ...policyOptics,
-          blurRadius: sizeScatterSigmaAt(policyOptics.blurRadius, sizeK, size),
+          blurRadius: sizeScatterSigmaAt(policyOptics.blurRadius, scatterK, size),
           tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
         };
   /*

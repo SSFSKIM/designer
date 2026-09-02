@@ -117,7 +117,10 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
   // (2026-08-31); carrying them here rather than a second advisory is the whole
   // point of K5. core's `samplingPadding` advisory derives from the resolved blur
   // (W6), so it follows this number down rather than needing its own edit.
-  regular: { blurSigma: 3, tint: [1, 1, 1], tintAlpha: 0.46, rimAlpha: 0.18, highlight: [1, 1, 1] },
+  // σ 1.25 since W11c (claims §5.41): the reference's interior is a sharp
+  // component near σ 1.25 plus a heavy one the scatter facet supplies; the
+  // cascade's 3 was the one Gaussian that best split the difference.
+  regular: { blurSigma: 1.25, tint: [1, 1, 1], tintAlpha: 0.46, rimAlpha: 0.18, highlight: [1, 1, 1] },
   // Persistently more transparent, so it frosts less and tints less — and it
   // carries its own dimming policy from core. Uncalibrated in either tier: the
   // canonical scene matrix has no clear-variant scene.
@@ -598,12 +601,21 @@ export function sourceGlow(patch?: RendererMaterialProfile): MaterialSourceGlow 
  * reference does not cast and whose alpha ships at zero (Decision Log #32(c)).
  *
  * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.sizeSpanMin`,
- * `.sizeSpanMax`, `.sizeScatterGainMax` and `.sizeOcclusionGain`.
+ * `.sizeSpanMax`, `.sizeScatterGainMax`, `.sizeScatterFloor`,
+ * `.sizeScatterSpanMax` and `.sizeOcclusionGain`.
  */
 export interface MaterialSourceSize {
   readonly sizeSpanMin: number;
   readonly sizeSpanMax: number;
   readonly sizeScatterGainMax: number;
+  /**
+   * The scatter facet's own curve (W11c): its mix starts at `sizeScatterFloor`
+   * on any surface and rises from `sizeSpanMin` to `sizeScatterSpanMax` — a
+   * band top past the thickness curve's, which the reference's interior
+   * measures and the one curve could not express. See `scatterThickness`.
+   */
+  readonly sizeScatterFloor: number;
+  readonly sizeScatterSpanMax: number;
   readonly sizeOcclusionGain: number;
   /**
    * The refraction ladder's scales, carried here because the size law folds under
@@ -613,14 +625,17 @@ export interface MaterialSourceSize {
 }
 
 export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
-  // MEASURED (W2). The band is where the settled reference's own size-dependence
-  // happens; both gains ship at the identity, one because the fixtures cannot
-  // resolve it and one because the fit puts it there. The reasons are stated
-  // where the numbers are authored — `@vitrea/renderer-webgpu`'s
-  // `DEFAULT_MATERIAL_PROFILE` — because this is a mirror, not a second opinion.
+  // MEASURED (W2; the scatter facet W11c). The band is where the settled
+  // reference's own size-dependence happens. The scatter facet's gain, floor
+  // and band top are the declared G1 fit on the W9 probe bed (claims §5.41).
+  // The reasons are stated where the numbers are authored —
+  // `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE` — because this is a
+  // mirror, not a second opinion.
   sizeSpanMin: 32,
   sizeSpanMax: 96,
-  sizeScatterGainMax: 1,
+  sizeScatterGainMax: 8,
+  sizeScatterFloor: 0.4,
+  sizeScatterSpanMax: 256,
   sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
@@ -791,6 +806,8 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeSpanMin: patch?.sizeSpanMin ?? MATERIAL_SOURCE_SIZE.sizeSpanMin,
     sizeSpanMax: patch?.sizeSpanMax ?? MATERIAL_SOURCE_SIZE.sizeSpanMax,
     sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
+    sizeScatterFloor: patch?.sizeScatterFloor ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor,
+    sizeScatterSpanMax: patch?.sizeScatterSpanMax ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax,
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
     refractionScale: sourceRefractionScale(patch),
   };
@@ -856,11 +873,29 @@ export function sizeScatterSigma(
   spanPx: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
 ): number {
-  return sizeScatterSigmaAt(sigmaPx, sizeThickness(spanPx, size), size);
+  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, size), size);
 }
 
 /**
- * The same, for a caller that has already resolved the thickness factor — which
+ * The scatter facet's input (W11c): how far toward its heavy blur a surface of
+ * this span mixes, 0…1 — the mirror of the renderer's `scatterThickness`.
+ *
+ * `fold` is the accessibility fold every facet takes (the refraction ladder at
+ * the preference's cap, `sizeThicknessUnderPolicy`'s factor). It scales the
+ * span-dependent rise and NOT the floor: the floor is the frost the material
+ * has at any size, the rise is the depth a preference is entitled to remove.
+ */
+export function scatterThickness(
+  spanPx: number,
+  fold: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  const floor = clamp01(size.sizeScatterFloor);
+  return floor + (1 - floor) * smoothstep(size.sizeSpanMin, size.sizeScatterSpanMax, spanPx) * fold;
+}
+
+/**
+ * The same, for a caller that has already resolved the scatter thickness — which
  * is every caller that has a policy to fold under.
  *
  * The two-function shape is deliberate and it is the same on both tiers: the
@@ -870,10 +905,10 @@ export function sizeScatterSigma(
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
-  thickness: number,
+  scatter: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
 ): number {
-  return sigmaPx * (1 + (size.sizeScatterGainMax - 1) * thickness);
+  return sigmaPx * (1 + (size.sizeScatterGainMax - 1) * scatter);
 }
 
 /**

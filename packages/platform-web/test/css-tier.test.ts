@@ -702,6 +702,11 @@ describe("the size law reaches the CSS tier", () => {
     sizeSpanMin: 40,
     sizeSpanMax: 200,
     sizeScatterGainMax: 2.5,
+    // The scatter facet's own curve (W11c) collapsed onto the thickness band
+    // here, so these cases keep testing the one-curve properties; the floor
+    // and the separate top get their own case below.
+    sizeScatterFloor: 0,
+    sizeScatterSpanMax: 200,
     sizeOcclusionGain: 0.4,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;
@@ -722,10 +727,30 @@ describe("the size law reaches the CSS tier", () => {
     expect(at(12)).toEqual(cssTierDeclarations(surface));
   });
 
+  it("frosts a small control at the scatter floor, and keeps rising past the thickness top (W11c)", () => {
+    // The measured shape of the scatter facet: a floor at any span, a band top
+    // past the thickness curve's. A spanless caller is still untouched; a small
+    // control with a span frosts at the floor rather than at nothing, and the
+    // occlusion — which rides the thickness curve — is exactly where it was.
+    const own = { ...size, sizeScatterFloor: 0.4, sizeScatterSpanMax: 400 } as const;
+    const with_ = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size: own });
+    const base = blurOf(cssTierDeclarations(surface));
+    expect(cssTierDeclarations({ ...surface, size: own })).toEqual(cssTierDeclarations(surface));
+    expect(blurOf(with_(12))).toBeCloseTo(base * (1 + 1.5 * 0.4), 2);
+    expect(blurOf(with_(own.sizeSpanMin))).toBeCloseTo(base * (1 + 1.5 * 0.4), 2);
+    expect(occlusionOf(with_(own.sizeSpanMin))).toBeCloseTo(occlusionOf(at(size.sizeSpanMin)), 6);
+    // Past sizeSpanMax (200) the occlusion is saturated and the blur is not.
+    expect(occlusionOf(with_(300))).toBeCloseTo(occlusionOf(with_(200)), 6);
+    expect(blurOf(with_(300))).toBeGreaterThan(blurOf(with_(200)));
+    expect(blurOf(with_(400))).toBeCloseTo(base * 2.5, 2);
+  });
+
   it("frosts and occludes a platter more, and monotonically between", () => {
     const small = at(size.sizeSpanMin);
     const platter = at(400);
-    expect(blurOf(platter)).toBeCloseTo(blurOf(small) * size.sizeScatterGainMax, 6);
+    // One decimal: the declarations are quantised to two, and with the W11c
+    // base of 1.25 the platter's 3.125 lands on the rounding boundary.
+    expect(blurOf(platter)).toBeCloseTo(blurOf(small) * size.sizeScatterGainMax, 1);
     expect(occlusionOf(platter)).toBeGreaterThan(occlusionOf(small));
 
     let previousBlur = -Infinity;
@@ -778,30 +803,40 @@ describe("the size law reaches the CSS tier", () => {
 
     // The preference's own frost still lands in full — the fold is on the size
     // law, not on the preference.
-    expect(blurOf(reducedSmall)).toBeCloseTo(blurOf(at(40)) * REDUCED_TRANSPARENCY_FROST, 6);
+    expect(blurOf(reducedSmall)).toBeCloseTo(blurOf(at(40)) * REDUCED_TRANSPARENCY_FROST, 1);
 
     // And the size law's *addition* on top of it is scaled by the ladder's
     // reduced rung rather than applied whole.
     const added = (declarations: Record<string, string>, base: number): number =>
       blurOf(declarations) / base - 1;
     /*
-     * Three decimals rather than six, and the reason is the medium rather than
-     * the law. `--vitrea-blur` is emitted through `px()`, which rounds to two
-     * decimal places, so this ratio-of-ratios carries that quantisation divided
-     * by the blur it is taken over. At the σ = 8 this was written against the
-     * error sat under 1e-6; at the cascade's refitted σ = 3 (2026-08-31) the same
-     * 0.005px rounding is 2.7× larger relative to the number, and lands at 7e-4.
-     * The identity itself is exact — it is the declaration that is quantised.
+     * A budget rather than six decimals, and the reason is the medium rather
+     * than the law. `--vitrea-blur` is emitted through `px()`, which rounds to
+     * two decimal places, so this ratio-of-ratios carries that quantisation. At
+     * the σ = 8 this was written against the error sat under 1e-6; at the σ = 3
+     * of 2026-08-31 every term still fell on the 0.01 grid; at the W11c base of
+     * 1.25 (2026-09-03) the platters land off it (3.125, 3.664) and the rounding
+     * shows. The identity itself is exact — it is the declaration that is
+     * quantised.
+     *
+     * The budget is derived rather than picked. A ratio N/D of two rounded
+     * declarations carries q/D from its numerator and q·(N/D)/D from its
+     * denominator, with q = 0.005 the half-step; the nominal ratio's share
+     * enters scaled by the same fold as the ratio itself.
      */
+    const q = 0.005;
+    const ratioBudget = (numerator: number, denominator: number): number =>
+      (q * (1 + numerator / denominator)) / denominator;
     expect(
       Math.abs(
         added(reducedPlatter, blurOf(reducedSmall)) -
           added(nominalPlatter, blurOf(at(40))) * MATERIAL_SOURCE_SIZE.refractionScale.approximate,
       ),
-      // The budget, derived rather than picked: `px()` rounds to 0.01, the ratio
-      // is taken over a blur of `blurOf(reducedSmall)`, and two rounded terms
-      // enter it — so 2 x 0.005 / blur, which at the shipped sigma is 1.9e-3.
-    ).toBeLessThan((2 * 0.005) / blurOf(reducedSmall));
+    ).toBeLessThan(
+      ratioBudget(blurOf(reducedPlatter), blurOf(reducedSmall)) +
+        ratioBudget(blurOf(nominalPlatter), blurOf(at(40))) *
+          MATERIAL_SOURCE_SIZE.refractionScale.approximate,
+    );
 
     // Still a law, not an off switch: a platter under the preference is still
     // frostier than a control under it.
