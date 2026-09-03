@@ -348,15 +348,36 @@ export interface SsimWindowReport {
 }
 
 /**
- * `ssimBand` and `ssimInterior`: the SSIM map averaged over the reference's own
- * silhouette, split by depth from its contour.
+ * `ssimBand`, `ssimInterior` and `ssimOutside`: the SSIM map averaged over three
+ * regions defined by depth from the reference's own contour.
  *
  * Whole-crop `ssimMean` scores mostly the blurred interior and the untouched
  * backdrop, and cannot see the band where the eye reads the material: W12
  * Decision Log 6 recorded a lens change that lost 0.001–0.002 of SSIM
- * everywhere and that the user read as much closer to macOS. These two rows
+ * everywhere and that the user read as much closer to macOS. These rows
  * separate those populations without changing the measurement — same map, same
  * 11x11 Gaussian window, same constants.
+ *
+ * The three regions, by the class of a window's CENTRE pixel:
+ *
+ *   - `band` — inside the silhouette, within the split of the contour;
+ *   - `interior` — inside the silhouette, deeper than the split;
+ *   - `outside` — outside the silhouette, within the split of the contour.
+ *
+ * Together with the **far field** — outside the silhouette and farther than the
+ * split, which no row counts — those three partition the crop exactly, so
+ * `ssimMean` is their window-count-weighted mean including that far field, and
+ * never the mean of the three rows alone. The far field is uncounted on purpose:
+ * it is backdrop that neither side's material touches, it is most of the crop on
+ * every small span, and averaging it in is precisely what makes `ssimMean` blind
+ * to the material.
+ *
+ * The outward row exists because the eye reads one edge, not two. The band a
+ * viewer sees straddles the contour — the rim's spill, the lens's outermost
+ * displacement and the outer shadow are on the exterior side — and on the large
+ * 2x cells that exterior half carries more of the whole-crop deficit than the
+ * interior half does (W13 X6 baseline §5). A `ssimBand` that rose while the
+ * exterior fell would otherwise read as an improvement.
  *
  * **The window is the NATIVE silhouette's distance transform.** The reference
  * defines where the band is. A web silhouette moves as the web side is tuned,
@@ -364,13 +385,11 @@ export interface SsimWindowReport {
  * over a high-contrast backdrop, where the extractor punches interior holes
  * (see `contourDistance`) — would carry its own new contours and re-window the
  * metric mid-tuning. Holes are filled before the boundary is taken for the same
- * reason: an extraction hole is not an outline, so it must not be a band.
+ * reason: an extraction hole is not an outline, so it must not be a band. The
+ * outward distance is the same transform read on the other side of the same
+ * boundary, so the two halves of the band are symmetric by construction.
  *
- * A window belongs to the class of its centre pixel, and windows centred
- * outside the silhouette belong to neither class: the two rows partition the
- * surface, not the crop, so they do not average back to `ssimMean`.
- *
- * Either class can be legitimately empty and is then absent rather than zero: a
+ * Any class can be legitimately empty and is then absent rather than zero: a
  * surface whose half-span is under 24 CSS px — `rrect-sm` and `capsule-button`
  * on this bed — is all band and has no interior to report.
  */
@@ -378,7 +397,7 @@ export function ssimDepthWindows(
   map: SsimMap,
   native: Silhouette,
   options: { readonly splitPx: number },
-): { band?: SsimWindowReport; interior?: SsimWindowReport } {
+): { band?: SsimWindowReport; interior?: SsimWindowReport; outside?: SsimWindowReport } {
   if (native.width !== map.width + 2 * map.offset || native.height !== map.height + 2 * map.offset) {
     throw new CalibrationError(
       "dimension-mismatch",
@@ -394,12 +413,21 @@ export function ssimDepthWindows(
   let bandCount = 0;
   let interiorSum = 0;
   let interiorCount = 0;
+  let outsideSum = 0;
+  let outsideCount = 0;
   for (let y = 0; y < map.height; y += 1) {
     for (let x = 0; x < map.width; x += 1) {
       const pixel = (y + map.offset) * filled.width + (x + map.offset);
-      if ((filled.mask[pixel] ?? 0) === 0) continue;
       const value = map.data[y * map.width + x] ?? 0;
-      if ((distance[pixel] ?? 0) <= options.splitPx) {
+      const near = (distance[pixel] ?? 0) <= options.splitPx;
+      if ((filled.mask[pixel] ?? 0) === 0) {
+        // Outside the silhouette: the exterior half of the band, or the far
+        // field, which no row counts.
+        if (near) {
+          outsideSum += value;
+          outsideCount += 1;
+        }
+      } else if (near) {
         bandSum += value;
         bandCount += 1;
       } else {
@@ -414,6 +442,9 @@ export function ssimDepthWindows(
     ...(interiorCount === 0
       ? {}
       : { interior: { mean: interiorSum / interiorCount, windowCount: interiorCount } }),
+    ...(outsideCount === 0
+      ? {}
+      : { outside: { mean: outsideSum / outsideCount, windowCount: outsideCount } }),
   };
 }
 

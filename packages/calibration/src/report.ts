@@ -450,23 +450,32 @@ export interface PerceptualAxisReport {
   readonly ssimMin: MetricValue;
   /**
    * The band-windowed rows (W13 X6): the same SSIM map as `ssimMean`, averaged
-   * over the reference silhouette's pixels within `SSIM_BAND_SPLIT_CSS_PX` of
-   * its contour and over those deeper than it. Recorded, not gated: no adopted
-   * bound reads them before W13 G2's landing.
+   * over three regions of `SSIM_BAND_SPLIT_CSS_PX` depth from the reference
+   * silhouette's contour — inside and near it, inside and deep, outside and
+   * near it. Recorded, not gated: no adopted bound reads them before W13 G2's
+   * landing.
    *
-   * Optional in both directions, and absent means "no such population on this
-   * cell", never zero — a cell with no native silhouette has no contour to
-   * measure depth from, and a surface whose half-span is under the split is all
-   * band with no interior. The window counts travel with the means because the
-   * two rows weigh differently in every comparison made from them: the band's
-   * share of a cell's SSIM deficit is `(1 - ssimBand) * ssimBandWindows`
-   * against `(1 - ssimInterior) * ssimInteriorWindows`, and a mean without its
-   * support cannot be pooled or compared across spans.
+   * The three plus the far field (outside and farther than the split, which no
+   * row carries) partition the crop, so `ssimMean` is not the mean of these
+   * three. `ssimBand` and `ssimOutside` are the two halves of the one edge a
+   * viewer sees, and they are reported apart because the material's two tiers
+   * fail on different sides of it.
+   *
+   * Optional, and absent means "no such population on this cell", never zero —
+   * a cell with no native silhouette has no contour to measure depth from, and
+   * a surface whose half-span is under the split is all band with no interior.
+   * The window counts travel with the means because every comparison made from
+   * these rows weighs them: a region's share of a cell's SSIM deficit is
+   * `(1 - ssim<region>) * ssim<region>Windows` against the same product on the
+   * others, and a mean without its support cannot be pooled or compared across
+   * spans.
    */
   readonly ssimBand?: MetricValue;
   readonly ssimBandWindows?: MetricValue;
   readonly ssimInterior?: MetricValue;
   readonly ssimInteriorWindows?: MetricValue;
+  readonly ssimOutside?: MetricValue;
+  readonly ssimOutsideWindows?: MetricValue;
   readonly oklabDeltaEMean: MetricValue;
   readonly oklabDeltaEP95: MetricValue;
   readonly oklabDeltaEMax: MetricValue;
@@ -475,11 +484,16 @@ export interface PerceptualAxisReport {
 export function perceptualAxisReport(input: {
   readonly edgeWeighted: EdgeWeightedDifferenceReport;
   readonly ssim: SsimReport;
-  readonly depthWindows?: { readonly band?: SsimWindowReport; readonly interior?: SsimWindowReport };
+  readonly depthWindows?: {
+    readonly band?: SsimWindowReport;
+    readonly interior?: SsimWindowReport;
+    readonly outside?: SsimWindowReport;
+  };
   readonly oklabDeltaE: OklabDeltaEReport;
 }): PerceptualAxisReport {
   const band = input.depthWindows?.band;
   const interior = input.depthWindows?.interior;
+  const outside = input.depthWindows?.outside;
   return {
     axis: "perceptual",
     edgeWeightedMean: metricValue(input.edgeWeighted.weightedMean, "luminance"),
@@ -498,6 +512,12 @@ export function perceptualAxisReport(input: {
       : {
           ssimInterior: metricValue(interior.mean, "ratio"),
           ssimInteriorWindows: metricValue(interior.windowCount, "count"),
+        }),
+    ...(outside === undefined
+      ? {}
+      : {
+          ssimOutside: metricValue(outside.mean, "ratio"),
+          ssimOutsideWindows: metricValue(outside.windowCount, "count"),
         }),
     oklabDeltaEMean: metricValue(input.oklabDeltaE.mean, "oklab"),
     oklabDeltaEP95: metricValue(input.oklabDeltaE.p95, "oklab"),
@@ -851,8 +871,8 @@ export interface CellResult {
  *     has no such axis" before, "no backdrop or no declared region was available
  *     for this cell" after.
  *
- * The band-windowed perceptual rows (W13 X6, `ssimBand` / `ssimInterior` and
- * their window counts) are a schema *addition* and do not move this number.
+ * The band-windowed perceptual rows (W13 X6, `ssimBand` / `ssimInterior` /
+ * `ssimOutside` and their window counts) are a schema *addition* and do not move this number.
  * The version exists to stop a reader taking two cells as the same quantity
  * when they are not, and nothing here changes an existing quantity: every
  * schema-5 figure is measured exactly as before, the new rows are optional in

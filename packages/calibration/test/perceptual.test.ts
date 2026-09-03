@@ -15,6 +15,7 @@ import {
 import {
   fromLinearLuminance,
   fromLinearRgb,
+  distanceOutsideRect,
   gaussianStep,
   maskFromPredicate,
   rectPredicate,
@@ -188,8 +189,13 @@ describe("ssimDepthWindows", () => {
   const Y0 = 40;
   const Y1 = 159;
 
-  /** Depth of a pixel below the rectangle's boundary ring, in pixels. */
+  /** Depth of an interior pixel below the rectangle's boundary ring, in pixels. */
   const depth = (x: number, y: number): number => Math.min(x - X0, X1 - x, y - Y0, Y1 - y);
+
+  /** Distance from an exterior pixel to that same ring — exact for a rectangle. */
+  const outward = (x: number, y: number): number => distanceOutsideRect(x, y, X0, Y0, X1, Y1);
+
+  const isInside = rectPredicate(X0, Y0, X1, Y1);
 
   const silhouette = maskFromPredicate(WIDTH, HEIGHT, rectPredicate(X0, Y0, X1, Y1));
 
@@ -211,22 +217,39 @@ describe("ssimDepthWindows", () => {
    */
   const SPLIT = 24;
 
-  it("scores both windows at 1 for identical images, and they partition the silhouette", () => {
-    const map = ssimMap(base, base);
-    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+  it("scores all three windows at 1 for identical images", () => {
+    const windows = ssimDepthWindows(ssimMap(base, base), silhouette, { splitPx: SPLIT });
     expect(windows.band?.mean).toBeCloseTo(1, 12);
     expect(windows.interior?.mean).toBeCloseTo(1, 12);
+    expect(windows.outside?.mean).toBeCloseTo(1, 12);
+  });
 
-    // Every window whose centre is inside the silhouette, once each.
-    let insideWindows = 0;
+  it("the three rows plus the far field partition the crop exactly", () => {
+    const map = ssimMap(base, base);
+    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+
+    // The far field, counted independently: outside the silhouette and farther
+    // than the split from its contour. No row carries it, and `ssimMean` does.
+    let farField = 0;
+    let inside = 0;
     for (let y = map.offset; y < HEIGHT - map.offset; y += 1) {
       for (let x = map.offset; x < WIDTH - map.offset; x += 1) {
-        if (silhouette.mask[y * WIDTH + x] === 1) insideWindows += 1;
+        if (silhouette.mask[y * WIDTH + x] === 1) {
+          inside += 1;
+        } else if (outward(x, y) > SPLIT) {
+          farField += 1;
+        }
       }
     }
-    expect((windows.band?.windowCount ?? 0) + (windows.interior?.windowCount ?? 0)).toBe(insideWindows);
-    // And the pair does not average back to the whole crop: the backdrop is out.
-    expect(insideWindows).toBeLessThan(map.data.length);
+    const counted =
+      (windows.band?.windowCount ?? 0) +
+      (windows.interior?.windowCount ?? 0) +
+      (windows.outside?.windowCount ?? 0);
+    expect(counted + farField).toBe(map.data.length);
+    // The band and interior alone are the surface, not the crop, so the three
+    // rows cannot average back to `ssimMean`.
+    expect((windows.band?.windowCount ?? 0) + (windows.interior?.windowCount ?? 0)).toBe(inside);
+    expect(counted).toBeLessThan(map.data.length);
   });
 
   it("a perturbation confined to the band moves ssimBand and leaves ssimInterior at 1", () => {
@@ -241,6 +264,21 @@ describe("ssimDepthWindows", () => {
     const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
     expect(windows.interior?.mean).toBeLessThan(0.95);
     expect(windows.band?.mean).toBeCloseTo(1, 12);
+  });
+
+  it("a perturbation confined to the exterior band moves only ssimOutside", () => {
+    // Outside the rectangle, within the split of its contour. The inner margin
+    // is 8 rather than 6 because a window centred on a corner of the boundary
+    // ring reaches 5√2 ≈ 7.07 px diagonally outward, and no band window may
+    // touch the change.
+    const map = ssimMap(
+      base,
+      perturb((x, y) => !isInside(x, y) && outward(x, y) >= 8 && outward(x, y) <= SPLIT - 5),
+    );
+    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+    expect(windows.outside?.mean).toBeLessThan(0.95);
+    expect(windows.band?.mean).toBeCloseTo(1, 12);
+    expect(windows.interior?.mean).toBeCloseTo(1, 12);
   });
 
   it("splits at the backing scale: the same CSS-px band is twice as many device px at 2x", () => {

@@ -257,11 +257,12 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
   /*
    * The perceptual axis, and the band split on it (W13 X6).
    *
-   * One SSIM map, averaged three ways: the whole crop as `ssimMean` has always
-   * been, then the reference silhouette's band and its deep interior. The split
-   * is a fixed 24 CSS px of depth converted here — and only here — into device
-   * px by the profile's backing scale, because the depth is a property of the
-   * material as the eye sees it and the raster is a property of the fixture.
+   * One SSIM map, averaged four ways: the whole crop as `ssimMean` has always
+   * been, then the reference silhouette's band, its deep interior, and the
+   * exterior half of the same band. The split is a fixed 24 CSS px of depth
+   * converted here — and only here — into device px by the profile's backing
+   * scale, because the depth is a property of the material as the eye sees it
+   * and the raster is a property of the fixture.
    *
    * The window is the native silhouette, so the rows are absent on a cell whose
    * reference is indistinguishable from its backdrop inside the declared region
