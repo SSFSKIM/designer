@@ -1,0 +1,403 @@
+# W13 — The body's depth ramp, carrying the device-pixel widths (2026-09-03)
+
+> **Parent:** W12, the lens band's structure
+> (`docs/doperpowers/specs/2026-09-03-w12-lens-band-structure.md`), by way of
+> its Deferred entry "the body's depth ramp, carrying the device-pixel widths"
+> and its Decision Log 7 (user-decided 2026-09-03: "Hold, and open the
+> depth-ramp round as the next body wave carrying the widths with it"). W12
+> sits under the post-v1 wave (`2026-08-28-post-v1-wave.md`). **Consumes:**
+> claims §5.50 §1–§2 (the reference's body is one blur radius in a
+> quarter-device-scale buffer with an opacity ramp in depth), §5.55 (the
+> kernel is one kernel in device pixels; only the sharp term's weight changes
+> with scale; the lens stands at 2x), §5.56 §1 (the device-pixel widths as
+> declared), §5.57–§5.58 (candidate A's fall, the corrected dry run, the
+> runtime sweep: the widths are right, the band is what is left, the
+> transmission has no scale term), W12's G0 instrument
+> (`results/2026-09-03-w12-lens/g1/w12lib.py`) and the runtime sweep
+> (`packages/calibration/scripts/sweep.ts`). **Starts from** branch
+> `w12-g3-candidate-a` (`56283a1`): the widths in device pixels on both
+> tiers, `devicePixelRatio` plumbed to the material on both, tier-coherence
+> rows over dpr {1, 1.5, 2, 3}. Three gates in the W12 shape — an
+> instrument proven on vitrea's own capture, a measurement, a declared fit
+> with its referee — and the user's eye at the landing.
+
+## Purpose
+
+The GPU tier's body is two components mixed by one number per span: a sharp
+term (σ 1.25 CSS px) and a heavy one (σ 10 CSS px), the heavy share
+`sizeScatterFloor` 0.4 rising with the span to 1 at `sizeScatterSpanMax`
+256. The reference's body is the same two components — a quarter-scale
+buffer leaking unblurred through one blur radius — but its mix is a **ramp
+in depth**: the sharp share is ≈ 0.5 at the contour and falls toward zero at
+the centre (§5.50 §2's opacity inputs; §5.55 §2's amplitude by depth at both
+scales), and W11c's two span constants are that ramp's projection onto one
+number per span. At 1x the projection is close enough that the checkerboard
+rows meet; at 2x, where the widths halve in CSS px and the sharp share
+collapses sooner, W12 G3 showed what the projection costs: with the widths
+read in device pixels — which put the interior's structure on the reference
+at every span, §5.58 §2 — the band is left sharper than the reference's,
+because a uniform share keeps the sharp term at full weight where the
+reference has already faded it, and `rrect-ml` at 2x falls below its floor.
+The widths cannot land without the ramp; the ramp is the reference's own
+mechanism; this wave measures it through the lens, declares its form, and
+lands the two together on the GPU tier, with the CSS tier's single blur
+re-derived as the same law's projection.
+
+Beside the ramp, the same instrument reads what the pitch axis has not yet
+been asked: the heavy width on the small spans (the reference's radius law
+floors at 4/3 buffer px — 5.3 CSS px at 1x on the capsule against vitrea's
+fixed 10 — and the user's by-eye gap "the dot disappears on
+`impulse__capsule-button`" is, on the numbers, a heavy term twice too wide
+on a small span, not a transmission), and the kernel read directly from the
+impulse cells at both scales. Those are measurements first; a span term on
+the heavy width enters the declaration only if the probe asks for it.
+
+## Parent-Level Acceptance
+
+- The sharp share **by depth** is measured on the reference, not assumed
+  from the layer tree: k(u) per depth window from the contour to the
+  centre, per span and scale, on the committed 1x and 2x probes, with the
+  lens's displacement in the model — and the instrument's recovery of
+  vitrea's own uniform share (and of the candidate's device-pixel widths)
+  from vitrea's own captures recorded beside every reference reading.
+- A form k(u, span, dpr) is declared **before** the landing capture with
+  the widths in device pixels, fitted jointly on both probes with `rrect-lg`
+  held out at both scales, the 1x and 2x canonical rows predicted by the
+  runtime sweep (never by the paper model alone), and refereed on the full
+  bed under the stops below. The 2x `checkerboard__rrect-ml` / `-lg` /
+  `glass-over-glass` texture rows rise above their W12-close floors; the 2x
+  interior structure stays where the widths put it; no 1x row falls; and
+  the band — scored where the eye looks, by the windowed rows this wave
+  adds — improves on every checkerboard cell at both scales. Any row that
+  still misses is re-pinned with the mechanism named.
+- **By eye:** the W12 X5 sheet (native | vitrea | signed difference, 2x and
+  1x, the five checkerboard spans and `photo__rrect-md`, 10× corner crops)
+  at the dry run and at the landing, sent to the user's Retina display; the
+  user's reading recorded in the Decision Log beside the numbers, and the
+  landing is theirs to call.
+- Both tiers carry the law (K5): the CSS tier's single `blur()` σ is
+  re-derived as the ramp's projection and its rows are predicted and
+  refereed; `tier-coherence` pins the two tiers over dpr {1, 1.5, 2, 3}.
+- All package suites green, lint clean, goldens re-recorded only where the
+  Decision Log names the scene and the reason; the canonical matrix rebuilt
+  once at recomposition; every gap left is in claims, this Deferred list,
+  or the tech-debt tracker.
+
+## Grounding Baseline (the W12 close bed, ω 0.8, 2026-09-03)
+
+- Body as landed: sharp σ `blurSigma` 1.25 CSS px, heavy σ × `sizeScatterGainMax`
+  8 = 10 CSS px at every span and scale; k = 0.4 + 0.6 · smoothstep(`sizeSpanMin`,
+  256, span) · fold, one number per span, applied uniformly over the surface
+  (`optics.ts` `kScatter`; the heavy tap is the mip chain at `size.w +
+  log2(8)`, not a nominal Gaussian, §5.58 §1). Lens: W12 G2's power law
+  with ω 0.8. The CSS tier: one `blur()` at the mixed σ, no lens, the 1x law
+  at every dpr.
+- Texture-tier `ssimMean`, checkerboard (1x | 2x): `rrect-sm` 0.9988 |
+  0.9978, `capsule-button` 0.9852 | 0.9836, `rrect-md` 0.9695 | 0.9517,
+  `rrect-ml` 0.9482 | 0.9158, `rrect-lg` (holdout) 0.9428 | 0.9113,
+  `glass-over-glass` (holdout) 0.9521 | 0.9211; `photo__rrect-md` 0.9975 |
+  0.9981. The three 2x rows `-ml` / `-lg` / `glass-over-glass` are floors
+  held by decision (W11 Decision Log 4, mechanism re-attributed by W12
+  Decision Log 7 to the band's ramp), ratcheted to the W12 close at X2.
+- Interior structure, `interiorStdDev` web / native: 2x `rrect-sm` 0.1372 /
+  0.1636, `capsule` 0.1189 / 0.1552, `rrect-md` 0.0973 / 0.1272, `rrect-ml`
+  0.0746 / 0.1018, `rrect-lg` 0.0525 / 0.0810 — vitrea at 65–84% of the
+  reference; **1x** `rrect-sm` 0.1408 / 0.1549, `capsule` 0.1206 / 0.1424,
+  `rrect-md` 0.0994 / 0.1131, `rrect-ml` 0.0769 / 0.0865, `rrect-lg` 0.0540 /
+  0.0650 — 83–91%: the 1x interior is blurrier than the reference too, by
+  the amount a ramp that fades the sharp term over the whole half-span
+  differs from a uniform share fitted to its average.
+- The candidate at `sizeScatterScaleTerm` 0 (the widths alone, §5.58 §2), 2x:
+  `interiorStdDev` `rrect-md` 0.1260 (native 0.1272), `-ml` 0.1029 (0.1018),
+  `-sm` 0.1647 (0.1636), `capsule` 0.1500 (0.1552); whole-crop `ssimMean`
+  `rrect-md` 0.9455, `rrect-ml` **0.8998** (floor 0.9013), `rrect-sm` 0.9985,
+  `capsule` 0.9855. The band carries the loss: 60% / 77% / 118% of it on md
+  / ml / lg (g3 §9.5).
+- Dom-tier `ssimMean` (1x | 2x): `rrect-md` 0.8963 | 0.9169, `rrect-ml`
+  0.8481 | 0.8765, `rrect-lg` 0.8372 | 0.8696, `glass-over-glass` 0.8499 |
+  0.8687 — eight floors held by decision (W11 Decision Log 5, the CSS
+  tier's single blur).
+- The reference, as measured: sharp core a 4 CSS px box at 1x (the
+  quarter buffer's pixel), σ 0.5 CSS px at 2x; base σ 9 device px at 1x,
+  8–10 at 2x on spans ≥ 96 (§5.55 §1); the sharp amplitude linear in depth
+  over the half-span at 1x (`rrect-lg` 0.169 at u 20–28 → 0.040 at 76–80)
+  and gone by mid-depth at 2x (`rrect-md` pitch 32: 0.094 → 0 over u 20 →
+  48) (§5.55 §2); the layer tree's opacity ramp 0.5 at u = 1 → 1 at span/2
+  on every shape, in points, the same inputs at both scales (§5.50 §2); the
+  radius (span + 8)/42 buffer px floored at 4/3 — 5.3 / 9.9 / 16 CSS px at
+  1x on the small spans / 96 / 160 (§5.50 §2); no transmission scale term
+  (§5.58 §4); the lens within 0.9 / 1.3 px at 2x, a little long at
+  mid-depth (§5.55 §4). Open: why the 1x material leaks so much more
+  unblurred buffer than the 2x one — the reference's own quarter-buffer
+  form needed a scale term of the same size as F1's (§5.55 §5).
+- Probes: the 1x W9 probe (`results/2026-09-02-w9-probe/`, §5.31) and the 2x
+  W12 probe (`results/2026-09-03-w12-lens/probe-2x/`, §5.53), 56 cells
+  each, pitches 4 / 8 / 16 / 32 / 64 × spans 32 / 44 / 96 / 128 / 160, the
+  three `rrect-sm` frequency-settled cells carrying a two-state spread
+  that bounds any residual there before a law does.
+
+## Design
+
+Binding at this level, because only the whole picture settles them:
+
+- **[binding — the ramp is measured through the lens, and the lens is not
+  refit.]** k(u) is recovered per depth window with the lens's displacement
+  fixed at W12 G2's landed law (ω 0.8), the instrument's model being W12
+  G0's — the warp s(u) = u + D(u) along lines normal to each straight edge,
+  the two-component body under it, the pixel integrated over its
+  footprint — with one k per window instead of one per line set, and its
+  recovery of vitrea's own uniform share from vitrea's own captures (both
+  scales, `main` and the candidate's widths) recorded before any reference
+  number. The lens's 0.6–1.3 px mid-depth residual at 2x (§5.55 §4) stays
+  a recorded gap; a ramp fitted with the lens free would absorb it and
+  neither would be measured.
+- **[binding — the widths are device-pixel quantities and land with the
+  ramp, not before it.]** σ_sharp = `blurSigma`/dpr and σ_heavy =
+  `blurSigma`·`sizeScatterGainMax`/dpr on the GPU tier as §5.56 §1
+  declared and §5.58 §2 verified; `sizeScatterScaleTerm` is retired (it was
+  the projection's error, not the material's, §5.58 §2). The two land in
+  one capture under one referee: the widths alone trip the `rrect-ml` 2x
+  floor and the ramp alone has no 2x interior to act on.
+- **[binding — a measured ramp, then a form; the runtime is the fitting
+  instrument.]** The form of k(u, span, dpr) is chosen on the measured
+  windows (the layer tree's linear ramp to zero at the centre is one
+  candidate, a ramp with a floor is another, a scale term on the start or
+  the reach a third), fitted on both probes with `rrect-lg` held out, and
+  then swept **in the renderer** (`sweep.ts`, both scales, the calibration
+  cells, the interior objective and the windowed band rows) before the
+  landing capture: the paper model over-credited the mip chain's heavy tap
+  by a factor that turned a right answer into a wrong constant (§5.58 §1),
+  and no constant lands on a paper prediction again.
+- **[binding — the span law is the ramp's projection, on both tiers.]**
+  `sizeScatterFloor` and `sizeScatterSpanMax` are retired as fitted
+  constants once the ramp lands: the heavy share a surface of a given span
+  carries on average is the ramp integrated over the surface's area
+  (closed form on the rounded rect: depth u has perimeter P − 8u of area,
+  corners aside), and that integral is what the CSS tier's single `blur()`
+  σ is derived from through the shared `sizeScatterSigmaAt` (K5). One law,
+  two projections: per pixel on the GPU tier, per surface on the CSS tier.
+  Whether the CSS tier's σ then follows dpr is Decision Log 1's question 2.
+
+Advisory, carried into the children:
+
+- The ramp's likely shape from the two readings in hand: sharp share s(u) =
+  s₀(dpr) · max(0, 1 − u / (ρ(dpr) · span/2)), s₀ ≈ 0.5 at both scales, ρ 1
+  at 1x and < 1 at 2x (§5.55 §2's "starts lower and reaches zero sooner");
+  whether s₀ or ρ carries the scale, or the 1x ramp floors above zero
+  (§5.55 §1's deep-interior core share 0.31–0.50 at 1x against 0.0–0.1 at
+  2x is either the ramp seen through a window that stops short of the
+  centre, or a floor), is what G0's windows decide. The open mechanism
+  question of §5.55 §5 is the same question from the other side.
+- The shader already has u per pixel: the field pass's SDF depth is what
+  the lens's `lensT` is evaluated from, so k(u) is one expression beside
+  `kScatter` in the optics pass — no new pass, no new texture. The
+  `sizeScatterFloor`-fold semantics (the floor is the material's frost and
+  is not folded; the rise is depth and is) carry over: the ramp's centre
+  value is the frost, its edge excursion is folded.
+- The heavy width on the small spans: §5.55 §1 fitted spans ≥ 96 only; the
+  reference's radius law predicts 5.3 CSS px at 1x on `rrect-sm` /
+  `capsule` against vitrea's 10. Read it on the probe's small spans and on
+  the impulse cells (the kernel directly, both scales, light and dark
+  grounds — the canonical `impulse__capsule-button` and the probe's impulse
+  backdrops if any); if it holds, the declaration carries a span term on
+  σ_heavy (one constant, the radius law's own form) and the user's dot gap
+  closes with it. If the small spans read σ 9–10 device px as the large
+  ones did, the dot gap stays a transmission question for its own wave.
+- The band-windowed rows (`ssimBand`, `ssimInterior`; X6): SSIM over the
+  cell's silhouette split at a fixed depth from the contour (24 CSS px,
+  past where D(u) reaches zero on every span, §5.49 §2), recorded on every
+  cell from G0 on, adopted as bounds at G2's landing from the bed. This is
+  W12's Deferred "by-eye-aligned band metric" in its first form; the
+  corner crops stay by eye.
+- The CSS tier cannot carry a depth ramp with one `backdrop-filter`; a
+  two-layer body with an inset mask could (the two-layer CSS body, W11
+  Decision Log 5, extended by a mask gradient on the sharp layer). Out of
+  scope here; the CSS tier's rows in this wave move only through the
+  projection.
+
+## Children
+
+### G0: The instrument and the measurement — spike (deliverable: findings)
+
+- **Purpose:** extend W12 G0's instrument (`w12lib.py`) to one k per depth
+  window (u bins of 4 CSS px from the contour to the centre, the lens fixed
+  at the landed law), validate it on vitrea's own captures at both scales
+  — `main` (uniform k per span, known: 0.4 + 0.6 · smoothstep(`sizeSpanMin`,
+  256, span)) and the candidate at term 0 (the widths in device pixels) —
+  then read the reference: k(u) per window, per span and scale, on both
+  probes over pitches 8 / 16 / 32 / 64; the heavy σ on the small spans;
+  the impulse kernels at both scales. Record the band-windowed SSIM rows
+  on the W12 close bed as the baseline (X6).
+- **Acceptance:** the instrument recovers vitrea's uniform k within ±0.05
+  in every window over 4 ≤ u ≤ span/2 − 4 at 1x and 2x on `rrect-md` and
+  `rrect-lg`, and the candidate's widths within the same; the reference
+  tables carry that recovery beside them (X4); findings in
+  `results/2026-09-03-w13-ramp/g0/`, claims section written.
+- **Edges:** none. **Track:** spike; one worker, findings not the spec.
+
+### G1: The declared form and its dry run — controlled
+
+- **Purpose:** the form k(u, span, dpr) chosen on G0's windows, the widths
+  in device pixels, the span law as the ramp's projection on both tiers,
+  the heavy width's span term if G0 asked for it; fitted jointly on both
+  probes with `rrect-lg` held out at both scales; then the runtime sweep on
+  the calibration cells at both scales over the form's constants, and the
+  1x and 2x canonical rows predicted from the sweep; the CSS tier's σ per
+  span and scale predicted from the projection; the X5 sheet at the dry
+  run.
+- **Acceptance:** the declaration in claims — form, constants, the stops
+  below, the twelve rows' predictions, both tiers — before any landing
+  capture; the sheet sent; the user's reading recorded.
+- **Edges:** blocked-by G0. **Track:** controlled.
+
+### G2: The landing and its referee — controlled
+
+- **Purpose:** implement on both tiers from the candidate branch (retire
+  `sizeScatterScaleTerm`, `sizeScatterFloor`, `sizeScatterSpanMax`; add
+  the ramp's constants; the CSS projection; `tier-coherence` over dpr;
+  goldens behind the isolation proof), capture the twelve runs to a scratch
+  matrix, referee under the stops, the X5 sheet at the landing, the user's
+  eye.
+- **Stops (declared here, refined by G1 with numbers):** (S1) no 1x row
+  below its W12-close value by more than 0.002; (S2) the three held 2x
+  texture rows rise above their W12-close floors; (S3) `interiorStdDev` at
+  2x within 0.005 of the reference on the five checkerboard spans (the
+  widths' gain kept); (S4) `ssimBand` rises on every checkerboard cell at
+  both scales; (S5) the solids, `photo` and the tinted cells move by no
+  more than 0.001 in any adopted metric; (S6) the CSS tier moves only as
+  G1 predicted; (S7) a hard stop is a landing the user's eye rejects.
+- **Edges:** blocked-by G1. **Track:** controlled; the landing is the
+  user's call (Decision Log).
+
+## Cross-Child Contracts
+
+- **X1 — the canonical rebuild.** As W12 X1: children referee on partial
+  runs to a scratch matrix; `rm results/matrix.json` and the twelve runs
+  once at recomposition; the demo's reference-panel fixture re-copied.
+  Owner: parent.
+- **X2 — floor bookkeeping.** As W11/W12 X2. Owner: parent.
+- **X3 — the untouched bed.** The whole-bed scan against the W12 close
+  matrix; every cell moved by more than 0.005 is named. Owner: parent.
+- **X4 — the instrument's validation travels with every reading.** A
+  reference k(u) table is never quoted without the recovery of vitrea's
+  own share from the same instrument on the same cell geometry beside it.
+  Owner: G0; G1 binds.
+- **X5 — the by-eye sheet.** W12's script and layout
+  (`results/2026-09-03-w12-lens/sheets/`), at G1's dry run and G2's
+  landing, under `results/2026-09-03-w13-ramp/sheets/`. Owner: parent.
+- **X6 — the band-windowed rows.** `ssimBand` and `ssimInterior` on the
+  perceptual axis of every cell, the split at 24 CSS px from the contour,
+  recorded by the compare from G0 on (schema addition, no bound until G2),
+  their baseline the W12 close bed, adopted as bounds at G2's landing.
+  Owner: G0 defines, parent adopts.
+
+## Ordering & Dependency Map
+
+G0 → G1 → G2 → recomposition. The candidate branch is rebased onto the W12
+close before G2 implements; nothing on it lands before G2's referee.
+
+## Risks & Mitigations
+
+- **The 1x mechanism is not the layer tree's ramp** (§5.55 §5's open
+  question; the 1x deep interior keeps a sharp core the 2x one has lost).
+  Mitigation: the form is chosen on G0's measured windows, and a ramp with
+  a floor is a declared candidate; if the two scales need different ramp
+  shapes rather than one ramp with a scale term, that is the finding and
+  the declaration says so.
+- **The ramp couples with the lens in the band.** Mitigation: the lens is
+  fixed (binding); the residual the lens leaves is recorded, not absorbed.
+- **The 1x rows fall** because the uniform k was fitted to the 1x bed as a
+  whole. Mitigation: S1 with the sweep at 1x before the landing capture;
+  the 1x interior is blurrier than the reference today (baseline), so the
+  ramp has room to improve 1x, not only 2x.
+- **The mip chain's heavy tap** is not a Gaussian and its footprint at a
+  given level is what the sweep sees. Mitigation: the renderer is the
+  fitting instrument (binding).
+- **The virtual 2x display.** §5.50 exonerated it for the blur; the ramp's
+  2x reading rides on the same bed. Mitigation: recorded; a real Retina
+  capture remains user-held and would be read once as a check.
+- **Retiring two profile constants** touches every consumer of the span
+  law (the proxy padding's 3σ rule, `tier-coherence`, the readouts).
+  Mitigation: the projection keeps `scatterThickness(span)` as the
+  function every consumer calls, with the ramp's integral as its body.
+
+## Deferred / Out of Scope
+
+- The CSS tier's depth ramp through a two-layer body with an inset mask —
+  the two-layer CSS body charter (W11 Decision Log 5) extended; measured
+  feasibility is a spike of its own.
+- The lens's 2x mid-depth residual (0.6–1.3 px, §5.55 §4) — recorded, not
+  refit here.
+- The thin-material scale-dependent level on text and high-contrast
+  backdrops (§5.55 §3) — a level question, its own wave.
+- The user's other two by-eye gaps from W12's Deferred (the whole-surface
+  dome; the shadow's span law) — unchanged; the dot gap is G0's measurement
+  and returns to W12's Deferred shape if the small-span heavy width does
+  not explain it.
+- The bleed term, the two-light rim, continuous corners, the tint's colour
+  matrix, the pressed state — W12's Deferred, unchanged.
+
+## Tracking Map
+
+| child | where | status |
+| --- | --- | --- |
+| G0 | — | OPEN |
+| G1 | — | blocked-by G0 |
+| G2 | — | blocked-by G1 |
+
+## Decision Log
+
+### Decision Log 1 — the cut, the binding rules, and what the user decides (2026-09-03)
+
+**The cut.** Three children in W12's shape — instrument and measurement,
+declaration and dry run, landing and referee — because the three have
+different verification strategies (a recovery on a known field; a
+prediction against a bed; a referee under stops) and the first two produce
+findings the third must not pre-empt. Rejected: one controlled round from
+the candidate branch (the ramp's form is not known well enough to declare
+from §5.55 §2's windows, which start at u 20 and do not see the band); a
+decision round on the CSS tier as a fourth child (it is one question, below).
+
+**Binding rules.** The four in Design: the ramp measured through a fixed
+lens; the widths land with the ramp; a measured ramp, then a form, fitted
+in the renderer; the span law is the ramp's projection on both tiers.
+
+**Beyond the user's words, for their eye:** the heavy width on the small
+spans and the impulse kernels are added to G0's measurement (not to the
+declaration) because the same instrument on the same probes reads them,
+and because the user's dot gap looks, on §5.50 §2's radius law, like this
+term. It costs G0 one more table.
+
+**What the user decides at this gate** (each with the recommendation):
+
+1. *Approve the cut and the binding rules; G0 starts.* Recommended; G0 is
+   measurement only and lands nothing.
+2. *The CSS tier at device scale.* (a) The CSS tier keeps the 1x law at
+   every dpr: its `blur()` σ is the ramp's projection at dpr 1, the 2x dom
+   rows stay held by decision with the claim narrowed to "the CSS tier
+   renders the 1x material", and the CSS tier's own 2x form — whose best
+   single σ is *larger* in CSS px at 2x, the opposite of the device-pixel
+   widths (§5.55 §5) — goes to the two-layer CSS body wave. (b) Carry the
+   device-pixel widths on the CSS tier through the candidate's
+   `observeDevicePixelRatio` plumbing. **Recommended: (a)** — (b) moves the
+   2x dom rows the way the measurement says is wrong, and (a) is honest
+   about what the tier is.
+3. *The band split at 24 CSS px* for the windowed rows (X6), fixed rather
+   than per span. Recommended as written: one number the eye can check on
+   the sheet; per-span splits would move with the lens depth and hide a
+   lens change inside a metric change.
+
+Held for the user beyond this gate: the by-eye reading at G1's dry run and
+the landing call at G2.
+
+## Surprises & Discoveries
+
+(open)
+
+## Outcomes & Retrospective
+
+(open)
+
+## Revision Notes
+
+- 2026-09-03: opened from W12 Decision Log 7.
