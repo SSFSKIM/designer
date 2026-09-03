@@ -1,0 +1,297 @@
+# W12 — The lens band's structure (2026-09-03)
+
+> **Parent:** the post-v1 wave
+> (`docs/doperpowers/specs/2026-08-28-post-v1-wave.md`), by way of its
+> Deferred entry "the 2x lens study" (added 2026-09-03 from claims §5.48).
+> Picked by the user 2026-09-03: "Let's start it ahead of the two-layer CSS
+> body." **Consumes:** claims §5.43–§5.44 (W11c G2: the band measured per
+> depth shell as a radial mean, the 1.6× gain that landed), §5.41 §5 and W11
+> Decision Log 4 (the 2x interior is a different object; 2x rows held by
+> decision until a Retina capture exists), §5.48 (the gap read by eye).
+> Three gates in the W9/W10/W11 shape: an instrument, a measurement, a
+> declared fit with its referee — and a conditional decision round on the
+> 2x body.
+
+## Purpose
+
+The GPU tier's lens has the reference's magnitude (W11c G2) and not its
+shape. Read by eye against the fixtures at both scales (§5.48, and the
+crops this wave opens on), the reference's band is a set of crisp lobes: the
+checker rows are reversed and compressed into the band, the inner boundary
+of the band — where the reversal folds — is sharp and high-contrast, every
+rounded corner carries a large round lobe, and a thin dark line sits just
+inside the bright rim. Ours displaces the sample by the same profile but
+reads a heavily pre-blurred body at the displaced position, so the fold
+that makes the reference's lobes sharp is blurred away before it can
+happen; our band is a faint compression. This is visible at 1x as much as
+at 2x — the metric that scored the band's mean could not see it — and 2x is
+where it is most legible and where the user reads it on a Retina display.
+
+Beside the band, the 2x interior itself is more transparent and less hazy
+than ours (transmission 0.41 against 0.24, level 0.47 against 0.58 on
+`rrect-md`), which W11 held by decision. This unit measures the band as a
+displacement **field** with an instrument proven on vitrea's own capture
+first, fits an edge profile with real thickness only if the field asks for
+one, lands it on the GPU tier under the W11c stops, and puts the 2x body's
+gap in front of the user with the two capture routes that could close it.
+Every gap it does not close is written down with its evidence, per the
+project's rule.
+
+## Parent-Level Acceptance
+
+- The band's displacement field on the reference is **measured**, not
+  modelled: D(u) along the normal per edge and per span at 1x and 2x, the
+  blur order (before or after the displacement) that explains the band, the
+  band's own σ and transmission by depth, the corner field, and the
+  near-contour profile (rim line, dark line) — with the instrument's
+  recovery of vitrea's known law recorded beside every reference reading.
+- A form is declared **before** the landing capture, fitted at 1x with
+  `rrect-lg` held out, predicted at 2x by dry run, and refereed on the full
+  bed under the stops below. The band's absolute loss on the three
+  calibration checkerboard cells falls again at 1x, and the 2x
+  `checkerboard__rrect-ml` / `-lg` / `glass-over-glass` texture rows rise;
+  any that still miss are re-pinned with the mechanism named.
+- **By eye:** a side-by-side sheet (native | vitrea | signed difference,
+  2x, 3× nearest-neighbour, the five checkerboard spans and `photo__rrect-md`)
+  is produced at every gate, committed under the wave's results directory,
+  and sent to the user's Retina display; the user's reading is recorded in
+  the Decision Log beside the numbers.
+- The 2x body (transmission, level, σ) is measured on every checkerboard
+  cell for both sides and the decision round G3 is presented: a 2x probe
+  capture on this machine's virtual HiDPI display, a real Retina capture
+  (user-held), or hold — with what each would and would not settle.
+- All package suites green, lint clean, goldens re-recorded only where the
+  Decision Log names the scene and the reason; the canonical matrix rebuilt
+  once at recomposition (X1); every gap left is in claims, this Deferred
+  list, or the tech-debt tracker.
+
+## Grounding Baseline (measured on the 0.3.0 bed, 2026-09-03)
+
+- Lens as landed (W11c G2): `D(u) = lensDepth × 1.6 × (1 − u/lensDepth)²`
+  along the SDF normal, `lensDepth = thickness × lensSizeGain ≤ span/2`
+  (20.8 CSS px on spans ≥ 96); both body components sampled at the
+  displaced position; the CSS tier has no lens by contract.
+- Interior, single-Gaussian fit over the inset interior (σ CSS px / level a
+  / transmission t), `checkerboard__rrect-md`:
+  1x native σ 1.25 / 0.556 / 0.246, vitrea σ 1.5 / 0.573 / 0.239 — agree;
+  2x native σ 3.0 / 0.473 / 0.413, vitrea σ 1.5 / 0.582 / 0.239 — the
+  reference transmits 1.7× more and carries 0.11 less haze.
+- Texture-tier `ssimMean`, checkerboard: 1x `rrect-md` 0.9538, `-ml` 0.9307,
+  `-lg` 0.9286 (bounds ≥ 0.88, met); 2x `rrect-md` 0.9389 (met, ≥ 0.93),
+  `-ml` 0.9023, `-lg` 0.9013, `glass-over-glass` 0.9076 (floors, held by
+  W11 Decision Log 4). Band loss share after G2 (1x): 43–56%; outside band
+  39–47% (§5.44 §3).
+- The 2x bed is the BetterDisplay virtual HiDPI display's ("가상 16:9",
+  hiDPI on), attested settled A/B; no real Retina panel has been captured.
+  The machine still has that display online (1x mode today), so a 2x probe
+  capture is one `--hiDPI=on` and one scene-set edit away.
+- Evidence from the read by eye (`w12/md-{1x,2x}-{full,corner,left}.png`,
+  `lg-2x-full.png`, `photo-md-2x-full.png` in the job scratch; the sheet
+  tooling below commits them): the lobes, the sharp fold, the corner lobes
+  and the dark line are on the reference at both scales and on ours at
+  neither.
+
+## Design
+
+Three decisions are binding at this level because only the whole picture
+settles them:
+
+- **[binding — the instrument precedes the reading]** No reference number
+  is recorded until the same instrument has recovered vitrea's own law from
+  vitrea's own capture (33.3·(1 − u/20.8)² at 1x on `rrect-md`, within
+  1 CSS px over 2 ≤ u ≤ 20; the 2x capture in CSS px). W11c's shell fit
+  read a radial mean through a fold and could not tell shape from blur;
+  this wave's instrument is judged on a known field first.
+- **[binding — a field, then a form]** D(u) is recovered non-parametrically
+  (a smooth warp s(u) = u + D(u) along lines normal to each straight edge,
+  the fold allowed, fitted under both blur orders), and only then are forms
+  ranked on it: the landed quadratic, a physical bevel (Snell through a
+  circular or superellipse edge of width L, thickness T, index n), or a
+  free profile. A physical constant (n, T) enters the profile only if the
+  physical form beats the empirical one at equal parameter count on the
+  held-out span; otherwise the empirical form lands and the physical
+  reading is recorded as a finding.
+- **[binding — the blur order is a measurement, not a preference]** Whether
+  the reference blurs the backdrop before or after displacing it is decided
+  by the band's residual under each order on the probe's pitch-32/64 cells,
+  and the GPU tier takes the order that wins even though it changes the
+  pass structure (blur-after means the lens samples the sharp source and
+  the body blur runs on the refracted image, or an equivalent). The CSS
+  tier is untouched either way.
+
+Advisory, carried into the children: the fold arithmetic of §5.43 §2 (the
+source coordinate stationary near u ≈ 17 under the landed law); the
+Fresnel reading of the rim (a bright line where incidence grazes, a dark
+line where transmission collapses) as a candidate explanation of the
+near-contour profile, to be tested, not assumed; the W9 probe's scene set
+(`apps/reference-apple/scenes-w9-probe.json`) as the 2x probe's template.
+
+## Children
+
+### G0: The instrument — spike (deliverable: findings)
+
+- **Purpose:** a warp-recovery instrument that reads D(u) from a checkerboard
+  cell without assuming its shape. Along each line normal to a straight edge
+  through a cell-column centre, the observed luminance is `Y(u) = a + t ·
+  B(s(u))` (blur-before) or `Y = a + t · (G_σ ∗ P∘s)(u)` (blur-after), with
+  `s(u) = u + D(u)` a smooth spline (knots every 2 CSS px, second-difference
+  penalty, sign of s′ free so the fold is representable). A 2-D corner
+  check renders the recovered straight-edge D radially about the corner
+  centre and compares to the capture.
+- **Acceptance:** on vitrea's own `checkerboard__rrect-md__rest` webgpu
+  captures (1x and 2x) the recovered D(u) is within 1 CSS px of the
+  analytic law over 2 ≤ u ≤ 20 on all four edges, and the blur-before order
+  is preferred (it is what the shader does); on the 1x probe pitch-32 cell
+  the same holds. The corner check reproduces vitrea's own corner to the
+  same RMS as its straight edges.
+- **Edges:** blocks G1. **Track:** spike, this session.
+
+### G1: The measurement — spike (deliverable: findings; claims §5.49)
+
+- **Purpose:** the reference's field. Per edge (top, bottom, left, right —
+  the light direction may break the symmetry) and per span: D(u) with a
+  confidence band across the lines, at 1x on the probe's pitch-32 and -64
+  cells (`rrect-md`, `-ml`, `-lg`) and the canonical pitch 16, and at 2x on
+  the canonical cells; the blur order and the band's σ, t, a by depth; the
+  corner field on `rrect-md` and `-lg` against the radial prediction; the
+  near-contour profile in linear luminance at 2x (0 ≤ u ≤ 6, 0.5 px steps)
+  on solid, checkerboard and photo backdrops; the small spans
+  (`rrect-sm`, `capsule-button`) where the lens depth is clamped; and the
+  2x body (σ, t, a) on every checkerboard cell, both sides, both tiers.
+- **Acceptance:** every number above recorded with the instrument's
+  validation beside it; the forms ranked (landed quadratic / physical bevel
+  / free) by RMS on the fit spans and the held-out `rrect-lg`; the by-eye
+  sheet at 2x produced and sent. **No constant changes in G1.**
+- **Edges:** blocked-by G0; blocks G2, G3. **Track:** spike, this session.
+
+### G2: The declared fit and its referee — controlled
+
+- **Purpose:** the form G1 ranks first, declared with its constants and its
+  pass-structure change before the landing capture; a dry run (band
+  replaced by the declared form at the reference's own a, t) by whole-crop
+  SSIM at 1x and 2x on the calibration cells and the holdout; then the GPU
+  tier implemented, goldens attributed, and the twelve-run referee.
+- **Acceptance:** the band's absolute loss on `rrect-md` / `-ml` / `-lg`
+  (1x) falls from the §5.44 §3 values; the 2x checkerboard texture rows
+  rise; the by-eye sheet shows the lobes, the fold and the corner lobes on
+  ours; and the **stops** (declared here, carried from §5.43 §4): any
+  solid-backdrop cell moving by more than one code value; any `photo`,
+  dark-profile or accessibility cell leaving its bounds; any CSS-tier
+  capture differing at all; any 2x floor crossed; any small-span texture
+  cell (`rrect-sm`, `capsule-button`, `toolbar-group`) below its 0.3.0 SSIM
+  by more than 0.005; the rim/specular constants untouched unless G1
+  measures them as the term.
+- **Edges:** blocked-by G1; blocks recomposition. **Track:** controlled.
+
+### G3: The 2x body — decision round (conditional on G1)
+
+- **Purpose:** G1's 2x body numbers against the 1x law (fit at 1x, predict
+  2x, W11 Decision Log 4). If the 2x transmission/level gap survives G2's
+  lens (it should: the interior is not the band), present the routes: (a) a
+  2x probe capture on this machine's virtual HiDPI display (the W9 scene
+  set with `-2x-` profile entries, pitches 4…64 × five spans) to fit a
+  scale-aware body with its virtual-display caveat stated; (b) a real Retina
+  capture on the user's MacBook (harness build + ScreenCaptureKit TCC,
+  user-held); (c) hold, claim narrowed to 1x as today.
+- **Acceptance:** the user decides; the decision and its reason land in
+  the Decision Log; a chosen capture route becomes its own child.
+- **Edges:** blocked-by G1. **Track:** decision round.
+
+## Cross-Child Contracts
+
+- **X1 — the canonical rebuild.** `rm results/matrix.json`, then the twelve
+  per-profile runs, once at recomposition; children referee on partial runs
+  to a scratch matrix. Owner: parent.
+- **X2 — floor bookkeeping.** As W11 X2: a floor comes off only with its
+  bound restored as a met claim in §5.27; `UNMET_ROWS`, `PREDICATE_EXCLUDES`
+  edited beside the section that justifies them. Owner: parent.
+- **X3 — the untouched bed.** The whole-bed scan against the 0.3.0 matrix
+  (`matrix-w11c-g2-close.json` is that bed); every cell moved by more than
+  0.005 is named. Owner: parent; G2 binds.
+- **X4 — the instrument's validation travels with every reading.** A
+  reference D(u) table is never quoted without the vitrea-capture recovery
+  from the same instrument and the same cell geometry beside it. Owner: G0;
+  G1 and G2 bind.
+- **X5 — the by-eye sheet.** `packages/calibration/results/2026-09-03-w12-lens/sheets/<gate>-2x.png`:
+  native | vitrea webgpu | signed luma difference, 3× nearest-neighbour, one
+  row per cell (`rrect-sm`, `capsule-button`, `rrect-md`, `rrect-ml`,
+  `rrect-lg` on checkerboard; `photo__rrect-md`), plus 10× corner crops of
+  `rrect-md`. Produced by one script kept in that directory, at G1 (the
+  0.3.0 bed), at G2's dry run, and at G2's landing; sent to the user each
+  time. Owner: parent.
+
+## Ordering & Dependency Map
+
+G0 → G1 → G2 → recomposition; G3 opens on G1's numbers and runs beside G2.
+G0 and G1 are one session's work and share a scratch library; G1 is split
+across two workers (straight edges and blur order; corners, near-contour
+profile and the 2x body) that write findings, not the spec.
+
+## Risks & Mitigations
+
+- **The fold defeats the warp fit** (a stationary s(u) is a degenerate
+  design matrix). Mitigation: the spline's second-difference penalty and
+  the multi-line average; the instrument's acceptance on vitrea's own fold
+  is the proof it copes.
+- **Blur-after changes the renderer's pass order** and may cost a pass.
+  Mitigation: G1 measures the order; G2 declares the pass structure with
+  its cost before implementing; an equivalent single-pass approximation is
+  acceptable if its residual on the probe is within the instrument's noise.
+- **The 2x bed is a virtual display.** Mitigation: G3 is a decision round,
+  not a fit; nothing 2x-specific lands in a constant in this wave without
+  the user choosing a capture route.
+- **Corner lobes may need the true lens depth to exceed the corner radius**
+  (D(0) 33 > r 20 on `rrect-md`). Mitigation: the corner check is measured
+  against the radial prediction before any corner-specific term is
+  considered; a corner term is a finding first.
+
+## Deferred / Out of Scope
+
+- The two-layer CSS body (W11 Decision Log 5) — unchanged, still deferred.
+- The outside band (contour-straddling windows; W11 Deferred) — unchanged.
+- Chromatic aberration in the band: recorded if G1 sees it (the
+  checkerboard is achromatic; `photo` is where it would show); not fitted.
+- The Gecko manual pass and the Chromium bug report — user-held, unchanged.
+
+## Tracking Map
+
+| child | where | status |
+| --- | --- | --- |
+| G0 | this session; scratch `w12/` | opened 2026-09-03 |
+| G1 | two workers, findings to `w12/findings-*.md` and `results/2026-09-03-w12-lens/` | opened 2026-09-03 |
+| G2 | this session, after G1 | not started |
+| G3 | decision round | not started |
+
+## Decision Log
+
+### Decision Log 1 — the cut, the binding rules, and what the user decides (2026-09-03)
+
+**Evidence.** The 0.3.0 crops read by eye (Grounding Baseline) and the
+interior fits at both scales. The lobes, the sharp fold, the corner lobes
+and the dark line are on the reference at 1x and 2x and on ours at neither;
+the 2x interior gap is in transmission and level, not in the band.
+
+**Decided (this session, within the user's pick):** three gates and a
+decision round as written; the instrument-first rule, the field-then-form
+rule and the blur-order-as-measurement rule bound at this level. Rejected:
+fitting a corner term or a rim term from the eye (both are findings until
+G1 measures them); a 2x constant set (W11 Decision Log 4 stands until G3).
+
+**For the user:** G3's route, and the by-eye verdict at G2 — the numbers
+will say whether the band's loss fell; the user's display says whether the
+material reads as glass.
+
+## Surprises & Discoveries
+
+- (2026-09-03, at open) The gap §5.48 recorded as "the 2x gap" is at 1x
+  too: the 1x fixture shows the same lobes and fold, at half the size, and
+  ours shows the same faint compression. W11c's SSIM rise at 1x came from
+  the band's mean, and the band's shape was never in the metric.
+
+## Outcomes & Retrospective
+
+(open)
+
+## Revision Notes
+
+- 2026-09-03: opened.
