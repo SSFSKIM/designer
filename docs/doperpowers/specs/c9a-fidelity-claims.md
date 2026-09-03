@@ -9951,3 +9951,31 @@ by measurement behind the isolation proof, the 1x golden `body-ramp-1x` must not
 fixture; the sheets at the landing; the CSS tier untouched (Decision Log 3); every gap to Deferred
 — the outside thousandth on two cells, the thin spans' spread under native by 0.011–0.012, the 2x
 gain's top (12.4 device px) unobserved above span 160, the whole-silhouette interior statistic.
+
+**9. LANDED (2026-09-04).** Merge `8cae88e` (W15 G1, `w15-g1-2x-body` at `138c34c` — the eight
+second-scale constants the landed defaults, the mirrors, the profile documents' `scatterSecondScale`
+entry from provisional to measured, fingerprints light `b1ff51ad15273736` / dark
+`8b9d3d2dbe1755aa`), the canonical rebuild `c00f89e`
+(`results/2026-09-04-w15-body-2x/g2/g2-landing.md`, `g2-runs.txt`, `g2-verify.py`,
+`attribution.txt`). 230 cells, 230 captures, GPU custody 05:13:52–05:18:47. **The 98 GPU cells of
+the four standard profiles are byte-identical to the re-form's confirmation, 98 / 98** — the
+holdout's one reading of this configuration reproduced, not re-read — and their rows equal to it;
+**the 66 1x GPU cells of every profile are byte-identical to the W13 bed, 66 / 66** (the
+accessibility profiles inside that count, every row 0.0000); the CSS tier within 0.0002 of the W13
+bed on every row with 114 / 115 captures byte-identical (one 2x solid cell by two codes, the tier's
+frame timing, not the landing — the tier reads no second-scale term). The twelve rows: §8's, the 1x
+column the W13 bed's to the digit. `adopted-thresholds` 31 passed before any edit — no floor
+moved, `UNMET_ROWS` 8 (the four CSS 2x floors unchanged by construction). **Goldens attributed by
+pixel diff before the merge** (`e2e/golden/w15-attribution.spec.ts`, `attribute-goldens.py`): the
+1x pin `body-ramp-1x` 0 of 24 000 pixels, the four unstructured scenes 0 of 96 000, the six dpr-2
+scenes over structure moved inside their surfaces by 1–19 codes with alpha untouched; pinned as
+`W15_G2_HASHES`, six PNGs regenerated, the cover-fit record re-recorded with its reason and its
+different-pictures bound lowered 24 → 16 codes (the deeper 2x body blurs the two fits more alike:
+22 codes on 0.147 of the pixels now); golden suite 29 passed. The demo fixture's 1x PNG
+byte-identical, its metadata re-copied (1 passed). Lint clean, 1 737 unit tests. The landing
+sheets byte-identical to the re-form's dry-run sheets, so the user's readings of the dry runs
+("W15 looks pretty good too"; the re-form's sheet sent) stand as S7. **Gaps carried out**
+(W15 Deferred): the outside thousandth on two 2x cells; the thin spans' interior spread 0.011–0.012
+under native at 2x; the 2x gain's top unobserved above span 160; the whole-silhouette interior
+statistic as a stop; the CSS tier's 2x law by decision with §5's table as the two-layer body's
+brief; the CSS tier's frame timing on one solid cell.
