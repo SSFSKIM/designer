@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "c223ca89c8d82322",
+  "resolvedMaterialSha256": "8b9d3d2dbe1755aa",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -411,6 +411,25 @@
     "The 2x one sits below Thick2x so the verified 2x null holds. The dark",
     "reference's own body ramp is still unmeasured; the patch itself is unchanged."
   ],
+  "$comment-w15-g1-landed": [
+    "RE-RECORDED 2026-09-04 (W15 G1 LANDED; claims 5.70 sections 2 and 8, W15",
+    "Decision Log 3): the defaults this difference document inherits carry the",
+    "eight second-scale constants at their FITTED values — the heavy width's gain",
+    "at dpr 2 (4.8, a heavy width of 6 device px) with its span-graded top (9.9),",
+    "the deep value fully heavy (floor 1.0) with its span top unchanged at 256,",
+    "and the ramp's 2x anchors thin 0.46 / thick 0.21 / far 0.21 / reach 100",
+    "device px. See the light profile's entries.scatterSecondScale and",
+    "entries.scatterRamp.",
+    "This document names none of them, as it named none of the terms when they",
+    "were built: the 2x body is not a colour-scheme difference, and if a later",
+    "sweep gives the dark scheme its own reading it will be named here then. The",
+    "2x body was fitted on the LIGHT calibration cells; the confirmation reads",
+    "this scheme's cells and every dark row rose or held (capsule-button 0.9697 ->",
+    "0.9711, rrect-md 0.9694 -> 0.9719, the stacked holdout 0.9445 -> 0.9488, the",
+    "tint-orange capsule unchanged). At dpr 1 nothing moves at all, here or in the",
+    "light document: every term is inert at that ratio by construction. The patch",
+    "itself is unchanged."
+  ],
   "$comment-sha-history": [
     "f9722f244e7f2af2 -> 0df0796a6485e189 (2026-09-03, W14 G1): the outer shadow's amplitude — this difference document's occlusion 0.09 retired for the two-regime law's dark anchors (thin 0.063 flat, thick 0.230/0.249/0.268 provisional) with the lift off — see entries.outerShadow. The light defaults it inherits moved with it.",
     "0df0796a6485e189 -> 989f02740cb5e52b (2026-09-03, W14 G1 review fixes 2 and 3): liftAmplitude 0 -> 0.0038, because X7 measured the lift surviving the dark colour scheme at 0.51-0.54 of its light amplitude at both scales (claims 5.62 section 8) and this document's 0 was written before that instrument ran; and reducedTransparencyOcclusion 0.038 named for the first time, because the constant became an absolute occlusion and inheriting the light scheme's measured 0.197 would have applied three times this material's own amplitude. Both PROVISIONAL — see entries.outerShadow.",
@@ -419,6 +438,7 @@
     "f378523fd2fa9995 -> 86390fdc60e8eb72 (2026-09-03, W13 G1, FOURTH form): the defaults this difference document inherits gain sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved.",
     "86390fdc60e8eb72 -> aa6e466b1412ec04 (2026-09-03, W13 G1, fourth form FITTED at 1x): the default this difference document inherits, sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact.",
     "aa6e466b1412ec04 -> ae16e6e95d9671a7 (2026-09-04, W15 G1): the defaults this difference document inherits gain three SECOND-SCALE constants - sizeScatterGainMax2x, sizeScatterFloor2x, sizeScatterSpanMax2x - each equal to its 1x constant and interpolated by rampAtScale, so that W15's sweep can fit the 2x body in the renderer (claims 5.69 sections 1-2). THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED, and so is the material at every ratio while the anchors are equal; the digest moves because three keys entered the resolved object. This document names none of them: the 2x body is not a colour-scheme difference, and if the sweep gives the dark scheme its own reading it will be named here then. PROVISIONAL - see the light document's entries.scatterSecondScale.",
-    "ae16e6e95d9671a7 -> c223ca89c8d82322 (2026-09-04, W15 G1's RE-FORM): the defaults this difference document inherits gain a FOURTH second-scale constant, sizeScatterGainFar2x - the heavy width's gain at the top of the scatter span curve at dpr 2, which grades the 2x heavy width with the span (claims 5.70 sections 4 and 7; W15 Decision Log 3). THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED, and so is the material at every ratio while the gain's two ends are equal; the digest moves because one key entered the resolved object. This document names it no more than it names the other three: the 2x body is not a colour-scheme difference. PROVISIONAL - see the light document's entries.scatterSecondScale."
+    "ae16e6e95d9671a7 -> c223ca89c8d82322 (2026-09-04, W15 G1's RE-FORM): the defaults this difference document inherits gain a FOURTH second-scale constant, sizeScatterGainFar2x - the heavy width's gain at the top of the scatter span curve at dpr 2, which grades the 2x heavy width with the span (claims 5.70 sections 4 and 7; W15 Decision Log 3). THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED, and so is the material at every ratio while the gain's two ends are equal; the digest moves because one key entered the resolved object. This document names it no more than it names the other three: the 2x body is not a colour-scheme difference. PROVISIONAL - see the light document's entries.scatterSecondScale.",
+    "c223ca89c8d82322 -> 8b9d3d2dbe1755aa (2026-09-04, W15 G1 LANDED): the defaults this difference document inherits take the eight second-scale constants' FITTED values (claims 5.70 sections 2 and 8; W15 Decision Log 3) - sizeScatterGainMax2x 8 -> 4.8, sizeScatterFloor2x 0.4 -> 1, sizeScatterGainFar2x 8 -> 9.9, sizeScatterRampStartThick2x 0.17 -> 0.21, sizeScatterRampStartFar2x 0.15 -> 0.21; sizeScatterSpanMax2x, sizeScatterRampStartThin2x and sizeScatterRampReach2xPx unchanged. THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED, every term being inert at that ratio by construction, and AT DPR 2 IT CARRIES THE LANDED 2x BODY. This document names none of them - the 2x body is not a colour-scheme difference - and every dark row of the confirmation rose or held. See $comment-w15-g1-landed and the light document's entries.scatterSecondScale."
   ]
 }

@@ -540,10 +540,11 @@ export interface MaterialProfile {
    * the same shape the ramp's anchors already have.
    *
    * Each is interpolated by `rampAtScale`: held at the 1x constant at dpr ≤ 1,
-   * at this one from dpr 2 up, linear between. **Each therefore defaults to its
-   * 1x value and the 1x material cannot move** — W15's binding rule — and a
-   * default profile renders exactly what it rendered before this term existed,
-   * at every ratio.
+   * at this one from dpr 2 up, linear between. **At dpr 1 every one of them is
+   * inert by construction, whatever it says** — W15's binding rule — so the 1x
+   * material is byte-identical to the W13 bed and the landing's confirmation
+   * measured exactly that: 49 of 49 1x GPU cells identical to the bed with
+   * every capture byte-identical (claims §5.70 §8).
    *
    * Consumed at draw time, not folded into a constant: `scatterDeepThickness`
    * takes the ratio for the floor and the span top, the renderer resolves all
@@ -552,15 +553,32 @@ export interface MaterialProfile {
    * and `size.x`), and `scatterThickness`, `scatterSharpShare` and the ramp's
    * area-average projection read the resolved deep value.
    *
-   * PROVISIONAL, all three, and inert until they are fitted. W15 G1's runtime
-   * sweep at `--profile apple-macos-26.5-2x-light-standard` sets them, on the
-   * rule W13 wrote after the paper model over-credited the mip chain's heavy
-   * tap (§5.58 §1): no constant of this material lands on a paper prediction.
-   * What §5.69 says they should come out near — the sweep decides, not this
-   * comment — is a deep value near fully heavy on the large spans (a floor
-   * above 0.4, a span top below 256, or both) and a gain that puts the heavy
-   * width near 8–11 device px once `bodySigmaCssFor` has divided the sharp
-   * width by the ratio.
+   * **FITTED** by W15 G1's runtime sweep at
+   * `--profile apple-macos-26.5-2x-light-standard` on the calibration set, the
+   * holdout untouched, and landed at the values below (claims §5.70 §2 and §8;
+   * the four sweeps `results/2026-09-04-w15-body-2x/g1/stage1..stage3` and the
+   * confirmation `confirm-3`, whose 2x holdout was read once for this
+   * configuration). The rule W13 wrote after the paper model over-credited the
+   * mip chain's heavy tap (§5.58 §1) held: no constant here lands on a paper
+   * prediction, and the sweep contradicted the paper estimate.
+   *
+   * **The gain, 4.8.** Stage 2c swept it over 4.0 / 4.4 / 4.8 / 5.2 at the
+   * chosen base and found an INTERIOR MINIMUM at 4.8 — the interior spread
+   * against native reading 0.0335 / 0.0214 / 0.0120 / 0.0217 with the band's
+   * rise at its top too. Through `bodySigmaCssFor` that is a heavy width of
+   * **6 device px** at dpr 2, NARROWER than the 8–11 device px §5.69 §1
+   * bounded as a Gaussian: the estimator carries ±40% on a real capture of a
+   * known law (§5.69 §3) and the mip chain's tap is not a Gaussian, so the
+   * renderer is the fitting instrument and 6 is the width it draws best.
+   *
+   * **The floor, 1.0** — the deep value FULLY heavy at dpr 2, which is what
+   * G0's deep windows read on the two largest spans (§5.69 §2). `kDeep` is
+   * therefore 1 at every span at this ratio, and the depth ramp above it is the
+   * whole body (§5.70 §1).
+   *
+   * **The span top, 256** — the 1x value, unchanged, because a floor of 1
+   * leaves the deep value nothing to rise to and the top has no work at this
+   * ratio. Stage 1 swept it against 128 and the bed did not ask for the change.
    */
   readonly sizeScatterGainMax2x: number;
   readonly sizeScatterFloor2x: number;
@@ -599,13 +617,18 @@ export interface MaterialProfile {
    * says. That is W15's binding rule (the 1x material does not move) discharged
    * by the shape of the formula rather than by a capture.
    *
-   * PROVISIONAL. It defaults to `sizeScatterGainMax2x`'s own default, so a
-   * profile that does not name it draws exactly what it drew before the term
-   * existed at every ratio; W15 G1's re-form sweeps it and the confirmation sets
-   * it. W15 Decision Log 3's arithmetic — G0's ratio 1.375 read against this
-   * curve's 0.352 at span 160 — puts it near 9.9 over a base gain of 4.8, which
-   * is a heavy width of 6 device px at spans ≤ 96 rising to about 8.3 at 160.
-   * That is where the sweep starts, not where it lands.
+   * **LANDED at 9.9** (claims §5.70 §8; W15 Decision Log 3, the user's landing
+   * "the re-form"), and the value is G0's rather than the holdout row's: §5.69
+   * §1's bounded per-span reading is 8 device px at span 96 and 11 at 160, a
+   * ratio of 1.375, and this curve reads 0.352 at span 160, so 4.8 + (9.9 −
+   * 4.8) · 0.352 reproduces that ratio over the base gain of 6 device px. The
+   * heavy width at dpr 2 is therefore 6.0 device px at spans ≤ 96, 6.7 at 128,
+   * 8.2 at 160 and 12.4 at 256 and beyond. The calibration cells neither chose
+   * the value nor rejected it — `stage3` swept 4.8 / 7.5 / 9.9 / 12.5 and only
+   * `rrect-ml` (span 128, a tenth of the grading) moves, its interior spread
+   * 0.1125 → 0.0993 against native 0.1018 at 9.9, which is the sweep's best on
+   * its own objective. The confirmation's holdout `rrect-lg` rose 0.9661 →
+   * 0.9762 with its interior spread 0.0721 against native 0.0810.
    */
   readonly sizeScatterGainFar2x: number;
 
@@ -691,15 +714,15 @@ export interface MaterialProfile {
    *            + (far − thick) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
    *
    * Two curves the material already has, one more constant per scale, and no
-   * new span statistic. At 2x `far` sits below the thick anchor, so the null
-   * the third form verified bit-exactly (§5.67 §2) holds by construction: an
-   * excursion that was zero at every span stays zero when its start falls
-   * further.
+   * new span statistic. At 2x the decline is switched off rather than inverted:
+   * `far` and `thick` carry the same number since W15 G1, because G0 read the
+   * reference's 2x start FLAT across the thick spans (claims §5.69 §2, §5.70 §6
+   * (iv)) — the decline is a 1x feature of this form.
    *
-   * PROVISIONAL, all eight. The runtime sweep at this form sets them, because
-   * the paper model over-credited the mip chain's heavy tap once already
-   * (§5.58 §1) and no constant lands on a paper prediction again. What they
-   * carry now:
+   * The 1x three are FITTED (W13 G1's third and fourth sweeps) and the 2x four
+   * are FITTED or read from G0 by W15 G1 (claims §5.70 §2 and §8); no constant
+   * here lands on a paper prediction, because the paper model over-credited the
+   * mip chain's heavy tap once already (§5.58 §1). What they carry:
    *
    * **1x — thin 0.64, thick 0.52, reach 120 device px.** G0's own start
    * readings are 0.637 on `rrect-sm` and 0.642 on the capsule at the thin end
@@ -710,20 +733,27 @@ export interface MaterialProfile {
    * and is also G0's reading on that cell, so the fit is not traded against the
    * form's own arithmetic.
    *
-   * **2x — thin 0.46, thick 0.17, reach 100 device px, and the excursion clamps
-   * to zero on every cell of the calibration bed.** These are G0's 2x readings
-   * (0.483 / 0.437 on the thin cells, 0.192 / 0.179 / 0.141 on the thick ones),
-   * and every one of them sits BELOW its cell's deep sharp share: the implied
-   * excursions run −0.095 to −0.289 (claims §5.64 §4). `max(0, s₀ − sDeep)` is
-   * therefore zero everywhere on this bed at dpr 2. That is not a special case
-   * and not a disabled facet — it is the law evaluating to no excursion where
-   * the reference's own contour share is heavier than vitrea's deep value. It
-   * follows that **the 2x gap is a deep-value gap and not a ramp gap**: the
-   * span law's floor, knee and top are what miss at that scale, and no
-   * one-signed excursion above them can express it. That fit is W13's Deferred
-   * charter and not this constant's business.
+   * **2x — thin 0.46, thick 0.21, far 0.21, reach 100 device px, and the ramp
+   * is now the WHOLE body above the deep value** (W15 G1, claims §5.70 §1–§2).
+   * W13 left these inert for the deep value's sake: at `sizeScatterFloor2x` 0.4
+   * every anchor sat below its cell's deep sharp share and `max(0, s₀ − sDeep)`
+   * was bit-exactly zero on the whole bed. W15 G1 fitted that deep value fully
+   * heavy (`sizeScatterFloor2x` 1.0), so the deep sharp share at dpr 2 is 0 and
+   * the anchors act on the numbers they were carrying — which is why the wave's
+   * three gaps turned out to be one gap (§5.70 §6 (i)).
    *
-   * **far — 0.20 at 1x (FITTED on the W14 bed), 0.15 at 2x.** The fourth
+   * The values are G0's readings where the sweep was flat and the sweep's where
+   * it was not. **Thin 0.46** is G0's u 6 reading exactly (0.494 / 0.468 on the
+   * thin cells) and stage 2b's best, over a top nine points within 0.002 of
+   * each other. **Thick and far 0.21**: G0's 2x starts on the thick cells are
+   * 0.163 / 0.199 / 0.210 at their own widths and 0.192 / 0.199 / 0.195 at one
+   * common width — flat with span, not declining — so the two anchors take one
+   * number and the fourth form's decline is off at this scale; stage 2a
+   * measured the objective flat over 0.17–0.25 and worse at 0.33. **Reach 100
+   * device px** = 50 CSS px against G0's measured 49 / 53 / 56, and stage 2b
+   * found 100 and 130 indifferent.
+   *
+   * **far — 0.20 at 1x (FITTED on the W14 bed), 0.21 at 2x.** The fourth
    * sweep (`results/2026-09-03-w13-ramp/g1/sweep-4/`) swept far over eight
    * points from 0.52 (the third form) down to 0.15: S1 and S4 pass at every
    * one, only `rrect-ml`'s rows move and they improve monotonically as far
@@ -733,8 +763,14 @@ export interface MaterialProfile {
    * is far = 0.207 through this form — and 0.20 is the measured grid point that
    * carries it. The confirmation read `rrect-lg` at `ssimMean` +0.0056 against
    * the W14 bed (the third form: −0.0026) with its interior 12% over the
-   * reference (from 33% over). At 2x far is below the thick anchor so that the
-   * null holds — re-verified bit-exact under this form.
+   * reference (from 33% over). At 2x far equals the thick anchor, so the start
+   * is flat past the knee at that scale — G0's own reading (§5.69 §2), and the
+   * holdout's band supports it (`rrect-lg` +0.0106, claims §5.70 §8).
+   *
+   * At dpr 1 none of the 2x four is read at all: `rampAtScale` holds every one
+   * of them at its 1x anchor below dpr 1, so the 1x material is byte-identical
+   * to the W13 bed and the landing's confirmation measured that on 49 of 49 1x
+   * GPU cells (claims §5.70 §8).
    */
   readonly sizeScatterRampStartThin1x: number;
   readonly sizeScatterRampStartThick1x: number;
@@ -1286,15 +1322,20 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
-  // The second scale, each defaulting to its 1x constant so that the term is
-  // inert until W15 G1's sweep fits it (see `MaterialProfile.sizeScatterFloor2x`).
-  sizeScatterGainMax2x: 8,
-  sizeScatterFloor2x: 0.4,
+  // The second scale, FITTED by W15 G1's runtime sweep at dpr 2 and landed
+  // (claims §5.70 §2 and §8): the gain 4.8 — a heavy width of 6 device px, the
+  // sweep's own interior minimum and narrower than G0's Gaussian estimate — the
+  // deep value fully heavy, and the span top left at the 1x value because a
+  // floor of 1 leaves it nothing to rise to. Read only above dpr 1, so the 1x
+  // material is byte-identical to the W13 bed (see
+  // `MaterialProfile.sizeScatterFloor2x`).
+  sizeScatterGainMax2x: 4.8,
+  sizeScatterFloor2x: 1,
   sizeScatterSpanMax2x: 256,
-  // The 2x gain's own span grading (W15 G1's re-form, claims §5.70 §4 and §7),
-  // defaulting to the 2x gain's default so that the span curve is flat and the
-  // term is inert until the re-form's sweep sets it.
-  sizeScatterGainFar2x: 8,
+  // The 2x gain's own span grading (W15 G1's re-form, claims §5.70 §8; W15
+  // Decision Log 3), set from G0's independent per-span reading — 8 device px
+  // at span 96 and 11 at 160 — and not from the holdout row it fixes.
+  sizeScatterGainFar2x: 9.9,
   // The 1x three FITTED in the renderer (W13 G1's third sweep, 44 points over
   // the calibration bed: `results/2026-09-03-w13-ramp/g1/sweep-3/g1-sweep-3.md`
   // §3); the 2x three PROVISIONAL still, because at them the excursion is
@@ -1304,17 +1345,18 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // interior optimum of both the interior objective and the interior gap. The
   // thick anchor 0.52 is G0's `rrect-md` reading and is above that cell's deep
   // sharp share of 0.481, where the joint thick fit of 0.47 would have clamped
-  // it to nothing. The 2x pair is G0's 2x readings, every one of which is BELOW
-  // its cell's deep value, so at dpr 2 the excursion is zero on this whole bed
-  // — the law evaluating to no excursion, and the 2x gap located in the deep
-  // value instead (claims §5.64 §4). See
+  // it to nothing. The 2x three are G0's readings, LANDED by W15 G1 (claims
+  // §5.70 §2): thin is G0's u 6 reading and stage 2b's best, thick and far are
+  // one number because G0 read the 2x start flat across the thick spans, and
+  // with the deep value now fully heavy at that ratio the ramp is the whole
+  // body above it rather than the null W13 recorded. See
   // `MaterialProfile.sizeScatterRampStartThin1x`.
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
   sizeScatterRampStartFar1x: 0.2,
   sizeScatterRampStartThin2x: 0.46,
-  sizeScatterRampStartThick2x: 0.17,
-  sizeScatterRampStartFar2x: 0.15,
+  sizeScatterRampStartThick2x: 0.21,
+  sizeScatterRampStartFar2x: 0.21,
   sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
@@ -1588,6 +1630,10 @@ export const LENS_SIZE_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.lensSizeGainMax;
 export const SIZE_SCATTER_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax;
 export const SIZE_SCATTER_FLOOR = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor;
 export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax;
+export const SIZE_SCATTER_GAIN_MAX_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax2x;
+export const SIZE_SCATTER_GAIN_FAR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterGainFar2x;
+export const SIZE_SCATTER_FLOOR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor2x;
+export const SIZE_SCATTER_SPAN_MAX_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax2x;
 export const SIZE_SCATTER_RAMP_START_THIN_1X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x;
 export const SIZE_SCATTER_RAMP_START_THICK_1X =
   DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick1x;

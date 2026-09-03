@@ -620,13 +620,12 @@ export interface MaterialSourceSize {
    */
   readonly sizeScatterSpanMax: number;
   /**
-   * The body's second scale (W15 G1, claims §5.69 §1–§2): the heavy width's
-   * gain, the deep value's floor and the deep value's span top, each read again
-   * at dpr 2, because the reference's 2x deep interior is fully heavy on the
-   * two largest spans where the 1x curve leaves a sharp share of 0.24–0.36.
-   * Interpolated by `rampAtScale` exactly as the ramp's anchors are, and each
-   * defaulting to its 1x constant — so nothing this tier draws moves until the
-   * sweep fits them, and nothing at dpr 1 moves at all.
+   * The body's second scale (W15 G1, claims §5.69 §1–§2, landed at §5.70 §8):
+   * the heavy width's gain, the deep value's floor and the deep value's span
+   * top, each read again at dpr 2, because the reference's 2x deep interior is
+   * fully heavy on the two largest spans where the 1x curve leaves a sharp
+   * share of 0.24–0.36. Interpolated by `rampAtScale` exactly as the ramp's
+   * anchors are, and read only above dpr 1 — so nothing at dpr 1 moves at all.
    *
    * This tier reads the law at `CSS_TIER_RAMP_SCALE`, which W15 Decision Log 2
    * leaves at 1 until G1 predicts the tier's 2x σ, so these three reach the CSS
@@ -646,8 +645,9 @@ export interface MaterialSourceSize {
    * gain left the largest span's deep interior 40% too structured. So the gain
    * rises from `sizeScatterGainMax2x` at `sizeSpanMax` to this at
    * `sizeScatterSpanMax`, along the same smoothstep the ramp's far anchor
-   * declines on. Interpolated from the 1x gain, so at dpr ≤ 1 the two ends
-   * coincide and the grading is flat — the wave's binding rule by construction.
+   * declines on, landed at 9.9 over a base gain of 4.8 (claims §5.70 §8).
+   * Interpolated from the 1x gain, so at dpr ≤ 1 the two ends coincide and the
+   * grading is flat — the wave's binding rule by construction.
    *
    * Mirrored here for the same reason the three above are and drawn for the same
    * none: this tier reads at `CSS_TIER_RAMP_SCALE = 1`, which W15 Decision Log 3
@@ -692,16 +692,16 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
-  sizeScatterGainMax2x: 8,
-  sizeScatterFloor2x: 0.4,
+  sizeScatterGainMax2x: 4.8,
+  sizeScatterFloor2x: 1,
   sizeScatterSpanMax2x: 256,
-  sizeScatterGainFar2x: 8,
+  sizeScatterGainFar2x: 9.9,
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
   sizeScatterRampStartFar1x: 0.2,
   sizeScatterRampStartThin2x: 0.46,
-  sizeScatterRampStartThick2x: 0.17,
-  sizeScatterRampStartFar2x: 0.15,
+  sizeScatterRampStartThick2x: 0.21,
+  sizeScatterRampStartFar2x: 0.21,
   sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
@@ -1536,8 +1536,10 @@ export function scatterRampAreaMean(
  * CSS px than its 1x reading, not half of it (claims §5.69 §4).
  *
  * What the ratio does reach is the GAIN (`sizeScatterGainMax2x`, W15 G1), so at
- * mix 0 this returns `sigmaPx` at every ratio. The two gains are equal on the
- * landed material, and this tier calls at `CSS_TIER_RAMP_SCALE` anyway.
+ * mix 0 this returns `sigmaPx` at every ratio. Since W15 G1's landing the two
+ * gains differ above dpr 1 (4.8 at dpr 2 against 8 at dpr 1, claims §5.70 §8),
+ * but this tier calls at `CSS_TIER_RAMP_SCALE` — dpr 1 — so what it writes is
+ * the 1x law's σ whatever the ratio it is drawn at.
  *
  * `spanPx` is OPTIONAL and selects which gain, exactly as on the renderer's
  * mirror: given, the span-graded `scatterGainAt` (W15 G1's re-form, claims

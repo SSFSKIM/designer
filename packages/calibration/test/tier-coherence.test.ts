@@ -27,6 +27,7 @@ import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitre
 import {
   BACKDROP_TONE,
   CSS_TIER_MAPPING,
+  CSS_TIER_RAMP_SCALE,
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
   adaptedSourceOptics,
@@ -735,10 +736,11 @@ describe("tier coherence (K5)", () => {
   /*
    * The scattering facet's S1 consequence at a second device scale: the 3σ
    * padding floor is taken over the σ the tier will REALLY write. Since W13
-   * Decision Log 8 that σ is the same CSS-px number at every ratio — the ratio
-   * reaches the ramp's projection (its per-scale start and reach) and nothing
-   * else — so what is pinned here is that both tiers agree on it at every
-   * ratio and that no ratio can reach the width at all.
+   * Decision Log 8 the ratio never DIVIDES that σ in this shared projection;
+   * what it reaches is the heavy width's gain, which W15 G1 fitted at dpr 2
+   * (claims §5.70 §2). So what is pinned here is that both tiers resolve one
+   * number at every ratio and span, and that the tier's own declaration — read
+   * at `CSS_TIER_RAMP_SCALE` — is still the 1x law's.
    */
   it("takes the 3σ padding floor over the σ the tier actually writes, at every device scale", () => {
     const shipped = cssTierOptics().regular.blurRadius;
@@ -750,9 +752,10 @@ describe("tier coherence (K5)", () => {
       );
       expect(requiredSamplingPadding(platter), `dpr ${dpr}`).toBeCloseTo(3 * platter, 12);
     }
-    // At a fixed mix the width is one number: the thickness form takes no ratio
-    // on either tier (W13 Decision Log 8 retired the device-pixel widths on the
-    // bed), so the σ a floor is derived from at dpr 1 IS the σ drawn at dpr 2.
+    // At a fixed mix and a fixed ratio the width is one number on both tiers:
+    // the thickness form takes no ratio of its own (W13 Decision Log 8 retired
+    // the device-pixel widths on the bed), so the two mirrors cannot disagree
+    // about what a padding floor is taken over.
     for (const mix of [0, 0.4, 1]) {
       expect(cssSizeScatterSigmaAt(shipped, mix, MATERIAL_SOURCE_SIZE), `mix ${mix}`).toBeCloseTo(
         rendererSizeScatterSigmaAt(shipped, mix, DEFAULT_MATERIAL_PROFILE),
@@ -793,30 +796,52 @@ describe("tier coherence (K5)", () => {
     expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 1.5)).toBeCloseTo(1.25 * 6.75, 12);
     expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 2)).toBeCloseTo(1.25 * 5.5, 12);
     expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 3)).toBeCloseTo(1.25 * 5.5, 12);
-    // And on the LANDED material the ratio reaches nothing at all: the CSS
-    // tier's σ is 10 at every dpr, which is W13 Decision Log 5 still in force
-    // (W15 Decision Log 2) and the pin G1's prediction will be read against.
-    for (const dpr of [1, 1.5, 2, 3]) {
-      expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, dpr), `shipped σ at ${dpr}`)
-        .toBeCloseTo(10, 12);
+    /*
+     * And what the CSS TIER WRITES on the landed material is the 1x law's σ at
+     * every ratio and every span, because it reads the law at
+     * `CSS_TIER_RAMP_SCALE` — dpr 1 — where W15 G1's second scale and its span
+     * grading are both inert by construction. That is W13 Decision Log 5 still
+     * in force (kept for this wave by W15 Decision Log 3), and the pin the CSS
+     * tier's own 2x form will be read against when it is charted.
+     *
+     * Since the landing the SHARED projection does move with the ratio — the 2x
+     * gain is 4.8 and its top 9.9 (claims §5.70 §8) — so the two mirrors are
+     * pinned to each other at every ratio and span beside the tier's own σ. A
+     * disagreement between them is the failure this case exists for; a ratio
+     * reaching the tier's declaration would show up as the first assertion.
+     */
+    for (const span of [0, 32, 96, 160, 256, 400]) {
       expect(
-        rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, dpr),
-        `shipped σ at ${dpr}`,
+        cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, CSS_TIER_RAMP_SCALE, span),
+        `tier σ at span ${span}`,
       ).toBeCloseTo(10, 12);
-      // And the span reaches it no further: W15 G1's re-form grades the gain in
-      // span, and on the landed material that curve is flat, so the shipped σ is
-      // 10 at every ratio AND every span on both tiers.
+    }
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(
+        cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, dpr),
+        `mirrors at ${dpr}`,
+      ).toBeCloseTo(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, dpr), 12);
       for (const span of [0, 32, 96, 160, 256, 400]) {
         expect(
           cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, dpr, span),
-          `shipped σ at ${dpr} span ${span}`,
-        ).toBeCloseTo(10, 12);
-        expect(
+          `mirrors at ${dpr} span ${span}`,
+        ).toBeCloseTo(
           rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, dpr, span),
-          `shipped σ at ${dpr} span ${span}`,
-        ).toBeCloseTo(10, 12);
+          12,
+        );
       }
     }
+    // The landed 2x body, stated: 6 device px of heavy width up to the knee and
+    // growing above it, against 10 CSS px at dpr 1 (claims §5.70 §1, §8).
+    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, 1)).toBeCloseTo(10, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, 2, 96)).toBeCloseTo(
+      1.25 * 4.8,
+      12,
+    );
+    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, 2, 256)).toBeCloseTo(
+      1.25 * 9.9,
+      12,
+    );
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
