@@ -1,0 +1,18 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterRampStartThin1x=0.72 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=80    0.05032   0.01563  0.00856  0.02614   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.76 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=80    0.05042   0.01559  0.00853  0.02629   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.72 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=120    0.05045   0.01564  0.00862  0.02620   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.72 sizeScatterRampStartThick1x=0.54 sizeScatterRampReach1xPx=80    0.05052   0.01563  0.00848  0.02641   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStartThin1x=0.72 sizeScatterRampStartThick1x=0.54 sizeScatterRampReach1xPx=120    0.05056   0.01565  0.00850  0.02641   0.00302  0.00624  0.9858  19  20
+sizeScatterRampStartThin1x=0.76 sizeScatterRampStartThick1x=0.54 sizeScatterRampReach1xPx=80    0.05062   0.01559  0.00852  0.02650   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStartThin1x=0.76 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=120    0.05084   0.01560  0.00886  0.02637   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.76 sizeScatterRampStartThick1x=0.54 sizeScatterRampReach1xPx=120    0.05096   0.01561  0.00883  0.02651   0.00302  0.00624  0.9857  19  20
+
+best: sizeScatterRampStartThin1x=0.72 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=80  interior 0.05032
+spread across the grid: 0.05032 … 0.05096 (1.01×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.

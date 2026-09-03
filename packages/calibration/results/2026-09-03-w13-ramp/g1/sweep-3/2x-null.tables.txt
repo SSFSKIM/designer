@@ -1,0 +1,72 @@
+
+## 2x-null  (apple-macos-26.5-2x-light-standard)   4 points
+
+### ranked by mean ssimBand rise over the 5 checkerboard cells
+
+point                                                                               obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+
+### ranked by the WORST cell's ssimBand rise (S4's own reading)
+
+point                                                                               obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   +0.0038    -0.0191       -0.0160  FAIL  FAIL    0.0071
+
+### per-cell ssimBand delta against the W12 close, worst-cell order
+
+point                                                                                sm     caps       md       ml       tb
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  +0.0246  +0.0246  -0.0152  -0.0191  +0.0044
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  +0.0246  +0.0246  -0.0152  -0.0191  +0.0044
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  +0.0246  +0.0246  -0.0152  -0.0191  +0.0044
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  +0.0246  +0.0246  -0.0152  -0.0191  +0.0044
+
+### isdW
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W12 close)                                                                       —   0.1372   0.1189   0.0973   0.0746   0.1203   0.0488
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.1647   0.1500   0.1260   0.1029   0.1510   0.0516
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.1647   0.1500   0.1260   0.1029   0.1510   0.0516
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.1647   0.1500   0.1260   0.1029   0.1510   0.0516
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.1647   0.1500   0.1260   0.1029   0.1510   0.0516
+NATIVE                                                                                    0.1636   0.1552   0.1272   0.1018   0.1581   0.0591
+
+### ssimBand
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W12 close)                                                                       —   0.9417   0.8634   0.9315   0.9396   0.7432   0.9928
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.9663   0.8879   0.9163   0.9205   0.7476   0.9931
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.9663   0.8879   0.9163   0.9205   0.7476   0.9931
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.9663   0.8879   0.9163   0.9205   0.7476   0.9931
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.9663   0.8879   0.9163   0.9205   0.7476   0.9931
+
+### ssimInterior
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W12 close)                                                                       —     —        —      0.9594   0.9589     —      0.9973
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613     —        —      0.9183   0.9081     —      0.9975
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613     —        —      0.9183   0.9081     —      0.9975
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613     —        —      0.9183   0.9081     —      0.9975
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613     —        —      0.9183   0.9081     —      0.9975
+
+### ssimMean
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W12 close)                                                                       —   0.9978   0.9836   0.9517   0.9158   0.9663   0.9981
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.9985   0.9855   0.9455   0.8998   0.9664   0.9981
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.9985   0.9855   0.9455   0.8998   0.9664   0.9981
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.9985   0.9855   0.9455   0.8998   0.9664   0.9981
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.9985   0.9855   0.9455   0.8998   0.9664   0.9981
+
+### ssimOutside
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W12 close)                                                                       —   0.9971   0.9614   0.8584   0.8132   0.9237   0.9978
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.9969   0.9613   0.8572   0.8126   0.9223   0.9978
+sizeScatterRampStartThin2x=0 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.9969   0.9613   0.8572   0.8126   0.9223   0.9978
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0 sizeScatterRampReach2xPx=100  0.06613   0.9969   0.9613   0.8572   0.8126   0.9223   0.9978
+sizeScatterRampStartThin2x=0.46 sizeScatterRampStartThick2x=0.17 sizeScatterRampReach2xPx=100  0.06613   0.9969   0.9613   0.8572   0.8126   0.9223   0.9978
