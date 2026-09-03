@@ -346,7 +346,9 @@ close before G2 implements; nothing on it lands before G2's referee.
   with the ceiling pinned at 1), against the code's 0.400 / 256 / 1. Three
   scale terms, one of them a saturation constant the material has no name
   for, on the oldest span law in the profile — it needs its own declaration,
-  its own referee and its own frozen bed.
+  its own referee and its own frozen bed. **Ordering (user, 2026-09-03):**
+  chartered *after* the demo hero-ground decision and the coverage openers on
+  the backlog, not immediately after W13 and W14 land.
 
 - **The outer shadow's colour and span law — the next wave candidate,
   from X6's baseline (2026-09-03; Surprises).** The reference's shadow is
@@ -669,6 +671,8 @@ overturn the measurement (§5.55 §5) first, not just the constant.
   same branch with a second sweep.
 - 2026-09-03: the first form's branch reviewed; two findings (the CSS projection's extents,
   pyramid invalidation over dpr) folded into the re-form (Tracking Map).
+- 2026-09-03: the 2x deep-value charter ordered behind the demo hero-ground decision and the
+  coverage openers (user-decided; Deferred).
 - 2026-09-03: Decision Log 5 — the CSS tier keeps the 1x law for the ramp's mix (user-decided);
   Decision Log 1's question 2 closed.
 - 2026-09-03: the second form refuted in the renderer (claims §5.64); Decision Log 4 grades the

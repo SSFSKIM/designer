@@ -558,6 +558,16 @@ eye. G1's acceptance (the declaration, the sheet sent, the user's reading
 recorded) closes on the declaration, which follows the CSS tier's
 verification capture.
 
+### Decision Log 6 — the landing (2026-09-03; user-decided)
+
+**Decided (user, 2026-09-03):** *"the shadow wave: land it with that miss
+named."* G2 proceeds on the plan in claims §5.66 §5, with S1's miss on
+`dark-solid__capsule-button` carried into the landing's record by name — the
+band row's −0.0188 / −0.0474 at 1x / 2x on the GPU tier, the pair's 0.0008
+(bound 0.002) for the reference's occlusion there, and the 25-window mechanism
+(Decision Log 5) — and not fitted away. The landing rebuild waits for the GPU
+behind W13's last confirmation captures (X8).
+
 ## Surprises & Discoveries
 
 - **Two terms on one falloff, and W8's lengths are right (G0, claims
@@ -658,6 +668,7 @@ verification capture.
   Decision Log 1's question 2 closed.
 - 2026-09-03: the dry run's sheets sent and the user's reading recorded (the light-solid
   capsule's W12 close darker than Apple's, as the sheet shows).
+- 2026-09-03: Decision Log 6 — the landing, user-decided, with S1's miss named; G2 dispatched.
 - 2026-09-03: the CSS tier's derived amplitude verified by capture; **G1 declared** (claims §5.66);
   G2 ready, awaiting the user's landing call with S1's miss named; one Deferred entry (the CSS
   tier's `photo` over-correction).
