@@ -19,7 +19,21 @@ have one, so the Xcode toolchain stays out of the JavaScript graph.
 ./capture.sh tint-doctor     # what each tinted scene hands Glass.tint(_:) (no GUI, no permission)
 ./capture.sh capture         # the fixture matrix (ScreenCaptureKit; needs the TCC grant)
 ./capture.sh capture --method nsview-cachedisplay   # explicit material-free fallback
+./capture.sh dump-layers --settle 8   # Apple's own material parameters, read from the layer tree
 ```
+
+`dump-layers` hosts each scene in the capture window, waits `--settle` seconds
+(the face and shadow inputs animate toward backdrop-adapted values for several
+seconds, so 8 is the honest default for a reading and 1.5 only tells you the
+tree exists), and walks SwiftUI's Core Animation layer tree by runtime
+reflection: every layer's class and geometry, every filter's inputs by its own
+`inputKeys`, the SDF layers' effects. One JSON per scene under
+`build/layer-dumps/` (or `--out`), `--scenes id,id,…` to choose. It captures
+nothing, needs no TCC grant, and touches neither `fixtures/` nor `scenes.json`.
+What it reads is the reference implementation's declared numbers — the size
+law, the two refraction terms, the quarter-scale backdrop, the highlight's two
+lights — which the calibration ledger records in claims §5.50; the captures
+remain the ground truth for what those numbers do to pixels.
 
 `tint-doctor` answers, without opening a window or capturing anything, where a
 lost tint colour was lost: the `Color` each registry entry builds, what SwiftUI's
