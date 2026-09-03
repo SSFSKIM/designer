@@ -9301,3 +9301,79 @@ and W14's Deferred: the CSS tier's `photo` over-correction, the span-160 anchor 
 reference's band turnover between spans 130 and 160 (§5.65 §4), the thin law's unmeasured ramp
 below L 0.06, the un-keyed thick law over near-black backdrops, and the mid plateau's dark end.
 
+### 5.67 W13 G1, third form: the span-graded start reaches the 1x band on every cell, the 2x null holds bit-exact, and the start must keep falling past the thickness knee (2026-09-03)
+
+(The sweep worker's findings, recorded as found; the parent's decision on the fourth form at the
+end.)
+
+**Claim.** The third form — the start graded by `sizeThickness` between a thin and a thick anchor,
+the retired span law as the deep value, the excursion above it, the reach a length in device px
+(§5.64 §5) — was implemented on both tiers (branch `w13-g1-ramp` `f77b5f1`, constants `ef61b09`;
+fingerprints light `b0f0bee6…`, dark `cd578acd…`) and fitted at 1x over a 36-point grid and an
+8-point refinement, with the 2x null verified by capture
+(`results/2026-09-03-w13-ramp/g1/sweep-3/`, commit `69b02b0`). **It is the first form of the ramp
+that reaches the 1x band.**
+
+**1. The 1x constants, and S4 met on every cell.** Thin **0.72**, thick **0.52**, reach **80**
+device px — an interior optimum on both refined axes (0.68 and 0.76 both measured either side of
+0.72 and both worse). `ssimBand` rises on every checkerboard calibration cell: `rrect-sm` +0.0048,
+`capsule-button` +0.0058, `rrect-md` +0.0023, `rrect-ml` +0.0044, `toolbar-group` +0.0019, and the
+interior gap to the reference more than halves on four of five (the capsule 0.0218 → 0.0039, the
+toolbar 0.0254 → 0.0057, `rrect-sm` 0.0141 → 0.0071, `rrect-md` 0.0137 → 0.0079; `rrect-ml`
+0.0096 → 0.0097 as its interior crosses from under the reference to over). S1 is met with exact
+equality on every calibration and validation row (largest 1x fall < 0.0005). S5's first clause is
+met — every solid reports +0.0000 on band, mean and outside at both scales, and the largest
+movement in any adopted metric over the fifteen S5 cells is 0.00057, an improvement. **The thin
+anchor is 0.08 above G0's own read-off** (0.637 / 0.642 on the thin cells, §5.61 §1): the runtime
+wants more band on thin surfaces than the reference's contour measurement implies, the same
+direction of departure the first sweep found in the reach; recorded, not reconciled.
+
+**2. The 2x null, verified bit-exact.** At 2x thin 0.46 / thick 0.17 / reach 100 (G0's own
+readings, every one below its cell's deep value), four points — the chosen anchors, a zeroed pair,
+both mixed pairs — render **identically over 20 cells × 107 measurements, maximum difference
+zero**, and identically to the second form's pre-ramp capture from a different build of the
+shader. The null is a property of the law, not of one binary; the 2x constants are therefore
+unfittable on this bed by any grid and stay PROVISIONAL by necessity. The 2x gap stays where §5.64
+§4 put it.
+
+**3. S2 at 2x is not met, and no form of this ramp can meet it.** The three held 2x texture rows
+read 0.8998 / 0.9113 / 0.8944 (`rrect-ml` / `glass-over-glass` / `rrect-lg`) against floors 0.9158
+/ 0.9211 / 0.9113, **−0.0160 / −0.0098 / −0.0169**, and every one of those numbers is candidate A's
+device-pixel widths (§5.64 §3's pedestal) with the ramp contributing exactly zero. The parent's
+brief expected S2 "met exactly as the branch already meets them"; the mechanism was right and the
+verdict was wrong. **S2 is re-read on the W14 bed** under X8: the same three rows read 0.9746 /
+0.9762 / 0.9680 there (§5.66 §4) with 0.04 of margin over 0.93, and the widths' cost of 0.010–0.017
+sits inside it. S3 at 2x: three of five calibration cells within 0.005, as §5.64 §3 recorded.
+
+**4. The holdout, read once: one failure with the form's own arithmetic as its cause.**
+`glass-over-glass` (span 130) lands almost exactly — band +0.0035, `ssimMean` +0.0008, the interior
+gap from 0.0127 to **0.0001** (0.1320 against 0.1321), the best interior agreement any cell on this
+bed has recorded. `rrect-lg` (span 160) fails S1: `ssimMean` 0.9428 → **0.9401** (−0.0026 against
+0.002), the band unchanged, the interior from 17% under the reference (0.0540 against 0.0650) to
+**33% over** (0.0865). `sizeThickness` saturates at `sizeSpanMax` 96, so spans 96 / 128 / 130 / 160
+all receive the identical thick start 0.52 while G0 read the reference's start *falling* across
+exactly those spans (0.512 / 0.501 / 0.410): the form over-starts the largest span by 0.110, and
+because the deep value keeps falling to `sizeScatterSpanMax` 256 the excursion *grows* with span
+(0.039 / 0.156 / 0.284) where the reference's start shrinks. The third form fixed the
+thin-against-thick disjointness (§5.64 §2) and inherits a thick-against-thick one — smaller than
+either defect the earlier forms died of, and the same kind.
+
+**5. One `ssimOutside` row moves by 0.00112 where S5 admits 0.001** — `hc-text__capsule-button`
+(holdout) at 1x. The four 2x departures on that row's list are the widths pedestal (the ramp is
+inert at 2x). A body law should not touch the outside of the contour, and something at the
+coverage ramp does, by about a thousandth, on one high-contrast-text cell. A gap, recorded.
+
+**6. The parent's decision: the fourth form gives the start its own decline past the thickness
+knee (W13 Decision Log 6).** The start keeps `sizeThickness`'s fast drop between the thin and
+thick anchors and adds a slow decline along the scatter facet's own curve above `sizeSpanMax`:
+`s₀(span) = startThin + (startThick − startThin) · sizeThickness(span) + (startFar − startThick) ·
+smoothstep(sizeSpanMax, sizeScatterSpanMax, span)` — one more constant per scale (`startFar`, the
+start at span ≥ 256), no new span statistic, both existing curves reused. The 1x thin / thick /
+reach are held at the fitted 0.72 / 0.52 / 80 and `startFar` is swept alone on the thick
+calibration cells; at 2x the null holds for any `startFar` at or below the thick anchor, and it is
+carried at G0's `rrect-lg` reading. Under X8 the fourth form's fit and confirmation run **on the
+W14 bed** once W14 lands, which is the re-run X8 requires of the second lander anyway, so the
+fourth form costs one sweep block and no extra holdout read. Rejected: landing the third form
+with `rrect-lg`'s overshoot and re-pinning by decision — the cause is one term of the form and the
+fix is one constant, and the wave's purpose is the least gap.
+

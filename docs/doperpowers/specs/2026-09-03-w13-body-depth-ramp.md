@@ -391,7 +391,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum: flat on all six cells, §5.61 §7) |
-| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); **the first form's sweep complete** (`results/2026-09-03-w13-ramp/g1/sweep/`, commit `3fb3b7c`; claims §5.63): 81 points, S4 fails everywhere, S3 best 3× its tolerance, S2 fails everywhere, holdout 2x `rrect-lg` 0.8890 — the form is span-flat where the bed is span-graded; **re-formed by Decision Log 3** (the retired span law kept underneath the ramp as its deep value, the excursion above it) on the same branch, the second form swept and **refuted in the renderer** (`results/2026-09-03-w13-ramp/g1/sweep-2/`, commits `2752301` on the branch and `7bf6b22` on main; claims §5.64): 68 points + a refinement, S4 met nowhere, the 1x requirements disjoint by 0.017 of start, and at 2x the inert configuration is the maximum band on all five cells; **the third form dispatched** by Decision Log 4 (the start graded by `sizeThickness`, six constants, the 2x stop a verified null) to `results/2026-09-03-w13-ramp/g1/sweep-3/`; **independent review** (Codex, 2026-09-03) of the first form's branch — two findings folded into the re-form: the CSS tier projected the ramp from the span alone (no extents threaded through `CssTierSurface`, so a 320×44 toolbar projected as a square), and static pyramids were not rebuilt when the device pixel ratio changed (the body's CSS-px sigma now depends on dpr but the pyramid's invalidation compared only texels per CSS px) | IN PROGRESS 2026-09-03 (second form) |
+| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); **the first form's sweep complete** (`results/2026-09-03-w13-ramp/g1/sweep/`, commit `3fb3b7c`; claims §5.63): 81 points, S4 fails everywhere, S3 best 3× its tolerance, S2 fails everywhere, holdout 2x `rrect-lg` 0.8890 — the form is span-flat where the bed is span-graded; **re-formed by Decision Log 3** (the retired span law kept underneath the ramp as its deep value, the excursion above it) on the same branch, the second form swept and **refuted in the renderer** (`results/2026-09-03-w13-ramp/g1/sweep-2/`, commits `2752301` on the branch and `7bf6b22` on main; claims §5.64): 68 points + a refinement, S4 met nowhere, the 1x requirements disjoint by 0.017 of start, and at 2x the inert configuration is the maximum band on all five cells; **the third form fitted** (`results/2026-09-03-w13-ramp/g1/sweep-3/`, branch `ef61b09`, results `69b02b0`; claims §5.67): S4 met on every 1x cell (band +0.0019…+0.0058, the interior gap more than halved on four of five), S1 exact on every fitted row, the 2x null bit-exact over 20 cells × 107 axes, `glass-over-glass` holdout at an interior gap of 0.0001; **one holdout miss** — `rrect-lg` 1x `ssimMean` −0.0026 with a 33% interior overshoot, because `sizeThickness` saturates at 96 and the start cannot fall across the thick spans as G0 read it; S2 at 2x not met on this bed (the widths' pedestal, −0.010…−0.017) and re-read on the W14 bed under X8; **the fourth form decided** (Decision Log 6: the start's own decline past the thickness knee, one constant) to be fitted on the W14 bed; **independent review** (Codex, 2026-09-03) of the first form's branch — two findings folded into the re-form: the CSS tier projected the ramp from the span alone (no extents threaded through `CssTierSurface`, so a 320×44 toolbar projected as a square), and static pyramids were not rebuilt when the device pixel ratio changed (the body's CSS-px sigma now depends on dpr but the pyramid's invalidation compared only texels per CSS px) | IN PROGRESS 2026-09-03 (second form) |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -547,6 +547,41 @@ the ramp's mix — so a later reading that moves them is not a regression agains
 this wave. Any future work that makes the CSS tier follow the device scale has to
 overturn the measurement (§5.55 §5) first, not just the constant.
 
+### Decision Log 6 — the fourth form: the start keeps falling past the thickness knee (2026-09-03; the parent, within G1's remit)
+
+**The finding** (claims §5.67 §4). The third form reaches the 1x band on every
+calibration cell and lands `glass-over-glass` at the best interior agreement
+on the bed, and fails one holdout row: `rrect-lg` at 1x, `ssimMean` −0.0026
+against S1's 0.002, its interior from 17% under to 33% over. The cause is the
+form's own arithmetic — `sizeThickness` saturates at 96, so every thick span
+gets the same start while G0 read the reference's start falling 0.512 → 0.501
+→ 0.410 across 96 → 160, and the deep value's own decline to 256 makes the
+excursion grow with span where the reference's shrinks.
+
+**Decided.** The start gets a slow decline along the scatter facet's own curve
+above the thickness knee: `s₀(span) = startThin + (startThick − startThin) ·
+sizeThickness(span) + (startFar − startThick) · smoothstep(sizeSpanMax,
+sizeScatterSpanMax, span)`. One more constant per scale, `startFar` (the
+start at span ≥ 256); no new span statistic; both curves already in the
+material. The 1x thin / thick / reach hold at 0.72 / 0.52 / 80 and `startFar`
+is swept alone on the thick calibration cells. At 2x the null holds for any
+`startFar` at or below the thick anchor; carried at G0's `rrect-lg` reading.
+
+**Where it runs.** On the W14 bed, after W14 lands — the re-run X8 requires of
+the second lander anyway — so the fourth form's fit, its confirmation and the
+X8 re-read (S2 at 2x against the new bed, where the three rows carry 0.04 of
+margin) are one GPU block and one holdout read.
+
+**Rejected.** Landing the third form with the overshoot and re-pinning
+`rrect-lg`'s floor by decision: the cause is one term and the fix is one
+constant. Refitting thin / thick / reach jointly with `startFar`: the 1x
+optimum is interior on both refined axes and `startFar` acts only above 96.
+
+**Not settled here.** The thin anchor sits 0.08 above G0's read-off, and the
+runtime's reach at 80 device px against G0's 100–110; whether the runtime's
+preference or the reference's contour reading better estimates the reference
+is a question for the instrument, recorded in Surprises.
+
 ## Surprises & Discoveries
 
 - **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
@@ -621,6 +656,28 @@ overturn the measurement (§5.55 §5) first, not just the constant.
   frame noise moves between cells from run to run (claims §5.60 §1).
   Below every bound by four orders; recorded, not chased.
 
+- **The 2x null is a property of the law, verified bit-exact (G1 third
+  sweep; claims §5.67 §2).** Four constant pairs render identically over 20
+  cells × 107 measurements, and identically to a capture from a different
+  build of the shader. A sweep cannot fit a number that changes no pixel, so
+  the 2x ramp constants stay provisional by necessity.
+- **The start falls across the thick spans, and `sizeThickness` cannot carry
+  that (claims §5.67 §4).** The reference's start reads 0.512 / 0.501 / 0.410
+  at spans 96 / 128 / 160 while the thickness curve is flat at 1 above 96;
+  with one thick start the excursion grows with span (0.039 / 0.156 / 0.284)
+  where the reference's shrinks, and `rrect-lg` overshoots its interior by
+  33%. The thin-against-thick defect and the thick-against-thick one are the
+  same kind — one start where the reference has a curve.
+- **The runtime wants more band on thin surfaces than the reference's contour
+  reading implies (claims §5.67 §1).** The fitted thin start 0.72 is 0.08
+  above G0's 0.637 / 0.642, and the fitted reach 80 device px is below G0's
+  100–110. Both are interior optima with both neighbours measured. Which
+  estimate is the better one is not settled: the instrument reads the
+  contour share at three pitches, the runtime is scored on band SSIM.
+- **Something at the coverage ramp touches the outside of the contour** by
+  about a thousandth: `hc-text__capsule-button` (holdout) `ssimOutside`
+  −0.00112 at 1x where S5 admits 0.001. A body law should be a null outside
+  the contour. Recorded as a gap.
 - **The reference's ramp runs the other way at 2x (G1 second sweep; claims
   §5.64 §4).** Against vitrea's own deep value the excursion G0 measured is
   positive on every cell at 1x (+0.031 to +0.174) and **negative on every
@@ -671,6 +728,10 @@ overturn the measurement (§5.55 §5) first, not just the constant.
   same branch with a second sweep.
 - 2026-09-03: the first form's branch reviewed; two findings (the CSS projection's extents,
   pyramid invalidation over dpr) folded into the re-form (Tracking Map).
+- 2026-09-03: the third form fitted (claims §5.67): S4 met at 1x on every cell, the 2x null
+  bit-exact, one holdout miss with its cause; Decision Log 6 decides the fourth form (the start's
+  decline past the thickness knee, one constant) to be fitted on the W14 bed under X8; four
+  Surprises.
 - 2026-09-03: the 2x deep-value charter ordered behind the demo hero-ground decision and the
   coverage openers (user-decided; Deferred).
 - 2026-09-03: Decision Log 5 — the CSS tier keeps the 1x law for the ramp's mix (user-decided);
