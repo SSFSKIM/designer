@@ -1,0 +1,178 @@
+{
+ "F4pp-sdf": {
+  "params": {
+   "pin": 5.166820271889254,
+   "pout": 7.999947773200457,
+   "E": 1.5348921614327888,
+   "dir": "sdf"
+  },
+  "fit": 0.05191202222164039,
+  "scores": {
+   "rrect-md|checkerboard|1x": {
+    "edge": 0.061082144189307054,
+    "corner_mean": 0.07791580590292696,
+    "ssim_dry": 0.958634081895648,
+    "ssim_now": 0.9537996672034194
+   },
+   "rrect-ml|checkerboard|1x": {
+    "edge": 0.04940664233433791,
+    "corner_mean": 0.06392509736352489,
+    "ssim_dry": 0.9330399814790634,
+    "ssim_now": 0.9307015384545967
+   },
+   "rrect-md|checkerboard-32|1x": {
+    "edge": 0.045598957900409416,
+    "corner_mean": 0.04670695506573147
+   },
+   "rrect-ml|checkerboard-32|1x": {
+    "edge": 0.05156034446250718,
+    "corner_mean": 0.07204045218723862
+   },
+   "rrect-lg|checkerboard|1x": {
+    "edge": 0.04782819392695708,
+    "corner_mean": 0.05145187521300727,
+    "ssim_dry": 0.9211724437892246,
+    "ssim_now": 0.9285977013513339
+   },
+   "rrect-lg|checkerboard-32|1x": {
+    "edge": 0.05423422407573627,
+    "corner_mean": 0.06846032781091878
+   },
+   "rrect-md|checkerboard|2x": {
+    "edge": 0.07084049142001894,
+    "corner_mean": 0.09569702395616335,
+    "ssim_dry": 0.9425803078966183,
+    "ssim_now": 0.938940508594356
+   },
+   "rrect-ml|checkerboard|2x": {
+    "edge": 0.055715826794993394,
+    "corner_mean": 0.07384857461501665,
+    "ssim_dry": 0.909361102536522,
+    "ssim_now": 0.9023107067218289
+   },
+   "rrect-lg|checkerboard|2x": {
+    "edge": 0.05830406545506934,
+    "corner_mean": 0.06464435549280467,
+    "ssim_dry": 0.9028230574035363,
+    "ssim_now": 0.9012590470684038
+   },
+   "rrect-sm|checkerboard|1x": {
+    "edge": 0.02532205217624993,
+    "corner_mean": 0.03195405301329747,
+    "ssim_dry": 0.9983206054852674,
+    "ssim_now": 0.9980630318026715
+   },
+   "capsule-button|checkerboard|1x": {
+    "edge": 0.022697115208890114,
+    "corner_mean": 0.029375065161823567,
+    "ssim_dry": 0.9848194403058861,
+    "ssim_now": 0.9769971511791062
+   },
+   "rrect-sm|checkerboard|2x": {
+    "edge": 0.03880045446964677,
+    "corner_mean": 0.047536621647239936,
+    "ssim_dry": 0.9971479993365278,
+    "ssim_now": 0.996874186445213
+   },
+   "capsule-button|checkerboard|2x": {
+    "edge": 0.03810327722835862,
+    "corner_mean": 0.04297877619020876,
+    "ssim_dry": 0.9817655774678142,
+    "ssim_now": 0.9776898253567041
+   }
+  },
+  "periods_2x": {
+   "rrect-md": 32.0,
+   "rrect-ml": 32.0,
+   "rrect-lg": 32.0
+  }
+ },
+ "F4pp-ova": {
+  "params": {
+   "pin": 5.165955104336803,
+   "pout": 7.999999191809341,
+   "E": 1.5335040193021854,
+   "dir": "ova"
+  },
+  "fit": 0.037453947473845256,
+  "scores": {
+   "rrect-md|checkerboard|1x": {
+    "edge": 0.04249429567446627,
+    "corner_mean": 0.05898041006827358,
+    "ssim_dry": 0.9664212429790229,
+    "ssim_now": 0.9537996672034194
+   },
+   "rrect-ml|checkerboard|1x": {
+    "edge": 0.040480616207784946,
+    "corner_mean": 0.05048865071155521,
+    "ssim_dry": 0.9439601182717349,
+    "ssim_now": 0.9307015384545967
+   },
+   "rrect-md|checkerboard-32|1x": {
+    "edge": 0.029206652508297654,
+    "corner_mean": 0.03664220306692278
+   },
+   "rrect-ml|checkerboard-32|1x": {
+    "edge": 0.03763422550483217,
+    "corner_mean": 0.039117031053686725
+   },
+   "rrect-lg|checkerboard|1x": {
+    "edge": 0.04600988239956846,
+    "corner_mean": 0.04895841372959525,
+    "ssim_dry": 0.9262831969860237,
+    "ssim_now": 0.9285977013513339
+   },
+   "rrect-lg|checkerboard-32|1x": {
+    "edge": 0.03997863742691917,
+    "corner_mean": 0.0515582027306636
+   },
+   "rrect-md|checkerboard|2x": {
+    "edge": 0.04722879744490578,
+    "corner_mean": 0.06630405443289486,
+    "ssim_dry": 0.9470926870766754,
+    "ssim_now": 0.938940508594356
+   },
+   "rrect-ml|checkerboard|2x": {
+    "edge": 0.04460431238978809,
+    "corner_mean": 0.05567903824937358,
+    "ssim_dry": 0.9177834347608846,
+    "ssim_now": 0.9023107067218289
+   },
+   "rrect-lg|checkerboard|2x": {
+    "edge": 0.055779692016298774,
+    "corner_mean": 0.06059382077979253,
+    "ssim_dry": 0.9059155759882732,
+    "ssim_now": 0.9012590470684038
+   },
+   "rrect-sm|checkerboard|1x": {
+    "edge": 0.02529396173057215,
+    "corner_mean": 0.0319331505986938,
+    "ssim_dry": 0.998321561889511,
+    "ssim_now": 0.9980630318026715
+   },
+   "capsule-button|checkerboard|1x": {
+    "edge": 0.022644980107718808,
+    "corner_mean": 0.029346429935301174,
+    "ssim_dry": 0.9848258312991309,
+    "ssim_now": 0.9769971511791062
+   },
+   "rrect-sm|checkerboard|2x": {
+    "edge": 0.03875835638140389,
+    "corner_mean": 0.047504354243608424,
+    "ssim_dry": 0.9971502736815056,
+    "ssim_now": 0.996874186445213
+   },
+   "capsule-button|checkerboard|2x": {
+    "edge": 0.03807015665660797,
+    "corner_mean": 0.04296434966085752,
+    "ssim_dry": 0.98176928479979,
+    "ssim_now": 0.9776898253567041
+   }
+  },
+  "periods_2x": {
+   "rrect-md": 36.5,
+   "rrect-ml": 34.4,
+   "rrect-lg": 33.5
+  }
+ }
+}

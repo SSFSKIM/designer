@@ -290,7 +290,7 @@ profile and the 2x body) that write findings, not the spec.
 | G0 | this session; validation in `results/2026-09-03-w12-lens/g1/g0-instrument.md`; claims §5.49 §1 | COMPLETE 2026-09-03 (0.35 / 0.33 px at 1x / 2x) |
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
-| G2 | this session, after G1 | not started |
+| G2 | dry run in `results/2026-09-03-w12-lens/g2/` (claims §5.51); declared in Decision Log 3; implementation dispatched | DECLARED 2026-09-03 |
 | G3 | decision round | not started |
 
 ## Decision Log
@@ -338,6 +338,32 @@ nothing — it gives G3 numbers.
 on the image and says in the caption that the third is a difference map,
 not a render.
 
+### Decision Log 3 — G2 declared: one steep power on Apple's span law along an ovalized normal (2026-09-03)
+
+**Evidence.** Claims §5.49 (the field), §5.50 (the reference's own
+parameters, the knee at 64), §5.51 (the dry run: fourteen forms ranked on
+the fit cells, the holdout at both scales, the 2x rows and the small
+spans).
+
+**Decided (this session, inside the user's "keep G2"):** the form of
+§5.51 §3 — lens depth `(thickness/8)·min(0.25·span, 20)`, magnitude
+`0.745·(thickness/8)·min(0.8·span, 60)`, extent `1.337·lensDepth`,
+exponent 3.69, direction the gradient of the 0.6-blended rounded-rect /
+inscribed-oval field on thick surfaces (smoothstep 64 → 72), magnitude
+fixed; blur-before; the body, the CSS tier, `sizeThickness` and the inner
+shadow untouched. Rejected: Apple's two-term shape at its literal amounts
+(loses on the pixels and the holdout — §5.51 §2); ω 0.8 (the tilt's value,
++0.003 on the pixels, kept as the alternative); a fixed tangential stretch
+(breaks the small spans); a step at the knee (a smoothstep is the same at
+both ends and keeps a morph continuous). The thickness-law doctrine "one
+curve for every facet" is amended to "one input, the span, and each
+facet's own curve" — the reference's facets have different laws (§5.50),
+and the lens now takes its own.
+
+**Held for the user:** ω 0.6 versus 0.8 if the landed sheet reads
+under-stretched by eye; the 2x interior route (G3), which the quarter-scale
+reading has sharpened (§5.51 §2) but not settled.
+
 ## Surprises & Discoveries
 
 - (2026-09-03, G1) **The reference's own parameters are readable.** A
@@ -368,6 +394,12 @@ not a render.
   first §5.50 readings are amended beside the settled ones. The capture
   protocol's 45 s idle dwell is past it; a future harness feature that
   presents and shoots fast would not be.
+- (2026-09-03, G1) **The material has a knee at 64 points.** Read at
+  spans 48–112: the ovalization, the face constants, the shadow fill, the
+  clamp, the bleed and the shadow blur all switch between 64 and 72 while
+  the refraction amounts and heights and the blur radius stay continuous
+  (claims §5.50 §1). W9's thin/thick rows and W11c's scatter floor were
+  this knee seen from outside.
 - (2026-09-03, G1) **The band magnifies along the edge**, uniformly about
   the edge's midpoint, by 1.31× / 1.15× / 1.11× at u = 2.5 on spans 96 /
   128 / 160 (2x, confirmed from the checker maxima: 128 / 169.5 / 212 CSS

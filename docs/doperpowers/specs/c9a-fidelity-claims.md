@@ -7414,7 +7414,7 @@ say that, and G2 fits the profile shapes against them.
 | `inputBlurRadius` | 1.333 | 1.333 | 2.476 | 3.286 | 3.238 | 4.0 | max(4/3, (span + 8)/42) |
 | `inputBlurDistance0..4` | −16, −1, 0, 0, 6.4 | −22, −1, 0, 0, 8.8 | −48, −1, 0, 0, 19.2 | −65 … 26 | −64 … 25.6 | −80 … 32 | (−span/2, −1, 0, 0, 0.2·span) |
 | `inputBlurOpacity0..4` | 1, 0.5, 0.5, 1, 1 | same | same | same | same | same | constant |
-| `CASDFElementLayer.gradientOvalization` | 0 | 0 | 0.5 | 0.5 | 0.5 | 0.5 | 0 at ≤ 56, 0.5 at ≥ 96 (ramp unread) |
+| `CASDFElementLayer.gradientOvalization` | 0 | 0 | 0.5 | 0.5 | 0.5 | 0.5 | **a step: 0 at span ≤ 64, 0.5 at ≥ 72** (read at 48 / 56 / 64 / 72 / 80 / 88 / 96 / 112, `layer-dumps-ramp/`) |
 | `CASDFElementLayer.cornerCurve` | continuous | continuous | continuous | continuous | continuous | continuous | — |
 | `CABackdropLayer.scale` | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | constant |
 | `CABackdropLayer.marginWidth` | 6.4 | 8.8 | 68 | 83 | 83 | 83 | — |
@@ -7456,6 +7456,24 @@ Readings, each checked against §5.49:
   lens depth (§5.49 §6). The shape's corners are `continuous`
   (superellipse-style), vitrea's circular; the silhouette metrics have
   tolerated that so far.
+
+**The thin/thick knee, read at intermediate spans** (`layer-dumps-ramp/`,
+rounded rectangles of shorter side 48 / 56 / 64 / 72 / 80 / 88 / 96 / 112
+on the checkerboard, 8 s settle). The refraction amounts and heights are
+continuous through it (inner −38.4 / −44.8 / −51.2 / −57.6 / −60 …, heights
+12 / 14 / 16 / 18 / 20 …; outer 9.6 … 22.4 over 6 … 14); the blur radius is
+linear from 48 (1.333, 1.524, 1.714, 1.905, 2.095, 2.286, 2.476, 2.857 =
+(span + 8)/42 with the 4/3 floor exactly at 48). Everything else **steps
+between 64 and 72**: `gradientOvalization` 0 → 0.5, `tracksLuma` 1 → 0,
+face black 0.35 → 0.5 and fill α 0.5 → 0.4, shadow fill α 0.278 → 0.12,
+`inputClamp` 1 → 1.07, shadow blur 0 → 40, the bleed from opacity 0 at 64
+to (span − 64)/192 and its blur 0.7·span, shadow vibrancy (span − 64)/96.
+Shadow opacity is continuous (0.5, 0.482, 0.464, 0.446, 0.429, 0.411,
+0.393, 0.357 = 0.5 − (span − 48)/448). So the material has two regimes
+with a knee at 64 points: thin (backdrop-adaptive face and shadow, no
+bleed, plain gradient) and thick (constant face, bleed, ovalized
+gradient); W9's thin/thick response rows and W11c's scatter floor are
+both this knee seen from outside.
 
 #### 2. The face, the bleed and the shadow, per span and per backdrop
 
@@ -7529,3 +7547,131 @@ the lens is two profiles; the body is one blur in a quarter-device-scale
 buffer mixed with the unblurred buffer by a depth ramp; the direction is
 an ovalized gradient. G2 declares against these; G3's question becomes
 whether vitrea adopts a device-scale term (the reference has one).
+
+### 5.51 W12 G2 declared: the lens is one steep power on Apple's span law along an ovalized normal (2026-09-03)
+
+**Claim.** A 2-D band renderer (self-test on vitrea's own capture: band
+RMS 0.0052 at 1x, 0.0124 at 2x) ranked fourteen lens forms on the native
+captures — straight-edge band RMS (the fit objective, `rrect-md` + `-ml`
+at 1x pitches 16 and 32), corner band RMS (never in the objective), and
+W11c's dry-run SSIM (vitrea's capture with the band replaced by the
+model) — on the fit cells, the `rrect-lg` holdout at both scales, the 2x
+rows and the two small spans. The declared form wins or ties every column
+and regresses nothing. Evidence: `results/2026-09-03-w12-lens/g2/`
+(`g2-dryrun.md`, `g2lib.py`, `g2-dryrun*.json`, `g2-body-test.json`, crops).
+
+#### 1. The ranking (fit RMS / mean corner RMS on the large cells / `rrect-lg` 1x holdout dry-run SSIM, 0.3.0 value 0.9286)
+
+| form | fit | corners | lg 1x |
+| --- | --- | --- | --- |
+| **F6: one power S(span)·(1 − u/L′(span))^p, S and L′ on Apple's clamped span law, direction ∇((1−ω)·d_rrect + ω·d_oval) at ω 0.6 on thick spans, magnitude fixed** | **.0294** | **.0446** | **.9420** |
+| the same, normal component fixed | .0294 | .0443 | .9421 |
+| F6 at ω 0.7 / 0.5 / 0.8 / 1.0 | .0295 / .0314 / .0322 / .0455 | .0454 / .0466 / .0489 / .0648 | .9417 / .9413 / .9407 / .9356 |
+| F6 with the unit-direction blend normalize((1−ω)·n̂ + ω·ê), ω 0.6 | .0312 | .0463 | .9412 |
+| F2: the power on vitrea's lens depth, blended direction | .0319 | .0453 | .9412 |
+| F4: Apple's two terms with its literal amounts and heights, shared exponent, ovalized | .0436 | .0527 | .9181 ↓ |
+| F4 with separate exponents and an extent factor | .0375 | .0490 | .9263 ↓ |
+| F1: the power on the SDF normal | .0493 | .0490 | .9317 |
+| F0: the landed law | .0553 | .0496 | .9278 |
+| F4 on the SDF normal | .0558 | .0536 | .9163 ↓ |
+| F3 / F1 + a fixed tangential stretch about the centre | .0282 / .0273 | — | break the small spans (sm .06–.15) |
+
+Per cell, F0 → F6 (edge / corner / dry-run SSIM): `rrect-md` 1x .0659 /
+.0780 / .9537 → .0366 / .0541 / .9698; `-ml` 1x .0520 / .0646 / .9297 →
+.0350 / .0454 / .9463; `-lg` 1x holdout .0448 / .0496 / .9278 → .0351 /
+.0398 / .9420; `-md` 2x .0742 / .0927 / .9394 → .0416 / .0614 / .9502;
+`-ml` 2x .0586 / .0751 / .9050 → .0386 / .0509 / .9184; `-lg` 2x holdout
+.0536 / .0614 / .9065 → .0428 / .0498 / .9175; `rrect-sm` 1x / 2x edge
+.0286 / .0474 → .0149 / .0323; `capsule-button` 1x / 2x edge .0722 / .0874
+→ .0126 / .0304 (SSIM .9777 / .9772 → .9852 / .9830). Band RMS −35…−45%
+on the large spans, −80% on the capsule; `photo__rrect-md` band RMS .0232
+/ .0256 → .0166 / .0178 (SSIM unchanged, the photo's band is
+low-contrast).
+
+#### 2. What the ranking says
+
+- **Apple's span law, not Apple's shape.** With the magnitude and the
+  extent scaled from `min(0.8·span, 60)` and `min(0.25·span, 20)`, the
+  small spans fall into place with no per-span parameter (the capsule's
+  .0126 and `rrect-sm`'s .0149 equal their own per-cell bests, .0127 /
+  .0147); under vitrea's lens-depth law the capsule wanted its own gain
+  and extent (2.8 / 1.5 against the large spans' 2.1 / 1.2). But the
+  two-term profile itself, at Apple's literal amounts and any exponent,
+  threads the crossings (0.8 px at p ≈ 3 with zero fitted amplitudes) and
+  still loses on the band pixels and regresses the holdout: what the
+  amounts do spatially is not "a cubic each".
+- **The corners need the ovalized direction** (md 2x .093 → .061, a
+  better profile alone does nothing there), and the pixels and the corners
+  both prefer ω 0.6–0.7 on the box-inscribed ellipse; the measured tilt
+  (§5.49 §3) is what ω 0.8–1.0 gives, and Apple's literal 0.5 on this
+  ellipse gives half of it under either reading — Apple's oval is more
+  curved at the edge midpoint than the ellipse inscribed in the shape's
+  box, or the blend is not of unit directions. Recorded; the pixels' value
+  is declared, with ω 0.8 the alternative at +0.003.
+- **Magnitude-fixed and normal-fixed tie** (≤ 0.0003); magnitude-fixed is
+  what §5.49 §3 measured and is declared.
+- **The along-edge period** at u = 2.5 comes out 37.2 / 35.1 / 34.5
+  against the measured 42 / 36.7 / 35.5 — the right ordering, about 70% of
+  the first lobe's stretch; a residual, not fitted.
+- **The quarter-scale body** (§5.50) as parametrised explains the 2x
+  interior in kind (RMS .0111 against the fitted .0104; σ widening 2.5 →
+  3.5 against 3 → 5) and fails the 1x sharp share (.032 against .0086: the
+  0.5 → 1 opacity ramp over span/2 kills the sharp component three times
+  faster than the 1x bed shows). Not both scales with (a, t) alone; G3's.
+
+#### 3. Declared (before the landing capture)
+
+In the renderer's own terms:
+
+- **Lens depth** (the extent's base): `lensDepthPx = (thickness / 8) ×
+  min(lensHeightPerSpan · span, lensHeightMax)` with `lensHeightPerSpan`
+  0.25 and `lensHeightMax` 20 — Apple's inner height, scaled by the
+  author's thickness (8 is the default and the reference's unit);
+  `lensSizeGainMax` and the smoothstep gain retire from the lens (8 / 9.18
+  / 20.8 → 8 / 11 / 20 on spans 32 / 44 / ≥ 80). The `span / 2` clamp
+  stays and is never reached.
+- **Magnitude**: `S = lensRefractionGain × (thickness / 8) ×
+  min(lensAmountPerSpan · span, lensAmountMax)` with `lensAmountPerSpan`
+  0.8, `lensAmountMax` 60 (Apple's inner amount) and `lensRefractionGain`
+  **0.745** (fitted; was 1.6 on a different base). At saturation S = 44.7.
+- **Extent and shape**: `L′ = lensExtentGain × lensDepthPx`,
+  `lensExtentGain` **1.337**; `D(u) = S · max(0, 1 − u/L′)^p`,
+  `lensProfileExponent` **3.69** (the square retires). L′ = 26.7 at
+  saturation; D(2 / 4 / 8) = 33.7 / 24.3 / 11.9 against the crossings' 34
+  / 24 / 12.
+- **Direction**: the gradient of the blended field
+  `(1 − ω)·d_rrect + ω·d_oval`, `d_oval = min(a, b)·(√((x/a)² + (y/b)²) − 1)`
+  on the ellipse inscribed in the surface's box, with
+  `lensOvalization` **0.6** on thick surfaces and 0 on thin, the switch
+  smoothstepped over the reference's knee (`lensOvalizationSpanMin` 64,
+  `lensOvalizationSpanMax` 72 — Apple's is a step there; a smoothstep is
+  the same at both ends and does not flip a control mid-morph). Magnitude
+  fixed: `D⃗ = D(u) · normalize((1 − ω)·n̂ + ω·∇d_oval)`. The field pass
+  carries the surface's centre and half-extents per pixel (a third target,
+  blended by the same union weight the other per-pixel data is).
+- **Unchanged**: blur-before; both body components sampled at the
+  displaced position and mixed by `kScatter`; `refractionScale` and the
+  accessibility fold multiply the displacement; the CSS tier has no lens;
+  `sizeThickness` and every facet on it (occlusion, inner shadow, tone
+  response) — **the inner shadow keeps the landed depth law and the square
+  profile**, so no solid cell moves.
+
+**Predicted** (dry run, native body in the band): checkerboard texture
+SSIM 1x `rrect-md` / `-ml` / `-lg` 0.954 / 0.931 / 0.929 → 0.970 / 0.946 /
+0.942; 2x 0.939 / 0.902 / 0.901 → 0.950 / 0.918 / 0.918 (`-md` stays ≥ 0.93;
+`-ml` / `-lg`'s remainder is the 2x interior); `capsule-button` 0.977 →
+0.985 (1x) / 0.983 (2x).
+
+**Referee**: the twelve-run capture to a scratch matrix, whole bed
+against the 0.3.0 matrix (`matrix-w11c-g2-close.json`). **Stops** (W12
+G2 as chartered): any solid-backdrop cell moving by more than one code
+value; any `photo`, dark-profile or accessibility cell leaving its bounds;
+any CSS-tier capture differing at all; any 2x floor crossed; any
+small-span texture cell (`rrect-sm`, `capsule-button`, `toolbar-group`)
+below its 0.3.0 SSIM by more than 0.005; the rim/specular constants
+untouched. **By eye**: the X5 sheet at the landing, sent to the user.
+
+**Recorded, not fitted**: the corner's dark ring under the bright arc and
+the reference's continuous-corner silhouette (ours circular); ≈ 30% of the
+first lobe's along-edge stretch; the 2x band-versus-interior σ (the band
+samples σ 1.45 where the 2x body is σ 3 — G3); Apple's two-term shape.

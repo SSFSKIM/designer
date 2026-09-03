@@ -1,0 +1,891 @@
+{
+ "$comment": [
+  "The canonical scene matrix — C7's single source of truth, read by BOTH the",
+  "native SwiftUI harness (Sources/) and the web calibration page",
+  "(packages/calibration/scene/). Geometry lives here rather than in either",
+  "renderer because the spec's diff is only meaningful when both sides place",
+  "the same shape at the same place: 'identical pre-rendered raster",
+  "backgrounds so font-rasterisation differences never pollute the diff'",
+  "generalises to geometry, and two hand-kept copies of a rect would drift.",
+  "All lengths are logical (CSS/point) px; the capture scale multiplies them."
+ ],
+ "$comment-version": [
+  "2 — the scene set gained W3's tint axis (a 'tints' registry and 12 tinted",
+  "scenes) and W7's mid-dark-solid backdrop. The manifest records this as",
+  "'sceneSpecVersion', which is the only place a committed fixture bundle says",
+  "which matrix it was captured against; leaving it at 1 across a 24-to-37",
+  "scene change would make that field unable to tell the two beds apart.",
+  "Nothing reads it as a gate — it is provenance, not a compatibility switch."
+ ],
+ "version": 2,
+ "canvas": {
+  "width": 320,
+  "height": 200
+ },
+ "backgrounds": {
+  "light-solid": {
+   "kind": "solid",
+   "srgb": [
+    242,
+    242,
+    247
+   ],
+   "$comment": "System light grey. The flat case: no backdrop detail, so tint and rim read alone."
+  },
+  "dark-solid": {
+   "kind": "solid",
+   "srgb": [
+    28,
+    28,
+    30
+   ],
+   "$comment": "System dark. Pairs with the dark-scheme profiles."
+  },
+  "mid-dark-solid": {
+   "kind": "solid",
+   "srgb": [
+    69,
+    69,
+    69
+   ],
+   "$comment": [
+    "W7's missing holdout backdrop, and the ONLY reason this background exists.",
+    "W7's measured tone-adaptation law is a smoothstep DOWN over a curve",
+    "argument of backdropLuminance + 0.09*sizeThickness(span), with edges at",
+    "0.14 and 0.02 — so the whole axis lives between those two luminances, and",
+    "every backdrop the bed already had sits OUTSIDE that band: dark-solid at",
+    "linear 0.0117 is below the lower edge (fully adapted), and every other one",
+    "— hc-text, checkerboard, photo, light-solid — is above the upper edge",
+    "(not adapting at all). The axis therefore landed with a holdout that",
+    "proves no regression and cannot validate the mechanism (W7 Surprise,",
+    "2026-08-30: 'a bed gap, not a discipline breach').",
+    "",
+    "Measured, not asserted. Each committed 1x raster's linear-light mean by",
+    "Rec.709 — the same rule the runtime samples a backdrop with — evaluated",
+    "against the landed constants at a capsule-button's 44px span",
+    "(sizeThickness = smoothstep(32, 96, 44) = 0.09229, so the size term adds",
+    "+0.00831 to the curve's argument):",
+    "",
+    "  impulse         0.003750  ->  1.000000   pinned at the ceiling",
+    "  dark-solid      0.011711  ->  0.999999   pinned at the ceiling",
+    "  mid-dark-solid  0.059511  ->  0.650196   ON THE SLOPE",
+    "  photo           0.214065  ->  0.000000   off the curve",
+    "  checkerboard    0.500000  ->  0.000000   off the curve",
+    "  hc-text         0.740031  ->  0.000000   off the curve",
+    "  light-solid     0.890969  ->  0.000000   off the curve",
+    "",
+    "For a capsule the curve saturates at 1 at or below linear 0.011694 and",
+    "reaches 0 at or above 0.131694. Every backdrop the bed had was outside",
+    "that window, so every dark cell was pinned flat against a rail and",
+    "carried no gradient at all: a refit could reshape the curve freely",
+    "without moving a single committed pixel. That is the gap, measured, and",
+    "mid-dark-solid at 0.650196 is the one point on the slope that closes it.",
+    "",
+    "A neutral 69/255 grey is linear 0.059511 by Rec.709 — squarely inside the",
+    "transition, and far enough from both edges that the size term (up to",
+    "+0.09 for a maximally thick span) cannot push it out of the band. Neutral",
+    "rather than tinted on purpose: the axis is a function of LUMINANCE, so a",
+    "chromatic backdrop would confound the one thing this scene measures."
+   ]
+  },
+  "checkerboard": {
+   "kind": "checkerboard",
+   "cell": 16,
+   "a": [
+    0,
+    0,
+    0
+   ],
+   "b": [
+    255,
+    255,
+    255
+   ],
+   "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+  },
+  "impulse": {
+   "kind": "impulse",
+   "background": [
+    0,
+    0,
+    0
+   ],
+   "foreground": [
+    255,
+    255,
+    255
+   ],
+   "size": 4,
+   "spacing": 64,
+   "$comment": "Spec-mandated. A grid of small bright squares on black approximates a 2-D impulse train: the material's response to it IS the blur kernel, and the spacing keeps neighbouring responses from overlapping at any plausible sigma. A literal single pixel is too little energy to measure at 1x."
+  },
+  "photo": {
+   "kind": "synthetic-photo",
+   "seed": 20260825,
+   "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+  },
+  "hc-text": {
+   "kind": "text-rows",
+   "background": [
+    255,
+    255,
+    255
+   ],
+   "foreground": [
+    0,
+    0,
+    0
+   ],
+   "rowHeight": 14,
+   "barHeight": 6,
+   "$comment": "High-contrast text, drawn as GEOMETRIC BARS, not glyphs. Real text would reintroduce exactly the font-rasterisation difference the spec's raster-background rule exists to eliminate; bars keep the high-frequency black-on-white structure that stresses the material's legibility handling."
+  }
+ },
+ "components": {
+  "capsule-button": {
+   "kind": "capsule",
+   "size": [
+    120,
+    44
+   ],
+   "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+  },
+  "rrect-sm": {
+   "kind": "rrect",
+   "size": [
+    64,
+    32
+   ],
+   "radius": 8
+  },
+  "rrect-md": {
+   "kind": "rrect",
+   "size": [
+    160,
+    96
+   ],
+   "radius": 20
+  },
+  "rrect-ml": {
+   "kind": "rrect",
+   "size": [
+    224,
+    128
+   ],
+   "radius": 27,
+   "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. Expect the truncation guard to withdraw the downward extent here (clearance 35.5 px against that reach) while sigma and amplitude survive; that is the instrument working, not a defect in the cell. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant. Declared without committed fixtures while the stability study runs (claims 5.21): the study publishes no bed, and compare refuses a planned cell with no capture rather than inventing one."
+  },
+  "rrect-lg": {
+   "kind": "rrect",
+   "size": [
+    280,
+    160
+   ],
+   "radius": 34,
+   "$comment": "The size sweep exists because Apple's material is size-parameterised: a larger surface must show deeper shadow and stronger lensing over the same backdrop (parent acceptance #2). r/side = 0.2125, safely under Apple's 0.327083 saturation point, so these corners stay comparable (S2)."
+  },
+  "toolbar-group": {
+   "kind": "group",
+   "items": [
+    {
+     "kind": "capsule",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "kind": "capsule",
+     "size": [
+      44,
+      44
+     ]
+    },
+    {
+     "kind": "capsule",
+     "size": [
+      44,
+      44
+     ]
+    }
+   ],
+   "spacing": 12,
+   "$comment": "Three siblings inside one GlassEffectContainer / GlassGroup — the container-scoped sampling case. Spacing 12 is inside plausible merge distance, so this also shows whether the two implementations union proximity the same way."
+  },
+  "glass-over-glass": {
+   "kind": "stack",
+   "base": {
+    "kind": "rrect",
+    "size": [
+     220,
+     130
+    ],
+    "radius": 24
+   },
+   "over": {
+    "kind": "rrect",
+    "size": [
+     120,
+     56
+    ],
+    "radius": 16,
+    "offset": [
+     0,
+     -8
+    ]
+   },
+   "$comment": "S1's mandated scene: an overlay-plane proxy necessarily samples the BASE plane's rendered output, so the overlay's material must be calibrated against an already-glassed backdrop, not raw content. Without this scene the overlay tier has no ground truth at all."
+  },
+  "rrect-s48": {
+   "kind": "rrect",
+   "size": [
+    77,
+    48
+   ],
+   "radius": 10
+  },
+  "rrect-s56": {
+   "kind": "rrect",
+   "size": [
+    90,
+    56
+   ],
+   "radius": 11
+  },
+  "rrect-s64": {
+   "kind": "rrect",
+   "size": [
+    102,
+    64
+   ],
+   "radius": 13
+  },
+  "rrect-s72": {
+   "kind": "rrect",
+   "size": [
+    115,
+    72
+   ],
+   "radius": 14
+  },
+  "rrect-s80": {
+   "kind": "rrect",
+   "size": [
+    128,
+    80
+   ],
+   "radius": 16
+  },
+  "rrect-s88": {
+   "kind": "rrect",
+   "size": [
+    141,
+    88
+   ],
+   "radius": 18
+  },
+  "rrect-s96": {
+   "kind": "rrect",
+   "size": [
+    154,
+    96
+   ],
+   "radius": 19
+  },
+  "rrect-s112": {
+   "kind": "rrect",
+   "size": [
+    179,
+    112
+   ],
+   "radius": 22
+  }
+ },
+ "$comment-tints": [
+  "W3's author-tint registry — a THIRD axis beside backgrounds and components,",
+  "declared here rather than smuggled into either. X2 is binding: new axes",
+  "extend the scene set, never the key grammar, so no profile key changes and",
+  "the six declared keys capture a tinted scene exactly as they capture any",
+  "other. The scene id stays three '__'-separated segments and a tint folds",
+  "into the THIRD as a suffix on the state ('rest-tint-orange'), because two",
+  "consumers parse that grammar and a fourth segment would be a migration",
+  "across four files to express something the state segment already has room",
+  "for. Not a new 'states' entry either: a tinted surface is at REST, and",
+  "collapsing an orthogonal axis into the state map would make rest x pressed",
+  "x tint unrepresentable the moment anyone wants a pressed tinted cell.",
+  "",
+  "A colour's ALPHA is its strength on both sides: SwiftUI's Color.opacity and",
+  "vitrea's colour-alpha are the same axis, which is what the -half cell tests.",
+  "",
+  "The rationale lives at the ROOT rather than inside 'tints' because that map",
+  "decodes as [String: TintSpec] on the native side — a '$comment' key in it",
+  "would be a phantom tint id, not a comment."
+ ],
+ "tints": {
+  "orange": {
+   "srgb": [
+    255,
+    149,
+    0
+   ],
+   "$comment": "systemOrange. Warm, far from the material's neutral white, and the hue Apple's own tinting examples use."
+  },
+  "blue": {
+   "srgb": [
+    10,
+    132,
+    255
+   ],
+   "$comment": "systemBlue. The second hue exists to test that ONE tone curve serves every seed; a per-hue difference here refutes the model rather than retuning it."
+  },
+  "orange-half": {
+   "srgb": [
+    255,
+    149,
+    0
+   ],
+   "alpha": 0.5,
+   "$comment": "The strength axis. vitrea reads a colour's alpha as how far the material's tint moves toward the tone, and SwiftUI's Color carries opacity the same way — so this cell checks that the two agree about what half-strength means."
+  }
+ },
+ "states": {
+  "rest": {
+   "$comment": "No interaction."
+  },
+  "pressed": {
+   "$comment": "Apple's interactive() press response. Scriptable natively by driving the view's press state; on the web by the runtime's pressed interaction state. Motion is C9's axis — this is the settled pressed pose, not a transient."
+  }
+ },
+ "scenes": [
+  {
+   "id": "light-solid__capsule-button__rest",
+   "background": "light-solid",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "dark-solid__capsule-button__rest",
+   "background": "dark-solid",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__capsule-button__rest",
+   "background": "checkerboard",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "impulse__capsule-button__rest",
+   "background": "impulse",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "photo__capsule-button__rest",
+   "background": "photo",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "hc-text__capsule-button__rest",
+   "background": "hc-text",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "light-solid__rrect-md__rest",
+   "background": "light-solid",
+   "component": "rrect-md",
+   "state": "rest"
+  },
+  {
+   "id": "dark-solid__rrect-md__rest",
+   "background": "dark-solid",
+   "component": "rrect-md",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-md__rest",
+   "background": "checkerboard",
+   "component": "rrect-md",
+   "state": "rest"
+  },
+  {
+   "id": "impulse__rrect-md__rest",
+   "background": "impulse",
+   "component": "rrect-md",
+   "state": "rest"
+  },
+  {
+   "id": "photo__rrect-md__rest",
+   "background": "photo",
+   "component": "rrect-md",
+   "state": "rest"
+  },
+  {
+   "id": "hc-text__rrect-md__rest",
+   "background": "hc-text",
+   "component": "rrect-md",
+   "state": "rest"
+  },
+  {
+   "id": "light-solid__rrect-ml__rest",
+   "background": "light-solid",
+   "component": "rrect-ml",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-ml__rest",
+   "background": "checkerboard",
+   "component": "rrect-ml",
+   "state": "rest"
+  },
+  {
+   "id": "photo__rrect-ml__rest",
+   "background": "photo",
+   "component": "rrect-ml",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-sm__rest",
+   "background": "checkerboard",
+   "component": "rrect-sm",
+   "state": "rest"
+  },
+  {
+   "id": "photo__rrect-sm__rest",
+   "background": "photo",
+   "component": "rrect-sm",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-lg__rest",
+   "background": "checkerboard",
+   "component": "rrect-lg",
+   "state": "rest"
+  },
+  {
+   "id": "photo__rrect-lg__rest",
+   "background": "photo",
+   "component": "rrect-lg",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__toolbar-group__rest",
+   "background": "checkerboard",
+   "component": "toolbar-group",
+   "state": "rest"
+  },
+  {
+   "id": "photo__toolbar-group__rest",
+   "background": "photo",
+   "component": "toolbar-group",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__glass-over-glass__rest",
+   "background": "checkerboard",
+   "component": "glass-over-glass",
+   "state": "rest"
+  },
+  {
+   "id": "photo__glass-over-glass__rest",
+   "background": "photo",
+   "component": "glass-over-glass",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__capsule-button__pressed",
+   "background": "checkerboard",
+   "component": "capsule-button",
+   "state": "pressed"
+  },
+  {
+   "id": "photo__capsule-button__pressed",
+   "background": "photo",
+   "component": "capsule-button",
+   "state": "pressed"
+  },
+  {
+   "id": "checkerboard__rrect-md__pressed",
+   "background": "checkerboard",
+   "component": "rrect-md",
+   "state": "pressed"
+  },
+  {
+   "id": "photo__rrect-md__pressed",
+   "background": "photo",
+   "component": "rrect-md",
+   "state": "pressed"
+  },
+  {
+   "id": "mid-dark-solid__capsule-button__rest",
+   "background": "mid-dark-solid",
+   "component": "capsule-button",
+   "state": "rest"
+  },
+  {
+   "id": "dark-solid__capsule-button__rest-tint-orange",
+   "background": "dark-solid",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "impulse__capsule-button__rest-tint-orange",
+   "background": "impulse",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "checkerboard__capsule-button__rest-tint-orange",
+   "background": "checkerboard",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "photo__capsule-button__rest-tint-orange",
+   "background": "photo",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "light-solid__capsule-button__rest-tint-orange",
+   "background": "light-solid",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "photo__capsule-button__rest-tint-blue",
+   "background": "photo",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "blue"
+  },
+  {
+   "id": "photo__capsule-button__rest-tint-orange-half",
+   "background": "photo",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange-half"
+  },
+  {
+   "id": "checkerboard__capsule-button__rest-tint-blue",
+   "background": "checkerboard",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "blue"
+  },
+  {
+   "id": "photo__rrect-md__rest-tint-orange",
+   "background": "photo",
+   "component": "rrect-md",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "hc-text__capsule-button__rest-tint-orange",
+   "background": "hc-text",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "photo__rrect-lg__rest-tint-orange",
+   "background": "photo",
+   "component": "rrect-lg",
+   "state": "rest",
+   "tint": "orange"
+  },
+  {
+   "id": "dark-solid__capsule-button__rest-tint-blue",
+   "background": "dark-solid",
+   "component": "capsule-button",
+   "state": "rest",
+   "tint": "blue"
+  },
+  {
+   "id": "checkerboard__rrect-s48__rest",
+   "background": "checkerboard",
+   "component": "rrect-s48",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s56__rest",
+   "background": "checkerboard",
+   "component": "rrect-s56",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s64__rest",
+   "background": "checkerboard",
+   "component": "rrect-s64",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s72__rest",
+   "background": "checkerboard",
+   "component": "rrect-s72",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s80__rest",
+   "background": "checkerboard",
+   "component": "rrect-s80",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s88__rest",
+   "background": "checkerboard",
+   "component": "rrect-s88",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s96__rest",
+   "background": "checkerboard",
+   "component": "rrect-s96",
+   "state": "rest"
+  },
+  {
+   "id": "checkerboard__rrect-s112__rest",
+   "background": "checkerboard",
+   "component": "rrect-s112",
+   "state": "rest"
+  }
+ ],
+ "profiles": [
+  {
+   "key": "apple-macos-26.5-1x-light-standard",
+   "colorScheme": "light",
+   "a11y": "standard",
+   "scenes": "all",
+   "$comment": [
+    "The primary profile: every scene. W3's 12 tinted scenes and W7's",
+    "mid-dark-solid holdout are picked up automatically, which is exactly",
+    "where the tint measurement is sized to live (7 calibration + 2",
+    "validation + 3 holdout, all at 1x).",
+    "",
+    "'all' is left alone on BOTH light-standard profiles rather than being",
+    "expanded into an explicit list. W3's plan named a trap here — that 'all'",
+    "would drag in the dark-scheme and accessibility tinted cells — but the",
+    "trap does not arise as built: those profiles capture the SAME scene ids",
+    "under a different colour scheme and a11y mode, so there is no extra id",
+    "for 'all' to over-collect. What 'all' does add is the tinted set at 2x,",
+    "which W3 excluded from its cell BUDGET (the tone map is a function of",
+    "backdrop luminance, which is scale-free, so nothing at 2x is fitted).",
+    "Capturing them anyway costs about two minutes of one session and buys a",
+    "free falsification of that scale-free assumption; pinning an explicit",
+    "list to avoid it would instead cost the invariant this file already",
+    "holds — that the profiles stay scene-comparable across scale — and would",
+    "silently drop every future scene from the 2x matrix."
+   ]
+  },
+  {
+   "key": "apple-macos-26.5-1x-dark-standard",
+   "colorScheme": "dark",
+   "a11y": "standard",
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "checkerboard__capsule-button__rest",
+    "photo__capsule-button__rest",
+    "dark-solid__rrect-md__rest",
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest",
+    "impulse__capsule-button__rest",
+    "photo__capsule-button__pressed",
+    "photo__rrect-lg__rest",
+    "checkerboard__glass-over-glass__rest",
+    "mid-dark-solid__capsule-button__rest",
+    "dark-solid__capsule-button__rest-tint-orange",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange"
+   ],
+   "$comment": [
+    "Wave 1 / G3 adoption: extended past calibration-only so the profile has a declared split (2 validation + 2 holdout; the split is per SCENE, so membership follows automatically). Holdout picks cover the size extreme (rrect-lg) and the stacked case (glass-over-glass) — the families the split comment names as where overfitting hides.",
+    "",
+    "W7 adds mid-dark-solid here for the reason the axis needs it most: W7's law says the scheme sets only the NEUTRAL the adaptation departs from, so the same constants run in both schemes without double-adapting. A mid-band backdrop under the dark scheme is the one cell that can falsify that.",
+    "",
+    "W3 adds three tinted cells spanning the backdrop range. They do not extend the fit — the fit is the 1x light sweep. They answer one question: is the tone curve the same in the dark scheme, where the NEUTRAL tint is a different colour? Phase 1 assumes yes; three cells are enough to see the assumption fail."
+   ]
+  },
+  {
+   "key": "apple-macos-26.5-1x-light-reduced-transparency",
+   "colorScheme": "light",
+   "a11y": "reduced-transparency",
+   "scenes": [
+    "checkerboard__capsule-button__rest",
+    "photo__capsule-button__rest",
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest",
+    "photo__toolbar-group__rest",
+    "photo__capsule-button__pressed",
+    "hc-text__capsule-button__rest",
+    "photo__rrect-lg__rest",
+    "photo__capsule-button__rest-tint-orange"
+   ],
+   "$comment": [
+    "Wave 1 / G3 adoption: extended past calibration-only for a declared split (2 validation + 2 holdout). hc-text as holdout is deliberate — legibility is the axis this mode exists for.",
+    "",
+    "W3 adds ONE tinted cell. Phase 1 claims this axis touches the tint's ALPHA and not its colour; one cell falsifies that if the colour moves, and a second would measure the same claim twice."
+   ]
+  },
+  {
+   "key": "apple-macos-26.5-1x-light-increased-contrast",
+   "colorScheme": "light",
+   "a11y": "increased-contrast",
+   "scenes": [
+    "checkerboard__capsule-button__rest",
+    "photo__capsule-button__rest",
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest",
+    "photo__toolbar-group__rest",
+    "photo__capsule-button__pressed",
+    "hc-text__capsule-button__rest",
+    "photo__rrect-lg__rest",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange"
+   ],
+   "$comment": [
+    "Wave 1 / G3 adoption: same extension as reduced-transparency (the profiles must stay scene-comparable — macOS couples the toggles, so this mode's captures embody both).",
+    "",
+    "W3 adds TWO tinted cells rather than one. Phase 1 collapses the tone range toward the bare seed on this axis (ambientTint: 'reduced'), and whether Apple narrows the range, drops the tint, or leaves it alone is a question about the RANGE — which needs two backdrops to see, not one."
+   ]
+  },
+  {
+   "key": "apple-macos-26.5-2x-light-standard",
+   "colorScheme": "light",
+   "a11y": "standard",
+   "scenes": "all",
+   "$comment": "Wave 1 / W1: the canonical 2x claim surface, every scene. Captured on a virtual HiDPI display (backingScaleFactor 2); the harness skips scale-mismatched profiles per run, so 1x and 2x keys coexist here. Left as 'all' through W3/W7 — see the 1x light-standard entry for why the tinted set is captured here even though nothing at 2x is fitted."
+  },
+  {
+   "key": "apple-macos-26.5-2x-dark-standard",
+   "colorScheme": "dark",
+   "a11y": "standard",
+   "scenes": [
+    "dark-solid__capsule-button__rest",
+    "checkerboard__capsule-button__rest",
+    "photo__capsule-button__rest",
+    "dark-solid__rrect-md__rest",
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest",
+    "impulse__capsule-button__rest",
+    "photo__capsule-button__pressed",
+    "photo__rrect-lg__rest",
+    "checkerboard__glass-over-glass__rest",
+    "mid-dark-solid__capsule-button__rest",
+    "dark-solid__capsule-button__rest-tint-orange",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange"
+   ],
+   "$comment": "Wave 1 / W1: the 1x dark subset, at 2x — extended with the same split scenes as 1x dark (G3 adoption; the profiles stay scene-comparable across scale). W3's and W7's additions are mirrored here for that same invariant: this list must stay the 1x dark list."
+  }
+ ],
+ "split": {
+  "$comment": [
+   "calibration / validation / holdout / recorded. The first three are the",
+   "anti-overfitting split. The fourth, 'recorded', means captured, committed",
+   "and read by NOTHING: no fit, no self-check, no bound and no claim. It",
+   "exists because 'in the bed, in no set' was previously unsayable, which is",
+   "how the four pressed scenes came to hold fitted and checked roles they",
+   "could not honestly carry (Decision Log 19 ruling 1, claims 5.18): on this",
+   "bed the native pressed capture is a byte-copy of its rest twin on eleven",
+   "of twelve fixtures, while the web side renders a real pressed pose - so",
+   "every one of those cells compared vitrea's pressed render against Apple's",
+   "rest render, and two of them sat in 'validation' as copies of",
+   "'calibration' cells, where the held-out check could not have failed. They",
+   "stay captured because they are the only cells that could ever answer the",
+   "pressed question, and the next wave's pressed+motion charter needs them.",
+   "",
+   "The split is declared HERE, as data, and the holdout ids are deliberately",
+   "not referenced by any tuning code — C9 tunes against 'calibration', checks",
+   "itself on 'validation', and may read 'holdout' only to report a final",
+   "number it did not fit to. The assignment is by SCENE, not by profile, so a",
+   "holdout scene stays holdout in every colour scheme and a11y mode.",
+   "",
+   "What went into holdout is a judgement, not a random draw: the axes tuning",
+   "would most like to peek at. hc-text (the legibility case), rrect-lg (the",
+   "far end of the size parameterisation), and glass-over-glass (the stacked",
+   "case S1 forced) are each the scene where overfitting would be least",
+   "visible and most damaging.",
+   "",
+   "W7's addition (mid-dark-solid__capsule-button__rest) is a holdout for a",
+   "reason worth stating: it is the ONLY scene in the bed whose backdrop sits",
+   "inside the tone-adaptation curve's transition band, so it is the only cell",
+   "that can validate that axis at all. Fitting it would leave the axis in",
+   "exactly the state W7 landed in — measured everywhere except where it acts.",
+   "Nothing may fit to it.",
+   "",
+   "W3's tinted scenes carry their own 7/2/3 split. The calibration seven are",
+   "the backdrop-luminance sweep the tone curve is fitted on (five backdrop",
+   "levels for a two-ended smoothstep's four parameters — the fifth constraint",
+   "is what makes the fit falsifiable rather than exact — plus one second-hue",
+   "cell and one half-strength cell). The holdout three follow the same",
+   "reasoning as the untinted ones: legibility over high-frequency content",
+   "(hc-text), the far end of the size axis where a size-dependent tone would",
+   "hide (rrect-lg), and the second hue at the extreme dark end, where a",
+   "per-hue floor would show and nowhere else."
+  ],
+  "holdout": [
+   "hc-text__capsule-button__rest",
+   "hc-text__rrect-md__rest",
+   "checkerboard__rrect-lg__rest",
+   "photo__rrect-lg__rest",
+   "checkerboard__glass-over-glass__rest",
+   "photo__glass-over-glass__rest",
+   "mid-dark-solid__capsule-button__rest",
+   "hc-text__capsule-button__rest-tint-orange",
+   "photo__rrect-lg__rest-tint-orange",
+   "dark-solid__capsule-button__rest-tint-blue"
+  ],
+  "validation": [
+   "impulse__capsule-button__rest",
+   "impulse__rrect-md__rest",
+   "photo__rrect-sm__rest",
+   "photo__toolbar-group__rest",
+   "checkerboard__capsule-button__rest-tint-blue",
+   "photo__rrect-md__rest-tint-orange"
+  ],
+  "calibration": [
+   "light-solid__capsule-button__rest",
+   "dark-solid__capsule-button__rest",
+   "checkerboard__capsule-button__rest",
+   "photo__capsule-button__rest",
+   "light-solid__rrect-md__rest",
+   "dark-solid__rrect-md__rest",
+   "checkerboard__rrect-md__rest",
+   "photo__rrect-md__rest",
+   "light-solid__rrect-ml__rest",
+   "checkerboard__rrect-ml__rest",
+   "photo__rrect-ml__rest",
+   "checkerboard__rrect-sm__rest",
+   "checkerboard__toolbar-group__rest",
+   "dark-solid__capsule-button__rest-tint-orange",
+   "impulse__capsule-button__rest-tint-orange",
+   "checkerboard__capsule-button__rest-tint-orange",
+   "photo__capsule-button__rest-tint-orange",
+   "light-solid__capsule-button__rest-tint-orange",
+   "photo__capsule-button__rest-tint-blue",
+   "photo__capsule-button__rest-tint-orange-half"
+  ],
+  "recorded": [
+   "checkerboard__capsule-button__pressed",
+   "photo__capsule-button__pressed",
+   "checkerboard__rrect-md__pressed",
+   "photo__rrect-md__pressed",
+   "checkerboard__rrect-s48__rest",
+   "checkerboard__rrect-s56__rest",
+   "checkerboard__rrect-s64__rest",
+   "checkerboard__rrect-s72__rest",
+   "checkerboard__rrect-s80__rest",
+   "checkerboard__rrect-s88__rest",
+   "checkerboard__rrect-s96__rest",
+   "checkerboard__rrect-s112__rest"
+  ]
+ }
+}
