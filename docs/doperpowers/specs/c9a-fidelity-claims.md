@@ -7459,18 +7459,41 @@ Readings, each checked against §5.49:
 | `inputFaceColorMatrixWhite` | 0.95 | 1.03 | 1.03 | 1.03 | 1.03 | |
 | `inputClamp` | 1.0 | 1.07 | 1.07 | 1.07 | 1.07 | |
 
-Backdrop-adaptive on the same span (the capsule at 44 and `rrect-md`):
-`inputFaceColorMatrixBlack` 0.628 (checkerboard) / 0.819 (light-solid) /
-0.85 (photo, toolbar over checkerboard); `inputFaceColorMatrixFillColor`
-white at α 0.361 / 0.266 / 0.25; `inputShadowColorMatrixFillColor` black at
-α 0.217 (checkerboard capsule) / 0.05 (light-solid, photo, toolbar) / 0.12
-(`rrect-md`, `-ml`, `-lg` over the checkerboard) / 0.278 (`rrect-sm`
-over the checkerboard). The face's black level and fill alpha are the
-W9 tone response in Apple's own terms; the shadow's fill alpha adapts
-too. A dump on the dark, mid-dark, impulse and hc-text backdrops (and the
-dark scheme) is the read that would give the mapping — deferred to the
-wave's Deferred list with the pressed state (the filter's inputs are
-identical between `rest` and `pressed`; the press lives elsewhere).
+**The adaptive terms, read settled.** The first dumps waited 1.5 s and
+caught five inputs mid-animation (the face's black, white and fill alpha,
+the shadow's fill alpha, `inputClamp` animate toward backdrop-adapted
+values over several seconds; the same scene read 0.628 and 0.85 on two
+1.5 s runs). The values first recorded here (face black 0.628 / 0.819 /
+0.85, fill α 0.361 / 0.266 / 0.25, shadow fill α 0.217 / 0.05) were those
+transients; the harness gained `--settle` and every number below is from
+the 8 s set (`layer-dumps/`, the committed one). Settled:
+
+| span class | backdrop | `inputFaceColorMatrixBlack` | `…White` | face fill α | shadow fill α | `inputClamp` | `CABackdropLayer.tracksLuma` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| thick (96, 128, 160, 130) | checkerboard, light-solid, photo | **0.5** | 1.03 | **0.40** | **0.12** | 1.07 | 0 |
+| thin (32, 44, 44×3, 56) | checkerboard | 0.35 | 0.95 | 0.50 | 0.278 | 1.0 | 1 |
+| thin (44) | light-solid | 0.819 | 1.03 | 0.266 | 0.05 | 1.07 | 1 |
+| thin (44) | photo (plain, tint-orange, tint-blue alike) | 0.319 | 0.919 | 0.516 | 0.285 | 1.0 | 1 |
+
+The thick material's face and shadow are **constants** on every backdrop;
+the thin material's adapt to the backdrop's luminance (`tracksLuma` is 1
+below the knee, 0 above it). That is W9's thin/thick response in Apple's
+own terms — the response *is* the thin regime, and the size law's
+thickness curve is the knee. The mapping from backdrop luminance to
+(black, white, fill α, shadow α) needs the dark, mid-dark, impulse and
+hc-text backdrops and the dark scheme: a one-line `--scenes` run,
+deferred to the wave's Deferred list with the pressed state (the filter's
+inputs are identical between `rest` and `pressed`; the press lives
+elsewhere) and the ovalization ramp between spans 56 and 96. The author
+tint is a separate backdrop-aware pass (a colour matrix on luminance:
+orange R = 0.4·L + 0.6, G = 0.263·L + 0.321, B = 0, landing on
+systemOrange at L = 1) and leaves the glass filter untouched — W10's
+"opaque shade of the seed", in Apple's form.
+
+**Protocol note.** A capture taken before this adaptation settles
+photographs the transient. The bed's captures dwell ≥ 45 s idle with a
+6 s interstitial and the 2x bed settled five minutes (W1), so the
+fixtures are past it; the number to remember is "seconds, not frames".
 
 #### 3. The rim
 
