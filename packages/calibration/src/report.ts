@@ -806,6 +806,40 @@ const shadowFieldValues = (side: ShadowFieldReport): Readonly<Record<string, num
  * the *scene* — the same region and the same backdrop on both sides — so they
  * are reported once rather than as a pair that could disagree with itself.
  */
+/**
+ * The precision the affine pair is written at: six decimal places of linear
+ * luminance.
+ *
+ * The pair is the one block of the matrix written below full double precision,
+ * and the reason is measured rather than assumed. At full precision the sixty
+ * records a cell carries (six bands, five directions, two sides) compress to
+ * about four kilobytes, against three quarters of one for the whole of the rest
+ * of the cell — the digits of a double are incompressible — so the canonical
+ * matrix's 230 cells would grow the repository by close to a megabyte at every
+ * rebuild. Six places is two orders of magnitude below the 8-bit raster's linear
+ * quantum at the toe (one code value above black is about 3e-4 linear) and below
+ * W14 G0's instrument noise on the lift (2e-4 to 8e-4, claims §5.62), so nothing
+ * the instrument can resolve is lost, and a rebuild of a deterministic renderer
+ * still compares byte-identical. `sampleCount` and the band edges are integers
+ * and pass through untouched.
+ */
+const AFFINE_WRITTEN_DECIMALS = 6;
+
+const writtenAffineSample = (sample: ShadowAffineSample): ShadowAffineSample => {
+  const round = (value: number): number => Number(value.toFixed(AFFINE_WRITTEN_DECIMALS));
+  return {
+    ...sample,
+    backdropMeanLinear: round(sample.backdropMeanLinear),
+    backdropStdDevLinear: round(sample.backdropStdDevLinear),
+    renderedLevelLinear: round(sample.renderedLevelLinear),
+    ...(sample.slopeALinear === undefined ? {} : { slopeALinear: round(sample.slopeALinear) }),
+    ...(sample.interceptCLinear === undefined
+      ? {}
+      : { interceptCLinear: round(sample.interceptCLinear) }),
+    ...(sample.rSquared === undefined ? {} : { rSquared: round(sample.rSquared) }),
+  };
+};
+
 export function shadowAxisReport(input: {
   readonly native: ShadowFieldReport;
   readonly web: ShadowFieldReport;
@@ -823,8 +857,12 @@ export function shadowAxisReport(input: {
     meanDepartureWeb: metricValue(input.web.meanDeparture, "luminance"),
     ...sided("Native", shadowFieldValues(input.native), SHADOW_FIELD_UNITS),
     ...sided("Web", shadowFieldValues(input.web), SHADOW_FIELD_UNITS),
-    ...(input.native.affine.length === 0 ? {} : { affineNative: input.native.affine }),
-    ...(input.web.affine.length === 0 ? {} : { affineWeb: input.web.affine }),
+    ...(input.native.affine.length === 0
+      ? {}
+      : { affineNative: input.native.affine.map(writtenAffineSample) }),
+    ...(input.web.affine.length === 0
+      ? {}
+      : { affineWeb: input.web.affine.map(writtenAffineSample) }),
   };
 }
 

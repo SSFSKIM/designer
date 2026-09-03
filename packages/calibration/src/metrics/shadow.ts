@@ -181,7 +181,7 @@ export interface ShadowFieldOptions {
   /**
    * Device pixels per CSS px — the profile's backing scale. Only the affine
    * bands read it, because they are the one part of this axis defined in CSS px
-   * (`SHADOW_AFFINE_BAND_EDGES_CSS_PX`); everything else here is in device px
+   * (`SHADOW_AFFINE_BANDS_CSS_PX`); everything else here is in device px
    * and says so in its name. Defaults to 1, which is the identity for a 1x
    * capture and makes the option invisible to every caller that does not care.
    */
@@ -252,6 +252,26 @@ export interface ShadowProfileSample {
  * `checkerboard__capsule-button__rest` and 0.0000 in every band further out.
  * Bands from `3-6` outward are the shadow alone.
  */
+
+/**
+ * Why an affine pair is absent from a band.
+ *
+ *   - `flat-backdrop`: the band's backdrop standard deviation is below
+ *     `DEFAULT_SHADOW_AFFINE_MIN_BACKDROP_STDDEV`, so `a` and `c` are collinear
+ *     and only the level over the backdrop mean is identified.
+ *   - `too-few-samples`: the band holds fewer than
+ *     `DEFAULT_SHADOW_AFFINE_MIN_SAMPLES` pixels — the frame runs out before the
+ *     outer bands do on the large spans, and a fit on a handful of pixels
+ *     describes the corner of the capture rather than the shadow.
+ *
+ * A code rather than a sentence: the record's own fields carry every number a
+ * sentence would quote (the band's backdrop standard deviation, its sample
+ * count, its level over its backdrop mean), and a sentence repeated over the
+ * thirty bands a solid backdrop leaves absent is a kilobyte of committed
+ * evidence per side per cell that says nothing the fields do not.
+ */
+export type ShadowAffineAbsence = "flat-backdrop" | "too-few-samples";
+
 export interface ShadowAffineSample {
   /** One of the axis's four sectors, or `"all"` for the four pooled. */
   readonly direction: ShadowDirection | "all";
@@ -272,7 +292,7 @@ export interface ShadowAffineSample {
   /** Coefficient of determination of that fit, so a reader can weigh the pair. */
   readonly rSquared?: number;
   /** Why the pair is absent, when it is. */
-  readonly unidentifiableReason?: string;
+  readonly unidentifiableReason?: ShadowAffineAbsence;
 }
 
 /**
@@ -627,7 +647,7 @@ function fitAffineBand(
  * The distance field and the sectors are the axis's own — the same
  * `signedDistancePx` the occlusion rings are cut from and the same
  * `directionOf` — so the pair sits over the pixels whose occlusion it
- * complements; only the binning differs, and `SHADOW_AFFINE_BAND_EDGES_CSS_PX`
+ * complements; only the binning differs, and `SHADOW_AFFINE_BANDS_CSS_PX`
  * says why.
  *
  * The backdrop floor is deliberately **not** applied. It is a condition on a
@@ -711,23 +731,11 @@ function affineBands(
       } as const;
 
       if (n < minSamples) {
-        out.push({
-          ...common,
-          unidentifiableReason:
-            `${n} pixels in this band, fewer than the ${minSamples} an affine pair is fitted over — ` +
-            `the frame runs out before the outer bands do on the large spans, and a fit on a handful ` +
-            `of pixels describes the corner of the capture rather than the shadow.`,
-        });
+        out.push({ ...common, unidentifiableReason: "too-few-samples" });
         continue;
       }
       if (stdDev < minBackdropStdDev) {
-        out.push({
-          ...common,
-          unidentifiableReason:
-            `the backdrop's standard deviation over this band is ${stdDev.toFixed(4)} linear, below ` +
-            `${minBackdropStdDev}, so a and c are collinear and only the level ` +
-            `${renderedMean.toFixed(4)} over a backdrop of ${backdropMean.toFixed(4)} is identified.`,
-        });
+        out.push({ ...common, unidentifiableReason: "flat-backdrop" });
         continue;
       }
 

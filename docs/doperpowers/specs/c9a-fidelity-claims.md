@@ -8904,3 +8904,47 @@ the backdrop at an amplitude that is zero below span 64 and saturating above it.
 the geometry and the adaptive alpha — which is the whole of the thin regime's gap and needs no new
 element — and Decision Log 1's question narrows to the lift alone, worth 0.029–0.048 encoded on the
 thick spans and nothing on the thin ones or over a dark backdrop.
+
+**8. X7 — the pair in the harness, and its baseline on the W12 close bed (2026-09-03).** The shadow
+axis writes `y = a·bg + c` per band (`0-3`, `3-6`, `6-12`, `12-24`, `24-48`, and §5.60's `0-6`, CSS
+px) and per sector, in linear luminance, on both sides of every cell (`affineNative` / `affineWeb`
+on `ShadowAxisReport`; `packages/calibration/src/metrics/shadow.ts`), fitted before the axis's
+backdrop-support gate so `impulse` and `dark-solid` — where a ratio has no denominator and a lift
+shows alone — carry it; absent, never zero, where the band's backdrop has no contrast (σ < 0.02
+linear) or fewer than 32 pixels, with the level reported instead. Schema version unmoved (an
+addition); 249 calibration tests. Baseline by `diff` over the committed captures, 196 cells,
+nothing captured (`results/2026-09-03-w14-shadow/g0/x7-baseline.md`). Native `c` below the
+surface, linear, against §4's guarded 0–6 reading:
+
+| cell | span | §4 (0–6) | X7 `3-6` 1x | X7 `3-6` 2x | X7 `0-6` 1x |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 0.0000 | 0.00000 | 0.00000 | 0.00054 |
+| `capsule-button` | 44 | 0.0000 | 0.00000 | −0.00000 | 0.00115 |
+| `rrect-md` | 96 | 0.0022 | 0.00211 | 0.00210 | 0.00275 |
+| `rrect-ml` | 128 | 0.0034 | 0.00330 | 0.00334 | 0.00529 |
+| `glass-over-glass` | 130 | 0.0035 | 0.00349 | 0.00350 | 0.00485 |
+| `rrect-lg` | 160 | 0.0038 | 0.00362 | 0.00364 | 0.00480 |
+
+The `3-6` band reproduces §4 within 0.0002 on every span, the knee at 64 exact, scale-free to
+0.00005. `0-6` and `0-3` read high because `0-3` holds the body's own edge — §6's over-fill seen by
+a second instrument: vitrea's GPU capsule, a pure multiply with `c` ≡ 0, reads `c` 0.060 in `0-3`
+below and 0.00000 from `3-6` outward, the CSS tier 0.432 — and the axis carries no guard there on
+purpose, since what would be excluded is the unmeasured quantity of §6 and a constant would bake one
+renderer's over-fill into the instrument. **The lift is read from `3-6` outward.** Coverage: 4 032
+of 5 880 native bands identified (68.6%); every absence a flat backdrop, none too few samples.
+Three findings beyond the contract. **The lift survives the dark colour scheme at 0.51–0.54 of its
+light amplitude** (`3-6` below: 0.00108 against 0.00211 on `rrect-md`, 0.00187 against 0.00349 on
+`glass-over-glass`, both scales); §5's reading that it is absent over *dark backdrops* stands —
+that is `impulse` and `dark-solid` — and the dark *scheme*'s composite, left open in W14 Deferred,
+now has its ratio. Over `photo` the intercept (0.0137–0.0141 at `3-6` on `rrect-lg` / `rrect-md`
+at 1x, four to six times the checkerboard's, not ordered by span) is not the lift alone: a backdrop
+with low-frequency structure lets the blurred copy project onto the constant, the limit §4's
+per-channel fit met by another route. And the light-solid capsule has a harness row for G2's stop:
+occlusion off `3-6` below 0.0815 (reference) against 0.1838 (CSS tier) and 0.1867 (GPU tier) at 1x,
+2.25× / 2.29×, bracketing §5's 2.24× and the charter's 2.4×. **The parent's adoption (W14 Decision
+Log 3):** the pair is written at six decimal places of linear luminance and the absence as a code
+(`flat-backdrop` / `too-few-samples`), because at full precision the block compressed to +3.85 KB a
+cell against 0.67 KB for the rest of the cell — +0.89 MB per canonical rebuild of 230 cells — and
+as written +2.04 KB and +0.47 MB; six places is two orders below the raster's linear quantum and
+below this section's instrument noise. The pooled `all` direction and the band edges stay.
+Recorded, not bounded, until G2.

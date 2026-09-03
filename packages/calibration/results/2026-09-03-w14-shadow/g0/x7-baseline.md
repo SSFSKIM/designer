@@ -501,3 +501,33 @@ different route (the per-channel fit on `photo` "cannot settle it").
   recorded addition, and worth doing only if G1's fit needs the corner separated.
 - **No adopted bound.** By the charter: X7 is recorded from G1 on and adopted at
   G2, and Decision Log 1's third question puts the bound at G2's landing.
+
+## 8. Adoption note (the parent, 2026-09-03; W14 Decision Log 3)
+
+Landed on `main` by merge `922d3e4`, with two changes at the write boundary and
+nothing changed in what is measured:
+
+- **Written at six decimal places of linear luminance** (`report.ts`,
+  `AFFINE_WRITTEN_DECIMALS`), the one block of the matrix below full double
+  precision. §7's estimate above assumed ~60 canonical cells; the canonical
+  matrix holds **230**, and the cost that matters is the compressed one git
+  stores. Measured on this baseline's 196 cells, pretty-printed as the matrix
+  is and gzipped: 0.67 KB a cell without the pair, **+3.85 KB** a cell with it
+  at full precision, **+2.04 KB** as written — per canonical rebuild **+0.89 MB**
+  against **+0.47 MB**. Six places is two orders below the 8-bit raster's linear
+  quantum at the toe (one code above black ≈ 3e-4 linear) and below G0's
+  instrument noise on the lift (2e-4 to 8e-4), so nothing the instrument
+  resolves is lost, and a deterministic rebuild still compares byte-identical.
+- **`unidentifiableReason` is a code** — `flat-backdrop` or `too-few-samples`
+  (`ShadowAffineAbsence`) — not the sentence §1's table describes. The numbers
+  the sentence quoted (the band's backdrop standard deviation, its sample count,
+  its level over its backdrop mean) are the record's own fields; the sentence
+  repeated over the thirty bands a solid leaves absent was a kilobyte a side a
+  cell saying nothing the fields do not. The prose lives once, on the type.
+- **Kept:** the pooled `all` direction and the two band-edge integers. The
+  remaining cost is field names and structure, which is the price of a record
+  a script can filter without parsing a label.
+
+§1's "in words" and §7's 60-cell arithmetic stand as written; this note is the
+correction beside them. Recorded, not bounded, until G2 (Decision Log 1 q3).
+

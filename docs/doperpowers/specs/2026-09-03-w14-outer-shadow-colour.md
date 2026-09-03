@@ -353,7 +353,10 @@ charter (user-decided). X8 orders the two landings.
   read by X7's instrument if pointed inward; its own round.
 - The inner shadow (`shadowDepth` / `shadowAlpha`) — untouched.
 - The shadow under the dark scheme beyond what G0 reads (the layer tree's
-  dark-scheme dump needs a scheme flag, W12 Deferred).
+  dark-scheme dump needs a scheme flag, W12 Deferred). X7's baseline reads
+  the lift *present* in the dark scheme at 0.51–0.54 of its light amplitude
+  (`rrect-md`, `glass-over-glass`, both scales; Surprises) — the dark
+  composite's split still needs the dump.
 - The `sizeGain` seam (W8: opposite span dependence in the two schemes) —
   the sign is explained by G0 (the lift is absent on the dark scheme's
   backdrops), the dark scheme's own split is not read; the seam stays at
@@ -375,7 +378,7 @@ charter (user-decided). X8 orders the two landings.
 | child | where | status |
 | --- | --- | --- |
 | G0 | one worker, 2026-09-03; `results/2026-09-03-w14-shadow/g0/g0-instrument.md`, `g0-shadow.md`; claims §5.62 — two terms on one falloff (W8's lengths kept), the lift a σ-40 blurred copy of the backdrop's own light above the knee at span 64 and saturating with span, the thin regime's black alpha 0.33 on the mid backdrops and 0.127 on light-solid (vitrea 0.285 everywhere), the split of the thick composite not identifiable on this bed | COMPLETE 2026-09-03 |
-| G1 | two workers dispatched 2026-09-03: the composite implemented on branch `w14-g1-shadow` (worktree `.claude/worktrees/w14-g1`) — the black term's adaptive alpha on both tiers (thin anchors 0 / 0.33 / 0.127 keyed on W9's luminance; thick span anchors 0.379 / 0.497 / 0.544; the dark document's own), the lift GPU-only on W8's falloff (amplitude, span rise 64 → 128, σ 40 CSS px from the chain), Decision Log 1 question 2 (a) as implemented; X7's affine pair on the shadow axis with its baseline by `diff` over the canonical captures (branch `w14-x7-shadow-pair`, worktree `.claude/worktrees/w14-x7`); the runtime sweep follows the implementation once the GPU is free of W13's | IN PROGRESS 2026-09-03 |
+| G1 | two workers dispatched 2026-09-03: the composite implemented on branch `w14-g1-shadow` (worktree `.claude/worktrees/w14-g1`) — the black term's adaptive alpha on both tiers (thin anchors 0 / 0.33 / 0.127 keyed on W9's luminance; thick span anchors 0.379 / 0.497 / 0.544; the dark document's own), the lift GPU-only on W8's falloff (amplitude, span rise 64 → 128, σ 40 CSS px from the chain), Decision Log 1 question 2 (a) as implemented; X7 LANDED 2026-09-03 (merge `922d3e4`, the parent's adoption in Decision Log 3; `results/2026-09-03-w14-shadow/g0/x7-baseline.md`, claims §5.62 §8); the runtime sweep follows the implementation once the GPU is free of W13's | IN PROGRESS 2026-09-03 |
 | G2 | — | blocked-by G1; X8 |
 
 ## Decision Log
@@ -418,6 +421,37 @@ measurement; both tiers and X8.
 Held for the user beyond this gate: the by-eye reading at G1's dry run and
 the landing call at G2; the landing order under X8 if both waves declare
 in the same week.
+
+### Decision Log 3 — X7 adopted into the harness: what the pair costs as committed evidence, and how it is written (2026-09-03)
+
+X7 landed by merge `922d3e4` with its baseline
+(`results/2026-09-03-w14-shadow/g0/x7-baseline.md` §1–§7). The worker left one
+decision to the parent: the affine block was 76% of a cell's bytes on its
+scratch matrix. Measured rather than estimated — the canonical matrix has 230
+cells, not the ~60 the worker assumed, and git stores the compressed text — the
+block at full precision costs **+3.85 KB a cell gzipped against 0.67 KB for the
+rest of the cell, +0.89 MB per canonical rebuild**. The digits of a double are
+what does not compress.
+
+**Decided:** written at **six decimal places** of linear luminance at the
+report boundary (`AFFINE_WRITTEN_DECIMALS`; the measurement in memory stays
+full), and the absence reason as a **code** (`flat-backdrop` /
+`too-few-samples`) whose numbers are the record's own fields. As written:
++2.04 KB a cell, **+0.47 MB per rebuild**. Six places is two orders below the
+raster's linear quantum and below G0's instrument noise on the lift, so no
+resolvable reading is lost and a deterministic rebuild still compares
+byte-identical. Rejected: dropping the pooled `all` direction (−20%, but the
+pooled band is what a reader without a direction in mind quotes) and the two
+band-edge integers (−18% uncompressed, near nothing compressed, and a script
+filters on them without parsing a label); rounding the rest of the matrix
+(a policy change beyond this wave; the pair is the one block stated below full
+precision and says so on the constant). The remaining cost is accepted and
+recorded: the pair is what makes a lift a harness quantity at all.
+
+Two of X7's baseline findings bear on G1 and are in Surprises: the lift's
+survival in the dark scheme, and the caveat on reading `c` over `photo`.
+The over-fill's appearance in the `0-3` band is §5.62 §6's gap seen by a
+second instrument; the axis carries no guard there by design.
 
 ## Surprises & Discoveries
 
@@ -470,6 +504,25 @@ in the same week.
   see it; first measured here, recorded in the tech-debt tracker and
   Deferred, for the shape axis.
 
+- **The lift survives the dark colour scheme at about half amplitude (X7
+  baseline).** `c` at `3-6` below reads 0.00108 on `rrect-md` against
+  0.00211 in the light scheme (0.51×) and 0.00187 on `glass-over-glass`
+  against 0.00349 (0.54×), the same ratio at both scales. G0's reading that
+  the lift is absent over *dark backdrops* (`impulse`, `dark-solid`) stands;
+  the dark *scheme* over the checkerboard carries one, which the `sizeGain`
+  Surprise above did not have. G1's dark document takes its amplitude from
+  this ratio until the dark layer tree is dumped.
+- **`c` over `photo` is not the lift alone (X7 baseline).** 0.0137–0.0141 at
+  `3-6` below on `rrect-lg` / `rrect-md` at 1x — four to six times the
+  checkerboard's and not ordered by span. A backdrop with low-frequency
+  structure lets the σ-40 blurred copy project onto the constant, the limit
+  G0's per-channel fit on `photo` met by another route. The lift is read on
+  the checkerboard; `photo`'s intercept is a caveat, not a larger lift.
+- **The light-solid capsule's 2.4× is now a harness row (X7 baseline §5).**
+  Occlusion off the `3-6` band below: reference 0.0815, the CSS tier 0.1838
+  and the GPU tier 0.1867 at 1x (2.25× / 2.29×), bracketing §5.62's 2.24×
+  and the charter's 2.4×. G2's stop S3 reads against this row.
+
 ## Outcomes & Retrospective
 
 (open)
@@ -479,3 +532,5 @@ in the same week.
 - 2026-09-03: opened from W13 Decision Log 2 / claims §5.60.
 - 2026-09-03: G0 complete (claims §5.62); six Surprises; the Design advisory on `Amount` /
   `Height` overturned by measurement (they are not extents; the falloff is W8's).
+- 2026-09-03: X7 landed (merge `922d3e4`); Decision Log 3 (the pair's written precision and
+  coded absence); three Surprises from its baseline; the dark-scheme Deferred item annotated.

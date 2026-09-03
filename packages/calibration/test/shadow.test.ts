@@ -358,7 +358,7 @@ describe("the shadow axis's affine pair", () => {
     expect(band?.slopeALinear).toBeUndefined();
     expect(band?.interceptCLinear).toBeUndefined();
     expect(band?.rSquared).toBeUndefined();
-    expect(band?.unidentifiableReason).toMatch(/collinear/);
+    expect(band?.unidentifiableReason).toBe("flat-backdrop");
     // What a constant backdrop does identify, reported rather than dropped: the
     // level and the backdrop it sits over. Their ratio is a + c/bg, and nothing
     // in the band splits it.
