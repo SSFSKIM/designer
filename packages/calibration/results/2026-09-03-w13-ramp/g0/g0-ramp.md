@@ -299,11 +299,17 @@ Three things follow.
    sharper description than it had: "vitrea shows no backdrop structure at all under
    `impulse__capsule-button`, at four profiles".
 
-## 6. Contract X6 — the band-windowed rows, on the W12 close bed
+## 6. Contract X6 — an independent replica of the band rows
 
-`ssimBand` and `ssimInterior`: the compare's own SSIM statistic (`w11lib.ssim_map`, the pinned
-replica of `src/metrics/perceptual.ts`) averaged inside the silhouette, split at a fixed depth
-of **24 CSS px** from the contour. Recorded here as the baseline; no bound is adopted at G0.
+X6 landed in the compare itself while this spike ran: `ssimBand`, `ssimInterior` and
+`ssimOutside` are on every cell's perceptual axis and their baseline on the W12 close bed is
+`x6-baseline.md` and claims §5.60. What follows is an **independent replica** computed here
+from the committed captures alone — `w11lib.ssim_map`, the pinned replica of
+`src/metrics/perceptual.ts`, averaged inside the analytic SDF silhouette split at 24 CSS px —
+kept because it was produced before that landing and because agreeing by two routes is worth
+more than either alone. It differs from the landed rows in one respect that explains the
+residual: the landed window is the **native** silhouette, hole-filled, and this one is the
+analytic rounded rect.
 
 | cell | whole silhouette | **band** (u < 24) | **interior** (u ≥ 24) | band px | interior px |
 | --- | --- | --- | --- | --- | --- |
@@ -324,13 +330,15 @@ of **24 CSS px** from the contour. Recorded here as the baseline; no bound is ad
 | `photo__rrect-lg` 2x | 0.9955 | 0.9924 | 0.9976 | 71 640 | 103 600 |
 | `hc-text__rrect-md` 2x | 0.9432 | 0.9284 | 0.9696 | 38 560 | 21 504 |
 
-Two notes for whoever adopts these as bounds. **The split at 24 CSS px leaves `rrect-sm` and
-`capsule-button` with no interior at all** — their half-spans are 16 and 22 — so `ssimBand`
-on those two cells is the whole-silhouette row under another name and `ssimInterior` is
-undefined; the schema needs to say so rather than emit a NaN. And these numbers are inside the
-silhouette, where the compare's published `ssimMean` is over the whole cell crop including the
-shadow and the page outside it; the band row is 0.01–0.03 below the whole-silhouette row on
-every checkerboard cell, which is the split doing its job — the band is where the error is.
+**Agreement with the landed rows** (§5.60 §2, GPU tier, checkerboard): `ssimBand` 1x
+`rrect-md` 0.9303 here against 0.9317 landed, `-ml` 0.9356 against 0.9370, `-lg` 0.9386
+against 0.9395; 2x 0.9312 / 0.9315, 0.9395 / 0.9396, 0.9381 / 0.9380; `ssimInterior` 1x
+0.9813 / 0.9817, 0.9802 / 0.9803, 0.9745 / 0.9747. **Within 0.0015 on every row**, the
+residual being the two windows (analytic contour against hole-filled native silhouette). The
+one thing this replica noticed independently and the landed schema already handles:
+`rrect-sm` and `capsule-button` have **no interior window at all** at a 24 CSS px split —
+their half-spans are 16 and 22 — so those cells carry a band row and no interior row, which
+§5.60 §1 records as "absent, never zero".
 
 ## 7. What the declaration should carry
 
@@ -372,15 +380,18 @@ Findings, with the evidence, not decisions.
   `impulse__capsule-button` at four profiles (§5). That is a sampling or level defect on the
   thin material over a near-black backdrop and it wants a `GlassGroupState` read, not a
   material constant. It should leave this wave's declaration and become its own item.
-- **The band rows are ready to record and their definition needs one amendment**: the 24 CSS
-  px split leaves the two small spans with no interior window (§6).
+- **The band rows landed while this ran** (claims §5.60); the replica computed here agrees
+  with them to 0.0015 on every row (§6), and §5.60 §3's finding — that half the whole-crop
+  deficit at 1x and two thirds at 2x sits *outside* the silhouette, in the outer shadow's
+  colour — bounds how much of the bed a body change can move at all. A ramp that improves
+  every band row still leaves the larger share of `ssimMean` untouched.
 
-## For claims §5.60
+## For claims §5.61
 
 *Draft. Numbers and tables in the ledger's style; the section is written for the wave's
 recorder to place, not adopted here.*
 
-### 5.60 W13 G0: the reference's sharp share ramps in depth, the ramp's reach is a length and not a fraction of the span, and the dot gap is not the body (2026-09-03)
+### 5.61 W13 G0: the reference's sharp share ramps in depth, the ramp's reach is a length and not a fraction of the span, and the dot gap is not the body (2026-09-03)
 
 The measurement W13's charter opened with, run on the two committed probe beds by an
 instrument first proven on vitrea's own captures. W12 G0's warp-recovery model with the lens
@@ -476,16 +487,14 @@ is that the thin material over a near-black backdrop shows no backdrop structure
 sampling or level question that wants the cell's resolved `GlassGroupState` read, and it
 leaves the ramp's declaration.
 
-#### 5. The band-windowed rows (contract X6), on the W12 close bed
+#### 5. The band-windowed rows, independently
 
-SSIM inside the silhouette split at 24 CSS px from the contour, whole | band | interior:
-1x `rrect-md` 0.9485 | 0.9303 | 0.9813, `-ml` 0.9580 | 0.9356 | 0.9802, `-lg` 0.9598 | 0.9386
-| 0.9745, `photo__rrect-md` 0.9926 | 0.9908 | 0.9958, `hc-text__rrect-md` 0.9200 | 0.8938 |
-0.9670; 2x `rrect-md` 0.9412 | 0.9312 | 0.9592, `-ml` 0.9491 | 0.9395 | 0.9586, `-lg` 0.9594 |
-0.9381 | 0.9741, `photo__rrect-md` 0.9944 | 0.9928 | 0.9973, `hc-text__rrect-md` 0.9432 |
-0.9284 | 0.9696. `rrect-sm` and `capsule-button` have **no interior window** at this split
-(their half-spans are 16 and 22), so their band row is the whole-silhouette row and the
-schema must say so rather than emit a NaN.
+X6's rows (§5.60) were reproduced here from the committed captures alone, with the window
+taken as the analytic contour rather than the hole-filled native silhouette: `ssimBand` 1x
+`rrect-md` / `-ml` / `-lg` 0.9303 / 0.9356 / 0.9386 against §5.60's 0.9317 / 0.9370 / 0.9395,
+2x 0.9312 / 0.9395 / 0.9381 against 0.9315 / 0.9396 / 0.9380, `ssimInterior` 1x 0.9813 /
+0.9802 / 0.9745 against 0.9817 / 0.9803 / 0.9747 — within 0.0015 everywhere. Two routes, one
+number.
 
 #### 6. Limits
 
