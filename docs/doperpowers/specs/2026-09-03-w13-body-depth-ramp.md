@@ -391,7 +391,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum: flat on all six cells, §5.61 §7) |
-| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); **the first form's sweep complete** (`results/2026-09-03-w13-ramp/g1/sweep/`, commit `3fb3b7c`; claims §5.63): 81 points, S4 fails everywhere, S3 best 3× its tolerance, S2 fails everywhere, holdout 2x `rrect-lg` 0.8890 — the form is span-flat where the bed is span-graded; **re-formed by Decision Log 3** (the retired span law kept underneath the ramp as its deep value, the excursion above it) on the same branch, the second form swept and **refuted in the renderer** (`results/2026-09-03-w13-ramp/g1/sweep-2/`, commits `2752301` on the branch and `7bf6b22` on main; claims §5.64): 68 points + a refinement, S4 met nowhere, the 1x requirements disjoint by 0.017 of start, and at 2x the inert configuration is the maximum band on all five cells; **the third form fitted** (`results/2026-09-03-w13-ramp/g1/sweep-3/`, branch `ef61b09`, results `69b02b0`; claims §5.67): S4 met on every 1x cell (band +0.0019…+0.0058, the interior gap more than halved on four of five), S1 exact on every fitted row, the 2x null bit-exact over 20 cells × 107 axes, `glass-over-glass` holdout at an interior gap of 0.0001; **one holdout miss** — `rrect-lg` 1x `ssimMean` −0.0026 with a 33% interior overshoot, because `sizeThickness` saturates at 96 and the start cannot fall across the thick spans as G0 read it; S2 at 2x not met on this bed (the widths' pedestal, −0.010…−0.017) and re-read on the W14 bed under X8; **the fourth form decided** (Decision Log 6: the start's own decline past the thickness knee, one constant) to be fitted on the W14 bed; **the third form reviewed** (Codex, 2026-09-03): five findings folded into the fourth form's brief — the group proxy's blur must take the maximum *projected* σ over members rather than the widest short span (the projection now depends on both extents, so a strip can need more blur than a square of the same short span); the CSS tier's zero-mix fast path skips the device-pixel division at dpr > 1 when a patched profile zeroes `sizeScatterFloor`; the dpr watcher must be built from the supplied window's `matchMedia`, not the ambient one; the proxy e2e helper and the demo's `bodyLaw` readout both project a square where the runtime now projects the measured extents (the platform-web and demo e2e suites were not run by the worker and would fail) — and one deferred to G2 by design (the goldens move; re-recorded behind the isolation proof at the landing); **independent review** (Codex, 2026-09-03) of the first form's branch — two findings folded into the re-form: the CSS tier projected the ramp from the span alone (no extents threaded through `CssTierSurface`, so a 320×44 toolbar projected as a square), and static pyramids were not rebuilt when the device pixel ratio changed (the body's CSS-px sigma now depends on dpr but the pyramid's invalidation compared only texels per CSS px) | IN PROGRESS 2026-09-03 (second form) |
+| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); **the first form's sweep complete** (`results/2026-09-03-w13-ramp/g1/sweep/`, commit `3fb3b7c`; claims §5.63): 81 points, S4 fails everywhere, S3 best 3× its tolerance, S2 fails everywhere, holdout 2x `rrect-lg` 0.8890 — the form is span-flat where the bed is span-graded; **re-formed by Decision Log 3** (the retired span law kept underneath the ramp as its deep value, the excursion above it) on the same branch, the second form swept and **refuted in the renderer** (`results/2026-09-03-w13-ramp/g1/sweep-2/`, commits `2752301` on the branch and `7bf6b22` on main; claims §5.64): 68 points + a refinement, S4 met nowhere, the 1x requirements disjoint by 0.017 of start, and at 2x the inert configuration is the maximum band on all five cells; **the third form fitted** (`results/2026-09-03-w13-ramp/g1/sweep-3/`, branch `ef61b09`, results `69b02b0`; claims §5.67): S4 met on every 1x cell (band +0.0019…+0.0058, the interior gap more than halved on four of five), S1 exact on every fitted row, the 2x null bit-exact over 20 cells × 107 axes, `glass-over-glass` holdout at an interior gap of 0.0001; **one holdout miss** — `rrect-lg` 1x `ssimMean` −0.0026 with a 33% interior overshoot, because `sizeThickness` saturates at 96 and the start cannot fall across the thick spans as G0 read it; S2 at 2x not met on this bed (the widths' pedestal, −0.010…−0.017) and re-read on the W14 bed under X8; **the fourth form decided** (Decision Log 6: the start's own decline past the thickness knee, one constant) to be fitted on the W14 bed; **the third form reviewed** (Codex, 2026-09-03): five findings folded into the fourth form's brief — the group proxy's blur must take the maximum *projected* σ over members rather than the widest short span (the projection now depends on both extents, so a strip can need more blur than a square of the same short span); the CSS tier's zero-mix fast path skips the device-pixel division at dpr > 1 when a patched profile zeroes `sizeScatterFloor`; the dpr watcher must be built from the supplied window's `matchMedia`, not the ambient one; the proxy e2e helper and the demo's `bodyLaw` readout both project a square where the runtime now projects the measured extents (the platform-web and demo e2e suites were not run by the worker and would fail) — and one deferred to G2 by design (the goldens move; re-recorded behind the isolation proof at the landing); **the fourth form fitted on the W14 bed** (branch `7de3d76` + `762c290` + `51c232d` after merging main at `c97d343`; `results/2026-09-03-w13-ramp/g1/sweep-4/`, commit `12e2e2b`; the five review findings fixed in the same commit; platform-web e2e 126, demo e2e 34): far start 0.20 at 1x chosen by the reference's own reading inside the calibration noise (Decision Log 7), **S1 and S4 met at 1x on every row holdout included** — `rrect-lg` `ssimMean` +0.0056 and band +0.0136 against the W14 bed, its interior from 33% over to 12% over, `glass-over-glass` interior exact — the 2x null re-verified at zero over 20 cells × 774 measurements; S2 at 2x met on the W14 bed (0.9585 / 0.9664 / 0.9509 above 0.93) at a cost of 0.010–0.017 that is the device-pixel widths, not the ramp; **the sheets sent** (`sheets/g1-{1x,2x}.png`, `g1-caption.txt`, commit `9b1d5f2`) with the parent's reading; the CSS tier's rows captured for the declaration | IN PROGRESS 2026-09-03 (declaration pending the CSS rows) | **independent review** (Codex, 2026-09-03) of the first form's branch — two findings folded into the re-form: the CSS tier projected the ramp from the span alone (no extents threaded through `CssTierSurface`, so a 320×44 toolbar projected as a square), and static pyramids were not rebuilt when the device pixel ratio changed (the body's CSS-px sigma now depends on dpr but the pyramid's invalidation compared only texels per CSS px) | IN PROGRESS 2026-09-03 (second form) |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -582,6 +582,25 @@ runtime's reach at 80 device px against G0's 100–110; whether the runtime's
 preference or the reference's contour reading better estimates the reference
 is a question for the instrument, recorded in Surprises.
 
+### Decision Log 7 — the far start is set by the reference's reading, inside the calibration noise (2026-09-03; the parent, within G1's remit)
+
+**The limit.** `startFar` acts through `smoothstep(96, 256, span)`, which is
+0 at `rrect-md` (96) and 0.10 at `rrect-ml` (128): on the calibration cells
+the constant is nearly inert, and the two cells that feel it — `glass-over-
+glass` (130) and `rrect-lg` (160) — are holdout. The 1x grid over 0.15…0.52
+confirms it: only `rrect-ml` moves, monotonically better as `far` falls
+(band +0.0042 → +0.0060), and it is flat within 0.0004 below 0.30. A runtime-
+only pick would run to the grid's floor with nothing to stop it.
+
+**Decided.** `sizeScatterRampStartFar1x` = **0.20** — inside the measured
+range, within noise of the best point, and G0's own `rrect-lg` start (0.410
+at span 160, §5.61 §1) re-expressed through the form (0.207). At 2x 0.15,
+below the thick anchor, so the null holds by construction. Declared as
+*carried from the measurement*, the way W14 carried its span-160 anchor,
+and read once on holdout at the confirmation: `rrect-lg` 1x `ssimMean`
+0.9743 (+0.0056 on the W14 bed), band +0.0136, interior 12% over Apple's
+from the third form's 33%.
+
 ## Surprises & Discoveries
 
 - **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
@@ -656,6 +675,22 @@ is a question for the instrument, recorded in Surprises.
   frame noise moves between cells from run to run (claims §5.60 §1).
   Below every bound by four orders; recorded, not chased.
 
+- **At 2x the device-pixel widths make the large surfaces visibly crisper
+  than Apple's (G1 fourth sweep, the sheets).** The ramp is a null at 2x, so
+  what the sheet shows against the W14 bed is candidate A's widths alone:
+  `rrect-sm` and the capsule move toward Apple (band +0.024 each), and
+  `rrect-md` through `rrect-lg` become crisper inside than Apple's — the
+  three rows W14 raised fall 0.010–0.017 (rrect-ml 0.9746 → 0.9585, glass
+  0.9762 → 0.9664, rrect-lg 0.9680 → 0.9509), staying above 0.93. It is
+  §5.64 §4 seen by eye: Apple's 2x interior is heavier than ours, and a
+  narrower body width pushes the large spans the wrong way while it helps
+  the small ones. The widths came into this wave by W12 Decision Log 7; the
+  evidence since says their 2x half is a trade, and the landing puts it to
+  the user as one.
+- **The far anchor is unfittable on the calibration cells** (Decision Log 7):
+  the only spans it acts on are holdout. A form whose defining constant lives
+  above the calibration set's largest span cannot be fitted by the runtime on
+  this bed; it is carried from the instrument's reading and read once.
 - **The 2x null is a property of the law, verified bit-exact (G1 third
   sweep; claims §5.67 §2).** Four constant pairs render identically over 20
   cells × 107 measurements, and identically to a capture from a different
@@ -728,6 +763,9 @@ is a question for the instrument, recorded in Surprises.
   same branch with a second sweep.
 - 2026-09-03: the first form's branch reviewed; two findings (the CSS projection's extents,
   pyramid invalidation over dpr) folded into the re-form (Tracking Map).
+- 2026-09-03: the fourth form fitted on the W14 bed (sweep-4); Decision Log 7 (the far start
+  carried from the reference's reading); two Surprises (the widths' 2x trade seen by eye; the
+  far anchor unfittable on calibration); the sheets sent; the declaration pending the CSS rows.
 - 2026-09-03: the third form fitted (claims §5.67): S4 met at 1x on every cell, the 2x null
   bit-exact, one holdout miss with its cause; Decision Log 6 decides the fourth form (the start's
   decline past the thickness knee, one constant) to be fitted on the W14 bed under X8; four
