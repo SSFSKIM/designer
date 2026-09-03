@@ -7952,3 +7952,147 @@ a minority of its window; the eye's preference is the corner and the
 along-edge stretch, which no adopted metric weights. That gap between
 what the metrics reward and what the eye reads is recorded in Deferred
 as an instrument question, not a material one.
+
+### 5.55 W12 G3 measured: the reference's body is one kernel in device pixels, and only the sharp term's weight changes with scale (2026-09-03)
+
+The measurement Decision Log 5 named, run on the two probe beds — the 1x
+W9 probe (§5.31) and the 2x W12 probe (§5.53), 56 cells each, the same
+scene set — by one code path that reproduces four published readings
+before claiming anything new (§5.41 §1's pitch-16 σ / t on all five
+spans to three decimals; §5.38 §3's heavy share 0.555 / 0.662 / 0.764
+against 0.56 / 0.66 / 0.76; §5.49 §7's 2x `rrect-md` σ 3.00 / t 0.413 /
+level 0.473; §5.49 §2's crossings at both scales). Nothing here is a
+capture or a fit into the product; the document, JSON and scripts are
+`results/2026-09-03-w12-lens/g3/`. The declaration is §5.56.
+
+#### 1. The kernel (the deep interior of one cell over all five pitches at once)
+
+| cell | best core | base σ, CSS / device px | base share |
+| --- | --- | --- | --- |
+| `rrect-md` 1x | a **box 4.00 CSS px** wide (RMS 0.0116; best Gaussian σ 1.25, 0.0125) | 9 / 9 | 0.50 |
+| `rrect-ml` 1x | box 4.00 (0.0135 against 0.0140) | 9 / 9 | 0.60 |
+| `rrect-lg` 1x | box 4.00 (0.0170 against 0.0172) | 9 / 9 | 0.69 |
+| `rrect-md` 2x | σ 0.5 CSS px, box and Gaussian indistinguishable | 4 / 8 | 0.90 |
+| `rrect-ml` 2x | σ 0.5 | 5 / 10 | 0.96 |
+| `rrect-lg` 2x | σ 0.5 | 5 / 10 | 1.00 |
+
+At 1x the sharp core is flat-topped and exactly four CSS pixels wide —
+the pixel footprint of the quarter-device-scale buffer §5.50 §1 read
+from the layer tree, recovered from the captures without assuming it;
+the parameter-free quarter-buffer operator (downsample to a 4-device-px
+box, upsample bilinearly) ties the fitted box to four decimals. The base
+is **σ 9 device px at 1x and 8–10 device px at 2x**: one number in
+device pixels, two numbers (9 and 4.5) in CSS pixels. What the second
+scale changes is the mix: the core's weight is 0.4–0.5 of the
+transmission at 1x and 0.0–0.1 at 2x. (§5.49 §7's 1x base "σ ≈ 14 with
+0.18 share" was a Gaussian fitted to this flat-topped core on the impulse
+backdrop; the pitch-axis decomposition is the identifiable one.)
+
+#### 2. Depth, and §5.49 §7's 2x claim refined
+
+The 1x half reproduces exactly: the sharp component keeps σ 1.25 and
+loses amplitude linearly over the half-span (`rrect-lg` 0.169 at u 20–28
+→ 0.040 at u 76–80). The 2x half — "σ widens 2 → 5 CSS px with depth" —
+is the same mechanism seen through a one-component fit: with the two
+components separated, the 2x sharp term keeps σ 0.5 CSS px (1 device px)
+and its amplitude collapses to zero by mid-depth (`rrect-md` pitch 32:
+0.094 → 0.067 → 0.018 → 0.000 over u 20 → 48; the heavy share 0.82 →
+1.00), which leaves the heavy component alone and makes a single
+Gaussian report an ever-wider σ the deeper it looks. One opacity ramp on
+the sharp term at both scales (§5.50 §2's 0.5 at the edge → 0 at the
+centre); at 2x it starts lower and reaches zero sooner.
+
+#### 3. Transmission and level
+
+At every pitch both scales resolve, the 2x reference transmits 10–25%
+more of the backdrop's structure: pitch 32 by span, 1x → 2x, `rrect-sm`
+0.408 → 0.445, `capsule` 0.398 → 0.434, `rrect-md` 0.404 → 0.505,
+`rrect-ml` 0.355 → 0.448, `rrect-lg` 0.328 → 0.388; pitch 16 `rrect-md`
+0.246 → 0.413. The fine pitches invert: at pitch 8 the 1x reference still
+passes t 0.22–0.41 on spans ≥ 96 and the 2x one 0.03 or nothing — a
+finer core with a much weaker weight. The interior **mean** is
+scale-invariant where §5.49 §7 measured it (every `rrect-md` / `-ml` /
+`-lg` checkerboard within 0.0021, the `photo` cells within 0.0011; 31 of
+56 cells within ±0.001) but **not on the small spans over text and
+high-contrast backdrops**: `hc-text-28__rrect-sm` −0.086, `hc-text-7__rrect-sm`
++0.075, `checkerboard-32__capsule-button__rest-tint-orange` +0.047,
+`checkerboard-64__capsule-button` +0.041, `hc-text__rrect-sm` +0.025, all
+unanimous in both provenances with the plate identical under the mask
+(the two other offenders are §5.53's frequency-settled cells, whose Δ
+equals their own two-state distance). That is a real scale-dependent
+level on the thin material — where §5.50 §2's adaptive face inputs live
+— and it is a level question, not a body question: named as a gap, not
+touched by G3.
+
+#### 4. The lens at 2x — G2 stands
+
+Model-free crossings with the G1 instrument on `rrect-md` and `rrect-lg`
+at pitches 16 / 32 / 64: the 2x field is the same curve as the 1x one (34
+at u ≈ 2, 29 at 3, 24 at 4, 12.4 at 7.5, ≈ 0 at 20). Against the landed
+law the 2x gap is within 0.9 px on `rrect-md` and 1.3 px on `rrect-lg`
+(1x worst 0.8 px), with the same signed shape §5.49 §2 recorded — a
+little short at the contour (+0.6 to +1.0 px of reference beyond it), a
+little long at mid-depth (−0.6 to −1.3 px), most on the largest span. Not
+a scale effect; nothing fitted.
+
+#### 5. Candidate forms, fitted jointly on both probes with `rrect-lg` held out at both scales
+
+Fit set spans 32 / 44 / 96 / 128 × pitches 8 / 16 / 32 / 64 × two
+scales, (a, t) free per span-and-scale; each grid winner re-evaluated on
+the images (agreement < 2 × 10⁻⁴).
+
+| form | fit | holdout | 1x fit / holdout | 2x fit / holdout |
+| --- | --- | --- | --- | --- |
+| **F1 GPU** — two components, σ_heavy in device px, one scale term on the share | **0.0179** | **0.0197** | 0.0181 / 0.0188 | 0.0179 / 0.0200 |
+| F2 — the reference's quarter buffer + depth ramp, with a ramp scale term | 0.0201 | 0.0209 | 0.0182 / 0.0269 | 0.0206 / 0.0191 |
+| F1 GPU, no scale term | 0.0266 | 0.0232 | 0.0342 / 0.0386 | 0.0243 / 0.0174 |
+| F2, no scale term | 0.0301 | 0.0245 | 0.0457 / 0.0284 | 0.0246 / 0.0234 |
+| F1 CSS (one blur), best | 0.0268 | 0.0272 | 0.0395 / 0.0355 | 0.0225 / 0.0247 |
+| F0 — the landed law in CSS px (GPU) | 0.0421 | 0.0307 | **0.0164 / 0.0174** | 0.0464 / 0.0332 |
+| F0 with σ ÷ scale (GPU) | 0.0431 | 0.0319 | 0.0164 / 0.0174 | 0.0475 / 0.0346 |
+
+F1's constants — σ_heavy **9.0 device px**, σ_sharp 1.0 CSS px, floor 0.3,
+spanMax 224, **Δk = +0.4 at devicePixelRatio 2** (the heavy share 0.4
+higher at the second scale, clamped at 1) — each sit at an interior
+minimum of their own sweep (σ_heavy 8 → 0.0201, 9 → 0.0179, 10 → 0.0190;
+Δk 0.35 → 0.0182, 0.4 → 0.0179, 0.45 → 0.0183). The landed law's 2x
+failure is at pitch 8, where it retains three to four times the contrast
+the reference does on spans ≥ 96 (its σ 1.25 CSS px sharp term is 2.5
+device px at 2x and passes a fine checker the reference has erased), plus
+a uniform 15% under-retention at pitch 32; F1 removes both (0.99–1.03 at
+pitches 32 and 64 on every span) and leaves a mild over-retention at
+pitch 8 on `rrect-md` (1.41×) and at pitch 16 on the holdout (1.26×).
+**The price of one law for two beds as F1 is fitted: 0.0017 of 1x
+residual (0.0164 → 0.0181)** — against W12's stop of no 1x row more than
+0.002 below its landing value; a 1x-preserving variant is measured
+before the declaration (§5.56).
+
+F2 — the reference's *actual* mechanism (downsample to the quarter
+buffer, blur σ = 0.8·r buffer px, upsample, mix by the depth ramp) —
+needs a scale term of the same size (Δw +0.5 at 2x) and two of its four
+ramp constants ride their grid edge. That it needs one at all is the
+finding: **the quarter-buffer kernel alone does not explain why the 1x
+material leaks so much more unblurred buffer than the 2x one**. Recorded
+as the open mechanism question, not a rejected form.
+
+The CSS tier's ceiling (best free single σ per span and scale, pooled
+over pitches): 1x 2.5 / 1.5 / 2.0 / 2.5 / 6.0 CSS px with RMS 0.019–0.052;
+2x 3.0 / 2.5 / 4.0 / 5.0 / 5.0 with 0.016–0.046. One blur can nearly be
+the 2x reference and cannot be the 1x one, and its best σ is larger in
+CSS px at 2x — the opposite direction to the GPU tier's device-pixel
+heavy σ, because at 2x the sharp leak that a single blur cannot carry is
+mostly gone.
+
+#### 6. The photo family (null check) and the limits
+
+At 1x every form is within 0.0003 of the landed one; at 2x F1 costs
+0.0009 overall (0.0156 against 0.0147), all on `rrect-lg` (0.0171 against
+0.0160), where F2 is neutral (0.0148) — pointing at F1's σ_sharp of 1.0
+CSS px (2 device px at 2x) as the term the broadband plate dislikes.
+Limits: the 2x bed is the virtual display (§5.50 exonerates it for the
+blur; not re-tested); the three frequency-settled `rrect-sm` cells carry
+a two-state spread of 0.10–0.24 in linear luminance that bounds any
+residual there before a law does, and they are in the fit set; pitch 4
+is at the identifiability ceiling on every cell; the crossings' boundary
+assignment uses §5.49 §2's profile as a window; the CSS ceiling is a
+ceiling, not a law.
