@@ -616,6 +616,14 @@ export interface MaterialSourceSize {
    */
   readonly sizeScatterFloor: number;
   readonly sizeScatterSpanMax: number;
+  /**
+   * The scatter weight's device-scale term (W12 G3, claims §5.56): the body's
+   * two widths are device-pixel quantities, and the weight the sharp component
+   * leaks at is shifted by `sizeScatterScaleTerm · (devicePixelRatio − 1)`.
+   * Zero shift at dpr 1, so this tier's 1x declarations are the landed ones.
+   * See `scatterThicknessAtScale`.
+   */
+  readonly sizeScatterScaleTerm: number;
   readonly sizeOcclusionGain: number;
   /**
    * The refraction ladder's scales, carried here because the size law folds under
@@ -636,6 +644,7 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
+  sizeScatterScaleTerm: 0.35,
   sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
@@ -808,6 +817,8 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
     sizeScatterFloor: patch?.sizeScatterFloor ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor,
     sizeScatterSpanMax: patch?.sizeScatterSpanMax ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax,
+    sizeScatterScaleTerm:
+      patch?.sizeScatterScaleTerm ?? MATERIAL_SOURCE_SIZE.sizeScatterScaleTerm,
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
     refractionScale: sourceRefractionScale(patch),
   };
@@ -866,14 +877,21 @@ export function sizeThicknessUnderPolicy(
  * Also what a group's `samplingPadding` floor has to be taken over, at the
  * group's **largest** member: S1's 3σ rule is about the widest kernel any member
  * will actually sample with, and a floor derived from the nominal σ would starve a
- * large surface's proxy by exactly the gain.
+ * large surface's proxy by exactly the gain — and over the σ this tier will
+ * really write, which at dpr 2 is not the one it writes at dpr 1.
+ *
+ * `devicePixelRatio` is the scale the tier draws at (W12 G3, claims §5.56): the
+ * widths are device-pixel quantities, so the σ in CSS px is `sigmaPx / dpr`
+ * scaled by the weight `scatterThicknessAtScale` resolves. It defaults to 1,
+ * where the expression is the landed 1x law exactly.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
   spanPx: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
 ): number {
-  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, size), size);
+  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, size), size, devicePixelRatio);
 }
 
 /**
@@ -907,8 +925,29 @@ export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
 ): number {
-  return sigmaPx * (1 + (size.sizeScatterGainMax - 1) * scatter);
+  const scaled = scatterThicknessAtScale(scatter, devicePixelRatio, size);
+  return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (size.sizeScatterGainMax - 1) * scaled);
+}
+
+/**
+ * The scatter weight at a device scale (W12 G3, claims §5.56) — k′, the mirror
+ * of the renderer's `scatterThicknessAtScale`.
+ *
+ * The reference's body kernel is fixed in device pixels; what the second scale
+ * changes is how much of the backdrop leaks through unblurred, so the weight —
+ * and only the weight — carries `sizeScatterScaleTerm · (dpr − 1)`, clamped to
+ * 1. The shift is added after the accessibility fold, because it reads the
+ * scale rather than the depth a preference is entitled to remove. At dpr 1 it
+ * is the identity.
+ */
+export function scatterThicknessAtScale(
+  scatter: number,
+  devicePixelRatio: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return clamp01(scatter + size.sizeScatterScaleTerm * (devicePixelRatio - 1));
 }
 
 /**

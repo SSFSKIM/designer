@@ -340,6 +340,8 @@ const MATERIAL_PATCH_KEYS = new Set([
   // The scatter facet's own curve (W11c): its floor and band top.
   "sizeScatterFloor",
   "sizeScatterSpanMax",
+  // The scatter weight's device-scale term (W12 G3, claims 5.56).
+  "sizeScatterScaleTerm",
   // The lens (W12 G2): the gain on the reference's amount law, the height and
   // amount laws themselves, the thickness they are read at, the profile's
   // extent and exponent, and the direction's ovalization with its knee.

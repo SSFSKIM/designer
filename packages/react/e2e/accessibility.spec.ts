@@ -126,6 +126,28 @@ test("a GlassRoot prop overrules the media query", async ({ page }) => {
 
 test("reduced transparency frosts more and refracts less", async ({ page }) => {
   await gotoPlayground(page);
+
+  /*
+   * The blur is read as a RATIO against the nominal one rather than matched
+   * against a literal band.
+   *
+   * It used to assert `blur(1X.XXpx)` — two digits, which was the nominal σ
+   * times the frost multiplier at one device scale. W12 G3 made the body's
+   * widths device-pixel quantities (claims §5.56), so the same material writes
+   * about 14 CSS px on a 1x context and about 8 on a 2x one, and WebKit's
+   * Playwright descriptor composites at 2. What this test is about is the
+   * regime, not the scale: under the preference the surface frosts harder than
+   * it did, whatever the scale it is drawing at.
+   */
+  const blurOf = async (): Promise<number> => {
+    const filter = await page
+      .getByTestId("dom-plate")
+      .evaluate((element) => getComputedStyle(element).backdropFilter);
+    return Number(/blur\(([\d.]+)px\)/.exec(filter)?.[1] ?? Number.NaN);
+  };
+  const nominal = await blurOf();
+  expect(nominal).toBeGreaterThan(0);
+
   await page.getByLabel("reducedTransparency").selectOption("true");
 
   await expect.poll(async () => readout(page, "frost")).toBe("increased");
@@ -133,13 +155,7 @@ test("reduced transparency frosts more and refracts less", async ({ page }) => {
 
   // The material follows the regime: a thicker blur on the host itself. Polled,
   // because the declarations are written in the next frame's write phase.
-  await expect
-    .poll(async () =>
-      page
-        .getByTestId("dom-plate")
-        .evaluate((element) => getComputedStyle(element).backdropFilter),
-    )
-    .toMatch(/blur\(1[0-9](\.\d+)?px\)/);
+  await expect.poll(blurOf).toBeGreaterThan(nominal);
 });
 
 test("the variant-mixing warning reaches the console", async ({ page }) => {

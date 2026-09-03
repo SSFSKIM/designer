@@ -92,6 +92,74 @@ export function observeAccessibilityPreferences(
   };
 }
 
+/**
+ * The device-pixel-ratio feed (W12 G3, claims §5.56).
+ *
+ * The CSS tier's body is a device-pixel quantity, so the `blur()` it writes has
+ * to be re-derived whenever the page starts compositing at a different scale — a
+ * window moved between a Retina display and a 1x one, a browser zoom, a
+ * full-screen transition. There is no `change` event for
+ * `window.devicePixelRatio`; the way to hear about it is a
+ * `(resolution: <dpr>dppx)` query, which matches exactly the current ratio and
+ * therefore stops matching the moment it moves. A query pinned to one ratio can
+ * only fire once, so the listener re-arms a fresh query on the new ratio each
+ * time — which is what makes this a feed rather than a one-shot.
+ *
+ * Shaped like `observeAccessibilityPreferences` and taking the same injectable
+ * `MediaMatcher`, because it is the same kind of thing: a browser fact the
+ * runtime re-derives its material from, delivered as plain data.
+ */
+export interface DevicePixelRatioFeedOptions {
+  readonly matcher: MediaMatcher;
+  /** The live ratio — `() => window.devicePixelRatio` in a browser. */
+  readonly read: () => number;
+  readonly onChange: (devicePixelRatio: number) => void;
+}
+
+export interface DevicePixelRatioFeed {
+  readonly devicePixelRatio: number;
+  stop(): void;
+}
+
+export function observeDevicePixelRatio(
+  options: DevicePixelRatioFeedOptions,
+): DevicePixelRatioFeed {
+  const { matcher, read, onChange } = options;
+
+  let ratio = read();
+  let handle: MediaQueryHandle | undefined;
+
+  const arm = (): void => {
+    const next = matcher(`(resolution: ${String(ratio)}dppx)`);
+    next.addEventListener("change", listener);
+    handle = next;
+  };
+
+  const disarm = (): void => {
+    handle?.removeEventListener("change", listener);
+    handle = undefined;
+  };
+
+  function listener(): void {
+    // The query that fired is dead the instant it does — it named the ratio that
+    // has just stopped being current — so it is dropped and a query on the new
+    // ratio armed before anything downstream is told.
+    disarm();
+    ratio = read();
+    arm();
+    onChange(ratio);
+  }
+
+  arm();
+
+  return {
+    get devicePixelRatio() {
+      return ratio;
+    },
+    stop: disarm,
+  };
+}
+
 /** The live feed. `window.matchMedia`, bound so the pure form above stays testable. */
 export function browserMediaMatcher(): MediaMatcher {
   return (query) => window.matchMedia(query);

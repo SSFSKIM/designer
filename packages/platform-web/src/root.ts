@@ -85,7 +85,9 @@ import { createLayoutReadMeter, flushStyle, type LayoutReadMeter, type ViewportR
 import {
   browserMediaMatcher,
   observeAccessibilityPreferences,
+  observeDevicePixelRatio,
   type AccessibilityFeed,
+  type DevicePixelRatioFeed,
   type MediaMatcher,
 } from "./media-policy";
 import {
@@ -625,6 +627,24 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   if (options.accessibilityOverrides !== undefined) {
     scene.setAccessibilityOverrides(options.accessibilityOverrides);
   }
+
+  /*
+   * The device scale, watched (W12 G3, claims §5.56).
+   *
+   * The CSS tier's body law reads the device pixel ratio, so a change of it is a
+   * change of the material this tier paints — and it has to re-derive on one the
+   * way it re-derives on a policy change. The viewport reading is where the ratio
+   * comes from, and it is refreshed on the next read phase after `markAllDirty`,
+   * so hearing about the change and marking everything dirty is the whole of it:
+   * the write phase then declares the new blur from the new ratio. `resize` fires
+   * for most of the moves that change the ratio but not for all of them, which is
+   * why this listens for the ratio itself rather than trusting that.
+   */
+  const devicePixelRatioFeed: DevicePixelRatioFeed = observeDevicePixelRatio({
+    matcher: options.matcher ?? browserMediaMatcher(),
+    read: () => view.devicePixelRatio,
+    onChange: () => geometry.markAllDirty(),
+  });
 
   /**
    * A group's own proxy-audit verdict. `pass` until layer 2 has run for it, for
@@ -1183,6 +1203,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     const accessibility = resolution.accessibility;
     const cap = accessibilityRefractionCap(accessibility.material);
+    /*
+     * The device scale this tier draws its body at (W12 G3, claims §5.56).
+     *
+     * The body's sharp and heavy widths are device-pixel quantities and the
+     * scatter weight carries a term in `dpr − 1`, so the `blur()` written below
+     * — and the 3σ sampling padding taken over it — depend on the ratio the
+     * page is being composited at. It comes from the same viewport reading the
+     * renderer's own `devicePixelRatio` does, so the two tiers cannot read
+     * different scales; `observeDevicePixelRatio` re-arms a resolution query on
+     * every change so a move between displays or a zoom re-derives it the way a
+     * policy change does. Before the first read it is 1, the landed law.
+     */
+    const dpr = viewport?.devicePixelRatio ?? 1;
 
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
@@ -1289,6 +1322,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           sizeConstants,
         ),
         sizeConstants,
+        dpr,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
@@ -1584,6 +1618,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           spanPx: Math.min(bounds.width, bounds.height),
           size: sizeConstants,
           outerShadow: outerShadowConstants,
+          // The body's widths are device-pixel quantities (W12 G3, claims
+          // §5.56) — the same ratio the renderer draws at, from the same read.
+          devicePixelRatio: dpr,
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {
@@ -2218,6 +2255,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       root.stop();
       styleObserver.disconnect();
       accessibilityFeed.stop();
+      devicePixelRatioFeed.stop();
       geometry.destroy();
       proxies.destroy();
       // The bridge first: it owns GPU resources built on the device the

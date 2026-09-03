@@ -329,3 +329,16 @@ are green; these ten are the CSS-tier project only.
   is a fixed box until the app calls again; `{ kind: "element" }` is measured
   like a source element. An `ImageBitmap` drawn for a `<div>` should declare
   the element, not the rect — said in the type's doc, not enforced.
+
+## The demo's law readout does not carry the device scale (W12 G3, claims §5.56, 2026-09-03)
+
+`apps/demo/src/laws/law.ts`'s `bodyLaw` reports the sharp width, the scatter
+width and the CSS tier's single σ at the shipped constants and at no device
+pixel ratio, so the three numbers it prints are the law at dpr 1. Since G3 the
+body's two widths are device-pixel quantities and the scatter weight carries
+`sizeScatterScaleTerm · (dpr − 1)`, so on the Retina display most visitors read
+the page on, the widths the runtime actually draws are half the printed ones and
+the mix is 0.35 higher. The fix is to thread `window.devicePixelRatio` into
+`bodyLaw` and show it as a fourth readout, so the page states which scale it is
+describing. Small and self-contained, and a documentation gap rather than a
+fidelity one: nothing the runtime draws is affected.

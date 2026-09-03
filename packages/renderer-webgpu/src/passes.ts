@@ -165,6 +165,14 @@ export interface OpticsPassArgs {
   readonly sizeSpanMax: number;
   readonly sizeScatterFloor: number;
   readonly sizeScatterSpanMax: number;
+  /**
+   * The scatter weight's device-scale shift (W12 G3, claims §5.56):
+   * `sizeScatterScaleTerm × (devicePixelRatio − 1)`, resolved once per group
+   * from the viewport the renderer draws at and added to the curve the shader
+   * evaluates per pixel, clamped there to 1. Zero at dpr 1, where the whole
+   * body law is the landed one.
+   */
+  readonly sizeScatterScaleShift: number;
   readonly sizeFold: number;
   /**
    * Backdrop tone adaptation (W7): `[low, high, sizeBiasUnderPolicy, strength]`.
@@ -614,7 +622,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[83] = args.lensThicknessReference;
       d[84] = args.lensOvalizationSpanMin;
       d[85] = args.lensOvalizationSpanMax;
-      d[86] = 0;
+      // The scatter weight's device-scale shift (W12 G3), in the first of this
+      // vec4's two padding slots rather than in a vec4 of its own.
+      d[86] = args.sizeScatterScaleShift;
       d[87] = 0;
       slot.write();
 

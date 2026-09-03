@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "f9722f244e7f2af2",
+  "resolvedMaterialSha256": "b668693607b44247",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -249,5 +249,16 @@
     "captures; whether the dark reference's band takes the same law is the",
     "referee's question for this scheme's cells. The patch itself is unchanged.",
     "Fingerprint aec4cfba10137f2b -> c2da15c95e5116e2 (the defaults above)."
+  ],
+  "$comment-w12-g3": [
+    "RE-RECORDED 2026-09-03 (W12 G3, claims 5.56): the defaults this difference",
+    "document inherits changed again — the body's sharp and heavy widths are read",
+    "as DEVICE-pixel quantities and the scatter weight carries one new constant,",
+    "sizeScatterScaleTerm 0.35 (see the light profile's entries.scatterScale). No",
+    "existing constant moved and at dpr 1 the resolved law is unchanged, so every",
+    "1x cell of this scheme is predicted unmoved; the 2x cells are the referee's.",
+    "Fitted on the LIGHT 2x probe; whether the dark reference's body takes the",
+    "same scale term is unmeasured. The patch itself is unchanged.",
+    "Fingerprint f9722f244e7f2af2 -> b668693607b44247 (the defaults above)."
   ]
 }

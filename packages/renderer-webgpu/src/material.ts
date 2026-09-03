@@ -329,6 +329,32 @@ export interface MaterialProfile {
   readonly sizeScatterSpanMax: number;
 
   /**
+   * **The scatter weight's device-scale term** (W12 G3, claims §5.56).
+   *
+   * The body's two widths are device-pixel quantities: the sharp component is
+   * `blurSigma` device px and the heavy one `blurSigma × sizeScatterGainMax`
+   * device px, so both halve in CSS px when the tier draws at dpr 2. What the
+   * second scale changes as well is how much of the backdrop leaks through
+   * *unblurred*, and that is this constant: the scatter weight the curve above
+   * resolves is shifted by `sizeScatterScaleTerm · (devicePixelRatio − 1)` and
+   * clamped to 1, so at dpr 1 the whole law is the landed one exactly and every
+   * 1x claim of §5.41–§5.42 stands unamended.
+   *
+   * The reading it encodes is claims §5.55 §1's: the reference's body kernel is
+   * fixed in device pixels — one blur radius in a quarter-device-scale buffer,
+   * 9.9 CSS px at 1x and 4.95 at 2x on the same span — and only the unblurred
+   * leak's weight moves with the scale. Why the 1x material leaks so much more
+   * of the unblurred buffer than the 2x one is not understood; the reference's
+   * own quarter-buffer form needs a scale term of the same size (§5.56 §5).
+   *
+   * FITTED (W12 G3) on the 2x probe alone, with the 1x law held: a clear
+   * interior minimum at 0.35 (2x RMS 0.0209 at 0.30, 0.0192 at 0.35, 0.0201 at
+   * 0.40), unmoved when the three frequency-settled `rrect-sm` cells are
+   * excluded. It is the round's ONE new constant; nothing else changed value.
+   */
+  readonly sizeScatterScaleTerm: number;
+
+  /**
    * The occlusion gain — "a larger size is more opaque. A smaller size is
    * clearer" (S284). The fraction of the *remaining* transparency the size law
    * closes at full size.
@@ -869,6 +895,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
+  sizeScatterScaleTerm: 0.35,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -1116,6 +1143,7 @@ export const LENS_SIZE_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.lensSizeGainMax;
 export const SIZE_SCATTER_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax;
 export const SIZE_SCATTER_FLOOR = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor;
 export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax;
+export const SIZE_SCATTER_SCALE_TERM = DEFAULT_MATERIAL_PROFILE.sizeScatterScaleTerm;
 export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
 export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
 export const LENS_REFRACTION_GAIN = DEFAULT_MATERIAL_PROFILE.lensRefractionGain;
@@ -1158,6 +1186,7 @@ export interface MaterialProfilePatch {
   readonly sizeScatterGainMax?: number;
   readonly sizeScatterFloor?: number;
   readonly sizeScatterSpanMax?: number;
+  readonly sizeScatterScaleTerm?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
@@ -1229,6 +1258,7 @@ export function withMaterialOverrides(
     sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
     sizeScatterFloor: patch.sizeScatterFloor ?? base.sizeScatterFloor,
     sizeScatterSpanMax: patch.sizeScatterSpanMax ?? base.sizeScatterSpanMax,
+    sizeScatterScaleTerm: patch.sizeScatterScaleTerm ?? base.sizeScatterScaleTerm,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
@@ -1821,13 +1851,24 @@ export function lensDirection(
  * toward. It is also what a group's `samplingPadding` floor must be taken over —
  * a wider blur needs a wider proxy, and the group's floor is set by its *largest*
  * member (S1's 3σ rule, applied to the σ the material will really use).
+ *
+ * `devicePixelRatio` is the scale the tier actually draws at (W12 G3, claims
+ * §5.56): the widths are device-pixel quantities, so the σ returned in CSS px is
+ * `sigmaPx / dpr` scaled by the weight `scatterThicknessAtScale` resolves. It
+ * defaults to 1, where the whole expression is the landed 1x law.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
 ): number {
-  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, profile), profile);
+  return sizeScatterSigmaAt(
+    sigmaPx,
+    scatterThickness(spanPx, 1, profile),
+    profile,
+    devicePixelRatio,
+  );
 }
 
 /**
@@ -1864,8 +1905,32 @@ export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
 ): number {
-  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * scatter);
+  const scaled = scatterThicknessAtScale(scatter, devicePixelRatio, profile);
+  return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (profile.sizeScatterGainMax - 1) * scaled);
+}
+
+/**
+ * **The scatter weight at a device scale** (W12 G3, claims §5.56) — k′.
+ *
+ * The body's widths are device-pixel quantities and the weight the sharp
+ * component leaks at is not scale-invariant: k′ = min(1, k + `sizeScatterScaleTerm`
+ * · (dpr − 1)), over the thickness the curve above already resolved (fold
+ * included, because the shift is a reading of the scale and not a depth a
+ * preference is entitled to remove). At dpr 1 it is the identity, which is what
+ * leaves the whole 1x law untouched.
+ *
+ * Mirrored by `@vitreajs/vitrea-web`'s `scatterThicknessAtScale`, pinned over
+ * dpr ∈ {1, 1.5, 2, 3} by `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export function scatterThicknessAtScale(
+  scatter: number,
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const shift = profile.sizeScatterScaleTerm * (devicePixelRatio - 1);
+  return Math.min(1, Math.max(0, scatter + shift));
 }
 
 /**

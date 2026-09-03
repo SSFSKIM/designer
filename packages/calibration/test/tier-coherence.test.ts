@@ -57,6 +57,7 @@ import {
   resolvedTintShade,
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
   scatterThickness as cssScatterThickness,
+  scatterThicknessAtScale as cssScatterThicknessAtScale,
   sizeScatterSigma as cssSizeScatterSigma,
   sizeScatterSigmaAt as cssSizeScatterSigmaAt,
   sizeThickness as cssSizeThickness,
@@ -85,6 +86,8 @@ import {
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
   scatterThickness as rendererScatterThickness,
+  scatterThicknessAtScale as rendererScatterThicknessAtScale,
+  SIZE_SCATTER_SCALE_TERM,
   sizeScatterSigma as rendererSizeScatterSigma,
   sizeScatterSigmaAt as rendererSizeScatterSigmaAt,
   sizeThickness as rendererSizeThickness,
@@ -473,6 +476,99 @@ describe("tier coherence (K5)", () => {
     expect(cssSizeScatterSigma(1.25, 32)).toBeCloseTo(1.25 * (1 + 7 * 0.4), 12);
     expect(rendererScatterThickness(160, 1)).toBeGreaterThan(rendererScatterThickness(96, 1));
     expect(rendererScatterThickness(96, 1)).toBeGreaterThan(rendererScatterThickness(44, 1));
+  });
+
+  /*
+   * The body's two widths are DEVICE-pixel quantities and the scatter weight
+   * carries one scale term (W12 G3, claims §5.56) — so the tier that draws at a
+   * different device pixel ratio from the other would scatter differently, which
+   * is K5's defect on the axis the reference's own kernel lives on. Pinned over
+   * dpr ∈ {1, 1.5, 2, 3} and spans across the band, on the shipped profile AND
+   * on a patch, so a retune of the term moves both mirrors together.
+   */
+  it("reads the body at one device scale on both tiers", () => {
+    const patches = [
+      undefined,
+      {
+        sizeSpanMin: 40,
+        sizeSpanMax: 200,
+        sizeScatterGainMax: 6,
+        sizeScatterFloor: 0.25,
+        sizeScatterSpanMax: 320,
+        sizeScatterScaleTerm: 0.5,
+      },
+    ] as const;
+    for (const patch of patches) {
+      const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch ?? {});
+      const mirrored = sourceSize(patch);
+      expect(mirrored.sizeScatterScaleTerm).toBe(profile.sizeScatterScaleTerm);
+      for (const span of [24, 32, 44, 96, 128, 160, 256, 400]) {
+        for (const fold of [0, 0.45, 1]) {
+          const css = cssScatterThickness(span, fold, mirrored);
+          const gpu = rendererScatterThickness(span, fold, profile);
+          for (const dpr of [1, 1.5, 2, 3]) {
+            const label = `span ${span} fold ${fold} dpr ${dpr}`;
+            expect(cssScatterThicknessAtScale(css, dpr, mirrored), label).toBeCloseTo(
+              rendererScatterThicknessAtScale(gpu, dpr, profile),
+              12,
+            );
+            expect(cssSizeScatterSigmaAt(1.25, css, mirrored, dpr), `σ at ${label}`).toBeCloseTo(
+              rendererSizeScatterSigmaAt(1.25, gpu, profile, dpr),
+              12,
+            );
+            expect(
+              cssSizeScatterSigma(1.25, span, mirrored, dpr),
+              `span form at ${label}`,
+            ).toBeCloseTo(rendererSizeScatterSigma(1.25, span, profile, dpr), 12);
+          }
+          // dpr 1 is the landed law on both tiers, to the last decimal: the term
+          // is additive in (dpr − 1) and adds nothing there.
+          expect(
+            cssSizeScatterSigmaAt(1.25, css, mirrored, 1),
+            `dpr 1 at span ${span} fold ${fold}`,
+          ).toBeCloseTo(cssSizeScatterSigmaAt(1.25, css, mirrored), 12);
+          expect(rendererSizeScatterSigmaAt(1.25, gpu, profile, 1)).toBeCloseTo(
+            rendererSizeScatterSigmaAt(1.25, gpu, profile),
+            12,
+          );
+        }
+      }
+    }
+    // The shipped numbers, stated: 1.25 and 10 DEVICE px, so at dpr 2 a
+    // saturated span's σ is 5 CSS px on both tiers, and a 96 px span's weight
+    // there is the landed curve plus 0.35.
+    expect(SIZE_SCATTER_SCALE_TERM).toBe(0.35);
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterScaleTerm).toBe(SIZE_SCATTER_SCALE_TERM);
+    expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(5, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, 2)).toBeCloseTo(5, 12);
+    expect(cssScatterThicknessAtScale(cssScatterThickness(96, 1), 2)).toBeCloseTo(
+      cssScatterThickness(96, 1) + 0.35,
+      12,
+    );
+  });
+
+  /*
+   * The scattering facet's S1 consequence at a second device scale: the 3σ
+   * padding floor is taken over the σ the tier will REALLY write, and at dpr 2
+   * that is a different number from the one it writes at dpr 1 (W12 G3).
+   */
+  it("takes the 3σ padding floor over the σ the device scale actually uses", () => {
+    const shipped = cssTierOptics().regular.blurRadius;
+    for (const dpr of [1, 1.5, 2, 3]) {
+      const platter = cssSizeScatterSigma(shipped, 160, MATERIAL_SOURCE_SIZE, dpr);
+      expect(platter, `dpr ${dpr}`).toBeCloseTo(
+        rendererSizeScatterSigma(shipped, 160, DEFAULT_MATERIAL_PROFILE, dpr),
+        12,
+      );
+      expect(requiredSamplingPadding(platter), `dpr ${dpr}`).toBeCloseTo(3 * platter, 12);
+    }
+    // A saturated span's σ halves at dpr 2, so the padding it needs halves too —
+    // a floor derived at dpr 1 would over-pad rather than starve, but it would
+    // not be the σ that was drawn.
+    expect(cssSizeScatterSigma(shipped, 4000, MATERIAL_SOURCE_SIZE, 2) * 2).toBeCloseTo(
+      cssSizeScatterSigma(shipped, 4000, MATERIAL_SOURCE_SIZE, 1),
+      12,
+    );
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {

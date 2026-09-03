@@ -38,6 +38,8 @@ import {
   sizeScatterSigma,
   sizeScatterSigmaAt,
   scatterThickness,
+  scatterThicknessAtScale,
+  SIZE_SCATTER_SCALE_TERM,
   sizeShadowDepth,
   sizeShadowDepthAt,
   sizeThickness,
@@ -357,6 +359,87 @@ describe("the scattering facet's own curve (W11c)", () => {
       expect(lensSizeGain(span, OWN)).toBe(lensSizeGain(span, GAINED));
       expect(sizeOcclusionAlpha(0.5, span, OWN)).toBe(sizeOcclusionAlpha(0.5, span, GAINED));
     }
+  });
+});
+
+/*
+ * The body's two widths are device-pixel quantities and the scatter weight
+ * carries one scale term (W12 G3, claims §5.56). Two properties matter and are
+ * asserted rather than described: at dpr 1 the whole law is the landed one to
+ * twelve decimals — which is what leaves every 1x claim standing — and at any
+ * other scale both widths are constant in DEVICE px while the weight moves by
+ * exactly `sizeScatterScaleTerm · (dpr − 1)`.
+ */
+describe("the body's widths are device-pixel quantities (W12 G3)", () => {
+  const SHIPPED = DEFAULT_MATERIAL_PROFILE;
+  const SIGMA = SHIPPED.optics.regular.blurSigma;
+
+  it("reproduces the landed law exactly at dpr 1", () => {
+    for (const span of [0, 12, 32, 44, 96, 128, 160, 256, 400, 4000]) {
+      for (const fold of [0, 0.45, 1]) {
+        const k = scatterThickness(span, fold, SHIPPED);
+        expect(scatterThicknessAtScale(k, 1, SHIPPED), `span ${span}`).toBeCloseTo(k, 12);
+        expect(sizeScatterSigmaAt(SIGMA, k, SHIPPED, 1), `span ${span}`).toBeCloseTo(
+          sizeScatterSigmaAt(SIGMA, k, SHIPPED),
+          12,
+        );
+      }
+      expect(sizeScatterSigma(SIGMA, span, SHIPPED, 1)).toBeCloseTo(
+        sizeScatterSigma(SIGMA, span, SHIPPED),
+        12,
+      );
+    }
+  });
+
+  it("shifts the weight by the scale term and clamps it to one", () => {
+    const k = scatterThickness(96, 1, SHIPPED);
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(scatterThicknessAtScale(k, dpr, SHIPPED), `dpr ${dpr}`).toBeCloseTo(
+        Math.min(1, k + SIZE_SCATTER_SCALE_TERM * (dpr - 1)),
+        12,
+      );
+    }
+    // A saturated span at dpr 3 would run past 1 without the clamp.
+    expect(scatterThicknessAtScale(1, 3, SHIPPED)).toBe(1);
+    // And a scale below 1 cannot push the weight below zero.
+    expect(scatterThicknessAtScale(0, 0.5, SHIPPED)).toBe(0);
+  });
+
+  it("holds both widths constant in device px across the scale", () => {
+    // The two widths are the σ the mix runs between: the sharp one at weight 0
+    // and the heavy one at weight 1. Read with the weight's own scale term off,
+    // so this asserts the widths and nothing else; both are read in DEVICE px
+    // (σ_css × dpr), where neither may move.
+    const widthsOnly = withMaterialOverrides(SHIPPED, { sizeScatterScaleTerm: 0 });
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(sizeScatterSigmaAt(SIGMA, 0, widthsOnly, dpr) * dpr, `sharp at ${dpr}`).toBeCloseTo(
+        SIGMA,
+        12,
+      );
+      expect(sizeScatterSigmaAt(SIGMA, 1, widthsOnly, dpr) * dpr, `heavy at ${dpr}`).toBeCloseTo(
+        SIGMA * SHIPPED.sizeScatterGainMax,
+        12,
+      );
+    }
+    // The shipped numbers, stated: 1.25 and 10 device px, so 0.625 and 5 CSS px
+    // at dpr 2, and the weight there is the landed curve plus 0.35.
+    expect(SIGMA).toBe(1.25);
+    expect(SIGMA * SHIPPED.sizeScatterGainMax).toBe(10);
+    expect(sizeScatterSigmaAt(SIGMA, 0, widthsOnly, 2)).toBeCloseTo(0.625, 12);
+    expect(sizeScatterSigmaAt(SIGMA, 1, widthsOnly, 2)).toBeCloseTo(5, 12);
+    expect(SIZE_SCATTER_SCALE_TERM).toBe(0.35);
+    const k = scatterThickness(96, 1, SHIPPED);
+    expect(sizeScatterSigma(SIGMA, 96, SHIPPED, 2), "the whole law at dpr 2").toBeCloseTo(
+      (SIGMA / 2) * (1 + (SHIPPED.sizeScatterGainMax - 1) * (k + 0.35)),
+      12,
+    );
+  });
+
+  it("carries the term through a profile patch", () => {
+    const patched = withMaterialOverrides(SHIPPED, { sizeScatterScaleTerm: 0.5 });
+    expect(patched.sizeScatterScaleTerm).toBe(0.5);
+    expect(scatterThicknessAtScale(0.4, 2, patched)).toBeCloseTo(0.9, 12);
+    expect(scatterThicknessAtScale(0.4, 2, SHIPPED)).toBeCloseTo(0.75, 12);
   });
 });
 

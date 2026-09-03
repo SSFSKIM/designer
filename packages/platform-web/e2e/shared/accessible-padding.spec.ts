@@ -32,7 +32,13 @@
 
 import { expect, test, type Page } from "@playwright/test";
 
-import { expectBox, expectedProxyBlur, gotoHarness, paddedBox } from "../support";
+import {
+  deviceScaleOf,
+  expectBox,
+  expectedProxyBlur,
+  gotoHarness,
+  paddedBox,
+} from "../support";
 
 /** The playground's own gap between the toolbar group and the morph's group. */
 const DEMO_GROUP_GAP = 56;
@@ -161,7 +167,11 @@ test("and it still fires where the leak is real, under the very preference that 
   // is small (single-digit /255) but real and paint-order dependent, and going
   // quiet about it under the preference that enlarged the blur would invert the
   // diagnostics doctrine.
-  const { padding } = expectedProxyBlur({ spanPx: TOOLBAR_SPAN, reducedTransparency: true });
+  const { padding } = expectedProxyBlur({
+    spanPx: TOOLBAR_SPAN,
+    reducedTransparency: true,
+    devicePixelRatio: await deviceScaleOf(page),
+  });
   expect(TIGHT_GROUP_GAP).toBeLessThan(padding);
   expect(DEMO_GROUP_GAP).toBeGreaterThan(padding);
   await buildDemoShapedScene(page, { gap: TIGHT_GROUP_GAP });
@@ -189,8 +199,17 @@ test("the geometry really is at the floor, not merely unreported", async ({ page
   // each group's own widest member: 44 px for the toolbar's controls, 120 px
   // for the hero. The toolbar's members span 200..404 horizontally and 400..444
   // vertically.
-  const toolbar = expectedProxyBlur({ spanPx: TOOLBAR_SPAN, reducedTransparency: true });
-  const hero = expectedProxyBlur({ spanPx: 120, reducedTransparency: true });
+  const dpr = await deviceScaleOf(page);
+  const toolbar = expectedProxyBlur({
+    spanPx: TOOLBAR_SPAN,
+    reducedTransparency: true,
+    devicePixelRatio: dpr,
+  });
+  const hero = expectedProxyBlur({
+    spanPx: 120,
+    reducedTransparency: true,
+    devicePixelRatio: dpr,
+  });
   expect(hero.padding).toBeGreaterThan(toolbar.padding);
   expectBox(boxes.toolbar, paddedBox({ x: 200, y: 400, width: 204, height: 44 }, toolbar.padding));
   expectBox(boxes.hero, paddedBox({ x: 200, y: 120, width: 200, height: 120 }, hero.padding));
@@ -198,16 +217,26 @@ test("the geometry really is at the floor, not merely unreported", async ({ page
 
 test("an author's own padding keeps their number, and keeps its warning", async ({ page }) => {
   await gotoHarness(page);
-  // A declared 24 is a statement about this app's geometry, and under a blur it
-  // cannot cover it is still worth saying so. Deriving over the top of it would
-  // be the runtime overruling an author, which is a different and worse defect
-  // than the one being fixed.
-  // 24 sits under the floor the law gives the toolbar under reduced
-  // transparency; asserted, so a constant moving the floor below it fails here
-  // with a reason rather than in the assertion below.
-  const { padding } = expectedProxyBlur({ spanPx: TOOLBAR_SPAN, reducedTransparency: true });
-  expect(padding).toBeGreaterThan(24);
-  await buildDemoShapedScene(page, { declarePadding: 24 });
+  // An author's own number is a statement about this app's geometry, and under a
+  // blur it cannot cover it is still worth saying so. Deriving over the top of it
+  // would be the runtime overruling an author, which is a different and worse
+  // defect than the one being fixed.
+  //
+  // The declared number is taken from the floor rather than written down. It used
+  // to be 24 with the assertion "24 is under the floor" beside it, and W12 G3
+  // made that premise engine-dependent: the body's widths are device-pixel
+  // quantities (claims §5.56), so under reduced transparency the toolbar's floor
+  // is about 41 CSS px on a 1x context and about 21 on a 2x one — and WebKit's
+  // Playwright descriptor composites at 2. A literal that is under the floor on
+  // two engines and over it on the third tests the engines, not the runtime.
+  const { padding } = expectedProxyBlur({
+    spanPx: TOOLBAR_SPAN,
+    reducedTransparency: true,
+    devicePixelRatio: await deviceScaleOf(page),
+  });
+  const declared = Math.max(1, Math.floor(padding) - 4);
+  expect(declared).toBeLessThan(padding);
+  await buildDemoShapedScene(page, { declarePadding: declared });
 
   const findings = await findingsOf(page, DEFAULT_PADDING_CODES);
   expect(findings).toContain("sampling-padding-below-3-sigma(toolbar)");
@@ -235,7 +264,10 @@ test("nothing moves at the nominal state, which is where every golden was taken"
     return { box: window.h.proxyBox("g"), codes: window.h.diagnosticCodes() };
   });
 
-  const { padding } = expectedProxyBlur({ spanPx: 44 });
+  const { padding } = expectedProxyBlur({
+    spanPx: 44,
+    devicePixelRatio: await deviceScaleOf(page),
+  });
   expectBox(result.box, paddedBox({ x: 200, y: 200, width: 140, height: 44 }, padding));
   for (const code of ALL_PADDING_CODES) expect(result.codes).not.toContain(code);
 });

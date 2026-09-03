@@ -559,7 +559,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           sourceId: request.sourceId,
           epoch: request.epoch,
           resolution: request.resolution,
-          bodySigmaCss: optics.blurSigma,
+          // The body's sharp width is a DEVICE-pixel quantity (W12 G3, claims
+          // §5.56): `blurSigma` device px, so `blurSigma / dpr` in the CSS px
+          // the pyramid converts to source texels with. The heavy component
+          // rides the same conversion — its level is this one plus
+          // log2(sizeScatterGainMax) octaves — so it is eight body widths in
+          // device px at every scale. At dpr 1 this is `optics.blurSigma`
+          // unchanged, which is what leaves the 1x law exactly as landed.
+          bodySigmaCss: optics.blurSigma / Math.max(viewport.devicePixelRatio, 1e-3),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -865,6 +872,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeSpanMax: material.sizeSpanMax,
         sizeScatterFloor: material.sizeScatterFloor,
         sizeScatterSpanMax: material.sizeScatterSpanMax,
+        // The scatter weight's device-scale shift (W12 G3, claims §5.56),
+        // resolved from the viewport's own ratio and added to the curve the
+        // shader evaluates per pixel. Zero at dpr 1.
+        sizeScatterScaleShift: material.sizeScatterScaleTerm * (dpr - 1),
         sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         backdropTone,
         backdropToneColour: [

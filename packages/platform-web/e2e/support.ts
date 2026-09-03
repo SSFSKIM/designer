@@ -142,10 +142,19 @@ export function expectByteIdentical(a: Rgb, b: Rgb, what: string): void {
  * the CI integration job matched no package from the W5a rename until the 0.3.0
  * release chain, so nothing said so. A literal here would go stale the same way
  * again; the law cannot.
+ *
+ * `devicePixelRatio` is part of the law since W12 G3 (claims §5.56): the body's
+ * widths are device-pixel quantities, so the σ a proxy blurs with — and the 3σ
+ * floor over it — is a different number on a 2x context from a 1x one. Every
+ * caller reads the page's own ratio and passes it, because Playwright's
+ * `Desktop Safari` descriptor composites at 2 while `Desktop Chrome` and
+ * `Desktop Firefox` composite at 1: a spec that assumed one scale would assert
+ * the wrong material on one of the three engines and call it an engine defect.
  */
 export function expectedProxyBlur(options: {
   readonly spanPx: number;
   readonly reducedTransparency?: boolean;
+  readonly devicePixelRatio?: number;
 }): { readonly sigma: number; readonly padding: number } {
   const policy = resolveAccessibilityPolicy(
     {
@@ -166,8 +175,14 @@ export function expectedProxyBlur(options: {
       MATERIAL_SOURCE_SIZE,
     ),
     MATERIAL_SOURCE_SIZE,
+    options.devicePixelRatio ?? 1,
   );
   return { sigma, padding: requiredSamplingPadding(sigma) };
+}
+
+/** The ratio the page is composited at — the body law's second input (W12 G3). */
+export async function deviceScaleOf(page: Page): Promise<number> {
+  return page.evaluate(() => window.devicePixelRatio);
 }
 
 export interface Box {

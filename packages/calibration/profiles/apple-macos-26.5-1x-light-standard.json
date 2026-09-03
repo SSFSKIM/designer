@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "c6e388fc8349282d",
+  "resolvedMaterialSha256": "3fc6feb2ca4d9444",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -45,7 +45,11 @@
     "132850148804f614 -> 1065c19c6cb527e5 (2026-09-03, W12 G2): the lens on the",
     "reference's span law — lensRefractionGain 1.6 -> 0.745 (re-based onto the",
     "amount law), ten new lens constants (see entries.lens); lensSizeGainMax",
-    "stays as the inner shadow's depth gain."
+    "stays as the inner shadow's depth gain.",
+    "1065c19c6cb527e5 -> 3fc6feb2ca4d9444 (2026-09-03, W12 G3): the body's two widths read",
+    "as DEVICE-pixel quantities and one new constant on the scatter weight,",
+    "sizeScatterScaleTerm 0.35 — see entries.scatterScale. No existing constant",
+    "changes value, and at dpr 1 the law resolves to the landed one exactly."
   ],
   "$comment-w11c-g2": [
     "RE-RECORDED 2026-09-03 (W11c G2, the lens band): the lens is now the",
@@ -145,6 +149,7 @@
     "sizeScatterGainMax": 8,
     "sizeScatterFloor": 0.4,
     "sizeScatterSpanMax": 256,
+    "sizeScatterScaleTerm": 0.35,
     "sizeOcclusionGain": 0.05,
     "backdropToneMax": 1,
     "backdropToneHigh": 0.055,
@@ -274,6 +279,62 @@
         "which the dry run shows is the larger term on rrect-lg.",
         "The 2x reference's interior, a moderate single Gaussian with no sharp",
         "component, which no law in either unit reconciles with 1x."
+      ]
+    },
+    "scatterScale": {
+      "status": "measured",
+      "value": {
+        "sizeScatterScaleTerm": 0.35
+      },
+      "previous": {},
+      "method": [
+        "W12 G3 (claims 5.56). The body's two widths are DEVICE-pixel quantities:",
+        "sigma_sharp = blurSigma / dpr (1.25 device px) and sigma_heavy =",
+        "blurSigma x sizeScatterGainMax / dpr (10 device px), and the scatter",
+        "weight carries one scale term, k' = min(1, k + sizeScatterScaleTerm x",
+        "(dpr - 1)) over the landed curve k. No existing constant changes value,",
+        "and at dpr 1 every quantity is the landed law exactly — so the 1x claims",
+        "of 5.41-5.42 stand unamended and the 1x captures are byte-identical.",
+        "",
+        "The reading is claims 5.55 section 1's: the reference's body kernel is",
+        "fixed in device pixels — one blur radius in a quarter-device-scale",
+        "buffer, 9.9 CSS px at 1x and 4.95 at 2x on the same span — and the",
+        "second scale changes only how much of it leaks unblurred. W11 Decision",
+        "Log 4's 'fit at 1x, predict 2x' is overturned for the body (W12 Decision",
+        "Log 5).",
+        "",
+        "FITTED on the 2x probe alone with the 1x law held and rrect-lg held out:",
+        "a clear interior minimum at 0.35 — 2x RMS 0.0209 at 0.30, 0.0192 at",
+        "0.35, 0.0201 at 0.40 — and unmoved by the exclusion refit that drops the",
+        "three frequency-settled rrect-sm cells (0.0190 at 0.35 there). 2x fit",
+        "0.0192 and holdout 0.0169 against the landed law's 0.0464 and 0.0332;",
+        "the photo null at 2x 0.0153 against the landed 0.0147.",
+        "",
+        "Both tiers carry it from one pair of functions (K5): the GPU tier's",
+        "pyramid takes the body sigma in device texels and the shader's kScatter",
+        "is shifted by a uniform resolved from the viewport's ratio; the CSS",
+        "tier's one blur() is sigma_css = (blurSigma / dpr) x (1 + (gainMax - 1)",
+        "x k') through the shared sizeScatterSigmaAt, reading the live",
+        "devicePixelRatio and re-deriving on change as a policy change does. The",
+        "3-sigma sampling-padding floor is taken over the sigma actually used.",
+        "tier-coherence pins both mirrors over dpr 1, 1.5, 2 and 3."
+      ],
+      "doesNotClose": [
+        "The thin material's scale-dependent LEVEL over text and high-contrast",
+        "backdrops (claims 5.55 section 3, up to 0.086 on unanimous cells): a",
+        "level question for its own round.",
+        "rrect-ml and rrect-lg 2x texture stay under the 0.93 bound by 0.008 and",
+        "0.014 with the body fixed — the rim band and the outside at 2x.",
+        "At 2x the declared form under-retains pitch 8 on the large spans (0.26",
+        "to 0.42 of the reference's contrast) where the reference has almost none",
+        "left; the canonical bed cannot see it.",
+        "The photo null at 2x: 0.0153 against 0.0147, a 0.0006 cost, all on",
+        "rrect-lg.",
+        "The mechanism: the reference's own quarter-buffer form needs a scale",
+        "term as large as this one (claims 5.55 section 5); why the 1x material",
+        "leaks more unblurred buffer than the 2x one is not understood.",
+        "The CSS tier's 1x ceiling (claims 5.55 section 5) is untouched by",
+        "construction."
       ]
     },
     "tintShade": {

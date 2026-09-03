@@ -145,7 +145,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// the lens profile (W12 G2): lensExtentGain, lensProfileExponent,
   /// lensOvalization, lensThicknessReference
   lensShape : vec4f,
-  /// the ovalization's knee (W12 G2): spanMin, spanMax; zw padding
+  /// the ovalization's knee (W12 G2): spanMin (x), spanMax (y); the scatter
+  /// weight's device-scale shift (W12 G3, claims §5.56): sizeScatterScaleTerm ×
+  /// (devicePixelRatio − 1), added to the scatter curve below and clamped to 1
+  /// (z); w padding
   lensOval : vec4f,
 };
 
@@ -347,8 +350,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let sizeK = clamp(thickT * thickT * (3.0 - 2.0 * thickT) * fold, 0.0, 1.0);
   let scatterFloor = clamp(ou.scatter.x, 0.0, 1.0);
   let scatterT = clamp((span - ou.scatter.z) / max(ou.scatter.y - ou.scatter.z, 1e-6), 0.0, 1.0);
+  // 'lensOval.z' is the device-scale shift (W12 G3, claims §5.56): the body's
+  // two widths are device-pixel quantities and the second scale changes how much
+  // of the backdrop leaks through unblurred, so the weight — and only the weight
+  // — carries a term in (dpr - 1). It is added after the fold, because it is a
+  // reading of the scale rather than a depth a preference may remove, and it is
+  // zero at dpr 1.
   let kScatter = clamp(
-    scatterFloor + (1.0 - scatterFloor) * scatterT * scatterT * (3.0 - 2.0 * scatterT) * fold,
+    scatterFloor
+      + (1.0 - scatterFloor) * scatterT * scatterT * (3.0 - 2.0 * scatterT) * fold
+      + ou.lensOval.z,
     0.0,
     1.0,
   );

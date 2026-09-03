@@ -28,6 +28,7 @@ import {
   outerShadowAlpha,
   outerShadowFalloff,
   resolvedPolicyFold,
+  scatterThickness as cssScatterThickness,
   sourceOuterShadow,
 } from "../src/optics";
 
@@ -707,6 +708,9 @@ describe("the size law reaches the CSS tier", () => {
     // and the separate top get their own case below.
     sizeScatterFloor: 0,
     sizeScatterSpanMax: 200,
+    // The scale term is the shipped one; every case below renders at dpr 1,
+    // where it contributes nothing (W12 G3, claims §5.56).
+    sizeScatterScaleTerm: MATERIAL_SOURCE_SIZE.sizeScatterScaleTerm,
     sizeOcclusionGain: 0.4,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;
@@ -843,6 +847,43 @@ describe("the size law reaches the CSS tier", () => {
     expect(blurOf(reducedPlatter)).toBeGreaterThan(blurOf(reducedSmall));
     expect(occlusionOf(reducedPlatter)).toBeGreaterThanOrEqual(occlusionOf(reducedSmall));
     expect(occlusionOf(reducedPlatter)).toBeLessThanOrEqual(1);
+  });
+
+  /*
+   * The device scale reaches the tier too (W12 G3, claims §5.56). The body's two
+   * widths are device-pixel quantities, so this tier's one `blur()` is not the
+   * same number on a Retina display as on a 1x one — and at dpr 1 it is the
+   * landed one to the last decimal, which is what leaves every 1x claim and every
+   * existing caller untouched.
+   */
+  it("writes the body at the device scale it is told it is drawing at", () => {
+    const own = { ...size, sizeScatterFloor: 0.4, sizeScatterScaleTerm: 0.35 } as const;
+    const scaled = (spanPx: number, devicePixelRatio: number) =>
+      blurOf(cssTierDeclarations({ ...surface, spanPx, size: own, devicePixelRatio }));
+    const base = blurOf(cssTierDeclarations(surface));
+
+    // dpr 1 is the landed law: stating it and omitting it are the same call.
+    for (const span of [12, 40, 96, 200, 400]) {
+      expect(scaled(span, 1), `span ${span}`).toBeCloseTo(
+        blurOf(cssTierDeclarations({ ...surface, spanPx: span, size: own })),
+        12,
+      );
+    }
+
+    // At dpr 2 the σ is half the width times the weight the shift moved: on a
+    // saturated span the weight is already 1, so the blur is exactly halved.
+    // The declaration carries two decimals, so the expectations round the same
+    // way rather than settling for a tolerance a different law would also pass.
+    const emitted = (radius: number): number => Math.round(radius * 100) / 100;
+    expect(scaled(400, 1)).toBe(emitted(base * own.sizeScatterGainMax));
+    expect(scaled(400, 2)).toBe(emitted((base * own.sizeScatterGainMax) / 2));
+    // Below saturation the weight rises by 0.35 per unit of scale as well, so
+    // the halving is not the whole of it.
+    const k = cssScatterThickness(96, 1, own);
+    expect(scaled(96, 2)).toBe(
+      emitted((base / 2) * (1 + (own.sizeScatterGainMax - 1) * (k + 0.35))),
+    );
+    expect(scaled(96, 2)).toBeGreaterThan(scaled(96, 1) / 2);
   });
 });
 

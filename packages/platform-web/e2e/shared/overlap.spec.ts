@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { expectedProxyBlur, gotoHarness } from "../support";
+import { deviceScaleOf, expectedProxyBlur, gotoHarness } from "../support";
 
 test.beforeEach(async ({ page }) => {
   await gotoHarness(page);
@@ -95,7 +95,10 @@ test.describe("the same-plane overlap dev-error", () => {
     // padding, so each group's raised box covers the other group's own shapes,
     // while at the authored 2 the boxes are still 6 px apart.
     const gap = 10;
-    const { padding } = expectedProxyBlur({ spanPx: 40 });
+    const { padding } = expectedProxyBlur({
+      spanPx: 40,
+      devicePixelRatio: await deviceScaleOf(page),
+    });
     expect(padding).toBeGreaterThan(gap);
     expect(2 * 2).toBeLessThan(gap);
 

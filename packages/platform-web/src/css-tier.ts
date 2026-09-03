@@ -171,6 +171,19 @@ export interface CssTierSurface {
    * is `occlusion: 0` in the profile that turns it off, on either tier.
    */
   readonly outerShadow?: MaterialSourceOuterShadow;
+  /**
+   * The device pixel ratio this tier is drawing at — the body law's second
+   * input (W12 G3, claims §5.56).
+   *
+   * The body's two widths are device-pixel quantities and the scatter weight
+   * carries a term in `dpr − 1`, so the `blur()` this tier writes is not the
+   * same number on a Retina display as on a 1x one. The root feeds it the live
+   * `window.devicePixelRatio` from the same viewport reading the GPU tier's
+   * renderer gets, and re-derives on a change the way it re-derives on a policy
+   * change. Defaults to 1, which is the landed law exactly — so every caller
+   * that does not know its scale, and every golden, is unchanged.
+   */
+  readonly devicePixelRatio?: number;
 }
 
 /**
@@ -365,7 +378,12 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
       ? policyOptics
       : {
           ...policyOptics,
-          blurRadius: sizeScatterSigmaAt(policyOptics.blurRadius, scatterK, size),
+          blurRadius: sizeScatterSigmaAt(
+            policyOptics.blurRadius,
+            scatterK,
+            size,
+            surface.devicePixelRatio ?? 1,
+          ),
           tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
         };
   /*
