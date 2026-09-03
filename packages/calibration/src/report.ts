@@ -32,7 +32,12 @@ import type {
 } from "./metrics/material";
 import type { MorphSilhouetteTrajectoryReport } from "./metrics/motion";
 import type { ShadowFieldReport } from "./metrics/shadow";
-import type { EdgeWeightedDifferenceReport, OklabDeltaEReport, SsimReport } from "./metrics/perceptual";
+import type {
+  EdgeWeightedDifferenceReport,
+  OklabDeltaEReport,
+  SsimReport,
+  SsimWindowReport,
+} from "./metrics/perceptual";
 import { parseProfileKey, type FidelityTier, type FixtureSet } from "./profile";
 
 // ---------------------------------------------------------------------------
@@ -443,6 +448,25 @@ export interface PerceptualAxisReport {
   readonly unweightedMean: MetricValue;
   readonly ssimMean: MetricValue;
   readonly ssimMin: MetricValue;
+  /**
+   * The band-windowed rows (W13 X6): the same SSIM map as `ssimMean`, averaged
+   * over the reference silhouette's pixels within `SSIM_BAND_SPLIT_CSS_PX` of
+   * its contour and over those deeper than it. Recorded, not gated: no adopted
+   * bound reads them before W13 G2's landing.
+   *
+   * Optional in both directions, and absent means "no such population on this
+   * cell", never zero — a cell with no native silhouette has no contour to
+   * measure depth from, and a surface whose half-span is under the split is all
+   * band with no interior. The window counts travel with the means because the
+   * two rows weigh differently in every comparison made from them: the band's
+   * share of a cell's SSIM deficit is `(1 - ssimBand) * ssimBandWindows`
+   * against `(1 - ssimInterior) * ssimInteriorWindows`, and a mean without its
+   * support cannot be pooled or compared across spans.
+   */
+  readonly ssimBand?: MetricValue;
+  readonly ssimBandWindows?: MetricValue;
+  readonly ssimInterior?: MetricValue;
+  readonly ssimInteriorWindows?: MetricValue;
   readonly oklabDeltaEMean: MetricValue;
   readonly oklabDeltaEP95: MetricValue;
   readonly oklabDeltaEMax: MetricValue;
@@ -451,8 +475,11 @@ export interface PerceptualAxisReport {
 export function perceptualAxisReport(input: {
   readonly edgeWeighted: EdgeWeightedDifferenceReport;
   readonly ssim: SsimReport;
+  readonly depthWindows?: { readonly band?: SsimWindowReport; readonly interior?: SsimWindowReport };
   readonly oklabDeltaE: OklabDeltaEReport;
 }): PerceptualAxisReport {
+  const band = input.depthWindows?.band;
+  const interior = input.depthWindows?.interior;
   return {
     axis: "perceptual",
     edgeWeightedMean: metricValue(input.edgeWeighted.weightedMean, "luminance"),
@@ -460,6 +487,18 @@ export function perceptualAxisReport(input: {
     unweightedMean: metricValue(input.edgeWeighted.unweightedMean, "luminance"),
     ssimMean: metricValue(input.ssim.mean, "ratio"),
     ssimMin: metricValue(input.ssim.min, "ratio"),
+    ...(band === undefined
+      ? {}
+      : {
+          ssimBand: metricValue(band.mean, "ratio"),
+          ssimBandWindows: metricValue(band.windowCount, "count"),
+        }),
+    ...(interior === undefined
+      ? {}
+      : {
+          ssimInterior: metricValue(interior.mean, "ratio"),
+          ssimInteriorWindows: metricValue(interior.windowCount, "count"),
+        }),
     oklabDeltaEMean: metricValue(input.oklabDeltaE.mean, "oklab"),
     oklabDeltaEP95: metricValue(input.oklabDeltaE.p95, "oklab"),
     oklabDeltaEMax: metricValue(input.oklabDeltaE.max, "oklab"),
@@ -811,6 +850,17 @@ export interface CellResult {
  *   - absent `shadow` means two different things across the bump: "this schema
  *     has no such axis" before, "no backdrop or no declared region was available
  *     for this cell" after.
+ *
+ * The band-windowed perceptual rows (W13 X6, `ssimBand` / `ssimInterior` and
+ * their window counts) are a schema *addition* and do not move this number.
+ * The version exists to stop a reader taking two cells as the same quantity
+ * when they are not, and nothing here changes an existing quantity: every
+ * schema-5 figure is measured exactly as before, the new rows are optional in
+ * the same "absent means not measured" sense the axes already use, and no
+ * adopted bound reads them until W13 G2 adopts one from the bed. A bump would
+ * also widen the deliberate gap between this constant and the committed
+ * matrix's own version, which Decision Log 15 ruling 3 (below) pins for an
+ * unrelated reason.
  *
  * `results/matrix.json` is deliberately left at schema 4. Decision Log 15 ruling
  * 3 keeps the inactive-bed gate enforced, as the historically-labelled suite,

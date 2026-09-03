@@ -181,6 +181,50 @@ describe("result matrix", () => {
     expect(getCellResult(restored, withMotion.key)?.motion).not.toHaveProperty("responseLatency");
   });
 
+  it("carries the band-windowed rows when they were measured, and omits them when they were not", () => {
+    // W13 X6. Absent is a measurement outcome — a cell with no reference
+    // silhouette has no contour to split at, and a surface shallower than the
+    // split is all band — so the rows must not arrive as zeros, and must not
+    // arrive at all when nothing measured them.
+    const measured = perceptualAxisReport({
+      edgeWeighted: { weightedMean: 0.004, weightedP95: 0.02, unweightedMean: 0.002, edgeGain: 4, sampleCount: 1 },
+      ssim: { mean: 0.9517, min: 0.31, windowCount: 4000 },
+      depthWindows: {
+        band: { mean: 0.9012, windowCount: 12800 },
+        interior: { mean: 0.9803, windowCount: 9400 },
+      },
+      oklabDeltaE: { mean: 0.012, p95: 0.04, max: 0.09, sampleCount: 1 },
+    });
+    expect(measured.ssimBand).toEqual(metricValue(0.9012, "ratio"));
+    expect(measured.ssimBandWindows).toEqual(metricValue(12800, "count"));
+    expect(measured.ssimInterior).toEqual(metricValue(0.9803, "ratio"));
+    expect(measured.ssimInteriorWindows).toEqual(metricValue(9400, "count"));
+
+    const allBand = perceptualAxisReport({
+      edgeWeighted: { weightedMean: 0.004, weightedP95: 0.02, unweightedMean: 0.002, edgeGain: 4, sampleCount: 1 },
+      ssim: { mean: 0.9988, min: 0.72, windowCount: 4000 },
+      depthWindows: { band: { mean: 0.9971, windowCount: 3100 } },
+      oklabDeltaE: { mean: 0.012, p95: 0.04, max: 0.09, sampleCount: 1 },
+    });
+    expect(allBand).toHaveProperty("ssimBand");
+    expect(allBand).not.toHaveProperty("ssimInterior");
+    expect(allBand).not.toHaveProperty("ssimInteriorWindows");
+
+    const unmeasured = perceptualAxisReport({
+      edgeWeighted: { weightedMean: 0.004, weightedP95: 0.02, unweightedMean: 0.002, edgeGain: 4, sampleCount: 1 },
+      ssim: { mean: 0.9988, min: 0.72, windowCount: 4000 },
+      oklabDeltaE: { mean: 0.012, p95: 0.04, max: 0.09, sampleCount: 1 },
+    });
+    expect(unmeasured).not.toHaveProperty("ssimBand");
+    expect(unmeasured).not.toHaveProperty("ssimBandWindows");
+
+    // And they survive the round trip the same way the axes do.
+    const key = resultCellKey(profile, chromiumGpu, "checkerboard-rrect-md-rest");
+    const matrix = upsertCellResult(createResultMatrix(), { ...cell(key), perceptual: measured });
+    const restored = getCellResult(deserializeResultMatrix(serializeResultMatrix(matrix)), key);
+    expect(restored?.perceptual?.ssimBand).toEqual(metricValue(0.9012, "ratio"));
+  });
+
   it("serialises in a stable key order so a committed matrix diffs cleanly", () => {
     const keys = ["c-scene", "a-scene", "b-scene"].map((scene) => resultCellKey(profile, chromiumGpu, scene));
     const forward = keys.reduce((matrix, key) => upsertCellResult(matrix, cell(key)), createResultMatrix());
