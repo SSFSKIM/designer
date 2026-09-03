@@ -372,6 +372,20 @@ charter (user-decided). X8 orders the two landings.
   `dark-solid`); the bed has span 96 only. One harness scene.
 - The adaptive alpha between L 0.74 and 0.891 — the bed jumps from
   `hc-text` to `light-solid`; one backdrop between them would pin it.
+- **The thin law's ramp below L 0.06 is unmeasured over its whole length.**
+  `dark-solid` sits at linear 0.0117, below `OUTER_SHADOW_THIN_L.inert`, so it
+  constrains the floor and says nothing about the smoothstep from 0.02 to 0.06.
+  One thin cell over a backdrop between them would pin it — the mirror of the
+  entry above.
+- **The thick law is not backdrop-keyed and now costs 50% over a near-black
+  backdrop** (claims §5.65 §5). On `dark-solid__rrect-md` vitrea removes 0.1645
+  at `3-6` against the reference's 0.1094, where the W12 close removed 0.1260:
+  from 15% light to 50% heavy. It is 0.7 of a code and no perceptual row sees
+  it. Keying the thick regime on the backdrop the way the thin regime already is
+  would close it, and needs a thick cell over a dark backdrop the bed does not
+  have.
+- **The mid plateau's dark end wants more than a flat 0.33** — on
+  `mid-dark-solid` (holdout) the GPU tier reads 0.1856 against 0.2042, 9% light.
 
 ## Tracking Map
 
@@ -472,22 +486,59 @@ reads 0.2439 / 0.3058 / 0.3364 at spans 96 / 128 / 160 against the reference's
 this wave. So the wave's stop S6 misses, and the question the deferral answered
 ("does this tier paint the lift?") is not the question that makes it miss.
 
-**The parent's reading of why, pending a check.** The two tiers convert their
-shared peak amplitude into a band reading identically on the thin spans (falloff
-fraction 0.638 on the GPU tier against 0.643 on the CSS tier at span 44) and
-diverge only on the thick ones (0.487 against 0.628 at span 96). The sweep
-attributes that to the missing lift; the parent's arithmetic says the lift is
-about twelve times too small to account for it, because a σ-40 blurred copy of a
-pitch-16 checkerboard is nearly constant across the band and therefore lands in
-the affine pair's intercept rather than its slope. A check against the sweep's
-own points is running. **The declaration does not go out until the cause is
-named**, because the two candidate causes have different fixes: if it is the
-lift, the CSS tier derives its own effective amplitude from the shared profile
-by folding in the term it cannot paint (conversion, not a second constant, which
-is K5's rule and keeps "two tiers, one profile" intact); if it is the GPU tier's
-own thick path — the thin/thick blend resolving below the anchor, the offset
-clamp, or the size fold — then the anchors themselves are fitted against a
-shape error and the GPU tier's numbers move too.
+**The cause, checked and settled** (claims §5.65 §2). The parent challenged the
+sweep's attribution to the lift — a σ-40 blurred copy of a pitch-16 checkerboard
+is nearly constant across the band, so it should land in the pair's intercept
+rather than its slope, twelve times too small to matter — and the challenge was
+**refuted from the sweep's own points**. The composite is formed in the encoded
+domain and the pair is fitted in linear luminance, and sRGB's decode derivative
+is 0.077 at the shadowed black square against 1.955 at the shadowed white one,
+so one constant encoded addition lands 25× larger in linear light on the whites:
+a slope change. Measured 24.6 : 1 against 24.3 : 1 predicted, with a swept
+amplitude series confirming it directly. With the lift taken out of the reading
+both tiers' falloff fraction sits in 0.619–0.643 at every span, so the GPU tier's
+thick path is not implicated at all. It is §5.62 §3's "the space of a lift
+matters" on the other side of the contour.
+
+**Decided (the parent, within G1):** the CSS tier's thick amplitude is **derived,
+not duplicated**. Since the composite is `bg·(1 − α) + L` in the compositing
+domain and one multiply can only be `bg·(1 − α′)`, matching them at the backdrop
+level the tier already reads gives `α′ = α − L/B`, from the profile's own
+constants and no second anchor set — K5's conversion rule, and "two tiers, one
+profile" intact. At span 96 on this bed that is about 0.05 of occlusion, which is
+the measured gap; at span 44 and over every dark backdrop it is exactly zero, so
+the thin regime stays bit-identical. It cannot be exact for every pixel of a
+structured backdrop, because a single multiply cannot reproduce a multiply plus
+an addition, and that residual is the CSS tier's own gap until the two-layer body
+gives it a second element.
+
+### Decision Log 5 — what the fit settles, what goes to the user at the landing, and what stays unfitted (2026-09-03; the parent, within G1)
+
+The sweep (claims §5.65) closed the deficit the wave was chartered on: the three
+2x texture rows read 0.9746 / 0.9762 / 0.9680 against their 0.93 bound, from
+0.9158 / 0.9211 / 0.9113, and the `light-solid` capsule's shadow is 1.013× the
+reference where it was 2.29×. Four decisions follow.
+
+1. **`thinOcclusionDark` stays 0.** S1 misses on `dark-solid__capsule-button`
+   (`ssimBand` −0.019 at 1x, −0.047 at 2x, consistent over four profiles and both
+   tiers), but the pair measures the reference's peak occlusion there at
+   **0.0008, bounded above by 0.002**, and the contradicting row averages **25
+   windows** on a cell whose two near bands are the GPU tier's own over-fill
+   (§5.62 §6). On `dark-solid__rrect-md`, same backdrop, 9 964 windows, the row
+   does not move at all. The pair is the instrument that measures the facet; the
+   band row on that cell is not evidence about the constant. The cost is recorded
+   with its mechanism and **S1's miss goes to the user at the landing** rather
+   than being fitted away.
+2. **The CSS tier's thick amplitude is derived** — above, and claims §5.65 §6(ii).
+3. **The thick anchors are declared as the black term**, and the band as the
+   referee's reading. §5.65 §4(a) is the open item under that declaration: the
+   reference's band occlusion turns over between span 130 and 160 where the peak
+   ladder rises throughout, and every cell that could say why is holdout.
+4. **`thickOcclusionAt160` is declared unfitted.** No calibration cell exists
+   above span 128; it is carried at 0.479 by a stated derivation, the holdout says
+   that is 15% heavy and implies about 0.437 — *below* the fitted At128 — and
+   nothing was refitted after reading it. The declaration states it as a
+   derivation, not a fit.
 
 ## Surprises & Discoveries
 
@@ -503,6 +554,21 @@ shape error and the GPU tier's numbers move too.
   0.9998, so the split into (vibrant alpha, colour, black alpha) is not
   identifiable on this bed; what a renderer needs — the lift's peak
   amplitude and the composite transmission per span — is.
+- **A lift read in the wrong space looks like a slope (claims §5.65 §2).** The
+  parent's own arithmetic put the CSS tier's thick gap at twelve times too
+  large to be the lift, and was wrong for one reason: the composite is encoded
+  and the pair is linear, and sRGB's decode derivative differs 25× between the
+  shadowed black and white squares of the checkerboard, so a constant encoded
+  addition is a slope change in linear light. Predicted 24.3 : 1 against a
+  measured 24.6 : 1. The general lesson for this bed: a term added in one space
+  and read in another does not keep its shape, and the affine pair's split into
+  slope and intercept is a statement about the space it was fitted in.
+- **The reference's band occlusion is not monotone in span (claims §5.65 §4).**
+  Native `1 − a` at `3-6` runs 0.1925 → 0.2195 → 0.2214 → **0.2117** at spans
+  96 / 128 / 130 / 160, where G0's peak ladder rises 0.379 → 0.497 → 0.544
+  throughout. The turnover sits entirely in holdout cells. It is the one reading
+  in the sweep that contradicts §5.62, and a renderer fitted on the peak and
+  refereed on the band has to say which quantity it means.
 - **The lift saturates; it is not proportional to `VibrancyContribution`.**
   Zero at spans 32 and 44 (the knee at 64 exact), then 0.0290 / 0.0439 /
   0.0448 / 0.0479 encoded at spans 96 / 128 / 130 / 160 in the ring 0–6 px
@@ -571,7 +637,10 @@ shape error and the GPU tier's numbers move too.
 - 2026-09-03: X7 landed (merge `922d3e4`); Decision Log 3 (the pair's written precision and
   coded absence); three Surprises from its baseline; the dark-scheme Deferred item annotated.
 - 2026-09-03: Decision Log 4 — the CSS tier's lift deferred to the two-layer body (user-decided);
-  Decision Log 1's question 2 closed. The sweep's S6 miss is a separate cause, under check.
+  Decision Log 1's question 2 closed.
+- 2026-09-03: the sweep complete (claims §5.65); the S6 miss traced to the lift read through
+  sRGB's decode, not to the GPU tier's thick path; Decision Log 5 (the dark constant held, the
+  CSS amplitude derived, the anchors' quantity declared, At160 unfitted); two Surprises.
 - 2026-09-03: G1 built on `w14-g1-shadow`; reviewed; four findings to a fix wave, the goldens
   to G2 (Tracking Map). The reduced-transparency fold changes meaning from a 0.7 multiplier to
   the measured flat amplitude, which retires the implementer's "15% high" note and the
