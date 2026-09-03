@@ -345,7 +345,7 @@ project's rule**, in the order they would be worth a wave:
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
 | G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png` | LANDED 2026-09-03 |
-| G3 | decision round | not started |
+| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe capturing (five runs, scratch fixtures) | OPENED 2026-09-03 |
 
 ## Decision Log
 
@@ -446,6 +446,50 @@ by W11 Decision Log 4 (their deficit is the interior's now); the
 `hc-text` capsule level move is recorded for the level's owner; the
 canonical rebuild and the predicate's one-line edit wait for
 recomposition (X1, X2). Held for the user: ω 0.6 versus 0.8 by eye; G3.
+
+### Decision Log 5 — G3 opened: the scale-aware body, fitted on both probes (2026-09-03; user-decided)
+
+**Evidence.** Claims §5.49 §7 (the 2x interior: mean scale-invariant,
+structure not — σ 3 → 5 with depth on `rrect-md`, transmission 0.41
+against ours 0.24), §5.50 §1 (the reference's blur radius is one number
+in a quarter-device-scale buffer: 9.9 CSS px at 1x and 4.95 at 2x on span
+96, with an opacity ramp in depth), §5.51 §2 (the quarter-scale body as
+parametrised explains the 2x interior in kind and not the 1x sharp share),
+§5.52 §2 (after G2 the three 2x texture floors' deficit is the interior's),
+and the user's own reading of the landing ("the only gap left seems to be
+the subtle transparency difference"). The "fit at 1x, predict 2x" rule of
+W11 Decision Log 4 was written when the 2x bed's difference had no
+mechanism; it now has one, and it is the reference's.
+
+**Decided (user, 2026-09-03): take route (a).** The 2x probe (the W9 scene
+set at 2x on the virtual HiDPI display, five runs, settled by majority
+vote per cell as the 1x probe was) is the measurement; a **scale-aware
+body** is declared from it and fitted jointly on the 1x and 2x probes with
+`rrect-lg` held out; W11 Decision Log 4's doctrine is overturned for the
+body — the reference's blur is a device-pixel quantity and vitrea's law
+may carry the device scale. Rejected: hold (the gap is the largest one
+left at 2x and the user reads it); a real Retina capture first (the
+virtual display is exonerated by §5.50, and the user's Retina reading
+agrees with the virtual bed).
+
+**G3 as a controlled round.** *Measurement:* the 2x probe materialised
+(`results/2026-09-03-w12-lens/probe-2x/`, provenance as the W9 probe's);
+on its pitch axis (4 / 8 / 16 / 32 / 64) per span and depth: the heavy σ,
+the sharp component's σ and share, the level and transmission, against
+the 1x probe's; the lens crossings at 2x on pitch 32 / 64 as a check of
+G2's law at 2x. *Declaration before the landing capture:* the form (a
+device-scale term on the heavy σ, and whatever the pitch axis says about
+the sharp share and its depth ramp), fitted on both probes, `rrect-lg`
+held out, 2x and 1x canonical rows predicted by dry run. *Both tiers:*
+the body law is shared (K5, `tier-coherence`), so the CSS tier's `blur()`
+carries the same device-scale term through `devicePixelRatio`; the CSS
+tier's rows are predicted and refereed too. *Referee:* the twelve runs on
+both beds against the G2 landing; the W12 stops, plus **no 1x row below
+its G2-landing value by more than 0.002** and the CSS tier moving only as
+predicted. *By eye:* the X5 sheet at 2x and 1x.
+
+**Held for the user:** the by-eye verdict at G3's landing; ω 0.8 (Decision
+Log 4) runs first, as the smaller round.
 
 ## Surprises & Discoveries
 
