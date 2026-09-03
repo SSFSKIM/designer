@@ -499,6 +499,24 @@ own thick path — the thin/thick blend resolving below the anchor, the offset
 clamp, or the size fold — then the anchors themselves are fitted against a
 shape error and the GPU tier's numbers move too.
 
+**The check came back: it is the lift, and the parent's arithmetic was wrong
+about the space** (claims §5.65 §2). The composite is formed in the ENCODED
+domain and the affine pair is fitted in LINEAR luminance, and sRGB's decode
+derivative is 0.077 at the shadowed black square against 1.955 at the shadowed
+white one — so one constant encoded addition lands 25× larger in linear light on
+the whites than on the blacks, which is a slope change and not an intercept one.
+Measured ratio 24.6 : 1 against 24.3 : 1 predicted from the two decode slopes.
+With the lift removed from the reading both tiers' falloff fraction at the band
+sits in 0.619–0.643 at every span, so nothing in the GPU tier's thick path is
+implicated and its numbers do not move. **The fix is therefore the first one:**
+`cssTierShadowAlpha` (`packages/platform-web/src/optics.ts`) solves
+`α′ = α − L/B` at the backdrop level the tier already reads, from the profile's
+own `liftAmplitude`, its span rise and the same sRGB encode the shader emits its
+lift through. No second anchor set, no per-tier constant, no tier flag. What the
+conversion cannot do is be exact for every pixel of a structured backdrop, since
+one multiply cannot reproduce a multiply plus an addition; that residual is the
+CSS tier's own gap until the two-layer body gives it a second element.
+
 ## Surprises & Discoveries
 
 - **Two terms on one falloff, and W8's lengths are right (G0, claims
@@ -594,3 +612,9 @@ shape error and the GPU tier's numbers move too.
   carries X7's measured lift ratio (0.0038) instead of zero and names its own preference
   level; the changeset for the two-term composite written. New Deferred item above; both
   profile fingerprints re-recorded with the reason.
+- 2026-09-03: the sweep's chosen constants written into both profile documents and the runtime
+  defaults they pin (thickOcclusionAt96 0.379 → 0.370, At128 0.497 → 0.448, At160 0.544 → 0.479
+  unfitted, liftAmplitude 0.0073 → 0.0100, liftSpanFull 128 → 118; the dark document's own with
+  them), and the CSS tier's thick amplitude derived rather than inherited — Decision Log 4's
+  pending check answered, S6's miss attributed to the lift read through the decode (claims §5.65
+  §2 and §6(ii)). Both fingerprints re-recorded with the reason.

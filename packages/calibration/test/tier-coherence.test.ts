@@ -50,7 +50,9 @@ import {
   OUTER_SHADOW_THICK_SPANS as CSS_OUTER_SHADOW_THICK_SPANS,
   OUTER_SHADOW_THIN_L as CSS_OUTER_SHADOW_THIN_L,
   OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE as CSS_UNMEASURED_BACKDROP,
+  cssTierShadowAlpha,
   outerShadowAlpha as cssOuterShadowAlpha,
+  outerShadowLiftRise as cssOuterShadowLiftRise,
   outerShadowFalloff as cssOuterShadowFalloff,
   outerShadowOcclusionAt as cssOuterShadowOcclusionAt,
   outerShadowThickOcclusion as cssOuterShadowThickOcclusion,
@@ -88,6 +90,7 @@ import {
   OUTER_SHADOW_THIN_L as RENDERER_OUTER_SHADOW_THIN_L,
   OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE as RENDERER_UNMEASURED_BACKDROP,
   outerShadowAlpha as rendererOuterShadowAlpha,
+  outerShadowLiftRise as rendererOuterShadowLiftRise,
   outerShadowFalloff as rendererOuterShadowFalloff,
   outerShadowOcclusionAt as rendererOuterShadowOcclusionAt,
   outerShadowThickOcclusion as rendererOuterShadowThickOcclusion,
@@ -1056,6 +1059,98 @@ describe("tier coherence (K5)", () => {
       expect(cssOuterShadowThinOcclusion(undefined, cssShadow)).toBe(
         rendererOuterShadowThinOcclusion(undefined, rendererProfile.outerShadow),
       );
+    }
+  });
+
+  /*
+   * The thick regime, where the two tiers paint a DIFFERENT number of terms and
+   * are still one profile (claims §5.65 §2 and §6(ii)).
+   *
+   * Above the knee the GPU tier composites two terms — the black multiply and the
+   * lift, a blurred copy of the backdrop's own light — and the CSS tier can paint
+   * only the first, because a `box-shadow` cannot reach the backdrop outside the
+   * element it is on (W14 Decision Log 4, user). The anchors were fitted on the
+   * tier that has a lift, so the CSS tier must not inherit them: it derives its
+   * own multiply by matching the composite at the backdrop level it already
+   * reads. This case pins that derivation as a RELATION rather than restating the
+   * arithmetic — it computes what the other tier composites, from the renderer's
+   * own constants, and requires the CSS tier's single multiply to land on it.
+   *
+   * The test's own encode is sRGB's, restated here for the reason both tiers
+   * restate it: a spec constant is not a tunable, and importing one tier's copy
+   * would make the assertion circular.
+   */
+  it("folds the lift the CSS tier cannot paint into the one alpha it can", () => {
+    const encode = (linear: number): number => {
+      const clamped = Math.min(1, Math.max(0, linear));
+      return clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * Math.pow(clamped, 1 / 2.4) - 0.055;
+    };
+    const luminances = [0.004, 0.012, 0.06, 0.214, 0.5, 0.74, 0.891, 1.0];
+    const spans = [32, 44, 64, 96, 118, 128, 160, 256];
+    const folds = [0, 0.5, 1];
+    // A patch with a lift far larger than the shipped one, so the grid crosses
+    // the clamp as well as the ordinary regime: at 0.5 of the backdrop's light
+    // the fold asks for more than the black term has to give.
+    const patch = {
+      outerShadow: {
+        thinOcclusionMid: 0.41,
+        thickOcclusionAt96: 0.44,
+        thickOcclusionAt128: 0.52,
+        thickOcclusionAt160: 0.61,
+        liftAmplitude: 0.5,
+        liftSpanFull: 144,
+      },
+    };
+    for (const [rendererProfile, cssShadow] of [
+      [DEFAULT_MATERIAL_PROFILE, MATERIAL_SOURCE_OUTER_SHADOW] as const,
+      [withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch), sourceOuterShadow(patch)] as const,
+    ]) {
+      const shadow = rendererProfile.outerShadow;
+      for (const luminance of luminances) {
+        for (const span of spans) {
+          for (const fold of folds) {
+            const thickness = rendererSizeThickness(span, rendererProfile) * fold;
+            const label = `L ${luminance} span ${span} fold ${fold}`;
+            // The rise is one law on both sides, so the CSS tier knows exactly
+            // how much of the lift the other tier is putting on the pixel.
+            expect(cssOuterShadowLiftRise(span, cssShadow), label).toBe(
+              rendererOuterShadowLiftRise(span, shadow),
+            );
+            // What the GPU tier composites outside the coverage, at the falloff's
+            // peak: 'B·(1 − α) + L', with the lift capped at the layer's own alpha
+            // the way the shader caps it.
+            const alpha = rendererOuterShadowAlpha(
+              rendererOuterShadowOcclusionAt(shadow, luminance, span, thickness, rendererProfile),
+            );
+            const backdrop = encode(luminance);
+            const lift = Math.min(
+              encode(luminance * shadow.liftAmplitude * rendererOuterShadowLiftRise(span, shadow)),
+              alpha,
+            );
+            const composite = backdrop * (1 - alpha) + lift;
+            // And what the CSS tier composites with one multiply, which has to be
+            // the same pixel wherever the multiply can reach it.
+            const folded = cssTierShadowAlpha(cssShadow, luminance, span, thickness);
+            const multiply = backdrop * (1 - folded);
+            if (folded > 0) {
+              expect(multiply, label).toBeCloseTo(composite, 12);
+            } else {
+              // Clamped: the lift adds back more light than the black term
+              // removes, so the composite is BRIGHTER than the backdrop and no
+              // multiply can reach it. The tier stops at no shadow at all rather
+              // than going negative, which is as close as one multiply gets.
+              expect(multiply, label).toBe(backdrop);
+              expect(multiply, label).toBeLessThanOrEqual(composite + 1e-12);
+            }
+            // Where there is no lift there is no fold, and the two tiers are the
+            // same number to the last bit: below the knee, and over a backdrop
+            // black enough to have no light to copy.
+            if (rendererOuterShadowLiftRise(span, shadow) === 0 || luminance === 0) {
+              expect(folded, label).toBe(alpha);
+            }
+          }
+        }
+      }
     }
   });
 

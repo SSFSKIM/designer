@@ -761,8 +761,9 @@ describe("the lift is the backdrop's own light, above the knee", () => {
     // The measurement the shape is taken from: 0.52 of the span-160 value at 96
     // and 0.96 at 128, against the layer tree's clamp((span - 64)/96) = 0.33 and
     // 0.67 — the lift saturates and is NOT proportional to
-    // `VibrancyContribution` (claims §5.62 §2). PROVISIONAL: the sweep fits the
-    // reach, so this holds the direction rather than the numbers.
+    // `VibrancyContribution` (claims §5.62 §2). The sweep fitted the reach at 118
+    // (claims §5.65), so this holds the direction the measurement gave rather
+    // than a number the fit is entitled to move.
     expect(outerShadowLiftRise(96, OUTER_SHADOW)).toBeGreaterThan((96 - 64) / 96);
     expect(outerShadowLiftRise(128, OUTER_SHADOW)).toBeGreaterThan((128 - 64) / 96);
   });
@@ -785,10 +786,19 @@ describe("the lift is the backdrop's own light, above the knee", () => {
         expect(lift(0, span, d), `span ${span} at ${d}`).toBe(0);
       }
     }
-    // And it reproduces G0's own reading where the backdrop is not black: the
-    // checkerboard's sigma-40 blur sits at 0.52 linear, and the ring below a
-    // span-160 surface lifts 0.0038 in linear light (claims §5.62 §2-3).
-    expect(lift(0.52, 160, -40)).toBeCloseTo(0.0038, 4);
+    /*
+     * And where the backdrop is not black it is the FITTED amplitude and no
+     * longer G0's ring reading. The checkerboard's σ-40 blur sits at 0.52 linear,
+     * where G0 measured the ring below a span-160 surface lifting 0.0038 (claims
+     * §5.62 §2–3); the sweep fitted the amplitude 37% larger, to 0.0100, reading
+     * X7's affine pair against the referee rather than one ring (claims §5.65),
+     * and the same ring now carries 0.0052. The gap between the two is what the
+     * fit bought — `ssimOutside` rising on every checkerboard cell at both
+     * scales — and it is asserted here so that the departure from the direct
+     * reading is pinned rather than quietly absorbed.
+     */
+    expect(lift(0.52, 160, -40)).toBeCloseTo(0.0052, 4);
+    expect(lift(0.52, 160, -40) / 0.0038).toBeGreaterThan(1.3);
   });
 
   it("rides the SAME falloff as the black term, not a second geometry", () => {

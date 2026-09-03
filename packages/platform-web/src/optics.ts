@@ -750,12 +750,12 @@ export const MATERIAL_SOURCE_OUTER_SHADOW: MaterialSourceOuterShadow = {
   thinOcclusionDark: 0,
   thinOcclusionMid: 0.33,
   thinOcclusionBright: 0.127,
-  thickOcclusionAt96: 0.379,
-  thickOcclusionAt128: 0.497,
-  thickOcclusionAt160: 0.544,
-  liftAmplitude: 0.0073,
+  thickOcclusionAt96: 0.37,
+  thickOcclusionAt128: 0.448,
+  thickOcclusionAt160: 0.479,
+  liftAmplitude: 0.01,
   liftSpanMin: 64,
-  liftSpanFull: 128,
+  liftSpanFull: 118,
   liftBlurSigmaCss: 40,
   reducedTransparencyOcclusion: 0.197,
   sizeGain: 0,
@@ -851,6 +851,85 @@ export function outerShadowOcclusionAt(
   const k = clamp01(thickness);
   const blend = k * k * (3 - 2 * k);
   return sizeOuterShadowOcclusionAt(thin + (thick - thin) * blend, thickness, shadow);
+}
+
+/**
+ * The lift's span rise, 0…1 — the mirror of the renderer's `outerShadowLiftRise`.
+ *
+ * This tier does not paint the lift. It has to know how much of it the other tier
+ * is painting, because that is what `cssTierShadowAlpha` subtracts from its own
+ * multiply.
+ */
+export function outerShadowLiftRise(
+  spanPx: number,
+  shadow: MaterialSourceOuterShadow = MATERIAL_SOURCE_OUTER_SHADOW,
+): number {
+  return smoothstep(shadow.liftSpanMin, shadow.liftSpanFull, spanPx);
+}
+
+/**
+ * The `box-shadow`'s compositing alpha — the profile's linear occlusion converted
+ * into sRGB's encoded space and then FOLDED, so that one multiply stands in for
+ * the two-term composite the other tier paints (claims §5.65 §2 and §6(ii)).
+ *
+ * Outside the coverage the GPU tier produces, in the compositing (encoded) domain,
+ *
+ *     out = B·(1 − α) + L
+ *
+ * where `α` is the black term's encoded alpha and `L` is the encoded contribution
+ * of the lift — a blurred copy of the backdrop's own light, which this tier cannot
+ * paint, because a `box-shadow` takes one colour and one alpha and cannot reach
+ * the backdrop outside the element it is on (W14 Decision Log 4, user). One
+ * multiply can only produce `out = B·(1 − α′)`, and equating the two at the
+ * backdrop level `B` this tier already reads gives
+ *
+ *     α′ = α − L / B.
+ *
+ * That is a CONVERSION and not a second constant. Every quantity on the right is
+ * the shared profile's own — `liftAmplitude`, the rise between `liftSpanMin` and
+ * `liftSpanFull`, and the same sRGB encode the shader emits its lift through —
+ * evaluated at the backdrop luminance this surface is over, which is the same
+ * statistic the thin regime keys on. Nothing here is fitted, no anchor is
+ * duplicated and there is no tier flag: the two tiers go on resolving one profile,
+ * and they now agree above the knee as well as below it, which is K5's rule that
+ * the tiers agree by conversion rather than by duplication.
+ *
+ * Without the fold this tier inherits an amplitude fitted on the tier that HAS a
+ * lift, and over-darkens its thick spans by the whole of the light the other tier
+ * adds back: band `3-6` below read 0.2439 / 0.3058 / 0.3364 at spans 96 / 128 /
+ * 160 against the reference's 0.1925 / 0.2195 / 0.2117, where the same tier's
+ * readings before the wave were 0.1840 / 0.1881 / 0.1925 (claims §5.65 §2).
+ *
+ * It cannot be exact for every pixel of a structured backdrop, because a single
+ * multiply cannot reproduce a multiply plus an addition. The equality above is
+ * solved at one backdrop level and at the falloff's peak, while `B` varies from
+ * pixel to pixel — on the checkerboard between its black and its white squares —
+ * and `L`, being encoded, is not proportional to the falloff the way `α` is. That
+ * residual is this tier's own gap, and it closes when the two-layer CSS body gives
+ * the shadow a second element to paint the lift with instead of folding it away.
+ *
+ * The fold vanishes where the lift does: at and below `liftSpanMin` the rise is
+ * zero, so every thin surface keeps exactly the alpha it had, and it shrinks with
+ * the backdrop, so a surface over black is untouched. The result is clamped at
+ * zero, since a backdrop dark enough would otherwise ask for a negative multiply.
+ */
+export function cssTierShadowAlpha(
+  shadow: MaterialSourceOuterShadow,
+  backdropLuminance: number | undefined,
+  spanPx: number,
+  thickness: number,
+): number {
+  const occlusion = outerShadowOcclusionAt(shadow, backdropLuminance, spanPx, thickness);
+  const alpha = outerShadowAlpha(occlusion);
+  const level = clamp01(backdropLuminance ?? OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE);
+  const backdrop = srgbEncode(level);
+  if (backdrop <= 0) return alpha;
+  const rise = outerShadowLiftRise(spanPx, shadow);
+  // The shader emits the lift premultiplied and a premultiplied layer may not
+  // carry a channel above its own alpha, so its cap is mirrored here rather than
+  // assumed inert at every amplitude a profile could name.
+  const lift = Math.min(srgbEncode(level * shadow.liftAmplitude * rise), alpha);
+  return Math.max(0, alpha - lift / backdrop);
 }
 
 /**

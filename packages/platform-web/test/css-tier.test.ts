@@ -22,6 +22,7 @@ import {
   REDUCED_TRANSPARENCY_FROST,
   cssTierOptics,
   cssTierForegroundLevel,
+  cssTierShadowAlpha,
   cssTintAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
@@ -30,6 +31,7 @@ import {
   outerShadowFalloff,
   outerShadowThinOcclusion,
   resolvedPolicyFold,
+  sizeThickness,
   sourceOuterShadow,
 } from "../src/optics";
 
@@ -1077,16 +1079,27 @@ describe("the outer shadow reaches the CSS tier", () => {
      * The amplitude does, and since W14 G1 that is the law rather than the gain:
      * a thin surface resolves the thin regime's mid plateau and a platter
      * resolves the thick regime's span law, which the bed measures deeper
-     * (0.379 at span 96 against 0.33 below the knee). The `sizeGain` seam is a
+     * (0.370 at span 96 against 0.33 below the knee). The `sizeGain` seam is a
      * SECOND thing on top of that, and it is still the identity.
+     *
+     * The thin surface reads the anchor straight, because below the knee there is
+     * no lift to fold; the platter reads the thick anchor MINUS the lift this tier
+     * cannot paint, which is `cssTierShadowAlpha`'s derivation and is why the
+     * platter's expectation is written through it (claims §5.65 §6(ii)).
      */
     expect(alphaOf(small)).toBeCloseTo(
       Math.round(outerShadowAlpha(MATERIAL_SOURCE_OUTER_SHADOW.thinOcclusionMid) * 1000) / 1000,
       12,
     );
-    expect(alphaOf(platter)).toBeCloseTo(
-      Math.round(outerShadowAlpha(MATERIAL_SOURCE_OUTER_SHADOW.thickOcclusionAt160) * 1000) / 1000,
-      12,
+    const platterAlpha = cssTierShadowAlpha(
+      MATERIAL_SOURCE_OUTER_SHADOW,
+      undefined,
+      320,
+      sizeThickness(320),
+    );
+    expect(alphaOf(platter)).toBeCloseTo(Math.round(platterAlpha * 1000) / 1000, 12);
+    expect(platterAlpha).toBeLessThan(
+      outerShadowAlpha(MATERIAL_SOURCE_OUTER_SHADOW.thickOcclusionAt160),
     );
 
     // With a gain, the same curve moves it — and only the amplitude, never the

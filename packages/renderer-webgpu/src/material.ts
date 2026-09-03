@@ -210,21 +210,32 @@ export interface MaterialOuterShadow {
   /**
    * The COMPOSITE occlusion above the knee at a casting span of 96 CSS px.
    *
-   * PROVISIONAL — the value is G0's measurement (claims §5.62 §4: linear
-   * occlusion 0.379 on the checkerboard at span 96) and the sweep refines it,
-   * because what G0 could identify at the bed's noise floor is the composite
-   * transmission and the lift's peak amplitude, not the split into (black alpha,
-   * vibrant alpha, vibrant colour): both terms ride one falloff and their shapes
-   * correlate at 0.9998. So this constant is the BLACK term of a two-term
-   * composite whose second term (`liftAmplitude`) is fitted beside it, and the
-   * pair is what the referee reads.
+   * FITTED in the renderer (claims §5.65), from G0's measurement of the
+   * composite's transmission (0.379 on the checkerboard at span 96) to **0.370**.
+   * It had to be fitted rather than adopted, because what G0 could identify at
+   * the bed's noise floor is the composite transmission and the lift's peak
+   * amplitude, not the split into (black alpha, vibrant alpha, vibrant colour):
+   * both terms ride one falloff and their shapes correlate at 0.9998. So this
+   * constant is the BLACK term of a two-term composite whose second term
+   * (`liftAmplitude`) was fitted beside it, on X7's affine pair, and the pair is
+   * what the referee reads.
    */
   readonly thickOcclusionAt96: number;
-  /** The same at a casting span of 128 CSS px — 0.497 measured, PROVISIONAL for
-   * `thickOcclusionAt96`'s reason. */
+  /** The same at a casting span of 128 CSS px — FITTED to 0.448 from G0's
+   * measured 0.497, for `thickOcclusionAt96`'s reason (claims §5.65). */
   readonly thickOcclusionAt128: number;
-  /** The same at a casting span of 160 CSS px — 0.544 measured, PROVISIONAL for
-   * `thickOcclusionAt96`'s reason. */
+  /**
+   * The same at a casting span of 160 CSS px — **UNFITTED**, and the one anchor
+   * in this block that no calibration cell reaches.
+   *
+   * Every span above 128 in the bed is holdout, so 0.479 is carried by the stated
+   * derivation from the two fitted anchors and not by a fit. The holdout, read
+   * once and fitted to nothing, says it is 15% heavy (band `1 − a` 0.2436 against
+   * the reference's 0.2117) and implies about 0.437 — which is BELOW the fitted
+   * At128 and which no extrapolation from the calibration cells would have
+   * produced. That reading is recorded and deliberately not adopted (claims §5.65
+   * §4(b) and §6(iv)); closing it needs a calibration cell above span 128.
+   */
   readonly thickOcclusionAt160: number;
   /**
    * **The lift (W14)** — the peak amplitude of the second term, in LINEAR light,
@@ -239,11 +250,12 @@ export interface MaterialOuterShadow {
    * over `dark-solid`, and zero below the knee, so the facet stays exactly inert
    * over black the way W8's multiply is.
    *
-   * PROVISIONAL: 0.0073 is G0's +0.0038 of LINEAR lift at span 160 divided by
-   * the ≈ 0.52 linear luminance the checkerboard's σ-40 blur sits at. The space
-   * matters and this wave names it everywhere (claims §5.62 §3): §5.60's +0.039
-   * is the same lift read in ENCODED luma. The sweep fits this against the
-   * referee together with the three thick anchors.
+   * FITTED to **0.0100** in the renderer over seventeen sweep passes, read on
+   * X7's affine pair together with the three thick anchors (claims §5.65). The
+   * provisional 0.0073 was G0's +0.0038 of LINEAR lift at span 160 divided by
+   * the ≈ 0.52 linear luminance the checkerboard's σ-40 blur sits at, and the fit
+   * is 37% larger. The space matters and this wave names it everywhere (claims
+   * §5.62 §3): §5.60's +0.039 is the same lift read in ENCODED luma.
    */
   readonly liftAmplitude: number;
   /**
@@ -256,13 +268,15 @@ export interface MaterialOuterShadow {
   /**
    * Where the lift saturates, in casting span, CSS px.
    *
-   * PROVISIONAL. The measured rise is 0.52 / 0.96 / 1.00 of the span-160 value
-   * at spans 96 / 128 / 160, against the layer tree's clamp((span − 64)/96)
-   * = 0.33 / 0.67 / 1.00 — so the lift is NOT proportional to
-   * `VibrancyContribution`; it rises and saturates, reaching 96% by span 128
-   * (claims §5.62 §2). A smoothstep from `liftSpanMin` to 128 reproduces that
-   * shape (0.42 at 96, 1.00 at 128) more nearly than the clamp does; the sweep
-   * settles the reach.
+   * FITTED to **118** (claims §5.65), from a provisional 128. The measured rise
+   * is 0.52 / 0.96 / 1.00 of the span-160 value at spans 96 / 128 / 160, against
+   * the layer tree's clamp((span − 64)/96) = 0.33 / 0.67 / 1.00 — so the lift is
+   * NOT proportional to `VibrancyContribution`; it rises and saturates, reaching
+   * 96% by span 128 (claims §5.62 §2), which a smoothstep from `liftSpanMin`
+   * reproduces and the clamp does not. The holdout says the reach saturates a
+   * little early — the lift's own residual there is one-signed and small, 5% low
+   * at span 130 and 9% at 160 (claims §5.65 §4(d)) — and it was not refitted
+   * after that reading.
    */
   readonly liftSpanFull: number;
   /**
@@ -1249,12 +1263,12 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
     thinOcclusionDark: 0,
     thinOcclusionMid: 0.33,
     thinOcclusionBright: 0.127,
-    thickOcclusionAt96: 0.379,
-    thickOcclusionAt128: 0.497,
-    thickOcclusionAt160: 0.544,
-    liftAmplitude: 0.0073,
+    thickOcclusionAt96: 0.37,
+    thickOcclusionAt128: 0.448,
+    thickOcclusionAt160: 0.479,
+    liftAmplitude: 0.01,
     liftSpanMin: 64,
-    liftSpanFull: 128,
+    liftSpanFull: 118,
     liftBlurSigmaCss: 40,
     reducedTransparencyOcclusion: 0.197,
     sizeGain: 0,
@@ -2230,10 +2244,19 @@ export const OUTER_SHADOW_THICK_SPANS = [96, 128, 160] as const;
  * composite's transmission measured on the checkerboard, and the bed has no
  * thick cell over a dark backdrop to key against (claims §5.62 §4 — a span-128
  * or 160 surface over `impulse` would separate the composite's two terms, and
- * that scene does not exist). It costs nothing visible where it is wrong: a
- * multiply over a near-black backdrop removes near-nothing whatever its
- * amplitude, so the over-stated black term over `dark-solid` is 0.379 of 0.0039
- * of linear light. The dark PROFILE carries its own three anchors.
+ * that scene does not exist). The dark PROFILE carries its own three anchors.
+ *
+ * **What it costs where it is wrong, measured.** An earlier form of this comment
+ * claimed it costs nothing visible, on the argument that a multiply over a
+ * near-black backdrop removes near-nothing whatever its amplitude. X7's affine
+ * pair contradicts that argument on the one calibration cell that tests it:
+ * `dark-solid__rrect-md`, a span-96 surface over a backdrop of linear 0.0117,
+ * where vitrea now removes 0.1645 at the `3-6` band against the reference's
+ * 0.1094 and against the 0.1260 the W12 close removed — the thick path over a
+ * near-black backdrop went from 15% light to **50% heavy** (claims §5.65 §5).
+ * In absolute terms it is 0.7 of a code and no perceptual row in the matrix
+ * notices, so it is a small error, not an invisible one; it is recorded as a gap
+ * and it closes with a thick cell over a dark backdrop to key against.
  */
 export function outerShadowThickOcclusion(
   spanPx: number,

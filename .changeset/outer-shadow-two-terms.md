@@ -24,9 +24,11 @@ casts a deeper, richer shadow" means in practice.
 **It carries the backdrop's own light.** On the WebGPU tier a large surface's
 shadow adds a blurred copy of the light behind it underneath the darkening,
 which is why Apple's big platters do not read as a flat gray smudge. The CSS
-tier carries the geometry and the backdrop-keyed depth but not this second term
-— a `box-shadow` cannot reach the backdrop outside its own element — so the two
-tiers differ slightly under large surfaces and agree everywhere else.
+tier cannot paint that light — a `box-shadow` cannot reach the backdrop outside
+its own element — so it derives the single darkening that matches the pair,
+subtracting the light it cannot add from the depth it can, at the backdrop level
+it already reads. The two tiers therefore land on the same shadow over a flat
+backdrop and differ only in how they resolve a structured one.
 
 **Under Reduce Transparency the shadow goes flat**, at the one level Apple's
 does: the preference removes the adaptation, so every surface over every

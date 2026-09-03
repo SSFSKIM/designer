@@ -41,11 +41,10 @@ import {
   cssTierForegroundBounds,
   cssTierForegroundLevel,
   cssShadowBlurRadius,
+  cssTierShadowAlpha,
   MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
-  outerShadowAlpha,
-  outerShadowOcclusionAt,
   outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
   scatterThickness,
@@ -390,14 +389,17 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
    * same statistic W9's face response keys on, `surface.backdropLuminance`, an
    * author hint's declared level or the tone measured from the backdrop source —
    * and the thick regime's on the casting span, blended across the size law's own
-   * knee. `outerShadowOcclusionAt` folds the size gain too, which is what
-   * `sizeOuterShadowOcclusionAt` was doing here alone.
+   * knee. `cssTierShadowAlpha` folds the size gain too, which is what
+   * `sizeOuterShadowOcclusionAt` was doing here alone, and it folds this tier's
+   * missing lift into the one alpha it can paint — see that function for why
+   * subtracting the other tier's second term is a conversion of the shared
+   * profile rather than an amplitude of this tier's own.
    *
    * A surface with no span (`spanPx === undefined` leaves `sizeK` at 0) resolves
    * the thin regime, which is what a surface too small for the size law to reach
    * was already getting.
    */
-  const shadowOcclusion = outerShadowOcclusionAt(
+  const shadowAlpha = cssTierShadowAlpha(
     shadowSource,
     surface.backdropLuminance,
     surface.spanPx ?? 0,
@@ -507,7 +509,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
      * `cssShadowBlurRadius` is where the two blur conventions meet: this property
      * takes twice the Gaussian's σ, while `filter: blur()` above takes σ itself.
      */
-    "box-shadow": outerShadowDeclaration(shadowSource, shadowOcclusion),
+    "box-shadow": outerShadowDeclaration(shadowSource, shadowAlpha),
     transition: transitionFor(policy),
     "--vitrea-tint": tint,
     "--vitrea-occlusion": String(Math.round(optics.tintAlpha * 1000) / 1000),
@@ -522,20 +524,20 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
 }
 
 /**
- * The `box-shadow` value for a resolved outer shadow.
+ * The `box-shadow` value for a resolved outer shadow, from the compositing alpha
+ * `cssTierShadowAlpha` resolved.
  *
- * `"none"` at zero occlusion rather than a transparent shadow, so a profile that
+ * `"none"` at zero alpha rather than a transparent shadow, so a profile that
  * declines the facet costs the compositor nothing — and so the property still
  * gets written every frame, because a material that stopped writing one of its
  * own declarations leaves whatever was last there.
  */
-function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, occlusion: number): string {
-  if (!(occlusion > 0)) return "none";
-  const alpha = Math.round(outerShadowAlpha(occlusion) * 1000) / 1000;
-  if (alpha <= 0) return "none";
+function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, alpha: number): string {
+  const rounded = Math.round(alpha * 1000) / 1000;
+  if (!(rounded > 0)) return "none";
   return (
     `0 ${px(shadow.offsetPx)} ${px(cssShadowBlurRadius(shadow.sigmaPx))} ` +
-    `${px(shadow.spreadPx)} rgba(0, 0, 0, ${alpha})`
+    `${px(shadow.spreadPx)} rgba(0, 0, 0, ${rounded})`
   );
 }
 
