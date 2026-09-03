@@ -391,8 +391,8 @@ close before G2 implements; nothing on it lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum: flat on all six cells, §5.61 §7) |
-| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); **the first form's sweep complete** (`results/2026-09-03-w13-ramp/g1/sweep/`, commit `3fb3b7c`; claims §5.63): 81 points, S4 fails everywhere, S3 best 3× its tolerance, S2 fails everywhere, holdout 2x `rrect-lg` 0.8890 — the form is span-flat where the bed is span-graded; **re-formed by Decision Log 3** (the retired span law kept underneath the ramp as its deep value, the excursion above it) on the same branch, the second form swept and **refuted in the renderer** (`results/2026-09-03-w13-ramp/g1/sweep-2/`, commits `2752301` on the branch and `7bf6b22` on main; claims §5.64): 68 points + a refinement, S4 met nowhere, the 1x requirements disjoint by 0.017 of start, and at 2x the inert configuration is the maximum band on all five cells; **the third form fitted** (`results/2026-09-03-w13-ramp/g1/sweep-3/`, branch `ef61b09`, results `69b02b0`; claims §5.67): S4 met on every 1x cell (band +0.0019…+0.0058, the interior gap more than halved on four of five), S1 exact on every fitted row, the 2x null bit-exact over 20 cells × 107 axes, `glass-over-glass` holdout at an interior gap of 0.0001; **one holdout miss** — `rrect-lg` 1x `ssimMean` −0.0026 with a 33% interior overshoot, because `sizeThickness` saturates at 96 and the start cannot fall across the thick spans as G0 read it; S2 at 2x not met on this bed (the widths' pedestal, −0.010…−0.017) and re-read on the W14 bed under X8; **the fourth form decided** (Decision Log 6: the start's own decline past the thickness knee, one constant) to be fitted on the W14 bed; **the third form reviewed** (Codex, 2026-09-03): five findings folded into the fourth form's brief — the group proxy's blur must take the maximum *projected* σ over members rather than the widest short span (the projection now depends on both extents, so a strip can need more blur than a square of the same short span); the CSS tier's zero-mix fast path skips the device-pixel division at dpr > 1 when a patched profile zeroes `sizeScatterFloor`; the dpr watcher must be built from the supplied window's `matchMedia`, not the ambient one; the proxy e2e helper and the demo's `bodyLaw` readout both project a square where the runtime now projects the measured extents (the platform-web and demo e2e suites were not run by the worker and would fail) — and one deferred to G2 by design (the goldens move; re-recorded behind the isolation proof at the landing); **the fourth form fitted on the W14 bed** (branch `7de3d76` + `762c290` + `51c232d` after merging main at `c97d343`; `results/2026-09-03-w13-ramp/g1/sweep-4/`, commit `12e2e2b`; the five review findings fixed in the same commit; platform-web e2e 126, demo e2e 34): far start 0.20 at 1x chosen by the reference's own reading inside the calibration noise (Decision Log 7), **S1 and S4 met at 1x on every row holdout included** — `rrect-lg` `ssimMean` +0.0056 and band +0.0136 against the W14 bed, its interior from 33% over to 12% over, `glass-over-glass` interior exact — the 2x null re-verified at zero over 20 cells × 774 measurements; S2 at 2x met on the W14 bed (0.9585 / 0.9664 / 0.9509 above 0.93) at a cost of 0.010–0.017 that is the device-pixel widths, not the ramp; **the sheets sent** (`sheets/g1-{1x,2x}.png`, `g1-caption.txt`, commit `9b1d5f2`) with the parent's reading; the CSS tier's rows captured for the declaration | IN PROGRESS 2026-09-03 (declaration pending the CSS rows) | **independent review** (Codex, 2026-09-03) of the first form's branch — two findings folded into the re-form: the CSS tier projected the ramp from the span alone (no extents threaded through `CssTierSurface`, so a 320×44 toolbar projected as a square), and static pyramids were not rebuilt when the device pixel ratio changed (the body's CSS-px sigma now depends on dpr but the pyramid's invalidation compared only texels per CSS px) | IN PROGRESS 2026-09-03 (second form) |
-| G2 | — | blocked-by G1 |
+| G1 | four forms of the ramp, each fitted in the renderer on branch `w13-g1-ramp` (worktree `.claude/worktrees/w13-g1`): the first (a start and a reach; `eb12219`) refuted at 81 points, span-flat where the bed is span-graded (claims §5.63, `results/2026-09-03-w13-ramp/g1/sweep/`); the second (the retired span law restored underneath; `2752301`, with the first review's two findings) refuted at 68 points, one start unable to sit above the deep value on thin and thick cells at once, and at 2x the inert configuration the best on every cell (§5.64, `sweep-2/`); the third (the start graded by `sizeThickness`; `f77b5f1` + `ef61b09`) reaching S4 on every 1x calibration cell with the 2x null bit-exact, and failing one holdout row because the start cannot fall past the thickness knee (§5.67, `sweep-3/`); **the fourth** (the start's own decline along the scatter facet's curve, one constant; `7de3d76` + `762c290` + `51c232d`, with the third review's five findings and main merged with W14 landed) **reaching S1 and S4 at 1x on every row holdout included** — `rrect-lg` +0.0056 / band +0.0136 on the W14 bed, its interior 12% over Apple's from 33% — the far start carried from G0's reading (Decision Log 7), the 2x null re-verified at zero over 20 cells × 774 measurements (`sweep-4/`, `12e2e2b`); the sheets sent with the parent's reading (`sheets/`, `9b1d5f2`); **the CSS tier's confirmation** found the candidate's device-pixel width division still in that tier and four dom floors broken at 2x — removed (`d0d778f`; Decision Log 5 executed in full), re-captured clean with every floor holding; the fourth form's review (Codex) — three code findings fixed (`8f00c0c`), the spec finding amended in Decision Log 5; **DECLARED** — claims §5.68 (form, constants, stops with numbers on the W14 bed, the twelve rows, both tiers; fingerprints light `2b8cfda6950bc697` / dark `aa6e466b1412ec04`) | COMPLETE 2026-09-03 |
+| G2 | the landing plan in claims §5.68 §6; **the user's call between (a) the branch as declared (the 1x ramp plus the 2x device-pixel widths: four large 2x rows down 0.006–0.017, two small ones up) and (b) the 1x ramp with the GPU tier's 2x widths restored to the bed's** — the parent recommends (b) | READY — awaiting the user's landing call |
 
 ## Decision Log
 
@@ -536,11 +536,20 @@ projection would move its rows in the direction the measurement calls wrong. Its
 two-times rows then stay held by decision rather than fitted."*
 
 The user also recorded the implementer's narrower reading of the same answer, as
-what the branch actually does: it keeps the candidate's device-pixel width
-division and fixes only the ramp's mix at scale one. Same conclusion for the
-mix; it does not stand the whole tier down to the 1x material. The branch is
-correct as built and `CSS_TIER_RAMP_SCALE` carries the reasoning at its
-definition.
+what the branch then did: it kept the candidate's device-pixel width
+division and fixed only the ramp's mix at scale one. **Overturned by
+measurement (2026-09-03, claims §5.68 §3 S6):** the fourth form's dry run on
+the W14 bed captured the CSS tier with that division still in it and read
+`rrect-lg` 2x `ssimMean` −0.047, the interior's standard deviation from
+0.026 to 0.143 against Apple's 0.081, and four of the dom tier's regression
+floors broken — the direction §5.55 §5 predicted, on the rows this decision
+holds. The decision is now executed in full: the CSS tier has no device-scale
+input (branch `d0d778f`), its width and its mix are both read at
+`CSS_TIER_RAMP_SCALE`, the group proxy's blur is taken at the same scale so
+its padding matches what the tier writes, and the e2e helper derives its
+expectation the same way (`8f00c0c`). Re-captured on a clean build, every dom
+floor holds and the tier's rows rise or hold on every checkerboard cell at
+both scales.
 
 **What this binds.** The CSS tier's 2x rows are held by decision, not fitted, for
 the ramp's mix — so a later reading that moves them is not a regression against
@@ -675,6 +684,22 @@ from the third form's 33%.
   frame noise moves between cells from run to run (claims §5.60 §1).
   Below every bound by four orders; recorded, not chased.
 
+- **The candidate's CSS width division cost four dom floors at 2x, and the
+  tier-coherence suite could not see it (claims §5.68 §3 S6).** The first CSS
+  capture of the fourth form read `rrect-lg` 2x `ssimMean` 0.8697 → 0.8230 and
+  the interior's standard deviation 0.026 → 0.143 against Apple's 0.081: the
+  tier's σ halved at 2x. The unit suites pin the two tiers' *laws* to each
+  other over dpr, which is exactly the property that hides a tier rendering
+  the wrong scale on purpose; only a capture against the bed sees it. The
+  lesson for the harness: a cross-tier pin on the law is not a pin on the
+  rows, and a decision that holds rows by decision needs a capture to check
+  it was executed.
+- **Three CSS cells read frame-unstable in the confirmation**, one of them
+  larger than the recorded flicker: `dark-solid__rrect-md` 2x at 6.1e-3 of
+  repeat noise beside the known `light-solid__capsule-button` (2.3e-5) and
+  `photo__capsule-button__rest-tint-orange-half` (2.7e-3). Every GPU cell was
+  deterministic. Recorded; below every bound; the CSS tier's frame timing on
+  this machine is the tech-debt tracker's.
 - **At 2x the device-pixel widths make the large surfaces visibly crisper
   than Apple's (G1 fourth sweep, the sheets).** The ramp is a null at 2x, so
   what the sheet shows against the W14 bed is candidate A's widths alone:
@@ -763,6 +788,11 @@ from the third form's 33%.
   same branch with a second sweep.
 - 2026-09-03: the first form's branch reviewed; two findings (the CSS projection's extents,
   pyramid invalidation over dpr) folded into the re-form (Tracking Map).
+- 2026-09-03: **G1 declared** (claims §5.68). The CSS tier's device-pixel width division found
+  by the first CSS capture and removed (Decision Log 5 executed in full, amended above); the
+  fourth form's review — three code findings fixed on the branch, the spec finding amended; two
+  Surprises; the Tracking Map's G1 row rewritten whole (an earlier edit had left a status
+  segment embedded mid-row); G2 READY on the user's choice between the two landings.
 - 2026-09-03: the fourth form fitted on the W14 bed (sweep-4); Decision Log 7 (the far start
   carried from the reference's reading); two Surprises (the widths' 2x trade seen by eye; the
   far anchor unfittable on calibration); the sheets sent; the declaration pending the CSS rows.
