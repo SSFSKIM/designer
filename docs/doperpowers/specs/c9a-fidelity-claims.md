@@ -4742,6 +4742,15 @@ headroom is against constants moving in their last digit and nothing else.
 > object from the 1x one, §5.41 §5; the claim is the 1x bed's until a
 > Retina capture exists — Decision Log 4). No row is floored on an
 > unexplained miss.
+>
+> **Amended by W12 (2026-09-03, §5.59).** The three 2x texture-tier
+> `ssimMean` rows carry a further measurement and a floor ratcheted UP by
+> 0.010–0.014 (0.9158 / 0.9211 / 0.9113) — the lens is the reference's own
+> field (§5.51–§5.54) — and their mechanism is re-attributed by W12
+> Decision Log 7: not a different object at 2x but the body's **depth
+> ramp** (the reference fades its sharp term from the contour inward,
+> vitrea mixes one share per span; §5.55, §5.58), chartered as W13. The
+> eight dom rows are byte-unchanged. The count is 11.
 
 **`1x-light-standard` · texture tier**
 
@@ -4780,10 +4789,10 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
 | ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
 | ~~`photo__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1901 → 0.0759 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a) → 0.8896 (W11c G1, by decision) → 0.9076 (W11c G2 ratchet) | ≥ 0.9066 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) → 0.8785 (W11c G1, by decision) → 0.9013 (W11c G2 ratchet) | ≥ 0.9002 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a) → 0.8896 (W11c G1, by decision) → 0.9076 (W11c G2 ratchet) → 0.9211 (W12 ratchet) | ≥ 0.9201 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) → 0.8785 (W11c G1, by decision) → 0.9013 (W11c G2 ratchet) → 0.9113 (W12 ratchet) | ≥ 0.9102 |
 | ~~`checkerboard__rrect-md__rest`~~ | calibration | `ssimMean` | ≥ 0.93 **MET (W11c G2)** | 0.9266 → 0.9234 (W11c G1, by decision) → 0.9389 | — |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 → 0.8810 (W11c G1, by decision) → 0.9023 (W11c G2 ratchet) | ≥ 0.9013 |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 → 0.8810 (W11c G1, by decision) → 0.9023 (W11c G2 ratchet) → 0.9158 (W12 ratchet) | ≥ 0.9147 |
 
 **`2x-light-standard` · dom tier**
 
@@ -4804,7 +4813,7 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40; 12 after W11c G1, §5.42; 11 after W11c G2, §5.44). A floor cannot be added by
+set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40; 12 after W11c G1, §5.42; 11 after W11c G2, §5.44; 11 after W12, §5.59). A floor cannot be added by
 accident, and adding one deliberately means editing a count that sits next to
 this section's number.
 
@@ -8416,3 +8425,107 @@ k(u, span, dpr) on the sharp share with the device-pixel widths of §5.56
 budgeted as a stop, and the runtime sweep of §2 as the fitting
 instrument; it starts from branch `w12-g3-candidate-a`. Rejected: landing
 the widths alone (`rrect-ml` 2x, §2) and opening the ramp inside W12.
+
+### 5.59 W12 RECOMPOSED: the canonical bed rebuilt on the reference's lens field — every checkerboard row up, three 2x texture floors ratcheted, none met, the 2x body held for its ramp (2026-09-03)
+
+The wave's close, verified against its Parent-Level Acceptance in the
+spec's Outcomes; here the bed as it ships and what moved on it. Evidence:
+`results/2026-09-03-w12-lens/x1/` (the rebuild script), `results/matrix.json`
+and `web-captures/` (canonical), the scratch beds named below.
+
+#### 1. X1 — the canonical rebuild, and its determinism
+
+`main` at `8b456d6` (documentation only after the ω 0.8 landing; the
+material is Decision Log 6's, fingerprints light `c6e388fc8349282d` / dark
+`f9722f244e7f2af2`), `pnpm -r build`, `rm results/matrix.json`, the twelve
+per-profile runs (six fixture profiles × two renderers, `calibration,
+validation, holdout`) to the canonical matrix and captures in one pass —
+230 cells, 18:13–18:18. Determinism checked, not assumed: the GPU tier's
+115 cells reproduce the ω 0.8 referee bed (§5.54, `g2b/matrix-g2b-referee.json`,
+captured on the landing branch before the cherry-pick) in **every metric
+value and every capture byte for byte**; the CSS tier's 115 cells
+reproduce the G2 referee bed (`matrix-g2.json`, the same CSS code) on 114
+captures byte for byte and on the 115th — `light-solid__capsule-button__rest`
+at 1x — differ by **one pixel, one code value** (x 211, y 76; `ssimMean`
+0.9869413 → 0.9869409), a between-session flicker of Chromium's
+`backdrop-filter` raster that the compare's own two-load check inside a
+run does not see. Recorded; below every bound by four orders. The 76
+`coherence` values that differ between the CSS rows and the G2 bed are the
+GPU side of the ratio, which ω moved. So §5.52's and §5.54's tables are
+the canonical reading, digit for digit.
+
+#### 2. X3 — the whole bed against the previous canonical bed (`1250896`, the W11 close plus §5.46)
+
+Max |Δ| over the cells of each class (ssimMean / ΔE mean / ΔE p95 /
+interior level / IoU / contour p95):
+
+| class | css | webgpu |
+| --- | --- | --- |
+| checkerboard (31) | 0 in every metric | 0.0175 / 0.0012 / 0.0064 / 0.0005 / 0.0020 / 0 |
+| hc-text (8) | 0 | 0.0147 / 0.0006 / 0.0019 / 0.0232 / 0.0177 / 1.0 px |
+| impulse (8) | 0 | 0 / 0 / 0 / 0.0005 / 0 / 0 |
+| photo (42) | 0 | 0.0002 / 0.0001 / 0.0017 / 0.0006 / 0.0001 / 0 |
+| solid (26) | 0 (the one-pixel flicker above) | 0 in every metric |
+
+Eighty GPU cells moved and no CSS cell did (the CSS tier has no lens).
+Every cell that moved by more than 0.005 in `ssimMean`, all upward, all
+the lens (W12 G2 with ω 0.8): light 1x `rrect-ml` 0.9307 → 0.9482,
+`glass-over-glass` 0.9360 → 0.9521, `rrect-md` 0.9538 → 0.9695,
+`hc-text__rrect-md` 0.9613 → 0.9760, `rrect-lg` 0.9286 → 0.9428,
+`hc-text__capsule-button` 0.9729 → 0.9845, `capsule-button` 0.9770 →
+0.9852, `toolbar-group` 0.9591 → 0.9643; light 2x `rrect-ml` 0.9023 →
+0.9158, `glass-over-glass` 0.9081 → 0.9211, `rrect-md` 0.9389 → 0.9517,
+`hc-text__capsule-button` 0.9738 → 0.9839, `rrect-lg` 0.9013 → 0.9113,
+`hc-text__rrect-md` 0.9550 → 0.9648, `capsule-button` 0.9777 → 0.9836. The
+dark scheme's checkerboard cells rose 0.001–0.004 at both scales. The
+`hc-text` silhouettes are where the lens meets the extractor:
+`hc-text__capsule-button` 1x IoU +0.0177 with the contour p95 one pixel
+shorter and the interior level +0.023 (2x IoU +0.009, level +0.023),
+`hc-text__rrect-md` 1x IoU −0.0065 — the refracted text edges under the
+band move what the luminance-and-chroma extractor calls the contour; all
+four cells are holdout and inside their adopted bounds, and none entered
+or left `PREDICATE_EXCLUDES`. The solids, the impulse cells and the
+`photo` family are unchanged to the fourth decimal.
+
+#### 3. X2 — the floors
+
+Three floors ratchet UP, none is met, none is added: `checkerboard__rrect-ml`
+2x texture 0.9023 → **0.9158** (floor 0.9013 → 0.9147),
+`glass-over-glass` 2x 0.9076 → **0.9211** (0.9066 → 0.9201), `rrect-lg` 2x
+0.9013 → **0.9113** (0.9002 → 0.9102). The eight dom rows read exactly
+their pinned values. `UNMET_ROWS` 11 → 11; `PREDICATE_EXCLUDES` the
+machine's 28, unchanged; the enforcement test 27 / 27 on the canonical
+matrix. §5.27 is amended above. The three rows' mechanism is
+re-attributed by W12 Decision Log 7 — the band's depth ramp on the sharp
+share, with the widths in device pixels — and W13 is chartered on it.
+
+#### 4. Holdout, read once on the frozen configuration
+
+The 60 holdout rows (30 cells × two tiers) all inside their adopted
+bounds or on their floors. The checkerboard holdouts: texture `rrect-lg`
+1x 0.9428 / 2x 0.9113, `glass-over-glass` 1x 0.9521 / 2x 0.9211, dark 1x
+0.9079 / 2x 0.9108; dom `rrect-lg` 0.8372 / 0.8696, `glass-over-glass`
+0.8499 / 0.8687 (held, W11 Decision Log 5). The 1x `rrect-lg` holdout
+rose 0.0142 on a lens fitted with it held out — the G2 dry run's
+prediction (§5.51 §1) was 0.942 and the bed reads 0.9428.
+
+#### 5. The demo shows what was measured
+
+`apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.{png,cell.json}`
+re-copied from the rebuilt captures (the stale copy read 0.0219 encoded
+luma against the live panel's 0.02 bound, §5.47's test failing for the
+right reason); `reference-panel.gpu.spec.ts` green on the real adapter
+(1 / 1, chromium-gpu).
+
+#### 6. What W12 leaves
+
+The lens is the reference's field on the GPU tier at both scales (§5.52
+§1, §5.55 §4: within 0.9 / 1.3 px at 2x). The 2x body is understood and
+not landed: one kernel in device pixels, the widths right, the transmission
+scale-free, the band's depth ramp what is left (§5.55–§5.58; Decision Log
+7) — W13. The CSS tier carries no lens and the 1x law at every scale
+(eight dom floors, W11 Decision Log 5). Every other gap is in W12's
+Deferred with its evidence and the shape of its work: the three by-eye
+gaps from the user's list, the by-eye-aligned band metric (W13 X6 is its
+first form), the layer dump's nine findings, the thin material's
+scale-dependent level.

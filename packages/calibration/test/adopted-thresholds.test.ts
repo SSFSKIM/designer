@@ -473,13 +473,22 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86872, floor: 0.8677 },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.83717, floor: 0.8361 },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.8696, floor: 0.8686 },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90231, floor: 0.9013 },
+  // W12 (claims §5.59; W12 Decision Logs 4, 6 and 7) RATCHETED the three 2x
+  // texture-tier rows UP again by 0.010–0.014: the lens is now the reference's
+  // own field (one steep power on Apple's span law along a normal ovalized by
+  // 0.8, §5.51–§5.54) and every checkerboard row rose with it. The rows still
+  // miss 0.93 and stay held by decision, their mechanism re-attributed: not "a
+  // different object at 2x" but the body's depth ramp — the reference fades
+  // its sharp term from the contour inward and vitrea mixes one share per
+  // span (§5.55, §5.58) — which is the next body wave's charter (W13). The dom
+  // rows are byte-unchanged (the CSS tier has no lens).
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91579, floor: 0.9147 },
   // W11a (claims §5.39) RATCHETED the nested cell's two texture rows UP once
   // its upper pane composited over the base glass (0.84092 → 0.87961,
   // 0.87624 → 0.89482); W11c G1 (claims §5.42) MET the 1x row and re-pinned
   // the 2x one with the rest of the 2x family above.
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90762, floor: 0.9066 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90126, floor: 0.9002 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92114, floor: 0.9201 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91128, floor: 0.9102 },
 };
 
 /**
@@ -491,7 +500,8 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * (claims §5.39); 15 after W11b's chroma arm closed the hole those two contour
  * rows were pinned on (claims §5.40); 12 after W11c's body law met the three
  * 1x texture-tier structure rows (claims §5.42); 11 after W11c's lens met the
- * 2x texture-tier rrect-md row (claims §5.44).
+ * 2x texture-tier rrect-md row (claims §5.44); still 11 after W12 (claims
+ * §5.59), whose lens raised the three 2x texture rows without meeting them.
  */
 const UNMET_ROWS = 11;
 

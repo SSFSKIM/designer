@@ -1,0 +1,65 @@
+X3: canonical after X1 (230) against the previous canonical bed at 1250896 (230)
+
+== class summary (max |Δ| over cells): class, tier, n, ΔSSIM, Δ(ΔE mean), Δ(ΔE p95), Δlevel, ΔIoU, Δcontour p95
+  checkerboard  css     n= 31  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0000  ΔIoU 0.0000  Δcontour 0.000
+  checkerboard  webgpu  n= 31  ΔSSIM 0.0175  ΔΔE 0.0012  ΔΔEp95 0.0064  Δlevel 0.0005  ΔIoU 0.0020  Δcontour 0.000
+  hc-text       css     n=  8  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0000  ΔIoU 0.0000  Δcontour 0.000
+  hc-text       webgpu  n=  8  ΔSSIM 0.0147  ΔΔE 0.0006  ΔΔEp95 0.0019  Δlevel 0.0232  ΔIoU 0.0177  Δcontour 1.000
+  impulse       css     n=  8  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0000  ΔIoU 0.0000  Δcontour 0.000
+  impulse       webgpu  n=  8  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0005  ΔIoU 0.0000  Δcontour 0.000
+  photo         css     n= 42  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0000  ΔIoU 0.0000  Δcontour 0.000
+  photo         webgpu  n= 42  ΔSSIM 0.0002  ΔΔE 0.0001  ΔΔEp95 0.0017  Δlevel 0.0006  ΔIoU 0.0001  Δcontour 0.000
+  solid         css     n= 26  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0000  ΔIoU 0.0000  Δcontour 0.000
+  solid         webgpu  n= 26  ΔSSIM 0.0000  ΔΔE 0.0000  ΔΔEp95 0.0000  Δlevel 0.0000  ΔIoU 0.0000  Δcontour 0.000
+
+== cells with |ΔSSIM| > 0.005 (profile, renderer, scene: before → after)
+  apple-macos-26.5-1x-light-standard           webgpu checkerboard__rrect-ml__rest                   0.9307 → 0.9482 (+0.0175)
+  apple-macos-26.5-1x-light-standard           webgpu checkerboard__glass-over-glass__rest           0.9360 → 0.9521 (+0.0160)
+  apple-macos-26.5-1x-light-standard           webgpu checkerboard__rrect-md__rest                   0.9538 → 0.9695 (+0.0157)
+  apple-macos-26.5-1x-light-standard           webgpu hc-text__rrect-md__rest                        0.9613 → 0.9760 (+0.0147)
+  apple-macos-26.5-1x-light-standard           webgpu checkerboard__rrect-lg__rest                   0.9286 → 0.9428 (+0.0142)
+  apple-macos-26.5-2x-light-standard           webgpu checkerboard__rrect-ml__rest                   0.9023 → 0.9158 (+0.0135)
+  apple-macos-26.5-2x-light-standard           webgpu checkerboard__glass-over-glass__rest           0.9081 → 0.9211 (+0.0131)
+  apple-macos-26.5-2x-light-standard           webgpu checkerboard__rrect-md__rest                   0.9389 → 0.9517 (+0.0127)
+  apple-macos-26.5-1x-light-standard           webgpu hc-text__capsule-button__rest                  0.9729 → 0.9845 (+0.0117)
+  apple-macos-26.5-2x-light-standard           webgpu hc-text__capsule-button__rest                  0.9738 → 0.9839 (+0.0101)
+  apple-macos-26.5-2x-light-standard           webgpu checkerboard__rrect-lg__rest                   0.9013 → 0.9113 (+0.0100)
+  apple-macos-26.5-2x-light-standard           webgpu hc-text__rrect-md__rest                        0.9550 → 0.9648 (+0.0099)
+  apple-macos-26.5-1x-light-standard           webgpu checkerboard__capsule-button__rest             0.9770 → 0.9852 (+0.0082)
+  apple-macos-26.5-2x-light-standard           webgpu checkerboard__capsule-button__rest             0.9777 → 0.9836 (+0.0059)
+  apple-macos-26.5-1x-light-standard           webgpu checkerboard__toolbar-group__rest              0.9591 → 0.9643 (+0.0052)
+
+== cells whose ssimMean moved at all, by renderer: {('css', 'same'): 114, ('webgpu', 'moved'): 80, ('webgpu', 'same'): 35, ('css', 'moved'): 1}
+
+== the checkerboard texture rows before → after
+  apple-macos-26.5-1x-light-standard       checkerboard__capsule-button__rest             0.9770 → 0.9852 (+0.0082)
+  apple-macos-26.5-1x-light-standard       checkerboard__capsule-button__rest-tint-blue   0.9881 → 0.9889 (+0.0008)
+  apple-macos-26.5-1x-light-standard       checkerboard__capsule-button__rest-tint-orange 0.9879 → 0.9893 (+0.0013)
+  apple-macos-26.5-1x-light-standard       checkerboard__glass-over-glass__rest           0.9360 → 0.9521 (+0.0160)
+  apple-macos-26.5-1x-light-standard       checkerboard__rrect-lg__rest                   0.9286 → 0.9428 (+0.0142)
+  apple-macos-26.5-1x-light-standard       checkerboard__rrect-md__rest                   0.9538 → 0.9695 (+0.0157)
+  apple-macos-26.5-1x-light-standard       checkerboard__rrect-ml__rest                   0.9307 → 0.9482 (+0.0175)
+  apple-macos-26.5-1x-light-standard       checkerboard__rrect-sm__rest                   0.9981 → 0.9988 (+0.0007)
+  apple-macos-26.5-1x-light-standard       checkerboard__toolbar-group__rest              0.9591 → 0.9643 (+0.0052)
+  apple-macos-26.5-2x-light-standard       checkerboard__capsule-button__rest             0.9777 → 0.9836 (+0.0059)
+  apple-macos-26.5-2x-light-standard       checkerboard__capsule-button__rest-tint-blue   0.9886 → 0.9891 (+0.0005)
+  apple-macos-26.5-2x-light-standard       checkerboard__capsule-button__rest-tint-orange 0.9885 → 0.9894 (+0.0009)
+  apple-macos-26.5-2x-light-standard       checkerboard__glass-over-glass__rest           0.9081 → 0.9211 (+0.0131)
+  apple-macos-26.5-2x-light-standard       checkerboard__rrect-lg__rest                   0.9013 → 0.9113 (+0.0100)
+  apple-macos-26.5-2x-light-standard       checkerboard__rrect-md__rest                   0.9389 → 0.9517 (+0.0127)
+  apple-macos-26.5-2x-light-standard       checkerboard__rrect-ml__rest                   0.9023 → 0.9158 (+0.0135)
+  apple-macos-26.5-2x-light-standard       checkerboard__rrect-sm__rest                   0.9969 → 0.9978 (+0.0009)
+  apple-macos-26.5-2x-light-standard       checkerboard__toolbar-group__rest              0.9630 → 0.9663 (+0.0033)
+
+== every cell with |ΔSSIM| > 0.001 that is NOT a light-standard checkerboard/photo webgpu cell
+  apple-macos-26.5-1x-dark-standard            webgpu checkerboard__capsule-button__rest             0.9613 → 0.9625 (+0.0012)
+  apple-macos-26.5-1x-dark-standard            webgpu checkerboard__glass-over-glass__rest           0.9042 → 0.9079 (+0.0037)
+  apple-macos-26.5-1x-dark-standard            webgpu checkerboard__rrect-md__rest                   0.9451 → 0.9493 (+0.0042)
+  apple-macos-26.5-1x-light-standard           webgpu hc-text__capsule-button__rest                  0.9729 → 0.9845 (+0.0117)
+  apple-macos-26.5-1x-light-standard           webgpu hc-text__capsule-button__rest-tint-orange      0.9891 → 0.9901 (+0.0010)
+  apple-macos-26.5-1x-light-standard           webgpu hc-text__rrect-md__rest                        0.9613 → 0.9760 (+0.0147)
+  apple-macos-26.5-2x-dark-standard            webgpu checkerboard__glass-over-glass__rest           0.9078 → 0.9108 (+0.0030)
+  apple-macos-26.5-2x-dark-standard            webgpu checkerboard__rrect-md__rest                   0.9510 → 0.9543 (+0.0033)
+  apple-macos-26.5-2x-light-standard           webgpu hc-text__capsule-button__rest                  0.9738 → 0.9839 (+0.0101)
+  apple-macos-26.5-2x-light-standard           webgpu hc-text__capsule-button__rest-tint-orange      0.9892 → 0.9904 (+0.0012)
+  apple-macos-26.5-2x-light-standard           webgpu hc-text__rrect-md__rest                        0.9550 → 0.9648 (+0.0099)

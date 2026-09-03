@@ -407,6 +407,11 @@ project's rule**, in the order they would be worth a wave:
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
 | G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png`; the ω 0.8 A/B measured (claims §5.54, `g2b/`) and landed by eye (Decision Log 6) | LANDED 2026-09-03; ω 0.8 2026-09-03 |
 | G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement complete (`g3/g3-measurement.md`, claims §5.55: one kernel in device px, only the sharp term's weight changes with scale; G2 stands at 2x); the 1x-preserving variant, exclusion refit and SSIM dry run (`g3/` §8); **declared** in claims §5.56; candidate A implemented and refereed (`g3/referee/`, branch `w12-g3-candidate-a`) — **stop 3 tripped**, the 2x texture rows fell, not landed (claims §5.57); the corrected dry run (g3 §9) and the runtime sweep (`g3/referee/sweep/`, claims §5.58): the device-pixel widths put the 2x interior on the reference exactly, any weight shift moves it away, the band is what is left (the depth ramp); **held at `main` by Decision Log 7** — the depth-ramp round is the next body wave and carries the widths, branch `w12-g3-candidate-a` kept as its start | HELD 2026-09-03 (Decision Log 7; refereed, not landed) |
+| X1 | `results/2026-09-03-w12-lens/x1/x1-rebuild.sh`; claims §5.59 §1 — twelve runs at `8b456d6`, GPU rows and captures identical to the ω 0.8 referee bed, CSS captures identical on 114 / 115 (one pixel, one code value, named); the demo fixture re-copied, its spec green | DONE 2026-09-03 |
+| X2 | `adopted-thresholds.test.ts`, §5.27 amended; claims §5.59 §3 — three 2x texture floors ratcheted up 0.010–0.014, none met, the mechanism re-attributed (the ramp); 11 → 11 | DONE 2026-09-03 |
+| X3 | claims §5.59 §2 — eighty GPU cells moved, all the lens, fifteen above 0.005 named; the `hc-text` silhouettes named; solids, impulse and photo unchanged | DONE 2026-09-03 |
+| X5 | `sheets/g1-*`, `g2-dryrun-*`, `g2-*`, `g2b-*`, `g3-*` and the A/B composites; sent at every gate | DONE 2026-09-03 |
+| recomposition | Outcomes & Retrospective; claims §5.59 | RECOMPOSED 2026-09-03 |
 
 ## Decision Log
 
@@ -728,10 +733,97 @@ Log 4) runs first, as the smaller round.
 
 ## Outcomes & Retrospective
 
-(open)
+**RECOMPOSED 2026-09-03 (claims §5.59).** Verified against the
+Parent-Level Acceptance, clause by clause, on the bed as it ships:
+
+1. *The band's displacement field measured, not modelled.* G0's instrument
+   recovered vitrea's own law to 0.35 / 0.33 px at 1x / 2x before any
+   reference number (§5.49 §1); G1 read D(u) per edge, span and scale, the
+   blur order (before, by 3–5× in RMS), the band's σ and transmission by
+   depth, the corner field and the near-contour profile (§5.49 §2–§6), the
+   2x body (§5.49 §7) — and, added as G1c, the reference's own parameters
+   from its layer tree (§5.50). Every reference table carries the
+   instrument's recovery beside it (X4).
+2. *A form declared before the landing capture, fitted at 1x with
+   `rrect-lg` held out, predicted at 2x, refereed under the stops.* §5.51
+   declared one steep power on Apple's span law along an ovalized normal;
+   §5.52 refereed it on the twelve runs: every checkerboard row rose at
+   both scales, no stop fired, the 1x holdout landed within 0.001 of its
+   prediction. The three 2x texture rows rose 0.010–0.014 and still miss
+   0.93: re-pinned with the mechanism named — the body's depth ramp
+   (Decision Log 7), not the lens.
+3. *By eye, at every gate.* Sheets at G1 (the 0.3.0 bed), the G2 dry run,
+   the G2 landing, the ω A/B and G3, each sent to the user's Retina
+   display; the user's readings in Decision Logs 2, 6 and 5 (the lobes and
+   the fold; "ω 0.8 is much more similar to original macOS"; "Apple blurs
+   less through the glass and is more transparent"). ω 0.8 landed by eye
+   against a hair of SSIM — the instrument gap is Deferred, W13 X6 its
+   first form.
+4. *The 2x body measured on every checkerboard cell for both sides and the
+   decision round presented.* §5.49 §7 and §5.55 on the 1x and 2x probes
+   (the 2x probe materialised, §5.53); route (a) chosen (Decision Log 5),
+   the scale-aware body declared (§5.56), refereed and stopped (§5.57),
+   corrected and swept in the renderer (§5.58), and held by the user with
+   the ramp as the next body wave (Decision Log 7).
+5. *Suites green, goldens re-recorded only where a Decision Log names the
+   scene, the canonical matrix rebuilt once, every gap written down.* CI
+   green on `7428134` (build · lint · test 24 packages; the three-engine
+   integration); on the rebuilt bed with the ratcheted floors, `pnpm -r
+   lint` clean and every unit suite green (renderer 357 / 357, platform-web
+   341 / 341, calibration 233 / 233, core 302 / 302, react 97 / 97, motion
+   162 / 162, geometry 149 / 149, policy 23 / 23), the enforcement test
+   27 / 27 and the demo's reference-panel spec 1 / 1 on a real adapter; five goldens re-recorded
+   at the G2 landing (Decision Log 4) and again at ω 0.8 (Decision Log 6),
+   each behind its isolation hash; X1 once (§5.59 §1, deterministic against
+   the referee bed); the gaps in claims §5.55 §3 and §5.58, this Deferred
+   list and W13's charter.
+
+**Outcomes.** Enforced floors 11 → 11 (three ratcheted up). The GPU tier's
+lens is the reference's field: the instrument's D(u) at both scales, the
+corner lobes, the fold, the along-edge stretch (ω 0.8), within 0.9 / 1.3 px
+at 2x. The 1x checkerboard texture rows read 0.943–0.999 where the unit
+opened on 0.929–0.998; the 2x rows 0.911–0.998 where it opened on
+0.901–0.997; `hc-text` up 0.010–0.015. The reference's own parameters are on
+file (the layer dump, §5.50): the lens's two profiles, the quarter-scale
+buffer, the depth ramp, the two-light rim, the bleed, the shadow's law. The
+2x body is understood — one kernel in device pixels, no transmission
+term, the ramp — and deliberately not landed. New instruments: the
+warp-recovery instrument (`w12lib.py`), the harness's `dump-layers`, the
+2x probe bed, the runtime sweep as a fitting instrument.
+
+**Lineage check.** Each child's section is its spec and cites the parent
+by construction. Binding content changed once during the wave, by the
+user: Decision Log 5 overturned W11 Decision Log 4's "fit at 1x, predict
+2x" for the body (recorded there and in the Risks' "nothing 2x-specific
+lands without the user choosing a route" — honoured: nothing landed).
+G1c was added as a child when the layer tree turned out to be readable
+(Tracking Map). X1 executed once at the close with its determinism
+checked; X2 at the close (§5.27 amended, the count beside its section);
+X3 at G2's referee, the ω A/B and the close, the movers named each time;
+X4 on every reference table; X5 at every gate. One piece of advisory
+inheritance was overturned with evidence and recorded on the parent (the
+Fresnel reading of the rim — the dark line is the outer refraction term
+of opposite sign, §5.50 §2, not a transmission collapse).
+
+**Retrospective.** The instrument-first rule paid at every gate: a field
+recovered on a known law before the reference was read is why the fold,
+the corner lobes and the 2x "different object" could be told apart from
+the instrument's own blur, and why the layer dump's numbers could be
+checked against captures instead of believed. The declared stop fired on
+G3 exactly where it was written (the 2x texture rows) and became a
+decision instead of a re-pin — and the wave's largest correction came
+from taking the stop seriously: the paper model of the mip chain's heavy
+tap over-credited it by the amount that turned a right width into a wrong
+weight, and only the renderer-in-the-loop sweep could show it. Carry
+forward: fit in the renderer, never on the paper model alone (W13
+binding); a metric that scores the band where the eye reads it (W13 X6);
+and the reference's own parameters as the first hypothesis, measured, not
+assumed.
 
 ## Revision Notes
 
 - 2026-09-03: opened.
 - 2026-09-03: Decision Log 7 — G3 held at `main`; the depth-ramp round chartered as the
   next body wave in Deferred; the wave moves to recomposition.
+- 2026-09-03: RECOMPOSED (claims §5.59). W13 opened from Decision Log 7
+  (`2026-09-03-w13-body-depth-ramp.md`).
