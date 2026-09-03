@@ -453,6 +453,42 @@ survival in the dark scheme, and the caveat on reading `c` over `photo`.
 The over-fill's appearance in the `0-3` band is §5.62 §6's gap seen by a
 second instrument; the axis carries no guard there by design.
 
+### Decision Log 4 — the CSS tier's added-light term is deferred to the two-layer body (2026-09-03; user-decided)
+
+**Decided (user, 2026-09-03),** answering Decision Log 1's question 2 with its
+option (a): *"defer it. The CSS tier still gets the geometry and the
+backdrop-adaptive black alpha in this wave, which is most of its shadow gap on
+the thin spans and needs no new element. Adding one element per surface is a
+layering decision the two-layer CSS body work should make once, for both
+features, rather than twice."*
+
+**What the sweep then found, which this decision does not settle.** With the
+lift GPU-only as decided, the CSS tier's *thin* cells land where the profile
+says (`light-solid__capsule-button` occlusion 0.0841 against the reference's
+0.0815; `checkerboard__capsule-button` 0.2210 against 0.2192) — the decision's
+premise holds exactly. Its *thick* cells over-darken badly: band `3-6` below
+reads 0.2439 / 0.3058 / 0.3364 at spans 96 / 128 / 160 against the reference's
+0.1925 / 0.2195 / 0.2117, and its exterior was closer to the reference before
+this wave. So the wave's stop S6 misses, and the question the deferral answered
+("does this tier paint the lift?") is not the question that makes it miss.
+
+**The parent's reading of why, pending a check.** The two tiers convert their
+shared peak amplitude into a band reading identically on the thin spans (falloff
+fraction 0.638 on the GPU tier against 0.643 on the CSS tier at span 44) and
+diverge only on the thick ones (0.487 against 0.628 at span 96). The sweep
+attributes that to the missing lift; the parent's arithmetic says the lift is
+about twelve times too small to account for it, because a σ-40 blurred copy of a
+pitch-16 checkerboard is nearly constant across the band and therefore lands in
+the affine pair's intercept rather than its slope. A check against the sweep's
+own points is running. **The declaration does not go out until the cause is
+named**, because the two candidate causes have different fixes: if it is the
+lift, the CSS tier derives its own effective amplitude from the shared profile
+by folding in the term it cannot paint (conversion, not a second constant, which
+is K5's rule and keeps "two tiers, one profile" intact); if it is the GPU tier's
+own thick path — the thin/thick blend resolving below the anchor, the offset
+clamp, or the size fold — then the anchors themselves are fitted against a
+shape error and the GPU tier's numbers move too.
+
 ## Surprises & Discoveries
 
 - **Two terms on one falloff, and W8's lengths are right (G0, claims
@@ -534,6 +570,8 @@ second instrument; the axis carries no guard there by design.
   `Height` overturned by measurement (they are not extents; the falloff is W8's).
 - 2026-09-03: X7 landed (merge `922d3e4`); Decision Log 3 (the pair's written precision and
   coded absence); three Surprises from its baseline; the dark-scheme Deferred item annotated.
+- 2026-09-03: Decision Log 4 — the CSS tier's lift deferred to the two-layer body (user-decided);
+  Decision Log 1's question 2 closed. The sweep's S6 miss is a separate cause, under check.
 - 2026-09-03: G1 built on `w14-g1-shadow`; reviewed; four findings to a fix wave, the goldens
   to G2 (Tracking Map). The reduced-transparency fold changes meaning from a 0.7 multiplier to
   the measured flat amplitude, which retires the implementer's "15% high" note and the

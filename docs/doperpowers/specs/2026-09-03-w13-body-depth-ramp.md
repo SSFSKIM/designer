@@ -525,6 +525,26 @@ there; a flag would hide the reading that says why). Refitting the deep value
 inside this wave (it moves the material's oldest span law under a bed frozen
 for the ramp, and it deserves its own declaration and referee).
 
+### Decision Log 5 — the CSS tier keeps the 1x law for the ramp's mix (2026-09-03; user-decided)
+
+**Decided (user, 2026-09-03),** answering Decision Log 1's question 2: *"keep
+the one-times law. The measurement says this tier's own best single blur radius
+is larger in CSS pixels at two-times, not smaller, so following the device-pixel
+projection would move its rows in the direction the measurement calls wrong. Its
+two-times rows then stay held by decision rather than fitted."*
+
+The user also recorded the implementer's narrower reading of the same answer, as
+what the branch actually does: it keeps the candidate's device-pixel width
+division and fixes only the ramp's mix at scale one. Same conclusion for the
+mix; it does not stand the whole tier down to the 1x material. The branch is
+correct as built and `CSS_TIER_RAMP_SCALE` carries the reasoning at its
+definition.
+
+**What this binds.** The CSS tier's 2x rows are held by decision, not fitted, for
+the ramp's mix — so a later reading that moves them is not a regression against
+this wave. Any future work that makes the CSS tier follow the device scale has to
+overturn the measurement (§5.55 §5) first, not just the constant.
+
 ## Surprises & Discoveries
 
 - **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
@@ -649,6 +669,8 @@ for the ramp, and it deserves its own declaration and referee).
   same branch with a second sweep.
 - 2026-09-03: the first form's branch reviewed; two findings (the CSS projection's extents,
   pyramid invalidation over dpr) folded into the re-form (Tracking Map).
+- 2026-09-03: Decision Log 5 — the CSS tier keeps the 1x law for the ramp's mix (user-decided);
+  Decision Log 1's question 2 closed.
 - 2026-09-03: the second form refuted in the renderer (claims §5.64); Decision Log 4 grades the
   start by `sizeThickness` and refines S4 by scale (a null at 2x, verified by capture); the 2x
   deep value goes to Deferred as its own charter; two Surprises.
