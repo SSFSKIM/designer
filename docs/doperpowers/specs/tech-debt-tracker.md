@@ -354,3 +354,31 @@ and not what the GPU tier does anywhere in particular. The fix is to thread
 that the mix is an average over the surface. Small and self-contained, and a
 documentation gap rather than a fidelity one: nothing the runtime draws is
 affected.
+
+## The CSS tier's reduced-transparency proxy spec is flaky on WebKit in CI
+
+*Found 2026-09-03, watching CI over the W13/W14 wave commits.*
+
+`packages/platform-web/e2e/shared/proxies.spec.ts:203` ("honours reduced
+transparency by frosting harder, and never occluding less") failed on the
+`webkit` project of the `platform-web integration` job on commit `3c76f8a`,
+which changes two specs and no code: `blur(reduced)` read **4.79 against a
+nominal 4.79**, where the assertion wants strictly greater. Both the retry
+inside Playwright and a re-run of the whole job on the same tree passed, and
+the 338 other cases passed throughout; the sibling commits either side
+(`3fb3b7c`, `2c16b2a`) were green.
+
+The mechanism is the one this tracker already names for `packages/react`'s
+motion specs: the case asserts a **computed value at a moment**. It applies the
+override, sleeps 400 ms and reads the style once. The transition is 240 ms
+(`NOMINAL_DURATION_MS`), so the wait is sound when the page is scheduled
+promptly and is not sound when a loaded CI runner starves the frames — the
+reading equal to nominal to the last digit is a transition that had not
+advanced, not a policy that failed to frost.
+
+**The fix shape:** `expect.poll` the blur until it exceeds nominal, with a
+timeout well past the transition, the way the accessibility specs in this same
+suite already do. That converts "the material frosted harder within a bounded
+time" — which is the claim — into the assertion, and stops the wall clock being
+part of the contract. The occlusion assertions below it read a settled value
+and are unaffected.

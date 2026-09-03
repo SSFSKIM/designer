@@ -8948,3 +8948,144 @@ cell against 0.67 KB for the rest of the cell — +0.89 MB per canonical rebuild
 as written +2.04 KB and +0.47 MB; six places is two orders below the raster's linear quantum and
 below this section's instrument noise. The pooled `all` direction and the band edges stay.
 Recorded, not bounded, until G2.
+
+### 5.63 W13 G1, first form: a start and a reach cannot carry the span law — the ramp re-declared with the retired size law underneath it (2026-09-03)
+
+(The sweep worker's findings, recorded as found; the parent's decision on the form at the end.)
+
+**Claim.** The ramp as first declared — sharp share `s(u) = clamp(s₀ − u/reach)` in depth `u`, one
+start and one reach per scale, the size law's `sizeScatterFloor` + `sizeScatterSpanMax` smoothstep
+retired and the span law taken as the ramp's own closed-form area average — was fitted **in the
+renderer** on branch `w13-g1-ramp` over 81 points (43 at 1x, 38 at 2x; the branch built first so
+the captures carry its shader), scored on the interior objective, on `interiorStdDev` against the
+fixture's native value, and on X6's band rows against the W12 close bed
+(`results/2026-09-03-w13-ramp/g1/sweep/g1-sweep.md`, `README.md`, six `.out` files, the base and
+chosen profiles, `matrix-confirm.json`; commit `3fb3b7c`). **It cannot reach the wave's stops at any
+point at either scale.** S4 (`ssimBand` rises on every checkerboard cell) fails at all 81 points; S3
+(2x `interiorStdDev` within 0.005 of the reference on the five spans) has a best departure of
+0.0151, three times the tolerance; S2 (the three held 2x texture rows above their floors) fails
+everywhere, best −0.0057 on `rrect-ml`; S1 (no 1x row down by more than 0.002) is met at exactly
+three 1x points. S5's first clause is met outright — every solid, impulse, tinted and photo cell
+moves by 0.0001 or less — and `ssimOutside` is not a clean null: up to 0.0029 on five light-scheme
+cells, above S5's 0.001, small and one-sided.
+
+**1. The mechanism, and it is the form.** The ramp's projection onto one number per surface — the
+closed-form area mean the branch computes for the CSS tier — runs from **0.43 to 0.56** across the
+bed at 1x and 0.52 to 0.75 at 2x, where the retired law `k = 0.4 + 0.6 · smoothstep(32, 256, span)`
+runs from **0.41 to 1.00** (`rrect-sm` 0.433 / 0.433, `capsule-button` 0.605 / 0.448, `rrect-md`
+0.764 / 0.496, `rrect-ml` 0.967 / 0.530, `rrect-lg` 1.000 / 0.562 — retired law / ramp at the
+chosen 1x constants). The ramp is nearly span-flat where the bed is strongly span-graded: the
+small spans, which the retired law left too heavy, improve and want a high start; the large spans
+become far too sharp and want a low one; every cell can be raised alone and never together, because
+the family has no parameter that grades with span faster than the perimeter integral allows. On the
+largest span it shows plainly: `checkerboard__rrect-lg` at 1x reads `interiorStdDev` 0.0938 against
+the reference's 0.0650, where the W12 close read 0.0540 — the ramp overshoots by more than the W12
+close undershot. At 2x the ramp also spends the interior the device-pixel widths won: §5.58 §2's
+widths-only reading is still the best 2x `interiorStdDev` on record and every ramp point is worse.
+None of this contradicts §5.61's measurement of a real ramp; it says a ramp with a start, a reach
+and nothing else cannot carry the band and the span law at once.
+
+**2. The best the four can do, for the record.** `sizeScatterRampStart1x` 0.60, `…Start2x` 0.55,
+`…Reach1xPx` 200, `…Reach2xPx` 200 device px. The interior objective's winner (0.80, 80 at 1x;
+0.65, 200 at 2x) and the band's winner disagree, and the objective is blind to the band, which is
+why X6 exists. The two reaches are equal in device pixels but only weakly so: the band is flat in
+the reach above ≈ 200 device px (0.0004 over a factor of two at 1x), so the equality is permitted
+by the data rather than picked out by it; neither optimum is near G0's 100–110 device px. The
+confirmation run at those constants (1x and 2x, light and dark, calibration + validation + holdout,
+read once): holdout `checkerboard__rrect-lg` 0.9347 at 1x (−0.0081) and **0.8890** at 2x (−0.0222,
+below its ratcheted floor 0.9102); `glass-over-glass` 0.9516 (−0.0005) and **0.9111** (−0.0101,
+below 0.9201) — the two largest surfaces on the bed are the two the weak span law hurts most, and
+both are holdout, so the calibration set understates the cost. Nearly every dark row rises, but the
+dark bed has no large checkerboard span and does not test the span law where the light bed fails.
+
+**3. The parent's decision: the form is re-declared, not the constants (W13 Decision Log 3).** The
+data asks for what W13's Design already listed as a candidate and G0 wrote as its H2: **a ramp with
+a floor**, where the floor is the retired span law itself. The deep value keeps the span-graded
+heavy share — `kDeep(span) = sizeScatterFloor + (1 − sizeScatterFloor) · smoothstep(sizeSpanMin,
+sizeScatterSpanMax, span)`, exactly the law the first form retired — and the ramp is the
+near-contour excursion above it, `s(u) = sDeep + max(0, s₀ − sDeep) · max(0, 1 − u/reach)`, with
+the reach now where the excursion vanishes into the deep value. A new span-flat floor constant was
+rejected for the reason the first form failed; declaring the first form as-is was rejected because
+it meets none of S2–S4. Provisional constants for the second sweep: start 0.65 / 0.40, reach 200 /
+200 device px; `sizeScatterSpanMax` returns to both profile documents. The second fit and its
+confirmation land under `results/2026-09-03-w13-ramp/g1/sweep-2/`; the declaration's twelve-row
+prediction is written from it.
+
+### 5.64 W13 G1, second form: the ramp's start must grade with span, and the 2x gap is in the deep value and not in the ramp (2026-09-03)
+
+(The sweep worker's findings, recorded as found; the parent's decision on the third form at the end.)
+
+**Claim.** The re-formed ramp — the retired span law restored as the deep value, the ramp reduced to
+a near-contour excursion above it (§5.63 §3) — was implemented on both tiers (branch `w13-g1-ramp`
+`2752301`, both review findings in the same commit) and swept in the renderer at 68 points, 32 at 1x
+and 36 at 2x, with a 6-point refinement
+(`results/2026-09-03-w13-ramp/g1/sweep-2/`, commit `7bf6b22` with the provenance note in its
+README). **It fails, for a reason the grid measures rather than argues, and the failure locates the
+2x gap somewhere the ramp cannot reach.** No confirmation run was spent: the holdout read is once per
+frozen configuration and no configuration here was worth landing.
+
+**1. The span the law reads, corrected beside §5.63 §1.** `root.ts` passes
+`Math.min(bounds.width, bounds.height)`, so the bed's spans are 32 / 44 / 44 / 96 / 128 / 130 / 160
+CSS px, not the larger dimension §5.63 §1's table quoted (64 / 120 / 44 / 160 / 224 / 280); that
+table's mechanism argument survives with different numbers and is left as recorded with this
+correction beside it. On the real spans the deep sharp share `sDeep = 1 − kDeep(span)` is **0.600**
+(`rrect-sm`), 0.595 (`capsule-button`, `toolbar-group`), 0.481 (`rrect-md`), 0.364 (`rrect-ml`),
+0.356 (`glass-over-glass`), 0.236 (`rrect-lg`).
+
+**2. At 1x the two requirements are disjoint, measured.** The excursion is
+`max(0, s₀ − sDeep(span))`, so a start at or below 0.600 leaves `rrect-sm` — whose span is exactly
+`sizeSpanMin`, where the restored curve sits at the floor — **bit-identical**, and with it the
+capsule and the toolbar group: three of five calibration cells report +0.0000 at every reach. From
+the other side the refinement reads `rrect-ml`'s band at **+0.0007 at start 0.575 and −0.0027 at
+0.61** (reach 50), so its zero crossing is near **0.583**, which is 0.017 *below* the 0.600 the
+smallest cell needs. The reach cannot bridge them: it sets how much of a surface the excursion
+covers, never which surfaces it touches. S1 is met at several points (best −0.0006 at start 0.61,
+reach 50); **S4 is met at no point at either scale.**
+
+**3. At 2x the ramp cannot raise anything at all.** The configuration where the excursion is inert
+on every calibration cell is **simultaneously the maximum `ssimBand` on all five** — `rrect-sm`
+0.9663, `capsule-button` 0.8879, `rrect-md` 0.9163, `rrect-ml` 0.9205, `toolbar-group` 0.7476 — and
+none of the 36 points beats it anywhere; every start that touches a cell moves it down, by −0.0047
+on `rrect-ml` at start 0.45 and −0.1039 at 0.75. Twelve points at starts 0.25 and 0.35 report
+identical numbers to four decimals across every reach, which is the signature of an excursion
+clamped to zero. That same inert configuration carries the best interior on record and reproduces
+§5.58 §2 cell for cell (`rrect-sm` 0.1647 against native 0.1636, `capsule-button` 0.1500 against
+0.1552, `rrect-md` 0.1260 against 0.1272, `rrect-ml` 0.1029 against 0.1018, `toolbar-group` 0.1510
+against 0.1581; three of five inside S3's 0.005, the capsule short by 0.0002 and the toolbar by
+0.0021). Every acting point degrades it monotonically, the worst gap growing from 0.0071 to 0.0628.
+
+**4. Why, from G0 rather than from the grid.** Setting G0's start readings (§5.61 §1) against the
+code's `sDeep(span)` gives the excursion the reference implies, per cell:
+
+| cell | span | `sDeep` | G0 start 1x | implied 1x | G0 start 2x | implied 2x |
+| --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 0.600 | 0.637 | **+0.037** | 0.483 | **−0.117** |
+| `capsule-button` | 44 | 0.595 | 0.642 | **+0.047** | 0.437 | **−0.158** |
+| `rrect-md` | 96 | 0.481 | 0.512 | **+0.031** | 0.192 | **−0.289** |
+| `rrect-ml` | 128 | 0.364 | 0.501 | **+0.137** | 0.179 | **−0.185** |
+| `rrect-lg` | 160 | 0.236 | 0.410 | **+0.174** | 0.141 | **−0.095** |
+
+**Every 1x excursion is positive and every 2x excursion is negative.** At 2x the reference's sharp
+share at the contour lies on the *heavy* side of vitrea's deep value at every cell, so the only
+correction an upward excursion can make there has the wrong sign — the grid's result is this table,
+not an unlucky neighbourhood. **The 2x gap is a deep-value gap.** Fitting G0's 2x contour readings
+as a deep curve directly returns floor **0.530**, knee **112** and a ceiling of **0.840** rather than
+1, at residual RMS 0.0148; pinning the ceiling at 1 and moving only floor and knee fits four times
+worse (RMS 0.0612). So 2x wants a floor about 0.13 higher, a knee less than half as far out, and a
+top that saturates below full heaviness — three changes to the span law, one of which the current
+form has no name for.
+
+**5. The parent's decision: the start grades with span, and 2x is left to its own round (W13
+Decision Log 4).** The third form keeps everything above and makes the start what G0 measured it to
+be — graded by the material's own thin/thick curve, `s₀(span) = startThin + (startThick − startThin)
+· sizeThickness(span)`, the same knee at 64 the tone response and the outer shadow already blend
+across, so no new span statistic enters. Six constants; provisional 1x thin 0.64 / thick 0.52 /
+reach 120 device px (0.52 rather than the paper section's 0.47, which sat 0.011 *below*
+`rrect-md`'s deep value and would have left that one cell inert; 0.52 is G0's own reading there),
+2x thin 0.46 / thick 0.17 / reach 100. At those 2x values **the excursion clamps to zero on every
+cell of this bed**, which is the law evaluating to nothing where the reference is heavier than the
+deep value, not a disabled facet — so the wave's 2x stop becomes a **null** (every 2x row unchanged
+from the branch's pre-ramp state, verified by capture and not assumed) and S2 and S3 are met at 2x
+exactly as the device-pixel widths already meet them. The deep-value fit above leaves this wave as
+its own charter.
+
