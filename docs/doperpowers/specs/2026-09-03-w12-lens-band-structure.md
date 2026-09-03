@@ -311,6 +311,32 @@ G1 measures them); a 2x constant set (W11 Decision Log 4 stands until G3).
 will say whether the band's loss fell; the user's display says whether the
 material reads as glass.
 
+### Decision Log 2 — the G1 sheet read by the user; G2 kept; the 2x probe started (2026-09-03; user-decided)
+
+**Evidence.** The G1 by-eye sheets (`results/2026-09-03-w12-lens/sheets/g1-{2x,1x}.png`)
+and the G1 findings on corners, the near-contour profile, the small spans,
+the 2x body and the depth ramp (claims §5.49 when written). The user's
+reading, in their words: "Apple's definitely look more subtle and refined.
+Apple's sort of look like cloudy glass, while ours look way too glassy …
+our vitrea GPU tier is quite close to Apple's with just a final optic
+physics for 3D edges not being there" — the "too glassy" panel being the
+sheet's third column, the signed difference, which the caption had not made
+unmistakable; the middle column (ours) is the restrained one at the edge
+and the milkier one in the 2x interior. On the two real panels the user's
+core statement holds: close except the edge optics, and "too gooey?" for
+what the edge shows.
+
+**Decided (user, 2026-09-03): keep G2** — the edge form proceeds as
+chartered, fitted to the reference's own band with the stops and the sheet
+as the guard against over-glass. The 2x probe capture (G3 route (a)) is
+started in the background on the session's recommendation, under the W9
+probe's guards, fixtures to scratch; it commits nothing and decides
+nothing — it gives G3 numbers.
+
+**Sheet caption rule (from this reading):** every sheet names its columns
+on the image and says in the caption that the third is a difference map,
+not a render.
+
 ## Surprises & Discoveries
 
 - (2026-09-03, research pass) The private filter's API has two refraction
