@@ -1,0 +1,33 @@
+  DEVIATION +0.00022 ssimOutside light-solid__rrect-md__rest @ apple-macos-26.5-2x-light-standard / css against css-bed: 0.95528 vs 0.95506
+GPU tier, four standard profiles: 98 cells against the confirmation, worst |Δ| 0.000000
+CSS tier: 115 cells against the W13 bed, worst |Δ| 0.000223
+GPU captures byte-identical to the confirmation: 98 / 98
+1x GPU captures byte-identical to the W13 bed: 66 / 66
+
+accessibility profiles, GPU tier (17 cells), against the W13 bed:
+  increased-contrast     checkerboard__capsule-button__rest           ssimMean +0.0000 band +0.0000
+  increased-contrast     checkerboard__capsule-button__rest-tint-orange ssimMean +0.0000 band +0.0000
+  increased-contrast     checkerboard__rrect-md__rest                 ssimMean +0.0000 band +0.0000
+  increased-contrast     hc-text__capsule-button__rest                ssimMean +0.0000 band +0.0000
+  increased-contrast     photo__capsule-button__rest                  ssimMean +0.0000 band +0.0000
+  increased-contrast     photo__capsule-button__rest-tint-orange      ssimMean +0.0000 band +0.0000
+  increased-contrast     photo__rrect-lg__rest                        ssimMean +0.0000 band +0.0000
+  increased-contrast     photo__rrect-md__rest                        ssimMean +0.0000 band +0.0000
+  increased-contrast     photo__toolbar-group__rest                   ssimMean +0.0000 band +0.0000
+  reduced-transparency   checkerboard__capsule-button__rest           ssimMean +0.0000 band +0.0000
+  reduced-transparency   checkerboard__rrect-md__rest                 ssimMean +0.0000 band +0.0000
+  reduced-transparency   hc-text__capsule-button__rest                ssimMean +0.0000 band +0.0000
+  reduced-transparency   photo__capsule-button__rest                  ssimMean +0.0000 band +0.0000
+  reduced-transparency   photo__capsule-button__rest-tint-orange      ssimMean +0.0000 band +0.0000
+  reduced-transparency   photo__rrect-lg__rest                        ssimMean +0.0000 band +0.0000
+  reduced-transparency   photo__rrect-md__rest                        ssimMean +0.0000 band +0.0000
+  reduced-transparency   photo__toolbar-group__rest                   ssimMean +0.0000 band +0.0000
+
+the twelve rows — ssimMean, GPU tier, checkerboard (canonical):
+  rrect-sm           1x 0.9990  2x 0.9988
+  capsule-button     1x 0.9856  2x 0.9860
+  rrect-md           1x 0.9862  2x 0.9903
+  rrect-ml           1x 0.9797  2x 0.9860
+  glass-over-glass   1x 0.9823  2x 0.9843
+  rrect-lg           1x 0.9743  2x 0.9762
+  toolbar-group      1x 0.9642  2x 0.9666

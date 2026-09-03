@@ -462,7 +462,40 @@ const W15_HASHES: Readonly<Record<string, string>> = {
   "body-ramp-1x": "084480a056aab58bd1ec90d4e5d98b8d",
 };
 
+/**
+ * Six hashes after W15 G2, the 2x body (2026-09-04; claims §5.70 §8) — and the
+ * one 1x pin above holding, which is the point of the table.
+ *
+ * At device pixel ratio 2 the body's widths became device-pixel quantities, the
+ * deep value went fully heavy and the depth ramp became the whole body above
+ * it. Every golden scene but `body-ramp-1x` renders at ratio 2, so every one
+ * that has backdrop structure under its surface moves by design. The named
+ * profile declines the tint and the outer shadow and touches nothing of the
+ * body, so the body change reaches the declined renders as well as the
+ * defaults. **Attributed by measurement** (`results/2026-09-04-w15-body-2x/g2/
+ * attribution.txt`, `attribute-goldens.py`): the declined and default renders
+ * of every scene were read back from the pre-merge tree (`c9edbb0`) and the
+ * landed one and diffed pixel for pixel. `body-ramp-1x`: 0 of 24 000 pixels.
+ * The four scenes with no structure to blur — `field-mask` (no backdrop), the
+ * two flat tint adaptations, `highlight-press-glow` — 0 of 96 000 each. The six
+ * that move, all inside their surfaces, alpha untouched: `refraction-checkerboard`
+ * 27 413 px by up to 10 codes, `placed-checkerboard` 30 502 by 19,
+ * `lens-size-scaling` 25 610 by 17 (the checkerboard bodies: a narrower, deeper
+ * body); `rim-two-references` 3 118, `concentric-nesting` 1 299, `union-pair`
+ * 514, each by exactly 1 code (the flat backdrops: the heavy tap's level moved
+ * and resamples a code apart). Nothing else moved anywhere.
+ */
+const W15_G2_HASHES: Readonly<Record<string, string>> = {
+  "refraction-checkerboard": "ef1a44c45b42abf0a927adf6d53a418e",
+  "placed-checkerboard": "8fff9f59c9d59591208e9062212decc0",
+  "lens-size-scaling": "01a333c953c2cbc3fa16ed597bbaffd5",
+  "rim-two-references": "fd7836b6f82749ea9d908a6fd57e26bf",
+  "concentric-nesting": "0e053b06bde1449b72c09838b7da0d45",
+  "union-pair": "25ca33c47abd68cc27358ab9e4e24eb4",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W15_G2_HASHES[name] ??
   W15_HASHES[name] ??
   W14_HASHES[name] ??
   W12_G2B_HASHES[name] ??

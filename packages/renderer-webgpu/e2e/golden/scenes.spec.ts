@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "7980eed23df12794a7608b12a4d66a48";
+const PLACED_CHECKERBOARD_COVER_HASH = "a0cd4e7b1b08ffeeb4ec341fcb060e27";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -166,6 +166,20 @@ const PLACED_CHECKERBOARD_COVER_HASH = "7980eed23df12794a7608b12a4d66a48";
  * and the cover-fit render casts that shadow like the placed one does. The
  * attribution is the isolation proof's `W14_HASHES` and the goldens regenerated
  * behind it; this constant still says only that the two fits differ by the fit.
+ *
+ * And at W15 G2 (claims §5.70 §8; `7980eed23df12794a7608b12a4d66a48` → the value
+ * below): the 2x body took its second scale — the widths in device pixels, the
+ * deep value fully heavy, the ramp the whole body above it — and this scene
+ * renders at ratio 2, so the cover-fit render's body moved like the placed
+ * one's. The attribution is `W15_G2_HASHES` and `results/2026-09-04-w15-body-2x/
+ * g2/attribution.txt` (30 502 of 96 000 pixels by up to 19 codes on the placed
+ * render, inside the surface, alpha untouched). The same landing lowered the
+ * "different pictures" bound below from 24 to 16 codes: a deeper 2x body blurs
+ * the stretched squares and the 8 px squares more alike deep inside the surface,
+ * and the two fits now differ by 22 codes at most (0.147 of the pixels beyond 8)
+ * where they differed by more than 24 before. The bound's job is to say the two
+ * renders are not the same picture, which 22 codes on a seventh of the pixels
+ * does; the hash below is what says the cover render is exactly the record.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {
@@ -190,7 +204,7 @@ test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", (
     // and clamps past the texture's edge; the cover render stretched the same
     // 96 texels over 200×120 CSS px.
     const difference = compare(placed, cover, 8);
-    expect(difference.maxChannelDelta).toBeGreaterThan(24);
+    expect(difference.maxChannelDelta).toBeGreaterThan(16);
     expect(difference.outlierFraction).toBeGreaterThan(0.05);
 
     // And the cover render is exactly the render the golden replaced, so the
