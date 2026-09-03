@@ -1,0 +1,40 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=20    0.05125   0.01560  0.00827  0.02738   0.00302  0.00627  0.9855  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=30    0.05153   0.01554  0.00862  0.02737   0.00302  0.00626  0.9855  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=30    0.05156   0.01564  0.00928  0.02664   0.00302  0.00622  0.9857  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=20    0.05166   0.01562  0.00950  0.02653   0.00302  0.00624  0.9857  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=50    0.05204   0.01565  0.00979  0.02660   0.00302  0.00624  0.9857  19  20
+sizeScatterRampStart1x=0.55 sizeScatterRampReach1xPx=30    0.05229   0.01566  0.01061  0.02602   0.00302  0.00620  0.9858  19  20
+sizeScatterRampStart1x=0.55 sizeScatterRampReach1xPx=20    0.05241   0.01567  0.01071  0.02603   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStart1x=0.55 sizeScatterRampReach1xPx=50    0.05254   0.01566  0.01076  0.02612   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=80    0.05256   0.01559  0.01040  0.02658   0.00302  0.00632  0.9855  19  20
+sizeScatterRampStart1x=0.55 sizeScatterRampReach1xPx=80    0.05258   0.01564  0.01094  0.02599   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=50    0.05264   0.01560  0.00969  0.02735   0.00302  0.00633  0.9854  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=20    0.05264   0.01556  0.00906  0.02803   0.00302  0.00631  0.9852  19  20
+sizeScatterRampStart1x=0.55 sizeScatterRampReach1xPx=100    0.05272   0.01565  0.01102  0.02606   0.00302  0.00625  0.9857  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=100    0.05274   0.01558  0.01060  0.02656   0.00302  0.00635  0.9854  19  20
+sizeScatterRampStart1x=0.55 sizeScatterRampReach1xPx=200    0.05288   0.01564  0.01121  0.02602   0.00302  0.00628  0.9856  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=150    0.05309   0.01558  0.01091  0.02660   0.00302  0.00639  0.9852  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=200    0.05321   0.01557  0.01107  0.02656   0.00302  0.00641  0.9850  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=300    0.05329   0.01556  0.01122  0.02651   0.00302  0.00644  0.9850  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=80    0.05396   0.01559  0.01097  0.02740   0.00302  0.00645  0.9850  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=100    0.05438   0.01558  0.01141  0.02739   0.00302  0.00650  0.9847  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=30    0.05459   0.01554  0.01099  0.02805   0.00302  0.00632  0.9852  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=150    0.05487   0.01555  0.01200  0.02732   0.00302  0.00657  0.9844  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=200    0.05508   0.01553  0.01229  0.02726   0.00302  0.00660  0.9842  19  20
+sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=300    0.05527   0.01548  0.01255  0.02723   0.00302  0.00663  0.9840  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=50    0.05687   0.01552  0.01327  0.02808   0.00302  0.00643  0.9849  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=80    0.05862   0.01554  0.01504  0.02805   0.00302  0.00661  0.9842  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=100    0.05929   0.01553  0.01563  0.02814   0.00302  0.00667  0.9839  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=150    0.06008   0.01551  0.01645  0.02812   0.00302  0.00677  0.9834  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=200    0.06040   0.01548  0.01686  0.02806   0.00302  0.00681  0.9831  19  20
+sizeScatterRampStart1x=0.85 sizeScatterRampReach1xPx=300    0.06082   0.01548  0.01731  0.02803   0.00302  0.00686  0.9828  19  20
+
+best: sizeScatterRampStart1x=0.75 sizeScatterRampReach1xPx=20  interior 0.05125
+spread across the grid: 0.05125 … 0.06082 (1.19×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.
