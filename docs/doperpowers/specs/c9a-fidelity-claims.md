@@ -7145,3 +7145,43 @@ place that relation is checked, and it is checked by a test now.
 unsampled layer; a box that distorts its source honours the width's density
 only; a video's placement is its element's box like any other (declared
 placement covers the rest). See the tech-debt tracker.
+
+### 5.48 The gap the eye sees at 2x: the rim's curvature, the sharper centre, the haze (2026-09-03, recorded as future work)
+
+Read by eye during the 0.3.0 release chain, after §5.46 and §5.47 had removed
+the two defects that made the demo look worse than the bed, and prompted by the
+user's own comparison on a Retina display. Two pairs, same scene and commit:
+
+```
+packages/calibration/web-captures/apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+apps/reference-apple/fixtures/apple-macos-26.5-2x-light-standard/checkerboard__rrect-md__rest.png
+packages/calibration/web-captures/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/checkerboard__rrect-md__rest__webgpu.png
+apps/reference-apple/fixtures/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest.png
+```
+
+**What the eye sees, and the metric does not.** The reference's rim is a wide,
+curved refraction band: the checker cells bend and stretch *along* the edge, the
+band carries a bright curved highlight on two sides, and the interior's centre is
+sharper and more transparent than ours, with the haze lighter. Ours is a plain
+blur with a thin, faint rim and a small inward shift, hazier and whiter. The
+recorded cells score `ssimMean` 0.9538 (1x) and 0.9389 (2x) on this pair,
+because the band is a small share of the area and a blurred interior scores
+well; the 2x floor on this row was held by decision at W11c (§5.42) for the same
+reason the eye now names — the 2x reference is a different object.
+
+**Why W11c did not see it.** §5.43 measured the band per depth shell as an
+*inward radial* source displacement and found the reference's shell means on
+vitrea's own (1 − depth)² profile at 1.6×. A radial-only model per shell cannot
+express tangential bending, anisotropic magnification, or a curved bevel of real
+thickness; it fitted the mean of the band and left its shape. Thickness itself
+is implemented (`thickness` → lens depth × size gain, up to 2.6×), so the
+mechanism exists and its shape is what is too simple.
+
+**The work this records** (the recommended next opener, ahead of the two-layer
+CSS body): a 2x lens study that measures the displacement and magnification
+*field* from the checkerboard cell by cell — normal and tangential components as
+functions of depth and of position along the edge — fits an edge profile with
+thickness (a curved bevel, not a single-depth quadratic), and re-measures where
+the blur and the haze sit between centre and rim. Referee by eye as well as by
+number: put the capture beside the fixture at 2x.
+
