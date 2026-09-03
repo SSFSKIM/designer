@@ -1,5 +1,12 @@
 # @vitreajs/vitrea
 
+## 0.5.0
+
+Version-locked with `@vitreajs/vitrea-web` 0.5.0 and `@vitreajs/vitrea-react` 0.5.0; no
+change in this package. The material law that moved in 0.5.0 — the glass body's second
+scale, fitted on Apple's 2x captures — lives in the browser host and its bundled renderer;
+see `@vitreajs/vitrea-web`'s changelog.
+
 ## 0.4.0
 
 Version-locked with `@vitreajs/vitrea-web` 0.4.0 and `@vitreajs/vitrea-react` 0.4.0; no
