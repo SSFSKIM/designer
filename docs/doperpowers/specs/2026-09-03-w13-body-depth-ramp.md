@@ -357,7 +357,7 @@ close before G2 implements; nothing on it lands before G2's referee.
   colour with its alpha and span law in the shadow pass in place of the
   multiply, both tiers; `ssimOutside` and the solids' level rows as the
   instrument; the three 2x texture rows' 0.93 bound as the target it can
-  reach and W13 cannot.
+  reach and W13 cannot. **Chartered as W14 (Decision Log 2, 2026-09-03).**
 - The CSS tier's depth ramp through a two-layer body with an inset mask —
   the two-layer CSS body charter (W11 Decision Log 5) extended; measured
   feasibility is a spike of its own.
@@ -425,6 +425,22 @@ term. It costs G0 one more table.
 Held for the user beyond this gate: the by-eye reading at G1's dry run and
 the landing call at G2.
 
+### Decision Log 2 — the outer shadow's wave chartered beside this one (2026-09-03; user-decided)
+
+**Evidence.** Surprises (X6's baseline): the exterior owns 52–67% of the
+GPU tier's whole-crop deficit on the four large checkerboard cells at 1x
+and 69–76% at 2x, through the reference's shadow lifting the blacks; the
+light-solid capsule's shadow at 2.4× the reference's; claims §5.60.
+
+**Decided (user, 2026-09-03):** "charter the outer shadow's wave next, and
+run its measurement in parallel with W13." W14
+(`2026-09-03-w14-outer-shadow-colour.md`) is chartered from this wave's
+Deferred entry, its G0 dispatched at the charter; the two waves share the
+X6 rows (`ssimOutside` is W14's primary row and W13's null) and coordinate
+their landings under W14's X8 — each referees on `main` as it stands, the
+second to land re-runs its dry run on the first's bed. Nothing in this
+wave's cut or stops changes; S2 stays the stop and 0.93 is W14's.
+
 ## Surprises & Discoveries
 
 - **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
@@ -472,3 +488,5 @@ the landing call at G2.
 - 2026-09-03: opened from W12 Decision Log 7.
 - 2026-09-03: X6 gains `ssimOutside` after the baseline's first reading; S5 and the Risks
   carry the outer shadow; the shadow's wave chartered in Deferred (Surprises).
+- 2026-09-03: Decision Log 2 — W14 chartered beside this wave (user-decided); X8 in W14
+  orders the two landings.
