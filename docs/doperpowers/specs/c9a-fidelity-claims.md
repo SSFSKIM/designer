@@ -8658,3 +8658,126 @@ alpha by distance, side and span on the solids, the checkerboard and
 the shadow pass in place of the multiply on both tiers; `ssimOutside` and
 the solids' level rows as its instrument. It closes the user's shadow gap
 and 52–76% of the large checkerboard cells' whole-crop deficit at once.
+
+### 5.61 W13 G0: the reference's sharp share ramps in depth, the ramp's reach is a length and not a fraction of the span, and the dot gap is not the body (2026-09-03)
+
+The measurement W13's charter opened with, run on the two committed probe beds by an
+instrument first proven on vitrea's own captures. W12 G0's warp-recovery model with the lens
+**pinned** at `main`'s landed law (W12 G2's power form, ω 0.8) and the body's mix free per
+4 CSS px depth window; the model is bilinear at fixed widths and is solved by alternating
+least squares, no optimiser and no penalty. Nothing here is a capture or a fit into the
+product; the document, JSON and scripts are `results/2026-09-03-w13-ramp/g0/`
+(the measurement worker's findings, recorded here as written; the resolved
+state of §4's cell was read by the parent after: `samplingBackend`
+`gpu-texture`, `analysis` `exact`, `health` `ok` — the group sampled, and the
+flat interior at the plate's own mean is the material's dark-regime response
+(W9) closing the thin surface over a near-black backdrop, not a sampling fault).
+
+#### 1. The instrument, and what it recovered from a known law (contract X4)
+
+| acceptance | result |
+| --- | --- |
+| the analytic plate against the committed raster, 140 line sets, both scales | **0.00000000** |
+| the estimator on a synthetic known k(u), pitches 16/32/64 (the reference's configuration) | **0.003** flat, **0.007** ramped |
+| the same at one pitch (vitrea's canonical bed) | 0.26 flat, 0.37 ramped — **not identified** |
+| vitrea `main`, flatness of k(u) over 4 ≤ u ≤ span/2 − 4, four spans × two scales | **0.012–0.046** |
+| the same over a 30-point grid of assumed widths | 0.009–0.106 |
+| vitrea `main`, level of k: `rrect-md` 1x / 2x | **+0.002 / +0.008** |
+| the same, `capsule` / `rrect-ml` / `rrect-lg` (with `photo` pooled) | +0.11 / −0.07 / −0.09 |
+| the candidate at `sizeScatterScaleTerm` 0.35, 2x, flatness | **0.024–0.031** |
+
+The level's miss is one mechanism, measured: at one spatial frequency the transmission and a
+uniform shift of the share trade against each other (the σ-10 heavy component keeps 0.15 of
+the pitch-16 fundamental against the sharp term's 0.97, and the σ-5 one at the candidate's
+device-pixel widths keeps 0.62). **The shape of k(u) is identified and its level is not,
+wherever only one pitch is available.** Every reference reading below pools three.
+
+#### 2. The reference's sharp share by depth
+
+s(u) = 1 − k(u) per 4 CSS px window, pitches 16 / 32 / 64, the widths of §5.55 §1. First and
+last validated window (4 ≤ u ≤ span/2 − 4), the peak, and where a straight line through the
+windows crosses zero:
+
+| cell | s at the first window | peak s (u) | s at the last window (u) | reach, CSS px | reach ÷ (span/2) |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-sm` 1x | 0.621 (u 6) | 0.621 | 0.600 (u 10) | — | — |
+| `capsule-button` 1x | 0.642 | 0.642 (10) | 0.629 (14) | 416 | 18.9 |
+| `rrect-md` 1x | 0.512 | 0.590 (10) | 0.409 (42) | 144 | 2.99 |
+| `rrect-ml` 1x | 0.501 | 0.575 (10) | 0.288 (58) | 115 | 1.79 |
+| `rrect-lg` 1x | 0.410 | 0.471 (18) | 0.150 (74) | 108 | 1.35 |
+| `rrect-sm` 2x | 0.474 (u 6) | 0.474 | 0.439 (u 10) | — | — |
+| `capsule-button` 2x | 0.437 | 0.437 (6) | 0.430 (14) | 484 | 22.0 |
+| `rrect-md` 2x | 0.192 | 0.307 (10) | 0.075 (42) | 59 | 1.23 |
+| `rrect-ml` 2x | 0.179 | 0.243 (10) | −0.143 (58) | 41 | 0.64 |
+| `rrect-lg` 2x | 0.141 | 0.347 (18) | −0.247 (74) | 39 | 0.49 |
+
+Scored against the layer tree's own ramp and against a free one (RMS in units of s over the
+validated windows):
+
+| | `capsule` | `rrect-md` | `rrect-ml` | `rrect-lg` | shared over the four |
+| --- | --- | --- | --- | --- | --- |
+| **H1** s = 0.5·max(0, 1 − u/(span/2)), 1x | 0.372 | 0.272 | 0.192 | **0.094** | — |
+| **H2** s = s₀·max(0, 1 − u/(ρ·span/2)) + floor, 1x per span | 0.003 | 0.031 | 0.023 | 0.030 | **0.093** (s₀ 0.559, ρ 1.650, floor 0.035) |
+| **H1**, 2x | 0.170 | **0.093** | 0.188 | 0.287 | — |
+| **H2**, 2x per span | 0.010 | 0.038 | 0.038 | 0.099 | **0.141** (s₀ 0.584, ρ 0.976, floor −0.200) |
+
+**The ramp is real and large; §5.50 §2's opacity inputs are not its pixel law.** H1 is right
+on one cell per scale and wrong by 0.17–0.37 on the rest. H2's reach is 1.65 half-spans at 1x
+and 0.98 at 2x, and the per-span reaches in absolute depth (108 / 115 / 144 CSS px at 1x on
+lg / ml / md) spread by 1.3× where the relative ones spread by 2.2× — **the reach reads as a
+length, not as a fraction of the span**. §5.55 §2's amplitudes are reproduced where they
+overlap (`rrect-lg` 1x 0.186 → 0.050 against 0.169 → 0.040; `rrect-md` 2x 0.107 → 0.019
+against 0.094 → 0.000); what is new is the band, 4 ≤ u < 20, where s rises to a peak and
+where at 2x it is 0.14–0.19 rather than the 0.5 the layer tree would put there.
+
+**Open, and it sits under the 2x floor.** On `rrect-ml` and `-lg` at 2x the free fit answers
+with negative sharp shares (−0.17, −0.45), which a mix cannot have; bounding k to [0, 1]
+costs 4–10% of RMS and puts s at exactly 0 at the centre. The reason is the base width: by
+RMS the windowed fit prefers σ 9 device px there, the layer tree's radius law says 16, and the
+deep-interior fit says 11. **The 2x ramp's floor is bounded to 0.00–0.03, not measured.**
+
+#### 3. The heavy width per span — no span term is asked for
+
+Pooled two-component fits on the deep interior (σ_heavy in **device** px, σ_sharp free,
+pitches 8/16/32/64) reproduce §5.55 §1 on the three large spans at 1x (9 / 9 / 9, shares
+0.503 / 0.621 / 0.756). The small spans read **9–12** (`rrect-sm`; 9 at 2x once §5.53's three
+frequency-settled cells are excluded, which halves the RMS) and **7–8** (`capsule-button`,
+its heavy weight 0.144 at 1x and the sweep flat from 5 to 10 — unidentified there). The layer
+tree's floored radius (4/3 buffer px = **5.33 device px**) costs 40–180% of RMS on every cell
+where the width is identified. **§5.56 §1's one number stands; the radius law's floor is not
+a Gaussian σ at the pixel**, and the by-eye dot gap is not a small-span width.
+
+#### 4. The dot: vitrea renders no backdrop at all under `impulse__capsule-button`
+
+Peak linear luminance within 6 CSS px of the dot minus the surround, reference | vitrea |
+ratio: `capsule-button` **0.0066 | 0.0000 | 0.00** (1x, both schemes) and **0.0266 | 0.0000 |
+0.00** (2x, both schemes); `rrect-md` centre dot 0.0565 | 0.1351 | **2.39** at 1x and 0.0623 |
+0.1220 | 1.96 at 2x, its near-edge dots 0.1619 | 0.1220 | 0.75 at 2x. vitrea's capsule
+interior on that scene has standard deviation **exactly 0.00000** at a level equal to the
+plate's own global mean, at all four profiles, while the same capsule over `checkerboard`,
+`hc-text` and `photo` carries 0.034–0.116. **The gap is not the body's mix or its widths — it
+is that the thin material over a near-black backdrop shows no backdrop structure at all**, a
+sampling or level question that wants the cell's resolved `GlassGroupState` read, and it
+leaves the ramp's declaration.
+
+#### 5. The band-windowed rows, independently
+
+X6's rows (§5.60) were reproduced here from the committed captures alone, with the window
+taken as the analytic contour rather than the hole-filled native silhouette: `ssimBand` 1x
+`rrect-md` / `-ml` / `-lg` 0.9303 / 0.9356 / 0.9386 against §5.60's 0.9317 / 0.9370 / 0.9395,
+2x 0.9312 / 0.9395 / 0.9381 against 0.9315 / 0.9396 / 0.9380, `ssimInterior` 1x 0.9813 /
+0.9802 / 0.9745 against 0.9817 / 0.9803 / 0.9747 — within 0.0015 everywhere. Two routes, one
+number.
+
+#### 6. Limits
+
+The lens is fixed by decision, so its 0.6–1.3 px 2x mid-depth residual (§5.55 §4) is inside
+every residual here and any depth-correlated part of it is absorbed by the windows near the
+band; windows below u = 4 are excluded for that and for the rim. The transmission is assumed
+constant with depth — the instrument has a mode that frees it and it was not exercised. The
+residual RMS on the reference (0.005–0.023) is two to four times vitrea's on the same
+geometry (0.004–0.009): the model is vitrea's body under vitrea's lens and on the reference it
+is an approximation. Pitch 8 at 2x is excluded from the primary reading (its fitted
+transmission is −0.11 on `rrect-lg`, the inversion §5.55 §3 recorded) and pitch 4 is at the
+identifiability ceiling. The 2x levels move with the assumed widths by up to 0.4 in s; the
+shapes do not.

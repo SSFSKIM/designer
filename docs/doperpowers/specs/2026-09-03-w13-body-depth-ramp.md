@@ -365,10 +365,12 @@ close before G2 implements; nothing on it lands before G2's referee.
   refit here.
 - The thin-material scale-dependent level on text and high-contrast
   backdrops (§5.55 §3) — a level question, its own wave.
-- The user's other two by-eye gaps from W12's Deferred (the whole-surface
-  dome; the shadow's span law) — unchanged; the dot gap is G0's measurement
-  and returns to W12's Deferred shape if the small-span heavy width does
-  not explain it.
+- The user's other by-eye gaps from W12's Deferred: the whole-surface dome
+  unchanged; the shadow's span law is W14; the dot gap measured by G0 and
+  returned to W12's Deferred as the dark-ground transmission item (the
+  thin material's dark-regime response closes the surface entirely over a
+  near-black backdrop; the reference passes ≈ 0.025 — a W9 follow-up, one
+  anchor of the response curve).
 - The bleed term, the two-light rim, continuous corners, the tint's colour
   matrix, the pressed state — W12's Deferred, unchanged.
 
@@ -376,7 +378,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | two workers dispatched 2026-09-03: the windowed instrument, its validation and the reference readings (steps 1–6, `results/2026-09-03-w13-ramp/g0/`, commits on `main` under that directory only); X6's band-windowed rows and their baseline on the W12 close bed — **DONE**, merged to `main` (claims §5.60; `g0/x6-baseline.md`; 243 tests) | IN PROGRESS 2026-09-03 (instrument worker running; X6 done) |
+| G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum running) |
 | G1 | — | blocked-by G0 |
 | G2 | — | blocked-by G1 |
 
@@ -469,6 +471,42 @@ wave's cut or stops changes; S2 stays the stop and 0.93 is W14's.
   Deferred, measured. Consequences: X6 gains `ssimOutside`; S5 gains it as
   a null; S2 is the wave's stop and 0.93 is the shadow wave's (Risks,
   Deferred).
+- **The layer tree's ramp is not the pixel law, and the reach is a length
+  (2026-09-03, G0; claims §5.61 §2).** The sharp share does ramp — by
+  0.10–0.26 at 1x and 0.12–0.39 at 2x across the readable depths, against
+  an instrument flat-field noise of 0.012–0.046 — but §5.50 §2's "0.5 at
+  the edge → 0 at the centre" (H1) fits one cell per scale and misses the
+  rest by 0.17–0.37; a free ramp (H2) fits every span to 0.003–0.099. The
+  per-span reaches in absolute depth (108 / 115 / 144 CSS px at 1x on lg /
+  ml / md; 39 / 41 / 59 at 2x) spread by 1.3× where the relative ones
+  spread by 2.2×: the reach is a length, and between the scales it halves
+  in CSS px — one length in device pixels (≈ 100–110) fits the two beds
+  where one in CSS px does not — while the start falls from ≈ 0.6 to ≈ 0.35
+  (the peak windows) and the thin spans keep a higher start (0.64 / 0.44)
+  with the same slope. The 2x floor is **bounded** to 0.00–0.03, not
+  measured, because the 2x base width on the large spans is open (σ 9 / 11
+  / 16 device px by three estimators) and sits under it. G1 declares the
+  form as a device-pixel reach with a start by scale, fitted in the
+  renderer, and treats the 2x floor as 0.
+- **Only one pitch on vitrea's bed: the share's level is not identifiable
+  there** (G0; §5.61 §1). At a single spatial frequency the transmission
+  and a uniform shift of the share trade off (0.26–0.37 of error on a
+  synthetic known law at one pitch, 0.003 at three); the instrument's
+  recovery of vitrea's law is exact on the ramp's *shape* (the property
+  the wave turns on) and off by 0.07–0.12 on its level on three spans.
+  Every reference reading pools three pitches. The validation is met on
+  the shape and reported as not met on the level, with the mechanism.
+- **The dot gap is not the body** (G0; §5.61 §4). Under
+  `impulse__capsule-button` vitrea's interior has standard deviation
+  exactly 0.00000 at the plate's own global mean, at four profiles, where
+  the reference keeps a dot of 0.0066 (1x) / 0.0266 (2x) above its
+  surround; the cell's resolved state reads `gpu-texture`, `exact`, `ok`,
+  so the group sampled and the material's dark-regime response (W9's dark
+  anchor) closed the thin surface over a near-black backdrop entirely,
+  where the reference passes ≈ 0.025 of the structure. Not the mix, not
+  the widths (σ_heavy reads 7–12 device px on the small spans; no span
+  term is asked for). It leaves this wave and returns to W12's Deferred as
+  the dark-ground transmission item with this description.
 - **One CSS capture on this machine is not frame-stable.**
   `light-solid__capsule-button__rest` at 1x on the CSS tier read
   `deterministic: false` with `repeatNoise` 1.17 × 10⁻⁵ in X6's scratch
@@ -490,3 +528,4 @@ wave's cut or stops changes; S2 stays the stop and 0.93 is W14's.
   carry the outer shadow; the shadow's wave chartered in Deferred (Surprises).
 - 2026-09-03: Decision Log 2 — W14 chartered beside this wave (user-decided); X8 in W14
   orders the two landings.
+- 2026-09-03: G0 complete (claims §5.61); three Surprises; the dot returned to W12.

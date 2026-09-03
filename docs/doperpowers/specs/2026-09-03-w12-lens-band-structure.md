@@ -315,7 +315,16 @@ profile and the 2x body) that write findings, not the spec.
     checkerboards only; the shape of the work is adding the dark grounds
     (`impulse`, `dark-solid`) to whatever measures transmission — the
     probe scene set or a dark-ground pitch axis — and reading the
-    response there against the light one.
+    response there against the light one. *Measured by W13 G0 (2026-09-03,
+    claims §5.61 §4):* vitrea's capsule interior on `impulse` has standard
+    deviation exactly 0 at the plate's own mean at four profiles — the
+    group sampled (`gpu-texture`, `exact`) and the dark-regime response
+    closed the surface entirely — where the reference keeps the dot at
+    0.0066 / 0.0266 (1x / 2x) and passes ≈ 0.025 of the structure. Not the
+    body's mix or widths. Shape of the work now: W9's dark anchor of the
+    response curve (the occlusion it drives at L ≈ 0.004), fitted so the
+    thin material over a near-black backdrop transmits the reference's
+    sliver; one constant, its own small round.
   - **A possible whole-surface dome.** The 3D curvature the eye sees may
     be a shallow magnification across the interior, not only at the
     edges. The G1 instrument pins displacement to zero past u ≈ 28 px and
@@ -834,3 +843,5 @@ assumed.
   (`2026-09-03-w13-body-depth-ramp.md`).
 - 2026-09-03: the Deferred shadow gap measured by W13 X6 (2.4× on the capsule; a gray
   composite against a black multiply); evidence added beside the entry.
+- 2026-09-03: the Deferred dot gap measured by W13 G0 (the dark-regime response closes the
+  thin surface; not the body); evidence and the sharper shape of work added beside the entry.
