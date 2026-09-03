@@ -373,11 +373,13 @@ export interface SsimWindowReport {
  * to the material.
  *
  * The outward row exists because the eye reads one edge, not two. The band a
- * viewer sees straddles the contour — the rim's spill, the lens's outermost
- * displacement and the outer shadow are on the exterior side — and on the large
- * 2x cells that exterior half carries more of the whole-crop deficit than the
- * interior half does (W13 X6 baseline §5). A `ssimBand` that rose while the
- * exterior fell would otherwise read as an improvement.
+ * viewer sees straddles the contour — the rim's spill and the outer shadow are
+ * on the exterior side; the lens displaces nothing out there (claims §5.60 §3) —
+ * and on the large 2x cells that exterior half carries more of the whole-crop
+ * deficit than the interior half does (W13 X6 baseline §5; the reference's
+ * shadow lifts the black squares and SSIM's luminance term reads that as loss).
+ * A `ssimBand` that rose while the exterior fell would otherwise read as an
+ * improvement.
  *
  * **The window is the NATIVE silhouette's distance transform.** The reference
  * defines where the band is. A web silhouette moves as the web side is tuned,

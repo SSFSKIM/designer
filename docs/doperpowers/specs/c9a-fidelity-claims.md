@@ -8529,3 +8529,132 @@ Deferred with its evidence and the shape of its work: the three by-eye
 gaps from the user's list, the by-eye-aligned band metric (W13 X6 is its
 first form), the layer dump's nine findings, the thin material's
 scale-dependent level.
+
+### 5.60 W13 X6: the band-windowed SSIM rows, and where the whole-crop deficit sits — the reference's outer shadow lifts the blacks (2026-09-03)
+
+The instrument W12's Decision Log 6 asked for, in its first form, and the
+first thing it measured. Code and tests on `main` (merge of
+`w13-x6-band-rows`); the baseline document, its scratch matrix and scripts
+under `results/2026-09-03-w13-ramp/g0/` (`x6-baseline.md`,
+`matrix-x6-baseline.json`); the mechanism read in §3 from the canonical
+captures and fixtures directly (scripts in the session scratch, the
+numbers here).
+
+#### 1. The rows
+
+`ssimBand`, `ssimInterior` and `ssimOutside` on every cell's perceptual
+axis, with their window counts: the compare's one SSIM map (11 × 11
+Gaussian, σ 1.5, the standard constants — `ssimMean` is the same map over
+the whole crop) averaged over windows whose centre lies inside the
+**native** silhouette within 24 CSS px of its contour, inside and deeper
+than 24 CSS px, and outside within 24 CSS px; the split is converted to
+device px by the profile's backing scale, never read off the image; the
+far field beyond 24 px outside is counted by no row, so the three rows
+plus the far field partition the crop and `ssimMean` is their
+count-weighted mean including it. The window is the native silhouette,
+hole-filled, because the reference defines where the band is and a web
+silhouette that broke into pieces must not re-window the metric. A cell
+with no native silhouette carries no rows (absent, never zero) and a
+surface shallower than the split — `rrect-sm`, `capsule-button`,
+`toolbar-group` — carries no `ssimInterior`. The result matrix's schema
+version does not move (an addition in the axes' own "absent means not
+measured" sense; the constant's doc comment says why). 243 calibration
+tests (233 → 243), lint and build green. No bound reads the rows before
+W13 G2's landing.
+
+The baseline's scratch bed (twelve runs) reproduces the canonical
+matrix on 20 845 of 20 873 metric values; the 28 that differ sit on two
+1x CSS cells the harness itself flagged `deterministic: false` —
+`light-solid__capsule-button__rest` (`repeatNoise` 1.17 × 10⁻⁵, the cell
+of §5.59 §1) and `photo__capsule-button__rest-tint-orange-half` (3.91 ×
+10⁻⁶) — with the largest difference 7.5 × 10⁻⁴ on a shadow centroid and
+`ssimMean` in the seventh decimal. The first of the two scratch runs
+flagged only the first cell: the frame noise moves between cells from run
+to run, and is below every bound by four orders.
+
+#### 2. The baseline on the W12 close bed (light standard, checkerboard)
+
+GPU tier — `ssimMean` | `ssimBand` | `ssimInterior` | `ssimOutside`; then
+the band's share of the *silhouette* deficit and the outside's share of
+the *crop* deficit:
+
+| cell | 1x | 2x |
+| --- | --- | --- |
+| `rrect-sm` | 0.9988 / 0.9673 / — / 0.9989; 100% / 9% | 0.9978 / 0.9417 / — / 0.9971; 100% / 13% |
+| `capsule-button` | 0.9852 / 0.8815 / — / 0.9663; 100% / 34% | 0.9836 / 0.8634 / — / 0.9614; 100% / 34% |
+| `rrect-md` | 0.9695 / 0.9317 / 0.9817 / 0.9320; 88% / 50% | 0.9517 / 0.9315 / 0.9594 / 0.8584; 76% / 63% |
+| `rrect-ml` | 0.9482 / 0.9370 / 0.9803 / 0.9085; 77% / 53% | 0.9158 / 0.9396 / 0.9589 / 0.8132; 60% / 63% |
+| `rrect-lg` (holdout) | 0.9428 / 0.9395 / 0.9747 / 0.8906; 64% / 47% | 0.9113 / 0.9380 / 0.9747 / 0.7832; 64% / 66% |
+| `glass-over-glass` (holdout) | 0.9521 / 0.9445 / 0.9842 / 0.9133; 79% / 54% | 0.9211 / 0.9386 / 0.9746 / 0.8231; 71% / 64% |
+| `toolbar-group` | 0.9643 / 0.7227 / — / 0.9281; 100% / 40% | 0.9663 / 0.7432 / — / 0.9237; 100% / 43% |
+
+The four-way split of the whole-crop deficit on the four large cells, GPU
+tier (band / interior / outside / far field): 1x `rrect-md` 38 / 5 / 50 /
+7%, `-ml` 30 / 9 / 53 / 9%, `-lg` 33 / 19 / 47 / 1%, `glass-over-glass`
+29 / 8 / 54 / 10%; 2x 23 / 7 / 63 / 7%, 17 / 11 / 63 / 9%, 21 / 12 / 66 /
+1%, 18 / 7 / 64 / 11%. The two halves of the band together carry 72–99%
+of every tabulated cell's whole-crop deficit and the far field never more
+than 11%; inside the silhouette the band carries 60–88% (which W13's stop
+S4 is written against); across the crop the **outside** carries half at
+1x and two thirds at 2x, and `ssimOutside` itself falls from 0.89–0.93 at
+1x to 0.78–0.86 at 2x on those four cells. The CSS tier's rows are in the
+document: its band reads 0.62–0.84, its interior 0.82–0.97 (the single
+blur, W11 Decision Log 5), its outside 0.74–0.90 — the same exterior
+loss, since the shadow is shared. On `photo__rrect-md` the GPU tier reads
+0.9975 whole-crop and 0.9910 in the band.
+
+#### 3. What the outside is: the shadow's colour, read by SSIM's luminance term
+
+Profiled by signed distance to the contour on `checkerboard__rrect-lg`
+(GPU tier): at 2x the deficit share by ring is 11.5% deeper than 24 px
+inside, 5.9% at 24–12, 4.1% at 12–6, 9.0% at 6–0, then **7.4% at 0–3 px
+outside, 7.4% at 3–6, 24.6% at 6–12, 28.5% at 12–24** and 1.6% beyond,
+with the ring's mean SSIM 0.73–0.83 and its mean |Δ luma| only
+0.008–0.026; at 1x the same shape (0–24 px outside 54% of the deficit,
+SSIM 0.85–0.97). Decomposed into SSIM's three terms over the 6–24 px
+exterior ring at 2x: luminance 0.773, contrast 0.999, structure 0.999;
+and by window content, the windows on flat squares read l 0.69 and the
+windows on checker edges 0.99. **It is the luminance term on the black
+squares.** In the 2–12 px ring the reference's black squares read 0.041
+below the surface, 0.027 at the sides and 0.015 above, vitrea's 0.000 on
+every side; the whites 0.913 against 0.922 below. Per ring the reference
+is an affine map of the plate, a·plate + c, with c +0.039 / +0.024 /
++0.014 / +0.004 at 0–6 / 6–12 / 12–24 / 24–48 px (a 0.887 → 0.988; R²
+0.994–0.9999), and vitrea is a·plate with c = 0.000 at every ring (a 0.933
+→ 0.993): **a gray composited at low alpha against a black multiply**,
+strongest below the surface where the reference's (0, 8) offset (§5.50)
+puts the shadow. SSIM reads a 0.04 lift on a 0.00 square as
+2·0.041·0/(0.041² + C₁) ≈ 0.06, so a hair of haze on black is most of the
+crop's loss. Two alternatives tested and excluded: a blurred copy of the
+backdrop (a blur term at σ 2–32 CSS px adds < 0.0004 of R² to the affine
+fit on either side) and an outward displacement (the checker lines 4–24
+px outside the bottom contour sit within 0.02 px of the plate at 2x on
+both sides and 0.24–0.48 on both at 1x — the plate's half-pixel
+convention, equal on native and vitrea — on pitches 4, 8 and 16).
+
+The same shadow on `light-solid__capsule-button__rest`: below the bottom
+contour the reference reads −0.040 luma against the backdrop at 1 px,
+−0.035 at 6, −0.020 at 16, −0.004 at 32, 0 at 48; vitrea −0.094, −0.078,
+−0.047, −0.012, 0 — **2.4× the reference in integrated darkening, at 1x
+and 2x alike** (0.688 against 1.630 luma·px per column at 1x). The
+reference's shadow colour on that backdrop is (0.910, 0.910, 0.925)
+against the backdrop's (0.949, 0.949, 0.969), the same hue; vitrea's is
+the backdrop darkened. This is the user's by-eye gap from W12's Deferred
+("the shadow is darker on `light-solid__capsule-button`"), measured, and
+W8's fit — one σ and one reach on large cells, a multiply — is where it
+comes from.
+
+#### 4. What it changes
+
+For W13: the ramp owns the inside, and the outside is a null (S5 gains
+`ssimOutside` within 0.001); the three 2x texture rows cannot reach their
+0.93 bound through the inside alone — with the band's and the interior's
+deficit removed entirely they would read ≈ 0.939 / 0.938 / 0.940 — so W13's
+stop is the floors (S2) and the bound belongs to the shadow. For the
+project: the outer shadow's colour and span law is chartered in W13's
+Deferred as the next wave candidate — measure the composite's colour and
+alpha by distance, side and span on the solids, the checkerboard and
+`photo` against §5.50's block and W8's constants; declare a composite in
+the shadow pass in place of the multiply on both tiers; `ssimOutside` and
+the solids' level rows as its instrument. It closes the user's shadow gap
+and 52–76% of the large checkerboard cells' whole-crop deficit at once.

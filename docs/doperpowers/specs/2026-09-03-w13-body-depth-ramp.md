@@ -203,12 +203,13 @@ Advisory, carried into the children:
   σ_heavy (one constant, the radius law's own form) and the user's dot gap
   closes with it. If the small spans read σ 9–10 device px as the large
   ones did, the dot gap stays a transmission question for its own wave.
-- The band-windowed rows (`ssimBand`, `ssimInterior`; X6): SSIM over the
-  cell's silhouette split at a fixed depth from the contour (24 CSS px,
-  past where D(u) reaches zero on every span, §5.49 §2), recorded on every
-  cell from G0 on, adopted as bounds at G2's landing from the bed. This is
-  W12's Deferred "by-eye-aligned band metric" in its first form; the
-  corner crops stay by eye.
+- The band-windowed rows (`ssimBand`, `ssimInterior`, `ssimOutside`; X6):
+  SSIM over the cell's silhouette split at a fixed depth from the contour
+  (24 CSS px, past where D(u) reaches zero on every span, §5.49 §2), and
+  over the exterior within the same depth, recorded on every cell from G0
+  on (landed 2026-09-03, claims §5.60), adopted as bounds at G2's landing
+  from the bed. This is W12's Deferred "by-eye-aligned band metric" in its
+  first form; the corner crops stay by eye.
 - The CSS tier cannot carry a depth ramp with one `backdrop-filter`; a
   two-layer body with an inset mask could (the two-layer CSS body, W11
   Decision Log 5, extended by a mask gradient on the sharp layer). Out of
@@ -375,7 +376,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | two workers dispatched 2026-09-03: the windowed instrument, its validation and the reference readings (steps 1–6, `results/2026-09-03-w13-ramp/g0/`, commits on `main` under that directory only); X6's band-windowed rows and their baseline on the W12 close bed (branch `w13-x6-band-rows`, worktree `.claude/worktrees/w13-x6`) | IN PROGRESS 2026-09-03 |
+| G0 | two workers dispatched 2026-09-03: the windowed instrument, its validation and the reference readings (steps 1–6, `results/2026-09-03-w13-ramp/g0/`, commits on `main` under that directory only); X6's band-windowed rows and their baseline on the W12 close bed — **DONE**, merged to `main` (claims §5.60; `g0/x6-baseline.md`; 243 tests) | IN PROGRESS 2026-09-03 (instrument worker running; X6 done) |
 | G1 | — | blocked-by G0 |
 | G2 | — | blocked-by G1 |
 
@@ -456,8 +457,11 @@ the landing call at G2.
   `light-solid__capsule-button__rest` at 1x on the CSS tier read
   `deterministic: false` with `repeatNoise` 1.17 × 10⁻⁵ in X6's scratch
   run and differed by one pixel, one code value, from the G2 bed in W12's
-  X1 (claims §5.59 §1) — the same cell both times. Below every bound by
-  four orders; recorded, not chased.
+  X1 (claims §5.59 §1) — the same cell both times; the re-run for
+  `ssimOutside` flagged it again and a second one,
+  `photo__capsule-button__rest-tint-orange-half` (3.91 × 10⁻⁶), so the
+  frame noise moves between cells from run to run (claims §5.60 §1).
+  Below every bound by four orders; recorded, not chased.
 
 ## Outcomes & Retrospective
 
