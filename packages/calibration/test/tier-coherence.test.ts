@@ -705,21 +705,22 @@ describe("tier coherence (K5)", () => {
     expect(requiredSamplingPadding(platter)).toBeGreaterThan(requiredSamplingPadding(nominal));
     // On the shipped profile the floor is on and the ramp rides the span curve
     // above it. σ at the FOLD ANCHOR is 1.25 · (1 + 7 · floor) = 4.75, and the
-    // smallest span's projection sits a little UNDER that rather than over it:
-    // the ramp lifts the sharp share near the contour above 1 − floor, which is
-    // the band being sharper than the frost. So the floor is the fold's anchor
-    // and not a pointwise minimum on the mix, and what the padding rule needs is
-    // only that it is taken over the σ that will really be drawn — well above the
-    // nominal σ's 3.75 at every span, and growing with the span.
+    // smallest span's projection sits UNDER that rather than over it — 3.77 at
+    // span 32 since W13 G1's third form raised the thin start to 0.72: the ramp
+    // lifts the sharp share near the contour well above 1 − floor, which is the
+    // band being sharper than the frost. So the floor is the fold's anchor and
+    // not a pointwise minimum on the mix, and what the padding rule needs is only
+    // that it is taken over the σ that will really be drawn — above the nominal
+    // σ's 3.75 at every span, and growing with the span.
     const shipped = cssTierOptics().regular.blurRadius;
     expect(shipped).toBe(1.25);
     expect(cssSizeScatterSigmaAt(shipped, MATERIAL_SOURCE_SIZE.sizeScatterFloor)).toBeCloseTo(
       4.75,
       12,
     );
-    expect(cssSizeScatterSigma(shipped, 32)).toBeGreaterThan(4);
+    expect(cssSizeScatterSigma(shipped, 32)).toBeGreaterThan(3.7);
     expect(cssSizeScatterSigma(shipped, 32)).toBeLessThan(4.75);
-    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeGreaterThan(12);
+    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeGreaterThan(11);
     expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 160))).toBeGreaterThan(
       requiredSamplingPadding(cssSizeScatterSigma(shipped, 32)),
     );

@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "f0fb4cc5735b3251",
+  "resolvedMaterialSha256": "cd578acd1c27dacb",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -283,5 +283,19 @@
     "See the light profile's entries.scatterRamp. Measured on the LIGHT probes at",
     "both scales, as before; the patch itself is unchanged.",
     "Fingerprint 8ee31ecd230142ac -> f0fb4cc5735b3251 (the defaults above)."
+  ],
+  "$comment-w13-g1-third-form-fitted": [
+    "RE-RECORDED 2026-09-03 (W13 G1, third form FITTED at 1x; claims 5.65): the",
+    "third sweep moved the 1x anchors this difference document inherits —",
+    "sizeScatterRampStartThin1x 0.64 -> 0.72 and sizeScatterRampReach1xPx 120 -> 80",
+    "— over a 36-point grid and an 8-point refinement. The 2x three do not move and",
+    "stay PROVISIONAL, because the excursion is bit-exactly zero at them on every",
+    "cell of the bed and no grid can identify a constant that changes no pixel. The",
+    "dark reference's own body ramp is still unmeasured: this document inherits the",
+    "light fit, the confirmation run reads this scheme's cells, and every dark row",
+    "it moved rose (1x capsule-button band +0.0191, rrect-md +0.0059,",
+    "glass-over-glass +0.0199; nothing fell anywhere). The patch itself is",
+    "unchanged.",
+    "Fingerprint f0fb4cc5735b3251 -> cd578acd1c27dacb (the defaults above)."
   ]
 }

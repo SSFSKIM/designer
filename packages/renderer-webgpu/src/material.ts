@@ -1009,23 +1009,25 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
-  // PROVISIONAL (W13 G1, from the measurement of claims §5.61 §2 and the two
-  // re-formings its runtime sweeps forced): the depth ramp's start at the
-  // contour — graded from the thin anchor to the thick one across
-  // `sizeThickness` — and the reach at which its excursion vanishes into the
-  // span law above, at the two scales the reference was read at. The 1x pair is
-  // G0's own thin and thick readings, with the thick anchor at 0.52 rather than
-  // the 0.47 a joint fit returns, because 0.47 sits below `rrect-md`'s deep
-  // sharp share and would clamp that one cell to nothing. The 2x pair is G0's
-  // 2x readings, every one of which is BELOW its cell's deep value, so at dpr 2
-  // the excursion is zero on this whole bed — the law evaluating to no
-  // excursion, and the 2x gap located in the deep value instead (claims §5.64
-  // §4). See `MaterialProfile.sizeScatterRampStartThin1x`.
-  sizeScatterRampStartThin1x: 0.64,
+  // The 1x three FITTED in the renderer (W13 G1's third sweep, 44 points over
+  // the calibration bed: `results/2026-09-03-w13-ramp/g1/sweep-3/g1-sweep-3.md`
+  // §3); the 2x three PROVISIONAL still, because at them the excursion is
+  // bit-exactly zero on the whole bed and a sweep cannot fit what does not
+  // move (§4). The thin anchor 0.72 is above G0's read-off of 0.637–0.642: the
+  // grid runs 0.60 / 0.64 / 0.68 and the refinement 0.72 / 0.76, and 0.72 is an
+  // interior optimum of both the interior objective and the interior gap. The
+  // thick anchor 0.52 is G0's `rrect-md` reading and is above that cell's deep
+  // sharp share of 0.481, where the joint thick fit of 0.47 would have clamped
+  // it to nothing. The 2x pair is G0's 2x readings, every one of which is BELOW
+  // its cell's deep value, so at dpr 2 the excursion is zero on this whole bed
+  // — the law evaluating to no excursion, and the 2x gap located in the deep
+  // value instead (claims §5.64 §4). See
+  // `MaterialProfile.sizeScatterRampStartThin1x`.
+  sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
   sizeScatterRampStartThin2x: 0.46,
   sizeScatterRampStartThick2x: 0.17,
-  sizeScatterRampReach1xPx: 120,
+  sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,

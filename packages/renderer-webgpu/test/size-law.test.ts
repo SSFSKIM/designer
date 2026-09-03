@@ -577,16 +577,17 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
     }
   });
 
-  it("reproduces the provisional shape at the two scales", () => {
-    // The numbers the profile's defaults are PROVISIONALLY set to (claims
-    // §5.64 §5): at 1x the sharp share at the contour is 0.64 on a thin span
-    // and 0.52 on a thick one, over a reach of 120 device px; at 2x 0.46 and
-    // 0.17 over 100. Stated here so a sweep that moves them moves a test.
-    expect(scatterRampStart(1, SHIPPED, 0)).toBeCloseTo(0.64, 12);
+  it("reproduces the fitted shape at the two scales", () => {
+    // The numbers the profile's defaults carry: at 1x the sharp share at the
+    // contour is 0.72 on a thin span and 0.52 on a thick one, over a reach of
+    // 80 device px — the third sweep's fit over 44 points; at 2x 0.46 and 0.17
+    // over 100, still provisional because the excursion is zero there and a
+    // sweep cannot fit what does not move. Stated here so a refit moves a test.
+    expect(scatterRampStart(1, SHIPPED, 0)).toBeCloseTo(0.72, 12);
     expect(scatterRampStart(1, SHIPPED, 96)).toBeCloseTo(0.52, 12);
     expect(scatterRampStart(2, SHIPPED, 0)).toBeCloseTo(0.46, 12);
     expect(scatterRampStart(2, SHIPPED, 96)).toBeCloseTo(0.17, 12);
-    expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(120);
+    expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(80);
     expect(scatterRampReachDevicePx(2, SHIPPED)).toBe(100);
     // The reach in CSS px more than halves between the scales, which is what
     // "one length in device pixels" means for a consumer working in CSS px.

@@ -754,12 +754,15 @@ describe("the size law reaches the CSS tier", () => {
     const with_ = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size: own });
     const base = blurOf(cssTierDeclarations(surface));
     expect(cssTierDeclarations({ ...surface, size: own })).toEqual(cssTierDeclarations(surface));
-    // The shipped start is 0.65 and 1 − 0.4 is 0.60, so at this floor the ramp
-    // DOES have a little to add and the mix dips just below the floor near the
-    // contour — the band is sharper than the frost, which is what a band is.
-    // The floor is the fold's anchor, not a pointwise minimum on the mix.
+    // The shipped THIN start is 0.72 and 1 − 0.4 is 0.60, so on a span this far
+    // below `sizeSpanMin` — where `sizeThickness` is 0 and the start is its thin
+    // anchor exactly — the ramp has 0.12 of sharp share to add, and a 12 px
+    // surface lies wholly inside the 80 device px reach. So the projection sits
+    // WELL below the floor rather than at it: 0.283 against 0.4. The band is
+    // sharper than the frost, which is what a band is, and the floor is the
+    // fold's anchor rather than a pointwise minimum on the mix.
     expect(blurOf(with_(12))).toBeLessThan(base * (1 + 1.5 * 0.4));
-    expect(blurOf(with_(12))).toBeGreaterThan(base * (1 + 1.5 * 0.35));
+    expect(blurOf(with_(12))).toBeGreaterThan(base * (1 + 1.5 * 0.27));
     expect(cssScatterThickness(12, 0, own, CSS_TIER_RAMP_SCALE)).toBeCloseTo(0.4, 12);
     expect(cssScatterThickness(400, 0, own, CSS_TIER_RAMP_SCALE)).toBeCloseTo(0.4, 12);
     expect(occlusionOf(with_(own.sizeSpanMin))).toBeCloseTo(occlusionOf(at(size.sizeSpanMin)), 6);
