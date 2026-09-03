@@ -9201,3 +9201,14 @@ anchors' quantity is **declared as the black term** and the band is declared as 
 reading, with §4(a)'s turnover named as open. (iv) `thickOcclusionAt160` stays at its derivation and
 is declared **unfitted**, with the holdout's 0.437 recorded beside it and not adopted.
 
+**7. The dry run by eye (X5).** The GPU tier's confirmation captures were put beside the native
+fixtures and the W12 close on four sheets (`results/2026-09-03-w14-shadow/sheets/`: the ladder
+with a 48 px margin and two difference panels at each scale, and a close-up strip of the band
+below the surface with its levels stretched about black). The parent's reading, in the caption:
+the light-solid capsule's dark halo in the W12 close's difference panel is gone in the candidate's;
+under the two largest surfaces the reference's black squares are lifted to dark grey, the W12
+close's are pure black and the candidate's are lifted like the reference's, at both scales; and
+under the dark-solid rectangle the candidate's shadow band is the darkest of the three, which is
+§5's cost seen. **The user's reading (2026-09-03):** "matches what you're describing. light solid
+capsule's W12 is darker than Apple's." S3's by-eye half is met.
+

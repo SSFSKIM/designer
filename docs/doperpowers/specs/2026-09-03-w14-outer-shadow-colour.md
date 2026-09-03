@@ -540,6 +540,18 @@ reference where it was 2.29×. Four decisions follow.
    nothing was refitted after reading it. The declaration states it as a
    derivation, not a fit.
 
+### The user's reading at the dry run (2026-09-03)
+
+The sheets (`results/2026-09-03-w14-shadow/sheets/`, commit `a092c1b`) were sent
+by Taildrop with the parent's own reading in `g1-caption.txt`. The user read
+them and recorded: *"matches what you're describing. light solid capsule's W12
+is darker than Apple's."* That is the by-eye half of S3 — the cell the wave
+was chartered on from §5.60's 2.4×, seen the same way by the metric (the W12
+close at 2.29× the reference's darkening, the candidate at 1.013×) and by the
+eye. G1's acceptance (the declaration, the sheet sent, the user's reading
+recorded) closes on the declaration, which follows the CSS tier's
+verification capture.
+
 ## Surprises & Discoveries
 
 - **Two terms on one falloff, and W8's lengths are right (G0, claims
@@ -638,6 +650,8 @@ reference where it was 2.29×. Four decisions follow.
   coded absence); three Surprises from its baseline; the dark-scheme Deferred item annotated.
 - 2026-09-03: Decision Log 4 — the CSS tier's lift deferred to the two-layer body (user-decided);
   Decision Log 1's question 2 closed.
+- 2026-09-03: the dry run's sheets sent and the user's reading recorded (the light-solid
+  capsule's W12 close darker than Apple's, as the sheet shows).
 - 2026-09-03: the sweep complete (claims §5.65); the S6 miss traced to the lift read through
   sRGB's decode, not to the GPU tier's thick path; Decision Log 5 (the dark constant held, the
   CSS amplitude derived, the anchors' quantity declared, At160 unfitted); two Surprises.
