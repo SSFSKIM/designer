@@ -8404,3 +8404,15 @@ identity would break under any of them — and the body kernel is the whole
 of the interior's scale-dependence. What the user sees as "more
 transparent" at 2x is the sharper interior, which the device-pixel widths
 supply (§2), and the band.
+
+**Decided (user, 2026-09-03; W12 Decision Log 7): G3 held at `main`; the
+depth ramp is the next body wave, carrying the widths.** Nothing from the
+candidate lands in W12; `main` keeps the ω 0.8 material and the 1x-fitted
+body, and the three 2x texture-tier rows stay held by decision with the
+mechanism now named — the band's depth ramp on the sharp share, not the
+interior and not the transmission. The next body wave declares
+k(u, span, dpr) on the sharp share with the device-pixel widths of §5.56
+§1, the band measured through the lens as its instrument, the band
+budgeted as a stop, and the runtime sweep of §2 as the fitting
+instrument; it starts from branch `w12-g3-candidate-a`. Rejected: landing
+the widths alone (`rrect-ml` 2x, §2) and opening the ramp inside W12.

@@ -283,6 +283,30 @@ profile and the 2x body) that write findings, not the spec.
 
 ## Deferred / Out of Scope
 
+- **The body's depth ramp, carrying the device-pixel widths — the next body
+  wave (Decision Log 7).** What is settled: the reference's body is one
+  kernel in device pixels, vitrea's GPU tier renders its interior exactly
+  when the two widths are read in device pixels, the transmission has no
+  scale term (claims §5.55, §5.58). What is left: the band — the
+  reference's sharp share is ≈ 0.5 at the contour and 0 deep inside at 2x
+  where vitrea's is one number per span, and with the widths right the
+  lens refracts a crisp checker through a band the reference blurs
+  (`rrect-ml` 2x 0.8998 against its 0.9013 floor). Shape of the work: (1)
+  an instrument that measures the band through the lens — the sharp share
+  and the two widths by depth u, per span and scale, on the committed 1x
+  and 2x probes, with vitrea's recovery beside every reading (X4); (2) a
+  declared form k(u, span, dpr) for the sharp share's ramp, fitted on
+  both probes with `rrect-lg` held out, the widths in device pixels, the
+  1x bed's rows predicted (the 1x fit's uniform k per span is the ramp's
+  1x average, so 1x moves and must be budgeted, unlike G3's candidate);
+  (3) the band budgeted as a stop of its own beside the whole-crop rows;
+  (4) the runtime-in-the-loop sweep of `g3/referee/sweep/` as the
+  instrument for the fit, since the paper model of the mip-chain heavy
+  tap over-credited it (§5.58 §1); (5) both tiers — the CSS tier's single
+  `blur()` cannot carry a ramp, so its rows either stay predicted from the
+  widths alone or the two-layer CSS body (below) opens with it. Starts
+  from branch `w12-g3-candidate-a` (`56283a1`).
+
 - **Three by-eye gaps from the user's fidelity-gap list (2026-09-03), not
   yet measured:**
   - **The dot disappears on `impulse__capsule-button__rest`.** Apple's
@@ -382,7 +406,7 @@ project's rule**, in the order they would be worth a wave:
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
 | G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png`; the ω 0.8 A/B measured (claims §5.54, `g2b/`) and landed by eye (Decision Log 6) | LANDED 2026-09-03; ω 0.8 2026-09-03 |
-| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement complete (`g3/g3-measurement.md`, claims §5.55: one kernel in device px, only the sharp term's weight changes with scale; G2 stands at 2x); the 1x-preserving variant, exclusion refit and SSIM dry run (`g3/` §8); **declared** in claims §5.56; candidate A implemented and refereed (`g3/referee/`, branch `w12-g3-candidate-a`) — **stop 3 tripped**, the 2x texture rows fell, not landed (claims §5.57); the corrected dry run (g3 §9) and the runtime sweep (`g3/referee/sweep/`, claims §5.58): the device-pixel widths put the 2x interior on the reference exactly, any weight shift moves it away, the band is what is left (the depth ramp); held for the user — hold at `main` or open the ramp round | REFEREED, NOT LANDED 2026-09-03 |
+| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement complete (`g3/g3-measurement.md`, claims §5.55: one kernel in device px, only the sharp term's weight changes with scale; G2 stands at 2x); the 1x-preserving variant, exclusion refit and SSIM dry run (`g3/` §8); **declared** in claims §5.56; candidate A implemented and refereed (`g3/referee/`, branch `w12-g3-candidate-a`) — **stop 3 tripped**, the 2x texture rows fell, not landed (claims §5.57); the corrected dry run (g3 §9) and the runtime sweep (`g3/referee/sweep/`, claims §5.58): the device-pixel widths put the 2x interior on the reference exactly, any weight shift moves it away, the band is what is left (the depth ramp); **held at `main` by Decision Log 7** — the depth-ramp round is the next body wave and carries the widths, branch `w12-g3-candidate-a` kept as its start | HELD 2026-09-03 (Decision Log 7; refereed, not landed) |
 
 ## Decision Log
 
@@ -513,6 +537,42 @@ recommendation (keep 0.6) is recorded as overridden. Rejected: holding at
 interior does not weight the corner or the along-edge stretch the eye
 reads; a by-eye-aligned metric on the band's crops is the shape of the
 work that would let the metric and the eye agree.
+
+### Decision Log 7 — G3 held at `main`; the depth ramp is the next body wave (2026-09-03; user-decided)
+
+**Evidence.** Claims §5.55 (the reference's body is one kernel in device
+pixels; only the sharp term's weight changes with scale), §5.57 (candidate
+A: 1x byte-identical, the 2x texture rows fall, stop 3 tripped), §5.58 §2
+(the runtime sweep: with `sizeScatterScaleTerm` at 0 the device-pixel
+widths put the interior's structure on the reference at every span, every
+weight shift moves it away, and `rrect-ml` at 2x reads 0.8998 against its
+0.9013 floor — the band is what is left), §5.58 §4 (the transmission has
+no scale term).
+
+**Decided (user, 2026-09-03):** "Hold, and open the depth-ramp round as
+the next body wave carrying the widths with it." G3 closes HELD: `main`
+keeps the ω 0.8 material and the 1x-fitted body; nothing from the
+candidate lands in W12. The next body wave is the depth ramp on the sharp
+share — k(u, span, dpr) rising from the contour inward, the reference's
+own mechanism (§5.50 §2's opacity ramp 0.5 → 1 over span/2; §5.55 §2's
+sharp share ≈ 0.5 at the contour and 0 deep inside at 2x) — and it carries
+the device-pixel widths (σ_sharp = `blurSigma`/dpr, σ_heavy =
+`blurSigma`·`sizeScatterGainMax`/dpr) with it, since the widths are right
+and only the band keeps them from landing. Branch `w12-g3-candidate-a`
+(commit `56283a1`, worktree kept) is that wave's starting point: the
+widths, the dpr plumbing on both tiers and the tier-coherence rows over
+dpr {1, 1.5, 2, 3}. Rejected: opening the ramp round inside W12 (a new
+declaration, a new instrument — the band measured through the lens — and a
+new bed read: a wave of its own, and W12's acceptance is already
+answerable); landing the widths alone (the `rrect-ml` 2x floor, a hard
+stop).
+
+**Follows.** W12 proceeds to recomposition on `main` as the frozen
+configuration: X1 (the twelve runs, the demo fixture re-copied), X2
+(floors: the 2x texture rows stay held by decision with the mechanism now
+named — the band's depth ramp, not the interior — and the ω 0.8 cost of
+§5.54 §1 is the recorded reading), X3, holdout once. The ramp wave's
+charter is written from this log and §5.58 §3 when W12 closes.
 
 ### Decision Log 5 — G3 opened: the scale-aware body, fitted on both probes (2026-09-03; user-decided)
 
@@ -673,3 +733,5 @@ Log 4) runs first, as the smaller round.
 ## Revision Notes
 
 - 2026-09-03: opened.
+- 2026-09-03: Decision Log 7 — G3 held at `main`; the depth-ramp round chartered as the
+  next body wave in Deferred; the wave moves to recomposition.
