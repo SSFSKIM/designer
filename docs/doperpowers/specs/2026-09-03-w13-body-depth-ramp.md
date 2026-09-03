@@ -610,6 +610,28 @@ and read once on holdout at the confirmation: `rrect-lg` 1x `ssimMean`
 0.9743 (+0.0056 on the W14 bed), band +0.0136, interior 12% over Apple's
 from the third form's 33%.
 
+### Decision Log 8 — the landing: the ramp alone, the 2x widths restored to the bed's (2026-09-04; user-decided)
+
+**Decided (user, 2026-09-04):** *"yes the second it is."* Of the two landings
+claims §5.68 §5 put to the user, the second: the 1x ramp lands, and the GPU
+tier's body widths return to CSS pixels at every device scale, as the W14 bed
+has them — candidate A's device-pixel widths (W12 G3, held by W12 Decision
+Log 7 and carried into this wave) are **withdrawn as a landing candidate**.
+Every 2x row is then predicted byte-identical to the W14 bed (the ramp is a
+verified null there and the widths were the only other change), the small
+spans' 2x gain (band +0.024 on `rrect-sm` and the capsule) is forgone, and
+the whole 2x question goes to the deep-value charter in Deferred with the
+widths as one of its terms. The reach stays a length in device px as
+declared; at 2x it has nothing to act on.
+
+**What the landing does.** The widths' division removed on the branch with
+its tests and the material's doc comment amended (the measurement that
+retires it: §5.64 §4 — Apple's 2x interior is heavier than ours, and a
+narrower width pushes the large spans the wrong way — and the sheets); a
+dry run of the new configuration on the GPU tier at both scales, holdout
+read once, predicting the 1x rows unchanged from sweep-4's confirmation and
+the 2x rows identical to the bed; then G2's landing plan (claims §5.68 §6).
+
 ## Surprises & Discoveries
 
 - **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
@@ -788,6 +810,7 @@ from the third form's 33%.
   same branch with a second sweep.
 - 2026-09-03: the first form's branch reviewed; two findings (the CSS projection's extents,
   pyramid invalidation over dpr) folded into the re-form (Tracking Map).
+- 2026-09-04: Decision Log 8 — the landing, user-decided: the ramp alone, the 2x widths restored.
 - 2026-09-03: **G1 declared** (claims §5.68). The CSS tier's device-pixel width division found
   by the first CSS capture and removed (Decision Log 5 executed in full, amended above); the
   fourth form's review — three code findings fixed on the branch, the spec finding amended; two
