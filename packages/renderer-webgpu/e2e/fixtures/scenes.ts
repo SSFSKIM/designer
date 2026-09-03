@@ -133,6 +133,32 @@ export const SCENES: readonly Scene[] = [
     groups: [group("g", [rect("s", [100, 60], [140, 68], { shape: { center: [100, 60], size: [140, 68], radii: [20, 20, 20, 20], smoothing: 0, thickness: 14 } })])],
   },
   {
+    // The only golden at device pixel ratio 1 — the body's depth ramp, on the
+    // scale it acts (W15 contract X7; W13's Deferred, claims §5.68 §8).
+    //
+    // The ramp adds sharpness above the deep value near the contour, and its 2x
+    // anchors evaluate to nothing on this bed, so at DPR 2 — which every other
+    // golden here renders at — it is a verified null and no committed pixel
+    // moves when it changes. That is exactly the wrong place to pin a wave whose
+    // binding rule is that the 1x material does not move. This scene is
+    // `refraction-checkerboard`'s twin at DPR 1: the same 140×68 surface over a
+    // checkerboard, on a cell of 8 CSS px, where the sharp component still
+    // passes the plate's fundamental and the ramp's excursion is visible as a
+    // crisper band inside the contour fading into a heavier interior.
+    //
+    // Its counterpart in `isolation.spec.ts` (`W15_HASHES`) pins the same scene
+    // under the named profile, which patches the tint and the outer shadow and
+    // nothing of the body — so the ramp is live in both pins, and the test
+    // beside that table renders the scene with the ramp's start anchors zeroed
+    // to show that the bytes actually depend on it.
+    widthCss: 200,
+    heightCss: 120,
+    devicePixelRatio: 1,
+    name: "body-ramp-1x",
+    backdrop: { kind: "checkerboard", cell: 8 },
+    groups: [group("g", [rect("s", [100, 60], [140, 68], { shape: { center: [100, 60], size: [140, 68], radii: [20, 20, 20, 20], smoothing: 0, thickness: 14 } })])],
+  },
+  {
     // A backdrop SMALLER than the viewport, placed where its pixels are (claims
     // §5.47): a 96-texel checkerboard at (28, 12), one texel per CSS px, under a
     // surface that hangs past its right edge. Sampled through the placed fit the

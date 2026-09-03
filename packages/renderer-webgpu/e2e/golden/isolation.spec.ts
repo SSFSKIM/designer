@@ -439,7 +439,31 @@ const W14_HASHES: Readonly<Record<string, string>> = {
  * gap is recorded in the wave's Deferred list, not closed here.
  */
 
+/**
+ * `body-ramp-1x`, pinned for the first time (2026-09-04; W15 contract X7, and
+ * W13's Deferred entry that asked for it).
+ *
+ * This is a first pin, not a re-record: the scene did not exist before, so
+ * nothing here supersedes anything and no attribution is owed. What it is for is
+ * the gap the note above records — every other scene renders at device pixel
+ * ratio 2, where the body's depth ramp evaluates to nothing on this bed, so no
+ * committed byte in this directory depends on the 1x material at all. W15 moves
+ * the 2x body under a binding rule that the 1x material does not move; a promise
+ * with no pixel behind it is not a promise, and this is the pixel.
+ *
+ * Recorded at the W13 bed (`main` at `967bf7c`, the material as W13 G2 landed
+ * it), on this machine's `apple / metal-3` adapter through Playwright's full
+ * Chromium binary, like every hash above. The named profile patches the tint and
+ * the outer shadow and nothing of the body, so the ramp is live in this render:
+ * the test below is the fail-before record that says so, and it is what makes
+ * this hash a pin on the ramp rather than on the geometry alone.
+ */
+const W15_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "084480a056aab58bd1ec90d4e5d98b8d",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W15_HASHES[name] ??
   W14_HASHES[name] ??
   W12_G2B_HASHES[name] ??
   W12_G2_HASHES[name] ??
@@ -562,6 +586,38 @@ test.describe("@golden the goldens move only through the named profile seam", ()
     for (const name of Object.keys(SUPERSEDED)) {
       expect(scenes.map((s) => s.name)).toContain(name);
     }
+  });
+
+  test("the 1x pin carries the depth ramp — its fail-before record", async ({ page }) => {
+    // `W15_HASHES` is only worth its line if the bytes it pins depend on the ramp.
+    // The ramp's excursion is `max(0, s₀(span) − sDeep(span))`, so zeroing the
+    // three 1x start anchors makes it clamp to nothing at every span while
+    // leaving the deep value, the widths and the lens exactly where they are.
+    // That render must differ from the pinned one; if it ever stops differing,
+    // this scene has stopped exercising the 1x ramp and the pin above is empty.
+    const report = await openHarness(page);
+    requireHardwareAdapter(report);
+
+    const pinned = decodeCapture(
+      await page.evaluate(
+        (profile) => window.vitrea.renderScene("body-ramp-1x", undefined, profile),
+        PRE_C9A_PROFILE,
+      ),
+    );
+    const rampOff = decodeCapture(
+      await page.evaluate(
+        (profile) => window.vitrea.renderScene("body-ramp-1x", undefined, profile),
+        {
+          ...PRE_C9A_PROFILE,
+          sizeScatterRampStartThin1x: 0,
+          sizeScatterRampStartThick1x: 0,
+          sizeScatterRampStartFar1x: 0,
+        },
+      ),
+    );
+
+    expect(hashOf(pinned)).toBe(expectedHashFor("body-ramp-1x"));
+    expect(hashOf(rampOff)).not.toBe(hashOf(pinned));
   });
 
   test("and the tuned profile is not the old one — the proof is not vacuous", async ({ page }) => {
