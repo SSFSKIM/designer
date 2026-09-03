@@ -1,0 +1,28 @@
+W13 G1 dry run, by-eye sheet (contract X5). GPU tier, the fourth form's confirmation captures at
+the chosen constants (1x thin 0.72 / thick 0.52 / far 0.20 / reach 80 device px; 2x thin 0.46 /
+thick 0.17 / far 0.15 / reach 100), against the native fixture and the W14 bed (main as landed).
+
+g1-1x.png — six rows, five panels: native | W14 bed | candidate | diff(bed − native) |
+diff(candidate − native). Crops are the component box plus 8 CSS px; the diff panels are
+diagnostics, not renders.
+
+  - the checkerboard ladder: the candidate's checker just inside the contour is crisper than the
+    bed's and closer to Apple's lobes; on rrect-ml and rrect-lg the interior shows more of the
+    pattern than the bed did, which is the direction Apple's own interior sits (its centre still
+    carries about 0.4 of the sharp term at this scale). rrect-lg's interior is now 12% crisper
+    than Apple's where the bed was 17% softer. Every band row rises; no row falls.
+  - photo rrect-md: unchanged to the eye, as the numbers say (≤ 0.0003).
+
+g1-2x.png — the same rows at 2x. THE RAMP DOES NOTHING AT THIS SCALE (verified bit-exact):
+what separates panel 3 from panel 2 here is the device-pixel widths the wave carries from W12
+(candidate A), not the ramp.
+
+  - rrect-sm and the capsule: the candidate is closer to Apple than the bed (band +0.024 each).
+  - rrect-md, rrect-ml, glass-over-glass, rrect-lg: the candidate's interior is VISIBLY CRISPER
+    THAN APPLE'S — Apple's large surfaces are softer inside at 2x than either vitrea render, and
+    the widths push the wrong way there. The three rows W14 raised fall by 0.010–0.017 (rrect-ml
+    0.9746 → 0.9585, glass 0.9762 → 0.9664, rrect-lg 0.9680 → 0.9509), staying above 0.93. This
+    is the trade the sheet exists to show; it is the landing's question (see the message).
+
+What is NOT on these sheets: the CSS tier (its rows follow from a capture running now; it reads
+the 1x law by decision), and the dark scheme (every dark row rises or holds).
