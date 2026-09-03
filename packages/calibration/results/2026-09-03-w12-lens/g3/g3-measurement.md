@@ -461,6 +461,7 @@ python packages/calibration/results/2026-09-03-w12-lens/g3/g3_forms.py     # tab
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_photo.py     # table 7
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_variants.py  # section 8.1–8.2 (~4 min)
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_dryrun.py    # section 8.3
+python packages/calibration/results/2026-09-03-w12-lens/g3/g3_dryrun2.py   # section 9 (~3 min)
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_report.py    # merges parts/ → g3-measurement.json, prints every table
 ```
 
@@ -620,6 +621,9 @@ law — those cells are lens band nearly edge to edge and carry almost no deep b
 
 ### 8.4 What the declaration should carry — revised
 
+(Superseded by section 9.6: this section's dry run evaluated every candidate at the reference's own
+level and transmission and left the rim band untouched. Section 9 removes both normalisations.)
+
 **Declare F1′ (b), not F1.** It is the landed law with two scale terms and nothing else:
 
 - `σ_heavy` read as a **device-pixel** quantity: `blurSigma × sizeScatterGainMax = 10` device px,
@@ -650,3 +654,199 @@ dom rows up by only 0.0003–0.0030, and the 1x dom rows should be left where th
 mechanism question stands: F2, the reference's own quarter-buffer, needs a scale term of the same
 size, so nothing here explains *why* the 1x material leaks so much more of the unblurred buffer than
 the 2x one.
+
+---
+
+## 9. The dry run redone at vitrea's own level and transmission
+
+The G3 landing failed stop 3: the three 2x GPU texture rows fell (`rrect-md` 0.9517 → 0.9451,
+`rrect-ml` 0.9158 → 0.9041, `rrect-lg` 0.9113 → 0.9078). The referee's verdict names the two
+normalisations section 8's dry run rests on — it evaluated every candidate at the **reference's**
+level and transmission while the runtime renders at vitrea's own, and it left the rim band untouched
+while the runtime's lens reads the body at the refracted position. This section removes both, and
+finds a third thing neither had accounted for.
+
+### 9.1 The instrument
+
+`interiorStdDev` is the compare's reading of retained structure over the **native silhouette bounded
+to the component region** (`cli/measure.ts`: "One mask for both sides, and it is the NATIVE
+silhouette"). The geometric replica used here is `u > 0`. Against the matrices' own rows
+(`matrix-g2b.json` for `main`, `matrix-g3.json` for the landing), on all twenty webgpu rows:
+
+| | native (replica / matrix) | main | G3 |
+| --- | --- | --- | --- |
+| 2x `rrect-md` | 0.1273 / 0.1272 | 0.0975 / 0.0973 | 0.0615 / 0.0611 |
+| 2x `rrect-ml` | 0.1023 / 0.1018 | 0.0753 / 0.0746 | 0.0424 / 0.0411 |
+| 2x `rrect-lg` | 0.0819 / 0.0810 | 0.0539 / 0.0525 | 0.0398 / 0.0379 |
+
+Largest disagreement over the twenty rows: 0.0019. The replica is the instrument for everything
+below.
+
+### 9.2 The nominal law models `main` at both scales, and does not model the G3 build
+
+Retained structure is transmission × the model column's own spread, so dividing a capture's interior
+standard deviation by the nominal law's column gives the transmission the runtime must be applying if
+the nominal law is what it renders. On the §5.41 box:
+
+| cell | main 1x | main 2x | G3 2x |
+| --- | --- | --- | --- |
+| `rrect-sm` | 0.506 | 0.491 | **0.368** |
+| `capsule-button` | 0.495 | 0.490 | **0.365** |
+| `rrect-md` | 0.468 | 0.467 | **0.280** |
+| `rrect-ml` | 0.467 | 0.454 | **0.201** |
+| `rrect-lg` | 0.449 | 0.449 | **0.186** |
+
+**Reading, and it is the finding of this section.** For the material on `main` the nominal
+two-component law at one transmission per span reproduces the rendered retained structure at **both
+scales** — the 1x and 2x columns agree to 0.013 or better on every span, and the number is vitrea's
+own transmission (0.45–0.51), not the reference's. So the model this document has used throughout is
+a valid model of what the GPU tier renders, and section 8's error was only the normalisation.
+
+For the G3 build it is not. The same nominal law — the one the landing implemented, both σ in device
+pixels and Δk 0.35 — implies a transmission of 0.19–0.37, roughly **40–60% below** the same cell's
+transmission on `main`, and vitrea's transmission is not something the body law changes. The G3
+capture therefore retains far less structure than its own declared law predicts. Two readings are
+consistent with that and this evidence cannot separate them: either the GPU tier's mip-based body
+cannot deliver a σ halved in device pixels (a nominal σ maps to a chain level, and one level's
+footprint is not the nominal Gaussian), or something else in the optics pass moved with the same
+constants. Either way, **the landing's 2x fall is not fully explained by the dry run's
+normalisations; part of it is that the implementation did not render the declared kernel**, and that
+belongs to the landing worker before any re-declaration.
+
+Everything below therefore predicts what the declared law *would* retain, and is conditional on the
+implementation delivering it.
+
+### 9.3 The corrected dry run
+
+vitrea's own (a, t) are read from vitrea's own capture on `main` by regressing its interior box on the
+law `main` renders (r² 0.989–0.992 on every cell); they are then **held** while only the body
+structure is swapped. The band is predicted rather than skipped: a pixel at depth u takes the body at
+the refracted position q − D(u)·n̂ with D the landed G2 law. Predicted retained structure, 2x, over
+the box and over the compare's silhouette:
+
+| candidate | md box / sil | ml box / sil | lg box / sil |
+| --- | --- | --- | --- |
+| **native** | **0.1223 / 0.1273** | **0.0866 / 0.1023** | **0.0565 / 0.0819** |
+| main, measured | 0.0952 / 0.0975 | 0.0699 / 0.0753 | 0.0464 / 0.0539 |
+| main, reconstructed (the control) | 0.0949 / 0.0941 | 0.0695 / 0.0701 | 0.0462 / 0.0467 |
+| (a) both σ device, Δk 0.00 | 0.1373 / 0.1362 | 0.1152 / 0.1162 | 0.0983 / 0.0993 |
+| **(a) both σ device, Δk 0.10** | **0.1232 / 0.1218** | **0.1017 / 0.1026** | 0.0856 / 0.0866 |
+| (a) both σ device, Δk 0.20 | 0.1093 / 0.1078 | 0.0887 / 0.0894 | 0.0737 / 0.0747 |
+| (a) both σ device, Δk 0.35 (the landing) | 0.0894 / 0.0876 | 0.0705 / 0.0712 | 0.0697 / 0.0706 |
+| (b) heavy σ device, Δk 0.00 | 0.1291 / 0.1274 | 0.1092 / 0.1102 | 0.0950 / 0.0962 |
+| (b) heavy σ device, Δk 0.10 | 0.1171 / 0.1153 | 0.0978 / 0.0986 | 0.0840 / 0.0851 |
+| (b) heavy σ device, Δk 0.20 | 0.1052 / 0.1034 | 0.0865 / 0.0873 | 0.0734 / 0.0744 |
+
+The control is the check that matters: reconstructing `main` from `main`'s own law and vitrea's own
+(a, t) reproduces the measured box standard deviation to 0.3% (0.0949 against 0.0952, 0.0695 against
+0.0699, 0.0462 against 0.0464) and the silhouette figure to 3.5%. At 1x every candidate is identical
+to `main` to four decimals on every cell, because no term of any candidate moves at dpr 1.
+
+**Which candidate brings the GPU tier nearest native.** On the silhouette the compare actually
+measures, **Δk ≈ 0.10 with both σ in device pixels**: md 0.1218 against native 0.1273, ml 0.1026
+against 0.1023, lg 0.0866 against 0.0819. Δk 0.35 — the landing's — undershoots on all three even
+before the implementation gap of §9.2 (0.0876 / 0.0712 / 0.0706 against native 0.1273 / 0.1023 /
+0.0819), and Δk 0 overshoots on the two larger spans. The (b) family, which leaves the sharp σ in CSS
+px, needs Δk 0 on `rrect-md` and Δk 0.10–0.20 on the larger spans to reach the same place, i.e. it
+does not admit one Δk.
+
+**The instrument check the referee asked for fails, in the direction §9.2 predicts.** Evaluated this
+way the landing candidate ((a) Δk 0.35) predicts a silhouette standard deviation of 0.0876 / 0.0712 /
+0.0706 where the G3 capture measures **0.0615 / 0.0424 / 0.0398** — the prediction retains 42% / 68% /
+77% more structure than the build did. It is the same discrepancy as §9.2's transmission column, seen
+per candidate rather than per span.
+
+**SSIM is reported in the JSON but not read here.** Reconstructing `main` from `main`'s own law gives
+a whole-crop SSIM of 0.9390 against the capture's measured 0.9517 on `rrect-md`, so the
+reconstruction is not faithful enough in the band for its SSIM to be quoted as a prediction; the
+standard deviation, whose control agrees to 0.3%, is.
+
+### 9.4 The probe fit with the transmission held at vitrea's own
+
+The section 6 fit carried (a, t) free per cell. Re-run on the 2x probe with `a` free and **t fixed at
+vitrea's own** — 0.488 / 0.487 / 0.464 / 0.452 / 0.447 by span, measured from vitrea's own captures at
+pitch 16 and carried to the other pitches on W9's rule that the level laws are pitch-invariant:
+
+| Δk | −0.10 | 0.00 | +0.10 | +0.20 | +0.25 | **+0.30** | +0.35 | +0.45 | +0.60 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| (a) both σ device | .0610 | .0489 | .0379 | .0292 | .0265 | **.0253** | .0259 | .0303 | .0351 |
+| (b) heavy σ device | .0483 | .0395 | .0320 | .0270 | **.0259** | .0259 | .0271 | .0311 | .0351 |
+
+Best: **Δk +0.30** (fit 0.0253, holdout 0.0198) for (a) and **+0.25** (0.0259, holdout 0.0198) for (b).
+
+**Reading — Δk does not go to zero, and the two criteria disagree.** Holding the transmission at
+vitrea's own lowers the best Δk from section 8's 0.35 to 0.25–0.30, not to 0. So the 0.35 was not
+purely fitting the reference's higher transmission; most of it survives the correction. But the
+number that optimises the whole pitch axis (0.25–0.30) is not the number that puts the pitch-16
+retained structure nearest native (0.10, §9.3), and the two can be told apart: the higher Δk is
+bought at pitch 8, where a narrow kernel over-retains contrast the 2x reference has erased
+(section 8's 1.4–1.5× ratios), and it is paid for at pitch 16, which is the pitch every canonical
+texture row is scored on. A declaration that wants the canonical rows should take the pitch-16
+number; a declaration that wants the material to be right across the frequency axis should take the
+other, and accept the canonical rows moving less.
+
+### 9.5 The band
+
+The measured G3 capture's SSIM against native, split into the §5.41 box, the band (0–24 CSS px inside
+the contour, outside that box) and the outside — the referee's split, reproduced here from the
+captures:
+
+| cell | region | n | main | G3 | Δ | share of the whole-crop loss |
+| --- | --- | --- | --- | --- | --- | --- |
+| `rrect-md` | whole | 245700 | 0.9517 | 0.9451 | −0.0066 | 100% |
+| | box | 26880 | 0.9579 | 0.9330 | −0.0249 | 41.6% |
+| | **band < 24** | 33184 | 0.9276 | 0.8983 | **−0.0293** | **60.5%** |
+| | outside | 185636 | 0.9550 | 0.9552 | +0.0002 | −2.0% |
+| `rrect-ml` | whole | 245700 | 0.9158 | 0.9041 | −0.0117 | 100% |
+| | box | 50320 | 0.9590 | 0.9493 | −0.0097 | 17.0% |
+| | **band < 24** | 55912 | 0.9395 | 0.8996 | **−0.0399** | **77.3%** |
+| | outside | 133500 | 0.8878 | 0.8880 | +0.0002 | −0.8% |
+| `rrect-lg` | whole | 245700 | 0.9113 | 0.9078 | −0.0034 | 100% |
+| | box | 78016 | 0.9778 | 0.9817 | +0.0039 | −35.9% |
+| | **band < 24** | 71640 | 0.9381 | 0.9241 | **−0.0140** | **118.2%** |
+| | outside | 70460 | 0.7916 | 0.7919 | +0.0003 | −2.2% |
+
+**Reading.** The band carries 60%, 77% and 118% of the whole-crop loss — on `rrect-lg` more than all
+of it, because the interior box actually *improved* (+0.0039) while the band fell. Only one candidate
+has a capture, so this is one row per cell and not a sweep; what it establishes for the next
+declaration is the budget. The band is 13–29% of the crop's pixels and it moves 2–4× as far as the
+box does when the body changes, because the lens samples the body at the refracted position, so a
+body change is a band change of roughly three times the size. **A candidate that is chosen on
+interior evidence alone can lose the whole-crop row it was chosen to win**, which is what happened
+here: on `rrect-lg` the box went the predicted way and the row still fell.
+
+### 9.6 What the declaration should carry — revised again
+
+1. **Do not re-declare on this evidence yet.** §9.2 shows the G3 build did not render the kernel it
+   declared: the same nominal law implies a transmission of 0.19–0.37 on the G3 capture against
+   0.45–0.49 on `main`, where vitrea's transmission is not a thing the body law changes, and the same
+   gap reappears as a 42–77% over-prediction of retained structure. Until that is explained — the
+   mip-based body is the first place to look, since a σ halved in device pixels is a different chain
+   level and one level's footprint is not the nominal Gaussian — a new Δk fitted on captures the
+   implementation cannot reproduce would be fitting the wrong thing.
+2. **If the implementation is made to render the declared kernel, the number to declare is Δk ≈ 0.10,
+   not 0.35**, with both σ read in device pixels and every other landed constant held. It puts the
+   pitch-16 retained structure on the three large spans at 0.1218 / 0.1026 / 0.0866 against native
+   0.1273 / 0.1023 / 0.0819, where `main` sits at 0.0975 / 0.0753 / 0.0539 — the first candidate in
+   this wave that moves the compare's own frosting reading most of the way to the reference on the
+   cells the matrix scores.
+3. **Budget the band.** Any body change must be predicted in the band as well as the box; §9.5 puts
+   the band's share of the whole-crop movement at 60–118%, and section 8's dry run — box only —
+   is therefore not sufficient evidence for a landing decision on its own. The band's own prediction
+   needs the lens re-read against the *new* body (the G2 instrument of section 5 over a candidate
+   capture), which needs a capture, which is the landing worker's.
+4. **Does the transmission itself need a scale term the body cannot provide?** On this evidence,
+   **yes, and it is small.** The reference's own transmission on the same column is higher than
+   vitrea's at 2x by a ratio of 0.806 / 0.877 / 0.922 on md / ml / lg (t_vitrea ÷ t_ref), while at 1x
+   the same ratio is 0.933 / 1.061 / 1.159 — vitrea already matches or exceeds the reference at 1x
+   and falls short of it at 2x, on the same constants. A body law cannot supply that: it redistributes
+   structure between two widths at a fixed transmission. It also cannot be a plain alpha change,
+   because §4 measured the interior *mean* as scale-invariant to 0.0021 on exactly these cells, and
+   an alpha that lifted the 2x transmission would move the mean unless the tint level moved with it.
+   **The measurement that would establish it** is the W9 response-curve read (§5.34) repeated at 2x
+   on the probe's solid and lc16 families: fit the level law `mean = f(backdrop)` and the transmission
+   `t = ∂mean/∂backdrop` separately at both scales on backdrops of several linear levels, which
+   separates "the material passes more of the backdrop's variation" from "the material sits at a
+   different level". The probe already has the four cells that read it — `light-solid`,
+   `mid-dark-solid`, `dark-solid` and `checkerboard-lc16` at both scales — and it needs no new
+   capture.
