@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "86390fdc60e8eb72",
+  "resolvedMaterialSha256": "aa6e466b1412ec04",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -416,6 +416,7 @@
     "0df0796a6485e189 -> 989f02740cb5e52b (2026-09-03, W14 G1 review fixes 2 and 3): liftAmplitude 0 -> 0.0038, because X7 measured the lift surviving the dark colour scheme at 0.51-0.54 of its light amplitude at both scales (claims 5.62 section 8) and this document's 0 was written before that instrument ran; and reducedTransparencyOcclusion 0.038 named for the first time, because the constant became an absolute occlusion and inheriting the light scheme's measured 0.197 would have applied three times this material's own amplitude. Both PROVISIONAL — see entries.outerShadow.",
     "989f02740cb5e52b -> cd127cf8d572dc7d (2026-09-03, W14 G1 sweep adopted, claims 5.65): this scheme's own anchors fitted on the dark bed - thickOcclusionAt96 0.230 -> 0.278, At128 0.249 -> 0.301, At160 0.268 -> 0.324 (the provisional ones were carrying the ABSENCE of a lift), liftAmplitude 0.0038 -> 0.0051, which is 0.51x the fitted light amplitude, X7's measured ratio arrived at independently by a free fit - and liftSpanMin 64 / liftSpanFull 118 / liftBlurSigmaCss 40 named here for the first time, carried from the light document rather than read on this bed. The light defaults it resolves over moved with it. See entries.outerShadow.",
     "cd127cf8d572dc7d -> f378523fd2fa9995 (2026-09-03, W13 G1 merged with W14 G2): the defaults this difference document inherits now carry the ramp's six constants beside W14's landed outer shadow (claims 5.66); no constant of either wave moved, only the union of the two.",
-    "f378523fd2fa9995 -> 86390fdc60e8eb72 (2026-09-03, W13 G1, FOURTH form): the defaults this difference document inherits gain sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved."
+    "f378523fd2fa9995 -> 86390fdc60e8eb72 (2026-09-03, W13 G1, FOURTH form): the defaults this difference document inherits gain sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved.",
+    "86390fdc60e8eb72 -> aa6e466b1412ec04 (2026-09-03, W13 G1, fourth form FITTED at 1x): the default this difference document inherits, sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact."
   ]
 }
