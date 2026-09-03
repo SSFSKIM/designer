@@ -283,6 +283,60 @@ profile and the 2x body) that write findings, not the spec.
   checkerboard is achromatic; `photo` is where it would show); not fitted.
 - The Gecko manual pass and the Chromium bug report — user-held, unchanged.
 
+**Gaps opened by the layer dump (claims §5.50), each future work by the
+project's rule**, in the order they would be worth a wave:
+
+- **The bleed term.** Thick surfaces (span > 64) composite a pulled-in,
+  heavily blurred, darken-blended copy of the outside backdrop over the
+  edge (`inputBleedAmount` = `Height` 0.35·span, blur 0.7·span, opacity
+  (span − 64)/192, colour matrix black 0.9 / saturation 1.2). Vitrea has
+  no such term; its visible effect is the soft darkening of the band's
+  outer half on structured backdrops. Measure it on the `photo` cells
+  (where colour bleeds) before modelling.
+- **The shadow block versus W8.** Offset (0, 8), blur radius 40 from
+  span 72, amount min(0.625·span, 75), height 0.4·span, opacity
+  0.5 − (span − 48)/448, colour saturation 1.8, vibrancy (span − 64)/96,
+  a fill alpha that adapts on thin surfaces (0.278 checkerboard / 0.05
+  light-solid / 0.285 photo). W8 fitted one σ and one reach; this is the
+  reference's own law and it has a knee W8 could not see.
+- **The face on thin surfaces adapts; on thick it is constant.** Black
+  0.5 / white 1.03 / fill α 0.4 above the knee on every backdrop; below it
+  black 0.35–0.82, white 0.92–1.03, fill α 0.27–0.52 by backdrop. W9's
+  response curve is this mapping seen from outside; a dump on the dark,
+  mid-dark, impulse and hc-text backdrops and the dark scheme reads it
+  directly (one `--scenes` run, no TCC).
+- **The body is one blur in a quarter-device-scale buffer with a depth
+  ramp** (radius (span + 8)/42 floored at 4/3; opacity 0.5 at the edge →
+  1 at span/2). The dry run's body test (§5.51 §2) reproduces the 2x
+  interior in kind and not the 1x sharp share as parametrised: the ramp's
+  effective form at 1x, or the buffer's scale at 1x, is still to be read —
+  G3's 2x probe and a 1x re-read of the ramp on the probe's pitch axis.
+- **The rim is two opposed lights** (key at −45°, fill at +135°, amount
+  0.5 each, spread π/2, curvature 0.7) drawn by a separate SDF effect, not
+  by the backdrop filter. Vitrea's single light gives a 3.2:1 anisotropy
+  the reference does not have (§5.49 §5). For the rim's owner (§6.2).
+- **The author tint is a colour matrix on luminance** (orange R = 0.4·L +
+  0.6, G = 0.263·L + 0.321, B = 0, landing on systemOrange at L = 1) in a
+  separate backdrop-aware pass, and does not touch the glass filter. W10's
+  "opaque shade of the seed" is its outside view; the matrix form would
+  make the shade exact.
+- **Continuous corners.** The reference's shape is `cornerCurve:
+  continuous` (superellipse-style); vitrea's field family is circular. The
+  silhouette metrics tolerate it; the corner crops show it, and the
+  corner's dark ring under the bright arc (§5.51 §2) may be its shadow.
+- **The ovalization's oval.** Apple's 0.5 on an ellipse inscribed in the
+  box gives half the measured tilt; the oval it blends toward is more
+  curved at the edge midpoint, or the blend is not of unit directions.
+  ω 0.6 is the pixels' value; the true field is one more dump question
+  (`CASDFElementLayer` has no further readable property naming it) or a
+  corner-resolved fit.
+- **Apple's two-term profile.** Threads the crossings at zero fitted
+  amplitudes and loses on the pixels (§5.51 §2): what the amounts do
+  spatially is not two cubics. A finding for whoever wants the exact
+  operator; the landed power law is its measured result.
+- **The pressed state** is not in the filter's inputs (rest and pressed
+  read identical); the press lives in the highlight or the transform.
+
 ## Tracking Map
 
 | child | where | status |
