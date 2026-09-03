@@ -116,10 +116,10 @@ describe("what a placement change costs", () => {
   it("rebuilds when the device pixel ratio changes, and not when the viewport only resizes at it", () => {
     /*
      * The body's widths are DEVICE-pixel quantities (W12 G3, claims §5.56), so
-     * the CSS-px σ the pyramid converts to texels is `blurSigma / dpr`: a window
-     * dragged from a 1x display to a 2x one asks for a different body from the
-     * same source at the same density, and a static image never re-dirties to
-     * say so (W13 G1, review finding).
+     * the CSS-px σ the pyramid converts to texels is `blurSigma / dpr` (restored
+     * by W15 G1, claims §5.69 §1): a window dragged from a 1x display to a 2x
+     * one asks for a different body from the same source at the same density,
+     * and a static image never re-dirties to say so (W13 G1, review finding).
      */
     const gpu = createFakeGpu();
     const renderer = rendererOn(gpu);
@@ -134,18 +134,22 @@ describe("what a placement change costs", () => {
     renderer.drawFrame(frameArgs(2));
     expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
 
-    // Moved to a 1x display: same source, same placement, same density — and,
-    // since W13 Decision Log 8, the same body σ in CSS px, so the chain on the
-    // store is still the right one and nothing rebuilds. (While the widths were
-    // device-pixel quantities this move halved the σ and was a rebuild.)
+    // Moved to a 1x display: same source, same placement, same density — but
+    // twice the body σ in CSS px, so the chain on the store is the old scale's.
+    // (W13 Decision Log 8 withdrew the division and this was a clean frame for
+    // one wave; W15 G1 restores it, claims §5.69 §1.)
     renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 1 });
     renderer.drawFrame(frameArgs(3));
-    expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
 
-    // And back to 2x: still clean.
-    renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 2 });
+    // And settles there.
     renderer.drawFrame(frameArgs(4));
-    expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
+
+    // Back to 2x: the σ moves again.
+    renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 2 });
+    renderer.drawFrame(frameArgs(5));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(3);
   });
 
   it("rebuilds when a placement first arrives for a source built under cover fit", () => {

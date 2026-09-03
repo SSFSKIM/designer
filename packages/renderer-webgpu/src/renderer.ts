@@ -84,8 +84,12 @@ import {
   outerShadowReachPx,
   outerShadowThinOcclusion,
   outerShadowUnderPolicy,
+  scatterFloorAtScale,
+  scatterGainAtScale,
+  scatterGainFarAtScale,
   scatterRampReachDevicePx,
   scatterRampStart,
+  scatterSpanMaxAtScale,
   tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -447,11 +451,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * A source whose body would come out differently from the one on its chain,
    * for a reason that never re-dirties it: a placement that changed SIZE moves
    * the texels-per-CSS-px the σ is converted with, and a window moved between a
-   * 1x and a 2x display used to move the σ itself while the body's widths were
-   * device-pixel quantities (W12 G3; retired by W13 Decision Log 8 — the σ is
-   * CSS px at every scale now, so a display move alone no longer rebuilds), and
-   * a policy or profile change still moves it (W13 G1, review finding). A
-   * static image fixes none of these on its own. Named here as its own rebuild request, at
+   * 1x and a 2x display moves the σ itself, because the body's widths are
+   * device-pixel quantities on this tier and the CSS-px σ the pyramid converts
+   * is `blurSigma / dpr` (W12 G3, claims §5.56; restored by W15 G1, claims
+   * §5.69 §1, after W13 Decision Log 8 had withdrawn it). A policy or profile
+   * change moves it too (W13 G1, review finding). A static image fixes none of
+   * these on its own. Named here as its own rebuild request, at
    * the epoch the chain already holds so the store's clean check falls through
    * to `sameBody` rather than to the epoch.
    */
@@ -508,14 +513,31 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   /**
    * The body σ in CSS px a build for this source would ask for.
    *
-   * `blurSigma` is a CSS-px quantity at every device scale (W13 Decision Log 8;
-   * `sizeScatterSigmaAt` says why), folded under the policy of the group that
-   * samples the source. `buildPyramids` passes this and `staleBodyRebuilds`
-   * compares it against the σ the chain was built with, so the two cannot drift
-   * apart when a policy or profile change moves it.
+   * `blurSigma` is a DEVICE-pixel quantity on this tier (W12 G3, claims §5.56
+   * §1; the reference's body is one kernel in device pixels at both scales,
+   * §5.55 §1, and reading it so puts the 2x interior's structure on the
+   * reference at every span, §5.58 §2). So the CSS-px σ the pyramid converts to
+   * source texels with is `blurSigma / dpr`: it moves when the window moves
+   * between displays even though nothing about the source changed.
+   *
+   * W13 Decision Log 8 withdrew this division as a LANDING — at the 1x deep
+   * value the narrower 2x widths took the four large checkerboard rows down
+   * 0.006–0.017 — and W15 restores it as a term of the 2x form, beside the deep
+   * value that makes it right (claims §5.69 §1–§2; W15 Decision Log 2). It is
+   * the GPU tier's alone: the shared projection `sizeScatterSigmaAt` takes no
+   * ratio, and the CSS tier holds W13 Decision Log 5 until G1's prediction.
+   *
+   * `buildPyramids` passes this and `staleBodyRebuilds` compares it against the
+   * σ the chain was built with, so the two cannot drift apart.
    */
-  const bodySigmaCssFor = (sourceId: string): number =>
-    opticsUnderPolicy(material.optics[sourceVariant(sourceId)], accessibility, material).blurSigma;
+  const bodySigmaCssFor = (sourceId: string): number => {
+    const optics = opticsUnderPolicy(
+      material.optics[sourceVariant(sourceId)],
+      accessibility,
+      material,
+    );
+    return optics.blurSigma / Math.max(viewport.devicePixelRatio, 1e-3);
+  };
 
   /**
    * The one tint seed this group's optics pass draws with.
@@ -605,9 +627,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           sourceId: request.sourceId,
           epoch: request.epoch,
           resolution: request.resolution,
-          // The body's sharp width in CSS px at every device scale (W13 Decision
-          // Log 8); the heavy component rides the same conversion — its level
-          // is this one plus log2(sizeScatterGainMax) octaves.
+          // The body's sharp width is a DEVICE-pixel quantity (W12 G3, claims
+          // §5.56; restored by W15 G1): `blurSigma` device px, so
+          // `blurSigma / dpr` in the CSS px the pyramid converts to source
+          // texels with. The heavy component rides the same conversion — its
+          // level is this one plus log2(the gain at this ratio) octaves — so it
+          // is the gain's own multiple of the sharp width in device px at every
+          // scale. At dpr 1 this is `optics.blurSigma` unchanged, which is what
+          // leaves the 1x law exactly as landed.
           bodySigmaCss: bodySigmaCssFor(request.sourceId),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
@@ -926,7 +953,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // group whose members are not one size. `bodyChainLod` is where the body
         // blur already sits on the chain — only the pyramid that built it knows
         // the CSS-px-to-texel conversion, so it publishes the σ and this converts.
-        sizeScatterGainMax: material.sizeScatterGainMax,
+        // The gain at the ratio this group draws at (W15 G1, claims §5.69 §1):
+        // the shader's scatter level is `bodyChainLod + log2(gain)`, so this is
+        // where the heavy width's second scale acts. `sizeScatterGainMax2x`
+        // defaults to the 1x gain, so this is `material.sizeScatterGainMax`
+        // until the sweep fits it.
+        sizeScatterGainMax: scatterGainAtScale(material, dpr),
+        // The gain's far end at the same ratio (W15 G1's re-form, claims §5.70
+        // §4 and §7): the shader grades the gain from the near end at
+        // `sizeSpanMax` to this at `sizeScatterSpanMax`, because the reference's
+        // heavy kernel grows with the span and one gain left the largest span's
+        // deep interior too structured. `sizeScatterGainFar2x` defaults to the
+        // 2x gain's own default and interpolates from the 1x gain, so this is
+        // `sizeScatterGainMax` at dpr 1 whatever the profile says.
+        sizeScatterGainFar: scatterGainFarAtScale(material, dpr),
         sizeOcclusionGain: material.sizeOcclusionGain,
         sizeShadowGainMax: material.sizeShadowGainMax,
         bodyChainLod: chainLodForSigma(pyramid?.bodySigmaTexels ?? 0),
@@ -935,8 +975,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // same fold `sizeThicknessUnderPolicy` applies on the CPU.
         sizeSpanMin: material.sizeSpanMin,
         sizeSpanMax: material.sizeSpanMax,
-        sizeScatterFloor: material.sizeScatterFloor,
-        sizeScatterSpanMax: material.sizeScatterSpanMax,
+        // The deep value's floor and span top at this ratio (W15 G1, claims
+        // §5.69 §2). Same two uniform slots the shader has always read for
+        // `kDeep` and for the fold; only the value is resolved from the
+        // viewport now, as the ramp's anchors already were.
+        sizeScatterFloor: scatterFloorAtScale(material, dpr),
+        sizeScatterSpanMax: scatterSpanMaxAtScale(material, dpr),
         // The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5), resolved
         // from the viewport's own ratio: the profile anchors the start's thin
         // and thick ends and the reach at dpr 1 and dpr 2, and the CPU
@@ -949,7 +993,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeScatterRampStartThick: scatterRampStart(dpr, material, material.sizeSpanMax),
         // The fourth form's far end, at the scatter span curve's top; the shader
         // declines from the thick end to it along that curve.
-        sizeScatterRampStartFar: scatterRampStart(dpr, material, material.sizeScatterSpanMax),
+        sizeScatterRampStartFar: scatterRampStart(
+          dpr,
+          material,
+          scatterSpanMaxAtScale(material, dpr),
+        ),
         sizeScatterRampReachCssPx: scatterRampReachDevicePx(dpr, material) / dpr,
         sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         backdropTone,

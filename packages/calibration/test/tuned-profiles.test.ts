@@ -84,6 +84,16 @@ const FITTED_CONSTANTS = [
   // scales the reference was read at
   "sizeScatterFloor",
   "sizeScatterSpanMax",
+  // W15 G1's second scale (claims §5.69 §1–§2), FITTED by the wave's runtime
+  // sweep at dpr 2 and landed at claims §5.70 §2 and §8: the heavy width's gain
+  // and the deep value's floor and span top, each read again at that ratio and
+  // inert at dpr 1 by construction.
+  "sizeScatterGainMax2x",
+  "sizeScatterFloor2x",
+  "sizeScatterSpanMax2x",
+  // W15 G1's re-form (claims §5.70 §4, §7 and §8): the 2x gain's own span
+  // grading, landed at 9.9 from G0's independent per-span reading.
+  "sizeScatterGainFar2x",
   "sizeScatterRampStartThin1x",
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",

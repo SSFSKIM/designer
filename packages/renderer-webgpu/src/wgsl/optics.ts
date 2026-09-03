@@ -102,7 +102,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   light : vec4f,
   /// hasBackdrop, fieldSize.xy, fieldUpsampled
   flags : vec4f,
-  /// the size law's gains (W2): scatterGainMax, occlusionGain, shadowGainMax,
+  /// the size law's gains (W2): scatterGainMax — resolved at the group's device
+  /// ratio since W15 G1, claims 5.69 section 1 — occlusionGain, shadowGainMax,
   /// bodyChainLod — the last being the chain level whose blur already matches the
   /// body texture, which is what the scattering term measures its octaves from
   size : vec4f,
@@ -129,7 +130,12 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// shadow's shift needs when it lands outside the texture; the body depth
   /// ramp's THICK start (z, W13 G1's third form — the thin end is scatter.y and
   /// this pass mixes the two by the pixel's own sizeThickness), and (w) the
-  /// padding a uniform's vec4 alignment requires
+  /// heavy width's gain at the TOP of the scatter span curve, resolved at this
+  /// group's device ratio (W15 G1's re-form, claims §5.70 §4 and §7) — the
+  /// padding slot this vec4's alignment already required, taken because the
+  /// gain's near end (size.x) has no free neighbour and this vec4 already
+  /// carries the body ramp's other span-graded end; at dpr 1 it equals size.x
+  /// and the grading is flat
   shadowSize : vec4f,
   /// the backdrop tone response's anchors (W9): the three solid anchors'
   /// ENCODED-space means (xyz), and the backdrop's linear-space mean (w) — the
@@ -141,7 +147,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   toneRowThin : vec4f,
   /// the thick row (sizeThickness saturated), same layout
   toneRowThick : vec4f,
-  /// the size law's bands: the scatter facet's floor (x) and the depth ramp's
+  /// the size law's bands: the scatter facet's floor (x, resolved at the
+  /// group's device ratio since W15 G1 — the deep value is per-scale, claims
+  /// 5.69 section 2 — and read here for both the deep curve and the fold) and
+  /// the depth ramp's
   /// THIN start s0 at the ratio this group draws at (y, W13 G1 — the CPU has
   /// already interpolated it between the profile's 1x and 2x anchors; the thick
   /// end is shadowSize.z), and the
@@ -159,8 +168,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// ramp's reach in group-local CSS px (z, W13 G1) — the profile names it in
   /// device px and the CPU divides by the ratio, so that this shader can read
   /// the field's own CSS-px depth without a second conversion; the scatter span
-  /// curve's band top sizeScatterSpanMax (w, W11c), which W13 G1 keeps
-  /// underneath the ramp as its deep value
+  /// curve's band top sizeScatterSpanMax (w, W11c, resolved at the group's
+  /// device ratio since W15 G1), which W13 G1 keeps underneath the ramp as its
+  /// deep value
   lensOval : vec4f,
   /// the outer shadow's THICK regime (W14 G1): the composite's peak linear
   /// occlusion at casting spans 96, 128 and 160 CSS px (xyz), already folded
@@ -540,6 +550,13 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * band the reference has ABOVE the body, and a span whose deep sharp share
    * already exceeds s0 has nothing to add rather than something to subtract.
    *
+   * The floor and the span top arrive resolved at the ratio this group draws at
+   * (W15 G1, claims 5.69 section 2): the reference's 2x deep interior is fully
+   * heavy on the largest spans where this curve fitted at 1x leaves a sharp
+   * share of 0.24-0.36, so kDeep is a per-scale law. Nothing about the
+   * arithmetic here changes - the uniforms carry a different number, not a
+   * different shape - and on the landed material the two anchors are equal.
+   *
    * The fold keeps its W11c semantics on the composed law: the floor is the
    * frost the material has at any size and is not folded, everything above it -
    * the span curve's rise and the ramp's excursion alike - is depth and is, so
@@ -613,7 +630,13 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * by a share that is ≈ 0.4 on a small control and rises with the span. The
    * mix, not the level, is what the span moves.
    */
-  let scatterLod = clamp(ou.size.w + log2(max(ou.size.x, 1e-4)), 0.0, ou.lens.w);
+  // The gain is per PIXEL and not one number per group since W15 G1's re-form
+  // (claims §5.70 §4 and §7): the reference's heavy kernel grows with the span,
+  // so the gain rises from its near end 'size.x' to its far end 'shadowSize.w'
+  // along 'farS' — the very smoothstep the ramp's far anchor already declines
+  // along, computed above with the share. One curve, two quantities.
+  let gainEff = ou.size.x + (ou.shadowSize.w - ou.size.x) * farS;
+  let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)), 0.0, ou.lens.w);
 
   var backdrop = vec3f(0.0);
   if (ou.flags.x > 0.5) {

@@ -344,6 +344,17 @@ const MATERIAL_PATCH_KEYS = new Set([
   // sweep can fit the two scales independently.
   "sizeScatterFloor",
   "sizeScatterSpanMax",
+  // The body's second scale (W15 G1, claims 5.69 sections 1-2): the heavy
+  // width's gain and the deep value's floor and span top, each read again at
+  // dpr 2 and each defaulting to its 1x constant, so a sweep can name them as
+  // axes without the 1x material moving.
+  "sizeScatterGainMax2x",
+  "sizeScatterFloor2x",
+  "sizeScatterSpanMax2x",
+  // The 2x gain's span grading (W15 G1's re-form, claims 5.70 sections 4 and 7):
+  // the heavy width's gain at the top of the scatter span curve at dpr 2, which
+  // the re-form's sweep names as `--axis sizeScatterGainFar2x=...`.
+  "sizeScatterGainFar2x",
   "sizeScatterRampStartThin1x",
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",
