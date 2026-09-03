@@ -139,6 +139,11 @@ def rrect_sdf(px, py, comp):
             + np.minimum(np.maximum(qx, qy), 0) - r)
 
 
+def depth_map(comp, scale):
+    """g3lib's SDF depth inside the silhouette, CSS px, at device pixel centres."""
+    return g3lib.depth(comp, scale)
+
+
 def rrect_normal(px, py, comp):
     """The outward unit gradient of the SDF (the field pass's normal), by central difference."""
     e = 1e-3
@@ -214,6 +219,11 @@ class Wave1D:
 
 
 # ---------------------------------------------------------------- one edge's line set
+
+def background(name, scale):
+    """A committed backdrop raster as linear luminance, from the harness's own fixtures."""
+    return w11lib.luma_lin(w11lib.load_rgb(f'{FIX}/backgrounds/{name}@{scale}x.png'))
+
 
 _raster_cache = {}
 
@@ -617,7 +627,8 @@ def h1_sharp(u, span):
 
 def h2_sharp(u, span, s0, rho, floor):
     """A ramp with a free start, reach and floor: s = s0·max(0, 1 − u/(ρ·span/2)) + floor."""
-    return s0 * np.maximum(0.0, 1.0 - np.asarray(u, dtype=float) / max(rho * span / 2, 1e-6)) + floor
+    end = np.maximum(rho * np.asarray(span, dtype=float) / 2, 1e-6)
+    return s0 * np.maximum(0.0, 1.0 - np.asarray(u, dtype=float) / end) + floor
 
 
 def to_jsonable(o):
