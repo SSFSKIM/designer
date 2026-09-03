@@ -260,12 +260,17 @@ export interface MaterialProfile {
   readonly sizeSpanMax: number;
 
   /**
-   * The lens's gain on the size curve — "more pronounced lensing and refraction".
+   * The inner shadow's depth gain on the size curve — and, until W12 G2, the
+   * lens's too.
    *
-   * `lensDepthPx` is `thickness × lensSizeGain(span)`, clamped to the shorter
-   * *half* extent. The clamp is what keeps a small control from being all lens: a
-   * 24 px-tall button cannot bend more than 12 px of backdrop however thick it is
-   * authored.
+   * The inner shadow's depth is `thickness × (1 + (lensSizeGainMax − 1) ×
+   * sizeThickness)`, clamped to the shorter *half* extent, and its profile is
+   * `(1 − depth)²` on that depth: the landed law of W2, kept byte-for-byte for the
+   * occlusion because nothing measured it as wrong. The LENS no longer reads it —
+   * the reference's own lens height is a clamped linear function of the span
+   * (`lensHeightPerSpan`, `lensHeightMax`), read straight from its layer tree
+   * (claims §5.50), and the lens takes that law from W12 G2 on. The name stays so
+   * the profile documents keep naming the constant they measured.
    */
   readonly lensSizeGainMax: number;
 
@@ -356,16 +361,63 @@ export interface MaterialProfile {
   readonly sizeShadowGainMax: number;
 
   /**
-   * The lens's magnitude: the contour displacement in lens depths (W11c G2).
+   * The lens (W12 G2, claims §5.51) — one steep power on the reference's own
+   * span law, along a direction the reference ovalizes.
    *
-   * The shader reads the body from `lensDepth × lensRefractionGain × (1 − depth)²`
-   * further inside, so the band is the plate folded back from that far in. The
-   * two rim-LOD constants that used to sit here (`lensBodyLodPerPx`,
-   * `lensRimLodBias`) are retired: the reference's band is not sharper than its
-   * interior — W11c G2 measured σ 6 → 4 → 3 → the deep value across the band —
-   * and the "sharper rim" was the fold, not a finer sample.
+   * The reference's `glassBackground` filter takes an inner refraction *amount*
+   * and *height* that are clamped linear functions of the shape's shorter side
+   * (claims §5.50: amount −min(0.8·span, 60), height min(0.25·span, 20)). What
+   * those two numbers do spatially is not in the tree; measured as a field on
+   * the captures (§5.49) and ranked on the pixels (§5.51), the band is
+   *
+   *   D(u) = S · max(0, 1 − u / L′)^p,   S = lensRefractionGain · A(span),
+   *                                       L′ = lensExtentGain · lensDepth,
+   *
+   * with `lensDepth = (thickness / lensThicknessReference) × H(span)` the
+   * reference's height law scaled by the author's thickness (8 is the default
+   * and the reference's unit — at 8 the depth IS Apple's height, 8 / 11 / 20 on
+   * spans 32 / 44 / ≥ 80), `A(span)` the amount law scaled the same way, and
+   * `p = lensProfileExponent`. Apple's own two-term profile at its literal
+   * amounts was ranked too and lost on the pixels and the holdout; its span law
+   * is adopted, its shape is not (§5.51 §2).
+   *
+   * `lensRefractionGain` is therefore re-based: it was 1.6 lens depths on the
+   * W11c square profile (S = 1.6 × 20.8 = 33.3 at saturation), it is now the
+   * scale on the reference's amount (S = 0.745 × 60 = 44.7), fitted on
+   * `rrect-md` + `-ml` at 1x with `rrect-lg` held out.
    */
   readonly lensRefractionGain: number;
+  /** The reference's inner refraction height law: `min(lensHeightPerSpan · span, lensHeightMax)`. */
+  readonly lensHeightPerSpan: number;
+  readonly lensHeightMax: number;
+  /** The reference's inner refraction amount law: `min(lensAmountPerSpan · span, lensAmountMax)`. */
+  readonly lensAmountPerSpan: number;
+  readonly lensAmountMax: number;
+  /**
+   * The author `thickness` at which the lens depth equals the reference's own
+   * height — the host's default, and what the bed was captured at. A thicker
+   * authoring scales the depth and the magnitude together.
+   */
+  readonly lensThicknessReference: number;
+  /** The profile's extent over the lens depth: D reaches zero at `lensExtentGain × lensDepth`. */
+  readonly lensExtentGain: number;
+  /** The profile's exponent — the square of W11c became a steeper power (§5.49 §2). */
+  readonly lensProfileExponent: number;
+  /**
+   * The direction's ovalization (§5.49 §3, §5.50): the reference's SDF element
+   * carries `gradientOvalization`, and the band is magnified *along* the edge by
+   * up to 1.31× as a result. The shader displaces along the gradient of the
+   * blended field `(1 − ω)·d_rrect + ω·d_oval`, `d_oval` the signed distance of
+   * the ellipse inscribed in the surface's box, with the magnitude fixed. The
+   * reference's value is 0.5 on thick shapes and 0 on thin ones; 0.6 is what the
+   * pixels want on the box-inscribed ellipse (Apple's oval is more curved at the
+   * edge midpoint than that ellipse). The switch is a step in the reference
+   * between spans 64 and 72; here it is a smoothstep over that band, the same at
+   * both ends and continuous through a morph.
+   */
+  readonly lensOvalization: number;
+  readonly lensOvalizationSpanMin: number;
+  readonly lensOvalizationSpanMax: number;
 
   /**
    * What each accessibility regime does to the numbers above. The multipliers
@@ -731,6 +783,8 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    */
   sizeSpanMin: 32,
   sizeSpanMax: 96,
+  // The inner shadow's depth gain since W12 G2 (the lens reads its own law
+  // below); the value is W2's, unchanged.
   lensSizeGainMax: 2.6,
 
   /*
@@ -818,14 +872,35 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
-  // MEASURED (W11c G2, claims §5.43): the reference band's inward source
-  // displacement is 33 px at the contour on a 20.8 px lens depth — 1.6 lens
-  // depths — following the shader's own (1 − depth)² profile (per-shell fits
-  // on the probe's pitch-32/64 cells, spans 96/128 fitted, 160 held out; the
-  // gain's sweep 1.4/1.6/1.8/2.4 reads 0.0487/0.0478/0.0516/0.0567 at the
-  // shader's depth and profile). The band folds the plate from 1.6 lens depths
-  // inward; nothing in it is sharper or darker than the interior.
-  lensRefractionGain: 1.6,
+  /*
+   * The lens (W12 G2, claims §5.51; Decision Log 3 of the W12 spec).
+   *
+   * MEASURED from the reference's own layer tree (§5.50): the inner refraction
+   * amount and height laws, verified on spans 32 / 44 / 48 … 112 / 128 / 160
+   * and the nested base at 130, and the ovalization's knee (0 through span 64,
+   * 0.5 from 72). FITTED on the pixels (§5.51, a 2-D band renderer validated on
+   * this renderer's own capture): the gain, the extent and the exponent, on
+   * `rrect-md` + `-ml` at 1x pitches 16 and 32 with `rrect-lg` held out at both
+   * scales; the ovalization's effective value on the box-inscribed ellipse.
+   * Predicted before the landing capture: checkerboard SSIM 1x md / ml / lg
+   * 0.954 / 0.931 / 0.929 → 0.970 / 0.946 / 0.942, 2x 0.939 / 0.902 / 0.901 →
+   * 0.950 / 0.918 / 0.918, the capsule 0.977 → 0.985.
+   *
+   * What W11c G2 recorded here — 1.6 lens depths on the square profile, fitted
+   * per depth shell — was the band's mean, not its shape (§5.48, §5.49); it is
+   * kept in git history and in claims §5.43.
+   */
+  lensRefractionGain: 0.745,
+  lensHeightPerSpan: 0.25,
+  lensHeightMax: 20,
+  lensAmountPerSpan: 0.8,
+  lensAmountMax: 60,
+  lensThicknessReference: 8,
+  lensExtentGain: 1.337,
+  lensProfileExponent: 3.69,
+  lensOvalization: 0.6,
+  lensOvalizationSpanMin: 64,
+  lensOvalizationSpanMax: 72,
 
   reducedTransparencyFrost: 1.75,
   increasedOcclusionLift: INCREASED_OCCLUSION_LIFT,
@@ -1039,6 +1114,14 @@ export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax
 export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
 export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
 export const LENS_REFRACTION_GAIN = DEFAULT_MATERIAL_PROFILE.lensRefractionGain;
+export const LENS_HEIGHT_PER_SPAN = DEFAULT_MATERIAL_PROFILE.lensHeightPerSpan;
+export const LENS_HEIGHT_MAX = DEFAULT_MATERIAL_PROFILE.lensHeightMax;
+export const LENS_AMOUNT_PER_SPAN = DEFAULT_MATERIAL_PROFILE.lensAmountPerSpan;
+export const LENS_AMOUNT_MAX = DEFAULT_MATERIAL_PROFILE.lensAmountMax;
+export const LENS_THICKNESS_REFERENCE = DEFAULT_MATERIAL_PROFILE.lensThicknessReference;
+export const LENS_EXTENT_GAIN = DEFAULT_MATERIAL_PROFILE.lensExtentGain;
+export const LENS_PROFILE_EXPONENT = DEFAULT_MATERIAL_PROFILE.lensProfileExponent;
+export const LENS_OVALIZATION = DEFAULT_MATERIAL_PROFILE.lensOvalization;
 export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
 export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
 export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
@@ -1073,6 +1156,16 @@ export interface MaterialProfilePatch {
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
+  readonly lensHeightPerSpan?: number;
+  readonly lensHeightMax?: number;
+  readonly lensAmountPerSpan?: number;
+  readonly lensAmountMax?: number;
+  readonly lensThicknessReference?: number;
+  readonly lensExtentGain?: number;
+  readonly lensProfileExponent?: number;
+  readonly lensOvalization?: number;
+  readonly lensOvalizationSpanMin?: number;
+  readonly lensOvalizationSpanMax?: number;
   readonly reducedTransparencyFrost?: number;
   readonly increasedOcclusionLift?: number;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
@@ -1134,6 +1227,16 @@ export function withMaterialOverrides(
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
+    lensHeightPerSpan: patch.lensHeightPerSpan ?? base.lensHeightPerSpan,
+    lensHeightMax: patch.lensHeightMax ?? base.lensHeightMax,
+    lensAmountPerSpan: patch.lensAmountPerSpan ?? base.lensAmountPerSpan,
+    lensAmountMax: patch.lensAmountMax ?? base.lensAmountMax,
+    lensThicknessReference: patch.lensThicknessReference ?? base.lensThicknessReference,
+    lensExtentGain: patch.lensExtentGain ?? base.lensExtentGain,
+    lensProfileExponent: patch.lensProfileExponent ?? base.lensProfileExponent,
+    lensOvalization: patch.lensOvalization ?? base.lensOvalization,
+    lensOvalizationSpanMin: patch.lensOvalizationSpanMin ?? base.lensOvalizationSpanMin,
+    lensOvalizationSpanMax: patch.lensOvalizationSpanMax ?? base.lensOvalizationSpanMax,
     reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
     increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
@@ -1580,7 +1683,10 @@ export function sizeThicknessUnderPolicy(
   );
 }
 
-/** The lens's size gain — see `MaterialProfile.lensSizeGainMax`. */
+/**
+ * The inner shadow's size gain — see `MaterialProfile.lensSizeGainMax`. The
+ * name is the constant's; the lens has read its own law since W12 G2.
+ */
 export function lensSizeGain(
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
@@ -1594,6 +1700,111 @@ export function lensSizeGainFromThickness(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
   return 1 + (profile.lensSizeGainMax - 1) * thickness;
+}
+
+/**
+ * The inner shadow's depth in CSS px — the law the lens ran on until W12 G2,
+ * kept for the occlusion exactly as it was: the thickness times the size gain,
+ * clamped to the shorter half extent. `thickness` here is the policy-folded
+ * factor (`sizeThicknessUnderPolicy`), as the shader's `sizeK` is.
+ */
+export function shadowDepthPx(
+  thicknessPx: number,
+  spanPx: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(
+    Math.max(thicknessPx, 0) * lensSizeGainFromThickness(thickness, profile),
+    spanPx * 0.5,
+  );
+}
+
+/** The reference's inner refraction height for a span: `min(lensHeightPerSpan · span, lensHeightMax)`. */
+export function lensHeightBasePx(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(profile.lensHeightPerSpan * Math.max(spanPx, 0), profile.lensHeightMax);
+}
+
+/** The reference's inner refraction amount for a span: `min(lensAmountPerSpan · span, lensAmountMax)`. */
+export function lensAmountBasePx(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return Math.min(profile.lensAmountPerSpan * Math.max(spanPx, 0), profile.lensAmountMax);
+}
+
+/**
+ * The lens's ovalization for a span (W12 G2): `lensOvalization` on a thick
+ * surface, 0 on a thin one, a smoothstep over the reference's knee between.
+ */
+export function lensOvalizationAt(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return profile.lensOvalization * smoothstep(profile.lensOvalizationSpanMin, profile.lensOvalizationSpanMax, spanPx);
+}
+
+/**
+ * The lens's magnitude at the contour, in CSS px (W12 G2): the reference's
+ * amount law scaled by the author's thickness and by `lensRefractionGain`,
+ * under the same accessibility fold and half-extent clamp the depth takes —
+ * see `lensDepthPx`. 44.7 at saturation on the default thickness.
+ */
+export function lensMagnitudePx(
+  thicknessPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
+): number {
+  const thick = Math.max(thicknessPx, 0);
+  if (thick <= 0) return 0;
+  const scale = thick / profile.lensThicknessReference;
+  // The height and the amount are scaled together; a clamped depth scales the
+  // amount by the same ratio so the profile's shape survives the clamp.
+  const unclamped = thick + (lensHeightBasePx(spanPx, profile) * scale - thick) * fold;
+  const depth = lensDepthPx(thicknessPx, spanPx, profile, fold);
+  const amount = thick + (lensAmountBasePx(spanPx, profile) * scale - thick) * fold;
+  return profile.lensRefractionGain * amount * (unclamped > 0 ? depth / unclamped : 0);
+}
+
+/** The lens profile's extent: D reaches zero `lensExtentGain` lens depths in. */
+export function lensExtentPx(
+  thicknessPx: number,
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
+): number {
+  return profile.lensExtentGain * lensDepthPx(thicknessPx, spanPx, profile, fold);
+}
+
+/**
+ * The direction the lens displaces along at a pixel (W12 G2): the gradient of
+ * the blended field `(1 − ω)·d_rrect + ω·d_oval`, where `d_oval` is the signed
+ * distance of the ellipse inscribed in the surface's box —
+ * `min(a, b)·(√((x/a)² + (y/b)²) − 1)` — and the rounded rectangle's gradient is
+ * the field pass's unit normal. `offset` is the pixel relative to the surface's
+ * centre and `half` the half-extents, both in CSS px. Returns a unit vector;
+ * the shader's arithmetic, on the CPU for the tests.
+ */
+export function lensDirection(
+  normal: readonly [number, number],
+  offset: readonly [number, number],
+  half: readonly [number, number],
+  ovalization: number,
+): [number, number] {
+  const a = Math.max(half[0], 1e-6);
+  const b = Math.max(half[1], 1e-6);
+  const ex = offset[0] / (a * a);
+  const ey = offset[1] / (b * b);
+  const r = Math.max(Math.hypot(offset[0] / a, offset[1] / b), 1e-6);
+  const scale = Math.min(a, b) / r;
+  const gx = (1 - ovalization) * normal[0] + ovalization * ex * scale;
+  const gy = (1 - ovalization) * normal[1] + ovalization * ey * scale;
+  const len = Math.hypot(gx, gy);
+  return len > 1e-9 ? [gx / len, gy / len] : [normal[0], normal[1]];
 }
 
 /**
@@ -1842,28 +2053,53 @@ export function outerShadowReachPx(shadow: MaterialOuterShadow): number {
   return Math.max(0, hi + Math.abs(shadow.offsetPx) + shadow.spreadPx);
 }
 
+/**
+ * The lens depth in CSS px (W12 G2): the reference's own height law,
+ * `min(lensHeightPerSpan · span, lensHeightMax)`, scaled by the author's
+ * thickness over `lensThicknessReference`, clamped to the shorter half extent.
+ * 8 / 11 / 20 on spans 32 / 44 / ≥ 80 at the default thickness — the numbers
+ * read from the reference's layer tree (claims §5.50).
+ *
+ * `fold` is the accessibility regime's factor on the size-dependent part (the
+ * refraction ladder at the preference's cap, `sizeThicknessUnderPolicy`'s
+ * factor): at 1 the depth is the law's, at 0 it is the authored thickness and
+ * nothing more — the same shape the W2 law folded by, so a reduced regime
+ * keeps the lens it had.
+ */
 export function lensDepthPx(
   thicknessPx: number,
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
 ): number {
-  const gain = lensSizeGain(spanPx, profile);
-  return Math.min(Math.max(thicknessPx, 0) * gain, spanPx * 0.5);
+  const thick = Math.max(thicknessPx, 0);
+  const scale = thick / profile.lensThicknessReference;
+  const depth = thick + (lensHeightBasePx(spanPx, profile) * scale - thick) * fold;
+  return Math.min(Math.max(depth, 0), spanPx * 0.5);
 }
 
 /**
  * How far inside the surface the shader reads the body for a pixel `depthPx`
- * in from the contour (W11c G2), in CSS px — `lensDepth × lensRefractionGain ×
- * (1 − depth)²` with `depth = depthPx / lensDepth` clamped to 0…1, times the
- * refraction scale the policy resolved. Zero from `lensDepthPx` inward.
+ * in from the contour (W12 G2), in CSS px — `S · max(0, 1 − depthPx / L′)^p`
+ * with `S = lensMagnitudePx`, `L′ = lensExtentPx` and `p` the profile's
+ * exponent, times the refraction scale the policy resolved. At the default
+ * thickness on a 96 px span: 33.7 / 24.3 / 11.9 at 2 / 4 / 8 px in, zero from
+ * 26.7 px in — the reference's crossings read 34 / 24 / 12 (claims §5.49).
  */
 export function lensDisplacementPx(
   depthPx: number,
-  lensDepthPx: number,
+  spanPx: number,
+  thicknessPx: number,
   refractionScale: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  fold = 1,
 ): number {
-  if (lensDepthPx <= 0) return 0;
-  const depth = Math.min(Math.max(depthPx / lensDepthPx, 0), 1);
-  return lensDepthPx * (1 - depth) * (1 - depth) * refractionScale * profile.lensRefractionGain;
+  const extent = lensExtentPx(thicknessPx, spanPx, profile, fold);
+  if (extent <= 0) return 0;
+  const t = Math.max(0, 1 - Math.max(depthPx, 0) / extent);
+  return (
+    lensMagnitudePx(thicknessPx, spanPx, profile, fold) *
+    Math.pow(t, profile.lensProfileExponent) *
+    refractionScale
+  );
 }

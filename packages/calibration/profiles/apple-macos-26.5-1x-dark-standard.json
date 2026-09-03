@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "aec4cfba10137f2b",
+  "resolvedMaterialSha256": "c2da15c95e5116e2",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -240,5 +240,14 @@
     }
   },
   "recalibratedAt": "2026-08-31",
-  "$comment-recalibration": "REFITTED against the ACTIVE-pose reference. tintAlpha 0.97 and the tint level 0.05 SURVIVE the pose change: swept over 0.80/0.88/0.94/0.97 the objective moves 9% with 0.88 marginally ahead (0.12097 against 0.12309) while the dE check prefers 0.97 (0.01454 against 0.01583) — a disagreement inside the grid's own noise on a profile that is not gated, so the adopted value stands. What is new here is the outer shadow's amplitude: 0.09, fitted on this profile's calibration cells (--objective shadow, a 2.06x spread with a genuine interior minimum, flat to 1.02% across 0.07..0.12). The dark material's shadow is one fifth the light one's at the same geometry. Everything else is inherited from the refitted default."
+  "$comment-recalibration": "REFITTED against the ACTIVE-pose reference. tintAlpha 0.97 and the tint level 0.05 SURVIVE the pose change: swept over 0.80/0.88/0.94/0.97 the objective moves 9% with 0.88 marginally ahead (0.12097 against 0.12309) while the dE check prefers 0.97 (0.01454 against 0.01583) — a disagreement inside the grid's own noise on a profile that is not gated, so the adopted value stands. What is new here is the outer shadow's amplitude: 0.09, fitted on this profile's calibration cells (--objective shadow, a 2.06x spread with a genuine interior minimum, flat to 1.02% across 0.07..0.12). The dark material's shadow is one fifth the light one's at the same geometry. Everything else is inherited from the refitted default.",
+  "$comment-w12-g2": [
+    "RE-RECORDED 2026-09-03 (W12 G2, claims 5.51): the defaults this difference",
+    "document inherits changed — the lens is one steep power on the reference's",
+    "span law along an ovalized normal (lensRefractionGain 0.745 re-based, ten new",
+    "lens constants; see the light profile's entries.lens). Fitted on the LIGHT 1x",
+    "captures; whether the dark reference's band takes the same law is the",
+    "referee's question for this scheme's cells. The patch itself is unchanged.",
+    "Fingerprint aec4cfba10137f2b -> c2da15c95e5116e2 (the defaults above)."
+  ]
 }

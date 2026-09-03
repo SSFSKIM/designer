@@ -323,7 +323,48 @@ const PLACEMENT_HASHES: Readonly<Record<string, string>> = {
   "placed-checkerboard": "c42c0c7069e55624f5e34d717a1ffb99",
 };
 
+/**
+ * Six goldens after W12 G2, the lens's shape (2026-09-03; claims §5.51) — a
+ * FORM change again, and again not expressible through the profile seam.
+ *
+ * The lens used to displace along the field's normal by `1.6 × lensDepth ×
+ * (1 − depth)²` on a depth that rode the size law's smoothstep. The reference's
+ * band is a steeper power on the reference's own span law (its inner refraction
+ * height `min(0.25·span, 20)` and amount `min(0.8·span, 60)`, read from its
+ * layer tree, claims §5.50), 44.7 px at the contour on a saturated span dying
+ * as `(1 − u/26.7)^3.69`, and it runs along the field's gradient blended toward
+ * the oval inscribed in the surface's box on thick surfaces — which is what
+ * magnifies the band along the edge. Neither the exponent, the span law nor the
+ * direction can be patched into the old form, so these are new pins; the inner
+ * shadow keeps the old depth law and profile, which is why nothing without
+ * backdrop structure moved.
+ *
+ * The attribution is the same shape as G2's: only scenes with structure under
+ * a lens can move. `placed-checkerboard` carries the largest delta (max 34 /
+ * mean 3.79 code values against the committed goldens — a 68 px span authored
+ * at thickness 14, whose depth went 14 × 1.95 = 27.3 → (14/8) × 17 = 29.75 px
+ * and whose contour magnitude went 1.6 × 27.3 = 43.7 → 0.745 × (14/8) × 54.4 =
+ * 70.9 px under the new laws, with the ovalization's knee sitting at 64–72),
+ * then `refraction-checkerboard`
+ * (max 19 / mean 1.51) and `lens-size-scaling` (max 7 / mean 0.49); the three
+ * gradient scenes move by at most TWO code values (`rim-two-references` 2,
+ * `concentric-nesting` 2, `union-pair` 2: a displaced ramp is a slightly
+ * different ramp); and the four with nothing to displace — the two flat
+ * `tint-adaptation-*` backdrops and the two unsampled scenes, `field-mask` and
+ * `highlight-press-glow` — reproduce their hashes byte-for-byte. The control
+ * has still not moved once since 2026-08-25.
+ */
+const W12_G2_HASHES: Readonly<Record<string, string>> = {
+  "refraction-checkerboard": "daa6d48e663a40348882491385d6b9cb",
+  "placed-checkerboard": "b0b1e9e0f32fd66957b33954cbce00f6",
+  "lens-size-scaling": "ea72926bab6a0a7b0144a477ac4f477d",
+  "rim-two-references": "1748f11aef65573d0445157cd3db2fb8",
+  "concentric-nesting": "9f547ae88a38432f002bae2c70213b6e",
+  "union-pair": "e63ff99028171bc22e797f7ee6cb0b6f",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W12_G2_HASHES[name] ??
   PLACEMENT_HASHES[name] ??
   W11C_G2_HASHES[name] ??
   W11C_HASHES[name] ??

@@ -164,7 +164,7 @@ describe("the instance struct", () => {
   });
 
   it("declares X8's geometry plus the render channels, and pads to a legal stride", () => {
-    for (const name of ["centre", "half", "inset", "thick", "press", "glow", "lensDepth"]) {
+    for (const name of ["centre", "half", "inset", "thick", "press", "glow", "lensThick"]) {
       expect(WGSL_INSTANCE_STRUCT).toContain(name);
     }
     // And the two per-pixel scalars the fragment stages actually read, which are

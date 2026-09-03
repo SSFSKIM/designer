@@ -129,9 +129,10 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
     expect(narrow.maxDelta, "the narrow surface lenses at all").toBeGreaterThan(8);
     expect(wide.maxDelta, "the wide surface lenses at all").toBeGreaterThan(8);
 
-    // material.ts resolves 10 CSS px of depth for the 36 px span and about 25 for
-    // the 400 px one. The assertion is the ratio, not the absolute number, so
-    // recalibrating the gain (C7's job) moves the numbers and not the property.
+    // material.ts resolves 11.25 CSS px of depth for the 36 px span and 25 for
+    // the 400 px one (W12 G2: the reference's height law at thickness 10). The
+    // assertion is the ratio, not the absolute number, so recalibrating the law
+    // (C7's job) moves the numbers and not the property.
     expect(
       wide.depthCss,
       `wide group's lens depth (${wide.depthCss.toFixed(2)} CSS px) should exceed the narrow group's (${narrow.depthCss.toFixed(2)} CSS px)`,
@@ -146,7 +147,16 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "e1383ed6f133d99d19b7e44b73022749";
+const PLACED_CHECKERBOARD_COVER_HASH = "84d9a10e3b866580c15dfce961a888ac";
+
+/**
+ * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
+ * placed fit landed. W12 G2 (claims §5.51) changed the lens's shape, and the
+ * cover-fit render carries the lens like the placed one does, so the record
+ * moved with it and was re-recorded in the same run as the golden — the
+ * attribution of that change is the isolation proof's `W12_G2_HASHES`, not
+ * this constant, which only says the two fits still differ by the fit alone.
+ */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {
   test("the placed render is the golden, and the cover-fit render is what it replaced", async ({

@@ -169,4 +169,5 @@ export const poolKey = {
   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
   groupField: (groupId: string): string => `group:${groupId}:field`,
   groupAux: (groupId: string): string => `group:${groupId}:aux`,
+  groupAux2: (groupId: string): string => `group:${groupId}:aux2`,
 } as const;

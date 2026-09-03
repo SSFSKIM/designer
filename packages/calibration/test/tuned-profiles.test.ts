@@ -81,8 +81,20 @@ const FITTED_CONSTANTS = [
   // W11c's scatter curve — the facet's own floor and band top (claims §5.41)
   "sizeScatterFloor",
   "sizeScatterSpanMax",
-  // W11c's lens magnitude — the contour displacement in lens depths (claims §5.43)
+  // W12 G2's lens (claims §5.50–§5.51): the reference's height and amount laws
+  // and the ovalization's knee read from its layer tree; the gain, extent,
+  // exponent and ovalization fitted on the pixels
   "lensRefractionGain",
+  "lensHeightPerSpan",
+  "lensHeightMax",
+  "lensAmountPerSpan",
+  "lensAmountMax",
+  "lensThicknessReference",
+  "lensExtentGain",
+  "lensProfileExponent",
+  "lensOvalization",
+  "lensOvalizationSpanMin",
+  "lensOvalizationSpanMax",
   // W3's tint tone map
   "tintShadeDark",
   "tintShadeLight",

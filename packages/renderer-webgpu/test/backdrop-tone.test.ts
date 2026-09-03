@@ -390,7 +390,8 @@ describe("the optics pass's statement of the axis", () => {
     // The marks that say a surface is here rather than what is behind it. All of
     // them, or the surface leaves an outline where the reference leaves nothing.
     expect(WGSL_OPTICS_PASS).toContain("let present = 1.0 - toneAdapt;");
-    expect(WGSL_OPTICS_PASS).toContain("profile * shadowDepth * ou.light.w * present");
+    // The inner shadow's own profile since W12 G2 (the lens took its own law).
+    expect(WGSL_OPTICS_PASS).toContain("shadowProfile * shadowDepth * ou.light.w * present");
     expect(WGSL_OPTICS_PASS).toContain("rw * (ou.rim.y + spec) * present");
   });
 });

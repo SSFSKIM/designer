@@ -43,8 +43,9 @@ import { DEFAULT_MOTION_PROFILE } from "@vitrea/motion";
 import { rendererError } from "./errors";
 import type { FieldFamily } from "./governor";
 import {
+  accessibilityRefractionCap,
   DEFAULT_MATERIAL_PROFILE,
-  lensSizeGainFromThickness,
+  lensDepthPx as lensDepthOf,
   NOMINAL_MATERIAL_POLICY,
   sizeThicknessUnderPolicy,
   type MaterialPolicyView,
@@ -77,6 +78,13 @@ export interface ResolvedSurface {
   readonly channels: SurfaceChannels;
   /** Shorter extent in CSS px — what the whole size law is a function of. */
   readonly spanPx: number;
+  /**
+   * The lens depth in CSS px (W12 G2): the reference's height law scaled by the
+   * author's thickness, folded under the accessibility regime, clamped to the
+   * shorter half extent — `lensDepthPx` in `material.ts`. The CPU's reading of
+   * what the shader evaluates per pixel from the thickness and the span it
+   * carries; tests and the harness read it, the shader does not.
+   */
   readonly lensDepthPx: number;
   /** The author tint's strength, 0 where the surface is untinted. */
   readonly tintStrength: number;
@@ -206,9 +214,11 @@ export function resolveSurfaces(
       centre: [fieldSource.channels.center[0], fieldSource.channels.center[1]],
       channels,
       spanPx,
-      lensDepthPx: Math.min(
-        Math.max(shape.channels.thickness, 0) * lensSizeGainFromThickness(thickness, profile),
-        spanPx * 0.5,
+      lensDepthPx: lensDepthOf(
+        shape.channels.thickness,
+        spanPx,
+        profile,
+        profile.refractionScale[accessibilityRefractionCap(policy)],
       ),
       sizeThickness: thickness,
       tintStrength: Math.min(1, Math.max(0, surface.tint?.strength ?? 0)),
@@ -351,10 +361,14 @@ export function packInstances(
     data[o + 11] = s.shape.channels.thickness;
     data[o + 12] = s.channels.press;
     data[o + 13] = s.channels.glow;
-    // The shader's `lensDepth` slot: the size-parameterised depth from
-    // `material.ts`, already scaled by the `lensStrength` motion channel, so the
-    // fragment stage multiplies nothing it could get wrong.
-    data[o + 14] = s.lensDepthPx * Math.min(1, Math.max(0, s.channels.lensStrength));
+    // The shader's `lensThick` slot (W12 G2): the authored thickness in CSS px
+    // scaled by the `lensStrength` motion channel. The fragment stage evaluates
+    // BOTH depths from it and the span — the lens's (the reference's height law)
+    // and the inner shadow's (W2's size gain, kept) — so a strength of 0 turns
+    // the lens off exactly as the resolved depth used to, and neither depth can
+    // be rounded through the other. Until W12 G2 this slot carried the resolved
+    // lens depth itself; the CPU still resolves it (`lensDepthPx`) for readers.
+    data[o + 14] = Math.max(s.shape.channels.thickness, 0) * Math.min(1, Math.max(0, s.channels.lensStrength));
     // The shader's `tintK` slot, and the only per-surface half of the author
     // tint: the seed is a group uniform, this is how much of it this pixel gets.
     data[o + 15] = s.tintStrength;

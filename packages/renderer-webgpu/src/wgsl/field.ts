@@ -63,7 +63,7 @@ export const WGSL_INSTANCE_STRUCT = `struct Instance {
   thick  : f32,     // 44  material thickness, CSS px
   press  : f32,     // 48  interaction channel value, 0..1
   glow   : f32,     // 52  interaction channel value, 0..1
-  lensDepth : f32,  // 56  CPU-resolved lens depth in CSS px (material.ts), already scaled by the lensStrength channel
+  lensThick : f32,  // 56  authored thickness in CSS px times the lensStrength channel (W12 G2): both depths are evaluated from it per pixel
   tintK  : f32,     // 60  author tint strength, 0..1 — the seed itself is a group uniform
   span   : f32,     // 64  the surface's shorter extent, CSS px — the size law's input, both curves (W11c)
   _pad   : f32,     // 68  stride padding: vec2f aligns the struct to 8, so 72 is the next legal size
@@ -279,7 +279,8 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // field but its members are not one size, and carrying them per pixel is what
 // lets a 40 px button and a 320 px platter share a field pass and still lens by
 // their own depth — parent acceptance #2 inside a GlassEffectContainer.
-//   aux = (lensDepthPx, glow, spanPx, tintStrength)
+//   aux  = (lensThickPx, glow, spanPx, tintStrength)
+//   aux2 = (p − centre, half.x, half.y)           — W12 G2, group-local CSS px
 //
 // The third and fourth slots both changed hands, and neither of the values they
 // used to carry was ever read by a fragment stage. 'thick' left because
@@ -313,14 +314,25 @@ export const WGSL_FIELD_PASS = `struct FieldUniforms {
 // their SPANS and evaluates the curves on the blend, where it used to blend the
 // evaluated thicknesses. Inside either member the two are identical; only the
 // smooth-min neck differs, and nothing measured claims a value there.
+//
+// 'aux2' (W12 G2) carries the pixel's offset from the owning surface's centre
+// and that surface's half-extents, which
+// the optics pass needs for the lens's direction: the reference displaces along
+// the gradient of its SDF blended toward the oval inscribed in the shape's box
+// (claims §5.50's 'gradientOvalization'), and an oval is a property of the box,
+// not of the distance field. Blended by the same weight as 'aux' in a neck, so
+// two merged members share one oval there — a value nothing measured either.
+// For a concentric child the box is the parent's (the child is the parent's
+// level set), which is the same centre and a slightly larger oval.
 
 @group(0) @binding(0) var<uniform> fu : FieldUniforms;
 @group(0) @binding(1) var<storage, read> instances : array<Instance>;
 
 struct Member {
-  d   : f32,
-  g   : vec2f,
-  aux : vec4f,
+  d    : f32,
+  g    : vec2f,
+  aux  : vec4f,
+  aux2 : vec4f,
 };
 
 fn eval_instance(i : u32, p : vec2f) -> Member {
@@ -333,13 +345,17 @@ fn eval_instance(i : u32, p : vec2f) -> Member {
   var m : Member;
   m.d = f.d + s.inset;
   m.g = f.g;
-  m.aux = vec4f(s.lensDepth, s.glow, s.span, s.tintK);
+  m.aux = vec4f(s.lensThick, s.glow, s.span, s.tintK);
+  // The pixel relative to the surface's centre, and the half-extents: what the
+  // oval's gradient needs, written here where the group-local position is exact.
+  m.aux2 = vec4f(p - s.centre, s.half);
   return m;
 }
 
 struct FieldOut {
   @location(0) field : vec4f,
   @location(1) aux   : vec4f,
+  @location(2) aux2  : vec4f,
 };
 
 @fragment
@@ -357,6 +373,7 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
     // coverage downstream is not reliably zero.
     out.field = vec4f(65000.0, 0.0, -1.0, 0.0);
     out.aux = vec4f(0.0);
+    out.aux2 = vec4f(0.0);
     return out;
   }
 
@@ -369,6 +386,7 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
     acc.d = blend.x;
     acc.g = mix(s.g, acc.g, h);
     acc.aux = mix(s.aux, acc.aux, h);
+    acc.aux2 = mix(s.aux2, acc.aux2, h);
     nearest = min(nearest, s.d);
   }
   // One clamp at the end of the fold, so |union - min| <= maxBulge holds for any
@@ -381,6 +399,7 @@ fn fs_field(in : FullscreenOut) -> FieldOut {
 
   out.field = vec4f(acc.d, normal.x, normal.y, coverage);
   out.aux = acc.aux;
+  out.aux2 = acc.aux2;
   return out;
 }`;
 

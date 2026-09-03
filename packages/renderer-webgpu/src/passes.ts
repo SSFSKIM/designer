@@ -76,6 +76,8 @@ export interface FieldPassArgs {
 export interface FieldTargets {
   readonly field: GPUTexture;
   readonly aux: GPUTexture;
+  /** The owning surface's centre and half-extents per pixel (W12 G2) — the lens's oval. */
+  readonly aux2: GPUTexture;
   /** The field textures' extent in texels — the group's rect times `renderScale`. */
   readonly width: number;
   readonly height: number;
@@ -100,8 +102,30 @@ export interface OpticsPassArgs {
   /** Backdrop uv transform on viewport-normalised coordinates. */
   readonly fit: readonly [number, number, number, number];
   readonly refractionScale: number;
-  /** The contour displacement in lens depths (W11c G2) — `MaterialProfile.lensRefractionGain`. */
+  /** The lens's magnitude gain (W12 G2) — `MaterialProfile.lensRefractionGain`. */
   readonly lensRefractionGain: number;
+  /**
+   * The lens law (W12 G2), evaluated per pixel from the thickness and the span
+   * the field carries: the reference's height and amount laws, the thickness
+   * they are read at, the profile's extent and exponent, and the direction's
+   * ovalization with its knee — see `MaterialProfile.lensRefractionGain`.
+   */
+  readonly lensHeightPerSpan: number;
+  readonly lensHeightMax: number;
+  readonly lensAmountPerSpan: number;
+  readonly lensAmountMax: number;
+  readonly lensThicknessReference: number;
+  readonly lensExtentGain: number;
+  readonly lensProfileExponent: number;
+  readonly lensOvalization: number;
+  readonly lensOvalizationSpanMin: number;
+  readonly lensOvalizationSpanMax: number;
+  /**
+   * The inner shadow's depth gain — W2's `lensSizeGainMax`, which the shadow
+   * keeps reading after the lens moved to its own law (W12 G2); the shader
+   * evaluates the shadow's depth from the same thickness and span.
+   */
+  readonly shadowDepthSizeGainMax: number;
   readonly chainMaxLod: number;
   readonly tint: readonly [number, number, number];
   readonly tintAlpha: number;
@@ -315,7 +339,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
         fragment: {
           module,
           entryPoint: "fs_field",
-          targets: [{ format: WORKING_TEXTURE_FORMAT }, { format: WORKING_TEXTURE_FORMAT }],
+          targets: [
+            { format: WORKING_TEXTURE_FORMAT },
+            { format: WORKING_TEXTURE_FORMAT },
+            { format: WORKING_TEXTURE_FORMAT },
+          ],
         },
         primitive: { topology: "triangle-list" },
       };
@@ -398,6 +426,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
         usage: fieldUsage(),
         label: `vitrea:group:${args.groupId}:aux`,
       });
+      const aux2 = pool.acquire(poolKey.groupAux2(args.groupId), {
+        width,
+        height,
+        format: WORKING_TEXTURE_FORMAT,
+        usage: fieldUsage(),
+        label: `vitrea:group:${args.groupId}:aux2`,
+      });
 
       // Twelve floats: screen, unionP, counts. The group's origin is deliberately
       // absent — instance centres are packed relative to it, so the shader works
@@ -447,6 +482,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
             storeOp: "store",
             clearValue: { r: 0, g: 0, b: 0, a: 0 },
           },
+          {
+            view: aux2.createView(),
+            loadOp: "clear",
+            storeOp: "store",
+            clearValue: { r: 0, g: 0, b: 0, a: 0 },
+          },
         ],
       });
       pass.setPipeline(pipeline);
@@ -466,6 +507,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       return {
         field,
         aux,
+        aux2,
         width,
         height,
         upsampled: width !== rectWidth || height !== rectHeight,
@@ -473,7 +515,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 76);
+      const slot = uniformSlot(`optics:${args.groupId}`, 88);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -485,7 +527,9 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[7] = args.fit[3];
       d[8] = args.refractionScale;
       d[9] = args.lensRefractionGain;
-      d[10] = 0;
+      // The inner shadow's depth gain (W12 G2): W2's size gain, which the
+      // shadow keeps after the lens moved to its own law below.
+      d[10] = args.shadowDepthSizeGainMax;
       d[11] = args.chainMaxLod;
       d[12] = args.tint[0];
       d[13] = args.tint[1];
@@ -556,6 +600,22 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[73] = args.sizeScatterSpanMax;
       d[74] = args.sizeSpanMin;
       d[75] = args.sizeSpanMax;
+      // The lens law (W12 G2, claims §5.51): the reference's height and amount
+      // laws, then the profile's extent, exponent and ovalization, then the
+      // ovalization's knee. The shader evaluates every one per pixel from the
+      // thickness and the span the field carries.
+      d[76] = args.lensHeightPerSpan;
+      d[77] = args.lensHeightMax;
+      d[78] = args.lensAmountPerSpan;
+      d[79] = args.lensAmountMax;
+      d[80] = args.lensExtentGain;
+      d[81] = args.lensProfileExponent;
+      d[82] = args.lensOvalization;
+      d[83] = args.lensThicknessReference;
+      d[84] = args.lensOvalizationSpanMin;
+      d[85] = args.lensOvalizationSpanMax;
+      d[86] = 0;
+      d[87] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -583,6 +643,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             // Linear, no mips: the field targets have one level, and this is only
             // read at all when the governor shrank them below the group's rect.
             { binding: 6, resource: context.flatSampler },
+            { binding: 7, resource: args.fields.aux2.createView() },
           ],
         }),
       );
@@ -686,6 +747,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     forget(groupId) {
       pool.release(poolKey.groupField(groupId));
       pool.release(poolKey.groupAux(groupId));
+      pool.release(poolKey.groupAux2(groupId));
       storages.get(groupId)?.destroy();
       storages.delete(groupId);
       for (const key of [`field:${groupId}`, `optics:${groupId}`, `highlight:${groupId}`]) {

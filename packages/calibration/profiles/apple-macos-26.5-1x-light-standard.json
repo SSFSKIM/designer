@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "132850148804f614",
+  "resolvedMaterialSha256": "1065c19c6cb527e5",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -41,7 +41,11 @@
     "entries.scatter.",
     "6a05cebf0b528101 -> 132850148804f614 (2026-09-03, W11c G2): the lens magnitude —",
     "lensRefractionGain 1.6 (new), and the two rim-LOD constants retired",
-    "(lensBodyLodPerPx 0.16, lensRimLodBias 2.5) — see entries.lens."
+    "(lensBodyLodPerPx 0.16, lensRimLodBias 2.5) — see entries.lens.",
+    "132850148804f614 -> 1065c19c6cb527e5 (2026-09-03, W12 G2): the lens on the",
+    "reference's span law — lensRefractionGain 1.6 -> 0.745 (re-based onto the",
+    "amount law), ten new lens constants (see entries.lens); lensSizeGainMax",
+    "stays as the inner shadow's depth gain."
   ],
   "$comment-w11c-g2": [
     "RE-RECORDED 2026-09-03 (W11c G2, the lens band): the lens is now the",
@@ -127,7 +131,17 @@
     "sizeSpanMin": 32,
     "sizeSpanMax": 96,
     "lensSizeGainMax": 2.6,
-    "lensRefractionGain": 1.6,
+    "lensRefractionGain": 0.745,
+    "lensHeightPerSpan": 0.25,
+    "lensHeightMax": 20,
+    "lensAmountPerSpan": 0.8,
+    "lensAmountMax": 60,
+    "lensThicknessReference": 8,
+    "lensExtentGain": 1.337,
+    "lensProfileExponent": 3.69,
+    "lensOvalization": 0.6,
+    "lensOvalizationSpanMin": 64,
+    "lensOvalizationSpanMax": 72,
     "sizeScatterGainMax": 8,
     "sizeScatterFloor": 0.4,
     "sizeScatterSpanMax": 256,
@@ -158,38 +172,55 @@
     "lens": {
       "status": "measured",
       "value": {
-        "lensRefractionGain": 1.6
+        "lensRefractionGain": 0.745,
+        "lensHeightPerSpan": 0.25,
+        "lensHeightMax": 20,
+        "lensAmountPerSpan": 0.8,
+        "lensAmountMax": 60,
+        "lensThicknessReference": 8,
+        "lensExtentGain": 1.337,
+        "lensProfileExponent": 3.69,
+        "lensOvalization": 0.6,
+        "lensOvalizationSpanMin": 64,
+        "lensOvalizationSpanMax": 72
       },
       "previous": {
-        "lensBodyLodPerPx": 0.16,
-        "lensRimLodBias": 2.5
+        "lensRefractionGain": 1.6,
+        "lensSizeGainMax": "2.6 — still in the patch, now the inner shadow's depth gain only"
       },
       "method": [
-        "W11c G2 (claims 5.43). The reference's rim band, read per one-pixel depth",
-        "shell around the whole contour on the W9 probe's pitch-32/64 cells: the",
-        "inward source displacement is 13 px at depth 8, 10 at 10, 6 at 12, 3 at",
-        "14, 2 at 16 and 0 at about 20 — 33 x (1 - u/20)^2 within a pixel, which is",
-        "the shader's own lens profile on its own 20.8 px lens depth, at 1.6 lens",
-        "depths of magnitude instead of 1.0. The band carries the interior's",
-        "two-component blur at full weight (a heavier or a sharper sample, and a",
-        "darkening, all read as zero on their sweeps); the 'sharper rim' the",
-        "retired LOD bias expressed was the fold of the plate, not a finer sample.",
+        "W12 G2 (claims 5.49-5.51). MEASURED from the reference's own layer tree",
+        "(the harness's dump-layers, claims 5.50): the glassBackground filter's inner",
+        "refraction height is min(0.25 x span, 20) and its amount -min(0.8 x span, 60),",
+        "verified on spans 32/44/48/56/64/72/80/88/96/112/128/160 and the nested base",
+        "at 130; the SDF element's gradientOvalization is 0 through span 64 and 0.5",
+        "from 72. FITTED on the pixels (claims 5.51, a 2-D band renderer validated on",
+        "vitrea's own capture at band RMS 0.0052): one power S x (1 - u/L')^p with",
+        "S = lensRefractionGain x amount(span) and L' = lensExtentGain x height(span),",
+        "on rrect-md + rrect-ml at 1x pitches 16 and 32, rrect-lg held out at both",
+        "scales — gain 0.745, extent 1.337, exponent 3.69; the direction the gradient",
+        "of the field blended toward the box-inscribed oval at 0.6 (the pixels' value",
+        "on that oval; Apple's 0.5 is on an oval more curved than it), magnitude",
+        "fixed, on thick surfaces with the knee smoothstepped 64 -> 72.",
         "",
-        "DECLARED FIT on rrect-md and rrect-ml at pitches 32 and 64, rrect-lg held",
-        "out, band 3..24 px: RMS 0.0478 against 0.168 with no lens (holdout 0.048",
-        "against 0.111); at the shader's depth and profile the probe's sweep over",
-        "the contour displacement 30/32/33/34.3/36 px (gain 1.44/1.54/1.59/1.65/1.73)",
-        "reads 0.0487/0.0478/0.0481/0.0492/0.0516, and the whole-crop SSIM dry run",
-        "on the pitch-16 cells picks 1.6 over 1.4 and 1.8 on all three large",
-        "spans (claims 5.43 section 4). Predicted, not fitted:",
-        "the small spans (their own lens depth, 8-9 px), 2x (the same law in CSS px",
-        "lifts the 2x rrect-md texture row over its bound in the dry run), the",
-        "capsule (whose band prefers a deeper lens than the thickness law gives it)."
+        "The reference's straight-edge field, model-free: D = 34 / 29 / 24 / 12 / 0 at",
+        "u = 2 / 3 / 4 / 8 / 20 on every span 96-160 and both scales; the law reads",
+        "33.7 / 28.6 / 24.3 / 11.9 / 0.2. Predicted before the landing capture:",
+        "checkerboard SSIM 1x md/ml/lg 0.954/0.931/0.929 -> 0.970/0.946/0.942, 2x",
+        "0.939/0.902/0.901 -> 0.950/0.918/0.918, capsule 0.977 -> 0.985.",
+        "",
+        "The thickness (8) is the reference's unit: at the host's default the lens",
+        "depth IS Apple's height (8 / 11 / 20 on 32 / 44 / >= 80). lensSizeGainMax",
+        "stays in this patch because the inner shadow's depth still rides it,",
+        "byte for byte, so no solid cell moved."
       ],
       "doesNotClose": [
-        "The capsule's band: the stadium reads a lens near 11 px deep where the",
-        "thickness law gives 9.2 — a lens-specific depth law is not this round's.",
-        "The dom rows: the CSS tier has no lens by contract."
+        "The corner's dark ring under the bright arc and the reference's continuous",
+        "(superellipse) corner silhouette; about 30% of the first lobe's along-edge",
+        "stretch (the pixels prefer 0.6 on the box ellipse, the tilt measurement",
+        "0.8-1.0); the 2x band-versus-interior blur (the band samples sigma 1.45",
+        "where the 2x body is sigma 3) — W12 G3's; Apple's own two-term profile at",
+        "its literal amounts, which threads the crossings but loses on the pixels."
       ]
     },
     "scatter": {
@@ -275,9 +306,21 @@
     "backdropToneResponse": {
       "status": "measured",
       "value": {
-        "backdropToneAnchorX": [0.1104, 0.2706, 0.9505],
-        "backdropToneResponseThin": [0.0126, 0.4561, 0.9713],
-        "backdropToneResponseThick": [0.4953, 0.5744, 0.9358],
+        "backdropToneAnchorX": [
+          0.1104,
+          0.2706,
+          0.9505
+        ],
+        "backdropToneResponseThin": [
+          0.0126,
+          0.4561,
+          0.9713
+        ],
+        "backdropToneResponseThick": [
+          0.4953,
+          0.5744,
+          0.9358
+        ],
         "backdropToneLow": 0.02,
         "backdropToneHigh": 0.055,
         "backdropToneSizeBias": 0.05
@@ -678,5 +721,17 @@
   },
   "recalibratedAt": "2026-08-31",
   "recalibratedBy": "the recalibration cascade (active-pose bed 973fd7e)",
-  "$comment-recalibration": "REFITTED against the ACTIVE-pose reference. Every number this file carried before 2026-08-31 was fitted against Liquid Glass's INACTIVE appearance (wave Decision Log 14) and is kept in git history. Fits are on this profile's CALIBRATION cells only; validation was read as a self-check and the holdout exactly once, against the frozen configuration. Objectives: scripts/sweep.ts, interior for the material constants and --objective shadow for the outer shadow. See claims doc section 5.13."
+  "$comment-recalibration": "REFITTED against the ACTIVE-pose reference. Every number this file carried before 2026-08-31 was fitted against Liquid Glass's INACTIVE appearance (wave Decision Log 14) and is kept in git history. Fits are on this profile's CALIBRATION cells only; validation was read as a self-check and the holdout exactly once, against the frozen configuration. Objectives: scripts/sweep.ts, interior for the material constants and --objective shadow for the outer shadow. See claims doc section 5.13.",
+  "$comment-w12-g2": [
+    "RE-RECORDED 2026-09-03 (W12 G2, claims 5.51): the lens is one steep power on",
+    "the reference's own span law along an ovalized normal — lensDepth =",
+    "(thickness/8) x min(0.25 x span, 20), S = 0.745 x (thickness/8) x",
+    "min(0.8 x span, 60), D(u) = S x (1 - u/(1.337 x lensDepth))^3.69, the",
+    "direction the field's gradient blended 0.6 toward the box-inscribed oval on",
+    "thick surfaces. The height and amount laws and the knee were read from the",
+    "reference's layer tree (claims 5.50); the gain, extent, exponent and the",
+    "ovalization's effective value were fitted on the LIGHT 1x captures with",
+    "rrect-lg held out; the referee reads every other profile's cells. The inner",
+    "shadow keeps W2's depth law on lensSizeGainMax, so the solids do not move."
+  ]
 }

@@ -23,7 +23,7 @@ import {
   resolveSurfaces,
   snapRectToDevicePixels,
 } from "../src/instances";
-import { LENS_SIZE_GAIN_MAX } from "../src/material";
+import { LENS_HEIGHT_MAX } from "../src/material";
 import type { GroupRenderInput, SurfaceInput } from "../src/render-model";
 
 const surface = (over: Partial<SurfaceInput> = {}): SurfaceInput => ({
@@ -217,15 +217,16 @@ describe("the size-parameterised lens", () => {
       group([surface({ shape: { ...surface().shape, size: [40, 24] } })]),
       "rsupn",
     );
-    // Span 500 is past LENS_SPAN_MAX, so the gain has saturated: the size term
-    // stops growing instead of running away on a full-width platter.
+    // Span 500 is past the height law's clamp, so the depth has saturated at the
+    // reference's 20 (W12 G2): the size term stops growing instead of running
+    // away on a full-width platter.
     const large = resolveSurfaces(
       group([surface({ shape: { ...surface().shape, size: [600, 500] } })]),
       "rsupn",
     );
 
     expect(large[0]?.lensDepthPx).toBeGreaterThan(small[0]?.lensDepthPx as number);
-    expect(large[0]?.lensDepthPx).toBeCloseTo(8 * LENS_SIZE_GAIN_MAX, 6);
+    expect(large[0]?.lensDepthPx).toBeCloseTo(LENS_HEIGHT_MAX, 6);
   });
 
   it("clamps a small control so it cannot be all lens", () => {
@@ -241,13 +242,15 @@ describe("the size-parameterised lens", () => {
     expect(tiny[0]?.lensDepthPx).toBeCloseTo(8, 6);
   });
 
-  it("scales the packed lens depth by the lensStrength channel", () => {
+  it("packs the thickness scaled by the lensStrength channel, for both depths (W12 G2)", () => {
+    // The slot carries the authored thickness times the strength; the shader
+    // evaluates the lens's depth and the inner shadow's from it and the span.
     const resolved = resolveSurfaces(
       group([surface({ channels: { lensStrength: 0.5 } })]),
       "rsupn",
     );
     const { data } = packInstances(resolved, [0, 0]);
-    expect(data[14]).toBeCloseTo((resolved[0]?.lensDepthPx as number) * 0.5, 6);
+    expect(data[14]).toBeCloseTo((resolved[0]?.shape.channels.thickness as number) * 0.5, 6);
   });
 });
 

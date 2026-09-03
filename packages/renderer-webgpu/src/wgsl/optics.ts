@@ -30,28 +30,40 @@
  * curve beside it (`scatterThickness`: a floor and a band top past
  * `sizeSpanMax`, measured on the reference's two-component interior). That is
  * what lets a 40 px button and a 320 px platter share one group's field pass
- * and still read as different thicknesses. The lens's share of it arrives
- * pre-folded, because it is a length rather than a gain:
+ * and still read as different thicknesses. The occlusion and the inner shadow
+ * are applied below, each multiplied by `sizeK`, so both are exactly inert at
+ * `sizeK = 0`; the scattering is applied by `kScatter`, whose floor keeps it at
+ * the material's own frost on a small control rather than at nothing. The inner
+ * shadow's depth is W2's law, kept: `min(thickness * (1 + (gain − 1) * sizeK),
+ * span / 2)`, with a square profile on it.
+ *
+ * ## The lens (W12 G2, claims §5.51)
+ *
+ * The lens reads its own law since W12 G2 — the reference's, taken from its
+ * layer tree (§5.50) and fitted on the pixels (§5.51). Two clamped linear
+ * functions of the span give the depth and the magnitude, scaled by the author's
+ * thickness over the reference's unit of 8:
  *
  * ```
- * lensDepthPx = min(thickness * lensSizeGain(span), span / 2)
+ * lensDepth = min((thickness / 8) * min(0.25 * span, 20), span / 2)     8 / 11 / 20 on 32 / 44 / ≥ 80
+ * S         = lensRefractionGain * (thickness / 8) * min(0.8 * span, 60)  44.7 at saturation
+ * D(u)      = S * max(0, 1 − u / (lensExtentGain * lensDepth)) ^ lensProfileExponent
  * ```
  *
- * The clamp is what keeps a small control from being all lens: a 24 px-tall
- * button cannot bend more than 12 px of backdrop however thick it is authored.
- * The occlusion and the inner shadow are applied below, each multiplied by
- * `sizeK`, so both are exactly inert at `sizeK = 0`; the scattering is applied
- * by `kScatter`, whose floor keeps it at the material's own frost on a small
- * control rather than at nothing.
- *
- * The displacement is the normal times a profile that peaks at the rim and dies in
- * the interior, where the glass is flat and shows the backdrop straight through.
- * Its magnitude at the contour is `lensDepth * lensRefractionGain` — 1.6 lens
- * depths (W11c G2, claims §5.43): the reference's band is the plate from that
- * far inside, folded back toward the rim by the profile's square, and it is the
- * SAME two-component body the interior shows, read at the displaced position.
- * Nothing samples sharper at the rim: the "compressed detail" the rim used to be
- * biased toward was the fold itself, not a finer level of the backdrop.
+ * One steep power (26.7 px extent, exponent 3.69 on a saturated span): the
+ * reference's band is the plate folded from 34 / 24 / 12 px in at 2 / 4 / 8 px
+ * from the contour (§5.49). It is the SAME two-component body the interior
+ * shows, read at the displaced position — blur before displacement, measured.
+ * The direction is not the field's normal alone: the reference ovalizes its SDF
+ * gradient (`gradientOvalization`, 0.5 on thick shapes), which magnifies the
+ * band *along* the edge by up to 1.31×; so the displacement runs along the
+ * gradient of the field blended toward the oval inscribed in the surface's box,
+ * `(1 − ω)·n̂ + ω·∇d_oval`, with the magnitude fixed. ω is `lensOvalization` on a
+ * thick surface, 0 on a thin one, a smoothstep over the reference's knee at
+ * 64–72 px between. The half-extent clamp is what keeps a small control from
+ * being all lens: a 24 px-tall button cannot bend more than 12 px of backdrop
+ * however thick it is authored — and the magnitude is clamped by the same
+ * ratio, so the profile keeps its shape.
  *
  * Every coefficient is advisory and calibration-delegated (C7), named on the CPU.
  *
@@ -68,7 +80,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   screen : vec4f,
   /// backdrop uv transform on viewport-normalised coords: scale (xy), offset (zw)
   fit : vec4f,
-  /// refractionScale, lensRefractionGain (W11c G2), unused, chainMaxLod
+  /// refractionScale, lensRefractionGain (W12 G2: the gain on the reference's
+  /// amount law), the inner shadow's depth gain (W2's lensSizeGainMax, which the
+  /// shadow keeps), chainMaxLod
   lens : vec4f,
   /// fixed tint colour, linear light (xyz), tint alpha (w)
   tint : vec4f,
@@ -125,6 +139,14 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// band top (y), and the thickness curve's sizeSpanMin (z) and sizeSpanMax
   /// (w) — both curves start at z; the fold they multiply by is tone.w
   scatter : vec4f,
+  /// the lens law (W12 G2): the reference's height law (lensHeightPerSpan,
+  /// lensHeightMax) and amount law (lensAmountPerSpan, lensAmountMax)
+  lensLaw : vec4f,
+  /// the lens profile (W12 G2): lensExtentGain, lensProfileExponent,
+  /// lensOvalization, lensThicknessReference
+  lensShape : vec4f,
+  /// the ovalization's knee (W12 G2): spanMin, spanMax; zw padding
+  lensOval : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -134,6 +156,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 @group(0) @binding(4) var backdropChain : texture_2d<f32>;
 @group(0) @binding(5) var backdropBody : texture_2d<f32>;
 @group(0) @binding(6) var fieldSampler : sampler;
+/// The owning surface's box per pixel (W12 G2): the pixel's offset from its
+/// centre (xy) and its half-extents (zw), group-local CSS px — the lens's oval.
+@group(0) @binding(7) var aux2Texture : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -269,13 +294,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // contour to the coarse grid and the rim would step along it.
   var field : vec4f;
   var aux : vec4f;
+  var aux2 : vec4f;
   if (ou.flags.w > 0.5) {
     field = textureSampleLevel(fieldTexture, fieldSampler, in.uv, 0.0);
     aux = textureSampleLevel(auxTexture, fieldSampler, in.uv, 0.0);
+    aux2 = textureSampleLevel(aux2Texture, fieldSampler, in.uv, 0.0);
   } else {
     let texel = vec2i(in.uv * ou.flags.yz);
     field = textureLoad(fieldTexture, texel, 0);
     aux = textureLoad(auxTexture, texel, 0);
+    aux2 = textureLoad(aux2Texture, texel, 0);
   }
 
   let d = field.x;
@@ -299,8 +327,10 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let viewport01 = in.position.xy / ou.screen.xy;
   let viewportCss = ou.screen.xy * ou.screen.z;
 
-  // Per-pixel, unioned through the field pass. See the module note.
-  let lensDepth = max(aux.x, 1e-4);
+  // Per-pixel, unioned through the field pass. See the module note. 'aux.x' is
+  // the authored thickness times the lensStrength channel (W12 G2); the lens's
+  // depth and the inner shadow's are both evaluated from it and the span below.
+  let lensThick = max(aux.x, 0.0);
   // The size law's two curves off the span of whichever surface owns this pixel
   // (W11c). 'sizeK' is the thickness factor, 0..1: zero on anything at or below
   // the profile's 'sizeSpanMin', saturated at 'sizeSpanMax', folded under the
@@ -322,15 +352,46 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     0.0,
     1.0,
   );
-  // '-d' is depth inside the surface, so the profile runs 1 at the contour to 0
-  // at 'lensDepth' inward, and the square makes the falloff read as curvature
-  // rather than as a linear ramp.
-  let depth = clamp(-d / lensDepth, 0.0, 1.0);
-  let profile = (1.0 - depth) * (1.0 - depth);
+  // The inner shadow's depth and profile: W2's law, byte for byte — the
+  // thickness times the size gain (folded through 'sizeK'), clamped to the
+  // shorter half extent, and a square on it. The lens ran on this until W12 G2;
+  // the occlusion keeps it, because nothing measured it as wrong, and every
+  // solid-backdrop cell renders exactly as it did.
+  let shadowLensDepth = max(min(lensThick * (1.0 + (ou.lens.z - 1.0) * sizeK), span * 0.5), 1e-4);
+  let shadowT = clamp(-d / shadowLensDepth, 0.0, 1.0);
+  let shadowProfile = (1.0 - shadowT) * (1.0 - shadowT);
 
-  // W11c G2: the lens is the body read from further inside. 'lens.y' is the
-  // profile's refraction gain, the contour displacement in lens depths.
-  let displaceCss = -normal * lensDepth * profile * ou.lens.x * ou.lens.y;
+  // The lens (W12 G2, claims §5.51) — see the module note. The reference's
+  // height and amount laws off the span, scaled by the thickness over the
+  // reference's unit, folded like the W2 law (at fold 0 the depth is the
+  // authored thickness and nothing more), and clamped to the shorter half
+  // extent with the magnitude clamped by the same ratio.
+  let thickScale = lensThick / max(ou.lensShape.w, 1e-4);
+  let heightBase = min(ou.lensLaw.x * span, ou.lensLaw.y);
+  let amountBase = min(ou.lensLaw.z * span, ou.lensLaw.w);
+  let depthUnclamped = mix(lensThick, heightBase * thickScale, fold);
+  let lensDepth = clamp(depthUnclamped, 0.0, span * 0.5);
+  let clampRatio = select(0.0, lensDepth / depthUnclamped, depthUnclamped > 1e-6);
+  let magnitude = ou.lens.y * mix(lensThick, amountBase * thickScale, fold) * clampRatio;
+  let extent = max(ou.lensShape.x * lensDepth, 1e-4);
+  // One steep power over the extent; '-d' is depth inside the surface.
+  let lensT = max(1.0 - max(-d, 0.0) / extent, 0.0);
+  let displacementCss = magnitude * pow(lensT, ou.lensShape.y) * ou.lens.x;
+
+  // The direction: the field's gradient blended toward the oval inscribed in
+  // the surface's box (the reference's 'gradientOvalization'), on from the
+  // knee, with the magnitude fixed — which tilts the displacement toward the
+  // edge's midpoint and magnifies the band along the edge.
+  let ovalT = clamp((span - ou.lensOval.x) / max(ou.lensOval.y - ou.lensOval.x, 1e-6), 0.0, 1.0);
+  let omega = ou.lensShape.z * ovalT * ovalT * (3.0 - 2.0 * ovalT);
+  let halfExt = max(aux2.zw, vec2f(1e-4));
+  let rel = aux2.xy;
+  let unitR = max(length(rel / halfExt), 1e-6);
+  let ovalGrad = (rel / (halfExt * halfExt)) * (min(halfExt.x, halfExt.y) / unitR);
+  let blended = (1.0 - omega) * normal + omega * ovalGrad;
+  let blendLen = length(blended);
+  let direction = select(normal, blended / blendLen, blendLen > 1e-6);
+  let displaceCss = -direction * displacementCss;
   let refracted01 = viewport01 + displaceCss / viewportCss;
 
   let refractedUv = clamp(refracted01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
@@ -582,7 +643,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // A multiplicative occlusion of the whole composite. As a layer that is the
   // colour scaled and the alpha raised — (k·a·c, 1 − k·(1 − a)) composites to
   // k times what (a·c, a) would — and at bodyAlpha 1 it is the plain product.
-  let shadowKeep = 1.0 - profile * shadowDepth * ou.light.w * present;
+  let shadowKeep = 1.0 - shadowProfile * shadowDepth * ou.light.w * present;
   let shadowedAlpha = 1.0 - shadowKeep * (1.0 - bodyAlpha);
   colour = colour * (shadowKeep * bodyAlpha / max(shadowedAlpha, 1e-6));
   bodyAlpha = shadowedAlpha;

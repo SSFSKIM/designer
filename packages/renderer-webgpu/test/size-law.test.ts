@@ -102,7 +102,9 @@ describe("every thickness-derived facet rides that one curve", () => {
     readonly saturated: number;
   }[] = [
     {
-      name: "lensing",
+      // W2's lens gain, which the inner shadow's depth keeps riding after the
+      // lens took the reference's own span law (W12 G2).
+      name: "inner-shadow depth",
       at: (span) => lensSizeGain(span, GAINED),
       nominal: 1,
       saturated: GAINED.lensSizeGainMax,
