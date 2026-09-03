@@ -345,7 +345,7 @@ project's rule**, in the order they would be worth a wave:
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
 | G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png` | LANDED 2026-09-03 |
-| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe capturing (five runs, scratch fixtures) | OPENED 2026-09-03 |
+| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement and the declaration next | IN PROGRESS 2026-09-03 |
 
 ## Decision Log
 
@@ -493,6 +493,14 @@ Log 4) runs first, as the smaller round.
 
 ## Surprises & Discoveries
 
+- (2026-09-03, G3) **The 2x probe needed a per-cell attestation filter, and
+  the bistable cells moved.** Two of the five runs were denied window
+  activation part-way through (4 and 28 unattested cells); every
+  unattested capture returned bytes matching no attested state, so the
+  inactive pose is excluded per cell and never voted. Among attested
+  observations three cells hold a second settled state (16–43 codes,
+  whole-surface) and all three are `rrect-sm` — at 1x the two-state cells
+  were the `checkerboard-8` family. Claims §5.53.
 - (2026-09-03, G1) **The reference's own parameters are readable.** A
   `dump-layers` command added to the native harness walks SwiftUI's layer
   tree and reads the private `glassBackground` `CAFilter`'s inputs per

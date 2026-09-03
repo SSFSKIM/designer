@@ -7791,3 +7791,75 @@ both scales and on the capsule. Still absent, as declared: the corner's
 dark ring under the bright arc, the continuous-corner silhouette, about a
 third of the first lobe's along-edge stretch; and at 2x the band and the
 interior are both softer than the native's — the 2x body (G3).
+
+### 5.53 W12 G3: the 2x probe, materialised — five runs, attested per cell, four cells majority-settled (2026-09-03)
+
+The measurement Decision Log 5 of the W12 spec named: the W9 probe scene
+set (§5.30 — 56 cells, `checkerboard` at pitches 4 / 8 / 16 / 32 / 64
+and the equal-mean `lc16` twin, three solids, three text pitches and
+`photo`, over the five spans; the same calibration / validation / holdout
+/ recorded split) captured at **2x** on the virtual HiDPI display. The
+scene file is `apps/reference-apple/scenes-w12-probe-2x.json`; against
+`scenes-w9-probe.json` the profile key is the only change. Five runs
+between 14:46 and 15:33, each 56 fixtures of 640 × 400 px, the display's
+backing scale read as 2.0 by the harness probe before the first run and
+after the last; interstitial dwell 6 s, minimum idle 45 s, the harness
+launched through `open --env` (README). Nothing here is a fit; the pitch-
+axis measurement is §5.54.
+
+#### 1. The audit, and a filter the W9 probe never needed
+
+Runs 2, 4 and 5 are 56/56 `presentedActive`. Run 1 has 4 unattested
+cells and run 3 has 28: the session denied the harness's window
+activation part-way through those runs (the manifest's own caveat), and
+an unattested capture records the material's flat inactive pose. That
+pose is a different object, not a noisier reading of the same one: every
+one of the 32 unattested captures returned bytes matching **no** attested
+state of its cell, so the flag and the bytes agree. Unattested
+observations are therefore excluded **per cell** before anything is
+counted — never averaged, never allowed to vote — and every cell keeps at
+least three attested observations (`provenance.json` records each cell's
+attested count and the runs excluded). §5.31's probe had no such filter
+because every run there was 56/56; the rule is otherwise the same
+majority byte-state per cell.
+
+#### 2. The result
+
+52 cells unanimous among their attested observations, 4 majority-settled,
+0 refused (no tie). The four, majority against minority in encoded luma:
+
+| cell | share (attested) | max Δ (codes) | changed px | interior Δ | reading |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard-8__rrect-sm` | 3/4 | 43 | 12% | +22.2 lighter | second settled state |
+| `checkerboard-lc16__rrect-sm` | 3/4 | 18 | 18% | −9.8 darker | second settled state |
+| `checkerboard-64__rrect-sm` | 4/5 | 16 | 9% | +4.1 lighter | second settled state |
+| `light-solid__rrect-sm` | 4/5 | 1 | 3% | 0.0 | noise |
+
+Three of the four are structural by §5.19's own test (well above one code,
+coherence 1.0, covering the whole surface and its shadow), and all three
+are `rrect-sm` — the thin material, whose face black / white / fill alpha
+and shadow alpha are the inputs §5.50 §2 found animating toward
+backdrop-adapted values for seconds. At 1x (§5.31) the two-state cells
+were the `checkerboard-8` family across spans, not one span across
+backdrops; the bistability has moved with the scale, and it sits on the
+span the size law's knee is nearest to. `light-solid__rrect-sm` is a
+one-code variant. Published as §5.31's probe was: at the majority, shares
+recorded, decided by counting rather than agreement and said so.
+
+**What this binds for the fit.** The 2x `rrect-sm` cells are
+frequency-settled evidence and a G3 fit reads them as such (a residual
+there is bounded by the two states' own distance before it is bounded by
+the law); `rrect-lg`, the holdout Decision Log 5 names, is unanimous on
+every backdrop at 2x.
+
+#### 3. Where it is
+
+`packages/calibration/results/2026-09-03-w12-lens/probe-2x/`: the 56
+fixtures under `apple-macos-26.5-2x-light-standard/`, the 13 backdrops the
+harness rendered at 2x under `backgrounds/` (the interior statistics a
+level or transmission reading needs are taken under the mask on these
+rasters, as §5.30 declared), `provenance.json` (per cell: published
+sha256, share, attested count, minority shares, unattested runs, the run
+published from) and `last-run-manifest.json` (run 5's, the last fully
+attested; capture protocol and hardware as recorded). The five whole-run
+snapshots stay in scratch.
