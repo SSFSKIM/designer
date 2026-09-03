@@ -1,0 +1,80 @@
+
+## 1x-far  (apple-macos-26.5-1x-light-standard)   5 points
+
+### ranked by mean ssimBand rise over the 5 checkerboard cells
+
+point                                         obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterRampStartFar1x=0.35            0.05017   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0080
+sizeScatterRampStartFar1x=0.4             0.05015   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0081
+sizeScatterRampStartFar1x=0.3             0.05013   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0080
+sizeScatterRampStartFar1x=0.45            0.05016   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0087
+sizeScatterRampStartFar1x=0.52            0.05027   +0.0038    +0.0019       +0.0000  PASS  PASS    0.0096
+
+### ranked by the WORST cell's ssimBand rise (S4's own reading)
+
+point                                         obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterRampStartFar1x=0.3             0.05013   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0080
+sizeScatterRampStartFar1x=0.35            0.05017   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0080
+sizeScatterRampStartFar1x=0.4             0.05015   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0081
+sizeScatterRampStartFar1x=0.45            0.05016   +0.0040    +0.0019       +0.0000  PASS  PASS    0.0087
+sizeScatterRampStartFar1x=0.52            0.05027   +0.0038    +0.0019       +0.0000  PASS  PASS    0.0096
+
+### per-cell ssimBand delta against the W14 bed, worst-cell order
+
+point                                          sm     caps       md       ml       tb
+sizeScatterRampStartFar1x=0.3             +0.0048  +0.0059  +0.0023  +0.0051  +0.0019
+sizeScatterRampStartFar1x=0.35            +0.0048  +0.0059  +0.0023  +0.0053  +0.0019
+sizeScatterRampStartFar1x=0.4             +0.0048  +0.0059  +0.0023  +0.0052  +0.0019
+sizeScatterRampStartFar1x=0.45            +0.0048  +0.0059  +0.0023  +0.0051  +0.0019
+sizeScatterRampStartFar1x=0.52            +0.0048  +0.0059  +0.0023  +0.0042  +0.0019
+
+### isdW
+
+point                                         obj       sm     caps       md       ml       tb   pho-md
+main(W14 bed)                                   —   0.1407   0.1206   0.0993   0.0768   0.1227   0.0461
+sizeScatterRampStartFar1x=0.3             0.05013   0.1619   0.1385   0.1051   0.0934   0.1424   0.0464
+sizeScatterRampStartFar1x=0.35            0.05017   0.1619   0.1385   0.1051   0.0941   0.1424   0.0464
+sizeScatterRampStartFar1x=0.4             0.05015   0.1619   0.1385   0.1051   0.0946   0.1424   0.0464
+sizeScatterRampStartFar1x=0.45            0.05016   0.1619   0.1385   0.1051   0.0952   0.1424   0.0464
+sizeScatterRampStartFar1x=0.52            0.05027   0.1619   0.1385   0.1051   0.0962   0.1424   0.0464
+NATIVE                                              0.1549   0.1424   0.1131   0.0865   0.1481   0.0572
+
+### ssimBand
+
+point                                         obj       sm     caps       md       ml       tb   pho-md
+main(W14 bed)                                   —   0.9675   0.8813   0.9317   0.9373   0.7225   0.9910
+sizeScatterRampStartFar1x=0.3             0.05013   0.9723   0.8872   0.9340   0.9423   0.7244   0.9910
+sizeScatterRampStartFar1x=0.35            0.05017   0.9723   0.8872   0.9340   0.9425   0.7244   0.9910
+sizeScatterRampStartFar1x=0.4             0.05015   0.9723   0.8872   0.9340   0.9425   0.7244   0.9910
+sizeScatterRampStartFar1x=0.45            0.05016   0.9723   0.8872   0.9340   0.9423   0.7244   0.9910
+sizeScatterRampStartFar1x=0.52            0.05027   0.9723   0.8872   0.9340   0.9415   0.7244   0.9910
+
+### ssimInterior
+
+point                                         obj       sm     caps       md       ml       tb   pho-md
+main(W14 bed)                                   —     —        —      0.9817   0.9803     —      0.9958
+sizeScatterRampStartFar1x=0.3             0.05013     —        —      0.9816   0.9782     —      0.9959
+sizeScatterRampStartFar1x=0.35            0.05017     —        —      0.9816   0.9779     —      0.9959
+sizeScatterRampStartFar1x=0.4             0.05015     —        —      0.9816   0.9781     —      0.9959
+sizeScatterRampStartFar1x=0.45            0.05016     —        —      0.9816   0.9778     —      0.9959
+sizeScatterRampStartFar1x=0.52            0.05027     —        —      0.9816   0.9770     —      0.9959
+
+### ssimMean
+
+point                                         obj       sm     caps       md       ml       tb   pho-md
+main(W14 bed)                                   —   0.9988   0.9852   0.9859   0.9788   0.9642   0.9974
+sizeScatterRampStartFar1x=0.3             0.05013   0.9990   0.9856   0.9862   0.9794   0.9642   0.9974
+sizeScatterRampStartFar1x=0.35            0.05017   0.9990   0.9856   0.9862   0.9794   0.9642   0.9974
+sizeScatterRampStartFar1x=0.4             0.05015   0.9990   0.9856   0.9862   0.9794   0.9642   0.9974
+sizeScatterRampStartFar1x=0.45            0.05016   0.9990   0.9856   0.9862   0.9793   0.9642   0.9974
+sizeScatterRampStartFar1x=0.52            0.05027   0.9990   0.9856   0.9862   0.9789   0.9642   0.9974
+
+### ssimOutside
+
+point                                         obj       sm     caps       md       ml       tb   pho-md
+main(W14 bed)                                   —   0.9991   0.9663   0.9959   0.9962   0.9278   0.9974
+sizeScatterRampStartFar1x=0.3             0.05013   0.9991   0.9661   0.9957   0.9957   0.9272   0.9974
+sizeScatterRampStartFar1x=0.35            0.05017   0.9991   0.9661   0.9957   0.9957   0.9272   0.9974
+sizeScatterRampStartFar1x=0.4             0.05015   0.9991   0.9661   0.9957   0.9957   0.9272   0.9974
+sizeScatterRampStartFar1x=0.45            0.05016   0.9991   0.9661   0.9957   0.9956   0.9272   0.9974
+sizeScatterRampStartFar1x=0.52            0.05027   0.9991   0.9661   0.9957   0.9956   0.9272   0.9974

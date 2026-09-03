@@ -1,0 +1,93 @@
+{
+  "$comment": "W13 G1 sweep-4 confirmation document (light): the branch's profile with the fingerprint stripped and the chosen ramp constants applied; far1x 0.2.",
+  "patch": {
+    "optics": {
+      "regular": {
+        "blurSigma": 1.25,
+        "tintAlpha": 0.46,
+        "shadowAlpha": 0.05
+      }
+    },
+    "adaptiveTintDark": [
+      1,
+      1,
+      1
+    ],
+    "adaptiveTintLight": [
+      1,
+      1,
+      1
+    ],
+    "sizeShadowGainMax": 1,
+    "backdropToneSizeBias": 0.05,
+    "tintShadeDark": 0.5289,
+    "tintShadeLight": 1.0175,
+    "tintShadeStrength": 1,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0.33,
+      "thinOcclusionBright": 0.127,
+      "thickOcclusionAt96": 0.37,
+      "thickOcclusionAt128": 0.448,
+      "thickOcclusionAt160": 0.479,
+      "liftAmplitude": 0.01,
+      "liftSpanMin": 64,
+      "liftSpanFull": 118,
+      "liftBlurSigmaCss": 40,
+      "reducedTransparencyOcclusion": 0.197,
+      "offsetPx": 7.95,
+      "sigmaPx": 15.55,
+      "spreadPx": 3.1,
+      "sizeGain": 0
+    },
+    "backdropToneLow": 0.02,
+    "increasedOcclusionLift": 0.75,
+    "sizeSpanMin": 32,
+    "sizeSpanMax": 96,
+    "lensSizeGainMax": 2.6,
+    "lensRefractionGain": 0.745,
+    "lensHeightPerSpan": 0.25,
+    "lensHeightMax": 20,
+    "lensAmountPerSpan": 0.8,
+    "lensAmountMax": 60,
+    "lensThicknessReference": 8,
+    "lensExtentGain": 1.337,
+    "lensProfileExponent": 3.69,
+    "lensOvalization": 0.8,
+    "lensOvalizationSpanMin": 64,
+    "lensOvalizationSpanMax": 72,
+    "sizeScatterGainMax": 8,
+    "sizeScatterFloor": 0.4,
+    "sizeScatterSpanMax": 256,
+    "sizeScatterRampStartThin1x": 0.72,
+    "sizeScatterRampStartThick1x": 0.52,
+    "sizeScatterRampStartThin2x": 0.46,
+    "sizeScatterRampStartThick2x": 0.17,
+    "sizeScatterRampStartFar1x": 0.2,
+    "sizeScatterRampStartFar2x": 0.15,
+    "sizeScatterRampReach1xPx": 80,
+    "sizeScatterRampReach2xPx": 100,
+    "sizeOcclusionGain": 0.05,
+    "backdropToneMax": 1,
+    "backdropToneHigh": 0.055,
+    "backdropToneAnchorX": [
+      0.1104,
+      0.2706,
+      0.9505
+    ],
+    "backdropToneResponseThin": [
+      0.0126,
+      0.4561,
+      0.9713
+    ],
+    "backdropToneResponseThick": [
+      0.4953,
+      0.5744,
+      0.9358
+    ],
+    "backdropToneResponseStrength": 1
+  },
+  "cssTierMapping": {
+    "referenceBackdropLuminance": 0.02
+  }
+}

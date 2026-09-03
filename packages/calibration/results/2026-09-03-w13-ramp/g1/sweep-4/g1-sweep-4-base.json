@@ -1,0 +1,118 @@
+{
+  "profileKey": "apple-macos-26.5-1x-light-standard",
+  "schemaVersion": 1,
+  "$comment": [
+    "TUNED MATERIAL CONSTANTS for the light-standard profile \u2014 C9a.",
+    "",
+    "This file supersedes nothing: apple-macos-26.5.seed.json remains the record",
+    "of what C7 could and could not answer, and every material entry there is",
+    "still marked `unmeasured` for the reason it gives. This file is the answer to",
+    "the subset those entries named, measured against the real ScreenCaptureKit",
+    "fixtures once the grant landed.",
+    "",
+    "`patch` is a @vitrea/renderer-webgpu MaterialProfilePatch, applicable as-is:",
+    "",
+    "    createGlassRoot({ materialProfile: patch })",
+    "",
+    "For THIS profile the patch is deliberately the identity \u2014 the renderer's",
+    "DEFAULT_MATERIAL_PROFILE already carries these numbers, because light-standard",
+    "is the profile the shipped default targets. Since 2026-09-01 the patch names",
+    "every constant the calibration pipeline FITTED, not only the ones that happened",
+    "to differ from a default, so the identity is an assertion rather than a silence",
+    "\u2014 see `$comment-provenance`. A test pins the equality AND the resolved",
+    "fingerprint, so the file and the runtime cannot drift apart silently. The dark",
+    "sibling stays a real difference patch, since only one set of numbers can be the",
+    "default.",
+    "Every number is stated with what moved it and what it did NOT close."
+  ],
+  "patch": {
+    "optics": {
+      "regular": {
+        "blurSigma": 1.25,
+        "tintAlpha": 0.46,
+        "shadowAlpha": 0.05
+      }
+    },
+    "adaptiveTintDark": [
+      1,
+      1,
+      1
+    ],
+    "adaptiveTintLight": [
+      1,
+      1,
+      1
+    ],
+    "sizeShadowGainMax": 1,
+    "backdropToneSizeBias": 0.05,
+    "tintShadeDark": 0.5289,
+    "tintShadeLight": 1.0175,
+    "tintShadeStrength": 1,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0.33,
+      "thinOcclusionBright": 0.127,
+      "thickOcclusionAt96": 0.37,
+      "thickOcclusionAt128": 0.448,
+      "thickOcclusionAt160": 0.479,
+      "liftAmplitude": 0.01,
+      "liftSpanMin": 64,
+      "liftSpanFull": 118,
+      "liftBlurSigmaCss": 40,
+      "reducedTransparencyOcclusion": 0.197,
+      "offsetPx": 7.95,
+      "sigmaPx": 15.55,
+      "spreadPx": 3.1,
+      "sizeGain": 0
+    },
+    "backdropToneLow": 0.02,
+    "increasedOcclusionLift": 0.75,
+    "sizeSpanMin": 32,
+    "sizeSpanMax": 96,
+    "lensSizeGainMax": 2.6,
+    "lensRefractionGain": 0.745,
+    "lensHeightPerSpan": 0.25,
+    "lensHeightMax": 20,
+    "lensAmountPerSpan": 0.8,
+    "lensAmountMax": 60,
+    "lensThicknessReference": 8,
+    "lensExtentGain": 1.337,
+    "lensProfileExponent": 3.69,
+    "lensOvalization": 0.8,
+    "lensOvalizationSpanMin": 64,
+    "lensOvalizationSpanMax": 72,
+    "sizeScatterGainMax": 8,
+    "sizeScatterFloor": 0.4,
+    "sizeScatterSpanMax": 256,
+    "sizeScatterRampStartThin1x": 0.72,
+    "sizeScatterRampStartThick1x": 0.52,
+    "sizeScatterRampStartThin2x": 0.46,
+    "sizeScatterRampStartThick2x": 0.17,
+    "sizeScatterRampStartFar1x": 0.4,
+    "sizeScatterRampStartFar2x": 0.15,
+    "sizeScatterRampReach1xPx": 80,
+    "sizeScatterRampReach2xPx": 100,
+    "sizeOcclusionGain": 0.05,
+    "backdropToneMax": 1,
+    "backdropToneHigh": 0.055,
+    "backdropToneAnchorX": [
+      0.1104,
+      0.2706,
+      0.9505
+    ],
+    "backdropToneResponseThin": [
+      0.0126,
+      0.4561,
+      0.9713
+    ],
+    "backdropToneResponseThick": [
+      0.4953,
+      0.5744,
+      0.9358
+    ],
+    "backdropToneResponseStrength": 1
+  },
+  "cssTierMapping": {
+    "referenceBackdropLuminance": 0.02
+  }
+}
