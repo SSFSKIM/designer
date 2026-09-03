@@ -64,10 +64,14 @@ import {
   resolvedPolicyFold,
   resolvedTintShade,
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
+  scatterDeepThickness as cssScatterDeepThickness,
+  scatterFloorAtScale as cssScatterFloorAtScale,
+  scatterGainAtScale as cssScatterGainAtScale,
   scatterRampAreaMean as cssScatterRampAreaMean,
   scatterRampReachDevicePx as cssScatterRampReachDevicePx,
   scatterRampStart as cssScatterRampStart,
   scatterSharpShare as cssScatterSharpShare,
+  scatterSpanMaxAtScale as cssScatterSpanMaxAtScale,
   scatterThickness as cssScatterThickness,
   sizeScatterSigma as cssSizeScatterSigma,
   sizeScatterSigmaAt as cssSizeScatterSigmaAt,
@@ -103,10 +107,14 @@ import {
   sizeOuterShadowOcclusionAt as rendererSizeOuterShadowOcclusionAt,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
+  scatterDeepThickness as rendererScatterDeepThickness,
+  scatterFloorAtScale as rendererScatterFloorAtScale,
+  scatterGainAtScale as rendererScatterGainAtScale,
   scatterRampAreaMean as rendererScatterRampAreaMean,
   scatterRampReachDevicePx as rendererScatterRampReachDevicePx,
   scatterRampStart as rendererScatterRampStart,
   scatterSharpShare as rendererScatterSharpShare,
+  scatterSpanMaxAtScale as rendererScatterSpanMaxAtScale,
   scatterThickness as rendererScatterThickness,
   sizeScatterSigma as rendererSizeScatterSigma,
   sizeScatterSigmaAt as rendererSizeScatterSigmaAt,
@@ -447,6 +455,18 @@ describe("tier coherence (K5)", () => {
       DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax,
     );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterFloor).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterFloor);
+    // The body's second scale (W15 G1, claims §5.69 §1–§2). Each defaults to
+    // its 1x constant, so this equality is also the record that the landed
+    // material is scale-free in all three.
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterGainMax2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterFloor2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterFloor2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterSpanMax2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax2x,
+    );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x,
     );
@@ -478,6 +498,9 @@ describe("tier coherence (K5)", () => {
       sizeSpanMax: 200,
       sizeScatterGainMax: 2.5,
       sizeScatterFloor: 0.25,
+      sizeScatterGainMax2x: 3.5,
+      sizeScatterFloor2x: 0.85,
+      sizeScatterSpanMax2x: 180,
       sizeScatterRampStartThin1x: 0.7,
       sizeScatterRampStartThick1x: 0.55,
       sizeScatterRampStartThin2x: 0.3,
@@ -494,6 +517,9 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeSpanMax).toBe(profile.sizeSpanMax);
     expect(mirrored.sizeScatterGainMax).toBe(profile.sizeScatterGainMax);
     expect(mirrored.sizeScatterFloor).toBe(profile.sizeScatterFloor);
+    expect(mirrored.sizeScatterGainMax2x).toBe(profile.sizeScatterGainMax2x);
+    expect(mirrored.sizeScatterFloor2x).toBe(profile.sizeScatterFloor2x);
+    expect(mirrored.sizeScatterSpanMax2x).toBe(profile.sizeScatterSpanMax2x);
     expect(mirrored.sizeScatterRampStartThin1x).toBe(profile.sizeScatterRampStartThin1x);
     expect(mirrored.sizeScatterRampStartThick1x).toBe(profile.sizeScatterRampStartThick1x);
     expect(mirrored.sizeScatterRampStartThin2x).toBe(profile.sizeScatterRampStartThin2x);
@@ -537,6 +563,21 @@ describe("tier coherence (K5)", () => {
         sizeScatterRampReach1xPx: 90,
         sizeScatterRampReach2xPx: 130,
       },
+      /*
+       * The body's second scale (W15 G1, claims §5.69 §1–§2), all three terms
+       * off their 1x values at once. The 1x half of this patch is the shipped
+       * material, so every quantity below at dpr 1 is the landed law and every
+       * quantity at dpr 2 is the second scale's — which is the wave's binding
+       * rule expressed as a mirror pin: the two tiers derive the same deep
+       * value, the same share and the same projection at every ratio, and the
+       * ratio moves them only through these three constants and the ramp's
+       * anchors.
+       */
+      {
+        sizeScatterGainMax2x: 5.5,
+        sizeScatterFloor2x: 0.9,
+        sizeScatterSpanMax2x: 120,
+      },
     ] as const;
     const SPANS = [32, 44, 96, 128, 160, 256] as const;
     const RATIOS = [1, 1.5, 2, 3] as const;
@@ -557,6 +598,27 @@ describe("tier coherence (K5)", () => {
         expect(cssScatterRampReachDevicePx(dpr, mirrored), `U at dpr ${dpr}`).toBe(
           rendererScatterRampReachDevicePx(dpr, profile),
         );
+        // The second scale's three constants, resolved (W15 G1): the deep
+        // value's own curve is pinned across the span axis, not only through
+        // the projection that averages it.
+        expect(cssScatterFloorAtScale(mirrored, dpr), `floor at dpr ${dpr}`).toBeCloseTo(
+          rendererScatterFloorAtScale(profile, dpr),
+          12,
+        );
+        expect(cssScatterSpanMaxAtScale(mirrored, dpr), `span top at dpr ${dpr}`).toBeCloseTo(
+          rendererScatterSpanMaxAtScale(profile, dpr),
+          12,
+        );
+        expect(cssScatterGainAtScale(mirrored, dpr), `gain at dpr ${dpr}`).toBeCloseTo(
+          rendererScatterGainAtScale(profile, dpr),
+          12,
+        );
+        for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
+          expect(
+            cssScatterDeepThickness(span, mirrored, dpr),
+            `kDeep at span ${span} dpr ${dpr}`,
+          ).toBeCloseTo(rendererScatterDeepThickness(span, profile, dpr), 12);
+        }
         // The share is a function of the depth AND the span since the ramp was
         // re-formed onto the span curve, so both axes are swept here.
         for (const u of [0, 4, 12, 24, 48, 96, 200, 400]) {
@@ -599,17 +661,28 @@ describe("tier coherence (K5)", () => {
             ).toBeCloseTo(rendererSizeScatterSigma(1.25, span, profile, dpr), 12);
           }
           // The floor is unfolded on both tiers: fold 0 leaves it, and only it.
+          // The floor is itself per-scale since W15 G1, so what fold 0 has to
+          // land on is the floor THIS ratio resolves — which is the 1x constant
+          // at dpr ≤ 1 and on the landed material at every ratio.
           expect(cssScatterThickness(span, 0, mirrored, dpr), `floor at span ${span}`).toBeCloseTo(
-            mirrored.sizeScatterFloor,
+            cssScatterFloorAtScale(mirrored, dpr),
             12,
           );
+          expect(
+            rendererScatterThickness(span, 0, profile, dpr),
+            `floor at span ${span} (renderer)`,
+          ).toBeCloseTo(rendererScatterFloorAtScale(profile, dpr), 12);
         }
       }
     }
     // The shipped numbers, stated. The projection rises with the span on both
-    // tiers, and the widths are 1.25 and 10 CSS px at every device scale (W13
-    // Decision Log 8 retired the device-pixel reading on the bed) — so a fully
-    // heavy mix is 10 CSS px on both tiers whatever the ratio.
+    // tiers, and in this SHARED projection the widths are 1.25 and 10 CSS px at
+    // every device scale — so a fully heavy mix is 10 CSS px on both tiers
+    // whatever the ratio. W15 G1 restored the device-pixel reading of the sharp
+    // width on the GPU tier alone, inside the renderer's own `bodySigmaCssFor`;
+    // this projection is what the CSS tier writes and what a proxy's padding is
+    // taken over, and W15 Decision Log 2 leaves it at the 1x law until G1
+    // predicts the tier's 2x σ.
     expect(rendererScatterThickness(160, 1)).toBeGreaterThan(rendererScatterThickness(96, 1));
     expect(rendererScatterThickness(96, 1)).toBeGreaterThan(rendererScatterThickness(44, 1));
     expect(cssScatterThickness(160, 1)).toBeGreaterThan(cssScatterThickness(96, 1));
@@ -644,16 +717,51 @@ describe("tier coherence (K5)", () => {
         12,
       );
     }
-    expect(cssSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
-    expect(rendererSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
-    // And a ratio handed to either mirror anyway is not a parameter: the CSS
-    // mirror kept a fourth argument after W13 Decision Log 8 and divided by it,
-    // which is how the two mirrors came to disagree by the ratio itself. A
-    // stray 2 is the 1x width on both, at the mix a full ramp reaches.
-    const withStrayRatio = (fn: unknown, size: unknown): number =>
-      (fn as (...args: unknown[]) => number)(1.25, 1, size, 2);
-    expect(withStrayRatio(cssSizeScatterSigmaAt, MATERIAL_SOURCE_SIZE)).toBeCloseTo(10, 12);
-    expect(withStrayRatio(rendererSizeScatterSigmaAt, DEFAULT_MATERIAL_PROFILE)).toBeCloseTo(10, 12);
+    /*
+     * The ratio this form does take (W15 G1) is the heavy width's GAIN and never
+     * a division. The CSS mirror kept a fourth argument after W13 Decision Log 8
+     * and divided by it, which is how the two mirrors came to disagree by the
+     * ratio itself; what replaces that arity pin is the meaning it was standing
+     * in for, stated at both ends of the mix.
+     *
+     * At mix 0 the sharp width is the profile's own σ at every ratio, on both
+     * tiers and under a patch that moves the 2x gain — a division would halve
+     * it. At mix 1 the σ is the ratio's own gain times that σ, so a fourth
+     * argument is a parameter with exactly one meaning.
+     */
+    const gainPatch = { sizeScatterGainMax2x: 5.5 };
+    const gainProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, gainPatch);
+    const gainMirror = sourceSize(gainPatch);
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(cssSizeScatterSigmaAt(1.25, 0, gainMirror, dpr), `sharp at ${dpr}`).toBeCloseTo(
+        1.25,
+        12,
+      );
+      expect(rendererSizeScatterSigmaAt(1.25, 0, gainProfile, dpr), `sharp at ${dpr}`).toBeCloseTo(
+        1.25,
+        12,
+      );
+      expect(cssSizeScatterSigmaAt(1.25, 1, gainMirror, dpr), `heavy at ${dpr}`).toBeCloseTo(
+        rendererSizeScatterSigmaAt(1.25, 1, gainProfile, dpr),
+        12,
+      );
+    }
+    // 8 at dpr 1, 5.5 at dpr 2, linear between — the gain and nothing else.
+    expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 1)).toBeCloseTo(10, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 1.5)).toBeCloseTo(1.25 * 6.75, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 2)).toBeCloseTo(1.25 * 5.5, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 3)).toBeCloseTo(1.25 * 5.5, 12);
+    // And on the LANDED material the ratio reaches nothing at all: the CSS
+    // tier's σ is 10 at every dpr, which is W13 Decision Log 5 still in force
+    // (W15 Decision Log 2) and the pin G1's prediction will be read against.
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, dpr), `shipped σ at ${dpr}`)
+        .toBeCloseTo(10, 12);
+      expect(
+        rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, dpr),
+        `shipped σ at ${dpr}`,
+      ).toBeCloseTo(10, 12);
+    }
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {

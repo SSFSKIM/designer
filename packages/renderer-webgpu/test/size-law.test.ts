@@ -39,6 +39,9 @@ import {
   sizeScatterSigmaAt,
   scatterRampAreaMean,
   scatterDeepThickness,
+  scatterFloorAtScale,
+  scatterGainAtScale,
+  scatterSpanMaxAtScale,
   scatterRampReachDevicePx,
   scatterRampStart,
   scatterSharpShare,
@@ -706,26 +709,30 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
     expect(scatterSharpShare(80, 1, patched, 320)).toBeCloseTo(0.6 * (1 - 80 / 200), 12);
   });
 
-  it("keeps the widths in CSS px at every scale — the device-pixel reading is retired", () => {
+  it("never divides the shared projection's widths by the device ratio", () => {
     // The two widths are the σ the mix runs between: the sharp one at weight 0
-    // and the heavy one at weight 1. W12 G3 read them as device-pixel quantities
-    // and W13 Decision Log 8 retired that reading on the bed (claims §5.68 §5):
-    // the σ is one CSS-px number, and no ratio reaches it.
+    // and the heavy one at weight 1. W12 G3 read them as device-pixel
+    // quantities and this function divided by the ratio; W13 Decision Log 8
+    // retired that on the bed (claims §5.68 §5) and W15 G1 restored it on the
+    // GPU tier's DRAW path alone — the renderer's `bodySigmaCssFor`, which is
+    // where the pyramid's body σ comes from. This function is the shared
+    // projection every other consumer reads, and a division here would move the
+    // CSS tier, whose 2x σ W15 Decision Log 2 holds until G1 predicts it.
     expect(SIGMA).toBe(1.25);
     expect(SIGMA * SHIPPED.sizeScatterGainMax).toBe(10);
-    expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED)).toBeCloseTo(1.25, 12);
-    expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED)).toBeCloseTo(10, 12);
-    // The signature admits no ratio: a fourth argument is not a parameter.
-    expect(sizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED, dpr), `sharp at ${dpr}`).toBeCloseTo(1.25, 12);
+      expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED, dpr), `heavy at ${dpr}`).toBeCloseTo(10, 12);
+    }
   });
 
   it("derives the single σ from the projection, so one law feeds both tiers", () => {
-    // The ratio still reaches the ramp's projection (its start and reach are
-    // per-scale constants) and nothing else.
+    // The ratio reaches the ramp's projection (its start and reach, and since
+    // W15 G1 the deep value's floor and span top) and the heavy width's gain.
     for (const span of [32, 44, 96, 128, 160, 256]) {
       for (const dpr of [1, 1.5, 2, 3]) {
         expect(sizeScatterSigma(SIGMA, span, SHIPPED, dpr), `span ${span} at ${dpr}`).toBeCloseTo(
-          sizeScatterSigmaAt(SIGMA, scatterThickness(span, 1, SHIPPED, dpr), SHIPPED),
+          sizeScatterSigmaAt(SIGMA, scatterThickness(span, 1, SHIPPED, dpr), SHIPPED, dpr),
           12,
         );
       }
@@ -737,6 +744,162 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
       expect(sizeThickness(span, RAMP)).toBe(sizeThickness(span, SHIPPED));
       expect(lensSizeGain(span, RAMP)).toBe(lensSizeGain(span, SHIPPED));
       expect(sizeOcclusionAlpha(0.5, span, RAMP)).toBe(sizeOcclusionAlpha(0.5, span, SHIPPED));
+    }
+  });
+});
+
+/*
+ * The body's SECOND SCALE (W15 G1, claims §5.69 §1–§2).
+ *
+ * At 2x the reference's body is a different object: its deep interior is fully
+ * heavy on the two largest spans where the 1x span curve leaves a sharp share
+ * of 0.24–0.36, and its heavy component is 8–11 device px wide. So the gain,
+ * the deep value's floor and the deep value's span top each get a second
+ * reading, interpolated by the same `rampAtScale` the ramp's anchors use.
+ *
+ * The wave's binding rule is that the 1x material does not move, and here it is
+ * a property rather than a promise: every case below pins the dpr-1 value of
+ * every function against the same function on a profile that has no 2x terms at
+ * all. What acts at dpr 2 and interpolates at 1.5 is pinned beside it, and the
+ * last case pins the patch paths the runtime sweep will name as axes.
+ */
+describe("the body's second scale (W15 G1)", () => {
+  const SHIPPED = DEFAULT_MATERIAL_PROFILE;
+  const SIGMA = SHIPPED.optics.regular.blurSigma;
+  /** All three second-scale terms off their 1x values at once. */
+  const SECOND: MaterialProfile = withMaterialOverrides(SHIPPED, {
+    sizeScatterGainMax2x: 4,
+    sizeScatterFloor2x: 0.9,
+    sizeScatterSpanMax2x: 128,
+  });
+  const SPANS_HERE = [0, 32, 44, 96, 128, 160, 256, 400] as const;
+  const DEPTHS = [0, 4, 12, 24, 48, 96, 200] as const;
+
+  it("ships equal to its own 1x constants, so the landed material is scale-free", () => {
+    expect(SHIPPED.sizeScatterGainMax2x).toBe(SHIPPED.sizeScatterGainMax);
+    expect(SHIPPED.sizeScatterFloor2x).toBe(SHIPPED.sizeScatterFloor);
+    expect(SHIPPED.sizeScatterSpanMax2x).toBe(SHIPPED.sizeScatterSpanMax);
+    for (const dpr of [1, 1.5, 2, 3]) {
+      for (const span of SPANS_HERE) {
+        expect(scatterDeepThickness(span, SHIPPED, dpr), `kDeep ${span} at ${dpr}`).toBe(
+          scatterDeepThickness(span, SHIPPED, 1),
+        );
+      }
+      expect(scatterGainAtScale(SHIPPED, dpr)).toBe(SHIPPED.sizeScatterGainMax);
+      expect(scatterFloorAtScale(SHIPPED, dpr)).toBe(SHIPPED.sizeScatterFloor);
+      expect(scatterSpanMaxAtScale(SHIPPED, dpr)).toBe(SHIPPED.sizeScatterSpanMax);
+    }
+  });
+
+  it("changes nothing at dpr 1, whatever the second scale says", () => {
+    // The binding rule, as arithmetic. Every function the second scale reaches,
+    // read at dpr 1 on a profile whose three 2x terms are wild, against the
+    // profile that has none of them.
+    expect(scatterGainAtScale(SECOND, 1)).toBe(SHIPPED.sizeScatterGainMax);
+    expect(scatterFloorAtScale(SECOND, 1)).toBe(SHIPPED.sizeScatterFloor);
+    expect(scatterSpanMaxAtScale(SECOND, 1)).toBe(SHIPPED.sizeScatterSpanMax);
+    // And below dpr 1 too: `rampAtScale` holds outside [1, 2].
+    for (const dpr of [0.5, 1]) {
+      for (const span of SPANS_HERE) {
+        expect(scatterDeepThickness(span, SECOND, dpr), `kDeep ${span} at ${dpr}`).toBe(
+          scatterDeepThickness(span, SHIPPED, dpr),
+        );
+        expect(scatterRampStart(dpr, SECOND, span), `s0 ${span} at ${dpr}`).toBe(
+          scatterRampStart(dpr, SHIPPED, span),
+        );
+        expect(scatterRampAreaMean(span, SECOND, dpr), `mean ${span} at ${dpr}`).toBe(
+          scatterRampAreaMean(span, SHIPPED, dpr),
+        );
+        for (const fold of [0, 0.45, 1]) {
+          expect(
+            scatterThickness(span, fold, SECOND, dpr),
+            `k̄ ${span} fold ${fold} at ${dpr}`,
+          ).toBe(scatterThickness(span, fold, SHIPPED, dpr));
+        }
+        for (const u of DEPTHS) {
+          expect(scatterSharpShare(u, dpr, SECOND, span), `s(${u}) ${span} at ${dpr}`).toBe(
+            scatterSharpShare(u, dpr, SHIPPED, span),
+          );
+        }
+        expect(sizeScatterSigma(SIGMA, span, SECOND, dpr), `σ ${span} at ${dpr}`).toBe(
+          sizeScatterSigma(SIGMA, span, SHIPPED, dpr),
+        );
+      }
+    }
+  });
+
+  it("acts at dpr 2, on the deep value, the projection and the width", () => {
+    // The floor: the deep value at a span below `sizeSpanMin` IS the floor, so
+    // this reads it directly.
+    expect(scatterDeepThickness(0, SECOND, 2)).toBeCloseTo(0.9, 12);
+    expect(scatterDeepThickness(0, SHIPPED, 2)).toBeCloseTo(0.4, 12);
+    // The span top: the deep value saturates at 128 under the second scale and
+    // not until 256 without it.
+    expect(scatterDeepThickness(128, SECOND, 2)).toBeCloseTo(1, 12);
+    expect(scatterDeepThickness(128, SHIPPED, 2)).toBeLessThan(1);
+    // A heavier deep value is a smaller deep SHARP share, which is what claims
+    // §5.69 §2 measured the 2x reference to have — and it lifts the projection
+    // on every span.
+    for (const span of [32, 44, 96, 128, 160]) {
+      expect(scatterRampAreaMean(span, SECOND, 2), `mean at ${span}`).toBeGreaterThan(
+        scatterRampAreaMean(span, SHIPPED, 2),
+      );
+      expect(1 - scatterSharpShare(400, 2, SECOND, span), `deep k at ${span}`).toBeGreaterThan(
+        1 - scatterSharpShare(400, 2, SHIPPED, span),
+      );
+    }
+    // The gain: the heavy end of the width law at this ratio, and the sharp end
+    // untouched, since the ratio never divides the σ here.
+    expect(sizeScatterSigmaAt(SIGMA, 1, SECOND, 2)).toBeCloseTo(SIGMA * 4, 12);
+    expect(sizeScatterSigmaAt(SIGMA, 0, SECOND, 2)).toBeCloseTo(SIGMA, 12);
+    // And the fold still lands on the floor exactly — the floor this ratio
+    // resolves, which is the W11c semantics carried onto the second scale.
+    for (const span of SPANS_HERE) {
+      expect(scatterThickness(span, 0, SECOND, 2), `fold 0 at ${span}`).toBeCloseTo(0.9, 12);
+    }
+  });
+
+  it("interpolates linearly between the two scales the reference was read at", () => {
+    expect(scatterFloorAtScale(SECOND, 1.5)).toBeCloseTo(0.65, 12);
+    expect(scatterSpanMaxAtScale(SECOND, 1.5)).toBeCloseTo(192, 12);
+    expect(scatterGainAtScale(SECOND, 1.5)).toBeCloseTo(6, 12);
+    expect(scatterDeepThickness(0, SECOND, 1.5)).toBeCloseTo(0.65, 12);
+    expect(sizeScatterSigmaAt(SIGMA, 1, SECOND, 1.5)).toBeCloseTo(SIGMA * 6, 12);
+    // Held above dpr 2 rather than extrapolated, as the ramp's anchors are: an
+    // extrapolation of a two-point fit past its own anchors is an invention.
+    for (const dpr of [2, 3, 4]) {
+      expect(scatterFloorAtScale(SECOND, dpr), `floor at ${dpr}`).toBeCloseTo(0.9, 12);
+      expect(scatterGainAtScale(SECOND, dpr), `gain at ${dpr}`).toBeCloseTo(4, 12);
+      expect(scatterSpanMaxAtScale(SECOND, dpr), `top at ${dpr}`).toBeCloseTo(128, 12);
+    }
+  });
+
+  it("is reachable one term at a time by the patch path a sweep axis names", () => {
+    /*
+     * The sweep names each axis as a dotted path into the patch
+     * (`--axis sizeScatterFloor2x=0.6,0.8`), so what has to hold is that a patch
+     * carrying that one leaf lands it and moves nothing else. Checked here as a
+     * unit rather than by running the sweep, which needs the GPU.
+     */
+    const axes = [
+      ["sizeScatterGainMax2x", 7.2],
+      ["sizeScatterFloor2x", 0.62],
+      ["sizeScatterSpanMax2x", 144],
+    ] as const;
+    for (const [path, value] of axes) {
+      const patched = withMaterialOverrides(SHIPPED, { [path]: value });
+      expect(patched[path], path).toBe(value);
+      // Every other constant of the material is the default's.
+      for (const key of Object.keys(SHIPPED) as (keyof MaterialProfile)[]) {
+        if (key === path) continue;
+        expect(patched[key], `${path} moved ${String(key)}`).toEqual(SHIPPED[key]);
+      }
+      // And dpr 1 is untouched by any of them.
+      for (const span of SPANS_HERE) {
+        expect(scatterDeepThickness(span, patched, 1), `${path} at span ${span}`).toBe(
+          scatterDeepThickness(span, SHIPPED, 1),
+        );
+      }
     }
   });
 });

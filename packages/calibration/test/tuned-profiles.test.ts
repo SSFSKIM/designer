@@ -84,6 +84,14 @@ const FITTED_CONSTANTS = [
   // scales the reference was read at
   "sizeScatterFloor",
   "sizeScatterSpanMax",
+  // W15 G1's second scale (claims §5.69 §1–§2): the heavy width's gain and the
+  // deep value's floor and span top, each read again at dpr 2. Named at their
+  // 1x defaults and PROVISIONAL until the wave's sweep fits them — which is
+  // exactly why they belong here: a constant a wave built and left inert still
+  // needs somewhere a reader can find out what it is.
+  "sizeScatterGainMax2x",
+  "sizeScatterFloor2x",
+  "sizeScatterSpanMax2x",
   "sizeScatterRampStartThin1x",
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",

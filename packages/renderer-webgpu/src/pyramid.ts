@@ -207,7 +207,8 @@ const same = (next: number, existing: number): boolean =>
  * σ in CSS px converted at the same density. Both halves are needed: the density
  * moves when a placement is resized or withdrawn, and the σ moves when the
  * device pixel ratio does, because the body's widths are device-pixel quantities
- * (W12 G3, claims §5.56) and `bodySigmaCss` is `blurSigma / dpr`.
+ * on this tier (W12 G3, claims §5.56; W15 G1, claims §5.69 §1) and
+ * `bodySigmaCss` is `blurSigma / dpr`.
  *
  * The frame is not acquired at the clean check, so the source extent is the one
  * recorded at build — the same extent the recorded density came from, so the

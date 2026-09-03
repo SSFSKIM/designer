@@ -526,6 +526,47 @@ export interface MaterialProfile {
   readonly sizeScatterSpanMax: number;
 
   /**
+   * **The body's second scale** (W15 G1, from the measurement of claims §5.69
+   * §1–§2) — the heavy width's gain, the deep value's floor and the deep
+   * value's span top, each read again at dpr 2.
+   *
+   * At 2x the reference's body is a different object from the one the three
+   * constants above describe, and §5.69 measured all of it: the deep interior
+   * is FULLY heavy on the two largest spans and 0.90–0.95 heavy on `rrect-md`
+   * (§2), where the 1x span curve leaves a sharp share of 0.24–0.36 there, and
+   * the heavy component's own width is 8–11 device px against the 1x law's 10
+   * CSS px (§1). One curve fitted at 1x cannot be both, so the deep value's two
+   * constants and the gain get a second reading rather than a scale factor —
+   * the same shape the ramp's anchors already have.
+   *
+   * Each is interpolated by `rampAtScale`: held at the 1x constant at dpr ≤ 1,
+   * at this one from dpr 2 up, linear between. **Each therefore defaults to its
+   * 1x value and the 1x material cannot move** — W15's binding rule — and a
+   * default profile renders exactly what it rendered before this term existed,
+   * at every ratio.
+   *
+   * Consumed at draw time, not folded into a constant: `scatterDeepThickness`
+   * takes the ratio for the floor and the span top, the renderer resolves all
+   * three from the viewport's own ratio and hands them to the optics pass
+   * through the uniforms the shader already reads (`scatter.x`, `lensOval.w`
+   * and `size.x`), and `scatterThickness`, `scatterSharpShare` and the ramp's
+   * area-average projection read the resolved deep value.
+   *
+   * PROVISIONAL, all three, and inert until they are fitted. W15 G1's runtime
+   * sweep at `--profile apple-macos-26.5-2x-light-standard` sets them, on the
+   * rule W13 wrote after the paper model over-credited the mip chain's heavy
+   * tap (§5.58 §1): no constant of this material lands on a paper prediction.
+   * What §5.69 says they should come out near — the sweep decides, not this
+   * comment — is a deep value near fully heavy on the large spans (a floor
+   * above 0.4, a span top below 256, or both) and a gain that puts the heavy
+   * width near 8–11 device px once `bodySigmaCssFor` has divided the sharp
+   * width by the ratio.
+   */
+  readonly sizeScatterGainMax2x: number;
+  readonly sizeScatterFloor2x: number;
+  readonly sizeScatterSpanMax2x: number;
+
+  /**
    * **The body's depth ramp** (W13 G1, from the measurement of claims §5.61 §2
    * and the re-forming its runtime sweep forced) — a near-contour excursion on
    * the sharp component's share, riding on top of the span law
@@ -1202,6 +1243,11 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
+  // The second scale, each defaulting to its 1x constant so that the term is
+  // inert until W15 G1's sweep fits it (see `MaterialProfile.sizeScatterFloor2x`).
+  sizeScatterGainMax2x: 8,
+  sizeScatterFloor2x: 0.4,
+  sizeScatterSpanMax2x: 256,
   // The 1x three FITTED in the renderer (W13 G1's third sweep, 44 points over
   // the calibration bed: `results/2026-09-03-w13-ramp/g1/sweep-3/g1-sweep-3.md`
   // §3); the 2x three PROVISIONAL still, because at them the excursion is
@@ -1547,6 +1593,9 @@ export interface MaterialProfilePatch {
   readonly sizeScatterGainMax?: number;
   readonly sizeScatterFloor?: number;
   readonly sizeScatterSpanMax?: number;
+  readonly sizeScatterGainMax2x?: number;
+  readonly sizeScatterFloor2x?: number;
+  readonly sizeScatterSpanMax2x?: number;
   readonly sizeScatterRampStartThin1x?: number;
   readonly sizeScatterRampStartThick1x?: number;
   readonly sizeScatterRampStartFar1x?: number;
@@ -1665,6 +1714,9 @@ export function withMaterialOverrides(
     sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
     sizeScatterFloor: patch.sizeScatterFloor ?? base.sizeScatterFloor,
     sizeScatterSpanMax: patch.sizeScatterSpanMax ?? base.sizeScatterSpanMax,
+    sizeScatterGainMax2x: patch.sizeScatterGainMax2x ?? base.sizeScatterGainMax2x,
+    sizeScatterFloor2x: patch.sizeScatterFloor2x ?? base.sizeScatterFloor2x,
+    sizeScatterSpanMax2x: patch.sizeScatterSpanMax2x ?? base.sizeScatterSpanMax2x,
     sizeScatterRampStartThin1x:
       patch.sizeScatterRampStartThin1x ?? base.sizeScatterRampStartThin1x,
     sizeScatterRampStartThick1x:
@@ -2270,10 +2322,11 @@ export function lensDirection(
  * a wider blur needs a wider proxy, and the group's floor is set by its *largest*
  * member (S1's 3σ rule, applied to the σ the material will really use).
  *
- * `devicePixelRatio` reaches only the ramp's projection — the depth ramp's start
- * and reach are per-scale constants (W13 G1) — and not the width, which is CSS
- * px at every scale (W13 Decision Log 8; see `sizeScatterSigmaAt`). It defaults
- * to 1, where the whole expression is the 1x law.
+ * `devicePixelRatio` reaches the ramp's projection — the ramp's start and reach
+ * and, since W15 G1, the deep value's floor and span top are per-scale
+ * constants — and the heavy width's gain, but never the width itself, which is
+ * CSS px at every scale in this shared projection (see `sizeScatterSigmaAt`).
+ * It defaults to 1, where the whole expression is the 1x law.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
@@ -2286,6 +2339,7 @@ export function sizeScatterSigma(
     sigmaPx,
     scatterThickness(spanPx, 1, profile, devicePixelRatio, extentsCssPx),
     profile,
+    devicePixelRatio,
   );
 }
 
@@ -2337,7 +2391,11 @@ export function scatterRampStart(
   // falling along the scatter facet's own curve, from the thick anchor at
   // `sizeSpanMax` to `far` at `sizeScatterSpanMax`. Same curve the deep value
   // rises along, so the two are one span statistic read twice.
-  const decline = smoothstep(profile.sizeSpanMax, profile.sizeScatterSpanMax, spanPx);
+  const decline = smoothstep(
+    profile.sizeSpanMax,
+    scatterSpanMaxAtScale(profile, devicePixelRatio),
+    spanPx,
+  );
   return thin + (thick - thin) * sizeThickness(spanPx, profile) + (far - thick) * decline;
 }
 
@@ -2376,6 +2434,55 @@ function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): numb
 }
 
 /**
+ * **The heavy width's gain at a device scale** (W15 G1, claims §5.69 §1).
+ *
+ * The gain multiplies the sharp width to give the heavy component's σ, and the
+ * reference's heavy component is a different width at 2x than the 1x gain of 8
+ * makes it once the sharp width is read in device pixels. Interpolated by
+ * `rampAtScale`, so a profile that names only the 1x gain returns it at every
+ * ratio and this function is the identity on the landed material.
+ */
+export function scatterGainAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeScatterGainMax, profile.sizeScatterGainMax2x, devicePixelRatio);
+}
+
+/**
+ * **The scatter facet's frost at a device scale** (W15 G1, claims §5.69 §2) —
+ * the deep value's floor, and the value the whole facet folds to.
+ *
+ * One function rather than two reads of the profile, because the floor is read
+ * in three places that must agree: the deep curve below, the fold in
+ * `scatterThickness`, and the uniform the shader takes for both.
+ */
+export function scatterFloorAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return clampUnit(
+    rampAtScale(profile.sizeScatterFloor, profile.sizeScatterFloor2x, devicePixelRatio),
+  );
+}
+
+/**
+ * **The deep value's span top at a device scale** (W15 G1, claims §5.69 §2) —
+ * the span at which the deep value reaches 1, fully heavy.
+ *
+ * It is one span statistic read twice, here as at 1x: the deep curve rises to
+ * it and the ramp's start declines to `far` along the same smoothstep, so a
+ * sweep that moves the top at 2x moves both together, which is the relation the
+ * fourth form was built on (`scatterRampStart`).
+ */
+export function scatterSpanMaxAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeScatterSpanMax, profile.sizeScatterSpanMax2x, devicePixelRatio);
+}
+
+/**
  * **The span law that supplies the ramp's deep value** — kDeep(span), the heavy
  * share the body mixes by everywhere deeper than the ramp's reach (W11c G1,
  * claims §5.41; kept underneath the ramp by W13 G1).
@@ -2384,13 +2491,25 @@ function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): numb
  * `sizeScatterSpanMax`, span), unfolded — exactly the curve W11c fitted and W12
  * landed. The accessibility fold is applied once, by `scatterThickness` and by
  * the shader, on the whole mix rather than on this term alone.
+ *
+ * `devicePixelRatio` reaches the floor and the span top, which are per-scale
+ * constants since W15 G1 (claims §5.69 §2: the reference's 2x deep interior is
+ * fully heavy on the two largest spans where this curve leaves a sharp share of
+ * 0.24–0.36). It defaults to 1, where the whole expression is the 1x law, and
+ * the two anchors are equal on the landed material, so every ratio returns that
+ * law until the sweep fits the second scale.
  */
 export function scatterDeepThickness(
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
 ): number {
-  const floor = clampUnit(profile.sizeScatterFloor);
-  return floor + (1 - floor) * smoothstep(profile.sizeSpanMin, profile.sizeScatterSpanMax, spanPx);
+  const floor = scatterFloorAtScale(profile, devicePixelRatio);
+  return (
+    floor
+    + (1 - floor)
+      * smoothstep(profile.sizeSpanMin, scatterSpanMaxAtScale(profile, devicePixelRatio), spanPx)
+  );
 }
 
 /**
@@ -2425,7 +2544,7 @@ export function scatterSharpShare(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
   spanPx = 0,
 ): number {
-  const deepSharp = 1 - scatterDeepThickness(spanPx, profile);
+  const deepSharp = 1 - scatterDeepThickness(spanPx, profile, devicePixelRatio);
   const start = scatterRampStart(devicePixelRatio, profile, spanPx);
   const reach = Math.max(scatterRampReachDevicePx(devicePixelRatio, profile), 1e-6);
   const excursion = Math.max(start - deepSharp, 0) * Math.max(1 - Math.max(uDevicePx, 0) / reach, 0);
@@ -2464,7 +2583,7 @@ export function scatterThickness(
   devicePixelRatio = 1,
   extentsCssPx?: readonly [number, number],
 ): number {
-  const floor = clampUnit(profile.sizeScatterFloor);
+  const floor = scatterFloorAtScale(profile, devicePixelRatio);
   const mean = scatterRampAreaMean(spanPx, profile, devicePixelRatio, extentsCssPx);
   return clampUnit(floor + (mean - floor) * fold);
 }
@@ -2508,7 +2627,7 @@ export function scatterRampAreaMean(
   devicePixelRatio = 1,
   extentsCssPx?: readonly [number, number],
 ): number {
-  const deep = scatterDeepThickness(spanPx, profile);
+  const deep = scatterDeepThickness(spanPx, profile, devicePixelRatio);
   const amplitude = Math.max(scatterRampStart(devicePixelRatio, profile, spanPx) - (1 - deep), 0);
   if (amplitude <= 0) return clampUnit(deep);
   const width = Math.max(extentsCssPx?.[0] ?? spanPx, 0);
@@ -2542,25 +2661,32 @@ export function scatterRampAreaMean(
  * unfolded thickness for it. One formula, so a policy fold cannot end up applied
  * to one facet and not another.
  *
- * The widths are CSS-px quantities at every device scale. W12 G3 read them as
- * device-pixel quantities (claims §5.56 §1) and held that reading as a
- * candidate; W13 carried it into its dry runs and the bed retired it (W13
- * Decision Log 8, user-decided, 2026-09-04): at 2x the ramp is a null, so the
- * halved widths were the only change on that scale, and against the W14 bed
- * they took the four large checkerboard rows down 0.006–0.017 while raising
- * the two small ones — Apple's 2x interior is HEAVIER than ours (claims §5.64
- * §4), and a narrower width pushes the large spans the wrong way. The 2x
- * question is the deep value's, chartered separately; until it is answered
- * the σ here is one number in CSS px, and a caller that divides it by a ratio
- * is asserting a law the measurement rejected.
+ * **The ratio never divides this σ.** W12 G3 read the widths as device-pixel
+ * quantities (claims §5.56 §1) and this form divided by the ratio; W13 Decision
+ * Log 8 (user-decided, 2026-09-04) retired that on the bed, and W15 G1 restores
+ * the device-pixel reading on the GPU tier alone, where the renderer's
+ * `bodySigmaCssFor` divides the sharp width by the viewport's own ratio. This
+ * function is the SHARED projection — the CSS tier's single `blur()` σ, a
+ * group's 3σ padding floor, the demo's readout — and W15 Decision Log 2 leaves
+ * W13 Decision Log 5 in force until G1 predicts the CSS tier's 2x σ, so a
+ * division here would move the CSS tier the way claims §5.69 §4 says is wrong
+ * (its own measured 2x ceiling is 3–5 CSS px, LARGER than the 1x reading, not
+ * half of it).
+ *
+ * What the ratio does reach is the GAIN: `sizeScatterGainMax2x` is the heavy
+ * width's multiplier at dpr 2 (claims §5.69 §1), so at mix 0 this returns
+ * `sigmaPx` at every ratio and at mix 1 it returns the ratio's own heavy width.
+ * On the landed material the two gains are equal and every ratio returns the 1x
+ * σ, which is what `tier-coherence` pins.
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
 ): number {
   const mix = clampUnit(scatter);
-  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * mix);
+  return sigmaPx * (1 + (scatterGainAtScale(profile, devicePixelRatio) - 1) * mix);
 }
 
 /** 0…1, the clamp every share in this facet takes. */

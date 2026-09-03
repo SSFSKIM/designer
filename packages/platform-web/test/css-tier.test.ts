@@ -731,6 +731,12 @@ describe("the size law reaches the CSS tier", () => {
     // applies the projection and where — the magnitudes belong to the bed.
     sizeScatterFloor: 0,
     sizeScatterSpanMax: 200,
+    // The second scale (W15 G1) set equal to this fixture's own 1x law, so the
+    // fixture is scale-free and every case below reads the law it names. The
+    // tier reads at `CSS_TIER_RAMP_SCALE` in any event.
+    sizeScatterGainMax2x: 2.5,
+    sizeScatterFloor2x: 0,
+    sizeScatterSpanMax2x: 200,
     sizeScatterRampStartThin1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x,
     sizeScatterRampStartThick1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick1x,
     sizeScatterRampStartThin2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x,

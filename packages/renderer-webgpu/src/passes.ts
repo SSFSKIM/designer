@@ -149,6 +149,10 @@ export interface OpticsPassArgs {
    * a gain but the chain level whose blur already matches the body texture —
    * the origin the scattering term measures its extra octaves from, which only
    * the pyramid that built the body knows.
+   *
+   * `sizeScatterGainMax` arrives RESOLVED at the ratio the group draws at
+   * (W15 G1, claims §5.69 §1): the profile anchors it at dpr 1 and dpr 2 and
+   * the caller interpolates, as it already did for the ramp's anchors.
    */
   readonly sizeScatterGainMax: number;
   readonly sizeOcclusionGain: number;
@@ -169,6 +173,10 @@ export interface OpticsPassArgs {
    * ramp's DEEP value: the shader evaluates `floor + (1 − floor) ·
    * smoothstep(sizeSpanMin, sizeScatterSpanMax, span)` per pixel from the span
    * the field pass carries, exactly as it did before the ramp.
+   *
+   * This and `sizeScatterFloor` also arrive RESOLVED at the ratio (W15 G1,
+   * claims §5.69 §2): the deep value is a per-scale law now, and the shader
+   * reads one floor and one span top whatever scale produced them.
    */
   readonly sizeScatterSpanMax: number;
   /**

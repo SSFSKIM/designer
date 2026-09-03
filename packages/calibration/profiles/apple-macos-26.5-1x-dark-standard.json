@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "aa6e466b1412ec04",
+  "resolvedMaterialSha256": "ae16e6e95d9671a7",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -417,6 +417,7 @@
     "989f02740cb5e52b -> cd127cf8d572dc7d (2026-09-03, W14 G1 sweep adopted, claims 5.65): this scheme's own anchors fitted on the dark bed - thickOcclusionAt96 0.230 -> 0.278, At128 0.249 -> 0.301, At160 0.268 -> 0.324 (the provisional ones were carrying the ABSENCE of a lift), liftAmplitude 0.0038 -> 0.0051, which is 0.51x the fitted light amplitude, X7's measured ratio arrived at independently by a free fit - and liftSpanMin 64 / liftSpanFull 118 / liftBlurSigmaCss 40 named here for the first time, carried from the light document rather than read on this bed. The light defaults it resolves over moved with it. See entries.outerShadow.",
     "cd127cf8d572dc7d -> f378523fd2fa9995 (2026-09-03, W13 G1 merged with W14 G2): the defaults this difference document inherits now carry the ramp's six constants beside W14's landed outer shadow (claims 5.66); no constant of either wave moved, only the union of the two.",
     "f378523fd2fa9995 -> 86390fdc60e8eb72 (2026-09-03, W13 G1, FOURTH form): the defaults this difference document inherits gain sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved.",
-    "86390fdc60e8eb72 -> aa6e466b1412ec04 (2026-09-03, W13 G1, fourth form FITTED at 1x): the default this difference document inherits, sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact."
+    "86390fdc60e8eb72 -> aa6e466b1412ec04 (2026-09-03, W13 G1, fourth form FITTED at 1x): the default this difference document inherits, sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact.",
+    "aa6e466b1412ec04 -> ae16e6e95d9671a7 (2026-09-04, W15 G1): the defaults this difference document inherits gain three SECOND-SCALE constants - sizeScatterGainMax2x, sizeScatterFloor2x, sizeScatterSpanMax2x - each equal to its 1x constant and interpolated by rampAtScale, so that W15's sweep can fit the 2x body in the renderer (claims 5.69 sections 1-2). THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED, and so is the material at every ratio while the anchors are equal; the digest moves because three keys entered the resolved object. This document names none of them: the 2x body is not a colour-scheme difference, and if the sweep gives the dark scheme its own reading it will be named here then. PROVISIONAL - see the light document's entries.scatterSecondScale."
   ]
 }
