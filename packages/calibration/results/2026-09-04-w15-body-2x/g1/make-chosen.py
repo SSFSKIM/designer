@@ -14,7 +14,7 @@ import json, sys
 chosen = json.load(open(sys.argv[1])); out = sys.argv[2]
 KEYS = ("sizeScatterGainMax2x", "sizeScatterFloor2x", "sizeScatterSpanMax2x",
         "sizeScatterRampStartThin2x", "sizeScatterRampStartThick2x",
-        "sizeScatterRampStartFar2x", "sizeScatterRampReach2xPx")
+        "sizeScatterRampStartFar2x", "sizeScatterRampReach2xPx", "sizeScatterGainFar2x")
 unknown = set(chosen) - set(KEYS)
 if unknown:
     sys.exit(f"not a second-scale key: {sorted(unknown)}")

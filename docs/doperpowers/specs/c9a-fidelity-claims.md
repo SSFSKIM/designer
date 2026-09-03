@@ -9889,3 +9889,65 @@ The parent recommends **(b)**: the miss sits on the span the demo's platters dra
 measured on both sides (the reference's width grows with span, vitrea's interior on the largest span
 is 40% too structured), and the term's constant comes from G0 rather than from the row it would
 fix. (a) remains a landing every stop but S2's seventh row admits.
+
+**8. The re-form, declared (2026-09-04; W15 Decision Log 3, user-decided: "landing -- the
+re-form").** One term added to §1's form: **the heavy width's gain at 2x is graded by span** along
+the fourth form's own decline curve —
+
+    gain(span, 2x) = gain2x + (gainFar2x − gain2x) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
+
+with `sizeScatterGainFar2x` = **9.9**, set from G0's independent per-span reading (§5.69 §1: the
+bounded width 8 device px at span 96 and 11 at 160, a ratio of 1.375 where the curve reads 0.352)
+and not from the row it fixes. The heavy width at 2x is therefore **6.0 device px at spans ≤ 96,
+6.7 at 128, 8.2 at 160 and 12.4 at 256 and beyond**; the sharp width, the deep value and the
+anchors are §1's; at dpr 1 the far gain equals the base gain and nothing moves. Branch `c746553`:
+the shader grades the heavy tap's level per pixel from the `farS` it already computes, the far
+gain rides the uniform slot the layout's alignment had left at zero (`shadowSize.w`), the
+projection takes the span where it has one, both mirrors pinned over dpr {1, 1.5, 2, 3}, 396
+renderer tests.
+
+**The calibration cells do not choose the value, and do not reject it** (`stage3`: gainFar2x
+{4.8, 7.5, 9.9, 12.5} at the declared base, 4 points): the term reaches the calibration set only
+through `rrect-ml` (span 128, 10% of the grading), whose spread moves from 0.1125 to 0.0993 at
+9.9 against native 0.1018 and whose `ssimMean` rises 0.9854 → 0.9860; every other cell is
+unchanged to four decimals. G0's value is the sweep's best on its own objective and the parent's
+choice.
+
+**The confirmation** (`confirm-3/`: four profiles, the 2x holdout read once for this fresh
+configuration — X8 — the first configuration's reading spent and recorded in §3):
+
+| cell | set | W13 bed → §3's form → **re-form** | band | spread web / native |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | calibration | 0.9978 → 0.9988 → **0.9988** | +0.0316 | 0.1661 / 0.1636 |
+| `capsule-button` | calibration | 0.9836 → 0.9860 → **0.9860** | +0.0309 | 0.1439 / 0.1552 |
+| `rrect-md` | calibration | 0.9840 → 0.9903 → **0.9903** | +0.0223 | 0.1156 / 0.1272 |
+| `rrect-ml` | calibration | 0.9746 → 0.9854 → **0.9860** | +0.0201 | 0.0993 / 0.1018 |
+| `toolbar-group` | calibration | 0.9662 → 0.9666 → **0.9666** | +0.0093 | 0.1460 / 0.1581 |
+| `glass-over-glass` | holdout | 0.9761 → 0.9841 → **0.9843** | +0.0205 | 0.1354 / 0.1401 |
+| `rrect-lg` | holdout | 0.9680 → 0.9661 → **0.9762** | +0.0106 | **0.0721 / 0.0810** |
+
+`rrect-lg`'s interior 0.9747 → **0.9876** (+0.0129) where §3's form had it at 0.9666. 2x dark:
+capsule 0.9711 (+0.0015), `rrect-md` 0.9719 (+0.0025), the stacked holdout 0.9488 (+0.0044; §3's
+form 0.9505 — the base's span 130 carries the grading's first tenth), the tint-orange capsule
+unchanged. `hc-text` (holdout) capsule +0.0018, `rrect-md` +0.0033. **1x: 49 GPU cells, every row
+identical to the bed, every capture byte-identical, 49 / 49.**
+
+**The stops, re-read.** S1 met exactly. **S2 met on all seven rows** — the five calibration
+checkerboard rows up 0.0004–0.0114 and both holdout rows up (+0.0081, +0.0083). S3 (0.015) met at
+0.0121 on the calibration spans and 0.0089 on `rrect-lg`. S4 met on every checkerboard cell, light
+and dark, with `ssimInterior` up on all four cells that carry one. S5: the solids, `photo`, the
+impulse and the tinted cells within 0.0002 in every adopted metric (the impulse `rrect-md`'s
+`ssimInterior`, not an adopted row, +0.0012); `ssimOutside` beyond 0.001 on two cells —
+`toolbar-group` −0.0016, `hc-text` capsule −0.0018 — the coverage-ramp thousandth, named;
+`rrect-lg` now −0.0009. S6 by construction. **S7:** the user's reading of §3's sheet, 2026-09-04:
+"W15 looks pretty good too"; the re-form's sheets (`sheets/g1r-2x.png`, `g1r-1x.png`) sent for the
+landing's look — on `rrect-lg` the residual checker deep inside is gone and the band's lobes stay.
+
+**What lands (G2):** merge `w15-g1-2x-body` at `c746553`; the profile documents carry the eight
+second-scale constants (`chosen-3-{light,dark}.json`'s patch) and their fingerprints; the
+canonical rebuild once; `adopted-thresholds` re-read (the four CSS 2x floors unchanged by
+construction, no GPU floor at 2x since W14); every dpr-2 golden moves by design and is attributed
+by measurement behind the isolation proof, the 1x golden `body-ramp-1x` must not; the demo
+fixture; the sheets at the landing; the CSS tier untouched (Decision Log 3); every gap to Deferred
+— the outside thousandth on two cells, the thin spans' spread under native by 0.011–0.012, the 2x
+gain's top (12.4 device px) unobserved above span 160, the whole-silhouette interior statistic.

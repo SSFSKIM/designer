@@ -1,0 +1,48 @@
+{
+  "$comment": "W15 G1 confirmation document (dark): the branch's profile with the fingerprint stripped and the chosen second-scale constants applied; {'sizeScatterGainMax2x': 4.8, 'sizeScatterFloor2x': 1.0, 'sizeScatterSpanMax2x': 256, 'sizeScatterRampStartThin2x': 0.46, 'sizeScatterRampStartThick2x': 0.21, 'sizeScatterRampStartFar2x': 0.21, 'sizeScatterRampReach2xPx': 100, 'sizeScatterGainFar2x': 9.9}.",
+  "patch": {
+    "backdropToneResponseStrength": 0,
+    "tintShadeStrength": 0,
+    "optics": {
+      "regular": {
+        "tint": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "tintAlpha": 0.97
+      }
+    },
+    "adaptiveTintDark": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "adaptiveTintLight": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0.063,
+      "thinOcclusionBright": 0.063,
+      "thickOcclusionAt96": 0.278,
+      "thickOcclusionAt128": 0.301,
+      "thickOcclusionAt160": 0.324,
+      "liftAmplitude": 0.0051,
+      "liftSpanMin": 64,
+      "liftSpanFull": 118,
+      "liftBlurSigmaCss": 40,
+      "reducedTransparencyOcclusion": 0.038
+    },
+    "sizeScatterGainMax2x": 4.8,
+    "sizeScatterFloor2x": 1.0,
+    "sizeScatterSpanMax2x": 256,
+    "sizeScatterRampStartThin2x": 0.46,
+    "sizeScatterRampStartThick2x": 0.21,
+    "sizeScatterRampStartFar2x": 0.21,
+    "sizeScatterRampReach2xPx": 100,
+    "sizeScatterGainFar2x": 9.9
+  }
+}
