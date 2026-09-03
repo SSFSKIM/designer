@@ -231,7 +231,13 @@ sharp at the rim) are recorded as prior art, none of them measured.
 
 - **X1 — the canonical rebuild.** `rm results/matrix.json`, then the twelve
   per-profile runs, once at recomposition; children referee on partial runs
-  to a scratch matrix. Owner: parent.
+  to a scratch matrix. Owner: parent. Also at X1: the demo's reference-panel
+  fixture (`apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.png`
+  and its `.cell.json`) is a byte copy of the harness's GPU capture and must
+  be re-copied from the rebuilt `web-captures/` — on the G2 + ω 0.8 material
+  it already differs from the live panel by 0.0219 encoded luma against its
+  0.02 bound (`reference-panel.gpu.spec.ts`, seen 2026-09-03 on 6ff1319),
+  which is the test failing for the right reason.
 - **X2 — floor bookkeeping.** As W11 X2: a floor comes off only with its
   bound restored as a met claim in §5.27; `UNMET_ROWS`, `PREDICATE_EXCLUDES`
   edited beside the section that justifies them. Owner: parent.
