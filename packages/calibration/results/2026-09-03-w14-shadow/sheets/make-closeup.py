@@ -53,6 +53,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--gate', required=True)
     ap.add_argument('--scale', type=int, choices=(1, 2), default=1)
+    # The `W12 close` column reads the canonical captures, which the LANDING rebuild
+    # overwrites with the candidate itself. `--before` names where that column comes
+    # from, so a landing sheet can point it at the pre-rebuild copy kept in scratch;
+    # unset, it is the canonical directory the dry-run sheets read.
+    ap.add_argument('--before', default=CANONICAL, help='the W12-close captures dir')
     ap.add_argument('--candidate', required=True)
     ap.add_argument('--renderer', default='webgpu')
     args = ap.parse_args()
@@ -63,7 +68,7 @@ def main():
     for scene, (x0, y0, x1, y1) in CELLS:
         b = tuple(v * args.scale for v in (x0, y0, x1, y1))
         native = load(os.path.join(FIXTURES, profile, f'{scene}.png')).crop(b)
-        before = load(os.path.join(CANONICAL, profile, scene, f'{scene}__{args.renderer}.png')).crop(b)
+        before = load(os.path.join(args.before, profile, scene, f'{scene}__{args.renderer}.png')).crop(b)
         after = load(os.path.join(args.candidate, profile, scene, f'{scene}__{args.renderer}.png')).crop(b)
         rows.append((f'{scene}  ({profile}) -- as encoded', [zoomed(p, zoom) for p in (native, before, after)]))
         rows.append((f'{scene}  -- levels x4 about black (diagnostic, NOT a render)',

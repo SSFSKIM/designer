@@ -109,6 +109,27 @@ type GateRow = readonly [
   threshold: number,
 ];
 
+/**
+ * ## The fourth adoption: `ssimOutside`, on every table (W14 G2, claims §5.66)
+ *
+ * The `// W14` row in each of the twelve tables below is X6's band-windowed
+ * SSIM outside the native silhouette (claims §5.60), adopted at the outer
+ * shadow's landing as X6 planned and W14 Decision Log 1 recorded. It is set
+ * by this file's own rule for a `≥` row — 0.02 below the worst measurement
+ * over calibration, validation and holdout on the rebuilt bed, floored to the
+ * hundredth — and read from the same rows the gate covers, so it is a
+ * regression guard on what the bed measures and not a claim about Apple. The
+ * worst rows are `photo__rrect-lg` under increased contrast (0.717 texture /
+ * 0.633 dom), `photo__toolbar-group` or `checkerboard__rrect-lg` on the
+ * standard light profiles (0.868 / 0.843 at 1x, 0.890 / 0.743 at 2x), and
+ * `dark-solid__rrect-md` on the dark profiles (0.859 / 0.800 at 1x, 0.890 at
+ * 2x texture): the `photo` and dom-tier exteriors carry differences the
+ * shadow wave did not touch (a structured backdrop's blurred light, the CSS
+ * tier's box against its radius), and the un-keyed thick law over a
+ * near-black backdrop is W14's own recorded gap (claims §5.65 §5). Those set
+ * the bound, not the checkerboard cells whose exterior the wave closed to
+ * 0.99. The bar is low by design and ratchets from here.
+ */
 /** Texture tier, `apple-macos-26.5-1x-light-standard`, cell as claims §1. */
 const TEXTURE_TIER_LIGHT: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.82],
@@ -118,6 +139,7 @@ const TEXTURE_TIER_LIGHT: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.07],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.17],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.11],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.84], // W14
 ];
 
 /** Dom tier, same profile, Chromium, `renderer: css`. */
@@ -127,6 +149,7 @@ const DOM_TIER_LIGHT: readonly GateRow[] = [
   ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 7.0],
   ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.90],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.08],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.82], // W14
 ];
 
 /**
@@ -151,6 +174,7 @@ const TEXTURE_TIER_2X_LIGHT: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.07],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.17],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.12],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.87], // W14
 ];
 
 /**
@@ -175,6 +199,7 @@ const DOM_TIER_2X_LIGHT: readonly GateRow[] = [
   ["shape", /*      */ "contourDistanceP95", /*  */ "≤", 10.0],
   ["perceptual", /* */ "ssimMean", /*            */ "≥", 0.92],
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.08],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.72], // W14
 ];
 
 /**
@@ -232,6 +257,7 @@ const TEXTURE_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.04],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.08],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.10],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.84], // W14
 ];
 
 const DOM_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
@@ -242,6 +268,7 @@ const DOM_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.04],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.07],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.11],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.83], // W14
 ];
 
 /**
@@ -270,6 +297,7 @@ const TEXTURE_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.06],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.10],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.17],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.69], // W14
 ];
 
 const DOM_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
@@ -280,6 +308,7 @@ const DOM_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean", /*     */ "≤", 0.07],
   ["perceptual", /* */ "oklabDeltaEP95", /*      */ "≤", 0.09],
   ["perceptual", /* */ "edgeWeightedMean", /*    */ "≤", 0.18],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.61], // W14
 ];
 
 /**
@@ -313,6 +342,7 @@ const TEXTURE_TIER_DARK: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
   ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.17],
   ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.04],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.83], // W14
 ];
 
 const DOM_TIER_DARK: readonly GateRow[] = [
@@ -323,6 +353,7 @@ const DOM_TIER_DARK: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
   ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.18],
   ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.05],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.78], // W14
 ];
 
 /** The same pair at 2×. Contour rows are device-pixel quantities; the rest are scale-free. */
@@ -334,6 +365,7 @@ const TEXTURE_TIER_2X_DARK: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
   ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.17],
   ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.04],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.86], // W14
 ];
 
 const DOM_TIER_2X_DARK: readonly GateRow[] = [
@@ -344,6 +376,7 @@ const DOM_TIER_2X_DARK: readonly GateRow[] = [
   ["perceptual", /* */ "oklabDeltaEMean",     "≤", 0.09],
   ["perceptual", /* */ "oklabDeltaEP95",      "≤", 0.19],
   ["perceptual", /* */ "edgeWeightedMean",    "≤", 0.05],
+  ["perceptual", /* */ "ssimOutside", /*         */ "≥", 0.82], // W14
 ];
 
 /*
@@ -386,6 +419,7 @@ const FLOOR_ROUNDING = 0.0001;
 
 const FLOOR_EPSILON: Readonly<Record<string, number>> = {
   ssimMean: 0.001,
+  ssimOutside: 0.001,
   oklabDeltaEMean: 0.001,
   oklabDeltaEP95: 0.001,
   interiorLevelRatioGpuOverCss: 0.005,
@@ -482,13 +516,21 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // its sharp term from the contour inward and vitrea mixes one share per
   // span (§5.55, §5.58) — which is the next body wave's charter (W13). The dom
   // rows are byte-unchanged (the CSS tier has no lens).
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91579, floor: 0.9147 },
   // W11a (claims §5.39) RATCHETED the nested cell's two texture rows UP once
   // its upper pane composited over the base glass (0.84092 → 0.87961,
   // 0.87624 → 0.89482); W11c G1 (claims §5.42) MET the 1x row and re-pinned
   // the 2x one with the rest of the 2x family above.
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92114, floor: 0.9201 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91128, floor: 0.9102 },
+  // W14 G2 (claims §5.66; W14 Decision Log 6, user decision 2026-09-03)
+  // REMOVED the three 2x texture-tier ssimMean floors here — checkerboard
+  // rrect-ml, glass-over-glass and rrect-lg (0.91579 / 0.92114 / 0.91128 →
+  // 0.9746 / 0.9762 / 0.9680 against ≥ 0.93) — because the outer shadow is
+  // now the reference's two-term composite: a backdrop-adaptive black
+  // multiply and a blurred copy of the backdrop's own light, on W8's one
+  // falloff. §5.60 had read 63–66% of those rows' deficit OUTSIDE the
+  // silhouette, and removing it met the bound with 0.04 of margin; the body's
+  // depth ramp (W13) was never what those rows needed. Their claims are
+  // restored in §5.27. The dom rows above are unchanged in kind: the CSS tier
+  // carries the adaptive alpha and no lift (W14 Decision Log 4).
 };
 
 /**
@@ -501,9 +543,11 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * rows were pinned on (claims §5.40); 12 after W11c's body law met the three
  * 1x texture-tier structure rows (claims §5.42); 11 after W11c's lens met the
  * 2x texture-tier rrect-md row (claims §5.44); still 11 after W12 (claims
- * §5.59), whose lens raised the three 2x texture rows without meeting them.
+ * §5.59), whose lens raised the three 2x texture rows without meeting them;
+ * 8 after W14's outer shadow met those three (claims §5.66) — the deficit was
+ * outside the silhouette all along.
  */
-const UNMET_ROWS = 11;
+const UNMET_ROWS = 8;
 
 /*
  * ---------------------------------------------------------------------------
@@ -1408,3 +1452,104 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     }
   });
 });
+
+// ---------------------------------------------------------------------------
+// W14 X7: the shadow axis's affine pair, adopted at G2 (claims §5.66 §5)
+// ---------------------------------------------------------------------------
+
+/**
+ * The pair `y = a·bg + c` per band (claims §5.62 §8) is the instrument that
+ * sees the two things the occlusion ratio cannot: what the shadow removes over
+ * a solid backdrop, and the light the thick shadow ADDS (the lift, `c`). Two
+ * readings of it are adopted here, GPU tier only, on the light-standard
+ * profiles at both scales, from band `3-6` below the surface — the first band
+ * clear of the body's own edge (§5.62 §8's `0-3` caveat):
+ *
+ *   - `light-solid__capsule-button`: the occlusion off the band, web against
+ *     native, within 20% — the charter's own S3 tolerance. The W12 close read
+ *     2.29× here (the user's by-eye "the shadow is darker on the light-solid
+ *     capsule"); the landing reads 1.013× at 1x and 1.008× at 2x.
+ *   - the four thick checkerboard cells: `c` web against native within 20%.
+ *     The lift is what §5.60 §3 found half the large cells' whole-crop
+ *     deficit to be, and a renderer that stopped painting it would pass every
+ *     other row in this file. Landing ratios 1.001 / 1.003 / 0.949 / 0.916 at
+ *     1x and 1.002 / 0.980 / 0.935 / 0.899 at 2x on rrect-md / rrect-ml /
+ *     glass-over-glass / rrect-lg; the two holdout cells' one-signed residual
+ *     is `liftSpanFull` saturating early (§5.66 §3) and stays a recorded gap.
+ *
+ * The CSS tier carries the adaptive alpha and no lift by decision (W14
+ * Decision Log 4), so its `c` is 0 on every checkerboard cell by construction
+ * and is not gated; its light-solid capsule reads 1.032× and is covered by the
+ * tier-coherence suite rather than here.
+ */
+const PAIR_RATIO_TOLERANCE = 0.2;
+const PAIR_BAND = "3-6";
+const PAIR_PROFILES = ["apple-macos-26.5-1x-light-standard", "apple-macos-26.5-2x-light-standard"];
+const LIFT_CELLS = [
+  "checkerboard__rrect-md__rest",
+  "checkerboard__rrect-ml__rest",
+  "checkerboard__glass-over-glass__rest",
+  "checkerboard__rrect-lg__rest",
+];
+
+interface PairSide {
+  readonly direction: string;
+  readonly ringLabel: string;
+  readonly backdropMeanLinear: number;
+  readonly renderedLevelLinear: number;
+  readonly slopeALinear?: number;
+  readonly interceptCLinear?: number;
+}
+interface PairAxis {
+  readonly affineNative?: readonly PairSide[];
+  readonly affineWeb?: readonly PairSide[];
+}
+
+function bandBelow(side: readonly PairSide[] | undefined, label: string): PairSide {
+  const found = side?.find((row) => row.ringLabel === label && row.direction === "below");
+  if (found === undefined) throw new Error(`no band ${label} below on this cell`);
+  return found;
+}
+
+describe("W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing", () => {
+  for (const profileKey of PAIR_PROFILES) {
+    it(`${profileKey}: the light-solid capsule's shadow is within 20% of the reference's`, () => {
+      const cell = cellsOf(profileKey, "texture").find(
+        (candidate) => candidate.key.sceneId === "light-solid__capsule-button__rest",
+      );
+      expect(cell).toBeDefined();
+      const axis = (cell as unknown as { shadow?: PairAxis }).shadow;
+      const native = bandBelow(axis?.affineNative, PAIR_BAND);
+      const web = bandBelow(axis?.affineWeb, PAIR_BAND);
+      const occlusion = (side: PairSide): number =>
+        (side.backdropMeanLinear - side.renderedLevelLinear) / side.backdropMeanLinear;
+      const ratio = occlusion(web) / occlusion(native);
+      expect(
+        Math.abs(ratio - 1),
+        `${profileKey} light-solid capsule: occlusion ratio web/native ${ratio.toFixed(4)}`,
+      ).toBeLessThanOrEqual(PAIR_RATIO_TOLERANCE);
+    });
+
+    it(`${profileKey}: the lift is painted on every thick checkerboard cell, within 20%`, () => {
+      const cells = cellsOf(profileKey, "texture").filter((candidate) =>
+        LIFT_CELLS.includes(candidate.key.sceneId),
+      );
+      expect(cells.map((cell) => cell.key.sceneId).sort()).toEqual([...LIFT_CELLS].sort());
+      for (const cell of cells) {
+        const axis = (cell as unknown as { shadow?: PairAxis }).shadow;
+        const native = bandBelow(axis?.affineNative, PAIR_BAND);
+        const web = bandBelow(axis?.affineWeb, PAIR_BAND);
+        const nativeLift = native.interceptCLinear;
+        const webLift = web.interceptCLinear;
+        expect(nativeLift, `${name(cell)}: the reference's lift is identified here`).toBeDefined();
+        expect(webLift, `${name(cell)}: vitrea's lift is identified here`).toBeDefined();
+        const ratio = (webLift ?? 0) / (nativeLift ?? 1);
+        expect(
+          Math.abs(ratio - 1),
+          `${name(cell)}: lift ratio web/native ${ratio.toFixed(4)}`,
+        ).toBeLessThanOrEqual(PAIR_RATIO_TOLERANCE);
+      }
+    });
+  }
+});
+

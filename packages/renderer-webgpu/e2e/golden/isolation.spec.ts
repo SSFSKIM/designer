@@ -406,7 +406,27 @@ const W12_G2B_HASHES: Readonly<Record<string, string>> = {
   "concentric-nesting": "94496ccfe1bd23c77943346f21ec4a95",
 };
 
+/**
+ * One hash after W14 G2, the outer shadow's two-term composite (2026-09-03;
+ * claims §5.66). With all seven amplitudes at zero the composite IS the
+ * pre-W8 renderer, and nine of the ten scenes reproduce their pinned bytes
+ * from it exactly. `placed-checkerboard` does not, by ONE pixel: (290, 141),
+ * fully covered (alpha 255), on a smooth interior gradient, reads 217 where it
+ * read 218 in all three channels. Attributed by rendering the declined scene in
+ * a build of the pre-merge commit (`1c865fe`) and in this one and diffing the
+ * two readbacks — 1 of 96 000 pixels differs, by 1 of 255, and nothing else
+ * moves; the default (shadow-on) renders differ across half the frame by up to
+ * 7 codes of alpha, which is the shadow itself. The optics pass now composes the
+ * body, the black term and the lift in one expression so the coverage ramp has
+ * no seam, and that reordering flips a value that sat on a rounding boundary.
+ * A tie, not a term; pinned here so the next reordering has to say the same.
+ */
+const W14_HASHES: Readonly<Record<string, string>> = {
+  "placed-checkerboard": "0d15cb9d99ad972659968a5b9b509401",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W14_HASHES[name] ??
   W12_G2B_HASHES[name] ??
   W12_G2_HASHES[name] ??
   PLACEMENT_HASHES[name] ??

@@ -91,6 +91,11 @@ def main():
     ap.add_argument('--gate', required=True)
     ap.add_argument('--scale', type=int, choices=(1, 2), default=1)
     ap.add_argument('--profile', default=None)
+    # The `W12 close` column reads the canonical captures, which the LANDING rebuild
+    # overwrites with the candidate itself. `--before` names where that column comes
+    # from, so a landing sheet can point it at the pre-rebuild copy kept in scratch;
+    # unset, it is the canonical directory the dry-run sheets read.
+    ap.add_argument('--before', default=CANONICAL, help='the W12-close captures dir')
     ap.add_argument('--candidate', required=True, help='scratch captures dir (VITREA_WEB_CAPTURES)')
     ap.add_argument('--renderer', default='webgpu')
     args = ap.parse_args()
@@ -102,7 +107,7 @@ def main():
     label_h = 18
     for scene, component in ROWS:
         native = load(os.path.join(FIXTURES, profile, f'{scene}.png'))
-        before = load(os.path.join(CANONICAL, profile, scene, f'{scene}__{args.renderer}.png'))
+        before = load(os.path.join(args.before, profile, scene, f'{scene}__{args.renderer}.png'))
         after = load(os.path.join(args.candidate, profile, scene, f'{scene}__{args.renderer}.png'))
         for img, name in ((before, 'W12 close'), (after, 'candidate')):
             if img.size != native.size:
