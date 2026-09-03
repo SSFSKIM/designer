@@ -398,3 +398,18 @@ suite already do. That converts "the material frosted harder within a bounded
 time" — which is the claim — into the assertion, and stops the wall clock being
 part of the contract. The occlusion assertions below it read a settled value
 and are unaffected.
+
+### Release chain: the publish order leaves a window where the pair is uninstallable (2026-09-04)
+
+At the 0.4.0 cut `changeset publish` (through `pnpm release`) put `@vitreajs/vitrea-web@0.4.0`
+and `@vitreajs/vitrea-react@0.4.0` on the registry at 17:25:44Z / 17:25:46Z and
+`@vitreajs/vitrea@0.4.0` — the package both depend on at `^0.4.0` — at 17:26:57Z. For those 70
+seconds a cold `npm install @vitreajs/vitrea-web@0.4.0` failed with `ETARGET` (no matching
+version for `@vitreajs/vitrea@^0.4.0`); after, all three resolve. The cause is not in the
+artifacts: with npm 2FA each package's publish waits on its own one-time code, and the order
+the codes were entered put the dependency last. The window is small and closes on its own,
+but a dependent that is installable before its dependency is a real state of the registry.
+Shape of the fix, if it is ever worth taking: publish in dependency order explicitly
+(`pnpm publish -r` honours the workspace's topological order and can take the OTP once via
+`--otp`), or accept the window and say so in the release checklist. Evidence: registry
+`time` fields; the failed cold install at 17:26:38Z and the passing one after.
