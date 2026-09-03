@@ -9377,3 +9377,32 @@ fourth form costs one sweep block and no extra holdout read. Rejected: landing t
 with `rrect-lg`'s overshoot and re-pinning by decision — the cause is one term of the form and the
 fix is one constant, and the wave's purpose is the least gap.
 
+**6. LANDED (2026-09-03; `8eebae4`, merge `4923219`; `results/2026-09-03-w14-shadow/g2/g2-landing.md`).**
+The canonical bed rebuilt once at the merge on both tiers and all six profiles (230 cells, every
+capture byte-identical over two loads); every row of §4 and §3's CSS readings reproduces within
+0.00005, and the landing captures are byte-identical to the dry run's, so the user's reading of
+the dry-run sheets (§5.65 §7) stands as S7. The three 2x texture-tier floors **came off by fix**
+(0.9746 / 0.9762 / 0.9680 against ≥ 0.93; UNMET_ROWS 11 → **8**); `PREDICATE_EXCLUDES` unchanged
+(the suite passed on the rebuilt bed before any edit). `ssimOutside` is **adopted on all twelve
+tables** by the file's rule (0.02 below the worst gated row, floored to the hundredth: texture / dom
+0.84 / 0.82 at 1x light, 0.87 / 0.72 at 2x light, 0.84 / 0.83 reduced transparency, 0.69 / 0.61
+increased contrast, 0.83 / 0.78 at 1x dark, 0.86 / 0.82 at 2x dark — the worst rows are `photo`'s
+large spans and `dark-solid__rrect-md`, the exteriors this wave did not touch or that it recorded
+as a gap in §5.65 §5), and X7's pair is adopted on the GPU tier at both scales within S3's 20%: the
+light-solid capsule's band occlusion ratio (1.013 / 1.008) and the lift `c` ratio on the four thick
+checkerboard cells (1.001 / 1.003 / 0.949 / 0.916 at 1x; 1.002 / 0.980 / 0.935 / 0.899 at 2x).
+**The goldens moved behind the isolation proof with one attribution the proof demanded**: with all
+seven amplitudes at zero nine scenes reproduce their pinned bytes and `placed-checkerboard` does
+not — by **one pixel of 96 000, one code of 255**, at (290, 141), fully covered, on a smooth
+interior gradient, measured by rendering the declined scene in a build of the pre-merge commit and
+in the landed tree and diffing the readbacks (the default renders differ across 48 434 pixels by up
+to 7 codes of alpha, which is the shadow). The optics pass composes body, black term and lift in
+one expression so the coverage ramp has no seam, and the reordering flips a value on a rounding
+boundary; pinned as `W14_HASHES` with that record, nine goldens regenerated, the cover-fit record
+re-recorded with its reason; golden suite 26 passed. Demo fixture refreshed (1 passed). Workspace
+lint clean; unit suites green (calibration 255, core 302, geometry 149, motion 162, platform-web
+344, policy 23, react 97, renderer-webgpu 373). **Carried by name (W14 Decision Log 6):** S1's miss
+on `dark-solid__capsule-button` (`ssimBand` −0.0188 / −0.0474), not an adopted row, the pair
+measuring the constant right. One finding of the landing itself: `web-captures/` is gitignored, so
+the committed evidence is the matrix and the captures live on the capture machine.
+

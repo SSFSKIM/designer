@@ -10,7 +10,10 @@ overload; the parent carried steps 3–9 by hand from the state it left, which i
 `g2-rebuild.sh` (this directory) from W12's `x1-rebuild.sh`: workspace build at `4923219`,
 the W12 close bed and captures kept in scratch (`matrix-before-g2.json`, `web-captures-before-g2`
 under `~/.claude/jobs/5c70e47f/tmp/w14/g2/`), `results/matrix.json` removed, then the twelve
-per-profile runs to the canonical matrix and captures. `g2-runs.txt` is the driver log: every
+per-profile runs to the canonical matrix and captures. (The captures directory is gitignored —
+`.gitignore` line 64 — so the committed evidence is the matrix; `web-captures/` lives on the
+capture machine, contrary to the wording in CLAUDE.md, which this landing found rather than
+changed.) `g2-runs.txt` is the driver log: every
 run `exit=0`, ALL RUNS DONE 22:19:23; 230 cells, 230 captures, every one byte-identical over
 two loads. GPU custody: 22:14:27–22:19:23.
 

@@ -409,7 +409,7 @@ charter (user-decided). X8 orders the two landings.
 | --- | --- | --- |
 | G0 | one worker, 2026-09-03; `results/2026-09-03-w14-shadow/g0/g0-instrument.md`, `g0-shadow.md`; claims §5.62 — two terms on one falloff (W8's lengths kept), the lift a σ-40 blurred copy of the backdrop's own light above the knee at span 64 and saturating with span, the thin regime's black alpha 0.33 on the mid backdrops and 0.127 on light-solid (vitrea 0.285 everywhere), the split of the thick composite not identifiable on this bed | COMPLETE 2026-09-03 |
 | G1 | two workers dispatched 2026-09-03: the composite implemented on branch `w14-g1-shadow` (worktree `.claude/worktrees/w14-g1`) — the black term's adaptive alpha on both tiers (thin anchors 0 / 0.33 / 0.127 keyed on W9's luminance; thick span anchors 0.379 / 0.497 / 0.544; the dark document's own), the lift GPU-only on W8's falloff (amplitude, span rise 64 → 128, σ 40 CSS px from the chain), Decision Log 1 question 2 (a) as implemented; X7 LANDED 2026-09-03 (merge `922d3e4`, the parent's adoption in Decision Log 3; `results/2026-09-03-w14-shadow/g0/x7-baseline.md`, claims §5.62 §8); **the composite built** (branch commit `6dd3b68`, merged with main at `3e9138c`; ten constants replace `occlusion`; both tiers keyed on the face's backdrop luminance; the lift GPU-only; every suite green); **the runtime sweep running** on it (`results/2026-09-03-w14-shadow/g1/sweep/`); **independent review** (Codex, 2026-09-03) — four findings fixed on the branch by a fix wave (the obsolete `occlusion` leaf rejected rather than ignored; `reducedTransparencyOcclusion` re-formed as one flat absolute amplitude 0.197 since §5.62 §5 measured the preference flat thin and thick together; the dark document carries 0.52 × the light lift from X7; the changeset), one deferred to G2 by design (every scene golden moves; re-recorded behind the isolation proof at the landing); **the sweep complete** (`results/2026-09-03-w14-shadow/g1/sweep/`, commit `dd6c780`; claims §5.65): the two measured thin anchors kept, the four provisional ones fitted (lift 0.0100 / span-full 118 / At96 0.370 / At128 0.448), the three 2x texture rows at 0.9746 / 0.9762 / 0.9680 against 0.93, the light-solid capsule at 1.013×; S1 misses on dark-solid capsule (held, Decision Log 5), S6's miss traced to the lift read through the decode and the CSS tier's thick amplitude being **derived** on the branch now (its verification capture to `g1/css-fold/`); **the by-eye sheets sent** (`sheets/g1-{1x,2x}.png`, `g1-closeup-{1x,2x}.png`, `g1-caption.txt`, commit `a092c1b`) and **the user's reading recorded**; **the CSS tier's thick amplitude derived** (branch `c27b372`; verified by capture, `g1/css-fold/`, commit `e8663a2`: the thick spans from 27–59% heavy to 3–7%, nothing fitted, every thin cell byte-identical); **DECLARED** — claims §5.66 (form, constants, stops with numbers, the twelve rows, both tiers; fingerprints light `4a87498387e05d4f` / dark `cd127cf8d572dc7d`) | COMPLETE 2026-09-03 |
-| G2 | the landing plan in claims §5.66 §5: W14 lands first under X8; merge, canonical rebuild, three 2x floors off by fix (11 → 8), `PREDICATE_EXCLUDES` re-derived, bounds for `ssimOutside` and the pair from the rebuilt bed, goldens behind the isolation proof, demo fixture, landing sheets; **S1's miss on `dark-solid__capsule-button` goes to the user as named** | READY — awaiting the user's landing call |
+| G2 | **LANDED 2026-09-03** (`8eebae4`, merge `4923219`; `results/2026-09-03-w14-shadow/g2/g2-landing.md`; claims §5.66 §6): the bed rebuilt once, every declared row reproduced within 0.00005, the three 2x floors off by fix (UNMET_ROWS 11 → 8), `ssimOutside` adopted on all twelve tables and the pair on the GPU tier, the goldens re-recorded behind the isolation proof with the one moved hash attributed by a pre-merge diff (one pixel, one code, a rounding tie), the demo fixture refreshed, the landing captures byte-identical to the dry run's so the user's reading stands as S7; S1's miss carried by name (Decision Log 6). The landing worker was cut off twice by a server-side overload; the parent carried steps 3–9 by hand | COMPLETE 2026-09-03 |
 
 ## Decision Log
 
@@ -683,7 +683,50 @@ CSS tier's own gap until the two-layer body gives it a second element.
 
 ## Outcomes & Retrospective
 
-(open)
+**RECOMPOSED 2026-09-03**, verified against the Parent-Level Acceptance clause by clause:
+
+- *Measured as a composite, not assumed* — met (G0, claims §5.62: per side, ring, span, scale and
+  backdrop; the black term's alpha and the lift as the affine pair; the blur at 40 ± 8 on the
+  probes' pitch axis; the instrument's recovery of vitrea's own W8 shadow at ±0.0016 in `a` and
+  ±0.0000 in `c`, X4, recorded beside every table).
+- *A model declared before the landing capture, fitted with the holdouts held out, the rows
+  predicted, refereed under the stops* — met (§5.66; every predicted row reproduced at the
+  landing within 0.00005). `ssimOutside` rises on every checkerboard cell at both scales — met.
+  The light-solid capsule within 20% — met at 1.3%. The three 2x texture rows meet 0.93 — met,
+  and their floors are gone. **No inside row moves — not met on one cell**, `dark-solid__capsule-
+  button`, and landed with the miss named by the user's decision (Decision Log 6), the pair
+  having measured the constant right (Decision Log 5).
+- *By eye, at the dry run and the landing* — met; the landing's captures are the dry run's bytes,
+  so the one reading covers both (§5.65 §7).
+- *The shadow axis widened to read the composite (X7)* — met, landed and adopted (Decision Logs 3
+  and the landing).
+- *Both tiers carry the geometry and the adaptive alpha; the CSS tier's vibrant term Decision
+  Log 1's question* — met; the term deferred to the two-layer body (Decision Log 4) and the CSS
+  tier's thick amplitude derived from the shared profile (§5.65 §6(ii)), its residual over
+  `photo` in Deferred. Suites green; goldens re-recorded with the scene named and the one moved
+  hash attributed; the canonical matrix rebuilt once; every gap in claims, Deferred or the
+  tech-debt tracker.
+
+**What the wave changed.** The exterior deficit W12 and W13 could not move is closed: the three
+2x texture rows read 0.97 against 0.93 from 0.91, the light-solid capsule's shadow is within 1.3%
+of Apple's from 2.29×, and the material now paints the reference's lift — a blurred copy of the
+backdrop's own light under the thick shadow — on the GPU tier and derives its absence honestly on
+the CSS tier. Two instruments landed with it: the affine pair on the shadow axis and
+`ssimOutside` as an adopted row on every table.
+
+**What it taught.** The space a term is read in is half its identity: the same lift is 0.039
+encoded and 0.0038 linear, and read through sRGB's decode a constant addition becomes a slope
+change 25× larger on white than on black — the parent's own arithmetic was wrong by that factor
+until the measurement corrected it (§5.65 §2). A rebuilt bed that reproduces a declaration to five
+decimals is what makes a one-pixel golden change attributable rather than alarming. And the
+harness's `0-3` band is the body's own edge on every tier: the over-fill in the tech-debt tracker
+is now the thing that stands between two of this wave's readings and their next decimal.
+
+**What it hands on** (Deferred): the CSS tier's lift with the two-layer body; the span-160
+anchor unfitted and the reference's band turnover between spans 130 and 160; the thin law's
+ramp below L 0.06; the un-keyed thick law over near-black backdrops; the mid plateau's dark end;
+the dark scheme's thick composite; the dark scheme under reduced transparency; both tiers'
+contour over-fill.
 
 ## Revision Notes
 
@@ -697,6 +740,7 @@ CSS tier's own gap until the two-layer body gives it a second element.
 - 2026-09-03: the dry run's sheets sent and the user's reading recorded (the light-solid
   capsule's W12 close darker than Apple's, as the sheet shows).
 - 2026-09-03: Decision Log 6 — the landing, user-decided, with S1's miss named; G2 dispatched.
+- 2026-09-03: **G2 landed and the wave recomposed** (claims §5.66 §6; Outcomes & Retrospective).
 - 2026-09-03: the CSS tier's derived amplitude verified by capture; **G1 declared** (claims §5.66);
   G2 ready, awaiting the user's landing call with S1's miss named; one Deferred entry (the CSS
   tier's `photo` over-correction).
