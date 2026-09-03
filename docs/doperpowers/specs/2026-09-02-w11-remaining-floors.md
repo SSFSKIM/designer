@@ -244,7 +244,9 @@ by construction.
     deficit on the GPU tier halved on the calibration cells, fitted against
     the probe's pitch-32/64 cells where the reference's lens is resolved;
     the rim/specular constants (§6.2) untouched unless the child measures
-    them as the term.
+    them as the term. **LANDED (Decision Log 7; claims §5.44):** the band's
+    absolute loss on the three calibration cells −47…−53%, the 2x
+    `rrect-md` texture row MET, the rim/specular constants untouched.
   - **G3 (conditional on G1+G2's referee) — the CSS tier's rim band.**
     Evaluable once G1 and G2 have landed and the CSS rows are re-read. If
     the dom rows on calibration cells meet (the §5.38 arithmetic predicts
@@ -265,8 +267,8 @@ by construction.
   or a device-pixel term — the latter overturns "lengths in points" and
   needs its own decision).
 - **Required:** G1 and G2 required; G3 conditional as stated.
-- **Status:** in-flight — G1 LANDED 2026-09-03 (claims §5.42; Decision
-  Log 5), G3 decided there; G2 (the GPU lens band) in flight.
+- **Status:** LANDED 2026-09-03 — G1 (claims §5.42; Decision Log 5), G3
+  decided there (narrowed), G2 (claims §5.43–§5.44; Decision Logs 6–7).
 
 ## Cross-Child Contracts
 
@@ -335,6 +337,10 @@ charter must weigh: two backdrop blurs per surface at the CSS tier;
 WebKit's handling of `opacity` on a `backdrop-filter` element is
 unmeasured.
 
+**Deferred (Decision Log 6) — the capsule's lens depth.** The reference's
+capsule lens reads L ≈ 11 / S ≈ 20 against the thickness band's 9.2 / 15
+(§5.43 §4); a lens-specific depth law would reopen `sizeThickness`.
+
 **Deferred (may return):** the outside band's contour-straddling loss
 (measured, not attributed; the shadow amplitude is right); the 2x
 reference's non-Gaussian interior structure (the 2x bed has no probe
@@ -354,7 +360,7 @@ only W11c's referee captures the web side).
 | --- | --- | --- |
 | W11a | LANDED 2026-09-02 — claims §5.39; the optics pass's unsampled path writes a premultiplied layer at the host's compositing-space pair (`unsampledMaterial`, the CSS tier's alpha on the renderer's tint); 6 floors MET and removed, 2 texture SSIM floors ratcheted up, 2 dom SSIM floors unchanged; enforced count 17; 248/254 captures byte-identical, the 6 that differ are the nested GPU cells | landed |
 | W11b | LANDED 2026-09-02 — claims §5.40; the extractor's luminance rule gains an OKLab chroma arm (Δab ≥ 0.03, `--silhouette-chroma-threshold`), a strict superset declared before the bed-wide run; 0 stops, all 230 perceptual rows byte-identical, 23 cells leave the exclusion list and none join, the two W10 contour floors met and removed; enforced count 15; matrix re-measured from the captures on disk (no capture) | landed |
-| W11c | IN FLIGHT — **G1 LANDED 2026-09-03** (claims §5.41 declared, §5.42 refereed; Decision Logs 4–5): body σ 1.25, scatter gain 8, floor 0.40, scatter band top 256, fitted on the probe with `rrect-lg` held out; twelve-run referee, 0 stops outside the predicted 2x crossing; three 1x texture floors MET and removed, eight dom floors ratcheted up, four 2x texture floors re-pinned by decision; enforced count 12. **G3 decided:** the CSS claim narrowed, the two-layer CSS body deferred with evidence. **G2 in flight** | in-flight |
+| W11c | LANDED 2026-09-03 — **G1** (claims §5.41 declared, §5.42 refereed; Decision Logs 4–5): body σ 1.25, scatter gain 8, floor 0.40, scatter band top 256, fitted on the probe with `rrect-lg` held out; twelve-run referee, 0 stops outside the predicted 2x crossing; three 1x texture floors MET and removed, eight dom floors ratcheted up, four 2x texture floors re-pinned by decision; enforced count 12. **G3 decided:** the CSS claim narrowed, the two-layer CSS body deferred with evidence. **G2 LANDED** (claims §5.43 declared, §5.44 refereed; Decision Logs 6–7): the lens is the body read from 1.6 lens depths inside at full weight, `lensRefractionGain` 1.6, two rim-LOD constants retired; rebuilt from an empty matrix, 0 stops; the 2x `rrect-md` texture floor MET and removed, three 2x texture floors ratcheted up, every checkerboard texture cell up, one cell leaves the exclusion list; enforced count 11 | landed |
 
 ## Decision Log
 
@@ -544,7 +550,82 @@ mean fell 0.008–0.012 (an encoded-space blur's mean moves with σ), and
 nearest any gated row sits to its bound. Both belong to the deferred
 two-layer child.
 
+### Decision Log 6 — G2 declared: the lens band is vitrea's own geometry at 1.6× (2026-09-03)
+
+**Evidence** (claims §5.43). After G1 the band is 61–91% of the GPU
+tier's remaining 1x loss and 38–49% at 2x on the large cells. Per depth
+shell, the reference's inward source displacement is 33·(1 − u/20)² — the
+shader's own `lensDepth · (1 − depth)² · refractionScale` at lens depth
+20.8, with the magnitude 1.6× and the sample at full weight instead of
+mixed back by the profile. The "heavier band" was the fold of that
+displacement; the "darker band" was a fit artefact (band level within 1%
+of the deep interior on both sides, every backdrop). The parametric fit
+wants nothing else: scatter rise 0, darkening 0, exponent 2, extent the
+shader's.
+
+**Declared (child-level; advisory inheritance overturned with evidence —
+the rim-LOD bias was "by design", the reference has no sharper rim):**
+one constant `lensRefractionGain` 1.6 on the renderer identity; the lens
+becomes the two-component body sampled at the refracted position at full
+weight; `lensBodyLodPerPx` and `lensRimLodBias` retire; `lensDepth`,
+`sizeThickness`, the refraction ladder and its fold untouched. Fit on
+`rrect-md`/`-ml` at pitches 32/64, `rrect-lg` held out; pitch 16, the
+small spans and 2x by prediction (every cell rises; 2x `rrect-md` predicted
+over 0.93). Referee: twelve runs against the G1-close matrix; stops as
+§5.43 §4 lists (solid cells within a code value, CSS captures
+byte-identical, no 2x floor crossed, small spans within 0.005).
+
+**Finding, not fitted.** The capsule's reference lens is deeper (L ≈ 11,
+S ≈ 20) than the thickness band gives it (9.2); it rises under the law
+regardless. A lens-specific depth law would reopen `sizeThickness`
+(Decision Log 4) — deferred with the number.
+
+### Decision Log 7 — G2's referee and close (2026-09-03)
+
+**Verdict.** Twelve runs from an empty matrix (X1's driver), whole bed
+against the G1 close (claims §5.44). No stop fired: solid captures within
+one code value with identical rows; `photo` within 0.0007 SSIM; dark and
+accessibility cells inside bounds; the CSS tier byte-identical on 126 of
+127 captures and one pixel by one code value on the 127th with identical
+rows (recorded as the capture's repeatability); every 2x floor rose; every
+small-span cell rose. The 2x `checkerboard__rrect-md` texture floor MET
+(0.9389 against 0.93) and removed; the three other 2x texture floors
+ratchet up (0.9023 / 0.9076 / 0.9013); the 1x checkerboard texture cells
+rise 0.027–0.036; the band's absolute loss on the calibration cells falls
+47–53% (G2's acceptance). The 2x texture `rrect-sm` cell leaves the
+predicate's exclusion list (one body at 0.998). Enforced count 12 → 11.
+The child's acceptance is met in G1 and G2; G3 was decided at G1's
+referee. **W11c is landed.**
+
+**Deviations recorded by the worker, accepted.** The measure-only
+`lens-size-depth` e2e scene widened its checker (8 → 32 px) because a
+400-px span's body is all heavy scatter and an 8 px checker is erased
+before the lens can move it; the dark profile inherits the gain rather
+than naming it (a difference patch, G1's rule).
+
+**Predicted against measured.** 1x `rrect-md` / `-ml` / `-lg` predicted
+0.9545 / 0.9274 / 0.9213, measured 0.9538 / 0.9307 / 0.9286; 2x predicted
+0.9379 / 0.8951 / 0.8885, measured 0.9389 / 0.9023 / 0.9013. The dry run
+replaced the band alone; the landed lens also reaches the outside band's
+straddling windows, which is where the holdout and 2x gains beyond the
+prediction come from.
+
 ## Surprises & Discoveries
+
+- **The lens was doing the extractor's work.** The 2x texture `rrect-sm`
+  cell had been excluded from the shape rows since the bed settled (0.985
+  of its region in four bodies); the rim-LOD sample, not the tint or the
+  level, was what broke its silhouette, and the displaced body sample
+  closes it (§5.44 §4).
+
+- **The band's blur was the fold, and the dark ring was an intercept.**
+  Two of G2's first readings (§ above: "smooth band ≈ 6% darker") did not
+  survive a model with the displacement in it: the source coordinate is
+  stationary near depth 17 across ten screen pixels, which an isotropic σ
+  absorbs, and a shell fit trades intercept against structure on a
+  checker. Measured model-free, neither side's band is darker than its
+  interior (§5.43 §2). The lesson: a band statistic under a lens needs
+  the lens in the model before it means anything.
 
 - **Chromium mixes a `backdrop-filter` layer by its opacity — and ignores
   a nested one.** A second sibling layer with the heavy blur at `opacity:
@@ -605,6 +686,11 @@ Pending — written at recomposition, after the single X1 rebuild.
 
 ## Revision Notes
 
+- 2026-09-03 (W11c G2 landed, W11c landed; Decision Logs 6–7): the lens
+  band measured per depth shell and declared in vitrea's own form; the
+  twelve-run rebuild refereed with no stop; one floor removed, three
+  ratcheted, count 11; one exclusion closed. One Surprise added. All three
+  children are landed; recomposition is next.
 - 2026-09-03 (W11c G1 landed; Decision Log 5): the twelve-run referee
   read against the W11b close; three floors removed, eight ratcheted up,
   four re-pinned down by decision, count 12; G3 decided (narrowed; the

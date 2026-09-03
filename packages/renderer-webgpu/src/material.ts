@@ -355,9 +355,17 @@ export interface MaterialProfile {
    */
   readonly sizeShadowGainMax: number;
 
-  /** Chain LOD per CSS px of lens depth, and how much sharper the rim samples. */
-  readonly lensBodyLodPerPx: number;
-  readonly lensRimLodBias: number;
+  /**
+   * The lens's magnitude: the contour displacement in lens depths (W11c G2).
+   *
+   * The shader reads the body from `lensDepth × lensRefractionGain × (1 − depth)²`
+   * further inside, so the band is the plate folded back from that far in. The
+   * two rim-LOD constants that used to sit here (`lensBodyLodPerPx`,
+   * `lensRimLodBias`) are retired: the reference's band is not sharper than its
+   * interior — W11c G2 measured σ 6 → 4 → 3 → the deep value across the band —
+   * and the "sharper rim" was the fold, not a finer sample.
+   */
+  readonly lensRefractionGain: number;
 
   /**
    * What each accessibility regime does to the numbers above. The multipliers
@@ -810,8 +818,14 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
-  lensBodyLodPerPx: 0.16,
-  lensRimLodBias: 2.5,
+  // MEASURED (W11c G2, claims §5.43): the reference band's inward source
+  // displacement is 33 px at the contour on a 20.8 px lens depth — 1.6 lens
+  // depths — following the shader's own (1 − depth)² profile (per-shell fits
+  // on the probe's pitch-32/64 cells, spans 96/128 fitted, 160 held out; the
+  // gain's sweep 1.4/1.6/1.8/2.4 reads 0.0487/0.0478/0.0516/0.0567 at the
+  // shader's depth and profile). The band folds the plate from 1.6 lens depths
+  // inward; nothing in it is sharper or darker than the interior.
+  lensRefractionGain: 1.6,
 
   reducedTransparencyFrost: 1.75,
   increasedOcclusionLift: INCREASED_OCCLUSION_LIFT,
@@ -1024,8 +1038,7 @@ export const SIZE_SCATTER_FLOOR = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor;
 export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax;
 export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
 export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
-export const LENS_BODY_LOD_PER_PX = DEFAULT_MATERIAL_PROFILE.lensBodyLodPerPx;
-export const LENS_RIM_LOD_BIAS = DEFAULT_MATERIAL_PROFILE.lensRimLodBias;
+export const LENS_REFRACTION_GAIN = DEFAULT_MATERIAL_PROFILE.lensRefractionGain;
 export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
 export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
 export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
@@ -1059,8 +1072,7 @@ export interface MaterialProfilePatch {
   readonly sizeScatterSpanMax?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
-  readonly lensBodyLodPerPx?: number;
-  readonly lensRimLodBias?: number;
+  readonly lensRefractionGain?: number;
   readonly reducedTransparencyFrost?: number;
   readonly increasedOcclusionLift?: number;
   readonly strongBorderRim?: Readonly<Partial<MaterialRim>>;
@@ -1121,8 +1133,7 @@ export function withMaterialOverrides(
     sizeScatterSpanMax: patch.sizeScatterSpanMax ?? base.sizeScatterSpanMax,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
-    lensBodyLodPerPx: patch.lensBodyLodPerPx ?? base.lensBodyLodPerPx,
-    lensRimLodBias: patch.lensRimLodBias ?? base.lensRimLodBias,
+    lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
     reducedTransparencyFrost: patch.reducedTransparencyFrost ?? base.reducedTransparencyFrost,
     increasedOcclusionLift: patch.increasedOcclusionLift ?? base.increasedOcclusionLift,
     strongBorderRim: { ...base.strongBorderRim, ...patch.strongBorderRim },
@@ -1840,11 +1851,19 @@ export function lensDepthPx(
   return Math.min(Math.max(thicknessPx, 0) * gain, spanPx * 0.5);
 }
 
-/** Body blur LOD on the chain for a given lens depth — thicker glass diffuses more. */
-export function bodyLod(
-  lensDepth: number,
-  maxLod: number,
+/**
+ * How far inside the surface the shader reads the body for a pixel `depthPx`
+ * in from the contour (W11c G2), in CSS px — `lensDepth × lensRefractionGain ×
+ * (1 − depth)²` with `depth = depthPx / lensDepth` clamped to 0…1, times the
+ * refraction scale the policy resolved. Zero from `lensDepthPx` inward.
+ */
+export function lensDisplacementPx(
+  depthPx: number,
+  lensDepthPx: number,
+  refractionScale: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
-  return Math.min(Math.max(lensDepth * profile.lensBodyLodPerPx, 0), maxLod);
+  if (lensDepthPx <= 0) return 0;
+  const depth = Math.min(Math.max(depthPx / lensDepthPx, 0), 1);
+  return lensDepthPx * (1 - depth) * (1 - depth) * refractionScale * profile.lensRefractionGain;
 }

@@ -340,8 +340,8 @@ const MATERIAL_PATCH_KEYS = new Set([
   // The scatter facet's own curve (W11c): its floor and band top.
   "sizeScatterFloor",
   "sizeScatterSpanMax",
-  "lensBodyLodPerPx",
-  "lensRimLodBias",
+  // The lens's magnitude (W11c G2): the contour displacement in lens depths.
+  "lensRefractionGain",
   "reducedTransparencyFrost",
   "increasedOcclusionLift",
   "strongBorderRim",

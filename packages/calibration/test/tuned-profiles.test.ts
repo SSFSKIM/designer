@@ -81,6 +81,8 @@ const FITTED_CONSTANTS = [
   // W11c's scatter curve — the facet's own floor and band top (claims §5.41)
   "sizeScatterFloor",
   "sizeScatterSpanMax",
+  // W11c's lens magnitude — the contour displacement in lens depths (claims §5.43)
+  "lensRefractionGain",
   // W3's tint tone map
   "tintShadeDark",
   "tintShadeLight",

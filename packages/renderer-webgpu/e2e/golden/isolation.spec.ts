@@ -273,7 +273,44 @@ const W11C_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "8e2df1d44ab52baeb9a3307b8aa5f97e",
 };
 
+/**
+ * Five goldens after W11c G2, the lens band (2026-09-03) — the second FORM change
+ * of the round, and again not expressible through the profile seam.
+ *
+ * The lens used to be a separate sample of the backdrop chain at a level biased
+ * SHARPER toward the rim (`lensRimLodBias`), mixed over the body by the lens
+ * profile — so the band showed finer detail than the interior and faded into it.
+ * The reference's band is nothing of the kind (claims §5.43): read per depth
+ * shell around the contour on the probe's resolved pitches, it is the interior's
+ * own two-component body displaced 1.6 lens depths inward at the contour on the
+ * shader's own (1 − depth)² profile, at full weight, with no sharper sample, no
+ * heavier one and no darkening. So the shader now reads both body components at
+ * the refracted position and the two rim-LOD constants are retired; the new
+ * `lensRefractionGain` is the one constant of the form. Nothing in the old form
+ * can be patched into this one, so these are new pins.
+ *
+ * The attribution is the same shape as G1's: only scenes with backdrop
+ * structure under a lens can move. The two checkerboard scenes carry the delta
+ * (`lens-size-scaling` max 32 / mean 0.98 code values against the committed
+ * goldens, `refraction-checkerboard` max 21 / mean 1.21 — the band now folds the
+ * plate rather than compressing a sharper copy of it), the three gradient scenes
+ * move by at most TWO code values (`rim-two-references` 2, `concentric-nesting`
+ * 2, `union-pair` 1: a displaced ramp is a slightly different ramp), and the four
+ * with nothing to displace — the two flat `tint-adaptation-*`
+ * backdrops and the two unsampled scenes, `field-mask` and `highlight-press-glow`
+ * — reproduce their hashes byte-for-byte. The control has still not moved once
+ * since 2026-08-25.
+ */
+const W11C_G2_HASHES: Readonly<Record<string, string>> = {
+  "refraction-checkerboard": "d751a8315c0746f88ddb48a078cbe8bd",
+  "lens-size-scaling": "31e0766b9c8eb0f8a6d53f43e3ad83da",
+  "rim-two-references": "5dd211830a43f096d4d61cb005e8699e",
+  "concentric-nesting": "2923132241682bde2e28aa1955aee198",
+  "union-pair": "33049e332405b5d9a16d36765352cd17",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W11C_G2_HASHES[name] ??
   W11C_HASHES[name] ??
   W11A_HASHES[name] ??
   POST_WAVE_HASHES[name] ??

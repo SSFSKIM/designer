@@ -100,8 +100,8 @@ export interface OpticsPassArgs {
   /** Backdrop uv transform on viewport-normalised coordinates. */
   readonly fit: readonly [number, number, number, number];
   readonly refractionScale: number;
-  readonly bodyLodPerPx: number;
-  readonly rimLodBias: number;
+  /** The contour displacement in lens depths (W11c G2) — `MaterialProfile.lensRefractionGain`. */
+  readonly lensRefractionGain: number;
   readonly chainMaxLod: number;
   readonly tint: readonly [number, number, number];
   readonly tintAlpha: number;
@@ -484,8 +484,8 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[6] = args.fit[2];
       d[7] = args.fit[3];
       d[8] = args.refractionScale;
-      d[9] = args.bodyLodPerPx;
-      d[10] = args.rimLodBias;
+      d[9] = args.lensRefractionGain;
+      d[10] = 0;
       d[11] = args.chainMaxLod;
       d[12] = args.tint[0];
       d[13] = args.tint[1];

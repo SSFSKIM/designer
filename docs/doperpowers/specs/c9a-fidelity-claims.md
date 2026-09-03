@@ -4723,6 +4723,14 @@ headroom is against constants moving in their last digit and nothing else.
 > texture-tier `ssimMean` rows carry a further measurement and a floor
 > re-pinned DOWN by decision (0.0015–0.0083; the law is fitted at 1x, the
 > 2x reference is a different object, W11 Decision Log 5). The count is 12.
+>
+> **Amended by W11c G2 (2026-09-03, §5.44).** The 2x texture-tier `ssimMean`
+> row on `checkerboard__rrect-md` is struck: MET on the re-captured bed
+> (0.9389 against ≥ 0.93) once the lens reads the body from 1.6 lens depths
+> inside at full weight, the claim restored. The other three 2x texture-tier
+> `ssimMean` rows carry a further measurement and a floor ratcheted UP
+> (0.9023 / 0.9076 / 0.9013, by 0.018–0.023). The dom rows are byte-unchanged.
+> The count is 11.
 
 **`1x-light-standard` · texture tier**
 
@@ -4761,10 +4769,10 @@ headroom is against constants moving in their last digit and nothing else.
 | ~~`light-solid__capsule-button__rest-tint-orange`~~ | calibration | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1726 → 0.1032 | — |
 | ~~`mid-dark-solid__capsule-button__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W9)** | 0.1775 → 0.0095 | — |
 | ~~`photo__glass-over-glass__rest`~~ | holdout | `oklabDeltaEP95` | ≤ 0.17 **MET (W11a)** | 0.1901 → 0.0759 | — |
-| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a ratchet) → 0.8896 (W11c G1, re-pinned by decision) | ≥ 0.8885 |
-| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) → 0.8785 (W11c G1, re-pinned by decision) | ≥ 0.8775 |
-| `checkerboard__rrect-md__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.9266 → 0.9234 (W11c G1, re-pinned by decision) | ≥ 0.9224 |
-| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 → 0.8810 (W11c G1, re-pinned by decision) | ≥ 0.8800 |
+| `checkerboard__glass-over-glass__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8762 → 0.8948 (W11a) → 0.8896 (W11c G1, by decision) → 0.9076 (W11c G2 ratchet) | ≥ 0.9066 |
+| `checkerboard__rrect-lg__rest` | holdout | `ssimMean` | ≥ 0.93 **UNMET** | 0.8823 → 0.8800 (W9 trade) → 0.8785 (W11c G1, by decision) → 0.9013 (W11c G2 ratchet) | ≥ 0.9002 |
+| ~~`checkerboard__rrect-md__rest`~~ | calibration | `ssimMean` | ≥ 0.93 **MET (W11c G2)** | 0.9266 → 0.9234 (W11c G1, by decision) → 0.9389 | — |
+| `checkerboard__rrect-ml__rest` | calibration | `ssimMean` | ≥ 0.93 **UNMET** | 0.8897 → 0.8810 (W11c G1, by decision) → 0.9023 (W11c G2 ratchet) | ≥ 0.9013 |
 
 **`2x-light-standard` · dom tier**
 
@@ -4785,7 +4793,7 @@ They are enforced by `packages/calibration/test/adopted-thresholds.test.ts`,
 which additionally proves — as a test, not a promise — that every floor stands on
 a bound that was genuinely missed, that no floor is tighter than the measurement
 it was pinned from, that none names a cell the gate does not reach, and that the
-set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40; 12 after W11c G1, §5.42). A floor cannot be added by
+set is exactly 33 rows (27 after W9, §5.35; 23 after W10, §5.37; 17 after W11a, §5.39; 15 after W11b, §5.40; 12 after W11c G1, §5.42; 11 after W11c G2, §5.44). A floor cannot be added by
 accident, and adding one deliberately means editing a count that sits next to
 this section's number.
 
@@ -6463,6 +6471,254 @@ two checkerboard scenes carry the delta, the gradient scenes move by at
 most one code value, the flat and unsampled scenes are byte-identical.
 `sizeThickness` and the lens, occlusion and W9 rows are untouched, and the
 solid and photo levels in §2 say so.
+
+### 5.43 W11c, gate G2: the lens band measured in vitrea's own form, and the declared fit (2026-09-03)
+
+**Claim.** After G1 the rim band is where the GPU tier's remaining loss
+lives. Measured per depth shell around the whole contour on the probe's
+resolved pitches, the reference's band is vitrea's own lens geometry — an
+inward source displacement that follows the shader's (1 − depth)² profile
+over the shader's own lens depth — at **1.6 times the magnitude**, sampled
+at full weight from the same two-component body the interior has, with no
+sharper rim, no heavier blur and no darkening. One new constant
+(`lensRefractionGain` 1.6) and one form change (the lens is the body
+sampled at the refracted position; the rim-LOD sample and its two
+constants retire) are declared before the capture; the referee is §5.44.
+
+#### 1. Where the loss is, after G1
+
+Whole-crop SSIM loss (1 − SSIM per window) partitioned by depth from the
+contour — outside (u ≤ 0), rim band (0 < u ≤ 20 CSS px), deep (u > 20) —
+on the G1-close captures:
+
+| cell (texture tier) | 1x outside / band / deep | 1x SSIM, band loss halved | 2x outside / band / deep | 2x SSIM, band loss halved (bound 0.93) |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.09 / 0.91 / 0.00 | 0.9954 → 0.9975 | 0.15 / 0.85 / 0.00 | 0.9946 → 0.9969 |
+| `capsule-button` | 0.25 / 0.74 / 0.01 | 0.9728 → 0.9829 | 0.27 / 0.72 / 0.01 | 0.9738 → 0.9832 |
+| `rrect-md` | 0.25 / 0.72 / 0.03 | 0.9270 → 0.9533 | 0.45 / 0.49 / 0.06 | 0.9234 → **0.9422** |
+| `rrect-ml` | 0.32 / 0.63 / 0.06 | 0.8963 → 0.9287 | 0.53 / 0.38 / 0.09 | 0.8810 → 0.9036 |
+| `rrect-lg` | 0.27 / 0.61 / 0.12 | 0.8934 → 0.9259 | 0.51 / 0.38 / 0.11 | 0.8785 → 0.9015 |
+
+The deep body is 0–12% of what is left at 1x; the band is 61–91%. Every
+1x texture row already meets its bound, so at 1x G2 buys fidelity, not a
+floor; at 2x the band is 38–49% on the three large cells and halving it
+would carry `rrect-md` over 0.93 and the other two back above their
+pre-G1 values — which is what makes G2 still a gate matter.
+
+#### 2. The band, shell by shell
+
+For each 1-px depth shell around the whole contour, the (D, σ, t, a) that
+best explain the native capture under `Y = a + t·G_σ(P)(q − D·n̂)` — D the
+inward source displacement in CSS px, n̂ the outward normal — on the probe
+cells at pitches 32 and 64 (`w11c-g2-shells`):
+
+| depth u | D, reference (`rrect-md` / `-ml` / `-lg`, pitch 32; pitch 64 agrees) | σ, reference | D, vitrea at the G1 close (`rrect-lg`, pitch 16) | σ, vitrea |
+| --- | --- | --- | --- | --- |
+| 4 | 32 / 25 / — | 4–12 (poor fit) | 14 | 3 |
+| 6 | 20 / 17 / 22 | 4–12 (poor fit) | 10 | 4 |
+| 8 | 13 / 13 / 13 | 3–6 | 5 | — |
+| 10 | 9 / 11 / 7 | 1.5–4 | 2 | 3 |
+| 12 | 6 / 6 / 5 | 2–3 | 0 | 2 |
+| 14 | 3 / 4 / 3 | 1.5–3 | 0 | 1.5 |
+| 16 | 2 / 2 / 1 | 2–3 | 0 | 1.5 |
+| 18 | 1 / 1 / 0 | 1–2 | 0 | 2 |
+| 20 | 0 / −1 / 0 | 2–3 (the deep value) | 0 | 2 |
+
+The reference's D(u) is 33·(1 − u/20)² to within a pixel from u = 8 to
+u = 20; the shader already computes `lensDepth · (1 − u/lensDepth)² ·
+refractionScale` with `lensDepth` = thickness 8 × `lensSizeGain` 2.6 =
+20.8 at these spans and `refractionScale` 1 — the same shape, at 1.0
+lens depths instead of 1.6, and mixed back into the body by the same
+profile a second time, which is why vitrea's D reads 20 − 2u and is gone
+by u ≈ 11. Transmission and level in the band are the deep values (t
+0.39–0.52 against deep 0.35–0.48 at these pitches; a within 2–4%).
+
+Two earlier readings are corrected here. The band's "heavier blur" (σ 6
+→ 4 → 3 across u = 8–12) is the fold: the source coordinate u + D(u) is
+stationary near 17 from u ≈ 8 to u ≈ 18, so one plate row is stretched
+across ten pixels of screen, which an isotropic σ absorbs; with the
+displacement modelled, the extra blur is not wanted (§3, the `c`
+marginal). And the "6% darker band" was the shell fit's intercept trading
+against structure: measured model-free, the band's mean luminance is
+within 1% of the deep interior on the reference *and* on vitrea, on
+solid, photo and checkerboard cells alike (`rrect-md`: native 1.06 1.03
+1.00 1.00 … from u = 1, vitrea 1.06 0.99 0.99 0.99 …). The inner shadow
+is not a G2 term. The bright rim at u = 1 matches on the rounded
+rectangles (1.15–1.17 on both sides over the checkerboard, 1.06 over the
+light solid) and is dimmer on vitrea's capsule (1.08 against 1.18) — the
+rim/specular constants stay untouched by charter, and that number is
+recorded for whoever owns them.
+
+#### 3. The declared form, fitted
+
+Band model in vitrea's form — prof(u) = max(0, 1 − u/L)^p; D(u) = S·prof;
+the body's scatter share allowed to rise toward the rim by c·prof; the
+level allowed to darken by δ·prof — with the deep (a, t) of each cell
+taken under the G1 law and held:
+
+`Y = a·(1 − δ·prof) + t·[(1 − k_B)·G₁.₂₅(P) + k_B·G₁₀(P)](q − D(u)·n̂)`, `k_B = k + (1 − k)·c·prof`.
+
+Fit set: `rrect-md` and `rrect-ml` at pitches 32 and 64, band 3 ≤ u ≤ 24
+(four cells); `rrect-lg` at the same pitches held out; pitch 16 predicted.
+
+| | fit RMS | holdout RMS | pitch-16 RMS |
+| --- | --- | --- | --- |
+| no lens (D = 0, c = 0, δ = 0) | 0.1679 | 0.1110 | 0.0993 |
+| best: L 20, p 2, S 33, **c 0, δ 0** | 0.0465 | 0.0483 | 0.0536 |
+
+Marginals at the best: L 16 / 20 / 24 → 0.080 / 0.0465 / 0.072; p 1.5 /
+2 / 2.5 → 0.070 / 0.0465 / 0.065; S 24 / 28 / 33 / 40 → 0.077 / 0.057 /
+0.0465 / 0.056; c 0 / 0.5 / 1 → 0.0465 / 0.047 / 0.050; δ −0.05 / 0 /
+0.05 / 0.1 / 0.2 → 0.047 / 0.0465 / 0.047 / 0.048 / 0.052. The extent and
+the exponent are the shader's own (20.8 and 2); the scatter rise and the
+darkening are flat at zero; only the magnitude is new. At the shader's L
+20.8 and p 2, S 32–33 is best (RMS 0.0478–0.0481; S/L 1.54–1.59), and the
+whole-crop SSIM dry run below prefers 1.6 on all three large cells.
+
+**Declared:** one material constant, `lensRefractionGain` = 1.6 (the
+contour displacement over the lens depth; today's shader is 1.0 by
+construction), on the renderer's profile identity (renderer-only, like the
+two it replaces — the CSS tier has no lens by contract). The form: the
+lens is the two-component body (`backdropBody` at σ_b and the chain at
+`scatterLod`, mixed by `kScatter`) sampled at the refracted position, at
+full weight; the separate rim-LOD sample, its mix by the profile, and the
+constants `lensBodyLodPerPx` and `lensRimLodBias` retire. `lensDepth`
+(thickness × `lensSizeGain`, clamped to half the span), `sizeThickness`,
+`refractionScale`'s ladder and its accessibility fold are untouched.
+
+#### 4. Validation by prediction: pitch 16, the small spans, 2x
+
+The dry run — vitrea's G1-close capture with the band (2 ≤ u ≤ L + 4)
+replaced by the declared form at the reference's own (a, t), whole-crop
+SSIM, 1x, L the shader's lens depth for the span (8.0 / 9.2 / 20.8):
+
+| cell | L | before | gain 1.4 | **gain 1.6** | gain 1.8 | gain 2.4 | band RMS, vitrea → law |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 8.0 | 0.9954 | 0.9958 | 0.9958 | 0.9958 | 0.9955 | 0.073 → 0.021 |
+| `capsule-button` | 9.2 | 0.9728 | 0.9759 | 0.9772 | 0.9785 | 0.9815 | 0.155 → 0.100 |
+| `rrect-md` | 20.8 | 0.9270 | 0.9533 | **0.9545** | 0.9526 | 0.9330 | 0.110 → 0.068 |
+| `rrect-ml` | 20.8 | 0.8963 | 0.9259 | **0.9274** | 0.9256 | 0.9042 | 0.091 → 0.057 |
+| `rrect-lg` (holdout) | 20.8 | 0.8934 | 0.9180 | **0.9213** | 0.9200 | 0.8994 | 0.073 → 0.044 |
+
+Every cell rises at 1.6. The small spans on the probe: `rrect-sm` fits L
+8–12 with S 8–14 (RMS 0.0149 against 0.056 with no lens) — the law's 8 /
+13 is inside that plateau; the **capsule** wants a deeper, stronger lens
+than the thickness band gives it (best L 11, S 20, RMS 0.0155; at the
+shader's L 9.2 the best S is 24 at 0.026 and the law's 15 reads 0.061,
+against 0.086 with no lens). Its lens depth is `sizeThickness`'s, which
+Decision Log 4 holds; the capsule still rises under the law and the
+residual is recorded as a finding, not fitted.
+
+2x, the same law in CSS px on the 2x canonical cells (band 3–24 CSS px):
+`rrect-md` 0.9234 → **0.9379** (bound 0.93), `rrect-ml` 0.8810 → 0.8951,
+`rrect-lg` 0.8785 → 0.8885; band RMS 0.123 / 0.104 / 0.091 → 0.069 /
+0.064 / 0.061. Unlike the body blur (§5.41 §5), the 2x reference's lens
+follows the 1x law in points.
+
+**Referee:** the twelve-run capture (`rm results/matrix.json` first —
+§5.42 §1), whole bed against the G1-close matrix. **Stops:** any
+solid-backdrop cell moving by more than one code value (the band over a
+flat backdrop samples the same colour wherever it looks); any `photo`,
+dark-profile or accessibility cell leaving its bounds; any CSS-tier
+capture differing at all (no lens on that tier); any 2x floor crossed;
+any small-span texture cell (`rrect-sm`, `capsule-button`,
+`toolbar-group`) below its G1-close SSIM by more than 0.005.
+
+### 5.44 W11c, gate G2 refereed: the lens lands, a 2x floor met, the band's loss halved (2026-09-03)
+
+**Claim.** The declared form (§5.43 §3: the lens is the two-component body
+read at the refracted position at full weight, `lensRefractionGain` 1.6,
+the rim-LOD sample and its two constants retired) was implemented on the
+GPU tier, the bed rebuilt from an empty matrix across the twelve runs, and
+refereed against the G1 close. No declared stop fired. The 2x texture-tier
+`ssimMean` floor on `checkerboard__rrect-md` is MET (0.9234 → 0.9389
+against ≥ 0.93) and removed; the other three 2x texture floors rise by
+0.018–0.023 and ratchet; every 1x texture checkerboard cell rises by
+0.027–0.036; the rim band's absolute loss on the three calibration cells
+falls by 47–49% — G2's acceptance as the W11 spec wrote it. One cell
+leaves the predicate's exclusion list. The enforced count is 11.
+
+#### 1. The stops
+
+| stop (§5.43 §4) | reading |
+| --- | --- |
+| a solid-backdrop cell moves by more than one code value | light-, mid-dark- and dark-solid captures: 9 of 26 differ, every one by at most one code value; every metric row identical |
+| a `photo`, dark-profile or accessibility cell leaves its bounds | none; `photo` max ΔSSIM 0.0007, max Δ(ΔE-mean) 0.0001; the largest dark move is +0.0072 |
+| a CSS-tier capture differs at all | one of 127: `photo__capsule-button__rest-tint-orange-half` at 1x, **one pixel by one code value**, every metric row identical to five decimals — the capture's own repeatability, not the tier; the other 126 byte-identical |
+| a 2x floor crossed | none; all four rose |
+| a small-span texture cell below its G1-close SSIM by more than 0.005 | none; `rrect-sm` +0.0027 / +0.0023, `capsule-button` +0.0042 / +0.0038, `toolbar-group` +0.0006 / +0.0019 (1x / 2x) |
+
+The `impulse` family moved ≤ 0.0007 SSIM (two captures differ by up to 26
+code values in the band — the impulse is structure, and the lens moves
+it). The largest fall on the bed is `hc-text__capsule-button` texture at
+2x, −0.0020; `hc-text__rrect-md` texture rises +0.0177 / +0.0117.
+
+#### 2. The floors and the checkerboard family
+
+| cell (texture tier) | 1x before → after (bound ≥ 0.88) | 2x before → after (bound ≥ 0.93) |
+| --- | --- | --- |
+| `checkerboard__rrect-sm__rest` | 0.9954 → 0.9981 | 0.9946 → 0.9969 |
+| `checkerboard__capsule-button__rest` | 0.9728 → 0.9770 | 0.9738 → 0.9777 |
+| `checkerboard__rrect-md__rest` | 0.9270 → 0.9538 | 0.9234 → **0.9389 MET** |
+| `checkerboard__rrect-ml__rest` | 0.8963 → 0.9307 | 0.8810 → 0.9023 ratchet |
+| `checkerboard__glass-over-glass__rest` | 0.8987 → 0.9345 | 0.8896 → 0.9076 ratchet |
+| `checkerboard__rrect-lg__rest` (holdout) | 0.8934 → 0.9286 | 0.8785 → 0.9013 ratchet |
+| `checkerboard__toolbar-group__rest` | 0.9585 → 0.9591 | 0.9611 → 0.9630 |
+
+Against the prediction (§5.43 §4: 0.9545 / 0.9274 / 0.9213 at 1x for
+`rrect-md` / `-ml` / `-lg`; 0.9379 / 0.8951 / 0.8885 at 2x) the bed reads
+0.9538 / 0.9307 / 0.9286 and 0.9389 / 0.9023 / 0.9013 — within 0.004 at 1x
+on the fitted cells, and above it on the holdout and at 2x, where the dry
+run had replaced the band alone and the landed lens also reaches the
+outside band's windows. The dom rows did not move (the CSS tier has no
+lens; §1's one-pixel note). The eight dom floors and the three remaining
+2x texture floors are what is left: 11.
+
+#### 3. Where the loss is now
+
+The same partition as §5.43 §1, on the G2 captures (1x texture):
+
+| cell | outside / band / deep | SSIM | band loss, G1 → G2 (absolute) |
+| --- | --- | --- | --- |
+| `rrect-md` | 0.39 / 0.56 / 0.05 | 0.9538 | 0.0526 → 0.0259 (−51%) |
+| `rrect-ml` | 0.47 / 0.45 / 0.08 | 0.9307 | 0.0653 → 0.0312 (−52%) |
+| `rrect-lg` | 0.39 / 0.43 / 0.19 | 0.9286 | 0.0650 → 0.0307 (−53%) |
+
+The band and the outside band now share what is left about equally on the
+large cells; the outside band — contour-straddling windows, whose shadow
+amplitude §5.38 measured as right — is the W11 Deferred item it was.
+
+#### 4. The predicate
+
+`checkerboard__rrect-sm__rest` at 2x, texture tier, leaves the exclusion
+list: its web silhouette read 0.985 of the region in four bodies under
+the old rim sample and reads 0.998 in one body under the lens (IoU 0.998,
+contour p95 0 px); it gates and meets every shape bound. No cell joins.
+
+#### 5. What changed on the tier
+
+`packages/renderer-webgpu/src/wgsl/optics.ts`: the displacement gains
+the profile's `lensRefractionGain`; `backdropBody` and the chain at
+`scatterLod` are both read at the refracted position and mixed by
+`kScatter`; the separate rim-LOD sample, its LOD arithmetic and its mix
+by the profile are gone; the inner shadow keeps the profile. The `lens`
+uniform is (refractionScale, lensRefractionGain, unused, chainMaxLod).
+`material.ts`: `lensRefractionGain` 1.6 on the identity (MEASURED, W11c
+G2), `lensBodyLodPerPx` and `lensRimLodBias` retired, a
+`lensDisplacementPx` helper pinned by a unit test (20.8 px lens depth ×
+1.6 = 33.28 CSS px at the contour, the square profile at depths 4 / 8 /
+12 / 16, zero from the lens depth in, scaled by the policy rung). Light
+profile sha `6a05cebf0b528101` → `132850148804f614`, dark
+`d84e8fc4261c0440` → `aec4cfba10137f2b` (the dark patch inherits the
+gain, as a difference patch does). Five goldens re-recorded and
+attributed (`lens-size-scaling` max 32 code values, `refraction-checkerboard`
+21, `rim-two-references` 2, `concentric-nesting` 2, `union-pair` 1;
+`field-mask`, both `tint-adaptation-*` and `highlight-press-glow`
+byte-identical). One measure-only e2e scene (`lens-size-depth`) widened
+its checker from 8 to 32 px: a 400-px span's body is all heavy scatter,
+and an 8 px checker is erased before the lens can move it — the old form
+passed that scene only because the retired bias sampled sharper than the
+body.
 
 ## 6. What could not be measured, and why
 

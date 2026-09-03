@@ -737,8 +737,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             ? [1, 1, 0, 0]
             : coverFit(pyramid.plan.width, pyramid.plan.height),
         refractionScale,
-        bodyLodPerPx: material.lensBodyLodPerPx,
-        rimLodBias: material.lensRimLodBias,
+        lensRefractionGain: material.lensRefractionGain,
         chainMaxLod: pyramid?.plan.maxLod ?? 0,
         tint: optics.tint,
         tintAlpha: optics.tintAlpha,

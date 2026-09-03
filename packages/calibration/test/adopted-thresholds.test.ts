@@ -452,6 +452,12 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // a different object (§5.41 §5); the crossing was the dry run's own
   // prediction and is accepted by decision, the claim narrowed to the 1x bed
   // until a Retina capture exists.
+  // W11c G2 (claims §5.44) REMOVED the 2x texture-tier ssimMean floor on
+  // checkerboard rrect-md (0.9234 → 0.9389 against ≥ 0.93) and RATCHETED the
+  // other three 2x texture rows UP by 0.018–0.023: the lens is the body read
+  // from 1.6 lens depths inside, at full weight, and the rim band was 61–91%
+  // of what the GPU tier had left. The dom rows below are byte-unchanged
+  // (the CSS tier has no lens).
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.89628, floor: 0.8952 },
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91695, floor: 0.9159 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
@@ -467,14 +473,13 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86872, floor: 0.8677 },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.83717, floor: 0.8361 },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.8696, floor: 0.8686 },
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.92342, floor: 0.9224 },
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88104, floor: 0.88 },
+  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90231, floor: 0.9013 },
   // W11a (claims §5.39) RATCHETED the nested cell's two texture rows UP once
   // its upper pane composited over the base glass (0.84092 → 0.87961,
   // 0.87624 → 0.89482); W11c G1 (claims §5.42) MET the 1x row and re-pinned
   // the 2x one with the rest of the 2x family above.
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.88958, floor: 0.8885 },
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87855, floor: 0.8775 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90762, floor: 0.9066 },
+  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.90126, floor: 0.9002 },
 };
 
 /**
@@ -485,9 +490,10 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * restored the six nested-glass rows the unrendered upper pane had floored
  * (claims §5.39); 15 after W11b's chroma arm closed the hole those two contour
  * rows were pinned on (claims §5.40); 12 after W11c's body law met the three
- * 1x texture-tier structure rows (claims §5.42).
+ * 1x texture-tier structure rows (claims §5.42); 11 after W11c's lens met the
+ * 2x texture-tier rrect-md row (claims §5.44).
  */
-const UNMET_ROWS = 12;
+const UNMET_ROWS = 11;
 
 /*
  * ---------------------------------------------------------------------------
@@ -773,6 +779,14 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * `hc-text` family (white glass over white differs in nothing), the 2x
  * texture-tier checkerboard family and `hc-text__rrect-md` at 2x — unchanged,
  * and none of them a colour question.
+ *
+ * **What left it with W11c G2 (2026-09-03, claims §5.44).** One row, none
+ * joining: the 2x texture-tier `checkerboard__rrect-sm__rest`, an `areaWeb`
+ * and `bodiesWeb` exclusion (0.985 of its region in four bodies) that the
+ * lens closed — the band now carries the interior's structure at the
+ * displaced position instead of a sharper sample, and the extractor recovers
+ * one body at 0.998 (IoU 0.998, contour p95 0 px). It gates as an ordinary
+ * cell.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -790,7 +804,6 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
-  "texture / calibration / checkerboard__rrect-sm__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard",

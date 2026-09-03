@@ -17,10 +17,10 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  bodyLod,
   DEFAULT_MATERIAL_PROFILE,
   INCREASED_OCCLUSION_LIFT,
   lensDepthPx,
+  lensDisplacementPx,
   lensSizeGain,
   MATERIAL_OPTICS,
   MATERIAL_VARIANTS,
@@ -141,7 +141,7 @@ describe("the foldings read the profile they are given", () => {
     increasedOcclusionLift: 0.5,
     reducedTintAdaptation: 0.1,
     lensSizeGainMax: 4,
-    lensBodyLodPerPx: 1,
+    lensRefractionGain: 2,
     adaptiveLuminanceLow: 0,
     adaptiveLuminanceHigh: 1,
   });
@@ -213,12 +213,31 @@ describe("the foldings read the profile they are given", () => {
     expect(occlusionAlphaUnderPolicy(0.46, "increased")).toBeCloseTo(0.865, 3);
   });
 
-  it("gains the lens by the profile's saturation, and lods by its rate", () => {
+  it("gains the lens by the profile's saturation, and displaces by its refraction gain", () => {
     // Well past `sizeSpanMax`, so the smoothstep has saturated and the gain is
     // exactly the profile's maximum.
     expect(lensSizeGain(4000, profile)).toBeCloseTo(4, 12);
     expect(lensDepthPx(8, 4000, profile)).toBeCloseTo(32, 12);
-    expect(bodyLod(3, 10, profile)).toBeCloseTo(3, 12);
+    // At the contour the displacement is the lens depth times the profile's gain.
+    expect(lensDisplacementPx(0, 32, 1, profile)).toBeCloseTo(64, 12);
+  });
+
+  it("displaces the body by 1.6 lens depths at the contour, on the shader's square profile (W11c G2)", () => {
+    // The shipped default on a 96-px-span surface of the host's 8 px thickness:
+    // lens depth 8 × 2.6 = 20.8 CSS px, and the contour reads 20.8 × 1.6 = 33.28
+    // px further inside — the reference's measured 33 px (claims §5.43).
+    const depth = lensDepthPx(8, 96);
+    expect(depth).toBeCloseTo(20.8, 12);
+    expect(lensDisplacementPx(0, depth, 1)).toBeCloseTo(33.28, 12);
+    // (1 − u/L)² × that at depth u; zero from the lens depth inward.
+    for (const u of [4, 8, 12, 16]) {
+      expect(lensDisplacementPx(u, depth, 1)).toBeCloseTo(33.28 * (1 - u / 20.8) ** 2, 12);
+    }
+    expect(lensDisplacementPx(20.8, depth, 1)).toBe(0);
+    expect(lensDisplacementPx(40, depth, 1)).toBe(0);
+    // The policy's refraction scale multiplies it, and a zero rung removes it.
+    expect(lensDisplacementPx(0, depth, 0.45)).toBeCloseTo(33.28 * 0.45, 12);
+    expect(lensDisplacementPx(0, depth, 0)).toBe(0);
   });
 
   it("crosses the tint over the profile's own luminance band", () => {

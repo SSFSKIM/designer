@@ -46,11 +46,12 @@
  *
  * The displacement is the normal times a profile that peaks at the rim and dies in
  * the interior, where the glass is flat and shows the backdrop straight through.
- * **Sampling LOD follows the same profile and the same depth**: the body sits at
- * `lensDepth * bodyLodPerPx` — thicker glass diffuses more — and the rim is biased
- * sharper, because a compressed backdrop reads as detail. That is the inverse of
- * the naive "blur more at the edge", and it is most of what makes an edge read as
- * glass rather than as a smudge.
+ * Its magnitude at the contour is `lensDepth * lensRefractionGain` — 1.6 lens
+ * depths (W11c G2, claims §5.43): the reference's band is the plate from that
+ * far inside, folded back toward the rim by the profile's square, and it is the
+ * SAME two-component body the interior shows, read at the displaced position.
+ * Nothing samples sharper at the rim: the "compressed detail" the rim used to be
+ * biased toward was the fold itself, not a finer level of the backdrop.
  *
  * Every coefficient is advisory and calibration-delegated (C7), named on the CPU.
  *
@@ -67,7 +68,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   screen : vec4f,
   /// backdrop uv transform on viewport-normalised coords: scale (xy), offset (zw)
   fit : vec4f,
-  /// refractionScale, bodyLodPerPx, rimLodBias, chainMaxLod
+  /// refractionScale, lensRefractionGain (W11c G2), unused, chainMaxLod
   lens : vec4f,
   /// fixed tint colour, linear light (xyz), tint alpha (w)
   tint : vec4f,
@@ -327,14 +328,12 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let depth = clamp(-d / lensDepth, 0.0, 1.0);
   let profile = (1.0 - depth) * (1.0 - depth);
 
-  let displaceCss = -normal * lensDepth * profile * ou.lens.x;
+  // W11c G2: the lens is the body read from further inside. 'lens.y' is the
+  // profile's refraction gain, the contour displacement in lens depths.
+  let displaceCss = -normal * lensDepth * profile * ou.lens.x * ou.lens.y;
   let refracted01 = viewport01 + displaceCss / viewportCss;
 
-  let straightUv = clamp(viewport01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
   let refractedUv = clamp(refracted01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
-
-  let bodyLod = clamp(lensDepth * ou.lens.y, 0.0, ou.lens.w);
-  let lod = clamp(bodyLod - ou.lens.z * profile, 0.0, ou.lens.w);
 
   /*
    * The scattering facet of the size law: "a softer scattering of light".
@@ -353,16 +352,15 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
 
   var backdrop = vec3f(0.0);
   if (ou.flags.x > 0.5) {
-    let lensSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, lod);
-    let bodySample = textureSampleLevel(backdropBody, backdropSampler, straightUv, 0.0);
-    let scatterSample = textureSampleLevel(backdropChain, backdropSampler, straightUv, scatterLod);
+    // Both components at the refracted position (W11c G2): the band and the
+    // interior are one body, and the displacement alone is the lens.
+    let bodySample = textureSampleLevel(backdropBody, backdropSampler, refractedUv, 0.0);
+    let scatterSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, scatterLod);
     // Premultiplied linear in, straight colour out: the material composites over
     // whatever is behind it, so a partially transparent backdrop must not darken
     // the glass.
-    let lensColour = lensSample.rgb / max(lensSample.a, 1e-6);
     let scatterColour = scatterSample.rgb / max(scatterSample.a, 1e-6);
-    let bodyColour = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
-    backdrop = mix(bodyColour, lensColour, profile);
+    backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
   }
 
   // Adaptive tint. 'adapt.w' is the strength the accessibility policy and the

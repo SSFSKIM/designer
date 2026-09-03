@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "d84e8fc4261c0440",
+  "resolvedMaterialSha256": "aec4cfba10137f2b",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -71,6 +71,16 @@
     "declared stop is any dark cell leaving its bounds), not an assumption this",
     "file hides. Fingerprint 9ec21d0e186ca3d3 -> d84e8fc4261c0440 (the four",
     "defaults above; the patch itself is unchanged)."
+  ],
+  "$comment-w11c-g2": [
+    "RE-RECORDED 2026-09-03 (W11c G2, the lens band): what moved is again the",
+    "renderer's DEFAULTS — the lens is now the two-component body read from",
+    "lensDepth x lensRefractionGain x (1 - depth)^2 further inside at full",
+    "weight (lensRefractionGain 1.6, new; lensBodyLodPerPx and lensRimLodBias",
+    "retired). Fitted on the LIGHT 1x probe bed; whether the dark reference's",
+    "band folds the same way is the referee's question for this scheme's cells.",
+    "Fingerprint d84e8fc4261c0440 -> aec4cfba10137f2b (the defaults above; the patch",
+    "itself is unchanged)."
   ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",

@@ -261,7 +261,13 @@ export const LENS_DEPTH_SCENE: Scene = {
   heightCss: 440,
   devicePixelRatio: 1,
   measureOnly: true,
-  backdrop: { kind: "checkerboard", cell: 8 },
+  // A 32 px cell, not 8 (W11c G2). The lens is the body read from further
+  // inside, and the body of a 400 px surface is all heavy scatter (the share
+  // saturates at `sizeScatterSpanMax`): an 8 px checker is erased before the
+  // lens can move it, and the wide group would read as not lensing at all. At
+  // 32 px the heavy component still passes structure, so the moved band is the
+  // lens depth on both surfaces.
+  backdrop: { kind: "checkerboard", cell: 32 },
   groups: [
     group("narrow", [
       rect("n", [70, 220], [44, 36], {

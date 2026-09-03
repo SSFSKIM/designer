@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "6a05cebf0b528101",
+  "resolvedMaterialSha256": "132850148804f614",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -38,7 +38,18 @@
     "d082adbb28493c31 -> 6a05cebf0b528101 (2026-09-03, W11c G1): the body law —",
     "blurSigma 3 -> 1.25, sizeScatterGainMax 1 -> 8, and the scatter facet's own",
     "curve (sizeScatterFloor 0.4, sizeScatterSpanMax 256, new) — see",
-    "entries.scatter."
+    "entries.scatter.",
+    "6a05cebf0b528101 -> 132850148804f614 (2026-09-03, W11c G2): the lens magnitude —",
+    "lensRefractionGain 1.6 (new), and the two rim-LOD constants retired",
+    "(lensBodyLodPerPx 0.16, lensRimLodBias 2.5) — see entries.lens."
+  ],
+  "$comment-w11c-g2": [
+    "RE-RECORDED 2026-09-03 (W11c G2, the lens band): the lens is now the",
+    "two-component body read from further inside — lensDepth x lensRefractionGain",
+    "x (1 - depth)^2 — at full weight, with no separate rim sample. The gain is",
+    "named in the patch (this file names every fitted constant); the retired",
+    "constants have no key to name. Fitted on the LIGHT 1x probe bed's",
+    "pitch-32/64 cells; the referee reads every other profile's cells."
   ],
   "$comment-provenance": [
     "THE PROVENANCE HOLE THIS CLOSES (2026-09-01, found by the landing review).",
@@ -116,6 +127,7 @@
     "sizeSpanMin": 32,
     "sizeSpanMax": 96,
     "lensSizeGainMax": 2.6,
+    "lensRefractionGain": 1.6,
     "sizeScatterGainMax": 8,
     "sizeScatterFloor": 0.4,
     "sizeScatterSpanMax": 256,
@@ -143,6 +155,43 @@
     "referenceBackdropLuminance": 0.02
   },
   "entries": {
+    "lens": {
+      "status": "measured",
+      "value": {
+        "lensRefractionGain": 1.6
+      },
+      "previous": {
+        "lensBodyLodPerPx": 0.16,
+        "lensRimLodBias": 2.5
+      },
+      "method": [
+        "W11c G2 (claims 5.43). The reference's rim band, read per one-pixel depth",
+        "shell around the whole contour on the W9 probe's pitch-32/64 cells: the",
+        "inward source displacement is 13 px at depth 8, 10 at 10, 6 at 12, 3 at",
+        "14, 2 at 16 and 0 at about 20 — 33 x (1 - u/20)^2 within a pixel, which is",
+        "the shader's own lens profile on its own 20.8 px lens depth, at 1.6 lens",
+        "depths of magnitude instead of 1.0. The band carries the interior's",
+        "two-component blur at full weight (a heavier or a sharper sample, and a",
+        "darkening, all read as zero on their sweeps); the 'sharper rim' the",
+        "retired LOD bias expressed was the fold of the plate, not a finer sample.",
+        "",
+        "DECLARED FIT on rrect-md and rrect-ml at pitches 32 and 64, rrect-lg held",
+        "out, band 3..24 px: RMS 0.0478 against 0.168 with no lens (holdout 0.048",
+        "against 0.111); at the shader's depth and profile the probe's sweep over",
+        "the contour displacement 30/32/33/34.3/36 px (gain 1.44/1.54/1.59/1.65/1.73)",
+        "reads 0.0487/0.0478/0.0481/0.0492/0.0516, and the whole-crop SSIM dry run",
+        "on the pitch-16 cells picks 1.6 over 1.4 and 1.8 on all three large",
+        "spans (claims 5.43 section 4). Predicted, not fitted:",
+        "the small spans (their own lens depth, 8-9 px), 2x (the same law in CSS px",
+        "lifts the 2x rrect-md texture row over its bound in the dry run), the",
+        "capsule (whose band prefers a deeper lens than the thickness law gives it)."
+      ],
+      "doesNotClose": [
+        "The capsule's band: the stadium reads a lens near 11 px deep where the",
+        "thickness law gives 9.2 — a lens-specific depth law is not this round's.",
+        "The dom rows: the CSS tier has no lens by contract."
+      ]
+    },
     "scatter": {
       "status": "measured",
       "value": {
