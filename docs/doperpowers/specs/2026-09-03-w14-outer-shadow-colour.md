@@ -388,7 +388,7 @@ charter (user-decided). X8 orders the two landings.
 | child | where | status |
 | --- | --- | --- |
 | G0 | one worker, 2026-09-03; `results/2026-09-03-w14-shadow/g0/g0-instrument.md`, `g0-shadow.md`; claims §5.62 — two terms on one falloff (W8's lengths kept), the lift a σ-40 blurred copy of the backdrop's own light above the knee at span 64 and saturating with span, the thin regime's black alpha 0.33 on the mid backdrops and 0.127 on light-solid (vitrea 0.285 everywhere), the split of the thick composite not identifiable on this bed | COMPLETE 2026-09-03 |
-| G1 | two workers dispatched 2026-09-03: the composite implemented on branch `w14-g1-shadow` (worktree `.claude/worktrees/w14-g1`) — the black term's adaptive alpha on both tiers (thin anchors 0 / 0.33 / 0.127 keyed on W9's luminance; thick span anchors 0.379 / 0.497 / 0.544; the dark document's own), the lift GPU-only on W8's falloff (amplitude, span rise 64 → 128, σ 40 CSS px from the chain), Decision Log 1 question 2 (a) as implemented; X7 LANDED 2026-09-03 (merge `922d3e4`, the parent's adoption in Decision Log 3; `results/2026-09-03-w14-shadow/g0/x7-baseline.md`, claims §5.62 §8); the runtime sweep follows the implementation once the GPU is free of W13's | IN PROGRESS 2026-09-03 |
+| G1 | two workers dispatched 2026-09-03: the composite implemented on branch `w14-g1-shadow` (worktree `.claude/worktrees/w14-g1`) — the black term's adaptive alpha on both tiers (thin anchors 0 / 0.33 / 0.127 keyed on W9's luminance; thick span anchors 0.379 / 0.497 / 0.544; the dark document's own), the lift GPU-only on W8's falloff (amplitude, span rise 64 → 128, σ 40 CSS px from the chain), Decision Log 1 question 2 (a) as implemented; X7 LANDED 2026-09-03 (merge `922d3e4`, the parent's adoption in Decision Log 3; `results/2026-09-03-w14-shadow/g0/x7-baseline.md`, claims §5.62 §8); **the composite built** (branch commit `6dd3b68`, merged with main at `3e9138c`; ten constants replace `occlusion`; both tiers keyed on the face's backdrop luminance; the lift GPU-only; every suite green); **the runtime sweep running** on it (`results/2026-09-03-w14-shadow/g1/sweep/`); **independent review** (Codex, 2026-09-03) — four findings fixed on the branch by a fix wave (the obsolete `occlusion` leaf rejected rather than ignored; `reducedTransparencyOcclusion` re-formed as one flat absolute amplitude 0.197 since §5.62 §5 measured the preference flat thin and thick together; the dark document carries 0.52 × the light lift from X7; the changeset), one deferred to G2 by design (every scene golden moves; re-recorded behind the isolation proof at the landing) | IN PROGRESS 2026-09-03 |
 | G2 | — | blocked-by G1; X8 |
 
 ## Decision Log
@@ -462,6 +462,42 @@ Two of X7's baseline findings bear on G1 and are in Surprises: the lift's
 survival in the dark scheme, and the caveat on reading `c` over `photo`.
 The over-fill's appearance in the `0-3` band is §5.62 §6's gap seen by a
 second instrument; the axis carries no guard there by design.
+
+### Decision Log 4 — the CSS tier's added-light term is deferred to the two-layer body (2026-09-03; user-decided)
+
+**Decided (user, 2026-09-03),** answering Decision Log 1's question 2 with its
+option (a): *"defer it. The CSS tier still gets the geometry and the
+backdrop-adaptive black alpha in this wave, which is most of its shadow gap on
+the thin spans and needs no new element. Adding one element per surface is a
+layering decision the two-layer CSS body work should make once, for both
+features, rather than twice."*
+
+**What the sweep then found, which this decision does not settle.** With the
+lift GPU-only as decided, the CSS tier's *thin* cells land where the profile
+says (`light-solid__capsule-button` occlusion 0.0841 against the reference's
+0.0815; `checkerboard__capsule-button` 0.2210 against 0.2192) — the decision's
+premise holds exactly. Its *thick* cells over-darken badly: band `3-6` below
+reads 0.2439 / 0.3058 / 0.3364 at spans 96 / 128 / 160 against the reference's
+0.1925 / 0.2195 / 0.2117, and its exterior was closer to the reference before
+this wave. So the wave's stop S6 misses, and the question the deferral answered
+("does this tier paint the lift?") is not the question that makes it miss.
+
+**The parent's reading of why, pending a check.** The two tiers convert their
+shared peak amplitude into a band reading identically on the thin spans (falloff
+fraction 0.638 on the GPU tier against 0.643 on the CSS tier at span 44) and
+diverge only on the thick ones (0.487 against 0.628 at span 96). The sweep
+attributes that to the missing lift; the parent's arithmetic says the lift is
+about twelve times too small to account for it, because a σ-40 blurred copy of a
+pitch-16 checkerboard is nearly constant across the band and therefore lands in
+the affine pair's intercept rather than its slope. A check against the sweep's
+own points is running. **The declaration does not go out until the cause is
+named**, because the two candidate causes have different fixes: if it is the
+lift, the CSS tier derives its own effective amplitude from the shared profile
+by folding in the term it cannot paint (conversion, not a second constant, which
+is K5's rule and keeps "two tiers, one profile" intact); if it is the GPU tier's
+own thick path — the thin/thick blend resolving below the anchor, the offset
+clamp, or the size fold — then the anchors themselves are fitted against a
+shape error and the GPU tier's numbers move too.
 
 ## Surprises & Discoveries
 
@@ -544,6 +580,12 @@ second instrument; the axis carries no guard there by design.
   `Height` overturned by measurement (they are not extents; the falloff is W8's).
 - 2026-09-03: X7 landed (merge `922d3e4`); Decision Log 3 (the pair's written precision and
   coded absence); three Surprises from its baseline; the dark-scheme Deferred item annotated.
+- 2026-09-03: Decision Log 4 — the CSS tier's lift deferred to the two-layer body (user-decided);
+  Decision Log 1's question 2 closed. The sweep's S6 miss is a separate cause, under check.
+- 2026-09-03: G1 built on `w14-g1-shadow`; reviewed; four findings to a fix wave, the goldens
+  to G2 (Tracking Map). The reduced-transparency fold changes meaning from a 0.7 multiplier to
+  the measured flat amplitude, which retires the implementer's "15% high" note and the
+  sweep's axis on it.
 - 2026-09-03: G1's independent review, four findings fixed on the branch. The retired
   `outerShadow.occlusion` leaf is refused at the runtime boundary and at the profile reader
   rather than merged in silence; `reducedTransparencyOcclusion` re-formed as the absolute

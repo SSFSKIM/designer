@@ -1,0 +1,16 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterRampStart1x=0.61 sizeScatterRampReach1xPx=50    0.05231   0.01565  0.01039  0.02627   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStart1x=0.575 sizeScatterRampReach1xPx=50    0.05251   0.01566  0.01072  0.02613   0.00302  0.00620  0.9858  19  20
+sizeScatterRampStart1x=0.575 sizeScatterRampReach1xPx=80    0.05276   0.01565  0.01092  0.02619   0.00302  0.00625  0.9857  19  20
+sizeScatterRampStart1x=0.61 sizeScatterRampReach1xPx=80    0.05286   0.01562  0.01093  0.02631   0.00302  0.00627  0.9856  19  20
+sizeScatterRampStart1x=0.575 sizeScatterRampReach1xPx=100    0.05292   0.01565  0.01109  0.02619   0.00302  0.00627  0.9857  19  20
+sizeScatterRampStart1x=0.61 sizeScatterRampReach1xPx=100    0.05308   0.01562  0.01113  0.02633   0.00302  0.00630  0.9855  19  20
+
+best: sizeScatterRampStart1x=0.61 sizeScatterRampReach1xPx=50  interior 0.05231
+spread across the grid: 0.05231 … 0.05308 (1.01×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.

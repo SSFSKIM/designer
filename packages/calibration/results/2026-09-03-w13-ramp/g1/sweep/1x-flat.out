@@ -1,0 +1,22 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterRampStart1x=0.7 sizeScatterRampReach1xPx=300    0.05296   0.01559  0.01039  0.02697   0.00302  0.00641  0.9851  19  20
+sizeScatterRampStart1x=0.7 sizeScatterRampReach1xPx=450    0.05310   0.01556  0.01072  0.02682   0.00302  0.00647  0.9848  19  20
+sizeScatterRampStart1x=0.7 sizeScatterRampReach1xPx=600    0.05313   0.01554  0.01086  0.02673   0.00302  0.00650  0.9847  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=300    0.05316   0.01558  0.01101  0.02657   0.00302  0.00632  0.9854  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=450    0.05339   0.01562  0.01114  0.02663   0.00302  0.00637  0.9852  19  20
+sizeScatterRampStart1x=0.65 sizeScatterRampReach1xPx=600    0.05358   0.01563  0.01122  0.02672   0.00302  0.00640  0.9851  19  20
+sizeScatterRampStart1x=0.6 sizeScatterRampReach1xPx=450    0.05373   0.01564  0.01181  0.02629   0.00302  0.00630  0.9855  19  20
+sizeScatterRampStart1x=0.6 sizeScatterRampReach1xPx=600    0.05379   0.01563  0.01187  0.02629   0.00302  0.00632  0.9854  19  20
+sizeScatterRampStart1x=0.6 sizeScatterRampReach1xPx=300    0.05380   0.01567  0.01195  0.02618   0.00302  0.00626  0.9856  19  20
+sizeScatterRampStart1x=0.5 sizeScatterRampReach1xPx=600    0.05614   0.01570  0.01482  0.02562   0.00302  0.00624  0.9856  19  20
+sizeScatterRampStart1x=0.5 sizeScatterRampReach1xPx=450    0.05618   0.01570  0.01496  0.02553   0.00302  0.00623  0.9856  19  20
+sizeScatterRampStart1x=0.5 sizeScatterRampReach1xPx=300    0.05638   0.01563  0.01531  0.02543   0.00302  0.00623  0.9855  19  20
+
+best: sizeScatterRampStart1x=0.7 sizeScatterRampReach1xPx=300  interior 0.05296
+spread across the grid: 0.05296 … 0.05638 (1.06×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.
