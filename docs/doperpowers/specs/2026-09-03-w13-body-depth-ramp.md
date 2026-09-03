@@ -374,7 +374,10 @@ close before G2 implements; nothing on it lands before G2's referee.
   2, where the ramp is a null, so the landing moved no golden and no golden
   would catch the ramp regressing. A 1x scene over a checkerboard, pinned
   behind the isolation proof, is the fix; the proof's named profile (scatter
-  gain 1) stays inert to it by construction.
+  gain 1) stays inert to it by construction. **Closed 2026-09-04 by W15
+  contract X7:** `body-ramp-1x` at device pixel ratio 1, pinned as
+  `W15_HASHES` with a fail-before record that zeroes the 1x anchors
+  (`b913c1b`; claims §5.69 §5).
 - **The two tiers' 2x mixes differ (Decision Log 5, 2026-09-04 restated).**
   At 2x the CSS tier mixes its single blur at the 1x ramp's area average
   (`CSS_TIER_RAMP_SCALE`) while the GPU tier draws the bed's span law (the 2x

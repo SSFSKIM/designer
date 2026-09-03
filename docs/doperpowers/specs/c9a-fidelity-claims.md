@@ -9604,3 +9604,135 @@ the bed's span law — which the 2x charter re-asks with the deep value; and fro
 coverage-ramp `ssimOutside` thousandth, the far anchor's unfittability, the thin anchor 0.08
 above G0's read-off, the 2x deep value with the widths as its second term.
 
+### 5.69 W15 G0: the 2x base width settled by bounding the share, the deep value fully heavy on the large spans, and the CSS tier's 2x ceiling predicted by the reference's own mix (2026-09-04)
+
+The measurement W15's charter opened with, run on the committed 2x probe bed (§5.53) by W13
+G0's windowed instrument (§5.61 §1) with one change: the heavy share is held inside [0, 1],
+because a mix cannot have a negative weight, and the base width is swept underneath that
+constraint rather than above it. Nothing here is a capture or a fit into the product; the
+document, JSON and scripts are `results/2026-09-04-w15-body-2x/g0/`. The one product change
+this spike made is the 1x golden of §5.
+
+#### 1. The base width at 2x, fitted jointly with the deep value
+
+σ_heavy swept 8–16 device px (refined to 0.25 near each minimum) at the pitch-axis fit's
+sharp σ of 1 device px, pitches 16 / 32 / 64, the fit solved free and bounded at every width:
+
+| cell | free best σ (RMS) | its `s_min` | **bounded best σ (RMS)** | its deep value | first σ with no negative share | that width's cost | cost of the bound at the free best |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 8.0 (0.00507) | +0.450 | **8.0** (0.00507) | +0.472 | never negative | — | +0.00% |
+| `capsule-button` | 7.5 (0.00841) | +0.421 | **7.5** (0.00841) | +0.439 | never negative | — | +0.00% |
+| `rrect-md` | 8.0 (0.02171) | +0.022 | **8.0** (0.02171) | +0.054 | 7.75 | +0.1% | +0.01% |
+| `rrect-ml` | 8.5 (0.01603) | −0.211 | **9.0** (0.01668) | +0.000 | 13.0 | **+33.9%** | +4.64% |
+| `rrect-lg` | 10.0 (0.01696) | −0.317 | **11.0** (0.01806) | +0.000 | 15.0 | **+23.9%** | +7.81% |
+
+**The negative shares §5.61 §2 left open are the deep value's, not the width's.** Making them
+physical by the bound costs 4.6–7.8% of RMS; making them physical by widening the kernel
+costs 24–34% and asks for 13–15 device px. Every cell's bounded surface has an interior
+minimum at **8–11 device px**, and the layer tree's radius law (16 on `rrect-lg`) costs +22%
+to +60% per cell. The bounded widths **8.0 / 7.5 / 8.0 / 9.0 / 11.0** reproduce §5.61 §3's
+deep-interior pitch-axis fit (9 / 8 / 8 / 9 / 11) within one device px and exactly on the two
+cells the disagreement was about: **the two estimators disagreed about the bound, not about
+the width.** Pooled with each cell normalised by its own minimum the optimum is 8.5 over five
+spans and 9.5 over the three large ones, flat to 3% over 8–10 and +42% to +69% at 16 — so
+§5.56 §1's declared 9 sits inside the flat region and the probe does not choose inside it.
+
+#### 2. The sharp share by depth at 2x with the width settled
+
+s(u) per 4 CSS px window, share bounded, at the per-span width (the reading at one common
+width of 9 device px in parentheses where it differs):
+
+| cell | start s (u 6) | **deep value** | reach, CSS px | W13 G0 at σ 9, share free (§5.61 §2) |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.494 (0.474) | 0.472 — no deep interior exists | — | 0.474 → 0.439 |
+| `capsule-button` | 0.468 (0.437) | 0.439 — no deep interior exists | — | 0.437 → 0.430 |
+| `rrect-md` | 0.163 (0.192) | **0.054** (0.098) | 49 (59) | 0.192 → 0.075, reach 59 |
+| `rrect-ml` | 0.199 | **0.000** | 53 | 0.179 → **−0.143**, reach 41 |
+| `rrect-lg` | 0.210 (0.195) | **0.000** | 56 (49) | 0.141 → **−0.247**, reach 39 |
+
+**The 2x deep interior is fully heavy on the two largest spans and 0.90–0.95 heavy on
+`rrect-md`** — §5.55 §1's own 2x deep shares (0.90 / 0.96 / 1.00), recovered by an estimator
+that models the ramp instead of averaging over it. **§5.64 §4's deep curve (floor 0.53, knee
+112, ceiling 0.84) is therefore what a uniform share would have to be and not the deep
+value**: its ceiling sits 0.16 of share below the measured deep interior. The thin spans
+carry no deep interior at all — half-spans of 16 and 22 CSS px lie entirely inside a reach of
+about 50 — so their 0.44–0.47 is the ramp running and constrains no floor.
+
+**§5.68 §2's provisional 2x anchors were inert for the deep value's sake, not their own.**
+Thin 0.46 against a measured 0.47 / 0.44, thick 0.17 against 0.19–0.21, reach 100 device px
+= 50 CSS px against a measured 49–56: within 0.03 of the start on every span and 6 CSS px of
+the reach on the three large ones. The wave's three gaps are one gap, measured. The reach
+reads as a **length** at 2x as it did at 1x (49 / 53 / 56 CSS px, 1.15× of spread in absolute
+depth against 1.5× in relative), and the start does not decline with span the way the far
+anchor makes it — 0.192 / 0.199 / 0.195 at one width where the form resolves 0.170 / 0.168 /
+0.163, flat against gently declining, a difference inside this instrument's own level
+uncertainty.
+
+#### 3. Contract X4 — the instrument on two known 2x laws
+
+| acceptance | result |
+| --- | --- |
+| vitrea's own 2x share, flatness over 4 ≤ u ≤ span/2 − 4, `rrect-md` and `-lg` | every window within **0.027** of its cell's mean; spread 0.031–0.046 |
+| the same, all four spans and both backdrop pools | spread **0.012–0.046** (§5.61 §1's rows, reproduced) |
+| vitrea's own 2x share, level with `photo` pooled: `rrect-md` / `capsule` / `-ml` / `-lg` | **+0.008** / +0.117 / −0.069 / −0.094 — the one-pitch degeneracy, unchanged |
+| vitrea's own widths recovered (it draws 1.25 / 10 CSS px) | `rrect-md` 1.50 / 8.00, `rrect-lg` 2.00 / 14.00 — **±40% on the heavy width** |
+| a synthetic 2x ramp (start 0.30, reach 50 CSS px, the reference's widths): start | **−0.001** and **+0.001** |
+| the same, the profile in every validated window | within **0.003** |
+| the same, the reach | **+0.2** CSS px on `rrect-md`; **+10.9** on `rrect-lg` by §5.61's read-off, **−0.0** by the line through the unclamped windows |
+
+The width recovered from a real capture of a known law is biased by ±40%, because vitrea's
+heavy component is a mip level and not a Gaussian and because the level and the width trade
+at one pitch — which is the honest bound on §1's 8–11 device px. And **the reach statistic
+§5.61 §2 used is biased long by 11 CSS px wherever the profile bottoms out inside the
+half-span**: a line through eighteen windows of which seven sit at zero is dragged shallow.
+Every reach quoted from a bounded fit should be the line through the unclamped windows; the
+2x reaches of §2 are.
+
+#### 4. The CSS tier at 2x: its ceiling, what it draws, and what the reference's own mix predicts
+
+| cell | the reference's ceiling, CSS px (RMS) | what the tier draws (its mix) | §2's mix through the tier's gain law | §2's mix through the reference's widths |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | **3.00** (0.0456) | 3.788 (0.290) | 5.827 (0.523) | **2.914** |
+| `capsule-button` | **2.50** (0.0274) | 3.974 (0.311) | 6.124 (0.557) | **2.819** |
+| `rrect-md` | **4.00** (0.0163) | 5.532 (0.489) | 8.483 (0.827) | **3.643** |
+| `rrect-ml` | **5.00** (0.0168) | 6.089 (0.553) | 8.817 (0.865) | **4.189** |
+| `rrect-lg` | **5.00** (0.0169) | 7.042 (0.662) | 8.502 (0.829) | **5.012** |
+
+The first column reproduces §5.55 §5 exactly (3.0 / 2.5 / 4.0 / 5.0 / 5.0 at RMS
+0.0163–0.0456 against the published 0.016–0.046). The second is read out of the built package
+at `CSS_TIER_RAMP_SCALE`, so it is also what the tier draws at 1x, and it is 0.8–2.0 CSS px
+wider than the 2x ceiling on every span. The third is the projection W15's Decision Log 1 q1
+names, and it moves the tier *away* from its ceiling, because the gain law's fully-heavy end
+is `blurSigma · sizeScatterGainMax` = 10 CSS px — the GPU tier's **1x nominal** heavy width —
+while the reference's own heavy component at 2x is σ 4.0–5.5. The fourth carries the same
+measured mix through the reference's own measured widths as a moment-matched single Gaussian
+and lands **within 0.8 CSS px of the independently measured ceiling on every span and within
+0.01 on `rrect-lg`**. **The reference's own mix and widths predict its own single-blur
+ceiling**, so q1's third column is a number and not a direction, and any move of this tier's
+2x σ has to move the gain's end with the mix.
+
+#### 5. The 1x golden, pinned (contract X7)
+
+`body-ramp-1x` — 200 × 120 CSS px at **devicePixelRatio 1**, a checkerboard of cell 8 under
+`refraction-checkerboard`'s 140 × 68 surface — is the first golden on the scale W15 promises
+not to move. Recorded at the W13 bed with the other ten byte-identical; pinned behind the
+isolation proof as `W15_HASHES`, `084480a056aab58bd1ec90d4e5d98b8d`, a first record that
+supersedes nothing. Since the proof's named profile patches only the tint and the outer
+shadow, the ramp is live in the pinned render, and a fail-before record beside the table says
+so: the same scene with the three 1x ramp start anchors zeroed — which clamps the excursion
+at every span — must not reproduce those bytes, and does not. Golden suite 26 → **29
+passed**, renderer 384 unit tests, lint clean; `b913c1b`.
+
+#### 6. Limits
+
+The instrument's are §5.61 §7's, unchanged: the lens is fixed by decision and its 0.6–1.3 px
+2x mid-depth residual (§5.55 §4) is inside every residual here; windows below u = 4 are
+excluded for the rim; the level of the share is identified only where the pooled backdrops
+differ strongly in the two components' contrast ratio, so vitrea's canonical bed reads shape
+and not level; pitch 8 at 2x is excluded (§5.55 §3's inversion) and pitch 4 is at the
+identifiability ceiling. Two limits are this round's own. The width recovered from a real
+capture of a known law is biased by ±40% (§3), which is why §1 reports a surface and not a
+number. And the fitted transmission moves with the assumed width — `rrect-sm` reads t 0.412
+at σ 9 and 0.536 at σ 8 while its share moves by 0.02 — so no transmission reading should be
+taken from these fits; §5.61 §6's finding that the reference's transmission does not ramp is
+the one that stands.
