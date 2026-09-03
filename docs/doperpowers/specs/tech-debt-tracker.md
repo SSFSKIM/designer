@@ -329,3 +329,12 @@ are green; these ten are the CSS-tier project only.
   is a fixed box until the app calls again; `{ kind: "element" }` is measured
   like a source element. An `ImageBitmap` drawn for a `<div>` should declare
   the element, not the rect — said in the type's doc, not enforced.
+- **Both tiers over-fill their declared contour** (W14 G0, 2026-09-03; claims
+  §5.62, `results/2026-09-03-w14-shadow/g0/g0-instrument.md` §4). Measured by
+  the shadow instrument's guard at the contour: the GPU tier's capsule
+  over-fills by 3.5–4 CSS px at the caps, the CSS tier by 3–3.5 CSS px toward
+  the bottom right on every component at both scales; Apple over-fills by ≤ 1.
+  The shape axis is bounded to the declared region (claims §5.12) and cannot
+  see it. Shape of the work: run the guard on every cell, then find the cause
+  (the field's coverage ramp on the GPU tier; the CSS tier's box against its
+  border-radius and shadow spread) — its own small round, W14 Deferred.

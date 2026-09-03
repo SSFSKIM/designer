@@ -8621,7 +8621,10 @@ every side; the whites 0.913 against 0.922 below. Per ring the reference
 is an affine map of the plate, a·plate + c, with c +0.039 / +0.024 /
 +0.014 / +0.004 at 0–6 / 6–12 / 12–24 / 24–48 px (a 0.887 → 0.988; R²
 0.994–0.9999), and vitrea is a·plate with c = 0.000 at every ring (a 0.933
-→ 0.993): **a gray composited at low alpha against a black multiply**,
+→ 0.993) — *these fits are in encoded (sRGB) luma, as the black-square
+readings above are; W14 G0 (§5.62) reads the same lift at +0.0038 in
+linear luminance, and every reading from there on names its space* —
+**a gray composited at low alpha against a black multiply**,
 strongest below the surface where the reference's (0, 8) offset (§5.50)
 puts the shadow. SSIM reads a 0.04 lift on a 0.00 square as
 2·0.041·0/(0.041² + C₁) ≈ 0.06, so a hair of haze on black is most of the
@@ -8803,3 +8806,101 @@ the transmission. (The two modes are not nested — one t per line set
 against one t per window shared across sets — so this is a corroboration,
 not a likelihood ratio; the free-t residual is 0.0145–0.0223 against
 0.0126–0.0220.) `g0-ramp.md` §8, `parts/g0-free-t.json`.
+
+### 5.62 W14 G0: the reference's outer shadow is two terms on one falloff — a backdrop-adaptive black multiply and a blurred copy of the backdrop's own light (2026-09-03)
+
+(The measurement worker's findings, recorded as written; the parent's
+readings of §5.60 §3 stand beside them with their space named.)
+
+**Claim.** The per-ring affine instrument the charter's first binding rule asks for, validated on
+vitrea's own captures before any reference number, and the reference read on 82 cells across six
+profiles at both scales. Findings, scripts and figures under
+`packages/calibration/results/2026-09-03-w14-shadow/g0/` (`g0-instrument.md`, `g0-shadow.md`,
+`w14lib.py`, `g0_*.py`, `parts/*.json`, four figures). Nothing captured, no constant moved.
+
+**1. The instrument, and its validation (X4).** Signed distance to the region `scenes.json` declares
+(never to the image, §5.12's rule), four sides by the nearest rect's normal with the corner arcs as
+their own class, five rings plus §5.60's 0–6, and `y = a·bg + c` per side × ring in both linear
+luminance and encoded Rec.709 luma. On vitrea's canonical GPU captures the instrument recovers W8's
+black multiply to **±0.0016 in `a` and ±0.0000 in `c`** on every ring and flat side of
+`checkerboard__{rrect-lg, rrect-md, capsule-button}` and `photo__rrect-md` at both scales, and the
+level on `light-solid__capsule-button` to ±0.0034; the one class it fails is the capsule's corner
+sector, for a reason that is a measurement of vitrea (§4 below). The charter's stated form of the
+model, the linear multiply 1 − 0.285·F, sits within 0.0043 of the fit; the composite the shader
+actually produces — black at `outerShadowAlpha(0.285)·F` in the ENCODED domain — sits within 0.0016,
+and is what the reference tables are read against. **The linear-space reading of vitrea's own shadow
+was 5% low (0.271 against 0.285) until the sRGB decode was done exactly**: the linear factor is not
+(1 − α·F)^2.4, because sRGB's decode carries the 0.055 offset. §5.60 §3's +0.039 / +0.024 / +0.014
+was read in encoded luma; the same lift is +0.0038 / +0.0030 / +0.0020 in linear light, and this
+wave says which space every number is in.
+
+**2. The lift: only above the knee, scale-free, not proportional to `VibrancyContribution`.** On the
+checkerboard the black squares carry the lift alone (a multiply is inert over black). Ring 0–6 below
+the surface, encoded: **0.0000 at spans 32 and 44, 0.0290 at 96, 0.0439 at 128, 0.0448 at 130
+(`glass-over-glass`), 0.0479 at 160**; at 2x 0.0000 / 0.0000 / 0.0292 / 0.0445 / 0.0454 / 0.0487,
+and the W9 and W12 probe beds reproduce every row to the fourth decimal. vitrea reads 0.0000
+everywhere. The knee at 64 is exact. Against `inputShadowVibrancyContribution` =
+clamp((span − 64)/96, 0, 1) the ratio is **0.087 / 0.066 / 0.065 / 0.048** at spans 96 / 128 / 130 /
+160 — a factor of 1.8, so the lift is *not* proportional to it: it rises and saturates, reaching 91%
+of its span-160 value by span 128. By side it is below 0.0479, left 0.0327, right 0.0342, above
+0.0196 on `rrect-lg` — an above/below ratio of 0.41 on every thick span, which one silhouette
+displaced 8 CSS px down produces exactly.
+
+**3. The lift is the backdrop's own light, blurred at σ 40 CSS px.** Over `impulse` (blurred
+backdrop 24/255) `rrect-md` lifts **0.00**; over the checkerboard (191/255) it lifts 7.40/255.
+Pooled over six backdrops the regression at σ 40 gives slope 0.0444, intercept −0.0042, R² 0.983
+(2x: 0.0447, −0.0043, 0.982) — proportional to the blurred backdrop with no fixed colour left over.
+A fixed gray is excluded. The σ comes from the probes' pitch axis, where the lift is flat across
+pitches 4–32 and drops at pitch 64 by 8.3% on `rrect-lg` as the blurred plate drops 4.4%: the
+pooled residual has a real minimum at **σ = 40 CSS px** on `rrect-lg` at both scales and in two
+rings, 12% below the flat-copy residual, which is `inputShadowBlurRadius` 40 (§5.50 §2) read as a
+Gaussian standard deviation. On `rrect-ml` and `rrect-md` σ is **not identifiable** (flat to 0.7%)
+and is reported as such. §5.60 §3's "no blurred copy detectable" stands: it was read on pitch 16,
+where a σ-40 copy is constant to 0.001.
+
+**4. The geometry: one falloff, W8's, for both terms.** Free four-parameter fits on the cells where
+each term is alone give σ 14.8–16.2, offset 7.93–8.00, spread 0.9–3.2 for the black term (four
+cells, two backdrops, two spans, both scales) and σ 14.1–17.1, offset 7.6–8.4 for the lift (four
+thick cells, both scales) — both W8's 15.55 / 7.95 / 3.1, and the offset is the layer tree's
+`inputShadowOffset` (0, 8) exactly. **W8's lengths are the shadow's and are not refit.** The layer
+tree's `inputShadowAmount` and `inputShadowHeight` are **not** the lift's spatial extent; only
+`inputShadowBlurRadius` 40 belongs to it, as the blur of the backdrop it copies. Because both terms
+ride one falloff their shapes correlate at 0.9997–0.9999 and the split into (vibrant alpha, vibrant
+colour, black alpha) is **not identifiable on this bed**; what is identifiable at the capture's noise
+floor is the pair — the lift A_v = 0.0376 / 0.0695 / 0.0727 encoded at spans 96 / 128 / 160, and the
+composite transmission α_T = 0.1798 / 0.2490 / 0.2790 (linear occlusion 0.379 / 0.497 / 0.544)
+against vitrea's 0.279–0.294. A thick surface over `impulse` or `dark-solid` at span 128 or 160
+would separate them; the bed has that cell only at span 96.
+
+**5. The thin regime's alpha, and the light-solid capsule's 2.4× as one amplitude.** Below the knee
+the exterior is the black term alone. Linear occlusion, light standard: **0.347** over
+`mid-dark-solid`, **0.334–0.339** over `photo`, **0.327–0.328** over the checkerboard, **0.329**
+over `hc-text`, **0.127** over `light-solid`; not identifiable over `dark-solid` and `impulse`
+(below the shadow axis's 0.05 floor), where the reference removes at most 1–2 of 255 codes. Against
+§5.50 §2's fill-alpha table the rendered occlusion is a constant **1.16–1.19×** the tabulated alpha
+on the four mid backdrops and **2.5×** on `light-solid`: the table's 0.05 over-states the drop, and
+the reference's shadow over `light-solid` is 0.39 of its shadow over the checkerboard, not one
+sixth. vitrea's 0.285 is 0.84–0.91× the reference on the four mid backdrops and **2.24×** it on
+`light-solid`; by ring the ratio is 2.22 / 2.25 / 2.27 / 2.34 / 2.49 at 0–3 / 3–6 / 6–12 / 12–24 /
+24–48 CSS px, and the free geometry fit on that cell returns σ 14.81 / offset 7.97 / spread 3.17, so
+**§5.60's 2.4× is one amplitude and no part of it is shape**. The dark scheme's thin material is
+flat at 0.063 on all three measurable backdrops against vitrea's 0.098–0.131. Under increased
+contrast and reduced transparency alike the reference is flat at 0.192–0.202, thin and thick
+together, against vitrea's 0.198–0.208: **W8's 0.7 fold is correct and no adaptation survives the
+preference.**
+
+**6. Two gaps outside this wave's subject, measured because nothing else can see them.** §5.12
+states that the shape axis is bounded to the declared region and therefore cannot measure over-fill.
+Walking outward from the contour until no black checkerboard square carries the body gives, in CSS
+px: Apple ≤ 1 on every component; vitrea's GPU tier 0.5–1 on the rounded rectangles but **3.5–4 on
+the capsule's caps**; vitrea's CSS tier **3–3.5 on every component**, on `below`, `right` and
+`corner` — a displacement toward the bottom right rather than a halo. Both are recorded in the
+tech-debt tracker and in W14's Deferred list; neither is the shadow's.
+
+**7. What it changes.** G1 declares a composite of two terms on W8's own falloff, with the black
+term's amplitude keyed on the backdrop luminance the face's response already uses (three anchors:
+0.33 across L 0.06…0.74, 0.127 at 0.891, inert below 0.05) and the lift as a σ-40 blurred sample of
+the backdrop at an amplitude that is zero below span 64 and saturating above it. Both tiers carry
+the geometry and the adaptive alpha — which is the whole of the thin regime's gap and needs no new
+element — and Decision Log 1's question narrows to the lift alone, worth 0.029–0.048 encoded on the
+thick spans and nothing on the thin ones or over a dark backdrop.

@@ -355,15 +355,26 @@ charter (user-decided). X8 orders the two landings.
 - The shadow under the dark scheme beyond what G0 reads (the layer tree's
   dark-scheme dump needs a scheme flag, W12 Deferred).
 - The `sizeGain` seam (W8: opposite span dependence in the two schemes) —
-  if G0's adaptive alpha explains the opposite signs (the thin regime's
-  fill alpha on the dark scheme's backdrops), it is retired with the
-  declaration; otherwise it stays at the identity.
+  the sign is explained by G0 (the lift is absent on the dark scheme's
+  backdrops), the dark scheme's own split is not read; the seam stays at
+  the identity until the dark layer tree is dumped.
+- **Both tiers over-fill their declared contour** (G0, Surprises): the GPU
+  capsule's caps by 3.5–4 CSS px, the CSS tier by 3–3.5 px toward the
+  bottom right, Apple ≤ 1 — a shape-axis gap the bounded extractor cannot
+  see; measure with the guard instrument on every cell, then find the
+  cause (the field's coverage ramp; the CSS tier's box against its
+  border-radius) — its own small round. Tech-debt tracker.
+- **The thick composite's split** (α_v, colour, α_b) needs a thick
+  surface over a black backdrop (span 128 or 160 over `impulse` or
+  `dark-solid`); the bed has span 96 only. One harness scene.
+- The adaptive alpha between L 0.74 and 0.891 — the bed jumps from
+  `hc-text` to `light-solid`; one backdrop between them would pin it.
 
 ## Tracking Map
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | one worker, dispatched 2026-09-03 at the charter; `results/2026-09-03-w14-shadow/g0/` | IN PROGRESS |
+| G0 | one worker, 2026-09-03; `results/2026-09-03-w14-shadow/g0/g0-instrument.md`, `g0-shadow.md`; claims §5.62 — two terms on one falloff (W8's lengths kept), the lift a σ-40 blurred copy of the backdrop's own light above the knee at span 64 and saturating with span, the thin regime's black alpha 0.33 on the mid backdrops and 0.127 on light-solid (vitrea 0.285 everywhere), the split of the thick composite not identifiable on this bed | COMPLETE 2026-09-03 |
 | G1 | — | blocked-by G0 |
 | G2 | — | blocked-by G1; X8 |
 
@@ -410,7 +421,54 @@ in the same week.
 
 ## Surprises & Discoveries
 
-(open)
+- **Two terms on one falloff, and W8's lengths are right (G0, claims
+  §5.62).** The black term reads σ 14.8–16.2 / offset 7.93–8.00 / spread
+  0.9–3.2 across cells, backdrops, spans and scales against W8's 15.55 /
+  7.95 / 3.1, and the lift reads σ 14.1–17.1 / offset 7.6–8.4 — the same
+  falloff. The layer tree's `Amount` and `Height` are neither term's
+  spatial extent (the charter's advisory was wrong there); `BlurRadius` 40
+  is the lift's blur — the σ of the backdrop copy it adds, identified at
+  40 ± 8 CSS px on `rrect-lg` at both scales and unidentifiable on the
+  mid spans. Because both terms ride one falloff their shapes correlate at
+  0.9998, so the split into (vibrant alpha, colour, black alpha) is not
+  identifiable on this bed; what a renderer needs — the lift's peak
+  amplitude and the composite transmission per span — is.
+- **The lift saturates; it is not proportional to `VibrancyContribution`.**
+  Zero at spans 32 and 44 (the knee at 64 exact), then 0.0290 / 0.0439 /
+  0.0448 / 0.0479 encoded at spans 96 / 128 / 130 / 160 in the ring 0–6 px
+  below the surface — 0.52 / 0.96 / 1.0 of the span-160 value where the
+  layer tree's clamp((span − 64)/96) says 0.33 / 0.67 / 1.0. Scale-free.
+  Zero over `impulse` where the checkerboard lifts 7.4 / 255: the
+  backdrop's own light (pooled over six backdrops, R² 0.983 against the
+  σ-40 blurred backdrop, no fixed colour left over).
+- **The space of a lift matters.** §5.60 §3's +0.039 is in encoded luma;
+  in linear luminance it is +0.0038, and the linear-light factor of a
+  multiply is not (1 − α·F)^2.4 (sRGB's 0.055 offset) — the instrument's
+  first pass read vitrea's own 0.285 back as 0.271 until the composite was
+  predicted in the encoded domain and decoded exactly. Every reading in
+  this wave names its space.
+- **The thin regime's alpha is 1.16–1.19× the layer tree's fill alpha on
+  the mid backdrops, and 2.5× it on light-solid.** Linear occlusion 0.327–
+  0.347 at L 0.06–0.74 against the table's 0.278–0.30, and 0.127 at 0.891
+  against 0.05 — so the light-solid shadow is 0.39 of the checkerboard's,
+  not one sixth; vitrea's 0.285 everywhere is 0.84–0.92 of the reference
+  on the mid backdrops and 2.24× on light-solid, with no part of the 2.4×
+  in shape (σ 14.81 / offset 7.97 / spread 3.17 on that cell). The dark
+  scheme's thin material reads 0.063 flat; under increased contrast and
+  reduced transparency 0.192–0.202 flat — W8's 0.7 fold is right.
+- **W8's `sizeGain` seam's opposite signs are explained and not yet
+  resolved.** The light scheme's thick composite carries a lift the dark
+  scheme's backdrops cannot produce, so the light amplitude "falls" with
+  span where the dark one rises (0.23–0.27 thick against 0.063 thin); the
+  dark scheme's own split needs its layer tree read (W12 Deferred). The
+  seam stays at the identity.
+- **Both tiers over-fill their declared contour (outside this wave's
+  subject; G0's instrument document §4).** The GPU tier's capsule by
+  3.5–4 CSS px at the caps, the CSS tier by 3–3.5 CSS px toward the bottom
+  right on every component at both scales, where Apple over-fills by ≤ 1.
+  Claims §5.12's shape axis is bounded to the declared region and cannot
+  see it; first measured here, recorded in the tech-debt tracker and
+  Deferred, for the shape axis.
 
 ## Outcomes & Retrospective
 
@@ -419,3 +477,5 @@ in the same week.
 ## Revision Notes
 
 - 2026-09-03: opened from W13 Decision Log 2 / claims §5.60.
+- 2026-09-03: G0 complete (claims §5.62); six Surprises; the Design advisory on `Amount` /
+  `Height` overturned by measurement (they are not extents; the falloff is W8's).
