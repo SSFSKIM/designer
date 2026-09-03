@@ -287,8 +287,9 @@ profile and the 2x body) that write findings, not the spec.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | this session; scratch `w12/` | opened 2026-09-03 |
-| G1 | two workers, findings to `w12/findings-*.md` and `results/2026-09-03-w12-lens/` | opened 2026-09-03 |
+| G0 | this session; validation in `results/2026-09-03-w12-lens/g1/g0-instrument.md`; claims §5.49 §1 | COMPLETE 2026-09-03 (0.35 / 0.33 px at 1x / 2x) |
+| G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
+| G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
 | G2 | this session, after G1 | not started |
 | G3 | decision round | not started |
 
@@ -359,6 +360,14 @@ not a render.
   measured — so the 2x reference's "different object" is the material's
   own scale-dependence and the virtual display is exonerated; and the
   shadow's numbers (offset 8, blur 40, height 0.4·span) are W8's to check.
+- (2026-09-03, G1) **Five of the filter's inputs animate for seconds.**
+  The face's black, white and fill alpha, the shadow's fill alpha and
+  `inputClamp` settle toward backdrop-adapted values over several seconds
+  after a surface appears; a 1.5 s dump read transients (0.628 and 0.85 on
+  two runs of one scene). The dump gained `--settle` and reads at 8 s; the
+  first §5.50 readings are amended beside the settled ones. The capture
+  protocol's 45 s idle dwell is past it; a future harness feature that
+  presents and shoots fast would not be.
 - (2026-09-03, G1) **The band magnifies along the edge**, uniformly about
   the edge's midpoint, by 1.31× / 1.15× / 1.11× at u = 2.5 on spans 96 /
   128 / 160 (2x, confirmed from the checker maxima: 128 / 169.5 / 212 CSS
