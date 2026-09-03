@@ -9212,3 +9212,92 @@ under the dark-solid rectangle the candidate's shadow band is the darkest of the
 §5's cost seen. **The user's reading (2026-09-03):** "matches what you're describing. light solid
 capsule's W12 is darker than Apple's." S3's by-eye half is met.
 
+### 5.66 W14 G1 DECLARED: the outer shadow's two-term composite on both tiers — the form, the constants, the stops and the rows the landing must reproduce (2026-09-03)
+
+**Declared before any landing capture** (W14 G1's acceptance). Everything below is on branch
+`w14-g1-shadow` at `c27b372`; the dry run's numbers are the landing's predictions because the
+renderer is deterministic (byte-identical over two loads on every capture) and the landing runs the
+same configuration on the same bed.
+
+**1. The form.** Outside the coverage, in the compositing domain, on W8's one falloff `F` (σ 15.55 /
+offset 7.95 / spread 3.1, unmoved): `out = bg · (1 − α(backdrop, span) · F) + A(span) · F · V`. The
+black term's amplitude is the thin regime's three anchors keyed on the backdrop luminance the face's
+tone response already uses (inert at ≤ 0.02, the mid plateau 0.06…0.74, the bright anchor at 0.891,
+linear in luminance between plateau and bright, smoothstep below the plateau) blended into the
+thick regime's span ladder across `sizeThickness`'s knee at 64. The lift `A(span) · V` is a σ-40
+CSS px blurred copy of the backdrop's own light, zero below span 64 and saturating by 118, and is
+**GPU-tier only** (W14 Decision Log 4, user). The CSS tier paints one multiply whose alpha is
+**derived** from the same constants, `α′ = α − L/B` at the backdrop level the tier reads, so it
+lands on the composite's own pixel without a second anchor set (§5.65 §6(ii); K5's rule). Under
+reduced transparency and increased contrast both tiers apply one flat absolute occlusion in place
+of both regimes and stand the lift down (§5.62 §5). The obsolete single `occlusion` leaf is refused
+at both runtime boundaries and at the profile reader.
+
+**2. The constants** (`packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json`,
+fingerprint **`4a87498387e05d4f`**; the dark document **`cd127cf8d572dc7d`**):
+
+| constant | light | dark | status |
+| --- | --- | --- | --- |
+| `thinOcclusionDark` | 0 | 0 | MEASURED (§5.65 §3: 0.0008, bound 0.002) |
+| `thinOcclusionMid` | 0.33 | 0.063 | MEASURED (§5.62 §5; reads back exactly) |
+| `thinOcclusionBright` | 0.127 | 0.063 | MEASURED (within 1.3%); dark has no separating cell |
+| `thickOcclusionAt96` | 0.370 | 0.278 | FITTED (§5.65) |
+| `thickOcclusionAt128` | 0.448 | 0.301 | FITTED; dark carried on G0's shape |
+| `thickOcclusionAt160` | 0.479 | 0.324 | **UNFITTED** — no calibration cell above span 128; holdout implies ≈ 0.437, recorded, not adopted |
+| `liftAmplitude` (linear) | 0.0100 | 0.0051 | FITTED; dark = 0.51× light, X7's ratio |
+| `liftSpanMin` / `liftSpanFull` | 64 / 118 | 64 / 118 | MEASURED / FITTED |
+| `liftBlurSigmaCss` | 40 | 40 | MEASURED (40 ± 8) |
+| `reducedTransparencyOcclusion` | 0.197 | 0.038 | MEASURED (0.192–0.202) / DERIVED (0.197/0.33 on 0.063) |
+
+**3. The stops, with the dry run's numbers** (charter G2, refined by G1):
+
+- **S1** — no inside row moves by more than 0.001: **MISSED on one cell**, `dark-solid__capsule-button`
+  (`ssimBand` −0.0188 at 1x, −0.0474 at 2x, GPU tier; −0.0086 / −0.0148 CSS), every other cell
+  ≤ 0.0008. Held by decision (W14 Decision Log 5): the pair measures the constant right and the
+  row is 25 contour-adjacent windows on the tier's own over-fill. **Goes to the user at the
+  landing as a named miss.**
+- **S2** — `ssimOutside` rises on every checkerboard and `photo` cell: **MET on the checkerboard**
+  (+0.064…+0.103 at 1x, +0.135…+0.205 at 2x), missed on three `photo` thick cells by ≤ 0.0016.
+- **S3** — the light-solid capsule within 20% of the reference's darkening: **MET**, GPU 1.013×,
+  CSS 1.032× (2x: 1.007× / 1.029×), from 2.29× / 2.25×; and by the user's eye (§5.65 §7).
+- **S4** — the three 2x texture rows meet 0.93: **MET**, `rrect-ml` 0.9746, `glass-over-glass`
+  0.9762, `rrect-lg` 0.9680 (floors 0.9147 / 0.9201 / 0.9102); no 1x `ssimMean` falls by more than
+  0.0019.
+- **S5** — `dark-solid` and `impulse` unchanged: `impulse` ±0.0005 everywhere; `dark-solid` is S1.
+- **S6** — the CSS tier moves as predicted: **MET as re-predicted by the derivation.** Band `3-6`
+  below, reference / before / after: `rrect-md` 0.1925 / 0.2439 / **0.1991**, `rrect-ml` 0.2195 /
+  0.3058 / **0.2350** at 1x (2x 0.1904 / 0.2440 / 0.1986 and 0.2194 / 0.3045 / 0.2344); no
+  `ssimOutside` or `ssimMean` row falls in 73 rows; every thin cell and every dark-backdrop thin
+  cell byte-identical. The predicted residual is named: `photo__rrect-md` over-corrects to 0.1803
+  against 0.2013 (a structured backdrop's blurred light is not the tone statistic the tier keys on;
+  closes with the two-layer body), and two dark-backdrop thick cells move by one code on ≤ 3% of
+  pixels (the GPU tier's lift over `dark-solid` is not identically zero either).
+- **S7** — the user's eye at the landing.
+
+**4. The twelve rows the landing must reproduce** — `ssimMean`, GPU tier, the checkerboard cells
+(the W12 close in parentheses):
+
+| cell | 1x | 2x |
+| --- | --- | --- |
+| `rrect-sm` | 0.9988 (0.9988) | 0.9978 (0.9977) |
+| `capsule-button` | 0.9852 (0.9852) | 0.9836 (0.9836) |
+| `rrect-md` | **0.9859** (0.9695) | **0.9840** (0.9516) |
+| `rrect-ml` | **0.9788** (0.9482) | **0.9746** (0.9158) |
+| `glass-over-glass` | **0.9807** (0.9520) | **0.9762** (0.9211) |
+| `rrect-lg` | **0.9687** (0.9428) | **0.9680** (0.9113) |
+
+`toolbar-group` 0.9642 / 0.9662 (unchanged). `ssimOutside` on the four large cells: 0.9959 / 0.9962
+/ 0.9950 / 0.9935 at 1x, 0.9934 / 0.9932 / 0.9900 / 0.9885 at 2x.
+
+**5. What the landing does (G2).** Under X8, **W14 lands first** — W13's third form is still
+fitting, and it re-runs its dry run on this bed after. The landing: merge the branch; `rm
+results/matrix.json` and rebuild the canonical matrix on both tiers, both scales, both schemes and
+the accessibility profiles; the three 2x texture floors **come off by fix** (they meet 0.93;
+UNMET_ROWS 11 → 8) and `PREDICATE_EXCLUDES` is re-derived from the machine's output; bounds for
+`ssimOutside` and X7's pair are set from the rebuilt bed (Decision Log 1 q3, user); every scene
+golden re-recorded behind the isolation proof with the mechanism named; the demo fixture re-copied;
+the landing sheets at both scales for the user's eye (S7). Carried open into the landing's record
+and W14's Deferred: the CSS tier's `photo` over-correction, the span-160 anchor unfitted, the
+reference's band turnover between spans 130 and 160 (§5.65 §4), the thin law's unmeasured ramp
+below L 0.06, the un-keyed thick law over near-black backdrops, and the mid plateau's dark end.
+
