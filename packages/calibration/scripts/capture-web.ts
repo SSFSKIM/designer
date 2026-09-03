@@ -348,6 +348,8 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",
   "sizeScatterRampStartThick2x",
+  "sizeScatterRampStartFar1x",
+  "sizeScatterRampStartFar2x",
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
   // The lens (W12 G2): the gain on the reference's amount law, the height and

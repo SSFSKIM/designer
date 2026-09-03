@@ -160,7 +160,14 @@ export function observeDevicePixelRatio(
   };
 }
 
-/** The live feed. `window.matchMedia`, bound so the pure form above stays testable. */
-export function browserMediaMatcher(): MediaMatcher {
-  return (query) => window.matchMedia(query);
+/**
+ * The live feed: `matchMedia` on the given window, bound so the pure form above
+ * stays testable. The window is a parameter because a root may be created for
+ * a window other than the ambient one (an iframe, a popup), and a media query
+ * registered on the wrong window reports the wrong context's state — the
+ * resolution query above would never fire for a display change the supplied
+ * window saw.
+ */
+export function browserMediaMatcher(view: Pick<Window, "matchMedia"> = window): MediaMatcher {
+  return (query) => view.matchMedia(query);
 }

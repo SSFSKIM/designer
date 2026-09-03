@@ -108,8 +108,7 @@ import {
   resolvedPolicyFold,
   resolvedTintShade,
   CSS_TIER_RAMP_SCALE,
-  scatterThickness,
-  sizeScatterSigmaAt,
+  groupScatterSigma,
   sizeThickness,
   sizeOcclusionAlphaAt,
   sizeThicknessUnderPolicy,
@@ -621,7 +620,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const geometry: GeometrySync = createGeometrySync({ scene, meter, window: view });
 
   const accessibilityFeed: AccessibilityFeed = observeAccessibilityPreferences({
-    matcher: options.matcher ?? browserMediaMatcher(),
+    matcher: options.matcher ?? browserMediaMatcher(view),
     onChange: (preferences) => scene.setSystemAccessibility(preferences),
   });
   scene.setSystemAccessibility(accessibilityFeed.preferences);
@@ -642,7 +641,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * why this listens for the ratio itself rather than trusting that.
    */
   const devicePixelRatioFeed: DevicePixelRatioFeed = observeDevicePixelRatio({
-    matcher: options.matcher ?? browserMediaMatcher(),
+    // On the SUPPLIED window (review, W13 G1): a root created for an iframe or
+    // a popup reads that window's ratio, so the resolution query that wakes the
+    // feed has to be registered there too, or a display change in that context
+    // leaves the CSS blur and the GPU pyramid at the old scale until something
+    // unrelated invalidates.
+    matcher: options.matcher ?? browserMediaMatcher(view),
     read: () => view.devicePixelRatio,
     onChange: () => geometry.markAllDirty(),
   });
@@ -1311,32 +1315,23 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * it: after G1 that left every proxy at 1.25 px under a padding derived for
        * 4.75 px and more.
        */
-      // The widest member and its own extents together: the span picks the
-      // member and the projection is integrated over that member's box, since
-      // the σ this proxy blurs at is the one `cssTierDeclarations` writes for it.
-      let groupSpanPx = 0;
-      let groupExtentsCssPx: readonly [number, number] | undefined;
-      for (const entry of measured) {
-        const span = Math.min(entry.bounds.width, entry.bounds.height);
-        if (span > groupSpanPx) {
-          groupSpanPx = span;
-          groupExtentsCssPx = [entry.bounds.width, entry.bounds.height];
-        }
-      }
-      const groupBlurRadius = sizeScatterSigmaAt(
+      // The widest σ any member samples with, taken as the maximum of each
+      // member's own PROJECTED σ rather than the σ at the widest short span
+      // (review, W13 G1): the projection is the ramp's area average over the
+      // member's box, so it depends on both extents, and a 1200×160 strip
+      // projects heavier than a 160×160 square of the same short span. Ordering
+      // by span alone made the pick depend on registration order between such
+      // members and could hand the strip the square's smaller σ.
+      // The ramp's projection at the same scale `cssTierDeclarations` reads it
+      // at (`CSS_TIER_RAMP_SCALE`), because this σ has to be the one that tier
+      // will really write — the proxy is that blur in another position.
+      const groupBlurRadius = groupScatterSigma(
         optics.blurRadius,
-        // The ramp's projection at the same scale `cssTierDeclarations` reads it
-        // at (`CSS_TIER_RAMP_SCALE`), because this σ has to be the one that tier
-        // will really write — the proxy is that blur in another position.
-        scatterThickness(
-          groupSpanPx,
-          sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
-          sizeConstants,
-          CSS_TIER_RAMP_SCALE,
-          groupExtentsCssPx,
-        ),
+        sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
+        measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
         dpr,
+        CSS_TIER_RAMP_SCALE,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,

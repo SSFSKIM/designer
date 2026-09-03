@@ -406,8 +406,14 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
           CSS_TIER_RAMP_SCALE,
           surface.extentsCssPx,
         );
+  // The fast path is taken only where nothing at all would change: at a ratio
+  // other than 1 the sharp width is still divided by the ratio below (the body's
+  // widths are device-pixel quantities, claims §5.56), so a zero mix at dpr 2 is
+  // not the policy optics unchanged — it is half their blur. Returning early
+  // there emitted the 1x width on a 2x context whenever a patched profile zeroed
+  // the floor on a surface at or below `sizeSpanMin` (review, W13 G1).
   const optics: MaterialOptics =
-    sizeK === 0 && scatterK === 0
+    sizeK === 0 && scatterK === 0 && (surface.devicePixelRatio ?? 1) === 1
       ? policyOptics
       : {
           ...policyOptics,

@@ -591,9 +591,31 @@ export interface MaterialProfile {
    * `…2x` at dpr 2, the pair interpolated linearly in dpr and held constant
    * outside [1, 2] (`scatterRampStart`, `scatterRampReachDevicePx`).
    *
-   * PROVISIONAL, all six. The runtime sweep at this form sets them, because the
-   * paper model over-credited the mip chain's heavy tap once already (§5.58 §1)
-   * and no constant lands on a paper prediction again. What they carry now:
+   * **The FOURTH form: the start keeps falling past the thickness knee (W13
+   * Decision Log 6; claims §5.67 §4, §6).** The third form's holdout failed on
+   * one row for the form's own arithmetic: `sizeThickness` saturates at
+   * `sizeSpanMax` 96, so spans 96, 128, 130 and 160 all received the identical
+   * thick start while G0 read the reference's start FALLING across exactly
+   * those spans (0.512 → 0.501 → 0.410), and because the deep value keeps
+   * falling to `sizeScatterSpanMax` the excursion GREW with span (0.039 →
+   * 0.156 → 0.284) where the reference's shrinks — `rrect-lg` overshot its
+   * interior by 33%. So the start gets a slow decline along the scatter
+   * facet's own curve above the knee, `startFar` being its value at span ≥
+   * `sizeScatterSpanMax`:
+   *
+   *   s₀(span) = thin + (thick − thin) · sizeThickness(span)
+   *            + (far − thick) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
+   *
+   * Two curves the material already has, one more constant per scale, and no
+   * new span statistic. At 2x `far` sits below the thick anchor, so the null
+   * the third form verified bit-exactly (§5.67 §2) holds by construction: an
+   * excursion that was zero at every span stays zero when its start falls
+   * further.
+   *
+   * PROVISIONAL, all eight. The runtime sweep at this form sets them, because
+   * the paper model over-credited the mip chain's heavy tap once already
+   * (§5.58 §1) and no constant lands on a paper prediction again. What they
+   * carry now:
    *
    * **1x — thin 0.64, thick 0.52, reach 120 device px.** G0's own start
    * readings are 0.637 on `rrect-sm` and 0.642 on the capsule at the thin end
@@ -616,11 +638,18 @@ export interface MaterialProfile {
    * span law's floor, knee and top are what miss at that scale, and no
    * one-signed excursion above them can express it. That fit is W13's Deferred
    * charter and not this constant's business.
+   *
+   * **far — 0.40 at 1x, 0.15 at 2x.** G0's `rrect-lg` reading is 0.410 at span
+   * 160, where the decline's curve is at 0.35 of its rise, so the value at its
+   * top sits a little below that reading; the sweep on the W14 bed sets it. At
+   * 2x it is below the thick anchor so that the null holds.
    */
   readonly sizeScatterRampStartThin1x: number;
   readonly sizeScatterRampStartThick1x: number;
+  readonly sizeScatterRampStartFar1x: number;
   readonly sizeScatterRampStartThin2x: number;
   readonly sizeScatterRampStartThick2x: number;
+  readonly sizeScatterRampStartFar2x: number;
   readonly sizeScatterRampReach1xPx: number;
   readonly sizeScatterRampReach2xPx: number;
 
@@ -1181,8 +1210,10 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // `MaterialProfile.sizeScatterRampStartThin1x`.
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
+  sizeScatterRampStartFar1x: 0.4,
   sizeScatterRampStartThin2x: 0.46,
   sizeScatterRampStartThick2x: 0.17,
+  sizeScatterRampStartFar2x: 0.15,
   sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
@@ -1462,6 +1493,8 @@ export const SIZE_SCATTER_RAMP_START_THICK_1X =
 export const SIZE_SCATTER_RAMP_START_THIN_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin2x;
 export const SIZE_SCATTER_RAMP_START_THICK_2X =
   DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick2x;
+export const SIZE_SCATTER_RAMP_START_FAR_1X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar1x;
+export const SIZE_SCATTER_RAMP_START_FAR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar2x;
 export const SIZE_SCATTER_RAMP_REACH_1X_PX = DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx;
 export const SIZE_SCATTER_RAMP_REACH_2X_PX = DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach2xPx;
 export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
@@ -1508,8 +1541,10 @@ export interface MaterialProfilePatch {
   readonly sizeScatterSpanMax?: number;
   readonly sizeScatterRampStartThin1x?: number;
   readonly sizeScatterRampStartThick1x?: number;
+  readonly sizeScatterRampStartFar1x?: number;
   readonly sizeScatterRampStartThin2x?: number;
   readonly sizeScatterRampStartThick2x?: number;
+  readonly sizeScatterRampStartFar2x?: number;
   readonly sizeScatterRampReach1xPx?: number;
   readonly sizeScatterRampReach2xPx?: number;
   readonly sizeOcclusionGain?: number;
@@ -1630,6 +1665,8 @@ export function withMaterialOverrides(
       patch.sizeScatterRampStartThin2x ?? base.sizeScatterRampStartThin2x,
     sizeScatterRampStartThick2x:
       patch.sizeScatterRampStartThick2x ?? base.sizeScatterRampStartThick2x,
+    sizeScatterRampStartFar1x: patch.sizeScatterRampStartFar1x ?? base.sizeScatterRampStartFar1x,
+    sizeScatterRampStartFar2x: patch.sizeScatterRampStartFar2x ?? base.sizeScatterRampStartFar2x,
     sizeScatterRampReach1xPx: patch.sizeScatterRampReach1xPx ?? base.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx: patch.sizeScatterRampReach2xPx ?? base.sizeScatterRampReach2xPx,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
@@ -2261,7 +2298,9 @@ export function sizeScatterSigma(
  * higher on the thin surfaces than on the thick ones, and the curve it grades
  * along is `sizeThickness` — the material's existing knee at 64, not a new
  * statistic. A single start per scale was the second form and its sweep refuted
- * it (claims §5.64 §2).
+ * it (claims §5.64 §2). And past that knee the start keeps FALLING, along the
+ * scatter facet's own curve to `far` at `sizeScatterSpanMax` — the fourth form,
+ * from the third's one holdout failure (claims §5.67 §4).
  *
  * `scatterRampReachDevicePx` carries the dpr rule on the reach; the two are
  * separate functions so a sweep can move one without the other, and the reach
@@ -2282,7 +2321,17 @@ export function scatterRampStart(
     profile.sizeScatterRampStartThick2x,
     devicePixelRatio,
   );
-  return thin + (thick - thin) * sizeThickness(spanPx, profile);
+  const far = rampAtScale(
+    profile.sizeScatterRampStartFar1x,
+    profile.sizeScatterRampStartFar2x,
+    devicePixelRatio,
+  );
+  // The fourth form (W13 Decision Log 6): past the thickness knee the start keeps
+  // falling along the scatter facet's own curve, from the thick anchor at
+  // `sizeSpanMax` to `far` at `sizeScatterSpanMax`. Same curve the deep value
+  // rises along, so the two are one span statistic read twice.
+  const decline = smoothstep(profile.sizeSpanMax, profile.sizeScatterSpanMax, spanPx);
+  return thin + (thick - thin) * sizeThickness(spanPx, profile) + (far - thick) * decline;
 }
 
 /**

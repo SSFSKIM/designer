@@ -952,6 +952,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // in CSS px because the field's depth is in CSS px.
         sizeScatterRampStartThin: scatterRampStart(dpr, material, 0),
         sizeScatterRampStartThick: scatterRampStart(dpr, material, material.sizeSpanMax),
+        // The fourth form's far end, at the scatter span curve's top; the shader
+        // declines from the thick end to it along that curve.
+        sizeScatterRampStartFar: scatterRampStart(dpr, material, material.sizeScatterSpanMax),
         sizeScatterRampReachCssPx: scatterRampReachDevicePx(dpr, material) / dpr,
         sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         backdropTone,

@@ -154,6 +154,13 @@ export function expectByteIdentical(a: Rgb, b: Rgb, what: string): void {
  */
 export function expectedProxyBlur(options: {
   readonly spanPx: number;
+  /**
+   * The member's own width and height. The ramp's projection is its area
+   * average over the member's box (W13 G1), so a 120×40 fixture projects a
+   * different σ from a 40×40 square of the same span; a spec that omits this
+   * asserts the square's number against a runtime that renders the box's.
+   */
+  readonly extentsCssPx?: readonly [number, number];
   readonly reducedTransparency?: boolean;
   readonly devicePixelRatio?: number;
 }): { readonly sigma: number; readonly padding: number } {
@@ -177,6 +184,7 @@ export function expectedProxyBlur(options: {
       MATERIAL_SOURCE_SIZE.refractionScale[accessibilityRefractionCap(policy)],
       MATERIAL_SOURCE_SIZE,
       CSS_TIER_RAMP_SCALE,
+      options.extentsCssPx,
     ),
     MATERIAL_SOURCE_SIZE,
     options.devicePixelRatio ?? 1,

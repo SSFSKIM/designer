@@ -187,6 +187,8 @@ export interface OpticsPassArgs {
    */
   readonly sizeScatterRampStartThin: number;
   readonly sizeScatterRampStartThick: number;
+  /** The start at `sizeScatterSpanMax` and beyond (the fourth form); the shader declines to it. */
+  readonly sizeScatterRampStartFar: number;
   readonly sizeScatterRampReachCssPx: number;
   readonly sizeFold: number;
   /**
@@ -682,7 +684,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[88] = args.outerShadowThick[0];
       d[89] = args.outerShadowThick[1];
       d[90] = args.outerShadowThick[2];
-      d[91] = 0;
+      // The depth ramp's FAR start (W13 G1's fourth form), in the padding slot
+      // W14 left free beside the thick regime's three anchors; the shader's own
+      // comment names it where it is read.
+      d[91] = args.sizeScatterRampStartFar;
       d[92] = args.outerShadowLift[0];
       d[93] = args.outerShadowLift[1];
       d[94] = args.outerShadowLift[2];

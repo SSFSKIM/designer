@@ -459,6 +459,12 @@ describe("tier coherence (K5)", () => {
     expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick2x,
     );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar1x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar2x,
+    );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx,
     );
@@ -476,6 +482,8 @@ describe("tier coherence (K5)", () => {
       sizeScatterRampStartThick1x: 0.55,
       sizeScatterRampStartThin2x: 0.3,
       sizeScatterRampStartThick2x: 0.15,
+      sizeScatterRampStartFar1x: 0.45,
+      sizeScatterRampStartFar2x: 0.1,
       sizeScatterRampReach1xPx: 90,
       sizeScatterRampReach2xPx: 130,
       sizeOcclusionGain: 0.4,
@@ -490,6 +498,8 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeScatterRampStartThick1x).toBe(profile.sizeScatterRampStartThick1x);
     expect(mirrored.sizeScatterRampStartThin2x).toBe(profile.sizeScatterRampStartThin2x);
     expect(mirrored.sizeScatterRampStartThick2x).toBe(profile.sizeScatterRampStartThick2x);
+    expect(mirrored.sizeScatterRampStartFar1x).toBe(profile.sizeScatterRampStartFar1x);
+    expect(mirrored.sizeScatterRampStartFar2x).toBe(profile.sizeScatterRampStartFar2x);
     expect(mirrored.sizeScatterRampReach1xPx).toBe(profile.sizeScatterRampReach1xPx);
     expect(mirrored.sizeScatterRampReach2xPx).toBe(profile.sizeScatterRampReach2xPx);
     expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
@@ -522,6 +532,8 @@ describe("tier coherence (K5)", () => {
         sizeScatterRampStartThick1x: 0.55,
         sizeScatterRampStartThin2x: 0.3,
         sizeScatterRampStartThick2x: 0.15,
+        sizeScatterRampStartFar1x: 0.45,
+        sizeScatterRampStartFar2x: 0.1,
         sizeScatterRampReach1xPx: 90,
         sizeScatterRampReach2xPx: 130,
       },
@@ -721,6 +733,8 @@ describe("tier coherence (K5)", () => {
       sizeScatterRampStartThick1x: 0,
       sizeScatterRampStartThin2x: 0,
       sizeScatterRampStartThick2x: 0,
+      sizeScatterRampStartFar1x: 0,
+      sizeScatterRampStartFar2x: 0,
     };
     const mirrored = sourceSize(patch);
     const nominal = cssTierOptics(patch).regular.blurRadius;

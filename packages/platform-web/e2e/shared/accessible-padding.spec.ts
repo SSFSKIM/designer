@@ -169,6 +169,7 @@ test("and it still fires where the leak is real, under the very preference that 
   // diagnostics doctrine.
   const { padding } = expectedProxyBlur({
     spanPx: TOOLBAR_SPAN,
+    extentsCssPx: [96, 44],
     reducedTransparency: true,
     devicePixelRatio: await deviceScaleOf(page),
   });
@@ -202,11 +203,13 @@ test("the geometry really is at the floor, not merely unreported", async ({ page
   const dpr = await deviceScaleOf(page);
   const toolbar = expectedProxyBlur({
     spanPx: TOOLBAR_SPAN,
+    extentsCssPx: [96, 44],
     reducedTransparency: true,
     devicePixelRatio: dpr,
   });
   const hero = expectedProxyBlur({
     spanPx: 120,
+    extentsCssPx: [200, 120],
     reducedTransparency: true,
     devicePixelRatio: dpr,
   });
@@ -231,6 +234,7 @@ test("an author's own padding keeps their number, and keeps its warning", async 
   // two engines and over it on the third tests the engines, not the runtime.
   const { padding } = expectedProxyBlur({
     spanPx: TOOLBAR_SPAN,
+    extentsCssPx: [96, 44],
     reducedTransparency: true,
     devicePixelRatio: await deviceScaleOf(page),
   });
@@ -265,6 +269,7 @@ test("nothing moves at the nominal state, which is where every golden was taken"
   });
 
   const { padding } = expectedProxyBlur({
+    extentsCssPx: [140, 44],
     spanPx: 44,
     devicePixelRatio: await deviceScaleOf(page),
   });

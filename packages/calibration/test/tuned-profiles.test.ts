@@ -87,6 +87,8 @@ const FITTED_CONSTANTS = [
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",
   "sizeScatterRampStartThick2x",
+  "sizeScatterRampStartFar1x",
+  "sizeScatterRampStartFar2x",
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
   // W12 G2's lens (claims §5.50–§5.51): the reference's height and amount laws

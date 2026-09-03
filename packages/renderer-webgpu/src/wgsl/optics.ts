@@ -165,7 +165,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// the outer shadow's THICK regime (W14 G1): the composite's peak linear
   /// occlusion at casting spans 96, 128 and 160 CSS px (xyz), already folded
   /// under the accessibility policy, piecewise-linear between and held outside;
-  /// w is padding
+  /// and (w) the body depth ramp's FAR start (W13 G1's fourth form) — the start
+  /// at span >= sizeScatterSpanMax, which the ramp declines to from the thick
+  /// end along the scatter span curve, in the slot W14 left free
   shadowThick : vec4f,
   /// the lift (W14 G1), the shadow's second term and GPU-tier only: its peak
   /// amplitude in LINEAR light as a fraction of the blurred backdrop's own
@@ -495,6 +497,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    *
    *   kDeep = floor + (1 - floor) * smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
    *   s0    = startThin + (startThick - startThin) * sizeThickness(span)
+   *         + (startFar - startThick) * smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
    *   s(u)  = (1 - kDeep) + max(0, s0 - (1 - kDeep)) * max(0, 1 - u / U)
    *   k(u)  = 1 - s(u)
    *
@@ -514,6 +517,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * smoothstep 'sizeK' is built from above, unfolded, because s0 is a share the
    * reference has and not a rise a preference removes. The fold below still
    * applies once, on the composed mix.
+   *
+   * The THIRD form stopped there and its holdout failed on one row for the
+   * form's own arithmetic (claims §5.67 §4): sizeThickness saturates at
+   * sizeSpanMax, so every thick span got the same start while the reference's
+   * start keeps FALLING across the thick spans, and because kDeep keeps rising
+   * to sizeScatterSpanMax the excursion grew with span where the reference's
+   * shrinks. So the FOURTH form declines the start past the knee along the
+   * scatter span curve itself — the same smoothstep 'deepT' is built from, on
+   * the band above the thickness knee — from the thick anchor to startFar at
+   * sizeScatterSpanMax. Same curve read twice, no new span statistic.
    *
    * '-d' is the depth, in group-local CSS px and unclamped - the same quantity
    * the lens's 'lensT' and the inner shadow's 'shadowT' are evaluated from,
@@ -537,7 +550,10 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let kDeep = scatterFloor + (1.0 - scatterFloor) * deepT * deepT * (3.0 - 2.0 * deepT);
   let sDeep = 1.0 - kDeep;
   let rampT = max(1.0 - max(-d, 0.0) / max(ou.lensOval.z, 1e-6), 0.0);
-  let rampStart = ou.scatter.y + (ou.shadowSize.z - ou.scatter.y) * sizeThick;
+  let farT = clamp((span - ou.scatter.w) / max(ou.lensOval.w - ou.scatter.w, 1e-6), 0.0, 1.0);
+  let farS = farT * farT * (3.0 - 2.0 * farT);
+  let rampStart = ou.scatter.y + (ou.shadowSize.z - ou.scatter.y) * sizeThick
+    + (ou.shadowThick.w - ou.shadowSize.z) * farS;
   let sharpShare = clamp(sDeep + max(rampStart - sDeep, 0.0) * rampT, 0.0, 1.0);
   let kScatter = clamp(scatterFloor + ((1.0 - sharpShare) - scatterFloor) * fold, 0.0, 1.0);
   // The inner shadow's depth and profile: W2's law, byte for byte — the

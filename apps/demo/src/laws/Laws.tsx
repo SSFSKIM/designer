@@ -108,6 +108,16 @@ function navigate(renderer: "css" | "webgpu", rung?: Rung): void {
   window.location.assign(url.toString());
 }
 
+/**
+ * The body plate's rendered width: `.plate` is `min(20rem, 100%)` in the
+ * stylesheet, which is 320 CSS px at the root size the demo ships with. The
+ * readout projects the law over the plate's own box (review, W13 G1), so the
+ * box's width has to be stated here rather than guessed as a square of the
+ * span; on a viewport narrower than 20rem the plate is narrower than this and
+ * the readout is that much of an approximation.
+ */
+const BODY_PLATE_WIDTH_CSS_PX = 320;
+
 export function Laws(props: LawsProps): ReactNode {
   const policy = useGlassAccessibility();
   const active = useActiveSection();
@@ -125,7 +135,10 @@ export function Laws(props: LawsProps): ReactNode {
   const tone = toneLaw(toneLevel);
   const tint = seedColour(seed, strength);
   const cap = policy === undefined ? "true" : accessibilityRefractionCap(policy.material);
-  const body = bodyLaw(bodySpan, MATERIAL_SOURCE_SIZE.refractionScale[cap]);
+  const body = bodyLaw(bodySpan, MATERIAL_SOURCE_SIZE.refractionScale[cap], [
+    BODY_PLATE_WIDTH_CSS_PX,
+    bodySpan,
+  ]);
   const rung: Rung =
     props.requestedRenderer === "css" || cap === "none"
       ? "none"

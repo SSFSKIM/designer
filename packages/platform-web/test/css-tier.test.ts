@@ -34,6 +34,9 @@ import {
   CSS_TIER_RAMP_SCALE,
   scatterThickness as cssScatterThickness,
   sizeThickness,
+  groupScatterSigma,
+  sizeScatterSigmaAt,
+  sourceSize,
   sourceOuterShadow,
 } from "../src/optics";
 
@@ -732,6 +735,8 @@ describe("the size law reaches the CSS tier", () => {
     sizeScatterRampStartThick1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick1x,
     sizeScatterRampStartThin2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x,
     sizeScatterRampStartThick2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x,
+    sizeScatterRampStartFar1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar1x,
+    sizeScatterRampStartFar2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar2x,
     sizeScatterRampReach1xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx,
     sizeOcclusionGain: 0.4,
@@ -1284,3 +1289,48 @@ describe("the outer shadow reaches the CSS tier", () => {
     expect(MATERIAL_SOURCE_OUTER_SHADOW.liftBlurSigmaCss).toBe(40);
   });
 });
+
+describe("the two review findings on the ramp's projection (W13 G1)", () => {
+  it("takes the group's sigma as the maximum PROJECTED sigma over its members, in any order", () => {
+    // Two members of the same short span and different aspect: the strip's
+    // projection is heavier than the square's, because the ramp's area average
+    // is over the member's own box. The old rule picked by short span with a
+    // strict greater-than, so the square registered first kept its smaller σ.
+    const square: readonly [number, number] = [160, 160];
+    const strip: readonly [number, number] = [1200, 160];
+    const fold = MATERIAL_SOURCE_SIZE.refractionScale.true;
+    const base = MATERIAL_OPTICS.regular.blurRadius;
+    const alone = (member: readonly [number, number]): number =>
+      groupScatterSigma(base, fold, [member]);
+    expect(alone(strip)).toBeGreaterThan(alone(square));
+    expect(groupScatterSigma(base, fold, [square, strip])).toBeCloseTo(alone(strip), 12);
+    expect(groupScatterSigma(base, fold, [strip, square])).toBeCloseTo(alone(strip), 12);
+    // Nothing measured: the projection at span 0, where the old rule left an
+    // unmeasured group too.
+    expect(groupScatterSigma(base, fold, [])).toBeCloseTo(
+      sizeScatterSigmaAt(base, cssScatterThickness(0, fold)),
+      12,
+    );
+  });
+
+  it("divides the sharp width by the ratio even where the mix is zero", () => {
+    // A patched profile with no floor, on a surface at or below sizeSpanMin, has
+    // sizeK 0 and scatterK 0 — and at dpr 2 the width is still a device-pixel
+    // quantity, so the tier must emit half the 1x blur, not the 1x blur.
+    const size = sourceSize({ sizeScatterFloor: 0 });
+    const declared = cssTierDeclarations({
+      ...surface,
+      size,
+      spanPx: MATERIAL_SOURCE_SIZE.sizeSpanMin,
+      devicePixelRatio: 2,
+    });
+    const blur = Number.parseFloat((declared["--vitrea-blur"] ?? "0px").replace("px", ""));
+    // The tier writes two decimals, so the comparison is against the halved
+    // width at the same rounding — and not against the 1x width, which is what
+    // the fast path used to emit here.
+    expect(blur).toBe(Number((MATERIAL_OPTICS.regular.blurRadius / 2).toFixed(2)));
+    expect(blur).not.toBe(Number(MATERIAL_OPTICS.regular.blurRadius.toFixed(2)));
+    expect(declared["backdrop-filter"]).toContain(`blur(${blur}px)`);
+  });
+});
+

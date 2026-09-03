@@ -86,6 +86,7 @@ test.describe("one masked proxy per sampling group", () => {
     // Derived rather than written down: see `expectedProxyBlur`.
     const { padding } = expectedProxyBlur({
       spanPx: 40,
+      extentsCssPx: [120, 40],
       devicePixelRatio: await deviceScaleOf(page),
     });
     expect(padding).toBeGreaterThan(4);
@@ -111,6 +112,7 @@ test.describe("one masked proxy per sampling group", () => {
     // number is written exactly as the runtime computes it.
     const { sigma } = expectedProxyBlur({
       spanPx: 40,
+      extentsCssPx: [120, 40],
       devicePixelRatio: await deviceScaleOf(page),
     });
     expect(inline).toContain(`backdrop-filter:blur(${sigma}px) saturate(1.8)`);

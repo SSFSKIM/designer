@@ -631,8 +631,10 @@ export interface MaterialSourceSize {
    */
   readonly sizeScatterRampStartThin1x: number;
   readonly sizeScatterRampStartThick1x: number;
+  readonly sizeScatterRampStartFar1x: number;
   readonly sizeScatterRampStartThin2x: number;
   readonly sizeScatterRampStartThick2x: number;
+  readonly sizeScatterRampStartFar2x: number;
   readonly sizeScatterRampReach1xPx: number;
   readonly sizeScatterRampReach2xPx: number;
   readonly sizeOcclusionGain: number;
@@ -657,8 +659,10 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterSpanMax: 256,
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
+  sizeScatterRampStartFar1x: 0.4,
   sizeScatterRampStartThin2x: 0.46,
   sizeScatterRampStartThick2x: 0.17,
+  sizeScatterRampStartFar2x: 0.15,
   sizeScatterRampReach1xPx: 80,
   sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
@@ -1091,6 +1095,10 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
       patch?.sizeScatterRampStartThin2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x,
     sizeScatterRampStartThick2x:
       patch?.sizeScatterRampStartThick2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x,
+    sizeScatterRampStartFar1x:
+      patch?.sizeScatterRampStartFar1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar1x,
+    sizeScatterRampStartFar2x:
+      patch?.sizeScatterRampStartFar2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar2x,
     sizeScatterRampReach1xPx:
       patch?.sizeScatterRampReach1xPx ?? MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx:
@@ -1202,6 +1210,7 @@ export const CSS_TIER_RAMP_SCALE = 1;
  *
  * ```
  * s₀(span, dpr) = startThin(dpr) + (startThick(dpr) − startThin(dpr)) · sizeThickness(span)
+ *               + (startFar(dpr) − startThick(dpr)) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
  * ```
  *
  * In dpr: the reference was read at dpr 1 and dpr 2 and nowhere between, so
@@ -1225,7 +1234,15 @@ export function scatterRampStart(
     size.sizeScatterRampStartThick2x,
     devicePixelRatio,
   );
-  return thin + (thick - thin) * sizeThickness(spanPx, size);
+  const far = rampAtScale(
+    size.sizeScatterRampStartFar1x,
+    size.sizeScatterRampStartFar2x,
+    devicePixelRatio,
+  );
+  // The fourth form: past the thickness knee the start declines along the
+  // scatter span curve to `far` at its top (the renderer's comment has the why).
+  const decline = smoothstep(size.sizeSpanMax, size.sizeScatterSpanMax, spanPx);
+  return thin + (thick - thin) * sizeThickness(spanPx, size) + (far - thick) * decline;
 }
 
 /**
@@ -1380,6 +1397,45 @@ export function sizeScatterSigmaAt(
 ): number {
   const mix = clamp01(scatter);
   return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (size.sizeScatterGainMax - 1) * mix);
+}
+
+/**
+ * The σ a group's proxy blurs with: the widest σ any measured member samples
+ * with, as the MAXIMUM of each member's own projected σ (review, W13 G1).
+ *
+ * The ramp's projection is its area average over the member's box, so it
+ * depends on both extents: a 1200×160 strip projects heavier than a 160×160
+ * square of the same short span. Picking the member by short span alone, as
+ * the group did before, made the choice depend on registration order between
+ * two such members and could hand the strip the square's smaller σ — and the
+ * 3σ padding floor with it. A group with nothing measured has no span to take
+ * and sits at the projection of span 0, exactly where the widest-member rule
+ * left it.
+ */
+export function groupScatterSigma(
+  sigmaPx: number,
+  fold: number,
+  members: readonly (readonly [number, number])[],
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+  projectionScale = 1,
+): number {
+  let widest = sizeScatterSigmaAt(
+    sigmaPx,
+    scatterThickness(0, fold, size, projectionScale),
+    size,
+    devicePixelRatio,
+  );
+  for (const [width, height] of members) {
+    const own = sizeScatterSigmaAt(
+      sigmaPx,
+      scatterThickness(Math.min(width, height), fold, size, projectionScale, [width, height]),
+      size,
+      devicePixelRatio,
+    );
+    widest = Math.max(widest, own);
+  }
+  return widest;
 }
 
 /**

@@ -97,6 +97,7 @@ test.describe("the same-plane overlap dev-error", () => {
     const gap = 10;
     const { padding } = expectedProxyBlur({
       spanPx: 40,
+      extentsCssPx: [100, 40],
       devicePixelRatio: await deviceScaleOf(page),
     });
     expect(padding).toBeGreaterThan(gap);
@@ -130,7 +131,7 @@ test.describe("the same-plane overlap dev-error", () => {
     // mechanism the warning names provably does not occur here.
     // See `spikes/s1-proxy-topology/overlap-experiment/`.
     const gap = 22;
-    const { padding } = expectedProxyBlur({ spanPx: 40 });
+    const { padding } = expectedProxyBlur({ spanPx: 40, extentsCssPx: [100, 40] });
     expect(padding).toBeLessThan(gap);
     expect(2 * padding).toBeGreaterThan(gap);
 

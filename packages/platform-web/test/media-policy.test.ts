@@ -4,6 +4,7 @@ import {
   ACCESSIBILITY_MEDIA_QUERIES,
   observeAccessibilityPreferences,
   observeDevicePixelRatio,
+  browserMediaMatcher,
   type MediaMatcher,
 } from "../src/media-policy";
 
@@ -183,3 +184,32 @@ describe("the device-pixel-ratio feed (W12 G3)", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 });
+
+describe("browserMediaMatcher", () => {
+  it("registers its queries on the SUPPLIED window, not the ambient one", () => {
+    // A root created for an iframe or a popup reads that window's ratio, so the
+    // resolution query that wakes the dpr feed has to live there too; a query
+    // on the ambient window never fires for a display change the supplied
+    // window saw (review, W13 G1).
+    const asked: string[] = [];
+    const view = {
+      matchMedia: (query: string): MediaQueryList => {
+        asked.push(query);
+        return {
+          matches: false,
+          media: query,
+          addEventListener: () => {},
+          removeEventListener: () => {},
+        } as unknown as MediaQueryList;
+      },
+    };
+    const feed = observeDevicePixelRatio({
+      matcher: browserMediaMatcher(view),
+      read: () => 2,
+      onChange: () => {},
+    });
+    expect(asked).toEqual(["(resolution: 2dppx)"]);
+    feed.stop();
+  });
+});
+
