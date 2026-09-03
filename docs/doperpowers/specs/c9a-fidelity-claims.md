@@ -8292,3 +8292,92 @@ cannot supply is the open question the corrected fit answers; the mean
 level's scale-invariance on the large spans says a lower alpha alone is
 not it. Held for the user: hold the 2x body at `main` or re-open on the
 corrected objective.
+
+### 5.58 W12 G3, the corrected measurement and the runtime sweep: the device-pixel widths are right, the weight shift is wrong, the band is what is left (2026-09-03)
+
+Two instruments after the §5.57 fall, both under
+`results/2026-09-03-w12-lens/g3/`: the corrected dry run (`g3-measurement.md`
+§9 — vitrea's own level and transmission held, the band predicted through
+the landed lens, the transmission-held probe fit, the band's share of the
+loss) and a **runtime sweep** (`referee/sweep/`): the calibration
+harness's own `sweep.ts` turning the one new constant through the real
+GPU tier at 2x on the candidate branch (device-pixel widths built in),
+six points, scored on the calibration cells by the harness's interior
+objective (|Δ mean| + |Δ std| + |Δ rim| in linear light).
+
+#### 1. The corrected dry run (§9)
+
+Holding vitrea's own (a, t) — read from its `main` capture, reproducing
+`main`'s box std to 0.3% — and evaluating each candidate over the
+compare's silhouette, the paper model puts the 2x retained structure
+nearest native at **Δk ≈ 0.10**, not 0.35 (md / ml / lg 0.1218 / 0.1026 /
+0.0866 against native 0.1273 / 0.1023 / 0.0819; `main` 0.0975 / 0.0753 /
+0.0539). The probe fit with the transmission held at vitrea's still picks
+Δk 0.25–0.30, bought at pitch 8 and paid for at pitch 16 — the pitch the
+canonical rows are scored on. The band's share of the §5.57 loss is 60% /
+77% / 118% on md / ml / lg (the box on `rrect-lg` went *up*), so a
+box-only dry run is not evidence for a landing. And the same model read
+back over the candidate's capture implies a transmission 40–60% below
+`main`'s on the same cells — the candidate build did not render the
+kernel the model assumes: the GPU body is a mip chain, and one level's
+footprint is not the nominal Gaussian.
+
+#### 2. The runtime sweep — the renderer answers directly
+
+`interiorStdDev` over the compare's silhouette at 2x, webgpu, native |
+`main` | the candidate at `sizeScatterScaleTerm` 0 / 0.05 / 0.10 / 0.15 /
+0.20 / 0.35:
+
+| cell | native | `main` | 0 | 0.05 | 0.10 | 0.15 | 0.20 | 0.35 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.1636 | 0.1372 | **0.1647** | 0.1542 | 0.1447 | 0.1343 | 0.1249 | 0.0975 |
+| `capsule-button` | 0.1552 | 0.1189 | **0.1500** | 0.1398 | 0.1302 | 0.1204 | 0.1112 | 0.0836 |
+| `rrect-md` | 0.1272 | 0.0973 | **0.1260** | 0.1165 | 0.1063 | 0.0975 | 0.0882 | 0.0611 |
+| `rrect-ml` | 0.1018 | 0.0746 | **0.1029** | 0.0927 | 0.0839 | 0.0747 | 0.0649 | 0.0411 |
+
+**The device-pixel widths alone put the GPU tier's 2x interior structure
+on the reference at every span** — within 0.001 on `rrect-md` / `-ml` /
+`-sm` and 0.005 on the capsule — and every amount of weight shift moves
+it away, linearly, to the §5.57 values at 0.35 (the instrument check:
+0.0611 / 0.0411 reproduce §5.57's 0.0611 / 0.0411). The sweep's objective
+is monotone in the term (0.0661 at 0 → 0.0835 at 0.35); the paper model's
+"Δk 0.10" was the model's error about the chain, not the material's. The
+user's "sharper behind the glass at 2x" is, in the compare's own reading,
+the body being twice too wide in device pixels and nothing else.
+
+Whole-crop SSIM, the same points (`main` | 0 | 0.05 | 0.10 | 0.15 | 0.20 | 0.35):
+
+| cell | bound / floor | `main` | 0 | 0.05 | 0.10 | 0.15 | 0.20 | 0.35 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.93 | 0.9978 | **0.9985** | 0.9986 | 0.9986 | 0.9985 | 0.9984 | 0.9975 |
+| `capsule-button` | 0.93 | 0.9836 | **0.9855** | 0.9857 | 0.9857 | 0.9856 | 0.9853 | 0.9830 |
+| `rrect-md` | 0.93 | 0.9517 | 0.9455 | 0.9474 | 0.9485 | 0.9499 | 0.9501 | 0.9451 |
+| `rrect-ml` | 0.93 / 0.9013 | 0.9158 | **0.8998** | 0.9035 | 0.9090 | 0.9120 | 0.9123 | 0.9041 |
+
+The small spans rise; `rrect-md` and `-ml` end below `main` at every
+point, and at the point where the interior is right (0) `rrect-ml` sits
+below its floor and below the 0.3.0 bed — a hard stop. §9.5 says where:
+the band. With the interior now carrying the reference's structure, the
+lens refracts a crisp checker through the band, and the band's SSIM had
+been riding on the blur hiding two things — the lens's 0.6–1.3 px
+mid-depth residual at 2x (§5.55 §4), and the reference's **depth ramp**:
+its sharp share is ≈ 0.5 at the contour and 0 deep inside at 2x (§5.55
+§2, §5.50 §2's opacity ramp 0.5 → 1 over span/2), where vitrea's share is
+one number per span. A body that is right deep inside and sharper than
+the reference in the band is exactly what a uniform k produces once the
+widths are right. (`rrect-lg` and `glass-over-glass` are not calibration
+cells at 2x and were not swept.)
+
+#### 3. What this settles, and what it opens
+
+Settled: the reference's body kernel is one kernel in device pixels
+(§5.55 §1) and vitrea's GPU tier renders that kernel's interior exactly
+when its two widths are read in device pixels — no new constant, no
+weight shift. Not landable alone: the band. Opened: **the depth ramp on
+the sharp share** — k(u, span, dpr) rising from the contour inward, the
+reference's own mechanism, which the 1x fit approximated with a uniform
+k per span and which 2x now exposes — as the body's next structural
+round, carrying the device-pixel widths with it. The transmission's own
+scale term is §10's question (running). The G3 candidate branch
+(`w12-g3-candidate-a`) holds the implementation of the widths and the
+plumbing for a dpr term on the weight, for that round to start from.

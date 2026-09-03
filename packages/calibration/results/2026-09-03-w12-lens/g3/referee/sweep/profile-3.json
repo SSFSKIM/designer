@@ -1,0 +1,76 @@
+{
+  "patch": {
+    "optics": {
+      "regular": {
+        "blurSigma": 1.25,
+        "tintAlpha": 0.46,
+        "shadowAlpha": 0.05
+      }
+    },
+    "adaptiveTintDark": [
+      1,
+      1,
+      1
+    ],
+    "adaptiveTintLight": [
+      1,
+      1,
+      1
+    ],
+    "sizeShadowGainMax": 1,
+    "backdropToneSizeBias": 0.05,
+    "tintShadeDark": 0.5289,
+    "tintShadeLight": 1.0175,
+    "tintShadeStrength": 1,
+    "outerShadow": {
+      "occlusion": 0.285,
+      "reducedTransparencyOcclusion": 0.7,
+      "offsetPx": 7.95,
+      "sigmaPx": 15.55,
+      "spreadPx": 3.1,
+      "sizeGain": 0
+    },
+    "backdropToneLow": 0.02,
+    "increasedOcclusionLift": 0.75,
+    "sizeSpanMin": 32,
+    "sizeSpanMax": 96,
+    "lensSizeGainMax": 2.6,
+    "lensRefractionGain": 0.745,
+    "lensHeightPerSpan": 0.25,
+    "lensHeightMax": 20,
+    "lensAmountPerSpan": 0.8,
+    "lensAmountMax": 60,
+    "lensThicknessReference": 8,
+    "lensExtentGain": 1.337,
+    "lensProfileExponent": 3.69,
+    "lensOvalization": 0.8,
+    "lensOvalizationSpanMin": 64,
+    "lensOvalizationSpanMax": 72,
+    "sizeScatterGainMax": 8,
+    "sizeScatterFloor": 0.4,
+    "sizeScatterSpanMax": 256,
+    "sizeScatterScaleTerm": 0.15,
+    "sizeOcclusionGain": 0.05,
+    "backdropToneMax": 1,
+    "backdropToneHigh": 0.055,
+    "backdropToneAnchorX": [
+      0.1104,
+      0.2706,
+      0.9505
+    ],
+    "backdropToneResponseThin": [
+      0.0126,
+      0.4561,
+      0.9713
+    ],
+    "backdropToneResponseThick": [
+      0.4953,
+      0.5744,
+      0.9358
+    ],
+    "backdropToneResponseStrength": 1
+  },
+  "cssTierMapping": {
+    "referenceBackdropLuminance": 0.02
+  }
+}
