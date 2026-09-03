@@ -8096,3 +8096,111 @@ residual there before a law does, and they are in the fit set; pitch 4
 is at the identifiability ceiling on every cell; the crossings' boundary
 assignment uses §5.49 §2's profile as a window; the CSS ceiling is a
 ceiling, not a law.
+
+### 5.56 W12 G3 declared: the body's two widths are device-pixel quantities, and the sharp term's weight carries one scale term (2026-09-03)
+
+Declared before the landing capture, per Decision Log 5. The evidence is
+§5.55 and `results/2026-09-03-w12-lens/g3/g3-measurement.md` §8 (the
+1x-preserving variant, the exclusion refit, the canonical SSIM dry run).
+
+#### 1. The law
+
+The landed two-component body (§5.41 §6) with **two scale terms and no
+other change**, `dpr` the device pixel ratio the tier actually draws at:
+
+- the sharp width **σ_sharp,css = `blurSigma` / dpr** — 1.25 **device** px
+  (1.25 CSS px at 1x, 0.625 at 2x);
+- the heavy width **σ_heavy,css = `blurSigma` · `sizeScatterGainMax` / dpr**
+  — 10 **device** px (10 CSS px at 1x, 5 at 2x);
+- the scatter weight **k′ = min(1, k + `sizeScatterScaleTerm` · (dpr − 1))**,
+  k the landed curve 0.4 + 0.6 · smoothstep(32, 256, span) · fold, and
+  **`sizeScatterScaleTerm` = 0.35** — the one new constant (FITTED on the 2x
+  probe alone, an interior minimum: 0.30 → 0.0209, 0.35 → 0.0192, 0.40 →
+  0.0201; the same 0.35 with the three frequency-settled cells excluded).
+
+At dpr 1 every quantity equals the landed law exactly: the 1x claims of
+§5.41–§5.42 stand unamended and the 1x captures are predicted
+byte-identical. The reading it encodes is §5.55 §1's: the reference's
+body kernel is fixed in device pixels, and the second scale changes only
+how much of it leaks unblurred. W11 Decision Log 4's "fit at 1x, predict
+2x" is overturned for the body (W12 Decision Log 5).
+
+**Both tiers, one function (K5).** GPU: the pyramid takes the body σ in
+device texels (the `bodySigmaCss` it converts today, divided by dpr), the
+scatter level stays `bodyChainLod + log2(sizeScatterGainMax)` so the
+heavy width is eight body widths in device px, and the shader's `kScatter`
+is shifted by the term as a uniform resolved from the viewport's dpr.
+CSS: the one `blur()` is σ_css = (`blurSigma` / dpr) · (1 + (`sizeScatterGainMax`
+− 1) · k′) through the shared `sizeScatterSigmaAt`, reading the live
+`devicePixelRatio` and re-deriving on change as a policy change does; the
+3σ sampling-padding floor is taken over the σ actually used. The
+tier-coherence test pins both mirrors over dpr ∈ {1, 1.5, 2, 3}.
+
+#### 2. Why this form and not the pooled fit's
+
+§5.55 §5's F1 fits the pooled bed 0.0013 better at 2x (0.0179 against
+0.0192) by moving four landed 1x constants and paying 0.0017 of 1x
+residual. The declared form: (i) leaves 1x byte-identical; (ii) is
+better on the untouched `rrect-lg` holdout at 2x (0.0169 against 0.0200)
+and on the photo null (0.0153 against 0.0156); (iii) has one free
+parameter and it does not move under the exclusion refit, where two of
+F1's five do and F1's holdout degrades (0.0197 → 0.0220); (iv) the 0.0013
+it concedes is one grid step of F1's own sweeps; (v) it is the equal or
+better of the two on all ten GPU dry-run rows. Reading the sharp term in
+device px too (rather than leaving it 1.25 CSS px at 2x) is worth 0.0011
+of 2x residual and agrees with the measured 2x core (0.5–1.5 CSS px);
+reading the heavy width as 9 device px instead of the landed 10 costs
+0.0031 on the holdout.
+
+#### 3. The dry run (g3 §8.3; baselines the captures of the material on `main`, replica exact to 0.00000)
+
+| row | bound / floor | before | predicted |
+| --- | --- | --- | --- |
+| webgpu `rrect-md` 2x texture | 0.93 / — | 0.9517 | **0.9545** (meets) |
+| webgpu `rrect-ml` 2x texture | 0.93 / 0.9013 | 0.9158 | **0.9219** |
+| webgpu `rrect-lg` 2x texture | 0.93 / 0.9002 | 0.9113 | **0.9164** |
+| webgpu `rrect-sm` / `capsule` 2x | 0.93 | 0.9978 / 0.9836 | 0.9974 / 0.9832 |
+| webgpu, every 1x row | 0.88 | — | +0.0000 by construction |
+| css `rrect-md` / `-ml` / `-lg` 2x dom | 0.92 / 0.9159, 0.8754, 0.8686 | 0.9169 / 0.8765 / 0.8696 | 0.9187 / 0.8795 / 0.8700 |
+| css, every 1x row | 0.90 | — | +0.0000 by construction |
+
+The landed law in the same dry run moves the three 2x GPU rows *down*
+(0.9497 / 0.9110 / 0.9084): the body is measurably the 2x deficit.
+
+#### 4. The stops (a landing capture that trips one is not landed)
+
+1. The W12 stops of §5.51 §3: every cell moved by more than 0.005 SSIM
+   against the 0.3.0 bed named; no adopted bound or regression floor
+   regresses; no solid capture differs by a code value at either scale.
+2. **1x is unchanged:** every 1x GPU and CSS row within 0.002 of its value
+   under the material on `main`, and predicted +0.0000 — any 1x movement
+   at all is a capture-side surprise to be explained before landing.
+3. **2x moves as predicted:** the three GPU texture rows within ±0.003 of
+   §3 and none below its landing value; `rrect-md` 2x meets 0.93 (its
+   floor comes off by fix at X2); `rrect-ml` / `-lg` 2x clear 0.9013 /
+   0.9002.
+4. The 2x CSS rows not below their landing values by more than 0.002.
+5. Renderer goldens byte-identical at dpr 1; a dpr-2 golden recorded and
+   attributed if the harness can run one, else the reason recorded.
+6. By eye (X5): `sheets/g3-{2x,1x}.png` and A/B composites against the ω
+   0.8 sheets — at 2x sharper behind the glass and more transparent, the
+   band unchanged (the user's reading of 2026-09-03 is the acceptance);
+   1x sheets identical. Held for the user.
+
+#### 5. What it does not close, named now
+
+- The thin material's scale-dependent **level** over text and
+  high-contrast backdrops (§5.55 §3, up to 0.086 on unanimous cells): a
+  level question for its own round.
+- `rrect-ml` / `-lg` 2x texture stay under 0.93 by 0.008 / 0.014 with the
+  body fixed — the rim band and the outside at 2x.
+- At 2x the declared form under-retains pitch 8 on the large spans
+  (0.26–0.42 of the reference's contrast) where the reference has almost
+  none left; the canonical bed cannot see it.
+- The photo null at 2x: 0.0153 against 0.0147, a 0.0006 cost, all on
+  `rrect-lg`; the canonical photo rows may move by ≤ 0.002 and are named
+  if they do.
+- The mechanism: the reference's own quarter-buffer form needs a scale
+  term as large as this one (§5.55 §5); why the 1x material leaks more
+  unblurred buffer than the 2x one is not understood.
+- The CSS tier's 1x ceiling (§5.55 §5) is untouched by construction.
