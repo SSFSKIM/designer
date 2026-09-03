@@ -181,15 +181,36 @@ export interface OpticsPassArgs {
    */
   readonly backdropToneColour: readonly [number, number, number, number];
   /**
-   * The outer shadow (W8): `[alpha, sigmaCss, spreadCss, offsetFieldUv]`.
+   * The outer shadow (W8): `[thinOcclusion, sigmaCss, spreadCss, offsetFieldUv]`.
    *
-   * `alpha` is already in the canvas's compositing space (`outerShadowAlpha`) and
-   * already folded under the accessibility policy; the size law is per pixel and
-   * stays in the shader. The offset arrives as a **field-texture UV** rather than
-   * as CSS px, because only the caller knows how tall the rect the field was
-   * rasterised into is.
+   * `thinOcclusion` is the THIN regime's peak occlusion in LINEAR light,
+   * resolved at this group's backdrop luminance (W14 G1's adaptive alpha, whose
+   * key is one number per group) and folded under the accessibility policy. It
+   * is no longer a compositing-space alpha, because the shader blends the two
+   * regimes before it converts, and the conversion is not linear. The size law
+   * is per pixel and stays in the shader. The offset arrives as a **field-texture
+   * UV** rather than as CSS px, because only the caller knows how tall the rect
+   * the field was rasterised into is.
    */
   readonly outerShadow: readonly [number, number, number, number];
+  /**
+   * The outer shadow's thick regime (W14 G1): the composite's peak linear
+   * occlusion at casting spans 96, 128 and 160 CSS px, folded under the same
+   * policy. The shader interpolates between them per pixel from the span the
+   * field carries and holds them outside.
+   */
+  readonly outerShadowThick: readonly [number, number, number];
+  /**
+   * The lift (W14 G1), the shadow's second term and this tier's alone:
+   * `[amplitude, spanMinCss, spanFullCss, chainLod]`.
+   *
+   * `amplitude` is in LINEAR light, a fraction of the blurred backdrop's own
+   * luminance, and is zero where the policy stood the term down. `chainLod` is
+   * the continuous chain level whose blur is the profile's `liftBlurSigmaCss` —
+   * resolved through the pyramid's own CSS-px-to-texel density and plan
+   * downscale, exactly as `bodyChainLod` is, and clamped to `chainMaxLod`.
+   */
+  readonly outerShadowLift: readonly [number, number, number, number];
   /** The outer shadow's size-law gain — see `MaterialOuterShadow.sizeGain`. */
   readonly outerShadowSizeGain: number;
   /**
@@ -515,7 +536,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 88);
+      const slot = uniformSlot(`optics:${args.groupId}`, 96);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -616,6 +637,19 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[85] = args.lensOvalizationSpanMax;
       d[86] = 0;
       d[87] = 0;
+      // The outer shadow's second regime and its second term (W14 G1). The
+      // buffer grows by two vec4s rather than borrowing the three free slots
+      // above, because the shadow's own block is `shadow` / `shadowSize` and a
+      // shadow constant living in `lensOval.zw` would be a layout nobody could
+      // read. `d[91]` stays free.
+      d[88] = args.outerShadowThick[0];
+      d[89] = args.outerShadowThick[1];
+      d[90] = args.outerShadowThick[2];
+      d[91] = 0;
+      d[92] = args.outerShadowLift[0];
+      d[93] = args.outerShadowLift[1];
+      d[94] = args.outerShadowLift[2];
+      d[95] = args.outerShadowLift[3];
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

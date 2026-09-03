@@ -59,12 +59,25 @@ const PRE_C9A_PROFILE = {
    *
    * The rule is that the patch names the fields that MOVED, so identity
    * attributes the whole delta to them. Before W8 this renderer drew no outer
-   * shadow at all; `occlusion: 0` is that state, exactly, and every one of the
-   * eight scene hashes below reproduces from it unchanged. That identity is the
-   * proof W8's golden re-baseline needed: the entire visual delta across every
-   * golden is the outer shadow and nothing else travelled with it.
+   * shadow at all; every amplitude anchor at zero is that state, exactly, and
+   * every one of the eight scene hashes below reproduces from it unchanged. That
+   * identity is the proof W8's golden re-baseline needed: the entire visual delta
+   * across every golden is the outer shadow and nothing else travelled with it.
+   *
+   * It is seven zeros rather than one since W14 G1 (claims §5.62): the single
+   * `occlusion` became two regimes of three anchors each plus the lift's own
+   * amplitude, and "the shadow off" is all of them at zero. The lengths are left
+   * alone because a shadow of zero amplitude has no extent whatever they say.
    */
-  outerShadow: { occlusion: 0 },
+  outerShadow: {
+      thinOcclusionDark: 0,
+      thinOcclusionMid: 0,
+      thinOcclusionBright: 0,
+      thickOcclusionAt96: 0,
+      thickOcclusionAt128: 0,
+      thickOcclusionAt160: 0,
+      liftAmplitude: 0,
+    },
 } as const;
 
 /**

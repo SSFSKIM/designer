@@ -392,6 +392,16 @@ charter (user-decided). X8 orders the two landings.
   a structured backdrop's blurred light; it is the residual the derivation
   predicts, and it closes when the two-layer CSS body lets the tier paint the
   lift instead of folding it away (Decision Log 4). Not a fitting question.
+- **What the DARK scheme does under reduced transparency is unmeasured.**
+  The capture bed's two accessibility profiles are both light
+  (`1x-light-reduced-transparency`, `1x-light-increased-contrast`), so
+  §5.62 §5's flat 0.192–0.202 is a light-scheme reading. Now that
+  `reducedTransparencyOcclusion` is an absolute level rather than a factor,
+  silence in the dark document would apply the light material's level to
+  the dark one, so that document names 0.038 — the light bed's own ratio
+  between the preference's level and its standard mid anchor
+  (0.197 / 0.33) carried onto the dark scheme's flat 0.063. A derivation,
+  recorded as one. One dark accessibility capture profile measures it.
 
 ## Tracking Map
 
@@ -568,6 +578,24 @@ band row's −0.0188 / −0.0474 at 1x / 2x on the GPU tier, the pair's 0.0008
 (Decision Log 5) — and not fitted away. The landing rebuild waits for the GPU
 behind W13's last confirmation captures (X8).
 
+**The check came back: it is the lift, and the parent's arithmetic was wrong
+about the space** (claims §5.65 §2). The composite is formed in the ENCODED
+domain and the affine pair is fitted in LINEAR luminance, and sRGB's decode
+derivative is 0.077 at the shadowed black square against 1.955 at the shadowed
+white one — so one constant encoded addition lands 25× larger in linear light on
+the whites than on the blacks, which is a slope change and not an intercept one.
+Measured ratio 24.6 : 1 against 24.3 : 1 predicted from the two decode slopes.
+With the lift removed from the reading both tiers' falloff fraction at the band
+sits in 0.619–0.643 at every span, so nothing in the GPU tier's thick path is
+implicated and its numbers do not move. **The fix is therefore the first one:**
+`cssTierShadowAlpha` (`packages/platform-web/src/optics.ts`) solves
+`α′ = α − L/B` at the backdrop level the tier already reads, from the profile's
+own `liftAmplitude`, its span rise and the same sRGB encode the shader emits its
+lift through. No second anchor set, no per-tier constant, no tier flag. What the
+conversion cannot do is be exact for every pixel of a structured backdrop, since
+one multiply cannot reproduce a multiply plus an addition; that residual is the
+CSS tier's own gap until the two-layer body gives it a second element.
+
 ## Surprises & Discoveries
 
 - **Two terms on one falloff, and W8's lengths are right (G0, claims
@@ -679,3 +707,17 @@ behind W13's last confirmation captures (X8).
   to G2 (Tracking Map). The reduced-transparency fold changes meaning from a 0.7 multiplier to
   the measured flat amplitude, which retires the implementer's "15% high" note and the
   sweep's axis on it.
+- 2026-09-03: G1's independent review, four findings fixed on the branch. The retired
+  `outerShadow.occlusion` leaf is refused at the runtime boundary and at the profile reader
+  rather than merged in silence; `reducedTransparencyOcclusion` re-formed as the absolute
+  level §5.62 §5 measured (0.197) applied flat in place of both regimes, since multiplying
+  six unequal anchors kept exactly the variation the preference removes; the dark document
+  carries X7's measured lift ratio (0.0038) instead of zero and names its own preference
+  level; the changeset for the two-term composite written. New Deferred item above; both
+  profile fingerprints re-recorded with the reason.
+- 2026-09-03: the sweep's chosen constants written into both profile documents and the runtime
+  defaults they pin (thickOcclusionAt96 0.379 → 0.370, At128 0.497 → 0.448, At160 0.544 → 0.479
+  unfitted, liftAmplitude 0.0073 → 0.0100, liftSpanFull 128 → 118; the dark document's own with
+  them), and the CSS tier's thick amplitude derived rather than inherited — Decision Log 4's
+  pending check answered, S6's miss attributed to the lift read through the decode (claims §5.65
+  §2 and §6(ii)). Both fingerprints re-recorded with the reason.

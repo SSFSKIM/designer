@@ -104,11 +104,22 @@ const FITTED_CONSTANTS = [
   "backdropToneLow",
   "backdropToneHigh",
   "backdropToneSizeBias",
-  // W8's outer shadow, fitted under the cascade's shadow objective
+  // W8's outer shadow, fitted under the cascade's shadow objective; its single
+  // amplitude became W14 G1's two-regime law plus the lift's four constants
+  // (claims §5.62), so the patch names fifteen where it named six.
   "outerShadow.offsetPx",
   "outerShadow.sigmaPx",
   "outerShadow.spreadPx",
-  "outerShadow.occlusion",
+  "outerShadow.thinOcclusionDark",
+  "outerShadow.thinOcclusionMid",
+  "outerShadow.thinOcclusionBright",
+  "outerShadow.thickOcclusionAt96",
+  "outerShadow.thickOcclusionAt128",
+  "outerShadow.thickOcclusionAt160",
+  "outerShadow.liftAmplitude",
+  "outerShadow.liftSpanMin",
+  "outerShadow.liftSpanFull",
+  "outerShadow.liftBlurSigmaCss",
   "outerShadow.reducedTransparencyOcclusion",
   "outerShadow.sizeGain",
   // The accessibility fold, one constant serving both coupled profiles
@@ -289,6 +300,10 @@ describe("tuned calibration profiles", () => {
     const allowed = new Set([
       "measured",
       "measured-with-a-caveat",
+      // A constant built to the shape a measurement showed, whose VALUE the
+      // runtime sweep sets — the wave lands the mechanism and the fit lands the
+      // number. The entry says which of its constants are which.
+      "provisional",
       "unchanged-deliberately",
       "not-discriminating",
       "not-discriminable",

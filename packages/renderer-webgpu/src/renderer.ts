@@ -80,10 +80,10 @@ import {
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
   opticsUnderPolicy,
-  outerShadowAlpha,
+  outerShadowOcclusionAt,
   outerShadowReachPx,
+  outerShadowThinOcclusion,
   outerShadowUnderPolicy,
-  sizeOuterShadowOcclusionAt,
   tintToneAdaptation,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -422,6 +422,26 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   };
 
   /**
+   * The chain level the outer shadow's lift copies the backdrop from (W14 G1) —
+   * the continuous level whose blur is `liftBlurSigmaCss` in CSS px, clamped to
+   * what the chain actually has.
+   *
+   * The conversion is only knowable here, for the same reason `bodyChainLod`'s
+   * is: it needs the source's texels per CSS px and the downscale the plan
+   * applied, which is the pyramid's own record of how it was built. Clamped
+   * rather than extrapolated — a chain too short to reach σ 40 CSS px copies the
+   * backdrop at the widest blur it has, which is the closest thing to the
+   * measured term that exists on that source, and the sweep's amplitude absorbs
+   * the difference.
+   */
+  const liftChainLod = (sigmaCss: number, pyramid: PyramidResources | undefined): number => {
+    if (pyramid === undefined || !(sigmaCss > 0)) return 0;
+    const planScale = pyramid.sourceWidth > 0 ? pyramid.plan.width / pyramid.sourceWidth : 1;
+    const sigmaTexels = sigmaCss * pyramid.texelsPerCss * planScale;
+    return Math.min(chainLodForSigma(sigmaTexels), pyramid.plan.maxLod);
+  };
+
+  /**
    * A source whose placement changed SIZE since its pyramid was built carries a
    * body σ in texels that no longer matches the material's CSS-px σ, and a
    * static image never re-dirties to fix it. Named here as its own rebuild
@@ -665,6 +685,23 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        */
       const shadow = outerShadowUnderPolicy(policy, material);
       /*
+       * The backdrop luminance the shadow's thin regime keys on (W14 G1) — and
+       * it is the SAME statistic W9's face response keys on, which is the
+       * charter's third binding rule: the backdrop's ENCODED-space mean,
+       * decoded, one number per group, measured by the host. `undefined` where
+       * the host measured none, which the law reads as its mid plateau rather
+       * than as black.
+       *
+       * Resolved here rather than beside the pass because the rect's pad below
+       * depends on it: over `light-solid` the shadow is a third of what it is
+       * over the checkerboard, and a pad taken from the wrong amplitude is
+       * either a slice or a waste.
+       */
+      const shadowBackdropLuminance =
+        input.backdropTone === undefined
+          ? undefined
+          : (input.backdropToneLevel ?? relativeLuminance(input.backdropTone));
+      /*
        * The pad covers the DEEPEST shadow any member of this group can emit,
        * which is not the group's base amplitude. The size law amplifies the
        * amplitude per surface and the shader reads the CASTING surface's own
@@ -678,14 +715,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
        * because a profile is entitled to a negative gain and then the THINNEST
        * surface is the one that reaches furthest.
        */
-      let reachOcclusion = shadow.occlusion;
+      let reachOcclusion = outerShadowThinOcclusion(shadowBackdropLuminance, shadow);
       for (const surface of surfaces) {
         reachOcclusion = Math.max(
           reachOcclusion,
-          sizeOuterShadowOcclusionAt(shadow.occlusion, surface.sizeThickness, material),
+          outerShadowOcclusionAt(
+            shadow,
+            shadowBackdropLuminance,
+            surface.spanPx,
+            surface.sizeThickness,
+            material,
+          ),
         );
       }
-      const shadowReachPx = outerShadowReachPx({ ...shadow, occlusion: reachOcclusion });
+      const shadowReachPx = outerShadowReachPx(shadow, reachOcclusion);
 
       const snapped = snapRectToDevicePixels(
         groupFieldRect(surfaces, union, undefined, shadowReachPx),
@@ -780,10 +823,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
       // The tone LEVEL is the encoded-space reading (W9); the tone COLOUR stays
       // the physical linear mean the collapse converges onto. Hosts that predate
       // the split fall back to the colour's own luminance.
-      const backdropToneLevel =
-        input.backdropTone === undefined
-          ? 0
-          : (input.backdropToneLevel ?? relativeLuminance(input.backdropTone));
+      // The same reading the shadow's thin regime resolved against above, with
+      // "no backdrop" spelled as 0 for the tone axis, whose strength is already
+      // stood down there.
+      const backdropToneLevel = shadowBackdropLuminance ?? 0;
       // Decision Log #19's dual cap, resolved once, on the CPU.
       const refraction = effectiveRefraction(
         accessibilityRefractionCap(policy),
@@ -897,13 +940,30 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         backdropToneLinearMean:
           input.backdropToneLinearLuminance ?? backdropToneLevel,
         outerShadow: [
-          outerShadowAlpha(shadow.occlusion),
+          // The thin regime's LINEAR occlusion at this group's backdrop (W14
+          // G1). The conversion to the compositing space moved into the shader
+          // with the regimes: it is not linear, so converting one regime here
+          // and blending in the shader would not be the same law.
+          outerShadowThinOcclusion(shadowBackdropLuminance, shadow),
           shadow.sigmaPx,
           shadow.spreadPx,
           // The offset in field-texture UV. The field spans exactly this rect, so
           // one CSS px is one over the rect's CSS height however the governor
           // scaled the rasterisation.
           shadow.offsetPx / Math.max(rectDevice.height * cssPerDevice, 1e-6),
+        ],
+        outerShadowThick: [
+          shadow.thickOcclusionAt96,
+          shadow.thickOcclusionAt128,
+          shadow.thickOcclusionAt160,
+        ],
+        outerShadowLift: [
+          // The lift needs a chain to copy; without one there is nothing to add,
+          // and `hasBackdrop` in the shader says the same thing a second time.
+          pyramid === undefined || policy.glass === "none" ? 0 : shadow.liftAmplitude,
+          shadow.liftSpanMin,
+          shadow.liftSpanFull,
+          liftChainLod(shadow.liftBlurSigmaCss, pyramid),
         ],
         outerShadowSizeGain: shadow.sizeGain,
         outerShadowRectCssHeight: rectDevice.height * cssPerDevice,
