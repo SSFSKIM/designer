@@ -44,6 +44,23 @@
  * colour scheme and accessibility state. Reporting the pair rather than the
  * winner is what keeps that a finding instead of an assumption.
  *
+ * ## Beside the ratio, the affine pair (W14 X7)
+ *
+ * Occlusion is a *multiplicative* description, and it was adopted because the
+ * reference's shadow looked multiplicative where W8 measured it. It is not the
+ * whole shadow. W14 G0 read the reference's exterior as an affine map of the
+ * backdrop the capture was taken over, `y = a·bg + c`, and found a lift — `c`
+ * about +0.0038 in linear luminance below `checkerboard__rrect-lg__rest`, where
+ * vitrea's `c` is 0 (claims §5.62). A ratio `(bg − y)/bg` cannot report a lift
+ * on a black square at all: the denominator is the thing that is missing, which
+ * is why the axis's backdrop floor exists and why the lift lived outside every
+ * number this axis wrote. So the pair is fitted beside the ratio, by least
+ * squares over each band's pixels, per direction, in **linear light** — the
+ * space matters by an order of magnitude, the same lift reading +0.048 encoded
+ * and +0.0038 linear because it sits where the transfer function is steepest —
+ * and it is absent, never zero, where the band's backdrop has no contrast to
+ * identify it. See `ShadowAffineSample`.
+ *
  * ## No thresholds
  *
  * Two constants below select *where a measurement is possible* — the backdrop
@@ -111,12 +128,71 @@ const DEFAULT_MIN_BACKDROP_SUPPORT = 0.1;
  */
 const DEFAULT_MIN_CENTROID_MASS_FRACTION = 0.1;
 
+/**
+ * The band edges the affine pair is fitted over, in CSS px outside the declared
+ * contour.
+ *
+ * These are W14 G0's rings (`results/2026-09-03-w14-shadow/g0/w14lib.py`,
+ * `RINGS`), taken verbatim so this axis's pair and claims §5.62's tables can be
+ * read side by side without either being re-binned. They are stated in CSS px
+ * rather than device px because the reference's shadow is a CSS-px quantity —
+ * G0 measured the lift as scale-free to 0.0008 across 1x and 2x — so a band
+ * that meant a different physical distance at each scale would make the two
+ * scales' rows incomparable.
+ *
+ * Bands rather than the occlusion profile's unit-wide rings, over the same
+ * signed distance field and the same four sectors: an affine pair is two
+ * parameters and needs the backdrop to *vary* across the pixels it is fitted
+ * over, where a ring mean is one parameter and needs only pixels. A unit ring
+ * on one side of a small component holds a few dozen pixels of a pitch-16
+ * checkerboard, which is a fit on two or three squares.
+ *
+ * The list is not a partition. `0-6` overlaps `0-3` and `3-6` deliberately, and
+ * it is in G0's list for the same reason it is here: claims §5.60 §3 and §5.62
+ * both quote the lift over 0–6 px, and a reader who had to pool two bands to
+ * reach it would be re-binning a published number by hand.
+ */
+export const SHADOW_AFFINE_BANDS_CSS_PX: readonly (readonly [number, number])[] = [
+  [0, 3],
+  [3, 6],
+  [6, 12],
+  [12, 24],
+  [24, 48],
+  [0, 6],
+];
+
+/** Fewer pixels than this in a band and the pair is not identified, only the level. */
+export const DEFAULT_SHADOW_AFFINE_MIN_SAMPLES = 32;
+
+/**
+ * Linear-luminance standard deviation of the backdrop under a band beneath
+ * which `a` and `c` are not separable.
+ *
+ * The design matrix's two columns are collinear on a constant backdrop, so the
+ * pair is not identified there at any sample count; 0.02 is G0's `MIN_BG_STD`,
+ * and it separates this bed cleanly — a checkerboard band's backdrop standard
+ * deviation is about 0.5 and `photo`'s about 0.15, against 0 on every solid.
+ * Like the axis's other two constants this selects *where a measurement is
+ * possible* and is not a bound on fidelity.
+ */
+export const DEFAULT_SHADOW_AFFINE_MIN_BACKDROP_STDDEV = 0.02;
+
 export interface ShadowFieldOptions {
+  /**
+   * Device pixels per CSS px — the profile's backing scale. Only the affine
+   * bands read it, because they are the one part of this axis defined in CSS px
+   * (`SHADOW_AFFINE_BAND_EDGES_CSS_PX`); everything else here is in device px
+   * and says so in its name. Defaults to 1, which is the identity for a 1x
+   * capture and makes the option invisible to every caller that does not care.
+   */
+  readonly scale?: number;
   readonly backdropFloor?: number;
   readonly occlusionThreshold?: number;
   readonly minRingSamples?: number;
   readonly minBackdropSupport?: number;
   readonly minCentroidMassFraction?: number;
+  readonly affineMinSamples?: number;
+  readonly affineMinBackdropStdDev?: number;
 }
 
 /** One ring of the occlusion profile, indexed by distance from the contour. */
@@ -126,6 +202,77 @@ export interface ShadowProfileSample {
   /** Mean occlusion over the ring's supported pixels, 0..1. */
   readonly occlusion: number;
   readonly sampleCount: number;
+}
+
+/**
+ * One band's affine map of the backdrop, `y = a·bg + c`, in **linear
+ * luminance**, on one side of the component.
+ *
+ * The pair complements the occlusion ratio rather than replacing it. Occlusion
+ * says what fraction of the backdrop's light the render removed and is blind to
+ * anything the render *added*; `a` is that same transmission read as a slope,
+ * and `c` is the part occlusion cannot express — light that arrived from a term
+ * which is not a multiply. A pure black multiply gives `c = 0` and
+ * `a = 1 − occlusion` exactly, which is what vitrea's own shadow reads back
+ * (claims §5.62, X4).
+ *
+ * Every field whose name ends in `Linear` is in linear luminance, the space the
+ * charter binds and this axis already normalises in. The same fit run on the
+ * encoded values would return a `c` an order of magnitude larger and would mean
+ * something else — the amplitude a `box-shadow` or a premultiplied canvas
+ * composites — so the space is in the name and not only in a comment.
+ *
+ * Optional fields mean **not identifiable in this band**, never zero:
+ *
+ *   - `slopeALinear`, `interceptCLinear` and `rSquared` are absent together
+ *     where the band's backdrop standard deviation is below
+ *     `DEFAULT_SHADOW_AFFINE_MIN_BACKDROP_STDDEV` — a solid backdrop makes the
+ *     two columns of the design matrix collinear, so `a` and `c` trade off
+ *     freely along a line and no amount of data separates them — or where the
+ *     band holds fewer than `DEFAULT_SHADOW_AFFINE_MIN_SAMPLES` pixels.
+ *     `unidentifiableReason` says which. On a solid the honest reading is the
+ *     one quantity that *is* identified there, so `renderedLevelLinear` and
+ *     `backdropMeanLinear` are reported and the pair is left out: their ratio
+ *     is `a + c/bg` and nothing in the band decides the split.
+ *   - `rSquared` is absent on its own where the band's rendered values are
+ *     constant, because the total sum of squares it normalises by is zero.
+ *
+ * A band with no exterior pixel at all is not emitted, which is the frame
+ * having eaten it rather than a reading.
+ *
+ * **The `0-3` band holds the body's own edge**, and so does `0-6`. That is the
+ * same caveat `falloffPoints` states about ring 0 and it is not fixed here for
+ * the same reason it is not fixed there: what would have to be excluded is a
+ * *measured* quantity — how far each source over-fills its declared contour,
+ * which claims §5.62's last Surprise puts at 3.5–4 CSS px on vitrea's GPU
+ * capsule against Apple's ≤ 1 — and a fixed guard chosen here would bake one
+ * renderer's current over-fill into the axis. Read on this bed it is visible
+ * rather than hidden: vitrea's own web side, whose shadow is a pure multiply
+ * with `c` identically zero, reads `c` = 0.060 in `0-3` below
+ * `checkerboard__capsule-button__rest` and 0.0000 in every band further out.
+ * Bands from `3-6` outward are the shadow alone.
+ */
+export interface ShadowAffineSample {
+  /** One of the axis's four sectors, or `"all"` for the four pooled. */
+  readonly direction: ShadowDirection | "all";
+  /** The band's own name, e.g. `"6-12"`, in CSS px — G0's labels. */
+  readonly ringLabel: string;
+  readonly innerDistanceCssPx: number;
+  readonly outerDistanceCssPx: number;
+  readonly sampleCount: number;
+  readonly backdropMeanLinear: number;
+  /** Population standard deviation of the backdrop — what identifies the pair. */
+  readonly backdropStdDevLinear: number;
+  /** Mean rendered luminance over the band. Present wherever the band is. */
+  readonly renderedLevelLinear: number;
+  /** `a`: the transmission the band applies to its backdrop. */
+  readonly slopeALinear?: number;
+  /** `c`: the light the band adds independently of its backdrop — the lift. */
+  readonly interceptCLinear?: number;
+  /** Coefficient of determination of that fit, so a reader can weigh the pair. */
+  readonly rSquared?: number;
+  /** Why the pair is absent, when it is. */
+  readonly unidentifiableReason?: string;
 }
 
 /**
@@ -227,6 +374,17 @@ export interface ShadowFieldReport {
   readonly falloffResidual?: number;
   /** The ring means the figures above are read off. */
   readonly profile: readonly ShadowProfileSample[];
+  /**
+   * The affine pair per band and direction (W14 X7), recorded beside the
+   * occlusion and never gating it.
+   *
+   * Present even where `unmeasurableReason` is set and the whole normalised
+   * block is absent, which is the point: over `impulse` and `dark-solid` there
+   * is no light to remove and no ratio to report, and those are exactly the
+   * backdrops on which a lift is measured cleanly, because a multiply is inert
+   * over black and whatever light sits there arrived from something else.
+   */
+  readonly affine: readonly ShadowAffineSample[];
   /** Why the normalised block is absent, when it is. */
   readonly unmeasurableReason?: string;
 }
@@ -416,6 +574,176 @@ const blurredEdgeShape = (distance: number, sigma: number): number => 1 - normal
 const exponentialShape = (distance: number, length: number): number => Math.exp(-distance / length);
 
 /**
+ * Fit `y = a·bg + c` over one band's pixels by ordinary least squares.
+ *
+ * The closed form rather than a solver: two parameters through a mean-centred
+ * design have a one-line solution, and writing it out keeps the identifiability
+ * condition visible — the denominator is the backdrop's own variance, which is
+ * the quantity a solid backdrop sets to zero.
+ */
+function fitAffineBand(
+  rendered: readonly number[],
+  backdrop: readonly number[],
+): { slope: number; intercept: number; rSquared?: number } {
+  const n = rendered.length;
+  let backdropMean = 0;
+  let renderedMean = 0;
+  for (let i = 0; i < n; i += 1) {
+    backdropMean += backdrop[i] ?? 0;
+    renderedMean += rendered[i] ?? 0;
+  }
+  backdropMean /= n;
+  renderedMean /= n;
+
+  let covariance = 0;
+  let variance = 0;
+  for (let i = 0; i < n; i += 1) {
+    const db = (backdrop[i] ?? 0) - backdropMean;
+    covariance += db * ((rendered[i] ?? 0) - renderedMean);
+    variance += db * db;
+  }
+  const slope = variance > 0 ? covariance / variance : 0;
+  const intercept = renderedMean - slope * backdropMean;
+
+  let residualSquares = 0;
+  let totalSquares = 0;
+  for (let i = 0; i < n; i += 1) {
+    const fitted = slope * (backdrop[i] ?? 0) + intercept;
+    residualSquares += ((rendered[i] ?? 0) - fitted) ** 2;
+    totalSquares += ((rendered[i] ?? 0) - renderedMean) ** 2;
+  }
+  // A band whose render is constant has no variation for the fit to explain, so
+  // the ratio R² normalises by is 0/0. Absent is the reading; a 1 there would
+  // say the model described something.
+  return totalSquares > 0
+    ? { slope, intercept, rSquared: 1 - residualSquares / totalSquares }
+    : { slope, intercept };
+}
+
+/**
+ * The affine pair over every band and direction, plus the four pooled.
+ *
+ * One pass over the exterior collecting each band's pixels, then one fit each.
+ * The distance field and the sectors are the axis's own — the same
+ * `signedDistancePx` the occlusion rings are cut from and the same
+ * `directionOf` — so the pair sits over the pixels whose occlusion it
+ * complements; only the binning differs, and `SHADOW_AFFINE_BAND_EDGES_CSS_PX`
+ * says why.
+ *
+ * The backdrop floor is deliberately **not** applied. It is a condition on a
+ * ratio, and this is not one: a fit over a dark backdrop is exactly as
+ * identified as a fit over a bright one so long as the backdrop varies, and the
+ * dark backdrops are where a lift shows up alone.
+ */
+function affineBands(
+  rendered: Float64Array,
+  backdrop: Float64Array,
+  region: ComponentRegion,
+  width: number,
+  height: number,
+  scale: number,
+  minSamples: number,
+  minBackdropStdDev: number,
+): readonly ShadowAffineSample[] {
+  const bands = SHADOW_AFFINE_BANDS_CSS_PX;
+  const bandCount = bands.length;
+  const groups: ("all" | ShadowDirection)[] = ["all", ...SHADOW_DIRECTIONS];
+  const renderedBy = new Map<string, number[]>();
+  const backdropBy = new Map<string, number[]>();
+  const keyOf = (group: string, band: number): string => `${group}:${band}`;
+  for (const group of groups) {
+    for (let band = 0; band < bandCount; band += 1) {
+      renderedBy.set(keyOf(group, band), []);
+      backdropBy.set(keyOf(group, band), []);
+    }
+  }
+
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const i = y * width + x;
+      if ((region.silhouette.mask[i] ?? 0) !== 0) continue;
+      const distanceCssPx = (region.signedDistancePx[i] ?? 0) / scale;
+      const value = rendered[i] ?? 0;
+      const base = backdrop[i] ?? 0;
+      const direction = directionOf(region, x, y);
+      for (let band = 0; band < bandCount; band += 1) {
+        const edges = bands[band];
+        if (edges === undefined) continue;
+        if (distanceCssPx < edges[0] || distanceCssPx >= edges[1]) continue;
+        for (const group of ["all", direction] as const) {
+          renderedBy.get(keyOf(group, band))?.push(value);
+          backdropBy.get(keyOf(group, band))?.push(base);
+        }
+      }
+    }
+  }
+
+  const out: ShadowAffineSample[] = [];
+  for (const group of groups) {
+    for (let band = 0; band < bandCount; band += 1) {
+      const ys = renderedBy.get(keyOf(group, band)) ?? [];
+      const bgs = backdropBy.get(keyOf(group, band)) ?? [];
+      const n = ys.length;
+      if (n === 0) continue;
+
+      let backdropMean = 0;
+      let renderedMean = 0;
+      for (let i = 0; i < n; i += 1) {
+        backdropMean += bgs[i] ?? 0;
+        renderedMean += ys[i] ?? 0;
+      }
+      backdropMean /= n;
+      renderedMean /= n;
+      let variance = 0;
+      for (let i = 0; i < n; i += 1) variance += ((bgs[i] ?? 0) - backdropMean) ** 2;
+      const stdDev = Math.sqrt(variance / n);
+
+      const [inner, outer] = bands[band] ?? [0, 0];
+      const common = {
+        direction: group,
+        ringLabel: `${inner}-${outer}`,
+        innerDistanceCssPx: inner,
+        outerDistanceCssPx: outer,
+        sampleCount: n,
+        backdropMeanLinear: backdropMean,
+        backdropStdDevLinear: stdDev,
+        renderedLevelLinear: renderedMean,
+      } as const;
+
+      if (n < minSamples) {
+        out.push({
+          ...common,
+          unidentifiableReason:
+            `${n} pixels in this band, fewer than the ${minSamples} an affine pair is fitted over — ` +
+            `the frame runs out before the outer bands do on the large spans, and a fit on a handful ` +
+            `of pixels describes the corner of the capture rather than the shadow.`,
+        });
+        continue;
+      }
+      if (stdDev < minBackdropStdDev) {
+        out.push({
+          ...common,
+          unidentifiableReason:
+            `the backdrop's standard deviation over this band is ${stdDev.toFixed(4)} linear, below ` +
+            `${minBackdropStdDev}, so a and c are collinear and only the level ` +
+            `${renderedMean.toFixed(4)} over a backdrop of ${backdropMean.toFixed(4)} is identified.`,
+        });
+        continue;
+      }
+
+      const fit = fitAffineBand(ys, bgs);
+      out.push({
+        ...common,
+        slopeALinear: fit.slope,
+        interceptCLinear: fit.intercept,
+        ...(fit.rSquared === undefined ? {} : { rSquared: fit.rSquared }),
+      });
+    }
+  }
+  return out;
+}
+
+/**
  * Measure one render's occlusion of its own backdrop, outside the declared
  * component region.
  *
@@ -445,6 +773,9 @@ export function shadowField(
   const minRingSamples = options.minRingSamples ?? DEFAULT_MIN_RING_SAMPLES;
   const minSupport = options.minBackdropSupport ?? DEFAULT_MIN_BACKDROP_SUPPORT;
   const minMass = options.minCentroidMassFraction ?? DEFAULT_MIN_CENTROID_MASS_FRACTION;
+  const scale = options.scale ?? 1;
+  const affineMinSamples = options.affineMinSamples ?? DEFAULT_SHADOW_AFFINE_MIN_SAMPLES;
+  const affineMinStdDev = options.affineMinBackdropStdDev ?? DEFAULT_SHADOW_AFFINE_MIN_BACKDROP_STDDEV;
 
   const rendered = linearLuminance(image);
   const backdrop = linearLuminance(background);
@@ -474,6 +805,20 @@ export function shadowField(
   }
 
   const clearance = clearanceOf(region, width, height);
+  // Fitted before the backdrop-support gate below, not after it. The gate is a
+  // condition on the ratio and the pair is not one, and the scenes the gate
+  // turns away — `impulse`, `dark-solid` — are the ones on which a lift is
+  // identified alone, because a multiply removes nothing from a black pixel.
+  const affine = affineBands(
+    rendered,
+    backdrop,
+    region,
+    width,
+    height,
+    scale,
+    affineMinSamples,
+    affineMinStdDev,
+  );
   const base: ShadowFieldReport = {
     exteriorAreaPx: exteriorCount,
     backdropMeanLuminance: backdropSum / exteriorCount,
@@ -485,6 +830,7 @@ export function shadowField(
     clearanceRightPx: clearance.get("right") ?? 0,
     truncatedSides: [],
     profile: [],
+    affine,
   };
   if (base.backdropSupport < minSupport) {
     return {
@@ -640,5 +986,6 @@ export function shadowField(
       ? {}
       : { falloffLengthPx: exponential.scalePx, falloffResidual: exponential.residual }),
     profile,
+    affine,
   };
 }

@@ -408,8 +408,11 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
    */
   let shadow: ShadowAxisReport | undefined;
   if (background !== undefined) {
-    const nativeShadow = shadowField(native, background, region);
-    const webShadow = shadowField(web, background, region);
+    // The scale reaches the axis for the affine bands alone (W14 X7): their
+    // edges are declared in CSS px so the 1x and 2x rows describe the same
+    // physical distances from the contour.
+    const nativeShadow = shadowField(native, background, region, { scale: input.scale });
+    const webShadow = shadowField(web, background, region, { scale: input.scale });
     shadow = shadowAxisReport({ native: nativeShadow, web: webShadow });
     if (nativeShadow.unmeasurableReason !== undefined) {
       notes.push(
