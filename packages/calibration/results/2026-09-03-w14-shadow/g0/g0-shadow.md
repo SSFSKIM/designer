@@ -341,14 +341,15 @@ W8's "invisible over black" property survives intact.
   occ 0.379 / 0.497 / 0.544 at spans 96 / 128 / 160.
 
 **What the CSS tier can carry without a second element.** The geometry and the adaptive alpha, in
-full: a `box-shadow` of pure black takes one colour and one alpha, and everything in the black term
-is exactly that. The measured CSS captures already track the GPU tier's black term to within 0.05 in
-occlusion on every cell (0.234–0.303 against 0.284–0.303), so the whole of the thin regime's gap —
-the `light-solid` capsule's 2.2× included — closes on the CSS tier with a profile change and no
-new element. **The lift cannot be carried by a `box-shadow`**: it needs the backdrop's own light outside the element, which means a
-pseudo-element with `backdrop-filter: blur(40px)` masked to the falloff, which is Decision Log 1's
-question (b). The share at stake is the lift alone: 0.029–0.048 encoded on the thick spans, nothing
-on the thin ones, and nothing over a dark backdrop.
+full: a `box-shadow` of pure black takes one colour and one alpha, and everything in the black
+term is exactly that. The measured CSS captures already track the GPU tier's black term to within
+0.05 in occlusion on every cell (0.234–0.303 against 0.284–0.303), so the whole of the thin
+regime's gap — the `light-solid` capsule's 2.2× included — closes on the CSS tier with a profile
+change and no new element. **The lift cannot be carried by a `box-shadow`**: it needs the
+backdrop's own light outside the element, which means a pseudo-element with `backdrop-filter:
+blur(40px)` masked to the falloff, which is Decision Log 1's question (b). The share at stake is
+the lift alone: 0.029–0.048 encoded on the thick spans, nothing on the thin ones, and nothing over
+a dark backdrop.
 
 **What remains unidentifiable on this bed, and what would identify it.**
 
