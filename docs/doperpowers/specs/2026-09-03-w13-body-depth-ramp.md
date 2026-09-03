@@ -356,6 +356,30 @@ close before G2 implements; nothing on it lands before G2's referee.
   1x ramp's projection (Decision Log 5's `CSS_TIER_RAMP_SCALE`) while the GPU
   tier draws the bed's span law there (Surprises).
 
+- **The ramp under the accessibility folds (2026-09-04, the landing).** The
+  declaration's stops ran on the standard profiles; at the landing the
+  increased-contrast and reduced-transparency cells were read against the
+  W14 bed for the first time: the CSS tier within 0.0002, the GPU tier's
+  `photo` cells unchanged, and its checkerboard and `hc-text` cells down in
+  the band by 0.0013–0.0033 (`ssimMean` −0.0002 to −0.0004), inside every
+  floor. Never measured against the reference's own accessibility material —
+  the folds apply the ramp's excursion as depth, and whether Apple's
+  increased-contrast body keeps the same near-contour sharpness is unread.
+  Shape of the work: G0's windowed instrument on the accessibility fixtures.
+- **No golden exercises the 1x ramp (2026-09-04, the landing).** Every scene
+  in `renderer-webgpu/e2e/fixtures/scenes.ts` renders at device pixel ratio
+  2, where the ramp is a null, so the landing moved no golden and no golden
+  would catch the ramp regressing. A 1x scene over a checkerboard, pinned
+  behind the isolation proof, is the fix; the proof's named profile (scatter
+  gain 1) stays inert to it by construction.
+- **The two tiers' 2x mixes differ (Decision Log 5, 2026-09-04 restated).**
+  At 2x the CSS tier mixes its single blur at the 1x ramp's area average
+  (`CSS_TIER_RAMP_SCALE`) while the GPU tier draws the bed's span law (the 2x
+  ramp a null, the widths CSS px). `tier-coherence` pins the CSS σ
+  scale-independent, which is the decision and not a coherence with the GPU
+  tier's 2x body. The 2x deep-value charter re-asks both tiers' 2x mix at
+  once; until then the difference is the CSS tier's declared 1x law.
+
 - **The outer shadow's colour and span law — the next wave candidate,
   from X6's baseline (2026-09-03; Surprises).** The reference's shadow is
   a gray composited at low alpha that lifts the blacks (+0.04 at the
@@ -398,7 +422,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 | --- | --- | --- |
 | G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum: flat on all six cells, §5.61 §7) |
 | G1 | four forms of the ramp, each fitted in the renderer on branch `w13-g1-ramp` (worktree `.claude/worktrees/w13-g1`): the first (a start and a reach; `eb12219`) refuted at 81 points, span-flat where the bed is span-graded (claims §5.63, `results/2026-09-03-w13-ramp/g1/sweep/`); the second (the retired span law restored underneath; `2752301`, with the first review's two findings) refuted at 68 points, one start unable to sit above the deep value on thin and thick cells at once, and at 2x the inert configuration the best on every cell (§5.64, `sweep-2/`); the third (the start graded by `sizeThickness`; `f77b5f1` + `ef61b09`) reaching S4 on every 1x calibration cell with the 2x null bit-exact, and failing one holdout row because the start cannot fall past the thickness knee (§5.67, `sweep-3/`); **the fourth** (the start's own decline along the scatter facet's curve, one constant; `7de3d76` + `762c290` + `51c232d`, with the third review's five findings and main merged with W14 landed) **reaching S1 and S4 at 1x on every row holdout included** — `rrect-lg` +0.0056 / band +0.0136 on the W14 bed, its interior 12% over Apple's from 33% — the far start carried from G0's reading (Decision Log 7), the 2x null re-verified at zero over 20 cells × 774 measurements (`sweep-4/`, `12e2e2b`); the sheets sent with the parent's reading (`sheets/`, `9b1d5f2`); **the CSS tier's confirmation** found the candidate's device-pixel width division still in that tier and four dom floors broken at 2x — removed (`d0d778f`; Decision Log 5 executed in full), re-captured clean with every floor holding; the fourth form's review (Codex) — three code findings fixed (`8f00c0c`), the spec finding amended in Decision Log 5; **DECLARED** — claims §5.68 (form, constants, stops with numbers on the W14 bed, the twelve rows, both tiers; fingerprints light `2b8cfda6950bc697` / dark `aa6e466b1412ec04`) | COMPLETE 2026-09-03 |
-| G2 | the landing plan in claims §5.68 §6; **the user's call between (a) the branch as declared (the 1x ramp plus the 2x device-pixel widths: four large 2x rows down 0.006–0.017, two small ones up) and (b) the 1x ramp with the GPU tier's 2x widths restored to the bed's** — the parent recommends (b) | IN PROGRESS 2026-09-04 — (b) decided (Decision Log 8); executed on the branch (`40f409c`, review fixes `beb823f`); the dry run verified against both predictions (claims §5.68 §7); landing |
+| G2 | the landing plan in claims §5.68 §6; **the user's call between (a) the branch as declared (the 1x ramp plus the 2x device-pixel widths: four large 2x rows down 0.006–0.017, two small ones up) and (b) the 1x ramp with the GPU tier's 2x widths restored to the bed's** — the parent recommends (b) | COMPLETE 2026-09-04 — (b) decided (Decision Log 8); `40f409c` + review fixes `beb823f`; the dry run verified against both predictions (claims §5.68 §7); landed as merge `347af25` and the canonical rebuild `6d507d2` (`results/2026-09-03-w13-ramp/g2/g2-landing.md`): 98 / 98 GPU captures the dry run's, no floor moved, no golden moved (all at dpr 2), demo fixture re-copied, 1 725 tests; the accessibility folds' band deltas, the 1x golden and the tiers' 2x mixes carried to Deferred (claims §5.68 §8) |
 
 ## Decision Log
 
@@ -825,7 +849,75 @@ Surprises; a term of the 2x charter in Deferred). Landing under G2.
 
 ## Outcomes & Retrospective
 
-(open)
+**RECOMPOSED 2026-09-04** (claims §5.61–§5.68; landed `347af25`, the bed `6d507d2`).
+
+**Against the Parent-Level Acceptance, clause by clause.**
+
+1. *The sharp share by depth measured on the reference* — **met** (G0, claims
+   §5.61): k(u) per depth window through the lens on both probes, the
+   instrument's recovery of vitrea's uniform share and of the device-pixel
+   widths recorded beside every reference reading; the ramp real, the reach a
+   length, the 2x floor bounded not measured, no span term on σ_heavy.
+2. *A form declared before the landing capture, fitted jointly, refereed on
+   the full bed under the stops* — **met at 1x, re-scoped at 2x.** Four forms
+   were fitted in the renderer (§5.63, §5.64, §5.67, §5.68); the fourth was
+   declared with its constants and stops before the capture, `rrect-lg` held
+   out, the rows predicted by the runtime sweep and reproduced at the landing
+   to four decimals. At 1x no row falls and the band rises on every
+   checkerboard cell. The clause's 2x half — the three texture rows rising
+   above their W12-close floors, the band improving at both scales — did not
+   close through this wave: those floors came off through W14's shadow
+   (claims §5.66), and at 2x the reference's contour is heavier than vitrea's
+   deep interior on every cell (§5.64 §4), so the ramp is a verified null
+   there and the gap is the span law's deep value, chartered separately
+   (Decision Log 4). The clause also bound the landing to *the widths in
+   device pixels*; the sweep measured that reading moving the four large 2x
+   rows the wrong way, and the user withdrew it (Decision Log 8). No row
+   needed re-pinning.
+3. *By eye* — **met as the user's landing call.** The G1 sheets went to the
+   user's display at the dry run and the landing's 1x sheet is their bytes;
+   the 2x trade was put by eye and by number (§5.68 §5) and the user chose the
+   landing (Decision Log 8); the landing's 2x sheet, the bed on every row, was
+   sent at recomposition.
+4. *Both tiers carry the law* — **met at 1x by decision at every scale.** The
+   CSS tier's single σ is the ramp's area-average projection (`scatterSharpShare`,
+   `groupScatterSigma`), its rows predicted and confirmed (S6 met after the
+   device-scale division it briefly carried was caught by capture and
+   removed); `tier-coherence` pins the two mirrors and the CSS σ over dpr {1,
+   1.5, 2, 3}. At 2x the tiers' mixes differ by Decision Log 5 (Deferred).
+5. *Suites, goldens, one rebuild, every gap recorded* — **met.** 1 725 unit
+   tests, lint clean, goldens 26 passed and none moved (all at dpr 2; the
+   reason recorded beside `W14_HASHES`), the canonical matrix rebuilt once at
+   `6d507d2`, every gap in claims §5.68 §8, this Deferred list, or the
+   tracker.
+
+**What the wave delivered.** The scattering facet's mix is the span curve W11c
+fitted with a ramp in depth riding on it near the contour — `s(u) = sDeep +
+max(0, s₀ − sDeep)·max(0, 1 − u/reach)`, s₀ graded thin → thick along
+`sizeThickness` and declining past the knee along the scatter span curve to a
+far anchor (1x 0.72 / 0.52 / 0.20, reach 80). The 1x checkerboard `ssimMean`
+rows: `rrect-sm` 0.9988 → 0.9990, capsule 0.9852 → 0.9856, `rrect-md` 0.9859 →
+0.9862, `rrect-ml` 0.9788 → 0.9797, `glass-over-glass` 0.9807 → 0.9823,
+`rrect-lg` 0.9687 → 0.9743; `rrect-lg`'s interior from 17% softer than Apple's
+to 12% crisper. Every dark row rises or holds. X6's band-windowed rows and the
+windowed depth instrument are the wave's instruments and stay in the harness.
+
+**What it cost and what it learned.** Four forms to find the law: the ramp
+replacing the span curve was span-flat where the bed is span-graded; one start
+per scale could not sit above the deep value on thin and thick cells at once;
+a start graded by `sizeThickness` alone saturated at the knee where the
+reference keeps falling. The second sweep proved the 2x null arithmetically
+and moved the 2x question out of the wave; the third's holdout miss chose the
+fourth form. Two things were caught only by capture: the CSS tier's
+device-scale division (four floors' worth), and the widths' 2x trade — the
+device-pixel widths carried in from W12 as a premise measured against Apple's
+heavier 2x interior and withdrawn. The landing's dry run then found the
+overlay's proxy padding moving with the ramp's projection where the GPU tier's
+2x law does not — a support change, attributed to the byte. Two acceptance
+terms were written as implementation commitments (*the widths in device
+pixels*, *the band improving at both scales*) and the measurement overturned
+both; the next charter should state ends the reference can arbitrate and leave
+the widths to the fit.
 
 ## Revision Notes
 
@@ -863,3 +955,8 @@ Surprises; a term of the 2x charter in Deferred). Landing under G2.
 - 2026-09-04: Decision Log 8 executed on the branch (`40f409c`; the landing review's three
   findings fixed in `beb823f`); the dry run read against both predictions (claims §5.68 §7);
   one Surprise (the stacked scene's proxy at 2x); the 2x charter gains two terms; G2 landing.
+- 2026-09-04: **G2 COMPLETE, the wave RECOMPOSED** (claims §5.68 §8): landed as merge `347af25`
+  and the canonical rebuild `6d507d2`; the acceptance read clause by clause in Outcomes (the 1x
+  half met, the 2x half re-scoped to the deep-value charter, the widths withdrawn); three gaps
+  added to Deferred (the accessibility folds, the 1x golden, the tiers' 2x mixes); the
+  merged worktrees removed.

@@ -9575,3 +9575,32 @@ runtime path a capture reaches (the removed parameter had no runtime caller; a b
 the landing rebuild is predicted byte-identical to the dry run on every cell, holdout included;
 the landing section is the check.
 
+**8. LANDED (2026-09-04).** `c9a9cad` (this section's §7, the predictions first), merge `347af25`
+(W13 G1, `w13-g1-ramp` at `beb823f`), the canonical rebuild `6d507d2`
+(`results/2026-09-03-w13-ramp/g2/g2-landing.md`, `g2-runs.txt`, `g2-verify-landing.py`). 230
+cells, 230 captures, GPU custody 01:30:17–01:35:08. **The 98 GPU cells of the four standard
+profiles are byte-identical to the dry run's, 98 / 98** — the holdout's one reading reproduced,
+not re-read — and their rows equal to it; the 98 CSS cells equal sweep-4's CSS confirmation to
+the last digit. The twelve rows: §4's 1x column and the bed's 2x column, the stacked 2x cell
+0.9761 for the padding shift of §7. `adopted-thresholds` 31 passed before any edit — no floor
+moved, removed or re-pinned, `UNMET_ROWS` 8, `PREDICATE_EXCLUDES` the machine's output. Goldens
+26 passed and **none moved**: every golden scene renders at dpr 2, where this landing changes
+nothing by design, and `goldens:regen` rewrote all ten byte for byte; the reason is beside
+`W14_HASHES` in `isolation.spec.ts`, and the missing 1x golden is a gap. The demo fixture
+re-copied from the canonical 1x light capsule (1 passed). Lint clean, 1 725 unit tests. The
+accessibility profiles, outside the declaration's stops, read against the W14 bed: the CSS tier
+within 0.0002 on every row; the GPU tier's `photo` cells unchanged and its checkerboard and
+`hc-text` cells down in the band by 0.0013–0.0033 (`ssimMean` −0.0002 to −0.0004,
+`ssimOutside` within 0.0001), inside every floor — the ramp under the accessibility folds was
+never measured against the reference's own accessibility material. Sheets: `g2-1x.png`
+byte-identical to `g1-1x.png` (the 1x configuration unchanged since sweep-4's confirmation, so
+the user's reading of the G1 sheet is the landing's S7); `g2-2x.png` the bed on every row, sent.
+The constants as landed are §2's: 1x thin 0.72 / thick 0.52 / far 0.20 / reach 80; 2x 0.46 /
+0.17 / 0.15 / 100 provisional and a null; the body's widths CSS px at every device scale on both
+tiers (Decision Log 8). **Gaps carried out of the landing,** all in W13's Deferred: the stacked
+cells' proxy padding at 2x (§7); the ramp under the accessibility folds; no 1x golden; the two
+tiers' 2x mixes differ — the CSS tier the 1x ramp's area average by Decision Log 5, the GPU tier
+the bed's span law — which the 2x charter re-asks with the deep value; and from §6 the
+coverage-ramp `ssimOutside` thousandth, the far anchor's unfittability, the thin anchor 0.08
+above G0's read-off, the 2x deep value with the widths as its second term.
+
