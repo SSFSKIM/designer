@@ -272,9 +272,11 @@ describe("the foldings read the profile they are given", () => {
   it("ovalizes the direction on thick surfaces only, toward the surface's centre (W12 G2)", () => {
     expect(lensOvalizationAt(32)).toBe(0);
     expect(lensOvalizationAt(64)).toBe(0);
-    expect(lensOvalizationAt(68)).toBeCloseTo(0.3, 12);
-    expect(lensOvalizationAt(72)).toBeCloseTo(0.6, 12);
-    expect(lensOvalizationAt(160)).toBeCloseTo(0.6, 12);
+    // ω 0.8, landed by eye (W12 Decision Log 6, claims §5.54); the saturated
+    // value is `lensOvalization` and the knee's midpoint is half of it.
+    expect(lensOvalizationAt(68)).toBeCloseTo(0.4, 12);
+    expect(lensOvalizationAt(72)).toBeCloseTo(0.8, 12);
+    expect(lensOvalizationAt(160)).toBeCloseTo(0.8, 12);
     // At an edge's midpoint the oval's gradient is the normal, so the blend is
     // the normal at any ω; away from the midpoint it tilts toward the centre.
     const up: [number, number] = [0, -1];

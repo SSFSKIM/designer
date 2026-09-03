@@ -363,7 +363,38 @@ const W12_G2_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "e63ff99028171bc22e797f7ee6cb0b6f",
 };
 
+/**
+ * Five goldens after the W12 ω 0.8 round (2026-09-03; measured under W12
+ * Decision Log 4, landed under Decision Log 6) — one constant, `lensOvalization`
+ * 0.6 → 0.8, and nothing else. The lens keeps its span law, its magnitude and
+ * its exponent; only the direction it warps along leans further toward the oval
+ * inscribed in the surface's box, which is what stretches the band along an edge
+ * away from that edge's midpoint. The value landed by eye, not by measurement:
+ * 0.6 is what the pixels preferred by 0.001–0.002 SSIM on every row that can see
+ * the constant (claims §5.54), 0.8 is the field's measured tilt, and the user
+ * read the 0.8 sheet as much closer to macOS.
+ *
+ * The attribution is narrower than G2's, as one would expect of a direction-only
+ * change on thick surfaces: `placed-checkerboard` again carries the largest
+ * delta (max 23 / mean 0.51 code values against the G2 goldens — a 68 px span
+ * sitting inside the ovalization's 64–72 knee, so its ω moves the most in
+ * relative terms), then `refraction-checkerboard` (11 / 0.30) and
+ * `lens-size-scaling` (6 / 0.19); the two gradient scenes that move do so by ONE
+ * code value (`rim-two-references` 1, `concentric-nesting` 1), and `union-pair`
+ * — which moved by two under G2 — is byte-identical here, as are the two flat
+ * `tint-adaptation-*` backdrops and the two unsampled scenes, `field-mask` and
+ * `highlight-press-glow`. The control has still not moved once since 2026-08-25.
+ */
+const W12_G2B_HASHES: Readonly<Record<string, string>> = {
+  "refraction-checkerboard": "4aeeb4ed7efe9995d544b329f07f95a1",
+  "placed-checkerboard": "6e9a3c5978d4e93ebc40edcd700bc3d7",
+  "lens-size-scaling": "8d82c1f1c268d62ba84513651aab1138",
+  "rim-two-references": "1981d711750823a735c3f05aa8c15e50",
+  "concentric-nesting": "94496ccfe1bd23c77943346f21ec4a95",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W12_G2B_HASHES[name] ??
   W12_G2_HASHES[name] ??
   PLACEMENT_HASHES[name] ??
   W11C_G2_HASHES[name] ??

@@ -7938,3 +7938,17 @@ lands as is with a Decision Log entry naming the eye as the reason and
 §1's rows as the recorded cost. Either way the along-edge stretch's
 missing third stays in Deferred — ω moves it, but not far enough for a
 metric to reward, and the refraction the eye wants more of is `S`'s.
+
+**Decided (user, 2026-09-03; Decision Log 6): ω 0.8 lands, by eye.** The
+user's reading of the composites: 0.8 is "much more similar to original
+macOS". The branch's commit is cherry-picked onto `main` as it stands —
+`lensOvalization` 0.8, the fingerprints of §1 and the goldens of §3 — and
+§1's rows are the recorded cost: at the next canonical rebuild (X1) the
+1x `rrect-md` / `-ml` / `-lg` / `glass-over-glass` texture rows read
+0.0013–0.0019 below the G2 landing's scratch values and the 2x rows
+0.0003–0.0009 below, all still above every floor and the 0.3.0 bed. The
+metric that preferred 0.6 is SSIM over a blurred interior with the band
+a minority of its window; the eye's preference is the corner and the
+along-edge stretch, which no adopted metric weights. That gap between
+what the metrics reward and what the eye reads is recorded in Deferred
+as an instrument question, not a material one.

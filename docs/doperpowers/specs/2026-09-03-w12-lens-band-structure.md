@@ -277,6 +277,14 @@ profile and the 2x body) that write findings, not the spec.
 
 ## Deferred / Out of Scope
 
+- **A by-eye-aligned band metric.** ω 0.8 lost 0.001–0.002 SSIM on every
+  texture row that can see it and the user read it as much closer to
+  macOS (Decision Log 6): whole-crop SSIM weights the blurred interior and
+  not the corner or the along-edge stretch. Shape of the work: a windowed
+  metric on the band's crops (the G1 instrument's D(u) residual per edge
+  and corner, or SSIM restricted to the band), adopted beside the whole-
+  crop bound, so a lens change is scored where the eye looks.
+
 - The two-layer CSS body (W11 Decision Log 5) — unchanged, still deferred.
 - The outside band (contour-straddling windows; W11 Deferred) — unchanged.
 - Chromatic aberration in the band: recorded if G1 sees it (the
@@ -344,7 +352,7 @@ project's rule**, in the order they would be worth a wave:
 | G0 | this session; validation in `results/2026-09-03-w12-lens/g1/g0-instrument.md`; claims §5.49 §1 | COMPLETE 2026-09-03 (0.35 / 0.33 px at 1x / 2x) |
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
-| G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png`; the ω 0.8 A/B measured (claims §5.54, `g2b/`, branch `w12-omega-08-ab`, held for the user) | LANDED 2026-09-03 |
+| G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png`; the ω 0.8 A/B measured (claims §5.54, `g2b/`) and landed by eye (Decision Log 6) | LANDED 2026-09-03; ω 0.8 2026-09-03 |
 | G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement and the declaration next | IN PROGRESS 2026-09-03 |
 
 ## Decision Log
@@ -448,13 +456,34 @@ pulls the long-edge lobes a little further toward the corners and
 nothing more; the refraction the eye wants more of is the magnitude
 `S`, not ω. Constant and goldens on branch `w12-omega-08-ab`, not
 landed; the A/B composites `sheets/g2-vs-g2b-{2x,1x}.png` sent to the
-user. **Recommendation: keep 0.6; the user's eye may override.**
+user. **Recommendation: keep 0.6; the user's eye may override.** Overridden: Decision Log 6.
 
 **Decided (this session):** G2 LANDED. The three 2x texture floors stay
 by W11 Decision Log 4 (their deficit is the interior's now); the
 `hc-text` capsule level move is recorded for the level's owner; the
 canonical rebuild and the predicate's one-line edit wait for
 recomposition (X1, X2). Held for the user: ω 0.6 versus 0.8 by eye; G3.
+
+### Decision Log 6 — ω 0.8 lands by eye (2026-09-03; user-decided)
+
+**Evidence.** Claims §5.54: ω 0.8 costs 0.0013–0.0019 SSIM on every 1x
+texture row that can see it and 0.0003–0.0009 at 2x, moves nothing else,
+holds every W12 stop; the field's measured tilt is 0.8–1.0 (§5.49 §3);
+the A/B composites `sheets/g2-vs-g2b-{2x,1x}.png`.
+
+**Decided (user):** "omega 0.8 — I can say that's much more similar to
+original macOS." The eye overrides the metric's hair: the branch
+`w12-omega-08-ab` is cherry-picked onto `main` as it stands
+(`lensOvalization` 0.8, fingerprints light `c6e388fc8349282d` / dark
+`f9722f244e7f2af2`, five goldens behind `W12_G2B_HASHES`), and §5.54 §1's
+rows are the recorded cost at the next canonical rebuild. My
+recommendation (keep 0.6) is recorded as overridden. Rejected: holding at
+0.6 with the eye's reading in Deferred.
+
+**Follows.** A Deferred entry for the instrument: SSIM over a blurred
+interior does not weight the corner or the along-edge stretch the eye
+reads; a by-eye-aligned metric on the band's crops is the shape of the
+work that would let the metric and the eye agree.
 
 ### Decision Log 5 — G3 opened: the scale-aware body, fitted on both probes (2026-09-03; user-decided)
 
@@ -502,6 +531,18 @@ Log 4) runs first, as the smaller round.
 
 ## Surprises & Discoveries
 
+- (2026-09-03, the user, by eye, on the ω A/B composites) **"The degree of
+  blurring through the glass is less in Apple's — the sharpness behind the
+  glass is reduced less — and instead the transparency is higher."** This
+  is the interior, not the band, and it is what claims §5.49 §7 measured
+  on the 2x bed in numbers: the reference retains 19–35% more backdrop
+  contrast on `rrect-md` / `-ml` / `-lg` (a narrower kernel, σ 5 CSS px at
+  2x against our 10) with a higher transmission (0.41 against our 0.24 on
+  `rrect-md`) and a lower level (0.473 against 0.556 — less white in the
+  plate). The reference's own mechanism is §5.50 §1's quarter-device-scale
+  blur. G3 is the round that carries it, on both tiers; the user's reading
+  is recorded here as the by-eye acceptance G3's landing sheet must meet:
+  sharper behind the glass, more transparent, at 2x.
 - (2026-09-03, G3) **The 2x probe needed a per-cell attestation filter, and
   the bistable cells moved.** Two of the five runs were denied window
   activation part-way through (4 and 28 unattested cells); every

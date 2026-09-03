@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "1065c19c6cb527e5",
+  "resolvedMaterialSha256": "c6e388fc8349282d",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -139,7 +139,7 @@
     "lensThicknessReference": 8,
     "lensExtentGain": 1.337,
     "lensProfileExponent": 3.69,
-    "lensOvalization": 0.6,
+    "lensOvalization": 0.8,
     "lensOvalizationSpanMin": 64,
     "lensOvalizationSpanMax": 72,
     "sizeScatterGainMax": 8,
@@ -180,7 +180,7 @@
         "lensThicknessReference": 8,
         "lensExtentGain": 1.337,
         "lensProfileExponent": 3.69,
-        "lensOvalization": 0.6,
+        "lensOvalization": 0.8,
         "lensOvalizationSpanMin": 64,
         "lensOvalizationSpanMax": 72
       },
@@ -212,7 +212,15 @@
         "The thickness (8) is the reference's unit: at the host's default the lens",
         "depth IS Apple's height (8 / 11 / 20 on 32 / 44 / >= 80). lensSizeGainMax",
         "stays in this patch because the inner shadow's depth still rides it,",
-        "byte for byte, so no solid cell moved."
+        "byte for byte, so no solid cell moved.",
+        "",
+        "lensOvalization 0.8 BY EYE (W12 Decision Log 6, 2026-09-03; claims 5.54):",
+        "0.6 was the dry run's value on the pixels and every texture row that can",
+        "see the constant scores 0.001-0.002 lower at 0.8; 0.8 is the field's",
+        "measured tilt (claims 5.49 section 3) and the user read the 0.8 sheet as",
+        "much closer to macOS. The eye overrides a margin that small; 5.54 section 1",
+        "records the cost, and the Deferred list carries the metric that cannot",
+        "see what the eye does."
       ],
       "doesNotClose": [
         "The corner's dark ring under the bright arc and the reference's continuous",

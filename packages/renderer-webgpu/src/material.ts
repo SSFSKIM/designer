@@ -898,7 +898,12 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   lensThicknessReference: 8,
   lensExtentGain: 1.337,
   lensProfileExponent: 3.69,
-  lensOvalization: 0.6,
+  // 0.8 by eye (W12 Decision Log 6). The pixels preferred 0.6 by a hair — every
+  // texture row that can see ω scores 0.001–0.002 lower at 0.8 (claims §5.54) —
+  // but the field's measured tilt sits at 0.8–1.0 (§5.49 §3) and the user read
+  // the 0.8 sheet as much closer to macOS; the eye overrides a margin that small,
+  // and §5.54 §1's rows are the recorded cost.
+  lensOvalization: 0.8,
   lensOvalizationSpanMin: 64,
   lensOvalizationSpanMax: 72,
 

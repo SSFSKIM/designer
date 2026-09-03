@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "84d9a10e3b866580c15dfce961a888ac";
+const PLACED_CHECKERBOARD_COVER_HASH = "e9224420043e4362d343f39485490052";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -156,6 +156,10 @@ const PLACED_CHECKERBOARD_COVER_HASH = "84d9a10e3b866580c15dfce961a888ac";
  * moved with it and was re-recorded in the same run as the golden — the
  * attribution of that change is the isolation proof's `W12_G2_HASHES`, not
  * this constant, which only says the two fits still differ by the fit alone.
+ *
+ * It moved again for the same reason in the W12 ω 0.8 A/B round (Decision Log 4:
+ * `lensOvalization` 0.6 → 0.8, `84d9a10e3b866580c15dfce961a888ac` → the value
+ * below), whose attribution is `W12_G2B_HASHES` in the isolation proof.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {
