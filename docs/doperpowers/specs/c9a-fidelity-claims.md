@@ -7185,3 +7185,189 @@ thickness (a curved bevel, not a single-depth quadratic), and re-measures where
 the blur and the haze sit between centre and rim. Referee by eye as well as by
 number: put the capture beside the fixture at 2x.
 
+
+### 5.49 W12 G0–G1: the lens band measured as a field — the instrument, the straight edges, the corners, the near-contour profile, the small spans, the 2x body (2026-09-03)
+
+**Claim.** Measured with an instrument first proven on vitrea's own
+captures, the reference's lens along a straight edge is one profile for
+every span from 96 to 160, every edge and both scales (in CSS px): a
+steep power law, D(u) ≈ 42·(1 − u/23)³, larger than vitrea's landed
+quadratic by 5–7 px at u = 2–3 and equal to it from u ≈ 6 in; the
+reference blurs *before* it displaces; the band's sharp σ is ≈ 1.45 CSS
+px at both scales; the band is magnified *along* the edge by up to 1.31×,
+uniformly about the edge's midpoint and falling with span; the corners
+are the straight edge's shape wrapped radially and want no magnitude of
+their own; there is no dark line and no counter-signed term inside the
+rim; the small spans' bands do not collapse onto the large ones by lens
+depth; and the 2x interior differs from the 1x one in transmission, level
+and blur width, not in mean. Evidence and the analysis libraries:
+`packages/calibration/results/2026-09-03-w12-lens/g1/` (findings
+`g0-instrument.md`, `g1-edges.md`, `g1-corners.md`, `g1-rim.md`,
+`g1-small-spans.md`, `g1-body-2x.md`, `g1-depth-ramp.md`, their JSON
+tables); the by-eye sheets `sheets/g1-{2x,1x}.png`. The wave is
+`docs/doperpowers/specs/2026-09-03-w12-lens-band-structure.md`.
+
+#### 1. The instrument (G0), and what it recovered from vitrea
+
+A clamped cubic B-spline D(u) (knots every 2 CSS px to 28, pinned to
+zero there, second-difference penalty 0.01, the fold representable)
+along every pixel line normal to a straight edge through a checker
+column centre, fitted jointly over the four edges with a shared D and
+per-edge level, transmission, heavy share and sharp σ, under both blur
+orders, on vitrea's own `checkerboard__rrect-md__rest` GPU captures:
+
+| acceptance (contract X4) | 1x | 2x |
+| --- | --- | --- |
+| max \|D − 20.8·1.6·(1 − u/20.8)²\| over 2 ≤ u ≤ 20 | **0.35 px** | **0.33 px** |
+| blur-before ÷ blur-after RMS | 4.5× in favour of before | 3–5× |
+| one edge alone (top) | 1.85 px — the checker phase leaves the fold to the prior; the joint fit is the instrument | |
+
+Model-free boundary crossings (where a parity group's profile crosses
+the midpoint of its plateaus, the sampled source is at a known cell
+boundary, so D = s_k − u_k with no model) read vitrea's own law to
+0.1 px (25.3 against 25.4 at u 2.6; 11.5 against 11.6 at 8.5).
+
+#### 2. The straight-edge field on the reference
+
+Crossings, native pitch 16 (probe pitches 32 and 64 agree):
+
+| cell | D at u ≈ 2 | u ≈ 3 | u ≈ 4 | u ≈ 8 | u ≈ 20 |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-md` 1x | **34.2** | **29.1** | **24.0** | **12.1** | 0.2 |
+| `rrect-ml` 1x | 34.0 | 29.0 | 24.0 | 12.1 | 0.1 |
+| `rrect-lg` 1x | 34.0 | — | 24.0 | 12.05 | 0.15 |
+| `rrect-md` 2x | 33.7 | 29.2 | 24.0 | 12.4 | −0.3 |
+| `rrect-ml` 2x | 33.6 | 29.1 | 24.0 | 12.6 | −0.45 |
+| `rrect-lg` 2x | 33.5 | — | 23.8 | 12.85 | −0.8 |
+| vitrea's landed law | 27.2 | 24.4 | 21.7 | 12.6 | 0 |
+
+One curve for three spans and two scales; the first crossing sits one
+device pixel deeper at 2x. The joint spline agrees within 1–2 px at u ≤ 3
+(the penalty's cost on the steepest part) and reads reference − law =
++5…+7 at u 1–2, +3.5 at 3, +2 at 4, +0.3 at 6, −0.7 at 8, −1.0 at 10,
+−0.6 at 14, 0 at 20. D < 1 px from u ≈ 17–18 on every span; the profile
+reaches zero at 19–20 CSS px on spans 96, 128 and 160 alike.
+
+Forms ranked on the pixels (joint, blur-before; RMS mean over edges;
+`g1-edges.md` §6):
+
+| cell | spline | **power S(1−u/L)^p** | quadratic | physical bevel (Snell) | two-term inner/outer |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-md` 1x | .0321 | **.0321** (42.1 / 23.2 / 2.99) | .0360 | .0562 (n at the 2.5 bound) | .0389 |
+| `rrect-ml` 1x | .0272 | **.0270** (42.0 / 23.5 / 3.02) | .0311 | .0458 | .0311 |
+| `rrect-md` 2x | .0386 | **.0399** (40.0 / 23.6 / 2.82) | .0419 | .0660 | .0420 |
+| `rrect-lg` 1x holdout, D from md+ml | — | **.0234** | .0253 | — | — |
+| `rrect-lg` 2x holdout | — | **.0344** | .0404 | — | — |
+| the same rows under vitrea's law | — | .0271 / .0433 | | | |
+
+The physical bevel fails structurally: Snell through a circular or
+superellipse bevel peaks *inside* the contour, the reference peaks at
+it. The two-term profile with free heights collapses its outer term to a
+rim-pixel patch (see §5.50 for what the two terms actually are).
+
+Blur order: blur-before wins on every cell at every pitch, 1.3–7×; the
+reference's fold transitions are 2 px wide and blur-after spreads them
+over 6 at any σ. The band's sharp σ under blur-before: 1.44–1.61 (1x),
+1.45–1.49 (2x, `rrect-md`/`-ml`); the interior's: 1.5 (1x), 2.5–3.0 with
+heavy share 0.85 (2x) — **at 2x the band samples a sharper source than
+the body behind it.**
+
+#### 3. The band magnifies along the edge
+
+Positions of the checker maxima along the top edge at u = 2.5 (2x, CSS
+px; the plate's maxima at 135.5 / 167.5 / 199.5 on `rrect-md`):
+
+| cell | maxima in the band | period | stretch about the midpoint | vitrea |
+| --- | --- | --- | --- | --- |
+| `rrect-md` (w 160) | 128 / 169.5 / 212 | 42 | **1.31×** | 32, 1.00 |
+| `rrect-ml` (w 224) | 113.5 / 150 / 187.5 / 223.5 | 36.7 | 1.15× | 32 |
+| `rrect-lg` (w 280) | 64 / 98.5 / … / 238 (u 4) | 35.5 (u 2.5), 35 (u 4) | 1.11× | 32 |
+
+Uniform over each whole straight section (so not corner-driven); on
+`rrect-md` it decays 1.32 / 1.19 / 1.13 / 1.08 / 1.05 / 1.03 / 1.02 /
+1.01 at u 1–2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 and is 1.00 by 18,
+identical at 1x and 2x (`g1-rim.md` §3). The three spans' stretch
+factors are ∝ 1/width² within 10%. No normal-only displacement carries
+a tangential term on a straight edge; vitrea's period is 32.2 at every
+depth. §5.50 names the mechanism.
+
+#### 4. The corners
+
+Band RMS (linear luma, 2r + 8 squares) of the native corner against the
+landed radial law rendered on the native interior's σ, with the
+straight-edge box beside it (`g1-corners.md`):
+
+| cell | corners, native − prediction | top edge, native − prediction | vitrea − prediction on its own body |
+| --- | --- | --- | --- |
+| `rrect-md` 1x | 0.079–0.088 | 0.059 | 0.010–0.016 |
+| `rrect-md` 2x | 0.094–0.102 | 0.072 | 0.012–0.024 |
+| `rrect-lg` 1x | 0.051–0.054 | 0.044 | 0.011–0.020 |
+| `rrect-lg` 2x | 0.063–0.068 | 0.046 | 0.011–0.027 |
+
+Vitrea's corners *are* the radial law; the native's are not at any
+magnitude 0.6–1.6× or extent 0.75–1.5× of the landed values (the sweep is
+flat to ±0.005, the joint best buys ≤ 0.009), and the corner/edge
+residual ratio is 1.1–1.5: the corner's loss is the band's shape wrapped
+radially, not a corner term. The bottom corners prefer 0.6–0.8× S, the top
+1.0× (recorded, not fitted). By eye the native corner is a bright arc, a
+darker ring following it, and a large crisp lobe that is the outside cell
+reversed and pulled around the corner.
+
+#### 5. The near-contour profile: no dark line
+
+Mean line profile ÷ deep level on `light-solid__rrect-md`, every edge:
+1x 1.069 (u 0.5), 1.038 (1.5), then **1.000** from u 2.5 on; 2x 1.069 /
+1.058 / 1.047 / 1.023 / 1.000 at u 0.25–1.25, then 1.000. Dark-solid the
+same (0.750 → 0.634 → 0.480 flat). No transmission drop, no stroke, no
+Fresnel term; the "thin dark line" of §5.48 is the lens crossing a checker
+boundary at u ≈ 2 (both parities dip to mid-grey there), and it is absent
+on every solid. Vitrea carries a 1% darkening from u ≈ 1.5 to 5.5 on
+solids (its inner shadow) that the reference does not have. The rim: the
+reference's line is 1.0 CSS px FWHM at 2x (two device rows) against
+vitrea's 0.5, and nearly isotropic (top/bottom 1.1:1 on dark-solid)
+against vitrea's 3.2:1 — for the rim's owner (§5.50 §3 gives the
+reference's light model).
+
+#### 6. The small spans
+
+Per-shell radial D(u) (W11c's instrument, 0.5-px shells), native at
+pitch 16, pitch 32 and 2x agreeing to ±1 px:
+
+| u | `capsule-button` native | landed law (L 9.18, S 14.7) | `rrect-sm` native 1x / 2x | landed law (L 8, S 12.8) |
+| --- | --- | --- | --- | --- |
+| 2 | **17.5** | 9.0 | 9.5–10 / 8.0 | 7.2 |
+| 4 | 8.0 | 4.7 | 4.0–4.5 / 3.0 | 3.2 |
+| 6 | 4.5 | 1.8 | 2.0–3.5 / 0 | 0.8 |
+| 8 | 1.5 | 0.2 | 0 / — | 0 |
+| extent | 10.5 | 9.2 | 8–9.5 / 5.5–6 | 8 |
+
+Extents follow the size law's thickness curve within 15%; magnitudes
+over the extent do not (S/L ≈ 1.2 sm, 1.9 capsule, 1.6 md and up). The
+capsule — the one cell whose contour is all corner — is 1.7–1.9× the law.
+
+#### 7. The 2x body, and the kernel
+
+Inset-interior fits (`g1-body-2x.md`): the reference's interior *mean* is
+scale-invariant on every cell (±0.001); its *structure* is not — at 2x it
+retains 8% more contrast on spans ≤ 44 (σ 1.25, t 0.365 against 0.337),
+19% more on `rrect-md` with a wider σ (3.0 against 1.25), a higher t
+(0.413 against 0.246) and a lower level (0.473 against 0.556), 25–35%
+more on `rrect-ml` / `-lg` with σ ≥ 6. The GPU tier at 2x: level +0.064
+on the small spans (a 1x gap too — the matrix's own rows), +0.021 on md;
+retained contrast −18…−22% on every span. The CSS tier is 0.04–0.07 below
+in level and 0.10–0.12 below in contrast (the two-layer body's evidence,
+unchanged). Depth: at 1x the sharp σ-1.25 component keeps its width and
+loses amplitude linearly with depth over the whole half-span (`rrect-lg`
+0.166 → 0.041 over u 24 → 76); at 2x its σ widens instead (2 → 3 → 4 → 5
+CSS px from the band to `rrect-md`'s centre). Impulse kernel at the cell
+centre: 1x a narrow core (σ ≈ 2.5 on the 4-px square, flat-topped) on a
+wide base (σ ≈ 14, 0.18 share); 2x one Gaussian σ 5.0 CSS px. The
+quarter-scale reading that explains both is in §5.50.
+
+#### 8. What G2 fits, and what it does not
+
+For G2: the profile (a power near p 3, S ≈ 2.0 lens depths, L ≈ 1.1
+lens depths at the saturated spans), the direction (§3), the same
+blur-before order and the same body at 1x. Not G2's: the 2x interior
+(G3), the rim's width and isotropy, the inner shadow's 1% on solids, the
+CSS tier.
