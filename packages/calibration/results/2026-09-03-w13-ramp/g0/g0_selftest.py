@@ -2,10 +2,11 @@
 
 1. The analytic plate equals the committed raster along every line used, both scales, every
    pitch (w12lib's self-test, re-run in this wave's geometry).
-2. The estimator recovers a KNOWN k(u) from a synthetic capture produced by the same forward
-   model at the same widths — with and without noise. This separates estimator error from
-   model error: whatever the instrument misses on vitrea's real capture is the renderer
-   differing from the model, not the solve.
+2. The estimator on a synthetic capture produced by the same forward model at the same
+   widths, at ONE pitch — the configuration vitrea's canonical bed offers. This is the
+   demonstration that one spatial frequency does not identify k(u)'s level; `g0_validate.py`
+   §2 runs the same check across every configuration, including the three-pitch pool the
+   reference is read on, where the recovery is 0.003.
 """
 import numpy as np
 
@@ -34,13 +35,13 @@ for scale in (1, 2):
         truth_flat = lambda d: 0.0 * d + L.vitrea_k(span)                          # noqa: E731
         for name, kfun in (('flat', truth_flat), ('ramp', truth_ramp)):
             sets, tags = L.build_sets(L.probe_loader(comp, scale), comp, scale,
-                                      [16] if scale == 1 else [16], u_fit_min=2.0)
+                                      ['checkerboard'], u_fit_min=2.0)
             for s in sets:
                 s.Y = L.forward(s, sharp, heavy, 0.45, 0.42, kfun)
                 s.Y += rng.normal(0, 0.002, s.Y.shape)
             wins = L.windows_for(span)
             fit = L.WindowFit(sets, wins)
-            res = fit.solve_shared_t(sharp, heavy)
+            res = fit.solve_shared_t(sharp, heavy, bounds=None, t_min=-9)
             rows = fit.rows(res)
             err = []
             for r in rows:
