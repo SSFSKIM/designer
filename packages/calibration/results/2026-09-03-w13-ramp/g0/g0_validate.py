@@ -13,6 +13,8 @@ Three checks, in the order they have to pass:
 
 Run from this directory with the analysis venv.
 """
+import os
+
 import numpy as np
 
 import w13lib as L
@@ -149,5 +151,41 @@ for scale in (1, 2):
               f'{min(z["k_mean"] for z in tab):.3f}–{max(z["k_mean"] for z in tab):.3f}, '
               f'flatness {min(z["spread"] for z in tab):.3f}–{max(z["spread"] for z in tab):.3f}')
 out['vitrea_width_grid'] = grid
+
+# ---------------------------------------------------------------- 4. the candidate's build
+# W12 G3's runtime sweep left its last point's captures in scratch — `sizeScatterScaleTerm`
+# 0.35 on the candidate branch, whose `report__webgpu.json` names the patch — so a second
+# vitrea build with DIFFERENT known widths (the device-pixel ones: σ_sharp 0.625, σ_heavy 5
+# CSS px at 2x) and a different known share (min(1, scatterThickness(span) + 0.35)) can be
+# read without capturing anything. The wave's optional capture of the term-0 point was
+# therefore not run; see `g0-ramp.md` §7.
+CAND = '/Users/new/.claude/jobs/5c70e47f/tmp/w12/web-captures-g3sweep'
+cand = {}
+if os.path.isdir(CAND):
+    print('\n4. the candidate build at `sizeScatterScaleTerm` 0.35, 2x (W12 G3`s sweep scratch)')
+    for comp in ('rrect-md', 'rrect-ml'):
+        span = L.SPAN[comp]
+        truth = min(1.0, L.vitrea_k(span) + 0.35)
+        sets, _ = L.build_sets(L.web_loader(comp, 2, root=CAND), comp, 2,
+                               ['checkerboard', 'photo'], u_fit_min=2.0)
+        f = L.WindowFit(sets, L.windows_for(span))
+        tab = []
+        for sh in [('gauss', x) for x in (0.3125, 0.625, 0.75, 1.0, 1.25)]:
+            for hv in [('gauss', x) for x in (3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 10.0)]:
+                r = f.solve_shared_t(sh, hv, bounds=None, t_min=-9)
+                ks = [x['k'] for x in validated(f.rows(r), span)]
+                tab.append(dict(rms=r['rms'], sigma_sharp=sh[1], sigma_heavy=hv[1],
+                                k_mean=float(np.mean(ks)), spread=float(max(ks) - min(ks)),
+                                t=float(r['at'][0][1])))
+        tab.sort(key=lambda z: z['rms'])
+        pinned = [z for z in tab if z['sigma_sharp'] == 0.625 and z['sigma_heavy'] == 5.0][0]
+        cand[f'{comp}@2x'] = dict(truth=truth, grid=tab, pinned=pinned)
+        print(f'   {comp}@2x truth k {truth:.3f}: at the nominal widths (0.625 / 5.0) k mean '
+              f'{pinned["k_mean"]:.3f} spread {pinned["spread"]:.3f}; best grid point '
+              f'{tab[0]["sigma_sharp"]:.3f} / {tab[0]["sigma_heavy"]:.1f} k mean '
+              f'{tab[0]["k_mean"]:.3f} spread {tab[0]["spread"]:.3f}')
+        print(f'      flatness over the whole grid {min(z["spread"] for z in tab):.3f}–'
+              f'{max(z["spread"] for z in tab):.3f}')
+out['candidate_0p35'] = cand
 
 L.write_part('g0-validation', out)
