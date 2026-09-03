@@ -774,6 +774,18 @@ they stand.
 
 ## Revision Notes
 
+- 2026-09-03 (post-close, by the 0.3.0 release chain; claims §5.46): G1's
+  CSS-tier landing left the sampling proxy at the base σ. `root.ts` derived
+  the mixed σ for the proxy's padding default but handed the proxy request
+  and the 3σ enforcement `optics.blurRadius` raw — equal to the mixed σ until
+  G1 (scatter gain 1), 1.25 px against 4.75 px and more after it. The group
+  now resolves one σ for every consumer. Refereed on the nested holdout cells
+  (the only ones that render through a proxy): every W11a claim stands, the
+  2x `checkerboard` texture row +0.0005, CSS captures byte-identical. Found
+  by the platform-web browser suite, which CI had not run since the W5a
+  rename (a filter on a package name that no longer existed); the seven σ
+  tests now derive their numbers from the law. No parent-impact: the
+  recomposition's acceptance and the eleven held floors are untouched.
 - 2026-09-03 (RECOMPOSED; claims §5.45): the parent's acceptance verified
   clause by clause on the G2 rebuild (its determinism checked on one
   profile), the whole bed scanned against the W10 close and every moved

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { gotoHarness } from "../support";
+import { expectedProxyBlur, gotoHarness } from "../support";
 
 test.beforeEach(async ({ page }) => {
   await gotoHarness(page);
@@ -89,48 +89,66 @@ test.describe("the same-plane overlap dev-error", () => {
     // core checks proxy overlap against the *authored* padding. Raising a
     // padding to 3σ here can create a pair core never saw, and that pair
     // double-filters exactly as measurably as any other.
-    const codes = await page.evaluate(async () => {
+    //
+    // The geometry is chosen against the floor the law gives a 40 px member
+    // (`expectedProxyBlur`), not against a literal: the gap sits under one
+    // padding, so each group's raised box covers the other group's own shapes,
+    // while at the authored 2 the boxes are still 6 px apart.
+    const gap = 10;
+    const { padding } = expectedProxyBlur({ spanPx: 40 });
+    expect(padding).toBeGreaterThan(gap);
+    expect(2 * 2).toBeLessThan(gap);
+
+    const codes = await page.evaluate(async (gapPx) => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
       // σ is stated rather than inherited: Chromium answers
       // `prefers-reduced-transparency` from the machine's own setting, and the
       // floor these cases are about is 3σ.
       window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
-      // Authored padding of 2 keeps core's own check quiet at a 20px gap; the
-      // 3σ floor for the regular material's σ = 8 raises it to 24, so each
-      // group's padded box then covers the other group's own shapes.
       window.h.addGroup("a", { samplingPadding: 2, mergeDistance: 2 });
       window.h.addGroup("b", { samplingPadding: 2, mergeDistance: 2 });
       window.h.addSurface({ groupId: "a", left: 100, top: 500, width: 100, height: 40 });
-      window.h.addSurface({ groupId: "b", left: 220, top: 500, width: 100, height: 40 });
+      window.h.addSurface({ groupId: "b", left: 200 + gapPx, top: 500, width: 100, height: 40 });
       window.h.frame(2);
       return window.h.diagnosticCodes();
-    });
+    }, gap);
 
     expect(codes).toContain("sampling-padding-below-3-sigma");
     expect(codes).toContain("proxy-overlap-after-enforcement");
-    // core could not have seen it: at the authored padding the boxes are 16px apart.
+    // core could not have seen it: at the authored padding the boxes are apart.
     expect(codes).not.toContain("group-proxy-overlap");
   });
 
   test("stays quiet where the padded boxes meet but neither group paints", async ({ page }) => {
-    // The narrowed predicate. At a 40px gap and a 24px padding the two padded
-    // boxes still intersect — over an 8px strip outside both clips, which neither
-    // proxy draws into. The overlap experiment measured that band byte-identical
-    // at three blur radii and four backdrop classes, so the mechanism the
-    // warning names provably does not occur here.
+    // The narrowed predicate. At a gap between one padding and two, the two
+    // padded boxes still intersect — over a strip outside both clips, which
+    // neither proxy draws into. The overlap experiment measured that band
+    // byte-identical at three blur radii and four backdrop classes, so the
+    // mechanism the warning names provably does not occur here.
     // See `spikes/s1-proxy-topology/overlap-experiment/`.
-    const codes = await page.evaluate(async () => {
+    const gap = 22;
+    const { padding } = expectedProxyBlur({ spanPx: 40 });
+    expect(padding).toBeLessThan(gap);
+    expect(2 * padding).toBeGreaterThan(gap);
+
+    const codes = await page.evaluate(async (gapPx) => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
-      // σ = 8 stated, so the padding under test is 24 whatever the machine's own
-      // reduced-transparency setting says.
+      // Nominal σ stated, so the padding under test is the law's whatever the
+      // machine's own reduced-transparency setting says.
       window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
       window.h.addGroup("far-a");
       window.h.addGroup("far-b");
       window.h.addSurface({ groupId: "far-a", left: 100, top: 700, width: 100, height: 40 });
-      window.h.addSurface({ groupId: "far-b", left: 240, top: 700, width: 100, height: 40 });
+      window.h.addSurface({
+        groupId: "far-b",
+        left: 200 + gapPx,
+        top: 700,
+        width: 100,
+        height: 40,
+      });
       window.h.frame(2);
       return window.h.diagnosticCodes();
-    });
+    }, gap);
 
     expect(codes).not.toContain("proxy-overlap-after-enforcement");
   });

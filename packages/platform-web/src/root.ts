@@ -283,6 +283,11 @@ export interface GlassGroupRenderInput {
   readonly variant: MaterialVariant;
   readonly samplingPadding: number;
   readonly mergeDistance: number;
+  /**
+   * The σ this group's proxy blurs with, in CSS px: the material's base σ under
+   * the accessibility fold, scattered by the size law at the group's widest
+   * member (W11c G1). The same number the 3σ padding floor was derived from.
+   */
   readonly blurRadius: number;
   /**
    * The scene's own declared `mergeDistance`, `undefined` when the app never
@@ -1197,24 +1202,35 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * now per surface, and a floor derived from the nominal would starve a
        * platter's proxy by exactly the scattering gain — the widest kernel any
        * member samples with is what S1's 3σ rule is about. A group with nothing
-       * measured yet has no span to take, and falls back to the nominal σ.
+       * measured yet has no span to take, and sits at the scatter floor.
+       *
+       * ONE σ for the whole group (W11c G1 follow-up): the proxy's own filter and
+       * the 3σ floor `resolveProxyGeometry` enforces read this same number. The
+       * proxy is the CSS tier's blur in another position — the frost a
+       * `css-backdrop` group's GPU layer composites over — so it blurs at the
+       * mixed σ `cssTierDeclarations` renders in place, not at the base σ the
+       * profile names. Until G1 the two were equal (a scatter gain of 1), which
+       * is how the proxy came to be handed `optics.blurRadius` raw and nobody saw
+       * it: after G1 that left every proxy at 1.25 px under a padding derived for
+       * 4.75 px and more.
        */
       const groupSpanPx = measured.reduce(
         (widest, entry) => Math.max(widest, Math.min(entry.bounds.width, entry.bounds.height)),
         0,
       );
+      const groupBlurRadius = sizeScatterSigmaAt(
+        optics.blurRadius,
+        scatterThickness(
+          groupSpanPx,
+          sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
+          sizeConstants,
+        ),
+        sizeConstants,
+      );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
         mergeDistance: groupRecord.descriptor.mergeDistance,
-        blurRadius: sizeScatterSigmaAt(
-          optics.blurRadius,
-          scatterThickness(
-            groupSpanPx,
-            sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
-            sizeConstants,
-          ),
-          sizeConstants,
-        ),
+        blurRadius: groupBlurRadius,
       });
 
       groupInputs.push({
@@ -1232,7 +1248,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         samplingPadding: sampling.samplingPadding,
         mergeDistance: sampling.mergeDistance,
         declaredMergeDistance: groupRecord.descriptor.mergeDistance,
-        blurRadius: optics.blurRadius,
+        blurRadius: groupBlurRadius,
         ...(backdropTone === undefined
           ? {}
           : {
@@ -1278,7 +1294,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }),
             samplingPadding: sampling.samplingPadding,
             mergeDistance: sampling.mergeDistance,
-            blurRadius: optics.blurRadius,
+            blurRadius: groupBlurRadius,
             saturation: optics.saturation,
           });
         }

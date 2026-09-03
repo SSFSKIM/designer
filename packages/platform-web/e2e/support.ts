@@ -1,5 +1,16 @@
 import { PNG } from "pngjs";
 import { expect, test, type Page } from "@playwright/test";
+import { resolveAccessibilityPolicy } from "@vitreajs/vitrea";
+
+import {
+  MATERIAL_OPTICS,
+  MATERIAL_SOURCE_SIZE,
+  opticsUnderPolicy,
+  requiredSamplingPadding,
+  scatterThickness,
+  sizeScatterSigmaAt,
+} from "../src/optics";
+import { accessibilityRefractionCap } from "../src/refraction";
 
 /** Load the fixture page and wait for the harness module to have run. */
 export async function gotoHarness(page: Page): Promise<void> {
@@ -118,4 +129,68 @@ export function channelDelta(a: Rgb, b: Rgb): number {
 
 export function expectByteIdentical(a: Rgb, b: Rgb, what: string): void {
   expect(channelDelta(a, b), `${what} should be byte-identical, got ${JSON.stringify(a)} vs ${JSON.stringify(b)}`).toBe(0);
+}
+
+/**
+ * The σ a group's proxy blurs with and the 3σ padding floor that follows from
+ * it, derived the way `root.ts` derives them: the material's base σ under the
+ * accessibility fold, scattered by the size law at the group's widest member.
+ *
+ * Specs compute their expected boxes from this rather than from literals. The
+ * literals they carried — "σ = 8, so the floor is 24" — were the material of
+ * August: `blurSigma` moved 8 → 3 before 0.2.0 and to 1.25 with W11c G1, and
+ * the CI integration job matched no package from the W5a rename until the 0.3.0
+ * release chain, so nothing said so. A literal here would go stale the same way
+ * again; the law cannot.
+ */
+export function expectedProxyBlur(options: {
+  readonly spanPx: number;
+  readonly reducedTransparency?: boolean;
+}): { readonly sigma: number; readonly padding: number } {
+  const policy = resolveAccessibilityPolicy(
+    {
+      reducedTransparency: options.reducedTransparency ?? false,
+      reducedMotion: false,
+      increasedContrast: false,
+      forcedColors: false,
+      reducedTransparencySupported: true,
+    },
+    { reducedTransparency: options.reducedTransparency ?? false },
+  ).material;
+  const folded = opticsUnderPolicy(MATERIAL_OPTICS.regular, policy);
+  const sigma = sizeScatterSigmaAt(
+    folded.blurRadius,
+    scatterThickness(
+      options.spanPx,
+      MATERIAL_SOURCE_SIZE.refractionScale[accessibilityRefractionCap(policy)],
+      MATERIAL_SOURCE_SIZE,
+    ),
+    MATERIAL_SOURCE_SIZE,
+  );
+  return { sigma, padding: requiredSamplingPadding(sigma) };
+}
+
+export interface Box {
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+}
+
+/** A member union inflated by a padding on every side — what a proxy's box is. */
+export function paddedBox(union: Box, padding: number): Box {
+  return {
+    x: union.x - padding,
+    y: union.y - padding,
+    width: union.width + 2 * padding,
+    height: union.height + 2 * padding,
+  };
+}
+
+/** `toEqual` for a box whose padding is a real number rather than an integer. */
+export function expectBox(actual: Box | undefined, wanted: Box): void {
+  expect(actual).toBeDefined();
+  for (const side of ["x", "y", "width", "height"] as const) {
+    expect(actual?.[side], side).toBeCloseTo(wanted[side], 3);
+  }
 }

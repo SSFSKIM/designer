@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { gotoHarness } from "../support";
+import { expectBox, expectedProxyBlur, gotoHarness, paddedBox } from "../support";
 
 test.beforeEach(async ({ page }) => {
   await gotoHarness(page);
@@ -60,6 +60,9 @@ test.describe("one masked proxy per sampling group", () => {
   test("raises a padding below 3σ of the group's blur, and says so", async ({ page }) => {
     const result = await page.evaluate(async () => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
+      // Nominal is stated, not inherited: the machine's own reduced-transparency
+      // setting reaches Chromium's media query and would move σ under this test.
+      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
       window.h.addGroup("g", { samplingPadding: 4, mergeDistance: 40 });
       window.h.addSurface({ groupId: "g", left: 300, top: 300, width: 120, height: 40 });
       window.h.frame(3);
@@ -72,8 +75,12 @@ test.describe("one masked proxy per sampling group", () => {
       };
     });
 
-    // σ = 8 for the regular material, so the floor is 24 — not the authored 4.
-    expect(result.box).toEqual({ x: 276, y: 276, width: 168, height: 88 });
+    // The floor is 3σ at the blur this group actually draws with — the material's
+    // σ scattered by the size law at the member's 40 px span — not the authored 4.
+    // Derived rather than written down: see `expectedProxyBlur`.
+    const { padding } = expectedProxyBlur({ spanPx: 40 });
+    expect(padding).toBeGreaterThan(4);
+    expectBox(result.box, paddedBox({ x: 300, y: 300, width: 120, height: 40 }, padding));
     expect(result.codes).toContain("sampling-padding-below-3-sigma");
     expect(result.message).toContain("3σ");
   });
@@ -83,14 +90,19 @@ test.describe("one masked proxy per sampling group", () => {
     // only for the unprefixed one. Emitting one of the two loses an engine.
     const inline = await page.evaluate(async () => {
       await window.h.createRoot({ renderer: "webgpu", appDevice: true });
+      window.h.requireRoot().setAccessibilityOverrides({ reducedTransparency: false });
       window.h.addGroup("g");
       window.h.addSurface({ groupId: "g", left: 100, top: 100, width: 120, height: 40 });
       window.h.frame(3);
       return document.querySelector<HTMLElement>('[data-vitrea-proxy="g"]')?.getAttribute("style");
     });
 
-    expect(inline).toContain("backdrop-filter:blur(8px) saturate(1.8)");
-    expect(inline).toContain("-webkit-backdrop-filter:blur(8px) saturate(1.8)");
+    // The proxy is the CSS tier's blur in another position, so it carries the
+    // same σ an in-place surface of this span renders with (W11c G1), and the
+    // number is written exactly as the runtime computes it.
+    const { sigma } = expectedProxyBlur({ spanPx: 40 });
+    expect(inline).toContain(`backdrop-filter:blur(${sigma}px) saturate(1.8)`);
+    expect(inline).toContain(`-webkit-backdrop-filter:blur(${sigma}px) saturate(1.8)`);
     expect(inline).toContain("clip-path:");
     expect(inline).toContain("-webkit-clip-path:");
   });

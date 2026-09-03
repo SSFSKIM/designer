@@ -6796,6 +6796,77 @@ the canonical ones, so every row they measure is identical too. The
 rebuild is reproducible on this machine at this commit, which is what
 lets G2's referee stand as X1.
 
+### 5.46 The sampling proxy carries the CSS tier's mixed σ (2026-09-03, found by the 0.3.0 release chain)
+
+A follow-up to W11c G1 (§5.41–§5.42), found not by the bed but by the
+platform-web browser suite, which the 0.3.0 release chain was the first thing
+to run since the W5a rename: `ci.yml` filtered the integration job on
+`@vitrea/platform-web`, a package that stopped existing on 2026-08-30, and
+pnpm's answer to a filter that matches nothing is a green no-op. Twenty-four
+of that suite's tests were red, seven of them for one mechanism.
+
+**The mechanism.** The CSS tier's blur under G1 is the body law's single-σ
+form, `sizeScatterSigmaAt(σb, scatterThickness(span))` — 1.25 px scattered
+to 4.75 px at the floor and 10 px at a 256 px span — and `cssTierDeclarations`
+renders every in-place surface that way. The sampling proxy is the same blur in
+another position: the frost a `css-backdrop` group's GPU layer composites over
+(§5.39). `root.ts` computed the mixed σ for the proxy's *padding* default (the
+3σ floor over the group's widest member, W2) and then handed the proxy request
+and the enforcement in `proxy-geometry.ts` the base σ, `optics.blurRadius`.
+Until G1 the two were the same number (a scatter gain of 1), so nothing
+distinguished them; after G1 every proxy blurred at 1.25 px and enforced its
+floor at 3.75 px, under a padding derived for 4.75 px and more — a proxy for a
+40 px control blurred at a quarter of the σ the in-place tier gives the same
+control. The group now resolves ONE σ and every consumer reads it: the proxy's
+`backdrop-filter`, the padding default, the 3σ enforcement, and the group's
+render input.
+
+**Refereed on the only cells that render through the proxy**: the two
+`glass-over-glass` holdout scenes, GPU tier, on the four profiles that carry
+them, the CSS tier re-run beside them so the dom rows' coherence ratio reads
+the new texture twin. The CSS captures are byte-identical to the G2 close on
+every cell (0 differing pixels); the GPU captures differ where the upper pane
+sits (1x light: 5 515 px on `checkerboard`, max 4 code values; 4 267 on
+`photo`, max 2; dark: 22 px, max 1), because the proxy's frost there lies over
+glass that is already smooth. Before → after, against the adopted bounds and
+W11a's six removed floors:
+
+| profile | scene | tier | ssimMean | oklabDeltaEP95 (≤ 0.17) | ratio GPU/CSS (0.80…1.25) |
+| --- | --- | --- | --- | --- | --- |
+| 1x light | checkerboard | texture | 0.9345 → 0.9345 | 0.1149 → 0.1149 | — |
+| 1x light | checkerboard | dom | 0.8499 → 0.8499 | 0.1221 → 0.1221 | 1.0654 → 1.0652 |
+| 1x light | photo | texture | 0.9949 → 0.9949 | 0.0775 → 0.0775 | — |
+| 1x light | photo | dom | 0.9288 → 0.9288 | 0.0536 → 0.0536 | 0.9196 → 0.9196 |
+| 2x light | checkerboard | texture | 0.9076 → 0.9081 | 0.1149 → 0.1149 | — |
+| 2x light | checkerboard | dom | 0.8687 → 0.8687 | 0.1221 → 0.1221 | 1.0642 → 1.0639 |
+| 2x light | photo | texture | 0.9962 → 0.9962 | 0.0791 → 0.0791 | — |
+| 2x light | photo | dom | 0.9508 → 0.9508 | 0.0543 → 0.0543 | 0.9199 → 0.9198 |
+| 1x dark | checkerboard | texture | 0.9042 → 0.9042 | 0.1029 → 0.1029 | — |
+| 1x dark | checkerboard | dom | 0.8504 → 0.8504 | 0.1067 → 0.1067 | 1.1761 → 1.1761 |
+| 2x dark | checkerboard | texture | 0.9078 → 0.9078 | 0.1067 → 0.1067 | — |
+| 2x dark | checkerboard | dom | 0.8763 → 0.8763 | 0.1070 → 0.1070 | 1.1855 → 1.1855 |
+
+Every W11a claim stands (the four ΔE p95 rows and the two `photo` ratio rows
+to four decimals), the 2x `checkerboard` texture floor (≥ 0.9066, §5.44)
+rises by 0.0005, and no other cell in the matrix moved. The calibration suite
+is green at 233. Recorded rather than argued: the bed cannot see this defect,
+because its nested panes sit over glass; an app's glass sits over its page,
+and there the proxy is the whole frost.
+
+**Driver note (X1 again).** The light profile document's SHA moved
+`d2dc97a44ca5 → 9a7b11a1b9d8` between the G2 rebuild and this run — the
+note-only correction to `entries.lens` — so the two light texture rows
+appended beside their predecessors and were reduced to the newest per
+(profile, scene, tier); 230 cells, no duplicate keys.
+
+**What the browser suite now asserts.** The seven σ tests
+(`proxies.spec.ts`, `accessible-padding.spec.ts`, `overlap.spec.ts`) derive
+their boxes, floors and the proxy's inline `blur()` from the law through
+`expectedProxyBlur` in `e2e/support.ts` rather than from the "σ = 8, floor 24"
+literals of August, which had been stale since `blurSigma` moved 8 → 3 before
+0.2.0. The proxy's σ is pinned on all three engines as the string the runtime
+writes.
+
 ## 6. What could not be measured, and why
 
 ### 6.1 Blur sigma is not identifiable from these backgrounds
