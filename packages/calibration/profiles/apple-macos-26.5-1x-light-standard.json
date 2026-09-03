@@ -533,6 +533,24 @@
         "The corners: the area average uses a rectangle's erosion, P - 8u, so a",
         "rounded rect's corner quarter-disks are approximated. Below the ramp's",
         "own measurement error and stated in scatterThickness's doc comment."
+      ],
+      "$comment-correction": [
+        "CORRECTED 2026-09-04, W13 Decision Log 8 (user-decided). The last",
+        "paragraph of `method` records that the device-pixel widths themselves",
+        "stand — sigma_sharp = blurSigma / dpr and sigma_heavy = blurSigma x",
+        "sizeScatterGainMax / dpr (claims 5.56 section 1). They do not: W13",
+        "carried that reading into its dry runs and the bed retired it. At 2x the",
+        "ramp is a null on every cell of this bed, so the halved widths were the",
+        "only change at that scale, and against the W14 bed they took the four",
+        "large checkerboard rows down 0.006-0.017 while raising the two small",
+        "ones — Apple's 2x interior is HEAVIER than vitrea's (claims 5.64 section",
+        "4) and a narrower width pushes the large spans the wrong way. Both",
+        "widths are CSS-px quantities at every device scale, on both tiers; no",
+        "ratio reaches them. The prose above is kept verbatim because a",
+        "constant's history is part of the claim, and the retirement of",
+        "sizeScatterScaleTerm that the same paragraph records is unaffected —",
+        "it went for the reason stated there. The 2x gap is the deep value's,",
+        "chartered separately in W13's Deferred list."
       ]
     },
     "tintShade": {

@@ -1164,10 +1164,10 @@ export function sizeThicknessUnderPolicy(
  * large surface's proxy by exactly the gain — and over the σ this tier will
  * really write, which at dpr 2 is not the one it writes at dpr 1.
  *
- * `devicePixelRatio` is the scale the tier draws at (W12 G3, claims §5.56): the
- * widths are device-pixel quantities, so the σ in CSS px is `sigmaPx / dpr`
- * scaled by the weight `scatterThickness` projects. It defaults to 1, where the
- * expression is the 1x law exactly.
+ * `devicePixelRatio` reaches only the ramp's projection — the depth ramp's start
+ * and reach are per-scale constants (W13 G1) — and not the width, which is CSS
+ * px at every scale (W13 Decision Log 8; see `sizeScatterSigmaAt`). It defaults
+ * to 1, where the whole expression is the 1x law.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
@@ -1385,17 +1385,20 @@ export function scatterRampAreaMean(
  * an unfolded thickness for it. One formula, so a policy fold cannot accidentally
  * be applied to one facet and not another.
  *
- * `devicePixelRatio` divides the σ because the two widths are device-pixel
- * quantities (W12 G3, claims §5.56 §1, verified §5.58 §2).
+ * The widths are CSS-px quantities at every device scale, and this form takes no
+ * ratio at all. W12 G3 read them as device-pixel quantities and this mirror
+ * divided the σ by the ratio (claims §5.56 §1, verified §5.58 §2); W13 Decision
+ * Log 8 (user-decided, 2026-09-04) retired that reading on the bed, so the two
+ * mirrors would otherwise disagree by the ratio itself — a fully heavy mix at
+ * dpr 2 returned 5 px here against the renderer's 10.
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
-  devicePixelRatio = 1,
 ): number {
   const mix = clamp01(scatter);
-  return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (size.sizeScatterGainMax - 1) * mix);
+  return sigmaPx * (1 + (size.sizeScatterGainMax - 1) * mix);
 }
 
 /**

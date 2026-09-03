@@ -357,6 +357,20 @@ that the mix is an average over the surface. Small and self-contained, and a
 documentation gap rather than a fidelity one: nothing the runtime draws is
 affected.
 
+**Amended 2026-09-04 (W13 Decision Log 8, user-decided).** The first half of
+this entry rested on a premise the bed withdrew: the body's two widths are *not*
+device-pixel quantities on either tier. W13 carried W12 G3's reading into its dry
+runs and retired it — at 2x the ramp is a null, so the halved widths were the
+only change at that scale, and they moved the four large checkerboard rows the
+wrong way (claims §5.68). Both widths are CSS px at every scale, so the readout's
+two width numbers are right as printed on both tiers and no Retina visitor reads
+a doubled value. What stays open is the other half, and only that: the printed
+mix is the depth ramp's area average read at dpr 1, while the GPU tier mixes per
+pixel and projects the ramp with the 2x start and reach on a Retina display. The
+remaining fix is smaller than the one above — thread `window.devicePixelRatio`
+into `bodyLaw`'s projection and say in the readout that the mix is an average
+over the surface. Still a documentation gap and not a fidelity one.
+
 ## The CSS tier's reduced-transparency proxy spec is flaky on WebKit in CI
 
 *Found 2026-09-03, watching CI over the W13/W14 wave commits.*

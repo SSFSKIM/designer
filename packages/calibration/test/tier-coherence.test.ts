@@ -646,6 +646,14 @@ describe("tier coherence (K5)", () => {
     }
     expect(cssSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
     expect(rendererSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
+    // And a ratio handed to either mirror anyway is not a parameter: the CSS
+    // mirror kept a fourth argument after W13 Decision Log 8 and divided by it,
+    // which is how the two mirrors came to disagree by the ratio itself. A
+    // stray 2 is the 1x width on both, at the mix a full ramp reaches.
+    const withStrayRatio = (fn: unknown, size: unknown): number =>
+      (fn as (...args: unknown[]) => number)(1.25, 1, size, 2);
+    expect(withStrayRatio(cssSizeScatterSigmaAt, MATERIAL_SOURCE_SIZE)).toBeCloseTo(10, 12);
+    expect(withStrayRatio(rendererSizeScatterSigmaAt, DEFAULT_MATERIAL_PROFILE)).toBeCloseTo(10, 12);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
