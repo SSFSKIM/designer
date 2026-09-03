@@ -1,0 +1,14 @@
+[
+ {"id":"mq-two-040",     "dpr":1,"query":{"form":"two","comp":"rrect-md","backdrop":"checkerboard","share":"0.4"}},
+ {"id":"mq-mask-040",    "dpr":1,"query":{"form":"known-ramp","carrier":"raster","comp":"rrect-md","backdrop":"checkerboard","k0":"0.4","k1":"0.4"}},
+ {"id":"mq-mask08-op05", "dpr":1,"query":{"form":"known-ramp","carrier":"raster","comp":"rrect-md","backdrop":"checkerboard","k0":"0.8","k1":"0.8","maskOpacity":"0.5"}},
+ {"id":"mq-two-000",     "dpr":1,"query":{"form":"two","comp":"rrect-md","backdrop":"checkerboard","share":"0"}},
+ {"id":"mq-mask-000",    "dpr":1,"query":{"form":"known-ramp","carrier":"raster","comp":"rrect-md","backdrop":"checkerboard","k0":"0","k1":"0"}},
+ {"id":"mq-two-100",     "dpr":1,"query":{"form":"two","comp":"rrect-md","backdrop":"checkerboard","share":"1"}},
+ {"id":"mq-mask-100",    "dpr":1,"query":{"form":"known-ramp","carrier":"raster","comp":"rrect-md","backdrop":"checkerboard","k0":"1","k1":"1"}},
+ {"id":"mq-plate",       "dpr":1,"query":{"form":"none","comp":"rrect-md","backdrop":"checkerboard"}},
+ {"id":"mq-single",      "dpr":1,"query":{"form":"single","comp":"rrect-md","backdrop":"checkerboard"}},
+ {"id":"mq-field-raster","dpr":1,"query":{"form":"maskfield","carrier":"raster","comp":"rrect-md"}},
+ {"id":"mq-field-svg",   "dpr":1,"query":{"form":"maskfield","carrier":"svg","comp":"rrect-md"}},
+ {"id":"mq-field-grad",  "dpr":1,"query":{"form":"maskfield","carrier":"gradient","comp":"rrect-md"}}
+]

@@ -1,0 +1,196 @@
+{
+ "engine": "151.0.7922.34",
+ "args": [
+  "--enable-unsafe-webgpu",
+  "--enable-features=Vulkan,WebGPU"
+ ],
+ "jobs": [
+  {
+   "id": "lf3-wrap-plus-lighter-0.4",
+   "dpr": 1,
+   "query": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "ringFilter": "brightness(1.5)",
+    "blend": "plus-lighter",
+    "amp": "0.4",
+    "mask": "off",
+    "wrap": "1"
+   },
+   "url": "http://127.0.0.1:56312/probe.html?form=lift&comp=rrect-md&backdrop=flat50&ringFilter=brightness%281.5%29&blend=plus-lighter&amp=0.4&mask=off&wrap=1&dpr=1",
+   "report": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "dpr": 1,
+    "span": 96,
+    "sharpCss": 1.25,
+    "heavyLayerCss": 9.921567416492215,
+    "gain": 8,
+    "share": 0.4893481049562682,
+    "wrapped": true,
+    "reach": 30,
+    "sigmaL": 12,
+    "amp": 0.4,
+    "ringFilter": "brightness(1.5)",
+    "blend": "normal"
+   },
+   "deterministic": true
+  },
+  {
+   "id": "lf3-wrap-plus-lighter-1",
+   "dpr": 1,
+   "query": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "ringFilter": "brightness(1.5)",
+    "blend": "plus-lighter",
+    "amp": "1",
+    "mask": "off",
+    "wrap": "1"
+   },
+   "url": "http://127.0.0.1:56312/probe.html?form=lift&comp=rrect-md&backdrop=flat50&ringFilter=brightness%281.5%29&blend=plus-lighter&amp=1&mask=off&wrap=1&dpr=1",
+   "report": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "dpr": 1,
+    "span": 96,
+    "sharpCss": 1.25,
+    "heavyLayerCss": 9.921567416492215,
+    "gain": 8,
+    "share": 0.4893481049562682,
+    "wrapped": true,
+    "reach": 30,
+    "sigmaL": 12,
+    "amp": 1,
+    "ringFilter": "brightness(1.5)",
+    "blend": "normal"
+   },
+   "deterministic": true
+  },
+  {
+   "id": "lf3-wrap-normal-0.4",
+   "dpr": 1,
+   "query": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "ringFilter": "brightness(1.5)",
+    "blend": "normal",
+    "amp": "0.4",
+    "mask": "off",
+    "wrap": "1"
+   },
+   "url": "http://127.0.0.1:56312/probe.html?form=lift&comp=rrect-md&backdrop=flat50&ringFilter=brightness%281.5%29&blend=normal&amp=0.4&mask=off&wrap=1&dpr=1",
+   "report": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "dpr": 1,
+    "span": 96,
+    "sharpCss": 1.25,
+    "heavyLayerCss": 9.921567416492215,
+    "gain": 8,
+    "share": 0.4893481049562682,
+    "wrapped": true,
+    "reach": 30,
+    "sigmaL": 12,
+    "amp": 0.4,
+    "ringFilter": "brightness(1.5)",
+    "blend": "normal"
+   },
+   "deterministic": true
+  },
+  {
+   "id": "lf3-wrap-normal-1",
+   "dpr": 1,
+   "query": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "ringFilter": "brightness(1.5)",
+    "blend": "normal",
+    "amp": "1",
+    "mask": "off",
+    "wrap": "1"
+   },
+   "url": "http://127.0.0.1:56312/probe.html?form=lift&comp=rrect-md&backdrop=flat50&ringFilter=brightness%281.5%29&blend=normal&amp=1&mask=off&wrap=1&dpr=1",
+   "report": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "flat50",
+    "dpr": 1,
+    "span": 96,
+    "sharpCss": 1.25,
+    "heavyLayerCss": 9.921567416492215,
+    "gain": 8,
+    "share": 0.4893481049562682,
+    "wrapped": true,
+    "reach": 30,
+    "sigmaL": 12,
+    "amp": 1,
+    "ringFilter": "brightness(1.5)",
+    "blend": "normal"
+   },
+   "deterministic": true
+  },
+  {
+   "id": "lf3-wrap-body",
+   "dpr": 1,
+   "query": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "checkerboard",
+    "body": "on",
+    "sigmaL": "40",
+    "amp": "0.2",
+    "wrap": "1",
+    "ringFirst": "1"
+   },
+   "url": "http://127.0.0.1:56312/probe.html?form=lift&comp=rrect-md&backdrop=checkerboard&body=on&sigmaL=40&amp=0.2&wrap=1&ringFirst=1&dpr=1",
+   "report": {
+    "form": "lift",
+    "comp": "rrect-md",
+    "backdrop": "checkerboard",
+    "dpr": 1,
+    "span": 96,
+    "sharpCss": 1.25,
+    "heavyLayerCss": 9.921567416492215,
+    "gain": 8,
+    "share": 0.4893481049562682,
+    "wrapped": true,
+    "reach": 30,
+    "sigmaL": 40,
+    "amp": 0.2,
+    "ringFilter": "blur(40px)",
+    "blend": "normal"
+   },
+   "deterministic": true
+  },
+  {
+   "id": "lf3-body-only",
+   "dpr": 1,
+   "query": {
+    "form": "two",
+    "comp": "rrect-md",
+    "backdrop": "checkerboard"
+   },
+   "url": "http://127.0.0.1:56312/probe.html?form=two&comp=rrect-md&backdrop=checkerboard&dpr=1",
+   "report": {
+    "form": "two",
+    "comp": "rrect-md",
+    "backdrop": "checkerboard",
+    "dpr": 1,
+    "span": 96,
+    "sharpCss": 1.25,
+    "heavyLayerCss": 9.921567416492215,
+    "gain": 8,
+    "share": 0.4893481049562682
+   },
+   "deterministic": true
+  }
+ ]
+}

@@ -9979,3 +9979,299 @@ sheets byte-identical to the re-form's dry-run sheets, so the user's readings of
 under native at 2x; the 2x gain's top unobserved above span 160; the whole-silhouette interior
 statistic as a stop; the CSS tier's 2x law by decision with §5's table as the two-layer body's
 brief; the CSS tier's frame timing on one solid cell.
+
+### 5.71 W16 G0: `mask-image` composes, the two-layer body is drawn correctly and floored by the colour space, and the lift's form does not exist (2026-09-04)
+
+The spike W16's charter opens with (`docs/doperpowers/specs/2026-09-04-w16-css-two-layer-body.md`,
+child G0). Nothing here is a change to the runtime, a profile or a golden: every form is hand-built
+on a probe page from the material profile's own numbers, read out of
+`packages/platform-web/src/optics.ts` by `dump-law.ts` rather than transcribed. Every capture is
+real Chromium **151.0.7922.34** on `channel: "chromium"` with the harness's own GPU flags, never
+the headless shell, and `VITREA_ALLOW_FALLBACK_ADAPTER` was never set. Document, scripts, probe
+pages and JSON: `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/`.
+
+#### 1. `mask-image` on a `backdrop-filter` layer — the question the ramp depended on
+
+**Yes.** A `mask-image` of uniform alpha *a* on a `backdrop-filter` layer renders bit-identically
+to `opacity: a`, and a mask of alpha 0.8 with `opacity: 0.5` bit-identically to `opacity: 0.40`.
+`rrect-md`, pitch 16, linear luminance:
+
+| pair | RMS over the interior box | max over the interior box | max over the whole canvas |
+| --- | --- | --- | --- |
+| `opacity: 0.40` vs mask alpha 0.40 | **0.000000** | **0.000000** | 0.100889 |
+| `opacity: 0.40` vs mask 0.80 × `opacity: 0.5` | **0.000000** | **0.000000** | 0.105558 |
+| `opacity: 0` vs mask alpha 0 | 0.000000 | 0.000000 | 0.000000 |
+| `opacity: 1` vs mask alpha 1 | **0.000000** | **0.000000** | 0.208976 |
+
+The canvas maxima are the single antialiased contour pixel, where the raster mask's own edge and
+the layer's `border-radius` clip disagree by up to one strong code value. Ten carrier mechanisms
+were separated (`opacity`, a PNG mask with and without `mask-mode: alpha`, `-webkit-mask-image`, a
+gradient mask in both spellings, `clip-path` with `opacity`, `will-change`): all compose. One does
+not — **a mask on a wrapper with the filter on its child renders the child's filter inert**, RMS
+0.000000 against the sharp layer alone. The mask must sit on the filtered element itself.
+
+#### 2. The two-layer body against the reference (contract X4 first)
+
+The scoring is claims §5.42 §5's own protocol — the native probe cell regressed on one structure
+column with a level and a transmission free per span and shared across pitches 8 / 16 / 32 / 64,
+over §5.41's inset interior box. Fed §5.42 §5's own model columns it returns §5.42 §5's own numbers,
+which is this reading's X4:
+
+| cell | GPU law, published | reproduced here | CSS σ today, published | reproduced here (at §5.42 §5's σ) |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.0280 | **0.0280** | 0.0708 | **0.0708** |
+| `capsule-button` | 0.0281 | **0.0281** | 0.0784 | **0.0784** |
+| `rrect-md` | 0.0138 | **0.0138** | 0.0615 | **0.0615** |
+| `rrect-ml` | 0.0148 | **0.0148** | 0.0491 | **0.0491** |
+| `rrect-lg` | 0.0174 | **0.0174** | 0.0376 | **0.0376** |
+
+What Chromium draws, dpr 1 (every column but the first two is a capture):
+
+| cell | span | model GPU law | model CSS σ today | one blur | two flat (`kDeep`) | two flat (area mean) | two + raster ramp | `url(#f)` sRGB | `url(#f)` linearRGB |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 0.0280 | 0.0631 | 0.0704 | 0.0273 | 0.0255 | 0.0252 | 0.0273 | 0.0327 |
+| `capsule-button` | 44 | 0.0281 | 0.0681 | 0.0880 | 0.0566 | 0.0492 | 0.0498 | 0.0566 | 0.0310 |
+| `rrect-md` | 96 | 0.0138 | 0.0599 | 0.0789 | 0.0410 | 0.0399 | 0.0400 | 0.0410 | 0.0207 |
+| `rrect-ml` | 128 | 0.0148 | 0.0464 | 0.0678 | 0.0434 | 0.0422 | 0.0420 | 0.0434 | 0.0209 |
+| `rrect-lg` | 160 | 0.0174 | 0.0354 | 0.0569 | 0.0432 | 0.0416 | 0.0414 | 0.0432 | 0.0209 |
+
+and dpr 2, the GPU law column at this scale's own device-pixel widths:
+
+| cell | span | model GPU law | model CSS σ today | one blur | two flat (`kDeep`) | two flat (area mean) | two + raster ramp | `url(#f)` sRGB | `url(#f)` linearRGB |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 0.0456 | 0.0485 | 0.0591 | 0.0510 | 0.0384 | 0.0375 | 0.0510 | 0.0453 |
+| `capsule-button` | 44 | 0.0330 | 0.0489 | 0.0723 | 0.0587 | 0.0390 | 0.0417 | 0.0587 | 0.0334 |
+| `rrect-md` | 96 | 0.0271 | 0.0347 | 0.0664 | 0.0539 | 0.0543 | 0.0534 | 0.0539 | 0.0262 |
+| `rrect-ml` | 128 | 0.0309 | 0.0267 | 0.0603 | 0.0581 | 0.0600 | 0.0585 | 0.0581 | 0.0305 |
+| `rrect-lg` | 160 | 0.0234 | 0.0229 | 0.0521 | 0.0504 | 0.0514 | 0.0504 | 0.0504 | 0.0242 |
+
+**Two `blur()` layers halve the residual on every span and still miss the charter's acceptance
+(within 1.5× the GPU law's) on four of five — and the mechanism is the colour space, not
+Chromium.** `backdrop-filter: blur()` is an operator on the page's *encoded* values; the reference's
+body is linear in luminance:
+
+| cell | the law blurred in LINEAR light | the same law blurred in the ENCODED space | the capture | the capture against the forward model of what the page asked for |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.0280 | 0.0298 | 0.0273 | 0.01503 |
+| `capsule-button` | 0.0281 | 0.0525 | 0.0566 | 0.00487 |
+| `rrect-md` | 0.0138 | 0.0389 | 0.0410 | 0.00243 |
+| `rrect-ml` | 0.0148 | 0.0410 | 0.0434 | 0.00242 |
+| `rrect-lg` | 0.0174 | 0.0408 | 0.0432 | 0.00268 |
+
+The fourth column says Chromium draws the law: the capture agrees with the sharp layer's encoded
+blur, the heavy layer's encoded blur of that output at σ_b·√(gain² − 1), mixed at the heavy share in
+the encoded space, to RMS 0.0024–0.0049 on the four larger spans. The third column is the cost of
+the space, 2.4–2.8× on the thick spans, and no σ, share or mask can move it.
+
+**The form that does meet the acceptance is one the charter does not name.**
+`backdrop-filter: url(#f)` with an SVG `feGaussianBlur` and `color-interpolation-filters="linearRGB"`
+blurs in linear light. Its `sRGB` sibling is bit-for-bit the `blur()` column on every cell at both
+scales, which is the control. The linear form reads **1.17× / 1.10× / 1.50× / 1.41× / 1.20×** of the
+GPU law at dpr 1 and **0.99× / 1.01× / 0.97× / 0.99× / 1.03×** at dpr 2. Chromium is the only engine
+that renders a reference filter inside `backdrop-filter`, which the conformance table already
+records (`referenceFilterInBackdrop`, true on the Chromium rows only), so this is a per-engine
+fidelity dependency and not a universal form.
+
+#### 3. The contour ring, and where the tint goes
+
+The same two layers with the tint (`rgba(255,255,255,0.46)`) beneath them against the tint on a
+third layer above them, pitch 16, encoded means by depth band:
+
+| cell | depth band, CSS px | tint under | tint over | difference |
+| --- | --- | --- | --- | --- |
+| `rrect-md` | 0–1 | 0.7104 | 0.7210 | −0.0106 |
+| `rrect-md` | 1–2 | 0.7196 | 0.7294 | −0.0098 |
+| `rrect-md` | 2–4 | 0.7221 | 0.7295 | −0.0074 |
+| `rrect-md` | 4–8 | 0.7240 | 0.7294 | −0.0054 |
+| `rrect-md` | 8–16 | 0.7269 | 0.7294 | −0.0026 |
+| `rrect-md` | 16–32 | 0.7289 | 0.7294 | −0.0005 |
+| `rrect-md` | whole silhouette | 0.7267 | 0.7291 | −0.0025 |
+| `rrect-lg` | 0–1 | 0.7106 | 0.7212 | −0.0106 |
+| `rrect-lg` | 1–2 | 0.7149 | 0.7294 | −0.0145 |
+| `rrect-lg` | 2–4 | 0.7185 | 0.7294 | −0.0109 |
+| `rrect-lg` | 4–8 | 0.7214 | 0.7294 | −0.0081 |
+| `rrect-lg` | 8–16 | 0.7255 | 0.7294 | −0.0039 |
+| `rrect-lg` | 16–32 | 0.7281 | 0.7295 | −0.0013 |
+| `rrect-lg` | whole silhouette | 0.7268 | 0.7293 | −0.0025 |
+
+The tint beneath the layers is blurred by them and darkens a ring **0.010–0.015 encoded over the
+first 4 CSS px** and 0.004–0.008 out to 8, decaying to a thousandth by 16–32. The charter's
+linearity argument holds away from the contour and fails inside a kernel's width of it, by that
+much. The same capture confirms the paint order the redistribution list rests on: negative-`z-index`
+children do paint above the host's own background.
+
+#### 4. The ramp's three mask carriers
+
+Each carrier's realised alpha, read with no filter in the loop (an opaque white layer under the mask
+over a black page composites to exactly the mask's alpha), against the shader's k(u) on the same
+rounded-rect SDF, contour pixel excluded:
+
+| carrier | cell | region | mean \|Δ\| | p99 \|Δ\| | max \|Δ\| |
+| --- | --- | --- | --- | --- | --- |
+| raster | `rrect-md` | inside | **0.0010** | 0.0018 | **0.0019** |
+| raster | `rrect-md` | corners | 0.0010 | 0.0019 | 0.0019 |
+| SVG inset, blurred | `rrect-md` | inside | 0.0104 | 0.0203 | 0.0208 |
+| SVG inset, blurred | `rrect-md` | corners | 0.0052 | 0.0105 | 0.0110 |
+| gradient stack | `rrect-md` | inside | 0.0324 | 0.0665 | 0.0693 |
+| gradient stack | `rrect-md` | corners | **0.0608** | 0.0690 | 0.0693 |
+| raster | `rrect-lg` | inside | **0.0010** | 0.0020 | **0.0020** |
+| SVG inset, blurred | `rrect-lg` | inside | 0.0476 | 0.1154 | 0.1214 |
+| SVG inset, blurred | `rrect-lg` | corners | 0.0207 | 0.0539 | 0.0600 |
+| gradient stack | `rrect-lg` | inside | 0.0619 | 0.2018 | 0.2111 |
+| gradient stack | `rrect-lg` | corners | **0.1895** | 0.2079 | 0.2111 |
+
+The raster carrier's 0.0010 mean and 0.0020 maximum are the 8-bit mask channel's own quantisation
+(half of 1/255) and nothing else, corners included. `mask-composite: intersect` multiplies alphas
+where the distance field takes a minimum, and the gradient stack's corner error is 2–4× its
+straight-run error in consequence.
+
+W13's depth-window instrument (§5.61 §1) reads the same captures with two changes, both forced by
+what this tier is: the fixed lens pinned at **zero** displacement, because the tier draws none; and
+the capture read in its **encoded** grey, because `backdrop-filter: blur()` is linear there — which
+is exact rather than approximate, since the probe's plates are 0 and 1 in both spaces. Pitches
+16 / 32 / 64, windows 4 ≤ u ≤ span/2 − 4, X4's readings first:
+
+| reading | cell | windows | u range | max \|k − truth\| | mean (k − truth) | fit RMS |
+| --- | --- | --- | --- | --- | --- | --- |
+| X4 known ramp (0.30 → 0.90 over 40 CSS px) | `rrect-md` | 10 | 6–42 | **0.0083** | +0.0010 | 0.00799 |
+| X4 known flat share 0.40 | `rrect-md` | 10 | 6–42 | **0.0103** | −0.0026 | 0.00722 |
+| carrier raster | `rrect-md` | 10 | 6–42 | **0.0112** | −0.0012 | 0.00722 |
+| carrier SVG | `rrect-md` | 10 | 6–42 | 0.0183 | −0.0139 | 0.00735 |
+| carrier gradient | `rrect-md` | 10 | 6–42 | 0.0387 | −0.0287 | 0.00911 |
+| X4 known ramp (0.30 → 0.90 over 40 CSS px) | `rrect-lg` | 18 | 6–74 | **0.0195** | −0.0006 | 0.00633 |
+| X4 known flat share 0.40 | `rrect-lg` | 18 | 6–74 | **0.0115** | −0.0034 | 0.00647 |
+| carrier raster | `rrect-lg` | 18 | 6–74 | **0.0066** | +0.0009 | 0.00621 |
+| carrier SVG | `rrect-lg` | 18 | 6–74 | 0.1058 | −0.0568 | 0.00641 |
+| carrier gradient | `rrect-lg` | 18 | 6–74 | 0.0596 | −0.0335 | 0.02184 |
+
+The raster carrier is the only one inside ±0.05 on both cells; both approximate carriers read low,
+the direction their alpha fields predict.
+
+#### 5. The second scale
+
+The two layers at device-pixel widths through dpr 2 — sharp σ 0.625 CSS px, heavy σ 3.000 / 3.000 /
+3.000 / 3.332 / 4.122, the share the tier's own area-mean projection of the renderer's ramp at
+dpr 2 — projected onto one Gaussian by matching the mixture's second moment, beside §5.69 §4 and
+beside the measured best single σ of the 2x capture itself:
+
+| cell | draws today (§5.70 §5) | the reference's ceiling (§5.69 §4) | the reference's own mix and widths (§5.69 §4) | this form, moment-matched | this form, the capture's own best single σ |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 3.79 | 3.00 | 2.91 | **2.36** | **2.50** |
+| `capsule-button` | 3.97 | 2.50 | 2.82 | **2.44** | **2.35** |
+| `rrect-md` | 5.53 | 4.00 | 3.64 | **2.81** | **2.80** |
+| `rrect-ml` | 6.09 | 5.00 | 4.19 | **3.16** | **3.00** |
+| `rrect-lg` | 7.04 | 5.00 | 5.01 | **3.94** | **3.65** |
+
+Arithmetic and capture agree to 0.14–0.29 CSS px. Against the acceptance's 0.8 CSS px of the fourth
+column the form lands **−0.55 / −0.38 / −0.84 / −1.03 / −1.07** — inside on the two thin spans,
+outside on the three thick, and narrow on all five, where today's form is 0.88–2.03 CSS px wide.
+The cause is the renderer's own 2x heavy width: the reference's is 4.00 / 3.75 / 4.00 / 4.50 / 5.50
+CSS px (§5.69 §1's bounded fits halved), this form's 3.00 / 3.00 / 3.00 / 3.33 / 4.12. **The gap is
+the GPU law's own distance from the reference at 2x restated in this tier's units**, not a term this
+tier is missing — §2's dpr-2 linearRGB row reproduces the law it was given to within 0.0008 RMS on
+every span.
+
+#### 6. The lift: a form that does not exist
+
+Over a flat ground of encoded 0.50196 with a ring whose `backdrop-filter` is `brightness(1.5)` (so
+the filtered backdrop is exactly 0.75294 and every prediction is arithmetic):
+
+| `mix-blend-mode` on the ring | ring `opacity` | measured | `normal` predicts | `plus-lighter` predicts | `screen` predicts |
+| --- | --- | --- | --- | --- | --- |
+| `plus-lighter` | 0.4 | 0.60392 | **0.60235** | 0.80314 | 0.65196 |
+| `plus-lighter` | 1.0 | 0.75294 | **0.75294** | 1.00000 | 0.87696 |
+| `normal` | 0.4 | 0.60392 | **0.60235** | 0.80314 | 0.65196 |
+| `normal` | 1.0 | 0.75294 | **0.75294** | 1.00000 | 0.87696 |
+| `screen` | 0.4 | 0.60392 | **0.60235** | 0.80314 | 0.65196 |
+| `screen` | 1.0 | 0.75294 | **0.75294** | 1.00000 | 0.87696 |
+| filtered child in a `plus-lighter` parent | 0.4 | **0.50196** | — | 0.80314 | — |
+| filtered child in a `plus-lighter` parent | 1.0 | **0.50196** | — | 1.00000 | — |
+| filtered child in a `normal` parent | 1.0 | 0.75294 | 0.75294 | — | — |
+
+All three blend modes render the `normal` result, identically, to 0.4/255 (the ring's own
+antialiasing inside the sampled band). **A blend mode does not reach a `backdrop-filter`'s output**
+— it blends the element's own content, and an empty ring has none — and the repair of putting the
+blend on a parent fails because a `mix-blend-mode` ancestor is a backdrop root, so the child's
+filter is inert and the ring renders the bare ground exactly. The last row is the control: the same
+construction at `normal` and opacity 1 renders the filtered value. On this tier the lift is
+expressible only with a copy of the backdrop in the element's own content, which is a proxy.
+
+A `plus-lighter` ring painted after the host leaves the two-layer body's interior byte-identical
+(RMS 0.000000); painted before it, the body moves by RMS 0.000185 and at most 0.003922 encoded;
+wrapped in a blended parent, byte-identical again, because the wrapped ring paints nothing. And on
+the committed canonical captures, encoded means over the shadow ring (0 to 25 CSS px outside the
+silhouette):
+
+| cell | GPU − CSS | native − CSS | native − GPU |
+| --- | --- | --- | --- |
+| `photo__rrect-md__rest` | −0.0171 | −0.0112 | +0.0059 |
+| `light-solid__rrect-md__rest` | −0.0025 | −0.0000 | +0.0025 |
+| `light-solid__rrect-ml__rest` | +0.0024 | +0.0069 | +0.0045 |
+
+On `photo__rrect-md` the CSS tier is *lighter* than the native by 0.0112 encoded in the ring, so
+W14's derived alpha over-corrects there and added light would move it the wrong way. **The lift is
+not this tier's largest ring error on the bed as it stands.**
+
+#### 7. The cost
+
+An uncapped `requestAnimationFrame` interval (`--disable-gpu-vsync --disable-frame-rate-limit`)
+returned 0.1–0.3 ms for every configuration from no filter to two filters and a mask over 0–320
+surfaces: rasterisation is the compositor's and the main thread is idle, so that reading is empty
+and is recorded so it is not repeated. With vsync on, the number that carries information is the
+count at which the display's cadence breaks. The machine's no-filter cadence is a median of
+11.1–13.4 ms over the same
+counts and both scales. Synthetic page, 1280 × 800, n surfaces of 160 × 96 CSS px over a backdrop translated
+every frame; median frame interval in ms; every surface is inside the viewport up to n = 40:
+
+| surfaces | filtered device px per frame @1x / @2x | one @1x | two @1x | two + mask @1x | one @2x | two @2x | two + mask @2x |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 20 | 0.31 M / 1.23 M | 11.3 | 11.8 | 10.5 | 10.9 | 19.5 | 10.8 |
+| 24 | 0.37 M / 1.47 M | 10.7 | 12.4 | 10.5 | 14.8 | 10.3 | 10.4 |
+| 28 | 0.43 M / 1.72 M | 10.4 | 10.6 | 11.0 | 11.7 | 15.1 | 10.6 |
+| 32 | 0.49 M / 1.97 M | 10.8 | 11.9 | 11.5 | 10.9 | 11.0 | 12.4 |
+| 36 | 0.55 M / 2.21 M | 10.7 | 14.1 | 14.7 | 10.5 | 12.0 | 14.3 |
+| 40 | 0.61 M / 2.46 M | 10.9 | 16.7 | 18.5 | 10.6 | 15.2 | 19.0 |
+| 48 | 0.74 M / 2.95 M | 16.7 | 21.9 | 21.9 | 10.2 | 20.2 | 20.9 |
+| 80 | 1.23 M / 4.92 M | 11.0 | 26.9 | 27.0 | 10.6 | 22.7 | 26.8 |
+| 160 | 2.46 M / 9.83 M | 10.9 | 27.2 | 27.2 | 10.5 | 23.7 | 27.2 |
+| 320 | 4.92 M / 19.66 M | 10.6 | 26.9 | 27.2 | 10.9 | 26.7 | 26.8 |
+
+Every cell is a single run; two readings below n = 32 sit off the trend (`two` at dpr 2, n = 20;
+`one` at dpr 1, n = 48) and neither reproduces at its neighbours. **One `backdrop-filter` per
+surface never leaves the cadence at any count measured; two leave it monotonically from 32 surfaces
+upward at both scales** — 0.49–0.61 M filtered device px per frame at dpr 1 — saturating at about
+27 ms from 80 surfaces. **The mask is free**: `two` and `two + mask` are within the noise of each
+other everywhere. A single surface costs nothing measurable at any shape, including 1600 × 900 at
+dpr 2 (5.76 M device px on one element, 11.5 M across the two layers, three to six times
+`CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT`) — which is the expected answer on a real GPU and says nothing
+about the software rasteriser, whose joint limit for two filtered elements stays unmeasured.
+
+The demo with `?renderer=css`, as shipped and with every filtered host converted in place:
+
+| page | filtered elements | largest | as shipped | two layers | two + mask |
+| --- | --- | --- | --- | --- | --- |
+| `/index.html` @1x | 3 | 288 × 112 | 11.9 ms | 11.0 ms | 11.6 ms |
+| `/index.html` @2x | 3 | 288 × 112 | 19.0 ms | 11.9 ms | 12.4 ms |
+| `/laws/` @1x | 2 | 288 × 112 | 10.9 ms | 11.8 ms | 11.9 ms |
+| `/laws/` @2x | 2 | 288 × 112 | 11.6 ms | 12.2 ms | 13.4 ms |
+| `/playground/` @1x | 8 | 320 × 144 | 11.8 ms | 11.4 ms | 12.8 ms |
+| `/playground/` @2x | 8 | 320 × 144 | 11.4 ms | 11.3 ms | 12.0 ms |
+
+**The demo's densest CSS-tier page is `/playground/` with eight filtered elements**, 0.16 M filtered
+device px at dpr 2. At that density the shape is free: every reading is at the cadence and the
+spread between as-shipped and two-layers-plus-mask is inside the run-to-run noise. The one reading
+above the cadence is today's one-blur form on the site at dpr 2 and did not reproduce.
+
+#### 8. What this contradicts, and what is left open
+
+- **The charter's parent-level acceptance for the body is not reachable with `blur()`** at any σ or
+  share (§2). It is reachable with a linear-light reference filter, which is Chromium-only.
+- **The charter's Purpose item 2 over-predicts the second scale**: two layers at device-pixel widths
+  land 0.38–1.07 CSS px narrow of §5.69 §4's column, not on it (§5).
+- **The charter's advisory lift form does not exist** (§6); its Risk anticipated re-rooting, and the
+  failure is one step earlier than that.
+- **The charter's first Risk does not fire**: `mask-image` composes (§1), and the exact raster
+  carrier is free per frame (§7) and exact to the mask channel's 8 bits (§4).
+- Open and named: the software rasteriser's joint area limit for two filtered elements; whether a
+  linear-light reference filter changes the tier's cost (§7's runs all use `blur()`); the
+  accessibility folds on the two-layer form.

@@ -1,0 +1,80 @@
+[
+ {
+  "id": "lf-plate",
+  "dpr": 1,
+  "query": {
+   "form": "none",
+   "comp": "rrect-md",
+   "backdrop": "flat50"
+  }
+ },
+ {
+  "id": "lf-plus",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "flat50",
+   "ringFilter": "brightness(1.5)",
+   "blend": "plus-lighter",
+   "amp": "0.4"
+  }
+ },
+ {
+  "id": "lf-normal",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "flat50",
+   "ringFilter": "brightness(1.5)",
+   "blend": "normal",
+   "amp": "0.4"
+  }
+ },
+ {
+  "id": "lf-plus-photo",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "photo-luma",
+   "sigmaL": "40",
+   "amp": "0.2"
+  }
+ },
+ {
+  "id": "lf-body-only",
+  "dpr": 1,
+  "query": {
+   "form": "two",
+   "comp": "rrect-md",
+   "backdrop": "checkerboard"
+  }
+ },
+ {
+  "id": "lf-body-ring-after",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "checkerboard",
+   "body": "on",
+   "sigmaL": "40",
+   "amp": "0.2"
+  }
+ },
+ {
+  "id": "lf-body-ring-first",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "checkerboard",
+   "body": "on",
+   "sigmaL": "40",
+   "amp": "0.2",
+   "ringFirst": "1"
+  }
+ }
+]

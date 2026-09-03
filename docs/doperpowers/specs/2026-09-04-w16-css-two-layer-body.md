@@ -460,7 +460,7 @@ page's section H (X9) lands from G0 on its own, since it moves no material.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | — | OPENED 2026-09-04 |
+| G0 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71; section H on `spikes/s1-proxy-topology/pages/manual-check.html` (X9) | CLOSED 2026-09-04 — `mask-image` composes; the two `blur()` layers halve the residual and are floored by the encoded space; a linear-light reference filter meets the acceptance and is Chromium-only; the lift's advisory form does not exist; the cost budget measured |
 | G1 | — | blocked-by G0 |
 | G2 | — | blocked-by G1 |
 
@@ -500,7 +500,40 @@ the measured engine, the holdout once.
 
 ## Surprises & Discoveries
 
-(none yet)
+- **2026-09-04 (G0) — the tier's body is floored by the colour space, not by its form.**
+  `backdrop-filter: blur()` is an operator on the page's ENCODED values and the reference's body is
+  linear in luminance. The two-layer form reproduces the law it is given to RMS 0.0024–0.0049
+  against its own forward model, and still reads 2.4–2.8× the GPU law's residual on the thick spans,
+  because the same law blurred in the encoded space reads exactly that (claims §5.71 §2). No σ,
+  share or mask can move it. This was not in the charter's Consumes, its Design or its Risks: every
+  one of them treats `blur()` and the law as interchangeable, and §5.42 §5's "RMS 0.0011" was a
+  measurement of the MIX, in encoded luma, not of the composed body against the reference.
+- **2026-09-04 (G0) — there is a linear-light form, and it is Chromium-only.**
+  `backdrop-filter: url(#f)` with `color-interpolation-filters="linearRGB"` blurs in linear light and
+  is the only measured form that meets the parent-level acceptance (1.10–1.50× of the GPU law at 1x,
+  0.97–1.03× at 2x). Its `sRGB` sibling is bit-for-bit the `blur()` form, which is the control. The
+  conformance table's existing `referenceFilterInBackdrop` field — until now the "reserved
+  displacement seam" of Decision Log #11 — becomes a **fidelity dependency** if G1 takes it.
+- **2026-09-04 (G0) — a blend mode does not reach a `backdrop-filter`'s output.**
+  `plus-lighter`, `screen` and `normal` on a filtered ring render identically, to 0.4/255: the blend
+  blends the element's own content, which an empty ring has none of. Putting the blend on a parent
+  makes the child's filter inert, because a `mix-blend-mode` ancestor is a backdrop root. The
+  charter's advisory lift form is therefore not buildable at all, which is one step earlier than the
+  Risk it anticipated ("the lift re-roots the backdrop") — that Risk does not fire for a sibling
+  (byte-identical body beneath) and fires absolutely for an ancestor.
+- **2026-09-04 (G0) — a masked ANCESTOR kills a descendant's `backdrop-filter`, while a mask on the
+  filtered element itself composes exactly.** Ten carrier spellings on the element compose, one on a
+  wrapper does not. `engine-defects.ts` records Chromium ≥ 152 dropping `backdrop-filter` under
+  `clip-path: path()` beneath a rounded clipping ancestor; this is the neighbouring fact, it is
+  normative rather than a defect, and it constrains the element model (the mask cannot be hoisted).
+- **2026-09-04 (G0) — the lift is not the CSS tier's largest ring error on the bed as it stands.**
+  On `photo__rrect-md__rest` the CSS tier is 0.0112 encoded LIGHTER than the native over the shadow
+  ring while the GPU tier is 0.0059 DARKER, so W14's derived alpha over-corrects on that cell and
+  added light would move it the wrong way (claims §5.71 §6).
+- **2026-09-04 (G0) — an uncapped `requestAnimationFrame` interval measures nothing about a
+  `backdrop-filter`.** Every configuration from no filter to two filters and a mask, 0–320 surfaces,
+  read 0.1–0.3 ms with `--disable-gpu-vsync --disable-frame-rate-limit`: the rasterisation is the
+  compositor's and the main thread is idle. The cost table is a vsync-on saturation sweep instead.
 
 ## Outcomes & Retrospective
 
@@ -510,3 +543,11 @@ the measured engine, the holdout once.
 
 - 2026-09-04: chartered from W11's Deferred entry, W13's and W14's deferrals and W15's
   Decision Log 3, on the user's pick; G0 opened.
+- 2026-09-04: G0 closed. Findings in
+  `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71,
+  section H landed on S1's manual page (X9's first half). Three of the charter's advisory or
+  predictive statements are contradicted by measurement and are written up in the findings' §8 and
+  claims §5.71 §8 for the parent rather than edited into the binding content here: the body's
+  acceptance is unreachable with `blur()`, the second scale lands narrow rather than on, and the
+  lift's advisory form does not exist. Decision Log 1's three open questions each have a
+  measurement and a recommendation in the findings; none is answered here.

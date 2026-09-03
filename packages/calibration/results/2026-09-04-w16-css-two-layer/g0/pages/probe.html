@@ -1,0 +1,456 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>W16 G0 probe</title>
+<!--
+  W16 G0's probe page. One canvas of the calibration bed's own size (320x200 CSS
+  px) with one of the probe backdrops laid down at device resolution and one host
+  of a scene component's geometry over it, drawn in the form the query string
+  names. Nothing here imports vitrea: the two layers are hand-built from the
+  profile's own numbers, dumped by `dump-law.ts` into `law.json`, because G0
+  changes no runtime.
+
+  form=single          today's tier: one in-place `backdrop-filter` on the host
+  form=two             the two-layer body, heavy share as `opacity` (flat)
+  form=ramp            the two-layer body, heavy share as a `mask-image` carrier
+  form=known-single    a known sigma, for the instrument's recovery (X4)
+  form=known-two       a known (sigma_s, sigma_h, share), same
+  form=known-ramp      a known k(u) as a raster mask, same
+  form=tint            the contour ring: the tint under the layers or over them
+  form=lift            the outer ring, `mix-blend-mode: plus-lighter`
+  form=none            the backdrop alone (the plate self-test through the page)
+-->
+<style>
+  html, body { margin: 0; padding: 0; background: #000; }
+  #canvas { position: relative; width: 320px; height: 200px; overflow: hidden; }
+  #bg { position: absolute; inset: 0; width: 320px; height: 200px; display: block; }
+  #host { position: absolute; isolation: isolate; }
+  #host > .layer {
+    position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    pointer-events: none;
+  }
+  #lift { position: absolute; pointer-events: none; }
+</style>
+<div id="canvas"><img id="bg" alt=""></div>
+<script type="module">
+const q = new URLSearchParams(location.search);
+const law = await (await fetch("./law.json")).json();
+
+const COMP = {
+  "rrect-sm": [64, 32, 8], "capsule-button": [120, 44, 22], "rrect-md": [160, 96, 20],
+  "rrect-ml": [224, 128, 27], "rrect-lg": [280, 160, 34],
+};
+const CX = 160, CY = 100;
+
+const form = q.get("form") ?? "two";
+const comp = q.get("comp") ?? "rrect-md";
+const backdrop = q.get("backdrop") ?? "checkerboard";
+const dpr = Number(q.get("dpr") ?? "1");
+const num = (name, fallback) => (q.has(name) ? Number(q.get(name)) : fallback);
+
+const [w, h, r] = COMP[comp];
+const span = Math.min(w, h);
+const L = law.spans[`${span}@${dpr}x`];
+
+document.getElementById("bg").src = `./plates/${backdrop}@${dpr}x.png`;
+
+const canvas = document.getElementById("canvas");
+const host = document.createElement("div");
+host.id = "host";
+host.style.left = `${CX - w / 2}px`;
+host.style.top = `${CY - h / 2}px`;
+host.style.width = `${w}px`;
+host.style.height = `${h}px`;
+host.style.borderRadius = `${r}px`;
+canvas.append(host);
+
+/* The widths the two layers draw at, in CSS px. The sharp layer is the profile's
+   own base sigma at this scale; the heavy layer's OWN blur is what composes with
+   the sharp layer's output to the law's heavy width, because the second layer
+   filters the first's result (claims 5.42 5): sigma_b*sqrt(gain^2 - 1). */
+const sharpCss = num("sharp", L.sharpCss);
+const gain = num("gain", L.gain);
+const heavyLayerCss = num("heavy", Math.sqrt(gain * gain - 1) * sharpCss);
+const share = num("share", L.areaMix);
+
+const layer = (sigma) => {
+  const el = document.createElement("div");
+  el.className = "layer";
+  el.setAttribute("aria-hidden", "true");
+  el.style.backdropFilter = `blur(${sigma}px)`;
+  el.style.webkitBackdropFilter = `blur(${sigma}px)`;
+  return el;
+};
+
+/* k(u) as the renderer computes it, sampled at 1 CSS px and read back by
+   interpolation; `law.json` carries it per device px, which is the unit the
+   ramp's reach is a length in. */
+function kAtCssPx(uCss) {
+  const uDevice = uCss * dpr;
+  const i = Math.min(law.spans[`${span}@${dpr}x`].ramp.length - 1, Math.floor(uDevice));
+  const j = Math.min(law.spans[`${span}@${dpr}x`].ramp.length - 1, i + 1);
+  const f = Math.min(1, Math.max(0, uDevice - i));
+  const ramp = law.spans[`${span}@${dpr}x`].ramp;
+  return ramp[i].k * (1 - f) + ramp[j].k * f;
+}
+
+/** The rounded-rect SDF depth at a point in the host's own CSS coordinates. */
+function depthAt(x, y) {
+  const px = Math.abs(x - w / 2) - (w / 2 - r);
+  const py = Math.abs(y - h / 2) - (h / 2 - r);
+  const outside = Math.hypot(Math.max(px, 0), Math.max(py, 0));
+  return -(outside + Math.min(Math.max(px, py), 0) - r);
+}
+
+/** Carrier (c): the exact k(u) rasterised at device resolution into a canvas. */
+function rasterMask(kOf) {
+  const c = document.createElement("canvas");
+  c.width = Math.round(w * dpr);
+  c.height = Math.round(h * dpr);
+  const ctx = c.getContext("2d");
+  const img = ctx.createImageData(c.width, c.height);
+  for (let py = 0; py < c.height; py += 1) {
+    for (let px = 0; px < c.width; px += 1) {
+      const u = depthAt((px + 0.5) / dpr, (py + 0.5) / dpr);
+      const a = u <= 0 ? kOf(0) : kOf(u);
+      const o = (py * c.width + px) * 4;
+      img.data[o] = 255; img.data[o + 1] = 255; img.data[o + 2] = 255;
+      img.data[o + 3] = Math.round(Math.min(1, Math.max(0, a)) * 255);
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  return c.toDataURL();
+}
+
+/** Carrier (a): four linear gradients and four radial corners, intersected.
+ *
+ * The distance field of a rounded rect is the MINIMUM of the four side distances
+ * inside the straight runs and the corner's radial distance inside a corner, and
+ * `mask-composite: intersect` multiplies alphas rather than taking a minimum, so
+ * this carrier is exact along a side and biased low wherever two terms are both
+ * below 1 — which is the whole of every corner. That bias is the measurement. */
+function gradientMask() {
+  const U = L.reachDevicePx / dpr;            // the reach in CSS px
+  const kD = L.kDeep;
+  const N = 12;
+  // Every layer carries k(u)/kDeep, and one base layer beneath them all carries
+  // kDeep, so that in a straight run — where three of the four side terms sit at
+  // 1 — the product is exactly k(u). In a corner two terms are below 1 at once
+  // and the product falls under the minimum: that is the carrier's own error.
+  const rel = (u) => Math.min(1, Math.max(0, kAtCssPx(u) / kD)).toFixed(4);
+  const side = (dir) => {
+    const stops = [];
+    for (let i = 0; i <= N; i += 1) {
+      const u = (U * i) / N;
+      stops.push(`rgba(255,255,255,${rel(u)}) ${u.toFixed(3)}px`);
+    }
+    return `linear-gradient(${dir}, ${stops.join(", ")})`;
+  };
+  const corner = (at) => {
+    const stops = [];
+    const top = Math.min(U, r);
+    for (let i = 0; i <= N; i += 1) {
+      const u = top - (top * i) / N;          // u falls as the radius grows
+      stops.push(`rgba(255,255,255,${rel(u)}) ${(r - u).toFixed(3)}px`);
+    }
+    // Past the corner's own radius the layer must be inert, or `intersect` would
+    // pull every straight run down to the corner's contour value.
+    stops.push(`rgba(255,255,255,1) ${(r + 0.01).toFixed(3)}px`);
+    return `radial-gradient(circle ${(r + 0.01).toFixed(3)}px at ${at}, ${stops.join(", ")})`;
+  };
+  const layers = [
+    side("to bottom"), side("to top"), side("to right"), side("to left"),
+    corner(`${r}px ${r}px`), corner(`calc(100% - ${r}px) ${r}px`),
+    corner(`${r}px calc(100% - ${r}px)`), corner(`calc(100% - ${r}px) calc(100% - ${r}px)`),
+    `linear-gradient(rgba(255,255,255,${kD.toFixed(4)}), rgba(255,255,255,${kD.toFixed(4)}))`,
+  ];
+  // Layers composite bottom-up; the bottom one has nothing under it, so it adds.
+  const composite = layers.map((_, i) => (i === layers.length - 1 ? "add" : "intersect"));
+  return { image: layers.join(", "), composite: composite.join(", ") };
+}
+
+
+/** Carrier (b): an inset rounded rect in an SVG mask, blurred — an erf profile. */
+function svgMaskUrl() {
+  const U = L.reachDevicePx / dpr;
+  const k0 = kAtCssPx(0), kD = L.kDeep;
+  // The blur's sigma is chosen so the erf crosses the linear ramp's mid-point at
+  // the same slope: an erf of sigma s has slope 1/(s*sqrt(2*pi)) at its centre,
+  // and the ramp's slope is 1/U, so s = U/sqrt(2*pi).
+  const sigma = U / Math.sqrt(2 * Math.PI);
+  const inset = U / 2;
+  const rr = Math.max(0, r - inset);
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">` +
+    `<filter id="b" x="-50%" y="-50%" width="200%" height="200%">` +
+    `<feGaussianBlur stdDeviation="${sigma.toFixed(4)}"/></filter>` +
+    `<rect width="${w}" height="${h}" rx="${r}" fill="rgb(255,255,255)" fill-opacity="${k0.toFixed(4)}"/>` +
+    `<rect x="${inset.toFixed(3)}" y="${inset.toFixed(3)}" width="${(w - 2 * inset).toFixed(3)}" ` +
+    `height="${(h - 2 * inset).toFixed(3)}" rx="${rr.toFixed(3)}" fill="rgb(255,255,255)" ` +
+    `fill-opacity="${(kD - k0).toFixed(4)}" filter="url(#b)"/></svg>`;
+  return `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
+}
+
+function applyMask(el, spec) {
+  if (typeof spec === "string") {
+    el.style.maskImage = spec; el.style.webkitMaskImage = spec;
+  } else {
+    el.style.maskImage = spec.image; el.style.webkitMaskImage = spec.image;
+    el.style.maskComposite = spec.composite;
+  }
+  el.style.maskMode = "alpha";
+  el.style.maskSize = "100% 100%";
+  el.style.maskRepeat = "no-repeat";
+}
+
+const report = { form, comp, backdrop, dpr, span, sharpCss, heavyLayerCss, gain, share };
+
+if (form === "none") {
+  host.remove();
+} else if (form === "single") {
+  const sigma = num("sigma", L.cssTierSigmaToday);
+  host.style.backdropFilter = `blur(${sigma}px)`;
+  report.sigma = sigma;
+} else if (form === "known-single") {
+  const sigma = num("sigma", 4);
+  host.append(layer(sigma));
+  report.sigma = sigma;
+} else if (form === "two" || form === "known-two") {
+  host.append(layer(sharpCss));
+  const heavy = layer(heavyLayerCss);
+  heavy.style.opacity = String(share);
+  host.append(heavy);
+} else if (form === "ramp" || form === "known-ramp") {
+  host.append(layer(sharpCss));
+  const heavy = layer(heavyLayerCss);
+  const carrier = q.get("carrier") ?? "raster";
+  const kOf = form === "known-ramp"
+    // A ramp the analysis knows exactly and the profile does not: linear from
+    // `k0` at the contour to `k1` at `U` CSS px, flat below and above.
+    ? (u) => {
+        const k0 = num("k0", 0.3), k1 = num("k1", 0.9), U = num("reach", 40);
+        return k0 + (k1 - k0) * Math.min(1, Math.max(0, u / U));
+      }
+    : kAtCssPx;
+  if (carrier === "raster") applyMask(heavy, `url("${rasterMask(kOf)}")`);
+  else if (carrier === "svg") applyMask(heavy, svgMaskUrl());
+  else applyMask(heavy, gradientMask());
+  if (q.has("maskOpacity")) heavy.style.opacity = q.get("maskOpacity");
+  host.append(heavy);
+  report.carrier = carrier;
+} else if (form === "two-svg") {
+  /* The same two layers, but each `backdrop-filter` is a REFERENCE filter whose
+     `color-interpolation-filters` the page names. `linearRGB` is SVG's own
+     default and is the space the reference's body is linear in; `sRGB` is what
+     `blur()` gives. Chromium is the only engine that renders a reference filter
+     inside `backdrop-filter` at all (conformance table, WebKit 245510 / Gecko
+     1887451), so this is a Chromium-only form by construction. */
+  const space = q.get("space") ?? "linearRGB";
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("width", "0");
+  svg.setAttribute("height", "0");
+  svg.style.position = "absolute";
+  const mk = (id, sigma) => {
+    const f = document.createElementNS(ns, "filter");
+    f.setAttribute("id", id);
+    f.setAttribute("x", "-50%"); f.setAttribute("y", "-50%");
+    f.setAttribute("width", "200%"); f.setAttribute("height", "200%");
+    f.setAttribute("color-interpolation-filters", space);
+    const b = document.createElementNS(ns, "feGaussianBlur");
+    b.setAttribute("stdDeviation", String(sigma));
+    f.append(b);
+    svg.append(f);
+  };
+  mk("w16sharp", sharpCss);
+  mk("w16heavy", heavyLayerCss);
+  document.body.append(svg);
+  const mkLayer = (id) => {
+    const el = document.createElement("div");
+    el.className = "layer";
+    el.style.backdropFilter = `url(#${id})`;
+    return el;
+  };
+  host.append(mkLayer("w16sharp"));
+  const heavy = mkLayer("w16heavy");
+  heavy.style.opacity = String(share);
+  host.append(heavy);
+  report.space = space;
+} else if (form === "mdiag") {
+  /* The composition question, one carrier mechanism at a time. Every variant
+     draws the SAME two layers; only how the heavy layer's share is carried
+     changes, so a variant that renders the sharp layer alone has had its
+     `backdrop-filter` dropped and a variant that renders the heavy layer at full
+     weight has had its carrier dropped. */
+  const variant = q.get("variant") ?? "png-alpha";
+  const a = num("share", 0.4);
+  host.append(layer(sharpCss));
+  const heavy = layer(heavyLayerCss);
+  const flat = (u) => { void u; return a; };
+  const png = `url("${rasterMask(flat)}")`;
+  const grad = `linear-gradient(rgba(0,0,0,${a}), rgba(0,0,0,${a}))`;
+  if (variant === "opacity") heavy.style.opacity = String(a);
+  else if (variant === "png-alpha") {
+    heavy.style.maskImage = png; heavy.style.maskMode = "alpha";
+    heavy.style.maskSize = "100% 100%"; heavy.style.maskRepeat = "no-repeat";
+  } else if (variant === "png-plain") heavy.style.maskImage = png;
+  else if (variant === "webkit-png") heavy.style.webkitMaskImage = png;
+  else if (variant === "gradient") heavy.style.maskImage = grad;
+  else if (variant === "webkit-gradient") heavy.style.webkitMaskImage = grad;
+  else if (variant === "mask-opaque") heavy.style.maskImage = "linear-gradient(#000, #000)";
+  else if (variant === "clip-path") {
+    heavy.style.clipPath = `inset(0 round ${r}px)`;
+    heavy.style.opacity = String(a);
+  } else if (variant === "parent-mask") {
+    const wrap = document.createElement("div");
+    wrap.className = "layer";
+    wrap.style.maskImage = png; wrap.style.maskMode = "alpha";
+    wrap.style.maskSize = "100% 100%"; wrap.style.maskRepeat = "no-repeat";
+    const inner = layer(heavyLayerCss);
+    inner.style.zIndex = "auto";
+    wrap.append(inner);
+    host.append(wrap);
+    report.variant = variant;
+    window.__w16 = report;
+    document.documentElement.dataset.ready = "1";
+    throw new Error("done");   // the wrapper is already appended
+  } else if (variant === "svg-mask") {
+    heavy.style.maskImage = svgMaskUrl(); heavy.style.maskMode = "alpha";
+    heavy.style.maskSize = "100% 100%"; heavy.style.maskRepeat = "no-repeat";
+  } else if (variant === "will-change") {
+    heavy.style.willChange = "backdrop-filter";
+    heavy.style.maskImage = png; heavy.style.maskMode = "alpha";
+    heavy.style.maskSize = "100% 100%"; heavy.style.maskRepeat = "no-repeat";
+  }
+  host.append(heavy);
+  report.variant = variant;
+} else if (form === "stair") {
+  /* The mask-free carrier: concentric inset siblings, each clipped by its own
+     `border-radius` and weighted by its own `opacity`. Each layer filters the
+     accumulated result of the ones below it, so the widths compose in quadrature
+     — the weights below are solved for that on the page, from the exact k(u). */
+  const N = num("steps", 4);
+  const U = L.reachDevicePx / dpr;
+  host.append(layer(sharpCss));
+  for (let i = 0; i < N; i += 1) {
+    const inset = (U * i) / N;
+    // the share this shell must reach: k at the middle of its own band
+    const uMid = (U * (i + 0.5)) / N;
+    const kHere = i === N - 1 ? L.kDeep : kAtCssPx(uMid);
+    const kBelow = i === 0 ? 0 : kAtCssPx((U * (i - 0.5)) / N);
+    const w = Math.min(1, Math.max(0, (kHere - kBelow) / Math.max(1e-6, 1 - kBelow)));
+    const el = layer(i === 0 ? heavyLayerCss : num("stepBlur", 0.1));
+    if (i === 0) el.style.opacity = String(kAtCssPx(U / (2 * N)));
+    else {
+      el.style.backdropFilter = `blur(${heavyLayerCss}px)`;
+      el.style.opacity = String(w);
+    }
+    el.style.inset = `${inset}px`;
+    el.style.borderRadius = `${Math.max(0, r - inset)}px`;
+    host.append(el);
+  }
+  report.steps = N;
+} else if (form === "maskfield") {
+  /* The carrier's own alpha, read without a filter: an opaque white layer under
+     the mask over a black page composites to exactly the mask's alpha in the
+     page's own encoded space, so one capture is the whole 2-D mask field. */
+  const el = document.createElement("div");
+  el.className = "layer";
+  el.style.background = "#fff";
+  const carrier = q.get("carrier") ?? "raster";
+  if (carrier === "raster") applyMask(el, `url("${rasterMask(kAtCssPx)}")`);
+  else if (carrier === "svg") applyMask(el, svgMaskUrl());
+  else applyMask(el, gradientMask());
+  host.append(el);
+  document.getElementById("bg").removeAttribute("src");
+  document.getElementById("canvas").style.background = "#000";
+  report.carrier = carrier;
+} else if (form === "tint") {
+  const alpha = num("alpha", 0.46);
+  const where = q.get("tint") ?? "under";
+  if (where === "under") host.style.backgroundColor = `rgba(255,255,255,${alpha})`;
+  host.append(layer(sharpCss));
+  const heavy = layer(heavyLayerCss);
+  heavy.style.opacity = String(share);
+  host.append(heavy);
+  if (where === "over") {
+    const t = document.createElement("div");
+    t.className = "layer";
+    t.style.zIndex = "-1";
+    t.style.backgroundColor = `rgba(255,255,255,${alpha})`;
+    host.append(t);
+  }
+  report.tint = where;
+} else if (form === "lift") {
+  // The outer ring: the host's box grown by the shadow's reach, blurred, masked
+  // to the falloff outside the silhouette, added with `plus-lighter`.
+  const reach = num("reach", 30);
+  const sigmaL = num("sigmaL", 12);
+  const amp = num("amp", 0.2);
+  const ring = document.createElement("div");
+  ring.id = "lift";
+  ring.style.left = `${CX - w / 2 - reach}px`;
+  ring.style.top = `${CY - h / 2 - reach}px`;
+  ring.style.width = `${w + 2 * reach}px`;
+  ring.style.height = `${h + 2 * reach}px`;
+  ring.style.borderRadius = `${r + reach}px`;
+  const rf = q.get("ringFilter") ?? `blur(${sigmaL}px)`;
+  ring.style.backdropFilter = rf;
+  ring.style.mixBlendMode = q.get("blend") ?? "plus-lighter";
+  ring.style.opacity = String(amp);
+  // masked to the ring: transparent inside the silhouette, falling off outwards
+  const c = document.createElement("canvas");
+  c.width = Math.round((w + 2 * reach) * dpr);
+  c.height = Math.round((h + 2 * reach) * dpr);
+  const ctx = c.getContext("2d");
+  const img = ctx.createImageData(c.width, c.height);
+  for (let py = 0; py < c.height; py += 1) {
+    for (let px = 0; px < c.width; px += 1) {
+      const x = (px + 0.5) / dpr - reach, y = (py + 0.5) / dpr - reach;
+      const d = -depthAt(x, y);              // positive OUTSIDE the silhouette
+      const a = d <= 0 ? 0 : Math.exp(-(d * d) / (2 * sigmaL * sigmaL));
+      const o = (py * c.width + px) * 4;
+      img.data[o] = 255; img.data[o + 1] = 255; img.data[o + 2] = 255;
+      img.data[o + 3] = Math.round(Math.min(1, Math.max(0, a)) * 255);
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  if (q.get("mask") !== "off") {
+    const url = `url("${c.toDataURL()}")`;
+    ring.style.maskImage = url; ring.style.webkitMaskImage = url;
+    ring.style.maskSize = "100% 100%"; ring.style.maskRepeat = "no-repeat";
+  }
+  /* The blend mode does not reach a `backdrop-filter`'s output (it blends the
+     element's own CONTENT, which an empty ring has none of), so the second form
+     asks whether a blended PARENT can blend a filtered child's output — or
+     whether the blended parent re-roots the backdrop and makes the child inert. */
+  let mounted = ring;
+  if (q.get("wrap") === "1") {
+    ring.style.mixBlendMode = "normal";
+    const outer = document.createElement("div");
+    outer.id = "lift";
+    outer.style.cssText = ring.style.cssText;
+    outer.style.backdropFilter = "none";
+    outer.style.mixBlendMode = q.get("blend") ?? "plus-lighter";
+    ring.style.left = "0px"; ring.style.top = "0px";
+    ring.style.position = "absolute"; ring.style.inset = "0";
+    outer.append(ring);
+    mounted = outer;
+    report.wrapped = true;
+  }
+  if (q.get("ringFirst") === "1") canvas.insertBefore(mounted, host);
+  else canvas.append(mounted);
+  if (q.get("body") === "on") {
+    host.append(layer(sharpCss));
+    const heavy = layer(heavyLayerCss);
+    heavy.style.opacity = String(share);
+    host.append(heavy);
+  } else {
+    host.remove();
+  }
+  report.reach = reach; report.sigmaL = sigmaL; report.amp = amp;
+  report.ringFilter = rf; report.blend = ring.style.mixBlendMode;
+}
+
+window.__w16 = report;
+document.documentElement.dataset.ready = "1";
+</script>

@@ -1,0 +1,103 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>W16 G0 cost</title>
+<!--
+  The synthetic cost page: N surfaces of the calibration bed's own geometry over a
+  backdrop that MOVES every frame, so that every frame really re-rasterises the
+  filters instead of reusing a cached surface. `form` selects what each surface
+  carries: nothing, one `backdrop-filter`, the two-layer body, or the two-layer
+  body with a raster `mask-image` on the heavy layer.
+-->
+<style>
+  html, body { margin:0; height:100%; overflow:hidden; background:#111; }
+  #bg { position:fixed; inset:-200px; background-size:32px 32px;
+        background-image:
+          linear-gradient(45deg,#000 25%,transparent 25%,transparent 75%,#000 75%),
+          linear-gradient(45deg,#000 25%,#fff 25%,#fff 75%,#000 75%);
+        background-position:0 0,16px 16px; will-change:transform; }
+  .host { position:absolute; isolation:isolate; border-radius:20px;
+          background:rgba(255,255,255,.46); border:1px solid rgba(255,255,255,.18); }
+  .host > .layer { position:absolute; inset:0; z-index:-1; border-radius:inherit;
+                   pointer-events:none; }
+</style>
+<div id="bg"></div>
+<script type="module">
+const q = new URLSearchParams(location.search);
+const form = q.get("form") ?? "two";
+const n = Number(q.get("n") ?? "20");
+const W = Number(q.get("w") ?? "160");
+const H = Number(q.get("h") ?? "96");
+const dpr = window.devicePixelRatio;
+const SHARP = 1.25, HEAVY = 1.25 * Math.sqrt(63), SINGLE = 5.53, SHARE = 0.489;
+
+function rasterMask(w, h, r) {
+  const c = document.createElement("canvas");
+  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  const ctx = c.getContext("2d");
+  const img = ctx.createImageData(c.width, c.height);
+  for (let py = 0; py < c.height; py += 1) for (let px = 0; px < c.width; px += 1) {
+    const x = (px + 0.5) / dpr, y = (py + 0.5) / dpr;
+    const ax = Math.abs(x - w / 2) - (w / 2 - r), ay = Math.abs(y - h / 2) - (h / 2 - r);
+    const u = -(Math.hypot(Math.max(ax, 0), Math.max(ay, 0)) + Math.min(Math.max(ax, ay), 0) - r);
+    const o = (py * c.width + px) * 4;
+    img.data[o] = img.data[o + 1] = img.data[o + 2] = 255;
+    img.data[o + 3] = Math.round(255 * Math.min(1, Math.max(0, 0.48 + 0.04 * Math.min(1, u / 80))));
+  }
+  ctx.putImageData(img, 0, 0);
+  return `url("${c.toDataURL()}")`;
+}
+
+const cols = Math.ceil(Math.sqrt(n));
+for (let i = 0; i < n; i += 1) {
+  const host = document.createElement("div");
+  host.className = "host";
+  host.style.width = `${W}px`; host.style.height = `${H}px`;
+  host.style.left = `${20 + (i % cols) * (W + 16)}px`;
+  host.style.top = `${20 + Math.floor(i / cols) * (H + 16)}px`;
+  const layer = (s) => {
+    const el = document.createElement("div");
+    el.className = "layer";
+    el.style.backdropFilter = `blur(${s}px) saturate(1.5)`;
+    return el;
+  };
+  if (form === "one") {
+    host.style.backdropFilter = `blur(${SINGLE}px) saturate(1.5)`;
+  } else if (form === "two" || form === "two-mask") {
+    host.append(layer(SHARP));
+    const heavy = layer(HEAVY);
+    if (form === "two-mask") {
+      const m = rasterMask(W, H, 20);
+      heavy.style.maskImage = m; heavy.style.maskMode = "alpha";
+      heavy.style.maskSize = "100% 100%"; heavy.style.maskRepeat = "no-repeat";
+    } else heavy.style.opacity = String(SHARE);
+    host.append(heavy);
+  }
+  document.body.append(host);
+}
+
+const bg = document.getElementById("bg");
+let t = 0;
+const samples = [];
+let last = performance.now();
+function frame(now) {
+  t += 1;
+  bg.style.transform = `translate(${(t % 64) - 32}px, ${((t * 7) % 64) - 32}px)`;
+  samples.push(now - last);
+  last = now;
+  if (samples.length < 240) requestAnimationFrame(frame);
+  else {
+    const warm = samples.slice(60).sort((a, b) => a - b);
+    window.__cost = {
+      form, n, w: W, h: H, dpr,
+      frames: warm.length,
+      medianMs: warm[Math.floor(warm.length / 2)],
+      p90Ms: warm[Math.floor(warm.length * 0.9)],
+      minMs: warm[0],
+      meanMs: warm.reduce((a, b) => a + b, 0) / warm.length,
+      fps: 1000 / (warm.reduce((a, b) => a + b, 0) / warm.length),
+    };
+    document.documentElement.dataset.done = "1";
+  }
+}
+requestAnimationFrame(frame);
+</script>

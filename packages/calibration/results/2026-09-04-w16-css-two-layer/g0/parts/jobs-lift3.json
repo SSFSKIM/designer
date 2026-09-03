@@ -1,0 +1,81 @@
+[
+ {
+  "id": "lf3-wrap-plus-lighter-0.4",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "flat50",
+   "ringFilter": "brightness(1.5)",
+   "blend": "plus-lighter",
+   "amp": "0.4",
+   "mask": "off",
+   "wrap": "1"
+  }
+ },
+ {
+  "id": "lf3-wrap-plus-lighter-1",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "flat50",
+   "ringFilter": "brightness(1.5)",
+   "blend": "plus-lighter",
+   "amp": "1",
+   "mask": "off",
+   "wrap": "1"
+  }
+ },
+ {
+  "id": "lf3-wrap-normal-0.4",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "flat50",
+   "ringFilter": "brightness(1.5)",
+   "blend": "normal",
+   "amp": "0.4",
+   "mask": "off",
+   "wrap": "1"
+  }
+ },
+ {
+  "id": "lf3-wrap-normal-1",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "flat50",
+   "ringFilter": "brightness(1.5)",
+   "blend": "normal",
+   "amp": "1",
+   "mask": "off",
+   "wrap": "1"
+  }
+ },
+ {
+  "id": "lf3-wrap-body",
+  "dpr": 1,
+  "query": {
+   "form": "lift",
+   "comp": "rrect-md",
+   "backdrop": "checkerboard",
+   "body": "on",
+   "sigmaL": "40",
+   "amp": "0.2",
+   "wrap": "1",
+   "ringFirst": "1"
+  }
+ },
+ {
+  "id": "lf3-body-only",
+  "dpr": 1,
+  "query": {
+   "form": "two",
+   "comp": "rrect-md",
+   "backdrop": "checkerboard"
+  }
+ }
+]
