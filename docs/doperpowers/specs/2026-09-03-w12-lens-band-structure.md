@@ -427,8 +427,19 @@ checkerboard texture row up at both scales (1x `rrect-md` / `-ml` / `-lg`
 0.9538 / 0.9307 / 0.9286 → 0.9709 / 0.9498 / 0.9442; 2x 0.9389 / 0.9023 /
 0.9013 → 0.9521 / 0.9164 / 0.9116; the capsule 0.9770 → 0.9852) within
 0.004 of the prediction at 1x; `hc-text` rows up 0.010–0.020 unpredicted.
-The landing sheet sent to the user; their reading is recorded here when it
-arrives.
+The landing sheet sent to the user (and to their Retina MacBook by
+Taildrop). **Their reading (2026-09-03):** "The current vitrea GPU tier
+is much closer. The only gap left seems to be the subtle transparency
+difference, and a very subtle difference in optic physics left. Apple's
+has a bit more refraction on the edge than ours currently, but a bit."
+Read against the numbers: the transparency is the 2x interior (G3); the
+"bit more refraction" is the two declared residuals — the direction bends
+toward the oval at ω 0.6 where the measured tilt sits at 0.8–1.0, and at 2x
+the reference's band keeps more contrast because its body blur is 5 CSS px
+there against vitrea's 10 (the quarter-scale law, §5.50), so its lobes
+stay crisper. **Follow-up decided:** a one-constant round at ω 0.8
+(`lensOvalization`), refereed the same way, with both sheets put side by
+side for the user's A/B; the 2x band contrast is G3's.
 
 **Decided (this session):** G2 LANDED. The three 2x texture floors stay
 by W11 Decision Log 4 (their deficit is the interior's now); the
