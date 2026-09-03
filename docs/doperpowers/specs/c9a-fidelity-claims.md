@@ -7524,6 +7524,34 @@ orange R = 0.4·L + 0.6, G = 0.263·L + 0.321, B = 0, landing on
 systemOrange at L = 1) and leaves the glass filter untouched — W10's
 "opaque shade of the seed", in Apple's form.
 
+**The thin material's adaptation, read on every backdrop** (`layer-dumps-adapt/`,
+`capsule-button` at 8 s settle; the linear-light mean of each backdrop from
+`scenes.json`'s measured table; `rrect-md` read beside it is the thick
+constant on all seven: black 0.5, white 1.03, fill white α 0.4, shadow
+fill black α 0.12, clamp 1.07, `tracksLuma` 0):
+
+| backdrop | mean L | face black | face white | face fill | shadow fill | `inputShadowOpacity` | `inputClamp` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| impulse | 0.004 | 0.10 | 0.45 | **black** α 0.25 | none | 0.4 | 1 |
+| dark-solid | 0.012 | 0.10 | 0.575 | **black** α 0.295 | none | 0.4 | 1 |
+| mid-dark-solid | 0.060 | 0.131 | 0.731 | white α 0.60 | black α 0.30 | 0.5 | 1 |
+| photo | 0.214 | 0.319 | 0.919 | white α 0.516 | black α 0.285 | 0.5 | 1 |
+| checkerboard | 0.50 | 0.35 | 0.95 | white α 0.50 | black α 0.278 | 0.5 | 1 |
+| hc-text | 0.74 | 0.35 | 0.95 | white α 0.50 | black α 0.278 | 0.5 | 1 |
+| light-solid | 0.891 | 0.819 | 1.03 | white α 0.266 | black α 0.05 | 0.5 | 1.07 |
+
+Three regimes on the thin material: a **dark** one (the face's fill turns
+*black*, its white point drops to 0.45–0.58, the shadow fill is removed —
+W7/W9's "collapse toward the dark backdrop" is this), a **mid plateau**
+(0.35 / 0.95 / white 0.5 from the photo's 0.21 through hc-text's 0.74),
+and a **bright** one (light-solid: black 0.82, fill white 0.27, the clamp
+1.07 of the thick material). The luma statistic that keys it and the
+interpolation between the anchors are not in the tree; the dark scheme is
+not read yet (`dump-layers` needs a scheme flag). This is the reference's
+tone response as parameters; W9's curve (three anchors in encoded-space
+mean) is its outside measurement and stays the landed law until a wave
+reads the mapping on more anchors.
+
 **Protocol note.** A capture taken before this adaptation settles
 photographs the transient. The bed's captures dwell ≥ 45 s idle with a
 6 s interstitial and the 2x bed settled five minutes (W1), so the
