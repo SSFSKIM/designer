@@ -354,7 +354,10 @@ close before G2 implements; nothing on it lands before G2's referee.
   small spans' +0.024 forgone, to be re-asked with the deep value rather than
   alone — and the stacked scene's proxy padding, which at 2x derives from the
   1x ramp's projection (Decision Log 5's `CSS_TIER_RAMP_SCALE`) while the GPU
-  tier draws the bed's span law there (Surprises).
+  tier draws the bed's span law there (Surprises). **Chartered as W15**
+  (`2026-09-04-w15-body-2x.md`, 2026-09-04) with the three gaps below that
+  bear on 2x — the tiers' 2x mixes, the accessibility folds' 2x rows, the
+  missing 1x golden — as its terms.
 
 - **The ramp under the accessibility folds (2026-09-04, the landing).** The
   declaration's stops ran on the standard profiles; at the landing the
@@ -960,3 +963,5 @@ the widths to the fit.
   half met, the 2x half re-scoped to the deep-value charter, the widths withdrawn); three gaps
   added to Deferred (the accessibility folds, the 1x golden, the tiers' 2x mixes); the
   merged worktrees removed.
+- 2026-09-04: the 2x deep value chartered as W15 (`2026-09-04-w15-body-2x.md`) after the 0.4.0
+  cut, the user's ordering satisfied; the Deferred entry points to it.
