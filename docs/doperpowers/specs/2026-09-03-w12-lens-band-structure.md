@@ -328,7 +328,12 @@ profile and the 2x body) that write findings, not the spec.
     the work: a by-eye check on the small spans and a measurement of the
     shadow's span law, which the layer dump already reads (claims §5.50:
     amount min(0.625·span, 75), height 0.4·span, opacity 0.5 − (span −
-    48)/448, blur 40 from span 96).
+    48)/448, blur 40 from span 96). *Measured by W13 X6 (2026-09-03):*
+    vitrea's shadow below the capsule is 2.4× the reference's integrated
+    darkening at both scales (−0.094 against −0.040 luma at the contour),
+    and the reference's shadow is a gray composite that lifts blacks
+    where vitrea's is a black multiply — chartered as the outer shadow's
+    wave in W13's Deferred.
 
 - **A by-eye-aligned band metric.** ω 0.8 lost 0.001–0.002 SSIM on every
   texture row that can see it and the user read it as much closer to
@@ -827,3 +832,5 @@ assumed.
   next body wave in Deferred; the wave moves to recomposition.
 - 2026-09-03: RECOMPOSED (claims §5.59). W13 opened from Decision Log 7
   (`2026-09-03-w13-body-depth-ramp.md`).
+- 2026-09-03: the Deferred shadow gap measured by W13 X6 (2.4× on the capsule; a gray
+  composite against a black multiply); evidence added beside the entry.

@@ -263,9 +263,15 @@ Advisory, carried into the children:
   texture rows rise above their W12-close floors; (S3) `interiorStdDev` at
   2x within 0.005 of the reference on the five checkerboard spans (the
   widths' gain kept); (S4) `ssimBand` rises on every checkerboard cell at
-  both scales; (S5) the solids, `photo` and the tinted cells move by no
-  more than 0.001 in any adopted metric; (S6) the CSS tier moves only as
-  G1 predicted; (S7) a hard stop is a landing the user's eye rejects.
+  both scales, read with `ssimInterior` beside it; (S5) the solids, `photo`
+  and the tinted cells move by no more than 0.001 in any adopted metric,
+  and `ssimOutside` by no more than 0.001 on every cell (the ramp does not
+  touch the outside of the contour); (S6) the CSS tier moves only as G1
+  predicted; (S7) a hard stop is a landing the user's eye rejects. S2 is
+  the stop, not the 0.93 bound: 69–76% of the three 2x rows' deficit sits
+  outside the silhouette (Surprises), and with the inside deficit removed
+  entirely they would read ≈ 0.939 / 0.938 / 0.940 — meeting 0.93 belongs
+  to the outer shadow's wave.
 - **Edges:** blocked-by G1. **Track:** controlled; the landing is the
   user's call (Decision Log).
 
@@ -285,11 +291,15 @@ Advisory, carried into the children:
 - **X5 — the by-eye sheet.** W12's script and layout
   (`results/2026-09-03-w12-lens/sheets/`), at G1's dry run and G2's
   landing, under `results/2026-09-03-w13-ramp/sheets/`. Owner: parent.
-- **X6 — the band-windowed rows.** `ssimBand` and `ssimInterior` on the
-  perceptual axis of every cell, the split at 24 CSS px from the contour,
-  recorded by the compare from G0 on (schema addition, no bound until G2),
-  their baseline the W12 close bed, adopted as bounds at G2's landing.
-  Owner: G0 defines, parent adopts.
+- **X6 — the band-windowed rows.** `ssimBand`, `ssimInterior` and
+  `ssimOutside` on the perceptual axis of every cell — the SSIM map's mean
+  over windows centred inside the native silhouette within 24 CSS px of
+  the contour, deeper than 24 CSS px, and outside the silhouette within
+  24 CSS px (added 2026-09-03 from the baseline's first reading, Surprises;
+  the three plus the far field partition the crop) — recorded by the
+  compare from G0 on (schema addition, no bound until G2), their baseline
+  the W12 close bed, adopted as bounds at G2's landing. Owner: G0 defines,
+  parent adopts.
 
 ## Ordering & Dependency Map
 
@@ -316,6 +326,10 @@ close before G2 implements; nothing on it lands before G2's referee.
 - **The virtual 2x display.** §5.50 exonerated it for the blur; the ramp's
   2x reading rides on the same bed. Mitigation: recorded; a real Retina
   capture remains user-held and would be read once as a check.
+- **The 2x rows' bound is outside this wave's reach.** The outer shadow's
+  lift owns most of their deficit (Surprises); a landing that clears every
+  inside stop still misses 0.93. Mitigation: S2 as written; the floors
+  ratchet; the shadow's wave carries the bound.
 - **Retiring two profile constants** touches every consumer of the span
   law (the proxy padding's 3σ rule, `tier-coherence`, the readouts).
   Mitigation: the projection keeps `scatterThickness(span)` as the
@@ -323,6 +337,26 @@ close before G2 implements; nothing on it lands before G2's referee.
 
 ## Deferred / Out of Scope
 
+- **The outer shadow's colour and span law — the next wave candidate,
+  from X6's baseline (2026-09-03; Surprises).** The reference's shadow is
+  a gray composited at low alpha that lifts the blacks (+0.04 at the
+  contour on the checkerboard, decaying to 0 by 24 CSS px, strongest below
+  the surface where the (0, 8) offset puts it) and darkens the whites less
+  than vitrea's black multiply does; on `light-solid__capsule-button` it is
+  2.4× lighter than vitrea's in integrated darkening at both scales (−0.040
+  against −0.094 luma at the contour) — the user's by-eye "the shadow is
+  darker" measured. It owns 52–67% of the GPU tier's whole-crop SSIM
+  deficit on the four large checkerboard cells at 1x and 69–76% at 2x,
+  through SSIM's luminance term on the black squares. Shape of the work:
+  measure the shadow's composite colour and alpha by distance and side on
+  the solids, the checkerboard and `photo` at both scales against §5.50's
+  block (offset (0, 8), amount min(0.625·span, 75), height 0.4·span,
+  opacity 0.5 − (span − 48)/448, blur 40 from span 72, saturation 1.8,
+  vibrancy (span − 64)/96) and W8's fitted σ and reach; declare a composite
+  colour with its alpha and span law in the shadow pass in place of the
+  multiply, both tiers; `ssimOutside` and the solids' level rows as the
+  instrument; the three 2x texture rows' 0.93 bound as the target it can
+  reach and W13 cannot.
 - The CSS tier's depth ramp through a two-layer body with an inset mask —
   the two-layer CSS body charter (W11 Decision Log 5) extended; measured
   feasibility is a spike of its own.
@@ -392,7 +426,38 @@ the landing call at G2.
 
 ## Surprises & Discoveries
 
-(open)
+- **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
+  outside the silhouette, and it is the outer shadow's colour (2026-09-03,
+  X6's baseline).** Split by window class on the W12 close bed, GPU tier:
+  the exterior carries 60% / 64% / 52% / 67% of `rrect-md` / `-ml` / `-lg`
+  / `glass-over-glass` at 1x and 71% / 74% / 69% / 76% at 2x; the band
+  35% / 28% / 31% / 26% and 22% / 16% / 20% / 17%; the interior 5% / 8% /
+  17% / 7% and 7% / 11% / 11% / 7%. Profiled by distance on `rrect-lg` the
+  loss sits 3–24 CSS px outside the contour (SSIM 0.73–0.87 there, 1.000
+  beyond 48 px) and it is SSIM's **luminance term on the flat black
+  squares** (l 0.69–0.72 with c and s ≥ 0.998; the windows on checker
+  edges read 0.99): the reference's shadow lifts the blacks — 0.041 below
+  the surface, 0.027 at the sides, 0.015 above, ring 2–12 px — where
+  vitrea's leaves them at 0.000, and darkens the whites less (0.913
+  against 0.922). Per ring the reference is a·plate + c with c +0.039 →
+  +0.004 from the contour to 24 px out (a 0.887 → 0.988); vitrea is
+  a·plate with c 0 (a 0.933 → 0.993): a gray composited at low alpha
+  against a black multiply. Not a blurred backdrop copy (a blur term adds
+  nothing to the affine fit) and not a displacement (the checker lines
+  outside the contour sit within 0.02 px of the plate at 2x on both sides,
+  0.3–0.5 on both at 1x — the plate's half-pixel convention). On
+  `light-solid__capsule-button` the same shadow reads −0.040 luma at the
+  contour on the reference against −0.094 on vitrea, 2.4× in integrated
+  darkening, identical at 1x and 2x: the user's by-eye gap from W12's
+  Deferred, measured. Consequences: X6 gains `ssimOutside`; S5 gains it as
+  a null; S2 is the wave's stop and 0.93 is the shadow wave's (Risks,
+  Deferred).
+- **One CSS capture on this machine is not frame-stable.**
+  `light-solid__capsule-button__rest` at 1x on the CSS tier read
+  `deterministic: false` with `repeatNoise` 1.17 × 10⁻⁵ in X6's scratch
+  run and differed by one pixel, one code value, from the G2 bed in W12's
+  X1 (claims §5.59 §1) — the same cell both times. Below every bound by
+  four orders; recorded, not chased.
 
 ## Outcomes & Retrospective
 
@@ -401,3 +466,5 @@ the landing call at G2.
 ## Revision Notes
 
 - 2026-09-03: opened from W12 Decision Log 7.
+- 2026-09-03: X6 gains `ssimOutside` after the baseline's first reading; S5 and the Risks
+  carry the outer shadow; the shadow's wave chartered in Deferred (Surprises).
