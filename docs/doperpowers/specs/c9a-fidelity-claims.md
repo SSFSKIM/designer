@@ -8210,3 +8210,85 @@ phenomenon in the numbers — the 1x checkerboard interiors agree between
 vitrea and the reference — so a transparency difference seen at 1x on a
 dark ground is the dark-ground transmission item in the W12 Deferred
 list (the dot on `impulse__capsule-button`), not G3's.
+
+### 5.57 W12 G3 candidate A refereed: 1x byte-identical, the 2x texture rows fall — stop 3 tripped, not landed (2026-09-03)
+
+The declared law (§5.56) implemented on both tiers in an isolated worktree
+(branch `w12-g3-candidate-a`, commit 56283a1: `sizeScatterScaleTerm` 0.35,
+both body widths read in device px, the CSS tier reading the live
+`devicePixelRatio`, tier-coherence pinned over dpr ∈ {1, 1.5, 2, 3};
+fingerprints light `c6e388fc8349282d` → `3fc6feb2ca4d9444`, dark
+`f9722f244e7f2af2` → `b668693607b44247`, on the branch only) and refereed
+with the twelve runs to a scratch matrix. Evidence under
+`results/2026-09-03-w12-lens/g3/referee/` (verdict, scan, matrix, the
+region split, the retained-structure table) and the sheets
+`sheets/g3-{2x,1x}.png`, `sheets/g2b-vs-g3-{2x,1x}.png`.
+
+#### 1. The stops
+
+| stop | verdict |
+| --- | --- |
+| 1. the W12 stops | pass: 14 cells moved > 0.005 against the 0.3.0 bed, all named; no bound or floor regressed; six 2x solid captures differ by one code value, every 1x solid byte-identical |
+| 2. 1x unchanged | **pass: 132 / 132 rows +0.000000**; one 1x CSS capture differs by one code value with its score unmoved |
+| 3. 2x as predicted | **FAIL** — the three GPU texture rows fell |
+| 4. 2x CSS rows | pass: `rrect-ml` +0.0045, `rrect-lg` +0.0024 (predicted +0.0030 / +0.0004) |
+| 5. goldens | premise wrong: every committed golden scene declares dpr 2, so a device-px body moves them (six of nine isolation hashes, two scene goldens past tolerance); not re-recorded for an unadopted material |
+| 6. by eye | at 2x the interior washes out further than `main`'s against a native that keeps crisper squares — the eye agrees with stop 3 |
+
+| 2x GPU checkerboard row | `main` | predicted (§5.56 §3) | measured |
+| --- | --- | --- | --- |
+| `rrect-md` | 0.9517 | 0.9545 | **0.9451** |
+| `rrect-ml` | 0.9158 | 0.9219 | **0.9041** |
+| `rrect-lg` | 0.9113 | 0.9164 | **0.9078** |
+
+All three still clear their floors (0.9013 / 0.9002) and `rrect-md` its
+bound; nothing regressed past a floor, and the round's purpose — the rise
+— did not happen. **Not landed.** `main` stays at the ω 0.8 material.
+
+#### 2. Why the prediction failed (measured, not guessed)
+
+Splitting the same SSIM map into §5.41's interior box, the band (0–24 CSS
+px inside the contour) and the outside, `main` → candidate:
+
+| row | whole | box | band | outside |
+| --- | --- | --- | --- | --- |
+| `rrect-md` | −0.0066 | −0.0249 | **−0.0293** | +0.0002 |
+| `rrect-ml` | −0.0117 | −0.0097 | **−0.0399** | +0.0002 |
+| `rrect-lg` | −0.0034 | +0.0039 | **−0.0140** | +0.0003 |
+
+Two normalisations in the dry run (§5.41 §4's method) hid this. (i) It
+replaces the interior box only and leaves the band untouched by
+construction, but the lens reads the body at the refracted position (G2),
+so a narrower, heavier-weighted body is a different band — and at 2x the
+band carries the loss on all three rows. (ii) It evaluates the candidate
+at the **reference's** level and transmission, as the probe fit carried
+(a, t) free; the runtime renders at vitrea's own. Raising the heavy weight
+by 0.35 collapses the sharp share (0.48 → 0.13 at span 96) and at
+vitrea's transmission that loses more retained structure than the
+narrower kernel returns. The compare's own `interiorStdDev` at 2x, native
+| `main` | candidate: GPU `rrect-md` 0.1272 | 0.0973 | **0.0611**,
+`rrect-ml` 0.1018 | 0.0746 | 0.0411, `rrect-lg` 0.0810 | 0.0525 | 0.0379 —
+away from native; CSS `rrect-md` 0.0694 → **0.1103**, `-ml` 0.0440 →
+0.0915, `-lg` 0.0262 → 0.0888 — toward it, from identical constants
+through the shared function, because a single blur sees only the
+narrowed σ while the two-component body also sees the weight. At 1x both
+tiers are unmoved to four decimals.
+
+The implementation is not the failure: 132 / 132 1x rows and 131 / 132 1x
+captures byte-identical, both tiers pinned to twelve decimals over four
+ratios, and the tier without a lens moved as predicted. The prediction
+was.
+
+#### 3. What follows
+
+A corrected measurement before any redeclaration (g3 §9, in progress):
+the dry run at vitrea's own (a, t) with Δk swept from 0 — the
+device-pixel σ readings alone put the GPU tier's pitch-16 retention near
+the reference's on paper (heavy 10 device px passes 0.145 of a 32-device-
+px checker, the sharp core ≈ 1, at the landed weight 0.52) — the probe fit
+with the transmission held to vitrea's, and the band's share of the loss
+budgeted. Whether the transmission itself needs a scale term the body
+cannot supply is the open question the corrected fit answers; the mean
+level's scale-invariance on the large spans says a lower alpha alone is
+not it. Held for the user: hold the 2x body at `main` or re-open on the
+corrected objective.

@@ -1,0 +1,22 @@
+W12 G3 landing-candidate sheets (2026-09-03), rendered from the G3 referee's scratch captures with
+the body's two widths read as DEVICE-pixel quantities and one new constant on the scatter weight,
+`sizeScatterScaleTerm` 0.35 (claims §5.56; nothing else in the material moved, and at dpr 1 the law
+is the landed one exactly). Columns: LEFT = Apple's native fixture; MIDDLE = vitrea's GPU tier;
+RIGHT = the signed difference (vitrea − native) in linear luminance, mid-grey at zero, ±0.25 full
+scale — a diagnostic map of where the two disagree, NOT a render of anything. Rows: the five
+checkerboard spans and photo rrect-md; the last row is 10× corner crops of rrect-md (native |
+vitrea, four corners).
+
+`g3-{2x,1x}.png` are these sheets alone. `g2b-vs-g3-{2x,1x}.png` are the A/B composites: the
+material now on `main` (the ω 0.8 round) on the LEFT, this candidate on the RIGHT, each half
+banner-labelled and each half keeping the three-column rule above. `g2b-vs-g3-2x-half.jpg` is the
+2x composite at half size for delivery.
+
+The 1x pair is expected to be indistinguishable and is: every 1x row moved by +0.0000 SSIM and every
+1x capture but one is byte-identical to `main`'s. The 2x pair is the whole question, and the metrics
+do not endorse it — the three 2x GPU texture rows fell (`rrect-md` 0.9517 → 0.9451, `rrect-ml`
+0.9158 → 0.9041, `rrect-lg` 0.9113 → 0.9078) where §5.56 §3 predicted them to rise, so stop 3 of
+§5.56 §4 is TRIPPED and this candidate is refereed, not landed. The loss is in the lens band rather
+than the interior (the region split in `g3/referee/g3-scan.md`), and the CSS tier — which has no
+lens — moved up as predicted. Nothing here is adopted; the sheets are the evidence for the reading,
+not a record of a landed material.

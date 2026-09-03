@@ -382,7 +382,7 @@ project's rule**, in the order they would be worth a wave:
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
 | G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png`; the ω 0.8 A/B measured (claims §5.54, `g2b/`) and landed by eye (Decision Log 6) | LANDED 2026-09-03; ω 0.8 2026-09-03 |
-| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement complete (`g3/g3-measurement.md`, claims §5.55: one kernel in device px, only the sharp term's weight changes with scale; G2 stands at 2x); the 1x-preserving variant, exclusion refit and SSIM dry run (`g3/` §8); **declared** in claims §5.56 (both body widths device-pixel quantities, `sizeScatterScaleTerm` 0.35, six stops); landing round in a worktree | DECLARED 2026-09-03 |
+| G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement complete (`g3/g3-measurement.md`, claims §5.55: one kernel in device px, only the sharp term's weight changes with scale; G2 stands at 2x); the 1x-preserving variant, exclusion refit and SSIM dry run (`g3/` §8); **declared** in claims §5.56; candidate A implemented and refereed (`g3/referee/`, branch `w12-g3-candidate-a`) — **stop 3 tripped**, the 2x texture rows fell, not landed (claims §5.57); the corrected dry run at vitrea's own transmission running (g3 §9) | REFEREED, NOT LANDED 2026-09-03 |
 
 ## Decision Log
 
@@ -560,6 +560,15 @@ Log 4) runs first, as the smaller round.
 
 ## Surprises & Discoveries
 
+- (2026-09-03, G3) **The dry run's two normalisations hid a fall.** §5.41
+  §4's method replaces the interior box at the reference's own level and
+  transmission and leaves the band alone; the runtime renders at vitrea's
+  transmission and the lens reads the body under the band. The declared
+  scale term (heavy weight +0.35 at 2x) collapsed the sharp share and the
+  2x texture rows fell 0.004–0.012 where a rise of 0.003–0.006 was
+  predicted, while the CSS tier moved toward native from the same
+  constants. Any future body dry run evaluates at vitrea's own (a, t) and
+  budgets the band. Claims §5.57.
 - (2026-09-03, G3) **The reference's body kernel is one kernel in device
   pixels.** On the pitch axis the 1x sharp core is a flat-topped box
   exactly 4 CSS px wide — the quarter-device-scale buffer's own pixel —

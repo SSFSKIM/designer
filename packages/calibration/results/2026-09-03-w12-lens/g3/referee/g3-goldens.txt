@@ -1,0 +1,222 @@
+$ playwright test --grep @golden
+
+Running 26 tests using 1 worker
+
+  ✓   1 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › field-mask renders its pinned bytes from the named profile (655ms)
+  ✘   2 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile (290ms)
+  ✘   3 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile (386ms)
+  ✘   4 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile (364ms)
+  ✓   5 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › tint-adaptation-light renders its pinned bytes from the named profile (373ms)
+  ✓   6 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › tint-adaptation-dark renders its pinned bytes from the named profile (471ms)
+  ✘   7 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile (441ms)
+  ✘   8 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile (474ms)
+  ✘   9 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile (409ms)
+  ✓  10 [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › highlight-press-glow renders its pinned bytes from the named profile (369ms)
+  ✓  11 [chromium-gpu] › e2e/golden/isolation.spec.ts:450:3 › @golden the goldens move only through the named profile seam › the outer shadow is the whole of W8's delta — it draws, and only there (301ms)
+  ✓  12 [chromium-gpu] › e2e/golden/isolation.spec.ts:504:3 › @golden the goldens move only through the named profile seam › the geometry change is confined to the scenes it can reach (6ms)
+  ✓  13 [chromium-gpu] › e2e/golden/isolation.spec.ts:520:3 › @golden the goldens move only through the named profile seam › and the tuned profile is not the old one — the proof is not vacuous (336ms)
+  ✓  14 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › field-mask matches its golden (356ms)
+  ✓  15 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › refraction-checkerboard matches its golden (387ms)
+  ✘  16 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › placed-checkerboard matches its golden (433ms)
+  ✘  17 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › lens-size-scaling matches its golden (530ms)
+  ✓  18 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-light matches its golden (371ms)
+  ✓  19 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-dark matches its golden (269ms)
+  ✓  20 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › rim-two-references matches its golden (258ms)
+  ✓  21 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › concentric-nesting matches its golden (264ms)
+  ✓  22 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › union-pair matches its golden (259ms)
+  ✓  23 [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › highlight-press-glow matches its golden (251ms)
+  ✓  24 [chromium-gpu] › e2e/golden/scenes.spec.ts:91:3 › @golden the goldens are distinguishable › two scenes that should differ do differ (296ms)
+  ✓  25 [chromium-gpu] › e2e/golden/scenes.spec.ts:112:3 › @golden acceptance #2 — lensing scales with surface size › a larger surface bends a deeper band of the same backdrop (258ms)
+  ✘  26 [chromium-gpu] › e2e/golden/scenes.spec.ts:166:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced (295ms)
+
+
+  1) [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile 
+
+    Error: refraction-checkerboard: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "4aeeb4ed7efe9995d544b329f07f95a1"
+    Received: "d4ec26bf655a2145e2b51d6e9f93b332"
+
+      444 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      445 |           `before re-recording the hash`,
+    > 446 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      447 |     });
+      448 |   }
+      449 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:446:9
+
+    Error Context: test-results/golden-isolation--golden-t-f5dc7-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+  2) [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile 
+
+    Error: placed-checkerboard: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "6e9a3c5978d4e93ebc40edcd700bc3d7"
+    Received: "0d602836535ce5f31afdd5bc98c8f743"
+
+      444 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      445 |           `before re-recording the hash`,
+    > 446 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      447 |     });
+      448 |   }
+      449 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:446:9
+
+    Error Context: test-results/golden-isolation--golden-t-5616c-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+  3) [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile 
+
+    Error: lens-size-scaling: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "8d82c1f1c268d62ba84513651aab1138"
+    Received: "cf5079b94a2c6ad910353d7e1c79a28f"
+
+      444 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      445 |           `before re-recording the hash`,
+    > 446 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      447 |     });
+      448 |   }
+      449 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:446:9
+
+    Error Context: test-results/golden-isolation--golden-t-400ea-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+  4) [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile 
+
+    Error: rim-two-references: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1981d711750823a735c3f05aa8c15e50"
+    Received: "05519f97589ddb025184d264d534d058"
+
+      444 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      445 |           `before re-recording the hash`,
+    > 446 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      447 |     });
+      448 |   }
+      449 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:446:9
+
+    Error Context: test-results/golden-isolation--golden-t-b0309-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+  5) [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile 
+
+    Error: concentric-nesting: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "94496ccfe1bd23c77943346f21ec4a95"
+    Received: "6e5defe1b30b0d8d0e8236648698e94b"
+
+      444 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      445 |           `before re-recording the hash`,
+    > 446 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      447 |     });
+      448 |   }
+      449 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:446:9
+
+    Error Context: test-results/golden-isolation--golden-t-8a330-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+  6) [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile 
+
+    Error: union-pair: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "e63ff99028171bc22e797f7ee6cb0b6f"
+    Received: "9d8dad8b32b4664cc09331f4a26f3e0b"
+
+      444 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      445 |           `before re-recording the hash`,
+    > 446 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      447 |     });
+      448 |   }
+      449 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:446:9
+
+    Error Context: test-results/golden-isolation--golden-t-04b3c-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+  7) [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › placed-checkerboard matches its golden 
+
+    Error: placed-checkerboard: max channel delta
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 4
+    Received:    12
+
+      75 |
+      76 |       const difference = compare(actual, expected);
+    > 77 |       expect(difference.maxChannelDelta, `${scene.name}: max channel delta`).toBeLessThanOrEqual(
+         |                                                                              ^
+      78 |         MAX_CHANNEL_DELTA,
+      79 |       );
+      80 |       expect(difference.meanChannelDelta, `${scene.name}: mean channel delta`).toBeLessThanOrEqual(
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/scenes.spec.ts:77:78
+
+    Error Context: test-results/golden-scenes--golden-sRGB-581ea-kerboard-matches-its-golden-chromium-gpu/error-context.md
+
+  8) [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › lens-size-scaling matches its golden 
+
+    Error: lens-size-scaling: max channel delta
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 4
+    Received:    5
+
+      75 |
+      76 |       const difference = compare(actual, expected);
+    > 77 |       expect(difference.maxChannelDelta, `${scene.name}: max channel delta`).toBeLessThanOrEqual(
+         |                                                                              ^
+      78 |         MAX_CHANNEL_DELTA,
+      79 |       );
+      80 |       expect(difference.meanChannelDelta, `${scene.name}: mean channel delta`).toBeLessThanOrEqual(
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/scenes.spec.ts:77:78
+
+    Error Context: test-results/golden-scenes--golden-sRGB-339a5--scaling-matches-its-golden-chromium-gpu/error-context.md
+
+  9) [chromium-gpu] › e2e/golden/scenes.spec.ts:166:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced 
+
+    Error: expect(received).toBeGreaterThan(expected)
+
+    Expected: > 24
+    Received:   13
+
+      185 |     // 96 texels over 200×120 CSS px.
+      186 |     const difference = compare(placed, cover, 8);
+    > 187 |     expect(difference.maxChannelDelta).toBeGreaterThan(24);
+          |                                        ^
+      188 |     expect(difference.outlierFraction).toBeGreaterThan(0.05);
+      189 |
+      190 |     // And the cover render is exactly the render the golden replaced, so the
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a752a19656e6bc/packages/renderer-webgpu/e2e/golden/scenes.spec.ts:187:40
+
+    Error Context: test-results/golden-scenes--golden-clai-d8c24--render-is-what-it-replaced-chromium-gpu/error-context.md
+
+  9 failed
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:430:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › placed-checkerboard matches its golden 
+    [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › lens-size-scaling matches its golden 
+    [chromium-gpu] › e2e/golden/scenes.spec.ts:166:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced 
+  17 passed (17.8s)
+[ELIFECYCLE] Command failed with exit code 1.
