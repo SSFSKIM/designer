@@ -102,6 +102,7 @@ export default defineConfig({
       input: {
         index: resolve(here, "index.html"),
         playground: resolve(here, "playground/index.html"),
+        laws: resolve(here, "laws/index.html"),
       },
     },
   },

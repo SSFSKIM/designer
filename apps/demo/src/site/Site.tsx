@@ -632,6 +632,10 @@ export function Site(props: SiteProps): ReactNode {
             by Apple.
           </p>
           <p className="note">
+            <a href="laws/">The material laws</a>: one section per measured law,
+            each running live with a control and the runtime&rsquo;s own readout.
+          </p>
+          <p className="note">
             <a href="playground/">Open the internal playground</a>, which is the
             acceptance harness rather than this page.
           </p>

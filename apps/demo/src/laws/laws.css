@@ -1,0 +1,98 @@
+/*
+ * The laws page's own rules. Everything else it wears is the site's
+ * (`../site/site.css`, values from `../tokens.css`), so this file is only the
+ * geometry the site does not have: a two-up row for the tint law, a plate whose
+ * height is a control, and the nest box the glass-over-glass law is measured in.
+ *
+ * The same constraint as the site's stylesheet applies: glass surfaces are styled
+ * through the runtime's channel properties, never by re-declaring the material.
+ */
+
+/*
+ * Two groups side by side, one over each half of the ground. `space-between`
+ * puts each plate inside its own half, and the stack's inset keeps them well
+ * past the 48 px two sampling paddings need (`DESIGN.md` §9).
+ */
+.laws-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-8);
+}
+
+.plate--laws-tint {
+  width: 12rem;
+  height: 112px;
+  padding: var(--space-2) var(--space-4);
+}
+
+/*
+ * The body law's plate. Its height is set inline from the span control, and it
+ * is `height` rather than `min-height` for the site's reason: a plate that grew
+ * to fit its label would leave the span it was set to. The width stays past the
+ * largest span the control offers, so the short side is always the height.
+ */
+.plate--laws-body {
+  width: min(20rem, 100%);
+  padding: var(--space-2) var(--space-4);
+}
+
+.plate--laws-lens {
+  width: 18rem;
+  height: 112px;
+  padding: var(--space-2) var(--space-4);
+}
+
+/*
+ * The glass-over-glass bed, at `scenes.json`'s own geometry: a 220x130 base and
+ * a 120x56 pane centred on it and lifted 8 px. Both mirrors draw this box, one
+ * with the base surface and one with the pane, so the two line up because they
+ * read the same rules rather than because either measures the other.
+ */
+.laws-nest {
+  position: relative;
+  width: 220px;
+  height: 130px;
+}
+
+.plate--laws-nest-base {
+  position: absolute;
+  inset: 0;
+  padding: var(--space-2) var(--space-4);
+  place-content: end center;
+}
+
+.plate--laws-nest-over {
+  position: absolute;
+  left: 50px;
+  top: 29px;
+  width: 120px;
+  height: 56px;
+  padding: var(--space-1) var(--space-3);
+}
+
+/* The seed picker sits beside its strength, both native, both the accent's. */
+.field__swatch {
+  width: 3.5rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-0);
+  background: var(--paper-0);
+}
+
+.field__swatch:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .plate--laws-tint {
+    width: 9rem;
+  }
+
+  .laws-row {
+    gap: var(--space-7);
+  }
+}
