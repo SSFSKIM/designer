@@ -7805,7 +7805,7 @@ between 14:46 and 15:33, each 56 fixtures of 640 × 400 px, the display's
 backing scale read as 2.0 by the harness probe before the first run and
 after the last; interstitial dwell 6 s, minimum idle 45 s, the harness
 launched through `open --env` (README). Nothing here is a fit; the pitch-
-axis measurement is §5.54.
+axis measurement is §5.55 (§5.54 is the ω A/B round that ran meanwhile).
 
 #### 1. The audit, and a filter the W9 probe never needed
 
@@ -7863,3 +7863,78 @@ sha256, share, attested count, minority shares, unattested runs, the run
 published from) and `last-run-manifest.json` (run 5's, the last fully
 attested; capture protocol and hardware as recorded). The five whole-run
 snapshots stay in scratch.
+
+### 5.54 W12 Decision Log 4's follow-up: ω 0.8 against 0.6, measured — every metric prefers 0.6 by a hair, held for the user's eye (2026-09-03)
+
+The one-constant round Decision Log 4 asked for: `lensOvalization` 0.6 →
+0.8 (ω = `lensOvalization` · smoothstep(64, 72, span), the weight of the
+oval distance in the warp direction, §5.51 §2), built and refereed in an
+isolated worktree so `main` stays at the G2 landing. The constant, its
+re-pinned unit test, the two profile fingerprints (light
+`1065c19c6cb527e5` → `c6e388fc8349282d`, dark `c2da15c95e5116e2` →
+`f9722f244e7f2af2`) and five re-recorded goldens live on branch
+`w12-omega-08-ab` (commit 71ae664), **not landed**; the evidence is
+committed under `results/2026-09-03-w12-lens/g2b/` and the sheets under
+`sheets/`. `pnpm run ci`, the renderer goldens, the four platform-web
+Playwright projects and the three react engines are green on the branch.
+
+#### 1. The A/B against the G2 landing (six webgpu runs, calibration + validation + holdout)
+
+Class maxima of |Δ| over cells, ω 0.8 − ω 0.6: checkerboard SSIM 0.0019,
+`hc-text` 0.0055, `impulse` / `photo` / solid 0.0000; ΔE mean ≤ 0.0004
+everywhere; interior level ≤ 0.0007. One cell moves by more than 0.005:
+`hc-text__rrect-md` at 1x, 0.9815 → 0.9760. The checkerboard texture rows:
+
+| span | 1x, ω 0.6 → 0.8 | 2x, ω 0.6 → 0.8 |
+| --- | --- | --- |
+| `rrect-sm`, `capsule`, `toolbar-group` | unchanged to four decimals | unchanged |
+| `rrect-md` | 0.9709 → 0.9695 | 0.9521 → 0.9517 |
+| `rrect-ml` | 0.9498 → 0.9482 | 0.9164 → 0.9158 |
+| `rrect-lg` | 0.9442 → 0.9428 | 0.9116 → 0.9113 |
+| `glass-over-glass` | 0.9539 → 0.9521 | 0.9221 → 0.9211 |
+
+Every row that can see ω (span ≥ 72) falls, by 0.0013–0.0019 at 1x and
+0.0003–0.0009 at 2x; the small spans are byte-identical as the smoothstep
+says they must be. No solid capture differs by a code value; the largest
+capture delta is 29 codes on the checkerboard and text corners. The CSS
+tier was not re-captured: it carries no lens by contract, and the G2
+referee proved it byte-stable under a far larger lens change.
+
+#### 2. The W12 stops against the 0.3.0 bed
+
+Hold, as they did at ω 0.6: fifteen cells move by more than 0.005 SSIM,
+all upward (led by `rrect-ml` and `glass-over-glass` at 1x, +0.0175); no
+adopted bound or floor regresses; no small-span texture row sits below its
+0.3.0 value. The only caveat is bookkeeping: the adopted-thresholds
+enforcement needs a whole bed, so the round's webgpu rows were merged
+over the G2 run's CSS rows, and one cross-tier self-consistency check on
+`checkerboard__glass-over-glass` disagrees in the fifth decimal because
+its two tiers come from two runs (`g2b/g2b-adopted-thresholds.txt`).
+
+#### 3. Goldens (branch only)
+
+Re-recorded behind `W12_G2B_HASHES` in the isolation proof, max / mean
+code delta against the G2 goldens: `placed-checkerboard` 23 / 0.51,
+`refraction-checkerboard` 11 / 0.30, `lens-size-scaling` 6 / 0.19,
+`rim-two-references` 1 / 0.017, `concentric-nesting` 1 / 0.010.
+Byte-identical: `union-pair`, both `tint-adaptation-*`, `field-mask`,
+`highlight-press-glow`.
+
+#### 4. By eye (`sheets/g2-vs-g2b-{2x,1x}.png`, ω 0.6 left, ω 0.8 right)
+
+At 2x on `rrect-md` and `rrect-lg`, ω 0.8 pulls the long-edge lobes a
+little further toward the corners — the along-edge stretch §5.49 §3
+measured a third short — and the corner lobe reads slightly fuller; the
+straight-edge band, the fold and the rim are unchanged, and the two
+difference maps are hard to tell apart at sheet scale. It is not a change
+in how much the edge refracts: the user's reading of the landing ("a bit
+more refraction on the edge") is the magnitude `S` and the profile's
+steepness, which ω does not touch.
+
+**Recommendation, held for the user:** keep 0.6. The metrics prefer it
+on every row that can see the constant, by a margin (≤ 0.002) small
+enough that the eye may override; if the eye prefers 0.8, the branch
+lands as is with a Decision Log entry naming the eye as the reason and
+§1's rows as the recorded cost. Either way the along-edge stretch's
+missing third stays in Deferred — ω moves it, but not far enough for a
+metric to reward, and the refraction the eye wants more of is `S`'s.

@@ -344,7 +344,7 @@ project's rule**, in the order they would be worth a wave:
 | G0 | this session; validation in `results/2026-09-03-w12-lens/g1/g0-instrument.md`; claims §5.49 §1 | COMPLETE 2026-09-03 (0.35 / 0.33 px at 1x / 2x) |
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
-| G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png` | LANDED 2026-09-03 |
+| G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png`; the ω 0.8 A/B measured (claims §5.54, `g2b/`, branch `w12-omega-08-ab`, held for the user) | LANDED 2026-09-03 |
 | G3 | decision round → controlled round (Decision Log 5, user-decided); the 2x probe materialised under `results/2026-09-03-w12-lens/probe-2x/` (five runs, attested per cell, four cells majority-settled; claims §5.53); pitch-axis measurement and the declaration next | IN PROGRESS 2026-09-03 |
 
 ## Decision Log
@@ -440,6 +440,15 @@ there against vitrea's 10 (the quarter-scale law, §5.50), so its lobes
 stay crisper. **Follow-up decided:** a one-constant round at ω 0.8
 (`lensOvalization`), refereed the same way, with both sheets put side by
 side for the user's A/B; the 2x band contrast is G3's.
+
+**Measured (2026-09-03, claims §5.54):** ω 0.8 costs 0.0013–0.0019 SSIM
+on every 1x texture row that can see it and 0.0003–0.0009 at 2x, moves
+nothing else, and holds every W12 stop against the 0.3.0 bed. By eye it
+pulls the long-edge lobes a little further toward the corners and
+nothing more; the refraction the eye wants more of is the magnitude
+`S`, not ω. Constant and goldens on branch `w12-omega-08-ab`, not
+landed; the A/B composites `sheets/g2-vs-g2b-{2x,1x}.png` sent to the
+user. **Recommendation: keep 0.6; the user's eye may override.**
 
 **Decided (this session):** G2 LANDED. The three 2x texture floors stay
 by W11 Decision Log 4 (their deficit is the interior's now); the

@@ -1,0 +1,11 @@
+W12 ω 0.8 A/B sheets (2026-09-03), rendered from the A/B round's scratch captures with
+`lensOvalization` at 0.8 (W12 Decision Log 4; nothing else in the material moved). Columns: LEFT =
+Apple's native fixture; MIDDLE = vitrea's GPU tier; RIGHT = the signed difference (vitrea − native)
+in linear luminance, mid-grey at zero, ±0.25 full scale — a diagnostic map of where the two
+disagree, NOT a render of anything. Rows: the five checkerboard spans and photo rrect-md; the last
+row is 10× corner crops of rrect-md (native | vitrea, four corners).
+
+`g2b-{2x,1x}.png` are these sheets alone. `g2-vs-g2b-{2x,1x}.png` are the A/B composites the
+decision is made on: the G2 landing's sheet at ω 0.6 on the LEFT, this round's at ω 0.8 on the
+RIGHT, each half banner-labelled, each half keeping the three-column rule above. Neither value is
+adopted — the user's reading decides which one lands, and the W12 Decision Log records it.

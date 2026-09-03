@@ -1,0 +1,65 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a82623fa9fc3b23f9/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (27 tests | 4 failed) 28ms
+     × cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels 3ms
+     × cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels 0ms
+     × cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+     × cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.0651402986326466 to be close to 1.0651222736572943, received difference is 0.000018024975352304295, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1304:11
+    1302|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1303|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1304|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1305|         checked += 1;
+    1306|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.0639362228042306 to be close to 1.0639219548223264, received difference is 0.000014267981904181326, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1304:11
+    1302|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1303|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1304|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1305|         checked += 1;
+    1306|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.1758845483906806 to be close to 1.1759199159682352, received difference is 0.00003536757755462361, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1304:11
+    1302|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1303|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1304|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1305|         checked += 1;
+    1306|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels
+AssertionError: dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard: the recorded ratio must be the two tiers' own levels, divided: expected 1.1850519349107533 to be close to 1.185085232665056, received difference is 0.000033297754302719085, but expected 5e-10
+ ❯ test/adopted-thresholds.test.ts:1304:11
+    1302|           reading(cell, "coherence", "interiorLevelRatioGpuOverCss"),
+    1303|           `${name(cell)}: the recorded ratio must be the two tiers' ow…
+    1304|         ).toBeCloseTo(derived, 9);
+       |           ^
+    1305|         checked += 1;
+    1306|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 23 passed (27)
+   Start at  15:53:10
+   Duration  177ms (transform 43ms, setup 0ms, import 59ms, tests 28ms, environment 0ms)
+
