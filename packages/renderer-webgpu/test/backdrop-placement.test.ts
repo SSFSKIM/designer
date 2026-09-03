@@ -113,6 +113,43 @@ describe("what a placement change costs", () => {
     expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
   });
 
+  it("rebuilds when the device pixel ratio changes, and not when the viewport only resizes at it", () => {
+    /*
+     * The body's widths are DEVICE-pixel quantities (W12 G3, claims §5.56), so
+     * the CSS-px σ the pyramid converts to texels is `blurSigma / dpr`: a window
+     * dragged from a 1x display to a 2x one asks for a different body from the
+     * same source at the same density, and a static image never re-dirties to
+     * say so (W13 G1, review finding).
+     */
+    const gpu = createFakeGpu();
+    const renderer = rendererOn(gpu);
+    // Placed at its own size, so the density is pinned to 1 and cannot be what
+    // moves below.
+    renderer.setBackdropPlacement("bg", { x: 0, y: 0, width: 128, height: 128 });
+    renderer.drawFrame(frameArgs(1));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
+
+    // The same ratio again: clean.
+    renderer.setViewport({ ...VIEWPORT });
+    renderer.drawFrame(frameArgs(2));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
+
+    // Moved to a 1x display: same source, same placement, same density — but
+    // twice the body σ in CSS px, so the chain on the store is the old scale's.
+    renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 1 });
+    renderer.drawFrame(frameArgs(3));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
+
+    // And settles there.
+    renderer.drawFrame(frameArgs(4));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
+
+    // Back to 2x: the σ moves again.
+    renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 2 });
+    renderer.drawFrame(frameArgs(5));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(3);
+  });
+
   it("rebuilds when a placement first arrives for a source built under cover fit", () => {
     const gpu = createFakeGpu();
     const renderer = rendererOn(gpu);

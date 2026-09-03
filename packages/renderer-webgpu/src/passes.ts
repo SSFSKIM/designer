@@ -165,13 +165,21 @@ export interface OpticsPassArgs {
   readonly sizeSpanMax: number;
   readonly sizeScatterFloor: number;
   /**
+   * The scatter facet's span curve (W11c), which since W13 G1 is the depth
+   * ramp's DEEP value: the shader evaluates `floor + (1 − floor) ·
+   * smoothstep(sizeSpanMin, sizeScatterSpanMax, span)` per pixel from the span
+   * the field pass carries, exactly as it did before the ramp.
+   */
+  readonly sizeScatterSpanMax: number;
+  /**
    * The body depth ramp (W13 G1, claims §5.61 §2), resolved once per group from
    * the ratio the renderer draws at: the sharp share at the contour, and the
-   * ramp's reach **in CSS px** — the profile names the reach in device px and
-   * the caller divides, because the depth the shader has is the field's own and
-   * that is in group-local CSS px. Both are already interpolated between the
-   * profile's 1x and 2x anchors, so the shader evaluates one subtraction and one
-   * divide per pixel.
+   * reach at which the ramp's excursion vanishes into the span curve above,
+   * **in CSS px** — the profile names the reach in device px and the caller
+   * divides, because the depth the shader has is the field's own and that is in
+   * group-local CSS px. Both are already interpolated between the profile's 1x
+   * and 2x anchors, so the shader evaluates one subtraction and one divide per
+   * pixel on top of the curve it already had.
    */
   readonly sizeScatterRampStart: number;
   readonly sizeScatterRampReachCssPx: number;
@@ -631,7 +639,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // two padding slots rather than in a vec4 of its own — the slot W12 G3's
       // retired scale shift briefly held.
       d[86] = args.sizeScatterRampReachCssPx;
-      d[87] = 0;
+      // The scatter span curve's band top (W11c), in this vec4's second padding
+      // slot: W13 G1's re-forming keeps the curve underneath the ramp as its
+      // deep value, so the shader needs both the span and the depth.
+      d[87] = args.sizeScatterSpanMax;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

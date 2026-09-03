@@ -240,6 +240,7 @@ export {
   sizeOuterShadowOcclusion,
   sizeOuterShadowOcclusionAt,
   SRGB_ENCODING_EXPONENT,
+  scatterDeepThickness,
   scatterRampAreaMean,
   scatterRampReachDevicePx,
   scatterRampStart,

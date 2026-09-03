@@ -704,12 +704,14 @@ describe("the size law reaches the CSS tier", () => {
     sizeSpanMin: 40,
     sizeSpanMax: 200,
     sizeScatterGainMax: 2.5,
-    // The scatter facet rides a ramp in depth since W13 G1, not the thickness
-    // band: the floor is off here so the projection is the ramp's own average,
-    // and the floor gets its own case below. The ramp's shape is the shipped
-    // one, because what these cases pin is that the tier applies the projection
-    // and where — the magnitudes belong to the bed.
+    // The scatter facet has its own span curve (W11c) with a depth ramp riding
+    // on it (W13 G1): the floor is off here and the curve's top is the
+    // thickness band's, so these cases keep testing the one-curve properties,
+    // and the floor and the separate top get their own cases below. The ramp's
+    // shape is the shipped one, because what these cases pin is that the tier
+    // applies the projection and where — the magnitudes belong to the bed.
     sizeScatterFloor: 0,
+    sizeScatterSpanMax: 200,
     sizeScatterRampStart1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x,
     sizeScatterRampStart2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStart2x,
     sizeScatterRampReach1xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
@@ -729,33 +731,35 @@ describe("the size law reaches the CSS tier", () => {
     expect(cssTierDeclarations({ ...surface, size })).toEqual(cssTierDeclarations(surface));
   });
 
-  it("leaves the thickness facets on a small control exactly where they were", () => {
-    // The occlusion rides the thickness curve and is exactly inert at or below
-    // `sizeSpanMin`, which is what keeps the law additive. The SCATTER is not
-    // inert there and cannot be: since W13 G1 it is a ramp in depth, and a small
-    // control is all band — so it frosts, which is the reading, not a leak.
-    expect(occlusionOf(at(size.sizeSpanMin))).toBe(
-      occlusionOf(cssTierDeclarations(surface)),
-    );
-    expect(occlusionOf(at(12))).toBe(occlusionOf(cssTierDeclarations(surface)));
-    expect(blurOf(at(12))).toBeGreaterThan(blurOf(cssTierDeclarations(surface)));
+  it("leaves a small control exactly where it was", () => {
+    // Both facets are exactly inert at or below `sizeSpanMin`, which is what
+    // keeps the law additive. The depth ramp does not break that: its excursion
+    // is `max(0, s₀ − sDeep)` and on a span the curve leaves at a zero floor
+    // the deep sharp share is already 1, so there is nothing above it to add.
+    expect(at(size.sizeSpanMin)).toEqual(cssTierDeclarations(surface));
+    expect(at(12)).toEqual(cssTierDeclarations(surface));
   });
 
-  it("never frosts below the material's own floor, and keeps rising past the thickness top", () => {
-    // The measured shape of the scatter facet (W11c's floor, W13's ramp): a
-    // frost the material has at any size, and above it a projection that keeps
-    // rising long past the thickness curve's top. A spanless caller is still
-    // untouched; a control that is all floor frosts at the floor rather than at
-    // nothing, and the occlusion — which rides the thickness curve — is exactly
-    // where it was.
-    const own = { ...size, sizeScatterFloor: 0.4 } as const;
+  it("frosts at the floor when the ramp has nothing to add, and keeps rising past the thickness top", () => {
+    // The measured shape of the scatter facet: a floor at any span (W11c), a
+    // band top past the thickness curve's (W11c), and a depth ramp above the
+    // curve near the contour (W13 G1). A spanless caller is still untouched; a
+    // small control with a span frosts at the floor, because its deep sharp
+    // share 1 − floor already exceeds the ramp's start and the excursion clamps
+    // to zero there; and the occlusion — which rides the thickness curve — is
+    // exactly where it was.
+    const own = { ...size, sizeScatterFloor: 0.4, sizeScatterSpanMax: 400 } as const;
     const with_ = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size: own });
     const base = blurOf(cssTierDeclarations(surface));
     expect(cssTierDeclarations({ ...surface, size: own })).toEqual(cssTierDeclarations(surface));
-    const floorBlur = base * (1 + 1.5 * 0.4);
-    for (const span of [12, own.sizeSpanMin, 96, 400]) {
-      expect(blurOf(with_(span)), `span ${span}`).toBeGreaterThanOrEqual(floorBlur - 0.005);
-    }
+    // The shipped start is 0.65 and 1 − 0.4 is 0.60, so at this floor the ramp
+    // DOES have a little to add and the mix dips just below the floor near the
+    // contour — the band is sharper than the frost, which is what a band is.
+    // The floor is the fold's anchor, not a pointwise minimum on the mix.
+    expect(blurOf(with_(12))).toBeLessThan(base * (1 + 1.5 * 0.4));
+    expect(blurOf(with_(12))).toBeGreaterThan(base * (1 + 1.5 * 0.35));
+    expect(cssScatterThickness(12, 0, own, CSS_TIER_RAMP_SCALE)).toBeCloseTo(0.4, 12);
+    expect(cssScatterThickness(400, 0, own, CSS_TIER_RAMP_SCALE)).toBeCloseTo(0.4, 12);
     expect(occlusionOf(with_(own.sizeSpanMin))).toBeCloseTo(occlusionOf(at(size.sizeSpanMin)), 6);
     // Past sizeSpanMax (200) the occlusion is saturated and the blur is not.
     expect(occlusionOf(with_(300))).toBeCloseTo(occlusionOf(with_(200)), 6);
@@ -763,8 +767,8 @@ describe("the size law reaches the CSS tier", () => {
     // And it approaches the gain from below without reaching it: far above the
     // ramp's reach the sharp component survives in a rim of fixed width, whose
     // share of the area falls like 1/span.
-    expect(blurOf(with_(4000))).toBeLessThan(base * 2.5);
-    expect(blurOf(with_(4000))).toBeGreaterThan(base * 2.45);
+    expect(blurOf(with_(40000))).toBeLessThan(base * 2.5);
+    expect(blurOf(with_(40000))).toBeCloseTo(base * 2.5, 1);
   });
 
   it("frosts and occludes a platter more, and monotonically between", () => {
@@ -774,8 +778,8 @@ describe("the size law reaches the CSS tier", () => {
     // The gain is the ceiling the projection approaches from below and never
     // reaches, because the ramp keeps a rim of the sharp component at every span.
     const base = blurOf(cssTierDeclarations(surface));
-    expect(blurOf(at(4000))).toBeLessThan(base * size.sizeScatterGainMax);
-    expect(blurOf(at(4000))).toBeCloseTo(base * size.sizeScatterGainMax, 1);
+    expect(blurOf(at(40000))).toBeLessThan(base * size.sizeScatterGainMax);
+    expect(blurOf(at(40000))).toBeCloseTo(base * size.sizeScatterGainMax, 1);
     expect(occlusionOf(platter)).toBeGreaterThan(occlusionOf(small));
 
     let previousBlur = -Infinity;
@@ -889,6 +893,45 @@ describe("the size law reaches the CSS tier", () => {
    * the way the measurement says is wrong). So this tier's σ at dpr 2 is exactly
    * half its σ at dpr 1, at every span, and that exactness is the assertion.
    */
+  /*
+   * The projection is an AREA average, so it needs the surface's area and not
+   * only its span (W13 G1, review finding). `root.ts` measures the host's border
+   * box and declares both; a caller that declares only the span gets a square of
+   * it, which is exactly right on a square and an over-estimate of the deep area
+   * on a strip.
+   */
+  it("projects the ramp over the surface's own extents, not over a square of its span", () => {
+    const own = { ...size, sizeScatterFloor: 0.4 } as const;
+    const declared = (spanPx: number, extentsCssPx?: readonly [number, number]) =>
+      blurOf(
+        cssTierDeclarations({
+          ...surface,
+          spanPx,
+          size: own,
+          ...(extentsCssPx === undefined ? {} : { extentsCssPx }),
+        }),
+      );
+
+    // A 320×160 bar and a 160×160 square share a span and do not share a mix.
+    // The square is deeper on average than a strip of the same width is: its
+    // mean depth is span/6 against span/4, because a square's corners pull area
+    // toward the contour from two edges at once. So the bar keeps LESS of the
+    // sharp component near its contour per unit area, and blurs more.
+    expect(declared(160, [320, 160])).toBeGreaterThan(declared(160, [160, 160]));
+    // A square's extents are what the span alone already implied.
+    expect(declared(160, [160, 160])).toBe(declared(160));
+    // And the tier writes the projection the optics module computes, over the
+    // same extents — which is the number `size-law.test.ts` pins to a quadrature.
+    const base = blurOf(cssTierDeclarations(surface));
+    const emitted = (radius: number): number => Math.round(radius * 100) / 100;
+    for (const [w, h] of [[320, 160], [160, 320], [1200, 44]] as const) {
+      const mix = cssScatterThickness(Math.min(w, h), 1, own, CSS_TIER_RAMP_SCALE, [w, h]);
+      expect(declared(Math.min(w, h), [w, h]), `${w}x${h}`).toBe(
+        emitted(base * (1 + (own.sizeScatterGainMax - 1) * mix)),
+      );
+    }
+  });
+
   it("writes the body's widths at the device scale, and its mix at the 1x law", () => {
     const own = { ...size, sizeScatterFloor: 0.4 } as const;
     const scaled = (spanPx: number, devicePixelRatio: number) =>

@@ -615,12 +615,17 @@ export interface MaterialSourceSize {
    */
   readonly sizeScatterFloor: number;
   /**
+   * The scatter facet's span curve (W11c): the top of the band the frost rises
+   * to, and since W13 G1 the depth ramp's deep value. See `scatterThickness`.
+   */
+  readonly sizeScatterSpanMax: number;
+  /**
    * The body's depth ramp (W13 G1, claims §5.61 §2): the sharp component's
-   * share at the contour and the ramp's reach in DEVICE px, each anchored at
-   * dpr 1 and dpr 2 and interpolated between. This tier cannot render a ramp —
-   * one `backdrop-filter` has one σ — so what it carries is the ramp's
-   * per-surface projection, which is what `scatterThickness` computes on both
-   * tiers from these four numbers. See `scatterThickness`.
+   * share at the contour and the reach at which its excursion vanishes into the
+   * span curve above, each anchored at dpr 1 and dpr 2 and interpolated
+   * between. This tier cannot render a ramp — one `backdrop-filter` has one σ —
+   * so what it carries is the ramp's per-surface projection, which is what
+   * `scatterThickness` computes on both tiers. See `scatterThickness`.
    */
   readonly sizeScatterRampStart1x: number;
   readonly sizeScatterRampStart2x: number;
@@ -645,10 +650,11 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeSpanMax: 96,
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
-  sizeScatterRampStart1x: 0.6,
-  sizeScatterRampStart2x: 0.35,
-  sizeScatterRampReach1xPx: 110,
-  sizeScatterRampReach2xPx: 100,
+  sizeScatterSpanMax: 256,
+  sizeScatterRampStart1x: 0.65,
+  sizeScatterRampStart2x: 0.4,
+  sizeScatterRampReach1xPx: 200,
+  sizeScatterRampReach2xPx: 200,
   sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
@@ -820,6 +826,7 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeSpanMax: patch?.sizeSpanMax ?? MATERIAL_SOURCE_SIZE.sizeSpanMax,
     sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
     sizeScatterFloor: patch?.sizeScatterFloor ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor,
+    sizeScatterSpanMax: patch?.sizeScatterSpanMax ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax,
     sizeScatterRampStart1x:
       patch?.sizeScatterRampStart1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x,
     sizeScatterRampStart2x:
@@ -973,20 +980,36 @@ function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): numb
 }
 
 /**
- * The sharp component's share at a depth — s(u), the mirror of the renderer's
- * `scatterSharpShare` (W13 G1). This tier never evaluates it per pixel; it is
- * exported so that the projection below can be checked against the law it
- * projects, and so `tier-coherence` can pin the two tiers on the law itself and
- * not only on its average.
+ * The span law that supplies the ramp's deep value — kDeep(span), and the
+ * mirror of the renderer's `scatterDeepThickness` (W11c; kept underneath the
+ * ramp by W13 G1). Unfolded: the fold is applied once, on the whole mix.
+ */
+export function scatterDeepThickness(
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  const floor = clamp01(size.sizeScatterFloor);
+  return floor + (1 - floor) * smoothstep(size.sizeSpanMin, size.sizeScatterSpanMax, spanPx);
+}
+
+/**
+ * The sharp component's share at a depth — s(u, span), the mirror of the
+ * renderer's `scatterSharpShare` (W13 G1). This tier never evaluates it per
+ * pixel; it is exported so that the projection below can be checked against the
+ * law it projects, and so `tier-coherence` can pin the two tiers on the law
+ * itself and not only on its average.
  */
 export function scatterSharpShare(
   uDevicePx: number,
   devicePixelRatio: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  spanPx = 0,
 ): number {
+  const deepSharp = 1 - scatterDeepThickness(spanPx, size);
   const start = scatterRampStart(devicePixelRatio, size);
   const reach = Math.max(scatterRampReachDevicePx(devicePixelRatio, size), 1e-6);
-  return clamp01(start - Math.max(uDevicePx, 0) / reach);
+  const excursion = Math.max(start - deepSharp, 0) * Math.max(1 - Math.max(uDevicePx, 0) / reach, 0);
+  return clamp01(deepSharp + excursion);
 }
 
 /**
@@ -998,13 +1021,6 @@ export function scatterSharpShare(
  * only carry the average, and every other consumer of the law — the sampling
  * proxy's 3σ padding floor, the demo's readout — is in the same position. One
  * law, two projections, which is what stops the tiers scattering differently.
- *
- * The average is exact: on a rectangle the area at depth ≥ u is
- * `(W − 2u)(H − 2u)`, so the area at depth u has measure `P − 8u`, and s is
- * piecewise linear in u, so `k̄ = 1 − (1/WH) ∫ s(u)(P − 8u) du` integrates in
- * closed form. The corners are ignored, as the renderer's copy documents.
- * `extentsCssPx` is the surface's own width and height where the caller has
- * them; where it does not, the surface is taken to be a square of the span.
  *
  * `fold` is the accessibility fold every facet takes. It scales the excursion
  * away from `sizeScatterFloor` and NOT the floor itself: the floor is the frost
@@ -1026,6 +1042,13 @@ export function scatterThickness(
  * The unfolded area average of the heavy share over a surface — the integral
  * `scatterThickness` documents, and the mirror of the renderer's
  * `scatterRampAreaMean`.
+ *
+ * The heavy share at depth u is `kDeep(span) − A · max(0, 1 − u / R)`, so the
+ * average is `kDeep − A · T̄` and only the triangle has to be integrated; on a
+ * rectangle the area at depth u has measure `P − 8u`, which closes it. The
+ * corners are ignored, as the renderer's copy documents. `extentsCssPx` is the
+ * surface's own width and height where the caller has them; where it does not,
+ * the surface is taken to be a square of the span.
  */
 export function scatterRampAreaMean(
   spanPx: number,
@@ -1033,10 +1056,13 @@ export function scatterRampAreaMean(
   devicePixelRatio = 1,
   extentsCssPx?: readonly [number, number],
 ): number {
+  const deep = scatterDeepThickness(spanPx, size);
+  const amplitude = Math.max(scatterRampStart(devicePixelRatio, size) - (1 - deep), 0);
+  if (amplitude <= 0) return clamp01(deep);
   const width = Math.max(extentsCssPx?.[0] ?? spanPx, 0);
   const height = Math.max(extentsCssPx?.[1] ?? spanPx, 0);
   const area = width * height;
-  const start = scatterRampStart(devicePixelRatio, size);
+  if (area <= 0) return clamp01(deep - amplitude);
   // The reach in CSS px, which is the unit a surface's extents arrive in: the
   // ratio u/U is scale-free, so dividing the device-px reach by the same dpr the
   // depth would have been multiplied by gives the identical number.
@@ -1044,19 +1070,15 @@ export function scatterRampAreaMean(
     scatterRampReachDevicePx(devicePixelRatio, size) / Math.max(devicePixelRatio, 1e-3),
     1e-6,
   );
-  if (area <= 0) return clamp01(1 - clamp01(start));
   const perimeter = 2 * (width + height);
-  const deepest = Math.min(width, height) / 2;
-  const saturated = Math.min(Math.max(reach * (start - 1), 0), deepest);
-  const vanished = Math.min(Math.max(reach * start, 0), deepest);
-  const flat = perimeter * saturated - 4 * saturated * saturated;
-  const a = saturated;
-  const b = vanished;
-  const sloped =
-    start * perimeter * (b - a)
-    - ((8 * start + perimeter / reach) * (b * b - a * a)) / 2
-    + ((8 / (3 * reach)) * (b * b * b - a * a * a));
-  return clamp01(1 - (flat + sloped) / area);
+  const limit = Math.min(reach, Math.min(width, height) / 2);
+  const triangleMean =
+    (perimeter * limit
+      - 4 * limit * limit
+      - (perimeter * limit * limit) / (2 * reach)
+      + (8 * limit * limit * limit) / (3 * reach))
+    / area;
+  return clamp01(deep - amplitude * triangleMean);
 }
 
 /**

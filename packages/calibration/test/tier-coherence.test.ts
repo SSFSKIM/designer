@@ -482,6 +482,7 @@ describe("tier coherence (K5)", () => {
         sizeSpanMax: 200,
         sizeScatterGainMax: 6,
         sizeScatterFloor: 0.25,
+        sizeScatterSpanMax: 320,
         sizeScatterRampStart1x: 0.7,
         sizeScatterRampStart2x: 0.3,
         sizeScatterRampReach1xPx: 90,
@@ -502,17 +503,33 @@ describe("tier coherence (K5)", () => {
         expect(cssScatterRampReachDevicePx(dpr, mirrored), `U at dpr ${dpr}`).toBe(
           rendererScatterRampReachDevicePx(dpr, profile),
         );
+        // The share is a function of the depth AND the span since the ramp was
+        // re-formed onto the span curve, so both axes are swept here.
         for (const u of [0, 4, 12, 24, 48, 96, 200, 400]) {
-          expect(cssScatterSharpShare(u, dpr, mirrored), `s(${u}) at dpr ${dpr}`).toBeCloseTo(
-            rendererScatterSharpShare(u, dpr, profile),
-            12,
-          );
+          for (const span of [0, 44, 160, 400]) {
+            expect(
+              cssScatterSharpShare(u, dpr, mirrored, span),
+              `s(${u}) at span ${span} dpr ${dpr}`,
+            ).toBeCloseTo(rendererScatterSharpShare(u, dpr, profile, span), 12);
+          }
         }
         for (const span of SPANS) {
           expect(
             cssScatterRampAreaMean(span, mirrored, dpr),
             `projection at span ${span} dpr ${dpr}`,
           ).toBeCloseTo(rendererScatterRampAreaMean(span, profile, dpr), 12);
+          // And over the surface's own extents, which is what the CSS tier
+          // declares for a measured host: a strip is not a square of its span.
+          for (const extents of [[span, span], [span * 4, span], [span, span * 7]] as const) {
+            expect(
+              cssScatterRampAreaMean(span, mirrored, dpr, extents),
+              `projection at ${extents[0]}x${extents[1]} dpr ${dpr}`,
+            ).toBeCloseTo(rendererScatterRampAreaMean(span, profile, dpr, extents), 12);
+            expect(
+              cssScatterThickness(span, 1, mirrored, dpr, extents),
+              `thickness at ${extents[0]}x${extents[1]} dpr ${dpr}`,
+            ).toBeCloseTo(rendererScatterThickness(span, 1, profile, dpr, extents), 12);
+          }
           for (const fold of [0, 0.45, 1]) {
             const label = `span ${span} fold ${fold} dpr ${dpr}`;
             const css = cssScatterThickness(span, fold, mirrored, dpr);
@@ -667,14 +684,23 @@ describe("tier coherence (K5)", () => {
     expect(platter).toBeCloseTo(nominal * 2.5, 12);
     expect(requiredSamplingPadding(platter)).toBeCloseTo(3 * platter, 12);
     expect(requiredSamplingPadding(platter)).toBeGreaterThan(requiredSamplingPadding(nominal));
-    // On the shipped profile the floor is on and the ramp is above it: every
-    // surface with a span frosts at least at σ 1.25 · (1 + 7 · floor) = 4.75, so
-    // the padding a group needs is 3σ of at least THAT and never of the nominal
-    // σ's 3.75, and it grows with the span because the projection does.
+    // On the shipped profile the floor is on and the ramp rides the span curve
+    // above it. σ at the FOLD ANCHOR is 1.25 · (1 + 7 · floor) = 4.75, and the
+    // smallest span's projection sits a little UNDER that rather than over it:
+    // the ramp lifts the sharp share near the contour above 1 − floor, which is
+    // the band being sharper than the frost. So the floor is the fold's anchor
+    // and not a pointwise minimum on the mix, and what the padding rule needs is
+    // only that it is taken over the σ that will really be drawn — well above the
+    // nominal σ's 3.75 at every span, and growing with the span.
     const shipped = cssTierOptics().regular.blurRadius;
     expect(shipped).toBe(1.25);
-    expect(cssSizeScatterSigma(shipped, 32)).toBeGreaterThan(4.75);
-    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeGreaterThan(14.25);
+    expect(cssSizeScatterSigmaAt(shipped, MATERIAL_SOURCE_SIZE.sizeScatterFloor)).toBeCloseTo(
+      4.75,
+      12,
+    );
+    expect(cssSizeScatterSigma(shipped, 32)).toBeGreaterThan(4);
+    expect(cssSizeScatterSigma(shipped, 32)).toBeLessThan(4.75);
+    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeGreaterThan(12);
     expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 160))).toBeGreaterThan(
       requiredSamplingPadding(cssSizeScatterSigma(shipped, 32)),
     );

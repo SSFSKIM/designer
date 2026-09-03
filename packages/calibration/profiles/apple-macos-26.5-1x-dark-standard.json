@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "151d71c63ea7807b",
+  "resolvedMaterialSha256": "8ee31ecd230142ac",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -260,13 +260,14 @@
   ],
   "$comment-w13-g1": [
     "RE-RECORDED 2026-09-03 (W13 G1, claims 5.61): the defaults this difference",
-    "document inherits changed again — the body's mix is a ramp in DEPTH rather",
-    "than one number per span (sizeScatterRampStart1x/2x,",
-    "sizeScatterRampReach1x/2xPx, all PROVISIONAL until the sweep fits them),",
-    "and sizeScatterSpanMax and sizeScatterScaleTerm are both retired. See the",
-    "light profile's entries.scatterRamp. Measured on the LIGHT probes at both",
-    "scales; whether the dark reference's body ramps the same way is unmeasured,",
-    "and the referee reads this scheme's cells. The patch itself is unchanged.",
-    "Fingerprint b668693607b44247 -> 151d71c63ea7807b (the defaults above)."
+    "document inherits changed again — the body's mix gains a ramp in DEPTH on",
+    "top of the span curve (sizeScatterRampStart1x/2x, sizeScatterRampReach1x/",
+    "2xPx, all PROVISIONAL until the sweep at this form fits them), the span",
+    "curve sizeScatterSpanMax 256 stays as that ramp's deep value, and",
+    "sizeScatterScaleTerm is retired. See the light profile's",
+    "entries.scatterRamp. Measured on the LIGHT probes at both scales; whether",
+    "the dark reference's body ramps the same way is unmeasured, and the referee",
+    "reads this scheme's cells. The patch itself is unchanged.",
+    "Fingerprint b668693607b44247 -> 8ee31ecd230142ac (the defaults above)."
   ]
 }

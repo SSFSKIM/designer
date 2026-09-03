@@ -158,6 +158,19 @@ export interface CssTierSurface {
    */
   readonly spanPx?: number;
   /**
+   * The surface's measured border box in CSS px, `[width, height]` — the
+   * extents the depth ramp's projection is integrated over (W13 G1).
+   *
+   * `spanPx` alone cannot say what the surface's area is, and the projection is
+   * an area average: a 320×44 toolbar has far more of its area within the ramp's
+   * reach of a contour than a 44×44 square does, so the two carry different
+   * mixes even though their span is one number and the same. Where a caller has
+   * measured the host it should declare both; absent, `scatterRampAreaMean`
+   * falls back to a square of the span, which is exactly right on a square and
+   * an over-estimate of the deep area on a strip.
+   */
+  readonly extentsCssPx?: readonly [number, number];
+  /**
    * The size-law constants `spanPx` is resolved against — the profile's, when the
    * root carries a patch. Defaults to the shipped mirror, like `mapping`.
    */
@@ -368,8 +381,10 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
    * keeps `policyOptics` untouched, and a small one with a span frosts at the
    * floor rather than at nothing.
    *
-   * The mix is the depth ramp's per-surface projection, because one
-   * `backdrop-filter` has one σ and cannot carry a ramp. It is read at
+   * The mix is the depth ramp's per-surface projection over the surface's own
+   * measured extents, because one `backdrop-filter` has one σ and cannot carry a
+   * ramp and because the projection is an area average and a strip is not a
+   * square (`extentsCssPx`). It is read at
    * `CSS_TIER_RAMP_SCALE` — dpr 1 — rather than at the ratio this tier is
    * composited at: W13 Decision Log 1's question 2 answers (a), that the CSS
    * tier renders the 1x material and its 2x rows stay held by decision, because
@@ -387,6 +402,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
           size.refractionScale[accessibilityRefractionCap(policy.material)],
           size,
           CSS_TIER_RAMP_SCALE,
+          surface.extentsCssPx,
         );
   const optics: MaterialOptics =
     sizeK === 0 && scatterK === 0

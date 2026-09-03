@@ -424,13 +424,17 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   };
 
   /**
-   * A source whose placement changed SIZE since its pyramid was built carries a
-   * body σ in texels that no longer matches the material's CSS-px σ, and a
-   * static image never re-dirties to fix it. Named here as its own rebuild
-   * request, at the epoch the chain already holds so the store's clean check
-   * falls through to the density comparison rather than to the epoch.
+   * A source whose body would come out differently from the one on its chain,
+   * for a reason that never re-dirties it: a placement that changed SIZE moves
+   * the texels-per-CSS-px the σ is converted with, and a window moved between a
+   * 1x and a 2x display moves the σ itself, because the body's widths are
+   * device-pixel quantities and the CSS-px σ the pyramid converts is
+   * `blurSigma / dpr` (W12 G3, claims §5.56; W13 G1, review finding). A static
+   * image fixes neither on its own. Named here as its own rebuild request, at
+   * the epoch the chain already holds so the store's clean check falls through
+   * to `sameBody` rather than to the epoch.
    */
-  const densityRebuilds = (
+  const staleBodyRebuilds = (
     explicit: readonly RebuildRequestView[],
     pyramids: PyramidStore,
   ): readonly RebuildRequestView[] => {
@@ -449,7 +453,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         viewport.widthCss,
         viewport.heightCss,
       );
-      if (Math.abs(next - existing.texelsPerCss) <= 1e-6 * Math.max(1, existing.texelsPerCss)) continue;
+      const sameDensity =
+        Math.abs(next - existing.texelsPerCss) <= 1e-6 * Math.max(1, existing.texelsPerCss);
+      const sigmaCss = bodySigmaCssFor(sourceId);
+      const sameSigma =
+        Math.abs(sigmaCss - existing.bodySigmaCss) <= 1e-6 * Math.max(1, existing.bodySigmaCss);
+      if (sameDensity && sameSigma) continue;
       requests.push({
         sourceId,
         epoch: existing.builtEpoch,
@@ -466,6 +475,28 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     input.union ?? DEFAULT_GROUP_UNION;
 
   const variantOf = (input: GroupRenderInput): MaterialVariant => input.variant ?? "regular";
+
+  /** The variant of whichever group samples this source, "regular" if none does. */
+  const sourceVariant = (sourceId: string): MaterialVariant => {
+    const input = [...groups.values()].find(
+      (entry) => entry.input.backdropSourceId === sourceId,
+    )?.input;
+    return input === undefined ? "regular" : variantOf(input);
+  };
+
+  /**
+   * The body σ in CSS px a build for this source would ask for.
+   *
+   * `blurSigma` is a DEVICE-pixel quantity (W12 G3, claims §5.56), so the CSS-px
+   * σ the pyramid converts to source texels with is `blurSigma / dpr`: it moves
+   * when the window moves between displays even though nothing about the source
+   * changed. `buildPyramids` passes this and `staleBodyRebuilds` compares it
+   * against the σ the chain was built with, so the two cannot drift apart.
+   */
+  const bodySigmaCssFor = (sourceId: string): number => {
+    const optics = opticsUnderPolicy(material.optics[sourceVariant(sourceId)], accessibility, material);
+    return optics.blurSigma / Math.max(viewport.devicePixelRatio, 1e-3);
+  };
 
   /**
    * The one tint seed this group's optics pass draws with.
@@ -498,8 +529,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   function rebuildRequests(explicit: readonly RebuildRequestView[] | undefined): readonly RebuildRequestView[] {
     const base = explicit ?? standaloneRequests();
     const { store: pyramids } = ensureContext();
-    const density = densityRebuilds(base, pyramids);
-    return density.length === 0 ? base : [...base, ...density];
+    const stale = staleBodyRebuilds(base, pyramids);
+    return stale.length === 0 ? base : [...base, ...stale];
   }
 
   function standaloneRequests(): readonly RebuildRequestView[] {
@@ -547,12 +578,6 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         continue;
       }
 
-      const variant = variantOf(
-        [...groups.values()].find(
-          (entry) => entry.input.backdropSourceId === request.sourceId,
-        )?.input ?? { groupId: "", surfaces: [], refraction: "none", analysisExact: false },
-      );
-      const optics = opticsUnderPolicy(material.optics[variant], accessibility, material);
       lastResolution.set(request.sourceId, request.resolution);
 
       const placement = placements.get(request.sourceId);
@@ -568,7 +593,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // log2(sizeScatterGainMax) octaves — so it is eight body widths in
           // device px at every scale. At dpr 1 this is `optics.blurSigma`
           // unchanged, which is what leaves the 1x law exactly as landed.
-          bodySigmaCss: optics.blurSigma / Math.max(viewport.devicePixelRatio, 1e-3),
+          bodySigmaCss: bodySigmaCssFor(request.sourceId),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -873,6 +898,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeSpanMin: material.sizeSpanMin,
         sizeSpanMax: material.sizeSpanMax,
         sizeScatterFloor: material.sizeScatterFloor,
+        sizeScatterSpanMax: material.sizeScatterSpanMax,
         // The body's depth ramp (W13 G1, claims §5.61 §2), resolved from the
         // viewport's own ratio: the profile anchors the start and the reach at
         // dpr 1 and dpr 2 and the two functions interpolate, and the reach is

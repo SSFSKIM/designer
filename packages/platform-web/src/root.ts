@@ -1311,10 +1311,18 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * it: after G1 that left every proxy at 1.25 px under a padding derived for
        * 4.75 px and more.
        */
-      const groupSpanPx = measured.reduce(
-        (widest, entry) => Math.max(widest, Math.min(entry.bounds.width, entry.bounds.height)),
-        0,
-      );
+      // The widest member and its own extents together: the span picks the
+      // member and the projection is integrated over that member's box, since
+      // the σ this proxy blurs at is the one `cssTierDeclarations` writes for it.
+      let groupSpanPx = 0;
+      let groupExtentsCssPx: readonly [number, number] | undefined;
+      for (const entry of measured) {
+        const span = Math.min(entry.bounds.width, entry.bounds.height);
+        if (span > groupSpanPx) {
+          groupSpanPx = span;
+          groupExtentsCssPx = [entry.bounds.width, entry.bounds.height];
+        }
+      }
       const groupBlurRadius = sizeScatterSigmaAt(
         optics.blurRadius,
         // The ramp's projection at the same scale `cssTierDeclarations` reads it
@@ -1325,6 +1333,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
           sizeConstants,
           CSS_TIER_RAMP_SCALE,
+          groupExtentsCssPx,
         ),
         sizeConstants,
         dpr,
@@ -1621,6 +1630,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // The size law's input, from the host's own measured border box — the
           // same shorter-extent span the renderer resolves per surface (W2).
           spanPx: Math.min(bounds.width, bounds.height),
+          // Both extents, because the scatter facet's projection is an area
+          // average over the surface and a 320×44 strip carries a different one
+          // from a 44×44 square (W13 G1).
+          extentsCssPx: [bounds.width, bounds.height],
           size: sizeConstants,
           outerShadow: outerShadowConstants,
           // The body's widths are device-pixel quantities (W12 G3, claims
