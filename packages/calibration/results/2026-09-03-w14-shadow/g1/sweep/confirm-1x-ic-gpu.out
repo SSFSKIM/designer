@@ -1,0 +1,147 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+THIS RUN INCLUDES HOLDOUT CELLS.
+Holdout exists to be measured once against a frozen configuration and
+reported as-is. If any constant changes after this run, these numbers are
+spent and the scenes are no longer a holdout for the new configuration.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+── web capture (apple-macos-26.5-1x-light-increased-contrast, 9 scene(s)) ─────────────────────────────
+(node:45627) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=/Users/new/Developer/GitHub/designer/packages/calibration/results/2026-09-03-w14-shadow/g1/sweep/chosen-light.json sha256:57993a9e1fc3 sections=renderer+cssTierMapping
+accessibility=reducedTransparency+increasedContrast (others explicitly off)
+
+photo__rrect-lg__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-lg__rest/
+
+checkerboard__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/checkerboard__rrect-md__rest/
+
+photo__rrect-md__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/photo__rrect-md__rest/
+
+hc-text__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/hc-text__capsule-button__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/photo__capsule-button__rest-tint-orange/
+
+checkerboard__capsule-button__rest-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest-tint-orange/
+
+photo__toolbar-group__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-ic-gpu/apple-macos-26.5-1x-light-increased-contrast/checkerboard__capsule-button__rest/
+
+9 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (9 cell(s)) ─────────────────────────────
+matrix → /Users/new/Developer/GitHub/designer/packages/calibration/results/2026-09-03-w14-shadow/g1/sweep/matrix-confirm.json (115 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+holdout     1x-light-increased-contrast   photo__rrect-lg__rest                         1.000    0.00   0.864   0.0350    0.008/ 0.107    0.9689/ 0.8993    0.1397/ 0.0261    0.0000/ 0.0656
+calibration 1x-light-increased-contrast   checkerboard__rrect-md__rest                  0.605    1.25   0.942   0.0118   -0.136/ 0.044    0.9494/ 0.9245    0.1668/ 0.0265    0.0190/ 0.0149
+calibration 1x-light-increased-contrast   photo__rrect-md__rest                         1.000    0.00   0.921   0.0151    0.005/ 0.105    0.9564/ 0.8994    0.1775/ 0.0259    0.0000/ 0.0831
+holdout     1x-light-increased-contrast   hc-text__capsule-button__rest                 0.889    1.52   0.961   0.0070   -0.089/ 0.038    0.8844/ 0.9440    0.2203/ 0.0253    0.0006/ 0.0177
+calibration 1x-light-increased-contrast   photo__capsule-button__rest                   1.000    0.00   0.946   0.0084   -0.241/ 0.096    0.9183/ 0.8996    0.2381/ 0.0261    0.0000/ 0.0724
+calibration 1x-light-increased-contrast   photo__capsule-button__rest-tint-orange       1.000    0.00   0.936   0.0049   -0.086/-0.045    0.3986/ 0.4435    0.0894/ 0.0958    0.0000/ 0.2946
+calibration 1x-light-increased-contrast   checkerboard__capsule-button__rest-tint-orange  1.000    0.00   0.959   0.0053    0.001/ 0.003    0.3981/ 0.4464    0.0891/ 0.0955    0.0000/ 0.2929
+validation  1x-light-increased-contrast   photo__toolbar-group__rest                    1.000    0.00   0.915   0.0131    0.032/ 0.110    0.8792/ 0.9026    0.2835/ 0.0262    0.0000/ 0.0314
+calibration 1x-light-increased-contrast   checkerboard__capsule-button__rest            0.629    1.67   0.961   0.0079   -0.182/ 0.051    0.9136/ 0.9247    0.2269/ 0.0303    0.0156/ 0.0182
+
+1x-light-increased-contrast   calibration n= 6  IoU mean 0.8724 worst 0.6055   contour p95 mean 1.53 worst 7.18   SSIM mean 0.9443 worst 0.9214   dE mean 0.00889 worst 0.01507
+1x-light-increased-contrast   validation  n= 1  IoU mean 1.0000 worst 1.0000   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9153 worst 0.9153   dE mean 0.01315 worst 0.01315
+1x-light-increased-contrast   holdout     n= 2  IoU mean 0.9446 worst 0.8892   contour p95 mean 1.00 worst 2.00   SSIM mean 0.9125 worst 0.8642   dE mean 0.02099 worst 0.03497
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-increased-contrast   photo__rrect-lg__rest                           1.00  0.4014/ 0.0984    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        17.2/  17.5
+1x-light-increased-contrast   checkerboard__rrect-md__rest                    0.50  0.6862/ 0.1022   19/ 34/ 29/ 28   19/ 34/ 30/ 28      7.5/   7.5     17.6/  18.1
+1x-light-increased-contrast   photo__rrect-md__rest                           1.00  0.4784/ 0.0975   20/ 37/ 29/ 29   18/ 38/ 26/ 30      8.5/  10.0     17.7/  18.0
+1x-light-increased-contrast   hc-text__capsule-button__rest                   0.75  0.6751/ 0.1070   20/ 33/ 29/ 29   23/ 36/ 30/ 31      6.5/   6.5     16.9/  19.5
+1x-light-increased-contrast   photo__capsule-button__rest                     1.00  0.5599/ 0.0886   20/ 35/ 28/ 29   18/ 36/ 27/ 33      7.5/   9.0     17.8/  20.7
+1x-light-increased-contrast   photo__capsule-button__rest-tint-orange         1.00  0.5643/ 0.0886   20/ 35/ 28/ 29   18/ 36/ 27/ 33      7.5/   9.0     17.8/  20.1
+1x-light-increased-contrast   checkerboard__capsule-button__rest-tint-orange    0.50  0.6781/ 0.2141   20/ 34/ 28/ 29   23/ 36/ 29/ 32      7.0/   6.5     17.8/  17.4
+1x-light-increased-contrast   photo__toolbar-group__rest                      1.00  0.5864/ 0.0903   20/ 36/ 28/ 30   21/ 36/ 26/ 33      8.0/   7.5     18.0/  18.9
+1x-light-increased-contrast   checkerboard__capsule-button__rest              0.50  0.6778/ 0.0925   20/ 34/ 28/ 29   23/ 36/ 29/ 32      7.0/   6.5     17.8/  20.7
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/packages/calibration/results/2026-09-03-w14-shadow/g1/sweep/chosen-light.json
+web accessibility for apple-macos-26.5-1x-light-increased-contrast (native increased-contrast): reduced-transparency + increased-contrast
+
+── notes (13) ────────────
+  photo__rrect-lg__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  hc-text__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__rest-tint-orange: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  photo__toolbar-group__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__toolbar-group__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+(node:45562) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

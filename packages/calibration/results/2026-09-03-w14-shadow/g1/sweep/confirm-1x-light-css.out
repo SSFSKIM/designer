@@ -1,0 +1,471 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+THIS RUN INCLUDES HOLDOUT CELLS.
+Holdout exists to be measured once against a frozen configuration and
+reported as-is. If any constant changes after this run, these numbers are
+spent and the scenes are no longer a holdout for the new configuration.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+── web capture (apple-macos-26.5-1x-light-standard, 36 scene(s)) ─────────────────────────────
+(node:46482) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=/Users/new/Developer/GitHub/designer/packages/calibration/results/2026-09-03-w14-shadow/g1/sweep/chosen-light.json sha256:57993a9e1fc3 sections=renderer+cssTierMapping
+
+photo__capsule-button__rest-tint-orange-half
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half/
+
+light-solid__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest-tint-orange/
+
+checkerboard__toolbar-group__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest/
+
+hc-text__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/hc-text__rrect-md__rest/
+
+light-solid__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/light-solid__rrect-md__rest/
+
+dark-solid__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-orange/
+
+impulse__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest-tint-orange/
+
+checkerboard__rrect-sm__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__rrect-sm__rest/
+
+photo__toolbar-group__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest/
+
+mid-dark-solid__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest/
+
+photo__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest/
+
+photo__rrect-md__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest-tint-orange/
+
+light-solid__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/light-solid__capsule-button__rest/
+
+checkerboard__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange/
+
+photo__capsule-button__rest-tint-blue
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-blue/
+
+light-solid__rrect-ml__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/light-solid__rrect-ml__rest/
+
+dark-solid__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest/
+
+impulse__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/impulse__rrect-md__rest/
+
+photo__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange/
+
+impulse__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/impulse__capsule-button__rest/
+
+photo__rrect-sm__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__rrect-sm__rest/
+
+dark-solid__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest/
+
+photo__rrect-lg__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest/
+
+photo__glass-over-glass__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest/
+
+checkerboard__capsule-button__rest-tint-blue
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-blue/
+
+hc-text__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest/
+
+checkerboard__rrect-lg__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__rrect-lg__rest/
+
+checkerboard__glass-over-glass__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest/
+
+dark-solid__capsule-button__rest-tint-blue
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/dark-solid__capsule-button__rest-tint-blue/
+
+checkerboard__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__rrect-md__rest/
+
+hc-text__capsule-button__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/hc-text__capsule-button__rest-tint-orange/
+
+photo__rrect-md__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__rrect-md__rest/
+
+checkerboard__rrect-ml__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__rrect-ml__rest/
+
+photo__rrect-ml__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__rrect-ml__rest/
+
+checkerboard__capsule-button__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/
+
+photo__rrect-lg__rest-tint-orange
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/.claude/jobs/5c70e47f/tmp/w14/sweep/caps/confirm-1x-light-css/apple-macos-26.5-1x-light-standard/photo__rrect-lg__rest-tint-orange/
+
+36 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (36 cell(s)) ─────────────────────────────
+matrix → /Users/new/Developer/GitHub/designer/packages/calibration/results/2026-09-03-w14-shadow/g1/sweep/matrix-confirm.json (151 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-standard             photo__capsule-button__rest-tint-orange-half  1.000    0.00   0.977   0.0043    0.169/ 0.143    0.4385/ 0.4877    0.0385/ 0.0264    0.1203/ 0.0558
+calibration 1x-light-standard             light-solid__capsule-button__rest-tint-orange  1.000    0.00   0.984   0.0018     —   /  —       0.4319/ 0.4316    0.0395/ 0.0242    0.1374/ 0.0602
+calibration 1x-light-standard             checkerboard__toolbar-group__rest             1.000    0.00   0.958   0.0074    0.162/ 0.165    0.6210/ 0.5996    0.1481/ 0.1049    0.0523/ 0.0195
+holdout     1x-light-standard             hc-text__rrect-md__rest                       1.000    0.00   0.902   0.0191    0.123/ 0.051    0.7368/ 0.7010    0.1078/ 0.0648    0.0965/ 0.0429
+calibration 1x-light-standard             light-solid__rrect-md__rest                   0.999    0.05   0.975   0.0066     —   /  —       0.9373/ 0.9579    0.0121/ 0.0015    0.0544/ 0.0023
+calibration 1x-light-standard             dark-solid__capsule-button__rest-tint-orange  1.000    0.00   0.976   0.0034     —   /  —       0.4257/ 0.4268    0.0304/ 0.0122    0.0196/ 0.0000
+calibration 1x-light-standard             impulse__capsule-button__rest-tint-orange     1.000    0.00   0.975   0.0045   -0.001/ 0.001    0.4254/ 0.4267    0.0324/ 0.0138    0.0139/ 0.0000
+calibration 1x-light-standard             checkerboard__rrect-sm__rest                  1.000    0.00   0.985   0.0030    0.202/ 0.179    0.6285/ 0.6078    0.1549/ 0.1162    0.1249/ 0.0619
+validation  1x-light-standard             photo__toolbar-group__rest                    1.000    0.00   0.966   0.0070    0.366/ 0.497    0.6012/ 0.7019    0.0618/ 0.0739    0.0352/ 0.0000
+holdout     1x-light-standard             mid-dark-solid__capsule-button__rest          1.000    0.00   0.974   0.0053     —   /  —       0.4484/ 0.5061    0.0426/ 0.0238    0.1174/ 0.0474
+calibration 1x-light-standard             photo__capsule-button__rest                   1.000    0.00   0.977   0.0060    0.353/ 0.494    0.5832/ 0.6869    0.0461/ 0.0486    0.0872/ 0.0438
+validation  1x-light-standard             photo__rrect-md__rest-tint-orange             1.000    0.00   0.964   0.0069    0.074/-0.016    0.3656/ 0.3686    0.0288/ 0.0185    0.1335/ 0.0644
+calibration 1x-light-standard             light-solid__capsule-button__rest             0.999    0.02   0.990   0.0010     —   /  —       0.9696/ 0.9830    0.0094/ 0.0022    0.0253/ 0.0014
+calibration 1x-light-standard             checkerboard__capsule-button__rest-tint-orange  1.000    0.00   0.977   0.0047    0.038/ 0.001    0.3603/ 0.3719    0.0481/ 0.0241    0.1253/ 0.0547
+calibration 1x-light-standard             photo__capsule-button__rest-tint-blue         1.000    0.00   0.979   0.0029    0.060/-0.025    0.2019/ 0.2015    0.0477/ 0.0252    0.1701/ 0.0625
+calibration 1x-light-standard             light-solid__rrect-ml__rest                   0.999    0.04   0.961   0.0134     —   /  —       0.9347/ 0.9579    0.0107/ 0.0012    0.0548/ 0.0027
+calibration 1x-light-standard             dark-solid__rrect-md__rest                    1.000    0.00   0.958   0.0081     —   /  —       0.4844/ 0.4994    0.0346/ 0.0187    0.1233/ 0.0587
+validation  1x-light-standard             impulse__rrect-md__rest                       1.000    0.00   0.955   0.0107    0.061/ 0.023    0.4358/ 0.4054    0.0373/ 0.0197    0.1294/ 0.0607
+calibration 1x-light-standard             photo__capsule-button__rest-tint-orange       1.000    0.00   0.977   0.0027    0.086/-0.022    0.3524/ 0.3593    0.0360/ 0.0237    0.1239/ 0.0558
+validation  1x-light-standard             impulse__capsule-button__rest                 0.113   23.03   0.976   0.0036   -0.009/ 0.000    0.0210/ 0.0037    0.0038/ 0.0000    0.0082/ 0.0000
+validation  1x-light-standard             photo__rrect-sm__rest                         1.000    0.00   0.986   0.0033    0.335/ 0.452    0.5559/ 0.6611    0.0477/ 0.0318    0.1264/ 0.0534
+calibration 1x-light-standard             dark-solid__capsule-button__rest               —       —      0.987   0.0008     —   /  —         —   /   —         —   /   —         —   /   —   
+holdout     1x-light-standard             photo__rrect-lg__rest                         1.000    0.01   0.931   0.0312    0.410/ 0.464    0.6855/ 0.7299    0.0617/ 0.0628    0.0521/ 0.0304
+holdout     1x-light-standard             photo__glass-over-glass__rest                 1.000    0.00   0.928   0.0221    0.278/ 0.333    0.7064/ 0.7460    0.1234/ 0.1100    0.0928/ 0.0507
+validation  1x-light-standard             checkerboard__capsule-button__rest-tint-blue  1.000    0.00   0.978   0.0046    0.022/ 0.000    0.2064/ 0.2088    0.0526/ 0.0262    0.1729/ 0.0632
+holdout     1x-light-standard             hc-text__capsule-button__rest                 1.000    0.00   0.966   0.0042    0.151/ 0.077    0.6657/ 0.7008    0.1153/ 0.0644    0.0595/ 0.1026
+holdout     1x-light-standard             checkerboard__rrect-lg__rest                  1.000    0.01   0.837   0.0482    0.076/ 0.035    0.7066/ 0.6320    0.0650/ 0.0261    0.0791/ 0.0470
+holdout     1x-light-standard             checkerboard__glass-over-glass__rest          0.997    0.00   0.849   0.0382    0.064/ 0.048    0.7231/ 0.6696    0.1321/ 0.1238    0.0719/ 0.0480
+holdout     1x-light-standard             dark-solid__capsule-button__rest-tint-blue    1.000    0.00   0.978   0.0030     —   /  —       0.2404/ 0.2375    0.0326/ 0.0065    0.0805/ 0.0000
+calibration 1x-light-standard             checkerboard__rrect-md__rest                  1.000    0.00   0.896   0.0240    0.110/ 0.106    0.6829/ 0.6347    0.1131/ 0.0691    0.0904/ 0.0500
+holdout     1x-light-standard             hc-text__capsule-button__rest-tint-orange     1.000    0.00   0.982   0.0040    0.042/ 0.005    0.3709/ 0.4059    0.0457/ 0.0232    0.1252/ 0.0567
+calibration 1x-light-standard             photo__rrect-md__rest                         1.000    0.00   0.962   0.0139    0.423/ 0.456    0.6649/ 0.7263    0.0572/ 0.0554    0.0651/ 0.0316
+calibration 1x-light-standard             checkerboard__rrect-ml__rest                  1.000    0.00   0.848   0.0386    0.095/ 0.064    0.6936/ 0.6327    0.0865/ 0.0438    0.0891/ 0.0459
+calibration 1x-light-standard             photo__rrect-ml__rest                         1.000    0.00   0.946   0.0243    0.438/ 0.465    0.6734/ 0.7284    0.0627/ 0.0609    0.0771/ 0.0415
+calibration 1x-light-standard             checkerboard__capsule-button__rest            1.000    0.00   0.961   0.0058    0.171/ 0.156    0.6207/ 0.6047    0.1424/ 0.0991    0.0949/ 0.0438
+holdout     1x-light-standard             photo__rrect-lg__rest-tint-orange             1.000    0.01   0.934   0.0166    0.073/-0.004    0.3678/ 0.3677    0.0237/ 0.0142    0.1296/ 0.0636
+
+1x-light-standard             calibration n=20  IoU mean 0.9998 worst 0.9986   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9625 worst 0.8480   dE mean 0.00885 worst 0.03859
+1x-light-standard             validation  n= 6  IoU mean 0.8521 worst 0.1127   contour p95 mean 8.82 worst 52.90   SSIM mean 0.9708 worst 0.9548   dE mean 0.00601 worst 0.01066
+1x-light-standard             holdout     n=10  IoU mean 0.9996 worst 0.9968   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9281 worst 0.8365   dE mean 0.01920 worst 0.04821
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard             photo__capsule-button__rest-tint-orange-half    1.00  0.1710/ 0.1457   24/ 39/ 32/ 34   23/ 41/ 29/ 32      7.5/   9.0     18.0/  19.4
+1x-light-standard             light-solid__capsule-button__rest-tint-orange    1.00  0.0776/ 0.3053   15/ 29/ 25/ 25   16/ 34/ 23/ 25      7.0/   9.0     17.9/  11.4
+1x-light-standard             checkerboard__toolbar-group__rest               0.50  0.1914/ 0.2459   24/ 39/ 34/ 32   23/ 38/ 32/ 32      7.5/   7.5     18.2/  16.9
+1x-light-standard             hc-text__rrect-md__rest                         0.78  0.1389/ 0.2060   21/ 35/ 30/ 29   23/ 41/ 32/ 34      7.0/   9.0     16.8/  18.7
+1x-light-standard             light-solid__rrect-md__rest                     1.00  0.1063/ 0.1748   19/ 34/ 28/ 28   23/ 41/ 32/ 34      7.5/   9.0     17.6/  21.6
+1x-light-standard             dark-solid__capsule-button__rest-tint-orange    0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             impulse__capsule-button__rest-tint-orange       0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             checkerboard__rrect-sm__rest                    0.50  0.1838/ 0.1719   24/ 39/ 31/ 33   22/ 39/ 28/ 31      7.5/   8.5     17.9/  17.6
+1x-light-standard             photo__toolbar-group__rest                      1.00  0.1690/ 0.1440   25/ 40/ 32/ 32   21/ 38/ 29/ 33      7.5/   8.5     18.2/  17.6
+1x-light-standard             mid-dark-solid__capsule-button__rest            1.00  0.1680/ 0.1261   22/ 38/ 31/ 31   23/ 40/ 29/ 31      8.0/   8.5     18.0/  18.9
+1x-light-standard             photo__capsule-button__rest                     1.00  0.1710/ 0.1452   24/ 39/ 32/ 34   23/ 41/ 29/ 32      7.5/   9.0     18.0/  20.1
+1x-light-standard             photo__rrect-md__rest-tint-orange               1.00  0.1017/ 0.1682   20/ 36/ 28/ 30   23/ 41/ 32/ 35      8.0/   9.0     17.3/  19.5
+1x-light-standard             light-solid__capsule-button__rest               1.00  0.0644/ 0.0602   15/ 29/ 25/ 25   16/ 34/ 23/ 25      7.0/   9.0     17.9/  20.1
+1x-light-standard             checkerboard__capsule-button__rest-tint-orange    0.50  0.2052/ 0.4136   24/ 39/ 32/ 34   23/ 41/ 30/ 33      7.5/   9.0     18.0/  16.0
+1x-light-standard             photo__capsule-button__rest-tint-blue           1.00  0.1710/ 0.1551   24/ 39/ 32/ 34   23/ 41/ 29/ 32      7.5/   9.0     18.0/  18.4
+1x-light-standard             light-solid__rrect-ml__rest                     1.00  0.1018/ 0.2221   19/ 33/ 28/ 28   26/  —   / 34/ 36      7.0/  —        17.7/  21.7
+1x-light-standard             dark-solid__rrect-md__rest                      0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             impulse__rrect-md__rest                         0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             photo__capsule-button__rest-tint-orange         1.00  0.1710/ 0.1462   24/ 39/ 32/ 34   23/ 41/ 29/ 32      7.5/   9.0     18.0/  18.9
+1x-light-standard             impulse__capsule-button__rest                   0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             photo__rrect-sm__rest                           1.00  0.1712/ 0.1218   25/ 40/ 32/ 32   21/ 39/ 28/ 31      7.5/   9.0     18.0/  19.4
+1x-light-standard             dark-solid__capsule-button__rest                0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             photo__rrect-lg__rest                           1.00  0.0790/ 0.2349   17/  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        15.9/  19.1
+1x-light-standard             photo__glass-over-glass__rest                   1.00  0.0966/ 0.2149   19/  —   / 27/ 29   26/  —   / 33/ 36     —   /  —        17.5/  19.4
+1x-light-standard             checkerboard__capsule-button__rest-tint-blue    0.50  0.2134/ 0.5101   24/ 39/ 32/ 34   23/ 41/ 30/ 33      7.5/   9.0     18.0/  14.8
+1x-light-standard             hc-text__capsule-button__rest                   0.75  0.1935/ 0.1868   24/ 37/ 33/ 33   23/ 41/ 31/ 33      6.5/   9.0     17.2/  18.4
+1x-light-standard             checkerboard__rrect-lg__rest                    0.50  0.1783/ 0.2674    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        17.6/  18.5
+1x-light-standard             checkerboard__glass-over-glass__rest            0.50  0.1824/ 0.2418   23/  —   / 33/ 31   26/  —   / 33/ 35     —   /  —        17.7/  19.3
+1x-light-standard             dark-solid__capsule-button__rest-tint-blue      0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard             checkerboard__rrect-md__rest                    0.50  0.1586/ 0.2340   22/ 37/ 32/ 30   23/ 41/ 33/ 34      7.5/   9.0     17.7/  18.5
+1x-light-standard             hc-text__capsule-button__rest-tint-orange       0.75  0.1972/ 0.3845   24/ 37/ 33/ 33   23/ 41/ 31/ 33      6.5/   9.0     17.2/  15.2
+1x-light-standard             photo__rrect-md__rest                           1.00  0.1017/ 0.1672   20/ 36/ 28/ 30   23/ 41/ 32/ 35      8.0/   9.0     17.3/  20.4
+1x-light-standard             checkerboard__rrect-ml__rest                    0.50  0.1817/ 0.2652   23/  —   / 32/ 31   26/  —   / 34/ 37     —   /  —        17.7/  19.2
+1x-light-standard             photo__rrect-ml__rest                           1.00  0.0963/ 0.2144   19/  —   / 28/ 28   26/  —   / 34/ 36     —   /  —        17.1/  19.6
+1x-light-standard             checkerboard__capsule-button__rest              0.50  0.1895/ 0.2407   24/ 39/ 32/ 34   23/ 41/ 30/ 33      7.5/   9.0     18.0/  18.2
+1x-light-standard             photo__rrect-lg__rest-tint-orange               1.00  0.0790/ 0.2359   17/  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        15.9/  18.4
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+material axis absent on 1 cell(s) across 1 scene(s): dark-solid__capsule-button__rest. See the per-cell notes — absent means not identifiable on that scene, never zero.
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 7 cell(s) across 7 scene(s): dark-solid__capsule-button__rest-tint-orange, impulse__capsule-button__rest-tint-orange, dark-solid__rrect-md__rest, impulse__rrect-md__rest, impulse__capsule-button__rest, dark-solid__capsule-button__rest, dark-solid__capsule-button__rest-tint-blue. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+coherence axis on 0 of 36 dom cell(s) — this tier against its texture twin, web against web; absent on 36 scene(s) with no webgpu capture on disk: photo__capsule-button__rest-tint-orange-half, light-solid__capsule-button__rest-tint-orange, checkerboard__toolbar-group__rest, hc-text__rrect-md__rest, light-solid__rrect-md__rest, dark-solid__capsule-button__rest-tint-orange, impulse__capsule-button__rest-tint-orange, checkerboard__rrect-sm__rest, photo__toolbar-group__rest, mid-dark-solid__capsule-button__rest, photo__capsule-button__rest, photo__rrect-md__rest-tint-orange, light-solid__capsule-button__rest, checkerboard__capsule-button__rest-tint-orange, photo__capsule-button__rest-tint-blue, light-solid__rrect-ml__rest, dark-solid__rrect-md__rest, impulse__rrect-md__rest, photo__capsule-button__rest-tint-orange, impulse__capsule-button__rest, photo__rrect-sm__rest, dark-solid__capsule-button__rest, photo__rrect-lg__rest, photo__glass-over-glass__rest, checkerboard__capsule-button__rest-tint-blue, hc-text__capsule-button__rest, checkerboard__rrect-lg__rest, checkerboard__glass-over-glass__rest, dark-solid__capsule-button__rest-tint-blue, checkerboard__rrect-md__rest, hc-text__capsule-button__rest-tint-orange, photo__rrect-md__rest, checkerboard__rrect-ml__rest, photo__rrect-ml__rest, checkerboard__capsule-button__rest, photo__rrect-lg__rest-tint-orange. Run the webgpu tier first to pair them.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/packages/calibration/results/2026-09-03-w14-shadow/g1/sweep/chosen-light.json
+web accessibility for apple-macos-26.5-1x-light-standard (native standard): browser preferences, no overrides
+
+── notes (65) ────────────
+  photo__capsule-button__rest-tint-orange-half: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange-half: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  light-solid__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__rest-tint-orange: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4872 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__toolbar-group__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  light-solid__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__rrect-md__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 15009 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  dark-solid__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  dark-solid__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  dark-solid__capsule-button__rest-tint-orange: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4872 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  dark-solid__capsule-button__rest-tint-orange: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  impulse__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__rest-tint-orange: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__capsule-button__rest-tint-orange: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__capsule-button__rest-tint-orange: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  checkerboard__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__toolbar-group__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__toolbar-group__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  mid-dark-solid__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  mid-dark-solid__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  mid-dark-solid__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4872 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  light-solid__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4867 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__rest-tint-orange: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  photo__capsule-button__rest-tint-blue: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-blue: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__rrect-ml__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__rrect-ml__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 28025 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  dark-solid__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  dark-solid__rrect-md__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 15024 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  dark-solid__rrect-md__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  impulse__rrect-md__rest: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__rest: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__capsule-button__rest: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__rrect-sm__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__rrect-sm__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  dark-solid__capsule-button__rest: shape axis NOT MEASURED: the web silhouette is empty at threshold 0.02 inside the declared component region — that capture is indistinguishable from its background there, so there is no contour to compare.
+  dark-solid__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  dark-solid__capsule-button__rest: material axis NOT MEASURED: the web silhouette is empty at threshold 0.02, so there is no shared interior to sample. A material within that threshold of its own backdrop is a real outcome — over a solid backdrop of its own tone the reference is very nearly invisible — not a capture fault.
+  dark-solid__capsule-button__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__rrect-lg__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__glass-over-glass__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest-tint-blue: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__rest-tint-blue: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  hc-text__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  dark-solid__capsule-button__rest-tint-blue: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  dark-solid__capsule-button__rest-tint-blue: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  dark-solid__capsule-button__rest-tint-blue: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4872 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  dark-solid__capsule-button__rest-tint-blue: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  hc-text__capsule-button__rest-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text__capsule-button__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-ml__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__rrect-lg__rest-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+(node:46068) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

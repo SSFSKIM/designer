@@ -1,0 +1,30 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the SHADOW objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+thickOcclusionAt96=0.319 liftAmplitude=0.0073     0.03516   0.01140  0.01369  0.01007   0.00031  0.00631  0.9830   1   1
+thickOcclusionAt96=0.349 liftAmplitude=0.01       0.03521   0.01140  0.01372  0.01010   0.00032  0.00472  0.9852   1   1
+thickOcclusionAt96=0.319 liftAmplitude=0.005      0.03546   0.01139  0.01369  0.01039   0.00048  0.00818  0.9796   1   1
+thickOcclusionAt96=0.349 liftAmplitude=0.013      0.03489   0.01141  0.01373  0.00975   0.00068  0.00365  0.9858   1   1
+thickOcclusionAt96=0.379 liftAmplitude=0.013      0.03470   0.01141  0.01375  0.00953   0.00101  0.00365  0.9858   1   1
+thickOcclusionAt96=0.319 liftAmplitude=0.01       0.03470   0.01141  0.01369  0.00959   0.00117  0.00496  0.9852   1   1
+thickOcclusionAt96=0.349 liftAmplitude=0.0073     0.03567   0.01138  0.01372  0.01057   0.00118  0.00641  0.9830   1   1
+thickOcclusionAt96=0.349 liftAmplitude=0.005      0.03594   0.01137  0.01371  0.01086   0.00196  0.00854  0.9796   1   1
+thickOcclusionAt96=0.379 liftAmplitude=0.01       0.03499   0.01140  0.01374  0.00985   0.00200  0.00511  0.9851   1   1
+thickOcclusionAt96=0.319 liftAmplitude=0.013      0.03436   0.01143  0.01370  0.00923   0.00218  0.00400  0.9858   1   1
+thickOcclusionAt96=0.409 liftAmplitude=0.013      0.03507   0.01140  0.01377  0.00990   0.00259  0.00406  0.9858   1   1
+thickOcclusionAt96=0.379 liftAmplitude=0.0073     0.03545   0.01139  0.01374  0.01032   0.00284  0.00686  0.9830   1   1
+thickOcclusionAt96=0.409 liftAmplitude=0.01       0.03538   0.01139  0.01376  0.01024   0.00358  0.00555  0.9850   1   1
+thickOcclusionAt96=0.379 liftAmplitude=0.005      0.03570   0.01138  0.01373  0.01059   0.00362  0.00899  0.9795   1   1
+thickOcclusionAt96=0.439 liftAmplitude=0.013      0.03578   0.01138  0.01380  0.01061   0.00429  0.00453  0.9856   1   1
+thickOcclusionAt96=0.409 liftAmplitude=0.0073     0.03587   0.01137  0.01376  0.01074   0.00441  0.00730  0.9828   1   1
+thickOcclusionAt96=0.409 liftAmplitude=0.005      0.03613   0.01136  0.01375  0.01103   0.00519  0.00944  0.9793   1   1
+thickOcclusionAt96=0.439 liftAmplitude=0.01       0.03616   0.01136  0.01379  0.01101   0.00527  0.00602  0.9848   1   1
+thickOcclusionAt96=0.439 liftAmplitude=0.0073     0.03658   0.01135  0.01378  0.01145   0.00610  0.00777  0.9826   1   1
+thickOcclusionAt96=0.439 liftAmplitude=0.005      0.03683   0.01134  0.01377  0.01172   0.00686  0.00991  0.9790   1   1
+
+best: thickOcclusionAt96=0.319 liftAmplitude=0.0073  shadow 0.00031
+spread across the grid: 0.00031 … 0.00686 (21.83×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.
