@@ -77,3 +77,17 @@ the fingerprint stripped; the dark one is a difference document and gains the ei
 - `confirm.tables.txt` — the confirmation's rows against the W14 bed (`confirm-report.py`);
   `matrix-confirm.json` — the four runs in one matrix.
 - `g1-sweep-4.md` — the reading.
+
+## Addendum (the parent, 2026-09-03): the CSS tier's confirmation
+
+`matrix-confirm-css.json` and `confirm-css.txt` are the CSS tier at the chosen constants on the
+four standard profiles (calibration + validation + holdout), captured by the parent after the
+branch's CSS tier was pinned to the 1x law at every device scale (W13 Decision Log 5, branch
+`d0d778f`); GPU custody 23:44:08–23:46:09 KST. A first CSS capture on the branch as the fork left
+it (the candidate's device-pixel width division still in the tier) read `checkerboard__rrect-lg`
+2x `ssimMean` −0.047 and four dom floors broken — the measurement that executed Decision Log 5
+in full; that matrix stays in scratch (`matrix-confirm-css.json` under `~/.claude/jobs/…/w13/
+sweep-4/`) and its numbers are in claims §5.68. Three CSS cells read frame-unstable
+(`light-solid__capsule-button` 1x 2.3e-5, `photo__capsule-button__rest-tint-orange-half` 2x
+2.7e-3, `dark-solid__rrect-md` 2x 6.1e-3); every GPU cell was deterministic.
+

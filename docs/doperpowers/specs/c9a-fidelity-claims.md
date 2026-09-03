@@ -9406,3 +9406,115 @@ on `dark-solid__capsule-button` (`ssimBand` −0.0188 / −0.0474), not an adopt
 measuring the constant right. One finding of the landing itself: `web-captures/` is gitignored, so
 the committed evidence is the matrix and the captures live on the capture machine.
 
+### 5.68 W13 G1 DECLARED: the body's depth ramp, fourth form — the form, the constants, the stops on the W14 bed, the rows on both tiers, and the 2x trade the landing puts to the user (2026-09-03)
+
+**Declared before any landing capture** (W13 G1's acceptance). Branch `w13-g1-ramp` at
+**`8f00c0c`** (the fourth form `7de3d76`, its fit `762c290` + `51c232d`, the CSS tier pinned to the
+1x law `d0d778f`, the review's three code findings `8f00c0c`), on top of main with W14 landed; the
+dry run's numbers are the landing's predictions because the renderer is deterministic.
+
+**1. The form.** Inside the contour the sharp share is `s(u) = sDeep(span) + max(0, s₀(span) −
+sDeep(span)) · max(0, 1 − u/reach)`, with `sDeep = 1 − kDeep`, `kDeep(span) = sizeScatterFloor +
+(1 − sizeScatterFloor) · smoothstep(sizeSpanMin, sizeScatterSpanMax, span)` (W11c's law, restored
+as the deep value), the reach a length in device px pre-divided by the ratio on the CPU, and the
+start `s₀(span) = startThin + (startThick − startThin) · sizeThickness(span) + (startFar −
+startThick) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)` — graded by the material's own
+thin/thick knee at 64 and declining past it along the scatter facet's own curve to 256. The
+accessibility fold is unchanged. The GPU tier evaluates it per pixel at the casting surface's span;
+**the CSS tier renders the closed-form area mean of the same law over the surface's measured box,
+at dpr 1 for both the mix and the width, at every device scale** (Decision Log 5, user; §3's S6 is
+why that is stated twice).
+
+**2. The constants** (light `2b8cfda6950bc697`, dark `aa6e466b1412ec04`, both unchanged by
+`8f00c0c` since the resolved material is the same):
+
+| constant | 1x | 2x | status |
+| --- | --- | --- | --- |
+| `sizeScatterRampStartThin` | 0.72 | 0.46 | 1x FITTED (interior optimum, both neighbours worse); 2x PROVISIONAL |
+| `sizeScatterRampStartThick` | 0.52 | 0.17 | 1x FITTED; 2x PROVISIONAL |
+| `sizeScatterRampStartFar` | 0.20 | 0.15 | 1x CARRIED from G0's `rrect-lg` reading (0.410 → 0.207 through the form; Decision Log 7); 2x below the thick anchor by construction |
+| `sizeScatterRampReach…Px` | 80 | 100 | 1x FITTED; 2x PROVISIONAL |
+| `sizeScatterFloor` / `sizeScatterSpanMax` | 0.4 / 256 | — | W11c's, restored and live |
+
+The 2x four are provisional **by necessity**: the excursion clamps to zero on every cell of this bed
+at 2x (four constant pairs render identically over 20 cells × 774 measurements, and identically to
+a different shader build), so no sweep can fit a number that changes no pixel.
+
+**3. The stops on the W14 bed** (`results/2026-09-03-w13-ramp/g1/sweep-4/`, commit `12e2e2b`; the
+CSS tier's confirmation beside it):
+
+- **S1** — no 1x row below its W14-bed value by more than 0.002: **MET on every row, holdout
+  included** (`rrect-lg` +0.0056; the worst 1x fall anywhere −0.0003).
+- **S4 at 1x** — `ssimBand` rises on every checkerboard cell: **MET** — `rrect-sm` +0.0048,
+  `capsule-button` +0.0059, `rrect-md` +0.0023, `rrect-ml` +0.0056, `toolbar-group` +0.0019,
+  `glass-over-glass` +0.0058 (holdout), **`rrect-lg` +0.0136** (holdout); `rrect-lg`'s interior
+  standard deviation 0.0731 against Apple's 0.0650 (12% over, from the third form's 33% over and
+  the bed's 17% under); `glass-over-glass` 0.1321 against 0.1321.
+- **S4 at 2x, the null** — **MET**, bit-exact (§2).
+- **S2 at 2x** — the three formerly-floored texture rows: **0.9585 / 0.9664 / 0.9509 against ≥
+  0.93, MET**; and **below the W14 bed by 0.0161 / 0.0098 / 0.0171**, which is entirely candidate
+  A's device-pixel widths (§5.64 §3, §5.67 §3) — the ramp adds nothing at 2x. §5 below.
+- **S3 at 2x** — three of five calibration cells within 0.005 (capsule 0.0052, toolbar 0.0071),
+  unchanged from §5.64 §3.
+- **S5** — the solids, `photo` and the tinted cells: exact or ≤ 0.0003 in every adopted metric;
+  `ssimOutside` within 0.001 on every cell but one, `hc-text__capsule-button` (holdout) at 1x by
+  **−0.00105** — the coverage-ramp gap §5.67 §5 recorded, over the tolerance by 0.00005.
+- **S6** — the CSS tier moves as predicted. **As first captured it did not**: the branch the fork
+  left still divided the tier's σ by the device pixel ratio (the candidate's reading, which
+  Decision Log 5 had recorded beside the user's answer), and at 2x that read `rrect-lg` `ssimMean`
+  0.8697 → **0.8230**, `rrect-ml` → 0.8486, `glass-over-glass` → 0.8461, `rrect-md` → 0.9028,
+  band −0.07…−0.09, the interior's standard deviation from 0.026 to 0.143 against Apple's 0.081,
+  and **four of the dom tier's regression floors broken** — §5.55 §5's prediction, on the rows the
+  decision holds. With the tier pinned to the 1x law at every scale (`d0d778f`) and re-captured on
+  a clean build, every dom floor holds and the tier's rows rise or hold on every checkerboard cell
+  at both scales: 1x `ssimMean` `rrect-sm` +0.0002, capsule +0.0006, `rrect-md` ±0, `rrect-ml`
+  +0.0033, `glass-over-glass` +0.0022, `rrect-lg` +0.0076, toolbar +0.0007; 2x −0.0003 / +0.0002 /
+  +0.0005 / +0.0042 / +0.0026 / +0.0063 / ±0; the largest movement of any adopted metric on the
+  tier is ΔE p95 on the 2x capsule, an improvement of 0.012. **MET, with the mechanism that broke
+  it named.**
+- **S7** — the user's eye at the landing.
+
+**4. The twelve rows the landing must reproduce** — `ssimMean`, GPU tier, checkerboard cells (the
+W14 bed in parentheses):
+
+| cell | 1x | 2x |
+| --- | --- | --- |
+| `rrect-sm` | 0.9990 (0.9988) | 0.9986 (0.9978) |
+| `capsule-button` | 0.9856 (0.9852) | 0.9855 (0.9836) |
+| `rrect-md` | 0.9862 (0.9859) | **0.9779** (0.9840) |
+| `rrect-ml` | 0.9797 (0.9788) | **0.9585** (0.9746) |
+| `glass-over-glass` | 0.9823 (0.9807) | **0.9664** (0.9762) |
+| `rrect-lg` | 0.9743 (0.9687) | **0.9509** (0.9680) |
+
+`toolbar-group` 0.9642 / 0.9663 (unchanged). Every dark row rises or holds.
+
+**5. The 2x trade, by eye and by number — the landing's question (W13 G2, the user's call).** At 2x
+the ramp is a null, so what the branch changes against the W14 bed is the device-pixel widths
+carried from W12 Decision Log 7 and nothing else. The sheets (`results/2026-09-03-w13-ramp/sheets/
+g1-2x.png`, sent) show it plainly: `rrect-sm` and the capsule move toward Apple (band +0.024 each,
+`ssimMean` +0.0008 / +0.0019), and `rrect-md` through `rrect-lg` become **visibly crisper inside
+than Apple's** (band −0.010…−0.019, `ssimMean` −0.006…−0.017), because Apple's 2x interior is
+heavier than ours (§5.64 §4) and a narrower body width pushes the large spans the wrong way while
+it helps the small ones. The rows stay above 0.93 and no floor exists on them. Two honest options:
+**(a)** land the branch as declared — the 1x ramp plus the 2x widths, four large 2x rows down by
+0.006–0.017 and two small ones up; **(b)** land the 1x ramp with the GPU tier's 2x widths restored
+to the W14 bed's (CSS-px at every scale, as the CSS tier now is) — every 2x row byte-identical to
+the bed, the small spans' 2x gain forgone, the 2x deep-value charter (W13 Deferred, ordered behind
+the demo hero-ground decision) taking the whole 2x question later with the widths as one of its
+terms. The parent recommends **(b)**: the wave's purpose is the least gap, the 2x half of this
+wave is measured as a deep-value gap the widths do not address, and the large surfaces are the
+ones the eye and the demo's hero meet first.
+
+**6. Review and what the landing does (G2).** The fourth form's independent review (Codex,
+2026-09-03) found four things: the e2e helper still halved its expected blur on the ratio-2 WebKit
+project (fixed, and the proxy specs pass on WebKit and Chromium); the renderer barrel had dropped
+the restored span limit's export (restored); the light profile document filed that constant as
+retired (re-classified live, with the provenance guard); and the wave spec's Decision Log 5 text
+still described the division (amended). Suites green (platform-web 352 with 126 e2e on Chromium,
+demo 34 e2e, calibration 256, renderer 384, core 302, react 97, motion 162, geometry 149, policy
+23). The landing, once the user chooses (a) or (b): merge; the canonical rebuild; `PREDICATE_
+EXCLUDES` and the floors re-read (no floor breaks under either option); the goldens behind the
+isolation proof with every moved hash attributed; the demo fixture; the landing sheets; every gap
+in Deferred — the coverage-ramp `ssimOutside` thousandth, the far anchor's unfittability, the thin
+anchor 0.08 above G0's read-off, the 2x deep value.
+
