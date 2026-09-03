@@ -33,7 +33,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
 import {
-  deviceScaleOf,
   expectBox,
   expectedProxyBlur,
   gotoHarness,
@@ -171,7 +170,6 @@ test("and it still fires where the leak is real, under the very preference that 
     spanPx: TOOLBAR_SPAN,
     extentsCssPx: [96, 44],
     reducedTransparency: true,
-    devicePixelRatio: await deviceScaleOf(page),
   });
   expect(TIGHT_GROUP_GAP).toBeLessThan(padding);
   expect(DEMO_GROUP_GAP).toBeGreaterThan(padding);
@@ -200,18 +198,15 @@ test("the geometry really is at the floor, not merely unreported", async ({ page
   // each group's own widest member: 44 px for the toolbar's controls, 120 px
   // for the hero. The toolbar's members span 200..404 horizontally and 400..444
   // vertically.
-  const dpr = await deviceScaleOf(page);
   const toolbar = expectedProxyBlur({
     spanPx: TOOLBAR_SPAN,
     extentsCssPx: [96, 44],
     reducedTransparency: true,
-    devicePixelRatio: dpr,
   });
   const hero = expectedProxyBlur({
     spanPx: 120,
     extentsCssPx: [200, 120],
     reducedTransparency: true,
-    devicePixelRatio: dpr,
   });
   expect(hero.padding).toBeGreaterThan(toolbar.padding);
   expectBox(boxes.toolbar, paddedBox({ x: 200, y: 400, width: 204, height: 44 }, toolbar.padding));
@@ -236,7 +231,6 @@ test("an author's own padding keeps their number, and keeps its warning", async 
     spanPx: TOOLBAR_SPAN,
     extentsCssPx: [96, 44],
     reducedTransparency: true,
-    devicePixelRatio: await deviceScaleOf(page),
   });
   const declared = Math.max(1, Math.floor(padding) - 4);
   expect(declared).toBeLessThan(padding);
@@ -271,7 +265,6 @@ test("nothing moves at the nominal state, which is where every golden was taken"
   const { padding } = expectedProxyBlur({
     extentsCssPx: [140, 44],
     spanPx: 44,
-    devicePixelRatio: await deviceScaleOf(page),
   });
   expectBox(result.box, paddedBox({ x: 200, y: 200, width: 140, height: 44 }, padding));
   for (const code of ALL_PADDING_CODES) expect(result.codes).not.toContain(code);

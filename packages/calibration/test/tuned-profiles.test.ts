@@ -83,6 +83,7 @@ const FITTED_CONSTANTS = [
   // thin/thick curve, and the ramp's reach in device px, each at both of the
   // scales the reference was read at
   "sizeScatterFloor",
+  "sizeScatterSpanMax",
   "sizeScatterRampStartThin1x",
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",

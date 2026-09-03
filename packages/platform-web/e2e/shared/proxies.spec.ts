@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 
 import {
-  deviceScaleOf,
   expectBox,
   expectedProxyBlur,
   gotoHarness,
@@ -87,7 +86,6 @@ test.describe("one masked proxy per sampling group", () => {
     const { padding } = expectedProxyBlur({
       spanPx: 40,
       extentsCssPx: [120, 40],
-      devicePixelRatio: await deviceScaleOf(page),
     });
     expect(padding).toBeGreaterThan(4);
     expectBox(result.box, paddedBox({ x: 300, y: 300, width: 120, height: 40 }, padding));
@@ -113,7 +111,6 @@ test.describe("one masked proxy per sampling group", () => {
     const { sigma } = expectedProxyBlur({
       spanPx: 40,
       extentsCssPx: [120, 40],
-      devicePixelRatio: await deviceScaleOf(page),
     });
     expect(inline).toContain(`backdrop-filter:blur(${sigma}px) saturate(1.8)`);
     expect(inline).toContain(`-webkit-backdrop-filter:blur(${sigma}px) saturate(1.8)`);

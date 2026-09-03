@@ -298,12 +298,12 @@
       "value": {
         "optics.regular.blurSigma": 1.25,
         "sizeScatterGainMax": 8,
-        "sizeScatterFloor": 0.4
+        "sizeScatterFloor": 0.4,
+        "sizeScatterSpanMax": 256
       },
       "previous": {
         "optics.regular.blurSigma": 3,
-        "sizeScatterGainMax": 1,
-        "sizeScatterSpanMax": 256
+        "sizeScatterGainMax": 1
       },
       "method": [
         "W11c G1 (claims 5.41). The reference's interior over structured content",
