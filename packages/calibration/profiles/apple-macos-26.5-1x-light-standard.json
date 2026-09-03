@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "bc0460558c4609b5",
+  "resolvedMaterialSha256": "2b8cfda6950bc697",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -89,7 +89,8 @@
     "c1646549aef6d612 -> f12f2fbab55db639 (2026-09-03, W14 G1 review fix 2): reducedTransparencyOcclusion 0.70 -> 0.197, and it changed MEANING — a factor on the amplitude became the absolute linear occlusion under the preference, written into all six anchors in place of both regimes. Multiplying six unequal anchors kept the backdrop and span variation the preference removes (claims 5.62 section 5 measured the reference flat at 0.192-0.202, thin and thick together); folding the mid anchor gave 0.231 and a span-160 surface 0.38, against a reference of 0.20. See entries.outerShadow.",
     "f12f2fbab55db639 -> 4a87498387e05d4f (2026-09-03, W14 G1 sweep adopted, claims 5.65): the four PROVISIONAL constants of the two-term composite fitted in the renderer over seventeen passes, read on X7's affine pair - thickOcclusionAt96 0.379 -> 0.370, thickOcclusionAt128 0.497 -> 0.448, liftAmplitude 0.0073 -> 0.0100, liftSpanFull 128 -> 118 - and thickOcclusionAt160 0.544 -> 0.479 by the stated derivation, unfitted because every span above 128 in the bed is holdout. The two MEASURED thin anchors read back and did not move. See entries.outerShadow.",
     "4a87498387e05d4f -> eeb407bd7befe9bb (2026-09-03, W13 G1 merged with W14 G2): the ramp's six constants and W14's landed outer shadow (claims 5.66) resolve together in one material for the first time; no constant of either wave moved, only the union of the two.",
-    "eeb407bd7befe9bb -> bc0460558c4609b5 (2026-09-03, W13 G1, FOURTH form): the ramp gains sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved."
+    "eeb407bd7befe9bb -> bc0460558c4609b5 (2026-09-03, W13 G1, FOURTH form): the ramp gains sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved.",
+    "bc0460558c4609b5 -> 2b8cfda6950bc697 (2026-09-03, W13 G1, fourth form FITTED at 1x): sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact."
   ],
   "$comment-w11c-g2": [
     "RE-RECORDED 2026-09-03 (W11c G2, the lens band): the lens is now the",
@@ -202,7 +203,7 @@
     "sizeScatterRampStartThick1x": 0.52,
     "sizeScatterRampStartThin2x": 0.46,
     "sizeScatterRampStartThick2x": 0.17,
-    "sizeScatterRampStartFar1x": 0.4,
+    "sizeScatterRampStartFar1x": 0.2,
     "sizeScatterRampStartFar2x": 0.15,
     "sizeScatterRampReach1xPx": 80,
     "sizeScatterRampReach2xPx": 100,
@@ -368,14 +369,21 @@
         "2x null holds by construction. Eight constants now. The third form's one",
         "holdout failure (rrect-lg 1x, ssimMean -0.0026, interior 33% over) was the",
         "form's own arithmetic: sizeThickness is flat above 96 and the reference's",
-        "start is not."
+        "start is not.",
+        "Far1x FITTED on the W14 bed at 0.20 (results/2026-09-03-w13-ramp/g1/sweep-4/):",
+        "eight points from 0.52 to 0.15, S1 and S4 passing at every one, only",
+        "rrect-ml moving and improving as Far falls, the band flat within noise",
+        "below 0.30; the tie broken by G0's own rrect-lg reading (0.410 -> Far 0.207",
+        "through the form). Confirmation: rrect-lg (holdout) ssimMean +0.0056 against",
+        "the W14 bed, interior 12% over the reference from 33% over. Far2x stays",
+        "PROVISIONAL: the 2x null re-verified bit-exact under this form."
       ],
       "value": {
         "sizeScatterRampStartThin1x": 0.72,
         "sizeScatterRampStartThick1x": 0.52,
         "sizeScatterRampStartThin2x": 0.46,
         "sizeScatterRampStartThick2x": 0.17,
-        "sizeScatterRampStartFar1x": 0.4,
+        "sizeScatterRampStartFar1x": 0.2,
         "sizeScatterRampStartFar2x": 0.15,
         "sizeScatterRampReach1xPx": 80,
         "sizeScatterRampReach2xPx": 100

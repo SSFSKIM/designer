@@ -596,9 +596,10 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
     expect(scatterRampStart(1, SHIPPED, 96)).toBeCloseTo(0.52, 12);
     expect(scatterRampStart(2, SHIPPED, 0)).toBeCloseTo(0.46, 12);
     expect(scatterRampStart(2, SHIPPED, 96)).toBeCloseTo(0.17, 12);
-    // The fourth form's far end, at the scatter span curve's top and beyond.
-    expect(scatterRampStart(1, SHIPPED, SHIPPED.sizeScatterSpanMax)).toBeCloseTo(0.4, 12);
-    expect(scatterRampStart(1, SHIPPED, 4000)).toBeCloseTo(0.4, 12);
+    // The fourth form's far end, at the scatter span curve's top and beyond:
+    // 0.20 at 1x, fitted on the W14 bed (the fourth sweep, claims §5.68).
+    expect(scatterRampStart(1, SHIPPED, SHIPPED.sizeScatterSpanMax)).toBeCloseTo(0.2, 12);
+    expect(scatterRampStart(1, SHIPPED, 4000)).toBeCloseTo(0.2, 12);
     expect(scatterRampStart(2, SHIPPED, SHIPPED.sizeScatterSpanMax)).toBeCloseTo(0.15, 12);
     expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(80);
     expect(scatterRampReachDevicePx(2, SHIPPED)).toBe(100);

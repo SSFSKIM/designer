@@ -639,10 +639,18 @@ export interface MaterialProfile {
    * one-signed excursion above them can express it. That fit is W13's Deferred
    * charter and not this constant's business.
    *
-   * **far — 0.40 at 1x, 0.15 at 2x.** G0's `rrect-lg` reading is 0.410 at span
-   * 160, where the decline's curve is at 0.35 of its rise, so the value at its
-   * top sits a little below that reading; the sweep on the W14 bed sets it. At
-   * 2x it is below the thick anchor so that the null holds.
+   * **far — 0.20 at 1x (FITTED on the W14 bed), 0.15 at 2x.** The fourth
+   * sweep (`results/2026-09-03-w13-ramp/g1/sweep-4/`) swept far over eight
+   * points from 0.52 (the third form) down to 0.15: S1 and S4 pass at every
+   * one, only `rrect-ml`'s rows move and they improve monotonically as far
+   * falls, and the band is flat within the bed's noise below 0.30. The cell
+   * the constant exists for is holdout, so the tie inside the noise is broken
+   * by the reference's own reading — G0's `rrect-lg` start of 0.410 at span 160
+   * is far = 0.207 through this form — and 0.20 is the measured grid point that
+   * carries it. The confirmation read `rrect-lg` at `ssimMean` +0.0056 against
+   * the W14 bed (the third form: −0.0026) with its interior 12% over the
+   * reference (from 33% over). At 2x far is below the thick anchor so that the
+   * null holds — re-verified bit-exact under this form.
    */
   readonly sizeScatterRampStartThin1x: number;
   readonly sizeScatterRampStartThick1x: number;
@@ -1210,7 +1218,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // `MaterialProfile.sizeScatterRampStartThin1x`.
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
-  sizeScatterRampStartFar1x: 0.4,
+  sizeScatterRampStartFar1x: 0.2,
   sizeScatterRampStartThin2x: 0.46,
   sizeScatterRampStartThick2x: 0.17,
   sizeScatterRampStartFar2x: 0.15,

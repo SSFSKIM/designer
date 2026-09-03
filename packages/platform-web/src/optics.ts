@@ -659,7 +659,7 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterSpanMax: 256,
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
-  sizeScatterRampStartFar1x: 0.4,
+  sizeScatterRampStartFar1x: 0.2,
   sizeScatterRampStartThin2x: 0.46,
   sizeScatterRampStartThick2x: 0.17,
   sizeScatterRampStartFar2x: 0.15,
