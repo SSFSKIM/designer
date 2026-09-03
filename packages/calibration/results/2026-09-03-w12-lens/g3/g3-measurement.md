@@ -387,6 +387,9 @@ as a gap, not resolved.
 
 ## What the declaration should carry
 
+(Superseded by section 8.4, which holds every landed 1x constant and reaches the same 2x result;
+this list is what the evidence of sections 1–7 alone supported.)
+
 1. **The form.** F1 in the GPU tier: the landed two-component body with **σ_heavy fixed in device
    pixels** and **one scale term on the scatter weight**. It is the only candidate that fits both
    probes at once, it needs no new pass structure, and every one of its constants sits at an interior
@@ -456,6 +459,8 @@ python packages/calibration/results/2026-09-03-w12-lens/g3/g3_level.py     # tab
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_lens2x.py    # table 5
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_forms.py     # table 6 (~80 s)
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_photo.py     # table 7
+python packages/calibration/results/2026-09-03-w12-lens/g3/g3_variants.py  # section 8.1–8.2 (~4 min)
+python packages/calibration/results/2026-09-03-w12-lens/g3/g3_dryrun.py    # section 8.3
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_report.py    # merges parts/ → g3-measurement.json, prints every table
 ```
 
@@ -463,3 +468,185 @@ Each script writes `parts/<name>.json`; `g3_report.py` merges them into `g3-meas
 prints the tables above verbatim. Two inputs live outside the repository and are named where they are
 used: the five 2x probe run snapshots (for §1's noise bar) and the 1x probe's backdrop rasters (used
 only to prove the analytic plate generator, which every reading actually uses).
+
+---
+
+## 8. The 1x-preserving variant, the exclusion refit, and the canonical SSIM dry run
+
+Section 6's winner (F1) moves four constants that are already landed at 1x — σ_sharp 1.25 → 1.0,
+`sizeScatterFloor` 0.4 → 0.3, `sizeScatterSpanMax` 256 → 224, the heavy width 10 → 9 — and pays
+0.0017 of 1x residual for it. W12's stop is on the 1x rows, so this section asks what is left if
+every landed 1x constant is held and **only scale terms** are added, refits under the exclusion of
+the frequency-settled cells, and runs §5.41 §4's SSIM dry run on the canonical pitch-16 cells.
+
+### 8.1 F1′ — the landed law at dpr 1, scale terms at dpr 2
+
+F1′ is `σ_sharp = blurSigma 1.25`, `σ_heavy = blurSigma × sizeScatterGainMax = 10` CSS px,
+`k = 0.4 + 0.6·smoothstep(32, 256, span)` — all landed and untouched — plus two scale terms:
+σ_heavy read in device px (5.0 CSS px at 2x) and `k′ = min(k + Δk·(dpr − 1), 1)`. Δk is fitted on the
+2x probe alone; the 1x numbers are the landed law's **by construction** and are asserted equal to it
+in the script (fit 0.0164, holdout 0.0174). Three treatments of the sharp term at 2x:
+
+| variant | σ_sharp at 2x | σ_heavy at 2x | Δk | 2x fit | 2x holdout | 1x fit / holdout | photo 2x |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| F1′ (a) | 1.25 CSS px | 5.0 (10 device) | 0.35 | 0.0203 | 0.0169 | 0.0164 / 0.0174 | 0.0153 |
+| **F1′ (b)** | **0.625 (1.25 device)** | **5.0 (10 device)** | **0.35** | **0.0192** | **0.0169** | **0.0164 / 0.0174** | **0.0153** |
+| F1′ (c) | 1.25 CSS px | 4.5 (9 device) | 0.35 | 0.0193 | 0.0200 | 0.0164 / 0.0174 | 0.0156 |
+| F1 (section 6) | 1.0 CSS px | 4.5 (9 device) | 0.40 | 0.0179 | 0.0200 | 0.0181 / 0.0188 | 0.0156 |
+| F0, the landed law | 1.25 CSS px | 10.0 CSS px | — | 0.0464 | 0.0332 | 0.0164 / 0.0174 | 0.0147 |
+
+Δk sweeps (2x fit set), each with a clear interior minimum at 0.35:
+
+| Δk | 0.20 | 0.25 | 0.30 | **0.35** | 0.40 | 0.45 | 0.50 | 0.60 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| F1′ (a) | .0252 | .0225 | .0208 | **.0203** | .0215 | .0235 | .0254 | .0281 |
+| F1′ (b) | .0287 | .0243 | .0209 | **.0192** | .0201 | .0223 | .0247 | .0281 |
+| F1′ (c) | .0267 | .0236 | .0210 | **.0193** | .0196 | .0208 | .0223 | .0247 |
+
+**Reading.** Reading the sharp term in device pixels too — variant (b), 1.25 device px = 0.625 CSS px
+at 2x — is worth 0.0011 of 2x residual over leaving it at 1.25 CSS px, and it agrees with §3's
+measurement that the 2x core is 0.5–1.5 CSS px wide. Reading the heavy width as 9 device px instead
+of 10 buys 0.0010 on the fit set (c against a) and costs 0.0031 on the holdout, so on this evidence
+10 device pixels — which is what the landed constant already is — is the better of the two.
+
+**How far F1′ (b) sits from F1 at 2x: 0.0013 on the fit set (0.0192 against 0.0179) and −0.0031 on
+the holdout (0.0169 against 0.0200) — it is better on the untouched holdout at both scales.** That
+0.0013 is inside the fit's own sensitivity: F1's one-dimensional sweeps move by 0.0011 for one step
+of σ_heavy (9 → 10 device px), 0.0011 for one step of k₀, 0.0007–0.0014 for one step of spanMax and
+0.0003 for one step of Δk. The 1x price, by contrast, is not inside anything: F1 costs 0.0017 there
+and F1′ costs exactly zero.
+
+Per-pitch contrast ratio at 2x (model std ÷ reference std; 1.00 is exact):
+
+| | p8 | p16 | p32 | p64 |
+| --- | --- | --- | --- | --- |
+| F1′ (b) — cap / md / ml / lg | 0.73 / 1.53 / 0.42 / 0.26 | 0.82 / 0.86 / 0.89 / 1.11 | 0.94 / 0.98 / 1.00 / 1.03 | 1.10 / 1.03 / 1.01 / 0.96 |
+| F1′ (c) — cap / md / ml / lg | 0.62 / 1.40 / 0.63 / 0.52 | 0.86 / 0.94 / 1.01 / 1.26 | 0.95 / 0.99 / 1.00 / 1.03 | 1.09 / 1.01 / 0.99 / 0.93 |
+| F1 (section 6) — cap / md / ml / lg | 0.77 / 1.41 / 0.51 / 0.52 | 0.89 / 0.93 / 1.00 / 1.26 | 0.96 / 0.99 / 1.00 / 1.03 | 1.07 / 1.01 / 0.99 / 0.93 |
+| F0, the landed law | 1.29 / 3.99 / 3.68 / 2.92 | 0.89 / 0.93 / 0.92 / 0.91 | 0.90 / 0.85 / 0.83 / 0.86 | 1.03 / 0.97 / 0.96 / 0.98 |
+
+At pitch 32 and 64 — the pitches the 2x reference actually resolves — F1′ (b) is within 0.06 of exact
+on the three large spans and within 0.10 on the capsule, the same as F1. Its residual structure differs from F1's only at the pitches where the
+2x reference has nothing left to match: it under-retains at pitch 8 on the large spans (0.26–0.42)
+where F1 under-retains slightly less, and it is nearer at pitch 16 on the holdout (1.11 against
+F1's 1.26). The landed law's three-to-four-fold over-retention at pitch 8 is removed by both.
+
+The photo null at 2x prefers F1′ (b) as well: 0.0153 against F1's 0.0156, with the landed law at
+0.0147; the gap to the landed law halves but does not close.
+
+### 8.2 The exclusion refit — are any constants the settled cells'?
+
+Claims §5.53 §2 leaves three 2x `rrect-sm` cells frequency-settled. Two of them are on fit pitches
+(`checkerboard-8`, `checkerboard-64`); the third (`checkerboard-lc16`) is not a fit pitch and never
+entered the fit. Refitting with those cells dropped:
+
+| | σ_heavy (device px) | σ_sharp | k₀ | spanMax | Δk | fit | holdout |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| F1, all cells | 9.0 | 1.0 | 0.3 | 224 | 0.40 | 0.0179 | 0.0197 |
+| F1, settled cells excluded | 9.0 | 1.0 | **0.2** | **192** | 0.40 | 0.0174 | **0.0220** |
+| F1′ (a) / (b) / (c), all cells | (10 / 10 / 9) | — | 0.4 | 256 | **0.35** | .0203 / .0192 / .0193 | — |
+| F1′ (a) / (b) / (c), excluded | (10 / 10 / 9) | — | 0.4 | 256 | **0.35** | .0200 / .0190 / .0188 | — |
+
+**Reading.** Two of F1's five constants move when the settled cells come out — the scatter floor
+0.3 → 0.2 and spanMax 224 → 192 — and the holdout gets *worse* (0.0197 → 0.0220), which says those
+two were partly fitted to cells whose own two states are 0.10–0.24 apart. σ_heavy 9 device px and
+Δk 0.4 do not move. F1′ has only one free parameter and it does not move at all: Δk stays 0.35 in
+every variant under both fit sets, with its 2x RMS shifting by at most 0.0005. On the robustness
+axis F1′ is the stronger claim.
+
+### 8.3 The canonical SSIM dry run
+
+§5.41 §4's method: vitrea's own capture with its deep body — the §5.41 interior box, rim band and
+outside untouched — replaced by the candidate law at the **reference** cell's own level and
+transmission, hue kept by scaling RGB by the luminance ratio; then whole-crop `ssimMean` against the
+native fixture. Baselines are the material now on `main`: the webgpu tier from the ω-0.8 round
+(`web-captures-g2b/`) and the CSS tier from the G2 landing (`web-captures-g2/`). The CSS law is
+derived from the same constants by the K5 contract,
+σ_css = σ_sharp·(1 + (gain_eff − 1)·k′) with gain_eff = σ_heavy,css / σ_sharp.
+
+**Instrument check.** The numpy SSIM replica reproduces the `before` column against the scratch
+matrices those captures were scored into on all twenty rows: largest |replica − matrix| = **0.00000**.
+
+| row | bound | floor | before | F0 | F1 | F1′ | F1−F0 | F1′−F0 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| webgpu / rrect-sm / 1x | 0.88 | — | 0.9988 | 0.9979 | 0.9979 | 0.9979 | −0.0001 | +0.0000 |
+| webgpu / capsule-button / 1x | 0.88 | — | 0.9852 | 0.9840 | 0.9838 | 0.9840 | −0.0001 | +0.0000 |
+| webgpu / rrect-md / 1x | 0.88 | — | 0.9695 | 0.9707 | 0.9703 | 0.9707 | −0.0004 | +0.0000 |
+| webgpu / rrect-ml / 1x | 0.88 | — | 0.9482 | 0.9501 | 0.9497 | 0.9501 | −0.0005 | +0.0000 |
+| webgpu / rrect-lg / 1x | 0.88 | — | 0.9428 | 0.9454 | 0.9451 | 0.9454 | −0.0003 | +0.0000 |
+| **webgpu / rrect-sm / 2x** | 0.93 | — | 0.9978 | 0.9972 | 0.9972 | 0.9974 | +0.0000 | +0.0002 |
+| **webgpu / capsule-button / 2x** | 0.93 | — | 0.9836 | 0.9826 | 0.9829 | 0.9832 | +0.0002 | +0.0006 |
+| **webgpu / rrect-md / 2x** | 0.93 | — | 0.9517 | 0.9497 | 0.9542 | **0.9545** | +0.0045 | +0.0047 |
+| **webgpu / rrect-ml / 2x** | 0.93 | 0.9013 | 0.9158 | 0.9110 | 0.9219 | **0.9219** | +0.0109 | +0.0109 |
+| **webgpu / rrect-lg / 2x** | 0.93 | 0.9002 | 0.9113 | 0.9084 | 0.9164 | **0.9164** | +0.0080 | +0.0081 |
+| css / rrect-sm / 1x | 0.90 | — | 0.9853 | 0.9851 | 0.9857 | 0.9851 | +0.0006 | +0.0000 |
+| css / capsule-button / 1x | 0.90 | — | 0.9612 | 0.9610 | 0.9620 | 0.9610 | +0.0011 | +0.0000 |
+| css / rrect-md / 1x | 0.90 | 0.8952 | 0.8963 | 0.8952 | 0.8959 | 0.8952 | +0.0007 | +0.0000 |
+| css / rrect-ml / 1x | 0.90 | 0.8470 | 0.8481 | 0.8475 | 0.8475 | 0.8475 | +0.0001 | +0.0000 |
+| css / rrect-lg / 1x | 0.90 | 0.8361 | 0.8372 | 0.8321 | 0.8321 | 0.8321 | −0.0000 | +0.0000 |
+| css / rrect-sm / 2x | 0.92 | — | 0.9883 | 0.9878 | 0.9880 | 0.9879 | +0.0002 | +0.0001 |
+| css / capsule-button / 2x | 0.92 | — | 0.9705 | 0.9697 | 0.9699 | 0.9698 | +0.0002 | +0.0001 |
+| css / rrect-md / 2x | 0.92 | 0.9159 | 0.9169 | 0.9184 | 0.9188 | 0.9187 | +0.0004 | +0.0003 |
+| css / rrect-ml / 2x | 0.92 | 0.8754 | 0.8765 | 0.8795 | 0.8794 | 0.8795 | −0.0001 | −0.0000 |
+| css / rrect-lg / 2x | 0.92 | 0.8686 | 0.8696 | 0.8700 | 0.8699 | 0.8700 | −0.0001 | −0.0000 |
+
+**Reading — the 2x rows.** On the GPU tier the body law is worth **+0.0028 to +0.0061 of whole-crop
+SSIM against the captures on `main`** at 2x on the three large spans (md 0.9517 → 0.9545,
+ml 0.9158 → 0.9219, lg 0.9113 → 0.9164 under F1′), and the landed law in the same dry run goes the
+*other* way (0.9497 / 0.9110 / 0.9084) — the body is measurably the 2x deficit, and replacing it with
+the landed law at the reference's own level makes those rows worse. F1 and F1′ are within 0.0003 of
+each other on every 2x row; F1′ is the higher of the two on three of the five and equal on the other
+two. `rrect-sm`, `capsule-button` and `rrect-md` clear the 0.93 bound (0.9974 / 0.9832 / 0.9545);
+`rrect-ml` and `rrect-lg` stay under it by 0.0081 and 0.0136 with the rim and the outside still
+vitrea's, but clear their pinned floors with room — 0.9219 against 0.9013 and 0.9164 against 0.9002.
+
+**Reading — the stop.** No 1x GPU row falls by more than 0.002 under either law; F1's worst is
+−0.0005 (`rrect-ml`) and three of its five 1x rows rise. **Under F1′ every 1x row is +0.0000 against
+the landed law by construction** — no 1x constant moves, so a landing would leave the 1x captures
+byte-identical, and the F1′ column of the 1x rows is the landed law's own column, not a prediction.
+
+One row does move down against its *capture*: `css / rrect-lg / 1x` falls 0.8372 → 0.8321 (−0.0051),
+below its 0.8361 floor. That drop is identical for the landed law F0 (−0.0000 against F1 and F1′), so
+it is not something the declaration would introduce: it is the dry run's own artefact on that cell —
+replacing a structured CSS body with the reference's level and a single blur that cannot carry the 1x
+sharp leak at any σ (§6's CSS ceiling). Since the 1x CSS constants do not move under F1′, the row's
+landing prediction is *unchanged*, and this number should be read as one more measurement of what a
+single `blur()` cannot do at 1x rather than as a stop. Under F1 the 1x CSS constants *do* move and
+the dry run cannot separate that; that is one more reason to prefer F1′.
+
+A caveat on the small spans: on `rrect-sm` and `capsule-button` at 1x every law, the landed one
+included, loses 0.0009–0.0012 in this dry run. That is the level refit inside the box, not the body
+law — those cells are lens band nearly edge to edge and carry almost no deep body (§5.38 §3).
+
+### 8.4 What the declaration should carry — revised
+
+**Declare F1′ (b), not F1.** It is the landed law with two scale terms and nothing else:
+
+- `σ_heavy` read as a **device-pixel** quantity: `blurSigma × sizeScatterGainMax = 10` device px,
+  so 10 CSS px at dpr 1 and 5 CSS px at dpr 2. No constant changes value.
+- `σ_sharp` read as a **device-pixel** quantity: `blurSigma = 1.25` device px, so 1.25 CSS px at
+  dpr 1 and 0.625 at dpr 2. No constant changes value.
+- One genuinely new constant, the scatter weight's scale term: **Δk = 0.35 per unit of
+  (devicePixelRatio − 1)**, added to the whole curve and clamped to 1.
+- `sizeScatterFloor` 0.4, `sizeScatterSpanMax` 256 and the smoothstep stay exactly as landed.
+
+Why this rather than section 6's F1, which fits the pooled bed 0.0013 better at 2x: **(i)** its 1x
+rows are byte-identical to what is landed, so W12's 1x stop cannot be tripped and the 1x claims of
+§5.41 and §5.42 stand unamended; **(ii)** it is better on the untouched holdout at 2x (0.0169 against
+0.0200) and on the photo null (0.0153 against 0.0156); **(iii)** its single free parameter does not
+move when the frequency-settled cells are excluded, while two of F1's five do and F1's holdout
+degrades when they come out; **(iv)** the 0.0013 it concedes on the fit set is one grid step of F1's
+own sweeps; **(v)** in the SSIM dry run it is the equal or better of the two on all ten GPU rows. The interpretation is also simpler and matches §3's kernel directly: **the reference's body
+kernel is fixed in device pixels, and the second scale changes only how much of it leaks unblurred.**
+
+The numbers to publish with it: 1x fit 0.0164 / holdout 0.0174 (the landed values, unchanged);
+2x fit 0.0192 / holdout 0.0169 against the landed law's 0.0464 / 0.0332; photo null at 2x 0.0153
+against the landed 0.0147; dry-run GPU 2x rows 0.9517 → 0.9545, 0.9158 → 0.9219, 0.9113 → 0.9164 with
+every 1x row unmoved.
+
+Unchanged from §6: the CSS tier is a separate and worse story — one blur cannot carry the 1x sharp
+leak (the `css / rrect-lg / 1x` row above is that fact in SSIM), the K5-derived CSS law moves the 2x
+dom rows up by only 0.0003–0.0030, and the 1x dom rows should be left where they are. And the open
+mechanism question stands: F2, the reference's own quarter-buffer, needs a scale term of the same
+size, so nothing here explains *why* the 1x material leaks so much more of the unblurred buffer than
+the 2x one.

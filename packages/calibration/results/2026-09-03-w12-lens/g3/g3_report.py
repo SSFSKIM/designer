@@ -7,7 +7,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from g3lib import OUT, COMPS, SPAN, PITCHES5, LC16, SCALES  # noqa: F401
 
-PARTS = ['interior', 'depth', 'kernel', 'level', 'lens2x', 'forms', 'photo']
+PARTS = ['interior', 'depth', 'kernel', 'level', 'lens2x', 'forms', 'photo',
+         'variants', 'dryrun']
 doc = {p: json.load(open(f'{OUT}/parts/{p}.json')) for p in PARTS}
 with open(f'{OUT}/g3-measurement.json', 'w') as f:
     json.dump(doc, f, indent=1, sort_keys=True)
@@ -111,3 +112,21 @@ for key, c in doc['lens2x']['cells'].items():
     for r in sorted(c['crossings'], key=lambda r: r['u']):
         print(f'| {key} | {c["pitch"]} | {r["edge"]} | {r["u"]:.2f} | {r["D"]:.2f} | '
               f'{r["D_g2_law"]:.2f} | {r["D"] - r["D_g2_law"]:+.2f} |')
+
+
+print('\n### Table 8a — F1\' variants (2x fitted alone; 1x is the landed law by construction)\n')
+print('| variant | dk | 2x fit | 2x holdout | 1x fit | 1x holdout | photo 2x |')
+print('| --- | --- | --- | --- | --- | --- | --- |')
+for k, v in doc['variants']['variants'].items():
+    print(f'| {k} | {v["params"]["dk"]:.2f} | {v["rms_2x_fit"]:.4f} | {v["rms_2x_holdout"]:.4f} | '
+          f'{v["rms_1x_fit"]:.4f} | {v["rms_1x_holdout"]:.4f} | '
+          f'{doc["variants"]["photo_2x"][k]["overall"]:.4f} |')
+
+print('\n### Table 8b — the SSIM dry run, before → after (Δ against the landed law F0)\n')
+print('| row | bound | floor | before | F0 | F1 | F1\' | F1−F0 | F1\'−F0 |')
+print('| --- | --- | --- | --- | --- | --- | --- | --- | --- |')
+for key, r in doc['dryrun']['rows'].items():
+    fl = f'{r["floor"]:.4f}' if r.get('floor') else '—'
+    print(f'| {key.replace(chr(124), " / ")} | {r["bound"]:.2f} | {fl} | {r["before"]:.4f} | {r["F0"]["after"]:.4f} | '
+          f'{r["F1"]["after"]:.4f} | {r["F1\'"]["after"]:.4f} | '
+          f'{r["F1"]["after"] - r["F0"]["after"]:+.4f} | {r["F1\'"]["after"] - r["F0"]["after"]:+.4f} |')
