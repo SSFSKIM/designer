@@ -101,7 +101,7 @@ rather than by reading it.
 | --- | --- | --- |
 | prototype | this session's screenshots (scratch) | DONE 2026-09-03 |
 | the round | worktree branch, refereed by the demo suites | DONE 2026-09-03 |
-| landing | after W12 G3 lands on `main` | — |
+| landing | cherry-picked onto `main` (52092d8) once G3 was held at `main`'s material (claims §5.58): the body under the hero is the landed one either way; by-eye verdict on the live site is the user's | LANDED 2026-09-03 |
 
 The round's evidence: `pnpm --filter demo test:e2e` 33 passed, 1 failed (the
 pre-existing GPU reference-panel cell above); `pnpm --filter demo lint` clean;

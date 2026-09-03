@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from g3lib import OUT, COMPS, SPAN, PITCHES5, LC16, SCALES  # noqa: F401
 
 PARTS = ['interior', 'depth', 'kernel', 'level', 'lens2x', 'forms', 'photo',
-         'variants', 'dryrun', 'dryrun2']
+         'variants', 'dryrun', 'dryrun2', 'transmission']
 doc = {p: json.load(open(f'{OUT}/parts/{p}.json')) for p in PARTS}
 with open(f'{OUT}/g3-measurement.json', 'w') as f:
     json.dump(doc, f, indent=1, sort_keys=True)
