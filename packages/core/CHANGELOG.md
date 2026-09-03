@@ -1,5 +1,12 @@
 # @vitreajs/vitrea
 
+## 0.4.0
+
+Version-locked with `@vitreajs/vitrea-web` 0.4.0 and `@vitreajs/vitrea-react` 0.4.0; no
+change in this package. The material laws that moved in 0.4.0 — the lens band's shape, the
+body's depth ramp and the outer shadow's two terms — live in the browser host and its
+bundled renderer; see `@vitreajs/vitrea-web`'s changelog.
+
 ## 0.3.0
 
 Version-locked with `@vitreajs/vitrea-web` 0.3.0 and `@vitreajs/vitrea-react` 0.3.0; no

@@ -1,5 +1,122 @@
 # @vitreajs/vitrea-web
 
+## 0.4.0
+
+### Minor Changes
+
+- 492168b: The frost inside glass now sharpens toward the edge, the way Apple's does.
+  
+  Vitrea blurred the content behind a surface at one mix of sharp and heavy
+  scatter across the whole surface, chosen by the surface's size. Apple's material
+  does not: measured through its own lens, the sharp share is highest just inside
+  the contour and fades toward the centre over a fixed distance, so the backdrop
+  reads crisply where the eye lands — at the rim, where the lens bends it — and
+  softens deeper in. This release carries that ramp.
+  
+  **What you see at 1x.** Inside the contour the pattern behind a surface is
+  crisper than before and closer to Apple's, and the interior of a large platter
+  shows more of what is behind it: a 280 px card's centre used to be 17% softer
+  than Apple's and is now 12% crisper, with the band at the edge closer on every
+  size measured. Small controls change least; large surfaces most.
+  
+  **What you see at 2x.** Nothing, in this release. On a Retina display Apple's
+  interior is heavier than vitrea's on every size, so the gap there is in the
+  body's deep value rather than in any ramp above it, and that is its own
+  measurement. The ramp's 2x anchors are carried in the profile and are inert.
+  
+  **Both tiers carry it.** The WebGPU tier mixes per pixel by depth. The CSS tier
+  has one `backdrop-filter` blur per surface and mixes it at the ramp's average
+  over the surface, so a surface reads the same overall weight on either tier;
+  the CSS tier's width is the 1x law at every device scale.
+  
+  **The body's widths are CSS pixels at every device scale, on both tiers.** A
+  reading that made them device-pixel quantities on the WebGPU tier was carried
+  into this wave, measured against Apple's heavier 2x interior, and withdrawn
+  before landing; the 2x body is unchanged from 0.3.0.
+  
+  Nothing in your code changes. If you pass a material profile of your own, the
+  scattering facet gains eight named constants — the ramp's start at a thin and
+  a thick span and past the thickness knee, and its reach, each at 1x and 2x —
+  and a profile that does not name them gets the measured ones.
+  
+  Measured against macOS 26.5 and recorded in `c9a-fidelity-claims.md` §5.61 and
+  §5.68.
+- 492168b: The refraction band at the edge of glass now has the shape of Apple's, not only
+  its strength.
+  
+  Look closely at the rim of a Liquid Glass surface over a checkerboard and the
+  band is a set of crisp lobes: the rows behind it reversed and compressed, a
+  sharp fold where the bend is steepest, distinct lobes at the corners, a dark
+  line inside the rim. Vitrea's band had the magnitude of that bend without its
+  shape — the same depth of displacement spread as a smooth curve. This release
+  carries the shape, measured from Apple's own field rather than assumed from
+  its description.
+  
+  **A steeper profile.** The displacement across the band is one steep power
+  along the material's own span law, so most of the bend sits in a narrow fold
+  just inside the contour with the interior nearly still, which is what produces
+  the reversed rows and the fold.
+  
+  **An ovalized direction.** On thick surfaces the bend runs along a direction
+  blended toward the ellipse inscribed in the surface, so the band is magnified
+  along the edge and the corners carry their own lobes; on thin controls the
+  direction stays the rounded rectangle's. The change is a band between the two
+  spans, continuous through a morph.
+  
+  WebGPU tier only, at 1x and 2x: the CSS tier has no lens (a `backdrop-filter`
+  cannot displace), and it is unchanged. Every checkerboard size measured moved
+  toward Apple's at both scales.
+  
+  Nothing in your code changes. If you pass a material profile of your own, the
+  lens gains `lensProfileExponent`, `lensOvalization` and the two spans that
+  grade it; a profile that does not name them gets the measured values.
+  
+  Measured against macOS 26.5 and recorded in `c9a-fidelity-claims.md` §5.49–§5.52
+  and §5.59.
+- 99ea455: The shadow under glass now changes with the content behind it, and adds light as
+  well as removing it.
+  
+  Every glass surface cast one shadow at one strength, whatever it was standing
+  over and however large it was. Apple's does not. Measured across its own
+  material, the shadow is two things composited on one falloff, and this release
+  carries both.
+  
+  **It reads the backdrop.** Below the size law's knee the shadow's depth is keyed
+  on how light the content behind the surface is — full strength across the whole
+  ordinary range, about a third of that over a near-white backdrop, and nothing at
+  all over a black one. A small control on a white card was casting a shadow more
+  than twice as dark as Apple's; that was the single largest visible error in the
+  facet and it is gone.
+  
+  **It grows with the surface.** Above the knee the shadow deepens with the
+  casting span rather than sitting at one amplitude, which is what "larger glass
+  casts a deeper, richer shadow" means in practice.
+  
+  **It carries the backdrop's own light.** On the WebGPU tier a large surface's
+  shadow adds a blurred copy of the light behind it underneath the darkening,
+  which is why Apple's big platters do not read as a flat gray smudge. The CSS
+  tier cannot paint that light — a `box-shadow` cannot reach the backdrop outside
+  its own element — so it derives the single darkening that matches the pair,
+  subtracting the light it cannot add from the depth it can, at the backdrop level
+  it already reads. The two tiers therefore land on the same shadow over a flat
+  backdrop and differ only in how they resolve a structured one.
+  
+  **Under Reduce Transparency the shadow goes flat**, at the one level Apple's
+  does: the preference removes the adaptation, so every surface over every
+  backdrop gets the same shadow rather than a scaled version of the adaptive one.
+  
+  Nothing in your code changes. If you pass a material profile of your own, the
+  shadow's amplitude is now six named constants plus the second term's four rather
+  than a single `outerShadow.occlusion`, and a profile still naming the retired
+  one is refused with a message that names its replacements rather than silently
+  rendering the shipped shadow.
+  
+  Measured against macOS 26.5 and recorded in `c9a-fidelity-claims.md` §5.62.
+
+### Patch Changes
+
+- @vitreajs/vitrea@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes
