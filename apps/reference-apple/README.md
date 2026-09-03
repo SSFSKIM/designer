@@ -22,6 +22,16 @@ have one, so the Xcode toolchain stays out of the JavaScript graph.
 ./capture.sh dump-layers --settle 8   # Apple's own material parameters, read from the layer tree
 ```
 
+Two launch facts that cost a session each to learn. A rebuild re-signs the
+bundle ad hoc, and the Screen Recording grant is keyed to that signature, so
+every `build.sh` invalidates TCC until the user toggles the harness off and on
+again under Privacy & Security → Screen & System Audio Recording. And
+`launchctl setenv` only reaches processes in the caller's launchd session:
+from a background session (an agent's shell, a launchd job) it never reaches
+the GUI session `open` launches into, so the harness sees no `VITREA_SCALE`,
+`VITREA_SCENES` or `VITREA_FIXTURES` and quietly runs the canonical set —
+pass them as `open --env VAR=value …` instead, which works from any session.
+
 `dump-layers` hosts each scene in the capture window, waits `--settle` seconds
 (the face and shadow inputs animate toward backdrop-adapted values for several
 seconds, so 8 is the honest default for a reading and 1.5 only tells you the
