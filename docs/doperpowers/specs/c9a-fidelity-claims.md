@@ -7286,10 +7286,26 @@ px; the plate's maxima at 135.5 / 167.5 / 199.5 on `rrect-md`):
 Uniform over each whole straight section (so not corner-driven); on
 `rrect-md` it decays 1.32 / 1.19 / 1.13 / 1.08 / 1.05 / 1.03 / 1.02 /
 1.01 at u 1–2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 and is 1.00 by 18,
-identical at 1x and 2x (`g1-rim.md` §3). The three spans' stretch
-factors are ∝ 1/width² within 10%. No normal-only displacement carries
-a tangential term on a straight edge; vitrea's period is 32.2 at every
-depth. §5.50 names the mechanism.
+identical at 1x and 2x (`g1-rim.md` §3; the instrument's own per-row
+reading, `g1-edges-along.md`: 1.29 / 1.22 / 1.20 / 1.14 / 1.08 / 1.04 at
+u 1.5 / 2.5 / 4 / 6.5 / 8.5 / 11.5, top = bottom, 1x = 2x). The three
+spans' stretch factors are ∝ 1/width² within 10%. No normal-only
+displacement carries a tangential term on a straight edge; vitrea's
+period is 32.2 at every depth. §5.50 names the mechanism.
+
+**How the two components combine** (`g1-edges-along.md`): with a
+stretch-aware cross factor, the normal component measured on line subsets
+by distance from the edge's midpoint *falls* toward the edge ends —
+`rrect-md` 1x at u = 2 / 4 / 8: 33.0 / 24.2 / 11.7 within 24 px of the
+midpoint, 32.7 / 23.7 / 11.4 at 24–48, 31.5 / 22.6 / 10.6 at 48–60; the
+same on `rrect-lg` and at 2x — and the reconstructed magnitude
+√(D_n² + d_t²) returns the midpoint profile within 0.4 px on 34 of 36
+entries. **The lens is one vector field of fixed magnitude profile(u)
+whose direction tilts toward the edge's midpoint**: tan φ ≈ 0.33–0.40 at
+54 px from the midpoint on `rrect-md` (the ellipse gradient x·b/a² gives
+0.41) and 0.30 at 88 px on `rrect-lg` (0.36). A fixed normal component
+with the tangential term added on top is 1.1–1.7 px off on every outer
+subset.
 
 #### 4. The corners
 

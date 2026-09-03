@@ -770,3 +770,72 @@ def power_form(u, S, L, p):
 POWER_INITS = [(44.0, 19.5, 2.5), (33.0, 20.8, 2.0), (50.0, 18.0, 3.0), (40.0, 22.0, 2.2)]
 POWER_BOUNDS = ([0.0, 4.0, 0.5], [120.0, 40.0, 6.0])
 FORMS['power'] = (power_form, 3, POWER_INITS, POWER_BOUNDS)
+
+
+# ---------------------------------------------------------------- along-edge subsets and the stretch
+
+def cross_factor_vec(coords, pitch, sigma, axis):
+    """cross_factor over an array of coordinates (erf sums; boundaries covering all coords ± 6σ)."""
+    coords = np.asarray(coords, dtype=float)
+    if sigma < 1e-3:
+        return square_wave(coords, pitch, axis)
+    H = CANVAS[1]; r2 = sigma * np.sqrt(2)
+    if axis == 'x':
+        k0 = int(np.floor((coords.min() - 6 * sigma) / pitch)) - 1; k1 = int(np.ceil((coords.max() + 6 * sigma) / pitch)) + 1
+        total = np.zeros_like(coords)
+        for k in range(k0, k1 + 1):
+            lo, hi = k * pitch, (k + 1) * pitch; sign = 1.0 if k % 2 == 0 else -1.0
+            total += sign * 0.5 * (erf((hi - coords) / r2) - erf((lo - coords) / r2))
+        return total
+    k0 = int(np.floor((H - coords.max() - 6 * sigma) / pitch)) - 1; k1 = int(np.ceil((H - coords.min() + 6 * sigma) / pitch)) + 1
+    total = np.zeros_like(coords)
+    for k in range(k0, k1 + 1):
+        lo, hi = H - (k + 1) * pitch, H - k * pitch; sign = 1.0 if k % 2 == 0 else -1.0
+        total += sign * 0.5 * (erf((hi - coords) / r2) - erf((lo - coords) / r2))
+    return total
+
+
+def restrict_lines(L, lo, hi):
+    """Keep the lines whose cross coordinate is within (lo, hi] of the edge midpoint."""
+    mid = CX if L.cross_axis == 'x' else CY
+    d = np.abs(L.cross - mid); keep = (d > lo) & (d <= hi)
+    L.cross, L.cross_wave, L.Y = L.cross[keep], L.cross_wave[keep], L.Y[keep]
+    L.n_lines = int(keep.sum())
+    return L
+
+
+class StretchLineModel(LineModel):
+    """Blur-before with the source column moved by the along-edge stretch m(u): the cross factor is
+    evaluated at x_src(u) = x_mid + (x − x_mid)/m(u) for every (line, depth)."""
+
+    def __init__(self, lines, m_of_u, **kw):
+        super().__init__(lines, order='before', **kw)
+        self.m_fine = np.interp(np.maximum(lines.fine_u, 0.0), m_of_u[0], m_of_u[1])
+        mid = CX if lines.cross_axis == 'x' else CY
+        self.xsrc = mid + (lines.cross[:, None] - mid) / self.m_fine[None, :]  # lines × fine
+
+    def predict(self, p, return_fine=False):
+        a, t, k, s1, c = self.unpack(p)
+        D = self.D_of(c); s = self.L.fine_u + D
+        wave_sharp = self.L.q(s)
+        comps = [(1 - k if self.heavy else 1.0, s1)]
+        if self.heavy:
+            comps.append((k, SIGMA_HEAVY))
+        fine = np.zeros((self.L.n_lines, len(self.L.fine_u)))
+        for w, sigma in comps:
+            if w <= 0:
+                continue
+            Q = self.component(sigma, s, wave_sharp)
+            e = cross_factor_vec(self.xsrc.ravel(), self.L.pitch, sigma, self.L.cross_axis).reshape(self.xsrc.shape)
+            fine += w * e * Q[None, :]
+        fine = a + t * 0.5 * (1 - fine)
+        if return_fine:
+            return fine
+        out = np.empty((self.L.n_lines, len(self.L.u)))
+        for j, f in enumerate(self.L.foot):
+            out[:, j] = fine[:, f].mean(axis=1)
+        return out
+
+    # the stretch-aware model needs its own cross factors in restrict/bootstrap; expose for checks
+    def cross_factors(self, sigma):
+        return cross_factor_vec(self.xsrc[:, 0], self.L.pitch, sigma, self.L.cross_axis)
