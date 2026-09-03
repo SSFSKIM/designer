@@ -8204,3 +8204,9 @@ The landed law in the same dry run moves the three 2x GPU rows *down*
   term as large as this one (§5.55 §5); why the 1x material leaks more
   unblurred buffer than the 2x one is not understood.
 - The CSS tier's 1x ceiling (§5.55 §5) is untouched by construction.
+
+**Framing (the user, 2026-09-03).** The transparency gap is a 2x
+phenomenon in the numbers — the 1x checkerboard interiors agree between
+vitrea and the reference — so a transparency difference seen at 1x on a
+dark ground is the dark-ground transmission item in the W12 Deferred
+list (the dot on `impulse__capsule-button`), not G3's.

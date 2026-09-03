@@ -277,6 +277,29 @@ profile and the 2x body) that write findings, not the spec.
 
 ## Deferred / Out of Scope
 
+- **Three by-eye gaps from the user's fidelity-gap list (2026-09-03), not
+  yet measured:**
+  - **The dot disappears on `impulse__capsule-button__rest`.** Apple's
+    shows the dot through the glass; ours does not. Points at transmission
+    on dark grounds, not the band. The G1 / G3 body measurement covers
+    checkerboards only; the shape of the work is adding the dark grounds
+    (`impulse`, `dark-solid`) to whatever measures transmission — the
+    probe scene set or a dark-ground pitch axis — and reading the
+    response there against the light one.
+  - **A possible whole-surface dome.** The 3D curvature the eye sees may
+    be a shallow magnification across the interior, not only at the
+    edges. The G1 instrument pins displacement to zero past u ≈ 28 px and
+    cannot see it. Shape of the work: an interior pitch check — the
+    checker pitch measured inside the surface against outside, per span
+    and scale, on the probe beds already committed.
+  - **The shadow is darker on `light-solid__capsule-button__rest`.** The
+    outer shadow (W8) was measured on large cells only and its size gain
+    is inert at 1; Apple's small surfaces cast lighter shadows. Shape of
+    the work: a by-eye check on the small spans and a measurement of the
+    shadow's span law, which the layer dump already reads (claims §5.50:
+    amount min(0.625·span, 75), height 0.4·span, opacity 0.5 − (span −
+    48)/448, blur 40 from span 96).
+
 - **A by-eye-aligned band metric.** ω 0.8 lost 0.001–0.002 SSIM on every
   texture row that can see it and the user read it as much closer to
   macOS (Decision Log 6): whole-crop SSIM weights the blurred interior and
