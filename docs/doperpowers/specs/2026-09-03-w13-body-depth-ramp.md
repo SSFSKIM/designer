@@ -341,7 +341,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | — | OPEN |
+| G0 | two workers dispatched 2026-09-03: the windowed instrument, its validation and the reference readings (steps 1–6, `results/2026-09-03-w13-ramp/g0/`, commits on `main` under that directory only); X6's band-windowed rows and their baseline on the W12 close bed (branch `w13-x6-band-rows`, worktree `.claude/worktrees/w13-x6`) | IN PROGRESS 2026-09-03 |
 | G1 | — | blocked-by G0 |
 | G2 | — | blocked-by G1 |
 
