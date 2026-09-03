@@ -7,6 +7,7 @@ import {
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
   requiredSamplingPadding,
+  CSS_TIER_RAMP_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
 } from "../src/optics";
@@ -169,10 +170,13 @@ export function expectedProxyBlur(options: {
   const folded = opticsUnderPolicy(MATERIAL_OPTICS.regular, policy);
   const sigma = sizeScatterSigmaAt(
     folded.blurRadius,
+    // The projection at the scale the CSS tier reads it at, which is what
+    // `root.ts` takes the padding floor over — see `CSS_TIER_RAMP_SCALE`.
     scatterThickness(
       options.spanPx,
       MATERIAL_SOURCE_SIZE.refractionScale[accessibilityRefractionCap(policy)],
       MATERIAL_SOURCE_SIZE,
+      CSS_TIER_RAMP_SCALE,
     ),
     MATERIAL_SOURCE_SIZE,
     options.devicePixelRatio ?? 1,

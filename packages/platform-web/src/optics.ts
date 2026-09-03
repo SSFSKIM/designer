@@ -601,29 +601,31 @@ export function sourceGlow(patch?: RendererMaterialProfile): MaterialSourceGlow 
  * reference does not cast and whose alpha ships at zero (Decision Log #32(c)).
  *
  * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.sizeSpanMin`,
- * `.sizeSpanMax`, `.sizeScatterGainMax`, `.sizeScatterFloor`,
- * `.sizeScatterSpanMax` and `.sizeOcclusionGain`.
+ * `.sizeSpanMax`, `.sizeScatterGainMax`, `.sizeScatterFloor`, the four
+ * `.sizeScatterRamp*` constants and `.sizeOcclusionGain`.
  */
 export interface MaterialSourceSize {
   readonly sizeSpanMin: number;
   readonly sizeSpanMax: number;
   readonly sizeScatterGainMax: number;
   /**
-   * The scatter facet's own curve (W11c): its mix starts at `sizeScatterFloor`
-   * on any surface and rises from `sizeSpanMin` to `sizeScatterSpanMax` — a
-   * band top past the thickness curve's, which the reference's interior
-   * measures and the one curve could not express. See `scatterThickness`.
+   * The scatter facet's frost (W11c): the mix every surface carries whatever
+   * its size, and the value the whole facet folds to under an accessibility
+   * preference. See `scatterThickness`.
    */
   readonly sizeScatterFloor: number;
-  readonly sizeScatterSpanMax: number;
   /**
-   * The scatter weight's device-scale term (W12 G3, claims §5.56): the body's
-   * two widths are device-pixel quantities, and the weight the sharp component
-   * leaks at is shifted by `sizeScatterScaleTerm · (devicePixelRatio − 1)`.
-   * Zero shift at dpr 1, so this tier's 1x declarations are the landed ones.
-   * See `scatterThicknessAtScale`.
+   * The body's depth ramp (W13 G1, claims §5.61 §2): the sharp component's
+   * share at the contour and the ramp's reach in DEVICE px, each anchored at
+   * dpr 1 and dpr 2 and interpolated between. This tier cannot render a ramp —
+   * one `backdrop-filter` has one σ — so what it carries is the ramp's
+   * per-surface projection, which is what `scatterThickness` computes on both
+   * tiers from these four numbers. See `scatterThickness`.
    */
-  readonly sizeScatterScaleTerm: number;
+  readonly sizeScatterRampStart1x: number;
+  readonly sizeScatterRampStart2x: number;
+  readonly sizeScatterRampReach1xPx: number;
+  readonly sizeScatterRampReach2xPx: number;
   readonly sizeOcclusionGain: number;
   /**
    * The refraction ladder's scales, carried here because the size law folds under
@@ -643,8 +645,10 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeSpanMax: 96,
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
-  sizeScatterSpanMax: 256,
-  sizeScatterScaleTerm: 0.35,
+  sizeScatterRampStart1x: 0.6,
+  sizeScatterRampStart2x: 0.35,
+  sizeScatterRampReach1xPx: 110,
+  sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
@@ -816,9 +820,14 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeSpanMax: patch?.sizeSpanMax ?? MATERIAL_SOURCE_SIZE.sizeSpanMax,
     sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
     sizeScatterFloor: patch?.sizeScatterFloor ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor,
-    sizeScatterSpanMax: patch?.sizeScatterSpanMax ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax,
-    sizeScatterScaleTerm:
-      patch?.sizeScatterScaleTerm ?? MATERIAL_SOURCE_SIZE.sizeScatterScaleTerm,
+    sizeScatterRampStart1x:
+      patch?.sizeScatterRampStart1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x,
+    sizeScatterRampStart2x:
+      patch?.sizeScatterRampStart2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStart2x,
+    sizeScatterRampReach1xPx:
+      patch?.sizeScatterRampReach1xPx ?? MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
+    sizeScatterRampReach2xPx:
+      patch?.sizeScatterRampReach2xPx ?? MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx,
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
     refractionScale: sourceRefractionScale(patch),
   };
@@ -882,34 +891,172 @@ export function sizeThicknessUnderPolicy(
  *
  * `devicePixelRatio` is the scale the tier draws at (W12 G3, claims §5.56): the
  * widths are device-pixel quantities, so the σ in CSS px is `sigmaPx / dpr`
- * scaled by the weight `scatterThicknessAtScale` resolves. It defaults to 1,
- * where the expression is the landed 1x law exactly.
+ * scaled by the weight `scatterThickness` projects. It defaults to 1, where the
+ * expression is the 1x law exactly.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
   spanPx: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
   devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
 ): number {
-  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, size), size, devicePixelRatio);
+  return sizeScatterSigmaAt(
+    sigmaPx,
+    scatterThickness(spanPx, 1, size, devicePixelRatio, extentsCssPx),
+    size,
+    devicePixelRatio,
+  );
 }
 
 /**
- * The scatter facet's input (W11c): how far toward its heavy blur a surface of
- * this span mixes, 0…1 — the mirror of the renderer's `scatterThickness`.
+ * **The device scale this tier reads the body's depth ramp at** (W13 G1,
+ * Decision Log 1 question 2 (a)).
  *
- * `fold` is the accessibility fold every facet takes (the refraction ladder at
- * the preference's cap, `sizeThicknessUnderPolicy`'s factor). It scales the
- * span-dependent rise and NOT the floor: the floor is the frost the material
- * has at any size, the rise is the depth a preference is entitled to remove.
+ * One `backdrop-filter` cannot carry a ramp, so this tier renders the ramp's
+ * per-surface average — and it takes that average at dpr 1 whatever ratio the
+ * page is composited at. The reason is measured rather than conservative: this
+ * tier's own best single σ is *larger* in CSS px at 2x (claims §5.55 §5), the
+ * opposite of the device-pixel widths, so projecting the ramp at the device
+ * scale would move the 2x dom rows the way the measurement says is wrong. The
+ * tier's claim is narrowed to "the CSS tier renders the 1x material" and its 2x
+ * rows stay held by decision until the two-layer CSS body wave gives the tier a
+ * form that can carry depth.
+ *
+ * This is deliberately one number in one place: flipping it to the live ratio is
+ * the whole of decision 2 (b).
+ */
+export const CSS_TIER_RAMP_SCALE = 1;
+
+/**
+ * The depth ramp's start at a device scale — s₀(dpr), the mirror of the
+ * renderer's `scatterRampStart` (W13 G1, claims §5.61 §2).
+ *
+ * The reference was read at dpr 1 and dpr 2 and nowhere between, so the law is
+ * anchored at those two, interpolated linearly, and held outside [1, 2].
+ */
+export function scatterRampStart(
+  devicePixelRatio: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return rampAtScale(size.sizeScatterRampStart1x, size.sizeScatterRampStart2x, devicePixelRatio);
+}
+
+/**
+ * The depth ramp's reach at a device scale, in DEVICE px — the mirror of the
+ * renderer's `scatterRampReachDevicePx`. In device pixels because that is how it
+ * measured: between the two scales the reach roughly halves in CSS px, which is
+ * one length in device pixels (claims §5.61 §2).
+ */
+export function scatterRampReachDevicePx(
+  devicePixelRatio: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  return rampAtScale(
+    size.sizeScatterRampReach1xPx,
+    size.sizeScatterRampReach2xPx,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * Linear in dpr between the 1x and 2x anchors, held outside [1, 2]. The two
+ * anchors are returned exactly rather than through the interpolation, because
+ * they are the values the reference was measured at and a profile that names
+ * one should render it, not a float one ulp away from it.
+ */
+function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): number {
+  const t = devicePixelRatio - 1;
+  if (t <= 0) return at1x;
+  if (t >= 1) return at2x;
+  return at1x + (at2x - at1x) * t;
+}
+
+/**
+ * The sharp component's share at a depth — s(u), the mirror of the renderer's
+ * `scatterSharpShare` (W13 G1). This tier never evaluates it per pixel; it is
+ * exported so that the projection below can be checked against the law it
+ * projects, and so `tier-coherence` can pin the two tiers on the law itself and
+ * not only on its average.
+ */
+export function scatterSharpShare(
+  uDevicePx: number,
+  devicePixelRatio: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+): number {
+  const start = scatterRampStart(devicePixelRatio, size);
+  const reach = Math.max(scatterRampReachDevicePx(devicePixelRatio, size), 1e-6);
+  return clamp01(start - Math.max(uDevicePx, 0) / reach);
+}
+
+/**
+ * The scatter facet's input — how far toward its heavy blur a surface of this
+ * span mixes ON AVERAGE, 0…1: the depth ramp's projection onto one number per
+ * surface, and the mirror of the renderer's `scatterThickness` (W13 G1).
+ *
+ * The GPU tier mixes per pixel; this tier has one `backdrop-filter` and so can
+ * only carry the average, and every other consumer of the law — the sampling
+ * proxy's 3σ padding floor, the demo's readout — is in the same position. One
+ * law, two projections, which is what stops the tiers scattering differently.
+ *
+ * The average is exact: on a rectangle the area at depth ≥ u is
+ * `(W − 2u)(H − 2u)`, so the area at depth u has measure `P − 8u`, and s is
+ * piecewise linear in u, so `k̄ = 1 − (1/WH) ∫ s(u)(P − 8u) du` integrates in
+ * closed form. The corners are ignored, as the renderer's copy documents.
+ * `extentsCssPx` is the surface's own width and height where the caller has
+ * them; where it does not, the surface is taken to be a square of the span.
+ *
+ * `fold` is the accessibility fold every facet takes. It scales the excursion
+ * away from `sizeScatterFloor` and NOT the floor itself: the floor is the frost
+ * the material has at any size, the rest is the depth a preference is entitled
+ * to remove.
  */
 export function scatterThickness(
   spanPx: number,
   fold: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
 ): number {
   const floor = clamp01(size.sizeScatterFloor);
-  return floor + (1 - floor) * smoothstep(size.sizeSpanMin, size.sizeScatterSpanMax, spanPx) * fold;
+  return clamp01(floor + (scatterRampAreaMean(spanPx, size, devicePixelRatio, extentsCssPx) - floor) * fold);
+}
+
+/**
+ * The unfolded area average of the heavy share over a surface — the integral
+ * `scatterThickness` documents, and the mirror of the renderer's
+ * `scatterRampAreaMean`.
+ */
+export function scatterRampAreaMean(
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
+): number {
+  const width = Math.max(extentsCssPx?.[0] ?? spanPx, 0);
+  const height = Math.max(extentsCssPx?.[1] ?? spanPx, 0);
+  const area = width * height;
+  const start = scatterRampStart(devicePixelRatio, size);
+  // The reach in CSS px, which is the unit a surface's extents arrive in: the
+  // ratio u/U is scale-free, so dividing the device-px reach by the same dpr the
+  // depth would have been multiplied by gives the identical number.
+  const reach = Math.max(
+    scatterRampReachDevicePx(devicePixelRatio, size) / Math.max(devicePixelRatio, 1e-3),
+    1e-6,
+  );
+  if (area <= 0) return clamp01(1 - clamp01(start));
+  const perimeter = 2 * (width + height);
+  const deepest = Math.min(width, height) / 2;
+  const saturated = Math.min(Math.max(reach * (start - 1), 0), deepest);
+  const vanished = Math.min(Math.max(reach * start, 0), deepest);
+  const flat = perimeter * saturated - 4 * saturated * saturated;
+  const a = saturated;
+  const b = vanished;
+  const sloped =
+    start * perimeter * (b - a)
+    - ((8 * start + perimeter / reach) * (b * b - a * a)) / 2
+    + ((8 / (3 * reach)) * (b * b * b - a * a * a));
+  return clamp01(1 - (flat + sloped) / area);
 }
 
 /**
@@ -920,6 +1067,9 @@ export function scatterThickness(
  * thickness form is the law, and the span form is the convenience that computes
  * an unfolded thickness for it. One formula, so a policy fold cannot accidentally
  * be applied to one facet and not another.
+ *
+ * `devicePixelRatio` divides the σ because the two widths are device-pixel
+ * quantities (W12 G3, claims §5.56 §1, verified §5.58 §2).
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
@@ -927,27 +1077,8 @@ export function sizeScatterSigmaAt(
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
   devicePixelRatio = 1,
 ): number {
-  const scaled = scatterThicknessAtScale(scatter, devicePixelRatio, size);
-  return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (size.sizeScatterGainMax - 1) * scaled);
-}
-
-/**
- * The scatter weight at a device scale (W12 G3, claims §5.56) — k′, the mirror
- * of the renderer's `scatterThicknessAtScale`.
- *
- * The reference's body kernel is fixed in device pixels; what the second scale
- * changes is how much of the backdrop leaks through unblurred, so the weight —
- * and only the weight — carries `sizeScatterScaleTerm · (dpr − 1)`, clamped to
- * 1. The shift is added after the accessibility fold, because it reads the
- * scale rather than the depth a preference is entitled to remove. At dpr 1 it
- * is the identity.
- */
-export function scatterThicknessAtScale(
-  scatter: number,
-  devicePixelRatio: number,
-  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
-): number {
-  return clamp01(scatter + size.sizeScatterScaleTerm * (devicePixelRatio - 1));
+  const mix = clamp01(scatter);
+  return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (size.sizeScatterGainMax - 1) * mix);
 }
 
 /**

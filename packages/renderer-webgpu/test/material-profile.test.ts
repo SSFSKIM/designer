@@ -106,13 +106,13 @@ describe("withMaterialOverrides", () => {
     expect(next.sizeSpanMin).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMin);
     expect(next.sizeSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMax);
     expect(next.sizeScatterFloor).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterFloor);
-    expect(next.sizeScatterSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax);
+    expect(next.sizeScatterRampReach1xPx).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx);
     const scatter = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
       sizeScatterFloor: 0.1,
-      sizeScatterSpanMax: 500,
+      sizeScatterRampReach1xPx: 500,
     });
     expect(scatter.sizeScatterFloor).toBe(0.1);
-    expect(scatter.sizeScatterSpanMax).toBe(500);
+    expect(scatter.sizeScatterRampReach1xPx).toBe(500);
     expect(scatter.sizeSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMax);
     expect(next.sweepGain).toBe(DEFAULT_MATERIAL_PROFILE.sweepGain);
     expect(next.lightDirection).toEqual(DEFAULT_MATERIAL_PROFILE.lightDirection);

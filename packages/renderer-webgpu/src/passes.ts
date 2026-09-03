@@ -155,24 +155,26 @@ export interface OpticsPassArgs {
   readonly sizeShadowGainMax: number;
   readonly bodyChainLod: number;
   /**
-   * The size law's curves (W11c): the thickness band and the scatter facet's
-   * own floor and band top, plus the accessibility fold every span-dependent
-   * rise multiplies by — the refraction ladder at the preference's cap, the
-   * same factor `sizeThicknessUnderPolicy` applies on the CPU. The shader
-   * evaluates both curves per pixel from the span the field pass carries.
+   * The thickness band (W2) and the scatter facet's frost (W11c), plus the
+   * accessibility fold every span-dependent rise multiplies by — the refraction
+   * ladder at the preference's cap, the same factor `sizeThicknessUnderPolicy`
+   * applies on the CPU. The shader evaluates the thickness curve per pixel from
+   * the span the field pass carries; the scattering reads the depth instead.
    */
   readonly sizeSpanMin: number;
   readonly sizeSpanMax: number;
   readonly sizeScatterFloor: number;
-  readonly sizeScatterSpanMax: number;
   /**
-   * The scatter weight's device-scale shift (W12 G3, claims §5.56):
-   * `sizeScatterScaleTerm × (devicePixelRatio − 1)`, resolved once per group
-   * from the viewport the renderer draws at and added to the curve the shader
-   * evaluates per pixel, clamped there to 1. Zero at dpr 1, where the whole
-   * body law is the landed one.
+   * The body depth ramp (W13 G1, claims §5.61 §2), resolved once per group from
+   * the ratio the renderer draws at: the sharp share at the contour, and the
+   * ramp's reach **in CSS px** — the profile names the reach in device px and
+   * the caller divides, because the depth the shader has is the field's own and
+   * that is in group-local CSS px. Both are already interpolated between the
+   * profile's 1x and 2x anchors, so the shader evaluates one subtraction and one
+   * divide per pixel.
    */
-  readonly sizeScatterScaleShift: number;
+  readonly sizeScatterRampStart: number;
+  readonly sizeScatterRampReachCssPx: number;
   readonly sizeFold: number;
   /**
    * Backdrop tone adaptation (W7): `[low, high, sizeBiasUnderPolicy, strength]`.
@@ -605,7 +607,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[70] = args.backdropToneResponseThick[2];
       d[71] = 0;
       d[72] = args.sizeScatterFloor;
-      d[73] = args.sizeScatterSpanMax;
+      // The depth ramp's start (W13 G1), in the slot the retired
+      // `sizeScatterSpanMax` held — the scatter facet's second number, where its
+      // second number has always been.
+      d[73] = args.sizeScatterRampStart;
       d[74] = args.sizeSpanMin;
       d[75] = args.sizeSpanMax;
       // The lens law (W12 G2, claims §5.51): the reference's height and amount
@@ -622,9 +627,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[83] = args.lensThicknessReference;
       d[84] = args.lensOvalizationSpanMin;
       d[85] = args.lensOvalizationSpanMax;
-      // The scatter weight's device-scale shift (W12 G3), in the first of this
-      // vec4's two padding slots rather than in a vec4 of its own.
-      d[86] = args.sizeScatterScaleShift;
+      // The depth ramp's reach in CSS px (W13 G1), in the first of this vec4's
+      // two padding slots rather than in a vec4 of its own — the slot W12 G3's
+      // retired scale shift briefly held.
+      d[86] = args.sizeScatterRampReachCssPx;
       d[87] = 0;
       slot.write();
 

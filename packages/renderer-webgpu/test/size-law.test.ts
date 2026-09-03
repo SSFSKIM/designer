@@ -37,9 +37,11 @@ import {
   sizeOcclusionAlphaAt,
   sizeScatterSigma,
   sizeScatterSigmaAt,
+  scatterRampAreaMean,
+  scatterRampReachDevicePx,
+  scatterRampStart,
+  scatterSharpShare,
   scatterThickness,
-  scatterThicknessAtScale,
-  SIZE_SCATTER_SCALE_TERM,
   sizeShadowDepth,
   sizeShadowDepthAt,
   sizeThickness,
@@ -58,11 +60,11 @@ const GAINED: MaterialProfile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, 
   sizeSpanMax: 200,
   lensSizeGainMax: 3,
   sizeScatterGainMax: 2.5,
-  // The scatter facet's own curve (W11c) collapsed onto the thickness band, so
-  // the "one curve" properties below still test every facet on one band; the
-  // floor and the separate top get their own describe further down.
+  // The scatter facet rides neither the thickness band nor a span curve since
+  // W13 — it is a ramp in depth, and it has its own describe further down. The
+  // floor is off here so that a profile with every gain real still turns the
+  // whole facet off when `sizeScatterGainMax` is 1.
   sizeScatterFloor: 0,
-  sizeScatterSpanMax: 200,
   sizeOcclusionGain: 0.4,
   sizeShadowGainMax: 1.8,
   outerShadow: { sizeGain: 0.6 },
@@ -111,12 +113,10 @@ describe("every thickness-derived facet rides that one curve", () => {
       nominal: 1,
       saturated: GAINED.lensSizeGainMax,
     },
-    {
-      name: "scattering",
-      at: (span) => sizeScatterSigma(8, span, GAINED),
-      nominal: 8,
-      saturated: 8 * GAINED.sizeScatterGainMax,
-    },
+    // The scattering is deliberately NOT in this table. Since W13 G1 it rides a
+    // ramp in depth rather than the thickness band (claims §5.61 §2), so "inert
+    // below the band, saturated above it" is not a property it has; its own
+    // describe below states the properties it does have.
     {
       name: "occlusion",
       at: (span) => sizeOcclusionAlpha(0.5, span, GAINED),
@@ -317,129 +317,225 @@ describe("the occlusion facet composes with the accessibility lift", () => {
   });
 });
 
-describe("the scattering facet's own curve (W11c)", () => {
-  // The measured shape: a floor at small spans, a band top past the thickness
-  // curve's, and a fold that reaches the rise and not the floor.
-  const OWN: MaterialProfile = withMaterialOverrides(GAINED, {
-    sizeScatterFloor: 0.4,
-    sizeScatterSpanMax: 400,
-  });
-
-  it("starts at the floor below the band, not at zero", () => {
-    expect(scatterThickness(0, 1, OWN)).toBeCloseTo(0.4, 12);
-    expect(scatterThickness(OWN.sizeSpanMin, 1, OWN)).toBeCloseTo(0.4, 12);
-    expect(sizeScatterSigma(8, OWN.sizeSpanMin, OWN)).toBeCloseTo(8 * (1 + 1.5 * 0.4), 12);
-  });
-
-  it("keeps rising past the thickness curve's top and saturates at its own", () => {
-    // sizeSpanMax is 200 here; the thickness curve is done, the scatter is not.
-    expect(sizeThickness(200, OWN)).toBe(1);
-    expect(scatterThickness(200, 1, OWN)).toBeLessThan(1);
-    expect(scatterThickness(300, 1, OWN)).toBeGreaterThan(scatterThickness(200, 1, OWN));
-    expect(scatterThickness(400, 1, OWN)).toBeCloseTo(1, 12);
-    expect(scatterThickness(4000, 1, OWN)).toBeCloseTo(1, 12);
-    expect(sizeScatterSigma(8, 4000, OWN)).toBeCloseTo(8 * OWN.sizeScatterGainMax, 12);
-  });
-
-  it("folds the rise under a preference and never the floor", () => {
-    expect(scatterThickness(4000, 0, OWN)).toBeCloseTo(0.4, 12);
-    expect(scatterThickness(4000, 0.5, OWN)).toBeCloseTo(0.4 + 0.6 * 0.5, 12);
-    expect(scatterThickness(OWN.sizeSpanMin, 0, OWN)).toBeCloseTo(0.4, 12);
-  });
-
-  it("collapses onto the thickness curve when the profile says so", () => {
-    for (const span of SPANS) {
-      expect(scatterThickness(span, 1, GAINED)).toBeCloseTo(sizeThickness(span, GAINED), 12);
-    }
-  });
-
-  it("leaves the thickness curve, and every facet on it, untouched", () => {
-    for (const span of SPANS) {
-      expect(sizeThickness(span, OWN)).toBe(sizeThickness(span, GAINED));
-      expect(lensSizeGain(span, OWN)).toBe(lensSizeGain(span, GAINED));
-      expect(sizeOcclusionAlpha(0.5, span, OWN)).toBe(sizeOcclusionAlpha(0.5, span, GAINED));
-    }
-  });
-});
-
 /*
- * The body's two widths are device-pixel quantities and the scatter weight
- * carries one scale term (W12 G3, claims §5.56). Two properties matter and are
- * asserted rather than described: at dpr 1 the whole law is the landed one to
- * twelve decimals — which is what leaves every 1x claim standing — and at any
- * other scale both widths are constant in DEVICE px while the weight moves by
- * exactly `sizeScatterScaleTerm · (dpr − 1)`.
+ * The body's depth ramp (W13 G1, from the measurement of claims §5.61 §2), and
+ * the device-pixel widths it lands with (§5.56 §1, verified §5.58 §2).
+ *
+ * Four properties are asserted rather than described: the ramp's own shape, its
+ * interpolation between the two scales the reference was read at, the fold
+ * identity that carries `sizeScatterFloor`'s W11c semantics onto the new law,
+ * and the area average — checked against a quadrature rather than against a
+ * restatement of the closed form, so an algebra slip cannot pass by agreeing
+ * with itself.
  */
-describe("the body's widths are device-pixel quantities (W12 G3)", () => {
+describe("the body's mix is a ramp in depth (W13 G1)", () => {
   const SHIPPED = DEFAULT_MATERIAL_PROFILE;
   const SIGMA = SHIPPED.optics.regular.blurSigma;
+  /** A ramp with no floor under it, so the projection is the ramp's own average. */
+  const RAMP: MaterialProfile = withMaterialOverrides(SHIPPED, { sizeScatterFloor: 0 });
 
-  it("reproduces the landed law exactly at dpr 1", () => {
-    for (const span of [0, 12, 32, 44, 96, 128, 160, 256, 400, 4000]) {
-      for (const fold of [0, 0.45, 1]) {
-        const k = scatterThickness(span, fold, SHIPPED);
-        expect(scatterThicknessAtScale(k, 1, SHIPPED), `span ${span}`).toBeCloseTo(k, 12);
-        expect(sizeScatterSigmaAt(SIGMA, k, SHIPPED, 1), `span ${span}`).toBeCloseTo(
-          sizeScatterSigmaAt(SIGMA, k, SHIPPED),
+  /**
+   * The area average by midpoint quadrature over the same rectangle erosion the
+   * closed form integrates: `k̄ = 1 − (1/WH) ∫ s(u)(P − 8u) du`.
+   */
+  const quadrature = (
+    width: number,
+    height: number,
+    dpr: number,
+    profile: MaterialProfile,
+  ): number => {
+    const deepest = Math.min(width, height) / 2;
+    const perimeter = 2 * (width + height);
+    const steps = 200000;
+    let sum = 0;
+    for (let i = 0; i < steps; i += 1) {
+      const u = ((i + 0.5) / steps) * deepest;
+      sum += scatterSharpShare(u * dpr, dpr, profile) * (perimeter - 8 * u);
+    }
+    return 1 - (sum * (deepest / steps)) / (width * height);
+  };
+
+  it("starts at s₀ at the contour, falls linearly, and is gone at the reach", () => {
+    for (const dpr of [1, 1.5, 2, 3]) {
+      const start = scatterRampStart(dpr, SHIPPED);
+      const reach = scatterRampReachDevicePx(dpr, SHIPPED);
+      expect(scatterSharpShare(0, dpr, SHIPPED), `contour at dpr ${dpr}`).toBeCloseTo(start, 12);
+      expect(scatterSharpShare(start * reach * 0.5, dpr, SHIPPED)).toBeCloseTo(start / 2, 12);
+      expect(scatterSharpShare(start * reach, dpr, SHIPPED)).toBeCloseTo(0, 12);
+      expect(scatterSharpShare(start * reach * 4, dpr, SHIPPED)).toBe(0);
+      // Outside the contour the field's distance is positive; the share is
+      // clamped there rather than extrapolated past 1.
+      expect(scatterSharpShare(-40, dpr, SHIPPED)).toBeCloseTo(start, 12);
+    }
+  });
+
+  it("interpolates the two anchors linearly in dpr and holds outside them", () => {
+    expect(scatterRampStart(1, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart1x);
+    expect(scatterRampStart(2, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart2x);
+    expect(scatterRampStart(1.5, SHIPPED)).toBeCloseTo(
+      (SHIPPED.sizeScatterRampStart1x + SHIPPED.sizeScatterRampStart2x) / 2,
+      12,
+    );
+    expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(SHIPPED.sizeScatterRampReach1xPx);
+    expect(scatterRampReachDevicePx(2, SHIPPED)).toBe(SHIPPED.sizeScatterRampReach2xPx);
+    expect(scatterRampReachDevicePx(1.25, SHIPPED)).toBeCloseTo(
+      SHIPPED.sizeScatterRampReach1xPx * 0.75 + SHIPPED.sizeScatterRampReach2xPx * 0.25,
+      12,
+    );
+    // Held rather than extrapolated: the reference was read at 1 and at 2.
+    for (const dpr of [2.5, 3, 4]) {
+      expect(scatterRampStart(dpr, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart2x);
+      expect(scatterRampReachDevicePx(dpr, SHIPPED)).toBe(SHIPPED.sizeScatterRampReach2xPx);
+    }
+    expect(scatterRampStart(0.5, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart1x);
+  });
+
+  it("folds to the floor exactly at 0 and to the ramp exactly at 1", () => {
+    for (const span of [0, 12, 32, 44, 96, 128, 160, 256, 4000]) {
+      for (const dpr of [1, 1.5, 2, 3]) {
+        const mean = scatterRampAreaMean(span, SHIPPED, dpr);
+        expect(scatterThickness(span, 0, SHIPPED, dpr), `span ${span}`).toBeCloseTo(
+          SHIPPED.sizeScatterFloor,
+          12,
+        );
+        expect(scatterThickness(span, 1, SHIPPED, dpr), `span ${span}`).toBeCloseTo(mean, 12);
+        expect(scatterThickness(span, 0.5, SHIPPED, dpr)).toBeCloseTo(
+          SHIPPED.sizeScatterFloor + (mean - SHIPPED.sizeScatterFloor) * 0.5,
           12,
         );
       }
-      expect(sizeScatterSigma(SIGMA, span, SHIPPED, 1)).toBeCloseTo(
-        sizeScatterSigma(SIGMA, span, SHIPPED),
+    }
+  });
+
+  it("projects the ramp onto the surface's area, and the closed form is the integral", () => {
+    for (const dpr of [1, 2]) {
+      for (const [w, h] of [
+        [32, 32],
+        [44, 44],
+        [96, 96],
+        [160, 160],
+        [256, 256],
+        [320, 44],
+        [44, 320],
+      ] as const) {
+        expect(
+          scatterRampAreaMean(Math.min(w, h), RAMP, dpr, [w, h]),
+          `${w}x${h} at dpr ${dpr}`,
+        ).toBeCloseTo(quadrature(w, h, dpr, RAMP), 6);
+      }
+    }
+  });
+
+  it("takes a square of the span where the caller has no extents, and says so", () => {
+    for (const span of [32, 96, 160]) {
+      expect(scatterRampAreaMean(span, RAMP, 1)).toBeCloseTo(
+        scatterRampAreaMean(span, RAMP, 1, [span, span]),
         12,
+      );
+    }
+    // A strip is not its own span squared: a 320x44 toolbar has proportionally
+    // more of its area near the long edges than a 44x44 button does, so the two
+    // do not project to the same number and the extents matter where a caller
+    // has them.
+    expect(scatterRampAreaMean(44, RAMP, 1, [320, 44])).not.toBeCloseTo(
+      scatterRampAreaMean(44, RAMP, 1),
+      3,
+    );
+  });
+
+  it("rises monotonically with the span and approaches 1 by an edge term", () => {
+    for (const dpr of [1, 2]) {
+      let previous = -Infinity;
+      for (const span of [8, 16, 32, 44, 64, 96, 128, 160, 200, 256, 400, 800, 4000]) {
+        const mean = scatterRampAreaMean(span, RAMP, dpr);
+        expect(mean, `span ${span} at dpr ${dpr}`).toBeGreaterThan(previous);
+        previous = mean;
+      }
+      // Far above the reach the sharp component survives only in a rim of
+      // fixed width, so its share of the area falls like 1/span — the limit is
+      // 1 minus an edge term, not 1.
+      expect(scatterRampAreaMean(4000, RAMP, dpr)).toBeGreaterThan(0.97);
+      expect(scatterRampAreaMean(4000, RAMP, dpr)).toBeLessThan(1);
+      const deficit = (span: number) => 1 - scatterRampAreaMean(span, RAMP, dpr);
+      expect(deficit(4000) * 2).toBeCloseTo(deficit(2000), 3);
+    }
+  });
+
+  it("reproduces the measured shape at the two scales", () => {
+    // The numbers the profile's defaults are PROVISIONALLY set to reproduce:
+    // the sharp share starts near 0.6 at 1x and near 0.35 at 2x on the thick
+    // spans, and the reach is a length of about 110 device px at each
+    // (claims §5.61 §2). Stated here so a sweep that moves them moves a test.
+    expect(scatterSharpShare(0, 1, SHIPPED)).toBeCloseTo(0.6, 12);
+    expect(scatterSharpShare(0, 2, SHIPPED)).toBeCloseTo(0.35, 12);
+    expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(110);
+    expect(scatterRampReachDevicePx(2, SHIPPED)).toBe(100);
+    // The reach in CSS px halves between the scales, which is what "one length
+    // in device pixels" means for a consumer working in CSS px.
+    expect(scatterRampReachDevicePx(2, SHIPPED) / 2).toBeLessThan(
+      scatterRampReachDevicePx(1, SHIPPED),
+    );
+    // And the 2x material is heavier at every depth the 1x one is readable at.
+    for (const u of [0, 20, 40, 60]) {
+      expect(scatterSharpShare(u * 2, 2, SHIPPED), `u ${u}`).toBeLessThan(
+        scatterSharpShare(u, 1, SHIPPED),
       );
     }
   });
 
-  it("shifts the weight by the scale term and clamps it to one", () => {
-    const k = scatterThickness(96, 1, SHIPPED);
-    for (const dpr of [1, 1.5, 2, 3]) {
-      expect(scatterThicknessAtScale(k, dpr, SHIPPED), `dpr ${dpr}`).toBeCloseTo(
-        Math.min(1, k + SIZE_SCATTER_SCALE_TERM * (dpr - 1)),
-        12,
-      );
-    }
-    // A saturated span at dpr 3 would run past 1 without the clamp.
-    expect(scatterThicknessAtScale(1, 3, SHIPPED)).toBe(1);
-    // And a scale below 1 cannot push the weight below zero.
-    expect(scatterThicknessAtScale(0, 0.5, SHIPPED)).toBe(0);
+  it("carries the four constants through a profile patch", () => {
+    const patched = withMaterialOverrides(SHIPPED, {
+      sizeScatterRampStart1x: 0.8,
+      sizeScatterRampStart2x: 0.2,
+      sizeScatterRampReach1xPx: 200,
+      sizeScatterRampReach2xPx: 50,
+    });
+    expect(scatterRampStart(1, patched)).toBe(0.8);
+    expect(scatterRampStart(2, patched)).toBe(0.2);
+    expect(scatterRampReachDevicePx(1, patched)).toBe(200);
+    expect(scatterRampReachDevicePx(2, patched)).toBe(50);
+    expect(scatterSharpShare(80, 1, patched)).toBeCloseTo(0.8 - 80 / 200, 12);
   });
 
-  it("holds both widths constant in device px across the scale", () => {
+  it("keeps the widths in device px across every scale", () => {
     // The two widths are the σ the mix runs between: the sharp one at weight 0
-    // and the heavy one at weight 1. Read with the weight's own scale term off,
-    // so this asserts the widths and nothing else; both are read in DEVICE px
-    // (σ_css × dpr), where neither may move.
-    const widthsOnly = withMaterialOverrides(SHIPPED, { sizeScatterScaleTerm: 0 });
+    // and the heavy one at weight 1, both read in DEVICE px (σ_css × dpr),
+    // where neither may move (claims §5.56 §1, §5.58 §2).
     for (const dpr of [1, 1.5, 2, 3]) {
-      expect(sizeScatterSigmaAt(SIGMA, 0, widthsOnly, dpr) * dpr, `sharp at ${dpr}`).toBeCloseTo(
+      expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED, dpr) * dpr, `sharp at ${dpr}`).toBeCloseTo(
         SIGMA,
         12,
       );
-      expect(sizeScatterSigmaAt(SIGMA, 1, widthsOnly, dpr) * dpr, `heavy at ${dpr}`).toBeCloseTo(
+      expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED, dpr) * dpr, `heavy at ${dpr}`).toBeCloseTo(
         SIGMA * SHIPPED.sizeScatterGainMax,
         12,
       );
     }
     // The shipped numbers, stated: 1.25 and 10 device px, so 0.625 and 5 CSS px
-    // at dpr 2, and the weight there is the landed curve plus 0.35.
+    // at dpr 2.
     expect(SIGMA).toBe(1.25);
     expect(SIGMA * SHIPPED.sizeScatterGainMax).toBe(10);
-    expect(sizeScatterSigmaAt(SIGMA, 0, widthsOnly, 2)).toBeCloseTo(0.625, 12);
-    expect(sizeScatterSigmaAt(SIGMA, 1, widthsOnly, 2)).toBeCloseTo(5, 12);
-    expect(SIZE_SCATTER_SCALE_TERM).toBe(0.35);
-    const k = scatterThickness(96, 1, SHIPPED);
-    expect(sizeScatterSigma(SIGMA, 96, SHIPPED, 2), "the whole law at dpr 2").toBeCloseTo(
-      (SIGMA / 2) * (1 + (SHIPPED.sizeScatterGainMax - 1) * (k + 0.35)),
-      12,
-    );
+    expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED, 2)).toBeCloseTo(0.625, 12);
+    expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED, 2)).toBeCloseTo(5, 12);
   });
 
-  it("carries the term through a profile patch", () => {
-    const patched = withMaterialOverrides(SHIPPED, { sizeScatterScaleTerm: 0.5 });
-    expect(patched.sizeScatterScaleTerm).toBe(0.5);
-    expect(scatterThicknessAtScale(0.4, 2, patched)).toBeCloseTo(0.9, 12);
-    expect(scatterThicknessAtScale(0.4, 2, SHIPPED)).toBeCloseTo(0.75, 12);
+  it("derives the single σ from the projection, so one law feeds both tiers", () => {
+    for (const span of [32, 44, 96, 128, 160, 256]) {
+      for (const dpr of [1, 1.5, 2, 3]) {
+        expect(sizeScatterSigma(SIGMA, span, SHIPPED, dpr), `span ${span} at ${dpr}`).toBeCloseTo(
+          sizeScatterSigmaAt(SIGMA, scatterThickness(span, 1, SHIPPED, dpr), SHIPPED, dpr),
+          12,
+        );
+      }
+    }
+  });
+
+  it("leaves the thickness curve, and every facet on it, untouched", () => {
+    for (const span of SPANS) {
+      expect(sizeThickness(span, RAMP)).toBe(sizeThickness(span, SHIPPED));
+      expect(lensSizeGain(span, RAMP)).toBe(lensSizeGain(span, SHIPPED));
+      expect(sizeOcclusionAlpha(0.5, span, RAMP)).toBe(sizeOcclusionAlpha(0.5, span, SHIPPED));
+    }
   });
 });
 
@@ -466,7 +562,14 @@ describe("the scattering facet reaches the chain the optics pass samples", () =>
   it("puts one doubling of σ exactly one level up", () => {
     const base = chainLodForSigma(8);
     expect(chainLodForSigma(16) - base).toBeCloseTo(1, 12);
-    expect(base + Math.log2(2)).toBeCloseTo(chainLodForSigma(sizeScatterSigma(8, 4000, withMaterialOverrides(GAINED, { sizeScatterGainMax: 2 }))), 12);
+    // A profile whose ramp has already run out at the contour, so the mix is
+    // fully heavy everywhere and the σ is exactly the gain times the base.
+    const allHeavy = withMaterialOverrides(GAINED, {
+      sizeScatterGainMax: 2,
+      sizeScatterRampStart1x: 0,
+      sizeScatterRampStart2x: 0,
+    });
+    expect(base + Math.log2(2)).toBeCloseTo(chainLodForSigma(sizeScatterSigma(8, 4000, allHeavy)), 12);
   });
 });
 

@@ -107,6 +107,7 @@ import {
   resolvedBackdropToneResponse,
   resolvedPolicyFold,
   resolvedTintShade,
+  CSS_TIER_RAMP_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThickness,
@@ -1316,10 +1317,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       );
       const groupBlurRadius = sizeScatterSigmaAt(
         optics.blurRadius,
+        // The ramp's projection at the same scale `cssTierDeclarations` reads it
+        // at (`CSS_TIER_RAMP_SCALE`), because this σ has to be the one that tier
+        // will really write — the proxy is that blur in another position.
         scatterThickness(
           groupSpanPx,
           sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
           sizeConstants,
+          CSS_TIER_RAMP_SCALE,
         ),
         sizeConstants,
         dpr,

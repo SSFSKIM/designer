@@ -48,6 +48,7 @@ import {
   outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
   sizeOuterShadowOcclusionAt,
+  CSS_TIER_RAMP_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThicknessUnderPolicy,
@@ -361,10 +362,23 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     surface.spanPx === undefined
       ? 0
       : sizeThicknessUnderPolicy(surface.spanPx, policy.material, size);
-  // The scatter facet's own curve (W11c): a floor on any surface with a span,
-  // rising under the same fold as the thickness — so a spanless surface still
-  // keeps `policyOptics` untouched, and a small one with a span frosts at the
-  // floor rather than at nothing.
+  /*
+   * The scatter facet (W11c; W13 G1's ramp): a floor on any surface with a span,
+   * rising under the same fold as the thickness — so a spanless surface still
+   * keeps `policyOptics` untouched, and a small one with a span frosts at the
+   * floor rather than at nothing.
+   *
+   * The mix is the depth ramp's per-surface projection, because one
+   * `backdrop-filter` has one σ and cannot carry a ramp. It is read at
+   * `CSS_TIER_RAMP_SCALE` — dpr 1 — rather than at the ratio this tier is
+   * composited at: W13 Decision Log 1's question 2 answers (a), that the CSS
+   * tier renders the 1x material and its 2x rows stay held by decision, because
+   * the measurement says this tier's own best single σ is LARGER in CSS px at 2x
+   * (§5.55 §5) and following the device-pixel projection would move its rows the
+   * way the measurement says is wrong. The tier's σ still carries the widths in
+   * device pixels below, which is a separate reading; this is the one argument
+   * that flips if the ramp is later taken at the device scale here too.
+   */
   const scatterK =
     surface.spanPx === undefined
       ? 0
@@ -372,6 +386,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
           surface.spanPx,
           size.refractionScale[accessibilityRefractionCap(policy.material)],
           size,
+          CSS_TIER_RAMP_SCALE,
         );
   const optics: MaterialOptics =
     sizeK === 0 && scatterK === 0

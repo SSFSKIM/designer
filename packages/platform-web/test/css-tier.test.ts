@@ -28,6 +28,7 @@ import {
   outerShadowAlpha,
   outerShadowFalloff,
   resolvedPolicyFold,
+  CSS_TIER_RAMP_SCALE,
   scatterThickness as cssScatterThickness,
   sourceOuterShadow,
 } from "../src/optics";
@@ -703,14 +704,16 @@ describe("the size law reaches the CSS tier", () => {
     sizeSpanMin: 40,
     sizeSpanMax: 200,
     sizeScatterGainMax: 2.5,
-    // The scatter facet's own curve (W11c) collapsed onto the thickness band
-    // here, so these cases keep testing the one-curve properties; the floor
-    // and the separate top get their own case below.
+    // The scatter facet rides a ramp in depth since W13 G1, not the thickness
+    // band: the floor is off here so the projection is the ramp's own average,
+    // and the floor gets its own case below. The ramp's shape is the shipped
+    // one, because what these cases pin is that the tier applies the projection
+    // and where — the magnitudes belong to the bed.
     sizeScatterFloor: 0,
-    sizeScatterSpanMax: 200,
-    // The scale term is the shipped one; every case below renders at dpr 1,
-    // where it contributes nothing (W12 G3, claims §5.56).
-    sizeScatterScaleTerm: MATERIAL_SOURCE_SIZE.sizeScatterScaleTerm,
+    sizeScatterRampStart1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x,
+    sizeScatterRampStart2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStart2x,
+    sizeScatterRampReach1xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
+    sizeScatterRampReach2xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx,
     sizeOcclusionGain: 0.4,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;
@@ -726,35 +729,53 @@ describe("the size law reaches the CSS tier", () => {
     expect(cssTierDeclarations({ ...surface, size })).toEqual(cssTierDeclarations(surface));
   });
 
-  it("leaves a small control exactly where it was", () => {
-    expect(at(size.sizeSpanMin)).toEqual(cssTierDeclarations(surface));
-    expect(at(12)).toEqual(cssTierDeclarations(surface));
+  it("leaves the thickness facets on a small control exactly where they were", () => {
+    // The occlusion rides the thickness curve and is exactly inert at or below
+    // `sizeSpanMin`, which is what keeps the law additive. The SCATTER is not
+    // inert there and cannot be: since W13 G1 it is a ramp in depth, and a small
+    // control is all band — so it frosts, which is the reading, not a leak.
+    expect(occlusionOf(at(size.sizeSpanMin))).toBe(
+      occlusionOf(cssTierDeclarations(surface)),
+    );
+    expect(occlusionOf(at(12))).toBe(occlusionOf(cssTierDeclarations(surface)));
+    expect(blurOf(at(12))).toBeGreaterThan(blurOf(cssTierDeclarations(surface)));
   });
 
-  it("frosts a small control at the scatter floor, and keeps rising past the thickness top (W11c)", () => {
-    // The measured shape of the scatter facet: a floor at any span, a band top
-    // past the thickness curve's. A spanless caller is still untouched; a small
-    // control with a span frosts at the floor rather than at nothing, and the
-    // occlusion — which rides the thickness curve — is exactly where it was.
-    const own = { ...size, sizeScatterFloor: 0.4, sizeScatterSpanMax: 400 } as const;
+  it("never frosts below the material's own floor, and keeps rising past the thickness top", () => {
+    // The measured shape of the scatter facet (W11c's floor, W13's ramp): a
+    // frost the material has at any size, and above it a projection that keeps
+    // rising long past the thickness curve's top. A spanless caller is still
+    // untouched; a control that is all floor frosts at the floor rather than at
+    // nothing, and the occlusion — which rides the thickness curve — is exactly
+    // where it was.
+    const own = { ...size, sizeScatterFloor: 0.4 } as const;
     const with_ = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size: own });
     const base = blurOf(cssTierDeclarations(surface));
     expect(cssTierDeclarations({ ...surface, size: own })).toEqual(cssTierDeclarations(surface));
-    expect(blurOf(with_(12))).toBeCloseTo(base * (1 + 1.5 * 0.4), 2);
-    expect(blurOf(with_(own.sizeSpanMin))).toBeCloseTo(base * (1 + 1.5 * 0.4), 2);
+    const floorBlur = base * (1 + 1.5 * 0.4);
+    for (const span of [12, own.sizeSpanMin, 96, 400]) {
+      expect(blurOf(with_(span)), `span ${span}`).toBeGreaterThanOrEqual(floorBlur - 0.005);
+    }
     expect(occlusionOf(with_(own.sizeSpanMin))).toBeCloseTo(occlusionOf(at(size.sizeSpanMin)), 6);
     // Past sizeSpanMax (200) the occlusion is saturated and the blur is not.
     expect(occlusionOf(with_(300))).toBeCloseTo(occlusionOf(with_(200)), 6);
     expect(blurOf(with_(300))).toBeGreaterThan(blurOf(with_(200)));
-    expect(blurOf(with_(400))).toBeCloseTo(base * 2.5, 2);
+    // And it approaches the gain from below without reaching it: far above the
+    // ramp's reach the sharp component survives in a rim of fixed width, whose
+    // share of the area falls like 1/span.
+    expect(blurOf(with_(4000))).toBeLessThan(base * 2.5);
+    expect(blurOf(with_(4000))).toBeGreaterThan(base * 2.45);
   });
 
   it("frosts and occludes a platter more, and monotonically between", () => {
     const small = at(size.sizeSpanMin);
     const platter = at(400);
-    // One decimal: the declarations are quantised to two, and with the W11c
-    // base of 1.25 the platter's 3.125 lands on the rounding boundary.
-    expect(blurOf(platter)).toBeCloseTo(blurOf(small) * size.sizeScatterGainMax, 1);
+    expect(blurOf(platter)).toBeGreaterThan(blurOf(small));
+    // The gain is the ceiling the projection approaches from below and never
+    // reaches, because the ramp keeps a rim of the sharp component at every span.
+    const base = blurOf(cssTierDeclarations(surface));
+    expect(blurOf(at(4000))).toBeLessThan(base * size.sizeScatterGainMax);
+    expect(blurOf(at(4000))).toBeCloseTo(base * size.sizeScatterGainMax, 1);
     expect(occlusionOf(platter)).toBeGreaterThan(occlusionOf(small));
 
     let previousBlur = -Infinity;
@@ -804,10 +825,15 @@ describe("the size law reaches the CSS tier", () => {
     const nominalPlatter = at(400);
     const reducedPlatter = cssTierDeclarations({ ...surface, policy: reduced, spanPx: 400, size });
     const reducedSmall = cssTierDeclarations({ ...surface, policy: reduced, spanPx: 40, size });
+    // The law's own baseline is the surface that declares no span at all: since
+    // W13 G1 there is no span at which the scatter is inert, so the reference the
+    // fold is read against has to be the spanless declaration on each side.
+    const nominalBase = blurOf(cssTierDeclarations(surface));
+    const reducedBase = blurOf(cssTierDeclarations({ ...surface, policy: reduced }));
 
     // The preference's own frost still lands in full — the fold is on the size
     // law, not on the preference.
-    expect(blurOf(reducedSmall)).toBeCloseTo(blurOf(at(40)) * REDUCED_TRANSPARENCY_FROST, 1);
+    expect(reducedBase).toBeCloseTo(nominalBase * REDUCED_TRANSPARENCY_FROST, 1);
 
     // And the size law's *addition* on top of it is scaled by the ladder's
     // reduced rung rather than applied whole.
@@ -833,12 +859,12 @@ describe("the size law reaches the CSS tier", () => {
       (q * (1 + numerator / denominator)) / denominator;
     expect(
       Math.abs(
-        added(reducedPlatter, blurOf(reducedSmall)) -
-          added(nominalPlatter, blurOf(at(40))) * MATERIAL_SOURCE_SIZE.refractionScale.approximate,
+        added(reducedPlatter, reducedBase) -
+          added(nominalPlatter, nominalBase) * MATERIAL_SOURCE_SIZE.refractionScale.approximate,
       ),
     ).toBeLessThan(
-      ratioBudget(blurOf(reducedPlatter), blurOf(reducedSmall)) +
-        ratioBudget(blurOf(nominalPlatter), blurOf(at(40))) *
+      ratioBudget(blurOf(reducedPlatter), reducedBase) +
+        ratioBudget(blurOf(nominalPlatter), nominalBase) *
           MATERIAL_SOURCE_SIZE.refractionScale.approximate,
     );
 
@@ -855,9 +881,16 @@ describe("the size law reaches the CSS tier", () => {
    * same number on a Retina display as on a 1x one — and at dpr 1 it is the
    * landed one to the last decimal, which is what leaves every 1x claim and every
    * existing caller untouched.
+   *
+   * What does NOT follow the device scale here is the MIX: the ramp's projection
+   * is read at `CSS_TIER_RAMP_SCALE`, which is 1 (W13 Decision Log 1 question 2
+   * answer (a) — this tier's own best single σ is larger in CSS px at 2x, claims
+   * §5.55 §5, so following the device-pixel projection would move its 2x rows
+   * the way the measurement says is wrong). So this tier's σ at dpr 2 is exactly
+   * half its σ at dpr 1, at every span, and that exactness is the assertion.
    */
-  it("writes the body at the device scale it is told it is drawing at", () => {
-    const own = { ...size, sizeScatterFloor: 0.4, sizeScatterScaleTerm: 0.35 } as const;
+  it("writes the body's widths at the device scale, and its mix at the 1x law", () => {
+    const own = { ...size, sizeScatterFloor: 0.4 } as const;
     const scaled = (spanPx: number, devicePixelRatio: number) =>
       blurOf(cssTierDeclarations({ ...surface, spanPx, size: own, devicePixelRatio }));
     const base = blurOf(cssTierDeclarations(surface));
@@ -870,20 +903,16 @@ describe("the size law reaches the CSS tier", () => {
       );
     }
 
-    // At dpr 2 the σ is half the width times the weight the shift moved: on a
-    // saturated span the weight is already 1, so the blur is exactly halved.
     // The declaration carries two decimals, so the expectations round the same
     // way rather than settling for a tolerance a different law would also pass.
     const emitted = (radius: number): number => Math.round(radius * 100) / 100;
-    expect(scaled(400, 1)).toBe(emitted(base * own.sizeScatterGainMax));
-    expect(scaled(400, 2)).toBe(emitted((base * own.sizeScatterGainMax) / 2));
-    // Below saturation the weight rises by 0.35 per unit of scale as well, so
-    // the halving is not the whole of it.
-    const k = cssScatterThickness(96, 1, own);
-    expect(scaled(96, 2)).toBe(
-      emitted((base / 2) * (1 + (own.sizeScatterGainMax - 1) * (k + 0.35))),
-    );
-    expect(scaled(96, 2)).toBeGreaterThan(scaled(96, 1) / 2);
+    for (const span of [12, 96, 400]) {
+      const mix = cssScatterThickness(span, 1, own, CSS_TIER_RAMP_SCALE);
+      const nominal = base * (1 + (own.sizeScatterGainMax - 1) * mix);
+      expect(scaled(span, 1), `span ${span} at dpr 1`).toBe(emitted(nominal));
+      expect(scaled(span, 2), `span ${span} at dpr 2`).toBe(emitted(nominal / 2));
+      expect(scaled(span, 3), `span ${span} at dpr 3`).toBe(emitted(nominal / 3));
+    }
   });
 });
 

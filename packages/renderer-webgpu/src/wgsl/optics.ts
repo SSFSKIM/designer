@@ -26,14 +26,16 @@
  *
  * The number is `aux.z`, the surface's span in CSS px, carried **per pixel**
  * through the field pass's union; this pass evaluates `material.ts`'s
- * `sizeThickness(span)` from it, and — since W11c — the scatter facet's own
- * curve beside it (`scatterThickness`: a floor and a band top past
- * `sizeSpanMax`, measured on the reference's two-component interior). That is
- * what lets a 40 px button and a 320 px platter share one group's field pass
- * and still read as different thicknesses. The occlusion and the inner shadow
+ * `sizeThickness(span)` from it. The scattering does NOT read the span: since
+ * W13 it reads the pixel's own depth under the contour instead
+ * (`scatterSharpShare`, claims §5.61 §2), and the span law it used to ride is
+ * kept on the CPU as that ramp's per-surface projection for the tiers and
+ * consumers that can only have one number. The span is what lets a 40 px button
+ * and a 320 px platter share one group's field pass and still read as different
+ * thicknesses. The occlusion and the inner shadow
  * are applied below, each multiplied by `sizeK`, so both are exactly inert at
- * `sizeK = 0`; the scattering is applied by `kScatter`, whose floor keeps it at
- * the material's own frost on a small control rather than at nothing. The inner
+ * `sizeK = 0`; the scattering is applied by `kScatter`, which is per pixel and
+ * whose floor keeps it at the material's own frost rather than at nothing. The inner
  * shadow's depth is W2's law, kept: `min(thickness * (1 + (gain − 1) * sizeK),
  * span / 2)`, with a square profile on it.
  *
@@ -135,9 +137,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   toneRowThin : vec4f,
   /// the thick row (sizeThickness saturated), same layout
   toneRowThick : vec4f,
-  /// the size law's bands (W11c): the scatter facet's floor (x) and its own
-  /// band top (y), and the thickness curve's sizeSpanMin (z) and sizeSpanMax
-  /// (w) — both curves start at z; the fold they multiply by is tone.w
+  /// the size law's bands: the scatter facet's floor (x) and the depth ramp's
+  /// start s0 at the ratio this group draws at (y, W13 G1 — the CPU has already
+  /// interpolated it between the profile's 1x and 2x anchors), and the
+  /// thickness curve's sizeSpanMin (z) and sizeSpanMax (w); the fold both
+  /// multiply by is tone.w
   scatter : vec4f,
   /// the lens law (W12 G2): the reference's height law (lensHeightPerSpan,
   /// lensHeightMax) and amount law (lensAmountPerSpan, lensAmountMax)
@@ -145,10 +149,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// the lens profile (W12 G2): lensExtentGain, lensProfileExponent,
   /// lensOvalization, lensThicknessReference
   lensShape : vec4f,
-  /// the ovalization's knee (W12 G2): spanMin (x), spanMax (y); the scatter
-  /// weight's device-scale shift (W12 G3, claims §5.56): sizeScatterScaleTerm ×
-  /// (devicePixelRatio − 1), added to the scatter curve below and clamped to 1
-  /// (z); w padding
+  /// the ovalization's knee (W12 G2): spanMin (x), spanMax (y); the body depth
+  /// ramp's reach in group-local CSS px (z, W13 G1) — the profile names it in
+  /// device px and the CPU divides by the ratio, so that this shader can read
+  /// the field's own CSS-px depth without a second conversion; w padding
   lensOval : vec4f,
 };
 
@@ -334,35 +338,39 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // the authored thickness times the lensStrength channel (W12 G2); the lens's
   // depth and the inner shadow's are both evaluated from it and the span below.
   let lensThick = max(aux.x, 0.0);
-  // The size law's two curves off the span of whichever surface owns this pixel
+  // The thickness curve off the span of whichever surface owns this pixel
   // (W11c). 'sizeK' is the thickness factor, 0..1: zero on anything at or below
   // the profile's 'sizeSpanMin', saturated at 'sizeSpanMax', folded under the
   // preference — the occlusion, the inner shadow and the tone response multiply
-  // by it, so a small control takes the pre-law path exactly. 'kScatter' is the
-  // scatter facet's own mix, floor + (1 - floor) · smoothstep to
-  // 'sizeScatterSpanMax' · fold: the floor is the material's frost at any size
-  // and is not folded, the rise is depth and is. Both written out as
-  // smoothsteps with a guarded denominator, so a profile that collapses a band
+  // by it, so a small control takes the pre-law path exactly. Written out as a
+  // smoothstep with a guarded denominator, so a profile that collapses the band
   // degrades to a step rather than to NaN.
   let span = aux.z;
   let fold = clamp(ou.tone.w, 0.0, 1.0);
   let thickT = clamp((span - ou.scatter.z) / max(ou.scatter.w - ou.scatter.z, 1e-6), 0.0, 1.0);
   let sizeK = clamp(thickT * thickT * (3.0 - 2.0 * thickT) * fold, 0.0, 1.0);
+  /*
+   * The body's mix is a ramp in DEPTH, not one number per span (W13 G1, from
+   * the measurement of claims §5.61 §2). The sharp component's share is
+   * 's0 - u / U' clamped to 0..1, with 'u' the pixel's depth under the contour
+   * and 'U' the ramp's reach; the heavy share the body mixes by is what is left.
+   *
+   * '-d' is that depth, in group-local CSS px and unclamped — the same quantity
+   * the lens's 'lensT' and the inner shadow's 'shadowT' are evaluated from,
+   * except that those two divide it by a depth of their own while this reads it
+   * absolutely, because the reach measured as a LENGTH rather than as a fraction
+   * of the span. The reach reaches this shader already divided by the device
+   * ratio ('lensOval.z'), so the ratio 'u / U' is the same number in CSS px as
+   * it is in the device px the profile names.
+   *
+   * The fold keeps its W11c semantics on the new law: the floor is the frost the
+   * material has at any size and is not folded, the excursion away from it is
+   * depth and is — so fold 1 renders the ramp and fold 0 sits at the floor
+   * exactly, which is what the span curve did at fold 0 too.
+   */
   let scatterFloor = clamp(ou.scatter.x, 0.0, 1.0);
-  let scatterT = clamp((span - ou.scatter.z) / max(ou.scatter.y - ou.scatter.z, 1e-6), 0.0, 1.0);
-  // 'lensOval.z' is the device-scale shift (W12 G3, claims §5.56): the body's
-  // two widths are device-pixel quantities and the second scale changes how much
-  // of the backdrop leaks through unblurred, so the weight — and only the weight
-  // — carries a term in (dpr - 1). It is added after the fold, because it is a
-  // reading of the scale rather than a depth a preference may remove, and it is
-  // zero at dpr 1.
-  let kScatter = clamp(
-    scatterFloor
-      + (1.0 - scatterFloor) * scatterT * scatterT * (3.0 - 2.0 * scatterT) * fold
-      + ou.lensOval.z,
-    0.0,
-    1.0,
-  );
+  let sharpShare = clamp(ou.scatter.y - max(-d, 0.0) / max(ou.lensOval.z, 1e-6), 0.0, 1.0);
+  let kScatter = clamp(scatterFloor + ((1.0 - sharpShare) - scatterFloor) * fold, 0.0, 1.0);
   // The inner shadow's depth and profile: W2's law, byte for byte — the
   // thickness times the size gain (folded through 'sizeK'), clamped to the
   // shorter half extent, and a square on it. The lens ran on this until W12 G2;

@@ -83,6 +83,8 @@ import {
   outerShadowAlpha,
   outerShadowReachPx,
   outerShadowUnderPolicy,
+  scatterRampReachDevicePx,
+  scatterRampStart,
   sizeOuterShadowOcclusionAt,
   tintToneAdaptation,
   withMaterialOverrides,
@@ -871,11 +873,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeSpanMin: material.sizeSpanMin,
         sizeSpanMax: material.sizeSpanMax,
         sizeScatterFloor: material.sizeScatterFloor,
-        sizeScatterSpanMax: material.sizeScatterSpanMax,
-        // The scatter weight's device-scale shift (W12 G3, claims §5.56),
-        // resolved from the viewport's own ratio and added to the curve the
-        // shader evaluates per pixel. Zero at dpr 1.
-        sizeScatterScaleShift: material.sizeScatterScaleTerm * (dpr - 1),
+        // The body's depth ramp (W13 G1, claims §5.61 §2), resolved from the
+        // viewport's own ratio: the profile anchors the start and the reach at
+        // dpr 1 and dpr 2 and the two functions interpolate, and the reach is
+        // handed over in CSS px because the field's depth is in CSS px.
+        sizeScatterRampStart: scatterRampStart(dpr, material),
+        sizeScatterRampReachCssPx: scatterRampReachDevicePx(dpr, material) / dpr,
         sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         backdropTone,
         backdropToneColour: [

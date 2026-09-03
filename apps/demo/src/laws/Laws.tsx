@@ -322,9 +322,9 @@ export function Laws(props: LawsProps): ReactNode {
             {fixed(body.sharp, 2)} px keeps the structure of the content behind, the
             edges of text and the cells of a pattern, and a much wider scatter at{" "}
             {fixed(body.scatter, 1)} px lays a haze over it. The two are mixed by an
-            amount that starts at a floor on any surface and grows with the
-            surface&rsquo;s short span, on the same size law the thickness facets
-            ride.
+            amount that ramps with each pixel&rsquo;s own depth under the contour,
+            never falling below the frost the material carries at any size — so a
+            wider plate is hazier because more of it is deep.
           </p>
           <Fields legend="Surface">
             <label className="field">
@@ -341,15 +341,17 @@ export function Laws(props: LawsProps): ReactNode {
                 data-testid="body-span"
               />
               <span className="field__hint" data-testid="body-span-readout">
-                {bodySpan}px. The mix starts at {fixed(MATERIAL_SOURCE_SIZE.sizeScatterFloor, 2)} and
-                saturates at {MATERIAL_SOURCE_SIZE.sizeScatterSpanMax}px.
+                {bodySpan}px. The mix is the depth ramp&rsquo;s average over the surface, and
+                never falls below the material&rsquo;s frost of{" "}
+                {fixed(MATERIAL_SOURCE_SIZE.sizeScatterFloor, 2)}.
               </span>
             </label>
           </Fields>
           <p className="body">
             Drag the span. The text behind the plate stays legible at every size,
             and the haze over it deepens as the plate grows. On the WebGPU tier the
-            two components are mixed per pixel. The CSS tier has one backdrop-filter
+            two components are mixed per pixel, by the pixel&rsquo;s own depth under
+            the contour, so a wider plate is hazier because more of it is deep. The CSS tier has one backdrop-filter
             blur, so it takes a single width at the mixed value: its interior level
             matches, and its structure is the tier&rsquo;s known limit.
           </p>

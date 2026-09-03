@@ -71,6 +71,10 @@ export interface BodyLaw {
  */
 export function bodyLaw(spanPx: number, fold: number): BodyLaw {
   const sharp = MATERIAL_OPTICS.regular.blurRadius;
+  // The mix is the depth ramp's per-surface projection (W13 G1); this readout
+  // reports it at dpr 1, which is what the CSS tier renders and is NOT what the
+  // GPU tier mixes per pixel — the readout's device-scale gap is already logged
+  // in `specs/tech-debt-tracker.md`.
   const mix = scatterThickness(spanPx, fold);
   return {
     mix,

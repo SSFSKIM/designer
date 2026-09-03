@@ -78,9 +78,14 @@ const FITTED_CONSTANTS = [
   "sizeScatterGainMax",
   "sizeOcclusionGain",
   "sizeShadowGainMax",
-  // W11c's scatter curve — the facet's own floor and band top (claims §5.41)
+  // W11c's scatter frost (claims §5.41) and W13's body depth ramp (§5.61 §2):
+  // the sharp share at the contour and the ramp's reach in device px, each at
+  // both of the scales the reference was read at
   "sizeScatterFloor",
-  "sizeScatterSpanMax",
+  "sizeScatterRampStart1x",
+  "sizeScatterRampStart2x",
+  "sizeScatterRampReach1xPx",
+  "sizeScatterRampReach2xPx",
   // W12 G2's lens (claims §5.50–§5.51): the reference's height and amount laws
   // and the ovalization's knee read from its layer tree; the gain, extent,
   // exponent and ovalization fitted on the pixels
@@ -296,6 +301,11 @@ describe("tuned calibration profiles", () => {
       "not-measurable-by-this-objective",
       "unmeasurable-as-specified",
       "declined",
+      // W13 G1: a form whose SHAPE is measured and whose constants the runtime
+      // sweep has not yet fitted. It is a distinct outcome from
+      // `measured-with-a-caveat`, because the caveat is not on the reading but
+      // on the number, and the entry says which sweep will set it.
+      "provisional",
     ]);
     for (const profile of [LIGHT, DARK]) {
       for (const [name, entry] of Object.entries(profile.entries)) {

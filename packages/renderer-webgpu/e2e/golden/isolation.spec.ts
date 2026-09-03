@@ -247,9 +247,10 @@ const W11A_HASHES: Readonly<Record<string, string>> = {
  * thickness (`log2(1 + (gain − 1) · sizeK)`), so a small control had no heavy
  * component at all. The reference's interior is a sharp component plus a heavy
  * one at every span (claims §5.38 §4), so the heavy tap now sits at the full
- * gain and the scattering facet has its OWN curve — a floor at any span and a
- * band top past the thickness band (`sizeScatterFloor`, `sizeScatterSpanMax`) —
- * with `blurSigma` 3 → 1.25 and the gain 1 → 8 refitted around it. No patch
+ * gain and the scattering facet has its OWN law — a floor at any span
+ * (`sizeScatterFloor`) and, since W13 G1, a ramp in depth above it rather than a
+ * curve in the span (claims §5.61 §2) — with `blurSigma` 3 → 1.25 and the gain
+ * 1 → 8 refitted around it. No patch
  * over the new shader can reproduce the old one: the old form has no floor to
  * name and ties the heavy tap's level to the thickness, which the new form does
  * not. So `PRE_C9A_PROFILE` stays what it is and these five hashes are the new
