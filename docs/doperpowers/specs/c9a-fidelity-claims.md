@@ -7371,3 +7371,122 @@ lens depths at the saturated spans), the direction (§3), the same
 blur-before order and the same body at 1x. Not G2's: the 2x interior
 (G3), the rim's width and isotropy, the inner shadow's 1% on solids, the
 CSS tier.
+
+### 5.50 W12 G1: the reference's own parameters, read from SwiftUI's layer tree (2026-09-03)
+
+**Claim.** The native harness gained a `dump-layers` command that hosts a
+scene, waits for SwiftUI to commit its layer tree, and walks it; the
+material is a `CABackdropLayer` carrying one private `CAFilter` of type
+`glassBackground` whose inputs are readable by key, an SDF layer stack
+(`CASDFLayer` → `CASDFElementLayer`) with an output effect, and a
+separate SDF layer for the rim highlight. Every number below is a value
+Apple's own SwiftUI set on this machine (macOS 26.5.2, Xcode 26.6 SDK)
+for the harness's scenes; the per-scene JSON is under
+`packages/calibration/results/2026-09-03-w12-lens/layer-dumps/`. What
+each input *does* spatially is not in the tree; the captures and §5.49
+say that, and G2 fits the profile shapes against them.
+
+#### 1. The lens and the blur, per span (span = the shape's shorter side)
+
+| input | `rrect-sm` 32 | `capsule` 44 (and the toolbar's 44 discs) | `rrect-md` 96 | nested base 130 | `rrect-ml` 128 | `rrect-lg` 160 | law |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `inputInnerRefractionAmount` | −25.6 | −35.2 | −60 | −60 | −60 | −60 | −min(0.8·span, 60) |
+| `inputInnerRefractionHeight` | 8 | 11 | 20 | 20 | 20 | 20 | min(0.25·span, 20) |
+| `inputOuterRefractionAmount` | 6.4 | 8.8 | 19.2 | 26 | 25.6 | 32 | 0.2·span |
+| `inputOuterRefractionHeight` | 4 | 5.5 | 12 | 16.25 | 16 | 20 | 0.125·span |
+| `inputRefractionDistance0/1`, `inputRefractionOpacity` | −1 / 0, 0.3 | same | same | same | same | same | constant |
+| `inputBlurRadius` | 1.333 | 1.333 | 2.476 | 3.286 | 3.238 | 4.0 | max(4/3, (span + 8)/42) |
+| `inputBlurDistance0..4` | −16, −1, 0, 0, 6.4 | −22, −1, 0, 0, 8.8 | −48, −1, 0, 0, 19.2 | −65 … 26 | −64 … 25.6 | −80 … 32 | (−span/2, −1, 0, 0, 0.2·span) |
+| `inputBlurOpacity0..4` | 1, 0.5, 0.5, 1, 1 | same | same | same | same | same | constant |
+| `CASDFElementLayer.gradientOvalization` | 0 | 0 | 0.5 | 0.5 | 0.5 | 0.5 | 0 at ≤ 56, 0.5 at ≥ 96 (ramp unread) |
+| `CASDFElementLayer.cornerCurve` | continuous | continuous | continuous | continuous | continuous | continuous | — |
+| `CABackdropLayer.scale` | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | constant |
+| `CABackdropLayer.marginWidth` | 6.4 | 8.8 | 68 | 83 | 83 | 83 | — |
+
+Readings, each checked against §5.49:
+
+- **Two refraction terms**, an inward one over min(0.25·span, 20) and an
+  opposite one over 0.125·span. With a cubic profile in each,
+  60·(1 − u/20)³ − 19.2·(1 − u/12)³ reads 32.6 / 25.0 / 12.3 / 3.8 at
+  u 2 / 4 / 8 / 12 on `rrect-md` against the measured crossings 34 / 24
+  / 12 / ≈ 5, and D(0) = 40.8 against the power fit's extrapolated 40–44;
+  the extent is the inner height (20), which is why §5.49 §2 found one
+  width on spans 96–160. The outer term is why the single-term two-term
+  fits of §5.49 §2 found "nothing": its height is the smaller one and its
+  sign is opposite, so it steepens the profile near the contour rather
+  than adding a fold. The small spans follow: the capsule's 17.5 at u = 2
+  is 35.2·(1 − 2/11)³ − 8.8·(1 − 2/5.5)³ = 19.2 − 2.4 = 16.8.
+- **The blur is one radius in a quarter-scale buffer.** With
+  `CABackdropLayer.scale` 0.25 of the device scale, radius r is 4r/scale
+  CSS px: 9.9 at 1x and 4.95 at 2x on `rrect-md` — §5.49 §7's two impulse
+  kernels (base σ ≈ 14 at 1x by a Gaussian fit to a flat-topped core; one
+  Gaussian σ 5.0 at 2x); 16 / 8 on `rrect-lg`; 5.3 / 2.7 on the small
+  spans. The "sharp leak" is the unblurred quarter-scale buffer itself,
+  bilinearly upsampled (a 4-device-px box: σ ≈ 1.2–1.6 CSS px at 1x,
+  ≈ 0.6–0.8 at 2x). **The 2x reference's "different object" (§5.41 §5,
+  W11 Decision Log 4) is the material's own scale-dependence — the blur
+  halves in points when the device scale doubles — and the virtual
+  display is exonerated.**
+- **The blur's opacity is a ramp in depth**, 0.5 at u = 1 rising to 1 at
+  u = span/2 (the centre), so the sharp share is 0.5 at the edge and falls
+  linearly to 0 at the centre on every shape: §5.49 §7's "sharp amplitude
+  falls linearly with depth over the whole half-span". W11c's
+  `sizeScatterFloor` 0.4 and `sizeScatterSpanMax` 256 are this ramp's
+  projection onto one number per span.
+- **The direction is the SDF gradient ovalized by 0.5** on large shapes —
+  §5.49 §3's along-edge magnification, which no gradient of a
+  translation-invariant field carries; on the small shapes it is 0, which
+  is why the small spans' bands do not collapse onto the large ones by
+  lens depth (§5.49 §6). The shape's corners are `continuous`
+  (superellipse-style), vitrea's circular; the silhouette metrics have
+  tolerated that so far.
+
+#### 2. The face, the bleed and the shadow, per span and per backdrop
+
+| input | sm | capsule | md | ml | lg | law / note |
+| --- | --- | --- | --- | --- | --- | --- |
+| `inputBleedAmount` = `Height` | 11.2 | 15.4 | 33.6 | 44.8 | 56 | 0.35·span |
+| `inputBleedBlurRadius` | 0 | 0 | 67.2 | 89.6 | 112 | 0.7·span from some span ≤ 96 |
+| `inputBleedOpacity` | 0 | 0 | 0.1667 | 0.3333 | 0.5 | max(0, (span − 64)/192) |
+| bleed colour matrix (black / white / sat), darken blend | 0.9 / 1 / 1.2, 1 | same | same | same | same | constant |
+| `inputShadowAmount` | 20 | 27.5 | 60 | 75 | 75 | min(0.625·span, 75) |
+| `inputShadowHeight` | 12.8 | 17.6 | 38.4 | 51.2 | 64 | 0.4·span |
+| `inputShadowBlurRadius` | 0 | 0 | 40 | 40 | 40 | 40 from some span ≤ 96 |
+| `inputShadowRadius`, `inputShadowOffset` | 24, (0, 8) | same | same | same | same | constant |
+| `inputShadowOpacity` | 0.5 | 0.5 | 0.393 | 0.321 | 0.25 | min(0.5, 0.5 − (span − 48)/448) |
+| `inputShadowVibrancyContribution` | 0 | 0 | 0.333 | 0.667 | 1 | clamp((span − 64)/96, 0, 1) |
+| `inputSDRShadowOpacity` | 0.08 | 0.08 | 0.149 | 0.194 | 0.24 | 0.08 + (span − 48)/700 |
+| `inputFaceColorMatrixWhite` | 0.95 | 1.03 | 1.03 | 1.03 | 1.03 | |
+| `inputClamp` | 1.0 | 1.07 | 1.07 | 1.07 | 1.07 | |
+
+Backdrop-adaptive on the same span (the capsule at 44 and `rrect-md`):
+`inputFaceColorMatrixBlack` 0.628 (checkerboard) / 0.819 (light-solid) /
+0.85 (photo, toolbar over checkerboard); `inputFaceColorMatrixFillColor`
+white at α 0.361 / 0.266 / 0.25; `inputShadowColorMatrixFillColor` black at
+α 0.217 (checkerboard capsule) / 0.05 (light-solid, photo, toolbar) / 0.12
+(`rrect-md`, `-ml`, `-lg` over the checkerboard) / 0.278 (`rrect-sm`
+over the checkerboard). The face's black level and fill alpha are the
+W9 tone response in Apple's own terms; the shadow's fill alpha adapts
+too. A dump on the dark, mid-dark, impulse and hc-text backdrops (and the
+dark scheme) is the read that would give the mapping — deferred to the
+wave's Deferred list with the pressed state (the filter's inputs are
+identical between `rest` and `pressed`; the press lives elsewhere).
+
+#### 3. The rim
+
+A separate `CASDFLayer` with a `CASDFKeyFillHighlightEffect`: key light at
+−45° (amount 0.5, spread π/2, height 1), fill light at +135° (the same),
+curvature 0.7 — identical on every scene and span. Two opposed lights of
+equal amount are why the reference's rim is nearly isotropic (§5.49 §5:
+1.1:1 top/bottom) where vitrea's single light gives 3.2:1. For the rim's
+owner; untouched by W12.
+
+#### 4. What this changes
+
+The fidelity discipline stands — captures are the ground truth and every
+constant lands by referee — but the *forms* no longer have to be guessed:
+the size law is a set of clamped linear functions of the shorter span;
+the lens is two profiles; the body is one blur in a quarter-device-scale
+buffer mixed with the unblurred buffer by a depth ramp; the direction is
+an ovalized gradient. G2 declares against these; G3's question becomes
+whether vitrea adopts a device-scale term (the reference has one).
