@@ -348,7 +348,13 @@ close before G2 implements; nothing on it lands before G2's referee.
   for, on the oldest span law in the profile — it needs its own declaration,
   its own referee and its own frozen bed. **Ordering (user, 2026-09-03):**
   chartered *after* the demo hero-ground decision and the coverage openers on
-  the backlog, not immediately after W13 and W14 land.
+  the backlog, not immediately after W13 and W14 land. **Two terms added at
+  the landing (Decision Log 8; claims §5.68 §7):** the body's widths at 2x —
+  candidate A's device-pixel widths withdrawn as a landing candidate, the
+  small spans' +0.024 forgone, to be re-asked with the deep value rather than
+  alone — and the stacked scene's proxy padding, which at 2x derives from the
+  1x ramp's projection (Decision Log 5's `CSS_TIER_RAMP_SCALE`) while the GPU
+  tier draws the bed's span law there (Surprises).
 
 - **The outer shadow's colour and span law — the next wave candidate,
   from X6's baseline (2026-09-03; Surprises).** The reference's shadow is
@@ -392,7 +398,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 | --- | --- | --- |
 | G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum: flat on all six cells, §5.61 §7) |
 | G1 | four forms of the ramp, each fitted in the renderer on branch `w13-g1-ramp` (worktree `.claude/worktrees/w13-g1`): the first (a start and a reach; `eb12219`) refuted at 81 points, span-flat where the bed is span-graded (claims §5.63, `results/2026-09-03-w13-ramp/g1/sweep/`); the second (the retired span law restored underneath; `2752301`, with the first review's two findings) refuted at 68 points, one start unable to sit above the deep value on thin and thick cells at once, and at 2x the inert configuration the best on every cell (§5.64, `sweep-2/`); the third (the start graded by `sizeThickness`; `f77b5f1` + `ef61b09`) reaching S4 on every 1x calibration cell with the 2x null bit-exact, and failing one holdout row because the start cannot fall past the thickness knee (§5.67, `sweep-3/`); **the fourth** (the start's own decline along the scatter facet's curve, one constant; `7de3d76` + `762c290` + `51c232d`, with the third review's five findings and main merged with W14 landed) **reaching S1 and S4 at 1x on every row holdout included** — `rrect-lg` +0.0056 / band +0.0136 on the W14 bed, its interior 12% over Apple's from 33% — the far start carried from G0's reading (Decision Log 7), the 2x null re-verified at zero over 20 cells × 774 measurements (`sweep-4/`, `12e2e2b`); the sheets sent with the parent's reading (`sheets/`, `9b1d5f2`); **the CSS tier's confirmation** found the candidate's device-pixel width division still in that tier and four dom floors broken at 2x — removed (`d0d778f`; Decision Log 5 executed in full), re-captured clean with every floor holding; the fourth form's review (Codex) — three code findings fixed (`8f00c0c`), the spec finding amended in Decision Log 5; **DECLARED** — claims §5.68 (form, constants, stops with numbers on the W14 bed, the twelve rows, both tiers; fingerprints light `2b8cfda6950bc697` / dark `aa6e466b1412ec04`) | COMPLETE 2026-09-03 |
-| G2 | the landing plan in claims §5.68 §6; **the user's call between (a) the branch as declared (the 1x ramp plus the 2x device-pixel widths: four large 2x rows down 0.006–0.017, two small ones up) and (b) the 1x ramp with the GPU tier's 2x widths restored to the bed's** — the parent recommends (b) | READY — awaiting the user's landing call |
+| G2 | the landing plan in claims §5.68 §6; **the user's call between (a) the branch as declared (the 1x ramp plus the 2x device-pixel widths: four large 2x rows down 0.006–0.017, two small ones up) and (b) the 1x ramp with the GPU tier's 2x widths restored to the bed's** — the parent recommends (b) | IN PROGRESS 2026-09-04 — (b) decided (Decision Log 8); executed on the branch (`40f409c`, review fixes `beb823f`); the dry run verified against both predictions (claims §5.68 §7); landing |
 
 ## Decision Log
 
@@ -632,6 +638,16 @@ dry run of the new configuration on the GPU tier at both scales, holdout
 read once, predicting the 1x rows unchanged from sweep-4's confirmation and
 the 2x rows identical to the bed; then G2's landing plan (claims §5.68 §6).
 
+**Executed (2026-09-04).** `40f409c` on the branch; the branch as it lands
+reviewed and its three findings fixed in `beb823f` (the CSS mirror's defaulted
+ratio argument, the far anchors' barrel export, two retired records corrected
+beside their text). The dry run read against both predictions by
+`results/2026-09-03-w13-ramp/g2/g2-verify.py`: the 1x rows sweep-4's to four
+decimals, 46 of 49 2x captures byte-identical to the bed and every 2x row the
+bed's; the three stacked cells shift by a code across the overlay, attributed
+to the proxy's padding following the ramp's projection (claims §5.68 §7;
+Surprises; a term of the 2x charter in Deferred). Landing under G2.
+
 ## Surprises & Discoveries
 
 - **The whole-crop SSIM deficit on the large checkerboard cells sits mostly
@@ -793,6 +809,20 @@ the 2x rows identical to the bed; then G2's landing plan (claims §5.68 §6).
   first form's reach was pinned by the band while carrying the span law, so
   the number may move under the second form. Recorded, not explained.
 
+- **The stacked scene's proxy moves with the ramp's projection at 2x, where
+  the GPU tier's own law does not (2026-09-04, the landing's dry run).** The
+  2x captures were predicted byte-identical to the W14 bed and 46 of 49 are;
+  the three `glass-over-glass` cells differ by one code on 39% of the
+  overlay's pixels, uniformly in depth, the level unchanged. The overlay
+  samples the base plane through a proxy padded by 3σ of the *projected*
+  scatter σ, and G1's binding rule made that projection the ramp's — so the
+  proxy shrank from 299 × 171 to 292 × 164 device px (σ 4.918 → 4.352 CSS px
+  for the 120 × 56 overlay) and the pyramid's texel phase moved with it. Not
+  the material: a support floor that at 2x follows the 1x ramp's projection
+  (Decision Log 5's `CSS_TIER_RAMP_SCALE`) while the GPU tier draws the bed's
+  span law there. Deterministic on both sides; the rows move by at most
+  0.0001 (claims §5.68 §7).
+
 ## Outcomes & Retrospective
 
 (open)
@@ -830,3 +860,6 @@ the 2x rows identical to the bed; then G2's landing plan (claims §5.68 §6).
 - 2026-09-03: the second form refuted in the renderer (claims §5.64); Decision Log 4 grades the
   start by `sizeThickness` and refines S4 by scale (a null at 2x, verified by capture); the 2x
   deep value goes to Deferred as its own charter; two Surprises.
+- 2026-09-04: Decision Log 8 executed on the branch (`40f409c`; the landing review's three
+  findings fixed in `beb823f`); the dry run read against both predictions (claims §5.68 §7);
+  one Surprise (the stacked scene's proxy at 2x); the 2x charter gains two terms; G2 landing.

@@ -9518,3 +9518,60 @@ isolation proof with every moved hash attributed; the demo fixture; the landing 
 in Deferred — the coverage-ramp `ssimOutside` thousandth, the far anchor's unfittability, the thin
 anchor 0.08 above G0's read-off, the 2x deep value.
 
+**7. Decision Log 8 executed, and the dry run of the landing configuration (2026-09-04).** The user
+chose the second landing of §5: the 1x ramp alone, the GPU tier's body widths back to CSS px at
+every device scale (W13 Decision Log 8). On the branch, `40f409c`: `sizeScatterSigmaAt(sigmaPx,
+scatter, profile)` takes no ratio, the renderer hands the pyramid `optics.blurSigma` unscaled
+(`bodySigmaCssFor`), the ratio reaches only the ramp's per-scale projection (`scatterRampStart`,
+`scatterRampReachDevicePx`), and a pyramid no longer rebuilds on a display move alone. The branch
+as it lands was reviewed (Codex, 2026-09-04): three findings, fixed in `beb823f` — the CSS
+mirror's `sizeScatterSigmaAt` still divided by a defaulted fourth argument (removed; a pin added
+that a stray ratio of 2 returns the 1x width of 10 on both mirrors — the coherence suite's
+`Function.length` assertion could not see a defaulted parameter); the far anchors missing from the
+renderer barrel (added); the light profile's `scatterRamp.method` and the tracker's readout entry
+still recording the device-pixel widths as standing (corrected beside the record, the text kept
+verbatim). 1 725 unit tests green (renderer 384, platform-web 352, calibration 256, core 302,
+react 97, motion 162, geometry 149, policy 23).
+
+**The dry run** (`40f409c`; the GPU tier; 1x and 2x, light and dark; calibration, validation and
+holdout, the holdout read once for this configuration; `~/.claude/jobs/5c70e47f/tmp/w13/dryrun-b/`)
+was read by `results/2026-09-03-w13-ramp/g2/g2-verify.py` against the two predictions of
+Decision Log 8 — the 1x rows against sweep-4's confirmation, the 2x rows against the W14 bed, 98
+cells × 6 metrics at a tolerance of 0.0002, and the 2x captures byte for byte. **Both held.** The
+twelve rows of §4 reproduce to four decimals: 1x `rrect-sm` 0.9990, `capsule-button` 0.9856,
+`rrect-md` 0.9862, `rrect-ml` 0.9797, `glass-over-glass` 0.9823, `rrect-lg` 0.9743 (the ramp's
+rows); 2x 0.9978, 0.9836, 0.9840, 0.9746, 0.9761, 0.9680 (the bed's, the parenthesised column,
+with the stacked cell one ten-thousandth under it — below); `toolbar-group` 0.9642 / 0.9662.
+97 of 98 cells sit inside the tolerance; the one outside is `interiorStdDevWeb` on
+`checkerboard__glass-over-glass` at 2x light, +0.00022 (0.12151 against 0.12129). 46 of the 49 2x
+captures are byte-identical to the bed; the three that are not are the three stacked cells —
+`checkerboard__glass-over-glass` at 2x light and dark, `photo__glass-over-glass` at 2x light.
+
+**The stacked cells' shift, attributed.** It is deterministic: re-captured from each tree, the bed
+reproduces itself (0 px) and the branch reproduces itself (0 px), and the two differ by the same
+10 583 px. It is confined to the overlay's rectangle (200–439 × 128–239 device px): one code on
+39% of the overlay's pixels (four of them by two; the `photo` cell 8 574 px, at most four codes;
+the dark cell 19 px), the mean level unchanged (241.1 → 241.2), and uniform in depth — 27–46% of
+the pixels in every 8-px band from the edge inward, no concentration at the contour — a texel
+phase, not a law. The mechanism: the overlay samples the base plane's rendered output through a
+proxy, and the proxy's rasterised extent is the group's bounds padded by the 3σ floor of the
+*projected* scatter σ (`requiredSamplingPadding`); G1's binding rule makes that projection the
+ramp's on both tiers, so on the branch `groupScatterSigma` reads 4.352 CSS px for the 120 × 56
+overlay where the bed's span law read 4.918 — a padding of 13.06 against 14.75 CSS px, a proxy of
+292 × 164 against 299 × 171 device px at 2x. The pyramid's level plan and texel phase follow the
+source's extent, so the overlay's already-smooth interior resamples a code apart. Every other 2x
+cell samples the image texture directly and has no proxy, which is why 46 are byte-identical; at
+1x the same shift sits under the ramp's own change. Not a material change at 2x — the GPU tier's
+2x law is the bed's — but a change of support: the padding floor at 2x now derives from the 1x
+ramp's projection (`CSS_TIER_RAMP_SCALE`, W13 Decision Log 5) while the GPU tier draws the bed's
+span law there. On the rows: `ssimMean` 0.9762 → 0.9761 on the light checkerboard stacked cell,
+the dark one 0.9445 unchanged, `ssimOutside` unchanged on all three. Named in W13's Deferred as a
+term of the 2x charter.
+
+**Holdout accounting.** The dry run is the holdout's one reading of this configuration. The
+determinism re-capture re-read one holdout cell (`checkerboard__glass-over-glass`, 2x light) of
+the same configuration, for byte identity only — nothing was fitted to it. `beb823f` touches no
+runtime path a capture reaches (the removed parameter had no runtime caller; a barrel; prose), so
+the landing rebuild is predicted byte-identical to the dry run on every cell, holdout included;
+the landing section is the check.
+
