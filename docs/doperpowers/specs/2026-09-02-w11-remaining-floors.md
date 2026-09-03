@@ -362,6 +362,9 @@ only W11c's referee captures the web side).
 | W11b | LANDED 2026-09-02 — claims §5.40; the extractor's luminance rule gains an OKLab chroma arm (Δab ≥ 0.03, `--silhouette-chroma-threshold`), a strict superset declared before the bed-wide run; 0 stops, all 230 perceptual rows byte-identical, 23 cells leave the exclusion list and none join, the two W10 contour floors met and removed; enforced count 15; matrix re-measured from the captures on disk (no capture) | landed |
 | W11c | LANDED 2026-09-03 — **G1** (claims §5.41 declared, §5.42 refereed; Decision Logs 4–5): body σ 1.25, scatter gain 8, floor 0.40, scatter band top 256, fitted on the probe with `rrect-lg` held out; twelve-run referee, 0 stops outside the predicted 2x crossing; three 1x texture floors MET and removed, eight dom floors ratcheted up, four 2x texture floors re-pinned by decision; enforced count 12. **G3 decided:** the CSS claim narrowed, the two-layer CSS body deferred with evidence. **G2 LANDED** (claims §5.43 declared, §5.44 refereed; Decision Logs 6–7): the lens is the body read from 1.6 lens depths inside at full weight, `lensRefractionGain` 1.6, two rim-LOD constants retired; rebuilt from an empty matrix, 0 stops; the 2x `rrect-md` texture floor MET and removed, three 2x texture floors ratcheted up, every checkerboard texture cell up, one cell leaves the exclusion list; enforced count 11 | landed |
 
+**Parent:** RECOMPOSED 2026-09-03 — claims §5.45; the acceptance verified
+clause by clause in Outcomes & Retrospective. Enforced floors 23 → 11.
+
 ## Decision Log
 
 ### Decision Log 1 — the cut, the order, and what the user decides (2026-09-02; DECIDED the same day)
@@ -682,10 +685,100 @@ prediction come from.
 
 ## Outcomes & Retrospective
 
-Pending — written at recomposition, after the single X1 rebuild.
+**RECOMPOSED 2026-09-03 (claims §5.45).** Verified against the
+Parent-Level Acceptance, clause by clause, on the bed as it ships:
+
+1. *Every §5.27 row MET or UNMET by decision, with mechanism, evidence and
+   owner or narrowed claim.* Twelve of the twenty-three rows are struck as
+   MET (W11a six, W11b two, W11c four); eleven are held by decision with
+   their mechanism and narrowed claim in §5.27's amendments — eight
+   dom-tier `ssimMean` rows (the CSS tier's single `blur()` is the body
+   law's mixed-σ form and carries no lens; the two-layer CSS body is a
+   deferred charter with Chromium evidence, Decision Log 5) and three 2x
+   texture-tier `ssimMean` rows (the 2x reference's interior is a different
+   object; the claim is the 1x bed's until a Retina capture exists,
+   Decision Log 4). No row is floored on an unexplained miss.
+2. *`UNMET_ROWS` equals the by-decision rows; the floors match the rebuilt
+   matrix; the exclusion list is the machine's.* 11 / 11; the enforcement
+   test passes 27 / 27 against the canonical matrix; `PREDICATE_EXCLUDES`
+   is 28 cells, the machine's output (52 at the W10 close).
+3. *The canonical matrix rebuilt once (X1); the whole-bed scan against the
+   W10 close.* G2's referee is the rebuild — `rm results/matrix.json` and
+   twelve runs at the code that ships, nothing changed after it — and its
+   determinism was checked, not assumed (the 1x light GPU run repeated
+   into a scratch directory reproduces all 36 captures byte for byte).
+   Against the W10 close: no cell newly misses an adopted bound; every
+   cell outside the three classes is inside its bounds; the light,
+   mid-dark and dark solid families (52 cells) are unchanged in every
+   metric row and their captures differ by at most one code value on nine
+   GPU captures (named by W11c G2); every other moved capture is named by
+   a child (§5.45 §1's table).
+4. *Suites green, lint clean, golden e2e green, re-recorded only where a
+   Decision Log names the scene.* Renderer 338 / 338, platform-web 335 /
+   335, calibration 233 / 233; eslint and tsc clean on the three packages
+   (G2's worker run); golden 23 / 23, renderer gpu 10 / 10, platform-web
+   chromium-gpu 9 / 9; goldens re-recorded: `field-mask` (W11a, Decision
+   Log 2) and the five backdrop-sampling scenes (W11c G1 and G2, Decision
+   Logs 5 and 7), each with its isolation hash attributed. The platform-web
+   chromium project's ten pre-existing failures are logged tech debt and
+   did not grow.
+
+**Outcomes.** Enforced floors 23 → 11. The nested-glass surface renders
+(it had been a constant since the scene existed). The silhouette
+extractor is colour-aware on both sides of the comparison, and 24 cells
+that the predicate had excluded now gate. The GPU tier's interior is the
+reference's two-component body and its rim band is the reference's lens
+geometry at 1.6 lens depths: the 1x checkerboard texture SSIM across the
+five spans reads 0.929–0.998 where the unit opened on 0.823–0.995, and at
+2x the `rrect-md` row meets. The CSS tier's body is the same law in its
+single-blur form (softer everywhere; the dom rows rose 0.011–0.152 and meet
+nowhere). Three profile constants were added (`sizeScatterFloor`,
+`sizeScatterSpanMax`, `lensRefractionGain`), two retired
+(`lensBodyLodPerPx`, `lensRimLodBias`), one refit (`blurSigma` 3 → 1.25 on
+both tiers).
+
+**Lineage check.** Each child's section in this document is its spec and
+cites the parent by construction; the parent's binding content (purpose,
+acceptance, the four contracts, the order) did not change between any
+child's dispatch and this close — only the living tail did. X1 executed as
+G2's rebuild plus the determinism check; X2 was followed at each of the
+four closes (§5.27 struck or amended, the count edited beside its section
+number); X3 ran at every referee, with the cells that moved outside the
+child's class named (W11c G1's `hc-text`, G2's solids at one code value);
+X4 — W11b's mask — defined "interior" for W11c's referee as written. Two
+pieces of advisory inheritance were overturned with evidence and recorded
+on the parent (the pure-ΔE extractor rule; the rim-LOD bias "by design").
+
+**Retrospective.** What made the unit close cleanly was measuring all
+three classes per pixel before cutting (§5.38): the mechanisms were
+separable only because the decomposition was in hand, and each child's
+referee could then be read for its own class with the rest of the bed as
+a control. Declare-then-referee with written stops paid twice — the 2x
+crossing fired exactly as predicted and went to a decision instead of a
+silent re-pin, and G2's first readings ("heavier, darker band") did not
+survive a model with the lens in it, before anything was built on them.
+The instrument lessons generalise: a replacement rule needs the whole
+bed's backdrop families in its dry run, not the cells that motivated it
+(W11b), and a band statistic under a lens means nothing until the lens is
+in the model (W11c). Two process notes for the next composite: a matrix
+key that carries the profile document's path appends rather than replaces
+when the document changes (`rm` first, as X1 says); and a golden suite
+that measures a lens over a backdrop the body has already erased passes
+for the wrong reason (G2's `lens-size-depth` scene).
+
+**Seeds for the next cut (Deferred, above):** the two-layer CSS body
+(chartered, with evidence); the 2x Retina capture (the charter that
+releases three floors' narrowed claims); the capsule's lens depth; the
+outside band's contour-straddling loss; the W9 and W10 Deferred lists as
+they stand.
 
 ## Revision Notes
 
+- 2026-09-03 (RECOMPOSED; claims §5.45): the parent's acceptance verified
+  clause by clause on the G2 rebuild (its determinism checked on one
+  profile), the whole bed scanned against the W10 close and every moved
+  capture attributed to a child; Outcomes & Retrospective written; the unit
+  is closed with eleven floors held by decision and twelve met.
 - 2026-09-03 (W11c G2 landed, W11c landed; Decision Logs 6–7): the lens
   band measured per depth shell and declared in vitrea's own form; the
   twelve-run rebuild refereed with no stop; one floor removed, three

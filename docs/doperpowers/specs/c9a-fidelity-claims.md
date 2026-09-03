@@ -4731,6 +4731,17 @@ headroom is against constants moving in their last digit and nothing else.
 > `ssimMean` rows carry a further measurement and a floor ratcheted UP
 > (0.9023 / 0.9076 / 0.9013, by 0.018–0.023). The dom rows are byte-unchanged.
 > The count is 11.
+>
+> **Recomposed by W11 (2026-09-03, §5.45).** Of the twenty-three rows W11
+> opened on, twelve are struck as MET and eleven are held by decision, each
+> with its mechanism and its narrowed claim beside it: the eight dom-tier
+> `ssimMean` rows (the CSS tier's single `blur()` is the body law's mixed-σ
+> form and carries neither its sharp component nor a lens; the two-layer
+> CSS body is chartered, deferred — W11 Decision Log 5) and the three 2x
+> texture-tier `ssimMean` rows (the 2x reference's interior is a different
+> object from the 1x one, §5.41 §5; the claim is the 1x bed's until a
+> Retina capture exists — Decision Log 4). No row is floored on an
+> unexplained miss.
 
 **`1x-light-standard` · texture tier**
 
@@ -6719,6 +6730,71 @@ its checker from 8 to 32 px: a 400-px span's body is all heavy scatter,
 and an 8 px checker is erased before the lens can move it — the old form
 passed that scene only because the retired bias sampled sharper than the
 body.
+
+### 5.45 W11 recomposed: the bed from the W10 close to the W11 close (2026-09-03)
+
+**Claim.** The W11 composite (nested glass, the extractor's rule, interior
+structure) is closed by verification against its own acceptance, not by
+its children's sum. The canonical matrix is the twelve-run rebuild from an
+empty matrix that G2's referee ran at the final code (§5.44 §1 — no code
+changed after it; a re-run of one profile reproduces its captures, below).
+Read against the W10 close, the whole bed shows: no cell newly missing an
+adopted bound; twelve rows newly meeting — the twelve floors W11 removed;
+every cell outside W11's three classes inside its bounds; the solid
+families unchanged in every metric row, their captures within one code
+value; every other moved capture named by a child. Enforced floors 23 → 11.
+
+#### 1. The bed, class by class (W10 close → W11 close)
+
+| backdrop class | cells | max ΔSSIM | max Δ(ΔE-mean) | max Δ(ΔE-p95) | max Δ(level) | captures changed (max code value) | named by |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| light / mid-dark / dark solid, tinted and untinted | 52 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 9 of 52 GPU, ≤ 1; CSS none | W11c G2 (§5.44 §1) |
+| `impulse` | 16 | 0.0007 | 0.0001 | 0.0032 | 0.0005 | 2 of 8 per tier, ≤ 26 | W11c (structure rides every structured backdrop) |
+| `photo`, untinted, plain | 52 | 0.0033 | 0.0015 | 0.0030 | 0.0018 | 26 of 34 per tier, ≤ 20 | W11c G1 (body), G2 (band) |
+| `photo`, tinted | 28 | 0.0001 | 0.0002 | 0.0008 | 0.0031 | 12–14 of 14 per tier, ≤ 10 | W11b's mask (rows), W11c (captures) |
+| `photo`, nested | 4 | 0.0375 | 0.0168 | 0.1131 | 0.0934 | all, ≤ 73 | W11a (§5.39) |
+| `hc-text`, untinted | 12 | 0.0266 | 0.0028 | 0.0125 | 0.0139 | all, ≤ 57 | W11c G1 (§5.42 §5, the CSS drop) and G2 (the GPU rise) |
+| `hc-text`, tinted | 4 | 0.0016 | 0.0001 | 0.0013 | 0.0028 | all, ≤ 23 | W11c |
+| `checkerboard`, plain | 40 | 0.1522 | 0.0153 | 0.0142 | 0.0120 | 20 of 24 per tier, ≤ 59 | W11c (the class) |
+| `checkerboard`, tinted | 14 | 0.0020 | 0.0002 | 0.0017 | 0.0007 | 5–7 of 7 per tier, ≤ 23 | W11c |
+| `checkerboard`, nested | 8 | 0.0908 | 0.0226 | 0.0760 | 0.0965 | all, ≤ 65 | W11a, then W11c |
+
+The rows that newly meet, by child: W11a — `oklabDeltaEP95` on both nested
+cells at both scales and `interiorLevelRatioGpuOverCss` on `photo__glass-
+over-glass` at both scales (six); W11b — the two contour rows on
+`photo__rrect-md__rest-tint-orange` (two); W11c — the three 1x texture
+`ssimMean` rows and the 2x `rrect-md` texture row (four). Twelve.
+
+#### 2. What holds, by decision
+
+Eleven floors, two families, each with its mechanism and its narrowed
+claim in §5.27's amendments: the eight dom-tier `ssimMean` rows (a single
+`blur()` cannot carry the two-component body or a lens; the claim is the
+mixed-σ form; the two-layer CSS body is a deferred charter with the
+Chromium evidence, §5.42 §5) and the three 2x texture-tier `ssimMean` rows
+(the 2x reference's interior is one moderate Gaussian with no sharp leak
+where the 1x is two components, §5.41 §5; the claim is the 1x bed's until a
+Retina capture exists). `UNMET_ROWS` is 11, the floors match the rebuilt
+matrix, and `PREDICATE_EXCLUDES` equals the machine's output (28 cells,
+down from 52 at the W10 close: 23 left with W11b's chroma arm, one with
+W11c's lens).
+
+#### 3. The rebuild, reproduced
+
+X1 asked for one rebuild at recomposition. G2's referee is that rebuild:
+`rm results/matrix.json`, twelve runs, at the code that ships. The
+determinism it rests on was checked rather than assumed: the 1x light
+GPU run repeated to a scratch directory after the close reproduces its
+captures byte for byte (§4).
+
+#### 4. Determinism check
+
+The 1x light-standard GPU run (36 captures: calibration, validation and
+holdout sets) repeated after the close into a scratch directory
+(`VITREA_WEB_CAPTURES`, `--out-matrix`): all 36 captures byte-identical to
+the canonical ones, so every row they measure is identical too. The
+rebuild is reproducible on this machine at this commit, which is what
+lets G2's referee stand as X1.
 
 ## 6. What could not be measured, and why
 
