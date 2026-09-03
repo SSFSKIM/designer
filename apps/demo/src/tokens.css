@@ -4,10 +4,10 @@
  *
  * Two grounds, because the page is a document with an instrument set into it: the
  * `--paper-*` ramp is the document, the `--stage-*` set is the instrument window.
- * The stage is not a dark *theme* of the page — it is a different surface with its
- * own hierarchy, derived rather than inverted, which is why its text sits at
- * L 0.93 rather than at white and why its steps go up in lightness from the
- * ground exactly as the paper ramp's do.
+ * The stage is not a lighter *theme* of the page — it is a different surface with
+ * its own hierarchy, derived rather than borrowed, which is why its text sits at
+ * L 0.25 rather than at the paper ramp's own ink and why its steps go up in
+ * lightness from the ground exactly as the paper ramp's do.
  *
  * Authored in OKLCH because the ramps need perceptually even steps; the lightness
  * jumps are deliberately smaller at the light end, where a small surface shift is
@@ -46,25 +46,60 @@
   --border: var(--paper-5);
   --border-strong: var(--paper-6);
 
-  /* ── The instrument window ─────────────────────────────────────────────── */
-  --stage-0: oklch(0.188 0.017 232);
-  --stage-1: oklch(0.244 0.019 232);
-  --stage-ink: oklch(0.930 0.008 232);
-  --stage-ink-dim: oklch(0.762 0.011 232);
-  --stage-rule: rgb(255 255 255 / 0.13);
-  --stage-graticule: rgb(255 255 255 / 0.055);
+  /*
+   * ── The instrument window ──────────────────────────────────────────────
+   *
+   * A light cool ground, not a dark one (spec `2026-09-03-demo-hero-daylight`,
+   * Decision Log 1). The page's own law calls daylight the harder and unclaimed
+   * demonstration, and on a near-black ground the material had nothing to show:
+   * it adapted onto the ground and collapsed honestly to flat grey plates, with
+   * no frost, no soft shadow and no size story beyond the labels.
+   *
+   * `--stage-0` is the one token in this file pinned by something outside it. It
+   * is `#dde6eb`, the colour `StageBackdrop`'s canvas clears to, written here in
+   * the file's own space: the canvas covers the stage box, so a `--stage-0` that
+   * disagreed with the fill would show as a seam at the window's edge and would
+   * make the declared backdrop luminance a statement about the wrong colour.
+   * `--stage-1` steps up in lightness from it by 0.030 rather than by the dark
+   * set's 0.056, which is the ramp rule this file already follows: the lightness
+   * jumps are smaller at the light end, where a small surface shift is most
+   * visible.
+   *
+   * The ink pair is derived for the new surface rather than inverted from the old
+   * one. `--stage-ink` sits at L 0.250, marginally above `--paper-9`, because it
+   * is read through glass and haze rather than off flat paper; `--stage-ink-dim`
+   * sits at L 0.450, below `--paper-7`, for the same reason — the secondary role
+   * on a hazy surface needs the margin the document ground does not. Against the
+   * ground itself (relative luminance 0.7796) they measure 12.6:1 and 5.9:1, and
+   * the glass they actually sit on is lighter than the ground, so those are
+   * floors rather than estimates. `e2e/contrast.spec.ts` measures the rendered
+   * pixels.
+   *
+   * The hairline and graticule alphas are black now, at the same weights the
+   * white ones carried: a light ground darkens toward its rules exactly as the
+   * dark one lightened toward them.
+   */
+  --stage-0: oklch(0.919 0.012 232);
+  --stage-1: oklch(0.949 0.010 232);
+  --stage-ink: oklch(0.250 0.017 232);
+  --stage-ink-dim: oklch(0.450 0.011 232);
+  --stage-rule: rgb(0 0 0 / 0.14);
+  --stage-graticule: rgb(0 0 0 / 0.05);
 
   /*
    * ── The one accent ─────────────────────────────────────────────────────
    *
    * Oxide orange: the colour a survey benchmark and a USGS index contour are
    * printed in. It marks a measurement or a current position, and nothing else.
-   * Retuned rather than reused on the stage, per the dark-surface rule: higher
-   * lightness, slightly lower chroma so it does not vibrate against the graticule.
+   * Retuned rather than reused on the stage, and the retuning follows the surface:
+   * on the light instrument window the stage twin goes DOWN in lightness and
+   * slightly up in chroma, so a focus ring or an active tick holds its own against
+   * a bright, hazy material instead of dissolving into it. It clears 4.9:1 on the
+   * stage ground, against the 3:1 a non-text indicator owes.
    */
   --accent: oklch(0.548 0.142 45);
   --accent-strong: oklch(0.470 0.140 44);
-  --accent-stage: oklch(0.742 0.128 52);
+  --accent-stage: oklch(0.505 0.148 45);
   --accent-foreground: oklch(0.990 0.004 60);
 
   /* ── Type ──────────────────────────────────────────────────────────────── */

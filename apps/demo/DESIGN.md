@@ -9,10 +9,21 @@ this file wins on a use.
 
 **Survey plate.** A field-instrument register borrowed from USGS quadrangles and
 NASA mission graphics: a cool near-white ground, hairline rules, a monospace face
-carrying display and annotation, and one dark instrument window in which the
-material is actually running. The page is a measurement document, not a product
-launch. It is explicitly **not** a dark neon glass reel, not a warm-paper editorial
-essay, and not a SaaS landing page with feature cards.
+carrying display and annotation, and one instrument window in which the material is
+actually running. The page is a measurement document, not a product launch. It is
+explicitly **not** a dark neon glass reel, not a warm-paper editorial essay, and not
+a SaaS landing page with feature cards.
+
+The instrument window is itself a light cool ground, a step brighter than the page
+around it rather than a dark inset (spec `2026-09-03-demo-hero-daylight`, Decision
+Log 1). That follows from this section's own argument and is not a second stance:
+if daylight is the harder and unclaimed demonstration, the one live window is where
+the page has to make it, and on a near-black ground it was not making it — the
+material adapted onto the ground and collapsed honestly to flat grey plates, so the
+frost, the soft shadow and the size law were claims in the prose rather than things
+a reader could see. The window still reads as an instrument and not as decoration:
+what marks it off is the hairline border, the graticule and the fixed frame, none
+of which needed darkness to do their job.
 
 Rejected ingredients, and why: the sampler offered `editorial` (which maps to the
 Quiet editorial system's warm paper ground, inside taste-calibration's cream band
@@ -47,24 +58,29 @@ Two grounds, one accent.
   `--muted`, `--muted-foreground`, `--border`) exist and are what components use.
 - `--stage-*` is the instrument window only: `--stage-0` ground, `--stage-1`
   panel, `--stage-ink` / `--stage-ink-dim` text, `--stage-rule` hairlines. These
-  never appear outside `.stage`.
+  never appear outside `.stage`. The set is light now, and it is still derived
+  rather than borrowed: `--stage-0` is pinned to the colour `StageBackdrop` clears
+  its canvas to, and the ink pair is chosen for a hazy surface read through glass
+  rather than copied from the paper ramp.
 - `--accent` (oxide orange) and its stage twin `--accent-stage` do exactly one
   job: **marking a measurement or a current position.** The active section marker,
   the focus ring, a delta callout, a selected control. It does not tint headings,
   icons, dividers, panels, or grounds.
 
-Every app-authored region inside a glass plane declares `color-scheme: dark`
+Every app-authored region inside a glass plane declares `color-scheme: light`
 (`.stage--mirror` and `.platter`). That is not decoration: the CSS tier writes its
 foreground as `light-dark(...)`, which resolves against the element's own computed
-scheme, so without it a control on glass over the dark instrument gets dark ink on a
-dark surface.
+scheme, so without it a control on glass over the light instrument gets light ink on
+a light surface whenever the reader's system prefers dark. The declaration tracks
+the window's ground; it is `light` because the ground is.
 
 Forbidden: a second accent; a status green anywhere (green on a fidelity page
 reads as "test passed" and would smuggle a claim the calibration data does not
 support, which is why contour green lost to oxide orange despite being the
 topographic default); any color literal outside `tokens.css` except the two
-documented exceptions, `--stage-rule`-style white alphas inside `.stage` and the
-runtime's own `--vitrea-*` channel properties.
+documented exceptions, `--stage-rule`-style neutral alphas inside `.stage` (black
+on the light window, as `--stage-rule` and the graticule now are) and the runtime's
+own `--vitrea-*` channel properties.
 
 ## 2. Typography roles, with placement rules
 

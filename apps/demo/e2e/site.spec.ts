@@ -272,15 +272,20 @@ test.describe("the layout is legal", () => {
 
     const before = await read();
     /*
-     * Both plates start untinted, and they no longer share a colour. This stage
-     * declares no backdrop hint any more (it used to declare 0.16, a level chosen
-     * to keep the tone axis off), so the tier reads the window's own canvas, and
-     * the size gate lands the 40 px plate on the ground's tone while the 112 px
-     * plate keeps most of the material's white. "Untinted" is therefore asserted
-     * as the adapted material — the small plate is not white — rather than as
-     * cross-plate equality, which was only ever a proxy for it.
+     * Both plates start untinted, and on this ground "untinted" is the material's
+     * own white on both of them. This stage declares no backdrop hint (it used to
+     * declare 0.16, a level chosen to keep the tone axis off), so the tier reads
+     * the window's own canvas — and the window is a light cool ground now, well
+     * above the band in which backdrop tone adaptation pulls a surface down onto
+     * its backdrop. Nothing is adapting the colour away, so the colour is the one
+     * assertion, and what still separates the three plates is the size law in the
+     * ALPHA: the 112 px plate and the 40 px one carry the same white at measurably
+     * different opacities. Asserting both — the shared colour and the split alpha —
+     * is what makes the later "did not take the tint" mean something.
      */
-    expect(colourOf(before.plain)).not.toBe("255,255,255");
+    expect(colourOf(before.plain)).toBe("255,255,255");
+    expect(colourOf(before.tinted)).toBe("255,255,255");
+    expect(alphaOf(before.plain)).not.toBe(alphaOf(before.tinted));
 
     await page.getByTestId("tint-select").selectOption("orange");
     await expect.poll(async () => (await read()).tinted).not.toBe(before.tinted);

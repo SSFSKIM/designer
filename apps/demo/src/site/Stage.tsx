@@ -69,16 +69,23 @@ export const GROUPS_BY_MODE: Record<StageMode, readonly { id: string; label: str
 /**
  * X6's hint, and it is load-bearing rather than decorative.
  *
- * Without it a group with `analysis: none` takes its foreground from explicit
- * tokens or `color-scheme`, and this document's `color-scheme` is `light` — so a
- * control sitting on glass over the *dark* instrument window was being given dark
- * ink on a dark surface, measured at 1.6:1 to 3.0:1. The hint is the one mechanism
- * for telling the runtime what it cannot see (§honesty core), and this is exactly
- * what it is for. It is deliberately absent on the `reference` group: that cell is
- * a fidelity comparison against a capture over a light raster, and biasing its
- * foreground by hand is the one place a hint would be a thumb on the scale.
+ * A group with `analysis: none` has no pixels vitrea may read, so its foreground
+ * comes from an author hint or from `color-scheme` — and a coarse scheme is not
+ * the same statement as a level. The hint is the one mechanism for telling the
+ * runtime what it cannot see (§honesty core), and this is exactly what it is for.
+ * It is deliberately absent on the `reference` group: that cell is a fidelity
+ * comparison against a capture over a light raster, and biasing its foreground by
+ * hand is the one place a hint would be a thumb on the scale.
+ *
+ * The tone is `light` and the level is the window's own, because the instrument
+ * window is a light cool ground now (spec `2026-09-03-demo-hero-daylight`). Both
+ * fields have to move together: the tier reads `hint.luminance` where there is one
+ * and falls back to the tone's coarse reading, so a `dark` tone left behind a
+ * light ground would be a declared fact that is simply false — and on the previous
+ * ground, before this hint existed, exactly that mismatch measured 1.6:1 to 3.0:1
+ * on control labels.
  */
-const STAGE_HINT = { tone: "dark", luminance: DEFAULT_GROUND_LUMINANCE } as const;
+const STAGE_HINT = { tone: "light", luminance: DEFAULT_GROUND_LUMINANCE } as const;
 
 const RANGES = [
   { value: "day", label: "Day" },
@@ -213,7 +220,11 @@ export function StageGround(props: StageProps): ReactNode {
   const reports = REPORTS_BY_SCENE.get(scene.id) ?? [];
   const report = reports[0];
   const ground: StageGroundPaint =
-    mode === "tone" ? { fill: groundFill(props.groundLevel), field: 0 } : DEFAULT_GROUND;
+    mode === "tone"
+      ? // A white grid, unlike the window's own: this ground is a grey swept from
+        // near-black, where a dark hairline would be no hairline at all.
+        { fill: groundFill(props.groundLevel), field: 0, graticule: "rgb(255 255 255 / 0.11)" }
+      : DEFAULT_GROUND;
 
   return (
     <div

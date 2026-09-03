@@ -63,10 +63,52 @@ Recommendation given: B, because the page's own law calls daylight the harder
 demonstration and the dark ground hides the frost. **Decided (user): "B indeed."**
 Sequenced after W12 G3 lands so the by-eye check is on the landed body.
 
+## Surprises
+
+Two things the Design section did not anticipate, both found by running the page
+rather than by reading it.
+
+1. **The graticule's stroke belongs to the ground, not to the page.** Turning the
+   one stroke constant black made it invisible on the *tone* stage, whose ground is
+   a grey swept from near-black — so the one stage whose whole subject is what a
+   surface reads underneath it lost the high-frequency half of its backdrop. The
+   stroke became a third member of `StageGroundPaint` alongside `fill` and `field`:
+   the window's own ground affords black at 0.10, the tone stage's affords white at
+   0.11, and each ground now states its own. Nothing about the tone stage's sweep
+   moved.
+2. **`e2e/site.spec.ts`'s "untinted" premise was a statement about the dark
+   ground.** It asserted that the 40 px plate is *not* white, because on a
+   near-black ground backdrop tone adaptation pulled its body onto the ground. The
+   light window sits well above the band that law operates in, so nothing adapts the
+   colour away and both plates start at the material's own white. The premise was
+   re-derived rather than relaxed: the two plates now have to share the colour
+   `255,255,255` **and** differ in alpha, which is the size law still separating them
+   (measured `rgba(255, 255, 255, 0.79)` on the 112 px plate against
+   `rgba(255, 255, 255, 0.815)` on the 40 px one). The tint assertions downstream are
+   untouched.
+
+## Deferred
+
+- `e2e/reference-panel.gpu.spec.ts` fails on this machine at a mean encoded-luma
+  delta of 0.021933303624480347 against a bound of 0.02. It is **not** this round's:
+  the same test fails with the bit-identical number on the clean tree at 6ff1319,
+  and the reference stage draws over fixture rasters that this round does not touch.
+  It belongs to the fidelity waves' bed, not to the demo's ground.
+
 ## Tracking
 
 | step | where | status |
 | --- | --- | --- |
 | prototype | this session's screenshots (scratch) | DONE 2026-09-03 |
-| the round | worktree branch, refereed by the demo suites | OPENED 2026-09-03 |
+| the round | worktree branch, refereed by the demo suites | DONE 2026-09-03 |
 | landing | after W12 G3 lands on `main` | — |
+
+The round's evidence: `pnpm --filter demo test:e2e` 33 passed, 1 failed (the
+pre-existing GPU reference-panel cell above); `pnpm --filter demo lint` clean;
+`pnpm run ci` exit 0. `e2e/contrast.spec.ts` holds all four floors on the new
+ground, worst per test — control labels 6.55:1 ("Publish"), segment labels 15.73:1
+("Month"), plate labels on the material stage 15.53:1 ("112px"), plate labels across
+the tone sweep 4.62:1 ("40px" at ground 0.026) — against floors of 4.5, 4.5, 3 and 3.
+`pnpm --filter demo dev` on port 5177, loaded at 1440x900 deviceScaleFactor 2 with
+the console captured, reported zero placement diagnostics (three messages, all
+Vite's HMR handshake and React's DevTools notice).

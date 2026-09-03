@@ -421,25 +421,29 @@ code {
   border-left-color: transparent;
   pointer-events: none;
   /*
-   * The instrument window is a dark surface, so the glass inside it is told so.
+   * The instrument window is a light surface, so the glass inside it is told so.
    *
    * The CSS tier writes its foreground as `light-dark(#1c1c1e, #f5f5f7)`, which
    * resolves against the *element's* computed `color-scheme` — and the plane root
-   * carries `light dark`, so on a light-preferring system a control sitting on
-   * glass over this dark ground was given dark ink on a dark surface: measured at
-   * 1.6:1 to 3.0:1, well under the floor. `color-scheme` is the documented lever
-   * for exactly this ("foreground from explicit tokens or `color-scheme`"), and it
-   * belongs on the region the app authored rather than on the plane vitrea owns.
+   * carries `light dark`, so the scheme this element declares is what a control on
+   * glass falls back to. It was `dark` for as long as the window was a near-black
+   * ground; the window is a light cool ground now (spec
+   * `2026-09-03-demo-hero-daylight`, Decision Log 1), so leaving it would hand a
+   * dark-preferring system light ink on a light surface — the same failure the
+   * declaration was written to prevent, pointed the other way. `color-scheme` is
+   * the documented lever for exactly this ("foreground from explicit tokens or
+   * `color-scheme`"), and it belongs on the region the app authored rather than on
+   * the plane vitrea owns.
    *
    * Both gaps that made this load-bearing are now closed upstream — K4 wired X6's
    * hint into the CSS tier's foreground, K5 corrected its arithmetic for the tuned
    * material, and C9d gave the GPU tier the same answer — so every hinted group on
    * this page gets an explicit token and `light-dark()` is the fallback rather than
    * the rule. It stays because the fallback still has to be right: anything on this
-   * dark ground that vitrea is not styling (or a group with no hint to give) reads
+   * light ground that vitrea is not styling (or a group with no hint to give) reads
    * its scheme from here.
    */
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 .stage__canvas {
@@ -832,12 +836,13 @@ code {
 
 .platter {
   /*
-   * Dark, for the same reason `.stage--mirror` is: the morph portals itself into a
+   * Light, for the same reason `.stage--mirror` is: the morph portals itself into a
    * mount node of its own, directly under the plane's host layer, so it inherits
    * nothing from the stage the app authored. Without this its collapsed content
-   * gets the light-scheme foreground on a dark surface.
+   * takes whatever scheme the plane root resolves to, which on a dark-preferring
+   * system is light ink on the light instrument window's material.
    */
-  color-scheme: dark;
+  color-scheme: light;
 
   /*
    * Constrains the closed platter *before* it pins. Until it has measured itself
@@ -867,7 +872,14 @@ code {
 }
 
 .menu__item[data-focused="true"] {
-  background: rgb(255 255 255 / 0.16);
+  /*
+   * The focused row darkens rather than brightens: white at any weight on the
+   * light window's material is a highlight the reader cannot see, and the focused
+   * row is the one thing in an open menu that has to be unmistakable. Half the
+   * dark window's 0.16, because a dark wash on a light surface separates at a
+   * lower weight than a light wash on a dark one.
+   */
+  background: rgb(0 0 0 / 0.08);
 }
 
 /* ── Collapse ────────────────────────────────────────────────────────────── */
