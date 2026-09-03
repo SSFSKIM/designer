@@ -343,10 +343,12 @@ are green; these ten are the CSS-tier project only.
 
 `apps/demo/src/laws/law.ts`'s `bodyLaw` reports the sharp width, the scatter
 width and the CSS tier's single σ at the shipped constants and at no device
-pixel ratio, so the three numbers it prints are the law at dpr 1. The body's two
-widths are device-pixel quantities (W12 G3), so on the Retina display most
-visitors read the page on, the widths the runtime actually draws are half the
-printed ones. Since W13 G1 the readout is also one projection short of the
+pixel ratio, so the three numbers it prints are the law at dpr 1. The GPU tier's
+two widths are device-pixel quantities (W12 G3), so on the Retina display most
+visitors read the page on, the widths that tier actually draws are half the
+printed ones; the CSS tier's single σ is the printed one at every scale by
+decision (W13 Decision Log 5, 2026-09-03), so for that tier the readout is
+right and the sentence above is about the GPU tier alone. Since W13 G1 the readout is also one projection short of the
 truth: the GPU tier mixes by the pixel's own depth under the contour and the
 number printed is that ramp's area average, which is what the CSS tier renders
 and not what the GPU tier does anywhere in particular. The fix is to thread
