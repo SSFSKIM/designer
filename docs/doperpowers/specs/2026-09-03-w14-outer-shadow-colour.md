@@ -375,7 +375,7 @@ charter (user-decided). X8 orders the two landings.
 | child | where | status |
 | --- | --- | --- |
 | G0 | one worker, 2026-09-03; `results/2026-09-03-w14-shadow/g0/g0-instrument.md`, `g0-shadow.md`; claims §5.62 — two terms on one falloff (W8's lengths kept), the lift a σ-40 blurred copy of the backdrop's own light above the knee at span 64 and saturating with span, the thin regime's black alpha 0.33 on the mid backdrops and 0.127 on light-solid (vitrea 0.285 everywhere), the split of the thick composite not identifiable on this bed | COMPLETE 2026-09-03 |
-| G1 | — | blocked-by G0 |
+| G1 | two workers dispatched 2026-09-03: the composite implemented on branch `w14-g1-shadow` (worktree `.claude/worktrees/w14-g1`) — the black term's adaptive alpha on both tiers (thin anchors 0 / 0.33 / 0.127 keyed on W9's luminance; thick span anchors 0.379 / 0.497 / 0.544; the dark document's own), the lift GPU-only on W8's falloff (amplitude, span rise 64 → 128, σ 40 CSS px from the chain), Decision Log 1 question 2 (a) as implemented; X7's affine pair on the shadow axis with its baseline by `diff` over the canonical captures (branch `w14-x7-shadow-pair`, worktree `.claude/worktrees/w14-x7`); the runtime sweep follows the implementation once the GPU is free of W13's | IN PROGRESS 2026-09-03 |
 | G2 | — | blocked-by G1; X8 |
 
 ## Decision Log
