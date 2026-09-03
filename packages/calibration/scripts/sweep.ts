@@ -25,6 +25,19 @@
  * `--base` is a patch merged under every point — for the parts of a profile a
  * numeric axis cannot express, a tint colour being the obvious one.
  *
+ * A dotted path reaches any depth of the patch, which is what the outer shadow's
+ * amplitude law needs since W14 G1 (claims §5.62) — the six anchors and the
+ * lift's amplitude are leaves under one nested key, and each is its own axis:
+ *
+ *   npx tsx scripts/sweep.ts --objective shadow \
+ *     --axis outerShadow.thickOcclusionAt96=0.34,0.379,0.42 \
+ *     --axis outerShadow.liftAmplitude=0.005,0.0073,0.010
+ *
+ * The black anchors and `liftAmplitude` have to be swept TOGETHER rather than
+ * one at a time: G0 could identify the composite's transmission and the lift's
+ * peak amplitude but not the split between them, because both terms ride one
+ * falloff and their shapes correlate at 0.9998.
+ *
  * ## Why this is a committed script and not a session's worth of hand-edits
  *
  * A tuned constant is only as trustworthy as the search that produced it. If the

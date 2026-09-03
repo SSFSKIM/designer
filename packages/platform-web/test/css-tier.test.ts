@@ -22,14 +22,18 @@ import {
   REDUCED_TRANSPARENCY_FROST,
   cssTierOptics,
   cssTierForegroundLevel,
+  cssTierShadowAlpha,
   cssTintAlpha,
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
+  OUTER_SHADOW_THIN_L,
   outerShadowAlpha,
   outerShadowFalloff,
+  outerShadowThinOcclusion,
   resolvedPolicyFold,
   CSS_TIER_RAMP_SCALE,
   scatterThickness as cssScatterThickness,
+  sizeThickness,
   sourceOuterShadow,
 } from "../src/optics";
 
@@ -328,14 +332,26 @@ describe("the CSS tier (the fallback is the design)", () => {
       // The outer shadow (W8) is derived the same way: nothing in this file
       // chooses its lengths, and a profile that declines it stops it being drawn.
       const shadow = MATERIAL_SOURCE_OUTER_SHADOW;
+      // The amplitude is a law since W14 G1: this surface declares no span and
+      // no backdrop, so it resolves the thin regime at the unmeasured-backdrop
+      // fallback, which is the mid plateau.
+      const occlusion = outerShadowThinOcclusion(undefined, shadow);
       expect(declarations["box-shadow"]).toBe(
         `0 ${shadow.offsetPx}px ${2 * shadow.sigmaPx}px ${shadow.spreadPx}px ` +
-          `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(shadow.occlusion) * 1000) / 1000})`,
+          `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(occlusion) * 1000) / 1000})`,
       );
       expect(
         cssTierDeclarations({
           ...surface,
-          outerShadow: { ...shadow, occlusion: 0 },
+          outerShadow: {
+            ...shadow,
+            thinOcclusionDark: 0,
+            thinOcclusionMid: 0,
+            thinOcclusionBright: 0,
+            thickOcclusionAt96: 0,
+            thickOcclusionAt128: 0,
+            thickOcclusionAt160: 0,
+          },
         })["box-shadow"],
       ).toBe("none");
     });
@@ -994,7 +1010,9 @@ describe("the outer shadow reaches the CSS tier", () => {
     const shadow = MATERIAL_SOURCE_OUTER_SHADOW;
     expect(shadowOf(cssTierDeclarations(surface))).toBe(
       `0 ${shadow.offsetPx}px ${2 * shadow.sigmaPx}px ${shadow.spreadPx}px ` +
-        `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(shadow.occlusion) * 1000) / 1000})`,
+        `rgba(0, 0, 0, ${
+          Math.round(outerShadowAlpha(outerShadowThinOcclusion(undefined, shadow)) * 1000) / 1000
+        })`,
     );
     // Downward, never up: the reference's shadow is offset toward the bottom of
     // the screen on every profile, backdrop, span and scale in the bed.
@@ -1033,7 +1051,7 @@ describe("the outer shadow reaches the CSS tier", () => {
      * under one 8-bit code step's worth of slack, against a reference bed whose
      * own run-to-run reproducibility is +/-4 of 255 (Decision Log 10).
      */
-    const occlusion = MATERIAL_SOURCE_OUTER_SHADOW.occlusion;
+    const occlusion = MATERIAL_SOURCE_OUTER_SHADOW.thinOcclusionMid;
     const alpha = outerShadowAlpha(occlusion);
     const encode = (linear: number): number =>
       linear <= 0.0031308 ? 12.92 * linear : 1.055 * linear ** (1 / 2.4) - 0.055;
@@ -1069,11 +1087,13 @@ describe("the outer shadow reaches the CSS tier", () => {
     }
   });
 
-  it("dims under reduced transparency and goes out under forced colours", () => {
+  it("goes flat under reduced transparency and out under forced colours", () => {
     /*
-     * MEASURED, which the charter asked for before the fold was written. The
-     * reference's shadow under reduce-transparency is the same shadow at 0.566
-     * of the amplitude — it neither vanishes nor intensifies — and the
+     * MEASURED, which the charter asked for before the fold was written. Under
+     * the preference the reference's exterior is one level — flat at 0.192–0.202,
+     * thin and thick together and over every backdrop (claims §5.62 §5) — so
+     * this tier writes the profile's `reducedTransparencyOcclusion` itself rather
+     * than a scaled anchor. It neither vanishes nor intensifies, and the
      * increased-contrast reference reproduces the reduced-transparency number to
      * four decimals, because macOS force-couples the toggles (Decision Log 8).
      */
@@ -1086,6 +1106,23 @@ describe("the outer shadow reaches the CSS tier", () => {
     );
     expect(reduced).toBeGreaterThan(0);
     expect(reduced).toBeLessThan(nominal);
+    const level = MATERIAL_SOURCE_OUTER_SHADOW.reducedTransparencyOcclusion;
+    expect(reduced).toBe(Math.round(outerShadowAlpha(level) * 1000) / 1000);
+    // The same level whatever the surface is standing over — a `box-shadow`
+    // written from a scaled anchor would still carry the backdrop keying the
+    // preference removes.
+    for (const backdropLuminance of [0, 0.2141, 0.891]) {
+      expect(
+        alphaOf(
+          cssTierDeclarations({
+            ...surface,
+            backdropLuminance,
+            policy: resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })),
+          }),
+        ),
+        `backdrop ${backdropLuminance}`,
+      ).toBe(reduced);
+    }
 
     // Forced colours is not a dimmer material, it is a different surface — and a
     // shadow that outlived the glass it belonged to would be the one composition
@@ -1101,8 +1138,10 @@ describe("the outer shadow reaches the CSS tier", () => {
   });
 
   it("follows a profile patch, and a profile may decline it outright", () => {
-    const patched = sourceOuterShadow({ outerShadow: { occlusion: 0.5, offsetPx: 12 } });
-    expect(patched.occlusion).toBe(0.5);
+    const patched = sourceOuterShadow({
+      outerShadow: { thinOcclusionMid: 0.5, offsetPx: 12 },
+    });
+    expect(patched.thinOcclusionMid).toBe(0.5);
     expect(patched.offsetPx).toBe(12);
     // Unnamed fields keep the mirrored default, which is the renderer's own merge
     // rule and the reason a partial calibration patch is legal.
@@ -1113,8 +1152,32 @@ describe("the outer shadow reaches the CSS tier", () => {
         `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(0.5) * 1000) / 1000})`,
     );
     expect(
-      shadowOf(cssTierDeclarations({ ...surface, outerShadow: { ...patched, occlusion: 0 } })),
+      shadowOf(
+        cssTierDeclarations({
+          ...surface,
+          outerShadow: { ...patched, thinOcclusionMid: 0, thinOcclusionBright: 0 },
+        }),
+      ),
     ).toBe("none");
+  });
+
+  it("refuses a patch that still names W8's retired single amplitude", () => {
+    /*
+     * The same refusal the renderer makes, on the same profile document — a
+     * patch one tier took and the other threw on would be a profile that means
+     * two different things. `{ outerShadow: { occlusion: 0 } }` was the way to
+     * stand the facet down and W14 G1 retired it (claims §5.62); merged in
+     * silence it would render the shipped shadow while recording itself as the
+     * configuration that ran.
+     */
+    const retired = { outerShadow: { occlusion: 0 } } as unknown as Parameters<
+      typeof sourceOuterShadow
+    >[0];
+    expect(() => sourceOuterShadow(retired)).toThrow(/outerShadow\.occlusion was retired/);
+    expect(() => sourceOuterShadow(retired)).toThrow(
+      /thinOcclusionMid.*thickOcclusionAt160.*liftAmplitude/s,
+    );
+    expect(sourceOuterShadow({ outerShadow: { thinOcclusionMid: 0 } }).thinOcclusionMid).toBe(0);
   });
 
   it("rides the size law's one curve, and is inert at the shipped gain", () => {
@@ -1128,7 +1191,34 @@ describe("the outer shadow reaches the CSS tier", () => {
     expect(MATERIAL_SOURCE_OUTER_SHADOW.sizeGain).toBe(0);
     const small = cssTierDeclarations({ ...surface, spanPx: 24, size: MATERIAL_SOURCE_SIZE });
     const platter = cssTierDeclarations({ ...surface, spanPx: 320, size: MATERIAL_SOURCE_SIZE });
-    expect(shadowOf(platter)).toBe(shadowOf(small));
+    // The LENGTHS are what may not move with the span, and they do not.
+    expect(shadowOf(small).split("rgba")[0]).toBe(shadowOf(platter).split("rgba")[0]);
+    /*
+     * The amplitude does, and since W14 G1 that is the law rather than the gain:
+     * a thin surface resolves the thin regime's mid plateau and a platter
+     * resolves the thick regime's span law, which the bed measures deeper
+     * (0.370 at span 96 against 0.33 below the knee). The `sizeGain` seam is a
+     * SECOND thing on top of that, and it is still the identity.
+     *
+     * The thin surface reads the anchor straight, because below the knee there is
+     * no lift to fold; the platter reads the thick anchor MINUS the lift this tier
+     * cannot paint, which is `cssTierShadowAlpha`'s derivation and is why the
+     * platter's expectation is written through it (claims §5.65 §6(ii)).
+     */
+    expect(alphaOf(small)).toBeCloseTo(
+      Math.round(outerShadowAlpha(MATERIAL_SOURCE_OUTER_SHADOW.thinOcclusionMid) * 1000) / 1000,
+      12,
+    );
+    const platterAlpha = cssTierShadowAlpha(
+      MATERIAL_SOURCE_OUTER_SHADOW,
+      undefined,
+      320,
+      sizeThickness(320),
+    );
+    expect(alphaOf(platter)).toBeCloseTo(Math.round(platterAlpha * 1000) / 1000, 12);
+    expect(platterAlpha).toBeLessThan(
+      outerShadowAlpha(MATERIAL_SOURCE_OUTER_SHADOW.thickOcclusionAt160),
+    );
 
     // With a gain, the same curve moves it — and only the amplitude, never the
     // lengths, which is the half of the facet the bed actually settled.
@@ -1137,5 +1227,60 @@ describe("the outer shadow reaches the CSS tier", () => {
     const thick = cssTierDeclarations({ ...surface, spanPx: 320, outerShadow: gained });
     expect(alphaOf(thick)).toBeGreaterThan(alphaOf(thin));
     expect(shadowOf(thin).split("rgba")[0]).toBe(shadowOf(thick).split("rgba")[0]);
+  });
+
+  /*
+   * W14 G1 on this tier (claims §5.62; W14 Decision Log 1 question 2, decided
+   * (a)). The `box-shadow` stays pure BLACK — that is what makes it a multiply —
+   * and what changes is the alpha: the same two-regime law the GPU tier runs,
+   * resolved at the same backdrop luminance statistic. The LIFT is not here and
+   * cannot be: it needs the backdrop's own light outside the element, which one
+   * `box-shadow` has no access to.
+   */
+  it("keys the alpha on the backdrop, on each of the three measured anchors", () => {
+    const alphaOver = (luminance: number | undefined): number =>
+      alphaOf(
+        cssTierDeclarations(
+          luminance === undefined ? surface : { ...surface, backdropLuminance: luminance },
+        ),
+      );
+    const rounded = (occlusion: number): number =>
+      Math.round(outerShadowAlpha(occlusion) * 1000) / 1000;
+    const shadow = MATERIAL_SOURCE_OUTER_SHADOW;
+
+    // `mid-dark-solid` 0.06, `hc-text` 0.74, `light-solid` 0.891.
+    expect(alphaOver(OUTER_SHADOW_THIN_L.midFrom)).toBe(rounded(shadow.thinOcclusionMid));
+    expect(alphaOver(OUTER_SHADOW_THIN_L.midTo)).toBe(rounded(shadow.thinOcclusionMid));
+    expect(alphaOver(OUTER_SHADOW_THIN_L.bright)).toBe(rounded(shadow.thinOcclusionBright));
+    // Over `light-solid` the shadow is a third of what it is over the
+    // checkerboard, which is the user's by-eye gap ("the shadow is darker on the
+    // light-solid capsule") closing on this tier with no new element.
+    expect(alphaOver(OUTER_SHADOW_THIN_L.bright)).toBeLessThan(
+      alphaOver(OUTER_SHADOW_THIN_L.midTo) * 0.6,
+    );
+    // `dark-solid` and `impulse`: the declaration is not a faint shadow, it is
+    // no shadow at all.
+    expect(shadowOf(cssTierDeclarations({ ...surface, backdropLuminance: 0.0039 }))).toBe("none");
+    // And an unmeasured backdrop keeps the mid plateau, which is the same
+    // fallback the renderer takes, so the tiers cannot diverge there.
+    expect(alphaOver(undefined)).toBe(rounded(shadow.thinOcclusionMid));
+  });
+
+  it("carries the geometry and the adaptive alpha and no lift, which is Decision Log 1 (a)", () => {
+    // The colour is still exactly black at every backdrop and every span: the
+    // lift would need a second element with `backdrop-filter`, and this tier does
+    // not grow one in this wave.
+    for (const backdropLuminance of [0.06, 0.5, 0.891]) {
+      for (const spanPx of [32, 96, 160]) {
+        expect(
+          shadowOf(cssTierDeclarations({ ...surface, backdropLuminance, spanPx })),
+          `L ${backdropLuminance} span ${spanPx}`,
+        ).toMatch(/^0 [\d.]+px [\d.]+px [\d.-]+px rgba\(0, 0, 0, [\d.]+\)$/);
+      }
+    }
+    // The constants are mirrored even though this tier does not draw them, so a
+    // profile patch cannot mean two different things on the two sides.
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.liftAmplitude).toBeGreaterThan(0);
+    expect(MATERIAL_SOURCE_OUTER_SHADOW.liftBlurSigmaCss).toBe(40);
   });
 });

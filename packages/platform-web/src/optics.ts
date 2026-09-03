@@ -733,7 +733,36 @@ export interface MaterialSourceOuterShadow {
   readonly offsetPx: number;
   readonly sigmaPx: number;
   readonly spreadPx: number;
-  readonly occlusion: number;
+  /** The black term's amplitude below the knee, by backdrop luminance (W14 G1). */
+  readonly thinOcclusionDark: number;
+  readonly thinOcclusionMid: number;
+  readonly thinOcclusionBright: number;
+  /** The composite's amplitude above the knee, by casting span (W14 G1). */
+  readonly thickOcclusionAt96: number;
+  readonly thickOcclusionAt128: number;
+  readonly thickOcclusionAt160: number;
+  /**
+   * The lift's four constants (W14 G1). Mirrored so the two tiers resolve one
+   * profile and a patch cannot mean different things on the two sides, and NOT
+   * drawn here: a `box-shadow` takes one colour and one alpha and cannot reach
+   * the backdrop outside the element it is on. Carrying it would take a
+   * pseudo-element with `backdrop-filter: blur(40px)` masked to the falloff —
+   * W14 Decision Log 1's question 2, decided (a): the CSS tier carries the
+   * geometry and the adaptive alpha, which is the whole of the thin regime's gap
+   * and needs no new element, and the lift waits for the two-layer CSS body,
+   * which needs the same second element and should decide it once for both.
+   * The share deferred is the lift alone: 0.029–0.048 encoded on the thick
+   * spans, nothing on the thin ones and nothing over a dark backdrop.
+   */
+  readonly liftAmplitude: number;
+  readonly liftSpanMin: number;
+  readonly liftSpanFull: number;
+  readonly liftBlurSigmaCss: number;
+  /**
+   * The shadow's amplitude UNDER reduced transparency — one absolute linear
+   * occlusion replacing both regimes, not a factor on either. The renderer's
+   * `MaterialOuterShadow.reducedTransparencyOcclusion` carries the measurement.
+   */
   readonly reducedTransparencyOcclusion: number;
   readonly sizeGain: number;
 }
@@ -743,14 +772,214 @@ export const MATERIAL_SOURCE_OUTER_SHADOW: MaterialSourceOuterShadow = {
   offsetPx: 7.95,
   sigmaPx: 15.55,
   spreadPx: 3.1,
-  occlusion: 0.285,
-  reducedTransparencyOcclusion: 0.7,
+  thinOcclusionDark: 0,
+  thinOcclusionMid: 0.33,
+  thinOcclusionBright: 0.127,
+  thickOcclusionAt96: 0.37,
+  thickOcclusionAt128: 0.448,
+  thickOcclusionAt160: 0.479,
+  liftAmplitude: 0.01,
+  liftSpanMin: 64,
+  liftSpanFull: 118,
+  liftBlurSigmaCss: 40,
+  reducedTransparencyOcclusion: 0.197,
   sizeGain: 0,
 };
 
-/** The outer shadow's constants under a profile patch, by the renderer's merge rule. */
+/**
+ * Where the thin regime's anchors sit on the backdrop luminance axis, and the
+ * backdrop the law reads where the host measured none — mirrors the renderer's
+ * `OUTER_SHADOW_THIN_L` and `OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE`, where
+ * the reasons are.
+ *
+ * **What each tier keys on.** The renderer keys on the group's
+ * `backdropToneLevel`: the backdrop's ENCODED-space mean, decoded to a linear
+ * luminance, measured by the host. This tier keys on exactly the same number —
+ * `cssTierDeclarations`'s `backdropLuminance`, which `root.ts` fills from the
+ * same `BackdropToneSample.luminance` it hands the renderer, or from an author
+ * hint's declared level where there is one. So the charter's third binding rule
+ * — one luminance statistic, the one W9's face response already uses — holds on
+ * both tiers with no second reading anywhere. Where neither a hint nor a sample
+ * exists the two tiers fall back to the same constant, so they do not diverge on
+ * an unsampled group either.
+ */
+export const OUTER_SHADOW_THIN_L = {
+  inert: 0.02,
+  midFrom: 0.06,
+  midTo: 0.74,
+  bright: 0.891,
+} as const;
+
+export const OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE = 0.3;
+
+/** The three spans the thick regime's anchors were read at, CSS px. */
+export const OUTER_SHADOW_THICK_SPANS = [96, 128, 160] as const;
+
+/**
+ * The black term's peak occlusion below the knee — the mirror of the renderer's
+ * `outerShadowThinOcclusion`.
+ */
+export function outerShadowThinOcclusion(
+  backdropLuminance: number | undefined,
+  shadow: MaterialSourceOuterShadow = MATERIAL_SOURCE_OUTER_SHADOW,
+): number {
+  const l = backdropLuminance ?? OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE;
+  const { inert, midFrom, midTo, bright } = OUTER_SHADOW_THIN_L;
+  if (l <= inert) return shadow.thinOcclusionDark;
+  if (l < midFrom) {
+    const t = (l - inert) / (midFrom - inert);
+    const s = t * t * (3 - 2 * t);
+    return shadow.thinOcclusionDark + (shadow.thinOcclusionMid - shadow.thinOcclusionDark) * s;
+  }
+  if (l <= midTo) return shadow.thinOcclusionMid;
+  if (l >= bright) return shadow.thinOcclusionBright;
+  const t = (l - midTo) / (bright - midTo);
+  return shadow.thinOcclusionMid + (shadow.thinOcclusionBright - shadow.thinOcclusionMid) * t;
+}
+
+/**
+ * The composite's peak occlusion above the knee — the mirror of the renderer's
+ * `outerShadowThickOcclusion`.
+ */
+export function outerShadowThickOcclusion(
+  spanPx: number,
+  shadow: MaterialSourceOuterShadow = MATERIAL_SOURCE_OUTER_SHADOW,
+): number {
+  const [s0, s1, s2] = OUTER_SHADOW_THICK_SPANS;
+  const y0 = shadow.thickOcclusionAt96;
+  const y1 = shadow.thickOcclusionAt128;
+  const y2 = shadow.thickOcclusionAt160;
+  if (spanPx <= s0) return y0;
+  if (spanPx >= s2) return y2;
+  if (spanPx <= s1) return y0 + ((y1 - y0) * (spanPx - s0)) / (s1 - s0);
+  return y1 + ((y2 - y1) * (spanPx - s1)) / (s2 - s1);
+}
+
+/**
+ * The outer shadow's peak LINEAR occlusion for one surface — the mirror of the
+ * renderer's `outerShadowOcclusionAt`, and what this tier's `box-shadow` alpha
+ * is written through.
+ *
+ * The GPU tier resolves the thin regime on the CPU and the thick one per pixel;
+ * this tier has one surface and one declaration, so it resolves both here. The
+ * result is the same number for the same span, backdrop and thickness, which is
+ * what `tier-coherence.test.ts` pins.
+ */
+export function outerShadowOcclusionAt(
+  shadow: MaterialSourceOuterShadow,
+  backdropLuminance: number | undefined,
+  spanPx: number,
+  thickness: number,
+): number {
+  const thin = outerShadowThinOcclusion(backdropLuminance, shadow);
+  const thick = outerShadowThickOcclusion(spanPx, shadow);
+  const k = clamp01(thickness);
+  const blend = k * k * (3 - 2 * k);
+  return sizeOuterShadowOcclusionAt(thin + (thick - thin) * blend, thickness, shadow);
+}
+
+/**
+ * The lift's span rise, 0…1 — the mirror of the renderer's `outerShadowLiftRise`.
+ *
+ * This tier does not paint the lift. It has to know how much of it the other tier
+ * is painting, because that is what `cssTierShadowAlpha` subtracts from its own
+ * multiply.
+ */
+export function outerShadowLiftRise(
+  spanPx: number,
+  shadow: MaterialSourceOuterShadow = MATERIAL_SOURCE_OUTER_SHADOW,
+): number {
+  return smoothstep(shadow.liftSpanMin, shadow.liftSpanFull, spanPx);
+}
+
+/**
+ * The `box-shadow`'s compositing alpha — the profile's linear occlusion converted
+ * into sRGB's encoded space and then FOLDED, so that one multiply stands in for
+ * the two-term composite the other tier paints (claims §5.65 §2 and §6(ii)).
+ *
+ * Outside the coverage the GPU tier produces, in the compositing (encoded) domain,
+ *
+ *     out = B·(1 − α) + L
+ *
+ * where `α` is the black term's encoded alpha and `L` is the encoded contribution
+ * of the lift — a blurred copy of the backdrop's own light, which this tier cannot
+ * paint, because a `box-shadow` takes one colour and one alpha and cannot reach
+ * the backdrop outside the element it is on (W14 Decision Log 4, user). One
+ * multiply can only produce `out = B·(1 − α′)`, and equating the two at the
+ * backdrop level `B` this tier already reads gives
+ *
+ *     α′ = α − L / B.
+ *
+ * That is a CONVERSION and not a second constant. Every quantity on the right is
+ * the shared profile's own — `liftAmplitude`, the rise between `liftSpanMin` and
+ * `liftSpanFull`, and the same sRGB encode the shader emits its lift through —
+ * evaluated at the backdrop luminance this surface is over, which is the same
+ * statistic the thin regime keys on. Nothing here is fitted, no anchor is
+ * duplicated and there is no tier flag: the two tiers go on resolving one profile,
+ * and they now agree above the knee as well as below it, which is K5's rule that
+ * the tiers agree by conversion rather than by duplication.
+ *
+ * Without the fold this tier inherits an amplitude fitted on the tier that HAS a
+ * lift, and over-darkens its thick spans by the whole of the light the other tier
+ * adds back: band `3-6` below read 0.2439 / 0.3058 / 0.3364 at spans 96 / 128 /
+ * 160 against the reference's 0.1925 / 0.2195 / 0.2117, where the same tier's
+ * readings before the wave were 0.1840 / 0.1881 / 0.1925 (claims §5.65 §2).
+ *
+ * It cannot be exact for every pixel of a structured backdrop, because a single
+ * multiply cannot reproduce a multiply plus an addition. The equality above is
+ * solved at one backdrop level and at the falloff's peak, while `B` varies from
+ * pixel to pixel — on the checkerboard between its black and its white squares —
+ * and `L`, being encoded, is not proportional to the falloff the way `α` is. That
+ * residual is this tier's own gap, and it closes when the two-layer CSS body gives
+ * the shadow a second element to paint the lift with instead of folding it away.
+ *
+ * The fold vanishes where the lift does: at and below `liftSpanMin` the rise is
+ * zero, so every thin surface keeps exactly the alpha it had, and it shrinks with
+ * the backdrop, so a surface over black is untouched. The result is clamped at
+ * zero, since a backdrop dark enough would otherwise ask for a negative multiply.
+ */
+export function cssTierShadowAlpha(
+  shadow: MaterialSourceOuterShadow,
+  backdropLuminance: number | undefined,
+  spanPx: number,
+  thickness: number,
+): number {
+  const occlusion = outerShadowOcclusionAt(shadow, backdropLuminance, spanPx, thickness);
+  const alpha = outerShadowAlpha(occlusion);
+  const level = clamp01(backdropLuminance ?? OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE);
+  const backdrop = srgbEncode(level);
+  if (backdrop <= 0) return alpha;
+  const rise = outerShadowLiftRise(spanPx, shadow);
+  // The shader emits the lift premultiplied and a premultiplied layer may not
+  // carry a channel above its own alpha, so its cap is mirrored here rather than
+  // assumed inert at every amplitude a profile could name.
+  const lift = Math.min(srgbEncode(level * shadow.liftAmplitude * rise), alpha);
+  return Math.max(0, alpha - lift / backdrop);
+}
+
+/**
+ * The outer shadow's constants under a profile patch, by the renderer's merge
+ * rule — including its refusal of the leaves W14 G1 retired.
+ *
+ * Mirrored rather than imported for the reason every constant on this side is:
+ * one profile document reaches both tiers, and a patch this tier accepted while
+ * the renderer threw would be a profile that means two different things.
+ * `withMaterialOverrides` carries the reasoning.
+ */
 export function sourceOuterShadow(patch?: RendererMaterialProfile): MaterialSourceOuterShadow {
-  return { ...MATERIAL_SOURCE_OUTER_SHADOW, ...patch?.outerShadow };
+  const shadow = patch?.outerShadow;
+  if (shadow !== undefined && "occlusion" in shadow) {
+    throw new Error(
+      "outerShadow.occlusion was retired by W14 G1 (claims §5.62) and is replaced by " +
+        "the six amplitude anchors (thinOcclusionDark, thinOcclusionMid, " +
+        "thinOcclusionBright, thickOcclusionAt96, thickOcclusionAt128, " +
+        "thickOcclusionAt160) and liftAmplitude for the second term. Applying this " +
+        "patch would have rendered the default shadow while recording itself as " +
+        "configured. It is refused rather than mapped: a single span-flat amplitude " +
+        "is the material the measurement retired.",
+    );
+  }
+  return { ...MATERIAL_SOURCE_OUTER_SHADOW, ...shadow };
 }
 
 /** sRGB's power-law exponent — the one `outerShadowAlpha` inverts. Mirrored. */
@@ -811,18 +1040,39 @@ export function sizeOuterShadowOcclusionAt(
  * `outerShadowUnderPolicy`.
  *
  * `frost` is the axis reduced transparency alone sets, and the amplitude it
- * multiplies by is measured rather than assumed. Under forced colours the
- * material is gone and its shadow goes with it.
+ * lands on is measured rather than assumed. Under forced colours the material is
+ * gone and its shadow goes with it.
+ *
+ * One flat amplitude is written into all six anchors rather than a factor
+ * applied to each, and the lift stands down with them — the renderer's
+ * `outerShadowUnderPolicy` says why.
  */
 export function outerShadowUnderPolicy(
   shadow: MaterialSourceOuterShadow,
   policy: ResolvedMaterialPolicy,
 ): MaterialSourceOuterShadow {
-  if (policy.glass === "none" || policy.frost === "none") return { ...shadow, occlusion: 0 };
+  if (policy.glass === "none" || policy.frost === "none") return flatOuterShadow(shadow, 0);
   if (policy.frost === "increased") {
-    return { ...shadow, occlusion: shadow.occlusion * shadow.reducedTransparencyOcclusion };
+    return flatOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
   }
   return shadow;
+}
+
+/** Every amplitude anchor set to `amplitude`, with the lift stood down. */
+function flatOuterShadow(
+  shadow: MaterialSourceOuterShadow,
+  amplitude: number,
+): MaterialSourceOuterShadow {
+  return {
+    ...shadow,
+    thinOcclusionDark: amplitude,
+    thinOcclusionMid: amplitude,
+    thinOcclusionBright: amplitude,
+    thickOcclusionAt96: amplitude,
+    thickOcclusionAt128: amplitude,
+    thickOcclusionAt160: amplitude,
+    liftAmplitude: 0,
+  };
 }
 
 /** The size-law constants under a profile patch, by the renderer's merge rule. */

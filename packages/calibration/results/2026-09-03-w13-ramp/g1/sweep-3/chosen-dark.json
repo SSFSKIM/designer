@@ -1,0 +1,42 @@
+{
+  "$comment": [
+    "W13 G1 sweep-3, the CHOSEN constants, DARK. The committed dark profile is a",
+    "DIFFERENCE document that names only what differs from the light default and",
+    "does not name the ramp constants, so the six are added here explicitly; that",
+    "and the stripped fingerprint are the only differences from the committed",
+    "document."
+  ],
+  "patch": {
+    "backdropToneResponseStrength": 0,
+    "tintShadeStrength": 0,
+    "optics": {
+      "regular": {
+        "tint": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "tintAlpha": 0.97
+      }
+    },
+    "adaptiveTintDark": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "adaptiveTintLight": [
+      0.05,
+      0.05,
+      0.05
+    ],
+    "outerShadow": {
+      "occlusion": 0.09
+    },
+    "sizeScatterRampStartThin1x": 0.72,
+    "sizeScatterRampStartThick1x": 0.52,
+    "sizeScatterRampStartThin2x": 0.46,
+    "sizeScatterRampStartThick2x": 0.17,
+    "sizeScatterRampReach1xPx": 80,
+    "sizeScatterRampReach2xPx": 100
+  }
+}

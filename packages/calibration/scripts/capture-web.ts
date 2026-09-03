@@ -385,8 +385,12 @@ const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneResponseThin",
   "backdropToneResponseThick",
   "backdropToneResponseStrength",
-  // The outer shadow (W8). One key, six constants under it — a nested block like
-  // `strongBorderRim`, so the cascade's fit lands as `{ outerShadow: { … } }`.
+  // The outer shadow (W8, re-read by W14 G1). One key, FIFTEEN constants under
+  // it — a nested block like `strongBorderRim`, so the cascade's fit lands as
+  // `{ outerShadow: { … } }` and a sweep axis names a dotted leaf inside it
+  // (`--axis outerShadow.thickOcclusionAt96=0.34,0.379,0.42`). Its leaves get
+  // their own guard below, because W14 G1 retired one of them and a document
+  // still naming it would otherwise pass this set and render the defaults.
   "outerShadow",
   "lightDirection",
   "sweepBandRadians",
@@ -405,6 +409,35 @@ const MATERIAL_PATCH_KEYS = new Set([
  * accepts and nothing reads is exactly the silently-measured-the-defaults failure
  * the guard exists for.
  */
+/**
+ * Every leaf the renderer's `MaterialOuterShadow` has.
+ *
+ * The nested half of the same guard. W8's `occlusion` — one span-flat amplitude
+ * — is NOT here: W14 G1 replaced it with six anchors on two regimes plus the
+ * lift's four constants (claims §5.62), and a saved document still naming it
+ * would apply cleanly, hash itself into every cell as the configuration that
+ * ran, and measure the default shadow. `withMaterialOverrides` refuses it at the
+ * runtime boundary too; this refuses it here, where the file has a path and the
+ * message can name it.
+ */
+const OUTER_SHADOW_KEYS = new Set([
+  "offsetPx",
+  "sigmaPx",
+  "spreadPx",
+  "thinOcclusionDark",
+  "thinOcclusionMid",
+  "thinOcclusionBright",
+  "thickOcclusionAt96",
+  "thickOcclusionAt128",
+  "thickOcclusionAt160",
+  "liftAmplitude",
+  "liftSpanMin",
+  "liftSpanFull",
+  "liftBlurSigmaCss",
+  "reducedTransparencyOcclusion",
+  "sizeGain",
+]);
+
 const CSS_TIER_MAPPING_KEYS = new Set([
   "referenceBackdropLuminance",
   "minimumTintContrast",
@@ -454,6 +487,10 @@ function readMaterialProfile(path: string): MaterialProfileFile {
     );
   };
   reject("the renderer's MaterialProfilePatch", Object.keys(patch), MATERIAL_PATCH_KEYS);
+  const outerShadow = object(patch["outerShadow"]);
+  if (outerShadow !== undefined) {
+    reject("the renderer's MaterialOuterShadow", Object.keys(outerShadow), OUTER_SHADOW_KEYS);
+  }
   if (cssTierMapping !== undefined) {
     reject("the CSS tier's CssTierMapping", Object.keys(cssTierMapping), CSS_TIER_MAPPING_KEYS);
   }

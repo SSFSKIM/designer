@@ -114,12 +114,15 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   toneAdapt : vec4f,
   /// the backdrop source's own average colour, linear (xyz), and its luminance (w)
   toneColour : vec4f,
-  /// the outer shadow (W8): its compositing-space alpha before the size law (x),
-  /// the blur's sigma in group-local CSS px (y), the silhouette's outward spread
-  /// in the same units (z), and the downward offset expressed in field-texture UV
-  /// (w) — a UV so the offset silhouette is one texture read rather than a
-  /// gradient extrapolation, which is exact only on a straight edge and a capsule
-  /// is mostly not one
+  /// the outer shadow (W8, amplitude re-read by W14 G1): the THIN regime's peak
+  /// LINEAR occlusion, already resolved at this group's backdrop luminance and
+  /// already folded under the accessibility policy (x) — a linear occlusion and
+  /// no longer a compositing alpha, because the shader now blends two regimes
+  /// before it converts; the blur's sigma in group-local CSS px (y), the
+  /// silhouette's outward spread in the same units (z), and the downward offset
+  /// expressed in field-texture UV (w) — a UV so the offset silhouette is one
+  /// texture read rather than a gradient extrapolation, which is exact only on a
+  /// straight edge and a capsule is mostly not one
   shadow : vec4f,
   /// the outer shadow's size-law gain (x), read against the casting surface's own
   /// thickness, and the field rect's height in CSS px (y) — the conversion the
@@ -159,6 +162,18 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// curve's band top sizeScatterSpanMax (w, W11c), which W13 G1 keeps
   /// underneath the ramp as its deep value
   lensOval : vec4f,
+  /// the outer shadow's THICK regime (W14 G1): the composite's peak linear
+  /// occlusion at casting spans 96, 128 and 160 CSS px (xyz), already folded
+  /// under the accessibility policy, piecewise-linear between and held outside;
+  /// w is padding
+  shadowThick : vec4f,
+  /// the lift (W14 G1), the shadow's second term and GPU-tier only: its peak
+  /// amplitude in LINEAR light as a fraction of the blurred backdrop's own
+  /// luminance (x), the span rise's foot and top in CSS px (yz), and the chain
+  /// LOD whose blur is the profile's liftBlurSigmaCss — resolved on the CPU,
+  /// which is the only place the CSS-px-to-texel conversion is knowable, and
+  /// already clamped to chainMaxLod (w)
+  shadowLift : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -226,7 +241,33 @@ fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
   return 0.5 * (1.0 + tanh(0.7978845608028654 * (x + 0.044715 * x * x * x)));
 }
 
-/// The outer shadow's alpha at this pixel (W8).
+/// What one pixel's outer shadow is made of: the compositing-space alpha the
+/// black term composites at, the falloff BOTH terms ride, and the span of the
+/// surface that cast it — which the lift's own rise is read from.
+///
+/// One struct rather than three calls because there is one falloff (W14 G0,
+/// claims §5.62 §4): the black term's free fit and the lift's free fit return
+/// the same sigma, offset and spread, so evaluating a second geometry for the
+/// second term would be asserting a difference the measurement denies.
+struct ShadowSample {
+  alpha : f32,
+  falloff : f32,
+  castSpanCss : f32,
+};
+
+/// The composite's peak linear occlusion above the knee, at a casting span —
+/// piecewise linear through the three measured anchors (96 / 128 / 160 CSS px)
+/// and held flat outside them. Mirrors material.ts's
+/// 'outerShadowThickOcclusion'.
+fn outer_shadow_thick(spanCss : f32) -> f32 {
+  let y = ou.shadowThick.xyz;
+  if (spanCss <= 96.0) { return y.x; }
+  if (spanCss >= 160.0) { return y.z; }
+  if (spanCss <= 128.0) { return y.x + (y.y - y.x) * (spanCss - 96.0) / 32.0; }
+  return y.y + (y.z - y.y) * (spanCss - 128.0) / 32.0;
+}
+
+/// The outer shadow's alpha at this pixel (W8, amplitude W14 G1).
 ///
 /// The shadow is the group's OWN field, translated down by 'shadow.w' in field
 /// UV and outset by 'shadow.z', then blurred. Reading the offset silhouette from
@@ -237,9 +278,13 @@ fn outer_shadow_falloff(signedDistance : f32, sigma : f32) -> f32 {
 /// The value is an ALPHA on pure black, so what it composites to is the backdrop
 /// times '1 - alpha' — multiplicative occlusion, and exactly zero over black,
 /// with no branch for it.
-fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
-  if (ou.shadow.x <= 0.0) {
-    return 0.0;
+fn outer_shadow(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> ShadowSample {
+  var out : ShadowSample;
+  out.alpha = 0.0;
+  out.falloff = 0.0;
+  out.castSpanCss = 0.0;
+  if (ou.shadow.x <= 0.0 && ou.shadowThick.x <= 0.0) {
+    return out;
   }
   /*
    * The shift can leave the field texture, and clamping alone reads a lie there.
@@ -275,14 +320,11 @@ fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
   }
 
   // The size law reaches the amplitude and nothing else — the reference's three
-  // lengths are span-invariant across 32…160 px. The gain rides the thickness of
-  // the surface that CAST the shadow, which is the one read at the offset
-  // position rather than the one under the pixel being shaded.
+  // lengths are span-invariant across 32…160 px. Every span-keyed quantity here
+  // rides the thickness and the span of the surface that CAST the shadow, which
+  // is the one read at the offset position rather than the one under the pixel
+  // being shaded.
   //
-  // Applied on '1 - alpha' rather than on the alpha: the gain is a fraction of
-  // the remaining transparency in LINEAR light ('sizeOuterShadowOcclusionAt'),
-  // and (1 - occ) is exactly what raising to 1/2.4 turns into (1 - alpha), so the
-  // two forms are the same law and neither needs the other's space.
   // The thickness curve off the casting surface's span (W11c: the span rides
   // the field), written as the body's own is below.
   let castT = clamp(
@@ -291,10 +333,65 @@ fn outer_shadow_alpha(uv : vec2f, upsampled : f32, fieldSize : vec2f) -> f32 {
     1.0,
   );
   let sizeK = clamp(castT * castT * (3.0 - 2.0 * castT) * clamp(ou.tone.w, 0.0, 1.0), 0.0, 1.0);
-  let sizeFold = pow(max(1.0 - ou.shadowSize.x * sizeK, 0.0), 1.0 / 2.4);
-  let alpha = 1.0 - (1.0 - ou.shadow.x) * sizeFold;
 
-  return alpha * outer_shadow_falloff(shadowField.x + clampedOffCss - ou.shadow.z, ou.shadow.y);
+  // The two regimes and the knee between them (W14 G1). The thin amplitude is
+  // resolved on the CPU because its key — the backdrop's luminance — is one
+  // number for the whole group; the thick one is a span law and has to be per
+  // pixel. The blend is the smoothstep of 'sizeK', which is exactly the curve
+  // 'tone_response' blends its own thin and thick rows across: one knee for the
+  // face and the shadow, which is the charter's third binding rule read from
+  // the other side.
+  let blend = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+  let regime = mix(ou.shadow.x, outer_shadow_thick(shadowAux.z), blend);
+  // The size gain, on the relative form 'sizeOuterShadowOcclusionAt' uses, in
+  // LINEAR light; then the one conversion to the canvas's compositing space,
+  // which is where the black term is actually composited.
+  let occ = clamp(regime + ou.shadowSize.x * sizeK * (1.0 - regime), 0.0, 1.0);
+  out.alpha = 1.0 - pow(1.0 - occ, 1.0 / 2.4);
+  out.falloff = outer_shadow_falloff(shadowField.x + clampedOffCss - ou.shadow.z, ou.shadow.y);
+  out.castSpanCss = shadowAux.z;
+  return out;
+}
+
+/// The lift (W14 G1) — the shadow's second term, in LINEAR light, premultiplied
+/// by nothing yet: a blurred copy of the backdrop's own light, at an amplitude
+/// that is zero below the knee and saturating above it, on the SAME falloff the
+/// black term rides.
+///
+/// 'V' is the backdrop chain read at the pixel's OWN position — the copy is of
+/// the backdrop beneath the shadow, not of the backdrop under the surface — at
+/// the LOD whose blur is the profile's 40 CSS px. The chain's uv transform is on
+/// viewport-normalised coordinates, so every pixel this pass draws has a valid
+/// sample: unlike the field texture, which the offset shift can walk off the top
+/// of, the chain covers the whole viewport and there is nothing to reconstruct.
+///
+/// Zero over black by construction (V = 0), zero below the knee by the rise, and
+/// zero where the group has no backdrop to copy — so 'dark-solid', 'impulse',
+/// every thin cell and every unsampled group stay byte-for-byte what they were.
+fn outer_shadow_lift(viewport01 : vec2f, shadow : ShadowSample) -> vec3f {
+  if (ou.flags.x <= 0.5 || ou.shadowLift.x <= 0.0 || shadow.falloff <= 0.0) {
+    return vec3f(0.0);
+  }
+  // Written out rather than through WGSL's 'smoothstep', which is undefined
+  // where the two edges coincide — a profile is entitled to set the rise's foot
+  // and top to one number, and material.ts's own 'smoothstep' degrades that to a
+  // step rather than to a NaN. Same rule as the tone band's divide above.
+  let riseT = clamp(
+    (shadow.castSpanCss - ou.shadowLift.y) / max(ou.shadowLift.z - ou.shadowLift.y, 1e-6),
+    0.0,
+    1.0,
+  );
+  let rise = riseT * riseT * (3.0 - 2.0 * riseT);
+  if (rise <= 0.0) {
+    return vec3f(0.0);
+  }
+  let uv = clamp(viewport01 * ou.fit.xy + ou.fit.zw, vec2f(0.0), vec2f(1.0));
+  let chainSample = textureSampleLevel(backdropChain, backdropSampler, uv, ou.shadowLift.w);
+  // Premultiplied linear in, straight colour out — the same unpremultiply the
+  // body's own samples take, for the same reason: a partially transparent
+  // backdrop must not darken what the material adds back.
+  let v = chainSample.rgb / max(chainSample.a, 1e-6);
+  return v * (ou.shadowLift.x * rise * shadow.falloff);
 }
 
 @fragment
@@ -331,12 +428,46 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * is clipped out of its own border box, and the two meet across the coverage
    * ramp with no seam because it is one expression.
    */
-  let shadowAlpha = outer_shadow_alpha(in.uv, ou.flags.w, ou.flags.yz);
+  let shadowSample = outer_shadow(in.uv, ou.flags.w, ou.flags.yz);
+  let shadowAlpha = shadowSample.alpha * shadowSample.falloff;
+  let viewport01 = in.position.xy / ou.screen.xy;
+  // Resolved once, for both sides of the coverage ramp: the lift fills exactly
+  // what the surface's coverage leaves, on the same rule and in the same
+  // expression as the black term's alpha at the bottom of this function, so the
+  // two meet across the ramp with no seam. At full coverage it is not computed
+  // at all and the chain read is not taken.
+  var liftEncoded = vec3f(0.0);
+  if (coverage < 1.0) {
+    let lift = outer_shadow_lift(viewport01, shadowSample);
+    liftEncoded = min(linear_to_srgb(max(lift, vec3f(0.0))), vec3f(shadowAlpha));
+  }
   if (coverage <= 0.0) {
-    return vec4f(0.0, 0.0, 0.0, shadowAlpha);
+    /*
+     * The lift (W14 G1) makes this a premultiplied COMPOSITE rather than an
+     * alpha on black: the compositor produces 'page·(1 − shadowAlpha) + lift',
+     * which is the reference's own two-term form outside the coverage.
+     *
+     * The added light is computed in linear light and encoded on its own before
+     * it is emitted, because it IS its own light — over the checkerboard's black
+     * squares, where the multiply is inert, what the reference adds is exactly
+     * this term and nothing else, and encoding it alone reproduces G0's measured
+     * +0.048 encoded at span 160 from its +0.0038 linear (claims §5.62 §2, §3).
+     * Where the backdrop is bright the encoding of a sum and the sum of the
+     * encodings differ, and this term is the second: the residual is bounded by
+     * the term's own size and is well inside the bed's ±4/255, on the same
+     * honest-floor argument 'outerShadowAlpha' makes for the black term's space.
+     *
+     * A premultiplied layer may not carry a channel above its own alpha, so the
+     * emitted light is capped at 'shadowAlpha'. At the profile's constants the
+     * cap is inert everywhere on the falloff: both terms are proportional to the
+     * same F, and the lift's encoded value stays at about a sixth of the black
+     * term's alpha from the deepest ring out to where the shadow stops moving a
+     * code. It is here so that a swept amplitude produces a valid layer rather
+     * than an implementation-defined one.
+     */
+    return vec4f(liftEncoded, shadowAlpha);
   }
 
-  let viewport01 = in.position.xy / ou.screen.xy;
   let viewportCss = ou.screen.xy * ou.screen.z;
 
   // Per-pixel, unioned through the field pass. See the module note. 'aux.x' is
@@ -738,5 +869,8 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // an opaque body the two are the same quantity, which is how the shadow was
   // first written and why the difference only surfaced with the layer form.)
   let body = encode_output(max(colour, vec3f(0.0)), coverage * bodyAlpha);
-  return vec4f(body.rgb, body.a + shadowAlpha * (1.0 - coverage));
+  return vec4f(
+    body.rgb + liftEncoded * (1.0 - coverage),
+    body.a + shadowAlpha * (1.0 - coverage),
+  );
 }`;

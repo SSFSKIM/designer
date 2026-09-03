@@ -41,13 +41,12 @@ import {
   cssTierForegroundBounds,
   cssTierForegroundLevel,
   cssShadowBlurRadius,
+  cssTierShadowAlpha,
   MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
-  outerShadowAlpha,
   outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
-  sizeOuterShadowOcclusionAt,
   CSS_TIER_RAMP_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
@@ -181,8 +180,11 @@ export interface CssTierSurface {
    *
    * Unlike the size law this does NOT stand down when absent: the shadow is a
    * facet of the material rather than a function of a measurement the caller may
-   * not have, so a surface that declares nothing still casts the shipped one. It
-   * is `occlusion: 0` in the profile that turns it off, on either tier.
+   * not have, so a surface that declares nothing still casts the shipped one. A
+   * profile turns it off, on either tier, by standing its amplitude anchors down
+   * — the six of them since W14 G1 replaced W8's single `occlusion` (claims
+   * §5.62), and a patch still naming that retired leaf is refused rather than
+   * quietly rendering the shipped shadow.
    */
   readonly outerShadow?: MaterialSourceOuterShadow;
   /**
@@ -430,10 +432,27 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     surface.outerShadow ?? MATERIAL_SOURCE_OUTER_SHADOW,
     policy.material,
   );
-  const shadowOcclusion = sizeOuterShadowOcclusionAt(
-    shadowSource.occlusion,
-    sizeK,
+  /*
+   * The amplitude is a law and no longer a constant (W14 G1, claims §5.62): the
+   * thin regime's occlusion is keyed on the backdrop this surface is over — the
+   * same statistic W9's face response keys on, `surface.backdropLuminance`, an
+   * author hint's declared level or the tone measured from the backdrop source —
+   * and the thick regime's on the casting span, blended across the size law's own
+   * knee. `cssTierShadowAlpha` folds the size gain too, which is what
+   * `sizeOuterShadowOcclusionAt` was doing here alone, and it folds this tier's
+   * missing lift into the one alpha it can paint — see that function for why
+   * subtracting the other tier's second term is a conversion of the shared
+   * profile rather than an amplitude of this tier's own.
+   *
+   * A surface with no span (`spanPx === undefined` leaves `sizeK` at 0) resolves
+   * the thin regime, which is what a surface too small for the size law to reach
+   * was already getting.
+   */
+  const shadowAlpha = cssTierShadowAlpha(
     shadowSource,
+    surface.backdropLuminance,
+    surface.spanPx ?? 0,
+    sizeK,
   );
   const radius = surface.radii.map(px).join(" ");
 
@@ -539,7 +558,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
      * `cssShadowBlurRadius` is where the two blur conventions meet: this property
      * takes twice the Gaussian's σ, while `filter: blur()` above takes σ itself.
      */
-    "box-shadow": outerShadowDeclaration(shadowSource, shadowOcclusion),
+    "box-shadow": outerShadowDeclaration(shadowSource, shadowAlpha),
     transition: transitionFor(policy),
     "--vitrea-tint": tint,
     "--vitrea-occlusion": String(Math.round(optics.tintAlpha * 1000) / 1000),
@@ -554,20 +573,20 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
 }
 
 /**
- * The `box-shadow` value for a resolved outer shadow.
+ * The `box-shadow` value for a resolved outer shadow, from the compositing alpha
+ * `cssTierShadowAlpha` resolved.
  *
- * `"none"` at zero occlusion rather than a transparent shadow, so a profile that
+ * `"none"` at zero alpha rather than a transparent shadow, so a profile that
  * declines the facet costs the compositor nothing — and so the property still
  * gets written every frame, because a material that stopped writing one of its
  * own declarations leaves whatever was last there.
  */
-function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, occlusion: number): string {
-  if (!(occlusion > 0)) return "none";
-  const alpha = Math.round(outerShadowAlpha(occlusion) * 1000) / 1000;
-  if (alpha <= 0) return "none";
+function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, alpha: number): string {
+  const rounded = Math.round(alpha * 1000) / 1000;
+  if (!(rounded > 0)) return "none";
   return (
     `0 ${px(shadow.offsetPx)} ${px(cssShadowBlurRadius(shadow.sigmaPx))} ` +
-    `${px(shadow.spreadPx)} rgba(0, 0, 0, ${alpha})`
+    `${px(shadow.spreadPx)} rgba(0, 0, 0, ${rounded})`
   );
 }
 

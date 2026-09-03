@@ -70,8 +70,9 @@ pnpm --filter @vitrea/calibration run compare -- --set holdout    # once per fro
 
 `--renderer` is one tier per run; `--set` defaults to `calibration,validation` and holdout membership
 is read from `apps/reference-apple/scenes.json`, never named in code. `--out-matrix` and the
-`VITREA_WEB_CAPTURES` env redirect output to scratch; the canonical `results/matrix.json` and
-`web-captures/` are committed evidence. A cell's key includes the material profile document's hash,
+`VITREA_WEB_CAPTURES` env redirect output to scratch; the canonical `results/matrix.json` is
+committed evidence, and the canonical `web-captures/` beside it is gitignored — it lives on the
+capture machine and is what the sheets and the demo fixture are copied from. A cell's key includes the material profile document's hash,
 so after the profile changes a run **appends** beside the old rows: `rm results/matrix.json`
 before a full rebuild, or reduce to the newest row per key.
 

@@ -1,0 +1,38 @@
+
+**the shipped 1x anchors** — s0(span) = 0.64 + (0.52 - 0.64)*sizeThickness(span), reach 120 device px, dpr 1
+
+| cell | span | sizeThickness | s0(span) | sDeep | excursion | moves? | area mean k |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 0.0000 | 0.6400 | 0.6000 | 0.0400 (+0.0400) | YES | 0.3622 |
+| `capsule-button` | 44 | 0.0923 | 0.6289 | 0.5950 | 0.0339 (+0.0339) | YES | 0.3738 |
+| `toolbar-group` | 44 | 0.0923 | 0.6289 | 0.5950 | 0.0339 (+0.0339) | YES | 0.3731 |
+| `rrect-md` | 96 | 1.0000 | 0.5200 | 0.4810 | 0.0390 (+0.0390) | YES | 0.4862 |
+| `rrect-ml` | 128 | 1.0000 | 0.5200 | 0.3638 | 0.1562 (+0.1562) | YES | 0.5137 |
+| `glass-over-glass` | 130 | 1.0000 | 0.5200 | 0.3560 | 0.1640 (+0.1640) | YES | 0.5157 |
+| `rrect-lg` | 160 | 1.0000 | 0.5200 | 0.2362 | 0.2838 (+0.2838) | YES | 0.5566 |
+
+**the shipped 2x anchors** — s0(span) = 0.46 + (0.17 - 0.46)*sizeThickness(span), reach 100 device px, dpr 2
+
+| cell | span | sizeThickness | s0(span) | sDeep | excursion | moves? | area mean k |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 0.0000 | 0.4600 | 0.6000 | 0.0000 (-0.1400) | no | 0.4000 |
+| `capsule-button` | 44 | 0.0923 | 0.4332 | 0.5950 | 0.0000 (-0.1618) | no | 0.4050 |
+| `toolbar-group` | 44 | 0.0923 | 0.4332 | 0.5950 | 0.0000 (-0.1618) | no | 0.4050 |
+| `rrect-md` | 96 | 1.0000 | 0.1700 | 0.4810 | 0.0000 (-0.3110) | no | 0.5190 |
+| `rrect-ml` | 128 | 1.0000 | 0.1700 | 0.3638 | 0.0000 (-0.1938) | no | 0.6362 |
+| `glass-over-glass` | 130 | 1.0000 | 0.1700 | 0.3560 | 0.0000 (-0.1860) | no | 0.6440 |
+| `rrect-lg` | 160 | 1.0000 | 0.1700 | 0.2362 | 0.0000 (-0.0662) | no | 0.7638 |
+
+### the 1x grid's corners, by whether each cell moves at all
+
+| thin | thick | sm(0.600) | caps/tb(0.595) | md(0.481) | ml(0.364) | gog(0.356) | lg(0.236) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0.6 | 0.5 | no | no | YES | YES | YES | YES |
+| 0.6 | 0.52 | no | no | YES | YES | YES | YES |
+| 0.6 | 0.56 | no | YES | YES | YES | YES | YES |
+| 0.64 | 0.5 | YES | YES | YES | YES | YES | YES |
+| 0.64 | 0.52 | YES | YES | YES | YES | YES | YES |
+| 0.64 | 0.56 | YES | YES | YES | YES | YES | YES |
+| 0.68 | 0.5 | YES | YES | YES | YES | YES | YES |
+| 0.68 | 0.52 | YES | YES | YES | YES | YES | YES |
+| 0.68 | 0.56 | YES | YES | YES | YES | YES | YES |

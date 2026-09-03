@@ -1,0 +1,46 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=60    0.05038   0.01561  0.00884  0.02593   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=60    0.05045   0.01561  0.00868  0.02616   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=80    0.05045   0.01557  0.00890  0.02598   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=60    0.05047   0.01564  0.00888  0.02594   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=40    0.05048   0.01567  0.00890  0.02591   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=120    0.05051   0.01560  0.00897  0.02594   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=80    0.05054   0.01562  0.00893  0.02599   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=40    0.05057   0.01566  0.00885  0.02605   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=40    0.05059   0.01564  0.00875  0.02621   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=120    0.05064   0.01560  0.00895  0.02609   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=80    0.05066   0.01562  0.00873  0.02631   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=120    0.05074   0.01562  0.00883  0.02629   0.00302  0.00626  0.9857  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=40    0.05136   0.01565  0.00986  0.02585   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=60    0.05146   0.01564  0.00990  0.02592   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=40    0.05148   0.01565  0.00982  0.02600   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=60    0.05154   0.01561  0.00979  0.02614   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=60    0.05155   0.01567  0.00994  0.02593   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=40    0.05155   0.01563  0.00974  0.02618   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=80    0.05160   0.01561  0.01002  0.02597   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=80    0.05169   0.01563  0.00985  0.02621   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=80    0.05170   0.01567  0.01003  0.02600   0.00302  0.00621  0.9859  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=120    0.05172   0.01561  0.01013  0.02597   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=120    0.05173   0.01563  0.00990  0.02620   0.00302  0.00626  0.9857  19  20
+sizeScatterRampStartThin1x=0.64 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=120    0.05173   0.01565  0.01012  0.02596   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=40    0.05220   0.01568  0.01072  0.02580   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=40    0.05234   0.01568  0.01072  0.02594   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=60    0.05237   0.01566  0.01086  0.02585   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=40    0.05238   0.01565  0.01064  0.02609   0.00302  0.00619  0.9859  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=60    0.05243   0.01563  0.01077  0.02604   0.00302  0.00621  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=60    0.05244   0.01569  0.01088  0.02586   0.00302  0.00620  0.9859  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=80    0.05254   0.01564  0.01100  0.02590   0.00302  0.00622  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=80    0.05262   0.01569  0.01100  0.02593   0.00302  0.00621  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=80    0.05264   0.01564  0.01091  0.02609   0.00302  0.00624  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.5 sizeScatterRampReach1xPx=120    0.05265   0.01566  0.01111  0.02589   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=120    0.05268   0.01564  0.01113  0.02591   0.00302  0.00623  0.9858  19  20
+sizeScatterRampStartThin1x=0.6 sizeScatterRampStartThick1x=0.56 sizeScatterRampReach1xPx=120    0.05274   0.01562  0.01106  0.02605   0.00302  0.00626  0.9857  19  20
+
+best: sizeScatterRampStartThin1x=0.68 sizeScatterRampStartThick1x=0.52 sizeScatterRampReach1xPx=60  interior 0.05038
+spread across the grid: 0.05038 … 0.05274 (1.05×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.
