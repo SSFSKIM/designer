@@ -339,6 +339,40 @@ not a render.
 
 ## Surprises & Discoveries
 
+- (2026-09-03, G1) **The reference's own parameters are readable.** A
+  `dump-layers` command added to the native harness walks SwiftUI's layer
+  tree and reads the private `glassBackground` `CAFilter`'s inputs per
+  scene (`results/2026-09-03-w12-lens/layer-dumps/`). The material's size
+  law is written there as functions of the shape's shorter side: inner
+  refraction −min(0.8·span, 60) over min(0.25·span, 20); outer refraction
+  +0.2·span over 0.125·span; blur radius max(4/3, (span + 8)/42) with an
+  opacity ramp from 0.5 at the edge to 1 at span/2; bleed 0.35·span at an
+  opacity (span − 64)/192; shadow amount min(0.625·span, 75), height
+  0.4·span, opacity 0.5 − (span − 48)/448, blur 40 from span 96; face black
+  and fill alpha and shadow fill alpha adapting to the backdrop. Four things
+  follow at once: the two-term lens the research pass predicted is real and
+  its cubic reading reproduces the crossings (32.6 / 25 / 12.3 against
+  34 / 24 / 12 at u 2 / 4 / 8 on `rrect-md`); the blur opacity ramp is the
+  sharp leak that fades with depth (W11c's `sizeScatterFloor` / `SpanMax`
+  are its projection); a blur radius in a quarter-device-scale buffer is
+  9.9 CSS px at 1x and 4.95 at 2x — the two impulse kernels the bed
+  measured — so the 2x reference's "different object" is the material's
+  own scale-dependence and the virtual display is exonerated; and the
+  shadow's numbers (offset 8, blur 40, height 0.4·span) are W8's to check.
+- (2026-09-03, G1) **The band magnifies along the edge**, uniformly about
+  the edge's midpoint, by 1.31× / 1.15× / 1.11× at u = 2.5 on spans 96 /
+  128 / 160 (2x, confirmed from the checker maxima: 128 / 169.5 / 212 CSS
+  px on `rrect-md`, the plate's 135.5 / 167.5 / 199.5 stretched about
+  x = 160), ∝ 1/width² within 10%, decaying to 1 by u ≈ 18. No
+  normal-only displacement carries it and nothing in the filter's inputs
+  names it; G2 tests an empirical tangential term.
+- (2026-09-03, G1) **There is no dark line and no counter-signed term.**
+  On solid backdrops the reference reads exactly its deep level from
+  u = 2.5 inward on every edge at both scales; the line the eye saw is the
+  lens crossing a checker boundary at u ≈ 2. The Fresnel advisory does not
+  hold. The physical bevel fails structurally (it peaks inside the contour;
+  the reference peaks at it).
+
 - (2026-09-03, research pass) The private filter's API has two refraction
   terms, a distance-ramped blur mix and a quarter-scale backdrop (Design,
   "Outside evidence"). If G1 confirms the ramp, W11c G1's span law is a
