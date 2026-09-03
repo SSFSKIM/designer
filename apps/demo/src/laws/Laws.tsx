@@ -383,12 +383,30 @@ export function Laws(props: LawsProps): ReactNode {
 
         <Section spec={SECTIONS[3]} active={active}>
           <p className="body">
-            The rim refracts. Measured per one-pixel depth shell around the whole
-            contour, the reference&rsquo;s band displaces the backdrop inward on the
-            lens profile vitrea already had, a (1 &minus; depth)&sup2; curve over
-            the lens depth, at 1.6 times the displacement the previous material
-            used. It reads the same two-component body as the interior: no extra
-            blur, no sharper rim, no darkening.
+            The rim refracts. The reference&rsquo;s own layer tree hands its lens two
+            numbers, both clamped linear functions of the surface&rsquo;s shorter span:
+            an inner refraction amount, 0.8 of the span up to 60px, and an inner
+            height, a quarter of the span up to 20px. That height is the lens depth,
+            scaled by the authored thickness against the default of 8. What the two
+            numbers do spatially is not in the tree; measured on the captures and
+            ranked on the pixels, it is one steep power. The displacement starts at
+            0.745 of the amount at the edge and falls to nothing 1.337 lens depths
+            inside, on a (1 &minus; depth) curve raised to 3.69.
+          </p>
+          <p className="body">
+            It bends along the surface&rsquo;s own field normal &mdash; except past the
+            reference&rsquo;s knee, between spans of 64 and 72, where the direction
+            blends six tenths of the way toward the gradient of the oval inscribed in
+            the surface&rsquo;s box. That blend is what bends the backdrop along a
+            straight edge and pulls the lobes around a corner. The body is blurred
+            before it is displaced, and the lens reads the same two-component body as
+            the interior: no extra blur, no sharper rim, no darkening.
+          </p>
+          <p className="note">
+            The previous material drew this band as 1.6 lens depths of displacement on
+            a (1 &minus; depth)&sup2; profile over vitrea&rsquo;s own depth curve: the
+            band&rsquo;s mean rather than its shape. The inner shadow still rides that
+            law; the lens no longer does.
           </p>
           <Fields legend="Refraction">
             <label className="field">
