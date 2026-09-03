@@ -48,6 +48,7 @@ import {
   type BackdropProvider,
   type GlassPlane,
   type GlassRenderer,
+  type Rect,
   type WebGPURendererModule,
 } from "@vitreajs/vitrea";
 import { groupUnionFromMergeDistance } from "@vitrea/geometry";
@@ -96,15 +97,38 @@ export type GlassBackdropTexture =
   | {
       readonly kind: "canvas";
       readonly canvas: HTMLCanvasElement | OffscreenCanvas;
+      readonly placement?: BackdropTexturePlacement;
     }
   | {
       readonly kind: "image";
       readonly image: HTMLImageElement | ImageBitmap;
+      readonly placement?: BackdropTexturePlacement;
     }
   | {
       readonly kind: "video";
       readonly video: HTMLVideoElement;
+      readonly placement?: BackdropTexturePlacement;
     };
+
+/**
+ * Where a texture's pixels sit on the page, in CSS px relative to the viewport
+ * — what the GPU tier maps the texture onto instead of the whole plane (claims
+ * §5.47).
+ *
+ * Usually nothing to declare: a source that is an element in the document
+ * (`<img>`, `<canvas>`, `<video>`) is measured by the root every read phase, and
+ * follows scroll and resize like a host does. The declaration exists for a source
+ * with no box of its own — an `ImageBitmap`, an `OffscreenCanvas`, an element
+ * kept out of the document — and it wins over the measurement where both apply.
+ * `element` names another element to measure in the source's place: an
+ * offscreen canvas drawn for a `<div>` it stands behind, say. `rect` is a fixed
+ * box and stays where the app put it until the app calls again. Neither, on a
+ * source with no box, leaves the pre-§5.47 rule in force — the texture covers
+ * the viewport — and the root says so once, in dev.
+ */
+export type BackdropTexturePlacement =
+  | { readonly kind: "element"; readonly element: Element }
+  | { readonly kind: "rect"; readonly rect: Rect };
 
 export interface GlassRendererBridgeOptions {
   readonly layers: GlassLayerManager;
@@ -150,6 +174,14 @@ export interface GlassRendererBridge {
   /** Follow the browser-side device lifecycle: attach, loss, replacement. */
   syncDevice(status: WebGPUStatus): void;
   setBackdropTexture(sourceId: string, texture: GlassBackdropTexture | undefined): void;
+  /**
+   * Where a texture source sits on the plane, in CSS px relative to the
+   * viewport — the root's measurement of the source element, or the app's
+   * declaration, resolved on the root's side. Forwarded to the renderer's
+   * `setBackdropPlacement`; held here as well so a renderer created after the
+   * placement arrived starts with it. `undefined` is the cover fit.
+   */
+  setBackdropPlacement(sourceId: string, placement: Rect | undefined): void;
   /**
    * Whether pixels have been handed over for this source id.
    *
@@ -391,6 +423,8 @@ export function createGlassRendererBridge(
   const contexts = new Map<GlassPlane, PlaneContexts>();
   const textures = new Map<string, GlassBackdropTexture>();
   const providers = new Map<string, BackdropProvider>();
+  /** Placements the root resolved, kept for a renderer that arrives after them. */
+  const placements = new Map<string, Rect>();
   const liveGroups = new Set<string>();
 
   let pending:
@@ -606,6 +640,11 @@ export function createGlassRendererBridge(
     rendererModule ??= loaded;
     if (renderer === undefined) {
       renderer = loaded.createWebGPURenderer();
+      // Placements resolved while the chunk was still loading, in the order they
+      // arrived: the first frame must sample every source where it sits.
+      for (const [sourceId, placement] of placements) {
+        renderer.setBackdropPlacement(sourceId, placement);
+      }
       // X7's seam declares `createWebGPURenderer()` with no arguments, so the
       // tunables arrive on the line after construction — which is still before the
       // renderer has a device, let alone a frame, so no frame ever draws on the
@@ -764,6 +803,12 @@ export function createGlassRendererBridge(
       return textures.has(sourceId);
     },
 
+    setBackdropPlacement(sourceId, placement) {
+      if (placement === undefined) placements.delete(sourceId);
+      else placements.set(sourceId, placement);
+      renderer?.setBackdropPlacement(sourceId, placement);
+    },
+
     perFrameBackdropSources() {
       return [...textures]
         .filter(([, texture]) => texture.kind !== "image")
@@ -784,6 +829,7 @@ export function createGlassRendererBridge(
       dropProviders();
       unconfigureCanvases();
       textures.clear();
+      placements.clear();
       liveGroups.clear();
       renderer?.destroy();
       renderer = undefined;

@@ -100,7 +100,19 @@ export interface GeometrySync {
    * watches for the backdrop-root probe — so the root calls this from there.
    */
   invalidateClipChains(): void;
-  /** The read phase. Measures every dirty host exactly once, then clears the set. */
+  /**
+   * Measure a texture backdrop source's element alongside the hosts, so the GPU
+   * tier can place the texture where its pixels are (claims §5.47). Dirtied by
+   * the same events as a host — its own resize, any scroll that reaches it, a
+   * viewport resize — and read in the same batch. A source whose element
+   * measures to nothing (detached, `display: none`) has no placement.
+   */
+  trackSource(sourceId: string, element: Element): void;
+  untrackSource(sourceId: string): void;
+  hasSource(sourceId: string): boolean;
+  /** The source element's last measured box, in viewport-relative CSS px. */
+  placementOf(sourceId: string): Rect | undefined;
+  /** The read phase. Measures every dirty host and source exactly once, then clears the sets. */
   read(): void;
   /** Last measured viewport, or `undefined` before the first read. */
   readonly viewport: ViewportReading | undefined;
@@ -122,6 +134,10 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
   let viewport: ViewportReading | undefined;
   /** Set on the first read and whenever the viewport changes, so the DPR is fresh. */
   let viewportDirty = true;
+  /** Texture sources with an element to measure, and where each last measured. */
+  const sources = new Map<string, Element>();
+  const dirtySources = new Set<string>();
+  const placements = new Map<string, Rect>();
 
   const markDirty = (nodeId: string): void => {
     if (tracked.has(nodeId)) dirty.add(nodeId);
@@ -129,7 +145,14 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
 
   const markAllDirty = (): void => {
     for (const nodeId of tracked.keys()) dirty.add(nodeId);
+    for (const sourceId of sources.keys()) dirtySources.add(sourceId);
     viewportDirty = true;
+  };
+
+  const sourcesByElement = (element: Element): void => {
+    for (const [sourceId, candidate] of sources) {
+      if (candidate === element) dirtySources.add(sourceId);
+    }
   };
 
   const byElement = (element: Element): string | undefined => {
@@ -146,6 +169,7 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
     for (const entry of entries) {
       const nodeId = byElement(entry.target);
       if (nodeId !== undefined) dirty.add(nodeId);
+      sourcesByElement(entry.target);
     }
   });
 
@@ -163,6 +187,9 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
     if (!(target instanceof Element)) return;
     for (const [nodeId, host] of tracked) {
       if (target.contains(host.element)) dirty.add(nodeId);
+    }
+    for (const [sourceId, element] of sources) {
+      if (target.contains(element)) dirtySources.add(sourceId);
     }
   };
 
@@ -253,6 +280,18 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
         viewport = readViewport(meter, view);
         viewportDirty = false;
       }
+
+      // Sources first: cheap, and a host measured in the same batch may be
+      // sampling one of them this very frame.
+      for (const sourceId of dirtySources) {
+        const element = sources.get(sourceId);
+        if (element === undefined) continue;
+        const rect: Rect = readRect(meter, element);
+        if (rect.width > 0 && rect.height > 0) placements.set(sourceId, rect);
+        else placements.delete(sourceId);
+      }
+      dirtySources.clear();
+
       if (dirty.size === 0) return;
 
       const measured: string[] = [];
@@ -267,6 +306,34 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       dirty.clear();
 
       if (measured.length > 0 && viewport !== undefined) onMeasured?.(measured, viewport);
+    },
+
+    trackSource(sourceId, element) {
+      const previous = sources.get(sourceId);
+      if (previous !== undefined && previous !== element) resizeObserver.unobserve(previous);
+      sources.set(sourceId, element);
+      placements.delete(sourceId);
+      dirtySources.add(sourceId);
+      resizeObserver.observe(element);
+    },
+
+    untrackSource(sourceId) {
+      const element = sources.get(sourceId);
+      // A host may share the element; only stop observing what nothing else watches.
+      if (element !== undefined && byElement(element) === undefined) {
+        resizeObserver.unobserve(element);
+      }
+      sources.delete(sourceId);
+      dirtySources.delete(sourceId);
+      placements.delete(sourceId);
+    },
+
+    hasSource(sourceId) {
+      return sources.has(sourceId);
+    },
+
+    placementOf(sourceId) {
+      return placements.get(sourceId);
     },
 
     get viewport() {
@@ -285,6 +352,9 @@ export function createGeometrySync(options: GeometrySyncOptions): GeometrySync {
       tracked.clear();
       dirty.clear();
       clipChains.clear();
+      sources.clear();
+      dirtySources.clear();
+      placements.clear();
     },
   };
 }

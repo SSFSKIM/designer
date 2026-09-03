@@ -313,3 +313,19 @@ both read 0, so this is not the entry above.
 
 The `chromium-gpu` project (nine cases) and the renderer's golden/gpu suites
 are green; these ten are the CSS-tier project only.
+
+## Texture placement, deferred edges (claims §5.47, 2026-09-03)
+
+- **Partial overlap.** A surface hanging past a placed texture's box samples
+  the clamped edge texel out there; the W11a unsampled layer (the material as
+  a browser-composited layer) is not applied to the part of a surface no
+  texture is under. Right answer: split the surface's footprint at the box's
+  edge — layer outside, sampled inside — which is a per-pixel branch in the
+  optics pass on `refractedUv` leaving [0, 1]. Deferred until a page needs it.
+- **Anisotropic placement.** A box that distorts its source (an `<img>` under
+  `object-fit`, a CSS-stretched canvas) has two densities and the body blur has
+  one σ; the width's is honoured. A per-axis σ is a separable-pass change.
+- **Declared placements do not follow layout.** `placement: { kind: "rect" }`
+  is a fixed box until the app calls again; `{ kind: "element" }` is measured
+  like a source element. An `ImageBitmap` drawn for a `<div>` should declare
+  the element, not the rect — said in the type's doc, not enforced.

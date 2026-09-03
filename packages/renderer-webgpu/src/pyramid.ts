@@ -38,6 +38,7 @@ import {
 } from "./color";
 import { statsFromBuffer, type BackdropStats } from "./analysis";
 import type { BackdropFrame, BackdropProvider } from "./backdrop";
+import { texelsPerCssPx, type BackdropPlacement } from "./backdrop-fit";
 import { type GpuContext, createUniformSlot, type UniformSlot } from "./gpu-context";
 import { pipelineKey } from "./pipeline-cache";
 import { bodyBlurPlan, planPyramid, type PyramidPlan, type ResolutionPolicyView } from "./pyramid-plan";
@@ -71,6 +72,17 @@ export interface PyramidResources {
    * from without knowing where the body already sits.
    */
   readonly bodySigmaTexels: number;
+  /**
+   * Source texels per CSS px the build converted `bodySigmaCss` with — the placed
+   * density where the source had a placement, the cover ratio where it did not
+   * (`backdrop-fit.ts`) — and the source extent it was computed from. Recorded so
+   * a later request can tell whether the body it would produce differs from the
+   * one on the chain: a static image never re-dirties, so a placement whose SIZE
+   * moved is the only signal that the σ in texels has gone stale.
+   */
+  readonly texelsPerCss: number;
+  readonly sourceWidth: number;
+  readonly sourceHeight: number;
 }
 
 export interface PyramidInstrumentation {
@@ -103,6 +115,11 @@ export interface PyramidBuildRequest {
    */
   readonly bodySigmaCss: number;
   readonly viewportCss: readonly [number, number];
+  /**
+   * Where the source sits on the plane, in CSS px relative to the viewport, if
+   * the host measured one. Absent, the source is cover-fit to the viewport.
+   */
+  readonly placement?: BackdropPlacement;
 }
 
 export type PyramidBuildOutcome =
@@ -158,6 +175,30 @@ interface StatsReadback {
   readonly staging: GPUBuffer;
   inFlight: boolean;
 }
+
+const densityOf = (
+  source: { readonly width: number; readonly height: number },
+  request: PyramidBuildRequest,
+): number =>
+  texelsPerCssPx(
+    source.width,
+    source.height,
+    request.placement,
+    request.viewportCss[0],
+    request.viewportCss[1],
+  );
+
+/**
+ * Whether a request would convert the body σ with the density the chain already
+ * carries. The frame is not acquired at the clean check, so the source extent is
+ * the one recorded at build — the same extent the recorded density came from, so
+ * the comparison is exact for a source whose size held, and a source whose size
+ * moved re-dirties through its own epoch anyway.
+ */
+const sameDensity = (existing: PyramidResources, request: PyramidBuildRequest): boolean => {
+  const next = densityOf({ width: existing.sourceWidth, height: existing.sourceHeight }, request);
+  return Math.abs(next - existing.texelsPerCss) <= 1e-6 * Math.max(1, existing.texelsPerCss);
+};
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -265,6 +306,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     sizeEpoch: number,
     builtEpoch: number,
     bodySigmaTexels: number,
+    density: { readonly texelsPerCss: number; readonly sourceWidth: number; readonly sourceHeight: number },
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const bodyWidth = (plan.levels[bodyLevel] ?? plan.levels[0] as { width: number; height: number }).width;
@@ -308,6 +350,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       sizeEpoch,
       builtEpoch,
       bodySigmaTexels,
+      texelsPerCss: density.texelsPerCss,
+      sourceWidth: density.sourceWidth,
+      sourceHeight: density.sourceHeight,
     };
     resources.set(sourceId, next);
     return next;
@@ -558,7 +603,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       if (
         existing !== undefined &&
         existing.builtEpoch >= request.epoch &&
-        !provider.isDirty()
+        !provider.isDirty() &&
+        sameDensity(existing, request)
       ) {
         ledger.recordClean();
         return { status: "clean", resources: existing };
@@ -582,16 +628,13 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       pendingRelease.push(provider);
 
       const plan = planPyramid(frame.width, frame.height, request.resolution);
-      // Source texels per CSS px, under the same cover fit the optics pass
-      // samples with, times the downscale the plan actually applied (which
-      // includes `maxDimension`, not just the policy's `scale`).
-      const [viewportW, viewportH] = request.viewportCss;
-      const cover =
-        viewportW > 0 && viewportH > 0
-          ? Math.max(frame.width / viewportW, frame.height / viewportH)
-          : 1;
+      // Source texels per CSS px — the placed density where the host measured a
+      // placement, the cover ratio the optics pass samples with where it did not
+      // (`backdrop-fit.ts`) — times the downscale the plan actually applied
+      // (which includes `maxDimension`, not just the policy's `scale`).
+      const texelsPerCss = densityOf(frame, request);
       const planScale = frame.width > 0 ? plan.width / frame.width : 1;
-      const bodySigmaTexels = request.bodySigmaCss * cover * planScale;
+      const bodySigmaTexels = request.bodySigmaCss * texelsPerCss * planScale;
       const bodyPlan = bodyBlurPlan(bodySigmaTexels, plan);
       const target = allocate(
         request.sourceId,
@@ -600,6 +643,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         frame.sizeEpoch,
         request.epoch,
         bodySigmaTexels,
+        { texelsPerCss, sourceWidth: frame.width, sourceHeight: frame.height },
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);

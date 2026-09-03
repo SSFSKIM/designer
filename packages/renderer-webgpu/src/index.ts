@@ -91,6 +91,18 @@ export {
 } from "./backdrop";
 
 export {
+  backdropFit,
+  coverFit,
+  IDENTITY_FIT,
+  isUsablePlacement,
+  placementFit,
+  samePlacement,
+  texelsPerCssPx,
+  type BackdropFit,
+  type BackdropPlacement,
+} from "./backdrop-fit";
+
+export {
   alphaNormalisationMode,
   BACKDROP_ALPHA_MODES,
   BACKDROP_COLOR_SPACES,

@@ -1112,10 +1112,73 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     subtree: true,
   });
 
+  /** The element that shows a supplied texture's pixels, where the texture is one. */
+  const sourceElementOf = (texture: GlassBackdropTexture): Element | undefined => {
+    const candidate: unknown =
+      texture.kind === "canvas" ? texture.canvas : texture.kind === "image" ? texture.image : texture.video;
+    return typeof candidate === "object" &&
+      candidate !== null &&
+      "isConnected" in candidate &&
+      "getBoundingClientRect" in candidate
+      ? (candidate as Element)
+      : undefined;
+  };
+
+  /*
+   * Where a supplied texture's pixels sit (claims §5.47). The renderer maps a
+   * texture onto the plane through one rect, and until this it had none — every
+   * texture was cover-fit to the viewport, right for a stage the size of the
+   * viewport and wrong for anything smaller. The element the app handed over is
+   * the box, measured every read phase with the hosts; an app with a source that
+   * has no box declares one, and one that declares nothing is told, once, that
+   * the old rule still applies to it.
+   */
+  const placeTexture = (sourceId: string, texture: GlassBackdropTexture | undefined): void => {
+    geometry.untrackSource(sourceId);
+    const declared = texture?.placement;
+    if (texture === undefined) {
+      bridge?.setBackdropPlacement(sourceId, undefined);
+      return;
+    }
+    if (declared?.kind === "rect") {
+      bridge?.setBackdropPlacement(sourceId, declared.rect);
+      return;
+    }
+    const element = declared?.kind === "element" ? declared.element : sourceElementOf(texture);
+    if (element !== undefined && element.isConnected) {
+      // The first placement lands with the next read; nothing samples before it.
+      geometry.trackSource(sourceId, element);
+      return;
+    }
+    bridge?.setBackdropPlacement(sourceId, undefined);
+    if (bridge === undefined) return;
+    platformDiagnostics.report({
+      code: "backdrop-texture-unplaced",
+      severity: "warning",
+      subjects: [sourceId],
+      message:
+        `Backdrop source "${sourceId}" was supplied as a ${texture.kind} with no element in the ` +
+        `document to place it by, and no placement declared. The GPU tier maps it over the whole ` +
+        `viewport (cover fit). Hand over the element that shows these pixels, or declare ` +
+        `placement: { kind: "element", element } or { kind: "rect", rect }.`,
+    });
+  };
+
   const write = (frame: FrameInfo, resolution: FrameReport["resolution"]): void => {
     const viewport = geometry.viewport;
     if (viewport !== undefined) {
       layers.resizeCanvases(viewport.width, viewport.height, viewport.devicePixelRatio);
+    }
+
+    // Each measured source's box, forwarded every frame: the renderer keeps the
+    // last one and ignores a repeat, and a source that measured to nothing this
+    // frame goes back to the cover fit rather than to a stale box.
+    if (bridge !== undefined) {
+      for (const sourceId of suppliedTextures.keys()) {
+        if (geometry.hasSource(sourceId)) {
+          bridge.setBackdropPlacement(sourceId, geometry.placementOf(sourceId));
+        }
+      }
     }
 
     const accessibility = resolution.accessibility;
@@ -1789,6 +1852,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         suppliedTextures.set(sourceId, texture);
         backdropTones.delete(sourceId);
       }
+      placeTexture(sourceId, texture);
       // Supplying pixels is a content change, and a content change that does not
       // raise the dirty epoch is invisible: the pyramid is rebuilt from that
       // ledger and nothing else. Before this, every caller in the repo reached

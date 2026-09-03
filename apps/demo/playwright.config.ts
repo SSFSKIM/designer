@@ -31,7 +31,21 @@ export default defineConfig({
     baseURL: "http://localhost:5177",
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] }, testIgnore: "**/*.gpu.spec.ts" },
+    {
+      // The comparison against the calibration harness (claims §5.47) needs the
+      // renderer on a real adapter: `packages/platform-web`'s launch recipe, so
+      // Dawn reaches the hardware rather than SwiftShader. The spec skips itself
+      // where the page reports no adapter.
+      name: "chromium-gpu",
+      testMatch: "**/*.gpu.spec.ts",
+      use: {
+        channel: "chromium",
+        launchOptions: { args: ["--enable-unsafe-webgpu", "--enable-features=Vulkan,WebGPU"] },
+      },
+    },
+  ],
   webServer: {
     command: "npx vite --port 5177 --strictPort",
     cwd: root,

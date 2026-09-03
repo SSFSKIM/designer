@@ -309,7 +309,22 @@ const W11C_G2_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "33049e332405b5d9a16d36765352cd17",
 };
 
+/**
+ * Claims §5.47 — the placed fit. The one scene whose backdrop is smaller than
+ * its viewport, `placed-checkerboard`, was added WITH the fit and has no
+ * pre-fit golden to attribute against; its fail-before record is the cover-fit
+ * render's hash in `scenes.spec.ts`. Pinned here under the named profile like
+ * every other scene, so a later change that moves it through anything but the
+ * profile seam fails the same way. Every pre-existing scene's backdrop is the
+ * size of its viewport, where the placed fit and the cover fit coincide, and
+ * every one of their hashes above reproduced unchanged the day this landed.
+ */
+const PLACEMENT_HASHES: Readonly<Record<string, string>> = {
+  "placed-checkerboard": "c42c0c7069e55624f5e34d717a1ffb99",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  PLACEMENT_HASHES[name] ??
   W11C_G2_HASHES[name] ??
   W11C_HASHES[name] ??
   W11A_HASHES[name] ??

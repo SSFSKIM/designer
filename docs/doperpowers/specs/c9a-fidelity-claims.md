@@ -7064,3 +7064,84 @@ every run above is byte-identical over two independent page loads.
 The generalisable form: **when a harness drives frames by hand, it takes on
 responsibility for every asynchronous path the real frame loop would have
 serviced** — and a capture that is stable is not thereby correct.
+
+### 5.47 The GPU tier sampled every texture stretched over the viewport; the demo showed it and the bed never could (2026-09-03)
+
+**The defect.** `renderer.ts` mapped a texture backdrop onto the plane with
+one rule, `coverFit(source)`: the texture fills the viewport, aspect kept,
+overflow cropped. Where the texture's pixels actually sat on the page was
+modelled nowhere — core's `TextureBackdropSource` carries a probe and a
+resolution policy, the bridge registers a provider with an extent, and the
+optics pass took its uv transform from the plan's extent and the viewport's.
+So a 320×200 raster handed to a root whose planes are a 1440×900 viewport was
+sampled through a 4.5× stretch: the surface over it read one and a half
+stretched checker cells, the lens displaced across texels that were 4.5 CSS px
+wide, and the body σ was converted with the cover ratio (0.22 texels per CSS
+px) rather than the raster's own (1). The demo's reference panel is exactly
+that case — its live capsule rendered as a flat light slab with a darker block
+at its right end where the harness capture of the identical scene is
+translucent with the squares through it — and the site's instrument-window
+canvas, smaller than the viewport too, was stretched the same way under every
+stage. Every adopter with an image or canvas backdrop smaller than the
+viewport had it.
+
+**Why the bed never saw it.** The calibration harness (`web/scene.ts`) appends
+the raster to a stage that IS the viewport — 320×200 at the origin, 640×400
+at DPR 2 — and there the cover fit and the placed fit coincide exactly: scale
+`[1, 1]`, offset `[0, 0]`, density 1 (or 2). Two hundred and thirty cells,
+every golden, every isolation hash, and the CSS tier (which has no texture
+path) were all taken where the two rules agree. The demo was the one render
+where they came apart, and nothing compared the demo to the bed.
+
+**The fix.** A texture source has a placement — its box on the plane in CSS px
+relative to the viewport — and the renderer maps it through that box
+(`backdrop-fit.ts`):
+
+- `uv = (viewport01 · viewportCss − placement.xy) / placement.wh`, i.e. scale
+  `viewportCss / placement.wh`, offset `−placement.xy / placement.wh`, applied
+  by the same `fit` uniform the optics pass already sampled through, so the
+  lens displacement (CSS px, divided by the viewport before the fit) lands at
+  `displacement / placement.width` of the texture — the same distance in
+  texels a page shows it at. Outside the box the sampler clamps to the edge;
+  the W11a unsampled layer is not applied to partial overlap (deferred).
+- The body σ is converted at build with the placed density, `sourceWidth /
+  placement.width` texels per CSS px (the wider axis where a box distorts its
+  source), in place of the cover ratio; the density is recorded on the pyramid
+  resources, and a placement whose SIZE changes (a static image never
+  re-dirties) is named as the renderer's own rebuild request. Position changes
+  are free — the fit is per frame.
+- The analysis pass is unchanged: it reduces the whole source at a fixed grid,
+  which is the source-level statistic W9 chose (§5.31) on both tiers, and the
+  placed source's pixels are the same pixels.
+- The placement's source of truth is the element the app handed to
+  `setBackdropTexture` — `<img>`, `<canvas>`, `<video>` — measured every read
+  phase by the geometry sync through the metered read protocol, dirtied by its
+  own resize, any scroll that reaches it and a viewport resize, and forwarded to
+  the renderer each frame (repeats are free). A source with no box (an
+  `ImageBitmap`, an `OffscreenCanvas`, an element outside the document) takes a
+  declared `placement: { kind: "element", element } | { kind: "rect", rect }`
+  on the texture value, or keeps the cover fit and is told so once
+  (`backdrop-texture-unplaced`). Without a host — the golden harness, a
+  renderer driven by hand — `setBackdropPlacement` is the seam.
+
+**Verified.**
+
+| check | result |
+| --- | --- |
+| renderer goldens, isolation pins | every pre-existing scene byte-identical (23 of 23; nine isolation hashes reproduce); `placed-checkerboard` added — a 96-texel board at (28, 12) under a surface hanging past its edge — with its golden, its named-profile pin, and the cover-fit render's hash `e1383ed6…` kept as the fail-before record (max channel delta > 24, outlier fraction > 0.05 between the two) |
+| calibration, placed fit vs canonical captures | `checkerboard__capsule-button__rest` and `photo__rrect-md__rest` on 1x light, `checkerboard__rrect-md__rest` on 2x light, re-captured into scratch: **byte-identical** to `web-captures/`, all three |
+| the demo's reference panel vs the harness capture (real adapter) | over the capsule's 120×44 box, mean \|Δluma\| **0.088 → 0.000** (encoded; max 0.19 before); interior std 0.056 → **0.0705**, the harness's own 0.0705 — the checkerboard shows through; now a demo e2e (`reference-panel.gpu.spec.ts`, tolerance 0.02, the capture committed beside it with its cell record) |
+| unit | renderer 355 (+17: the fit math, the density rebuild), platform-web 341 (+6: the sync, the bridge, the root's three resolutions) |
+
+**What this changes in the claims.** Nothing measured moves: the bed was
+taken where the fit is the identity and stays so. What changes is the
+relation between the bed and a page — a surface over a texture now sees the
+texture the page shows, so the numbers in §5 describe what an adopter's
+surface renders, which before this they did only for a texture the size of the
+viewport. The demo's "Measured against the real thing" panel is the first
+place that relation is checked, and it is checked by a test now.
+
+**Recorded, not done.** Partial overlap keeps the clamped edge rather than the
+unsampled layer; a box that distorts its source honours the width's density
+only; a video's placement is its element's box like any other (declared
+placement covers the rest). See the tech-debt tracker.

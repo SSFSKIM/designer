@@ -111,6 +111,14 @@ export const PLATFORM_DIAGNOSTIC_CODES = [
    * renderer, on a shape that no longer names the call that declared it.
    */
   "non-uniform-radii",
+  /**
+   * A texture backdrop was supplied with no box to place it by — an
+   * `ImageBitmap`, an `OffscreenCanvas`, or an element outside the document,
+   * and no `placement` declared — so the GPU tier maps it over the whole
+   * viewport (cover fit) rather than where its pixels are. Claims §5.47 is the
+   * measured cost of that mapping. Raised once per source, at supply.
+   */
+  "backdrop-texture-unplaced",
 ] as const;
 
 export type PlatformDiagnosticCode = (typeof PLATFORM_DIAGNOSTIC_CODES)[number];

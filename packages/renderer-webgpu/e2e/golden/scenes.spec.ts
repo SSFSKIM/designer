@@ -19,6 +19,7 @@
  * difference and how much is a change in the optics.
  */
 
+import { createHash } from "node:crypto";
 import { expect, test } from "@playwright/test";
 
 import { SCENES } from "../fixtures/scenes";
@@ -135,5 +136,46 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
       wide.depthCss,
       `wide group's lens depth (${wide.depthCss.toFixed(2)} CSS px) should exceed the narrow group's (${narrow.depthCss.toFixed(2)} CSS px)`,
     ).toBeGreaterThan(narrow.depthCss * 1.5);
+  });
+});
+
+/**
+ * SHA-256 of `placed-checkerboard` rendered with its placement WITHHELD — the
+ * texture cover-fit to the viewport, which is what every texture backdrop got
+ * before claims §5.47. Recorded on this machine's `apple / metal-3` adapter the
+ * day the placed fit landed, and never regenerated: it is the fail-before
+ * record, the render the golden replaced.
+ */
+const PLACED_CHECKERBOARD_COVER_HASH = "e1383ed6f133d99d19b7e44b73022749";
+
+test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {
+  test("the placed render is the golden, and the cover-fit render is what it replaced", async ({
+    page,
+  }) => {
+    const report = await openHarness(page);
+    requireHardwareAdapter(report);
+
+    const placed = decodeCapture(
+      await page.evaluate(() => window.vitrea.renderScene("placed-checkerboard")),
+    );
+    const cover = decodeCapture(
+      await page.evaluate(() =>
+        window.vitrea.renderScene("placed-checkerboard", undefined, undefined, {
+          ignorePlacement: true,
+        }),
+      ),
+    );
+
+    // Different pictures: the placed render shows 8 px squares under the surface
+    // and clamps past the texture's edge; the cover render stretched the same
+    // 96 texels over 200×120 CSS px.
+    const difference = compare(placed, cover, 8);
+    expect(difference.maxChannelDelta).toBeGreaterThan(24);
+    expect(difference.outlierFraction).toBeGreaterThan(0.05);
+
+    // And the cover render is exactly the render the golden replaced, so the
+    // golden's whole delta is the fit and nothing else travelled with it.
+    const hash = createHash("sha256").update(cover.data).digest("hex").slice(0, 32);
+    expect(hash).toBe(PLACED_CHECKERBOARD_COVER_HASH);
   });
 });

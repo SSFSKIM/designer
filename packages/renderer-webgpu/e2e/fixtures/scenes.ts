@@ -12,13 +12,15 @@
  * than one big scene that exercises everything at once and localises nothing.
  */
 
-import type { GroupRenderInput, SurfaceInput } from "../../src/render-model";
+import type { GroupRenderInput, Rect, SurfaceInput } from "../../src/render-model";
 
 export type BackdropSpec =
   | { readonly kind: "none" }
   | {
       readonly kind: "checkerboard";
       readonly cell: number;
+      /** Source extent in texels, square. 256 unless a scene says otherwise. */
+      readonly size?: number;
       /**
        * Dirty every frame, the way `importExternalTexture`'s expire-at-task-end
        * makes a video dirty on every frame that samples it. The benchmark scene
@@ -49,6 +51,12 @@ export interface Scene {
    * what it needs to resolve; a golden has to stay small enough to commit.
    */
   readonly measureOnly?: boolean;
+  /**
+   * Where the backdrop's pixels sit on the plane, in CSS px (claims §5.47).
+   * Absent, the backdrop is cover-fit to the viewport — the rule every golden
+   * before `placed-checkerboard` was taken under.
+   */
+  readonly backdropPlacement?: Rect;
 }
 
 const VIEWPORT = { widthCss: 200, heightCss: 120, devicePixelRatio: 2 } as const;
@@ -122,6 +130,20 @@ export const SCENES: readonly Scene[] = [
     ...VIEWPORT,
     name: "refraction-checkerboard",
     backdrop: { kind: "checkerboard", cell: 10 },
+    groups: [group("g", [rect("s", [100, 60], [140, 68], { shape: { center: [100, 60], size: [140, 68], radii: [20, 20, 20, 20], smoothing: 0, thickness: 14 } })])],
+  },
+  {
+    // A backdrop SMALLER than the viewport, placed where its pixels are (claims
+    // §5.47): a 96-texel checkerboard at (28, 12), one texel per CSS px, under a
+    // surface that hangs past its right edge. Sampled through the placed fit the
+    // squares are 8 CSS px and land under the surface at the same coordinates a
+    // page would show them at; past the placement's edge the sampler clamps.
+    // The cover fit stretched this same texture over the whole 200×120 viewport,
+    // and `scenes.spec.ts` keeps that render's hash as the fail-before record.
+    ...VIEWPORT,
+    name: "placed-checkerboard",
+    backdrop: { kind: "checkerboard", cell: 8, size: 96 },
+    backdropPlacement: { x: 28, y: 12, width: 96, height: 96 },
     groups: [group("g", [rect("s", [100, 60], [140, 68], { shape: { center: [100, 60], size: [140, 68], radii: [20, 20, 20, 20], smoothing: 0, thickness: 14 } })])],
   },
   {

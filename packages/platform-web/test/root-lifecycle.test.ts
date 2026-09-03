@@ -426,6 +426,7 @@ function stubGpu(): {
     replaceDevice: () => {},
     registerBackdrop: () => {},
     unregisterBackdrop: () => {},
+    setBackdropPlacement: () => {},
     backdrop: () => undefined,
     setViewport: () => {},
     setGroup: () => {},

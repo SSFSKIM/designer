@@ -133,7 +133,7 @@ function providerFor(spec: BackdropSpec, gpu: GPUDevice): BackdropProvider | und
     case "none":
       return undefined;
     case "checkerboard": {
-      const image = checkerboardImage(spec.cell);
+      const image = checkerboardImage(spec.cell, spec.size);
       return createCopyProvider({
         id: "bg",
         // "canvas" is what makes a source live — dirty on every frame, which is
@@ -242,9 +242,20 @@ interface SceneRun {
   dispose(): void;
 }
 
+/** Per-render switches a spec can throw. */
+export interface RenderOptions {
+  /**
+   * Render the scene with its `backdropPlacement` withheld, so the backdrop is
+   * cover-fit to the viewport — the pre-§5.47 rule, kept reachable so a spec can
+   * show the two renders differ and pin what the old one produced.
+   */
+  readonly ignorePlacement?: boolean;
+}
+
 async function setUpScene(
   scene: Scene,
   materialProfile?: MaterialProfilePatch,
+  options?: RenderOptions,
 ): Promise<SceneRun> {
   const gpu = await ensureDevice();
   const renderer = createWebGPURenderer({
@@ -260,6 +271,9 @@ async function setUpScene(
 
   const provider = providerFor(scene.backdrop, gpu);
   if (provider !== undefined) renderer.registerBackdrop(provider);
+  if (scene.backdropPlacement !== undefined && options?.ignorePlacement !== true) {
+    renderer.setBackdropPlacement("bg", scene.backdropPlacement);
+  }
   for (const group of scene.groups) renderer.setGroup(group);
 
   const width = Math.round(scene.widthCss * scene.devicePixelRatio);
@@ -286,8 +300,9 @@ async function runScene(
   family?: "rsupn" | "rsup",
   materialProfile?: MaterialProfilePatch,
   governorLevel?: number,
+  options?: RenderOptions,
 ): Promise<SceneRun> {
-  const run = await setUpScene(scene, materialProfile);
+  const run = await setUpScene(scene, materialProfile, options);
   // The rung first, the family second: a caller naming both means "this rung,
   // but hold the field family", which is how the family comparison isolates one
   // knob at a time.
@@ -343,13 +358,14 @@ const api = {
     name: string,
     family?: "rsupn" | "rsup",
     materialProfile?: MaterialProfilePatch,
+    options?: RenderOptions,
   ): Promise<{
     readonly width: number;
     readonly height: number;
     readonly pixels: string;
   }> {
     const scene = sceneByName(name);
-    const run = await runScene(scene, family, materialProfile);
+    const run = await runScene(scene, family, materialProfile, undefined, options);
     try {
       const target = scene.capture === "highlight" ? run.highlight : run.optics;
       const bytes = await readback(await ensureDevice(), target.texture, run.width, run.height);

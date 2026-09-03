@@ -43,6 +43,15 @@ import { DEFAULT_GROUP_UNION, type GroupUnionParams } from "@vitrea/geometry";
 
 import { createAdaptationState, readbackDue, type AdaptationState } from "./analysis";
 import type { BackdropProvider } from "./backdrop";
+import {
+  coverFit,
+  isUsablePlacement,
+  placementFit,
+  samePlacement,
+  texelsPerCssPx,
+  type BackdropFit,
+  type BackdropPlacement,
+} from "./backdrop-fit";
 import { OUTPUT_TEXTURE_FORMAT, relativeLuminance } from "./color";
 import {
   createDeviceHost,
@@ -83,8 +92,8 @@ import {
   type MaterialVariant,
 } from "./material";
 import { createPassRunner, type DeviceRect, type PassRunner } from "./passes";
-import { createPyramidStore, type PyramidStore } from "./pyramid";
-import { chainLodForSigma } from "./pyramid-plan";
+import { createPyramidStore, type PyramidResources, type PyramidStore } from "./pyramid";
+import { chainLodForSigma, type ResolutionPolicyView } from "./pyramid-plan";
 import type {
   FrameContextView,
   FrameParticipantView,
@@ -222,6 +231,16 @@ export interface GlassRenderer {
   registerBackdrop(provider: BackdropProvider): void;
   unregisterBackdrop(sourceId: string): void;
   backdrop(sourceId: string): BackdropProvider | undefined;
+  /**
+   * Where a source's pixels sit on the plane, in CSS px relative to the viewport
+   * (`backdrop-fit.ts`). Set every read phase by a host that measured the source
+   * element's box; `undefined` (or never set) is the cover fit, the rule every
+   * golden and calibration capture was taken under. Accepted before the provider
+   * is registered and kept across device generations; cleared by
+   * `unregisterBackdrop`.
+   */
+  setBackdropPlacement(sourceId: string, placement: BackdropPlacement | undefined): void;
+  backdropPlacement(sourceId: string): BackdropPlacement | undefined;
 
   setViewport(viewport: ViewportState): void;
   readonly viewport: ViewportState;
@@ -253,8 +272,15 @@ interface GroupEntry {
   readonly input: GroupRenderInput;
 }
 
+/** The resolution policy a renderer driven without a host applies to every source. */
+const STANDALONE_RESOLUTION: ResolutionPolicyView = { scale: 1, maxDimension: 2048 };
+
 export function createWebGPURenderer(options: WebGPURendererOptions = {}): GlassRenderer {
   const providers = new Map<string, BackdropProvider>();
+  /** Where each source sits on the plane, where the host has said (`backdrop-fit.ts`). */
+  const placements = new Map<string, BackdropPlacement>();
+  /** The resolution policy each source was last built under, for a rebuild this side names. */
+  const lastResolution = new Map<string, ResolutionPolicyView>();
   const groups = new Map<string, GroupEntry>();
   const adaptation = new Map<string, AdaptationState>();
   const lastReadbackAt = new Map<string, number>();
@@ -382,23 +408,56 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   };
 
   /**
-   * Cover fit: the backdrop fills the viewport and the overflow is cropped
-   * symmetrically. Returned as a scale/offset on viewport-normalised coordinates,
-   * which is the form the optics shader applies.
+   * The uv transform the optics pass samples a source through: the placed fit
+   * where the host measured where the source sits on the plane, the cover fit
+   * where it did not (`backdrop-fit.ts`). Cover is computed from the PLAN's
+   * extent, as it always was — the plan may have downscaled the source, and the
+   * rounding of that downscale is part of every golden's bytes.
    */
-  const coverFit = (
-    sourceWidth: number,
-    sourceHeight: number,
-  ): readonly [number, number, number, number] => {
-    const viewportAspect =
-      viewport.heightCss > 0 ? viewport.widthCss / viewport.heightCss : 1;
-    const sourceAspect = sourceHeight > 0 ? sourceWidth / sourceHeight : 1;
-    if (sourceAspect > viewportAspect) {
-      const scaleX = viewportAspect / sourceAspect;
-      return [scaleX, 1, (1 - scaleX) / 2, 0];
+  const fitFor = (sourceId: string, pyramid: PyramidResources): BackdropFit => {
+    const placement = placements.get(sourceId);
+    return isUsablePlacement(placement)
+      ? placementFit(placement, viewport.widthCss, viewport.heightCss)
+      : coverFit(pyramid.plan.width, pyramid.plan.height, viewport.widthCss, viewport.heightCss);
+  };
+
+  /**
+   * A source whose placement changed SIZE since its pyramid was built carries a
+   * body σ in texels that no longer matches the material's CSS-px σ, and a
+   * static image never re-dirties to fix it. Named here as its own rebuild
+   * request, at the epoch the chain already holds so the store's clean check
+   * falls through to the density comparison rather than to the epoch.
+   */
+  const densityRebuilds = (
+    explicit: readonly RebuildRequestView[],
+    pyramids: PyramidStore,
+  ): readonly RebuildRequestView[] => {
+    const requests: RebuildRequestView[] = [];
+    const named = new Set(explicit.map((request) => request.sourceId));
+    // Every registered source, not only the placed ones: a placement WITHDRAWN
+    // moves the density back to the cover ratio, and that is a change too.
+    for (const sourceId of providers.keys()) {
+      if (named.has(sourceId)) continue;
+      const existing = pyramids.resources(sourceId);
+      if (existing === undefined) continue;
+      const next = texelsPerCssPx(
+        existing.sourceWidth,
+        existing.sourceHeight,
+        placements.get(sourceId),
+        viewport.widthCss,
+        viewport.heightCss,
+      );
+      if (Math.abs(next - existing.texelsPerCss) <= 1e-6 * Math.max(1, existing.texelsPerCss)) continue;
+      requests.push({
+        sourceId,
+        epoch: existing.builtEpoch,
+        resolution: lastResolution.get(sourceId) ?? STANDALONE_RESOLUTION,
+        groupIds: [...groups.values()]
+          .filter((entry) => entry.input.backdropSourceId === sourceId)
+          .map((entry) => entry.input.groupId),
+      });
     }
-    const scaleY = sourceAspect / viewportAspect;
-    return [1, scaleY, 0, (1 - scaleY) / 2];
+    return requests;
   };
 
   const unionOf = (input: GroupRenderInput): GroupUnionParams =>
@@ -435,7 +494,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   };
 
   function rebuildRequests(explicit: readonly RebuildRequestView[] | undefined): readonly RebuildRequestView[] {
-    if (explicit !== undefined) return explicit;
+    const base = explicit ?? standaloneRequests();
+    const { store: pyramids } = ensureContext();
+    const density = densityRebuilds(base, pyramids);
+    return density.length === 0 ? base : [...base, ...density];
+  }
+
+  function standaloneRequests(): readonly RebuildRequestView[] {
     // Standalone path: ask each provider a group actually samples.
     const sampled = new Set<string>();
     for (const entry of groups.values()) {
@@ -452,7 +517,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // keeping the books, so a monotonically rising number is the honest
         // stand-in and it keeps `build`'s clean-skip from firing spuriously.
         epoch: framesDrawn + 1,
-        resolution: { scale: 1, maxDimension: 2048 },
+        resolution: STANDALONE_RESOLUTION,
         groupIds: [...groups.values()]
           .filter((entry) => entry.input.backdropSourceId === sourceId)
           .map((entry) => entry.input.groupId),
@@ -486,7 +551,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         )?.input ?? { groupId: "", surfaces: [], refraction: "none", analysisExact: false },
       );
       const optics = opticsUnderPolicy(material.optics[variant], accessibility, material);
+      lastResolution.set(request.sourceId, request.resolution);
 
+      const placement = placements.get(request.sourceId);
       const outcome = pyramids.build(
         {
           sourceId: request.sourceId,
@@ -494,6 +561,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           resolution: request.resolution,
           bodySigmaCss: optics.blurSigma,
           viewportCss: [viewport.widthCss, viewport.heightCss],
+          ...(isUsablePlacement(placement) ? { placement } : {}),
         },
         provider,
         encoder,
@@ -733,9 +801,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         cssPerDevice,
         coverageRampCss: cssPerDevice,
         fit:
-          pyramid === undefined
+          pyramid === undefined || sourceId === undefined
             ? [1, 1, 0, 0]
-            : coverFit(pyramid.plan.width, pyramid.plan.height),
+            : fitFor(sourceId, pyramid),
         refractionScale,
         lensRefractionGain: material.lensRefractionGain,
         chainMaxLod: pyramid?.plan.maxLod ?? 0,
@@ -954,6 +1022,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
     },
 
     unregisterBackdrop(sourceId) {
+      placements.delete(sourceId);
+      lastResolution.delete(sourceId);
       const provider = providers.get(sourceId);
       if (provider === undefined) return;
       provider.destroy();
@@ -965,6 +1035,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
 
     backdrop(sourceId) {
       return providers.get(sourceId);
+    },
+
+    setBackdropPlacement(sourceId, placement) {
+      if (samePlacement(placements.get(sourceId), placement)) return;
+      if (placement === undefined) placements.delete(sourceId);
+      else placements.set(sourceId, { ...placement });
+    },
+
+    backdropPlacement(sourceId) {
+      return placements.get(sourceId);
     },
 
     setViewport(next) {
