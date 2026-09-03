@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "f2fb7dbc0a9495a2",
+  "resolvedMaterialSha256": "125f0f6eb025bede",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -91,7 +91,8 @@
     "4a87498387e05d4f -> eeb407bd7befe9bb (2026-09-03, W13 G1 merged with W14 G2): the ramp's six constants and W14's landed outer shadow (claims 5.66) resolve together in one material for the first time; no constant of either wave moved, only the union of the two.",
     "eeb407bd7befe9bb -> bc0460558c4609b5 (2026-09-03, W13 G1, FOURTH form): the ramp gains sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved.",
     "bc0460558c4609b5 -> 2b8cfda6950bc697 (2026-09-03, W13 G1, fourth form FITTED at 1x): sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact.",
-    "2b8cfda6950bc697 -> f2fb7dbc0a9495a2 (2026-09-04, W15 G1): the material gains three SECOND-SCALE constants - sizeScatterGainMax2x, sizeScatterFloor2x, sizeScatterSpanMax2x - so that the 2x body can be swept in the renderer (claims 5.69 sections 1-2). Each defaults to its 1x constant and is interpolated by the same rampAtScale the ramp's anchors use, so THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED and so is the material at every ratio until the sweep fits them; the digest moves because three keys entered the resolved object, not because a rendered number did. PROVISIONAL, all three - see entries.scatterSecondScale."
+    "2b8cfda6950bc697 -> f2fb7dbc0a9495a2 (2026-09-04, W15 G1): the material gains three SECOND-SCALE constants - sizeScatterGainMax2x, sizeScatterFloor2x, sizeScatterSpanMax2x - so that the 2x body can be swept in the renderer (claims 5.69 sections 1-2). Each defaults to its 1x constant and is interpolated by the same rampAtScale the ramp's anchors use, so THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED and so is the material at every ratio until the sweep fits them; the digest moves because three keys entered the resolved object, not because a rendered number did. PROVISIONAL, all three - see entries.scatterSecondScale.",
+    "f2fb7dbc0a9495a2 -> 125f0f6eb025bede (2026-09-04, W15 G1's RE-FORM): the material gains a FOURTH second-scale constant, sizeScatterGainFar2x - the heavy width's gain at the TOP of the scatter span curve at dpr 2, so that the 2x heavy width grows with the span as the reference's does instead of being one number (claims 5.70 sections 4 and 7; W15 Decision Log 3, the user's landing 'the re-form'). It defaults to sizeScatterGainMax2x's own default and interpolates from the 1x gain, so the span curve is flat at dpr <= 1 and THE RESOLVED MATERIAL AT DPR 1 IS UNCHANGED - as it is at every ratio while the ends are equal; the digest moves because one key entered the resolved object, not because a rendered number did. PROVISIONAL - see entries.scatterSecondScale."
   ],
   "$comment-w11c-g2": [
     "RE-RECORDED 2026-09-03 (W11c G2, the lens band): the lens is now the",
@@ -203,6 +204,7 @@
     "sizeScatterGainMax2x": 8,
     "sizeScatterFloor2x": 0.4,
     "sizeScatterSpanMax2x": 256,
+    "sizeScatterGainFar2x": 8,
     "sizeScatterRampStartThin1x": 0.72,
     "sizeScatterRampStartThick1x": 0.52,
     "sizeScatterRampStartThin2x": 0.46,
@@ -359,7 +361,8 @@
       "value": {
         "sizeScatterGainMax2x": 8,
         "sizeScatterFloor2x": 0.4,
-        "sizeScatterSpanMax2x": 256
+        "sizeScatterSpanMax2x": 256,
+        "sizeScatterGainFar2x": 8
       },
       "previous": {},
       "method": [
@@ -391,7 +394,26 @@
         "The CSS tier mirrors all three and draws none of them: it reads the law at",
         "CSS_TIER_RAMP_SCALE = 1, and W15 Decision Log 2 leaves W13 Decision Log 5",
         "in force until G1 predicts this tier's 2x sigma against its own measured",
-        "ceiling (claims 5.69 section 4)."
+        "ceiling (claims 5.69 section 4). W15 Decision Log 3 closed that question by",
+        "keeping W13 Decision Log 5 for this wave, so the mirror still draws none.",
+        "",
+        "A FOURTH term, sizeScatterGainFar2x, added by W15 G1's RE-FORM (claims 5.70",
+        "sections 4 and 7; W15 Decision Log 3, the user's landing). The single 2x",
+        "gain above is one number fitted on the calibration cells, whose spans are",
+        "32-128, and the reference's heavy kernel grows with the span - 8.0 / 7.5 /",
+        "8.0 / 9.0 / 11.0 device px across the bed (claims 5.69 section 1). Landing",
+        "the single gain left rrect-lg's deep interior about 40% too structured",
+        "(spread 0.1134 against native 0.0810). So the gain becomes a curve in span:",
+        "gain(span) rises from sizeScatterGainMax2x at sizeSpanMax to this constant",
+        "at sizeScatterSpanMax, along the same smoothstep the ramp's far anchor",
+        "declines on. It interpolates from the 1x gain rather than the 2x one, so at",
+        "dpr <= 1 the two ends coincide and the grading is flat WHATEVER this says -",
+        "the binding rule by construction again. Named here at the 2x gain's own",
+        "default, so the resolved material is unchanged at every ratio; PROVISIONAL",
+        "until the re-form's sweep and confirmation set it. Decision Log 3's",
+        "arithmetic puts it near 9.9 over a base gain of 4.8 - G0's ratio 11 / 8 =",
+        "1.375 read against this curve's 0.352 at span 160 - which is where the sweep",
+        "starts and not where it lands."
       ]
     },
     "scatterRamp": {

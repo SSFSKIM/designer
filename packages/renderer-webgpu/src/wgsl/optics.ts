@@ -130,7 +130,12 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// shadow's shift needs when it lands outside the texture; the body depth
   /// ramp's THICK start (z, W13 G1's third form — the thin end is scatter.y and
   /// this pass mixes the two by the pixel's own sizeThickness), and (w) the
-  /// padding a uniform's vec4 alignment requires
+  /// heavy width's gain at the TOP of the scatter span curve, resolved at this
+  /// group's device ratio (W15 G1's re-form, claims §5.70 §4 and §7) — the
+  /// padding slot this vec4's alignment already required, taken because the
+  /// gain's near end (size.x) has no free neighbour and this vec4 already
+  /// carries the body ramp's other span-graded end; at dpr 1 it equals size.x
+  /// and the grading is flat
   shadowSize : vec4f,
   /// the backdrop tone response's anchors (W9): the three solid anchors'
   /// ENCODED-space means (xyz), and the backdrop's linear-space mean (w) — the
@@ -625,7 +630,13 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * by a share that is ≈ 0.4 on a small control and rises with the span. The
    * mix, not the level, is what the span moves.
    */
-  let scatterLod = clamp(ou.size.w + log2(max(ou.size.x, 1e-4)), 0.0, ou.lens.w);
+  // The gain is per PIXEL and not one number per group since W15 G1's re-form
+  // (claims §5.70 §4 and §7): the reference's heavy kernel grows with the span,
+  // so the gain rises from its near end 'size.x' to its far end 'shadowSize.w'
+  // along 'farS' — the very smoothstep the ramp's far anchor already declines
+  // along, computed above with the share. One curve, two quantities.
+  let gainEff = ou.size.x + (ou.shadowSize.w - ou.size.x) * farS;
+  let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)), 0.0, ou.lens.w);
 
   var backdrop = vec3f(0.0);
   if (ou.flags.x > 0.5) {

@@ -155,6 +155,16 @@ export interface OpticsPassArgs {
    * the caller interpolates, as it already did for the ramp's anchors.
    */
   readonly sizeScatterGainMax: number;
+  /**
+   * The gain's FAR end at that ratio (W15 G1's re-form, claims §5.70 §4 and §7).
+   *
+   * The reference's heavy kernel grows with the span, so the gain is a curve and
+   * not a number: the shader rises from `sizeScatterGainMax` at `sizeSpanMax` to
+   * this at `sizeScatterSpanMax`, along the smoothstep the ramp's far anchor
+   * already declines on. Resolved on the CPU like the near end, and equal to it
+   * at dpr ≤ 1, where the curve is flat and this uniform changes nothing.
+   */
+  readonly sizeScatterGainFar: number;
   readonly sizeOcclusionGain: number;
   readonly sizeShadowGainMax: number;
   readonly bodyChainLod: number;
@@ -640,7 +650,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // vec4 the shader reads anyway costs no bytes and no second binding, and
       // the shader's own comment names it where it is read.
       d[58] = args.sizeScatterRampStartThick;
-      d[59] = 0;
+      // The heavy width's gain at the scatter span curve's TOP (W15 G1's
+      // re-form, claims §5.70 §4 and §7), in this vec4's second padding slot.
+      // The gain's near end is `size.x` and that vec4 is full; this one already
+      // carries the ramp's other span-graded end, so the body's two curves over
+      // the same smoothstep sit beside each other. The layout's size is
+      // unchanged — the slot was written as zero.
+      d[59] = args.sizeScatterGainFar;
       // The response law's anchors and rows (W9), and the linear backdrop mean
       // the solve composites against.
       d[60] = args.backdropToneAnchorX[0];

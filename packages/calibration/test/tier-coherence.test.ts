@@ -66,7 +66,9 @@ import {
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
   scatterDeepThickness as cssScatterDeepThickness,
   scatterFloorAtScale as cssScatterFloorAtScale,
+  scatterGainAt as cssScatterGainAt,
   scatterGainAtScale as cssScatterGainAtScale,
+  scatterGainFarAtScale as cssScatterGainFarAtScale,
   scatterRampAreaMean as cssScatterRampAreaMean,
   scatterRampReachDevicePx as cssScatterRampReachDevicePx,
   scatterRampStart as cssScatterRampStart,
@@ -109,7 +111,9 @@ import {
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
   scatterDeepThickness as rendererScatterDeepThickness,
   scatterFloorAtScale as rendererScatterFloorAtScale,
+  scatterGainAt as rendererScatterGainAt,
   scatterGainAtScale as rendererScatterGainAtScale,
+  scatterGainFarAtScale as rendererScatterGainFarAtScale,
   scatterRampAreaMean as rendererScatterRampAreaMean,
   scatterRampReachDevicePx as rendererScatterRampReachDevicePx,
   scatterRampStart as rendererScatterRampStart,
@@ -467,6 +471,10 @@ describe("tier coherence (K5)", () => {
     expect(MATERIAL_SOURCE_SIZE.sizeScatterSpanMax2x).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax2x,
     );
+    // W15 G1's re-form: the 2x gain's own span grading (claims §5.70 §4, §7).
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterGainFar2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterGainFar2x,
+    );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x,
     );
@@ -501,6 +509,7 @@ describe("tier coherence (K5)", () => {
       sizeScatterGainMax2x: 3.5,
       sizeScatterFloor2x: 0.85,
       sizeScatterSpanMax2x: 180,
+      sizeScatterGainFar2x: 6.5,
       sizeScatterRampStartThin1x: 0.7,
       sizeScatterRampStartThick1x: 0.55,
       sizeScatterRampStartThin2x: 0.3,
@@ -520,6 +529,7 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeScatterGainMax2x).toBe(profile.sizeScatterGainMax2x);
     expect(mirrored.sizeScatterFloor2x).toBe(profile.sizeScatterFloor2x);
     expect(mirrored.sizeScatterSpanMax2x).toBe(profile.sizeScatterSpanMax2x);
+    expect(mirrored.sizeScatterGainFar2x).toBe(profile.sizeScatterGainFar2x);
     expect(mirrored.sizeScatterRampStartThin1x).toBe(profile.sizeScatterRampStartThin1x);
     expect(mirrored.sizeScatterRampStartThick1x).toBe(profile.sizeScatterRampStartThick1x);
     expect(mirrored.sizeScatterRampStartThin2x).toBe(profile.sizeScatterRampStartThin2x);
@@ -578,6 +588,19 @@ describe("tier coherence (K5)", () => {
         sizeScatterFloor2x: 0.9,
         sizeScatterSpanMax2x: 120,
       },
+      /*
+       * And all FOUR at once (W15 G1's re-form, claims §5.70 §4 and §7): the 2x
+       * gain graded in span on top of the three above, which is the case where
+       * the σ the two mirrors project depends on the span through the WIDTH as
+       * well as through the mix. If either mirror graded on a different curve —
+       * or read a different span top — this is where the two would part.
+       */
+      {
+        sizeScatterGainMax2x: 4.8,
+        sizeScatterGainFar2x: 9.9,
+        sizeScatterFloor2x: 1,
+        sizeScatterSpanMax2x: 256,
+      },
     ] as const;
     const SPANS = [32, 44, 96, 128, 160, 256] as const;
     const RATIOS = [1, 1.5, 2, 3] as const;
@@ -613,6 +636,18 @@ describe("tier coherence (K5)", () => {
           rendererScatterGainAtScale(profile, dpr),
           12,
         );
+        expect(cssScatterGainFarAtScale(mirrored, dpr), `far gain at dpr ${dpr}`).toBeCloseTo(
+          rendererScatterGainFarAtScale(profile, dpr),
+          12,
+        );
+        // The gain graded in span (W15 G1's re-form): pinned on the span axis
+        // itself and not only through the σ that consumes it.
+        for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
+          expect(
+            cssScatterGainAt(span, mirrored, dpr),
+            `gain at span ${span} dpr ${dpr}`,
+          ).toBeCloseTo(rendererScatterGainAt(span, profile, dpr), 12);
+        }
         for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
           expect(
             cssScatterDeepThickness(span, mirrored, dpr),
@@ -655,6 +690,13 @@ describe("tier coherence (K5)", () => {
               rendererSizeScatterSigmaAt(1.25, gpu, profile),
               12,
             );
+            // And with the span handed over, which is the form `sizeScatterSigma`
+            // uses since W15 G1's re-form: the heavy end of the mix is the gain
+            // at THIS span, so the two mirrors have to grade it identically.
+            expect(
+              cssSizeScatterSigmaAt(1.25, css, mirrored, dpr, span),
+              `graded σ at ${label}`,
+            ).toBeCloseTo(rendererSizeScatterSigmaAt(1.25, gpu, profile, dpr, span), 12);
             expect(
               cssSizeScatterSigma(1.25, span, mirrored, dpr),
               `span form at ${label}`,
@@ -761,6 +803,19 @@ describe("tier coherence (K5)", () => {
         rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, dpr),
         `shipped σ at ${dpr}`,
       ).toBeCloseTo(10, 12);
+      // And the span reaches it no further: W15 G1's re-form grades the gain in
+      // span, and on the landed material that curve is flat, so the shipped σ is
+      // 10 at every ratio AND every span on both tiers.
+      for (const span of [0, 32, 96, 160, 256, 400]) {
+        expect(
+          cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, dpr, span),
+          `shipped σ at ${dpr} span ${span}`,
+        ).toBeCloseTo(10, 12);
+        expect(
+          rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, dpr, span),
+          `shipped σ at ${dpr} span ${span}`,
+        ).toBeCloseTo(10, 12);
+      }
     }
   });
 

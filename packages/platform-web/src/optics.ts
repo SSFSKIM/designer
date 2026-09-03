@@ -638,6 +638,23 @@ export interface MaterialSourceSize {
   readonly sizeScatterFloor2x: number;
   readonly sizeScatterSpanMax2x: number;
   /**
+   * The 2x gain's own SPAN grading (W15 G1's re-form, claims §5.70 §4 and §7) —
+   * the heavy width's gain at the top of the scatter span curve at dpr 2.
+   *
+   * The reference's heavy kernel is not one width: it grows from about 8 device
+   * px at span 96 to about 11 at span 160 (claims §5.69 §1), and a single 2x
+   * gain left the largest span's deep interior 40% too structured. So the gain
+   * rises from `sizeScatterGainMax2x` at `sizeSpanMax` to this at
+   * `sizeScatterSpanMax`, along the same smoothstep the ramp's far anchor
+   * declines on. Interpolated from the 1x gain, so at dpr ≤ 1 the two ends
+   * coincide and the grading is flat — the wave's binding rule by construction.
+   *
+   * Mirrored here for the same reason the three above are and drawn for the same
+   * none: this tier reads at `CSS_TIER_RAMP_SCALE = 1`, which W15 Decision Log 3
+   * keeps for the wave.
+   */
+  readonly sizeScatterGainFar2x: number;
+  /**
    * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp
    * component's share at the contour — graded from the thin anchor to the thick
    * one across `sizeThickness`, because G0 read that start much higher on thin
@@ -678,6 +695,7 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterGainMax2x: 8,
   sizeScatterFloor2x: 0.4,
   sizeScatterSpanMax2x: 256,
+  sizeScatterGainFar2x: 8,
   sizeScatterRampStartThin1x: 0.72,
   sizeScatterRampStartThick1x: 0.52,
   sizeScatterRampStartFar1x: 0.2,
@@ -1113,6 +1131,8 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeScatterFloor2x: patch?.sizeScatterFloor2x ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor2x,
     sizeScatterSpanMax2x:
       patch?.sizeScatterSpanMax2x ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax2x,
+    sizeScatterGainFar2x:
+      patch?.sizeScatterGainFar2x ?? MATERIAL_SOURCE_SIZE.sizeScatterGainFar2x,
     sizeScatterRampStartThin1x:
       patch?.sizeScatterRampStartThin1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x,
     sizeScatterRampStartThick1x:
@@ -1207,6 +1227,7 @@ export function sizeScatterSigma(
     scatterThickness(spanPx, 1, size, devicePixelRatio, extentsCssPx),
     size,
     devicePixelRatio,
+    spanPx,
   );
 }
 
@@ -1316,6 +1337,47 @@ export function scatterGainAtScale(
   devicePixelRatio = 1,
 ): number {
   return rampAtScale(size.sizeScatterGainMax, size.sizeScatterGainMax2x, devicePixelRatio);
+}
+
+/**
+ * The heavy width's gain at the top of the scatter span curve, at a device scale
+ * — the mirror of the renderer's `scatterGainFarAtScale` (W15 G1's re-form,
+ * claims §5.70 §4 and §7). Interpolated from the 1x gain, which is what makes
+ * the grading below flat at dpr ≤ 1.
+ */
+export function scatterGainFarAtScale(
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(size.sizeScatterGainMax, size.sizeScatterGainFar2x, devicePixelRatio);
+}
+
+/**
+ * The heavy width's gain at a span and a device scale — the mirror of the
+ * renderer's `scatterGainAt` (W15 G1's re-form, claims §5.70 §4 and §7).
+ *
+ * ```
+ * gain(span, dpr) = gainAtScale(dpr)
+ *                 + (gainFar(dpr) − gainAtScale(dpr))
+ *                   · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+ * ```
+ *
+ * The same curve the ramp's far anchor declines along, so the width and the
+ * start are one span statistic read twice and this tier gains no new knee.
+ */
+export function scatterGainAt(
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+): number {
+  const near = scatterGainAtScale(size, devicePixelRatio);
+  const far = scatterGainFarAtScale(size, devicePixelRatio);
+  if (far === near) return near;
+  return (
+    near
+    + (far - near)
+      * smoothstep(size.sizeSpanMax, scatterSpanMaxAtScale(size, devicePixelRatio), spanPx)
+  );
 }
 
 /**
@@ -1476,15 +1538,26 @@ export function scatterRampAreaMean(
  * What the ratio does reach is the GAIN (`sizeScatterGainMax2x`, W15 G1), so at
  * mix 0 this returns `sigmaPx` at every ratio. The two gains are equal on the
  * landed material, and this tier calls at `CSS_TIER_RAMP_SCALE` anyway.
+ *
+ * `spanPx` is OPTIONAL and selects which gain, exactly as on the renderer's
+ * mirror: given, the span-graded `scatterGainAt` (W15 G1's re-form, claims
+ * §5.70 §4 and §7); omitted, the flat `scatterGainAtScale`. The two agree at
+ * every span at dpr ≤ 1, so `css-tier.ts`'s single `blur()` — which has a mix
+ * and no span, and reads at dpr 1 — keeps the meaning it had.
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
   devicePixelRatio = 1,
+  spanPx?: number,
 ): number {
   const mix = clamp01(scatter);
-  return sigmaPx * (1 + (scatterGainAtScale(size, devicePixelRatio) - 1) * mix);
+  const gain =
+    spanPx === undefined
+      ? scatterGainAtScale(size, devicePixelRatio)
+      : scatterGainAt(spanPx, size, devicePixelRatio);
+  return sigmaPx * (1 + (gain - 1) * mix);
 }
 
 /**
@@ -1507,12 +1580,28 @@ export function groupScatterSigma(
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
   projectionScale = 1,
 ): number {
-  let widest = sizeScatterSigmaAt(sigmaPx, scatterThickness(0, fold, size, projectionScale), size);
+  let widest = sizeScatterSigmaAt(
+    sigmaPx,
+    scatterThickness(0, fold, size, projectionScale),
+    size,
+    1,
+    0,
+  );
   for (const [width, height] of members) {
+    const span = Math.min(width, height);
+    // The gain is graded by the member's own span since W15 G1's re-form, on the
+    // same ratio the gain has always been read at here — dpr 1, because this σ
+    // is what the tier writes and what a proxy's padding is taken over, and W15
+    // Decision Log 3 keeps `CSS_TIER_RAMP_SCALE` at 1 for the wave. At that
+    // ratio the grading is flat, so the σ is unchanged; passing the span is what
+    // keeps this the per-member form of `sizeScatterSigma` rather than a second
+    // reading of the law.
     const own = sizeScatterSigmaAt(
       sigmaPx,
-      scatterThickness(Math.min(width, height), fold, size, projectionScale, [width, height]),
+      scatterThickness(span, fold, size, projectionScale, [width, height]),
       size,
+      1,
+      span,
     );
     widest = Math.max(widest, own);
   }

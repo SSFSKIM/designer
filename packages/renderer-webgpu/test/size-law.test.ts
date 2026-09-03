@@ -40,7 +40,9 @@ import {
   scatterRampAreaMean,
   scatterDeepThickness,
   scatterFloorAtScale,
+  scatterGainAt,
   scatterGainAtScale,
+  scatterGainFarAtScale,
   scatterSpanMaxAtScale,
   scatterRampReachDevicePx,
   scatterRampStart,
@@ -55,6 +57,7 @@ import {
   type MaterialProfile,
 } from "../src/material";
 import { packInstances, resolveSurfaces, INSTANCE_FLOATS } from "../src/instances";
+import { WGSL_OPTICS_PASS } from "../src/wgsl/optics";
 import { chainLodForSigma, CHAIN_SIGMA_AT_LEVEL_1 } from "../src/pyramid-plan";
 import type { GroupRenderInput, SurfaceInput } from "../src/render-model";
 
@@ -901,6 +904,156 @@ describe("the body's second scale (W15 G1)", () => {
         );
       }
     }
+  });
+});
+
+/*
+ * The 2x heavy width GRADED BY SPAN (W15 G1's re-form, claims §5.70 §4 and §7;
+ * W15 Decision Log 3, the user's landing).
+ *
+ * The first declaration gave the 2x gain one number, fitted on the calibration
+ * cells whose spans are 32-128. The reference's heavy kernel is not one number:
+ * §5.69 §1's bounded per-span fit reads 8.0 / 7.5 / 8.0 / 9.0 / 11.0 device px,
+ * a ratio of 1.375 between spans 160 and 96, and the single gain left
+ * `rrect-lg`'s deep interior about 40% too structured. So the gain rises along
+ * the scatter span curve to `sizeScatterGainFar2x`.
+ *
+ * Two things have to hold and both are arithmetic rather than capture: the term
+ * is a FLAT no-op at dpr 1 whatever it is set to — because its far end
+ * interpolates from the 1x gain and not the 2x one — and at dpr 2 it is the
+ * smoothstep the fourth form already rides, hand-computed here at the two spans
+ * that discriminate it.
+ */
+describe("the 2x heavy width grows with the span (W15 G1's re-form)", () => {
+  const SHIPPED = DEFAULT_MATERIAL_PROFILE;
+  const SIGMA = SHIPPED.optics.regular.blurSigma;
+  const SPANS_HERE = [0, 32, 44, 96, 128, 160, 256, 400] as const;
+  /** The declaration's base gain and Decision Log 3's arithmetic for its top. */
+  const REFORM: MaterialProfile = withMaterialOverrides(SHIPPED, {
+    sizeScatterGainMax2x: 4.8,
+    sizeScatterGainFar2x: 9.9,
+  });
+
+  it("ships with the curve flat, so the landed material is what it was", () => {
+    expect(SHIPPED.sizeScatterGainFar2x).toBe(SHIPPED.sizeScatterGainMax2x);
+    for (const dpr of [1, 1.5, 2, 3]) {
+      for (const span of SPANS_HERE) {
+        expect(scatterGainAt(span, SHIPPED, dpr), `gain ${span} at ${dpr}`).toBe(
+          SHIPPED.sizeScatterGainMax,
+        );
+      }
+    }
+  });
+
+  it("is a no-op at dpr 1 for any far gain, which is the wave's binding rule", () => {
+    // The far end interpolates from `sizeScatterGainMax`, so at dpr <= 1 it IS
+    // the base gain and there is nothing to grade between. Read against the bed
+    // — the profile that names no far gain at all — on every function the term
+    // could reach.
+    for (const far of [0.5, 4, 9.9, 40]) {
+      const patched = withMaterialOverrides(SHIPPED, { sizeScatterGainFar2x: far });
+      for (const dpr of [0.5, 1]) {
+        expect(scatterGainFarAtScale(patched, dpr), `far at ${dpr}`).toBe(
+          SHIPPED.sizeScatterGainMax,
+        );
+        for (const span of SPANS_HERE) {
+          expect(scatterGainAt(span, patched, dpr), `gain ${span} at ${dpr}`).toBe(
+            scatterGainAt(span, SHIPPED, dpr),
+          );
+          expect(sizeScatterSigma(SIGMA, span, patched, dpr), `σ ${span} at ${dpr}`).toBe(
+            sizeScatterSigma(SIGMA, span, SHIPPED, dpr),
+          );
+          for (const mix of [0, 0.4, 1]) {
+            expect(
+              sizeScatterSigmaAt(SIGMA, mix, patched, dpr, span),
+              `σ mix ${mix} span ${span} at ${dpr}`,
+            ).toBe(sizeScatterSigmaAt(SIGMA, mix, SHIPPED, dpr, span));
+          }
+        }
+      }
+    }
+  });
+
+  it("holds the base gain up to the thickness knee and the far gain at the top", () => {
+    // Below and at `sizeSpanMax` the smoothstep is zero, so the gain is the 2x
+    // gain exactly — which is why the calibration cells at spans <= 96 barely
+    // touch the term. At and above `sizeScatterSpanMax` it is one.
+    for (const span of [0, 32, 44, 64, 96]) {
+      expect(scatterGainAt(span, REFORM, 2), `gain at ${span}`).toBeCloseTo(4.8, 12);
+    }
+    for (const span of [256, 400, 4000]) {
+      expect(scatterGainAt(span, REFORM, 2), `gain at ${span}`).toBeCloseTo(9.9, 12);
+    }
+  });
+
+  it("rides the fourth form's own curve between them, hand-computed", () => {
+    /*
+     * smoothstep(96, 256, span) = t²(3 − 2t) with t = (span − 96) / 160:
+     *   span 128 → t = 0.2  → 0.104  → 4.8 + 5.1 · 0.104  = 5.3304
+     *   span 160 → t = 0.4  → 0.352  → 4.8 + 5.1 · 0.352  = 6.5952
+     * which is the reference's own growth: at span 160 the heavy σ is
+     * 0.625 CSS px × 6.5952 ≈ 4.12 CSS px, 8.2 device px, against G0's 11 read
+     * as a Gaussian and against 6 device px at spans ≤ 96.
+     */
+    expect(scatterGainAt(128, REFORM, 2)).toBeCloseTo(5.3304, 10);
+    expect(scatterGainAt(160, REFORM, 2)).toBeCloseTo(6.5952, 10);
+    // The same curve the ramp's far anchor declines along — not a second knee.
+    const declineAt = (span: number): number =>
+      (scatterRampStart(2, REFORM, span) - scatterRampStart(2, REFORM, 96))
+      / (scatterRampStart(2, REFORM, 256) - scatterRampStart(2, REFORM, 96));
+    const gradeAt = (span: number): number => (scatterGainAt(span, REFORM, 2) - 4.8) / (9.9 - 4.8);
+    for (const span of [96, 128, 160, 200, 256]) {
+      expect(gradeAt(span), `one curve at ${span}`).toBeCloseTo(declineAt(span), 12);
+    }
+    // And it reaches the σ: the heavy end of the mix grows with the span where
+    // the flat gain — the call with no span — does not.
+    expect(sizeScatterSigmaAt(SIGMA, 1, REFORM, 2, 160)).toBeCloseTo(SIGMA * 6.5952, 10);
+    expect(sizeScatterSigmaAt(SIGMA, 1, REFORM, 2)).toBeCloseTo(SIGMA * 4.8, 12);
+    // The sharp end is still the profile's own σ: the ratio grades the gain and
+    // never divides the width in this shared projection.
+    expect(sizeScatterSigmaAt(SIGMA, 0, REFORM, 2, 160)).toBeCloseTo(SIGMA, 12);
+  });
+
+  it("interpolates its far end between the two scales, and holds above dpr 2", () => {
+    expect(scatterGainFarAtScale(REFORM, 1)).toBe(SHIPPED.sizeScatterGainMax);
+    expect(scatterGainFarAtScale(REFORM, 1.5)).toBeCloseTo((8 + 9.9) / 2, 12);
+    for (const dpr of [2, 3, 4]) {
+      expect(scatterGainFarAtScale(REFORM, dpr), `far at ${dpr}`).toBeCloseTo(9.9, 12);
+    }
+    // At dpr 1.5 the base gain is 6.4 and the far end 8.95, so span 256 reads
+    // the far end and span 96 the base — the grading is alive between the
+    // scales, as the deep value's is.
+    expect(scatterGainAt(96, REFORM, 1.5)).toBeCloseTo(6.4, 12);
+    expect(scatterGainAt(256, REFORM, 1.5)).toBeCloseTo(8.95, 12);
+  });
+
+  it("is reachable by the patch path the re-form's sweep axis names", () => {
+    // `--axis sizeScatterGainFar2x=9.0,9.9,10.8`; checked as a unit, since the
+    // sweep itself needs the GPU.
+    const patched = withMaterialOverrides(SHIPPED, { sizeScatterGainFar2x: 9.9 });
+    expect(patched.sizeScatterGainFar2x).toBe(9.9);
+    for (const key of Object.keys(SHIPPED) as (keyof MaterialProfile)[]) {
+      if (key === "sizeScatterGainFar2x") continue;
+      expect(patched[key], `moved ${String(key)}`).toEqual(SHIPPED[key]);
+    }
+  });
+
+  it("hands the far gain to the shader in the slot the pass writes", () => {
+    // The layout: `shadowSize.w` was the padding slot this vec4's alignment
+    // required and the pass wrote zero into it. The shader grades per pixel from
+    // `size.x` to it along `farS` — the smoothstep it already computes for the
+    // ramp's far decline — and takes the LOD off the graded gain, so the two
+    // cannot drift into two curves.
+    expect(WGSL_OPTICS_PASS).toContain("ou.shadowSize.w");
+    expect(WGSL_OPTICS_PASS).toContain(
+      "let gainEff = ou.size.x + (ou.shadowSize.w - ou.size.x) * farS;",
+    );
+    expect(WGSL_OPTICS_PASS).toContain("log2(max(gainEff, 1e-4))");
+    expect(WGSL_OPTICS_PASS).not.toContain("log2(max(ou.size.x, 1e-4))");
+    // `farS` is computed before the LOD needs it.
+    expect(WGSL_OPTICS_PASS.indexOf("let farS =")).toBeLessThan(
+      WGSL_OPTICS_PASS.indexOf("let gainEff ="),
+    );
   });
 });
 

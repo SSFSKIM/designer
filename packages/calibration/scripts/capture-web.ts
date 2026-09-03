@@ -351,6 +351,10 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sizeScatterGainMax2x",
   "sizeScatterFloor2x",
   "sizeScatterSpanMax2x",
+  // The 2x gain's span grading (W15 G1's re-form, claims 5.70 sections 4 and 7):
+  // the heavy width's gain at the top of the scatter span curve at dpr 2, which
+  // the re-form's sweep names as `--axis sizeScatterGainFar2x=...`.
+  "sizeScatterGainFar2x",
   "sizeScatterRampStartThin1x",
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",

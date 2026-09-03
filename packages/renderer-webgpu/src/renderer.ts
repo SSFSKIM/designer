@@ -86,6 +86,7 @@ import {
   outerShadowUnderPolicy,
   scatterFloorAtScale,
   scatterGainAtScale,
+  scatterGainFarAtScale,
   scatterRampReachDevicePx,
   scatterRampStart,
   scatterSpanMaxAtScale,
@@ -958,6 +959,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // defaults to the 1x gain, so this is `material.sizeScatterGainMax`
         // until the sweep fits it.
         sizeScatterGainMax: scatterGainAtScale(material, dpr),
+        // The gain's far end at the same ratio (W15 G1's re-form, claims §5.70
+        // §4 and §7): the shader grades the gain from the near end at
+        // `sizeSpanMax` to this at `sizeScatterSpanMax`, because the reference's
+        // heavy kernel grows with the span and one gain left the largest span's
+        // deep interior too structured. `sizeScatterGainFar2x` defaults to the
+        // 2x gain's own default and interpolates from the 1x gain, so this is
+        // `sizeScatterGainMax` at dpr 1 whatever the profile says.
+        sizeScatterGainFar: scatterGainFarAtScale(material, dpr),
         sizeOcclusionGain: material.sizeOcclusionGain,
         sizeShadowGainMax: material.sizeShadowGainMax,
         bodyChainLod: chainLodForSigma(pyramid?.bodySigmaTexels ?? 0),

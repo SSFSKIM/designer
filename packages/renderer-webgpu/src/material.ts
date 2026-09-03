@@ -567,6 +567,49 @@ export interface MaterialProfile {
   readonly sizeScatterSpanMax2x: number;
 
   /**
+   * **The heavy width's gain at the TOP of the scatter span curve, at dpr 2**
+   * (W15 G1's re-form, from claims §5.70 §4 and §7 and the measurement of
+   * §5.69 §1) — the second-scale term that lets the 2x heavy width GROW with
+   * the span instead of being one number for the whole bed.
+   *
+   * `sizeScatterGainMax2x` above is one gain at dpr 2, and the sweep that fitted
+   * it read the calibration cells, whose spans are 32–128. The reference's heavy
+   * kernel is not one width: §5.69 §1's bounded per-span fit reads 8.0 / 7.5 /
+   * 8.0 / 9.0 / 11.0 device px across the bed's spans, a ratio of 1.375 between
+   * span 160 and span 96. Landing the single gain accordingly left the largest
+   * span's deep interior about 40% too structured (`rrect-lg` at 2x, spread
+   * 0.1134 against the reference's 0.0810, claims §5.70 §4) while every smaller
+   * cell rose. So the gain takes a second grading, in SPAN:
+   *
+   * ```
+   * gain(span, dpr) = gainAtScale(dpr)
+   *                 + (gainFar(dpr) − gainAtScale(dpr))
+   *                   · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+   * ```
+   *
+   * with `gainAtScale` the existing `scatterGainAtScale` and `gainFar` this
+   * constant interpolated by `rampAtScale` from `sizeScatterGainMax`. The curve
+   * is not a new span statistic: it is the same smoothstep the fourth form's
+   * far-anchor decline already rides (`scatterRampStart`), so the width and the
+   * ramp's start move along one curve above the thickness knee.
+   *
+   * **Inert at dpr 1 by construction.** `gainFar` interpolates from
+   * `sizeScatterGainMax` — the 1x gain, not this constant — so at dpr ≤ 1 the
+   * far gain IS the base gain and the whole term is a flat no-op whatever this
+   * says. That is W15's binding rule (the 1x material does not move) discharged
+   * by the shape of the formula rather than by a capture.
+   *
+   * PROVISIONAL. It defaults to `sizeScatterGainMax2x`'s own default, so a
+   * profile that does not name it draws exactly what it drew before the term
+   * existed at every ratio; W15 G1's re-form sweeps it and the confirmation sets
+   * it. W15 Decision Log 3's arithmetic — G0's ratio 1.375 read against this
+   * curve's 0.352 at span 160 — puts it near 9.9 over a base gain of 4.8, which
+   * is a heavy width of 6 device px at spans ≤ 96 rising to about 8.3 at 160.
+   * That is where the sweep starts, not where it lands.
+   */
+  readonly sizeScatterGainFar2x: number;
+
+  /**
    * **The body's depth ramp** (W13 G1, from the measurement of claims §5.61 §2
    * and the re-forming its runtime sweep forced) — a near-contour excursion on
    * the sharp component's share, riding on top of the span law
@@ -1248,6 +1291,10 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterGainMax2x: 8,
   sizeScatterFloor2x: 0.4,
   sizeScatterSpanMax2x: 256,
+  // The 2x gain's own span grading (W15 G1's re-form, claims §5.70 §4 and §7),
+  // defaulting to the 2x gain's default so that the span curve is flat and the
+  // term is inert until the re-form's sweep sets it.
+  sizeScatterGainFar2x: 8,
   // The 1x three FITTED in the renderer (W13 G1's third sweep, 44 points over
   // the calibration bed: `results/2026-09-03-w13-ramp/g1/sweep-3/g1-sweep-3.md`
   // §3); the 2x three PROVISIONAL still, because at them the excursion is
@@ -1596,6 +1643,7 @@ export interface MaterialProfilePatch {
   readonly sizeScatterGainMax2x?: number;
   readonly sizeScatterFloor2x?: number;
   readonly sizeScatterSpanMax2x?: number;
+  readonly sizeScatterGainFar2x?: number;
   readonly sizeScatterRampStartThin1x?: number;
   readonly sizeScatterRampStartThick1x?: number;
   readonly sizeScatterRampStartFar1x?: number;
@@ -1717,6 +1765,7 @@ export function withMaterialOverrides(
     sizeScatterGainMax2x: patch.sizeScatterGainMax2x ?? base.sizeScatterGainMax2x,
     sizeScatterFloor2x: patch.sizeScatterFloor2x ?? base.sizeScatterFloor2x,
     sizeScatterSpanMax2x: patch.sizeScatterSpanMax2x ?? base.sizeScatterSpanMax2x,
+    sizeScatterGainFar2x: patch.sizeScatterGainFar2x ?? base.sizeScatterGainFar2x,
     sizeScatterRampStartThin1x:
       patch.sizeScatterRampStartThin1x ?? base.sizeScatterRampStartThin1x,
     sizeScatterRampStartThick1x:
@@ -2327,6 +2376,11 @@ export function lensDirection(
  * constants — and the heavy width's gain, but never the width itself, which is
  * CSS px at every scale in this shared projection (see `sizeScatterSigmaAt`).
  * It defaults to 1, where the whole expression is the 1x law.
+ *
+ * The span reaches the gain as well as the mix since W15 G1's re-form (claims
+ * §5.70 §4 and §7): the reference's heavy kernel grows with the span, so this
+ * hands `spanPx` on to `sizeScatterSigmaAt`. At dpr ≤ 1 that grading is flat and
+ * the σ is what it always was.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
@@ -2340,6 +2394,7 @@ export function sizeScatterSigma(
     scatterThickness(spanPx, 1, profile, devicePixelRatio, extentsCssPx),
     profile,
     devicePixelRatio,
+    spanPx,
   );
 }
 
@@ -2447,6 +2502,64 @@ export function scatterGainAtScale(
   devicePixelRatio = 1,
 ): number {
   return rampAtScale(profile.sizeScatterGainMax, profile.sizeScatterGainMax2x, devicePixelRatio);
+}
+
+/**
+ * **The heavy width's gain at the top of the scatter span curve, at a device
+ * scale** (W15 G1's re-form, claims §5.70 §4 and §7).
+ *
+ * The far end of `scatterGainAt`'s span grading. Interpolated from
+ * `sizeScatterGainMax` — the 1x gain — rather than from the 2x one, which is
+ * what makes the whole grading inert at dpr 1: there the far gain and the base
+ * gain are the same number, so the curve between them is flat whatever
+ * `sizeScatterGainFar2x` says.
+ */
+export function scatterGainFarAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(profile.sizeScatterGainMax, profile.sizeScatterGainFar2x, devicePixelRatio);
+}
+
+/**
+ * **The heavy width's gain at a span and a device scale** (W15 G1's re-form,
+ * claims §5.70 §4 and §7) — the width law the body's heavy component actually
+ * runs at.
+ *
+ * ```
+ * gain(span, dpr) = gainAtScale(dpr)
+ *                 + (gainFar(dpr) − gainAtScale(dpr))
+ *                   · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+ * ```
+ *
+ * The reference's heavy kernel GROWS with the span — 8.0 / 7.5 / 8.0 / 9.0 /
+ * 11.0 device px across the bed (claims §5.69 §1) — and W15 G1's first landing
+ * carried one number for it, which left the largest span's deep interior 40%
+ * too structured (§5.70 §4). The curve the gain grades along is the one the
+ * fourth form's far anchor already declines along, from `sizeSpanMax` to
+ * `sizeScatterSpanMax` at scale, so the width and the ramp's start are one span
+ * statistic read twice and no new knee enters the material.
+ *
+ * At dpr ≤ 1 both ends are `sizeScatterGainMax` and this is that constant at
+ * every span, which is the binding rule of the wave expressed as arithmetic.
+ */
+export function scatterGainAt(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  const near = scatterGainAtScale(profile, devicePixelRatio);
+  const far = scatterGainFarAtScale(profile, devicePixelRatio);
+  if (far === near) return near;
+  return (
+    near
+    + (far - near)
+      * smoothstep(
+        profile.sizeSpanMax,
+        scatterSpanMaxAtScale(profile, devicePixelRatio),
+        spanPx,
+      )
+  );
 }
 
 /**
@@ -2678,15 +2791,30 @@ export function scatterRampAreaMean(
  * `sigmaPx` at every ratio and at mix 1 it returns the ratio's own heavy width.
  * On the landed material the two gains are equal and every ratio returns the 1x
  * σ, which is what `tier-coherence` pins.
+ *
+ * `spanPx` is OPTIONAL and it selects which gain: given, the span-graded one
+ * `scatterGainAt` resolves (W15 G1's re-form, claims §5.70 §4 and §7); omitted,
+ * the flat `scatterGainAtScale`. The two are the same number at every span at
+ * dpr ≤ 1 and on any profile whose far gain equals its base gain, so a caller
+ * that has no span — `css-tier.ts`'s single `blur()`, the demo's readout —
+ * keeps exactly the meaning it had, and a caller that has one gets the width
+ * the reference's own kernel has at that span. The parameter rather than a
+ * second function because this is the mix's own end point and there is one of
+ * it.
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
   devicePixelRatio = 1,
+  spanPx?: number,
 ): number {
   const mix = clampUnit(scatter);
-  return sigmaPx * (1 + (scatterGainAtScale(profile, devicePixelRatio) - 1) * mix);
+  const gain =
+    spanPx === undefined
+      ? scatterGainAtScale(profile, devicePixelRatio)
+      : scatterGainAt(spanPx, profile, devicePixelRatio);
+  return sigmaPx * (1 + (gain - 1) * mix);
 }
 
 /** 0…1, the clamp every share in this facet takes. */

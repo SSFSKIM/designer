@@ -92,6 +92,10 @@ const FITTED_CONSTANTS = [
   "sizeScatterGainMax2x",
   "sizeScatterFloor2x",
   "sizeScatterSpanMax2x",
+  // W15 G1's re-form (claims §5.70 §4 and §7): the 2x gain's own span grading,
+  // named at the 2x gain's default so the curve is flat, and PROVISIONAL until
+  // the re-form's sweep and confirmation set it.
+  "sizeScatterGainFar2x",
   "sizeScatterRampStartThin1x",
   "sizeScatterRampStartThick1x",
   "sizeScatterRampStartThin2x",
