@@ -413,3 +413,9 @@ Shape of the fix, if it is ever worth taking: publish in dependency order explic
 (`pnpm publish -r` honours the workspace's topological order and can take the OTP once via
 `--otp`), or accept the window and say so in the release checklist. Evidence: registry
 `time` fields; the failed cold install at 17:26:38Z and the passing one after.
+
+**Second occurrence, the 0.5.0 cut (2026-09-04):** the same shape at 73 s —
+`@vitreajs/vitrea-web@0.5.0` at 23:03:34Z and `@vitreajs/vitrea-react@0.5.0` at 23:03:36Z,
+`@vitreajs/vitrea@0.5.0` at 23:04:47Z (registry `time`). Two cuts in a row make the order a
+property of the chain rather than of one evening; the fix above stays the shape, and the
+choice of taking it is still the user's.
