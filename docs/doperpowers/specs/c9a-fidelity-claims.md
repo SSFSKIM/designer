@@ -8381,3 +8381,26 @@ round, carrying the device-pixel widths with it. The transmission's own
 scale term is §10's question (running). The G3 candidate branch
 (`w12-g3-candidate-a`) holds the implementation of the widths and the
 plumbing for a dpr term on the weight, for that round to start from.
+
+#### 4. The transmission has no scale term (g3 §10, 2026-09-03)
+
+The read §9.6 asked for, done: the level law from the three solids under
+the same interior box is **scale-invariant to six decimals** on `rrect-md`
+and `rrect-lg` (interior 0.479741 / 0.558340 / 0.934430 on `dark-solid` /
+`mid-dark-solid` / `light-solid` at both scales; fitted slopes 0.4883 and
+0.4573 at both, ratio 1.0000), and the structure transmission with the
+kernel width divided out — the two-component amplitude fitted jointly
+over the probe's five pitches — is the same at both scales on the three
+large spans: **t(2x) / t(1x) = 1.00 ± 0.06** (`rrect-md` 0.530 → 0.512,
+`rrect-ml` 0.497 → 0.487, `rrect-lg` 0.469 → 0.430), the ± being the
+estimator's free-versus-pinned spread, not run noise (those cells are
+byte-identical across every attested run of both beds). The two spans
+that disagree are the two whose beds carry frequency-settled cells. vitrea's
+own transmission is scale-invariant too (0.97–1.00 by span) and sits at
+0.88–0.96 of the reference at 1x and 0.91–1.04 at 2x. §9.6's item 4 was
+the width leaking into a one-pitch amplitude read; it is withdrawn. **No
+alpha or level-law change is proposed for the 2x gap** — the six-decimal
+identity would break under any of them — and the body kernel is the whole
+of the interior's scale-dependence. What the user sees as "more
+transparent" at 2x is the sharper interior, which the device-pixel widths
+supply (§2), and the band.
