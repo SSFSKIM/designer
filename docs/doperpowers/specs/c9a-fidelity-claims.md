@@ -9834,7 +9834,9 @@ byte-identical, 49 / 49.**
   the outside window through the anti-aliased edge pixels the window straddles. Named.
 - **S6 met by construction:** the CSS tier's code path at `CSS_TIER_RAMP_SCALE = 1` reads no
   second-scale term, so its rows are predicted identical; the landing's rebuild is the check.
-- **S7 is the user's:** the sheets (`sheets/g1-2x.png`, `g1-1x.png`) sent 2026-09-04.
+- **S7 is the user's:** the sheets (`sheets/g1-2x.png`, `g1-1x.png`) sent 2026-09-04; **the
+  user's reading of the 2x sheet, 2026-09-04: "W15 looks pretty good too"** — the dry run's
+  by-eye verdict beside the numbers; the landing's sheet is read again at G2.
 
 **5. The CSS tier at 2x — the table for W15 Decision Log 2 q1.** The tier's single σ per span in CSS
 px at the declared law (`groupScatterSigma` through `sizeScatterSigmaAt`; the tier's base σ 1.25 CSS
