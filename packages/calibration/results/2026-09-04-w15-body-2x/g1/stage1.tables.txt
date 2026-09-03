@@ -1,0 +1,296 @@
+
+## stage1  (apple-macos-26.5-2x-light-standard)   32 points
+
+### ranked by mean ssimBand rise over the 5 checkerboard cells
+
+point                                                                               obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142   +0.0194    +0.0114       +0.0000  PASS  PASS    0.0292
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335   +0.0179    +0.0044       +0.0000  PASS  PASS    0.0445
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346   +0.0173    +0.0060       +0.0000  PASS  PASS    0.0420
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031   +0.0165    +0.0064       +0.0000  PASS  PASS    0.0398
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418   +0.0164    +0.0030       +0.0000  PASS  PASS    0.0467
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489   +0.0143    +0.0013       +0.0000  PASS  PASS    0.0489
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499   +0.0142    +0.0013       +0.0000  PASS  PASS    0.0489
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445   +0.0127    +0.0001       -0.0001  PASS  PASS    0.0395
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212   +0.0101    -0.0081       -0.0015  PASS  FAIL    0.0524
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656   +0.0094    -0.0119       -0.0027  FAIL  FAIL    0.0574
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664   +0.0088    -0.0100       -0.0020  PASS  FAIL    0.0547
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625   +0.0074    -0.0087       -0.0030  FAIL  FAIL    0.0468
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770   +0.0074    -0.0132       -0.0145  FAIL  FAIL    0.0168
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741   +0.0073    -0.0143       -0.0036  FAIL  FAIL    0.0598
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721   +0.0053    -0.0115       -0.0048  FAIL  FAIL    0.0492
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638   +0.0052    -0.0170       -0.0159  FAIL  FAIL    0.0069
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820   +0.0046    -0.0164       -0.0046  FAIL  FAIL    0.0621
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830   +0.0045    -0.0164       -0.0046  FAIL  FAIL    0.0621
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339   +0.0044    -0.0208       -0.0046  FAIL  FAIL    0.0604
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628   +0.0038    -0.0193       -0.0161  FAIL  FAIL    0.0071
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404   +0.0028    -0.0240       -0.0068  FAIL  FAIL    0.0628
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677   +0.0028    -0.0216       -0.0177  FAIL  FAIL    0.0087
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846   +0.0025    -0.0253       -0.0061  FAIL  FAIL    0.0652
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885   +0.0019    -0.0222       -0.0051  FAIL  FAIL    0.0623
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933   +0.0001    -0.0294       -0.0073  FAIL  FAIL    0.0681
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956   -0.0000    -0.0273       -0.0071  FAIL  FAIL    0.0676
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932   -0.0005    -0.0267       -0.0061  FAIL  FAIL    0.0654
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013   -0.0029    -0.0326       -0.0084  FAIL  FAIL    0.0704
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032   -0.0032    -0.0297       -0.0082  FAIL  FAIL    0.0697
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034   -0.0035    -0.0297       -0.0082  FAIL  FAIL    0.0697
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117   -0.0062    -0.0357       -0.0098  FAIL  FAIL    0.0728
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121   -0.0065    -0.0357       -0.0098  FAIL  FAIL    0.0728
+
+### ranked by the WORST cell's ssimBand rise (S4's own reading)
+
+point                                                                               obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142   +0.0194    +0.0114       +0.0000  PASS  PASS    0.0292
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031   +0.0165    +0.0064       +0.0000  PASS  PASS    0.0398
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346   +0.0173    +0.0060       +0.0000  PASS  PASS    0.0420
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335   +0.0179    +0.0044       +0.0000  PASS  PASS    0.0445
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418   +0.0164    +0.0030       +0.0000  PASS  PASS    0.0467
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499   +0.0142    +0.0013       +0.0000  PASS  PASS    0.0489
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489   +0.0143    +0.0013       +0.0000  PASS  PASS    0.0489
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445   +0.0127    +0.0001       -0.0001  PASS  PASS    0.0395
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212   +0.0101    -0.0081       -0.0015  PASS  FAIL    0.0524
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625   +0.0074    -0.0087       -0.0030  FAIL  FAIL    0.0468
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664   +0.0088    -0.0100       -0.0020  PASS  FAIL    0.0547
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721   +0.0053    -0.0115       -0.0048  FAIL  FAIL    0.0492
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656   +0.0094    -0.0119       -0.0027  FAIL  FAIL    0.0574
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770   +0.0074    -0.0132       -0.0145  FAIL  FAIL    0.0168
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741   +0.0073    -0.0143       -0.0036  FAIL  FAIL    0.0598
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830   +0.0045    -0.0164       -0.0046  FAIL  FAIL    0.0621
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820   +0.0046    -0.0164       -0.0046  FAIL  FAIL    0.0621
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638   +0.0052    -0.0170       -0.0159  FAIL  FAIL    0.0069
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628   +0.0038    -0.0193       -0.0161  FAIL  FAIL    0.0071
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339   +0.0044    -0.0208       -0.0046  FAIL  FAIL    0.0604
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677   +0.0028    -0.0216       -0.0177  FAIL  FAIL    0.0087
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885   +0.0019    -0.0222       -0.0051  FAIL  FAIL    0.0623
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404   +0.0028    -0.0240       -0.0068  FAIL  FAIL    0.0628
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846   +0.0025    -0.0253       -0.0061  FAIL  FAIL    0.0652
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932   -0.0005    -0.0267       -0.0061  FAIL  FAIL    0.0654
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956   -0.0000    -0.0273       -0.0071  FAIL  FAIL    0.0676
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933   +0.0001    -0.0294       -0.0073  FAIL  FAIL    0.0681
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034   -0.0035    -0.0297       -0.0082  FAIL  FAIL    0.0697
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032   -0.0032    -0.0297       -0.0082  FAIL  FAIL    0.0697
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013   -0.0029    -0.0326       -0.0084  FAIL  FAIL    0.0704
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121   -0.0065    -0.0357       -0.0098  FAIL  FAIL    0.0728
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117   -0.0062    -0.0357       -0.0098  FAIL  FAIL    0.0728
+
+### per-cell ssimBand delta against the W13 bed, worst-cell order
+
+point                                                                                sm     caps       md       ml       tb
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        +0.0291  +0.0303  +0.0114  +0.0129  +0.0133
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        +0.0275  +0.0285  +0.0072  +0.0130  +0.0064
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       +0.0278  +0.0275  +0.0060  +0.0139  +0.0112
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        +0.0291  +0.0301  +0.0044  +0.0130  +0.0131
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       +0.0278  +0.0272  +0.0030  +0.0130  +0.0110
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          +0.0256  +0.0229  +0.0013  +0.0130  +0.0082
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          +0.0256  +0.0229  +0.0013  +0.0133  +0.0082
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        +0.0245  +0.0249  +0.0001  +0.0028  +0.0109
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        +0.0260  +0.0272  -0.0081  -0.0010  +0.0064
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          +0.0211  +0.0208  -0.0087  -0.0052  +0.0093
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       +0.0225  +0.0210  -0.0100  +0.0019  +0.0085
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        +0.0193  +0.0195  -0.0115  -0.0093  +0.0086
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        +0.0245  +0.0248  -0.0119  -0.0010  +0.0109
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        +0.0275  +0.0273  -0.0095  -0.0132  +0.0048
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       +0.0225  +0.0208  -0.0143  -0.0010  +0.0084
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          +0.0196  +0.0156  -0.0164  -0.0010  +0.0046
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          +0.0196  +0.0156  -0.0164  -0.0002  +0.0046
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        +0.0260  +0.0255  -0.0131  -0.0170  +0.0046
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          +0.0248  +0.0244  -0.0152  -0.0193  +0.0044
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          +0.0248  +0.0252  -0.0208  -0.0128  +0.0056
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        +0.0232  +0.0242  -0.0164  -0.0216  +0.0045
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         +0.0180  +0.0163  -0.0222  -0.0085  +0.0059
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        +0.0232  +0.0257  -0.0240  -0.0173  +0.0063
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          +0.0211  +0.0205  -0.0253  -0.0128  +0.0091
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       +0.0166  +0.0142  -0.0267  -0.0116  +0.0049
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         +0.0180  +0.0162  -0.0273  -0.0128  +0.0059
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        +0.0193  +0.0193  -0.0294  -0.0173  +0.0085
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            +0.0145  +0.0091  -0.0297  -0.0128  +0.0015
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            +0.0145  +0.0091  -0.0297  -0.0113  +0.0015
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       +0.0166  +0.0139  -0.0326  -0.0173  +0.0048
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          +0.0133  +0.0073  -0.0357  -0.0173  +0.0002
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          +0.0133  +0.0073  -0.0357  -0.0162  +0.0002
+
+### isdW
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.1371   0.1189   0.0972   0.0745   0.1203   0.0488
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142   0.1476   0.1278   0.0993   0.0889   0.1289   0.0513
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031   0.1753   0.1565   0.0873   0.0727   0.1577   0.0511
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346   0.1442   0.1228   0.0852   0.0807   0.1245   0.0510
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335   0.1476   0.1275   0.0826   0.0727   0.1285   0.0510
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418   0.1442   0.1226   0.0805   0.0727   0.1243   0.0510
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499   0.1408   0.1178   0.0783   0.0727   0.1201   0.0509
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489   0.1408   0.1178   0.0783   0.0740   0.1201   0.0509
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445   0.1381   0.1186   0.0876   0.0763   0.1195   0.0510
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212   0.1687   0.1500   0.0748   0.0587   0.1511   0.0507
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625   0.1323   0.1127   0.0804   0.0688   0.1135   0.0506
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664   0.1344   0.1129   0.0724   0.0673   0.1146   0.0507
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721   0.1300   0.1106   0.0780   0.0653   0.1114   0.0501
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656   0.1381   0.1182   0.0698   0.0587   0.1191   0.0507
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770   0.1753   0.1600   0.1385   0.1186   0.1613   0.0521
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741   0.1344   0.1127   0.0673   0.0587   0.1144   0.0506
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830   0.1307   0.1075   0.0651   0.0587   0.1098   0.0506
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820   0.1307   0.1075   0.0651   0.0602   0.1098   0.0506
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638   0.1687   0.1536   0.1306   0.1087   0.1549   0.0518
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628   0.1647   0.1500   0.1260   0.1028   0.1510   0.0516
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339   0.1647   0.1458   0.0668   0.0506   0.1468   0.0504
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677   0.1624   0.1482   0.1239   0.0999   0.1493   0.0512
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885   0.1284   0.1070   0.0648   0.0592   0.1086   0.0503
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404   0.1624   0.1444   0.0643   0.0474   0.1452   0.0498
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846   0.1323   0.1123   0.0620   0.0506   0.1131   0.0503
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932   0.1259   0.1045   0.0618   0.0561   0.1059   0.0497
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956   0.1284   0.1068   0.0596   0.0506   0.1084   0.0502
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933   0.1300   0.1103   0.0590   0.0474   0.1110   0.0496
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034   0.1244   0.1010   0.0574   0.0506   0.1032   0.0502
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032   0.1244   0.1010   0.0574   0.0521   0.1032   0.0502
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013   0.1259   0.1043   0.0567   0.0474   0.1057   0.0496
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121   0.1222   0.0988   0.0543   0.0474   0.1009   0.0495
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117   0.1222   0.0988   0.0543   0.0489   0.1009   0.0495
+NATIVE                                                                                    0.1636   0.1552   0.1272   0.1018   0.1581   0.0591
+
+### ssimBand
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.9416   0.8633   0.9314   0.9397   0.7431   0.9928
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142   0.9707   0.8936   0.9428   0.9525   0.7564   0.9931
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031   0.9691   0.8918   0.9386   0.9526   0.7496   0.9930
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346   0.9693   0.8908   0.9374   0.9535   0.7543   0.9930
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335   0.9707   0.8934   0.9358   0.9526   0.7562   0.9930
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418   0.9693   0.8905   0.9344   0.9526   0.7541   0.9930
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499   0.9672   0.8863   0.9327   0.9526   0.7513   0.9930
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489   0.9672   0.8863   0.9327   0.9530   0.7513   0.9930
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445   0.9661   0.8882   0.9315   0.9425   0.7540   0.9930
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212   0.9676   0.8905   0.9233   0.9387   0.7496   0.9929
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625   0.9627   0.8841   0.9227   0.9344   0.7524   0.9929
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664   0.9640   0.8843   0.9214   0.9416   0.7517   0.9929
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721   0.9609   0.8829   0.9199   0.9304   0.7518   0.9928
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656   0.9661   0.8881   0.9195   0.9387   0.7540   0.9928
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770   0.9691   0.8906   0.9219   0.9264   0.7479   0.9931
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741   0.9640   0.8841   0.9171   0.9387   0.7516   0.9928
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830   0.9612   0.8789   0.9150   0.9387   0.7477   0.9928
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820   0.9612   0.8789   0.9150   0.9395   0.7477   0.9928
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638   0.9676   0.8889   0.9183   0.9226   0.7477   0.9931
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628   0.9664   0.8878   0.9162   0.9203   0.7475   0.9931
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339   0.9664   0.8885   0.9106   0.9268   0.7487   0.9927
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677   0.9648   0.8875   0.9150   0.9181   0.7476   0.9931
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885   0.9595   0.8796   0.9092   0.9312   0.7490   0.9927
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404   0.9648   0.8890   0.9074   0.9223   0.7494   0.9927
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846   0.9627   0.8838   0.9061   0.9268   0.7522   0.9927
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932   0.9582   0.8775   0.9047   0.9280   0.7480   0.9926
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956   0.9595   0.8796   0.9041   0.9268   0.7490   0.9927
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933   0.9609   0.8826   0.9020   0.9223   0.7516   0.9926
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034   0.9560   0.8725   0.9017   0.9268   0.7446   0.9927
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032   0.9560   0.8725   0.9017   0.9284   0.7446   0.9927
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013   0.9582   0.8772   0.8989   0.9223   0.7479   0.9926
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121   0.9548   0.8706   0.8957   0.9223   0.7433   0.9926
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117   0.9548   0.8706   0.8957   0.9234   0.7433   0.9926
+
+### ssimInterior
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —     —        —      0.9594   0.9589     —      0.9973
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142     —        —      0.9693   0.9604     —      0.9974
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031     —        —      0.9720   0.9807     —      0.9973
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346     —        —      0.9702   0.9757     —      0.9973
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335     —        —      0.9685   0.9807     —      0.9973
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418     —        —      0.9646   0.9807     —      0.9973
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499     —        —      0.9596   0.9807     —      0.9972
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489     —        —      0.9596   0.9808     —      0.9972
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445     —        —      0.9575   0.9554     —      0.9973
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212     —        —      0.9562   0.9647     —      0.9972
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625     —        —      0.9495   0.9511     —      0.9973
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664     —        —      0.9538   0.9664     —      0.9972
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721     —        —      0.9476   0.9469     —      0.9972
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656     —        —      0.9490   0.9647     —      0.9972
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770     —        —      0.9249   0.9096     —      0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741     —        —      0.9428   0.9647     —      0.9972
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830     —        —      0.9351   0.9647     —      0.9971
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820     —        —      0.9351   0.9652     —      0.9971
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638     —        —      0.9205   0.9069     —      0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628     —        —      0.9183   0.9081     —      0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339     —        —      0.9427   0.9514     —      0.9972
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677     —        —      0.9180   0.9035     —      0.9974
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885     —        —      0.9404   0.9574     —      0.9971
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404     —        —      0.9397   0.9463     —      0.9971
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846     —        —      0.9338   0.9514     —      0.9971
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932     —        —      0.9360   0.9547     —      0.9970
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956     —        —      0.9258   0.9514     —      0.9970
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933     —        —      0.9280   0.9463     —      0.9970
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034     —        —      0.9170   0.9514     —      0.9970
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032     —        —      0.9170   0.9525     —      0.9970
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013     —        —      0.9203   0.9463     —      0.9970
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121     —        —      0.9100   0.9463     —      0.9969
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117     —        —      0.9100   0.9472     —      0.9969
+
+### ssimMean
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.9978   0.9836   0.9840   0.9746   0.9662   0.9980
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142   0.9988   0.9860   0.9867   0.9779   0.9671   0.9980
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031   0.9987   0.9858   0.9863   0.9825   0.9664   0.9980
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346   0.9987   0.9858   0.9860   0.9816   0.9669   0.9980
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335   0.9988   0.9860   0.9856   0.9825   0.9671   0.9980
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418   0.9987   0.9857   0.9850   0.9825   0.9669   0.9980
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499   0.9987   0.9854   0.9843   0.9825   0.9667   0.9980
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489   0.9987   0.9854   0.9843   0.9826   0.9667   0.9980
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445   0.9986   0.9856   0.9839   0.9745   0.9670   0.9980
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212   0.9987   0.9857   0.9826   0.9757   0.9664   0.9980
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625   0.9985   0.9853   0.9819   0.9717   0.9669   0.9980
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664   0.9986   0.9853   0.9821   0.9767   0.9668   0.9980
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721   0.9985   0.9852   0.9813   0.9698   0.9669   0.9980
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656   0.9986   0.9856   0.9814   0.9757   0.9670   0.9980
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770   0.9987   0.9857   0.9793   0.9601   0.9662   0.9980
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741   0.9986   0.9852   0.9805   0.9757   0.9668   0.9980
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830   0.9985   0.9848   0.9795   0.9757   0.9665   0.9980
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820   0.9985   0.9848   0.9795   0.9760   0.9665   0.9980
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638   0.9987   0.9856   0.9784   0.9587   0.9663   0.9980
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628   0.9986   0.9855   0.9779   0.9585   0.9663   0.9980
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339   0.9986   0.9856   0.9794   0.9700   0.9664   0.9979
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677   0.9986   0.9855   0.9777   0.9569   0.9663   0.9980
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885   0.9984   0.9849   0.9790   0.9723   0.9667   0.9979
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404   0.9986   0.9856   0.9787   0.9678   0.9665   0.9979
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846   0.9985   0.9852   0.9779   0.9700   0.9669   0.9979
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932   0.9984   0.9847   0.9779   0.9710   0.9666   0.9979
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956   0.9984   0.9849   0.9769   0.9700   0.9667   0.9979
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933   0.9985   0.9852   0.9768   0.9678   0.9669   0.9979
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034   0.9983   0.9843   0.9758   0.9700   0.9663   0.9979
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032   0.9983   0.9843   0.9758   0.9706   0.9663   0.9979
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013   0.9984   0.9847   0.9756   0.9678   0.9666   0.9979
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121   0.9983   0.9842   0.9743   0.9678   0.9663   0.9979
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117   0.9983   0.9842   0.9743   0.9682   0.9663   0.9979
+
+### ssimOutside
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.9975   0.9611   0.9934   0.9932   0.9232   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.07142   0.9975   0.9612   0.9934   0.9930   0.9226   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07031   0.9972   0.9609   0.9937   0.9931   0.9214   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256       0.07346   0.9975   0.9612   0.9937   0.9930   0.9226   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128        0.07335   0.9975   0.9612   0.9937   0.9931   0.9226   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128       0.07418   0.9975   0.9612   0.9937   0.9931   0.9226   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128          0.07499   0.9975   0.9612   0.9937   0.9931   0.9226   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256          0.07489   0.9975   0.9612   0.9937   0.9931   0.9226   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.07445   0.9976   0.9614   0.9935   0.9932   0.9230   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07212   0.9973   0.9610   0.9938   0.9933   0.9218   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.07625   0.9977   0.9615   0.9936   0.9933   0.9232   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256       0.07664   0.9976   0.9614   0.9938   0.9932   0.9230   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.07721   0.9977   0.9615   0.9936   0.9933   0.9233   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128        0.07656   0.9976   0.9614   0.9938   0.9933   0.9230   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256        0.06770   0.9972   0.9608   0.9920   0.9922   0.9213   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128       0.07741   0.9976   0.9614   0.9938   0.9933   0.9230   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128          0.07830   0.9976   0.9614   0.9938   0.9933   0.9230   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256          0.07820   0.9976   0.9614   0.9938   0.9932   0.9230   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256        0.06638   0.9973   0.9610   0.9922   0.9924   0.9216   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256          0.06628   0.9974   0.9611   0.9923   0.9925   0.9218   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07339   0.9974   0.9611   0.9939   0.9934   0.9219   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256        0.06677   0.9974   0.9611   0.9923   0.9925   0.9218   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256         0.07885   0.9977   0.9615   0.9939   0.9933   0.9232   0.9975
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07404   0.9974   0.9612   0.9939   0.9934   0.9220   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128          0.07846   0.9977   0.9615   0.9939   0.9934   0.9232   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256       0.07932   0.9977   0.9615   0.9939   0.9934   0.9233   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128         0.07956   0.9977   0.9615   0.9939   0.9934   0.9232   0.9975
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128        0.07933   0.9977   0.9615   0.9939   0.9934   0.9233   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128            0.08034   0.9977   0.9615   0.9939   0.9934   0.9232   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256            0.08032   0.9977   0.9615   0.9939   0.9933   0.9232   0.9975
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128       0.08013   0.9977   0.9615   0.9939   0.9934   0.9233   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128          0.08121   0.9977   0.9615   0.9939   0.9934   0.9233   0.9975
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256          0.08117   0.9977   0.9615   0.9939   0.9934   0.9233   0.9975

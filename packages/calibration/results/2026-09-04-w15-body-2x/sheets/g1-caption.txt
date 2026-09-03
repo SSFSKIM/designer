@@ -1,0 +1,16 @@
+W15 G1 dry-run sheets (contract X5). GPU tier, the confirmation captures at the declared 2x
+constants (claims §5.70: the deep value fully heavy, the heavy width six device px, thin 0.46 /
+thick 0.21 / far 0.21 / reach 100 device px), against the native fixture and the W13 bed.
+Panels: native | W13 bed | candidate | diff(bed − native) | diff(candidate − native); the diff
+panels are diagnostics, not renders. Crops are the component box plus 8 CSS px.
+
+g1-2x.png — the change is here. On every checkerboard row the candidate's interior carries the
+checker's structure the way Apple's does where the bed was a near-uniform blur, and the rim's
+lobes read; rrect-sm and the capsule are closest (band +0.032 / +0.031). On rrect-lg (row 5,
+holdout) the candidate's deep interior is crisper than Apple's — the diff panel shows the
+residual checker deep inside — which is the one row that falls (0.9680 → 0.9661) and the
+question of Decision Log 3. photo rrect-md is unchanged to the eye and to the numbers.
+
+g1-1x.png — the invariance: the candidate's 1x captures are byte-identical to the bed's
+(49 / 49), so panels 2 and 3 are the same pixels on every row; the sheet differs from W13's
+landing sheet only in its labels.

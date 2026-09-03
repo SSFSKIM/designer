@@ -1,0 +1,42 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256    0.06628   0.01684  0.00734  0.04210   0.00137  0.00457  0.9888  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256    0.06638   0.01682  0.00751  0.04205   0.00137  0.00457  0.9888  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256    0.06677   0.01681  0.00773  0.04223   0.00137  0.00458  0.9887  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256    0.06770   0.01682  0.00891  0.04197   0.00137  0.00458  0.9890  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128    0.07031   0.01685  0.01085  0.04260   0.00137  0.00456  0.9904  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256    0.07142   0.01685  0.01263  0.04194   0.00137  0.00449  0.9903  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128    0.07212   0.01686  0.01253  0.04274   0.00137  0.00471  0.9899  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128    0.07335   0.01685  0.01443  0.04207   0.00137  0.00458  0.9905  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128    0.07339   0.01690  0.01368  0.04281   0.00137  0.00481  0.9895  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256    0.07346   0.01686  0.01453  0.04206   0.00137  0.00454  0.9904  19  20
+sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128    0.07404   0.01690  0.01421  0.04293   0.00137  0.00486  0.9893  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128    0.07418   0.01686  0.01524  0.04208   0.00137  0.00459  0.9904  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256    0.07445   0.01684  0.01548  0.04213   0.00137  0.00458  0.9899  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=256    0.07489   0.01686  0.01596  0.04206   0.00137  0.00460  0.9903  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=6.4 sizeScatterSpanMax2x=128    0.07499   0.01686  0.01604  0.04209   0.00137  0.00460  0.9903  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256    0.07625   0.01684  0.01724  0.04217   0.00137  0.00466  0.9897  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128    0.07656   0.01685  0.01742  0.04228   0.00137  0.00474  0.9899  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256    0.07664   0.01685  0.01756  0.04223   0.00137  0.00467  0.9899  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256    0.07721   0.01688  0.01797  0.04235   0.00137  0.00470  0.9895  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128    0.07741   0.01685  0.01832  0.04224   0.00137  0.00476  0.9898  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=256    0.07820   0.01686  0.01909  0.04225   0.00137  0.00477  0.9897  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=7.2 sizeScatterSpanMax2x=128    0.07830   0.01686  0.01917  0.04226   0.00137  0.00478  0.9897  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128    0.07846   0.01687  0.01926  0.04233   0.00137  0.00485  0.9894  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256    0.07885   0.01688  0.01940  0.04257   0.00137  0.00477  0.9895  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256    0.07932   0.01687  0.02020  0.04226   0.00137  0.00482  0.9894  19  20
+sizeScatterFloor2x=0.7 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128    0.07933   0.01690  0.02000  0.04243   0.00137  0.00491  0.9892  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128    0.07956   0.01688  0.02016  0.04251   0.00137  0.00487  0.9893  19  20
+sizeScatterFloor2x=0.85 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128    0.08013   0.01687  0.02096  0.04230   0.00137  0.00493  0.9891  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256    0.08032   0.01685  0.02102  0.04246   0.00137  0.00488  0.9892  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=128    0.08034   0.01685  0.02110  0.04239   0.00137  0.00490  0.9892  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=256    0.08117   0.01688  0.02178  0.04250   0.00137  0.00494  0.9890  19  20
+sizeScatterFloor2x=1 sizeScatterGainMax2x=8.8 sizeScatterSpanMax2x=128    0.08121   0.01689  0.02186  0.04246   0.00137  0.00495  0.9890  19  20
+
+best: sizeScatterFloor2x=0.4 sizeScatterGainMax2x=8 sizeScatterSpanMax2x=256  interior 0.06628
+spread across the grid: 0.06628 … 0.08121 (1.23×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.

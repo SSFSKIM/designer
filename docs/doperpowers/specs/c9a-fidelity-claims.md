@@ -9736,3 +9736,154 @@ number. And the fitted transmission moves with the assumed width — `rrect-sm` 
 at σ 9 and 0.536 at σ 8 while its share moves by 0.02 — so no transmission reading should be
 taken from these fits; §5.61 §6's finding that the reference's transmission does not ramp is
 the one that stands.
+
+### 5.70 W15 G1 DECLARED: the 2x body — the deep value fully heavy, the heavy width six device pixels, the ramp's anchors as G0 read them; the 1x material byte-identical; one holdout row down and its mechanism (2026-09-04)
+
+The declaration the charter's G1 names, made before any landing capture. The evidence:
+`results/2026-09-04-w15-body-2x/g1/` — four sweeps (`stage1`, `stage2a`, `stage2b`, `stage2c`;
+`.out` the sweep's own table, `.tables.txt` the band-row reader's), the confirmation run
+(`matrix-confirm.json`, `confirm.verify.txt`, `confirm-runs.txt`, `chosen-{light,dark}.json`),
+the sheets (`sheets/g1-2x.png`, `g1-1x.png`). The code: branch `w15-g1-2x-body` at `3426b0a`
+(the GPU tier's widths in device pixels again; the three second-scale terms, each defaulting to
+its 1x value and interpolated by `rampAtScale`; the mirrors and the pins).
+
+**1. The form.** W13's fourth form, unchanged in shape (§5.68 §1), with its deep value, its heavy
+width and its anchors given their second scale. At dpr 2 on the GPU tier:
+
+- the widths are device-pixel quantities: σ_sharp = `blurSigma` / dpr = 0.625 CSS px (1.25
+  device px), σ_heavy = σ_sharp · `sizeScatterGainMax2x` — **3.0 CSS px, 6 device px**;
+- the deep value is fully heavy: `sizeScatterFloor2x` = **1.0**, so `kDeep` = 1 at every span and
+  `sizeScatterSpanMax2x` (256, the 1x value) has nothing to rise to;
+- the ramp is the whole body above it: s(u) = s₀(span) · max(0, 1 − u/U) with thin **0.46**, thick
+  **0.21**, far **0.21** (no decline past the knee at 2x) and U **100 device px** (50 CSS px).
+
+Between dpr 1 and 2 every term interpolates linearly; at dpr ≤ 1 every term is the W13 bed's, so
+**the 1x material does not move by construction** and the confirmation shows it (§4). The CSS tier
+is unchanged at every scale (W13 Decision Log 5 in force pending W15 Decision Log 2's q1; §5).
+
+**2. The constants, and how the sweeps chose them** (`scripts/sweep.ts` at the 2x light profile on
+the calibration set, the holdout untouched; the reader ranks on the five checkerboard cells' band
+rise against the W13 bed with S1's worst `ssimMean` delta and the interior spread's distance to
+native beside it):
+
+| sweep | axes | points | what it settled |
+| --- | --- | --- | --- |
+| stage 1 | floor2x {0.4, 0.7, 0.85, 1.0} × gain2x {6.4, 7.2, 8, 8.8} × spanMax2x {256, 128} | 32 | the bed's deep value with the widths alone reproduces candidate A (`rrect-ml` −0.0161, §5.68 §5); the narrowest width wins every measure at the grid's edge; floor 0.7 the best band; the sweep's own interior objective prefers floor 0.4 because `interiorStdDev` is the whole silhouette's, band included (§6) |
+| stage 2a | gain2x {4.8, 5.6, 6.4} × floor2x {0.7, 1.0} × thick2x {0.17, 0.25, 0.33} | 18 | gain 4.8 best again; thick flat over 0.17–0.25 and worse at 0.33; floor 0.7 better on the thin spans and `rrect-md`, 1.0 better on `rrect-ml` and on the spread |
+| stage 2b | thin2x {0.46, 0.56, 0.66} × floor2x {0.85, 1.0} × gain2x {4.8, 5.6} × reach2x {100, 130} | 24 | flat on top — nine points within 0.002 of band rise, all passing S1 and S4; thin **0.46** best (G0's u 6 reading, not the line's 0.56 intercept); the reach indifferent; floor **1.0** nearest native on the spread (0.0120 against 0.0173) |
+| stage 2c | gain2x {4.0, 4.4, 4.8, 5.2} at the chosen base | 4 | **an interior minimum at 4.8**: band +0.0189 / +0.0216 / **+0.0228** / +0.0222, spread 0.0335 / 0.0214 / **0.0120** / 0.0217 |
+
+The width is the finding G0 could not make. G0's bounded fit put the reference's heavy kernel at
+8–11 device px as a Gaussian; the renderer's own optimum is **6**, and the difference is the
+estimator's ±40% on a real capture of a known law (§5.69 §3) plus the mip tap not being a Gaussian
+— the renderer is the fitting instrument (binding) and 6 is what it draws best. The thick anchor,
+the far anchor and the reach are G0's numbers where the sweep was flat (thick 0.17–0.25 measured
+0.16–0.20; reach 100 measured 98–112; no decline at 2x, §5.69 §2); the thin anchor is G0's u 6
+reading exactly.
+
+**3. The confirmation run** (`run-confirm.sh`: four profiles, calibration + validation + holdout,
+GPU tier, the 2x holdout read once for this configuration — contract X8): every 2x light
+calibration row equal to the sweep's chosen point to six decimals. `ssimMean` / `ssimBand` /
+`interiorStdDev` web against native, 2x light, W13 bed → candidate:
+
+| cell | set | `ssimMean` | band | spread web / native |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | calibration | 0.9978 → **0.9988** | 0.9416 → 0.9732 (+0.0316) | 0.1661 / 0.1636 |
+| `capsule-button` | calibration | 0.9836 → **0.9860** | 0.8633 → 0.8943 (+0.0309) | 0.1439 / 0.1552 |
+| `rrect-md` | calibration | 0.9840 → **0.9903** | 0.9314 → 0.9537 (+0.0223) | 0.1156 / 0.1272 |
+| `rrect-ml` | calibration | 0.9746 → **0.9854** | 0.9397 → 0.9594 (+0.0197) | 0.1125 / 0.1018 |
+| `toolbar-group` | calibration | 0.9662 → 0.9666 | 0.7431 → 0.7524 (+0.0093) | 0.1460 / 0.1581 |
+| `glass-over-glass` | holdout | 0.9761 → **0.9841** | 0.9387 → 0.9586 (+0.0199) | 0.1433 / 0.1401 |
+| `rrect-lg` | holdout | 0.9680 → **0.9661** | 0.9383 → 0.9453 (+0.0069) | **0.1134 / 0.0810** |
+
+The tinted checkerboard capsules +0.0002 / +0.0003; `hc-text` (holdout) capsule +0.0018, `rrect-md`
++0.0033; the solids, `photo`, the impulse and the tinted `photo` cells within **0.0002** in every
+adopted metric. **2x dark:** capsule 0.9697 → 0.9711, `rrect-md` 0.9694 → 0.9719, the stacked
+holdout 0.9445 → 0.9505, the tint-orange capsule unchanged; every dark row rises or holds. **1x, all
+four profiles' 49 GPU cells: every row identical to the bed (worst |Δ| 0.000000) and every capture
+byte-identical, 49 / 49.**
+
+**4. The stops, read against the declaration** (charter G2, refined here with the numbers):
+
+- **S1 met, exactly:** the 1x rows and captures are the bed's.
+- **S2 met on six of seven rows and missed on one:** the five 2x calibration checkerboard rows rise
+  by 0.0004–0.0108 and the stacked holdout by 0.0079; **`rrect-lg` (holdout) falls 0.0018**, from
+  0.9680 to 0.9661. The mechanism is in the table: its band rises (+0.0069) and its interior falls
+  (`ssimInterior` 0.9747 → 0.9666), the spread 0.1134 against native 0.0810 — the largest span's
+  deep interior is now **sharper** than the reference's. The heavy width was chosen on spans of 32–128
+  (the calibration cells), and the reference's heavy kernel grows with span — G0's bounded per-span
+  widths 8.0 / 7.5 / 8.0 / 9.0 / **11.0** device px (§5.69 §1), a ratio of 1.375 between spans 96
+  and 160 — while the declared width is one number. The 0.93 bound stands (0.9661) and the row has
+  no floor since W14; the miss is against this wave's own stop. Named; the decision is §7.
+- **S3 refined:** "within 0.005 of the reference on the five calibration spans" is not met by any
+  point in 78 — the spread lands within **0.0025–0.0121** on the five (over on `rrect-sm` and
+  `-ml`, under on the capsule, `rrect-md` and the toolbar) and 0.032 over on `rrect-lg`. The reason
+  the number was wrong: `interiorStdDev` is the whole native silhouette's (the compare's interior
+  mask is the silhouette, `cli/measure.ts`), band and deep interior together, and the reference's
+  band carries a peak at u 10 above its contour value (§5.69 §2) that a linear ramp from the contour
+  cannot produce; a uniform share fits that statistic better than the measured shape does (§2's
+  stage 1). S3 is re-declared as **within 0.015 on the five calibration spans**, met at 0.0121, and
+  the statistic's limit recorded.
+- **S4 met on every checkerboard cell**, light and dark, calibration and holdout: the band rises
+  by 0.0069–0.0316 with `ssimInterior` up on `rrect-md` (+0.0327), `-ml` (+0.0289), the stacked
+  cell (+0.0153) and down on `rrect-lg` (−0.0080).
+- **S5 met on the material and missed by a thousandth on the outside:** the solids, `photo`, the
+  impulse and the tinted cells within 0.0002; `ssimOutside` within 0.001 on every cell but three —
+  `toolbar-group` −0.0016, `rrect-lg` −0.0019, `hc-text` capsule −0.0018 — the coverage-ramp
+  thousandth W13 recorded on the same statistic (§5.67 §5): the body's mix at the contour reaches
+  the outside window through the anti-aliased edge pixels the window straddles. Named.
+- **S6 met by construction:** the CSS tier's code path at `CSS_TIER_RAMP_SCALE = 1` reads no
+  second-scale term, so its rows are predicted identical; the landing's rebuild is the check.
+- **S7 is the user's:** the sheets (`sheets/g1-2x.png`, `g1-1x.png`) sent 2026-09-04.
+
+**5. The CSS tier at 2x — the table for W15 Decision Log 2 q1.** The tier's single σ per span in CSS
+px at the declared law (`groupScatterSigma` through `sizeScatterSigmaAt`; the tier's base σ 1.25 CSS
+px at every scale by W13 Decision Log 8):
+
+| cell | draws today (projection at dpr 1) | projection at the live ratio | the reference's ceiling (§5.69 §4) | the reference's own mix and widths |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | 3.79 | 4.11 | 3.00 | 2.91 |
+| `capsule-button` | 3.97 | 4.33 | 2.50 | 2.82 |
+| `rrect-md` | 5.53 | 5.39 | 4.00 | 3.64 |
+| `rrect-ml` | 6.09 | 5.50 | 5.00 | 4.19 |
+| `rrect-lg` | 7.04 | 5.58 | 5.00 | 5.01 |
+
+The live-ratio projection moves the tier **toward** the ceiling on the large spans (7.04 → 5.58
+against 5.00) and **away** on the small ones (3.79 → 4.11 against 3.00), because the tier's base σ
+stays 1.25 CSS px while the GPU tier's is 0.625 at 2x — the projection's fully-heavy end is 1.25 ×
+4.8 = 6.0 CSS px, twice the GPU tier's 3.0 — and the mix saturates (0.60–0.91). Neither column has
+the ceiling's shape; the fourth column, which does, needs the tier's heavy end to be the reference's
+own heavy width at 2x (§5.69 §4), which is a form the tier does not have. **The parent's reading
+for q1:** keep W13 Decision Log 5 for this wave — the live projection would move the four CSS 2x rows
+in opposite directions by span and reach the ceiling on none — and carry the tier's 2x form to the
+two-layer CSS body's charter with this table as its brief. The user decides at the landing.
+
+**6. What the sweeps taught, beside the constants.** (i) The wave's three gaps were one: lowering
+the deep value made W13's provisional anchors act on the numbers they carried, and the sweep's
+thin anchor is G0's reading to the hundredth. (ii) The renderer's heavy width at 2x is narrower
+than any Gaussian estimate of the reference's, by 25–45%, and the width G0 bounded was never going
+to be the width the sweep chose — the fitting instrument is the renderer, and the estimator's bias
+on vitrea's own captures (§5.69 §3) is the size of the difference. (iii) The compare's
+`interiorStdDev` is a whole-silhouette statistic and rewards uniform sharpness; as a stop it pulls
+against the band rows and it should not be read as "the deep interior". (iv) The far anchor's
+decline is a 1x feature: at 2x the start does not fall past the knee (far = thick), which the
+holdout's `rrect-lg` band (+0.0069) supports.
+
+**7. The landing question (W15 Decision Log 3, the user's).** Two landings are declared, and the
+holdout has been read once for the first:
+
+- **(a) land as declared** — every bound met, five calibration rows and the stacked holdout up,
+  every dark row up or held, the 1x material byte-identical; `rrect-lg` at 2x down 0.0018 with the
+  mechanism named (a heavy width chosen on spans ≤ 128, one number where the reference's grows with
+  span), carried by decision and re-asked as the next term;
+- **(b) re-form with a span-graded 2x heavy width** — the gain at 2x rising past the thickness
+  knee along the scatter span curve, its top set from G0's independent per-span reading (11 / 8 =
+  1.375 at span 160 against 96, §5.69 §1) rather than from the holdout, the calibration cells
+  re-swept (spans ≤ 128 barely touch the term), then a fresh configuration's one holdout reading.
+  One implementation round and one confirmation; the risk is that the term's top is set by an
+  estimator with ±40% bias and checked once.
+
+The parent recommends **(b)**: the miss sits on the span the demo's platters draw, the mechanism is
+measured on both sides (the reference's width grows with span, vitrea's interior on the largest span
+is 40% too structured), and the term's constant comes from G0 rather than from the row it would
+fix. (a) remains a landing every stop but S2's seventh row admits.

@@ -1,0 +1,72 @@
+
+## stage2c  (apple-macos-26.5-2x-light-standard)   4 points
+
+### ranked by mean ssimBand rise over the 5 checkerboard cells
+
+point                                                                               obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterGainMax2x=4.8                                                        0.06744   +0.0228    +0.0093       +0.0001  PASS  PASS    0.0120
+sizeScatterGainMax2x=5.2                                                        0.06854   +0.0222    +0.0098       +0.0001  PASS  PASS    0.0217
+sizeScatterGainMax2x=4.4                                                        0.06690   +0.0216    +0.0075       +0.0001  PASS  PASS    0.0214
+sizeScatterGainMax2x=4                                                          0.06843   +0.0189    +0.0049       -0.0001  PASS  PASS    0.0335
+
+### ranked by the WORST cell's ssimBand rise (S4's own reading)
+
+point                                                                               obj  bandRise  worstCell  minDssimMean    S1    S4   maxDisd
+sizeScatterGainMax2x=5.2                                                        0.06854   +0.0222    +0.0098       +0.0001  PASS  PASS    0.0217
+sizeScatterGainMax2x=4.8                                                        0.06744   +0.0228    +0.0093       +0.0001  PASS  PASS    0.0120
+sizeScatterGainMax2x=4.4                                                        0.06690   +0.0216    +0.0075       +0.0001  PASS  PASS    0.0214
+sizeScatterGainMax2x=4                                                          0.06843   +0.0189    +0.0049       -0.0001  PASS  PASS    0.0335
+
+### per-cell ssimBand delta against the W13 bed, worst-cell order
+
+point                                                                                sm     caps       md       ml       tb
+sizeScatterGainMax2x=5.2                                                        +0.0309  +0.0299  +0.0200  +0.0204  +0.0098
+sizeScatterGainMax2x=4.8                                                        +0.0316  +0.0309  +0.0223  +0.0197  +0.0093
+sizeScatterGainMax2x=4.4                                                        +0.0308  +0.0302  +0.0226  +0.0172  +0.0075
+sizeScatterGainMax2x=4                                                          +0.0286  +0.0287  +0.0205  +0.0120  +0.0049
+
+### isdW
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.1371   0.1189   0.0972   0.0745   0.1203   0.0488
+sizeScatterGainMax2x=5.2                                                        0.06854   0.1586   0.1362   0.1054   0.1019   0.1384   0.0516
+sizeScatterGainMax2x=4.8                                                        0.06744   0.1661   0.1439   0.1156   0.1125   0.1460   0.0520
+sizeScatterGainMax2x=4.4                                                        0.06690   0.1738   0.1515   0.1258   0.1232   0.1537   0.0523
+sizeScatterGainMax2x=4                                                          0.06843   0.1823   0.1603   0.1374   0.1353   0.1624   0.0526
+NATIVE                                                                                    0.1636   0.1552   0.1272   0.1018   0.1581   0.0591
+
+### ssimBand
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.9416   0.8633   0.9314   0.9397   0.7431   0.9928
+sizeScatterGainMax2x=5.2                                                        0.06854   0.9725   0.8932   0.9514   0.9601   0.7529   0.9931
+sizeScatterGainMax2x=4.8                                                        0.06744   0.9732   0.8943   0.9537   0.9594   0.7524   0.9931
+sizeScatterGainMax2x=4.4                                                        0.06690   0.9724   0.8935   0.9540   0.9569   0.7506   0.9931
+sizeScatterGainMax2x=4                                                          0.06843   0.9701   0.8920   0.9519   0.9516   0.7480   0.9931
+
+### ssimInterior
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —     —        —      0.9594   0.9589     —      0.9973
+sizeScatterGainMax2x=5.2                                                        0.06854     —        —      0.9873   0.9899     —      0.9974
+sizeScatterGainMax2x=4.8                                                        0.06744     —        —      0.9921   0.9878     —      0.9975
+sizeScatterGainMax2x=4.4                                                        0.06690     —        —      0.9937   0.9827     —      0.9975
+sizeScatterGainMax2x=4                                                          0.06843     —        —      0.9921   0.9738     —      0.9975
+
+### ssimMean
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.9978   0.9836   0.9840   0.9746   0.9662   0.9980
+sizeScatterGainMax2x=5.2                                                        0.06854   0.9988   0.9859   0.9896   0.9861   0.9667   0.9980
+sizeScatterGainMax2x=4.8                                                        0.06744   0.9988   0.9860   0.9903   0.9854   0.9666   0.9980
+sizeScatterGainMax2x=4.4                                                        0.06690   0.9988   0.9859   0.9904   0.9836   0.9664   0.9980
+sizeScatterGainMax2x=4                                                          0.06843   0.9987   0.9858   0.9899   0.9803   0.9662   0.9980
+
+### ssimOutside
+
+point                                                                               obj       sm     caps       md       ml       tb   pho-md
+main(W13 bed)                                                                         —   0.9975   0.9611   0.9934   0.9932   0.9232   0.9975
+sizeScatterGainMax2x=5.2                                                        0.06854   0.9972   0.9609   0.9932   0.9925   0.9219   0.9975
+sizeScatterGainMax2x=4.8                                                        0.06744   0.9971   0.9608   0.9930   0.9923   0.9216   0.9975
+sizeScatterGainMax2x=4.4                                                        0.06690   0.9970   0.9606   0.9928   0.9921   0.9213   0.9975
+sizeScatterGainMax2x=4                                                          0.06843   0.9968   0.9605   0.9926   0.9918   0.9210   0.9975

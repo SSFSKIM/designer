@@ -1,0 +1,28 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterGainMax2x=4.8 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.17    0.06687   0.01682  0.00846  0.04159   0.00137  0.00446  0.9905  19  20
+sizeScatterGainMax2x=4.8 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.25    0.06696   0.01684  0.00860  0.04152   0.00137  0.00449  0.9903  19  20
+sizeScatterGainMax2x=4.8 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.33    0.06702   0.01683  0.00877  0.04142   0.00137  0.00442  0.9906  19  20
+sizeScatterGainMax2x=4.8 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.25    0.06728   0.01683  0.00895  0.04150   0.00137  0.00440  0.9908  19  20
+sizeScatterGainMax2x=4.8 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.33    0.06730   0.01684  0.00902  0.04144   0.00137  0.00452  0.9901  19  20
+sizeScatterGainMax2x=4.8 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.17    0.06760   0.01684  0.00912  0.04165   0.00137  0.00438  0.9909  19  20
+sizeScatterGainMax2x=5.6 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.33    0.06774   0.01685  0.00932  0.04157   0.00137  0.00446  0.9902  19  20
+sizeScatterGainMax2x=5.6 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.17    0.06806   0.01685  0.00946  0.04176   0.00137  0.00444  0.9905  19  20
+sizeScatterGainMax2x=5.6 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.25    0.06813   0.01684  0.00954  0.04175   0.00137  0.00445  0.9904  19  20
+sizeScatterGainMax2x=5.6 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.33    0.06907   0.01684  0.01067  0.04156   0.00137  0.00441  0.9906  19  20
+sizeScatterGainMax2x=5.6 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.25    0.06995   0.01684  0.01142  0.04169   0.00137  0.00442  0.9907  19  20
+sizeScatterGainMax2x=6.4 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.33    0.06996   0.01686  0.01135  0.04175   0.00137  0.00448  0.9901  19  20
+sizeScatterGainMax2x=5.6 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.17    0.07082   0.01684  0.01215  0.04183   0.00137  0.00444  0.9908  19  20
+sizeScatterGainMax2x=6.4 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.25    0.07096   0.01685  0.01219  0.04192   0.00137  0.00448  0.9902  19  20
+sizeScatterGainMax2x=6.4 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.17    0.07142   0.01685  0.01263  0.04194   0.00137  0.00449  0.9903  19  20
+sizeScatterGainMax2x=6.4 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.33    0.07284   0.01685  0.01427  0.04172   0.00137  0.00451  0.9903  19  20
+sizeScatterGainMax2x=6.4 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.25    0.07385   0.01685  0.01512  0.04188   0.00137  0.00454  0.9904  19  20
+sizeScatterGainMax2x=6.4 sizeScatterFloor2x=1 sizeScatterRampStartThick2x=0.17    0.07487   0.01686  0.01594  0.04207   0.00137  0.00459  0.9903  19  20
+
+best: sizeScatterGainMax2x=4.8 sizeScatterFloor2x=0.7 sizeScatterRampStartThick2x=0.17  interior 0.06687
+spread across the grid: 0.06687 … 0.07487 (1.12×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.
