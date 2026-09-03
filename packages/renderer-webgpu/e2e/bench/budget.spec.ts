@@ -87,7 +87,18 @@ const CONFIGS = [
     widthCss: 390,
     heightCss: 844,
     devicePixelRatio: 3,
-    materialProfile: { outerShadow: { occlusion: 0 } },
+    materialProfile: {
+      // Every amplitude anchor and the lift at zero — the facet off (W14 G1).
+      outerShadow: {
+        thinOcclusionDark: 0,
+        thinOcclusionMid: 0,
+        thinOcclusionBright: 0,
+        thickOcclusionAt96: 0,
+        thickOcclusionAt128: 0,
+        thickOcclusionAt160: 0,
+        liftAmplitude: 0,
+      },
+    },
   },
   // The ordering control: the first config again. Interleaved, it should land on
   // the first row's number; if it does not, nothing else in the table is

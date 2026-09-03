@@ -45,9 +45,9 @@ import {
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
   outerShadowAlpha,
+  outerShadowOcclusionAt,
   outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
-  sizeOuterShadowOcclusionAt,
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThicknessUnderPolicy,
@@ -381,10 +381,24 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     surface.outerShadow ?? MATERIAL_SOURCE_OUTER_SHADOW,
     policy.material,
   );
-  const shadowOcclusion = sizeOuterShadowOcclusionAt(
-    shadowSource.occlusion,
-    sizeK,
+  /*
+   * The amplitude is a law and no longer a constant (W14 G1, claims §5.62): the
+   * thin regime's occlusion is keyed on the backdrop this surface is over — the
+   * same statistic W9's face response keys on, `surface.backdropLuminance`, an
+   * author hint's declared level or the tone measured from the backdrop source —
+   * and the thick regime's on the casting span, blended across the size law's own
+   * knee. `outerShadowOcclusionAt` folds the size gain too, which is what
+   * `sizeOuterShadowOcclusionAt` was doing here alone.
+   *
+   * A surface with no span (`spanPx === undefined` leaves `sizeK` at 0) resolves
+   * the thin regime, which is what a surface too small for the size law to reach
+   * was already getting.
+   */
+  const shadowOcclusion = outerShadowOcclusionAt(
     shadowSource,
+    surface.backdropLuminance,
+    surface.spanPx ?? 0,
+    sizeK,
   );
   const radius = surface.radii.map(px).join(" ");
 

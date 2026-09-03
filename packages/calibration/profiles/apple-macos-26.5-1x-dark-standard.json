@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "f9722f244e7f2af2",
+  "resolvedMaterialSha256": "0df0796a6485e189",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -146,7 +146,13 @@
       0.05
     ],
     "outerShadow": {
-      "occlusion": 0.09
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0.063,
+      "thinOcclusionBright": 0.063,
+      "thickOcclusionAt96": 0.23,
+      "thickOcclusionAt128": 0.249,
+      "thickOcclusionAt160": 0.268,
+      "liftAmplitude": 0
     }
   },
   "entries": {
@@ -217,26 +223,76 @@
         "estimator. The gap is reported instead."
       ]
     },
-    "outerShadow.occlusion": {
-      "status": "measured",
-      "value": 0.09,
+    "outerShadow": {
+      "status": "provisional",
+      "value": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0.063,
+        "thinOcclusionBright": 0.063,
+        "thickOcclusionAt96": 0.23,
+        "thickOcclusionAt128": 0.249,
+        "thickOcclusionAt160": 0.268,
+        "liftAmplitude": 0
+      },
+      "previous": {
+        "occlusion": 0.09
+      },
       "method": [
-        "Fitted on the six untinted rest calibration cells of this profile against the shadow objective",
-        "(mean |delta meanDeparture| over the exterior, linear light). Grid 0.05/0.09/0.13/0.18/0.24/0.30",
-        "reads 0.00153/0.00142/0.00145/0.00151/0.00193/0.00293 - an interior minimum with a 2.06x spread -",
-        "and a refinement over 0.07/0.09/0.105/0.12 is flat to 1.02x.",
+        "W14 G1 (claims 5.62), built and not yet fitted. The single 0.09 - itself a compromise across",
+        "the span, fitted under the shadow objective and recorded in previousEntry below - is replaced",
+        "by the same two-regime law the light profile now carries, with this scheme's own anchors.",
         "",
-        "The reference's own shadow axis agrees and explains the flatness: its dark-scheme amplitude is",
-        "0.067-0.069 at a 44 px span and 0.195-0.257 at 96 px, so one constant is a compromise across the",
-        "span. 0.09 is the argmin and the closest of the tied points to the 44 px measurement, which is",
-        "where most of this profile's calibration cells sit. The GEOMETRY is not patched: sigma 16.2-18.4",
-        "device px in this profile against 17.3-18.2 in the light one is the same shadow, and the",
-        "'dark casts a different shadow' reading was withdrawn before this fit ran (claims section 5.12)."
+        "MEASURED: the dark scheme's thin material reads a FLAT 0.063 on all three measurable backdrops",
+        "(claims 5.62 section 5), so thinOcclusionMid and thinOcclusionBright are the same number here -",
+        "the light scheme's factor-of-2.6 fall into the light does not appear in this scheme's bed, and",
+        "asserting one would be inventing it. thinOcclusionDark is 0 for the same reason it is 0 in the",
+        "light profile: over dark-solid and impulse the reference removes nothing measurable.",
+        "",
+        "PROVISIONAL, and weaker than the light profile's: G0 read the dark thick regime on two cells",
+        "only - checkerboard__rrect-md at occlusion 0.230 (span 96) and photo__rrect-lg at 0.268. Those",
+        "are used as thickOcclusionAt96 and thickOcclusionAt160 respectively, and thickOcclusionAt128 is",
+        "their midpoint (0.249), which is an INTERPOLATION and not a reading. The sweep fits all three.",
+        "",
+        "liftAmplitude is 0 on this scheme, and that is a decision rather than a measurement: the dark",
+        "scheme's backdrops cannot produce a lift a reading could separate, and the light profile's lift",
+        "is what explains W8's sizeGain seam - the light amplitude 'falls' with span where the dark one",
+        "rises because the light composite carries a term the dark backdrops do not. Turning the term on",
+        "here would be fitting a mechanism this bed cannot see. sizeGain stays at the identity."
       ],
       "doesNotClose": [
-        "The span dependence. The reference's dark amplitude RISES with span where the light one",
-        "falls, so outerShadow.sizeGain cannot serve both schemes and stays at the identity."
-      ]
+        "The span dependence, still. The reference's dark amplitude RISES with span (0.063 thin against",
+        "0.23-0.27 thick) where the light one falls, so outerShadow.sizeGain cannot serve both schemes",
+        "and stays at the identity. W14 G0 EXPLAINS the sign - the light scheme's thick composite",
+        "includes a lift the dark scheme's backdrops do not produce - but the dark scheme's own numbers",
+        "are the composite and its layer tree has not been dumped (W12 Deferred: dump-layers needs a",
+        "scheme flag).",
+        "",
+        "thickOcclusionAt128 is the midpoint of two readings and not a reading.",
+        "",
+        "The bright anchor equals the mid one because this scheme's bed has no light-solid cell that",
+        "identifies it. Whether the dark material's shadow adapts into the light at all is unmeasured."
+      ],
+      "previousEntry": {
+        "status": "measured",
+        "value": 0.09,
+        "method": [
+          "Fitted on the six untinted rest calibration cells of this profile against the shadow objective",
+          "(mean |delta meanDeparture| over the exterior, linear light). Grid 0.05/0.09/0.13/0.18/0.24/0.30",
+          "reads 0.00153/0.00142/0.00145/0.00151/0.00193/0.00293 - an interior minimum with a 2.06x spread -",
+          "and a refinement over 0.07/0.09/0.105/0.12 is flat to 1.02x.",
+          "",
+          "The reference's own shadow axis agrees and explains the flatness: its dark-scheme amplitude is",
+          "0.067-0.069 at a 44 px span and 0.195-0.257 at 96 px, so one constant is a compromise across the",
+          "span. 0.09 is the argmin and the closest of the tied points to the 44 px measurement, which is",
+          "where most of this profile's calibration cells sit. The GEOMETRY is not patched: sigma 16.2-18.4",
+          "device px in this profile against 17.3-18.2 in the light one is the same shadow, and the",
+          "'dark casts a different shadow' reading was withdrawn before this fit ran (claims section 5.12)."
+        ],
+        "doesNotClose": [
+          "The span dependence. The reference's dark amplitude RISES with span where the light one",
+          "falls, so outerShadow.sizeGain cannot serve both schemes and stays at the identity."
+        ]
+      }
     }
   },
   "recalibratedAt": "2026-08-31",
@@ -249,5 +305,8 @@
     "captures; whether the dark reference's band takes the same law is the",
     "referee's question for this scheme's cells. The patch itself is unchanged.",
     "Fingerprint aec4cfba10137f2b -> c2da15c95e5116e2 (the defaults above)."
+  ],
+  "$comment-sha-history": [
+    "f9722f244e7f2af2 -> 0df0796a6485e189 (2026-09-03, W14 G1): the outer shadow's amplitude — this difference document's occlusion 0.09 retired for the two-regime law's dark anchors (thin 0.063 flat, thick 0.230/0.249/0.268 provisional) with the lift off — see entries.outerShadow. The light defaults it inherits moved with it."
   ]
 }

@@ -123,6 +123,33 @@ export interface MaterialRim {
  * occlusion over 142,550 pixels on the finest cell, and the same three lengths
  * describe every profile, backdrop, span and scale in the bed.
  *
+ * ## Two terms on ONE falloff (W14 G0, claims §5.62)
+ *
+ * The description above holds where W8 measured it and misses two things the bed
+ * has since shown, both of which live in the AMPLITUDE and neither of which
+ * moves a length. Outside the coverage, in the compositing (encoded) domain:
+ *
+ *     out = bg · (1 − α_b(backdrop, span) · F(d))  +  A_v(span) · F(d) · V
+ *
+ * with **one** falloff `F` — W8's own, at 15.55 / 7.95 / 3.1, re-read free and
+ * unmoved on both terms (σ 14.8–16.2 and offset 7.93–8.00 for the black term,
+ * σ 14.1–17.1 and offset 7.6–8.4 for the lift) — and `V` the backdrop's own
+ * light blurred at `liftBlurSigmaCss`.
+ *
+ * The first term's amplitude ADAPTS below the knee: the reference's fill alpha
+ * is 0.33 over the mid backdrops, 0.127 over `light-solid` and nothing over
+ * black, keyed on the SAME backdrop luminance statistic W9's face response uses
+ * (the ENCODED-space mean, decoded — `backdropToneAnchorX`'s own axis), through
+ * the same thickness curve that gates that regime. Above the knee it is the
+ * composite's transmission by span. The second term is the lift, GPU-tier only,
+ * and it is exactly zero below the knee and exactly zero over black, so the
+ * facet's "invisible over a black backdrop" property survives both terms.
+ *
+ * The layer tree's `inputShadowAmount` and `inputShadowHeight` are NOT either
+ * term's spatial extent — the charter's advisory was wrong there, and G0's free
+ * fits overturned it. Only `inputShadowBlurRadius` 40 belongs to the lift, as
+ * the blur of the backdrop it copies.
+ *
  * **Multiplicative, and not additively.** Mirrored pixel pairs either side of a
  * capsule over the `photo` backdrop see the same shadow over different backdrop
  * luminances: the darkening's ratio tracks the backdrop's ratio to 4.5% while a
@@ -151,12 +178,107 @@ export interface MaterialOuterShadow {
   /** Outward spread of the silhouette before the blur, CSS px. */
   readonly spreadPx: number;
   /**
-   * Peak occlusion: the fraction of the backdrop's own LINEAR light removed deep
-   * inside the shadow. Zero stands the whole facet down, pad and all.
+   * The black term's peak occlusion below the knee, over a backdrop the material
+   * cannot see (linear luminance ≤ `OUTER_SHADOW_THIN_L.inert`): zero. Inert
+   * over `dark-solid` and `impulse`, which is what the reference does — it
+   * removes at most one or two of 255 codes there (claims §5.62 §5).
    */
-  readonly occlusion: number;
+  readonly thinOcclusionDark: number;
   /**
-   * What reduced transparency does to `occlusion` — MEASURED, not assumed, which
+   * The black term's peak occlusion below the knee over the MID plateau —
+   * backdrop linear luminance `OUTER_SHADOW_THIN_L.midFrom` … `midTo`.
+   *
+   * MEASURED (claims §5.62 §5): linear occlusion 0.347 over `mid-dark-solid`,
+   * 0.334–0.339 over `photo`, 0.327–0.328 over the checkerboard and 0.329 over
+   * `hc-text` — flat across a backdrop luminance range of 0.06…0.74, and a
+   * constant 1.16–1.19× the fill alpha §5.50 §2 read off the layer tree.
+   */
+  readonly thinOcclusionMid: number;
+  /**
+   * The black term's peak occlusion below the knee over a BRIGHT backdrop, at
+   * `OUTER_SHADOW_THIN_L.bright` and above.
+   *
+   * MEASURED (claims §5.62 §5): 0.127 over `light-solid` (linear luminance
+   * 0.891), against the layer tree's tabulated 0.05 — so the reference's shadow
+   * there is 0.39 of its shadow over the checkerboard, not one sixth. W8's
+   * single 0.285 everywhere is 2.24× this, which is the whole of the user's
+   * by-eye "the shadow is darker on the light-solid capsule" and, by the free
+   * geometry fit on that cell (σ 14.81 / offset 7.97 / spread 3.17), no part of
+   * it is shape.
+   */
+  readonly thinOcclusionBright: number;
+  /**
+   * The COMPOSITE occlusion above the knee at a casting span of 96 CSS px.
+   *
+   * PROVISIONAL — the value is G0's measurement (claims §5.62 §4: linear
+   * occlusion 0.379 on the checkerboard at span 96) and the sweep refines it,
+   * because what G0 could identify at the bed's noise floor is the composite
+   * transmission and the lift's peak amplitude, not the split into (black alpha,
+   * vibrant alpha, vibrant colour): both terms ride one falloff and their shapes
+   * correlate at 0.9998. So this constant is the BLACK term of a two-term
+   * composite whose second term (`liftAmplitude`) is fitted beside it, and the
+   * pair is what the referee reads.
+   */
+  readonly thickOcclusionAt96: number;
+  /** The same at a casting span of 128 CSS px — 0.497 measured, PROVISIONAL for
+   * `thickOcclusionAt96`'s reason. */
+  readonly thickOcclusionAt128: number;
+  /** The same at a casting span of 160 CSS px — 0.544 measured, PROVISIONAL for
+   * `thickOcclusionAt96`'s reason. */
+  readonly thickOcclusionAt160: number;
+  /**
+   * **The lift (W14)** — the peak amplitude of the second term, in LINEAR light,
+   * as a fraction of the backdrop's own blurred luminance. GPU tier only.
+   *
+   * The reference's thick shadow does not only remove light: on the
+   * checkerboard's black squares, where a multiply is inert by construction, it
+   * ADDS 7.4 of 255 (claims §5.62 §2). Pooled over six backdrops the addition
+   * regresses on the σ-40 blurred backdrop at slope 0.0444 with intercept
+   * −0.0042 and R² 0.983 — it is the backdrop's own light, blurred, composited
+   * under the shadow, with no fixed colour left over. Zero over `impulse`, zero
+   * over `dark-solid`, and zero below the knee, so the facet stays exactly inert
+   * over black the way W8's multiply is.
+   *
+   * PROVISIONAL: 0.0073 is G0's +0.0038 of LINEAR lift at span 160 divided by
+   * the ≈ 0.52 linear luminance the checkerboard's σ-40 blur sits at. The space
+   * matters and this wave names it everywhere (claims §5.62 §3): §5.60's +0.039
+   * is the same lift read in ENCODED luma. The sweep fits this against the
+   * referee together with the three thick anchors.
+   */
+  readonly liftAmplitude: number;
+  /**
+   * Where the lift starts, in casting span, CSS px — the thin/thick knee, and it
+   * is exact: the lift reads 0.0000 at spans 32 and 44 and is present at 96
+   * (claims §5.62 §2). The layer tree's own `VibrancyContribution` clamps from
+   * the same 64.
+   */
+  readonly liftSpanMin: number;
+  /**
+   * Where the lift saturates, in casting span, CSS px.
+   *
+   * PROVISIONAL. The measured rise is 0.52 / 0.96 / 1.00 of the span-160 value
+   * at spans 96 / 128 / 160, against the layer tree's clamp((span − 64)/96)
+   * = 0.33 / 0.67 / 1.00 — so the lift is NOT proportional to
+   * `VibrancyContribution`; it rises and saturates, reaching 96% by span 128
+   * (claims §5.62 §2). A smoothstep from `liftSpanMin` to 128 reproduces that
+   * shape (0.42 at 96, 1.00 at 128) more nearly than the clamp does; the sweep
+   * settles the reach.
+   */
+  readonly liftSpanFull: number;
+  /**
+   * The σ, in CSS px, of the blur the lift copies the backdrop through.
+   *
+   * MEASURED at 40 ± 8 CSS px on `rrect-lg` at both scales and in two rings, by
+   * the probes' pitch axis — the pooled residual has a real minimum there, 12%
+   * below the flat-copy residual (claims §5.62 §3). It is the layer tree's
+   * `inputShadowBlurRadius` 40 read as a Gaussian standard deviation. NOT
+   * identifiable on the mid spans (flat to 0.7%), and reported as such rather
+   * than fitted there.
+   */
+  readonly liftBlurSigmaCss: number;
+  /**
+   * What reduced transparency does to the black term's amplitude — MEASURED, not
+   * assumed, which
    * is what the charter asked for before the fold was written.
    *
    * The reference's shadow under `reduce transparency` is the same shadow at
@@ -171,6 +293,21 @@ export interface MaterialOuterShadow {
    * separate them. The fold therefore keys on `frost`, the axis reduced
    * transparency alone sets, rather than on the contrast axes it would be
    * indistinguishable on here.
+   *
+   * W14 G0 re-read it on the wider bed and it stands: under increased contrast
+   * and reduced transparency alike the reference's exterior is flat at
+   * 0.192–0.202, **thin and thick together** and over every backdrop (claims
+   * §5.62 §5). So the fold multiplies all six amplitude anchors, and it also
+   * stands the lift DOWN entirely — a preference under which the thick and the
+   * thin regimes read the same number has no second term left in it.
+   *
+   * **The factor itself is now 15% high and is not changed here.** 0.70 was
+   * fitted against W8's single 0.285 and reconciled two routes at 0.1995; the
+   * mid anchor has moved to 0.33, so the folded amplitude is 0.231 against the
+   * reference's directly measured 0.192–0.202. 0.60 would land 0.198. W14 G1
+   * builds the law and does not fit it — the sweep refines this constant with
+   * the six anchors, and `outer-shadow.test.ts` pins 0.231 so the gap is a
+   * number somebody has to move rather than a rounding nobody sees.
    */
   readonly reducedTransparencyOcclusion: number;
   /**
@@ -1084,12 +1221,32 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * 44 px span — the dark material's shadow is nearly invisible) and lands as a
    * profile patch, not as a branch here. Both are stated in the claims doc as the
    * open question the cascade's fit inherits.
+   *
+   * **W14 G1 answers that open question and replaces `occlusion`.** "Over the
+   * flat near-white `light-solid` backdrop the same fit reads 0.123 rather than
+   * 0.33 … it is not a function of the backdrop's luminance" was read on a bed
+   * that had no backdrop between `hc-text` (linear 0.74) and `light-solid`
+   * (0.891): it IS a function of the backdrop's luminance, and the whole factor
+   * of 2.6 happens inside the gap the bed cannot see (claims §5.62 §5). The
+   * single amplitude becomes six anchors on two regimes — three in backdrop
+   * luminance below the knee, three in span above it — plus the lift's four
+   * constants. The three lengths are untouched; G0 re-read them free on both
+   * terms and they came back at W8's values.
    */
   outerShadow: {
     offsetPx: 7.95,
     sigmaPx: 15.55,
     spreadPx: 3.1,
-    occlusion: 0.285,
+    thinOcclusionDark: 0,
+    thinOcclusionMid: 0.33,
+    thinOcclusionBright: 0.127,
+    thickOcclusionAt96: 0.379,
+    thickOcclusionAt128: 0.497,
+    thickOcclusionAt160: 0.544,
+    liftAmplitude: 0.0073,
+    liftSpanMin: 64,
+    liftSpanFull: 128,
+    liftBlurSigmaCss: 40,
     reducedTransparencyOcclusion: 0.7,
     sizeGain: 0,
   },
@@ -1935,6 +2092,155 @@ export function sizeOuterShadowOcclusionAt(
 }
 
 /**
+ * Where the thin regime's three amplitude anchors sit on the backdrop luminance
+ * axis, and where the two interpolations between them run (W14 G1).
+ *
+ * The axis is the SAME statistic W9's face response keys on — the backdrop's
+ * ENCODED-space mean, decoded to a linear luminance — which is the charter's
+ * third binding rule ("no second luminance statistic is introduced for the
+ * shadow"). `MaterialProfile.backdropToneAnchorX` names the same three solids in
+ * the encoded space: 0.1104 / 0.2706 / 0.9505 encoded are 0.0117 / 0.0595 /
+ * 0.891 linear, which is `inert` / `midFrom` / `bright` below.
+ *
+ * `midFrom` … `midTo` is a plateau the bed MEASURED at four backdrops
+ * (`mid-dark-solid` 0.06, checkerboard and `photo` in between, `hc-text` 0.74),
+ * flat to 0.02 in occlusion. The two interpolations either side of it are
+ * **declared choices, not measurements**, and the bed does not constrain either:
+ *
+ *  - `midTo` → `bright` (0.74 → 0.891) is taken LINEAR in luminance. The bed
+ *    jumps straight from `hc-text` to `light-solid` with nothing between, and
+ *    the whole factor-of-2.6 drop happens in that gap (claims §5.62, W14
+ *    Deferred: "one backdrop between them would pin it"). A linear ramp is the
+ *    least-committed curve through two endpoints; a smoothstep would assert a
+ *    knee at each end that nothing measured.
+ *  - `inert` → `midFrom` (0.02 → 0.06) is taken by SMOOTHSTEP. Below `inert` the
+ *    reference removes at most one or two of 255 codes and the compare's shadow
+ *    axis reports nothing at all (its backdrop floor is 0.05), so this ramp is
+ *    unmeasured over its whole length; it is a smoothstep so that the facet
+ *    arrives with a zero derivative at the black end and a scene fading from
+ *    `dark-solid` to `mid-dark-solid` does not show the shadow switching on.
+ */
+export const OUTER_SHADOW_THIN_L = {
+  /** At and below this backdrop luminance the black term is `thinOcclusionDark`. */
+  inert: 0.02,
+  /** From here the mid plateau holds. */
+  midFrom: 0.06,
+  /** To here — `hc-text`'s own linear luminance. */
+  midTo: 0.74,
+  /** `light-solid`'s linear luminance, where 0.127 was measured; held above. */
+  bright: 0.891,
+} as const;
+
+/**
+ * The backdrop luminance the law reads where the host measured none.
+ *
+ * Neither tier can adapt a shadow to a backdrop nobody declared or sampled, and
+ * guessing black would delete the facet on every unsampled surface while
+ * guessing white would halve it. The mid plateau is what four of the bed's seven
+ * backdrops sit on and what W8's single amplitude was a compromise across, so an
+ * unmeasured group keeps the closest thing to the shadow it had.
+ */
+export const OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE = 0.3;
+
+/**
+ * The black term's peak occlusion below the knee, at a backdrop luminance — see
+ * `OUTER_SHADOW_THIN_L` for the anchors and for which parts of this curve are
+ * measured and which are declared.
+ */
+export function outerShadowThinOcclusion(
+  backdropLuminance: number | undefined,
+  shadow: MaterialOuterShadow,
+): number {
+  const l = backdropLuminance ?? OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE;
+  const { inert, midFrom, midTo, bright } = OUTER_SHADOW_THIN_L;
+  if (l <= inert) return shadow.thinOcclusionDark;
+  if (l < midFrom) {
+    const t = (l - inert) / (midFrom - inert);
+    const s = t * t * (3 - 2 * t);
+    return shadow.thinOcclusionDark + (shadow.thinOcclusionMid - shadow.thinOcclusionDark) * s;
+  }
+  if (l <= midTo) return shadow.thinOcclusionMid;
+  if (l >= bright) return shadow.thinOcclusionBright;
+  const t = (l - midTo) / (bright - midTo);
+  return shadow.thinOcclusionMid + (shadow.thinOcclusionBright - shadow.thinOcclusionMid) * t;
+}
+
+/** The three spans the thick regime's anchors were read at, CSS px (claims §5.62 §4). */
+export const OUTER_SHADOW_THICK_SPANS = [96, 128, 160] as const;
+
+/**
+ * The composite's peak occlusion above the knee, at a casting span — piecewise
+ * linear through the three measured anchors and held flat outside them.
+ *
+ * Held rather than extrapolated at both ends: below 96 the thin regime is what
+ * the blend is walking away from and an extrapolated line would cross it, and
+ * above 160 the bed has no cell at all, where the measured rise is already
+ * flattening (0.379 → 0.497 → 0.544 costs 0.118 over the first 32 px of span and
+ * 0.047 over the next 32).
+ *
+ * Not keyed on the backdrop, unlike the thin regime: the anchors are the
+ * composite's transmission measured on the checkerboard, and the bed has no
+ * thick cell over a dark backdrop to key against (claims §5.62 §4 — a span-128
+ * or 160 surface over `impulse` would separate the composite's two terms, and
+ * that scene does not exist). It costs nothing visible where it is wrong: a
+ * multiply over a near-black backdrop removes near-nothing whatever its
+ * amplitude, so the over-stated black term over `dark-solid` is 0.379 of 0.0039
+ * of linear light. The dark PROFILE carries its own three anchors.
+ */
+export function outerShadowThickOcclusion(
+  spanPx: number,
+  shadow: MaterialOuterShadow,
+): number {
+  const [s0, s1, s2] = OUTER_SHADOW_THICK_SPANS;
+  const y0 = shadow.thickOcclusionAt96;
+  const y1 = shadow.thickOcclusionAt128;
+  const y2 = shadow.thickOcclusionAt160;
+  if (spanPx <= s0) return y0;
+  if (spanPx >= s2) return y2;
+  if (spanPx <= s1) return y0 + ((y1 - y0) * (spanPx - s0)) / (s1 - s0);
+  return y1 + ((y2 - y1) * (spanPx - s1)) / (s2 - s1);
+}
+
+/**
+ * The outer shadow's peak LINEAR occlusion for one casting surface (W14 G1) —
+ * the thin regime's backdrop-keyed amplitude, the thick regime's span law, and
+ * the size law's gain, in that order.
+ *
+ * `thickness` is the size law's own curve for the casting surface, folded under
+ * the accessibility policy exactly as every other span-dependent facet folds it
+ * (`sizeThicknessUnderPolicy`); the blend between the two regimes is the
+ * smoothstep of it — the SAME curve `backdropToneResponse` blends its thin and
+ * thick rows across, so the shadow's knee and the face's knee are one knee.
+ *
+ * `backdropLuminance` is the statistic W9's response keys on, and `undefined`
+ * means the host measured no backdrop — see
+ * `OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE`.
+ */
+export function outerShadowOcclusionAt(
+  shadow: MaterialOuterShadow,
+  backdropLuminance: number | undefined,
+  spanPx: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const thin = outerShadowThinOcclusion(backdropLuminance, shadow);
+  const thick = outerShadowThickOcclusion(spanPx, shadow);
+  const k = Math.min(1, Math.max(0, thickness));
+  const blend = k * k * (3 - 2 * k);
+  return sizeOuterShadowOcclusionAt(thin + (thick - thin) * blend, thickness, profile);
+}
+
+/**
+ * The lift's span rise, 0…1 — the fraction of `liftAmplitude` a surface of this
+ * casting span adds. Zero at and below `liftSpanMin`, one at and above
+ * `liftSpanFull`, a smoothstep between; see `MaterialOuterShadow.liftSpanFull`
+ * for why a smoothstep rather than the layer tree's own linear clamp.
+ */
+export function outerShadowLiftRise(spanPx: number, shadow: MaterialOuterShadow): number {
+  return smoothstep(shadow.liftSpanMin, shadow.liftSpanFull, spanPx);
+}
+
+/**
  * The outer shadow under an accessibility regime.
  *
  * One branch per axis that can reach it, on `opticsUnderPolicy`'s rule. `frost`
@@ -1942,17 +2248,39 @@ export function sizeOuterShadowOcclusionAt(
  * is measured — see `MaterialOuterShadow.reducedTransparencyOcclusion`. Under
  * forced colours the material is gone, so its shadow goes with it rather than
  * outliving the surface that cast it.
+ *
+ * The fold multiplies all six amplitude anchors rather than the resolved number,
+ * which is the same thing: the law is a convex blend of its anchors in both
+ * regimes, so scaling them scales the result exactly, and doing it here keeps
+ * one folded `MaterialOuterShadow` as the single value every caller resolves
+ * from. The LIFT is stood down rather than scaled — under the preference the
+ * reference's thick and thin exteriors read the same flat number, which is a
+ * composite with no second term in it (claims §5.62 §5).
  */
 export function outerShadowUnderPolicy(
   policy: MaterialPolicyView,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): MaterialOuterShadow {
   const shadow = profile.outerShadow;
-  if (policy.glass === "none" || policy.frost === "none") return { ...shadow, occlusion: 0 };
+  if (policy.glass === "none" || policy.frost === "none") return scaledOuterShadow(shadow, 0);
   if (policy.frost === "increased") {
-    return { ...shadow, occlusion: shadow.occlusion * shadow.reducedTransparencyOcclusion };
+    return scaledOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
   }
   return shadow;
+}
+
+/** Every amplitude anchor times `factor`, with the lift stood down below 1. */
+function scaledOuterShadow(shadow: MaterialOuterShadow, factor: number): MaterialOuterShadow {
+  return {
+    ...shadow,
+    thinOcclusionDark: shadow.thinOcclusionDark * factor,
+    thinOcclusionMid: shadow.thinOcclusionMid * factor,
+    thinOcclusionBright: shadow.thinOcclusionBright * factor,
+    thickOcclusionAt96: shadow.thickOcclusionAt96 * factor,
+    thickOcclusionAt128: shadow.thickOcclusionAt128 * factor,
+    thickOcclusionAt160: shadow.thickOcclusionAt160 * factor,
+    liftAmplitude: factor >= 1 ? shadow.liftAmplitude : 0,
+  };
 }
 
 /**
@@ -2018,11 +2346,14 @@ export function outerShadowAlpha(occlusion: number): number {
  * px on every edge at the shipped constants — pure cost on a facet already
  * measured at 3.2× the frame's GPU time.
  *
- * `shadow.occlusion` must be the EFFECTIVE amplitude — after the accessibility
- * fold and after the size law — which is the caller's to resolve, because only
- * it knows the group's membership. A pad taken from the base amplitude while the
- * shader emits an amplified one slices the deepest surface's shadow off at the
- * scissor, while the CSS tier, which has no scissor, goes on drawing it.
+ * `occlusion` must be the EFFECTIVE amplitude — after the accessibility fold,
+ * after the backdrop key and the span law, and after the size law — which is the
+ * caller's to resolve, because only it knows the group's membership and the
+ * backdrop it sits over. A pad taken from the base amplitude while the shader
+ * emits an amplified one slices the deepest surface's shadow off at the scissor,
+ * while the CSS tier, which has no scissor, goes on drawing it. It is a separate
+ * argument since W14 G1, because a `MaterialOuterShadow` no longer carries one
+ * amplitude to read.
  *
  * The solve runs over the signed distance to the shadow's OWN silhouette, which
  * may be negative — a pixel just outside the contour is already inside the
@@ -2030,8 +2361,8 @@ export function outerShadowAlpha(occlusion: number): number {
  * move a code anywhere, both fall out as a reach of zero rather than needing a
  * case of their own.
  */
-export function outerShadowReachPx(shadow: MaterialOuterShadow): number {
-  const alpha = outerShadowAlpha(shadow.occlusion);
+export function outerShadowReachPx(shadow: MaterialOuterShadow, occlusion: number): number {
+  const alpha = outerShadowAlpha(occlusion);
   if (!(alpha > 0)) return 0;
   const cutoff = 1 / 255 / alpha;
   // Even a pixel the silhouette covers outright cannot move a code.

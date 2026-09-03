@@ -375,8 +375,16 @@ const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneResponseThin",
   "backdropToneResponseThick",
   "backdropToneResponseStrength",
-  // The outer shadow (W8). One key, six constants under it — a nested block like
-  // `strongBorderRim`, so the cascade's fit lands as `{ outerShadow: { … } }`.
+  // The outer shadow (W8, re-read by W14 G1). One key, FIFTEEN constants under
+  // it — a nested block like `strongBorderRim`, so the cascade's fit lands as
+  // `{ outerShadow: { … } }` and a sweep axis names a dotted leaf inside it
+  // (`--axis outerShadow.thickOcclusionAt96=0.34,0.379,0.42`). The guard is on
+  // the TOP-LEVEL key, so the six amplitude anchors and the lift's four
+  // constants arrive under a key it already accepts; they are listed here
+  // because a reader looking for what a patch may carry should find them:
+  // thinOcclusionDark / Mid / Bright, thickOcclusionAt96 / 128 / 160,
+  // liftAmplitude, liftSpanMin, liftSpanFull, liftBlurSigmaCss, and W8's
+  // offsetPx, sigmaPx, spreadPx, reducedTransparencyOcclusion, sizeGain.
   "outerShadow",
   "lightDirection",
   "sweepBandRadians",

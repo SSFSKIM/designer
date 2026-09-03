@@ -47,8 +47,14 @@ import {
   gpuTierForegroundLevel,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy as cssTierOpticsUnderPolicy,
+  OUTER_SHADOW_THICK_SPANS as CSS_OUTER_SHADOW_THICK_SPANS,
+  OUTER_SHADOW_THIN_L as CSS_OUTER_SHADOW_THIN_L,
+  OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE as CSS_UNMEASURED_BACKDROP,
   outerShadowAlpha as cssOuterShadowAlpha,
   outerShadowFalloff as cssOuterShadowFalloff,
+  outerShadowOcclusionAt as cssOuterShadowOcclusionAt,
+  outerShadowThickOcclusion as cssOuterShadowThickOcclusion,
+  outerShadowThinOcclusion as cssOuterShadowThinOcclusion,
   outerShadowUnderPolicy as cssOuterShadowUnderPolicy,
   sizeOuterShadowOcclusionAt as cssSizeOuterShadowOcclusionAt,
   sourceOuterShadow,
@@ -78,8 +84,14 @@ import {
   backdropToneUnderPolicy as rendererBackdropToneUnderPolicy,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
+  OUTER_SHADOW_THICK_SPANS as RENDERER_OUTER_SHADOW_THICK_SPANS,
+  OUTER_SHADOW_THIN_L as RENDERER_OUTER_SHADOW_THIN_L,
+  OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE as RENDERER_UNMEASURED_BACKDROP,
   outerShadowAlpha as rendererOuterShadowAlpha,
   outerShadowFalloff as rendererOuterShadowFalloff,
+  outerShadowOcclusionAt as rendererOuterShadowOcclusionAt,
+  outerShadowThickOcclusion as rendererOuterShadowThickOcclusion,
+  outerShadowThinOcclusion as rendererOuterShadowThinOcclusion,
   outerShadowUnderPolicy as rendererOuterShadowUnderPolicy,
   sizeOuterShadowOcclusionAt as rendererSizeOuterShadowOcclusionAt,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
@@ -798,11 +810,31 @@ describe("tier coherence (K5)", () => {
     expect(MATERIAL_SOURCE_OUTER_SHADOW.offsetPx).toBe(renderer.offsetPx);
     expect(MATERIAL_SOURCE_OUTER_SHADOW.sigmaPx).toBe(renderer.sigmaPx);
     expect(MATERIAL_SOURCE_OUTER_SHADOW.spreadPx).toBe(renderer.spreadPx);
-    expect(MATERIAL_SOURCE_OUTER_SHADOW.occlusion).toBe(renderer.occlusion);
+    // W14 G1's ten: six amplitude anchors on two regimes and the lift's four.
+    for (const key of [
+      "thinOcclusionDark",
+      "thinOcclusionMid",
+      "thinOcclusionBright",
+      "thickOcclusionAt96",
+      "thickOcclusionAt128",
+      "thickOcclusionAt160",
+      "liftAmplitude",
+      "liftSpanMin",
+      "liftSpanFull",
+      "liftBlurSigmaCss",
+    ] as const) {
+      expect(MATERIAL_SOURCE_OUTER_SHADOW[key], key).toBe(renderer[key]);
+    }
     expect(MATERIAL_SOURCE_OUTER_SHADOW.reducedTransparencyOcclusion).toBe(
       renderer.reducedTransparencyOcclusion,
     );
     expect(MATERIAL_SOURCE_OUTER_SHADOW.sizeGain).toBe(renderer.sizeGain);
+    // The anchors' own axis is mirrored too — a tier reading the plateau at a
+    // different luminance would be a second luminance statistic by the back
+    // door, which is exactly what the charter's third binding rule forbids.
+    expect(CSS_OUTER_SHADOW_THIN_L).toEqual(RENDERER_OUTER_SHADOW_THIN_L);
+    expect(CSS_OUTER_SHADOW_THICK_SPANS).toEqual(RENDERER_OUTER_SHADOW_THICK_SPANS);
+    expect(CSS_UNMEASURED_BACKDROP).toBe(RENDERER_UNMEASURED_BACKDROP);
     // Field for field, so a constant the renderer grows cannot sit unmirrored.
     expect(Object.keys(MATERIAL_SOURCE_OUTER_SHADOW).sort()).toEqual(Object.keys(renderer).sort());
 
@@ -811,7 +843,16 @@ describe("tier coherence (K5)", () => {
         offsetPx: 12,
         sigmaPx: 30,
         spreadPx: -2,
-        occlusion: 0.5,
+        thinOcclusionDark: 0.01,
+        thinOcclusionMid: 0.5,
+        thinOcclusionBright: 0.2,
+        thickOcclusionAt96: 0.55,
+        thickOcclusionAt128: 0.6,
+        thickOcclusionAt160: 0.65,
+        liftAmplitude: 0.02,
+        liftSpanMin: 48,
+        liftSpanFull: 144,
+        liftBlurSigmaCss: 32,
         reducedTransparencyOcclusion: 0.25,
         sizeGain: 0.4,
       },
@@ -824,7 +865,7 @@ describe("tier coherence (K5)", () => {
     // And a PARTIAL patch merges the same way on both sides — one named constant
     // keeps the other five, which is what makes a one-constant calibration patch
     // legal rather than a silent five-constant reset.
-    const partial = { outerShadow: { occlusion: 0.2 } };
+    const partial = { outerShadow: { thinOcclusionMid: 0.2 } };
     expect(sourceOuterShadow(partial)).toEqual({
       ...withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, partial).outerShadow,
     });
@@ -846,7 +887,7 @@ describe("tier coherence (K5)", () => {
   });
 
   it("folds the shadow under a preference identically on both tiers, patch included", () => {
-    const patch = { outerShadow: { occlusion: 0.4, reducedTransparencyOcclusion: 0.3 } };
+    const patch = { outerShadow: { thinOcclusionMid: 0.4, reducedTransparencyOcclusion: 0.3 } };
     for (const pair of [
       [DEFAULT_MATERIAL_PROFILE, MATERIAL_SOURCE_OUTER_SHADOW] as const,
       [withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch), sourceOuterShadow(patch)] as const,
@@ -869,7 +910,17 @@ describe("tier coherence (K5)", () => {
         });
         const css = cssOuterShadowUnderPolicy(cssShadow, resolved.material);
         const gpu = rendererOuterShadowUnderPolicy(resolved.material, rendererProfile);
-        expect(css.occlusion, JSON.stringify(flags)).toBe(gpu.occlusion);
+        for (const key of [
+          "thinOcclusionDark",
+          "thinOcclusionMid",
+          "thinOcclusionBright",
+          "thickOcclusionAt96",
+          "thickOcclusionAt128",
+          "thickOcclusionAt160",
+          "liftAmplitude",
+        ] as const) {
+          expect(css[key], `${JSON.stringify(flags)} / ${key}`).toBe(gpu[key]);
+        }
         expect(css.sigmaPx).toBe(gpu.sigmaPx);
         expect(css.offsetPx).toBe(gpu.offsetPx);
         expect(css.spreadPx).toBe(gpu.spreadPx);
@@ -905,8 +956,12 @@ describe("tier coherence (K5)", () => {
       MATERIAL_SOURCE_OUTER_SHADOW,
       NOMINAL_ACCESSIBILITY_POLICY.material,
     );
-    const alpha = cssOuterShadowAlpha(shadow.occlusion);
-    expect(alpha).toBe(rendererOuterShadowAlpha(DEFAULT_MATERIAL_PROFILE.outerShadow.occlusion));
+    const alpha = cssOuterShadowAlpha(cssOuterShadowThinOcclusion(0.5, shadow));
+    expect(alpha).toBe(
+      rendererOuterShadowAlpha(
+        rendererOuterShadowThinOcclusion(0.5, DEFAULT_MATERIAL_PROFILE.outerShadow),
+      ),
+    );
 
     for (const linear of [0, 0.0117, 0.2141, 0.5, 0.891, 1]) {
       const encoded = srgbEncode(linear);
@@ -917,6 +972,71 @@ describe("tier coherence (K5)", () => {
       expect(css, `backdrop ${linear}`).toBeCloseTo(gpu, 15);
     }
     expect(srgbEncode(0) * (1 - alpha)).toBe(0);
+  });
+
+  /*
+   * W14 G1's amplitude law, pinned across the whole grid it can be asked for
+   * (claims §5.62). The two tiers now resolve a law rather than read a constant,
+   * and the law has three inputs: the backdrop luminance the thin regime keys on
+   * — the SAME statistic W9's face response uses, which is the charter's third
+   * binding rule and the reason no second reading appears on either side — the
+   * casting span the thick regime is a function of, and the accessibility fold.
+   * A grid over all three is what makes "one profile, two renderers" a
+   * measurement rather than a claim.
+   */
+  it("resolves one backdrop, span and fold to the same shadow amplitude on both tiers", () => {
+    const luminances = [0.004, 0.012, 0.06, 0.214, 0.5, 0.74, 0.891, 1.0];
+    const spans = [32, 44, 64, 96, 128, 160, 256];
+    const folds = [0, 0.5, 1];
+    // A patch on both sides, so the grid measures the law and not the shipped
+    // numbers: a hard-coded default agreeing with itself would prove nothing.
+    const patch = {
+      outerShadow: {
+        thinOcclusionDark: 0.02,
+        thinOcclusionMid: 0.41,
+        thinOcclusionBright: 0.09,
+        thickOcclusionAt96: 0.44,
+        thickOcclusionAt128: 0.52,
+        thickOcclusionAt160: 0.61,
+        sizeGain: 0.3,
+      },
+    };
+    for (const [rendererProfile, cssShadow] of [
+      [DEFAULT_MATERIAL_PROFILE, MATERIAL_SOURCE_OUTER_SHADOW] as const,
+      [withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch), sourceOuterShadow(patch)] as const,
+    ]) {
+      for (const luminance of luminances) {
+        for (const span of spans) {
+          for (const fold of folds) {
+            const thickness = rendererSizeThickness(span, rendererProfile) * fold;
+            const label = `L ${luminance} span ${span} fold ${fold}`;
+            expect(cssOuterShadowThinOcclusion(luminance, cssShadow), label).toBe(
+              rendererOuterShadowThinOcclusion(luminance, rendererProfile.outerShadow),
+            );
+            expect(cssOuterShadowThickOcclusion(span, cssShadow), label).toBe(
+              rendererOuterShadowThickOcclusion(span, rendererProfile.outerShadow),
+            );
+            const css = cssOuterShadowOcclusionAt(cssShadow, luminance, span, thickness);
+            const gpu = rendererOuterShadowOcclusionAt(
+              rendererProfile.outerShadow,
+              luminance,
+              span,
+              thickness,
+              rendererProfile,
+            );
+            expect(css, label).toBe(gpu);
+            // And the alpha both tiers actually composite with, which is where a
+            // space mismatch would show even if the occlusions agreed.
+            expect(cssOuterShadowAlpha(css), label).toBe(rendererOuterShadowAlpha(gpu));
+          }
+        }
+      }
+      // The unmeasured-backdrop fallback is the same on both, so an unsampled
+      // group does not split the tiers either.
+      expect(cssOuterShadowThinOcclusion(undefined, cssShadow)).toBe(
+        rendererOuterShadowThinOcclusion(undefined, rendererProfile.outerShadow),
+      );
+    }
   });
 
 });

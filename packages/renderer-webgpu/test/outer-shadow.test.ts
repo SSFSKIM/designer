@@ -23,12 +23,19 @@ import {
   DEFAULT_MATERIAL_PROFILE,
   NOMINAL_MATERIAL_POLICY,
   OUTER_SHADOW,
+  OUTER_SHADOW_THIN_L,
+  OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE,
   outerShadowAlpha,
   outerShadowFalloff,
+  outerShadowLiftRise,
+  outerShadowOcclusionAt,
   outerShadowReachPx,
+  outerShadowThickOcclusion,
+  outerShadowThinOcclusion,
   outerShadowUnderPolicy,
   sizeOuterShadowOcclusion,
   sizeOuterShadowOcclusionAt,
+  sizeThickness,
   SRGB_ENCODING_EXPONENT,
   withMaterialOverrides,
   type MaterialPolicyView,
@@ -109,7 +116,7 @@ describe("the outer shadow's falloff is a blurred silhouette", () => {
       worst = Math.max(worst, Math.abs(outerShadowFalloff(-x, 1) - exactNormalCdf(x)));
     }
     expect(worst).toBeLessThan(2e-3);
-    expect(worst * OUTER_SHADOW.occlusion * 255).toBeLessThan(0.2);
+    expect(worst * OUTER_SHADOW.thinOcclusionMid * 255).toBeLessThan(0.2);
   });
 
   it("scales with sigma alone, so one profile length sets the whole edge", () => {
@@ -132,7 +139,7 @@ describe("the outer shadow is a multiplicative occlusion", () => {
      * composited source-over — because `(1 - a)·backdrop + a·0` is
      * `backdrop·(1 - a)`. So this is the algebra, asserted directly.
      */
-    const alpha = outerShadowAlpha(OUTER_SHADOW.occlusion);
+    const alpha = outerShadowAlpha(OUTER_SHADOW.thinOcclusionMid);
     const composite = (backdrop: number, a: number): number => (1 - a) * backdrop + a * 0;
 
     expect(composite(0, alpha)).toBe(0);
@@ -176,14 +183,14 @@ describe("the outer shadow is a multiplicative occlusion", () => {
 
     // The three amplitudes the bed actually measured: dark standard, reduced
     // transparency, light standard.
-    for (const occlusion of [0.06, 0.18, OUTER_SHADOW.occlusion]) {
+    for (const occlusion of [0.06, 0.18, OUTER_SHADOW.thinOcclusionMid]) {
       expect(worstCodesAt(occlusion), `occlusion ${occlusion}`).toBeLessThan(3);
     }
     // And the honest shape of the limitation, rather than a bound chosen to hide
     // it: the residual grows with the amplitude, because the toe it comes from is
     // a larger share of a deeper shadow. A profile that fitted a much stronger
     // shadow than anything measured would pay more, and this says how much.
-    expect(worstCodesAt(0.6)).toBeGreaterThan(worstCodesAt(OUTER_SHADOW.occlusion));
+    expect(worstCodesAt(0.6)).toBeGreaterThan(worstCodesAt(OUTER_SHADOW.thinOcclusionMid));
     expect(worstCodesAt(0.6)).toBeLessThan(5);
 
     // Monotone, and exact at both ends whatever the cascade fits: no occlusion is
@@ -215,12 +222,35 @@ describe("the outer shadow under the accessibility regime and the size law", () 
     expect(nominal).toEqual(OUTER_SHADOW);
 
     const reduced = outerShadowUnderPolicy(policy({ frost: "increased" }));
-    expect(reduced.occlusion).toBeCloseTo(
-      OUTER_SHADOW.occlusion * OUTER_SHADOW.reducedTransparencyOcclusion,
-      12,
-    );
-    expect(reduced.occlusion).toBeGreaterThan(0);
-    expect(reduced.occlusion).toBeLessThan(nominal.occlusion);
+    // Every amplitude anchor folds by the one measured factor, and the LIFT
+    // stands down: W14 G0 re-read the preference on the wider bed and found the
+    // reference flat at 0.192-0.202 thin and thick together, which is a
+    // composite with no second term left in it.
+    for (const key of [
+      "thinOcclusionDark",
+      "thinOcclusionMid",
+      "thinOcclusionBright",
+      "thickOcclusionAt96",
+      "thickOcclusionAt128",
+      "thickOcclusionAt160",
+    ] as const) {
+      expect(reduced[key], key).toBeCloseTo(
+        OUTER_SHADOW[key] * OUTER_SHADOW.reducedTransparencyOcclusion,
+        12,
+      );
+    }
+    /*
+     * 0.33 x 0.70 = 0.231 against the reference's directly measured 0.192-0.202
+     * (claims §5.62 §5) — the fold is now 15% high, because 0.70 was fitted
+     * against W8's single 0.285 and the mid anchor has moved. 0.60 would land
+     * 0.198. The value is NOT changed here: W14 G1 builds the law and the sweep
+     * fits it, and this assertion records the gap rather than hiding it, so the
+     * fit has a number to move off.
+     */
+    expect(reduced.thinOcclusionMid).toBeCloseTo(0.231, 12);
+    expect(reduced.liftAmplitude).toBe(0);
+    expect(reduced.thinOcclusionMid).toBeGreaterThan(0);
+    expect(reduced.thinOcclusionMid).toBeLessThan(nominal.thinOcclusionMid);
     // Only the amplitude moves. The reference's sigma, offset and spread read the
     // same under the preference as without it.
     expect(reduced.sigmaPx).toBe(nominal.sigmaPx);
@@ -232,18 +262,21 @@ describe("the outer shadow under the accessibility regime and the size law", () 
     // Not a dimmer shadow — no shadow. A surface that has become a flat system
     // fill has no elevation to cast one from, and a shadow that outlived the
     // glass would be exactly the composition the regime exists to prevent.
-    expect(outerShadowUnderPolicy(policy({ glass: "none" })).occlusion).toBe(0);
-    expect(outerShadowUnderPolicy(policy({ frost: "none" })).occlusion).toBe(0);
+    for (const flag of [{ glass: "none" }, { frost: "none" }] as const) {
+      const off = outerShadowUnderPolicy(policy(flag));
+      expect(outerShadowThinOcclusion(0.5, off), JSON.stringify(flag)).toBe(0);
+      expect(outerShadowThickOcclusion(160, off)).toBe(0);
+      expect(off.liftAmplitude).toBe(0);
+    }
   });
 
   it("takes its multiplier from the profile that is drawing, not from the shipped one", () => {
     const patched = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
-      outerShadow: { occlusion: 0.5, reducedTransparencyOcclusion: 0.25 },
+      outerShadow: { thinOcclusionMid: 0.5, reducedTransparencyOcclusion: 0.25 },
     });
-    expect(outerShadowUnderPolicy(policy({ frost: "increased" }), patched).occlusion).toBeCloseTo(
-      0.125,
-      12,
-    );
+    expect(
+      outerShadowUnderPolicy(policy({ frost: "increased" }), patched).thinOcclusionMid,
+    ).toBeCloseTo(0.125, 12);
     // A partial patch keeps every field it does not name — the renderer's own
     // merge rule, and what makes a one-constant calibration patch legal.
     expect(patched.outerShadow.sigmaPx).toBe(OUTER_SHADOW.sigmaPx);
@@ -276,7 +309,7 @@ describe("the outer shadow under the accessibility regime and the size law", () 
 
 describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
   it("stops where the shadow stops moving a code, measured in the space it writes", () => {
-    const reach = outerShadowReachPx(OUTER_SHADOW);
+    const reach = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid);
     // Far enough to draw the facet: the reference's own measured extent runs to
     // roughly 45 px below a 1x surface.
     expect(reach).toBeGreaterThan(35);
@@ -290,7 +323,7 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
      * moves when `α·falloff` reaches 1/255; the linear occlusion is a larger
      * number and thresholding it reaches further than anything can be seen at.
      */
-    const alpha = outerShadowAlpha(OUTER_SHADOW.occlusion);
+    const alpha = outerShadowAlpha(OUTER_SHADOW.thinOcclusionMid);
     const codesAt = (d: number): number =>
       alpha *
       outerShadowFalloff(
@@ -305,7 +338,9 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
     // which is the bug this replaced.
     const linearThresholded = (() => {
       let d = 0;
-      while (OUTER_SHADOW.occlusion * outerShadowFalloff(d - 11.05, 15.55) * 255 > 1) d += 0.01;
+      while (OUTER_SHADOW.thinOcclusionMid * outerShadowFalloff(d - 11.05, 15.55) * 255 > 1) {
+        d += 0.01;
+      }
       return d;
     })();
     expect(reach).toBeLessThan(linearThresholded);
@@ -324,45 +359,51 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
      * that has to hold is that the reach FOLLOWS the amplitude, for whatever the
      * cascade fits.
      */
-    expect(outerShadowReachPx({ ...OUTER_SHADOW, occlusion: OUTER_SHADOW.occlusion })).toBe(
-      outerShadowReachPx(OUTER_SHADOW),
-    );
+    const base = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid);
 
     const gained = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
       outerShadow: { sizeGain: 1 },
     });
-    const amplified = sizeOuterShadowOcclusionAt(OUTER_SHADOW.occlusion, 1, gained);
+    const amplified = sizeOuterShadowOcclusionAt(OUTER_SHADOW.thinOcclusionMid, 1, gained);
     expect(amplified).toBe(1);
-    const amplifiedReach = outerShadowReachPx({ ...OUTER_SHADOW, occlusion: amplified });
-    expect(amplifiedReach).toBeGreaterThan(outerShadowReachPx(OUTER_SHADOW));
+    const amplifiedReach = outerShadowReachPx(OUTER_SHADOW, amplified);
+    expect(amplifiedReach).toBeGreaterThan(base);
     // The margin the base-amplitude pad would have sliced off.
-    expect(amplifiedReach - outerShadowReachPx(OUTER_SHADOW)).toBeGreaterThan(4);
+    expect(amplifiedReach - base).toBeGreaterThan(4);
+
+    // And the same for the amplitude the two REGIMES resolve to: a thick surface
+    // over a mid backdrop occludes 0.379 where a thin one occludes 0.33, so a
+    // pad taken from the thin regime alone would slice the thick member's shadow
+    // (W14 G1).
+    const thickOcc = outerShadowOcclusionAt(OUTER_SHADOW, 0.5, 160, 1);
+    expect(thickOcc).toBeCloseTo(OUTER_SHADOW.thickOcclusionAt160, 12);
+    expect(outerShadowReachPx(OUTER_SHADOW, thickOcc)).toBeGreaterThan(base);
 
     // Monotone in the amplitude, so a maximum over a group's members is a correct
     // upper bound however the gain is signed.
     let previous = 0;
     for (const occlusion of [0.05, 0.1, 0.2, 0.33, 0.5, 0.8, 1]) {
-      const reach = outerShadowReachPx({ ...OUTER_SHADOW, occlusion });
+      const reach = outerShadowReachPx(OUTER_SHADOW, occlusion);
       expect(reach, `occlusion ${occlusion}`).toBeGreaterThanOrEqual(previous);
       previous = reach;
     }
   });
 
   it("is exactly zero when a profile declines the shadow, so nothing pays for it", () => {
-    const off = { ...OUTER_SHADOW, occlusion: 0 };
-    expect(outerShadowReachPx(off)).toBe(0);
+    expect(outerShadowReachPx(OUTER_SHADOW, 0)).toBe(0);
     // And a shadow too faint to reach one code step anywhere is the same case.
-    expect(outerShadowReachPx({ ...OUTER_SHADOW, occlusion: 1 / 512 })).toBe(0);
+    expect(outerShadowReachPx(OUTER_SHADOW, 1 / 512)).toBe(0);
   });
 
   it("grows with the blur, the offset and the spread", () => {
-    const base = outerShadowReachPx(OUTER_SHADOW);
-    expect(outerShadowReachPx({ ...OUTER_SHADOW, sigmaPx: 31.1 })).toBeGreaterThan(base);
+    const occ = OUTER_SHADOW.thinOcclusionMid;
+    const base = outerShadowReachPx(OUTER_SHADOW, occ);
+    expect(outerShadowReachPx({ ...OUTER_SHADOW, sigmaPx: 31.1 }, occ)).toBeGreaterThan(base);
     expect(
-      outerShadowReachPx({ ...OUTER_SHADOW, offsetPx: OUTER_SHADOW.offsetPx + 10 }),
+      outerShadowReachPx({ ...OUTER_SHADOW, offsetPx: OUTER_SHADOW.offsetPx + 10 }, occ),
     ).toBeCloseTo(base + 10, 6);
     expect(
-      outerShadowReachPx({ ...OUTER_SHADOW, spreadPx: OUTER_SHADOW.spreadPx + 10 }),
+      outerShadowReachPx({ ...OUTER_SHADOW, spreadPx: OUTER_SHADOW.spreadPx + 10 }, occ),
     ).toBeCloseTo(base + 10, 6);
   });
 
@@ -374,7 +415,7 @@ describe("the shadow's reach sizes the rect the GPU tier draws into", () => {
      * slice a 45 px shadow off at the contour.
      */
     const resolved = resolveSurfaces(group([surface()]), "rsupn");
-    const reach = outerShadowReachPx(OUTER_SHADOW);
+    const reach = outerShadowReachPx(OUTER_SHADOW, OUTER_SHADOW.thinOcclusionMid);
 
     const bare = groupFieldRect(resolved, DEFAULT_GROUP_UNION, 2, 0);
     const shadowed = groupFieldRect(resolved, DEFAULT_GROUP_UNION, 2, reach);
@@ -404,7 +445,7 @@ describe("the shader draws the shadow the CPU resolved", () => {
      * position instead, which is exact everywhere for the cost of one read.
      */
     expect(WGSL_OPTICS_PASS).toContain("fn outer_shadow_falloff(");
-    expect(WGSL_OPTICS_PASS).toContain("fn outer_shadow_alpha(");
+    expect(WGSL_OPTICS_PASS).toContain("fn outer_shadow(");
     expect(WGSL_OPTICS_PASS).toContain("uv.y - ou.shadow.w");
     /*
      * And the shift's own edge case, which is not an edge case: the field rect is
@@ -425,16 +466,19 @@ describe("the shader draws the shadow the CPU resolved", () => {
   });
 
   it("emits premultiplied BLACK, which is what makes the composite a multiply", () => {
-    // Outside the contour the pass returns `vec4f(0, 0, 0, alpha)`: zero colour
-    // and the shadow's alpha. Over the page that is `page · (1 - alpha)` — the
-    // multiplication — and over nothing it is nothing.
-    expect(WGSL_OPTICS_PASS).toContain("return vec4f(0.0, 0.0, 0.0, shadowAlpha);");
-    // And across the coverage ramp it fills whatever the surface's COVERAGE
-    // leaves, rather than being switched off at the ramp and leaving a seam —
-    // but only the coverage: a translucent surface (W11a's layer form) shows
-    // the page through it, never its own shadow, exactly as a `box-shadow` is
-    // clipped out of its border box.
+    // Outside the contour the pass returns `vec4f(lift, alpha)`. The BLACK term
+    // is the alpha and nothing else — over the page that is `page · (1 - alpha)`,
+    // the multiplication — and the lift is a separate premultiplied colour that
+    // is exactly zero over a black backdrop and below the knee (W14 G1), so with
+    // no lift the layer is premultiplied black again, byte for byte.
+    expect(WGSL_OPTICS_PASS).toContain("return vec4f(liftEncoded, shadowAlpha);");
+    // And across the coverage ramp BOTH terms fill whatever the surface's
+    // COVERAGE leaves, rather than being switched off at the ramp and leaving a
+    // seam — but only the coverage: a translucent surface (W11a's layer form)
+    // shows the page through it, never its own shadow, exactly as a `box-shadow`
+    // is clipped out of its border box.
     expect(WGSL_OPTICS_PASS).toContain("body.a + shadowAlpha * (1.0 - coverage)");
+    expect(WGSL_OPTICS_PASS).toContain("body.rgb + liftEncoded * (1.0 - coverage)");
     expect(WGSL_OPTICS_PASS).not.toContain("shadowAlpha * (1.0 - body.a)");
   });
 
@@ -442,5 +486,296 @@ describe("the shader draws the shadow the CPU resolved", () => {
     expect(WGSL_OPTICS_PASS).toContain("shadow : vec4f");
     expect(WGSL_OPTICS_PASS).toContain("shadowSize : vec4f");
     expect(WGSL_OPTICS_PASS).toContain("ou.shadowSize.x");
+    // W14 G1's two new blocks, and every slot of them read.
+    expect(WGSL_OPTICS_PASS).toContain("shadowThick : vec4f");
+    expect(WGSL_OPTICS_PASS).toContain("shadowLift : vec4f");
+    expect(WGSL_OPTICS_PASS).toContain("ou.shadowThick.xyz");
+    for (const slot of ["ou.shadowLift.x", "ou.shadowLift.y", "ou.shadowLift.z", "ou.shadowLift.w"]) {
+      expect(WGSL_OPTICS_PASS, slot).toContain(slot);
+    }
+  });
+});
+
+/*
+ * W14 G1 — the amplitude is a law and no longer a constant (claims §5.62).
+ *
+ * What these pin is again the MECHANISM and not the numbers: the thick anchors
+ * and the lift's amplitude and reach are PROVISIONAL and the sweep sets them, so
+ * the assertions are written against the profile's own constants wherever a
+ * fitted value would otherwise be spelled out. What must not move unnoticed is
+ * the shape: three anchors on the backdrop luminance below the knee, three on
+ * the span above it, one knee shared with the face's response, and a second term
+ * that is the backdrop's own light and is therefore nothing over black.
+ */
+describe("the outer shadow's amplitude adapts to the backdrop below the knee", () => {
+  it("holds each measured anchor exactly, at the luminance it was measured at", () => {
+    // The three backdrops the bed identifies, on the SAME statistic W9's face
+    // response keys on: `mid-dark-solid` 0.0595 linear, `hc-text` 0.74, and
+    // `light-solid` 0.891 — which are `backdropToneAnchorX`'s encoded 0.2706 and
+    // 0.9505 decoded.
+    expect(outerShadowThinOcclusion(OUTER_SHADOW_THIN_L.midFrom, OUTER_SHADOW)).toBe(
+      OUTER_SHADOW.thinOcclusionMid,
+    );
+    expect(outerShadowThinOcclusion(OUTER_SHADOW_THIN_L.midTo, OUTER_SHADOW)).toBe(
+      OUTER_SHADOW.thinOcclusionMid,
+    );
+    expect(outerShadowThinOcclusion(OUTER_SHADOW_THIN_L.bright, OUTER_SHADOW)).toBe(
+      OUTER_SHADOW.thinOcclusionBright,
+    );
+    // Held beyond the bright anchor rather than extrapolated to zero: nothing was
+    // measured past `light-solid` and a line through the last two anchors would
+    // cross zero before white.
+    expect(outerShadowThinOcclusion(1, OUTER_SHADOW)).toBe(OUTER_SHADOW.thinOcclusionBright);
+
+    // The plateau really is flat across the four mid backdrops, which is the
+    // measurement (0.327-0.347 pooled to one number), not an interpolation.
+    for (const l of [0.06, 0.1, 0.214, 0.5, 0.7, 0.74]) {
+      expect(outerShadowThinOcclusion(l, OUTER_SHADOW), `L ${l}`).toBe(
+        OUTER_SHADOW.thinOcclusionMid,
+      );
+    }
+  });
+
+  it("is inert over black, and rises out of it by a smoothstep with a zero derivative", () => {
+    expect(outerShadowThinOcclusion(0, OUTER_SHADOW)).toBe(0);
+    expect(outerShadowThinOcclusion(OUTER_SHADOW_THIN_L.inert, OUTER_SHADOW)).toBe(0);
+    // `dark-solid` (0.0039 linear) and `impulse` sit under the foot, so the
+    // facet is exactly nothing there — the property W8 measured and W14 keeps.
+    expect(outerShadowThinOcclusion(0.0039, OUTER_SHADOW)).toBe(0);
+
+    // Smoothstep, not a step: the midpoint of the ramp is the midpoint of the
+    // amplitude, and both ends leave flat.
+    const mid = (OUTER_SHADOW_THIN_L.inert + OUTER_SHADOW_THIN_L.midFrom) / 2;
+    expect(outerShadowThinOcclusion(mid, OUTER_SHADOW)).toBeCloseTo(
+      OUTER_SHADOW.thinOcclusionMid / 2,
+      12,
+    );
+    const foot = OUTER_SHADOW_THIN_L.inert + 1e-4;
+    expect(outerShadowThinOcclusion(foot, OUTER_SHADOW)).toBeLessThan(
+      OUTER_SHADOW.thinOcclusionMid * 1e-3,
+    );
+  });
+
+  it("falls LINEARLY from the mid plateau to the bright anchor, which is a declared choice", () => {
+    /*
+     * The bed jumps from `hc-text` (0.74) to `light-solid` (0.891) with nothing
+     * between, and the whole factor-of-2.6 drop happens in that gap — W14's
+     * Deferred list says one backdrop between them would pin it. A straight line
+     * is the least-committed curve through two endpoints, and this is the test
+     * that has to be revisited when that cell exists.
+     */
+    const { midTo, bright } = OUTER_SHADOW_THIN_L;
+    for (const t of [0.25, 0.5, 0.75]) {
+      const l = midTo + (bright - midTo) * t;
+      expect(outerShadowThinOcclusion(l, OUTER_SHADOW), `t ${t}`).toBeCloseTo(
+        OUTER_SHADOW.thinOcclusionMid +
+          (OUTER_SHADOW.thinOcclusionBright - OUTER_SHADOW.thinOcclusionMid) * t,
+        12,
+      );
+    }
+  });
+
+  it("reads the mid plateau where the host measured no backdrop at all", () => {
+    // Not black, which would delete the facet on every unsampled surface, and not
+    // white, which would halve it. Both tiers fall back to the same constant so
+    // they cannot diverge on an unsampled group.
+    expect(outerShadowThinOcclusion(undefined, OUTER_SHADOW)).toBe(
+      outerShadowThinOcclusion(OUTER_SHADOW_UNMEASURED_BACKDROP_LUMINANCE, OUTER_SHADOW),
+    );
+    expect(outerShadowThinOcclusion(undefined, OUTER_SHADOW)).toBe(
+      OUTER_SHADOW.thinOcclusionMid,
+    );
+  });
+
+  it("rises once out of black and falls once into the light, and never doubles back", () => {
+    /*
+     * The curve is not monotone over the whole axis and should not be: it climbs
+     * out of the inert foot to the plateau and falls from the plateau to the
+     * bright anchor. What must hold is that it does each of those exactly once,
+     * so no backdrop between two others casts a deeper shadow than both.
+     */
+    let previous = -1;
+    for (let l = 0; l <= OUTER_SHADOW_THIN_L.midFrom; l += 0.0005) {
+      const value = outerShadowThinOcclusion(l, OUTER_SHADOW);
+      expect(value, `rising at L ${l}`).toBeGreaterThanOrEqual(previous - 1e-12);
+      previous = value;
+    }
+    previous = Infinity;
+    for (let l = OUTER_SHADOW_THIN_L.midFrom; l <= 1; l += 0.002) {
+      const value = outerShadowThinOcclusion(l, OUTER_SHADOW);
+      expect(value, `falling at L ${l}`).toBeLessThanOrEqual(previous + 1e-12);
+      previous = value;
+    }
+  });
+});
+
+describe("the outer shadow's amplitude above the knee is a span law", () => {
+  it("passes through the three measured anchors and is held outside them", () => {
+    expect(outerShadowThickOcclusion(96, OUTER_SHADOW)).toBe(OUTER_SHADOW.thickOcclusionAt96);
+    expect(outerShadowThickOcclusion(128, OUTER_SHADOW)).toBe(OUTER_SHADOW.thickOcclusionAt128);
+    expect(outerShadowThickOcclusion(160, OUTER_SHADOW)).toBe(OUTER_SHADOW.thickOcclusionAt160);
+    expect(outerShadowThickOcclusion(0, OUTER_SHADOW)).toBe(OUTER_SHADOW.thickOcclusionAt96);
+    expect(outerShadowThickOcclusion(4000, OUTER_SHADOW)).toBe(OUTER_SHADOW.thickOcclusionAt160);
+  });
+
+  it("is piecewise linear between them", () => {
+    expect(outerShadowThickOcclusion(112, OUTER_SHADOW)).toBeCloseTo(
+      (OUTER_SHADOW.thickOcclusionAt96 + OUTER_SHADOW.thickOcclusionAt128) / 2,
+      12,
+    );
+    expect(outerShadowThickOcclusion(144, OUTER_SHADOW)).toBeCloseTo(
+      (OUTER_SHADOW.thickOcclusionAt128 + OUTER_SHADOW.thickOcclusionAt160) / 2,
+      12,
+    );
+  });
+
+  it("blends out of the thin regime on the SAME knee the face's response uses", () => {
+    /*
+     * The charter's third binding rule, read from the other side: the shadow's
+     * thin/thick crossover is `smoothstep(sizeThickness(span))`, which is exactly
+     * what `backdropToneResponse` blends its own thin and thick rows across. One
+     * knee for the face and the shadow, or the material grows two.
+     */
+    const l = 0.5;
+    const blendAt = (span: number): number => {
+      const k = sizeThickness(span);
+      return k * k * (3 - 2 * k);
+    };
+    for (const span of [0, 32, 44, 64, 80, 96, 160]) {
+      const f = blendAt(span);
+      const expected =
+        OUTER_SHADOW.thinOcclusionMid +
+        (outerShadowThickOcclusion(span, OUTER_SHADOW) - OUTER_SHADOW.thinOcclusionMid) * f;
+      expect(
+        outerShadowOcclusionAt(OUTER_SHADOW, l, span, sizeThickness(span)),
+        `span ${span}`,
+      ).toBeCloseTo(expected, 12);
+    }
+    // Below `sizeSpanMin` the thin regime is the whole answer, and at
+    // `sizeSpanMax` the thick one is.
+    expect(outerShadowOcclusionAt(OUTER_SHADOW, l, 32, sizeThickness(32))).toBeCloseTo(
+      OUTER_SHADOW.thinOcclusionMid,
+      12,
+    );
+    expect(outerShadowOcclusionAt(OUTER_SHADOW, l, 96, sizeThickness(96))).toBeCloseTo(
+      OUTER_SHADOW.thickOcclusionAt96,
+      12,
+    );
+  });
+
+  it("stays inert over black at every span, because both regimes end at zero there", () => {
+    // The thick regime is a composite fitted on the checkerboard, and a composite
+    // over black is nothing: the black term removes nothing and the lift adds
+    // nothing. The BLEND has to preserve that or `dark-solid` and `impulse` move.
+    const dark = outerShadowUnderPolicy(policy(), {
+      ...DEFAULT_MATERIAL_PROFILE,
+      outerShadow: {
+        ...OUTER_SHADOW,
+        thickOcclusionAt96: 0,
+        thickOcclusionAt128: 0,
+        thickOcclusionAt160: 0,
+      },
+    });
+    for (const span of [32, 64, 96, 160]) {
+      expect(
+        outerShadowOcclusionAt(dark, 0.001, span, sizeThickness(span)),
+        `span ${span}`,
+      ).toBe(0);
+    }
+  });
+
+  it("folds the size gain last, on the remaining transparency", () => {
+    const gained = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      outerShadow: { sizeGain: 0.5 },
+    });
+    const resolved = outerShadowOcclusionAt(gained.outerShadow, 0.5, 160, 1, gained);
+    const before = OUTER_SHADOW.thickOcclusionAt160;
+    expect(resolved).toBeCloseTo(before + 0.5 * (1 - before), 12);
+    // And the shipped gain of 0 leaves the law exactly alone.
+    expect(outerShadowOcclusionAt(OUTER_SHADOW, 0.5, 160, 1)).toBeCloseTo(before, 12);
+  });
+});
+
+describe("the lift is the backdrop's own light, above the knee", () => {
+  it("is zero at and below the knee and saturated at the reach", () => {
+    expect(outerShadowLiftRise(0, OUTER_SHADOW)).toBe(0);
+    expect(outerShadowLiftRise(32, OUTER_SHADOW)).toBe(0);
+    expect(outerShadowLiftRise(44, OUTER_SHADOW)).toBe(0);
+    expect(outerShadowLiftRise(OUTER_SHADOW.liftSpanMin, OUTER_SHADOW)).toBe(0);
+    expect(outerShadowLiftRise(OUTER_SHADOW.liftSpanFull, OUTER_SHADOW)).toBe(1);
+    expect(outerShadowLiftRise(4000, OUTER_SHADOW)).toBe(1);
+    // The knee is EXACT at 64: the bed reads 0.0000 at spans 32 and 44 and a lift
+    // at 96, and the layer tree's own clamp starts from the same number.
+    expect(OUTER_SHADOW.liftSpanMin).toBe(64);
+  });
+
+  it("rises monotonically and saturates well before the bed's largest span", () => {
+    let previous = -1;
+    for (let span = 0; span <= 200; span += 1) {
+      const rise = outerShadowLiftRise(span, OUTER_SHADOW);
+      expect(rise, `span ${span}`).toBeGreaterThanOrEqual(previous);
+      previous = rise;
+    }
+    // The measurement the shape is taken from: 0.52 of the span-160 value at 96
+    // and 0.96 at 128, against the layer tree's clamp((span - 64)/96) = 0.33 and
+    // 0.67 — the lift saturates and is NOT proportional to
+    // `VibrancyContribution` (claims §5.62 §2). PROVISIONAL: the sweep fits the
+    // reach, so this holds the direction rather than the numbers.
+    expect(outerShadowLiftRise(96, OUTER_SHADOW)).toBeGreaterThan((96 - 64) / 96);
+    expect(outerShadowLiftRise(128, OUTER_SHADOW)).toBeGreaterThan((128 - 64) / 96);
+  });
+
+  it("is nothing over black, by construction rather than by a branch", () => {
+    /*
+     * The whole term is `liftAmplitude · rise(span) · falloff(d) · V`, with `V`
+     * the blurred backdrop's own light. Over `impulse` and `dark-solid` V is
+     * zero, so the product is zero at every span and every distance — which is
+     * why those cells stay byte-identical to their background with the second
+     * term landed, exactly as they did with only the multiply.
+     */
+    const lift = (v: number, span: number, d: number): number =>
+      OUTER_SHADOW.liftAmplitude *
+      outerShadowLiftRise(span, OUTER_SHADOW) *
+      outerShadowFalloff(d, OUTER_SHADOW.sigmaPx) *
+      v;
+    for (const span of [64, 96, 128, 160]) {
+      for (const d of [-20, 0, 20]) {
+        expect(lift(0, span, d), `span ${span} at ${d}`).toBe(0);
+      }
+    }
+    // And it reproduces G0's own reading where the backdrop is not black: the
+    // checkerboard's sigma-40 blur sits at 0.52 linear, and the ring below a
+    // span-160 surface lifts 0.0038 in linear light (claims §5.62 §2-3).
+    expect(lift(0.52, 160, -40)).toBeCloseTo(0.0038, 4);
+  });
+
+  it("rides the SAME falloff as the black term, not a second geometry", () => {
+    // G0's free four-parameter fits return W8's lengths for both terms (sigma
+    // 14.8-16.2 / offset 7.93-8.00 for the multiply, 14.1-17.1 / 7.6-8.4 for the
+    // lift), and their shapes correlate at 0.9998. One function, evaluated once
+    // per pixel — the shader takes `shadow.falloff` and multiplies both terms by
+    // it.
+    expect(WGSL_OPTICS_PASS).toContain("out.falloff = outer_shadow_falloff(");
+    expect(WGSL_OPTICS_PASS).toContain("shadow.falloff");
+    expect(WGSL_OPTICS_PASS.match(/outer_shadow_falloff\(/g)?.length).toBe(2);
+  });
+
+  it("samples the chain at the pixel's own position, at the CPU-resolved level", () => {
+    /*
+     * The copy is of the backdrop BENEATH the shadow, not of the backdrop under
+     * the surface, so the sample is at `viewport01` through the chain's own fit
+     * and never at the refracted position. The chain's transform is on
+     * viewport-normalised coordinates and covers the whole viewport, so — unlike
+     * the field texture, whose offset shift the shader has to reconstruct off the
+     * top of — every pixel this pass draws has a valid sample and there is
+     * nothing to clamp.
+     */
+    expect(WGSL_OPTICS_PASS).toContain("fn outer_shadow_lift(");
+    expect(WGSL_OPTICS_PASS).toContain("clamp(viewport01 * ou.fit.xy + ou.fit.zw");
+    expect(WGSL_OPTICS_PASS).toContain(
+      "textureSampleLevel(backdropChain, backdropSampler, uv, ou.shadowLift.w)",
+    );
+    // And it stands down where the group has no chain to copy.
+    expect(WGSL_OPTICS_PASS).toContain("ou.flags.x <= 0.5 || ou.shadowLift.x <= 0.0");
   });
 });
