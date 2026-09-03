@@ -31,7 +31,7 @@ import type {
   TintResponseReport,
 } from "./metrics/material";
 import type { MorphSilhouetteTrajectoryReport } from "./metrics/motion";
-import type { ShadowFieldReport } from "./metrics/shadow";
+import type { ShadowAffineSample, ShadowFieldReport } from "./metrics/shadow";
 import type {
   EdgeWeightedDifferenceReport,
   OklabDeltaEReport,
@@ -724,6 +724,30 @@ export interface ShadowAxisReport {
   readonly falloffLengthWeb?: MetricValue;
   readonly falloffResidualNative?: MetricValue;
   readonly falloffResidualWeb?: MetricValue;
+  /**
+   * The per-band, per-direction affine map of the backdrop, `y = a·bg + c`, in
+   * linear luminance — W14 X7, recorded and not bounded.
+   *
+   * It sits beside the occlusion rather than inside it because it answers the
+   * question the ratio cannot: `a` is the transmission occlusion already
+   * describes, and `c` is the light the render *added*, which a ratio over a
+   * black backdrop has no denominator to express. Claims §5.62 measured the
+   * reference's `c` at about +0.0038 linear below `rrect-lg` where vitrea's is
+   * 0, and no number this axis wrote could see it.
+   *
+   * An array of records rather than the flat `MetricValue` pairs above, because
+   * the quantity is per band and per direction — twenty-five entries a side —
+   * and flattening it would mean inventing two hundred and fifty field names for
+   * one measurement. The units are in the field names (`*Linear` is linear
+   * luminance, `*CssPx` is CSS px), as they are on `ShadowProfileSample`, which
+   * is the same shape for the same reason.
+   *
+   * Absent as a whole where no backdrop or no declared region was available —
+   * that is the axis's own absence — and absent per band, per field, as
+   * `ShadowAffineSample` documents.
+   */
+  readonly affineNative?: readonly ShadowAffineSample[];
+  readonly affineWeb?: readonly ShadowAffineSample[];
 }
 
 /** Spread one side's optional figure in under its own name, or leave it out. */
@@ -799,6 +823,8 @@ export function shadowAxisReport(input: {
     meanDepartureWeb: metricValue(input.web.meanDeparture, "luminance"),
     ...sided("Native", shadowFieldValues(input.native), SHADOW_FIELD_UNITS),
     ...sided("Web", shadowFieldValues(input.web), SHADOW_FIELD_UNITS),
+    ...(input.native.affine.length === 0 ? {} : { affineNative: input.native.affine }),
+    ...(input.web.affine.length === 0 ? {} : { affineWeb: input.web.affine }),
   };
 }
 
@@ -872,7 +898,8 @@ export interface CellResult {
  *     for this cell" after.
  *
  * The band-windowed perceptual rows (W13 X6, `ssimBand` / `ssimInterior` /
- * `ssimOutside` and their window counts) are a schema *addition* and do not move this number.
+ * `ssimOutside` and their window counts) and the shadow axis's affine pair
+ * (W14 X7, `affineNative` / `affineWeb`) are schema *additions* and do not move this number.
  * The version exists to stop a reader taking two cells as the same quantity
  * when they are not, and nothing here changes an existing quantity: every
  * schema-5 figure is measured exactly as before, the new rows are optional in
