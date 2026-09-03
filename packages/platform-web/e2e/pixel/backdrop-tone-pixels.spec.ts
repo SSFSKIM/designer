@@ -1,25 +1,49 @@
 import { expect, test, type Page } from "@playwright/test";
 
+import {
+  adaptedSourceOptics,
+  backdropToneAdaptation,
+  backdropToneResponseLevel,
+  cssTintAlpha,
+  cssTintColor,
+  sizeOcclusionAlphaAt,
+  sizeThickness,
+  sourceOptics,
+  toneRespondedSourceOptics,
+} from "../../src/optics";
 import { gotoHarness, sample } from "../support";
 
 /**
- * Backdrop tone adaptation (W7), in a browser, on the CSS tier.
+ * Backdrop tone adaptation (W7, re-lawed by W9), in a browser, on the CSS tier.
  *
- * The curve is arithmetic and is unit-tested as arithmetic. Two things are not,
+ * The law is arithmetic and is unit-tested as arithmetic. Two things are not,
  * and both live here.
  *
  * The first is the **reading**. `sampleBackdropTone` draws the app's own backdrop
- * source into a scratch canvas and averages it in linear light, and a browser is
- * the only place that code runs at all — jsdom has no 2-D context. Its one
- * measured trap is that `drawImage` downsamples in the *encoded* space, so a small
- * draw extent reports a structured backdrop far darker than it is.
+ * source into a scratch canvas and averages it — in the ENCODED space since W9,
+ * because that is the mean the reference's own response tracks (claims §5.31) —
+ * and a browser is the only place that code runs at all: jsdom has no 2-D
+ * context.
  *
- * The second is **continuity**. The reference bed samples backdrop luminance at
- * 0.004, 0.012 and then nothing until 0.205, so the shape of the knee between
- * them is a modelling choice rather than a measurement (see
- * `MaterialProfile.backdropToneLow`). What can be measured is that vitrea's own
- * response across that range is continuous and monotone rather than a switch, and
- * that is what the last case here does — on rendered pixels, not on the curve.
+ * The second is the **shape of the response**, on rendered pixels rather than on
+ * the curve. Since W9 the axis is two mechanisms with one seam between them
+ * (W9 Decision Log 3). The *collapse mix* owns the near-black knee: a smoothstep
+ * band on the linear level that converges a small surface onto its backdrop and
+ * closes its transparency doing so. The *response curve* owns the interior mean
+ * everywhere the collapse does not: a monotone curve through three measured
+ * solid anchors, its levels functions of surface size, landed by shifting the
+ * neutral's luma — and where a white neutral cannot reach the target, by
+ * opacity, the "light attractor". So the declared occlusion is not monotone in
+ * the backdrop's level and never claimed to be after W9: it falls through the
+ * collapse, bottoms out where the neutral is darkest, and rises again as the
+ * backdrop lightens and the attractor carries the remainder. The rendered LEVEL
+ * is monotone, which is the claim an adopter can see.
+ *
+ * **Expectations are the law's own values.** `lawDeclares` below runs the same
+ * per-surface chain `root.ts` runs for a flat backdrop, on the exported
+ * functions, so a constant that moves in the profile moves these expectations
+ * with it and a literal copied off one run cannot go stale silently. What the
+ * browser adds to that mirror is the reading, the declarations and the pixels.
  *
  * **A fresh page per backdrop, deliberately.** The harness's `createRoot` leaves
  * the previous root's hosts in the document, so a loop that rebuilt the scene in
@@ -35,9 +59,9 @@ const LARGE = { x: 300, y: 300, width: 260, height: 140 };
  * One flat backdrop, one small surface over it and one large one.
  *
  * The pair is the point: the same backdrop moves them by very different amounts,
- * because the adaptation is size-gated — over the settled bed's `dark-solid` the
- * reference's 44 px capsule vanishes into its background while its 96 px rrect
- * keeps three quarters of its own appearance.
+ * because both mechanisms are size-gated — over the settled bed's `dark-solid`
+ * the reference's 44 px capsule vanishes into its background while its 96 px
+ * rrect keeps three quarters of its own appearance.
  *
  * The backdrop is a *registered texture source* and is never painted on the page,
  * which is what the harness's texture groups have always done. That is not a
@@ -91,6 +115,55 @@ const declared = (page: Page, nodeId: string): Promise<Declared> =>
 const level = (pixel: { r: number; g: number; b: number }): number =>
   0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b;
 
+/** `rgba(r, g, b, a)` → `"r, g, b"`, the colour without its alpha. */
+const colourOf = (tint: string): string =>
+  (/rgba?\(([^)]*)\)/.exec(tint)?.[1] ?? "")
+    .split(",")
+    .slice(0, 3)
+    .map((part) => part.trim())
+    .join(", ");
+
+/**
+ * The sRGB transfer, decoding — the same function `optics.ts` applies privately.
+ * A flat backdrop is the one case where the encoded-space mean and the linear
+ * mean are one value decoded, so the reading needs no sampling to mirror.
+ */
+const decode = (encoded: number): number =>
+  encoded <= 0.04045 ? encoded / 12.92 : ((encoded + 0.055) / 1.055) ** 2.4;
+
+interface LawDeclared {
+  readonly colour: string;
+  readonly occlusion: number;
+  /** `R(encodedInput, thickness)` — the interior level the curve is aiming at. */
+  readonly target: number;
+}
+
+const SOURCE = sourceOptics().regular;
+
+/**
+ * The CSS tier's tone chain for a flat grey backdrop, at nominal policy, on the
+ * law's own functions — the per-surface sequence `root.ts` runs (collapse amount
+ * → response solve → adaptation fold → tier conversion → size occlusion), with
+ * the accessibility folds omitted because they are the identity at nominal.
+ */
+const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
+  const linear = decode(grey / 255);
+  const tone = { rgb: [linear, linear, linear] as const, luminance: linear, linearLuminance: linear };
+  const thickness = sizeThickness(spanPx);
+  const collapse = backdropToneAdaptation(linear, thickness);
+  const responded = toneRespondedSourceOptics(SOURCE, tone, thickness, collapse, 1);
+  const adapted = adaptedSourceOptics(responded, tone.rgb, collapse);
+  const alpha = cssTintAlpha(adapted);
+  return {
+    colour: cssTintColor(adapted, alpha).join(", "),
+    occlusion: Math.round(sizeOcclusionAlphaAt(alpha, thickness) * 1000) / 1000,
+    target: backdropToneResponseLevel(grey / 255, thickness),
+  };
+};
+
+/** One rounding step of the declared occlusion, which is written to 3 decimals. */
+const ROUNDING = 0.0015;
+
 test("a small surface over a near-black backdrop becomes that backdrop", async ({ page }) => {
   // `dark-solid` (28, 28, 30) — the calibration backdrop where the reference's own
   // capsule is byte-identical to its background. Fully adapted, the CSS tier
@@ -126,29 +199,55 @@ test("a large surface over the same backdrop keeps most of its own appearance", 
   );
 });
 
-test("an ordinary backdrop moves nothing at all", async ({ page }) => {
+test("a mid grey backdrop lands on the response curve, and the surface's size moves it", async ({
+  page,
+}) => {
+  /*
+   * Until W9 this backdrop was "above the curve's high edge" and the axis was
+   * exactly inert on it. The response curve has no inert region: a mid grey is
+   * between the mid and light anchors, and the reference's interior sits on the
+   * curve there, at a level that depends on the surface's thickness.
+   */
   await buildScene(page, "rgb(140, 140, 140)");
 
-  // Above the curve's high edge the axis is exactly inert, which is the property
-  // every already-passing calibration cell depends on: the shipped material,
-  // untouched, and identical on a surface of either size.
   const small = await declared(page, "small");
   const large = await declared(page, "large");
-  expect(small.tint).toBe("rgba(255, 255, 255, 0.781)");
-  expect(large.tint).toBe(small.tint);
-  expect(small.occlusion).toBe(large.occlusion);
+  const law = { small: lawDeclares(140, 44), large: lawDeclares(140, 140) };
+
+  expect(colourOf(small.tint)).toBe(law.small.colour);
+  expect(small.occlusion).toBe(law.small.occlusion);
+  expect(colourOf(large.tint)).toBe(law.large.colour);
+  expect(large.occlusion).toBe(law.large.occlusion);
+
+  // At this grey the curve's target sits above what the white neutral reaches at
+  // its calibrated alpha, so the achromatic shift saturates at white and the
+  // remainder is carried as opacity — a white tint on both sizes, whose alpha is
+  // the law's. Pinned as a property of the shipped constants, not derived.
+  expect(colourOf(small.tint)).toBe("255, 255, 255");
+  expect(colourOf(large.tint)).toBe(colourOf(small.tint));
+
+  // The anchors' settled levels are functions of thickness, and at this grey the
+  // thick row sits above the thin one — so the large surface is the MORE opaque,
+  // the opposite of the near-black case above, and on the same law.
+  expect(law.large.target).toBeGreaterThan(law.small.target);
+  expect(large.occlusion).toBeGreaterThan(small.occlusion);
 });
 
-test("the response across the transition is continuous and monotone", async ({ page }) => {
+test("across the transition the level is monotone, the collapse is a slope, and the opacity hands over", async ({
+  page,
+}) => {
   /*
    * The evidence the reference bed cannot give. Twelve flat backdrops from black
-   * to a mid grey, which straddles the whole transition (the curve turns on below
-   * a linear 0.14 and is fully on below 0.02), read as the surface's declared
-   * occlusion and as its rendered level.
+   * to a mid grey, read as the small surface's declared occlusion and as its
+   * rendered level, every declaration held to the law's own value.
    *
-   * Two claims, and they are different: monotone says the material never moves
-   * the wrong way as its backdrop darkens, and bounded-step says it never jumps —
-   * a switch would show as one large gap however monotone the sequence was.
+   * Three claims. The rendered level never moves the wrong way as the backdrop
+   * darkens. The declared occlusion is V-shaped — it falls through the collapse,
+   * bottoms out where the response solve has darkened the neutral furthest, and
+   * rises with the light attractor — and each arm is monotone; a fourth mechanism
+   * would show as a second dip. And the collapse is a slope rather than a
+   * switch, which the coarse grid cannot resolve (the band is a few grey levels
+   * wide), so a finer sweep across it carries that claim on its own.
    */
   const steps = 12;
   const occlusions: number[] = [];
@@ -156,23 +255,59 @@ test("the response across the transition is continuous and monotone", async ({ p
   for (let i = 0; i < steps; i += 1) {
     const value = Math.round((i / (steps - 1)) * 140);
     await buildScene(page, `rgb(${value}, ${value}, ${value})`);
-    occlusions.push((await declared(page, "small")).occlusion);
+    const small = await declared(page, "small");
+    expect(
+      Math.abs(small.occlusion - lawDeclares(value, 44).occlusion),
+      `occlusion at ${value}`,
+    ).toBeLessThanOrEqual(ROUNDING);
+    occlusions.push(small.occlusion);
     levels.push(level((await sample(page, SMALL)).at(60, 22)));
   }
 
   for (let i = 1; i < steps; i += 1) {
-    expect(occlusions[i] as number, `occlusion ${i}`).toBeLessThanOrEqual(
-      (occlusions[i - 1] as number) + 1e-6,
-    );
     expect(levels[i] as number, `level ${i}`).toBeGreaterThanOrEqual((levels[i - 1] as number) - 1);
   }
 
-  // The ends are the two states the axis exists to move between…
+  // The ends: fully collapsed over black, and the curve's own value at the grey.
   expect(occlusions[0] as number).toBeCloseTo(1, 3);
-  expect(occlusions[steps - 1] as number).toBeLessThan(0.79);
+  const dip = occlusions.indexOf(Math.min(...occlusions));
+  expect(dip).toBeGreaterThan(0);
+  expect(dip).toBeLessThan(steps - 1);
+  for (let i = 1; i <= dip; i += 1) {
+    expect(occlusions[i] as number, `collapse arm ${i}`).toBeLessThanOrEqual(
+      (occlusions[i - 1] as number) + ROUNDING,
+    );
+  }
+  for (let i = dip + 1; i < steps; i += 1) {
+    expect(occlusions[i] as number, `attractor arm ${i}`).toBeGreaterThanOrEqual(
+      (occlusions[i - 1] as number) - ROUNDING,
+    );
+  }
+  const excursion = 1 - (occlusions[dip] as number);
+  expect(excursion).toBeGreaterThan(0.15);
 
-  // …and it is a slope, not a step: no single move is more than a third of the
-  // whole excursion, in either quantity.
+  /*
+   * The slope. Twenty-two backdrops two grey levels apart across the collapse
+   * band (28…70 straddles it for a 44 px surface, size bias included): no single
+   * move in either quantity is more than a third of the whole excursion. One
+   * seam is known and bounded by `ROUNDING`: the response solve stands down at a
+   * collapse amount above 0.995, so the first backdrop it acts on can move the
+   * declared alpha by a rounding step against the arm's direction.
+   */
+  const fine = 22;
+  const fineOcclusions: number[] = [];
+  const fineLevels: number[] = [];
+  for (let i = 0; i < fine; i += 1) {
+    const value = Math.round(28 + (i / (fine - 1)) * 42);
+    await buildScene(page, `rgb(${value}, ${value}, ${value})`);
+    const small = await declared(page, "small");
+    expect(
+      Math.abs(small.occlusion - lawDeclares(value, 44).occlusion),
+      `occlusion at ${value}`,
+    ).toBeLessThanOrEqual(ROUNDING);
+    fineOcclusions.push(small.occlusion);
+    fineLevels.push(level((await sample(page, SMALL)).at(60, 22)));
+  }
   const widest = (series: readonly number[]): number => {
     let most = 0;
     for (let i = 1; i < series.length; i += 1) {
@@ -180,7 +315,14 @@ test("the response across the transition is continuous and monotone", async ({ p
     }
     return most;
   };
-  const occlusionSpan = (occlusions[0] as number) - (occlusions[steps - 1] as number);
-  expect(occlusionSpan).toBeGreaterThan(0.15);
-  expect(widest(occlusions)).toBeLessThan(occlusionSpan / 3);
+  for (let i = 1; i < fine; i += 1) {
+    expect(fineLevels[i] as number, `fine level ${i}`).toBeGreaterThanOrEqual(
+      (fineLevels[i - 1] as number) - 1,
+    );
+  }
+  const fineExcursion = (fineOcclusions[0] as number) - Math.min(...fineOcclusions);
+  expect(fineExcursion).toBeGreaterThan(0.15);
+  expect(widest(fineOcclusions)).toBeLessThan(fineExcursion / 3);
+  const levelExcursion = Math.max(...fineLevels) - Math.min(...fineLevels);
+  expect(widest(fineLevels)).toBeLessThan(levelExcursion / 3);
 });

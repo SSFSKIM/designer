@@ -245,13 +245,15 @@ test.describe("the layout is legal", () => {
   /*
    * The tint control, and the claim the page makes beside it.
    *
-   * The page says a tint colours the material without making it more opaque, and
-   * that it lands on one plate rather than on the group. Both are checkable from
-   * the published tokens, which is better than a screenshot here: `--vitrea-tint`
-   * and `--vitrea-occlusion` are what the runtime decided, so this asserts the
-   * decision rather than a rendering of it.
+   * The page says a tint is a shade of the seed at the strength the colour
+   * carries — opaque at full strength, as the reference's is (W10) — over a
+   * material whose own opacity never moves, and that it lands on one plate rather
+   * than on the group. Both are checkable from the published tokens, which is
+   * better than a screenshot here: `--vitrea-tint` and `--vitrea-occlusion` are
+   * what the runtime decided, so this asserts the decision rather than a
+   * rendering of it.
    */
-  test("the tint control colours one plate and leaves the material's opacity alone", async ({
+  test("the tint control colours one plate, at the strength the colour carries", async ({
     page,
   }) => {
     await gotoSite(page, "?renderer=css");
@@ -292,10 +294,25 @@ test.describe("the layout is legal", () => {
     const after = await read();
     // One plate takes the colour; its neighbour in the same group does not.
     expect(after.plain).toBe(before.plain);
-    // And the occlusion stays within a rounding step of where it was: the tint is
-    // a colour axis, and the tier conversion re-solves its alpha for the new
-    // colour rather than the tint moving how much material there is.
-    expect(Math.abs(Number(after.occlusion) - Number(before.occlusion))).toBeLessThan(0.1);
+    /*
+     * The published occlusion is the fold this tier does in closed form: the
+     * author's layer at strength `s` over the material's one `rgba()` at `α` is
+     * one layer at `1 − (1 − s)(1 − α)`. An opaque seed is `s = 1`, so the token
+     * reads 1 whatever the material's own alpha was — and that alpha, the value
+     * the accessibility policies operate on, is what the page says never moves.
+     * The size law's lift commutes with the fold (both close a fraction of the
+     * remaining transparency), so the relation holds on the published values.
+     */
+    expect(Number(after.occlusion)).toBe(1);
+
+    await page.getByTestId("tint-select").selectOption("orange-half");
+    await expect.poll(async () => (await read()).tinted).not.toBe(after.tinted);
+
+    const half = await read();
+    expect(half.plain).toBe(before.plain);
+    expect(
+      Math.abs(Number(half.occlusion) - (1 - 0.5 * (1 - Number(before.occlusion)))),
+    ).toBeLessThan(0.002);
   });
 });
 

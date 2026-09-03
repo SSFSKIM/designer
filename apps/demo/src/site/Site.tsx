@@ -261,11 +261,15 @@ export function Site(props: SiteProps): ReactNode {
             colour to a range of tones against the brightness behind it, and a solid
             fill is the failure the same session names &mdash; &ldquo;completely
             opaque, and breaks the visual character of Liquid Glass&rdquo;. So the
-            colour here changes what the material&rsquo;s tint layer is made of and
-            never how opaque it is: the thick plate stays as transparent as the thin
-            one beside it, and the backdrop still moves through both. The colour
-            lands on one plate rather than the group, which is also the guidance
-            &mdash; colour one control for emphasis, not every control.
+            colour here becomes a shade of itself &mdash; darker over dark content,
+            the seed over light &mdash; at the strength the colour&rsquo;s own alpha
+            carries: at full strength the shade is opaque, as the reference&rsquo;s
+            is, and at half strength the material still shows through it. What
+            never moves is the material&rsquo;s own opacity, the value Reduce
+            Transparency and Increase Contrast operate on, so both plates keep their
+            calibrated material under any tint. The colour lands on one plate
+            rather than the group, which is also the guidance &mdash; colour one
+            control for emphasis, not every control.
           </p>
           {GROUPS_BY_MODE.material.map((group) => (
             <GroupReadout key={group.id} id={group.id} label={group.label} />

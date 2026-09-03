@@ -151,22 +151,23 @@ character of Liquid Glass."*
 
 **The colour you pass is a seed, not a fill.** Apple's material "generates a
 range of tones that are mapped to content brightness underneath the tinted
-element", and vitrea does the same: the seed is read through a tone curve against
-the backdrop the surface is already sampling, so one orange settles to a deep
-amber over dark content and a bright wash over light content, and the backdrop
-keeps coming through either way. On the WebGPU tier that happens per pixel,
-inside the optics pass, against the same lens-displaced sample the material
-refracts. On the CSS tier — which has one colour per element to work with — the
-tone is resolved at one backdrop level and converted through the same mapping the
-material's own tint goes through, so the two tiers stay derived from one document
-instead of holding two sets of numbers.
+element", and vitrea does the same, measured on the reference rather than
+assumed: the tint is an opaque, hue-preserving **shade** of the seed whose
+brightness follows the untinted material's own luminance, so one orange settles
+to a deep amber over dark content and the seed itself over light content. On the
+WebGPU tier that happens per pixel, inside the optics pass, against the same
+lens-displaced sample the material refracts. On the CSS tier — which has one
+colour per element to work with — the shade is read at one backdrop level and
+folded into the same single layer the material's own tint goes through, so the
+two tiers stay derived from one document instead of holding two sets of numbers.
 
-**A tint changes what colour the material is, never how opaque it is.** That
-separation is deliberate, and it is what keeps the accessibility story intact:
-opacity is the material's occlusion, which is the axis *Reduce Transparency*
-lifts and where a system-level glass preference lands. A tinted surface under an
-accessibility preference therefore gets *more of the author's colour*, not a
-different one.
+**A tint never moves the material's own opacity.** The shade is composited over
+the material at the strength you give it — opaque at full strength, as the
+reference's is; at half strength the material still shows through — and what it
+never touches is the material's occlusion, which is the axis *Reduce
+Transparency* lifts and where a system-level glass preference lands. The
+accessibility policies still resolve after the tint, so a tinted surface under an
+accessibility preference gets *more of the author's colour*, not a different one.
 
 The colour's own **alpha is the tint's strength** — `rgb(255 149 0 / 50%)` is a
 half-strength orange, the same way `Color.orange.opacity(0.5)` is in SwiftUI — so
