@@ -1321,7 +1321,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
         CSS_TIER_RAMP_SCALE,
-        CSS_TIER_RAMP_SCALE,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,

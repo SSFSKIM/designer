@@ -134,20 +134,18 @@ describe("what a placement change costs", () => {
     renderer.drawFrame(frameArgs(2));
     expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
 
-    // Moved to a 1x display: same source, same placement, same density — but
-    // twice the body σ in CSS px, so the chain on the store is the old scale's.
+    // Moved to a 1x display: same source, same placement, same density — and,
+    // since W13 Decision Log 8, the same body σ in CSS px, so the chain on the
+    // store is still the right one and nothing rebuilds. (While the widths were
+    // device-pixel quantities this move halved the σ and was a rebuild.)
     renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 1 });
     renderer.drawFrame(frameArgs(3));
-    expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
 
-    // And settles there.
-    renderer.drawFrame(frameArgs(4));
-    expect(renderer.instrumentation.pyramid.rebuilds).toBe(2);
-
-    // Back to 2x: the σ moves again.
+    // And back to 2x: still clean.
     renderer.setViewport({ ...VIEWPORT, devicePixelRatio: 2 });
-    renderer.drawFrame(frameArgs(5));
-    expect(renderer.instrumentation.pyramid.rebuilds).toBe(3);
+    renderer.drawFrame(frameArgs(4));
+    expect(renderer.instrumentation.pyramid.rebuilds).toBe(1);
   });
 
   it("rebuilds when a placement first arrives for a source built under cover fit", () => {

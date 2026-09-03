@@ -706,33 +706,26 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
     expect(scatterSharpShare(80, 1, patched, 320)).toBeCloseTo(0.6 * (1 - 80 / 200), 12);
   });
 
-  it("keeps the widths in device px across every scale", () => {
+  it("keeps the widths in CSS px at every scale — the device-pixel reading is retired", () => {
     // The two widths are the σ the mix runs between: the sharp one at weight 0
-    // and the heavy one at weight 1, both read in DEVICE px (σ_css × dpr),
-    // where neither may move (claims §5.56 §1, §5.58 §2).
-    for (const dpr of [1, 1.5, 2, 3]) {
-      expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED, dpr) * dpr, `sharp at ${dpr}`).toBeCloseTo(
-        SIGMA,
-        12,
-      );
-      expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED, dpr) * dpr, `heavy at ${dpr}`).toBeCloseTo(
-        SIGMA * SHIPPED.sizeScatterGainMax,
-        12,
-      );
-    }
-    // The shipped numbers, stated: 1.25 and 10 device px, so 0.625 and 5 CSS px
-    // at dpr 2.
+    // and the heavy one at weight 1. W12 G3 read them as device-pixel quantities
+    // and W13 Decision Log 8 retired that reading on the bed (claims §5.68 §5):
+    // the σ is one CSS-px number, and no ratio reaches it.
     expect(SIGMA).toBe(1.25);
     expect(SIGMA * SHIPPED.sizeScatterGainMax).toBe(10);
-    expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED, 2)).toBeCloseTo(0.625, 12);
-    expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED, 2)).toBeCloseTo(5, 12);
+    expect(sizeScatterSigmaAt(SIGMA, 0, SHIPPED)).toBeCloseTo(1.25, 12);
+    expect(sizeScatterSigmaAt(SIGMA, 1, SHIPPED)).toBeCloseTo(10, 12);
+    // The signature admits no ratio: a fourth argument is not a parameter.
+    expect(sizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
   });
 
   it("derives the single σ from the projection, so one law feeds both tiers", () => {
+    // The ratio still reaches the ramp's projection (its start and reach are
+    // per-scale constants) and nothing else.
     for (const span of [32, 44, 96, 128, 160, 256]) {
       for (const dpr of [1, 1.5, 2, 3]) {
         expect(sizeScatterSigma(SIGMA, span, SHIPPED, dpr), `span ${span} at ${dpr}`).toBeCloseTo(
-          sizeScatterSigmaAt(SIGMA, scatterThickness(span, 1, SHIPPED, dpr), SHIPPED, dpr),
+          sizeScatterSigmaAt(SIGMA, scatterThickness(span, 1, SHIPPED, dpr), SHIPPED),
           12,
         );
       }

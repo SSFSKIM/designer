@@ -2270,9 +2270,9 @@ export function lensDirection(
  * a wider blur needs a wider proxy, and the group's floor is set by its *largest*
  * member (S1's 3σ rule, applied to the σ the material will really use).
  *
- * `devicePixelRatio` is the scale the tier actually draws at (W12 G3, claims
- * §5.56): the widths are device-pixel quantities, so the σ returned in CSS px is
- * `sigmaPx / dpr` scaled by the weight `scatterThickness` projects. It defaults
+ * `devicePixelRatio` reaches only the ramp's projection — the depth ramp's start
+ * and reach are per-scale constants (W13 G1) — and not the width, which is CSS
+ * px at every scale (W13 Decision Log 8; see `sizeScatterSigmaAt`). It defaults
  * to 1, where the whole expression is the 1x law.
  */
 export function sizeScatterSigma(
@@ -2286,7 +2286,6 @@ export function sizeScatterSigma(
     sigmaPx,
     scatterThickness(spanPx, 1, profile, devicePixelRatio, extentsCssPx),
     profile,
-    devicePixelRatio,
   );
 }
 
@@ -2543,19 +2542,25 @@ export function scatterRampAreaMean(
  * unfolded thickness for it. One formula, so a policy fold cannot end up applied
  * to one facet and not another.
  *
- * `devicePixelRatio` divides the σ because the two widths are device-pixel
- * quantities (W12 G3, claims §5.56 §1, verified §5.58 §2): σ_sharp is
- * `blurSigma` device px and σ_heavy is `blurSigma × sizeScatterGainMax` device
- * px, so both halve in CSS px when the tier draws at dpr 2.
+ * The widths are CSS-px quantities at every device scale. W12 G3 read them as
+ * device-pixel quantities (claims §5.56 §1) and held that reading as a
+ * candidate; W13 carried it into its dry runs and the bed retired it (W13
+ * Decision Log 8, user-decided, 2026-09-04): at 2x the ramp is a null, so the
+ * halved widths were the only change on that scale, and against the W14 bed
+ * they took the four large checkerboard rows down 0.006–0.017 while raising
+ * the two small ones — Apple's 2x interior is HEAVIER than ours (claims §5.64
+ * §4), and a narrower width pushes the large spans the wrong way. The 2x
+ * question is the deep value's, chartered separately; until it is answered
+ * the σ here is one number in CSS px, and a caller that divides it by a ratio
+ * is asserting a law the measurement rejected.
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
-  devicePixelRatio = 1,
 ): number {
   const mix = clampUnit(scatter);
-  return (sigmaPx / Math.max(devicePixelRatio, 1e-3)) * (1 + (profile.sizeScatterGainMax - 1) * mix);
+  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * mix);
 }
 
 /** 0…1, the clamp every share in this facet takes. */

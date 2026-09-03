@@ -589,8 +589,8 @@ describe("tier coherence (K5)", () => {
             const css = cssScatterThickness(span, fold, mirrored, dpr);
             const gpu = rendererScatterThickness(span, fold, profile, dpr);
             expect(css, label).toBeCloseTo(gpu, 12);
-            expect(cssSizeScatterSigmaAt(1.25, css, mirrored, dpr), `σ at ${label}`).toBeCloseTo(
-              rendererSizeScatterSigmaAt(1.25, gpu, profile, dpr),
+            expect(cssSizeScatterSigmaAt(1.25, css, mirrored), `σ at ${label}`).toBeCloseTo(
+              rendererSizeScatterSigmaAt(1.25, gpu, profile),
               12,
             );
             expect(
@@ -607,22 +607,25 @@ describe("tier coherence (K5)", () => {
       }
     }
     // The shipped numbers, stated. The projection rises with the span on both
-    // tiers, and the widths are 1.25 and 10 DEVICE px — so a fully heavy mix is
-    // 10 CSS px at dpr 1 and 5 at dpr 2, on both tiers.
+    // tiers, and the widths are 1.25 and 10 CSS px at every device scale (W13
+    // Decision Log 8 retired the device-pixel reading on the bed) — so a fully
+    // heavy mix is 10 CSS px on both tiers whatever the ratio.
     expect(rendererScatterThickness(160, 1)).toBeGreaterThan(rendererScatterThickness(96, 1));
     expect(rendererScatterThickness(96, 1)).toBeGreaterThan(rendererScatterThickness(44, 1));
     expect(cssScatterThickness(160, 1)).toBeGreaterThan(cssScatterThickness(96, 1));
-    expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(10, 12);
-    expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(5, 12);
-    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE, 2)).toBeCloseTo(5, 12);
+    expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE)).toBeCloseTo(10, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE)).toBeCloseTo(10, 12);
   });
 
   /*
    * The scattering facet's S1 consequence at a second device scale: the 3σ
-   * padding floor is taken over the σ the tier will REALLY write, and at dpr 2
-   * that is a different number from the one it writes at dpr 1 (W12 G3).
+   * padding floor is taken over the σ the tier will REALLY write. Since W13
+   * Decision Log 8 that σ is the same CSS-px number at every ratio — the ratio
+   * reaches the ramp's projection (its per-scale start and reach) and nothing
+   * else — so what is pinned here is that both tiers agree on it at every
+   * ratio and that no ratio can reach the width at all.
    */
-  it("takes the 3σ padding floor over the σ the device scale actually uses", () => {
+  it("takes the 3σ padding floor over the σ the tier actually writes, at every device scale", () => {
     const shipped = cssTierOptics().regular.blurRadius;
     for (const dpr of [1, 1.5, 2, 3]) {
       const platter = cssSizeScatterSigma(shipped, 160, MATERIAL_SOURCE_SIZE, dpr);
@@ -632,17 +635,17 @@ describe("tier coherence (K5)", () => {
       );
       expect(requiredSamplingPadding(platter), `dpr ${dpr}`).toBeCloseTo(3 * platter, 12);
     }
-    // At a fixed mix the σ halves at dpr 2, so the padding it needs halves too —
-    // a floor derived at dpr 1 would over-pad rather than starve, but it would
-    // not be the σ that was drawn. Read at a fixed mix rather than at a span,
-    // because the projection is itself a function of the scale since W13 and the
-    // property under test here is the WIDTH's.
+    // At a fixed mix the width is one number: the thickness form takes no ratio
+    // on either tier (W13 Decision Log 8 retired the device-pixel widths on the
+    // bed), so the σ a floor is derived from at dpr 1 IS the σ drawn at dpr 2.
     for (const mix of [0, 0.4, 1]) {
-      expect(
-        cssSizeScatterSigmaAt(shipped, mix, MATERIAL_SOURCE_SIZE, 2) * 2,
-        `mix ${mix}`,
-      ).toBeCloseTo(cssSizeScatterSigmaAt(shipped, mix, MATERIAL_SOURCE_SIZE, 1), 12);
+      expect(cssSizeScatterSigmaAt(shipped, mix, MATERIAL_SOURCE_SIZE), `mix ${mix}`).toBeCloseTo(
+        rendererSizeScatterSigmaAt(shipped, mix, DEFAULT_MATERIAL_PROFILE),
+        12,
+      );
     }
+    expect(cssSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
+    expect(rendererSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {

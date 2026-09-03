@@ -447,10 +447,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * A source whose body would come out differently from the one on its chain,
    * for a reason that never re-dirties it: a placement that changed SIZE moves
    * the texels-per-CSS-px the σ is converted with, and a window moved between a
-   * 1x and a 2x display moves the σ itself, because the body's widths are
-   * device-pixel quantities and the CSS-px σ the pyramid converts is
-   * `blurSigma / dpr` (W12 G3, claims §5.56; W13 G1, review finding). A static
-   * image fixes neither on its own. Named here as its own rebuild request, at
+   * 1x and a 2x display used to move the σ itself while the body's widths were
+   * device-pixel quantities (W12 G3; retired by W13 Decision Log 8 — the σ is
+   * CSS px at every scale now, so a display move alone no longer rebuilds), and
+   * a policy or profile change still moves it (W13 G1, review finding). A
+   * static image fixes none of these on its own. Named here as its own rebuild request, at
    * the epoch the chain already holds so the store's clean check falls through
    * to `sameBody` rather than to the epoch.
    */
@@ -507,16 +508,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   /**
    * The body σ in CSS px a build for this source would ask for.
    *
-   * `blurSigma` is a DEVICE-pixel quantity (W12 G3, claims §5.56), so the CSS-px
-   * σ the pyramid converts to source texels with is `blurSigma / dpr`: it moves
-   * when the window moves between displays even though nothing about the source
-   * changed. `buildPyramids` passes this and `staleBodyRebuilds` compares it
-   * against the σ the chain was built with, so the two cannot drift apart.
+   * `blurSigma` is a CSS-px quantity at every device scale (W13 Decision Log 8;
+   * `sizeScatterSigmaAt` says why), folded under the policy of the group that
+   * samples the source. `buildPyramids` passes this and `staleBodyRebuilds`
+   * compares it against the σ the chain was built with, so the two cannot drift
+   * apart when a policy or profile change moves it.
    */
-  const bodySigmaCssFor = (sourceId: string): number => {
-    const optics = opticsUnderPolicy(material.optics[sourceVariant(sourceId)], accessibility, material);
-    return optics.blurSigma / Math.max(viewport.devicePixelRatio, 1e-3);
-  };
+  const bodySigmaCssFor = (sourceId: string): number =>
+    opticsUnderPolicy(material.optics[sourceVariant(sourceId)], accessibility, material).blurSigma;
 
   /**
    * The one tint seed this group's optics pass draws with.
@@ -606,13 +605,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           sourceId: request.sourceId,
           epoch: request.epoch,
           resolution: request.resolution,
-          // The body's sharp width is a DEVICE-pixel quantity (W12 G3, claims
-          // §5.56): `blurSigma` device px, so `blurSigma / dpr` in the CSS px
-          // the pyramid converts to source texels with. The heavy component
-          // rides the same conversion — its level is this one plus
-          // log2(sizeScatterGainMax) octaves — so it is eight body widths in
-          // device px at every scale. At dpr 1 this is `optics.blurSigma`
-          // unchanged, which is what leaves the 1x law exactly as landed.
+          // The body's sharp width in CSS px at every device scale (W13 Decision
+          // Log 8); the heavy component rides the same conversion — its level
+          // is this one plus log2(sizeScatterGainMax) octaves.
           bodySigmaCss: bodySigmaCssFor(request.sourceId),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),

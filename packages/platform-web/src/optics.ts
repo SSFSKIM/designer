@@ -1180,7 +1180,6 @@ export function sizeScatterSigma(
     sigmaPx,
     scatterThickness(spanPx, 1, size, devicePixelRatio, extentsCssPx),
     size,
-    devicePixelRatio,
   );
 }
 
@@ -1417,21 +1416,14 @@ export function groupScatterSigma(
   fold: number,
   members: readonly (readonly [number, number])[],
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
-  devicePixelRatio = 1,
   projectionScale = 1,
 ): number {
-  let widest = sizeScatterSigmaAt(
-    sigmaPx,
-    scatterThickness(0, fold, size, projectionScale),
-    size,
-    devicePixelRatio,
-  );
+  let widest = sizeScatterSigmaAt(sigmaPx, scatterThickness(0, fold, size, projectionScale), size);
   for (const [width, height] of members) {
     const own = sizeScatterSigmaAt(
       sigmaPx,
       scatterThickness(Math.min(width, height), fold, size, projectionScale, [width, height]),
       size,
-      devicePixelRatio,
     );
     widest = Math.max(widest, own);
   }

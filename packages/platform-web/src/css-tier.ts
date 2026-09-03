@@ -413,12 +413,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
       ? policyOptics
       : {
           ...policyOptics,
-          blurRadius: sizeScatterSigmaAt(
-            policyOptics.blurRadius,
-            scatterK,
-            size,
-            CSS_TIER_RAMP_SCALE,
-          ),
+          blurRadius: sizeScatterSigmaAt(policyOptics.blurRadius, scatterK, size),
           tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
         };
   /*

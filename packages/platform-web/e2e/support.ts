@@ -178,7 +178,6 @@ export function expectedProxyBlur(options: {
       options.extentsCssPx,
     ),
     MATERIAL_SOURCE_SIZE,
-    CSS_TIER_RAMP_SCALE,
   );
   return { sigma, padding: requiredSamplingPadding(sigma) };
 }
