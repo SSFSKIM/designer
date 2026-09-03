@@ -365,9 +365,11 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
 
   it("sits on the span curve deep inside and rises to s₀ at the contour", () => {
     for (const dpr of [1, 1.5, 2, 3]) {
-      const start = scatterRampStart(dpr, SHIPPED);
       const reach = scatterRampReachDevicePx(dpr, SHIPPED);
       for (const span of [32, 96, 160, 256, 400]) {
+        // The start grades with the span too, since the third form (§5.64 §5),
+        // so it is read per span rather than once per scale.
+        const start = scatterRampStart(dpr, SHIPPED, span);
         const deepSharp = 1 - scatterDeepThickness(span, SHIPPED);
         const label = `span ${span} at dpr ${dpr}`;
         // Deeper than the reach the body is exactly the W11c/W12 material.
@@ -418,10 +420,23 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
   });
 
   it("interpolates the two anchors linearly in dpr and holds outside them", () => {
-    expect(scatterRampStart(1, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart1x);
-    expect(scatterRampStart(2, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart2x);
-    expect(scatterRampStart(1.5, SHIPPED)).toBeCloseTo(
-      (SHIPPED.sizeScatterRampStart1x + SHIPPED.sizeScatterRampStart2x) / 2,
+    // Read at the two ends of the span grading: `sizeSpanMin` is the thin
+    // anchor exactly and `sizeSpanMax` the thick one exactly, because
+    // `sizeThickness` is 0 and 1 there.
+    const THIN = SHIPPED.sizeSpanMin;
+    const THICK = SHIPPED.sizeSpanMax;
+    expect(scatterRampStart(1, SHIPPED, THIN)).toBe(SHIPPED.sizeScatterRampStartThin1x);
+    expect(scatterRampStart(2, SHIPPED, THIN)).toBe(SHIPPED.sizeScatterRampStartThin2x);
+    expect(scatterRampStart(1, SHIPPED, THICK)).toBeCloseTo(
+      SHIPPED.sizeScatterRampStartThick1x,
+      12,
+    );
+    expect(scatterRampStart(2, SHIPPED, THICK)).toBeCloseTo(
+      SHIPPED.sizeScatterRampStartThick2x,
+      12,
+    );
+    expect(scatterRampStart(1.5, SHIPPED, THIN)).toBeCloseTo(
+      (SHIPPED.sizeScatterRampStartThin1x + SHIPPED.sizeScatterRampStartThin2x) / 2,
       12,
     );
     expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(SHIPPED.sizeScatterRampReach1xPx);
@@ -432,10 +447,41 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
     );
     // Held rather than extrapolated: the reference was read at 1 and at 2.
     for (const dpr of [2.5, 3, 4]) {
-      expect(scatterRampStart(dpr, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart2x);
+      expect(scatterRampStart(dpr, SHIPPED, THIN)).toBe(SHIPPED.sizeScatterRampStartThin2x);
       expect(scatterRampReachDevicePx(dpr, SHIPPED)).toBe(SHIPPED.sizeScatterRampReach2xPx);
     }
-    expect(scatterRampStart(0.5, SHIPPED)).toBe(SHIPPED.sizeScatterRampStart1x);
+    expect(scatterRampStart(0.5, SHIPPED, THIN)).toBe(SHIPPED.sizeScatterRampStartThin1x);
+  });
+
+  it("grades the start along the material's own thin/thick curve", () => {
+    // The third form's whole change (claims §5.64 §5): one start per scale
+    // could not be above `rrect-sm`'s deep sharp share of 0.600 and below
+    // `rrect-ml`'s crossing near 0.583 at once. The start now rides
+    // `sizeThickness` — the SAME curve the lens, the occlusion and the tone
+    // response ride, so no new span statistic enters the material.
+    for (const dpr of [1, 1.5, 2]) {
+      for (const span of SPANS) {
+        expect(scatterRampStart(dpr, SHIPPED, span), `span ${span} at ${dpr}`).toBeCloseTo(
+          scatterRampStart(dpr, SHIPPED, 0) +
+            (scatterRampStart(dpr, SHIPPED, SHIPPED.sizeSpanMax) -
+              scatterRampStart(dpr, SHIPPED, 0)) *
+              sizeThickness(span, SHIPPED),
+          12,
+        );
+      }
+      // Monotone down from thin to thick, and flat outside the knee.
+      let previous = Infinity;
+      for (const span of [0, 16, 32, 44, 64, 80, 96, 160, 4000]) {
+        const start = scatterRampStart(dpr, SHIPPED, span);
+        expect(start, `span ${span} at ${dpr}`).toBeLessThanOrEqual(previous + 1e-12);
+        previous = start;
+      }
+      expect(scatterRampStart(dpr, SHIPPED, 0)).toBe(scatterRampStart(dpr, SHIPPED, 32));
+      expect(scatterRampStart(dpr, SHIPPED, 96)).toBeCloseTo(
+        scatterRampStart(dpr, SHIPPED, 4000),
+        12,
+      );
+    }
   });
 
   it("folds to the floor exactly at 0 and to the law exactly at 1", () => {
@@ -482,8 +528,8 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
     // already exceeds the start the projection IS the span curve — the ramp
     // never makes a surface heavier at the contour than in its own middle.
     for (const dpr of [1, 2]) {
-      const start = scatterRampStart(dpr, SHIPPED);
       for (const span of [0, 8, 16, 32, 44, 96, 160, 256, 400]) {
+        const start = scatterRampStart(dpr, SHIPPED, span);
         const deep = scatterDeepThickness(span, SHIPPED);
         if (1 - deep < start) continue;
         expect(scatterRampAreaMean(span, SHIPPED, dpr), `span ${span} at ${dpr}`).toBeCloseTo(
@@ -532,46 +578,79 @@ describe("the body's mix is a span curve with a ramp in depth on it (W13 G1)", (
   });
 
   it("reproduces the provisional shape at the two scales", () => {
-    // The numbers the profile's defaults are PROVISIONALLY set to: the sharp
-    // share at the contour 0.65 at 1x and 0.40 at 2x — G0 read the thin
-    // surfaces' start above the thick ones' — and a reach of 200 device px at
-    // both, where the first sweep found the band flat. Stated here so a sweep
-    // that moves them moves a test.
-    expect(scatterRampStart(1, SHIPPED)).toBeCloseTo(0.65, 12);
-    expect(scatterRampStart(2, SHIPPED)).toBeCloseTo(0.4, 12);
-    expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(200);
-    expect(scatterRampReachDevicePx(2, SHIPPED)).toBe(200);
-    // The reach in CSS px halves between the scales, which is what "one length
-    // in device pixels" means for a consumer working in CSS px.
+    // The numbers the profile's defaults are PROVISIONALLY set to (claims
+    // §5.64 §5): at 1x the sharp share at the contour is 0.64 on a thin span
+    // and 0.52 on a thick one, over a reach of 120 device px; at 2x 0.46 and
+    // 0.17 over 100. Stated here so a sweep that moves them moves a test.
+    expect(scatterRampStart(1, SHIPPED, 0)).toBeCloseTo(0.64, 12);
+    expect(scatterRampStart(1, SHIPPED, 96)).toBeCloseTo(0.52, 12);
+    expect(scatterRampStart(2, SHIPPED, 0)).toBeCloseTo(0.46, 12);
+    expect(scatterRampStart(2, SHIPPED, 96)).toBeCloseTo(0.17, 12);
+    expect(scatterRampReachDevicePx(1, SHIPPED)).toBe(120);
+    expect(scatterRampReachDevicePx(2, SHIPPED)).toBe(100);
+    // The reach in CSS px more than halves between the scales, which is what
+    // "one length in device pixels" means for a consumer working in CSS px.
     expect(scatterRampReachDevicePx(2, SHIPPED) / 2).toBeLessThan(
       scatterRampReachDevicePx(1, SHIPPED),
     );
-    // And the 2x material is heavier through the band at every depth the 1x one
-    // is readable at, on a span the ramp acts on at all.
-    for (const u of [0, 20, 40, 60]) {
-      expect(scatterSharpShare(u * 2, 2, SHIPPED, 256), `u ${u}`).toBeLessThan(
-        scatterSharpShare(u, 1, SHIPPED, 256),
+  });
+
+  it("has no excursion at all at 2x on the calibration bed, by the law", () => {
+    /*
+     * Not a special case and not a disabled facet: at dpr 2 G0 read the
+     * reference's own contour sharp share BELOW vitrea's deep value on every
+     * cell of the bed (implied excursions −0.095 to −0.289, claims §5.64 §4),
+     * so `max(0, s₀ − sDeep)` is zero there. The consequence is that the 2x gap
+     * is a DEEP-VALUE gap — the span law's floor, knee and top — and no
+     * one-signed excursion above that law can express it. Pinned so that a
+     * change which quietly starts moving the 2x bed has to say so.
+     */
+    const BED = [32, 44, 96, 128, 130, 160];
+    for (const span of BED) {
+      const deepSharp = 1 - scatterDeepThickness(span, SHIPPED);
+      expect(scatterRampStart(2, SHIPPED, span), `span ${span}`).toBeLessThan(deepSharp);
+      for (const u of [0, 1, 10, 50, 200]) {
+        expect(scatterSharpShare(u, 2, SHIPPED, span), `span ${span} at u ${u}`).toBeCloseTo(
+          deepSharp,
+          12,
+        );
+      }
+      expect(scatterRampAreaMean(span, SHIPPED, 2), `span ${span}`).toBeCloseTo(
+        scatterDeepThickness(span, SHIPPED),
+        12,
+      );
+    }
+    // And at 1x it acts on every one of them, which is the other half of the
+    // third form's claim: the thin anchor clears `rrect-sm`'s 0.600 floor and
+    // the thick anchor clears `rrect-md`'s 0.481.
+    for (const span of BED) {
+      expect(scatterRampStart(1, SHIPPED, span), `span ${span}`).toBeGreaterThan(
+        1 - scatterDeepThickness(span, SHIPPED),
       );
     }
   });
 
-  it("carries the five constants through a profile patch", () => {
+  it("carries the seven constants through a profile patch", () => {
     const patched = withMaterialOverrides(SHIPPED, {
       sizeScatterSpanMax: 320,
-      sizeScatterRampStart1x: 0.8,
-      sizeScatterRampStart2x: 0.2,
+      sizeScatterRampStartThin1x: 0.8,
+      sizeScatterRampStartThick1x: 0.7,
+      sizeScatterRampStartThin2x: 0.2,
+      sizeScatterRampStartThick2x: 0.1,
       sizeScatterRampReach1xPx: 200,
       sizeScatterRampReach2xPx: 50,
     });
-    expect(scatterRampStart(1, patched)).toBe(0.8);
-    expect(scatterRampStart(2, patched)).toBe(0.2);
+    expect(scatterRampStart(1, patched, 0)).toBe(0.8);
+    expect(scatterRampStart(1, patched, 96)).toBeCloseTo(0.7, 12);
+    expect(scatterRampStart(2, patched, 0)).toBe(0.2);
+    expect(scatterRampStart(2, patched, 96)).toBeCloseTo(0.1, 12);
     expect(scatterRampReachDevicePx(1, patched)).toBe(200);
     expect(scatterRampReachDevicePx(2, patched)).toBe(50);
     expect(scatterDeepThickness(320, patched)).toBeCloseTo(1, 12);
     expect(scatterDeepThickness(320, SHIPPED)).toBe(1);
     // A span the curve saturates at under the patch: the deep sharp share is 0,
     // so the excursion is the whole start and it falls off over the reach.
-    expect(scatterSharpShare(80, 1, patched, 320)).toBeCloseTo(0.8 * (1 - 80 / 200), 12);
+    expect(scatterSharpShare(80, 1, patched, 320)).toBeCloseTo(0.7 * (1 - 80 / 200), 12);
   });
 
   it("keeps the widths in device px across every scale", () => {
@@ -643,8 +722,10 @@ describe("the scattering facet reaches the chain the optics pass samples", () =>
     // fully heavy everywhere and the σ is exactly the gain times the base.
     const allHeavy = withMaterialOverrides(GAINED, {
       sizeScatterGainMax: 2,
-      sizeScatterRampStart1x: 0,
-      sizeScatterRampStart2x: 0,
+      sizeScatterRampStartThin1x: 0,
+      sizeScatterRampStartThick1x: 0,
+      sizeScatterRampStartThin2x: 0,
+      sizeScatterRampStartThick2x: 0,
     });
     expect(base + Math.log2(2)).toBeCloseTo(chainLodForSigma(sizeScatterSigma(8, 4000, allHeavy)), 12);
   });

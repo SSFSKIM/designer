@@ -620,15 +620,19 @@ export interface MaterialSourceSize {
    */
   readonly sizeScatterSpanMax: number;
   /**
-   * The body's depth ramp (W13 G1, claims §5.61 §2): the sharp component's
-   * share at the contour and the reach at which its excursion vanishes into the
-   * span curve above, each anchored at dpr 1 and dpr 2 and interpolated
+   * The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5): the sharp
+   * component's share at the contour — graded from the thin anchor to the thick
+   * one across `sizeThickness`, because G0 read that start much higher on thin
+   * spans than thick ones — and the reach at which its excursion vanishes into
+   * the span curve above. Each anchored at dpr 1 and dpr 2 and interpolated
    * between. This tier cannot render a ramp — one `backdrop-filter` has one σ —
    * so what it carries is the ramp's per-surface projection, which is what
    * `scatterThickness` computes on both tiers. See `scatterThickness`.
    */
-  readonly sizeScatterRampStart1x: number;
-  readonly sizeScatterRampStart2x: number;
+  readonly sizeScatterRampStartThin1x: number;
+  readonly sizeScatterRampStartThick1x: number;
+  readonly sizeScatterRampStartThin2x: number;
+  readonly sizeScatterRampStartThick2x: number;
   readonly sizeScatterRampReach1xPx: number;
   readonly sizeScatterRampReach2xPx: number;
   readonly sizeOcclusionGain: number;
@@ -651,10 +655,12 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
-  sizeScatterRampStart1x: 0.65,
-  sizeScatterRampStart2x: 0.4,
-  sizeScatterRampReach1xPx: 200,
-  sizeScatterRampReach2xPx: 200,
+  sizeScatterRampStartThin1x: 0.64,
+  sizeScatterRampStartThick1x: 0.52,
+  sizeScatterRampStartThin2x: 0.46,
+  sizeScatterRampStartThick2x: 0.17,
+  sizeScatterRampReach1xPx: 120,
+  sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
@@ -827,10 +833,14 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
     sizeScatterFloor: patch?.sizeScatterFloor ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor,
     sizeScatterSpanMax: patch?.sizeScatterSpanMax ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax,
-    sizeScatterRampStart1x:
-      patch?.sizeScatterRampStart1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x,
-    sizeScatterRampStart2x:
-      patch?.sizeScatterRampStart2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStart2x,
+    sizeScatterRampStartThin1x:
+      patch?.sizeScatterRampStartThin1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x,
+    sizeScatterRampStartThick1x:
+      patch?.sizeScatterRampStartThick1x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick1x,
+    sizeScatterRampStartThin2x:
+      patch?.sizeScatterRampStartThin2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x,
+    sizeScatterRampStartThick2x:
+      patch?.sizeScatterRampStartThick2x ?? MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x,
     sizeScatterRampReach1xPx:
       patch?.sizeScatterRampReach1xPx ?? MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx:
@@ -936,17 +946,36 @@ export function sizeScatterSigma(
 export const CSS_TIER_RAMP_SCALE = 1;
 
 /**
- * The depth ramp's start at a device scale — s₀(dpr), the mirror of the
- * renderer's `scatterRampStart` (W13 G1, claims §5.61 §2).
+ * The depth ramp's start at a device scale and a span — s₀(span, dpr), the
+ * mirror of the renderer's `scatterRampStart` (W13 G1, claims §5.61 §2,
+ * §5.64 §5).
  *
- * The reference was read at dpr 1 and dpr 2 and nowhere between, so the law is
- * anchored at those two, interpolated linearly, and held outside [1, 2].
+ * ```
+ * s₀(span, dpr) = startThin(dpr) + (startThick(dpr) − startThin(dpr)) · sizeThickness(span)
+ * ```
+ *
+ * In dpr: the reference was read at dpr 1 and dpr 2 and nowhere between, so
+ * each anchor is interpolated linearly and held outside [1, 2]. In span: along
+ * `sizeThickness`, the material's own thin/thick curve, because G0 read the
+ * start much higher on thin surfaces than thick ones and a single start per
+ * scale was refuted in the renderer (claims §5.64 §2).
  */
 export function scatterRampStart(
   devicePixelRatio: number,
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  spanPx = 0,
 ): number {
-  return rampAtScale(size.sizeScatterRampStart1x, size.sizeScatterRampStart2x, devicePixelRatio);
+  const thin = rampAtScale(
+    size.sizeScatterRampStartThin1x,
+    size.sizeScatterRampStartThin2x,
+    devicePixelRatio,
+  );
+  const thick = rampAtScale(
+    size.sizeScatterRampStartThick1x,
+    size.sizeScatterRampStartThick2x,
+    devicePixelRatio,
+  );
+  return thin + (thick - thin) * sizeThickness(spanPx, size);
 }
 
 /**
@@ -1006,7 +1035,7 @@ export function scatterSharpShare(
   spanPx = 0,
 ): number {
   const deepSharp = 1 - scatterDeepThickness(spanPx, size);
-  const start = scatterRampStart(devicePixelRatio, size);
+  const start = scatterRampStart(devicePixelRatio, size, spanPx);
   const reach = Math.max(scatterRampReachDevicePx(devicePixelRatio, size), 1e-6);
   const excursion = Math.max(start - deepSharp, 0) * Math.max(1 - Math.max(uDevicePx, 0) / reach, 0);
   return clamp01(deepSharp + excursion);
@@ -1057,7 +1086,7 @@ export function scatterRampAreaMean(
   extentsCssPx?: readonly [number, number],
 ): number {
   const deep = scatterDeepThickness(spanPx, size);
-  const amplitude = Math.max(scatterRampStart(devicePixelRatio, size) - (1 - deep), 0);
+  const amplitude = Math.max(scatterRampStart(devicePixelRatio, size, spanPx) - (1 - deep), 0);
   if (amplitude <= 0) return clamp01(deep);
   const width = Math.max(extentsCssPx?.[0] ?? spanPx, 0);
   const height = Math.max(extentsCssPx?.[1] ?? spanPx, 0);

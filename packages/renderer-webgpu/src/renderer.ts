@@ -899,11 +899,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         sizeSpanMax: material.sizeSpanMax,
         sizeScatterFloor: material.sizeScatterFloor,
         sizeScatterSpanMax: material.sizeScatterSpanMax,
-        // The body's depth ramp (W13 G1, claims §5.61 §2), resolved from the
-        // viewport's own ratio: the profile anchors the start and the reach at
-        // dpr 1 and dpr 2 and the two functions interpolate, and the reach is
-        // handed over in CSS px because the field's depth is in CSS px.
-        sizeScatterRampStart: scatterRampStart(dpr, material),
+        // The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5), resolved
+        // from the viewport's own ratio: the profile anchors the start's thin
+        // and thick ends and the reach at dpr 1 and dpr 2, and the CPU
+        // interpolates all three in dpr. The start's SPAN grading stays in the
+        // shader, because a group's members are not one size and the span
+        // arrives per pixel on the field's own channel — so the two anchors go
+        // over and `sizeThickness` is evaluated there. The reach is handed over
+        // in CSS px because the field's depth is in CSS px.
+        sizeScatterRampStartThin: scatterRampStart(dpr, material, 0),
+        sizeScatterRampStartThick: scatterRampStart(dpr, material, material.sizeSpanMax),
         sizeScatterRampReachCssPx: scatterRampReachDevicePx(dpr, material) / dpr,
         sizeFold: material.refractionScale[accessibilityRefractionCap(policy)],
         backdropTone,

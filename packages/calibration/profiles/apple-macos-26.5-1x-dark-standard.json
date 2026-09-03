@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "8ee31ecd230142ac",
+  "resolvedMaterialSha256": "f0fb4cc5735b3251",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -269,5 +269,19 @@
     "the dark reference's body ramps the same way is unmeasured, and the referee",
     "reads this scheme's cells. The patch itself is unchanged.",
     "Fingerprint b668693607b44247 -> 8ee31ecd230142ac (the defaults above)."
+  ],
+  "$comment-w13-g1-third-form": [
+    "RE-RECORDED 2026-09-03 (W13 G1, third form; claims 5.64): the defaults this",
+    "difference document inherits changed again — the ramp's start now GRADES with",
+    "span across sizeThickness, so the two start constants become four",
+    "(sizeScatterRampStartThin1x / Thick1x / Thin2x / Thick2x 0.64 / 0.52 / 0.46 /",
+    "0.17) and the reaches become 120 / 100 device px. All six PROVISIONAL until",
+    "the sweep at this form fits them. At the 2x pair the excursion clamps to zero",
+    "on every cell of the calibration bed, which is the law evaluating to no",
+    "excursion where the reference's contour share is heavier than vitrea's deep",
+    "value; the 2x gap is therefore a deep-value gap and is chartered separately.",
+    "See the light profile's entries.scatterRamp. Measured on the LIGHT probes at",
+    "both scales, as before; the patch itself is unchanged.",
+    "Fingerprint 8ee31ecd230142ac -> f0fb4cc5735b3251 (the defaults above)."
   ]
 }

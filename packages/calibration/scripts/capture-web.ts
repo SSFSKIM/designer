@@ -344,8 +344,10 @@ const MATERIAL_PATCH_KEYS = new Set([
   // sweep can fit the two scales independently.
   "sizeScatterFloor",
   "sizeScatterSpanMax",
-  "sizeScatterRampStart1x",
-  "sizeScatterRampStart2x",
+  "sizeScatterRampStartThin1x",
+  "sizeScatterRampStartThick1x",
+  "sizeScatterRampStartThin2x",
+  "sizeScatterRampStartThick2x",
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
   // The lens (W12 G2): the gain on the reference's amount law, the height and

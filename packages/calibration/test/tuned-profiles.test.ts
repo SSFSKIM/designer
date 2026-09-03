@@ -78,12 +78,15 @@ const FITTED_CONSTANTS = [
   "sizeScatterGainMax",
   "sizeOcclusionGain",
   "sizeShadowGainMax",
-  // W11c's scatter frost (claims §5.41) and W13's body depth ramp (§5.61 §2):
-  // the sharp share at the contour and the ramp's reach in device px, each at
-  // both of the scales the reference was read at
+  // W11c's scatter frost (claims §5.41) and W13's body depth ramp (§5.61 §2,
+  // §5.64 §5): the sharp share at the contour at each end of the material's
+  // thin/thick curve, and the ramp's reach in device px, each at both of the
+  // scales the reference was read at
   "sizeScatterFloor",
-  "sizeScatterRampStart1x",
-  "sizeScatterRampStart2x",
+  "sizeScatterRampStartThin1x",
+  "sizeScatterRampStartThick1x",
+  "sizeScatterRampStartThin2x",
+  "sizeScatterRampStartThick2x",
   "sizeScatterRampReach1xPx",
   "sizeScatterRampReach2xPx",
   // W12 G2's lens (claims §5.50–§5.51): the reference's height and amount laws

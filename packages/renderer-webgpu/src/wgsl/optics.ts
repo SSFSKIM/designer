@@ -123,8 +123,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   shadow : vec4f,
   /// the outer shadow's size-law gain (x), read against the casting surface's own
   /// thickness, and the field rect's height in CSS px (y) — the conversion the
-  /// shadow's shift needs when it lands outside the texture; zw are the padding
-  /// a uniform's vec4 alignment requires
+  /// shadow's shift needs when it lands outside the texture; the body depth
+  /// ramp's THICK start (z, W13 G1's third form — the thin end is scatter.y and
+  /// this pass mixes the two by the pixel's own sizeThickness), and (w) the
+  /// padding a uniform's vec4 alignment requires
   shadowSize : vec4f,
   /// the backdrop tone response's anchors (W9): the three solid anchors'
   /// ENCODED-space means (xyz), and the backdrop's linear-space mean (w) — the
@@ -137,8 +139,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// the thick row (sizeThickness saturated), same layout
   toneRowThick : vec4f,
   /// the size law's bands: the scatter facet's floor (x) and the depth ramp's
-  /// start s0 at the ratio this group draws at (y, W13 G1 — the CPU has already
-  /// interpolated it between the profile's 1x and 2x anchors), and the
+  /// THIN start s0 at the ratio this group draws at (y, W13 G1 — the CPU has
+  /// already interpolated it between the profile's 1x and 2x anchors; the thick
+  /// end is shadowSize.z), and the
   /// thickness curve's sizeSpanMin (z) and sizeSpanMax (w); the fold both
   /// multiply by is tone.w. The scatter span curve's own band top is lensOval.w,
   /// and it starts at the same z.
@@ -350,13 +353,17 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let span = aux.z;
   let fold = clamp(ou.tone.w, 0.0, 1.0);
   let thickT = clamp((span - ou.scatter.z) / max(ou.scatter.w - ou.scatter.z, 1e-6), 0.0, 1.0);
-  let sizeK = clamp(thickT * thickT * (3.0 - 2.0 * thickT) * fold, 0.0, 1.0);
+  // The unfolded curve, which the depth ramp's start grades along below, and the
+  // folded factor every other facet multiplies by. One smoothstep, two readings.
+  let sizeThick = thickT * thickT * (3.0 - 2.0 * thickT);
+  let sizeK = clamp(sizeThick * fold, 0.0, 1.0);
   /*
    * The body's mix is the span curve W11c fitted with a ramp in DEPTH riding on
    * top of it near the contour (W13 G1, from the measurement of claims §5.61 §2
    * and the re-forming its first runtime sweep forced):
    *
    *   kDeep = floor + (1 - floor) * smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
+   *   s0    = startThin + (startThick - startThin) * sizeThickness(span)
    *   s(u)  = (1 - kDeep) + max(0, s0 - (1 - kDeep)) * max(0, 1 - u / U)
    *   k(u)  = 1 - s(u)
    *
@@ -366,6 +373,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * family is nearly span-flat where the bed is strongly span-graded and no
    * point in 81 reached the wave's stops. So the curve stays as the deep value
    * and the ramp is what it always measured as - a near-contour excursion.
+   *
+   * The SECOND form gave that excursion one start per scale, and its own sweep
+   * refuted that arithmetically (claims §5.64 §2): the smallest cell's span is
+   * exactly sizeSpanMin, so its deep sharp share is exactly 1 - floor and no
+   * start at or below it can touch that cell, while the next span up only
+   * improves BELOW a start lower still. So the start grades with span too, and
+   * along the material's own thin/thick curve rather than a new one - the same
+   * smoothstep 'sizeK' is built from above, unfolded, because s0 is a share the
+   * reference has and not a rise a preference removes. The fold below still
+   * applies once, on the composed mix.
    *
    * '-d' is the depth, in group-local CSS px and unclamped - the same quantity
    * the lens's 'lensT' and the inner shadow's 'shadowT' are evaluated from,
@@ -389,7 +406,8 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let kDeep = scatterFloor + (1.0 - scatterFloor) * deepT * deepT * (3.0 - 2.0 * deepT);
   let sDeep = 1.0 - kDeep;
   let rampT = max(1.0 - max(-d, 0.0) / max(ou.lensOval.z, 1e-6), 0.0);
-  let sharpShare = clamp(sDeep + max(ou.scatter.y - sDeep, 0.0) * rampT, 0.0, 1.0);
+  let rampStart = ou.scatter.y + (ou.shadowSize.z - ou.scatter.y) * sizeThick;
+  let sharpShare = clamp(sDeep + max(rampStart - sDeep, 0.0) * rampT, 0.0, 1.0);
   let kScatter = clamp(scatterFloor + ((1.0 - sharpShare) - scatterFloor) * fold, 0.0, 1.0);
   // The inner shadow's depth and profile: W2's law, byte for byte — the
   // thickness times the size gain (folded through 'sizeK'), clamped to the

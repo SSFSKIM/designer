@@ -712,8 +712,10 @@ describe("the size law reaches the CSS tier", () => {
     // applies the projection and where — the magnitudes belong to the bed.
     sizeScatterFloor: 0,
     sizeScatterSpanMax: 200,
-    sizeScatterRampStart1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x,
-    sizeScatterRampStart2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStart2x,
+    sizeScatterRampStartThin1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x,
+    sizeScatterRampStartThick1x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick1x,
+    sizeScatterRampStartThin2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x,
+    sizeScatterRampStartThick2x: MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x,
     sizeScatterRampReach1xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx,
     sizeScatterRampReach2xPx: MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx,
     sizeOcclusionGain: 0.4,

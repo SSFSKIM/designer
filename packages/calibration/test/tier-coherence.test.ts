@@ -422,11 +422,17 @@ describe("tier coherence (K5)", () => {
       DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax,
     );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterFloor).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterFloor);
-    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStart1x).toBe(
-      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStart1x,
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x,
     );
-    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStart2x).toBe(
-      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStart2x,
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick1x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick2x,
     );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx,
@@ -441,8 +447,10 @@ describe("tier coherence (K5)", () => {
       sizeSpanMax: 200,
       sizeScatterGainMax: 2.5,
       sizeScatterFloor: 0.25,
-      sizeScatterRampStart1x: 0.7,
-      sizeScatterRampStart2x: 0.3,
+      sizeScatterRampStartThin1x: 0.7,
+      sizeScatterRampStartThick1x: 0.55,
+      sizeScatterRampStartThin2x: 0.3,
+      sizeScatterRampStartThick2x: 0.15,
       sizeScatterRampReach1xPx: 90,
       sizeScatterRampReach2xPx: 130,
       sizeOcclusionGain: 0.4,
@@ -453,8 +461,10 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeSpanMax).toBe(profile.sizeSpanMax);
     expect(mirrored.sizeScatterGainMax).toBe(profile.sizeScatterGainMax);
     expect(mirrored.sizeScatterFloor).toBe(profile.sizeScatterFloor);
-    expect(mirrored.sizeScatterRampStart1x).toBe(profile.sizeScatterRampStart1x);
-    expect(mirrored.sizeScatterRampStart2x).toBe(profile.sizeScatterRampStart2x);
+    expect(mirrored.sizeScatterRampStartThin1x).toBe(profile.sizeScatterRampStartThin1x);
+    expect(mirrored.sizeScatterRampStartThick1x).toBe(profile.sizeScatterRampStartThick1x);
+    expect(mirrored.sizeScatterRampStartThin2x).toBe(profile.sizeScatterRampStartThin2x);
+    expect(mirrored.sizeScatterRampStartThick2x).toBe(profile.sizeScatterRampStartThick2x);
     expect(mirrored.sizeScatterRampReach1xPx).toBe(profile.sizeScatterRampReach1xPx);
     expect(mirrored.sizeScatterRampReach2xPx).toBe(profile.sizeScatterRampReach2xPx);
     expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
@@ -471,7 +481,7 @@ describe("tier coherence (K5)", () => {
    * scatter differently from the one the GPU tier was drawing a frame earlier,
    * which is K5's defect on the axis the reference's own kernel lives on.
    * Pinned over dpr ∈ {1, 1.5, 2, 3} and spans across the band, on the shipped
-   * profile AND on a patch, so a sweep that fits the four constants moves both
+   * profile AND on a patch, so a sweep that fits the six constants moves both
    * mirrors together.
    */
   it("mixes toward the heavy blur by the same depth ramp on both tiers", () => {
@@ -483,8 +493,10 @@ describe("tier coherence (K5)", () => {
         sizeScatterGainMax: 6,
         sizeScatterFloor: 0.25,
         sizeScatterSpanMax: 320,
-        sizeScatterRampStart1x: 0.7,
-        sizeScatterRampStart2x: 0.3,
+        sizeScatterRampStartThin1x: 0.7,
+        sizeScatterRampStartThick1x: 0.55,
+        sizeScatterRampStartThin2x: 0.3,
+        sizeScatterRampStartThick2x: 0.15,
         sizeScatterRampReach1xPx: 90,
         sizeScatterRampReach2xPx: 130,
       },
@@ -497,9 +509,14 @@ describe("tier coherence (K5)", () => {
       for (const dpr of RATIOS) {
         // The law itself, before any projection: the two anchors and the share
         // at a spread of depths through the reach.
-        expect(cssScatterRampStart(dpr, mirrored), `s0 at dpr ${dpr}`).toBe(
-          rendererScatterRampStart(dpr, profile),
-        );
+        // s₀ grades with the span since the third form, so the mirror is
+        // pinned across the span axis and not only at the thin end.
+        for (const span of [0, 32, 44, 64, 96, 160, 400]) {
+          expect(
+            cssScatterRampStart(dpr, mirrored, span),
+            `s0 at span ${span} dpr ${dpr}`,
+          ).toBeCloseTo(rendererScatterRampStart(dpr, profile, span), 12);
+        }
         expect(cssScatterRampReachDevicePx(dpr, mirrored), `U at dpr ${dpr}`).toBe(
           rendererScatterRampReachDevicePx(dpr, profile),
         );
@@ -675,8 +692,10 @@ describe("tier coherence (K5)", () => {
       sizeSpanMax: 200,
       sizeScatterGainMax: 2.5,
       sizeScatterFloor: 0,
-      sizeScatterRampStart1x: 0,
-      sizeScatterRampStart2x: 0,
+      sizeScatterRampStartThin1x: 0,
+      sizeScatterRampStartThick1x: 0,
+      sizeScatterRampStartThin2x: 0,
+      sizeScatterRampStartThick2x: 0,
     };
     const mirrored = sourceSize(patch);
     const nominal = cssTierOptics(patch).regular.blurRadius;
