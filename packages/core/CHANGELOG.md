@@ -1,5 +1,11 @@
 # @vitreajs/vitrea
 
+## 0.3.0
+
+Version-locked with `@vitreajs/vitrea-web` 0.3.0 and `@vitreajs/vitrea-react` 0.3.0; no
+change in this package. The material laws that moved in 0.3.0 live in the browser host and
+are listed in its changelog.
+
 ## 0.2.0
 
 ### Minor Changes

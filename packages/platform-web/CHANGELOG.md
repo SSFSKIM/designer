@@ -1,5 +1,156 @@
 # @vitreajs/vitrea-web
 
+## 0.3.0
+
+### Minor Changes
+
+- The tone glass settles to over its backdrop now follows the reference's measured
+  response curve.
+  
+  0.2.0 gave glass a backdrop-luminance axis: a surface over dark content settles
+  toward dark. The axis was right and its reading was wrong in two ways that only
+  showed over structured content — a photograph, a pattern, text. Both tiers
+  averaged the backdrop in linear light and fed that mean to a non-linear response,
+  and an average taken before a non-linearity is not the average after it. And the
+  response itself was a two-ended mix between "adapted" and "not", where the
+  reference, measured across a sweep of solid and pitched backdrops, settles onto a
+  curve of the backdrop's level whose ends move with surface size.
+  
+  Both are replaced.
+  
+  - **The reading is the encoded-space mean** — the average taken in sRGB, as the
+    reference takes it. On the WebGPU tier the per-pixel path is corrected by the
+    ratio of the two means, so adaptation stays local to each surface while its mean
+    matches the model exactly. On the CSS tier the read stays one mean per backdrop
+    source, now taken in that space.
+  - **The response is a curve, not a switch.** The interior tone is a monotone curve
+    through three measured anchors (dark, mid and light solid backdrops), with the
+    anchors' settled levels as functions of surface size. Nothing was fitted beyond
+    those anchors: on the probe's calibration bed the curve lands within 0.034 RMS
+    where the previous form's best refit was 0.106.
+  
+  **What you will see.** Surfaces over mid-tone and busy content land closer to the
+  reference's level; the near-black collapse, which was already right, is byte for
+  byte what it was. The smallest surfaces over structured content keep a known
+  residual, recorded rather than tuned away.
+  
+  Reduce-transparency and increase-contrast keep the behaviour they were fitted to:
+  the response law rides only the un-degraded material.
+  
+  Through the material-profile seam the law is four named constants:
+  `backdropToneAnchorX`, `backdropToneResponseThin`, `backdropToneResponseThick`
+  and `backdropToneResponseStrength`.
+- What you see through the glass is sharper and hazier at once.
+  
+  Everything inside a surface was one Gaussian blur of the backdrop at a single
+  width. The reference, measured per pixel across the interior and the rim band, has
+  two components: a **sharp** blur that keeps the structure of the content behind
+  (the edges of text, the cells of a pattern) and a much wider **scatter** that lays
+  a haze over it, mixed by an amount that grows with the surface's size on the same
+  size law the thickness facets ride. One blur cannot be both, and refitting the
+  single width could only trade one loss for the other.
+  
+  **This changes how every existing surface looks.** Content behind small controls
+  reads through more clearly than before; large panels keep that legibility under a
+  deeper haze. Both tiers move: the WebGPU tier mixes the two components per pixel;
+  the CSS tier, which has one `backdrop-filter` blur, takes a single width at the
+  mixed value, so its interior level matches the GPU tier's while its structure
+  stays the tier's known limit.
+  
+  Nothing new to call. Through the material-profile seam the sharp width is
+  `blurSigma` (now 1.25 CSS px on the light material), the scatter is
+  `sizeScatterGainMax` on it, and the mix is `sizeScatterFloor` and
+  `sizeScatterSpanMax`, both new.
+- The refracting rim on the WebGPU tier is stronger, and it shows the content behind
+  it rather than a blurrier copy.
+  
+  The rim band displaced the backdrop inward on the reference's lens profile — a
+  (1 − depth)² curve over the lens depth — but at too small a magnitude, and it
+  sampled the blur chain at a coarser level near the edge so the band came out
+  softer than the interior. Measured per one-pixel depth shell around the whole
+  contour, the reference's band is the same lens geometry at 1.6 times the
+  displacement, reading the same two-component body as the interior: no extra blur,
+  no sharper rim, no darkening. The shader now samples the body at the displaced
+  position with one gain constant, `lensRefractionGain` (1.6), and the two rim-LOD
+  constants (`lensBodyLodPerPx`, `lensRimLodBias`) are retired from the
+  material-profile seam.
+  
+  **What you will see** on the WebGPU tier: a more pronounced refraction at every
+  edge, with the displaced content as legible as the interior. The CSS tier carries
+  no lens and is unchanged here. The refraction policy's three rungs — `none`,
+  `approximate`, `true` — keep their meaning; the gain scales the lens they select.
+- A texture backdrop is sampled where it sits on the page, not stretched over the viewport.
+  
+  Until now the WebGPU tier fitted every registered image, canvas or video to the whole plane
+  with a cover fit, so a backdrop smaller than the viewport was sampled magnified and offset —
+  a 320 px raster behind a control on a 1440 px page was stretched four and a half times, and
+  the glass over it refracted the wrong pixels. The calibration harness never saw it because
+  its texture is the whole stage, which made the fit an identity; the demo did, and rendered a
+  flat slab where the harness rendered translucent glass over the same scene.
+  
+  `setBackdropTexture` now tracks the element you hand it — an `<img>`, `<canvas>` or `<video>`
+  in the document — through the same batched read protocol the hosts use, and the shader maps
+  the plane onto that box every frame, following scroll and resize. A source without a box
+  (an `ImageBitmap`, an `OffscreenCanvas`, a detached element) can declare one:
+  
+  ```ts
+  root.setBackdropTexture("hero", { kind: "image", image: bitmap, placement: { kind: "rect", rect } });
+  ```
+  
+  With neither, the old cover fit still applies and a dev-mode finding names the rule. Blur and
+  lens widths now read the texture's real density (texels per CSS px), so a 2× raster displayed
+  at half size blurs by the same CSS width as a 1× one. Outside the box the edge texel is
+  clamped; a surface hanging past its backdrop's edge is recorded as a known limit.
+- A tinted surface is now an opaque shade of its colour, the way the reference's is.
+  
+  0.2.0's `tint` laid the seed colour over the material as a translucent wash at the
+  material's own alpha. The reference, read per pixel, does something else: it
+  renders an **opaque, hue-preserving shade of the seed** whose brightness follows
+  the untinted material's own local luminance — darker where the glass sits over
+  dark content, the seed itself over light — and composites that shade over the
+  material at the strength the author gave. Between the wash and the shade the two
+  tiers disagreed on a tinted interior's level by 27–64% over textured content, and
+  no tone constant could close it, because a wash has no tone to fit.
+  
+  **This changes how every tinted surface looks**: more saturated and more solid,
+  less like a stain on the glass. The API does not change — `tint` on a surface or a
+  group, as any CSS colour, its alpha as the strength — but one sentence of 0.2.0's
+  promise does. A tint no longer leaves the surface's opacity alone: at full
+  strength it is an opaque shade, because the reference's is, and at half strength
+  the surface is half shade and half material. What stays fixed is the material's
+  own opacity — the value reduce-transparency and increase-contrast operate on —
+  and the policies still resolve before the tint is composited, so a tint can never
+  quietly undo a dimming policy.
+  
+  - Both tiers render the same law. On the CSS tier the author layer folds into the
+    material's single `rgba()` layer exactly, which also removes the gamut clip a
+    saturated seed could hit on that tier: the fold is convex and cannot leave the
+    gamut.
+  - On the dark scheme the layer is the pure seed: the reference shades the tint
+    only on the light material.
+  
+  Through the material-profile seam the tone-map constants of 0.2.0
+  (`tintToneFloor`, `tintToneCeilMix`, `tintToneLow`, `tintToneHigh`) are gone,
+  replaced by `tintShadeDark`, `tintShadeLight` and `tintShadeStrength`; the
+  exported helpers follow them (`TINT_TONE` → `TINT_SHADE`, `tintTone` →
+  `tintShade`, `resolvedTintTone` → `resolvedTintShade`, `TintToneConstants` →
+  `TintShadeConstants`).
+
+### Patch Changes
+
+- A WebGPU-tier surface that samples nothing now composites over what is beneath it.
+  
+  When the WebGPU tier draws a surface without a captured backdrop — over another
+  glass surface's DOM proxy, or over the page itself — it used to write the material
+  mixed over black, opaque, so whatever was beneath never showed through. Glass
+  nested over glass was the visible case: the upper pane rendered at a flat 0.47
+  luminance against the reference's 0.89. It now leaves the optics pass as a
+  premultiplied layer at the material's alpha, with the outer shadow clipped to the
+  surface's coverage, and the browser composites it in the same encoded space the
+  CSS tier's `rgba()` lands in. A surface that samples a texture takes the previous
+  path byte for byte.
+- @vitreajs/vitrea@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
