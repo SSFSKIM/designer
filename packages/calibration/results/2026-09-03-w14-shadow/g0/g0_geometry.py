@@ -34,19 +34,34 @@ import w14lib as L
 COMPONENTS = ['rrect-sm', 'capsule-button', 'rrect-md', 'rrect-ml', 'rrect-lg', 'glass-over-glass']
 MAXD = 60.0
 BLACK, WHITE = 0.02, 0.98
-GUARD = 2.0
-"""CSS px of exterior dropped at the contour, on every source. The surface's own antialiased edge
-lives there, and on the CSS tier so does the element's rim: the CSS captures read 0.279 (rrect-md)
-and 0.288 (capsule) on the black squares 0-4 px out and 0.000 from 4 px on, where the native
-fixtures read a smooth 0.030 falling to 0.001. One guard for every source keeps the three
-comparable."""
+GUARD_FLOOR, GUARD_CEILING, OWN_EDGE = 2.0, 6.0, 0.02
+"""The exterior dropped at the contour is MEASURED per cell and per source, not assumed.
+
+A black checkerboard square outside the contour can carry the lift and nothing else, and the lift
+never exceeds 0.055 encoded on this bed — so a black pixel reading above `OWN_EDGE` = 0.02 there is
+the SURFACE, not its shadow. `edge_guard` walks outward until no black pixel exceeds it, and the
+distance it stops at is both the guard the fits use and a measurement of how far each renderer's own
+body reaches past the geometry the scene declares. The floor of 2.0 CSS px is the antialiased
+boundary every source has; the ceiling of 6.0 stops a pathological cell from eating the near field.
+
+The numbers this returns are a finding in their own right, because the shape axis is bounded to the
+declared region and CANNOT see over-fill by construction (claims 5.12). See `g0-instrument.md`."""
 
 
-def lambda_table(Y, BG, d, side, scale):
+def edge_guard(Y, BG, d):
+    """How far the source's own body reaches past the declared contour, CSS px. See the note above."""
+    for k in np.arange(0.0, GUARD_CEILING + 0.01, 0.5):
+        m = (d >= k) & (BG < BLACK)
+        if m.sum() and float(Y[m].max()) < OWN_EDGE:
+            return max(GUARD_FLOOR, float(k)), float(k)
+    return GUARD_CEILING, float('nan')
+
+
+def lambda_table(Y, BG, d, side, scale, guard):
     """The lift per (side, 1 CSS px ring) from the black squares; NaN where the ring has none."""
     k = np.clip(np.floor(d).astype(int), 0, int(MAXD) - 1)
     key = side.astype(int) * int(MAXD) + k
-    dark = (BG < BLACK) & (d >= GUARD) & (d < MAXD)
+    dark = (BG < BLACK) & (d >= guard) & (d < MAXD)
     table = np.full(len(L.SIDES) * int(MAXD), np.nan)
     counts = np.bincount(key[dark], minlength=table.size)
     sums = np.bincount(key[dark], weights=Y[dark], minlength=table.size)
@@ -55,9 +70,9 @@ def lambda_table(Y, BG, d, side, scale):
     return table, key
 
 
-def fit_black_term(Y, BG, comp, scale, d, side, table, key):
+def fit_black_term(Y, BG, comp, scale, d, side, table, key, guard):
     shapes = L.place_component(comp)
-    m = (BG > WHITE) & (d >= GUARD) & (d < MAXD) & np.isfinite(table[key])
+    m = (BG > WHITE) & (d >= guard) & (d < MAXD) & np.isfinite(table[key])
     if m.sum() < 200:
         return None
     target = Y[m] - table[key][m]
@@ -78,9 +93,9 @@ def fit_black_term(Y, BG, comp, scale, d, side, table, key):
                 rms=float(np.sqrt(np.mean(r.fun ** 2))), n=int(m.sum()))
 
 
-def fit_lift(Y, BG, comp, scale, d, span):
+def fit_lift(Y, BG, comp, scale, d, span, guard):
     shapes = L.place_component(comp)
-    m = (BG < BLACK) & (d >= GUARD) & (d < MAXD)
+    m = (BG < BLACK) & (d >= guard) & (d < MAXD)
     if m.sum() < 200:
         return None
     y = Y[m]
@@ -127,9 +142,12 @@ for scale in (1, 2):
             if path is None:
                 continue
             Y = L.luma_of(L.image_srgb(path))
-            table, key = lambda_table(Y, BG, d, side, scale)
-            cell[src] = dict(black_term=fit_black_term(Y, BG, comp, scale, d, side, table, key),
-                             lift=fit_lift(Y, BG, comp, scale, d, span),
+            guard, own_edge = edge_guard(Y, BG, d)
+            table, key = lambda_table(Y, BG, d, side, scale, guard)
+            cell[src] = dict(guard=guard, own_edge_px=own_edge,
+                             black_term=fit_black_term(Y, BG, comp, scale, d, side, table, key,
+                                                       guard),
+                             lift=fit_lift(Y, BG, comp, scale, d, span, guard),
                              lambda_profile={f'{L.SIDES[i]}': [None if np.isnan(v) else float(v)
                                                                for v in table[i * int(MAXD):
                                                                               (i + 1) * int(MAXD)]]
@@ -140,15 +158,17 @@ path = L.dump('geometry', out)
 print('wrote', path)
 
 print("\nthe BLACK term, lift removed — alpha_enc / occlusion / sigma / offset / spread")
-print(f"{'cell':22s} {'src':7s} {'alpha':>7s} {'occ':>7s} {'sigma':>7s} {'offset':>7s} "
-      f"{'spread':>7s} {'rms x255':>9s}")
+print("('own edge' is how far the source's own body reaches past the declared contour, CSS px)")
+print(f"{'cell':22s} {'src':7s} {'own edge':>8s} {'alpha':>7s} {'occ':>7s} {'sigma':>7s} "
+      f"{'offset':>7s} {'spread':>7s} {'rms x255':>9s}")
 for key in sorted(out):
     for src in ('native', 'webgpu', 'css'):
         f = out[key].get(src, {}).get('black_term')
         if not f:
             continue
-        print(f"{key:22s} {src:7s} {f['alpha_enc']:7.4f} {f['occlusion_lin']:7.4f} "
-              f"{f['sigma']:7.3f} {f['offset']:7.3f} {f['spread']:7.3f} {f['rms']*255:9.3f}")
+        print(f"{key:22s} {src:7s} {out[key][src]['own_edge_px']:8.1f} {f['alpha_enc']:7.4f} "
+              f"{f['occlusion_lin']:7.4f} {f['sigma']:7.3f} {f['offset']:7.3f} {f['spread']:7.3f} "
+              f"{f['rms']*255:9.3f}")
 
 print("\nthe LIFT — amplitude / sigma / height / amount, against Apple's own span laws")
 print(f"{'cell':22s} {'src':7s} {'A_v':>7s} {'sigma':>7s} {'height':>7s} {'amount':>7s} "
@@ -200,7 +220,7 @@ for scale in (1, 2):
         shapes = L.place_component(comp)
         Fv = L.w8_falloff_field(comp, scale, lift['sigma'], lift['height'], lift['amount'], shapes)
         Y = L.luma_of(L.image_srgb(L.native_path(prof, scene)))
-        m = (BG > WHITE) & (d >= GUARD) & (d < MAXD)
+        m = (BG > WHITE) & (d >= out[key]['native']['guard']) & (d < MAXD)
         y = Y[m]
         Av = lift['amplitude']
 
