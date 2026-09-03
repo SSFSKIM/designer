@@ -1,0 +1,22 @@
+W13 G2 landing sheets (contract X5). GPU tier, the canonical captures of the landed tree
+(main at the merge `347af25`, rebuilt 2026-09-04 01:30–01:35) against the native fixture and
+the W14 bed (the canonical captures before this rebuild, kept in scratch). Panels: native |
+W14 bed | landed | diff(bed − native) | diff(landed − native); the diff panels are diagnostics,
+not renders. Crops are the component box plus 8 CSS px.
+
+g2-1x.png — byte-identical to g1-1x.png: the 1x configuration did not change between
+sweep-4's confirmation and the landing (Decision Log 8 touched the 2x widths only), and the
+landing captures reproduce the confirmation's bytes. The user's reading of g1-1x stands: the
+checker just inside the contour crisper than the bed's and closer to Apple's lobes; rrect-ml and
+rrect-lg showing more of the pattern, the direction Apple's own interior sits; photo rrect-md
+unchanged to the eye.
+
+g2-2x.png — the landed 2x is the W14 bed: panels 2 and 3 are the same bytes on every row here
+(46 of the 49 2x cells are byte-identical to the bed; the three that are not are the stacked
+glass-over-glass cells, which this sheet does not carry, and they differ by one code on the
+overlay — claims §5.68 §7). The ramp is a null at 2x and the device-pixel widths of candidate A
+are withdrawn (Decision Log 8), so the small spans' gain that g1-2x showed (rrect-sm and the
+capsule closer to Apple, band +0.024) is forgone and the large spans keep the bed's rows. What
+the eye sees between panels 1 and 3 on rrect-md / -ml / -lg is Apple's heavier 2x interior —
+its checker softer than ours deep inside the surface — which is the 2x deep-value gap (claims
+§5.64 §4), chartered in W13's Deferred behind the demo hero-ground decision.

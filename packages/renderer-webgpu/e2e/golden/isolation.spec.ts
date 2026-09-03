@@ -426,6 +426,19 @@ const W14_HASHES: Readonly<Record<string, string>> = {
   "placed-checkerboard": "0d15cb9d99ad972659968a5b9b509401",
 };
 
+/*
+ * No hash after W13 G2, the body's depth ramp (2026-09-04; claims §5.68 §8),
+ * and the reason is worth its line so the next landing does not mistake a
+ * clean run for a proof it is not. Every scene here renders at device pixel
+ * ratio 2, and at 2x the landing changes nothing by design — the ramp is a
+ * verified null there and the widths are the bed's (W13 Decision Log 8) — so
+ * `goldens:regen` on the landed tree rewrote all ten goldens byte for byte,
+ * and the proof's declined renders reproduce the pinned bytes because the
+ * named profile's scatter gain of 1 makes the sharp and heavy components one
+ * and the mix has nothing to act on. No golden exercises the 1x ramp; that
+ * gap is recorded in the wave's Deferred list, not closed here.
+ */
+
 const expectedHashFor = (name: string): string | undefined =>
   W14_HASHES[name] ??
   W12_G2B_HASHES[name] ??
