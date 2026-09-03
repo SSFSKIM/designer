@@ -1,0 +1,30 @@
+W14 G1 dry run, by-eye sheet (contract X5). GPU tier, the confirmation captures at the chosen
+constants (claims §5.65), against the native fixture and the W12 close bed.
+
+g1-1x.png, g1-2x.png — ten rows, five panels: native | W12 close | candidate | diff(W12 close −
+native) | diff(candidate − native). Crops are the component box plus 48 CSS px so the shadow's
+whole falloff is in frame. The two diff panels are diagnostics, not renders.
+
+  - light-solid capsule: the dark halo in panel 4 (the 2.29× shadow) is gone in panel 5; only the
+    rim band remains. That is S3, met at 1.013×.
+  - the checkerboard ladder: panels 4 and 5 differ only outside the contour, and the interior band
+    structure is identical between them — the wave does not touch the inside.
+  - dark-solid capsule and rrect-md: nothing outside the contour moves in panel 5 at this scale;
+    the close-up is where the costs show.
+
+g1-closeup-1x.png, g1-closeup-2x.png — the strip just below the surface, six screen px per CSS
+px, native | W12 close | candidate, as encoded and with levels stretched ×4 about black.
+
+  - rrect-lg and rrect-md, stretched: Apple's black squares under the surface are lifted to dark
+    grey, the W12 close's are pure black, the candidate's are lifted like Apple's. That is the
+    lift — about 7 of 255 codes, scale-free — and it is the wave's central claim seen by eye.
+  - light-solid capsule, encoded: the W12 close's grey band under the capsule against Apple's
+    faint one; the candidate matches Apple. The stretched row saturates on a light backdrop and
+    says nothing there.
+  - dark-solid rrect-md, stretched: the candidate's shadow band under the surface is darker than
+    Apple's — the un-keyed thick law's 50% cost over a near-black backdrop (claims §5.65 §5),
+    recorded, not fixed in this wave. The candidate is clearly the darkest of the three.
+
+What is NOT on these sheets: the CSS tier (its thick amplitude is being derived from the profile
+now; its sheet follows), and S1's miss on dark-solid capsule (a band-SSIM row of 25 windows on a
+cell whose near bands are the tier's own contour over-fill; the pair says the constant is right).
