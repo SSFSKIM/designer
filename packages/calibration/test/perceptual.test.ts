@@ -3,8 +3,24 @@ import { describe, expect, it } from "vitest";
 import { srgbByteToOklab, oklabDistance } from "../src/color";
 import { CalibrationError } from "../src/errors";
 import { createImage } from "../src/image";
-import { edgeEnergy, edgeWeightedDifference, oklabDeltaE, ssim } from "../src/metrics/perceptual";
-import { fromLinearLuminance, fromLinearRgb, gaussianStep, solidLuminance } from "./synthesise";
+import {
+  edgeEnergy,
+  edgeWeightedDifference,
+  oklabDeltaE,
+  ssim,
+  ssimDepthWindows,
+  ssimMap,
+  SSIM_BAND_SPLIT_CSS_PX,
+} from "../src/metrics/perceptual";
+import {
+  fromLinearLuminance,
+  fromLinearRgb,
+  distanceOutsideRect,
+  gaussianStep,
+  maskFromPredicate,
+  rectPredicate,
+  solidLuminance,
+} from "./synthesise";
 
 /** A soft step so edge energy spreads over enough pixels to weight a block. */
 function softStep(sigma = 4) {
@@ -154,5 +170,157 @@ describe("oklabDeltaE", () => {
     const strong = fromLinearRgb(16, 16, () => [0.25, 0.25, 0.5]);
     expect(oklabDeltaE(neutral, slight).mean).toBeLessThan(oklabDeltaE(neutral, strong).mean);
     expect(oklabDeltaE(neutral, slight).mean).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * The band-windowed rows (W13 X6).
+ *
+ * The geometry is a rectangle, whose depth from the boundary ring is exactly
+ * `min(x - x0, x1 - x, y - y0, y1 - y)` — so every assertion below knows which
+ * window class a perturbation lands in by algebra, not by asking the distance
+ * transform to grade its own homework.
+ */
+describe("ssimDepthWindows", () => {
+  const WIDTH = 200;
+  const HEIGHT = 200;
+  const X0 = 40;
+  const X1 = 159;
+  const Y0 = 40;
+  const Y1 = 159;
+
+  /** Depth of an interior pixel below the rectangle's boundary ring, in pixels. */
+  const depth = (x: number, y: number): number => Math.min(x - X0, X1 - x, y - Y0, Y1 - y);
+
+  /** Distance from an exterior pixel to that same ring — exact for a rectangle. */
+  const outward = (x: number, y: number): number => distanceOutsideRect(x, y, X0, Y0, X1, Y1);
+
+  const isInside = rectPredicate(X0, Y0, X1, Y1);
+
+  const silhouette = maskFromPredicate(WIDTH, HEIGHT, rectPredicate(X0, Y0, X1, Y1));
+
+  /** A textured field, so a perturbation has structure to destroy. */
+  const base = fromLinearLuminance(WIDTH, HEIGHT, (x, y) => 0.3 + 0.2 * Math.sin(x / 3) * Math.cos(y / 5));
+
+  /** The same field with a wave added over every pixel a predicate accepts. */
+  const perturb = (inside: (x: number, y: number) => boolean) =>
+    fromLinearLuminance(WIDTH, HEIGHT, (x, y) => {
+      const value = 0.3 + 0.2 * Math.sin(x / 3) * Math.cos(y / 5);
+      return inside(x, y) ? value + 0.15 * Math.sin(x / 2) : value;
+    });
+
+  /*
+   * The 6px margins below are the SSIM window's own half-width plus one: a
+   * window centred at depth d reads pixels from depth d - 5 to d + 5, so a
+   * perturbation kept 6px clear of the split cannot reach a window centred on
+   * the other side of it.
+   */
+  const SPLIT = 24;
+
+  it("scores all three windows at 1 for identical images", () => {
+    const windows = ssimDepthWindows(ssimMap(base, base), silhouette, { splitPx: SPLIT });
+    expect(windows.band?.mean).toBeCloseTo(1, 12);
+    expect(windows.interior?.mean).toBeCloseTo(1, 12);
+    expect(windows.outside?.mean).toBeCloseTo(1, 12);
+  });
+
+  it("the three rows plus the far field partition the crop exactly", () => {
+    const map = ssimMap(base, base);
+    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+
+    // The far field, counted independently: outside the silhouette and farther
+    // than the split from its contour. No row carries it, and `ssimMean` does.
+    let farField = 0;
+    let inside = 0;
+    for (let y = map.offset; y < HEIGHT - map.offset; y += 1) {
+      for (let x = map.offset; x < WIDTH - map.offset; x += 1) {
+        if (silhouette.mask[y * WIDTH + x] === 1) {
+          inside += 1;
+        } else if (outward(x, y) > SPLIT) {
+          farField += 1;
+        }
+      }
+    }
+    const counted =
+      (windows.band?.windowCount ?? 0) +
+      (windows.interior?.windowCount ?? 0) +
+      (windows.outside?.windowCount ?? 0);
+    expect(counted + farField).toBe(map.data.length);
+    // The band and interior alone are the surface, not the crop, so the three
+    // rows cannot average back to `ssimMean`.
+    expect((windows.band?.windowCount ?? 0) + (windows.interior?.windowCount ?? 0)).toBe(inside);
+    expect(counted).toBeLessThan(map.data.length);
+  });
+
+  it("a perturbation confined to the band moves ssimBand and leaves ssimInterior at 1", () => {
+    const map = ssimMap(base, perturb((x, y) => depth(x, y) <= SPLIT - 6));
+    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+    expect(windows.band?.mean).toBeLessThan(0.95);
+    expect(windows.interior?.mean).toBeCloseTo(1, 12);
+  });
+
+  it("a perturbation confined to the deep interior moves ssimInterior and leaves ssimBand at 1", () => {
+    const map = ssimMap(base, perturb((x, y) => depth(x, y) >= SPLIT + 6));
+    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+    expect(windows.interior?.mean).toBeLessThan(0.95);
+    expect(windows.band?.mean).toBeCloseTo(1, 12);
+  });
+
+  it("a perturbation confined to the exterior band moves only ssimOutside", () => {
+    // Outside the rectangle, within the split of its contour. The inner margin
+    // is 8 rather than 6 because a window centred on a corner of the boundary
+    // ring reaches 5√2 ≈ 7.07 px diagonally outward, and no band window may
+    // touch the change.
+    const map = ssimMap(
+      base,
+      perturb((x, y) => !isInside(x, y) && outward(x, y) >= 8 && outward(x, y) <= SPLIT - 5),
+    );
+    const windows = ssimDepthWindows(map, silhouette, { splitPx: SPLIT });
+    expect(windows.outside?.mean).toBeLessThan(0.95);
+    expect(windows.band?.mean).toBeCloseTo(1, 12);
+    expect(windows.interior?.mean).toBeCloseTo(1, 12);
+  });
+
+  it("splits at the backing scale: the same CSS-px band is twice as many device px at 2x", () => {
+    // A perturbation at device depth 30-42: interior of a 24 device-px split
+    // (1x), band of a 48 device-px one (the same 24 CSS px at scale 2).
+    const map = ssimMap(base, perturb((x, y) => depth(x, y) >= 30 && depth(x, y) <= 42));
+    const atOneX = ssimDepthWindows(map, silhouette, { splitPx: SSIM_BAND_SPLIT_CSS_PX * 1 });
+    const atTwoX = ssimDepthWindows(map, silhouette, { splitPx: SSIM_BAND_SPLIT_CSS_PX * 2 });
+
+    expect(atOneX.band?.mean).toBeCloseTo(1, 12);
+    expect(atOneX.interior?.mean).toBeLessThan(0.99);
+    expect(atTwoX.band?.mean).toBeLessThan(0.99);
+    expect(atTwoX.interior?.mean).toBeCloseTo(1, 12);
+    expect(atTwoX.band?.windowCount ?? 0).toBeGreaterThan(atOneX.band?.windowCount ?? 0);
+  });
+
+  it("reports no interior at all for a surface shallower than the split", () => {
+    // Half-span 15px: every pixel is band, and the interior row is absent
+    // rather than zero — `rrect-sm` and `capsule-button` on the real bed.
+    const shallow = maskFromPredicate(WIDTH, HEIGHT, rectPredicate(80, 80, 109, 109));
+    const windows = ssimDepthWindows(ssimMap(base, base), shallow, { splitPx: SPLIT });
+    expect(windows.band?.mean).toBeCloseTo(1, 12);
+    expect(windows).not.toHaveProperty("interior");
+  });
+
+  it("ignores extraction holes rather than treating their walls as contour", () => {
+    // A punched-out interior pixel is not an outline (see `contourDistance`),
+    // so it must not pull deep pixels into the band.
+    const holed = maskFromPredicate(
+      WIDTH,
+      HEIGHT,
+      (x, y) => rectPredicate(X0, Y0, X1, Y1)(x, y) && !rectPredicate(98, 98, 101, 101)(x, y),
+    );
+    const solid = ssimDepthWindows(ssimMap(base, base), silhouette, { splitPx: SPLIT });
+    const withHole = ssimDepthWindows(ssimMap(base, base), holed, { splitPx: SPLIT });
+    expect(withHole.band?.windowCount).toBe(solid.band?.windowCount);
+    expect(withHole.interior?.windowCount).toBe(solid.interior?.windowCount);
+  });
+
+  it("refuses a silhouette that is not the grid the map came from", () => {
+    const map = ssimMap(base, base);
+    const wrong = maskFromPredicate(64, 64, rectPredicate(8, 8, 40, 40));
+    expect(() => ssimDepthWindows(map, wrong, { splitPx: SPLIT })).toThrowError(CalibrationError);
   });
 });

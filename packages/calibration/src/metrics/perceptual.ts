@@ -26,6 +26,12 @@ import {
   linearLuminance,
   type CalibrationImage,
 } from "../image";
+import {
+  boundaryMask,
+  distanceToSeeds,
+  fillSilhouetteHoles,
+  type Silhouette,
+} from "../silhouette";
 import { aggregate, percentileOfSorted } from "../stats";
 
 // ---------------------------------------------------------------------------
@@ -213,6 +219,28 @@ export interface SsimReport {
 }
 
 /**
+ * The per-window SSIM field, before any averaging.
+ *
+ * Kept as its own value because the three SSIM rows this package reports are
+ * one measurement windowed three ways: the whole crop (`ssimMean`), the lens
+ * band and the deep interior (`ssimBand` / `ssimInterior`). Computing the map
+ * once and averaging it over three regions is what makes those rows
+ * comparable; three independent SSIM calls over three cropped images would not
+ * be, because SSIM's windows straddle any crop boundary you introduce.
+ *
+ * The convolution is 'valid', so window `(x, y)` of the map is centred on image
+ * pixel `(x + offset, y + offset)` with `offset = (SSIM_WINDOW - 1) / 2`. That
+ * centre is how a window is assigned to a region below.
+ */
+export interface SsimMap {
+  readonly data: Float64Array;
+  readonly width: number;
+  readonly height: number;
+  /** Image coordinate of the map's origin — half the window, floored. */
+  readonly offset: number;
+}
+
+/**
  * Structural similarity on luminance, with the standard 11x11 Gaussian window
  * at σ = 1.5 and the standard constants (K1 = 0.01, K2 = 0.03, L = 255).
  *
@@ -222,7 +250,7 @@ export interface SsimReport {
  * signal changes what the number means and makes it incomparable with every
  * published SSIM figure.
  */
-export function ssim(a: CalibrationImage, b: CalibrationImage): SsimReport {
+export function ssimMap(a: CalibrationImage, b: CalibrationImage): SsimMap {
   assertComparable(a, b, "ssim");
   if (a.width < SSIM_WINDOW || a.height < SSIM_WINDOW) {
     throw new CalibrationError(
@@ -256,23 +284,168 @@ export function ssim(a: CalibrationImage, b: CalibrationImage): SsimReport {
   const c1 = (SSIM_K1 * SSIM_DYNAMIC_RANGE) ** 2;
   const c2 = (SSIM_K2 * SSIM_DYNAMIC_RANGE) ** 2;
 
-  let sum = 0;
-  let min = Number.POSITIVE_INFINITY;
   const windowCount = meanA.data.length;
+  const data = new Float64Array(windowCount);
   for (let i = 0; i < windowCount; i += 1) {
     const muA = meanA.data[i] ?? 0;
     const muB = meanB.data[i] ?? 0;
     const varA = (meanSquareA.data[i] ?? 0) - muA * muA;
     const varB = (meanSquareB.data[i] ?? 0) - muB * muB;
     const covariance = (meanProduct.data[i] ?? 0) - muA * muB;
-    const value =
+    data[i] =
       ((2 * muA * muB + c1) * (2 * covariance + c2)) /
       ((muA * muA + muB * muB + c1) * (varA + varB + c2));
+  }
+
+  return { data, width: meanA.width, height: meanA.height, offset: (SSIM_WINDOW - 1) / 2 };
+}
+
+/** Mean and worst window over a whole SSIM map. */
+export function ssimFromMap(map: SsimMap): SsimReport {
+  let sum = 0;
+  let min = Number.POSITIVE_INFINITY;
+  for (let i = 0; i < map.data.length; i += 1) {
+    const value = map.data[i] ?? 0;
     sum += value;
     if (value < min) min = value;
   }
+  return { mean: sum / map.data.length, min, windowCount: map.data.length };
+}
 
-  return { mean: sum / windowCount, min, windowCount };
+/**
+ * Structural similarity over the whole image — `ssimMap` averaged.
+ */
+export function ssim(a: CalibrationImage, b: CalibrationImage): SsimReport {
+  return ssimFromMap(ssimMap(a, b));
+}
+
+// ---------------------------------------------------------------------------
+// The band-windowed rows (W13 X6)
+// ---------------------------------------------------------------------------
+
+/**
+ * Where the lens band ends and the body's interior begins, in CSS px of depth
+ * from the contour (W13 X6, Decision Log 1 question 3).
+ *
+ * Fixed at 24 rather than scaled with the span because the quantity it splits
+ * is a fixed depth: the lens's displacement `D(u)` reaches zero by `u ≈ 20` on
+ * every span (claims §5.49 §2), so 24 CSS px contains the whole of the band the
+ * eye reads the material by, on every cell in the bed. A per-span split would
+ * move with the lens depth and would hide a lens change inside a metric change;
+ * a fixed number is also one a reader can check against a printed corner crop
+ * with a ruler, which is what this row exists to make possible.
+ *
+ * In device px the split is this number times the fixture's backing scale, so
+ * the same CSS-px band is twice as many rows of pixels at 2x. The scale comes
+ * from the profile, never from the image.
+ */
+export const SSIM_BAND_SPLIT_CSS_PX = 24;
+
+/** One SSIM window class: its mean and how many windows it held. */
+export interface SsimWindowReport {
+  readonly mean: number;
+  readonly windowCount: number;
+}
+
+/**
+ * `ssimBand`, `ssimInterior` and `ssimOutside`: the SSIM map averaged over three
+ * regions defined by depth from the reference's own contour.
+ *
+ * Whole-crop `ssimMean` scores mostly the blurred interior and the untouched
+ * backdrop, and cannot see the band where the eye reads the material: W12
+ * Decision Log 6 recorded a lens change that lost 0.001–0.002 of SSIM
+ * everywhere and that the user read as much closer to macOS. These rows
+ * separate those populations without changing the measurement — same map, same
+ * 11x11 Gaussian window, same constants.
+ *
+ * The three regions, by the class of a window's CENTRE pixel:
+ *
+ *   - `band` — inside the silhouette, within the split of the contour;
+ *   - `interior` — inside the silhouette, deeper than the split;
+ *   - `outside` — outside the silhouette, within the split of the contour.
+ *
+ * Together with the **far field** — outside the silhouette and farther than the
+ * split, which no row counts — those three partition the crop exactly, so
+ * `ssimMean` is their window-count-weighted mean including that far field, and
+ * never the mean of the three rows alone. The far field is uncounted on purpose:
+ * it is backdrop that neither side's material touches, it is most of the crop on
+ * every small span, and averaging it in is precisely what makes `ssimMean` blind
+ * to the material.
+ *
+ * The outward row exists because the eye reads one edge, not two. The band a
+ * viewer sees straddles the contour — the rim's spill, the lens's outermost
+ * displacement and the outer shadow are on the exterior side — and on the large
+ * 2x cells that exterior half carries more of the whole-crop deficit than the
+ * interior half does (W13 X6 baseline §5). A `ssimBand` that rose while the
+ * exterior fell would otherwise read as an improvement.
+ *
+ * **The window is the NATIVE silhouette's distance transform.** The reference
+ * defines where the band is. A web silhouette moves as the web side is tuned,
+ * and a web silhouette that broke into pieces — which happens on the CSS tier
+ * over a high-contrast backdrop, where the extractor punches interior holes
+ * (see `contourDistance`) — would carry its own new contours and re-window the
+ * metric mid-tuning. Holes are filled before the boundary is taken for the same
+ * reason: an extraction hole is not an outline, so it must not be a band. The
+ * outward distance is the same transform read on the other side of the same
+ * boundary, so the two halves of the band are symmetric by construction.
+ *
+ * Any class can be legitimately empty and is then absent rather than zero: a
+ * surface whose half-span is under 24 CSS px — `rrect-sm` and `capsule-button`
+ * on this bed — is all band and has no interior to report.
+ */
+export function ssimDepthWindows(
+  map: SsimMap,
+  native: Silhouette,
+  options: { readonly splitPx: number },
+): { band?: SsimWindowReport; interior?: SsimWindowReport; outside?: SsimWindowReport } {
+  if (native.width !== map.width + 2 * map.offset || native.height !== map.height + 2 * map.offset) {
+    throw new CalibrationError(
+      "dimension-mismatch",
+      `ssimDepthWindows: the silhouette is ${native.width}x${native.height} but the SSIM map came ` +
+        `from a ${String(map.width + 2 * map.offset)}x${String(map.height + 2 * map.offset)} image.`,
+    );
+  }
+
+  const filled = fillSilhouetteHoles(native);
+  const distance = distanceToSeeds(boundaryMask(filled), filled.width, filled.height);
+
+  let bandSum = 0;
+  let bandCount = 0;
+  let interiorSum = 0;
+  let interiorCount = 0;
+  let outsideSum = 0;
+  let outsideCount = 0;
+  for (let y = 0; y < map.height; y += 1) {
+    for (let x = 0; x < map.width; x += 1) {
+      const pixel = (y + map.offset) * filled.width + (x + map.offset);
+      const value = map.data[y * map.width + x] ?? 0;
+      const near = (distance[pixel] ?? 0) <= options.splitPx;
+      if ((filled.mask[pixel] ?? 0) === 0) {
+        // Outside the silhouette: the exterior half of the band, or the far
+        // field, which no row counts.
+        if (near) {
+          outsideSum += value;
+          outsideCount += 1;
+        }
+      } else if (near) {
+        bandSum += value;
+        bandCount += 1;
+      } else {
+        interiorSum += value;
+        interiorCount += 1;
+      }
+    }
+  }
+
+  return {
+    ...(bandCount === 0 ? {} : { band: { mean: bandSum / bandCount, windowCount: bandCount } }),
+    ...(interiorCount === 0
+      ? {}
+      : { interior: { mean: interiorSum / interiorCount, windowCount: interiorCount } }),
+    ...(outsideCount === 0
+      ? {}
+      : { outside: { mean: outsideSum / outsideCount, windowCount: outsideCount } }),
+  };
 }
 
 // ---------------------------------------------------------------------------

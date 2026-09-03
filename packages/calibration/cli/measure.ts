@@ -56,7 +56,10 @@ import {
   silhouetteArea,
   silhouetteIoU,
   singleEdgeRegion,
-  ssim,
+  ssimDepthWindows,
+  ssimFromMap,
+  ssimMap,
+  SSIM_BAND_SPLIT_CSS_PX,
   tintResponse,
   type CalibrationImage,
   type CanvasSize,
@@ -251,9 +254,43 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
     });
   }
 
+  /*
+   * The perceptual axis, and the band split on it (W13 X6).
+   *
+   * One SSIM map, averaged four ways: the whole crop as `ssimMean` has always
+   * been, then the reference silhouette's band, its deep interior, and the
+   * exterior half of the same band. The split is a fixed 24 CSS px of depth
+   * converted here — and only here — into device px by the profile's backing
+   * scale, because the depth is a property of the material as the eye sees it
+   * and the raster is a property of the fixture.
+   *
+   * The window is the native silhouette, so the rows are absent on a cell whose
+   * reference is indistinguishable from its backdrop inside the declared region
+   * — there is no contour there to measure depth from, and averaging the whole
+   * crop under the name `ssimBand` would be a different quantity wearing this
+   * one's label.
+   */
+  const ssimField = ssimMap(native, web);
+  const depthWindows =
+    nativeArea === 0
+      ? undefined
+      : ssimDepthWindows(ssimField, nativeSil, { splitPx: SSIM_BAND_SPLIT_CSS_PX * input.scale });
+  if (depthWindows === undefined) {
+    notes.push(
+      `band-windowed SSIM rows NOT MEASURED: the native silhouette is empty inside the declared ` +
+        `component region, so there is no reference contour to split the crop at ` +
+        `${String(SSIM_BAND_SPLIT_CSS_PX)} CSS px of depth. Absent, not zero.`,
+    );
+  } else if (depthWindows.interior === undefined) {
+    notes.push(
+      `ssimInterior ABSENT: no pixel of the reference silhouette is deeper than ` +
+        `${String(SSIM_BAND_SPLIT_CSS_PX)} CSS px from its contour, so this surface is all band.`,
+    );
+  }
   const perceptual: PerceptualAxisReport = perceptualAxisReport({
     edgeWeighted: edgeWeightedDifference(native, web),
-    ssim: ssim(native, web),
+    ssim: ssimFromMap(ssimField),
+    ...(depthWindows === undefined ? {} : { depthWindows }),
     oklabDeltaE: oklabDeltaE(native, web),
   });
 
