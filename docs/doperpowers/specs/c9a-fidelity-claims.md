@@ -8781,3 +8781,25 @@ is an approximation. Pitch 8 at 2x is excluded from the primary reading (its fit
 transmission is −0.11 on `rrect-lg`, the inversion §5.55 §3 recorded) and pitch 4 is at the
 identifiability ceiling. The 2x levels move with the assumed widths by up to 0.4 in s; the
 shapes do not.
+
+#### 7. Addendum — the transmission does not ramp with depth (2026-09-03)
+
+The check §6 named, run: the instrument's mode that frees the transmission
+per depth window on the pooled pitches, validated first on a synthetic
+field (constant t 0.42 under a ramping k: t returns flat to 0.001 and k to
+0.003 — the two do not leak into each other) and on vitrea's `main`
+captures (t constant by construction: spread 0.012–0.017 on t ≈ 0.40, the
+mode's noise floor on a real capture; k flat at 0.022–0.039). On the
+reference, t first → last window: `rrect-md` 1x 0.557 → 0.548, `-ml`
+0.514 → 0.506, `-lg` 0.459 → 0.466, `rrect-md` 2x 0.537 → 0.531, `-ml`
+0.489 → 0.473, `-lg` 0.421 → 0.409 — every |Δt| 0.006–0.016, 1.2–3.3% of
+the cell's mean, at or below the floor, five drifting down and one up.
+**Flat on all six.** With t free the share ramp keeps 73–96% of its
+first-to-last fall (s 0.451 → 0.376 / 0.413 → 0.233 / 0.333 → 0.108 at 1x;
+0.192 → 0.095 / 0.169 → −0.134 / 0.085 → −0.286 at 2x) and the reach moves
+by at most 10 CSS px (136 / 107 / 98 at 1x, 62 / 41 / 34 at 2x). The depth
+dependence is the mix alone; G1 fits a form on the share and nothing on
+the transmission. (The two modes are not nested — one t per line set
+against one t per window shared across sets — so this is a corroboration,
+not a likelihood ratio; the free-t residual is 0.0145–0.0223 against
+0.0126–0.0220.) `g0-ramp.md` §8, `parts/g0-free-t.json`.
