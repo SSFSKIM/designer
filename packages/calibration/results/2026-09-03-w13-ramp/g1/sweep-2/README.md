@@ -113,3 +113,14 @@ Every table's `main` row is the **W12 close bed with the X6 band rows**,
 `results/matrix.json`: the canonical matrix predates X6 and carries no `ssimBand`. Its
 `ssimMean` and `interiorStdDev` agree with the canonical matrix cell for cell, which is
 the check that the two beds are the same bed.
+
+## Provenance of this directory in git
+
+These files were staged for a commit of their own and were swept into `e9801ae`
+("Tech debt: the CSS tier's reduced-transparency proxy spec is flaky on WebKit in CI") by a
+concurrent agent committing the whole index in the same checkout, a few seconds before this
+round's own `git commit` ran. `e9801ae` was pushed before that was noticed, so it is not
+rewritten: the rule that a recorded history is added to rather than corrected in place
+applies to git as much as to a matrix. The commit that carries this note is the one whose
+message describes the sweep; `e9801ae` is where the files were added, and its message
+describes only the tech-debt entry it was written for.
