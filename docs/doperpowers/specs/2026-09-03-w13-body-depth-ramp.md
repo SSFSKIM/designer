@@ -379,7 +379,7 @@ close before G2 implements; nothing on it lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | two workers, 2026-09-03: the windowed instrument, its validation and the reference readings (`results/2026-09-03-w13-ramp/g0/g0-instrument.md`, `g0-ramp.md`; claims §5.61) — the ramp is real, H1 is not its law, the reach reads as a length, the 2x floor is bounded not measured, no span term on σ_heavy, the dot is not the body; X6's band rows landed and baselined (claims §5.60; `x6-baseline.md`; 243 tests) | COMPLETE 2026-09-03 (the transmission-by-depth addendum: flat on all six cells, §5.61 §7) |
-| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); the runtime sweep at both scales running (`results/2026-09-03-w13-ramp/g1/sweep/`) | IN PROGRESS 2026-09-03 |
+| G1 | the ramp implemented behind four PROVISIONAL constants (`sizeScatterRampStart1x` 0.6, `…Start2x` 0.35, `…Reach1xPx` 110, `…Reach2xPx` 100 device px; `sizeScatterSpanMax` and `sizeScatterScaleTerm` retired; the span law as the ramp's closed-form area average on both tiers; fingerprints light `e3732d118b790db6` / dark `151d71c63ea7807b`, branch-only) on branch `w13-g1-ramp` (`eb12219`, worktree `.claude/worktrees/w13-g1`; every unit suite green); **the first form's sweep complete** (`results/2026-09-03-w13-ramp/g1/sweep/`, commit `3fb3b7c`; claims §5.63): 81 points, S4 fails everywhere, S3 best 3× its tolerance, S2 fails everywhere, holdout 2x `rrect-lg` 0.8890 — the form is span-flat where the bed is span-graded; **re-formed by Decision Log 3** (the retired span law kept underneath the ramp as its deep value, the excursion above it) on the same branch, the second sweep to `results/2026-09-03-w13-ramp/g1/sweep-2/` | IN PROGRESS 2026-09-03 (second form) |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -442,6 +442,38 @@ X6 rows (`ssimOutside` is W14's primary row and W13's null) and coordinate
 their landings under W14's X8 — each referees on `main` as it stands, the
 second to land re-runs its dry run on the first's bed. Nothing in this
 wave's cut or stops changes; S2 stays the stop and 0.93 is W14's.
+
+### Decision Log 3 — the form re-declared: the retired span law underneath the ramp (2026-09-03; the parent, within G1's remit)
+
+**The finding.** The first form's sweep (claims §5.63) cannot meet S2, S3 or S4
+at any of 81 points at either scale, and the reason is the form: a start and a
+reach project onto a span law of 0.43–0.56 where the retired law ran
+0.41–1.00, so the small spans want a high start and the large ones a low one,
+and no pair serves both. At 2x it also spends the interior §5.58 §2's widths
+won. G0's measurement of the ramp stands; the family cannot carry it.
+
+**Decided.** The form is one of the three the Design listed — *a ramp with a
+floor* — with the floor being the retired size law itself: the deep value is
+`kDeep(span) = sizeScatterFloor + (1 − sizeScatterFloor) · smoothstep(sizeSpanMin,
+sizeScatterSpanMax, span)` (restored; `sizeScatterSpanMax` returns to the
+profiles), and the ramp is the near-contour excursion `s(u) = sDeep + max(0, s₀ −
+sDeep) · max(0, 1 − u/reach)` on both tiers, the CSS tier reading its area mean.
+Four provisional constants stay (start per scale, reach per scale in device
+px), set by a second sweep in the renderer with `rrect-lg` held out; the
+declaration's twelve rows are predicted from that sweep.
+
+**Rejected.** A fifth constant as a span-flat floor (fails for the first form's
+reason: the bed's span dependence is the thing a flat number cannot carry).
+Declaring the first form as-is at its best point (0.60 / 0.55 / 200 / 200): it
+meets S1 at three points and nothing else, and the holdout rows fall below two
+ratcheted floors. Re-pinning those floors is the user's decision and is not
+asked; the fix is the form.
+
+**What this does not settle.** Whether the excursion's start wants to grade
+with span as well (G0 read the thin surfaces' start above the thick ones');
+the second sweep's tables at each span will say. Whether the ramp's band gain
+is visible to `ssimBand` at all when the span law is held — the first sweep
+saw the small spans improve, which says yes for the thin regime.
 
 ## Surprises & Discoveries
 
@@ -517,6 +549,25 @@ wave's cut or stops changes; S2 stays the stop and 0.93 is W14's.
   frame noise moves between cells from run to run (claims §5.60 §1).
   Below every bound by four orders; recorded, not chased.
 
+- **The first form is span-flat where the bed is span-graded (G1 first
+  sweep; claims §5.63).** Its projection runs 0.43–0.56 at 1x against the
+  retired law's 0.41–1.00; every cell can be raised alone and never
+  together. `rrect-lg` at 1x overshoots the reference's `interiorStdDev`
+  (0.0938 against 0.0650) by more than the W12 close undershot it (0.0540).
+  The data asks for the deep value to be the span-graded heavy share and the
+  excursion the sharp term the band wants — G0's H2, the Design's "ramp with
+  a floor" — which the four constants could not express, so no sweep of them
+  could find it.
+- **The 2x interior the widths won is spent by a ramp without a floor.**
+  §5.58 §2's widths-only reading is the best 2x `interiorStdDev` on record
+  and all 38 2x points are worse; S3's best departure is 0.0151. A form that
+  leaves the deep interior where the widths put it is the constraint the
+  re-form carries.
+- **The runtime's reach is about twice G0's.** Both scales' optima sit near
+  200 device px against G0's 100–110, and the band is flat above ≈ 200; the
+  first form's reach was pinned by the band while carrying the span law, so
+  the number may move under the second form. Recorded, not explained.
+
 ## Outcomes & Retrospective
 
 (open)
@@ -529,3 +580,6 @@ wave's cut or stops changes; S2 stays the stop and 0.93 is W14's.
 - 2026-09-03: Decision Log 2 — W14 chartered beside this wave (user-decided); X8 in W14
   orders the two landings.
 - 2026-09-03: G0 complete (claims §5.61); three Surprises; the dot returned to W12.
+- 2026-09-03: the first form's sweep complete (claims §5.63); Decision Log 3 re-declares the
+  form with the retired span law underneath the ramp; three Surprises; G1 continues on the
+  same branch with a second sweep.

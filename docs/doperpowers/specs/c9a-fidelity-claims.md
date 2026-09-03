@@ -8948,3 +8948,66 @@ cell against 0.67 KB for the rest of the cell — +0.89 MB per canonical rebuild
 as written +2.04 KB and +0.47 MB; six places is two orders below the raster's linear quantum and
 below this section's instrument noise. The pooled `all` direction and the band edges stay.
 Recorded, not bounded, until G2.
+
+### 5.63 W13 G1, first form: a start and a reach cannot carry the span law — the ramp re-declared with the retired size law underneath it (2026-09-03)
+
+(The sweep worker's findings, recorded as found; the parent's decision on the form at the end.)
+
+**Claim.** The ramp as first declared — sharp share `s(u) = clamp(s₀ − u/reach)` in depth `u`, one
+start and one reach per scale, the size law's `sizeScatterFloor` + `sizeScatterSpanMax` smoothstep
+retired and the span law taken as the ramp's own closed-form area average — was fitted **in the
+renderer** on branch `w13-g1-ramp` over 81 points (43 at 1x, 38 at 2x; the branch built first so
+the captures carry its shader), scored on the interior objective, on `interiorStdDev` against the
+fixture's native value, and on X6's band rows against the W12 close bed
+(`results/2026-09-03-w13-ramp/g1/sweep/g1-sweep.md`, `README.md`, six `.out` files, the base and
+chosen profiles, `matrix-confirm.json`; commit `3fb3b7c`). **It cannot reach the wave's stops at any
+point at either scale.** S4 (`ssimBand` rises on every checkerboard cell) fails at all 81 points; S3
+(2x `interiorStdDev` within 0.005 of the reference on the five spans) has a best departure of
+0.0151, three times the tolerance; S2 (the three held 2x texture rows above their floors) fails
+everywhere, best −0.0057 on `rrect-ml`; S1 (no 1x row down by more than 0.002) is met at exactly
+three 1x points. S5's first clause is met outright — every solid, impulse, tinted and photo cell
+moves by 0.0001 or less — and `ssimOutside` is not a clean null: up to 0.0029 on five light-scheme
+cells, above S5's 0.001, small and one-sided.
+
+**1. The mechanism, and it is the form.** The ramp's projection onto one number per surface — the
+closed-form area mean the branch computes for the CSS tier — runs from **0.43 to 0.56** across the
+bed at 1x and 0.52 to 0.75 at 2x, where the retired law `k = 0.4 + 0.6 · smoothstep(32, 256, span)`
+runs from **0.41 to 1.00** (`rrect-sm` 0.433 / 0.433, `capsule-button` 0.605 / 0.448, `rrect-md`
+0.764 / 0.496, `rrect-ml` 0.967 / 0.530, `rrect-lg` 1.000 / 0.562 — retired law / ramp at the
+chosen 1x constants). The ramp is nearly span-flat where the bed is strongly span-graded: the
+small spans, which the retired law left too heavy, improve and want a high start; the large spans
+become far too sharp and want a low one; every cell can be raised alone and never together, because
+the family has no parameter that grades with span faster than the perimeter integral allows. On the
+largest span it shows plainly: `checkerboard__rrect-lg` at 1x reads `interiorStdDev` 0.0938 against
+the reference's 0.0650, where the W12 close read 0.0540 — the ramp overshoots by more than the W12
+close undershot. At 2x the ramp also spends the interior the device-pixel widths won: §5.58 §2's
+widths-only reading is still the best 2x `interiorStdDev` on record and every ramp point is worse.
+None of this contradicts §5.61's measurement of a real ramp; it says a ramp with a start, a reach
+and nothing else cannot carry the band and the span law at once.
+
+**2. The best the four can do, for the record.** `sizeScatterRampStart1x` 0.60, `…Start2x` 0.55,
+`…Reach1xPx` 200, `…Reach2xPx` 200 device px. The interior objective's winner (0.80, 80 at 1x;
+0.65, 200 at 2x) and the band's winner disagree, and the objective is blind to the band, which is
+why X6 exists. The two reaches are equal in device pixels but only weakly so: the band is flat in
+the reach above ≈ 200 device px (0.0004 over a factor of two at 1x), so the equality is permitted
+by the data rather than picked out by it; neither optimum is near G0's 100–110 device px. The
+confirmation run at those constants (1x and 2x, light and dark, calibration + validation + holdout,
+read once): holdout `checkerboard__rrect-lg` 0.9347 at 1x (−0.0081) and **0.8890** at 2x (−0.0222,
+below its ratcheted floor 0.9102); `glass-over-glass` 0.9516 (−0.0005) and **0.9111** (−0.0101,
+below 0.9201) — the two largest surfaces on the bed are the two the weak span law hurts most, and
+both are holdout, so the calibration set understates the cost. Nearly every dark row rises, but the
+dark bed has no large checkerboard span and does not test the span law where the light bed fails.
+
+**3. The parent's decision: the form is re-declared, not the constants (W13 Decision Log 3).** The
+data asks for what W13's Design already listed as a candidate and G0 wrote as its H2: **a ramp with
+a floor**, where the floor is the retired span law itself. The deep value keeps the span-graded
+heavy share — `kDeep(span) = sizeScatterFloor + (1 − sizeScatterFloor) · smoothstep(sizeSpanMin,
+sizeScatterSpanMax, span)`, exactly the law the first form retired — and the ramp is the
+near-contour excursion above it, `s(u) = sDeep + max(0, s₀ − sDeep) · max(0, 1 − u/reach)`, with
+the reach now where the excursion vanishes into the deep value. A new span-flat floor constant was
+rejected for the reason the first form failed; declaring the first form as-is was rejected because
+it meets none of S2–S4. Provisional constants for the second sweep: start 0.65 / 0.40, reach 200 /
+200 device px; `sizeScatterSpanMax` returns to both profile documents. The second fit and its
+confirmation land under `results/2026-09-03-w13-ramp/g1/sweep-2/`; the declaration's twelve-row
+prediction is written from it.
+
