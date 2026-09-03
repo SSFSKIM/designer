@@ -113,6 +113,16 @@ const srgbEncode = (linear: number): number => {
   return clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * clamped ** (1 / 2.4) - 0.055;
 };
 
+/** W14 G1's six amplitude anchors — three below the shadow's knee, three above. */
+const AMPLITUDE_ANCHORS = [
+  "thinOcclusionDark",
+  "thinOcclusionMid",
+  "thinOcclusionBright",
+  "thickOcclusionAt96",
+  "thickOcclusionAt128",
+  "thickOcclusionAt160",
+] as const;
+
 describe("tier coherence (K5)", () => {
   it("mirrors every renderer optic the CSS tier's mapping reads, per variant", () => {
     for (const variant of MATERIAL_VARIANTS) {
@@ -887,6 +897,14 @@ describe("tier coherence (K5)", () => {
   });
 
   it("folds the shadow under a preference identically on both tiers, patch included", () => {
+    /*
+     * The fold is a FLATTENING since W14 G1: under the preference the reference's
+     * exterior is one level, thin and thick together and over every backdrop
+     * (claims §5.62 §5), so both tiers write `reducedTransparencyOcclusion` into
+     * all six anchors and stand the lift down. Two tiers that scaled instead
+     * would still agree with each other and both be wrong, so the level is
+     * asserted here beside the agreement.
+     */
     const patch = { outerShadow: { thinOcclusionMid: 0.4, reducedTransparencyOcclusion: 0.3 } };
     for (const pair of [
       [DEFAULT_MATERIAL_PROFILE, MATERIAL_SOURCE_OUTER_SHADOW] as const,
@@ -910,20 +928,22 @@ describe("tier coherence (K5)", () => {
         });
         const css = cssOuterShadowUnderPolicy(cssShadow, resolved.material);
         const gpu = rendererOuterShadowUnderPolicy(resolved.material, rendererProfile);
-        for (const key of [
-          "thinOcclusionDark",
-          "thinOcclusionMid",
-          "thinOcclusionBright",
-          "thickOcclusionAt96",
-          "thickOcclusionAt128",
-          "thickOcclusionAt160",
-          "liftAmplitude",
-        ] as const) {
+        for (const key of [...AMPLITUDE_ANCHORS, "liftAmplitude"] as const) {
           expect(css[key], `${JSON.stringify(flags)} / ${key}`).toBe(gpu[key]);
         }
         expect(css.sigmaPx).toBe(gpu.sigmaPx);
         expect(css.offsetPx).toBe(gpu.offsetPx);
         expect(css.spreadPx).toBe(gpu.spreadPx);
+
+        if (resolved.material.frost === "increased") {
+          // One level in place of both regimes, on both tiers.
+          for (const key of AMPLITUDE_ANCHORS) {
+            expect(css[key], `${JSON.stringify(flags)} / ${key}`).toBe(
+              cssShadow.reducedTransparencyOcclusion,
+            );
+          }
+          expect(css.liftAmplitude).toBe(0);
+        }
       }
     }
   });

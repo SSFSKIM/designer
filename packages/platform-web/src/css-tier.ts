@@ -167,8 +167,11 @@ export interface CssTierSurface {
    *
    * Unlike the size law this does NOT stand down when absent: the shadow is a
    * facet of the material rather than a function of a measurement the caller may
-   * not have, so a surface that declares nothing still casts the shipped one. It
-   * is `occlusion: 0` in the profile that turns it off, on either tier.
+   * not have, so a surface that declares nothing still casts the shipped one. A
+   * profile turns it off, on either tier, by standing its amplitude anchors down
+   * — the six of them since W14 G1 replaced W8's single `occlusion` (claims
+   * §5.62), and a patch still naming that retired leaf is refused rather than
+   * quietly rendering the shipped shadow.
    */
   readonly outerShadow?: MaterialSourceOuterShadow;
 }

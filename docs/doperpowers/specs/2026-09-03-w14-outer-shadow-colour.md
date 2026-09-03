@@ -372,6 +372,16 @@ charter (user-decided). X8 orders the two landings.
   `dark-solid`); the bed has span 96 only. One harness scene.
 - The adaptive alpha between L 0.74 and 0.891 — the bed jumps from
   `hc-text` to `light-solid`; one backdrop between them would pin it.
+- **What the DARK scheme does under reduced transparency is unmeasured.**
+  The capture bed's two accessibility profiles are both light
+  (`1x-light-reduced-transparency`, `1x-light-increased-contrast`), so
+  §5.62 §5's flat 0.192–0.202 is a light-scheme reading. Now that
+  `reducedTransparencyOcclusion` is an absolute level rather than a factor,
+  silence in the dark document would apply the light material's level to
+  the dark one, so that document names 0.038 — the light bed's own ratio
+  between the preference's level and its standard mid anchor
+  (0.197 / 0.33) carried onto the dark scheme's flat 0.063. A derivation,
+  recorded as one. One dark accessibility capture profile measures it.
 
 ## Tracking Map
 
@@ -534,3 +544,11 @@ second instrument; the axis carries no guard there by design.
   `Height` overturned by measurement (they are not extents; the falloff is W8's).
 - 2026-09-03: X7 landed (merge `922d3e4`); Decision Log 3 (the pair's written precision and
   coded absence); three Surprises from its baseline; the dark-scheme Deferred item annotated.
+- 2026-09-03: G1's independent review, four findings fixed on the branch. The retired
+  `outerShadow.occlusion` leaf is refused at the runtime boundary and at the profile reader
+  rather than merged in silence; `reducedTransparencyOcclusion` re-formed as the absolute
+  level §5.62 §5 measured (0.197) applied flat in place of both regimes, since multiplying
+  six unequal anchors kept exactly the variation the preference removes; the dark document
+  carries X7's measured lift ratio (0.0038) instead of zero and names its own preference
+  level; the changeset for the two-term composite written. New Deferred item above; both
+  profile fingerprints re-recorded with the reason.

@@ -30,7 +30,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "identityWithRuntimeDefault": true,
-  "resolvedMaterialSha256": "c1646549aef6d612",
+  "resolvedMaterialSha256": "f12f2fbab55db639",
   "$comment-sha-history": [
     "a0a4e10280297ff7 -> d082adbb28493c31 (2026-09-02, W10): the tint tone map",
     "(tintToneFloor/CeilMix/Low/High) replaced by the shade law",
@@ -46,7 +46,8 @@
     "reference's span law — lensRefractionGain 1.6 -> 0.745 (re-based onto the",
     "amount law), ten new lens constants (see entries.lens); lensSizeGainMax",
     "stays as the inner shadow's depth gain.",
-    "c6e388fc8349282d -> c1646549aef6d612 (2026-09-03, W14 G1): the outer shadow's amplitude — occlusion 0.285 retired for a two-regime law (thinOcclusionDark/Mid/Bright, thickOcclusionAt96/128/160) and the lift's four constants (liftAmplitude/SpanMin/SpanFull/BlurSigmaCss, GPU tier only) — see entries.outerShadow."
+    "c6e388fc8349282d -> c1646549aef6d612 (2026-09-03, W14 G1): the outer shadow's amplitude — occlusion 0.285 retired for a two-regime law (thinOcclusionDark/Mid/Bright, thickOcclusionAt96/128/160) and the lift's four constants (liftAmplitude/SpanMin/SpanFull/BlurSigmaCss, GPU tier only) — see entries.outerShadow.",
+    "c1646549aef6d612 -> f12f2fbab55db639 (2026-09-03, W14 G1 review fix 2): reducedTransparencyOcclusion 0.70 -> 0.197, and it changed MEANING — a factor on the amplitude became the absolute linear occlusion under the preference, written into all six anchors in place of both regimes. Multiplying six unequal anchors kept the backdrop and span variation the preference removes (claims 5.62 section 5 measured the reference flat at 0.192-0.202, thin and thick together); folding the mid anchor gave 0.231 and a span-160 surface 0.38, against a reference of 0.20. See entries.outerShadow."
   ],
   "$comment-w11c-g2": [
     "RE-RECORDED 2026-09-03 (W11c G2, the lens band): the lens is now the",
@@ -130,7 +131,7 @@
       "liftSpanMin": 64,
       "liftSpanFull": 128,
       "liftBlurSigmaCss": 40,
-      "reducedTransparencyOcclusion": 0.7,
+      "reducedTransparencyOcclusion": 0.197,
       "offsetPx": 7.95,
       "sigmaPx": 15.55,
       "spreadPx": 3.1,
@@ -748,10 +749,12 @@
         "liftAmplitude": 0.0073,
         "liftSpanMin": 64,
         "liftSpanFull": 128,
-        "liftBlurSigmaCss": 40
+        "liftBlurSigmaCss": 40,
+        "reducedTransparencyOcclusion": 0.197
       },
       "previous": {
-        "occlusion": 0.285
+        "occlusion": 0.285,
+        "reducedTransparencyOcclusion": 0.7
       },
       "method": [
         "W14 G1 (claims 5.62), built and not yet fitted. The single amplitude 0.285 is replaced by",
@@ -766,7 +769,17 @@
         "(the reference removes at most 1-2 of 255 codes over dark-solid and impulse), liftSpanMin 64",
         "(the knee is exact: the lift reads 0.0000 at spans 32 and 44), liftBlurSigmaCss 40 (identified",
         "at 40 +/- 8 CSS px on rrect-lg at both scales by the probes' pitch axis; the layer tree's",
-        "inputShadowBlurRadius read as a Gaussian sigma).",
+        "inputShadowBlurRadius read as a Gaussian sigma), reducedTransparencyOcclusion 0.197.",
+        "",
+        "reducedTransparencyOcclusion changed MEANING here as well as value, 0.70 -> 0.197. It was a",
+        "FACTOR on W8's single amplitude; it is now the ABSOLUTE linear occlusion under the",
+        "preference, written into all six anchors in place of both regimes. G0 read the reference",
+        "flat at 0.192-0.202 under increased contrast and reduced transparency alike, thin and thick",
+        "together and over every backdrop (claims 5.62 section 5) - so the preference removes the",
+        "adaptation, and multiplying six unequal anchors would have kept exactly the backdrop and",
+        "span variation it removes (a span-160 surface over a mid backdrop folded to 0.38 against",
+        "the reference's 0.20). A ratio and a level were the same thing while the amplitude was one",
+        "number; they stopped being when it became six.",
         "",
         "PROVISIONAL, and what the sweep sets: thickOcclusionAt96/128/160 (0.379/0.497/0.544 are the",
         "composite's measured transmission on the checkerboard, but the split into black alpha,",
@@ -784,11 +797,11 @@
         "inputShadowOffset (0, 8) exactly."
       ],
       "doesNotClose": [
-        "reducedTransparencyOcclusion 0.70 is now 15% high. It was fitted against W8's single 0.285",
-        "and reconciled two routes at 0.1995; folding the new mid anchor gives 0.231 against the",
-        "reference's directly measured 0.192-0.202 (claims 5.62 section 5). 0.60 would land 0.198.",
-        "Left at 0.70 here because W14 G1 builds and does not fit; the sweep refines it with the six",
-        "amplitude anchors.",
+        "The preference's amplitude is one number for a bed that has one colour scheme in it. The",
+        "0.197 is read on the LIGHT reference only - the capture bed has light-reduced-transparency",
+        "and light-increased-contrast profiles and no dark one - so what the dark scheme's material",
+        "does under the preference is unmeasured, and the dark document carries a derived value with",
+        "that stated (W14 Deferred).",
         "",
         "The adaptive alpha between luminance 0.74 and 0.891 is a DECLARED linear interpolation and",
         "not a measurement: the bed jumps from hc-text to light-solid with nothing between, and the",

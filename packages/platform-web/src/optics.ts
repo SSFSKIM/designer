@@ -733,6 +733,11 @@ export interface MaterialSourceOuterShadow {
   readonly liftSpanMin: number;
   readonly liftSpanFull: number;
   readonly liftBlurSigmaCss: number;
+  /**
+   * The shadow's amplitude UNDER reduced transparency — one absolute linear
+   * occlusion replacing both regimes, not a factor on either. The renderer's
+   * `MaterialOuterShadow.reducedTransparencyOcclusion` carries the measurement.
+   */
   readonly reducedTransparencyOcclusion: number;
   readonly sizeGain: number;
 }
@@ -752,7 +757,7 @@ export const MATERIAL_SOURCE_OUTER_SHADOW: MaterialSourceOuterShadow = {
   liftSpanMin: 64,
   liftSpanFull: 128,
   liftBlurSigmaCss: 40,
-  reducedTransparencyOcclusion: 0.7,
+  reducedTransparencyOcclusion: 0.197,
   sizeGain: 0,
 };
 
@@ -848,9 +853,29 @@ export function outerShadowOcclusionAt(
   return sizeOuterShadowOcclusionAt(thin + (thick - thin) * blend, thickness, shadow);
 }
 
-/** The outer shadow's constants under a profile patch, by the renderer's merge rule. */
+/**
+ * The outer shadow's constants under a profile patch, by the renderer's merge
+ * rule — including its refusal of the leaves W14 G1 retired.
+ *
+ * Mirrored rather than imported for the reason every constant on this side is:
+ * one profile document reaches both tiers, and a patch this tier accepted while
+ * the renderer threw would be a profile that means two different things.
+ * `withMaterialOverrides` carries the reasoning.
+ */
 export function sourceOuterShadow(patch?: RendererMaterialProfile): MaterialSourceOuterShadow {
-  return { ...MATERIAL_SOURCE_OUTER_SHADOW, ...patch?.outerShadow };
+  const shadow = patch?.outerShadow;
+  if (shadow !== undefined && "occlusion" in shadow) {
+    throw new Error(
+      "outerShadow.occlusion was retired by W14 G1 (claims §5.62) and is replaced by " +
+        "the six amplitude anchors (thinOcclusionDark, thinOcclusionMid, " +
+        "thinOcclusionBright, thickOcclusionAt96, thickOcclusionAt128, " +
+        "thickOcclusionAt160) and liftAmplitude for the second term. Applying this " +
+        "patch would have rendered the default shadow while recording itself as " +
+        "configured. It is refused rather than mapped: a single span-flat amplitude " +
+        "is the material the measurement retired.",
+    );
+  }
+  return { ...MATERIAL_SOURCE_OUTER_SHADOW, ...shadow };
 }
 
 /** sRGB's power-law exponent — the one `outerShadowAlpha` inverts. Mirrored. */
@@ -911,38 +936,38 @@ export function sizeOuterShadowOcclusionAt(
  * `outerShadowUnderPolicy`.
  *
  * `frost` is the axis reduced transparency alone sets, and the amplitude it
- * multiplies by is measured rather than assumed. Under forced colours the
- * material is gone and its shadow goes with it.
+ * lands on is measured rather than assumed. Under forced colours the material is
+ * gone and its shadow goes with it.
  *
- * All six amplitude anchors are folded rather than the resolved number, and the
- * lift is stood down rather than scaled — the renderer's `outerShadowUnderPolicy`
- * says why.
+ * One flat amplitude is written into all six anchors rather than a factor
+ * applied to each, and the lift stands down with them — the renderer's
+ * `outerShadowUnderPolicy` says why.
  */
 export function outerShadowUnderPolicy(
   shadow: MaterialSourceOuterShadow,
   policy: ResolvedMaterialPolicy,
 ): MaterialSourceOuterShadow {
-  if (policy.glass === "none" || policy.frost === "none") return scaledOuterShadow(shadow, 0);
+  if (policy.glass === "none" || policy.frost === "none") return flatOuterShadow(shadow, 0);
   if (policy.frost === "increased") {
-    return scaledOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
+    return flatOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
   }
   return shadow;
 }
 
-/** Every amplitude anchor times `factor`, with the lift stood down below 1. */
-function scaledOuterShadow(
+/** Every amplitude anchor set to `amplitude`, with the lift stood down. */
+function flatOuterShadow(
   shadow: MaterialSourceOuterShadow,
-  factor: number,
+  amplitude: number,
 ): MaterialSourceOuterShadow {
   return {
     ...shadow,
-    thinOcclusionDark: shadow.thinOcclusionDark * factor,
-    thinOcclusionMid: shadow.thinOcclusionMid * factor,
-    thinOcclusionBright: shadow.thinOcclusionBright * factor,
-    thickOcclusionAt96: shadow.thickOcclusionAt96 * factor,
-    thickOcclusionAt128: shadow.thickOcclusionAt128 * factor,
-    thickOcclusionAt160: shadow.thickOcclusionAt160 * factor,
-    liftAmplitude: factor >= 1 ? shadow.liftAmplitude : 0,
+    thinOcclusionDark: amplitude,
+    thinOcclusionMid: amplitude,
+    thinOcclusionBright: amplitude,
+    thickOcclusionAt96: amplitude,
+    thickOcclusionAt128: amplitude,
+    thickOcclusionAt160: amplitude,
+    liftAmplitude: 0,
   };
 }
 

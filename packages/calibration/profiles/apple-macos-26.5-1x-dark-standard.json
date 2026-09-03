@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "0df0796a6485e189",
+  "resolvedMaterialSha256": "989f02740cb5e52b",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -152,7 +152,8 @@
       "thickOcclusionAt96": 0.23,
       "thickOcclusionAt128": 0.249,
       "thickOcclusionAt160": 0.268,
-      "liftAmplitude": 0
+      "liftAmplitude": 0.0038,
+      "reducedTransparencyOcclusion": 0.038
     }
   },
   "entries": {
@@ -232,10 +233,12 @@
         "thickOcclusionAt96": 0.23,
         "thickOcclusionAt128": 0.249,
         "thickOcclusionAt160": 0.268,
-        "liftAmplitude": 0
+        "liftAmplitude": 0.0038,
+        "reducedTransparencyOcclusion": 0.038
       },
       "previous": {
-        "occlusion": 0.09
+        "occlusion": 0.09,
+        "liftAmplitude": 0
       },
       "method": [
         "W14 G1 (claims 5.62), built and not yet fitted. The single 0.09 - itself a compromise across",
@@ -253,11 +256,24 @@
         "are used as thickOcclusionAt96 and thickOcclusionAt160 respectively, and thickOcclusionAt128 is",
         "their midpoint (0.249), which is an INTERPOLATION and not a reading. The sweep fits all three.",
         "",
-        "liftAmplitude is 0 on this scheme, and that is a decision rather than a measurement: the dark",
-        "scheme's backdrops cannot produce a lift a reading could separate, and the light profile's lift",
-        "is what explains W8's sizeGain seam - the light amplitude 'falls' with span where the dark one",
-        "rises because the light composite carries a term the dark backdrops do not. Turning the term on",
-        "here would be fitting a mechanism this bed cannot see. sizeGain stays at the identity."
+        "liftAmplitude 0.0038 is PROVISIONAL and it is a RATIO carried, not a fit. It was 0 here on",
+        "the reading that the dark scheme's backdrops cannot produce a lift a reading could separate;",
+        "X7's instrument then measured one (claims 5.62 section 8, W14 Surprises). The intercept c of",
+        "the affine pair in the 3-6 band below the surface survives the dark colour scheme at 0.51-0.54",
+        "of its light amplitude at BOTH scales - 0.00108 against 0.00211 on rrect-md, 0.00187 against",
+        "0.00349 on glass-over-glass - so the term is present and the ratio is what is identified.",
+        "0.52 x the light document's 0.0073 is 0.0038. Section 5's finding that the lift is absent over",
+        "DARK BACKDROPS stands and is a different statement: that is impulse and dark-solid, and this",
+        "is the dark colour SCHEME over the ordinary ones. The sweep fits the value on the dark bed.",
+        "",
+        "reducedTransparencyOcclusion 0.038 is DERIVED and not measured, and it is named here rather",
+        "than inherited because inheriting would be the larger claim. The constant is now an absolute",
+        "occlusion (see the light document), so silence would apply the LIGHT scheme's measured 0.197",
+        "to this scheme's material - three times its own standard-profile amplitude. The capture bed",
+        "has no dark reduced-transparency profile, so nothing here is measured; what is carried is the",
+        "light bed's own ratio between the preference's level and the standard mid anchor",
+        "(0.197 / 0.33 = 0.60) applied to this scheme's flat 0.063. Recorded in W14 Deferred as a bed",
+        "gap: one dark accessibility capture profile would measure it instead."
       ],
       "doesNotClose": [
         "The span dependence, still. The reference's dark amplitude RISES with span (0.063 thin against",
@@ -270,7 +286,16 @@
         "thickOcclusionAt128 is the midpoint of two readings and not a reading.",
         "",
         "The bright anchor equals the mid one because this scheme's bed has no light-solid cell that",
-        "identifies it. Whether the dark material's shadow adapts into the light at all is unmeasured."
+        "identifies it. Whether the dark material's shadow adapts into the light at all is unmeasured.",
+        "",
+        "What this scheme does under reduced transparency is unmeasured outright: the capture bed's",
+        "two accessibility profiles are both light. reducedTransparencyOcclusion 0.038 is the light",
+        "bed's ratio carried onto this scheme's own amplitude, which is a derivation and is stated as",
+        "one. One dark accessibility capture profile closes it.",
+        "",
+        "liftAmplitude 0.0038 is the light amplitude times X7's measured 0.52, not a fit on this bed.",
+        "The dark thick regime has two cells and the sweep fits the three thick anchors and the lift",
+        "against them together, which is a thinner basis than the light profile's."
       ],
       "previousEntry": {
         "status": "measured",
@@ -307,6 +332,7 @@
     "Fingerprint aec4cfba10137f2b -> c2da15c95e5116e2 (the defaults above)."
   ],
   "$comment-sha-history": [
-    "f9722f244e7f2af2 -> 0df0796a6485e189 (2026-09-03, W14 G1): the outer shadow's amplitude — this difference document's occlusion 0.09 retired for the two-regime law's dark anchors (thin 0.063 flat, thick 0.230/0.249/0.268 provisional) with the lift off — see entries.outerShadow. The light defaults it inherits moved with it."
+    "f9722f244e7f2af2 -> 0df0796a6485e189 (2026-09-03, W14 G1): the outer shadow's amplitude — this difference document's occlusion 0.09 retired for the two-regime law's dark anchors (thin 0.063 flat, thick 0.230/0.249/0.268 provisional) with the lift off — see entries.outerShadow. The light defaults it inherits moved with it.",
+    "0df0796a6485e189 -> 989f02740cb5e52b (2026-09-03, W14 G1 review fixes 2 and 3): liftAmplitude 0 -> 0.0038, because X7 measured the lift surviving the dark colour scheme at 0.51-0.54 of its light amplitude at both scales (claims 5.62 section 8) and this document's 0 was written before that instrument ran; and reducedTransparencyOcclusion 0.038 named for the first time, because the constant became an absolute occlusion and inheriting the light scheme's measured 0.197 would have applied three times this material's own amplitude. Both PROVISIONAL — see entries.outerShadow."
   ]
 }

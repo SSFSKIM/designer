@@ -277,37 +277,42 @@ export interface MaterialOuterShadow {
    */
   readonly liftBlurSigmaCss: number;
   /**
-   * What reduced transparency does to the black term's amplitude — MEASURED, not
-   * assumed, which
-   * is what the charter asked for before the fold was written.
+   * The shadow's amplitude UNDER reduced transparency — one absolute linear
+   * occlusion that replaces both regimes, not a factor on either. MEASURED,
+   * which is what the charter asked for before the fold was written.
    *
-   * The reference's shadow under `reduce transparency` is the same shadow at
-   * 0.566 of the amplitude: 0.1830/0.3259, 0.1884/0.3309 and 0.1882/0.3314 on the
-   * three structured backdrops at a 44 px span, with σ, offset and spread
-   * unmoved. It does not vanish and it does not intensify.
+   * **0.197 (measured 0.192–0.202).** W14 G0 read the preference on the wider
+   * bed and what it found is a flat number: the reference's exterior is
+   * 0.192–0.202 under increased contrast and reduced transparency alike, **thin
+   * and thick together** and over every backdrop it can be read on (claims §5.62
+   * §5). The preference removes the material's adaptation, so the shadow it
+   * leaves has neither the thin regime's backdrop keying nor the thick regime's
+   * span law in it — one amplitude for every surface over every backdrop, which
+   * is what `outerShadowUnderPolicy` writes into all six anchors. The lift goes
+   * with it: a composite whose two regimes read the same number has no second
+   * term left in it.
+   *
+   * It is stated as an ABSOLUTE occlusion rather than as a ratio because W8's
+   * 0.70 multiplier was fitted when the amplitude was one span-flat number and a
+   * ratio was the same thing as a level. It is not any more: multiplying six
+   * unequal anchors keeps exactly the backdrop and span variation the preference
+   * removes, and a span-160 surface over a mid-tone backdrop folded to 0.38
+   * against the reference's 0.20. The number the reference states is a level, so
+   * this constant is a level.
+   *
+   * Nothing is special-cased for a dark backdrop and nothing needs to be: an
+   * occlusion is a fraction of the backdrop's own light, so a flat 0.197 over
+   * black still removes nothing, and the facet stays as inert there as the thin
+   * regime's own zero anchor makes it without the preference.
    *
    * The `increased contrast` reference reproduces the reduced-transparency
-   * amplitude to four decimals (0.1830, 0.1884, 0.1882 — the same numbers), which
-   * is Decision Log 8's finding again: macOS force-couples the two toggles, so the
+   * amplitude to four decimals (0.1830, 0.1884, 0.1882 on the three structured
+   * backdrops at a 44 px span, with σ, offset and spread unmoved), which is
+   * Decision Log 8's finding again: macOS force-couples the two toggles, so the
    * contrast reference IS the reduced-transparency state and the bed cannot
    * separate them. The fold therefore keys on `frost`, the axis reduced
    * transparency alone sets, rather than on the contrast axes it would be
    * indistinguishable on here.
-   *
-   * W14 G0 re-read it on the wider bed and it stands: under increased contrast
-   * and reduced transparency alike the reference's exterior is flat at
-   * 0.192–0.202, **thin and thick together** and over every backdrop (claims
-   * §5.62 §5). So the fold multiplies all six amplitude anchors, and it also
-   * stands the lift DOWN entirely — a preference under which the thick and the
-   * thin regimes read the same number has no second term left in it.
-   *
-   * **The factor itself is now 15% high and is not changed here.** 0.70 was
-   * fitted against W8's single 0.285 and reconciled two routes at 0.1995; the
-   * mid anchor has moved to 0.33, so the folded amplitude is 0.231 against the
-   * reference's directly measured 0.192–0.202. 0.60 would land 0.198. W14 G1
-   * builds the law and does not fit it — the sweep refines this constant with
-   * the six anchors, and `outer-shadow.test.ts` pins 0.231 so the gap is a
-   * number somebody has to move rather than a rounding nobody sees.
    */
   readonly reducedTransparencyOcclusion: number;
   /**
@@ -1175,14 +1180,18 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * instrument's independent shadow axis agrees, so the geometry stands on those
    * two and this objective is not asked to re-decide it.
    *
-   * `reducedTransparencyOcclusion` 0.70 is sharp where the amplitude is flat: a
-   * 3.83× spread over 0.45…0.95 with a clear minimum. It also reconciles two
+   * `reducedTransparencyOcclusion` 0.70 was sharp where the amplitude was flat: a
+   * 3.83× spread over 0.45…0.95 with a clear minimum. It also reconciled two
    * routes — 0.285 × 0.70 = 0.1995 against the reference's directly measured
    * reduce-transparency amplitude of 0.203 at a 44 px span. W8's 0.566 was the
-   * ratio of the reference's two amplitudes; this is the ratio that makes
+   * ratio of the reference's two amplitudes; that was the ratio that made
    * vitrea's shadow match the reference's under the preference, and the two
-   * differ because the base amplitude is a compromise across scenes whose spread
-   * is much wider in the standard profile than under reduced transparency.
+   * differed because the base amplitude is a compromise across scenes whose
+   * spread is much wider in the standard profile than under reduced transparency.
+   * **W14 G1 re-forms the constant as the LEVEL those routes were reconciling
+   * to** — 0.197 absolute, replacing both regimes rather than scaling them — for
+   * the reason its doc comment gives: a ratio and a level stopped being the same
+   * thing when the single amplitude became six unequal anchors.
    *
    * Extracted from the active bed's native fixtures directly —
    * `results/2026-08-31-active-bed-stage0.json` measured the gap, these numbers
@@ -1247,7 +1256,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
     liftSpanMin: 64,
     liftSpanFull: 128,
     liftBlurSigmaCss: 40,
-    reducedTransparencyOcclusion: 0.7,
+    reducedTransparencyOcclusion: 0.197,
     sizeGain: 0,
   },
 
@@ -1352,6 +1361,43 @@ export interface MaterialProfilePatch {
 }
 
 /**
+ * The names `outerShadow` no longer answers to, and what each was replaced by.
+ *
+ * `occlusion` was W8's single span-flat amplitude, and it is the leaf a caller
+ * reaches for to stand the facet down (`{ outerShadow: { occlusion: 0 } }`).
+ * W14 G1 retired it: the amplitude is a two-regime law now, and a patch naming
+ * the retired leaf would type-check nowhere but pass through JSON, get hashed
+ * into a capture cell as the configuration that ran, and render the DEFAULT
+ * shadow — a silently-measured-the-defaults failure of exactly the shape
+ * `capture-web.ts`'s unknown-key guard exists for, one level deeper.
+ *
+ * It is refused rather than mapped. A span-flat scalar is the material the
+ * measurement retired: there is no value of it that reproduces 0.33 below the
+ * knee and 0.544 above it, so translating one would be inventing a reading, and
+ * the project carries no compatibility shims.
+ */
+const RETIRED_OUTER_SHADOW_LEAVES: Readonly<Record<string, string>> = {
+  occlusion:
+    "the six amplitude anchors (thinOcclusionDark, thinOcclusionMid, " +
+    "thinOcclusionBright, thickOcclusionAt96, thickOcclusionAt128, " +
+    "thickOcclusionAt160) and liftAmplitude for the second term",
+};
+
+/** Throw if an `outerShadow` patch names a leaf W14 G1 retired (claims §5.62). */
+function rejectRetiredOuterShadowLeaves(patch: object | undefined): void {
+  if (patch === undefined) return;
+  for (const [leaf, replacement] of Object.entries(RETIRED_OUTER_SHADOW_LEAVES)) {
+    if (!(leaf in patch)) continue;
+    throw new Error(
+      `outerShadow.${leaf} was retired by W14 G1 (claims §5.62) and is replaced by ` +
+        `${replacement}. Applying this patch would have rendered the default shadow ` +
+        `while recording itself as configured. It is refused rather than mapped: a ` +
+        `single span-flat amplitude is the material the measurement retired.`,
+    );
+  }
+}
+
+/**
  * Apply a patch. This is how a calibration profile lands: C7 emits the measured
  * numbers, the host passes them here, and every constant above is replaceable
  * without touching this file.
@@ -1363,6 +1409,8 @@ export function withMaterialOverrides(
   base: MaterialProfile,
   patch: MaterialProfilePatch,
 ): MaterialProfile {
+  rejectRetiredOuterShadowLeaves(patch.outerShadow);
+
   const optics = {} as Record<MaterialVariant, MaterialOptics>;
   for (const variant of MATERIAL_VARIANTS) {
     optics[variant] = { ...base.optics[variant], ...patch.optics?.[variant] };
@@ -2244,42 +2292,45 @@ export function outerShadowLiftRise(spanPx: number, shadow: MaterialOuterShadow)
  * The outer shadow under an accessibility regime.
  *
  * One branch per axis that can reach it, on `opticsUnderPolicy`'s rule. `frost`
- * is the axis reduced transparency alone sets, and the amplitude it multiplies by
- * is measured — see `MaterialOuterShadow.reducedTransparencyOcclusion`. Under
+ * is the axis reduced transparency alone sets, and the amplitude it lands on is
+ * measured — see `MaterialOuterShadow.reducedTransparencyOcclusion`. Under
  * forced colours the material is gone, so its shadow goes with it rather than
  * outliving the surface that cast it.
  *
- * The fold multiplies all six amplitude anchors rather than the resolved number,
- * which is the same thing: the law is a convex blend of its anchors in both
- * regimes, so scaling them scales the result exactly, and doing it here keeps
+ * The fold writes ONE amplitude into all six anchors rather than scaling them,
+ * because that is what the reference does: under the preference its exterior is
+ * flat at 0.192–0.202 thin and thick together and over every backdrop, so the
+ * law's two regimes collapse onto one level and neither the backdrop keying nor
+ * the span rise survives (claims §5.62 §5). Flattening the anchors here keeps
  * one folded `MaterialOuterShadow` as the single value every caller resolves
- * from. The LIFT is stood down rather than scaled — under the preference the
- * reference's thick and thin exteriors read the same flat number, which is a
- * composite with no second term in it (claims §5.62 §5).
+ * from, and the resolved occlusion is then that level for any span, any backdrop
+ * and any thickness, since a blend between equal ends is the end. The LIFT
+ * stands down with them — a composite whose two regimes read the same number has
+ * no second term in it.
  */
 export function outerShadowUnderPolicy(
   policy: MaterialPolicyView,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): MaterialOuterShadow {
   const shadow = profile.outerShadow;
-  if (policy.glass === "none" || policy.frost === "none") return scaledOuterShadow(shadow, 0);
+  if (policy.glass === "none" || policy.frost === "none") return flatOuterShadow(shadow, 0);
   if (policy.frost === "increased") {
-    return scaledOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
+    return flatOuterShadow(shadow, shadow.reducedTransparencyOcclusion);
   }
   return shadow;
 }
 
-/** Every amplitude anchor times `factor`, with the lift stood down below 1. */
-function scaledOuterShadow(shadow: MaterialOuterShadow, factor: number): MaterialOuterShadow {
+/** Every amplitude anchor set to `amplitude`, with the lift stood down. */
+function flatOuterShadow(shadow: MaterialOuterShadow, amplitude: number): MaterialOuterShadow {
   return {
     ...shadow,
-    thinOcclusionDark: shadow.thinOcclusionDark * factor,
-    thinOcclusionMid: shadow.thinOcclusionMid * factor,
-    thinOcclusionBright: shadow.thinOcclusionBright * factor,
-    thickOcclusionAt96: shadow.thickOcclusionAt96 * factor,
-    thickOcclusionAt128: shadow.thickOcclusionAt128 * factor,
-    thickOcclusionAt160: shadow.thickOcclusionAt160 * factor,
-    liftAmplitude: factor >= 1 ? shadow.liftAmplitude : 0,
+    thinOcclusionDark: amplitude,
+    thinOcclusionMid: amplitude,
+    thinOcclusionBright: amplitude,
+    thickOcclusionAt96: amplitude,
+    thickOcclusionAt128: amplitude,
+    thickOcclusionAt160: amplitude,
+    liftAmplitude: 0,
   };
 }
 

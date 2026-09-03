@@ -967,11 +967,13 @@ describe("the outer shadow reaches the CSS tier", () => {
     }
   });
 
-  it("dims under reduced transparency and goes out under forced colours", () => {
+  it("goes flat under reduced transparency and out under forced colours", () => {
     /*
-     * MEASURED, which the charter asked for before the fold was written. The
-     * reference's shadow under reduce-transparency is the same shadow at 0.566
-     * of the amplitude — it neither vanishes nor intensifies — and the
+     * MEASURED, which the charter asked for before the fold was written. Under
+     * the preference the reference's exterior is one level — flat at 0.192–0.202,
+     * thin and thick together and over every backdrop (claims §5.62 §5) — so
+     * this tier writes the profile's `reducedTransparencyOcclusion` itself rather
+     * than a scaled anchor. It neither vanishes nor intensifies, and the
      * increased-contrast reference reproduces the reduced-transparency number to
      * four decimals, because macOS force-couples the toggles (Decision Log 8).
      */
@@ -984,6 +986,23 @@ describe("the outer shadow reaches the CSS tier", () => {
     );
     expect(reduced).toBeGreaterThan(0);
     expect(reduced).toBeLessThan(nominal);
+    const level = MATERIAL_SOURCE_OUTER_SHADOW.reducedTransparencyOcclusion;
+    expect(reduced).toBe(Math.round(outerShadowAlpha(level) * 1000) / 1000);
+    // The same level whatever the surface is standing over — a `box-shadow`
+    // written from a scaled anchor would still carry the backdrop keying the
+    // preference removes.
+    for (const backdropLuminance of [0, 0.2141, 0.891]) {
+      expect(
+        alphaOf(
+          cssTierDeclarations({
+            ...surface,
+            backdropLuminance,
+            policy: resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })),
+          }),
+        ),
+        `backdrop ${backdropLuminance}`,
+      ).toBe(reduced);
+    }
 
     // Forced colours is not a dimmer material, it is a different surface — and a
     // shadow that outlived the glass it belonged to would be the one composition
@@ -1020,6 +1039,25 @@ describe("the outer shadow reaches the CSS tier", () => {
         }),
       ),
     ).toBe("none");
+  });
+
+  it("refuses a patch that still names W8's retired single amplitude", () => {
+    /*
+     * The same refusal the renderer makes, on the same profile document — a
+     * patch one tier took and the other threw on would be a profile that means
+     * two different things. `{ outerShadow: { occlusion: 0 } }` was the way to
+     * stand the facet down and W14 G1 retired it (claims §5.62); merged in
+     * silence it would render the shipped shadow while recording itself as the
+     * configuration that ran.
+     */
+    const retired = { outerShadow: { occlusion: 0 } } as unknown as Parameters<
+      typeof sourceOuterShadow
+    >[0];
+    expect(() => sourceOuterShadow(retired)).toThrow(/outerShadow\.occlusion was retired/);
+    expect(() => sourceOuterShadow(retired)).toThrow(
+      /thinOcclusionMid.*thickOcclusionAt160.*liftAmplitude/s,
+    );
+    expect(sourceOuterShadow({ outerShadow: { thinOcclusionMid: 0 } }).thinOcclusionMid).toBe(0);
   });
 
   it("rides the size law's one curve, and is inert at the shipped gain", () => {

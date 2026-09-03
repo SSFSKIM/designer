@@ -211,21 +211,21 @@ describe("the outer shadow is a multiplicative occlusion", () => {
 });
 
 describe("the outer shadow under the accessibility regime and the size law", () => {
-  it("dims under reduced transparency by the measured factor, not by a guess", () => {
+  it("goes flat under reduced transparency at the measured level, not to six scaled anchors", () => {
     /*
-     * MEASURED. The reference's shadow under `reduce transparency` is the same
-     * shadow at 0.566 of the amplitude — 0.1830/0.3259, 0.1884/0.3309 and
-     * 0.1882/0.3314 on the three structured backdrops at a 44 px span, with the
-     * three lengths unmoved. It neither vanishes nor intensifies.
+     * MEASURED (claims §5.62 §5). Under increased contrast and reduced
+     * transparency alike the reference's exterior is flat at 0.192–0.202 — thin
+     * and thick together, over every backdrop it can be read on — so the
+     * preference removes the material's adaptation and leaves ONE level. The
+     * three lengths are unmoved; the shadow neither vanishes nor intensifies.
      */
     const nominal = outerShadowUnderPolicy(policy());
     expect(nominal).toEqual(OUTER_SHADOW);
 
     const reduced = outerShadowUnderPolicy(policy({ frost: "increased" }));
-    // Every amplitude anchor folds by the one measured factor, and the LIFT
-    // stands down: W14 G0 re-read the preference on the wider bed and found the
-    // reference flat at 0.192-0.202 thin and thick together, which is a
-    // composite with no second term left in it.
+    // Every amplitude anchor becomes the same measured level, and the LIFT
+    // stands down: a composite whose two regimes read one number has no second
+    // term left in it.
     for (const key of [
       "thinOcclusionDark",
       "thinOcclusionMid",
@@ -234,23 +234,28 @@ describe("the outer shadow under the accessibility regime and the size law", () 
       "thickOcclusionAt128",
       "thickOcclusionAt160",
     ] as const) {
-      expect(reduced[key], key).toBeCloseTo(
-        OUTER_SHADOW[key] * OUTER_SHADOW.reducedTransparencyOcclusion,
-        12,
-      );
+      expect(reduced[key], key).toBe(OUTER_SHADOW.reducedTransparencyOcclusion);
     }
-    /*
-     * 0.33 x 0.70 = 0.231 against the reference's directly measured 0.192-0.202
-     * (claims §5.62 §5) — the fold is now 15% high, because 0.70 was fitted
-     * against W8's single 0.285 and the mid anchor has moved. 0.60 would land
-     * 0.198. The value is NOT changed here: W14 G1 builds the law and the sweep
-     * fits it, and this assertion records the gap rather than hiding it, so the
-     * fit has a number to move off.
-     */
-    expect(reduced.thinOcclusionMid).toBeCloseTo(0.231, 12);
     expect(reduced.liftAmplitude).toBe(0);
-    expect(reduced.thinOcclusionMid).toBeGreaterThan(0);
+    expect(reduced.thinOcclusionMid).toBeCloseTo(0.197, 12);
     expect(reduced.thinOcclusionMid).toBeLessThan(nominal.thinOcclusionMid);
+
+    /*
+     * And the flatness is the point rather than a property of the anchors: the
+     * resolved occlusion is that one level whatever the backdrop, the span and
+     * the thickness are. A multiplier could not do this — it keeps exactly the
+     * variation the preference removes, and 0.544 × 0.70 would put a span-160
+     * surface at 0.38 against the reference's 0.20.
+     */
+    for (const backdrop of [0, 0.0117, 0.2141, 0.5, 0.891, 1]) {
+      for (const span of [32, 44, 96, 128, 160, 4000]) {
+        expect(
+          outerShadowOcclusionAt(reduced, backdrop, span, sizeThickness(span)),
+          `backdrop ${backdrop} / span ${span}`,
+        ).toBeCloseTo(OUTER_SHADOW.reducedTransparencyOcclusion, 12);
+      }
+    }
+
     // Only the amplitude moves. The reference's sigma, offset and spread read the
     // same under the preference as without it.
     expect(reduced.sigmaPx).toBe(nominal.sigmaPx);
@@ -270,13 +275,17 @@ describe("the outer shadow under the accessibility regime and the size law", () 
     }
   });
 
-  it("takes its multiplier from the profile that is drawing, not from the shipped one", () => {
+  it("takes the preference's level from the profile that is drawing, not from the shipped one", () => {
     const patched = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
       outerShadow: { thinOcclusionMid: 0.5, reducedTransparencyOcclusion: 0.25 },
     });
+    // The patched level itself, not the patched level times anything: a profile
+    // states what its material does under the preference, and the dark profile
+    // states a different number from the light one because the two schemes'
+    // materials cast different shadows.
     expect(
       outerShadowUnderPolicy(policy({ frost: "increased" }), patched).thinOcclusionMid,
-    ).toBeCloseTo(0.125, 12);
+    ).toBeCloseTo(0.25, 12);
     // A partial patch keeps every field it does not name — the renderer's own
     // merge rule, and what makes a one-constant calibration patch legal.
     expect(patched.outerShadow.sigmaPx).toBe(OUTER_SHADOW.sigmaPx);
@@ -304,6 +313,39 @@ describe("the outer shadow under the accessibility regime and the size law", () 
     // Relative to the remaining headroom, like every other occlusion gain in the
     // profile, so it cannot take a nearly-opaque shadow past opacity.
     expect(sizeOuterShadowOcclusion(1, 4000, gained)).toBeCloseTo(1, 12);
+  });
+
+  it("refuses a patch that still names W8's retired single amplitude", () => {
+    /*
+     * `{ outerShadow: { occlusion: 0 } }` was the way to stand the facet down,
+     * and it is the shape a saved JSON profile or a JavaScript caller still has.
+     * TypeScript rejects it at a call site that has types; nothing did at the
+     * runtime boundary, so it merged into a patch that named no amplitude, was
+     * hashed into a capture cell as the configuration that ran, and rendered the
+     * DEFAULT shadow — the silently-measured-the-defaults failure, one level
+     * below where the profile reader's guard was looking.
+     *
+     * It is refused rather than mapped: no value of a span-flat scalar is 0.33
+     * below the knee and 0.544 above it, so a translation would be a reading
+     * nobody took.
+     */
+    const retired = { outerShadow: { occlusion: 0 } } as unknown as Parameters<
+      typeof withMaterialOverrides
+    >[1];
+    expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, retired)).toThrow(
+      /outerShadow\.occlusion was retired/,
+    );
+    // The message has to name what replaced it, or the caller is told only that
+    // their profile is wrong.
+    expect(() => withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, retired)).toThrow(
+      /thinOcclusionMid.*thickOcclusionAt160.*liftAmplitude/s,
+    );
+    // And the six anchors themselves still merge, so the guard is on the retired
+    // name rather than on the block.
+    expect(
+      withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, { outerShadow: { thinOcclusionMid: 0 } })
+        .outerShadow.thinOcclusionMid,
+    ).toBe(0);
   });
 });
 
