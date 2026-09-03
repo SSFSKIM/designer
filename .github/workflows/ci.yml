@@ -49,6 +49,11 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # The suites import the built workspace packages (`@vitreajs/vitrea`,
+      # `@vitrea/policy`, …) through their `dist/`, so the host and everything it
+      # depends on is built first. `...` selects the dependencies too.
+      - run: pnpm --filter "@vitreajs/vitrea-web..." --fail-if-no-match build
+
       # A separate job rather than a step of `verify`, and separate from
       # `pnpm -r test`, because three browser engines are a heavy dependency to
       # put in front of every package's unit suite. C5's acceptance lives here:
