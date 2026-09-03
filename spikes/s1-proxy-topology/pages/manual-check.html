@@ -115,9 +115,52 @@ compositing.</p>
 brighter?</p>
 <div class="row" id="sec-g1"></div>
 
+<h2>H · The two-layer body — sibling <code>opacity</code>, <code>mask-image</code> and
+<code>plus-lighter</code> on a filtered layer</h2>
+<p>vitrea's CSS tier is moving from one <code>backdrop-filter</code> on the host to
+<b>two sibling filtered layers</b> — a sharp one and a heavy one drawn after it, so
+that the second filters the first's output and the pair composes the reference's
+two-component body (W16). The second layer's weight has to be carried by
+something, and the lift wants an <i>additive</i> ring. These four questions ask
+which of those an engine actually performs; Chromium's own answers are recorded
+in W16 G0 and are noted under each question so a divergence is visible.</p>
+<p>Flat <code>#3a5a80</code> ground and <code>brightness(1.25)</code> everywhere, no
+blur — so each answer is exact arithmetic against a swatch and not a judgement.
+Both layers are <code>brightness(1.25)</code>; the second filters the first's
+output, so the heavy component is <code>1.25 x 1.25</code> of the ground.</p>
+
+<p class="q">H1 — Sibling <code>opacity</code>. The second layer's weight is
+<code>opacity: 0.4</code>. Does the band match swatch <b>BOTH</b>, <b>SHARP&nbsp;ONLY</b>
+or <b>HEAVY&nbsp;FULL</b>? (Chromium: BOTH.)</p>
+<div class="row" id="sec-h1"></div>
+<div class="swrow" id="sec-h1-sw"></div>
+
+<p class="q">H2 — <code>mask-image</code> on the filtered layer. The same weight,
+carried by a uniform <code>mask-image</code> of alpha 0.4 instead of
+<code>opacity</code>. Same three swatches: <b>BOTH</b> means the mask and the
+filter compose; <b>SHARP ONLY</b> means the mask killed the filter; <b>HEAVY
+FULL</b> means the mask was ignored. (Chromium: BOTH.)</p>
+<div class="row" id="sec-h2"></div>
+
+<p class="q">H3 — <code>mix-blend-mode: plus-lighter</code> on a filtered layer.
+One layer, <code>backdrop-filter: brightness(1.25)</code>, <code>opacity: 0.4</code>,
+<code>mix-blend-mode: plus-lighter</code>. Does the band match <b>NOT&nbsp;ADDED</b>
+(the ordinary source-over result) or <b>ADDED</b>? (Chromium: NOT ADDED — the
+blend mode blends the element's own content, which an empty layer has none of, so
+it never reaches the filter's output.)</p>
+<div class="row" id="sec-h3"></div>
+<div class="swrow" id="sec-h3-sw"></div>
+
+<p class="q">H4 — a blended <b>parent</b> around the filtered layer. The filter is
+on a child; <code>mix-blend-mode: plus-lighter</code> is on its parent. Does the
+band match <b>INERT</b> (exactly the bare ground, i.e. the parent re-rooted the
+backdrop and the child's filter saw nothing) or <b>ADDED</b>? (Chromium: INERT.)</p>
+<div class="row" id="sec-h4"></div>
+<div class="swrow" id="sec-h4-sw"></div>
+
 <h2>Reporting back</h2>
 <p>Please report the browser and its exact version, then one line each for A1, A2,
-B1, B2, C1, D1, E1, F1, F2, F3, G1.</p>
+B1, B2, C1, D1, E1, F1, F2, F3, G1, H1, H2, H3, H4.</p>
 
 <script>
 // ---------------------------------------------------------------- geometry
@@ -425,6 +468,90 @@ tile('proxy + tint layer above it', () => {
     width: '130px', height: '70px', marginTop: '45px',
   }));
   document.getElementById('sec-g1').appendChild(cell);
+}
+
+// ---------------------------------------------------------------- H1-H4 (W16)
+// The two-layer body's carriers. Everything here is on the flat ground with
+// brightness filters, so every answer is a swatch match rather than a judgement,
+// and the swatches are computed from FLAT rather than written down.
+{
+  const B = 1.25, A = 0.4;
+  const px = (c, k) => Math.min(255, Math.round(c * k));
+  const rgb = (k) => `rgb(${px(FLAT.r, k)},${px(FLAT.g, k)},${px(FLAT.b, k)})`;
+  const mix = (k1, k2, a) => `rgb(${Math.round(px(FLAT.r, k1) * (1 - a) + px(FLAT.r, k2) * a)},`
+    + `${Math.round(px(FLAT.g, k1) * (1 - a) + px(FLAT.g, k2) * a)},`
+    + `${Math.round(px(FLAT.b, k1) * (1 - a) + px(FLAT.b, k2) * a)})`;
+  const add = (k1, k2, a) => `rgb(${Math.min(255, Math.round(px(FLAT.r, k1) + px(FLAT.r, k2) * a))},`
+    + `${Math.min(255, Math.round(px(FLAT.g, k1) + px(FLAT.g, k2) * a))},`
+    + `${Math.min(255, Math.round(px(FLAT.b, k1) + px(FLAT.b, k2) * a))})`;
+
+  const swatches = (host, entries) => {
+    const row = document.getElementById(host);
+    for (const [name, colour] of entries) {
+      const cell = el('div');
+      cell.appendChild(el('div', 'lab', null, name));
+      cell.appendChild(el('div', 'sw', { background: colour, width: '130px', height: '54px' }));
+      row.appendChild(cell);
+    }
+  };
+
+  // One filtered layer over the whole band; `extra` is what carries its weight.
+  const filteredBand = (extra) => {
+    const n = el('div', 'proxy', {
+      left: BAND.x + 'px', top: BAND.y + 'px', width: BAND.w + 'px', height: BAND.h + 'px',
+      backdropFilter: `brightness(${B})`, WebkitBackdropFilter: `brightness(${B})`,
+    });
+    Object.assign(n.style, extra);
+    return n;
+  };
+
+  const twoLayer = (weight) => () => {
+    const f = flat();
+    const plane = el('div', 'plane');
+    plane.appendChild(filteredBand({}));
+    plane.appendChild(filteredBand(weight));
+    f.appendChild(plane);
+    return f;
+  };
+
+  tile('two layers, second at opacity 0.4', twoLayer({ opacity: String(A) }),
+       document.getElementById('sec-h1'));
+  swatches('sec-h1-sw', [
+    ['BOTH', mix(B, B * B, A)],
+    ['SHARP ONLY', rgb(B)],
+    ['HEAVY FULL', rgb(B * B)],
+  ]);
+
+  const MASK = `linear-gradient(rgba(0,0,0,${A}), rgba(0,0,0,${A}))`;
+  tile('two layers, second masked at alpha 0.4',
+       twoLayer({ maskImage: MASK, WebkitMaskImage: MASK }),
+       document.getElementById('sec-h2'));
+
+  tile('one filtered layer, plus-lighter, opacity 0.4', () => {
+    const f = flat();
+    const plane = el('div', 'plane');
+    plane.appendChild(filteredBand({ mixBlendMode: 'plus-lighter', opacity: String(A) }));
+    f.appendChild(plane);
+    return f;
+  }, document.getElementById('sec-h3'));
+  swatches('sec-h3-sw', [['NOT ADDED', mix(1, B, A)], ['ADDED', add(1, B, A)]]);
+
+  tile('filtered child inside a plus-lighter parent', () => {
+    const f = flat();
+    const plane = el('div', 'plane');
+    const outer = el('div', null, {
+      position: 'absolute', left: BAND.x + 'px', top: BAND.y + 'px',
+      width: BAND.w + 'px', height: BAND.h + 'px', mixBlendMode: 'plus-lighter',
+    });
+    outer.appendChild(el('div', null, {
+      position: 'absolute', inset: '0',
+      backdropFilter: `brightness(${B})`, WebkitBackdropFilter: `brightness(${B})`,
+    }));
+    plane.appendChild(outer);
+    f.appendChild(plane);
+    return f;
+  }, document.getElementById('sec-h4'));
+  swatches('sec-h4-sw', [['INERT', rgb(1)], ['ADDED', add(1, B, 1)]]);
 }
 </script>
 </div></body></html>
