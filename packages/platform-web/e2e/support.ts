@@ -7,6 +7,7 @@ import {
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
   requiredSamplingPadding,
+  CSS_TIER_RAMP_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
 } from "../src/optics";
@@ -132,19 +133,26 @@ export function expectByteIdentical(a: Rgb, b: Rgb, what: string): void {
 }
 
 /**
- * The σ a group's proxy blurs with and the 3σ padding floor that follows from
- * it, derived the way `root.ts` derives them: the material's base σ under the
- * accessibility fold, scattered by the size law at the group's widest member.
+ * The blur the CSS tier will write for a member of this span and box, and the
+ * 3σ sampling padding `root.ts` takes over it — derived from the same optics
+ * module the runtime uses rather than written down, so the specs assert the
+ * mechanism and not a material.
  *
- * Specs compute their expected boxes from this rather than from literals. The
- * literals they carried — "σ = 8, so the floor is 24" — were the material of
- * August: `blurSigma` moved 8 → 3 before 0.2.0 and to 1.25 with W11c G1, and
- * the CI integration job matched no package from the W5a rename until the 0.3.0
- * release chain, so nothing said so. A literal here would go stale the same way
- * again; the law cannot.
+ * At the 1x law, whatever ratio the page composites at (W13 Decision Log 5):
+ * the CSS tier has no device-scale input, so `Desktop Safari` at ratio 2 and
+ * `Desktop Chrome` at 1 get the same σ, and a spec that divided its expectation
+ * by the page's ratio would assert half the width the proxy writes and call it
+ * an engine defect.
  */
 export function expectedProxyBlur(options: {
   readonly spanPx: number;
+  /**
+   * The member's own width and height. The ramp's projection is its area
+   * average over the member's box (W13 G1), so a 120×40 fixture projects a
+   * different σ from a 40×40 square of the same span; a spec that omits this
+   * asserts the square's number against a runtime that renders the box's.
+   */
+  readonly extentsCssPx?: readonly [number, number];
   readonly reducedTransparency?: boolean;
 }): { readonly sigma: number; readonly padding: number } {
   const policy = resolveAccessibilityPolicy(
@@ -160,10 +168,14 @@ export function expectedProxyBlur(options: {
   const folded = opticsUnderPolicy(MATERIAL_OPTICS.regular, policy);
   const sigma = sizeScatterSigmaAt(
     folded.blurRadius,
+    // The projection at the scale the CSS tier reads it at, which is what
+    // `root.ts` takes the padding floor over — see `CSS_TIER_RAMP_SCALE`.
     scatterThickness(
       options.spanPx,
       MATERIAL_SOURCE_SIZE.refractionScale[accessibilityRefractionCap(policy)],
       MATERIAL_SOURCE_SIZE,
+      CSS_TIER_RAMP_SCALE,
+      options.extentsCssPx,
     ),
     MATERIAL_SOURCE_SIZE,
   );

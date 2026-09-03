@@ -3,6 +3,8 @@ import { describe, expect, it, vi } from "vitest";
 import {
   ACCESSIBILITY_MEDIA_QUERIES,
   observeAccessibilityPreferences,
+  observeDevicePixelRatio,
+  browserMediaMatcher,
   type MediaMatcher,
 } from "../src/media-policy";
 
@@ -15,7 +17,12 @@ import {
 function fakeMatcher(
   active: readonly string[],
   unsupported: readonly string[] = [],
-): { matcher: MediaMatcher; fire: (query: string, matches: boolean) => void } {
+): {
+  matcher: MediaMatcher;
+  fire: (query: string, matches: boolean) => void;
+  /** The queries with a live listener right now — what re-arming is visible as. */
+  armed: () => string[];
+} {
   const listeners = new Map<string, Set<(event: { matches: boolean }) => void>>();
   const states = new Map<string, boolean>();
 
@@ -44,6 +51,8 @@ function fakeMatcher(
       states.set(query, matches);
       for (const listener of listeners.get(query) ?? []) listener({ matches });
     },
+    armed: () =>
+      [...listeners.entries()].filter(([, set]) => set.size > 0).map(([query]) => query),
   };
 }
 
@@ -121,3 +130,86 @@ describe("the media-query policy feed (§Accessibility policy)", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 });
+
+/*
+ * The device-pixel-ratio feed (W12 G3, claims §5.56). The CSS tier's body is a
+ * device-pixel quantity, so a change of the ratio is a change of the material
+ * this tier paints — and a `(resolution: <dpr>dppx)` query can fire only once,
+ * because it names the ratio that has just stopped being current. Re-arming is
+ * therefore the whole mechanism, and it is what these pin.
+ */
+describe("the device-pixel-ratio feed (W12 G3)", () => {
+  it("arms a query on the current ratio", () => {
+    const { matcher, armed } = fakeMatcher([]);
+    const feed = observeDevicePixelRatio({ matcher, read: () => 2, onChange: () => {} });
+
+    expect(feed.devicePixelRatio).toBe(2);
+    expect(armed()).toEqual(["(resolution: 2dppx)"]);
+    feed.stop();
+  });
+
+  it("re-arms on the new ratio and keeps hearing about further changes", () => {
+    const onChange = vi.fn();
+    let ratio = 1;
+    const { matcher, armed, fire } = fakeMatcher([]);
+    const feed = observeDevicePixelRatio({ matcher, read: () => ratio, onChange });
+
+    ratio = 2;
+    fire("(resolution: 1dppx)", false);
+    expect(onChange).toHaveBeenNthCalledWith(1, 2);
+    expect(feed.devicePixelRatio).toBe(2);
+    expect(armed()).toEqual(["(resolution: 2dppx)"]);
+
+    // The second move is the one a listener that did not re-arm would miss.
+    ratio = 3;
+    fire("(resolution: 2dppx)", false);
+    expect(onChange).toHaveBeenNthCalledWith(2, 3);
+    expect(feed.devicePixelRatio).toBe(3);
+    expect(armed()).toEqual(["(resolution: 3dppx)"]);
+
+    // And the query it left behind is dead, so a stale one cannot report again.
+    fire("(resolution: 1dppx)", false);
+    expect(onChange).toHaveBeenCalledTimes(2);
+    feed.stop();
+  });
+
+  it("stops listening when it is stopped", () => {
+    const onChange = vi.fn();
+    const { matcher, armed, fire } = fakeMatcher([]);
+    const feed = observeDevicePixelRatio({ matcher, read: () => 1, onChange });
+
+    feed.stop();
+    expect(armed()).toEqual([]);
+    fire("(resolution: 1dppx)", false);
+    expect(onChange).not.toHaveBeenCalled();
+  });
+});
+
+describe("browserMediaMatcher", () => {
+  it("registers its queries on the SUPPLIED window, not the ambient one", () => {
+    // A root created for an iframe or a popup reads that window's ratio, so the
+    // resolution query that wakes the dpr feed has to live there too; a query
+    // on the ambient window never fires for a display change the supplied
+    // window saw (review, W13 G1).
+    const asked: string[] = [];
+    const view = {
+      matchMedia: (query: string): MediaQueryList => {
+        asked.push(query);
+        return {
+          matches: false,
+          media: query,
+          addEventListener: () => {},
+          removeEventListener: () => {},
+        } as unknown as MediaQueryList;
+      },
+    };
+    const feed = observeDevicePixelRatio({
+      matcher: browserMediaMatcher(view),
+      read: () => 2,
+      onChange: () => {},
+    });
+    expect(asked).toEqual(["(resolution: 2dppx)"]);
+    feed.stop();
+  });
+});
+

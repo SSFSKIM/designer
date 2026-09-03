@@ -47,6 +47,7 @@ import {
   opticsUnderPolicy,
   outerShadowUnderPolicy,
   sizeOcclusionAlphaAt,
+  CSS_TIER_RAMP_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
   sizeThicknessUnderPolicy,
@@ -155,6 +156,19 @@ export interface CssTierSurface {
    * itself, and inventing a span would make a small control render as a slab.
    */
   readonly spanPx?: number;
+  /**
+   * The surface's measured border box in CSS px, `[width, height]` — the
+   * extents the depth ramp's projection is integrated over (W13 G1).
+   *
+   * `spanPx` alone cannot say what the surface's area is, and the projection is
+   * an area average: a 320×44 toolbar has far more of its area within the ramp's
+   * reach of a contour than a 44×44 square does, so the two carry different
+   * mixes even though their span is one number and the same. Where a caller has
+   * measured the host it should declare both; absent, `scatterRampAreaMean`
+   * falls back to a square of the span, which is exactly right on a square and
+   * an over-estimate of the deep area on a strip.
+   */
+  readonly extentsCssPx?: readonly [number, number];
   /**
    * The size-law constants `spanPx` is resolved against — the profile's, when the
    * root carries a patch. Defaults to the shipped mirror, like `mapping`.
@@ -350,10 +364,36 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
     surface.spanPx === undefined
       ? 0
       : sizeThicknessUnderPolicy(surface.spanPx, policy.material, size);
-  // The scatter facet's own curve (W11c): a floor on any surface with a span,
-  // rising under the same fold as the thickness — so a spanless surface still
-  // keeps `policyOptics` untouched, and a small one with a span frosts at the
-  // floor rather than at nothing.
+  /*
+   * The scatter facet (W11c; W13 G1's ramp): a floor on any surface with a span,
+   * rising under the same fold as the thickness — so a spanless surface still
+   * keeps `policyOptics` untouched, and a small one with a span frosts at the
+   * floor rather than at nothing.
+   *
+   * The mix is the depth ramp's per-surface projection over the surface's own
+   * measured extents, because one `backdrop-filter` has one σ and cannot carry a
+   * ramp and because the projection is an area average and a strip is not a
+   * square (`extentsCssPx`). It is read at
+   * `CSS_TIER_RAMP_SCALE` — dpr 1 — rather than at the ratio this tier is
+   * composited at: W13 Decision Log 1's question 2 answers (a), that the CSS
+   * tier renders the 1x material and its 2x rows stay held by decision, because
+   * the measurement says this tier's own best single σ is LARGER in CSS px at 2x
+   * (§5.55 §5) and following the device-pixel projection would move its rows the
+   * way the measurement says is wrong.
+   *
+   * **The width is read at the same scale, by the same decision (W13 Decision
+   * Log 5, user-decided).** The candidate this wave inherited divided the
+   * tier's σ by the device pixel ratio, mirroring the GPU tier's device-pixel
+   * widths (claims §5.56); the dry run on the W14 bed measured what that does
+   * to this tier at 2x — `checkerboard__rrect-lg` `ssimMean` −0.047, four of
+   * the dom tier's regression floors broken, the interior's standard deviation
+   * from 0.026 to 0.143 against Apple's 0.081 — which is the direction §5.55
+   * §5 predicted, on the rows the decision holds. So this tier has no device
+   * scale input at all: it renders the 1x material at every ratio, its 2x rows
+   * are held by decision rather than fitted, and the argument that would move
+   * either the mix or the width to the device scale here is the one that has
+   * to overturn that measurement first.
+   */
   const scatterK =
     surface.spanPx === undefined
       ? 0
@@ -361,7 +401,13 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
           surface.spanPx,
           size.refractionScale[accessibilityRefractionCap(policy.material)],
           size,
+          CSS_TIER_RAMP_SCALE,
+          surface.extentsCssPx,
         );
+  // A zero mix is the policy optics unchanged: with no device scale in this
+  // tier there is nothing else the width could be divided by, so the fast path
+  // is exact at every ratio (the review's finding that it skipped a division at
+  // dpr 2 described the candidate's tier, not this one).
   const optics: MaterialOptics =
     sizeK === 0 && scatterK === 0
       ? policyOptics

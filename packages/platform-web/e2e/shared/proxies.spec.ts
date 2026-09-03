@@ -1,6 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-import { expectBox, expectedProxyBlur, gotoHarness, paddedBox } from "../support";
+import {
+  expectBox,
+  expectedProxyBlur,
+  gotoHarness,
+  paddedBox,
+} from "../support";
 
 test.beforeEach(async ({ page }) => {
   await gotoHarness(page);
@@ -78,7 +83,10 @@ test.describe("one masked proxy per sampling group", () => {
     // The floor is 3σ at the blur this group actually draws with — the material's
     // σ scattered by the size law at the member's 40 px span — not the authored 4.
     // Derived rather than written down: see `expectedProxyBlur`.
-    const { padding } = expectedProxyBlur({ spanPx: 40 });
+    const { padding } = expectedProxyBlur({
+      spanPx: 40,
+      extentsCssPx: [120, 40],
+    });
     expect(padding).toBeGreaterThan(4);
     expectBox(result.box, paddedBox({ x: 300, y: 300, width: 120, height: 40 }, padding));
     expect(result.codes).toContain("sampling-padding-below-3-sigma");
@@ -100,7 +108,10 @@ test.describe("one masked proxy per sampling group", () => {
     // The proxy is the CSS tier's blur in another position, so it carries the
     // same σ an in-place surface of this span renders with (W11c G1), and the
     // number is written exactly as the runtime computes it.
-    const { sigma } = expectedProxyBlur({ spanPx: 40 });
+    const { sigma } = expectedProxyBlur({
+      spanPx: 40,
+      extentsCssPx: [120, 40],
+    });
     expect(inline).toContain(`backdrop-filter:blur(${sigma}px) saturate(1.8)`);
     expect(inline).toContain(`-webkit-backdrop-filter:blur(${sigma}px) saturate(1.8)`);
     expect(inline).toContain("clip-path:");

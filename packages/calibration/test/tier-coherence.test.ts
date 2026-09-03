@@ -64,6 +64,10 @@ import {
   resolvedPolicyFold,
   resolvedTintShade,
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
+  scatterRampAreaMean as cssScatterRampAreaMean,
+  scatterRampReachDevicePx as cssScatterRampReachDevicePx,
+  scatterRampStart as cssScatterRampStart,
+  scatterSharpShare as cssScatterSharpShare,
   scatterThickness as cssScatterThickness,
   sizeScatterSigma as cssSizeScatterSigma,
   sizeScatterSigmaAt as cssSizeScatterSigmaAt,
@@ -99,6 +103,10 @@ import {
   sizeOuterShadowOcclusionAt as rendererSizeOuterShadowOcclusionAt,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
+  scatterRampAreaMean as rendererScatterRampAreaMean,
+  scatterRampReachDevicePx as rendererScatterRampReachDevicePx,
+  scatterRampStart as rendererScatterRampStart,
+  scatterSharpShare as rendererScatterSharpShare,
   scatterThickness as rendererScatterThickness,
   sizeScatterSigma as rendererSizeScatterSigma,
   sizeScatterSigmaAt as rendererSizeScatterSigmaAt,
@@ -439,8 +447,29 @@ describe("tier coherence (K5)", () => {
       DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax,
     );
     expect(MATERIAL_SOURCE_SIZE.sizeScatterFloor).toBe(DEFAULT_MATERIAL_PROFILE.sizeScatterFloor);
-    expect(MATERIAL_SOURCE_SIZE.sizeScatterSpanMax).toBe(
-      DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax,
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick1x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThin2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartThick2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar1x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar1x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampStartFar2x).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar2x,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampReach1xPx).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx,
+    );
+    expect(MATERIAL_SOURCE_SIZE.sizeScatterRampReach2xPx).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach2xPx,
     );
     expect(MATERIAL_SOURCE_SIZE.sizeOcclusionGain).toBe(DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain);
 
@@ -449,7 +478,14 @@ describe("tier coherence (K5)", () => {
       sizeSpanMax: 200,
       sizeScatterGainMax: 2.5,
       sizeScatterFloor: 0.25,
-      sizeScatterSpanMax: 320,
+      sizeScatterRampStartThin1x: 0.7,
+      sizeScatterRampStartThick1x: 0.55,
+      sizeScatterRampStartThin2x: 0.3,
+      sizeScatterRampStartThick2x: 0.15,
+      sizeScatterRampStartFar1x: 0.45,
+      sizeScatterRampStartFar2x: 0.1,
+      sizeScatterRampReach1xPx: 90,
+      sizeScatterRampReach2xPx: 130,
       sizeOcclusionGain: 0.4,
     };
     const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
@@ -458,7 +494,14 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeSpanMax).toBe(profile.sizeSpanMax);
     expect(mirrored.sizeScatterGainMax).toBe(profile.sizeScatterGainMax);
     expect(mirrored.sizeScatterFloor).toBe(profile.sizeScatterFloor);
-    expect(mirrored.sizeScatterSpanMax).toBe(profile.sizeScatterSpanMax);
+    expect(mirrored.sizeScatterRampStartThin1x).toBe(profile.sizeScatterRampStartThin1x);
+    expect(mirrored.sizeScatterRampStartThick1x).toBe(profile.sizeScatterRampStartThick1x);
+    expect(mirrored.sizeScatterRampStartThin2x).toBe(profile.sizeScatterRampStartThin2x);
+    expect(mirrored.sizeScatterRampStartThick2x).toBe(profile.sizeScatterRampStartThick2x);
+    expect(mirrored.sizeScatterRampStartFar1x).toBe(profile.sizeScatterRampStartFar1x);
+    expect(mirrored.sizeScatterRampStartFar2x).toBe(profile.sizeScatterRampStartFar2x);
+    expect(mirrored.sizeScatterRampReach1xPx).toBe(profile.sizeScatterRampReach1xPx);
+    expect(mirrored.sizeScatterRampReach2xPx).toBe(profile.sizeScatterRampReach2xPx);
     expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
     // And the patch really moved them, so none of the equalities above is the
     // default agreeing with itself.
@@ -466,38 +509,151 @@ describe("tier coherence (K5)", () => {
   });
 
   /*
-   * The scatter facet's own curve (W11c, claims §5.41): a floor at any span and
-   * a band top past the thickness curve's, folded on the rise and not on the
-   * floor. One function shape on both tiers, pinned over spans and folds, on
-   * the shipped profile AND on a patch — so a retune of the floor or the top
-   * moves the CSS tier's `blur()` and the GPU tier's chain mix together.
+   * The body's depth ramp and its projection (W13 G1, claims §5.61 §2). The GPU
+   * tier mixes per pixel and the CSS tier has one `blur()`, so what has to be
+   * one law across the seam is the ramp itself AND the area average the CSS tier
+   * renders in its place — a drift in either would make a demoted platter
+   * scatter differently from the one the GPU tier was drawing a frame earlier,
+   * which is K5's defect on the axis the reference's own kernel lives on.
+   * Pinned over dpr ∈ {1, 1.5, 2, 3} and spans across the band, on the shipped
+   * profile AND on a patch, so a sweep that fits the six constants moves both
+   * mirrors together.
    */
-  it("mixes toward the heavy blur by the same scatter thickness on both tiers", () => {
+  it("mixes toward the heavy blur by the same depth ramp on both tiers", () => {
     const patches = [
       undefined,
-      { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 6, sizeScatterFloor: 0.25, sizeScatterSpanMax: 320 },
+      {
+        sizeSpanMin: 40,
+        sizeSpanMax: 200,
+        sizeScatterGainMax: 6,
+        sizeScatterFloor: 0.25,
+        sizeScatterSpanMax: 320,
+        sizeScatterRampStartThin1x: 0.7,
+        sizeScatterRampStartThick1x: 0.55,
+        sizeScatterRampStartThin2x: 0.3,
+        sizeScatterRampStartThick2x: 0.15,
+        sizeScatterRampStartFar1x: 0.45,
+        sizeScatterRampStartFar2x: 0.1,
+        sizeScatterRampReach1xPx: 90,
+        sizeScatterRampReach2xPx: 130,
+      },
     ] as const;
+    const SPANS = [32, 44, 96, 128, 160, 256] as const;
+    const RATIOS = [1, 1.5, 2, 3] as const;
     for (const patch of patches) {
       const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch ?? {});
       const mirrored = sourceSize(patch);
-      for (const span of [24, 32, 44, 96, 128, 160, 256, 400]) {
-        for (const fold of [0, 0.45, 1]) {
-          const css = cssScatterThickness(span, fold, mirrored);
-          const gpu = rendererScatterThickness(span, fold, profile);
-          expect(css, `span ${span} fold ${fold}`).toBeCloseTo(gpu, 12);
-          expect(cssSizeScatterSigmaAt(1.25, css, mirrored), `σ at span ${span} fold ${fold}`).toBeCloseTo(
-            rendererSizeScatterSigmaAt(1.25, gpu, profile),
+      for (const dpr of RATIOS) {
+        // The law itself, before any projection: the two anchors and the share
+        // at a spread of depths through the reach.
+        // s₀ grades with the span since the third form, so the mirror is
+        // pinned across the span axis and not only at the thin end.
+        for (const span of [0, 32, 44, 64, 96, 160, 400]) {
+          expect(
+            cssScatterRampStart(dpr, mirrored, span),
+            `s0 at span ${span} dpr ${dpr}`,
+          ).toBeCloseTo(rendererScatterRampStart(dpr, profile, span), 12);
+        }
+        expect(cssScatterRampReachDevicePx(dpr, mirrored), `U at dpr ${dpr}`).toBe(
+          rendererScatterRampReachDevicePx(dpr, profile),
+        );
+        // The share is a function of the depth AND the span since the ramp was
+        // re-formed onto the span curve, so both axes are swept here.
+        for (const u of [0, 4, 12, 24, 48, 96, 200, 400]) {
+          for (const span of [0, 44, 160, 400]) {
+            expect(
+              cssScatterSharpShare(u, dpr, mirrored, span),
+              `s(${u}) at span ${span} dpr ${dpr}`,
+            ).toBeCloseTo(rendererScatterSharpShare(u, dpr, profile, span), 12);
+          }
+        }
+        for (const span of SPANS) {
+          expect(
+            cssScatterRampAreaMean(span, mirrored, dpr),
+            `projection at span ${span} dpr ${dpr}`,
+          ).toBeCloseTo(rendererScatterRampAreaMean(span, profile, dpr), 12);
+          // And over the surface's own extents, which is what the CSS tier
+          // declares for a measured host: a strip is not a square of its span.
+          for (const extents of [[span, span], [span * 4, span], [span, span * 7]] as const) {
+            expect(
+              cssScatterRampAreaMean(span, mirrored, dpr, extents),
+              `projection at ${extents[0]}x${extents[1]} dpr ${dpr}`,
+            ).toBeCloseTo(rendererScatterRampAreaMean(span, profile, dpr, extents), 12);
+            expect(
+              cssScatterThickness(span, 1, mirrored, dpr, extents),
+              `thickness at ${extents[0]}x${extents[1]} dpr ${dpr}`,
+            ).toBeCloseTo(rendererScatterThickness(span, 1, profile, dpr, extents), 12);
+          }
+          for (const fold of [0, 0.45, 1]) {
+            const label = `span ${span} fold ${fold} dpr ${dpr}`;
+            const css = cssScatterThickness(span, fold, mirrored, dpr);
+            const gpu = rendererScatterThickness(span, fold, profile, dpr);
+            expect(css, label).toBeCloseTo(gpu, 12);
+            expect(cssSizeScatterSigmaAt(1.25, css, mirrored), `σ at ${label}`).toBeCloseTo(
+              rendererSizeScatterSigmaAt(1.25, gpu, profile),
+              12,
+            );
+            expect(
+              cssSizeScatterSigma(1.25, span, mirrored, dpr),
+              `span form at ${label}`,
+            ).toBeCloseTo(rendererSizeScatterSigma(1.25, span, profile, dpr), 12);
+          }
+          // The floor is unfolded on both tiers: fold 0 leaves it, and only it.
+          expect(cssScatterThickness(span, 0, mirrored, dpr), `floor at span ${span}`).toBeCloseTo(
+            mirrored.sizeScatterFloor,
             12,
           );
         }
-        // The floor is unfolded on both tiers: fold 0 leaves it, and only it.
-        expect(cssScatterThickness(span, 0, mirrored)).toBeCloseTo(mirrored.sizeScatterFloor, 12);
       }
     }
-    // The shipped numbers, stated: the floor's σ and the platter's.
-    expect(cssSizeScatterSigma(1.25, 32)).toBeCloseTo(1.25 * (1 + 7 * 0.4), 12);
+    // The shipped numbers, stated. The projection rises with the span on both
+    // tiers, and the widths are 1.25 and 10 CSS px at every device scale (W13
+    // Decision Log 8 retired the device-pixel reading on the bed) — so a fully
+    // heavy mix is 10 CSS px on both tiers whatever the ratio.
     expect(rendererScatterThickness(160, 1)).toBeGreaterThan(rendererScatterThickness(96, 1));
     expect(rendererScatterThickness(96, 1)).toBeGreaterThan(rendererScatterThickness(44, 1));
+    expect(cssScatterThickness(160, 1)).toBeGreaterThan(cssScatterThickness(96, 1));
+    expect(cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE)).toBeCloseTo(10, 12);
+    expect(rendererSizeScatterSigmaAt(1.25, 1, DEFAULT_MATERIAL_PROFILE)).toBeCloseTo(10, 12);
+  });
+
+  /*
+   * The scattering facet's S1 consequence at a second device scale: the 3σ
+   * padding floor is taken over the σ the tier will REALLY write. Since W13
+   * Decision Log 8 that σ is the same CSS-px number at every ratio — the ratio
+   * reaches the ramp's projection (its per-scale start and reach) and nothing
+   * else — so what is pinned here is that both tiers agree on it at every
+   * ratio and that no ratio can reach the width at all.
+   */
+  it("takes the 3σ padding floor over the σ the tier actually writes, at every device scale", () => {
+    const shipped = cssTierOptics().regular.blurRadius;
+    for (const dpr of [1, 1.5, 2, 3]) {
+      const platter = cssSizeScatterSigma(shipped, 160, MATERIAL_SOURCE_SIZE, dpr);
+      expect(platter, `dpr ${dpr}`).toBeCloseTo(
+        rendererSizeScatterSigma(shipped, 160, DEFAULT_MATERIAL_PROFILE, dpr),
+        12,
+      );
+      expect(requiredSamplingPadding(platter), `dpr ${dpr}`).toBeCloseTo(3 * platter, 12);
+    }
+    // At a fixed mix the width is one number: the thickness form takes no ratio
+    // on either tier (W13 Decision Log 8 retired the device-pixel widths on the
+    // bed), so the σ a floor is derived from at dpr 1 IS the σ drawn at dpr 2.
+    for (const mix of [0, 0.4, 1]) {
+      expect(cssSizeScatterSigmaAt(shipped, mix, MATERIAL_SOURCE_SIZE), `mix ${mix}`).toBeCloseTo(
+        rendererSizeScatterSigmaAt(shipped, mix, DEFAULT_MATERIAL_PROFILE),
+        12,
+      );
+    }
+    expect(cssSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
+    expect(rendererSizeScatterSigmaAt.length).toBeLessThanOrEqual(3);
+    // And a ratio handed to either mirror anyway is not a parameter: the CSS
+    // mirror kept a fourth argument after W13 Decision Log 8 and divided by it,
+    // which is how the two mirrors came to disagree by the ratio itself. A
+    // stray 2 is the 1x width on both, at the mix a full ramp reaches.
+    const withStrayRatio = (fn: unknown, size: unknown): number =>
+      (fn as (...args: unknown[]) => number)(1.25, 1, size, 2);
+    expect(withStrayRatio(cssSizeScatterSigmaAt, MATERIAL_SOURCE_SIZE)).toBeCloseTo(10, 12);
+    expect(withStrayRatio(rendererSizeScatterSigmaAt, DEFAULT_MATERIAL_PROFILE)).toBeCloseTo(10, 12);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
@@ -576,26 +732,48 @@ describe("tier coherence (K5)", () => {
    * σ and not for the nominal. This pins the arithmetic the root applies.
    */
   it("keeps the 3σ padding floor over the σ a large surface will really use", () => {
-    const patch = { sizeSpanMin: 40, sizeSpanMax: 200, sizeScatterGainMax: 2.5, sizeScatterFloor: 0, sizeScatterSpanMax: 200 };
+    // The ramp turned off at the contour, so the mix is fully heavy at every
+    // depth and the platter's σ is exactly the gain times the nominal — the
+    // arithmetic under test here is the padding's, not the ramp's.
+    const patch = {
+      sizeSpanMin: 40,
+      sizeSpanMax: 200,
+      sizeScatterGainMax: 2.5,
+      sizeScatterFloor: 0,
+      sizeScatterRampStartThin1x: 0,
+      sizeScatterRampStartThick1x: 0,
+      sizeScatterRampStartThin2x: 0,
+      sizeScatterRampStartThick2x: 0,
+      sizeScatterRampStartFar1x: 0,
+      sizeScatterRampStartFar2x: 0,
+    };
     const mirrored = sourceSize(patch);
     const nominal = cssTierOptics(patch).regular.blurRadius;
     const platter = cssSizeScatterSigma(nominal, 400, mirrored);
     expect(platter).toBeCloseTo(nominal * 2.5, 12);
     expect(requiredSamplingPadding(platter)).toBeCloseTo(3 * platter, 12);
     expect(requiredSamplingPadding(platter)).toBeGreaterThan(requiredSamplingPadding(nominal));
-    // With the floor off, a small control is unchanged, which is what makes the
-    // wider floor a cost only the surfaces that earn it pay.
-    expect(cssSizeScatterSigma(nominal, 40, mirrored)).toBeCloseTo(nominal, 12);
-
-    // And on the shipped profile the floor is on: every surface with a span
-    // frosts at σ 1.25 · (1 + 7 · 0.4) = 4.75 at least, so the padding a group
-    // needs is 3σ of THAT — 14.25 CSS px on a small control, ~23.7 on a 160 px
-    // platter — never the nominal σ's 3.75. core's advisory 24 still clears both.
+    // On the shipped profile the floor is on and the ramp rides the span curve
+    // above it. σ at the FOLD ANCHOR is 1.25 · (1 + 7 · floor) = 4.75, and the
+    // smallest span's projection sits UNDER that rather than over it — 3.77 at
+    // span 32 since W13 G1's third form raised the thin start to 0.72: the ramp
+    // lifts the sharp share near the contour well above 1 − floor, which is the
+    // band being sharper than the frost. So the floor is the fold's anchor and
+    // not a pointwise minimum on the mix, and what the padding rule needs is only
+    // that it is taken over the σ that will really be drawn — above the nominal
+    // σ's 3.75 at every span, and growing with the span.
     const shipped = cssTierOptics().regular.blurRadius;
     expect(shipped).toBe(1.25);
-    expect(cssSizeScatterSigma(shipped, 32)).toBeCloseTo(4.75, 12);
-    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeCloseTo(14.25, 12);
-    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 160))).toBeLessThanOrEqual(24);
+    expect(cssSizeScatterSigmaAt(shipped, MATERIAL_SOURCE_SIZE.sizeScatterFloor)).toBeCloseTo(
+      4.75,
+      12,
+    );
+    expect(cssSizeScatterSigma(shipped, 32)).toBeGreaterThan(3.7);
+    expect(cssSizeScatterSigma(shipped, 32)).toBeLessThan(4.75);
+    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 32))).toBeGreaterThan(11);
+    expect(requiredSamplingPadding(cssSizeScatterSigma(shipped, 160))).toBeGreaterThan(
+      requiredSamplingPadding(cssSizeScatterSigma(shipped, 32)),
+    );
   });
 
   it("follows a profile patch on both sides at once", () => {

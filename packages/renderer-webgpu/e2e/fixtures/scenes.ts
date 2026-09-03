@@ -284,8 +284,8 @@ export const LENS_DEPTH_SCENE: Scene = {
   devicePixelRatio: 1,
   measureOnly: true,
   // A 32 px cell, not 8 (W11c G2). The lens is the body read from further
-  // inside, and the body of a 400 px surface is all heavy scatter (the share
-  // saturates at `sizeScatterSpanMax`): an 8 px checker is erased before the
+  // inside, and the body of a 400 px surface is nearly all heavy scatter (the
+  // depth ramp has run out long before its centre): an 8 px checker is erased before the
   // lens can move it, and the wide group would read as not lensing at all. At
   // 32 px the heavy component still passes structure, so the moved band is the
   // lens depth on both surfaces.

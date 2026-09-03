@@ -26,7 +26,7 @@
   "recordedBy": "C9a",
   "colorSpace": "srgb",
   "appliesOver": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
-  "resolvedMaterialSha256": "cd127cf8d572dc7d",
+  "resolvedMaterialSha256": "aa6e466b1412ec04",
   "$comment-w9": [
     "RE-RECORDED 2026-09-02 (W9, claims 5.33-5.34): what moved is the renderer's",
     "backdrop tone DEFAULTS, which this profile inherits unnamed — the collapse",
@@ -355,9 +355,68 @@
     "referee's question for this scheme's cells. The patch itself is unchanged.",
     "Fingerprint aec4cfba10137f2b -> c2da15c95e5116e2 (the defaults above)."
   ],
+  "$comment-w12-g3": [
+    "RE-RECORDED 2026-09-03 (W12 G3, claims 5.56): the defaults this difference",
+    "document inherits changed again — the body's sharp and heavy widths are read",
+    "as DEVICE-pixel quantities and the scatter weight carried one new constant,",
+    "sizeScatterScaleTerm 0.35. That candidate was refereed and stopped (claims",
+    "5.57-5.58); the widths carry forward and the scale term does not.",
+    "Fingerprint f9722f244e7f2af2 -> b668693607b44247 (the defaults above)."
+  ],
+  "$comment-w13-g1": [
+    "RE-RECORDED 2026-09-03 (W13 G1, claims 5.61): the defaults this difference",
+    "document inherits changed again — the body's mix gains a ramp in DEPTH on",
+    "top of the span curve (sizeScatterRampStart1x/2x, sizeScatterRampReach1x/",
+    "2xPx, all PROVISIONAL until the sweep at this form fits them), the span",
+    "curve sizeScatterSpanMax 256 stays as that ramp's deep value, and",
+    "sizeScatterScaleTerm is retired. See the light profile's",
+    "entries.scatterRamp. Measured on the LIGHT probes at both scales; whether",
+    "the dark reference's body ramps the same way is unmeasured, and the referee",
+    "reads this scheme's cells. The patch itself is unchanged.",
+    "Fingerprint b668693607b44247 -> 8ee31ecd230142ac (the defaults above)."
+  ],
+  "$comment-w13-g1-third-form": [
+    "RE-RECORDED 2026-09-03 (W13 G1, third form; claims 5.64): the defaults this",
+    "difference document inherits changed again — the ramp's start now GRADES with",
+    "span across sizeThickness, so the two start constants become four",
+    "(sizeScatterRampStartThin1x / Thick1x / Thin2x / Thick2x 0.64 / 0.52 / 0.46 /",
+    "0.17) and the reaches become 120 / 100 device px. All six PROVISIONAL until",
+    "the sweep at this form fits them. At the 2x pair the excursion clamps to zero",
+    "on every cell of the calibration bed, which is the law evaluating to no",
+    "excursion where the reference's contour share is heavier than vitrea's deep",
+    "value; the 2x gap is therefore a deep-value gap and is chartered separately.",
+    "See the light profile's entries.scatterRamp. Measured on the LIGHT probes at",
+    "both scales, as before; the patch itself is unchanged.",
+    "Fingerprint 8ee31ecd230142ac -> f0fb4cc5735b3251 (the defaults above)."
+  ],
+  "$comment-w13-g1-third-form-fitted": [
+    "RE-RECORDED 2026-09-03 (W13 G1, third form FITTED at 1x; claims 5.65): the",
+    "third sweep moved the 1x anchors this difference document inherits —",
+    "sizeScatterRampStartThin1x 0.64 -> 0.72 and sizeScatterRampReach1xPx 120 -> 80",
+    "— over a 36-point grid and an 8-point refinement. The 2x three do not move and",
+    "stay PROVISIONAL, because the excursion is bit-exactly zero at them on every",
+    "cell of the bed and no grid can identify a constant that changes no pixel. The",
+    "dark reference's own body ramp is still unmeasured: this document inherits the",
+    "light fit, the confirmation run reads this scheme's cells, and every dark row",
+    "it moved rose (1x capsule-button band +0.0191, rrect-md +0.0059,",
+    "glass-over-glass +0.0199; nothing fell anywhere). The patch itself is",
+    "unchanged.",
+    "Fingerprint f0fb4cc5735b3251 -> cd578acd1c27dacb (the defaults above)."
+  ],
+  "$comment-w13-g1-fourth-form": [
+    "RE-RECORDED 2026-09-03 (W13 G1, fourth form; claims 5.67): the defaults this",
+    "difference document inherits gain the ramp's FAR start per scale",
+    "(sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL), the value the",
+    "start declines to along the scatter span curve above the thickness knee.",
+    "The 2x one sits below Thick2x so the verified 2x null holds. The dark",
+    "reference's own body ramp is still unmeasured; the patch itself is unchanged."
+  ],
   "$comment-sha-history": [
     "f9722f244e7f2af2 -> 0df0796a6485e189 (2026-09-03, W14 G1): the outer shadow's amplitude — this difference document's occlusion 0.09 retired for the two-regime law's dark anchors (thin 0.063 flat, thick 0.230/0.249/0.268 provisional) with the lift off — see entries.outerShadow. The light defaults it inherits moved with it.",
     "0df0796a6485e189 -> 989f02740cb5e52b (2026-09-03, W14 G1 review fixes 2 and 3): liftAmplitude 0 -> 0.0038, because X7 measured the lift surviving the dark colour scheme at 0.51-0.54 of its light amplitude at both scales (claims 5.62 section 8) and this document's 0 was written before that instrument ran; and reducedTransparencyOcclusion 0.038 named for the first time, because the constant became an absolute occlusion and inheriting the light scheme's measured 0.197 would have applied three times this material's own amplitude. Both PROVISIONAL — see entries.outerShadow.",
-    "989f02740cb5e52b -> cd127cf8d572dc7d (2026-09-03, W14 G1 sweep adopted, claims 5.65): this scheme's own anchors fitted on the dark bed - thickOcclusionAt96 0.230 -> 0.278, At128 0.249 -> 0.301, At160 0.268 -> 0.324 (the provisional ones were carrying the ABSENCE of a lift), liftAmplitude 0.0038 -> 0.0051, which is 0.51x the fitted light amplitude, X7's measured ratio arrived at independently by a free fit - and liftSpanMin 64 / liftSpanFull 118 / liftBlurSigmaCss 40 named here for the first time, carried from the light document rather than read on this bed. The light defaults it resolves over moved with it. See entries.outerShadow."
+    "989f02740cb5e52b -> cd127cf8d572dc7d (2026-09-03, W14 G1 sweep adopted, claims 5.65): this scheme's own anchors fitted on the dark bed - thickOcclusionAt96 0.230 -> 0.278, At128 0.249 -> 0.301, At160 0.268 -> 0.324 (the provisional ones were carrying the ABSENCE of a lift), liftAmplitude 0.0038 -> 0.0051, which is 0.51x the fitted light amplitude, X7's measured ratio arrived at independently by a free fit - and liftSpanMin 64 / liftSpanFull 118 / liftBlurSigmaCss 40 named here for the first time, carried from the light document rather than read on this bed. The light defaults it resolves over moved with it. See entries.outerShadow.",
+    "cd127cf8d572dc7d -> f378523fd2fa9995 (2026-09-03, W13 G1 merged with W14 G2): the defaults this difference document inherits now carry the ramp's six constants beside W14's landed outer shadow (claims 5.66); no constant of either wave moved, only the union of the two.",
+    "f378523fd2fa9995 -> 86390fdc60e8eb72 (2026-09-03, W13 G1, FOURTH form): the defaults this difference document inherits gain sizeScatterRampStartFar1x / Far2x 0.40 / 0.15, PROVISIONAL - the start declines to Far along the scatter span curve above the thickness knee (claims 5.67 sections 4 and 6; W13 Decision Log 6). No other constant moved.",
+    "86390fdc60e8eb72 -> aa6e466b1412ec04 (2026-09-03, W13 G1, fourth form FITTED at 1x): the default this difference document inherits, sizeScatterRampStartFar1x 0.40 -> 0.20, the fourth sweep on the W14 bed (results/2026-09-03-w13-ramp/g1/sweep-4/; claims 5.68). Far2x stays 0.15, PROVISIONAL, the 2x null re-verified bit-exact."
   ]
 }

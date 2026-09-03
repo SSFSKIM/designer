@@ -83,6 +83,16 @@ export interface PyramidResources {
   readonly texelsPerCss: number;
   readonly sourceWidth: number;
   readonly sourceHeight: number;
+  /**
+   * The CSS-px σ the build converted with (W13 G1, review finding). The density
+   * alone does not determine the body: since the widths became device-pixel
+   * quantities (W12 G3, claims §5.56) the material's σ in CSS px is
+   * `blurSigma / dpr`, so a window dragged from a 1x display to a 2x one asks
+   * for a different body from the same source at the same density. A static
+   * image never re-dirties, so this recorded σ is the only signal that the
+   * chain's body and `bodyChainLod` belong to the previous scale.
+   */
+  readonly bodySigmaCss: number;
 }
 
 export interface PyramidInstrumentation {
@@ -188,17 +198,25 @@ const densityOf = (
     request.viewportCss[1],
   );
 
+/** Relative-tolerance equality, the comparison both halves of the body key take. */
+const same = (next: number, existing: number): boolean =>
+  Math.abs(next - existing) <= 1e-6 * Math.max(1, Math.abs(existing));
+
 /**
- * Whether a request would convert the body σ with the density the chain already
- * carries. The frame is not acquired at the clean check, so the source extent is
- * the one recorded at build — the same extent the recorded density came from, so
- * the comparison is exact for a source whose size held, and a source whose size
+ * Whether a request would produce the body the chain already carries — the same
+ * σ in CSS px converted at the same density. Both halves are needed: the density
+ * moves when a placement is resized or withdrawn, and the σ moves when the
+ * device pixel ratio does, because the body's widths are device-pixel quantities
+ * (W12 G3, claims §5.56) and `bodySigmaCss` is `blurSigma / dpr`.
+ *
+ * The frame is not acquired at the clean check, so the source extent is the one
+ * recorded at build — the same extent the recorded density came from, so the
+ * comparison is exact for a source whose size held, and a source whose size
  * moved re-dirties through its own epoch anyway.
  */
-const sameDensity = (existing: PyramidResources, request: PyramidBuildRequest): boolean => {
-  const next = densityOf({ width: existing.sourceWidth, height: existing.sourceHeight }, request);
-  return Math.abs(next - existing.texelsPerCss) <= 1e-6 * Math.max(1, existing.texelsPerCss);
-};
+const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boolean =>
+  same(densityOf({ width: existing.sourceWidth, height: existing.sourceHeight }, request), existing.texelsPerCss)
+  && same(request.bodySigmaCss, existing.bodySigmaCss);
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -307,6 +325,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     builtEpoch: number,
     bodySigmaTexels: number,
     density: { readonly texelsPerCss: number; readonly sourceWidth: number; readonly sourceHeight: number },
+    bodySigmaCss: number,
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const bodyWidth = (plan.levels[bodyLevel] ?? plan.levels[0] as { width: number; height: number }).width;
@@ -353,6 +372,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       texelsPerCss: density.texelsPerCss,
       sourceWidth: density.sourceWidth,
       sourceHeight: density.sourceHeight,
+      bodySigmaCss,
     };
     resources.set(sourceId, next);
     return next;
@@ -604,7 +624,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         existing !== undefined &&
         existing.builtEpoch >= request.epoch &&
         !provider.isDirty() &&
-        sameDensity(existing, request)
+        sameBody(existing, request)
       ) {
         ledger.recordClean();
         return { status: "clean", resources: existing };
@@ -644,6 +664,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.epoch,
         bodySigmaTexels,
         { texelsPerCss, sourceWidth: frame.width, sourceHeight: frame.height },
+        request.bodySigmaCss,
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);

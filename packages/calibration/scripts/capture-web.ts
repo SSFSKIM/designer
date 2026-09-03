@@ -337,9 +337,21 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sizeScatterGainMax",
   "sizeOcclusionGain",
   "sizeShadowGainMax",
-  // The scatter facet's own curve (W11c): its floor and band top.
+  // The scatter facet's frost and span curve (W11c) and the body's depth ramp
+  // (W13 G1, claims 5.61): the span curve supplies the ramp's deep value and the
+  // ramp is the near-contour excursion on it — the sharp share at the contour
+  // and the reach at which it vanishes, each anchored at dpr 1 and dpr 2 so the
+  // sweep can fit the two scales independently.
   "sizeScatterFloor",
   "sizeScatterSpanMax",
+  "sizeScatterRampStartThin1x",
+  "sizeScatterRampStartThick1x",
+  "sizeScatterRampStartThin2x",
+  "sizeScatterRampStartThick2x",
+  "sizeScatterRampStartFar1x",
+  "sizeScatterRampStartFar2x",
+  "sizeScatterRampReach1xPx",
+  "sizeScatterRampReach2xPx",
   // The lens (W12 G2): the gain on the reference's amount law, the height and
   // amount laws themselves, the thickness they are read at, the profile's
   // extent and exponent, and the direction's ovalization with its knee.

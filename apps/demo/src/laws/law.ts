@@ -69,9 +69,19 @@ export interface BodyLaw {
  * nominal, less under reduce transparency), which is the same fold the
  * thickness facets ride.
  */
-export function bodyLaw(spanPx: number, fold: number): BodyLaw {
+export function bodyLaw(
+  spanPx: number,
+  fold: number,
+  extentsCssPx?: readonly [number, number],
+): BodyLaw {
   const sharp = MATERIAL_OPTICS.regular.blurRadius;
-  const mix = scatterThickness(spanPx, fold);
+  // The mix is the depth ramp's per-surface projection (W13 G1) — its area
+  // average over the plate's OWN box, which is why the extents come in: a plate
+  // of 320 × span projects a different mix from a square of the span, and the
+  // runtime writes the box's number. This readout reports it at dpr 1, which is
+  // what the CSS tier renders and is NOT what the GPU tier mixes per pixel — the
+  // readout's device-scale gap is already logged in `specs/tech-debt-tracker.md`.
+  const mix = scatterThickness(spanPx, fold, MATERIAL_SOURCE_SIZE, 1, extentsCssPx);
   return {
     mix,
     sharp,

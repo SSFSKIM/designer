@@ -85,7 +85,9 @@ import { createLayoutReadMeter, flushStyle, type LayoutReadMeter, type ViewportR
 import {
   browserMediaMatcher,
   observeAccessibilityPreferences,
+  observeDevicePixelRatio,
   type AccessibilityFeed,
+  type DevicePixelRatioFeed,
   type MediaMatcher,
 } from "./media-policy";
 import {
@@ -105,8 +107,8 @@ import {
   resolvedBackdropToneResponse,
   resolvedPolicyFold,
   resolvedTintShade,
-  scatterThickness,
-  sizeScatterSigmaAt,
+  CSS_TIER_RAMP_SCALE,
+  groupScatterSigma,
   sizeThickness,
   sizeOcclusionAlphaAt,
   sizeThicknessUnderPolicy,
@@ -618,13 +620,36 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const geometry: GeometrySync = createGeometrySync({ scene, meter, window: view });
 
   const accessibilityFeed: AccessibilityFeed = observeAccessibilityPreferences({
-    matcher: options.matcher ?? browserMediaMatcher(),
+    matcher: options.matcher ?? browserMediaMatcher(view),
     onChange: (preferences) => scene.setSystemAccessibility(preferences),
   });
   scene.setSystemAccessibility(accessibilityFeed.preferences);
   if (options.accessibilityOverrides !== undefined) {
     scene.setAccessibilityOverrides(options.accessibilityOverrides);
   }
+
+  /*
+   * The device scale, watched (W12 G3, claims §5.56).
+   *
+   * The CSS tier's body law reads the device pixel ratio, so a change of it is a
+   * change of the material this tier paints — and it has to re-derive on one the
+   * way it re-derives on a policy change. The viewport reading is where the ratio
+   * comes from, and it is refreshed on the next read phase after `markAllDirty`,
+   * so hearing about the change and marking everything dirty is the whole of it:
+   * the write phase then declares the new blur from the new ratio. `resize` fires
+   * for most of the moves that change the ratio but not for all of them, which is
+   * why this listens for the ratio itself rather than trusting that.
+   */
+  const devicePixelRatioFeed: DevicePixelRatioFeed = observeDevicePixelRatio({
+    // On the SUPPLIED window (review, W13 G1): a root created for an iframe or
+    // a popup reads that window's ratio, so the resolution query that wakes the
+    // feed has to be registered there too, or a display change in that context
+    // leaves the CSS blur and the GPU pyramid at the old scale until something
+    // unrelated invalidates.
+    matcher: options.matcher ?? browserMediaMatcher(view),
+    read: () => view.devicePixelRatio,
+    onChange: () => geometry.markAllDirty(),
+  });
 
   /**
    * A group's own proxy-audit verdict. `pass` until layer 2 has run for it, for
@@ -1277,18 +1302,25 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        * it: after G1 that left every proxy at 1.25 px under a padding derived for
        * 4.75 px and more.
        */
-      const groupSpanPx = measured.reduce(
-        (widest, entry) => Math.max(widest, Math.min(entry.bounds.width, entry.bounds.height)),
-        0,
-      );
-      const groupBlurRadius = sizeScatterSigmaAt(
+      // The widest σ any member samples with, taken as the maximum of each
+      // member's own PROJECTED σ rather than the σ at the widest short span
+      // (review, W13 G1): the projection is the ramp's area average over the
+      // member's box, so it depends on both extents, and a 1200×160 strip
+      // projects heavier than a 160×160 square of the same short span. Ordering
+      // by span alone made the pick depend on registration order between such
+      // members and could hand the strip the square's smaller σ.
+      // Both the width and the ramp's projection at the scale
+      // `cssTierDeclarations` reads them at (`CSS_TIER_RAMP_SCALE`, dpr 1 — W13
+      // Decision Log 5: the CSS tier renders the 1x material at every ratio),
+      // because this σ has to be the one that tier will really write — the
+      // proxy is that blur in another position, and a proxy padded for a
+      // device-scale width the tier no longer draws would be padded wrong.
+      const groupBlurRadius = groupScatterSigma(
         optics.blurRadius,
-        scatterThickness(
-          groupSpanPx,
-          sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
-          sizeConstants,
-        ),
+        sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
+        measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
+        CSS_TIER_RAMP_SCALE,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
@@ -1582,8 +1614,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // The size law's input, from the host's own measured border box — the
           // same shorter-extent span the renderer resolves per surface (W2).
           spanPx: Math.min(bounds.width, bounds.height),
+          // Both extents, because the scatter facet's projection is an area
+          // average over the surface and a 320×44 strip carries a different one
+          // from a 44×44 square (W13 G1).
+          extentsCssPx: [bounds.width, bounds.height],
           size: sizeConstants,
           outerShadow: outerShadowConstants,
+          // No device scale: the CSS tier renders the 1x material at every
+          // ratio (W13 Decision Log 5); the ratio feeds the GPU tier's pyramid.
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {
@@ -2218,6 +2256,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       root.stop();
       styleObserver.disconnect();
       accessibilityFeed.stop();
+      devicePixelRatioFeed.stop();
       geometry.destroy();
       proxies.destroy();
       // The bridge first: it owns GPU resources built on the device the

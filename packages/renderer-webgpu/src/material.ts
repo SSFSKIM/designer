@@ -396,8 +396,9 @@ export interface MaterialProfile {
    * on it — the lens (`lensSizeGainMax`), the occlusion (`sizeOcclusionGain`)
    * and the inner shadow (`sizeShadowGainMax`). The scattering was one of them
    * until W11c measured its curve to be a different one (a floor at small
-   * spans, a band top past 96 — see `sizeScatterFloor`); it now rides its own,
-   * from the same `sizeSpanMin`, and this band is untouched by it.
+   * spans, a rise past 96) and W13 measured that curve to be the projection of a
+   * ramp in depth — see `sizeScatterFloor` and `sizeScatterRampStartThin1x`; the
+   * scattering now rides its own law entirely, and this band is untouched by it.
    *
    * A smoothstep rather than a straight ratio, so two surfaces of nearly the same
    * size never read as differently thick, and so every gain saturates instead of
@@ -451,38 +452,214 @@ export interface MaterialProfile {
    * chain level whose blur is that σ.
    *
    * MEASURED (W11c G1, claims §5.41), and no longer a gain on `sizeThickness`
-   * alone — see `sizeScatterFloor` and `sizeScatterSpanMax` below for the curve
-   * it rides. 8: the heavy component of the reference's interior sits near σ 10
-   * CSS px against a body σ of 1.25, and the gain sweep has a clear minimum at
-   * 8 (RMS 0.0164 against 0.0180 at 6 and 0.0191 at 10 on the probe bed).
+   * alone — see `sizeScatterFloor` and `sizeScatterRampStartThin1x` below for the
+   * law it rides. 8: the heavy component of the reference's interior sits near
+   * σ 10 device px against a body σ of 1.25, and the gain sweep has a clear
+   * minimum at 8 (RMS 0.0164 against 0.0180 at 6 and 0.0191 at 10 on the probe
+   * bed).
    */
   readonly sizeScatterGainMax: number;
 
   /**
-   * **The scattering facet's own curve** (W11c G1, claims §5.41).
+   * **The scattering facet's frost** (W11c G1, claims §5.41; re-read by W13 G1).
    *
    * The reference's interior over structured content is two components, read
    * off the W9 probe bed across four checkerboard pitches and five spans: a
-   * sharp one near σ 1.25 CSS px and a heavy one near σ 10, mixed by a share
-   * that is already ≈ 0.4 at spans of 32–44 and still rising at 160 (0.52 at
-   * 96, 0.64 at 128, 0.76 at 160). `sizeThickness` — zero at `sizeSpanMin` and
-   * saturated at `sizeSpanMax` = 96 — can express neither the floor nor a band
-   * top past 96, and moving `sizeSpanMax` would move the lens, the occlusion,
-   * the inner shadow and W9's thin/thick response rows with it. So the scatter
-   * mix rides its own curve:
+   * sharp one near σ 1.25 device px and a heavy one near σ 10, mixed by a share
+   * that is already ≈ 0.4 at spans of 32–44 and still rising at 160. W11c
+   * carried that mix as one number per span, a floor rising by a smoothstep to
+   * a band top (`sizeScatterSpanMax`); W13 G0 measured the mix **per depth** on
+   * both probes and found a ramp under the contour that the span law had been
+   * summarising (claims §5.61 §2). W13 G1's first form replaced the span law
+   * with the ramp outright and its runtime sweep refuted that: the ramp's own
+   * projection onto one number per surface runs 0.43–0.56 where the span law it
+   * replaced runs 0.41–1.00, so a ramp with a start and a reach is nearly
+   * span-flat where the bed is strongly span-graded, and no point in 81 reached
+   * the wave's stops (`results/2026-09-03-w13-ramp/g1/sweep/g1-sweep.md` §4,
+   * §7). So the two are kept **together**: the span law is the ramp's DEEP
+   * value and the ramp is a near-contour excursion above it. This floor is
+   * unchanged in value and in meaning under either: the mix a surface carries
+   * at any size, the material's own frost.
+   *
+   * It keeps its fold semantics, and they are now written on the ramp rather
+   * than on a span curve:
    *
    * ```
-   * kScatter = floor + (1 − floor) · smoothstep(sizeSpanMin, sizeScatterSpanMax, span) · fold
+   * kScatter(u) = floor + (k(u) − floor) · fold
    * ```
    *
-   * The floor is the material's own frost and is **not** folded under an
-   * accessibility preference; the span-dependent rise is a depth effect and
-   * folds like every other facet (`scatterThickness`). Fitted with `rrect-lg`
-   * held out: floor 0.40 (0.0175 at 0.3, 0.0174 at 0.45), band top 256 (0.0182
-   * at 224, 0.0174 at 320); the held-out cell's residual 0.0366 → 0.0174.
+   * — so at fold 1 the ramp is rendered exactly and at fold 0 the material sits
+   * at this floor exactly, which is what the landed law did at fold 0 too. The
+   * floor is the frost the material has whatever its size, and is **not**
+   * folded under an accessibility preference; the excursion away from it is
+   * depth, and is. Fitted with `rrect-lg` held out (W11c G1): 0.40 (0.0175 at
+   * 0.3, 0.0174 at 0.45).
    */
   readonly sizeScatterFloor: number;
+
+  /**
+   * **The scattering facet's span curve** (W11c G1, claims §5.41) — the top of
+   * the band the frost rises to, and, since W13 G1's re-forming, the span law
+   * that supplies the depth ramp's DEEP value:
+   *
+   * ```
+   * kDeep(span) = floor + (1 − floor) · smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
+   * ```
+   *
+   * — byte for byte the curve W11c fitted and W13 G1's first form retired. It
+   * came back because the sweep measured what retiring it cost (§4 of
+   * `results/2026-09-03-w13-ramp/g1/sweep/g1-sweep.md`): the span dependence of
+   * the bed is real and strong, and the ramp's four constants cannot carry it
+   * at the same time as the band's near-contour excursion. What the ramp adds
+   * is what this curve never could — the depth structure inside one surface —
+   * and it now adds it on top of this rather than instead of it, so the deep
+   * interior of every span is exactly where W11c and W12 put it.
+   *
+   * `sizeThickness` — zero at `sizeSpanMin` and saturated at `sizeSpanMax` = 96
+   * — can express neither the floor nor a band top past 96, and moving
+   * `sizeSpanMax` would move the lens, the occlusion, the inner shadow and W9's
+   * thin/thick response rows with it, which is why the scatter mix has its own
+   * curve at all. Fitted with `rrect-lg` held out (W11c G1): band top 256
+   * (0.0182 at 224, 0.0174 at 320); the held-out cell's residual 0.0366 →
+   * 0.0174.
+   */
   readonly sizeScatterSpanMax: number;
+
+  /**
+   * **The body's depth ramp** (W13 G1, from the measurement of claims §5.61 §2
+   * and the re-forming its runtime sweep forced) — a near-contour excursion on
+   * the sharp component's share, riding on top of the span law
+   * `sizeScatterSpanMax` supplies rather than replacing it.
+   *
+   * ```
+   * kDeep(span) = sizeScatterFloor + (1 − sizeScatterFloor)
+   *               · smoothstep(sizeSpanMin, sizeScatterSpanMax, span)
+   * sDeep(span) = 1 − kDeep(span)
+   * s₀(span)    = startThin + (startThick − startThin) · sizeThickness(span)
+   * s(u, span)  = sDeep + max(0, s₀(span) − sDeep) · max(0, 1 − u / U(dpr))
+   * k(u, span)  = 1 − s(u, span)
+   * ```
+   *
+   * with `u` the pixel's depth under the contour and `U` the reach, both in
+   * DEVICE px. `s₀` is the sharp share **at the contour** and `U` is where the
+   * excursion vanishes into the deep value — not where a line from the start
+   * would hit zero, which is what the first form's reach meant. Deep inside any
+   * surface the body is exactly the W11c/W12 material; within `U` of the
+   * contour the sharp component is lifted toward `s₀`, which is the band the
+   * reference has and the uniform share does not.
+   *
+   * **Why the start grades with the span, in the third form.** The second form
+   * gave the excursion one start per scale and its runtime sweep refuted that
+   * too, arithmetically rather than for want of a better point (claims §5.64
+   * §2): `rrect-sm`'s span is exactly `sizeSpanMin`, so its deep sharp share is
+   * exactly `1 − sizeScatterFloor` = 0.600 and no start at or below 0.600 can
+   * touch it, while `rrect-ml`'s band only improves below a start near 0.583.
+   * The window where both hold is empty, and the reach cannot open it — the
+   * reach decides how much of a surface the excursion covers, never which
+   * surfaces it touches, because `max(0, s₀ − sDeep(span))` has no reach in it.
+   * G0 read the reference's start as strongly graded by span (0.637 / 0.642 on
+   * the thin cells against 0.512 / 0.501 / 0.410 on the thick ones at 1x), so
+   * the start is given exactly that grading — across `sizeThickness`, the
+   * material's OWN thin/thick curve with its knee at 64, the one the face's
+   * tone response and the outer shadow already blend across. Reusing it is the
+   * point: it introduces no new span statistic, and `sizeSpanMax` stays where
+   * every other facet reads it.
+   *
+   * **Why this form and not the ramp alone.** W13 G0 measured a ramp with a
+   * free start, reach and floor (H2) and the first implementation took the free
+   * start and reach with a floor of zero, retiring the span law. Its runtime
+   * sweep — 81 points, both scales, the real renderer — could not reach the
+   * wave's stops at any point, and named the mechanism: the ramp's projection
+   * onto one number per surface runs 0.43–0.56 at 1x where the retired span law
+   * ran 0.41–1.00, so the family is nearly span-flat and the bed is strongly
+   * span-graded; small spans want a high start and large spans a low one and no
+   * pair can be both (`.../g1/sweep/g1-sweep.md` §4). §7 of the same report
+   * asked for exactly this: "the ramp's DEEP value wants to be the span-graded
+   * heavy share the retired law supplied, and its near-contour excursion the
+   * sharp term the band asks for." The floor H2 left free is therefore not one
+   * more constant but the span law itself, which is already fitted.
+   *
+   * The reach stays a LENGTH in device pixels, which is the reading that did
+   * survive the sweep: the free fits' reaches in absolute depth spread by 1.3×
+   * across the spans (108 / 115 / 144 CSS px at 1x on `rrect-lg` / `-ml` /
+   * `-md`) where the reaches as a fraction of the half-span spread by 2.2×, and
+   * between the two scales that length roughly halves in CSS px — one length in
+   * device pixels, the same reading as the widths (§5.55 §1, §5.56 §1).
+   *
+   * The start and the reach are anchored at the two scales the reference was
+   * measured at rather than given a scale term: `…1x` is the value at dpr 1,
+   * `…2x` at dpr 2, the pair interpolated linearly in dpr and held constant
+   * outside [1, 2] (`scatterRampStart`, `scatterRampReachDevicePx`).
+   *
+   * **The FOURTH form: the start keeps falling past the thickness knee (W13
+   * Decision Log 6; claims §5.67 §4, §6).** The third form's holdout failed on
+   * one row for the form's own arithmetic: `sizeThickness` saturates at
+   * `sizeSpanMax` 96, so spans 96, 128, 130 and 160 all received the identical
+   * thick start while G0 read the reference's start FALLING across exactly
+   * those spans (0.512 → 0.501 → 0.410), and because the deep value keeps
+   * falling to `sizeScatterSpanMax` the excursion GREW with span (0.039 →
+   * 0.156 → 0.284) where the reference's shrinks — `rrect-lg` overshot its
+   * interior by 33%. So the start gets a slow decline along the scatter
+   * facet's own curve above the knee, `startFar` being its value at span ≥
+   * `sizeScatterSpanMax`:
+   *
+   *   s₀(span) = thin + (thick − thin) · sizeThickness(span)
+   *            + (far − thick) · smoothstep(sizeSpanMax, sizeScatterSpanMax, span)
+   *
+   * Two curves the material already has, one more constant per scale, and no
+   * new span statistic. At 2x `far` sits below the thick anchor, so the null
+   * the third form verified bit-exactly (§5.67 §2) holds by construction: an
+   * excursion that was zero at every span stays zero when its start falls
+   * further.
+   *
+   * PROVISIONAL, all eight. The runtime sweep at this form sets them, because
+   * the paper model over-credited the mip chain's heavy tap once already
+   * (§5.58 §1) and no constant lands on a paper prediction again. What they
+   * carry now:
+   *
+   * **1x — thin 0.64, thick 0.52, reach 120 device px.** G0's own start
+   * readings are 0.637 on `rrect-sm` and 0.642 on the capsule at the thin end
+   * and 0.512 / 0.501 / 0.410 on `rrect-md` / `-ml` / `-lg` at the thick end.
+   * A thick anchor fitted to all three thick cells jointly comes out near 0.47,
+   * and 0.47 sits 0.011 *below* `rrect-md`'s own deep sharp share of 0.481,
+   * which would clamp the excursion to zero on that one cell. 0.52 is above it
+   * and is also G0's reading on that cell, so the fit is not traded against the
+   * form's own arithmetic.
+   *
+   * **2x — thin 0.46, thick 0.17, reach 100 device px, and the excursion clamps
+   * to zero on every cell of the calibration bed.** These are G0's 2x readings
+   * (0.483 / 0.437 on the thin cells, 0.192 / 0.179 / 0.141 on the thick ones),
+   * and every one of them sits BELOW its cell's deep sharp share: the implied
+   * excursions run −0.095 to −0.289 (claims §5.64 §4). `max(0, s₀ − sDeep)` is
+   * therefore zero everywhere on this bed at dpr 2. That is not a special case
+   * and not a disabled facet — it is the law evaluating to no excursion where
+   * the reference's own contour share is heavier than vitrea's deep value. It
+   * follows that **the 2x gap is a deep-value gap and not a ramp gap**: the
+   * span law's floor, knee and top are what miss at that scale, and no
+   * one-signed excursion above them can express it. That fit is W13's Deferred
+   * charter and not this constant's business.
+   *
+   * **far — 0.20 at 1x (FITTED on the W14 bed), 0.15 at 2x.** The fourth
+   * sweep (`results/2026-09-03-w13-ramp/g1/sweep-4/`) swept far over eight
+   * points from 0.52 (the third form) down to 0.15: S1 and S4 pass at every
+   * one, only `rrect-ml`'s rows move and they improve monotonically as far
+   * falls, and the band is flat within the bed's noise below 0.30. The cell
+   * the constant exists for is holdout, so the tie inside the noise is broken
+   * by the reference's own reading — G0's `rrect-lg` start of 0.410 at span 160
+   * is far = 0.207 through this form — and 0.20 is the measured grid point that
+   * carries it. The confirmation read `rrect-lg` at `ssimMean` +0.0056 against
+   * the W14 bed (the third form: −0.0026) with its interior 12% over the
+   * reference (from 33% over). At 2x far is below the thick anchor so that the
+   * null holds — re-verified bit-exact under this form.
+   */
+  readonly sizeScatterRampStartThin1x: number;
+  readonly sizeScatterRampStartThick1x: number;
+  readonly sizeScatterRampStartFar1x: number;
+  readonly sizeScatterRampStartThin2x: number;
+  readonly sizeScatterRampStartThick2x: number;
+  readonly sizeScatterRampStartFar2x: number;
+  readonly sizeScatterRampReach1xPx: number;
+  readonly sizeScatterRampReach2xPx: number;
 
   /**
    * The occlusion gain — "a larger size is more opaque. A smaller size is
@@ -1025,6 +1202,28 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sizeScatterGainMax: 8,
   sizeScatterFloor: 0.4,
   sizeScatterSpanMax: 256,
+  // The 1x three FITTED in the renderer (W13 G1's third sweep, 44 points over
+  // the calibration bed: `results/2026-09-03-w13-ramp/g1/sweep-3/g1-sweep-3.md`
+  // §3); the 2x three PROVISIONAL still, because at them the excursion is
+  // bit-exactly zero on the whole bed and a sweep cannot fit what does not
+  // move (§4). The thin anchor 0.72 is above G0's read-off of 0.637–0.642: the
+  // grid runs 0.60 / 0.64 / 0.68 and the refinement 0.72 / 0.76, and 0.72 is an
+  // interior optimum of both the interior objective and the interior gap. The
+  // thick anchor 0.52 is G0's `rrect-md` reading and is above that cell's deep
+  // sharp share of 0.481, where the joint thick fit of 0.47 would have clamped
+  // it to nothing. The 2x pair is G0's 2x readings, every one of which is BELOW
+  // its cell's deep value, so at dpr 2 the excursion is zero on this whole bed
+  // — the law evaluating to no excursion, and the 2x gap located in the deep
+  // value instead (claims §5.64 §4). See
+  // `MaterialProfile.sizeScatterRampStartThin1x`.
+  sizeScatterRampStartThin1x: 0.72,
+  sizeScatterRampStartThick1x: 0.52,
+  sizeScatterRampStartFar1x: 0.2,
+  sizeScatterRampStartThin2x: 0.46,
+  sizeScatterRampStartThick2x: 0.17,
+  sizeScatterRampStartFar2x: 0.15,
+  sizeScatterRampReach1xPx: 80,
+  sizeScatterRampReach2xPx: 100,
   sizeOcclusionGain: 0.05,
   sizeShadowGainMax: 1,
 
@@ -1296,6 +1495,16 @@ export const LENS_SIZE_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.lensSizeGainMax;
 export const SIZE_SCATTER_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterGainMax;
 export const SIZE_SCATTER_FLOOR = DEFAULT_MATERIAL_PROFILE.sizeScatterFloor;
 export const SIZE_SCATTER_SPAN_MAX = DEFAULT_MATERIAL_PROFILE.sizeScatterSpanMax;
+export const SIZE_SCATTER_RAMP_START_THIN_1X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin1x;
+export const SIZE_SCATTER_RAMP_START_THICK_1X =
+  DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick1x;
+export const SIZE_SCATTER_RAMP_START_THIN_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThin2x;
+export const SIZE_SCATTER_RAMP_START_THICK_2X =
+  DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartThick2x;
+export const SIZE_SCATTER_RAMP_START_FAR_1X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar1x;
+export const SIZE_SCATTER_RAMP_START_FAR_2X = DEFAULT_MATERIAL_PROFILE.sizeScatterRampStartFar2x;
+export const SIZE_SCATTER_RAMP_REACH_1X_PX = DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach1xPx;
+export const SIZE_SCATTER_RAMP_REACH_2X_PX = DEFAULT_MATERIAL_PROFILE.sizeScatterRampReach2xPx;
 export const SIZE_OCCLUSION_GAIN = DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain;
 export const SIZE_SHADOW_GAIN_MAX = DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax;
 export const LENS_REFRACTION_GAIN = DEFAULT_MATERIAL_PROFILE.lensRefractionGain;
@@ -1338,6 +1547,14 @@ export interface MaterialProfilePatch {
   readonly sizeScatterGainMax?: number;
   readonly sizeScatterFloor?: number;
   readonly sizeScatterSpanMax?: number;
+  readonly sizeScatterRampStartThin1x?: number;
+  readonly sizeScatterRampStartThick1x?: number;
+  readonly sizeScatterRampStartFar1x?: number;
+  readonly sizeScatterRampStartThin2x?: number;
+  readonly sizeScatterRampStartThick2x?: number;
+  readonly sizeScatterRampStartFar2x?: number;
+  readonly sizeScatterRampReach1xPx?: number;
+  readonly sizeScatterRampReach2xPx?: number;
   readonly sizeOcclusionGain?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
@@ -1448,6 +1665,18 @@ export function withMaterialOverrides(
     sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
     sizeScatterFloor: patch.sizeScatterFloor ?? base.sizeScatterFloor,
     sizeScatterSpanMax: patch.sizeScatterSpanMax ?? base.sizeScatterSpanMax,
+    sizeScatterRampStartThin1x:
+      patch.sizeScatterRampStartThin1x ?? base.sizeScatterRampStartThin1x,
+    sizeScatterRampStartThick1x:
+      patch.sizeScatterRampStartThick1x ?? base.sizeScatterRampStartThick1x,
+    sizeScatterRampStartThin2x:
+      patch.sizeScatterRampStartThin2x ?? base.sizeScatterRampStartThin2x,
+    sizeScatterRampStartThick2x:
+      patch.sizeScatterRampStartThick2x ?? base.sizeScatterRampStartThick2x,
+    sizeScatterRampStartFar1x: patch.sizeScatterRampStartFar1x ?? base.sizeScatterRampStartFar1x,
+    sizeScatterRampStartFar2x: patch.sizeScatterRampStartFar2x ?? base.sizeScatterRampStartFar2x,
+    sizeScatterRampReach1xPx: patch.sizeScatterRampReach1xPx ?? base.sizeScatterRampReach1xPx,
+    sizeScatterRampReach2xPx: patch.sizeScatterRampReach2xPx ?? base.sizeScatterRampReach2xPx,
     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
@@ -2040,34 +2269,268 @@ export function lensDirection(
  * toward. It is also what a group's `samplingPadding` floor must be taken over —
  * a wider blur needs a wider proxy, and the group's floor is set by its *largest*
  * member (S1's 3σ rule, applied to the σ the material will really use).
+ *
+ * `devicePixelRatio` reaches only the ramp's projection — the depth ramp's start
+ * and reach are per-scale constants (W13 G1) — and not the width, which is CSS
+ * px at every scale (W13 Decision Log 8; see `sizeScatterSigmaAt`). It defaults
+ * to 1, where the whole expression is the 1x law.
  */
 export function sizeScatterSigma(
   sigmaPx: number,
   spanPx: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
 ): number {
-  return sizeScatterSigmaAt(sigmaPx, scatterThickness(spanPx, 1, profile), profile);
+  return sizeScatterSigmaAt(
+    sigmaPx,
+    scatterThickness(spanPx, 1, profile, devicePixelRatio, extentsCssPx),
+    profile,
+  );
 }
 
 /**
- * **The scattering facet's input** (W11c G1): how far toward its heavy blur a
- * surface of this span mixes, 0…1 — `MaterialProfile.sizeScatterFloor`'s curve.
+ * **The depth ramp's start at a device scale and a span** — s₀(span, dpr), the
+ * sharp component's share at the contour (W13 G1, claims §5.61 §2, §5.64 §5).
+ *
+ * ```
+ * s₀(span, dpr) = startThin(dpr) + (startThick(dpr) − startThin(dpr)) · sizeThickness(span)
+ * ```
+ *
+ * Two gradings, and they are different quantities. **In dpr**: the reference
+ * was read at dpr 1 and dpr 2 and nowhere between, so each anchor is
+ * interpolated linearly between its two readings and held outside [1, 2],
+ * because an extrapolation of a two-point fit past its own anchors would be an
+ * invention rather than a measurement. **In span**: G0 read the start much
+ * higher on the thin surfaces than on the thick ones, and the curve it grades
+ * along is `sizeThickness` — the material's existing knee at 64, not a new
+ * statistic. A single start per scale was the second form and its sweep refuted
+ * it (claims §5.64 §2). And past that knee the start keeps FALLING, along the
+ * scatter facet's own curve to `far` at `sizeScatterSpanMax` — the fourth form,
+ * from the third's one holdout failure (claims §5.67 §4).
+ *
+ * `scatterRampReachDevicePx` carries the dpr rule on the reach; the two are
+ * separate functions so a sweep can move one without the other, and the reach
+ * has no span grading because it measured as one length (§5.61 §2).
+ */
+export function scatterRampStart(
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  spanPx = 0,
+): number {
+  const thin = rampAtScale(
+    profile.sizeScatterRampStartThin1x,
+    profile.sizeScatterRampStartThin2x,
+    devicePixelRatio,
+  );
+  const thick = rampAtScale(
+    profile.sizeScatterRampStartThick1x,
+    profile.sizeScatterRampStartThick2x,
+    devicePixelRatio,
+  );
+  const far = rampAtScale(
+    profile.sizeScatterRampStartFar1x,
+    profile.sizeScatterRampStartFar2x,
+    devicePixelRatio,
+  );
+  // The fourth form (W13 Decision Log 6): past the thickness knee the start keeps
+  // falling along the scatter facet's own curve, from the thick anchor at
+  // `sizeSpanMax` to `far` at `sizeScatterSpanMax`. Same curve the deep value
+  // rises along, so the two are one span statistic read twice.
+  const decline = smoothstep(profile.sizeSpanMax, profile.sizeScatterSpanMax, spanPx);
+  return thin + (thick - thin) * sizeThickness(spanPx, profile) + (far - thick) * decline;
+}
+
+/**
+ * **The depth ramp's reach at a device scale**, in DEVICE px — U(dpr), the depth
+ * at which the sharp share would reach zero if it started at 1 (W13 G1).
+ *
+ * In device pixels because that is how it measured: the per-span reaches in
+ * absolute depth spread by 1.3× where the reaches as a fraction of the half-span
+ * spread by 2.2×, and between the two scales the length roughly halves in CSS px
+ * — one length in device pixels fits both beds where one in CSS px does not
+ * (claims §5.61 §2). Callers working in CSS px divide by the same dpr.
+ */
+export function scatterRampReachDevicePx(
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  return rampAtScale(
+    profile.sizeScatterRampReach1xPx,
+    profile.sizeScatterRampReach2xPx,
+    devicePixelRatio,
+  );
+}
+
+/**
+ * Linear in dpr between the 1x and 2x anchors, held outside [1, 2]. The two
+ * anchors are returned exactly rather than through the interpolation, because
+ * they are the values the reference was measured at and a profile that names
+ * one should render it, not a float one ulp away from it.
+ */
+function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): number {
+  const t = devicePixelRatio - 1;
+  if (t <= 0) return at1x;
+  if (t >= 1) return at2x;
+  return at1x + (at2x - at1x) * t;
+}
+
+/**
+ * **The span law that supplies the ramp's deep value** — kDeep(span), the heavy
+ * share the body mixes by everywhere deeper than the ramp's reach (W11c G1,
+ * claims §5.41; kept underneath the ramp by W13 G1).
+ *
+ * `sizeScatterFloor` + (1 − floor) · smoothstep(`sizeSpanMin`,
+ * `sizeScatterSpanMax`, span), unfolded — exactly the curve W11c fitted and W12
+ * landed. The accessibility fold is applied once, by `scatterThickness` and by
+ * the shader, on the whole mix rather than on this term alone.
+ */
+export function scatterDeepThickness(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  const floor = clampUnit(profile.sizeScatterFloor);
+  return floor + (1 - floor) * smoothstep(profile.sizeSpanMin, profile.sizeScatterSpanMax, spanPx);
+}
+
+/**
+ * **The sharp component's share at a depth** — s(u, span), the law the GPU
+ * tier's optics pass evaluates per pixel (W13 G1, claims §5.61 §2).
+ *
+ * ```
+ * s(u, span) = sDeep(span) + max(0, s₀(span) − sDeep(span)) · max(0, 1 − u / U)
+ * ```
+ *
+ * with `sDeep = 1 − scatterDeepThickness(span)` and `s₀` the span-graded start
+ * `scatterRampStart` resolves. Deeper than the reach the
+ * surface reads its span law exactly; within it the sharp component is lifted
+ * toward the contour value `s₀`. `max(0, s₀ − sDeep)` rather than a signed
+ * difference: the excursion is the band the reference has *above* the body, and
+ * on a span whose deep sharp share already exceeds `s₀` there is nothing to add
+ * — the alternative would quietly make the small spans heavier at the contour
+ * than in their own middle, which is the opposite of what §5.61 §2 measured.
+ *
+ * `uDevicePx` is the pixel's depth under the contour in DEVICE pixels, which is
+ * the field's own signed distance (negative inside) read in CSS px and
+ * multiplied by the ratio the tier draws at. Zero and negative depths — the
+ * contour and everything outside it — read the start value, because the body
+ * outside the silhouette is not drawn at all.
+ *
+ * The heavy share the body mixes by is 1 − s(u, span), before the accessibility
+ * fold `scatterThickness` and the shader apply.
+ */
+export function scatterSharpShare(
+  uDevicePx: number,
+  devicePixelRatio: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  spanPx = 0,
+): number {
+  const deepSharp = 1 - scatterDeepThickness(spanPx, profile);
+  const start = scatterRampStart(devicePixelRatio, profile, spanPx);
+  const reach = Math.max(scatterRampReachDevicePx(devicePixelRatio, profile), 1e-6);
+  const excursion = Math.max(start - deepSharp, 0) * Math.max(1 - Math.max(uDevicePx, 0) / reach, 0);
+  return clampUnit(deepSharp + excursion);
+}
+
+/**
+ * **The scattering facet's input** — how far toward its heavy blur a surface of
+ * this span mixes ON AVERAGE, 0…1: the depth ramp's projection onto one number
+ * per surface (W13 G1; the binding rule "the span law is the ramp's projection,
+ * on both tiers").
+ *
+ * The GPU tier mixes per pixel and needs no projection; every other consumer
+ * does — the CSS tier's single `blur()` σ, the sampling proxy's 3σ padding
+ * floor, the demo's law readout — and if each of them invented its own the two
+ * tiers would scatter differently. So this is the area average of the ramp over
+ * the surface. Because the ramp now rides on the span law rather than replacing
+ * it, the average is that law minus the excursion's average, and on a surface
+ * far larger than the reach it is the span law almost exactly — which is what
+ * keeps the CSS tier's large spans where W11c and W12 put them.
  *
  * `fold` is the accessibility fold every facet takes (the refraction ladder read
  * at the preference's cap, `sizeThicknessUnderPolicy`'s factor). It scales the
- * span-dependent rise and NOT the floor: the floor is the frost the material
- * has at any size, the rise is the depth a preference is entitled to remove.
+ * excursion away from `sizeScatterFloor` and NOT the floor itself: the floor is
+ * the frost the material has at any size, the rest is depth a preference is
+ * entitled to remove. At fold 1 this is the ramp's own average and at fold 0 it
+ * is the floor exactly.
  *
  * Mirrored by `@vitreajs/vitrea-web`'s `scatterThickness`, pinned by
- * `packages/calibration/test/tier-coherence.test.ts` over spans and folds.
+ * `packages/calibration/test/tier-coherence.test.ts` over spans, folds and dpr.
  */
 export function scatterThickness(
   spanPx: number,
   fold: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
 ): number {
-  const floor = Math.min(1, Math.max(0, profile.sizeScatterFloor));
-  return floor + (1 - floor) * smoothstep(profile.sizeSpanMin, profile.sizeScatterSpanMax, spanPx) * fold;
+  const floor = clampUnit(profile.sizeScatterFloor);
+  const mean = scatterRampAreaMean(spanPx, profile, devicePixelRatio, extentsCssPx);
+  return clampUnit(floor + (mean - floor) * fold);
+}
+
+/**
+ * The unfolded area average of the heavy share over a surface — the integral
+ * `scatterThickness` documents, separated so a reader can check the closed form
+ * against a quadrature and so the fold stays one multiplication.
+ *
+ * The average is exact rather than sampled. The heavy share at depth u is
+ * `kDeep(span) − A · T(u)` with `A = max(0, s₀ − sDeep)` the excursion's
+ * amplitude and `T(u) = max(0, 1 − u / R)` its triangle in depth, so the area
+ * average is `kDeep − A · T̄` and only `T̄` has to be integrated — the amplitude
+ * is one number per surface even though the start grades with span, because a
+ * surface has one span. On a rectangle
+ * the area at depth ≥ u is `(W − 2u)(H − 2u)`, so the area *at* depth u has
+ * measure `P − 8u` with `P = 2(W + H)`, and
+ *
+ * ```
+ * T̄ = (1 / WH) ∫₀^{min(R, min(W,H)/2)} (1 − u / R) · (P − 8u) du
+ *    = (1 / WH) · [ P·m − 4m² − P·m² / (2R) + (8/3)·m³ / R ]
+ * ```
+ *
+ * with `m` that upper limit: a surface shallower than the reach integrates only
+ * the depth it has. The corners are ignored — a rounded rect's erosion keeps the
+ * corner radius shrinking with the depth and the exact measure differs from
+ * `P − 8u` only inside the corner quarter-disks — which is the same
+ * approximation the spec's design states and costs less than the ramp's own
+ * measurement error.
+ *
+ * `extentsCssPx` is the surface's own width and height where the caller has
+ * them. Where it does not — and most callers do not, because a group's law is
+ * taken over its *widest member's span* and a span is one number — the surface
+ * is taken to be a square of the span, which is the honest reading of "a
+ * surface of this span" and is exactly right on the calibration bed's square
+ * components.
+ */
+export function scatterRampAreaMean(
+  spanPx: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+  extentsCssPx?: readonly [number, number],
+): number {
+  const deep = scatterDeepThickness(spanPx, profile);
+  const amplitude = Math.max(scatterRampStart(devicePixelRatio, profile, spanPx) - (1 - deep), 0);
+  if (amplitude <= 0) return clampUnit(deep);
+  const width = Math.max(extentsCssPx?.[0] ?? spanPx, 0);
+  const height = Math.max(extentsCssPx?.[1] ?? spanPx, 0);
+  const area = width * height;
+  if (area <= 0) return clampUnit(deep - amplitude);
+  // The reach in CSS px, which is the unit the depth arrives in: u_device / U =
+  // u_css · dpr / U, so the CSS-space reach is U / dpr and the ratio is the same
+  // number the shader computes.
+  const reach = Math.max(
+    scatterRampReachDevicePx(devicePixelRatio, profile) / Math.max(devicePixelRatio, 1e-3),
+    1e-6,
+  );
+  const perimeter = 2 * (width + height);
+  const limit = Math.min(reach, Math.min(width, height) / 2);
+  const triangleMean =
+    (perimeter * limit
+      - 4 * limit * limit
+      - (perimeter * limit * limit) / (2 * reach)
+      + (8 * limit * limit * limit) / (3 * reach))
+    / area;
+  return clampUnit(deep - amplitude * triangleMean);
 }
 
 /**
@@ -2078,13 +2541,31 @@ export function scatterThickness(
  * thickness form is the law, the span form is the convenience that computes an
  * unfolded thickness for it. One formula, so a policy fold cannot end up applied
  * to one facet and not another.
+ *
+ * The widths are CSS-px quantities at every device scale. W12 G3 read them as
+ * device-pixel quantities (claims §5.56 §1) and held that reading as a
+ * candidate; W13 carried it into its dry runs and the bed retired it (W13
+ * Decision Log 8, user-decided, 2026-09-04): at 2x the ramp is a null, so the
+ * halved widths were the only change on that scale, and against the W14 bed
+ * they took the four large checkerboard rows down 0.006–0.017 while raising
+ * the two small ones — Apple's 2x interior is HEAVIER than ours (claims §5.64
+ * §4), and a narrower width pushes the large spans the wrong way. The 2x
+ * question is the deep value's, chartered separately; until it is answered
+ * the σ here is one number in CSS px, and a caller that divides it by a ratio
+ * is asserting a law the measurement rejected.
  */
 export function sizeScatterSigmaAt(
   sigmaPx: number,
   scatter: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
-  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * scatter);
+  const mix = clampUnit(scatter);
+  return sigmaPx * (1 + (profile.sizeScatterGainMax - 1) * mix);
+}
+
+/** 0…1, the clamp every share in this facet takes. */
+function clampUnit(value: number): number {
+  return Math.min(1, Math.max(0, value));
 }
 
 /**

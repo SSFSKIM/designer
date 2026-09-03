@@ -155,16 +155,41 @@ export interface OpticsPassArgs {
   readonly sizeShadowGainMax: number;
   readonly bodyChainLod: number;
   /**
-   * The size law's curves (W11c): the thickness band and the scatter facet's
-   * own floor and band top, plus the accessibility fold every span-dependent
-   * rise multiplies by — the refraction ladder at the preference's cap, the
-   * same factor `sizeThicknessUnderPolicy` applies on the CPU. The shader
-   * evaluates both curves per pixel from the span the field pass carries.
+   * The thickness band (W2) and the scatter facet's frost (W11c), plus the
+   * accessibility fold every span-dependent rise multiplies by — the refraction
+   * ladder at the preference's cap, the same factor `sizeThicknessUnderPolicy`
+   * applies on the CPU. The shader evaluates the thickness curve per pixel from
+   * the span the field pass carries; the scattering reads the depth instead.
    */
   readonly sizeSpanMin: number;
   readonly sizeSpanMax: number;
   readonly sizeScatterFloor: number;
+  /**
+   * The scatter facet's span curve (W11c), which since W13 G1 is the depth
+   * ramp's DEEP value: the shader evaluates `floor + (1 − floor) ·
+   * smoothstep(sizeSpanMin, sizeScatterSpanMax, span)` per pixel from the span
+   * the field pass carries, exactly as it did before the ramp.
+   */
   readonly sizeScatterSpanMax: number;
+  /**
+   * The body depth ramp (W13 G1, claims §5.61 §2, §5.64 §5), resolved once per
+   * group from the ratio the renderer draws at: the sharp share at the contour
+   * at each end of the material's thin/thick curve, and the reach at which the
+   * ramp's excursion vanishes into the span curve above, **in CSS px** — the
+   * profile names the reach in device px and the caller divides, because the
+   * depth the shader has is the field's own and that is in group-local CSS px.
+   * All three are already interpolated between the profile's 1x and 2x anchors.
+   *
+   * The start arrives as its two ENDS rather than as one resolved number: it
+   * grades along `sizeThickness(span)` and a group's members need not be one
+   * size, so the shader mixes the two ends by the same span the field already
+   * carries per pixel.
+   */
+  readonly sizeScatterRampStartThin: number;
+  readonly sizeScatterRampStartThick: number;
+  /** The start at `sizeScatterSpanMax` and beyond (the fourth form); the shader declines to it. */
+  readonly sizeScatterRampStartFar: number;
+  readonly sizeScatterRampReachCssPx: number;
   readonly sizeFold: number;
   /**
    * Backdrop tone adaptation (W7): `[low, high, sizeBiasUnderPolicy, strength]`.
@@ -601,7 +626,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[55] = args.outerShadow[3];
       d[56] = args.outerShadowSizeGain;
       d[57] = args.outerShadowRectCssHeight;
-      d[58] = 0;
+      // The depth ramp's THICK start (W13 G1's third form), in the first of
+      // this vec4's two padding slots. The scatter vec4 holds four numbers
+      // already and the ramp's second start needs a home; a padding slot of a
+      // vec4 the shader reads anyway costs no bytes and no second binding, and
+      // the shader's own comment names it where it is read.
+      d[58] = args.sizeScatterRampStartThick;
       d[59] = 0;
       // The response law's anchors and rows (W9), and the linear backdrop mean
       // the solve composites against.
@@ -618,7 +648,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[70] = args.backdropToneResponseThick[2];
       d[71] = 0;
       d[72] = args.sizeScatterFloor;
-      d[73] = args.sizeScatterSpanMax;
+      // The depth ramp's THIN start (W13 G1), in the slot the retired
+      // `sizeScatterSpanMax` held — the scatter facet's second number, where its
+      // second number has always been. The thick end is at d[58].
+      d[73] = args.sizeScatterRampStartThin;
       d[74] = args.sizeSpanMin;
       d[75] = args.sizeSpanMax;
       // The lens law (W12 G2, claims §5.51): the reference's height and amount
@@ -635,8 +668,14 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[83] = args.lensThicknessReference;
       d[84] = args.lensOvalizationSpanMin;
       d[85] = args.lensOvalizationSpanMax;
-      d[86] = 0;
-      d[87] = 0;
+      // The depth ramp's reach in CSS px (W13 G1), in the first of this vec4's
+      // two padding slots rather than in a vec4 of its own — the slot W12 G3's
+      // retired scale shift briefly held.
+      d[86] = args.sizeScatterRampReachCssPx;
+      // The scatter span curve's band top (W11c), in this vec4's second padding
+      // slot: W13 G1's re-forming keeps the curve underneath the ramp as its
+      // deep value, so the shader needs both the span and the depth.
+      d[87] = args.sizeScatterSpanMax;
       // The outer shadow's second regime and its second term (W14 G1). The
       // buffer grows by two vec4s rather than borrowing the three free slots
       // above, because the shadow's own block is `shadow` / `shadowSize` and a
@@ -645,7 +684,10 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[88] = args.outerShadowThick[0];
       d[89] = args.outerShadowThick[1];
       d[90] = args.outerShadowThick[2];
-      d[91] = 0;
+      // The depth ramp's FAR start (W13 G1's fourth form), in the padding slot
+      // W14 left free beside the thick regime's three anchors; the shader's own
+      // comment names it where it is read.
+      d[91] = args.sizeScatterRampStartFar;
       d[92] = args.outerShadowLift[0];
       d[93] = args.outerShadowLift[1];
       d[94] = args.outerShadowLift[2];
