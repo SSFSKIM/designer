@@ -12,6 +12,7 @@ Findings for `docs/doperpowers/specs/2026-09-03-w13-body-depth-ramp.md`.
 | `g0_ramp.py` | the reference's k(u) per span and scale; H1 against H2; the heavy width per span |
 | `g0_smallspan.py` | the heavy width on the small spans, `g3lib.fit_two_joint` over the pitches |
 | `g0_impulse.py` | the impulse cells: the dot's peak contrast, the radial profiles, the interior levels |
+| `g0_freet.py` | the addendum: the same fit with the transmission free per depth window — does t ramp, or only the mix? |
 | `g0_band.py` | an independent replica of contract X6's band / interior rows, agreeing with the landed ones (`x6-baseline.md`, claims §5.60) to 0.0015 |
 | `g0-instrument.md` | **the validation** — what the instrument recovers from a known law, and what it cannot |
 | `g0-ramp.md` | **the readings** — the ramp, the widths, the dot, and a draft of claims §5.60 |

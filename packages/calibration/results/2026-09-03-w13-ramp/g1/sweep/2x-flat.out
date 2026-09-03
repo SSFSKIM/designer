@@ -1,0 +1,19 @@
+
+interior = mean over calibration cells of |Δmean| + |Δsd| + |Δrim|, linear light
+shadow   = mean over calibration cells of |Δ meanDeparture| over the exterior, linear light
+ranked on the INTERIOR objective. SSIM and dE are CHECKS, not terms of either.
+
+point                                            interior   |Δmean|    |Δsd|   |Δrim|    shadow       dE    SSIM   n  ns
+------------------------------------------------------------------------------------------------------------------------
+sizeScatterRampStart2x=0.65 sizeScatterRampReach2xPx=200    0.06727   0.01681  0.00902  0.04143   0.00308  0.00654  0.9840  19  20
+sizeScatterRampStart2x=0.65 sizeScatterRampReach2xPx=350    0.06758   0.01684  0.00932  0.04142   0.00308  0.00662  0.9832  19  20
+sizeScatterRampStart2x=0.65 sizeScatterRampReach2xPx=500    0.06799   0.01685  0.00982  0.04133   0.00308  0.00668  0.9828  19  20
+sizeScatterRampStart2x=0.75 sizeScatterRampReach2xPx=200    0.06859   0.01681  0.01014  0.04164   0.00308  0.00664  0.9832  19  20
+sizeScatterRampStart2x=0.55 sizeScatterRampReach2xPx=500    0.06912   0.01683  0.01088  0.04141   0.00308  0.00655  0.9838  19  20
+sizeScatterRampStart2x=0.55 sizeScatterRampReach2xPx=350    0.06959   0.01685  0.01126  0.04148   0.00308  0.00652  0.9841  19  20
+sizeScatterRampStart2x=0.75 sizeScatterRampReach2xPx=350    0.07133   0.01679  0.01297  0.04156   0.00308  0.00679  0.9822  19  20
+sizeScatterRampStart2x=0.55 sizeScatterRampReach2xPx=200    0.07154   0.01685  0.01315  0.04154   0.00308  0.00654  0.9846  19  20
+sizeScatterRampStart2x=0.75 sizeScatterRampReach2xPx=500    0.07257   0.01681  0.01419  0.04158   0.00308  0.00688  0.9818  19  20
+
+best: sizeScatterRampStart2x=0.65 sizeScatterRampReach2xPx=200  interior 0.06727
+spread across the grid: 0.06727 … 0.07257 (1.08×). A flat grid means the optimum is weakly identified, which is information about the fixtures, not a reason to pick harder.

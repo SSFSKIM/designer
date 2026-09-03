@@ -8,7 +8,7 @@ pooled, with pitches 8 and 4 run separately as checks. Beside it: `g3lib`'s pool
 two-component kernel fit on the deep interior for the heavy width per span; the impulse cells
 at both scales and both colour schemes; and the band-windowed SSIM rows on the W12 close bed.
 Nothing was captured and no constant under `packages/*/src` was changed. Scripts `g0_ramp.py`,
-`g0_smallspan.py`, `g0_impulse.py`, `g0_band.py`; tables under `parts/`; figures
+`g0_smallspan.py`, `g0_impulse.py`, `g0_band.py`, `g0_freet.py`; tables under `parts/`; figures
 `g0-ramp.png`, `g0-ramp-absolute.png`, `g0-impulse.png`.
 
 **Contract X4 travels with every table below.** The same instrument, on the same geometry, on
@@ -368,11 +368,12 @@ Findings, with the evidence, not decisions.
   `-lg`; the layer tree's own radius law (16 device px on `rrect-lg`) makes every share
   physical at a 28% RMS cost; the deep-interior fit prefers 11. Until that is closed the 2x
   ramp's floor is only bounded to 0.00 ≤ floor ≤ 0.03, not measured.
-- **The transmission was assumed constant with depth.** The instrument has a mode that frees
-  it per window and is identified on the pooled pitches (`g0-instrument.md` §1). It was not
-  exercised in these tables. If the reference's transmission ramps, part of what §1 reports
-  as a share ramp is a transmission ramp, and the two land as different shader terms. This is
-  the cheapest single check available to G1 and it should run before a form is fitted.
+- **The transmission does not ramp; the share does.** §8 ran the check: freeing the
+  transmission per depth window leaves |Δt| at 1.2–3.3% of each cell's own mean — at or below
+  what the same mode reports on vitrea, whose transmission is constant by construction — and
+  73–96% of §1's share ramp survives, with the reach moving by at most 10 CSS px. **G1 may
+  fit a form on the share alone.** The mode was validated on a synthetic field with a
+  constant t and a ramping k, where t comes back flat to 0.001 and k to 0.003.
 - **The probe does not ask for a span term on σ_heavy.** 8–12 device px covers every span at
   both scales (§4a) and the radius law's floored 5.33 device px is rejected on the small spans
   by 40–180% of RMS. §5.56 §1's one number stands; a span term would be fitting the estimator.
@@ -385,6 +386,83 @@ Findings, with the evidence, not decisions.
   deficit at 1x and two thirds at 2x sits *outside* the silhouette, in the outer shadow's
   colour — bounds how much of the bed a body change can move at all. A ramp that improves
   every band row still leaves the larger share of `ssimMean` untouched.
+
+## 8. Does the transmission ramp, or only the mix? (addendum, 2026-09-03)
+
+§1's tables hold the transmission constant with depth and let one share per window carry all
+of the depth dependence. If the reference's transmission itself ramps, part of what §1 calls
+a share ramp is a transmission ramp, and the two land as different shader terms. `g0_freet.py`
+asks directly, with `WindowFit.solve_free_t`: two coefficients per depth window, ordinary
+least squares, per-line-set intercepts, and **no constraint that t is the same at every
+depth**. t(u) and k(u) then come out of the same solve.
+
+**The mode on a known field first.** A synthetic capture built from the forward model at a
+**constant** t of 0.42 and a **ramped** k (0.5 at the contour to 1.0 at the centre), pooled
+over pitches 16 / 32 / 64 — the configuration every reference reading uses:
+
+| cell | t at the first window | t at the last | t spread | max \|k − truth\| |
+| --- | --- | --- | --- | --- |
+| `rrect-md` 1x | 0.420 | 0.420 | **0.000** | 0.0031 |
+| `rrect-ml` 1x | 0.420 | 0.420 | **0.000** | 0.0025 |
+| `rrect-lg` 1x | 0.420 | 0.420 | **0.001** | 0.0031 |
+
+The mode separates a flat transmission from a ramping mix exactly, and does not leak one into
+the other.
+
+**The mode on vitrea's `main` captures**, where the transmission is constant with depth and
+the share is one number per span (contract X4; the canonical bed carries one pitch, `photo`
+pooled, so this is the weakest of the three checks):
+
+| cell | truth k | t first → last | **t spread** | k first → last | **k spread** |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-md` 1x | 0.519 | 0.401 → 0.414 | 0.014 | 0.419 → 0.434 | 0.030 |
+| `rrect-ml` 1x | 0.636 | 0.392 → 0.408 | 0.017 | 0.555 → 0.566 | 0.026 |
+| `rrect-lg` 1x | 0.764 | 0.398 → 0.408 | 0.012 | 0.727 → 0.733 | 0.022 |
+| `rrect-md` 2x | 0.519 | 0.407 → 0.422 | 0.016 | 0.448 → 0.442 | 0.039 |
+| `rrect-ml` 2x | 0.636 | 0.398 → 0.410 | 0.013 | 0.579 → 0.578 | 0.026 |
+| `rrect-lg` 2x | 0.764 | 0.398 → 0.408 | 0.013 | 0.737 → 0.734 | 0.023 |
+
+**t comes back flat on a material whose transmission is flat**: a spread of 0.012–0.017 on a
+t of about 0.40, which is **3–4% of the mean** and is this instrument's noise floor on a real
+capture rather than a synthetic one. k stays flat too (0.022–0.039, the same order as the
+shared-t mode's 0.012–0.046). Two side readings worth recording: the free-t mode reads
+vitrea's k **level** better than the shared-t mode does on the large spans (`rrect-lg` 0.73
+against a truth of 0.764, where shared-t read 0.67) and worse on `rrect-md` (0.42 against
+0.519) — freeing t per window turns out to trade differently against the one-frequency
+degeneracy of `g0-instrument.md` §2, and neither mode escapes it.
+
+**The reference**, pitches 16 / 32 / 64, the widths of §1:
+
+| cell | t first | t last | Δt | Δt ÷ t̄ | s fixed-t, first → last | s free-t, first → last | ramp surviving | reach fixed / free |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-md` 1x | 0.557 | 0.548 | −0.010 | **−1.7%** | 0.512 → 0.409 | 0.451 → 0.376 | **73%** | 144 / 136 |
+| `rrect-ml` 1x | 0.514 | 0.506 | −0.007 | **−1.4%** | 0.501 → 0.288 | 0.413 → 0.233 | **84%** | 115 / 107 |
+| `rrect-lg` 1x | 0.459 | 0.466 | +0.007 | **+1.5%** | 0.410 → 0.150 | 0.333 → 0.108 | **87%** | 108 / 98 |
+| `rrect-md` 2x | 0.537 | 0.531 | −0.006 | **−1.2%** | 0.192 → 0.075 | 0.192 → 0.095 | **83%** | 59 / 62 |
+| `rrect-ml` 2x | 0.489 | 0.473 | −0.016 | **−3.3%** | 0.179 → −0.143 | 0.169 → −0.134 | **94%** | 41 / 41 |
+| `rrect-lg` 2x | 0.421 | 0.409 | −0.012 | **−2.9%** | 0.141 → −0.247 | 0.085 → −0.286 | **96%** | 39 / 34 |
+
+**Verdict: the reference's transmission does not ramp, on any of the six cells.** |Δt| across
+the validated windows is 0.006–0.016 in absolute terms and 1.2–3.3% of the cell's own mean —
+at or *below* the 3–4% the same mode reports on vitrea, whose transmission is constant by
+construction. Five of the six move in the same direction (slightly down with depth) and
+`rrect-lg` at 1x moves up, which is what noise of that size looks like rather than a term.
+
+**And §1's share ramp survives freeing it.** The first-to-last fall in s keeps **73% to 96%**
+of its fixed-t size — least on `rrect-md` at 1x, which is the shallowest ramp of the six and
+so the one where a few percent of t matters most — and the reach moves by at most 10 CSS px
+(144 → 136, 115 → 107, 108 → 98 at 1x; 59 → 62, 41 → 41, 39 → 34 at 2x). Every conclusion in
+§1, §2 and §7 stands with t free: the ramp is real, it is not a transmission, and its reach
+still reads as a length rather than a fraction of the span.
+
+**One difference between the two modes to keep in view.** They are not nested. The shared-t
+mode fits one transmission per *line set* (twelve of them: three pitches × four edges) and one
+share per window; the free-t mode fits one transmission and one share per *window*, shared by
+every set. So free-t buys depth freedom and gives up the per-pitch slack, which is why its
+residual is slightly higher on five of six cells (0.0145–0.0223 against 0.0126–0.0220) despite
+having depth-varying transmission. One transmission across the pitches is the physically right
+assumption — it is the model §5.55 §1 fitted — so the free-t residual is the more honest of
+the two, and the agreement between them is the result.
 
 ## For claims §5.61
 
@@ -496,12 +574,40 @@ taken as the analytic contour rather than the hole-filled native silhouette: `ss
 0.9802 / 0.9745 against 0.9817 / 0.9803 / 0.9747 — within 0.0015 everywhere. Two routes, one
 number.
 
-#### 6. Limits
+#### 6. The transmission does not ramp — the depth dependence is the mix alone
+
+The windowed fit re-run with the transmission **free per depth window** (two coefficients per
+window, ordinary least squares, no constraint that t is the same at every depth), pitches
+16 / 32 / 64, the widths of §2. Validated first on a synthetic field at a constant t of 0.42
+and a ramping k, where t comes back flat to **0.001** and k to **0.003**; and on vitrea's own
+`main` captures, where t is constant by construction and comes back with a spread of
+**0.012–0.017** on a t of 0.40 (3–4%, the mode's noise floor on a real capture).
+
+| cell | t first → last | Δt ÷ t̄ | s fixed-t first → last | s free-t first → last | ramp surviving | reach fixed / free, CSS px |
+| --- | --- | --- | --- | --- | --- | --- |
+| `rrect-md` 1x | 0.557 → 0.548 | −1.7% | 0.512 → 0.409 | 0.451 → 0.376 | 73% | 144 / 136 |
+| `rrect-ml` 1x | 0.514 → 0.506 | −1.4% | 0.501 → 0.288 | 0.413 → 0.233 | 84% | 115 / 107 |
+| `rrect-lg` 1x | 0.459 → 0.466 | +1.5% | 0.410 → 0.150 | 0.333 → 0.108 | 87% | 108 / 98 |
+| `rrect-md` 2x | 0.537 → 0.531 | −1.2% | 0.192 → 0.075 | 0.192 → 0.095 | 83% | 59 / 62 |
+| `rrect-ml` 2x | 0.489 → 0.473 | −3.3% | 0.179 → −0.143 | 0.169 → −0.134 | 94% | 41 / 41 |
+| `rrect-lg` 2x | 0.421 → 0.409 | −2.9% | 0.141 → −0.247 | 0.085 → −0.286 | 96% | 39 / 34 |
+
+**On none of the six cells does t ramp**: |Δt| is 0.006–0.016 absolute and 1.2–3.3% of the
+cell's mean, at or below the mode's own noise on vitrea, and one of the six moves upward. **The
+share ramp survives at 73–96% of its fixed-t size** with the reach moving by at most 10 CSS
+px. §2's readings are readings of the mix, and a form may be fitted on the mix alone. The two
+modes are not nested — the fixed-t one fits a transmission per line set, the free-t one a
+transmission per window shared across sets — so the free-t residual is slightly the higher on
+five of six cells (0.0145–0.0223 against 0.0126–0.0220) while carrying the more restrictive
+and more physical assumption about the pitches.
+
+#### 7. Limits
 
 The lens is fixed by decision, so its 0.6–1.3 px 2x mid-depth residual (§5.55 §4) is inside
 every residual here and any depth-correlated part of it is absorbed by the windows near the
-band; windows below u = 4 are excluded for that and for the rim. The transmission is assumed
-constant with depth — the instrument has a mode that frees it and it was not exercised. The
+band; windows below u = 4 are excluded for that and for the rim. §6 frees the transmission
+per window and finds it flat, so the share readings stand; the two modes make different
+assumptions about the pitches and are not nested. The
 residual RMS on the reference (0.005–0.023) is two to four times vitrea's on the same
 geometry (0.004–0.009): the model is vitrea's body under vitrea's lens and on the reference it
 is an approximation. Pitch 8 at 2x is excluded from the primary reading (its fitted
