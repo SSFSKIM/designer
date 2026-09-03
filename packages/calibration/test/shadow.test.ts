@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { srgbByteToLinear } from "../src/color";
 import { componentRegion, type ComponentRegion, type DeclaredComponent } from "../src/component-region";
 import type { CalibrationImage } from "../src/image";
 import { shadowField } from "../src/metrics/shadow";
@@ -272,5 +273,159 @@ describe("the shadow axis", () => {
     expect(field.extentAbovePx ?? 0).toBeGreaterThan(20);
     expect(field.extentLeftPx ?? 0).toBeGreaterThan(20);
     expect(field.offsetXPx).toBeDefined();
+  });
+});
+
+/**
+ * The affine pair beside the occlusion ratio (W14 X7).
+ *
+ * Every render here is built from *exact* sRGB byte values, so the fit's ground
+ * truth is not approximate: a two-level backdrop gives the least-squares line
+ * two points, the black squares read `c` and the white squares read `a + c`, and
+ * a recovery that is off by more than float noise is the estimator being wrong
+ * rather than the raster being coarse. That is the same construction claims
+ * §5.62 read the reference through, so the two are comparable readings.
+ */
+describe("the shadow axis's affine pair", () => {
+  /** A pitch-8 checkerboard of two exact bytes, as linear luminance. */
+  const checker = (darkByte: number, lightByte: number): CalibrationImage =>
+    fromLinearLuminance(CANVAS.width, CANVAS.height, (x, y) =>
+      srgbByteToLinear((Math.floor(x / 8) + Math.floor(y / 8)) % 2 === 0 ? darkByte : lightByte),
+    );
+
+  /**
+   * A render whose exterior takes one exact byte over the backdrop's dark
+   * squares and another over its light ones — an affine map of the backdrop with
+   * `c = linear(overDark)` and `a = linear(overLight) − linear(overDark)` when
+   * the backdrop's own dark square is black.
+   */
+  const affineOver = (overDarkByte: number, overLightByte: number): CalibrationImage =>
+    fromLinearLuminance(CANVAS.width, CANVAS.height, (x, y) => {
+      if ((REGION.silhouette.mask[y * CANVAS.width + x] ?? 0) !== 0) return 0.3;
+      const onDark = (Math.floor(x / 8) + Math.floor(y / 8)) % 2 === 0;
+      return srgbByteToLinear(onDark ? overDarkByte : overLightByte);
+    });
+
+  const bandOf = (field: ReturnType<typeof shadowField>, direction: string, label: string) =>
+    field.affine.find((s) => s.direction === direction && s.ringLabel === label);
+
+  it("recovers a and c exactly from a render that is an affine map of its backdrop", () => {
+    const backdrop = checker(0, 255);
+    const cTrue = srgbByteToLinear(30);
+    const aTrue = srgbByteToLinear(220) - cTrue;
+    const field = shadowField(affineOver(30, 220), backdrop, REGION);
+
+    expect(field.affine.length).toBeGreaterThan(0);
+    for (const sample of field.affine) {
+      if (sample.slopeALinear === undefined) continue;
+      expect(sample.slopeALinear).toBeCloseTo(aTrue, 10);
+      expect(sample.interceptCLinear ?? 99).toBeCloseTo(cTrue, 10);
+      expect(sample.rSquared ?? 0).toBeCloseTo(1, 10);
+    }
+    // The lift is the reading the ratio cannot make: the same render's occlusion
+    // is a ratio over the light squares alone and says nothing about the light
+    // sitting on the black ones.
+    expect(bandOf(field, "below", "0-3")?.interceptCLinear ?? 0).toBeGreaterThan(0);
+  });
+
+  it("reads a pure multiply as c = 0 and a = 1 − occlusion", () => {
+    // A black multiply is inert over black, so the fit's intercept is zero to
+    // the last digit and its slope is the transmission the occlusion ratio
+    // reports as its complement. This is X4's recovery in miniature: it is what
+    // vitrea's own W8 shadow must read back as.
+    const transmission = srgbByteToLinear(200);
+    const backdrop = checker(0, 255);
+    const field = shadowField(affineOver(0, 200), backdrop, REGION);
+
+    const band = bandOf(field, "all", "0-3");
+    expect(band?.interceptCLinear ?? 99).toBeCloseTo(0, 12);
+    expect(band?.slopeALinear ?? 0).toBeCloseTo(transmission, 12);
+    // And the axis's own ratio agrees: the light squares are the only ones above
+    // the backdrop floor, and they lost exactly 1 − transmission of their light.
+    expect(field.strengthPeak ?? 0).toBeCloseTo(1 - transmission, 10);
+    expect(band?.slopeALinear ?? 0).toBeCloseTo(1 - (field.strengthPeak ?? 0), 10);
+  });
+
+  it("leaves the pair ABSENT over a solid backdrop and reports the level instead", () => {
+    const solid = solidLuminance(CANVAS.width, CANVAS.height, 0.6);
+    const render = fromLinearLuminance(CANVAS.width, CANVAS.height, (x, y) =>
+      (REGION.silhouette.mask[y * CANVAS.width + x] ?? 0) !== 0 ? 0.3 : 0.6 * 0.8,
+    );
+    const field = shadowField(render, solid, REGION);
+
+    const band = bandOf(field, "below", "0-3");
+    expect(band).toBeDefined();
+    expect(band?.slopeALinear).toBeUndefined();
+    expect(band?.interceptCLinear).toBeUndefined();
+    expect(band?.rSquared).toBeUndefined();
+    expect(band?.unidentifiableReason).toBe("flat-backdrop");
+    // What a constant backdrop does identify, reported rather than dropped: the
+    // level and the backdrop it sits over. Their ratio is a + c/bg, and nothing
+    // in the band splits it.
+    // To two decimals: both images are 8-bit, and 0.48 linear is between codes.
+    expect(band?.renderedLevelLinear ?? 0).toBeCloseTo(0.6 * 0.8, 2);
+    expect(band?.backdropMeanLinear ?? 0).toBeCloseTo(0.6, 2);
+    expect(band?.backdropStdDevLinear ?? 1).toBeLessThan(0.001);
+  });
+
+  it("fits in LINEAR light, so an encoded lift reads an order of magnitude smaller", () => {
+    // The composite a tier actually paints: the ENCODED backdrop keeps 1 − α of
+    // itself and an encoded lift of 0.039 is added on top — claims §5.60 §3's
+    // number, in the space it was read in. Over a black square that lift decodes
+    // to about 0.0030 linear, a factor of thirteen, because it sits where sRGB's
+    // transfer function is steepest (claims §5.62's third Surprise). A fit run
+    // on the encoded values would return the 0.039; this one must not.
+    const encodedLift = 0.039;
+    const overDarkByte = Math.round(encodedLift * 255);
+    const overLightByte = Math.round((1 * (1 - 0.13) + encodedLift) * 255);
+    const field = shadowField(
+      affineOver(overDarkByte, overLightByte),
+      checker(0, 255),
+      REGION,
+    );
+
+    const band = bandOf(field, "below", "0-6");
+    const c = band?.interceptCLinear ?? 0;
+    expect(c).toBeCloseTo(srgbByteToLinear(overDarkByte), 12);
+    expect(c).toBeGreaterThan(0.002);
+    expect(c).toBeLessThan(0.004);
+    expect(encodedLift / c).toBeGreaterThan(8);
+  });
+
+  it("keeps the pair where the occlusion ratio is absent, which is where a lift shows alone", () => {
+    // A near-black backdrop with contrast: every normalised figure goes, because
+    // there is no light to remove — and the lift is measured cleanly, because a
+    // multiply removes nothing from a black pixel and whatever light is there
+    // came from a term that is not one. This is the case W14 X7 exists for.
+    const backdrop = checker(0, 60);
+    const field = shadowField(affineOver(10, 65), backdrop, REGION);
+
+    expect(field.backdropSupport).toBe(0);
+    expect(field.unmeasurableReason).toBeDefined();
+    expect(field.strengthPeak).toBeUndefined();
+
+    const band = bandOf(field, "below", "0-3");
+    expect(band?.interceptCLinear ?? 0).toBeCloseTo(srgbByteToLinear(10), 12);
+    expect(band?.rSquared ?? 0).toBeCloseTo(1, 10);
+  });
+
+  it("cuts its bands in CSS px, so a 2x capture's bands are twice as wide in device px", () => {
+    const backdrop = checker(0, 255);
+    const render = affineOver(30, 220);
+    const atOneX = shadowField(render, backdrop, REGION, { scale: 1 });
+    const atTwoX = shadowField(render, backdrop, REGION, { scale: 2 });
+
+    const one = bandOf(atOneX, "below", "0-3")?.sampleCount ?? 0;
+    const two = bandOf(atTwoX, "below", "0-3")?.sampleCount ?? 0;
+    expect(one).toBeGreaterThan(0);
+    // 0–3 CSS px is 0–6 device px at 2x, so it holds about twice the pixels. Not
+    // exactly twice: the annulus grows outward, so the outer ring is longer.
+    expect(two / one).toBeGreaterThan(1.8);
+    expect(two / one).toBeLessThan(2.4);
+    // The pair itself does not move — the same map fitted over more of it.
+    expect(bandOf(atTwoX, "below", "0-3")?.slopeALinear ?? 0).toBeCloseTo(
+      bandOf(atOneX, "below", "0-3")?.slopeALinear ?? 1,
+      10,
+    );
   });
 });
