@@ -52,6 +52,15 @@ export interface StageGroundPaint {
 /** The instrument window's own ground: the colour every stage but the tone one uses. */
 export const DEFAULT_GROUND: StageGroundPaint = { fill: "#0c151a", field: 1 };
 
+/**
+ * `DEFAULT_GROUND.fill`'s linear luminance — the level a group that cannot sample
+ * the window (it sits over ordinary DOM, not over the texture) declares as its
+ * backdrop hint. A hint takes precedence over sampling on both tiers, so it has to
+ * be the ground's real level and nothing else; the texture-sampling groups declare
+ * none and let the runtime read the canvas.
+ */
+export const DEFAULT_GROUND_LUMINANCE = 0.0069;
+
 export interface StageBackdropProps {
   readonly sourceId: string;
   /** Held still under reduced motion; the grid alone still carries the detail. */

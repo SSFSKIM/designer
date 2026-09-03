@@ -303,9 +303,10 @@ export function Site(props: SiteProps): ReactNode {
                 data-testid="ground-level"
               />
               <span className="field__hint" data-testid="ground-level-readout">
-                {groundLevel.toFixed(3)} linear. The curve is flat above 0.14 and
-                saturated below 0.02; everything between those two is the
-                transition.
+                {groundLevel.toFixed(3)} linear. The interior settles on a curve
+                through three measured anchors, and the surface&rsquo;s size moves
+                where the curve&rsquo;s ends sit; this range is the dark end, where
+                the sizes come apart.
               </span>
             </label>
           </Fields>
@@ -333,13 +334,13 @@ export function Site(props: SiteProps): ReactNode {
             argument, not its result.
           </p>
           <p className="body">
-            Nothing else on this page does this, and the reason is a number. Every
-            other group here declares{" "}
-            <code>{'hint={{ tone: "dark", luminance: 0.16 }}'}</code>, because the
-            instrument window is dark and the runtime cannot see that for itself
-            &mdash; and 0.16 is above the band, so the axis never fires. The
-            slider&rsquo;s top stop is that same 0.16: take it there and these
-            plates are the plates from the previous section.
+            Every other stage here lets the runtime read the ground for itself:
+            their groups sample the window&rsquo;s texture, so the plates above are
+            adapted to what is actually behind them, and a declared hint would only
+            override that reading. The groups that sit over ordinary DOM &mdash; the
+            toolbar and the menu under Behaviour &mdash; cannot be sampled, so they
+            declare the window&rsquo;s real ground level instead, with{" "}
+            <code>{'hint={{ tone: "dark", luminance }}'}</code>.
           </p>
           <p className="body">
             This group declares its level too, and both halves of that are
@@ -721,7 +722,7 @@ export function App() {
   return (
     <GlassRoot renderer="webgpu">
       <YourOrdinaryPage />
-      <GlassGroup id="toolbar" hint={{ tone: "dark", luminance: 0.18 }}>
+      <GlassGroup id="toolbar" hint={{ tone: "dark", luminance: 0.007 }}>
         <GlassToolbar aria-label="Document actions">
           <GlassButton onClick={share}>Share</GlassButton>
         </GlassToolbar>

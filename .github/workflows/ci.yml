@@ -53,7 +53,7 @@ jobs:
       # `pnpm -r test`, because three browser engines are a heavy dependency to
       # put in front of every package's unit suite. C5's acceptance lives here:
       # pixel assertions on Chromium only, everything else on all three engines.
-      - run: pnpm --filter @vitrea/platform-web exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm --filter @vitreajs/vitrea-web --fail-if-no-match exec playwright install --with-deps chromium firefox webkit
 
       # `e2e/gpu` runs here too, on the software path: this runner has no GPU, so
       # `VITREA_ALLOW_FALLBACK_ADAPTER=1` opts into a SwiftShader adapter, and the
@@ -67,7 +67,7 @@ jobs:
         run: |
           set -o pipefail
           xvfb-run -a --server-args="-screen 0 1280x1024x24" \
-            pnpm --filter @vitrea/platform-web test:e2e 2>&1 | tee e2e.log
+            pnpm --filter @vitreajs/vitrea-web --fail-if-no-match test:e2e 2>&1 | tee e2e.log
 
       # What ran, what did not, and on what adapter — in the run summary rather
       # than buried in the log, because "green" here does not mean "hardware".

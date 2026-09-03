@@ -272,28 +272,38 @@ test.describe("the layout is legal", () => {
 
     const before = await read();
     /*
-     * Both plates start untinted, so both carry the same white — but NOT the same
-     * alpha, and that stopped being true when `sizeOcclusionGain` was adopted at
-     * 0.05 against the frozen bed (claims §5.13's re-fit block). On this tier the
-     * size law's occlusion lifts the tint alpha, and these two plates are 112 px
-     * and 40 px, so the lift reaches them differently. Cross-plate equality was a
-     * fair proxy for "untinted" only while that gain was the identity.
-     *
-     * So the colour is asserted exactly and the alpha is bounded by the lift's own
-     * ceiling: `alpha + gain · thickness · (1 − alpha)` can exceed `alpha` by at
-     * most `gain`, whatever the spans are.
+     * Both plates start untinted, and they no longer share a colour. This stage
+     * declares no backdrop hint any more (it used to declare 0.16, a level chosen
+     * to keep the tone axis off), so the tier reads the window's own canvas, and
+     * the size gate lands the 40 px plate on the ground's tone while the 112 px
+     * plate keeps most of the material's white. "Untinted" is therefore asserted
+     * as the adapted material — the small plate is not white — rather than as
+     * cross-plate equality, which was only ever a proxy for it.
      */
-    expect(colourOf(before.tinted)).toBe(colourOf(before.plain));
-    expect(Math.abs(alphaOf(before.tinted) - alphaOf(before.plain))).toBeLessThanOrEqual(
-      SIZE_OCCLUSION_GAIN,
-    );
+    expect(colourOf(before.plain)).not.toBe("255,255,255");
 
     await page.getByTestId("tint-select").selectOption("orange");
     await expect.poll(async () => (await read()).tinted).not.toBe(before.tinted);
 
+    /*
+     * The neighbour's colour is the sampled ground's, and the ground's field drifts
+     * slowly, so two reads a moment apart can differ by a code value; "did not
+     * take the tint" is a channel-wise closeness, not string equality.
+     */
+    const rgbaOf = (declared: string): number[] =>
+      (declared.match(/[\d.]+/g) ?? []).map(Number);
+    const expectUntouched = (later: string, earlier: string): void => {
+      const [lr = 0, lg = 0, lb = 0, la = 0] = rgbaOf(later);
+      const [er = 0, eg = 0, eb = 0, ea = 0] = rgbaOf(earlier);
+      expect(Math.abs(lr - er)).toBeLessThanOrEqual(2);
+      expect(Math.abs(lg - eg)).toBeLessThanOrEqual(2);
+      expect(Math.abs(lb - eb)).toBeLessThanOrEqual(2);
+      expect(Math.abs(la - ea)).toBeLessThanOrEqual(0.01);
+    };
+
     const after = await read();
     // One plate takes the colour; its neighbour in the same group does not.
-    expect(after.plain).toBe(before.plain);
+    expectUntouched(after.plain, before.plain);
     /*
      * The published occlusion is the fold this tier does in closed form: the
      * author's layer at strength `s` over the material's one `rgba()` at `α` is
@@ -309,7 +319,7 @@ test.describe("the layout is legal", () => {
     await expect.poll(async () => (await read()).tinted).not.toBe(after.tinted);
 
     const half = await read();
-    expect(half.plain).toBe(before.plain);
+    expectUntouched(half.plain, before.plain);
     expect(
       Math.abs(Number(half.occlusion) - (1 - 0.5 * (1 - Number(before.occlusion)))),
     ).toBeLessThan(0.002);

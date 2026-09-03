@@ -40,7 +40,12 @@ import { useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "../ActionsMenu";
 import { REPORTS_BY_SCENE } from "./calibration";
-import { DEFAULT_GROUND, StageBackdrop, type StageGroundPaint } from "./StageBackdrop";
+import {
+  DEFAULT_GROUND,
+  DEFAULT_GROUND_LUMINANCE,
+  StageBackdrop,
+  type StageGroundPaint,
+} from "./StageBackdrop";
 import { CANVAS, type ReferenceScene } from "./scenes";
 
 export type StageMode = "material" | "tone" | "reference" | "behavior" | "access";
@@ -73,7 +78,7 @@ export const GROUPS_BY_MODE: Record<StageMode, readonly { id: string; label: str
  * a fidelity comparison against a capture over a light raster, and biasing its
  * foreground by hand is the one place a hint would be a thumb on the scale.
  */
-const STAGE_HINT = { tone: "dark", luminance: 0.16 } as const;
+const STAGE_HINT = { tone: "dark", luminance: DEFAULT_GROUND_LUMINANCE } as const;
 
 const RANGES = [
   { value: "day", label: "Day" },
@@ -119,17 +124,15 @@ const SIZE_SWEEP = [
  * the page paints that ground, so it is not estimating anything when it says what
  * it is.
  *
- * The stops are the axis's own, not a comfortable range around it. Below the
- * curve's `backdropToneLow` (0.02 linear) a small surface is fully adapted; above
- * its `backdropToneHigh` (0.14) nothing adapts at all, whatever its size. `max` is
- * `STAGE_HINT`'s own 0.16 rather than a round number, because that is the answer to
- * the question this stage raises: the rest of the page declares 0.16, 0.16 is past
- * the band, and that is the entire reason the other stages look untouched by this
- * feature. Sliding to the top reproduces them.
+ * The stops cover the dark end of the response curve (W9): the interior settles on
+ * a monotone curve through three measured anchors — near-black, mid and light
+ * solids — whose ends move with the surface's size, and it is below about 0.16
+ * linear that the three spans visibly come apart. The top stop is where they have
+ * nearly rejoined; the bottom stop is where the smallest plate is its backdrop.
  *
- * `initial` is mid-band on purpose. It is the one setting at which the three
- * plates are all visibly *different* from each other, so the stage opens on the
- * size gate rather than on either of its ends.
+ * `initial` is inside that range on purpose. It is the one setting at which the
+ * three plates are all visibly *different* from each other, so the stage opens on
+ * the size gate rather than on either of its ends.
  *
  * They are counted in integer THOUSANDTHS, and that is not a formatting choice. A range
  * input validates its value against `min + n * step` in binary floating point, and
@@ -229,6 +232,14 @@ export function StageGround(props: StageProps): ReactNode {
                 width={CANVAS.width}
                 height={CANVAS.height}
                 alt=""
+                // A cached raster can be complete before React attaches `onLoad`,
+                // and `load` never fires for it; the ref sees the element either
+                // way. Registering twice is harmless — the source is marked dirty.
+                ref={(element) => {
+                  if (element !== null && element.complete && element.naturalWidth > 0) {
+                    props.onRasterLoad(element);
+                  }
+                }}
                 onLoad={(event) => props.onRasterLoad(event.currentTarget)}
               />
               <figcaption className="pair__caption">
@@ -390,7 +401,7 @@ export function StageGlass(props: StageProps): ReactNode {
     >
       <div className="stage__stack">
         {mode === "material" ? (
-          <GlassGroup id="material" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }} hint={STAGE_HINT}>
+          <GlassGroup id="material" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }}>
             {/*
               The size law, as a controlled comparison (W2). Every plate declares
               the SAME authored thickness, so the only thing that differs between
@@ -474,7 +485,7 @@ export function StageGlass(props: StageProps): ReactNode {
         ) : null}
 
         {mode === "access" ? (
-          <GlassGroup id="access" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }} hint={STAGE_HINT}>
+          <GlassGroup id="access" backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }}>
             <GlassSurface className="plate plate--lg" radius={26} thickness={16}>
               <strong>Regular material</strong>
             </GlassSurface>
