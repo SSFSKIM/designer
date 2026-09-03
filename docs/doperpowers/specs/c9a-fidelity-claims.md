@@ -7703,3 +7703,91 @@ untouched. **By eye**: the X5 sheet at the landing, sent to the user.
 the reference's continuous-corner silhouette (ours circular); ≈ 30% of the
 first lobe's along-edge stretch; the 2x band-versus-interior σ (the band
 samples σ 1.45 where the 2x body is σ 3 — G3); Apple's two-term shape.
+
+### 5.52 W12 G2 refereed: the lens lands, every checkerboard row rises, no stop (2026-09-03)
+
+**Claim.** The declared form (§5.51 §3) was implemented on the GPU tier
+(commit `cab52ad`: eleven profile constants, the lens depth on the
+reference's height law, a third field target carrying the surface's
+centre and half-extents, the ovalized direction, magnitude fixed; the
+inner shadow on the landed law and profile), the twelve per-profile runs
+captured to a scratch matrix (`results/2026-09-03-w12-lens/g2/matrix-g2-referee.json`,
+scan `g2-referee-scan.md`) and refereed against the 0.3.0 bed. No declared
+stop fired. Every checkerboard texture row rose at both scales, within
+0.004 of the dry run's prediction on the fit cells and the 1x holdout; the
+landing sheet shows the reversed lobes, the sharp fold and the corner
+lobes on ours. The canonical matrix is rebuilt at recomposition (X1);
+`PREDICATE_EXCLUDES` loses one line there (X2).
+
+#### 1. The stops
+
+| stop (§5.51 §3) | reading |
+| --- | --- |
+| a solid-backdrop cell moves by more than one code value | 1 of 26 GPU captures moved, by one code value; 25 byte-identical; every solid metric row Δ 0.0000 (the inner shadow kept its law) |
+| a `photo`, dark-profile or accessibility cell leaves its bounds | none; `photo` max ΔSSIM 0.0003, Δ(ΔE mean) 0.0001, Δlevel 0.0006; enforcement against the scratch matrix passes every bound and floor |
+| a CSS-tier capture differs at all | none — 115 of 115 byte-identical, every dom row Δ 0.0000 |
+| a 2x floor crossed | none; `rrect-md` stays met (0.9521 ≥ 0.93), `-ml` / `-lg` / `glass-over-glass` rise 0.010–0.015 |
+| a small-span texture cell below its 0.3.0 SSIM by more than 0.005 | none; `rrect-sm`, `capsule-button`, `toolbar-group` all rise at both scales |
+| the rim/specular constants | untouched |
+
+The `impulse` family: two GPU captures differ by up to 17 code values in
+the band, ΔSSIM 0.0000.
+
+#### 2. The rows (texture tier, checkerboard; before → after, the dry run's prediction)
+
+| cell | 1x | 2x |
+| --- | --- | --- |
+| `rrect-sm` | 0.9981 → 0.9988 | 0.9969 → 0.9978 |
+| `capsule-button` | 0.9770 → **0.9852** (0.985) | 0.9777 → 0.9836 (0.983) |
+| `rrect-md` | 0.9538 → **0.9709** (0.970) | 0.9389 → **0.9521** (0.950; bound 0.93, met) |
+| `rrect-ml` | 0.9307 → **0.9498** (0.946) | 0.9023 → 0.9164 (0.918; floor, ratchets) |
+| `rrect-lg` (holdout) | 0.9286 → **0.9442** (0.942) | 0.9013 → 0.9116 (0.918; floor, ratchets) |
+| `glass-over-glass` (holdout) | 0.9345 → 0.9539 | 0.9076 → 0.9221 (floor, ratchets) |
+| `toolbar-group` | 0.9591 → 0.9643 | 0.9630 → 0.9663 |
+
+The 1x rows land on the prediction (−0.001 to +0.004); at 2x `rrect-lg`
+lands 0.006 under it and `-ml` 0.002 — the 2x interior (σ 3 behind a σ
+1.45 band, §5.49 §2) is what the dry run's native-body band could not
+carry into the whole crop. The three remaining 2x texture floors stay by
+W11 Decision Log 4 with the claim narrowed to the 1x bed; their deficit is
+now the interior's, not the band's (§5.49 §7, G3).
+
+#### 3. What moved that the declaration did not predict
+
+- `hc-text` texture rows rose more than any checkerboard row: `rrect-md`
+  0.9613 → 0.9815 (1x), 0.9550 → 0.9682 (2x); `capsule-button` 0.9729 →
+  0.9845 / 0.9738 → 0.9839. The capsule's interior *level* moved +0.023
+  away from the native (0.733 → 0.756 against 0.666), within its bound:
+  the capsule's inset interior (11 px) now sits inside a 14.7-px lens
+  extent, so the interior statistic reads band pixels there. Recorded for
+  the level's owner; the bound holds.
+- `photo` captures changed on 40 of 42 GPU cells by up to 15 code values
+  in the band, with no metric row moving past 0.0006.
+
+#### 4. What changed on the tier (attribution)
+
+`material.ts`: `lensHeightPerSpan` 0.25, `lensHeightMax` 20,
+`lensAmountPerSpan` 0.8, `lensAmountMax` 60, `lensThicknessReference` 8
+(MEASURED, the reference's layer tree, §5.50), `lensRefractionGain` 0.745
+(re-based; was 1.6 on the old depth), `lensExtentGain` 1.337,
+`lensProfileExponent` 3.69, `lensOvalization` 0.6,
+`lensOvalizationSpanMin` 64 / `Max` 72 (FITTED / MEASURED, §5.51);
+`lensSizeGainMax` 2.6 stays as the inner shadow's depth gain only. Light
+profile sha `132850148804f614` → `1065c19c6cb527e5`, dark `aec4cfba10137f2b`
+→ `c2da15c95e5116e2`. Goldens re-recorded and attributed (max / mean code
+value): `placed-checkerboard` 34 / 3.79, `refraction-checkerboard` 19 /
+1.51, `lens-size-scaling` 7 / 0.49, `rim-two-references` 2 / 0.08,
+`concentric-nesting` 2 / 0.10, `union-pair` 2 / 0.05; `field-mask`,
+`highlight-press-glow`, both `tint-adaptation-*` byte-identical; the §5.47
+fail-before hash re-recorded with its note. Suites: build, lint, unit
+(eight packages), renderer goldens 26, platform-web 339, react 105 — all
+green. The CSS tier's contract is unchanged (no lens).
+
+#### 5. By eye (`sheets/g2-{2x,1x}.png` against `g1-*`)
+
+Ours now draws the reversed lobes and the sharp fold at every straight
+edge, and the pulled lobe with a crisp inner boundary at every corner, at
+both scales and on the capsule. Still absent, as declared: the corner's
+dark ring under the bright arc, the continuous-corner silhouette, about a
+third of the first lobe's along-edge stretch; and at 2x the band and the
+interior are both softer than the native's — the 2x body (G3).

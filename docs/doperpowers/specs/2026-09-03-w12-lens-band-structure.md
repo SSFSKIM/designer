@@ -344,7 +344,7 @@ project's rule**, in the order they would be worth a wave:
 | G0 | this session; validation in `results/2026-09-03-w12-lens/g1/g0-instrument.md`; claims §5.49 §1 | COMPLETE 2026-09-03 (0.35 / 0.33 px at 1x / 2x) |
 | G1 | two workers, findings and tables committed under `results/2026-09-03-w12-lens/g1/`; claims §5.49 | COMPLETE 2026-09-03 |
 | G1c (added) | the harness `dump-layers` command (d3fb396) and the settled dumps under `results/2026-09-03-w12-lens/layer-dumps/`; claims §5.50 — the reference's own parameters | COMPLETE 2026-09-03 |
-| G2 | dry run in `results/2026-09-03-w12-lens/g2/` (claims §5.51); declared in Decision Log 3; implementation dispatched | DECLARED 2026-09-03 |
+| G2 | dry run and referee in `results/2026-09-03-w12-lens/g2/` (claims §5.51–§5.52); Decision Logs 3–4; commits `cab52ad`, `27704a7`; sheets `sheets/g2-{2x,1x}.png` | LANDED 2026-09-03 |
 | G3 | decision round | not started |
 
 ## Decision Log
@@ -418,6 +418,24 @@ and the lens now takes its own.
 under-stretched by eye; the 2x interior route (G3), which the quarter-scale
 reading has sharpened (§5.51 §2) but not settled.
 
+### Decision Log 4 — G2 refereed and landed (2026-09-03)
+
+**Verdict.** Claims §5.52: the declared form implemented (`cab52ad`),
+twelve runs to a scratch matrix, the whole bed scanned against the 0.3.0
+matrix — no stop fired; solids and the CSS tier byte-stable; every
+checkerboard texture row up at both scales (1x `rrect-md` / `-ml` / `-lg`
+0.9538 / 0.9307 / 0.9286 → 0.9709 / 0.9498 / 0.9442; 2x 0.9389 / 0.9023 /
+0.9013 → 0.9521 / 0.9164 / 0.9116; the capsule 0.9770 → 0.9852) within
+0.004 of the prediction at 1x; `hc-text` rows up 0.010–0.020 unpredicted.
+The landing sheet sent to the user; their reading is recorded here when it
+arrives.
+
+**Decided (this session):** G2 LANDED. The three 2x texture floors stay
+by W11 Decision Log 4 (their deficit is the interior's now); the
+`hc-text` capsule level move is recorded for the level's owner; the
+canonical rebuild and the predicate's one-line edit wait for
+recomposition (X1, X2). Held for the user: ω 0.6 versus 0.8 by eye; G3.
+
 ## Surprises & Discoveries
 
 - (2026-09-03, G1) **The reference's own parameters are readable.** A
@@ -448,6 +466,12 @@ reading has sharpened (§5.51 §2) but not settled.
   first §5.50 readings are amended beside the settled ones. The capture
   protocol's 45 s idle dwell is past it; a future harness feature that
   presents and shoots fast would not be.
+- (2026-09-03, G2) **The `hc-text` rows rose more than the checkerboard's**
+  (+0.020 on `rrect-md` at 1x) though nothing was fitted on them: the
+  bars' reversed images in the band were the term. The capsule's inset
+  interior now lies inside its lens extent (11 px inset, 14.7 px extent),
+  so its interior level statistic reads band pixels — a measurement
+  artefact of the inset, recorded, not a material move.
 - (2026-09-03, G1) **The material has a knee at 64 points.** Read at
   spans 48–112: the ovalization, the face constants, the shadow fill, the
   clamp, the bleed and the shadow blur all switch between 64 and 72 while
