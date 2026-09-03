@@ -164,6 +164,153 @@ func runProbe() {
   }
 }
 
+// MARK: - dump-layers
+
+/// The scenes whose layer trees are worth reading by default.
+///
+/// A complete span column first, because the material's size law is the one
+/// thing the calibration bed fits that a single scene cannot distinguish: if
+/// Apple's filter carries a span-dependent blur radius or refraction height, it
+/// is visible only as a column of numbers across ascending spans. That column is
+/// taken on `checkerboard`, which is the only background carrying all four
+/// rrect sizes — `light-solid` declares no `rrect-sm` or `rrect-lg` — and the
+/// two `light-solid` cells that do exist are dumped beside it so that a
+/// parameter which is a property of the *material* rather than of the backdrop
+/// can be told from one that is not. The rest add one variable each — a merged
+/// container, a surface sampling another surface, the pressed pose, an author
+/// tint — so anything that moves can be attributed to the variable that moved it.
+let DUMP_LAYER_DEFAULT_SCENES = [
+  "checkerboard__rrect-sm__rest",
+  "checkerboard__capsule-button__rest",
+  "checkerboard__rrect-md__rest",
+  "checkerboard__rrect-ml__rest",
+  "checkerboard__rrect-lg__rest",
+  "light-solid__capsule-button__rest",
+  "light-solid__rrect-md__rest",
+  "light-solid__rrect-ml__rest",
+  "checkerboard__toolbar-group__rest",
+  "photo__glass-over-glass__rest",
+  "checkerboard__rrect-md__pressed",
+  "photo__capsule-button__rest-tint-orange",
+]
+
+/// Dump the Core Animation layer tree SwiftUI commits for each scene.
+///
+/// The window is real, presented and key, and the run waits before reading:
+/// `glassEffect` does not build its backdrop layer, its filter or its SDF
+/// elements until SwiftUI has committed the hosting view's layer tree and Core
+/// Animation has run a transaction over it, so a walk taken immediately after
+/// `contentView` is assigned finds a bare hosting layer with nothing under it.
+/// The window must also be key for the same reason `capture` insists on it —
+/// the inactive appearance is a different material and would be a different set
+/// of numbers.
+///
+/// Nothing is captured, nothing is written under `fixtures/`, and `scenes.json`
+/// is read exactly as `capture` reads it so the scene ids mean the same thing in
+/// both places.
+@MainActor
+func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double) {
+  let spec = loadSpec()
+  let scale = captureScale()
+  let canvas = spec.canvas.cgSize
+
+  let byId = Dictionary(uniqueKeysWithValues: spec.scenes.map { ($0.id, $0) })
+  var wanted: [SceneEntry] = []
+  for id in sceneIds {
+    guard let scene = byId[id] else { fail("no scene '\(id)' in the loaded spec") }
+    wanted.append(scene)
+  }
+
+  do {
+    try FileManager.default.createDirectory(atPath: outDir, withIntermediateDirectories: true)
+  } catch {
+    fail("creating \(outDir): \(error.localizedDescription)")
+  }
+
+  // The light profile's environment, which is what every default scene here is
+  // authored against. The dump reads a configuration, not a rendering, so there
+  // is no reason to walk both schemes unless a question asks for it — and a
+  // `--scenes` list is free to name a scene of either kind, which then gets this
+  // same environment and says so in the file it writes.
+  let profile = spec.profiles.first { $0.colorScheme == "light" && $0.a11y == "standard" }
+  let colorScheme = profile?.colorScheme ?? "light"
+  let a11y = profile?.a11y ?? "standard"
+
+  // Line-buffered: this subcommand is normally run through `open --stdout <log>`,
+  // where a block-buffered stdout means a run that hangs leaves an empty file and
+  // no way to tell how far it got.
+  setvbuf(stdout, nil, _IOLBF, 0)
+
+  let window = Capture.makeWindow(canvas: canvas)
+  Capture.present(window)
+  print("== dump-layers ==")
+  print("hardware: \(Environment.hardware().model), \(Environment.hardware().osVersion)")
+  print("window backingScaleFactor: \(window.backingScaleFactor), isKeyWindow: \(window.isKeyWindow), " +
+        "NSApp.isActive: \(NSApp.isActive)")
+  print("environment: colorScheme=\(colorScheme) a11y=\(a11y) (system a11y: \(SystemAccessibility.current))")
+  print("out: \(outDir)")
+
+  Task { @MainActor in
+    for scene in wanted {
+      guard let component = spec.components[scene.component],
+            let bgSpec = spec.backgrounds[scene.background] else {
+        fail("scene '\(scene.id)' is not fully resolvable")
+      }
+      let bg = Backgrounds.render(bgSpec, canvas: canvas, scale: scale)
+      let tint = scene.tint.flatMap { spec.tints?[$0]?.color }
+      let view = SceneView(scene: scene, component: component, backgroundImage: bg,
+                           canvas: canvas, pressed: scene.state == "pressed", tint: tint)
+        .profileEnvironment(colorScheme: colorScheme, a11y: a11y)
+      window.contentView = NSHostingView(rootView: view)
+      window.displayIfNeeded()
+
+      // The commit that materialises the glass layers happens off this call
+      // stack and there is no notification to wait on, so the only honest thing
+      // to do is wait longer than it takes and say so. It has to be longer than
+      // the material's own settling too: several of the filter's inputs are
+      // animated in when the surface appears, and a dump taken too early records
+      // a frame of that animation as if it were the material. `--settle` exists
+      // so the question "are these numbers settled?" can be answered by asking
+      // twice rather than by assuming.
+      try? await Task.sleep(nanoseconds: UInt64(max(0, settleSeconds) * 1_000_000_000))
+
+      guard let root = window.contentView else { fail("scene '\(scene.id)': the window has no content view") }
+      var record: [String: Any] = [
+        "scene": scene.id,
+        "background": scene.background,
+        "component": scene.component,
+        "state": scene.state,
+        "tint": scene.tint ?? NSNull(),
+        "colorScheme": colorScheme,
+        "a11y": a11y,
+        "canvas": ["width": canvas.width, "height": canvas.height],
+        "backingScaleFactor": Double(window.backingScaleFactor),
+        "settleSeconds": settleSeconds,
+        "isKeyWindow": window.isKeyWindow,
+        "os": Environment.hardware().osVersion,
+      ]
+      record["view"] = LayerDump.describeView(root)
+
+      print("\n--- \(scene.id) ---")
+      LayerDump.printSummary(record)
+
+      let path = "\(outDir)/\(scene.id).json"
+      do {
+        let data = try JSONSerialization.data(withJSONObject: record,
+                                              options: [.prettyPrinted, .sortedKeys])
+        try data.write(to: URL(fileURLWithPath: path))
+        print("  → \(path)")
+      } catch {
+        // A scene whose tree holds something JSONSerialization will not take is
+        // a finding, not a reason to lose the other nine dumps.
+        print("  ! could not write \(path): \(error.localizedDescription)")
+      }
+    }
+    print("\ndone: \(wanted.count) scenes → \(outDir)")
+    NSApp.terminate(nil)
+  }
+}
+
 // MARK: - capture
 
 /// The protocol knobs a stability study needs, and a normal capture leaves alone.
@@ -911,6 +1058,23 @@ struct Harness {
       // whether the resulting Glass still tells two hues apart.
       runTintDoctor()
 
+    case "dump-layers":
+      // Reads Apple's own material parameters out of the layer tree. It needs a
+      // presented, key window — hence runGUI — but no TCC grant and no fixture
+      // directory, because it captures nothing.
+      let ids = value(of: "--scenes", in: args)
+        .map { $0.split(separator: ",").map(String.init).filter { !$0.isEmpty } }
+        ?? DUMP_LAYER_DEFAULT_SCENES
+      let out = value(of: "--out", in: args) ?? "\(ROOT)/build/layer-dumps"
+      var settle = 1.5
+      if let raw = value(of: "--settle", in: args) {
+        guard let parsed = Double(raw), parsed >= 0 else {
+          fail("--settle takes a non-negative number of seconds, not '\(raw)'")
+        }
+        settle = parsed
+      }
+      runGUI { runDumpLayers(sceneIds: ids, outDir: out, settleSeconds: settle) }
+
     case "capture":
       let raw = value(of: "--method", in: args) ?? "screencapturekit"
       guard let method = CaptureMethod(rawValue: raw) else {
@@ -951,7 +1115,12 @@ struct Harness {
 
     default:
       fail("""
-        usage: harness [backgrounds|probe|tint-doctor|capture [options]]
+        usage: harness [backgrounds|probe|tint-doctor|dump-layers|capture [options]]
+
+        dump-layers options:
+          --scenes <id,id,...>        which scenes to dump; default is the ten-scene set
+          --out <dir>                 where the per-scene JSON goes (default build/layer-dumps)
+          --settle <s>                seconds to wait after presenting each scene (default 1.5)
 
         capture options:
           --method <m>                swiftui-image-renderer | nsview-cachedisplay | screencapturekit
