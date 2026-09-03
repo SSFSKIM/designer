@@ -1208,19 +1208,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     const accessibility = resolution.accessibility;
     const cap = accessibilityRefractionCap(accessibility.material);
-    /*
-     * The device scale this tier draws its body at (W12 G3, claims §5.56).
-     *
-     * The body's sharp and heavy widths are device-pixel quantities and the
-     * scatter weight carries a term in `dpr − 1`, so the `blur()` written below
-     * — and the 3σ sampling padding taken over it — depend on the ratio the
-     * page is being composited at. It comes from the same viewport reading the
-     * renderer's own `devicePixelRatio` does, so the two tiers cannot read
-     * different scales; `observeDevicePixelRatio` re-arms a resolution query on
-     * every change so a move between displays or a zoom re-derives it the way a
-     * policy change does. Before the first read it is 1, the landed law.
-     */
-    const dpr = viewport?.devicePixelRatio ?? 1;
 
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
@@ -1322,15 +1309,18 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // projects heavier than a 160×160 square of the same short span. Ordering
       // by span alone made the pick depend on registration order between such
       // members and could hand the strip the square's smaller σ.
-      // The ramp's projection at the same scale `cssTierDeclarations` reads it
-      // at (`CSS_TIER_RAMP_SCALE`), because this σ has to be the one that tier
-      // will really write — the proxy is that blur in another position.
+      // Both the width and the ramp's projection at the scale
+      // `cssTierDeclarations` reads them at (`CSS_TIER_RAMP_SCALE`, dpr 1 — W13
+      // Decision Log 5: the CSS tier renders the 1x material at every ratio),
+      // because this σ has to be the one that tier will really write — the
+      // proxy is that blur in another position, and a proxy padded for a
+      // device-scale width the tier no longer draws would be padded wrong.
       const groupBlurRadius = groupScatterSigma(
         optics.blurRadius,
         sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
         measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
-        dpr,
+        CSS_TIER_RAMP_SCALE,
         CSS_TIER_RAMP_SCALE,
       );
       const sampling = resolveSamplingGeometry({
@@ -1631,9 +1621,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           extentsCssPx: [bounds.width, bounds.height],
           size: sizeConstants,
           outerShadow: outerShadowConstants,
-          // The body's widths are device-pixel quantities (W12 G3, claims
-          // §5.56) — the same ratio the renderer draws at, from the same read.
-          devicePixelRatio: dpr,
+          // No device scale: the CSS tier renders the 1x material at every
+          // ratio (W13 Decision Log 5); the ratio feeds the GPU tier's pyramid.
         });
         if (state.activeRenderer === "css") {
           if (!record.cssMaterialized) {

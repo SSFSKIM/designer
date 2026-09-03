@@ -906,20 +906,6 @@ describe("the size law reaches the CSS tier", () => {
   });
 
   /*
-   * The device scale reaches the tier too (W12 G3, claims §5.56). The body's two
-   * widths are device-pixel quantities, so this tier's one `blur()` is not the
-   * same number on a Retina display as on a 1x one — and at dpr 1 it is the
-   * landed one to the last decimal, which is what leaves every 1x claim and every
-   * existing caller untouched.
-   *
-   * What does NOT follow the device scale here is the MIX: the ramp's projection
-   * is read at `CSS_TIER_RAMP_SCALE`, which is 1 (W13 Decision Log 1 question 2
-   * answer (a) — this tier's own best single σ is larger in CSS px at 2x, claims
-   * §5.55 §5, so following the device-pixel projection would move its 2x rows
-   * the way the measurement says is wrong). So this tier's σ at dpr 2 is exactly
-   * half its σ at dpr 1, at every span, and that exactness is the assertion.
-   */
-  /*
    * The projection is an AREA average, so it needs the surface's area and not
    * only its span (W13 G1, review finding). `root.ts` measures the host's border
    * box and declares both; a caller that declares only the span gets a square of
@@ -958,29 +944,35 @@ describe("the size law reaches the CSS tier", () => {
     }
   });
 
-  it("writes the body's widths at the device scale, and its mix at the 1x law", () => {
+  /*
+   * This tier has NO device scale input (W13 Decision Log 5, user-decided): it
+   * renders the 1x material at every ratio — the width and the mix both read at
+   * `CSS_TIER_RAMP_SCALE` — and its 2x rows are held by decision. The candidate
+   * this wave inherited divided the width by the ratio, and the dry run on the
+   * W14 bed measured that as −0.047 of `ssimMean` on the 2x large spans and four
+   * broken dom-tier floors (claims §5.68). The assertion is that the type admits
+   * no ratio and the declaration is the 1x law to the last decimal, so a later
+   * change that reintroduces one has to say why here.
+   */
+  it("renders the 1x law at every device scale: the width and the mix are read at dpr 1", () => {
     const own = { ...size, sizeScatterFloor: 0.4 } as const;
-    const scaled = (spanPx: number, devicePixelRatio: number) =>
-      blurOf(cssTierDeclarations({ ...surface, spanPx, size: own, devicePixelRatio }));
     const base = blurOf(cssTierDeclarations(surface));
-
-    // dpr 1 is the landed law: stating it and omitting it are the same call.
-    for (const span of [12, 40, 96, 200, 400]) {
-      expect(scaled(span, 1), `span ${span}`).toBeCloseTo(
-        blurOf(cssTierDeclarations({ ...surface, spanPx: span, size: own })),
-        12,
-      );
-    }
-
-    // The declaration carries two decimals, so the expectations round the same
-    // way rather than settling for a tolerance a different law would also pass.
     const emitted = (radius: number): number => Math.round(radius * 100) / 100;
     for (const span of [12, 96, 400]) {
       const mix = cssScatterThickness(span, 1, own, CSS_TIER_RAMP_SCALE);
       const nominal = base * (1 + (own.sizeScatterGainMax - 1) * mix);
-      expect(scaled(span, 1), `span ${span} at dpr 1`).toBe(emitted(nominal));
-      expect(scaled(span, 2), `span ${span} at dpr 2`).toBe(emitted(nominal / 2));
-      expect(scaled(span, 3), `span ${span} at dpr 3`).toBe(emitted(nominal / 3));
+      expect(
+        blurOf(cssTierDeclarations({ ...surface, spanPx: span, size: own })),
+        `span ${span}`,
+      ).toBe(emitted(nominal));
+      // A ratio is not something a caller can hand this tier: the surface type has
+      // no such field, so a ratio in the call is the 1x declaration unchanged.
+      expect(
+        blurOf(
+          cssTierDeclarations({ ...surface, spanPx: span, size: own, devicePixelRatio: 2 } as never),
+        ),
+        `span ${span} with a stray ratio`,
+      ).toBe(emitted(nominal));
     }
   });
 });
@@ -1313,23 +1305,18 @@ describe("the two review findings on the ramp's projection (W13 G1)", () => {
     );
   });
 
-  it("divides the sharp width by the ratio even where the mix is zero", () => {
+  it("a zero mix is the policy optics unchanged, at any ratio", () => {
     // A patched profile with no floor, on a surface at or below sizeSpanMin, has
-    // sizeK 0 and scatterK 0 — and at dpr 2 the width is still a device-pixel
-    // quantity, so the tier must emit half the 1x blur, not the 1x blur.
+    // sizeK 0 and scatterK 0; with no device scale in this tier (W13 Decision
+    // Log 5) the fast path is exact, and the 1x width is what it must emit.
     const size = sourceSize({ sizeScatterFloor: 0 });
     const declared = cssTierDeclarations({
       ...surface,
       size,
       spanPx: MATERIAL_SOURCE_SIZE.sizeSpanMin,
-      devicePixelRatio: 2,
     });
     const blur = Number.parseFloat((declared["--vitrea-blur"] ?? "0px").replace("px", ""));
-    // The tier writes two decimals, so the comparison is against the halved
-    // width at the same rounding — and not against the 1x width, which is what
-    // the fast path used to emit here.
-    expect(blur).toBe(Number((MATERIAL_OPTICS.regular.blurRadius / 2).toFixed(2)));
-    expect(blur).not.toBe(Number(MATERIAL_OPTICS.regular.blurRadius.toFixed(2)));
+    expect(blur).toBe(Number(MATERIAL_OPTICS.regular.blurRadius.toFixed(2)));
     expect(declared["backdrop-filter"]).toContain(`blur(${blur}px)`);
   });
 });

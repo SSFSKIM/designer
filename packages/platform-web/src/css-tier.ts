@@ -187,19 +187,6 @@ export interface CssTierSurface {
    * quietly rendering the shipped shadow.
    */
   readonly outerShadow?: MaterialSourceOuterShadow;
-  /**
-   * The device pixel ratio this tier is drawing at — the body law's second
-   * input (W12 G3, claims §5.56).
-   *
-   * The body's two widths are device-pixel quantities and the scatter weight
-   * carries a term in `dpr − 1`, so the `blur()` this tier writes is not the
-   * same number on a Retina display as on a 1x one. The root feeds it the live
-   * `window.devicePixelRatio` from the same viewport reading the GPU tier's
-   * renderer gets, and re-derives on a change the way it re-derives on a policy
-   * change. Defaults to 1, which is the landed law exactly — so every caller
-   * that does not know its scale, and every golden, is unchanged.
-   */
-  readonly devicePixelRatio?: number;
 }
 
 /**
@@ -392,9 +379,20 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
    * tier renders the 1x material and its 2x rows stay held by decision, because
    * the measurement says this tier's own best single σ is LARGER in CSS px at 2x
    * (§5.55 §5) and following the device-pixel projection would move its rows the
-   * way the measurement says is wrong. The tier's σ still carries the widths in
-   * device pixels below, which is a separate reading; this is the one argument
-   * that flips if the ramp is later taken at the device scale here too.
+   * way the measurement says is wrong.
+   *
+   * **The width is read at the same scale, by the same decision (W13 Decision
+   * Log 5, user-decided).** The candidate this wave inherited divided the
+   * tier's σ by the device pixel ratio, mirroring the GPU tier's device-pixel
+   * widths (claims §5.56); the dry run on the W14 bed measured what that does
+   * to this tier at 2x — `checkerboard__rrect-lg` `ssimMean` −0.047, four of
+   * the dom tier's regression floors broken, the interior's standard deviation
+   * from 0.026 to 0.143 against Apple's 0.081 — which is the direction §5.55
+   * §5 predicted, on the rows the decision holds. So this tier has no device
+   * scale input at all: it renders the 1x material at every ratio, its 2x rows
+   * are held by decision rather than fitted, and the argument that would move
+   * either the mix or the width to the device scale here is the one that has
+   * to overturn that measurement first.
    */
   const scatterK =
     surface.spanPx === undefined
@@ -406,14 +404,12 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
           CSS_TIER_RAMP_SCALE,
           surface.extentsCssPx,
         );
-  // The fast path is taken only where nothing at all would change: at a ratio
-  // other than 1 the sharp width is still divided by the ratio below (the body's
-  // widths are device-pixel quantities, claims §5.56), so a zero mix at dpr 2 is
-  // not the policy optics unchanged — it is half their blur. Returning early
-  // there emitted the 1x width on a 2x context whenever a patched profile zeroed
-  // the floor on a surface at or below `sizeSpanMin` (review, W13 G1).
+  // A zero mix is the policy optics unchanged: with no device scale in this
+  // tier there is nothing else the width could be divided by, so the fast path
+  // is exact at every ratio (the review's finding that it skipped a division at
+  // dpr 2 described the candidate's tier, not this one).
   const optics: MaterialOptics =
-    sizeK === 0 && scatterK === 0 && (surface.devicePixelRatio ?? 1) === 1
+    sizeK === 0 && scatterK === 0
       ? policyOptics
       : {
           ...policyOptics,
@@ -421,7 +417,7 @@ export function cssTierDeclarations(surface: CssTierSurface): StyleDeclarations 
             policyOptics.blurRadius,
             scatterK,
             size,
-            surface.devicePixelRatio ?? 1,
+            CSS_TIER_RAMP_SCALE,
           ),
           tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
         };
