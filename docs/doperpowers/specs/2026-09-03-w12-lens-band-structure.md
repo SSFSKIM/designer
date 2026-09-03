@@ -126,6 +126,36 @@ line where transmission collapses) as a candidate explanation of the
 near-contour profile, to be tested, not assumed; the W9 probe's scene set
 (`apps/reference-apple/scenes-w9-probe.json`) as the 2x probe's template.
 
+**Outside evidence, advisory (2026-09-03, research pass at open).** Apple
+documents lensing only in words (WWDC25 session 219: the material "bends,
+shapes, and concentrates light", larger surfaces show "more pronounced
+lensing and refraction effects, and a softer scattering of light"); no
+public source has measured a profile, an index or a thickness from the
+real material. One reconstruction built from Apple's private Core
+Animation layers (AlexStrNik/ShatteredGlass, `CustomGlassView.swift`)
+exposes the `glassBackground` `CAFilter`'s parameter surface, and that
+surface — not the author's working values — is the strongest hint on the
+form: **two refraction terms of opposite sign and different widths**
+(`inputInnerRefractionAmount` / `-Height`, `inputOuterRefractionAmount` /
+`-Height`, working values −40 over 12.5 and +10 over 6.25), a **blur mix
+ramped by distance from the edge** (`inputBlurDistance0..4` /
+`inputBlurOpacity0..4`, working values −25, −1, 0, 0, 10 with 1, 0.5, 0.5,
+1, 1), a small `inputBlurRadius` (1.5) on a backdrop layer rasterised at
+**`setScale(0.25)`**, a "bleed" term (`inputBleedAmount` / `-Height` /
+`-BlurRadius`), and the rim drawn by two separate `CASDFGlassHighlightEffect`
+layers at 45° and −135° (`curvature`, `spread`, `height`), not by the
+backdrop filter. No chromatic-aberration parameter exists. Three
+predictions follow and G1 tests each: D(u) is reduced or counter-signed
+within a few px of the contour and peaks inside (the fold and the dark
+line); the sharp share of the body is a depth ramp, not a span law
+(vitrea's `sizeScatterFloor`/`SpanMax` would be its 1x projection); and a
+quarter-scale backdrop with one blur radius in buffer pixels makes the
+material scale-dependent in points — which would explain the 2x interior
+as physics rather than as a virtual-display artefact. Reproductions on the
+web (kube.io's SVG height-profile Snell map at n 1.5, the Flutter port's
+`refract()` through a circular bevel, ybouane's sharp/blurred mix biased
+sharp at the rim) are recorded as prior art, none of them measured.
+
 ## Children
 
 ### G0: The instrument — spike (deliverable: findings)
@@ -283,6 +313,11 @@ material reads as glass.
 
 ## Surprises & Discoveries
 
+- (2026-09-03, research pass) The private filter's API has two refraction
+  terms, a distance-ramped blur mix and a quarter-scale backdrop (Design,
+  "Outside evidence"). If G1 confirms the ramp, W11c G1's span law is a
+  projection of a depth law, and if it confirms the quarter scale, the 2x
+  bed's "different object" is the material's own scale-dependence.
 - (2026-09-03, at open) The gap §5.48 recorded as "the 2x gap" is at 1x
   too: the 1x fixture shows the same lobes and fold, at half the size, and
   ours shows the same faint compression. W11c's SSIM rise at 1x came from
