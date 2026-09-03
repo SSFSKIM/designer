@@ -462,6 +462,7 @@ python packages/calibration/results/2026-09-03-w12-lens/g3/g3_photo.py     # tab
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_variants.py  # section 8.1–8.2 (~4 min)
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_dryrun.py    # section 8.3
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_dryrun2.py   # section 9 (~3 min)
+python packages/calibration/results/2026-09-03-w12-lens/g3/g3_transmission.py  # section 10 (~4 min)
 python packages/calibration/results/2026-09-03-w12-lens/g3/g3_report.py    # merges parts/ → g3-measurement.json, prints every table
 ```
 
@@ -836,7 +837,8 @@ here: on `rrect-lg` the box went the predicted way and the row still fell.
    needs the lens re-read against the *new* body (the G2 instrument of section 5 over a candidate
    capture), which needs a capture, which is the landing worker's.
 4. **Does the transmission itself need a scale term the body cannot provide?** On this evidence,
-   **yes, and it is small.** The reference's own transmission on the same column is higher than
+   yes — **but section 10 ran the measurement named below and the answer is no; see §10.6.** What
+   this section could see was: The reference's own transmission on the same column is higher than
    vitrea's at 2x by a ratio of 0.806 / 0.877 / 0.922 on md / ml / lg (t_vitrea ÷ t_ref), while at 1x
    the same ratio is 0.933 / 1.061 / 1.159 — vitrea already matches or exceeds the reference at 1x
    and falls short of it at 2x, on the same constants. A body law cannot supply that: it redistributes
@@ -850,3 +852,144 @@ here: on `rrect-lg` the box went the predicted way and the row still fell.
    different level". The probe already has the four cells that read it — `light-solid`,
    `mid-dark-solid`, `dark-solid` and `checkerboard-lc16` at both scales — and it needs no new
    capture.
+
+---
+
+## 10. The response-curve read at both scales: is there a transmission scale term?
+
+Section 9.6 item 4 left one question open and answered it "yes, and it is small". This section runs
+the measurement it named — §5.34's response-curve read on the two probe beds — and the answer is
+**no**. Two readings separate the two things section 9 could not:
+
+- the **level law** `mean = a + s·backdrop_mean` from the three solids. A solid has no structure for
+  a kernel to act on, so `s` is the transmission of the backdrop's *level* with no kernel in it.
+- the **structure transmission** `t = t_sharp + t_heavy` of the two-component kernel fitted **jointly
+  over the probe's whole pitch axis** (pitches 4 / 8 / 16 / 32 / 64) per cell. Both components are
+  mean-preserving, so `t` is the amplitude the material passes with the *width divided out* — the
+  quantity that says "transmits more" as opposed to "blurs less". It is identifiable only because
+  the probe has a pitch axis (§5.38 §3).
+
+### 10.1 The level law — scale-invariant to six decimals
+
+| cell | backdrop mean | interior mean 1x | interior mean 2x | Δ |
+| --- | --- | --- | --- | --- |
+| `dark-solid` / `rrect-md` | 0.0117 | 0.479741 | 0.479741 | 0.000000 |
+| `mid-dark-solid` / `rrect-md` | 0.0595 | 0.558340 | 0.558340 | 0.000000 |
+| `light-solid` / `rrect-md` | 0.8910 | 0.934430 | 0.934430 | 0.000000 |
+| `dark-solid` / `rrect-lg` | 0.0117 | 0.503755 | 0.503755 | 0.000000 |
+| `mid-dark-solid` / `rrect-lg` | 0.0595 | 0.584078 | 0.584078 | 0.000000 |
+| `light-solid` / `rrect-lg` | 0.8910 | 0.932607 | 0.932607 | 0.000000 |
+
+The six fixtures are six different files (distinct sha256, four times the pixel count at 2x) and the
+interior means agree to the sixth decimal. The fitted slopes are therefore identical:
+
+| span | slope s, 1x | slope s, 2x | ratio | fit rms |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` 32 | 0.8855 | 0.8855 | 1.0000 | 0.158 |
+| `rrect-md` 96 | 0.4883 | 0.4883 | 1.0000 | 0.023 |
+| `rrect-lg` 160 | 0.4573 | 0.4573 | 1.0000 | 0.024 |
+
+(The `rrect-sm` line is not a line: its interior reads 0.011 over `dark-solid` and 0.440 over
+`mid-dark-solid`, a backdrop 0.048 lighter — the thin material's `tracksLuma` 1 below the span-64
+knee, §5.50 §2. Its slope is quoted for completeness and not used. `capsule-button` and `rrect-ml`
+have no solid cells on the probe.)
+
+**Reading.** The level transmission carries no scale term at all. Whatever differs at 2x is not the
+material's response to the backdrop's level.
+
+### 10.2 The structure transmission, with the width divided out — the decisive table
+
+| span | t 1x (free) | t 2x (free) | ratio | t 1x (σ_sharp pinned 1.0) | t 2x (pinned) | ratio |
+| --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` 32 | 0.775 | 0.713 | 0.920 | 0.744 | 0.725 | 0.974 |
+| `capsule-button` 44 | 0.402 | 0.484 | **1.203** | 0.387 | 0.491 | **1.268** |
+| `rrect-md` 96 | 0.530 | 0.512 | 0.966 | 0.520 | 0.543 | 1.043 |
+| `rrect-ml` 128 | 0.497 | 0.487 | 0.980 | 0.505 | 0.495 | 0.979 |
+| `rrect-lg` 160 | 0.469 | 0.430 | 0.918 | 0.475 | 0.443 | 0.932 |
+
+The kernels those transmissions come with are the ones sections 1 and 3 already published — 1x
+σ_sharp 1.25 on a heavy σ 9 with a share of 0.50 / 0.62 / 0.74 by span, 2x σ_sharp 0.5–0.75 on a
+heavy σ 4–6 with a share of 0.78–0.90 — so the width is where the two scales differ, and it has been
+divided out of the table above.
+
+**Reading — no transmission scale term.** On the three spans where the fit is well conditioned the
+ratio is **0.966 / 0.980 / 0.918** (free) and **1.043 / 0.979 / 0.932** (σ_sharp pinned): the
+reference's structure transmission at 2x is the same as at 1x to within the estimator's own spread,
+and if anything is a few percent *lower*, not higher. Taking the two estimators as the uncertainty,
+the number that decides it is
+
+> **t(2x) ÷ t(1x) = 1.00 ± 0.06 on `rrect-md`, `-ml` and `-lg`**, against a level-law ratio of
+> exactly 1.0000.
+
+`capsule-button`'s 1.20–1.27 is the one span that disagrees, and its 1x fit is the odd one out in
+kind as well as in number (σ_heavy 7.0 at a share of 0.15, where every other 1x span reads σ_heavy 9
+at a share of 0.50–0.76). Both of the 1x cells that fit is most sensitive to are frequency-settled in
+the 1x bed — `checkerboard-8__capsule-button__rest` and `checkerboard-lc16__capsule-button__rest` are
+two of §5.31's ten two-state cells — so that ratio is bounded by the material's own bistability before
+it is bounded by any scale term. `rrect-sm`'s 0.92–0.97 is on the span whose 2x cells are the
+frequency-settled ones of §5.53, whose two states are 0.10 and 0.24 apart in interior RMS.
+
+### 10.3 The per-cell reading, and why it cannot answer this question
+
+Fitting a kernel to one cell and reading `std(interior) ÷ std(K ∗ plate)` gives, at 2x on spans ≥ 96,
+ratios of 11–17× — an artefact, not a measurement: the 2x reference retains no pitch-16 structure
+there (§1), so the fitted σ runs to the identifiability ceiling, `std(K ∗ plate)` collapses and the
+ratio explodes. Those rows are in the JSON marked `at_ceiling` and are not read. The same reading at
+pitch 32, where both scales resolve, gives 0.93 / 0.94 / 0.85 / (ceiling) / 0.49 — the same direction
+as §10.2 but contaminated on `rrect-ml` and `-lg` by the same instability. This is why the transmission
+has to be read jointly over the pitch axis, and it is what the probe was captured for.
+
+### 10.4 vitrea on the same table
+
+vitrea's canonical bed has one pitch, so its transmission is read as section 9 read it — the capture's
+interior spread divided by the spread of the law vitrea actually renders (a different estimator from
+§10.2's joint fit, and stated as such):
+
+| span | vitrea 1x | vitrea 2x | ratio | vitrea ÷ reference, 1x | vitrea ÷ reference, 2x |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.506 | 0.491 | 0.970 | 0.653 | 0.689 |
+| `capsule-button` | 0.495 | 0.490 | 0.990 | 1.231 | 1.012 |
+| `rrect-md` | 0.468 | 0.467 | 0.998 | 0.883 | 0.912 |
+| `rrect-ml` | 0.467 | 0.454 | 0.972 | 0.940 | 0.932 |
+| `rrect-lg` | 0.449 | 0.449 | 1.000 | 0.957 | 1.044 |
+
+**Reading.** vitrea's transmission is scale-invariant too (0.97–1.00), and against the reference it
+sits at 0.88–0.96 at 1x and 0.91–1.04 at 2x — the same place at both scales, within the estimator
+spread. Section 9.6's apparent trend (0.806 / 0.877 / 0.922 at 2x against 0.933 / 1.061 / 1.159 at
+1x) was measured through **one fixed nominal column at one pitch on both sides**, which does not
+divide the width out; with the kernels divided out the trend is gone. §9.6 item 4 is corrected below.
+
+### 10.5 The noise, and what it does not cover
+
+Recomputing every quantity on each attested run of both beds (7 runs at 1x, 5 at 2x, the unattested
+captures of §5.53 §1 excluded per cell): on `rrect-md`, `-ml` and `-lg` the run-to-run standard
+deviation of the level slope and of the per-cell transmission at pitch 16, `lc16` and pitch 32 is
+**exactly 0.0000** at both scales — every attested run of those cells is byte-identical, which is the
+majority-settled bed doing its job. The non-zero spreads are all on the settled spans: 0.174 on
+`rrect-sm`'s 1x slope and 0.53 on its 2x `lc16` transmission.
+
+Two things this does not cover, and they bound §10.2's ±0.06 rather than the run noise: the joint fit
+also uses pitches 4 and 8, where the 1x bed has two-state cells on `capsule-button`, `rrect-md` and
+`rrect-lg` (§5.31) and the 2x bed on `rrect-sm` (§5.53); and the estimator itself moves by 0.04–0.08
+between its free and σ-pinned forms, which is the number quoted as the uncertainty.
+
+### 10.6 What the declaration should carry — item 4, corrected
+
+**There is no transmission scale term, and §9.6 item 4 was wrong.** The reference's response to a
+solid backdrop is identical at the two scales to six decimals; its structure transmission, with the
+kernel width divided out, is the same at both scales to 1.00 ± 0.06 on the three large spans, against
+an exactly scale-invariant level law. **The whole of the 2x-versus-1x difference in retained
+structure is the kernel's** — the width in device pixels and the weight between the two taps — which
+is precisely what a body law *can* carry, and what sections 1, 3 and 6 measured it to be.
+
+Three consequences for the declaration:
+
+1. **The body law is the right instrument** and nothing else needs a scale term. The candidate stands
+   as §9.6 item 2 left it: both σ read in device pixels, every other landed constant held, and
+   Δk ≈ 0.10 rather than 0.35 — subject to §9.2's finding that the landing did not render the kernel
+   it declared, which is still the first thing to settle.
+2. **No alpha or level-law change should be proposed for the 2x gap.** The six-decimal identity of
+   §10.1 would be broken by any of them, and it is the tightest measurement in this document.
+3. **The remaining 2x gap after the body is the band's**, not the interior's: §9.5 puts 60–118% of the
+   whole-crop movement there, and §5 puts the landed lens 0.6–1.3 px from the reference's field at
+   mid-depth at 2x. That is where the next wave's evidence should be spent.
