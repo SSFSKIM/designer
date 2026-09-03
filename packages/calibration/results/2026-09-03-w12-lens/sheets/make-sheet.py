@@ -129,6 +129,22 @@ def main():
             x += p.width + GAP
         y += max(p.height for p in panels) + GAP
     draw.text((width - 420, GAP), 'native | vitrea | (vitrea - native) linear, +/-0.25', fill=(230, 230, 230))
+    # The column labels, large enough to read at any zoom (Decision Log 2 of the
+    # W12 spec: the third column was once read as a render). A system font when
+    # one is available; PIL's bitmap font otherwise.
+    banner = 'LEFT: Apple native fixture     MIDDLE: vitrea GPU tier     RIGHT: signed difference (vitrea - native) - a diagnostic, NOT a render'
+    try:
+        from PIL import ImageFont
+        font = ImageFont.truetype('/System/Library/Fonts/Helvetica.ttc', max(18, width // 90))
+    except Exception:
+        font = None
+    bbox = draw.textbbox((0, 0), banner, font=font)
+    strip = Image.new('RGB', (width, bbox[3] - bbox[1] + 24), (16, 16, 16))
+    ImageDraw.Draw(strip).text((GAP, 12 - bbox[1]), banner, fill=(255, 220, 120), font=font)
+    banded = Image.new('RGB', (width, height + strip.height), (24, 24, 24))
+    banded.paste(strip, (0, 0))
+    banded.paste(sheet, (0, strip.height))
+    sheet = banded
     out = os.path.join(HERE, f'{args.gate}-{scale}x.png')
     sheet.save(out, optimize=True)
     print(out, sheet.size, os.path.getsize(out))

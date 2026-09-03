@@ -1,0 +1,6 @@
+W12 G2 landing sheets (2026-09-03), rendered from the referee's scratch captures at the landed lens
+(commit cab52ad; claims §5.51). Columns: LEFT = Apple's native fixture; MIDDLE = vitrea's GPU tier;
+RIGHT = the signed difference (vitrea − native) in linear luminance, mid-grey at zero, ±0.25 full
+scale — a diagnostic map of where the two disagree, NOT a render of anything. Rows: the five
+checkerboard spans and photo rrect-md; the last row is 10× corner crops of rrect-md (native |
+vitrea, four corners). The G1 sheets beside these are the 0.3.0 bed before the change.
