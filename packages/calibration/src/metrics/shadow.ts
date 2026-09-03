@@ -239,6 +239,18 @@ export interface ShadowProfileSample {
  *
  * A band with no exterior pixel at all is not emitted, which is the frame
  * having eaten it rather than a reading.
+ *
+ * **The `0-3` band holds the body's own edge**, and so does `0-6`. That is the
+ * same caveat `falloffPoints` states about ring 0 and it is not fixed here for
+ * the same reason it is not fixed there: what would have to be excluded is a
+ * *measured* quantity — how far each source over-fills its declared contour,
+ * which claims §5.62's last Surprise puts at 3.5–4 CSS px on vitrea's GPU
+ * capsule against Apple's ≤ 1 — and a fixed guard chosen here would bake one
+ * renderer's current over-fill into the axis. Read on this bed it is visible
+ * rather than hidden: vitrea's own web side, whose shadow is a pure multiply
+ * with `c` identically zero, reads `c` = 0.060 in `0-3` below
+ * `checkerboard__capsule-button__rest` and 0.0000 in every band further out.
+ * Bands from `3-6` outward are the shadow alone.
  */
 export interface ShadowAffineSample {
   /** One of the axis's four sectors, or `"all"` for the four pooled. */
