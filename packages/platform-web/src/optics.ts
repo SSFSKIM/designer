@@ -109,6 +109,29 @@ export interface MaterialSourceOptics {
   readonly rimAlpha: number;
   /** The renderer's highlight colour, in linear light. The rim reads from this. */
   readonly highlight: LinearRgb;
+  /*
+   * The five numbers below are the band's own geometry and the inner shadow's,
+   * mirrored since W17 G1 (Decision Log 2 (b)–(c); claims §5.74 §3–§4).
+   *
+   * They were outside the mirror while this tier converted only the four fields
+   * above, because it draws the rim as a one-pixel border and draws no inner
+   * shadow at all. The interior LEVEL needs them anyway: the renderer's rim band
+   * and its highlight are light added inside the silhouette, and its inner shadow
+   * is a multiplicative darkening of the whole composite, so a tier that lands on
+   * the renderer's interior has to carry all three as derived quantities even
+   * though it draws none of them as features. `interiorBandLight` and
+   * `interiorShadowKeep` are where they are read.
+   */
+  /** The rim band's half-width in CSS px — `MaterialOptics.rimWidth`. */
+  readonly rimWidth: number;
+  /** The specular exponent on the same band — `MaterialOptics.specularPower`. */
+  readonly specularPower: number;
+  /** The specular gain on the same band — `MaterialOptics.specularGain`. */
+  readonly specularGain: number;
+  /** The inner shadow's peak darkening at the contour — `MaterialOptics.shadowDepth`. */
+  readonly shadowDepth: number;
+  /** The inner shadow's own alpha — `MaterialOptics.shadowAlpha`. */
+  readonly shadowAlpha: number;
 }
 
 /** Mirrors `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE.optics`. */
@@ -120,12 +143,90 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
   // σ 1.25 since W11c (claims §5.41): the reference's interior is a sharp
   // component near σ 1.25 plus a heavy one the scatter facet supplies; the
   // cascade's 3 was the one Gaussian that best split the difference.
-  regular: { blurSigma: 1.25, tint: [1, 1, 1], tintAlpha: 0.46, rimAlpha: 0.18, highlight: [1, 1, 1] },
+  regular: {
+    blurSigma: 1.25,
+    tint: [1, 1, 1],
+    tintAlpha: 0.46,
+    rimAlpha: 0.18,
+    highlight: [1, 1, 1],
+    rimWidth: 1.5,
+    specularPower: 6,
+    specularGain: 0.55,
+    shadowDepth: 0.35,
+    // 0.55 → 0.05 in the 2026-08-31 refit: the inner shadow was darkening the
+    // contour faster than the rim lit it. The number's reasons are authored in
+    // the renderer's profile; this is the mirror.
+    shadowAlpha: 0.05,
+  },
   // Persistently more transparent, so it frosts less and tints less — and it
   // carries its own dimming policy from core. Uncalibrated in either tier: the
   // canonical scene matrix has no clear-variant scene.
-  clear: { blurSigma: 4, tint: [1, 1, 1], tintAlpha: 0.1, rimAlpha: 0.14, highlight: [1, 1, 1] },
+  clear: {
+    blurSigma: 4,
+    tint: [1, 1, 1],
+    tintAlpha: 0.1,
+    rimAlpha: 0.14,
+    highlight: [1, 1, 1],
+    rimWidth: 1.25,
+    specularPower: 8,
+    specularGain: 0.45,
+    shadowDepth: 0.22,
+    shadowAlpha: 0.4,
+  },
 };
+
+/**
+ * The renderer's own light direction and the two size gains its inner shadow
+ * rides, mirrored (W17 G1; Decision Log 2 (b)).
+ *
+ * A profile-level block rather than three fields on `MaterialSourceOptics`
+ * because that is where the renderer keeps them: `lightDirection` lights every
+ * variant's band from one place, and the two gains are size-law facets the
+ * shadow reads. They reach this tier for one purpose only — the derived interior
+ * light of `interiorBandLight` and the keep factor of `interiorShadowKeep` — and
+ * nothing this tier DRAWS reads them.
+ *
+ * Mirrors `@vitrea/renderer-webgpu`'s `MaterialProfile.lightDirection`,
+ * `.lensSizeGainMax` and `.sizeShadowGainMax`, pinned in both directions by
+ * `packages/calibration/test/tier-coherence.test.ts`.
+ */
+export interface MaterialSourceInteriorLight {
+  /** The unit direction the band is lit from, in the surface's own 2D frame. */
+  readonly lightDirection: readonly [number, number];
+  /**
+   * The inner shadow's DEPTH gain — `MaterialProfile.lensSizeGainMax`, which the
+   * shader reads as `shadowLensDepth = thickness · (1 + (gain − 1) · sizeK)`.
+   * It is the lens's constant by name and the shadow's by use; the lens stopped
+   * reading it at W12 G2 and the occlusion kept it.
+   */
+  readonly shadowDepthGainMax: number;
+  /**
+   * The inner shadow's AMPLITUDE gain with the span —
+   * `MaterialProfile.sizeShadowGainMax`, 1 on the landed profile, so the facet
+   * is inert until a profile patches it.
+   */
+  readonly shadowAmplitudeGainMax: number;
+}
+
+/** Mirrors `@vitrea/renderer-webgpu`'s three profile-level interior constants. */
+export const MATERIAL_SOURCE_INTERIOR_LIGHT: MaterialSourceInteriorLight = {
+  lightDirection: [-0.3714, -0.9285],
+  shadowDepthGainMax: 2.6,
+  shadowAmplitudeGainMax: 1,
+};
+
+/** The same block, resolved against a material profile document. */
+export function sourceInteriorLight(
+  patch?: RendererMaterialProfile,
+): MaterialSourceInteriorLight {
+  return {
+    lightDirection: patch?.lightDirection ?? MATERIAL_SOURCE_INTERIOR_LIGHT.lightDirection,
+    shadowDepthGainMax:
+      patch?.lensSizeGainMax ?? MATERIAL_SOURCE_INTERIOR_LIGHT.shadowDepthGainMax,
+    shadowAmplitudeGainMax:
+      patch?.sizeShadowGainMax ?? MATERIAL_SOURCE_INTERIOR_LIGHT.shadowAmplitudeGainMax,
+  };
+}
 
 /**
  * The author tint's shade law, mirrored (W10) — what makes a tint a tint.
@@ -1912,6 +2013,422 @@ export function sizeOcclusionAlphaAt(
 }
 
 /**
+ * One surface's box, its radius and its authored thickness, in CSS px — the only
+ * geometry the two interior derivations below need (W17 G1).
+ *
+ * A rounded rectangle and nothing more: both derivations are co-area integrals
+ * over the inward offsets of the contour, and that integral is exact for a
+ * rounded rectangle and for no other shape this tier draws. A surface whose
+ * silhouette is a union of boxes — a toolbar group, glass over glass — is
+ * outside the form, which is why the caller passes one box and the closed form's
+ * residual is recorded against the cells that have one (claims §5.74 §4).
+ */
+export interface InteriorSurfaceGeometry {
+  readonly widthCssPx: number;
+  readonly heightCssPx: number;
+  readonly radiusCssPx: number;
+  /** The host's declared thickness — `GlassHostShape.thickness`, 8 CSS px by default. */
+  readonly thicknessCssPx: number;
+}
+
+/** The rounded rectangle's area, its straight runs' total length, and its radius. */
+function rrectMetrics(
+  geometry: InteriorSurfaceGeometry,
+): {
+  area: number;
+  straight: number;
+  radius: number;
+  span: number;
+  width: number;
+  height: number;
+} {
+  const { widthCssPx: w, heightCssPx: h } = geometry;
+  const span = Math.min(w, h);
+  const radius = Math.min(Math.max(geometry.radiusCssPx, 0), span / 2);
+  return {
+    area: Math.max(w * h - (4 - Math.PI) * radius * radius, 1e-6),
+    straight: 2 * (w - 2 * radius) + 2 * (h - 2 * radius),
+    radius,
+    span,
+    width: w,
+    height: h,
+  };
+}
+
+/**
+ * The two moments the co-area integrals are built from, over `[a, b]`:
+ * `∫ (1 − u/D)² du` and `∫ (1 − u/D)²·u du`, both in closed form.
+ *
+ * `∫ (1 − u/D)² du = −D(1 − u/D)³/3` and, by `t = 1 − u/D`,
+ * `∫ u(1 − u/D)² du = −D²((1 − u/D)³/3 − (1 − u/D)⁴/4)`.
+ */
+function bandMoments(depth: number, from: number, to: number): { zeroth: number; first: number } {
+  const d = Math.max(depth, 1e-9);
+  const zeroth = (u: number): number => -(d * (1 - u / d) ** 3) / 3;
+  const first = (u: number): number => -(d * d) * ((1 - u / d) ** 3 / 3 - (1 - u / d) ** 4 / 4);
+  return { zeroth: zeroth(to) - zeroth(from), first: first(to) - first(from) };
+}
+
+/**
+ * `∫₀^D (1 − u/D)² · P(u) du` for a rounded rectangle's inward offsets, exact.
+ *
+ * The inward offset of a rounded rectangle by `u` keeps its straight runs at
+ * their full length and shrinks only its corner arcs, so up to the radius its
+ * perimeter is `P(u) = straight + arcPerUnitRadius·(r − u)` — linear in `u`.
+ * `arcPerUnitRadius` is `2π` where the weight is the same at every point of the
+ * arc, which the ambient band and the inner shadow's profile both are, and the
+ * specular factor's contour integral where it is not.
+ *
+ * Past the radius the offset is a plain rectangle of `(W − 2u) × (H − 2u)` and
+ * its perimeter is `2(W + H) − 8u`, which is the same value at `u = r` and a
+ * different slope after it. Both branches are here because the inner shadow's
+ * depth reaches past most of the bed's radii (8 CSS px grown by the size law
+ * against a 20 px corner) while the rim's 1.5 px band never does; a form that
+ * carried only the first branch would run the arcs negative there.
+ */
+function coAreaBand(
+  depth: number,
+  geometry: { straight: number; radius: number; width: number; height: number },
+  arcPerUnitRadius: number,
+): number {
+  const d = Math.max(depth, 0);
+  const rounded = Math.min(d, geometry.radius);
+  const inner = bandMoments(d, 0, rounded);
+  let total =
+    (geometry.straight + arcPerUnitRadius * geometry.radius) * inner.zeroth -
+    arcPerUnitRadius * inner.first;
+  if (d > geometry.radius) {
+    const outer = bandMoments(d, geometry.radius, d);
+    total += 2 * (geometry.width + geometry.height) * outer.zeroth - 8 * outer.first;
+  }
+  return total;
+}
+
+/**
+ * `∮ clamp(n̂ · L, 0, 1)^p dθ` over one full turn of the unit normal — the corner
+ * arcs' share of the specular contour integral, per unit of radius.
+ *
+ * Memoised on the exponent and the direction because it depends on neither the
+ * surface's geometry nor its backdrop: every surface of one profile shares one
+ * value, and this runs on the paint path. The quadrature is 2048 midpoints of a
+ * smooth periodic integrand (the clamp's corner is `C^{p−1}` at `p` ≥ 6), which
+ * agrees with the closed form `√π·Γ((p+1)/2)/Γ(p/2+1)` to 1e−12 at the profile's
+ * exponents; it is written as a sum because that identity would need a gamma
+ * function this package does not carry for a constant it evaluates once.
+ */
+const arcSpecularCache = new Map<string, number>();
+function arcSpecularIntegral(power: number, light: readonly [number, number]): number {
+  const key = `${power}|${light[0]}|${light[1]}`;
+  const hit = arcSpecularCache.get(key);
+  if (hit !== undefined) return hit;
+  const exponent = Math.max(power, 1e-3);
+  const samples = 2048;
+  let total = 0;
+  for (let index = 0; index < samples; index += 1) {
+    const angle = ((index + 0.5) / samples) * 2 * Math.PI;
+    const facing = clamp01(Math.cos(angle) * light[0] + Math.sin(angle) * light[1]);
+    total += Math.pow(facing, exponent) * ((2 * Math.PI) / samples);
+  }
+  arcSpecularCache.set(key, total);
+  return total;
+}
+
+/**
+ * The light the renderer draws inside the silhouette that this tier does not —
+ * `X`, in linear light, derived from the profile and the surface's own box
+ * (W17 G1; Decision Log 2 (c), claims §5.74 §4).
+ *
+ * Four terms were measured on the renderer's own captures by declining each in
+ * turn (claims §5.74 §2), and two of them are zero by construction rather than
+ * by fit. **The outer shadow's lift** is drawn as `lift · (1 − coverage)` and is
+ * outside the silhouette exactly; it measures zero inside on every cell of the
+ * bed. **The lens** is a displacement and not light — it re-samples the blurred
+ * backdrop and adds nothing of its own — so over a backdrop that is
+ * statistically homogeneous across the band its mean shift is zero to first
+ * order; it measured −0.0002 on every checkerboard cell and the backdrop's own
+ * gradient at the contour on the photo cells (−0.0024…+0.0036), which is carried
+ * as this derivation's residual rather than fitted to.
+ *
+ * What is left is the band, twice. The renderer adds `rw(d)·(rimAlpha + spec)`
+ * with `rw(d) = clamp(1 − |d|/rimWidth, 0, 1)²`, so the ambient term's area mean
+ * is the co-area integral of `rw` over the inward offsets and the lit term's is
+ * the same integral with the specular factor carried around the contour: four
+ * straight runs at the four axis normals, and the corner arcs sweeping one full
+ * turn. `present` is the collapse's own fade — the reference paints no lit edge
+ * on a material that has taken its backdrop's tone — and it is the caller's
+ * because it is a property of the group's backdrop and not of the surface.
+ *
+ * **Residual, per cell, against the measurement:** the largest is +0.00605 on
+ * `dark-solid__rrect-md` in the 1x dark profile (predicted +0.1404 against a
+ * measured +0.1344) and no cell exceeds +0.01; it is systematically positive and
+ * largest on the capsules (+0.0027…+0.0036), whose band is entirely corner arc
+ * and whose predicted term is therefore the most sensitive to a pixel of
+ * disagreement between the geometric contour and the measured silhouette. On the
+ * three W16 probe cells the form reads +0.00462 / +0.00930 / +0.00339 against a
+ * measured +0.00356 / +0.00521 / +0.00262 (claims §5.74 §4).
+ */
+export function interiorBandLight(
+  source: MaterialSourceOptics,
+  geometry: InteriorSurfaceGeometry,
+  present: number,
+  light: MaterialSourceInteriorLight = MATERIAL_SOURCE_INTERIOR_LIGHT,
+): number {
+  const metrics = rrectMetrics(geometry);
+  const { area, radius, span } = metrics;
+  // The band cannot reach past the half span, and past the corner's radius the
+  // specular contour integral below would need the rectangle branch's own
+  // normals. Inert on every calibration surface — the narrowest radius on the
+  // bed is 8 CSS px against a 1.5 px band — and a guard rather than a law.
+  const depth = Math.min(Math.max(source.rimWidth, 0), radius, span / 2);
+  if (depth <= 0 || present <= 0) return 0;
+
+  const direction = unitDirection(light.lightDirection);
+  const lit = (nx: number, ny: number): number =>
+    Math.pow(clamp01(nx * direction[0] + ny * direction[1]), Math.max(source.specularPower, 1e-3));
+  const straightSpecular =
+    (geometry.widthCssPx - 2 * radius) * (lit(0, -1) + lit(0, 1)) +
+    (geometry.heightCssPx - 2 * radius) * (lit(-1, 0) + lit(1, 0));
+  // The straight runs' specular weight is a length like `straight` is, and the
+  // arcs' is the contour integral per unit radius — the same two slots the
+  // ambient band fills with its own length and `2π`.
+  const ambient = coAreaBand(depth, metrics, 2 * Math.PI);
+  const specular = coAreaBand(
+    depth,
+    { ...metrics, straight: straightSpecular },
+    arcSpecularIntegral(source.specularPower, direction),
+  );
+  return (present * (source.rimAlpha * ambient + source.specularGain * specular)) / area;
+}
+
+/** A direction, normalised — the shader's `light.xy` is a unit vector and this says so. */
+function unitDirection(direction: readonly [number, number]): readonly [number, number] {
+  const length = Math.hypot(direction[0], direction[1]);
+  return length > 1e-6 ? [direction[0] / length, direction[1] / length] : [0, -1];
+}
+
+/**
+ * The inner shadow's area mean, as the fraction of the composite it KEEPS —
+ * the shader's own `shadowKeep`, integrated over the silhouette (W17 G1;
+ * Decision Log 2 (b), claims §5.74 §3).
+ *
+ * The shader darkens the whole composite by
+ * `1 − (1 − clamp(−d/D, 0, 1))²·shadowDepth·shadowAlpha·present`, with the depth
+ * `D = min(thickness·(1 + (shadowDepthGainMax − 1)·sizeK), span/2)` — the
+ * authored thickness grown by the size law and clamped to the shorter half
+ * extent. The profile of the darkening is the same squared ramp the rim band
+ * carries, so its area mean is the same co-area integral over the inward
+ * offsets, and the keep factor is one minus it.
+ *
+ * This tier draws no inner shadow, and before W17 its mirror did not carry one
+ * either: the composite it declared was the body without the shadow, which is a
+ * term of the renderer's the tier was silently short of. It is small — 0.9964 to
+ * 0.9973 on the three probe cells, so 0.0018 to 0.0025 of the level — and it is
+ * carried because a composite that is missing a term is missing it whatever its
+ * size.
+ */
+export function interiorShadowKeep(
+  source: MaterialSourceOptics,
+  geometry: InteriorSurfaceGeometry,
+  thickness: number,
+  present: number,
+  light: MaterialSourceInteriorLight = MATERIAL_SOURCE_INTERIOR_LIGHT,
+): number {
+  const metrics = rrectMetrics(geometry);
+  const { area, span } = metrics;
+  const depth = Math.max(
+    Math.min(
+      geometry.thicknessCssPx * (1 + (light.shadowDepthGainMax - 1) * clamp01(thickness)),
+      span / 2,
+    ),
+    1e-4,
+  );
+  const profileMean = coAreaBand(depth, metrics, 2 * Math.PI) / area;
+  const amplitude =
+    source.shadowDepth * (1 + (light.shadowAmplitudeGainMax - 1) * clamp01(thickness));
+  return clamp01(1 - Math.max(profileMean, 0) * amplitude * source.shadowAlpha * clamp01(present));
+}
+
+/**
+ * The (colour, alpha) pair that composites to the same thing the renderer's
+ * inner shadow leaves — the shader's own layer identity, run on this tier's
+ * mirror (W17 G1; Decision Log 2 (b)).
+ *
+ * The shader writes `colour · shadowKeep` over an opaque body and, where the
+ * body is a layer, `(k·a·c, 1 − k·(1 − a))` — which composites to `k` times what
+ * `(a·c, a)` would. Carrying the shadow as that pair rather than as a subtracted
+ * quantity keeps the tier's composite an exact affine in the backdrop: the slope
+ * becomes `k·(1 − α)` and the tint's contribution `k·α·T`, and no point on the
+ * backdrop's distribution is privileged. A keep of 1 returns the source
+ * unchanged.
+ */
+export function innerShadowedSourceOptics(
+  source: MaterialSourceOptics,
+  keep: number,
+): MaterialSourceOptics {
+  const k = clamp01(keep);
+  if (k >= 1) return source;
+  const alpha = clamp01(source.tintAlpha);
+  const shadowed = 1 - k * (1 - alpha);
+  if (shadowed <= 1e-6) return { ...source, tintAlpha: 0 };
+  const scale = (k * alpha) / shadowed;
+  return {
+    ...source,
+    tintAlpha: shadowed,
+    tint: [source.tint[0] * scale, source.tint[1] * scale, source.tint[2] * scale],
+  };
+}
+
+/**
+ * The chain's own quantum at one composite level, in **encoded codes** — the
+ * number that decides which form the tier draws (W17 G1; Decision Log 4 (c)).
+ *
+ * `color-interpolation-filters="linearRGB"` says what space the filter works in
+ * and not what precision it works at, and the engines carry eight bits: the
+ * intermediate's step is 1/255 **in linear light**, whose width in the encoded
+ * buffer the page composites into is `E(L + 1/255) − E(L)`. That is 12.7 codes
+ * at black, 2.5 codes at 0.05, and falls through one code at 0.244 — so a
+ * composite the renderer draws at 12/255 is a value the chain cannot hold, and
+ * `impulse__capsule-button` measured exactly that: 0.0037 linear drawn as 0
+ * (claims, W17 Decision Log 4's evidence).
+ */
+export function linearChainQuantumCodes(compositeLevel: number): number {
+  const level = clamp01(compositeLevel);
+  return 255 * (srgbEncode(Math.min(1, level + 1 / 255)) - srgbEncode(level));
+}
+
+/**
+ * The tolerance the boundary is declared against: **one encoded code**.
+ *
+ * Not fitted and not chosen for a cell. It is the page's own quantum: the buffer
+ * this tier composites into holds eight bits per channel in the ENCODED space,
+ * so a filter chain whose intermediate is coarser than that buffer is drawing a
+ * material the page could have held and did not. One code is the point where the
+ * two are equal, and it is the only value on this axis that is a statement about
+ * the pipeline rather than about a threshold someone liked.
+ */
+export const LINEAR_CHAIN_CODE_TOLERANCE = 1;
+
+/**
+ * Which form the tier draws for a composite at this level (Decision Log 4 (c)).
+ *
+ * `linear` is the exact one — the remainder inside the linear-light filter — and
+ * it is what every light cell of the bed takes. `encoded` is W16's form with W17's
+ * ordering fix and inner shadow: one `rgba()` over the blurred backdrop,
+ * composited in the page's own encoded space, whose conversion is exact at one
+ * declared backdrop level and off either side of it. The dark scheme keeps the
+ * second, and that is a named gap rather than a silent one — the group state and
+ * the capture cell both report which form drew.
+ *
+ * The boundary is the quantum, not a level: solving
+ * `E(L + 1/255) − E(L) = 1/255` puts it at **0.2443** in linear light on the
+ * shipped transfer function, and the constant is written as the predicate rather
+ * than as that number so a different tolerance moves it honestly.
+ */
+export function cssTintFormAt(
+  compositeLevel: number,
+  toleranceCodes: number = LINEAR_CHAIN_CODE_TOLERANCE,
+): "linear" | "encoded" {
+  return linearChainQuantumCodes(compositeLevel) > toleranceCodes ? "encoded" : "linear";
+}
+
+/**
+ * The remainder the sharp layer's filter carries under an encoded overlay at the
+ * floor alpha, sampled as an `feComponentTransfer` table (Decision Log 4 (a)).
+ *
+ * ## Why a table and not the affine
+ *
+ * The tier's doctrine is that the surface always paints a real tint and never
+ * relies on the blur for contrast, because S1's failure class — an engine that
+ * reports support and renders nothing — cannot be probed. W17's first form put
+ * the whole tint inside the filter and the contrast-floor test read a channel
+ * delta of zero. So the floor stays an element paint: L3 keeps an encoded
+ * overlay at `α₃`, and the filter carries what is left.
+ *
+ * What is left is not an affine. The page composites
+ * `E(F(b))·(1 − α₃) + E(T)·α₃`, and for that to equal the renderer's
+ * `E(M(b) + X)` the filter has to draw
+ *
+ *     F(b) = D((E(M(b) + X) − E(T)·α₃) / (1 − α₃))
+ *
+ * which carries `E` and `D` and is therefore curved. An affine fitted to it
+ * would reintroduce exactly the point condition Decision Log 2 removed — a match
+ * at one backdrop level and a curvature error either side of it, first order on a
+ * bimodal cell. A `type="table"` transfer is piecewise linear over N points and
+ * approximates `F` to a bound the caller can name, with no privileged point.
+ *
+ * ## N, from the interpolation bound
+ *
+ * The table's error is the piecewise-linear interpolation error of `F`, and N is
+ * raised until the measured worst error over the sampled midpoints is under
+ * `maxError`. Measured rather than bounded symbolically because `F` carries two
+ * transfer functions and a clamp, and a bound loose enough to hold through all
+ * three would cost points nobody needs: the bisection evaluates the thing itself.
+ * At the shipped profile and the light cells' composites this settles at 33
+ * points; the count is reported so a reader can see it move with the material.
+ *
+ * ## What it is not
+ *
+ * Not defined below the boundary `cssTintFormAt` draws: where the chain's own
+ * quantum exceeds the tolerance the tier draws the encoded form and never builds
+ * a table. And the values are clamped at zero — the spec clamps a primitive's
+ * result anyway — with the non-negativity the ruling names asserted by the tests
+ * rather than assumed here.
+ */
+export function cssTierTintTable(
+  options: {
+    /** The lerp's alpha after every fold. */
+    readonly tintAlpha: number;
+    /** The lerp's tint in linear light, one channel. */
+    readonly tint: number;
+    /** `X`, the band's derived light, linear. */
+    readonly addedLight: number;
+    /** `α₃`, the floor the overlay keeps. */
+    readonly floorAlpha: number;
+    /** `E(T)` for this channel — the overlay's own encoded level, 0..1. */
+    readonly floorEncoded: number;
+  },
+  maxError = 1e-4,
+): readonly number[] {
+  const keep = 1 - clamp01(options.floorAlpha);
+  const remainder = (b: number): number => {
+    if (keep <= 1e-6) return 0;
+    const composite = clamp01((1 - options.tintAlpha) * b + options.tintAlpha * options.tint + options.addedLight);
+    return srgbDecode(
+      Math.max(0, (srgbEncode(composite) - options.floorEncoded * clamp01(options.floorAlpha)) / keep),
+    );
+  };
+  // Bisection on the count: sample at N points, measure the interpolation error
+  // at the midpoints the table will interpolate across, double until it is under
+  // the bound. Capped at 257 — one point per eight-bit input plus the endpoint —
+  // because past that the table is finer than the value it is sampling.
+  let count = 5;
+  let values = sample(remainder, count);
+  while (count < 257 && interpolationError(remainder, values) > maxError) {
+    count = Math.min(257, (count - 1) * 2 + 1);
+    values = sample(remainder, count);
+  }
+  return values;
+}
+
+/** `f` at `count` equally spaced points over [0, 1], clamped into the legal range. */
+function sample(f: (b: number) => number, count: number): number[] {
+  const out = new Array<number>(count);
+  for (let i = 0; i < count; i += 1) out[i] = clamp01(f(i / (count - 1)));
+  return out;
+}
+
+/** The worst error the table's own linear interpolation makes, at the segment midpoints. */
+function interpolationError(f: (b: number) => number, values: readonly number[]): number {
+  const count = values.length;
+  let worst = 0;
+  for (let i = 0; i < count - 1; i += 1) {
+    const mid = (i + 0.5) / (count - 1);
+    worst = Math.max(worst, Math.abs((values[i]! + values[i + 1]!) / 2 - clamp01(f(mid))));
+  }
+  return worst;
+}
+
+/**
  * The glow's alpha at the press point for a given `glow` channel value.
  *
  * The renderer's fragment is `radial² · glowGain · glow`; this is that product at
@@ -1987,6 +2504,35 @@ export interface CssTierMapping {
    * contrast term in the sharp layer's filter list, solved jointly with the alpha
    * for the mean and the slope — which is a new optical term, and a decision this
    * wave did not charter.
+   *
+   * **W17 G1 closed it, and this constant is not on that path (Decision Log 2 (c),
+   * (d)).** The second degree of freedom turned out not to be needed: the
+   * renderer's composite is an affine in the backdrop and an `feComponentTransfer`
+   * inside the sharp layer's linear-light filter is an affine, so the lerp itself
+   * moves into the filter with no free parameter to solve and no privileged
+   * backdrop level at all. **Wherever the engine's conformance row renders a
+   * reference filter inside `backdrop-filter`, nothing reads this value**: the
+   * tier's composite is `cssTierTintTransfer`'s and this mapping's conversion is
+   * not evaluated. It is still the anchor of the one-alpha conversion the
+   * plain-`blur()` engines keep (contract X9), and of `cssTintAlpha` and
+   * `cssTintColor` wherever a caller reaches them directly.
+   *
+   * **Decision (W17 G1, on Decision Log 2 (d)'s advisory): the plain-`blur()`
+   * anchor stays at 0.02.** The advisory was to move it to the group's own
+   * sampled level, and the number that decides it is already recorded three
+   * paragraphs above: W16 G1 measured exactly that anchor. It lands the level
+   * (`checkerboard__rrect-md` +0.059 → −0.002 at 1x, +0.076 → +0.009 at 2x) and
+   * costs the slope, leaving the interior's spread 0.024–0.041 over native
+   * against the fitted anchor's 0.007 and dropping `ssimMean` by 0.006 to 0.026
+   * on the two thick checkerboard cells. That trade is a property of the
+   * composite and not of the alpha it is taken at — one encoded alpha can match
+   * the mean or the slope and not both — so W17's ordering fix, which moves the
+   * alpha this anchor converts, does not change its direction. And the engines
+   * this now governs are the ones the harness cannot capture at all (Gecko and
+   * WebKit render `backdrop-filter` as a no-op in every automatable path), so
+   * moving them on an advisory would be a change no measurement could referee.
+   * The gap it leaves is E's, named and unchanged: those engines' interior level
+   * runs about +0.05 to +0.09 over native on a high-contrast backdrop.
    */
   readonly referenceBackdropLuminance: number;
   /**
@@ -2233,6 +2779,35 @@ export function cssTintColor(
  * GPU tier's tracks the checker cell by cell, this tier paints one orange. The
  * mean lands; the structure cost is the tier's known one.
  */
+/**
+ * The author's tint as its own encoded layer — the seed at the shade the
+ * material's luminance puts it at, and the author's opacity.
+ *
+ * Split out of `tintedCssOptics` at W17 G1 because the fold and the layer are no
+ * longer the same thing on every engine. Where the tier carries the material's
+ * lerp inside its filter (Decision Log 2 (c)) the fold has nothing left to fold
+ * — the material's `rgba()` is gone — and L3 draws this layer alone, at the
+ * author's own opacity, over the filter's output. That composites to
+ * `(1 − s)·(material) + s·(layer)`, which is exactly what the folded pair
+ * composited to and is exactly what the shader writes; the difference is the
+ * space the material's half was computed in, which is the whole of this wave.
+ */
+export function authorTintLayer(
+  source: MaterialSourceOptics,
+  tint: { readonly color: LinearRgb; readonly strength: number } | undefined,
+  backdropLuminance: number,
+  grip: number,
+  shade: TintShadeConstants = TINT_SHADE,
+): { readonly color: Rgb255; readonly strength: number } | undefined {
+  if (tint === undefined || tint.strength <= 0) return undefined;
+  return {
+    color: encodeRgb(
+      tintShadeLayer(tint.color, materialLuminance(source, backdropLuminance), grip, shade),
+    ),
+    strength: clamp01(tint.strength),
+  };
+}
+
 export function tintedCssOptics(
   css: MaterialOptics,
   source: MaterialSourceOptics,
@@ -2241,11 +2816,10 @@ export function tintedCssOptics(
   grip: number,
   shade: TintShadeConstants = TINT_SHADE,
 ): MaterialOptics {
-  if (tint === undefined || tint.strength <= 0) return css;
-  const s = clamp01(tint.strength);
-  const layer = encodeRgb(
-    tintShadeLayer(tint.color, materialLuminance(source, backdropLuminance), grip, shade),
-  );
+  const author = authorTintLayer(source, tint, backdropLuminance, grip, shade);
+  if (author === undefined) return css;
+  const s = author.strength;
+  const layer = author.color;
   const alpha = clamp01(css.tintAlpha);
   const folded = 1 - (1 - s) * (1 - alpha);
   const channel = (index: 0 | 1 | 2): number =>

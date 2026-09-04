@@ -1,0 +1,109 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w17-g1/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (31 tests | 4 failed) 32ms
+     × gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 4ms
+     × gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 0ms
+     × gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT
+AssertionError: dom / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(8) }, …(32) ] to have a length of 34 but got 33
+
+- Expected
++ Received
+
+- 34
++ 33
+
+ ❯ test/adopted-thresholds.test.ts:1137:13
+    1135|             applicable,
+    1136|             `${tier} / ${metric}: the gate must cover every applicable…
+    1137|           ).toHaveLength(expected);
+       |             ^
+    1138|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1139|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT
+AssertionError: dom / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(8) }, …(30) ] to have a length of 34 but got 31
+
+- Expected
++ Received
+
+- 34
++ 31
+
+ ❯ test/adopted-thresholds.test.ts:1137:13
+    1135|             applicable,
+    1136|             `${tier} / ${metric}: the gate must cover every applicable…
+    1137|           ).toHaveLength(expected);
+       |             ^
+    1138|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1139|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY
+AssertionError: dom / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(8) }, …(6) ] to have a length of 6 but got 7
+
+- Expected
++ Received
+
+- 6
++ 7
+
+ ❯ test/adopted-thresholds.test.ts:1137:13
+    1135|             applicable,
+    1136|             `${tier} / ${metric}: the gate must cover every applicable…
+    1137|           ).toHaveLength(expected);
+       |             ^
+    1138|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1139|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(33) ] to deeply equal [ …(30) ]
+
+- Expected
++ Received
+
+@@ -1,13 +1,16 @@
+  [
+    "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+-   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
++   "dom / calibration / light-solid__rrect-md__rest / apple-macos-26.5-2x-light-standard",
++   "dom / calibration / light-solid__rrect-ml__rest / apple-macos-26.5-1x-light-standard",
++   "dom / calibration / light-solid__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
++   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+
+ ❯ test/adopted-thresholds.test.ts:1164:78
+    1162|   it("machine-checks the well-conditioned predicate and names every ce…
+    1163|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    1164|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    1165|       ...PREDICATE_EXCLUDES,
+    1166|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 27 passed (31)
+   Start at  00:52:22
+   Duration  199ms (transform 46ms, setup 0ms, import 77ms, tests 32ms, environment 0ms)
+

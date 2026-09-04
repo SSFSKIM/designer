@@ -73,6 +73,7 @@ import type {
 import { GLASS_CHANNEL_PROPERTIES } from "./channels";
 import {
   boundedForegroundLevel,
+  cssTintFormAt,
   CSS_TIER_MAPPING,
   cssTierForegroundBounds,
   cssTierForegroundLevel,
@@ -82,7 +83,6 @@ import {
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
   outerShadowUnderPolicy,
-  sizeOcclusionAlphaAt,
   cssTierHeavyShareAt,
   cssTierHeavySigmaCssPx,
   cssTierHeavyStepSigmaCssPx,
@@ -101,6 +101,18 @@ import {
   type Rgb255,
 } from "./optics";
 import { accessibilityRefractionCap } from "./refraction";
+
+/**
+ * The least tint this tier draws on the shipped profile — `MATERIAL_OPTICS.clear`'s
+ * converted alpha, restated as a number because `MATERIAL_OPTICS` is derived in
+ * `optics.ts` from the profile and this module may not import a value that
+ * depends on it at module scope. `tier-coherence` pins the two together.
+ */
+const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
+
+/** Rec. 709 relative luminance — the space the composite's level is read in. */
+const luminanceOf = (rgb: readonly [number, number, number]): number =>
+  0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 
 /** The two ink tokens the adaptive foreground chooses between. */
 export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
@@ -165,6 +177,23 @@ export interface CssTierBody {
   readonly flatShare: number;
   /** The ramp, in the units the mask is drawn in. Absent where the tier draws no ramp. */
   readonly ramp?: CssTierRamp;
+  /**
+   * The affine the sharp layer's filter carries, where it carries one (W17 G1).
+   *
+   * Reported for the honesty core's own reason: with a transfer present the tint
+   * is drawn inside the filter in linear light and L3 carries no tint at all,
+   * and a capture cell or a readout has to be able to read which of the two
+   * forms actually drew rather than infer it from the engine's row.
+   */
+  readonly tintTransfer?: CssTierTintTransfer;
+  /**
+   * Which form the tint drew (W17 G1; Decision Log 4 (c)) — the exact remainder
+   * inside the linear-light filter, or W16's encoded overlay where the chain's
+   * own quantum is coarser than the page's. Reported for the honesty core's
+   * reason: the dark scheme keeps the second, and a readout has to say so.
+   */
+  readonly tintForm?: "linear" | "encoded";
+
   /**
    * The single-σ projection this tier drew before W16 — the width the collapse
    * degrades to, and the number `--vitrea-blur` publishes.
@@ -374,17 +403,193 @@ export interface CssTierSurface {
    * roots on a page must not name the same `id`.
    */
   readonly filterIdPrefix?: string;
+  /**
+   * The renderer's own composite for this surface, in linear light — what the
+   * tint's lerp becomes when the tier carries it inside its filter (W17 G1;
+   * Decision Log 2 (c)).
+   *
+   * Absent on a caller that has no backdrop chain to resolve it from, and
+   * ignored on an engine that does not render a reference filter inside
+   * `backdrop-filter`: both fall back to the `rgba()` overlay, which is the form
+   * every engine can draw and the level the conformance rows record for it.
+   */
+  readonly interior?: CssTierInterior;
+  /**
+   * The author's tint as its own layer — the encoded shade the seed resolves to
+   * and the author's opacity (W10, re-split by W17 G1).
+   *
+   * The tier folds that layer and the material's `rgba()` into one declaration
+   * wherever it writes both (`tintedCssOptics`), and `optics` already carries the
+   * fold. With the material's half inside the filter there is no fold left to
+   * write, so the layer is needed unfolded — and only then. A caller that does
+   * not pass one on a tinted surface with an interior draws no author tint,
+   * which is why `root.ts` resolves the two together.
+   */
+  readonly authorLayer?: {
+    readonly color: Rgb255;
+    readonly strength: number;
+  };
 }
 
 /**
- * The `id` of the reference filter for one σ, in CSS px.
+ * The renderer's interior composite for one surface, in linear light (W17 G1).
+ *
+ * Three numbers and nothing else, because that is the whole of what the tier's
+ * filter can carry: the alpha and the tint of the lerp the shader runs — in the
+ * SHADER's order, with the size law's occlusion inside the alpha before the W9
+ * response solve and the inner shadow folded into the pair — and the derived
+ * light of the terms the tier does not draw. `optics.ts` resolves all three;
+ * this module turns them into a transfer and never computes one of them.
+ */
+export interface CssTierInterior {
+  /** The lerp's alpha, after every fold, 0..1. */
+  readonly tintAlpha: number;
+  /** The lerp's tint, linear light, per channel. */
+  readonly tint: readonly [number, number, number];
+  /** `X` — the rim band's ambient light and the highlight's, linear (`interiorBandLight`). */
+  readonly addedLight: number;
+}
+
+/**
+ * The affine the sharp layer's reference filter applies to the filtered backdrop
+ * in linear light — the tint's lerp itself, carried as a primitive rather than
+ * converted into an encoded-space overlay (W17 G1; Decision Log 2 (c)).
+ *
+ * The renderer's composite is `(1 − α)·b + α·T + X` per channel in linear light,
+ * which is an affine in `b`; an `feComponentTransfer` of `type="linear"` inside
+ * a `color-interpolation-filters="linearRGB"` chain is exactly an affine in
+ * linear light. So the conversion the tier used to solve — one encoded alpha
+ * matched to a linear lerp at one declared backdrop level — has nothing left to
+ * solve: the form is exact per pixel, with no free parameter and no privileged
+ * point on the backdrop's distribution.
+ *
+ * **Exact per pixel is not exact per cell, and the two residuals that stand
+ * between them are derived rather than assumed** (W17 G1, evaluated by
+ * `results/2026-09-04-w17-css-interior-level/g1/residuals.ts` on the three W16
+ * probe cells over the real fixture background, at the tier's own two widths and
+ * its own ramp).
+ *
+ *  1. **The page's encoded-space mix of the two tinted layers under the mask.**
+ *     L2 blurs L1's OUTPUT, and the compositor mixes the two by the mask's alpha
+ *     in the page's encoded eight-bit space, where the renderer mixes its two
+ *     components in linear light before it tints. The difference is second order
+ *     in the sharp-heavy difference through the encode's curvature, and the
+ *     affine scales that difference by `1 - alpha` before the encode sees it, so
+ *     the same residual the untinted body carried at W16 is smaller here on both
+ *     counts. Measured: **-0.0041 / -0.0040 / -0.0040 of the interior level at
+ *     dpr 1 and -0.0009 / -0.0022 / -0.0009 at dpr 2** on `rrect-md`, the
+ *     capsule and `rrect-ml`, against **-0.037 / -0.031 / -0.036** and
+ *     **-0.013 / -0.026 / -0.012** for the same mix untinted -- a factor of 7 to
+ *     14. Worst single pixel 0.0085 at dpr 1 and 0.0042 at dpr 2. It is
+ *     one-signed and negative, which is the direction the tier's measured
+ *     -0.006 against the GPU tier at dpr 1 sits in.
+ *  2. **W16's effective kernel width.** The tier writes the renderer's kernel's
+ *     effective Gaussian width through one ratio per scale (1.380 at dpr 1,
+ *     1.485 at dpr 2), and each span's own reading differs from it by -0.50% to
+ *     +0.50% at dpr 1 and -1.00% to -0.04% at dpr 2. A Gaussian is normalised,
+ *     so that error moves no mean: re-blurring at each cell's own asked-for
+ *     width moves the interior level by **0.000000 to 0.000003**. It is a spread
+ *     residual and not a level one, which is why it is named here and gated by
+ *     S3 rather than by the level clause.
+ */
+export interface CssTierTintTransfer {
+  /** The lerp's alpha after every fold — the shader-order value. */
+  readonly tintAlpha: number;
+  /** The lerp's tint, linear light, per channel. */
+  readonly tint: readonly [number, number, number];
+  /** `X`, the band's derived light, linear. */
+  readonly addedLight: number;
+  /** `α₃`, the alpha the encoded overlay keeps on L3 (`cssTierFloorAlpha`). */
+  readonly floorAlpha: number;
+  /** `E(T)` per channel — the overlay's own encoded level, 0..1, as L3 writes it. */
+  readonly floorEncoded: readonly [number, number, number];
+}
+
+/**
+ * The floor the encoded overlay keeps — **an existing constant of this tier,
+ * named rather than derived** (W17 G1; Decision Log 4 (a)).
+ *
+ * It is `MATERIAL_OPTICS.clear.tintAlpha`: the least tint this tier draws on the
+ * shipped profile, on the variant whose whole point is to be persistently more
+ * transparent. "The surface always paints a real tint" is a statement about the
+ * least it paints, so the least it paints is the number, and nothing here is new
+ * or fitted to this wave.
+ *
+ * **Why the floor and not the group's own alpha**, which is the other reading of
+ * the ruling and was measured first: the filter carries the REMAINDER after the
+ * overlay, so everything the filter draws is amplified by `1/(1 − α₃)` on its way
+ * into the composite — the two layers' encoded-space mix under the mask along
+ * with it. At the regular variant's own alpha that factor is 2.99 and the probe
+ * cells read +0.018 to +0.038 over the GPU tier; at the floor it is 1.36. The
+ * floor is therefore the smallest alpha that satisfies the doctrine rather than
+ * the largest, and that is the direction the arithmetic wants too.
+ *
+ * It is also `≤` the folded alpha of any group on either variant, which is the
+ * ruling's non-negativity condition: every fold between the profile and the
+ * composite — the response solve's alpha target, the collapse, the size law's
+ * occlusion, the regime's lift — moves the source alpha upward and never
+ * downward, and `cssTintAlpha` is monotone in it.
+ */
+export function cssTierFloorAlpha(optics: MaterialOptics): number {
+  void optics;
+  return CSS_TIER_TINT_FLOOR_ALPHA;
+}
+
+/**
+ * The transfer's parameters for one interior composite and one floor.
+ *
+ * The numbers, not the table: `css-tier-layers.ts` samples them when it builds
+ * the definition, because the count of points is chosen by measuring the
+ * interpolation error and this module is on the paint path every frame. What
+ * this module owns is which numbers the filter is built from, and the `id` that
+ * names them.
+ */
+export function cssTierTintTransfer(
+  interior: CssTierInterior,
+  floorAlpha: number,
+  floorEncoded: readonly [number, number, number],
+): CssTierTintTransfer {
+  return {
+    tintAlpha: Math.min(1, Math.max(0, interior.tintAlpha)),
+    tint: [
+      Math.max(interior.tint[0], 0),
+      Math.max(interior.tint[1], 0),
+      Math.max(interior.tint[2], 0),
+    ],
+    addedLight: Math.max(interior.addedLight, 0),
+    floorAlpha: Math.min(1, Math.max(0, floorAlpha)),
+    floorEncoded: [floorEncoded[0], floorEncoded[1], floorEncoded[2]],
+  };
+}
+
+/**
+ * The `id` of the reference filter for one σ, in CSS px, and the transfer it
+ * carries where it carries one.
  *
  * Deterministic in the σ and quantised the same way the declaration is, so the
  * declaration and the definition cannot name different numbers, and two surfaces
  * at the same width share one `<filter>` rather than each building its own.
+ *
+ * Since W17 G1 the sharp filter's definition is **per group** rather than per σ:
+ * it carries the group's own tint, whose alpha and colour follow the backdrop
+ * the group sampled, so two surfaces at one width over different backdrops need
+ * different definitions and the `id` has to say so. The coefficients are
+ * quantised to a ten-thousandth — a quarter of an eight-bit code at the top of
+ * the range — so that a backdrop drifting inside the quantum reuses one
+ * definition instead of rebuilding it every frame.
  */
-export function referenceFilterId(prefix: string, sigmaCssPx: number): string {
-  return `${prefix}-b${String(Math.round(sigmaCssPx * 100))}`;
+export function referenceFilterId(
+  prefix: string,
+  sigmaCssPx: number,
+  transfer?: CssTierTintTransfer,
+): string {
+  const quantised = (values: readonly number[]): string =>
+    values.map((value) => String(Math.round(Math.max(value, 0) * 10000))).join("-");
+  let id = `${prefix}-b${String(Math.round(sigmaCssPx * 100))}`;
+  if (transfer !== undefined) {
+    id += `-t${quantised([transfer.tintAlpha, ...transfer.tint, transfer.addedLight, transfer.floorAlpha, ...transfer.floorEncoded])}`;
+  }
+  return id;
 }
 
 /**
@@ -550,12 +755,28 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   const mapping = surface.mapping ?? CSS_TIER_MAPPING;
   const engine = surface.engine ?? CSS_TIER_UNVERIFIED_ENGINE;
   const dpr = Math.max(surface.devicePixelRatio ?? 1, 1e-3);
-  const policyOptics = opticsUnderPolicy(surface.optics, policy.material, surface.policyFold);
   /*
-   * The size law, applied after the accessibility fold and before anything is
-   * written (W2). Two facets reach this tier — a wider blur and a higher tint
-   * alpha — and both come from the same functions the GPU tier resolves its own
-   * from, so the two tiers cannot scatter or occlude differently for one span.
+   * The accessibility fold, minus its occlusion arm (W17 G1; Decision Log 2 (b)).
+   *
+   * The regime's lift and the size law's occlusion both land on the SOURCE alpha
+   * now, before the W9 response solve, which is where the shader puts them: the
+   * solve exists to land the composite's mean on the measured response, and an
+   * alpha raised after it lands the mean above the response by the raise times
+   * the tint's excess over the backdrop — worth +0.015 to +0.027 of this tier's
+   * interior level, one-signed, on 15 of the 44 untinted cells of the bed
+   * (claims §5.74 §3). The alpha this function receives is therefore already
+   * lifted, sized and converted, and `opticsUnderPolicy` folds five things of
+   * which the caller now owns exactly one — so the alpha is put back rather than
+   * the fold being forked into two functions that could drift.
+   */
+  const policyOptics: MaterialOptics = {
+    ...opticsUnderPolicy(surface.optics, policy.material, surface.policyFold),
+    tintAlpha: surface.optics.tintAlpha,
+  };
+  /*
+   * The size law's scattering facet, applied after the accessibility fold and
+   * before anything is written (W2). Its occlusion facet used to be applied here
+   * too and is the caller's since W17 G1 — see `policyOptics` above.
    *
    * A surface with no declared span keeps `policyOptics` untouched, which is what
    * makes every existing caller and every golden unchanged by the law's landing.
@@ -607,11 +828,7 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   const optics: MaterialOptics =
     sizeK === 0 && projectedScatterK === 0
       ? policyOptics
-      : {
-          ...policyOptics,
-          blurRadius: projectedSigma,
-          tintAlpha: sizeOcclusionAlphaAt(policyOptics.tintAlpha, sizeK, size),
-        };
+      : { ...policyOptics, blurRadius: projectedSigma };
   /*
    * The outer shadow (W8), through the same two folds and in the same order: the
    * accessibility regime first, because a preference outranks a material law, and
@@ -708,6 +925,69 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   const prefix = surface.filterIdPrefix ?? DEFAULT_FILTER_ID_PREFIX;
   const tint = rgba(optics.tint, optics.tintAlpha);
   const border = rgba(optics.border, optics.borderAlpha);
+  /*
+   * Where the tint is drawn (W17 G1; Decision Log 2 (c)).
+   *
+   * With the interior composite resolved and a reference filter to carry it, the
+   * lerp itself goes into the SHARP layer's filter as an affine in linear light
+   * and L3 stops carrying a tint: the two are the same quantity and drawing both
+   * would draw it twice. A Gaussian is linear and normalised, so an affine at L1
+   * passes through L2's heavy step unchanged and reaches the composite exactly
+   * once — which is why the stage goes on the sharp filter alone rather than on
+   * both (that would apply it twice) or on the heavy one (that would leave the
+   * sharp share untransformed wherever the mask is open).
+   *
+   * The author's tint (W10) is the one thing still laid on L3 there, and it is
+   * laid as the author's own layer rather than as the fold: the material's half
+   * of that fold now lives in the filter, so `tintedCssOptics`'s one `rgba()` is
+   * no longer this layer's to write. The two forms compose to the same
+   * expression — `(1 − s)·(material composite) + s·layer` — with the material
+   * composite taken in linear light instead of encoded, which is the change this
+   * wave is.
+   */
+  /*
+   * Which form draws, and what each half of it carries (Decision Log 4 (a), (c)).
+   *
+   * `encoded` is W16's: one `rgba()` over the blurred backdrop at the group's
+   * whole converted alpha, composited in the page's own space. `linear` is W17's
+   * re-form: L3 keeps that same overlay at the FLOOR alpha, which is the tint
+   * this tier painted at rest and is what the contrast-floor doctrine asks for,
+   * and the sharp layer's filter carries the exact remainder as a table. The
+   * boundary between them is the chain's own quantum against the page's
+   * (`cssTintFormAt`), read at the composite's sampled level, because a filter
+   * chain that cannot hold a value the page could is drawing a different
+   * material rather than a more precise one.
+   */
+  const interior = surface.interior;
+  const compositeLevel =
+    interior === undefined
+      ? undefined
+      : (1 - interior.tintAlpha) * (surface.backdropLuminance ?? mapping.referenceBackdropLuminance) +
+        interior.tintAlpha * luminanceOf(interior.tint) +
+        interior.addedLight;
+  const tintForm: "linear" | "encoded" =
+    interior === undefined ||
+    body.filter !== "reference-filter" ||
+    compositeLevel === undefined ||
+    cssTintFormAt(compositeLevel) === "encoded"
+      ? "encoded"
+      : "linear";
+  const floorAlpha = cssTierFloorAlpha(optics);
+  const transfer =
+    tintForm === "linear" && interior !== undefined
+      ? cssTierTintTransfer(interior, floorAlpha, [
+          optics.tint[0] / 255,
+          optics.tint[1] / 255,
+          optics.tint[2] / 255,
+        ])
+      : undefined;
+  const authorLayer = surface.authorLayer;
+  const overlayTint =
+    transfer === undefined
+      ? tint
+      : authorLayer === undefined
+        ? rgba(optics.tint, floorAlpha)
+        : rgba(authorLayer.color, authorLayer.strength);
 
   /*
    * X6's one honesty-core mechanism, reaching the tier most visitors get
@@ -833,11 +1113,11 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
   return {
     host,
     layers: {
-      sharp: sharpLayerDeclarations(body, optics, prefix, policy),
+      sharp: sharpLayerDeclarations(body, optics, prefix, policy, transfer),
       heavy: heavyLayerDeclarations(body, optics.borderWidth, prefix, policy),
-      overlay: overlayLayerDeclarations(optics, tint, border, policy),
+      overlay: overlayLayerDeclarations(optics, overlayTint, border, policy),
     },
-    body,
+    body: { ...body, tintForm, ...(transfer === undefined ? {} : { tintTransfer: transfer }) },
   };
 }
 
@@ -906,8 +1186,9 @@ function sharpLayerDeclarations(
   optics: MaterialOptics,
   prefix: string,
   policy: ResolvedAccessibilityPolicy,
+  transfer?: CssTierTintTransfer,
 ): StyleDeclarations {
-  const blur = blurFunction(body.filter, body.sharpSigmaCssPx, prefix);
+  const blur = blurFunction(body.filter, body.sharpSigmaCssPx, prefix, transfer);
   const filter = `${blur} saturate(${optics.saturation})`;
   return {
     ...layerFrame(optics.borderWidth, -3),
@@ -1017,9 +1298,10 @@ function blurFunction(
   kind: CssTierBody["filter"],
   sigmaCssPx: number,
   prefix: string,
+  transfer?: CssTierTintTransfer,
 ): string {
   if (kind === "blur") return `blur(${px(sigmaCssPx)})`;
-  return `url(#${referenceFilterId(prefix, sigmaCssPx)})`;
+  return `url(#${referenceFilterId(prefix, sigmaCssPx, transfer)})`;
 }
 
 /**

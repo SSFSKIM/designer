@@ -63,6 +63,7 @@ import {
   hintedBackdropLuminance,
   CSS_TIER_TWO_LAYER_AREA_BUDGET_DEVICE_PX,
   type CssTierEngineCapabilities,
+  type CssTierInterior,
   type StyleDeclarations,
 } from "./css-tier";
 import {
@@ -73,7 +74,8 @@ import {
   destroyCssTierLayers,
   ensureCssTierContainingBlock,
   filteredAreaDevicePx,
-  referenceFilterSigmas,
+  referenceFilterSpecs,
+  type CssTierFilterSpec,
   type CssTierLayers,
 } from "./css-tier-layers";
 import {
@@ -105,6 +107,7 @@ import {
 } from "./media-policy";
 import {
   adaptedSourceOptics,
+  authorTintLayer,
   backdropToneAdaptation,
   backdropToneUnderPolicy,
   boundedForegroundLevel,
@@ -113,6 +116,9 @@ import {
   cssTierOptics,
   gpuTierForegroundBounds,
   gpuTierForegroundLevel,
+  innerShadowedSourceOptics,
+  interiorBandLight,
+  interiorShadowKeep,
   linearTint,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
@@ -125,6 +131,7 @@ import {
   sizeThickness,
   sizeOcclusionAlphaAt,
   sizeThicknessUnderPolicy,
+  sourceInteriorLight,
   sourceOptics,
   sourceOuterShadow,
   sourceSize,
@@ -135,6 +142,7 @@ import {
   unsampledMaterials,
   type UnsampledMaterial,
   type CssTierMapping,
+  type InteriorSurfaceGeometry,
   type LinearRgb,
   type MaterialOptics,
   type MaterialSourceOptics,
@@ -569,8 +577,13 @@ const nextRootOrdinal = (): number => {
  */
 const withCssBody = (
   cssBody: "two-layer" | "collapsed" | undefined,
+  cssTint: "linear" | "encoded" | undefined,
   state: GlassGroupState,
-): GlassGroupState => (cssBody === undefined ? state : { ...state, cssBody });
+): GlassGroupState => ({
+  ...state,
+  ...(cssBody === undefined ? {} : { cssBody }),
+  ...(cssTint === undefined ? {} : { cssTint }),
+});
 
 export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const view = options.window ?? window;
@@ -632,14 +645,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const cssTierFilterPrefix = `vitrea-css-${String(nextRootOrdinal())}`;
   const cssTierMasks = createCssTierMaskCache(view.document);
   let cssTierFilterDefs: ReturnType<typeof createCssTierFilterDefs> | undefined;
-  const ensureCssTierFilters = (sigmas: readonly number[]): void => {
-    if (sigmas.length === 0) return;
+  const ensureCssTierFilters = (specs: readonly CssTierFilterSpec[]): void => {
+    if (specs.length === 0) return;
     cssTierFilterDefs ??= createCssTierFilterDefs(
       view.document,
       layers.root,
       cssTierFilterPrefix,
     );
-    for (const sigma of sigmas) cssTierFilterDefs.ensure(sigma);
+    for (const spec of specs) cssTierFilterDefs.ensure(spec);
   };
   /**
    * Which body form each CSS-tier group resolved to this frame, so the resolved
@@ -648,6 +661,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * surface.
    */
   const cssBodyForms = new Map<string, "two-layer" | "collapsed">();
+  /**
+   * Which tint form each CSS-tier group resolved to this frame (Decision Log 4
+   * (c)). Per group rather than per root, because the boundary is read at the
+   * group's own composite level and two groups over different backdrops can
+   * legitimately draw different forms on one page.
+   */
+  const cssTintForms = new Map<string, "linear" | "encoded">();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -844,6 +864,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * the renderer's tint at this tier's alpha, one number for both tiers.
    */
   let unsampled = unsampledMaterials(options.materialProfile, cssMapping);
+  /**
+   * The renderer's light direction and the two size gains its inner shadow
+   * rides — the profile block the interior derivations read (W17 G1).
+   */
+  let interiorLight = sourceInteriorLight(options.materialProfile);
   /**
    * The profile's policy constants, held alongside the two tiers' optics because
    * they are the part of the profile neither tier's optics can carry: they
@@ -1163,8 +1188,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // budget — so core's resolver cannot produce it and it is merged here, on
     // the one function every consumer of the state goes through.
     const cssBody = cssBodyForms.get(groupId);
+    const cssTint = cssTintForms.get(groupId);
 
-    return withCssBody(cssBody, resolveGlassGroupState(
+    return withCssBody(cssBody, cssTint, resolveGlassGroupState(
       groupCapabilityInputs(
         source.descriptor.kind === "texture"
           ? {
@@ -1345,6 +1371,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // every consumer of the resolved state goes through, including the capture
     // cells — carries the form the surfaces below are about to draw.
     cssBodyForms.clear();
+    cssTintForms.clear();
     for (const groupId of cssTierGroups) {
       cssBodyForms.set(groupId, cssTierCollapsed ? "collapsed" : "two-layer");
     }
@@ -1625,11 +1652,46 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
          * lands (the interior mean tracking the backdrop's encoded mean) is
          * exactly the behaviour the collapse's narrow band no longer carries.
          */
+        /*
+         * The size law's occlusion and the regime's lift, applied to the alpha
+         * BEFORE the response solve — the shader's own order (W17 Decision
+         * Log 2 (b); claims §5.74 §3).
+         *
+         * The shader computes `sizedAlpha = tint.w + sizeOcclusionGain·sizeK·
+         * (1 − tint.w)` and then runs the solve, whose whole purpose is to land
+         * the composite's mean AT THAT ALPHA on the reference's measured
+         * response. This tier used to solve at the unsized alpha and raise it
+         * afterwards, in `cssTierDeclarations`, which lands the mean above the
+         * response by the raise times the tint's excess over the backdrop:
+         * +0.0147 on `checkerboard__rrect-md` at 1x, +0.0209 on `photo__rrect-md`
+         * and +0.0268 on `dark-solid__rrect-md`, one-signed on 15 of the 44
+         * untinted cells of the calibration bed. The two facets compose as
+         * `1 − (1 − α)(1 − c₁)(1 − c₂)` and so commute with each other; what does
+         * not commute is either of them with the solve, which is why both move
+         * here and neither is applied again downstream.
+         */
+        const foldedThickness = sizeThicknessUnderPolicy(
+          Math.min(bounds.width, bounds.height),
+          accessibility.material,
+          sizeConstants,
+        );
+        const occludedSource: MaterialSourceOptics = {
+          ...gpuOptics[variant],
+          tintAlpha: sizeOcclusionAlphaAt(
+            occlusionAlphaUnderPolicy(
+              gpuOptics[variant].tintAlpha,
+              accessibility.material.occlusion,
+              policyFold.increasedOcclusionLift,
+            ),
+            foldedThickness,
+            sizeConstants,
+          ),
+        };
         const respondedSource =
           backdropTone === undefined
-            ? gpuOptics[variant]
+            ? occludedSource
             : toneRespondedSourceOptics(
-                gpuOptics[variant],
+                occludedSource,
                 backdropTone,
                 surfaceThickness,
                 backdropAdaptation,
@@ -1658,45 +1720,97 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           backdropTone?.rgb as LinearRgb | undefined,
           backdropAdaptation,
         );
-        // The material the shade is read off is the one the tier draws: the
-        // occlusion regime's lift and the size law's thickening are part of
-        // it (the increased-contrast reference is at u ≈ 0.98 and shades to
-        // 0.99, measured). `cssTierDeclarations` applies those two folds
-        // itself, after this, on the alpha alone — at full strength the folded
-        // alpha is already 1 and they are no-ops; at a partial strength they
-        // thicken the remaining material, which is the composite's own order.
-        const policySource: MaterialSourceOptics = {
-          ...adaptedSource,
-          tintAlpha: sizeOcclusionAlphaAt(
-            occlusionAlphaUnderPolicy(
-              adaptedSource.tintAlpha,
-              accessibility.material.occlusion,
-              policyFold.increasedOcclusionLift,
-            ),
-            sizeThicknessUnderPolicy(
-              Math.min(bounds.width, bounds.height),
-              accessibility.material,
-              sizeConstants,
-            ),
-            sizeConstants,
-          ),
+        /*
+         * The inner shadow, folded into the (colour, alpha) pair (W17 Decision
+         * Log 2 (b)).
+         *
+         * The shader darkens the whole composite by `shadowKeep` after the tint
+         * and before the rim, and this tier draws no inner shadow — so before
+         * W17 its mirror simply did not carry the term. It is 0.9964 to 0.9973
+         * on the three probe cells, so 0.0018 to 0.0025 of the level, and the
+         * shader's own layer identity turns it into a pair rather than a
+         * subtraction: `(k·a·c, 1 − k·(1 − a))` composites to `k` times what
+         * `(a·c, a)` would, which keeps the composite an exact affine in the
+         * backdrop. `present` is the collapse's fade, on the same factor the
+         * shader uses.
+         */
+        const interiorGeometry: InteriorSurfaceGeometry = {
+          widthCssPx: bounds.width,
+          heightCssPx: bounds.height,
+          radiusCssPx: record.radii[0],
+          thicknessCssPx: record.thickness,
         };
+        const present = 1 - backdropAdaptation;
+        const shadowedSource = innerShadowedSourceOptics(
+          adaptedSource,
+          interiorShadowKeep(
+            gpuOptics[variant],
+            interiorGeometry,
+            foldedThickness,
+            present,
+            interiorLight,
+          ),
+        );
+        /*
+         * The band's own light, `X` (W17 Decision Log 2 (c)).
+         *
+         * Read off the UNADAPTED profile optics with `present` beside it, because
+         * that is where the shader reads it: `rim = rw·(rimAlpha + spec)·present`
+         * takes the profile's band constants under the policy fold, and
+         * `adaptedSourceOptics` has already folded `present` into its own
+         * `rimAlpha` for this tier's border. Under a strong-border regime the
+         * pair crosses the tier boundary unconverted, which is what
+         * `STRONG_BORDER` records, so the fold's own numbers stand in for the
+         * profile's here too.
+         */
+        const bandSource: MaterialSourceOptics =
+          accessibility.material.border === "strong"
+            ? {
+                ...gpuOptics[variant],
+                rimWidth: policyFold.strongBorder.borderWidth,
+                rimAlpha: policyFold.strongBorder.borderAlpha,
+              }
+            : gpuOptics[variant];
+        const interior: CssTierInterior = {
+          tintAlpha: shadowedSource.tintAlpha,
+          tint: [shadowedSource.tint[0], shadowedSource.tint[1], shadowedSource.tint[2]],
+          addedLight: interiorBandLight(bandSource, interiorGeometry, present, interiorLight),
+        };
+        // The material the shade is read off is the one the tier draws — the
+        // occlusion regime's lift, the size law's thickening and the inner
+        // shadow are all part of it (the increased-contrast reference is at
+        // u ≈ 0.98 and shades to 0.99, measured). Since W17 G1 that is one
+        // quantity rather than a second fold applied downstream: the source
+        // arriving here already carries every one of them.
+        const policySource: MaterialSourceOptics = shadowedSource;
         const tintBackdrop = backdropTone?.linearLuminance ?? toneBackdrop;
         const tintGrip = toneAdaptation * tintShade.strength * (1 - backdropAdaptation);
-        const nodeBaseOptics = tintedCssOptics(
-          backdropAdaptation <= 0 && backdropTone === undefined
-            ? baseOptics
-            : cssOpticsFromSource(baseOptics, adaptedSource, cssMapping),
+        const authorLayer = authorTintLayer(
           policySource,
           seed,
           tintBackdrop,
           tintGrip,
           tintShade,
         );
-        const nodeOptics =
-          seed === undefined && backdropAdaptation <= 0 && backdropTone === undefined
-            ? optics
-            : opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold);
+        // Always through the conversion now, where a group with no measured
+        // backdrop used to short-circuit to the statically converted `baseOptics`:
+        // the size law's occlusion is inside the source's alpha since W17 G1, so
+        // the static table is a material one span smaller than this surface's.
+        const nodeBaseOptics = tintedCssOptics(
+          cssOpticsFromSource(baseOptics, shadowedSource, cssMapping),
+          policySource,
+          seed,
+          tintBackdrop,
+          tintGrip,
+          tintShade,
+        );
+        // The alpha is put back for the same reason `cssTierDeclarations` puts
+        // it back: the regime's occlusion lift is inside the source's alpha
+        // already, and folding it twice would lift a lifted material.
+        const nodeOptics: MaterialOptics = {
+          ...opticsUnderPolicy(nodeBaseOptics, accessibility.material, policyFold),
+          tintAlpha: nodeBaseOptics.tintAlpha,
+        };
 
         const input: GlassNodeRenderInput = {
           nodeId: record.nodeId,
@@ -1772,6 +1886,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           engine: cssTierEngine,
           collapsed: cssTierCollapsed,
           filterIdPrefix: cssTierFilterPrefix,
+          // The renderer's composite for this surface, and the author's own
+          // layer beside it — the tier draws the first inside its filter where
+          // the engine has one, and the second on L3 over it (W17 Decision
+          // Log 2 (c)). Both are declared unconditionally; the engine gate is
+          // `cssTierDeclarations`'s, so the conformance row decides the form in
+          // one place.
+          interior,
+          ...(authorLayer === undefined ? {} : { authorLayer }),
         });
         if (state.activeRenderer === "css") {
           const geometry = {
@@ -1783,7 +1905,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // The reference filters this body needs, built before the declaration
           // that names them lands — a `url(#id)` with no definition renders the
           // layer unfiltered, which would be a silent loss of the whole body.
-          ensureCssTierFilters(referenceFilterSigmas(declarations.body));
+          ensureCssTierFilters(referenceFilterSpecs(declarations.body));
+          // Which form this group's tint drew, recorded on the first surface of
+          // the group to declare one: every surface of a group shares its
+          // backdrop and therefore its boundary verdict (Decision Log 4 (c)).
+          if (declarations.body.tintForm !== undefined) {
+            cssTintForms.set(groupId, declarations.body.tintForm);
+          }
           /*
            * Forced colors is a different surface rather than a dimmer material,
            * so the tier draws no layers there and any it had are taken down: a
@@ -1928,6 +2056,18 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         }
       }
     }
+
+    /*
+     * The reference filters are marked as the surfaces that name them are
+     * declared, and swept once the whole frame's declarations are in (W17 G1).
+     *
+     * Since the sharp filter carries the group's own tint a definition belongs
+     * to a group over a backdrop rather than to a width, so a group whose
+     * backdrop moves leaves its previous definition behind. Sweeping here rather
+     * than per surface is what makes that safe: every live surface has already
+     * marked what it names on this frame.
+     */
+    cssTierFilterDefs?.sweep();
 
     const freshProxies = proxies.sync(proxyRequests, {
       devicePixelRatio: viewport?.devicePixelRatio ?? 1,
@@ -2419,6 +2559,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       cssOptics = cssTierOptics(profile, cssMapping);
       gpuOptics = sourceOptics(profile);
       unsampled = unsampledMaterials(profile, cssMapping);
+      interiorLight = sourceInteriorLight(profile);
       policyFold = resolvedPolicyFold(profile);
       tintShade = resolvedTintShade(profile);
       sizeConstants = sourceSize(profile);

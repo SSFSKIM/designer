@@ -151,7 +151,16 @@ test("colours the surface it is set on, and only that one", async ({ page }) => 
     ),
   );
   expect(declarations[0]).not.toBe(declarations[1]);
-  expect(declarations[1]).toContain("255, 255, 255");
+  /*
+   * The untinted neighbour keeps the material's own colour, and since W17 G1
+   * (Decision Log 2 (b)) that colour is one code below white: the inner shadow
+   * enters the mirror as the shader's own layer identity, so the pair states the
+   * same material with the colour scaled and the alpha raised. What this test is
+   * about is that an author's tint reaches the surface it was set on and no
+   * other, so the assertion follows the material's colour rather than pinning
+   * the literal white it used to be.
+   */
+  expect(declarations[1]).toContain("254, 254, 254");
 });
 
 test("at full strength the surface is the shade — opaque, and its brightness follows the material's luminance", async ({
