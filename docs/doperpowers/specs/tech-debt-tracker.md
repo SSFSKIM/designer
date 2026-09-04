@@ -439,6 +439,11 @@ Shape of the fix, if it is ever worth taking: publish in dependency order explic
 property of the chain rather than of one evening; the fix above stays the shape, and the
 choice of taking it is still the user's.
 
+**Third occurrence, the 0.6.0 cut (2026-09-04):** the same shape, wider — `@vitreajs/vitrea-web@0.6.0`
+at 11:22:13Z and `@vitreajs/vitrea-react@0.6.0` at 11:22:15Z, `@vitreajs/vitrea@0.6.0` at
+11:26:21Z (registry `time`): 248 s against 70 and 73. Three cuts; the fix above is unchanged
+in shape and the choice is still the user's.
+
 ## The CSS tier's captures move by a code between runs on two 2x cells (W15 G2, W16 G2, 2026-09-04)
 
 *Found at W15's landing (one cell), confirmed at W16's.* Re-capturing the CSS tier from an
