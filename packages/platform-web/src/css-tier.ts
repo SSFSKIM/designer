@@ -441,6 +441,35 @@ export interface CssTierInterior {
  * matched to a linear lerp at one declared backdrop level — has nothing left to
  * solve: the form is exact per pixel, with no free parameter and no privileged
  * point on the backdrop's distribution.
+ *
+ * **Exact per pixel is not exact per cell, and the two residuals that stand
+ * between them are derived rather than assumed** (W17 G1, evaluated by
+ * `results/2026-09-04-w17-css-interior-level/g1/residuals.ts` on the three W16
+ * probe cells over the real fixture background, at the tier's own two widths and
+ * its own ramp).
+ *
+ *  1. **The page's encoded-space mix of the two tinted layers under the mask.**
+ *     L2 blurs L1's OUTPUT, and the compositor mixes the two by the mask's alpha
+ *     in the page's encoded eight-bit space, where the renderer mixes its two
+ *     components in linear light before it tints. The difference is second order
+ *     in the sharp-heavy difference through the encode's curvature, and the
+ *     affine scales that difference by `1 - alpha` before the encode sees it, so
+ *     the same residual the untinted body carried at W16 is smaller here on both
+ *     counts. Measured: **-0.0041 / -0.0040 / -0.0040 of the interior level at
+ *     dpr 1 and -0.0009 / -0.0022 / -0.0009 at dpr 2** on `rrect-md`, the
+ *     capsule and `rrect-ml`, against **-0.037 / -0.031 / -0.036** and
+ *     **-0.013 / -0.026 / -0.012** for the same mix untinted -- a factor of 7 to
+ *     14. Worst single pixel 0.0085 at dpr 1 and 0.0042 at dpr 2. It is
+ *     one-signed and negative, which is the direction the tier's measured
+ *     -0.006 against the GPU tier at dpr 1 sits in.
+ *  2. **W16's effective kernel width.** The tier writes the renderer's kernel's
+ *     effective Gaussian width through one ratio per scale (1.380 at dpr 1,
+ *     1.485 at dpr 2), and each span's own reading differs from it by -0.50% to
+ *     +0.50% at dpr 1 and -1.00% to -0.04% at dpr 2. A Gaussian is normalised,
+ *     so that error moves no mean: re-blurring at each cell's own asked-for
+ *     width moves the interior level by **0.000000 to 0.000003**. It is a spread
+ *     residual and not a level one, which is why it is named here and gated by
+ *     S3 rather than by the level clause.
  */
 export interface CssTierTintTransfer {
   /** `1 − α`, one scalar because the lerp's alpha is achromatic. */

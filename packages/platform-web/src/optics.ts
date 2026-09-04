@@ -2354,6 +2354,35 @@ export interface CssTierMapping {
    * contrast term in the sharp layer's filter list, solved jointly with the alpha
    * for the mean and the slope — which is a new optical term, and a decision this
    * wave did not charter.
+   *
+   * **W17 G1 closed it, and this constant is not on that path (Decision Log 2 (c),
+   * (d)).** The second degree of freedom turned out not to be needed: the
+   * renderer's composite is an affine in the backdrop and an `feComponentTransfer`
+   * inside the sharp layer's linear-light filter is an affine, so the lerp itself
+   * moves into the filter with no free parameter to solve and no privileged
+   * backdrop level at all. **Wherever the engine's conformance row renders a
+   * reference filter inside `backdrop-filter`, nothing reads this value**: the
+   * tier's composite is `cssTierTintTransfer`'s and this mapping's conversion is
+   * not evaluated. It is still the anchor of the one-alpha conversion the
+   * plain-`blur()` engines keep (contract X9), and of `cssTintAlpha` and
+   * `cssTintColor` wherever a caller reaches them directly.
+   *
+   * **Decision (W17 G1, on Decision Log 2 (d)'s advisory): the plain-`blur()`
+   * anchor stays at 0.02.** The advisory was to move it to the group's own
+   * sampled level, and the number that decides it is already recorded three
+   * paragraphs above: W16 G1 measured exactly that anchor. It lands the level
+   * (`checkerboard__rrect-md` +0.059 → −0.002 at 1x, +0.076 → +0.009 at 2x) and
+   * costs the slope, leaving the interior's spread 0.024–0.041 over native
+   * against the fitted anchor's 0.007 and dropping `ssimMean` by 0.006 to 0.026
+   * on the two thick checkerboard cells. That trade is a property of the
+   * composite and not of the alpha it is taken at — one encoded alpha can match
+   * the mean or the slope and not both — so W17's ordering fix, which moves the
+   * alpha this anchor converts, does not change its direction. And the engines
+   * this now governs are the ones the harness cannot capture at all (Gecko and
+   * WebKit render `backdrop-filter` as a no-op in every automatable path), so
+   * moving them on an advisory would be a change no measurement could referee.
+   * The gap it leaves is E's, named and unchanged: those engines' interior level
+   * runs about +0.05 to +0.09 over native on a high-contrast backdrop.
    */
   readonly referenceBackdropLuminance: number;
   /**

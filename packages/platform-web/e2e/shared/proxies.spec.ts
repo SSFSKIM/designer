@@ -210,7 +210,11 @@ test.describe("the CSS tier's own surface", () => {
         radius: 18,
       });
       window.h.frame(3);
-      return { host: window.h.hostStyle(nodeId), overlay: window.h.layerStyle(nodeId, "overlay") };
+      return {
+        host: window.h.hostStyle(nodeId),
+        overlay: window.h.layerStyle(nodeId, "overlay"),
+        sharp: window.h.layerStyle(nodeId, "sharp"),
+      };
     });
 
     /*
@@ -223,7 +227,22 @@ test.describe("the CSS tier's own surface", () => {
      * those children and would be covered. The border's WIDTH stays on the host,
      * where it is layout.
      */
-    expect(host.overlay?.backgroundColor).not.toBe("rgba(0, 0, 0, 0)");
+    /*
+     * Re-pointed again at W17 G1 (charter Decision Log 2 (c)), and this time the
+     * property moves. On an engine that renders a reference filter inside
+     * `backdrop-filter` the tint's lerp is drawn INSIDE the sharp layer's filter
+     * in linear light, exactly as the renderer draws it, so L3 carries no tint
+     * there at all — drawing both would draw the tint twice. What the rule this
+     * test guards actually says is that the surface always paints a real tint and
+     * a real border and never relies on the blur for contrast, so the assertion
+     * follows the tint to wherever it is drawn rather than staying on the layer
+     * it used to be drawn on: either L3 carries a colour, or the sharp layer's
+     * filter carries the affine that is the same quantity.
+     */
+    const tintDrawn =
+      host.overlay?.backgroundColor !== "rgba(0, 0, 0, 0)" ||
+      /url\("?#[^"]*-t\d/.test(host.sharp?.backdropFilter ?? "");
+    expect(tintDrawn).toBe(true);
     expect(Number.parseFloat(host.host?.borderTopWidth ?? "0")).toBeGreaterThan(0);
     expect(host.overlay?.boxShadow).toContain("inset");
     expect(host.overlay?.boxShadow).not.toBe("none");
