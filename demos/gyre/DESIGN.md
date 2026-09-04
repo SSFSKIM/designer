@@ -57,6 +57,10 @@ a measurement rather than a presentation.
   (`scripts/palette.mjs` prints the arithmetic).
 - The runtime's own `--vitrea-*` properties are read, with a token as fallback, and never
   redeclared.
+- Two material variants, each with one job. Every control is `regular`. The probe alone is
+  `clear`, because it is a lens over media and its reading has to be seen against the field it
+  measures; its group carries a light `lighten` scrim (0.16) so dark ink stays legible on a
+  bright field. Variants are never mixed inside one group.
 
 Forbidden: a second accent; a green anywhere (green reads as "healthy" on an instrument and
 would smuggle a claim); a colour literal outside the two files named above; any dark ground.

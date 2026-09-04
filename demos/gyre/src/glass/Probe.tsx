@@ -127,14 +127,31 @@ export function Probe(props: ProbeProps): ReactNode {
   const layer = layerById(props.layer);
   const initial = centre.current;
 
+  // The clear variant, and only here: the probe is a lens over media, which is
+  // what Apple's clear glass is for, and the reading has to be seen against the
+  // field it measures. The variant requires a dimming policy on its group; the
+  // scrim lightens rather than darkens because the ink on it is dark and the
+  // field is bright, and the strength is kept low so the material stays a lens.
   return (
-    <GlassGroup id="probe" backdrop={{ kind: "texture", id: FIELD_TEXTURE_ID }}>
+    <GlassGroup
+      id="probe"
+      backdrop={{ kind: "texture", id: FIELD_TEXTURE_ID }}
+      variant="clear"
+      dimming={{ scrim: 0.16, direction: "lighten" }}
+    >
       {/*
         `circular`, because the default continuous profile clamps a radius so its
         longer curve fits the box, and a disc is the one shape where that clamp
         turns a circle into a rounded square.
       */}
-      <GlassSurface asChild profile="circular" radius={diameter / 2} thickness={26} interactive>
+      <GlassSurface
+        asChild
+        profile="circular"
+        radius={diameter / 2}
+        thickness={26}
+        variant="clear"
+        interactive
+      >
         <button
           ref={hostRef}
           type="button"
