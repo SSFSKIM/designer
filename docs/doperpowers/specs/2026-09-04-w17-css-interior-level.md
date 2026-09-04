@@ -386,7 +386,7 @@ G0 → G1 → G2 → recomposition. Nothing lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g0/g0-interior-level.md` (`654ad0e`), claims §5.74 | CLOSED 2026-09-04 — the four terms 0.0026–0.0106, superposing within 0.0008 and derived within 0.006; the mirror's ordering defect (+0.015…+0.027) and the inner shadow found; the chartered carrier clips and is a point condition; four `[parent-impact]` items reconciled in Decision Log 2 |
-| G1 | branch `w17-g1-level` | OPENED 2026-09-04 on Decision Log 2's form — the probe pre-check first, then the ordering fix alone and the full form on the whole bed |
+| G1 | branch `w17-g1-level` at `29f4afa` (`g1/g1-dry-run.md`, the verify and gate outputs, `dry-tables.md`, the sheets) | IN PROGRESS — the probe pre-check landed (Decision Log 3); the whole-bed run put the level on the renderer's on every light cell but two and found three properties of the carrier (Decision Log 4): re-formed with the floor overlay and a table transfer, the region derived from the heavy step's reach, a declared boundary for the darks; the holdout unspent |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -557,8 +557,111 @@ with both numbers to be named on every cell.**
 
 Everything else in G1's stops stands as written. Step 2 opens on these terms.
 
+### Decision Log 4 — the whole-bed run: the level lands on the renderer; three properties of the carrier stop it, and each is re-formed with its mechanism (2026-09-04)
+
+**Evidence** (branch `w17-g1-level` at `29f4afa`, `results/2026-09-04-w17-css-interior-level/g1/g1-dry-run.md`,
+`cfg1.verify.txt`, `cfg2-calval.verify.txt`, the gate outputs, `dry-tables.md`, the sheets). Two
+whole-bed runs (configuration 1, the ordering fix and the inner shadow alone; configuration 2, the
+full form) over the six profiles' calibration and validation cells, the GPU tier byte-identical on
+85 / 85 captures under both (S1). Configuration 2 puts the CSS tier's interior within 0.01 of the
+GPU tier's on every light checkerboard, `photo` and solid cell except the two `toolbar-group`
+scenes (`rrect-md` −0.0061 / −0.0005, `rrect-ml` −0.0064 / −0.0011, `light-solid__rrect-md`
++0.0001 / +0.0000 from a bed +0.017 over), `ssimMean` up on every checkerboard cell, the tinted
+cells moving by exactly `(1 − s)` of the untinted change (the one half-strength cell lands within
+0.01; the full-strength ones move ≤ 0.0017), and `checkerboard__capsule-button` under reduced
+transparency conditioning again (S7's first cell). Configuration 1 alone closes 0.010–0.018 of
+the gap and is not a landing (recorded, as (b) asked). The holdout was not read — configuration 2
+is not frozen, and the worker's refusal to spend X8's one reading on a form these findings change
+is upheld.
+
+**Three mechanisms, each measured to its cause.**
+
+1. **The reference filter's region clips the heavy kernel on small surfaces** — a W16 defect the
+   fitted `rgba()` anchor had absorbed. `createCssTierFilterDefs` writes `−50% / 200%`; on a
+   46 CSS px capsule that is ±23 px against a heavy step of σ 13.69 CSS px at dpr 1 (3σ = 41 px).
+   The arithmetic predicts exactly the cells that miss: the `toolbar-group` scenes read −0.021 /
+   −0.024 at 1x against the GPU tier, −0.050 under reduced transparency where the frost is 1.75×
+   wider, and half as bad at 2x where the step is 4.36 px; per annulus a uniform dark body with a
+   bright contour band, not a tint error.
+2. **The linear-light chain's intermediate is eight bits in linear light**, and its quantum at
+   the bottom is 13 encoded codes (`E(1/255)` = 0.0498). `impulse__capsule-button`, whose
+   composite the renderer draws flat at 0.0037 linear (12 / 255 encoded), draws 0 on the tier
+   at both scales: `ssimMean` 0.9756 → 0.9060 / 0.9155, the latter under its 0.92 bound. The
+   dark profiles' cross-tier ΔE rises with it (0.00406 → 0.00565, 0.00414 → 0.00562): the dark
+   scheme's composites sit at 13–18 quanta, where each step is 2–3 codes. The `rgba()` overlay
+   never met this because it composites in the encoded space.
+3. **The tier's contrast floor does not survive a filter that does not render.** The doctrine at
+   the head of `css-tier.ts` — the surface always paints a real tint and never relies on the blur
+   for contrast, because S1's failure class ("the engine reports support and renders nothing")
+   is undetectable — is binding, and with the whole tint inside the filter the contrast-floor
+   pixel test reads a channel delta of 0 against a floor of 8.
+
+**Rulings (the parent; binding).**
+
+- **(a) The floor is an element paint, and the filter carries the remainder exactly.** L3 keeps
+  an encoded tint overlay at the doctrine's floor alpha α₃ (the tier's existing floor constant;
+  G1 names it and derives nothing new), and the sharp layer's filter carries the remainder as a
+  per-channel `feComponentTransfer type="table"` sampling
+  `F(b) = D((E(M(b) + X) − E(T)·α₃) / (1 − α₃))` over N points, N from the piecewise-linear
+  interpolation error bound (< 1e−4), monotone, and non-negative whenever α₃ ≤ α (which the
+  floor guarantees). Exact to the table's resolution, no point condition. Reason: the doctrine
+  is binding, and an affine under an encoded overlay would reintroduce the curvature term
+  Decision Log 2 removed; a table does not.
+- **(b) The filter region derives from the heavy step's reach.** The input extent the kernel
+  needs beyond the box is `k·σ_heavy` at the live device ratio, written in the box's own
+  percentage units per group; `k` is chosen by measurement — the level residual on the
+  `toolbar-group` cells at k = 2, 2.5 and 3 — as the smallest k whose residual is within 0.005,
+  its residual recorded beside the constant. The region's area counts in W16's filtered-area
+  budget (the collapse rule, unchanged at 0.4 M device px per layer per frame), and S8 is
+  re-measured on the cost harness with the derived region at both scales and on the demo's
+  densest CSS-tier page; if the knee moves there, it is a `[parent-impact]` on W16 Decision
+  Log 2 q1 (the user's budget) and comes to the parent before any landing.
+- **(c) A declared boundary for the darks.** A group whose composite's sampled level lies where
+  the eight-bit linear chain's quantum in encoded codes exceeds a declared tolerance draws the
+  encoded form (E's overlay with the ordering fix and the inner shadow) instead of the table; the
+  boundary is derived from the quantum, `E(L + 1/255) − E(L)` against the tolerance, and
+  confirmed against the dark profiles' readings (their ΔE must not rise under it). The group
+  state reports it (`cssTint: "linear" | "encoded"`, beside W16's `cssBody`), so the readouts
+  and the harness say which form drew. The dark scheme's level then remains E's, named as such;
+  on the bed it was within 0.011 of the GPU tier and nearer native than the renderer on its dot.
+- **(d) S3 is one-sided.** It fires only where the tier's spread is farther from native than the
+  renderer's by more than 0.005. The 2x cells where the tier's spread is above the renderer's
+  because it is nearer native (+0.009…+0.011 against the GPU tier, −0.002…−0.007 against native)
+  are a recorded finding — the tier drawing the renderer's kernel at its measured effective
+  width lands nearer native than the renderer's own pass — and not a stop. Both numbers stay in
+  every table.
+- **(e) `light-solid__rrect-ml` joins `PREDICATE_EXCLUDES` at the landing**, at both light
+  scales, with its reason: the tier at the renderer's level (0.9315 / 0.9322) over a background
+  0.003 away, which the luminance-delta extractor separates on the GPU tier only by the rim and
+  lens the CSS tier does not draw. The machine's output; the perceptual rows still gate.
+- **(f) The holdout stays unspent** until the re-form is frozen; then once.
+- **(g) The three Chromium e2e pins** that recompute the tier's law are re-pointed for the
+  ordering fix with the reason; the contrast-floor test passes with (a) by construction and is
+  not loosened; the near-black level assertion follows (c).
+
+**G1 continues on the re-form.** Implement (a), (b) and (c); re-run the probe pre-check on the
+three W16 cells plus the two `toolbar-group` scenes, `impulse__capsule-button` and one
+dark-scheme checkerboard cell at both scales, with the k sweep for (b); report. Then the
+whole-bed run as configuration 3 under the stops as they now read, the landing's test file against
+its matrix (X6), the holdout once when frozen, the cost (S8), the suites, the sheets, and the
+declaration (claims §5.75, written by the parent from the report).
+
 ## Surprises & Discoveries
 
+- **2026-09-04 (G1) — the reference filter's region was clipping the heavy kernel on small
+  surfaces since W16, and the fitted overlay hid it.** `−50% / 200%` is ±23 px on a 46 px capsule
+  against a 41 px reach; the `toolbar-group` cells read −0.021…−0.050 against the GPU tier only
+  once the tint became exact (Decision Log 4 (b)). A conversion fitted against the cross-tier
+  difference absorbs the defects on both sides of it.
+- **2026-09-04 (G1) — the linear-light chain is eight bits in linear light, and its bottom quantum
+  is thirteen encoded codes.** A composite the renderer draws at 12 / 255 the tier draws at 0, and
+  the dark scheme's composites step by 2–3 codes (Decision Log 4 (c)). The body's blur had lived
+  with it since W16; the tint cannot.
+- **2026-09-04 (G1) — the tint inside the filter removed the tier's contrast floor**, the
+  doctrine written for exactly the failure that cannot be probed (Decision Log 4 (a)).
+- **2026-09-04 (G1) — at 2x the tier's spread lands nearer native than the renderer's own** on
+  three cells, drawing the renderer's kernel at its measured effective width; a coherence stop
+  read symmetrically would have called that a miss (Decision Log 4 (d)).
 - **2026-09-04 (G0) — the renderer's light is a hundredth of the level.** Declining the
   lens, the rim, the highlight and the lift together moves the GPU tier's interior by
   +0.0026…+0.0106 on the light cells (claims §5.74 §2); W16 G1's 0.023–0.058 was the
@@ -603,3 +706,10 @@ Everything else in G1's stops stands as written. Step 2 opens on these terms.
   GPU tier, `ssimMean` up on every one. S3 re-declared against the renderer's own spread and S5
   against the renderer's level with the tinted cells' predicted move beside, both with the reason;
   the whole-bed dry run opens.
+- 2026-09-04: **G1 whole-bed run read** (Decision Log 4). The level lands on the renderer's across
+  the bed and three properties of the carrier stop it — the filter region clipping the heavy
+  kernel (a W16 defect), the eight-bit linear intermediate's truncation in the darks, and the
+  contrast floor the doctrine requires; each re-formed with its mechanism: the floor stays an
+  element paint and a table transfer carries the exact remainder, the region derives from the
+  heavy step's reach with its residual, a declared boundary sends dark composites to the encoded
+  form. S3 one-sided; one cell to the predicate list; the holdout unspent. Four Surprises.
