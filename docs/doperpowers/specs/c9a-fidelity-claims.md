@@ -11352,3 +11352,26 @@ probe's lone circle joins that ledger), the union's kind against Apple's, the ov
 2x native probe** — the user's session to open. The plain-`blur()` engines' level; the darks on
 the encoded form; the CSS tier's frame timing (the tracker, two cells this wave).
 
+**§7 addendum — two gaps found by review after the landing (2026-09-05).** Another session's
+Codex review of a diff that included W18's `platform-web` commits logged six leads in the
+tracker; the W18 owner verified all six against `8f57b0b`, and two are gaps to the renderer
+that the bed does not carry, named here so they are not accepted silently. **The author-tint
+fold on Chromium's linear path:** the transfer table is solved for the overlay at the contrast
+floor and the branch paints the author layer at its own strength, so a tinted surface below
+full strength composites to `(1 − s)·α₃/(1 − α₃)` of the material-to-tint gap off the
+material — read by the review's scratch test at −0.053…−0.014 of linear luminance for strength
+0.2 and −0.002…+0.025 for 0.5, the untinted control at 0.00004 — and below strength 0.2668 the
+painted alpha is under the floor W17 Decision Log 4 (a) requires. The bed's tint registry
+carries strengths 1.0 (insensitive by construction) and 0.5 (`photo__capsule-button__rest-
+tint-orange-half`, −0.0011 / −0.0005 against the GPU tier, §5.75 §4), which is why no wave saw
+it; it is the re-derivation W17 Decision Log 2 (c) promised if S5 fired on a tinted cell. **The
+rim band on square boxes:** `optics.ts` clamps the band's depth by the corner radius while the
+renderer's `rim_weight` is radius-independent, so a radius-0 CSS-tier box draws about
+0.003–0.005 under the renderer's; inert on the bed (narrowest radius 8 CSS px). Both are
+chartered with their shapes in the W18 spec's Deferred list; the numbers above are the review's
+readings, to be measured by the wave that closes them. The other four: one honesty-core defect
+in two places (the group state published by `renderInput` lacked `cssTint` and `cssShadow`; the
+group's `cssTint` was the last host's), fixed beside this landing; a public doc gap on
+`CssTierSurface.optics`, fixed; the floor literal under a runtime-patched profile, a tracker
+line.
+

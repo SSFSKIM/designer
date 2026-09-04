@@ -506,6 +506,25 @@ reported together.
   the cell with its shape axis marked unmeasurable and its perceptual rows kept, so the bed does
   not lose a row to the instrument. Until then the bed carries 229 and the gate's counts are per
   tier.
+- **The author-tint fold on the linear path (post-landing review, 2026-09-05).** On Chromium's
+  linear path the tier's transfer table is solved for the overlay at the contrast floor and the
+  branch paints the author layer at its own strength, so a tinted surface below full strength
+  misses the material by `(1 − s)·α₃/(1 − α₃)` of the gap between the material composite and
+  the folded tint colour (−0.053…−0.014 at strength 0.2, read by review), and below 0.2668 the
+  painted alpha is under the floor. The bed carries strengths 1.0 and 0.5 only. Its shape: the
+  transfer solved against the layer actually painted, the painted alpha floored at α₃ with the
+  material's own floor tint composited under the author layer, a strength ladder (0.1…1.0) on
+  the tinted scenes against the renderer's declined render, the `orange-half` cells the bed's
+  referee. The re-derivation W17 Decision Log 2 (c) named. A CSS-tier material change; its own
+  gate.
+- **The rim band on square boxes (post-landing review, 2026-09-05).** `optics.ts` clamps the
+  band's depth by the corner radius, a guard the code itself calls inert on the bed (narrowest
+  radius 8 CSS px against a 1.5 px band); the renderer's `rim_weight` is radius-independent and
+  lights straight edges, so a radius-0 CSS-tier box draws about 0.003–0.005 under the
+  renderer's. Its shape: clamp by half the span only and take the rectangle branch's own
+  normals for the specular contour (the inner shadow's `coAreaBand` already has that branch);
+  the referee is the bed byte-identical on the CSS tier plus a radius ladder (0…8) on a unit
+  box against the closed form and, if a native fixture of a square is captured, against Apple.
 
 ## Tracking Map
 
@@ -824,6 +843,13 @@ changeset left pending for the next `vitrea-web` minor, recomposition.
 - **2026-09-05 (G2) — the frame timing's fifth wave:** two CSS captures differ from the dry run
   by 1 code (6 408 and 746 px, alpha untouched, no row past 0.00003); the tracker's entry grows
   and the fix's shape is unchanged.
+- **2026-09-05 (post-landing) — a review from another session found six leads in the tier's
+  code, and all six hold in some form.** Two are one honesty-core defect (the group state
+  published by `renderInput` lacked `cssTint` and `cssShadow` while `capabilities` carried
+  them; the group's `cssTint` was the last host's), fixed the same day. Two are material gaps
+  the bed cannot see — the author-tint fold at sub-unit strength on the linear path, the rim
+  band on square boxes — chartered in Deferred. One was a doc gap, one a tracker line. The
+  bed's tint registry (strengths 1.0 and 0.5) is why the first was invisible to every wave.
 
 ## Outcomes & Retrospective
 
@@ -887,3 +913,6 @@ pre-check gate and the dry run; the referee ran the landing's file against the s
 - 2026-09-05: G2 COMPLETE and the wave RECOMPOSED (claims §5.79); Outcomes & Retrospective
   written; two Surprises (the bodies arm, the frame timing's pair) and two Deferred shapes (the
   fold's remainder, the unmeasurable cell); the Tracking Map's G2 row.
+- 2026-09-05 (post-landing): six review findings verified (the tracker's entry); two Deferred
+  shapes added (the author-tint fold on the linear path, the rim band on square boxes); one
+  Surprise; the honesty-core fix landed beside.

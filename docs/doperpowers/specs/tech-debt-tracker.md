@@ -502,3 +502,43 @@ defects.
 Shape of the fix: the W18 owner verifies each against the current tree; the ones that hold
 become W18 follow-ups or their own entries here; the ones that do not are deleted from this
 entry with a line saying why.
+
+**Verified 2026-09-05 by the W18 owner against `8f57b0b`** (one worker, read-only, with a
+scratch vitest kept at `~/.claude/jobs/5c70e47f/tmp/w18/findings/zz-w18-verify.test.ts`, not
+committed). All six hold in some form; none is deleted. Disposition per finding:
+
+1. **HOLDS — a W18 follow-up, chartered, not fixed in passing.** The transfer table is solved
+   for the overlay `(optics.tint, floorAlpha)` and the branch paints the author layer at its
+   own strength, so the composite misses the material by `(1 − s)·α₃/(1 − α₃)` of the gap
+   between the material composite and the folded tint colour — at strength 0.2 by
+   −0.053…−0.014 of linear luminance across backdrops 0.15–0.6, at 0.5 by −0.002…+0.025; the
+   control without an author layer reproduces the material to 0.00004. Below strength
+   0.2668 the painted alpha is under the contrast floor. The bed carries only strengths 1.0
+   (insensitive by construction) and 0.5 (`photo__capsule-button__rest-tint-orange-half`,
+   −0.0011 / −0.0005 against the GPU tier), so it cannot see the large end. This is the
+   re-derivation W17 Decision Log 2 (c) promised if S5 fired on a tinted cell, and S5 did.
+   A CSS-tier material change with a bed referee: W18 Deferred, "the author-tint fold on the
+   linear path".
+2. **HOLDS — fixed** (the fix wave after this entry): `renderInput().groups[*].state` omitted
+   `cssTint` AND `cssShadow` (the finding understated it) while `capabilities()` carried both,
+   because the state snapshot is taken before the per-host loop records the forms.
+3. **HOLDS BUT BY DESIGN, one gap logged here.** The floor literal is pinned against the
+   shipped profile's clear variant by two tests, so shipped drift is caught; W17 Decision Log
+   4 (a) chose a named constant. The gap: a profile patched at runtime through
+   `createGlassRoot({ materialProfile })` leaves the floor at the shipped number and the
+   `α₃ ≤ α` condition unguaranteed. No adopted profile patches the clear variant; nothing on
+   the bed or in the shipped build is affected. Closes with the floor read from the active
+   profile's clear variant when the module-scope constraint that forced the literal is lifted.
+4. **HOLDS BUT BY DESIGN; the public doc was the defect — fixed** (the same fix wave):
+   `cssTierDeclarations` keeps the source alpha on purpose (W17 Decision Log 2 (b): the fold's
+   occlusion lands on the source alpha before the response solve, and `root.ts` does the
+   folding); `CssTierSurface.optics` now says so for a direct caller.
+5. **HOLDS — a W18 follow-up, chartered.** `optics.ts` clamps the rim band's depth by the
+   corner radius, so a radius-0 box gets no band light (`X` 0.000 at radius 0, 0.0016 at 0.5,
+   0.0047 at 8) where the renderer's `rim_weight` is radius-independent and lights all four
+   straight edges; a square CSS-tier surface draws about 0.003–0.005 of linear luminance under
+   the renderer's. Inert on the bed (narrowest radius 8 CSS px against a 1.5 px band), so a
+   gap the bed does not carry: W18 Deferred, "the rim band on square boxes".
+6. **HOLDS (latent) — fixed** (the same fix wave): the group's `cssTint` was the last host's;
+   it is now the weakest form across the hosts that declared one, as `cssShadow` folds, and
+   the comment says so. Reporting only; what each surface draws is unchanged.
