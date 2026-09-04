@@ -319,6 +319,10 @@ already carries in `tintedCssOptics`, applied to the right pair.
 
 G0 opens on the recommendations; each answer that differs re-opens the affected child before G1.
 
+**Executed 2026-09-05 (the user: "for decisions, all according to your recommendation").** q0
+(a), q1 (a), q2 (a), q3 (a), q4 (b), q5 (a). G0 continues as dispatched; the rim band on square
+boxes stays in W18's Deferred for its own charter after the 0.8.0 cut.
+
 ## Surprises & Discoveries
 
 (none yet)
@@ -331,3 +335,5 @@ G0 opens on the recommendations; each answer that differs re-opens the affected 
 
 - 2026-09-05: chartered from claims §5.79 §7's addendum (the W18 post-landing review's finding 1)
   on the user's decision; Decision Log 1 written; G0 dispatched on its recommendations.
+- 2026-09-05: Decision Log 1 executed on the recommendations (the user); G0 resumed after a
+  usage-limit stop mid-capture.
