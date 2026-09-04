@@ -10594,3 +10594,110 @@ spread on `rrect-ml` (0.0006) and the `hc-text` capsule's level (0.0030). The fo
 inside their bounds. The CSS tier's frame timing, two 2x cells by 1 code (the tracker). The
 software rasteriser's joint area limit for two filtered elements (W16 Deferred). The demo's law
 readout, now one projection and one ratio short on both tiers (the tracker).
+
+### 5.74 W17 G0: the renderer's four terms are a hundredth of the level, the tier's own composite is the gap — the mirror's ordering and a point condition over a bimodal backdrop — and the carrier as chartered clips (2026-09-04)
+
+**1. What was measured, and on what.** The spike's findings are
+`results/2026-09-04-w17-css-interior-level/g0/g0-interior-level.md` (one worker; every reading a
+capture on this machine's `apple / metal-3` adapter through the full Chromium binary, to scratch
+matrices under scratch profile documents, nothing canonical written). The instrument: six profile
+documents per colour scheme through `--material-profile` — the committed one, one per term
+declined (the lens by `lensRefractionGain` and `lensAmountMax` at 0, the rim's ambient term by
+`rimAlpha`, the highlight by `specularGain`, the outer shadow's lift by `liftAmplitude`), and all
+four — twenty-four GPU runs of the four standard profiles' calibration and validation cells, every
+exit 0. **Validation one:** the default document's 72 captures are byte-identical to the canonical
+bed and every metric matches `results/matrix.json` to 0.000000. **Validation two (X4):** the
+interior-mean reader (`measureCell`, the harness's own) recovers a +0.030 linear-light offset
+lerped into a capture as +0.0304…+0.0307 on six readings (inside 0.001; the +0.0004…+0.0007 is the
+eight-bit round trip's bias, and the offset actually on disk is recovered to 2e−13).
+
+**2. The attribution (68 cells with a material axis).** Default minus each declined render, and
+minus the all-declined render; the four single-term differences sum to the whole within
+**0.000817** on every cell (64 of 68 inside 0.0005). **On every light-standard checkerboard,
+`hc-text` and `photo` cell at both scales the whole excess is +0.0026 to +0.0106** — largest on
+the thin spans (`rrect-sm` +0.0100 / +0.0106), smallest on the large (`rrect-ml` +0.0026 /
++0.0028), the band-fraction signature the charter predicted, of a term four to ten times too
+small to be the 0.023–0.058 the charter attributed to it. The three probe cells:
+
+| dpr | cell | default | whole | lens | rim | highlight | lift |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1x | `rrect-md` | 0.6946 | +0.0036 | −0.0002 | +0.0022 | +0.0013 | +0.0001 |
+| 1x | `capsule-button` | 0.6783 | +0.0052 | −0.0002 | +0.0028 | +0.0024 | +0.0000 |
+| 1x | `rrect-ml` | 0.6947 | +0.0026 | −0.0002 | +0.0016 | +0.0010 | +0.0001 |
+| 2x | `rrect-md` | 0.7015 | +0.0036 | −0.0002 | +0.0022 | +0.0012 | +0.0000 |
+| 2x | `capsule-button` | 0.6847 | +0.0054 | +0.0001 | +0.0027 | +0.0023 | +0.0000 |
+| 2x | `rrect-ml` | 0.7013 | +0.0028 | −0.0001 | +0.0017 | +0.0010 | +0.0001 |
+
+The lift reads zero inside the silhouette on every cell (its `(1 − coverage)` factor); the lens is
+a displacement and carries no mean on a checkerboard (−0.0002) and the backdrop's own gradient on a
+photo (−0.0024…+0.0036); where the excess is large it is the rim and the highlight over a
+near-black body (`dark-solid__rrect-md` in the dark scheme, +0.1344 / +0.1607, the rim +0.0801 /
++0.0957 and the highlight +0.0534 / +0.0655).
+
+**3. The analytic check, and the ordering defect it found.** The composite computed from the
+profile through `optics.ts`'s own functions in the order `root.ts` runs them — the lerp taken
+against the level behind the SURFACE (`material.interiorMeanBackdrop`), which is not the group's
+sampled tone (`photo__rrect-sm`: 0.1682 under the surface against 0.2141 for the source) — misses
+the all-declined render by up to **+0.0268** (`dark-solid__rrect-md` in the light profile;
+`photo__rrect-md` +0.0209, `checkerboard__rrect-md` +0.0147 at 1x; 15 of 44 untinted cells over
+0.005, all one-signed). **The cause is an ordering difference between the tier's mirror and the
+shader: `root.ts` applies the size law's occlusion (`sizeOcclusionAlphaAt`) after the W9 response
+solve; the shader computes `sizedAlpha` before it, and the solve then lands the composite AT THAT
+ALPHA on the response.** A solve at α = 0.46 followed by a raise to 0.487 lands the mean above the
+response by the raise times the tint's excess over the backdrop. In the shader's order the model
+is within 0.005 on 39 of 44 cells; with the inner shadow — in the render and in neither model,
+its area mean the co-area integral `1 − P̄·shadowDepth·shadowAlpha` — the probe cells read
++0.0008 / −0.0007 / +0.0004 at 1x and −0.0060 / −0.0069 / −0.0059 at 2x. Two residual families
+are named and not absorbed: `dark-solid__rrect-md` in the dark scheme (−0.027 / −0.040, the
+renderer's dot, W15 Deferred) and a scale-signed −0.004…−0.008 on every 2x light cell (§5.55 §3's
+level, the renderer's).
+
+**4. The closed form.** Each term from the resolved material and the surface's box and radius: the
+rim's ambient band `rw(d)·rimAlpha` and the lit band's specular factor integrated around the
+contour, both over the co-area of the inward offsets (`P(u) = 2(W − 2r) + 2(H − 2r) + 2π(r − u)`,
+exact for a rounded rectangle) and evaluated on the device-pixel grid; the lift zero; the lens
+zero to first order with its measured −0.0024…+0.0036 carried as residual. **Worst residual
++0.00605** (`dark-solid__rrect-md` 1x dark, +0.1404 predicted against +0.1344), no cell over 0.01;
+systematically positive and largest on the capsules (+0.0027…+0.0036), whose band is all corner
+arc. The four surfaces the band is a union over (`toolbar-group`, `glass-over-glass`) and the
+author-tinted cells are outside the form.
+
+**5. The carrier as chartered, measured.** A `feComponentTransfer` after the blur inside the
+SHARP layer's linear-light reference filter (an affine passes through L2's Gaussian unchanged, so
+it reaches the composite exactly once), its slope and intercept solved so the tier's encoded
+output matches the renderer's in value and derivative at the group's sampled level, with the four
+terms' derived light added — on the three probe cells at both scales:
+
+| dpr | cell | GPU | CSS bed (E) | carrier | carrier − GPU | bed − GPU | spread native / carrier / bed | `ssimMean` carrier / bed |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1x | `rrect-md` | 0.6946 | 0.7419 | 0.6797 | −0.0149 | +0.0473 | 0.1131 / 0.1137 / 0.1064 | 0.9086 / 0.9028 |
+| 1x | `capsule-button` | 0.6783 | 0.7051 | 0.6555 | −0.0228 | +0.0269 | 0.1424 / 0.1564 / 0.1416 | 0.9716 / 0.9672 |
+| 1x | `rrect-ml` | 0.6947 | 0.7447 | 0.6826 | −0.0121 | +0.0500 | 0.0865 / 0.0985 / 0.0927 | 0.8676 / 0.8593 |
+| 2x | `rrect-md` | 0.7015 | 0.7593 | 0.7108 | +0.0093 | +0.0578 | 0.1272 / 0.1086 / 0.1151 | 0.9165 / 0.9149 |
+| 2x | `capsule-button` | 0.6847 | 0.7157 | 0.6810 | −0.0036 | +0.0310 | 0.1552 / 0.1452 / 0.1455 | 0.9758 / 0.9738 |
+| 2x | `rrect-ml` | 0.7013 | 0.7651 | 0.7162 | +0.0149 | +0.0638 | 0.1018 / 0.0815 / 0.0862 | 0.8788 / 0.8783 |
+
+The gap closes by 2.5–4× on every reading and `ssimMean` rises on all six; two of six are inside
+0.01 and the clause is not met. **Why, measured:** the solve's intercept is −0.187…−0.190 and a
+`type="linear"` primitive clamps at zero, so 29.0 % of the sharp layer's filtered backdrop at
+dpr 1 and 37.5–37.9 % at dpr 2 is clipped; and the encode is concave, so a value-and-slope match
+at one level leaves the mean under the target by the curvature times the backdrop's variance,
+which on a checkerboard is not small (σ 0.387 / 0.416). **The two equations are a point condition
+and the cell is not a point.** The GPU captures under the patch are byte-identical to the bed
+(X3 held). The 2x spread under the carrier lands 0.019–0.020 under native, outside ±0.015.
+
+**6. The cost.** W16 G0's harness with the transfer appended to both reference filters: both forms
+hold the cadence to 32 surfaces and leave it by 36 at 1x and 2x; a linear transfer is a
+multiply-add per channel per pixel and the harness cannot resolve it.
+
+**7. The recommendations, and the parent's reading.** The worker's answers to Decision Log 1:
+q0 keep the target and replace the charter's account of the distance; q1 the carrier with a
+representable intercept; q2 the fold in G1; q3 stands and was not called (structure rose on all
+six); q4 the bound is the measured ratio (0.979–1.035 with the clip in it), not a derivative
+order. Four `[parent-impact]` items (the premise; the ordering defect, +0.015…+0.027 of the level
+on the tier today; `type="linear"` cannot carry a negative intercept; the point condition against
+a mean). The parent's rulings are W17 Decision Log 2: the target stands, the mirror takes the
+shader's order and gains the inner shadow, and the conversion is replaced by the lerp itself as an
+affine in linear light on the sharp layer — slope `1 − α`, intercept `α·T + X`, non-negative by
+construction, exact per pixel, no point condition — with the `rgba()` overlay kept for the
+plain-`blur()` engines and the author-tint fold.
