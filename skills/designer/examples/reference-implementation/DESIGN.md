@@ -16,6 +16,52 @@ audience is a producer under deadline pressure and calm legibility serves that
 better than high-contrast drama. If a decision is ever ambiguous, choose the
 more restrained option.
 
+**Axis position** — two constraints the brief fixed, seven coordinates chosen:
+
+- Density: **standard** — a producer reads and edits documents; a schedule is
+  a page, not a monitored feed.
+- Criticality: **transactional** — a wrong call time costs a morning, and a
+  reissue undoes it.
+- Energy: **composed** — the studio's own paperwork is considered and
+  typographic; the tool must not be louder than the work it tracks.
+- Type: **characterful serif**, transitional — criteria: moderate contrast; a
+  display cut and a text cut, so one face can head a page without shouting and
+  still set a paragraph; tabular figures for headings and metric values; a
+  humanist UI sans with a large x-height, open at 14px for body and controls;
+  a mono only for tabular metadata — codes, dates, budgets.
+- Material model: **printed** — the artefacts are paper handed out on set, so
+  panels part by a hairline and a lightness step, and the one shadow token is
+  for floating menus and dialogs only.
+- Color commitment: **restrained** — chromatic surface stays under a tenth of
+  the page; the rest is ink on paper.
+- Accent job: **status-only** — the oxide clay marks delivery risk and time
+  pressure and nothing else; actions, selection and focus are carried by the
+  studio-green `primary`, a role of its own.
+- Ground lightness: **light** — daylight office and set use, read alongside
+  its own printed output.
+- Ground temperature: **warm** — `oklch(0.946 0.011 78)`, paper cream. It
+  lands in the cream band `references/taste-calibration.md` flags as a
+  saturated default, and it is here on a justification rather than a reflex:
+  the call sheet is the artefact being designed, not warmth borrowed for
+  atmosphere.
+
+**Rejected coordinate vector.** Brutalist-cinematic — dark, neutral, printed,
+mono-as-display, composed, restrained, directional. It fits the industry and
+loses to the user: a producer scanning budgets on deadline reads faster off
+paper, and the drama would be the tool's rather than the film's.
+
+**Rejected values.** Vermilion was weighed for the accent and lost to the
+oxide clay — at that chroma it reads as alarm beside the terracotta "At risk"
+badge, and the accent has to sit next to the status set without joining it. A
+cool neutral ground was weighed against the paper cream and lost: cool makes a
+call sheet look like a database, the one reading this product must avoid.
+
+**Signature element.** The call-sheet rule structure — hairline rules and mono
+eyebrow labels ruling every panel, the way a printed call sheet is ruled. The
+risk is spent there; nothing else lifts, glows, or gradients.
+
+**Sampler draw.** None recorded — this example predates the sampler record.
+
 ## 1. Palette, with usage rules
 
 - `background` / `foreground` — base canvas and primary ink. Nothing else is
@@ -23,10 +69,10 @@ more restrained option.
 - `card` — every raised surface (panels, tiles, the selected-project list).
   `card-foreground` for its text.
 - `primary` (deep studio green) — the one action color: primary buttons,
-  active nav, the active tab fill, the key chart stroke.
-- `accent` (oxide orange) — reserved for exactly one meaning: delivery risk,
-  time pressure, and focus rings. It never doubles as a second brand color or
-  a decorative highlight elsewhere.
+  active nav, the active tab fill, the focus ring, the key chart stroke.
+- `accent` (oxide orange) — reserved for exactly one meaning: delivery risk
+  and time pressure. It never doubles as a second brand color, a focus ring,
+  or a decorative highlight elsewhere.
 - `muted` / `muted-foreground` — secondary surfaces and de-emphasized text
   (eyebrows, captions, metadata).
 - `border` — every hairline. The system is bordered, not shadowed.
@@ -46,9 +92,10 @@ more restrained option.
 | Body & UI                 | Manrope    | paragraphs, buttons, nav — the default |
 | Codes, dates, budgets, status | DM Mono | project codes, due dates, $ values, eyebrow labels |
 
-Headings inherit their face from the token block; never restyle an `h1`–`h3`
-with a one-off font-family. Mono is for tabular or metadata content only —
-never prose.
+Families were chosen at derivation from the section 0 criteria, and this is
+where they are named. Headings inherit their face from the token block; never
+restyle an `h1`–`h3` with a one-off font-family. Mono is for tabular or
+metadata content only — never prose.
 
 ## 3. Canvas & texture
 
@@ -99,6 +146,8 @@ parallax. Respect `prefers-reduced-motion` by disabling transitions.
   one documented restrained shadow token.
 - No gradient except the one chart area-fill.
 - No second accent color, no improvised hex outside the status set.
+- No accent on an interaction state — focus, selection, and the active tab
+  belong to `primary`.
 - No lorem ipsum or round placeholder numbers — budgets and percentages must
   be non-round and arithmetic.
 - No restyling `h1`–`h3` font-family ad hoc.

@@ -6,6 +6,7 @@
 > not variations on one template. Use the structure, not the palette.
 >
 > Where these transcripts' section shapes deviate from the required skeleton in `references/guidelines-authoring.md`, the skeleton governs new work.
+> They are v1 transcripts that predate the nine-line stance record — they blend stances and use vocabulary such as "medium density" that the current axes do not define — and `examples/reference-implementation/DESIGN.md` is where the current §0 shape is shown.
 
 # FRAME Studio — Design Guidelines
 

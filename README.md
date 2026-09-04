@@ -1,8 +1,8 @@
 # designer
 
-A Claude Code plugin that gives Claude a working design practice instead of a set of style preferences: read the project before touching it, commit to one visual stance in writing, build on semantic tokens, use real content, and check the result against an accessibility and taste floor before calling it done.
+A Claude Code plugin that gives Claude a working design practice instead of a set of style preferences: read the project before touching it, derive one visual stance from the brief and commit to it in writing, build on semantic tokens, use real content, and check the result against an accessibility and taste floor before calling it done.
 
-Most generated interfaces converge on the same few looks — warm-cream editorial, near-black with one hot accent, hairline broadsheet — not because a brief asked for them but because they are what models reach for absent a reason not to. This plugin is built to interrupt that: an ingredient sampler pushes each build off the trained default, a committed stance is recorded as project law before any UI code is written, and a QA pass checks the finished page against the law it declared for itself.
+Most generated interfaces converge on the same few looks — warm-cream editorial, near-black with one hot accent, hairline broadsheet — not because a brief asked for them but because they are what models reach for absent a reason not to. This plugin is built to interrupt that: an ingredient sampler pushes each build off the trained default, the stance is derived from the product on nine axis lines — two the brief fixes (density, criticality) and seven the design chooses (energy, type, material model, color commitment, accent job, ground lightness, ground temperature) — rather than picked from a catalogue, that derivation is recorded as project law before any UI code is written, and a QA pass checks the finished page against the law it declared for itself — including whether its values would have come out the same for a different product in the same category.
 
 The workflow is a from-scratch reconstruction of the method observed in Figma Make — its aesthetic sampling, stance commitment, tokenization, and QA discipline — rebuilt as a runtime-neutral skill from a corpus of interviews with that product (see `Figma Design/`), plus supporting design-engineering research.
 
@@ -26,7 +26,7 @@ claude plugin install designer@designer
 
 The skill triggers automatically — Claude reads its description and loads it whenever a task looks like UI design: building, redesigning, restyling, or critiquing a page, dashboard, product surface, or standalone mark (logo, icon, badge, illustration). No explicit invocation is needed.
 
-What it does on a full-page brief: classifies the deliverable, reads existing project conventions, samples aesthetic ingredients, commits to one stance, writes that stance into a `DESIGN.md` as project law, builds semantic tokens from it, works composition and hierarchy, fills in realistic content, and runs a craft-and-QA pass that includes checking the build against its own declared rules.
+What it does on a full-page brief: classifies the deliverable, reads existing project conventions, samples aesthetic ingredients, places the brief on the stance axes and derives one stance from the product's own world (with the road not taken recorded), writes that derivation into a `DESIGN.md` as project law, builds semantic tokens from it, works composition and hierarchy, fills in realistic content, and runs a craft-and-QA pass that includes checking the build against its own declared rules and against the clone tell.
 
 ### The Essentialist persona
 
@@ -56,7 +56,7 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 **Runtime — `skills/designer/`**
 
 - `SKILL.md` — entry point, deliverable classification, persona routing, workflow spine, taste floor
-- `references/` — the eleven files SKILL.md routes into: `stances.md`, `color-engineering.md`, `typography.md`, `motion.md`, `composition.md`, `effects-policy.md`, `voice-copy.md`, `guidelines-authoring.md`, `icon-illustration.md`, `qa-protocol.md`, `taste-calibration.md`
+- `references/` — the thirteen files SKILL.md routes into: `stances.md` (the seven axes, the derivation procedure, five worked derivations, the named-stance library), `material.md` (the material-model axis and the vitrea path for glass), `component-character.md`, `color-engineering.md`, `typography.md`, `motion.md`, `composition.md`, `effects-policy.md`, `voice-copy.md`, `guidelines-authoring.md`, `icon-illustration.md`, `qa-protocol.md`, `taste-calibration.md`
 - `personas/` — optional distilled designer personas, currently `essentialist.md`, loaded only when a brief invokes one. `TEMPLATE.md` is the authoring contract and is never loaded at runtime
 - `scripts/` — the ingredient sampler, its data library, and its tests
 - `examples/` — a one-brief-two-systems pair (`guidelines-frame.md`, `guidelines-meridian.md`) plus `reference-implementation/`, a runnable `DESIGN.md` + `index.html` demonstrating the law-to-code path end to end
@@ -71,7 +71,7 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 
 Project history under `docs/` refers to this skill by its original working name, `figma-design`. It was renamed to `designer` at first release; the documents are left as written rather than retitled after the fact.
 
-`docs/` also holds a second, discarded direction: a material-specialist skill built on SVG filters, planned in mid-2026 and cut. Those documents carry a banner marking them archived. The repository no longer builds anything on SVG filters — `effects-policy.md` treats material simulation as a rendering job with a CSS surface as its fallback, and any future material specialist, liquid glass included, is to be implemented in WebGL.
+`docs/` also holds a second, discarded direction: a material-specialist skill built on SVG filters, planned in mid-2026 and cut. Those documents carry a banner marking them archived. The repository no longer builds anything on SVG filters — `effects-policy.md` treats material simulation as a rendering job with a CSS surface as its fallback, and `references/material.md` routes a glass-over-planes stance to vitrea (below) when the stack can host an ES module.
 
 ## vitrea — the material runtime
 

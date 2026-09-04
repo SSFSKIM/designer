@@ -1,6 +1,6 @@
 # Motion
 
-This file teaches the small, role-based motion system to draw from once a page's layout, tokens, and content are in place: the duration and easing scale to use, which CSS properties are cheap enough to animate by default and which cause layout damage, how the same motion vocabulary shifts by stance, and the reduced-motion contract every nonessential animation needs. Use it at the "craft pass" step, alongside `references/effects-policy.md` for material effects — motion and effects are both additions layered on top of a finished interface, added only where they communicate state change, spatial continuity, or feedback rather than decorating for its own sake — then check the result against `references/qa-protocol.md` before calling it done. If the project's stance maps to one of the five complete systems in `references/stances.md`, port that system's motion token block instead of rederiving one; the duration, easing, and property rules below still apply regardless of which token values are in play.
+This file teaches the small, role-based motion system to draw from once a page's layout, tokens, and content are in place: the duration and easing scale to use, which CSS properties are cheap enough to animate by default and which cause layout damage, how the same motion vocabulary resolves from the stance's axes, and the reduced-motion contract every nonessential animation needs. Use it at the "craft pass" step, alongside `references/effects-policy.md` for material effects — motion and effects are both additions layered on top of a finished interface, added only where they communicate state change, spatial continuity, or feedback rather than decorating for its own sake — then check the result against `references/qa-protocol.md` before calling it done. Motion is derived, not sampled: it is a resolver over the stance's axes — energy supplies amplitude and character, density supplies speed pressure, criticality caps overshoot and ambiguity, and the material model supplies the spatial vocabulary (`references/material.md`). The duration tiers and easing curves below are the vocabulary that resolver draws from.
 
 Motion serves three goals, in this order: preserve orientation (show where something came from, where it went, or what changed), confirm interaction (make hover, press, selection, loading, and completion states feel responsive), and protect reading and task flow (motion must not delay access, compete with data, or make dense UI feel unstable).
 
@@ -74,9 +74,9 @@ Do not make common actions slower than `180ms` unless the animation provides a m
 |`cubic-bezier(0.2, 0, 0, 1)`|Default UI motion: buttons, focus, tabs, menus, compact state changes|
 |`cubic-bezier(0, 0, 0, 1)`|Entering elements that should arrive directly and clearly|
 |`cubic-bezier(0.3, 0, 1, 1)`|Exits that should get out of the way quickly|
-|`cubic-bezier(0.22, 1, 0.36, 1)`|Editorial image/caption reveals, polished card motion, soft page transitions|
+|`cubic-bezier(0.22, 1, 0.36, 1)`|Composed-energy reveals: image and caption, polished card motion, soft page transitions|
 |`cubic-bezier(0.16, 1, 0.3, 1)`|Larger calm enters: drawers, menus, image overlays, restrained sheets|
-|`cubic-bezier(0.2, 0.8, 0.2, 1)`|Consumer interaction feedback and approachable card hover|
+|`cubic-bezier(0.2, 0.8, 0.2, 1)`|Lively-energy interaction feedback and approachable card hover|
 |`cubic-bezier(0.34, 1.56, 0.64, 1)`|Small, celebratory overshoot only: a completion check, reward token, tiny icon — not entire panels or core navigation|
 
 ### Rules for spring-like easing
@@ -112,7 +112,7 @@ Do not use spring overshoot for:
 |`color`|Links, labels, icon state|Communicates state cleanly|
 |`border-color`|Focus, hover, selected input, panel emphasis|Supports structure without visual drama|
 |`outline-color` / `box-shadow`|Focus ring and limited elevation change|Useful when localized and short|
-|`text-decoration-color`|Editorial link underline reveal|Good for text-led interactions|
+|`text-decoration-color`|Link underline reveal in reading-led copy|Good for text-led interactions|
 |`clip-path`|Rarely, for isolated image/art direction|Only for nonessential rich media, not standard controls|
 |`grid-template-rows`|Accordion expansion|Controlled exception for semantic content reveal|
 
@@ -137,18 +137,60 @@ Do not use spring overshoot for:
 
 **Height or layout-like expansion.** For accordions, disclosures, and content reveals, a controlled layout property may be animated — not because it is free, but because the change is semantically meaningful. Prefer `grid-template-rows: 0fr → 1fr` over a hard-coded `height`, because it can accommodate unknown content length.
 
-**`box-shadow`.** Animate shadows only on isolated objects: a hoverable card, a floating menu, a primary consumer button, a dialog. Do not animate shadows across every table row or list item in a dense dashboard.
+**`box-shadow`.** Animate shadows only on isolated objects: a hoverable card, a floating menu, a primary action button, a dialog. Do not animate shadows across every table row or list item in a dense dashboard.
 
-## Per-stance motion
+## The motion resolver
 
-|Dimension|Quiet editorial site|Operations dashboard|Playful consumer app|
+Motion has no axis of its own. It resolves from four positions the stance already records: energy, density, criticality, and the material model. Read all four, then pick durations and curves from the tiers above.
+
+### Energy — amplitude and character
+
+|Energy|Resolution|
+|---|---|
+|quiet|No overshoot. At most one high-salience motion treatment per viewport. Standard and operational curves only.|
+|composed|Standard curves, with the editorial curves for reveals.|
+|lively|The playful curve for feedback; `--ease-spring-soft` on small positive feedback only.|
+|exuberant|Overshoot permitted only if `DESIGN.md` records “overshoot: yes”. Motion may mark state changes as the product's primary expressive channel — that counts as one of the two simultaneous expressive channels the energy rule allows.|
+
+### Density — speed pressure
+
+|Density|Default duration|Overlay duration|
+|---|---|---|
+|dense|Instant and fast tiers, `80–180ms`|`180–240ms`|
+|standard|`120–220ms`|`240–320ms`|
+|spacious|`160–260ms`|up to `320ms`|
+
+The emphasis tier (`420ms`) is available only at spacious, or for a genuine one-time moment at any density.
+
+### Criticality — caps
+
+|Criticality|Cap|
+|---|---|
+|consequential|No overshoot on error, confirmation, or destructive flows. Nothing that could read as a state the system is not in. Common actions never slower than `180ms`.|
+|transactional|The same caps, applied on money and data-loss paths.|
+|exploratory|No cap beyond the tiers above.|
+
+### Material model — the spatial vocabulary
+
+|Material model|What may move|
+|---|---|
+|printed|Cuts, fades, colour changes. No translate on hover — paper does not hover.|
+|tonal|Fades and small shifts; lightness-step changes.|
+|elevated|Lifts and depth transitions between the named tiers.|
+|glass over planes|Morphs and plane changes, per `references/material.md`.|
+
+### Three worked resolutions
+
+|Dimension|spacious × composed (an editorial site)|dense × quiet (an operations dashboard)|standard × lively (a consumer app)|
 |---|---|---|---|
 |Default duration|`160–260ms`|`80–180ms`|`120–220ms`|
 |Overlay duration|`320ms`|`180–240ms`|`240–320ms`|
 |Main easing|`cubic-bezier(0.22, 1, 0.36, 1)`|`cubic-bezier(0.2, 0, 0, 1)`|`cubic-bezier(0.2, 0.8, 0.2, 1)`|
 |Forbidden feeling|Overly productized SaaS animation|Playful bounce, delayed panels, floating cards|Cold abruptness, entirely static reward moments|
 
-These bands describe how the same duration tiers and easing curves compress or stretch by stance, not a separate scale. An editorial surface runs its defaults slower and rides the editorial easing curve; an operational dashboard runs at the fast end of the tiers above and stays on the standard/operational curve throughout; a playful consumer product sits in the middle and is the only context where `--ease-spring-soft` earns routine use. See `references/stances.md` for the full stance vocabulary this table condenses.
+These are resolutions, not a separate scale: the same duration tiers and easing curves compress or stretch to the axis position. A spacious, composed surface runs its defaults slower and rides the editorial easing curve; a dense, quiet surface runs at the fast end of the tiers and stays on the standard/operational curve throughout; standard density at lively energy sits in the middle and is the only place `--ease-spring-soft` earns routine use.
+
+Reduced motion overrides every resolution above — whatever the axes resolve to, the **Reduced motion** contract in the next section still governs.
 
 ## Reduced motion
 

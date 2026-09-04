@@ -1,6 +1,6 @@
 # Voice and copy
 
-This file teaches how to write the real content that goes into a design as it's built — believable data instead of placeholder filler, a stance-appropriate voice for headlines and system messages, the microcopy rules that keep buttons, labels, tooltips, and errors legible, and the length heuristics that keep copy fitting the composition it lives in. Use it at the "build with realistic content" step, after composition (`references/composition.md`) has decided what's dominant and secondary and before the craft pass adds motion and effects — copy is written into the layout that composition already built, not after it. Lorem ipsum and generic filler hide real hierarchy, density, and spacing problems that only surface with content of realistic length and shape; everything below exists to make that real content plausible rather than obviously fake.
+This file teaches how to write the real content that goes into a design as it's built — believable data instead of placeholder filler, a voice resolved from the stance's energy and criticality for headlines and system messages, the microcopy rules that keep buttons, labels, tooltips, and errors legible, and the length heuristics that keep copy fitting the composition it lives in. Use it at the "build with realistic content" step, after composition (`references/composition.md`) has decided what's dominant and secondary and before the craft pass adds motion and effects — copy is written into the layout that composition already built, not after it. Lorem ipsum and generic filler hide real hierarchy, density, and spacing problems that only surface with content of realistic length and shape; everything below exists to make that real content plausible rather than obviously fake.
 
 ## Believable data
 
@@ -20,39 +20,43 @@ The trick isn't randomness — it's internal consistency and domain-correct dist
 
 The meta-rule: pick a few anchor numbers, then derive the rest so relationships hold. One project's progress %, budget, and due-date should tell the same story.
 
-## Voice per stance
+## Voice by energy and criticality
+
+Voice is derived, not picked off a list. Energy sets the enthusiasm ceiling — contractions, a wink, an exclamation mark only at lively and above. Criticality sets directness and formality: at consequential, errors are literal and actionable, humour never appears in an error, a warning, or an irreversible flow, there is always a support or recovery path, and urgency is never manufactured. The product's voice stays stable across the surface; it is tone that shifts with the moment.
 
 The same four pieces of copy — hero headline, primary CTA, empty state (no projects yet), and error (save failed) — written four ways for a project/production management tool. What moves between them is sentence length, contraction use, first-person plural vs. none, and how the error handles blame; the information is identical, the posture isn't.
 
-**A. Precision industrial** — terse, technical, confident, no adjectives it can't defend.
+**A. quiet × consequential, dense** — terse, technical, states facts.
 
 - _Headline:_ "Every production, tracked to the frame."
 - _CTA:_ "Start a project"
 - _Empty state:_ "No active productions. Create one to begin tracking budget and schedule."
 - _Error:_ "Save failed. Changes weren't written. Retry."
 
-**B. Quiet editorial** — human, unhurried, a little warmth, complete sentences.
+**B. composed × transactional** — human, unhurried.
 
 - _Headline:_ "The calm way to run a demanding slate."
 - _CTA:_ "Begin your first project"
 - _Empty state:_ "Nothing in motion yet. When you start a project, it'll live here — schedule, budget, and all."
 - _Error:_ "We couldn't save that just now. Nothing was lost — give it another try in a moment."
 
-**C. Playful consumer** — casual, energetic, contractions, a wink (never twee enough to erode trust).
+**C. lively × exploratory** — casual, energetic, a wink.
 
 - _Headline:_ "Herd your projects. Finally."
 - _CTA:_ "Let's go →"
 - _Empty state:_ "It's quiet in here. Spin up a project and watch this fill up."
 - _Error:_ "That didn't stick. Nothing broke — hit save again?"
 
-**D. Institutional calm** — measured, plural, reassuring, authoritative without coldness.
+**D. quiet × consequential, formal** — measured, plural, a support path.
 
 - _Headline:_ "Comprehensive oversight for every production."
 - _CTA:_ "Create a project"
 - _Empty state:_ "You have no active projects. Create a project to begin managing schedules and budgets."
 - _Error:_ "Your changes could not be saved. Please try again. If the issue continues, contact support."
 
-Playful reassures fast and moves on; institutional offers a support path; industrial states facts; editorial soothes. Pick the stance that was already committed to in `DESIGN.md` (see `references/stances.md`) and hold its posture across every piece of copy on the surface — don't let one screen sound editorial and the next sound industrial.
+A and D sit at the same energy and the same criticality and still sound different: formality and the offer of a recovery path come from the stakes and the audience, not from energy.
+
+Playful reassures fast and moves on; institutional offers a support path; industrial states facts; editorial soothes. Read the energy and criticality lines from `DESIGN.md` §0 and hold that posture across every piece of copy on the surface — don't let one screen sound editorial and the next sound industrial.
 
 ## Microcopy rules
 
@@ -63,7 +67,7 @@ Playful reassures fast and moves on; institutional offers a support path; indust
 - **Tooltips:** explain why/what happens, not restate the label. Good: "Archived projects stay searchable but leave the active slate." Bad: "Archive button." Keep to one line, no terminal period on fragments.
 - **Case — the decision rule:**
   - Sentence case for basically everything: buttons, labels, menu items, headings, empty states, toasts. It's calmer, more modern, easier to read, and fails gracefully with dynamic content.
-  - Title Case only when the brand stance is formal/institutional or editorial-classic, or for genuine proper nouns and product names.
+  - Title Case only when the surface is genuinely formal or institutional — high criticality with a formal audience — or the type tradition is editorial-classic, or for genuine proper nouns and product names.
   - Never ALL-CAPS as real text — only as a styled eyebrow/label via CSS `text-transform` with letter-spacing, so the underlying string stays sentence case and accessible.
   - Consistency beats correctness: pick one and hold it across the whole surface. Mixed case is the tell of copy written by committee.
 - **Numbers in copy:** spell out zero–nine in prose, use numerals in UI/data. Always numerals for money, dates, metrics.
