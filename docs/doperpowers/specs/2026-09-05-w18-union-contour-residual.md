@@ -164,8 +164,9 @@ than models.
   residuals is not a derivation and is not admissible; a bounded residual carried
   with its geometry, as W16's effective width was, is.
 - **[binding] The target is the renderer's rendered interior** (W17 Decision Log
-  1 q0's rule, carried; q0 below re-asks it on the cells where the tier sits
-  nearer Apple today). "GPU minus CSS" per cell is the check on the outcome, never
+  1 q0's rule, carried; Decision Log 1 q0 re-asked it on the cells where the tier
+  sits nearer Apple today and the user answered 2026-09-05: carried without
+  qualification). "GPU minus CSS" per cell is the check on the outcome, never
   the input; the renderer's residual against native on these scenes is recorded
   from the probe bed and left to the renderer's waves.
 - **[binding] The GPU tier does not move.** This wave changes
@@ -411,7 +412,7 @@ reported together.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/` (findings), `probe/` (the bed), `apps/reference-apple/scenes-w18-probe.json` | OPEN 2026-09-05 — dispatched on Decision Log 1's recommendations |
+| G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/` (findings), `probe/` (the bed), `apps/reference-apple/scenes-w18-probe.json` | OPEN 2026-09-05 — dispatched on Decision Log 1's recommendations, which the user executed the same day (q0–q5 at the recommendations) |
 | G1 | — | — |
 | G2 | — | — |
 
@@ -472,6 +473,19 @@ rather than being fixed in passing. The probe bed is data-only under W9's rule.
 G0 opens on the recommendations; each answer that differs re-opens the affected
 child before G1.
 
+**Executed 2026-09-05 (the user: "Yes, all according to your Recommendation").** q0 (a) —
+the target is the renderer's rendered interior on the three-up as everywhere; the Design
+bullet that carried "q0 below re-asks it" is binding without qualification. q1 (a) — the
+native probe at 1x from this machine, ten cells, seven attested runs by W9's rule; a 2x
+session is the user's to open and is not chartered. q2 (a) — the stack is in scope as a
+second mechanism family; its light cells are holdout, read once at the dry run; a part that
+is the renderer's overlay route is named and left. q3 (a) — a part attributed to the renderer
+stops the wave for a re-decision with the numbers; the renderer's part is chartered where the
+goldens' isolation proof lives. q4 (a) — the fold's clause on the three-up is 0.01 of the GPU
+tier under reduced transparency and increased contrast (S4 as written). q5 (a) — if the level
+costs structure past S2, the wave stops and both landings go to the user with the sheets and
+the rows. G0 was already running on these answers; nothing re-opens.
+
 ## Surprises & Discoveries
 
 - (none yet)
@@ -486,3 +500,5 @@ child before G1.
   user's pick after 0.7.0; grounded on the W17 bed, W17 G1's diagnosis, the scene
   builder's union and stack routes, the renderer's union parameters and Filter
   Effects 2's mirror rule; G0 dispatched on Decision Log 1's recommendations.
+- 2026-09-05: Decision Log 1 executed by the user at the recommendations (q0–q5); the
+  target rule's qualification removed; the Tracking Map's G0 row amended.
