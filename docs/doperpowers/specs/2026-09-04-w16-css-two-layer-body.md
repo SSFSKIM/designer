@@ -590,6 +590,13 @@ every fork behind a conformance row or one constant so that no answer reopens th
    named in the resolved state, never silent. Two blurs leave the cadence from 0.49 M on
    this machine; every page the demo ships clears 0.4 M by 2.5×. **Recommended: adopt**, the
    threshold re-read once the reference filter's cost is in.
+   *Re-read on G0's addendum (claims §5.71 §7, `8a38471`):* the linear-light form breaks the
+   cadence at the same knee as `blur()` — two layers between 32 and 36 surfaces at both scales,
+   0.49–0.55 M filtered device px per frame at 1x — and saturates at the same 23–28 ms; the
+   forms separate only past the knee at 2x. The threshold stands, and the rule is stated on
+   **filtered area per layer**, not on a surface count or a form, since every shape measured
+   breaks at the same area for a given number of layers and the layer count is the only
+   multiplier. The demo's densest page clears it by 2.5× in every form.
 2. *Unverified engines* (q2). Two layers with the heavy share as one `opacity`; the raster
    mask and the reference filter each gated on their own conformance row, fail closed.
    **Recommended: unchanged.**
