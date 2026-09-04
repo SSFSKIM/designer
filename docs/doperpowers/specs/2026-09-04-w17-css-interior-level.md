@@ -646,10 +646,65 @@ whole-bed run as configuration 3 under the stops as they now read, the landing's
 its matrix (X6), the holdout once when frozen, the cost (S8), the suites, the sheets, and the
 declaration (claims §5.75, written by the parent from the report).
 
+### Decision Log 5 — the re-form's pre-check: (a) and (c) land, (b) is refuted by its own sweep and withdrawn, the floor's identity settled by arithmetic (2026-09-05)
+
+**Evidence** (branch `w17-g1-level`, four commits past `29f4afa`; `g1/region-sweep.md` and the
+probe tables). Under the floor overlay with the table transfer (a) and the declared boundary (c),
+the three W16 probe cells read +0.0010 / −0.0005 / −0.0003 against the GPU tier at 1x and
++0.0034 / +0.0095 / +0.0039 at 2x; `ssimMean` up on every light cell against the W16 bed and
+`ssimBand` up 0.022–0.059 at 1x; the cross-tier ΔE down on every light cell; the GPU tier
+byte-identical. `impulse__capsule-button` and the dark-scheme checkerboard draw the encoded form
+and are unchanged from the bed to every printed digit, which is what the boundary is for.
+
+**The floor's identity.** Ruling (a) named "the tier's existing floor constant" and the tier has
+no constant of that name. The worker measured both readings: the group's own converted alpha
+(0.665, the regular variant) lands the probe cells +0.018 / +0.008 / +0.018 at 1x and
++0.032 / +0.023 / +0.038 at 2x, worse than the previous form; the least tint the tier draws on
+the shipped profile, `MATERIAL_OPTICS.clear.tintAlpha` = 0.2668, lands them as above. The reason
+is arithmetic: the filter carries the remainder after the overlay, so everything it draws —
+the encoded-space mix of the two layers under the mask with it — reaches the composite through
+`1 / (1 − α₃)`, 2.99 at the first reading and 1.36 at the second. **Ruled: the floor is the least
+real tint the tier draws, the clear variant's alpha**, an existing constant; the amplification
+argument goes in its doc comment. A smaller floor derived from the pixel test's eight codes was
+considered and declined: the doctrine's floor is a material, not a threshold.
+
+**Ruling (b) is withdrawn, not adjusted.** The sweep it asked for gives byte-identical captures at
+k = 0.5, 1, 1.5, 2, 2.5 and 3: a `backdrop-filter`'s input is the snapshot behind the element's
+own border box, so the `<filter>` element's region reaches nothing outside it and loses nothing
+inside it — the attribute is inert on this construction, and Decision Log 4's attribution of the
+`toolbar-group` deficit to it was wrong. The worker reverted the derivation and the budget change
+rather than land a constant with no effect, and that is upheld. The `toolbar-group` cells
+improved under (a) and (c) alone (−0.0209 → −0.0122 and −0.0150 at 1x, −0.0040 and −0.0101 at 2x)
+and remain outside 0.005 with their cause unexplained.
+
+**The `toolbar-group` residual gets a bounded diagnosis and no remedy from inference:** per
+annulus against the GPU tier on both scenes at both scales; the form's two derived residuals
+evaluated on the toolbar geometry (a 46 px capsule where the ramp's heavy share is high
+everywhere, so the encoded-space mix of the two tinted layers may be several times
+`rrect-md`'s); one single-surface capsule of the same span in a scratch scene. Explained: the
+term is recorded beside its constant. Unexplained: carried as a named gap with the annulus
+profile as evidence. G1 proceeds either way.
+
+**Then the whole-bed run as configuration 3** under the stops as they read after Decision Logs
+3 and 4, the landing's test file against its matrix (X6); if nothing fires beyond the carries
+already named (the `toolbar-group` cells; `light-solid__rrect-ml`'s predicate entry),
+configuration 3 is frozen and the holdout read once (X8); then S8 on the cost harness and the
+demo's densest page with the table transfer, the suites, the sheets, and the report for the
+declaration (claims §5.75).
+
 ## Surprises & Discoveries
 
-- **2026-09-04 (G1) — the reference filter's region was clipping the heavy kernel on small
-  surfaces since W16, and the fitted overlay hid it.** `−50% / 200%` is ±23 px on a 46 px capsule
+- **2026-09-05 (G1) — a `<filter>` element's region is inert on a `backdrop-filter`.** Six
+  regions from k = 0.5 to 3 capture byte-identical: the input is the snapshot behind the element's
+  border box and nothing outside it exists to reach. The Surprise below it, written from Decision
+  Log 4's inference, is withdrawn by this measurement (Decision Log 5); the `toolbar-group`
+  residual it explained is unexplained again.
+- **2026-09-05 (G1) — the contrast floor's size is a mechanism, not a detail.** The filter's
+  remainder reaches the composite through `1 / (1 − α₃)`; at the group's own alpha that is 2.99
+  and the probe cells land worse than the un-floored form, at the least tint the tier draws it is
+  1.36 and they land within 0.001 at 1x (Decision Log 5).
+- **2026-09-04 (G1) — [withdrawn 2026-09-05, see above] the reference filter's region was
+  clipping the heavy kernel on small surfaces since W16, and the fitted overlay hid it.** `−50% / 200%` is ±23 px on a 46 px capsule
   against a 41 px reach; the `toolbar-group` cells read −0.021…−0.050 against the GPU tier only
   once the tint became exact (Decision Log 4 (b)). A conversion fitted against the cross-tier
   difference absorbs the defects on both sides of it.
@@ -713,3 +768,9 @@ declaration (claims §5.75, written by the parent from the report).
   element paint and a table transfer carries the exact remainder, the region derives from the
   heavy step's reach with its residual, a declared boundary sends dark composites to the encoded
   form. S3 one-sided; one cell to the predicate list; the holdout unspent. Four Surprises.
+- 2026-09-05: **G1 re-form pre-check read** (Decision Log 5). (a) and (c) land the probe cells
+  within 0.001 at 1x and 0.01 at 2x with `ssimMean` up everywhere; the floor is the clear
+  variant's alpha by the amplification arithmetic; (b) refuted by its own sweep — the filter region
+  is inert on a `backdrop-filter` — and withdrawn, Decision Log 4's Surprise struck through; the
+  `toolbar-group` residual to a bounded diagnosis, then the whole-bed run, the freeze and the
+  holdout.
