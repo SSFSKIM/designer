@@ -48,6 +48,15 @@ mapping's `referenceBackdropLuminance`, fitted against the cross-tier
 difference, gives way to the group's own sampled level once the conversion is
 exact there.
 
+**Corrected by G0 (Decision Log 2, 2026-09-04).** The light of the four terms is
+0.0026–0.0106 on the light cells, not 0.023–0.058; the distance between the tier and
+the renderer is the tier's own — its mirror applies the size law's occlusion after
+the response solve where the shader applies it before (+0.015…+0.027), and any
+conversion solved at one backdrop level is a point condition over a bimodal cell.
+The purpose stands with its means restated: the tint's lerp itself moves into the
+linear-light filter as an affine, exact per pixel, and the four terms plus the inner
+shadow ride on its intercept as the derived light they are.
+
 What this wave does **not** do: it does not fit the CSS tier to Apple past the
 renderer. Where the renderer itself sits off native — the thin spans' +0.05,
 the dark solid's dot — the tier inherits the renderer's composite and the gap
@@ -143,7 +152,10 @@ that; this wave closes the second number and leaves the first where it is
 recorded. (iii) On the dark scheme and the dark solid the CSS tier is nearer
 native than the GPU tier (the renderer's dot, +0.17 on `dark-solid`); the
 conversion must not import that, which is why the excess is derived
-term-wise and not read as "GPU minus CSS" (Design, binding).
+term-wise and not read as "GPU minus CSS" (Design, binding). *Correction beside
+(G0, claims §5.74 §2–§3): the "excess" of 0.023–0.058 was not the four terms,
+which measure 0.0026–0.0106 on these cells; it was the tier's mirror and the
+point-condition of the conversion W16 G1 measured — see Decision Log 2.*
 
 The eight single-cell configurations of W16 G1 (`results/2026-09-04-w16-css-two-layer/g1/g1-dry-run.md`
 §5) are the wave's second baseline: H (the `feComponentTransfer` joint solve
@@ -208,6 +220,8 @@ first thing the term-wise attribution has to reproduce.
   near zero but not over a photo); the outer shadow's lift is outside the
   silhouette by construction and should read zero inside. The thin-span
   excess being 1.5–2× the mid-span's is the band-fraction signature.
+  **G0 (claims §5.74 §4): the form holds to +0.006 on every cell it covers, and the
+  terms it derives are +0.0026…+0.0106 — kept in the derivation, not the mechanism.**
 - Advisory — **the conversion.** W16 G1's H, described in claims §5.72 §3
   and `g1-dry-run.md` §5, its mechanism written on the tier in the mapping's
   `referenceBackdropLuminance` doc comment (`optics.ts`, W16 G1's re-form);
@@ -222,6 +236,9 @@ first thing the term-wise attribution has to reproduce.
   tier already measures for the tone response; the coherence floor "at one
   declared level" becomes "the derivative's second order", which G0 should
   bound.
+  **Superseded by Decision Log 2:** the two-equation solve is a point condition with
+  a negative intercept a `type="linear"` primitive clips (G0 §4); the lerp itself is
+  the affine, and it needs no solve.
 - Advisory — **the fold.** Reduced transparency raises the occlusion on both
   tiers to the same composed mix (W16 X7); the conversion applies to the
   fold's composite as to the nominal one, and the two predicate cells are the
@@ -368,8 +385,8 @@ G0 → G1 → G2 → recomposition. Nothing lands before G2's referee.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g0/` | opened 2026-09-04 |
-| G1 | — | blocked-by G0 |
+| G0 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g0/g0-interior-level.md` (`654ad0e`), claims §5.74 | CLOSED 2026-09-04 — the four terms 0.0026–0.0106, superposing within 0.0008 and derived within 0.006; the mirror's ordering defect (+0.015…+0.027) and the inner shadow found; the chartered carrier clips and is a point condition; four `[parent-impact]` items reconciled in Decision Log 2 |
+| G1 | branch `w17-g1-level` | OPENED 2026-09-04 on Decision Log 2's form — the probe pre-check first, then the ordering fix alone and the full form on the whole bed |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -434,9 +451,92 @@ the level costs structure past S2's 0.002 clause, the wave stops and both landin
 user with the sheets and the rows. q4 (a) — the tier-coherence claim is re-worded at G2 with
 G0's second-order bound. G0 was already running on these answers; nothing re-opens.
 
+### Decision Log 2 — G0 read: the target stands, the account of the distance is replaced, and the conversion becomes the lerp itself in linear light (2026-09-04)
+
+**Evidence** (claims §5.74; G0's findings §1–§7). The four terms measure +0.0026…+0.0106 on the
+light cells, superpose within 0.0008 and derive within 0.006 — the charter's stop ("not
+attributable within 0.01") is not tripped, and the charter's premise that they are the 0.023–0.058
+is false. The tier's mirror computes the composite in the wrong order (+0.015…+0.027, one-signed
+on 15 of 44 untinted cells) and omits the inner shadow; in the shader's order with the inner shadow
+the model reads within 0.001 of the render on the probe cells at 1x. The chartered carrier — a
+value-and-slope solve at the group's level carried by `type="linear"` — clips 29–38 % of the
+backdrop at a −0.19 intercept and is a point condition over a cell whose backdrop's σ is 0.39–0.42;
+it still closed the gap 2.5–4× and raised `ssimMean` on all six probe readings.
+
+**Rulings (the parent; binding unless marked).**
+
+- **(a) The target stands** — the renderer's rendered interior, term by term (the user's q0). The
+  Grounding Baseline's reading (iii), Purpose's account and Design's "likely closed form" bullet
+  carry corrections beside them rather than rewrites. The four terms stay in the derivation at
+  their measured size (they are 0.010 of the level on a thin span, the clause's own tolerance).
+- **(b) The mirror takes the shader's order and gains the inner shadow.** `sizeOcclusionAlphaAt`
+  enters the alpha before the response solve, as `sizedAlpha` does in the shader; the inner shadow
+  (`shadowDepth`, `shadowAlpha`; area mean by G0 §2's co-area integral over the host's declared
+  thickness) enters the mirror in the shader's own placement. This is a tier defect in its own
+  right and moves the level on every engine, so G1 measures it ALONE as the dry run's first
+  configuration before the full form, and X7 pins the composite — not only the constants —
+  against the renderer's per backdrop level.
+- **(c) The conversion is the lerp.** On Chromium the tint's lerp moves into the SHARP layer's
+  linear-light reference filter as a per-channel `feComponentTransfer type="linear"` — slope
+  `1 − α`, intercept `α·T_c + X_c` — with α and T the shader-order values per group and X the
+  derived light of the four terms and the inner shadow's area mean. The intercept is non-negative
+  by construction; the form is exact per pixel, so the acceptance's mean is met by construction up
+  to two residuals G1 derives and records: the page's encoded-space mix of the two TINTED layers
+  under the mask (second order in the sharp–heavy difference, and smaller than W16's untinted mix
+  by `1 − α`), and W16's effective-width residual. L3 carries no tint overlay on Chromium. The
+  `rgba()` overlay stays on the plain-`blur()` engines (E's form, with (b)'s ordering fix, behind
+  the conformance row) and for the author-tint fold (W10), whose algebra over a tinted filter
+  output G1 re-derives if S5 fires. The filter definitions become per group (keyed by σ, α, T and
+  X) and re-solve when the sampled tone changes. *Reason (joint view):* the point solve's failure is
+  structural — a clipped intercept and a curvature term that is first order on a bimodal cell —
+  and the lerp is affine while the Gaussian is linear, so the exact composite is one primitive
+  with no degree of freedom to solve; this removes the conversion rather than improving it.
+- **(d) `referenceBackdropLuminance` retires on Chromium**; on the plain-`blur()` engines the
+  one-alpha conversion keeps a declared anchor, and G1 decides (advisory: the group's sampled
+  level, since (b) re-derives the alpha there anyway).
+- **(e) What is not imported.** The renderer's 2x term (its body 0.004–0.008 brighter than its own
+  composite, §5.55 §3) and the dark-ground dot. A tier that lands 0.004–0.008 under the GPU tier
+  at 2x is inside the acceptance's 0.01; if the mask-mix residual stacks it past 0.01 the clause
+  is re-declared at G1 with both numbers named, not widened silently.
+- **(f) The other answers.** q1's correction accepted in (c); q2 the fold in G1 (unmeasured at
+  G0; the same transfer with the folded α); q3 stands and was not called; q4's wording is the
+  measured level ratio, re-read at G1 without the clip.
+- **(g) Acceptance clause one is met at G0** (the excess measured, attributed within 0.0008,
+  the analytic model within 0.005 in the shader's order, the closed form within 0.006). Clause
+  two's 0.01 is unchanged.
+
+**G1's shape.** A branch (`w17-g1-level`). First the probe pre-check — the three W16 cells at
+both scales under (b) + (c), the level against the GPU tier, the spread and `ssimMean` beside —
+reported to the parent before the full dry run, since (c) is a form G0 did not capture. Then two
+whole-bed dry runs to scratch under the stops: configuration 1, the ordering fix and the inner
+shadow alone (E's overlay); configuration 2, the full form. The landing's test file runs against
+each scratch matrix (X6). The holdout once, at configuration 2 frozen. The sheets. The declaration
+in claims (§5.75).
+
 ## Surprises & Discoveries
 
-(none yet)
+- **2026-09-04 (G0) — the renderer's light is a hundredth of the level.** Declining the
+  lens, the rim, the highlight and the lift together moves the GPU tier's interior by
+  +0.0026…+0.0106 on the light cells (claims §5.74 §2); W16 G1's 0.023–0.058 was the
+  tier's own composite against a wrong model and a point condition, not the renderer's
+  terms. The charter's premise was a reading of a difference, not a measurement of a
+  cause — the spike existed to find exactly this, and did.
+- **2026-09-04 (G0) — the tier's mirror and the shader disagree on when the size law's
+  occlusion enters the alpha**, and it is worth +0.015…+0.027 of the level on the tier
+  today (`root.ts` after the response solve, the shader's `sizedAlpha` before it; claims
+  §5.74 §3). A two-tiers-one-profile defect that tier-coherence did not pin because it
+  pins the constants and not the composite; fixed in G1 and pinned there (X7).
+- **2026-09-04 (G0) — `feComponentTransfer type="linear"` cannot carry a negative
+  intercept.** Filter Effects clamps a primitive's result to [0, 1]; the chartered solve's
+  intercept is −0.19 and 29–38 % of the checkerboard's filtered backdrop is clipped. The
+  lerp itself has a non-negative intercept and needs no clamp (Decision Log 2).
+- **2026-09-04 (G0) — matching value and slope at one backdrop level does not match a
+  mean over a bimodal cell**; the encode's curvature times the backdrop's variance
+  (σ 0.39–0.42) is first order. Any single-point conversion of this composite inherits
+  it, and W16's one-alpha conversion is one; the exact form is per pixel or nothing.
+- **2026-09-04 (G0) — the lens is exactly a displacement.** Its mean on a checkerboard
+  is −0.0002 and on a photo the backdrop's own gradient at the contour, sign included; a
+  term that moves 7 313 pixels by up to 37 codes and the mean by nothing.
 
 ## Outcomes & Retrospective
 
@@ -449,3 +549,9 @@ G0's second-order bound. G0 was already running on these answers; nothing re-ope
   would be next"); G0 opened.
 - 2026-09-04: **Decision Log 1 executed** — the user took every recommendation (q0–q4); the target
   rule is binding outright; G0 continues unchanged.
+- 2026-09-04: **G0 CLOSED** (claims §5.74). The four terms are 0.0026–0.0106, not the charter's
+  0.023–0.058; the tier's mirror has an ordering defect worth +0.015…+0.027 and omits the inner
+  shadow; the chartered carrier clips and is a point condition. Four `[parent-impact]` items
+  reconciled in Decision Log 2: the target stands, the mirror takes the shader's order, the
+  conversion becomes the lerp itself as an affine in the sharp layer's linear-light filter. Five
+  Surprises. G1 opened on that form with a probe pre-check first.
