@@ -10262,6 +10262,55 @@ device px at dpr 2. At that density the shape is free: every reading is at the c
 spread between as-shipped and two-layers-plus-mask is inside the run-to-run noise. The one reading
 above the cadence is today's one-blur form on the site at dpr 2 and did not reproduce.
 
+#### 7.1 Addendum — the linear-light form's cost (measured after G0's first close)
+
+§2's `url(#f)` / `linearRGB` form is the one that reaches the reference's body, so the budget is set
+on its cost. The same sweep, page, counts, scales and medians, the two layers drawn as reference
+filters of the same two widths carrying the same `saturate(1.5)` as an `feColorMatrix` — one filter
+pair per document, so this is the form's cost and not a filter per element. §7's `blur()` columns
+are repeated beside rather than replaced, and nothing in §7 is rewritten. The form was confirmed to
+paint first: at four surfaces it differs from the unfiltered page by a mean 0.257 of full scale and
+from the `blur()` form by 0.132, the colour-space difference of §2.
+
+| surfaces | filtered device px per frame @1x / @2x | one @1x | one-ref @1x | two @1x | two-ref @1x | two-mask @1x | two-ref-mask @1x | one @2x | one-ref @2x | two @2x | two-ref @2x | two-mask @2x | two-ref-mask @2x |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 20 | 0.31 M / 1.23 M | 11.3 | 11.8 | 11.8 | 10.5 | 10.5 | 10.9 | 10.9 | 11.3 | 19.5 | 10.6 | 10.8 | 10.8 |
+| 24 | 0.37 M / 1.47 M | 10.7 | 11.0 | 12.4 | 10.4 | 10.5 | 10.7 | 14.8 | 11.7 | 10.3 | 10.5 | 10.4 | 10.3 |
+| 28 | 0.43 M / 1.72 M | 10.4 | 11.2 | 10.6 | 10.9 | 11.0 | 10.6 | 11.7 | 10.9 | 15.1 | 10.8 | 10.6 | 11.0 |
+| 32 | 0.49 M / 1.97 M | 10.8 | 12.4 | 11.9 | 12.5 | 11.5 | 12.8 | 10.9 | 10.7 | 11.0 | 13.2 | 12.4 | 13.5 |
+| 36 | 0.55 M / 2.21 M | 10.7 | 11.3 | 14.1 | 15.5 | 14.7 | 16.6 | 10.5 | 10.4 | 12.0 | 15.7 | 14.3 | 20.7 |
+| 40 | 0.61 M / 2.46 M | 10.9 | 10.4 | 16.7 | 19.4 | 18.5 | 19.5 | 10.6 | 10.5 | 15.2 | 19.7 | 19.0 | 19.4 |
+| 48 | 0.74 M / 2.95 M | 16.7 | 10.7 | 21.9 | 24.9 | 21.9 | 23.8 | 10.2 | 10.4 | 20.2 | 23.7 | 20.9 | 24.7 |
+| 80 | 1.23 M / 4.92 M | 11.0 | 11.1 | 26.9 | 22.8 | 27.0 | 27.2 | 10.6 | 10.4 | 22.7 | 27.5 | 26.8 | 28.5 |
+| 160 | 2.46 M / 9.83 M | 10.9 | 10.8 | 27.2 | 22.7 | 27.2 | 27.8 | 10.5 | 10.9 | 23.7 | 27.5 | 27.2 | 27.7 |
+| 320 | 4.92 M / 19.66 M | 10.6 | 10.5 | 26.9 | 27.1 | 27.2 | 23.0 | 10.9 | 10.7 | 26.7 | 27.7 | 26.8 | 27.7 |
+
+**The knee does not move.** `one-ref` never leaves the cadence at any count measured (10.4–12.4 ms
+over 20 to 320 surfaces, both scales), as `one` does not. `two-ref` and `two-ref-mask` leave it
+between 32 and 36 surfaces at both scales — the same 0.49–0.55 M filtered device px per frame at
+dpr 1 and 1.97–2.21 M at dpr 2 — and saturate at the same 23–28 ms from 80 surfaces. The two forms
+differ only past the knee and at the second scale: at n = 36 and 48 at dpr 2 the reference filter
+reads 15.7 / 23.7 ms against `blur()`'s 12.0 / 20.2, and 20.7 / 24.7 with the mask.
+
+The demo, converted the same way:
+
+| page | filtered elements | largest | as shipped (one blur) | two layers | two layers + mask | two ref layers | two ref layers + mask |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `demo site` @1x | 3 | 288 × 112 | 11.9 ms | 11.0 ms | 11.6 ms | 11.5 ms | 11.4 ms |
+| `demo site` @2x | 3 | 288 × 112 | 19.0 ms | 11.9 ms | 12.4 ms | 11.5 ms | 16.5 ms |
+| `demo laws` @1x | 2 | 288 × 112 | 10.9 ms | 11.8 ms | 11.9 ms | 11.5 ms | 11.3 ms |
+| `demo laws` @2x | 2 | 288 × 112 | 11.6 ms | 12.2 ms | 13.4 ms | 11.5 ms | 17.2 ms |
+| `demo playground` @1x | 8 | 320 × 144 | 11.8 ms | 11.4 ms | 12.8 ms | 11.1 ms | 11.0 ms |
+| `demo playground` @2x | 8 | 320 × 144 | 11.4 ms | 11.3 ms | 12.0 ms | 11.0 ms | 11.2 ms |
+
+The playground, the densest CSS-tier page at 0.16 M filtered device px at dpr 2, is at the cadence
+in every shape (11.0–12.8 ms). Two readings sit above it — the site and the laws page at dpr 2 with
+the reference filter and the mask, 16.5 and 17.2 ms — on three and two filtered elements, fewer and
+smaller than the playground that reads 11.2 ms in the same shape; they are single runs, internally
+inconsistent with the denser page, and are recorded as measured and read as jitter. **The area rule
+of §7 is unchanged by this form, because the knee is unchanged**, and the refinement it earns is
+that the budget belongs on filtered area per layer rather than on a surface count or a form.
+
 #### 8. What this contradicts, and what is left open
 
 - **The charter's parent-level acceptance for the body is not reachable with `blur()`** at any σ or

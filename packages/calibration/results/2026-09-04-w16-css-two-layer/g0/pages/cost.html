@@ -30,6 +30,39 @@ const H = Number(q.get("h") ?? "96");
 const dpr = window.devicePixelRatio;
 const SHARP = 1.25, HEAVY = 1.25 * Math.sqrt(63), SINGLE = 5.53, SHARE = 0.489;
 
+/*
+ * The linear-light form (W16 G0 §1.3): the same two widths drawn as SVG reference
+ * filters whose `color-interpolation-filters` is `linearRGB`, which is the only
+ * measured form that reaches the reference's body. One filter per width for the
+ * whole page — every surface here carries the same two — so the count below is
+ * the cost of the FORM and not of a filter per element.
+ */
+const NS = "http://www.w3.org/2000/svg";
+const defs = document.createElementNS(NS, "svg");
+defs.setAttribute("width", "0");
+defs.setAttribute("height", "0");
+defs.style.position = "absolute";
+for (const [id, sigma] of [["refSharp", SHARP], ["refHeavy", HEAVY], ["refSingle", SINGLE]]) {
+  const f = document.createElementNS(NS, "filter");
+  f.setAttribute("id", id);
+  f.setAttribute("x", "-50%"); f.setAttribute("y", "-50%");
+  f.setAttribute("width", "200%"); f.setAttribute("height", "200%");
+  f.setAttribute("color-interpolation-filters", "linearRGB");
+  const b = document.createElementNS(NS, "feGaussianBlur");
+  b.setAttribute("stdDeviation", String(sigma));
+  f.append(b);
+  // the same `saturate(1.5)` the `blur()` form carries, so the two columns differ
+  // in the operator's colour space and in nothing else
+  const c = document.createElementNS(NS, "feColorMatrix");
+  c.setAttribute("type", "saturate");
+  c.setAttribute("values", "1.5");
+  f.append(c);
+  defs.append(f);
+}
+document.body.append(defs);
+/** `blur()` or the reference filter of the same width, by the form's suffix. */
+const ref = form.endsWith("-ref") || form.endsWith("-ref-mask");
+
 function rasterMask(w, h, r) {
   const c = document.createElement("canvas");
   c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
@@ -54,18 +87,18 @@ for (let i = 0; i < n; i += 1) {
   host.style.width = `${W}px`; host.style.height = `${H}px`;
   host.style.left = `${20 + (i % cols) * (W + 16)}px`;
   host.style.top = `${20 + Math.floor(i / cols) * (H + 16)}px`;
-  const layer = (s) => {
+  const layer = (s, id) => {
     const el = document.createElement("div");
     el.className = "layer";
-    el.style.backdropFilter = `blur(${s}px) saturate(1.5)`;
+    el.style.backdropFilter = ref ? `url(#${id})` : `blur(${s}px) saturate(1.5)`;
     return el;
   };
-  if (form === "one") {
-    host.style.backdropFilter = `blur(${SINGLE}px) saturate(1.5)`;
-  } else if (form === "two" || form === "two-mask") {
-    host.append(layer(SHARP));
-    const heavy = layer(HEAVY);
-    if (form === "two-mask") {
+  if (form === "one" || form === "one-ref") {
+    host.style.backdropFilter = ref ? "url(#refSingle)" : `blur(${SINGLE}px) saturate(1.5)`;
+  } else if (form.startsWith("two")) {
+    host.append(layer(SHARP, "refSharp"));
+    const heavy = layer(HEAVY, "refHeavy");
+    if (form.endsWith("-mask")) {
       const m = rasterMask(W, H, 20);
       heavy.style.maskImage = m; heavy.style.maskMode = "alpha";
       heavy.style.maskSize = "100% 100%"; heavy.style.maskRepeat = "no-repeat";

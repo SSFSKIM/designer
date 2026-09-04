@@ -470,7 +470,7 @@ page's section H (X9) lands from G0 on its own, since it moves no material.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71; section H on `spikes/s1-proxy-topology/pages/manual-check.html` (X9) | CLOSED 2026-09-04 — `mask-image` composes; the two `blur()` layers halve the residual and are floored by the encoded space; a linear-light reference filter meets the acceptance and is Chromium-only; the lift's advisory form does not exist; the cost budget measured |
+| G0 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71; section H on `spikes/s1-proxy-topology/pages/manual-check.html` (X9) | CLOSED 2026-09-04 — `mask-image` composes; the two `blur()` layers halve the residual and are floored by the encoded space; a linear-light reference filter meets the acceptance and is Chromium-only; the lift's advisory form does not exist; the cost budget measured, and re-measured for the linear-light form in the findings' §5.1 and claims §5.71 §7.1 — the knee does not move |
 | G1 | branch `w16-g1-two-layer`, one worker (Decision Log 2 (a)–(d); the forks of q0–q2 behind conformance rows and one constant) | OPENED 2026-09-04 |
 | G2 | — | blocked-by G1 |
 
@@ -651,6 +651,15 @@ every fork behind a conformance row or one constant so that no answer reopens th
   acceptance is unreachable with `blur()`, the second scale lands narrow rather than on, and the
   lift's advisory form does not exist. Decision Log 1's three open questions each have a
   measurement and a recommendation in the findings; none is answered here.
+- 2026-09-04: G0 addendum, on the parent's request, because the budget has to be set on the cost of
+  the form that actually reaches the reference. The vsync-on saturation sweep re-run with both
+  layers as `url(#f)` / `linearRGB` reference filters, with and without the raster mask, at both
+  scales and over the three demo pages: **the knee does not move** — one reference filter is as free
+  as one `blur()` at every count measured, two leave the cadence between 32 and 36 surfaces exactly
+  as two `blur()` layers do, and the two forms separate only past the knee at dpr 2. The area rule
+  the findings recommend for Decision Log 1 q1 stands unchanged, and is restated on filtered area
+  per layer rather than on a surface count or a form. Numbers appended beside §7's, nothing
+  rewritten (findings §5.1, claims §5.71 §7.1).
 - 2026-09-04: G0 CLOSED (claims §5.71) — `mask-image` composes; two `blur()` layers are floored by
   the encoded space; the linear-light reference filter meets the acceptance on Chromium; the raster
   mask is exact and free; the second scale lands narrow at the nominal widths; the lift's form does

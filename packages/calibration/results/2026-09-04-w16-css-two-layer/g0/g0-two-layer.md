@@ -457,6 +457,68 @@ and it makes the fallback a declared, measured degradation. The collapse is chea
 because it is exactly today's form. Whether that threshold, a surface count, or no cap at all is
 wanted is the user's call.
 
+### 5.1 Addendum — the linear-light form's cost (2026-09-04, after G0's first close)
+
+§1.3's `url(#f)` / `color-interpolation-filters="linearRGB"` form is the only one that reaches the
+reference's body, so the budget has to be set on *its* cost and not on `blur()`'s. The same
+saturation sweep, the same page, the same counts and scales and the same medians, with the two
+layers drawn as reference filters carrying the same two widths and the same `saturate(1.5)` (as an
+`feColorMatrix`, so the two columns differ in the operator's colour space and in nothing else) —
+one filter pair for the whole document, so the reading is the cost of the FORM and not of a filter
+per element. The `blur()` columns are §5's, repeated beside rather than replaced; nothing above is
+rewritten. The form was confirmed to paint before the sweep ran: at four surfaces it differs from
+the unfiltered page by a mean 0.257 of full scale and from the `blur()` form by 0.132, which is the
+colour-space difference §1.3 measures.
+
+| surfaces | filtered device px per frame @1x / @2x | one @1x | one-ref @1x | two @1x | two-ref @1x | two-mask @1x | two-ref-mask @1x | one @2x | one-ref @2x | two @2x | two-ref @2x | two-mask @2x | two-ref-mask @2x |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 20 | 0.31 M / 1.23 M | 11.3 | 11.8 | 11.8 | 10.5 | 10.5 | 10.9 | 10.9 | 11.3 | 19.5 | 10.6 | 10.8 | 10.8 |
+| 24 | 0.37 M / 1.47 M | 10.7 | 11.0 | 12.4 | 10.4 | 10.5 | 10.7 | 14.8 | 11.7 | 10.3 | 10.5 | 10.4 | 10.3 |
+| 28 | 0.43 M / 1.72 M | 10.4 | 11.2 | 10.6 | 10.9 | 11.0 | 10.6 | 11.7 | 10.9 | 15.1 | 10.8 | 10.6 | 11.0 |
+| 32 | 0.49 M / 1.97 M | 10.8 | 12.4 | 11.9 | 12.5 | 11.5 | 12.8 | 10.9 | 10.7 | 11.0 | 13.2 | 12.4 | 13.5 |
+| 36 | 0.55 M / 2.21 M | 10.7 | 11.3 | 14.1 | 15.5 | 14.7 | 16.6 | 10.5 | 10.4 | 12.0 | 15.7 | 14.3 | 20.7 |
+| 40 | 0.61 M / 2.46 M | 10.9 | 10.4 | 16.7 | 19.4 | 18.5 | 19.5 | 10.6 | 10.5 | 15.2 | 19.7 | 19.0 | 19.4 |
+| 48 | 0.74 M / 2.95 M | 16.7 | 10.7 | 21.9 | 24.9 | 21.9 | 23.8 | 10.2 | 10.4 | 20.2 | 23.7 | 20.9 | 24.7 |
+| 80 | 1.23 M / 4.92 M | 11.0 | 11.1 | 26.9 | 22.8 | 27.0 | 27.2 | 10.6 | 10.4 | 22.7 | 27.5 | 26.8 | 28.5 |
+| 160 | 2.46 M / 9.83 M | 10.9 | 10.8 | 27.2 | 22.7 | 27.2 | 27.8 | 10.5 | 10.9 | 23.7 | 27.5 | 27.2 | 27.7 |
+| 320 | 4.92 M / 19.66 M | 10.6 | 10.5 | 26.9 | 27.1 | 27.2 | 23.0 | 10.9 | 10.7 | 26.7 | 27.7 | 26.8 | 27.7 |
+
+**The knee does not move.** `one-ref` never leaves the cadence at any count measured (10.4–12.4 ms
+over 20 to 320 surfaces at both scales), exactly as `one` does not. `two-ref` and `two-ref-mask`
+leave it between 32 and 36 surfaces at both scales — the same 0.49–0.55 M filtered device px per
+frame at dpr 1 and 1.97–2.21 M at dpr 2 that `blur()` breaks at — and saturate at the same
+23–28 ms from 80 surfaces up. Where the two forms differ at all it is on the far side of the knee
+and at the second scale: at n = 36 and 48 at dpr 2 the reference filter reads 15.7 / 23.7 ms against
+`blur()`'s 12.0 / 20.2, and with the mask 20.7 / 24.7. So the linear-light form costs the same up to
+the knee and a little more past it, which is the region a budget exists to keep a page out of.
+
+The demo, converted the same way (one reference-filter pair injected per document):
+
+| page | filtered elements | largest | as shipped (one blur) | two layers | two layers + mask | two ref layers | two ref layers + mask |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `demo site` @1x | 3 | 288 × 112 | 11.9 ms | 11.0 ms | 11.6 ms | 11.5 ms | 11.4 ms |
+| `demo site` @2x | 3 | 288 × 112 | 19.0 ms | 11.9 ms | 12.4 ms | 11.5 ms | 16.5 ms |
+| `demo laws` @1x | 2 | 288 × 112 | 10.9 ms | 11.8 ms | 11.9 ms | 11.5 ms | 11.3 ms |
+| `demo laws` @2x | 2 | 288 × 112 | 11.6 ms | 12.2 ms | 13.4 ms | 11.5 ms | 17.2 ms |
+| `demo playground` @1x | 8 | 320 × 144 | 11.8 ms | 11.4 ms | 12.8 ms | 11.1 ms | 11.0 ms |
+| `demo playground` @2x | 8 | 320 × 144 | 11.4 ms | 11.3 ms | 12.0 ms | 11.0 ms | 11.2 ms |
+
+The playground — the densest CSS-tier page, eight filtered elements, 0.16 M filtered device px at
+dpr 2 — is at the cadence in every shape including the reference filter with the mask (11.0–12.8 ms).
+Two readings sit above it, the site and the laws page at dpr 2 with the reference filter and the mask
+(16.5 and 17.2 ms) on **three and two** filtered elements, which is fewer elements and less area than
+the playground that reads 11.2 ms in the same shape. They are single runs and internally
+inconsistent with the denser page, so they are recorded as measured and read as jitter rather than
+as a cost of the form.
+
+**The area rule stands.** The recommendation in §5 — allow the two-layer form while a root's total
+measured surface area is under about 0.4 M device px per frame, and collapse to today's single mixed
+σ above it — was derived from the `blur()` knee and is unchanged by this form, because the knee is
+unchanged. The demo's densest page clears it by a factor of 2.5 in either form. The one refinement
+the addendum earns is that the budget should be stated on *filtered area*, not on a surface count or
+a form: `one`, `one-ref`, `two`, `two-ref`, `two-mask` and `two-ref-mask` all break at the same
+filtered area for a given number of layers, and the layer count is the only multiplier.
+
 ## 6. The redistribution list (charter G0 (f))
 
 What `cssTierDeclarations` writes on the author's host today (`packages/platform-web/src/css-tier.ts`,
