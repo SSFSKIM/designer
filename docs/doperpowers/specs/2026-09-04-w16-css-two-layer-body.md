@@ -455,13 +455,23 @@ page's section H (X9) lands from G0 on its own, since it moves no material.
   unchanged.
 - The CSS tier's frame timing on one solid cell (W15 Deferred) — read again
   at the rebuild; if it recurs, the harness's, not the tier's.
+- **The CSS tier's lift (from W14 Decision Log 4; decided against here, Decision Log 2
+  (d)).** No CSS construction adds a filtered backdrop's light to a ring and keeps the
+  backdrop (§5.71 §6). The tier's ring error on a structured backdrop is the derived alpha's
+  over-correction — `photo__rrect-md` 0.0112 lighter than native where the GPU tier is 0.0059
+  darker — and is W14's conversion's own item, not a missing addition.
+- The software rasteriser's joint area limit for two filtered elements (headless Chromium
+  drops one filter between 1.75 and 3.0 Mpx; two elements unmeasured, and this wave's
+  captures are forbidden the software path) — a probe on the fallback adapter, its own item.
+- The reference filter's cost, the accessibility folds on the two layers, and the
+  `interiorStdDev` statistic at 2x — G0's addendum and G1's dry run, respectively.
 
 ## Tracking Map
 
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71; section H on `spikes/s1-proxy-topology/pages/manual-check.html` (X9) | CLOSED 2026-09-04 — `mask-image` composes; the two `blur()` layers halve the residual and are floored by the encoded space; a linear-light reference filter meets the acceptance and is Chromium-only; the lift's advisory form does not exist; the cost budget measured |
-| G1 | — | blocked-by G0 |
+| G1 | branch `w16-g1-two-layer`, one worker (Decision Log 2 (a)–(d); the forks of q0–q2 behind conformance rows and one constant) | OPENED 2026-09-04 |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -497,6 +507,96 @@ the measured engine, the holdout once.
    if feasible** — W14 Decision Log 4 asked for the layering decision to be
    made once, and the element model is being decided here.
 4. *The landing* — the user's eye, as every wave.
+
+### Decision Log 2 — G0 read: the element model bound, the raster mask, the second scale as a derivation, the lift decided against, and the linear-light form put to the user (2026-09-04)
+
+**Evidence** (claims §5.71; `results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`).
+`mask-image` composes with `backdrop-filter` and `opacity` on one element in Chromium (a
+uniform mask is bit-identical to the same `opacity`; a mask on a wrapper makes the child's
+filter inert). Two `blur()` layers reproduce the law they are given to RMS 0.0024–0.0049
+against their own forward model and still read 2.4–2.8× the GPU law's residual on the thick
+spans, because `blur()` operates on the page's encoded values and the same law blurred in
+the encoded space reads exactly that; the acceptance's 1.5× is unreachable with `blur()` at
+any σ, share or mask. `backdrop-filter: url(#f)` with an SVG `feGaussianBlur` at
+`color-interpolation-filters="linearRGB"` blurs in linear light and reads 1.17 / 1.10 / 1.50 /
+1.41 / 1.20× of the GPU law at 1x and 0.97–1.03× at 2x; its sRGB sibling is bit-for-bit the
+`blur()` form, which is the control; only Chromium renders a reference filter inside
+`backdrop-filter` (`referenceFilterInBackdrop`, true on the Chromium rows alone). The tint
+beneath the layers is blurred by them and darkens a 4 CSS px ring by 0.010–0.015; above them
+it is exact. Of the three mask carriers only the raster is inside ±0.05 of the shader's k(u)
+through W13's instrument (mean 0.0010, max 0.0020 against the mask channel's own 8 bits);
+the gradient stack's corners read 0.06–0.19 and the blurred SVG inset up to 0.12. Two
+layers at device-pixel widths land 0.38–1.07 CSS px *narrow* of §5.69 §4's fourth column,
+and the capture agrees with the arithmetic to 0.3 px — a true Gaussian at the renderer's
+nominal 2x heavy width (3.0–4.1 CSS px) is narrower than the reference's (3.75–5.5). A blend
+mode does not reach a `backdrop-filter`'s output (`plus-lighter`, `screen` and `normal` on
+a filtered ring render identically) and a blending ancestor is a backdrop root, so the
+advisory lift form does not exist; and on `photo__rrect-md` the CSS tier is already 0.0112
+lighter than the native over the shadow ring where the GPU tier is 0.0059 darker. One
+`backdrop-filter` per surface never leaves the display cadence; two leave it from 32
+surfaces of 160 × 96 (0.49–0.61 M filtered device px per frame at 1x) and saturate near
+27 ms from 80; the mask is free; the demo's densest CSS-tier page (`/playground/`, eight
+elements, 0.16 M device px at 2x) is at the cadence in every form. Contract X4 held
+throughout: the scoring reproduced §5.42 §5's five published numbers to four decimals before
+any new reading, and W13's instrument recovered a known ramp and a known flat share from
+Chromium pages at 0.008–0.020.
+
+**Decided (the parent), binding for G1:**
+
+- **(a) The element model is G0's §6 list.** The host keeps `position: relative`,
+  `isolation: isolate`, `border-radius`, its `border-width` for layout with the colour made
+  transparent, the outer `box-shadow` and the five tokens. Three created children, each
+  `position: absolute` at `inset: calc(-1 * border-width)` so its border box is the host's,
+  `border-radius: inherit`, `pointer-events: none`, `aria-hidden`, painting above the host's
+  background and below its in-flow content: **L1** the sharp filter; **L2** the heavy filter
+  with the ramp as a raster `mask-image` drawn from the exact k(u) at device resolution;
+  **L3** the tint, the press glow and the rim as an inset `box-shadow`. The tint sits above
+  both filters (§5.71 §3). The joint-view reason: the paint order, the mask's placement and
+  the tint's ring were each measured, and the charter binds the model to be decided once.
+- **(b) The ramp's carrier is the raster mask.** The gradient stack and the blurred SVG
+  inset are retired with their numbers (§5.71 §4).
+- **(c) The second scale is a derivation, not the nominal.** The tier draws the renderer's
+  kernel's *effective* Gaussian width — the moment-matched σ of what the mip chain draws at
+  the profile's nominal, measured on the renderer's own captures at both scales — through the
+  same functions the renderer uses for everything else. §5.69 §3 already read the renderer's
+  nominal 6 device px as 8–11 to a Gaussian estimator, and §5.71 §5 shows a true Gaussian at
+  the nominal landing narrow on every span by the size of that difference. G1 measures the
+  conversion, records its residual and carries no fitted constant (K5); a span the derivation
+  cannot bring within the acceptance's 0.8 CSS px is re-held with the mechanism named — the
+  GPU law's own 2x distance from the reference, which W15's Deferred owns.
+- **(d) The lift is decided against for this wave, on measurement.** CSS has no construction
+  that adds a filtered backdrop's light to a ring and keeps the backdrop (§5.71 §6), and the
+  number it would buy is smaller and of the wrong sign on the one bed cell that has a lift.
+  The residual is re-attributed: the CSS tier's ring error on a structured backdrop is the
+  derived alpha's over-correction, W14's own, and goes to Deferred with the number and to
+  W14's Revision Notes as a correction beside its claim. Decision Log 1 q3 is answered by
+  the measurement rather than by a preference; the user may overrule it.
+- **(e) The charter's first Risk is closed** (`mask-image` composes; the raster mask is free
+  and exact), and its Purpose item 2 and its advisory lift form are corrected by (c) and (d).
+
+**Put to the user, with the parent's recommendation** (the answers set defaults; G1 builds
+every fork behind a conformance row or one constant so that no answer reopens the build):
+
+0. *The linear-light body* (new). On an engine whose conformance row says it renders a
+   reference filter inside `backdrop-filter` — Chromium today — the two layers blur through
+   an SVG `feGaussianBlur` at `linearRGB` (one `<svg>` of definitions per root, one
+   `<filter>` per distinct σ, created by the tier); elsewhere `blur()`. It is the only
+   measured form that meets the body's acceptance; it turns `referenceFilterInBackdrop` from
+   a reserved seam into a fidelity dependency; its cost is a G0 addendum in progress.
+   **Recommended: yes.**
+1. *The cost budget* (Decision Log 1 q1). An area rule rather than a count: the two-layer
+   form while a root's total filtered surface area is under **0.4 M device px per frame**,
+   the heavy layer collapsing into today's single mixed σ above it — declared, measured and
+   named in the resolved state, never silent. Two blurs leave the cadence from 0.49 M on
+   this machine; every page the demo ships clears 0.4 M by 2.5×. **Recommended: adopt**, the
+   threshold re-read once the reference filter's cost is in.
+2. *Unverified engines* (q2). Two layers with the heavy share as one `opacity`; the raster
+   mask and the reference filter each gated on their own conformance row, fail closed.
+   **Recommended: unchanged.**
+3. *The lift* (q3): (d) above.
+4. *The landing* (q4): the user's eye at the dry run and the landing.
+
+**G1 opens** on (a)–(d), on a branch, with 0–2 built as switchable defaults.
 
 ## Surprises & Discoveries
 
@@ -551,3 +651,10 @@ the measured engine, the holdout once.
   acceptance is unreachable with `blur()`, the second scale lands narrow rather than on, and the
   lift's advisory form does not exist. Decision Log 1's three open questions each have a
   measurement and a recommendation in the findings; none is answered here.
+- 2026-09-04: G0 CLOSED (claims §5.71) — `mask-image` composes; two `blur()` layers are floored by
+  the encoded space; the linear-light reference filter meets the acceptance on Chromium; the raster
+  mask is exact and free; the second scale lands narrow at the nominal widths; the lift's form does
+  not exist. Decision Log 2: the element model bound, the raster carrier, the second scale as a
+  derivation of the renderer's effective width, the lift decided against on measurement; the
+  linear-light form, the area budget and the engine policy put to the user with recommendations.
+  G1 opened on a branch with the forks behind conformance rows.

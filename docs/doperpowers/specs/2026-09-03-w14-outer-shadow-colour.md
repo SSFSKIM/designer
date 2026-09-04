@@ -765,3 +765,12 @@ contour over-fill.
   them), and the CSS tier's thick amplitude derived rather than inherited — Decision Log 4's
   pending check answered, S6's miss attributed to the lift read through the decode (claims §5.65
   §2 and §6(ii)). Both fingerprints re-recorded with the reason.
+- 2026-09-04 (**correction beside**, from W16 G0, claims §5.71 §6): the claim that the CSS
+  tier's `photo__rrect-md` residual (0.1803 against 0.2013, §5.66) "closes with the two-layer
+  body" is refuted by measurement. No CSS construction adds a filtered backdrop's light to a
+  ring — a blend mode blends the element's own content, and a blending ancestor is a backdrop
+  root — and on that cell the CSS tier is already 0.0112 encoded *lighter* than the native over
+  the shadow ring where the GPU tier is 0.0059 darker, so the derived alpha `α′ = α − L/B`
+  over-corrects there and an added light would move it the wrong way. The residual is the
+  conversion's own item on structured backdrops (W16 Deferred); Decision Log 4's deferral to
+  the two-layer body is closed by W16 Decision Log 2 (d). Nothing above is rewritten.
