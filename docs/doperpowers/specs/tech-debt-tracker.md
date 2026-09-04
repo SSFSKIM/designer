@@ -444,6 +444,12 @@ at 11:22:13Z and `@vitreajs/vitrea-react@0.6.0` at 11:22:15Z, `@vitreajs/vitrea@
 11:26:21Z (registry `time`): 248 s against 70 and 73. Three cuts; the fix above is unchanged
 in shape and the choice is still the user's.
 
+**Fourth occurrence, the 0.7.0 cut (2026-09-04):** the same shape, wider again —
+`@vitreajs/vitrea-web@0.7.0` at 16:38:28Z and `@vitreajs/vitrea-react@0.7.0` at 16:38:33Z,
+`@vitreajs/vitrea@0.7.0` at 16:42:55Z (registry `time`): 267 s against 70, 73 and 248. Four
+cuts, the window growing with each; the fix above is unchanged in shape and the choice is still
+the user's. The cold install this time waited for the window to close and passed first time.
+
 ## The CSS tier's captures move by a code between runs on two 2x cells (W15 G2, W16 G2, 2026-09-04)
 
 *Found at W15's landing (one cell), confirmed at W16's.* Re-capturing the CSS tier from an
