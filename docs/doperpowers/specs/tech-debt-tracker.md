@@ -542,3 +542,17 @@ committed). All six hold in some form; none is deleted. Disposition per finding:
 6. **HOLDS (latent) — fixed** (the same fix wave): the group's `cssTint` was the last host's;
    it is now the weakest form across the hosts that declared one, as `cssShadow` folds, and
    the comment says so. Reporting only; what each surface draws is unchanged.
+
+## The demo's reference-pair test reads `img.complete` without waiting for the load (2026-09-05)
+
+*Found on the chain after the W18 post-landing fix merge; one run in three.* `apps/demo/e2e/
+site.spec.ts` › "the reference pair is a comparison › both sides load, and the native capture is
+a real image" evaluates `element.complete` and `naturalWidth` on the two `.pair__raster` images
+straight after the section is shown, with no wait on the load; it failed once with
+`complete: false` (the rest of the suite green) and passed on the immediate re-run, 34 / 34, as
+it had on the landing tree half an hour earlier and on every prior wave's chain. Nothing in the
+runtime is involved — the images are static fixtures. Shape of the fix: poll the assertion
+(`expect.poll` on `complete`, or wait for the `load` event through `page.waitForFunction`)
+before reading the natural size. Logged so the next chain that trips on it does not chase the
+runtime.
+
