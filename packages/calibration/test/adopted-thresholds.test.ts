@@ -492,8 +492,25 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // from 1.6 lens depths inside, at full weight, and the rim band was 61–91%
   // of what the GPU tier had left. The dom rows below are byte-unchanged
   // (the CSS tier has no lens).
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.89628, floor: 0.8952 },
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91695, floor: 0.9159 },
+  // W16 G2 (claims §5.73; W16 Decision Log 3, user decision 2026-09-04)
+  // REMOVED the 1x dom-tier ssimMean floor on checkerboard rrect-md here
+  // (0.89628 → 0.90284 against ≥ 0.90) because the CSS tier's body is now
+  // the reference's two-component law too: two filtered children at the
+  // renderer's effective widths, the depth ramp as a raster mask on the
+  // heavy one, in linear light on Chromium (§5.72 §1). Its claim is
+  // restored in §5.27. Every other dom row that the tier moved is re-recorded
+  // at the landing's reading with its floor one epsilon under, as every
+  // floor here sits: the three other 1x rows RATCHET UP by 0.0064–0.0141;
+  // at 2x the four large spans FELL against the W15 bed by 0.0025–0.0051
+  // with the band as the mechanism — without a lens the sharp component's
+  // crisp checker runs to the contour where the reference's is curved, and
+  // the smeared single blur had hidden that absence (§5.72 §5) — yet
+  // rrect-ml and rrect-lg still read above their W11c pins and RATCHET UP,
+  // glass-over-glass stays inside its epsilon and its floor is KEPT, and
+  // rrect-md RE-PINS DOWN by 0.0021 (0.91695 → 0.91489, 0.0010 under the
+  // W15 bed's live reading) by the user's decision, the claim narrowed to
+  // the band the tier cannot draw.
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91489, floor: 0.9138 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
   // floors on the checkerboard rrect-lg/ml cells, each DOWN by 0.0002–0.0072:
   // the response-curve law lands the interior MEAN on the reference and pays
@@ -501,12 +518,12 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // that bought the six restored claims above, not a regression that slipped.
   // The SSIM axis on these cells is re-attributed to a structure round the
   // W9 spec's Deferred charters; the floors keep ratcheting from here.
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.84806, floor: 0.847 },
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87649, floor: 0.8754 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.8499, floor: 0.8489 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86872, floor: 0.8677 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.83717, floor: 0.8361 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.8696, floor: 0.8686 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.85925, floor: 0.8582 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87829, floor: 0.8772 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.85286, floor: 0.8518 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86832, floor: 0.8677 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.85126, floor: 0.8502 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87089, floor: 0.8698 },
   // W12 (claims §5.59; W12 Decision Logs 4, 6 and 7) RATCHETED the three 2x
   // texture-tier rows UP again by 0.010–0.014: the lens is now the reference's
   // own field (one steep power on Apple's span law along a normal ovalized by
@@ -545,9 +562,11 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * 2x texture-tier rrect-md row (claims §5.44); still 11 after W12 (claims
  * §5.59), whose lens raised the three 2x texture rows without meeting them;
  * 8 after W14's outer shadow met those three (claims §5.66) — the deficit was
- * outside the silhouette all along.
+ * outside the silhouette all along; 7 after W16's two-layer CSS body met the
+ * 1x dom-tier rrect-md row (claims §5.73), the seven left being the CSS tier's
+ * large spans against the rim band it has no lens to draw.
  */
-const UNMET_ROWS = 8;
+const UNMET_ROWS = 7;
 
 /*
  * ---------------------------------------------------------------------------
@@ -841,13 +860,27 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * displaced position instead of a sharper sample, and the extractor recovers
  * one body at 0.998 (IoU 0.998, contour p95 0 px). It gates as an ordinary
  * cell.
+ *
+ * **What JOINS with W16 (2026-09-04, claims §5.73).** Two dom rows, both the
+ * capsule under reduced transparency, both `areaWeb`: the two-layer CSS body's
+ * reduced-transparency fold reads 0.056–0.070 lighter than the reference's
+ * interior where the single blur's read 0.018–0.038 lighter (the level
+ * conversion gap of §5.72 §4, seen on the fold), and on the thin span over the
+ * checkerboard's white squares and the hc-text bars the luminance-delta
+ * extractor loses 8.5% and 14.7% of the region (recovery 1.000 → 0.915 with
+ * seven holes, 0.982 → 0.853). Both cells still gate on every perceptual row
+ * and hold them (ssimMean 0.983 / 0.992 against ≥ 0.91, ΔE 0.004 / 0.003
+ * against ≤ 0.04). The dry run's referee did not run this predicate, so the
+ * landing is where it was read — W16 Surprises.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",

@@ -1,0 +1,26 @@
+canonical: 230 cells; W15 bed: 230; dry run: 230
+webgpu tier: 115 cells against the W15 bed, worst |Δ| 0.000000; captures byte-identical 115 / 115
+  capture differs from the dry run: light-solid__capsule-button__rest @ apple-macos-26.5-2x-light-standard / css
+  capture differs from the dry run: photo__capsule-button__rest-tint-blue @ apple-macos-26.5-2x-light-standard / css
+css tier: 115 cells against the dry run, worst |Δ| 0.000008; captures byte-identical 113 / 115
+
+the eight held rows — ssimMean, CSS tier, checkerboard:
+  cell               dpr   W15 bed   dry run  canonical   floor now   landing floor
+  rrect-md           1x   0.89626   0.90284   0.90284    0.8952      OFF (≥ 0.9)
+  rrect-md           2x   0.91738   0.91489   0.91489    0.9159      0.9138 (RE-PIN, was 0.9159)
+  rrect-ml           1x   0.85153   0.85925   0.85925    0.8470      0.8582 (ratchet)
+  rrect-ml           2x   0.88080   0.87829   0.87829    0.8754      0.8754 kept
+  glass-over-glass   1x   0.85158   0.85286   0.85286    0.8489      0.8518 (ratchet)
+  glass-over-glass   2x   0.87089   0.86832   0.86832    0.8677      0.8677 kept
+  rrect-lg           1x   0.84482   0.85126   0.85126    0.8361      0.8502 (ratchet)
+  rrect-lg           2x   0.87596   0.87089   0.87089    0.8686      0.8686 kept
+
+every dom row against its adopted ssimMean / ΔE bound (rows under a bound listed):
+  checkerboard__glass-over-glass__rest         1x-light-standard            ssimMean 0.8529 (≥ 0.9, floor 0.8489)  ΔE 0.0344 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 1x-light-standard            ssimMean 0.8513 (≥ 0.9, floor 0.8361)  ΔE 0.0401 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 1x-light-standard            ssimMean 0.8593 (≥ 0.9, floor 0.847)  ΔE 0.0364 (≤ 0.08)
+  checkerboard__glass-over-glass__rest         2x-light-standard            ssimMean 0.8683 (≥ 0.92, floor 0.8677)  ΔE 0.0371 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 2x-light-standard            ssimMean 0.8709 (≥ 0.92, floor 0.8686)  ΔE 0.0460 (≤ 0.08)
+  checkerboard__rrect-md__rest                 2x-light-standard            ssimMean 0.9149 (≥ 0.92, floor 0.9159)  ΔE 0.0260 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 2x-light-standard            ssimMean 0.8783 (≥ 0.92, floor 0.8754)  ΔE 0.0402 (≤ 0.08)
+  7 dom rows under an adopted bound
