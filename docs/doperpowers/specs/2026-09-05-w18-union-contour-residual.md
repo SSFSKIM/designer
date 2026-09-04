@@ -501,7 +501,7 @@ reported together.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels taken the same day after the user restored the grant (`probe/readings.md`: seven attested runs, the twins byte-identical to the canonical fixtures, Apple's material box-invariant at the span, the native overlay 0.909 / 0.897) |
-| G1 | branch `w18-g1-shadow` (`6207287` the carriers, `7a8a09b` the pre-check; `g1/g1-precheck.md`) | OPEN 2026-09-05 — the pre-check passed the gate (Decision Log 3: both carriers, the remainder bounded, S4 and S5 re-declared); the whole-bed dry run opens |
+| G1 | branch `w18-g1-shadow` (`6207287` the carriers, `7a8a09b` the pre-check, `2d11305` the dry run; `g1/g1-precheck.md`, `g1/g1-dry-run.md`, `dry-verify.txt`, `dry-gate.txt`, `sheets/g1-{1,2}x.png`, `.changeset/css-shadow-carriers.md`); claims §5.78 | COMPLETE 2026-09-05 — DECLARED in claims §5.78: seven stops met, S4's fold clause missed both ways, S5 on one cell by 0.0005, two cells over 0.01 by a thousandth, three cells back on the shape axis, the GPU tier byte-identical; the landing is Decision Log 4, the user's |
 | G2 | — | — |
 
 ## Decision Log
@@ -703,6 +703,40 @@ the holdout read once in the same frozen configuration (`6207287`), the referee
 (`adopted-thresholds.test.ts` through `VITREA_MATRIX_PATH`; the verify script against the W17
 bed), the sheets, the changeset, the declaration in claims.
 
+### Decision Log 4 — the landing: as declared, held for the fold, or carrier A alone (2026-09-05; the user's)
+
+**What the dry run measured** (claims §5.78; `g1/g1-dry-run.md`, branch `w18-g1-shadow` at
+`2d11305`). S1, S2, S3, S6, S7, S8, S9 met. The four cells the wave is for: −0.0028 / +0.0044 /
+−0.0087 / −0.0044 (from −0.0122 / −0.0040 / −0.0150 / −0.0101), three inside 0.005 and the
+fourth inside the re-declared 0.01. The fold measured for the first time and missed both ways:
+reduced transparency −0.0320 → −0.0281, increased contrast +0.0096 → +0.0139 (the carriers'
+own +0.004 each; no second mechanism in this wave). S5 on one cell by 0.0005 (`rrect-sm` 1x; the
+form's one-signed over-prediction). Two cells cross W17's 0.01 line by a thousandth —
+`checkerboard__capsule-button` 2x +0.0102 (predicted), `hc-text__capsule-button` 1x +0.0105 (not
+predicted; the same family) — three leave it in the good direction, seventeen stand unmoved.
+Three cells return to the shape axis. One bed cell (`hc-text__capsule-button` under increased
+contrast, already excluded) becomes unmeasurable; the bed loses a row. The GPU tier
+byte-identical 115 / 115; the knee unmoved; every suite green.
+
+1. **Land as declared** (recommended). Both carriers; G2 rebuilds the bed once, re-records the
+   floors (none may go down), takes four lines off `PREDICATE_EXCLUDES` and drops the profile's
+   count, names in claims the fold's two misses, the two capsule cells over 0.01 by a thousandth
+   with their mechanism, S5's one cell, the unmeasurable cell, and the stack's base. Why: the
+   wave's purpose is met on the cells it was chartered for; every miss is either a mechanism this
+   wave never had (the fold's 2.8× clause; the bounded remainder) or the model's, and none is a
+   loss of structure; holding gains nothing on those misses.
+2. **Hold for the fold.** Keep the branch until a second mechanism closes the reduced-transparency
+   cell (−0.028, of which the shadow was 0.004) and the increased-contrast cell (+0.014). Why not:
+   the fold's remainder is not the shadow's and needs its own measurement (the occlusion's single
+   absolute value under the fold against the two-regime law; the drawn border's share under
+   increased contrast); the three-up would stay 0.012–0.015 dark on the standard profiles
+   meanwhile.
+3. **Carrier A alone.** Rejected by the pre-check: it leaves −0.0099 / −0.0140 on the two 1x
+   `toolbar-group` cells; carrier B is two thirds of the closure on a group.
+
+Whichever lands, the fold's two cells, the capsule cells over the line, the remainder's bound,
+the stack's base and the unmeasurable cell are recorded by name.
+
 ## Surprises & Discoveries
 
 - **2026-09-05 (G0) — the owner is a thing the tier paints and re-reads, not a term it
@@ -746,6 +780,23 @@ bed), the sheets, the changeset, the declaration in claims.
 - **2026-09-05 (G1 pre-check) — the stack's checkerboard base carries a shadow-over-glass
   composite term** (+0.0081 with the shadow on both tiers, +0.0029 with it declined on both) that
   the carriers do not touch: the two tiers darken a glassed body unequally under a shadow.
+- **2026-09-05 (G1 dry run) — the fold's clause, measured for the first time, misses both
+  ways:** reduced transparency improves by a tenth of itself (−0.0320 → −0.0281) and increased
+  contrast worsens (+0.0096 → +0.0139); the carriers move each by +0.004 and the rest is not the
+  shadow's.
+- **2026-09-05 (G1 dry run) — three cells return to the shape axis:** the shadow's removal
+  lifts the light-solid cells +0.002…+0.004 off the background the extractor could not separate
+  them from at W17; `PREDICATE_EXCLUDES` goes down by three (and by one more for an unmeasurable
+  cell). Coherence with the renderer gave the instrument back part of what it took.
+- **2026-09-05 (G1 dry run) — the closed form over-predicts one-signed on every single-member
+  cell** (forty-two misses, −0.0001…−0.0033): the canvas clamp and the device-grid coverage both
+  err toward more shadow than the engine paints. The form's property, recorded.
+- **2026-09-05 (G1 dry run) — a bed cell became unmeasurable:** `hc-text__capsule-button` under
+  increased contrast, already the most degenerate cell (IoU 0.470, three bodies) and already
+  excluded; the bed loses a row at the landing.
+- **2026-09-05 (G1 dry run) — a second cell crosses the 0.01 line the pre-check did not
+  predict:** `hc-text__capsule-button` at 1x, +0.0091 → +0.0105, the remainder's family on a
+  third backdrop.
 
 ## Outcomes & Retrospective
 
@@ -773,3 +824,5 @@ bed), the sheets, the changeset, the declaration in claims.
 - 2026-09-05: Decision Log 3 — the pre-check read, both carriers accepted, the remainder bounded
   per box and scale, S4 and S5 re-declared, the stack's clause restated; four Surprises, two
   Deferred shapes; the whole-bed dry run opens.
+- 2026-09-05: G1 DECLARED (claims §5.78); Decision Log 4 — the landing question put to the user
+  with the recommendation; five Surprises from the dry run; the Tracking Map's G1 row COMPLETE.

@@ -11080,3 +11080,114 @@ same day, above; a 2x session is the user's). The 2x checkerboard
 (W17's miss inside 0.01). `light-solid__capsule-button`'s superposition miss (clipping at white).
 The cost was not measured: the closure adds no primitive and, per surface, no element; if the
 group carrier adds children, G1 measures the knee.
+
+### 5.78 W18 G1 DECLARED: the CSS tier's outer shadow leaves its own sampled backdrop by two carriers — the three-up closed on the renderer, the fold measured and missed both ways, two cells over the 0.01 line by a thousandth, three cells back on the shape axis (2026-09-05)
+
+**Status: DECLARED, not landed.** Branch `w18-g1-shadow` (`6207287` the carriers, `7a8a09b` the
+pre-check, `2d11305` the dry run); the dry run's document
+`packages/calibration/results/2026-09-05-w18-union-contour/g1/g1-dry-run.md`, the pre-check's
+`g1-precheck.md`, the referee's outputs (`dry-verify.txt`, `dry-gate.txt`), the sheets
+`sheets/g1-{1,2}x.png`. The landing is W18 Decision Log 4, the user's.
+
+**The change.** The tier drew the outer shadow as `box-shadow` on the host, below its own three
+filter layers, and Chromium samples a `backdrop-filter`'s backdrop over the region its kernel
+needs — so every surface blurred its own shadow into its body and every later host its earlier
+neighbours' (§5.77). Two carriers take it out while the shadow stays on the page: per surface the
+shadow joins L3's `box-shadow` list, painted after the filters (`layer`); per group of more than
+one member the group's last-painted host carries one inert caster per member at that member's
+box and radius, clipped out of every member's body by an even-odd path, because a host is a
+stacking context and only the last-painted member can paint after every member's filters
+(`group`); a host whose own `overflow` clips its children keeps the shadow where it was (`host`).
+`GlassGroupState.cssShadow` reports which; `sampledOuterShadowFactor` in `optics.ts` is G0's
+closed form kept as the bound for what stays sampled, and beside it the remainder's bound per
+box and scale (Decision Log 3 (2)), no coefficient fitted. Carrier B is two thirds of the closure
+on a group (carrier A alone leaves −0.0099 / −0.0140 on the two 1x `toolbar-group` cells). The
+Design's note that carrier A grows the shadow's `spread` by the border width was wrong and was
+not applied (L3's box is the host's border box already; a Revision Note).
+
+**1. The referee** (`verify-dry.py` against the W17 bed; `adopted-thresholds.test.ts` against
+the scratch matrix through `VITREA_MATRIX_PATH`). **S1 met:** 115 GPU captures byte-identical to
+the W17 bed, worst GPU row |Δ| 0.000000. **S2 met:** every floor row at or above its pin; no 1x
+checkerboard row falls more than 0.002 (the largest fall anywhere −0.0004). **S3 met:** no
+calibration span's spread moves farther from native (largest move +0.0000007). **S6 met:** the
+cross-tier ΔE down or flat on every profile (1x light 0.00607 → 0.00606; RT 0.00389 → 0.00385;
+dark 0.00406 → 0.00405, 0.00414 → 0.00413); no cell leaves the 0.97–1.03 ratio band. **S7 met,
+the list goes down:** `light-solid__rrect-md` at 2x and `light-solid__rrect-ml` at both scales
+condition again (the shadow's removal lifts their interior +0.002…+0.004 off the background the
+extractor could not separate them from at W17). **S8 met** at the pre-check (the knee at 40 at
+both scales with every surface in a group of three). **S9 met** by the parent's eye (§5).
+
+**2. S4, the four cells the wave is for** (interior mean, CSS − GPU, native silhouette):
+
+| cell | dpr | clause | W17 bed | dry run |
+| --- | --- | --- | --- | --- |
+| `checkerboard__toolbar-group` | 1 | 0.005 | −0.0122 | **−0.0028** |
+| `checkerboard__toolbar-group` | 2 | 0.005 | −0.0040 | **+0.0044** |
+| `photo__toolbar-group` | 1 | 0.01 (Decision Log 3 (3); the charter's 0.005 missed by 0.0037) | −0.0150 | **−0.0087** |
+| `photo__toolbar-group` | 2 | 0.005 | −0.0101 | **−0.0044** |
+
+All four met, the pre-check's numbers to the digit; every one resolved `group`. **The fold, q4's
+clause at 0.01, measured for the first time and missed both ways:** `photo__toolbar-group` under
+reduced transparency −0.0320 → **−0.0281** (the carriers' own +0.0038; the shadow under the fold
+is a single absolute occlusion of 0.197, so its share is smaller, and the cell was 2.8× the
+clause) and under increased contrast +0.0096 → **+0.0139** (the tier was already above the
+renderer; removing a darkening moves it further). This wave has no second mechanism for the fold;
+both are named. **The stack** (Decision Log 3 (4)): the canonical holdout cells move by ±0.0001
+(`photo__glass-over-glass` −0.0119 → −0.0119 at 1x, −0.0126 at 2x); the remainder is the
+renderer's unsampled route (§5.77 §4); the base's checkerboard share (+0.0081 / +0.0108) is
+named in the charter's Deferred with its two shapes.
+
+**3. W17's 0.01 cross-tier clause, cell by cell.** Three cells leave it in the good direction
+(the two 1x `toolbar-group` cells and `photo__toolbar-group` at 2x). Two cross it by a thousandth:
+`checkerboard__capsule-button` at 2x **+0.0095 → +0.0102** (predicted and named by Decision Log 3
+(5); the shadow's share +0.0007, the rest M2's remainder with its positive sign at 2x) and
+`hc-text__capsule-button` at 1x **+0.0091 → +0.0105** (not predicted; the same family on the
+`hc-text` backdrop, the shadow's share +0.0015; at 2x the same cell was already outside, +0.0119
+→ +0.0129). The fold's IC cell (+0.0139) is the third new miss. Seventeen cells outside the clause
+on both runs are unmoved to the fourth decimal.
+
+**4. S5, every cell by its own derived share.** Twenty-one of twenty-two single-member light cells
+inside 0.002 of the closed form's predicted move; the twenty-second, `checkerboard__rrect-sm` at
+1x, misses by 0.0005 (moved +0.0006 against +0.0031). The `light-solid` cells within 0.0035 (worst
+−0.0033); the two `toolbar-group` cells above the form by +0.0038 / +0.0047 (bounded 0.005); every
+tinted cell within a ten-thousandth of `(1 − s)` × its untinted base's move; every dark cell
+0.0000 or 0.0001 (the shadow is multiplicative and inert over black). **The form over-predicts on
+every single-member cell of the bed, one-signed** (forty-two misses from −0.0001 to −0.0033,
+largest on the small boxes over the solid and the checkerboard); the same sign is in G0's residual
+table and the pre-check — the model clamps the shadow's blur at the canvas and integrates the
+coverage on the device grid, both toward more shadow than the engine paints. Recorded as the
+form's property. Five cells move `silhouetteIoU` by more than 0.002, all with fragmentary web
+silhouettes, two of them the cells that newly condition; no `ssimMean`, `ssimBand`,
+`oklabDeltaEMean` or cross-tier ΔE moves by more than 0.002 anywhere.
+
+**5. By eye** (`sheets/g1-1x.png`, `g1-2x.png`; native, the W17 bed, the candidate, the GPU
+tier, the signed difference). The parent's reading of the 1x sheet: on the checkerboard three-up
+the candidate's circles read a touch brighter than the bed's and closer to the GPU tier's, the
+soft shadow under each circle is unchanged in reach and weight, and no shadow lies on a member's
+body; the photo three-up is near-indistinguishable between the bed and the candidate; the stack
+rows are indistinguishable (the measurement, ±0.0001). What still separates both web tiers from
+Apple on the three-up is the rim band and the lens bulge native draws at this span and the
+renderer's +0.055 thin-span level (§5.55 §3) — the renderer's, not this tier's. The ring one
+device pixel outside every contour reads 0.4751 against the bed's 0.4747 (0.5029 with the shadow
+declined): the shadow is on the page.
+
+**6. The bed loses a row.** `hc-text__capsule-button__rest` under increased contrast could not be
+measured on the candidate (`contourCurvature: a 0.00 px contour`): the cell was already the most
+degenerate on the bed (web silhouette 2 293 of 4 872 px in three bodies, IoU 0.470) and already
+in `PREDICATE_EXCLUDES`, so nothing is gated on it; the matrix carries 229 cells where the bed
+carries 230, and G2's bookkeeping removes its line and drops the profile's count 18 → 17. Named,
+not absorbed.
+
+**7. The suites.** Build and lint clean; 1 792 unit tests; platform-web Playwright 354 across
+four projects (twelve new: the shadow spec's four cases per engine); react 105; demo 34 after one
+expectation asks the surface for its shadow rather than the host's computed `box-shadow` (which
+element carries it is what this wave changes; the assertions are the same). The renderer's golden
+suite not run, stated: the renderer is untouched and byte-identical on 115 / 115.
+
+**8. The landing question** (W18 Decision Log 4, the user's). The declaration meets every stop
+but the fold's clause (missed both ways, no second mechanism in this wave) and S5 on one cell by
+0.0005; it takes the three-up onto the renderer at three of four cells within 0.005 and the fourth
+within 0.01, gives the shape axis three cells back, lowers the cross-tier ΔE on four profiles,
+leaves the GPU tier byte-identical, and crosses W17's 0.01 line by a thousandth on two capsule
+cells whose mechanism is the bounded remainder and not the shadow. Three landings are declared in
+the Decision Log: as declared; held for the fold; carrier A alone.
