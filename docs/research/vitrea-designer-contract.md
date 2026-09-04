@@ -54,6 +54,7 @@ analysis:        "exact" | "hint" | "none";
 health:          "ok" | "demoted";
 demotionReason?: "no-webgpu" | "no-backdrop-filter" | "tainted-source" | "incompatible-texture"
                | "no-texture-supplied" | "device-lost" | "probe-failed" | "governor";
+cssBody?:        "two-layer" | "collapsed";
 ```
 
 `configuredSource` survives demotion; every demotion names a reason; and **choosing CSS is not
@@ -61,7 +62,11 @@ a fault** — a root that never asked for WebGPU resolves `activeRenderer: "css"
 Read it with `useGlassCapabilities(groupId)` or `root.capabilities(groupId)`. The CSS tier has
 its own renderer and *converts* the material the root carries rather than holding one of its own,
 so retuning moves both tiers together. `refraction: "none"` on the CSS tier is by contract:
-`backdrop-filter` blurs, it never bends.
+`backdrop-filter` blurs, it never bends. `cssBody` names which body the CSS tier drew:
+`two-layer` is the full material — a sharp `backdrop-filter` and a heavy one over it, mixed by
+the renderer's own depth ramp — and `collapsed` is the declared reduction taken when the CSS
+cost budget cannot afford two layers; absent on a WebGPU-tier group and before that group has
+resolved a frame.
 
 ## 3. Accessibility: runtime vs. author
 
@@ -143,6 +148,11 @@ const handle = root.registerHost({
 });
 ```
 
+`createGlassRoot()` defaults to the CSS renderer (`options.renderer ?? "css"`,
+`packages/platform-web/src/root.ts`), so this root never asks for a GPU device; pass
+`createGlassRoot({ renderer: "webgpu" })` to request the GPU tier, without which the
+localhost-and-HTTPS caveat in §5 never applies.
+
 **API asymmetry not in any README:** React's `<GlassGroup hint={...}>` maps to the core
 descriptor field named `backdrop` (`packages/react/src/group.tsx:221`,
 `packages/core/src/scene.ts:199`). In plain JS pass
@@ -218,8 +228,12 @@ mount; reachable only with a custom `container` inside a rounded, clipping card.
 - **Layout is a 45/55 asymmetric split**: the narrative column scrolls, the instrument window is
   `position: fixed`, and all glass lives inside it.
 - **Sizing and grouping** (`Stage.tsx`): a three-step size sweep at 112 / 68 / 40 px short side,
-  radii 26 / 18 / 12, one shared thickness of 8; three separate sampling groups at 4rem gaps,
-  past the 48px two 24px `samplingPadding` defaults require.
+  radii 26 / 18 / 12, one shared thickness of 8; three separate sampling groups at 4rem gaps.
+  The floor is not a fixed 48px: the runtime derives each group's `samplingPadding` from the
+  blur it resolved (≥ 3σ), so it moves with surface span, DPR, and reduced-transparency, and
+  the safe gap is at least the *larger* group's effective padding — under it, the proxy boxes
+  overlap and `backdrop-proxy.ts` reports `proxy-overlap-after-enforcement`. 4rem is this
+  demo's comfortable margin, not a rule.
 - **Its own hard don'ts:** no glass or `backdrop-filter` on page chrome; **no prose over glass** —
   a surface carries at most one short line or a real control's label, "the material never carries
   information"; no invented fidelity numbers; zero dev-mode diagnostics is part of done.

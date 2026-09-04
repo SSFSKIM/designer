@@ -120,6 +120,7 @@ Decide what the accent is *for* before deciding what color it is, and record the
 - **Status-only** — the accent appears where the system reports state, and actions are carried by neutrals, weight, and position instead.
 - **Directional** — the accent carries action, selection, and focus, and nothing else.
 - **Atmospheric** — the accent is the product's air: large fields, imagery, illustration, with actions differentiated some other way.
+- **None** — there is no accent hue: interaction is a monochrome language of weight, spacing, and hairlines, with a visible non-color focus treatment.
 
 A directional accent never doubles as warning, danger, or success. Once the same hue means both "press this" and "this failed", both meanings weaken, and the failure state is the one that loses.
 

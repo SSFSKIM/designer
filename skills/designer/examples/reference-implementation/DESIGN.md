@@ -16,6 +16,53 @@ audience is a producer under deadline pressure and calm legibility serves that
 better than high-contrast drama. If a decision is ever ambiguous, choose the
 more restrained option.
 
+**Axis position** — two constraints the brief fixed, seven coordinates chosen:
+
+- Density: **standard** — a producer reads and edits documents; a schedule is
+  a page, not a monitored feed.
+- Criticality: **transactional** — a wrong call time costs a morning, and a
+  reissue undoes it.
+- Energy: **composed** — the studio's own paperwork is considered and
+  typographic; the tool must not be louder than the work it tracks.
+- Type: **characterful serif** — criteria: moderate contrast and a text cut
+  that heads a page without shouting (Newsreader), tabular figures for
+  headings and metric values (Archivo), an open aperture at 14px for body and
+  controls (Manrope), a mono for codes, dates, and budgets (DM Mono).
+- Material model: **printed** — the artefacts are paper handed out on set, so
+  panels part by a hairline and a lightness step, and the one shadow token is
+  for floating menus and dialogs only.
+- Color commitment: **restrained** — chromatic surface stays under a tenth of
+  the page; the rest is ink on paper.
+- Accent job: **status-only** — the oxide clay marks delivery risk and time
+  pressure, the states a producer must see first; actions are carried by the
+  studio-green `primary`, which is a role of its own, not the accent. The clay
+  also draws the focus ring, recorded here as the one exception a status accent
+  is allowed: focus is an interaction state, not a claim about the content.
+- Ground lightness: **light** — daylight office and set use, read alongside
+  its own printed output.
+- Ground temperature: **warm** — `oklch(0.946 0.011 78)`, paper cream. It
+  lands in the cream band `references/taste-calibration.md` flags as a
+  saturated default, and it is here on a justification rather than a reflex:
+  the call sheet is the artefact being designed, not warmth borrowed for
+  atmosphere.
+
+**Rejected coordinate vector.** Brutalist-cinematic — dark, neutral, printed,
+mono-as-display, composed, restrained, directional. It fits the industry and
+loses to the user: a producer scanning budgets on deadline reads faster off
+paper, and the drama would be the tool's rather than the film's.
+
+**Rejected values.** Vermilion was weighed for the accent and lost to the
+oxide clay — at that chroma it reads as alarm beside the terracotta "At risk"
+badge, and the accent has to sit next to the status set without joining it. A
+cool neutral ground was weighed against the paper cream and lost: cool makes a
+call sheet look like a database, the one reading this product must avoid.
+
+**Signature element.** The call-sheet rule structure — hairline rules and mono
+eyebrow labels ruling every panel, the way a printed call sheet is ruled. The
+risk is spent there; nothing else lifts, glows, or gradients.
+
+**Sampler draw.** None recorded — this example predates the sampler record.
+
 ## 1. Palette, with usage rules
 
 - `background` / `foreground` — base canvas and primary ink. Nothing else is

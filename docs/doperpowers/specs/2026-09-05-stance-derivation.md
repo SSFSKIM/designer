@@ -115,7 +115,7 @@ lines in `DESIGN.md` §0 with the two constraints). Each has discrete, named run
 | **Energy** | coordinate | quiet / composed / lively / exuberant (no middle) | Stakes and the user's frame of mind, and what the brand can carry. Not "the brand is fun". | Accent chroma ceiling, heading-to-body contrast, size jumps, radius and shape language, illustration licence, motion amplitude and overshoot permission, copy enthusiasm ceiling. | Quiet: accent C ≤ 0.15, control radius ≤ 6px, no overshoot, at most one high-salience treatment per viewport. Lively and above: C up to 0.22, radius ≥ 10px or a declared shape language, at most **two** simultaneous expressive channels (chroma + shape, not chroma + huge type + spring + decorative shadow). Overshoot is a separate recorded yes/no. Energy sets a chroma *ceiling*; it never raises chroma by itself. |
 | **Type** | coordinate | a tradition (the 13 in `ingredients.json`) as the nominal value, plus **criteria** | Energy, the product's world, and what must be legible at what size. | Display, UI, and mono selection; family count; weight range; numerals; tracking; case. | The stance records *criteria* — x-height, terminals, width, weight range, tabular numerals, whether a display face is licensed — never a family name; families are chosen at derivation under `typography.md`'s derive-first / swap-one-slot rule. Family count by density (one plus mono at dense; two at standard; three only with a real data role). Display class sits inside energy (quiet: grotesque, humanist, geometric, slab, transitional; lively: any). Script and display faces never for body or UI. |
 | **Material model** | coordinate (categorical, with compatibility rules) | printed / tonal / elevated / glass over planes | Whether anything genuinely sits above changing content, whether the product's world has physical layers, whether the surface is a printed thing. | Border system, shadow tiers, surface stepping, radius tendency, texture, `backdrop-filter`/vitrea. | Printed: no shadow except a modal. Tonal: ≤ 3 surface steps, shadow only on floating UI. Elevated: ≤ 3–4 named tiers, floating UI only. Glass: floating control layer only, never nested, never in the content layer, opaque fallback. Not a slider: glass is not "more elevation". `references/material.md`. |
-| **Color commitment** | coordinate | restrained / committed / full palette / drenched | Whether color is the brand's carrier and what the surface is for. Already in `taste-calibration.md`. | Accent coverage, number of color roles, whether the ground may be chromatic. | Restrained ≤ 10% chromatic surface; committed 30–60%; full palette 3–4 roles each with a job; drenched only for hero and campaign moments. Chroma ceiling comes from energy, coverage from commitment. The **accent's job** (status-only / directional / atmospheric) is a recorded decision on its
+| **Color commitment** | coordinate | restrained / committed / full palette / drenched | Whether color is the brand's carrier and what the surface is for. Already in `taste-calibration.md`. | Accent coverage, number of color roles, whether the ground may be chromatic. | Restrained ≤ 10% chromatic surface; committed 30–60%; full palette 3–4 roles each with a job; drenched only for hero and campaign moments. Chroma ceiling comes from energy, coverage from commitment. The **accent's job** (none / status-only / directional / atmospheric) is a recorded decision on its
 own line, not a sampled axis: exactly one primary job, and a directional accent never doubles as danger, warning, or success. |
 | **Ground** | coordinate, recorded as two lines (ground temperature, ground lightness) | temperature: warm / neutral / cool / brand-tinted × lightness: light / dark | Temperature from the product's material world. Lightness from the physical-scene sentence — never from energy or criticality (dark reads heavy and dominant, not sober). Both modes are derivable from one role set. | Neutral ramp hue, background lightness, border and shadow tint, dark-mode derivation. | All neutrals in one hue family within ±20°, C ≤ 0.02 (≤ 0.04 brand-tinted). A cream-band ground (L 0.84–0.97, C < 0.06, h 40–100) needs a named justification; warm at dark or mid-tone is first-class. Dark: elevation by lighter surfaces, shadows demoted to overlays, accent L ≥ 0.62. |
 
@@ -397,6 +397,28 @@ only to a human viewing the grid; this is a first-class step, not a nicety.
   a QA finding. That is a contract change for the plugin's users.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: First external review round (2026-09-05, Codex `gpt-5.6-sol` at xhigh over
+  ac06488) — eight findings, all confirmed, all fixed in one wave. (1) The derivation step
+  overrode the existing-design-system and persona routes; both branches now say what the nine
+  lines record. (2) "Same axis position is expected" froze the seven chosen coordinates and
+  contradicted `stances.md` and eval 8; the clone check everywhere now reads *same constraints
+  expected, same coordinates plausible, same values the tell*, and eval 8 no longer demands a
+  coordinate to differ (forcing divergence over fit is the research's risk 7). (3) The
+  `DESIGN.md` skeleton omitted the rejected coordinate vector and the routed examples were v1
+  records; the skeleton now requires it, `reference-implementation/DESIGN.md` is rewritten in
+  the v2 shape, and the two Figma transcripts carry a banner saying they predate the record.
+  (4) Three library rows (bauhaus, luxury-fashion, deco) could not be expressed in the
+  accent-job enum; the axis gains a `none` rung (a monochrome interaction language with a
+  visible non-color focus) and every row maps to one job. (5)–(7) Three vitrea facts were
+  wrong against 0.6.0: group spacing is at least the larger group's *effective* sampling
+  padding (derived from the resolved blur), not the sum of two 24px defaults; `GlassGroupState`
+  carries an optional `cssBody: "two-layer" | "collapsed"`; and `createGlassRoot()` defaults to
+  the CSS renderer, so the vanilla path must pass `{ renderer: "webgpu" }` to reach the GPU
+  tier. (8) `SKILL.md` frontmatter still said 1.1.0.
+  Rationale: none of the eight was minor enough to log as debt — each would have produced a
+  wrong `DESIGN.md` record or a wrong statement about the runtime in shipped builds.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The persona layer had already found and fixed this exact defect class in July.
@@ -465,3 +487,4 @@ Pending — written at finish.
   model, color commitment, ground) replace the six-axis draft; compatibility rules, the two-vector
   candidate step, ingredients-as-bounded-mutations, and the Deferred section added; the OKLCH
   catalogue finding and the parallel-session discovery recorded.
+- 2026-09-05 (third revision): accent job gains a `none` rung; first external review round recorded with its eight fixes.
