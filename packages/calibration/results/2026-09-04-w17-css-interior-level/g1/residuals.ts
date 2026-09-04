@@ -43,7 +43,6 @@ import { fileURLToPath } from "node:url";
 
 import {
   cssTierDeclarations,
-  cssTierTintTransfer,
   innerShadowedSourceOptics,
   interiorBandLight,
   interiorShadowKeep,
@@ -155,6 +154,14 @@ interface Probe {
 }
 
 const PROBES: Probe[] = [
+  // The `toolbar-group` scenes' first capsule — a 46 x 46 box, so a circle, and the cell whose
+  // level residual W17 G1's re-form leaves outside 0.005 (Decision Log 5's bounded diagnosis).
+  {
+    cell: "checkerboard__toolbar-group__rest",
+    geometry: { widthCssPx: 46, heightCssPx: 46, radiusCssPx: 22, thicknessCssPx: 8 },
+    originCssPx: [82, 78],
+    heavyEffective: { "1": { nominal: 10, effective: 13.8 }, "2": { nominal: 6, effective: 8.9 } },
+  },
   {
     cell: "checkerboard__rrect-md__rest",
     geometry: { widthCssPx: 162, heightCssPx: 98, radiusCssPx: 20, thicknessCssPx: 8 },
@@ -245,16 +252,17 @@ for (const scale of [1, 2] as const) {
     const body = render.body;
     const ramp = body.ramp as CssTierRamp | undefined;
     const interior = interiorOf(probe);
-    const transfer = cssTierTintTransfer({
-      tintAlpha: interior.alpha,
-      tint: [interior.tint, interior.tint, interior.tint],
-      addedLight: interior.band,
-    });
+    // The re-form's affine stand-in: the residuals below are about the BODY's own
+    // arithmetic — the encoded mix under the mask and the kernel's truncation —
+    // and both are read through the same per-pixel map, so the exact remainder's
+    // table is not what they need. `A(b)` here is the composite the tier aims at.
+    const affineSlope = 1 - interior.alpha;
+    const affineIntercept = interior.alpha * interior.tint + interior.band;
 
     const sharp = blur(plane, png.width, png.height, body.sharpSigmaCssPx * scale);
     const heavy = blur(sharp, png.width, png.height, body.heavyStepSigmaCssPx * scale);
     // The same two widths without the tint, for the untinted mix W16 carried.
-    const affine = (b: number): number => transfer.slope * b + transfer.intercept[1]!;
+    const affine = (b: number): number => affineSlope * b + affineIntercept;
 
     const left = Math.round(probe.originCssPx[0] * scale);
     const top = Math.round(probe.originCssPx[1] * scale);
@@ -300,8 +308,49 @@ for (const scale of [1, 2] as const) {
       sharpSigmaCssPx: body.sharpSigmaCssPx,
       heavyStepSigmaCssPx: body.heavyStepSigmaCssPx,
       heavySigmaCssPx: body.heavySigmaCssPx,
-      transfer: { slope: transfer.slope, intercept: transfer.intercept[1] },
+      transfer: { slope: affineSlope, intercept: affineIntercept },
       interior,
+      // The kernel's truncation at the ELEMENT's own boundary — the third model, and the one the
+      // toolbar cells needed (Decision Log 5). A `backdrop-filter`'s input is the snapshot behind
+      // the element's border box and nothing wider, so a kernel whose support reaches past that box
+      // is sampling outside its own input whatever the filter's region says. This term is the
+      // difference between blurring the page unbounded and blurring only the box, edge-padded,
+      // which is what an engine has to do with the input it has.
+      truncation: (() => {
+        const boxLeft = left;
+        const boxTop = top;
+        const clipped = new Float64Array(plane.length);
+        for (let y = 0; y < png.height; y += 1) {
+          for (let x = 0; x < png.width; x += 1) {
+            const cx = Math.min(boxLeft + width - 1, Math.max(boxLeft, x));
+            const cy = Math.min(boxTop + height - 1, Math.max(boxTop, y));
+            clipped[y * png.width + x] = plane[cy * png.width + cx] ?? 0;
+          }
+        }
+        const cSharp = blur(clipped, png.width, png.height, body.sharpSigmaCssPx * scale);
+        const cHeavy = blur(cSharp, png.width, png.height, body.heavyStepSigmaCssPx * scale);
+        let free = 0;
+        let bound = 0;
+        let n = 0;
+        for (let y = 0; y < height; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const index = (top + y) * png.width + (left + x);
+            const depth = roundedRectDepth(
+              x + 0.5 - width / 2,
+              y + 0.5 - height / 2,
+              width / 2,
+              height / 2,
+              probe.geometry.radiusCssPx * scale,
+            );
+            if (depth < 0) continue;
+            const m = ramp === undefined ? body.flatShare : clamp01(maskShareAt(depth, ramp));
+            free += affine((1 - m) * (sharp[index] ?? 0) + m * (heavy[index] ?? 0));
+            bound += affine((1 - m) * (cSharp[index] ?? 0) + m * (cHeavy[index] ?? 0));
+            n += 1;
+          }
+        }
+        return { unbounded: free / n, boxOnly: bound / n, shift: bound / n - free / n };
+      })(),
       maskMix: {
         pixels: count,
         tieredMean: tiered / count,

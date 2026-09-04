@@ -138,6 +138,19 @@ def note(text):
     print(f"  note: {text}")
 
 
+def tint_form(profile, scene):
+    """Which tint form the group drew, off the capture's own report (Decision Log 4 (c)).
+
+    The matrix's cell carries the measured axes and not the resolved state, so the form is read
+    where the runtime wrote it — the same place `cssBody` is read from.
+    """
+    path = os.path.join(args.captures, profile, scene, "report__css.json")
+    if not os.path.exists(path):
+        return "—"
+    groups = json.load(open(path))["page"].get("groups") or []
+    return (groups[0]["state"].get("cssTint") if groups else None) or "—"
+
+
 def rows(prof, renderer="css"):
     keys = sorted(k for k in bed if k[0] == prof and k[1] == renderer)
     return [(k, bed[k], dry.get(k)) for k in keys]
@@ -198,6 +211,7 @@ for prof in ALL:
             print(f"  {scene:44s} not captured ({b['fixtureSet']})")
             continue
         gpu = dry.get((prof, "webgpu", scene))
+        form = tint_form(prof, scene)
         pinned = FLOORS.get((prof, scene))
         bound = f"floor {pinned[1]:.4f}" if pinned else f"≥ {sb}"
         s0, s1 = v(b, "perceptual", "ssimMean"), v(d, "perceptual", "ssimMean")
@@ -205,7 +219,7 @@ for prof in ALL:
         ok = s1 is not None and s1 >= limit
         m1, g1 = v(d, "material", "interiorMeanWeb"), v(gpu, "material", "interiorMeanWeb")
         print(
-            f"  {scene:44s} {b['fixtureSet'][:4]} {f(s0)}→{f(s1)} {sd(s1, s0)} | {bound:14s} {'ok ' if ok else 'MISS'} | "
+            f"  {scene:44s} {b['fixtureSet'][:4]} {form[:3]} {f(s0)}→{f(s1)} {sd(s1, s0)} | {bound:14s} {'ok ' if ok else 'MISS'} | "
             f"{sd(v(d, 'perceptual', 'ssimBand'), v(b, 'perceptual', 'ssimBand'))} | "
             f"{f(v(b, 'perceptual', 'oklabDeltaEMean'))}→{f(v(d, 'perceptual', 'oklabDeltaEMean'))} | "
             f"{f(v(b, 'material', 'interiorMeanWeb'))}→{f(m1)} / {f(g1)} / {f(v(d, 'material', 'interiorMeanNative'))} | "
@@ -232,9 +246,17 @@ for prof in ALL:
                 v(gpu, "material", "interiorStdDevWeb"),
                 v(d, "material", "interiorStdDevNative"),
             )
-            if sw is not None and sg is not None:
-                stop("S3", abs(sw - sg) <= 0.005, f"{scene} @ {prof[16:]} spread {sw - sg:+.4f} from the GPU tier's")
-            if sw is not None and sn is not None:
+            # S3 is ONE-SIDED since Decision Log 4 (d): it fires only where the tier's spread is
+            # FARTHER from native than the renderer's by more than 0.005. A tier whose spread sits
+            # above the renderer's because it is nearer native is a recorded finding, not a miss.
+            if sw is not None and sg is not None and sn is not None:
+                stop(
+                    "S3",
+                    abs(sw - sn) - abs(sg - sn) <= 0.005,
+                    f"{scene} @ {prof[16:]} spread {sw - sn:+.4f} from native against the "
+                    f"renderer's {sg - sn:+.4f} — farther by {abs(sw - sn) - abs(sg - sn):+.4f}",
+                )
+            if sw is not None and sn is not None and sg is not None:
                 tol = 0.01 if prof == L1 else 0.015
                 if abs(sw - sn) > tol:
                     note(
@@ -251,7 +273,9 @@ for prof in ALL:
                 stop("S5", abs(m1 - g1) <= 0.01, f"{scene} @ {prof[16:]} level {m1 - g1:+.4f} from the GPU tier's")
             x0, x1 = v(b, "coherence", "crossTierOklabDeltaEMean"), v(d, "coherence", "crossTierOklabDeltaEMean")
             if x0 is not None and x1 is not None:
-                stop("S5", x1 <= x0 + 1e-9, f"{scene} @ {prof[16:]} cross-tier ΔE rose {x1 - x0:+.5f}")
+                # A tolerance rather than a strict comparison: the axis is reported to five
+                # decimals and a "rise" of +0.00000 is the print, not the measurement.
+                stop("S5", x1 <= x0 + 1e-4, f"{scene} @ {prof[16:]} cross-tier ΔE rose {x1 - x0:+.5f}")
             if s1 is not None:
                 stop("S5", s1 >= limit, f"{scene} @ {prof[16:]} ssimMean {s1:.4f} below {limit:.4f}")
         if tinted:

@@ -190,20 +190,99 @@ have to be repeated — which is the exact expenditure X8 exists to prevent. The
 left for the parent to authorise once the configuration is settled, and every holdout row above is
 marked "not read" rather than estimated.
 
-## 4. The suites
+## 3b. Configuration 3 — the re-form, whole bed
+
+`cfg3-calval.verify.txt`, `cfg3.gate.txt`, `dry-tables.md`, `cost/cost-table.md`,
+`toolbar-residual.md`. Decision Log 4's (a) and (c) with Decision Log 5's floor; (b) withdrawn
+and its sweep kept as `region-sweep.md`.
+
+**S1 met.** 85 GPU captures byte-identical to the W16 bed, worst GPU row |Δ| **0.000000** — the
+sixth whole-bed run in a row where contract X3 holds exactly.
+
+**S4 met on every light cell except the two `toolbar-group` scenes**, which are the named carry:
+
+| cell | dpr | form | bed CSS−GPU | cfg3 CSS−GPU |
+| --- | --- | --- | --- | --- |
+| `checkerboard__rrect-sm` | 1x / 2x | linear | +0.0237 / +0.0158 | **+0.0032 / +0.0078** |
+| `checkerboard__capsule-button` | 1x / 2x | linear | +0.0269 / +0.0310 | **−0.0005 / +0.0095** |
+| `checkerboard__rrect-md` | 1x / 2x | linear | +0.0473 / +0.0578 | **+0.0010 / +0.0034** |
+| `checkerboard__rrect-ml` | 1x / 2x | linear | +0.0500 / +0.0638 | **−0.0003 / +0.0039** |
+| `checkerboard__toolbar-group` | 1x / 2x | linear | +0.0186 / +0.0241 | −0.0122 / −0.0040 |
+| `photo__rrect-md` | 1x | linear | +0.0562 | **−0.0048** |
+| `photo__rrect-ml` | 1x | linear | +0.0572 | **−0.0051** |
+| `photo__toolbar-group` | 1x / 2x | linear | +0.0467 / +0.0475 | −0.0150 / −0.0101 |
+| `light-solid__rrect-md` | 1x | linear | +0.0254 | **+0.0007** |
+| `dark-solid__rrect-md` | 1x / 2x | linear | +0.0014 / +0.0003 | **+0.0045 / +0.0046** |
+| `impulse__capsule-button` | 1x / 2x | **encoded** | +0.0000 | **−0.0000** |
+| `dark-solid__rrect-md` (dark) | 1x / 2x | **encoded** | −0.0795 / −0.1155 | −0.0795 / −0.1155 |
+
+`ssimMean` rises on every light checkerboard row (+0.0019 to +0.0165 at 1x) and no held floor's
+row falls below its pin. `ssimBand` rises on the 1x checkerboards by +0.0191 to +0.0590.
+
+**S3, one-sided (Decision Log 4 (d)): one cell.** `checkerboard__rrect-ml` at 2x is 0.0081 from
+native where the renderer is 0.0025 — farther by **+0.0055**, over the 0.005 clause by 0.0005.
+Every other calibration span is inside. The as-written reading against native fires on one cell
+too, `checkerboard__rrect-md` at 1x, −0.0117 against a ±0.01 band with the renderer at −0.0080;
+both readings are printed on every row.
+
+**S5, against the renderer.** Every solid and tinted cell lands within 0.01 of the GPU tier. The
+half-strength tinted cell, `photo__capsule-button__rest-tint-orange-half`, moves −0.0237 against a
+prediction of `(1 − s)` of its untinted base's change and lands **−0.0011** from the GPU tier; the
+full-strength tinted cells move by ≤ 0.0023, as `(1 − s) = 0` requires. Three small rises fire it:
+`dark-solid__rrect-md`'s cross-tier ΔE by +0.0006 / +0.0007 at the two light scales, the
+half-strength tinted cell's by +0.0010, and `dark-solid__rrect-md` in the DARK scheme reading
+−0.0795 / −0.1155 from the GPU tier — that last cell **did not move at all** (0.1310 → 0.1310), it
+takes the encoded form, and the distance is the renderer's own dark-ground dot that Decision Log 2
+(e) rules out of this tier's account.
+
+**S6.** Cross-tier ΔE falls on both light-standard profiles (0.00721 → 0.00607, 0.00749 →
+0.00633) and on reduced transparency (0.00419 → 0.00389), is unchanged on both dark profiles
+(0.00406, 0.00414 — the encoded form), and **rises by +0.00012 on increased contrast** (0.00657 →
+0.00669), which fires the clause. The worst light-cell level ratio is **1.0241** on
+`photo__toolbar-group`, inside 0.97–1.03.
+
+**S7 met on its first cell.** `checkerboard__capsule-button__rest` under reduced transparency reads
+`areaWeb / componentRegion` **0.9961** with **one body** and conditions; its level is 0.9279
+against the GPU tier's 0.9333. Its second cell is a holdout and was not read.
+
+**S8 met.** `cost/cost-table.md`: the body alone and the body with the shipped 33-value table both
+hold the display's cadence to 32 surfaces and leave it by 40 at both scales, with single-count
+jitter of the kind W16 G0 and W17 G0 both recorded. The demo-page measurement Decision Log 4 (b)
+asked for belonged to its budget change; (b) is withdrawn, the budget and the area it is taken over
+are untouched, and there is nothing on the demo for it to catch.
+
+**The conditioning predicate (X6, `cfg3.gate.txt`).** One cell leaves —
+`checkerboard__capsule-button__rest` under reduced transparency, S7's recovery. **Three join**:
+`light-solid__rrect-ml__rest` at both light-standard scales (the named carry) and
+`light-solid__rrect-md__rest` at 2x. The mechanism is the same for all three: landing a light solid
+on the renderer's level puts it within 0.004 of its own background, which the luminance-delta
+extractor separates on the GPU tier only by the rim and lens this tier does not draw. The gate's
+remaining failures are the whole-bed count assertions, which cannot pass on a matrix without the
+holdout.
+
+## 4. The suites (configuration 3)
 
 | suite | result |
 | --- | --- |
 | `pnpm -r lint` | clean |
-| `pnpm -r test` (eight packages) | **1779 passed**, none failed |
+| `pnpm -r test` (eight packages) | **1785 passed**, none failed |
+| platform-web Playwright, `chromium` | **129 passed** — the contrast-floor test among them |
 | platform-web Playwright, `firefox` | **102 passed** |
 | platform-web Playwright, `webkit` | **102 passed** |
 | platform-web Playwright, `chromium-gpu` | **9 passed** |
-| platform-web Playwright, `chromium` | **124 passed, 5 failed** — see §2.5 |
 | `@vitreajs/vitrea-react` e2e (three engines) | **105 passed, 3 skipped** |
 
-The two engines that keep the `rgba()` overlay are green, which is contract X9's own statement:
-the form this wave changes is behind the reference filter's conformance row and nothing outside it
-moved. The five Chromium failures are §2.5's, and three of the five are re-pointing work held back
-deliberately.
+Every project green. The doctrine's own pixel test — "stays legible with the blur removed — the
+tint carries the contrast" — passes without being loosened, which is Decision Log 4 (a)'s
+acceptance. The three pins that recompute the tier's law are re-pointed for the ordering fix with
+the reason in each.
 
+## 5. The holdout, still unspent
+
+Contract X8 spends the holdout once per frozen configuration. Decision Log 5's condition for
+freezing was that nothing fire beyond the carries already named, and four things do: S3's one cell
+at +0.0055 against a 0.005 clause, S5's three cross-tier ΔE rises of +0.0006 to +0.0010, S6's
++0.00012 on increased contrast, and the predicate's third entry (`light-solid__rrect-md` at 2x
+beside the named `rrect-ml` pair). Every one of them is at or under 0.001 except S3's 0.0005
+exceedance, and none is a mechanism this run did not already explain — but the condition as written
+is not met, so the reading is left for the parent rather than taken.
