@@ -380,6 +380,27 @@ G0 → G1 → G2 → recomposition. Nothing lands before G2's referee.
   today; with an intercept beneath them the fold's algebra changes. This wave
   keeps the tinted cells within 0.002 (S5) and does not re-derive the fold; if
   S5 fires, the fold is G1's to re-derive with its reason.
+- **The union-contour residual (from G1; claims §5.75 §7, §5.76 §7).** The two
+  `toolbar-group` scenes and `photo__glass-over-glass` read −0.010…−0.015 against the
+  GPU tier where every single-contour cell lands within 0.01: a broad interior offset at
+  every depth with a bright contour band, a third of it the form's derived residuals, the
+  same capsule alone at −0.0005. Next measurement: a native fixture of a lone 46 px
+  capsule against the three-up arrangement, then the union contour's terms. Its own
+  charter.
+- **The shape axis's four cells and the fold's second cell.** `light-solid__rrect-md`
+  (2x), `light-solid__rrect-ml` (both light scales) and `hc-text__capsule-button` (2x) in
+  `PREDICATE_EXCLUDES` at the renderer's level over a near-tone backdrop;
+  `hc-text__capsule-button` under reduced transparency at 0.9310 against 0.95. The
+  extractor's reach, not the material's: a second arm (the rim's structure, or the GPU
+  capture's silhouette as a prior) is an instrument item.
+- **The darks on the encoded form** by the declared boundary — the dark scheme within
+  0.011 of the GPU tier as it was; the eight-bit linear chain's quantum (thirteen encoded
+  codes at the bottom) the reason; closes only with a higher-precision filter
+  intermediate the platform does not offer.
+- The three holdout cells 0.001–0.003 past the level clause, S3's `rrect-ml` 2x by
+  0.0005, increased contrast's ΔE +0.00012; the plain-`blur()` engines' level (E's with
+  the ordering fix, its anchor kept on W16 G1's measurement); the CSS tier's frame timing
+  (one cell by 1 code at this rebuild; the tracker).
 
 ## Tracking Map
 
@@ -387,7 +408,7 @@ G0 → G1 → G2 → recomposition. Nothing lands before G2's referee.
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g0/g0-interior-level.md` (`654ad0e`), claims §5.74 | CLOSED 2026-09-04 — the four terms 0.0026–0.0106, superposing within 0.0008 and derived within 0.006; the mirror's ordering defect (+0.015…+0.027) and the inner shadow found; the chartered carrier clips and is a point condition; four `[parent-impact]` items reconciled in Decision Log 2 |
 | G1 | branch `w17-g1-level` at `033ea6b` (seven commits: the ordering fix and the inner shadow, the transfer, X6 and X7, the probe pre-check, configurations 1–2, the re-form, configuration 3, the holdout; `g1/g1-dry-run.md`, the verify and gate outputs, `toolbar-residual.md`, `region-sweep.md`, `cost/`, the sheets); claims §5.75 | COMPLETE 2026-09-05 — DECLARED in claims §5.75; Decision Log 7 executed by the user: land as declared |
-| G2 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g2/` | OPENED 2026-09-05 — the merge, the canonical rebuild once from the main checkout, the floors, the predicate list, the coherence wording, the sheets, the changeset, recomposition |
+| G2 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g2/` (`g2-landing.md`, `g2-rebuild.sh`, `g2-runs.txt`, `g2-verify.py`, `g2-verify.txt`), `sheets/g2-1x.png`, `g2-2x.png`; claims §5.76; `.changeset/css-interior-level.md` | COMPLETE 2026-09-05 — merge `6c97c3a`, the canonical bed rebuilt once (230 cells; the GPU tier byte-identical 115 / 115, the CSS tier the frozen configuration's within 0.00005); six floors ratcheted and one kept (`UNMET_ROWS` 7); the predicate list 30 → 33 by one mechanism; the coherence statement narrowed in `optics.ts` (q4); every suite green; the sheets the dry run's panels; **RECOMPOSED** in claims §5.76 §5 |
 
 ## Decision Log
 
@@ -830,7 +851,39 @@ the sheets, the changeset, recomposition.
 
 ## Outcomes & Retrospective
 
-(open)
+**RECOMPOSED 2026-09-05** (claims §5.76 §5, clause by clause). The CSS tier draws the
+renderer's interior composite: its mirror computes the alpha in the shader's order and carries
+the inner shadow; on Chromium the tint's lerp runs inside the sharp layer's linear-light filter
+as a per-channel table over the least tint the tier draws, exact per pixel with no solve and no
+fitted constant, the mapping's declared anchor no longer read on that path; groups whose
+composite sits below the eight-bit linear chain's quantum draw the encoded overlay and say so on
+their state. On the canonical bed the interior level is within 0.01 of the GPU tier's on every
+light calibration cell but the two union-contour scenes (from +0.02…+0.06 over), similarity
+rises on every light checkerboard row, six held floors ratchet up and none moves down, the
+cross-tier ΔE falls on the fitted profiles, the reduced-transparency capsule conditions again,
+and the GPU tier is byte-identical on every capture.
+
+**What did not close, by name.** The union-contour residual (−0.010…−0.015 on three cells,
+tracking the box and not the span); four cells the shape axis can no longer condition and the
+fold's second capsule cell at 0.931 against 0.95, the extractor's reach on a surface at the
+renderer's level; three holdout cells 0.001–0.003 past the level clause, one spread cell by
+0.0005, one profile's ΔE by 0.00012; the dark scheme on the encoded form by the declared
+boundary; the plain-`blur()` engines' level; the renderer's own gaps, not imported.
+
+**Retrospective.** The charter was written on an inference from W16's numbers — that the
+renderer's light was the gap — and the spike it chartered measured that inference to a
+hundredth of the level and found the gap in the tier's own composite instead: an ordering
+defect no coherence pin had reached, and a conversion that could not be exact at one level. The
+design was re-decided twice on measurement (Decision Logs 2 and 4) and once withdrawn on it
+(Decision Log 5, the filter region), and each ruling that survived is one whose rival was
+measured beside it: the floor's size, the table over the affine, the boundary for the darks.
+The stops were re-declared twice in the open (Decision Logs 3 and 4) when the wave's binding
+target and the inherited stops disagreed, with both readings kept in every table. The worker's
+two refusals — not to spend the holdout on an unfrozen form, not to ship a constant its sweep
+showed inert — were the discipline working from below. Process: one worker for G0 and one for G1
+through three configurations; the parent's rulings were wrong once on a mechanism and right on
+the form; the referee ran the landing's test file against every scratch matrix (X6, W16's
+lesson), and the landing found nothing the dry run had not.
 
 ## Revision Notes
 
@@ -870,3 +923,10 @@ the sheets, the changeset, recomposition.
   and two holdout cells; S5 on two holdout cells and three ΔE rises; S6 by 0.00012 on one
   profile; S7 one of two. Decision Log 7 puts the landing to the user (recommended: as declared).
 - 2026-09-05: **Decision Log 7 executed** — the user landed the declaration as it stood (option 1). G1 COMPLETE, G2 opened.
+- 2026-09-05: **G2 COMPLETE, the wave RECOMPOSED** (claims §5.76). Merge `6c97c3a`; the canonical
+  bed rebuilt once; the GPU tier byte-identical 115 / 115; the CSS tier the frozen configuration's
+  within 0.00005; six floors up, one kept; the predicate list 30 → 33 by one mechanism; the
+  coherence statement narrowed to the engines it still describes; every suite green; the sheets
+  the dry run's panels with the banner corrected. Outcomes & Retrospective written; the
+  union-contour residual, the shape axis's cells, the darks' boundary and the margin misses
+  carried.

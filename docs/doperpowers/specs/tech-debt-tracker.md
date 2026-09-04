@@ -451,7 +451,8 @@ identical build reproduces every row to the fifth decimal and every capture byte
 a few 2x cells over a flat or photo backdrop, which differ by 1–2 codes with alpha untouched:
 `light-solid__rrect-md__rest` at W15 (2 codes, 9 853 px); `light-solid__capsule-button__rest`
 (473 px) and `photo__capsule-button__rest-tint-blue` (1 203 px) at W16, 1 code each, with no
-row moving past 0.000008. The GPU tier reproduces 115 / 115 every time. The tier's capture is a
+row moving past 0.000008; `photo__toolbar-group__rest` under increased contrast at W17's
+landing (96 px, 1 code, no row past 0.00005). The GPU tier reproduces 115 / 115 every time. The tier's capture is a
 Playwright element screenshot of a page whose `backdrop-filter` layers the compositor rasterises
 on its own cadence, so the shot lands on one of two frames that differ by rounding — the
 harness's, not the tier's. Shape of the work: settle the page (two animation frames after the

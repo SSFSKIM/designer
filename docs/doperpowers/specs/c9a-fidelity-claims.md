@@ -10812,3 +10812,106 @@ up, lowers the cross-tier ΔE on the fitted profiles, recovers one of the fold's
 leaves the shape axis four cells it cannot condition and the renderer's own gaps where they are.
 Three landings are declared in the Decision Log: as declared; held for the union-contour
 residual; or the ordering fix alone.
+
+### 5.76 W17 G2 LANDED and RECOMPOSED: the CSS tier's interior on the renderer's across the canonical bed — six floors up, the shape axis paying four cells, the union-contour residual and the darks' boundary carried by name (2026-09-05)
+
+**1. The landing.** W17 Decision Log 7, the user's: "land as declared" (option 1). Recorded at
+`03bbbd4`; merge `6c97c3a` (`w17-g1-level` at `033ea6b`); the canonical rebuild once from the
+main checkout (`results/2026-09-04-w17-css-interior-level/g2/g2-rebuild.sh`, twelve runs
+01:14:58–01:19:45, every exit 0, 230 cells and 230 captures; `g2-runs.txt`). Read against the
+W16 bed and G1's frozen configuration 3 (`g2-verify.py`, `g2-verify.txt`): **the GPU tier
+byte-identical on 115 / 115 captures with every row exact (contract X3 on the canonical bed, the
+seventh whole-bed run in a row); the CSS tier within 0.000048 of the frozen configuration on
+every row, 114 / 115 captures byte-identical** — the one that differs is
+`photo__toolbar-group__rest` under increased contrast by 1 code on 96 px with alpha untouched,
+the tier's frame timing (the tracker's entry, its third wave). The holdout's CSS rows were read
+once on the frozen configuration at G1 (X8, Decision Log 6); the rebuild reproduced them. The
+form each group drew is in the capture's `report__css.json` (`"cssTint"`), not the matrix schema.
+
+**2. The floors** (`test/adopted-thresholds.test.ts`; `ssimMean`, CSS tier, checkerboard; every
+floor one `FLOOR_EPSILON` under its reading, truncated):
+
+| cell | dpr | W16 bed | landed | floor was → is |
+| --- | --- | --- | --- | --- |
+| `rrect-md` | 1x | 0.90284 | **0.91218** | no floor since W16; ≥ 0.90 met |
+| `rrect-md` | 2x | 0.91489 | 0.91529 | 0.9138 → 0.9142 |
+| `rrect-ml` | 1x | 0.85925 | **0.87574** | 0.8582 → 0.8747 |
+| `rrect-ml` | 2x | 0.87829 | 0.87892 | 0.8772 → 0.8779 |
+| `glass-over-glass` | 1x | 0.85286 | **0.86095** | 0.8518 → 0.8599 |
+| `glass-over-glass` | 2x | 0.86832 | 0.86809 | 0.8677 kept |
+| `rrect-lg` | 1x | 0.85126 | **0.87021** | 0.8502 → 0.8692 |
+| `rrect-lg` | 2x | 0.87089 | 0.87222 | 0.8698 → 0.8712 |
+
+Six floors ratchet up, one is kept, none moves down; `UNMET_ROWS` stays **7** — the seven are
+the only dom rows under any adopted bound and all seven are the large spans against the rim
+band the tier has no lens to draw. Every 1x large span rose 0.008–0.019 with its interior on
+the renderer's level.
+
+**3. The predicate.** `PREDICATE_EXCLUDES` 30 → 33 lines, the machine's output: one row leaves
+(`checkerboard__capsule-button` under reduced transparency, its fold recovering 0.9961 with one
+body — the loss W16 §5.73 §3 recorded, closed) and four join (`light-solid__rrect-md` at 2x,
+`light-solid__rrect-ml` at both light scales, `hc-text__capsule-button` at 2x), all `areaWeb`,
+one mechanism: a surface at the renderer's level sits within 0.004 of its own background and
+the luminance-delta extractor separates the GPU tier there only by the rim and lens this tier
+does not draw. Coherence with the renderer costs the instrument what the renderer keeps; the
+four still gate on every perceptual row. Calibration suite 261 passed.
+
+**4. The stops at the landing** — as at G1 (§5.75 §3), re-read on the canonical bed: S1, S2 and
+S8 met; S3 by 0.0005 on one cell; S4 on the two `toolbar-group` scenes, `photo__glass-over-glass`
+and `hc-text__capsule-button` at 2x; S5 on two holdout cells by 0.001–0.003 and three ΔE rises
+of 0.0006–0.0010; S6 by +0.00012 on increased contrast; S7 one of two. S9 is Decision Log 7: the
+landing sheets' panels are pixel-identical to the dry run's the user read (the only differing
+pixels are the corrected banner's rows).
+
+**5. Recomposition against the parent-level acceptance**, clause by clause. *The excess is
+measured, attributed and derived:* met at G0 (§5.74) — the four terms superpose within 0.0008,
+the analytic model within 0.005 in the shader's order, the closed form within 0.006 — and the
+premise corrected: the terms are 0.0026–0.0106 of the level, and the rest was the tier's own
+composite. *The tier lands on the renderer's level:* met on every light calibration cell but
+the two `toolbar-group` scenes and on the reduced-transparency and increased-contrast cells;
+**missed** on the two union-contour families (`toolbar-group`, `photo__glass-over-glass`,
+−0.010…−0.015) and on three holdout cells by 0.001–0.003; the dark and solid cells move ≤ 0.005
+or not at all; the level ratio inside 0.97–1.03 on every light calibration cell (worst 1.0241),
+one holdout tinted cell at 0.9678; the cross-tier ΔE falls on the fitted profiles and reduced
+transparency, rises +0.00012 on increased contrast, and is unchanged on the dark scheme.
+*The slope survives:* within ±0.015 of native on every 2x calibration span (W16's carried
+`rrect-ml` miss closed at 0.0081) and within ±0.01 at 1x on every span but `rrect-md`
+(−0.0117, the renderer itself at −0.0080); one-sided against the renderer, one cell by 0.0005.
+*The structure does not pay:* met — no row below its bound or floor, the seven held rows up or
+inside their epsilon, no 1x row below the W16 bed. *The fold recovers:* **one of two** — the
+checkerboard capsule conditions again, the `hc-text` capsule reads 0.9310 against 0.95 with its
+level improved 0.9628 → 0.9478 against the renderer's 0.9412. *The GPU tier does not move:* met,
+115 / 115; the solids and tinted cells re-read against the renderer (Decision Log 3) and within
+0.01 but the two holdout cells. *The cost:* met, the knee unmoved with the 33-value table.
+*Chromium measured, the other engines keep the one-alpha conversion:* met, its anchor's
+retention measured and recorded. *By eye:* the sheets sent and read, the decision the reading.
+*Suites green, lint clean, the matrix rebuilt once, the holdout once, every gap named:* met — lint clean, 1 784 unit tests, platform-web Playwright 342 on four projects, react e2e 105 with 3 skipped, demo 34 after one pin re-pointed with its reason (the 40 px plate's declared white reads 254 once the inner shadow's keep folds into the pair per surface), the matrix rebuilt once, the holdout read once on the frozen configuration, every gap in §7, the wave's Deferred or the tracker.
+**The wave closes with its purpose met on every light calibration cell but the union-contour
+pair, two clauses missed at their margin and one at the instrument's reach, each named.**
+
+**6. What the wave taught.** (i) A difference is not a cause: W16's 0.023–0.058 "excess" was the
+tier's composite against a wrong model and a point condition, and the renderer's terms were a
+hundredth of it — the spike existed to find that. (ii) The mirror's ordering was a
+two-tiers-one-profile defect worth 0.015–0.027 that the coherence pin could not see because it
+pinned constants and not the composite; X7 pins the composite now. (iii) A conversion solved at
+one level cannot match a mean over a bimodal backdrop; the exact form is per pixel — the lerp
+inside the linear-light filter as a table, with no degree of freedom to solve. (iv) The
+linear-light chain is eight bits in linear light with a bottom quantum of thirteen encoded
+codes; the darks take a declared boundary. (v) The contrast floor's size is a mechanism — the
+filter's remainder is amplified by `1 / (1 − α₃)` — and the doctrine's floor is the least real
+tint, not the group's own. (vi) A `<filter>` element's region is inert on a `backdrop-filter`;
+a parent's inference about a mechanism is a ruling only after the measurement that separates it
+from its rivals. (vii) Coherence with the renderer costs the shape axis the cells the renderer
+keeps only by drawing what this tier cannot.
+
+**7. Gaps carried (each with its shape).** The union-contour residual on the `toolbar-group`
+scenes and `photo__glass-over-glass` (−0.010…−0.015; the same capsule alone −0.0005; a native
+fixture of a lone capsule against the three-up arrangement is the next measurement — its own
+charter). The shape axis's four cells and the fold's second cell (the extractor's reach on a
+surface at the renderer's level over a near-tone backdrop; a second arm for the extractor, an
+instrument item). Three holdout cells 0.001–0.003 past the level clause, S3's cell by 0.0005,
+increased contrast's ΔE +0.00012. The dark scheme on the encoded form (within 0.011 of the GPU
+tier, the eight-bit linear chain's quantum the reason; closes only with a higher-precision
+intermediate the platform does not offer). The plain-`blur()` engines' level. The CSS tier's
+frame timing (the tracker). The renderer's own gaps — the thin spans' level and the dark-ground
+dot — not imported, where they were.
