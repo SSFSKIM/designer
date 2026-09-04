@@ -284,7 +284,7 @@ re-export policy's type as the identity it already is and confirm the two
 resolve to one declaration in the emitted `.d.ts` — a build-output check, not a
 source change.
 
-## Ten `vitrea-web` chromium e2e cases fail at HEAD with nominal system settings
+## ~~Ten `vitrea-web` chromium e2e cases fail at HEAD with nominal system settings~~ — CLOSED 2026-09-04
 
 *Found 2026-09-03, during W11c G1's verification (the worker reproduced all ten
 by stashing the change; the seven padding/proxy cases were already failing in
@@ -313,6 +313,12 @@ both read 0, so this is not the entry above.
 
 The `chromium-gpu` project (nine cases) and the renderer's golden/gpu suites
 are green; these ten are the CSS-tier project only.
+
+**Closed 2026-09-04 (observed at the W16 landing).** The whole platform-web Playwright suite
+passes on the landed tree, four projects, 342 cases. The seven padding and proxy cases were
+re-derived from the resolved material at W13 G1's review (`8f00c0c`: the e2e helper reads the
+law like the tier), and the three pixel cases at `35a2311` (the suites read the W9 and W10 laws);
+neither commit closed this entry, so it is closed here on the green run.
 
 ## Texture placement, deferred edges (claims §5.47, 2026-09-03)
 
@@ -371,6 +377,15 @@ remaining fix is smaller than the one above — thread `window.devicePixelRatio`
 into `bodyLaw`'s projection and say in the readout that the mix is an average
 over the surface. Still a documentation gap and not a fidelity one.
 
+**Amended 2026-09-04 (W16 landing, claims §5.72 §1, §5.73 §7).** The sentence above about the
+CSS tier is superseded: the tier's two widths are device-pixel quantities through the live ratio
+at the renderer's effective kernel width (1.380× at dpr 1, 1.485× at dpr 2), so it no longer draws
+the printed 1x σ at every scale, and the GPU tier's 2x body has its own second-scale terms since
+W15. The readout is now short on both tiers by the device scale, and on the CSS tier by the
+effective-width ratio as well. The fix keeps its shape — thread `window.devicePixelRatio` into
+`bodyLaw`, show it, say the mix is an average over the surface — and gains one line for the
+CSS tier's ratio. Still a documentation gap.
+
 ## The CSS tier's reduced-transparency proxy spec is flaky on WebKit in CI
 
 *Found 2026-09-03, watching CI over the W13/W14 wave commits.*
@@ -419,3 +434,18 @@ Shape of the fix, if it is ever worth taking: publish in dependency order explic
 `@vitreajs/vitrea@0.5.0` at 23:04:47Z (registry `time`). Two cuts in a row make the order a
 property of the chain rather than of one evening; the fix above stays the shape, and the
 choice of taking it is still the user's.
+
+## The CSS tier's captures move by a code between runs on two 2x cells (W15 G2, W16 G2, 2026-09-04)
+
+*Found at W15's landing (one cell), confirmed at W16's.* Re-capturing the CSS tier from an
+identical build reproduces every row to the fifth decimal and every capture byte-for-byte except
+a few 2x cells over a flat or photo backdrop, which differ by 1–2 codes with alpha untouched:
+`light-solid__rrect-md__rest` at W15 (2 codes, 9 853 px); `light-solid__capsule-button__rest`
+(473 px) and `photo__capsule-button__rest-tint-blue` (1 203 px) at W16, 1 code each, with no
+row moving past 0.000008. The GPU tier reproduces 115 / 115 every time. The tier's capture is a
+Playwright element screenshot of a page whose `backdrop-filter` layers the compositor rasterises
+on its own cadence, so the shot lands on one of two frames that differ by rounding — the
+harness's, not the tier's. Shape of the work: settle the page (two animation frames after the
+last style write) before the screenshot in `cli/compare.ts`'s CSS path, then confirm on a
+from-empty rebuild. Below any bound and any floor's epsilon; recorded so the next byte-identity
+scan does not chase it.

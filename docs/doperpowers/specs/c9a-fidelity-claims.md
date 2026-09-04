@@ -10470,3 +10470,127 @@ named conversion gap. Landing it re-pins one floor (`rrect-md` 2x, 0.9159 → 0.
 and re-declares S2's "not below the bed" clause on three rows with the mechanism, which is the
 user's call; holding it for the level's closure waits on a renderer measurement this wave did not
 charter. The parent recommends landing, for the reasons in Decision Log 3.
+
+### 5.73 W16 G2 LANDED and RECOMPOSED: the two-layer CSS body on the canonical bed — every 1x dom row up and the 1x `rrect-md` floor met, the four large 2x spans held by decision against the band, two reduced-transparency cells lost to the fold's level on the shape axis, the level itself carried (2026-09-04)
+
+**1. The landing.** W16 Decision Log 3, the user's: "land as declared" (option 1; Decision Log 2's
+three questions at their recommended defaults — the linear-light body on Chromium, 0.4 M filtered
+device px per layer per frame with the declared collapse, two flat-opacity layers on an unverified
+engine). Recorded at `c68aa9d`; merge `595ac5e` (`w16-g1-two-layer` at `b40bfbe`); the canonical
+rebuild once from the main checkout (`results/2026-09-04-w16-css-two-layer/g2/g2-rebuild.sh`,
+twelve runs 19:07:09–19:11:56, every exit 0, 230 cells and 230 captures; `g2-runs.txt`). Read
+against the W15 bed and G1's second dry run (`g2-verify.py`, `g2-verify.txt`): **the GPU tier
+byte-identical on 115 / 115 captures with every row exact (contract X2, on the canonical bed,
+holdout included); the CSS tier within 0.000008 of the dry run on every row, 113 / 115 captures
+byte-identical** — the two that differ are 2x cells by 1 code with alpha untouched
+(`light-solid__capsule-button__rest` on 473 px, `photo__capsule-button__rest-tint-blue` on
+1 203), the tier's frame timing on this machine, which W15's landing saw once and W16's Deferred
+said to read again; it recurred, so it is the harness's entry in the tracker. The holdout's CSS
+rows were read once, at the dry run (X8); the rebuild reproduced them. No cell on the bed can
+reach the collapse: the whole 2x stage is 256 000 device px against a 400 000-per-layer budget.
+
+**2. The floors** (`test/adopted-thresholds.test.ts`; `ssimMean`, CSS tier, checkerboard; every
+floor one `FLOOR_EPSILON` under its reading, truncated, as the file's rule has it):
+
+| cell | dpr | W15 bed | landed | floor was → is |
+| --- | --- | --- | --- | --- |
+| `rrect-md` | 1x | 0.89626 | **0.90284** | 0.8952 → **OFF**, meets ≥ 0.90 |
+| `rrect-md` | 2x | 0.91738 | 0.91489 | 0.9159 → **0.9138**, re-pinned by decision (the band) |
+| `rrect-ml` | 1x | 0.85153 | 0.85925 | 0.847 → 0.8582 |
+| `rrect-ml` | 2x | 0.88080 | 0.87829 | 0.8754 → 0.8772 |
+| `glass-over-glass` | 1x | 0.85158 | 0.85286 | 0.8489 → 0.8518 |
+| `glass-over-glass` | 2x | 0.87089 | 0.86832 | 0.8677 kept |
+| `rrect-lg` | 1x | 0.84482 | 0.85126 | 0.8361 → 0.8502 |
+| `rrect-lg` | 2x | 0.87596 | 0.87089 | 0.8686 → 0.8698 |
+
+`UNMET_ROWS` **8 → 7**; the seven are the only dom rows under any adopted bound on the bed, and
+all seven are the tier's large spans against the rim band it has no lens to draw. Two readings
+beside the decision's words. Decision Log 3 named the re-pin as 0.9159 → 0.9149, the reading
+itself; the floor sits one epsilon under it, 0.9138, with `measured: 0.91489` recorded — the same
+construction as every other floor, and the file's check does not admit a floor closer than that.
+And two of the three 2x floors the decision said to keep ratchet UP: `rrect-ml` and `rrect-lg`
+read 0.0025–0.0051 under the W15 bed but above the W11c pins the file still carried (0.87649,
+0.8696) — W13, W14 and W15 left the CSS tier byte-unchanged and nobody ratcheted while the live
+rows sat 0.0044 above their pins — and a floor cannot sit more than 0.0012 under its recorded
+reading, so keeping them was not expressible. A floor going up is no decision.
+
+**3. The predicate.** `PREDICATE_EXCLUDES` grows by two, the machine's output, both the capsule
+under reduced transparency on the CSS tier, both the `areaWeb` arm: the tier's fold reads lighter
+than the reference's interior by 0.056 on the checkerboard capsule (0.9087 → 0.9458 against
+0.8903) and 0.070 on `hc-text` (0.9308 → 0.9628 against 0.8932), where the single blur read 0.018
+and 0.038 lighter — §5.72 §4's level gap seen on the fold — and the luminance-delta extractor
+loses the surface over the white squares and the text bars: recovery 1.000 → 0.915 with seven
+holes, and 0.982 → 0.853 against the 0.95 arm. Both cells gate on every perceptual row and hold
+them (`ssimMean` 0.9829 / 0.9924 against ≥ 0.91, ΔE 0.0044 / 0.0029 against ≤ 0.04); `rrect-md`
+under the same fold recovers 0.993 and stays. The dry run's referee did not run the predicate,
+so the landing is where these were read (W16 Surprises). Calibration suite 257 passed after
+the edits.
+
+**4. The stops at the landing** (charter G2 with G1's numbers): S1 met (§1). S2's bounds and
+floors met after the bookkeeping; its "none of the eight held rows below the W15 bed" clause
+fails on the four large 2x spans by 0.0025–0.0051 with the band as the mechanism (§5.72 §5),
+the miss Decision Log 3 accepted — re-declared, not met. S3 met at 1x (within ±0.007 on every
+calibration span) and missed at 2x on `rrect-ml` alone by 0.0006. S4 met on the large spans and
+the thin spans and missed on `hc-text__capsule-button` by 0.0030 (0.9769 against 0.9799). S5, S6
+met (the solids and tinted cells within 0.0004, the photo cells within 0.0008 and toward native;
+`tier-coherence` tighter, the cross-tier ΔE down on every profile). S7 met on the bed by
+construction and off it by the collapse. S8 is Decision Log 3: the landing sheets
+(`sheets/g2-1x.png`, `g2-2x.png`) are byte-identical to the dry run's the user read.
+
+**5. Recomposition against the parent-level acceptance**, clause by clause. *The body is the
+two-component law, measured:* met — the linear-light form within 1.5× the GPU law's RMS on every
+span of W11's probe bed (1.17 / 1.10 / 1.50 / 1.41 / 1.20× at 1x, 0.97–1.03× at 2x) and the
+raster carrier recovers the renderer's k(u) within ±0.05 on both cells (§5.71), the width
+instrument's recovery of a known law beside it (§5.72 §7). *The rows move the way the mechanism
+says:* met at 1x — the spread within 0.007 of native on every calibration span, every large
+span's mean above its pre-W11c level, `hc-text__rrect-md` 0.9387 against ≥ 0.9295, one floor off
+by fix and seven re-held with the band, the one mechanism the clause allows — and missed twice at
+the margin: the 2x spread on `rrect-ml` by 0.0006 and the `hc-text` capsule's level by 0.0030.
+*The second scale is the reference's:* the widths are device-pixel quantities through the live
+ratio at the renderer's effective kernel width, the heavy share the renderer's own ramp as a
+mask, `CSS_TIER_RAMP_SCALE` retired for `WEBGPU_PROXY_PROJECTION_SCALE` with the conversion's
+measurement beside it (§5.72 §1, §6), the tier's 2x spread within 0.016 of native — met; **"the
+four 2x dom rows rise" is not met**: they fell 0.0025–0.0051 by the band, accepted by decision.
+*The lift:* decided against with the number (Decision Log 2 (d), §5.71 §6). *The GPU tier does not
+move:* met, 115 / 115; `tier-coherence` pins the two layers' σ and share to the renderer's law
+over dpr {1, 1.5, 2, 3}; the folds apply on both tiers, every fold row inside its bound, the moves
+named (increased contrast `rrect-md` −0.0036, reduced transparency −0.0043, and §3). *The cost:*
+measured (§5.71 §7, §7.1), budgeted (Decision Log 2 q1, confirmed by Decision Log 3), met on the
+bed by construction and off it by the collapse. *Chromium measured, the other engines decided:*
+section H on S1's manual page (X9), the conformance field `maskOnBackdropFilter` failing closed,
+`referenceFilterInBackdrop` true on Chromium's rows alone, the unverified-engine policy the user's
+(q2). *By eye:* the dry-run sheets sent and read, the landing's byte-identical, the reading is the
+decision. *The host stays the author's element:* the three children are absolutely positioned
+below the content, `aria-hidden`, without pointer events; the react e2e accessibility suite and
+the platform-web pins hold (105 and 342 passed). *Suites green, lint clean:* 1 755 unit tests
+(platform-web 369, calibration 257, renderer-webgpu 396, core 302, motion 162, geometry 149,
+react 97, policy 23), platform-web Playwright 342 on four projects, react e2e 105 with 3 skipped,
+demo 34; the e2e pins that named the host's filter re-pointed at the sharp layer with the reason
+(`6eefbdd`); the matrix rebuilt once; the holdout read once; every gap in §7, the wave's Deferred
+or the tracker. **The wave closes with its purpose met at 1x on every row and the holdout, its
+2x purpose met on the spread and not on the four large rows, and two clauses failed at the
+margin and one by decision, each named.**
+
+**6. What the wave taught.** (i) The CSS tier's residual was the colour space, not its form:
+two `blur()` layers halve the single blur's residual and stop at 2.4–2.8× the GPU law's, and
+the linear-light reference filter — Chromium's alone — takes the rest (§5.71). (ii) The level is
+a conversion, not a fit: one encoded alpha cannot match a linear lerp in mean and slope, the
+exact conversion lands on the renderer's analytic composite, and the renderer's rendered interior
+sits 0.023–0.058 above that by its lens, rim and highlight light (§5.72 §3–§4) — the closure is a
+renderer measurement whose arithmetic is written on the tier. (iii) A sharp body exposes the
+band: the smeared single blur hid the tier's missing lens on the large 2x spans, and the crisp
+checker running to the contour is what the four rows pay (§5.72 §5). (iv) A checkerboard cannot
+measure a ten-device-pixel kernel; the renderer's broadband `photo` captures can, and the
+effective-width ratio read there (1.380 / 1.485) is what closed the spread at both scales (§5.72
+§1, §7). (v) A dry run's referee must run every gate the landing's test file runs, the
+conditioning predicate included — §3 is the cost of leaving one out.
+
+**7. Gaps carried (each with its shape).** The interior level, 0.06–0.09 over native on the
+checkerboards at both scales and 0.056–0.070 on the reduced-transparency fold, closing through
+the renderer's rendered-interior excess per span and backdrop fed to the `feComponentTransfer`
+solve (its own charter; the two predicate cells of §3 return with it). The rim band on the four
+large 2x spans, the seven floors' mechanism — no CSS form draws a displacement field. The 2x
+spread on `rrect-ml` (0.0006) and the `hc-text` capsule's level (0.0030). The fold rows' moves
+inside their bounds. The CSS tier's frame timing, two 2x cells by 1 code (the tracker). The
+software rasteriser's joint area limit for two filtered elements (W16 Deferred). The demo's law
+readout, now one projection and one ratio short on both tiers (the tracker).
