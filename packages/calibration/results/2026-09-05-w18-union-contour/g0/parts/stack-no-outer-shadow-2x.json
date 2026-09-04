@@ -1,0 +1,386 @@
+[
+  {
+    "scene": "checkerboard__capsule-sm__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "checkerboard__capsule-button__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "checkerboard__toolbar-group__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "checkerboard__toolbar-group-wide__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "photo__capsule-sm__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "photo__capsule-button__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "photo__toolbar-group__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "photo__toolbar-group-wide__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "light-solid__capsule-sm__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "light-solid__capsule-button__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "light-solid__toolbar-group__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "light-solid__toolbar-group-wide__rest",
+    "dpr": 2,
+    "skipped": "a capture is missing"
+  },
+  {
+    "scene": "checkerboard__glass-over-glass__rest",
+    "dpr": 2,
+    "component": "stack",
+    "whole": {
+      "declared": {
+        "gpu": 0.7458761229153208,
+        "css": 0.7412854220374518,
+        "delta": -0.004590700877868947,
+        "pixels": 112416
+      },
+      "native": {
+        "gpu": 0.745599066499941,
+        "css": 0.7410297697684181,
+        "delta": -0.004569296731522954,
+        "pixels": 112180
+      }
+    },
+    "nativeFixture": "apple-macos-26.5-2x-light-standard/checkerboard__glass-over-glass__rest.png",
+    "surfaces": [
+      {
+        "index": 0,
+        "role": "base (overlay excluded)",
+        "declared": {
+          "gpu": 0.7016837862187956,
+          "css": 0.7082546710644261,
+          "delta": 0.006570884845630509,
+          "pixels": 86404
+        },
+        "native": {
+          "gpu": 0.7018353197850994,
+          "css": 0.708296869573773,
+          "delta": 0.006461549788673637,
+          "pixels": 86385
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.7005248698233345,
+            0.7003726734070322,
+            0.6986208469218641,
+            0.708208910707279
+          ],
+          "css": [
+            0.7360519547986948,
+            0.7057304649262894,
+            0.7041382550199927,
+            0.7067405510927061
+          ]
+        }
+      },
+      {
+        "index": 1,
+        "role": "overlay",
+        "declared": {
+          "gpu": 0.8926697051056222,
+          "css": 0.8510035908472978,
+          "delta": -0.04166611425832434,
+          "pixels": 26012
+        },
+        "native": {
+          "gpu": 0.8921596891000111,
+          "css": 0.8506491372164791,
+          "delta": -0.04151055188353203,
+          "pixels": 25795
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.892645717954402,
+            0.8925225365231073,
+            0.8911096901603668,
+            0.8950470445404042
+          ],
+          "css": [
+            0.850882897616498,
+            0.8500339515904628,
+            0.8493958778158099,
+            0.8551817703062197
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scene": "checkerboard__stack-base__rest",
+    "dpr": 2,
+    "component": "rrect",
+    "whole": {
+      "declared": {
+        "gpu": 0.7013276723618777,
+        "css": 0.7057288655855694,
+        "delta": 0.004401193223691702,
+        "pixels": 112416
+      }
+    },
+    "nativeFixture": null,
+    "surfaces": [
+      {
+        "index": 0,
+        "role": "item-0",
+        "declared": {
+          "gpu": 0.7013276723618777,
+          "css": 0.7057288655855694,
+          "delta": 0.004401193223691702,
+          "pixels": 112416
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.7002752006372288,
+            0.700321791150502,
+            0.6986208469218641,
+            0.708208910707279
+          ],
+          "css": [
+            0.7068104738234366,
+            0.7054421864672089,
+            0.7041382550199927,
+            0.7067405510927061
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scene": "checkerboard__stack-over__rest",
+    "dpr": 2,
+    "component": "rrect",
+    "whole": {
+      "declared": {
+        "gpu": 0.6921783450943536,
+        "css": 0.7002945590126626,
+        "delta": 0.008116213918308968,
+        "pixels": 26012
+      }
+    },
+    "nativeFixture": null,
+    "surfaces": [
+      {
+        "index": 0,
+        "role": "item-0",
+        "declared": {
+          "gpu": 0.6921783450943536,
+          "css": 0.7002945590126626,
+          "delta": 0.008116213918308968,
+          "pixels": 26012
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.6888086732601183,
+            0.6886097492101131,
+            0.6855347227015944,
+            0.7135859433670302
+          ],
+          "css": [
+            0.699732544570488,
+            0.6991936180887138,
+            0.6975047083041491,
+            0.7070458025849324
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scene": "photo__glass-over-glass__rest",
+    "dpr": 2,
+    "component": "stack",
+    "whole": {
+      "declared": {
+        "gpu": 0.7127301625154071,
+        "css": 0.6966869223659106,
+        "delta": -0.01604324014949654,
+        "pixels": 112416
+      },
+      "native": {
+        "gpu": 0.7128136868679846,
+        "css": 0.696694049012724,
+        "delta": -0.016119637855260605,
+        "pixels": 112395
+      }
+    },
+    "nativeFixture": "apple-macos-26.5-2x-light-standard/photo__glass-over-glass__rest.png",
+    "surfaces": [
+      {
+        "index": 0,
+        "role": "base (overlay excluded)",
+        "declared": {
+          "gpu": 0.6640683290682448,
+          "css": 0.6604154731326863,
+          "delta": -0.003652855935558419,
+          "pixels": 86404
+        },
+        "native": {
+          "gpu": 0.6641651747566966,
+          "css": 0.6604159280721392,
+          "delta": -0.003749246684557339,
+          "pixels": 86383
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.6852333461841447,
+            0.6626208050407951,
+            0.6525868899863868,
+            0.6730718215504552
+          ],
+          "css": [
+            0.7124732874120769,
+            0.6608579862085934,
+            0.6505851038754464,
+            0.6521892835230156
+          ]
+        }
+      },
+      {
+        "index": 1,
+        "role": "overlay",
+        "declared": {
+          "gpu": 0.8743700616841976,
+          "css": 0.8171697110612202,
+          "delta": -0.05720035062297746,
+          "pixels": 26012
+        },
+        "native": {
+          "gpu": 0.8743700616841976,
+          "css": 0.8171697110612202,
+          "delta": -0.05720035062297746,
+          "pixels": 26012
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.8710031950140348,
+            0.874577395083526,
+            0.8737595584505353,
+            0.8806171097277588
+          ],
+          "css": [
+            0.8144643820628409,
+            0.817596885121175,
+            0.8158412808810895,
+            0.822795405898054
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scene": "photo__stack-base__rest",
+    "dpr": 2,
+    "component": "rrect",
+    "whole": {
+      "declared": {
+        "gpu": 0.660276656003073,
+        "css": 0.6554602667916954,
+        "delta": -0.004816389211377503,
+        "pixels": 112416
+      }
+    },
+    "nativeFixture": null,
+    "surfaces": [
+      {
+        "index": 0,
+        "role": "item-0",
+        "declared": {
+          "gpu": 0.660276656003073,
+          "css": 0.6554602667916954,
+          "delta": -0.004816389211377503,
+          "pixels": 112416
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.6613483860310216,
+            0.6578734289069373,
+            0.6525868899863868,
+            0.6730718215504552
+          ],
+          "css": [
+            0.6614806338094543,
+            0.6559275817326078,
+            0.6505851038754464,
+            0.6521892835230156
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scene": "photo__stack-over__rest",
+    "dpr": 2,
+    "component": "rrect",
+    "whole": {
+      "declared": {
+        "gpu": 0.621669085479271,
+        "css": 0.6267169019011355,
+        "delta": 0.0050478164218644705,
+        "pixels": 26012
+      }
+    },
+    "nativeFixture": null,
+    "surfaces": [
+      {
+        "index": 0,
+        "role": "item-0",
+        "declared": {
+          "gpu": 0.621669085479271,
+          "css": 0.6267169019011355,
+          "delta": 0.0050478164218644705,
+          "pixels": 26012
+        },
+        "annulusDeclared": {
+          "gpu": [
+            0.608535007607514,
+            0.6215342373463056,
+            0.6200019238479829,
+            0.6468994019398447
+          ],
+          "css": [
+            0.6165048126831167,
+            0.6290667934497853,
+            0.6273357869714294,
+            0.6391248861895397
+          ]
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,251 @@
+{
+  "$comment": [
+    "W18 probe scene matrix - the union-and-stack bed, and NOTHING else reads this file.",
+    "It runs through VITREA_SCENES into its own fixtures dir under",
+    "packages/calibration/results/2026-09-05-w18-union-contour/probe/, so the canonical",
+    "scenes.json and the frozen bed stay untouched (contract X10). Both backgrounds reuse",
+    "an existing kind: nothing rebuilds and no TCC re-grant is needed for the rasters.",
+    "",
+    "What it is for. W18 separates the CSS tier's interior residual on a small box and on a",
+    "stacked scene into parts. That separation is web-side and needs no native reading at",
+    "all. This bed answers three different questions, for the record and for the renderer's",
+    "own charter rather than for this wave's fit: whether Apple's 44x44 capsule sits at its",
+    "120x44 capsule's level (the size law's input, natively); whether a spacing of 12",
+    "merges natively and what a merge does to the interior, which the canonical",
+    "toolbar-group's own comment asked and no capture has answered; and where the stack's",
+    "native level sits against both of vitrea's tiers.",
+    "",
+    "Every scene is filed 'recorded'. W9's rule files a probe cell as recorded when it",
+    "duplicates frozen-bed geometry whose twin is holdout or floored - which covers",
+    "capsule-button, toolbar-group and glass-over-glass here. The two components that are",
+    "NOT twins (capsule-sm, toolbar-group-wide) are filed the same way rather than being",
+    "split into calibration and validation, because X10 forbids fitting anything to this",
+    "bed at all: a split that named a cell 'calibration' would declare a fit phase that",
+    "this wave has ruled out, and compare's 'recorded' set is opt-in twice over, which is",
+    "the custody these readings need."
+  ],
+  "version": 2,
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    },
+    "photo": {
+      "kind": "synthetic-photo",
+      "seed": 20260825,
+      "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+    }
+  },
+  "components": {
+    "capsule-sm": {
+      "kind": "capsule",
+      "size": [
+        44,
+        44
+      ],
+      "$comment": "ONE of the toolbar-group's three circles, alone. The bed has no lone small box: every existing capsule cell is the 120x44 control, and W18's separation is precisely whether a 44x44 box at the same span behaves like it. Natively this asks whether Apple's material reads its own size law off the span alone, as vitrea's does on both tiers."
+    },
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    },
+    "toolbar-group": {
+      "kind": "group",
+      "items": [
+        {
+          "kind": "capsule",
+          "size": [
+            44,
+            44
+          ]
+        },
+        {
+          "kind": "capsule",
+          "size": [
+            44,
+            44
+          ]
+        },
+        {
+          "kind": "capsule",
+          "size": [
+            44,
+            44
+          ]
+        }
+      ],
+      "spacing": 12,
+      "$comment": "Three siblings inside one GlassEffectContainer / GlassGroup \u2014 the container-scoped sampling case. Spacing 12 is inside plausible merge distance, so this also shows whether the two implementations union proximity the same way."
+    },
+    "toolbar-group-wide": {
+      "kind": "group",
+      "items": [
+        {
+          "kind": "capsule",
+          "size": [
+            44,
+            44
+          ]
+        },
+        {
+          "kind": "capsule",
+          "size": [
+            44,
+            44
+          ]
+        },
+        {
+          "kind": "capsule",
+          "size": [
+            44,
+            44
+          ]
+        }
+      ],
+      "spacing": 40,
+      "$comment": "The canonical three-up's members at a spacing past every merge threshold either implementation carries: vitrea's renderer separates at 16 (DEFAULT_GROUP_UNION) and its web scene builder floors the sampling merge at 24, and GlassEffectContainer(spacing: 40) is declared here so the native container is asked for the same thing. Against toolbar-group's spacing 12 this is the control that says what a merge does natively, which the canonical scene's own comment asked for and no capture has answered."
+    },
+    "glass-over-glass": {
+      "kind": "stack",
+      "base": {
+        "kind": "rrect",
+        "size": [
+          220,
+          130
+        ],
+        "radius": 24
+      },
+      "over": {
+        "kind": "rrect",
+        "size": [
+          120,
+          56
+        ],
+        "radius": 16,
+        "offset": [
+          0,
+          -8
+        ]
+      },
+      "$comment": "S1's mandated scene: an overlay-plane proxy necessarily samples the BASE plane's rendered output, so the overlay's material must be calibrated against an already-glassed backdrop, not raw content. Without this scene the overlay tier has no ground truth at all."
+    }
+  },
+  "tints": {},
+  "states": {
+    "rest": {
+      "$comment": "No interaction. The probe carries no pressed cell: the wave's question is the resting interior."
+    }
+  },
+  "scenes": [
+    {
+      "id": "checkerboard__capsule-sm__rest",
+      "background": "checkerboard",
+      "component": "capsule-sm",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__toolbar-group__rest",
+      "background": "checkerboard",
+      "component": "toolbar-group",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__toolbar-group-wide__rest",
+      "background": "checkerboard",
+      "component": "toolbar-group-wide",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__glass-over-glass__rest",
+      "background": "checkerboard",
+      "component": "glass-over-glass",
+      "state": "rest"
+    },
+    {
+      "id": "photo__capsule-sm__rest",
+      "background": "photo",
+      "component": "capsule-sm",
+      "state": "rest"
+    },
+    {
+      "id": "photo__capsule-button__rest",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "photo__toolbar-group__rest",
+      "background": "photo",
+      "component": "toolbar-group",
+      "state": "rest"
+    },
+    {
+      "id": "photo__toolbar-group-wide__rest",
+      "background": "photo",
+      "component": "toolbar-group-wide",
+      "state": "rest"
+    },
+    {
+      "id": "photo__glass-over-glass__rest",
+      "background": "photo",
+      "component": "glass-over-glass",
+      "state": "rest"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-26.5-1x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "The probe's one profile. 1x only: this machine's display presents at 1x and the canonical 2x fixtures were captured on a reconfigured display, so a 2x probe is a session the user opens (W18 Decision Log 1 q1(a)). The 2x separation is web-side and says so."
+    }
+  ],
+  "split": {
+    "$comment": [
+      "Declared 2026-09-05, before the first capture. Nothing is fitted to this bed:",
+      "every cell is 'recorded' and compare must be asked for that set twice over.",
+      "See the file header for why the two non-twin components are filed the same way."
+    ],
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "recorded": [
+      "checkerboard__capsule-sm__rest",
+      "checkerboard__capsule-button__rest",
+      "checkerboard__toolbar-group__rest",
+      "checkerboard__toolbar-group-wide__rest",
+      "checkerboard__glass-over-glass__rest",
+      "photo__capsule-sm__rest",
+      "photo__capsule-button__rest",
+      "photo__toolbar-group__rest",
+      "photo__toolbar-group-wide__rest",
+      "photo__glass-over-glass__rest"
+    ]
+  }
+}

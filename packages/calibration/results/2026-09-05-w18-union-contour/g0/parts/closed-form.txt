@@ -1,0 +1,72 @@
+=== dpr 1: the shadow the tier samples through its own backdrop ===
+scene                                    surf        box  predicted   measured  residual  rampOptics  rampExact   rampErr
+checkerboard__capsule-sm__rest              0      44x44    -0.0031    -0.0032   +0.0001      0.3082     0.3082   +0.0000
+checkerboard__capsule-button__rest          0     120x44    -0.0026    -0.0011   -0.0014      0.3113     0.3116   -0.0002
+checkerboard__toolbar-group__rest           0      44x44    -0.0045    -0.0086   +0.0041      0.3082     0.3082   +0.0000
+checkerboard__toolbar-group__rest           1      44x44    -0.0068    -0.0123   +0.0056      0.3082     0.3082   +0.0000
+checkerboard__toolbar-group__rest           2      44x44    -0.0054    -0.0078   +0.0024      0.3082     0.3082   +0.0000
+checkerboard__toolbar-group-wide__rest      0      44x44    -0.0026    -0.0029   +0.0002      0.3082     0.3082   +0.0000
+checkerboard__toolbar-group-wide__rest      1      44x44    -0.0032    -0.0032   -0.0000      0.3082     0.3082   +0.0000
+checkerboard__toolbar-group-wide__rest      2      44x44    -0.0037    -0.0037   +0.0000      0.3082     0.3082   +0.0000
+photo__capsule-sm__rest                     0      44x44    -0.0007    -0.0012   +0.0005      0.3082     0.3082   +0.0000
+photo__capsule-button__rest                 0     120x44    -0.0007    -0.0007   -0.0001      0.3113     0.3116   -0.0002
+photo__toolbar-group__rest                  0      44x44    -0.0012    -0.0071   +0.0059      0.3082     0.3082   +0.0000
+photo__toolbar-group__rest                  1      44x44    -0.0015    -0.0077   +0.0062      0.3082     0.3082   +0.0000
+photo__toolbar-group__rest                  2      44x44    -0.0021    -0.0045   +0.0024      0.3082     0.3082   +0.0000
+photo__toolbar-group-wide__rest             0      44x44    -0.0007    -0.0013   +0.0005      0.3082     0.3082   +0.0000
+photo__toolbar-group-wide__rest             1      44x44    -0.0007    -0.0012   +0.0005      0.3082     0.3082   +0.0000
+photo__toolbar-group-wide__rest             2      44x44    -0.0016    -0.0026   +0.0010      0.3082     0.3082   +0.0000
+light-solid__capsule-sm__rest               0      44x44    -0.0017    -0.0046   +0.0030      0.3082     0.3082   +0.0000
+light-solid__capsule-button__rest           0     120x44    -0.0014    -0.0011   -0.0003      0.3113     0.3116   -0.0002
+light-solid__toolbar-group__rest            0      44x44    -0.0027    -0.0075   +0.0048      0.3082     0.3082   +0.0000
+light-solid__toolbar-group__rest            1      44x44    -0.0037    -0.0080   +0.0044      0.3082     0.3082   +0.0000
+light-solid__toolbar-group__rest            2      44x44    -0.0027    -0.0052   +0.0025      0.3082     0.3082   +0.0000
+light-solid__toolbar-group-wide__rest       0      44x44    -0.0017    -0.0046   +0.0029      0.3082     0.3082   +0.0000
+light-solid__toolbar-group-wide__rest       1      44x44    -0.0017    -0.0049   +0.0032      0.3082     0.3082   +0.0000
+light-solid__toolbar-group-wide__rest       2      44x44    -0.0017    -0.0049   +0.0032      0.3082     0.3082   +0.0000
+checkerboard__glass-over-glass__rest        0    220x130    -0.0074    -0.0303   +0.0229      0.5586     0.5591   -0.0005
+checkerboard__glass-over-glass__rest        1     120x56    -0.0024    -0.0005   -0.0019      0.3545     0.3547   -0.0002
+checkerboard__stack-base__rest              0    220x130    -0.0015    -0.0003   -0.0012      0.5586     0.5591   -0.0005
+checkerboard__stack-over__rest              0     120x56    -0.0024    -0.0004   -0.0020      0.3545     0.3547   -0.0002
+photo__glass-over-glass__rest               0    220x130    -0.0022    -0.0287   +0.0265      0.5586     0.5591   -0.0005
+photo__glass-over-glass__rest               1     120x56    -0.0007    -0.0008   +0.0001      0.3545     0.3547   -0.0002
+photo__stack-base__rest                     0    220x130    -0.0005    -0.0002   -0.0003      0.5586     0.5591   -0.0005
+photo__stack-over__rest                     0     120x56    -0.0007    -0.0003   -0.0004      0.3545     0.3547   -0.0002
+largest residual +0.0265 on photo__glass-over-glass__rest surface 0
+
+=== dpr 2: the shadow the tier samples through its own backdrop ===
+scene                                    surf        box  predicted   measured  residual  rampOptics  rampExact   rampErr
+checkerboard__capsule-sm__rest              0      44x44    -0.0023    -0.0020   -0.0003      0.6272     0.6271   +0.0001
+checkerboard__capsule-button__rest          0     120x44    -0.0018    -0.0007   -0.0011      0.6474     0.6491   -0.0017
+checkerboard__toolbar-group__rest           0      44x44    -0.0034    -0.0080   +0.0046      0.6272     0.6271   +0.0001
+checkerboard__toolbar-group__rest           1      44x44    -0.0057    -0.0117   +0.0060      0.6272     0.6271   +0.0001
+checkerboard__toolbar-group__rest           2      44x44    -0.0046    -0.0057   +0.0011      0.6272     0.6271   +0.0001
+checkerboard__toolbar-group-wide__rest      0      44x44    -0.0017    -0.0017   -0.0001      0.6272     0.6271   +0.0001
+checkerboard__toolbar-group-wide__rest      1      44x44    -0.0023    -0.0020   -0.0003      0.6272     0.6271   +0.0001
+checkerboard__toolbar-group-wide__rest      2      44x44    -0.0029    -0.0024   -0.0004      0.6272     0.6271   +0.0001
+photo__capsule-sm__rest                     0      44x44    -0.0005    -0.0007   +0.0003      0.6272     0.6271   +0.0001
+photo__capsule-button__rest                 0     120x44    -0.0005    -0.0004   -0.0002      0.6474     0.6491   -0.0017
+photo__toolbar-group__rest                  0      44x44    -0.0010    -0.0066   +0.0056      0.6272     0.6271   +0.0001
+photo__toolbar-group__rest                  1      44x44    -0.0012    -0.0072   +0.0061      0.6272     0.6271   +0.0001
+photo__toolbar-group__rest                  2      44x44    -0.0018    -0.0035   +0.0017      0.6272     0.6271   +0.0001
+photo__toolbar-group-wide__rest             0      44x44    -0.0005    -0.0008   +0.0002      0.6272     0.6271   +0.0001
+photo__toolbar-group-wide__rest             1      44x44    -0.0005    -0.0007   +0.0002      0.6272     0.6271   +0.0001
+photo__toolbar-group-wide__rest             2      44x44    -0.0012    -0.0016   +0.0004      0.6272     0.6271   +0.0001
+light-solid__capsule-sm__rest               0      44x44    -0.0012    -0.0010   -0.0003      0.6272     0.6271   +0.0001
+light-solid__capsule-button__rest           0     120x44    -0.0010    -0.0004   -0.0006      0.6474     0.6491   -0.0017
+light-solid__toolbar-group__rest            0      44x44    -0.0022    -0.0038   +0.0017      0.6272     0.6271   +0.0001
+light-solid__toolbar-group__rest            1      44x44    -0.0031    -0.0047   +0.0016      0.6272     0.6271   +0.0001
+light-solid__toolbar-group__rest            2      44x44    -0.0022    -0.0019   -0.0003      0.6272     0.6271   +0.0001
+light-solid__toolbar-group-wide__rest       0      44x44    -0.0012    -0.0010   -0.0003      0.6272     0.6271   +0.0001
+light-solid__toolbar-group-wide__rest       1      44x44    -0.0013    -0.0010   -0.0002      0.6272     0.6271   +0.0001
+light-solid__toolbar-group-wide__rest       2      44x44    -0.0012    -0.0010   -0.0002      0.6272     0.6271   +0.0001
+checkerboard__glass-over-glass__rest        0    220x130    -0.0070    -0.0316   +0.0247      0.8960     0.8973   -0.0013
+checkerboard__glass-over-glass__rest        1     120x56    -0.0017    -0.0005   -0.0012      0.7092     0.7108   -0.0016
+checkerboard__stack-base__rest              0    220x130    -0.0010    -0.0002   -0.0008      0.8960     0.8973   -0.0013
+checkerboard__stack-over__rest              0     120x56    -0.0017    -0.0004   -0.0013      0.7092     0.7108   -0.0016
+photo__glass-over-glass__rest               0    220x130    -0.0021    -0.0294   +0.0274      0.8960     0.8973   -0.0013
+photo__glass-over-glass__rest               1     120x56    -0.0005    -0.0004   -0.0000      0.7092     0.7108   -0.0016
+photo__stack-base__rest                     0    220x130    -0.0003    -0.0001   -0.0002      0.8960     0.8973   -0.0013
+photo__stack-over__rest                     0     120x56    -0.0005    -0.0002   -0.0003      0.7092     0.7108   -0.0016
+largest residual +0.0274 on photo__glass-over-glass__rest surface 0
+

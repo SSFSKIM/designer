@@ -1,0 +1,42 @@
+=== dpr 1: the neighbours' term (group at 12 minus group at 40) and the box term (circle minus capsule), per configuration ===
+config                       checkerboard                  photo            light-solid
+-- neighbours 12-40
+default                           -0.0058                -0.0049                -0.0021
+no-lens                           -0.0059                -0.0025                -0.0021
+no-rim                            -0.0064                -0.0050                -0.0023
+no-highlight                      -0.0062                -0.0048                -0.0020
+no-lift                           -0.0058                -0.0049                -0.0021
+no-inner-shadow                   -0.0060                -0.0048                -0.0022
+no-outer-shadow                   +0.0005                -0.0001                +0.0000
+all-declined                      -0.0066                -0.0025                -0.0028
+-- box  circle-capsule
+default                           -0.0072                -0.0068                -0.0044
+no-lens                           -0.0070                -0.0091                -0.0044
+no-rim                            -0.0094                -0.0106                +0.0006
+no-highlight                      -0.0076                -0.0081                +0.0013
+no-lift                           -0.0072                -0.0068                -0.0044
+no-inner-shadow                   -0.0067                -0.0061                -0.0060
+no-outer-shadow                   -0.0051                -0.0062                -0.0008
+all-declined                      -0.0104                -0.0138                -0.0009
+
+=== dpr 2: the neighbours' term (group at 12 minus group at 40) and the box term (circle minus capsule), per configuration ===
+config                       checkerboard                  photo            light-solid
+-- neighbours 12-40
+default                           -0.0061                -0.0063                -0.0024
+no-lens                           -0.0063                -0.0034                -0.0024
+no-rim                            -0.0066                -0.0066                -0.0021
+no-highlight                      -0.0063                -0.0062                -0.0031
+no-lift                           -0.0061                -0.0063                -0.0024
+no-inner-shadow                   -0.0066                -0.0063                -0.0022
+no-outer-shadow                   +0.0003                -0.0015                +0.0000
+all-declined                      -0.0067                -0.0036                -0.0025
+-- box  circle-capsule
+default                           -0.0068                +0.0002                -0.0003
+no-lens                           -0.0069                -0.0021                -0.0003
+no-rim                            -0.0104                -0.0044                +0.0003
+no-highlight                      -0.0073                -0.0015                +0.0061
+no-lift                           -0.0068                +0.0002                -0.0003
+no-inner-shadow                   +0.0017                +0.0007                -0.0019
+no-outer-shadow                   -0.0055                +0.0006                +0.0003
+all-declined                      -0.0059                -0.0078                -0.0010
+

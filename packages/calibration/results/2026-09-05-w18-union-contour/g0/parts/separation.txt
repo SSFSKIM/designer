@@ -1,0 +1,46 @@
+=== dpr 1: interior mean, CSS tier and GPU tier, and the difference ===
+scene                                    mask                        GPU      CSS   CSS-GPU      px
+checkerboard__capsule-sm__rest           declared region          0.6764   0.6687   -0.0077    1528
+checkerboard__capsule-button__rest       declared region          0.6783   0.6778   -0.0005    4872
+checkerboard__toolbar-group__rest        declared region          0.6763   0.6641   -0.0122    4584
+checkerboard__toolbar-group-wide__rest   declared region          0.6762   0.6698   -0.0063    4584
+photo__capsule-sm__rest                  declared region          0.5871   0.5807   -0.0063    1528
+photo__capsule-button__rest              declared region          0.6178   0.6183   +0.0004    4872
+photo__toolbar-group__rest               declared region          0.6363   0.6213   -0.0150    4584
+photo__toolbar-group-wide__rest          declared region          0.6374   0.6272   -0.0101    4584
+light-solid__capsule-sm__rest            declared region          0.9701   0.9672   -0.0029    1528
+light-solid__capsule-button__rest        declared region          0.9715   0.9730   +0.0015    4872
+light-solid__toolbar-group__rest         declared region          0.9701   0.9649   -0.0052    4584
+light-solid__toolbar-group-wide__rest    declared region          0.9701   0.9670   -0.0031    4584
+checkerboard__glass-over-glass__rest     native silhouette        0.7120   0.7078   -0.0042   28011
+checkerboard__glass-over-glass__rest     declared region          0.7127   0.7084   -0.0043   28100
+checkerboard__stack-base__rest           declared region          0.6947   0.6949   +0.0002   28100
+checkerboard__stack-over__rest           declared region          0.6850   0.6893   +0.0043    6508
+photo__glass-over-glass__rest            native silhouette        0.6861   0.6742   -0.0119   28099
+photo__glass-over-glass__rest            declared region          0.6861   0.6742   -0.0119   28100
+photo__stack-base__rest                  declared region          0.6597   0.6547   -0.0049   28100
+photo__stack-over__rest                  declared region          0.6208   0.6262   +0.0054    6508
+
+=== dpr 2: interior mean, CSS tier and GPU tier, and the difference ===
+scene                                    mask                        GPU      CSS   CSS-GPU      px
+checkerboard__capsule-sm__rest           declared region          0.6822   0.6848   +0.0026    6092
+checkerboard__capsule-button__rest       declared region          0.6847   0.6941   +0.0094   19468
+checkerboard__toolbar-group__rest        declared region          0.6821   0.6781   -0.0040   18276
+checkerboard__toolbar-group-wide__rest   declared region          0.6821   0.6842   +0.0022   18276
+photo__capsule-sm__rest                  declared region          0.5841   0.5857   +0.0017    6092
+photo__capsule-button__rest              declared region          0.6179   0.6194   +0.0015   19468
+photo__toolbar-group__rest               declared region          0.6374   0.6273   -0.0101   18276
+photo__toolbar-group-wide__rest          declared region          0.6362   0.6324   -0.0038   18276
+light-solid__capsule-sm__rest            declared region          0.9702   0.9721   +0.0019    6092
+light-solid__capsule-button__rest        declared region          0.9716   0.9738   +0.0022   19468
+light-solid__toolbar-group__rest         declared region          0.9702   0.9696   -0.0006   18276
+light-solid__toolbar-group-wide__rest    declared region          0.9702   0.9721   +0.0018   18276
+checkerboard__glass-over-glass__rest     native silhouette        0.7178   0.7166   -0.0012  112180
+checkerboard__glass-over-glass__rest     declared region          0.7181   0.7169   -0.0013  112416
+checkerboard__stack-base__rest           declared region          0.7013   0.7055   +0.0043  112416
+checkerboard__stack-over__rest           declared region          0.6920   0.6999   +0.0080   26012
+photo__glass-over-glass__rest            native silhouette        0.6866   0.6740   -0.0127  112395
+photo__glass-over-glass__rest            declared region          0.6865   0.6740   -0.0126  112416
+photo__stack-base__rest                  declared region          0.6602   0.6553   -0.0049  112416
+photo__stack-over__rest                  declared region          0.6215   0.6265   +0.0050   26012
+
