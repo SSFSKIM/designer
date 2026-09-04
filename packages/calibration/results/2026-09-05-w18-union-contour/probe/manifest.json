@@ -1,0 +1,340 @@
+{
+  "backgrounds": {
+    "checkerboard@1x": "backgrounds/checkerboard@1x.png",
+    "photo@1x": "backgrounds/photo@1x.png"
+  },
+  "captureProtocol": {
+    "hidIdleSecondsAtEnd": 340.534490541,
+    "hidIdleSecondsAtStart": 240.824012833,
+    "minIdleSeconds": 45,
+    "resetCarriesGlass": false,
+    "resetInterstitialSeconds": 6,
+    "runLabel": "w18-probe-8",
+    "userIsActiveAtStart": true
+  },
+  "caveats": [],
+  "generatedAt": "2026-09-04T21:02:47Z",
+  "hardware": {
+    "cpu": "Apple M2 Pro",
+    "model": "Mac14,12",
+    "osBuild": "25F84",
+    "osVersion": "Version 26.5.2 (Build 25F84)",
+    "sdk": "MacOSX26.5.sdk",
+    "xcodeVersion": "Xcode 26.6 Build version 17F113"
+  },
+  "profiles": [
+    {
+      "a11yMode": "standard",
+      "colorScheme": "light",
+      "display": {
+        "actualBackingScale": 1,
+        "colorSpace": "kCGColorSpaceSRGB",
+        "displayColorProfile": "가상 16:9",
+        "displayName": "가상 16:9",
+        "pixelSize": [
+          320,
+          200
+        ],
+        "requestedScale": 1
+      },
+      "fixtures": [
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:48:31Z",
+          "chromaShift": 0.0133,
+          "deltaFromBackground": 9.653885416666666,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 215.912346,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 6,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__capsule-button__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.9419230222702026,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:48:12Z",
+          "chromaShift": 0.0073,
+          "deltaFromBackground": 3.3217708333333333,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/checkerboard__capsule-sm__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 196.977854875,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 4,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__capsule-sm__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.989161968231201,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:48:51Z",
+          "chromaShift": 0.0238,
+          "deltaFromBackground": 56.431463541666666,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 235.815127916,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 8,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__glass-over-glass__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.877254009246826,
+          "width": 320,
+          "frequencySettled": true,
+          "observedStates": 2,
+          "stateFrequencies": [
+            {
+              "sha256": "3e601352166828b53acf9bb31625f4b75d7f3d1a5f556ea38c194da4d2068c84",
+              "runs": 6,
+              "share": 0.8571
+            },
+            {
+              "sha256": "06dd310d0ca2f345ff254885a27f5f2e2dcd7db105469b74c42599cd8b8ccf38",
+              "runs": 1,
+              "share": 0.1429
+            }
+          ]
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:48:02Z",
+          "chromaShift": 0.0107,
+          "deltaFromBackground": 9.597651041666667,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 187.419761375,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 3,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__toolbar-group__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.996006965637207,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:47:34Z",
+          "chromaShift": 0.008,
+          "deltaFromBackground": 9.919473958333333,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/checkerboard__toolbar-group-wide__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 158.732614708,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 0,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "checkerboard__toolbar-group-wide__rest",
+          "settleIterations": 2,
+          "settleSeconds": 4.072254061698914,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:49:31Z",
+          "chromaShift": -21.1716,
+          "deltaFromBackground": 6.903609375,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 276.562170791,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 2,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-button__rest",
+          "settleIterations": 1,
+          "settleSeconds": 3.017177939414978,
+          "width": 320,
+          "frequencySettled": true,
+          "observedStates": 2,
+          "stateFrequencies": [
+            {
+              "sha256": "6a125e3fc28b8a6ddd27bfe94336082c0d127e50903a40691f0c2962273c47f4",
+              "runs": 5,
+              "share": 0.7143
+            },
+            {
+              "sha256": "20e88e3fe31c46af24b0e93647d7b49486e214314fbba378987109f5b91e46e3",
+              "runs": 2,
+              "share": 0.2857
+            }
+          ]
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:49:22Z",
+          "chromaShift": -11.4581,
+          "deltaFromBackground": 2.4495520833333333,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/photo__capsule-sm__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 266.980677,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 1,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__capsule-sm__rest",
+          "settleIterations": 1,
+          "settleSeconds": 3.0232349634170532,
+          "width": 320,
+          "frequencySettled": true,
+          "observedStates": 2,
+          "stateFrequencies": [
+            {
+              "sha256": "c5ceb6f844ff6a632bfe9e2328b159cf836e0b035b87d736cb06dd41e39198a7",
+              "runs": 5,
+              "share": 0.7143
+            },
+            {
+              "sha256": "2bd48d47655a5fc93dc852924b4e7d7c5898026bb6f4bf7bc657cfc9b06658a7",
+              "runs": 2,
+              "share": 0.2857
+            }
+          ]
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:49:01Z",
+          "chromaShift": -48.3089,
+          "deltaFromBackground": 45.989609375,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/photo__glass-over-glass__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 246.419888083,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 9,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__glass-over-glass__rest",
+          "settleIterations": 2,
+          "settleSeconds": 4.046907067298889,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:48:21Z",
+          "chromaShift": -20.6499,
+          "deltaFromBackground": 6.837630208333334,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/photo__toolbar-group__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 206.400838041,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 5,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__toolbar-group__rest",
+          "settleIterations": 1,
+          "settleSeconds": 2.860874056816101,
+          "width": 320
+        },
+        {
+          "captureMethod": "screencapturekit",
+          "capturedAt": "2026-09-04T20:48:41Z",
+          "chromaShift": -16.5964,
+          "deltaFromBackground": 7.597895833333333,
+          "deterministic": true,
+          "file": "apple-macos-26.5-1x-light-standard/photo__toolbar-group-wide__rest.png",
+          "fixtureSet": "recorded",
+          "height": 200,
+          "hidIdleSeconds": 226.379125041,
+          "identicalToBackground": false,
+          "materialRendered": true,
+          "orderIndex": 7,
+          "presentedActive": true,
+          "repeatNoise": 0,
+          "sceneId": "photo__toolbar-group-wide__rest",
+          "settleIterations": 2,
+          "settleSeconds": 3.923290967941284,
+          "width": 320
+        }
+      ],
+      "profileKey": "apple-macos-26.5-1x-light-standard"
+    }
+  ],
+  "sceneSpecVersion": 2,
+  "schemaVersion": 3,
+  "split": {
+    "calibration": [],
+    "holdout": [],
+    "note": "Holdout scene ids are declared here, as data. Tuning code must read the 'calibration' list; it must never name a holdout scene. A 'recorded' scene is captured and committed and read by nothing: no fit, no self-check, no bound and no claim may cite it.",
+    "recorded": [
+      "checkerboard__capsule-sm__rest",
+      "checkerboard__capsule-button__rest",
+      "checkerboard__toolbar-group__rest",
+      "checkerboard__toolbar-group-wide__rest",
+      "checkerboard__glass-over-glass__rest",
+      "photo__capsule-sm__rest",
+      "photo__capsule-button__rest",
+      "photo__toolbar-group__rest",
+      "photo__toolbar-group-wide__rest",
+      "photo__glass-over-glass__rest"
+    ],
+    "validation": []
+  },
+  "bedProvenance": [
+    {
+      "profiles": [
+        "apple-macos-26.5-1x-light-standard"
+      ],
+      "runs": 7,
+      "runLabels": [
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r7",
+        "r8"
+      ],
+      "cellsPublished": 10,
+      "unanimousOrVoted": 7,
+      "frequencySettled": 3,
+      "frequencySettledCells": [
+        "apple-macos-26.5-1x-light-standard/checkerboard__glass-over-glass__rest",
+        "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest",
+        "apple-macos-26.5-1x-light-standard/photo__capsule-sm__rest"
+      ],
+      "confidenceBought": {
+        "note": "probability a state held by fraction p of draws would have been seen at least once in 7 runs",
+        "atP0_50": 0.9922,
+        "atP0_33": 0.9394,
+        "atP0_25": 0.8665,
+        "atP0_167": 0.7217,
+        "atP0_10": 0.5217
+      }
+    }
+  ]
+}

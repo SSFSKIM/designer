@@ -461,15 +461,17 @@ reported together.
 - **The renderer's unsampled material on DOM-sourced groups (G0 §4).** The overlay group
   of the stack draws `tint [1, 1, 1]` at α 0.66496 with `analysis: "none"`, 0.042–0.057
   above the tier's converted material on the same base; by the whole-cell native readings
-  the native overlay sits above both. Its charter: a static material derived from the
+  the native overlay sits above both — measured on the probe bed at 0.9088 / 0.8970
+  (checkerboard / photo), +0.019 / +0.023 above the renderer's white and +0.065 / +0.080
+  above the tier's material. Its charter: a static material derived from the
   profile at the group's hinted or sampled level, or a sampling route for DOM sources,
   where the goldens' isolation proof lives; the probe bed's stack twin (pending the grant)
   gives the native overlay level.
 - **The renderer's union against Apple's (G0 §5).** Apple's container blends by a
   `smoothness` equal to the declared spacing at every spacing, one backdrop layer over the
   row, no separation threshold; the renderer stops at 16. The renderer's item.
-- **The native pixels of the probe bed** — pending the user's Screen Recording grant; the
-  bed is committed and the run is W9's seven attested runs.
+- **The native pixels of the probe bed at 2x** — the 1x bed is captured and read
+  (`probe/readings.md`); a 2x session is the user's to open.
 - **The 2x `capsule-button` at +0.0094** (W17's own miss inside 0.01) — the shadow's
   removal moves it; S5 names what leaves 0.01.
 - **A 2x native probe** — if the user opens a 2x session, the same scenes file at
@@ -480,7 +482,7 @@ reported together.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels wait on the grant |
+| G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels taken the same day after the user restored the grant (`probe/readings.md`: seven attested runs, the twins byte-identical to the canonical fixtures, Apple's material box-invariant at the span, the native overlay 0.909 / 0.897) |
 | G1 | branch `w18-g1-shadow` (worktree); `g1/` | OPEN 2026-09-05 — dispatched on Decision Log 2; the pre-check gate is Decision Log 3 |
 | G2 | — | — |
 
@@ -632,7 +634,14 @@ G1 opens on this log.
   −0.0068, neighbours −0.0062, the capsule itself +0.0094); the shadow's removal alone takes
   it to +0.0044.
 - **2026-09-05 (G0) — the Screen Recording grant has lapsed**; the bed is committed and the
-  capture waits on the user's hand.
+  capture waits on the user's hand. *Taken the same day after the user restored it.*
+- **2026-09-05 (the probe) — the native capture reproduces to the byte across five days:**
+  all five recorded twins are byte-identical to the canonical fixtures of 2026-08-31, through a
+  re-granted permission; and the protocol's own attestation caught the one compromised run
+  (HID activity, the window losing key on two cells), which was excluded and replaced.
+- **2026-09-05 (the probe) — Apple's material is box-invariant at the 44 px span:** the lone
+  circle within 0.001 of the capsule, the three-up the same at spacing 12 and 40; the merge
+  changes nothing inside the members; only the CSS tier moves with the box.
 
 ## Outcomes & Retrospective
 
@@ -651,3 +660,5 @@ G1 opens on this log.
   carrying G0's verdicts, G1 rewritten on the attribution with a pre-check gate, X7
   restated, Deferred extended (the renderer's unsampled route, the union's kind, the native
   pixels, the 2x capsule), eight Surprises; G1 dispatched.
+- 2026-09-05: the probe bed captured and read after the grant (claims §5.77 §6, `probe/readings.md`);
+  two Surprises, the Tracking Map's G0 row and Deferred amended; the spread signature passed to G1.

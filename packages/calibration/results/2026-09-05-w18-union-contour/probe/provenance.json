@@ -1,0 +1,144 @@
+{
+  "$comment": [
+    "W18's probe bed (claims §5.77 §6; the charter's X10): ten cells at 1x, every one `recorded`,",
+    "captured on this machine by W9's protocol (claims §5.30: a 6 s bare neutral reset before each",
+    "cell, the one stable order, the run refused unless the machine had been idle 45 s) and",
+    "materialised by the majority byte-state per cell over seven attested runs.",
+    "Eight runs were taken: run 6 is excluded by the protocol's own attestation — HID activity",
+    "during the run (idle 16 s at its end against 646 s at its start) and its two glass-over-glass",
+    "cells captured with the window not key (`presentedActive: false`, the inactive appearance);",
+    "run 8 replaced it. Nothing is fitted to this bed."
+  ],
+  "materializedFrom": [
+    "w18-probe-1",
+    "w18-probe-2",
+    "w18-probe-3",
+    "w18-probe-4",
+    "w18-probe-5",
+    "w18-probe-7",
+    "w18-probe-8"
+  ],
+  "excludedRuns": {
+    "w18-probe-6": "HID activity during the run; 2 of 10 cells not presentedActive"
+  },
+  "rule": "majority byte-state per cell across seven attested runs (frequency-settled, claims §5.30); shares recorded per cell",
+  "auditResult": "7/7 runs 10/10 presentedActive, deterministic, materialRendered",
+  "idleSecondsAtStartAndEnd": {
+    "w18-probe-1": [
+      148,
+      246
+    ],
+    "w18-probe-2": [
+      247,
+      346
+    ],
+    "w18-probe-3": [
+      347,
+      446
+    ],
+    "w18-probe-4": [
+      447,
+      546
+    ],
+    "w18-probe-5": [
+      546,
+      646
+    ],
+    "w18-probe-7": [
+      106,
+      206
+    ],
+    "w18-probe-8": [
+      241,
+      341
+    ]
+  },
+  "toolchain": {
+    "hardware": {
+      "cpu": "Apple M2 Pro",
+      "model": "Mac14,12",
+      "osBuild": "25F84",
+      "osVersion": "Version 26.5.2 (Build 25F84)",
+      "sdk": "MacOSX26.5.sdk",
+      "xcodeVersion": "Xcode 26.6 Build version 17F113"
+    }
+  },
+  "cells": {
+    "checkerboard__capsule-button__rest": {
+      "sha256": "6f94450ebb5059bd",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__capsule-sm__rest": {
+      "sha256": "d2e405ab729f178b",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__glass-over-glass__rest": {
+      "sha256": "3e601352166828b5",
+      "share": "6/7",
+      "states": 2,
+      "minorityShares": [
+        "1/7"
+      ],
+      "minorityRuns": [
+        [
+          "w18-probe-3"
+        ]
+      ]
+    },
+    "checkerboard__toolbar-group-wide__rest": {
+      "sha256": "7f2481faaadf71e2",
+      "share": "7/7",
+      "states": 1
+    },
+    "checkerboard__toolbar-group__rest": {
+      "sha256": "db4531e62e09cca9",
+      "share": "7/7",
+      "states": 1
+    },
+    "photo__capsule-button__rest": {
+      "sha256": "6a125e3fc28b8a6d",
+      "share": "5/7",
+      "states": 2,
+      "minorityShares": [
+        "2/7"
+      ],
+      "minorityRuns": [
+        [
+          "w18-probe-1",
+          "w18-probe-3"
+        ]
+      ]
+    },
+    "photo__capsule-sm__rest": {
+      "sha256": "c5ceb6f844ff6a63",
+      "share": "5/7",
+      "states": 2,
+      "minorityShares": [
+        "2/7"
+      ],
+      "minorityRuns": [
+        [
+          "w18-probe-1",
+          "w18-probe-7"
+        ]
+      ]
+    },
+    "photo__glass-over-glass__rest": {
+      "sha256": "03b82cbc5118ae54",
+      "share": "7/7",
+      "states": 1
+    },
+    "photo__toolbar-group-wide__rest": {
+      "sha256": "469baef8a30415d9",
+      "share": "7/7",
+      "states": 1
+    },
+    "photo__toolbar-group__rest": {
+      "sha256": "983985763ae5704a",
+      "share": "7/7",
+      "states": 1
+    }
+  }
+}

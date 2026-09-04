@@ -11045,6 +11045,25 @@ one backdrop over the row and blends its members by a smoothness equal to the de
 every spacing, with no separation threshold; vitrea's renderer stops unioning past
 `DEFAULT_GROUP_UNION`'s 16. A difference in kind, the renderer's item, recorded for its charter.
 
+**The pixels, taken (2026-09-05, after the user restored the grant;
+`probe/readings.md`).** Eight runs by W9's protocol, seven attested (run 6 excluded by the
+protocol's own attestation: HID activity during the run, idle 16 s at its end, both
+`glass-over-glass` cells captured with the window not key; run 8 its replacement), materialised
+by the majority byte-state: seven cells unanimous, three frequency-settled (6/7, 5/7, 5/7). **The
+five recorded twins are byte-identical to the canonical fixtures captured 2026-08-31.** Native
+interior means at 1x: `checkerboard__capsule-button` 0.6207, `capsule-sm` **0.6216**,
+`toolbar-group-wide` **0.6212**, `toolbar-group` **0.6210** — Apple's material is box-invariant at
+this span and its merge changes nothing inside the members; the GPU tier is flat across the same
+four (0.6762–0.6783) and only the CSS tier moves (0.6778 / 0.6687 / 0.6698 / 0.6641). The
+renderer sits +0.055 over native on every checkerboard thin-span cell (§5.55 §3). The native
+overlay of the stack is near-white — **0.9088** on the checkerboard and **0.8970** on the photo,
++0.019 / +0.023 above the renderer's unsampled white and +0.065 / +0.080 above the CSS tier's
+converted material — the renderer's overlay charter's number. The spread under the native
+silhouette names the remainder: on the checkerboard the CSS tier frosts the small box about 0.015
+harder than both references (0.1379 against 0.1503 native and 0.1531 GPU) and agrees with them on
+the capsule; on the photo the circle reads 0.0208 against 0.0336 / 0.0258. Passed to G1's
+pre-check as the remainder's signature.
+
 **7. `[parent-impact]`, reconciled (W18 Decision Log 2).** (1) The stack's residual is the
 renderer's: under q3 (a) the tier's share (the base excluding the overlay, the overlay alone)
 becomes the clause and the renderer's unsampled route a named gap with its charter's shape. (2)
@@ -11055,7 +11074,8 @@ mechanism list did not contain the mechanism: the Design is rewritten on this se
 `photo__toolbar-group` at 1x does not reach 0.005 on the shadow alone (−0.0086): the remainder on
 structure is G1's pre-check gate (Decision Log 3), not a discovery at the dry run.
 
-**8. What did not close, by name.** The native pixels (the grant). The 2x checkerboard
+**8. What did not close, by name.** The native pixels at 2x (the 1x pixels were taken the
+same day, above; a 2x session is the user's). The 2x checkerboard
 `toolbar-group` crossing zero to +0.0044 with the shadow out, by the 2x capsule's own +0.0094
 (W17's miss inside 0.01). `light-solid__capsule-button`'s superposition miss (clipping at white).
 The cost was not measured: the closure adds no primitive and, per surface, no element; if the
