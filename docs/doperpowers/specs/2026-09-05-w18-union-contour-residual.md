@@ -495,6 +495,17 @@ reported together.
 - **A 2x native probe** — if the user opens a 2x session, the same scenes file at
   `VITREA_SCALE=2` into a second fixtures dir; otherwise the 2x separation is
   web-side only and says so.
+- **The fold's remainder (G2).** `photo__toolbar-group` under reduced transparency −0.0281 and
+  under increased contrast +0.0139 against q4's 0.01, the carriers' +0.004 each taken. Its
+  shape: the occlusion's single absolute value (`reducedTransparencyOcclusion` 0.197) against the
+  two-regime law on the tier's side under the fold, and the drawn border's share under increased
+  contrast, each measured on its profile against the renderer's declined render.
+- **The unmeasurable cell (G2; an instrument item).** `hc-text__capsule-button` under increased
+  contrast: `cli/compare.ts` aborts the profile's run on a contour the curvature reader cannot
+  sample and writes nothing for the cell, and `--write-partial` keeps the rest. Its shape: write
+  the cell with its shape axis marked unmeasurable and its perceptual rows kept, so the bed does
+  not lose a row to the instrument. Until then the bed carries 229 and the gate's counts are per
+  tier.
 
 ## Tracking Map
 
@@ -502,7 +513,7 @@ reported together.
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels taken the same day after the user restored the grant (`probe/readings.md`: seven attested runs, the twins byte-identical to the canonical fixtures, Apple's material box-invariant at the span, the native overlay 0.909 / 0.897) |
 | G1 | branch `w18-g1-shadow` (`6207287` the carriers, `7a8a09b` the pre-check, `2d11305` the dry run; `g1/g1-precheck.md`, `g1/g1-dry-run.md`, `dry-verify.txt`, `dry-gate.txt`, `sheets/g1-{1,2}x.png`, `.changeset/css-shadow-carriers.md`); claims §5.78 | COMPLETE 2026-09-05 — DECLARED in claims §5.78: seven stops met, S4's fold clause missed both ways, S5 on one cell by 0.0005, two cells over 0.01 by a thousandth, three cells back on the shape axis, the GPU tier byte-identical; the landing is Decision Log 4, the user's |
-| G2 | opens on `main` | OPEN 2026-09-05 — Decision Log 4 executed, option 1 (the user: "land it as declared") |
+| G2 | `packages/calibration/results/2026-09-05-w18-union-contour/g2/` (`g2-landing.md`, `g2-rebuild.sh`, `g2-runs.txt`, `g2-verify.py`, `g2-verify.txt`), `sheets/g2-{1,2}x.png`; claims §5.79; `.changeset/css-shadow-carriers.md` (pending the next `vitrea-web` minor) | COMPLETE 2026-09-05 — Decision Log 4 option 1 (the user: "land it as declared"); merge `079d446`, the canonical bed rebuilt once (229 cells, one lost by name; the GPU tier byte-identical 115 / 115, the CSS tier within 0.00003 of the dry run); three floors ratcheted and four kept (`UNMET_ROWS` 7); the predicate list 33 → 29 with W17's arm corrected beside; the gate's counts per tier; every suite green; the sheets the dry run's panels; **RECOMPOSED** in claims §5.79 §5 |
 
 ## Decision Log
 
@@ -804,10 +815,49 @@ changeset left pending for the next `vitrea-web` minor, recomposition.
 - **2026-09-05 (G1 dry run) — a second cell crosses the 0.01 line the pre-check did not
   predict:** `hc-text__capsule-button` at 1x, +0.0091 → +0.0105, the remainder's family on a
   third backdrop.
+- **2026-09-05 (G2) — the arm that held the light solids was the bodies arm.** W17's predicate
+  paragraph says `areaWeb`; on the W17 bed those three cells recovered 0.994–0.998 of the region
+  in two or three bodies. A pixel diff of the bed's capture against the landed one put the
+  change on the lower contour rows (+0.0013…+0.0023 in linear light) with the centre unmoved:
+  the sampled shadow had cut the silhouette at the bottom edge, not lowered the level.
+  Corrected beside in the test file and claims §5.79 §3.
+- **2026-09-05 (G2) — the frame timing's fifth wave:** two CSS captures differ from the dry run
+  by 1 code (6 408 and 746 px, alpha untouched, no row past 0.00003); the tracker's entry grows
+  and the fix's shape is unchanged.
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+**RECOMPOSED 2026-09-05** (claims §5.79 §5, clause by clause). The CSS tier's outer shadow no
+longer sits inside its own sampled backdrop: a single surface carries it on the tint layer above
+its filter layers, a group on its last-painted member's host as one inert caster per member
+behind an evenodd clip of the members' boxes, the host itself only where its overflow clips, and
+the group's state says which. On the canonical bed the three-up sits on the renderer within 0.005
+on three of its four cells and within 0.01 on the fourth (from 0.012–0.015 dark), three
+light-solid cells condition again, three floors ratchet and none moves down, the cross-tier ΔE
+falls on four profiles, the GPU tier is byte-identical on every capture, and the bed carries 229
+cells with the lost one named.
+
+**What did not close, by name.** The fold (−0.0281 under reduced transparency, +0.0139 under
+increased contrast against 0.01; the carriers' +0.004 each and the rest not the shadow's); the
+box-limited filter's remainder, bounded, with two capsule cells a thousandth over 0.01 in its
+family; the stack (the overlay's term the renderer's unsampled route, the base's shadow composite
+over a glassed body the tier's); one cell the harness cannot measure; S5's cell by 0.0005 and the
+form's one-signed bias; the IoU of five fragmentary cells; the renderer's own items, not imported.
+
+**Retrospective.** The charter listed five renderer terms and a union and the spike found the
+owner outside the list, in a thing the tier paints and re-reads: no term-wise decline could see
+it, and the residual's length scale — saturation at the shadow's own reach — named it (the lesson
+stored). The Design's one advisory on the carrier's geometry was wrong and the worker did not
+apply it, on the unit tests' evidence; an advisory overturn, recorded. The stops were re-declared
+once in the open (Decision Log 3) when the pre-check's numbers and the charter's disagreed, both
+readings kept. The fold's clause was measured for the first time at the dry run and missed both
+ways, and the landing decision was made with that on the table rather than after. The landing
+found one thing the dry run had not: the arm that had held the three light solids was the bodies
+arm, not the area arm W17 wrote — read off the two beds and a pixel diff of the two captures
+before the mechanism was written, and corrected beside. Process: one worker for G0, the parent for
+the probe (seven attested runs after the user restored the grant), one worker for G1 through the
+pre-check gate and the dry run; the referee ran the landing's file against the scratch matrix
+(X6); the landing's own rebuild reproduced the dry run within 0.00003 on every row.
 
 ## Revision Notes
 
@@ -834,3 +884,6 @@ changeset left pending for the next `vitrea-web` minor, recomposition.
 - 2026-09-05: G1 DECLARED (claims §5.78); Decision Log 4 — the landing question put to the user
   with the recommendation; five Surprises from the dry run; the Tracking Map's G1 row COMPLETE.
 - 2026-09-05: Decision Log 4 executed — option 1, the user's; G2 opens.
+- 2026-09-05: G2 COMPLETE and the wave RECOMPOSED (claims §5.79); Outcomes & Retrospective
+  written; two Surprises (the bodies arm, the frame timing's pair) and two Deferred shapes (the
+  fold's remainder, the unmeasurable cell); the Tracking Map's G2 row.

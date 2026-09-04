@@ -11191,3 +11191,164 @@ within 0.01, gives the shape axis three cells back, lowers the cross-tier ΔE on
 leaves the GPU tier byte-identical, and crosses W17's 0.01 line by a thousandth on two capsule
 cells whose mechanism is the bounded remainder and not the shadow. Three landings are declared in
 the Decision Log: as declared; held for the fold; carrier A alone.
+
+### 5.79 W18 G2 LANDED and RECOMPOSED: the CSS tier's outer shadow out of its own sampled backdrop across the canonical bed — the three-up on the renderer, three floors up, four cells off the predicate list, the fold and the remainder carried by name (2026-09-05)
+
+**1. The landing.** W18 Decision Log 4, the user's: "land it as declared" (option 1). Recorded at
+`37065ab`; merge `079d446` (`w18-g1-shadow` at `2d11305`); the canonical rebuild once from the
+main checkout (`results/2026-09-05-w18-union-contour/g2/g2-rebuild.sh`, twelve runs
+07:14:04–07:18:56, eleven exit 0 and one exit 1 on the cell that cannot be measured, **229 cells
+and 229 captures** where the W17 bed carried 230; `g2-runs.txt`). Read against the W17 bed and
+G1's dry run (`g2-verify.py`, `g2-verify.txt`): **the GPU tier byte-identical on 115 / 115
+captures with every row exact (contract X3 on the canonical bed, the eighth whole-bed run in a
+row); the CSS tier within 0.000028 of the dry run on every row, 112 / 114 captures
+byte-identical** — the two that differ are `checkerboard__glass-over-glass__rest` on the 2x dark
+profile (6 408 px) and `hc-text__capsule-button__rest` at 2x light (746 px), by 1 code with
+alpha untouched, the tier's frame timing (the tracker's entry, its fifth wave in a row). The
+holdout's CSS rows were read once on the frozen configuration at G1 (X8, Decision Log 3); the
+rebuild reproduced them. The carrier each group drew is in the capture's `report__css.json`
+(`page.groups[].state.cssShadow`), not the matrix schema: `group` on the six `toolbar-group`
+groups (both scenes on the two light-standard profiles, `photo` under reduced transparency and
+increased contrast), `layer` on the other 114, `host` on none — no bed scene clips its host's
+overflow.
+
+**2. The floors** (`test/adopted-thresholds.test.ts`; `ssimMean`, CSS tier, checkerboard; every
+floor one `FLOOR_EPSILON` under its reading, truncated):
+
+| cell | dpr | W17 bed | landed | floor was → is |
+| --- | --- | --- | --- | --- |
+| `rrect-md` | 1x | 0.91218 | 0.91214 | no floor since W16; ≥ 0.90 met |
+| `rrect-md` | 2x | 0.91529 | 0.91521 | 0.9142 kept |
+| `rrect-ml` | 1x | 0.87574 | 0.87585 | 0.8747 → 0.8748 |
+| `rrect-ml` | 2x | 0.87892 | 0.87893 | 0.8779 kept |
+| `glass-over-glass` | 1x | 0.86095 | **0.86141** | 0.8599 → 0.8604 |
+| `glass-over-glass` | 2x | 0.86809 | 0.86811 | 0.8677 kept |
+| `rrect-lg` | 1x | 0.87021 | 0.87039 | 0.8692 → 0.8693 |
+| `rrect-lg` | 2x | 0.87222 | 0.87220 | 0.8712 kept |
+
+Three floors ratchet up, four are kept inside their epsilon, none moves down; `UNMET_ROWS`
+stays **7** — the seven are the only dom rows under any adopted bound and all seven are the
+large spans against the rim band the tier has no lens to draw. The rows moved by the shadow's
+share of a large span's interior, which is small: a σ 15.55 px reach against a 224–280 px span.
+
+**3. The predicate and the counts.** `PREDICATE_EXCLUDES` 33 → 29 lines, four out and none
+in, the machine's output. Three are the light solids W17 admitted (`light-solid__rrect-md` at
+2x, `light-solid__rrect-ml` at both light scales), and **the arm that held them was the bodies
+arm, not the area arm §5.76 §3 names** — corrected here, that text left as written: on the W17
+bed their web silhouettes recovered 0.994–0.998 of the region but in two or three bodies against
+the region's one. The tier's sampled shadow, offset downward, darkened the body's lower rows
+toward the background (the bottom two rows of `rrect-ml` at 1x read 0.923 in linear light
+against the centre's 0.933) and the luminance-delta extractor cut the silhouette there; with the
+shadow outside the sampled region those rows lift by 0.0013–0.0023, the centre does not move
+(the interior mean +0.0003…+0.0008), and the silhouette is one body again at 0.9997–0.9999 of
+the region. Coherence with the renderer no longer costs these cells. The fourth line,
+`hc-text__capsule-button` under increased contrast, comes off because **the bed lost the cell**:
+`cli/compare.ts` aborts the profile's run on a contour it cannot sample (`contourCurvature: a
+0.00px contour`) and writes nothing for it; `--write-partial` keeps the profile's other eight dom
+cells. The cell was already the most degenerate on the bed (IoU 0.470, three bodies) and gated
+on nothing but its perceptual rows, which are what the bed loses. The gate's cell counts are per
+tier now — `GatedProfile.cells: { texture, dom }` reads 9 / 8 on that profile where one number
+served both tiers — with `MATRIX_PARTITION` at 17 for it and `MATRIX_CELLS` at 229, the lost
+row's name beside each. Calibration suite 264 passed.
+
+**4. The stops at the landing** — as at G1 (§5.78), re-read on the canonical bed, where every
+CSS row is within 0.00003 of the dry run's: S1 met (115 / 115); S2 met (every dom row inside its
+bound or above its floor after the bookkeeping, three floors up, none down); S3 met; S4 met on
+the four cells the wave is for — `checkerboard__toolbar-group` **−0.0028 / +0.0044**,
+`photo__toolbar-group` **−0.0087 / −0.0044** against the renderer, from −0.0122 / −0.0040 /
+−0.0150 / −0.0101 — and **fires on the fold** as at G1 (`photo__toolbar-group` under reduced
+transparency −0.0320 → −0.0281, under increased contrast +0.0096 → +0.0139, each the carriers'
+own +0.004 and the rest not the shadow's); two capsule cells over W17's 0.01 line by a thousandth
+(`checkerboard__capsule-button` 2x +0.0102, predicted; `hc-text__capsule-button` 1x +0.0105, the
+same family), three cells leaving it in the good direction, seventeen standing unmoved; S5 on
+`checkerboard__rrect-sm` at 1x by 0.0005 (the form's one-signed over-prediction); S6 met (the
+cross-tier ΔE down on four profiles, flat on two); S7 met (the list down by four, up by none); S8
+met at the pre-check (the knee unmoved with every surface in a group of three); S9 is Decision
+Log 4: the landing sheets' panels are pixel-identical to the dry run's the user read, the banner
+rows the only difference.
+
+**5. Recomposition against the parent-level acceptance**, clause by clause. *The residual is
+separated and attributed:* met at G0 (§5.77) with the premise corrected — the parts the charter
+listed (the box, the neighbours, the renderer's five terms) were measured and carry no share of
+their own; the owner is the shadow the tier paints below its own filter layers and samples back
+(the whole neighbours' term, half the box's), the parts telescope to the measured residual by
+construction, the closed form is within 0.0002 on the lone circle and the far three-up and
+**misses** on two members of the near three-up (+0.0041 / +0.0056, Chromium's paint order for
+sibling stacking contexts, declined by Decision Log 2) and on the stack's base (+0.0274, the
+composited path the form does not model); X4 beside every reading (+0.0306 of +0.030); the stack
+separated on both tiers, both backdrops, both scales. *The tier lands on the renderer's level on
+these cells:* met on the two `toolbar-group` cells at 2x and the checkerboard at 1x within 0.005,
+on the photo at 1x within the 0.01 Decision Log 3 re-declared (the bound's own structure term its
+reason); **missed on the fold** both ways (−0.0281 / +0.0139 against 0.01; no second mechanism in
+this wave); on the stack the overlay's term is attributed to the renderer's unsampled route and
+named (G0 §4; native 0.909 / 0.897 above both tiers) and **the tier's own share on the base is
+carried, not closed** (`photo__glass-over-glass` −0.0118 / −0.0128, unmoved; the shadow's
+composite over a glassed body, Deferred). *Nothing else moves:* the clause as written (every
+other light cell within 0.002 of the W17 bed) was replaced at Decision Log 3 once G0 found the
+mechanism on every surface — S5, each cell within 0.002 of its own derived share — and that is
+met on twenty-one of twenty-two single-member light cells and missed on one by 0.0005; no dom row
+below its bound or floor, the seven held rows at or above their W17 pins; the tinted cells within
+a ten-thousandth of `(1 − s)` × their base; **the solid and fragmentary cells miss the 0.002
+clause on one metric** — `silhouetteIoU` moves by 0.0021–0.0121 on five cells whose web
+silhouette was fragmentary (two of them the light solids that now condition, in the good
+direction), no other adopted metric by more than 0.002 anywhere; `PREDICATE_EXCLUDES` does not
+grow, it shrinks by four. *The GPU tier does not move:* met, 115 / 115, the union parameters and
+the overlay's route read and never edited (X11). *The probe bed exists and is attested:* met —
+ten cells at 1x, seven attested runs, the recorded twins byte-identical to the canonical
+fixtures, Apple's material box-invariant at the span, the container blending by its spacing;
+fitted to nothing (§5.77 §6). *The cost:* met, the knee unmoved (S8). *Chromium is measured:* the
+carriers are DOM placement and draw on every engine; the level is Chromium's measurement and the
+plain-`blur()` engines' level stays the named gap. *By eye:* the sheets at the dry run and the
+landing, the reading in §5.78 §5, the landing the user's. *Suites green, lint clean, the matrix
+rebuilt once, the holdout once, every gap named:* met — lint clean; 1 792 unit tests across eight
+packages; platform-web Playwright 354 on four projects; react e2e 105 with 3 skipped; demo e2e 34; the
+renderer's golden suite not re-run and stated (the renderer is untouched and byte-identical on
+115 / 115); the matrix rebuilt once from the main checkout; the holdout read once on the frozen
+configuration; every gap in §7, the wave's Deferred or the tracker. **The wave closes with its
+purpose met on the cells it was chartered for at the standard profiles, the fold's clause missed
+both ways with its remainder named, and the stack's tier-side share carried.**
+
+**6. What the wave taught.** (i) Attribution by declining computed terms cannot see a thing the
+tier paints and re-reads: the outer shadow sat below the tier's own filter layers, inside the
+region the mirror edge mode samples, and no term-wise decline touched it — the residual's length
+scale (saturation at a gap of 28, the shadow's σ 15.55 reach) named it. (ii) The renderer's union
+was not the owner: its interior is flat to ±0.0002 across gaps 12–56, and the charter's five
+terms made the residual worse when declined. (iii) The fix is placement, not a constant: the
+shadow on L3 per surface (whose box is already the host's border box — the Design's advisory to
+grow the spread was wrong and was not applied), and on the group's last-painted host per group
+behind an evenodd clip of the members' boxes; two thirds of a group's closure is the group
+carrier. (iv) The fold is not the shadow's: the carriers move it by +0.004 on each profile and the
+rest is the occlusion's single absolute value under reduced transparency against the two-regime
+law, and the drawn border's share under increased contrast — each its own measurement. (v) The
+closed form over-predicts one-signed on every single-member cell (the canvas clamp and the
+device-grid coverage both err toward more shadow than the engine paints); a form's bias is a
+property to record beside its use. (vi) A predicate's arm is read from the artifact, not from the
+previous wave's paragraph: W17 wrote `areaWeb` where the bodies arm had held three cells, and the
+landing found it by reading the numbers before writing the mechanism. (vii) Apple's container
+blends by the declared spacing itself, one backdrop layer over the row and no threshold; the
+renderer's 16 is a difference in kind and the renderer's item.
+
+**7. Gaps carried (each with its shape).** **The fold's two cells** — `photo__toolbar-group`
+under reduced transparency −0.0281 and under increased contrast +0.0139 against 0.01: the
+occlusion's single absolute value (`reducedTransparencyOcclusion` 0.197) against the two-regime
+law on the tier's side, and the drawn border's share under increased contrast, each measured on
+its profile against the renderer's declined render. **The box-limited filter's remainder (M2),
+bounded and not derived** — −0.0044…−0.0069 per 44 px box over structure at 1x, sign-flipped at
+2x; the two capsule cells over 0.01 by a thousandth (+0.0102, +0.0105) are its family; its
+charter's shape is Decision Log 3's square-box sweep (24…120 CSS px, both backdrops, both scales,
+the spread per tier beside the mean). **The stack** — the overlay's term is the renderer's
+unsampled white on DOM-sourced groups (0.042–0.057; the native overlay 0.909 / 0.897 above both
+tiers; a material derived from the profile at the group's level, or a sampling route for DOM
+sources, where the goldens' isolation proof lives); the base's shadow composite over a glassed
+body (+0.0081 / +0.0108 on the checkerboard base, 0.0054 of it by G0's decline; the conversion
+re-derived at the glassed body's level, or bounded per level). **The unmeasurable cell** —
+`hc-text__capsule-button` under increased contrast: an instrument item, `cli/compare.ts` aborts a
+profile's run on a degenerate contour where it should write the cell with its shape axis marked
+unmeasurable and its perceptual rows kept; until then the bed carries 229. **S5's cell** by 0.0005
+and the form's one-signed bias. **The IoU of five fragmentary cells** moved 0.0021–0.0121 (the
+extractor's reach on a fragmentary silhouette; W17's instrument item). **The renderer's own
+items, not imported** — the thin-span level (+0.035…+0.058 over native on the 44 px span; the
+probe's lone circle joins that ledger), the union's kind against Apple's, the overlay route. **The
+2x native probe** — the user's session to open. The plain-`blur()` engines' level; the darks on
+the encoded form; the CSS tier's frame timing (the tracker, two cells this wave).
+
