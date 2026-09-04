@@ -121,8 +121,10 @@ def main():
         font = ImageFont.truetype('/System/Library/Fonts/Helvetica.ttc', max(18, width // 110))
     except Exception:
         font = None
-    banner = ('1 Apple native   2 CSS tier, W15 bed (one blur)   3 CSS tier, W16 candidate (two layers)   '
-              '4 GPU tier, W15 bed   5 diff (CSS candidate - native)   -- 5 is a diagnostic, NOT a render')
+    # The G1 sheets were made before this line was corrected and carry W16's banner: on them
+    # column 2 is the W16 bed and column 3 the W17 candidate, as the G2 sheets say.
+    banner = ('1 Apple native   2 CSS tier, W16 bed (encoded tint)   3 CSS tier, W17 candidate (the lerp in linear light)   '
+              '4 GPU tier, W16 bed   5 diff (CSS candidate - native)   -- 5 is a diagnostic, NOT a render')
     draw.text((GAP, GAP), banner, fill=(230, 230, 230), font=font)
     y = banner_h
     for label, panels in rows:

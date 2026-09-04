@@ -39,6 +39,20 @@
  * (`referenceBackdropLuminance`) and is measurably off either side of it. That
  * floor is a fact about `backdrop-filter`, not a tuning failure, and it is what
  * the tier-coherence claim is worded around.
+ *
+ * **W17 narrowed that paragraph to the engines it still describes (2026-09-05;
+ * W17 Decision Log 7, claims §5.75–§5.76).** On Chromium the tint's lerp runs
+ * inside the sharp layer's linear-light reference filter as a per-channel table
+ * (`CssTierTintTransfer`), so the composite is the renderer's per pixel and the
+ * mapping no longer agrees at one level and drifts either side of it: measured on
+ * the canonical bed, the cross-tier level ratio on the light cells reads 0.98–1.02
+ * (worst 1.0241) where the encoded overlay read 0.92–0.96, and the residuals
+ * that remain are the page's encoded-space mix of the two tinted layers under the
+ * ramp's mask (about −0.004 of the level at dpr 1) and the union-contour scenes'
+ * unexplained −0.010…−0.015. The one-level statement above is now the statement
+ * for the plain-`blur()` engines, which keep the `rgba()` overlay, and for the
+ * groups whose composite sits below the eight-bit linear chain's quantum and take
+ * the encoded form by the declared boundary (`cssTint: "encoded"`).
  */
 
 import {

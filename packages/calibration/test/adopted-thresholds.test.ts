@@ -510,7 +510,16 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // rrect-md RE-PINS DOWN by 0.0021 (0.91695 → 0.91489, 0.0010 under the
   // W15 bed's live reading) by the user's decision, the claim narrowed to
   // the band the tier cannot draw.
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91489, floor: 0.9138 },
+  // W17 G2 (claims §5.76; W17 Decision Log 7, user decision 2026-09-05)
+  // RATCHETED six of the seven dom floors UP by 0.0004–0.0190 and KEPT one
+  // (2x glass-over-glass, 0.86832 → 0.86809 inside its epsilon): the CSS
+  // tier now draws the renderer's interior composite — the tint's lerp as a
+  // table in the sharp layer's linear-light filter over the doctrine's floor,
+  // the mirror in the shader's order with the inner shadow — and every 1x
+  // large span rose 0.008–0.019 with its interior on the renderer's level.
+  // None meets its adopted bound: the rim band the tier has no lens to draw
+  // is still the mechanism (§5.72 §5), unchanged in kind.
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91529, floor: 0.9142 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
   // floors on the checkerboard rrect-lg/ml cells, each DOWN by 0.0002–0.0072:
   // the response-curve law lands the interior MEAN on the reference and pays
@@ -518,12 +527,12 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // that bought the six restored claims above, not a regression that slipped.
   // The SSIM axis on these cells is re-attributed to a structure round the
   // W9 spec's Deferred charters; the floors keep ratcheting from here.
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.85925, floor: 0.8582 },
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87829, floor: 0.8772 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.85286, floor: 0.8518 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86832, floor: 0.8677 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.85126, floor: 0.8502 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87089, floor: 0.8698 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87574, floor: 0.8747 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87892, floor: 0.8779 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86095, floor: 0.8599 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86809, floor: 0.8677 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87021, floor: 0.8692 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87222, floor: 0.8712 },
   // W12 (claims §5.59; W12 Decision Logs 4, 6 and 7) RATCHETED the three 2x
   // texture-tier rows UP again by 0.010–0.014: the lens is now the reference's
   // own field (one steep power on Apple's span law along a normal ovalized by
@@ -872,15 +881,32 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * and hold them (ssimMean 0.983 / 0.992 against ≥ 0.91, ΔE 0.004 / 0.003
  * against ≤ 0.04). The dry run's referee did not run this predicate, so the
  * landing is where it was read — W16 Surprises.
+ *
+ * **What moved with W17 (2026-09-05, claims §5.76).** One dom row LEAVES —
+ * `checkerboard__capsule-button__rest` under reduced transparency, whose
+ * fold now recovers 0.9961 of its region with one body once the tier's level
+ * is the renderer's — and four JOIN, all `areaWeb`, all one mechanism:
+ * `light-solid__rrect-md__rest` at 2x, `light-solid__rrect-ml__rest` at both
+ * light scales and `hc-text__capsule-button__rest` at 2x now sit within 0.004
+ * of their own background at the renderer's level (0.9315–0.9322 over
+ * 0.9337–0.9347 on the light solids), and the luminance-delta extractor
+ * separates the GPU tier there only by the rim and lens the CSS tier does
+ * not draw. Coherence with the renderer costs the instrument what the
+ * renderer keeps; every one of the four still gates on its perceptual rows.
+ * The reduced-transparency `hc-text` capsule stays: its recovery rose to
+ * 0.9310 against the 0.95 arm (W17 Deferred).
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
-  "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / calibration / light-solid__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "dom / calibration / light-solid__rrect-ml__rest / apple-macos-26.5-1x-light-standard",
+  "dom / calibration / light-solid__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+  "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
