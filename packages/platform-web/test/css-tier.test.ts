@@ -35,6 +35,7 @@ import {
   outerShadowFalloff,
   outerShadowThinOcclusion,
   resolvedPolicyFold,
+  scatterHeavyEffectiveRatioAtScale,
   scatterThickness as cssScatterThickness,
   sizeThickness,
   groupScatterSigma,
@@ -1188,15 +1189,32 @@ describe("the size law reaches the CSS tier", () => {
        */
       if (at1x.body.form === "two-layer" && at2x.body.form === "two-layer") {
         scaled += 1;
-        // The fixture's two gains are equal, so the law itself is scale-free and
-        // what is left in the CSS-px widths is exactly the ratio's own division.
+        /*
+         * The SHARP width is the profile's own σ as a device-pixel quantity and
+         * nothing else touches it, so it halves at dpr 2 exactly.
+         */
         expect(at2x.body.sharpSigmaCssPx, `span ${span}`).toBeCloseTo(
           at1x.body.sharpSigmaCssPx / 2,
           12,
         );
+        /*
+         * The HEAVY width does not halve, and that is the second scale rather
+         * than a bug. The fixture's two gains are equal, so the law itself is
+         * scale-free here — but the renderer's kernel is not, and the effective
+         * conversion the tier draws through is 1.38 at dpr 1 against 1.49 at
+         * dpr 2 (measured on the renderer's own broadband captures; see
+         * `SCATTER_HEAVY_EFFECTIVE_RATIO_1X`). So the 2x heavy width is the 1x
+         * one halved and then carried by the ratio of the two conversions, and
+         * the assertion says exactly that rather than asserting a halving that
+         * would only pass while the conversion was inert.
+         */
         expect(at2x.body.heavySigmaCssPx, `span ${span}`).toBeCloseTo(
-          at1x.body.heavySigmaCssPx / 2,
+          (at1x.body.heavySigmaCssPx / 2)
+            * (scatterHeavyEffectiveRatioAtScale(2) / scatterHeavyEffectiveRatioAtScale(1)),
           12,
+        );
+        expect(at2x.body.heavySigmaCssPx, `span ${span}`).toBeGreaterThan(
+          at1x.body.heavySigmaCssPx / 2,
         );
       } else {
         // A collapsed body IS the projection — both of its widths are it — which

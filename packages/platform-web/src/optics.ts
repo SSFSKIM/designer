@@ -1621,64 +1621,123 @@ export function sizeScatterSigmaAt(
  * own**: it is one number describing the other tier's kernel, in the same sense
  * `α′ = α − L/B` is one number describing the other tier's lift.
  *
- * **The conversion is measured, and the number is not landed here yet.** W16 G1
- * read the moment-matched σ of the renderer's heavy component off the renderer's
- * own committed captures, with the sharp width at the profile's nominal, the
- * renderer's own k(u) as the mix, and the level and the transmission free per
- * cell — one nonlinear parameter, swept and refined, with the instrument's
- * recovery of a known law beside every reading (X4). Two things came out of it,
- * and the second is why this constant still says 1.
+ * **The conversion is a per-scale ratio, measured, and the bed it is measured on
+ * is half the finding.**
  *
- * **The bed decides whether the question is answerable at all.** The first run
- * used the checkerboard cells and produced a per-span spread of 1.6× at dpr 2 and
- * nothing usable at dpr 1. That was the bed, not the kernel: a checkerboard is a
- * SINGLE spatial frequency — pitch 16 CSS px — and a heavy kernel of σ 10 device
- * px annihilates it at dpr 1, so there is no signal left for a width to be read
- * out of. X4 says so directly rather than leaving it to inference: on that bed the
- * same instrument recovers a known width to +5% at σ 6, +8% at σ 8, and at σ 10
- * returns either 1.03 or the sweep's ceiling for a truth of 10.00. On the
- * broadband `photo` cells, which carry energy at every frequency, the same
- * instrument recovers a known law to **−0.51% … +0.16% at dpr 1** and to
- * **±0.04% at dpr 2**. Only the broadband readings below are evidence; the
- * checkerboard ones are discarded, and the discarding is the finding.
+ * The first run used the checkerboard cells and produced a per-span spread of
+ * 1.6x at dpr 2 and nothing at all at dpr 1. That was the BED, not the kernel: a
+ * checkerboard is a single spatial frequency — pitch 16 CSS px — and a heavy
+ * kernel of sigma 10 device px annihilates it at dpr 1, so no signal is left for a
+ * width to be read out of. X4 says so directly rather than leaving it to
+ * inference: on that bed the same instrument recovers a known width to +5% at
+ * sigma 6, +8% at sigma 8, and at sigma 10 returns either 1.03 or the sweep's
+ * ceiling for a truth of 10.00. Those readings are discarded, and discarding them
+ * is a result: any future reading of this kernel needs a broadband bed.
  *
- * **On the broadband bed at dpr 1 the conversion is one number.** Nominal 10.00
- * device px, and the effective width by span, over insets 16–28:
+ * On the broadband `photo` cells the same instrument recovers a known law to
+ * **-0.51% … +0.16% at dpr 1** and **+-0.04% at dpr 2**, and the answer is one
+ * ratio per scale, flat in the span:
  *
- * | cell | span | effective, device px | ratio | RMS | ±5% band |
- * | --- | --- | --- | --- | --- | --- |
- * | `rrect-sm` | 32 | 13.36–14.12 | 1.335–1.412 | 0.0020 | 11.50–16.50 |
- * | `capsule-button` | 44 | 13.66–14.03 | 1.366–1.403 | 0.0020 | 12.00–15.50 |
- * | `rrect-md` | 96 | 13.71–13.87 | 1.371–1.387 | 0.0021 | 13.00–15.00 |
- * | `rrect-ml` | 128 | 13.74–13.85 | 1.374–1.385 | 0.0021 | 13.00–14.50 |
- * | `rrect-lg` | 160 | 13.81–13.88 | 1.381–1.388 | 0.0021 | 13.50–14.50 |
+ * | cell | span | dpr | nominal | effective | ratio | RMS | +-5% band |
+ * | --- | --- | --- | --- | --- | --- | --- | --- |
+ * | `rrect-sm` | 32 | 1 | 10.00 | 13.36-14.12 | 1.335-1.412 | 0.0020 | 11.50-16.50 |
+ * | `capsule-button` | 44 | 1 | 10.00 | 13.66-14.03 | 1.366-1.403 | 0.0020 | 12.00-15.50 |
+ * | `rrect-md` | 96 | 1 | 10.00 | 13.71-13.87 | 1.371-1.387 | 0.0021 | 13.00-15.00 |
+ * | `rrect-ml` | 128 | 1 | 10.00 | 13.74-13.85 | 1.374-1.385 | 0.0021 | 13.00-14.50 |
+ * | `rrect-lg` | 160 | 1 | 10.00 | 13.81-13.88 | 1.381-1.388 | 0.0021 | 13.50-14.50 |
+ * | `rrect-sm` | 32 | 2 | 6.00 | 8.91-8.96 | 1.484-1.494 | 0.0020 | 8.00-9.50 |
+ * | `capsule-button` | 44 | 2 | 6.00 | 8.97-9.00 | 1.495-1.500 | 0.0020 | 8.50-9.50 |
+ * | `rrect-md` | 96 | 2 | 6.00 | 8.91-8.97 | 1.484-1.496 | 0.0021 | 8.50-9.00 |
+ * | `rrect-ml` | 128 | 2 | **6.66** | **9.92-9.93** | **1.488-1.491** | 0.0021 | 9.50-10.00 |
+ * | `rrect-lg` | 160 | 2 | **8.24** | **12.19-12.21** | **1.478-1.481** | 0.0022 | 12.00-12.5 |
  *
- * Five spans, a ratio of **1.38 ± 3%**, and the three thick spans — the ones with
- * a real deep interior — inside 1.371–1.388. That is a single ratio, which is the
- * shape a conversion has to have to be one derivation rather than a table.
+ * **The last two rows are the ones that decide the shape.** The other three cells
+ * at dpr 2 share a nominal of 6.00, so a constant RATIO and a constant effective
+ * WIDTH predict the same number for all of them and cannot be told apart. The 2x
+ * gain is span-graded above the size law's knee, so `rrect-ml` is fitted at a
+ * nominal of 6.663 and `rrect-lg` at 8.24 — and there the two predictions
+ * separate hard. A constant ratio says 9.93 and 12.28; a constant width says 8.97
+ * for both. They read 9.93 and 12.20. So the conversion is a ratio, three
+ * different nominals give 1.478-1.500, and the checkerboard bed's
+ * falling-with-span ratios were its degeneracy and nothing else.
  *
- * **The second scale is still open, and a rule that holds at one scale is not a
- * rule.** The dpr 2 readings were still running when this landed; the first cell
- * reads 8.9 device px against a nominal of 6.0, a ratio of 1.49 rather than 1.38,
- * so the possibility that the conversion is per-scale is live and unresolved. A
- * ratio landed from the 1x half alone would move the tier's 2x body on evidence
- * that does not cover it, which is the direction W15 Decision Log 3 spent a whole
- * wave being careful about.
+ * **The residuals, and why the rule is a ratio and is per scale.** Fitted by
+ * least squares over the ten readings:
  *
- * So the tier draws the nominal for now and the gap is named rather than guessed.
- * The consequence is stated: the tier's single-σ equivalent at 2x lands narrow of
- * the reference's ceiling by roughly the 0.38–1.07 CSS px G0 predicted (claims
- * §5.71 §5), which G0 attributed to the GPU tier's own 2x heavy width sitting
- * 0.4–1.4 CSS px under the reference's — a GPU-tier distance this wave's binding
- * rules forbid moving. Landing 1.38 at 1x would close part of that at 1x; the
- * measurement to finish first is the 2x half on the broadband bed, and the
- * instrument and the bed for it are both now known.
+ * | set | ratio | its residual | quadrature | its residual |
+ * | --- | --- | --- | --- | --- |
+ * | both scales | r = 1.412 | 0.417 device px (3.5%) | c = 8.470 | 0.992 device px (8.4%) |
+ * | dpr 1 only | r = **1.380** | 0.091 device px (0.66%) | c = 9.507 | 0.091 device px (0.66%) |
+ * | dpr 2 only | r = **1.485** | 0.035 device px (0.35%) | c = 7.287 | 0.685 device px (7.0%) |
+ *
+ * Two things to read off that. First, **the dpr 1 row cannot choose between the
+ * two forms and must not be quoted as if it could**: the nominal heavy width is
+ * exactly 10.000 device px at every 1x span, so with one nominal the two rules
+ * are the same one-parameter fit and their residuals are identical by
+ * construction. All of the discriminating power is at dpr 2, where the
+ * span-graded gain makes the nominal genuinely vary (6.000, 6.663, 8.244) — and
+ * there the ratio holds to 0.35% while the quadrature form is off by 7%.
+ *
+ * Second, the 3.5% pooled residual on a single ratio is not scatter but a clean
+ * split by scale: every 1x cell sits below the pooled value and every 2x cell
+ * above it. Within each scale the rule is essentially exact, so the honest law is
+ * one ratio per scale rather than one ratio with a poor fit.
+ *
+ * Why the two scales differ by 7.6% is not explained by this measurement, and the
+ * plausible mechanism is offered as a hypothesis rather than a finding: the heavy
+ * tap lands on a fractional mip level, `scatterLod = size.w + log2(gain)`, and
+ * dpr 1's gain of 8 is an exact power of two where dpr 2's are not, so the two
+ * scales sample the chain's trilinear blend differently. The hypothesis does not
+ * obviously predict that the three dpr 2 gains — whose log2 fractions span 0.26
+ * to 0.72 — all give the same ratio, which they do.
+ *
+ * So this is a 1x/2x anchor pair interpolated by `rampAtScale`, which is the same
+ * shape and the same interpolation every other scale-dependent quantity in this
+ * material already takes (`sizeScatterGainMax`, `sizeScatterFloor`,
+ * `sizeScatterSpanMax` and the ramp's own anchors). It is NOT a leaf of the
+ * material profile, deliberately: it describes the renderer's kernel
+ * implementation rather than the reference's material, so a profile patch has no
+ * business moving it and a change to the renderer's mip chain would require
+ * re-measuring it. That is also why it does not violate K5 — it is one number
+ * describing the OTHER tier's kernel, in the same sense `alpha-prime = alpha -
+ * L/B` is one number describing the other tier's lift, rather than a constant
+ * fitted for this tier against the reference.
+ *
+ * **The SHARP width is kept nominal, and that too is a reading rather than an
+ * assumption.** Fitted the same way — the heavy width held at its own fitted
+ * value and the profile taken over sigma_s on a 0.05-device-px grid, so the
+ * column cannot be a grid floor — it reads 1.60-1.70 against the profile's 1.25
+ * at dpr 1, but every cell's +-5% band contains the nominal and the narrowest of
+ * them is 1.15-1.95. At dpr 2 it is not identifiable at all: the bands run
+ * 0.30-4.00, because the deep interior at that scale is FULLY heavy on every
+ * cell (the fitted regions' deep sharp share is 0.000, which is claims §5.69 §2's
+ * own finding), so there is no sharp component in the region being fitted for a
+ * width to be read from. A 1.25 that sits inside every band it has at one scale
+ * and is unconstrained at the other is a width that reads nominal, and the tier
+ * draws it nominal.
  */
-export const SCATTER_HEAVY_EFFECTIVE_RATIO = 1;
+export const SCATTER_HEAVY_EFFECTIVE_RATIO_1X = 1.38;
+export const SCATTER_HEAVY_EFFECTIVE_RATIO_2X = 1.485;
+
+/**
+ * The conversion at a device scale, interpolated between the two measured
+ * anchors and held outside [1, 2] — `rampAtScale`, exactly as every other
+ * per-scale constant in this material is read.
+ */
+export function scatterHeavyEffectiveRatioAtScale(devicePixelRatio = 1): number {
+  return rampAtScale(
+    SCATTER_HEAVY_EFFECTIVE_RATIO_1X,
+    SCATTER_HEAVY_EFFECTIVE_RATIO_2X,
+    devicePixelRatio,
+  );
+}
 
 /** The effective width of a heavy component whose nominal is `nominalDevicePx`. */
-export function scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx: number): number {
-  return nominalDevicePx * SCATTER_HEAVY_EFFECTIVE_RATIO;
+export function scatterHeavyEffectiveSigmaDevicePx(
+  nominalDevicePx: number,
+  devicePixelRatio = 1,
+): number {
+  return nominalDevicePx * scatterHeavyEffectiveRatioAtScale(devicePixelRatio);
 }
 
 /**
@@ -1718,7 +1777,10 @@ export function cssTierHeavySigmaCssPx(
   devicePixelRatio = 1,
 ): number {
   const nominal = sigmaDevicePx * scatterGainAt(spanPx, size, devicePixelRatio);
-  return scatterHeavyEffectiveSigmaDevicePx(nominal) / Math.max(devicePixelRatio, 1e-3);
+  return (
+    scatterHeavyEffectiveSigmaDevicePx(nominal, devicePixelRatio)
+    / Math.max(devicePixelRatio, 1e-3)
+  );
 }
 
 /**

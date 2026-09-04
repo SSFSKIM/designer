@@ -68,6 +68,7 @@ import {
   cssTierHeavySigmaCssPx,
   cssTierHeavyStepSigmaCssPx,
   cssTierSharpSigmaCssPx,
+  scatterHeavyEffectiveRatioAtScale,
   scatterHeavyEffectiveSigmaDevicePx,
   scatterDeepThickness as cssScatterDeepThickness,
   scatterFloorAtScale as cssScatterFloorAtScale,
@@ -370,6 +371,7 @@ describe("tier coherence (K5)", () => {
       ).toBeCloseTo(
         scatterHeavyEffectiveSigmaDevicePx(
           rendered.blurSigma * rendererScatterGainAt(96, profile, dpr),
+          dpr,
         ),
         12,
       );
@@ -937,7 +939,7 @@ describe("tier coherence (K5)", () => {
         const nominalDevicePx = base * rendererScatterGainAt(span, DEFAULT_MATERIAL_PROFILE, dpr);
         const heavy = cssTierHeavySigmaCssPx(base, span, MATERIAL_SOURCE_SIZE, dpr);
         expect(heavy * dpr, `L2 composed at ${label}`).toBeCloseTo(
-          scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx),
+          scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx, dpr),
           12,
         );
         // The gain the width is a multiple of is one law across the seam.
@@ -989,19 +991,35 @@ describe("tier coherence (K5)", () => {
      * gain's, halved into CSS px — which is the whole of what W15 Decision Log 3
      * held back and W16 G1 released.
      */
-    const effective = (nominal: number): number => scatterHeavyEffectiveSigmaDevicePx(nominal);
     expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(
-      effective(1.25 * 8),
+      scatterHeavyEffectiveSigmaDevicePx(1.25 * 8, 1),
       12,
     );
     expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(
-      effective(1.25 * 4.8) / 2,
+      scatterHeavyEffectiveSigmaDevicePx(1.25 * 4.8, 2) / 2,
       12,
     );
     expect(cssTierHeavySigmaCssPx(1.25, 256, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(
-      effective(1.25 * 9.9) / 2,
+      scatterHeavyEffectiveSigmaDevicePx(1.25 * 9.9, 2) / 2,
       12,
     );
+    /*
+     * The conversion itself, stated so the pins above cannot pass on a ratio of 1.
+     * Measured on the renderer's own broadband captures with the instrument's
+     * recovery of a known law beside it: 1.38 at dpr 1 and 1.49 at dpr 2, flat in
+     * the span at each scale and interpolated between them exactly as every other
+     * per-scale constant in this material is. 1.485 rather than 1.49 because that
+     * is the least-squares fit over the five 2x cells, and the three different
+     * nominals among them are what make the ratio distinguishable from a width
+     * offset at all.
+     */
+    expect(scatterHeavyEffectiveRatioAtScale(1)).toBeCloseTo(1.38, 12);
+    expect(scatterHeavyEffectiveRatioAtScale(2)).toBeCloseTo(1.485, 12);
+    expect(scatterHeavyEffectiveRatioAtScale(1.5)).toBeCloseTo(1.4325, 12);
+    expect(scatterHeavyEffectiveRatioAtScale(3)).toBeCloseTo(1.485, 12);
+    // And it really reaches the width the tier writes: the 1x heavy component is
+    // the profile's 10 device px carried to 13.8 by the conversion.
+    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(13.8, 12);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
