@@ -471,7 +471,7 @@ page's section H (X9) lands from G0 on its own, since it moves no material.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71; section H on `spikes/s1-proxy-topology/pages/manual-check.html` (X9) | CLOSED 2026-09-04 — `mask-image` composes; the two `blur()` layers halve the residual and are floored by the encoded space; a linear-light reference filter meets the acceptance and is Chromium-only; the lift's advisory form does not exist; the cost budget measured, and re-measured for the linear-light form in the findings' §5.1 and claims §5.71 §7.1 — the knee does not move |
-| G1 | branch `w16-g1-two-layer`, one worker (Decision Log 2 (a)–(d); the forks of q0–q2 behind conformance rows and one constant) | OPENED 2026-09-04 |
+| G1 | branch `w16-g1-two-layer` at `af49e00` (one worker: the element model, the raster mask, the reference filter, the effective-width conversion, the area collapse, the conformance field, the tests; `b40bfbe` the parent's dry-run artifacts and sheets); the parent's two dry runs and the `blur()` control refereed against the W15 bed under the stops, the holdout read once; **DECLARED** in claims §5.72 — every 1x row up with the holdout, the four large 2x rows 0.0025–0.0051 down by the band, the level 0.06–0.09 over native as a named conversion gap (eight single-cell configurations measured to the mechanism) | DECLARED 2026-09-04 — Decision Log 3 puts the landing to the user |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -605,8 +605,68 @@ every fork behind a conformance row or one constant so that no answer reopens th
 
 **G1 opens** on (a)–(d), on a branch, with 0–2 built as switchable defaults.
 
+### Decision Log 3 — the landing: as declared, with one floor re-pinned and the level named, or held for the level's closure (2026-09-04; the user's)
+
+**Evidence** (claims §5.72; `results/2026-09-04-w16-css-two-layer/g1/g1-dry-run.md`; the sheets
+`g1-1x.png`, `g1-2x.png` sent). The branch at `af49e00` — the element model of Decision Log 2
+(a), the raster mask, the linear-light reference filter on Chromium, both widths through the
+renderer's effective-width conversion (1.380 / 1.485), no fitted constant — refereed on the full
+bed with the holdout read once: the GPU tier byte-identical (115 / 115); at 1x every checkerboard
+row up including both holdout rows (`rrect-md` 0.9028, `rrect-ml` 0.8593, `glass-over-glass`
+0.8529, `rrect-lg` 0.8513) and `hc-text__rrect-md` 0.9072 → 0.9387; the spread within ±0.007 of
+native at 1x and ±0.016 at 2x; the dark rows up, the solids and tinted cells still, the photo
+cells still with their level toward native, the cross-tier ΔE down on every profile; at 2x the
+thin spans up and the four large spans down 0.0025–0.0051 with the band as the mechanism
+(`rrect-md` 0.9149 against its floor 0.9159); the interior level 0.06–0.09 over native on the
+checkerboards at both scales — a conversion gap measured to its mechanism through eight
+configurations and named (claims §5.72 §3–§4). By eye the checker is back where the bed smeared
+it, the candidate reads whiter than native and the GPU tier on the checkerboards, and neither
+CSS column has the lens or the rim band.
+
+**Options.**
+
+1. **Land as declared** (`af49e00`): G2 merges, rebuilds the canonical bed once, takes the 1x
+   `rrect-md` floor OFF (0.9028 against ≥ 0.90 — met), ratchets the three other 1x floors UP to
+   the new readings, keeps the three 2x floors that are still cleared with their measured values
+   updated, and **re-pins the 2x `rrect-md` floor 0.9159 → 0.9149** by this decision with the
+   mechanism (the rim band, §5.72 §5); S2's "not below the bed" clause is re-declared on the four
+   2x rows with the same mechanism; the level goes to Deferred with the shape of its closure.
+   **Recommended:** the wave's purpose is met at 1x on every row and the holdout, the spread
+   deficit that motivated it is closed at both scales, the 2x loss is the chartered gap's
+   signature rather than a defect, and the level's closure needs a renderer measurement that is
+   its own item — one whose arithmetic is already written on the branch.
+2. **Hold for the level.** Charter the measurement of the renderer's rendered-interior excess
+   over its analytic composite (per span and backdrop, on the renderer's own captures), feed it
+   to the `feComponentTransfer` solve, re-run the dry run, then land. A better tier at the end;
+   the 2x band rows do not move with it (configuration H's bands were lower than E's), so the
+   floor re-pin stays either way.
+3. **Land configuration H instead** (the level on native, the analytic composite exact): scores
+   under E on five of six single cells and under the bed on both 2x rrect rows by 0.006–0.0075;
+   the band lower everywhere. Not recommended.
+
+**The user decides.** The three open questions of Decision Log 2 (the linear-light body, the
+area budget, the unverified-engine policy) are answered by the declaration's defaults unless the
+user changes them; the `blur()` control's numbers (§5.72 §3) are the evidence for question 0.
+
 ## Surprises & Discoveries
 
+- **2026-09-04 (G1) — one alpha cannot make an encoded overlay agree with a linear lerp in both
+  mean and slope, and the operator CSS offers for the second degree of freedom pivots where the
+  derivation cannot.** `contrast()` pivots at encoded 0.5 and drags a dark backdrop up to it
+  (`dark-solid__rrect-md` 0.22 encoded too light); `feComponentTransfer` with a free intercept
+  carries the two-equation solve exactly. Both measured on single cells (claims §5.72 §3).
+- **2026-09-04 (G1) — the renderer's rendered interior sits 0.023–0.058 above its own analytic
+  composite**, because the shader draws the lens, the rim and the highlight into the same pixels;
+  a conversion exact to the material lands the CSS tier on native and under the GPU tier, and
+  the fitted anchor lands it over both. Neither can aim at the rendered level from inside the
+  tier (claims §5.72 §4).
+- **2026-09-04 (G1) — a checkerboard cannot measure a ten-device-pixel kernel.** One spatial
+  frequency, annihilated; the width instrument returned 1.03 or its ceiling for a truth of 10.00
+  on that bed and recovered a known law to under 0.5% on the broadband photo captures. Any
+  future reading of this kernel needs a broadband bed.
+- **2026-09-04 (G1) — the sharp component's effective width is the heavy one's ratio, and the bed
+  decided it where the fit could not** (the nominal inside every band): with it the 1x spread
+  lands inside ±0.007 of native on every span; without it, 0.013–0.018 over.
 - **2026-09-04 (G0) — the tier's body is floored by the colour space, not by its form.**
   `backdrop-filter: blur()` is an operator on the page's ENCODED values and the reference's body is
   linear in luminance. The two-layer form reproduces the law it is given to RMS 0.0024–0.0049
@@ -674,3 +734,8 @@ every fork behind a conformance row or one constant so that no answer reopens th
   derivation of the renderer's effective width, the lift decided against on measurement; the
   linear-light form, the area budget and the engine policy put to the user with recommendations.
   G1 opened on a branch with the forks behind conformance rows.
+- 2026-09-04: **G1 DECLARED** (claims §5.72): the branch at `af49e00` refereed on the full bed under
+  the stops with the holdout read once — S1, S5, S6 met; S2 fired on the four large 2x rows
+  (0.0025–0.0051, the band), S3 by 0.0006 on one, S4 by 0.0030 on one; every 1x row up. Eight
+  single-cell configurations for the level measured to the mechanism. Four Surprises. Decision
+  Log 3 puts the landing to the user (recommended: as declared, one floor re-pinned).

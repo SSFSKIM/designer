@@ -10324,3 +10324,149 @@ that the budget belongs on filtered area per layer rather than on a surface coun
 - Open and named: the software rasteriser's joint area limit for two filtered elements; whether a
   linear-light reference filter changes the tier's cost (§7's runs all use `blur()`); the
   accessibility folds on the two-layer form.
+
+### 5.72 W16 G1 DECLARED: the two-layer CSS body's dry run — the two-component law on the tier at last, every 1x row up with the holdout, the four large 2x rows down by the band, the level a named conversion gap (2026-09-04)
+
+**The configuration** (branch `w16-g1-two-layer` at `af49e00`; W16 Decision Log 2 (a)–(d)). The CSS
+tier creates three children of the author's host — L1 the sharp `backdrop-filter`, L2 the heavy
+`backdrop-filter` over L1's output with W13's ramp as a raster `mask-image` drawn from the exact
+k(u) at device resolution, L3 the tint, the press glow and the rim as an inset shadow — painting
+above the host's background and below its in-flow content; the host keeps its layout, the outer
+shadow and the tokens, and no proxy is built. On an engine whose conformance row renders a
+reference filter inside `backdrop-filter` (Chromium) both layers blur through an SVG
+`feGaussianBlur` at `linearRGB`; elsewhere through `blur()`. Both widths are device-pixel
+quantities through the live ratio, and both take the renderer's kernel's EFFECTIVE Gaussian
+width rather than the profile's nominal — a conversion measured on the renderer's own broadband
+(`photo`) captures, a ratio per scale, 1.380 at dpr 1 and 1.485 at dpr 2 (residual 0.35% at
+dpr 2 against 7.0% for a quadrature form; the checkerboard captures could not answer it, since a
+kernel of ten device pixels annihilates one spatial frequency):
+
+| cell | span | dpr | heavy nominal | heavy effective | ratio |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 32 | 1 | 10.000 | 14.119 | 1.412 |
+| `capsule-button` | 44 | 1 | 10.000 | 13.731 | 1.373 |
+| `rrect-md` | 96 | 1 | 10.000 | 13.869 | 1.387 |
+| `rrect-ml` | 128 | 1 | 10.000 | 13.821 | 1.382 |
+| `rrect-lg` | 160 | 1 | 10.000 | 13.877 | 1.388 |
+| `rrect-sm` | 32 | 2 | 6.000 | 8.939 | 1.490 |
+| `capsule-button` | 44 | 2 | 6.000 | 9.000 | 1.500 |
+| `rrect-md` | 96 | 2 | 6.000 | 8.914 | 1.486 |
+| `rrect-ml` | 128 | 2 | 6.663 | 9.917 | 1.488 |
+| `rrect-lg` | 160 | 2 | 8.244 | 12.200 | 1.480 |
+
+The sharp width read 1.60–1.70 device px against the nominal 1.25 at 1x (the nominal inside every
+band, so the fit alone could not exclude it) and takes the same ratio, which the bed decided (§3).
+The share is the renderer's own ramp and deep value at the live ratio; the tint conversion is
+today's (`referenceBackdropLuminance`); the WebGPU tier's proxy keeps its σ under
+`WEBGPU_PROXY_PROJECTION_SCALE`; the area budget is 400 000 filtered device px per frame with the
+collapse named in `GlassGroupState.cssBody`; `maskOnBackdropFilter` is a new conformance field,
+`"yes"` on the Chromium rows with §5.71 §1 as its evidence. No constant of this tier's own is
+fitted. Every declaration, stop and reading below is the parent's dry run
+(`results/2026-09-04-w16-css-two-layer/g1/g1-dry-run.md`, `verify-dry.py`), the GPU tier
+captured beside the CSS tier so the coherence rows compute.
+
+**1. The stops, as refereed** (the charter's G2 stops, with numbers). S1 — every GPU-tier
+capture at every profile byte-identical to the W15 bed (115 of 115), every GPU row exact: **met**
+on both dry runs. S2 — no dom row below its adopted bound or floor and none of the eight held
+rows below the bed: **fired at 2x** on `checkerboard__rrect-md` (0.9174 → 0.9149, under its
+floor 0.9159 by 0.0010), `rrect-ml` (0.8808 → 0.8783), `glass-over-glass` (0.8709 → 0.8683) and
+`rrect-lg` (0.8760 → 0.8709), the last three above their floors; every other row inside its
+bound. S3 — the dom checkerboard spread within 0.01 of native at 1x and 0.015 at 2x on the
+calibration spans: **met at 1x** (±0.007) and **fired at 2x on `rrect-ml`** by 0.0006 (−0.0156).
+S4 — the checkerboard means at or above their pre-W11c level and the `hc-text` rows at or above
+theirs: the means met on every span, `hc-text__rrect-md` met (0.9387 against 0.9295), **fired on
+`hc-text__capsule-button`** by 0.0030 (0.9769 against 0.9799; +0.0030 over the bed). S5 — the
+solids, `photo` and tinted cells within 0.002: **met** (the solids and tinted within 0.0004, the
+photo cells within 0.0008, the `photo` levels moved toward native). S6 — `tier-coherence` not
+loosened and the cross-tier ΔE not rising: **met**; the ΔE over the fitted sets fell on every
+profile (1x light 0.00760 → 0.00721, 2x 0.00765 → 0.00749, dark 0.00415 → 0.00406 and 0.00424 →
+0.00414).
+
+**2. The rows** (CSS tier, light standard; `ssimMean` · `ssimBand` · spread web / native · level
+web / native; the holdout rows read once for this configuration, X8):
+
+| cell | dpr | W15 bed | this configuration |
+| --- | --- | --- | --- |
+| `rrect-sm` | 1 | 0.9855 · 0.6891 · 0.1472 / 0.1549 · 0.6117 / 0.6285 | 0.9862 · 0.7168 · 0.1516 / 0.1549 · 0.7033 / 0.6285 |
+| `capsule-button` | 1 | 0.9619 · 0.6437 · 0.1250 / 0.1424 · 0.6075 / 0.6207 | 0.9672 · 0.7076 · 0.1416 / 0.1424 · 0.7051 / 0.6207 |
+| `rrect-md` | 1 | 0.8963 · 0.6191 · 0.0767 / 0.1131 · 0.6352 / 0.6829 | 0.9028 · 0.6148 · 0.1064 / 0.1131 · 0.7419 / 0.6829 |
+| `rrect-ml` | 1 | 0.8515 · 0.6791 · 0.0591 / 0.0865 · 0.6335 / 0.6936 | 0.8593 · 0.6615 · 0.0927 / 0.0865 · 0.7447 / 0.6936 |
+| `toolbar-group` | 1 | 0.9584 · 0.6136 · 0.1332 / 0.1481 · 0.6029 / 0.6210 | 0.9617 · 0.6579 · 0.1438 / 0.1481 · 0.6949 / 0.6210 |
+| `glass-over-glass` (holdout) | 1 | 0.8516 · 0.6967 · 0.1279 / 0.1321 · 0.6699 / 0.7231 | 0.8529 · 0.6741 · 0.1224 / 0.1321 · 0.7600 / 0.7231 |
+| `rrect-lg` (holdout) | 1 | 0.8448 · 0.7479 · 0.0375 / 0.0650 · 0.6323 / 0.7066 | 0.8513 · 0.7246 · 0.0705 / 0.0650 · 0.7507 / 0.7066 |
+| `hc-text__rrect-md` (holdout) | 1 | 0.9072 · 0.6402 · 0.0666 / 0.1078 · 0.7013 / 0.7368 | 0.9387 · 0.7021 · 0.0808 / 0.1078 · 0.8018 / 0.7368 |
+| `rrect-sm` | 2 | 0.9880 · 0.7633 · 0.1462 / 0.1636 · 0.6116 / 0.6285 | 0.9881 · 0.7661 · 0.1598 / 0.1636 · 0.7038 / 0.6285 |
+| `capsule-button` | 2 | 0.9708 · 0.7296 · 0.1291 / 0.1552 · 0.6147 / 0.6226 | 0.9738 · 0.7698 · 0.1455 / 0.1552 · 0.7157 / 0.6226 |
+| `rrect-md` | 2 | 0.9174 · 0.7611 · 0.0771 / 0.1272 · 0.6420 / 0.6832 | 0.9149 · 0.7331 · 0.1151 / 0.1272 · 0.7593 / 0.6832 |
+| `rrect-ml` | 2 | 0.8808 · 0.8096 · 0.0593 / 0.1018 · 0.6404 / 0.6929 | 0.8783 · 0.7884 · 0.0862 / 0.1018 · 0.7651 / 0.6929 |
+| `toolbar-group` | 2 | 0.9656 · 0.6886 · 0.1321 / 0.1581 · 0.6099 / 0.6246 | 0.9672 · 0.7111 · 0.1508 / 0.1581 · 0.7062 / 0.6246 |
+| `glass-over-glass` (holdout) | 2 | 0.8709 · 0.8112 · 0.1267 / 0.1401 · 0.6756 / 0.7223 | 0.8683 · 0.7913 · 0.1185 / 0.1401 · 0.7751 / 0.7223 |
+| `rrect-lg` (holdout) | 2 | 0.8760 · 0.8456 · 0.0377 / 0.0810 · 0.6393 / 0.7052 | 0.8709 · 0.8236 · 0.0598 / 0.0810 · 0.7688 / 0.7052 |
+| `hc-text__rrect-md` (holdout) | 2 | 0.9405 · 0.8167 · 0.0670 / 0.1004 · 0.7086 / 0.7404 | 0.9449 · 0.8212 · 0.0694 / 0.1004 · 0.8136 / 0.7404 |
+
+The dark checkerboard rows are up on every cell (1x `rrect-md` 0.9071 → 0.9093, `glass-over-glass`
+0.8520 → 0.8559; 2x +0.0008 / +0.0002); the photo rows within 0.0008 with their level toward
+native; the accessibility rows inside their bounds and named: increased contrast `rrect-md`
+0.9277 → 0.9241, the capsule −0.0012; reduced transparency `rrect-md` 0.9772 → 0.9729, the capsule
+−0.0012.
+
+**3. How the configuration was reached — one dry run, one control, eight single-cell forms.** The
+first dry run (the branch at `349d2c6`, the sharp width nominal) put the level 0.05–0.07 over
+native and the spread 0.013–0.018 OVER native on four 1x spans, and fired S2 at 2x on `rrect-md`
+and `rrect-ml`; the `blur()` control — the same branch with the Chromium row's
+`referenceFilterInBackdrop` off — scored 0.004–0.008 higher at 1x with its level 0.04–0.06 UNDER
+native, and fell further at 2x (`rrect-md` 0.9125, `rrect-ml` 0.8751, both under their floors;
+the band −0.050 / −0.040). The worker then measured eight single-cell configurations on
+`rrect-md`, the capsule and `rrect-ml` at both scales (the full table in `g1-dry-run.md` §5): the
+tint anchored at the backdrop's linear mean (B) or at the mix of encoded and linear means at the
+heavy share (C) lands the level within 0.01 of native and pays 0.02–0.06 of spread; the effective
+sharp width alone (E) lands the spread within ±0.007 at 1x and ±0.016 at 2x and leaves the level
+0.05–0.09 over; a joint solve of a `contrast()` term with the overlay alpha for the renderer's
+mean and slope (F) scores best on the light cells (`rrect-md` 1x 0.9097, `rrect-ml` 0.8711) and
+puts `dark-solid__rrect-md` 0.22 encoded too light, because `contrast()` pivots at encoded 0.5;
+the same solve on `feComponentTransfer` with a free intercept (H) fixes the dark cells exactly
+and lands the tier on the renderer's ANALYTIC composite — within −0.03…+0.004 of native — which
+sits 0.023–0.058 BELOW the GPU tier's RENDERED interior (the shader draws the lens, the rim and
+the highlight into the same pixels), and scores under E on five of six cells. E is the
+configuration; the level is the trade this section names.
+
+**4. The level, named.** The tier's encoded `rgba()` overlay and the renderer's linear-light
+lerp cannot agree in both mean and slope with one alpha. Today's anchor (E) matches the slope
+and sits 0.06–0.09 over native and 0.03–0.06 over the GPU tier on the checkerboards at both
+scales (0.10 over on `hc-text__rrect-md`), and TOWARD native on every photo cell; a conversion
+exact to the renderer's analytic composite (H) sits on native and 0.02–0.06 under the GPU tier's
+rendered interior. The GPU tier's rendered level is between them, and the excess over its own
+analytic composite is the light of terms the CSS tier does not draw. The cross-tier level ratio
+reads 0.92–0.98 against its 0.8–1.25 bound throughout. The shape of the closure: a measured
+renderer property — the rendered interior's excess over the analytic composite per span and
+backdrop — carried the way the effective width is, feeding H's two equations; the arithmetic is
+written in `referenceBackdropLuminance`'s comment on the branch. Until then the level on
+high-contrast backdrops is this tier's documented gap.
+
+**5. The band, named.** `ssimBand` fell 0.020–0.028 on the four large 2x spans and 0.004–0.023 on
+`rrect-md` / `-ml` / `-lg` / `glass-over-glass` at 1x while `ssimInterior` rose by up to +0.24
+(`hc-text__rrect-md`); the thin spans' bands rose 0.03–0.06. By eye the candidate's crisp,
+regular checker runs to the contour where native's — and the GPU tier's — is compressed and
+curved by the lens and framed by the rim band: the chartered gap no CSS form reaches (§5.38 §2),
+made visible by a body that is finally sharp there, and the whole of the four 2x rows' loss
+(0.0025–0.0051). At 1x the interior's gain outweighs it on every span; at 2x, where the band is
+24 CSS px of a smaller silhouette, it does not.
+
+**6. The second scale, re-read.** With the effective widths the tier's 2x spread lands within
+0.012 of native on `rrect-md` and 0.0156 on `rrect-ml` (the bed: 0.050 and 0.043 under), and its
+moment-matched σ per span is no longer the narrow reading of §5.71 §5; §5.69 §4's fourth column
+is reproduced through the renderer's own kernel rather than a term of this tier's.
+
+**7. The X4 recoveries.** The width instrument recovered a known law from the renderer's
+broadband captures to under 0.5% at 1x and 0.04% at 2x, and returned either 1.03 or the sweep's
+ceiling for a truth of 10.00 on the checkerboard bed — the bed, not the instrument, was the
+limit. The referee reproduced the W15 bed's every GPU row to 0.000000 before any CSS row was
+read.
+
+**8. The landing question** (W16 Decision Log 3). The configuration meets the wave's purpose at 1x
+on every row and the holdout, closes the tier's spread deficit at both scales, and leaves the
+four large 2x rows 0.0025–0.0051 under the bed with the band as the mechanism and the level as a
+named conversion gap. Landing it re-pins one floor (`rrect-md` 2x, 0.9159 → 0.9149) by decision
+and re-declares S2's "not below the bed" clause on three rows with the mechanism, which is the
+user's call; holding it for the level's closure waits on a renderer measurement this wave did not
+charter. The parent recommends landing, for the reasons in Decision Log 3.
