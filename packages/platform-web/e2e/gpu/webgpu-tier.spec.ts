@@ -157,6 +157,7 @@ test.describe("device loss swaps the tier and recovers", () => {
         state: window.h.capabilities("gpu"),
         active: window.h.rendererActive(),
         host: window.h.hostStyle("plate"),
+        sharp: window.h.layerStyle("plate", "sharp"),
       };
     }, PLATE);
 
@@ -179,8 +180,9 @@ test.describe("device loss swaps the tier and recovers", () => {
       `the GPU canvas still carried ${result.after.painted}`,
     ).toBeLessThan(0.02);
 
-    // And the CSS tier stepped in, rather than the surface simply vanishing.
-    expect(result.host?.backdropFilter ?? "none").not.toBe("none");
+    // And the CSS tier stepped in, rather than the surface simply vanishing —
+    // read on its sharp layer, which is where W16 G1 moved the filter to.
+    expect(result.sharp?.backdropFilter ?? "none").not.toBe("none");
   });
 
   test("draws again once a device is restored", async ({ page }) => {

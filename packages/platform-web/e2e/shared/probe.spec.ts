@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import { gotoHarness } from "../support";
+import { carriesBodyBlur, gotoHarness } from "../support";
 
 test.beforeEach(async ({ page }) => {
   await gotoHarness(page);
@@ -259,14 +259,19 @@ test.describe("the probe-demotion path (X2)", () => {
         beforeProxy,
         beforeHostFiltered: beforeHost?.backdropFilter,
         afterProxy: window.h.proxyBox("g") !== undefined,
-        afterHost: window.h.hostStyle(nodeId),
+        afterHost: window.h.layerStyle(nodeId, "sharp"),
       };
     });
 
     expect(result.beforeProxy).toBe(true);
     expect(result.beforeHostFiltered).toBe("none");
     expect(result.afterProxy).toBe(false);
-    expect(result.afterHost?.backdropFilter).toContain("blur");
+    // The demoted surface's filter, read on the sharp layer: W16 G1 moved the
+    // tier's `backdrop-filter` off the host and onto the first of three created
+    // children. `beforeHostFiltered` above is still the host's, and is still
+    // `none` on the GPU tier — the property this case is about is that the
+    // demotion swaps the proxy for a filter, wherever that filter is declared.
+    expect(carriesBodyBlur(result.afterHost?.backdropFilter)).toBe(true);
   });
 
   test("demotes one group without touching its neighbour", async ({ page }) => {

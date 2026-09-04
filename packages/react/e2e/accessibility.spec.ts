@@ -138,12 +138,22 @@ test("reduced transparency frosts more and refracts less", async ({ page }) => {
    * Playwright descriptor composites at 2. What this test is about is the
    * regime, not the scale: under the preference the surface frosts harder than
    * it did, whatever the scale it is drawing at.
+   *
+   * Read off the published `--vitrea-blur` token since W16 G1, not out of a
+   * filter string. The tier draws its body as two `backdrop-filter` layers on
+   * created children rather than one filter on the host, and on an engine that
+   * renders a reference filter inside `backdrop-filter` — Chromium — each layer's
+   * width lives in an SVG `<filter>` definition rather than in the declaration.
+   * The token is the tier's single-σ projection and it is exactly what an app
+   * matching the material with its own `blur()` reads, so it is both the stable
+   * number and the public one. The frost multiplies the base σ both layers are
+   * built from, so this ratio is still the regime's whole effect on the body.
    */
   const blurOf = async (): Promise<number> => {
-    const filter = await page
+    const value = await page
       .getByTestId("dom-plate")
-      .evaluate((element) => getComputedStyle(element).backdropFilter);
-    return Number(/blur\(([\d.]+)px\)/.exec(filter)?.[1] ?? Number.NaN);
+      .evaluate((element) => getComputedStyle(element).getPropertyValue("--vitrea-blur"));
+    return Number(/([\d.]+)px/.exec(value)?.[1] ?? Number.NaN);
   };
   const nominal = await blurOf();
   expect(nominal).toBeGreaterThan(0);
@@ -153,8 +163,8 @@ test("reduced transparency frosts more and refracts less", async ({ page }) => {
   await expect.poll(async () => readout(page, "frost")).toBe("increased");
   expect(await readout(page, "refraction cap")).toBe("reduced");
 
-  // The material follows the regime: a thicker blur on the host itself. Polled,
-  // because the declarations are written in the next frame's write phase.
+  // The material follows the regime: a wider body. Polled, because the
+  // declarations are written in the next frame's write phase.
   await expect.poll(blurOf).toBeGreaterThan(nominal);
 });
 

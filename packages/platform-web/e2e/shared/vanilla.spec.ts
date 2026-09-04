@@ -16,6 +16,8 @@
 
 import { expect, test, type Page } from "@playwright/test";
 
+import { carriesBodyBlur } from "../support";
+
 async function gotoVanilla(page: Page): Promise<void> {
   await page.goto("/e2e/fixtures/vanilla.html");
   await page.waitForSelector("html[data-vanilla-ready='1']");
@@ -47,20 +49,24 @@ test.describe("a glass root mounted without a framework", () => {
     await gotoVanilla(page);
 
     const applied = await page.evaluate(() => {
+      // The tier's sharp layer since W16 G1: the body moved off the host and
+      // onto the first of three created children, and the host keeps the radius.
       const element = document.querySelector<HTMLElement>("#vanilla-button");
+      const sharp = element?.querySelector<HTMLElement>('[data-vitrea-css-layer="sharp"]');
+      const filtered = sharp === null || sharp === undefined ? undefined : getComputedStyle(sharp);
       const style = element === null ? undefined : getComputedStyle(element);
       // WebKit answers on the prefixed property and TypeScript's DOM lib does
       // not declare it, so it is read by name rather than by property access.
       return {
         backdropFilter:
-          style?.backdropFilter !== undefined && style.backdropFilter !== ""
-            ? style.backdropFilter
-            : (style?.getPropertyValue("-webkit-backdrop-filter") ?? ""),
+          filtered?.backdropFilter !== undefined && filtered.backdropFilter !== ""
+            ? filtered.backdropFilter
+            : (filtered?.getPropertyValue("-webkit-backdrop-filter") ?? ""),
         borderRadius: style?.borderRadius ?? "",
       };
     });
 
-    expect(applied.backdropFilter).toContain("blur");
+    expect(carriesBodyBlur(applied.backdropFilter)).toBe(true);
     expect(applied.borderRadius).toContain("14px");
 
     // The read phase measured the app's element without being told to: the

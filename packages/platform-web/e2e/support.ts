@@ -7,7 +7,7 @@ import {
   MATERIAL_SOURCE_SIZE,
   opticsUnderPolicy,
   requiredSamplingPadding,
-  CSS_TIER_RAMP_SCALE,
+  WEBGPU_PROXY_PROJECTION_SCALE,
   scatterThickness,
   sizeScatterSigmaAt,
 } from "../src/optics";
@@ -124,6 +124,21 @@ export async function sample(page: Page, clip: ClipRect): Promise<Sampler> {
 }
 
 /** Absolute per-channel difference, the metric S1's report is written in. */
+/**
+ * Whether a computed `backdrop-filter` carries the CSS tier's body (W16 G1).
+ *
+ * The tier blurs through an SVG `feGaussianBlur` at
+ * `color-interpolation-filters="linearRGB"` on an engine whose conformance row
+ * says it renders a reference filter inside `backdrop-filter` — Chromium — and
+ * through `blur()` everywhere else, because `blur()` operates on the page's
+ * encoded values where the reference's body is linear in luminance (claims
+ * §5.71 §2). So a spec that wants to know "is the body drawn here" has to accept
+ * both spellings; only `none` is an answer that the tier did not paint.
+ */
+export function carriesBodyBlur(value: string | undefined): boolean {
+  return /blur\(|url\(/.test(value ?? "");
+}
+
 export function channelDelta(a: Rgb, b: Rgb): number {
   return Math.max(Math.abs(a.r - b.r), Math.abs(a.g - b.g), Math.abs(a.b - b.b));
 }
@@ -168,13 +183,14 @@ export function expectedProxyBlur(options: {
   const folded = opticsUnderPolicy(MATERIAL_OPTICS.regular, policy);
   const sigma = sizeScatterSigmaAt(
     folded.blurRadius,
-    // The projection at the scale the CSS tier reads it at, which is what
-    // `root.ts` takes the padding floor over — see `CSS_TIER_RAMP_SCALE`.
+    // The projection at the scale the WebGPU tier's proxy takes its padding
+    // floor over — see `WEBGPU_PROXY_PROJECTION_SCALE`. Since W16 G1 that is the
+    // proxy's own number and no longer the CSS tier's, which reads the live ratio.
     scatterThickness(
       options.spanPx,
       MATERIAL_SOURCE_SIZE.refractionScale[accessibilityRefractionCap(policy)],
       MATERIAL_SOURCE_SIZE,
-      CSS_TIER_RAMP_SCALE,
+      WEBGPU_PROXY_PROJECTION_SCALE,
       options.extentsCssPx,
     ),
     MATERIAL_SOURCE_SIZE,
