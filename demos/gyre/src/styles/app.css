@@ -1,0 +1,870 @@
+/*
+ * Gyre's stylesheet. Every colour is a token from `tokens.css` or a channel the
+ * runtime publishes (`--vitrea-foreground`, `--vitrea-glow`, `--vitrea-press-x/y`);
+ * the field ramps arrive as inline styles from `palettes.ts`. Layout follows
+ * `DESIGN.md` §4: four reserved strips in a fixed viewport.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--sheet-solid);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-stretch: 100%;
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line);
+  letter-spacing: var(--type-body-track);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  position: relative;
+  height: 100%;
+}
+
+/* ── The ground ───────────────────────────────────────────────────────────── */
+
+.field {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ── The reading column ───────────────────────────────────────────────────── */
+
+.column {
+  position: fixed;
+  top: var(--nav-strip);
+  bottom: var(--transport-strip);
+  left: var(--inset);
+  width: var(--sheet-width);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.column > * {
+  pointer-events: auto;
+}
+
+.hero {
+  padding-bottom: var(--space-4);
+}
+
+.hero__title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: var(--type-display-weight);
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-line);
+  letter-spacing: var(--type-display-track);
+  text-wrap: balance;
+}
+
+.hero__lede {
+  max-width: 34ch;
+  margin: 0 0 var(--space-5);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.hero__status {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-1) var(--space-4);
+  margin: 0 0 var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule-strong);
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.hero__status > div {
+  display: contents;
+}
+
+.hero__status dt {
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6875rem;
+  line-height: 1.55;
+}
+
+.hero__status dd {
+  margin: 0;
+}
+
+.hero__hint {
+  margin: var(--space-4) 0 0;
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-line);
+  color: var(--ink-soft);
+}
+
+.legend {
+  display: block;
+  max-width: 20rem;
+}
+
+.legend__bar {
+  display: block;
+  height: 8px;
+  border: 1px solid var(--rule-strong);
+}
+
+.legend__ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* ── Sheets ───────────────────────────────────────────────────────────────── */
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-0);
+  animation: sheet-in var(--duration-standard) var(--ease-standard);
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sheet__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.sheet__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: var(--type-h2-weight);
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line);
+  letter-spacing: var(--type-h2-track);
+}
+
+.sheet__title:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.sheet__close {
+  flex: none;
+  margin: 0;
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--type-small-size);
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.2em;
+}
+
+.sheet__body {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  overflow: auto;
+}
+
+.sheet__body > p {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-4);
+}
+
+.sheet__lead {
+  color: var(--ink-soft);
+}
+
+.sheet__display {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 500;
+  font-size: 1.375rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.sheet__h3 {
+  margin: var(--space-6) 0 var(--space-2);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ── Readout: the one key/value pattern ──────────────────────────────────── */
+
+.readout {
+  margin: var(--space-4) 0;
+  padding: 0;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.readout__row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 11rem) 1fr;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.readout dt {
+  color: var(--muted);
+  font-size: var(--type-small-size);
+  line-height: 1.5;
+}
+
+.readout dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums slashed-zero;
+  overflow-wrap: anywhere;
+}
+
+/* ── Table ────────────────────────────────────────────────────────────────── */
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--space-5));
+  padding: 0 var(--space-5);
+}
+
+.table {
+  width: 100%;
+  min-width: 24rem;
+  border-collapse: collapse;
+  font-size: var(--type-small-size);
+  line-height: 1.4;
+}
+
+.table__caption {
+  caption-side: bottom;
+  padding-top: var(--space-2);
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  color: var(--muted);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-2) var(--space-2) 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+}
+
+.table thead th {
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-track);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom-color: var(--rule-strong);
+}
+
+.table tbody th {
+  font-weight: 500;
+}
+
+.table__id {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  color: var(--muted);
+}
+
+.table__data {
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  font-variant-numeric: tabular-nums slashed-zero;
+  white-space: nowrap;
+}
+
+.table__num {
+  text-align: right;
+}
+
+.table__action {
+  text-align: right;
+  padding-right: 0;
+  white-space: nowrap;
+}
+
+.link,
+.link-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--type-small-size);
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.link:hover,
+.link-button:hover,
+.sheet__close:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+/* ── Form ─────────────────────────────────────────────────────────────────── */
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.form__field--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.form__field label {
+  font-size: var(--type-small-size);
+  font-weight: 500;
+}
+
+.form__field input,
+.form__field select {
+  font: inherit;
+  font-size: var(--type-small-size);
+  color: var(--ink);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-0);
+  background: var(--sheet-solid);
+}
+
+.form__field input[aria-invalid="true"] {
+  border-color: var(--accent);
+}
+
+.form__error {
+  margin: 0;
+  font-size: var(--type-small-size);
+  color: var(--accent);
+}
+
+.button {
+  font: inherit;
+  font-weight: 600;
+  font-size: var(--type-small-size);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-0);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.button--primary {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.button--primary:active {
+  transform: translateY(1px);
+}
+
+/* ── The notice line ──────────────────────────────────────────────────────── */
+
+.notice {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--inset) + 14px);
+  transform: translateX(-50%);
+  z-index: 1;
+  margin: 0;
+  max-width: 34ch;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ── Glass hosts ──────────────────────────────────────────────────────────── */
+
+/*
+ * Every app-authored region inside a plane declares `color-scheme: light`: the
+ * CSS tier writes its foreground as `light-dark(...)`, which resolves against the
+ * element's own scheme, and the planes are vitrea's DOM, outside the app's root.
+ */
+.nav,
+.transport,
+.layers,
+.platter,
+.probe {
+  color-scheme: light;
+}
+
+.nav,
+.transport {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav {
+  top: var(--inset);
+  left: var(--inset);
+}
+
+.transport {
+  left: var(--inset);
+  bottom: var(--inset);
+  width: 280px;
+}
+
+.layers {
+  position: absolute;
+  right: var(--inset);
+  bottom: var(--inset);
+}
+
+/*
+ * The morph's spacer lives in app DOM; this anchor fixes it 48px right of the
+ * transport, so the two groups keep more than a sampling padding between them.
+ */
+.menu-anchor {
+  position: fixed;
+  left: calc(var(--inset) + 280px + 48px);
+  bottom: var(--inset);
+  z-index: 1;
+}
+
+.platter {
+  display: block;
+  width: max-content;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.wordmark {
+  margin: 0 var(--space-3) 0 0;
+  padding: 0 0 0 2px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  line-height: 44px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.wordmark:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 18px;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--vitrea-foreground, var(--ink));
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.control:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.control[aria-pressed="true"]:not(.control--icon) {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: var(--accent);
+}
+
+.control--wordmark {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.02em;
+  padding: 0 20px;
+}
+
+.control--wordmark[aria-pressed="true"] {
+  text-decoration: none;
+}
+
+.control--tinted {
+  font-weight: 600;
+}
+
+.control--icon {
+  min-width: 44px;
+  padding: 0;
+}
+
+.control--icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.control--data {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.control--menu {
+  padding-right: 14px;
+}
+
+.control__chevron {
+  width: 12px;
+  height: 12px;
+}
+
+.control:focus-visible,
+.segment:focus-visible,
+.probe:focus-visible,
+.menu__item:focus-visible,
+.sheet__close:focus-visible,
+.link:focus-visible,
+.link-button:focus-visible,
+.button:focus-visible,
+.form__field input:focus-visible,
+.form__field select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── The probe ────────────────────────────────────────────────────────────── */
+
+.probe {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--vitrea-foreground, var(--ink));
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.probe:active {
+  cursor: grabbing;
+}
+
+.probe[hidden] {
+  display: none;
+}
+
+.probe__quantity {
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line);
+  letter-spacing: var(--type-label-track);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.probe__reading {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.probe__value {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 500;
+  font-size: var(--type-reading-size);
+  line-height: var(--type-reading-line);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.probe__unit {
+  font-family: var(--font-mono);
+  font-size: var(--type-small-size);
+}
+
+.probe__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--type-data-size);
+  line-height: var(--type-data-line);
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.probe__bearing:empty {
+  display: none;
+}
+
+/* ── Segmented control ────────────────────────────────────────────────────── */
+
+.layers {
+  display: inline-flex;
+  align-items: stretch;
+  isolation: isolate;
+}
+
+.segment {
+  position: relative;
+  z-index: 1;
+  min-height: 44px;
+  padding: 0 16px;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--vitrea-foreground, var(--ink));
+  cursor: pointer;
+}
+
+.segment[aria-checked="true"] {
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.segment:focus-visible {
+  outline-offset: -3px;
+}
+
+.segment-indicator {
+  z-index: 0;
+  background: rgb(var(--lift-channels) / calc(0.74 + 0.14 * var(--vitrea-glow, 0)));
+}
+
+/* ── Menu ─────────────────────────────────────────────────────────────────── */
+
+.menu {
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  min-width: 15rem;
+}
+
+.menu__item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--vitrea-foreground, var(--ink));
+  cursor: pointer;
+}
+
+.menu__item:hover {
+  background: rgb(var(--lift-channels) / 0.5);
+}
+
+.menu__item:focus-visible {
+  outline-offset: -2px;
+}
+
+/* ── Utilities ────────────────────────────────────────────────────────────── */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Collapse (DESIGN.md §4) ──────────────────────────────────────────────── */
+
+@media (max-width: 719px) {
+  :root {
+    --inset: 16px;
+    --sheet-width: calc(100vw - 32px);
+    --type-reading-size: 1.25rem;
+  }
+
+  .column {
+    top: var(--nav-strip);
+    bottom: calc(var(--transport-strip) + 44px + 16px);
+    justify-content: flex-start;
+  }
+
+  .hero {
+    padding-bottom: 0;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__lede {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .hero__status,
+  .hero__hint {
+    display: none;
+  }
+
+  .sheet {
+    position: fixed;
+    left: var(--inset);
+    right: var(--inset);
+    bottom: calc(var(--inset) + 44px + 52px + 44px + 8px);
+    top: auto;
+    height: 56vh;
+  }
+
+  /*
+   * Three groups share the bottom of a phone: the transport and the menu on the
+   * last row, the layer control on the row above. Every gap between them stays
+   * past the 24px sampling padding, so the runtime has nothing to warn about.
+   */
+  .transport {
+    width: 240px;
+    gap: 6px;
+  }
+
+  .control--data {
+    padding: 0 10px;
+    font-size: 0.8125rem;
+  }
+
+  .control {
+    padding: 0 14px;
+  }
+
+  .control--menu {
+    font-size: 0.875rem;
+  }
+
+  .control__chevron {
+    display: none;
+  }
+
+  .layers {
+    left: var(--inset);
+    right: auto;
+    bottom: calc(var(--inset) + 44px + 52px);
+  }
+
+  /* Top-right on a phone, where the platter opens downward over the field. */
+  .menu-anchor {
+    left: auto;
+    right: var(--inset);
+    top: var(--inset);
+    bottom: auto;
+  }
+
+  .probe__quantity {
+    display: none;
+  }
+
+  .notice {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    animation: none;
+  }
+}
