@@ -166,7 +166,7 @@ first thing the term-wise attribution has to reproduce.
   not a derivation and is not admissible; the measurement validates the closed
   form.
 - **[binding] The target is the renderer's rendered interior, term by term
-  (Decision Log 1 q0, once answered).** The tier adds the light of the terms
+  (Decision Log 1 q0, answered 2026-09-04).** The tier adds the light of the terms
   it does not draw and nothing else; the renderer's residual against native
   that is not a term (the thin-span level, the dark-ground dot) is not
   imported. "GPU minus CSS" per cell is a check on the outcome, never the
@@ -424,6 +424,16 @@ element model and its cost knee for a quantity that is a transfer function.
 G0 opens on the recommendations; each answer that differs re-opens the
 affected child before G1.
 
+**Executed 2026-09-04 (the user: "all according to your recommendations").** q0 (a) — the
+target is the renderer's rendered interior term by term; the Design bullet that carried "once
+answered" is binding without qualification. q1 (a) — `feComponentTransfer` inside the
+linear-light reference filter, Chromium-only by the filter's conformance row; the
+plain-`blur()` engines keep the one-alpha conversion and E's level as a named gap. q2 (a) —
+the reduced-transparency fold is in scope, the two predicate cells its acceptance. q3 (a) — if
+the level costs structure past S2's 0.002 clause, the wave stops and both landings go to the
+user with the sheets and the rows. q4 (a) — the tier-coherence claim is re-worded at G2 with
+G0's second-order bound. G0 was already running on these answers; nothing re-opens.
+
 ## Surprises & Discoveries
 
 (none yet)
@@ -437,3 +447,5 @@ affected child before G1.
 - 2026-09-04: chartered from W16's Deferred entry and claims §5.73 §7 on the
   user's pick after the 0.6.0 cut ("chartering the interior level's closure
   would be next"); G0 opened.
+- 2026-09-04: **Decision Log 1 executed** — the user took every recommendation (q0–q4); the target
+  rule is binding outright; G0 continues unchanged.
