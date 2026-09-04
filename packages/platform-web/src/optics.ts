@@ -1192,6 +1192,59 @@ export function cssShadowBlurRadius(sigmaPx: number): number {
 }
 
 /**
+ * What one outer shadow does to a `backdrop-filter`'s SAMPLED page, where the
+ * carriers of `css-tier-shadow.ts` cannot take it out of one — the derived bound
+ * on this tier's remaining self-sampling (W18 G0 §6, claims §5.77 §6).
+ *
+ * A `backdrop-filter`'s backdrop is everything painted below the element over the
+ * region its kernel needs, and a `box-shadow` of pure black composites
+ * source-over, which is a multiply. So the page a tier's filter reads is the page
+ * it would have read multiplied, in the encoded space a browser composites in, by
+ * one factor per shadow standing in that page:
+ *
+ *     E(P) = E(B) · Π_j (1 − a_j · C_j)
+ *
+ * with `a_j` the alpha `cssTierShadowAlpha` resolved for host j and `C_j` this
+ * function: the coverage of host j's shadow at a point, which is the same
+ * Gaussian CDF `outerShadowFalloff` mirrors, evaluated on the signed distance to
+ * that host's border box grown by `spreadPx` and displaced by `offsetPx` down,
+ * and zero inside the casting host's own border box because a `box-shadow` is not
+ * painted there. Every number in it is the profile's; nothing is fitted, and this
+ * tier evaluates it to BOUND what it still samples rather than to paint anything.
+ *
+ * **What G0 measured it to be worth.** Against the tier's own captures the form
+ * is exact to at most 0.0014 on every surface with no close neighbour and to
+ * 0.0004 on three circles at a non-merging gap of 40, at both scales; at the
+ * declared spacing of 12 it under-predicts by +0.0024 to +0.0062 per surface,
+ * which is Chromium's paint order for three sibling stacking contexts and is the
+ * part carrier B removes rather than models. Two situations are left for it to
+ * bound after W18 G1: a neighbour OUTSIDE the group standing within the shadow's
+ * reach of a member, which no carrier reaches because the two hosts share no
+ * group; and a host whose `overflow` clips its children, which keeps its shadow
+ * on the host (`GlassGroupState.cssShadow: "host"`).
+ */
+export function sampledOuterShadowFactor(input: {
+  readonly shadow: MaterialSourceOuterShadow;
+  readonly alpha: number;
+  /**
+   * The signed distance, in CSS px, from the point to the caster's SHADOW box —
+   * its border box grown by `spreadPx` and displaced down by `offsetPx` —
+   * positive outside. The caster's geometry is the caller's because a rounded
+   * rectangle's distance field belongs to the surface, not to the material.
+   */
+  readonly signedDistanceToShadowBoxPx: number;
+  /** Whether the point lies inside the CASTING host's own border box. */
+  readonly insideCaster: boolean;
+}): number {
+  if (input.insideCaster) return 1;
+  return (
+    1 -
+    clamp01(input.alpha) *
+      outerShadowFalloff(input.signedDistanceToShadowBoxPx, input.shadow.sigmaPx)
+  );
+}
+
+/**
  * The outer shadow's peak occlusion at this thickness — the mirror of the
  * renderer's `sizeOuterShadowOcclusionAt`. Exactly the identity at the shipped
  * gain of 0.

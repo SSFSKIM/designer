@@ -85,6 +85,32 @@ export interface GlassGroupState {
    * have to be able to read which material drew rather than which was asked for.
    */
   readonly cssTint?: "linear" | "encoded";
+  /**
+   * Which element the CSS tier hung this group's OUTER SHADOW on (W18 G1;
+   * charter Decision Log 2 (1)).
+   *
+   * The tier drew the shadow as a `box-shadow` on the host until W18, and the
+   * host's three filter layers are that host's children — so every surface blurred
+   * its own shadow into its own body and a later host blurred its earlier
+   * neighbours' shadows in too, worth +0.0032 to +0.0096 of this tier's interior
+   * level where the renderer moved by 0.00000 (claims §5.77 §3). The shadow now
+   * leaves the sampled backdrop by one of two carriers, and which one a group got
+   * is a property of the page rather than of the material, so it is reported here
+   * for the same reason `cssBody` and `cssTint` are: a capture cell, a readout and
+   * a test must read what actually drew.
+   *
+   * `layer` is the per-surface carrier: the shadow joins L3's `box-shadow` list,
+   * which paints after L1 and L2, so a surface never samples its own shadow.
+   * `group` is the per-group one: every member's shadow is painted after every
+   * member's filter layers by one child per member inside the group's last-painted
+   * host, clipped out of every member's body. `host` is the fallback the page
+   * forces — a host whose own `overflow` clips its children would clip a shadow on
+   * L3 away entirely, so there the shadow stays where it was and the sampling with
+   * it. A group whose members did not all land on the same carrier reports the
+   * weakest of them, because the field is a statement about the group's whole
+   * interior. Absent on a WebGPU-tier group and before the first frame resolves one.
+   */
+  readonly cssShadow?: "layer" | "group" | "host";
 }
 
 export function isHealthy(state: GlassGroupState): boolean {
