@@ -1,0 +1,1049 @@
+{
+ "cells": 68,
+ "absentMaterialAxis": [
+  [
+   "apple-macos-26.5-1x-dark-standard",
+   "dark-solid__capsule-button__rest"
+  ],
+  [
+   "apple-macos-26.5-1x-light-standard",
+   "dark-solid__capsule-button__rest"
+  ],
+  [
+   "apple-macos-26.5-2x-dark-standard",
+   "dark-solid__capsule-button__rest"
+  ],
+  [
+   "apple-macos-26.5-2x-light-standard",
+   "dark-solid__capsule-button__rest"
+  ]
+ ],
+ "worstResidual": {
+  "profileKey": "apple-macos-26.5-1x-dark-standard",
+  "sceneId": "dark-solid__rrect-md__rest",
+  "residual": 0.0008170381220172773
+ },
+ "cellsOver0.005": [],
+ "rows": [
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "checkerboard__capsule-button__rest",
+   "default": 0.0696664966399175,
+   "allDeclined": 0.06384066019658434,
+   "whole": 0.005825836443333163,
+   "terms": {
+    "no-lens": -3.436748038473936e-05,
+    "no-rim": 0.003184856944778061,
+    "no-highlight": 0.002727066442310827,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005877555906704149,
+   "residual": -5.1719463370986096e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+   "default": 0.4317217229051094,
+   "allDeclined": 0.4269017524818071,
+   "whole": 0.004819970423302289,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0025948763078455506,
+    "no-highlight": 0.0021851739693096173,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.004780050277155168,
+   "residual": 3.992014614712103e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "checkerboard__rrect-md__rest",
+   "default": 0.06834000376425166,
+   "allDeclined": 0.0640808546343113,
+   "whole": 0.004259149129940354,
+   "terms": {
+    "no-lens": 9.282802561863535e-06,
+    "no-rim": 0.0026044153078632615,
+    "no-highlight": 0.0015677379957784454,
+    "no-lift": 2.1585948681207556e-05
+   },
+   "sumOfTerms": 0.004203022054884778,
+   "residual": 5.6127075055575903e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+   "default": 0.4274983122567948,
+   "allDeclined": 0.4274983122567948,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "dark-solid__rrect-md__rest",
+   "default": 0.21050345642950213,
+   "allDeclined": 0.07613905743363177,
+   "whole": 0.13436439899587038,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.08011565979393889,
+    "no-highlight": 0.05343170107991421,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.1335473608738531,
+   "residual": 0.0008170381220172773
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "impulse__capsule-button__rest",
+   "default": 0.003676507324047441,
+   "allDeclined": 0.003676507324047441,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "photo__capsule-button__rest",
+   "default": 0.06058190692495321,
+   "allDeclined": 0.05489322782482351,
+   "whole": 0.005688679100129698,
+   "terms": {
+    "no-lens": 4.175652962422338e-06,
+    "no-rim": 0.0029078752410605715,
+    "no-highlight": 0.002777693253891947,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005689744147914941,
+   "residual": -1.0650477852425233e-06
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "photo__capsule-button__rest-tint-orange",
+   "default": 0.4317078720766619,
+   "allDeclined": 0.42689987065103885,
+   "whole": 0.004808001425623043,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.002580686200807203,
+    "no-highlight": 0.00218508744611301,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.004765773646920213,
+   "residual": 4.222777870283023e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-dark-standard",
+   "sceneId": "photo__rrect-md__rest",
+   "default": 0.06002870166081219,
+   "allDeclined": 0.055612611358226614,
+   "whole": 0.004416090302585579,
+   "terms": {
+    "no-lens": 0.0001904354234177827,
+    "no-rim": 0.002660279968236666,
+    "no-highlight": 0.0015302021914005287,
+    "no-lift": 1.0406214427986782e-05
+   },
+   "sumOfTerms": 0.004391323797482964,
+   "residual": 2.4766505102614966e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__capsule-button__rest",
+   "default": 0.678295326025199,
+   "allDeclined": 0.6730866042333877,
+   "whole": 0.0052087217918113105,
+   "terms": {
+    "no-lens": -0.00016952719532703497,
+    "no-rim": 0.0027741087383565954,
+    "no-highlight": 0.002423758502155038,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005028340045184598,
+   "residual": 0.00018038174662671214
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__capsule-button__rest-tint-blue",
+   "default": 0.20996821954207637,
+   "allDeclined": 0.20416070623423493,
+   "whole": 0.005807513307841433,
+   "terms": {
+    "no-lens": -2.8518356797152533e-05,
+    "no-rim": 0.0031015082835126606,
+    "no-highlight": 0.002666355070087306,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005739344996802814,
+   "residual": 6.816831103861887e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+   "default": 0.3718650418601972,
+   "allDeclined": 0.3663924078797978,
+   "whole": 0.005472633980399377,
+   "terms": {
+    "no-lens": -9.054131443730906e-05,
+    "no-rim": 0.0029270585793427784,
+    "no-highlight": 0.002473390841281675,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0053099081061871445,
+   "residual": 0.00016272587421223283
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__rrect-md__rest",
+   "default": 0.6946239986133915,
+   "allDeclined": 0.6910666846103183,
+   "whole": 0.003557314003073242,
+   "terms": {
+    "no-lens": -0.00017838003582870687,
+    "no-rim": 0.0021585958431027397,
+    "no-highlight": 0.0013420773212534653,
+    "no-lift": 6.202468786764559e-05
+   },
+   "sumOfTerms": 0.0033843178163951437,
+   "residual": 0.00017299618667809824
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__rrect-ml__rest",
+   "default": 0.6947155162302809,
+   "allDeclined": 0.6920966427996489,
+   "whole": 0.0026188734306320516,
+   "terms": {
+    "no-lens": -0.00020802833192001824,
+    "no-rim": 0.001623727331654612,
+    "no-highlight": 0.0010356407001692602,
+    "no-lift": 8.453258546692322e-05
+   },
+   "sumOfTerms": 0.002535872285370777,
+   "residual": 8.300114526127444e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__rrect-sm__rest",
+   "default": 0.6795831140170547,
+   "allDeclined": 0.6695940692709486,
+   "whole": 0.00998904474610618,
+   "terms": {
+    "no-lens": -5.6602271994443676e-05,
+    "no-rim": 0.005920948944024174,
+    "no-highlight": 0.003947026705915624,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.009811373377945354,
+   "residual": 0.00017767136816082552
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "checkerboard__toolbar-group__rest",
+   "default": 0.676280877963111,
+   "allDeclined": 0.6735213706953513,
+   "whole": 0.002759507267759642,
+   "terms": {
+    "no-lens": 2.81793431288202e-05,
+    "no-rim": 0.0018269926188932972,
+    "no-highlight": 0.000909607172941862,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0027647791349639794,
+   "residual": -5.271867204337255e-06
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+   "default": 0.4274983122567948,
+   "allDeclined": 0.4274983122567948,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "dark-solid__rrect-md__rest",
+   "default": 0.4975413091071404,
+   "allDeclined": 0.4937266061345567,
+   "whole": 0.0038147029725836834,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0022934250070618667,
+    "no-highlight": 0.0015067876025228744,
+    "no-lift": 4.264844353230046e-07
+   },
+   "sumOfTerms": 0.003800639094020064,
+   "residual": 1.4063878563619348e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "impulse__capsule-button__rest",
+   "default": 0.003676507324047441,
+   "allDeclined": 0.003676507324047441,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "impulse__capsule-button__rest-tint-orange",
+   "default": 0.4274983122567948,
+   "allDeclined": 0.4274983122567948,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "impulse__rrect-md__rest",
+   "default": 0.4659651023643426,
+   "allDeclined": 0.4618265211459082,
+   "whole": 0.004138581218434356,
+   "terms": {
+    "no-lens": 0.0005554593271618891,
+    "no-rim": 0.0021846263462067528,
+    "no-highlight": 0.0013885107168651878,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.00412859639023383,
+   "residual": 9.984828200526596e-06
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "light-solid__capsule-button__rest",
+   "default": 0.9714847672979448,
+   "allDeclined": 0.9698353832838087,
+   "whole": 0.0016493840141360572,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0008948962509410796,
+    "no-highlight": 3.581765572469031e-06,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0008984780165135486,
+   "residual": 0.0007509059976225085
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "light-solid__capsule-button__rest-tint-orange",
+   "default": 0.4317437903264452,
+   "allDeclined": 0.4269318326594416,
+   "whole": 0.004811957667003597,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0025881244288399885,
+    "no-highlight": 0.002186744368083693,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.004774868796923681,
+   "residual": 3.708887007991546e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "light-solid__rrect-md__rest",
+   "default": 0.9325096307212024,
+   "allDeclined": 0.9299723262448052,
+   "whole": 0.0025373044763972175,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.001534452735590719,
+    "no-highlight": 9.002191655460567e-05,
+    "no-lift": 0.00010240060008370744
+   },
+   "sumOfTerms": 0.001726875252229032,
+   "residual": 0.0008104292241681854
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "light-solid__rrect-ml__rest",
+   "default": 0.9323179385398347,
+   "allDeclined": 0.9304660077796965,
+   "whole": 0.0018519307601382318,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0011039130904249017,
+    "no-highlight": 6.644368930530664e-05,
+    "no-lift": 0.00011503825060354966
+   },
+   "sumOfTerms": 0.001285395030333758,
+   "residual": 0.0005665357298044738
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__capsule-button__rest",
+   "default": 0.6178423510503864,
+   "allDeclined": 0.6119759921581793,
+   "whole": 0.005866358892207102,
+   "terms": {
+    "no-lens": -6.5753842164451015e-06,
+    "no-rim": 0.0030991826050036364,
+    "no-highlight": 0.002763681928274475,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005856289149061666,
+   "residual": 1.0069743145435517e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__capsule-button__rest-tint-blue",
+   "default": 0.20288537031205886,
+   "allDeclined": 0.19697083535362042,
+   "whole": 0.005914534958438439,
+   "terms": {
+    "no-lens": 8.576422956957375e-06,
+    "no-rim": 0.0031194954090608407,
+    "no-highlight": 0.0027064288792952584,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0058345007113130565,
+   "residual": 8.003424712538232e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__capsule-button__rest-tint-orange",
+   "default": 0.35945686872641763,
+   "allDeclined": 0.35375531899672874,
+   "whole": 0.005701549729688893,
+   "terms": {
+    "no-lens": -6.660638443445333e-05,
+    "no-rim": 0.0029660982351305543,
+    "no-highlight": 0.0025950340571584962,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005494525907854597,
+   "residual": 0.00020702382183429568
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__capsule-button__rest-tint-orange-half",
+   "default": 0.4586817176968738,
+   "allDeclined": 0.45273045867777234,
+   "whole": 0.005951259019101485,
+   "terms": {
+    "no-lens": 6.234267974947194e-05,
+    "no-rim": 0.003128050229141699,
+    "no-highlight": 0.0027650689376311766,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0059554618465223474,
+   "residual": -4.202827420862754e-06
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__rrect-md__rest",
+   "default": 0.6584749753696344,
+   "allDeclined": 0.6516303895272417,
+   "whole": 0.00684458584239267,
+   "terms": {
+    "no-lens": 0.0029949661967176855,
+    "no-rim": 0.0023362169033942504,
+    "no-highlight": 0.001502287223368426,
+    "no-lift": 3.376145462152813e-05
+   },
+   "sumOfTerms": 0.00686723177810189,
+   "residual": -2.2645935709220133e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__rrect-md__rest-tint-orange",
+   "default": 0.366402179889293,
+   "allDeclined": 0.36186516704346194,
+   "whole": 0.004537012845831079,
+   "terms": {
+    "no-lens": 0.000600174002223286,
+    "no-rim": 0.0023813672485500925,
+    "no-highlight": 0.001415271209300517,
+    "no-lift": 2.924872530191136e-05
+   },
+   "sumOfTerms": 0.004426061185375807,
+   "residual": 0.00011095166045527183
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__rrect-ml__rest",
+   "default": 0.6603912000755546,
+   "allDeclined": 0.6554432296652732,
+   "whole": 0.004947970410281388,
+   "terms": {
+    "no-lens": 0.002060109806605981,
+    "no-rim": 0.001712865669017516,
+    "no-highlight": 0.0011251718327468518,
+    "no-lift": 4.810014278899821e-05
+   },
+   "sumOfTerms": 0.004946247451159347,
+   "residual": 1.7229591220413454e-06
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__rrect-sm__rest",
+   "default": 0.5979795266801012,
+   "allDeclined": 0.588783269921541,
+   "whole": 0.009196256758560284,
+   "terms": {
+    "no-lens": -0.0020874508216213172,
+    "no-rim": 0.006639627926371627,
+    "no-highlight": 0.004585471969087651,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.009137649073837961,
+   "residual": 5.8607684722322695e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-1x-light-standard",
+   "sceneId": "photo__toolbar-group__rest",
+   "default": 0.6362817748620516,
+   "allDeclined": 0.630845970109718,
+   "whole": 0.005435804752333628,
+   "terms": {
+    "no-lens": 0.0024623267451927555,
+    "no-rim": 0.0019346371621656866,
+    "no-highlight": 0.0010249881168417074,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0054219520242001495,
+   "residual": 1.385272813347882e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "checkerboard__capsule-button__rest",
+   "default": 0.06976553450652331,
+   "allDeclined": 0.06364746411339549,
+   "whole": 0.006118070393127825,
+   "terms": {
+    "no-lens": -1.854376843141159e-05,
+    "no-rim": 0.003250197607608349,
+    "no-highlight": 0.002860711503532079,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.006092365342709016,
+   "residual": 2.5705050418808884e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+   "default": 0.43192212603862196,
+   "allDeclined": 0.4269279277560775,
+   "whole": 0.0049941982825444375,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0026186240194002175,
+    "no-highlight": 0.002315014868573606,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0049336388879738236,
+   "residual": 6.055939457061399e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "checkerboard__rrect-md__rest",
+   "default": 0.06857804332120027,
+   "allDeclined": 0.06407023390913935,
+   "whole": 0.004507809412060915,
+   "terms": {
+    "no-lens": 3.3002442840948665e-05,
+    "no-rim": 0.002753234740626151,
+    "no-highlight": 0.0016870039750052912,
+    "no-lift": 1.4398535264623091e-05
+   },
+   "sumOfTerms": 0.004487639693737014,
+   "residual": 2.0169718323900798e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+   "default": 0.42753020831627897,
+   "allDeclined": 0.42753020831627897,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "dark-solid__rrect-md__rest",
+   "default": 0.2495184132807323,
+   "allDeclined": 0.08877953312136258,
+   "whole": 0.1607388801593697,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0956577250101556,
+    "no-highlight": 0.06545330609918396,
+    "no-lift": 3.955216287654384e-06
+   },
+   "sumOfTerms": 0.1611149863256272,
+   "residual": -0.00037610616625749493
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "impulse__capsule-button__rest",
+   "default": 0.0033465357638991426,
+   "allDeclined": 0.0033465357638991426,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "photo__capsule-button__rest",
+   "default": 0.06081826053785803,
+   "allDeclined": 0.05504796189083715,
+   "whole": 0.0057702986470208745,
+   "terms": {
+    "no-lens": -1.189598609263598e-05,
+    "no-rim": 0.003015313739652553,
+    "no-highlight": 0.0027545562369866924,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.00575797399054661,
+   "residual": 1.2324656474264895e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "photo__capsule-button__rest-tint-orange",
+   "default": 0.4319000014483866,
+   "allDeclined": 0.42692847334464634,
+   "whole": 0.0049715281037402415,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0025952008937816795,
+    "no-highlight": 0.002314032774407171,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.00490923366818885,
+   "residual": 6.229443555139103e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-dark-standard",
+   "sceneId": "photo__rrect-md__rest",
+   "default": 0.060458800024754115,
+   "allDeclined": 0.055765698974487486,
+   "whole": 0.004693101050266629,
+   "terms": {
+    "no-lens": 0.00024343947640362296,
+    "no-rim": 0.002760487284744907,
+    "no-highlight": 0.0016605645669334895,
+    "no-lift": 7.480696548475829e-06
+   },
+   "sumOfTerms": 0.0046719720246304955,
+   "residual": 2.112902563613378e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__capsule-button__rest",
+   "default": 0.6846740237622888,
+   "allDeclined": 0.6792911531147882,
+   "whole": 0.005382870647500648,
+   "terms": {
+    "no-lens": 0.00014344184796810655,
+    "no-rim": 0.0027126272023715314,
+    "no-highlight": 0.0023422482816544132,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005198317331994051,
+   "residual": 0.00018455331550659704
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__capsule-button__rest-tint-blue",
+   "default": 0.21079065816794368,
+   "allDeclined": 0.20478635974767073,
+   "whole": 0.006004298420272947,
+   "terms": {
+    "no-lens": -6.539568999064382e-05,
+    "no-rim": 0.0031918100563743668,
+    "no-highlight": 0.0027909971347713503,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005917411501155073,
+   "residual": 8.688691911787338e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+   "default": 0.37340695180136085,
+   "allDeclined": 0.3677271125769765,
+   "whole": 0.005679839224384364,
+   "terms": {
+    "no-lens": -2.7831634156982865e-05,
+    "no-rim": 0.002949878830900643,
+    "no-highlight": 0.002513517698961465,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005435564895705125,
+   "residual": 0.00024427432867923926
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__rrect-md__rest",
+   "default": 0.7014741884482537,
+   "allDeclined": 0.6978953346477473,
+   "whole": 0.0035788538005063764,
+   "terms": {
+    "no-lens": -0.00023395940097403756,
+    "no-rim": 0.00222103204004076,
+    "no-highlight": 0.0012170284380843555,
+    "no-lift": 4.0919351063206655e-05
+   },
+   "sumOfTerms": 0.0032450204282142847,
+   "residual": 0.00033383337229209165
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__rrect-ml__rest",
+   "default": 0.7012971210310933,
+   "allDeclined": 0.698484721318353,
+   "whole": 0.0028123997127402767,
+   "terms": {
+    "no-lens": -9.020037288109961e-05,
+    "no-rim": 0.0016649046540092582,
+    "no-highlight": 0.0009557730761668992,
+    "no-lift": 6.291021659321494e-05
+   },
+   "sumOfTerms": 0.002593387573888273,
+   "residual": 0.00021901213885200388
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__rrect-sm__rest",
+   "default": 0.6880294963821466,
+   "allDeclined": 0.6773924393386956,
+   "whole": 0.01063705704345097,
+   "terms": {
+    "no-lens": 0.0001357484801651765,
+    "no-rim": 0.006346832439195094,
+    "no-highlight": 0.003952374174780227,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.010434955094140497,
+   "residual": 0.00020210194931047365
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "checkerboard__toolbar-group__rest",
+   "default": 0.6820753631990182,
+   "allDeclined": 0.6794795900147544,
+   "whole": 0.002595773184263739,
+   "terms": {
+    "no-lens": 0.00017575674844605427,
+    "no-rim": 0.001610918558058394,
+    "no-highlight": 0.0007981575743305491,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0025848328808349974,
+   "residual": 1.0940303428741416e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+   "default": 0.42753020831627897,
+   "allDeclined": 0.42753020831627897,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "dark-solid__rrect-md__rest",
+   "default": 0.4986724557427849,
+   "allDeclined": 0.49448643610881354,
+   "whole": 0.004186019633971361,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0025110207196814005,
+    "no-highlight": 0.001636052080512207,
+    "no-lift": 6.129344761185429e-07
+   },
+   "sumOfTerms": 0.004147685734669726,
+   "residual": 3.8333899301634666e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "impulse__capsule-button__rest",
+   "default": 0.0033465357638991426,
+   "allDeclined": 0.0033465357638991426,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "impulse__capsule-button__rest-tint-orange",
+   "default": 0.42753020831627897,
+   "allDeclined": 0.42753020831627897,
+   "whole": 0.0,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0,
+    "no-highlight": 0.0,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0,
+   "residual": 0.0
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "impulse__rrect-md__rest",
+   "default": 0.46719644712981123,
+   "allDeclined": 0.46265201232733305,
+   "whole": 0.004544434802478181,
+   "terms": {
+    "no-lens": 0.0006171407627971748,
+    "no-rim": 0.002375410190778471,
+    "no-highlight": 0.0015740410166302787,
+    "no-lift": 1.8181151334450973e-07
+   },
+   "sumOfTerms": 0.004566773781719269,
+   "residual": -2.2338979241087742e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "light-solid__capsule-button__rest",
+   "default": 0.971615876658699,
+   "allDeclined": 0.9697179165835799,
+   "whole": 0.0018979600751191095,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.00106620225269205,
+    "no-highlight": 8.345030556777822e-05,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0011496525582598283,
+   "residual": 0.0007483075168592812
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "light-solid__capsule-button__rest-tint-orange",
+   "default": 0.43201777737225083,
+   "allDeclined": 0.4269347450783737,
+   "whole": 0.005083032293877132,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.002658183417485638,
+    "no-highlight": 0.0023625976337388055,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005020781051224443,
+   "residual": 6.225124265268889e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "light-solid__rrect-md__rest",
+   "default": 0.9323930428568725,
+   "allDeclined": 0.9301509579144603,
+   "whole": 0.0022420849424121814,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0013100420079725783,
+    "no-highlight": 0.00025422901163374423,
+    "no-lift": 6.819054311502093e-05
+   },
+   "sumOfTerms": 0.0016324615627213435,
+   "residual": 0.0006096233796908379
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "light-solid__rrect-ml__rest",
+   "default": 0.9321941896487672,
+   "allDeclined": 0.9305138896408293,
+   "whole": 0.0016803000079379515,
+   "terms": {
+    "no-lens": 0.0,
+    "no-rim": 0.0009372928974593631,
+    "no-highlight": 0.0001727256905567076,
+    "no-lift": 0.00010699985204387641
+   },
+   "sumOfTerms": 0.001217018440059947,
+   "residual": 0.00046328156787800445
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__capsule-button__rest",
+   "default": 0.6178426738645142,
+   "allDeclined": 0.6118949522161558,
+   "whole": 0.005947721648358439,
+   "terms": {
+    "no-lens": -0.0001790910912791155,
+    "no-rim": 0.0031331741731415175,
+    "no-highlight": 0.002804158610997032,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005758241692859434,
+   "residual": 0.00018947995549900565
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__capsule-button__rest-tint-blue",
+   "default": 0.20306508281185734,
+   "allDeclined": 0.1969769685251946,
+   "whole": 0.006088114286662727,
+   "terms": {
+    "no-lens": -1.7474862345517872e-05,
+    "no-rim": 0.003232967172445561,
+    "no-highlight": 0.002795662622231354,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.006011154932331397,
+   "residual": 7.695935433132961e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__capsule-button__rest-tint-orange",
+   "default": 0.35947513395524144,
+   "allDeclined": 0.3536436903625268,
+   "whole": 0.005831443592714647,
+   "terms": {
+    "no-lens": -5.1425022925155606e-05,
+    "no-rim": 0.003041151892673566,
+    "no-highlight": 0.002606309275771157,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005596036145519567,
+   "residual": 0.00023540744719507956
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__capsule-button__rest-tint-orange-half",
+   "default": 0.45868348034296297,
+   "allDeclined": 0.45269124495729185,
+   "whole": 0.005992235385671119,
+   "terms": {
+    "no-lens": -5.5528404923677055e-05,
+    "no-rim": 0.003098133304366757,
+    "no-highlight": 0.002758273433472902,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.005800878332915982,
+   "residual": 0.0001913570527551367
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__rrect-md__rest",
+   "default": 0.6602950689226139,
+   "allDeclined": 0.6525980108126805,
+   "whole": 0.007697058109933375,
+   "terms": {
+    "no-lens": 0.003573797403867651,
+    "no-rim": 0.002439658432122349,
+    "no-highlight": 0.0015815771900092868,
+    "no-lift": 1.9215123678639756e-05
+   },
+   "sumOfTerms": 0.007614248149677927,
+   "residual": 8.280996025544773e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__rrect-md__rest-tint-orange",
+   "default": 0.36713165783245544,
+   "allDeclined": 0.3622529385081753,
+   "whole": 0.004878719324280134,
+   "terms": {
+    "no-lens": 0.0007365781668818849,
+    "no-rim": 0.002500430025786371,
+    "no-highlight": 0.001482946565847132,
+    "no-lift": 1.711616341537603e-05
+   },
+   "sumOfTerms": 0.004737070921930764,
+   "residual": 0.00014164840234937026
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__rrect-ml__rest",
+   "default": 0.6610648069673926,
+   "allDeclined": 0.6558200987766594,
+   "whole": 0.005244708190733194,
+   "terms": {
+    "no-lens": 0.0021450657045701815,
+    "no-rim": 0.0018019131922833997,
+    "no-highlight": 0.0011923166571988775,
+    "no-lift": 3.468867015465893e-05
+   },
+   "sumOfTerms": 0.005173984224207118,
+   "residual": 7.072396652607615e-05
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__rrect-sm__rest",
+   "default": 0.5982835311123929,
+   "allDeclined": 0.5885879732476795,
+   "whole": 0.009695557864713322,
+   "terms": {
+    "no-lens": -0.0024050094969695346,
+    "no-rim": 0.0070243822729789684,
+    "no-highlight": 0.004889113922294075,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.009508486698303509,
+   "residual": 0.00018707116640981347
+  },
+  {
+   "profileKey": "apple-macos-26.5-2x-light-standard",
+   "sceneId": "photo__toolbar-group__rest",
+   "default": 0.6374229736580199,
+   "allDeclined": 0.6319375716614295,
+   "whole": 0.005485401996590422,
+   "terms": {
+    "no-lens": 0.0028283691405968092,
+    "no-rim": 0.00168830650442231,
+    "no-highlight": 0.0008755650263150283,
+    "no-lift": 0.0
+   },
+   "sumOfTerms": 0.0053922406713341475,
+   "residual": 9.316132525627463e-05
+  }
+ ]
+}
