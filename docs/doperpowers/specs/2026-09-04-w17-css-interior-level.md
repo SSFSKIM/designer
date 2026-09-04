@@ -513,6 +513,50 @@ shadow alone (E's overlay); configuration 2, the full form. The landing's test f
 each scratch matrix (X6). The holdout once, at configuration 2 frozen. The sheets. The declaration
 in claims (§5.75).
 
+### Decision Log 3 — the probe pre-check lands; S3 and S5 re-declared against the renderer before the whole-bed run (2026-09-04)
+
+**Evidence** (branch `w17-g1-level` at `72bd15a`, `results/2026-09-04-w17-css-interior-level/g1/probe-tables.md`).
+The full form — the shader's ordering, the inner shadow as the shader's own layer identity, the
+tint's lerp inside the sharp layer's linear-light filter — puts the CSS tier's interior within
+0.01 of the GPU tier's on all six probe readings: −0.0061 / −0.0055 / −0.0064 at 1x and −0.0005 /
++0.0001 / −0.0011 at 2x, against the W16 bed's +0.027…+0.064; the level ratio 0.9998–1.0094; the
+cross-tier ΔE down and `ssimMean` up on all six (+0.0097 / +0.0051 / +0.0165 at 1x); the GPU tier
+byte-identical. The ordering fix alone closes 0.010–0.018 of the gap and is not a landing. The two
+derived residuals: the encoded-space mix of the two tinted layers −0.0040 at dpr 1 and −0.0009…
+−0.0022 at dpr 2 (7–14× smaller than the untinted mix, as (c) predicted, and the size and sign of
+the tier's −0.006 at 1x); the effective width moves the level by ≤ 3e−6. Decision Log 2 (d)'s
+question is answered by the worker with W16 G1's own measurement: the plain-`blur()` anchor stays
+at 0.02 and is no longer read on the Chromium path.
+
+**Two stops were declared against the wrong reference, and are re-declared here, in the open,
+with both numbers to be named on every cell.**
+
+- **S3, the spread.** As written it reads the interior spread against NATIVE at ±0.01 / ±0.015,
+  which was W16's reach for a body change. `checkerboard__rrect-md` at 1x now reads −0.0122
+  against native and within 0.0042 of the GPU tier's own −0.0080: the tier became coherent with
+  the renderer on a cell where the renderer is itself off native, which is this wave's binding
+  target (Decision Log 2 (a), (e)). **Re-declared:** the tier's spread within 0.005 of the GPU
+  tier's own spread on every calibration span at both scales; the distance to native reported
+  beside it as a second column and carried as the renderer's residual where it exceeds W16's
+  reach. Read as written, S3 fires by 0.0022 on one 1x cell; that reading is recorded, not
+  suppressed.
+- **S5, the untouched cells.** As written it holds the solids and the author-tinted cells within
+  0.002 in every adopted metric — a clause inherited from W16, whose body change was not meant to
+  move the level. This wave moves the level on every cell by design: the light solid sits +0.025
+  over the GPU tier on the bed and must move to land; an author-tinted surface draws
+  `(1 − s)·material + s·layer` and carries `(1 − s)` of the untinted level change, 0.04–0.06, by
+  the fold's own algebra. **Re-declared:** every solid and author-tinted cell's interior mean
+  lands within 0.01 of the GPU tier's (the tinted cells' move predicted per cell as `(1 − s)` of
+  the untinted change and the prediction reported beside the measurement); its cross-tier ΔE does
+  not rise; its `ssimMean` stays inside its bound or floor; the dark-scheme cells that were within
+  0.015 of the GPU tier move by no more than 0.005. The Parent-Level Acceptance's corresponding
+  clauses read the same way from here.
+- **`ssimBand` down 0.0044 on `rrect-md` and `rrect-ml` at 2x** while `ssimMean` rises there:
+  not a stop of its own; S2's floors on the whole bed decide, and the reading is named in the
+  declaration either way.
+
+Everything else in G1's stops stands as written. Step 2 opens on these terms.
+
 ## Surprises & Discoveries
 
 - **2026-09-04 (G0) — the renderer's light is a hundredth of the level.** Declining the
@@ -555,3 +599,7 @@ in claims (§5.75).
   reconciled in Decision Log 2: the target stands, the mirror takes the shader's order, the
   conversion becomes the lerp itself as an affine in the sharp layer's linear-light filter. Five
   Surprises. G1 opened on that form with a probe pre-check first.
+- 2026-09-04: **G1 pre-check landed** (Decision Log 3): all six probe readings within 0.01 of the
+  GPU tier, `ssimMean` up on every one. S3 re-declared against the renderer's own spread and S5
+  against the renderer's level with the tinted cells' predicted move beside, both with the reason;
+  the whole-bed dry run opens.
