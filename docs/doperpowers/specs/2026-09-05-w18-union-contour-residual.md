@@ -365,6 +365,7 @@ than models.
   ΔE not up on any profile; (S7) `PREDICATE_EXCLUDES` not up; (S8) the cost knee unmoved if
   carrier B adds children (W16 G0's harness); (S9) by eye, the shadow outside every surface
   unchanged and no shadow on a member's body inside a group; (S10) the user's eye.
+  *S4 and S5 re-declared at Decision Log 3 with the pre-check's numbers.*
 - **Edges:** blocked-by G0 (CLOSED). **Track:** controlled; a branch in a worktree; the
   pre-check gate is Decision Log 3; the landing is the user's call.
 
@@ -473,7 +474,24 @@ reported together.
 - **The native pixels of the probe bed at 2x** — the 1x bed is captured and read
   (`probe/readings.md`); a 2x session is the user's to open.
 - **The 2x `capsule-button` at +0.0094** (W17's own miss inside 0.01) — the shadow's
-  removal moves it; S5 names what leaves 0.01.
+  removal moves it; S5 names what leaves 0.01. *Decision Log 3: its mechanism is M2's sign flip
+  at 2x (+0.0076 of structure remainder on that box), the shadow's share +0.0007; predicted
+  +0.0102; the landing question's.*
+- **The box-limited filter input's remainder (M2), bounded, not derived (Decision Log 3).**
+  The tier keeps the same fraction of the backdrop's structure on a 44 × 44 box as on a 120 × 44
+  one where the renderer and Apple keep more on the small box; the level cost is −0.0044…−0.0069
+  per small box over structure at 1x and up to +0.0076 on the 2x checkerboard capsule. Its
+  charter's shape: a sweep of square boxes (24…120 CSS px) over the checkerboard and the photo
+  at both scales, the spread per tier beside the mean, the effective blur width per box against
+  W16's ratio (derived on spans whose long extent exceeds the kernel), and a derivation of the
+  chain's nonlinearity on the mirrored distribution or a per-box effective width carried with its
+  residual.
+- **The shadow's composite over a glassed body (the stack's base).** G0's decline puts 0.0054 of
+  the checkerboard base's +0.0081 on the shadow's composite where a surface's shadow falls on
+  another surface's rendered interior: the tier multiplies in encoded space by
+  `cssTierShadowAlpha`'s conversion, the renderer occludes in linear light, and on a lightened
+  body the two differ. Its shape: the conversion re-derived at the glassed body's level, or the
+  composite bounded per level with its residual; measured on the stack's base region.
 - **A 2x native probe** — if the user opens a 2x session, the same scenes file at
   `VITREA_SCALE=2` into a second fixtures dir; otherwise the 2x separation is
   web-side only and says so.
@@ -483,7 +501,7 @@ reported together.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels taken the same day after the user restored the grant (`probe/readings.md`: seven attested runs, the twins byte-identical to the canonical fixtures, Apple's material box-invariant at the span, the native overlay 0.909 / 0.897) |
-| G1 | branch `w18-g1-shadow` (worktree); `g1/` | OPEN 2026-09-05 — dispatched on Decision Log 2; the pre-check gate is Decision Log 3 |
+| G1 | branch `w18-g1-shadow` (`6207287` the carriers, `7a8a09b` the pre-check; `g1/g1-precheck.md`) | OPEN 2026-09-05 — the pre-check passed the gate (Decision Log 3: both carriers, the remainder bounded, S4 and S5 re-declared); the whole-bed dry run opens |
 | G2 | — | — |
 
 ## Decision Log
@@ -613,6 +631,78 @@ the spacing at 12 and at 40, no threshold.
 
 G1 opens on this log.
 
+### Decision Log 3 — the pre-check at the gate: both carriers accepted, the remainder bounded per box and scale, S4 and S5 re-declared with the numbers, the whole-bed run opens (2026-09-05)
+
+**What the pre-check measured** (`g1/g1-precheck.md`, branch `w18-g1-shadow` at `7a8a09b`). The two
+carriers reproduce G0's `no-outer-shadow` decline within 0.0002 on all twenty-four rows of the
+separation bed while the shadow stays on the page outside every surface (a ring one device pixel
+outside the contour reads 0.4751 against 0.4747 with the shadow on the host and 0.5029 with it
+declined). `checkerboard__toolbar-group` −0.0122 → **−0.0028** at 1x and −0.0040 → **+0.0044** at
+2x; `photo__toolbar-group` −0.0150 → **−0.0087** and −0.0101 → **−0.0044**. Carrier A alone leaves
+−0.0099 / −0.0140 on the two 1x cells, so carrier B is two thirds of the closure on a group. Every
+GPU capture byte-identical to G0's (36 / 36). The cost knee unmoved (40 surfaces at both scales,
+every surface in a group of three). The DOM as the e2e spec reads it: a lone host `layer`, a
+three-member group `group` with one caster per member inside the last-painted host under an
+even-odd clip, a clipping host `host`. **The remainder with the shadow out** is M2's: on the light
+solid (the one backdrop whose mirror is exact) every component reads +0.0016…+0.0026, and the
+structure-dependent part is −0.0015…−0.0020 on the 120 × 44 box and −0.0044…−0.0069 on the 44 × 44
+at 1x (−0.0103 on the confounded bright photo patch), sign-flipped at 2x (+0.0076 on the
+checkerboard capsule). The spread names it: the tier keeps 0.278 of the backdrop's structure on
+both boxes where the renderer keeps 0.306 on the small one and 0.277 on the capsule, and Apple
+sits on the renderer's side (`probe/readings.md`). The step from the spread to the level is not
+one coefficient (−0.0142 of spread with −0.0062 of level on one cell, −0.0082 with +0.0011 on
+another), and the worker did not fit one. The stack: the overlay's term unchanged and the
+renderer's (−0.0459 / −0.0565); the overlay alone within 0.005 (+0.0047 / +0.0057); the base
+excluding the overlay unchanged by the carriers (+0.0081 / +0.0016 at 1x against G0's +0.0083 /
++0.0018; +0.0108 / +0.0006 at 2x). The Design's carrier-A note that the shadow's spread grows by
+the border width was wrong and was not applied: `layerFrame` insets L3 by the border width from
+the host's padding box, which is the border box already, and `border-radius: inherit` puts the
+host's radius on it (a Revision Note).
+
+**Decided here (the parent), before the whole-bed run.**
+
+1. **Both carriers land**; carrier B is load-bearing and stays. The default carrier is `layer`,
+   `host` only where the page's own `overflow` forces it, `group` where a group has more than one
+   member; `GlassGroupState.cssShadow` reports which.
+2. **The remainder is carried as a bound per box and per scale**, K5's admissible form (W16's
+   effective width the precedent), with its mechanism named and evidenced by the spread and
+   its charter's shape in Deferred: at 1x, −0.0015…−0.0020 on a 120 × 44 box and
+   −0.0044…−0.0069 on a 44 × 44 over structure, +0.0016…+0.0026 on a solid; at 2x within
+   ±0.002 on the photo and up to +0.0076 on the checkerboard capsule. No coefficient is fitted
+   for it. The 2x `checkerboard__capsule-button` at +0.0095 on the W17 bed is this family's sign
+   flip at 2x, not the shadow's (the shadow's share there is +0.0007).
+3. **S4 re-declared on `photo__toolbar-group` at 1x: within 0.01 of the GPU tier** (from
+   −0.0150; the pre-check reads −0.0087, the bound's −0.0103 on the bright-patch member the
+   reason), with the miss of the charter's 0.005 named. The other three cells keep 0.005
+   (−0.0028 / +0.0044 / −0.0044 at the pre-check). The fold's clause (q4, 0.01) is measured at
+   the dry run.
+4. **S4's stack clause restated to what this wave touches**: the overlay alone over the raw
+   backdrop within 0.005 (met); the base excluding the overlay within 0.001 of G0's reading (the
+   carriers move it 0.0002). The checkerboard base's +0.0081 / +0.0108 is not closed here and is
+   named: G0's decline put 0.0054 of it on the shadow's composite over a glassed body (the two
+   tiers darken the base's rendered interior unequally under the overlay's shadow) and the rest
+   on the largest box's remainder; Deferred carries both shapes. The canonical holdout cells'
+   whole-cell readings are recorded once with the renderer's route as their remainder (the
+   photo predicted −0.0100 / −0.0108).
+5. **S5 re-declared with what the form predicts and what it was never asked to carry**: every
+   single-member light cell's CSS − GPU moves by the closed form's share within 0.002 (the
+   pre-check's isolated boxes within 0.0015), the light-solid cells within 0.0035 (the form's
+   recorded under-prediction on the solid, +0.0029…+0.0030); the two `toolbar-group` cells move
+   above the form by the paint-order residual Decision Log 2 (1) declined to model, bounded at
+   0.005 per cell (+0.0038…+0.0047 at the pre-check), and are gated by S4 directly. A cell that
+   leaves W17's 0.01 clause is named for the user with the number: the pre-check predicts one,
+   `checkerboard__capsule-button` at 2x at about +0.0102 (from +0.0095; the shadow's share
+   +0.0007; the mechanism item 2's), and the landing question carries it.
+6. **The dark and tinted cells** move by their own derived share and no more (S5's rule applies
+   to every cell; the shadow is multiplicative and inert over black).
+7. **X7 as built stands**: the coherence pin asserts the paint order from the tier's own output
+   and `sampledOuterShadowFactor` bounds the `host` fallback.
+
+**The whole-bed run opens on this log:** every profile at both scales on both tiers to scratch,
+the holdout read once in the same frozen configuration (`6207287`), the referee
+(`adopted-thresholds.test.ts` through `VITREA_MATRIX_PATH`; the verify script against the W17
+bed), the sheets, the changeset, the declaration in claims.
+
 ## Surprises & Discoveries
 
 - **2026-09-05 (G0) — the owner is a thing the tier paints and re-reads, not a term it
@@ -642,6 +732,20 @@ G1 opens on this log.
 - **2026-09-05 (the probe) — Apple's material is box-invariant at the 44 px span:** the lone
   circle within 0.001 of the capsule, the three-up the same at spacing 12 and 40; the merge
   changes nothing inside the members; only the CSS tier moves with the box.
+- **2026-09-05 (G1 pre-check) — carrier B is two thirds of the closure on a group:** carrier A
+  alone leaves −0.0099 / −0.0140 on the two 1x `toolbar-group` cells; a host's stacking context
+  means only the group's last-painted member can paint after every member's filters.
+- **2026-09-05 (G1 pre-check) — the remainder's sign flips with the scale:** M2's structure term
+  is one-signed negative at 1x (three times larger on the small box) and turns positive on the
+  2x checkerboard (+0.0076 on the capsule), which is where W17's 2x capsule miss (+0.0095) comes
+  from; the spread is the signature (the tier keeps 0.278 of the structure on both boxes, the
+  renderer 0.306 / 0.277, Apple on the renderer's side).
+- **2026-09-05 (G1 pre-check) — the Design's spread arithmetic was wrong:** L3's box is the
+  host's border box already; growing the spread by the border width would have grown every
+  shadow. Caught by the worker before a pixel was measured with it.
+- **2026-09-05 (G1 pre-check) — the stack's checkerboard base carries a shadow-over-glass
+  composite term** (+0.0081 with the shadow on both tiers, +0.0029 with it declined on both) that
+  the carriers do not touch: the two tiers darken a glassed body unequally under a shadow.
 
 ## Outcomes & Retrospective
 
@@ -662,3 +766,10 @@ G1 opens on this log.
   pixels, the 2x capsule), eight Surprises; G1 dispatched.
 - 2026-09-05: the probe bed captured and read after the grant (claims §5.77 §6, `probe/readings.md`);
   two Surprises, the Tracking Map's G0 row and Deferred amended; the spread signature passed to G1.
+- 2026-09-05 (by G1's pre-check, an advisory overturn): the Design's corrected bullet said carrier
+  A grows the shadow's `spread` by the border width; it does not — L3's box is the host's border
+  box (`layerFrame` insets by the border width from the padding box) and inherits its radius;
+  no growth applied. Evidence: the unit tests pin L3's value against the resolved material's.
+- 2026-09-05: Decision Log 3 — the pre-check read, both carriers accepted, the remainder bounded
+  per box and scale, S4 and S5 re-declared, the stack's clause restated; four Surprises, two
+  Deferred shapes; the whole-bed dry run opens.
