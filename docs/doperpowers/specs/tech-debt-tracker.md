@@ -465,3 +465,37 @@ harness's, not the tier's. Shape of the work: settle the page (two animation fra
 last style write) before the screenshot in `cli/compare.ts`'s CSS path, then confirm on a
 from-empty rebuild. Below any bound and any floor's epsilon; recorded so the next byte-identity
 scan does not chase it.
+
+## Six unverified Codex findings on the W18 CSS tint path (2026-09-05)
+
+*Found 2026-09-05, as a side effect of the designer-skill stance-derivation work.* The
+skill initiative's third Codex review (`gpt-5.6-sol`, xhigh) ran against `33fc55e` after a
+rebase that pulled in W18's `packages/platform-web` commits, so its diff covered that code.
+The skill diff drew no findings; all six below are in the runtime and are **not verified**
+by the session that logged them — it did not own the code and did not touch it. Each names
+a file and line as of `70a588c`; treat them as leads for the W18 owner, not as accepted
+defects.
+
+1. **P1 — `css-tier.ts:988-990`**: on Chromium's linear path with an `authorLayer`,
+   `cssTierTintTable` is solved for the overlay `(optics.tint, floorAlpha)` but the branch
+   paints `(authorLayer.color, authorLayer.strength)`, so the compensating table no longer
+   composites to the requested material and sub-floor strengths drop the contrast floor.
+2. **P2 — `root.ts:1374`**: `cssTintForms` is cleared before `stateFor(groupId)` is copied
+   into `groupInputs`, and repopulated at ~1913, so `root.renderInput().groups[*].state`
+   omits `cssTint` on every CSS frame while `capabilities()` includes it.
+3. **P2 — `css-tier.ts:533-535`**: the clear variant's floor returns a constant `0.2668`
+   from the shipped defaults instead of resolving from the active material profile.
+4. **P2 — `css-tier.ts:772-775`**: `cssTierDeclarations` is still re-exported and
+   `CssTierSurface.policy` still describes the policy fold, but the assignment discards the
+   alpha from `opticsUnderPolicy`, so a direct caller gets nominal opacity under reduced
+   transparency or increased contrast.
+5. **P2 — `optics.ts:2196-2197`**: the rim band clamps `depth` by corner radius, so a
+   square surface (radius 0) gets no band light while the WebGPU shader still lights the
+   straight edges.
+6. **P2 — `root.ts:1912-1913`**: `tintForm` is computed per surface but stored per group,
+   so `capabilities()` reports the last host's form while another host in the group can
+   draw the other one.
+
+Shape of the fix: the W18 owner verifies each against the current tree; the ones that hold
+become W18 follow-ups or their own entries here; the ones that do not are deleted from this
+entry with a line saying why.
