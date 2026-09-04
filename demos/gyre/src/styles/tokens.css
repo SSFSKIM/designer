@@ -1,0 +1,95 @@
+/*
+ * Gyre's token file. Values live here and nowhere else; `DESIGN.md` owns which
+ * token does which job. The three field ramps are the one exception and live in
+ * `src/field/palettes.ts`, because they are a colormap rather than UI.
+ *
+ * Contrast arithmetic for every pairing is in `scripts/palette.mjs`; the floors it
+ * prints are what §1 of the law promises.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ── Ink and grounds ──────────────────────────────────────────────────── */
+  --ink: oklch(0.2 0.012 262);
+  --ink-soft: oklch(0.3 0.014 262);
+  --muted: oklch(0.46 0.02 262);
+  --sheet: rgb(255 255 255 / 0.84);
+  --sheet-solid: oklch(0.985 0.004 262);
+  --rule: oklch(0.2 0.012 262 / 0.14);
+  --rule-strong: oklch(0.2 0.012 262 / 0.3);
+  /* The lift on glass: white, as channels, so its alpha can follow the runtime's glow. */
+  --lift-channels: 255 255 255;
+
+  /* ── The one accent: vermilion. Primary action, selection, focus. ─────── */
+  --accent: oklch(0.47 0.19 27);
+  /* The same colour in the numeric syntax vitrea's tint parser takes. */
+  --accent-hex: #ac0311;
+  --accent-foreground: oklch(0.985 0.006 40);
+
+  /* ── Type ─────────────────────────────────────────────────────────────── */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --wdth-display: 125;
+  --wdth-ui: 100;
+
+  --type-display-size: clamp(2rem, 3.1vw, 2.75rem);
+  --type-display-line: 0.98;
+  --type-display-track: -0.03em;
+  --type-display-weight: 500;
+
+  --type-h2-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  --type-h2-line: 1.1;
+  --type-h2-track: -0.02em;
+  --type-h2-weight: 500;
+
+  --type-body-size: 1rem;
+  --type-body-line: 1.55;
+  --type-body-track: -0.004em;
+
+  --type-small-size: 0.8125rem;
+  --type-small-line: 1.45;
+
+  --type-label-size: 0.6875rem;
+  --type-label-line: 1.3;
+  --type-label-track: 0.1em;
+
+  --type-data-size: 0.75rem;
+  --type-data-line: 1.4;
+
+  --type-reading-size: 1.625rem;
+  --type-reading-line: 1;
+
+  /* ── Space, radius, motion ────────────────────────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  --radius-0: 0;
+  --radius-glass: 18px;
+
+  --duration-fast: 120ms;
+  --duration-standard: 180ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ── Layout strips (DESIGN.md §4) ─────────────────────────────────────── */
+  --nav-strip: 72px;
+  --transport-strip: 88px;
+  --sheet-width: min(480px, 100vw);
+  --inset: 24px;
+  --measure: 60ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-standard: 1ms;
+  }
+}
