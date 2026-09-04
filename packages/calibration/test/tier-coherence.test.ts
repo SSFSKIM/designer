@@ -27,7 +27,6 @@ import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitre
 import {
   BACKDROP_TONE,
   CSS_TIER_MAPPING,
-  CSS_TIER_RAMP_SCALE,
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
   adaptedSourceOptics,
@@ -65,6 +64,12 @@ import {
   resolvedPolicyFold,
   resolvedTintShade,
   sizeOcclusionAlpha as cssSizeOcclusionAlpha,
+  cssTierHeavyShareAt,
+  cssTierHeavySigmaCssPx,
+  cssTierHeavyStepSigmaCssPx,
+  cssTierSharpSigmaCssPx,
+  scatterHeavyEffectiveRatioAtScale,
+  scatterHeavyEffectiveSigmaDevicePx,
   scatterDeepThickness as cssScatterDeepThickness,
   scatterFloorAtScale as cssScatterFloorAtScale,
   scatterGainAt as cssScatterGainAt,
@@ -183,6 +188,24 @@ describe("tier coherence (K5)", () => {
     const css = cssTierOptics();
     expect(css.regular.blurRadius).toBe(DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma);
     expect(requiredSamplingPadding(css.regular.blurRadius)).toBe(css.regular.blurRadius * 3);
+    /*
+     * **The per-layer rule (W16 G1).** This equality is between two numbers in
+     * DEVICE px, and it stayed an equality when the CSS tier gained two layers
+     * precisely because neither layer takes this σ raw: L1 divides it by the live
+     * ratio and L2 multiplies it by the renderer's gain first. So the pin above is
+     * the σ the two tiers agree on, and the two below are what each layer makes of
+     * it — at dpr 1 the sharp layer writes exactly this number, and at any ratio it
+     * writes the same device width.
+     */
+    for (const dpr of [1, 1.5, 2, 3]) {
+      expect(cssTierSharpSigmaCssPx(css.regular.blurRadius, dpr) * dpr, `dpr ${dpr}`).toBeCloseTo(
+        scatterHeavyEffectiveSigmaDevicePx(
+          DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma,
+          dpr,
+        ),
+        12,
+      );
+    }
   });
 
   it("writes an unsampled GPU-tier surface at the CSS tier's alpha and the renderer's tint (W11a)", () => {
@@ -327,6 +350,34 @@ describe("tier coherence (K5)", () => {
     expect(painted.blurRadius).not.toBe(
       cssTierOpticsUnderPolicy(cssTierOptics(patch).regular, policy.material).blurRadius,
     );
+    /*
+     * **The per-layer rule (W16 G1).** The frost multiplies the BASE σ, which is
+     * the one number both of the CSS tier's layers are built from — L1 is it
+     * divided by the ratio and L2 is it times the renderer's gain — so a frosted
+     * surface widens both components by the same multiplier and the composed body
+     * is the frosted body. That is the fold applying once on the composed mix,
+     * which is what the charter's accessibility advisory asks for, and it is why
+     * this case did not have to grow a branch per layer.
+     *
+     * The occlusion lift is the other half and it does NOT reach either filter:
+     * it lifts the tint's alpha, which lives on L3 above them both.
+     */
+    for (const dpr of [1, 2]) {
+      expect(
+        cssTierSharpSigmaCssPx(painted.blurRadius, dpr) * dpr,
+        `frosted L1 at dpr ${dpr}`,
+      ).toBeCloseTo(scatterHeavyEffectiveSigmaDevicePx(rendered.blurSigma, dpr), 12);
+      expect(
+        cssTierHeavySigmaCssPx(painted.blurRadius, 96, sourceSize(patch), dpr) * dpr,
+        `frosted L2 at dpr ${dpr}`,
+      ).toBeCloseTo(
+        scatterHeavyEffectiveSigmaDevicePx(
+          rendered.blurSigma * rendererScatterGainAt(96, profile, dpr),
+          dpr,
+        ),
+        12,
+      );
+    }
   });
 
   /*
@@ -739,8 +790,15 @@ describe("tier coherence (K5)", () => {
    * Decision Log 8 the ratio never DIVIDES that σ in this shared projection;
    * what it reaches is the heavy width's gain, which W15 G1 fitted at dpr 2
    * (claims §5.70 §2). So what is pinned here is that both tiers resolve one
-   * number at every ratio and span, and that the tier's own declaration — read
-   * at `CSS_TIER_RAMP_SCALE` — is still the 1x law's.
+   * number at every ratio and span.
+   *
+   * Since W16 G1 this projection is no longer what the CSS tier writes — the
+   * tier draws two layers at device-pixel widths through the live ratio, pinned
+   * in the case below — and its remaining consumers are the WebGPU tier's proxy
+   * (`WEBGPU_PROXY_PROJECTION_SCALE`, bound byte-identical by that wave) and the
+   * `--vitrea-blur` token. The case keeps its name because the invariant it
+   * holds is unchanged: whatever the projection is taken for, the two mirrors
+   * resolve one number for it.
    */
   it("takes the 3σ padding floor over the σ the tier actually writes, at every device scale", () => {
     const shipped = cssTierOptics().regular.blurRadius;
@@ -797,25 +855,23 @@ describe("tier coherence (K5)", () => {
     expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 2)).toBeCloseTo(1.25 * 5.5, 12);
     expect(rendererSizeScatterSigmaAt(1.25, 1, gainProfile, 3)).toBeCloseTo(1.25 * 5.5, 12);
     /*
-     * And what the CSS TIER WRITES on the landed material is the 1x law's σ at
-     * every ratio and every span, because it reads the law at
-     * `CSS_TIER_RAMP_SCALE` — dpr 1 — where W15 G1's second scale and its span
-     * grading are both inert by construction. That is W13 Decision Log 5 still
-     * in force (kept for this wave by W15 Decision Log 3), and the pin the CSS
-     * tier's own 2x form will be read against when it is charted.
+     * **Retired at W16 G1: the area-mean projection sweep.** What stood here was
+     * a loop asserting that the CSS tier's own declared σ is the 1x law's — 10
+     * CSS px — at every ratio and every span, because the tier read the law at
+     * `CSS_TIER_RAMP_SCALE`. That was W13 Decision Log 5 expressed as a pin, and
+     * W16 G1 overturned the decision it pinned: the tier now draws two layers at
+     * device-pixel widths through the live ratio, so a sweep asserting one σ at
+     * every ratio would be asserting the opposite of what the tier does. Its
+     * successor is the per-layer case below, which pins both widths and the share
+     * against the renderer's own functions over the same ratios — a stronger
+     * statement, because it constrains the two components rather than their
+     * average.
      *
-     * Since the landing the SHARED projection does move with the ratio — the 2x
-     * gain is 4.8 and its top 9.9 (claims §5.70 §8) — so the two mirrors are
-     * pinned to each other at every ratio and span beside the tier's own σ. A
-     * disagreement between them is the failure this case exists for; a ratio
-     * reaching the tier's declaration would show up as the first assertion.
+     * The SHARED projection does still move with the ratio — the 2x gain is 4.8
+     * and its top 9.9 (claims §5.70 §8) — so the two mirrors stay pinned to each
+     * other at every ratio and span. A disagreement between them is the failure
+     * this case exists for.
      */
-    for (const span of [0, 32, 96, 160, 256, 400]) {
-      expect(
-        cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, CSS_TIER_RAMP_SCALE, span),
-        `tier σ at span ${span}`,
-      ).toBeCloseTo(10, 12);
-    }
     for (const dpr of [1, 1.5, 2, 3]) {
       expect(
         cssSizeScatterSigmaAt(1.25, 1, MATERIAL_SOURCE_SIZE, dpr),
@@ -842,6 +898,140 @@ describe("tier coherence (K5)", () => {
       1.25 * 9.9,
       12,
     );
+  });
+
+  /**
+   * **X7 — the two-layer body, pinned per layer over dpr {1, 1.5, 2, 3}**
+   * (W16 G1; charter Decision Log 2 (c), contract X7).
+   *
+   * The CSS tier draws two `backdrop-filter` layers and a mask, and every
+   * quantity in all three is the renderer's own read at the live ratio. This is
+   * the case that says so, and it is the successor to the area-mean projection
+   * sweep retired above: it constrains the two components rather than their
+   * average, which is exactly the difference the wave landed.
+   *
+   * Four statements, and each one is a way the tiers could silently part:
+   *
+   *  1. **L1 is the profile's σ as a DEVICE-pixel width.** `sharpσ · dpr` is the
+   *     renderer's `blurSigma` at every ratio. A tier that forgot the division
+   *     would draw a sharp component twice as wide at dpr 2 as the renderer's.
+   *  2. **L2's composed width is the renderer's kernel's effective one.** The
+   *     nominal is `blurSigma · scatterGainAt(span, dpr)` in device px through
+   *     the renderer's own span-graded gain; the conversion to what the mip chain
+   *     really draws is `scatterHeavyEffectiveSigmaDevicePx`, and it is measured
+   *     rather than fitted (claims §5.71 §5). A ratio, a gain or a grading that
+   *     reached one tier and not the other shows up here at one span.
+   *  3. **L2's own step composes to that width.** Two Gaussians in series add in
+   *     quadrature and the heavy layer blurs the sharp layer's output, so
+   *     `√(sharpσ² + stepσ²)` has to be the composed width exactly — the arithmetic
+   *     the whole element model rests on (claims §5.42 §5).
+   *  4. **The mask's share is the renderer's ramp, and its area mean is the
+   *     projection.** The per-pixel share is one minus the renderer's own
+   *     `scatterSharpShare` under the same fold `scatterThickness` applies, so
+   *     the tier cannot draw a band the projection would not have averaged to.
+   */
+  it("draws the two-layer body at the renderer's own widths and share, over dpr {1, 1.5, 2, 3}", () => {
+    const base = DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma;
+    for (const dpr of [1, 1.5, 2, 3]) {
+      const sharp = cssTierSharpSigmaCssPx(base, dpr);
+      /*
+       * L1 is the profile's σ as a device-pixel width, carried through the same
+       * effective conversion the heavy component takes — one kernel, one mip
+       * chain, one conversion (W16 G1's re-form; the sharp width at the nominal
+       * put the interior spread 0.013–0.018 over native on four cells of the
+       * dry run, and this puts it inside ±0.016 on every one).
+       */
+      expect(sharp * dpr, `L1 is a device width at dpr ${dpr}`).toBeCloseTo(
+        scatterHeavyEffectiveSigmaDevicePx(base, dpr),
+        12,
+      );
+
+      for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
+        const label = `dpr ${dpr}, span ${span}`;
+        const nominalDevicePx = base * rendererScatterGainAt(span, DEFAULT_MATERIAL_PROFILE, dpr);
+        const heavy = cssTierHeavySigmaCssPx(base, span, MATERIAL_SOURCE_SIZE, dpr);
+        expect(heavy * dpr, `L2 composed at ${label}`).toBeCloseTo(
+          scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx, dpr),
+          12,
+        );
+        // The gain the width is a multiple of is one law across the seam.
+        expect(
+          cssScatterGainAt(span, MATERIAL_SOURCE_SIZE, dpr),
+          `gain at ${label}`,
+        ).toBeCloseTo(rendererScatterGainAt(span, DEFAULT_MATERIAL_PROFILE, dpr), 12);
+
+        const step = cssTierHeavyStepSigmaCssPx(sharp, heavy);
+        expect(Math.hypot(sharp, step), `quadrature at ${label}`).toBeCloseTo(heavy, 12);
+
+        // The share, at the contour, at the reach and across it. `fold` 1 is the
+        // nominal regime; the fold is exercised on its own below.
+        for (const u of [0, 4, 12, 40, 100, 400]) {
+          expect(
+            cssTierHeavyShareAt(u, dpr, 1, MATERIAL_SOURCE_SIZE, span),
+            `share at u ${u}, ${label}`,
+          ).toBeCloseTo(1 - rendererScatterSharpShare(u, dpr, DEFAULT_MATERIAL_PROFILE, span), 12);
+        }
+        // Beyond the reach the share is the deep value and nothing else.
+        const reach = cssScatterRampReachDevicePx(dpr, MATERIAL_SOURCE_SIZE);
+        expect(
+          cssTierHeavyShareAt(reach + 1, dpr, 1, MATERIAL_SOURCE_SIZE, span),
+          `deep at ${label}`,
+        ).toBeCloseTo(cssScatterDeepThickness(span, MATERIAL_SOURCE_SIZE, dpr), 12);
+      }
+
+      /*
+       * The accessibility fold is one fold on the mask too: it scales the
+       * excursion away from the scatter floor and never the floor itself, which
+       * is what makes the mask's area mean the projection `scatterThickness`
+       * resolves rather than a second reading of the law.
+       */
+      for (const fold of [0, 0.35, 1]) {
+        const floor = cssScatterFloorAtScale(MATERIAL_SOURCE_SIZE, dpr);
+        for (const u of [0, 20, 400]) {
+          const unfolded = cssTierHeavyShareAt(u, dpr, 1, MATERIAL_SOURCE_SIZE, 160);
+          expect(
+            cssTierHeavyShareAt(u, dpr, fold, MATERIAL_SOURCE_SIZE, 160),
+            `folded share at u ${u}, dpr ${dpr}, fold ${fold}`,
+          ).toBeCloseTo(Math.min(1, Math.max(0, floor + (unfolded - floor) * fold)), 12);
+        }
+      }
+    }
+
+    /*
+     * The second scale, stated. At dpr 1 the tier's composed heavy width is the
+     * 1x law's 10 CSS px through the effective conversion; at dpr 2 it is the 2x
+     * gain's, halved into CSS px — which is the whole of what W15 Decision Log 3
+     * held back and W16 G1 released.
+     */
+    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(
+      scatterHeavyEffectiveSigmaDevicePx(1.25 * 8, 1),
+      12,
+    );
+    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(
+      scatterHeavyEffectiveSigmaDevicePx(1.25 * 4.8, 2) / 2,
+      12,
+    );
+    expect(cssTierHeavySigmaCssPx(1.25, 256, MATERIAL_SOURCE_SIZE, 2)).toBeCloseTo(
+      scatterHeavyEffectiveSigmaDevicePx(1.25 * 9.9, 2) / 2,
+      12,
+    );
+    /*
+     * The conversion itself, stated so the pins above cannot pass on a ratio of 1.
+     * Measured on the renderer's own broadband captures with the instrument's
+     * recovery of a known law beside it: 1.38 at dpr 1 and 1.49 at dpr 2, flat in
+     * the span at each scale and interpolated between them exactly as every other
+     * per-scale constant in this material is. 1.485 rather than 1.49 because that
+     * is the least-squares fit over the five 2x cells, and the three different
+     * nominals among them are what make the ratio distinguishable from a width
+     * offset at all.
+     */
+    expect(scatterHeavyEffectiveRatioAtScale(1)).toBeCloseTo(1.38, 12);
+    expect(scatterHeavyEffectiveRatioAtScale(2)).toBeCloseTo(1.485, 12);
+    expect(scatterHeavyEffectiveRatioAtScale(1.5)).toBeCloseTo(1.4325, 12);
+    expect(scatterHeavyEffectiveRatioAtScale(3)).toBeCloseTo(1.485, 12);
+    // And it really reaches the width the tier writes: the 1x heavy component is
+    // the profile's 10 device px carried to 13.8 by the conversion.
+    expect(cssTierHeavySigmaCssPx(1.25, 96, MATERIAL_SOURCE_SIZE, 1)).toBeCloseTo(13.8, 12);
   });
 
   it("resolves one span to the same thickness, scatter and occlusion on both tiers", () => {
@@ -1445,6 +1635,18 @@ describe("tier coherence (K5)", () => {
    * The test's own encode is sRGB's, restated here for the reason both tiers
    * restate it: a spec constant is not a tunable, and importing one tier's copy
    * would make the assertion circular.
+   *
+   * **Kept at W16 G1, and now permanent rather than provisional.** W14 Decision
+   * Log 4 deferred the lift to the wave that would decide the CSS tier's element
+   * model, and W16 decided it: the lift is not drawn, because no CSS construction
+   * adds a filtered backdrop's light to a ring and keeps the backdrop. A blend
+   * mode does not reach a `backdrop-filter`'s output — it blends the element's
+   * own content, and an empty ring has none — and a blending ancestor is a
+   * backdrop root, so the only remaining expression needs a COPY of the backdrop,
+   * which is a proxy and the one thing this tier does not build (claims §5.71 §6,
+   * W16 Decision Log 2 (d)). So this fold is the CSS tier's answer for good, and
+   * this case is the pin that keeps the two tiers on one profile while they paint
+   * a different number of terms.
    */
   it("folds the lift the CSS tier cannot paint into the one alpha it can", () => {
     const encode = (linear: number): number => {

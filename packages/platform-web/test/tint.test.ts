@@ -9,7 +9,10 @@
  * 2. **The tint is an opaque shaded layer at the author's opacity (W10)**, and
  *    this tier folds it into its one `rgba()` exactly, in the encoded space both
  *    layers composite in — so the fold is convex and the gamut clip that §5.13
- *    attributed the tinted coherence miss to cannot occur.
+ *    attributed the tinted coherence miss to cannot occur. Since W16 G1 that one
+ *    `rgba()` is the overlay layer's `background-color` rather than the host's:
+ *    the tint sits above both filtered layers, because a tint beneath them is
+ *    blurred by them. The arithmetic is unchanged and only the element moved.
  * 3. **A declared tint can decide the ink with no backdrop hint**, and only when
  *    the whole reachable range of levels agrees.
  */
@@ -19,7 +22,12 @@ import { describe, expect, it } from "vitest";
 import type { ResolvedAccessibilityPolicy, ResolvedMaterialPolicy } from "@vitreajs/vitrea";
 import { glassTint } from "@vitreajs/vitrea";
 
-import { cssTierDeclarations, FOREGROUND_INK } from "../src/css-tier";
+import {
+  cssTierDeclarations,
+  FOREGROUND_INK,
+  type CssTierSurface,
+  type StyleDeclarations,
+} from "../src/css-tier";
 import {
   boundedForegroundLevel,
   cssTierForegroundBounds,
@@ -72,6 +80,30 @@ const policy = (patch: Partial<ResolvedMaterialPolicy> = {}): ResolvedAccessibil
     positionalContinuity: true,
   },
 });
+
+/**
+ * The host's own declarations — the geometry, the outer shadow and the five
+ * tokens, which is where the ink token has always lived and still does.
+ *
+ * Since W16 G1 the tier returns a `CssTierRender` rather than one flat record,
+ * because its properties are written to four different elements. These two
+ * readers name the element instead of flattening them back together.
+ */
+const hostOf = (surface: CssTierSurface): StyleDeclarations => cssTierDeclarations(surface).host;
+
+/**
+ * The overlay layer's declarations — the tint, the press glow and the rim, the
+ * three terms this tier paints above both filtered layers.
+ *
+ * It throws where the tier created no layers rather than handing back an empty
+ * record: the only surface without them is the forced-colours one, and a test
+ * asking that regime for its tint is asking a question it has no answer to.
+ */
+const overlayOf = (surface: CssTierSurface): StyleDeclarations => {
+  const { layers } = cssTierDeclarations(surface);
+  if (layers === undefined) throw new Error("the tier created no layers for this surface");
+  return layers.overlay;
+};
 
 const srgbEncode = (linear: number): number => {
   const c = Math.min(1, Math.max(0, linear));
@@ -233,13 +265,13 @@ describe("the ink, against a tinted surface", () => {
   it("takes the dark token on a bright tint, with no hint at all", () => {
     const tint = glassTint([1, 0.95, 0.6]);
     const optics = tintedCssOptics(base, source, linearTint(tint), 0.5, 1);
-    const declarations = cssTierDeclarations({
+    const host = hostOf({
       radii: [12, 12, 12, 12],
       optics,
       tint,
       policy: policy(),
     });
-    expect(declarations["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
+    expect(host["--vitrea-foreground"]).toBe(FOREGROUND_INK.dark);
   });
 
   it("takes the light token on a dark tint once the tint shows enough of itself to decide", () => {
@@ -251,7 +283,7 @@ describe("the ink, against a tinted surface", () => {
     const seed = [0.02, 0.02, 0.04] as const;
     const partial = tintedCssOptics(base, source, linearTint(glassTint(seed, 0.3)), 0.05, 1);
     expect(
-      cssTierDeclarations({
+      hostOf({
         radii: [12, 12, 12, 12],
         optics: partial,
         tint: glassTint(seed, 0.3),
@@ -260,7 +292,7 @@ describe("the ink, against a tinted surface", () => {
     ).toContain("light-dark(");
     const full = tintedCssOptics(base, source, linearTint(glassTint(seed)), 0.05, 1);
     expect(
-      cssTierDeclarations({
+      hostOf({
         radii: [12, 12, 12, 12],
         optics: full,
         tint: glassTint(seed),
@@ -270,12 +302,12 @@ describe("the ink, against a tinted surface", () => {
   });
 
   it("leaves an untinted hintless surface on the scheme's own answer", () => {
-    const declarations = cssTierDeclarations({
+    const host = hostOf({
       radii: [12, 12, 12, 12],
       optics: base,
       policy: policy(),
     });
-    expect(declarations["--vitrea-foreground"]).toContain("light-dark(");
+    expect(host["--vitrea-foreground"]).toContain("light-dark(");
   });
 });
 
@@ -288,47 +320,49 @@ describe("accessibility still wins", () => {
     // at half strength, where the material still has headroom to lose.
     const tint = glassTint([1, 0.584, 0], 0.5);
     const tinted = tintedCssOptics(base, source, linearTint(tint), 0.2, 1);
-    const nominal = cssTierDeclarations({
+    const nominal = {
       radii: [12, 12, 12, 12],
       optics: tinted,
       tint,
       policy: policy(),
-    });
-    const lifted = cssTierDeclarations({
-      radii: [12, 12, 12, 12],
-      optics: tinted,
-      tint,
-      policy: policy({ occlusion: "increased" }),
-    });
-    expect(Number(lifted["--vitrea-occlusion"])).toBeGreaterThan(
-      Number(nominal["--vitrea-occlusion"]),
+    } as const satisfies CssTierSurface;
+    const lifted = { ...nominal, policy: policy({ occlusion: "increased" }) };
+    expect(Number(hostOf(lifted)["--vitrea-occlusion"])).toBeGreaterThan(
+      Number(hostOf(nominal)["--vitrea-occlusion"]),
     );
     // The colour is the author's either way; only how much of it there is moved.
-    expect(lifted["background-color"]?.split(",").slice(0, 3)).toEqual(
-      nominal["background-color"]?.split(",").slice(0, 3),
+    // The tint itself is the overlay layer's `background-color` since W16 G1,
+    // and the token beside it on the host is the same alpha published.
+    expect(overlayOf(lifted)["background-color"]?.split(",").slice(0, 3)).toEqual(
+      overlayOf(nominal)["background-color"]?.split(",").slice(0, 3),
     );
   });
 
   it("never overrides near-monochrome ink with a tint-derived level", () => {
-    const declarations = cssTierDeclarations({
+    const host = hostOf({
       radii: [12, 12, 12, 12],
       optics: tinted,
       tint,
       policy: policy({ foreground: "near-monochrome" }),
     });
-    expect(declarations["--vitrea-foreground"]).toBe("light-dark(#000, #fff)");
+    expect(host["--vitrea-foreground"]).toBe("light-dark(#000, #fff)");
   });
 
   it("erases the tint entirely under forced colours, where there is no material", () => {
-    const declarations = cssTierDeclarations({
+    // The one regime that keeps the whole material on the host: forced colours
+    // tears the three created layers down rather than emptying them, so there is
+    // no overlay to read a tint from and `Canvas` is the host's own background.
+    const forced = {
       radii: [12, 12, 12, 12],
       optics: tinted,
       tint,
       policy: policy({ glass: "none" }),
-    });
-    expect(declarations["--vitrea-tint"]).toBe("Canvas");
-    expect(declarations["background-color"]).toBe("Canvas");
-    expect(declarations["--vitrea-foreground"]).toBe("CanvasText");
+    } as const satisfies CssTierSurface;
+    const render = cssTierDeclarations(forced);
+    expect(render.layers).toBeUndefined();
+    expect(render.host["--vitrea-tint"]).toBe("Canvas");
+    expect(render.host["background-color"]).toBe("Canvas");
+    expect(render.host["--vitrea-foreground"]).toBe("CanvasText");
   });
 
   it("collapses the shade range, not the colour, when the ambient regime narrows", () => {

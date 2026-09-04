@@ -39,6 +39,141 @@ const buildCssTier = async (page: Page): Promise<void> => {
   });
 };
 
+/**
+ * The paint order the whole element model rests on (W16 G1; charter Decision Log
+ * 2 (a)).
+ *
+ * The tier's three layers are `position: absolute` children with a NEGATIVE
+ * `z-index` under a host that establishes a stacking context, which the CSS
+ * painting order puts above the host's own background and border and below its
+ * in-flow content. Both halves matter and both fail silently if the order is
+ * wrong: layers below the host's background would be invisible under any app that
+ * styles its own glass host, and layers above its content would bury the label.
+ *
+ * Asserted with an OPAQUE application background on the host, because that is the
+ * decisive case: if the material painted below it the interior would read pure
+ * black, and if it painted above it the interior reads the blurred page through
+ * the tint. There is no ambiguity between those two answers.
+ */
+test("paints the material above the host's own background and below its content", async ({
+  page,
+}) => {
+  await buildCssTier(page);
+  await page.evaluate(() => {
+    const host = document.querySelector<HTMLElement>('[data-vitrea-node="panel"]');
+    host?.style.setProperty("background-color", "rgb(0, 0, 0)");
+    const label = document.createElement("span");
+    label.id = "label";
+    label.textContent = "\u2588\u2588\u2588\u2588";
+    label.setAttribute(
+      "style",
+      "position:absolute;left:20px;top:40px;color:rgb(255,0,0);font-size:40px;line-height:40px",
+    );
+    host?.append(label);
+    window.h.frame(3);
+  });
+
+  const panel = await sample(page, PANEL);
+  const interior = panel.at(150, 30);
+  const onLabel = panel.at(40, 60);
+
+  const say = (rgb: { r: number; g: number; b: number }): string => `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+  // Above the host's background: the interior is the blurred page under the tint,
+  // nowhere near the opaque black the app painted underneath.
+  expect(
+    Math.max(interior.r, interior.g, interior.b),
+    `the interior read ${say(interior)} over an opaque black host background`,
+  ).toBeGreaterThan(60);
+  // Below the host's content: the label is still the label.
+  expect(
+    onLabel.r - Math.max(onLabel.g, onLabel.b),
+    `the label read ${say(onLabel)}`,
+  ).toBeGreaterThan(40);
+});
+
+/**
+ * The depth ramp reaches the DOM as a real raster, and carries a real gradient
+ * (W16 G1; charter Decision Log 2 (b), claims §5.71 §4).
+ *
+ * The unit suite pins the mask's k(u) against the renderer's law, but it runs in
+ * jsdom, which has no canvas — so nothing below the declaration is exercised
+ * there. This is the end-to-end half: the heavy layer really carries a
+ * `mask-image`, its own `opacity` really went back to 1 because the mask is
+ * carrying the weight, and the raster the tier drew really has the band in it.
+ * The alpha is read back out of the image rather than sampled off the screen,
+ * because that separates "the tier drew the right mask" from "the engine
+ * composited it", and only the first is this test's subject.
+ */
+test("hands the heavy layer a raster mask with the ramp really in it", async ({ page }) => {
+  await buildCssTier(page);
+
+  const mask = await page.evaluate(async () => {
+    const heavy = document.querySelector<HTMLElement>('[data-vitrea-css-layer="heavy"]');
+    const computed = heavy === null ? undefined : getComputedStyle(heavy);
+    const image = computed?.maskImage ?? "";
+    const url = /url\("(data:[^"]+)"\)/.exec(image)?.[1];
+    if (url === undefined) return { url: image, opacity: computed?.opacity ?? "" };
+
+    const bitmap = await createImageBitmap(await (await fetch(url)).blob());
+    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+    const context = canvas.getContext("2d");
+    context?.drawImage(bitmap, 0, 0);
+    const alphaAt = (x: number, y: number): number =>
+      context?.getImageData(x, y, 1, 1).data[3] ?? -1;
+    return {
+      url: "data",
+      opacity: computed?.opacity ?? "",
+      width: bitmap.width,
+      height: bitmap.height,
+      // Six CSS px in from the contour on the short side, and the middle.
+      nearContour: alphaAt(Math.round(bitmap.width / 2), 6),
+      centre: alphaAt(Math.round(bitmap.width / 2), Math.round(bitmap.height / 2)),
+      // Inside a corner, on the diagonal, where a gradient stack would have been
+      // 0.06-0.19 low because `mask-composite` multiplies alphas (claims §5.71 §4).
+      corner: alphaAt(8, 8),
+    };
+  });
+
+  expect(mask.url).toBe("data");
+  // The mask carries the whole weight, so the layer's own alpha is 1.
+  expect(mask.opacity).toBe("1");
+  expect(mask.width).toBe(220);
+  expect(mask.height).toBe(120);
+  // The band: the heavy share rises from `1 - s₀(span)` at the contour to
+  // `kDeep(span)` at the reach, so a raster with no gradient in it would read the
+  // same at both depths — which is exactly the surface this tier drew before W16.
+  expect(
+    (mask.centre ?? 0) - (mask.nearContour ?? 0),
+    `mask alpha read ${String(mask.nearContour)} near the contour and ${String(mask.centre)} at the centre`,
+  ).toBeGreaterThan(8);
+  // And the corner is on the same profile as the sides at its own depth, rather
+  // than the product of two of them.
+  expect(mask.corner).toBeGreaterThan(0);
+  expect(mask.corner).toBeLessThan(mask.centre ?? 0);
+});
+
+/**
+ * The layers go away with the surface (W16 G1). A released host has to come out
+ * of the exchange carrying nothing vitrea put on it — three positioned children
+ * left behind would be the most visible possible version of that failure.
+ */
+test("takes its created layers off a released host", async ({ page }) => {
+  await buildCssTier(page);
+  const before = await page.evaluate(() => window.h.layerCount("panel"));
+  const after = await page.evaluate(() => {
+    window.h.release("panel");
+    const host = document.querySelector('[data-vitrea-node="panel"]');
+    return {
+      layers: document.querySelectorAll("[data-vitrea-css-layer]").length,
+      unregistered: host === null,
+    };
+  });
+
+  expect(before).toBe(3);
+  expect(after.layers).toBe(0);
+  expect(after.unregistered).toBe(true);
+});
+
 test("renders a visible glass surface over the page", async ({ page }) => {
   const before = await sample(page, PANEL);
   await buildCssTier(page);
@@ -61,7 +196,16 @@ test("stays legible with the blur removed — the tint carries the contrast", as
   const withFilter = await sample(page, PANEL);
 
   await page.evaluate(() => {
+    // Both filtered layers, since W16 G1: the tier draws the body as a sharp
+    // `backdrop-filter` layer and a heavy one over it, so taking the filter off
+    // the host would no longer simulate anything. The condition being simulated
+    // is unchanged — an engine that reports full support and delivers no filter
+    // — and it now means both layers rendering nothing.
     const host = document.querySelector<HTMLElement>('[data-vitrea-node="panel"]');
+    for (const layer of host?.querySelectorAll<HTMLElement>("[data-vitrea-css-layer]") ?? []) {
+      layer.style.setProperty("backdrop-filter", "none");
+      layer.style.setProperty("-webkit-backdrop-filter", "none");
+    }
     host?.style.setProperty("backdrop-filter", "none");
     host?.style.setProperty("-webkit-backdrop-filter", "none");
   });
@@ -137,9 +281,20 @@ test("still paints a border, even though it no longer carries the boundary", asy
   // but the declaration is what S1's undetectable failure class relies on, and it
   // has to still be there for a surface whose tint is ever made transparent again.
   const style = await page.evaluate(() => window.h.hostStyle("panel"));
+  const overlay = await page.evaluate(() => window.h.layerStyle("panel", "overlay"));
 
+  // The WIDTH stays on the host and stays layout: the author's content box
+  // depends on it and no created layer may move it. The COLOUR moved at W16 G1,
+  // because the host's border paints below the tier's negative-`z-index` children
+  // and would be covered by them — so the rim is redrawn as an inset `box-shadow`
+  // of the same width on the overlay layer, which follows `border-radius` exactly.
+  // This is the one change an author can observe in the computed style of their
+  // own element, and the property it is asserting is the same one: the surface
+  // still declares a real border.
   expect(style?.borderTopWidth).toBe("1px");
-  expect(style?.borderTopColor).toContain("rgba(255, 255, 255");
+  expect(style?.borderTopColor).toBe("rgba(0, 0, 0, 0)");
+  expect(overlay?.boxShadow).toContain("rgba(255, 255, 255");
+  expect(overlay?.boxShadow).toContain("inset");
 });
 
 test("renders system colors and no glass under forced colors", async ({ page }) => {
@@ -147,8 +302,13 @@ test("renders system colors and no glass under forced colors", async ({ page }) 
   await buildCssTier(page);
 
   const style = await page.evaluate(() => window.h.hostStyle("panel"));
+  const layers = await page.evaluate(() => window.h.layerCount("panel"));
 
   expect(style?.backdropFilter).toBe("none");
+  // Forced colors is a different surface rather than a dimmer material, so the
+  // tier's three created layers are torn down rather than emptied (W16 G1): a
+  // tier that left them up would leave glass under system colours.
+  expect(layers).toBe(0);
   // The flat system fill hides the backdrop completely — "no glass" means
   // maximal occlusion, not minimal.
   expect(style?.occlusion).toBe("1");

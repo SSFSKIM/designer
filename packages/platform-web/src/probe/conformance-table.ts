@@ -75,8 +75,40 @@ export interface EngineConformanceRow {
   readonly rasterisesBackdropFilter: "yes" | "no" | "unverified";
   /** Filter Effects 2 mandates `mirror` at the clipped border box. */
   readonly edgeMode: "mirror" | "unverified";
-  /** `backdrop-filter: url(#f)` — the reserved displacement seam (Decision Log #11). */
+  /**
+   * `backdrop-filter: url(#f)`, and since W16 G1 a **fidelity dependency** rather
+   * than the reserved displacement seam Decision Log #11 opened it as.
+   *
+   * `backdrop-filter: blur()` is an operator on the page's ENCODED values while
+   * the reference's body is linear in luminance, so the CSS tier's body blurred
+   * with `blur()` reads 2.4–2.8× the GPU law's residual on the thick spans at any
+   * σ, share or mask. An SVG `feGaussianBlur` at
+   * `color-interpolation-filters="linearRGB"` blurs in linear light and closes
+   * that to 1.10–1.50× at 1x and 0.97–1.03× at 2x, and its `sRGB` sibling is
+   * bit-for-bit the `blur()` form, which was the control (claims §5.71 §2). So an
+   * engine whose row says `false` still draws the two-layer body — it draws it in
+   * the wrong colour space, with the measured residual, which is a fidelity loss
+   * and not a broken surface.
+   */
   readonly referenceFilterInBackdrop: boolean;
+  /**
+   * Whether a `mask-image` on a `backdrop-filter` layer composes with the filter
+   * — the CSS tier's depth ramp depends on it (W16 G1).
+   *
+   * Measured `"yes"` in Chromium 151: a uniform mask on a filtered layer is
+   * **bit-identical** to the same `opacity`, and a mask of 0.8 with `opacity: 0.5`
+   * is bit-identical to `opacity: 0.40`, over the material's interior (claims
+   * §5.71 §1). Ten carrier spellings compose on the element; the one that does not
+   * is a mask on a *wrapper*, which is a backdrop root and makes the child's
+   * filter inert — which is why the tier's mask sits on the filtered layer itself.
+   *
+   * Fails closed, and the failure is graded rather than total: an engine at
+   * `"unverified"` draws the two layers with the heavy share as one `opacity` at
+   * the ramp's area mean — the body's two components without the band — because
+   * sibling `opacity` on `backdrop-filter` is ordinary CSS everywhere and needs no
+   * gate of its own. The band is the only thing the labeled pass unlocks.
+   */
+  readonly maskOnBackdropFilter: "yes" | "no" | "unverified";
   /** Device-pixel proxy area above which the filter may be dropped silently. */
   readonly maxProxyAreaDevicePx: number;
   /** Ancestor `perspective` / `preserve-3d`, which is not the plain-transform case. */
@@ -122,6 +154,7 @@ const CHROMIUM_MEASURED_CONFORMANCE = {
   rasterisesBackdropFilter: "yes",
   edgeMode: "mirror",
   referenceFilterInBackdrop: true,
+  maskOnBackdropFilter: "yes",
   maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
   transform3dHazard: "none",
   backdropRootTriggers: "normative",
@@ -133,6 +166,8 @@ const CHROMIUM_MEASURED_EVIDENCE: readonly string[] = [
   "S1 Q3: transform and translate3d on an ancestor are byte-identical to the untransformed case; WPT backdrop-filter-nested-3d-transform-perspective passes in Chrome.",
   "S1 Q3d: filter silently dropped above ~1.75-3.0 Mpx of device-pixel proxy area under software rasterisation; never dropped in GPU-composited retail Chrome up to 7.20 Mpx.",
   "S1 Q5: CSS.supports('backdrop-filter','url(#x)') is true in all three engines and only Chromium renders it (WebKit bug 245510, Gecko bug 1887451).",
+  "W16 G0 §0 (claims §5.71 §1), Chromium 151.0.7922.34 under the calibration harness's own recipe: maskOnBackdropFilter — a uniform mask-image on a backdrop-filter layer is bit-identical to the same opacity over the material's interior (RMS 0.000000, max 0.000000), a mask of alpha 0.80 with opacity 0.5 is bit-identical to opacity 0.40, and ten carrier spellings compose on the element while a mask on a wrapper makes the child's filter inert.",
+  "W16 G0 §1.3 (claims §5.71 §2): referenceFilterInBackdrop is a fidelity dependency, not a seam — two url(#f) layers at color-interpolation-filters=linearRGB reach 1.10-1.50x of the GPU law at 1x and 0.97-1.03x at 2x on W11's probe bed, where the same law through blur() reaches 2.39-2.89x, and the sRGB sibling of the same filter is bit-for-bit the blur() form.",
 ];
 
 /**
@@ -166,6 +201,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     rasterisesBackdropFilter: "unverified",
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
+    maskOnBackdropFilter: "unverified",
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "partial",
@@ -176,6 +212,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "Gecko bug 1887451: reference filters inside backdrop-filter are unsupported.",
       "Gecko bug 1816561 (open) and WPT backdrop-filter-nested-3d-transform-perspective failing in Firefox 154: ancestor perspective/preserve-3d is a live hazard.",
       "WPT backdrop-filter-backdrop-root-mask fails in Firefox 154, so an ancestor mask may not re-root there and layer 2 over-triggers — the fail-safe direction.",
+      "W16 G0 §7 (contract X9): maskOnBackdropFilter stays unverified here — a mask on a filtered layer is measured only in Chromium, and no automatable capture path on this engine renders backdrop-filter at all, so section H of spikes/s1-proxy-topology/pages/manual-check.html is its only oracle. The runtime draws the two layers with the heavy share as one opacity until that pass, which is ordinary CSS on every engine.",
     ],
   },
   {
@@ -184,6 +221,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     rasterisesBackdropFilter: "yes",
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
+    maskOnBackdropFilter: "unverified",
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "normative",
@@ -195,6 +233,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "edgeMode stays unverified deliberately: the manual page's section C measures mask extent (the padded box stands proud as a blurred halo, confirming the panel-shaped mask is load-bearing), which is not an observation of the sampling edge mode.",
       "transform3dHazard: translate3d(0,0,0) measured harmless, consistent with the hazard being specifically ancestor perspective/preserve-3d — WebKit bugs 252181 and 201987 remain open.",
       "WebKit bug 245510: reference filters inside backdrop-filter are refused (unchanged by this run).",
+      "W16 G0 §7 (contract X9): maskOnBackdropFilter stays unverified here — a mask on a filtered layer is measured only in Chromium, and no automatable capture path on this engine renders backdrop-filter at all, so section H of spikes/s1-proxy-topology/pages/manual-check.html is its only oracle. The runtime draws the two layers with the heavy share as one opacity until that pass, which is ordinary CSS on every engine.",
     ],
   },
   {
@@ -203,6 +242,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
     rasterisesBackdropFilter: "unverified",
     edgeMode: "unverified",
     referenceFilterInBackdrop: false,
+    maskOnBackdropFilter: "unverified",
     maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
     transform3dHazard: "perspective-preserve3d",
     backdropRootTriggers: "partial",
@@ -213,6 +253,7 @@ export const CONFORMANCE_TABLE: readonly EngineConformanceRow[] = [
       "WebKit bug 245510: reference filters inside backdrop-filter are refused.",
       "WebKit bugs 252181 and 201987 (both open): ancestor perspective/preserve-3d breaks backdrop-filter.",
       "WPT backdrop-filter-backdrop-root-mask and backdrop-filter-backdrop-root-clip-path-2 fail in Safari 26.6, so layer 2 over-triggers there — the fail-safe direction.",
+      "W16 G0 §7 (contract X9): maskOnBackdropFilter stays unverified here — a mask on a filtered layer is measured only in Chromium, and no automatable capture path on this engine renders backdrop-filter at all, so section H of spikes/s1-proxy-topology/pages/manual-check.html is its only oracle. The runtime draws the two layers with the heavy share as one opacity until that pass, which is ordinary CSS on every engine.",
     ],
   },
 ];
@@ -227,6 +268,7 @@ export const CONSERVATIVE_ROW: EngineConformanceRow = {
   rasterisesBackdropFilter: "unverified",
   edgeMode: "unverified",
   referenceFilterInBackdrop: false,
+  maskOnBackdropFilter: "unverified",
   maxProxyAreaDevicePx: CHROMIUM_SOFTWARE_RASTER_AREA_LIMIT,
   transform3dHazard: "unverified",
   backdropRootTriggers: "unverified",

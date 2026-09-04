@@ -536,6 +536,47 @@ const api = {
     return undefined;
   },
 
+  /**
+   * The computed style of one of the CSS tier's three created layers (W16 G1).
+   *
+   * The tier stopped filtering the host in place: the sharp `backdrop-filter`
+   * and the material's `saturate()` are on `sharp`, the heavy step and its share
+   * on `heavy`, and the tint, the press glow and the rim on `overlay`. A spec
+   * that used to read the host's filter reads `sharp` here, and `undefined` is a
+   * real answer — it means no layer exists, which is what a WebGPU-tier host and
+   * a forced-colors host both look like.
+   */
+  layerStyle(
+    nodeId: string,
+    layer: "sharp" | "heavy" | "overlay",
+  ): Record<string, string> | undefined {
+    const host = handles.get(nodeId)?.host;
+    const element = host?.querySelector<HTMLElement>(`[data-vitrea-css-layer="${layer}"]`);
+    if (element === undefined || element === null) return undefined;
+    const computed = getComputedStyle(element);
+    return {
+      backdropFilter:
+        computed.backdropFilter || computed.getPropertyValue("-webkit-backdrop-filter"),
+      backgroundColor: computed.backgroundColor,
+      backgroundImage: computed.backgroundImage,
+      boxShadow: computed.boxShadow,
+      opacity: computed.opacity,
+      maskImage: computed.maskImage || computed.getPropertyValue("-webkit-mask-image"),
+      display: computed.display,
+      position: computed.position,
+      zIndex: computed.zIndex,
+      pointerEvents: computed.pointerEvents,
+      ariaHidden: element.getAttribute("aria-hidden") ?? "",
+      transition: computed.transitionProperty,
+    };
+  },
+
+  /** How many of the tier's layers this host carries — zero on the WebGPU tier. */
+  layerCount(nodeId: string): number {
+    const host = handles.get(nodeId)?.host;
+    return host?.querySelectorAll("[data-vitrea-css-layer]").length ?? 0;
+  },
+
   hostStyle(nodeId: string): Record<string, string> | undefined {
     const host = handles.get(nodeId)?.host;
     if (host === undefined) return undefined;
@@ -553,6 +594,15 @@ const api = {
       color: computed.color,
       tint: computed.getPropertyValue("--vitrea-tint").trim(),
       occlusion: computed.getPropertyValue("--vitrea-occlusion").trim(),
+      /*
+       * The tier's published single-σ projection (W16 G1). It is still the one
+       * number an app matching the material with its own `blur()` gets, and since
+       * the body became two layers it is also the only place a spec can read a
+       * WIDTH without knowing which of the two blur spellings the engine is on —
+       * on Chromium the layers blur through a reference filter, whose σ lives in
+       * the `<filter>` definition rather than in the declaration.
+       */
+      blur: computed.getPropertyValue("--vitrea-blur").trim(),
       // The raw custom-property string, unresolved by the browser — unlike
       // `color`, which `light-dark()` collapses to an `rgb()` either way, this
       // token tells the two cases apart (X6, corrective K4).

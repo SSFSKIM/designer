@@ -11,6 +11,10 @@ import {
   foregroundInk,
   hintedBackdropLuminance,
   CSS_TIER_TOKENS,
+  type CssTierLayer,
+  type CssTierRender,
+  type CssTierSurface,
+  type StyleDeclarations,
 } from "../src/css-tier";
 import {
   CSS_TIER_MAPPING,
@@ -31,7 +35,7 @@ import {
   outerShadowFalloff,
   outerShadowThinOcclusion,
   resolvedPolicyFold,
-  CSS_TIER_RAMP_SCALE,
+  scatterHeavyEffectiveRatioAtScale,
   scatterThickness as cssScatterThickness,
   sizeThickness,
   groupScatterSigma,
@@ -50,6 +54,56 @@ const surface = {
 const declarationsOf = (optics: Partial<typeof MATERIAL_OPTICS.regular>) =>
   cssTierDeclarations({ ...surface, optics: { ...MATERIAL_OPTICS.regular, ...optics } });
 
+/*
+ * The tier's element model, as these tests read it (W16 G1).
+ *
+ * `cssTierDeclarations` returns a `CssTierRender` rather than one flat record,
+ * because the properties it writes go to four different elements: the host keeps
+ * the geometry, the outer shadow and the five tokens, and the three created
+ * layers carry the sharp `backdrop-filter`, the heavy one, and the tint, the
+ * press glow and the rim. The readers below name the element a property lives
+ * on; none of them merges the four back into one record, because which element
+ * carries which declaration is the whole of what the wave changed.
+ */
+
+/** The host's own declarations. */
+const hostOf = (surface: CssTierSurface): StyleDeclarations => cssTierDeclarations(surface).host;
+
+/**
+ * The three created layers of a render.
+ *
+ * It throws where the tier created none rather than handing back empty records:
+ * the only surface without layers is the forced-colours one, whose whole
+ * material is on the host, and a test reaching for a filter there is asking a
+ * question that regime has no answer to.
+ */
+const layersOf = (render: CssTierRender): Readonly<Record<CssTierLayer, StyleDeclarations>> => {
+  const { layers } = render;
+  if (layers === undefined) throw new Error("the tier created no layers for this surface");
+  return layers;
+};
+
+/** L1's declarations — the sharp `backdrop-filter` and the material's `saturate()`. */
+const sharpOf = (surface: CssTierSurface): StyleDeclarations =>
+  layersOf(cssTierDeclarations(surface)).sharp;
+
+/** L3's declarations — the tint, the press glow and the rim. */
+const overlayOf = (surface: CssTierSurface): StyleDeclarations =>
+  layersOf(cssTierDeclarations(surface)).overlay;
+
+/**
+ * The scale the tier still projects onto ONE σ at — `--vitrea-blur`, and the
+ * width the cost collapse degrades to.
+ *
+ * W13's `CSS_TIER_RAMP_SCALE` was this number as the whole tier's ramp scale,
+ * because one `backdrop-filter` had to pick a scale to render the ramp's average
+ * at. W16 G1 gave the body two layers and a mask and moved them to the live
+ * ratio; the projection stayed at 1, because it is what the collapse degrades to
+ * and what the public token publishes, and a degradation that was also a
+ * re-derivation would be two changes wearing one name.
+ */
+const PROJECTION_SCALE = 1;
+
 const systemWith = (flags: Record<string, boolean>) => ({
   reducedTransparency: false,
   reducedMotion: false,
@@ -64,38 +118,72 @@ describe("the CSS tier (the fallback is the design)", () => {
     // S1: no probe can catch "the engine renders nothing", so a *missed*
     // demotion must be a fidelity loss and not a broken UI. A surface whose
     // filter silently no-ops still has to read as a legible surface.
-    const declarations = cssTierDeclarations(surface);
+    //
+    // Both terms moved to the overlay layer in W16 G1 and neither weakened. The
+    // tint is that layer's `background-color`, above both filters rather than
+    // under them; the rim is its inset `box-shadow`, because the host's own
+    // border paints below the created layers and would be covered by them. The
+    // border-box width the rim is drawn at is still the host's, since it is
+    // layout and no created layer may move it.
+    const overlay = overlayOf(surface);
 
-    expect(declarations["background-color"]).toBeTruthy();
-    expect(declarations["border-color"]).toBeTruthy();
-    expect(declarations["border-width"]).toBeTruthy();
+    expect(overlay["background-color"]).toBeTruthy();
+    expect(overlay["box-shadow"]).toContain("inset ");
+    expect(hostOf(surface)["border-width"]).toBeTruthy();
   });
 
-  it("emits both the unprefixed and the -webkit- backdrop-filter", () => {
-    const declarations = cssTierDeclarations(surface);
+  it("emits both the unprefixed and the -webkit- backdrop-filter, on both filtered layers", () => {
+    // The host carries no filter of its own since W16 G1: a filtered parent is a
+    // backdrop root, so a `backdrop-filter` left on the host would make its own
+    // children's inert. It still writes both properties, at `none`, because a
+    // material that stops writing one of its declarations leaves whatever was
+    // last there. A spanless surface collapses to one layer, so the pairing is
+    // read on both forms: the collapsed body's single filter, and the two-layer
+    // body's pair.
+    for (const spanned of [surface, { ...surface, spanPx: 400 }]) {
+      const render = cssTierDeclarations(spanned);
+      expect(render.host["backdrop-filter"]).toBe("none");
+      expect(render.host["-webkit-backdrop-filter"]).toBe("none");
 
-    expect(declarations["backdrop-filter"]).toContain("blur(");
-    expect(declarations["-webkit-backdrop-filter"]).toBe(declarations["backdrop-filter"]);
+      const layers = layersOf(render);
+      const filtered =
+        render.body.form === "two-layer" ? [layers.sharp, layers.heavy] : [layers.sharp];
+      for (const layer of filtered) {
+        expect(layer["backdrop-filter"]).toContain("blur(");
+        expect(layer["-webkit-backdrop-filter"]).toBe(layer["backdrop-filter"]);
+      }
+    }
+    // And the collapsed heavy layer is off rather than transparent: the collapse
+    // exists to buy back a render surface, which an `opacity: 0` layer still costs.
+    expect(cssTierDeclarations(surface).body.form).toBe("collapsed");
+    expect(layersOf(cssTierDeclarations(surface)).heavy.display).toBe("none");
   });
 
   it("takes the corner radius from the shape channels", () => {
-    expect(cssTierDeclarations({ ...surface, radii: [4, 8, 12, 16] })["border-radius"]).toBe(
-      "4px 8px 12px 16px",
-    );
+    // The radius stays the host's, and the created layers inherit it rather than
+    // restating it, so there is exactly one place a corner is declared.
+    const render = cssTierDeclarations({ ...surface, radii: [4, 8, 12, 16] });
+    expect(render.host["border-radius"]).toBe("4px 8px 12px 16px");
+    for (const layer of Object.values(layersOf(render))) {
+      expect(layer["border-radius"]).toBe("inherit");
+    }
   });
 
   it("frosts harder under reduced transparency, and never occludes less", () => {
-    const nominal = cssTierDeclarations(surface);
-    const reduced = cssTierDeclarations({
+    // The frost is read off the layer that runs it — L1, which is the whole body
+    // on a spanless surface — and the occlusion off the token the host publishes.
+    const reducedSurface = {
       ...surface,
       policy: resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })),
-    });
+    };
 
     const blurOf = (value: string | undefined) => Number(/blur\(([\d.]+)px\)/.exec(value ?? "")?.[1]);
-    expect(blurOf(reduced["backdrop-filter"])).toBeGreaterThan(blurOf(nominal["backdrop-filter"]));
-    expect(reduced["--vitrea-occlusion"]).toBeDefined();
-    expect(Number(reduced["--vitrea-occlusion"])).toBeGreaterThanOrEqual(
-      Number(nominal["--vitrea-occlusion"]),
+    expect(blurOf(sharpOf(reducedSurface)["backdrop-filter"])).toBeGreaterThan(
+      blurOf(sharpOf(surface)["backdrop-filter"]),
+    );
+    expect(hostOf(reducedSurface)["--vitrea-occlusion"]).toBeDefined();
+    expect(Number(hostOf(reducedSurface)["--vitrea-occlusion"])).toBeGreaterThanOrEqual(
+      Number(hostOf(surface)["--vitrea-occlusion"]),
     );
   });
 
@@ -109,7 +197,7 @@ describe("the CSS tier (the fallback is the design)", () => {
       Number(/blur\(([\d.]+)px\)/.exec(value ?? "")?.[1]);
     const frostedWith = (reducedTransparencyFrost?: number): number =>
       blurOf(
-        cssTierDeclarations({
+        sharpOf({
           ...surface,
           policy,
           ...(reducedTransparencyFrost === undefined
@@ -146,9 +234,9 @@ describe("the CSS tier (the fallback is the design)", () => {
    * measured yet.
    */
   it("lifts the occlusion above nominal under reduced transparency", () => {
-    const nominal = Number(cssTierDeclarations(surface)["--vitrea-occlusion"]);
+    const nominal = Number(hostOf(surface)["--vitrea-occlusion"]);
     const reduced = Number(
-      cssTierDeclarations({
+      hostOf({
         ...surface,
         policy: resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })),
       })["--vitrea-occlusion"],
@@ -168,9 +256,7 @@ describe("the CSS tier (the fallback is the design)", () => {
     for (const tintAlpha of [0, 0.05, 0.28, 0.62, 0.9, 0.999]) {
       const optics = cssTierOptics({ optics: { regular: { tintAlpha } } });
       const at = (policy: ResolvedAccessibilityPolicy): number =>
-        Number(
-          cssTierDeclarations({ ...surface, optics: optics.regular, policy })["--vitrea-occlusion"],
-        );
+        Number(hostOf({ ...surface, optics: optics.regular, policy })["--vitrea-occlusion"]);
       const nominal = at(resolveAccessibilityPolicy(systemWith({})));
       const reduced = at(resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })));
 
@@ -192,7 +278,7 @@ describe("the CSS tier (the fallback is the design)", () => {
     const policy = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
     const foldedWith = (increasedOcclusionLift?: number): number =>
       Number(
-        cssTierDeclarations({
+        hostOf({
           ...surface,
           optics: optics.regular,
           policy,
@@ -234,12 +320,17 @@ describe("the CSS tier (the fallback is the design)", () => {
   });
 
   it("strengthens the border under increased contrast", () => {
-    const strong = cssTierDeclarations({
+    const strong = {
       ...surface,
       policy: resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
-    });
+    };
 
-    expect(Number.parseFloat(strong["border-width"] ?? "0")).toBeGreaterThan(1);
+    // The width is the host's, because it is layout. The rim drawn at that width
+    // is the overlay's inset `box-shadow`, and it widens with it.
+    expect(Number.parseFloat(hostOf(strong)["border-width"] ?? "0")).toBeGreaterThan(1);
+    expect(overlayOf(strong)["box-shadow"]).toContain(
+      `inset 0 0 0 ${hostOf(strong)["border-width"]}`,
+    );
   });
 
   it("draws the strong border the profile patch names, not the shipped one", () => {
@@ -254,14 +345,14 @@ describe("the CSS tier (the fallback is the design)", () => {
     const drawnWith = (
       strongBorderRim?: { rimWidth?: number; rimAlpha?: number },
     ): { width: string | undefined; colour: string | undefined } => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         policy,
         ...(strongBorderRim === undefined
           ? {}
           : { policyFold: resolvedPolicyFold({ strongBorderRim }) }),
       });
-      return { width: declarations["border-width"], colour: declarations["--vitrea-border-color"] };
+      return { width: host["border-width"], colour: host["--vitrea-border-color"] };
     };
 
     expect(drawnWith({ rimWidth: 4, rimAlpha: 0.5 }).width).toBe("4px");
@@ -285,33 +376,60 @@ describe("the CSS tier (the fallback is the design)", () => {
       policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
     });
 
-    expect(forced["backdrop-filter"]).toBe("none");
-    expect(forced["background-color"]).toBe("Canvas");
-    expect(forced["--vitrea-foreground"]).toBe("CanvasText");
-    expect(forced["border-color"]).toBe("CanvasText");
+    // This regime keeps the whole surface on the host and creates no layers at
+    // all: the platform's palette is not a dimmer material but a different one,
+    // and layers left standing would leave glass under system colours. So the
+    // border here is a real `border-color` rather than the overlay's rim, which
+    // is why this is the one branch that still reads like the pre-W16 record.
+    expect(forced.layers).toBeUndefined();
+    expect(forced.host["backdrop-filter"]).toBe("none");
+    expect(forced.host["background-color"]).toBe("Canvas");
+    expect(forced.host["--vitrea-foreground"]).toBe("CanvasText");
+    expect(forced.host["border-color"]).toBe("CanvasText");
   });
 
   it("transitions nothing under reduced motion, and keeps the transition otherwise", () => {
-    const nominal = cssTierDeclarations(surface);
-    const reduced = cssTierDeclarations({
-      ...surface,
-      policy: resolveAccessibilityPolicy(systemWith({ reducedMotion: true })),
-    });
+    /*
+     * A transition is declared on the element that carries the property, so W16
+     * G1 split what was one list on the host across four elements: the outer
+     * shadow stays with the host, the two filters go to L1 and L2, and the tint
+     * and the rim go to L3. The duration and the easing are still one decision —
+     * the material morphs as one thing — so the property is read on every
+     * element the material now lives on rather than on the host alone. A spanned
+     * surface is used because it is the one whose heavy layer is live and
+     * therefore has a filter to morph.
+     */
+    const spanned = { ...surface, spanPx: 400 };
+    const transitionsOf = (input: CssTierSurface): readonly string[] => {
+      const render = cssTierDeclarations(input);
+      return [render.host, ...Object.values(layersOf(render))].map((d) => d.transition ?? "");
+    };
 
-    expect(nominal.transition).toContain("ms");
+    for (const transition of transitionsOf(spanned)) {
+      expect(transition).toContain("ms");
+      expect(transition).toContain("cubic-bezier(0.34, 1.56");
+    }
     // Reduced Motion removes overshoot and deformation; a CSS transition on a
     // material property is neither, so it survives — what goes is the elastic
-    // easing, replaced by a monotonic one.
-    expect(reduced.transition).not.toContain("cubic-bezier(0.34, 1.56");
+    // easing, replaced by a monotonic one, and it goes on every element at once.
+    for (const transition of transitionsOf({
+      ...spanned,
+      policy: resolveAccessibilityPolicy(systemWith({ reducedMotion: true })),
+    })) {
+      expect(transition).toContain("ms");
+      expect(transition).not.toContain("cubic-bezier(0.34, 1.56");
+    }
   });
 
   it("names its tokens once, so the CSS tier and the GPU tier cannot drift apart", () => {
     for (const token of CSS_TIER_TOKENS) {
       expect(token.startsWith("--vitrea-")).toBe(true);
     }
-    const declarations = cssTierDeclarations(surface);
+    // All five are published on the HOST, which is the element an app styles
+    // against — a token on a created layer would be invisible to it.
+    const host = hostOf(surface);
     for (const token of CSS_TIER_TOKENS) {
-      expect(declarations[token]).toBeDefined();
+      expect(host[token]).toBeDefined();
     }
   });
 
@@ -323,14 +441,28 @@ describe("the CSS tier (the fallback is the design)", () => {
    */
   describe("deriving the material from the profile (corrective K5)", () => {
     it("holds no optical literal of its own — every painted number comes from the optics", () => {
-      const declarations = cssTierDeclarations(surface);
+      const render = cssTierDeclarations(surface);
+      const { host } = render;
+      const { overlay } = layersOf(render);
       const optics = MATERIAL_OPTICS.regular;
 
-      expect(declarations["background-color"]).toBe(
+      expect(overlay["background-color"]).toBe(
         `rgba(${optics.tint.join(", ")}, ${optics.tintAlpha.toFixed(3)})`,
       );
-      expect(declarations["border-color"]).toBe(
-        `rgba(${optics.border.join(", ")}, ${optics.borderAlpha.toFixed(3)})`,
+      /*
+       * The rim's colour used to be the host's `border-color` and this asserted
+       * it there. Since W16 G1 the host's border is `transparent` — it is still
+       * LAYOUT, and no created layer may move the author's content box, but it
+       * paints below the negative-`z` layers and would be covered by them — so
+       * the colour is drawn as an inset `box-shadow` on the overlay, which
+       * follows `border-radius` exactly. The same number, on the construction
+       * that now carries it, and still published unconverted on the token.
+       */
+      const rim = `rgba(${optics.border.join(", ")}, ${optics.borderAlpha.toFixed(3)})`;
+      expect(host["border-color"]).toBe("transparent");
+      expect(host["--vitrea-border-color"]).toBe(rim);
+      expect(overlay["box-shadow"]).toBe(
+        `inset 0 0 0 ${Math.round(optics.borderWidth * 100) / 100}px ${rim}`,
       );
       // The outer shadow (W8) is derived the same way: nothing in this file
       // chooses its lengths, and a profile that declines it stops it being drawn.
@@ -339,12 +471,15 @@ describe("the CSS tier (the fallback is the design)", () => {
       // no backdrop, so it resolves the thin regime at the unmeasured-backdrop
       // fallback, which is the mid plateau.
       const occlusion = outerShadowThinOcclusion(undefined, shadow);
-      expect(declarations["box-shadow"]).toBe(
+      // The OUTER shadow stays on the host: it paints outside the border box and
+      // below the background, where the created layers — clipped to their own
+      // boxes — never cover it. The overlay's `box-shadow` above is the rim.
+      expect(host["box-shadow"]).toBe(
         `0 ${shadow.offsetPx}px ${2 * shadow.sigmaPx}px ${shadow.spreadPx}px ` +
           `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(occlusion) * 1000) / 1000})`,
       );
       expect(
-        cssTierDeclarations({
+        hostOf({
           ...surface,
           outerShadow: {
             ...shadow,
@@ -364,8 +499,11 @@ describe("the CSS tier (the fallback is the design)", () => {
       // resting surface and diverged the moment one was held down — 1.96x on the
       // dark-scheme pressed capsule, where a lerp toward white over a dark
       // material is the whole interior rather than 2% of it.
+      //
+      // The glow rides with the tint on the overlay, above both filters: a glow
+      // painted beneath them would be blurred by the very body it lights.
       const optics = MATERIAL_OPTICS.regular;
-      const layer = cssTierDeclarations(surface)["background-image"] ?? "";
+      const layer = overlayOf(surface)["background-image"] ?? "";
 
       // The renderer's radius, and its `pressPoint ?? centre` fallback.
       expect(layer).toContain(`circle ${optics.glowRadius}px`);
@@ -387,9 +525,9 @@ describe("the CSS tier (the fallback is the design)", () => {
 
       // And the tint stays on its own longhand: an app writing a malformed
       // `--vitrea-glow` may lose the illumination, never the contrast floor.
-      expect(declarationsOf({ glowGain: 0 })["background-image"]).toBe("none");
-      expect(declarationsOf({ glowGain: 0 })["background-color"]).toBe(
-        cssTierDeclarations(surface)["background-color"],
+      expect(layersOf(declarationsOf({ glowGain: 0 })).overlay["background-image"]).toBe("none");
+      expect(layersOf(declarationsOf({ glowGain: 0 })).overlay["background-color"]).toBe(
+        overlayOf(surface)["background-color"],
       );
     });
 
@@ -477,11 +615,11 @@ describe("the CSS tier (the fallback is the design)", () => {
      * material.
      */
     it("decides a dark-hinted foreground against the material, not against the backdrop", () => {
-      const regular = cssTierDeclarations({
+      const regular = hostOf({
         ...surface,
         foreground: { mode: "author-hint", tone: "dark" },
       });
-      const clear = cssTierDeclarations({
+      const clear = hostOf({
         ...surface,
         optics: MATERIAL_OPTICS.clear,
         foreground: { mode: "author-hint", tone: "dark" },
@@ -498,12 +636,12 @@ describe("the CSS tier (the fallback is the design)", () => {
       // X6's hint carries an optional luminance and it is the finer statement.
       // On the clear variant the two answers differ, which is what makes this a
       // test of the precedence rather than of the arithmetic.
-      const coarse = cssTierDeclarations({
+      const coarse = hostOf({
         ...surface,
         optics: MATERIAL_OPTICS.clear,
         foreground: { mode: "author-hint", tone: "dark" },
       });
-      const declared = cssTierDeclarations({
+      const declared = hostOf({
         ...surface,
         optics: MATERIAL_OPTICS.clear,
         foreground: { mode: "author-hint", tone: "dark", luminance: 0.45 },
@@ -514,51 +652,53 @@ describe("the CSS tier (the fallback is the design)", () => {
     });
 
     it("gives a group hinted with a light backdrop the explicit dark foreground token", () => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         foreground: { mode: "author-hint", tone: "light" },
       });
 
-      expect(declarations["--vitrea-foreground"]).toBe("#1c1c1e");
+      expect(host["--vitrea-foreground"]).toBe("#1c1c1e");
     });
 
     it("leaves an unhinted group byte-identical to today's light-dark() default", () => {
       const unhinted = cssTierDeclarations(surface);
       const noHintAvailable = cssTierDeclarations({ ...surface, foreground: { mode: "fixed" } });
 
-      expect(unhinted["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(unhinted.host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      // The whole render, so a hint that changed a layer or the resolved body
+      // rather than the token would not slip past either.
       expect(noHintAvailable).toEqual(unhinted);
     });
 
     it("keeps light-dark() for a mixed tone — there is no single explicit answer", () => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         foreground: { mode: "author-hint", tone: "mixed" },
       });
 
-      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });
 
     it("keeps light-dark() for a fixed mode, even if a tone somehow rode along", () => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         foreground: { mode: "fixed", tone: "dark" },
       });
 
-      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });
 
     it("keeps light-dark() for a sampled-async mode — the CSS tier never gets exact analysis", () => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         foreground: { mode: "sampled-async", tone: "dark" },
       });
 
-      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
+      expect(host["--vitrea-foreground"]).toBe("light-dark(#1c1c1e, #f5f5f7)");
     });
 
     it("lets increased contrast's near-monochrome outrank a dark-backdrop hint", () => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         policy: resolveAccessibilityPolicy(systemWith({ increasedContrast: true })),
         foreground: { mode: "author-hint", tone: "dark" },
@@ -566,18 +706,18 @@ describe("the CSS tier (the fallback is the design)", () => {
 
       // Accessibility policy wins: still the near-monochrome light-dark(), not
       // the hint's explicit light token.
-      expect(declarations["--vitrea-foreground"]).toBe("light-dark(#000, #fff)");
+      expect(host["--vitrea-foreground"]).toBe("light-dark(#000, #fff)");
     });
 
     it("lets forced-colors outrank a dark-backdrop hint", () => {
-      const declarations = cssTierDeclarations({
+      const host = hostOf({
         ...surface,
         policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
         foreground: { mode: "author-hint", tone: "dark" },
       });
 
-      expect(declarations["--vitrea-foreground"]).toBe("CanvasText");
-      expect(declarations["background-color"]).toBe("Canvas");
+      expect(host["--vitrea-foreground"]).toBe("CanvasText");
+      expect(host["background-color"]).toBe("Canvas");
     });
   });
 });
@@ -669,15 +809,22 @@ describe("the foreground rule, shared across the tiers", () => {
       expect(Object.keys(foregroundDeclarations({ policy }))).toEqual(["--vitrea-foreground"]);
     }
 
-    // And the full CSS-tier record, which composes the pair in: the tier writes
+    // And the full CSS-tier render, which composes the pair in: the tier writes
     // the whole material inline, so this is where a stray `color` would ride.
-    expect(cssTierDeclarations(surface).color).toBeUndefined();
-    expect(
+    // Every element it writes is checked, not only the host — a `color` on a
+    // created layer would inherit into nothing, but a `color` on the host is the
+    // defect itself, and both are the tier's own writes.
+    for (const render of [
+      cssTierDeclarations(surface),
       cssTierDeclarations({
         ...surface,
         policy: resolveAccessibilityPolicy(systemWith({ forcedColors: true })),
-      }).color,
-    ).toBeUndefined();
+      }),
+    ]) {
+      for (const written of [render.host, ...Object.values(render.layers ?? {})]) {
+        expect(written.color).toBeUndefined();
+      }
+    }
   });
 
   it("keeps accessibility policy above the hint, on either tier", () => {
@@ -732,8 +879,12 @@ describe("the size law reaches the CSS tier", () => {
     sizeScatterFloor: 0,
     sizeScatterSpanMax: 200,
     // The second scale (W15 G1) set equal to this fixture's own 1x law, so the
-    // fixture is scale-free and every case below reads the law it names. The
-    // tier reads at `CSS_TIER_RAMP_SCALE` in any event.
+    // fixture is scale-free and every case below reads the law it names. Since
+    // W16 G1 the tier's body does read the live ratio, and all but one case
+    // below declares none, so they get the 1x law either way — a scale-free
+    // fixture is what keeps that a property of the law rather than of the
+    // default, and it is what lets the one case that does declare a ratio read
+    // the division as the ratio's own.
     sizeScatterGainMax2x: 2.5,
     sizeScatterFloor2x: 0,
     sizeScatterSpanMax2x: 200,
@@ -752,10 +903,17 @@ describe("the size law reaches the CSS tier", () => {
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;
   const at = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size });
-  const blurOf = (declarations: Record<string, string>): number =>
-    Number.parseFloat((declarations["--vitrea-blur"] ?? "0px").replace("px", ""));
-  const occlusionOf = (declarations: Record<string, string>): number =>
-    Number.parseFloat(declarations["--vitrea-occlusion"] ?? "0");
+  /*
+   * Both readings come off the HOST, where the two tokens are published. Since
+   * W16 G1 `--vitrea-blur` is the tier's single-σ PROJECTION rather than the
+   * width of any one layer — the body carries two — and the projection is what
+   * the size law's shape is stated in, which is why these cases still read it.
+   * The two layer widths get their own case below.
+   */
+  const blurOf = (render: CssTierRender): number =>
+    Number.parseFloat((render.host["--vitrea-blur"] ?? "0px").replace("px", ""));
+  const occlusionOf = (render: CssTierRender): number =>
+    Number.parseFloat(render.host["--vitrea-occlusion"] ?? "0");
 
   it("changes nothing at all for a caller that declares no span", () => {
     // The property that makes the law additive: every pre-law caller, every
@@ -793,8 +951,8 @@ describe("the size law reaches the CSS tier", () => {
     // fold's anchor rather than a pointwise minimum on the mix.
     expect(blurOf(with_(12))).toBeLessThan(base * (1 + 1.5 * 0.4));
     expect(blurOf(with_(12))).toBeGreaterThan(base * (1 + 1.5 * 0.27));
-    expect(cssScatterThickness(12, 0, own, CSS_TIER_RAMP_SCALE)).toBeCloseTo(0.4, 12);
-    expect(cssScatterThickness(400, 0, own, CSS_TIER_RAMP_SCALE)).toBeCloseTo(0.4, 12);
+    expect(cssScatterThickness(12, 0, own, PROJECTION_SCALE)).toBeCloseTo(0.4, 12);
+    expect(cssScatterThickness(400, 0, own, PROJECTION_SCALE)).toBeCloseTo(0.4, 12);
     expect(occlusionOf(with_(own.sizeSpanMin))).toBeCloseTo(occlusionOf(at(size.sizeSpanMin)), 6);
     // Past sizeSpanMax (200) the occlusion is saturated and the blur is not.
     expect(occlusionOf(with_(300))).toBeCloseTo(occlusionOf(with_(200)), 6);
@@ -830,13 +988,43 @@ describe("the size law reaches the CSS tier", () => {
     }
   });
 
-  it("writes the widened blur into the filter the browser actually runs", () => {
-    // Not only the published token: `--vitrea-blur` is documentation and
-    // `backdrop-filter` is the material, and the two moving apart would be a
-    // surface that reports a frost it does not have.
+  it("writes the widened blur into the filters the browser actually runs", () => {
+    /*
+     * Not only the published token: `--vitrea-blur` is documentation and the
+     * `backdrop-filter`s are the material, and the two moving apart would be a
+     * surface that reports a frost it does not have.
+     *
+     * Since W16 G1 there is no single filter to hold the token against — the
+     * body is two layers, the sharp one at the profile's own width and the heavy
+     * one at a step that composes to the widened width over it. So the same fact
+     * is asserted one level down: the two declarations are exactly the widths
+     * the body reports, the step really does compose to the heavy width, the
+     * widening reaches them, and the projection the token publishes lies between
+     * the two components it stands for.
+     */
     const platter = at(400);
-    expect(platter["backdrop-filter"]).toContain(`blur(${blurOf(platter)}px)`);
-    expect(platter["-webkit-backdrop-filter"]).toBe(platter["backdrop-filter"]);
+    const { body } = platter;
+    const { sharp, heavy } = layersOf(platter);
+    const emitted = (radius: number): number => Math.round(radius * 100) / 100;
+
+    expect(body.form).toBe("two-layer");
+    expect(sharp["backdrop-filter"]).toContain(`blur(${emitted(body.sharpSigmaCssPx)}px)`);
+    expect(heavy["backdrop-filter"]).toBe(`blur(${emitted(body.heavyStepSigmaCssPx)}px)`);
+    expect(sharp["-webkit-backdrop-filter"]).toBe(sharp["backdrop-filter"]);
+    expect(heavy["-webkit-backdrop-filter"]).toBe(heavy["backdrop-filter"]);
+    // Two Gaussians in series add in quadrature, which is what makes the step
+    // the declaration and the composed width the comparable quantity.
+    expect(Math.hypot(body.sharpSigmaCssPx, body.heavyStepSigmaCssPx)).toBeCloseTo(
+      body.heavySigmaCssPx,
+      12,
+    );
+    // The widening is what reaches the filters: a platter's heavy component is
+    // wider than the whole body of a control at `sizeSpanMin`.
+    expect(body.heavySigmaCssPx).toBeGreaterThan(at(size.sizeSpanMin).body.heavySigmaCssPx);
+    // And the token is the projection of that body onto one σ — between the two
+    // widths it stands for, never outside them.
+    expect(blurOf(platter)).toBeGreaterThan(body.sharpSigmaCssPx);
+    expect(blurOf(platter)).toBeLessThanOrEqual(body.heavySigmaCssPx);
   });
 
   it("stays out of the way of forced colours, at every span", () => {
@@ -844,10 +1032,14 @@ describe("the size law reaches the CSS tier", () => {
     // nothing to gain there and must not smuggle a blur back in.
     const forced = resolveAccessibilityPolicy(systemWith({ forcedColors: true }));
     for (const span of [12, 96, 400]) {
-      const declarations = cssTierDeclarations({ ...surface, policy: forced, spanPx: span, size });
-      expect(declarations["backdrop-filter"], `span ${span}`).toBe("none");
-      expect(declarations["--vitrea-blur"]).toBe("0px");
-      expect(declarations["--vitrea-occlusion"]).toBe("1");
+      const render = cssTierDeclarations({ ...surface, policy: forced, spanPx: span, size });
+      expect(render.host["backdrop-filter"], `span ${span}`).toBe("none");
+      expect(render.host["--vitrea-blur"]).toBe("0px");
+      expect(render.host["--vitrea-occlusion"]).toBe("1");
+      // And no filtered layer at any span either: a body left standing would be
+      // a blur the regime says is not there, wherever its declaration sits.
+      expect(render.layers, `span ${span}`).toBeUndefined();
+      expect(render.body.form).toBe("collapsed");
     }
   });
 
@@ -876,8 +1068,7 @@ describe("the size law reaches the CSS tier", () => {
 
     // And the size law's *addition* on top of it is scaled by the ladder's
     // reduced rung rather than applied whole.
-    const added = (declarations: Record<string, string>, base: number): number =>
-      blurOf(declarations) / base - 1;
+    const added = (render: CssTierRender, base: number): number => blurOf(render) / base - 1;
     /*
      * A budget rather than six decimals, and the reason is the medium rather
      * than the law. `--vitrea-blur` is emitted through `px()`, which rounds to
@@ -946,7 +1137,7 @@ describe("the size law reaches the CSS tier", () => {
     const base = blurOf(cssTierDeclarations(surface));
     const emitted = (radius: number): number => Math.round(radius * 100) / 100;
     for (const [w, h] of [[320, 160], [160, 320], [1200, 44]] as const) {
-      const mix = cssScatterThickness(Math.min(w, h), 1, own, CSS_TIER_RAMP_SCALE, [w, h]);
+      const mix = cssScatterThickness(Math.min(w, h), 1, own, PROJECTION_SCALE, [w, h]);
       expect(declared(Math.min(w, h), [w, h]), `${w}x${h}`).toBe(
         emitted(base * (1 + (own.sizeScatterGainMax - 1) * mix)),
       );
@@ -954,35 +1145,96 @@ describe("the size law reaches the CSS tier", () => {
   });
 
   /*
-   * This tier has NO device scale input (W13 Decision Log 5, user-decided): it
-   * renders the 1x material at every ratio — the width and the mix both read at
-   * `CSS_TIER_RAMP_SCALE` — and its 2x rows are held by decision. The candidate
-   * this wave inherited divided the width by the ratio, and the dry run on the
-   * W14 bed measured that as −0.047 of `ssimMean` on the 2x large spans and four
-   * broken dom-tier floors (claims §5.68). The assertion is that the type admits
-   * no ratio and the declaration is the 1x law to the last decimal, so a later
-   * change that reintroduces one has to say why here.
+   * The device scale, which this tier took an input for in W16 G1.
+   *
+   * W13 Decision Log 5 refused one and W15 Decision Log 3 kept the refusal: the
+   * candidate divided the single blur's width by the ratio, and the dry run on
+   * the W14 bed measured that as −0.047 of `ssimMean` on the 2x large spans and
+   * four broken dom-tier floors (claims §5.68). That measurement is about
+   * projecting a MIX onto one Gaussian — the projection's best single σ really is
+   * larger in CSS px at 2x — and it says nothing about either component's own
+   * width. With the mix carried by a second layer and a mask, both widths are
+   * device-pixel quantities and the ratio reaches them (charter Decision Log 2 (c)).
+   *
+   * What did not move is the projection. `--vitrea-blur` is a public number an
+   * app matches with its own `blur()`, and the cost collapse degrades to the
+   * form this tier drew before the wave, so both are still read at dpr 1 at
+   * every ratio. Both halves are pinned here: a change to either has to say why.
    */
-  it("renders the 1x law at every device scale: the width and the mix are read at dpr 1", () => {
+  it("keeps the projection on the 1x law while the body's widths follow the ratio", () => {
     const own = { ...size, sizeScatterFloor: 0.4 } as const;
     const base = blurOf(cssTierDeclarations(surface));
     const emitted = (radius: number): number => Math.round(radius * 100) / 100;
+    let scaled = 0;
+    let collapsed = 0;
     for (const span of [12, 96, 400]) {
-      const mix = cssScatterThickness(span, 1, own, CSS_TIER_RAMP_SCALE);
+      const mix = cssScatterThickness(span, 1, own, PROJECTION_SCALE);
       const nominal = base * (1 + (own.sizeScatterGainMax - 1) * mix);
-      expect(
-        blurOf(cssTierDeclarations({ ...surface, spanPx: span, size: own })),
-        `span ${span}`,
-      ).toBe(emitted(nominal));
-      // A ratio is not something a caller can hand this tier: the surface type has
-      // no such field, so a ratio in the call is the 1x declaration unchanged.
-      expect(
-        blurOf(
-          cssTierDeclarations({ ...surface, spanPx: span, size: own, devicePixelRatio: 2 } as never),
-        ),
-        `span ${span} with a stray ratio`,
-      ).toBe(emitted(nominal));
+      const at1x = cssTierDeclarations({ ...surface, spanPx: span, size: own });
+      const at2x = cssTierDeclarations({
+        ...surface,
+        spanPx: span,
+        size: own,
+        devicePixelRatio: 2,
+      });
+      expect(blurOf(at1x), `span ${span}`).toBe(emitted(nominal));
+      expect(blurOf(at2x), `span ${span} at dpr 2`).toBe(emitted(nominal));
+      /*
+       * The widths follow the ratio wherever there is a mix to carry. Where
+       * there is none the body collapses onto the projection instead, and a
+       * span may collapse at one ratio and not the other: the scatter floor is
+       * a per-scale constant, so a span whose share vanishes at 2x has no heavy
+       * component left to scale. Both outcomes are held below, and the two
+       * counters are what stop the loop degrading into holding neither.
+       */
+      if (at1x.body.form === "two-layer" && at2x.body.form === "two-layer") {
+        scaled += 1;
+        /*
+         * Both widths are the profile's own as DEVICE-pixel quantities, so both
+         * would halve at dpr 2 but for the effective conversion — which is per
+         * scale, 1.380 against 1.485, and so leaves the ratio of the two
+         * conversions behind after the halving. The sharp component takes the
+         * same conversion as the heavy one since W16 G1's re-form: one kernel,
+         * one mip chain, one conversion (see `cssTierSharpSigmaCssPx`).
+         */
+        const conversion =
+          scatterHeavyEffectiveRatioAtScale(2) / scatterHeavyEffectiveRatioAtScale(1);
+        expect(at2x.body.sharpSigmaCssPx, `span ${span}`).toBeCloseTo(
+          (at1x.body.sharpSigmaCssPx / 2) * conversion,
+          12,
+        );
+        /*
+         * The HEAVY width does not halve, and that is the second scale rather
+         * than a bug. The fixture's two gains are equal, so the law itself is
+         * scale-free here — but the renderer's kernel is not, and the effective
+         * conversion the tier draws through is 1.38 at dpr 1 against 1.49 at
+         * dpr 2 (measured on the renderer's own broadband captures; see
+         * `SCATTER_HEAVY_EFFECTIVE_RATIO_1X`). So the 2x heavy width is the 1x
+         * one halved and then carried by the ratio of the two conversions, and
+         * the assertion says exactly that rather than asserting a halving that
+         * would only pass while the conversion was inert.
+         */
+        expect(at2x.body.heavySigmaCssPx, `span ${span}`).toBeCloseTo(
+          (at1x.body.heavySigmaCssPx / 2) * conversion,
+          12,
+        );
+        expect(at2x.body.heavySigmaCssPx, `span ${span}`).toBeGreaterThan(
+          at1x.body.heavySigmaCssPx / 2,
+        );
+      } else {
+        // A collapsed body IS the projection — both of its widths are it — which
+        // is what makes the collapse a degradation to one known form rather than
+        // a second, scale-dependent material.
+        for (const body of [at1x.body, at2x.body]) {
+          if (body.form !== "collapsed") continue;
+          collapsed += 1;
+          expect(body.sharpSigmaCssPx, `span ${span}`).toBe(body.projectedSigmaCssPx);
+          expect(body.heavySigmaCssPx, `span ${span}`).toBe(body.projectedSigmaCssPx);
+        }
+      }
     }
+    expect(scaled).toBeGreaterThan(0);
+    expect(collapsed).toBeGreaterThan(0);
   });
 });
 
@@ -995,14 +1247,21 @@ describe("the size law reaches the CSS tier", () => {
  * would be a different facet wearing the same numbers.
  */
 describe("the outer shadow reaches the CSS tier", () => {
-  const shadowOf = (declarations: Record<string, string>): string => {
-    const value = declarations["box-shadow"];
+  /*
+   * The OUTER shadow is the host's, and stays the host's after W16 G1: it paints
+   * outside the border box and below the background, where the three created
+   * layers — each clipped to its own box — never cover it. The overlay layer has
+   * a `box-shadow` too and it is the rim, which is why these read the host by
+   * name rather than searching the render for a shadow.
+   */
+  const shadowOf = (render: CssTierRender): string => {
+    const value = render.host["box-shadow"];
     if (value === undefined) throw new Error("no box-shadow written");
     return value;
   };
   /** The alpha out of a `box-shadow: … rgba(0, 0, 0, α)` declaration. */
-  const alphaOf = (declarations: Record<string, string>): number => {
-    const value = shadowOf(declarations);
+  const alphaOf = (render: CssTierRender): number => {
+    const value = shadowOf(render);
     if (value === "none") return 0;
     const match = /rgba\(0, 0, 0, ([\d.]+)\)$/.exec(value);
     if (match?.[1] === undefined) throw new Error(`unparsed box-shadow: ${value}`);
@@ -1314,19 +1573,32 @@ describe("the two review findings on the ramp's projection (W13 G1)", () => {
     );
   });
 
-  it("a zero mix is the policy optics unchanged, at any ratio", () => {
-    // A patched profile with no floor, on a surface at or below sizeSpanMin, has
-    // sizeK 0 and scatterK 0; with no device scale in this tier (W13 Decision
-    // Log 5) the fast path is exact, and the 1x width is what it must emit.
+  it("a zero mix is the policy optics unchanged, and the body collapses onto it", () => {
+    /*
+     * A patched profile with no floor, on a surface at or below `sizeSpanMin`,
+     * has sizeK 0 and scatterK 0, so the fast path is exact and the 1x width is
+     * what it must emit — on the token, and on the one layer that draws it.
+     *
+     * A zero share is also the third way into W16 G1's cost collapse: with no
+     * heavy component there is no mix to carry, so the body is the single
+     * `backdrop-filter` this tier drew before the wave, at exactly the width it
+     * drew then. The ratio is left at its default of 1, which is what a caller
+     * with no viewport reading honestly has — and the patch stands down the 1x
+     * floor, so this is a statement about that ratio rather than about every
+     * one, which is why the title no longer claims all of them.
+     */
     const size = sourceSize({ sizeScatterFloor: 0 });
-    const declared = cssTierDeclarations({
+    const render = cssTierDeclarations({
       ...surface,
       size,
       spanPx: MATERIAL_SOURCE_SIZE.sizeSpanMin,
     });
-    const blur = Number.parseFloat((declared["--vitrea-blur"] ?? "0px").replace("px", ""));
+    const blur = Number.parseFloat((render.host["--vitrea-blur"] ?? "0px").replace("px", ""));
     expect(blur).toBe(Number(MATERIAL_OPTICS.regular.blurRadius.toFixed(2)));
-    expect(declared["backdrop-filter"]).toContain(`blur(${blur}px)`);
+    expect(render.body.form).toBe("collapsed");
+    expect(render.body.projectedSigmaCssPx).toBe(MATERIAL_OPTICS.regular.blurRadius);
+    expect(layersOf(render).sharp["backdrop-filter"]).toContain(`blur(${blur}px)`);
+    expect(layersOf(render).heavy.display).toBe("none");
   });
 });
 

@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import {
+  carriesBodyBlur,
   expectBox,
   expectedProxyBlur,
   gotoHarness,
@@ -157,11 +158,19 @@ test.describe("one masked proxy per sampling group", () => {
       return {
         proxies: document.querySelectorAll("[data-vitrea-proxy]").length,
         host: window.h.hostStyle(nodeId),
+        sharp: window.h.layerStyle(nodeId, "sharp"),
       };
     });
 
     expect(result.proxies).toBe(0);
-    expect(result.host?.backdropFilter).toContain("blur");
+    // Re-pointed at the sharp layer at W16 G1. The tier no longer filters the
+    // host in place — it creates three children and puts the sharp
+    // `backdrop-filter` on the first of them — but the doctrine this case is
+    // about is unchanged and is why `probe-failed` still demotes here: the tier
+    // builds NO PROXY, and its filters read what is behind the host rather than
+    // a copy of it.
+    expect(result.host?.backdropFilter).toBe("none");
+    expect(carriesBodyBlur(result.sharp?.backdropFilter)).toBe(true);
   });
 
   test("removes a group's proxy when the group goes", async ({ page }) => {
@@ -201,14 +210,25 @@ test.describe("the CSS tier's own surface", () => {
         radius: 18,
       });
       window.h.frame(3);
-      return window.h.hostStyle(nodeId);
+      return { host: window.h.hostStyle(nodeId), overlay: window.h.layerStyle(nodeId, "overlay") };
     });
 
-    expect(host?.backgroundColor).not.toBe("rgba(0, 0, 0, 0)");
-    expect(Number.parseFloat(host?.borderTopWidth ?? "0")).toBeGreaterThan(0);
-    expect(host?.borderTopColor).not.toBe("rgba(0, 0, 0, 0)");
-    expect(host?.borderRadius).toBe("18px");
-    expect(host?.tint).toBeTruthy();
+    /*
+     * Re-pointed at the overlay layer at W16 G1, and the property is unchanged.
+     * The tier used to paint the tint as the host's own `background-color` and
+     * the rim as its `border-color`; it now paints both on the third of three
+     * created children, because a tint BENEATH the two filtered layers is
+     * sampled by them and darkens a ring 0.010–0.015 encoded deep over the first
+     * 4 CSS px (claims §5.71 §3), and because the host's border paints below
+     * those children and would be covered. The border's WIDTH stays on the host,
+     * where it is layout.
+     */
+    expect(host.overlay?.backgroundColor).not.toBe("rgba(0, 0, 0, 0)");
+    expect(Number.parseFloat(host.host?.borderTopWidth ?? "0")).toBeGreaterThan(0);
+    expect(host.overlay?.boxShadow).toContain("inset");
+    expect(host.overlay?.boxShadow).not.toBe("none");
+    expect(host.host?.borderRadius).toBe("18px");
+    expect(host.host?.tint).toBeTruthy();
   });
 
   test("honours reduced transparency by frosting harder, and never occluding less", async ({ page }) => {
@@ -234,14 +254,31 @@ test.describe("the CSS tier's own surface", () => {
       // instead of a re-run of the unit test.
       await new Promise((resolve) => setTimeout(resolve, 400));
 
-      return { nominal, reduced: window.h.hostStyle(nodeId) };
+      return {
+        nominal,
+        nominalSharp: window.h.layerStyle(nodeId, "sharp"),
+        reduced: window.h.hostStyle(nodeId),
+        reducedSharp: window.h.layerStyle(nodeId, "sharp"),
+      };
     });
 
-    const blur = (value: string | undefined): number =>
-      Number(/blur\(([\d.]+)px\)/.exec(value ?? "")?.[1] ?? 0);
-    expect(blur(result.reduced?.backdropFilter)).toBeGreaterThan(
-      blur(result.nominal?.backdropFilter),
-    );
+    const width = (value: string | undefined): number =>
+      Number(/([\d.]+)px/.exec(value ?? "")?.[1] ?? 0);
+    /*
+     * Read on the published `--vitrea-blur` token since W16 G1, not out of a
+     * filter string. The frost multiplies the BASE σ, which is the one number
+     * both of the tier's layers are built from — the sharp layer is it divided by
+     * the device ratio and the heavy one is it times the renderer's gain — so a
+     * frosted surface widens both components, and the token is that same base
+     * carried through the tier's single-σ projection. The filter string itself is
+     * no longer a number on every engine: on Chromium the body blurs through a
+     * reference filter, whose width lives in the `<filter>` definition.
+     */
+    expect(width(result.reduced?.blur)).toBeGreaterThan(width(result.nominal?.blur));
+    // And both layers really are drawing in both regimes, which is what makes the
+    // widening a change of material rather than a filter appearing.
+    expect(carriesBodyBlur(result.nominalSharp?.backdropFilter)).toBe(true);
+    expect(carriesBodyBlur(result.reducedSharp?.backdropFilter)).toBe(true);
     // Frost still moves; occlusion no longer does, because the material's tuned
     // nominal alpha overtook the 0.62 floor `occlusion: "increased"` raises it
     // to (C9a moved it to 0.62 on the GPU tier, K5 derives this tier from the
@@ -296,17 +333,23 @@ test.describe("the CSS tier's own surface", () => {
       });
       window.h.frame(3);
       const onGpu = window.h.hostStyle(nodeId);
+      const onGpuLayers = window.h.layerCount(nodeId);
 
       window.h.loseDevice();
       await window.h.settle();
       window.h.frame(3);
 
-      return { onGpu, afterLoss: window.h.hostStyle(nodeId) };
+      return { onGpu, onGpuLayers, afterLoss: window.h.layerStyle(nodeId, "sharp") };
     });
 
     expect(result.onGpu?.backdropFilter).toBe("none");
     expect(result.onGpu?.backgroundColor).toBe("rgba(0, 0, 0, 0)");
-    // Losing the device demotes to the CSS tier, and the CSS tier then paints.
-    expect(result.afterLoss?.backdropFilter).toContain("blur");
+    // The WebGPU tier carries none of the CSS tier's layers at all: they are
+    // created when this tier first paints and taken down when it steps aside
+    // (W16 G1), which is what keeps the GPU tier's DOM exactly what it was.
+    expect(result.onGpuLayers).toBe(0);
+    // Losing the device demotes to the CSS tier, and the CSS tier then paints —
+    // read on the sharp layer, which is where the filter went at W16 G1.
+    expect(carriesBodyBlur(result.afterLoss?.backdropFilter)).toBe(true);
   });
 });
