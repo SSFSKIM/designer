@@ -414,6 +414,10 @@ time" — which is the claim — into the assertion, and stops the wall clock be
 part of the contract. The occlusion assertions below it read a settled value
 and are unaffected.
 
+**Recurred 2026-09-04** on `e59b900` (W16 G1 DECLARED, a docs-only commit): the same case on
+`webkit`, the in-run retry failing too, the 341 other cases green; the next push (`862b65e`,
+the W16 landing) was green on every job. Second occurrence; the fix shape above stands.
+
 ### Release chain: the publish order leaves a window where the pair is uninstallable (2026-09-04)
 
 At the 0.4.0 cut `changeset publish` (through `pnpm release`) put `@vitreajs/vitrea-web@0.4.0`
