@@ -1753,12 +1753,30 @@ export function scatterHeavyEffectiveSigmaDevicePx(
  * statement about the projection of a mix onto one Gaussian, not about either
  * component's width.
  *
- * Kept nominal deliberately: the sharp component is one mip level 0 tap, and
- * the measurement that fitted `scatterHeavyEffectiveSigmaDevicePx` read the
- * sharp width nominal to within its own uncertainty.
+ * **The sharp component takes the same effective conversion as the heavy one**,
+ * and the bed decided that where the width fit could not (W16 G1's re-form).
+ * Profiled on its own, the sharp width reads 1.60-1.70 device px against the
+ * profile's 1.25 at dpr 1 — about 1.3x, the same direction and roughly the same
+ * size as the heavy component's 1.38 — but the nominal sits inside every cell's
+ * +-5% band, so that reading could not exclude 1.0 and the width was first
+ * landed nominal. At dpr 2 it cannot be read at all: `sizeScatterFloor2x` is 1,
+ * so the deep interior is fully heavy and there is no sharp light in the fitted
+ * region.
+ *
+ * The dry run then answered it from the other end. Drawing the sharp component
+ * at the nominal put the tier's interior SPREAD 0.013-0.018 over native on four
+ * cells, which is the stop the referee raised; drawing it through the same
+ * conversion the heavy component takes puts the spread inside +-0.007 at 1x and
+ * +-0.016 at 2x on every cell measured, and lands it within 0.001 of the GPU
+ * tier's own spread at 2x. One kernel, one chain, one conversion — which is what
+ * the mip-tap mechanism predicts and what the width fit was consistent with all
+ * along.
  */
 export function cssTierSharpSigmaCssPx(sigmaDevicePx: number, devicePixelRatio = 1): number {
-  return sigmaDevicePx / Math.max(devicePixelRatio, 1e-3);
+  return (
+    scatterHeavyEffectiveSigmaDevicePx(sigmaDevicePx, devicePixelRatio)
+    / Math.max(devicePixelRatio, 1e-3)
+  );
 }
 
 /**
@@ -1936,6 +1954,39 @@ export interface CssTierMapping {
    * that minimises the measured cross-tier difference (0.02) is far below any
    * canonical scene's mean backdrop. A reader who took 0.02 for "the typical
    * backdrop" would be reading it wrong.
+   *
+   * **W16 G1 tried to replace it with the physical level, and measured that it
+   * should not be.** Under the linear-light body the layer beneath the tint
+   * carries a level the tier can DERIVE rather than fit — it runs from the
+   * backdrop's encoded mean where the body is sharp to its linear mean where the
+   * body is heavy, both of which `BackdropToneSample` already measures, mixed at
+   * the body's own heavy share. Anchoring there is exact by construction and it
+   * does exactly what it claims: on `checkerboard__rrect-md` it moves the
+   * interior level from +0.059 over native to -0.002 at 1x, and from +0.076 to
+   * +0.009 at 2x.
+   *
+   * It also makes the tier worse, for a reason worth stating because it belongs
+   * to the composite rather than to the fit. The renderer lerps in LINEAR light
+   * and encodes last, so the encode compresses its interior's excursions; this
+   * tier source-overs an `rgba()` in ENCODED sRGB, where the tint scales those
+   * excursions instead of compressing them. One alpha can match the mean or the
+   * slope and not both. Anchoring at the physical level spends the tier's single
+   * degree of freedom on the mean, and leaves the interior's spread 0.024-0.041
+   * over native where the fitted anchor leaves it inside 0.007; `ssimMean` on the
+   * two thick checkerboard cells falls by 0.006-0.026 at both scales. Measured on
+   * single cells: level-anchored 0.8949 / 0.9081 on `rrect-md` at 1x / 2x against
+   * the fitted anchor's 0.9028 / 0.9149 and the W15 bed's 0.8963 / 0.9174.
+   *
+   * So the fitted value stays, and it wins for the reason its own text gives: it
+   * is fitted against the CROSS-TIER difference, and the GPU tier is itself
+   * +0.012 to +0.058 over native on these cells' interior level — so an anchor
+   * that lands this tier on the physics lands it off the tier it is required to
+   * agree with. What is left is a named gap rather than a fit: the tier's
+   * interior level runs about +0.05 to +0.09 over native on a high-contrast
+   * backdrop. Closing it needs a SECOND degree of freedom in the composite — a
+   * contrast term in the sharp layer's filter list, solved jointly with the alpha
+   * for the mean and the slope — which is a new optical term, and a decision this
+   * wave did not charter.
    */
   readonly referenceBackdropLuminance: number;
   /**

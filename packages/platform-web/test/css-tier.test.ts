@@ -1190,11 +1190,17 @@ describe("the size law reaches the CSS tier", () => {
       if (at1x.body.form === "two-layer" && at2x.body.form === "two-layer") {
         scaled += 1;
         /*
-         * The SHARP width is the profile's own σ as a device-pixel quantity and
-         * nothing else touches it, so it halves at dpr 2 exactly.
+         * Both widths are the profile's own as DEVICE-pixel quantities, so both
+         * would halve at dpr 2 but for the effective conversion — which is per
+         * scale, 1.380 against 1.485, and so leaves the ratio of the two
+         * conversions behind after the halving. The sharp component takes the
+         * same conversion as the heavy one since W16 G1's re-form: one kernel,
+         * one mip chain, one conversion (see `cssTierSharpSigmaCssPx`).
          */
+        const conversion =
+          scatterHeavyEffectiveRatioAtScale(2) / scatterHeavyEffectiveRatioAtScale(1);
         expect(at2x.body.sharpSigmaCssPx, `span ${span}`).toBeCloseTo(
-          at1x.body.sharpSigmaCssPx / 2,
+          (at1x.body.sharpSigmaCssPx / 2) * conversion,
           12,
         );
         /*
@@ -1209,8 +1215,7 @@ describe("the size law reaches the CSS tier", () => {
          * would only pass while the conversion was inert.
          */
         expect(at2x.body.heavySigmaCssPx, `span ${span}`).toBeCloseTo(
-          (at1x.body.heavySigmaCssPx / 2)
-            * (scatterHeavyEffectiveRatioAtScale(2) / scatterHeavyEffectiveRatioAtScale(1)),
+          (at1x.body.heavySigmaCssPx / 2) * conversion,
           12,
         );
         expect(at2x.body.heavySigmaCssPx, `span ${span}`).toBeGreaterThan(

@@ -29,7 +29,12 @@ import {
   type CssTierEngineCapabilities,
   type CssTierSurface,
 } from "../src/css-tier";
-import { cssTierHeavyShareAt, MATERIAL_OPTICS, MATERIAL_SOURCE_SIZE } from "../src/optics";
+import {
+  cssTierHeavyShareAt,
+  scatterHeavyEffectiveRatioAtScale,
+  MATERIAL_OPTICS,
+  MATERIAL_SOURCE_SIZE,
+} from "../src/optics";
 
 import { NOMINAL_ACCESSIBILITY_POLICY } from "@vitreajs/vitrea";
 
@@ -183,11 +188,20 @@ describe("the body's two widths", () => {
   it("reads both widths as device-pixel quantities through the live ratio", () => {
     const at1 = cssTierDeclarations(surface({ devicePixelRatio: 1 })).body;
     const at2 = cssTierDeclarations(surface({ devicePixelRatio: 2 })).body;
-    // The sharp component is the profile's own σ in device px, so its CSS width
-    // halves at dpr 2 exactly. W13 Decision Log 5 refused this for the single
-    // blur, on a measurement about projecting a MIX onto one Gaussian; the
-    // component itself was never that number.
-    expect(at2.sharpSigmaCssPx).toBeCloseTo(at1.sharpSigmaCssPx / 2, 12);
+    /*
+     * The sharp component is the profile's own σ in device px, so its CSS width
+     * would halve at dpr 2 exactly but for the effective conversion, which is
+     * itself per scale — 1.380 against 1.485 — so what is left after the halving
+     * is the ratio of the two conversions. W13 Decision Log 5 refused the
+     * halving for the single blur, on a measurement about projecting a MIX onto
+     * one Gaussian; the component itself was never that number.
+     */
+    expect(at2.sharpSigmaCssPx).toBeCloseTo(
+      (at1.sharpSigmaCssPx / 2)
+        * (scatterHeavyEffectiveRatioAtScale(2) / scatterHeavyEffectiveRatioAtScale(1)),
+      12,
+    );
+    expect(at2.sharpSigmaCssPx).toBeGreaterThan(at1.sharpSigmaCssPx / 2);
     // And the heavy component follows the renderer's own 2x gain rather than the
     // ratio alone, so it is NOT simply halved — which is the whole content of
     // the second scale.

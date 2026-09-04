@@ -199,11 +199,13 @@ describe("tier coherence (K5)", () => {
      */
     for (const dpr of [1, 1.5, 2, 3]) {
       expect(cssTierSharpSigmaCssPx(css.regular.blurRadius, dpr) * dpr, `dpr ${dpr}`).toBeCloseTo(
-        DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma,
+        scatterHeavyEffectiveSigmaDevicePx(
+          DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma,
+          dpr,
+        ),
         12,
       );
     }
-    expect(cssTierSharpSigmaCssPx(css.regular.blurRadius, 1)).toBe(css.regular.blurRadius);
   });
 
   it("writes an unsampled GPU-tier surface at the CSS tier's alpha and the renderer's tint (W11a)", () => {
@@ -364,7 +366,7 @@ describe("tier coherence (K5)", () => {
       expect(
         cssTierSharpSigmaCssPx(painted.blurRadius, dpr) * dpr,
         `frosted L1 at dpr ${dpr}`,
-      ).toBeCloseTo(rendered.blurSigma, 12);
+      ).toBeCloseTo(scatterHeavyEffectiveSigmaDevicePx(rendered.blurSigma, dpr), 12);
       expect(
         cssTierHeavySigmaCssPx(painted.blurRadius, 96, sourceSize(patch), dpr) * dpr,
         `frosted L2 at dpr ${dpr}`,
@@ -932,7 +934,17 @@ describe("tier coherence (K5)", () => {
     const base = DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma;
     for (const dpr of [1, 1.5, 2, 3]) {
       const sharp = cssTierSharpSigmaCssPx(base, dpr);
-      expect(sharp * dpr, `L1 is a device width at dpr ${dpr}`).toBeCloseTo(base, 12);
+      /*
+       * L1 is the profile's σ as a device-pixel width, carried through the same
+       * effective conversion the heavy component takes — one kernel, one mip
+       * chain, one conversion (W16 G1's re-form; the sharp width at the nominal
+       * put the interior spread 0.013–0.018 over native on four cells of the
+       * dry run, and this puts it inside ±0.016 on every one).
+       */
+      expect(sharp * dpr, `L1 is a device width at dpr ${dpr}`).toBeCloseTo(
+        scatterHeavyEffectiveSigmaDevicePx(base, dpr),
+        12,
+      );
 
       for (const span of [0, 32, 44, 96, 128, 160, 256, 400]) {
         const label = `dpr ${dpr}, span ${span}`;
