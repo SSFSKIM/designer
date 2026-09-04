@@ -6,7 +6,7 @@ version: 1.1.0
 
 # Designer
 
-Replicate a working design practice: read the project before touching it, commit to one visual stance in writing, build on semantic tokens, use real content, and check the result against an accessibility and taste floor before calling it done. The sections below route each part of that practice to the reference file that covers it in depth.
+Replicate a working design practice: read the project before touching it, derive one visual stance from the brief and commit to it in writing, build on semantic tokens, use real content, and check the result against an accessibility and taste floor before calling it done. The sections below route each part of that practice to the reference file that covers it in depth.
 
 ## Classify the deliverable
 
@@ -21,7 +21,7 @@ Hold the precedence chain verbatim when these routes conflict: "User brief wins 
 
 ## Persona routing
 
-A persona is an optional distilled designer — a governing layer that, when invoked, replaces the sampler run and the stance choice with a committed decision function and its laws. Personas live in `personas/`, one self-contained file each; the persona currently installed is `personas/essentialist.md`, distilled from the Bauhaus → Dieter Rams → Jonathan Ive functionalist lineage.
+A persona is an optional distilled designer — a governing layer that, when invoked, replaces the sampler run and the stance derivation with a committed decision function and its laws. Personas live in `personas/`, one self-contained file each; the persona currently installed is `personas/essentialist.md`, distilled from the Bauhaus → Dieter Rams → Jonathan Ive functionalist lineage.
 
 A persona activates in exactly three cases, never otherwise:
 
@@ -39,7 +39,7 @@ Before writing any UI code for a full-page or multi-section brief, complete thes
 
 1. Read the project's existing conventions — tokens, components, stack, styling approach — so new work fits what already exists rather than fighting it. Skipping this step is how a second page ends up with a second, incompatible design system.
 2. Run `node scripts/sample-ingredients.mjs` (path relative to this skill's directory; skip if Classify routed to an existing design system or a persona is active — see "Persona routing" above) and treat its output exactly per its own preamble.
-3. Commit to exactly one stance in writing before any UI code. Name it, and hold it across layout, typography, surfaces, components, imagery, motion, and interaction states. Do not mix unrelated stances in one interface unless the contrast is explicitly motivated by the product or brief.
+3. Derive exactly one stance and commit to it in writing before any UI code. Place the brief on the stance axes — density and criticality, which the brief fixes; energy, type, material model, color commitment, accent job, ground lightness and ground temperature, which the design chooses — with one reason each; derive the values from the product's own world, recording the accent hue and the ground that were weighed and rejected; name the signature element; then hold the result across layout, typography, surfaces, components, imagery, motion, and interaction states. The stance may be one `references/stances.md` names or one it has never named — a name is a starting position with character, never a source of values. Do not mix unrelated stances in one interface unless the contrast is explicitly motivated by the product or brief.
 4. Author the project design law — `DESIGN.md`, per `references/guidelines-authoring.md` — before any UI code, so the stance and tokens are recorded somewhere durable rather than only implied by the first component written. Anyone touching the project later, human or agent, should be able to read `DESIGN.md` and match the existing direction without re-deriving it from the rendered output.
 
 If the brief explicitly names an aesthetic — including a common one — honor it literally; ingredients are tiebreakers, never overrides.
@@ -48,20 +48,21 @@ If the brief explicitly names an aesthetic — including a common one — honor 
 
 Work through these eight steps in order. Each one points at the reference file that covers it.
 
-1. **Parse the brief.** Extract product type, audience, primary task, content shape, and explicit constraints before considering any visual direction. This framing decides every downstream choice — an operational dashboard and a boutique landing page do not share a visual system even if their component inventories look similar, and trust level and content density should shape the system as much as stated aesthetic preference does.
+1. **Parse the brief.** Extract product type, audience, primary task, content shape, and explicit constraints before considering any visual direction, and place the brief on the stance axes from that reading — the material model included, because a glass system changes the component canon and the plane model and cannot be added after the fact (`references/material.md`). This framing decides every downstream choice — an operational dashboard and a boutique landing page do not share a visual system even if their component inventories look similar. Category is allowed to speak here, at the level of axis position; it is never allowed to pick a value.
 2. **Sample ingredients.** Run the sampler and read its output as tiebreaker material, not instruction. It exists to pull choices away from trained defaults, not to override anything the brief already said or anything an existing system or supplied reference already establishes.
-3. **Commit to one stance.** Pick a single coherent direction and write it down before building. Half-committing to two directions, or quietly drifting between them section to section, produces a page that reads as generated rather than designed; see `references/stances.md` for the vocabulary of stances and how to choose and hold one from a brief.
+3. **Derive one stance and commit to it.** From the axis position, derive the values this product earns — the accent hue from what the product means, the ground from the scene it is used in, the type from what must be legible at what size, the surfaces from the material model — and write the derivation down before building, with the road not taken. Then ask whether this plan would come out the same for a different product in the same category: the same axis position is expected, the same values are the tell. Half-committing to two directions, or quietly drifting between them section to section, produces a page that reads as generated rather than designed; see `references/stances.md` for the axes, the derivation procedure, five worked derivations, and the named-stance library.
 4. **Author DESIGN.md.** Record the chosen stance, its rationale, and the rules that follow from it as project design law, so later work stays consistent with the first decision instead of drifting section by section. See `references/guidelines-authoring.md`.
-5. **Build semantic tokens.** Translate the stance into a token set — color roles, type scale, surface and border treatment — rather than hard-coded values scattered through components. Naming a role once and reusing it everywhere is what lets a later revision change the whole system by editing one place instead of hunting through every component. See `references/color-engineering.md`, `references/typography.md`, and `references/stances.md`.
+5. **Build semantic tokens.** Translate the derived stance into a token set — color roles, type scale, surface and border treatment — rather than hard-coded values scattered through components. Naming a role once and reusing it everywhere is what lets a later revision change the whole system by editing one place instead of hunting through every component. A worked derivation's values are that product's instantiation, not a starting palette; reusing one without re-deriving it for this product is the clone the QA pass looks for. See `references/color-engineering.md`, `references/typography.md`, `references/material.md`, and `references/component-character.md` for how a derived system expresses itself in components.
 6. **Work information architecture and composition.** Decide what is dominant, what is secondary, and how sections and grids carry that hierarchy before filling anything in. Favor intentional asymmetry over equal-width columns and repeated card grids by default, and let the primary task stay visually dominant throughout. See `references/composition.md`.
 7. **Build with realistic content.** Write and place real names, numbers, dates, and copy as the interface is built — never lorem ipsum or generic filler, since fake content hides real hierarchy, density, and spacing problems that only show up with content of realistic length and shape. See `references/voice-copy.md`.
-8. **Run a craft pass, then QA.** Add motion and material effects only where they earn their place — communicating state change, spatial continuity, or feedback rather than decorating for its own sake — then verify the whole result before calling it done. Include a check of the built page against the specific rules its own `DESIGN.md` committed to, mechanically where they are mechanical: a page that declared a rule and then broke it — a kicker repeated on every section, a color literal loose outside the tokens, a ground that lands in the cream band its law swore off — is a leading reason committed work still reads as generated. See `references/motion.md` and `references/effects-policy.md` for what to add, then `references/qa-protocol.md` for what to check, including its "verify the build against its own law" pass.
+8. **Run a craft pass, then QA.** Add motion and material effects only where they earn their place — communicating state change, spatial continuity, or feedback rather than decorating for its own sake — then verify the whole result before calling it done. Include a check of the built page against the specific rules its own `DESIGN.md` committed to, mechanically where they are mechanical: a page that declared a rule and then broke it — a kicker repeated on every section, a color literal loose outside the tokens, a ground that lands in the cream band its law swore off — is a leading reason committed work still reads as generated. Run the clone check too: would these values have come out the same for a different product in this category? See `references/motion.md` and `references/effects-policy.md` for what to add, then `references/qa-protocol.md` for what to check, including its "verify the build against its own law" pass.
 
 ## Taste floor
 
 These rules hold regardless of chosen stance, project, or surface. They are the floor beneath every other decision in this file, not a checklist to run once at the end.
 
 - Commit to one stance — do not blend two aesthetic directions in a single interface unless the contrast is explicitly motivated by the brief. A page that hedges between two looks reads as indecisive, not eclectic.
+- Values are derived, never ported — a token value lifted from a worked derivation, a named stance, or a previous project without a reason recorded for this product is a defect, however good it looked where it came from.
 - Accent color does real work only: primary action, selection, focus, or status. It does not decorate headings, icons, dividers, cards, or backgrounds by default — spreading it everywhere flattens the very emphasis it exists to create.
 - Content is realistic, always — real names, metrics, dates, and copy, never lorem ipsum or placeholder filler, in any pass of the build.
 - Hierarchy comes before decoration — the primary task and most important information are visually dominant before any material effect is added on top.
@@ -82,8 +83,10 @@ Detect the project's existing stack before choosing how to structure output, and
 
 | Reference | Read it for |
 |---|---|
-| `references/stances.md` | The vocabulary of aesthetic stances and how to pick and commit to one from a brief. |
-| `references/color-engineering.md` | Building a semantic color-token system from a chosen stance. |
+| `references/stances.md` | The stance axes (two the brief fixes, seven the design chooses), the compatibility rules, the derivation procedure, five worked derivations, and the named-stance library. |
+| `references/material.md` | The material-model axis — printed, tonal, elevated, glass over planes — and how to ship glass: vitrea when the stack can host a module, CSS glass when it cannot. |
+| `references/component-character.md` | The same button set, card, and table built three ways — how a derived system expresses itself in components and interaction states. |
+| `references/color-engineering.md` | Building a semantic color-token system from a derived stance. |
 | `references/typography.md` | Choosing and pairing typefaces, setting scale and letter spacing by role. |
 | `references/motion.md` | What motion is for, when it earns its place, and how to keep it accessible. |
 | `references/composition.md` | Information architecture, grid choice, and layout hierarchy. |

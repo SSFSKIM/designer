@@ -1,23 +1,90 @@
 # Stances
 
-A stance is a committed visual system, not a mood. "Clean and modern" or "warm and friendly" are moods — they don't tell you a radius scale, a type ramp, or when a shadow is allowed. A stance is the thing that answers those questions consistently across every screen, so a page reads as designed rather than assembled section by section from whatever felt right at the time.
+A stance is a committed visual system: the brief's position on the axes below, the values derived for this product from that position, one signature element, and the road not taken. It is not a mood and it is not a name. "Clean and modern" is a mood — it names no radius scale, no type ramp, and no rule for when a shadow is allowed. `swiss` is a name — a starting position with character, never a source of values. The stance is the thing that answers those questions the same way on every screen, so a page reads as designed rather than assembled section by section from whatever felt right at the time. Use this file at three points in the workflow: parsing the brief, where density and criticality are read off it; deriving and committing to one stance, where the seven coordinates are chosen and the values derived from the product's own world; and building semantic tokens, where that derivation becomes a token set.
 
-Use this file at the "commit to one stance" step of the workflow, and again at "build semantic tokens":
+## The axes
 
-1. Look up the stance name that was sampled or chosen for the brief in the mapping table below.
-2. If it maps to one of the five complete systems, port that system's token block into the project with **all values intact** — do not reweight a hex, retime a duration, or "improve" a shadow recipe. The values are the content; the system stops being that stance the moment its numbers drift.
-3. If it maps to "derive fresh," there is no full token block here to copy. Use the derivation hints in its row, plus `references/color-engineering.md` and `references/typography.md`, to build a token set for that stance following the same shape (color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion) as the five complete systems below. The hints name a ground temperature, a typography-tradition fit, and what the accent should do — start there, not from a blank page.
-4. Either way, commit to the result in writing in the project's `DESIGN.md` before writing UI code against it.
+Nine lines are recorded in `DESIGN.md` §0. Two are **constraints** the brief fixes and the design does not choose — category is allowed to speak here. Seven are **coordinates** the design chooses for this product; sampled ingredients and the named-stance library nudge them, and category may bias one but never picks a value. Every rung is named, no axis has an unlabelled default, and the record states each position with its reason.
 
-## Five complete systems
+| Axis | Kind | Rungs | What decides it | Token families it owns | Checkable rules |
+|---|---|---|---|---|---|
+| **Density** | constraint | spacious / standard / dense | The user's verb — read or browse pulls spacious; operate on rows, monitor, fix pulls dense — plus session length and viewport. Standard is a real product default, chosen by task and recorded as a choice. | Control and row height, spacing base and steps, gaps, label placement, containment method, type-scale ratio. **Not** body size by itself. | Dense: control height 28–32px, rows ≤ 36px, steps favour 4/8/12/16, labels inline, containment by hairline or tone, accent coverage ≤ 5%. Spacious: controls 40–48px, steps favour 8/16/24/32/48, labels above fields, scale ratio ≥ 1.25. Body size is a type decision made *within* the density; density never silently shrinks type. Touch targets never below the platform floor. One density per view hierarchy. |
+| **Criticality** | constraint | exploratory / transactional / consequential | Whether actions are reversible, audited, safety- or money-relevant, or regulated. Trust is an outcome of this plus craft, not a position. | State redundancy, contrast floors, destructive-action treatment, transparency permission on task surfaces, motion caps, copy directness, confirmation and recovery. | Consequential: no state communicated by hue alone; the accent never doubles as warning, danger, or success; primary task surfaces opaque; no overshoot on error or confirmation motion; irreversible actions confirmed or recoverable; error copy literal and actionable. |
+| **Energy** | coordinate | quiet / composed / lively / exuberant (no middle rung) | The stakes and the user's frame of mind, and what the brand can carry. Not "the brand is fun". | Accent chroma ceiling, heading-to-body contrast, size jumps, radius and shape language, illustration licence, motion amplitude and overshoot permission, copy enthusiasm ceiling. | Quiet: accent C ≤ 0.15, control radius ≤ 6px, no overshoot, at most one high-salience treatment per viewport. Lively and above: C up to 0.22, radius ≥ 10px or a declared shape language, and at most **two** loud channels at once — chroma and shape, not chroma plus huge type plus spring plus decorative shadow. Overshoot is a separate recorded yes/no. Energy sets a *ceiling*; it never raises chroma by itself. Ceilings per rung: `color-engineering.md` §"Accent-chroma ceilings by energy". |
+| **Type** | coordinate | a class — neutral sans / characterful serif / characterful display / mono-as-display — plus the tradition (the 13 in `scripts/ingredients.json`) and the *criteria* | Energy, the product's world, and what must be legible at what size. | Display, UI, and mono selection; family count; weight range; numerals; tracking; case. | The stance records criteria — x-height, terminals, width, weight range, tabular numerals, whether a display face is licensed — and never a family name; families are chosen at build time under `typography.md`'s derive-first / swap-one-slot rule. Family count follows density: one plus a mono at dense, two at standard, three only where a real data role exists. The class sits inside the energy: at quiet, grotesque, humanist, geometric, slab, transitional; at lively and above, any. Script and display faces never carry body or UI text. |
+| **Material model** | coordinate (categorical, governed by compatibility rules) | printed / tonal / elevated / glass over planes | Whether anything genuinely sits above content that changes underneath it, whether the product's world has physical layers, whether the honest metaphor is paper. | Border system, shadow tiers, surface stepping, radius tendency, texture, `backdrop-filter` and the glass runtime. | The rungs and their full consequences are in `material.md` §"The axis" — read it while placing the brief, not at the craft pass. In short: printed takes no shadow but a modal; tonal steps by lightness, three rungs at most, shadow on floating UI only; elevated names three or four tiers, each meaning a height, on floating UI only; glass is a floating control layer only, never nested, never in the content layer, with an opaque fallback. Not a slider — glass is not more elevation. |
+| **Color commitment** | coordinate | restrained / committed / full palette / drenched | Whether color is the brand's carrier, and what the surface is for. | Accent coverage, number of color roles, whether the ground itself may be chromatic. | Restrained keeps chromatic surface at 10% or under; committed 30–60%; full palette means three or four roles each with a job it can be named by; drenched is for hero and campaign moments only. Coverage comes from here, the chroma ceiling from energy. Dense task surfaces forbid full palette and drenched — a dense screen has no surface left to spend; visual layering on a campaign page is not density. |
+| **Accent job** | coordinate (a role decision, recorded on its own line) | status-only / directional / atmospheric | What the accent is *for*, decided before what color it is. | Which roles may carry the accent hue, the focus and selection treatment, and whether a non-color interaction language is needed instead. | Exactly one primary job. A directional accent never doubles as danger, warning, or success — once one hue means both "press this" and "this failed", the failure state is the one that loses. Status-only carries actions by neutrals, weight, and position; atmospheric puts the hue in fields and imagery and differentiates actions some other way. Name one hue that was weighed for the job and rejected. `color-engineering.md` §"Choosing the accent". |
+| **Ground lightness** | coordinate | light / dark | The physical-scene sentence: where the product is used, and what it is looked at against. Never derived from energy or criticality — dark reads heavy and dominant, not serious. | Background and foreground roles, the direction of surface layering, border alpha, shadow opacity, accent lightness floor. | Light: ground L ≥ 0.93, or a deliberately mid-tone brand body. Dark: elevation drawn by lighter surfaces, shadows demoted to overlays, accent L ≥ 0.62, contrast measured on the surface the text actually sits on. Both modes derive from one role set rather than one being an inversion of the other. |
+| **Ground temperature** | coordinate | warm / neutral / cool / brand-tinted | The product's material world — what the thing is made of, where it is used, what it is next to. | Neutral ramp hue, border and shadow tint, the cream-band check. | All neutrals share one hue family within ±20°, at C ≤ 0.02 (≤ 0.04 when brand-tinted). Borders and shadows are the foreground hue at an alpha, not black. A cream-band ground (L 0.84–0.97, C < 0.06, h 40–100) needs a named justification — `taste-calibration.md` flags that band as a saturated default. Warmth at dark or at a mid-tone is first-class. |
 
-Five concrete, shippable visual systems follow. Each is a complete starting spec, not a mood direction — implement against the token values below without inventing new ones. Use semantic tokens, not ad-hoc per-component colors, and use the named shadow recipes only where their stated elevation is actually needed.
+**Derived by resolvers, not axes.** Several things that feel like decisions are outputs of the nine lines. Motion is derived — energy supplies amplitude and character, density supplies speed pressure, criticality caps overshoot and ambiguity, and the material model supplies the spatial story (`motion.md`). Voice is derived from energy crossed with criticality, formality rising with criticality (`voice-copy.md`). Radius is energy crossed with density; border weight is material crossed with density. The light and dark pairing is derived once, both modes from one role set (`color-engineering.md`). Each resolver is keyed by axis position rather than by stance name, so a stance nothing has ever named still finds its row.
+
+**Not axes.** Trust and seriousness are outcomes of criticality, craft, and quiet energy; they belong to the QA floor, not to a slider. "Premium" and "professional" are underspecified brief words — decompose them into positions before honoring them. "Playful ↔ sober" is energy under another name, conflated with criticality and formality; use the four energy rungs instead. Motion is a resolver, not a position of its own — energy, density, criticality, and the material model derive it. Layout is a separate composition grammar (`composition.md`).
+
+## Compatibility rules
+
+Per-axis lookups are not additive: the joint position is what ships, and some pairs collide. These resolutions are what a naive per-axis reading gets wrong.
+
+| Combination | Resolution |
+|---|---|
+| dense × glass over planes | Glass only on small persistent navigation or controls; primary data surfaces stay opaque. |
+| consequential × lively or exuberant | Emphasis stays in type and color. No humorous copy, no bounce, no ambiguous state transitions. |
+| dense × characterful display | The display face appears in one overview region; operational components keep instrumental text. |
+| dense × full palette or drenched | On task surfaces, refused; on chrome and overview, confined there. No continuous tint behind tabular data. Density is information density — a poster or a zine page that is visually layered is not this rule's case. |
+| dark × elevated | Resolves to tonal, with shadow demoted to overlays; elevation is drawn by lighter surfaces. |
+| consequential × any | No glass on primary task surfaces, no overshoot on error or confirmation motion, no hue-only state. |
+| restrained × exploratory | Neutral primary actions are allowed, but focus and selection stay unmistakable. |
+| warm × light | Lands in or near the cream band. Needs a named justification, or the warmth moves into the accent and the imagery. |
+
+## The derivation procedure
+
+1. **Read the constraints off the brief.** Density and criticality, one line each with the reason. Category is allowed to speak here.
+2. **Write two candidate coordinate vectors.** The modal one — what the category expects — and one non-modal alternative that still fits the product. Sampled ingredients and, optionally, a named stance from the library are the material for the second. Discard anything the compatibility rules forbid.
+3. **Choose, with reasons, and record the rejected vector.** A vector that sits on the category's modal position at every coordinate is allowed, but it then has to carry its distinctness in the values and the signature.
+4. **Derive the values from the product's own world.** Accent job first, then the accent hue from what the product means, with one candidate hue weighed and rejected. Ground from the scene sentence, with one alternative rejected. Type from the criteria under the derive-first rule. Radius, border, and shadow from the material model. Spacing and geometry from density. Motion, voice, and the light/dark pairing from the resolvers.
+5. **Write the commitment as base plus tension** (below). The tension is the signature element.
+6. **Run the clone check before writing code.** Would this `DESIGN.md` come out the same for a different product in the same category? The same constraints are expected. The same coordinates are plausible. The same values are the tell — re-derive.
+7. **Record it** in `DESIGN.md` §0: the nine axis lines with reasons, the rejected vector, the two rejected values, and the signature.
+
+**Framework defaults are overridden explicitly.** Tailwind and shadcn ship a radius scale, a gray ramp, and a shadow set, and those sit in the layer beneath the tokens. A derivation that never names them leaves them in place, and they show through — two builds that derived different stances still converge on the same corners and the same grays. Name the replacements.
+
+**Ingredients are bounded mutations.** Each sampled ingredient has to map to a coordinate, a composition rule, or a component treatment. It may change one or two decisions; it never imports a whole visual system. It survives the same compatibility and fit tests as everything else, and the record says why this mutation helps this product. The sampler has one job — escaping the modal answer — and a draw that cannot be attached to a decision is discarded, not honored.
+
+### Writing the commitment
+
+A commitment is one sentence: a base and a tension. The base is the position stated in material terms; the tension is the one thing that interrupts it, and that interruption is the signature element.
+
+- Operational: "Quiet operational typography on a planar cool ground, interrupted by one directional amber signal."
+- Consumer: "Generous rounded surfaces on a lavender ground, with every loud moment saved for the instant a habit is checked off."
+
+"Modern, clean, trustworthy" is the anti-example. It has no base and no tension, so nothing follows from it, nothing contradicts it, and nothing can be checked against it later.
+
+## Five worked derivations
+
+The five systems below are finished results of the procedure above. Each is shown with the product it was derived for, its position on the nine lines, and the reasoning that turned that position into these values. Read them for the shape of a whole system — color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion — and for how a position becomes values.
+
+The values are that product's instantiation. A value from a worked derivation may be reused only after re-derivation for the product at hand, with the reason recorded; byte-identical reuse across unrelated products is the clone tell `qa-protocol.md` looks for. Products that share a brief's constraints will share the position, not the values.
 
 ---
 
 ### 1. Precision industrial
 
-**Best for:** operations tools, infrastructure, logistics, scientific products, technical dashboards, high-trust data applications.
+**Derived for:** a freight-rail dispatch console — car locations, block assignments, crew hours, and exception alarms, worked on a desktop across a full shift.
+
+**Axis position:**
+
+- Density: dense — one screen holds a working set of trains and cars, and dispatchers scan rows rather than read pages.
+- Criticality: consequential — a misread block assignment moves real equipment; actions are audited.
+- Energy: quiet — the stakes are high and the session is long; nothing should ask for attention that has not earned it.
+- Type: neutral sans — a compact grotesque for display, a neutral UI sans, a mono for data. Criteria: high x-height, tabular figures, unmistakable 0/O and 1/l.
+- Material model: tonal — nothing in a dispatch board floats; panels are planes told apart by a lightness step.
+- Color commitment: restrained — the chromatic surface belongs to status and charts.
+- Accent job: directional — exceptions, high-priority actions, and keyboard focus.
+- Ground lightness: light — a lit control room, screens read alongside paper and printed manifests.
+- Ground temperature: cool — the product's world is steel, rail, and instrumentation.
+
+**Why these values, for that product:** a dispatcher looks at this for eight hours in a lit room, so the ground is a near-white with a steel cast — cool enough that status colors and chart series read against it without the ground competing for chroma. Structure is carried by a lightness step and a hairline instead of a shadow, which is the tonal model doing its job at dense: an ordinary card that lifts is a lie about a board where nothing floats. The accent is oxide orange because it is the one hue absent from the status set this product already needs — green, amber, red, blue — so against steel it reads as "exception" rather than as decoration, and it can carry action and focus without ever also meaning failure. Display sizes stay compact: 48px is a page title here, not a hero, because a tool read all shift has no room for a hero. Products with the same constraints will share this position; they will not share this orange, this steel, or this family triple.
 
 ```css
 /* PRECISION INDUSTRIAL
@@ -169,7 +236,21 @@ Five concrete, shippable visual systems follow. Each is a complete starting spec
 
 ### 2. Quiet editorial
 
-**Best for:** studios, publications, cultural institutions, portfolios, research experiences, refined service brands.
+**Derived for:** a film-production studio's operations tool — call sheets, shooting schedules, crew and location records, and the daily paperwork a production runs on.
+
+**Axis position:**
+
+- Density: standard — documents are read and edited, not monitored; a schedule is a page, not a feed.
+- Criticality: transactional — a wrong call time costs a morning, and most changes are reversible with a reissue.
+- Energy: composed — the studio's own materials are considered and typographic; the tool should not be louder than the work.
+- Type: characterful serif — a display serif with a text companion, a humanist sans for UI, a mono for metadata. Criteria: moderate contrast, generous measure.
+- Material model: printed — the artefacts are literally paper, and every shadow would be a lie about them.
+- Color commitment: restrained — color marks state; the page is ink on paper otherwise.
+- Accent job: directional — rare, and only for a selected state, an active link, or the primary action.
+- Ground lightness: light — daytime office and set use, printed alongside its own output.
+- Ground temperature: warm — paper, and specifically the studio's own call sheets.
+
+**Why these values, for that product:** the studio's artefacts are printed and handed out, so the material model is printed and the ground is a paper cream with ink-dark text, with shadows almost nowhere. That ground sits in the cream band `taste-calibration.md` flags as a saturated default, and it is here on a justification rather than by reflex: the paper metaphor is the thing being designed, not an atmosphere borrowed for warmth. Another product that wants this cream justifies it again on its own terms or moves the warmth into the accent and the imagery. The display serif carries the studio's editorial voice at standard density without turning an operations tool into a magazine; the humanist sans keeps forms and controls plain underneath it. The vermilion accent is the grease-pencil mark on a call sheet, and it appears rarely — which is exactly what keeps a selected row or an active link legible as the one thing that changed. Products with the same constraints will share this position; the cream, the vermilion, and this family triple are this studio's.
 
 ```css
 /* QUIET EDITORIAL
@@ -315,7 +396,21 @@ Five concrete, shippable visual systems follow. Each is a complete starting spec
 
 ### 3. Contemporary craft commerce
 
-**Best for:** premium goods, food and beverage, small-batch products, hospitality, independent retail, maker brands.
+**Derived for:** an alpine guesthouse booking site — rooms, seasons, rates, availability, and a booking flow that ends in a held reservation.
+
+**Axis position:**
+
+- Density: standard — a guest browses a handful of rooms and then fills one form.
+- Criticality: transactional — money changes hands and a date is held, but a booking can be changed or cancelled.
+- Energy: composed — the guesthouse sells calm; an insistent interface would contradict the product.
+- Type: characterful serif — a soft serif with optical sizes, a humanist sans for UI, a mono for reference codes. Criteria: warm terminals, comfortable measure, a text cut that holds at 15px.
+- Material model: elevated for product media only, tonal everywhere else — the rooms lift; the chrome does not.
+- Color commitment: restrained — photography carries the color.
+- Accent job: directional — clay, on the booking action and the selected date.
+- Ground lightness: light — daylight browsing, mostly on a phone in the evening.
+- Ground temperature: warm — stone, larch, and wool, at a mineral temperature rather than a paper one.
+
+**Why these values, for that product:** the guesthouse's world is mineral and wooden, so the ground is warm but drier than paper — closer to plaster than to a printed page. It sits in the cream band on a named justification, the building's own materials, recorded in `DESIGN.md`; a different product wanting the same warmth justifies it again or moves it. Room photography is the product, so it is the one thing allowed to lift: `--shadow-product` on media, and everything else tonal with a border, which keeps the interface quietly premium instead of turning every text block into a floating card. The accent is clay — the local kiln color, not a generic terracotta — and it is directional, carrying the booking action and the selected date and nothing else, so a page full of imagery still has exactly one place the eye goes to act. The botanical green primary is the pine line above the village. Products with the same constraints will share this position; this clay and this green belong to this valley.
 
 ```css
 /* CONTEMPORARY CRAFT COMMERCE
@@ -467,7 +562,21 @@ Five concrete, shippable visual systems follow. Each is a complete starting spec
 
 ### 4. Institutional calm
 
-**Best for:** healthcare, education, civic services, legal products, financial planning, nonprofit and public-interest platforms.
+**Derived for:** a city bus network's public status page — line status, disruptions, replacement services, read on a phone at a stop and on a desktop before leaving the house.
+
+**Axis position:**
+
+- Density: standard — a rider checks one or two lines; a dense board would be a timetable, not a status page.
+- Criticality: consequential — public information read in a hurry, by everyone, with a missed replacement bus as the cost of a misread; the accessibility floor binds hard rather than aspirationally.
+- Energy: quiet — the page is read by someone who is already late.
+- Type: characterful serif for display with a humanist sans for UI. Criteria: legibility first, a large-x-height sans that holds at 14px on a phone in daylight, a serif with enough weight to head a page without shouting.
+- Material model: tonal — a status page is a fixed arrangement of regions, all equally present.
+- Color commitment: restrained — the chromatic surface belongs to line status.
+- Accent job: directional — teal, and deliberately not any of the status hues.
+- Ground lightness: light — outdoors, in daylight, on a bright screen.
+- Ground temperature: neutral — a civic page borrows no material world; the neutrals must not argue with the status colors.
+
+**Why these values, for that product:** criticality is consequential even though nothing is bought here, because the information is acted on immediately and by people with no alternative source — so no state is carried by hue alone, every status is also a word, and contrast is measured on the surface the text actually sits on rather than on the page background. Energy is quiet because the reader is anxious and the page's only job is to be read. The ground is a light, faintly parchment white that reads as civic rather than clinical, with the neutrals held near zero chroma so the status colors are the only hues on the page. The teal accent is directional and is not green, amber, red, or blue: it can mark a selected line and the primary action without ever being mistaken for "delayed" or "cancelled", which is the whole reason it was chosen over the navy that a transit brief pulls toward by default. The serif display and the large-x-height sans were chosen for legibility at a bus stop first and for character second. Products with the same constraints will share this position; this teal and this family pair are this network's.
 
 ```css
 /* INSTITUTIONAL CALM
@@ -619,7 +728,21 @@ Five concrete, shippable visual systems follow. Each is a complete starting spec
 
 ### 5. Playful consumer
 
-**Best for:** habit tracking, youth-focused products, consumer education, social tools, wellness, friendly productivity apps.
+**Derived for:** a habit-tracking app — daily check-ins, streaks, categories, and progress read over weeks.
+
+**Axis position:**
+
+- Density: standard — a handful of habits on a phone screen; dense would make a chore of a ten-second visit.
+- Criticality: exploratory — a check-in can be undone, and the worst outcome of a mistake is a wrong streak.
+- Energy: lively — the product runs on encouragement, but not exuberant: a bouncing interface is charming on day one and in the way by week three.
+- Type: characterful display — a display sans with real personality, a geometric or humanist UI sans, a mono for dates and counts. Criteria: a display face that holds at 30px stat sizes, a UI sans with an open aperture at 14px.
+- Material model: elevated — a card being checked off should lift under the finger.
+- Color commitment: committed — one primary interaction color plus a set of support colors that tell categories apart and carry celebration.
+- Accent job: directional — the violet primary. The support colors are category roles, not accents.
+- Ground lightness: light — a phone held in a lit room, opened in the morning and at night.
+- Ground temperature: brand-tinted — lavender, carrying the primary down into the surface.
+
+**Why these values, for that product:** nothing here is irreversible, so criticality is exploratory and the design can afford to spend on encouragement rather than on confirmation. Energy is lively rather than exuberant because the app is opened for ten seconds a day and the motion has to survive a thousand repetitions. Color commitment is committed rather than restrained because color is how six categories are told apart at a glance, but the roles are split and the split is what keeps it legible: violet is the one interaction color, and mint, peach, and sky are category identity and celebration, never actions. The ground is brand-tinted — a lavender white that carries the violet down into the surface, so a screen with no accent on it still belongs to this product rather than to any white consumer app. Elevated material follows from the primary gesture: the check-in is a physical act, and the card that responds to it is the one object on the screen. Products with the same constraints will share this position; this violet and this lavender are this app's.
 
 ```css
 /* PLAYFUL CONSUMER
@@ -781,608 +904,35 @@ Five concrete, shippable visual systems follow. Each is a complete starting spec
 }
 ```
 
-**Implementation rules:** use `--radius-3` for standard cards and controls, `--radius-4` for hero modules or bottom sheets, and `--radius-full` only for compact chips, avatars, or progress dots. Use the expressive support colors for categories or celebration moments, but maintain a single primary interaction color: violet. Motion should feel encouraging, not distracting; animations should never block recording a habit or reading progress.
+**Implementation rules:** use `--radius-3` for standard cards and controls, `--radius-4` for hero modules or bottom sheets, and `--radius-full` only for compact chips, avatars, or progress dots. Use the support colors for categories or celebration moments, but maintain a single primary interaction color: violet. Motion should feel encouraging, not distracting; animations should never block recording a habit or reading progress.
 
-## Component character per stance
+## The library
 
-The same component — a primary/secondary/disabled button set, an interactive card, and a data table — implemented three times, once per stance, with identical content shape so the differences in typography, density, borders, radius, color, shadow, hover behavior, and focus treatment are easy to diff. Keep the code; it is the reference. Adapt class names to whatever styling approach the project actually uses — the token values and interaction states are what must survive the port.
+A named stance is a prior and a grammar with character, never a template: a position the derivation starts from, a signature that keeps it recognisable, a composition grammar, a list of forbidden moves, and reference exemplars worth looking at. It contains no hex and no family name. Read the archetype as the prior, the brief as the evidence, and the resolved stance as what the derivation returns for this product. `scripts/sample-ingredients.mjs` draws its stance names from this table; a drawn name biases coordinates and supplies a signature, and the seven steps above still run in full. The density column is the position these products usually sit at, not a fixed one — density and criticality come off the brief even when a name suggests otherwise.
 
----
+| Stance | Exemplars | Usual density | Energy | Type | Material | Color commitment · accent job | Ground | Signature | Composition grammar | Forbidden moves |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `archival` | MoMA catalogs, Rijksmuseum | spacious | quiet | characterful serif, old-style, plus a mono for object labels; tabular figures | printed | restrained · directional | light; warm (justify) or neutral | numbered sections and object labels | catalogue plates, generous margins, captions | shadows, gradients, rounded cards |
+| `brutalist` | Bloomberg Businessweek online, brutalistwebsites.com | standard | composed — raw, not loud | mono-as-display, or condensed characterful display | printed | restrained plus one hot accent · directional | light or dark; neutral (true black and white) | exposed structure | hairline rules, a visible grid, oversized display | soft shadows, radius over 2px, gradients, decorative icons |
+| `data-dense` | Bloomberg Terminal, FlightRadar | dense | quiet | neutral sans plus a mono for data; high x-height, tabular figures, distinguishable 0/O | tonal | restrained plus a functional status set · status-only or directional | light or dark; cool | density itself, and functional color coding | table-led, exception-first | cards for rows, shadows, padding as decoration |
+| `editorial` | Monocle, The Gentlewoman, Kinfolk | spacious | composed | characterful serif display with a humanist sans; high-contrast display cut, generous measure | printed | restrained · directional, rare | light; warm (cream needs justification) or neutral | an asymmetric column grid carrying photography | editorial stack, pull quotes, image-led | card grids, gradients, an eyebrow on every section |
+| `kinetic` | Pentagram motion reels, Apple product reveals | standard | exuberant, motion-led; overshoot yes | neutral sans, tight neo-grotesque | glass over planes, or tonal at dark | committed · directional, marking motion state | dark; any temperature | motion marks every state change | one stage, staged reveals | a static hero, motion with no state behind it |
+| `maximalist` | zine aesthetic, scrap-and-tape | standard — visually layered, not information-dense | exuberant | two display traditions mixed — condensed against a serif or a slab; contrast in width and weight | printed (scrap) or elevated (stacked paper) | full palette with a hierarchy · atmospheric | light; warm, textured | controlled layering | overlapping elements, torn edges, stamps | a uniform grid, a single accent, restraint |
+| `memphis` | Ettore Sottsass | standard | exuberant | characterful display, geometric sans | printed, flat geometry | full palette · atmospheric and structural | light; pastel | primary geometric shapes as structure | asymmetric, shapes used as layout devices | gradients, soft shadows, corporate blue |
+| `minimalist` | Apple, Aesop, Teenage Engineering product pages | spacious | quiet | neutral sans, geometric or neo-grotesque; one family, one weight doing most of the work | tonal | restrained · directional, one element per screen | light (warmer than an industrial cool) or dark; neutral | one hero element | product-object, centered, whitespace as the layout | multiple accents, cards, decorative rules |
+| `swiss` | Vignelli, Jost Hochuli, Helvetica | standard | quiet | neutral sans, neo-grotesque; neutral terminals, a limited size inventory, flush-left | printed | restrained · directional or status-only | light; neutral to cool | the strict modular grid | asymmetric grid, strong alignment, type and image sharing grid lines | ornamental shadows, unrelated radius variation, atmospheric gradients, a decorative display face |
+| `warm` | Aesop, Le Labo, boutique hospitality | standard | composed | characterful serif, humanist or old-style, with a humanist sans | elevated for product media only, tonal elsewhere | restrained · directional | light or dark; warm (cream needs justification) | tactile imagery | product-object, generous crops | cold grays, glossy chrome, hard shadows |
+| `risograph` | riso zine printing, People of Print | standard | lively | characterful display, geometric or condensed, print-feel | printed, one grain at the root | committed, two inks · atmospheric spot inks with a directional action | light; warm uncoated | overprint and misregistration | poster blocks, flat block illustration | gradients, gloss, blur |
+| `terminal` | tmux dashboards, btop, Berkeley Graphics | dense | quiet | mono-as-display for every role | printed, box-drawing rules | restrained · status-only or directional, one phosphor | dark; cool (console black) | the console | panes and rules | rounded corners, shadows, proportional type |
+| `bauhaus` | Bauhaus Dessau, Braun under Rams | standard | composed | neutral sans, geometric exclusively | printed | full palette — the primary triad, used structurally · structural blocking rather than an accent role | light; neutral or cream (justify) | primary-color blocking | grid-locked geometry | any shadow, ornament, gradients |
+| `y2k-web` | Frutiger Aero, early-2000s consumer web | standard | lively | neutral sans, rounded geometric | elevated with gloss — a period reference, flagged in `DESIGN.md` | committed · atmospheric, aqua chrome | light; cool (sky) | the aqua chrome hero | rounded chrome, a glossy hero, orbs | flat matte everything, brutal rules |
+| `luxury-fashion` | Céline campaigns, The Row lookbooks | spacious | quiet | characterful serif, Didone display, with a neutral sans | printed | restrained, monochrome · none — a monochrome interaction language of weight, spacing, and hairlines, with a visible non-color focus treatment | light or dark; neutral (pure white or pure black) | extreme whitespace and hairlines | lookbook, full-bleed monochrome photography | color accents, rounded corners, shadows |
+| `deco` | Art Deco poster lithography, hotel signage | standard | composed | characterful serif, glyphic, or geometric with vertical emphasis | printed | committed — a metallic ornamental accent layered over a functional one · directional plus ornamental | light warm cream, or dark ink | stepped geometry and symmetry | symmetric, vertical emphasis, framed | asymmetry for its own sake, soft rounded forms |
+| `vernacular` | hand-painted shop signs, county-fair flyers | standard — visually crowded, not information-dense | exuberant | characterful display, condensed and loud, mixed across weights | printed, rough | full palette · atmospheric | light; warm and rough | hand-painted clutter | sign-painter stacking, decorative borders | polish, uniform type, restraint |
+| `topographic` | USGS quadrangles, Swiss hiking maps, NASA mission graphics | standard to dense | quiet | a mono for coordinates and annotations with a neutral sans | printed, contour lines | restrained, terrain palette · status-only markers | light or dark; cool terrain neutrals | the contour grid | map-led, annotation typography | pure white or pure black grounds, decorative gradients |
 
-### 1. Precision industrial
-
-```tsx
-// PrecisionIndustrialExamples.tsx
-const rows = [
-  { project: "North Terminal", owner: "M. Ibarra", status: "At risk", date: "18 Jul", budget: "$42,680" },
-  { project: "Signal Relay", owner: "A. Chen", status: "On track", date: "22 Jul", budget: "$18,420" },
-  { project: "Foundry Survey", owner: "R. Patel", status: "Review", date: "29 Jul", budget: "$31,050" },
-];
-
-const statusClass = {
-  "At risk": "bg-[#B63B3B] text-white",
-  "On track": "bg-[#2C725E] text-white",
-  Review: "bg-[#B75D16] text-white",
-};
-
-export default function PrecisionIndustrialExamples() {
-  return (
-    <main className="min-h-screen bg-[#F4F6F7] px-6 py-10 font-['Manrope'] text-[#162024] sm:px-10">
-      <div className="mx-auto max-w-5xl space-y-10">
-        <header className="border-b border-[#C7D0D2] pb-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.09em] text-[#607076]">
-            Component specimen / 01
-          </p>
-          <h1 className="mt-2 font-['Archivo'] text-[32px] font-semibold leading-[1.12] tracking-[-0.022em]">
-            Precision industrial
-          </h1>
-        </header>
-
-        {/* Buttons */}
-        <section aria-labelledby="industrial-buttons">
-          <h2
-            id="industrial-buttons"
-            className="mb-4 text-[11px] font-bold uppercase tracking-[0.08em] text-[#607076]"
-          >
-            Buttons
-          </h2>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              className="inline-flex h-10 items-center justify-center rounded-[4px] border border-[#123B45] bg-[#123B45] px-4 text-[13px] font-bold tracking-[-0.005em] text-[#F7FAFA] transition-[background-color,border-color,box-shadow,transform] duration-150 ease-out hover:bg-[#0C3038] hover:border-[#0C3038] active:translate-y-px active:bg-[#08252B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D46B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F7] disabled:cursor-not-allowed disabled:border-[#AEBBBC] disabled:bg-[#AEBBBC] disabled:text-[#E9EEEE]"
-            >
-              Create work order
-            </button>
-
-            <button
-              type="button"
-              className="inline-flex h-10 items-center justify-center rounded-[4px] border border-[#8FA0A4] bg-transparent px-4 text-[13px] font-bold tracking-[-0.005em] text-[#243237] transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-out hover:border-[#123B45] hover:bg-[#E3E9EA] active:translate-y-px active:bg-[#D5DFE0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D46B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F7] disabled:cursor-not-allowed disabled:border-[#C7D0D2] disabled:text-[#93A0A3]"
-            >
-              Export report
-            </button>
-
-            <button
-              type="button"
-              disabled
-              className="inline-flex h-10 items-center justify-center rounded-[4px] border border-[#123B45] bg-[#123B45] px-4 text-[13px] font-bold tracking-[-0.005em] text-[#F7FAFA] transition-[background-color,border-color,box-shadow,transform] duration-150 ease-out hover:bg-[#0C3038] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D46B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F7] disabled:cursor-not-allowed disabled:border-[#AEBBBC] disabled:bg-[#AEBBBC] disabled:text-[#E9EEEE]"
-            >
-              Awaiting approval
-            </button>
-          </div>
-        </section>
-
-        {/* Interactive card */}
-        <section aria-labelledby="industrial-card">
-          <h2
-            id="industrial-card"
-            className="mb-4 text-[11px] font-bold uppercase tracking-[0.08em] text-[#607076]"
-          >
-            Card
-          </h2>
-
-          <a
-            href="#north-terminal"
-            className="group block max-w-xl rounded-[6px] border border-[#C7D0D2] bg-white p-5 transition-[border-color,background-color,box-shadow,transform] duration-150 ease-out hover:border-[#7E9297] hover:bg-[#FCFDFD] hover:shadow-[0_1px_2px_rgb(22_32_36_/_8%),0_8px_20px_rgb(22_32_36_/_10%)] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D46B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F7]"
-          >
-            <div className="flex items-start justify-between gap-6">
-              <div>
-                <p className="font-['Geist_Mono'] text-[11px] font-medium tracking-[-0.01em] text-[#607076]">
-                  JOB-0418 · EAST SECTOR
-                </p>
-                <h3 className="mt-2 font-['Archivo'] text-[20px] font-semibold leading-[1.25] tracking-[-0.008em] text-[#162024]">
-                  North Terminal inspection
-                </h3>
-                <p className="mt-2 max-w-md text-[14px] leading-[1.5] text-[#607076]">
-                  Three unresolved equipment flags require assignment before the next field
-                  window.
-                </p>
-              </div>
-
-              <span className="shrink-0 border border-[#D7AA8B] bg-[#F9E6D9] px-2 py-1 font-['Geist_Mono'] text-[10px] font-semibold uppercase tracking-[0.04em] text-[#8C3C17]">
-                3 flags
-              </span>
-            </div>
-
-            <div className="mt-5 flex items-center justify-between border-t border-[#DCE3E4] pt-3">
-              <span className="font-['Geist_Mono'] text-[12px] font-medium tracking-[-0.01em] text-[#607076]">
-                Due 18 Jul · 14:00
-              </span>
-              <span className="text-[13px] font-bold text-[#123B45] transition-transform duration-150 group-hover:translate-x-0.5">
-                View job →
-              </span>
-            </div>
-          </a>
-        </section>
-
-        {/* Data table */}
-        <section aria-labelledby="industrial-table">
-          <div className="mb-4 flex items-end justify-between">
-            <div>
-              <h2
-                id="industrial-table"
-                className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#607076]"
-              >
-                Data table
-              </h2>
-              <p className="mt-1 text-[13px] text-[#607076]">Active work orders</p>
-            </div>
-            <button
-              type="button"
-              className="text-[12px] font-bold text-[#123B45] underline decoration-[#8FA0A4] underline-offset-4 transition-colors hover:text-[#D46B2C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D46B2C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F7]"
-            >
-              View all
-            </button>
-          </div>
-
-          <div className="overflow-x-auto rounded-[6px] border border-[#C7D0D2] bg-white">
-            <table className="w-full min-w-[720px] border-collapse text-left">
-              <thead className="bg-[#EDF1F1]">
-                <tr className="border-b border-[#C7D0D2]">
-                  {["Project", "Owner", "Status", "Due date", "Approved budget", ""].map((heading) => (
-                    <th
-                      key={heading || "action"}
-                      scope="col"
-                      className="px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] text-[#607076]"
-                    >
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr
-                    key={row.project}
-                    className="group border-b border-[#DCE3E4] last:border-b-0 hover:bg-[#F6F8F8] focus-within:bg-[#F1F5F5]"
-                  >
-                    <td className="px-4 py-3.5 text-[13px] font-bold text-[#162024]">
-                      {row.project}
-                    </td>
-                    <td className="px-4 py-3.5 text-[13px] text-[#607076]">{row.owner}</td>
-                    <td className="px-4 py-3.5">
-                      <span
-                        className={`inline-flex rounded-[2px] px-2 py-1 font-['Geist_Mono'] text-[10px] font-semibold uppercase tracking-[0.035em] ${statusClass[row.status as keyof typeof statusClass]}`}
-                      >
-                        {row.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3.5 font-['Geist_Mono'] text-[12px] font-medium tracking-[-0.01em] text-[#243237]">
-                      {row.date}
-                    </td>
-                    <td className="px-4 py-3.5 font-['Geist_Mono'] text-[12px] font-medium tabular-nums tracking-[-0.01em] text-[#243237]">
-                      {row.budget}
-                    </td>
-                    <td className="px-4 py-3.5 text-right">
-                      <button
-                        type="button"
-                        aria-label={`Open ${row.project}`}
-                        className="text-[12px] font-bold text-[#123B45] opacity-0 transition-[color,opacity] duration-150 hover:text-[#D46B2C] focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D46B2C] focus-visible:ring-offset-2 group-hover:opacity-100"
-                      >
-                        Open →
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
-}
-```
-
----
-
-### 2. Quiet editorial
-
-```tsx
-// QuietEditorialExamples.tsx
-const rows = [
-  { project: "Autumn House", owner: "L. Okafor", status: "In edit", date: "18 Jul", budget: "$42,680" },
-  { project: "The Estuary", owner: "N. Reyes", status: "On schedule", date: "22 Jul", budget: "$18,420" },
-  { project: "After the Rain", owner: "S. Wilson", status: "Review", date: "29 Jul", budget: "$31,050" },
-];
-
-const statusClass = {
-  "In edit": "border-[#B97965] bg-[#F8E4DD] text-[#7D3423]",
-  "On schedule": "border-[#89A495] bg-[#E5EEE7] text-[#355C43]",
-  Review: "border-[#C7A86A] bg-[#F7EFD9] text-[#73561B]",
-};
-
-export default function QuietEditorialExamples() {
-  return (
-    <main className="min-h-screen bg-[#F5F0E8] px-6 py-12 font-['Public_Sans'] text-[#24211E] sm:px-10 md:py-16">
-      <div className="mx-auto max-w-5xl space-y-16">
-        <header className="border-b border-[#D4CABE] pb-8">
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#756D64]">
-            Studio ledger · July 2026
-          </p>
-          <h1 className="mt-3 font-['Newsreader'] text-[44px] font-medium leading-[1.04] tracking-[-0.024em] sm:text-[56px]">
-            Quiet editorial
-          </h1>
-        </header>
-
-        {/* Buttons */}
-        <section aria-labelledby="editorial-buttons">
-          <h2
-            id="editorial-buttons"
-            className="mb-5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#756D64]"
-          >
-            Buttons
-          </h2>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-            <button
-              type="button"
-              className="inline-flex min-h-11 items-center justify-center rounded-[4px] border border-[#2C302A] bg-[#2C302A] px-5 text-[13px] font-semibold text-[#FAF6EE] transition-[background-color,border-color,box-shadow,transform] duration-[160ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:bg-[#464B42] hover:border-[#464B42] active:translate-y-px active:bg-[#1E211D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A9462D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E8] disabled:cursor-not-allowed disabled:border-[#A9A39B] disabled:bg-[#A9A39B] disabled:text-[#EAE5DD]"
-            >
-              Prepare call sheet
-            </button>
-
-            <button
-              type="button"
-              className="inline-flex min-h-11 items-center justify-center border-b border-[#756D64] px-1 text-[13px] font-semibold text-[#24211E] transition-[border-color,color,transform] duration-[160ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:border-[#A9462D] hover:text-[#A9462D] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A9462D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E8] disabled:cursor-not-allowed disabled:border-[#C8C0B6] disabled:text-[#9A9187]"
-            >
-              Download treatment
-            </button>
-
-            <button
-              type="button"
-              disabled
-              className="inline-flex min-h-11 items-center justify-center rounded-[4px] border border-[#2C302A] bg-[#2C302A] px-5 text-[13px] font-semibold text-[#FAF6EE] transition-[background-color,border-color,box-shadow,transform] duration-[160ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:bg-[#464B42] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A9462D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E8] disabled:cursor-not-allowed disabled:border-[#A9A39B] disabled:bg-[#A9A39B] disabled:text-[#EAE5DD]"
-            >
-              Awaiting cut
-            </button>
-          </div>
-        </section>
-
-        {/* Interactive card */}
-        <section aria-labelledby="editorial-card">
-          <h2
-            id="editorial-card"
-            className="mb-5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#756D64]"
-          >
-            Card
-          </h2>
-
-          <a
-            href="#autumn-house"
-            className="group block max-w-2xl border-y border-[#D4CABE] py-7 transition-colors duration-[260ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:border-[#9A8D80] hover:bg-[#F8F3EB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A9462D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E8]"
-          >
-            <div className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto]">
-              <div>
-                <p className="font-['DM_Mono'] text-[11px] font-medium tracking-[0.01em] text-[#756D64]">
-                  FEATURE · POST-PRODUCTION · 04
-                </p>
-                <h3 className="mt-3 font-['Newsreader'] text-[32px] font-medium leading-[1.12] tracking-[-0.018em] text-[#24211E]">
-                  Autumn House
-                </h3>
-                <p className="mt-3 max-w-xl text-[16px] leading-[1.62] tracking-[-0.002em] text-[#5F5850]">
-                  The editor’s assembly is ready for review, with one music cue and two
-                  archival clearances still unresolved.
-                </p>
-              </div>
-
-              <span className="h-fit border border-[#B97965] bg-[#F8E4DD] px-2.5 py-1.5 font-['DM_Mono'] text-[10px] font-semibold uppercase tracking-[0.05em] text-[#7D3423]">
-                In edit
-              </span>
-            </div>
-
-            <div className="mt-7 flex items-center justify-between">
-              <span className="font-['DM_Mono'] text-[11px] tracking-[0.01em] text-[#756D64]">
-                Delivery · 18 July
-              </span>
-              <span className="text-[13px] font-semibold text-[#24211E] transition-[color,transform] duration-[160ms] group-hover:translate-x-1 group-hover:text-[#A9462D]">
-                Open project →
-              </span>
-            </div>
-          </a>
-        </section>
-
-        {/* Data table */}
-        <section aria-labelledby="editorial-table">
-          <div className="mb-5">
-            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#756D64]">
-              Current slate
-            </p>
-            <h2
-              id="editorial-table"
-              className="mt-2 font-['Newsreader'] text-[32px] font-medium leading-[1.12] tracking-[-0.018em]"
-            >
-              Productions in motion
-            </h2>
-          </div>
-
-          <div className="overflow-x-auto border-y border-[#D4CABE]">
-            <table className="w-full min-w-[720px] border-collapse text-left">
-              <thead>
-                <tr className="border-b border-[#D4CABE]">
-                  {["Project", "Producer", "Stage", "Delivery", "Budget", ""].map((heading) => (
-                    <th
-                      key={heading || "action"}
-                      scope="col"
-                      className="px-3 py-3 text-[11px] font-bold uppercase tracking-[0.1em] text-[#756D64] first:pl-0 last:pr-0"
-                    >
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr
-                    key={row.project}
-                    className="group border-b border-[#E0D8CE] last:border-b-0 transition-colors duration-[160ms] hover:bg-[#F8F3EB] focus-within:bg-[#F8F3EB]"
-                  >
-                    <td className="px-3 py-5 font-['Newsreader'] text-[21px] font-medium leading-[1.2] tracking-[-0.01em] first:pl-0">
-                      {row.project}
-                    </td>
-                    <td className="px-3 py-5 text-[14px] text-[#5F5850]">{row.owner}</td>
-                    <td className="px-3 py-5">
-                      <span
-                        className={`inline-flex border px-2 py-1 font-['DM_Mono'] text-[10px] font-medium uppercase tracking-[0.04em] ${statusClass[row.status as keyof typeof statusClass]}`}
-                      >
-                        {row.status}
-                      </span>
-                    </td>
-                    <td className="px-3 py-5 font-['DM_Mono'] text-[11px] tracking-[0.01em] text-[#5F5850]">
-                      {row.date}
-                    </td>
-                    <td className="px-3 py-5 font-['DM_Mono'] text-[11px] tabular-nums tracking-[0.01em] text-[#5F5850]">
-                      {row.budget}
-                    </td>
-                    <td className="px-0 py-5 text-right">
-                      <button
-                        type="button"
-                        aria-label={`Open ${row.project}`}
-                        className="text-[13px] font-semibold text-[#24211E] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color] duration-[160ms] hover:text-[#A9462D] hover:decoration-[#A9462D] focus-visible:decoration-[#A9462D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A9462D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F0E8]"
-                      >
-                        Open
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
-}
-```
-
----
-
-### 3. Playful consumer
-
-```tsx
-// PlayfulConsumerExamples.tsx
-const rows = [
-  { habit: "Morning stretch", streak: "12 days", status: "On fire", next: "Today", score: "+36" },
-  { habit: "Sketch for fun", streak: "6 days", status: "Growing", next: "Today", score: "+18" },
-  { habit: "Read 15 minutes", streak: "3 days", status: "New", next: "Tomorrow", score: "+9" },
-];
-
-const statusClass = {
-  "On fire": "border-[#D17A15] bg-[#FFF0C8] text-[#703B00]",
-  Growing: "border-[#4CB184] bg-[#DCF7E9] text-[#124C35]",
-  New: "border-[#7768E4] bg-[#E9E4FF] text-[#3D317E]",
-};
-
-export default function PlayfulConsumerExamples() {
-  return (
-    <main className="min-h-screen bg-[#F7F5FF] px-5 py-8 font-['DM_Sans'] text-[#24203D] sm:px-8 sm:py-12">
-      <div className="mx-auto max-w-5xl space-y-10">
-        <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-[12px] font-bold tracking-[0.02em] text-[#716B88]">Your component kit</p>
-            <h1 className="mt-1 font-['Bricolage_Grotesque'] text-[36px] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[52px]">
-              Playful consumer
-            </h1>
-          </div>
-          <span className="w-fit rounded-full bg-[#E9E4FF] px-3 py-1.5 text-[12px] font-bold text-[#4A3AB2]">
-            Small wins, daily
-          </span>
-        </header>
-
-        {/* Buttons */}
-        <section aria-labelledby="playful-buttons">
-          <h2
-            id="playful-buttons"
-            className="mb-4 font-['Bricolage_Grotesque'] text-[20px] font-bold tracking-[-0.008em]"
-          >
-            Buttons
-          </h2>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              className="inline-flex min-h-11 items-center justify-center rounded-[14px] border border-[#5A47D5] bg-[#5A47D5] px-5 text-[14px] font-bold text-white shadow-[0_2px_4px_rgb(36_32_61_/_7%),0_10px_24px_rgb(90_71_213_/_16%)] transition-[background-color,border-color,box-shadow,transform] duration-[140ms] [transition-timing-function:cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:bg-[#4938C5] hover:shadow-[0_4px_10px_rgb(36_32_61_/_9%),0_14px_28px_rgb(90_71_213_/_22%)] active:translate-y-px active:scale-[0.98] active:bg-[#3E2FA8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A47D5] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5FF] disabled:cursor-not-allowed disabled:border-[#B6AEE2] disabled:bg-[#B6AEE2] disabled:text-[#F5F2FF] disabled:shadow-none"
-            >
-              Log today’s win
-            </button>
-
-            <button
-              type="button"
-              className="inline-flex min-h-11 items-center justify-center rounded-[14px] border border-[#DCD7EF] bg-white px-5 text-[14px] font-bold text-[#342B76] shadow-[0_1px_2px_rgb(36_32_61_/_5%),0_7px_16px_rgb(90_71_213_/_8%)] transition-[background-color,border-color,box-shadow,transform] duration-[140ms] [transition-timing-function:cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-[#AFA5EC] hover:bg-[#F5F2FF] hover:shadow-[0_2px_5px_rgb(36_32_61_/_7%),0_10px_20px_rgb(90_71_213_/_12%)] active:translate-y-px active:scale-[0.98] active:bg-[#E9E4FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A47D5] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5FF] disabled:cursor-not-allowed disabled:border-[#E6E1F4] disabled:bg-[#F4F2F9] disabled:text-[#AAA3BD] disabled:shadow-none"
-            >
-              Edit habits
-            </button>
-
-            <button
-              type="button"
-              disabled
-              className="inline-flex min-h-11 items-center justify-center rounded-[14px] border border-[#5A47D5] bg-[#5A47D5] px-5 text-[14px] font-bold text-white shadow-[0_2px_4px_rgb(36_32_61_/_7%),0_10px_24px_rgb(90_71_213_/_16%)] transition-[background-color,border-color,box-shadow,transform] duration-[140ms] [transition-timing-function:cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:bg-[#4938C5] active:translate-y-px active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A47D5] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5FF] disabled:cursor-not-allowed disabled:border-[#B6AEE2] disabled:bg-[#B6AEE2] disabled:text-[#F5F2FF] disabled:shadow-none"
-            >
-              Come back tomorrow
-            </button>
-          </div>
-        </section>
-
-        {/* Interactive card */}
-        <section aria-labelledby="playful-card">
-          <h2
-            id="playful-card"
-            className="mb-4 font-['Bricolage_Grotesque'] text-[20px] font-bold tracking-[-0.008em]"
-          >
-            Card
-          </h2>
-
-          <a
-            href="#morning-stretch"
-            className="group relative block max-w-xl overflow-hidden rounded-[20px] border border-[#DCD7EF] bg-white p-6 shadow-[0_1px_2px_rgb(36_32_61_/_5%),0_7px_16px_rgb(90_71_213_/_8%)] transition-[border-color,box-shadow,transform] duration-[220ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:border-[#B2A8EF] hover:shadow-[0_5px_12px_rgb(36_32_61_/_10%),0_22px_42px_rgb(90_71_213_/_17%)] active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A47D5] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5FF]"
-          >
-            <div className="absolute -right-10 -top-12 h-40 w-40 rounded-[58%_42%_51%_49%_/_42%_55%_45%_58%] bg-[#E9E4FF] transition-transform duration-[320ms] [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-12 group-hover:scale-110" />
-            <div className="absolute right-10 top-8 h-8 w-8 rounded-full bg-[#FFB94D] transition-transform duration-[320ms] [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-y-1 group-hover:translate-x-1" />
-
-            <div className="relative">
-              <div className="flex items-start justify-between gap-5">
-                <div>
-                  <p className="text-[12px] font-bold tracking-[0.02em] text-[#716B88]">
-                    Your next tiny win
-                  </p>
-                  <h3 className="mt-2 font-['Bricolage_Grotesque'] text-[28px] font-bold leading-[1.14] tracking-[-0.018em] text-[#24203D]">
-                    Morning stretch
-                  </h3>
-                </div>
-
-                <span className="rounded-full border border-[#D17A15] bg-[#FFF0C8] px-3 py-1.5 text-[12px] font-bold text-[#703B00]">
-                  12-day streak
-                </span>
-              </div>
-
-              <p className="mt-3 max-w-sm text-[16px] font-medium leading-[1.5] text-[#5E5874]">
-                Two minutes counts. Give your shoulders a little “thank you.”
-              </p>
-
-              <div className="mt-6 flex items-center justify-between">
-                <span className="rounded-full bg-[#DCF7E9] px-3 py-1.5 text-[12px] font-bold text-[#124C35]">
-                  +3 energy points
-                </span>
-                <span className="text-[14px] font-bold text-[#5A47D5] transition-transform duration-[140ms] group-hover:translate-x-1">
-                  Check in →
-                </span>
-              </div>
-            </div>
-          </a>
-        </section>
-
-        {/* Data table */}
-        <section aria-labelledby="playful-table">
-          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <p className="text-[12px] font-bold tracking-[0.02em] text-[#716B88]">This week</p>
-              <h2
-                id="playful-table"
-                className="mt-1 font-['Bricolage_Grotesque'] text-[28px] font-bold leading-[1.14] tracking-[-0.018em]"
-              >
-                Habit scoreboard
-              </h2>
-            </div>
-            <button
-              type="button"
-              className="rounded-full border border-[#DCD7EF] bg-white px-3 py-2 text-[12px] font-bold text-[#4A3AB2] transition-[background-color,border-color,transform] duration-[140ms] hover:-translate-y-0.5 hover:border-[#AFA5EC] hover:bg-[#F5F2FF] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A47D5] focus-visible:ring-offset-3 focus-visible:ring-offset-[#F7F5FF]"
-            >
-              See all habits
-            </button>
-          </div>
-
-          <div className="overflow-x-auto rounded-[20px] border border-[#DCD7EF] bg-white shadow-[0_1px_2px_rgb(36_32_61_/_5%),0_7px_16px_rgb(90_71_213_/_8%)]">
-            <table className="w-full min-w-[700px] border-collapse text-left">
-              <thead className="bg-[#F0EDF8]">
-                <tr className="border-b border-[#DCD7EF]">
-                  {["Habit", "Streak", "Mood", "Next up", "Points", ""].map((heading) => (
-                    <th
-                      key={heading || "action"}
-                      scope="col"
-                      className="px-5 py-3 text-[12px] font-bold tracking-[0.02em] text-[#716B88]"
-                    >
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr
-                    key={row.habit}
-                    className="group border-b border-[#E9E5F4] last:border-b-0 transition-colors duration-[140ms] hover:bg-[#FAF9FF] focus-within:bg-[#F5F2FF]"
-                  >
-                    <td className="px-5 py-4 text-[14px] font-bold text-[#24203D]">{row.habit}</td>
-                    <td className="px-5 py-4">
-                      <span className="rounded-full bg-[#E9E4FF] px-2.5 py-1 text-[12px] font-bold text-[#4A3AB2]">
-                        {row.streak}
-                      </span>
-                    </td>
-                    <td className="px-5 py-4">
-                      <span
-                        className={`inline-flex rounded-full border px-2.5 py-1 text-[12px] font-bold ${statusClass[row.status as keyof typeof statusClass]}`}
-                      >
-                        {row.status}
-                      </span>
-                    </td>
-                    <td className="px-5 py-4 text-[14px] font-medium text-[#5E5874]">{row.next}</td>
-                    <td className="px-5 py-4 font-['Bricolage_Grotesque'] text-[20px] font-bold leading-none tracking-[-0.02em] text-[#5A47D5]">
-                      {row.score}
-                    </td>
-                    <td className="px-5 py-4 text-right">
-                      <button
-                        type="button"
-                        aria-label={`Check in to ${row.habit}`}
-                        className="rounded-full bg-[#5A47D5] px-3 py-1.5 text-[12px] font-bold text-white opacity-0 shadow-[0_2px_4px_rgb(36_32_61_/_7%),0_10px_20px_rgb(90_71_213_/_16%)] transition-[background-color,box-shadow,opacity,transform] duration-[140ms] hover:-translate-y-0.5 hover:bg-[#4938C5] active:translate-y-px active:scale-[0.97] focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A47D5] focus-visible:ring-offset-3 group-hover:opacity-100"
-                      >
-                        Done!
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-    </main>
-  );
-}
-```
-
-The character differences above are concentrated in:
-
-- **Precision industrial:** tight radius, rule-based surfaces, minimal shadow, compact mono metadata, restrained transitions.
-- **Quiet editorial:** mostly flat surfaces, generous vertical rhythm, serif hierarchy, underline-led secondary actions, low-noise states.
-- **Playful consumer:** larger radius, brighter controlled color, soft elevated shadows, expressive display type, springier movement, rounded status/pill treatment.
-
-## Mapping sampled stances to systems
-
-`scripts/sample-ingredients.mjs` returns stance names from this table. Look up the sampled or brief-committed name, then either port the named system's full token block (Step 2 above) or derive fresh using the hints given — ground temperature (warm/cool/neutral, light/dark), which typography tradition (see `references/typography.md`) fits the character, and what job the accent color does.
-
-| Stance | Origin | Maps to | Notes / derivation hints |
-|---|---|---|---|
-| `swiss` | figma | **Precision industrial** (use as-is) | Direct match: strict grid, mostly-neutral palette plus one accent, function-first restraint. Vignelli/Helvetica sensibility is exactly what the system's cool near-white + steel-tint surface model encodes. |
-| `warm` | figma | **Contemporary craft commerce** (use as-is) | Direct match: cream/mineral neutrals, botanical green primary, clay accent, tactile shadow use on product media only. Aesop/Le Labo boutique register is this system's stated character. |
-| `editorial` | figma | **Quiet editorial** (use as-is) | Direct match: serif display + sans body, asymmetric grids, warm paper ground, vermilion accent used rarely. Monocle/Kinfolk register is this system's stated character. |
-| `archival` | figma | **Quiet editorial** (variant) | Keep the paper ground, ink foreground, and restrained accent, but push toward the museum-catalog register: pair the serif display with the mono UI face for numbered sections and object labels, tighten radius toward `--radius-0`/`--radius-1` everywhere (even utility controls), and let texture (not color) carry the "archival" feel. |
-| `data-dense` | figma | **Precision industrial** (variant) | Keep the cool near-white ground, steel-tinted panels, and restrained accent, but compress the spacing scale (favor `--space-1`–`--space-4` over the larger steps) and lean harder on the semantic status colors for functional color-coding across dense tabular rows — Precision industrial's minimal-shadow, mono-data-column discipline is the right skeleton; density is the delta. |
-| `memphis` | figma | **Playful consumer** (variant) | Keep the "one primary interaction color, expressive support colors for accents" rule and the soft-spring motion curve, but shift the ground toward a pastel rather than lavender-white, and let the support colors (mint/peach/sky) run more saturated and more geometric — Sottsass primary-shape energy over Playful consumer's rounded-pill softness. |
-| `minimalist` | figma | derive fresh | Ground: neutral white or near-white, warmer and less steel-toned than Precision industrial. Typography: geometric sans or neo-grotesque for both display and UI, one weight doing most of the work. Accent: a single, rarely-used color reserved strictly for the one interactive or hero element per screen — the whole system should hold Precision industrial's "shadow almost never, structure from rules" discipline while reading as premium-consumer rather than industrial. |
-| `brutalist` | figma | derive fresh | Ground: true black-and-white, no warmth in either surface — the starkest of any system here. Typography: monospace-as-display or condensed/expressive display, deliberately raw. Accent: one hot, fully saturated color (not muted like any of the five systems) used sparingly against the black/white field so it reads as an interruption, not decoration. |
-| `kinetic` | figma | derive fresh | Ground: dark, near-black or deep charcoal — none of the five systems are dark-mode; this stance needs an inverted color-token direction (background/foreground swapped in role, not just value). Typography: neo-grotesque sans, tight and understated, since motion carries the expression, not the letterforms. Accent: one bright, high-contrast highlight color used specifically to mark motion state changes; see `references/motion.md` before building this stance, since motion is the primary character here rather than a craft-pass addition. |
-| `maximalist` | figma | derive fresh | Ground: warm, textured, paper- or scrap-like — closer to Quiet editorial's or Contemporary craft commerce's warmth than to any cool system. Typography: deliberately mix two display traditions (e.g., condensed/expressive display against a serif or slab) rather than the single-display-face discipline every other stance here holds — this is the one stance where controlled layering of type is the point. Accent: multiple saturated accents are allowed, but they still need a hierarchy (one dominant, others supporting) or the "commit to one stance" floor breaks down into visual noise. |
-| `risograph` | extension | derive fresh | Ground: uncoated warm paper, similar temperature to Quiet editorial's paper ground but grainier — texture should read at the surface level, not just as color. Typography: geometric sans or condensed/expressive display, printed rather than screen-native in feel. Accent: one or two flat, fully saturated spot-ink colors (fluorescent pink, orange, teal) used for overprint-style layering rather than gradients — no gloss, no blur. |
-| `terminal` | extension | derive fresh | Ground: near-black, colder than kinetic's charcoal — a true console black. Typography: monospace-as-display for every role, not just data — headings, labels, and body all set in the same mono face, with box-drawing characters or hairline rules standing in for conventional borders where it reads naturally. Accent: exactly one phosphor color (green or amber) doing all signal work; treat it the way Precision industrial treats its orange accent, but starker and on a dark ground. |
-| `bauhaus` | extension | derive fresh | Ground: neutral white or cream, flatter and more literal than any of the five systems — zero shadow anywhere, not even the sparing use Precision industrial allows. Typography: geometric sans exclusively. Accent: primary-color blocking (red, blue, yellow) used structurally to divide regions of the layout, not as a single "accent" role — this stance is the one place where more than one saturated color is expected to carry equal structural weight. |
-| `y2k-web` | extension | derive fresh | Ground: cool white or pale sky-blue. Typography: rounded geometric sans. Accent: aqua/blue with a gradient sheen reserved for hero chrome elements only. This stance is a deliberate exception to the taste floor's usual flat/no-gloss default — flag the gloss and gradient use explicitly in `DESIGN.md` so it reads as a considered period reference rather than an accidental violation of `references/effects-policy.md`. |
-| `luxury-fashion` | extension | derive fresh | Ground: pure white or pure black, no warmth — push further than Quiet editorial's restraint toward near-total monochrome. Typography: Didone/high-contrast serif for display, paired with a neutral sans for UI text; this is the one stance in the whole library that should reach for a Didone display face. Accent: none, functionally — replace the "one accent color" role with a monochrome-only interaction language (weight, spacing, and hairline borders instead of color) for selection and focus states, while still holding the accessibility floor's focus-visibility requirement through a visible (not colored) outline treatment. |
-| `deco` | extension | derive fresh | Ground: warm cream or deep ink, with strong black-on-cream or cream-on-black contrast. Typography: glyphic serif or geometric sans, set with deliberate vertical emphasis in the type scale (taller, narrower display sizes than any of the five systems). Accent: a single metallic gold or brass tone, used for stepped-geometry rules, dividers, and symmetry markers rather than for interactive state — treat it as an ornamental accent role layered on top of, not replacing, a functional interaction accent. |
-| `vernacular` | extension | derive fresh | Ground: warm cream or paper, close in temperature to Quiet editorial or Contemporary craft commerce but rougher — less refined, more hand-made. Typography: condensed/expressive display mixed boldly across more than one weight or size within the same heading role. Accent: this stance intentionally breaks the "one accent color" taste-floor rule — multiple saturated accents are expected — so record that exception explicitly in `DESIGN.md` alongside which specific colors are in play, rather than letting it read as an unreviewed violation. |
-| `topographic` | extension | derive fresh | Ground: cool, terrain-toned neutrals (sand, khaki, glacier blue) rather than pure white or black. Typography: monospace-as-display for coordinates, annotations, and labels, paired with a neutral sans for body text. Accent: muted terrain-palette colors (contour green, elevation orange) used the way Precision industrial uses its orange — for markers, call-outs, and current-position indicators, not decoration. Structure the surface itself around a literal grid or contour-line motif rather than treating grid as implicit layout scaffolding. |
-
-**Institutional calm** has no `ingredients.json` stance name mapped to it above — none of the 18 sampled stances name its "measured, trustworthy, civic" register directly. Reach for it directly, independent of the sampler, whenever the brief's product category is healthcare, education, civic services, legal, financial planning, or nonprofit/public-interest — the sampler is a tiebreaker for when the brief is silent on aesthetic, not an override, and a product whose category dictates a trust register is not a silent brief (see SKILL.md's rule that ingredients are tiebreakers, never overrides).
+Three of these names — `swiss`, `editorial`, `warm` — used to resolve straight onto Precision industrial, Quiet editorial, and Contemporary craft commerce, values carried over whole. That mapping is deleted, and with it the reason four unrelated products shipped the same orange. A brief that lands on `swiss` derives its own grotesque, its own accent, and its own ground from the product in front of it; Precision industrial is what one such derivation looked like for one freight-rail console. Institutional calm is a position no name in this table proposes, which is the ordinary case rather than a gap: most briefs resolve to a stance the library has never named.
 
 ## Closing rule
 
-Never blend two systems in one interface — a Precision industrial data table next to a Playful consumer hero reads as two projects stapled together, not one considered design. Pick one system (ported intact) or one derived-fresh stance, commit to it in writing, and record which system it is, or the full derivation (ground temperature, typography tradition, accent role) if derived fresh, in the project's `DESIGN.md` before writing UI code against it. A later revision that wants a different stance replaces the record in `DESIGN.md`; it does not layer a second stance on top of the first.
+One stance per interface, named or unnamed. A stance the library never names is a first-class outcome, not a fallback, provided the record carries the full derivation. Never blend two — a dense operational table beside a lively consumer hero reads as two projects stapled together, not one considered design. Before any UI code, record in `DESIGN.md` §0 the nine axis lines with a reason each, the rejected coordinate vector, the accent hue and the ground that were weighed and rejected, and the signature element. Override the framework's own defaults explicitly: its radii, grays, and shadows sit beneath the tokens and will show through anything that leaves them unnamed. A later revision that wants a different stance replaces that record; it does not layer a second stance on top of the first.

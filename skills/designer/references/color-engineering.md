@@ -1,6 +1,6 @@
 # Color engineering
 
-This file teaches the procedure for constructing a semantic color-token system from scratch, OKLCH-first. Use it at the "build semantic tokens" step once a stance is chosen. If the stance maps to one of the five complete systems in `references/stances.md`, port that system's token block instead of rederiving one — this file is for the "derive fresh" case, or for building the chart/dark-mode layers any stance still needs.
+This file teaches the procedure for constructing a semantic color-token system from scratch, OKLCH-first. Use it at the "build semantic tokens" step once a stance is chosen. Every stance runs this file: the values are derived for the product at hand, from its ground, its meaning, and its energy. The worked derivations in `references/stances.md` are finished results of this procedure shown alongside the products they were derived for — evidence that the method produces a whole system, never a starting palette.
 
 ## Think in OKLCH
 
@@ -45,9 +45,11 @@ Do **not** start with a random purple/blue brand color and derive everything els
 
 The first palette decision is usually the relationship between the page ground and the “ink” color.
 
-### Warm-paper ground
+### Ground temperature warm × lightness light — warm-paper ground
 
 Use warm-paper neutrals when the product should feel editorial, crafted, filmic, archival, cultural, hospitality-oriented, human, tactile, or narrative-led. The warm hue is usually a low-chroma yellow-orange range, around `H 65–95`. Keep the chroma very low — the goal is not beige UI, it is a neutral with a perceptible material temperature.
+
+Warmth at high lightness lands inside the cream band `taste-calibration.md` flags — L 0.84–0.97, C below 0.06, hue 40–100 — so a ramp like the one below either carries a justification in `DESIGN.md` argued on this product's own grounds, or the warmth moves: to a mid-tone or dark ground, or out of the ground entirely and into the accent and the imagery. Warm at dark lightness is a first-class ground, not a consolation for having been refused the light one.
 
 ```css
 :root {
@@ -79,7 +81,7 @@ Map that ramp into implementation like this:
 
 The lightness steps are intentionally not uniform. The top end of a palette needs smaller jumps because people are more sensitive to small surface shifts in very light UI.
 
-### Cool-technical ground
+### Ground temperature cool × lightness light — cool-technical ground
 
 Use cool-technical neutrals when the product should feel operational, infrastructural, analytical, precise, scientific, data-dense, contemporary industrial, or high-trust. The hue generally sits in a very low-chroma blue/cyan range, around `H 220–250`.
 
@@ -101,9 +103,27 @@ Use cool-technical neutrals when the product should feel operational, infrastruc
 
 Do not make “cool technical” mean blue-gray everywhere. A technical palette does not need blue backgrounds everywhere — it needs controlled temperature, stable contrast, and enough low-chroma structure that charts, alerts, and selected states can do their jobs. A very chromatic blue-gray canvas becomes visually loud and competes with data. The background should support information, not become the strongest color on screen.
 
+### Neutral and brand-tinted grounds
+
+The other two temperature positions are quieter, and still derived rather than defaulted to. A **neutral** ground holds chroma at or near zero — `C ≤ 0.01` the whole way down the ramp — and is the right answer when the content supplies all the color the page has: a photo-led product, a chart-led one, anything where a tinted ground would compete with what it carries. A **brand-tinted** ground is the neutral ramp shifted toward the brand hue and capped at `C ≤ 0.04`, which is enough for the tint to register across a large surface and not enough for it to argue with the accent.
+
+Whichever position the ground takes, every neutral in one ramp stays inside a single hue family, within ±20°. A ramp whose hue drifts as it darkens reads as two systems photographed together, and the seam usually shows up first where a border meets a panel.
+
 ## Choosing the accent
 
 Choose the accent hue from the product’s meaning, not from a generic “brand color” reflex.
+
+### The accent's job
+
+Decide what the accent is *for* before deciding what color it is, and record the answer in `DESIGN.md`. An accent has one primary job:
+
+- **Status-only** — the accent appears where the system reports state, and actions are carried by neutrals, weight, and position instead.
+- **Directional** — the accent carries action, selection, and focus, and nothing else.
+- **Atmospheric** — the accent is the product's air: large fields, imagery, illustration, with actions differentiated some other way.
+
+A directional accent never doubles as warning, danger, or success. Once the same hue means both "press this" and "this failed", both meanings weaken, and the failure state is the one that loses.
+
+Name one hue that was weighed for the job and rejected, with the reason it lost. An accent with no rejected candidate is usually the category's reflex answer wearing the product's clothes — `taste-calibration.md` looks for exactly that tell.
 
 ### Product-to-accent heuristics
 
@@ -117,20 +137,20 @@ Choose the accent hue from the product’s meaning, not from a generic “brand 
 |Nature, ecology, climate|moss, lichen, water blue, soil/clay|Semantically connected without obvious “greenwashing”|
 |Music, media, creative tools|electric-but-controlled violet, indigo, vermilion|Supports energy and signal without making all surfaces neon|
 
-### Accent-chroma limits by stance
+### Accent-chroma ceilings by energy
 
 These are starting limits for UI — not rules for illustrations or campaign art.
 
-|Stance|Accent chroma range|Typical accent lightness|
+| Energy | Light ground: C ceiling / typical L | Dark ground: C ceiling / typical L |
 |---|---|---|
-|Precision industrial|`C 0.10–0.15`|`L 0.50–0.66`|
-|Institutional calm|`C 0.08–0.13`|`L 0.45–0.60`|
-|Quiet editorial|`C 0.10–0.16`|`L 0.45–0.62`|
-|Contemporary craft commerce|`C 0.10–0.17`|`L 0.48–0.65`|
-|Playful consumer|`C 0.14–0.22`|`L 0.55–0.72`|
-|Dark immersive/media|`C 0.15–0.25`|`L 0.62–0.78`|
+| quiet | ≤ 0.15 / 0.45–0.66 | ≤ 0.17 / 0.62–0.78 |
+| composed | ≤ 0.17 / 0.45–0.65 | ≤ 0.19 / 0.62–0.78 |
+| lively | ≤ 0.20 / 0.50–0.70 | ≤ 0.22 / 0.65–0.80 |
+| exuberant | ≤ 0.22 / 0.55–0.72 | ≤ 0.25 / 0.68–0.82 |
 
-The accent can be more chromatic in a playful consumer product because the product’s emotional register supports it. In an operational dashboard, the same chroma can make the interface feel alarmed or toy-like.
+The ceiling is a permission, not a target. An exuberant product can sit at `C 0.10` and take its character from shape, type, and motion instead — Apple's does. Energy never raises chroma by itself; it only says how far up the product is allowed to go.
+
+Two things pull the ceiling back down. Criticality of `consequential` lowers whatever the energy allowed, for any hue that carries state: where actions are irreversible, audited, financial, or safety-relevant, an accent that reads as alarm is a usability defect rather than a stylistic one. And coverage is a separate question from intensity — **color commitment** decides how much of the surface is chromatic at all: restrained is roughly 10% or less, committed 30–60%, full palette means three or four color roles each with a job it can be named by, and drenched means the color *is* the surface. Dense density forbids the last two outright; a dense screen has no surface left to spend. In an operational dashboard, the same chroma can make the interface feel alarmed or toy-like.
 
 ## Validation
 
@@ -233,7 +253,7 @@ Do not use the same colors for primary button, destructive action, success statu
 
 ## Worked example
 
-**Brief:** a desktop-first project dashboard for a small film-production studio tracking shoots, budgets, crew, and delivery deadlines — calm, editorial, operational, not generic enterprise SaaS. Stance: quiet editorial operations (warm paper ground, deep ink text, cinematic green-black primary, clay/orange accent, hairline warm-gray structure, no bright-blue SaaS defaults, no shadows on ordinary panels).
+**Brief:** a desktop-first project dashboard for a small film-production studio tracking shoots, budgets, crew, and delivery deadlines — calm, editorial, operational, not generic enterprise SaaS. Stance: density standard; criticality transactional; energy composed; type characterful serif; material printed; color commitment restrained; accent job directional; ground warm, light — in this product's own terms, quiet editorial operations (warm paper ground, deep ink text, cinematic green-black primary, clay/orange accent, hairline warm-gray structure, no bright-blue SaaS defaults, no shadows on ordinary panels).
 
 Neutral ramp (warm paper, `H ≈ 78`):
 

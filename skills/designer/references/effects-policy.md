@@ -1,6 +1,6 @@
 # Effects policy
 
-This file governs the "craft pass" step of the workflow, alongside `references/motion.md` — add material effects (blur, glass, grain, glow, gradient, organic shape, displacement) only where they earn their place, in the same pass where motion is added, once a page's layout, tokens, and content are already in place. Material effects are earned when they clarify a product's spatial model, reinforce its brand/material world, or make interaction easier to understand. They are arbitrary when they merely add perceived sophistication to an otherwise ordinary layout.
+This file governs the "craft pass" step of the workflow, alongside `references/motion.md` — add material effects (blur, glass, grain, glow, gradient, organic shape, displacement) only where they earn their place, in the same pass where motion is added, once a page's layout, tokens, and content are already in place. What those surfaces are made of is not decided here: the material model — printed, tonal, elevated, or glass over planes — was committed at stance time, in the parse step, and `references/material.md` owns that axis. The craft pass works inside that decision. An effect is added within a material model; it is never used to change one. Material effects are earned when they clarify a product's spatial model, reinforce its brand/material world, or make interaction easier to understand. They are arbitrary when they merely add perceived sophistication to an otherwise ordinary layout.
 
 A useful test is:
 
@@ -64,6 +64,8 @@ Less suitable use cases:
 - Dashboards where the "background" is simply gray app chrome
 
 Glass is not earned merely because a card can be made translucent.
+
+Glass as a page's material model is a stance-level decision, taken in the parse step and recorded in `DESIGN.md` — `references/material.md` owns that axis. Once it is the committed model, there are two implementation paths: vitrea where the stack can host an ES module, and CSS glass, the recipe below, where it cannot. `material.md` carries the contract for the first, the split between the accessibility preferences a runtime resolves and the contrast the author still owes, and what is actually true per browser engine. Read it before building either. The rules on this page govern the other question — whether the effect is earned at all, and how much of the page may carry it.
 
 ### Shippable CSS: restrained frosted surface
 
@@ -439,7 +441,7 @@ Do not use it for ordinary cards, forms, tables, or navigation. It can be expens
 
 True refraction means sampling what sits behind a surface and re-reading it at an offset — a per-pixel operation against a live texture. That belongs in WebGL, or a canvas pass for a cheap static case, where the frame cost, the sampling resolution, and the fallback are all explicit and controllable. Do not approximate it with a filter chain: a filter distorts the element's own pixels rather than the ground behind it, its cost stays invisible until the interface stutters, and it degrades to nothing rather than to something.
 
-Treat a real material — liquid glass and its relatives — as a dedicated layer rather than a style rule: one localized, `aria-hidden` surface, behind a capability and reduced-motion check, sitting on top of a page that is already finished without it. Building that layer is outside this skill's scope. Committing to the effect without a fallback that stands on its own is what this policy forbids.
+Treat a real material — liquid glass and its relatives — as a dedicated layer rather than a style rule: one localized surface, behind a capability and reduced-motion check, sitting on top of a page that is already finished without it. The controls it decorates stay real DOM. A glass button is a `<button>` — focusable, IME-capable, announced as a button — and the material is painted around the element you wrote; only the painted canvases themselves are inert. The implementation path is `references/material.md`: vitrea when the stack can host an ES module, the CSS recipe below when it cannot. Committing to the effect without a fallback that stands on its own is what this policy forbids.
 
 ### The shippable default: CSS glass, not true refraction
 
@@ -472,7 +474,7 @@ Anything that simulates a physical material rather than styling a surface — re
 Three constraints hold regardless of what renders it:
 
 - **One material moment per screen.** A simulated material is a signature, and a page carrying two of them has neither.
-- **The fallback is the design.** Build the CSS surface first and make it good on its own. The material layer is an addition to a finished page, and it disappears under reduced motion, reduced transparency, high contrast, or a missing GPU context.
+- **The fallback is the design.** Build the CSS surface first and make it good on its own. The material layer is an addition to a finished page, and under user preferences and missing capabilities it does not vanish — it resolves to a lesser tier. Reduced transparency adds frost and occlusion and cuts refraction; increased contrast strengthens borders and quiets the tint; a missing GPU context resolves to the CSS tier; only forced colors removes glass entirely. So the CSS surface is not a degraded copy of the design, it is the design, and it has to hold up looked at directly. With vitrea the runtime resolves that tier per group and reports which one drew, so which tier a user got is a fact to read rather than an assumption to make.
 - **It never carries information.** State, hierarchy, and affordance are read from layout, type, and color. A material can make a surface feel like a particular thing; it can never be the only place a user learns something.
 
 ## Worked contrasts

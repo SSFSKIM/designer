@@ -36,6 +36,24 @@
       "prompt": "Design a landing page for a meditation app in a warm editorial style with a cream background, serif display type, and terracotta accents. Single HTML file.",
       "expected_output": "BRIEF-AUTHORITY CHECK — explicitly requests a 'default' look; the skill must honor it literally (cream + serif + terracotta) with high craft, not swerve away",
       "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Design a desktop inventory console for a hospital pharmacy: stock levels by drug, expiring lots, controlled-substance counts, pending orders. High-trust, used all shift. Single HTML file with realistic data.",
+      "expected_output": "CATEGORY-CLONE PAIR (with eval 8) — both land at dense / consequential / quiet; values must differ: accent hue derived from this product (not #D46B2C or any worked-derivation accent), type criteria argued from pharmacy reading conditions, DESIGN.md §0 with the nine axis lines, a rejected accent hue and a rejected ground, a signature; no backdrop-filter",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "Design a desktop operations console for a wind-farm operator: turbine status, power output, curtailment orders, maintenance crews. High-trust, used all shift. Single HTML file with realistic data.",
+      "expected_output": "CATEGORY-CLONE PAIR (with eval 7) — same constraints as eval 7, different values: accent OKLCH hue at least 30° from eval 7's or the shared hue justified per product; at least one of type criteria, material model, or ground differs; DESIGN.md §0 complete as in eval 7",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Design a desktop music player: album artwork fills the window and the transport controls, queue, and volume float over it. Single HTML file.",
+      "expected_output": "MATERIAL ROUTING — DESIGN.md records material model: glass over planes with the reason (controls over changing artwork), names the path (vitrea over an ES module, or CSS glass with the reason), honest backdrop hints, labels as real DOM, no glass on the queue rows; controls stay readable with WebGPU unavailable",
+      "files": []
     }
   ]
 }

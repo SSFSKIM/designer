@@ -100,7 +100,7 @@ Sources: ive-interviews.md, bauhaus-functionalist-texts.md, ive-rams-foreword.md
 
 ## 4. Home token system
 
-The persona's default starting system — one worked instantiation of Part 3's laws, not the laws themselves. What carries the law is the structure: the category inventory (same as `references/stances.md`'s complete systems — color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion), the single accent role, the two-weight ramp, the hairline borders. Consult Part 5's derivation rules before building: the accent hue and the ground's temperature must always be consciously derived for the product at hand; every other value below is a home default, derivable too whenever the product gives real reason to depart from it, in keeping with Part 5's general rule that a fresh standard is derived for each product rather than carried over unexamined from this one.
+The persona's default starting system — one worked instantiation of Part 3's laws, not the laws themselves. What carries the law is the structure: the category inventory (same as `references/stances.md`'s worked derivations — color roles, radius scale, border system, shadow tiers, spacing scale, type ramp, motion), the single accent role, the two-weight ramp, the hairline borders. Consult Part 5's derivation rules before building: the accent hue and the ground's temperature must always be consciously derived for the product at hand; every other value below is a home default, derivable too whenever the product gives real reason to depart from it, in keeping with Part 5's general rule that a fresh standard is derived for each product rather than carried over unexamined from this one.
 
 ```css
 /* THE ESSENTIALIST

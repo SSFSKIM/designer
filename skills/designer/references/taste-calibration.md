@@ -55,6 +55,8 @@ Match-and-refuse: catching any of these mid-build means stopping and restructuri
 
 Run this check across two levels of depth; the deeper one only matters once the shallower one is already handled.
 
+First, the thing this check does not catch. Category legitimately predicts an *axis position*: a dispatch tool is dense and quiet, a gallery site is spacious and composed, and that is the brief being read correctly rather than a reflex firing. Forcing a playful register onto an operations console to avoid looking derivative is its own failure, not a fix for this one. The reflex is category predicting *values* — which orange, which grotesque, which cream. Both checks below test values, never positions.
+
 **First-order.** If the palette and theme are predictable from nothing but the product's category (a wellness app landing on sage and cream, a fintech product landing on navy and gold), that's the first training-data reflex firing. Rework the color strategy and the physical-scene sentence below until the category by itself no longer predicts the answer.
 
 **Second-order.** A second reflex sits one level past the first. Even after dodging the obvious category default, the aesthetic family itself can still be predictable once you also know what was being dodged: an AI workflow tool avoiding SaaS-cream lands on editorial-typographic anyway, a fintech product avoiding navy-and-gold lands on terminal-dark anyway. Clearing the first reflex doesn't clear this one; it just pushes the reflex down a level. Rework again until the combination of category and anti-reference no longer gives the aesthetic family away.
@@ -67,13 +69,13 @@ Work in two passes before any UI code gets written.
 
 **Pass one: plan.** Draft a compact token plan: named colors as four to six hex values, the type roles in play (a display face used with restraint, a body face, an optional utility or mono face), and a layout concept sketched in a sentence or two plus a rough wireframe. Name the signature element in this same pass: the one thing this build will be remembered by.
 
-**Pass two: self-review, then build.** Hold the plan against the brief and ask whether this exact plan would come out the same for any similar brief. Where any piece looks like the answer this category always gets rather than a choice earned by this specific brief, revise it, and note what changed and why. Only once the plan survives that question should the actual UI code get written, following the revised plan rather than drifting from it partway through the build.
+**Pass two: self-review, then build.** Hold the plan against the brief and ask whether this exact plan would come out the same for any similar brief. Same axis position is fine; same values is the failure. Where any piece looks like the answer this category always gets rather than a choice earned by this specific brief, revise it, and note what changed and why. Only once the plan survives that question should the actual UI code get written, following the revised plan rather than drifting from it partway through the build.
 
 **The signature element.** Spend the one real risk in exactly one place (the memorable thing the design is built around), and hold everything surrounding it quiet and disciplined. A page that takes ten risks reads as noisy; a page that takes none reads as safe. One risk, spent well, earns the attention the rest of the page doesn't ask for.
 
 **Dark vs. light, decided by scene, not by default.** Neither is the safe choice. Before picking, write one sentence describing the actual physical scene: who is looking at this, in what place, under what light, in what frame of mind. If that sentence still leaves the choice open, it hasn't earned its keep yet: keep sharpening the scene, with more specific people and places and light, until the answer becomes the obvious one.
 
-**Color-strategy axis.** Pick a commitment level before picking any colors:
+**Color-strategy axis** — the `color commitment` axis in `references/stances.md`. Pick a commitment level before picking any colors:
 
 - **Restrained**: tinted neutrals with a single accent that stays modest, roughly a tenth of the surface or less. Where most quiet product UI belongs by default.
 - **Committed**: one saturated color owns a real share of the surface, somewhere between 30 and 60 percent. What a page built around a strong identity reaches for.

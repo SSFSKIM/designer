@@ -1,6 +1,6 @@
 # Typography
 
-This file teaches how to choose, pair, and scale typefaces for a semantic type-token system. Use it at the "build semantic tokens" step alongside `references/color-engineering.md` — that file derives the color tokens from a chosen stance, this one derives the type tokens: which faces to draw from, how a pairing is derived (with ten worked examples), which faces and pairings read as overused AI defaults, the operational scales to size and weight them at, the case-behavior rules that keep uppercase a structural signal rather than a default text style, and how many families a project actually needs.
+This file teaches how to choose, pair, and scale typefaces for a semantic type-token system. Use it at the "build semantic tokens" step alongside `references/color-engineering.md` — that file derives the color tokens from a chosen stance, this one derives the type tokens: which faces to draw from, how a pairing is derived (with ten worked examples), which faces and pairings read as overused AI defaults, the scales by density to size and weight them at, the case-behavior rules that keep uppercase a structural signal rather than a default text style, and how many families a project actually needs. The **type** coordinate of a stance records a class (neutral sans, characterful serif, characterful display, or mono-as-display), a tradition, and *criteria* — never a family name; families are chosen here, at derivation, under the derive-first rule below.
 
 ## Selection order
 
@@ -11,13 +11,38 @@ Do not assume there is one universal bundled font library. Select fonts in this 
 3. **Google Fonts** — the normal fallback for self-contained web UI work in this environment.
 4. **System fallbacks** — always defined after the preferred family.
 
+## What the stance records
+
+The **type** coordinate is not a font list. It records three things, and `DESIGN.md` §0 carries all three.
+
+**The class.** One of four:
+
+- **Neutral sans** — the face does its work without being noticed: forms, controls, dense data, sustained interface text.
+- **Characterful serif** — a serif with an opinion, carrying both reading and headline weight: editorial, institutional, and research surfaces.
+- **Characterful display** — a face used only large, where the product's voice needs a shape of its own.
+- **Mono-as-display** — a monospace promoted out of the data role into headings, for products whose world is genuinely technical.
+
+**The tradition.** One of the thirteen in `scripts/ingredients.json` — neo-grotesque, humanist sans, geometric sans, old-style serif, transitional serif, Didone, slab, script, and the rest. A tradition is a lineage, not a family.
+
+**The criteria.** What the face has to do, written so that several families could satisfy it: x-height, terminal character, width, weight range, numeral style (tabular or lining), whether optical sizes are needed, and whether a display face is licensed for this project at all.
+
+The rules those criteria are written under:
+
+- **Display class sits inside energy.** At quiet: grotesque, humanist, geometric, slab, transitional. At lively and above: any tradition, Didone and script included — for display only.
+- **Script and display faces never set body or UI text.**
+- **The UI face is a sans** — or a humanist serif when the product is built for reading.
+- **Mono only where a tabular role exists**: values, IDs, timestamps, codes, measurements. Never as technical flavour.
+- **At dense, text at 12px and below takes positive tracking.**
+
+The reason the stance stores criteria and not names is that a stored name is a fingerprint: the same three families on every product in a category is exactly the clone `references/qa-protocol.md` looks for.
+
 ## The curated library
 
 For a new project without an existing font system, draw from a deliberately curated set rather than picking random Google Fonts.
 
 ### Display serif / editorial serif
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Newsreader**|Editorial products, culture, research, hospitality, quiet premium brands|Literary, warm, contemporary editorial|
 |**Fraunces**|Craft commerce, food, beauty, expressive premium consumer work|Tactile, playful, materially rich|
@@ -30,7 +55,7 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ### Humanist and readable UI sans
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Source Sans 3**|Institutional systems, forms, content-heavy UI, civic products|Clear, calm, durable|
 |**Public Sans**|Governmental, public-interest, operational, trustworthy products|Neutral, civic, highly functional|
@@ -43,7 +68,7 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ### Grotesk / neo-grotesk / rational sans
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Archivo**|Operational tools, data products, technical and industrial systems|Condensed energy, functional precision|
 |**Archivo Narrow**|Metrics, data headers, compact utility labeling|Industrial, compact|
@@ -56,7 +81,7 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ### Geometric sans
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Outfit**|Youth-oriented consumer products and direct mobile UI|Crisp, optimistic|
 |**Plus Jakarta Sans**|Contemporary consumer/product systems|Clean, rounded without becoming childish|
@@ -68,7 +93,7 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ### Expressive display sans
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Bricolage Grotesque**|Playful consumer, creative tools, energetic campaigns|Expressive, contemporary|
 |**Unbounded**|Selective futuristic, music, gaming, experimental work|Technical, graphic, bold|
@@ -79,7 +104,7 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ### Slab serif / utility serif
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Roboto Slab**|Education, documentation, trustworthy systems|Practical, stable|
 |**Bitter**|Publishing, reading, editorial information density|Bookish, robust on screen|
@@ -89,7 +114,7 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ### Mono
 
-|Typeface|What I use it for|Register|
+|Typeface|What I use it for|Character|
 |---|---|---|
 |**Geist Mono**|Modern data labels, IDs, timestamps, developer-adjacent tools|Clean, restrained|
 |**DM Mono**|Editorial metadata, archive references, measured technical labels|Soft, intellectual|
@@ -102,19 +127,19 @@ For a new project without an existing font system, draw from a deliberately cura
 
 ## Ten worked pairings — method illustrations, not a menu
 
-These ten exist to demonstrate the derivation method — match the display face's register to the committed stance, pair on a contrast axis, give each family one job — not to be picked from. Ten rows cannot cover the stance space, and treating this section as a catalog collapses the sixty-face pool above into the same handful of faces on every project: a new monoculture indistinguishable from the defaults this file exists to break.
+These ten exist to demonstrate the derivation method — match the display face's character to the committed stance's energy, pair on a contrast axis, give each family one job — not to be picked from. Ten rows cannot cover the stance space, and treating this section as a catalog collapses the sixty-face pool above into the same handful of faces on every project: a new monoculture indistinguishable from the defaults this file exists to break.
 
 The binding order is derive first, compare second:
 
-1. **Derive first.** Start from your committed stance and the register tables above: pick the display face whose register carries the stance, then a UI face on a contrast axis, then a mono only if a real data role exists. Record the derivation in DESIGN.md.
+1. **Derive first.** Start from your committed stance and the character tables above: pick the display face whose character carries the energy and the type criteria, then a UI face on a contrast axis, then a mono only if a real data role exists. Record the derivation in DESIGN.md.
 2. **Compare second.** Only after deriving, check your result against these ten. Landing on a listed pairing independently is legitimate — but DESIGN.md must then carry the stance-specific reason, never "it is a known-strong pairing."
-3. **When in doubt, swap one slot.** If your derivation matches a listed pairing and the brief does not demand those exact faces, replace at least one family with a same-register neighbor from the tables above. The pool is deep; a pairing this file has never printed is usually available one row away.
+3. **When in doubt, swap one slot.** If your derivation matches a listed pairing and the brief does not demand those exact faces, replace at least one family with a same-character neighbor from the tables above. The pool is deep; a pairing this file has never printed is usually available one row away.
 
 ### 1. Newsreader + Public Sans + DM Mono
 
 |Field|Value|
 |---|---|
-|**Stance**|Quiet editorial, cultural institution, research platform, considered hospitality|
+|**Position**|composed · standard · printed · characterful serif — a cultural institution, a research platform, considered hospitality|
 |**Families**|Newsreader / Public Sans / DM Mono|
 |**Why it works**|Newsreader gives literary warmth without looking like a generic fashion-serif choice. Public Sans keeps controls and body copy extremely clear. DM Mono gives metadata, dates, archive IDs, or issue numbers a deliberate structural role.|
 |**Use**|Large headlines in Newsreader; all UI in Public Sans; only metadata/data in DM Mono.|
@@ -123,7 +148,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Contemporary craft commerce, food, fragrance, hospitality, small-batch retail|
+|**Position**|composed · standard · elevated media over tonal · characterful serif — food, fragrance, hospitality, small-batch retail|
 |**Families**|Fraunces / Albert Sans / Azeret Mono|
 |**Why it works**|Fraunces brings material richness and controlled personality. Albert Sans keeps commerce UI elegant and readable. Azeret Mono gives SKU, quantity, origin, batch, or product-spec metadata an unusual but restrained voice.|
 |**Use**|Fraunces for hero/product storytelling; Albert Sans for shopping UI; Azeret Mono for product facts only.|
@@ -132,7 +157,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Precision industrial, logistics, analytics, operational dashboard|
+|**Position**|quiet · dense · tonal · neutral sans — logistics, analytics, an operational dashboard|
 |**Families**|Archivo / Manrope / Geist Mono|
 |**Why it works**|Archivo has compact, durable display energy; Manrope keeps dense controls comfortable; Geist Mono makes values, dates, IDs, and measurements scan cleanly.|
 |**Use**|Archivo for section headers and key metrics; Manrope for UI and body; Geist Mono for data.|
@@ -141,7 +166,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Institutional calm, education, healthcare, civic service, legal or public-interest products|
+|**Position**|quiet · standard · tonal · characterful serif — education, healthcare, civic service, legal or public-interest products|
 |**Families**|Source Serif 4 / Source Sans 3 / Roboto Mono|
 |**Why it works**|The families have compatible proportions and an established, trustworthy tone. The serif supports longer reading and formal headings; the sans delivers durable interface clarity.|
 |**Use**|Serif for key headings and reading moments; sans for nearly all interface elements; mono only for reference numbers, dates, and structured data.|
@@ -150,7 +175,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Playful consumer, habit tracking, youth products, social or wellness tools|
+|**Position**|lively · standard · elevated · characterful display — habit tracking, youth products, social or wellness tools|
 |**Families**|Bricolage Grotesque / DM Sans|
 |**Why it works**|Bricolage creates a lively, recognisable display voice without needing stickers, blobs, or excessive color. DM Sans is friendly and functional at small mobile sizes.|
 |**Use**|Bricolage for key prompts, completion moments, statistics, and onboarding; DM Sans for navigation, forms, and all sustained reading.|
@@ -159,7 +184,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Contemporary gallery, fashion, design studio, portfolio, culture-led product|
+|**Position**|composed · spacious · printed · neutral sans with a serif companion — a gallery, fashion, a design studio, a portfolio|
 |**Families**|Instrument Sans / Newsreader|
 |**Why it works**|Instrument Sans is crisp and current; Newsreader adds a quieter literary counterpoint. The contrast feels more deliberate than a standard “serif headline + Inter body” combination.|
 |**Use**|Instrument Sans for UI and compact headers; Newsreader for large editorial statements, case-study titles, or selected pull quotes.|
@@ -168,7 +193,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Transit, industrial operations, sports data, transport, manufacturing|
+|**Position**|quiet · dense · tonal · neutral sans with a condensed display — transit, industrial operations, sports data, manufacturing|
 |**Families**|Barlow / Barlow Condensed / IBM Plex Mono|
 |**Why it works**|This is a tightly related utility system. Barlow provides an accessible working UI, Barlow Condensed increases density in metrics and timetable-like areas, and Plex Mono makes technical identifiers distinct.|
 |**Use**|Barlow for standard UI; Barlow Condensed for big metric values and compact headers; mono for serials, schedule data, and IDs.|
@@ -177,7 +202,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Journal, long-form reading product, archival catalogue, knowledge platform|
+|**Position**|composed · spacious · printed · characterful serif — a journal, a long-form reading product, an archival catalogue|
 |**Families**|Literata / Work Sans / DM Mono|
 |**Why it works**|Literata is optimized for reading and works well for intellectual content. Work Sans remains stable at small UI sizes. DM Mono turns references and metadata into a calm system rather than visual clutter.|
 |**Use**|Literata for articles and primary titles; Work Sans for interface/navigation; mono for citations, issue references, and timestamps.|
@@ -186,7 +211,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Friendly digital consumer, mobile-first utility, lifestyle product, simple onboarding|
+|**Position**|lively · standard · elevated · neutral sans, geometric — a friendly consumer utility, a lifestyle product, simple onboarding|
 |**Families**|Outfit / Figtree|
 |**Why it works**|Both are open and contemporary, but Outfit is more display-forward while Figtree handles interface text naturally. It is clean and optimistic without feeling like a default productivity app.|
 |**Use**|Outfit for hero prompts and numeric summaries; Figtree for all standard UI and body copy.|
@@ -195,7 +220,7 @@ The binding order is derive first, compare second:
 
 |Field|Value|
 |---|---|
-|**Stance**|Premium financial planning, private client portal, boutique consultancy, refined B2B|
+|**Position**|quiet · standard · tonal · characterful serif — financial planning, a private-client portal, a boutique consultancy, refined B2B|
 |**Families**|DM Serif Display / Commissioner / Geist Mono|
 |**Why it works**|DM Serif Display provides selective gravitas; Commissioner is formal without being sterile; Geist Mono gives financial values and dates a precise utility layer.|
 |**Use**|Use the serif sparingly and at large sizes. Commissioner must carry the actual application. Mono is for amounts, dates, document IDs, and structured values.|
@@ -215,7 +240,7 @@ These are not banned. They become a problem when used without a reason.
 |**Syne**|Commonly used as a fast route to “creative agency” or “experimental brand” styling.|
 |**Cormorant Garamond**|Repeatedly used to imply luxury, fashion, or editorial refinement, often without a typographic rationale.|
 |**Bebas Neue**|A common shortcut for impact and loudness; it can flatten hierarchy and become poster-template-like.|
-|**Playfair Display**|Often used for “premium feminine” styling without enough specificity. It is valid when the editorial/fashion register is actually appropriate.|
+|**Playfair Display**|Often used for “premium feminine” styling without enough specificity. It is valid when the editorial/fashion character is actually appropriate.|
 |**Poppins**|Can create a generic friendly-app look when used indiscriminately.|
 |**Montserrat**|Widely used, often associated with generic marketing-site typography.|
 |**Raleway**|Still usable in selective display roles, but often reads as template-era startup or agency typography.|
@@ -239,11 +264,13 @@ These are not banned. They become a problem when used without a reason.
 
 Do not reject a face because it is popular. Reject it when it is being used as a substitute for art direction.
 
-## Operational scales
+## Scales by density
 
-### Dense operational tool
+### Dense (worked instantiation: an operations tool)
 
 This is the kind of scale to ship for a desktop-first operational tool with tables, alerts, activity logs, filters, key metrics, and compact navigation.
+
+These families are this instantiation's derivation, not a menu — derive yours from the criteria and the curated library.
 
 #### Families
 
@@ -287,6 +314,7 @@ This is the kind of scale to ship for a desktop-first operational tool with tabl
 - Use UI sans for all ordinary controls, table text, buttons, filters, navigation, and descriptions.
 - Use mono only for values where fixed-width or technical structure improves scanning: dates, timestamps, IDs, duration, percentages, equipment codes, or live readings.
 - Keep body text at `14px` minimum for dense desktop UI unless there is a strong reason to use `13px`.
+- Density owns geometry and spacing: it permits body at `13–14px` when there is a stated reason, but it never shrinks type silently.
 - Avoid all-caps headings. Use uppercase only for short structural labels.
 - Use tabular numerals when supported for financial values, measures, and data tables.
 
@@ -297,9 +325,15 @@ This is the kind of scale to ship for a desktop-first operational tool with tabl
 }
 ```
 
-### Editorial landing page
+### Standard
+
+Standard density is a real position, not the absence of a decision: body at `15–16px`, a scale ratio of about `1.2–1.25`, two families (display plus UI), controls at `36–40px`. Interpolate between the two scales on either side of this one rather than inventing a third, and record in `DESIGN.md` which end the product leans toward — a standard-density product is always nearer the dense scale or nearer the spacious one, and naming which is what stops the scale from averaging into nothing.
+
+### Spacious (worked instantiation: an editorial landing page)
 
 This is the kind of scale to ship for a desktop-first landing page with a strong hero, selective image use, narrative sections, and spacious pacing.
+
+These families are this instantiation's derivation, not a menu — derive yours from the criteria and the curated library.
 
 #### Families
 
@@ -452,8 +486,8 @@ Do not shrink ordinary uppercase labels below `10px`. If there is not enough spa
 
 Normally, use:
 
-- **One family** for a dense operational product, sometimes plus mono.
-- **Two families** for most landing pages: display + UI sans.
-- **Three families** only when there is a real metadata/data role: display + UI sans + mono.
+- **Dense** — one family, plus a mono where a real tabular role exists.
+- **Standard** — two families: display + UI sans.
+- **Spacious, or any density with a real metadata/data role** — up to three: display + UI sans + mono.
 
 Do not add a third family just because “three fonts feels more designed.”
