@@ -2430,6 +2430,26 @@ export function cssTintFormAt(
 }
 
 /**
+ * The tint form a whole group reports, folded from the forms its surfaces drew.
+ *
+ * The form is decided per surface, at that surface's own composite level, so two
+ * hosts of one group whose interiors straddle the boundary legitimately draw
+ * different forms. The group's resolved state has one field for all of them, and
+ * the rule for it is the one `planCssTierShadow` uses for the shadow carrier:
+ * report the WEAKEST member. `encoded` is weaker than `linear` — it is the form
+ * that keeps the whole tint in the page's own space rather than carrying the
+ * exact remainder as a table — so a group with one encoded surface reports
+ * `encoded`, and the readout never claims a precision some surface of the group
+ * did not draw.
+ */
+export function weakestCssTintForm(
+  recorded: "linear" | "encoded" | undefined,
+  declared: "linear" | "encoded",
+): "linear" | "encoded" {
+  return recorded === "encoded" || declared === "encoded" ? "encoded" : "linear";
+}
+
+/**
  * The remainder the sharp layer's filter carries under an encoded overlay at the
  * floor alpha, sampled as an `feComponentTransfer` table (Decision Log 4 (a)).
  *
