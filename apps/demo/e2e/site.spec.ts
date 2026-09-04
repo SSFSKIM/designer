@@ -901,9 +901,39 @@ test.describe("the outer shadow is on screen", () => {
     await showSection(page, "material");
 
     for (const testId of ["untinted-plate", "tinted-plate"]) {
-      const shadow = await page
-        .getByTestId(testId)
-        .evaluate((element) => getComputedStyle(element).boxShadow);
+      /*
+       * WHERE the shadow is painted moved in W18 G1 and what it is did not. The
+       * tier drew it on the host until then, and the host's filter layers are the
+       * host's own children — so every surface blurred its own shadow into its own
+       * body. It now rides one of three carriers: the host's overlay layer, the
+       * group's last-painted host where a group has more than one member, or the
+       * host itself where the page's own `overflow` clips the layers away. So this
+       * asks the surface for its shadow rather than asking one element for its
+       * `box-shadow`, and the assertions below — black, downward, blur over offset
+       * — are unchanged, because the shadow is unchanged.
+       */
+      const shadow = await page.getByTestId(testId).evaluate((element) => {
+        const outer = (value: string): string | undefined =>
+          value
+            .split(/,(?![^(]*\))/)
+            .map((part) => part.trim())
+            // `inset` is serialised LAST by the engines, not first, so the rim is
+            // recognised by containing the keyword rather than by leading with it.
+            .find((part) => part !== "none" && part !== "" && !part.includes("inset"));
+        const nodeId = element.getAttribute("data-vitrea-node");
+        const candidates = [
+          element,
+          ...element.querySelectorAll('[data-vitrea-css-layer="overlay"]'),
+          ...(nodeId === null
+            ? []
+            : document.querySelectorAll(`[data-vitrea-css-shadow="${nodeId}"]`)),
+        ];
+        for (const candidate of candidates) {
+          const found = outer(getComputedStyle(candidate).boxShadow);
+          if (found !== undefined) return found;
+        }
+        return "none";
+      });
 
       // Pure black, and that is the mechanism rather than a palette choice: a
       // black layer composited source-over IS a multiply, and only a black one is.

@@ -1192,6 +1192,90 @@ export function cssShadowBlurRadius(sigmaPx: number): number {
 }
 
 /**
+ * What one outer shadow does to a `backdrop-filter`'s SAMPLED page, where the
+ * carriers of `css-tier-shadow.ts` cannot take it out of one — the derived bound
+ * on this tier's remaining self-sampling (W18 G0 §6, claims §5.77 §6).
+ *
+ * A `backdrop-filter`'s backdrop is everything painted below the element over the
+ * region its kernel needs, and a `box-shadow` of pure black composites
+ * source-over, which is a multiply. So the page a tier's filter reads is the page
+ * it would have read multiplied, in the encoded space a browser composites in, by
+ * one factor per shadow standing in that page:
+ *
+ *     E(P) = E(B) · Π_j (1 − a_j · C_j)
+ *
+ * with `a_j` the alpha `cssTierShadowAlpha` resolved for host j and `C_j` this
+ * function: the coverage of host j's shadow at a point, which is the same
+ * Gaussian CDF `outerShadowFalloff` mirrors, evaluated on the signed distance to
+ * that host's border box grown by `spreadPx` and displaced by `offsetPx` down,
+ * and zero inside the casting host's own border box because a `box-shadow` is not
+ * painted there. Every number in it is the profile's; nothing is fitted, and this
+ * tier evaluates it to BOUND what it still samples rather than to paint anything.
+ *
+ * **What G0 measured it to be worth.** Against the tier's own captures the form
+ * is exact to at most 0.0014 on every surface with no close neighbour and to
+ * 0.0004 on three circles at a non-merging gap of 40, at both scales; at the
+ * declared spacing of 12 it under-predicts by +0.0024 to +0.0062 per surface,
+ * which is Chromium's paint order for three sibling stacking contexts and is the
+ * part carrier B removes rather than models. Two situations are left for it to
+ * bound after W18 G1: a neighbour OUTSIDE the group standing within the shadow's
+ * reach of a member, which no carrier reaches because the two hosts share no
+ * group; and a host whose `overflow` clips its children, which keeps its shadow
+ * on the host (`GlassGroupState.cssShadow: "host"`).
+ *
+ * ## The remainder the carriers leave, carried as a bound (W18 Decision Log 3 (2))
+ *
+ * With the shadow out of the sampled backdrop the tier is not on the renderer's
+ * level, and what is left is the box-limited filter INPUT rather than anything
+ * this function describes: the renderer samples the real backdrop with 24 px of
+ * padding, while a `backdrop-filter` reads the element's own border-box snapshot
+ * with `edgeMode="mirror"`, and on a 44 px box a heavy component at σ ≈ 13.8 CSS
+ * px covers the box in both extents so the mirror decides most of the result. The
+ * spread names it: over the 1x checkerboard the tier keeps 0.278 of the backdrop's
+ * own standard deviation on a 44 × 44 box and 0.280 on a 120 × 44 one, where the
+ * renderer keeps 0.306 and 0.277 and Apple's own material sits on the renderer's
+ * side of that (claims §5.77 §6, `probe/readings.md`).
+ *
+ * **It is a bound and not a derivation, and no coefficient is fitted for it.** The
+ * step from a spread difference to a level difference is not one number — on the
+ * 1x checkerboard circle a spread deficit of −0.0142 accompanies −0.0062 of level,
+ * on the 1x photo circle −0.0048 accompanies −0.0069, and on the 1x photo capsule
+ * −0.0082 accompanies **+0.0011**. What is carried, per box and per device ratio,
+ * is the measurement (`g1/g1-precheck.md` §2a):
+ *
+ *  - at dpr 1, −0.0015…−0.0020 on a 120 × 44 box over structure, −0.0044…−0.0069
+ *    on a 44 × 44 (−0.0103 on the one photo patch whose own level is 0.15 above
+ *    its siblings'), and +0.0016…+0.0026 over a solid, where the mirror is exact;
+ *  - at dpr 2, within ±0.002 on the photo and up to +0.0076 on the checkerboard
+ *    capsule — the same family with its sign flipped, which is what puts
+ *    `checkerboard__capsule-button` at 2x over W17's 0.01 cross-tier clause.
+ *
+ * Closing it needs the filter to read a backdrop wider than the element's own box,
+ * which no CSS construction offers without a copy of the backdrop — and a copy is a
+ * proxy, which this tier's demotability rests on building none of (claims §5.71 §6).
+ */
+export function sampledOuterShadowFactor(input: {
+  readonly shadow: MaterialSourceOuterShadow;
+  readonly alpha: number;
+  /**
+   * The signed distance, in CSS px, from the point to the caster's SHADOW box —
+   * its border box grown by `spreadPx` and displaced down by `offsetPx` —
+   * positive outside. The caster's geometry is the caller's because a rounded
+   * rectangle's distance field belongs to the surface, not to the material.
+   */
+  readonly signedDistanceToShadowBoxPx: number;
+  /** Whether the point lies inside the CASTING host's own border box. */
+  readonly insideCaster: boolean;
+}): number {
+  if (input.insideCaster) return 1;
+  return (
+    1 -
+    clamp01(input.alpha) *
+      outerShadowFalloff(input.signedDistanceToShadowBoxPx, input.shadow.sigmaPx)
+  );
+}
+
+/**
  * The outer shadow's peak occlusion at this thickness — the mirror of the
  * renderer's `sizeOuterShadowOcclusionAt`. Exactly the identity at the shipped
  * gain of 0.

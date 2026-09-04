@@ -67,17 +67,27 @@ import {
   type StyleDeclarations,
 } from "./css-tier";
 import {
+  applyCssTierGroupShadow,
   applyCssTierLayers,
   createCssTierFilterDefs,
+  createCssTierGroupShadow,
   createCssTierLayers,
   createCssTierMaskCache,
+  destroyCssTierGroupShadow,
   destroyCssTierLayers,
   ensureCssTierContainingBlock,
   filteredAreaDevicePx,
   referenceFilterSpecs,
   type CssTierFilterSpec,
+  type CssTierGroupShadow,
   type CssTierLayers,
 } from "./css-tier-layers";
+import {
+  cssTierGroupShadowDeclarations,
+  planCssTierShadow,
+  type CssTierShadowCarrier,
+  type CssTierShadowCast,
+} from "./css-tier-shadow";
 import {
   consoleDiagnosticSink,
   createPlatformDiagnosticsChannel,
@@ -113,6 +123,7 @@ import {
   boundedForegroundLevel,
   CSS_TIER_MAPPING,
   cssOpticsFromSource,
+  cssShadowBlurRadius,
   cssTierOptics,
   gpuTierForegroundBounds,
   gpuTierForegroundLevel,
@@ -156,6 +167,7 @@ import { createGlassLayerManager, type GlassLayerManager, type PlaneLayers } fro
 import { resolveSamplingGeometry } from "./proxy-geometry";
 import { createTintParser, resolveTintDeclaration } from "./tint";
 import {
+  clipsContentOf,
   describeEngineDefect,
   describeProbeFailure,
   probeGroup,
@@ -544,7 +556,38 @@ interface HostRecord {
    * that tier byte-identical.
    */
   cssLayers: CssTierLayers | undefined;
+  /**
+   * Carrier B's container and its one caster per member, on the group's
+   * last-painted host and on no other (W18 G1).
+   *
+   * Undefined on every other host, and on this one whenever the group falls back
+   * to a per-surface carrier — a container left behind would paint a group's
+   * shadows twice, since carrier A draws them again on each member's L3.
+   */
+  cssGroupShadow: CssTierGroupShadow | undefined;
+  /**
+   * Whether this host's own computed `overflow` clips its children, or undefined
+   * while nobody has asked (W18 G1).
+   *
+   * A computed-style read, so it is taken once per host and cached rather than
+   * per frame: the zero-read steady state is a guarantee of this package, and the
+   * answer only changes when application CSS does. The same `MutationObserver`
+   * that re-audits the probe and drops the geometry clip chains drops this, for
+   * the identical reason — an app can add an `overflow` at any time and neither a
+   * `ResizeObserver` nor anything else reports it.
+   */
+  cssClipsChildren: boolean | undefined;
 }
+
+/**
+ * `Node.DOCUMENT_POSITION_PRECEDING`, by value.
+ *
+ * The constant is on the `Node` interface object, and this module is compiled and
+ * unit-tested against environments that give it a `window` without one. The bit
+ * is fixed by the DOM standard, so naming it here is a spelling and not an
+ * assumption (W18 G1).
+ */
+const DOCUMENT_POSITION_PRECEDING = 2;
 
 /** A thrown value, said out loud. Anything can be thrown; only `Error` explains itself. */
 const describeError = (error: unknown): string =>
@@ -578,11 +621,13 @@ const nextRootOrdinal = (): number => {
 const withCssBody = (
   cssBody: "two-layer" | "collapsed" | undefined,
   cssTint: "linear" | "encoded" | undefined,
+  cssShadow: CssTierShadowCarrier | undefined,
   state: GlassGroupState,
 ): GlassGroupState => ({
   ...state,
   ...(cssBody === undefined ? {} : { cssBody }),
   ...(cssTint === undefined ? {} : { cssTint }),
+  ...(cssShadow === undefined ? {} : { cssShadow }),
 });
 
 export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
@@ -668,6 +713,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * legitimately draw different forms on one page.
    */
   const cssTintForms = new Map<string, "linear" | "encoded">();
+  /**
+   * Which shadow carrier each CSS-tier group resolved this frame (W18 G1). Per
+   * group, because the decision is about the group's members and their paint
+   * order and there is no per-surface answer to it that a consumer could read.
+   */
+  const cssShadowForms = new Map<string, CssTierShadowCarrier>();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -1189,8 +1240,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // the one function every consumer of the state goes through.
     const cssBody = cssBodyForms.get(groupId);
     const cssTint = cssTintForms.get(groupId);
+    const cssShadow = cssShadowForms.get(groupId);
 
-    return withCssBody(cssBody, cssTint, resolveGlassGroupState(
+    return withCssBody(cssBody, cssTint, cssShadow, resolveGlassGroupState(
       groupCapabilityInputs(
         source.descriptor.kind === "texture"
           ? {
@@ -1250,6 +1302,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      * re-walked the next time a host is measured for a reason of its own.
      */
     geometry.invalidateClipChains();
+    /*
+     * And the shadow carrier's own reading of a host's `overflow` (W18 G1), which
+     * asks the same question the clip chain does about a different element — the
+     * host itself rather than its ancestors. Dropped rather than re-read: the next
+     * frame that paints this host reads it again, and a page whose CSS churns pays
+     * one style read per host per churn instead of one per frame.
+     */
+    for (const record of hosts.values()) record.cssClipsChildren = undefined;
   });
   styleObserver.observe(view.document.documentElement, {
     attributes: true,
@@ -1372,6 +1432,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // cells — carries the form the surfaces below are about to draw.
     cssBodyForms.clear();
     cssTintForms.clear();
+    cssShadowForms.clear();
     for (const groupId of cssTierGroups) {
       cssBodyForms.set(groupId, cssTierCollapsed ? "collapsed" : "two-layer");
     }
@@ -1405,6 +1466,56 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
       const planesMeasured = new Set(measured.map((entry) => entry.record.plane));
       if (planesMeasured.size > 0) auditablePlanes.set(groupId, planesMeasured);
+
+      /*
+       * Where this group's outer shadows are painted, decided before any surface
+       * writes one (W18 G1; charter Decision Log 2 (1)).
+       *
+       * The order is **document** order and not `record.order`. The latter is the
+       * plane's z sequence, which the GPU tier's sandwich sorts by; the quantity
+       * this decision needs is which host the browser paints last, and for hosts
+       * that are positioned with `z-index: auto` — which is what the tier leaves
+       * them as — that is tree order. Only the last-painted host can carry a
+       * shadow that every member's filters are already behind.
+       *
+       * The carrier is resolved on the MEASURED members and no others, because
+       * those are exactly the surfaces this frame writes declarations for: a
+       * member with no box yet paints nothing at all, so counting it would name a
+       * host that is not painting last as the one that is. The clipping read is
+       * cached per host and invalidated with the probe's.
+       */
+      const ordered =
+        state.activeRenderer === "css"
+          ? measured
+              .map((entry) => entry.record)
+              .sort((a, b) =>
+                a.host === b.host
+                  ? 0
+                  : (a.host.compareDocumentPosition(b.host) & DOCUMENT_POSITION_PRECEDING) !== 0
+                    ? 1
+                    : -1,
+              )
+          : [];
+      for (const record of ordered) {
+        if (record.cssClipsChildren !== undefined) continue;
+        const computed = view.getComputedStyle(record.host);
+        record.cssClipsChildren =
+          clipsContentOf((property) => computed.getPropertyValue(property)) !== undefined;
+      }
+      const shadowPlan = planCssTierShadow(
+        ordered.map((record) => ({
+          nodeId: record.nodeId,
+          clipsChildren: record.cssClipsChildren === true,
+        })),
+      );
+      const shadowCarriers = new Map<string, CssTierShadowCarrier>(shadowPlan.members);
+      if (state.activeRenderer === "css" && ordered.length > 0) {
+        cssShadowForms.set(groupId, shadowPlan.carrier);
+      }
+      /** One caster per member, filled by the member loop from each surface's own render. */
+      const shadowCasts: CssTierShadowCast[] = [];
+      /** The hosting member's border width, which frames the container the way L3 is framed. */
+      let shadowHostBorderWidth = 0;
 
       /*
        * What this group's backdrop is, for backdrop tone adaptation (W7) —
@@ -1894,6 +2005,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // one place.
           interior,
           ...(authorLayer === undefined ? {} : { authorLayer }),
+          // Which element paints this surface's outer shadow, decided for the
+          // whole group above (W18 G1). A GPU-tier group resolves no plan, and
+          // this branch is only read where the CSS tier draws.
+          shadowCarrier: shadowCarriers.get(record.nodeId) ?? "layer",
         });
         if (state.activeRenderer === "css") {
           const geometry = {
@@ -1912,6 +2027,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           if (declarations.body.tintForm !== undefined) {
             cssTintForms.set(groupId, declarations.body.tintForm);
           }
+          // The shadow this surface resolved, kept for the group's carrier to
+          // paint from (W18 G1). Collected on every carrier and used only by
+          // carrier B, so the container's value is the surface's own rather than
+          // a second derivation of the profile's numbers beside it.
+          shadowCasts.push({
+            nodeId: record.nodeId,
+            bounds,
+            radii: record.radii,
+            shadow: declarations.outerShadow,
+          });
+          if (record.nodeId === shadowPlan.groupHostNodeId) {
+            shadowHostBorderWidth = nodeOptics.borderWidth;
+          }
           /*
            * Forced colors is a different surface rather than a dimmer material,
            * so the tier draws no layers there and any it had are taken down: a
@@ -1921,6 +2049,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             if (record.cssLayers !== undefined) {
               destroyCssTierLayers(record.host, record.cssLayers);
               record.cssLayers = undefined;
+            }
+            // The group's shadows go with them: forced colors is a different
+            // surface, not a dimmer material, and it casts no glass shadow.
+            if (record.cssGroupShadow !== undefined) {
+              destroyCssTierGroupShadow(record.cssGroupShadow);
+              record.cssGroupShadow = undefined;
             }
           } else {
             record.cssLayers ??= createCssTierLayers(record.host);
@@ -1992,6 +2126,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             record.cssLayers = undefined;
             record.cssMaterialized = false;
           }
+          if (record.cssGroupShadow !== undefined) {
+            destroyCssTierGroupShadow(record.cssGroupShadow);
+            record.cssGroupShadow = undefined;
+          }
 
           /*
            * The GPU tier's foreground (Decision Log #32(b)).
@@ -2054,6 +2192,60 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             record.gpuForegroundApplied = serialisedInk;
           }
         }
+      }
+
+      /*
+       * Carrier B, written once the whole group's surfaces have resolved their
+       * own shadows (W18 G1; charter Decision Log 2 (1)).
+       *
+       * It has to be here rather than inside the member loop for the reason the
+       * carrier exists at all: the container carries EVERY member's shadow, so it
+       * cannot be written until every member has said what its shadow is. The
+       * casters are ordered by the plan, which is document order, so the group's
+       * own paint order is what the container reproduces.
+       *
+       * The container goes up and comes down on the plan alone. A group that
+       * loses a member, a host that starts clipping, or the tier stepping aside
+       * each take it away — and leaving it up would paint a group's shadows twice
+       * over, since the per-surface carrier draws them again on each member's L3.
+       */
+      const shadowHost = ordered.find((record) => record.nodeId === shadowPlan.groupHostNodeId);
+      const carriedCasts =
+        shadowPlan.carrier === "group" && shadowHost !== undefined
+          ? shadowPlan.members
+              .map(([nodeId]) => shadowCasts.find((cast) => cast.nodeId === nodeId))
+              .filter((cast): cast is CssTierShadowCast => cast !== undefined)
+          : [];
+      if (shadowHost !== undefined && carriedCasts.length === shadowPlan.members.length) {
+        const groupShadow = cssTierGroupShadowDeclarations({
+          hostBounds: (carriedCasts.find((cast) => cast.nodeId === shadowHost.nodeId) as
+            | CssTierShadowCast
+            | undefined)?.bounds ?? { x: 0, y: 0, width: 0, height: 0 },
+          hostBorderWidthCssPx: shadowHostBorderWidth,
+          casts: carriedCasts,
+          // How far outside a member's box its own shadow can reach: the blur's
+          // whole radius (twice σ, CSS Backgrounds 3's convention, which
+          // `cssShadowBlurRadius` is the reconciliation of), plus the spread it is
+          // grown by and the offset it is displaced down. The clip's outer
+          // rectangle only has to contain the shadows, so the sum is used rather
+          // than a per-side derivation of it.
+          reachCssPx:
+            cssShadowBlurRadius(outerShadowConstants.sigmaPx) +
+            outerShadowConstants.spreadPx +
+            Math.abs(outerShadowConstants.offsetPx),
+        });
+        const serialisedShadow = JSON.stringify(groupShadow);
+        shadowHost.cssGroupShadow ??= createCssTierGroupShadow(shadowHost.host);
+        if (shadowHost.cssGroupShadow.applied !== serialisedShadow) {
+          applyCssTierGroupShadow(shadowHost.cssGroupShadow, groupShadow);
+          shadowHost.cssGroupShadow.applied = serialisedShadow;
+        }
+      }
+      for (const record of members) {
+        if (record.cssGroupShadow === undefined) continue;
+        if (record === shadowHost && carriedCasts.length === shadowPlan.members.length) continue;
+        destroyCssTierGroupShadow(record.cssGroupShadow);
+        record.cssGroupShadow = undefined;
       }
     }
 
@@ -2327,6 +2519,8 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         ownedTransform: undefined,
         onPlaneChange: hostOptions.onPlaneChange,
         cssMaterialized: false,
+        cssGroupShadow: undefined,
+        cssClipsChildren: undefined,
         cssApplied: undefined,
         gpuForegroundApplied: undefined,
         cssLayers: undefined,
@@ -2523,6 +2717,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             destroyCssTierLayers(record.host, record.cssLayers);
             record.cssLayers = undefined;
           }
+          if (record.cssGroupShadow !== undefined) {
+            destroyCssTierGroupShadow(record.cssGroupShadow);
+            record.cssGroupShadow = undefined;
+          }
           if (record.gpuForegroundApplied !== undefined) {
             clearDeclarations(
               record.host,
@@ -2625,6 +2823,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // children of application elements this root does not own, so they have to
       // be taken off them explicitly rather than dying with the plane roots.
       for (const record of hosts.values()) {
+        if (record.cssGroupShadow !== undefined) {
+          destroyCssTierGroupShadow(record.cssGroupShadow);
+          record.cssGroupShadow = undefined;
+        }
         if (record.cssLayers === undefined) continue;
         destroyCssTierLayers(record.host, record.cssLayers);
         record.cssLayers = undefined;

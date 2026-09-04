@@ -34,8 +34,8 @@
  * inert, because a filtered parent is a backdrop root — which is why both layers
  * have to be children of a filter-free host rather than the host keeping one.
  *
- * So the host keeps its geometry, its outer shadow and the five tokens, and
- * gains three children, each `position: absolute` over the host's border box
+ * So the host keeps its geometry and the five tokens, and gains three children,
+ * each `position: absolute` over the host's border box
  * with `border-radius: inherit`, `pointer-events: none`, `aria-hidden` and a
  * negative `z-index` under a host that establishes a stacking context — which
  * paints them above the host's own background and border and below its in-flow
@@ -45,13 +45,32 @@
  *  - **L2**, the heavy `backdrop-filter`, its share carried by a raster
  *    `mask-image` drawn from the renderer's own k(u) where the engine is known
  *    to compose one, and by a flat `opacity` where it is not;
- *  - **L3**, the tint, the press glow and the rim — above both filters, because
- *    a tint *beneath* them is blurred by them and darkens a ring 0.010–0.015
- *    encoded deep over the first 4 CSS px (claims §5.71 §3).
+ *  - **L3**, the tint, the press glow, the rim and — since W18 G1 — the outer
+ *    shadow, above both filters, because anything the tier draws *beneath* them
+ *    is blurred by them: a tint there darkens a ring 0.010–0.015 encoded deep
+ *    over the first 4 CSS px (claims §5.71 §3), and a shadow there darkens the
+ *    whole body by 0.0032 to 0.0096 (claims §5.77 §3).
  *
  * None of the three is focusable, hit-testable or announced, and none is a
  * proxy. The DOM that carries them is `css-tier-layers.ts`; this file stays pure
  * and decides only what each of them says.
+ *
+ * ## Where the outer shadow is painted (W18 G1; charter Decision Log 2 (1))
+ *
+ * A `backdrop-filter`'s backdrop is everything painted below the element, over
+ * the region the kernel needs — so the shadow the tier drew on the host until W18
+ * sat inside its own body's blur, and inside its neighbours': a host is a
+ * stacking context, so a later host's backdrop contains every earlier host's
+ * subtree whole. Two carriers take it out, both decided in `css-tier-shadow.ts`
+ * and reported on `GlassGroupState.cssShadow`. **Carrier A** puts the shadow on
+ * L3, painted after the filters, which closes a surface's own share and needs no
+ * element; **carrier B**, where a group has more than one member, paints every
+ * member's shadow from one child per member inside the group's LAST-painted host
+ * — the only element that can be painted after every member's filters — clipped
+ * out of every member's body. **The fallback** is the host, for a host whose own
+ * `overflow` clips its children and would crop a shadow on L3 away; there the
+ * shadow stays sampled and `sampledOuterShadowFactor` in `optics.ts` is the bound
+ * on what that costs.
  *
  * **This file holds no optical number of its own** (corrective K5). Every one it
  * paints with arrives on `surface.optics`, which `optics.ts` derives from the
@@ -101,6 +120,10 @@ import {
   type Rgb255,
 } from "./optics";
 import { accessibilityRefractionCap } from "./refraction";
+
+import type { CssTierShadowCarrier } from "./css-tier-shadow";
+
+export type { CssTierShadowCarrier };
 
 /**
  * The least tint this tier draws on the shipped profile — `MATERIAL_OPTICS.clear`'s
@@ -265,6 +288,19 @@ export interface CssTierRender {
   readonly host: StyleDeclarations;
   readonly layers?: Readonly<Record<CssTierLayer, StyleDeclarations>>;
   readonly body: CssTierBody;
+  /**
+   * The outer shadow this surface resolved, as a `box-shadow` value — the same
+   * string the carrier above wrote, or `"none"` where the profile declines the
+   * facet (W18 G1).
+   *
+   * It is reported rather than only written because carrier B paints a member's
+   * shadow from a DIFFERENT element than the one this render describes: the
+   * group's last-painted host holds one child per member, and that child has to
+   * carry this member's own value. Handing back the resolved string is what keeps
+   * the amplitude, the offset, the spread and the blur derived once here instead
+   * of a second time beside the container.
+   */
+  readonly outerShadow: string;
 }
 
 /**
@@ -429,6 +465,19 @@ export interface CssTierSurface {
     readonly color: Rgb255;
     readonly strength: number;
   };
+  /**
+   * Which element carries this surface's outer shadow (W18 G1; charter Decision
+   * Log 2 (1)). See `css-tier-shadow.ts` for the mechanism and the three values.
+   *
+   * `"layer"` is the default because it is the carrier every surface can have:
+   * the shadow joins L3's `box-shadow` list and a surface's own filters, which
+   * paint before L3, stop sampling it. `"host"` is the fallback a clipping host
+   * forces and is what this tier drew everywhere before W18. `"group"` says the
+   * group's last-painted member is painting this surface's shadow instead, so
+   * neither the host nor L3 writes one — but the resolved value still comes back
+   * on `CssTierRender.outerShadow` for that member to use.
+   */
+  readonly shadowCarrier?: CssTierShadowCarrier;
 }
 
 /**
@@ -864,6 +913,18 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     surface.spanPx ?? 0,
     sizeK,
   );
+  /*
+   * The resolved shadow, and which element paints it (W18 G1).
+   *
+   * The value is derived once here on every carrier, because it is the material's
+   * and not the element's: carrier B hands it to the group's last-painted member
+   * and carrier A to L3, and a second derivation beside either of them would be a
+   * second copy of the profile's own numbers. The default carrier is `layer` —
+   * the one every surface can have — so a caller that says nothing gets the
+   * shadow out of its own sampled backdrop.
+   */
+  const shadow = outerShadowDeclaration(shadowSource, shadowAlpha);
+  const shadowCarrier: CssTierShadowCarrier = surface.shadowCarrier ?? "layer";
   const radius = surface.radii.map(px).join(" ");
 
   // forced-colors: "system colors, borders, no glass" (§Accessibility). Nothing
@@ -908,6 +969,7 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
         flatShare: 0,
         projectedSigmaCssPx: 0,
       },
+      outerShadow: "none",
     };
   }
 
@@ -1082,16 +1144,26 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
      * inert over a black backdrop, as the reference is, and no branch here
      * arranges that — see `MaterialSourceOuterShadow`.
      *
-     * It stays on the HOST: it paints outside the border box and below the
-     * background, and the created layers — clipped to their own boxes — never
-     * cover it.
+     * **It no longer stays on the HOST, and that is W18 G1** (charter Decision
+     * Log 2 (1)). It paints outside the border box, but the host's three filter
+     * layers are the host's own children and are painted after it, and Chromium
+     * samples a `backdrop-filter`'s backdrop over the region its kernel needs —
+     * so a shadow on the host is inside its own body's blur, worth 0.0032 to
+     * 0.0096 of this tier's interior level where the renderer moves by 0.00000
+     * (claims §5.77 §3). The carriers that take it out of that backdrop are in
+     * `css-tier-shadow.ts`; here the host writes the shadow only where the page
+     * forces the fallback — a host whose `overflow` clips its children would crop
+     * a shadow on L3 to the padding box, which is no shadow rather than a dimmer
+     * one — and writes `none` otherwise, every frame, so a surface that changes
+     * carrier does not leave the other one's value behind.
      *
      * `cssShadowBlurRadius` is where the two blur conventions meet: this property
      * takes twice the Gaussian's σ, while `filter: blur()` above takes σ itself.
      */
-    "box-shadow": outerShadowDeclaration(shadowSource, shadowAlpha),
-    // A transition is declared on the element that carries the property, so the
-    // host keeps only the outer shadow's.
+    "box-shadow": shadowCarrier === "host" ? shadow : "none",
+    // A transition is declared on the element that carries the property, and the
+    // host keeps the outer shadow's on every carrier: it is the property this
+    // element writes, whether at its value or at `none`, and L3 declares its own.
     transition: transitionFor(policy, ["box-shadow"]),
     "--vitrea-tint": tint,
     "--vitrea-occlusion": String(Math.round(optics.tintAlpha * 1000) / 1000),
@@ -1115,9 +1187,16 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
     layers: {
       sharp: sharpLayerDeclarations(body, optics, prefix, policy, transfer),
       heavy: heavyLayerDeclarations(body, optics.borderWidth, prefix, policy),
-      overlay: overlayLayerDeclarations(optics, overlayTint, border, policy),
+      overlay: overlayLayerDeclarations(
+        optics,
+        overlayTint,
+        border,
+        policy,
+        shadowCarrier === "layer" ? shadow : "none",
+      ),
     },
     body: { ...body, tintForm, ...(transfer === undefined ? {} : { tintTransfer: transfer }) },
+    outerShadow: shadow,
   };
 }
 
@@ -1151,6 +1230,12 @@ const SIGMA_QUANTUM_CSS_PX = 0.005;
  * padding box is what the author asked for; the alternative would be vitrea
  * overriding an author's `overflow`, which is a layout property this package does
  * not own.
+ *
+ * Since W18 G1 that clip decides one more thing, and it is why the carrier is a
+ * decision rather than a rule: a shadow on L3 under such a host is cropped to the
+ * padding box, which is not a thinner shadow but no shadow at all. So a clipping
+ * host keeps its shadow on the host, keeps sampling it, and says so
+ * (`GlassGroupState.cssShadow: "host"`).
  */
 function layerFrame(borderWidth: number, zIndex: number): StyleDeclarations {
   return {
@@ -1254,13 +1339,32 @@ function heavyLayerDeclarations(
  * because the host's own border paints below these layers and would be covered.
  * An inset shadow follows `border-radius` exactly, which a redrawn border on an
  * inset box would not.
+ *
+ * **And, since W18 G1, the OUTER shadow too, on carrier A** (charter Decision Log
+ * 2 (1)). It rides here for the same reason the tint does — this layer is painted
+ * after both filters, so nothing the tier draws on it is sampled by the body it
+ * sits on. The two shadows share one property and need no arithmetic between
+ * them: `layerFrame` insets this layer by the border width from the host's
+ * padding box, so its border box IS the host's border box, and the outer shadow's
+ * caster box and corner radius are therefore the host's own with no spread or
+ * radius correction. The inset rim is written first so the list reads from the
+ * inside out; an inset and an outset shadow occupy disjoint regions, so the order
+ * is legibility rather than compositing.
  */
 function overlayLayerDeclarations(
   optics: MaterialOptics,
   tint: string,
   border: string,
   policy: ResolvedAccessibilityPolicy,
+  outerShadow: string,
 ): StyleDeclarations {
+  const rim =
+    optics.borderWidth > 0 && optics.borderAlpha > 0
+      ? `inset 0 0 0 ${px(optics.borderWidth)} ${border}`
+      : undefined;
+  const shadows = [rim, outerShadow === "none" ? undefined : outerShadow].filter(
+    (value): value is string => value !== undefined,
+  );
   return {
     ...layerFrame(optics.borderWidth, -1),
     // The tint is the contrast floor: it is here whether or not the blur lands,
@@ -1270,10 +1374,7 @@ function overlayLayerDeclarations(
     // A profile is entitled to switch the illumination off, and a zero gain is
     // then a layer that paints nothing every frame rather than an absent one.
     "background-image": optics.glowGain > 0 ? pressGlowLayer(optics) : "none",
-    "box-shadow":
-      optics.borderWidth > 0 && optics.borderAlpha > 0
-        ? `inset 0 0 0 ${px(optics.borderWidth)} ${border}`
-        : "none",
+    "box-shadow": shadows.length === 0 ? "none" : shadows.join(", "),
     transition: transitionFor(policy, ["background-color", "box-shadow"]),
   };
 }
@@ -1435,9 +1536,11 @@ function outerShadowDeclaration(shadow: MaterialSourceOuterShadow, alpha: number
  * The transition for one element's own properties.
  *
  * A transition has to be declared on the element that carries the property, so
- * W16's three layers split what used to be one list on the host: the outer
- * shadow stays with the host, the two filters go to L1 and L2, and the tint and
- * the rim go to L3. The duration and the easing are still one decision — the
+ * W16's three layers split what used to be one list on the host: the two filters
+ * go to L1 and L2, and the tint, the rim and — since W18 G1 — the outer shadow go
+ * to L3. The host keeps a `box-shadow` transition of its own because it still
+ * writes that property on every carrier, at its value under the fallback and at
+ * `none` otherwise. The duration and the easing are still one decision — the
  * material morphs as one thing, whichever element happens to carry a term of it.
  */
 function transitionFor(

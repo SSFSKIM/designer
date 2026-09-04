@@ -1,7 +1,7 @@
 /**
- * The CSS tier's DOM — its three created layers, its raster ramp masks and its
+ * The CSS tier's DOM — its three created layers, its raster ramp masks, its
  * reference-filter definitions (W16 G1; charter Decision Log 2 (a)–(c),
- * claims §5.71).
+ * claims §5.71) and carrier B's group shadow container (W18 G1; claims §5.77).
  *
  * `css-tier.ts` decides what the tier draws and stays pure, so the accessibility
  * mapping, the element model and the second scale are all testable without a
@@ -36,10 +36,17 @@ import {
   type CssTierRender,
   type CssTierTintTransfer,
 } from "./css-tier";
+import type { CssTierGroupShadowDeclarations } from "./css-tier-shadow";
 import { cssTierTintTable } from "./optics";
 
 /** The attribute the layers are found and asserted by. */
 export const CSS_TIER_LAYER_ATTRIBUTE = "data-vitrea-css-layer";
+
+/** The container carrier B hangs on a group's last-painted host (W18 G1). */
+export const CSS_TIER_GROUP_SHADOW_ATTRIBUTE = "data-vitrea-css-group-shadow";
+
+/** One member's shadow inside that container; the value is the member's node id. */
+export const CSS_TIER_SHADOW_CASTER_ATTRIBUTE = "data-vitrea-css-shadow";
 
 export interface CssTierLayers {
   readonly elements: Readonly<Record<CssTierLayer, HTMLElement>>;
@@ -151,6 +158,83 @@ export function applyCssTierLayers(
   heavy.style.setProperty("mask-image", `url("${url}")`);
   heavy.style.setProperty("-webkit-mask-image", `url("${url}")`);
   layers.maskKey = key;
+}
+
+/**
+ * Carrier B's DOM: a group's every member shadow, hosted by the group's
+ * last-painted member (W18 G1; charter Decision Log 2 (1)).
+ *
+ * The container and its children are created the first time a group resolves
+ * carrier B and torn down the moment it stops — by the tier stepping aside, by the
+ * group losing a member, or by the hosting host starting to clip — for the same
+ * reason the three layers are: a host the WebGPU tier is drawing must carry no DOM
+ * that tier never asked for, and a stale shadow container would paint a shadow for
+ * a member that no longer exists.
+ *
+ * Everything about them is inert. `aria-hidden` and no tab stop keep them out of
+ * the accessibility tree, `pointer-events: none` out of the hit test, and absolute
+ * positioning out of layout — so the plane sandwich's four-layer array, the
+ * hit-test map's "no layer entries" and the one-focusable-element-per-surface rule
+ * are as untouched by them as by L1, L2 and L3.
+ */
+export interface CssTierGroupShadow {
+  readonly container: HTMLElement;
+  /** One caster per member, by node id, in the order the plan gave them. */
+  readonly casters: Map<string, HTMLElement>;
+  /** The declarations last written, serialised — the write cache. */
+  applied: string | undefined;
+}
+
+export function createCssTierGroupShadow(host: HTMLElement): CssTierGroupShadow {
+  const container = host.ownerDocument.createElement("div");
+  container.setAttribute(CSS_TIER_GROUP_SHADOW_ATTRIBUTE, "");
+  container.setAttribute("aria-hidden", "true");
+  host.append(container);
+  return { container, casters: new Map(), applied: undefined };
+}
+
+export function destroyCssTierGroupShadow(shadow: CssTierGroupShadow): void {
+  shadow.container.remove();
+  shadow.casters.clear();
+}
+
+/**
+ * Applies a resolved plan, creating and removing casters so the container holds
+ * exactly one per member.
+ *
+ * The casters are re-appended in the plan's order on every structural change
+ * rather than only when created: their order is the group's document order, an
+ * app can reorder its own hosts between frames, and two outer shadows over
+ * disjoint regions are order-independent only while the regions really are
+ * disjoint — which the even-odd clip guarantees for the bodies and not for the
+ * shadows' own overlap.
+ */
+export function applyCssTierGroupShadow(
+  shadow: CssTierGroupShadow,
+  declarations: CssTierGroupShadowDeclarations,
+): void {
+  for (const [property, value] of Object.entries(declarations.container)) {
+    shadow.container.style.setProperty(property, value);
+  }
+  const wanted = new Set(declarations.casters.map((caster) => caster.nodeId));
+  for (const [nodeId, element] of shadow.casters) {
+    if (wanted.has(nodeId)) continue;
+    element.remove();
+    shadow.casters.delete(nodeId);
+  }
+  for (const caster of declarations.casters) {
+    let element = shadow.casters.get(caster.nodeId);
+    if (element === undefined) {
+      element = shadow.container.ownerDocument.createElement("div");
+      element.setAttribute(CSS_TIER_SHADOW_CASTER_ATTRIBUTE, caster.nodeId);
+      element.setAttribute("aria-hidden", "true");
+      shadow.casters.set(caster.nodeId, element);
+    }
+    shadow.container.append(element);
+    for (const [property, value] of Object.entries(caster.style)) {
+      element.style.setProperty(property, value);
+    }
+  }
 }
 
 /** The surface the mask is drawn for, in CSS px and its own device ratio. */

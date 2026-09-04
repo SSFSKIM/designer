@@ -1,0 +1,218 @@
+## 1. CSS − GPU, whole component, declared region, linear luminance
+
+### dpr 1
+
+| scene | G0 default | G0 shadow declined | carrier A | A + B | closed form (predicted move) |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest` | -0.0005 | +0.0006 | +0.0006 | +0.0006 | +0.0026 |
+| `checkerboard__capsule-sm__rest` | -0.0077 | -0.0045 | -0.0046 | -0.0046 | +0.0031 |
+| `checkerboard__toolbar-group-wide__rest` | -0.0063 | -0.0031 | -0.0033 | -0.0032 | +0.0032 |
+| `checkerboard__toolbar-group__rest` | -0.0122 | -0.0026 | -0.0099 | -0.0028 | +0.0056 |
+| `photo__capsule-button__rest` | +0.0004 | +0.0011 | +0.0011 | +0.0011 | +0.0007 |
+| `photo__capsule-sm__rest` | -0.0063 | -0.0051 | -0.0053 | -0.0053 | +0.0007 |
+| `photo__toolbar-group-wide__rest` | -0.0101 | -0.0084 | -0.0086 | -0.0085 | +0.0010 |
+| `photo__toolbar-group__rest` | -0.0150 | -0.0086 | -0.0140 | -0.0087 | +0.0016 |
+| `light-solid__capsule-button__rest` | +0.0015 | +0.0026 | +0.0026 | +0.0026 | +0.0014 |
+| `light-solid__capsule-sm__rest` | -0.0029 | +0.0017 | +0.0016 | +0.0016 | +0.0017 |
+| `light-solid__toolbar-group-wide__rest` | -0.0031 | +0.0017 | +0.0016 | +0.0017 | +0.0017 |
+| `light-solid__toolbar-group__rest` | -0.0052 | +0.0017 | -0.0019 | +0.0016 | +0.0030 |
+
+### dpr 2
+
+| scene | G0 default | G0 shadow declined | carrier A | A + B | closed form (predicted move) |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest` | +0.0094 | +0.0101 | +0.0101 | +0.0101 | +0.0018 |
+| `checkerboard__capsule-sm__rest` | +0.0026 | +0.0045 | +0.0045 | +0.0045 | +0.0023 |
+| `checkerboard__toolbar-group-wide__rest` | +0.0022 | +0.0042 | +0.0041 | +0.0041 | +0.0023 |
+| `checkerboard__toolbar-group__rest` | -0.0040 | +0.0044 | -0.0026 | +0.0044 | +0.0045 |
+| `photo__capsule-button__rest` | +0.0015 | +0.0018 | +0.0018 | +0.0018 | +0.0005 |
+| `photo__capsule-sm__rest` | +0.0017 | +0.0024 | +0.0023 | +0.0023 | +0.0005 |
+| `photo__toolbar-group-wide__rest` | -0.0038 | -0.0028 | -0.0028 | -0.0028 | +0.0007 |
+| `photo__toolbar-group__rest` | -0.0101 | -0.0043 | -0.0096 | -0.0044 | +0.0013 |
+| `light-solid__capsule-button__rest` | +0.0022 | +0.0026 | +0.0025 | +0.0025 | +0.0010 |
+| `light-solid__capsule-sm__rest` | +0.0019 | +0.0028 | +0.0028 | +0.0028 | +0.0012 |
+| `light-solid__toolbar-group-wide__rest` | +0.0018 | +0.0028 | +0.0028 | +0.0028 | +0.0013 |
+| `light-solid__toolbar-group__rest` | -0.0006 | +0.0028 | -0.0000 | +0.0028 | +0.0025 |
+
+## 2. The remainder on the lone box, with both carriers: mean and spread per tier
+
+Declared component region. `keep` is the tier's interior standard deviation over the
+backdrop's own under the identical mask — how much of the backdrop's structure survives.
+
+| scene | dpr | GPU mean | CSS mean | Δ mean | GPU sd | CSS sd | Δ sd | GPU keep | CSS keep |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest` | 1 | 0.6783 | 0.6789 | +0.0006 | 0.1385 | 0.1399 | +0.0014 | 0.277 | 0.280 |
+| `checkerboard__capsule-sm__rest` | 1 | 0.6764 | 0.6718 | -0.0046 | 0.1531 | 0.1390 | -0.0142 | 0.306 | 0.278 |
+| `photo__capsule-button__rest` | 1 | 0.6178 | 0.6189 | +0.0011 | 0.0474 | 0.0392 | -0.0082 | 0.542 | 0.448 |
+| `photo__capsule-sm__rest` | 1 | 0.5871 | 0.5818 | -0.0053 | 0.0258 | 0.0211 | -0.0048 | 0.967 | 0.789 |
+| `light-solid__capsule-button__rest` | 1 | 0.9715 | 0.9741 | +0.0026 | 0.0076 | 0.0031 | -0.0045 | — | — |
+| `light-solid__capsule-sm__rest` | 1 | 0.9701 | 0.9717 | +0.0016 | 0.0072 | 0.0049 | -0.0023 | — | — |
+| `checkerboard__capsule-button__rest` | 2 | 0.6847 | 0.6948 | +0.0101 | 0.1439 | 0.1522 | +0.0083 | 0.288 | 0.304 |
+| `checkerboard__capsule-sm__rest` | 2 | 0.6822 | 0.6867 | +0.0045 | 0.1587 | 0.1493 | -0.0094 | 0.317 | 0.299 |
+| `photo__capsule-button__rest` | 2 | 0.6179 | 0.6198 | +0.0018 | 0.0519 | 0.0425 | -0.0094 | 0.588 | 0.481 |
+| `photo__capsule-sm__rest` | 2 | 0.5841 | 0.5864 | +0.0023 | 0.0263 | 0.0242 | -0.0021 | 0.994 | 0.913 |
+| `light-solid__capsule-button__rest` | 2 | 0.9716 | 0.9742 | +0.0025 | 0.0075 | 0.0028 | -0.0046 | — | — |
+| `light-solid__capsule-sm__rest` | 2 | 0.9702 | 0.9730 | +0.0028 | 0.0068 | 0.0045 | -0.0024 | — | — |
+
+## 3. The stack, with both carriers (S4's restated clause)
+
+| scene | dpr | part | GPU | CSS | CSS − GPU | px |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard__stack-base__rest` | 1 | whole | 0.6947 | 0.6952 | +0.0005 | 28100 |
+| `checkerboard__stack-over__rest` | 1 | whole | 0.6850 | 0.6897 | +0.0047 | 6508 |
+| `checkerboard__glass-over-glass__rest` | 1 | whole | 0.7127 | 0.7083 | -0.0044 | 28100 |
+| | 1 | base (overlay excluded) | 0.6593 | 0.6674 | +0.0081 | 21592 |
+| | 1 | overlay | 0.8899 | 0.8440 | -0.0459 | 6508 |
+| `photo__stack-base__rest` | 1 | whole | 0.6597 | 0.6549 | -0.0047 | 28100 |
+| `photo__stack-over__rest` | 1 | whole | 0.6208 | 0.6265 | +0.0057 | 6508 |
+| `photo__glass-over-glass__rest` | 1 | whole | 0.6861 | 0.6742 | -0.0118 | 28100 |
+| | 1 | base (overlay excluded) | 0.6295 | 0.6311 | +0.0016 | 21592 |
+| | 1 | overlay | 0.8739 | 0.8174 | -0.0565 | 6508 |
+| `checkerboard__stack-base__rest` | 2 | whole | 0.7013 | 0.7057 | +0.0045 | 112416 |
+| `checkerboard__stack-over__rest` | 2 | whole | 0.6920 | 0.7003 | +0.0083 | 26012 |
+| `checkerboard__glass-over-glass__rest` | 2 | whole | 0.7181 | 0.7168 | -0.0013 | 112416 |
+| | 2 | base (overlay excluded) | 0.6657 | 0.6765 | +0.0108 | 86404 |
+| | 2 | overlay | 0.8923 | 0.8510 | -0.0413 | 26012 |
+| `photo__stack-base__rest` | 2 | whole | 0.6602 | 0.6555 | -0.0048 | 112416 |
+| `photo__stack-over__rest` | 2 | whole | 0.6215 | 0.6267 | +0.0052 | 26012 |
+| `photo__glass-over-glass__rest` | 2 | whole | 0.6865 | 0.6739 | -0.0127 | 112416 |
+| | 2 | base (overlay excluded) | 0.6301 | 0.6307 | +0.0006 | 86404 |
+| | 2 | overlay | 0.8740 | 0.8172 | -0.0569 | 26012 |
+
+## 4. The canonical bed's light cells: the closed form's predicted move (S5)
+
+The move is `−shadowTermPredicted`, area-weighted over the cell's surfaces — what the
+cell's CSS − GPU rises by when the shadow leaves the sampled backdrop. The W17 bed's
+reading is beside it where the wave's Grounding Baseline records one.
+
+| cell | dpr | predicted move | W17 bed CSS − GPU | predicted after | leaves 0.01? |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__pressed` | 1 | +0.0026 | — | — |  |
+| `checkerboard__capsule-button__pressed` | 2 | +0.0018 | — | — |  |
+| `checkerboard__capsule-button__rest` | 1 | +0.0026 | -0.0005 | +0.0021 | no |
+| `checkerboard__capsule-button__rest` | 2 | +0.0018 | +0.0095 | +0.0113 | **yes** |
+| `checkerboard__capsule-button__rest-tint-blue` | 1 | +0.0026 | — | — |  |
+| `checkerboard__capsule-button__rest-tint-blue` | 2 | +0.0018 | — | — |  |
+| `checkerboard__capsule-button__rest-tint-orange` | 1 | +0.0026 | — | — |  |
+| `checkerboard__capsule-button__rest-tint-orange` | 2 | +0.0018 | — | — |  |
+| `checkerboard__glass-over-glass__rest` | 1 | +0.0065 | -0.0042 | +0.0023 | no |
+| `checkerboard__glass-over-glass__rest` | 2 | +0.0060 | -0.0012 | +0.0048 | no |
+| `checkerboard__rrect-lg__rest` | 1 | +0.0015 | — | — |  |
+| `checkerboard__rrect-lg__rest` | 2 | +0.0010 | — | — |  |
+| `checkerboard__rrect-md__pressed` | 1 | +0.0016 | — | — |  |
+| `checkerboard__rrect-md__pressed` | 2 | +0.0010 | — | — |  |
+| `checkerboard__rrect-md__rest` | 1 | +0.0016 | — | — |  |
+| `checkerboard__rrect-md__rest` | 2 | +0.0010 | — | — |  |
+| `checkerboard__rrect-ml__rest` | 1 | +0.0015 | — | — |  |
+| `checkerboard__rrect-ml__rest` | 2 | +0.0010 | — | — |  |
+| `checkerboard__rrect-sm__rest` | 1 | +0.0031 | — | — |  |
+| `checkerboard__rrect-sm__rest` | 2 | +0.0023 | — | — |  |
+| `checkerboard__toolbar-group__rest` | 1 | +0.0056 | -0.0122 | -0.0066 | no |
+| `checkerboard__toolbar-group__rest` | 2 | +0.0045 | -0.0040 | +0.0005 | no |
+| `hc-text__capsule-button__rest` | 1 | +0.0034 | — | — |  |
+| `hc-text__capsule-button__rest` | 2 | +0.0025 | — | — |  |
+| `hc-text__capsule-button__rest-tint-orange` | 1 | +0.0034 | — | — |  |
+| `hc-text__capsule-button__rest-tint-orange` | 2 | +0.0025 | — | — |  |
+| `hc-text__rrect-md__rest` | 1 | +0.0024 | — | — |  |
+| `hc-text__rrect-md__rest` | 2 | +0.0017 | — | — |  |
+| `impulse__capsule-button__rest` | 1 | +0.0000 | — | — |  |
+| `impulse__capsule-button__rest` | 2 | +0.0000 | — | — |  |
+| `impulse__capsule-button__rest-tint-orange` | 1 | +0.0000 | — | — |  |
+| `impulse__capsule-button__rest-tint-orange` | 2 | +0.0000 | — | — |  |
+| `impulse__rrect-md__rest` | 1 | +0.0000 | — | — |  |
+| `impulse__rrect-md__rest` | 2 | +0.0000 | — | — |  |
+| `light-solid__capsule-button__rest` | 1 | +0.0014 | — | — |  |
+| `light-solid__capsule-button__rest` | 2 | +0.0010 | — | — |  |
+| `light-solid__capsule-button__rest-tint-orange` | 1 | +0.0014 | — | — |  |
+| `light-solid__capsule-button__rest-tint-orange` | 2 | +0.0010 | — | — |  |
+| `light-solid__rrect-md__rest` | 1 | +0.0036 | — | — |  |
+| `light-solid__rrect-md__rest` | 2 | +0.0023 | — | — |  |
+| `light-solid__rrect-ml__rest` | 1 | +0.0034 | — | — |  |
+| `light-solid__rrect-ml__rest` | 2 | +0.0022 | — | — |  |
+| `mid-dark-solid__capsule-button__rest` | 1 | +0.0002 | — | — |  |
+| `mid-dark-solid__capsule-button__rest` | 2 | +0.0002 | — | — |  |
+| `photo__capsule-button__pressed` | 1 | +0.0007 | — | — |  |
+| `photo__capsule-button__pressed` | 2 | +0.0005 | — | — |  |
+| `photo__capsule-button__rest` | 1 | +0.0007 | +0.0005 | +0.0012 | no |
+| `photo__capsule-button__rest` | 2 | +0.0005 | +0.0016 | +0.0021 | no |
+| `photo__capsule-button__rest-tint-blue` | 1 | +0.0007 | — | — |  |
+| `photo__capsule-button__rest-tint-blue` | 2 | +0.0005 | — | — |  |
+| `photo__capsule-button__rest-tint-orange` | 1 | +0.0007 | — | — |  |
+| `photo__capsule-button__rest-tint-orange` | 2 | +0.0005 | — | — |  |
+| `photo__capsule-button__rest-tint-orange-half` | 1 | +0.0007 | — | — |  |
+| `photo__capsule-button__rest-tint-orange-half` | 2 | +0.0005 | — | — |  |
+| `photo__glass-over-glass__rest` | 1 | +0.0019 | -0.0119 | -0.0100 | no |
+| `photo__glass-over-glass__rest` | 2 | +0.0018 | -0.0126 | -0.0108 | **yes** |
+| `photo__rrect-lg__rest` | 1 | +0.0005 | — | — |  |
+| `photo__rrect-lg__rest` | 2 | +0.0003 | — | — |  |
+| `photo__rrect-lg__rest-tint-orange` | 1 | +0.0005 | — | — |  |
+| `photo__rrect-lg__rest-tint-orange` | 2 | +0.0003 | — | — |  |
+| `photo__rrect-md__pressed` | 1 | +0.0005 | — | — |  |
+| `photo__rrect-md__pressed` | 2 | +0.0003 | — | — |  |
+| `photo__rrect-md__rest` | 1 | +0.0005 | — | — |  |
+| `photo__rrect-md__rest` | 2 | +0.0003 | — | — |  |
+| `photo__rrect-md__rest-tint-orange` | 1 | +0.0005 | — | — |  |
+| `photo__rrect-md__rest-tint-orange` | 2 | +0.0003 | — | — |  |
+| `photo__rrect-ml__rest` | 1 | +0.0005 | — | — |  |
+| `photo__rrect-ml__rest` | 2 | +0.0003 | — | — |  |
+| `photo__rrect-sm__rest` | 1 | +0.0008 | — | — |  |
+| `photo__rrect-sm__rest` | 2 | +0.0006 | — | — |  |
+| `photo__toolbar-group__rest` | 1 | +0.0016 | -0.0150 | -0.0134 | **yes** |
+| `photo__toolbar-group__rest` | 2 | +0.0013 | -0.0101 | -0.0088 | no |
+
+## 5. S5's clause on the twins: measured move against the closed form's (bound 0.0015)
+
+| scene | dpr | measured move | closed form | miss | inside 0.0015 |
+| --- | --- | --- | --- | --- | --- |
+| `checkerboard__capsule-button__rest` | 1 | +0.0011 | +0.0026 | -0.0015 | yes |
+| `checkerboard__capsule-sm__rest` | 1 | +0.0031 | +0.0031 | -0.0000 | yes |
+| `checkerboard__toolbar-group-wide__rest` | 1 | +0.0031 | +0.0032 | -0.0000 | yes |
+| `checkerboard__toolbar-group__rest` | 1 | +0.0094 | +0.0056 | +0.0039 | **no** |
+| `photo__capsule-button__rest` | 1 | +0.0006 | +0.0007 | -0.0001 | yes |
+| `photo__capsule-sm__rest` | 1 | +0.0011 | +0.0007 | +0.0004 | yes |
+| `photo__toolbar-group-wide__rest` | 1 | +0.0016 | +0.0010 | +0.0005 | yes |
+| `photo__toolbar-group__rest` | 1 | +0.0063 | +0.0016 | +0.0047 | **no** |
+| `light-solid__capsule-button__rest` | 1 | +0.0010 | +0.0014 | -0.0004 | yes |
+| `light-solid__capsule-sm__rest` | 1 | +0.0045 | +0.0017 | +0.0029 | **no** |
+| `light-solid__toolbar-group-wide__rest` | 1 | +0.0048 | +0.0017 | +0.0030 | **no** |
+| `light-solid__toolbar-group__rest` | 1 | +0.0068 | +0.0030 | +0.0038 | **no** |
+| `checkerboard__capsule-button__rest` | 2 | +0.0007 | +0.0018 | -0.0011 | yes |
+| `checkerboard__capsule-sm__rest` | 2 | +0.0019 | +0.0023 | -0.0003 | yes |
+| `checkerboard__toolbar-group-wide__rest` | 2 | +0.0020 | +0.0023 | -0.0003 | yes |
+| `checkerboard__toolbar-group__rest` | 2 | +0.0084 | +0.0045 | +0.0038 | **no** |
+| `photo__capsule-button__rest` | 2 | +0.0003 | +0.0005 | -0.0002 | yes |
+| `photo__capsule-sm__rest` | 2 | +0.0007 | +0.0005 | +0.0002 | yes |
+| `photo__toolbar-group-wide__rest` | 2 | +0.0010 | +0.0007 | +0.0003 | yes |
+| `photo__toolbar-group__rest` | 2 | +0.0057 | +0.0013 | +0.0044 | **no** |
+| `light-solid__capsule-button__rest` | 2 | +0.0004 | +0.0010 | -0.0006 | yes |
+| `light-solid__capsule-sm__rest` | 2 | +0.0009 | +0.0012 | -0.0003 | yes |
+| `light-solid__toolbar-group-wide__rest` | 2 | +0.0010 | +0.0013 | -0.0003 | yes |
+| `light-solid__toolbar-group__rest` | 2 | +0.0034 | +0.0025 | +0.0009 | yes |
+
+## 6. The cost knee, W16 G0's harness, with and without carrier B (S8)
+
+Every surface is in a group of three, so every surface gets a caster and every third host
+a clipped container — the most carrier B can cost. The knee is the count at which the
+median leaves the display's 16.7 ms cadence.
+
+| form | dpr | n | median ms | p90 ms |
+| --- | --- | --- | --- | --- |
+| `two-mask` | 1 | 20 | 11.2 | 16.6 |
+| `two-mask` | 1 | 28 | 10.5 | 15.9 |
+| `two-mask` | 1 | 32 | 11.8 | 21.1 |
+| `two-mask` | 1 | 36 | 13.7 | 22.7 |
+| `two-mask` | 1 | 40 | 15.7 | 28.9 |
+| `two-mask` | 1 | 48 | 18.1 | 34.6 |
+| `two-mask-shadow` | 1 | 20 | 13.9 | 16.7 |
+| `two-mask-shadow` | 1 | 28 | 10.7 | 16.7 |
+| `two-mask-shadow` | 1 | 32 | 11.7 | 20.2 |
+| `two-mask-shadow` | 1 | 36 | 13.6 | 27.1 |
+| `two-mask-shadow` | 1 | 40 | 16.6 | 27.0 |
+| `two-mask-shadow` | 1 | 48 | 21.6 | 28.7 |
+| `two-mask` | 2 | 32 | 12.3 | 20.6 |
+| `two-mask` | 2 | 40 | 16.7 | 27.2 |
+| `two-mask` | 2 | 48 | 21.5 | 29.7 |
+| `two-mask-shadow` | 2 | 32 | 13.6 | 20.1 |
+| `two-mask-shadow` | 2 | 40 | 18.4 | 25.6 |
+| `two-mask-shadow` | 2 | 48 | 20.9 | 30.5 |
+

@@ -534,7 +534,10 @@ describe("the CSS tier (the fallback is the design)", () => {
       const rim = `rgba(${optics.border.join(", ")}, ${optics.borderAlpha.toFixed(3)})`;
       expect(host["border-color"]).toBe("transparent");
       expect(host["--vitrea-border-color"]).toBe(rim);
-      expect(overlay["box-shadow"]).toBe(
+      // The rim is L3's FIRST shadow; the outer shadow joins the same list
+      // behind it on the default carrier (W18 G1), so the rim is asserted as the
+      // head of the list rather than as the whole of it.
+      expect(overlay["box-shadow"]?.split(", 0 ")[0]).toBe(
         `inset 0 0 0 ${Math.round(optics.borderWidth * 100) / 100}px ${rim}`,
       );
       // The outer shadow (W8) is derived the same way: nothing in this file
@@ -544,15 +547,15 @@ describe("the CSS tier (the fallback is the design)", () => {
       // no backdrop, so it resolves the thin regime at the unmeasured-backdrop
       // fallback, which is the mid plateau.
       const occlusion = outerShadowThinOcclusion(undefined, shadow);
-      // The OUTER shadow stays on the host: it paints outside the border box and
-      // below the background, where the created layers — clipped to their own
-      // boxes — never cover it. The overlay's `box-shadow` above is the rim.
-      expect(host["box-shadow"]).toBe(
+      // The OUTER shadow is L3's second shadow since W18 G1, on the default
+      // carrier: painted after both filters, so a surface never samples it. The
+      // value is the material's and is reported on the render as well.
+      expect(render.outerShadow).toBe(
         `0 ${shadow.offsetPx}px ${2 * shadow.sigmaPx}px ${shadow.spreadPx}px ` +
           `rgba(0, 0, 0, ${Math.round(outerShadowAlpha(occlusion) * 1000) / 1000})`,
       );
       expect(
-        hostOf({
+        cssTierDeclarations({
           ...surface,
           outerShadow: {
             ...shadow,
@@ -563,7 +566,7 @@ describe("the CSS tier (the fallback is the design)", () => {
             thickOcclusionAt128: 0,
             thickOcclusionAt160: 0,
           },
-        })["box-shadow"],
+        }).outerShadow,
       ).toBe("none");
     });
 
@@ -1332,17 +1335,17 @@ describe("the size law reaches the CSS tier", () => {
  */
 describe("the outer shadow reaches the CSS tier", () => {
   /*
-   * The OUTER shadow is the host's, and stays the host's after W16 G1: it paints
-   * outside the border box and below the background, where the three created
-   * layers — each clipped to its own box — never cover it. The overlay layer has
-   * a `box-shadow` too and it is the rim, which is why these read the host by
-   * name rather than searching the render for a shadow.
+   * These pin the shadow the MATERIAL resolved, which is `CssTierRender`'s own
+   * field since W18 G1 and no longer a property of one element. The tier used to
+   * write it on the host, and the host's three filter layers are its children —
+   * so it sat inside its own body's `backdrop-filter` and its neighbours',
+   * costing 0.0032 to 0.0096 of this tier's interior level where the renderer
+   * moved by 0.00000 (claims §5.77 §3). It is now painted by one of three
+   * carriers, and WHICH element paints it is the subject of the block below;
+   * these read the resolved value so that the amplitude, the geometry and the
+   * conversions are pinned once, on every carrier at once.
    */
-  const shadowOf = (render: CssTierRender): string => {
-    const value = render.host["box-shadow"];
-    if (value === undefined) throw new Error("no box-shadow written");
-    return value;
-  };
+  const shadowOf = (render: CssTierRender): string => render.outerShadow;
   /** The alpha out of a `box-shadow: … rgba(0, 0, 0, α)` declaration. */
   const alphaOf = (render: CssTierRender): number => {
     const value = shadowOf(render);
@@ -1351,6 +1354,40 @@ describe("the outer shadow reaches the CSS tier", () => {
     if (match?.[1] === undefined) throw new Error(`unparsed box-shadow: ${value}`);
     return Number(match[1]);
   };
+
+  /*
+   * W18 G1's whole subject: WHICH element paints the shadow, and therefore
+   * whether the tier's own `backdrop-filter` samples it.
+   *
+   * The order inside a stacking context is the element's own background and
+   * border, then its negative-`z` children in `z-index` order, then its content.
+   * The two filters are −3 and −2 and L3 is −1, so a shadow on L3 is painted
+   * after both filters have sampled and a shadow on the host is painted before
+   * them — which is the defect G0 measured at 0.0032 to 0.0096 of this tier's
+   * interior level (claims §5.77 §3). Both branches are asserted, because the
+   * fallback is a real branch a clipping host reaches.
+   */
+  it("hangs the shadow on L3 by default and on the host only under the fallback", () => {
+    const value = shadowOf(cssTierDeclarations(surface));
+
+    const carried = cssTierDeclarations({ ...surface, shadowCarrier: "layer" });
+    expect(carried.host["box-shadow"]).toBe("none");
+    expect(layersOf(carried).overlay["box-shadow"]?.endsWith(value)).toBe(true);
+    // Written on every carrier, so a surface that changes carrier cannot leave
+    // the other one's value behind.
+    expect(cssTierDeclarations(surface).host["box-shadow"]).toBe("none");
+
+    const fallback = cssTierDeclarations({ ...surface, shadowCarrier: "host" });
+    expect(fallback.host["box-shadow"]).toBe(value);
+    expect(layersOf(fallback).overlay["box-shadow"]).not.toContain(value);
+
+    // Carrier B paints it from the group's last host, so neither element here
+    // draws one — and the value still comes back for that host to use.
+    const grouped = cssTierDeclarations({ ...surface, shadowCarrier: "group" });
+    expect(grouped.host["box-shadow"]).toBe("none");
+    expect(layersOf(grouped).overlay["box-shadow"]).not.toContain(value);
+    expect(grouped.outerShadow).toBe(value);
+  });
 
   it("writes the profile's own lengths, with box-shadow's blur convention applied", () => {
     // `filter: blur()` takes σ; `box-shadow` takes twice it (CSS Backgrounds 3).

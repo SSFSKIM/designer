@@ -41,8 +41,12 @@ import {
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
   TINT_SHADE,
+  cssTierDeclarations,
   cssTierForegroundLevel,
+  cssTierGroupShadowDeclarations,
   cssTierOptics,
+  planCssTierShadow,
+  sampledOuterShadowFactor,
   foregroundDeclarations,
   glowAlpha,
   gpuTierForegroundLevel,
@@ -100,6 +104,7 @@ import {
   sizeOcclusionAlphaAt as cssSizeOcclusionAlphaAt,
   toneRespondedSourceOptics,
   type CssTierInterior,
+  type CssTierLayer,
   tintShadeLayer as cssTierTintShadeLayer,
   tintToneAdaptation as cssTierTintToneAdaptation,
 } from "@vitreajs/vitrea-web";
@@ -1992,5 +1997,167 @@ describe("the interior composite (X7)", () => {
         }
       }
     }
+  });
+});
+
+/**
+ * The shadow's paint order, from the tier's own output (X7, restated by W18
+ * Decision Log 2 (5); charter `2026-09-05-w18-union-contour-residual.md`).
+ *
+ * X7 was chartered as a pin on the tier's per-surface terms, on the belief that
+ * the union-contour residual was a term this tier computes by the span where the
+ * renderer integrates it over the box. G0 refuted that — declining all five of
+ * those terms makes the residual worse, and the whole of the neighbours' share
+ * belongs to a thing the tier PAINTS and then re-reads (claims §5.77 §3). So the
+ * pin is the paint order instead, and it is asserted by construction rather than
+ * by a capture: **no filter layer of a group may be painted after a shadow the
+ * tier paints for that group.**
+ *
+ * The order this reads is CSS's own. Inside a stacking context — and each host is
+ * one, because the tier writes `isolation: isolate` — the element's background
+ * and border paint first, then its negative-`z` children in `z-index` order, then
+ * its in-flow content. A sibling host's whole subtree paints before the next
+ * host begins. Those two sentences are the whole of the derivation, and every
+ * assertion below is one of them applied to the declarations the tier returns.
+ */
+describe("the outer shadow's paint order (X7)", () => {
+  const policy = NOMINAL_ACCESSIBILITY_POLICY;
+  const surfaceAt = (spanPx: number) => ({
+    radii: [22, 22, 22, 22] as const,
+    optics: MATERIAL_OPTICS.regular,
+    policy,
+    spanPx,
+    extentsCssPx: [spanPx, spanPx] as const,
+    devicePixelRatio: 1,
+  });
+
+  /** The `z-index` each of the tier's three layers declares, as numbers. */
+  const layerDepths = (
+    render: ReturnType<typeof cssTierDeclarations>,
+  ): Record<CssTierLayer, number> => {
+    const layers = render.layers;
+    if (layers === undefined) throw new Error("the material branch draws three layers");
+    return {
+      sharp: Number(layers.sharp["z-index"]),
+      heavy: Number(layers.heavy["z-index"]),
+      overlay: Number(layers.overlay["z-index"]),
+    };
+  };
+
+  it("paints a lone surface's shadow after both of its own filters", () => {
+    const plan = planCssTierShadow([{ nodeId: "solo", clipsChildren: false }]);
+    expect(plan.carrier).toBe("layer");
+
+    const render = cssTierDeclarations({
+      ...surfaceAt(44),
+      shadowCarrier: plan.members[0]![1],
+    });
+    const depths = layerDepths(render);
+    const layers = render.layers!;
+
+    // The shadow is on the overlay and on nothing else, and the overlay is above
+    // both filters — so the filters sample a page this shadow is not yet in.
+    expect(render.host["box-shadow"]).toBe("none");
+    expect(layers.overlay["box-shadow"]).toContain(render.outerShadow);
+    expect(depths.overlay).toBeGreaterThan(depths.sharp);
+    expect(depths.overlay).toBeGreaterThan(depths.heavy);
+    expect(layers.sharp["backdrop-filter"]).toBeTruthy();
+    expect(layers.heavy["backdrop-filter"]).toBeTruthy();
+  });
+
+  it("paints every member's shadow after every member's filters, in a group", () => {
+    const members = ["a", "b", "c"].map((nodeId) => ({ nodeId, clipsChildren: false }));
+    const plan = planCssTierShadow(members);
+    expect(plan.carrier).toBe("group");
+    // The container's host is the LAST member in document order, which is the
+    // only element in the group painted after every member's subtree.
+    expect(plan.groupHostNodeId).toBe("c");
+
+    const renders = plan.members.map(([nodeId, carrier]) => ({
+      nodeId,
+      render: cssTierDeclarations({ ...surfaceAt(44), shadowCarrier: carrier }),
+    }));
+    // Not one member draws a shadow of its own: it would be sampled by every
+    // LATER member's filters, which is the neighbours' term G0 measured at
+    // −0.0058 on the three-up and +0.0005 with the shadow out.
+    for (const { nodeId, render } of renders) {
+      expect(render.host["box-shadow"], nodeId).toBe("none");
+      expect(render.layers!.overlay["box-shadow"], nodeId).not.toContain("rgba(0, 0, 0,");
+      expect(render.outerShadow, nodeId).toContain("rgba(0, 0, 0,");
+    }
+
+    const casts = renders.map(({ nodeId, render }, index) => ({
+      nodeId,
+      bounds: { x: 100 + index * 56, y: 200, width: 44, height: 44 },
+      radii: [22, 22, 22, 22] as const,
+      shadow: render.outerShadow,
+    }));
+    const container = cssTierGroupShadowDeclarations({
+      hostBounds: casts[2]!.bounds,
+      hostBorderWidthCssPx: MATERIAL_OPTICS.regular.borderWidth,
+      casts,
+      reachCssPx: 42.5,
+    });
+
+    // The container sits above the hosting member's own filters, so that host
+    // does not sample it either; and it carries every member's own value.
+    expect(Number(container.container["z-index"])).toBeGreaterThan(
+      layerDepths(renders[2]!.render).heavy,
+    );
+    expect(container.casters.map((caster) => caster.nodeId)).toEqual(["a", "b", "c"]);
+    for (const [index, caster] of container.casters.entries()) {
+      expect(caster.style["box-shadow"]).toBe(renders[index]!.render.outerShadow);
+    }
+
+    // And no member's BODY is inside the shadow: the clip is even-odd with one
+    // hole per member, which is the renderer's `lift · (1 − coverage)`.
+    const clip = container.container["clip-path"] ?? "";
+    expect(clip.startsWith("path(evenodd, ")).toBe(true);
+    expect(clip.split("M ").length - 1).toBe(casts.length + 1);
+  });
+
+  it("bounds what a clipping host still samples, by G0 §6's closed form", () => {
+    /*
+     * The one place a shadow stays inside the tier's own sampled backdrop, and
+     * the reason the closed form stays in `optics.ts` rather than being deleted
+     * with the defect. A host whose `overflow` clips its children would crop a
+     * shadow on L3 away entirely, so the shadow stays on the host and the page
+     * its filters read is the page below multiplied by `1 − a·C` — the same form
+     * that predicts the removal to 0.0014 on every surface with no close
+     * neighbour and to 0.0004 on three at a non-merging gap (claims §5.77 §6).
+     */
+    const plan = planCssTierShadow([{ nodeId: "clipped", clipsChildren: true }]);
+    expect(plan.carrier).toBe("host");
+    const render = cssTierDeclarations({
+      ...surfaceAt(44),
+      shadowCarrier: plan.members[0]![1],
+    });
+    expect(render.host["box-shadow"]).toBe(render.outerShadow);
+
+    const shadow = sourceOuterShadow();
+    const alpha = cssTierShadowAlpha(shadow, 0.5, 44, 0);
+    const factorAt = (signedDistanceToShadowBoxPx: number, insideCaster = false): number =>
+      sampledOuterShadowFactor({ shadow, alpha, signedDistanceToShadowBoxPx, insideCaster });
+
+    // Inside the casting host's own border box a `box-shadow` is not painted at
+    // all, so the page is untouched there whatever the distance says.
+    expect(factorAt(-10, true)).toBe(1);
+    // Outside it the factor is a multiply that weakens with distance and is
+    // exactly the Gaussian's integral the renderer's own falloff mirrors.
+    expect(factorAt(0)).toBeCloseTo(1 - alpha * cssOuterShadowFalloff(0, shadow.sigmaPx), 12);
+    expect(factorAt(0)).toBeLessThan(1);
+    for (const distance of [0, 5, 10, 20, 40]) {
+      expect(factorAt(distance)).toBeLessThanOrEqual(factorAt(distance + 5) + 1e-12);
+    }
+    // And it vanishes where the shadow does — a profile that declines the facet
+    // leaves the sampled page exactly the page.
+    expect(
+      sampledOuterShadowFactor({
+        shadow,
+        alpha: 0,
+        signedDistanceToShadowBoxPx: 0,
+        insideCaster: false,
+      }),
+    ).toBe(1);
   });
 });
