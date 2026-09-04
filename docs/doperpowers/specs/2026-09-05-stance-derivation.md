@@ -509,7 +509,15 @@ only to a human viewing the grid; this is a first-class step, not a nicety.
   above color. A brief-derived composition model (primary object, dominant activity, temporal
   structure, relation model, overview-to-detail) generating two or three layout candidates, with a
   composition QA layer distinct from stance QA (Scout, CHI 2020, is the precedent). Touches
-  `composition.md`'s "How to pick" and the QA protocol. Its own initiative.
+  `composition.md`'s "How to pick" and the QA protocol. Its own initiative. Research basis now
+  written: `docs/research/2026-09-05-composition-grammar-prior-art.md` (prior art, a six-variable
+  set with checkable rules and collapses, the layout-difference measures, risks), with the
+  measurement instrument `docs/research/scripts/layout-topology.mjs` and its output under
+  `docs/research/data/`. Headline measurements: 22 of 32 landing builds carry a three-column card
+  grid of exactly three, 12 of 17 consoles a main-plus-rail grid; the reference's own
+  `1.15fr / 0.85fr` snippet appears verbatim in 7 builds; the with-skill builds sit no farther
+  from the no-skill builds in first-viewport partition (0.18–0.31) than unrelated builds sit from
+  each other (mean 0.232).
 - **The settling experiment.** No published study compares named-look sampling, random-ingredient
   injection, and axis-position sampling for UI. Four arms over the same briefs (immutable named
   systems; named archetypes with derivable tokens; axis derivation without names; axis derivation
@@ -575,3 +583,11 @@ GPU tier for the music build.
 - 2026-09-05 (third revision): accent job gains a `none` rung; first external review round recorded with its eight fixes.
 - 2026-09-05 (fourth revision): A1 synchronized with the constraints-vs-coordinates rule and the rejected vector; second review round recorded.
 - 2026-09-05 (fifth revision): acceptance run recorded — A1 (b) fails on the 30° threshold with both accents in violet, all other clauses pass; five Surprises added; the ledger deferred; Outcomes & Retrospective written.
+- 2026-09-05 (sixth revision): the composition-grammar research memo written and linked from
+  Deferred. Its verification round corrected five citations the stance memo relies on: Feng,
+  Hélie & Panchal 2025 is multi-persona prompting on text, not one design per conditioning
+  vector; Fu et al. 2026 has no design artifact; Verbalized Sampling tested no visual output; the
+  "low complexity + high prototypicality" result is Tuch et al. 2012, not Reinecke et al. 2013;
+  Goree's layout-distance decline is 44% (2010–2019) by tree edit distance, attributed to library
+  convergence. The memo's §3 diversity argument stands on the remaining lines (Zhang, Xin & Zhong
+  2026; Min et al. 2022; Yun et al. 2025; Wadinambiarachchi et al. 2024; Ezzat et al. 2020; Scout).
