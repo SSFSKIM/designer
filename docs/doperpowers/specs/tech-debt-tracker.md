@@ -502,3 +502,24 @@ defects.
 Shape of the fix: the W18 owner verifies each against the current tree; the ones that hold
 become W18 follow-ups or their own entries here; the ones that do not are deleted from this
 entry with a line saying why.
+
+**Verified and closed 2026-09-05 (claims §5.79): 2, 6 and 4.** All three held against
+`8f57b0b` and are fixed in `packages/platform-web`.
+
+- **2** was wider than logged: the group's state was snapshotted at the top of the group's
+  iteration, so `renderInput().groups[*].state` omitted `cssShadow` as well as `cssTint` on
+  every CSS frame. The group's render input is now pushed at the END of its iteration with
+  the state re-read from `stateFor` — the one function both readouts go through — and
+  `test/group-state-report.test.ts` asserts the two are equal on the first frame and on a
+  second.
+- **6** held as reported, and the two forms can differ legitimately: the boundary is read at
+  each surface's own composite level, so two members of one group can straddle it. The group
+  now reports the WEAKEST member's form (`encoded` under `linear`), the fold
+  `planCssTierShadow` already takes for the shadow carrier, in `weakestCssTintForm`. Nothing
+  about what a surface draws moved; this is the readout only.
+- **4** was a documentation gap rather than a defect: the discard is deliberate (W17
+  Decision Log 2 (b) — the fold's occlusion lands on the source alpha before the W9 response
+  solve, and `root.ts` does that folding), and the contract was simply not written where a
+  direct caller would read it. `CssTierSurface.optics` now carries it.
+
+Findings 1, 3 and 5 are still unverified and stay open under this entry.

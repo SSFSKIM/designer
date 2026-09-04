@@ -321,6 +321,25 @@ export interface CssTierForegroundHint {
 
 export interface CssTierSurface {
   readonly radii: CornerRadii;
+  /**
+   * This surface's material, with its ALPHA ALREADY FOLDED by the caller.
+   *
+   * `cssTierDeclarations` runs the accessibility fold over these optics but keeps
+   * `optics.tintAlpha` exactly as it is given, discarding the alpha that
+   * `opticsUnderPolicy` would have produced (W17 Decision Log 2 (b); the reason
+   * is written out at `policyOptics` in that function). The reduced-transparency
+   * and increased-contrast lift, and the size law's occlusion, both land on the
+   * SOURCE alpha before the W9 response solve, which is upstream of anything this
+   * function can see — `root.ts` does that folding where it builds
+   * `occludedSource` and hands the result down.
+   *
+   * So a direct caller of this tier owes the same thing: under a reduced
+   * transparency or increased contrast policy, pass optics whose `tintAlpha`
+   * already carries the fold. Passing the nominal material and relying on
+   * `policy` to raise it yields a surface drawn at nominal opacity, with the
+   * policy honoured in every other declaration and not in the one the user asked
+   * for.
+   */
   readonly optics: MaterialOptics;
   /**
    * The author tint this surface's `optics` were derived with

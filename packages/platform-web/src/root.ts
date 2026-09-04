@@ -151,6 +151,7 @@ import {
   tintToneAdaptation,
   toneRespondedSourceOptics,
   unsampledMaterials,
+  weakestCssTintForm,
   type UnsampledMaterial,
   type CssTierMapping,
   type InteriorSurfaceGeometry,
@@ -1609,7 +1610,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         blurRadius: groupBlurRadius,
       });
 
-      groupInputs.push({
+      /*
+       * This group's render input, built here where its geometry is resolved and
+       * pushed at the END of the iteration (see below). The `state` written here
+       * is the one the surfaces of this group are drawn against; the one the
+       * input carries out is re-read after they have drawn, because the CSS
+       * tier's tint and shadow forms are not known until then.
+       */
+      const groupInput: GlassGroupRenderInput = {
         groupId,
         state,
         probe: probeReports.get(groupId) ?? {
@@ -1637,7 +1645,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         ...(state.activeRenderer === "webgpu" && state.samplingBackend !== "gpu-texture"
           ? { unsampledMaterial: unsampled[variant] }
           : {}),
-      });
+      };
 
       // The proxy path belongs to the WebGPU tier's dom sampling. The CSS tier
       // filters in place on the host, so a group there gets no proxy at all —
@@ -2021,11 +2029,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // that names them lands — a `url(#id)` with no definition renders the
           // layer unfiltered, which would be a silent loss of the whole body.
           ensureCssTierFilters(referenceFilterSpecs(declarations.body));
-          // Which form this group's tint drew, recorded on the first surface of
-          // the group to declare one: every surface of a group shares its
-          // backdrop and therefore its boundary verdict (Decision Log 4 (c)).
+          /*
+           * Which form this group's tint drew, folded across the surfaces that
+           * declared one (Decision Log 4 (c)). The members of a group share a
+           * backdrop but not an interior, so the boundary verdict is read per
+           * surface and two hosts of one group can straddle it. One group has one
+           * verdict on its resolved state, and it is the weakest member's — the
+           * same fold the shadow carrier takes — so the readout never over-claims
+           * a form some surface of the group did not draw.
+           */
           if (declarations.body.tintForm !== undefined) {
-            cssTintForms.set(groupId, declarations.body.tintForm);
+            cssTintForms.set(
+              groupId,
+              weakestCssTintForm(cssTintForms.get(groupId), declarations.body.tintForm),
+            );
           }
           // The shadow this surface resolved, kept for the group's carrier to
           // paint from (W18 G1). Collected on every carrier and used only by
@@ -2247,6 +2264,19 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         destroyCssTierGroupShadow(record.cssGroupShadow);
         record.cssGroupShadow = undefined;
       }
+
+      /*
+       * The group's input goes out with the state read AFTER its surfaces have
+       * drawn, because two of the CSS tier's three form fields are decided by
+       * that drawing: the shadow carrier is planned above and the tint form is
+       * declared by the surfaces themselves. Snapshotting the state at the top of
+       * the iteration published a state carrying the body form alone, so
+       * `renderInput().groups[*].state` and `capabilities(groupId)` — the two
+       * ways this root exposes one resolved state — disagreed on every CSS
+       * frame. They are one value now: both go through `stateFor`, and this is
+       * the first point in the frame where it can answer completely.
+       */
+      groupInputs.push({ ...groupInput, state: stateFor(groupId) ?? resolved.state });
     }
 
     /*
