@@ -386,8 +386,8 @@ G0 → G1 → G2 → recomposition. Nothing lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g0/g0-interior-level.md` (`654ad0e`), claims §5.74 | CLOSED 2026-09-04 — the four terms 0.0026–0.0106, superposing within 0.0008 and derived within 0.006; the mirror's ordering defect (+0.015…+0.027) and the inner shadow found; the chartered carrier clips and is a point condition; four `[parent-impact]` items reconciled in Decision Log 2 |
-| G1 | branch `w17-g1-level` at `033ea6b` (seven commits: the ordering fix and the inner shadow, the transfer, X6 and X7, the probe pre-check, configurations 1–2, the re-form, configuration 3, the holdout; `g1/g1-dry-run.md`, the verify and gate outputs, `toolbar-residual.md`, `region-sweep.md`, `cost/`, the sheets); claims §5.75 | **DECLARED 2026-09-05** — the level on the renderer's on every light calibration cell but the two union-contour scenes, six held rows up, coherence down on the fitted profiles, the shape axis paying four cells, the fold's second cell not recovered; Decision Log 7 puts the landing to the user |
-| G2 | — | blocked-by G1 |
+| G1 | branch `w17-g1-level` at `033ea6b` (seven commits: the ordering fix and the inner shadow, the transfer, X6 and X7, the probe pre-check, configurations 1–2, the re-form, configuration 3, the holdout; `g1/g1-dry-run.md`, the verify and gate outputs, `toolbar-residual.md`, `region-sweep.md`, `cost/`, the sheets); claims §5.75 | COMPLETE 2026-09-05 — DECLARED in claims §5.75; Decision Log 7 executed by the user: land as declared |
+| G2 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g2/` | OPENED 2026-09-05 — the merge, the canonical rebuild once from the main checkout, the floors, the predicate list, the coherence wording, the sheets, the changeset, recomposition |
 
 ## Decision Log
 
@@ -768,6 +768,12 @@ seven floors' mechanism, unchanged.
 
 **The user decides.**
 
+**Executed 2026-09-05 (the user: "land as declared").** Option 1. G2 opens: the merge of
+`w17-g1-level` at `033ea6b`, the canonical rebuild once from the main checkout, six floors
+ratcheted and one kept, `UNMET_ROWS` 7, the predicate list's move recorded with its mechanism,
+the tier-coherence claim re-worded with the measured ratio (q4), the carries named in Deferred,
+the sheets, the changeset, recomposition.
+
 ## Surprises & Discoveries
 
 - **2026-09-05 (G1) — a light solid landed on the renderer's level is invisible to the
@@ -863,3 +869,4 @@ seven floors' mechanism, unchanged.
   holdout read once — S1, S2, S8 met; S3 by 0.0005 on one cell; S4 on the two union-contour scenes
   and two holdout cells; S5 on two holdout cells and three ΔE rises; S6 by 0.00012 on one
   profile; S7 one of two. Decision Log 7 puts the landing to the user (recommended: as declared).
+- 2026-09-05: **Decision Log 7 executed** — the user landed the declaration as it stood (option 1). G1 COMPLETE, G2 opened.
