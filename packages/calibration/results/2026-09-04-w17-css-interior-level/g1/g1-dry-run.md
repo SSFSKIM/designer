@@ -277,12 +277,48 @@ tint carries the contrast" — passes without being loosened, which is Decision 
 acceptance. The three pins that recompute the tier's law are re-pointed for the ordering fix with
 the reason in each.
 
-## 5. The holdout, still unspent
+## 5. The holdout, read once on the frozen configuration
 
-Contract X8 spends the holdout once per frozen configuration. Decision Log 5's condition for
-freezing was that nothing fire beyond the carries already named, and four things do: S3's one cell
-at +0.0055 against a 0.005 clause, S5's three cross-tier ΔE rises of +0.0006 to +0.0010, S6's
-+0.00012 on increased contrast, and the predicate's third entry (`light-solid__rrect-md` at 2x
-beside the named `rrect-ml` pair). Every one of them is at or under 0.001 except S3's 0.0005
-exceedance, and none is a mechanism this run did not already explain — but the condition as written
-is not met, so the reading is left for the parent rather than taken.
+Contract X8's single reading, taken on configuration 3 frozen (Decision Log 6): no source file
+changed between the calibration and validation run and this one — the build at 00:28:15 is the
+build both were captured from, and the working tree was clean throughout. Twelve runs, six profiles
+on each tier, every exit 0. `cfg3-full.verify.txt` and `cfg3-full.gate.txt` are the referee over
+the whole matrix.
+
+**S1 met on the whole bed: 115 of 115 GPU captures byte-identical, worst row |Δ| 0.000000.**
+
+**S2 met.** The landing's own gate over the full matrix reads **27 of 31 passing, and no bound and
+no floor among the four failures** — all four are the machine's bookkeeping of which cells
+condition (three shape-row coverage counts and the predicate list itself), which is G2's to
+re-record. The eight held rows all read at or above their pins, six of them up:
+`checkerboard__rrect-md` 2x 0.9149 → 0.9153, `rrect-ml` 1x 0.8593 → **0.8757** and 2x 0.8783 →
+0.8789, `glass-over-glass` 1x 0.8529 → **0.8610** and 2x 0.8683 → 0.8681, `rrect-lg` 1x 0.8513 →
+**0.8702** and 2x 0.8709 → 0.8722.
+
+**What the holdout adds, and it is the reason for reading one.** Four cells the calibration and
+validation sets do not contain sit outside the level clause:
+
+| cell | dpr | form | bed CSS−GPU | cfg3 CSS−GPU |
+| --- | --- | --- | --- | --- |
+| `hc-text__capsule-button` | 1x / 2x | linear | +0.0454 / +0.0441 | +0.0091 / **+0.0119** |
+| `hc-text__capsule-button__rest-tint-orange` | 1x / 2x | linear | +0.0177 / +0.0165 | **+0.0129 / +0.0118** |
+| `photo__glass-over-glass` | 1x / 2x | linear | +0.0510 / +0.0472 | **−0.0119 / −0.0127** |
+| `mid-dark-solid__capsule-button` | 1x / 2x | linear | +0.0437 / +0.0437 | +0.0086 / **+0.0109** |
+
+Every one of them closes by 0.03 to 0.06 against the bed and three of the four land inside 0.01 at
+one scale and just outside at the other. `photo__glass-over-glass` is the second of the two surface
+families G0 named as outside the closed form's contour — the same family as the `toolbar-group`
+gap of §2.1's successor, and it misses in the same direction and by the same order.
+
+**S7 recovers one of its two cells, not both.** `checkerboard__capsule-button__rest` under reduced
+transparency conditions (`areaWeb / componentRegion` 0.9961, one body) and leaves the predicate's
+exclusion list. `hc-text__capsule-button__rest` under the same profile reads **0.9310** against the
+0.95 clause with one body — its level improves markedly, 0.9628 → 0.9478 against the GPU tier's
+0.9412, and its area recovery does not clear the bar. The Parent-Level Acceptance names both cells,
+so this is the clause's own miss and is reported as such.
+
+**The predicate list, whole bed.** One cell leaves and **four join**: `light-solid__rrect-md` at
+2x, `light-solid__rrect-ml` at both light scales, and `hc-text__capsule-button` at 2x. The
+mechanism is one: a surface landed on the renderer's level over a background within 0.004 of it,
+which the luminance-delta extractor separates on the GPU tier only by the rim and lens this tier
+does not draw.
