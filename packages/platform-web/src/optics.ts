@@ -1621,70 +1621,58 @@ export function sizeScatterSigmaAt(
  * own**: it is one number describing the other tier's kernel, in the same sense
  * `α′ = α − L/B` is one number describing the other tier's lift.
  *
- * **The conversion is 1.0, and that is a measurement rather than a default.**
- * W16 G1 read the moment-matched σ of the renderer's heavy component off the
- * renderer's own committed captures of the checkerboard cells, with the sharp
- * width at the profile's nominal, the renderer's own k(u) as the mix, and the
- * level and the transmission free per cell — one nonlinear parameter, swept and
- * refined, with the instrument's recovery of a known law beside every reading
- * (X4). What came back does not support a conversion of any shape:
+ * **The conversion is measured, and the number is not landed here yet.** W16 G1
+ * read the moment-matched σ of the renderer's heavy component off the renderer's
+ * own committed captures, with the sharp width at the profile's nominal, the
+ * renderer's own k(u) as the mix, and the level and the transmission free per
+ * cell — one nonlinear parameter, swept and refined, with the instrument's
+ * recovery of a known law beside every reading (X4). Two things came out of it,
+ * and the second is why this constant still says 1.
  *
- * | cell | span | dpr | nominal, device px | effective, device px | ratio | RMS | ±5% band |
- * | --- | --- | --- | --- | --- | --- | --- | --- |
- * | `rrect-md` | 96 | 2 | 6.00 | 7.11 | 1.185 | 0.0037 | 7.00–7.50 |
- * | `rrect-ml` | 128 | 2 | 6.66 | 6.94 | 1.042 | 0.0030 | 6.75–7.25 |
- * | `rrect-lg` | 160 | 2 | 8.24 | 6.20 | **0.752** | 0.0026 | 6.00–6.50 |
- * | `rrect-sm` | 32 | 2 | 6.00 | 10.49 | 1.749 | 0.0027 | 10.25–11.00 |
- * | `capsule-button` | 44 | 2 | 6.00 | 10.59 | 1.766 | 0.0032 | 10.25–11.00 |
- * | every cell | — | 1 | 10.00 | unidentifiable | — | 0.0025 | 10.75–24.00 |
+ * **The bed decides whether the question is answerable at all.** The first run
+ * used the checkerboard cells and produced a per-span spread of 1.6× at dpr 2 and
+ * nothing usable at dpr 1. That was the bed, not the kernel: a checkerboard is a
+ * SINGLE spatial frequency — pitch 16 CSS px — and a heavy kernel of σ 10 device
+ * px annihilates it at dpr 1, so there is no signal left for a width to be read
+ * out of. X4 says so directly rather than leaving it to inference: on that bed the
+ * same instrument recovers a known width to +5% at σ 6, +8% at σ 8, and at σ 10
+ * returns either 1.03 or the sweep's ceiling for a truth of 10.00. On the
+ * broadband `photo` cells, which carry energy at every frequency, the same
+ * instrument recovers a known law to **−0.51% … +0.16% at dpr 1** and to
+ * **±0.04% at dpr 2**. Only the broadband readings below are evidence; the
+ * checkerboard ones are discarded, and the discarding is the finding.
  *
- * Three readings and one non-reading, in the order they matter.
+ * **On the broadband bed at dpr 1 the conversion is one number.** Nominal 10.00
+ * device px, and the effective width by span, over insets 16–28:
  *
- * **At dpr 1 the width cannot be measured on this bed at all.** The fit pegs at
- * the sweep's ceiling on every cell with an objective flat over 10.75–24 device
- * px, and X4 says why rather than leaving it to inference: fed a synthetic
- * capture of a KNOWN width, the same instrument returns +5% at σ 6, +8% at σ 8,
- * and at σ 10 returns either 1.03 or 20.74 for a truth of 10.00. The mechanism is
- * the bed and not the instrument. The checkerboard is a single spatial frequency
- * — pitch 16 CSS px, which is 16 device px at dpr 1 — and a Gaussian of σ 10
- * device px attenuates that fundamental by a factor of about seven and annihilates
- * every harmonic, so there is no signal left for a width to be read out of. At
- * dpr 2 the same pitch is 32 device px against a σ of 6–8, the attenuation is
- * about 0.84, and the same instrument recovers a known law to within 0.9% at
- * every width tried.
+ * | cell | span | effective, device px | ratio | RMS | ±5% band |
+ * | --- | --- | --- | --- | --- | --- |
+ * | `rrect-sm` | 32 | 13.36–14.12 | 1.335–1.412 | 0.0020 | 11.50–16.50 |
+ * | `capsule-button` | 44 | 13.66–14.03 | 1.366–1.403 | 0.0020 | 12.00–15.50 |
+ * | `rrect-md` | 96 | 13.71–13.87 | 1.371–1.387 | 0.0021 | 13.00–15.00 |
+ * | `rrect-ml` | 128 | 13.74–13.85 | 1.374–1.385 | 0.0021 | 13.00–14.50 |
+ * | `rrect-lg` | 160 | 13.81–13.88 | 1.381–1.388 | 0.0021 | 13.50–14.50 |
  *
- * **At dpr 2, where it is identifiable, it is not one number and neither
- * candidate rule carries it.** The three spans with a real deep interior read
- * 1.185, 1.042 and 0.752 — a spread of 1.6× — and the direction reverses: on the
- * largest span the renderer's kernel is measurably NARROWER than the width the
- * profile names, not wider. A single ratio cannot carry a set that straddles 1.
- * The quadrature form fails harder and fails structurally: solving
- * σ_eff² = σ_nom² + c² gives c = 3.81 device px on `rrect-md`, c = 1.95 on
- * `rrect-ml` — a factor of two — and on `rrect-lg` it asks for c² = −29.5, which
- * has no solution at all. Neither rule is a near miss; both are refuted.
+ * Five spans, a ratio of **1.38 ± 3%**, and the three thick spans — the ones with
+ * a real deep interior — inside 1.371–1.388. That is a single ratio, which is the
+ * shape a conversion has to have to be one derivation rather than a table.
  *
- * The two thin spans' 1.75–1.77 are not readings of the kernel at all, and are
- * listed only so the table is not quietly filtered: at dpr 2 a half-span of 16 or
- * 22 CSS px lies entirely inside a reach of about 50, so those cells carry no
- * deep interior and the estimator is absorbing the ramp — exactly what claims
- * §5.69 §2 records for the same two cells.
+ * **The second scale is still open, and a rule that holds at one scale is not a
+ * rule.** The dpr 2 readings were still running when this landed; the first cell
+ * reads 8.9 device px against a nominal of 6.0, a ratio of 1.49 rather than 1.38,
+ * so the possibility that the conversion is per-scale is live and unresolved. A
+ * ratio landed from the 1x half alone would move the tier's 2x body on evidence
+ * that does not cover it, which is the direction W15 Decision Log 3 spent a whole
+ * wave being careful about.
  *
- * **So the tier draws the nominal, and the gap is named instead of fitted.**
- * Neither candidate rule survives its own residual, and a per-span, per-scale
- * table read off three cells at one scale would be a constant of this tier's own
- * — which contract K5 forbids and which the charter's own rule turns into a
- * finding rather than a number ("a row the derivation cannot reach is a finding
- * with its mechanism, not a fit"). The consequence is stated rather than hidden:
- * the tier's single-σ equivalent at 2x lands narrow of the reference's ceiling by roughly the
- * 0.38–1.07 CSS px G0 predicted (claims §5.71 §5), and G0 already attributed that
- * to the GPU tier's own 2x heavy width sitting 0.4–1.4 CSS px under the
- * reference's — a GPU-tier distance this wave's binding rules forbid moving.
- *
- * The work that would close it is a different instrument, not a better fit: the
- * renderer's kernel is a mip-chain tap and its impulse response can be read
- * directly off the renderer at both scales, which is a GPU-tier golden rather
- * than a capture read, and which is where a conversion this tier can trust has to
- * come from.
+ * So the tier draws the nominal for now and the gap is named rather than guessed.
+ * The consequence is stated: the tier's single-σ equivalent at 2x lands narrow of
+ * the reference's ceiling by roughly the 0.38–1.07 CSS px G0 predicted (claims
+ * §5.71 §5), which G0 attributed to the GPU tier's own 2x heavy width sitting
+ * 0.4–1.4 CSS px under the reference's — a GPU-tier distance this wave's binding
+ * rules forbid moving. Landing 1.38 at 1x would close part of that at 1x; the
+ * measurement to finish first is the 2x half on the broadband bed, and the
+ * instrument and the bed for it are both now known.
  */
 export const SCATTER_HEAVY_EFFECTIVE_RATIO = 1;
 
