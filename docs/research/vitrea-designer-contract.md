@@ -230,7 +230,7 @@ mount; reachable only with a custom `container` inside a rounded, clipping card.
 - **Sizing and grouping** (`Stage.tsx`): a three-step size sweep at 112 / 68 / 40 px short side,
   radii 26 / 18 / 12, one shared thickness of 8; three separate sampling groups at 4rem gaps.
   The floor is not a fixed 48px: the runtime derives each group's `samplingPadding` from the
-  blur it resolved (≥ 3σ), so it moves with surface span, DPR, and reduced-transparency, and
+  blur it resolved (≥ 3σ), so it moves with surface span and reduced-transparency, and
   the safe gap is at least the *larger* group's effective padding — under it, the proxy boxes
   overlap and `backdrop-proxy.ts` reports `proxy-overlap-after-enforcement`. 4rem is this
   demo's comfortable margin, not a rule.

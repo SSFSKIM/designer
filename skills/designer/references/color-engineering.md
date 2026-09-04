@@ -254,7 +254,7 @@ Do not use the same colors for primary button, destructive action, success statu
 
 ## Worked example
 
-**Brief:** a desktop-first project dashboard for a small film-production studio tracking shoots, budgets, crew, and delivery deadlines — calm, editorial, operational, not generic enterprise SaaS. Stance: density standard; criticality transactional; energy composed; type characterful serif; material printed; color commitment restrained; accent job directional; ground warm, light — in this product's own terms, quiet editorial operations (warm paper ground, deep ink text, cinematic green-black primary, clay/orange accent, hairline warm-gray structure, no bright-blue SaaS defaults, no shadows on ordinary panels).
+**Brief:** a desktop-first project dashboard for a small film-production studio tracking shoots, budgets, crew, and delivery deadlines — calm, editorial, operational, not generic enterprise SaaS. Stance: density standard; criticality transactional; energy composed; type characterful serif; material printed; color commitment restrained; accent job status-only; ground warm, light — in this product's own terms, quiet editorial operations (warm paper ground, deep ink text, cinematic green-black primary, clay/orange accent, hairline warm-gray structure, no bright-blue SaaS defaults, no shadows on ordinary panels).
 
 Neutral ramp (warm paper, `H ≈ 78`):
 
@@ -274,8 +274,8 @@ Neutral ramp (warm paper, `H ≈ 78`):
 Primary (studio green-black) and accent (oxide/clay orange), chosen by product meaning rather than a generic brand reflex:
 
 ```css
---film-primary: oklch(0.305 0.046 164); /* buttons, active nav, selected tabs */
---film-accent: oklch(0.610 0.145 42);   /* deadline risk, selected item, key action */
+--film-primary: oklch(0.305 0.046 164); /* buttons, active nav, selected tabs, focus ring */
+--film-accent: oklch(0.610 0.145 42);   /* deadline risk and time pressure only */
 ```
 
 Final light-mode token assignment:
@@ -293,7 +293,7 @@ Final light-mode token assignment:
   --accent: oklch(0.610 0.145 42);
   --accent-foreground: oklch(0.245 0.045 42);
   --border: oklch(0.762 0.019 78);
-  --ring: oklch(0.610 0.145 42);
+  --ring: oklch(0.305 0.046 164);
 }
 ```
 

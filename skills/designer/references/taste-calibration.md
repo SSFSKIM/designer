@@ -36,6 +36,14 @@ The accent-side twin of the cream band: a desaturated green — sage, forest, in
 
 *Added in-house (2026-07) after eval builds converged on this band through individually defensible reasoning; not from the grafted sources.*
 
+## The leftover accent, flagged
+
+A third band, found the same way as the sage accent: two operations consoles for unrelated products, built blind to each other under the derivation rules, both landed their accent in violet (OKLCH hue roughly 300–335), each with a defensible reason. The mechanism is elimination. A console with a full status set has already spent green, amber, red, and blue; the derivation rule says the accent must never double as a status hue; the brief's own world offers steel, paper, or nothing in particular; and violet is what is left. An accent chosen because it is the only hue not yet taken is not derived from the product — it is derived from the status set, and every product with that status set will land on it.
+
+The tell is the reasoning, not the hue: "the one hue absent from the status set" is a valid constraint and an invalid source. When the accent lands in this band, the design record names what the product's own world offered instead — a material, a convention, a signage color, a brand — and says why that lost to the leftover. Where the world offers nothing, a `none` accent job (a monochrome interaction language with a visible non-color focus) is the honest answer, not the last free hue.
+
+*Added in-house (2026-09) after the stance-derivation acceptance pair converged on this band through independently defensible reasoning; not from the grafted sources.*
+
 ## Absolute bans
 
 Match-and-refuse: catching any of these mid-build means stopping and restructuring that piece from scratch, not softening it in place.

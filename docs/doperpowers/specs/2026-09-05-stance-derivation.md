@@ -278,11 +278,11 @@ derivations' accent values (`#D46B2C`, `#A9462D`, `#B65A3C`, `#2B7B78`, `#FFB94D
 tell; (b) the two builds' accent hues differ by at least 30° in OKLCH, or `DESIGN.md` names the
 shared hue with a product-specific reason; (c) each `DESIGN.md` §0 carries the nine axis lines
 (density, criticality, energy, type, material model, color commitment, accent job, ground lightness,
-ground temperature), a "rejected" line
+ground temperature), a rejected coordinate vector line, a "rejected" line
 for the accent hue and one for the ground, and a named signature; (d) no `backdrop-filter` in
 either build; (e) the sampler was run and its draw recorded. Expected: both land at dense /
-consequential / quiet; the values differ, and so does at least one of type criteria, material
-model, or ground.
+consequential (quiet is the likely energy, not a requirement); the coordinates may match or differ;
+the values differ.
 
 **A2 — Brief authority holds.** Eval 6 ("meditation app in a warm editorial style with a cream
 background, serif display type, and terracotta accents") rebuilt: the build's background is in the
@@ -419,6 +419,18 @@ only to a human viewing the grid; this is a first-class step, not a nicety.
   wrong `DESIGN.md` record or a wrong statement about the runtime in shipped builds.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: Second external review round (2026-09-05, Codex `gpt-5.6-sol` over 33fc55e) — five
+  findings, all confirmed and fixed: the adoption and persona routes carried into the authoring
+  skeleton, the workflow step, and the QA clone check; the canonical example's accent made to obey
+  one job (status-only, with focus moved to the primary) and its type line made criteria-only; the
+  DPR claim removed from the proxy-spacing rule (the runtime projects the group blur at a fixed
+  scale); A1 and the assert script synchronized with the revised contract (rejected vector
+  required, coordinates may match).
+  Rationale: each was a contract inconsistency a builder could follow into a wrong record; none was
+  minor enough to log as debt. Review is converging — the second round found only follow-through on
+  the first.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The persona layer had already found and fixed this exact defect class in July.
@@ -452,8 +464,46 @@ only to a human viewing the grid; this is a first-class step, not a nicety.
   `activeRenderer: "webgpu"`. And one trap: the plain-JS API takes the backdrop hint as
   `backdrop:`, not `hint:`, which is silently ignored.
 
+- Observation: The acceptance pair converged on the violet band by elimination, each with a
+  defensible reason.
+  Evidence: pharmacy accent `oklch(0.365 0.125 308)` (a controlled-substance custody mark);
+  wind farm `oklch(0.425 0.145 328)` (the USGS overprint purple). Hue difference 20°, under
+  A1's 30°. Both derivations reasoned "the one hue the status set has not taken" — a valid
+  constraint used as a source. Recorded in `taste-calibration.md` as "The leftover accent,
+  flagged", the sage accent's second cousin; the fix is to name what the product's own world
+  offered and why it lost, or to take a `none` accent job.
+
+- Observation: Family choices recur across builds even with criteria-only type records.
+  Evidence: Literata in two of four builds, Atkinson Hyperlegible Next in three, JetBrains Mono
+  in two. Each choice is argued from criteria ("legibility under poor conditions", "dotted
+  zero"), which is the relocated-fixation risk the research named: the criteria funnel to the
+  same "best answer" face. The swap-one-slot rule exists for this; a ledger of recent builds'
+  families and hues is the structural answer (Deferred).
+
+- Observation: The nine-line record costs more than estimated.
+  Evidence: §0 ran 45–70 lines in the four builds; two `DESIGN.md`s exceeded the old 120-line
+  budget (184 and 152). The budget was raised to 160 with a one-clause-per-line instruction;
+  a compact table form for the nine lines may be the better fix.
+
+- Observation: A semantically named accent token defeats the mechanical clone check.
+  Evidence: the builds named their accents `--custody-ink`, `--overprint`, `--clay`; the
+  assert script's `--accent` lookup found nothing and the pharmacy record never names its
+  token on an accent line, so its hue could not be resolved mechanically.
+  `guidelines-authoring.md` §1 now requires the record to say which token carries the accent
+  role; `resolve-accent.mjs` reads that.
+
+- Observation: vitrea's GPU tier could not be observed on the test machine.
+  Evidence: headless Chrome exposed no GPU adapter; both groups resolved
+  `activeRenderer: css, cssBody: two-layer, health: ok` with zero diagnostics. The music
+  build's `DESIGN.md` says so rather than claiming refraction; confirming the WebGPU tier needs
+  a headed browser with an adapter.
+
 ## Deferred
 
+- **A ledger of recent builds' families and hues**, consulted at derivation so that
+  dispersion happens in output space (the research's Marks 1997 point) rather than by axis
+  distance; the acceptance builds show criteria alone re-converging on Literata, Atkinson
+  Hyperlegible Next, and JetBrains Mono.
 - **Composition grammar.** All three research rounds say token derivation alone will not stop
   "sidebar + cards + big heading + three-stat row"; Design Theater measured layout convergence
   above color. A brief-derived composition model (primary object, dominant activity, temporal
@@ -477,7 +527,42 @@ only to a human viewing the grid; this is a first-class step, not a nicety.
 
 ## Outcomes & Retrospective
 
-Pending — written at finish.
+**Achieved against the purpose.** The category-clone pair now diverges. A hospital pharmacy
+console and a wind-farm console, built blind to each other under the rewritten skill, share
+their constraints (dense, consequential) and their energy (quiet), and differ in everything the
+old catalogue would have cloned: material model (tonal against printed), ground (neutral
+graphite against neutral white stock), every family (Commissioner / Atkinson Hyperlegible Next
+/ JetBrains Mono against Literata / Barlow / JetBrains Mono), and the accent's job and hue
+(a status-only custody violet against a directional overprint plum). Neither carries any of the
+five worked derivations' values. The brief-authority build honoured a cream-serif-terracotta
+brief literally, with the cream band justified in writing. The material-routing build took the
+vitrea path from a single HTML file, measured its backdrop hints from the artwork instead of
+asserting them, and shipped with the CSS tier reported honestly as the design.
+
+**A1 verdict, stated plainly.** Clauses (a), (c), (d), (e) pass on both builds. Clause (b) fails
+on the number — the two accent hues sit 20° apart, both in violet — and passes on the reasoning:
+each hue has a product-specific derivation. The convergence itself was the round's most useful
+finding and is now a calibration rule. A2 and A3 pass. A4 and A5 pass. A6: the review grid is
+at `figma-design-workspace/derivation-eval/review.html`.
+
+**Two external review rounds** (Codex, xhigh) found thirteen real issues and no false ones; the
+second round found only follow-through on the first, which is the convergence signal the
+project's review policy looks for.
+
+**Lessons.** (1) The persona layer's July lesson was the whole design; this initiative was
+applying it one layer up, and the research confirmed it rather than changing it — the value of
+the research was the amendments (criticality, energy over register, criteria over names, the
+no-middle rungs). (2) Convergence relocates: remove the hex block and it reappears as the
+"best answer" family and the "leftover" hue. A calibration file that names bands is the right
+tool, and it needs feeding from every eval round. (3) Mechanical checks need the record to name
+its own tokens; a semantic token name is good practice and defeats a naive grep. (4) The
+research's warning against treating orthogonality as mandatory saved the design from a seven-
+slider lookup; the compatibility rules are where the joint judgment lives.
+
+**Remaining.** The composition grammar (layout convergence is untouched by any of this), the
+settling experiment, the axis-vocabulary validation pass, a rendered-thumbnail form of the
+two-vector step once a render path can be assumed, and a headed-browser confirmation of the
+GPU tier for the music build.
 
 ## Revision Notes
 
@@ -488,3 +573,5 @@ Pending — written at finish.
   candidate step, ingredients-as-bounded-mutations, and the Deferred section added; the OKLCH
   catalogue finding and the parallel-session discovery recorded.
 - 2026-09-05 (third revision): accent job gains a `none` rung; first external review round recorded with its eight fixes.
+- 2026-09-05 (fourth revision): A1 synchronized with the constraints-vs-coordinates rule and the rejected vector; second review round recorded.
+- 2026-09-05 (fifth revision): acceptance run recorded — A1 (b) fails on the 30° threshold with both accents in violet, all other clauses pass; five Surprises added; the ledger deferred; Outcomes & Retrospective written.
