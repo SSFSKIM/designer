@@ -61,8 +61,21 @@ import {
   cssTierDeclarations,
   foregroundDeclarations,
   hintedBackdropLuminance,
+  CSS_TIER_TWO_LAYER_AREA_BUDGET_DEVICE_PX,
+  type CssTierEngineCapabilities,
   type StyleDeclarations,
 } from "./css-tier";
+import {
+  applyCssTierLayers,
+  createCssTierFilterDefs,
+  createCssTierLayers,
+  createCssTierMaskCache,
+  destroyCssTierLayers,
+  ensureCssTierContainingBlock,
+  filteredAreaDevicePx,
+  referenceFilterSigmas,
+  type CssTierLayers,
+} from "./css-tier-layers";
 import {
   consoleDiagnosticSink,
   createPlatformDiagnosticsChannel,
@@ -107,7 +120,7 @@ import {
   resolvedBackdropToneResponse,
   resolvedPolicyFold,
   resolvedTintShade,
-  CSS_TIER_RAMP_SCALE,
+  WEBGPU_PROXY_PROJECTION_SCALE,
   groupScatterSigma,
   sizeThickness,
   sizeOcclusionAlphaAt,
@@ -513,6 +526,16 @@ interface HostRecord {
    * property sets and either can be the live one on any frame.
    */
   gpuForegroundApplied: string | undefined;
+  /**
+   * The CSS tier's three created layers, or `undefined` while no tier has
+   * painted this host (W16 G1).
+   *
+   * Created the first time the CSS tier paints, destroyed when it steps aside
+   * and on release. Not created at registration: a host the WebGPU tier is
+   * drawing needs none of them, and the wave that added them is bound to leave
+   * that tier byte-identical.
+   */
+  cssLayers: CssTierLayers | undefined;
 }
 
 /** A thrown value, said out loud. Anything can be thrown; only `Error` explains itself. */
@@ -523,6 +546,31 @@ const describeError = (error: unknown): string =>
 const clearDeclarations = (host: HTMLElement, declarations: StyleDeclarations): void => {
   for (const property of Object.keys(declarations)) host.style.removeProperty(property);
 };
+
+/**
+ * A per-document ordinal for each root, so two roots on one page cannot name the
+ * same reference-filter `<filter>` id. A fragment reference resolves
+ * document-wide, and a collision would hand one root's surfaces the other's
+ * widths with nothing to say why.
+ */
+let rootOrdinal = 0;
+const nextRootOrdinal = (): number => {
+  rootOrdinal += 1;
+  return rootOrdinal;
+};
+
+/**
+ * The resolved state with the CSS tier's body form on it, or exactly the state
+ * core resolved where there is none (W16 G1).
+ *
+ * Spread conditionally, because an absent field and a field written `undefined`
+ * are different things to every consumer that serialises this record — and the
+ * capture cells do.
+ */
+const withCssBody = (
+  cssBody: "two-layer" | "collapsed" | undefined,
+  state: GlassGroupState,
+): GlassGroupState => (cssBody === undefined ? state : { ...state, cssBody });
 
 export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const view = options.window ?? window;
@@ -561,6 +609,45 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     ...(options.zIndex === undefined ? {} : { zIndex: options.zIndex }),
     document: view.document,
   });
+
+  /*
+   * The CSS tier's own DOM machinery (W16 G1; charter Decision Log 2 (a)–(c)).
+   *
+   * Two root-level pieces, both lazy. The mask cache turns the raster ramp from a
+   * per-frame cost into a per-resize one; the filter definitions are the
+   * linear-light `feGaussianBlur`s the body blurs through on an engine that
+   * renders a reference filter inside `backdrop-filter`, and they are built only
+   * where the conformance row says the engine does (claims §5.71 §2). The `<svg>`
+   * is a sibling of the plane roots, not a child of one, so the sandwich's
+   * four-layer array is untouched by it.
+   *
+   * The prefix is per root so that two roots on one page cannot name the same
+   * `<filter>` id — a fragment reference resolves document-wide, and a collision
+   * would silently hand one root's surfaces the other's widths.
+   */
+  const cssTierEngine: CssTierEngineCapabilities = {
+    referenceFilterInBackdrop: platformProbe.conformance.referenceFilterInBackdrop,
+    maskOnBackdropFilter: platformProbe.conformance.maskOnBackdropFilter,
+  };
+  const cssTierFilterPrefix = `vitrea-css-${String(nextRootOrdinal())}`;
+  const cssTierMasks = createCssTierMaskCache(view.document);
+  let cssTierFilterDefs: ReturnType<typeof createCssTierFilterDefs> | undefined;
+  const ensureCssTierFilters = (sigmas: readonly number[]): void => {
+    if (sigmas.length === 0) return;
+    cssTierFilterDefs ??= createCssTierFilterDefs(
+      view.document,
+      layers.root,
+      cssTierFilterPrefix,
+    );
+    for (const sigma of sigmas) cssTierFilterDefs.ensure(sigma);
+  };
+  /**
+   * Which body form each CSS-tier group resolved to this frame, so the resolved
+   * state can name it. The cost collapse is a statement about the whole root,
+   * which is why it is decided once per frame and read here rather than per
+   * surface.
+   */
+  const cssBodyForms = new Map<string, "two-layer" | "collapsed">();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -1070,7 +1157,14 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     const platform = record.platform ?? probe;
 
-    return resolveGlassGroupState(
+    // The CSS tier's body form, folded onto the resolved state so that a capture
+    // cell, a readout and a test read what actually drew (W16 G1). It is a
+    // platform measurement — the root's total filtered area against the cost
+    // budget — so core's resolver cannot produce it and it is merged here, on
+    // the one function every consumer of the state goes through.
+    const cssBody = cssBodyForms.get(groupId);
+
+    return withCssBody(cssBody, resolveGlassGroupState(
       groupCapabilityInputs(
         source.descriptor.kind === "texture"
           ? {
@@ -1097,7 +1191,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             }
           : { configuredSource: "dom", platform, governor, hint },
       ),
-    );
+    ));
   };
 
   /**
@@ -1209,6 +1303,52 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     const accessibility = resolution.accessibility;
     const cap = accessibilityRefractionCap(accessibility.material);
 
+    /*
+     * The root's cost budget, decided once for the frame (W16 G1; charter
+     * Decision Log 2's question 1, the user's constant).
+     *
+     * Two `backdrop-filter` layers per surface are a second render-surface
+     * readback and a second two-pass Gaussian each. G0 measured one filter per
+     * surface never leaving the display cadence at any count, and two leaving it
+     * monotonically from 0.49–0.61 M filtered device px per frame and saturating
+     * near 27 ms above 1.2 M (claims §5.71 §7). So the rule is an AREA and not a
+     * count, it is the root's total rather than any one surface's, and above it
+     * every CSS-tier surface on this root collapses to the single mixed σ it drew
+     * before W16 — a declared, measured degradation, named on the resolved state
+     * so that a capture and a test read it, never a silent one.
+     *
+     * Decided here rather than inside the group loop because it is a statement
+     * about every surface at once: a surface cannot know the root's total, and a
+     * root that collapsed some of its surfaces and not others would be drawing
+     * two materials.
+     */
+    const devicePixelRatio = viewport?.devicePixelRatio ?? 1;
+    const cssTierGroups: string[] = [];
+    let cssTierFilteredArea = 0;
+    for (const resolved of resolution.groups) {
+      const state = stateFor(resolved.groupId) ?? resolved.state;
+      if (state.activeRenderer !== "css") continue;
+      cssTierGroups.push(resolved.groupId);
+      for (const record of hosts.values()) {
+        if (record.groupId !== resolved.groupId) continue;
+        const bounds = scene.glassNode(record.nodeId)?.bounds;
+        if (bounds === undefined) continue;
+        cssTierFilteredArea += filteredAreaDevicePx(
+          bounds.width,
+          bounds.height,
+          devicePixelRatio,
+        );
+      }
+    }
+    const cssTierCollapsed = cssTierFilteredArea > CSS_TIER_TWO_LAYER_AREA_BUDGET_DEVICE_PX;
+    // Published before anything reads a state this frame, so `stateFor` — which
+    // every consumer of the resolved state goes through, including the capture
+    // cells — carries the form the surfaces below are about to draw.
+    cssBodyForms.clear();
+    for (const groupId of cssTierGroups) {
+      cssBodyForms.set(groupId, cssTierCollapsed ? "collapsed" : "two-layer");
+    }
+
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
     const nodesByPlane = new Map<GlassPlane, GlassNodeRenderInput[]>();
@@ -1309,18 +1449,21 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // projects heavier than a 160×160 square of the same short span. Ordering
       // by span alone made the pick depend on registration order between such
       // members and could hand the strip the square's smaller σ.
-      // Both the width and the ramp's projection at the scale
-      // `cssTierDeclarations` reads them at (`CSS_TIER_RAMP_SCALE`, dpr 1 — W13
-      // Decision Log 5: the CSS tier renders the 1x material at every ratio),
-      // because this σ has to be the one that tier will really write — the
-      // proxy is that blur in another position, and a proxy padded for a
-      // device-scale width the tier no longer draws would be padded wrong.
+      // Both the width and the ramp's projection at
+      // `WEBGPU_PROXY_PROJECTION_SCALE` — dpr 1, the number this σ has always
+      // had. Until W16 that was the CSS tier's own scale and this σ was that
+      // tier's blur in another position; W16 G1 moved the CSS tier to the live
+      // ratio and left this where it was, because the proxy is the WebGPU
+      // tier's and this wave's binding rule is that the WebGPU tier does not
+      // move by a byte. Whether the proxy should follow the device scale the
+      // way the renderer's own body does is a GPU-tier question and belongs to
+      // a wave that may move it.
       const groupBlurRadius = groupScatterSigma(
         optics.blurRadius,
         sizeConstants.refractionScale[accessibilityRefractionCap(accessibility.material)],
         measured.map((entry) => [entry.bounds.width, entry.bounds.height] as const),
         sizeConstants,
-        CSS_TIER_RAMP_SCALE,
+        WEBGPU_PROXY_PROJECTION_SCALE,
       );
       const sampling = resolveSamplingGeometry({
         samplingPadding: groupRecord.descriptor.samplingPadding,
@@ -1620,10 +1763,41 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           extentsCssPx: [bounds.width, bounds.height],
           size: sizeConstants,
           outerShadow: outerShadowConstants,
-          // No device scale: the CSS tier renders the 1x material at every
-          // ratio (W13 Decision Log 5); the ratio feeds the GPU tier's pyramid.
+          // The live ratio, since W16 G1: the tier's two widths are device-pixel
+          // quantities and its mask is the renderer's own ramp, so the scale
+          // reaches everything the body draws (charter Decision Log 2 (c)). W13
+          // Decision Log 5's refusal was about projecting a MIX onto one σ, which
+          // this tier no longer does except under the cost collapse.
+          devicePixelRatio,
+          engine: cssTierEngine,
+          collapsed: cssTierCollapsed,
+          filterIdPrefix: cssTierFilterPrefix,
         });
         if (state.activeRenderer === "css") {
+          const geometry = {
+            widthCssPx: bounds.width,
+            heightCssPx: bounds.height,
+            radiusCssPx: record.radii[0],
+            devicePixelRatio,
+          };
+          // The reference filters this body needs, built before the declaration
+          // that names them lands — a `url(#id)` with no definition renders the
+          // layer unfiltered, which would be a silent loss of the whole body.
+          ensureCssTierFilters(referenceFilterSigmas(declarations.body));
+          /*
+           * Forced colors is a different surface rather than a dimmer material,
+           * so the tier draws no layers there and any it had are taken down: a
+           * tier that left them up would leave glass under system colours.
+           */
+          if (declarations.layers === undefined) {
+            if (record.cssLayers !== undefined) {
+              destroyCssTierLayers(record.host, record.cssLayers);
+              record.cssLayers = undefined;
+            }
+          } else {
+            record.cssLayers ??= createCssTierLayers(record.host);
+          }
+          const cssLayers = record.cssLayers;
           if (!record.cssMaterialized) {
             // Materialize with the transition off, then flush, then let the
             // normal write below arm it. Without the flush the browser batches
@@ -1631,20 +1805,46 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             // initial values, so every surface fades in from transparent and
             // unblurred — an accident of the initial value, not a designed
             // materialization (§Motion gives that its own monotonic driver).
+            //
+            // The containing block is read here too, on the one frame that is
+            // already flushing style: an absolutely positioned child resolves
+            // against the nearest positioned ancestor, and a statically
+            // positioned host would hand its layers to the plane's host layer.
+            if (cssLayers !== undefined) ensureCssTierContainingBlock(record.host, cssLayers, view);
             record.host.style.setProperty("transition", "none");
-            for (const [property, value] of Object.entries(declarations)) {
+            for (const [property, value] of Object.entries(declarations.host)) {
               if (property !== "transition") record.host.style.setProperty(property, value);
+            }
+            if (cssLayers !== undefined) {
+              applyCssTierLayers(cssLayers, declarations, geometry, cssTierMasks, true);
             }
             flushStyle(meter, record.host, view);
             record.cssMaterialized = true;
           }
 
-          const serialised = JSON.stringify(declarations);
+          const serialised = JSON.stringify(declarations.host);
           if (record.cssApplied !== serialised) {
-            for (const [property, value] of Object.entries(declarations)) {
+            for (const [property, value] of Object.entries(declarations.host)) {
               record.host.style.setProperty(property, value);
             }
             record.cssApplied = serialised;
+          }
+          /*
+           * The layers carry their own cache, because they change on inputs the
+           * host's declarations do not see: the surface's measured box and the
+           * device ratio, which are what the mask is rastered from, and the
+           * resolved body, whose ramp moves under an accessibility fold that
+           * leaves every layer's declaration identical. Missing that last one
+           * would leave a stale band on a surface whose mix had just changed.
+           */
+          const serialisedLayers = JSON.stringify([
+            declarations.layers,
+            declarations.body,
+            geometry,
+          ]);
+          if (cssLayers !== undefined && cssLayers.applied !== serialisedLayers) {
+            applyCssTierLayers(cssLayers, declarations, geometry, cssTierMasks);
+            cssLayers.applied = serialisedLayers;
           }
           // The CSS declarations carry the same foreground pair, so the GPU-tier
           // cache is stale rather than merely unused: dropping it makes a switch
@@ -1652,8 +1852,17 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           record.gpuForegroundApplied = undefined;
         } else {
           if (record.cssApplied !== undefined) {
-            clearDeclarations(record.host, declarations);
+            clearDeclarations(record.host, declarations.host);
             record.cssApplied = undefined;
+          }
+          // Stepping aside takes the layers down rather than emptying them: they
+          // are the CSS tier's material, the WebGPU tier draws its own, and three
+          // positioned children under a GPU-drawn host would be DOM that tier
+          // never asked for.
+          if (record.cssLayers !== undefined) {
+            destroyCssTierLayers(record.host, record.cssLayers);
+            record.cssLayers = undefined;
+            record.cssMaterialized = false;
           }
 
           /*
@@ -1980,6 +2189,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         cssMaterialized: false,
         cssApplied: undefined,
         gpuForegroundApplied: undefined,
+        cssLayers: undefined,
       };
       hosts.set(nodeId, record);
 
@@ -2163,8 +2373,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 optics: cssOptics.regular,
                 mapping: cssMapping,
                 policy: scene.accessibilityPolicy(),
-              }),
+              }).host,
             );
+          }
+          // The tier's three created children go with the host, and so does the
+          // `position` this module wrote for them — a released element must come
+          // out of the exchange carrying nothing vitrea put on it.
+          if (record.cssLayers !== undefined) {
+            destroyCssTierLayers(record.host, record.cssLayers);
+            record.cssLayers = undefined;
           }
           if (record.gpuForegroundApplied !== undefined) {
             clearDeclarations(
@@ -2263,6 +2480,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       // lifecycle is about to destroy.
       bridge?.destroy();
       webgpu?.destroy();
+      // The CSS tier's own DOM, before the hosts map is cleared: the layers are
+      // children of application elements this root does not own, so they have to
+      // be taken off them explicitly rather than dying with the plane roots.
+      for (const record of hosts.values()) {
+        if (record.cssLayers === undefined) continue;
+        destroyCssTierLayers(record.host, record.cssLayers);
+        record.cssLayers = undefined;
+      }
+      cssTierFilterDefs?.dispose();
+      cssTierMasks.clear();
       layers.destroy();
       inkStylesheet.dispose();
       hosts.clear();

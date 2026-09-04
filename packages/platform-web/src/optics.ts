@@ -627,11 +627,11 @@ export interface MaterialSourceSize {
    * share of 0.24–0.36. Interpolated by `rampAtScale` exactly as the ramp's
    * anchors are, and read only above dpr 1 — so nothing at dpr 1 moves at all.
    *
-   * This tier reads the law at `CSS_TIER_RAMP_SCALE`, which W15 Decision Log 2
-   * leaves at 1 until G1 predicts the tier's 2x σ, so these three reach the CSS
-   * tier's own output only if that decision moves. They are mirrored here
-   * because the projection is one law across the seam whatever scale it is read
-   * at, and `tier-coherence` pins the two mirrors over dpr {1, 1.5, 2, 3}.
+   * Since W16 G1 the CSS tier reads these at the **live** ratio like everything
+   * else it draws (charter Decision Log 2 (c)): its two layers are device-pixel
+   * widths and its mask is the renderer's own ramp at the ratio the page is
+   * composited at, so a mirror that lagged the scale would be two materials.
+   * `tier-coherence` pins the two mirrors over dpr {1, 1.5, 2, 3}.
    */
   readonly sizeScatterGainMax2x: number;
   readonly sizeScatterFloor2x: number;
@@ -649,9 +649,9 @@ export interface MaterialSourceSize {
    * Interpolated from the 1x gain, so at dpr ≤ 1 the two ends coincide and the
    * grading is flat — the wave's binding rule by construction.
    *
-   * Mirrored here for the same reason the three above are and drawn for the same
-   * none: this tier reads at `CSS_TIER_RAMP_SCALE = 1`, which W15 Decision Log 3
-   * keeps for the wave.
+   * Mirrored here for the same reason the three above are, and since W16 G1 drawn
+   * for the same reason too: the CSS tier's heavy layer takes its width from
+   * `scatterGainAt` at the live ratio, so this grading reaches its output.
    */
   readonly sizeScatterGainFar2x: number;
   /**
@@ -792,10 +792,15 @@ export interface MaterialSourceOuterShadow {
    * pseudo-element with `backdrop-filter: blur(40px)` masked to the falloff —
    * W14 Decision Log 1's question 2, decided (a): the CSS tier carries the
    * geometry and the adaptive alpha, which is the whole of the thin regime's gap
-   * and needs no new element, and the lift waits for the two-layer CSS body,
-   * which needs the same second element and should decide it once for both.
-   * The share deferred is the lift alone: 0.029–0.048 encoded on the thick
-   * spans, nothing on the thin ones and nothing over a dark backdrop.
+   * and needs no new element. W16 G1 gave the tier its second element and the
+   * lift still is not drawn, because it cannot be: a blend mode does not reach a
+   * `backdrop-filter`'s output (it blends the element's own content, and an empty
+   * ring has none) and a blending ancestor is a backdrop root, so the additive
+   * ring is unbuildable without a copy of the backdrop — which is a proxy, and
+   * this tier's whole demotability rests on building none (claims §5.71 §6, W16
+   * Decision Log 2 (d)). The share deferred is the lift alone: 0.029–0.048
+   * encoded on the thick spans, nothing on the thin ones and nothing over a dark
+   * backdrop.
    */
   readonly liftAmplitude: number;
   readonly liftSpanMin: number;
@@ -973,8 +978,14 @@ export function outerShadowLiftRise(
  * solved at one backdrop level and at the falloff's peak, while `B` varies from
  * pixel to pixel — on the checkerboard between its black and its white squares —
  * and `L`, being encoded, is not proportional to the falloff the way `α` is. That
- * residual is this tier's own gap, and it closes when the two-layer CSS body gives
- * the shadow a second element to paint the lift with instead of folding it away.
+ * residual is this tier's own gap, and W16 G1 measured that it does NOT close
+ * with a second element: no CSS construction adds a filtered backdrop's light to
+ * a ring and keeps the backdrop (claims §5.71 §6). It is also not the sign the
+ * fold was written for — over the shadow ring on `photo__rrect-md` this tier
+ * reads 0.0112 encoded LIGHTER than the native where the GPU tier reads 0.0059
+ * darker, so the conversion over-corrects there and added light would move it
+ * the wrong way. The residual stays this tier's own, re-attributed to the
+ * conversion (W16 Decision Log 2 (d)).
  *
  * The fold vanishes where the lift does: at and below `liftSpanMin` the rise is
  * zero, so every thin surface keeps exactly the alpha it had, and it shrinks with
@@ -1232,23 +1243,29 @@ export function sizeScatterSigma(
 }
 
 /**
- * **The device scale this tier reads the body's depth ramp at** (W13 G1,
- * Decision Log 1 question 2 (a)).
+ * **The device scale the WebGPU tier's DOM proxy projects the ramp at** — the
+ * successor to W13's `CSS_TIER_RAMP_SCALE`, narrowed to the one consumer that
+ * still wants it (W16 G1, charter Decision Log 2 (c)).
  *
- * One `backdrop-filter` cannot carry a ramp, so this tier renders the ramp's
- * per-surface average — and it takes that average at dpr 1 whatever ratio the
- * page is composited at. The reason is measured rather than conservative: this
- * tier's own best single σ is *larger* in CSS px at 2x (claims §5.55 §5), the
- * opposite of the device-pixel widths, so projecting the ramp at the device
- * scale would move the 2x dom rows the way the measurement says is wrong. The
- * tier's claim is narrowed to "the CSS tier renders the 1x material" and its 2x
- * rows stay held by decision until the two-layer CSS body wave gives the tier a
- * form that can carry depth.
+ * `CSS_TIER_RAMP_SCALE` existed because the CSS tier drew one `backdrop-filter`
+ * and had to pick one scale to project the ramp at; W13 Decision Log 5 picked
+ * dpr 1 on measurement, and W15 Decision Log 3 kept it. W16 gives the tier two
+ * layers and a mask, so the tier reads the law at the **live** ratio and that
+ * constant has no meaning for its own draw any more.
  *
- * This is deliberately one number in one place: flipping it to the live ratio is
- * the whole of decision 2 (b).
+ * One consumer is left, and it is not the CSS tier: `groupScatterSigma` in
+ * `root.ts` sizes the WebGPU tier's `css-backdrop` proxy — its `backdrop-filter`
+ * and the 3σ padding floor `resolveProxyGeometry` enforces. That σ is bound
+ * byte-identical by this wave's binding rule (the GPU tier does not move), so it
+ * keeps the number it has always had, under a name that says whose it is. It is
+ * **not** a projection of the CSS tier's own body any more, and moving the tier
+ * must not reach it.
+ *
+ * Whether the proxy's σ should follow the device scale the way the renderer's
+ * own body now does is a real question and a GPU-tier one: it belongs to the
+ * wave that may move the GPU tier, not to this one.
  */
-export const CSS_TIER_RAMP_SCALE = 1;
+export const WEBGPU_PROXY_PROJECTION_SCALE = 1;
 
 /**
  * The depth ramp's start at a device scale and a span — s₀(span, dpr), the
@@ -1538,8 +1555,10 @@ export function scatterRampAreaMean(
  * What the ratio does reach is the GAIN (`sizeScatterGainMax2x`, W15 G1), so at
  * mix 0 this returns `sigmaPx` at every ratio. Since W15 G1's landing the two
  * gains differ above dpr 1 (4.8 at dpr 2 against 8 at dpr 1, claims §5.70 §8),
- * but this tier calls at `CSS_TIER_RAMP_SCALE` — dpr 1 — so what it writes is
- * the 1x law's σ whatever the ratio it is drawn at.
+ * but the CSS tier no longer projects its body onto one σ except under the cost
+ * collapse (`css-tier.ts`), which reproduces exactly today's 1x form on purpose.
+ * The tier's own two widths come from `cssTierSharpSigmaCssPx` and
+ * `cssTierHeavySigmaCssPx` at the live ratio.
  *
  * `spanPx` is OPTIONAL and selects which gain, exactly as on the renderer's
  * mirror: given, the span-graded `scatterGainAt` (W15 G1's re-form, claims
@@ -1560,6 +1579,193 @@ export function sizeScatterSigmaAt(
       ? scatterGainAtScale(size, devicePixelRatio)
       : scatterGainAt(spanPx, size, devicePixelRatio);
   return sigmaPx * (1 + (gain - 1) * mix);
+}
+
+/*
+ * ---------------------------------------------------------------------------
+ * The CSS tier's two-layer body (W16 G1, charter Decision Log 2 (a)–(c);
+ * claims §5.71).
+ * ---------------------------------------------------------------------------
+ *
+ * The tier draws the renderer's two components as two `backdrop-filter` layers
+ * over the same backdrop, the heavy one painted after the sharp one so that it
+ * blurs the sharp one's OUTPUT. Two Gaussians in series add in quadrature, so a
+ * heavy layer at σ_step composes to √(σ_s² + σ_step²) — which is why the heavy
+ * layer's own width below is a *step* and not the composed width, and why the
+ * composed width is the only one that can be compared with the renderer's.
+ *
+ * Nothing here is fitted for this tier (K5). The sharp width, the gain, the
+ * ramp's start, its reach and the deep value are the renderer's own functions
+ * read at the live device ratio. The one conversion this tier makes is
+ * `scatterHeavyEffectiveSigmaDevicePx`, and it is a measurement of the
+ * renderer's kernel rather than a constant of this tier's — see its comment.
+ */
+
+/**
+ * The renderer's heavy component's **effective** Gaussian width, from the
+ * profile's nominal, in device px (W16 G1; charter Decision Log 2 (c)).
+ *
+ * The renderer's heavy component is a mip-chain tap, not a Gaussian, and it is
+ * measurably wider than the σ the profile names: claims §5.69 §3 already read
+ * the renderer's own nominal through a Gaussian estimator and got 8–11 device px
+ * where the profile said 6, and §5.71 §5 showed a true Gaussian drawn at the
+ * nominal landing narrow of the reference on every span by about the size of
+ * that difference. A `backdrop-filter` blur IS a true Gaussian, so a tier that
+ * drew the nominal would draw a narrower body than the tier it is supposed to
+ * agree with — the coherence gap would be the conversion's, not the material's.
+ *
+ * So the tier draws what the renderer's kernel actually draws. The conversion is
+ * a moment match measured on the renderer's own committed captures of the
+ * checkerboard cells at both scales (the table and the residual are in this
+ * function's own record below), and it carries **no constant of this tier's
+ * own**: it is one number describing the other tier's kernel, in the same sense
+ * `α′ = α − L/B` is one number describing the other tier's lift.
+ *
+ * **The conversion is 1.0, and that is a measurement rather than a default.**
+ * W16 G1 read the moment-matched σ of the renderer's heavy component off the
+ * renderer's own committed captures of the checkerboard cells, with the sharp
+ * width at the profile's nominal, the renderer's own k(u) as the mix, and the
+ * level and the transmission free per cell — one nonlinear parameter, swept and
+ * refined, with the instrument's recovery of a known law beside every reading
+ * (X4). What came back does not support a conversion of any shape:
+ *
+ * | cell | span | dpr | nominal, device px | effective, device px | ratio | RMS | ±5% band |
+ * | --- | --- | --- | --- | --- | --- | --- | --- |
+ * | `rrect-md` | 96 | 2 | 6.00 | 7.11 | 1.185 | 0.0037 | 7.00–7.50 |
+ * | `rrect-ml` | 128 | 2 | 6.66 | 6.94 | 1.042 | 0.0030 | 6.75–7.25 |
+ * | `rrect-lg` | 160 | 2 | 8.24 | 6.20 | **0.752** | 0.0026 | 6.00–6.50 |
+ * | `rrect-sm` | 32 | 2 | 6.00 | 10.49 | 1.749 | 0.0027 | 10.25–11.00 |
+ * | `capsule-button` | 44 | 2 | 6.00 | 10.59 | 1.766 | 0.0032 | 10.25–11.00 |
+ * | every cell | — | 1 | 10.00 | unidentifiable | — | 0.0025 | 10.75–24.00 |
+ *
+ * Three readings and one non-reading, in the order they matter.
+ *
+ * **At dpr 1 the width cannot be measured on this bed at all.** The fit pegs at
+ * the sweep's ceiling on every cell with an objective flat over 10.75–24 device
+ * px, and X4 says why rather than leaving it to inference: fed a synthetic
+ * capture of a KNOWN width, the same instrument returns +5% at σ 6, +8% at σ 8,
+ * and at σ 10 returns either 1.03 or 20.74 for a truth of 10.00. The mechanism is
+ * the bed and not the instrument. The checkerboard is a single spatial frequency
+ * — pitch 16 CSS px, which is 16 device px at dpr 1 — and a Gaussian of σ 10
+ * device px attenuates that fundamental by a factor of about seven and annihilates
+ * every harmonic, so there is no signal left for a width to be read out of. At
+ * dpr 2 the same pitch is 32 device px against a σ of 6–8, the attenuation is
+ * about 0.84, and the same instrument recovers a known law to within 0.9% at
+ * every width tried.
+ *
+ * **At dpr 2, where it is identifiable, it is not one number and neither
+ * candidate rule carries it.** The three spans with a real deep interior read
+ * 1.185, 1.042 and 0.752 — a spread of 1.6× — and the direction reverses: on the
+ * largest span the renderer's kernel is measurably NARROWER than the width the
+ * profile names, not wider. A single ratio cannot carry a set that straddles 1.
+ * The quadrature form fails harder and fails structurally: solving
+ * σ_eff² = σ_nom² + c² gives c = 3.81 device px on `rrect-md`, c = 1.95 on
+ * `rrect-ml` — a factor of two — and on `rrect-lg` it asks for c² = −29.5, which
+ * has no solution at all. Neither rule is a near miss; both are refuted.
+ *
+ * The two thin spans' 1.75–1.77 are not readings of the kernel at all, and are
+ * listed only so the table is not quietly filtered: at dpr 2 a half-span of 16 or
+ * 22 CSS px lies entirely inside a reach of about 50, so those cells carry no
+ * deep interior and the estimator is absorbing the ramp — exactly what claims
+ * §5.69 §2 records for the same two cells.
+ *
+ * **So the tier draws the nominal, and the gap is named instead of fitted.**
+ * Neither candidate rule survives its own residual, and a per-span, per-scale
+ * table read off three cells at one scale would be a constant of this tier's own
+ * — which contract K5 forbids and which the charter's own rule turns into a
+ * finding rather than a number ("a row the derivation cannot reach is a finding
+ * with its mechanism, not a fit"). The consequence is stated rather than hidden:
+ * the tier's single-σ equivalent at 2x lands narrow of the reference's ceiling by roughly the
+ * 0.38–1.07 CSS px G0 predicted (claims §5.71 §5), and G0 already attributed that
+ * to the GPU tier's own 2x heavy width sitting 0.4–1.4 CSS px under the
+ * reference's — a GPU-tier distance this wave's binding rules forbid moving.
+ *
+ * The work that would close it is a different instrument, not a better fit: the
+ * renderer's kernel is a mip-chain tap and its impulse response can be read
+ * directly off the renderer at both scales, which is a GPU-tier golden rather
+ * than a capture read, and which is where a conversion this tier can trust has to
+ * come from.
+ */
+export const SCATTER_HEAVY_EFFECTIVE_RATIO = 1;
+
+/** The effective width of a heavy component whose nominal is `nominalDevicePx`. */
+export function scatterHeavyEffectiveSigmaDevicePx(nominalDevicePx: number): number {
+  return nominalDevicePx * SCATTER_HEAVY_EFFECTIVE_RATIO;
+}
+
+/**
+ * L1's width in CSS px — the sharp component, a **device-pixel** quantity
+ * (W16 G1; charter Decision Log 2 (c)).
+ *
+ * `sigmaDevicePx` is the profile's `blurSigma`, which the renderer treats as
+ * device px at every scale since W15 G1. `backdrop-filter: blur()` takes CSS px,
+ * so the division by the live ratio is the whole of the conversion — and it is
+ * the conversion W13 Decision Log 5 refused for the single-blur form, on a
+ * measurement about the single-blur form. That measurement does not reach here:
+ * it said the tier's best SINGLE σ is larger in CSS px at 2x, which is a
+ * statement about the projection of a mix onto one Gaussian, not about either
+ * component's width.
+ *
+ * Kept nominal deliberately: the sharp component is one mip level 0 tap, and
+ * the measurement that fitted `scatterHeavyEffectiveSigmaDevicePx` read the
+ * sharp width nominal to within its own uncertainty.
+ */
+export function cssTierSharpSigmaCssPx(sigmaDevicePx: number, devicePixelRatio = 1): number {
+  return sigmaDevicePx / Math.max(devicePixelRatio, 1e-3);
+}
+
+/**
+ * L2's **composed** width in CSS px — what the sharp layer's output must end up
+ * blurred to where the mask is opaque.
+ *
+ * The renderer's nominal heavy width is `blurSigma · gain(span, dpr)` in device
+ * px, through the span-graded gain W15 G1 landed; the effective conversion turns
+ * that into the width the mip chain really draws, and the ratio turns it into
+ * CSS px.
+ */
+export function cssTierHeavySigmaCssPx(
+  sigmaDevicePx: number,
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+): number {
+  const nominal = sigmaDevicePx * scatterGainAt(spanPx, size, devicePixelRatio);
+  return scatterHeavyEffectiveSigmaDevicePx(nominal) / Math.max(devicePixelRatio, 1e-3);
+}
+
+/**
+ * L2's **own** blur radius in CSS px — the step that takes L1's output to the
+ * composed heavy width.
+ *
+ * Two Gaussians in series compose in quadrature, and L2 is painted over L1's
+ * result rather than over the page: `√(σ_s² + σ_step²) = σ_h`. Clamped at zero
+ * because a profile whose gain is at or below 1 asks for a heavy component no
+ * wider than the sharp one, which is a single blur and not an imaginary step.
+ */
+export function cssTierHeavyStepSigmaCssPx(sharpCssPx: number, heavyCssPx: number): number {
+  return Math.sqrt(Math.max(heavyCssPx * heavyCssPx - sharpCssPx * sharpCssPx, 0));
+}
+
+/**
+ * The heavy share at a depth, folded — L2's alpha at one point of the mask
+ * (W16 G1; charter Decision Log 2 (b)).
+ *
+ * `scatterSharpShare` is the renderer's law and this is one minus it, under the
+ * same accessibility fold `scatterThickness` applies to the projection: the fold
+ * scales the excursion away from the floor and never the floor itself, so the
+ * area mean of this function is exactly `scatterThickness`'s own number and the
+ * mask cannot disagree with the projection it replaces.
+ */
+export function cssTierHeavyShareAt(
+  uDevicePx: number,
+  devicePixelRatio: number,
+  fold: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  spanPx = 0,
+): number {
+  const floor = scatterFloorAtScale(size, devicePixelRatio);
+  const heavy = 1 - scatterSharpShare(uDevicePx, devicePixelRatio, size, spanPx);
+  return clamp01(floor + (heavy - floor) * fold);
 }
 
 /**
@@ -1592,12 +1798,13 @@ export function groupScatterSigma(
   for (const [width, height] of members) {
     const span = Math.min(width, height);
     // The gain is graded by the member's own span since W15 G1's re-form, on the
-    // same ratio the gain has always been read at here — dpr 1, because this σ
-    // is what the tier writes and what a proxy's padding is taken over, and W15
-    // Decision Log 3 keeps `CSS_TIER_RAMP_SCALE` at 1 for the wave. At that
-    // ratio the grading is flat, so the σ is unchanged; passing the span is what
-    // keeps this the per-member form of `sizeScatterSigma` rather than a second
-    // reading of the law.
+    // same ratio the gain has always been read at here — dpr 1, which is now
+    // `WEBGPU_PROXY_PROJECTION_SCALE` and is this proxy's own number rather than
+    // a projection of the CSS tier's body (W16 G1: the tier moved to the live
+    // ratio and the proxy is bound byte-identical). At that ratio the grading is
+    // flat, so the σ is unchanged; passing the span is what keeps this the
+    // per-member form of `sizeScatterSigma` rather than a second reading of the
+    // law.
     const own = sizeScatterSigmaAt(
       sigmaPx,
       scatterThickness(span, fold, size, projectionScale, [width, height]),

@@ -54,6 +54,24 @@ export interface GlassGroupState {
   readonly analysis: AnalysisQuality;
   readonly health: GroupHealth;
   readonly demotionReason?: DemotionReason;
+  /**
+   * Which body the CSS tier drew for this group, where the CSS tier is the one
+   * drawing (W16 G1).
+   *
+   * `two-layer` is the material: a sharp `backdrop-filter` and a heavy one over
+   * it, mixed by the renderer's own depth ramp. `collapsed` is the declared
+   * degradation the cost budget buys — the heavy layer folded into the single
+   * mixed σ this tier drew before W16 — and it is named here for the same reason
+   * every other field on this record is: a capture cell, a readout and a test
+   * must read what actually drew rather than what was asked for. Absent on a
+   * WebGPU-tier group, and on any group before the first frame has resolved one.
+   *
+   * Resolved by the platform rather than by core's resolver: the budget is a
+   * measurement of the root's total filtered area, which core cannot see. The
+   * platform folds it onto the state on the one function every consumer goes
+   * through.
+   */
+  readonly cssBody?: "two-layer" | "collapsed";
 }
 
 export function isHealthy(state: GlassGroupState): boolean {
