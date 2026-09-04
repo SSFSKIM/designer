@@ -35,8 +35,10 @@ import {
   CSS_TIER_MAPPING,
   cssTintAlpha,
   cssTintColor,
+  cssOpticsFromSource,
   gpuTierForegroundBounds,
   linearTint,
+  occlusionAlphaUnderPolicy,
   sourceOptics,
   tintedCssOptics,
   tintedSourceOptics,
@@ -326,16 +328,54 @@ describe("accessibility still wins", () => {
       tint,
       policy: policy(),
     } as const satisfies CssTierSurface;
-    const lifted = { ...nominal, policy: policy({ occlusion: "increased" }) };
+    /*
+     * Re-pointed at W17 G1 (charter Decision Log 2 (b)): the regime's occlusion
+     * lift lands on the SOURCE alpha now, before the conversion and before the
+     * author's layer is folded over it, because that is the order the shader
+     * takes it in. The policy is unchanged and so is its direction; what moved is
+     * where in the chain it is applied, so the lifted surface is built from the
+     * lifted source rather than from the nominal one.
+     */
+    const liftedSource = {
+      ...source,
+      tintAlpha: occlusionAlphaUnderPolicy(source.tintAlpha, "increased"),
+    };
+    const lifted = {
+      ...nominal,
+      optics: tintedCssOptics(
+        cssOpticsFromSource(base, liftedSource),
+        liftedSource,
+        linearTint(tint),
+        0.2,
+        1,
+      ),
+      policy: policy({ occlusion: "increased" }),
+    };
     expect(Number(hostOf(lifted)["--vitrea-occlusion"])).toBeGreaterThan(
       Number(hostOf(nominal)["--vitrea-occlusion"]),
     );
-    // The colour is the author's either way; only how much of it there is moved.
-    // The tint itself is the overlay layer's `background-color` since W16 G1,
-    // and the token beside it on the host is the same alpha published.
-    expect(overlayOf(lifted)["background-color"]?.split(",").slice(0, 3)).toEqual(
-      overlayOf(nominal)["background-color"]?.split(",").slice(0, 3),
-    );
+    /*
+     * The hue is the author's either way, and the folded triple is not the same
+     * triple either way — which is W17 G1's own consequence (Decision Log 2 (b)).
+     * The lift is inside the MATERIAL's alpha now rather than applied to the
+     * folded alpha afterwards, so the convex fold of the material and the
+     * author's layer weights the material more and the pair moves toward the
+     * material's white. That is what the renderer does: it lifts its own
+     * occlusion and then composites the author's layer over the result. So every
+     * channel rises and none crosses another, which is "the colour is the
+     * author's, the quantity is the policy's" in the only form one folded rgba
+     * can carry it.
+     */
+    const channels = (declarations: StyleDeclarations): number[] =>
+      (declarations["background-color"]?.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number);
+    const liftedChannels = channels(overlayOf(lifted));
+    const nominalChannels = channels(overlayOf(nominal));
+    expect(liftedChannels).toHaveLength(3);
+    liftedChannels.forEach((value, index) => {
+      expect(value, `channel ${index}`).toBeGreaterThan(nominalChannels[index]!);
+    });
+    expect([...liftedChannels].sort((a, b) => b - a)).toEqual(liftedChannels);
+    expect([...nominalChannels].sort((a, b) => b - a)).toEqual(nominalChannels);
   });
 
   it("never overrides near-monochrome ink with a tint-derived level", () => {

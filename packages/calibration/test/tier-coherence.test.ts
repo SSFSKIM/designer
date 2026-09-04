@@ -86,9 +86,18 @@ import {
   sizeThickness as cssSizeThickness,
   sizeThicknessUnderPolicy as cssSizeThicknessUnderPolicy,
   sourceGlow,
+  sourceInteriorLight,
   sourceOptics,
   unsampledMaterials,
   sourceSize,
+  cssTierTintTransfer,
+  innerShadowedSourceOptics,
+  interiorBandLight,
+  interiorShadowKeep,
+  resolvedBackdropToneResponse,
+  sizeOcclusionAlphaAt as cssSizeOcclusionAlphaAt,
+  toneRespondedSourceOptics,
+  type CssTierInterior,
   tintShadeLayer as cssTierTintShadeLayer,
   tintToneAdaptation as cssTierTintToneAdaptation,
 } from "@vitreajs/vitrea-web";
@@ -99,6 +108,8 @@ import {
   adaptedTintAlpha,
   adaptedTintColour,
   backdropToneAdaptation as rendererBackdropToneAdaptation,
+  backdropToneResponse as rendererBackdropToneResponse,
+  backdropToneSolveWeight as rendererBackdropToneSolveWeight,
   backdropToneUnderPolicy as rendererBackdropToneUnderPolicy,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   opticsUnderPolicy as rendererOpticsUnderPolicy,
@@ -115,6 +126,7 @@ import {
   sizeOuterShadowOcclusionAt as rendererSizeOuterShadowOcclusionAt,
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
+  sizeOcclusionAlphaAt as rendererSizeOcclusionAlphaAt,
   scatterDeepThickness as rendererScatterDeepThickness,
   scatterFloorAtScale as rendererScatterFloorAtScale,
   scatterGainAt as rendererScatterGainAt,
@@ -1722,4 +1734,252 @@ describe("tier coherence (K5)", () => {
     }
   });
 
+});
+
+/**
+ * The interior composite, both tiers (X7, W17 G1; charter Decision Log 2 (b)–(c)).
+ *
+ * Every other block in this file pins a CONSTANT in both directions. That is
+ * what let the ordering defect W17 G0 found live on the tier undetected: the two
+ * mirrors agreed on the size law's occlusion gain, on the response curve's
+ * anchors and on the collapse's constants, and disagreed about the order the
+ * three are applied in — worth +0.015 to +0.027 of the CSS tier's interior level
+ * (claims §5.74 §3). So this block pins the COMPOSITE, per backdrop level and
+ * per device scale, which is the only statement that could have caught it.
+ *
+ * The renderer's side is restated from the shader's own sequence using the
+ * renderer package's exported functions and constants — the response curve, its
+ * authority, the size law's occlusion, the collapse's pair. It is a second copy
+ * of the shader's equation on purpose, in the one place a second copy is the
+ * instrument rather than the hazard: this test exists to fail when the tier's
+ * mirror and the shader stop being the same arithmetic.
+ */
+describe("the interior composite (X7)", () => {
+  const PROFILE = DEFAULT_MATERIAL_PROFILE;
+  const luma = (rgb: readonly [number, number, number]): number =>
+    0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+  const smoothstep = (edge0: number, edge1: number, x: number): number => {
+    const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
+    return t * t * (3 - 2 * t);
+  };
+
+  /** A backdrop sample at a declared linear level, with its encoded mean beside it. */
+  const sampleAt = (
+    linear: number,
+  ): { rgb: [number, number, number]; luminance: number; linearLuminance: number } => ({
+    rgb: [linear, linear, linear],
+    // A flat patch's encoded mean decodes back to itself, which is the one
+    // sample where the two spaces the tone carries coincide — deliberate, so
+    // this pin is about the composite and not about how a checkerboard is read.
+    luminance: linear,
+    linearLuminance: linear,
+  });
+
+  /** The shader's own sequence, in TypeScript, from the renderer's own numbers. */
+  function rendererComposite(
+    spanPx: number,
+    backdropLinear: number,
+    policy = RENDERER_NOMINAL_POLICY,
+  ): { alpha: number; tint: [number, number, number] } {
+    const optics = rendererOpticsUnderPolicy(PROFILE.optics.regular, policy, PROFILE);
+    const sizeK = rendererSizeThicknessUnderPolicy(spanPx, policy, PROFILE);
+    const geometricK = rendererSizeThickness(spanPx, PROFILE);
+    // `sizedAlpha` — before the solve, which is the whole of W17 G0's finding.
+    const sizedAlpha = rendererSizeOcclusionAlphaAt(optics.tintAlpha, sizeK, PROFILE);
+    const policyStrength = rendererBackdropToneUnderPolicy(policy, PROFILE);
+    const toneAdapt =
+      rendererBackdropToneAdaptation(backdropLinear, geometricK, PROFILE) * policyStrength;
+    const gate =
+      (policyStrength >= 0.999 ? 1 : 0) * Math.min(1, Math.max(0, PROFILE.backdropToneMax));
+    const responseStrength = gate * PROFILE.backdropToneResponseStrength;
+
+    let neutral: [number, number, number] = [...optics.tint] as [number, number, number];
+    let solvedAlpha = sizedAlpha;
+    if (responseStrength > 0 && sizedAlpha > 1e-3 && toneAdapt < 0.995) {
+      const encodedInput = srgbEncode(backdropLinear);
+      const authority = rendererBackdropToneSolveWeight(encodedInput, PROFILE) * responseStrength;
+      if (authority > 0) {
+        const response = rendererBackdropToneResponse(encodedInput, sizeK, PROFILE);
+        const preCollapse = (response - toneAdapt * backdropLinear) / (1 - toneAdapt);
+        const nominal = (1 - sizedAlpha) * backdropLinear + sizedAlpha * luma(neutral);
+        const shift = ((preCollapse - nominal) / sizedAlpha) * authority;
+        neutral = neutral.map((channel) => Math.min(1, Math.max(0, channel + shift))) as [
+          number,
+          number,
+          number,
+        ];
+        const solvedLuma = luma(neutral);
+        const achieved = (1 - sizedAlpha) * backdropLinear + sizedAlpha * solvedLuma;
+        if (preCollapse > achieved + 1e-4 && solvedLuma > backdropLinear + 1e-3) {
+          const target = Math.min(
+            1,
+            Math.max(sizedAlpha, (preCollapse - backdropLinear) / (solvedLuma - backdropLinear)),
+          );
+          solvedAlpha = sizedAlpha + (target - sizedAlpha) * authority;
+        }
+      }
+    }
+    void smoothstep;
+    return {
+      alpha: adaptedTintAlpha(solvedAlpha, toneAdapt),
+      tint: adaptedTintColour(neutral, [backdropLinear, backdropLinear, backdropLinear], toneAdapt, solvedAlpha) as [
+        number,
+        number,
+        number,
+      ],
+    };
+  }
+
+  /** The tier's side: `root.ts`'s chain, through `optics.ts`'s own functions. */
+  function tierComposite(
+    spanPx: number,
+    backdropLinear: number,
+    policy = NOMINAL_ACCESSIBILITY_POLICY.material,
+  ): CssTierInterior {
+    const base = sourceOptics()["regular"];
+    const size = sourceSize();
+    const sample = sampleAt(backdropLinear);
+    const sizeK = cssSizeThicknessUnderPolicy(spanPx, policy, size);
+    const geometricK = cssSizeThickness(spanPx, size);
+    const occluded = {
+      ...base,
+      tintAlpha: cssSizeOcclusionAlphaAt(
+        occlusionAlphaUnderPolicy(base.tintAlpha, policy.occlusion),
+        sizeK,
+        size,
+      ),
+    };
+    const toneConstants = resolvedBackdropTone();
+    const policyStrength = cssBackdropToneUnderPolicy(
+      policy,
+      resolvedTintShade(),
+      size.refractionScale,
+    );
+    const adaptation =
+      cssBackdropToneAdaptation(sample.luminance, geometricK, toneConstants) * policyStrength;
+    const responded = toneRespondedSourceOptics(
+      occluded,
+      sample,
+      sizeK,
+      adaptation,
+      (policyStrength >= 0.999 ? 1 : 0) * Math.min(1, Math.max(0, toneConstants.max)),
+      resolvedBackdropToneResponse(),
+    );
+    const adapted = adaptedSourceOptics(responded, sample.rgb, adaptation);
+    return {
+      tintAlpha: adapted.tintAlpha,
+      tint: [adapted.tint[0], adapted.tint[1], adapted.tint[2]],
+      addedLight: 0,
+    };
+  }
+
+  it("mirrors the band's and the inner shadow's own constants, patch included", () => {
+    for (const variant of MATERIAL_VARIANTS) {
+      const renderer = DEFAULT_MATERIAL_PROFILE.optics[variant];
+      const mirror = sourceOptics()[variant];
+      for (const key of ["rimWidth", "specularPower", "specularGain", "shadowDepth", "shadowAlpha"] as const) {
+        expect(mirror[key], `${variant}.${key}`).toBe(renderer[key]);
+      }
+    }
+    expect(sourceInteriorLight().lightDirection).toEqual(DEFAULT_MATERIAL_PROFILE.lightDirection);
+    expect(sourceInteriorLight().shadowDepthGainMax).toBe(DEFAULT_MATERIAL_PROFILE.lensSizeGainMax);
+    expect(sourceInteriorLight().shadowAmplitudeGainMax).toBe(
+      DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax,
+    );
+    // And through a patch, by the renderer's own merge rule: a document that
+    // moves the band moves this tier's derived light with it.
+    const patch = {
+      lightDirection: [0, -1] as const,
+      lensSizeGainMax: 3.1,
+      sizeShadowGainMax: 1.4,
+      optics: { regular: { rimWidth: 2.5, specularGain: 0.7 } },
+    };
+    const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    expect(sourceInteriorLight(patch).lightDirection).toEqual(resolved.lightDirection);
+    expect(sourceInteriorLight(patch).shadowDepthGainMax).toBe(resolved.lensSizeGainMax);
+    expect(sourceInteriorLight(patch).shadowAmplitudeGainMax).toBe(resolved.sizeShadowGainMax);
+    expect(sourceOptics(patch).regular.rimWidth).toBe(resolved.optics.regular.rimWidth);
+    expect(sourceOptics(patch).regular.specularGain).toBe(resolved.optics.regular.specularGain);
+  });
+
+  it("resolves one span and one backdrop to the same composite on both tiers", () => {
+    for (const spanPx of [44, 96, 128, 160]) {
+      for (const backdrop of [0.05, 0.2, 0.5, 0.8]) {
+        const renderer = rendererComposite(spanPx, backdrop);
+        const tier = tierComposite(spanPx, backdrop);
+        const where = `span ${spanPx} backdrop ${backdrop}`;
+        expect(tier.tintAlpha, `${where} alpha`).toBeCloseTo(renderer.alpha, 12);
+        for (const index of [0, 1, 2] as const) {
+          expect(tier.tint[index], `${where} channel ${index}`).toBeCloseTo(
+            renderer.tint[index],
+            12,
+          );
+        }
+      }
+    }
+  });
+
+  it("draws the renderer's composite through the transfer, at every level and scale", () => {
+    // What the transfer is FOR: the tier's output is the renderer's composite as
+    // a function of the backdrop rather than at one declared level. The band's
+    // derived light rides on the intercept and is a property of the surface's
+    // geometry, so it is read at both scales through the same box in CSS px —
+    // the size law is a CSS-px law and the derivation is one too.
+    for (const devicePixelRatio of [1, 2]) {
+      for (const [spanPx, geometry] of [
+        [96, { widthCssPx: 160, heightCssPx: 96, radiusCssPx: 20, thicknessCssPx: 8 }],
+        [44, { widthCssPx: 120, heightCssPx: 44, radiusCssPx: 22, thicknessCssPx: 8 }],
+      ] as const) {
+        for (const backdrop of [0.05, 0.2, 0.5, 0.8]) {
+          const renderer = rendererComposite(spanPx, backdrop);
+          const keep = interiorShadowKeep(
+            sourceOptics().regular,
+            geometry,
+            cssSizeThickness(spanPx, sourceSize()),
+            1,
+          );
+          const band = interiorBandLight(sourceOptics().regular, geometry, 1);
+          const tier = tierComposite(spanPx, backdrop);
+          const shadowed = innerShadowedSourceOptics(
+            { ...sourceOptics().regular, tintAlpha: tier.tintAlpha, tint: tier.tint },
+            keep,
+          );
+          const transfer = cssTierTintTransfer({
+            tintAlpha: shadowed.tintAlpha,
+            tint: [shadowed.tint[0], shadowed.tint[1], shadowed.tint[2]],
+            addedLight: band,
+          });
+          const where = `dpr ${devicePixelRatio} span ${spanPx} backdrop ${backdrop}`;
+          for (const index of [0, 1, 2] as const) {
+            const expected =
+              keep * ((1 - renderer.alpha) * backdrop + renderer.alpha * renderer.tint[index]) +
+              band;
+            expect(
+              transfer.slope * backdrop + transfer.intercept[index],
+              `${where} channel ${index}`,
+            ).toBeCloseTo(expected, 12);
+          }
+        }
+      }
+    }
+  });
+
+  it("folds a preference into the same composite on both tiers", () => {
+    for (const regime of ["increased", "opaque"] as const) {
+      const rendererPolicy = { ...RENDERER_NOMINAL_POLICY, occlusion: regime };
+      const tierPolicy = { ...NOMINAL_ACCESSIBILITY_POLICY.material, occlusion: regime };
+      for (const backdrop of [0.05, 0.5, 0.8]) {
+        const renderer = rendererComposite(96, backdrop, rendererPolicy);
+        const tier = tierComposite(96, backdrop, tierPolicy);
+        const where = `${regime} at ${backdrop}`;
+        expect(tier.tintAlpha, `${where} alpha`).toBeCloseTo(renderer.alpha, 12);
+        for (const index of [0, 1, 2] as const) {
+          expect(tier.tint[index], `${where} channel ${index}`).toBeCloseTo(
+            renderer.tint[index],
+            12,
+          );
+        }
+      }
+    }
+  });
 });

@@ -24,6 +24,7 @@ import {
   MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
+  cssOpticsFromSource,
   cssTierOptics,
   cssTierForegroundLevel,
   cssTierShadowAlpha,
@@ -34,15 +35,63 @@ import {
   outerShadowAlpha,
   outerShadowFalloff,
   outerShadowThinOcclusion,
+  POLICY_FOLD_CONSTANTS,
   resolvedPolicyFold,
   scatterHeavyEffectiveRatioAtScale,
+  sizeOcclusionAlphaAt,
+  sizeThicknessUnderPolicy,
   scatterThickness as cssScatterThickness,
   sizeThickness,
   groupScatterSigma,
   sizeScatterSigmaAt,
   sourceSize,
   sourceOuterShadow,
+  type MaterialOptics,
+  type MaterialSourceOptics,
+  type MaterialSourceSize,
+  type PolicyFoldConstants,
 } from "../src/optics";
+
+/**
+ * The optics `root.ts` hands this tier, for one source under one regime and one
+ * span — re-pointed at W17 G1 (charter Decision Log 2 (b)).
+ *
+ * The regime's occlusion lift and the size law's occlusion used to be applied by
+ * `cssTierDeclarations`, on the alpha this tier had already converted. They land
+ * on the SOURCE alpha now, before the W9 response solve and before the
+ * conversion, because that is the order the shader takes them in: a solve run at
+ * one alpha and a raise applied afterwards lands the interior's mean above the
+ * response the solve exists to hit, by +0.015 to +0.027 of this tier's level
+ * (claims §5.74 §3). The policies below are unchanged — the same lift, the same
+ * gain, the same direction — and what moved is where in the chain they land, so
+ * the pins move with them rather than being dropped.
+ */
+const occludedOptics = (
+  source: MaterialSourceOptics,
+  policy: ResolvedAccessibilityPolicy,
+  options: {
+    readonly spanPx?: number;
+    readonly fold?: PolicyFoldConstants;
+    readonly size?: MaterialSourceSize;
+  } = {},
+): MaterialOptics => {
+  const fold = options.fold ?? POLICY_FOLD_CONSTANTS;
+  const sizeConstants = options.size ?? MATERIAL_SOURCE_SIZE;
+  const lifted = occlusionAlphaUnderPolicy(
+    source.tintAlpha,
+    policy.material.occlusion,
+    fold.increasedOcclusionLift,
+  );
+  const sized =
+    options.spanPx === undefined
+      ? lifted
+      : sizeOcclusionAlphaAt(
+          lifted,
+          sizeThicknessUnderPolicy(options.spanPx, policy.material, sizeConstants),
+          sizeConstants,
+        );
+  return cssOpticsFromSource(MATERIAL_OPTICS.regular, { ...source, tintAlpha: sized });
+};
 
 const surface = {
   radii: [22, 22, 22, 22] as const,
@@ -234,19 +283,25 @@ describe("the CSS tier (the fallback is the design)", () => {
    * measured yet.
    */
   it("lifts the occlusion above nominal under reduced transparency", () => {
+    const reducedPolicy = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
     const nominal = Number(hostOf(surface)["--vitrea-occlusion"]);
     const reduced = Number(
       hostOf({
         ...surface,
-        policy: resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })),
+        optics: occludedOptics(MATERIAL_SOURCE_OPTICS.regular, reducedPolicy),
+        policy: reducedPolicy,
       })["--vitrea-occlusion"],
     );
 
     // The shipped material, as converted for this tier, and the lift it gets.
     // 0.781/0.884 were the conversion of C9a's inactive-bed tint alpha of 0.62;
-    // these are the conversion of the cascade's refitted 0.46 (2026-08-31).
+    // 0.665/0.916 were the conversion of the cascade's refitted 0.46 with the
+    // lift applied AFTER the conversion. 0.929 is the same lift applied before
+    // it (W17 G1, Decision Log 2 (b)) — higher, because the conversion is
+    // concave in the alpha and lifting first spends the headroom in the space
+    // the renderer's own lift spends it in.
     expect(nominal).toBeCloseTo(0.665, 3);
-    expect(reduced).toBeCloseTo(0.916, 3);
+    expect(reduced).toBeCloseTo(0.929, 3);
     expect(reduced).toBeGreaterThan(nominal);
   });
 
@@ -254,13 +309,25 @@ describe("the CSS tier (the fallback is the design)", () => {
     // The property, not the value: whatever a future profile makes the material's
     // alpha, reduced transparency still hides more of the backdrop than nominal.
     for (const tintAlpha of [0, 0.05, 0.28, 0.62, 0.9, 0.999]) {
-      const optics = cssTierOptics({ optics: { regular: { tintAlpha } } });
+      const source = { ...MATERIAL_SOURCE_OPTICS.regular, tintAlpha };
       const at = (policy: ResolvedAccessibilityPolicy): number =>
-        Number(hostOf({ ...surface, optics: optics.regular, policy })["--vitrea-occlusion"]);
+        Number(
+          hostOf({ ...surface, optics: occludedOptics(source, policy), policy })[
+            "--vitrea-occlusion"
+          ],
+        );
       const nominal = at(resolveAccessibilityPolicy(systemWith({})));
       const reduced = at(resolveAccessibilityPolicy(systemWith({ reducedTransparency: true })));
 
-      expect(reduced, `tintAlpha ${tintAlpha}`).toBeGreaterThan(nominal);
+      // At a nominal of exactly zero the conversion has nothing to convert and
+      // both sides read the source's own alpha, which is the one place a
+      // strictly-greater comparison of the CONVERTED numbers is a comparison of
+      // the lift itself rather than of its conversion.
+      expect(
+        occlusionAlphaUnderPolicy(tintAlpha, "increased"),
+        `tintAlpha ${tintAlpha}`,
+      ).toBeGreaterThan(tintAlpha);
+      expect(reduced, `tintAlpha ${tintAlpha}`).toBeGreaterThanOrEqual(nominal);
     }
 
     // And a fully opaque material has nothing left to hide, which is the one place
@@ -274,25 +341,31 @@ describe("the CSS tier (the fallback is the design)", () => {
     // the same number or a demoted surface would paint an occlusion the renderer
     // never drew — K5's gap, reappearing through the patch rather than through a
     // second copy of the constant.
-    const optics = cssTierOptics({ optics: { regular: { tintAlpha: 0.1 } } });
+    const source = { ...MATERIAL_SOURCE_OPTICS.regular, tintAlpha: 0.1 };
     const policy = resolveAccessibilityPolicy(systemWith({ reducedTransparency: true }));
-    const foldedWith = (increasedOcclusionLift?: number): number =>
-      Number(
+    const foldedWith = (increasedOcclusionLift?: number): number => {
+      const fold =
+        increasedOcclusionLift === undefined
+          ? undefined
+          : resolvedPolicyFold({ increasedOcclusionLift });
+      return Number(
         hostOf({
           ...surface,
-          optics: optics.regular,
+          optics: occludedOptics(source, policy, ...(fold === undefined ? [] : [{ fold }])),
           policy,
-          ...(increasedOcclusionLift === undefined
-            ? {}
-            : { policyFold: resolvedPolicyFold({ increasedOcclusionLift }) }),
+          ...(fold === undefined ? {} : { policyFold: fold }),
         })["--vitrea-occlusion"],
       );
+    };
 
     // The token is emitted to three decimals, so the expectation rounds the same
     // way rather than settling for a tolerance that would also pass on the
-    // shipped lift.
-    const nominal = optics.regular.tintAlpha;
-    const emitted = (alpha: number): number => Math.round(alpha * 1000) / 1000;
+    // shipped lift. The lift is taken in the SOURCE's alpha space since W17 G1
+    // and the token reports the converted number, so the expectation converts
+    // too — the fraction of the headroom is the assertion, not the digits.
+    const nominal = source.tintAlpha;
+    const emitted = (alpha: number): number =>
+      Math.round(cssTintAlpha({ ...source, tintAlpha: alpha }) * 1000) / 1000;
     expect(foldedWith(0.05)).toBe(emitted(nominal + 0.05 * (1 - nominal)));
     expect(foldedWith(0.9)).toBe(emitted(nominal + 0.9 * (1 - nominal)));
     // A patched lift below the shipped one lifts less, which is the direction an
@@ -585,11 +658,10 @@ describe("the CSS tier (the fallback is the design)", () => {
       // that would find one is by ~0.
       const level = CSS_TIER_MAPPING.referenceBackdropLuminance;
       const flat = cssTintAlpha({
+        ...MATERIAL_SOURCE_OPTICS.regular,
         blurSigma: 8,
         tint: [level, level, level],
         tintAlpha: 0.44,
-        rimAlpha: 0.18,
-        highlight: [1, 1, 1],
       });
 
       expect(flat).toBe(0.44);
@@ -902,7 +974,19 @@ describe("the size law reaches the CSS tier", () => {
     sizeOcclusionGain: 0.4,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;
-  const at = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size });
+  // The size law's occlusion facet lands on the SOURCE alpha since W17 G1
+  // (Decision Log 2 (b)), so a span reaches the tier's tint through the
+  // conversion rather than after it — and these pins follow it there.
+  const at = (spanPx: number, sizeConstants: MaterialSourceSize = size) =>
+    cssTierDeclarations({
+      ...surface,
+      optics: occludedOptics(MATERIAL_SOURCE_OPTICS.regular, surface.policy, {
+        spanPx,
+        size: sizeConstants,
+      }),
+      spanPx,
+      size: sizeConstants,
+    });
   /*
    * Both readings come off the HOST, where the two tokens are published. Since
    * W16 G1 `--vitrea-blur` is the tier's single-σ PROJECTION rather than the
@@ -939,7 +1023,7 @@ describe("the size law reaches the CSS tier", () => {
     // to zero there; and the occlusion — which rides the thickness curve — is
     // exactly where it was.
     const own = { ...size, sizeScatterFloor: 0.4, sizeScatterSpanMax: 400 } as const;
-    const with_ = (spanPx: number) => cssTierDeclarations({ ...surface, spanPx, size: own });
+    const with_ = (spanPx: number) => at(spanPx, own);
     const base = blurOf(cssTierDeclarations(surface));
     expect(cssTierDeclarations({ ...surface, size: own })).toEqual(cssTierDeclarations(surface));
     // The shipped THIN start is 0.72 and 1 − 0.4 is 0.60, so on a span this far

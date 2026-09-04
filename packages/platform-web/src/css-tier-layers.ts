@@ -34,6 +34,7 @@ import {
   type CssTierLayer,
   type CssTierRamp,
   type CssTierRender,
+  type CssTierTintTransfer,
 } from "./css-tier";
 
 /** The attribute the layers are found and asserted by. */
@@ -318,9 +319,27 @@ function drawRampMask(
  * and a `<defs>` subtree paints nothing.
  */
 export interface CssTierFilterDefs {
-  /** Ensures a `<filter>` exists for this σ and returns nothing. */
-  ensure(sigmaCssPx: number): void;
+  /** Ensures a `<filter>` exists for this width and its transfer, and marks it live. */
+  ensure(spec: CssTierFilterSpec): void;
+  /**
+   * Removes every definition not `ensure`d since the last sweep (W17 G1).
+   *
+   * The definitions stopped being one-per-σ when the sharp filter gained the
+   * group's own tint: a definition now belongs to a group over a backdrop, and a
+   * group whose backdrop moves leaves the definition it had behind. A frame-scoped
+   * mark and sweep is the only bound that is both correct and unbounded in the
+   * right direction — a fixed cache would either evict a definition a live
+   * surface still names (which renders that surface unfiltered) or grow without
+   * limit under a backdrop that drifts every frame.
+   */
+  sweep(): void;
   dispose(): void;
+}
+
+/** One filter definition's whole identity: its width and the affine it carries. */
+export interface CssTierFilterSpec {
+  readonly sigmaCssPx: number;
+  readonly transfer?: CssTierTintTransfer;
 }
 
 export function createCssTierFilterDefs(
@@ -340,10 +359,12 @@ export function createCssTierFilterDefs(
   svg.append(defs);
   parent.append(svg);
 
-  const built = new Set<string>();
+  const built = new Map<string, SVGElement>();
+  let live = new Set<string>();
   return {
-    ensure(sigmaCssPx) {
-      const id = referenceFilterId(prefix, sigmaCssPx);
+    ensure({ sigmaCssPx, transfer }) {
+      const id = referenceFilterId(prefix, sigmaCssPx, transfer);
+      live.add(id);
       if (built.has(id)) return;
       const filter = doc.createElementNS(NS, "filter");
       filter.setAttribute("id", id);
@@ -360,11 +381,50 @@ export function createCssTierFilterDefs(
       blur.setAttribute("in", "SourceGraphic");
       blur.setAttribute("stdDeviation", String(Math.round(sigmaCssPx * 100) / 100));
       filter.append(blur);
+      /*
+       * The tint's lerp, as one primitive AFTER the blur and inside the same
+       * `linearRGB` chain (W17 G1; Decision Log 2 (c)).
+       *
+       * After the blur because the transfer is a transfer of the BODY the tint
+       * composites over, not of the page: the renderer blurs the backdrop and
+       * then lerps, and an affine ahead of the Gaussian would be the same
+       * arithmetic in the wrong place only because the Gaussian happens to be
+       * linear — which stops being true the moment the filter's edge mode
+       * reaches outside the layer. Inside the chain because the primitive
+       * inherits the filter's `color-interpolation-filters`, and it is the
+       * linear space that makes an `feComponentTransfer` the renderer's lerp
+       * rather than an encoded-space approximation of it.
+       *
+       * Per channel because the tint may be chromatic: the slope is achromatic
+       * (the lerp's alpha is one number) and only the intercept differs, so a
+       * white tint writes three identical intercepts and a coloured one writes
+       * the renderer's own three.
+       */
+      if (transfer !== undefined) {
+        const componentTransfer = doc.createElementNS(NS, "feComponentTransfer");
+        (["feFuncR", "feFuncG", "feFuncB"] as const).forEach((name, channel) => {
+          const fn = doc.createElementNS(NS, name);
+          fn.setAttribute("type", "linear");
+          fn.setAttribute("slope", String(transfer.slope));
+          fn.setAttribute("intercept", String(transfer.intercept[channel]));
+          componentTransfer.append(fn);
+        });
+        filter.append(componentTransfer);
+      }
       defs.append(filter);
-      built.add(id);
+      built.set(id, filter);
+    },
+    sweep() {
+      for (const [id, element] of built) {
+        if (live.has(id)) continue;
+        element.remove();
+        built.delete(id);
+      }
+      live = new Set<string>();
     },
     dispose() {
       built.clear();
+      live.clear();
       svg.remove();
     },
   };
@@ -386,9 +446,20 @@ export function filteredAreaDevicePx(
   return widthCssPx * heightCssPx * devicePixelRatio * devicePixelRatio;
 }
 
-/** The widths a root has to have `<filter>` definitions for, given a body. */
-export function referenceFilterSigmas(body: CssTierBody): readonly number[] {
+/**
+ * The `<filter>` definitions a root has to have built for one body.
+ *
+ * The sharp width carries the body's transfer where it has one and the heavy
+ * step never does: an affine applied at both layers would be applied twice, and
+ * `blur(m·b + c) = m·blur(b) + c` is what makes applying it once at L1 the whole
+ * composite's conversion (W17 G1; Decision Log 2 (c)).
+ */
+export function referenceFilterSpecs(body: CssTierBody): readonly CssTierFilterSpec[] {
   if (body.filter !== "reference-filter") return [];
-  if (body.form === "collapsed") return [body.sharpSigmaCssPx];
-  return [body.sharpSigmaCssPx, body.heavyStepSigmaCssPx];
+  const sharp: CssTierFilterSpec = {
+    sigmaCssPx: body.sharpSigmaCssPx,
+    ...(body.tintTransfer === undefined ? {} : { transfer: body.tintTransfer }),
+  };
+  if (body.form === "collapsed") return [sharp];
+  return [sharp, { sigmaCssPx: body.heavyStepSigmaCssPx }];
 }

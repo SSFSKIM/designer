@@ -941,7 +941,28 @@ function readJson<T>(path: string): T {
 }
 
 const PACKAGE_ROOT = resolve(import.meta.dirname, "..");
-const MATRIX = readJson<ResultMatrix>(resolve(PACKAGE_ROOT, "results", "matrix.json"));
+/**
+ * Which matrix this gate reads — the canonical one, or a scratch one named by
+ * `VITREA_MATRIX_PATH` (contract X6, W17 G1).
+ *
+ * The gate exists to run over the committed evidence and that is what it does
+ * with no environment set. What the variable buys is the referee a dry run
+ * needs: W16's lesson was that a landing's own test file has to run against the
+ * dry run's matrix BEFORE the merge, or the wave discovers at the landing that a
+ * bound it never re-read had moved. Pointing the file at a scratch matrix is the
+ * only way to run every bound, every floor and the conditioning predicate over a
+ * candidate — a second script replicating them would be a second copy of the
+ * numbers this file exists to be the only copy of.
+ *
+ * A relative path resolves against the package root, which is where the
+ * canonical matrix lives, so `VITREA_MATRIX_PATH=results/matrix.json` is the
+ * default written out.
+ */
+const MATRIX_PATH = resolve(
+  PACKAGE_ROOT,
+  process.env["VITREA_MATRIX_PATH"] ?? resolve(PACKAGE_ROOT, "results", "matrix.json"),
+);
+const MATRIX = readJson<ResultMatrix>(MATRIX_PATH);
 
 /** `tier / set / scene / profile` — every failure message starts with this. */
 function name(cell: Cell): string {

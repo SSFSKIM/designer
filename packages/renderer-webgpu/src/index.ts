@@ -187,7 +187,14 @@ export {
   BACKDROP_TONE_MAX,
   BACKDROP_TONE_SIZE_BIAS,
   backdropToneAdaptation,
+  // Exported for contract X7 (W17 G1): the CSS tier's composite is pinned against
+  // the renderer's per backdrop level, and the W9 response's own curve and its
+  // authority are two of the terms that composite is made of. A pin that could
+  // not evaluate them would be a pin on the constants again, which is what let
+  // the two tiers disagree about the ORDER they are applied in.
+  backdropToneResponse,
   backdropToneSizeBiasUnderPolicy,
+  backdropToneSolveWeight,
   backdropToneUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,

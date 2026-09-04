@@ -14,11 +14,12 @@ import { describe, expect, it } from "vitest";
 
 import {
   CSS_TIER_LAYER_ATTRIBUTE,
+  createCssTierFilterDefs,
   createCssTierLayers,
   destroyCssTierLayers,
   filteredAreaDevicePx,
   maskShareAt,
-  referenceFilterSigmas,
+  referenceFilterSpecs,
   roundedRectDepth,
 } from "../src/css-tier-layers";
 import {
@@ -269,13 +270,42 @@ describe("the engine gates", () => {
 
   it("names one filter id per width, and the same width twice names it once", () => {
     const body = cssTierDeclarations(surface()).body;
-    const sigmas = referenceFilterSigmas(body);
-    expect(sigmas).toEqual([body.sharpSigmaCssPx, body.heavyStepSigmaCssPx]);
+    // Re-pointed at W17 G1: the specs carry the sharp width's transfer where the
+    // body has one, so the two widths are no longer interchangeable numbers.
+    expect(referenceFilterSpecs(body)).toEqual([
+      { sigmaCssPx: body.sharpSigmaCssPx },
+      { sigmaCssPx: body.heavyStepSigmaCssPx },
+    ]);
     expect(referenceFilterId("p", 1.25)).toBe(referenceFilterId("p", 1.25));
     expect(referenceFilterId("p", 1.25)).not.toBe(referenceFilterId("p", 9.92));
     // Quantised the same way the declaration is, so the two cannot name
     // different numbers for the same layer.
     expect(referenceFilterId("p", 1.2501)).toBe(referenceFilterId("p", 1.25));
+  });
+
+  it("names a filter per group once the sharp layer carries the group's tint", () => {
+    // W17 G1, Decision Log 2 (c). The sharp filter's definition stopped being a
+    // function of the width alone the moment it carried the group's own lerp: two
+    // surfaces at one width over different backdrops need different definitions,
+    // and an id that named only the width would hand the second surface the
+    // first's tint.
+    const transfer = { slope: 0.513, intercept: [0.44, 0.44, 0.44] as const };
+    const other = { slope: 0.513, intercept: [0.31, 0.31, 0.31] as const };
+    expect(referenceFilterId("p", 1.25, transfer)).not.toBe(referenceFilterId("p", 1.25));
+    expect(referenceFilterId("p", 1.25, transfer)).not.toBe(
+      referenceFilterId("p", 1.25, other),
+    );
+    expect(referenceFilterId("p", 1.25, transfer)).toBe(
+      referenceFilterId("p", 1.25, { ...transfer }),
+    );
+    // Quantised to a ten-thousandth — a quarter of an eight-bit code at the top
+    // of the range — so a backdrop drifting inside the quantum reuses one
+    // definition rather than rebuilding it every frame.
+    expect(referenceFilterId("p", 1.25, { ...transfer, slope: 0.51301 })).toBe(
+      referenceFilterId("p", 1.25, transfer),
+    );
+    // And no id can carry a minus sign, because no intercept can be negative.
+    expect(referenceFilterId("p", 1.25, transfer)).not.toContain("-t-");
   });
 });
 
@@ -389,5 +419,79 @@ describe("the ramp mask", () => {
     expect(maskShareAt(-50, ramp)).toBeCloseTo(ramp.contourShare, 12);
     expect(maskShareAt(ramp.reachDevicePx, ramp)).toBeCloseTo(ramp.deepShare, 12);
     expect(maskShareAt(ramp.reachDevicePx * 4, ramp)).toBeCloseTo(ramp.deepShare, 12);
+  });
+});
+
+describe("the reference filters' definitions (W17 G1)", () => {
+  const defsOf = (): { parent: HTMLElement; defs: ReturnType<typeof createCssTierFilterDefs> } => {
+    const parent = document.createElement("div");
+    document.body.append(parent);
+    return { parent, defs: createCssTierFilterDefs(document, parent, "p") };
+  };
+  const filters = (parent: HTMLElement): SVGElement[] =>
+    [...parent.querySelectorAll("filter")] as SVGElement[];
+
+  it("appends the affine after the blur, per channel, inside the linear chain", () => {
+    const { parent, defs } = defsOf();
+    const transfer = { slope: 0.5112, intercept: [0.4409, 0.4409, 0.4409] as const };
+    defs.ensure({ sigmaCssPx: 1.7, transfer });
+
+    const filter = parent.querySelector("filter")!;
+    expect(filter.getAttribute("color-interpolation-filters")).toBe("linearRGB");
+    // After the blur: the transfer is a transfer of the BODY the tint composites
+    // over, and the renderer blurs before it lerps.
+    expect([...filter.children].map((child) => child.tagName)).toEqual([
+      "feGaussianBlur",
+      "feComponentTransfer",
+    ]);
+    const funcs = [...filter.querySelector("feComponentTransfer")!.children];
+    expect(funcs.map((func) => func.tagName)).toEqual(["feFuncR", "feFuncG", "feFuncB"]);
+    for (const func of funcs) {
+      expect(func.getAttribute("type")).toBe("linear");
+      expect(Number(func.getAttribute("slope"))).toBeCloseTo(transfer.slope, 12);
+      expect(Number(func.getAttribute("intercept"))).toBeCloseTo(transfer.intercept[0]!, 12);
+    }
+
+    defs.dispose();
+    parent.remove();
+  });
+
+  it("builds a definition per group and sweeps the ones no surface named", () => {
+    const { parent, defs } = defsOf();
+    const first = { slope: 0.5, intercept: [0.44, 0.44, 0.44] as const };
+    const second = { slope: 0.5, intercept: [0.31, 0.31, 0.31] as const };
+
+    defs.ensure({ sigmaCssPx: 1.7, transfer: first });
+    defs.ensure({ sigmaCssPx: 1.7, transfer: second });
+    defs.ensure({ sigmaCssPx: 9.9 });
+    expect(filters(parent)).toHaveLength(3);
+    // Ensuring the same spec twice in one frame builds nothing new.
+    defs.ensure({ sigmaCssPx: 1.7, transfer: first });
+    expect(filters(parent)).toHaveLength(3);
+
+    // A frame in which only one of them is named leaves only that one: a
+    // definition belongs to a group over a backdrop now, and a group whose
+    // backdrop moved would otherwise leave every definition it ever had behind.
+    defs.sweep();
+    expect(filters(parent)).toHaveLength(3);
+    defs.ensure({ sigmaCssPx: 1.7, transfer: first });
+    defs.sweep();
+    expect(filters(parent)).toHaveLength(1);
+    expect(parent.querySelector("filter")!.getAttribute("id")).toBe(
+      referenceFilterId("p", 1.7, first),
+    );
+
+    defs.dispose();
+    parent.remove();
+  });
+
+  it("leaves a plain width's definition exactly as it was", () => {
+    const { parent, defs } = defsOf();
+    defs.ensure({ sigmaCssPx: 1.7 });
+    const filter = parent.querySelector("filter")!;
+    expect(filter.getAttribute("id")).toBe(referenceFilterId("p", 1.7));
+    expect([...filter.children].map((child) => child.tagName)).toEqual(["feGaussianBlur"]);
+    defs.dispose();
+    parent.remove();
   });
 });
