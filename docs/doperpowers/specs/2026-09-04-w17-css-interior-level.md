@@ -692,8 +692,56 @@ configuration 3 is frozen and the holdout read once (X8); then S8 on the cost ha
 demo's densest page with the table transfer, the suites, the sheets, and the report for the
 declaration (claims §5.75).
 
+### Decision Log 6 — configuration 3 frozen on the whole-bed run; four sub-thousandth readings and the `toolbar-group` residual carried by name; the holdout spent (2026-09-05)
+
+**Evidence** (branch `w17-g1-level`, six commits; `g1/g1-dry-run.md`, the configuration 3 verify
+and gate outputs, `toolbar-residual.md`). Configuration 3 — the ordering fix and the inner shadow,
+the floor overlay at the clear variant's alpha with the table transfer on the sharp layer's
+linear-light filter, the declared boundary sending dark composites to the encoded form — over the
+six profiles' calibration and validation cells: the CSS tier's interior within 0.01 of the GPU
+tier's on every light cell but the two `toolbar-group` scenes (`rrect-md` +0.0010 / +0.0034,
+`rrect-ml` −0.0003 / +0.0039, the capsule −0.0005 / +0.0095, `light-solid__rrect-md` +0.0007 from
++0.0254), `ssimMean` up on every light checkerboard row and `ssimBand` up 0.019–0.059 at 1x, no
+held floor's row below its pin, the GPU tier byte-identical on 85 / 85 (S1, the sixth whole-bed
+run in a row); the tinted cells moving by exactly `(1 − s)` of their base's change; the
+reduced-transparency capsule conditioning again (S7, recovery 0.9961); the cost knee unmoved
+with the 33-value table (S8); every suite green (1 785 unit; chromium 129, firefox 102, webkit
+102, chromium-gpu 9, react 105 + 3).
+
+**Four readings past the stops, accepted as named carries.** S3 (one-sided) on
+`checkerboard__rrect-ml` at 2x, farther from native than the renderer by +0.0055 against 0.005;
+S5's cross-tier ΔE up +0.0006 / +0.0007 on `dark-solid__rrect-md` at the light scales and
++0.0010 on the half-strength tinted cell; S6's +0.00012 on increased contrast; and
+`light-solid__rrect-md` at 2x joining `PREDICATE_EXCLUDES` beside `rrect-ml` at both scales, one
+mechanism for all three — a light solid landed on the renderer's level sits within 0.004 of its
+own background, which the luminance-delta extractor separates on the GPU tier only by the rim
+and lens this tier does not draw. Each is at or under 0.001 except the 0.0005, none is a
+mechanism the run has not explained, and none moves a floor.
+
+**The `toolbar-group` residual is a named gap, not an attribution.** The bounded diagnosis: a
+broad interior offset at every depth (−0.005…−0.017 at dpr 1 across the first three annuli, a
+bright contour band +0.017…+0.062, nearly absent in the core at dpr 2); the encoded-space mix of
+the two tinted layers −0.0040 on the toolbar capsule, the same as on every other 1x cell (the
+affine scales the sharp–heavy difference by `1 − α` before the encode sees it, so a high heavy
+share does not multiply it); the kernel's truncation at the element's own boundary −0.00035;
+together a third of the −0.0122. The single-surface capsule of the same span
+(`checkerboard__capsule-button`) reads −0.0005, so the residual tracks the three-up box and not
+the span, and separating the box from its neighbours needs a native fixture this bed does not
+have. Carried with the annulus profile as its evidence (`toolbar-residual.md`); no remedy
+proposed.
+
+**Ruled:** configuration 3 is frozen as it ran; the holdout is read once on those bytes (X8) —
+the CSS renderer over the six profiles, the GPU rows byte-identical by S1 — and the declaration
+follows in claims §5.75 with the landing question for the user.
+
 ## Surprises & Discoveries
 
+- **2026-09-05 (G1) — a light solid landed on the renderer's level is invisible to the
+  extractor.** `light-solid__rrect-ml` and `rrect-md` sit within 0.004 of their background once
+  the tier draws the renderer's composite; the GPU tier conditions there only by the rim and
+  lens. Coherence with the renderer costs the shape axis cells the renderer keeps (Decision Log 6).
+- **2026-09-05 (G1) — the `toolbar-group` residual tracks the box, not the span.** The same
+  capsule alone reads −0.0005 and three-up reads −0.0122; neither derived residual reaches it.
 - **2026-09-05 (G1) — a `<filter>` element's region is inert on a `backdrop-filter`.** Six
   regions from k = 0.5 to 3 capture byte-identical: the input is the snapshot behind the element's
   border box and nothing outside it exists to reach. The Surprise below it, written from Decision
@@ -774,3 +822,6 @@ declaration (claims §5.75).
   is inert on a `backdrop-filter` — and withdrawn, Decision Log 4's Surprise struck through; the
   `toolbar-group` residual to a bounded diagnosis, then the whole-bed run, the freeze and the
   holdout.
+- 2026-09-05: **configuration 3 frozen** (Decision Log 6): the whole-bed run meets every stop but
+  four sub-thousandth readings, accepted as named carries; the `toolbar-group` residual carried
+  with its annulus profile after a bounded diagnosis; the holdout spent once on the frozen bytes.
