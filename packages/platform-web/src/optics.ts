@@ -1222,6 +1222,37 @@ export function cssShadowBlurRadius(sigmaPx: number): number {
  * reach of a member, which no carrier reaches because the two hosts share no
  * group; and a host whose `overflow` clips its children, which keeps its shadow
  * on the host (`GlassGroupState.cssShadow: "host"`).
+ *
+ * ## The remainder the carriers leave, carried as a bound (W18 Decision Log 3 (2))
+ *
+ * With the shadow out of the sampled backdrop the tier is not on the renderer's
+ * level, and what is left is the box-limited filter INPUT rather than anything
+ * this function describes: the renderer samples the real backdrop with 24 px of
+ * padding, while a `backdrop-filter` reads the element's own border-box snapshot
+ * with `edgeMode="mirror"`, and on a 44 px box a heavy component at σ ≈ 13.8 CSS
+ * px covers the box in both extents so the mirror decides most of the result. The
+ * spread names it: over the 1x checkerboard the tier keeps 0.278 of the backdrop's
+ * own standard deviation on a 44 × 44 box and 0.280 on a 120 × 44 one, where the
+ * renderer keeps 0.306 and 0.277 and Apple's own material sits on the renderer's
+ * side of that (claims §5.77 §6, `probe/readings.md`).
+ *
+ * **It is a bound and not a derivation, and no coefficient is fitted for it.** The
+ * step from a spread difference to a level difference is not one number — on the
+ * 1x checkerboard circle a spread deficit of −0.0142 accompanies −0.0062 of level,
+ * on the 1x photo circle −0.0048 accompanies −0.0069, and on the 1x photo capsule
+ * −0.0082 accompanies **+0.0011**. What is carried, per box and per device ratio,
+ * is the measurement (`g1/g1-precheck.md` §2a):
+ *
+ *  - at dpr 1, −0.0015…−0.0020 on a 120 × 44 box over structure, −0.0044…−0.0069
+ *    on a 44 × 44 (−0.0103 on the one photo patch whose own level is 0.15 above
+ *    its siblings'), and +0.0016…+0.0026 over a solid, where the mirror is exact;
+ *  - at dpr 2, within ±0.002 on the photo and up to +0.0076 on the checkerboard
+ *    capsule — the same family with its sign flipped, which is what puts
+ *    `checkerboard__capsule-button` at 2x over W17's 0.01 cross-tier clause.
+ *
+ * Closing it needs the filter to read a backdrop wider than the element's own box,
+ * which no CSS construction offers without a copy of the backdrop — and a copy is a
+ * proxy, which this tier's demotability rests on building none of (claims §5.71 §6).
  */
 export function sampledOuterShadowFactor(input: {
   readonly shadow: MaterialSourceOuterShadow;

@@ -1,0 +1,362 @@
+== S1 · the GPU tier against the W17 bed (dry)
+  GPU captures byte-identical 115, differing 0, not compared 0; worst row |Δ| 0.000000
+
+== CSS tier · -1x-light-standard — carrier | ssimMean bed→dry Δ | bound/floor | band Δ | ΔE bed→dry | level bed→dry / GPU / native | CSS−GPU | move / predicted | spread dry / GPU / native | xtier ΔE bed→dry | ratio
+  checkerboard__capsule-button__rest           cali layer 0.9722→0.9722 +0.0000 | ≥ 0.9          ok  | +0.0005 | 0.0061→0.0062 | 0.6778→0.6789 / 0.6783 / 0.6207 | +0.0006 | +0.0011 / +0.0026 | 0.1399 / 0.1385 / 0.1424 | 0.0048→0.0048 | 0.9991
+  checkerboard__capsule-button__rest-tint-blue vali layer 0.9779→0.9779 -0.0000 | ≥ 0.9          ok  | -0.0002 | 0.0046→0.0046 | 0.2083→0.2083 / 0.2100 / 0.2064 | -0.0017 | -0.0000 / +0.0026 | 0.0264 / 0.0375 / 0.0526 | 0.0044→0.0044 | 1.0080
+  checkerboard__capsule-button__rest-tint-orange cali layer 0.9767→0.9767 -0.0000 | ≥ 0.9          ok  | -0.0002 | 0.0047→0.0047 | 0.3703→0.3703 / 0.3719 / 0.3603 | -0.0016 | -0.0000 / +0.0026 | 0.0240 / 0.0424 / 0.0481 | 0.0045→0.0044 | 1.0043
+  checkerboard__glass-over-glass__rest         hold layer 0.8610→0.8614 +0.0005 | floor 0.8599   ok  | +0.0017 | 0.0332→0.0331 | 0.7078→0.7078 / 0.7120 / 0.7231 | -0.0043 | -0.0001 / +0.0065 | 0.1133 / 0.1321 / 0.1321 | 0.0322→0.0321 | 1.0060
+  note: stack recorded: checkerboard__glass-over-glass__rest @ -1x-light-standard CSS−GPU -0.0043 (moved -0.0001; the remainder is the renderer's unsampled material on a DOM-sourced group, G0 §4)
+  note: holdout recorded: checkerboard__glass-over-glass__rest @ -1x-light-standard CSS−GPU -0.0043 (bed -0.0042)
+  checkerboard__rrect-lg__rest                 hold layer 0.8702→0.8704 +0.0002 | floor 0.8692   ok  | +0.0005 | 0.0327→0.0327 | 0.6960→0.6965 / 0.6947 / 0.7066 | +0.0017 | +0.0005 / +0.0015 | 0.0667 / 0.0731 / 0.0650 | 0.0297→0.0297 | 0.9975
+  note: holdout recorded: checkerboard__rrect-lg__rest @ -1x-light-standard CSS−GPU +0.0017 (bed +0.0013)
+  checkerboard__rrect-md__rest                 cali layer 0.9122→0.9121 -0.0000 | ≥ 0.9          ok  | -0.0002 | 0.0212→0.0212 | 0.6956→0.6959 / 0.6946 / 0.6829 | +0.0013 | +0.0003 / +0.0016 | 0.1014 / 0.1051 / 0.1131 | 0.0198→0.0198 | 0.9981
+  checkerboard__rrect-ml__rest                 cali layer 0.8757→0.8758 +0.0001 | floor 0.8747   ok  | +0.0003 | 0.0309→0.0308 | 0.6944→0.6947 / 0.6947 / 0.6936 | +0.0000 | +0.0004 / +0.0015 | 0.0878 / 0.0921 / 0.0865 | 0.0296→0.0296 | 1.0000
+  checkerboard__rrect-sm__rest                 cali layer 0.9881→0.9880 -0.0000 | ≥ 0.9          ok  | -0.0001 | 0.0032→0.0032 | 0.6828→0.6834 / 0.6796 / 0.6285 | +0.0038 | +0.0006 / +0.0031 | 0.1499 / 0.1619 / 0.1549 | 0.0027→0.0027 | 0.9944
+  STOP S5: checkerboard__rrect-sm__rest @ -1x-light-standard moved +0.0006 against the form's +0.0031 (miss -0.0025, clause 0.002)
+  checkerboard__toolbar-group__rest            cali group 0.9655→0.9652 -0.0002 | ≥ 0.9          ok  | -0.0002 | 0.0073→0.0075 | 0.6641→0.6735 / 0.6763 / 0.6210 | -0.0028 | +0.0094 / +0.0056 | 0.1424 / 0.1424 / 0.1481 | 0.0072→0.0072 | 1.0041
+  dark-solid__capsule-button__rest             cali layer 0.9866→0.9866 -0.0000 | ≥ 0.9          ok  | -0.0004 | 0.0008→0.0008 |    —  →   —   /    —   /    —   |    —    |    —    / +0.0000 |    —   /    —   /    —   | 0.0000→0.0000 |    —  
+  dark-solid__capsule-button__rest-tint-blue   hold layer 0.9778→0.9778 +0.0000 | ≥ 0.9          ok  | +0.0000 | 0.0030→0.0030 | 0.2375→0.2375 / 0.2378 / 0.2404 | -0.0003 | -0.0000 / +0.0000 | 0.0065 / 0.0004 / 0.0326 | 0.0023→0.0023 | 1.0015
+  note: holdout recorded: dark-solid__capsule-button__rest-tint-blue @ -1x-light-standard CSS−GPU -0.0003 (bed -0.0003)
+  dark-solid__capsule-button__rest-tint-orange cali layer 0.9764→0.9764 +0.0000 | ≥ 0.9          ok  | +0.0000 | 0.0034→0.0034 | 0.4268→0.4268 / 0.4275 / 0.4257 | -0.0007 | -0.0000 / +0.0000 | 0.0122 / 0.0006 / 0.0304 | 0.0029→0.0029 | 1.0016
+  dark-solid__rrect-md__rest                   cali layer 0.9577→0.9578 +0.0000 | ≥ 0.9          ok  | +0.0001 | 0.0084→0.0085 | 0.5020→0.5020 / 0.4975 / 0.4844 | +0.0045 | -0.0000 / +0.0000 | 0.0187 / 0.0294 / 0.0346 | 0.0063→0.0063 | 0.9911
+  hc-text__capsule-button__rest                hold layer 0.9782→0.9781 -0.0001 | ≥ 0.9          ok  | -0.0007 | 0.0049→0.0050 | 0.7649→0.7663 / 0.7558 / 0.6657 | +0.0105 | +0.0015 / +0.0034 | 0.1275 / 0.1211 / 0.1153 | 0.0033→0.0033 | 0.9863
+  STOP S4: hc-text__capsule-button__rest @ -1x-light-standard level +0.0105 from the GPU tier's
+  note: W17's 0.01 cross-tier clause left: hc-text__capsule-button__rest @ -1x-light-standard at +0.0105
+  note: holdout recorded: hc-text__capsule-button__rest @ -1x-light-standard CSS−GPU +0.0105 (bed +0.0091)
+  hc-text__capsule-button__rest-tint-orange    hold layer 0.9820→0.9819 -0.0001 | ≥ 0.9          ok  | -0.0005 | 0.0038→0.0038 | 0.4011→0.4011 / 0.3882 / 0.3709 | +0.0128 | -0.0001 / +0.0034 | 0.0236 / 0.0373 / 0.0457 | 0.0035→0.0035 | 0.9680
+  note: W17's 0.01 cross-tier clause left: hc-text__capsule-button__rest-tint-orange @ -1x-light-standard at +0.0128
+  note: holdout recorded: hc-text__capsule-button__rest-tint-orange @ -1x-light-standard CSS−GPU +0.0128 (bed +0.0129)
+  hc-text__rrect-md__rest                      hold layer 0.9396→0.9395 -0.0000 | ≥ 0.9          ok  | -0.0000 | 0.0152→0.0152 | 0.7550→0.7555 / 0.7494 / 0.7368 | +0.0060 | +0.0004 / +0.0024 | 0.0960 / 0.1011 / 0.1078 | 0.0139→0.0139 | 0.9920
+  note: holdout recorded: hc-text__rrect-md__rest @ -1x-light-standard CSS−GPU +0.0060 (bed +0.0056)
+  impulse__capsule-button__rest                vali layer 0.9756→0.9756 +0.0000 | ≥ 0.9          ok  | +0.0000 | 0.0036→0.0036 | 0.0037→0.0037 / 0.0037 / 0.0210 | -0.0000 | +0.0000 / +0.0000 | 0.0000 / 0.0000 / 0.0038 | 0.0008→0.0008 | 1.0006
+  impulse__capsule-button__rest-tint-orange    cali layer 0.9746→0.9746 +0.0000 | ≥ 0.9          ok  | +0.0000 | 0.0045→0.0045 | 0.4267→0.4267 / 0.4275 / 0.4254 | -0.0008 | +0.0000 / +0.0000 | 0.0138 / 0.0006 / 0.0324 | 0.0040→0.0040 | 1.0018
+  impulse__rrect-md__rest                      vali layer 0.9544→0.9544 +0.0000 | ≥ 0.9          ok  | +0.0001 | 0.0115→0.0115 | 0.4678→0.4678 / 0.4660 / 0.4358 | +0.0018 | -0.0000 / +0.0000 | 0.0200 / 0.0312 / 0.0373 | 0.0077→0.0076 | 0.9961
+  light-solid__capsule-button__rest            cali layer 0.9899→0.9900 +0.0000 | ≥ 0.9          ok  | +0.0001 | 0.0008→0.0008 | 0.9730→0.9741 / 0.9715 / 0.9696 | +0.0026 | +0.0010 / +0.0014 | 0.0030 / 0.0076 / 0.0094 | 0.0009→0.0009 | 0.9973
+  light-solid__capsule-button__rest-tint-orange cali layer 0.9839→0.9837 -0.0001 | ≥ 0.9          ok  | -0.0003 | 0.0018→0.0019 | 0.4314→0.4314 / 0.4317 / 0.4319 | -0.0003 | -0.0000 / +0.0014 | 0.0232 / 0.0274 / 0.0395 | 0.0017→0.0017 | 1.0008
+  light-solid__rrect-md__rest                  cali layer 0.9801→0.9801 +0.0001 | ≥ 0.9          ok  | +0.0004 | 0.0018→0.0019 | 0.9332→0.9334 / 0.9325 / 0.9373 | +0.0009 | +0.0002 / +0.0036 | 0.0020 / 0.0117 / 0.0121 | 0.0021→0.0021 | 0.9990
+  light-solid__rrect-ml__rest                  cali layer 0.9717→0.9718 +0.0002 | ≥ 0.9          ok  | +0.0007 | 0.0040→0.0041 | 0.9325→0.9333 / 0.9323 / 0.9347 | +0.0010 | +0.0009 / +0.0034 | 0.0018 / 0.0101 / 0.0107 | 0.0040→0.0041 | 0.9989
+  mid-dark-solid__capsule-button__rest         hold layer 0.9744→0.9745 +0.0001 | ≥ 0.9          ok  | +0.0002 | 0.0039→0.0039 | 0.4708→0.4709 / 0.4622 / 0.4484 | +0.0087 | +0.0001 / +0.0002 | 0.0244 / 0.0335 / 0.0426 | 0.0033→0.0033 | 0.9815
+  note: holdout recorded: mid-dark-solid__capsule-button__rest @ -1x-light-standard CSS−GPU +0.0087 (bed +0.0086)
+  photo__capsule-button__rest                  cali layer 0.9773→0.9773 +0.0000 | ≥ 0.9          ok  | -0.0001 | 0.0038→0.0038 | 0.6183→0.6189 / 0.6178 / 0.5832 | +0.0011 | +0.0006 / +0.0007 | 0.0392 / 0.0474 / 0.0461 | 0.0044→0.0044 | 0.9983
+  photo__capsule-button__rest-tint-blue        cali layer 0.9782→0.9784 +0.0002 | ≥ 0.9          ok  | +0.0001 | 0.0029→0.0029 | 0.2016→0.2015 / 0.2029 / 0.2019 | -0.0014 | -0.0000 / +0.0007 | 0.0256 / 0.0344 / 0.0477 | 0.0026→0.0026 | 1.0067
+  photo__capsule-button__rest-tint-orange      cali layer 0.9770→0.9773 +0.0003 | ≥ 0.9          ok  | +0.0008 | 0.0027→0.0027 | 0.3595→0.3594 / 0.3595 / 0.3524 | -0.0001 | -0.0000 / +0.0007 | 0.0236 / 0.0332 / 0.0360 | 0.0028→0.0028 | 1.0001
+  photo__capsule-button__rest-tint-orange-half cali layer 0.9772→0.9773 +0.0001 | ≥ 0.9          ok  | +0.0005 | 0.0043→0.0043 | 0.4576→0.4579 / 0.4587 / 0.4385 | -0.0008 | +0.0003 / +0.0007 | 0.0261 / 0.0371 / 0.0385 | 0.0050→0.0050 | 1.0018
+  photo__glass-over-glass__rest                hold layer 0.9266→0.9268 +0.0002 | ≥ 0.9          ok  | +0.0003 | 0.0213→0.0213 | 0.6742→0.6742 / 0.6861 / 0.7064 | -0.0118 | +0.0000 / +0.0019 | 0.0971 / 0.1194 / 0.1234 | 0.0184→0.0183 | 1.0176
+  note: stack recorded: photo__glass-over-glass__rest @ -1x-light-standard CSS−GPU -0.0118 (moved +0.0000; the remainder is the renderer's unsampled material on a DOM-sourced group, G0 §4)
+  note: W17's 0.01 cross-tier clause left: photo__glass-over-glass__rest @ -1x-light-standard at -0.0118
+  note: holdout recorded: photo__glass-over-glass__rest @ -1x-light-standard CSS−GPU -0.0118 (bed -0.0119)
+  photo__rrect-lg__rest                        hold layer 0.9310→0.9312 +0.0002 | ≥ 0.9          ok  | +0.0004 | 0.0286→0.0285 | 0.6545→0.6547 / 0.6616 / 0.6855 | -0.0070 | +0.0002 / +0.0005 | 0.0461 / 0.0495 / 0.0617 | 0.0255→0.0255 | 1.0106
+  note: holdout recorded: photo__rrect-lg__rest @ -1x-light-standard CSS−GPU -0.0070 (bed -0.0072)
+  photo__rrect-lg__rest-tint-orange            hold layer 0.9333→0.9340 +0.0007 | ≥ 0.9          ok  | +0.0007 | 0.0150→0.0150 | 0.3631→0.3631 / 0.3659 / 0.3678 | -0.0028 | -0.0000 / +0.0005 | 0.0140 / 0.0226 / 0.0237 | 0.0101→0.0101 | 1.0077
+  note: holdout recorded: photo__rrect-lg__rest-tint-orange @ -1x-light-standard CSS−GPU -0.0028 (bed -0.0028)
+  photo__rrect-md__rest                        cali layer 0.9626→0.9626 +0.0001 | ≥ 0.9          ok  | +0.0002 | 0.0103→0.0103 | 0.6537→0.6538 / 0.6585 / 0.6649 | -0.0046 | +0.0001 / +0.0005 | 0.0422 / 0.0464 / 0.0572 | 0.0096→0.0096 | 1.0071
+  photo__rrect-md__rest-tint-orange            vali layer 0.9638→0.9641 +0.0002 | ≥ 0.9          ok  | +0.0005 | 0.0057→0.0058 | 0.3641→0.3641 / 0.3664 / 0.3656 | -0.0023 | -0.0000 / +0.0005 | 0.0183 / 0.0280 / 0.0288 | 0.0045→0.0045 | 1.0064
+  photo__rrect-ml__rest                        cali layer 0.9462→0.9463 +0.0001 | ≥ 0.9          ok  | +0.0002 | 0.0191→0.0191 | 0.6553→0.6555 / 0.6604 / 0.6734 | -0.0049 | +0.0002 / +0.0005 | 0.0448 / 0.0513 / 0.0627 | 0.0169→0.0168 | 1.0074
+  photo__rrect-sm__rest                        vali layer 0.9859→0.9859 +0.0000 | ≥ 0.9          ok  | +0.0002 | 0.0025→0.0025 | 0.6032→0.6033 / 0.5980 / 0.5559 | +0.0053 | +0.0001 / +0.0008 | 0.0297 / 0.0445 / 0.0477 | 0.0022→0.0021 | 0.9912
+  photo__toolbar-group__rest                   vali group 0.9662→0.9662 -0.0000 | ≥ 0.9          ok  | +0.0005 | 0.0048→0.0049 | 0.6213→0.6276 / 0.6363 / 0.6012 | -0.0087 | +0.0063 / +0.0016 | 0.0614 / 0.0652 / 0.0618 | 0.0062→0.0062 | 1.0139
+  note: S4 named: photo__toolbar-group @ 1x reads -0.0087; the charter's 0.005 is missed by +0.0037 and the bound's structure term is its reason
+
+== CSS tier · -2x-light-standard — carrier | ssimMean bed→dry Δ | bound/floor | band Δ | ΔE bed→dry | level bed→dry / GPU / native | CSS−GPU | move / predicted | spread dry / GPU / native | xtier ΔE bed→dry | ratio
+  checkerboard__capsule-button__rest           cali layer 0.9754→0.9754 -0.0000 | ≥ 0.92         ok  | +0.0002 | 0.0068→0.0068 | 0.6942→0.6949 / 0.6847 / 0.6226 | +0.0102 | +0.0007 / +0.0018 | 0.1522 / 0.1439 / 0.1552 | 0.0052→0.0052 | 0.9853
+  STOP S4: checkerboard__capsule-button__rest @ -2x-light-standard level +0.0102 from the GPU tier's
+  note: W17's 0.01 cross-tier clause left: checkerboard__capsule-button__rest @ -2x-light-standard at +0.0102
+  checkerboard__capsule-button__rest-tint-blue vali layer 0.9831→0.9831 -0.0000 | ≥ 0.92         ok  | -0.0000 | 0.0048→0.0048 | 0.2083→0.2083 / 0.2108 / 0.2072 | -0.0025 | -0.0000 / +0.0018 | 0.0267 / 0.0416 / 0.0582 | 0.0045→0.0045 | 1.0120
+  checkerboard__capsule-button__rest-tint-orange cali layer 0.9830→0.9829 -0.0000 | ≥ 0.92         ok  | -0.0000 | 0.0048→0.0049 | 0.3704→0.3704 / 0.3734 / 0.3609 | -0.0031 | -0.0000 / +0.0018 | 0.0244 / 0.0455 / 0.0524 | 0.0046→0.0046 | 1.0082
+  checkerboard__glass-over-glass__rest         hold layer 0.8681→0.8681 +0.0000 | floor 0.8677   ok  | +0.0002 | 0.0345→0.0345 | 0.7166→0.7165 / 0.7178 / 0.7223 | -0.0013 | -0.0000 / +0.0060 | 0.1184 / 0.1354 / 0.1401 | 0.0335→0.0335 | 1.0018
+  note: stack recorded: checkerboard__glass-over-glass__rest @ -2x-light-standard CSS−GPU -0.0013 (moved -0.0000; the remainder is the renderer's unsampled material on a DOM-sourced group, G0 §4)
+  note: holdout recorded: checkerboard__glass-over-glass__rest @ -2x-light-standard CSS−GPU -0.0013 (bed -0.0012)
+  checkerboard__rrect-lg__rest                 hold layer 0.8722→0.8722 -0.0000 | floor 0.8712   ok  | -0.0000 | 0.0342→0.0342 | 0.7056→0.7059 / 0.7011 / 0.7052 | +0.0048 | +0.0003 / +0.0010 | 0.0637 / 0.0721 / 0.0810 | 0.0315→0.0315 | 0.9932
+  note: holdout recorded: checkerboard__rrect-lg__rest @ -2x-light-standard CSS−GPU +0.0048 (bed +0.0045)
+  checkerboard__rrect-md__rest                 cali layer 0.9153→0.9152 -0.0001 | floor 0.9142   ok  | -0.0002 | 0.0228→0.0228 | 0.7049→0.7051 / 0.7015 / 0.6832 | +0.0036 | +0.0002 / +0.0010 | 0.1244 / 0.1156 / 0.1272 | 0.0214→0.0214 | 0.9949
+  checkerboard__rrect-ml__rest                 cali layer 0.8789→0.8789 +0.0000 | floor 0.8779   ok  | +0.0002 | 0.0328→0.0328 | 0.7052→0.7054 / 0.7013 / 0.6929 | +0.0041 | +0.0002 / +0.0010 | 0.0938 / 0.0993 / 0.1018 | 0.0315→0.0315 | 0.9941
+  note: S3 reading (W17's rule, standing): checkerboard__rrect-ml__rest @ -2x-light-standard spread -0.0081 from native against the renderer's -0.0025; on the W17 bed the same cell read -0.0081
+  checkerboard__rrect-sm__rest                 cali layer 0.9887→0.9887 -0.0000 | ≥ 0.92         ok  | -0.0003 | 0.0034→0.0034 | 0.6958→0.6963 / 0.6880 / 0.6285 | +0.0082 | +0.0004 / +0.0023 | 0.1651 / 0.1661 / 0.1636 | 0.0028→0.0028 | 0.9882
+  checkerboard__toolbar-group__rest            cali group 0.9685→0.9681 -0.0004 | ≥ 0.92         ok  | -0.0005 | 0.0079→0.0081 | 0.6781→0.6865 / 0.6821 / 0.6246 | +0.0044 | +0.0084 / +0.0045 | 0.1576 / 0.1460 / 0.1581 | 0.0075→0.0076 | 0.9936
+  dark-solid__capsule-button__rest             cali layer 0.9908→0.9908 -0.0000 | ≥ 0.92         ok  | -0.0001 | 0.0008→0.0008 |    —  →   —   /    —   /    —   |    —    |    —    / +0.0000 |    —   /    —   /    —   | 0.0000→0.0000 |    —  
+  dark-solid__capsule-button__rest-tint-blue   hold layer 0.9832→0.9832 +0.0000 | ≥ 0.92         ok  | +0.0000 | 0.0031→0.0031 | 0.2377→0.2377 / 0.2379 / 0.2422 | -0.0001 | -0.0000 / +0.0000 | 0.0042 / 0.0003 / 0.0386 | 0.0023→0.0023 | 1.0006
+  note: holdout recorded: dark-solid__capsule-button__rest-tint-blue @ -2x-light-standard CSS−GPU -0.0001 (bed -0.0001)
+  dark-solid__capsule-button__rest-tint-orange cali layer 0.9833→0.9833 +0.0000 | ≥ 0.92         ok  | -0.0000 | 0.0035→0.0035 | 0.4273→0.4273 / 0.4275 / 0.4276 | -0.0003 | -0.0000 / +0.0000 | 0.0078 / 0.0005 / 0.0315 | 0.0029→0.0029 | 1.0006
+  dark-solid__rrect-md__rest                   cali layer 0.9720→0.9720 +0.0000 | ≥ 0.92         ok  | +0.0000 | 0.0088→0.0088 | 0.5033→0.5033 / 0.4987 / 0.4845 | +0.0046 | +0.0000 / +0.0000 | 0.0189 / 0.0334 / 0.0369 | 0.0065→0.0065 | 0.9909
+  hc-text__capsule-button__rest                hold layer 0.9761→0.9759 -0.0002 | ≥ 0.92         ok  | -0.0007 | 0.0054→0.0054 | 0.7728→0.7738 / 0.7608 / 0.6618 | +0.0129 | +0.0010 / +0.0025 | 0.1165 / 0.1085 / 0.1243 | 0.0032→0.0032 | 0.9833
+  STOP S4: hc-text__capsule-button__rest @ -2x-light-standard level +0.0129 from the GPU tier's
+  note: W17's 0.01 cross-tier clause left: hc-text__capsule-button__rest @ -2x-light-standard at +0.0129
+  note: holdout recorded: hc-text__capsule-button__rest @ -2x-light-standard CSS−GPU +0.0129 (bed +0.0119)
+  note: S5 metric: hc-text__capsule-button__rest @ -2x-light-standard silhouetteIoU moved -0.0081
+  hc-text__capsule-button__rest-tint-orange    hold layer 0.9853→0.9852 -0.0001 | ≥ 0.92         ok  | -0.0001 | 0.0039→0.0039 | 0.4010→0.4010 / 0.3893 / 0.3703 | +0.0117 | -0.0000 / +0.0025 | 0.0236 / 0.0387 / 0.0492 | 0.0034→0.0034 | 0.9707
+  note: W17's 0.01 cross-tier clause left: hc-text__capsule-button__rest-tint-orange @ -2x-light-standard at +0.0117
+  note: holdout recorded: hc-text__capsule-button__rest-tint-orange @ -2x-light-standard CSS−GPU +0.0117 (bed +0.0118)
+  hc-text__rrect-md__rest                      hold layer 0.9470→0.9469 -0.0001 | ≥ 0.92         ok  | -0.0002 | 0.0149→0.0149 | 0.7631→0.7634 / 0.7569 / 0.7404 | +0.0064 | +0.0003 / +0.0017 | 0.0832 / 0.0904 / 0.1004 | 0.0136→0.0136 | 0.9916
+  note: holdout recorded: hc-text__rrect-md__rest @ -2x-light-standard CSS−GPU +0.0064 (bed +0.0062)
+  impulse__capsule-button__rest                vali layer 0.9759→0.9759 +0.0000 | ≥ 0.92         ok  | +0.0000 | 0.0040→0.0040 | 0.0033→0.0033 / 0.0033 / 0.0263 | -0.0000 | +0.0000 / +0.0000 | 0.0001 / 0.0000 / 0.0046 | 0.0008→0.0008 | 1.0028
+  impulse__capsule-button__rest-tint-orange    cali layer 0.9827→0.9827 +0.0000 | ≥ 0.92         ok  | +0.0000 | 0.0046→0.0046 | 0.4272→0.4272 / 0.4275 / 0.4274 | -0.0003 | +0.0000 / +0.0000 | 0.0088 / 0.0005 / 0.0329 | 0.0040→0.0040 | 1.0007
+  impulse__rrect-md__rest                      vali layer 0.9708→0.9708 +0.0000 | ≥ 0.92         ok  | +0.0000 | 0.0120→0.0120 | 0.4695→0.4695 / 0.4672 / 0.4360 | +0.0023 | -0.0000 / +0.0000 | 0.0203 / 0.0341 / 0.0403 | 0.0078→0.0078 | 0.9951
+  light-solid__capsule-button__rest            cali layer 0.9931→0.9930 -0.0001 | ≥ 0.92         ok  | -0.0001 | 0.0008→0.0008 | 0.9738→0.9742 / 0.9716 / 0.9680 | +0.0026 | +0.0004 / +0.0010 | 0.0028 / 0.0074 / 0.0078 | 0.0009→0.0009 | 0.9974
+  light-solid__capsule-button__rest-tint-orange cali layer 0.9877→0.9877 -0.0001 | ≥ 0.92         ok  | -0.0001 | 0.0019→0.0019 | 0.4313→0.4313 / 0.4320 / 0.4317 | -0.0008 | -0.0000 / +0.0010 | 0.0228 / 0.0312 / 0.0406 | 0.0018→0.0018 | 1.0018
+  light-solid__rrect-md__rest                  cali layer 0.9865→0.9865 -0.0000 | ≥ 0.92         ok  | +0.0002 | 0.0017→0.0017 | 0.9331→0.9334 / 0.9324 / 0.9359 | +0.0010 | +0.0003 / +0.0023 | 0.0021 / 0.0112 / 0.0096 | 0.0021→0.0021 | 0.9989
+  note: S5 metric: light-solid__rrect-md__rest @ -2x-light-standard silhouetteIoU moved +0.0021
+  light-solid__rrect-ml__rest                  cali layer 0.9806→0.9804 -0.0002 | ≥ 0.92         ok  | +0.0002 | 0.0038→0.0039 | 0.9329→0.9333 / 0.9322 / 0.9337 | +0.0011 | +0.0004 / +0.0022 | 0.0019 / 0.0100 / 0.0087 | 0.0039→0.0040 | 0.9988
+  note: S5 metric: light-solid__rrect-ml__rest @ -2x-light-standard silhouetteIoU moved +0.0051
+  mid-dark-solid__capsule-button__rest         hold layer 0.9823→0.9823 +0.0000 | ≥ 0.92         ok  | +0.0001 | 0.0042→0.0041 | 0.4735→0.4735 / 0.4626 / 0.4492 | +0.0109 | +0.0001 / +0.0002 | 0.0248 / 0.0384 / 0.0486 | 0.0036→0.0035 | 0.9769
+  note: W17's 0.01 cross-tier clause left: mid-dark-solid__capsule-button__rest @ -2x-light-standard at +0.0109
+  note: holdout recorded: mid-dark-solid__capsule-button__rest @ -2x-light-standard CSS−GPU +0.0109 (bed +0.0109)
+  photo__capsule-button__rest                  cali layer 0.9838→0.9838 -0.0000 | ≥ 0.92         ok  | +0.0001 | 0.0040→0.0040 | 0.6194→0.6197 / 0.6178 / 0.5837 | +0.0019 | +0.0003 / +0.0005 | 0.0425 / 0.0516 / 0.0499 | 0.0046→0.0046 | 0.9969
+  photo__capsule-button__rest-tint-blue        cali layer 0.9849→0.9850 +0.0001 | ≥ 0.92         ok  | +0.0000 | 0.0029→0.0030 | 0.2015→0.2015 / 0.2031 / 0.2025 | -0.0016 | -0.0000 / +0.0005 | 0.0260 / 0.0385 / 0.0528 | 0.0027→0.0027 | 1.0079
+  photo__capsule-button__rest-tint-orange      cali layer 0.9842→0.9843 +0.0001 | ≥ 0.92         ok  | +0.0001 | 0.0028→0.0028 | 0.3595→0.3595 / 0.3595 / 0.3527 | +0.0000 | -0.0000 / +0.0005 | 0.0245 / 0.0364 / 0.0399 | 0.0029→0.0029 | 1.0000
+  photo__capsule-button__rest-tint-orange-half cali layer 0.9837→0.9837 +0.0000 | ≥ 0.92         ok  | +0.0002 | 0.0045→0.0045 | 0.4582→0.4584 / 0.4587 / 0.4391 | -0.0003 | +0.0002 / +0.0005 | 0.0280 / 0.0405 / 0.0433 | 0.0051→0.0051 | 1.0007
+  photo__glass-over-glass__rest                hold layer 0.9497→0.9497 +0.0000 | ≥ 0.92         ok  | +0.0001 | 0.0216→0.0216 | 0.6740→0.6739 / 0.6866 / 0.7054 | -0.0128 | -0.0001 / +0.0018 | 0.0987 / 0.1211 / 0.1235 | 0.0192→0.0191 | 1.0190
+  note: stack recorded: photo__glass-over-glass__rest @ -2x-light-standard CSS−GPU -0.0128 (moved -0.0001; the remainder is the renderer's unsampled material on a DOM-sourced group, G0 §4)
+  note: W17's 0.01 cross-tier clause left: photo__glass-over-glass__rest @ -2x-light-standard at -0.0128
+  note: holdout recorded: photo__glass-over-glass__rest @ -2x-light-standard CSS−GPU -0.0128 (bed -0.0127)
+  photo__rrect-lg__rest                        hold layer 0.9520→0.9520 +0.0001 | ≥ 0.92         ok  | +0.0002 | 0.0286→0.0285 | 0.6553→0.6554 / 0.6623 / 0.6853 | -0.0069 | +0.0001 / +0.0003 | 0.0494 / 0.0538 / 0.0629 | 0.0263→0.0263 | 1.0105
+  note: holdout recorded: photo__rrect-lg__rest @ -2x-light-standard CSS−GPU -0.0069 (bed -0.0070)
+  photo__rrect-lg__rest-tint-orange            hold layer 0.9540→0.9541 +0.0001 | ≥ 0.92         ok  | +0.0001 | 0.0151→0.0151 | 0.3631→0.3631 / 0.3663 / 0.3678 | -0.0032 | -0.0000 / +0.0003 | 0.0141 / 0.0264 / 0.0254 | 0.0104→0.0104 | 1.0087
+  note: holdout recorded: photo__rrect-lg__rest-tint-orange @ -2x-light-standard CSS−GPU -0.0032 (bed -0.0032)
+  photo__rrect-md__rest                        cali layer 0.9739→0.9739 -0.0000 | ≥ 0.92         ok  | +0.0001 | 0.0103→0.0104 | 0.6549→0.6550 / 0.6603 / 0.6654 | -0.0053 | +0.0001 / +0.0003 | 0.0461 / 0.0520 / 0.0591 | 0.0101→0.0100 | 1.0081
+  photo__rrect-md__rest-tint-orange            vali layer 0.9750→0.9750 +0.0000 | ≥ 0.92         ok  | +0.0001 | 0.0058→0.0058 | 0.3641→0.3641 / 0.3671 / 0.3656 | -0.0031 | -0.0000 / +0.0003 | 0.0186 / 0.0329 / 0.0308 | 0.0046→0.0046 | 1.0084
+  photo__rrect-ml__rest                        cali layer 0.9628→0.9628 -0.0000 | ≥ 0.92         ok  | +0.0001 | 0.0192→0.0192 | 0.6560→0.6562 / 0.6611 / 0.6732 | -0.0049 | +0.0001 / +0.0003 | 0.0481 / 0.0563 / 0.0641 | 0.0177→0.0176 | 1.0075
+  photo__rrect-sm__rest                        vali layer 0.9903→0.9903 -0.0000 | ≥ 0.92         ok  | -0.0000 | 0.0025→0.0025 | 0.6028→0.6029 / 0.5983 / 0.5549 | +0.0046 | +0.0001 / +0.0006 | 0.0313 / 0.0520 / 0.0497 | 0.0022→0.0022 | 0.9923
+  photo__toolbar-group__rest                   vali group 0.9745→0.9745 +0.0000 | ≥ 0.92         ok  | +0.0009 | 0.0048→0.0049 | 0.6273→0.6331 / 0.6374 / 0.6204 | -0.0044 | +0.0057 / +0.0013 | 0.0644 / 0.0686 / 0.0675 | 0.0064→0.0064 | 1.0069
+
+== CSS tier · -1x-light-increased-contrast — carrier | ssimMean bed→dry Δ | bound/floor | band Δ | ΔE bed→dry | level bed→dry / GPU / native | CSS−GPU | move / predicted | spread dry / GPU / native | xtier ΔE bed→dry | ratio
+  checkerboard__capsule-button__rest           cali layer 0.9554→0.9554 +0.0000 | ≥ 0.83         ok  | +0.0001 | 0.0111→0.0111 | 0.9489→0.9497 / 0.9238 / 0.9136 | +0.0259 | +0.0008 /    —    | 0.0231 / 0.0318 / 0.2269 | 0.0055→0.0055 | 0.9727
+  note: W17's 0.01 cross-tier clause left: checkerboard__capsule-button__rest @ -1x-light-increased-contrast at +0.0259
+  note: S5 metric: checkerboard__capsule-button__rest @ -1x-light-increased-contrast silhouetteIoU moved -0.0121
+  checkerboard__capsule-button__rest-tint-orange cali layer 0.9553→0.9553 +0.0000 | ≥ 0.83         ok  | +0.0001 | 0.0091→0.0091 | 0.4521→0.4520 / 0.4464 / 0.3981 | +0.0056 | -0.0000 /    —    | 0.1133 / 0.0954 / 0.0891 | 0.0063→0.0063 | 0.9875
+  checkerboard__rrect-md__rest                 cali layer 0.9248→0.9248 +0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0189→0.0189 | 0.9374→0.9376 / 0.9237 / 0.9494 | +0.0139 | +0.0002 /    —    | 0.0207 / 0.0271 / 0.1668 | 0.0096→0.0096 | 0.9852
+  note: W17's 0.01 cross-tier clause left: checkerboard__rrect-md__rest @ -1x-light-increased-contrast at +0.0139
+  hc-text__capsule-button__rest                not captured (holdout)
+  photo__capsule-button__rest                  cali layer 0.9416→0.9416 -0.0000 | ≥ 0.83         ok  | +0.0002 | 0.0105→0.0105 | 0.9219→0.9222 / 0.8996 / 0.9183 | +0.0225 | +0.0003 /    —    | 0.0210 / 0.0261 / 0.2381 | 0.0050→0.0050 | 0.9756
+  note: W17's 0.01 cross-tier clause left: photo__capsule-button__rest @ -1x-light-increased-contrast at +0.0225
+  photo__capsule-button__rest-tint-orange      cali layer 0.9386→0.9386 +0.0000 | ≥ 0.83         ok  | +0.0001 | 0.0073→0.0073 | 0.4490→0.4490 / 0.4435 / 0.3986 | +0.0055 | -0.0000 /    —    | 0.1138 / 0.0958 / 0.0894 | 0.0050→0.0049 | 0.9877
+  photo__rrect-lg__rest                        hold layer 0.8386→0.8386 +0.0000 | ≥ 0.83         ok  | +0.0001 | 0.0453→0.0453 | 0.9060→0.9061 / 0.8993 / 0.9689 | +0.0068 | +0.0001 /    —    | 0.0190 / 0.0261 / 0.1397 | 0.0164→0.0163 | 0.9925
+  note: holdout recorded: photo__rrect-lg__rest @ -1x-light-increased-contrast CSS−GPU +0.0068 (bed +0.0067)
+  photo__rrect-md__rest                        cali layer 0.9078→0.9077 -0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0206→0.0207 | 0.9124→0.9125 / 0.8994 / 0.9564 | +0.0131 | +0.0001 /    —    | 0.0189 / 0.0259 / 0.1775 | 0.0088→0.0087 | 0.9857
+  note: W17's 0.01 cross-tier clause left: photo__rrect-md__rest @ -1x-light-increased-contrast at +0.0131
+  photo__toolbar-group__rest                   vali group 0.9127→0.9128 +0.0001 | ≥ 0.83         ok  | +0.0006 | 0.0153→0.0152 | 0.9123→0.9166 / 0.9027 / 0.8792 | +0.0139 | +0.0043 /    —    | 0.0296 / 0.0263 / 0.2835 | 0.0067→0.0067 | 0.9848
+  STOP S4: photo__toolbar-group__rest @ -1x-light-increased-contrast fold level +0.0139 (q4's clause 0.01)
+  note: W17's 0.01 cross-tier clause left: photo__toolbar-group__rest @ -1x-light-increased-contrast at +0.0139
+
+== CSS tier · -1x-light-reduced-transparency — carrier | ssimMean bed→dry Δ | bound/floor | band Δ | ΔE bed→dry | level bed→dry / GPU / native | CSS−GPU | move / predicted | spread dry / GPU / native | xtier ΔE bed→dry | ratio
+  checkerboard__capsule-button__rest           cali layer 0.9832→0.9833 +0.0001 | ≥ 0.91         ok  | +0.0004 | 0.0040→0.0040 | 0.9279→0.9284 / 0.9333 / 0.8903 | -0.0049 | +0.0006 /    —    | 0.0299 / 0.0312 / 0.0428 | 0.0029→0.0029 | 1.0052
+  checkerboard__rrect-md__rest                 cali layer 0.9737→0.9737 +0.0000 | ≥ 0.91         ok  | -0.0000 | 0.0077→0.0078 | 0.9316→0.9318 / 0.9322 / 0.8898 | -0.0004 | +0.0002 /    —    | 0.0230 / 0.0386 / 0.0307 | 0.0048→0.0048 | 1.0005
+  hc-text__capsule-button__rest                hold layer 0.9921→0.9921 -0.0000 | ≥ 0.91         ok  | -0.0005 | 0.0025→0.0026 | 0.9478→0.9485 / 0.9412 / 0.8932 | +0.0073 | +0.0007 /    —    | 0.0228 / 0.0248 / 0.0296 | 0.0016→0.0016 | 0.9923
+  note: holdout recorded: hc-text__capsule-button__rest @ -1x-light-reduced-transparency CSS−GPU +0.0073 (bed +0.0066)
+  note: S5 metric: hc-text__capsule-button__rest @ -1x-light-reduced-transparency silhouetteIoU moved -0.0035
+  photo__capsule-button__rest                  cali layer 0.9774→0.9775 +0.0000 | ≥ 0.91         ok  | +0.0003 | 0.0029→0.0030 | 0.8882→0.8886 / 0.8956 / 0.8927 | -0.0070 | +0.0004 /    —    | 0.0167 / 0.0202 / 0.0360 | 0.0031→0.0030 | 1.0079
+  photo__capsule-button__rest-tint-orange      cali layer 0.9773→0.9775 +0.0002 | ≥ 0.91         ok  | +0.0006 | 0.0022→0.0022 | 0.4174→0.4174 / 0.4172 / 0.4166 | +0.0002 | -0.0000 /    —    | 0.0219 / 0.0285 / 0.0323 | 0.0023→0.0023 | 0.9994
+  photo__rrect-lg__rest                        hold layer 0.9350→0.9351 +0.0001 | ≥ 0.91         ok  | +0.0001 | 0.0126→0.0126 | 0.8932→0.8932 / 0.8970 / 0.8920 | -0.0038 | +0.0001 /    —    | 0.0161 / 0.0257 / 0.0236 | 0.0113→0.0112 | 1.0043
+  note: holdout recorded: photo__rrect-lg__rest @ -1x-light-reduced-transparency CSS−GPU -0.0038 (bed -0.0039)
+  photo__rrect-md__rest                        cali layer 0.9640→0.9640 +0.0000 | ≥ 0.91         ok  | +0.0001 | 0.0053→0.0054 | 0.8927→0.8928 / 0.8954 / 0.8930 | -0.0026 | +0.0001 /    —    | 0.0147 / 0.0271 / 0.0257 | 0.0051→0.0050 | 1.0029
+  photo__toolbar-group__rest                   vali group 0.9662→0.9663 +0.0001 | ≥ 0.91         ok  | +0.0005 | 0.0047→0.0047 | 0.8669→0.8708 / 0.8989 / 0.8899 | -0.0281 | +0.0038 /    —    | 0.0283 / 0.0208 / 0.0452 | 0.0050→0.0049 | 1.0323
+  STOP S4: photo__toolbar-group__rest @ -1x-light-reduced-transparency fold level -0.0281 (q4's clause 0.01)
+  note: W17's 0.01 cross-tier clause left: photo__toolbar-group__rest @ -1x-light-reduced-transparency at -0.0281
+
+== CSS tier · -1x-dark-standard — carrier | ssimMean bed→dry Δ | bound/floor | band Δ | ΔE bed→dry | level bed→dry / GPU / native | CSS−GPU | move / predicted | spread dry / GPU / native | xtier ΔE bed→dry | ratio
+  checkerboard__capsule-button__rest           cali layer 0.9485→0.9485 +0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0095→0.0095 | 0.0588→0.0588 / 0.0697 / 0.1130 | -0.0109 | +0.0000 /    —    | 0.0273 / 0.0361 / 0.0671 | 0.0046→0.0046 | 1.1857
+  note: W17's 0.01 cross-tier clause left: checkerboard__capsule-button__rest @ -1x-dark-standard at -0.0109
+  checkerboard__capsule-button__rest-tint-orange cali layer 0.9828→0.9828 -0.0000 | ≥ 0.83         ok  | -0.0000 | 0.0036→0.0036 | 0.4307→0.4307 / 0.4317 / 0.4385 | -0.0010 | -0.0000 /    —    | 0.0225 / 0.0273 / 0.0291 | 0.0029→0.0029 | 1.0023
+  checkerboard__glass-over-glass__rest         hold layer 0.8559→0.8559 +0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0408→0.0407 | 0.0575→0.0574 / 0.0658 / 0.0436 | -0.0085 | -0.0001 /    —    | 0.0254 / 0.0379 / 0.0233 | 0.0257→0.0258 | 1.1473
+  note: stack recorded: checkerboard__glass-over-glass__rest @ -1x-dark-standard CSS−GPU -0.0085 (moved -0.0001; the remainder is the renderer's unsampled material on a DOM-sourced group, G0 §4)
+  note: holdout recorded: checkerboard__glass-over-glass__rest @ -1x-dark-standard CSS−GPU -0.0085 (bed -0.0083)
+  note: S6 reading: checkerboard__glass-over-glass__rest @ -1x-dark-standard cross-tier ΔE rose +0.00011 (0.02566 → 0.02577); the gate is the profile's mean
+  checkerboard__rrect-md__rest                 cali layer 0.9093→0.9093 -0.0000 | ≥ 0.83         ok  | -0.0000 | 0.0212→0.0212 | 0.0572→0.0572 / 0.0683 / 0.0493 | -0.0111 | +0.0000 /    —    | 0.0214 / 0.0392 / 0.0280 | 0.0163→0.0163 | 1.1944
+  note: W17's 0.01 cross-tier clause left: checkerboard__rrect-md__rest @ -1x-dark-standard at -0.0111
+  dark-solid__capsule-button__rest             cali layer 0.9866→0.9866 +0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0008→0.0008 |    —  →   —   /    —   /    —   |    —    |    —    /    —    |    —   /    —   /    —   | 0.0000→0.0000 |    —  
+  dark-solid__capsule-button__rest-tint-orange cali layer 0.9764→0.9764 +0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0034→0.0034 | 0.4268→0.4268 / 0.4275 / 0.4257 | -0.0007 | +0.0000 /    —    | 0.0122 / 0.0006 / 0.0304 | 0.0029→0.0029 | 1.0016
+  dark-solid__rrect-md__rest                   cali layer 0.9074→0.9074 -0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0307→0.0307 | 0.1310→0.1310 / 0.2105 / 0.0414 | -0.0795 | +0.0000 /    —    | 0.0849 / 0.0910 / 0.0051 | 0.0039→0.0039 | 1.6071
+  note: W17's 0.01 cross-tier clause left: dark-solid__rrect-md__rest @ -1x-dark-standard at -0.0795
+  impulse__capsule-button__rest                vali layer 0.9756→0.9756 +0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0036→0.0036 | 0.0037→0.0037 / 0.0037 / 0.0210 | -0.0000 | +0.0000 /    —    | 0.0000 / 0.0000 / 0.0038 | 0.0008→0.0008 | 1.0006
+  mid-dark-solid__capsule-button__rest         hold layer 0.9707→0.9707 -0.0000 | ≥ 0.83         ok  | +0.0000 | 0.0058→0.0058 | 0.0517→0.0517 / 0.0501 / 0.0289 | +0.0016 | +0.0000 /    —    | 0.0061 / 0.0090 / 0.0049 | 0.0016→0.0016 | 0.9689
+  note: holdout recorded: mid-dark-solid__capsule-button__rest @ -1x-dark-standard CSS−GPU +0.0016 (bed +0.0016)
+  photo__capsule-button__rest                  cali layer 0.9782→0.9782 -0.0000 | ≥ 0.83         ok  | -0.0000 | 0.0096→0.0096 | 0.0564→0.0564 / 0.0606 / 0.1020 | -0.0042 | +0.0000 /    —    | 0.0252 / 0.0342 / 0.0318 | 0.0023→0.0023 | 1.0750
+  photo__capsule-button__rest-tint-orange      cali layer 0.9799→0.9799 -0.0000 | ≥ 0.83         ok  | +0.0001 | 0.0022→0.0023 | 0.4305→0.4305 / 0.4317 / 0.4384 | -0.0012 | -0.0000 /    —    | 0.0211 / 0.0273 / 0.0255 | 0.0020→0.0019 | 1.0028
+  photo__rrect-lg__rest                        hold layer 0.9250→0.9250 -0.0001 | ≥ 0.83         ok  | -0.0000 | 0.0621→0.0621 | 0.0537→0.0537 / 0.0581 / 0.0464 | -0.0044 | +0.0000 /    —    | 0.0153 / 0.0253 / 0.0161 | 0.0109→0.0109 | 1.0810
+  note: holdout recorded: photo__rrect-lg__rest @ -1x-dark-standard CSS−GPU -0.0044 (bed -0.0044)
+  photo__rrect-md__rest                        cali layer 0.9620→0.9619 -0.0001 | ≥ 0.83         ok  | -0.0000 | 0.0221→0.0222 | 0.0547→0.0547 / 0.0600 / 0.0490 | -0.0053 | +0.0000 /    —    | 0.0202 / 0.0334 / 0.0177 | 0.0050→0.0049 | 1.0973
+
+== CSS tier · -2x-dark-standard — carrier | ssimMean bed→dry Δ | bound/floor | band Δ | ΔE bed→dry | level bed→dry / GPU / native | CSS−GPU | move / predicted | spread dry / GPU / native | xtier ΔE bed→dry | ratio
+  checkerboard__capsule-button__rest           cali layer 0.9616→0.9616 -0.0000 | ≥ 0.85         ok  | -0.0000 | 0.0097→0.0097 | 0.0589→0.0589 / 0.0698 / 0.1141 | -0.0108 | +0.0000 /    —    | 0.0275 / 0.0407 / 0.0701 | 0.0046→0.0046 | 1.1835
+  note: W17's 0.01 cross-tier clause left: checkerboard__capsule-button__rest @ -2x-dark-standard at -0.0108
+  checkerboard__capsule-button__rest-tint-orange cali layer 0.9861→0.9861 -0.0000 | ≥ 0.85         ok  | -0.0000 | 0.0037→0.0037 | 0.4310→0.4310 / 0.4319 / 0.4399 | -0.0010 | -0.0000 /    —    | 0.0222 / 0.0308 / 0.0323 | 0.0030→0.0030 | 1.0022
+  checkerboard__glass-over-glass__rest         hold layer 0.8771→0.8771 +0.0000 | ≥ 0.85         ok  | +0.0001 | 0.0423→0.0423 | 0.0576→0.0575 / 0.0664 / 0.0442 | -0.0089 | -0.0001 /    —    | 0.0261 / 0.0440 / 0.0259 | 0.0263→0.0264 | 1.1546
+  note: stack recorded: checkerboard__glass-over-glass__rest @ -2x-dark-standard CSS−GPU -0.0089 (moved -0.0001; the remainder is the renderer's unsampled material on a DOM-sourced group, G0 §4)
+  note: holdout recorded: checkerboard__glass-over-glass__rest @ -2x-dark-standard CSS−GPU -0.0089 (bed -0.0088)
+  note: S6 reading: checkerboard__glass-over-glass__rest @ -2x-dark-standard cross-tier ΔE rose +0.00011 (0.02626 → 0.02637); the gate is the profile's mean
+  checkerboard__rrect-md__rest                 cali layer 0.9305→0.9305 +0.0000 | ≥ 0.85         ok  | +0.0000 | 0.0222→0.0222 | 0.0574→0.0574 / 0.0686 / 0.0498 | -0.0112 | +0.0000 /    —    | 0.0213 / 0.0429 / 0.0291 | 0.0163→0.0163 | 1.1955
+  note: W17's 0.01 cross-tier clause left: checkerboard__rrect-md__rest @ -2x-dark-standard at -0.0112
+  dark-solid__capsule-button__rest             cali layer 0.9908→0.9908 -0.0000 | ≥ 0.85         ok  | +0.0000 | 0.0008→0.0008 |    —  →   —   /    —   /    —   |    —    |    —    /    —    |    —   /    —   /    —   | 0.0000→0.0000 |    —  
+  dark-solid__capsule-button__rest-tint-orange cali layer 0.9833→0.9833 +0.0000 | ≥ 0.85         ok  | +0.0000 | 0.0035→0.0035 | 0.4273→0.4273 / 0.4275 / 0.4276 | -0.0003 | +0.0000 /    —    | 0.0078 / 0.0005 / 0.0315 | 0.0029→0.0029 | 1.0006
+  dark-solid__rrect-md__rest                   cali layer 0.9280→0.9280 -0.0000 | ≥ 0.85         ok  | +0.0000 | 0.0307→0.0307 | 0.1341→0.1341 / 0.2495 / 0.0457 | -0.1155 | +0.0000 /    —    | 0.0857 / 0.1466 / 0.0095 | 0.0041→0.0041 | 1.8612
+  note: W17's 0.01 cross-tier clause left: dark-solid__rrect-md__rest @ -2x-dark-standard at -0.1155
+  impulse__capsule-button__rest                vali layer 0.9759→0.9759 +0.0000 | ≥ 0.85         ok  | +0.0000 | 0.0040→0.0040 | 0.0033→0.0033 / 0.0033 / 0.0263 | -0.0000 | +0.0000 /    —    | 0.0001 / 0.0000 / 0.0046 | 0.0008→0.0008 | 1.0028
+  mid-dark-solid__capsule-button__rest         hold layer 0.9795→0.9795 -0.0000 | ≥ 0.85         ok  | -0.0000 | 0.0059→0.0059 | 0.0533→0.0533 / 0.0542 / 0.0298 | -0.0009 | +0.0000 /    —    | 0.0182 / 0.0363 / 0.0088 | 0.0017→0.0017 | 1.0171
+  note: holdout recorded: mid-dark-solid__capsule-button__rest @ -2x-dark-standard CSS−GPU -0.0009 (bed -0.0009)
+  photo__capsule-button__rest                  cali layer 0.9838→0.9838 -0.0000 | ≥ 0.85         ok  | -0.0000 | 0.0097→0.0097 | 0.0562→0.0563 / 0.0608 / 0.1023 | -0.0046 | +0.0000 /    —    | 0.0257 / 0.0392 / 0.0324 | 0.0025→0.0024 | 1.0812
+  photo__capsule-button__rest-tint-orange      cali layer 0.9856→0.9856 -0.0000 | ≥ 0.85         ok  | +0.0000 | 0.0023→0.0023 | 0.4308→0.4308 / 0.4319 / 0.4395 | -0.0011 | -0.0000 /    —    | 0.0217 / 0.0308 / 0.0289 | 0.0020→0.0020 | 1.0025
+  photo__rrect-lg__rest                        hold layer 0.9425→0.9424 -0.0001 | ≥ 0.85         ok  | +0.0000 | 0.0621→0.0621 | 0.0536→0.0536 / 0.0583 / 0.0465 | -0.0047 | +0.0000 /    —    | 0.0155 / 0.0295 / 0.0164 | 0.0114→0.0114 | 1.0874
+  note: holdout recorded: photo__rrect-lg__rest @ -2x-dark-standard CSS−GPU -0.0047 (bed -0.0047)
+  photo__rrect-md__rest                        cali layer 0.9710→0.9710 -0.0001 | ≥ 0.85         ok  | +0.0000 | 0.0223→0.0224 | 0.0546→0.0546 / 0.0605 / 0.0493 | -0.0058 | +0.0000 /    —    | 0.0205 / 0.0388 / 0.0185 | 0.0053→0.0052 | 1.1070
+
+== S6 · cross-tier coherence
+  -1x-light-standard           cross-tier ΔE bed 0.00607 → dry 0.00606  (26 cells)
+  -2x-light-standard           cross-tier ΔE bed 0.00633 → dry 0.00633  (26 cells)
+  -1x-light-increased-contrast cross-tier ΔE bed 0.00669 → dry 0.00669  (7 cells)
+  -1x-light-reduced-transparency cross-tier ΔE bed 0.00389 → dry 0.00385  (6 cells)
+  -1x-dark-standard            cross-tier ΔE bed 0.00406 → dry 0.00405  (10 cells)
+  -2x-dark-standard            cross-tier ΔE bed 0.00414 → dry 0.00413  (10 cells)
+  note: S6 reading: checkerboard__rrect-lg__rest @ -1x-light-standard level ratio 0.9975 against the bed's 0.9982 — farther from 1 by +0.0007, inside W17's band
+  note: S6 reading: checkerboard__rrect-sm__rest @ -1x-light-standard level ratio 0.9944 against the bed's 0.9953 — farther from 1 by +0.0009, inside W17's band
+  note: S6 reading: hc-text__capsule-button__rest @ -1x-light-standard level ratio 0.9863 against the bed's 0.9882 — farther from 1 by +0.0019, inside W17's band
+  note: S6 reading (standing): hc-text__capsule-button__rest-tint-orange @ -1x-light-standard level ratio 0.9680, bed 0.9678
+  note: S6 reading: hc-text__rrect-md__rest @ -1x-light-standard level ratio 0.9920 against the bed's 0.9926 — farther from 1 by +0.0006, inside W17's band
+  note: S6 reading: light-solid__capsule-button__rest @ -1x-light-standard level ratio 0.9973 against the bed's 0.9984 — farther from 1 by +0.0011, inside W17's band
+  note: S6 reading: light-solid__rrect-ml__rest @ -1x-light-standard level ratio 0.9989 against the bed's 0.9998 — farther from 1 by +0.0009, inside W17's band
+  note: S6 reading: photo__capsule-button__rest @ -1x-light-standard level ratio 0.9983 against the bed's 0.9993 — farther from 1 by +0.0010, inside W17's band
+  note: S6 reading: checkerboard__capsule-button__rest @ -2x-light-standard level ratio 0.9853 against the bed's 0.9863 — farther from 1 by +0.0010, inside W17's band
+  note: S6 reading: checkerboard__rrect-sm__rest @ -2x-light-standard level ratio 0.9882 against the bed's 0.9888 — farther from 1 by +0.0006, inside W17's band
+  note: S6 reading: checkerboard__toolbar-group__rest @ -2x-light-standard level ratio 0.9936 against the bed's 1.0059 — farther from 1 by +0.0005, inside W17's band
+  note: S6 reading: hc-text__capsule-button__rest @ -2x-light-standard level ratio 0.9833 against the bed's 0.9846 — farther from 1 by +0.0013, inside W17's band
+  note: S6 reading: photo__capsule-button__rest @ -2x-light-standard level ratio 0.9969 against the bed's 0.9975 — farther from 1 by +0.0005, inside W17's band
+  worst light-cell level ratio 0.9680 on hc-text__capsule-button__rest-tint-orange @ -1x-light-standard
+
+== S5 · the move against the closed form's share, per cell
+  profile                      scene                                         moved  predicted   excess  class
+  -1x-light-standard           checkerboard__capsule-button__rest           +0.0011  +0.0026  -0.0015  single
+  -1x-light-standard           checkerboard__capsule-button__rest-tint-blue -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           checkerboard__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           checkerboard__glass-over-glass__rest         -0.0001     —        —     stack (form not applicable)
+  -1x-light-standard           checkerboard__rrect-lg__rest                 +0.0005  +0.0015  -0.0011  single
+  -1x-light-standard           checkerboard__rrect-md__rest                 +0.0003  +0.0016  -0.0013  single
+  -1x-light-standard           checkerboard__rrect-ml__rest                 +0.0004  +0.0015  -0.0011  single
+  -1x-light-standard           checkerboard__rrect-sm__rest                 +0.0006  +0.0031  -0.0025  single
+  -1x-light-standard           checkerboard__toolbar-group__rest            +0.0094  +0.0056  +0.0039  grouped
+  -1x-light-standard           dark-solid__rrect-md__rest                   -0.0000  +0.0000  -0.0000  single
+  -1x-light-standard           hc-text__capsule-button__rest                +0.0015  +0.0034  -0.0019  single
+  -1x-light-standard           hc-text__capsule-button__rest-tint-orange    -0.0001  +0.0000  -0.0001  tinted s=1.0
+  -1x-light-standard           hc-text__rrect-md__rest                      +0.0004  +0.0024  -0.0020  single
+  -1x-light-standard           impulse__capsule-button__rest                +0.0000  +0.0000  +0.0000  single
+  -1x-light-standard           impulse__capsule-button__rest-tint-orange    +0.0000  +0.0000  +0.0000  tinted s=1.0
+  -1x-light-standard           impulse__rrect-md__rest                      -0.0000  +0.0000  -0.0000  single
+  -1x-light-standard           light-solid__capsule-button__rest            +0.0010  +0.0014  -0.0004  solid
+  -1x-light-standard           light-solid__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           light-solid__rrect-md__rest                  +0.0002  +0.0036  -0.0033  solid
+  -1x-light-standard           light-solid__rrect-ml__rest                  +0.0009  +0.0034  -0.0025  solid
+  -1x-light-standard           mid-dark-solid__capsule-button__rest         +0.0001  +0.0002  -0.0002  single
+  -1x-light-standard           photo__capsule-button__rest                  +0.0006  +0.0007  -0.0001  single
+  -1x-light-standard           photo__capsule-button__rest-tint-blue        -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           photo__capsule-button__rest-tint-orange      -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           photo__capsule-button__rest-tint-orange-half +0.0003  +0.0003  -0.0000  tinted s=0.5
+  -1x-light-standard           photo__glass-over-glass__rest                +0.0000     —        —     stack (form not applicable)
+  -1x-light-standard           photo__rrect-lg__rest                        +0.0002  +0.0005  -0.0003  single
+  -1x-light-standard           photo__rrect-lg__rest-tint-orange            -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           photo__rrect-md__rest                        +0.0001  +0.0005  -0.0004  single
+  -1x-light-standard           photo__rrect-md__rest-tint-orange            -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-standard           photo__rrect-ml__rest                        +0.0002  +0.0005  -0.0002  single
+  -1x-light-standard           photo__rrect-sm__rest                        +0.0001  +0.0008  -0.0006  single
+  -1x-light-standard           photo__toolbar-group__rest                   +0.0063  +0.0016  +0.0047  grouped
+  -2x-light-standard           checkerboard__capsule-button__rest           +0.0007  +0.0018  -0.0011  single
+  -2x-light-standard           checkerboard__capsule-button__rest-tint-blue -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           checkerboard__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           checkerboard__glass-over-glass__rest         -0.0000     —        —     stack (form not applicable)
+  -2x-light-standard           checkerboard__rrect-lg__rest                 +0.0003  +0.0010  -0.0007  single
+  -2x-light-standard           checkerboard__rrect-md__rest                 +0.0002  +0.0010  -0.0008  single
+  -2x-light-standard           checkerboard__rrect-ml__rest                 +0.0002  +0.0010  -0.0007  single
+  -2x-light-standard           checkerboard__rrect-sm__rest                 +0.0004  +0.0023  -0.0019  single
+  -2x-light-standard           checkerboard__toolbar-group__rest            +0.0084  +0.0045  +0.0038  grouped
+  -2x-light-standard           dark-solid__rrect-md__rest                   +0.0000  +0.0000  -0.0000  single
+  -2x-light-standard           hc-text__capsule-button__rest                +0.0010  +0.0025  -0.0015  single
+  -2x-light-standard           hc-text__capsule-button__rest-tint-orange    -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           hc-text__rrect-md__rest                      +0.0003  +0.0017  -0.0015  single
+  -2x-light-standard           impulse__capsule-button__rest                +0.0000  +0.0000  +0.0000  single
+  -2x-light-standard           impulse__capsule-button__rest-tint-orange    +0.0000  +0.0000  +0.0000  tinted s=1.0
+  -2x-light-standard           impulse__rrect-md__rest                      -0.0000  +0.0000  -0.0000  single
+  -2x-light-standard           light-solid__capsule-button__rest            +0.0004  +0.0010  -0.0006  solid
+  -2x-light-standard           light-solid__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           light-solid__rrect-md__rest                  +0.0003  +0.0023  -0.0020  solid
+  -2x-light-standard           light-solid__rrect-ml__rest                  +0.0004  +0.0022  -0.0018  solid
+  -2x-light-standard           mid-dark-solid__capsule-button__rest         +0.0001  +0.0002  -0.0001  single
+  -2x-light-standard           photo__capsule-button__rest                  +0.0003  +0.0005  -0.0002  single
+  -2x-light-standard           photo__capsule-button__rest-tint-blue        -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           photo__capsule-button__rest-tint-orange      -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           photo__capsule-button__rest-tint-orange-half +0.0002  +0.0002  -0.0000  tinted s=0.5
+  -2x-light-standard           photo__glass-over-glass__rest                -0.0001     —        —     stack (form not applicable)
+  -2x-light-standard           photo__rrect-lg__rest                        +0.0001  +0.0003  -0.0002  single
+  -2x-light-standard           photo__rrect-lg__rest-tint-orange            -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           photo__rrect-md__rest                        +0.0001  +0.0003  -0.0002  single
+  -2x-light-standard           photo__rrect-md__rest-tint-orange            -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-light-standard           photo__rrect-ml__rest                        +0.0001  +0.0003  -0.0002  single
+  -2x-light-standard           photo__rrect-sm__rest                        +0.0001  +0.0006  -0.0004  single
+  -2x-light-standard           photo__toolbar-group__rest                   +0.0057  +0.0013  +0.0044  grouped
+  -1x-light-increased-contrast checkerboard__capsule-button__rest           +0.0008     —        —     unpredicted
+  -1x-light-increased-contrast checkerboard__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-increased-contrast checkerboard__rrect-md__rest                 +0.0002     —        —     unpredicted
+  -1x-light-increased-contrast photo__capsule-button__rest                  +0.0003     —        —     unpredicted
+  -1x-light-increased-contrast photo__capsule-button__rest-tint-orange      -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-increased-contrast photo__rrect-lg__rest                        +0.0001     —        —     unpredicted
+  -1x-light-increased-contrast photo__rrect-md__rest                        +0.0001     —        —     unpredicted
+  -1x-light-increased-contrast photo__toolbar-group__rest                   +0.0043     —        —     unpredicted
+  -1x-light-reduced-transparency checkerboard__capsule-button__rest           +0.0006     —        —     unpredicted
+  -1x-light-reduced-transparency checkerboard__rrect-md__rest                 +0.0002     —        —     unpredicted
+  -1x-light-reduced-transparency hc-text__capsule-button__rest                +0.0007     —        —     unpredicted
+  -1x-light-reduced-transparency photo__capsule-button__rest                  +0.0004     —        —     unpredicted
+  -1x-light-reduced-transparency photo__capsule-button__rest-tint-orange      -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-light-reduced-transparency photo__rrect-lg__rest                        +0.0001     —        —     unpredicted
+  -1x-light-reduced-transparency photo__rrect-md__rest                        +0.0001     —        —     unpredicted
+  -1x-light-reduced-transparency photo__toolbar-group__rest                   +0.0038     —        —     unpredicted
+  -1x-dark-standard            checkerboard__capsule-button__rest           +0.0000     —        —     unpredicted
+  -1x-dark-standard            checkerboard__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-dark-standard            checkerboard__glass-over-glass__rest         -0.0001     —        —     stack (form not applicable)
+  -1x-dark-standard            checkerboard__rrect-md__rest                 +0.0000     —        —     unpredicted
+  -1x-dark-standard            dark-solid__rrect-md__rest                   +0.0000     —        —     unpredicted
+  -1x-dark-standard            impulse__capsule-button__rest                +0.0000     —        —     unpredicted
+  -1x-dark-standard            mid-dark-solid__capsule-button__rest         +0.0000     —        —     unpredicted
+  -1x-dark-standard            photo__capsule-button__rest                  +0.0000     —        —     unpredicted
+  -1x-dark-standard            photo__capsule-button__rest-tint-orange      -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -1x-dark-standard            photo__rrect-lg__rest                        +0.0000     —        —     unpredicted
+  -1x-dark-standard            photo__rrect-md__rest                        +0.0000     —        —     unpredicted
+  -2x-dark-standard            checkerboard__capsule-button__rest           +0.0000     —        —     unpredicted
+  -2x-dark-standard            checkerboard__capsule-button__rest-tint-orange -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-dark-standard            checkerboard__glass-over-glass__rest         -0.0001     —        —     stack (form not applicable)
+  -2x-dark-standard            checkerboard__rrect-md__rest                 +0.0000     —        —     unpredicted
+  -2x-dark-standard            dark-solid__rrect-md__rest                   +0.0000     —        —     unpredicted
+  -2x-dark-standard            impulse__capsule-button__rest                +0.0000     —        —     unpredicted
+  -2x-dark-standard            mid-dark-solid__capsule-button__rest         +0.0000     —        —     unpredicted
+  -2x-dark-standard            photo__capsule-button__rest                  +0.0000     —        —     unpredicted
+  -2x-dark-standard            photo__capsule-button__rest-tint-orange      -0.0000  +0.0000  -0.0000  tinted s=1.0
+  -2x-dark-standard            photo__rrect-lg__rest                        +0.0000     —        —     unpredicted
+  -2x-dark-standard            photo__rrect-md__rest                        +0.0000     —        —     unpredicted
+
+== W17's 0.01 cross-tier clause · every cell outside it on either run
+  profile                        scene                                          bed      dry   verdict
+  -1x-dark-standard              checkerboard__capsule-button__rest           -0.0109 -0.0109  standing
+  -1x-dark-standard              checkerboard__rrect-md__rest                 -0.0111 -0.0111  standing
+  -1x-dark-standard              dark-solid__rrect-md__rest                   -0.0795 -0.0795  standing
+  -1x-light-increased-contrast   checkerboard__capsule-button__rest           +0.0251 +0.0259  standing
+  -1x-light-increased-contrast   checkerboard__rrect-md__rest                 +0.0137 +0.0139  standing
+  -1x-light-increased-contrast   photo__capsule-button__rest                  +0.0222 +0.0225  standing
+  -1x-light-increased-contrast   photo__rrect-md__rest                        +0.0130 +0.0131  standing
+  -1x-light-increased-contrast   photo__toolbar-group__rest                   +0.0096 +0.0139  NEW miss
+  -1x-light-reduced-transparency photo__toolbar-group__rest                   -0.0320 -0.0281  standing
+  -1x-light-standard             checkerboard__toolbar-group__rest            -0.0122 -0.0028  LEFT the clause
+  -1x-light-standard             hc-text__capsule-button__rest                +0.0091 +0.0105  NEW miss
+  -1x-light-standard             hc-text__capsule-button__rest-tint-orange    +0.0129 +0.0128  standing
+  -1x-light-standard             photo__glass-over-glass__rest                -0.0119 -0.0118  standing
+  -1x-light-standard             photo__toolbar-group__rest                   -0.0150 -0.0087  LEFT the clause
+  -2x-dark-standard              checkerboard__capsule-button__rest           -0.0108 -0.0108  standing
+  -2x-dark-standard              checkerboard__rrect-md__rest                 -0.0112 -0.0112  standing
+  -2x-dark-standard              dark-solid__rrect-md__rest                   -0.1155 -0.1155  standing
+  -2x-light-standard             checkerboard__capsule-button__rest           +0.0095 +0.0102  NEW miss
+  -2x-light-standard             hc-text__capsule-button__rest                +0.0119 +0.0129  standing
+  -2x-light-standard             hc-text__capsule-button__rest-tint-orange    +0.0118 +0.0117  standing
+  -2x-light-standard             mid-dark-solid__capsule-button__rest         +0.0109 +0.0109  standing
+  -2x-light-standard             photo__glass-over-glass__rest                -0.0127 -0.0128  standing
+  -2x-light-standard             photo__toolbar-group__rest                   -0.0101 -0.0044  LEFT the clause
+
+== verdicts
+  S1: met
+  S3: met
+  S4: FIRED
+  S5: FIRED
+  S6: met
+  (77 note(s) above; S2's bounds and floors and S7's predicate are adopted-thresholds.test.ts's, X6)
