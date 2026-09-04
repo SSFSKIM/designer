@@ -1,5 +1,13 @@
 # @vitreajs/vitrea-react
 
+## 0.6.0
+
+### Patch Changes
+
+- Updated dependencies [64457d0]
+  - @vitreajs/vitrea-web@0.6.0
+  - @vitreajs/vitrea@0.6.0
+
 ## 0.5.0
 
 ### Patch Changes

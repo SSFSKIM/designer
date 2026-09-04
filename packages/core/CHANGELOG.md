@@ -1,5 +1,7 @@
 # @vitreajs/vitrea
 
+## 0.6.0
+
 ## 0.5.0
 
 Version-locked with `@vitreajs/vitrea-web` 0.5.0 and `@vitreajs/vitrea-react` 0.5.0; no
