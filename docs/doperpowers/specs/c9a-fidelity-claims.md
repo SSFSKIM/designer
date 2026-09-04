@@ -10701,3 +10701,114 @@ shader's order and gains the inner shadow, and the conversion is replaced by the
 affine in linear light on the sharp layer — slope `1 − α`, intercept `α·T + X`, non-negative by
 construction, exact per pixel, no point condition — with the `rgba()` overlay kept for the
 plain-`blur()` engines and the author-tint fold.
+
+### 5.75 W17 G1 DECLARED: the CSS tier draws the renderer's interior composite — the tint's lerp as a table in linear light over a floor the doctrine keeps, the mirror in the shader's order, a declared boundary for the darks; the level on the renderer's on every light calibration cell but two, six held rows up, the shape axis paying four cells (2026-09-05)
+
+**1. The configuration** (branch `w17-g1-level` at `033ea6b`; W17 Decision Logs 2–6). (i) The
+tier's mirror computes the tint alpha in the shader's order — the size law's occlusion before the
+W9 response solve — and carries the inner shadow as the shader's own layer identity, its area
+mean by the co-area integral over the host's declared thickness (Decision Log 2 (b)). (ii) On
+Chromium the L3 tint overlay stays at the least tint the tier draws (`MATERIAL_OPTICS.clear.
+tintAlpha` = 0.2668, the contrast floor S1's doctrine requires; Decision Log 5), and the sharp
+layer's linear-light reference filter carries the exact remainder as a per-channel
+`feComponentTransfer type="table"` sampling `F(b) = D((E(M(b) + X) − E(T)·α₃) / (1 − α₃))` over
+33 values (the interpolation error under 1e−4), where `M` is the shader-order lerp, `T` the tint
+and `X` the derived light of the rim, the highlight and the inner shadow (G0 §5.74 §4; the lens
+and the lift zero). No solve, no point condition, no new fitted constant; the mapping's
+`referenceBackdropLuminance` is not read on this path. (iii) A group whose composite's sampled
+level lies where the eight-bit linear chain's quantum exceeds the declared tolerance draws the
+encoded form instead — E's overlay with (i) — and the group state reports which
+(`cssTint: "linear" | "encoded"` beside W16's `cssBody`): the dark scheme, `impulse` and the
+near-black composites take it and are unchanged from the bed to the digit. (iv) The
+plain-`blur()` engines keep E's overlay with (i); its anchor stays at 0.02 on W16 G1's own
+measurement of the alternative. Two derived residuals recorded beside the transfer: the page's
+encoded-space mix of the two tinted layers under the mask, −0.0040 at dpr 1 and −0.0009…−0.0022
+at dpr 2 (7–14× smaller than the untinted mix); the effective-width residual, ≤ 3e−6 of the
+level.
+
+**2. How it was reached.** Configuration 1 (the ordering fix and the inner shadow alone) closes
+0.010–0.018 of the gap and is not a landing. Configuration 2 (the whole lerp as an affine in the
+filter) put the level on the renderer's across the bed and failed three ways, each measured to
+its cause (Decision Log 4): the `toolbar-group` scenes −0.021…−0.050 — first attributed to the
+filter region and then refuted by a six-value sweep, byte-identical at every k, since a
+`backdrop-filter`'s input is the snapshot behind the element's own border box (Decision Log 5);
+a 12 / 255 composite truncated to 0 in the eight-bit linear intermediate (`impulse` 0.9756 →
+0.9060 / 0.9155) with the dark profiles' ΔE rising; and the contrast-floor pixel test reading 0
+against 8. Configuration 3 is §1; the floor's size was the mechanism (the filter's remainder
+reaches the composite through `1 / (1 − α₃)`: 2.99 at the group's own alpha, 1.36 at the tier's
+floor, and the probe cells +0.018…+0.038 against +0.001).
+
+**3. The stops, as refereed on the whole bed with the holdout read once** (`g1/cfg3-full.verify.txt`,
+`cfg3-full.gate.txt`): S1 met — 115 / 115 GPU captures byte-identical, worst row 0.000000. S2
+met — no dom row below its bound or floor; the landing's gate 27 of 31 with the four failures the
+predicate's bookkeeping. S3 (one-sided, Decision Log 4 (d)) fires on `checkerboard__rrect-ml` at
+2x, farther from native than the renderer by +0.0055 against 0.005 (as written against native:
+`rrect-md` 1x −0.0117 against ±0.01, the renderer at −0.0080). S4 fires on the two
+`toolbar-group` scenes (−0.0122 / −0.0040 and −0.0150 / −0.0101), `photo__glass-over-glass`
+(−0.0119 / −0.0127, holdout) and `hc-text__capsule-button` at 2x (+0.0119, holdout). S5 (against
+the renderer, Decision Log 3): every solid and tinted cell within 0.01 except
+`hc-text__capsule-button__rest-tint-orange` (+0.0129 / +0.0118, holdout) and
+`mid-dark-solid__capsule-button` at 2x (+0.0109, holdout); three ΔE rises of +0.0006…+0.0010;
+the half-strength tinted cell moves −0.0237, exactly `(1 − s)` of its base's change, to −0.0011.
+S6 fires by +0.00012 on increased contrast; falls on both light-standard profiles (0.00721 →
+0.00607, 0.00749 → 0.00633) and reduced transparency (0.00419 → 0.00389); unchanged on the dark
+profiles (the encoded form). S7: `checkerboard__capsule-button` under reduced transparency
+conditions again (recovery 0.9961, one body) and leaves the predicate list;
+`hc-text__capsule-button` under the same fold reads 0.9310 against 0.95 and does not — the
+acceptance clause's own miss, its level 0.9628 → 0.9478 against the renderer's 0.9412. S8 met —
+the body with the 33-value table holds the cadence to 32 surfaces and leaves by 40, both scales.
+S9: the sheets (`sheets/g1-1x.png`, `g1-2x.png`; the banner is W16's script's and reads one wave
+behind — columns 2 and 4 are the W16 bed, column 3 this candidate), sent 2026-09-05.
+
+**4. The level against the GPU tier** (interior mean, CSS − GPU, the W16 bed → configuration 3):
+
+| cell | 1x | 2x |
+| --- | --- | --- |
+| `checkerboard__rrect-sm` | +0.0237 → **+0.0032** | +0.0158 → **+0.0078** |
+| `checkerboard__capsule-button` | +0.0269 → **−0.0005** | +0.0310 → **+0.0095** |
+| `checkerboard__rrect-md` | +0.0473 → **+0.0010** | +0.0578 → **+0.0034** |
+| `checkerboard__rrect-ml` | +0.0500 → **−0.0003** | +0.0638 → **+0.0039** |
+| `checkerboard__glass-over-glass` (holdout) | +0.0480 → **−0.0042** | +0.0573 → **−0.0012** |
+| `checkerboard__rrect-lg` (holdout) | +0.0560 → **+0.0013** | +0.0677 → **+0.0045** |
+| `checkerboard__toolbar-group` | +0.0186 → −0.0122 | +0.0241 → −0.0040 |
+| `hc-text__rrect-md` (holdout) | +0.0524 → **+0.0056** | +0.0567 → **+0.0062** |
+| `hc-text__capsule-button` (holdout) | +0.0454 → +0.0091 | +0.0441 → +0.0119 |
+| `photo__rrect-md` / `rrect-ml` | +0.0562 / +0.0572 → **−0.0048 / −0.0051** | — |
+| `photo__glass-over-glass` (holdout) | +0.0510 → −0.0119 | +0.0472 → −0.0127 |
+| `photo__toolbar-group` | +0.0467 → −0.0150 | +0.0475 → −0.0101 |
+| `light-solid__rrect-md` | +0.0254 → **+0.0007** | — |
+| `mid-dark-solid__capsule-button` (holdout) | +0.0437 → +0.0086 | +0.0437 → +0.0109 |
+| `photo__capsule-button__rest-tint-orange-half` | +0.0226 → **−0.0011** | → **−0.0005** |
+
+The worst light-cell level ratio is 1.0241 (`photo__toolbar-group`), inside 0.97–1.03; one
+holdout tinted cell reads 0.9678. `ssimMean` rises on every light checkerboard row (+0.0019…
++0.0165 at 1x) and `ssimBand` by +0.019…+0.059 at 1x.
+
+**5. The eight held rows** (`ssimMean`, W16 bed → configuration 3; all at or above their pins):
+`rrect-md` 1x (its floor off since W16) 0.9028 → 0.9122; 2x 0.9149 → 0.9153 (floor 0.9138);
+`rrect-ml` 1x 0.8593 → **0.8757** (0.8582), 2x 0.8783 → 0.8789 (0.8772); `glass-over-glass` 1x
+0.8529 → **0.8610** (0.8518), 2x 0.8683 → 0.8681 (0.8677); `rrect-lg` 1x 0.8513 → **0.8702**
+(0.8502), 2x 0.8709 → 0.8722 (0.8698). None meets its adopted bound; `UNMET_ROWS` stays 7 and
+six floors ratchet at the landing, one is kept.
+
+**6. The shape axis pays four cells.** `PREDICATE_EXCLUDES` loses one (S7) and gains four —
+`light-solid__rrect-md` at 2x, `light-solid__rrect-ml` at both light scales,
+`hc-text__capsule-button` at 2x — by one mechanism: a surface landed on the renderer's level
+sits within 0.004 of its own background, and the luminance-delta extractor separates it on the
+GPU tier only by the rim and lens this tier does not draw. Coherence with the renderer costs
+the instrument what the renderer keeps; the perceptual rows on those cells still gate.
+
+**7. The gap carried.** The `toolbar-group` residual (−0.0122 / −0.0150 at 1x, −0.0040 /
+−0.0101 at 2x) after a bounded diagnosis: a broad interior offset at every depth with a bright
+contour band, nearly absent in the core at 2x; the two derived residuals reach −0.0043 of it;
+the same capsule alone reads −0.0005, so the residual tracks the three-up box and not the span,
+and `photo__glass-over-glass` misses in the same direction by the same order — the two surface
+families whose contour is a union, which G0's closed form did not cover. Separating the box
+from its neighbours needs a native fixture this bed does not have (`g1/toolbar-residual.md`).
+
+**8. The landing question** (W17 Decision Log 7, the user's). The declaration meets the wave's
+purpose on every light calibration cell but the two union-contour scenes, takes six held rows
+up, lowers the cross-tier ΔE on the fitted profiles, recovers one of the fold's two cells, and
+leaves the shape axis four cells it cannot condition and the renderer's own gaps where they are.
+Three landings are declared in the Decision Log: as declared; held for the union-contour
+residual; or the ordering fix alone.

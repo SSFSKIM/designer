@@ -386,7 +386,7 @@ G0 → G1 → G2 → recomposition. Nothing lands before G2's referee.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w17-css-interior-level/g0/g0-interior-level.md` (`654ad0e`), claims §5.74 | CLOSED 2026-09-04 — the four terms 0.0026–0.0106, superposing within 0.0008 and derived within 0.006; the mirror's ordering defect (+0.015…+0.027) and the inner shadow found; the chartered carrier clips and is a point condition; four `[parent-impact]` items reconciled in Decision Log 2 |
-| G1 | branch `w17-g1-level` at `29f4afa` (`g1/g1-dry-run.md`, the verify and gate outputs, `dry-tables.md`, the sheets) | IN PROGRESS — the probe pre-check landed (Decision Log 3); the whole-bed run put the level on the renderer's on every light cell but two and found three properties of the carrier (Decision Log 4): re-formed with the floor overlay and a table transfer, the region derived from the heavy step's reach, a declared boundary for the darks; the holdout unspent |
+| G1 | branch `w17-g1-level` at `033ea6b` (seven commits: the ordering fix and the inner shadow, the transfer, X6 and X7, the probe pre-check, configurations 1–2, the re-form, configuration 3, the holdout; `g1/g1-dry-run.md`, the verify and gate outputs, `toolbar-residual.md`, `region-sweep.md`, `cost/`, the sheets); claims §5.75 | **DECLARED 2026-09-05** — the level on the renderer's on every light calibration cell but the two union-contour scenes, six held rows up, coherence down on the fitted profiles, the shape axis paying four cells, the fold's second cell not recovered; Decision Log 7 puts the landing to the user |
 | G2 | — | blocked-by G1 |
 
 ## Decision Log
@@ -734,6 +734,40 @@ proposed.
 the CSS renderer over the six profiles, the GPU rows byte-identical by S1 — and the declaration
 follows in claims §5.75 with the landing question for the user.
 
+### Decision Log 7 — the landing: as declared, held for the union-contour residual, or the ordering fix alone (2026-09-05; the user's)
+
+**Evidence** (claims §5.75; `results/2026-09-04-w17-css-interior-level/g1/g1-dry-run.md` §3b and
+§5; the sheets sent 2026-09-05, whose banner is W16's script's and reads one wave behind —
+columns 2 and 4 are the W16 bed, column 3 this candidate). By the parent's eye at 1x: the
+candidate's grey sits on native's and the GPU tier's on every checkerboard span and on the photo
+where the bed read whiter; the checker's contrast is the GPU tier's; the diff column is flat
+inside and carries only the band; neither CSS column has the lens curvature or the rim band, the
+seven floors' mechanism, unchanged.
+
+**Options.**
+
+1. **Land as declared** (`033ea6b`). G2 merges, rebuilds the canonical bed once, ratchets six of
+   the seven floors (`rrect-ml` 1x → 0.8747, `glass-over-glass` 1x → 0.8600, `rrect-lg` 1x →
+   0.8692, `rrect-md` 2x → 0.9143, `rrect-ml` 2x → 0.8779, `rrect-lg` 2x → 0.8712; `glass-over-
+   glass` 2x kept at 0.8677), keeps `UNMET_ROWS` at 7, records the predicate list's move (30 → 33
+   lines, one mechanism), re-words the tier-coherence claim with the measured ratio (q4), and
+   carries by name: the union-contour residual on the two `toolbar-group` scenes and
+   `photo__glass-over-glass` (−0.010…−0.015), the three holdout cells 0.001–0.003 past the level
+   clause, the fold's second capsule cell at 0.931 against 0.95, S3's one cell by 0.0005, and the
+   dark scheme on the encoded form (within 0.011 of the GPU tier, as it was). **Recommended:** the
+   wave's purpose is met on every light calibration cell but the union-contour pair, the floors
+   only rise, the coherence falls on the fitted profiles, and what is left is either an
+   instrument's reach (the shape axis on a light solid at the renderer's level) or a residual
+   whose next measurement needs a fixture this bed does not have.
+2. **Hold for the union-contour residual.** Capture a lone 46 px capsule against the three-up
+   arrangement natively, derive the union contour's terms, re-run. The eleven cells that landed
+   do not move with it; the two that miss might. A charter of its own either way.
+3. **Land configuration 1 alone** — the ordering fix and the inner shadow with the encoded
+   overlay: closes 0.010–0.018 of the gap, moves no predicate cell, keeps the level 0.02–0.05
+   over the renderer. Not recommended.
+
+**The user decides.**
+
 ## Surprises & Discoveries
 
 - **2026-09-05 (G1) — a light solid landed on the renderer's level is invisible to the
@@ -825,3 +859,7 @@ follows in claims §5.75 with the landing question for the user.
 - 2026-09-05: **configuration 3 frozen** (Decision Log 6): the whole-bed run meets every stop but
   four sub-thousandth readings, accepted as named carries; the `toolbar-group` residual carried
   with its annulus profile after a bounded diagnosis; the holdout spent once on the frozen bytes.
+- 2026-09-05: **G1 DECLARED** (claims §5.75): configuration 3 refereed on the whole bed with the
+  holdout read once — S1, S2, S8 met; S3 by 0.0005 on one cell; S4 on the two union-contour scenes
+  and two holdout cells; S5 on two holdout cells and three ΔE rises; S6 by 0.00012 on one
+  profile; S7 one of two. Decision Log 7 puts the landing to the user (recommended: as declared).
