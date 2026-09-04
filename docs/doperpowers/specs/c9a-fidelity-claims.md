@@ -10915,3 +10915,148 @@ tier, the eight-bit linear chain's quantum the reason; closes only with a higher
 intermediate the platform does not offer). The plain-`blur()` engines' level. The CSS tier's
 frame timing (the tracker). The renderer's own gaps — the thin spans' level and the dark-ground
 dot — not imported, where they were.
+
+### 5.77 W18 G0: the union-contour residual separated — the CSS tier samples its own outer shadow through its own backdrop, the renderer's union is not implicated, the stack's term is the renderer's unsampled route, and Apple's container blends by the spacing itself (2026-09-05)
+
+**Status: a spike's findings, recorded; nothing landed.** Spec
+`docs/doperpowers/specs/2026-09-05-w18-union-contour-residual.md`; findings
+`packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), with
+every reading per cell and per surface under `g0/parts/` and every script beside it. Decision
+Log 2 reconciles the four `[parent-impact]` items below.
+
+**The instrument.** Eighteen scratch scenes through `VITREA_SCENES` (the lone 44 × 44 capsule,
+the canonical 120 × 44 one at the same span, the three-up at the declared spacing of 12 and at
+40, over `checkerboard`, `photo` and `light-solid`; the stack with its base and its overlay
+alone), a second scratch bed with the three circles at eight gaps, both tiers at both scales on
+this machine's `apple / metal-3` adapter, nothing canonical written. Seven scratch profile
+documents (the charter's five terms declined one at a time, all five, and the whole outer
+shadow) rendered on both tiers, so a decline's movement of the CSS − GPU difference is that
+term's share of the residual. Masks stated per table: the native silhouette where a fixture
+exists (the same 4 584 pixels as the declared region on `toolbar-group`, the same mean to
+0.0e+00), the declared component region elsewhere. X4 under every mask the findings use: the
+reader recovers +0.0306 of a nominal +0.030, 3.2e−15 of the offset on disk, and `measureCell`
+agrees with it to 0.0e+00.
+
+**1. The separation.** The scratch bed reproduces the Grounding Baseline to the digit
+(−0.0122 / −0.0150 at 1x, −0.0040 / −0.0101 at 2x). The parts, as differences of measured
+cells, on the two homogeneous backdrops:
+
+| part | checkerboard 1x | light-solid 1x | checkerboard 2x | light-solid 2x |
+| --- | --- | --- | --- | --- |
+| the same span alone (120 × 44) | −0.0005 | +0.0015 | +0.0094 | +0.0022 |
+| the box (44 × 44 minus that capsule) | −0.0072 | −0.0044 | −0.0068 | −0.0003 |
+| the neighbours far (three at 40 minus the lone circle) | +0.0014 | −0.0002 | −0.0004 | −0.0001 |
+| the neighbours near (three at 12 minus three at 40) | −0.0059 | −0.0021 | −0.0062 | −0.0024 |
+| measured | −0.0122 | −0.0052 | −0.0040 | −0.0006 |
+
+At 2x the `toolbar-group` cell is small by cancellation, not by health. Across eight gaps from
+12 to 56 the GPU tier's interior mean is flat to ±0.0002 (0.6762–0.6764 on the checkerboard,
+0.9701–0.9702 on the solid), so crossing the renderer's separation (16) and the sampling padding
+(24) costs the renderer nothing; the CSS tier rises monotonically and saturates by a gap of 28,
+which is the reach of a Gaussian of σ 15.55 CSS px — the outer shadow's own width. The annulus
+per surface is W17 G1's signature exactly: a broad interior offset on the lone circle
+(−0.0053 / −0.0068 / −0.0003 / +0.0008 from the centre outward on the solid), each member at
+gap 40 the lone circle's profile to the last digit, the two members with a close neighbour at
+gap 12 deeper in the core.
+
+**2. The mechanism.** `css-tier.ts` writes the outer shadow as `box-shadow` on the host; L1, L2
+and L3 are the host's negative-`z` children; a `backdrop-filter`'s backdrop is everything painted
+below it, and Chromium samples it over the region the kernel needs rather than the border box
+alone — so the tier blurs its own shadow, and its earlier neighbours', into its own body. The
+renderer composites its shadow after it samples (`liftEncoded · (1 − coverage)`) and has no such
+path. Declining the outer shadow moves the GPU tier's interior mean by **0.00000** on every cell
+and the CSS tier's by **+0.0032 to +0.0096**: −0.0096 of the −0.0122 on
+`checkerboard__toolbar-group` at 1x, −0.0064 of the −0.0150 on the photo, −0.0084 on the 2x
+checkerboard cell whose whole residual is −0.0040. It is the whole of the neighbours' term — the
+three-up's excess over the same three circles at a non-merging gap is −0.0058 with the shadow
+and +0.0005 without it, on every backdrop at both scales — and roughly half of the lone box's.
+The charter's five terms are not the mechanism: with all five declined the residual on the lone
+circle goes from −0.0077 to −0.0189 and on the three-up from −0.0122 to −0.0236. Superposition
+holds on 22 of 24 rows within 0.0018; `light-solid__capsule-button` misses the 0.003 clause at
++0.0059 / +0.0065 because the rim's and the highlight's light both clip at white on the
+reference at 0.9715 over 0.9701 — named, not absorbed.
+
+**3. What remains with the shadow out.** Whole component, declared region, the outer shadow
+declined: `checkerboard__toolbar-group` −0.0122 → −0.0026 at 1x and −0.0040 → +0.0044 at 2x;
+`photo__toolbar-group` −0.0150 → −0.0086 and −0.0101 → −0.0043; the solid +0.0017 / +0.0028.
+The photo's remainder is not the neighbours (the three-up at gap 40 reads −0.0084 under the
+same decline): it is a per-surface term over a structured backdrop, about −0.0045 on the lone
+circle over the checkerboard and the photo against +0.0017 over the solid and near zero on the
+120 × 44 capsule — M2's signature (zero on the solid, present on structure), which the default
+captures masked because the solid carried the shadow's largest single share (−0.0046). At gap
+40 on the photo the third circle sits over a patch the GPU tier reads at 0.7374 against its
+siblings' 0.5871 and 0.5876 and alone reads −0.0177 where they read −0.0063.
+
+**4. The stack, decomposed.** The residual is the overlay's, it is 0.042–0.057, and it is on
+the checkerboard as much as on the photo:
+
+| scene, dpr 1 | part | GPU | CSS | CSS − GPU |
+| --- | --- | --- | --- | --- |
+| `checkerboard__stack-base` (220 × 130 alone) | whole | 0.6947 | 0.6949 | +0.0002 |
+| `checkerboard__stack-over` (120 × 56 alone, raw backdrop) | whole | 0.6850 | 0.6893 | +0.0043 |
+| `checkerboard__glass-over-glass` | base, overlay excluded | 0.6593 | 0.6676 | +0.0083 |
+| | overlay | 0.8899 | 0.8435 | **−0.0464** |
+| `photo__stack-over` (alone, raw backdrop) | whole | 0.6208 | 0.6262 | +0.0054 |
+| `photo__glass-over-glass` | base, overlay excluded | 0.6295 | 0.6313 | +0.0018 |
+| | overlay | 0.8739 | 0.8166 | **−0.0572** |
+
+At 2x the overlay reads −0.0418 / −0.0573. The whole-cell numbers (−0.0043 / −0.0119) are the
+dilution of a 23 % region by the base's own positive difference. It is not the overlay's material
+(the same surface alone over the raw backdrop: +0.0043 / +0.0054); it is not the shadow (the
+decline moves the overlay by 0.0002 and moves the base instead, +0.0083 → +0.0029, because the
+overlay's shadow falls on the base's body and the two tiers darken it unequally). It is the
+route: the renderer's overlay group resolves `samplingBackend: "css-backdrop"`,
+`refraction: "approximate"`, `analysis: "none"` with an `unsampledMaterial` of `tint [1, 1, 1]`,
+`tintAlpha 0.66496`, and 0.335 × 0.6951 + 0.665 = 0.898 against the 0.8899 measured; the CSS
+tier's group resolves `cssBody: "two-layer"`, `cssTint: "linear"`, the profile's converted
+material (T ≈ 0.90) at its own alpha, 0.8435. The two tiers draw different materials on a
+DOM-sourced group by the design of the renderer's unsampled path. By the whole-cell native
+readings (§5.76's bed: native 0.7064 against the renderer's 0.6861 and the tier's 0.6742 on the
+photo) the native overlay sits above both; the probe bed's stack twin gives its level once the
+grant is back.
+
+**5. The closed forms.** The page the tier's filter sees is `E(P) = E(B) · Π_j (1 − a · C_j)`,
+with `a` the alpha `cssTierShadowAlpha` writes and `C_j` the coverage of host j's shadow (the box
+grown by `spreadPx` 3.1, displaced by `offsetPx` 7.95, blurred at `sigmaPx` 15.55, not painted
+inside the caster's own box), every number read from `cssTierDeclarations`' own declaration and
+put through the tier's own body (L1, L2 under the ramp's mask, the affine); the prediction is the
+difference of the two means over the surface's own shape, the measurement the default capture
+minus the `no-outer-shadow` capture over the same mask. Residuals at 1x: +0.0001 on the lone
+circle; +0.0002 / −0.0000 / +0.0000 on the three at gap 40; +0.0041 / +0.0056 / +0.0024 on the
+three at gap 12 (the third member's residual half the second's — Chromium's paint order for
+three sibling stacking contexts, which a symmetric model cannot produce); the largest +0.0274 on
+the stack's base at 2x, a modelling mismatch (the overlay's shadow is composited onto the base's
+rendered body, not sampled into its backdrop). M1's three candidates evaluated: `interiorBandLight`
+and `interiorShadowKeep` already take the surface's width, height and radius through the co-area
+integral; `scatterRampAreaMean`'s rectangle form errs +0.0000 on the 44 × 44 circle against the
+exact value on the device grid (−0.0002 on the capsule, −0.0017 at most at 2x). Nothing in M1
+carries the box term.
+
+**6. The native probe.** `./capture.sh probe`: ScreenCaptureKit BLOCKED, the grant denied; the
+capture half is stopped for the user's hand (remove and re-add
+`apps/reference-apple/build/VitreaReference.app` under Screen & System Audio Recording; the
+binary is unchanged, no rebuild). The bed is committed: `apps/reference-apple/scenes-w18-probe.json`,
+ten cells, one profile, every cell `recorded` (X10 forbids fitting anything to it). `dump-layers`
+needs no grant and answers the canonical scene's own question: one `CABackdropLayer` over the
+whole row (156 × 44 at spacing 12, 212 × 44 at 40) with three `CASDFElementLayer`s of `operation:
+union` inside it, `CASDFLayer.smoothness` **12** at spacing 12 and **40** at spacing 40,
+`mergeElements` 0, backdrop `scale` 0.25 and `marginWidth` 8.8 at both. Apple's container samples
+one backdrop over the row and blends its members by a smoothness equal to the declared spacing at
+every spacing, with no separation threshold; vitrea's renderer stops unioning past
+`DEFAULT_GROUP_UNION`'s 16. A difference in kind, the renderer's item, recorded for its charter.
+
+**7. `[parent-impact]`, reconciled (W18 Decision Log 2).** (1) The stack's residual is the
+renderer's: under q3 (a) the tier's share (the base excluding the overlay, the overlay alone)
+becomes the clause and the renderer's unsampled route a named gap with its charter's shape. (2)
+The closed form leaves +0.0024…+0.0062 at the merging gap: the closure removes the mechanism
+(the shadow leaves the sampled backdrop by two carriers, per surface and per group) rather than
+modelling the paint order; the form stays the bound for what remains sampled. (3) The charter's
+mechanism list did not contain the mechanism: the Design is rewritten on this section. (4)
+`photo__toolbar-group` at 1x does not reach 0.005 on the shadow alone (−0.0086): the remainder on
+structure is G1's pre-check gate (Decision Log 3), not a discovery at the dry run.
+
+**8. What did not close, by name.** The native pixels (the grant). The 2x checkerboard
+`toolbar-group` crossing zero to +0.0044 with the shadow out, by the 2x capsule's own +0.0094
+(W17's miss inside 0.01). `light-solid__capsule-button`'s superposition miss (clipping at white).
+The cost was not measured: the closure adds no primitive and, per surface, no element; if the
+group carrier adds children, G1 measures the knee.

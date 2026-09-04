@@ -59,6 +59,18 @@ on thin spans is its own gap (§5.55 §3), which the probe bed's native readings
 feed. Where the stack's residual turns out to be the renderer's overlay route
 rather than the tier's, that part is named and left to the renderer's wave.
 
+**Corrected by G0 (Decision Log 2, 2026-09-05).** The residual is not a term the tier
+computes by the span; it is a thing the tier paints and then re-reads. The outer shadow,
+a `box-shadow` on the host, sits inside the sampled region of the host's own filter
+layers and of its neighbours' — declining it moves the GPU tier by 0.00000 and the CSS
+tier by +0.0032…+0.0096, and it is the whole of the neighbours' term. The renderer's
+union is not implicated: its interior is flat to ±0.0002 across gaps of 12 to 56. The
+stack's residual is the renderer's: on a DOM-sourced group it draws an unsampled white at
+α 0.665 where the tier draws the profile's material, and under q3 that part is named and
+left. The purpose stands with its means restated: the shadow leaves the sampled backdrop,
+and the remainder on structure (about −0.005 on the small box, zero on the solid) is
+derived or bounded at G1's pre-check.
+
 ## Parent-Level Acceptance
 
 - **The residual is separated and attributed.** On the two `toolbar-group` cells
@@ -141,6 +153,10 @@ term of the overlay's sampling, not a level; and natively the stack sits above
 both tiers (−0.011…−0.032), which is the renderer's overlay gap for the record.
 (iv) The fold on the three-up is the bed's largest cross-tier miss (−0.032 under
 reduced transparency) and has the opposite sign under increased contrast (+0.010).
+*Correction beside (G0 §4, claims §5.77 §4): the stack's residual is the overlay's,
+0.042–0.057 on the checkerboard as on the photo; the whole-cell number is the dilution of a
+23 % region by the base's own positive difference; the owner is the renderer's unsampled
+route, not a backdrop-dependent term of the tier's.*
 
 W17 G1's annulus profile (`toolbar-residual.md` §1) is the second baseline. At 1x
 each of the six circles reads a broad interior offset, −0.004…−0.012 across the
@@ -188,7 +204,29 @@ than models.
   dry run; the landing reproduces it. The stack's light cells are holdout; the
   probe bed's recorded twins and the web-only decomposition are the study.
 - **[binding] Chromium is the measured engine.** As W16 and W17.
-- Advisory — **M1, the box.** A per-surface term the tier carries as a function of
+- **Corrected by G0 (Decision Log 2) — the mechanism and the closure.** The tier writes the
+  outer shadow as `box-shadow` on the host, whose three filter layers are negative-`z`
+  children painted after it, and Chromium samples a `backdrop-filter`'s backdrop over the
+  region its kernel needs; so every surface blurs its own shadow into its own body, and a
+  later host blurs its earlier neighbours' shadows into its body too. The host is a
+  stacking context (`isolation: isolate`), so a child of a host can be painted after that
+  host's own filters but never after a sibling host's. Two carriers follow, and G1
+  measures both on G0's probe scenes before the whole-bed run: **A**, per surface — the
+  outer shadow joins L3's `box-shadow` list (painted after L1 and L2; a surface's own
+  filters never sample it), on every host whose overflow does not clip its children; **B**,
+  per group — the members' shadows painted after every member's filter layers, hosted by
+  the group's last-painted member as one child per member at that member's box and radius,
+  clipped out of every member's body by an even-odd path (the renderer's `(1 − coverage)`),
+  none focusable, hit-testable or announced. The fallback per host is recorded in the
+  group's state (`cssShadow`), and G0 §6's closed form stays in `optics.ts` as the bound for
+  what remains sampled (a neighbour outside the group within the shadow's reach, a clipping
+  host). What is left with the shadow out — about −0.0045 on the lone circle over the
+  checkerboard and the photo, +0.0017 over the solid, near zero on the capsule — is M2's
+  family and is G1's pre-check to derive or bound: the interior spread per tier beside the
+  mean on the small box, the blur's effective width on a box the kernel covers, the chain's
+  nonlinearity turning a spread difference into a level difference.
+- Advisory — **M1, the box.** *(G0: carries no share — two of the three terms already
+  integrate over the box, and the ramp's rectangle form errs +0.0000 on the circle.)* A per-surface term the tier carries as a function of
   the span where the renderer integrates it per pixel over the box. Candidates,
   each already in `optics.ts`: the heavy share's area mean and the ramp
   (`scatterRampAreaMean` takes the extents and ignores the corners — on a circle
@@ -204,7 +242,9 @@ than models.
   isolation proof's precedent) on the circle and on the capsule, so each term's
   share on each box is read. Expected signature: a residual that survives the
   solid backdrop and scales with the perimeter over the area.
-- Advisory — **M2, the box-limited input.** The tier's filters read the element's
+- Advisory — **M2, the box-limited input.** *(G0: masked in the default captures by the
+  shadow's share on the solid; with the shadow out its signature holds for the remainder —
+  zero on the solid, present on structure — and it is G1's pre-check.)* The tier's filters read the element's
   own border-box snapshot with `edgeMode="mirror"`. A linear blur's box mean is
   preserved by the mirror, so any residual from this is the chain's nonlinearity
   on a box the kernel covers: the linear-light encode, the table transfer's
@@ -214,7 +254,8 @@ than models.
   mirror is exact) against the checkerboard and the photo; the residual against
   σ/box across dpr. Expected signature: zero on the solid, present on structure,
   larger at 1x.
-- Advisory — **M3, the neighbours.** The renderer unions the three at neck 8 /
+- Advisory — **M3, the neighbours.** *(G0: confirmed exactly, the tier the owner, by the
+  mechanism above and not the union — the renderer's interior is flat across the sweep.)* The renderer unions the three at neck 8 /
   bulge 2 / separation 16 over a spacing of 12 (the facing contours bulge by at
   most 2 px; the bodies stay three, which the conditioning predicate confirms);
   the group's sampling on the GPU tier is one texture over the row; the tier draws
@@ -223,7 +264,8 @@ than models.
   three-up at spacing 40 (no union on the renderer, no overlap of anything on the
   tier) against 12. Expected signature: a three-up minus lone-circle difference on
   one tier only, and which tier names the owner.
-- Advisory — **M4, the stack.** The overlay samples the base's rendered output on
+- Advisory — **M4, the stack.** *(G0: the renderer's — an unsampled white at α 0.665 on the
+  DOM-sourced overlay group; the tier's share is inside 0.005; re-decided under q3.)* The overlay samples the base's rendered output on
   both tiers by different routes: the tier's overlay host filters the base host's
   composite in place; the renderer's overlay group is DOM-sampled through the plane
   sandwich by the scene's design (`web/scenes.ts`). The residual is on the photo
@@ -234,7 +276,8 @@ than models.
   stacking term that tracks the base's own residual under the overlay's footprint
   (the tier's to close), or the overlay reading a different image on each tier
   (the route's, named).
-- Advisory — **M5, Apple.** The probe bed at 1x: `capsule-sm` (44 × 44),
+- Advisory — **M5, Apple.** *(G0: the layer tree answered without the grant — one backdrop
+  over the row, `smoothness` equal to the spacing, no threshold; the pixels wait on it.)* The probe bed at 1x: `capsule-sm` (44 × 44),
   `toolbar-group` (spacing 12; recorded twin), `toolbar-group-wide` (spacing 40),
   `glass-over-glass` (recorded twin) and `capsule-button` (recorded twin) on
   `checkerboard` and `photo` — ten cells, one profile, existing background kinds
@@ -291,30 +334,39 @@ than models.
   commits with pathspecs under the findings directory, the probe results directory
   and the probe scenes file alone.
 
-### G1: The declared derivation and its dry run — controlled
+### G1: The shadow out of the sampled backdrop, the remainder measured, and the dry run — controlled
 
-- **Purpose:** the attributed parts derived in `optics.ts` / `css-tier.ts` from
-  the profile and the surface's geometry, G0's residuals in the doc comments; the
-  tier-coherence pin extended to the box (the tier's per-surface terms on a
-  44 × 44 circle, a 120 × 44 capsule and a 220 × 130 rounded rectangle against
-  the renderer's per-pixel integral, at dpr 1 and 2); the fold carried under the
-  same derivation; the dry run on the full bed to scratch under the stops, the
-  holdout read once; the sheets; the declaration in claims.
-- **Stops (refined by G0 with numbers):** (S1) every GPU capture byte-identical to
-  the W17 bed and every GPU row within 0.0002; (S2) no dom row below its bound or
-  floor, the seven held rows at or above their W17 pins, no 1x checkerboard row
-  more than 0.002 below the W17 bed; (S3) the spread within W17's reach of native
-  on the calibration spans; (S4) CSS − GPU within 0.005 on both `toolbar-group`
-  cells at both scales under the standard light profile, within 0.01 under
-  reduced transparency and increased contrast, within 0.005 on
-  `photo__glass-over-glass` at both scales at the once-read holdout (or the tier's
-  own share closed where G0 named the route); (S5) every other light cell's
-  CSS − GPU within 0.002 of the W17 bed; the tinted and solid cells within 0.002 in
-  every adopted metric; (S6) `tier-coherence` tighter or equal, the cross-tier ΔE
-  not up on any profile; (S7) `PREDICATE_EXCLUDES` not up; (S8) the cost knee
-  unmoved; (S9) the user's eye.
-- **Edges:** blocked-by G0. **Track:** controlled; a branch; the landing is the
-  user's call (Decision Log).
+- **Purpose:** the outer shadow leaves every sampled backdrop the tier can take it out
+  of — carrier A on every host whose overflow does not clip, carrier B where a group has
+  more than one member (Design, the corrected bullet), the fallback per host recorded in
+  `GlassGroupState.cssShadow`; G0 §6's closed form kept in `optics.ts` as the bound for
+  what stays sampled, its residual in the doc comment; the pre-check on G0's probe scenes
+  at both scales on both tiers, reported before the whole-bed run (Decision Log 3): the
+  two carriers' readings, the remainder on the lone circle over structure with the interior
+  spread per tier beside the mean, and its derivation or its bound; then the dry run on the
+  full bed to scratch under the stops, the holdout read once; the sheets; the declaration in
+  claims.
+- **Stops (refined by G0; re-declared at Decision Log 3 with the pre-check's numbers):**
+  (S1) every GPU capture byte-identical to the W17 bed and every GPU row within 0.0002;
+  (S2) no dom row below its bound or floor, the seven held rows at or above their W17 pins,
+  no 1x checkerboard row more than 0.002 below the W17 bed; (S3) the spread within W17's
+  reach of native on the calibration spans; (S4) CSS − GPU within 0.005 on both
+  `toolbar-group` cells at both scales under the standard light profile (from −0.0122 /
+  −0.0150 / −0.0040 / −0.0101), within 0.01 under reduced transparency and increased
+  contrast (from −0.0320 / +0.0096); on `glass-over-glass` the tier's share — the base
+  excluding the overlay within 0.005 of the GPU tier (from +0.0083 / +0.0018) and the
+  overlay alone over the raw backdrop within 0.005 (from +0.0043 / +0.0054) — read on the
+  scratch twins, the canonical holdout cell read once and recorded with the renderer's route
+  named as its remainder; (S5) every other light cell's CSS − GPU moves by its own derived
+  shadow share and no more — the move within 0.0015 of G0's closed form per cell — and stays
+  within W17's 0.01 clause, or its leaving is named for the user with the number (a
+  darkening that was never fidelity is not a reason to keep it); the tinted and solid cells'
+  other adopted metrics within 0.002; (S6) `tier-coherence` tighter or equal, the cross-tier
+  ΔE not up on any profile; (S7) `PREDICATE_EXCLUDES` not up; (S8) the cost knee unmoved if
+  carrier B adds children (W16 G0's harness); (S9) by eye, the shadow outside every surface
+  unchanged and no shadow on a member's body inside a group; (S10) the user's eye.
+- **Edges:** blocked-by G0 (CLOSED). **Track:** controlled; a branch in a worktree; the
+  pre-check gate is Decision Log 3; the landing is the user's call.
 
 ### G2: The landing and its referee — controlled
 
@@ -342,9 +394,11 @@ than models.
 - **X6 — the dry-run referee runs the landing's gates.**
   `adopted-thresholds.test.ts` against the scratch matrix through
   `VITREA_MATRIX_PATH` (W17 X6). Owner: parent.
-- **X7 — the coherence pin.** `tier-coherence.test.ts` asserts the tier's
-  per-surface terms against the renderer's per-pixel integral on the three boxes
-  and both dprs. Owner: G1.
+- **X7 — the coherence pin.** `tier-coherence.test.ts` asserts that no filter layer
+  of a group samples a shadow the tier paints for that group (the paint order, by
+  construction of the carriers) and G0 §6's closed form as the bound where a shadow
+  stays sampled. *(Restated by Decision Log 2 from the per-surface-terms pin the charter
+  wrote; G0 found those terms carry no share.)* Owner: G1.
 - **X8 — the holdout, read once** per frozen configuration. Owner: G1; parent
   verifies.
 - **X9 — the engines.** The closure is gated on the reference filter's
@@ -404,6 +458,20 @@ reported together.
   extractor's second arm; an instrument item.
 - **The darks on the encoded form; the plain-`blur()` engines' level; the CSS
   tier's frame timing** — W17 Deferred, unchanged.
+- **The renderer's unsampled material on DOM-sourced groups (G0 §4).** The overlay group
+  of the stack draws `tint [1, 1, 1]` at α 0.66496 with `analysis: "none"`, 0.042–0.057
+  above the tier's converted material on the same base; by the whole-cell native readings
+  the native overlay sits above both. Its charter: a static material derived from the
+  profile at the group's hinted or sampled level, or a sampling route for DOM sources,
+  where the goldens' isolation proof lives; the probe bed's stack twin (pending the grant)
+  gives the native overlay level.
+- **The renderer's union against Apple's (G0 §5).** Apple's container blends by a
+  `smoothness` equal to the declared spacing at every spacing, one backdrop layer over the
+  row, no separation threshold; the renderer stops at 16. The renderer's item.
+- **The native pixels of the probe bed** — pending the user's Screen Recording grant; the
+  bed is committed and the run is W9's seven attested runs.
+- **The 2x `capsule-button` at +0.0094** (W17's own miss inside 0.01) — the shadow's
+  removal moves it; S5 names what leaves 0.01.
 - **A 2x native probe** — if the user opens a 2x session, the same scenes file at
   `VITREA_SCALE=2` into a second fixtures dir; otherwise the 2x separation is
   web-side only and says so.
@@ -412,8 +480,8 @@ reported together.
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/` (findings), `probe/` (the bed), `apps/reference-apple/scenes-w18-probe.json` | OPEN 2026-09-05 — dispatched on Decision Log 1's recommendations, which the user executed the same day (q0–q5 at the recommendations) |
-| G1 | — | — |
+| G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels wait on the grant |
+| G1 | branch `w18-g1-shadow` (worktree); `g1/` | OPEN 2026-09-05 — dispatched on Decision Log 2; the pre-check gate is Decision Log 3 |
 | G2 | — | — |
 
 ## Decision Log
@@ -486,9 +554,85 @@ tier under reduced transparency and increased contrast (S4 as written). q5 (a) �
 costs structure past S2, the wave stops and both landings go to the user with the sheets and
 the rows. G0 was already running on these answers; nothing re-opens.
 
+### Decision Log 2 — G0 read: the mechanism is the tier's own shadow in its own backdrop; the stack is the renderer's route, re-decided under q3; the Design rewritten on the attribution (2026-09-05)
+
+**What G0 found (claims §5.77; `g0/g0-findings.md`, `ebb57fa`).** The parts sum exactly on
+the checkerboard at 1x: the same span alone −0.0005, the box −0.0072, the neighbours far
++0.0014, the neighbours near −0.0059. The renderer's interior is flat to ±0.0002 across gaps
+12–56; the tier's rises and saturates by 28, the outer shadow's own reach (σ 15.55). Declining
+the outer shadow moves the GPU tier by 0.00000 on every cell and the CSS tier by +0.0032 to
++0.0096; the neighbours' term goes from −0.0058 to +0.0005. Declining the charter's five terms
+makes the residual worse. With the shadow out the cells read −0.0026 / −0.0086 / +0.0044 /
+−0.0043 (checkerboard and photo, 1x then 2x); the photo's remainder is per surface over
+structure (−0.0084 at gap 40), M2's family. The stack's residual is the overlay's (−0.046 /
+−0.057 at 1x, on both backdrops), not its material (+0.004 / +0.005 alone), not the shadow
+(0.0002): the renderer draws an unsampled white at α 0.66496 on the DOM-sourced group
+(0.335 × 0.6951 + 0.665 = 0.898 against 0.8899 measured). The closed form is exact to 0.0014
+with no close neighbour and to 0.0004 on the three at gap 40, and under-predicts the merging
+gap by +0.0024…+0.0062 (the paint order's asymmetry). Superposition holds on 22 of 24 rows
+within 0.0018; `light-solid__capsule-button` misses by +0.0059 / +0.0065 where the rim and
+the highlight clip at white. The grant is denied; the bed is committed; the layer tree read
+without it: one `CABackdropLayer` over the row, three union elements, `smoothness` equal to
+the spacing at 12 and at 40, no threshold.
+
+**Decided here (the parent, inside the user's q0–q5).**
+
+1. **The closure is a removal, not a compensation.** The shadow leaves the sampled backdrop
+   by the two carriers in Design's corrected bullet; a compensation inside the affine would
+   correct a mean against a structured perturbation and leave a signature the level does not
+   show. The closed form is kept as the bound for what stays sampled, and the last third of
+   the neighbours' term (the paint order at the merging gap) is not modelled because the
+   carriers remove the thing it models. (`[parent-impact]` 2 reconciled.)
+2. **The stack, under q3 (a).** The tier's own share is the clause: the base excluding the
+   overlay and the overlay alone, each within 0.005 of the GPU tier (S4 restated); the
+   canonical holdout cell's whole-cell reading is recorded once, not gated, with the
+   renderer's route named as its remainder. The renderer's unsampled material on DOM-sourced
+   groups is a named gap with its charter's shape (Deferred). (`[parent-impact]` 1.)
+3. **The Design is rewritten on the attribution.** M1 closed (no share); M2 narrowed to the
+   remainder with the shadow out; M3 confirmed with the tier as the owner by a mechanism
+   outside the list; M4 the renderer's; M5's layer-tree half answered, its pixel half
+   waiting on the grant. (`[parent-impact]` 3.)
+4. **The remainder on structure is a gate, not a discovery at the dry run.** G1 reports the
+   pre-check on G0's probe scenes (Decision Log 3) — the carriers' readings and the
+   remainder with the interior spread per tier — before the whole-bed run; S4 on
+   `photo__toolbar-group` at 1x is re-declared there with the number, by the user if it
+   cannot be derived. (`[parent-impact]` 4.)
+5. **X7 restated** from a per-surface-terms pin to a paint-order assertion with the closed
+   form as the bound elsewhere.
+6. **The acceptance's superposition clause** is met on 22 of 24 rows; the one cell's miss is
+   the reference's clipping at white, recorded as a Surprise and not a stop.
+7. **S5 is written for what the removal does everywhere:** every light cell's CSS − GPU
+   moves by its own shadow share (the closed form within 0.0015), and a cell that leaves
+   W17's 0.01 clause because a darkening that was never fidelity is gone is named for the
+   user with the number, not kept dark.
+8. **The native probe** waits on the user's grant and is run by the parent, sequenced with
+   G1's captures (one capture process at a time); its readings go to claims as the ledger's
+   half and fit nothing.
+
+G1 opens on this log.
+
 ## Surprises & Discoveries
 
-- (none yet)
+- **2026-09-05 (G0) — the owner is a thing the tier paints and re-reads, not a term it
+  computes.** The host's `box-shadow` sits inside its own filter layers' sampled region;
+  declining it moves the GPU tier by 0.00000 and the CSS tier by +0.0032…+0.0096.
+- **2026-09-05 (G0) — the renderer's union is not implicated.** Its interior is flat to
+  ±0.0002 across gaps 12–56; the tier saturates at 28, the shadow's reach, not at 16 or 24.
+- **2026-09-05 (G0) — the stack's residual is on the checkerboard as much as on the photo**
+  (−0.046 / −0.057 on the overlay); the Grounding's reading (iii) was a 23 % region's
+  dilution; the owner is the renderer's unsampled white at α 0.665 on DOM-sourced groups.
+- **2026-09-05 (G0) — `GlassEffectContainer(spacing:)` is the SDF smooth-union's
+  `smoothness` verbatim**, one backdrop layer over the row, no separation threshold; the
+  renderer's 16 is a difference in kind, recorded for its charter.
+- **2026-09-05 (G0) — declining the charter's five terms makes the residual worse**
+  (−0.0077 → −0.0189 on the lone circle); M1's candidates carry no share.
+- **2026-09-05 (G0) — superposition misses on `light-solid__capsule-button`** by +0.0059 /
+  +0.0065: the rim and the highlight clip at white on the reference there.
+- **2026-09-05 (G0) — the 2x checkerboard `toolbar-group` was small by cancellation** (box
+  −0.0068, neighbours −0.0062, the capsule itself +0.0094); the shadow's removal alone takes
+  it to +0.0044.
+- **2026-09-05 (G0) — the Screen Recording grant has lapsed**; the bed is committed and the
+  capture waits on the user's hand.
 
 ## Outcomes & Retrospective
 
@@ -502,3 +646,8 @@ the rows. G0 was already running on these answers; nothing re-opens.
   Effects 2's mirror rule; G0 dispatched on Decision Log 1's recommendations.
 - 2026-09-05: Decision Log 1 executed by the user at the recommendations (q0–q5); the
   target rule's qualification removed; the Tracking Map's G0 row amended.
+- 2026-09-05: G0 closed (claims §5.77); Decision Log 2 — the Purpose corrected beside, the
+  Grounding's reading (iii) corrected beside, the Design's mechanism bullet added and M1–M5
+  carrying G0's verdicts, G1 rewritten on the attribution with a pre-check gate, X7
+  restated, Deferred extended (the renderer's unsampled route, the union's kind, the native
+  pixels, the 2x capsule), eight Surprises; G1 dispatched.
