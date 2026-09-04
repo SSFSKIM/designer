@@ -72,6 +72,19 @@ export interface GlassGroupState {
    * through.
    */
   readonly cssBody?: "two-layer" | "collapsed";
+  /**
+   * Which form the CSS tier's TINT drew (W17 G1; charter Decision Log 4 (c)).
+   *
+   * `linear` is the exact one — an encoded overlay at the tier's floor alpha with
+   * the sharp layer's linear-light filter carrying the remainder, so the composite
+   * is the renderer's per pixel. `encoded` is W16's single `rgba()`, whose
+   * conversion is exact at one declared backdrop level, and the tier falls back to
+   * it where the linear-light filter chain's eight-bit intermediate is coarser
+   * than the page's own buffer — near black, where its quantum is 2 to 13 encoded
+   * codes. Reported for the same reason `cssBody` is: a readout and a capture cell
+   * have to be able to read which material drew rather than which was asked for.
+   */
+  readonly cssTint?: "linear" | "encoded";
 }
 
 export function isHealthy(state: GlassGroupState): boolean {

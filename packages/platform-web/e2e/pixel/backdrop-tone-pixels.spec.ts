@@ -6,6 +6,8 @@ import {
   backdropToneResponseLevel,
   cssTintAlpha,
   cssTintColor,
+  innerShadowedSourceOptics,
+  interiorShadowKeep,
   sizeOcclusionAlphaAt,
   sizeThickness,
   sourceOptics,
@@ -146,17 +148,46 @@ const SOURCE = sourceOptics().regular;
  * → response solve → adaptation fold → tier conversion → size occlusion), with
  * the accessibility folds omitted because they are the identity at nominal.
  */
+/** The two surfaces `buildScene` registers, whose boxes the inner shadow reads. */
+const BOXES: Readonly<Record<number, { width: number; height: number; radius: number }>> = {
+  44: { width: 120, height: 44, radius: 22 },
+  140: { width: 260, height: 140, radius: 30 },
+};
+
 const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
   const linear = decode(grey / 255);
   const tone = { rgb: [linear, linear, linear] as const, luminance: linear, linearLuminance: linear };
   const thickness = sizeThickness(spanPx);
   const collapse = backdropToneAdaptation(linear, thickness);
-  const responded = toneRespondedSourceOptics(SOURCE, tone, thickness, collapse, 1);
+  /*
+   * Re-pointed at W17 G1 (charter Decision Log 2 (b)): the size law's occlusion
+   * enters the alpha BEFORE the W9 response solve, which is where the shader's
+   * `sizedAlpha` puts it, and the inner shadow enters the pair after it. Solving
+   * at the unsized alpha and raising it afterwards — which is what this helper
+   * did, mirroring the tier — lands the interior's mean above the response the
+   * solve exists to hit, by up to +0.027 of the level (claims §5.74 §3). The law
+   * is unchanged and its order is not, so the helper follows the tier there.
+   */
+  const sized = { ...SOURCE, tintAlpha: sizeOcclusionAlphaAt(SOURCE.tintAlpha, thickness) };
+  const responded = toneRespondedSourceOptics(sized, tone, thickness, collapse, 1);
   const adapted = adaptedSourceOptics(responded, tone.rgb, collapse);
-  const alpha = cssTintAlpha(adapted);
+  // The surface's own box, because the inner shadow's area mean is a co-area
+  // integral over it — the same numbers `buildScene` registers above.
+  const box = BOXES[spanPx]!;
+  const geometry = {
+    widthCssPx: box.width,
+    heightCssPx: box.height,
+    radiusCssPx: box.radius,
+    thicknessCssPx: 8,
+  };
+  const shadowed = innerShadowedSourceOptics(
+    adapted,
+    interiorShadowKeep(SOURCE, geometry, thickness, 1 - collapse),
+  );
+  const alpha = cssTintAlpha(shadowed);
   return {
-    colour: cssTintColor(adapted, alpha).join(", "),
-    occlusion: Math.round(sizeOcclusionAlphaAt(alpha, thickness) * 1000) / 1000,
+    colour: cssTintColor(shadowed, alpha).join(", "),
+    occlusion: Math.round(alpha * 1000) / 1000,
     target: backdropToneResponseLevel(grey / 255, thickness),
   };
 };
@@ -219,12 +250,24 @@ test("a mid grey backdrop lands on the response curve, and the surface's size mo
   expect(colourOf(large.tint)).toBe(law.large.colour);
   expect(large.occlusion).toBe(law.large.occlusion);
 
-  // At this grey the curve's target sits above what the white neutral reaches at
-  // its calibrated alpha, so the achromatic shift saturates at white and the
-  // remainder is carried as opacity — a white tint on both sizes, whose alpha is
-  // the law's. Pinned as a property of the shipped constants, not derived.
-  expect(colourOf(small.tint)).toBe("255, 255, 255");
-  expect(colourOf(large.tint)).toBe(colourOf(small.tint));
+  /*
+   * At this grey the curve's target sits above what the white neutral reaches at
+   * its calibrated alpha, so the achromatic shift saturates at white and the
+   * remainder is carried as opacity. Pinned as a property of the shipped
+   * constants, not derived.
+   *
+   * Re-pointed at W17 G1 (Decision Log 2 (b)): the inner shadow now enters the
+   * mirror as the shader's own layer identity — `(k·a·c, 1 − k·(1 − a))`
+   * composites to `k` times what `(a·c, a)` would — so a saturated white tint
+   * comes back below white with the alpha raised to match. The keep is a co-area
+   * integral over the surface's own box, so the two sizes no longer round to the
+   * same code: the small surface reads 254 and the large 255, each its own law's.
+   * The claim the test carries is unchanged — the shift saturates and the
+   * remainder is opacity — and it is now read per surface rather than by
+   * asserting the two are identical.
+   */
+  expect(colourOf(small.tint)).toBe("254, 254, 254");
+  expect(colourOf(large.tint)).toBe("255, 255, 255");
 
   // The anchors' settled levels are functions of thickness, and at this grey the
   // thick row sits above the thin one — so the large surface is the MORE opaque,

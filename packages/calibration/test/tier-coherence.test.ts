@@ -33,6 +33,7 @@ import {
   backdropToneAdaptation as cssBackdropToneAdaptation,
   backdropToneUnderPolicy as cssBackdropToneUnderPolicy,
   resolvedBackdropTone,
+  MATERIAL_OPTICS,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
   MATERIAL_SOURCE_OUTER_SHADOW,
@@ -90,7 +91,8 @@ import {
   sourceOptics,
   unsampledMaterials,
   sourceSize,
-  cssTierTintTransfer,
+  cssTierFloorAlpha,
+  cssTierTintTable,
   innerShadowedSourceOptics,
   interiorBandLight,
   interiorShadowKeep,
@@ -1919,12 +1921,19 @@ describe("the interior composite (X7)", () => {
     }
   });
 
-  it("draws the renderer's composite through the transfer, at every level and scale", () => {
-    // What the transfer is FOR: the tier's output is the renderer's composite as
-    // a function of the backdrop rather than at one declared level. The band's
-    // derived light rides on the intercept and is a property of the surface's
-    // geometry, so it is read at both scales through the same box in CSS px —
-    // the size law is a CSS-px law and the derivation is one too.
+  it("draws the renderer's composite through the table, at every level and scale", () => {
+    /*
+     * What the form is FOR: the page's composite of L3's floor overlay over the
+     * filter's remainder is the renderer's composite as a FUNCTION of the
+     * backdrop, rather than at one declared level (W17 Decision Log 4 (a)). The
+     * band's derived light rides on it and is a property of the surface's
+     * geometry, so it is read at both scales through the same box in CSS px —
+     * the size law is a CSS-px law and the derivation is one too.
+     */
+    const encode = (l: number): number =>
+      l <= 0.0031308 ? l * 12.92 : 1.055 * l ** (1 / 2.4) - 0.055;
+    const floor = cssTierFloorAlpha(MATERIAL_OPTICS.regular);
+    const floorEncoded = MATERIAL_OPTICS.regular.tint[1] / 255;
     for (const devicePixelRatio of [1, 2]) {
       for (const [spanPx, geometry] of [
         [96, { widthCssPx: 160, heightCssPx: 96, radiusCssPx: 20, thicknessCssPx: 8 }],
@@ -1944,21 +1953,23 @@ describe("the interior composite (X7)", () => {
             { ...sourceOptics().regular, tintAlpha: tier.tintAlpha, tint: tier.tint },
             keep,
           );
-          const transfer = cssTierTintTransfer({
+          const table = cssTierTintTable({
             tintAlpha: shadowed.tintAlpha,
-            tint: [shadowed.tint[0], shadowed.tint[1], shadowed.tint[2]],
+            tint: shadowed.tint[1],
             addedLight: band,
+            floorAlpha: floor,
+            floorEncoded,
           });
           const where = `dpr ${devicePixelRatio} span ${spanPx} backdrop ${backdrop}`;
-          for (const index of [0, 1, 2] as const) {
-            const expected =
-              keep * ((1 - renderer.alpha) * backdrop + renderer.alpha * renderer.tint[index]) +
-              band;
-            expect(
-              transfer.slope * backdrop + transfer.intercept[index],
-              `${where} channel ${index}`,
-            ).toBeCloseTo(expected, 12);
-          }
+          const expected =
+            keep * ((1 - renderer.alpha) * backdrop + renderer.alpha * renderer.tint[1]) + band;
+          const t = backdrop * (table.length - 1);
+          const index = Math.min(table.length - 2, Math.floor(t));
+          const drawn = table[index]! + (t - index) * (table[index + 1]! - table[index]!);
+          expect(encode(drawn) * (1 - floor) + floorEncoded * floor, where).toBeCloseTo(
+            encode(expected),
+            3,
+          );
         }
       }
     }

@@ -2279,6 +2279,156 @@ export function innerShadowedSourceOptics(
 }
 
 /**
+ * The chain's own quantum at one composite level, in **encoded codes** — the
+ * number that decides which form the tier draws (W17 G1; Decision Log 4 (c)).
+ *
+ * `color-interpolation-filters="linearRGB"` says what space the filter works in
+ * and not what precision it works at, and the engines carry eight bits: the
+ * intermediate's step is 1/255 **in linear light**, whose width in the encoded
+ * buffer the page composites into is `E(L + 1/255) − E(L)`. That is 12.7 codes
+ * at black, 2.5 codes at 0.05, and falls through one code at 0.244 — so a
+ * composite the renderer draws at 12/255 is a value the chain cannot hold, and
+ * `impulse__capsule-button` measured exactly that: 0.0037 linear drawn as 0
+ * (claims, W17 Decision Log 4's evidence).
+ */
+export function linearChainQuantumCodes(compositeLevel: number): number {
+  const level = clamp01(compositeLevel);
+  return 255 * (srgbEncode(Math.min(1, level + 1 / 255)) - srgbEncode(level));
+}
+
+/**
+ * The tolerance the boundary is declared against: **one encoded code**.
+ *
+ * Not fitted and not chosen for a cell. It is the page's own quantum: the buffer
+ * this tier composites into holds eight bits per channel in the ENCODED space,
+ * so a filter chain whose intermediate is coarser than that buffer is drawing a
+ * material the page could have held and did not. One code is the point where the
+ * two are equal, and it is the only value on this axis that is a statement about
+ * the pipeline rather than about a threshold someone liked.
+ */
+export const LINEAR_CHAIN_CODE_TOLERANCE = 1;
+
+/**
+ * Which form the tier draws for a composite at this level (Decision Log 4 (c)).
+ *
+ * `linear` is the exact one — the remainder inside the linear-light filter — and
+ * it is what every light cell of the bed takes. `encoded` is W16's form with W17's
+ * ordering fix and inner shadow: one `rgba()` over the blurred backdrop,
+ * composited in the page's own encoded space, whose conversion is exact at one
+ * declared backdrop level and off either side of it. The dark scheme keeps the
+ * second, and that is a named gap rather than a silent one — the group state and
+ * the capture cell both report which form drew.
+ *
+ * The boundary is the quantum, not a level: solving
+ * `E(L + 1/255) − E(L) = 1/255` puts it at **0.2443** in linear light on the
+ * shipped transfer function, and the constant is written as the predicate rather
+ * than as that number so a different tolerance moves it honestly.
+ */
+export function cssTintFormAt(
+  compositeLevel: number,
+  toleranceCodes: number = LINEAR_CHAIN_CODE_TOLERANCE,
+): "linear" | "encoded" {
+  return linearChainQuantumCodes(compositeLevel) > toleranceCodes ? "encoded" : "linear";
+}
+
+/**
+ * The remainder the sharp layer's filter carries under an encoded overlay at the
+ * floor alpha, sampled as an `feComponentTransfer` table (Decision Log 4 (a)).
+ *
+ * ## Why a table and not the affine
+ *
+ * The tier's doctrine is that the surface always paints a real tint and never
+ * relies on the blur for contrast, because S1's failure class — an engine that
+ * reports support and renders nothing — cannot be probed. W17's first form put
+ * the whole tint inside the filter and the contrast-floor test read a channel
+ * delta of zero. So the floor stays an element paint: L3 keeps an encoded
+ * overlay at `α₃`, and the filter carries what is left.
+ *
+ * What is left is not an affine. The page composites
+ * `E(F(b))·(1 − α₃) + E(T)·α₃`, and for that to equal the renderer's
+ * `E(M(b) + X)` the filter has to draw
+ *
+ *     F(b) = D((E(M(b) + X) − E(T)·α₃) / (1 − α₃))
+ *
+ * which carries `E` and `D` and is therefore curved. An affine fitted to it
+ * would reintroduce exactly the point condition Decision Log 2 removed — a match
+ * at one backdrop level and a curvature error either side of it, first order on a
+ * bimodal cell. A `type="table"` transfer is piecewise linear over N points and
+ * approximates `F` to a bound the caller can name, with no privileged point.
+ *
+ * ## N, from the interpolation bound
+ *
+ * The table's error is the piecewise-linear interpolation error of `F`, and N is
+ * raised until the measured worst error over the sampled midpoints is under
+ * `maxError`. Measured rather than bounded symbolically because `F` carries two
+ * transfer functions and a clamp, and a bound loose enough to hold through all
+ * three would cost points nobody needs: the bisection evaluates the thing itself.
+ * At the shipped profile and the light cells' composites this settles at 33
+ * points; the count is reported so a reader can see it move with the material.
+ *
+ * ## What it is not
+ *
+ * Not defined below the boundary `cssTintFormAt` draws: where the chain's own
+ * quantum exceeds the tolerance the tier draws the encoded form and never builds
+ * a table. And the values are clamped at zero — the spec clamps a primitive's
+ * result anyway — with the non-negativity the ruling names asserted by the tests
+ * rather than assumed here.
+ */
+export function cssTierTintTable(
+  options: {
+    /** The lerp's alpha after every fold. */
+    readonly tintAlpha: number;
+    /** The lerp's tint in linear light, one channel. */
+    readonly tint: number;
+    /** `X`, the band's derived light, linear. */
+    readonly addedLight: number;
+    /** `α₃`, the floor the overlay keeps. */
+    readonly floorAlpha: number;
+    /** `E(T)` for this channel — the overlay's own encoded level, 0..1. */
+    readonly floorEncoded: number;
+  },
+  maxError = 1e-4,
+): readonly number[] {
+  const keep = 1 - clamp01(options.floorAlpha);
+  const remainder = (b: number): number => {
+    if (keep <= 1e-6) return 0;
+    const composite = clamp01((1 - options.tintAlpha) * b + options.tintAlpha * options.tint + options.addedLight);
+    return srgbDecode(
+      Math.max(0, (srgbEncode(composite) - options.floorEncoded * clamp01(options.floorAlpha)) / keep),
+    );
+  };
+  // Bisection on the count: sample at N points, measure the interpolation error
+  // at the midpoints the table will interpolate across, double until it is under
+  // the bound. Capped at 257 — one point per eight-bit input plus the endpoint —
+  // because past that the table is finer than the value it is sampling.
+  let count = 5;
+  let values = sample(remainder, count);
+  while (count < 257 && interpolationError(remainder, values) > maxError) {
+    count = Math.min(257, (count - 1) * 2 + 1);
+    values = sample(remainder, count);
+  }
+  return values;
+}
+
+/** `f` at `count` equally spaced points over [0, 1], clamped into the legal range. */
+function sample(f: (b: number) => number, count: number): number[] {
+  const out = new Array<number>(count);
+  for (let i = 0; i < count; i += 1) out[i] = clamp01(f(i / (count - 1)));
+  return out;
+}
+
+/** The worst error the table's own linear interpolation makes, at the segment midpoints. */
+function interpolationError(f: (b: number) => number, values: readonly number[]): number {
+  const count = values.length;
+  let worst = 0;
+  for (let i = 0; i < count - 1; i += 1) {
+    const mid = (i + 0.5) / (count - 1);
+    worst = Math.max(worst, Math.abs((values[i]! + values[i + 1]!) / 2 - clamp01(f(mid))));
+  }
+  return worst;
+}
+
+/**
  * The glow's alpha at the press point for a given `glow` channel value.
  *
  * The renderer's fragment is `radial² · glowGain · glow`; this is that product at

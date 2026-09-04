@@ -32,6 +32,7 @@ import {
 } from "../src/css-tier";
 import {
   cssTierHeavyShareAt,
+  cssTierTintTable,
   scatterHeavyEffectiveRatioAtScale,
   MATERIAL_OPTICS,
   MATERIAL_SOURCE_SIZE,
@@ -289,8 +290,8 @@ describe("the engine gates", () => {
     // surfaces at one width over different backdrops need different definitions,
     // and an id that named only the width would hand the second surface the
     // first's tint.
-    const transfer = { slope: 0.513, intercept: [0.44, 0.44, 0.44] as const };
-    const other = { slope: 0.513, intercept: [0.31, 0.31, 0.31] as const };
+    const transfer = TRANSFER;
+    const other = { ...TRANSFER, addedLight: TRANSFER.addedLight + 0.01 };
     expect(referenceFilterId("p", 1.25, transfer)).not.toBe(referenceFilterId("p", 1.25));
     expect(referenceFilterId("p", 1.25, transfer)).not.toBe(
       referenceFilterId("p", 1.25, other),
@@ -301,9 +302,9 @@ describe("the engine gates", () => {
     // Quantised to a ten-thousandth — a quarter of an eight-bit code at the top
     // of the range — so a backdrop drifting inside the quantum reuses one
     // definition rather than rebuilding it every frame.
-    expect(referenceFilterId("p", 1.25, { ...transfer, slope: 0.51301 })).toBe(
-      referenceFilterId("p", 1.25, transfer),
-    );
+    expect(
+      referenceFilterId("p", 1.25, { ...transfer, tintAlpha: transfer.tintAlpha + 1e-5 }),
+    ).toBe(referenceFilterId("p", 1.25, transfer));
     // And no id can carry a minus sign, because no intercept can be negative.
     expect(referenceFilterId("p", 1.25, transfer)).not.toContain("-t-");
   });
@@ -422,6 +423,18 @@ describe("the ramp mask", () => {
   });
 });
 
+/**
+ * A representative transfer: the shipped profile's regular material over a mid
+ * backdrop, with the floor the doctrine keeps on L3 (W17 G1, Decision Log 4 (a)).
+ */
+const TRANSFER = {
+  tintAlpha: 0.487,
+  tint: [0.899, 0.899, 0.899] as const,
+  addedLight: 0.0046,
+  floorAlpha: MATERIAL_OPTICS.regular.tintAlpha,
+  floorEncoded: [1, 1, 1] as const,
+};
+
 describe("the reference filters' definitions (W17 G1)", () => {
   const defsOf = (): { parent: HTMLElement; defs: ReturnType<typeof createCssTierFilterDefs> } => {
     const parent = document.createElement("div");
@@ -431,10 +444,9 @@ describe("the reference filters' definitions (W17 G1)", () => {
   const filters = (parent: HTMLElement): SVGElement[] =>
     [...parent.querySelectorAll("filter")] as SVGElement[];
 
-  it("appends the affine after the blur, per channel, inside the linear chain", () => {
+  it("appends the remainder's table after the blur, per channel, inside the linear chain", () => {
     const { parent, defs } = defsOf();
-    const transfer = { slope: 0.5112, intercept: [0.4409, 0.4409, 0.4409] as const };
-    defs.ensure({ sigmaCssPx: 1.7, transfer });
+    defs.ensure({ sigmaCssPx: 1.7, transfer: TRANSFER });
 
     const filter = parent.querySelector("filter")!;
     expect(filter.getAttribute("color-interpolation-filters")).toBe("linearRGB");
@@ -446,20 +458,58 @@ describe("the reference filters' definitions (W17 G1)", () => {
     ]);
     const funcs = [...filter.querySelector("feComponentTransfer")!.children];
     expect(funcs.map((func) => func.tagName)).toEqual(["feFuncR", "feFuncG", "feFuncB"]);
-    for (const func of funcs) {
-      expect(func.getAttribute("type")).toBe("linear");
-      expect(Number(func.getAttribute("slope"))).toBeCloseTo(transfer.slope, 12);
-      expect(Number(func.getAttribute("intercept"))).toBeCloseTo(transfer.intercept[0]!, 12);
+    for (const [channel, func] of funcs.entries()) {
+      // `table` and not `linear` since W17 G1 (Decision Log 4 (a)): under an
+      // encoded overlay at the floor the remainder carries both transfer
+      // functions and is curved, and an affine fitted to it would be the point
+      // condition Decision Log 2 removed.
+      expect(func.getAttribute("type")).toBe("table");
+      const written = func.getAttribute("tableValues")!.split(" ").map(Number);
+      const expected = cssTierTintTable({
+        tintAlpha: TRANSFER.tintAlpha,
+        tint: TRANSFER.tint[channel]!,
+        addedLight: TRANSFER.addedLight,
+        floorAlpha: TRANSFER.floorAlpha,
+        floorEncoded: TRANSFER.floorEncoded[channel]!,
+      });
+      expect(written).toHaveLength(expected.length);
+      written.forEach((value, index) => expect(value).toBeCloseTo(expected[index]!, 5));
+      // Monotone and inside the range a primitive may emit.
+      for (let i = 1; i < written.length; i += 1) {
+        expect(written[i]!).toBeGreaterThanOrEqual(written[i - 1]!);
+      }
+      expect(Math.min(...written)).toBeGreaterThanOrEqual(0);
+      expect(Math.max(...written)).toBeLessThanOrEqual(1);
     }
 
     defs.dispose();
     parent.remove();
   });
 
+  it("leaves the region at W16's value, which this construction cannot use", () => {
+    /*
+     * W17 G1 measured the region and it does nothing here (Decision Log 4 (b)'s
+     * sweep, refuted). A `backdrop-filter`'s input is the backdrop image — the
+     * snapshot behind the element's own border box — so a larger region has
+     * nothing outside the box to reach: at k = 0.5 through 3 sigma of reach the
+     * `toolbar-group` captures are byte-identical
+     * (`results/2026-09-04-w17-css-interior-level/g1/region-sweep.md`). The
+     * attribute is therefore pinned at what W16 wrote rather than derived, and
+     * this test exists to say that the flat value is a finding, not an oversight.
+     */
+    const { parent, defs } = defsOf();
+    defs.ensure({ sigmaCssPx: 1.7 });
+    const filter = parent.querySelector("filter")!;
+    expect(filter.getAttribute("x")).toBe("-50%");
+    expect(filter.getAttribute("width")).toBe("200%");
+    defs.dispose();
+    parent.remove();
+  });
+
   it("builds a definition per group and sweeps the ones no surface named", () => {
     const { parent, defs } = defsOf();
-    const first = { slope: 0.5, intercept: [0.44, 0.44, 0.44] as const };
-    const second = { slope: 0.5, intercept: [0.31, 0.31, 0.31] as const };
+    const first = TRANSFER;
+    const second = { ...TRANSFER, addedLight: TRANSFER.addedLight + 0.01 };
 
     defs.ensure({ sigmaCssPx: 1.7, transfer: first });
     defs.ensure({ sigmaCssPx: 1.7, transfer: second });

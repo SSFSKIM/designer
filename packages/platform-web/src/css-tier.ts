@@ -73,6 +73,7 @@ import type {
 import { GLASS_CHANNEL_PROPERTIES } from "./channels";
 import {
   boundedForegroundLevel,
+  cssTintFormAt,
   CSS_TIER_MAPPING,
   cssTierForegroundBounds,
   cssTierForegroundLevel,
@@ -100,6 +101,18 @@ import {
   type Rgb255,
 } from "./optics";
 import { accessibilityRefractionCap } from "./refraction";
+
+/**
+ * The least tint this tier draws on the shipped profile — `MATERIAL_OPTICS.clear`'s
+ * converted alpha, restated as a number because `MATERIAL_OPTICS` is derived in
+ * `optics.ts` from the profile and this module may not import a value that
+ * depends on it at module scope. `tier-coherence` pins the two together.
+ */
+const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
+
+/** Rec. 709 relative luminance — the space the composite's level is read in. */
+const luminanceOf = (rgb: readonly [number, number, number]): number =>
+  0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 
 /** The two ink tokens the adaptive foreground chooses between. */
 export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
@@ -173,6 +186,14 @@ export interface CssTierBody {
    * forms actually drew rather than infer it from the engine's row.
    */
   readonly tintTransfer?: CssTierTintTransfer;
+  /**
+   * Which form the tint drew (W17 G1; Decision Log 4 (c)) — the exact remainder
+   * inside the linear-light filter, or W16's encoded overlay where the chain's
+   * own quantum is coarser than the page's. Reported for the honesty core's
+   * reason: the dark scheme keeps the second, and a readout has to say so.
+   */
+  readonly tintForm?: "linear" | "encoded";
+
   /**
    * The single-σ projection this tier drew before W16 — the width the collapse
    * degrades to, and the number `--vitrea-blur` publishes.
@@ -472,29 +493,73 @@ export interface CssTierInterior {
  *     S3 rather than by the level clause.
  */
 export interface CssTierTintTransfer {
-  /** `1 − α`, one scalar because the lerp's alpha is achromatic. */
-  readonly slope: number;
-  /** `α·T_c + X` per channel, non-negative by construction. */
-  readonly intercept: readonly [number, number, number];
+  /** The lerp's alpha after every fold — the shader-order value. */
+  readonly tintAlpha: number;
+  /** The lerp's tint, linear light, per channel. */
+  readonly tint: readonly [number, number, number];
+  /** `X`, the band's derived light, linear. */
+  readonly addedLight: number;
+  /** `α₃`, the alpha the encoded overlay keeps on L3 (`cssTierFloorAlpha`). */
+  readonly floorAlpha: number;
+  /** `E(T)` per channel — the overlay's own encoded level, 0..1, as L3 writes it. */
+  readonly floorEncoded: readonly [number, number, number];
 }
 
 /**
- * The transfer for one interior composite — the derivation, in one expression.
+ * The floor the encoded overlay keeps — **an existing constant of this tier,
+ * named rather than derived** (W17 G1; Decision Log 4 (a)).
  *
- * The intercept is a sum of non-negative quantities (`α` and `T` are both in
- * `[0, 1]` and `X` is added light), which is what makes this form representable
- * where the two-equation solve was not: Filter Effects clamps a primitive's
- * result to the allowed range, and the solve's intercept came out at −0.19, so
- * 29 % of a checkerboard's filtered backdrop at dpr 1 and 38 % at dpr 2 was
- * clipped (claims §5.74 §5). Nothing here can go negative, and the assertion
- * below says so rather than trusting the argument.
+ * It is `MATERIAL_OPTICS.clear.tintAlpha`: the least tint this tier draws on the
+ * shipped profile, on the variant whose whole point is to be persistently more
+ * transparent. "The surface always paints a real tint" is a statement about the
+ * least it paints, so the least it paints is the number, and nothing here is new
+ * or fitted to this wave.
+ *
+ * **Why the floor and not the group's own alpha**, which is the other reading of
+ * the ruling and was measured first: the filter carries the REMAINDER after the
+ * overlay, so everything the filter draws is amplified by `1/(1 − α₃)` on its way
+ * into the composite — the two layers' encoded-space mix under the mask along
+ * with it. At the regular variant's own alpha that factor is 2.99 and the probe
+ * cells read +0.018 to +0.038 over the GPU tier; at the floor it is 1.36. The
+ * floor is therefore the smallest alpha that satisfies the doctrine rather than
+ * the largest, and that is the direction the arithmetic wants too.
+ *
+ * It is also `≤` the folded alpha of any group on either variant, which is the
+ * ruling's non-negativity condition: every fold between the profile and the
+ * composite — the response solve's alpha target, the collapse, the size law's
+ * occlusion, the regime's lift — moves the source alpha upward and never
+ * downward, and `cssTintAlpha` is monotone in it.
  */
-export function cssTierTintTransfer(interior: CssTierInterior): CssTierTintTransfer {
-  const alpha = Math.min(1, Math.max(0, interior.tintAlpha));
-  const added = Math.max(interior.addedLight, 0);
-  const channel = (index: 0 | 1 | 2): number =>
-    alpha * Math.max(interior.tint[index], 0) + added;
-  return { slope: 1 - alpha, intercept: [channel(0), channel(1), channel(2)] };
+export function cssTierFloorAlpha(optics: MaterialOptics): number {
+  void optics;
+  return CSS_TIER_TINT_FLOOR_ALPHA;
+}
+
+/**
+ * The transfer's parameters for one interior composite and one floor.
+ *
+ * The numbers, not the table: `css-tier-layers.ts` samples them when it builds
+ * the definition, because the count of points is chosen by measuring the
+ * interpolation error and this module is on the paint path every frame. What
+ * this module owns is which numbers the filter is built from, and the `id` that
+ * names them.
+ */
+export function cssTierTintTransfer(
+  interior: CssTierInterior,
+  floorAlpha: number,
+  floorEncoded: readonly [number, number, number],
+): CssTierTintTransfer {
+  return {
+    tintAlpha: Math.min(1, Math.max(0, interior.tintAlpha)),
+    tint: [
+      Math.max(interior.tint[0], 0),
+      Math.max(interior.tint[1], 0),
+      Math.max(interior.tint[2], 0),
+    ],
+    addedLight: Math.max(interior.addedLight, 0),
+    floorAlpha: Math.min(1, Math.max(0, floorAlpha)),
+    floorEncoded: [floorEncoded[0], floorEncoded[1], floorEncoded[2]],
+  };
 }
 
 /**
@@ -518,12 +583,13 @@ export function referenceFilterId(
   sigmaCssPx: number,
   transfer?: CssTierTintTransfer,
 ): string {
-  const base = `${prefix}-b${String(Math.round(sigmaCssPx * 100))}`;
-  if (transfer === undefined) return base;
-  const quantised = [transfer.slope, ...transfer.intercept]
-    .map((value) => String(Math.round(Math.max(value, 0) * 10000)))
-    .join("-");
-  return `${base}-t${quantised}`;
+  const quantised = (values: readonly number[]): string =>
+    values.map((value) => String(Math.round(Math.max(value, 0) * 10000))).join("-");
+  let id = `${prefix}-b${String(Math.round(sigmaCssPx * 100))}`;
+  if (transfer !== undefined) {
+    id += `-t${quantised([transfer.tintAlpha, ...transfer.tint, transfer.addedLight, transfer.floorAlpha, ...transfer.floorEncoded])}`;
+  }
+  return id;
 }
 
 /**
@@ -879,16 +945,48 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
    * composite taken in linear light instead of encoded, which is the change this
    * wave is.
    */
+  /*
+   * Which form draws, and what each half of it carries (Decision Log 4 (a), (c)).
+   *
+   * `encoded` is W16's: one `rgba()` over the blurred backdrop at the group's
+   * whole converted alpha, composited in the page's own space. `linear` is W17's
+   * re-form: L3 keeps that same overlay at the FLOOR alpha, which is the tint
+   * this tier painted at rest and is what the contrast-floor doctrine asks for,
+   * and the sharp layer's filter carries the exact remainder as a table. The
+   * boundary between them is the chain's own quantum against the page's
+   * (`cssTintFormAt`), read at the composite's sampled level, because a filter
+   * chain that cannot hold a value the page could is drawing a different
+   * material rather than a more precise one.
+   */
+  const interior = surface.interior;
+  const compositeLevel =
+    interior === undefined
+      ? undefined
+      : (1 - interior.tintAlpha) * (surface.backdropLuminance ?? mapping.referenceBackdropLuminance) +
+        interior.tintAlpha * luminanceOf(interior.tint) +
+        interior.addedLight;
+  const tintForm: "linear" | "encoded" =
+    interior === undefined ||
+    body.filter !== "reference-filter" ||
+    compositeLevel === undefined ||
+    cssTintFormAt(compositeLevel) === "encoded"
+      ? "encoded"
+      : "linear";
+  const floorAlpha = cssTierFloorAlpha(optics);
   const transfer =
-    surface.interior !== undefined && body.filter === "reference-filter"
-      ? cssTierTintTransfer(surface.interior)
+    tintForm === "linear" && interior !== undefined
+      ? cssTierTintTransfer(interior, floorAlpha, [
+          optics.tint[0] / 255,
+          optics.tint[1] / 255,
+          optics.tint[2] / 255,
+        ])
       : undefined;
   const authorLayer = surface.authorLayer;
   const overlayTint =
     transfer === undefined
       ? tint
       : authorLayer === undefined
-        ? "transparent"
+        ? rgba(optics.tint, floorAlpha)
         : rgba(authorLayer.color, authorLayer.strength);
 
   /*
@@ -1019,7 +1117,7 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
       heavy: heavyLayerDeclarations(body, optics.borderWidth, prefix, policy),
       overlay: overlayLayerDeclarations(optics, overlayTint, border, policy),
     },
-    body: transfer === undefined ? body : { ...body, tintTransfer: transfer },
+    body: { ...body, tintForm, ...(transfer === undefined ? {} : { tintTransfer: transfer }) },
   };
 }
 

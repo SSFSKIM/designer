@@ -26,6 +26,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import {
   cssTierDeclarations,
+  cssTierFloorAlpha,
   cssTierTintTransfer,
   referenceFilterId,
   type CssTierEngineCapabilities,
@@ -42,7 +43,11 @@ import {
   adaptedSourceOptics,
   authorTintLayer,
   backdropToneAdaptation,
+  cssTierTintTable,
   cssTintAlpha,
+  cssTintFormAt,
+  linearChainQuantumCodes,
+  LINEAR_CHAIN_CODE_TOLERANCE,
   linearTint,
   occlusionAlphaUnderPolicy,
   innerShadowedSourceOptics,
@@ -57,6 +62,10 @@ import {
   type InteriorSurfaceGeometry,
   type MaterialSourceOptics,
 } from "../src/optics";
+
+/** The sRGB encode, restated for the tests that read the page's own space. */
+const encode = (l: number): number =>
+  l <= 0.0031308 ? l * 12.92 : 1.055 * l ** (1 / 2.4) - 0.055;
 
 /** Rec. 709 luminance, the space every number below is in. */
 const luma = (rgb: readonly [number, number, number]): number =>
@@ -294,7 +303,7 @@ describe("the band's derived light (W17 G1)", () => {
   });
 });
 
-describe("the tint's transfer (W17 G1)", () => {
+describe("the tint's transfer (W17 G1, re-formed at Decision Log 4 (a))", () => {
   const interiorOf = (probe: (typeof PROBES)[number]): CssTierInterior => {
     const span = Math.min(probe.geometry.widthCssPx, probe.geometry.heightCssPx);
     const { source, thickness } = shaderOrderSource(probe.geometry, span);
@@ -308,69 +317,139 @@ describe("the tint's transfer (W17 G1)", () => {
       addedLight: interiorBandLight(MATERIAL_SOURCE_OPTICS.regular, probe.geometry, 1),
     };
   };
+  const FLOOR = cssTierFloorAlpha(MATERIAL_OPTICS.regular);
+  const FLOOR_ENCODED = [
+    MATERIAL_OPTICS.regular.tint[0] / 255,
+    MATERIAL_OPTICS.regular.tint[1] / 255,
+    MATERIAL_OPTICS.regular.tint[2] / 255,
+  ] as const;
+  const transferOf = (probe: (typeof PROBES)[number]) =>
+    cssTierTintTransfer(interiorOf(probe), FLOOR, FLOOR_ENCODED);
 
-  it("is the lerp's own coefficients and nothing solved", () => {
+  it("names the floor rather than deriving one", () => {
+    // Decision Log 4 (a): the floor is the tier's own existing constant — the
+    // LEAST tint it draws on the shipped profile, which is the clear variant's
+    // converted alpha, on the variant whose whole point is to be persistently
+    // more transparent. "The surface always paints a real tint" is a statement
+    // about the least it paints.
+    expect(FLOOR).toBe(MATERIAL_OPTICS.clear.tintAlpha);
+    expect(cssTierFloorAlpha(MATERIAL_OPTICS.clear)).toBe(MATERIAL_OPTICS.clear.tintAlpha);
+    // One floor for both variants: it is the tier's minimum and not a per-variant
+    // conversion, and everything the filter carries is amplified by 1/(1 − a3),
+    // so the smallest alpha that satisfies the doctrine is the right one.
+    expect(cssTierFloorAlpha(MATERIAL_OPTICS.regular)).toBe(FLOOR);
+    // And it is never above the folded alpha, which is the ruling's
+    // non-negativity condition: every fold between the profile and the composite
+    // raises the source alpha, and the conversion is monotone in it.
     for (const probe of PROBES) {
-      const interior = interiorOf(probe);
-      const transfer = cssTierTintTransfer(interior);
-      expect(transfer.slope, probe.cell).toBeCloseTo(1 - interior.tintAlpha, 12);
-      for (const channel of [0, 1, 2] as const) {
-        expect(transfer.intercept[channel], `${probe.cell} channel ${channel}`).toBeCloseTo(
-          interior.tintAlpha * interior.tint[channel] + interior.addedLight,
-          12,
-        );
-      }
+      const folded = cssTintAlpha({
+        ...MATERIAL_SOURCE_OPTICS.regular,
+        tintAlpha: interiorOf(probe).tintAlpha,
+      });
+      expect(folded, probe.cell).toBeGreaterThanOrEqual(FLOOR);
     }
   });
 
-  it("reproduces the renderer's composite at every backdrop level, not one", () => {
-    // The point the two-equation solve could not make: matching value and slope
-    // at the group's own level does not match a mean over a cell whose filtered
-    // backdrop has a standard deviation of 0.39 to 0.42 (claims §5.74 §5). An
-    // affine has no such residual — it is the same function.
+  it("composites to the renderer's own level at every backdrop level, not one", () => {
+    // The point the two-equation solve could not make and the affine could not
+    // keep under an overlay: the page draws `E(F(b))·(1 − a3) + E(T)·a3`, and
+    // that has to equal `E(M(b) + X)` at every `b` rather than at the group's own.
     for (const probe of PROBES) {
       const interior = interiorOf(probe);
-      const transfer = cssTierTintTransfer(interior);
+      const transfer = transferOf(probe);
+      const table = cssTierTintTable({
+        tintAlpha: transfer.tintAlpha,
+        tint: transfer.tint[1]!,
+        addedLight: transfer.addedLight,
+        floorAlpha: transfer.floorAlpha,
+        floorEncoded: transfer.floorEncoded[1]!,
+      });
       for (const backdrop of [0, 0.05, 0.2, 0.5, 0.8, 1]) {
         const rendered =
           (1 - interior.tintAlpha) * backdrop +
           interior.tintAlpha * interior.tint[1] +
           interior.addedLight;
-        expect(
-          transfer.slope * backdrop + transfer.intercept[1],
-          `${probe.cell} at ${backdrop}`,
-        ).toBeCloseTo(rendered, 12);
+        // The table as the engine reads it: piecewise linear over its points.
+        const t = backdrop * (table.length - 1);
+        const index = Math.min(table.length - 2, Math.floor(t));
+        const drawn = table[index]! + (t - index) * (table[index + 1]! - table[index]!);
+        const composited = encode(drawn) * (1 - FLOOR) + FLOOR_ENCODED[1] * FLOOR;
+        expect(composited, `${probe.cell} at ${backdrop}`).toBeCloseTo(encode(rendered), 3);
       }
     }
   });
 
-  it("cannot emit a negative intercept, which is what makes it representable", () => {
-    // Filter Effects clamps a primitive's result to the allowed range, so a
-    // `type="linear"` transfer cannot carry a negative intercept however negative
-    // it is written: the chartered two-equation solve's was −0.19 and clipped
-    // 29 % of a checkerboard's filtered backdrop at dpr 1 (claims §5.74 §5). The
-    // lerp's intercept is a sum of non-negative quantities, and the extremes say
-    // so rather than the argument.
-    for (const interior of [
-      { tintAlpha: 0, tint: [0, 0, 0] as const, addedLight: 0 },
-      { tintAlpha: 1, tint: [1, 1, 1] as const, addedLight: 0.1 },
-      { tintAlpha: 0.5, tint: [-1, -1, -1] as const, addedLight: -1 },
-    ]) {
-      const transfer = cssTierTintTransfer(interior);
-      expect(transfer.slope).toBeGreaterThanOrEqual(0);
-      for (const channel of transfer.intercept) expect(channel).toBeGreaterThanOrEqual(0);
+  it("samples enough points for the interpolation bound, and no more", () => {
+    for (const probe of PROBES) {
+      const transfer = transferOf(probe);
+      const options = {
+        tintAlpha: transfer.tintAlpha,
+        tint: transfer.tint[1]!,
+        addedLight: transfer.addedLight,
+        floorAlpha: transfer.floorAlpha,
+        floorEncoded: transfer.floorEncoded[1]!,
+      };
+      const table = cssTierTintTable(options);
+      // The count comes from the bound and not from a chosen number: a looser
+      // bound takes fewer points and a tighter one takes more.
+      expect(cssTierTintTable(options, 1e-2).length, probe.cell).toBeLessThan(table.length);
+      expect(cssTierTintTable(options, 1e-6).length, probe.cell).toBeGreaterThan(table.length);
+      expect(table.length, probe.cell).toBeLessThanOrEqual(257);
+    }
+  });
+
+  it("is monotone and non-negative, which is what a primitive may emit", () => {
+    for (const probe of PROBES) {
+      const transfer = transferOf(probe);
+      for (const channel of [0, 1, 2] as const) {
+        const table = cssTierTintTable({
+          tintAlpha: transfer.tintAlpha,
+          tint: transfer.tint[channel]!,
+          addedLight: transfer.addedLight,
+          floorAlpha: transfer.floorAlpha,
+          floorEncoded: transfer.floorEncoded[channel]!,
+        });
+        expect(Math.min(...table), `${probe.cell} channel ${channel}`).toBeGreaterThanOrEqual(0);
+        expect(Math.max(...table), `${probe.cell} channel ${channel}`).toBeLessThanOrEqual(1);
+        for (let i = 1; i < table.length; i += 1) {
+          expect(table[i]!, `${probe.cell} channel ${channel} at ${i}`).toBeGreaterThanOrEqual(
+            table[i - 1]!,
+          );
+        }
+      }
     }
   });
 
   it("names one definition per group, and the id carries no minus sign", () => {
-    const ids = PROBES.map((probe) =>
-      referenceFilterId("p", 1.25, cssTierTintTransfer(interiorOf(probe))),
-    );
+    const ids = PROBES.map((probe) => referenceFilterId("p", 1.25, transferOf(probe)));
     // `rrect-md` and `rrect-ml` share an alpha and a tint and differ only in the
-    // band's light, which is exactly the case an id keyed on σ alone would have
-    // collapsed.
+    // band's light, which is exactly the case an id keyed on the width alone
+    // would have collapsed.
     expect(new Set(ids).size).toBe(3);
     for (const id of ids) expect(id).not.toContain("-t-");
+  });
+});
+
+describe("the boundary the darks take (W17 G1, Decision Log 4 (c))", () => {
+  it("derives the boundary from the chain's quantum against the page's", () => {
+    // The linear-light chain holds eight bits IN LINEAR LIGHT, so its step is
+    // 1/255 there and `E(L + 1/255) − E(L)` wide in the buffer the page keeps.
+    expect(linearChainQuantumCodes(0)).toBeCloseTo(12.7, 1);
+    expect(linearChainQuantumCodes(0.05)).toBeCloseTo(2.47, 2);
+    expect(linearChainQuantumCodes(0.5)).toBeCloseTo(0.657, 3);
+    // The tolerance is the page's own quantum, so the boundary is where the two
+    // are equal — 0.2443 on the shipped transfer function.
+    expect(LINEAR_CHAIN_CODE_TOLERANCE).toBe(1);
+    expect(linearChainQuantumCodes(0.2443)).toBeCloseTo(1, 2);
+    expect(cssTintFormAt(0.24)).toBe("encoded");
+    expect(cssTintFormAt(0.25)).toBe("linear");
+  });
+
+  it("puts every light composite on the exact form and the dark scheme on E's", () => {
+    // The bed's own levels: the light cells' composites sit at 0.62 to 0.98 and
+    // the dark scheme's at 0.05 to 0.09, where the chain steps by two codes.
+    for (const level of [0.62, 0.69, 0.7, 0.93, 0.98]) expect(cssTintFormAt(level)).toBe("linear");
+    for (const level of [0.0037, 0.05, 0.09, 0.2]) expect(cssTintFormAt(level)).toBe("encoded");
   });
 });
 
@@ -405,24 +484,49 @@ describe("what the tier declares with an interior composite (W17 G1)", () => {
     filterIdPrefix: "p",
   };
 
-  it("moves the tint into the sharp filter and leaves L3 without one", () => {
+  it("keeps the floor on L3 and puts the remainder in the sharp filter", () => {
     const render = cssTierDeclarations({ ...base, engine: CHROMIUM, interior });
     expect(render.body.filter).toBe("reference-filter");
-    expect(render.body.tintTransfer).toEqual(cssTierTintTransfer(interior));
+    expect(render.body.tintForm).toBe("linear");
     expect(render.layers?.sharp["backdrop-filter"]).toContain(
       referenceFilterId("p", render.body.sharpSigmaCssPx, render.body.tintTransfer),
     );
-    // The tint is drawn once, in linear light, inside the filter — so the layer
-    // that used to carry it carries nothing of the material's colour.
-    expect(render.layers?.overlay["background-color"]).toBe("transparent");
+    /*
+     * The contrast floor stays an ELEMENT paint (Decision Log 4 (a)): L3 keeps
+     * the encoded overlay at the tier's own floor alpha, so a filter that does
+     * not render leaves a surface rather than nothing — which is the doctrine
+     * S1's undetectable failure class is written for, and which W17's first form
+     * broke.
+     */
+    expect(render.layers?.overlay["background-color"]).toBe(
+      `rgba(${MATERIAL_OPTICS.regular.tint.join(", ")}, ${String(
+        Math.round(cssTierFloorAlpha(MATERIAL_OPTICS.regular) * 1000) / 1000,
+      )})`,
+    );
     // And L3 keeps the two things that are not the tint.
     expect(render.layers?.overlay["box-shadow"]).toContain("inset");
     expect(render.layers?.overlay["background-image"]).not.toBe("none");
-    // The heavy step never carries the affine: applying it at both layers would
+    // The heavy step never carries the table: applying it at both layers would
     // apply it twice.
     expect(render.layers?.heavy["backdrop-filter"]).toBe(
       `url(#${referenceFilterId("p", render.body.heavyStepSigmaCssPx)})`,
     );
+  });
+
+  it("draws the encoded form where the chain's quantum is coarser than the page's", () => {
+    // Decision Log 4 (c). A group whose composite is near black gets W16's
+    // overlay, because a filter chain that cannot hold 12/255 is drawing a
+    // different material rather than a more precise one.
+    const dark: CssTierInterior = { tintAlpha: 0.95, tint: [0.04, 0.04, 0.04], addedLight: 0 };
+    const render = cssTierDeclarations({
+      ...base,
+      engine: CHROMIUM,
+      interior: dark,
+      backdropLuminance: 0.02,
+    });
+    expect(render.body.tintForm).toBe("encoded");
+    expect(render.body.tintTransfer).toBeUndefined();
+    expect(render.layers?.overlay["background-color"]).toMatch(/^rgba\(/);
   });
 
   it("keeps the rgba overlay on an engine with no reference filter", () => {
@@ -467,11 +571,18 @@ describe("what the tier declares with an interior composite (W17 G1)", () => {
         ...interior,
         tintAlpha: occlusionAlphaUnderPolicy(interior.tintAlpha, occlusion),
       };
-      const transfer = cssTierTintTransfer(lifted);
-      expect(transfer.slope, occlusion).toBeLessThan(cssTierTintTransfer(interior).slope);
-      for (const channel of transfer.intercept) {
-        expect(channel, occlusion).toBeGreaterThanOrEqual(0);
-      }
+      const floor = cssTierFloorAlpha(MATERIAL_OPTICS.regular);
+      const encoded = [1, 1, 1] as const;
+      const transfer = cssTierTintTransfer(lifted, floor, encoded);
+      expect(transfer.tintAlpha, occlusion).toBeGreaterThan(interior.tintAlpha);
+      const table = cssTierTintTable({
+        tintAlpha: transfer.tintAlpha,
+        tint: transfer.tint[1]!,
+        addedLight: transfer.addedLight,
+        floorAlpha: transfer.floorAlpha,
+        floorEncoded: transfer.floorEncoded[1]!,
+      });
+      expect(Math.min(...table), occlusion).toBeGreaterThanOrEqual(0);
     }
   });
 });

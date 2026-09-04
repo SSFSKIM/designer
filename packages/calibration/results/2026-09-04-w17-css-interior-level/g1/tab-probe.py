@@ -17,11 +17,21 @@ import json
 import sys
 
 BED = "/Users/new/Developer/GitHub/designer/packages/calibration/results/matrix.json"
-PROFILES = ["apple-macos-26.5-1x-light-standard", "apple-macos-26.5-2x-light-standard"]
+PROFILES = [
+    "apple-macos-26.5-1x-light-standard",
+    "apple-macos-26.5-2x-light-standard",
+    "apple-macos-26.5-1x-dark-standard",
+    "apple-macos-26.5-2x-dark-standard",
+]
+# Decision Log 4's list: the three W16 cells, the two `toolbar-group` scenes, the `impulse` capsule
+# the chain's quantum truncated, and one dark-scheme checkerboard cell for the boundary (c) draws.
 SCENES = [
     "checkerboard__rrect-md__rest",
     "checkerboard__capsule-button__rest",
     "checkerboard__rrect-ml__rest",
+    "checkerboard__toolbar-group__rest",
+    "photo__toolbar-group__rest",
+    "impulse__capsule-button__rest",
 ]
 
 
@@ -50,12 +60,12 @@ def main():
         run = index(path)
         print(f"\n### {path}\n")
         print(
-            "| dpr | cell | native | GPU | CSS | CSS−GPU | spread nat | spread CSS | "
+            "| dpr | cell | form | native | GPU | CSS | CSS−GPU | spread nat | spread CSS | "
             "ssimMean run/bed | ssimBand run/bed | level ratio GPU/CSS |"
         )
-        print("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
+        print("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |")
         for profile in PROFILES:
-            dpr = "2x" if "-2x-" in profile else "1x"
+            dpr = ("2x" if "-2x-" in profile else "1x") + ("d" if "-dark-" in profile else "")
             for scene in SCENES:
                 css = run.get(("dom", profile, scene))
                 gpu = run.get(("texture", profile, scene))
@@ -66,6 +76,7 @@ def main():
                 delta = None if (cssmean is None or gpumean is None) else cssmean - gpumean
                 print(
                     f"| {dpr} | `{scene.replace('checkerboard__', '').replace('__rest', '')}` "
+                    f"| {(((css or {}).get('web') or {}).get('cssTint')) or '—'} "
                     f"| {fmt(native, 4)[1:]} | {fmt(gpumean, 4)[1:]} | {fmt(cssmean, 4)[1:]} "
                     f"| {fmt(delta)} "
                     f"| {fmt(value(css, 'material', 'interiorStdDevNative'), 4)[1:]} "

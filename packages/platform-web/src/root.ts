@@ -577,8 +577,13 @@ const nextRootOrdinal = (): number => {
  */
 const withCssBody = (
   cssBody: "two-layer" | "collapsed" | undefined,
+  cssTint: "linear" | "encoded" | undefined,
   state: GlassGroupState,
-): GlassGroupState => (cssBody === undefined ? state : { ...state, cssBody });
+): GlassGroupState => ({
+  ...state,
+  ...(cssBody === undefined ? {} : { cssBody }),
+  ...(cssTint === undefined ? {} : { cssTint }),
+});
 
 export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
   const view = options.window ?? window;
@@ -656,6 +661,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * surface.
    */
   const cssBodyForms = new Map<string, "two-layer" | "collapsed">();
+  /**
+   * Which tint form each CSS-tier group resolved to this frame (Decision Log 4
+   * (c)). Per group rather than per root, because the boundary is read at the
+   * group's own composite level and two groups over different backdrops can
+   * legitimately draw different forms on one page.
+   */
+  const cssTintForms = new Map<string, "linear" | "encoded">();
 
   /*
    * The runtime's ink, at a precedence an application can beat (Decision Log
@@ -1176,8 +1188,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // budget — so core's resolver cannot produce it and it is merged here, on
     // the one function every consumer of the state goes through.
     const cssBody = cssBodyForms.get(groupId);
+    const cssTint = cssTintForms.get(groupId);
 
-    return withCssBody(cssBody, resolveGlassGroupState(
+    return withCssBody(cssBody, cssTint, resolveGlassGroupState(
       groupCapabilityInputs(
         source.descriptor.kind === "texture"
           ? {
@@ -1358,6 +1371,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     // every consumer of the resolved state goes through, including the capture
     // cells — carries the form the surfaces below are about to draw.
     cssBodyForms.clear();
+    cssTintForms.clear();
     for (const groupId of cssTierGroups) {
       cssBodyForms.set(groupId, cssTierCollapsed ? "collapsed" : "two-layer");
     }
@@ -1892,6 +1906,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // that names them lands — a `url(#id)` with no definition renders the
           // layer unfiltered, which would be a silent loss of the whole body.
           ensureCssTierFilters(referenceFilterSpecs(declarations.body));
+          // Which form this group's tint drew, recorded on the first surface of
+          // the group to declare one: every surface of a group shares its
+          // backdrop and therefore its boundary verdict (Decision Log 4 (c)).
+          if (declarations.body.tintForm !== undefined) {
+            cssTintForms.set(groupId, declarations.body.tintForm);
+          }
           /*
            * Forced colors is a different surface rather than a dimmer material,
            * so the tier draws no layers there and any it had are taken down: a

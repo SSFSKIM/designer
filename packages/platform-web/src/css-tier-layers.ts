@@ -36,6 +36,7 @@ import {
   type CssTierRender,
   type CssTierTintTransfer,
 } from "./css-tier";
+import { cssTierTintTable } from "./optics";
 
 /** The attribute the layers are found and asserted by. */
 export const CSS_TIER_LAYER_ATTRIBUTE = "data-vitrea-css-layer";
@@ -336,7 +337,7 @@ export interface CssTierFilterDefs {
   dispose(): void;
 }
 
-/** One filter definition's whole identity: its width and the affine it carries. */
+/** One filter definition's whole identity: its width and the tint it carries. */
 export interface CssTierFilterSpec {
   readonly sigmaCssPx: number;
   readonly transfer?: CssTierTintTransfer;
@@ -368,10 +369,25 @@ export function createCssTierFilterDefs(
       if (built.has(id)) return;
       const filter = doc.createElementNS(NS, "filter");
       filter.setAttribute("id", id);
-      // The filter region has to cover the blur's own reach or the engine clips
-      // the kernel at the default -10%/120% box and the layer's edge reads dark.
-      // 3σ is the same truncation `SAMPLING_PADDING_SIGMA_MULTIPLE` states, in
-      // the only unit a filter region takes.
+      /*
+       * The filter region, and **it is inert on this construction** (W17 G1,
+       * measured against Decision Log 4 (b)).
+       *
+       * W16 wrote `-50% / 200%` to cover the blur's reach, and W17 G1's first
+       * whole-bed run read the small surfaces as dark and attributed it here —
+       * a 46 CSS px capsule given ±23 px for a kernel that reaches 41. The sweep
+       * the ruling asked for refutes that: at k = 0.5, 1, 1.5, 2, 2.5 and 3 σ of
+       * reach, a sixfold range spanning regions both smaller and far larger than
+       * this one, the `toolbar-group` captures are **byte-identical**
+       * (`results/2026-09-04-w17-css-interior-level/g1/region-sweep.md`). The
+       * reason is in the construction rather than in the numbers: a
+       * `backdrop-filter`'s input is the backdrop image, which is the snapshot
+       * behind the element's own border box, so there is nothing outside the box
+       * for a larger region to reach and nothing for a smaller one to lose. The
+       * attribute stays at W16's value because it is what a reference filter used
+       * as a `filter` would need, and because changing an inert attribute is not
+       * a fix.
+       */
       filter.setAttribute("x", "-50%");
       filter.setAttribute("y", "-50%");
       filter.setAttribute("width", "200%");
@@ -404,9 +420,19 @@ export function createCssTierFilterDefs(
         const componentTransfer = doc.createElementNS(NS, "feComponentTransfer");
         (["feFuncR", "feFuncG", "feFuncB"] as const).forEach((name, channel) => {
           const fn = doc.createElementNS(NS, name);
-          fn.setAttribute("type", "linear");
-          fn.setAttribute("slope", String(transfer.slope));
-          fn.setAttribute("intercept", String(transfer.intercept[channel]));
+          fn.setAttribute("type", "table");
+          fn.setAttribute(
+            "tableValues",
+            cssTierTintTable({
+              tintAlpha: transfer.tintAlpha,
+              tint: transfer.tint[channel]!,
+              addedLight: transfer.addedLight,
+              floorAlpha: transfer.floorAlpha,
+              floorEncoded: transfer.floorEncoded[channel]!,
+            })
+              .map((value) => String(Math.round(value * 1e6) / 1e6))
+              .join(" "),
+          );
           componentTransfer.append(fn);
         });
         filter.append(componentTransfer);
