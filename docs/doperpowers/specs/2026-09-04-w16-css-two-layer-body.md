@@ -471,8 +471,8 @@ page's section H (X9) lands from G0 on its own, since it moves no material.
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g0/g0-two-layer.md`, claims §5.71; section H on `spikes/s1-proxy-topology/pages/manual-check.html` (X9) | CLOSED 2026-09-04 — `mask-image` composes; the two `blur()` layers halve the residual and are floored by the encoded space; a linear-light reference filter meets the acceptance and is Chromium-only; the lift's advisory form does not exist; the cost budget measured, and re-measured for the linear-light form in the findings' §5.1 and claims §5.71 §7.1 — the knee does not move |
-| G1 | branch `w16-g1-two-layer` at `af49e00` (one worker: the element model, the raster mask, the reference filter, the effective-width conversion, the area collapse, the conformance field, the tests; `b40bfbe` the parent's dry-run artifacts and sheets); the parent's two dry runs and the `blur()` control refereed against the W15 bed under the stops, the holdout read once; **DECLARED** in claims §5.72 — every 1x row up with the holdout, the four large 2x rows 0.0025–0.0051 down by the band, the level 0.06–0.09 over native as a named conversion gap (eight single-cell configurations measured to the mechanism) | DECLARED 2026-09-04 — Decision Log 3 puts the landing to the user |
-| G2 | — | blocked-by G1 |
+| G1 | branch `w16-g1-two-layer` at `af49e00` (one worker: the element model, the raster mask, the reference filter, the effective-width conversion, the area collapse, the conformance field, the tests; `b40bfbe` the parent's dry-run artifacts and sheets); the parent's two dry runs and the `blur()` control refereed against the W15 bed under the stops, the holdout read once; **DECLARED** in claims §5.72 — every 1x row up with the holdout, the four large 2x rows 0.0025–0.0051 down by the band, the level 0.06–0.09 over native as a named conversion gap (eight single-cell configurations measured to the mechanism) | COMPLETE 2026-09-04 — Decision Log 3 executed by the user: land as declared |
+| G2 | `packages/calibration/results/2026-09-04-w16-css-two-layer/g2/` | OPENED 2026-09-04 — the merge, the canonical rebuild once from the main checkout, the floors, the sheets, the changeset, recomposition |
 
 ## Decision Log
 
@@ -648,6 +648,18 @@ CSS column has the lens or the rim band.
 area budget, the unverified-engine policy) are answered by the declaration's defaults unless the
 user changes them; the `blur()` control's numbers (§5.72 §3) are the evidence for question 0.
 
+**Executed 2026-09-04 (the user: "land as declared").** Option 1. Decision Log 2's three
+questions stand at their defaults: the linear-light reference filter is the Chromium body (q0),
+the area budget is 0.4 M filtered device px per layer per frame with the declared collapse (q1),
+and an unverified engine draws two flat-opacity layers with the mask and the reference filter
+gated on its conformance rows (q2). G2 opens: the merge of `w16-g1-two-layer` at `b40bfbe`, the
+canonical rebuild once from the main checkout, the 1x `rrect-md` floor off, the three other 1x
+floors ratcheted up, the three cleared 2x floors kept with their readings updated, the 2x
+`rrect-md` floor re-pinned under its new reading with the band as the mechanism (the file's
+declared epsilon under the reading, as every floor in it sits), `UNMET_ROWS` 8 → 7, the sheets,
+the changeset, recomposition. The numbers the rebuild reads are recorded in G2's landing
+document and claims §5.73, beside the dry run's.
+
 ## Surprises & Discoveries
 
 - **2026-09-04 (G1) — one alpha cannot make an encoded overlay agree with a linear lerp in both
@@ -739,3 +751,5 @@ user changes them; the `blur()` control's numbers (§5.72 §3) are the evidence 
   (0.0025–0.0051, the band), S3 by 0.0006 on one, S4 by 0.0030 on one; every 1x row up. Eight
   single-cell configurations for the level measured to the mechanism. Four Surprises. Decision
   Log 3 puts the landing to the user (recommended: as declared, one floor re-pinned).
+- 2026-09-04: **Decision Log 3 executed** — the user landed the declaration as it stood (option 1),
+  the three Decision Log 2 questions at their recommended defaults. G1 COMPLETE, G2 opened.
