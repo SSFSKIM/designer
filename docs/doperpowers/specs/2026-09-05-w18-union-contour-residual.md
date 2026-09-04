@@ -502,7 +502,7 @@ reported together.
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w18-union-contour/g0/g0-findings.md` (`ebb57fa`), `probe/` (the bed, `scenes-w18-probe.json`, two layer dumps), claims §5.77 | CLOSED 2026-09-05 — the owner is the tier's own shadow in its own sampled backdrop (the whole neighbours' term, half the box's); the renderer's union not implicated; the stack the renderer's route; Apple's container blends by the spacing; four `[parent-impact]` items reconciled in Decision Log 2; the native pixels taken the same day after the user restored the grant (`probe/readings.md`: seven attested runs, the twins byte-identical to the canonical fixtures, Apple's material box-invariant at the span, the native overlay 0.909 / 0.897) |
 | G1 | branch `w18-g1-shadow` (`6207287` the carriers, `7a8a09b` the pre-check, `2d11305` the dry run; `g1/g1-precheck.md`, `g1/g1-dry-run.md`, `dry-verify.txt`, `dry-gate.txt`, `sheets/g1-{1,2}x.png`, `.changeset/css-shadow-carriers.md`); claims §5.78 | COMPLETE 2026-09-05 — DECLARED in claims §5.78: seven stops met, S4's fold clause missed both ways, S5 on one cell by 0.0005, two cells over 0.01 by a thousandth, three cells back on the shape axis, the GPU tier byte-identical; the landing is Decision Log 4, the user's |
-| G2 | — | — |
+| G2 | opens on `main` | OPEN 2026-09-05 — Decision Log 4 executed, option 1 (the user: "land it as declared") |
 
 ## Decision Log
 
@@ -737,6 +737,13 @@ byte-identical 115 / 115; the knee unmoved; every suite green.
 Whichever lands, the fold's two cells, the capsule cells over the line, the remainder's bound,
 the stack's base and the unmeasurable cell are recorded by name.
 
+**Executed 2026-09-05 (the user: "land it as declared").** Option 1. G2 opens: the merge of
+`w18-g1-shadow` at `2d11305`, the canonical rebuild once from the main checkout, the floors
+re-recorded (none may go down), four lines off `PREDICATE_EXCLUDES` with the increased-contrast
+profile's count 18 → 17 and the bed at 229 cells, the fold's two misses, the two capsule cells over
+0.01, S5's one cell, the unmeasurable cell and the stack's base named in claims, the sheets, the
+changeset left pending for the next `vitrea-web` minor, recomposition.
+
 ## Surprises & Discoveries
 
 - **2026-09-05 (G0) — the owner is a thing the tier paints and re-reads, not a term it
@@ -826,3 +833,4 @@ the stack's base and the unmeasurable cell are recorded by name.
   Deferred shapes; the whole-bed dry run opens.
 - 2026-09-05: G1 DECLARED (claims §5.78); Decision Log 4 — the landing question put to the user
   with the recommendation; five Surprises from the dry run; the Tracking Map's G1 row COMPLETE.
+- 2026-09-05: Decision Log 4 executed — option 1, the user's; G2 opens.
