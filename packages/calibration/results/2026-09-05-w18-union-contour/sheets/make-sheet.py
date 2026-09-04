@@ -95,7 +95,7 @@ def main():
     # overwrites with the candidate itself. `--before` names where that column comes
     # from, so a landing sheet can point it at the pre-rebuild copy kept in scratch;
     # unset, it is the canonical directory the dry-run sheets read.
-    ap.add_argument('--before', default=CANONICAL, help="the W16-bed captures dir (the canonical captures before this wave's rebuild)")
+    ap.add_argument('--before', default=CANONICAL, help="the W17-bed captures dir (the canonical captures before this wave's rebuild)")
     ap.add_argument('--candidate', required=True, help='scratch captures dir (VITREA_WEB_CAPTURES)')
     args = ap.parse_args()
     profile = args.profile or f'apple-macos-26.5-{args.scale}x-light-standard'
@@ -132,9 +132,12 @@ def main():
         font = ImageFont.truetype('/System/Library/Fonts/Helvetica.ttc', max(18, width // 110))
     except Exception:
         font = None
+    # The third column is the dry run's candidate at G1 and the canonical landed capture at G2;
+    # the banner says which, so a landing sheet is not labelled one gate behind (W17's lesson).
+    third = 'W18 landed, canonical' if args.gate == 'g2' else 'W18 candidate'
     banner = ('1 Apple native   2 CSS tier, W17 bed (shadow on the host, inside its own sampled backdrop)   '
-              '3 CSS tier, W18 candidate (shadow on L3, or on the group\'s last host)   '
-              '4 GPU tier, W17 bed   5 diff (CSS candidate - native)   -- 5 is a diagnostic, NOT a render')
+              f'3 CSS tier, {third} (shadow on L3, or on the group\'s last host)   '
+              '4 GPU tier, W17 bed   5 diff (CSS column 3 - native)   -- 5 is a diagnostic, NOT a render')
     draw.text((GAP, GAP), banner, fill=(230, 230, 230), font=font)
     y = banner_h
     for label, panels in rows:

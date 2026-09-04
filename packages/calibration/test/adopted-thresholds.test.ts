@@ -288,6 +288,13 @@ const DOM_TIER_REDUCED_TRANSPARENCY: readonly GateRow[] = [
  * named in `PREDICATE_EXCLUDES` like every other excluded cell. It was three of
  * eight on the retired bed; the frozen bed recovered the hc-text scene (0.519 →
  * 0.982), so this profile gates strictly more of itself than it used to.
+ *
+ * Since W18 G2 (claims §5.79) the dom tier here carries eight cells to the
+ * texture tier's nine: the holdout `hc-text__capsule-button__rest`, excluded
+ * from the shape rows since W1 and the most degenerate cell on the bed, yields
+ * no measurable contour once the outer shadow leaves the CSS tier's sampled
+ * backdrop, and the harness writes no cell for it (`GatedProfile.cells`). Its
+ * perceptual rows are the one thing the bed loses; named, not absorbed.
  */
 const TEXTURE_TIER_INCREASED_CONTRAST: readonly GateRow[] = [
   ["shape", /*      */ "silhouetteIoU", /*       */ "≥", 0.85],
@@ -519,7 +526,15 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // large span rose 0.008–0.019 with its interior on the renderer's level.
   // None meets its adopted bound: the rim band the tier has no lens to draw
   // is still the mechanism (§5.72 §5), unchanged in kind.
-  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91529, floor: 0.9142 },
+  // W18 G2 (claims §5.79; W18 Decision Log 4, user decision 2026-09-05)
+  // RATCHETED three of the seven UP by 0.0001–0.0005 (the three 1x large
+  // spans) and KEPT four (every 2x row, inside its epsilon): the outer shadow
+  // left the CSS tier's own sampled backdrop — on L3 per surface, on the
+  // group's last-painted host per group — and the rows moved by the shadow's
+  // share of a large span's interior, which is small. Every reading below is
+  // the canonical bed's at this landing; none meets its bound, the rim band
+  // still the mechanism.
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91521, floor: 0.9142 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
   // floors on the checkerboard rrect-lg/ml cells, each DOWN by 0.0002–0.0072:
   // the response-curve law lands the interior MEAN on the reference and pays
@@ -527,12 +542,12 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // that bought the six restored claims above, not a regression that slipped.
   // The SSIM axis on these cells is re-attributed to a structure round the
   // W9 spec's Deferred charters; the floors keep ratcheting from here.
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87574, floor: 0.8747 },
-  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87892, floor: 0.8779 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86095, floor: 0.8599 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86809, floor: 0.8677 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87021, floor: 0.8692 },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87222, floor: 0.8712 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87585, floor: 0.8748 },
+  "dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87893, floor: 0.8779 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.86141, floor: 0.8604 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.86811, floor: 0.8677 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean": { measured: 0.87039, floor: 0.8693 },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.87220, floor: 0.8712 },
   // W12 (claims §5.59; W12 Decision Logs 4, 6 and 7) RATCHETED the three 2x
   // texture-tier rows UP again by 0.010–0.014: the lens is now the reference's
   // own field (one steep power on Apple's span law along a normal ovalized by
@@ -635,7 +650,17 @@ const RENDERER_OF_TIER = { texture: "webgpu", dom: "css" } as const;
 
 interface GatedProfile {
   readonly profileKey: string;
-  readonly cellsPerTier: number;
+  /**
+   * How many cells of this profile each tier carries. One number served both
+   * tiers until W18 G2 (claims §5.79), when the increased-contrast profile's dom
+   * tier lost `hc-text__capsule-button__rest`: with the outer shadow out of the
+   * CSS tier's sampled backdrop that cell's silhouette — already the most
+   * degenerate on the bed, 2 293 of 4 872 px in three bodies — no longer yields
+   * a contour the curvature reader can sample, and `cli/compare.ts` writes no
+   * cell for it. The texture tier keeps its nine. Stated per tier so the loss
+   * is a number here and not a silently smaller gate.
+   */
+  readonly cells: { readonly texture: number; readonly dom: number };
   readonly texture: readonly GateRow[];
   readonly dom: readonly GateRow[];
   /** The table constants' own names, so a failure message points at the source. */
@@ -645,21 +670,21 @@ interface GatedProfile {
 const GATED_PROFILES: readonly GatedProfile[] = [
   {
     profileKey: "apple-macos-26.5-1x-light-standard",
-    cellsPerTier: 36,
+    cells: { texture: 36, dom: 36 },
     texture: TEXTURE_TIER_LIGHT,
     dom: DOM_TIER_LIGHT,
     names: { texture: "TEXTURE_TIER_LIGHT", dom: "DOM_TIER_LIGHT" },
   },
   {
     profileKey: "apple-macos-26.5-2x-light-standard",
-    cellsPerTier: 36,
+    cells: { texture: 36, dom: 36 },
     texture: TEXTURE_TIER_2X_LIGHT,
     dom: DOM_TIER_2X_LIGHT,
     names: { texture: "TEXTURE_TIER_2X_LIGHT", dom: "DOM_TIER_2X_LIGHT" },
   },
   {
     profileKey: "apple-macos-26.5-1x-light-reduced-transparency",
-    cellsPerTier: 8,
+    cells: { texture: 8, dom: 8 },
     texture: TEXTURE_TIER_REDUCED_TRANSPARENCY,
     dom: DOM_TIER_REDUCED_TRANSPARENCY,
     names: {
@@ -669,21 +694,21 @@ const GATED_PROFILES: readonly GatedProfile[] = [
   },
   {
     profileKey: "apple-macos-26.5-1x-light-increased-contrast",
-    cellsPerTier: 9,
+    cells: { texture: 9, dom: 8 }, // dom 9 → 8 at W18 G2; see `cells` above
     texture: TEXTURE_TIER_INCREASED_CONTRAST,
     dom: DOM_TIER_INCREASED_CONTRAST,
     names: { texture: "TEXTURE_TIER_INCREASED_CONTRAST", dom: "DOM_TIER_INCREASED_CONTRAST" },
   },
   {
     profileKey: "apple-macos-26.5-1x-dark-standard",
-    cellsPerTier: 13,
+    cells: { texture: 13, dom: 13 },
     texture: TEXTURE_TIER_DARK,
     dom: DOM_TIER_DARK,
     names: { texture: "TEXTURE_TIER_DARK", dom: "DOM_TIER_DARK" },
   },
   {
     profileKey: "apple-macos-26.5-2x-dark-standard",
-    cellsPerTier: 13,
+    cells: { texture: 13, dom: 13 },
     texture: TEXTURE_TIER_2X_DARK,
     dom: DOM_TIER_2X_DARK,
     names: { texture: "TEXTURE_TIER_2X_DARK", dom: "DOM_TIER_2X_DARK" },
@@ -747,14 +772,17 @@ const DARK_PROFILES = [
  */
 const MATRIX_PARTITION: Readonly<Record<string, number>> = {
   "apple-macos-26.5-1x-dark-standard": 26,
-  "apple-macos-26.5-1x-light-increased-contrast": 18,
+  // 18 → 17 at W18 G2 (claims §5.79): the dom-tier holdout
+  // `hc-text__capsule-button__rest` could not be measured on the rebuilt bed
+  // (`GatedProfile.cells`).
+  "apple-macos-26.5-1x-light-increased-contrast": 17,
   "apple-macos-26.5-1x-light-reduced-transparency": 16,
   "apple-macos-26.5-1x-light-standard": 72,
   "apple-macos-26.5-2x-dark-standard": 26,
   "apple-macos-26.5-2x-light-standard": 72,
 };
 
-const MATRIX_CELLS = 230;
+const MATRIX_CELLS = 229; // 230 until W18 G2 (claims §5.79); the row lost is named above
 
 /**
  * Scenes that carry no shape and no material axis, per profile — so the shape
@@ -895,16 +923,30 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * renderer keeps; every one of the four still gates on its perceptual rows.
  * The reduced-transparency `hc-text` capsule stays: its recovery rose to
  * 0.9310 against the 0.95 arm (W17 Deferred).
+ *
+ * **What moved with W18 (2026-09-05, claims §5.79).** Four dom rows LEAVE and
+ * none joins. Three of them are the light solids W17 admitted — `light-solid__
+ * rrect-md__rest` at 2x and `light-solid__rrect-ml__rest` at both light scales.
+ * The arm that held them was the BODIES arm, not the area arm the W17
+ * paragraph above names (corrected here, that text left as written): on the
+ * W17 bed their web silhouettes recovered 0.994–0.998 of the region but in two
+ * or three bodies against the region's one. The tier had been sampling its own
+ * outer shadow through its own backdrop, and the shadow — offset downward —
+ * darkened the body's lower rows toward the background (the bottom two rows of
+ * `rrect-ml` at 1x read 0.923 in linear light against the centre's 0.933), where
+ * the luminance-delta extractor cut the silhouette. With the shadow carried
+ * outside the sampled region (on L3, or on the group's last-painted host) those
+ * rows lift by 0.0013–0.0023, the centre does not move, the interior mean moves
+ * +0.0003…+0.0008, and the silhouette is one body again at 0.9997–0.9999 of the
+ * region. Coherence with the renderer no longer costs these cells. The fourth,
+ * `hc-text__capsule-button__rest` under increased contrast, does not condition —
+ * it leaves because the bed lost it (`GatedProfile.cells`).
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "dom / calibration / light-solid__rrect-md__rest / apple-macos-26.5-2x-light-standard",
-  "dom / calibration / light-solid__rrect-ml__rest / apple-macos-26.5-1x-light-standard",
-  "dom / calibration / light-solid__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
-  "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
@@ -1108,10 +1150,10 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     expect(UNGATED_PROFILES, "every profile in the matrix is gated").toHaveLength(0);
     expect(GATED_PROFILES).toHaveLength(6);
 
-    for (const { profileKey, cellsPerTier } of GATED_PROFILES) {
+    for (const { profileKey, cells: counted } of GATED_PROFILES) {
       for (const tier of ["texture", "dom"] as const) {
         const cells = cellsOf(profileKey, tier);
-        expect(cells, `${profileKey} / ${tier}`).toHaveLength(cellsPerTier);
+        expect(cells, `${profileKey} / ${tier}`).toHaveLength(counted[tier]);
         // And every gated cell is the engine and renderer the tables name. A
         // cell captured through anything else is not the cell the thresholds
         // were set on.
@@ -1135,7 +1177,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
         // The shape rows gate fewer cells than the perceptual rows, for named
         // reasons only. Derived from the names so a new such scene cannot arrive
         // unnoticed and shrink the gate.
-        expect(shapeCells).toHaveLength(profile.cellsPerTier - noShape.length);
+        expect(shapeCells).toHaveLength(profile.cells[tier] - noShape.length);
         expect(
           cells
             .filter((cell) => cell.shape === undefined)
@@ -1155,8 +1197,8 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
           // fails here rather than passing with less work to do.
           const expected =
             axis === "shape"
-              ? profile.cellsPerTier - noShape.length - predicateExcludedCount(profile.profileKey, tier)
-              : profile.cellsPerTier;
+              ? profile.cells[tier] - noShape.length - predicateExcludedCount(profile.profileKey, tier)
+              : profile.cells[tier];
           expect(
             applicable,
             `${tier} / ${metric}: the gate must cover every applicable cell`,

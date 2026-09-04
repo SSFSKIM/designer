@@ -1,0 +1,63 @@
+canonical: 229 cells; W17 bed: 230; dry run: 229
+rows on the W17 bed and not on the canonical bed: [('apple-macos-26.5-1x-light-increased-contrast', 'css', 'hc-text__capsule-button__rest')]
+webgpu tier: 115 cells against the W17 bed, worst |Δ| 0.000000; captures byte-identical 115 / 115
+  capture differs from the dry run: checkerboard__glass-over-glass__rest @ apple-macos-26.5-2x-dark-standard / css
+  capture differs from the dry run: hc-text__capsule-button__rest @ apple-macos-26.5-2x-light-standard / css
+css tier: 114 cells against the dry run, worst |Δ| 0.000028; captures byte-identical 112 / 114
+
+the seven rows held by floor — ssimMean, CSS tier, checkerboard (rrect-md 1x met its bound at W16):
+  cell               dpr   W17 bed   dry      canonical   floor now   landing floor
+  rrect-md           1x   0.91218   0.91214   0.91214      —        no floor (≥ 0.9 met)
+  rrect-md           2x   0.91529   0.91521   0.91521    0.9142      0.9142 kept
+  rrect-ml           1x   0.87574   0.87585   0.87585    0.8747      0.8748 (ratchet)
+  rrect-ml           2x   0.87892   0.87893   0.87893    0.8779      0.8779 kept
+  glass-over-glass   1x   0.86095   0.86141   0.86141    0.8599      0.8604 (ratchet)
+  glass-over-glass   2x   0.86809   0.86811   0.86811    0.8677      0.8677 kept
+  rrect-lg           1x   0.87021   0.87039   0.87039    0.8692      0.8693 (ratchet)
+  rrect-lg           2x   0.87222   0.87220   0.87220    0.8712      0.8712 kept
+
+every dom row against its adopted ssimMean / ΔE bound (rows under a bound listed):
+  checkerboard__glass-over-glass__rest         1x-light-standard            ssimMean 0.8614 (≥ 0.9, floor 0.8599)  ΔE 0.0331 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 1x-light-standard            ssimMean 0.8704 (≥ 0.9, floor 0.8692)  ΔE 0.0327 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 1x-light-standard            ssimMean 0.8758 (≥ 0.9, floor 0.8747)  ΔE 0.0308 (≤ 0.08)
+  checkerboard__glass-over-glass__rest         2x-light-standard            ssimMean 0.8681 (≥ 0.92, floor 0.8677)  ΔE 0.0345 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 2x-light-standard            ssimMean 0.8722 (≥ 0.92, floor 0.8712)  ΔE 0.0342 (≤ 0.08)
+  checkerboard__rrect-md__rest                 2x-light-standard            ssimMean 0.9152 (≥ 0.92, floor 0.9142)  ΔE 0.0228 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 2x-light-standard            ssimMean 0.8789 (≥ 0.92, floor 0.8779)  ΔE 0.0328 (≤ 0.08)
+  7 dom rows under an adopted bound
+
+the cross-tier interior level, CSS − GPU (interiorMeanWeb), on the cells the wave is for:
+  cell                             profile                       W17 bed    canonical   clause
+  checkerboard__toolbar-group__rest 1x-light-standard             -0.0122    -0.0028     0.005 met
+  checkerboard__toolbar-group__rest 2x-light-standard             -0.0040    +0.0044     0.005 met
+  photo__toolbar-group__rest       1x-light-standard             -0.0150    -0.0087     0.01 met
+  photo__toolbar-group__rest       2x-light-standard             -0.0101    -0.0044     0.005 met
+  photo__toolbar-group__rest       1x-light-reduced-transparency  -0.0320    -0.0281     0.01 FIRES
+  photo__toolbar-group__rest       1x-light-increased-contrast   +0.0096    +0.0139     0.01 FIRES
+  checkerboard__glass-over-glass__rest 1x-light-standard             -0.0042    -0.0043     recorded 
+  checkerboard__glass-over-glass__rest 2x-light-standard             -0.0012    -0.0013     recorded 
+  photo__glass-over-glass__rest    1x-light-standard             -0.0119    -0.0118     recorded 
+  photo__glass-over-glass__rest    2x-light-standard             -0.0127    -0.0128     recorded 
+
+every light cell outside W17's 0.01 cross-tier clause on either bed (standard profiles):
+  checkerboard__toolbar-group__rest            1x-light-standard            -0.0122 → -0.0028  left
+  hc-text__capsule-button__rest                1x-light-standard            +0.0091 → +0.0105  NEW
+  hc-text__capsule-button__rest-tint-orange    1x-light-standard            +0.0129 → +0.0128  standing
+  photo__glass-over-glass__rest                1x-light-standard            -0.0119 → -0.0118  standing
+  photo__toolbar-group__rest                   1x-light-standard            -0.0150 → -0.0087  left
+  checkerboard__capsule-button__rest           2x-light-standard            +0.0095 → +0.0102  NEW
+  hc-text__capsule-button__rest                2x-light-standard            +0.0119 → +0.0129  standing
+  hc-text__capsule-button__rest-tint-orange    2x-light-standard            +0.0118 → +0.0117  standing
+  mid-dark-solid__capsule-button__rest         2x-light-standard            +0.0109 → +0.0109  standing
+  photo__glass-over-glass__rest                2x-light-standard            -0.0127 → -0.0128  standing
+  photo__toolbar-group__rest                   2x-light-standard            -0.0101 → -0.0044  left
+  photo__toolbar-group__rest                   1x-light-reduced-transparency -0.0320 → -0.0281  standing
+  checkerboard__capsule-button__rest           1x-light-increased-contrast  +0.0251 → +0.0259  standing
+  checkerboard__rrect-md__rest                 1x-light-increased-contrast  +0.0137 → +0.0139  standing
+  photo__capsule-button__rest                  1x-light-increased-contrast  +0.0222 → +0.0225  standing
+  photo__rrect-md__rest                        1x-light-increased-contrast  +0.0130 → +0.0131  standing
+  photo__toolbar-group__rest                   1x-light-increased-contrast  +0.0096 → +0.0139  NEW
+
+the carrier each group drew (report__css.json, cssShadow), counted over the canonical bed:
+  group     6 groups; scenes: checkerboard__toolbar-group__rest, photo__toolbar-group__rest
+  layer   114 groups; scenes: checkerboard__capsule-button__rest, checkerboard__capsule-button__rest-tint-blue, checkerboard__capsule-button__rest-tint-orange, checkerboard__glass-over-glass__rest, checkerboard__rrect-lg__rest, checkerboard__rrect-md__rest, checkerboard__rrect-ml__rest, checkerboard__rrect-sm__rest, dark-solid__capsule-button__rest, dark-solid__capsule-button__rest-tint-blue, dark-solid__capsule-button__rest-tint-orange, dark-solid__rrect-md__rest, hc-text__capsule-button__rest, hc-text__capsule-button__rest-tint-orange, hc-text__rrect-md__rest, impulse__capsule-button__rest, impulse__capsule-button__rest-tint-orange, impulse__rrect-md__rest, light-solid__capsule-button__rest, light-solid__capsule-button__rest-tint-orange, light-solid__rrect-md__rest, light-solid__rrect-ml__rest, mid-dark-solid__capsule-button__rest, photo__capsule-button__rest, photo__capsule-button__rest-tint-blue, photo__capsule-button__rest-tint-orange, photo__capsule-button__rest-tint-orange-half, photo__glass-over-glass__rest, photo__rrect-lg__rest, photo__rrect-lg__rest-tint-orange, photo__rrect-md__rest, photo__rrect-md__rest-tint-orange, photo__rrect-ml__rest, photo__rrect-sm__rest
