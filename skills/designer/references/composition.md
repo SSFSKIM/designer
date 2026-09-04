@@ -1,228 +1,210 @@
 # Composition
 
-This file teaches how to choose a named layout pattern from a brief, build its grid, and integrate imagery (photographic or generated) into it. Use it at the "work information architecture and composition" step — after a stance is chosen and its tokens exist (`references/color-engineering.md`, `references/typography.md`), and before real content is written into the layout (`references/voice-copy.md`). Composition decides what is dominant and what is secondary before either tokens or copy fill in the detail: pick a named pattern for the hero, dashboard, content, or commerce surface at hand; choose photography, treatment, or SVG to fill its slots; and — when a reference image is supplied for a surface — reproduce it rather than substituting a personal default.
+Composition is the page's region topology: what regions exist, which one dominates, how they are grouped, ordered, aligned, attached, repeated, and disclosed. It is derived from the brief's task and content, not selected from a menu of named layouts — the named layouts survive here as priors, each carrying the line positions that earn it, its invariants, and its forbidden moves. Composition is distinct from the stance, which is the visual system (`references/stances.md`), and from chrome — logo, navigation, search, account, footer — which stays conventional because familiarity is worth more there than difference. Use this file at three points in the workflow. The six composition lines are read off the brief at parse time, beside the stance lines. The candidates are written and chosen at step 6, "work information architecture and composition", before real content is written into the layout (`references/voice-copy.md`). Imagery is integrated into the chosen composition after that: the second half of this file covers photographic and drawn imagery, treatment, and what to do when a reference image is supplied.
 
-## Hero archetypes
+## The six composition lines
 
-Real working vocabulary for landing and marketing heroes, not theory.
+Two front ends, one grammar. A product surface is read as an **operational model** — the actions available, their prerequisites, the state that must stay visible, the evidence behind a decision, the context that has to be retained while acting. A narrative page is read as a **communicative model** — the audience's question, the claim being made, the evidence for it, the qualifications, the alternatives, the commitment being asked for. Both are then written in the same six lines and the same operators, and posture selects which rules fire. Two grammars would rebuild the category tell: "landing" would predict the headline band and the three-up the way "console" predicts sidebar, stat row, and cards.
 
-### 1. Asymmetric split
+Each line is recorded in `DESIGN.md` §4 as a sentence with its reason. An unknown is recorded as unknown and resolved by writing candidates that differ on it; volume, urgency, and peers are never invented to fill a line.
 
-Copy on one side, a single supporting object (screenshot, product, form) on the other, on an uneven ratio.
+| # | Line | Values | What in the brief decides it | What it drives | Checkable rules |
+|---|---|---|---|---|---|
+| 1 | **Posture** | workspace · transient · narrative | Attention duration crossed with frequency: is this the surface where long work happens, a bounded task passed through once, or an authored page read in the author's order | Which dialect of the rules below fires; chrome share; page length; whether reading is spatial or linear | Workspace: the dominant region reaches the first viewport and holds ≥ 40% of it; chrome ≤ 15% of viewport height above it; desktop page ≤ 2 viewports unless an unbounded list scrolls inside its own region. Narrative: exactly one dominant band in the first viewport, then a stratified sequence in the author's order; no region topology repeats more than twice down the page. Transient: one column, no secondary pane, no card grid, the primary action in a fixed position; steps only when the task is long, complicated, and novel. |
+| 2 | **Dominant activity** | monitor · find · browse · compare · operate · read · decide | The verb the first read serves, with its success condition — which answer, which completed action | What dominates and what leads; whether search or filter precedes results; whether alignment across units is mandatory; where the action sits | Monitor: the highest-priority exception region is first in DOM order and top-left, in the first viewport, and no row of equal siblings sits above it. Find: the search or filter precedes results and shares the first viewport; results are a list or table, not cards. Browse: an overview of many units dominates, detail on demand or by drill. Compare: the compared units share one axis in one region — rows or columns of one table or grid — never separate cards. Operate: the editor or form is the stage, at least twice the width of anything beside it, and no marketing band sits above it. Read: one measure of 45–75ch dominates, media may bleed, nothing competes beside it. Decide: proposition, then evidence, then the action, with the action reachable in the first viewport. |
+| 3 | **Unit and relation** | unit: the brief's own noun · relation: sequence · hierarchy · matrix · network · spatial field · set (several may hold; name the one the first read acts on) | What the units are and how they relate to each other. Not a "primary object" enum — "queue", "map", "canvas" bundle a unit, a collection, a representation, and a surface, and deciding on the bundle decides the composition before deriving it | The form of the dominant region; the axis density accumulates along; what may repeat | Sequence: one visible ordering axis, the ordering key first in the row. Hierarchy: containment by indentation or nesting, never by nested cards. Matrix: a real table or grid, both axes labelled and sticky, never reflowed into cards. Network: node-link or adjacency dominates and degree is visible. Spatial field: the map or canvas holds ≥ 50% of the first viewport, the panel is subordinate and cross-highlights. Set: a grid of equals is earned, cells uniform, no false hero. |
+| 4 | **Co-visibility** | none (one level) · peer panes (overview and detail together) · drill (into a screen, with a way back) · on demand (expand in place, sheet, popover) | What must be visible at once for the task to be done — a comparison, a reference held while editing, a selection with its context | Column count; whether a side region is a detail pane, a supporting pane, or nothing; navigation depth; the collapse at narrower widths | Peer panes: two columns, the list narrower than the detail at a felt ratio of at least 1.5 : 1, selection state visible, one pane at a time below the expanded width, and selecting preserves queue, filter, and scroll. Drill: one pane, a breadcrumb or back, no rail. On demand: the overview keeps its position when detail opens. None: no rail masquerading as a detail pane — a rail is a named supporting pane with its own reason, or it is absent. |
+| 5 | **Temporal structure** | static · historical · live · scheduled (the one that drives the layout; a live chart of history is *live*) | Whether the content moves while it is being viewed, records a past, or plans against a future | The freshness region; whether a time axis dominates; position stability; how "now" is marked | Live: a freshness mark per changing region; regions keep position across updates; the focused item does not move under the user. Historical: time runs left to right in the dominant region with range controls adjacent. Scheduled: a time-by-resource matrix or a day-grouped agenda with "now" marked. Static: no live badges and no "real-time" copy. A monitor activity on static content is a misread brief. |
+| 6 | **Volume and homogeneity** | few (≤ 7) · many · unbounded × homogeneous · heterogeneous | How many units the surface holds and whether they share a schema; text length and media shape count here, because they change the unit's box | Whether repetition is legitimate; paging or overflow; sectioning; how much of the page a repeated group may take | Many homogeneous: one list, table, or grid of identical cells, ≥ 6 in view, paged or virtualised past the viewport. Few heterogeneous: titled sections with distinct topologies, never a card grid of unlike things. A repeated group of exactly three in three columns is three homogeneous peers *by the brief's own count*; three features, three benefits, or three plans are a sales device and need a stated reason. Fixtures at empty, one, typical, and high volume keep the required information reachable. |
 
-**Earned when:** there's a concrete thing to show _and_ a claim to make, and neither wins. SaaS, tools, anything with a UI to preview.
+## Compiled consequences
 
-```css
-.hero { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,0.85fr);
-        gap: clamp(2rem,5vw,5rem); align-items: center; }
+These are produced by the six lines rather than chosen. Record them so they can be checked; never pick one directly and reason backwards.
+
+- **Dominance** — one dominant; one dominant with peers; all peers; two in tension — compiles from activity, relation, and volume. Monitor gives the exception region; read gives the document; browsing a set gives peers; deciding between a claim and an artifact gives two in tension. The brief may override with a stated reason ("the map is the product"). *Hero* is the narrative-posture name for the dominant region, and its form — image, claim, artifact, sequence — follows from what the one thing is. Some pages have no hero and some have coequal regions, so "what is the hero unit" is not a question this file asks first.
+- **Reading order** — the activity's first need, then the unit's ordering key, then chrome. The region declared as the first read is first in DOM order and top-left in geometry.
+- **Columns and ratio** — a felt ratio, at least 1.5 : 1, when one region dominates; equal tracks when units are peers or must be compared; **never the 1.1–1.35 : 1 band**, which reads as centered that forgot to center and is what an "asymmetric" instruction actually produces when nothing derives the number. Unequal space follows unequal requirements. Asymmetry is never a default, and a ratio is never carried over from an example.
+- **Where density lives** — relation crossed with activity. The matrix or the list carries the density; chrome and narrative bands do not.
+- **What repeats** — volume crossed with homogeneity, and nothing else.
+- **Chrome** — conventional. Logo, navigation, search, account, and footer sit where the platform puts them; that familiarity is measurable and it is not where the brief's difference lives. A sidebar needs at least 6 peer destinations or a drill model, stated. "Console" is not a reason.
+
+Six pairs sound like separate decisions and are not. Keeping them apart is what stops the record from re-deciding the same thing twice under two names.
+
+| Sounds distinct | What is actually going on | The rule that keeps them apart |
+|---|---|---|
+| Primary object and relation | "Queue", "timeline", "map", "schedule", "catalogue" are nominal bundles; the relation is the part the plane can act on | Record the unit as the brief's own noun and key every rule off the relation |
+| Activity and temporal structure | Monitor implies live or scheduled; compare and read are usually static or historical | Temporal stays its own line, because a live status page can be *found* by a rider rather than monitored by an operator; the check is that monitor never sits on static |
+| Posture and session length | Posture is attention crossed with frequency, and the stance layer already reads session length for density | Posture is recorded once and the stance's density constraint reads it; activity is still needed, because two workspace surfaces differ in what dominates |
+| Co-visibility and navigation depth | Depth is a consequence of the detail model crossed with volume | Depth is not recorded; the collapse rule — one pane at a time below the expanded width — is |
+| Volume and density | Volume decides where density accumulates and whether repetition is earned; the stance's density decides how tight it is | A dense stance on few heterogeneous units still forbids a card grid; a spacious stance on many homogeneous units still gets one list |
+| Hero and dominance | The hero is dominance under narrative posture | One property, two names; the record says "dominant region" everywhere |
+| Sidebar and category | The count of peer destinations and the detail model earn a sidebar | A sidebar needs ≥ 6 peer destinations or a drill model, stated; the word "console" earns nothing |
+
+## The operators and the ledger
+
+A candidate composition is written in eight operators over the content inventory, not as a grid recipe.
+
+- **order** — A before B.
+- **group** — A with B.
+- **nest** — A inside B.
+- **align** — A and B on one axis.
+- **juxtapose** — A beside B, in tension or as peers.
+- **attach** — B follows A's selection.
+- **repeat** — A × n.
+- **disclose** — B on demand from A.
+
+Before any candidate, write the ledger: one row per constraint, in the shape *brief evidence → interpreted relationship → layout constraint → rendered assertion → forbidden move*. The rendered assertion is the sentence someone can check against the built page; the forbidden move is the default it displaces. The content inventory is held constant across candidates — a candidate that shortens copy, drops fields, or invents a metric in order to fit a shape is discarded, not admired.
+
+## The procedure
+
+1. **Read the six lines off the brief**, one reason each, through the front end that fits — operational for a product surface, communicative for a narrative page. Record unknowns as unknown.
+2. **Compile the consequences**: dominance, reading order, columns, where density lives, what repeats, what chrome stays conventional. Name the defaults being overridden — the three-up, the stat row, the sidebar, the near-equal split, the headline band with an empty right half — the way the stance layer names the framework's radii and grays. A default that is not named stays in place and shows through.
+3. **Write the ledger.**
+4. **Write two or three candidates**, a sentence and an ASCII wireframe each, starting from different priors or different dominance readings. They must differ in grouping, co-visibility, or progression; a 60 : 40 against a 50 : 50 is one candidate wearing two hats. Write one when only one fits, and say so.
+5. **Choose by fit to the six lines**, then by familiarity and effort, and only then by distinctness. Record the rejected candidates in one line each, beside the stance's rejected coordinate vector.
+6. **Carry the chosen constraints into `DESIGN.md` §4** as checkable sentences, and build.
+
+The output of this procedure is prose and ASCII wireframes, not a filled-in schema. The six lines are sentences with reasons, as the nine stance lines are; a structured form to complete narrows what gets produced, which is the opposite of the point.
+
+### One worked pass
+
+**Brief.** "A regional bus operator's fleet maintenance console — open defects by vehicle, overdue inspections, parts on order, the workshop's day. Used all shift, single HTML file."
+
+**The six lines.**
+
+1. Posture: **workspace** — one controller has this open for a whole shift and works out of it; it is where the work happens, not a report about the work.
+2. Activity: **monitor** — the first read answers "what needs a decision before this shift ends", and the success condition is every overdue inspection and vehicle-off-road defect assigned to a bay or deferred with a reason.
+3. Unit and relation: the unit is the **vehicle**; the relation the first read acts on is a **matrix** — vehicle against defect state and inspection due date. The workshop's day is a second matrix, bays against hours, and it is subordinate.
+4. Co-visibility: **unknown**. The brief does not say whether a defect's history has to stay visible while the next one is read. The two candidates differ on exactly this.
+5. Temporal: **live** — defect reports come in from drivers and parts arrive during the shift.
+6. Volume and homogeneity: **many homogeneous** — around 180 vehicles sharing one defect schema; the workshop's day is few heterogeneous inside its own region.
+
+**Three ledger rows.**
+
+| Brief evidence | Interpreted relationship | Layout constraint | Rendered assertion | Forbidden move |
+|---|---|---|---|---|
+| "overdue inspections" | An exception set ordered by how far past due, against a legal deadline | The exception region leads | It is the first content region in DOM order, top-left, and holds ≥ 40% of the first viewport | A stat row of fleet totals above it |
+| "open defects by vehicle" | A matrix: vehicle against defect state | A real table, both axes labelled | Sticky header and sticky vehicle column; overflow scrolls horizontally inside the table's own container | One card per vehicle |
+| "the workshop's day" | Bays against hours, with a present moment | A scheduled region with "now" marked, subordinate to the exception region | The day grid marks now and keeps its position across live updates | A utilisation donut standing in for the day |
+
+**Candidate A — peer panes.** The exception queue leads, with a permanent detail pane attached to the selected defect.
+
+```text
++- chrome: fleet · search · shift ---------------------------+
++---------------------------------------+-------------------+
+| NEEDS A DECISION THIS SHIFT   14:20    | VEHICLE 4471      |
+|  6 overdue inspections · 4 VOR         |  defect history   |
+|  4471 · 3 days over · brake test    >  |  parts on order   |
+|  2210 · 1 day over  · tacho         >  |  next inspection  |
+|  1806 · VOR         · door seal     >  |  assign to bay    |
++---------------------------------------+                   |
+| OPEN DEFECTS BY VEHICLE  180 rows      |                   |
+|  sticky header + vehicle column        |                   |
++---------------------------------------+-------------------+
+| THE WORKSHOP'S DAY   bays x hours, now line at 14:20       |
++------------------------------------------------------------+
 ```
 
-**Collapse:** stack to one column below ~900px, copy first. The image ratio flips from "portrait-ish" to "full-width landscape." **Failure mode:** the two columns end up equal-weight and it reads as a centered layout that forgot to center — no tension, no hierarchy. The ratio has to be _felt_ (60/40 minimum), and the visual side needs to bleed or overflow slightly or the asymmetry looks like a mistake.
+**Candidate B — disclosure in place.** The same queue leads, and a row expands where it sits; the width the detail pane would have taken goes to the defect table and to parts.
 
-### 2. Full-bleed image
-
-Photograph/render fills the viewport; text overlaid.
-
-**Earned when:** the image _is_ the product (travel, food, fashion, physical goods) and the brand can carry emotional-first over informational-first.
-
-```css
-.hero { display: grid; grid-template: "stage" min(88svh,720px) / 1fr; }
-.hero > * { grid-area: stage; }          /* image + overlay + copy all stack */
-.hero .copy { align-self: end; justify-self: start; max-width: 34rem; }
+```text
++- chrome: fleet · search · shift ---------------------------+
+| NEEDS A DECISION THIS SHIFT                    14:20       |
+|  6 overdue inspections · 4 VOR                             |
+|  4471 · 3 days over · brake test · bay 2        [ open ]   |
+|   > history · parts on order · assign · defer with reason  |
+|  2210 · 1 day over  · tacho calibration         [ open ]   |
++------------------------------------------------------------+
+| OPEN DEFECTS BY VEHICLE   filter: depot · status · age     |
+|  full-width table, sticky header + vehicle column          |
++-----------------------------------------+------------------+
+| THE WORKSHOP'S DAY  bays x hours, now    | PARTS DUE TODAY  |
++-----------------------------------------+------------------+
 ```
 
-**Collapse:** height drops to ~70svh, copy moves from a corner to bottom-full-width, add a scrim gradient so text survives busy photography. **Failure mode:** text illegible over the image's midtones. Never trust a raw photo — a `linear-gradient` scrim or a solid copy-panel is mandatory, and test against the _lightest_ region of the image, not the average.
+**Chosen: B**, because nothing in the brief asks for two defects to be readable at once. The controller disposes of the queue one item at a time, so a permanent detail pane spends a third of the width on a region that is empty until something is selected, and it shrinks the defect table that the second read actually works in. Peer panes is the right prior when the task is comparison or reference held while editing; this task is disposition. A recorded in the rejected line: "peer panes, rejected — no line asked for co-visibility, and the empty pane costs the table its width."
 
-### 3. Typographic poster
+## Priors
 
-No image. Oversized headline is the entire composition.
+Every named arrangement survives as a prior: the activation evidence — which line positions earn it — its invariants, its forbidden moves, and a worked example. Never a CSS block with a ratio in it. A prior is the strong default a working designer would reach for at that position, so departing from one needs a line that earns the departure, and rejecting one is recorded with the line that rejects it.
 
-**Earned when:** the idea is verbal (agencies, editorial, manifestos, dev tools with attitude) and there's a real typeface with personality. This is the hardest to fake — it lives or dies on the type.
+| Prior | Earned by | Invariants | Forbidden moves | Worked example |
+|---|---|---|---|---|
+| **Exception-first** | workspace, monitor, live | The exception region is first in DOM and top-left, with a real severity signal behind it | A row of equals above the exception region; an alert zone with nothing urgent behind it | The pharmacy console's "four items need a decision this shift" queue above its stock table |
+| **List beside detail** (the two-panel selector; list-detail) | peer panes | List narrower than detail; detail follows selection; selection state visible; one pane at a time below the expanded width | Three sticky columns; a detail that does not follow selection; selection resetting the list's filter or scroll | A reviewer stepping through disputed transactions with the evidence pane following |
+| **Table-led** | operate or find, matrix or sequence, many homogeneous | A real table, both axes labelled, sticky header and first column, horizontal scroll inside its own container | Reflowing columns into cards; making every column responsive | An orders workbench |
+| **Grid of equals** | browse, set, many homogeneous | Uniform cells, no false hero, ≥ 6 in view | Using it when one tile matters more; a grid of unlike things | A status wall of services |
+| **Map-led / canvas-plus-palette** | spatial field | The field holds ≥ 50% of the first viewport; the panel is subordinate and cross-highlights; tools attach by scope | Chrome displacing the artifact; the field as one card among summaries; panel and field not linked | The wind-farm survey plate with its rail |
+| **Primary region with supporting pane** | one dominant with peers; co-visibility on demand, or a named supporting pane | The supporting pane is named with its reason and capped; the primary takes about two thirds | A rail that becomes a junk drawer of equal cards; a rail with no reason — a rail that overflows means the relation was a matrix and the prior is table-led | An analytics overview with one chart and three context readouts |
+| **Center stage** | operate or read, one unit | The stage is at least twice the width of anything beside it | A marketing band above an editor; side rails competing with the stage | A document editor |
+| **Wizard** | transient, operate, a task that is long, complicated, and novel | Real prerequisites between steps; completed work preserved; a review step before commit | Artificial serialization of independent settings; forcing a replay of every step to change one answer | A first-time insurance quote |
+| **Hub and spoke** | compact viewport with many peer destinations; occasional, independent activities | Reliable return and orientation from every spoke | Frequent A-to-B switching routed through the hub; a hub padded with unrelated metrics | A service portal on a phone |
+| **Titled sections** (the editorial stack) | narrative, few heterogeneous | Each section carries its own topology; one band dominates by scale, colour, or bleed; the sequence is the author's | Equal bands with no anchor; a topology repeating more than twice down the page | A launch story |
+| **Asymmetric split** | narrative, decide, two in tension — a claim and an artifact | A felt ratio of at least 1.5 : 1, with the artifact bleeding or overflowing; copy first on collapse | The almost-equal split; equal-weight columns; a split with nothing real on the second side | A proposition beside a real screenshot |
+| **Full-bleed image** | narrative, browse a feeling, or a product that *is* the image | The image is the product; a scrim or copy panel tested against the image's lightest region, not its average | Text over untreated midtones | A travel or food page |
+| **Typographic poster** | narrative, decide, the argument is verbal and the display face has real personality | One headline is the composition; at most 3 lines | A system font at 8rem; reaching for it with no distinctive face | A manifesto |
+| **Product object, centered** | narrative, one hero artifact, and the message is "look at this" | The object is rendered convincingly; the symmetry is earned by the object | Centered symmetry with no strong object underneath | A device launch |
+| **Reading column** | read | One measure of 45–75ch; media may bleed via named grid lines; nothing competes beside it; rails stick only on the outside | Line length past 75ch; three sticky columns fighting the same scroll | A long-form article; docs with a table-of-contents rail |
+| **Product detail and listing** (PDP / PLP) | transient or browse, operate = buy | Gallery beside a sticky buy-box; filter rail beside a product grid; on collapse a sticky add-to-cart bar and an off-canvas filter drawer showing its active count | A buy-box that scrolls away; 1-up product grids on phones; `auto-fit` leaving a lonely stretched card in the last row | An independent retailer |
+| **Lookbook** | narrative plus buy; browse a feeling | Editorial bands interleaved with shoppable grids; the shopping surfaces | Beautiful and unbuyable | A fashion or home brand |
 
-```css
-.hero { display: grid; grid-template-columns: repeat(12,1fr);
-        min-height: 78svh; align-content: center; gap: 0.5rem 1rem; }
-.hero h1  { grid-column: 1 / -1; font-size: clamp(2.5rem,9vw,8rem); }
-.hero .sub{ grid-column: 1 / span 7; }   /* asymmetric offset below */
-```
+### Techniques that carry no ratio
 
-**Collapse:** the clamp does most of the work; sub-columns go full width. Keep the headline from wrapping to more than 3 lines. **Failure mode:** a system font at 8rem looks broke, not bold. If the brief doesn't come with a distinctive display face, don't reach for this — it exposes weak type instantly.
+Three implementations are worth keeping verbatim, because they solve a mechanical problem and encode no proportion. Everywhere a track ratio would go, the value comes from the record — the dominance line and the felt ratio derived from it — not from this file.
 
-### 4. Product-object (centered / spotlight)
-
-One hero object dead-center, symmetric, often floating on a gradient or radial glow.
-
-**Earned when:** there's a single beautiful hero artifact — a phone, a watch, a bottle, a device — and the message is "look at _this_."
-
-```css
-.hero { display: grid; place-items: center; min-height: 82svh; text-align: center; }
-.hero .stack { display: grid; gap: 2rem; max-width: 40rem; }  /* copy over object */
-```
-
-**Collapse:** nearly free — it's already centered. Just shrink the object and tighten vertical gaps. **Failure mode:** centered symmetry with _no_ strong object underneath = generic template hero. If the object can't be rendered convincingly, this pattern has nothing to hold it up.
-
-### 5. Editorial stack
-
-Full-width bands stacked vertically — eyebrow → headline → lede → media strip — each band its own rhythm. Magazine feel.
-
-**Earned when:** the story is sequential and there's a lot of high-quality supporting content; long-form product narratives, launch pages, brand stories.
+**The editorial bleed, by named grid lines.** Content sits in the measure; a figure crosses the gutters to full width without leaving the flow.
 
 ```css
-.hero { display: grid; grid-template-columns:
-        [full-start] minmax(1rem,1fr) [content-start] minmax(0,64rem)
-        [content-end] minmax(1rem,1fr) [full-end]; row-gap: clamp(2rem,6vw,6rem); }
-.hero > *          { grid-column: content; }
-.hero > .bleed     { grid-column: full; }   /* let media break the measure */
+.stack { display: grid; grid-template-columns:
+         [full-start] minmax(1rem,1fr) [content-start] minmax(0,64rem)
+         [content-end] minmax(1rem,1fr) [full-end]; row-gap: clamp(2rem,6vw,6rem); }
+.stack > *      { grid-column: content; }
+.stack > .bleed { grid-column: full; }
 ```
 
-**Collapse:** the named-line gutters shrink to ~1rem; bleed elements stay full. This is the most naturally responsive of the five. **Failure mode:** no anchor — it's all equal bands, so the eye never finds the hero. One band must dominate (scale, color, or a bleed image) or the page reads as a wall.
-
-## Dashboard arrangements
-
-### Primary-metric + rail
-
-One dominant focal zone (chart/map/primary KPI) with a supporting rail of secondary cards.
-
-**Earned when:** there's a clear hero metric and everything else is context. Analytics overviews, single-subject monitoring.
+**The sticky commitment.** A buy-box or a summary panel that must stay reachable while a tall gallery scrolls, and its narrow-width form.
 
 ```css
-.dash { display: grid; grid-template-columns: minmax(0,1fr) minmax(280px,340px);
-        gap: 1rem; }              /* main + right rail */
+.buybox { position: sticky; top: 1.5rem; }
+@media (max-width: 900px) {
+  .buybox { position: static; }
+  .commit-bar { position: fixed; inset: auto 0 0 0; }  /* price + one action */
+}
 ```
 
-**Collapse:** rail drops below the main panel as a 2-up card grid, then 1-up. **Failure mode:** the rail becomes a junk drawer — 9 cards of equal weight competing with the hero. Cap the rail; if it overflows, the wrong pattern was chosen (table-led is the fix).
-
-### Table-led
-
-A dense data table is the page; filters/summary sit above it.
-
-**Earned when:** the job is _operate on rows_ — orders, users, tickets, transactions.
+**The table that scrolls instead of reflowing.** A matrix stays a matrix at every width.
 
 ```css
-.dash { display: grid; grid-template-rows: auto auto 1fr; gap: 1rem; }
-/* toolbar / summary strip / scrolling table */
+.table-wrap { overflow-x: auto; }
+.table-wrap thead th          { position: sticky; top: 0; }
+.table-wrap tbody th          { position: sticky; left: 0; }  /* the row's key */
 ```
 
-**Collapse:** table goes horizontal-scroll inside its container (never reflow columns into cards unless the row is genuinely a "record card"). Sticky header + first column. **Failure mode:** trying to make every column responsive — the result is unreadable stacked mush. Horizontal scroll is correct; fighting it is the error.
-
-### Exception-first
-
-The top band surfaces what's _wrong or urgent_; the steady-state data lives below the fold.
-
-**Earned when:** the user opens this to _act on problems_, not browse — ops consoles, on-call, moderation, delivery control.
+Two-track grids get their tracks from the record, not from a snippet:
 
 ```css
-.dash { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(260px,0.75fr);
-        gap: 1rem; }              /* alert hero + supporting metrics */
+/* Values come from DESIGN.md §4: the dominance line and the ratio derived from it. */
+.split { display: grid;
+         grid-template-columns: minmax(0, var(--dominant)) minmax(0, var(--subordinate));
+         gap: clamp(2rem,5vw,5rem); }
 ```
 
-**Collapse:** the exception hero stays first and full-width; metrics stack beneath. **Failure mode:** crying wolf — if nothing's ever actually urgent, the alert zone becomes decorative and users learn to skip the top of the page. The pattern requires a real severity signal.
+## Imagery as content
 
-### Map-led (spatial)
+When the dominant region is an artifact and no asset exists, the artifact is drawn — an SVG, a canvas-painted field, a real diagram — as content, the way a survey plate or a record sleeve is content. Pages converge on a left-ranged headline band with an empty right half because that is the shape a missing image takes. A text-only band is one candidate, earned when the argument is genuinely verbal; it is not the default answer to "there is no photograph". For photography, treatment, and when SVG beats a photo outright, see "Imagery integration" below.
 
-A map/canvas/floorplan is the primary surface; a panel docks beside it.
+## Composition QA
 
-**Earned when:** the data is inherently spatial — logistics, fleet, real estate, IoT.
+Six checks, run against the built page and mechanical wherever they can be.
 
-```css
-.dash { display: grid; grid-template-columns: minmax(0,1fr) minmax(300px,380px); }
-.dash .map { min-height: 70svh; }
-```
+1. **The canonical shape is absent unless earned, part by part.** For this surface's category — workspace: stat row, main-plus-rail, sidebar; narrative: headline band with an empty right half, three-up, pricing trio, FAQ — each part present is named in `DESIGN.md` §4 with the line that earned it.
+2. **Reading order agrees.** The region declared as the first read is first in DOM order, top-left in geometry, and dominates the first viewport: at least 40% of it under workspace posture, one band under narrative.
+3. **Candidates differ on the page.** The written candidates, rendered as wireframes, differ in their first-viewport partition rather than in column fractions.
+4. **No fingerprint.** No grid-track ratio, snippet, or section sequence is byte-identical to an example in this file without a recorded re-derivation, and the 1.1–1.35 : 1 band is absent.
+5. **The nearest neighbour is a relative.** The closest prior build with a *different* relation model or activity is not the one this page most resembles; a page with the *same* task shape may look alike, and that is expected rather than a fault.
+6. **The declared difference is asserted, not measured.** For paired briefs, the required difference is written down before building and checked after — a comparison task's units aligned on one axis, a monitor task's exception region leading. A distance never decides on its own.
 
-**Collapse:** map to top (fixed height), panel becomes a bottom sheet / stacked list. **Failure mode:** panel and map don't cross-highlight. A map-led layout that doesn't link selection between the two panes is just two unrelated widgets sharing a screen.
-
-### Grid-of-equals (tiles)
-
-Uniform card grid, no hero.
-
-**Earned when:** genuinely peer-level entities — a portfolio of services, a status wall, a bento of small metrics.
-
-```css
-.dash { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-        gap: 1rem; }
-```
-
-**Collapse:** free — `auto-fit` handles it. **Failure mode:** flatness. When one tile _is_ more important, this pattern actively hides that. Only use when the equality is true.
-
-## Content, detail, and commerce patterns
-
-### Content and detail pages
-
-**Centered measure + bleed.** Single reading column at ~65ch, media allowed to break wider (the same named-line trick as editorial-stack). **Earned when:** long-form reading is the point — articles, docs, posts.
-
-```css
-.doc { display: grid; grid-template-columns:
-       [full-start] 1fr [wide-start] minmax(0,10rem) [text-start]
-       min(64rem,100%) [text-end] minmax(0,10rem) [wide-end] 1fr [full-end]; }
-.doc > *        { grid-column: text; }
-.doc > figure   { grid-column: wide; }
-.doc > .full    { grid-column: full; }
-```
-
-**Collapse:** gutters collapse; everything approaches full width with padding. **Failure mode:** line length creeping past ~75ch on large screens because the measure wasn't capped — reading fatigue.
-
-**Doc with persistent TOC rail.** Sticky nav column + content + optional "on this page" third column. **Earned when:** deep reference material users scan and jump around.
-
-```css
-.doc { display: grid; grid-template-columns: 240px minmax(0,1fr) 200px; gap: 2rem; }
-.doc nav, .doc aside { position: sticky; top: 1.5rem; align-self: start; }
-```
-
-**Collapse:** third column drops first, then the nav becomes a drawer/top disclosure. **Failure mode:** three sticky columns fighting for the same scroll — nauseating. Only the outer rails stick; the content scrolls.
-
-**Detail: media + spec** (the "PDP skeleton" for non-commerce). Big media block, adjacent metadata/attributes. **Earned when:** one entity with a hero visual and a structured attribute set — a property, a profile, a media title.
-
-```css
-.detail { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(320px,0.6fr);
-          gap: clamp(1.5rem,4vw,3rem); align-items: start; }
-```
-
-**Collapse:** media on top, spec panel below (and the spec panel's CTA often becomes a sticky bottom bar).
-
-### Commerce
-
-**Product detail (PDP).** Gallery + buy-box, buy-box sticky.
-
-```css
-.pdp { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(340px,0.65fr);
-       gap: clamp(1.5rem,4vw,4rem); align-items: start; }
-.pdp .buybox { position: sticky; top: 1.5rem; }
-```
-
-**Collapse:** gallery → swipeable carousel on top; buy-box below with a **sticky add-to-cart bar** pinned to the viewport bottom (the single most important mobile commerce move). **Failure mode:** the buy-box scrolls away on desktop while the user is deep in a tall gallery — price and CTA must stay in view. A non-sticky buy-box is a conversion leak.
-
-**Product listing (PLP).** Filter rail + responsive product grid.
-
-```css
-.plp { display: grid; grid-template-columns: 260px minmax(0,1fr); gap: 2rem; }
-.plp .products { display: grid;
-       grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 1.25rem; }
-```
-
-**Collapse:** filter rail → off-canvas drawer behind a "Filters (n)" button; grid drops to 2-up then keeps 2-up on phones (never 1-up for products — users want to compare). **Failure mode:** `auto-fit` instead of `auto-fill` leaving a lonely stretched card in the last row; and hiding the filter drawer's active-count so users forget a filter is on.
-
-**Editorial commerce (lookbook).** Full-bleed lifestyle bands interleaved with shoppable grids — editorial-stack and PLP spliced together. Earned for fashion/home brands selling a feeling. **Failure mode:** the shopping never surfaces — beautiful, unbuyable.
-
-## How to pick
-
-The grid choice is downstream of two questions, answered from the brief before any layout decision.
-
-**1. What's the hero unit — and is there exactly one?**
-
-- One strong _image/object_ → full-bleed or product-object.
-- One strong _claim, weak visuals_ → typographic poster or asymmetric-split.
-- One dominant _metric/table/map_ → the matching dashboard pattern.
-- _No_ single hero, genuinely peer content → grid-of-equals or editorial-stack.
-
-This is the fork that decides symmetry. **Centered/poster** means the content is self-sufficient and wants reverence — a manifesto, a hero product. **Asymmetric-split** means two forces need to coexist and the layout is creating tension between them — claim vs. proof, copy vs. UI. When a brief gives both a value proposition _and_ a screenshot, that's split — centering it would force one to subordinate the other, and there's no ground for that.
-
-**2. What's the user's verb?**
-
-_Read_ → centered measure. _Operate on rows_ → table-led. _Fix problems_ → exception-first. _Buy_ → PDP/PLP. _Browse a feeling_ → full-bleed/editorial.
-
-Concrete tells that push toward **asymmetric-split over centered-poster**: the brief names a product with a UI ("show the dashboard"), lists a signup/waitlist form in the hero, or pairs a benefit claim with a proof artifact. Concrete tells that push toward **centered-poster**: the brief is all-message with no artifact, ships a distinctive display typeface, uses words like "bold / statement / manifesto," or the single hero object is beautiful enough to carry the fold alone.
-
-The tie-breaker when a brief could go either way: **centered is safer and reads more premium but risks generic; asymmetric is riskier but reads more designed.** Go asymmetric when the brand wants to feel considered and there's real content to justify the tension; go centered when the content is thin enough that asymmetry would just expose the empty side.
+Each of these is blind somewhere: a tree comparison cannot see ratios, a screenshot cannot see roles below the fold, and automatic region segmentation is only about as reliable as two people agreeing on where the regions are. A failure on one check is a reason to look at the page, not a verdict on it. Run these beside the rest of the pre-ship pass in `references/qa-protocol.md`.
 
 ## Imagery integration
 

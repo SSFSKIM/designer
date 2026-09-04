@@ -44,6 +44,16 @@ The tell is the reasoning, not the hue: "the one hue absent from the status set"
 
 *Added in-house (2026-09) after the stance-derivation acceptance pair converged on this band through independently defensible reasoning; not from the grafted sources.*
 
+## The landing scaffold, and two more layout bands
+
+The same convergence happens on the layout side, and it was found the same way — by measuring what independently reasonable builds actually produced. **The landing scaffold** is the largest of the three: sixteen of twenty landing builds open with one construction, a full-width band carrying a left-ranged headline with no image and an empty right half, and then run a three-up, a pricing trio and an FAQ under it in that order; twenty-two of thirty-two builds across the corpus carry a card grid of exactly three in three columns. None of those four parts is forbidden and each is the right answer to some brief. What makes the run worth naming is that it arrives whole, in that order, whatever the page is about. Each part is earned on its own or it is absent: a three-up by three homogeneous peers the brief itself counts — three features, three benefits or three plans nobody counted are a sales device, not a count; an FAQ by objections a real reader would raise, named in the record; the headline band by an argument that is genuinely verbal, with no artifact to show. Where there is an artifact and no asset to show it with, draw it — an SVG, a painted canvas, a real diagram — as content. The empty right half is the shape a missing image takes, not a composition.
+
+**The almost-equal split** is the second: two tracks at 1.1–1.35 : 1, which is what the word "asymmetric" produces when nothing decided how unequal the two regions should be. It reads as centered that forgot to center — too near equal to feel deliberate, too far from it to feel symmetric. A region that genuinely dominates takes at least 1.5 : 1; regions that are peers take equal tracks; a ratio landing in the band between them is the tell that it was typed rather than derived.
+
+**The sidebar by category** is the third: a persistent left navigation on a console because it is a console. A sidebar is earned by six or more peer destinations, or by a drill model that needs a way back, stated in the record — "operational surface" is a category, not a reason. The same test retires a stat row above a queue that nobody monitors by the numbers, and a main-plus-rail grid on a page with nothing to put in the rail.
+
+*Added in-house (2026-09) from the layout survey; not from the grafted sources.*
+
 ## Absolute bans
 
 Match-and-refuse: catching any of these mid-build means stopping and restructuring that piece from scratch, not softening it in place.
