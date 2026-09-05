@@ -1,0 +1,108 @@
+{
+  "$comment": [
+    "W19's probe bed (the charter's X10): twelve cells at 1x — the author tint's strength ladder",
+    "on the canonical capsule over `photo` and `checkerboard` at 0.1, 0.2, 0.35, 0.5, 0.75 and 1.0",
+    "— captured on this machine by W9's protocol (claims §5.30: a 6 s bare neutral reset before",
+    "each cell, the one stable order, the run refused unless the machine had been idle 45 s) and",
+    "materialised by the majority byte-state per cell over seven attested runs.",
+    "",
+    "Nothing is fitted to this bed. It exists so that the renderer's own gap to Apple on the",
+    "strength axis is a curve rather than the single point the frozen bed carries at 0.5."
+  ],
+  "materializedFrom": [
+    "w19-probe-2",
+    "w19-probe-3",
+    "w19-probe-4",
+    "w19-probe-5",
+    "w19-probe-6",
+    "w19-probe-8",
+    "w19-probe-9"
+  ],
+  "excludedRuns": {
+    "w19-probe-1": "4 of 12 cells failed attestation (checkerboard__capsule-button__rest-tint-orange-010, checkerboard__capsule-button__rest-tint-orange-020, checkerboard__capsule-button__rest-tint-orange-035, checkerboard__capsule-button__rest-tint-orange-075); HID activity during the run",
+    "w19-probe-7": "6 of 12 cells failed attestation (checkerboard__capsule-button__rest-tint-orange, checkerboard__capsule-button__rest-tint-orange-010, checkerboard__capsule-button__rest-tint-orange-020, checkerboard__capsule-button__rest-tint-orange-035, checkerboard__capsule-button__rest-tint-orange-075, photo__capsule-button__rest-tint-orange-half); HID activity during the run",
+    "w19-probe-10": "attested, not needed: seven runs were taken before it"
+  },
+  "rule": "majority byte-state per cell across seven attested runs (frequency-settled, claims §5.30); shares recorded per cell",
+  "auditResult": {
+    "w19-probe-1": "8/12",
+    "w19-probe-2": "12/12",
+    "w19-probe-3": "12/12",
+    "w19-probe-4": "12/12",
+    "w19-probe-5": "12/12",
+    "w19-probe-6": "12/12",
+    "w19-probe-7": "6/12",
+    "w19-probe-8": "12/12",
+    "w19-probe-9": "12/12",
+    "w19-probe-10": "12/12"
+  },
+  "idleSecondsAtStartAndEnd": {
+    "w19-probe-1": [
+      2671,
+      7
+    ],
+    "w19-probe-2": [
+      96,
+      218
+    ],
+    "w19-probe-3": [
+      219,
+      338
+    ],
+    "w19-probe-4": [
+      339,
+      459
+    ],
+    "w19-probe-5": [
+      459,
+      578
+    ],
+    "w19-probe-6": [
+      578,
+      699
+    ],
+    "w19-probe-7": [
+      700,
+      818
+    ],
+    "w19-probe-8": [
+      819,
+      938
+    ],
+    "w19-probe-9": [
+      970,
+      1089
+    ],
+    "w19-probe-10": [
+      1089,
+      1209
+    ]
+  },
+  "recordedTwins": {
+    "$comment": "The three cells this bed shares with the frozen one, at the frozen bed's own ids and geometry. They must be byte-identical to the canonical fixtures or the bed is refused.",
+    "cells": [
+      "photo__capsule-button__rest-tint-orange",
+      "photo__capsule-button__rest-tint-orange-half",
+      "checkerboard__capsule-button__rest-tint-orange"
+    ]
+  },
+  "toolchain": {
+    "hardware": {
+      "cpu": "Apple M2 Pro",
+      "model": "Mac14,12",
+      "osBuild": "25F84",
+      "osVersion": "Version 26.5.2 (Build 25F84)",
+      "sdk": "MacOSX26.5.sdk",
+      "xcodeVersion": "Xcode 26.6 Build version 17F113"
+    },
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 218.4960745,
+      "hidIdleSecondsAtStart": 96.448901041,
+      "minIdleSeconds": 45,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w19-probe-2",
+      "userIsActiveAtStart": true
+    }
+  }
+}

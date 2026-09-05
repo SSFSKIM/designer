@@ -1,0 +1,4924 @@
+{
+  "scenesJson": "../../apps/reference-apple/scenes.json",
+  "componentName": "capsule-button",
+  "surface": {
+    "widthCssPx": 120,
+    "heightCssPx": 44,
+    "radiusCssPx": 22,
+    "thicknessCssPx": 8,
+    "spanPx": 44
+  },
+  "floorAlpha": 0.2668228970218852,
+  "strengths": [
+    0.1,
+    0.2,
+    0.35,
+    0.5,
+    0.75,
+    1
+  ],
+  "backdrops": [
+    0.15,
+    0.3,
+    0.45,
+    0.6,
+    0.8
+  ],
+  "seeds": [
+    "orange",
+    "blue"
+  ],
+  "foldIdentity": {
+    "worstEncodedRealValued": 8.885257718471706e-8,
+    "worstLinearRealValued": 1.5579858148040415e-7,
+    "worstLinearEightBitDeclaration": 0.0028469123130244745,
+    "leastAlphaMarginOverFloor": 0.07331771029781142
+  },
+  "formFlips": [],
+  "fullStrengthDeclarations": [
+    {
+      "seed": "orange",
+      "b": 0.15,
+      "todayOverlay": "rgba(235, 137, 0, 1)",
+      "candidateOverlay": "rgba(235, 137, 0, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "orange",
+      "b": 0.3,
+      "todayOverlay": "rgba(242, 141, 0, 1)",
+      "candidateOverlay": "rgba(242, 141, 0, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "orange",
+      "b": 0.45,
+      "todayOverlay": "rgba(246, 144, 0, 1)",
+      "candidateOverlay": "rgba(246, 144, 0, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "orange",
+      "b": 0.6,
+      "todayOverlay": "rgba(249, 146, 0, 1)",
+      "candidateOverlay": "rgba(249, 146, 0, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "orange",
+      "b": 0.8,
+      "todayOverlay": "rgba(253, 148, 0, 1)",
+      "candidateOverlay": "rgba(253, 148, 0, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "blue",
+      "b": 0.15,
+      "todayOverlay": "rgba(8, 121, 235, 1)",
+      "candidateOverlay": "rgba(8, 121, 235, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "blue",
+      "b": 0.3,
+      "todayOverlay": "rgba(9, 125, 242, 1)",
+      "candidateOverlay": "rgba(9, 125, 242, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "blue",
+      "b": 0.45,
+      "todayOverlay": "rgba(9, 127, 246, 1)",
+      "candidateOverlay": "rgba(9, 127, 246, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "blue",
+      "b": 0.6,
+      "todayOverlay": "rgba(10, 129, 249, 1)",
+      "candidateOverlay": "rgba(10, 129, 249, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    },
+    {
+      "seed": "blue",
+      "b": 0.8,
+      "todayOverlay": "rgba(10, 131, 253, 1)",
+      "candidateOverlay": "rgba(10, 131, 253, 1)",
+      "alphaDoublePrime": 1,
+      "transferIdentical": false
+    }
+  ],
+  "worstTodayLinearError": 0.06965551105031442,
+  "worstClosedFormResidualEncoded": 0.0830764296543037,
+  "rows": [
+    {
+      "seed": "orange",
+      "strength": 0.1,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5127910829879674,
+        "intended": 0.5824465940382818,
+        "renderer": 0.582462543825934,
+        "foldReal": 0.5824467414322452,
+        "foldQuantised": 0.5828187691424732,
+        "errorToday": -0.06965551105031442,
+        "errorTodayAgainstRenderer": -0.0696714608379666,
+        "rendererAgainstIntended": 0.000015949787652180802,
+        "errorFoldReal": 1.4739396336782562e-7,
+        "errorFoldQuantised": 0.00037217510419140787,
+        "closedFormEncodedLuma": -0.04326155612100659
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5167550990384715,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.05715993508030859,
+          "encodedClosedForm": -0.057160054271946724,
+          "encodedResidual": 1.1919163813572942e-7,
+          "linearError": -0.09568924899106279,
+          "foldEncodedErrorReal": 8.885257718471706e-8,
+          "foldEncodedErrorQuantised": -0.0005522391627884593
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9372549019607843,
+          "eL": 0.5372549019607843,
+          "tableToday": 0.5436599684531052,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.04174656672306387,
+          "encodedClosedForm": -0.04174667813649383,
+          "encodedResidual": 1.1141342996096038e-7,
+          "linearError": -0.06636173989858829,
+          "foldEncodedErrorReal": 8.885257707369476e-8,
+          "foldEncodedErrorQuantised": 0.0005303608177940067
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8627450980392157,
+          "eL": 0,
+          "tableToday": 0.5878978753575139,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.0173420661796595,
+          "encodedClosedForm": -0.017342165922026743,
+          "encodedResidual": 9.974236724399899e-8,
+          "linearError": -0.025624104423048633,
+          "foldEncodedErrorReal": 8.885257707369476e-8,
+          "foldEncodedErrorQuantised": -0.0004334231041964731
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.1,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6467715808679944,
+        "intended": 0.6891081469073764,
+        "renderer": 0.6893255378430471,
+        "foldReal": 0.6891081985218528,
+        "foldQuantised": 0.6891820663530897,
+        "errorToday": -0.04233656603938207,
+        "errorTodayAgainstRenderer": -0.04255395697505271,
+        "rendererAgainstIntended": 0.00021739093567063605,
+        "errorFoldReal": 5.161447635959604e-8,
+        "errorFoldQuantised": 0.00007391944571322195,
+        "closedFormEncodedLuma": -0.023283721398307474
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6621670719849202,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.03810081850090752,
+          "encodedClosedForm": -0.03810085676692063,
+          "encodedResidual": 3.826601310819022e-8,
+          "linearError": -0.07146021018811521,
+          "foldEncodedErrorReal": 2.8206134983221887e-8,
+          "foldEncodedErrorQuantised": -0.0006296283792720514
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9411764705882353,
+          "eL": 0.5529411764705883,
+          "tableToday": 0.6958394744302319,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.021402463621784884,
+          "encodedClosedForm": -0.02140303262017996,
+          "encodedResidual": 5.689983950743494e-7,
+          "linearError": -0.038242285094078454,
+          "foldEncodedErrorReal": 2.8206134983221887e-8,
+          "foldEncodedErrorQuantised": 0.00029555745495846164
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8705882352941177,
+          "eL": 0,
+          "tableToday": 0.7440832612653522,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.0017201274919339538,
+          "encodedClosedForm": 0.0017170315829993944,
+          "encodedResidual": 0.0000030959089345593965,
+          "linearError": 0.002863669610749464,
+          "foldEncodedErrorReal": 2.8206134983221887e-8,
+          "foldEncodedErrorQuantised": -0.0004334837506386746
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.1,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7318200831330983,
+        "intended": 0.7551625917852347,
+        "renderer": 0.7552255565441699,
+        "foldReal": 0.7551626290479377,
+        "foldQuantised": 0.7559319539158524,
+        "errorToday": -0.023342508652136384,
+        "errorTodayAgainstRenderer": -0.023405473411071576,
+        "rendererAgainstIntended": 0.00006296475893519116,
+        "errorFoldReal": 3.726270303427981e-8,
+        "errorFoldQuantised": 0.0007693621306177345,
+        "closedFormEncodedLuma": -0.011940260222219138
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7579535552448882,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.025743508733770737,
+          "encodedClosedForm": -0.025746021226744322,
+          "encodedResidual": 0.0000025124929735852175,
+          "linearError": -0.051376364544563846,
+          "foldEncodedErrorReal": 1.93040339269146e-8,
+          "foldEncodedErrorQuantised": 0.000469504736820503
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9450980392156862,
+          "eL": 0.5647058823529412,
+          "tableToday": 0.7915158640457475,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.010332620524731273,
+          "encodedClosedForm": -0.010332645091291396,
+          "encodedResidual": 2.456656012297942e-8,
+          "linearError": -0.019656764022634055,
+          "foldEncodedErrorReal": 1.93040339269146e-8,
+          "foldEncodedErrorQuantised": 0.00045296269920913623
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8745098039215686,
+          "eL": 0,
+          "tableToday": 0.8434659316636224,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.012787441347627326,
+          "encodedClosedForm": 0.012787419111887958,
+          "encodedResidual": 2.22357393678263e-8,
+          "linearError": 0.022695624363238465,
+          "foldEncodedErrorReal": 1.93040339269146e-8,
+          "foldEncodedErrorQuantised": -0.0004334926527397309
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.1,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.8018777009803394,
+        "intended": 0.8075222046451478,
+        "renderer": 0.8076648669397427,
+        "foldReal": 0.8075222499344492,
+        "foldQuantised": 0.8072742100718515,
+        "errorToday": -0.005644503664808398,
+        "errorTodayAgainstRenderer": -0.005787165959403318,
+        "rendererAgainstIntended": 0.00014266229459491964,
+        "errorFoldReal": 4.5289301420226025e-8,
+        "errorFoldQuantised": -0.00024799457329627295,
+        "closedFormEncodedLuma": -0.0025600458596984096
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8357548484014165,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.016365776250634734,
+          "encodedClosedForm": -0.016365806864223592,
+          "encodedResidual": 3.061358885836363e-8,
+          "linearError": -0.03417651662665666,
+          "foldEncodedErrorReal": 2.2562128609848742e-8,
+          "foldEncodedErrorQuantised": 0.0006269221412669168
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9450980392156862,
+          "eL": 0.5725490196078431,
+          "tableToday": 0.8712736248358199,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.000952401993604024,
+          "encodedClosedForm": -0.0009524307287706671,
+          "encodedResidual": 2.873516664306415e-8,
+          "linearError": -0.0018977845820898898,
+          "foldEncodedErrorReal": 2.2562128609848742e-8,
+          "foldEncodedErrorQuantised": -0.0003313477681863297
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8745098039215686,
+          "eL": 0,
+          "tableToday": 0.9261760845313076,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.022167659510000215,
+          "encodedClosedForm": 0.02216763347440869,
+          "encodedResidual": 2.6035591526446522e-8,
+          "linearError": 0.04125650004334469,
+          "foldEncodedErrorReal": 2.2562128609848742e-8,
+          "foldEncodedErrorQuantised": -0.000433489394645048
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.1,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.8828641981202899,
+        "intended": 0.8705928873349416,
+        "renderer": 0.8709721093433,
+        "foldReal": 0.8705929102845885,
+        "foldQuantised": 0.8712394941937357,
+        "errorToday": 0.012271310785348377,
+        "errorTodayAgainstRenderer": 0.011892088776989884,
+        "rendererAgainstIntended": 0.00037922200835849296,
+        "errorFoldReal": 2.2949646960590542e-8,
+        "errorFoldQuantised": 0.0006466068587941409,
+        "closedFormEncodedLuma": 0.006643627242060017
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 1,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9251517390280537,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.008080756055828364,
+          "encodedClosedForm": -0.008080770980138156,
+          "encodedResidual": 1.4924309791469748e-8,
+          "linearError": -0.01772683198695313,
+          "foldEncodedErrorReal": 1.0942162287363999e-8,
+          "foldEncodedErrorQuantised": -0.000549560066934629
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9490196078431372,
+          "eL": 0.5803921568627451,
+          "tableToday": 0.9659994524726766,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.00861706711634369,
+          "encodedClosedForm": 0.008617053166602507,
+          "encodedResidual": 1.3949741183363895e-8,
+          "linearError": 0.018063649206148003,
+          "foldEncodedErrorReal": 1.0942162398386301e-8,
+          "foldEncodedErrorQuantised": 0.0006103684836893386
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.8823529411764706,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.022204377222399097,
+          "encodedClosedForm": 0.03045266935849412,
+          "encodedResidual": -0.008248292136095025,
+          "linearError": 0.043225946724895326,
+          "foldEncodedErrorReal": 1.0942162287363999e-8,
+          "foldEncodedErrorQuantised": -0.00004134415186618501
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.2,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5092318354933718,
+        "intended": 0.5471317603331658,
+        "renderer": 0.5471653065556871,
+        "foldReal": 0.5471318864558361,
+        "foldQuantised": 0.546492578971678,
+        "errorToday": -0.037899924839793986,
+        "errorTodayAgainstRenderer": -0.03793347106231526,
+        "rendererAgainstIntended": 0.000033546222521274593,
+        "errorFoldReal": 1.26122670307538e-7,
+        "errorFoldQuantised": -0.0006391813614877728,
+        "closedFormEncodedLuma": -0.02316533246457593
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9764705882352941,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5211839810987697,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.04852536922409745,
+          "encodedClosedForm": -0.04852547399944111,
+          "encodedResidual": 1.0477534366504226e-7,
+          "linearError": -0.08331882639135568,
+          "foldEncodedErrorReal": 7.898006837425697e-8,
+          "foldEncodedErrorQuantised": 0.00030939326023482483
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8784313725490196,
+          "eL": 0.5372549019607843,
+          "tableToday": 0.57841667846562,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.019982094071448242,
+          "encodedClosedForm": -0.01998218485971351,
+          "encodedResidual": 9.078826526676131e-8,
+          "linearError": -0.030874860348494793,
+          "foldEncodedErrorReal": 7.898006848527928e-8,
+          "foldEncodedErrorQuantised": -0.0006553096638450828
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7411764705882353,
+          "eL": 0,
+          "tableToday": 0.6644485958260349,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.019978493026865496,
+          "encodedClosedForm": 0.019978419935905135,
+          "encodedResidual": 7.309096036051121e-8,
+          "linearError": 0.02625149269046806,
+          "foldEncodedErrorReal": 7.898006837425697e-8,
+          "foldEncodedErrorQuantised": -0.0002170703021021625
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.2,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6273216963145997,
+        "intended": 0.6414590039946543,
+        "renderer": 0.6418785843075404,
+        "foldReal": 0.6414590479311402,
+        "foldQuantised": 0.6406268283680647,
+        "errorToday": -0.014137307680054612,
+        "errorTodayAgainstRenderer": -0.014556887992940748,
+        "rendererAgainstIntended": 0.0004195803128861364,
+        "errorFoldReal": 4.393648589395838e-8,
+        "errorFoldQuantised": -0.0008321756265895486,
+        "closedFormEncodedLuma": -0.007122823005964221
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6672839269118073,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.031583931454710945,
+          "encodedClosedForm": -0.03158396510608454,
+          "encodedResidual": 3.365137359739867e-8,
+          "linearError": -0.06019324263730286,
+          "foldEncodedErrorReal": 2.5072119935742876e-8,
+          "foldEncodedErrorQuantised": -0.0003166412247626038
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8901960784313725,
+          "eL": 0.5529411764705883,
+          "tableToday": 0.7304878703565806,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.004182378060354042,
+          "encodedClosedForm": -0.00418240753194604,
+          "encodedResidual": 2.9471591998439517e-8,
+          "linearError": -0.0071955123511923125,
+          "foldEncodedErrorReal": 2.5072119824720573e-8,
+          "foldEncodedErrorQuantised": -0.0005498081394995635
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7529411764705882,
+          "eL": 0,
+          "tableToday": 0.8286984207671108,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.03577822116582474,
+          "encodedClosedForm": 0.0357781972636726,
+          "encodedResidual": 2.3902152139487765e-8,
+          "linearError": 0.05271476645718498,
+          "foldEncodedErrorReal": 2.5072119824720573e-8,
+          "foldEncodedErrorQuantised": -0.00021712421005071203
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.2,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7031340861288672,
+        "intended": 0.7000377513711342,
+        "renderer": 0.7001696387380447,
+        "foldReal": 0.700037783016081,
+        "foldQuantised": 0.7003644308432135,
+        "errorToday": 0.003096334757732966,
+        "errorTodayAgainstRenderer": 0.0029644473908224667,
+        "rendererAgainstIntended": 0.00013188736691049918,
+        "errorFoldReal": 3.16449467741009e-8,
+        "errorFoldQuantised": 0.00032667947207931647,
+        "closedFormEncodedLuma": 0.0026350884451233837
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9882352941176471,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7607131374416077,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.021743597477224208,
+          "encodedClosedForm": -0.021743620635961414,
+          "encodedResidual": 2.315873720570849e-8,
+          "linearError": -0.043844090978782724,
+          "foldEncodedErrorReal": 1.7159141108002984e-8,
+          "foldEncodedErrorQuantised": -0.00021109370544736272
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8941176470588236,
+          "eL": 0.5647058823529412,
+          "tableToday": 0.828841983761836,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.005657957267844904,
+          "encodedClosedForm": 0.0056579369381770965,
+          "encodedResidual": 2.0329667807690577e-8,
+          "linearError": 0.01032981162649993,
+          "foldEncodedErrorReal": 1.7159141219025287e-8,
+          "foldEncodedErrorQuantised": 0.0003400531053061595
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7607843137254902,
+          "eL": 0,
+          "tableToday": 0.9312449388629495,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.04447682681397913,
+          "encodedClosedForm": 0.04447681016820667,
+          "encodedResidual": 1.6645772461798547e-8,
+          "linearError": 0.06966353496605854,
+          "foldEncodedErrorReal": 1.7159141108002984e-8,
+          "foldEncodedErrorQuantised": -0.00021713212302953977
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.2,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7626832096828531,
+        "intended": 0.7462137313075492,
+        "renderer": 0.7465037526980465,
+        "foldReal": 0.7462137696997411,
+        "foldQuantised": 0.7470260303674672,
+        "errorToday": 0.01646947837530388,
+        "errorTodayAgainstRenderer": 0.016179456984806606,
+        "rendererAgainstIntended": 0.0002900213904972748,
+        "errorFoldReal": 3.839219187007359e-8,
+        "errorFoldQuantised": 0.0008122990599179758,
+        "closedFormEncodedLuma": 0.009913758220810464
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8357548484014165,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.014547356667230837,
+          "encodedClosedForm": -0.014547383879309862,
+          "encodedResidual": 2.7212079024147018e-8,
+          "linearError": -0.030565118977839867,
+          "foldEncodedErrorReal": 2.00552252582753e-8,
+          "foldEncodedErrorQuantised": 0.0006787783484212273
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8980392156862745,
+          "eL": 0.5725490196078431,
+          "tableToday": 0.9076577039658438,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.012854197623931807,
+          "encodedClosedForm": 0.012854173694828644,
+          "encodedResidual": 2.39291031624983e-8,
+          "linearError": 0.02449768447845213,
+          "foldEncodedErrorReal": 2.00552252582753e-8,
+          "foldEncodedErrorQuantised": 0.0003928337175373997
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7607843137254902,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.046247873737782386,
+          "encodedClosedForm": 0.052814778490447314,
+          "encodedResidual": -0.006566904752664929,
+          "linearError": 0.0754415336704124,
+          "foldEncodedErrorReal": 2.00552252582753e-8,
+          "foldEncodedErrorQuantised": -0.0002171292269453895
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.2,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.828858820855942,
+        "intended": 0.8016537944323201,
+        "renderer": 0.8023902079359931,
+        "foldReal": 0.8016538138475039,
+        "foldQuantised": 0.8011452667023103,
+        "errorToday": 0.02720502642362188,
+        "errorTodayAgainstRenderer": 0.026468612919948842,
+        "rendererAgainstIntended": 0.000736413503673039,
+        "errorFoldReal": 1.9415183794002644e-8,
+        "errorFoldQuantised": -0.0005085277300097557,
+        "closedFormEncodedLuma": 0.018094800977929065
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 1,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9251517390280537,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.007182894271847373,
+          "encodedClosedForm": -0.007182907537900584,
+          "encodedResidual": 1.3266053210808648e-8,
+          "linearError": -0.01580294547429928,
+          "foldEncodedErrorReal": 9.7263664899927e-9,
+          "foldEncodedErrorQuantised": -0.000052767989780710955
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9019607843137255,
+          "eL": 0.5803921568627451,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.019737224197688086,
+          "encodedClosedForm": 0.021360381601827023,
+          "encodedResidual": -0.0016231574041389377,
+          "linearError": 0.03941315159681724,
+          "foldEncodedErrorReal": 9.7263664899927e-9,
+          "foldEncodedErrorQuantised": -0.0003914903368117395
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.7686274509803922,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.019737224197688086,
+          "encodedClosedForm": 0.060179254831856564,
+          "encodedResidual": -0.04044203063416848,
+          "linearError": 0.032914772983575924,
+          "foldEncodedErrorReal": 9.7263664899927e-9,
+          "foldEncodedErrorQuantised": 0.0005671741696861021
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.35,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4920927401703842,
+        "intended": 0.4992589342164697,
+        "renderer": 0.49932194330024127,
+        "foldReal": 0.4992590309007402,
+        "foldQuantised": 0.49950032080272805,
+        "errorToday": -0.007166194046085539,
+        "errorTodayAgainstRenderer": -0.007229203129857087,
+        "rendererAgainstIntended": 0.00006300908377154801,
+        "errorFoldReal": 9.668427047859751e-8,
+        "errorFoldQuantised": 0.00024138658625832976,
+        "closedFormEncodedLuma": -0.002080965200704595
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9647058823529412,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5278686829944247,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.03664389322016348,
+          "encodedClosedForm": -0.03664397693342247,
+          "encodedResidual": 8.371325899148019e-8,
+          "linearError": -0.06524598672055604,
+          "foldEncodedErrorReal": 6.417130571367835e-8,
+          "foldEncodedErrorQuantised": -0.0006064200633411065
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8,
+          "eL": 0.5372549019607843,
+          "tableToday": 0.6267255195387872,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.0023176780885953985,
+          "encodedClosedForm": 0.0023176127423057075,
+          "encodedResidual": 6.534628969098039e-8,
+          "linearError": 0.0033961951791930955,
+          "foldEncodedErrorReal": 6.417130571367835e-8,
+          "foldEncodedErrorQuantised": 0.0004788058222485736
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5725490196078431,
+          "eL": 0,
+          "tableToday": 0.7797928615754365,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.05612175655902385,
+          "encodedClosedForm": 0.056121712770692264,
+          "encodedResidual": 4.37883315856924e-8,
+          "linearError": 0.05922637033996847,
+          "foldEncodedErrorReal": 6.417130571367835e-8,
+          "foldEncodedErrorQuantised": -0.00032907355778577507
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.35,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.588974732394877,
+        "intended": 0.5766582735871901,
+        "renderer": 0.5773534437079495,
+        "foldReal": 0.5766583069848426,
+        "foldQuantised": 0.575621786906992,
+        "errorToday": 0.012316458807686836,
+        "errorTodayAgainstRenderer": 0.011621288686927467,
+        "rendererAgainstIntended": 0.0006951701207593697,
+        "errorFoldReal": 3.339765242138526e-8,
+        "errorFoldQuantised": -0.0010364866801981787,
+        "closedFormEncodedLuma": 0.010025916837376275
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9764705882352941,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6724237729893611,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.02380663080581269,
+          "encodedClosedForm": -0.0238066578546114,
+          "encodedResidual": 2.704879871126553e-8,
+          "linearError": -0.046389574949841084,
+          "foldEncodedErrorReal": 2.0371097253502057e-8,
+          "foldEncodedErrorQuantised": 0.000049122078886298937
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8156862745098039,
+          "eL": 0.5529411764705883,
+          "tableToday": 0.7829054748400984,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.014227296354351049,
+          "encodedClosedForm": 0.014227274924075632,
+          "encodedResidual": 2.143027541708087e-8,
+          "linearError": 0.022935954009192128,
+          "foldEncodedErrorReal": 2.0371097475546662e-8,
+          "foldEncodedErrorQuantised": -0.000906062424514853
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5882352941176471,
+          "eL": 0,
+          "tableToday": 0.9561995047405244,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.06803138951898913,
+          "encodedClosedForm": 0.06803137495246217,
+          "encodedResidual": 1.456652695686067e-8,
+          "linearError": 0.07998737028599634,
+          "foldEncodedErrorReal": 2.037109736452436e-8,
+          "foldEncodedErrorQuantised": -0.0003291173579940132
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.35,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.64857731997628,
+        "intended": 0.6249959817596559,
+        "renderer": 0.6252422130078572,
+        "foldReal": 0.624996005721294,
+        "foldQuantised": 0.6241875481026519,
+        "errorToday": 0.023581338216624115,
+        "errorTodayAgainstRenderer": 0.02333510696842278,
+        "rendererAgainstIntended": 0.000246231248201334,
+        "errorFoldReal": 2.396163811813068e-8,
+        "errorFoldQuantised": -0.000808433657004004,
+        "closedFormEncodedLuma": 0.017093539822310204
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.763483940731441,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.0167390161523141,
+          "encodedClosedForm": -0.016739034869677472,
+          "encodedResidual": 1.871736337102914e-8,
+          "linearError": -0.03425042937531708,
+          "foldEncodedErrorReal": 1.3941802268213621e-8,
+          "foldEncodedErrorQuantised": 0.0007169770189742186
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8235294117647058,
+          "eL": 0.5647058823529412,
+          "tableToday": 0.8821885476452315,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.021294912806108512,
+          "encodedClosedForm": 0.02129489790900956,
+          "encodedResidual": 1.4897098953720045e-8,
+          "linearError": 0.03621875947537645,
+          "foldEncodedErrorReal": 1.3941802268213621e-8,
+          "foldEncodedErrorQuantised": -0.0009183442807572106
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.596078431372549,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.056191670374117764,
+          "encodedClosedForm": 0.07509899793739609,
+          "encodedResidual": -0.01890732756327833,
+          "linearError": 0.06868868040204001,
+          "foldEncodedErrorReal": 1.3941802268213621e-8,
+          "foldEncodedErrorQuantised": -0.00032912378728922054
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.35,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6955297774833603,
+        "intended": 0.6627294643289557,
+        "renderer": 0.6632491834716042,
+        "foldReal": 0.6627294933136015,
+        "foldQuantised": 0.6635686347397591,
+        "errorToday": 0.03280031315440457,
+        "errorTodayAgainstRenderer": 0.03228059401175609,
+        "rendererAgainstIntended": 0.0005197191426484782,
+        "errorFoldReal": 2.8984645794594144e-8,
+        "errorFoldQuantised": 0.0008391704108033915,
+        "closedFormEncodedLuma": 0.02294048218708958
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9882352941176471,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8386818422383416,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.010892070509947338,
+          "encodedClosedForm": -0.010892092504898117,
+          "encodedResidual": 2.1994950779105626e-8,
+          "linearError": -0.023109368459649948,
+          "foldEncodedErrorReal": 1.6294870563982045e-8,
+          "foldEncodedErrorQuantised": 0.000704703945095364
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8274509803921568,
+          "eL": 0.5725490196078431,
+          "tableToday": 0.9638691997936304,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.02714185783103984,
+          "encodedClosedForm": 0.027141840273788943,
+          "encodedResidual": 1.7557250896194088e-8,
+          "linearError": 0.04800512461908024,
+          "foldEncodedErrorReal": 1.6294870563982045e-8,
+          "foldEncodedErrorQuantised": 0.00044193166497175085
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.03757639741194818,
+          "encodedClosedForm": 0.08094594030217547,
+          "encodedResidual": -0.04336954289022729,
+          "linearError": 0.04681578616841997,
+          "foldEncodedErrorReal": 1.6294870563982045e-8,
+          "foldEncodedErrorQuantised": -0.00032912143422081375
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.35,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7278594334927885,
+        "intended": 0.7078011924279736,
+        "renderer": 0.7090333287468603,
+        "foldReal": 0.7078012070367612,
+        "foldQuantised": 0.7068403313112953,
+        "errorToday": 0.020058241064814908,
+        "errorTodayAgainstRenderer": 0.018826104745928163,
+        "rendererAgainstIntended": 0.0012321363188867451,
+        "errorFoldReal": 1.4608787624048603e-8,
+        "errorFoldQuantised": -0.0009608611166782577,
+        "closedFormEncodedLuma": 0.028991096042450967
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.996078431372549,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.928257359244915,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.004908444753884078,
+          "encodedClosedForm": -0.00490845547750308,
+          "encodedResidual": 1.0723619002332707e-8,
+          "linearError": -0.010852743751792127,
+          "foldEncodedErrorReal": 7.902672738424599e-9,
+          "foldEncodedErrorQuantised": 0.0006924201259503882
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.8352941176470589,
+          "eL": 0.5803921568627451,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.016036494660621514,
+          "encodedClosedForm": 0.03312547730118395,
+          "encodedResidual": -0.01708898264056244,
+          "linearError": 0.029210426949679236,
+          "foldEncodedErrorReal": 7.902672738424599e-9,
+          "foldEncodedErrorQuantised": -0.0009306257468340018
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.6039215686274509,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.016036494660621514,
+          "encodedClosedForm": 0.08785723422661167,
+          "encodedResidual": -0.07182073956599015,
+          "linearError": 0.02041879545755504,
+          "foldEncodedErrorReal": 7.902672738424599e-9,
+          "foldEncodedErrorQuantised": -0.0010092666227490277
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.5,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4654826008221628,
+        "intended": 0.45726751774439794,
+        "renderer": 0.45736364325187534,
+        "foldReal": 0.4572675878344622,
+        "foldQuantised": 0.4580622345908421,
+        "errorToday": 0.008215083077764862,
+        "errorTodayAgainstRenderer": 0.008118957570287466,
+        "rendererAgainstIntended": 0.0000961255074773959,
+        "errorFoldReal": 7.009006425251485e-8,
+        "errorFoldQuantised": 0.0007947168464441656,
+        "closedFormEncodedLuma": 0.01005005729897357
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9529411764705882,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5346031332602205,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.026046864562169203,
+          "encodedClosedForm": -0.02604692787869155,
+          "encodedResidual": 6.33165223480614e-8,
+          "linearError": -0.04800222289204126,
+          "foldEncodedErrorReal": 4.936254283105512e-8,
+          "foldEncodedErrorQuantised": -0.000004545647904752315
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7294117647058823,
+          "eL": 0.5372549019607843,
+          "tableToday": 0.6721478917518642,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.014627303936711855,
+          "encodedClosedForm": 0.01462725914542029,
+          "encodedResidual": 4.479129156464978e-8,
+          "linearError": 0.02009417766351923,
+          "foldEncodedErrorReal": 4.936254283105512e-8,
+          "foldEncodedErrorQuantised": 0.0008868993115360713
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4196078431372549,
+          "eL": 0,
+          "tableToday": 0.8938316684504388,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.07100027926232189,
+          "encodedClosedForm": 0.07100025519638231,
+          "encodedResidual": 2.4065939574491324e-8,
+          "linearError": 0.05608032963523438,
+          "foldEncodedErrorReal": 4.936254283105512e-8,
+          "foldEncodedErrorQuantised": -0.0012379943656903314
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.5,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5408759907589121,
+        "intended": 0.5195527006008307,
+        "renderer": 0.5204913790580926,
+        "foldReal": 0.5195527245878149,
+        "foldQuantised": 0.5205045283320041,
+        "errorToday": 0.02132329015808143,
+        "errorTodayAgainstRenderer": 0.02038461170081951,
+        "rendererAgainstIntended": 0.0009386784572619211,
+        "errorFoldReal": 2.3986984176715964e-8,
+        "errorFoldQuantised": 0.0009518277311734158,
+        "closedFormEncodedLuma": 0.0187009818905167
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9686274509803922,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6775866396387573,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.01688562869446808,
+          "encodedClosedForm": -0.01688564927733009,
+          "encodedResidual": 2.0582862008539093e-8,
+          "linearError": -0.033609381103138825,
+          "foldEncodedErrorReal": 1.5670074793305844e-8,
+          "foldEncodedErrorQuantised": 0.001173729252041733
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7490196078431373,
+          "eL": 0.5529411764705883,
+          "tableToday": 0.8316109836389625,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.023074970362908953,
+          "encodedClosedForm": 0.02307495551828856,
+          "encodedResidual": 1.4844620394027785e-8,
+          "linearError": 0.034451417995596645,
+          "foldEncodedErrorReal": 1.5670074904328146e-8,
+          "foldEncodedErrorQuantised": 0.000495627758412498
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.43529411764705883,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.06208473415190097,
+          "encodedClosedForm": 0.08016153379774378,
+          "encodedResidual": -0.018076799645842814,
+          "linearError": 0.05303310845094328,
+          "foldEncodedErrorReal": 1.5670074959839297e-8,
+          "foldEncodedErrorQuantised": -0.0012380280581582581
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.5,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5880910428222527,
+        "intended": 0.5587702211869335,
+        "renderer": 0.5591436463600803,
+        "foldReal": 0.5587702383228614,
+        "foldQuantised": 0.5585872716593585,
+        "errorToday": 0.029320821635319128,
+        "errorTodayAgainstRenderer": 0.02894739646217237,
+        "rendererAgainstIntended": 0.0003734251731467575,
+        "errorFoldReal": 1.7135927898870307e-8,
+        "errorFoldQuantised": -0.00018294952757502703,
+        "closedFormEncodedLuma": 0.023985907374072843
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9803921568627451,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7662606222841698,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.01216258411852611,
+          "encodedClosedForm": -0.012162598440489484,
+          "encodedResidual": 1.4321963373933877e-8,
+          "linearError": -0.025241871600093613,
+          "foldEncodedErrorReal": 1.0724463206379653e-8,
+          "foldEncodedErrorQuantised": 0.0007824864457742775
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7568627450980392,
+          "eL": 0.5647058823529412,
+          "tableToday": 0.9343624659081352,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.028511598922809966,
+          "encodedClosedForm": 0.028511588583622356,
+          "encodedResidual": 1.0339187610231004e-8,
+          "linearError": 0.04467911840268746,
+          "foldEncodedErrorReal": 1.0724463317401955e-8,
+          "foldEncodedErrorQuantised": -0.0004187971988778294
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.44313725490196076,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.04322436182624445,
+          "encodedClosedForm": 0.08559816686307756,
+          "encodedResidual": -0.042373805036833107,
+          "linearError": 0.03784955756089928,
+          "foldEncodedErrorReal": 1.0724463261890804e-8,
+          "foldEncodedErrorQuantised": -0.001238033003769956
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.5,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6208277502189251,
+        "intended": 0.5890216325341903,
+        "renderer": 0.5897812291554655,
+        "foldReal": 0.5890216531937236,
+        "foldQuantised": 0.589593181075311,
+        "errorToday": 0.03180611768473485,
+        "errorTodayAgainstRenderer": 0.03104652106345962,
+        "rendererAgainstIntended": 0.000759596621275227,
+        "errorFoldReal": 2.0659533306321975e-8,
+        "errorFoldQuantised": 0.0005715485411207366,
+        "closedFormEncodedLuma": 0.028483555346980056
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8416148070957118,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.007664933636488902,
+          "encodedClosedForm": -0.007664950467582267,
+          "encodedResidual": 1.683109336538674e-8,
+          "linearError": -0.016415870063261506,
+          "foldEncodedErrorReal": 1.253451586968879e-8,
+          "foldEncodedErrorQuantised": -0.00013193175585191064
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7607843137254902,
+          "eL": 0.5725490196078431,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.028904921086113977,
+          "encodedClosedForm": 0.03300923655652957,
+          "encodedResidual": -0.004104315470415593,
+          "linearError": 0.0467483600972568,
+          "foldEncodedErrorReal": 1.2534515980711092e-8,
+          "foldEncodedErrorQuantised": 0.0006275689132212436
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4470588235294118,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.028904921086114033,
+          "encodedClosedForm": 0.09009581483598478,
+          "encodedResidual": -0.061190893749870745,
+          "linearError": 0.025785381144405956,
+          "foldEncodedErrorReal": 1.253451592519994e-8,
+          "foldEncodedErrorQuantised": -0.0012380311937172372
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.5,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6385613834573507,
+        "intended": 0.6249678254143253,
+        "renderer": 0.6266493862198178,
+        "foldReal": 0.6249678357881576,
+        "foldQuantised": 0.6258658062063238,
+        "errorToday": 0.013593558043025422,
+        "errorTodayAgainstRenderer": 0.01191199723753289,
+        "rendererAgainstIntended": 0.0016815608054925324,
+        "errorFoldReal": 1.0373832348697931e-8,
+        "errorFoldQuantised": 0.0008979807919985427,
+        "closedFormEncodedLuma": 0.032986166115480386
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.996078431372549,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.928257359244915,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.0037757267337570344,
+          "encodedClosedForm": -0.003775734982694677,
+          "encodedResidual": 8.24893764276094e-9,
+          "linearError": -0.008383225514322912,
+          "foldEncodedErrorReal": 6.0789790978788005e-9,
+          "foldEncodedErrorQuantised": -0.001046358223067534
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.7686274509803922,
+          "eL": 0.5803921568627451,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.012335765123555054,
+          "encodedClosedForm": 0.03761203426991035,
+          "encodedResidual": -0.025276269146355293,
+          "linearError": 0.020363892641263592,
+          "foldEncodedErrorReal": 6.0789790978788005e-9,
+          "foldEncodedErrorQuantised": 0.0011507446087077877
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.45098039215686275,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.012335765123555054,
+          "encodedClosedForm": 0.09541219477785876,
+          "encodedResidual": -0.0830764296543037,
+          "linearError": 0.01124066163904297,
+          "foldEncodedErrorReal": 6.0789790978788005e-9,
+          "foldEncodedErrorQuantised": 0.0007227466644714187
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.75,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4102229119717511,
+        "intended": 0.39953089793090124,
+        "renderer": 0.3996902418920032,
+        "foldReal": 0.3995309296212819,
+        "foldQuantised": 0.4013505176405457,
+        "errorToday": 0.010692014040849851,
+        "errorTodayAgainstRenderer": 0.010532670079747897,
+        "rendererAgainstIntended": 0.00015934396110195426,
+        "errorFoldReal": 3.169038065298224e-8,
+        "errorFoldQuantised": 0.0018196197096444489,
+        "closedFormEncodedLuma": 0.013431384092250812
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9372549019607843,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5436599684531052,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.011596268534184495,
+          "encodedClosedForm": -0.011596299482359398,
+          "encodedResidual": 3.094817490299773e-8,
+          "linearError": -0.022538779890407534,
+          "foldEncodedErrorReal": 2.468127136001641e-8,
+          "foldEncodedErrorQuantised": 0.0014353293387497912
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6274509803921569,
+          "eL": 0.5372549019607843,
+          "tableToday": 0.7410552180246881,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.016590217251214012,
+          "encodedClosedForm": 0.016590198543121618,
+          "encodedResidual": 1.8708092394681408e-8,
+          "linearError": 0.019933081995600566,
+          "foldEncodedErrorReal": 2.4681271471038713e-8,
+          "foldEncodedErrorQuantised": 0.001421544307406819
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.19607843137254902,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.04755063605687726,
+          "encodedClosedForm": 0.055837221110247075,
+          "encodedResidual": -0.008286585053369815,
+          "linearError": 0.01700302496256191,
+          "foldEncodedErrorReal": 2.468127141552756e-8,
+          "foldEncodedErrorQuantised": 0.0008140099694094183
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.75,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4573802714563666,
+        "intended": 0.4404041632721484,
+        "renderer": 0.44168110660134147,
+        "foldReal": 0.4404041739285336,
+        "foldQuantised": 0.4397949021923248,
+        "errorToday": 0.01697610818421824,
+        "errorTodayAgainstRenderer": 0.01569916485502515,
+        "rendererAgainstIntended": 0.001276943329193092,
+        "errorFoldReal": 1.0656385218688058e-8,
+        "errorFoldQuantised": -0.0006092610798235643,
+        "closedFormEncodedLuma": 0.017987690238939924
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9568627450980393,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6853741674054098,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.007372441171094479,
+          "encodedClosedForm": -0.007372451295925263,
+          "encodedResidual": 1.0124830783671268e-8,
+          "linearError": -0.015170352450812441,
+          "foldEncodedErrorReal": 7.835037507675224e-9,
+          "foldEncodedErrorQuantised": 0.00006368247499755064
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6431372549019608,
+          "eL": 0.5529411764705883,
+          "tableToday": 0.9125153912523456,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.021170844044131054,
+          "encodedClosedForm": 0.021170837843802345,
+          "encodedResidual": 6.200328708794167e-9,
+          "linearError": 0.02707929426300648,
+          "foldEncodedErrorReal": 7.835037507675224e-9,
+          "foldEncodedErrorQuantised": -0.0007348757828802288
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.20392156862745098,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.031042367075950483,
+          "encodedClosedForm": 0.061131442639420996,
+          "encodedResidual": -0.030089075563470513,
+          "linearError": 0.011554208564525416,
+          "foldEncodedErrorReal": 7.835037479919649e-9,
+          "foldEncodedErrorQuantised": 0.0008139931231754549
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.75,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4854327495064919,
+        "intended": 0.4667556247384494,
+        "renderer": 0.4673686164253384,
+        "foldReal": 0.46675563228846845,
+        "foldQuantised": 0.46732655200538825,
+        "errorToday": 0.018677124768042508,
+        "errorTodayAgainstRenderer": 0.01806413308115351,
+        "rendererAgainstIntended": 0.0006129916868889973,
+        "errorFoldReal": 7.55001905439201e-9,
+        "errorFoldQuantised": 0.0005709272669388588,
+        "closedFormEncodedLuma": 0.020299122184920002
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9725490196078431,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7718316344058127,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.005367709906434648,
+          "encodedClosedForm": -0.005367716991751555,
+          "encodedResidual": 7.085316906969841e-9,
+          "linearError": -0.011396281714616818,
+          "foldEncodedErrorReal": 5.362231658700978e-9,
+          "foldEncodedErrorQuantised": 0.0011100443042383334
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6549019607843137,
+          "eL": 0.5647058823529412,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.021612180913122225,
+          "encodedClosedForm": 0.023532363262222647,
+          "encodedResidual": -0.0019201823491004216,
+          "linearError": 0.02867167088553413,
+          "foldEncodedErrorReal": 5.362231658700978e-9,
+          "foldEncodedErrorQuantised": 0.000049894970848840536
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.21176470588235294,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.021612180913122225,
+          "encodedClosedForm": 0.06384975917208789,
+          "encodedResidual": -0.042237578258965666,
+          "linearError": 0.008227080931246106,
+          "foldEncodedErrorReal": 5.362231630945402e-9,
+          "foldEncodedErrorQuantised": 0.0008139906503696059
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.75,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.49930308887871994,
+        "intended": 0.4865387758422371,
+        "renderer": 0.48772010356242995,
+        "foldReal": 0.4865387848865562,
+        "foldQuantised": 0.4865019586751569,
+        "errorToday": 0.012764313036482844,
+        "errorTodayAgainstRenderer": 0.011582985316289984,
+        "rendererAgainstIntended": 0.0011813277201928596,
+        "errorFoldReal": 9.044319126960687e-9,
+        "errorFoldQuantised": -0.000036817167080205326,
+        "closedFormEncodedLuma": 0.022242675694024223
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9803921568627451,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.844553861619377,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.0034756617802516043,
+          "encodedClosedForm": -0.0034756841195445402,
+          "encodedResidual": 2.2339292935890515e-8,
+          "linearError": -0.007553980413842698,
+          "foldEncodedErrorReal": 6.267258045866697e-9,
+          "foldEncodedErrorQuantised": -0.0013079491103002994
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6627450980392157,
+          "eL": 0.5725490196078431,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.014452460543057044,
+          "encodedClosedForm": 0.025424396134429664,
+          "encodedResidual": -0.01097193559137262,
+          "linearError": 0.019527851201818935,
+          "foldEncodedErrorReal": 6.267257934844395e-9,
+          "foldEncodedErrorQuantised": 0.0005730780268985436
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.21176470588235294,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.014452460543057016,
+          "encodedClosedForm": 0.0664553742727881,
+          "encodedResidual": -0.05200291372973108,
+          "linearError": 0.0055951536416194644,
+          "foldEncodedErrorReal": 6.26725796259997e-9,
+          "foldEncodedErrorQuantised": 0.0008139915553959653
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 0.75,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5153910221688068,
+        "intended": 0.5098674692149333,
+        "renderer": 0.5122009605083019,
+        "foldReal": 0.5098674737234211,
+        "foldQuantised": 0.5104521314590345,
+        "errorToday": 0.005523552953873523,
+        "errorTodayAgainstRenderer": 0.0031900616605049503,
+        "rendererAgainstIntended": 0.0023334912933685725,
+        "errorFoldReal": 4.508487805310324e-9,
+        "errorFoldQuantised": 0.0005846622441011418,
+        "closedFormEncodedLuma": 0.024493981078274395
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9313690523287653,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.001531072273745715,
+          "encodedClosedForm": -0.0015310763771007446,
+          "encodedResidual": 4.10335502967589e-9,
+          "linearError": -0.003423917940540422,
+          "foldEncodedErrorReal": 3.0394895489394003e-9,
+          "foldEncodedErrorQuantised": -0.000523179111533767
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.6705882352941176,
+          "eL": 0.5803921568627451,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.006167882561777582,
+          "encodedClosedForm": 0.02772579499112006,
+          "encodedResidual": -0.021557912429342477,
+          "linearError": 0.0084951293133958,
+          "foldEncodedErrorReal": 3.0394895489394003e-9,
+          "foldEncodedErrorQuantised": 0.0008346658746417601
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.21568627450980393,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.006167882561777527,
+          "encodedClosedForm": 0.0691135642437251,
+          "encodedResidual": -0.06294568168194757,
+          "linearError": 0.002434368740883562,
+          "foldEncodedErrorReal": 3.0394895489394003e-9,
+          "foldEncodedErrorQuantised": 0.0005523972521158937
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 1,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.35553488104115427,
+        "intended": 0.35553488104115427,
+        "renderer": 0.35576731745368406,
+        "foldReal": 0.35553488104115427,
+        "foldQuantised": 0.35553488104115427,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.00023243641252979064,
+        "rendererAgainstIntended": 0.00023243641252979064,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9215686274509803,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5528060046894235,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5372549019607843,
+          "eL": 0.5372549019607843,
+          "tableToday": 0.8053055646580124,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 1,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.37926998341671325,
+        "intended": 0.37926998341671325,
+        "renderer": 0.3808065999264031,
+        "foldReal": 0.37926998341671325,
+        "foldQuantised": 0.37926998341671325,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0015366165096898365,
+        "rendererAgainstIntended": 0.0015366165096898365,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9490196078431372,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6905947138333247,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5529411764705883,
+          "eL": 0.5529411764705883,
+          "tableToday": 0.984913221366106,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 1,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.39539347988316764,
+        "intended": 0.39539347988316764,
+        "renderer": 0.3962789417250394,
+        "foldReal": 0.39539347988316764,
+        "foldQuantised": 0.39539347988316764,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0008854618418717708,
+        "rendererAgainstIntended": 0.0008854618418717708,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9647058823529412,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7774262022293323,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5647058823529412,
+          "eL": 0.5647058823529412,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 1,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.40697505685176966,
+        "intended": 0.40697505685176966,
+        "renderer": 0.40860443267741503,
+        "foldReal": 0.40697505685176966,
+        "foldQuantised": 0.40697505685176966,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0016293758256453739,
+        "rendererAgainstIntended": 0.0016293758256453739,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9764705882352941,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8474986637694114,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5725490196078431,
+          "eL": 0.5725490196078431,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "orange",
+      "strength": 1,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.42062455827577994,
+        "intended": 0.42062455827577994,
+        "renderer": 0.42349785918101845,
+        "foldReal": 0.42062455827577994,
+        "foldQuantised": 0.42062455827577994,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0028733009052385183,
+        "rendererAgainstIntended": 0.0028733009052385183,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9313690523287653,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.5803921568627451,
+          "eL": 0.5803921568627451,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0,
+          "eL": 0,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.1,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4995126759797597,
+        "intended": 0.5550588383899068,
+        "renderer": 0.5552148928816706,
+        "foldReal": 0.555058981694484,
+        "foldQuantised": 0.5552851531921863,
+        "errorToday": -0.05554616241014709,
+        "errorTodayAgainstRenderer": -0.055702216901910906,
+        "rendererAgainstIntended": 0.00015605449176381292,
+        "errorFoldReal": 1.4330457720479473e-7,
+        "errorFoldQuantised": 0.00022631480227952583,
+        "closedFormEncodedLuma": -0.03518828659085863
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8666666666666667,
+          "eL": 0.03137254901960784,
+          "tableToday": 0.5855191440613642,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.018626513595375815,
+          "encodedClosedForm": -0.01862661393331448,
+          "encodedResidual": 1.0033793866603968e-7,
+          "linearError": -0.027646113718206855,
+          "foldEncodedErrorReal": 8.885257707369476e-8,
+          "foldEncodedErrorQuantised": 0.000430976197603794
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9254901960784314,
+          "eL": 0.4745098039215686,
+          "tableToday": 0.5505109068745141,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.03789322458315103,
+          "encodedClosedForm": -0.03789333410263062,
+          "encodedResidual": 1.095194795894261e-7,
+          "linearError": -0.05978724113045519,
+          "foldEncodedErrorReal": 8.885257707369476e-8,
+          "foldEncodedErrorQuantised": 0.0001354469487803156
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5167550990384715,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.05715993508030859,
+          "encodedClosedForm": -0.057160054271946724,
+          "encodedResidual": 1.1919163813572942e-7,
+          "linearError": -0.09568924899106279,
+          "foldEncodedErrorReal": 8.885257718471706e-8,
+          "foldEncodedErrorQuantised": -0.0005522391627884593
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.1,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.629438756523382,
+        "intended": 0.6583237681885881,
+        "renderer": 0.6583908342675381,
+        "foldReal": 0.6583238184435484,
+        "foldQuantised": 0.6581220005410922,
+        "errorToday": -0.028885011665206073,
+        "errorTodayAgainstRenderer": -0.02895207774415609,
+        "rendererAgainstIntended": 0.0000670660789500177,
+        "errorFoldReal": 5.025496030430787e-8,
+        "errorFoldQuantised": -0.00020176764749590959,
+        "closedFormEncodedLuma": -0.016129089085832493
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8745098039215686,
+          "eL": 0.03529411764705882,
+          "tableToday": 0.7413472773493164,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.00043261597716770517,
+          "encodedClosedForm": 0.00043258357171165664,
+          "encodedResidual": 3.2405456048525873e-8,
+          "linearError": 0.000723668697791835,
+          "foldEncodedErrorReal": 2.8206134983221887e-8,
+          "foldEncodedErrorQuantised": 0.000038758688416629106
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9333333333333333,
+          "eL": 0.49019607843137253,
+          "tableToday": 0.7011052051727741,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.018834101330804542,
+          "encodedClosedForm": -0.01883413659760448,
+          "encodedResidual": 3.526679993870463e-8,
+          "linearError": -0.03338847379023302,
+          "foldEncodedErrorReal": 2.8206134872199584e-8,
+          "foldEncodedErrorQuantised": -0.00009935641405522944
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6621670719849202,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.03810081850090752,
+          "encodedClosedForm": -0.03810085676692063,
+          "encodedResidual": 3.826601310819022e-8,
+          "linearError": -0.07146021018811521,
+          "foldEncodedErrorReal": 2.8206134983221887e-8,
+          "foldEncodedErrorQuantised": -0.0006296283792720514
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.1,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7119078929620688,
+        "intended": 0.7217346246194901,
+        "renderer": 0.7220501381714975,
+        "foldReal": 0.721734660909699,
+        "foldQuantised": 0.72242949387567,
+        "errorToday": -0.009826731657421317,
+        "errorTodayAgainstRenderer": -0.010142245209428746,
+        "rendererAgainstIntended": 0.00031551355200742925,
+        "errorFoldReal": 3.629020883799683e-8,
+        "errorFoldQuantised": 0.0006948692561798975,
+        "closedFormEncodedLuma": -0.004965964410528958
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8784313725490196,
+          "eL": 0.03529411764705882,
+          "tableToday": 0.8405292026177199,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.011502993462627953,
+          "encodedClosedForm": 0.01150297110060022,
+          "encodedResidual": 2.2362027733008327e-8,
+          "linearError": 0.020509374628372434,
+          "foldEncodedErrorReal": 1.93040339269146e-8,
+          "foldEncodedErrorQuantised": 0.0000387497863155728
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9372549019607843,
+          "eL": 0.4980392156862745,
+          "tableToday": 0.7971930999161991,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.00776372476729692,
+          "encodedClosedForm": -0.00776374906871592,
+          "encodedResidual": 2.4301418999513047e-8,
+          "linearError": -0.01464995970818761,
+          "foldEncodedErrorReal": 1.93040339269146e-8,
+          "foldEncodedErrorQuantised": 0.0004502056929406306
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7579535552448882,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.025743508733770737,
+          "encodedClosedForm": -0.025746021226744322,
+          "encodedResidual": 0.0000025124929735852175,
+          "linearError": -0.051376364544563846,
+          "foldEncodedErrorReal": 1.93040339269146e-8,
+          "foldEncodedErrorQuantised": 0.000469504736820503
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.1,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.780186615417563,
+        "intended": 0.7725825074422873,
+        "renderer": 0.7727210356252658,
+        "foldReal": 0.7725825515766704,
+        "foldQuantised": 0.7720681721472185,
+        "errorToday": 0.007604107975275665,
+        "errorTodayAgainstRenderer": 0.007465579792297117,
+        "rendererAgainstIntended": 0.00013852818297854785,
+        "errorFoldReal": 4.413438314809781e-8,
+        "errorFoldQuantised": -0.0005143352950688351,
+        "closedFormEncodedLuma": 0.004141176304791995
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8823529411764706,
+          "eL": 0.0392156862745098,
+          "tableToday": 0.9199790448525754,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.019598763780655837,
+          "encodedClosedForm": 0.01959873745183321,
+          "encodedResidual": 2.6328822625570902e-8,
+          "linearError": 0.036622798567544024,
+          "foldEncodedErrorReal": 2.2562128609848742e-8,
+          "foldEncodedErrorQuantised": -0.0003534038183348187
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9372549019607843,
+          "eL": 0.5058823529411764,
+          "tableToday": 0.8772773869198911,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.0016164937221627707,
+          "encodedClosedForm": 0.0016164652938048085,
+          "encodedResidual": 2.8428357962172537e-8,
+          "linearError": 0.0031958130596482226,
+          "foldEncodedErrorReal": 2.2562128609848742e-8,
+          "foldEncodedErrorQuantised": -0.00033410477445494635
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8357548484014165,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.016365776250634734,
+          "encodedClosedForm": -0.016365806864223592,
+          "encodedResidual": 3.061358885836363e-8,
+          "linearError": -0.03417651662665666,
+          "foldEncodedErrorReal": 2.2562128609848742e-8,
+          "foldEncodedErrorQuantised": 0.0006269221412669168
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.1,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.1,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.34014060731969664,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.8582279432300194,
+        "intended": 0.8336207801950859,
+        "renderer": 0.8339082303065053,
+        "foldReal": 0.8336208025704321,
+        "foldQuantised": 0.8344464670190828,
+        "errorToday": 0.024607163034933488,
+        "errorTodayAgainstRenderer": 0.024319712923514092,
+        "rendererAgainstIntended": 0.00028745011141939614,
+        "errorFoldReal": 2.237534624249804e-8,
+        "errorFoldQuantised": 0.0008256868239968629,
+        "closedFormEncodedLuma": 0.013617923053750194
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.8862745098039215,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.022204377222399097,
+          "encodedClosedForm": 0.029168221347206383,
+          "encodedResidual": -0.006963844124807286,
+          "linearError": 0.043477575213190844,
+          "foldEncodedErrorReal": 1.0942162398386301e-8,
+          "foldEncodedErrorQuantised": 0.00003874142444404427
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9411764705882353,
+          "eL": 0.5137254901960784,
+          "tableToday": 0.9723752310861509,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.011185962992063425,
+          "encodedClosedForm": 0.011185949189177983,
+          "encodedResidual": 1.3802885442254498e-8,
+          "linearError": 0.02327140354315893,
+          "foldEncodedErrorReal": 1.0942162287363999e-8,
+          "foldEncodedErrorQuantised": 0.000607611477420722
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 1,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9251517390280537,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.008080756055828364,
+          "encodedClosedForm": -0.008080770980138156,
+          "encodedResidual": 1.4924309791469748e-8,
+          "linearError": -0.01772683198695313,
+          "foldEncodedErrorReal": 1.0942162287363999e-8,
+          "foldEncodedErrorQuantised": -0.000549560066934629
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.2,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.47748809043338314,
+        "intended": 0.4952403417270773,
+        "renderer": 0.4955297856036251,
+        "foldReal": 0.49524046069441835,
+        "foldQuantised": 0.4958771793441348,
+        "errorToday": -0.017752251293694177,
+        "errorTodayAgainstRenderer": -0.018041695170241956,
+        "rendererAgainstIntended": 0.00028944387654777914,
+        "errorFoldReal": 1.1896734103400419e-7,
+        "errorFoldQuantised": 0.0006368376170574619,
+        "closedFormEncodedLuma": -0.010766584354904504
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7490196078431373,
+          "eL": 0.03137254901960784,
+          "tableToday": 0.6593444565585566,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.01769503085325963,
+          "encodedClosedForm": 0.017694956804726932,
+          "encodedResidual": 7.404853269790679e-8,
+          "linearError": 0.02348568102595394,
+          "foldEncodedErrorReal": 7.898006848527928e-8,
+          "foldEncodedErrorQuantised": -0.000005959437513691768
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8627450980392157,
+          "eL": 0.4745098039215686,
+          "tableToday": 0.5878978753575139,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.015415169937474937,
+          "encodedClosedForm": -0.015415258597357106,
+          "encodedResidual": 8.865988216852361e-8,
+          "linearError": -0.023391621664368145,
+          "foldEncodedErrorReal": 7.898006848527928e-8,
+          "foldEncodedErrorQuantised": 0.0005438737741056965
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9764705882352941,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5211839810987697,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.04852536922409745,
+          "encodedClosedForm": -0.04852547399944111,
+          "encodedResidual": 1.0477534366504226e-7,
+          "linearError": -0.08331882639135568,
+          "foldEncodedErrorReal": 7.898006837425697e-8,
+          "foldEncodedErrorQuantised": 0.00030939326023482483
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.2,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5897354385188923,
+        "intended": 0.5833837270785055,
+        "renderer": 0.583514363339801,
+        "foldReal": 0.5833837686390583,
+        "foldQuantised": 0.5838825351132108,
+        "errorToday": 0.00635171144038682,
+        "errorTodayAgainstRenderer": 0.006221075179091318,
+        "rendererAgainstIntended": 0.00013063626129550254,
+        "errorFoldReal": 4.15605527770424e-8,
+        "errorFoldQuantised": 0.0004988080347052559,
+        "closedFormEncodedLuma": 0.004872893861054253
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7647058823529411,
+          "eL": 0.03529411764705882,
+          "tableToday": 0.8199964728840329,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.032353026923993555,
+          "encodedClosedForm": 0.0323530025669053,
+          "encodedResidual": 2.435708825604399e-8,
+          "linearError": 0.04812956551013725,
+          "foldEncodedErrorReal": 2.5072119935742876e-8,
+          "foldEncodedErrorQuantised": -0.0007903270709525012
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8745098039215686,
+          "eL": 0.49019607843137253,
+          "tableToday": 0.7413472773493164,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.00038454753526018237,
+          "encodedClosedForm": 0.0003845187304103615,
+          "encodedResidual": 2.8804849820857677e-8,
+          "linearError": 0.0006506123201132086,
+          "foldEncodedErrorReal": 2.5072119935742876e-8,
+          "foldEncodedErrorQuantised": 0.0006493752984513268
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6672839269118073,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.031583931454710945,
+          "encodedClosedForm": -0.03158396510608454,
+          "encodedResidual": 3.365137359739867e-8,
+          "linearError": -0.06019324263730286,
+          "foldEncodedErrorReal": 2.5072119935742876e-8,
+          "foldEncodedErrorQuantised": -0.0003166412247626038
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.2,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6612752736264315,
+        "intended": 0.6371239363040465,
+        "renderer": 0.6377148691436374,
+        "foldReal": 0.6371239662505438,
+        "foldQuantised": 0.6377310365158092,
+        "errorToday": 0.024151337322384947,
+        "errorTodayAgainstRenderer": 0.023560404482794062,
+        "rendererAgainstIntended": 0.0005909328395908853,
+        "errorFoldReal": 2.9946497281940765e-8,
+        "errorFoldQuantised": 0.00060710021176269,
+        "closedFormEncodedLuma": 0.014713238331177412
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7686274509803922,
+          "eL": 0.03529411764705882,
+          "tableToday": 0.9250281097445678,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.042193363889809654,
+          "encodedClosedForm": 0.04219334703702844,
+          "encodedResidual": 1.685278121221767e-8,
+          "linearError": 0.06676491330497825,
+          "foldEncodedErrorReal": 1.7159141108002984e-8,
+          "foldEncodedErrorQuantised": -0.000790334983931329
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8784313725490196,
+          "eL": 0.4980392156862745,
+          "tableToday": 0.8405292026177199,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.010224883077891489,
+          "encodedClosedForm": 0.01022486320053353,
+          "encodedResidual": 1.9877357959260933e-8,
+          "linearError": 0.01834823842619504,
+          "foldEncodedErrorReal": 1.7159141108002984e-8,
+          "foldEncodedErrorQuantised": 0.000702145101619478
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9882352941176471,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7607131374416077,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.021743597477224208,
+          "encodedClosedForm": -0.021743620635961414,
+          "encodedResidual": 2.315873720570849e-8,
+          "linearError": -0.043844090978782724,
+          "foldEncodedErrorReal": 1.7159141108002984e-8,
+          "foldEncodedErrorQuantised": -0.00021109370544736272
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.2,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7179382898732698,
+        "intended": 0.680542595952561,
+        "renderer": 0.6808199838422726,
+        "foldReal": 0.6805426323284406,
+        "foldQuantised": 0.6816615457498175,
+        "errorToday": 0.03739569392070885,
+        "errorTodayAgainstRenderer": 0.037118306030997195,
+        "rendererAgainstIntended": 0.0002773878897116555,
+        "errorFoldReal": 3.637587964178124e-8,
+        "errorFoldQuantised": 0.0011189497972565743,
+        "closedFormEncodedLuma": 0.02190947508782896
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7725490196078432,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.046247873737782386,
+          "encodedClosedForm": 0.049389583793679984,
+          "encodedResidual": -0.003141710055897598,
+          "linearError": 0.07643909988554964,
+          "foldEncodedErrorReal": 2.00552252582753e-8,
+          "foldEncodedErrorQuantised": 0.000046759353790171154
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8823529411764706,
+          "eL": 0.5058823529411764,
+          "tableToday": 0.9199790448525754,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.01742112336058299,
+          "encodedClosedForm": 0.01742109995718508,
+          "encodedResidual": 2.3403397910598533e-8,
+          "linearError": 0.032650367554867166,
+          "foldEncodedErrorReal": 2.00552252582753e-8,
+          "foldEncodedErrorQuantised": 0.0007549257138507182
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8357548484014165,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.014547356667230837,
+          "encodedClosedForm": -0.014547383879309862,
+          "encodedResidual": 2.7212079024147018e-8,
+          "linearError": -0.030565118977839867,
+          "foldEncodedErrorReal": 2.00552252582753e-8,
+          "foldEncodedErrorQuantised": 0.0006787783484212273
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.2,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.2,
+      "underFloorToday": true,
+      "alphaDoublePrime": 0.4134583176175082,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.7658771970838639,
+        "intended": 0.7322870037143886,
+        "renderer": 0.7328346558577616,
+        "foldReal": 0.7322870221274355,
+        "foldQuantised": 0.731958924993834,
+        "errorToday": 0.03359019336947533,
+        "errorTodayAgainstRenderer": 0.033042541226102284,
+        "rendererAgainstIntended": 0.0005476521433730452,
+        "errorFoldReal": 1.8413046865006777e-8,
+        "errorFoldQuantised": -0.0003280787205546254,
+        "closedFormEncodedLuma": 0.030333249975791805
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.7764705882352941,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.019737224197688086,
+          "encodedClosedForm": 0.057895791700678365,
+          "encodedResidual": -0.03815856750299028,
+          "linearError": 0.03334320355954812,
+          "foldEncodedErrorReal": 9.7263664899927e-9,
+          "foldEncodedErrorQuantised": -0.000790342416705947
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.8862745098039215,
+          "eL": 0.5137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.019737224197688086,
+          "encodedClosedForm": 0.025927307864183458,
+          "encodedResidual": -0.006190083666495372,
+          "linearError": 0.03864988947980952,
+          "foldEncodedErrorReal": 9.7263664899927e-9,
+          "foldEncodedErrorQuantised": -0.000029398340498310027
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 1,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9251517390280537,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.007182894271847373,
+          "encodedClosedForm": -0.007182907537900584,
+          "encodedResidual": 1.3266053210808648e-8,
+          "linearError": -0.01580294547429928,
+          "foldEncodedErrorReal": 9.7263664899927e-9,
+          "foldEncodedErrorQuantised": -0.000052767989780710955
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.35,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.43106110307668705,
+        "intended": 0.4157902673472159,
+        "renderer": 0.41623952546475274,
+        "foldReal": 0.4157903541139459,
+        "foldQuantised": 0.41578680710736704,
+        "errorToday": 0.015270835729471133,
+        "errorTodayAgainstRenderer": 0.014821577611934311,
+        "rendererAgainstIntended": 0.00044925811753682154,
+        "errorFoldReal": 8.676672996754675e-8,
+        "errorFoldQuantised": -0.0000034602398488736696,
+        "closedFormEncodedLuma": 0.014135219485092299
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5882352941176471,
+          "eL": 0.03137254901960784,
+          "tableToday": 0.7686074095923798,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.05241113033641709,
+          "encodedClosedForm": 0.05241108518252766,
+          "encodedResidual": 4.515388942610832e-8,
+          "linearError": 0.05647166389946684,
+          "foldEncodedErrorReal": 6.417130571367835e-8,
+          "foldEncodedErrorQuantised": 0.001006649180980368
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7764705882352941,
+          "eL": 0.4745098039215686,
+          "tableToday": 0.6416604694053485,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.007883617051968939,
+          "encodedClosedForm": 0.007883554124552598,
+          "encodedResidual": 6.292741634023047e-8,
+          "linearError": 0.011151734096292776,
+          "foldEncodedErrorReal": 6.417130571367835e-8,
+          "foldEncodedErrorQuantised": -0.00013995383934550798
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9647058823529412,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5278686829944247,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.03664389322016348,
+          "encodedClosedForm": -0.03664397693342247,
+          "encodedResidual": 8.371325899148019e-8,
+          "linearError": -0.06524598672055604,
+          "foldEncodedErrorReal": 6.417130571367835e-8,
+          "foldEncodedErrorQuantised": -0.0006064200633411065
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.35,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5201417154017433,
+        "intended": 0.48391804059858745,
+        "renderer": 0.4841374121819926,
+        "foldReal": 0.4839180707096151,
+        "foldQuantised": 0.4844169085050777,
+        "errorToday": 0.0362236748031558,
+        "errorTodayAgainstRenderer": 0.03600430321975068,
+        "rendererAgainstIntended": 0.00021937158340512575,
+        "errorFoldReal": 3.011102767125351e-8,
+        "errorFoldQuantised": 0.0004988679064902302,
+        "closedFormEncodedLuma": 0.026775318707592415
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6039215686274509,
+          "eL": 0.03529411764705882,
+          "tableToday": 0.9435966752733791,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.06432076236876405,
+          "encodedClosedForm": 0.06432074736429759,
+          "encodedResidual": 1.5004466460966093e-8,
+          "linearError": 0.07731573695868416,
+          "foldEncodedErrorReal": 2.0371097475546662e-8,
+          "foldEncodedErrorQuantised": -0.0003659436388357973
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.788235294117647,
+          "eL": 0.49019607843137253,
+          "tableToday": 0.8027530958136708,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.020720893742631308,
+          "encodedClosedForm": 0.020720873203363663,
+          "encodedResidual": 2.0539267644309467e-8,
+          "linearError": 0.03234854087963934,
+          "foldEncodedErrorReal": 2.0371097475546662e-8,
+          "foldEncodedErrorQuantised": 0.0005278637298292699
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9764705882352941,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6724237729893611,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.02380663080581269,
+          "encodedClosedForm": -0.0238066578546114,
+          "encodedResidual": 2.704879871126553e-8,
+          "linearError": -0.046389574949841084,
+          "foldEncodedErrorReal": 2.0371097253502057e-8,
+          "foldEncodedErrorQuantised": 0.000049122078886298937
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.35,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.5701326086123158,
+        "intended": 0.5249287365505464,
+        "renderer": 0.5258610075856658,
+        "foldReal": 0.5249287581652691,
+        "foldQuantised": 0.5247548922227782,
+        "errorToday": 0.04520387206176946,
+        "errorTodayAgainstRenderer": 0.044271601026650065,
+        "rendererAgainstIntended": 0.0009322710351193919,
+        "errorFoldReal": 2.161472267836473e-8,
+        "errorFoldQuantised": -0.00017384432776823555,
+        "closedFormEncodedLuma": 0.033842941692526336
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.611764705882353,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.056191670374117764,
+          "encodedClosedForm": 0.07138837034923148,
+          "encodedResidual": -0.01519669997511372,
+          "linearError": 0.07044957619960274,
+          "foldEncodedErrorReal": 1.3941802268213621e-8,
+          "foldEncodedErrorQuantised": -0.0003659500681308936
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.796078431372549,
+          "eL": 0.4980392156862745,
+          "tableToday": 0.9034602136687333,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.0277885104773411,
+          "encodedClosedForm": 0.027788496188297596,
+          "encodedResidual": 1.428904350397886e-8,
+          "linearError": 0.04572032041755003,
+          "foldEncodedErrorReal": 1.3941802268213621e-8,
+          "foldEncodedErrorQuantised": -0.00016455492274347616
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.763483940731441,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.0167390161523141,
+          "encodedClosedForm": -0.016739034869677472,
+          "encodedResidual": 1.871736337102914e-8,
+          "linearError": -0.03425042937531708,
+          "foldEncodedErrorReal": 1.3941802268213621e-8,
+          "foldEncodedErrorQuantised": 0.0007169770189742186
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.35,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6082752677424736,
+        "intended": 0.5585142806775231,
+        "renderer": 0.5589990838837703,
+        "foldReal": 0.558514306877708,
+        "foldQuantised": 0.5576852197508783,
+        "errorToday": 0.04976098706495058,
+        "errorTodayAgainstRenderer": 0.04927618385870336,
+        "rendererAgainstIntended": 0.0004848032062472196,
+        "errorFoldReal": 2.6200184910507573e-8,
+        "errorFoldQuantised": -0.000829060926644809,
+        "closedFormEncodedLuma": 0.039689884057305704
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.615686274509804,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.03757639741194818,
+          "encodedClosedForm": 0.07723531271401088,
+          "encodedResidual": -0.0396589153020627,
+          "linearError": 0.04813184070306736,
+          "foldEncodedErrorReal": 1.6294870675004347e-8,
+          "foldEncodedErrorQuantised": 0.00031418908126779055
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.8,
+          "eL": 0.5058823529411764,
+          "tableToday": 0.986262864050996,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.033635455402151404,
+          "encodedClosedForm": 0.03363543855307695,
+          "encodedResidual": 1.6849074455094204e-8,
+          "linearError": 0.057601585758200735,
+          "foldEncodedErrorReal": 1.6294870675004347e-8,
+          "foldEncodedErrorQuantised": -0.0008569647929527191
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9882352941176471,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8386818422383416,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.010892070509947338,
+          "encodedClosedForm": -0.010892092504898117,
+          "encodedResidual": 2.1994950779105626e-8,
+          "linearError": -0.023109368459649948,
+          "foldEncodedErrorReal": 1.6294870563982045e-8,
+          "foldEncodedErrorQuantised": 0.000704703945095364
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.35,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.35,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.5234348830642254,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.6218691323684893,
+        "intended": 0.598054435105029,
+        "renderer": 0.5989427334454639,
+        "foldReal": 0.5980544483310689,
+        "foldQuantised": 0.5978460437565818,
+        "errorToday": 0.023814697263460305,
+        "errorTodayAgainstRenderer": 0.022926398923025393,
+        "rendererAgainstIntended": 0.0008882983404349121,
+        "errorFoldReal": 1.3226039929925548e-8,
+        "errorFoldQuantised": -0.00020839134844718998,
+        "closedFormEncodedLuma": 0.045870740941011685
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.6196078431372549,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.016036494660621514,
+          "encodedClosedForm": 0.08414660663844706,
+          "encodedResidual": -0.06811011197782554,
+          "linearError": 0.020983937300932842,
+          "foldEncodedErrorReal": 7.902672738424599e-9,
+          "foldEncodedErrorQuantised": -0.0003659561072604234
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.807843137254902,
+          "eL": 0.5137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.016036494660621514,
+          "encodedClosedForm": 0.03961907558047199,
+          "encodedResidual": -0.023582580919850472,
+          "linearError": 0.028155872891724498,
+          "foldEncodedErrorReal": 7.902672738424599e-9,
+          "foldEncodedErrorQuantised": -0.0001768363888202673
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.996078431372549,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.928257359244915,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.004908444753884078,
+          "encodedClosedForm": -0.00490845547750308,
+          "encodedResidual": 1.0723619002332707e-8,
+          "linearError": -0.010852743751792127,
+          "foldEncodedErrorReal": 7.902672738424599e-9,
+          "foldEncodedErrorQuantised": 0.0006924201259503882
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.5,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.3759821273615028,
+        "intended": 0.3480959158547616,
+        "renderer": 0.348660035811284,
+        "foldReal": 0.3480959753467077,
+        "foldQuantised": 0.34813956834936494,
+        "errorToday": 0.027886211506741254,
+        "errorTodayAgainstRenderer": 0.027322091550218808,
+        "rendererAgainstIntended": 0.0005641199565224464,
+        "errorFoldReal": 5.949194614718323e-8,
+        "errorFoldQuantised": 0.0000436524946033634,
+        "closedFormEncodedLuma": 0.027510129982190643
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4392156862745098,
+          "eL": 0.03137254901960784,
+          "tableToday": 0.8787026583768105,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.067432369293003,
+          "encodedClosedForm": 0.06743234405391636,
+          "encodedResidual": 2.523908664009422e-8,
+          "linearError": 0.05536253474525071,
+          "foldEncodedErrorReal": 4.936254283105512e-8,
+          "foldEncodedErrorQuantised": 0.0004634963777472856
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6941176470588235,
+          "eL": 0.4745098039215686,
+          "tableToday": 0.6955569318647955,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.02104954137192916,
+          "encodedClosedForm": 0.021049499201858998,
+          "encodedResidual": 4.217007016152352e-8,
+          "linearError": 0.027379610056916026,
+          "foldEncodedErrorReal": 4.936254283105512e-8,
+          "foldEncodedErrorQuantised": -0.000032115710590363555
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9529411764705882,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5346031332602205,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.026046864562169203,
+          "encodedClosedForm": -0.02604692787869155,
+          "encodedResidual": 6.33165223480614e-8,
+          "linearError": -0.04800222289204126,
+          "foldEncodedErrorReal": 4.936254283105512e-8,
+          "foldEncodedErrorQuantised": -0.000004545647904752315
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.5,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.43856261526145895,
+        "intended": 0.3992602247018282,
+        "renderer": 0.3995602366789771,
+        "foldReal": 0.39926024518448927,
+        "foldQuantised": 0.3991865724471617,
+        "errorToday": 0.03930239055963075,
+        "errorTodayAgainstRenderer": 0.039002378582481845,
+        "rendererAgainstIntended": 0.00030001197714890626,
+        "errorFoldReal": 2.0482661067244834e-8,
+        "errorFoldQuantised": -0.00007365225466648972,
+        "closedFormEncodedLuma": 0.03616105457373378
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4549019607843137,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.06208473415190097,
+          "encodedClosedForm": 0.07659362265527783,
+          "encodedResidual": -0.014508888503376866,
+          "linearError": 0.055549314962131,
+          "foldEncodedErrorReal": 1.5670074959839297e-8,
+          "foldEncodedErrorQuantised": 0.0009866448363027303
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7137254901960784,
+          "eL": 0.49019607843137253,
+          "tableToday": 0.8580927837768009,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.02949720958355251,
+          "encodedClosedForm": 0.029497195574727273,
+          "encodedResidual": 1.4008825235251043e-8,
+          "linearError": 0.041833338247103335,
+          "foldEncodedErrorReal": 1.567007501535045e-8,
+          "foldEncodedErrorQuantised": -0.00042338726371382585
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9686274509803922,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6775866396387573,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.01688562869446808,
+          "encodedClosedForm": -0.01688564927733009,
+          "encodedResidual": 2.0582862008539093e-8,
+          "linearError": -0.033609381103138825,
+          "foldEncodedErrorReal": 1.5670074793305844e-8,
+          "foldEncodedErrorQuantised": 0.001173729252041733
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.5,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4740796572753156,
+        "intended": 0.429571668192523,
+        "renderer": 0.4307641759947325,
+        "foldReal": 0.42957168282917374,
+        "foldQuantised": 0.43051366087021264,
+        "errorToday": 0.044507989082792576,
+        "errorTodayAgainstRenderer": 0.0433154812805831,
+        "rendererAgainstIntended": 0.0011925078022094748,
+        "errorFoldReal": 1.4636650724764166e-8,
+        "errorFoldQuantised": 0.0009419926776896292,
+        "closedFormEncodedLuma": 0.04205652101198868
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4627450980392157,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.04322436182624445,
+          "encodedClosedForm": 0.08203025572061161,
+          "encodedResidual": -0.03880589389436716,
+          "linearError": 0.0396138457352031,
+          "foldEncodedErrorReal": 1.0724463261890804e-8,
+          "foldEncodedErrorQuantised": 0.0009866398906910323
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7176470588235294,
+          "eL": 0.4980392156862745,
+          "tableToday": 0.9658726663707011,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.03564742057326642,
+          "encodedClosedForm": 0.03564741086855425,
+          "encodedResidual": 9.704712172764474e-9,
+          "linearError": 0.05300412277546862,
+          "foldEncodedErrorReal": 1.0724463206379653e-8,
+          "foldEncodedErrorQuantised": 0.0006229720927208859
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9803921568627451,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7662606222841698,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.01216258411852611,
+          "encodedClosedForm": -0.012162598440489484,
+          "encodedResidual": 1.4321963373933877e-8,
+          "linearError": -0.025241871600093613,
+          "foldEncodedErrorReal": 1.0724463206379653e-8,
+          "foldEncodedErrorQuantised": 0.0007824864457742775
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.5,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.49096641776224376,
+        "intended": 0.45482652627365877,
+        "renderer": 0.4555152474244192,
+        "foldReal": 0.4548265439699766,
+        "foldQuantised": 0.4537527690889009,
+        "errorToday": 0.036139891488584985,
+        "errorTodayAgainstRenderer": 0.03545117033782458,
+        "rendererAgainstIntended": 0.0006887211507604074,
+        "errorFoldReal": 1.7696317855531163e-8,
+        "errorFoldQuantised": -0.0010737571847578842,
+        "closedFormEncodedLuma": 0.046043814975077584
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4666666666666667,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.028904921086114033,
+          "encodedClosedForm": 0.08652790369351884,
+          "encodedResidual": -0.05762298260740481,
+          "linearError": 0.027104164745756,
+          "foldEncodedErrorReal": 1.253451592519994e-8,
+          "foldEncodedErrorQuantised": -0.0009741426129817876
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.7254901960784313,
+          "eL": 0.5058823529411764,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.028904921086114088,
+          "encodedClosedForm": 0.03943147661296828,
+          "encodedResidual": -0.010526555526854192,
+          "linearError": 0.04413139245274711,
+          "foldEncodedErrorReal": 1.253451586968879e-8,
+          "foldEncodedErrorQuantised": -0.0008146282599285071
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.984313725490196,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8416148070957118,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.007664933636488902,
+          "encodedClosedForm": -0.007664950467582267,
+          "encodedResidual": 1.683109336538674e-8,
+          "linearError": -0.016415870063261506,
+          "foldEncodedErrorReal": 1.253451586968879e-8,
+          "foldEncodedErrorQuantised": -0.00013193175585191064
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.5,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.5,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.6334114485109426,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.4998119763198765,
+        "intended": 0.48414641757571003,
+        "renderer": 0.4853177778893406,
+        "foldReal": 0.4841464264794719,
+        "foldQuantised": 0.4838547787888141,
+        "errorToday": 0.015665558744166475,
+        "errorTodayAgainstRenderer": 0.014494198430535898,
+        "rendererAgainstIntended": 0.0011713603136305761,
+        "errorFoldReal": 8.903761894440976e-9,
+        "errorFoldQuantised": -0.00029163878689592027,
+        "closedFormEncodedLuma": 0.050595092051561166
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.4745098039215686,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.012335765123555054,
+          "encodedClosedForm": 0.09113070140689963,
+          "encodedResidual": -0.07879493628334458,
+          "linearError": 0.011806866248679715,
+          "foldEncodedErrorReal": 6.0789790978788005e-9,
+          "foldEncodedErrorQuantised": 0.0009866352452068128
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.7333333333333333,
+          "eL": 0.5137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.012335765123555165,
+          "encodedClosedForm": 0.04403427432634908,
+          "encodedResidual": -0.03169850920279391,
+          "linearError": 0.01924033537728087,
+          "foldEncodedErrorReal": 6.0789790978788005e-9,
+          "foldEncodedErrorQuantised": -0.000291452564441963
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.996078431372549,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.928257359244915,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.0037757267337570344,
+          "encodedClosedForm": -0.003775734982694677,
+          "encodedResidual": 8.24893764276094e-9,
+          "linearError": -0.008383225514322912,
+          "foldEncodedErrorReal": 6.0789790978788005e-9,
+          "foldEncodedErrorQuantised": -0.001046358223067534
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.75,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.2783787012790832,
+        "intended": 0.259404621557005,
+        "renderer": 0.26007245366386755,
+        "foldReal": 0.2594046457151513,
+        "foldQuantised": 0.25991985259454514,
+        "errorToday": 0.018974079722078208,
+        "errorTodayAgainstRenderer": 0.018306247615215654,
+        "rendererAgainstIntended": 0.0006678321068625537,
+        "errorFoldReal": 2.4158146316732854e-8,
+        "errorFoldQuantised": 0.0005152310375401425,
+        "closedFormEncodedLuma": 0.02576122870193895
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.2196078431372549,
+          "eL": 0.03137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.04755063605687726,
+          "encodedClosedForm": 0.05369647442476751,
+          "encodedResidual": -0.006145838367890247,
+          "linearError": 0.01902557284311107,
+          "foldEncodedErrorReal": 2.468127141552756e-8,
+          "foldEncodedErrorQuantised": -0.0002960289725972842
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5764705882352941,
+          "eL": 0.4745098039215686,
+          "tableToday": 0.7769876589301087,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0.021228500000704975,
+          "encodedClosedForm": 0.021228483028327357,
+          "encodedResidual": 1.6972377617913148e-8,
+          "linearError": 0.023149528584619994,
+          "foldEncodedErrorReal": 2.4681271471038713e-8,
+          "foldEncodedErrorQuantised": 0.00043885464532045226
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9372549019607843,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5436599684531052,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": -0.011596268534184495,
+          "encodedClosedForm": -0.011596299482359398,
+          "encodedResidual": 3.094817490299773e-8,
+          "linearError": -0.022538779890407534,
+          "foldEncodedErrorReal": 2.468127136001641e-8,
+          "foldEncodedErrorQuantised": 0.0014353293387497912
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.75,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.3114717393618876,
+        "intended": 0.2885732126760187,
+        "renderer": 0.28898875536190516,
+        "foldReal": 0.28857322085308323,
+        "foldQuantised": 0.28978626687579073,
+        "errorToday": 0.022898526685868892,
+        "errorTodayAgainstRenderer": 0.022482983999982442,
+        "rendererAgainstIntended": 0.0004155426858864497,
+        "errorFoldReal": 8.17706452549416e-9,
+        "errorFoldQuantised": 0.0012130541997720234,
+        "closedFormEncodedLuma": 0.030060930679261914
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.23529411764705882,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.031042367075950483,
+          "encodedClosedForm": 0.05827711372544825,
+          "encodedResidual": -0.027234746649497765,
+          "linearError": 0.013059379691362692,
+          "foldEncodedErrorReal": 7.835037507675224e-9,
+          "foldEncodedErrorQuantised": -0.00003445474331953413
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.596078431372549,
+          "eL": 0.49019607843137253,
+          "tableToday": 0.9498858975600221,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0.025452336901258144,
+          "encodedClosedForm": 0.025452331214761495,
+          "encodedResidual": 5.6864966485603574e-9,
+          "linearError": 0.029666389835617757,
+          "foldEncodedErrorReal": 7.835037507675224e-9,
+          "foldEncodedErrorQuantised": 0.0014852021011331207
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9568627450980393,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6853741674054098,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": -0.007372441171094479,
+          "encodedClosedForm": -0.007372451295925263,
+          "encodedResidual": 1.0124830783671268e-8,
+          "linearError": -0.015170352450812441,
+          "foldEncodedErrorReal": 7.835037507675224e-9,
+          "foldEncodedErrorQuantised": 0.00006368247499755064
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.75,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.3249005615163431,
+        "intended": 0.3052157684700313,
+        "renderer": 0.30667948813073986,
+        "foldReal": 0.30521577425630114,
+        "foldQuantised": 0.30438383627169396,
+        "errorToday": 0.01968479304631182,
+        "errorTodayAgainstRenderer": 0.018221073385603248,
+        "rendererAgainstIntended": 0.0014637196607085734,
+        "errorFoldReal": 5.786269852148251e-9,
+        "errorFoldQuantised": -0.0008319321983373262,
+        "closedFormEncodedLuma": 0.032803580365920425
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.23921568627450981,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.021612180913122225,
+          "encodedClosedForm": 0.06135222137236173,
+          "encodedResidual": -0.039740040459239505,
+          "linearError": 0.009281564701044721,
+          "foldEncodedErrorReal": 5.362231658700978e-9,
+          "foldEncodedErrorQuantised": -0.000034457216125383106
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.6039215686274509,
+          "eL": 0.4980392156862745,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0.021612180913122225,
+          "encodedClosedForm": 0.028170647747428387,
+          "encodedResidual": -0.006558466834306161,
+          "linearError": 0.025914910417596637,
+          "foldEncodedErrorReal": 5.362231658700978e-9,
+          "foldEncodedErrorQuantised": -0.0011943857667493507
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9725490196078431,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7718316344058127,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": -0.005367709906434648,
+          "encodedClosedForm": -0.005367716991751555,
+          "encodedResidual": 7.085316906969841e-9,
+          "linearError": -0.011396281714616818,
+          "foldEncodedErrorReal": 5.362231658700978e-9,
+          "foldEncodedErrorQuantised": 0.0011100443042383334
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.75,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.3331381168682457,
+        "intended": 0.31968565327311654,
+        "renderer": 0.32069643294230304,
+        "foldReal": 0.3196856602291178,
+        "foldQuantised": 0.31892289257202466,
+        "errorToday": 0.013452463595129138,
+        "errorTodayAgainstRenderer": 0.012441683925942637,
+        "rendererAgainstIntended": 0.0010107796691865012,
+        "errorFoldReal": 6.956001274982526e-9,
+        "errorFoldQuantised": -0.0007627607010918802,
+        "closedFormEncodedLuma": 0.034771467029016255
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.24313725490196078,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.014452460543056989,
+          "encodedClosedForm": 0.06360104535881533,
+          "encodedResidual": -0.049148584815758345,
+          "linearError": 0.006383790635332738,
+          "foldEncodedErrorReal": 6.267257934844395e-9,
+          "foldEncodedErrorQuantised": 0.0002271347644126065
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.611764705882353,
+          "eL": 0.5058823529411764,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0.014452460543057044,
+          "encodedClosedForm": 0.030062680619635393,
+          "encodedResidual": -0.015610220076578349,
+          "linearError": 0.01767431081087356,
+          "foldEncodedErrorReal": 6.267257934844395e-9,
+          "foldEncodedErrorQuantised": -0.0006712027106997587
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9803921568627451,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.844553861619377,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": -0.0034756617802516043,
+          "encodedClosedForm": -0.0034756841195445402,
+          "encodedResidual": 2.2339292935890515e-8,
+          "linearError": -0.007553980413842698,
+          "foldEncodedErrorReal": 6.267258045866697e-9,
+          "foldEncodedErrorQuantised": -0.0013079491103002994
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 0.75,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 0.75,
+      "underFloorToday": false,
+      "alphaDoublePrime": 0.8167057242554713,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.3418866502285846,
+        "intended": 0.3360376292252276,
+        "renderer": 0.3375589385292556,
+        "foldReal": 0.33603763269984727,
+        "foldQuantised": 0.3355865895476005,
+        "errorToday": 0.005849021003356991,
+        "errorTodayAgainstRenderer": 0.0043277116993289955,
+        "rendererAgainstIntended": 0.0015213093040279957,
+        "errorFoldReal": 3.4746196475587965e-9,
+        "errorFoldQuantised": -0.0004510396776271075,
+        "closedFormEncodedLuma": 0.03712295935814687
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.24705882352941178,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.006167882561777527,
+          "encodedClosedForm": 0.06625923532975232,
+          "encodedResidual": -0.060091352767974796,
+          "linearError": 0.002772720011448522,
+          "foldEncodedErrorReal": 3.0394895489394003e-9,
+          "foldEncodedErrorQuantised": -0.00003445953886749287
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.6196078431372549,
+          "eL": 0.5137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0.006167882561777582,
+          "encodedClosedForm": 0.03236407947632579,
+          "encodedResidual": -0.026196196914548206,
+          "linearError": 0.007699591169225473,
+          "foldEncodedErrorReal": 3.0394895489394003e-9,
+          "foldEncodedErrorQuantised": -0.0004096148629563201
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9313690523287653,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": -0.001531072273745715,
+          "encodedClosedForm": -0.0015310763771007446,
+          "encodedResidual": 4.10335502967589e-9,
+          "linearError": -0.003423917940540422,
+          "foldEncodedErrorReal": 3.0394895489394003e-9,
+          "foldEncodedErrorQuantised": -0.000523179111533767
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 1,
+      "backdrop": 0.15,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.6205669819746287,
+      "interior": {
+        "tintAlpha": 0.5462644951267095,
+        "tint": [
+          0.9944411897433411,
+          0.9944411897433411,
+          0.9944411897433411
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.1972452672929639,
+        "intended": 0.1972452672929639,
+        "renderer": 0.19793425786088284,
+        "foldReal": 0.1972452672929639,
+        "foldQuantised": 0.1972452672929639,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0006889905679189345,
+        "rendererAgainstIntended": 0.0006889905679189345,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.03137254901960784,
+          "eL": 0.03137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4745098039215686,
+          "eL": 0.4745098039215686,
+          "tableToday": 0.8518492588523995,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.8097974557724908,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9215686274509803,
+          "eL": 0.9215686274509803,
+          "tableToday": 0.5528060046894235,
+          "tableCandidate": 0.5101530763542423,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 1,
+      "backdrop": 0.3,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.7404292804295983,
+      "interior": {
+        "tintAlpha": 0.6202673133038181,
+        "tint": [
+          0.9951043999688057,
+          0.9951043999688057,
+          0.9951043999688057
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.21136112990775496,
+        "intended": 0.21136112990775496,
+        "renderer": 0.2118650816056803,
+        "foldReal": 0.21136112990775496,
+        "foldQuantised": 0.21136112990775496,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0005039516979253311,
+        "rendererAgainstIntended": 0.0005039516979253311,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.03529411764705882,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.49019607843137253,
+          "eL": 0.49019607843137253,
+          "tableToday": 1,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.875830531696198,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9490196078431372,
+          "eL": 0.9490196078431372,
+          "tableToday": 0.6905947138333247,
+          "tableCandidate": 0.659617256993396,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 1,
+      "backdrop": 0.45,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8144949191908544,
+      "interior": {
+        "tintAlpha": 0.6513686510435066,
+        "tint": [
+          0.9953381534811443,
+          0.9953381534811443,
+          0.9953381534811443
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.21890641625607532,
+        "intended": 0.21890641625607532,
+        "renderer": 0.22047325425403408,
+        "foldReal": 0.21890641625607532,
+        "foldQuantised": 0.21890641625607532,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0015668379979587588,
+        "rendererAgainstIntended": 0.0015668379979587588,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.03529411764705882,
+          "eL": 0.03529411764705882,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.4980392156862745,
+          "eL": 0.4980392156862745,
+          "tableToday": 1,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.913551276347511,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9647058823529412,
+          "eL": 0.9647058823529412,
+          "tableToday": 0.7774262022293323,
+          "tableCandidate": 0.7551891514037324,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 1,
+      "backdrop": 0.6,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.8734966767990164,
+      "interior": {
+        "tintAlpha": 0.6681362892052274,
+        "tint": [
+          0.9954551478082846,
+          0.9954551478082846,
+          0.9954551478082846
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.2260459683655352,
+        "intended": 0.2260459683655352,
+        "renderer": 0.22733064891830676,
+        "foldReal": 0.2260459683655352,
+        "foldQuantised": 0.2260459683655352,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.001284680552771561,
+        "rendererAgainstIntended": 0.001284680552771561,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.0392156862745098,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.5058823529411764,
+          "eL": 0.5058823529411764,
+          "tableToday": 1,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.9421901578277718,
+          "eT": 0.996078431372549,
+          "eTFolded": 0.9764705882352941,
+          "eL": 0.9764705882352941,
+          "tableToday": 0.8474986637694114,
+          "tableCandidate": 0.8328338221067363,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    },
+    {
+      "seed": "blue",
+      "strength": 1,
+      "backdrop": 0.8,
+      "paintedAlphaToday": 1,
+      "underFloorToday": false,
+      "alphaDoublePrime": 1,
+      "form": "linear",
+      "formCandidate": "linear",
+      "compositeLevelForForm": 0.9447910653078344,
+      "interior": {
+        "tintAlpha": 0.692744520954544,
+        "tint": [
+          0.9956165937275478,
+          0.9956165937275478,
+          0.9956165937275478
+        ],
+        "addedLight": 0.009278741795284628
+      },
+      "luminance": {
+        "actualToday": 0.23388978083549822,
+        "intended": 0.23388978083549822,
+        "renderer": 0.23561673698028876,
+        "foldReal": 0.23388978083549822,
+        "foldQuantised": 0.23388978083549822,
+        "errorToday": 0,
+        "errorTodayAgainstRenderer": -0.0017269561447905424,
+        "rendererAgainstIntended": 0.0017269561447905424,
+        "errorFoldReal": 0,
+        "errorFoldQuantised": 0,
+        "closedFormEncodedLuma": 0
+      },
+      "perChannel": [
+        {
+          "channel": 0,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.0392156862745098,
+          "eL": 0.0392156862745098,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 1,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.5137254901960784,
+          "eL": 0.5137254901960784,
+          "tableToday": 1,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        },
+        {
+          "channel": 2,
+          "eM": 0.9753284697528898,
+          "eT": 1,
+          "eTFolded": 0.9921568627450981,
+          "eL": 0.9921568627450981,
+          "tableToday": 0.9313690523287653,
+          "tableCandidate": 0.9251517390280537,
+          "encodedError": 0,
+          "encodedClosedForm": 0,
+          "encodedResidual": 0,
+          "linearError": 0,
+          "foldEncodedErrorReal": 0,
+          "foldEncodedErrorQuantised": 0
+        }
+      ]
+    }
+  ]
+}
