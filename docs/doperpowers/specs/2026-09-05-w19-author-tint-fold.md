@@ -279,6 +279,23 @@ its TCC gate; the two halves are independent and the web side does not wait on t
   (checkerboard) of luminance where the material is the tint and the level gap should have
   vanished, its hue half not taken. The renderer's item, for its charter, with the ladder's
   twelve native cells as its bed.
+- **The tint shade's granularity on the CSS tier (G1's dry run, claims §5.81 §5).** The renderer
+  shades the seed per pixel by the untinted material's luminance under it (`tintShade`, W10);
+  the tier reads the shade once per source (`authorTintLayer`). On the bed's one bimodal
+  backdrop the two part at full strength: `hc-text__capsule-button__rest-tint-orange` reads
+  CSS 0.4010 against GPU 0.3882 against native 0.3709 at 1x (0.4010 / 0.3893 / 0.3703 at 2x),
+  the tier's interior spread the same on every backdrop (0.0234) where the renderer's follows
+  it (0.0332…0.0424); +0.013 of cross-tier level there, under 0.003 on the photo and the
+  checkerboard, standing since W17 and mis-attributed to the untinted twin at the dry run.
+  Shape of the closing work: the shade's luminance dependence folded into the transfer table
+  the tier already applies per pixel — the table maps the backdrop's luminance per channel and
+  can carry `seed × shade(u)` as the tinted material's own function on the `linear` form — at
+  the cost of a tinted surface's transfer being its own again (undoing §5.81 §9's collapse) and
+  of the clamp question returning on a saturated seed; the encoded form and the plain-`blur()`
+  engines would keep the per-source shade. Its bed: the `hc-text` tinted cells and the G0 probe's
+  twelve native rungs; its stop, the native means (both tiers are above Apple there, the
+  renderer by +0.017, so closing the tier onto the renderer's per-pixel shade closes only half
+  the gap to Apple — the tint shade's own full-strength gap is the renderer's item above).
 - **The clamp's cost as a colour (G0).** §5.80 §2 reports the saturation per channel and its
   share per cell; no ΔE was taken on the ladder. The hue error is what a reader would see and what
   an interior mean under-reports; G1's dry run reads ΔE on the ladder cells against the GPU tier.
@@ -307,8 +324,8 @@ its TCC gate; the two halves are independent and the web side does not wait on t
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w19-author-tint-fold/g0/g0-findings.md` (`ebade16`, merged `1e0b2a0`), `probe/` (the 1x native ladder, twelve cells, seven attested runs), `apps/reference-apple/scenes-w19-probe.json`; claims §5.80 | CLOSED 2026-09-05 — the charter's term confirmed and a larger one found beside it (the table saturates; the fold removes it), the error not one-signed (−0.068 at strength 0.1 on the photo), the fold exact to 8.9e−8 with `α″ − α₃ ≥ +0.0733` and no form flip, Apple's curve the renderer's encoded mix to 0.003, the tier crossing Apple's curve near strength 0.3; nine `[parent-impact]` items reconciled in Decision Log 2 |
-| G1 | branch `worktree-agent-a560cc39a6bdaa3ec` at `485b824` (the fold; `g1/g1-precheck.md`, `parts/`, `run-read.sh`; `test/author-tint-fold.test.ts`, `w19-pre-fold-declarations.json`; X7 in `tier-coherence.test.ts`; the tinted contrast-floor e2e; `.changeset/css-author-tint-fold.md`) | PRE-CHECK PASSED 2026-09-05 (Decision Log 3): S4 met on 36 / 36 tinted ladder cells (worst 0.0039, from −0.0684); the hue down on every sub-unit cell; the untinted captures byte-identical, the full-strength ones within 0.00013 with every differing pixel on the contour; the floor restored (least margin +0.07318); no form flip; two clauses re-declared with the reason; the dry run opens |
-| G2 | — | — |
+| G1 | branch `worktree-agent-a560cc39a6bdaa3ec` at `485b824` (the fold; `g1/g1-precheck.md`, `parts/`, `run-read.sh`; `test/author-tint-fold.test.ts`, `w19-pre-fold-declarations.json`; X7 in `tier-coherence.test.ts`; the tinted contrast-floor e2e; `.changeset/css-author-tint-fold.md`); the dry run at `b303c33` (`g1/g1-dry-run.md`, `dry-parts/`, `dry-verify.txt`, `dry-x6-gate.txt`, `verify-dry.py`, `moved.ts`, `run-dry-readers.sh`; `sheets/g1-1x.png`, `g1-2x.png`); claims §5.81 | PRE-CHECK PASSED 2026-09-05 (Decision Log 3): S4 met on 36 / 36 tinted ladder cells (worst 0.0039, from −0.0684); the hue down on every sub-unit cell; the untinted captures byte-identical, the full-strength ones within 0.00013 with every differing pixel on the contour; the floor restored (least margin +0.07318); no form flip; two clauses re-declared with the reason; the dry run opens; **DRY RUN PASSED, G1 DECLARED 2026-09-05** (claims §5.81; Decision Log 4): the whole bed on the frozen configuration with the holdout read once — S1 115 / 115, the gate 31 / 31 with no edit, the untinted captures 79 / 81 byte-identical against the bed and 81 / 81 against the pre-fold control (the two the tracker's frame-timing cells), nineteen full-strength tinted cells contour-only within 0.00013, the dark scheme 6 / 6 by bytes, eleven of twelve light-standard tinted scenes inside 0.005 and all twelve unmoved to four places, S5 −0.00311 / −0.00327 with the clamp share 0.0000 %, the cross-tier ΔE down on both light-standard profiles and flat on four; the one cell that changes (`orange-half`) moves toward Apple and the renderer both (ΔE 0.0043 → 0.0032 / 0.0050 → 0.0034); a tinted group's `<filter>` definitions three → two; the `hc-text` tinted cell's standing gap re-attributed by measurement to the shade's granularity; landed on the parent's recommendation under the user's standing instruction |
+| G2 | — | OPENS 2026-09-05 (Decision Log 4): the merge, the canonical rebuild once from the main checkout, the referee against the W18 bed and the dry run, the floors (none down), `PREDICATE_EXCLUDES` as the machine's output, the sheets, the chain, recomposition, then the 0.8.0 cut |
 
 ## Decision Log
 
@@ -474,8 +491,85 @@ first, the holdout read once (X8; the tinted holdout cells named in the acceptan
 referee's S1–S9 with rulings 1–3 above, the sheets (X5) with the ladder at 1x beside native, and
 `adopted-thresholds.test.ts` against the scratch matrix (X6).
 
+### Decision Log 4 — the dry run at the gate: the landing on the parent's recommendation under the user's standing instruction, five `[parent-impact]` items ruled (2026-09-05; the parent)
+
+**What the dry run read** (claims §5.81; `g1/g1-dry-run.md` at `b303c33`, the fold at
+`485b824`). Nine stops on the whole bed with the holdout read once: S1 115 / 115 GPU captures
+byte-identical; S2 and S7 the landing's own gate 31 / 31 against the dry-run matrix with no file
+edited; S3 79 / 81 untinted captures byte-identical against the bed and 81 / 81 against the
+pre-fold control captured on the same session, the nineteen full-strength tinted cells contour-only
+within 0.00013, the dark scheme 6 / 6 by bytes; S4 eleven of twelve light-standard tinted scenes
+inside 0.005 at both scales and all twelve unmoved to four places, the fold profiles +0.0056 /
++0.0055 / +0.0002 under ruling 3 (1); S5 −0.00311 / −0.00327 with the clamp share 0.0000 %
+against 4.0663 % / 4.6469 %; S6 the cross-tier ΔE down on both light-standard profiles and flat on
+four, no cell leaving the level band; S8 unchanged; S9 read by the worker and by the parent, in
+agreement. One cell's appearance changes on the canonical bed — `orange-half`, ΔE 0.0043 → 0.0032
+against Apple and 0.0050 → 0.0034 against the renderer — and every other tinted cell is at full
+strength and flat.
+
+**Ruled, on the five `[parent-impact]` items:**
+
+1. **The two one-code untinted cells are the tracker's item, not the bed's provenance.**
+   `hc-text__capsule-button__rest` at 2x light (746 px) and `checkerboard__glass-over-glass__rest`
+   at 2x dark (6 408 px) are the same two cells at the same pixel counts that differed by one code
+   between W18's dry run and W18's canonical rebuild (claims §5.79 §2; the tracker's "the CSS
+   tier's captures move by a code between runs on two 2x cells"): the compositor's two frames, one
+   held by the bed's canonical captures and the other by this session, stable run to run (the
+   worker's second run 49 / 49 identical). The worker's control isolates them from the fold
+   (pre-fold to post-fold byte-identical on both; only tinted captures move). The acceptance's
+   "every untinted CSS-tier capture byte-identical to the W18 bed" is read as met against the
+   pre-fold control on the same session, 81 / 81, with the two cells named; the tracker's entry
+   takes W19's line at G2, where the rebuild shows which frame the canonical captures land on.
+2. **The `hc-text` tinted cell's gap is the shade's granularity, attributed by measurement**
+   (claims §5.81 §5), not the untinted twin's whatever the numbers' resemblance: at `s = 1`
+   ruling 3 (1)'s `(1 − s)` term is zero, and the dry matrix reads the tier's tinted interior at
+   one spread on every backdrop (0.0234) where the renderer's follows the backdrop (0.0332 …
+   0.0424) — the per-pixel shade against the per-source one, W10's standing item, on the one bed
+   backdrop bimodal enough to show it. The worker's report keeps its paragraph; this ruling and
+   claims §5.81 §5 stand beside it. Deferred gains the item with the numbers and the shape of the
+   work (the shade folded into the transfer table, at the cost of §5.81 §9's collapse). The
+   changeset's "worth up to 0.003 of interior level on a strongly patterned backdrop" understates
+   it and is corrected at G2, before the cut, to name `hc-text`'s 0.013.
+3. **The filter collapse is a claim** (claims §5.81 §9): three definitions to two on a group with
+   one untinted and one tinted surface, the two id strings its evidence.
+4. **The bed's strength axis** is Deferred already (Decision Log 3 (6)); the dry run is its
+   argument — 33 tinted cells, 32 at full strength, the whole visible content of the wave one
+   cell's ΔE — and it stays a small child after the cut.
+5. **The sheet's residual at strength 0.1 is the renderer's** (claims §5.80 §6), named in §5.81
+   §11 beside the granularity item the `hc-text` row shows by eye: the text through the GPU
+   tier's full-strength tint as stripes, faintly through Apple's, not at all through the tier's.
+
+**The landing.** Three ways: (a) **land as declared** — G2 as chartered, then the 0.8.0 cut;
+(b) hold for the user's eye on the sheets before any canonical write; (c) land and hold the
+cut. The parent recommends (a): every stop the wave owns is met on the whole bed with the holdout
+read once; the two that fired are standing items, established as such by measurement rather than
+argument; the one cell that changes changes toward both references; on the ladder the defect and
+its removal are visible in the direction the numbers say, and what remains by eye at 0.1 is the
+renderer's, already in the ledger. **Executed on the recommendation under the user's standing
+instruction** ("for decisions, all according to your recommendation"; "cut 0.8.0 after it
+lands"). The user's eye keeps its veto: the sheets travel with the landing report, nothing reaches
+npm until `pnpm release` is the user's hand, and the landing is one revert.
+
+**G2 opens:** the merge; the canonical rebuild once from the main checkout (X1 — `rm
+results/matrix.json`, twelve runs GPU first, `--set calibration,validation,holdout`, the W18 bed
+and its captures kept in scratch); the referee against the W18 bed and the dry run, G1's stops
+re-read on the canonical bed; the floors re-recorded, none down (X2); `PREDICATE_EXCLUDES` as the
+machine's output; the sheets on the landed bed (X5); the chain green; claims LANDED and
+RECOMPOSED; the retrospective; then `pnpm changeset version` over the two pending changesets, the
+user publishes, the parent tags `v0.8.0`.
+
 ## Surprises & Discoveries
 
+- **2026-09-05 (G1 dry run) — a number that matches is not a mechanism that matches.** The
+  `hc-text` tinted cell's +0.0128 sat beside its untinted twin's +0.0105 / +0.0129 and the
+  report read the one as the other; at full strength the untinted term is zero by the wave's
+  own algebra, and the interior spread read off the same matrix names the shade's granularity
+  instead. The lesson of the W17 predicate paragraph again, one wave later.
+- **2026-09-05 (G1 dry run) — the compositor's two frames are stable within a session and
+  differ between sessions.** The same two 2x cells the tracker names, one code, reproduced
+  49 / 49 across two runs of this session and against the pre-fold code, and differing only
+  from the bed's canonical bytes: the tracker's item has a shape (bistable per session, not
+  noise per run) the next byte-identity scan can use.
 - **2026-09-05 (G1 pre-check) — the fold profiles' movement clause was reading the untinted
   cell.** Under increased contrast the −0.033 "movement" at full strength is the untinted
   capsule's +0.036 vanishing under an opaque tint; the fold's own algebra gives the right clause,
@@ -519,3 +613,8 @@ referee's S1–S9 with rulings 1–3 above, the sheets (X5) with the ladder at 1
 - 2026-09-05: Decision Log 3 — the pre-check at the gate: the fold accepted, the fold profiles'
   clause re-declared on `(1 − s)` of the untinted gap, S5's three misses carried by name, the
   clamp share to four places; three Surprises, two Deferred shapes; the dry run opens.
+- 2026-09-05: Decision Log 4 — the dry run at the gate: G1 DECLARED (claims §5.81), the five
+  `[parent-impact]` items ruled (the two one-code cells the tracker's, the `hc-text` tinted gap
+  re-attributed by measurement to the shade's granularity and entered in Deferred, the filter
+  collapse a claim); the landing executed on the parent's recommendation under the user's
+  standing instruction; two Surprises; G2 opens.

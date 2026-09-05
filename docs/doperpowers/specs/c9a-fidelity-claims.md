@@ -11526,3 +11526,167 @@ under the fold is 0.000 on every captured cell; to four places it is 0.0000 % ev
 names. G0's own `parts/predict-2x.json` carries the number; its text rounded it. The stop reads
 "under 0.1 % of masked channel samples".
 
+
+### 5.81 W19 G1 DECLARED: the author tint folded over the contrast floor, dry-run on the whole bed with the holdout read once — nothing on the bed moves but its one sub-unit cell, which moves toward Apple and the renderer both; the two stops that fired traced by measurement to standing items; a tinted group's `<filter>` collapsed three to two (2026-09-05)
+
+**Where.** Branch `worktree-agent-a560cc39a6bdaa3ec`: the fold at `485b824` (§5.80 §7's
+placement — `untintedOptics` beside `optics` on `CssTierSurface`, the transfer's floor colour
+from it, L3 the encoded fold of the author layer over `(T, α₃)` through `foldedOverlay` in
+`optics.ts`, which `tintedCssOptics` now calls too; `test/author-tint-fold.test.ts` over 190
+pinned pre-fold declarations, X7 in `tier-coherence.test.ts`, the tinted contrast-floor e2e;
+`.changeset/css-author-tint-fold.md`), the dry run at `b303c33` (`g1/g1-dry-run.md`,
+`dry-parts/`, `dry-verify.txt`, `dry-x6-gate.txt`, `verify-dry.py`, `moved.ts`,
+`run-dry-readers.sh`; `sheets/g1-1x.png`, `g1-2x.png`). One worker; nothing canonical written
+(`--out-matrix` and `VITREA_WEB_CAPTURES` to scratch). The pre-check on G0's ladder bed is W19
+Decision Log 3.
+
+**1. The bed.** Twelve `compare.ts` runs from the frozen configuration, six profiles × two tiers,
+the GPU tier first, `--set calibration,validation,holdout` — the holdout's one read on `485b824`
+(X8; 29 CSS holdout rows, the six tinted ones the acceptance names among them). 229 cells, the W18
+bed's 229 keys, none missing and none new: 115 `webgpu`, 114 `dom` (69 calibration, 16
+validation, 29 holdout; 33 tinted, 81 untinted). Every run exit 0, no scene fell back, no
+problems. Two control runs beside it, each on the two 2x profiles, to scratch: this branch a
+second time (36 / 36 and 13 / 13 CSS captures byte-identical to the first — the capture is
+deterministic within the session), and the pre-fold code `ac9d258` (`git checkout ac9d258 --
+packages/platform-web/src`, captured, restored, the tree verified clean).
+
+**2. S1 — the GPU tier.** 115 / 115 captures byte-identical to the W18 bed; worst row |Δ|
+0.000000 over `ssimMean`, `ssimBand`, `ssimInterior`, `ssimOutside`, `oklabDeltaEMean`,
+`interiorStdDevWeb`, `interiorMeanWeb` and `silhouetteIoU`. X3 on the whole bed by capture.
+**Met.**
+
+**3. S2 and S7 — the landing's gate on the dry-run matrix (X6).** `adopted-thresholds.test.ts`
+through `VITREA_MATRIX_PATH`: **31 / 31, no file edited** — every adopted bound, every floor,
+`PREDICATE_EXCLUDES` equal to the machine's output. No row sits below its floor; the largest
+`ssimMean` move anywhere on the bed is +0.00077 (`photo__rrect-lg__rest-tint-orange` at 1x, a
+tinted cell, up). **Met.**
+
+**4. S3 — the CSS captures against the W18 bed.** *The untinted:* **79 / 81 byte-identical.**
+The two that differ are `hc-text__capsule-button__rest` on 2x light standard (746 px) and
+`checkerboard__glass-over-glass__rest` on 2x dark standard (6 408 px), one code each, the
+interior means moving 0.0 and +1.5e−6 — **the same two cells, at the same pixel counts, that
+differed by one code between W18's dry run and W18's canonical rebuild** (§5.79 §2; the
+tracker's "the CSS tier's captures move by a code between runs on two 2x cells"). The worker's
+control isolates them from the fold: the pre-fold tree on this session reproduces the same two
+differences against the bed, and pre-fold to post-fold those two cells are byte-identical while
+only tinted captures move (27 / 36 identical on 2x light with all nine that differ tinted;
+13 / 13 on 2x dark). Against the pre-fold control the clause reads **81 / 81**. The worker's
+report attributes the two to "this machine or session against the one that recorded the bed";
+the parent reads them as the tracker's item — the bed's canonical captures hold one of the
+compositor's two frames on those cells and this session holds the other, stable run to run
+(§1's control) — the correction beside, W19 Decision Log 4 (1). *The full-strength tinted:* every
+one of the nineteen light-scheme cells differs, **every differing pixel on the contour** (17–61
+region pixels per cell, not one more than two device pixels inside the region; worst code 38),
+the interior means moving −0.00013…−0.00001 against the clause's 0.0005 — the transfer's floor
+colour moved from `T_folded` to `T` and reaches the screen only where the mask is antialiased, as
+§5.80 §7 predicted and the pre-check measured. Six full-strength cells are byte-identical
+outright (`dark-solid` blue and orange, `impulse` orange, both scales), their backdrops leaving
+the two floor colours equal to eight bits. *The dark scheme:* **6 / 6 tinted captures
+byte-identical** (`checkerboard`, `dark-solid`, `photo` orange capsules, both scales) — the
+encoded form never reads `untintedOptics`, proved by bytes. **Met** on every clause the wave owns.
+
+**5. S4 — the bed's twelve tinted scenes** (CSS − GPU interior mean; the bed → the dry run).
+*Light standard:* eleven of twelve inside 0.005 at both scales and **every one of the twelve
+unmoved to four places**: `checkerboard` blue −0.0017 / −0.0025, orange −0.0017 / −0.0031;
+`dark-solid` blue −0.0003 / −0.0001 (holdout), orange −0.0007 / −0.0003; `impulse` −0.0008 /
+−0.0003; `light-solid` −0.0004 / −0.0008; `photo` blue −0.0015 / −0.0016, orange −0.0002 /
+−0.0000, `orange-half` −0.0007 / −0.0004; `photo__rrect-lg` −0.0028 / −0.0032 (holdout);
+`photo__rrect-md` −0.0024 / −0.0031. The twelfth, `hc-text__capsule-button__rest-tint-orange`
+(holdout), reads the bed's own **+0.0128 / +0.0117**, standing since W17 (§5.75 §4). *Its
+attribution, corrected beside the worker's:* the report reads it as "the untinted material's gap
+on that backdrop" because the untinted twin reads +0.0105 / +0.0129 on the same profiles — but at
+`s = 1` Decision Log 3 (1)'s `(1 − s)` term is zero (the report's own §4b says so), and the dry
+matrix says which mechanism it is. At full strength the CSS tier's tinted interior has the **same
+spread on every backdrop** (`interiorStdDevWeb` 0.0234 on `photo`, 0.0239 on `checkerboard`,
+0.0234 on `hc-text` at 1x; 0.0244 / 0.0244 / 0.0235 at 2x) while the GPU tier's spread follows
+the backdrop (0.0332 / 0.0424 / 0.0373; 0.0364 / 0.0455 / 0.0387): the renderer shades the seed
+per pixel by the untinted material's luminance under it (`tintShade`, W10 — the page's black
+text shows through the shade), the tier reads the shade once per source (`authorTintLayer`;
+§5.80 §8), and `hc-text` is the one bed backdrop whose luminance is bimodal enough for the two
+to part. The means: **0.4010 (CSS) against 0.3882 (GPU) against 0.3709 native** at 1x, 0.4010 /
+0.3893 / 0.3703 at 2x — both tiers above Apple, the renderer by +0.017 and the tier by +0.030.
+The untinted twin's gap is another mechanism at a similar size (its spread is 0.12 on both tiers,
+the text visible through the material on both): the number matched and the mechanism did not.
+It is the shade's granularity, W10's standing item, the tint pathway's and not this wave's;
+Deferred with its shape, Decision Log 4 (2). *The fold profiles, by Decision Log 3 (1)*
+(`(CSS − GPU)_tinted − (1 − s)·(CSS − GPU)_untinted`, every bed cell at `s = 1` so the control
+term is zero): increased contrast +0.0056 (`checkerboard`) and +0.0055 (`photo`), reduced
+transparency +0.0002, all inside 0.01 and unmoved; the untinted increased-contrast capsules
++0.0259 / +0.0225 stay §5.79 §7's item. *The dark scheme:* by bytes, §4. **Met** on eleven of
+twelve light cells at both scales, on all three fold-profile cells and on all six dark cells; the
+twelfth is the standing reading, unmoved, attributed.
+
+**6. S5 — the bed's sub-unit rung.** `photo__capsule-button__rest-tint-orange-half` (`s` 0.5),
+`c` its own decoration constant read at `s = 1` on the same backdrop: measured 0.45800 against
+`predFold + c` 0.45734 + 0.00377 = 0.46111 at 1x (**−0.00311**), 0.45831 against 0.45766 +
+0.00392 = 0.46158 at 2x (**−0.00327**), inside 0.005 — negative, the control's `α″`-dependence
+(Decision Log 3 (2); `α″` 0.633 here). The clamp share: **0.0000 %** on both cells under the fold
+against **4.0663 % and 4.6469 %** of masked channel samples under the old table. **Met.**
+
+**7. S6 — coherence.** Cross-tier OKLab ΔE mean over the non-holdout cells: 0.00606 →
+**0.00599** on 1x light standard (26 cells) and 0.00633 → **0.00627** on 2x (26); 0.00669 →
+0.00669 increased contrast (7), 0.00385 → 0.00384 reduced transparency (6), 0.00405 → 0.00405
+and 0.00413 → 0.00413 dark (10 each): down on both light-standard profiles, flat on the other
+four, up on none — the fall carried by the one sub-unit cell. The level ratio: no cell leaves
+0.97–1.03 that was inside it; the seventeen outside sit at the bed's values to four places (the
+dark scheme's near-black cells, `photo__toolbar-group` under reduced transparency at 1.0323, the
+`hc-text` tinted capsule at 0.9681 — §5). **Met.**
+
+**8. The colour, on the tinted cells.** OKLab ΔE on all 33 tinted CSS cells, the bed → the dry
+run: **one cell moves and it moves down in both measures** — `orange-half` against Apple 0.0043
+→ **0.0032** at 1x and 0.0045 → **0.0033** at 2x (−0.0012), against the GPU tier 0.0050 →
+**0.0034** and 0.0051 → **0.0035** (−0.0016): 27 % and 32 % of the cell's colour distance to
+Apple and to the renderer. Every other tinted cell is flat to four places, because 32 of the
+bed's 33 tinted cells are at full strength, where the fold is the opaque layer the tier already
+drew. That is the whole visible content of the change on the canonical bed; the ladder is where
+the defect lived (0.0030…0.0323 of ΔE removed per sub-unit cell, Decision Log 3), and the bed's
+strength axis is Deferred's item (Decision Log 3 (6)).
+
+**9. The filter collapse, counted** (Decision Log 3 (5)). One group, two 120 × 44 surfaces over
+one backdrop, one untinted and one tinted `rgba(255, 149, 0, 1)`, the `<filter>` definitions
+counted off the document in a real Chromium, once on `ac9d258` and once on the branch: **three
+before the fold, two after.** The tinted surface's sharp-layer transfer moves from a definition
+keyed on the folded colour (`…-2668-8863-5137-0`: 0.8863, 0.5137, 0.0000) to the untinted
+surface's own (`…-2668-9961-9961-9961`), which the two now share; the heavy step's (`-b1369`)
+carries no transfer and was always shared. A tinted group no longer needs a `<filter>` of its
+own, as §5.80 §7 said.
+
+**10. S8 — the cost.** Unchanged from the pre-check, the fold untouched since: no layer, no
+primitive (one `feGaussianBlur`, one `feComponentTransfer`, the table the same length), L3's
+three declarations as before; `foldedOverlay` three multiply-adds and three roundings per tinted
+surface per frame; §9 a saving on top. The knee harness not run, by its condition. **Met.**
+
+**11. S9 — by eye** (`sheets/g1-1x.png`, 14 rows: the six orange rungs over the photo and the
+six over the checkerboard from the ladder bed, then the bed's `orange-half` and `hc-text` tinted
+cells; columns Apple — the G0 native probe for a rung, the canonical fixture for a bed cell — the
+CSS tier before the fold, the candidate, the GPU tier, the signed luminance difference;
+`g1-2x.png` the same without Apple, the charter having deferred the 2x native ladder). The
+worker's reading and the parent's agree. At strengths 0.1, 0.2 and 0.35 over the photo the
+pre-fold column is washed out with a cold cast where Apple and the GPU tier both carry a warm
+one; the candidate carries it and sits between them. Over the checkerboard it is starker: at 0.1
+and 0.2 the pre-fold column is a cold grey-white against native's warm cream, and the candidate
+matches native and the renderer. At 0.75 and 1.0 the three web columns agree. The two bed rows
+show no visible change. *Two residuals the sheet shows that are not this wave's, named so a
+reader does not charge them to it:* at strength 0.1 over the photo the candidate is still lighter
+and less saturated than Apple, agreeing with the GPU tier while it is — the renderer's gap at low
+strength (§5.80 §6, the thin-span level faded in by `(1 − s)`); and on the `hc-text` row the
+page's text shows through the GPU tier's full-strength tint as stripes, faintly through Apple's,
+and not at all through the CSS tier's — §5's granularity item, seen.
+
+**12. Suites** on the branch, one at a time on the shared adapter: lint clean; 1 804 unit tests
+green over eight packages; Playwright 355 passed on all four platform-web projects (the
+`chromium-gpu` project on the real adapter), 105 passed and 3 skipped in react, 34 in demo.
+
+**13. `[parent-impact]`, reconciled** — W19 Decision Log 4: (1) the two one-code untinted cells
+are the tracker's frame-timing item, the acceptance clause read against the pre-fold control at
+81 / 81 with the two named; (2) the `hc-text` tinted attribution corrected by measurement and
+the shade's granularity entered in Deferred with its shape; (3) the filter collapse a claim, §9;
+(4) the bed's strength axis, the dry run as its argument, Deferred already; (5) the sheet's
+residual at 0.1 the renderer's, named in §11.
+
+**14. What did not close.** Everything §5.80 §10 lists (the 2x native ladder; the fold profiles'
+composite under a policy fold, measured and not attributed; the clamp's cost as a colour on the
+ladder, partly closed by §8's bed reading and the pre-check's ladder ΔE; the blue seed's short
+ladder; Apple's shade as a hue); the shade's granularity (§5); the bed's strength axis (§8); the
+tint shade's own full-strength gap to Apple, +0.017 on `hc-text` beside §5.80 §6's +0.007 /
++0.012.
