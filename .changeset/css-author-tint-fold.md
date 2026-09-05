@@ -42,8 +42,12 @@ filter to carry the material in. No public API moves and no layer or filter
 primitive is added — a tinted surface's filter is now the untinted surface's, so a
 tinted group needs one definition fewer than before.
 
-**The named gaps.** Under increased contrast the tinted composite still sits 0.033
-of interior level under the WebGPU tier at full strength, unchanged by this work
-and recorded as the preference fold's own gap. The tint's shade is read once per
-surface on this tier and per pixel on the WebGPU tier, which is worth up to 0.003
-of interior level on a strongly patterned backdrop.
+**The named gaps.** Under increased contrast the tinted composite sits within 0.006 of
+the WebGPU tier at full strength; the untinted material on that profile sits 0.023 to
+0.026 above it, which is the preference fold's own standing gap, unchanged by this
+work. The tint's shade is read once per surface on this tier and per pixel on the
+WebGPU tier. Over a photograph or a checkerboard that is worth under 0.003 of interior
+level; over black text on white it is 0.013, because the WebGPU tier's shade darkens
+under each glyph and this tier's does not. Both tiers sit above Apple's own capture
+there, the WebGPU tier by 0.017, so the item is recorded against Apple and not only
+across the tiers.
