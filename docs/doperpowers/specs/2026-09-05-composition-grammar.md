@@ -316,6 +316,17 @@ builds in one review page.
   Rationale: additive to the 2.0.0 record (a §4 shape) without changing the stance contract.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: First external review round (2026-09-05, Codex `gpt-5.6-sol` over 6642eac) — six
+  findings, all confirmed and fixed: staged authoring (`DESIGN.md` §0–3 and 5–8 before tokens,
+  §4 at the composition step before any markup); adopted or reference geometry exempt from the
+  ratio ban and recorded as adopted; the transient rule narrowed to bounded tasks and the PDP
+  prior re-keyed to decide (buy), checkout transient; the candidate-distance check made
+  qualitative for ASCII candidates and numeric only for rendered wireframes or paired builds;
+  the one-candidate exception propagated to `SKILL.md` and the §4 record; the worked pass's
+  brief amended to state the fleet size and the live cadence it had been inventing.
+  Rationale: each was a contract the builder could not satisfy both halves of; none minor.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The reference's snippet is the layout-level `#D46B2C`.
@@ -353,3 +364,4 @@ Pending — written at finish.
 
 - 2026-09-05: created from the layout survey and three research rounds; direction approved by
   the user ("next would be the composition grammar").
+- 2026-09-05 (second revision): first review round recorded with its six fixes.
