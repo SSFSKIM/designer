@@ -101,3 +101,11 @@ Transparency and Increase Contrast off: `pnpm -r lint` clean; `pnpm -r test` gre
 packages (122 test files); `packages/platform-web` Playwright **355 passed** across chromium,
 firefox, webkit and chromium-gpu on the real adapter; react **105 passed, 3 skipped**; demo
 **34 passed**. The renderer's golden suite not re-run: the renderer is byte-identical by capture.
+
+## 7. The hashes, after the push
+
+The push rebased the local history over `origin/main` and flattened the merge, so the hashes
+above are the pre-push labels: the fold `485b824` is `4e7e75b` on `main`, the dry run `b303c33` is
+`8cb1d3c`, the changeset correction `f9fe52c` is `1abda3e`, the merge `062313d` does not exist
+(the branch's two commits sit linearly after `496f260`, unchanged). The trees are identical; the
+landing is `0089cae` and the recomposition `4ab7ff4` (claims §5.82, correction beside).

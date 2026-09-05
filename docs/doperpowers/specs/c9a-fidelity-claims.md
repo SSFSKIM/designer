@@ -11813,3 +11813,12 @@ square boxes (W18's Deferred, the next charter on the recommendation).
 
 **9. The release.** The `@vitreajs/vitrea-web` minor pending in `.changeset/css-author-tint-fold.md`
 beside W18's `css-shadow-carriers.md`; the 0.8.0 cut follows the wave's close (the wave doc).
+
+*Correction beside (2026-09-05, the same day):* the commit hashes this section and §5.81 cite are
+the pre-push ones. The push of this landing rebased the local history over `origin/main` (which
+had not moved) and flattened the merge: on `main` the fold `485b824` is **`4e7e75b`**, the dry run
+`b303c33` is **`8cb1d3c`**, the changeset correction `f9fe52c` is **`1abda3e`**, and the merge
+`062313d` does not exist — the G1 branch's two commits sit linearly after `496f260`, which kept
+its hash. The trees are identical (`git diff b303c33 8cb1d3c` is empty over the wave's paths), so
+the frozen configuration X8 names is the same tree under the new label. The landing's own commits
+are `0089cae` (G2 LANDED) and `4ab7ff4` (RECOMPOSED).

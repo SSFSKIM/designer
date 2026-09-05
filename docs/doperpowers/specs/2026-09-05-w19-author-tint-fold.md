@@ -664,3 +664,8 @@ run byte for byte — the first time — and the frame-timing pair taught the tr
 - 2026-09-05: G2 COMPLETE and the wave RECOMPOSED (claims §5.82); Outcomes & Retrospective
   written; one Surprise (the encoded-form six) and one correction beside claims §5.81 §4; the
   tracker's frame-timing entry amended; the 0.8.0 cut follows.
+- 2026-09-05: the push rebased the landing's history over `origin/main` and flattened the G1
+  merge; the hashes the Tracking Map and Decision Logs cite map as `485b824` → `4e7e75b`,
+  `b303c33` → `8cb1d3c`, `f9fe52c` → `1abda3e`, `062313d` → none (linear), `496f260` unchanged,
+  the trees identical (claims §5.82, correction beside); landed as `0089cae`, recomposed as
+  `4ab7ff4`.
