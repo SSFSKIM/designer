@@ -339,6 +339,14 @@ builds in one review page.
   class of finding, which is the convergence signal.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: Third external review round (2026-09-05, Codex over f792423) — three propagation
+  gaps from the workflow move, all fixed: the persona route still runs the composition
+  derivation (a persona governs values and judgment, not topology); `composition.md`'s intro
+  now says candidates are chosen at step 3 and built at step 6; the one-candidate exemption is
+  mirrored in `qa-protocol.md`'s candidate clause. Review closed: the round found no new class
+  of finding.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The reference's snippet is the layout-level `#D46B2C`.
@@ -378,3 +386,4 @@ Pending — written at finish.
   the user ("next would be the composition grammar").
 - 2026-09-05 (second revision): first review round recorded with its six fixes.
 - 2026-09-05 (third revision): second review round recorded; composition derivation moved beside the stance derivation.
+- 2026-09-05 (fourth revision): third review round recorded; review loop closed.
