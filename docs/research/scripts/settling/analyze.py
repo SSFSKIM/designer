@@ -40,12 +40,10 @@ built = [c for c in manifest if c["id"] in meas and not meas[c["id"]].get("error
 
 # ---------- topology lookup ----------
 def topo_index():
+    """The instrument's matrices are n×n arrays in the order of its builds list."""
     if not topo:
         return None, {}
-    keys = {}
-    for b in topo["builds"]:
-        i = b["file"].split("/")[-2]
-        keys[i] = b["file"]
+    keys = {b["file"].split("/")[-2]: n for n, b in enumerate(topo["builds"])}
     return topo["matrix"], keys
 
 matrix, tkey = topo_index()
@@ -53,11 +51,7 @@ matrix, tkey = topo_index()
 def tdist(kind, a, b):
     if not matrix or a not in tkey or b not in tkey:
         return None
-    m = matrix[kind]
-    try:
-        return m[tkey[a]][tkey[b]]
-    except (KeyError, TypeError):
-        return None
+    return matrix[kind][tkey[a]][tkey[b]]
 
 def tsig(i):
     if not topo:
