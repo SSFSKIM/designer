@@ -12122,3 +12122,94 @@ a false negative for the path every capture takes; the tracker.
 policy above the ratio, the capsule exact on the render path as its consequence; the transparent-page
 alpha reading adopted as the shape axis's conformance rows, refused on the CSS tier by interior
 alpha; G1 opens on the fix and its dry run.
+
+### 5.85 W20 G1 DECLARED: the requested radius kept and the shoulder compressed on the render path — every capsule and circle a stadium to 1e-9, the crossing at the ratio 0.093 px and no blend, no golden moved, the six profiles dry-run on G0's instrument with the shoulders gone to the pixel, ΔE better on 51 of 53 capsule cells, every rounded rectangle byte-identical, and one stop fired on an increased-contrast border the corner had been hiding (2026-09-06)
+
+Executes W20 Decision Log 2 ruling 1 on branch `worktree-agent-a463558bb21d8d14b` at `bc7706e`
+(`results/2026-09-05-w20-capsule-corner/g1/g1-dryrun.md`; scripts, tables and logs beside it).
+Nothing canonical written; holdout unread; the CSS tier not run and no CSS file moved.
+
+**1. The change.** Under `apple-continuous`, `resolveCorner` takes `r = min(radius, budget)` and
+`reach = min(APPLE_REACH · r, budget)`; below the crossing (`APPLE_SATURATION_RADIUS_RATIO`,
+0.327083) it is bit for bit what it was — S2's Apple-direct fit, reach, coefficients and dump —
+and above it the corner is `resolveCornerConstruction` at the Apple seed with the reference
+family's coefficient table at the compressed smoothing, the `reference` field unchanged.
+`ResolvedCorner` carries `saturated` ("the shoulder is compressed"); `toContour` builds a compressed
+corner from the resolved construction, so the contour and the field come from one set of numbers;
+`governorFieldParams` and `buildAppleContour` take the same split. A capsule is a stadium by
+construction (reach = budget, smoothing 0, the table's row exactly zero) and `resolveFromChannels`
+has no family special case; the spec path's capsule branch is untouched and the two paths agree
+under 1e-9. The old policy's comments were rewritten to the measured one with the refuted claim
+quoted.
+
+**2. The crossing.** At `r* = budget / APPLE_REACH` the two constructions' symmetric Hausdorff
+distance is **0.0064609 · r**: 0.0930 px at the bed's 44 px short side, 0.0635 at 30 px, 0.2027 on
+rrect-md, 0.3379 on rrect-lg — under the 0.5 px floor at every bed size, so **no blend** (Decision
+Log 2's condition unmet). Reach and effective smoothing are continuous through r* to eight decimals;
+a 0.002 px sweep steps the contour by 0.0929 px at the one step straddling r* and nowhere else. The
+coefficient vector `k` switches there between two fits of comparable contour deviation (6.06e-4 r
+against 6.88e-4 r). Pinned as `CROSSING_PER_R` in `test/apple-saturation.test.ts`.
+
+**3. Tests and the chain.** Geometry 170 tests (from 157): `apple-saturation.test.ts` (12: the
+capsule on the render path under both references at 120 × 44 and 44 × 44, radius 22 / reach 22 /
+smoothing 0 / zero coefficients, `toContour` against the stadium under 1e-9; the flag on the
+resolved corner; render and spec paths identical; 120 × 44 at r 18 → r 18, reach 22, smoothing
+0.2222; the six rounded rectangles and the r 14 rung unchanged under 1e-9; the reach never
+overflowing; the crossing and continuity); `apple.test.ts` re-pointed to the measured policy with
+the old claim quoted; `render-path-conformance.test.ts`'s capsule rows flipped (gap to the stadium
+under 1e-9 from 3.1797 / 6.3594 px) and `DEFAULT_HOST_SHAPE` kept at radius 12 at every height
+with smoothing 0 / 0.3333 / 0.5 / 0.5287 / 0.5287 in place of the old 7.85 / 10.47 / 11.78;
+`morph.test.ts` with an Apple-reference capsule morphing to an Apple-reference rounded rectangle
+across the crossing, legal and exact at both ends. Workspace chain green: build, lint, tests
+(policy 23, motion 162, geometry 170, renderer 396, core 302, platform-web 410, calibration 273,
+react 97); no test outside geometry changed. **Goldens: 29 passed, byte-identical**, as §5.84 §8
+predicted. Playwright: platform-web chromium 134 and chromium-gpu 9, react 105 (3 skipped), demo 33
+and **one failure by design** — `reference-panel.gpu.spec.ts` compares the live demo against a
+byte copy of the canonical capture, which is the pre-fix render (mean 0.0298 encoded luma against
+0.02); its own comment declares this the intended failure and the fixture is re-copied at G2.
+
+**4. The dry run** — six profiles, GPU tier, calibration and validation, `--alpha`, 85 cells, every
+run exit 0, to scratch. *(a) Conformance, on G0's instrument:* every capsule cell at 1x **4872 of
+4872 drawn, IoU 1.0000, contour 0.00** (from 5104, 0.9545, 3.16); the toolbar **4584 of 4584,
+1.0000** (from 5280, 0.8682); at 2x IoU 0.9990–1.0000 and contour ≤ 1.00 device px (from 0.9542
+and 6.40), the antialiased band every rounded rectangle carries; the worst `declaredContourMaxWeb`
+over all 53 capsule and toolbar cells **1.00 device px** — the target met, the stop (above 1) not
+fired. Every rounded-rectangle cell's `drawnAreaWeb` identical before and after. *(b) Fidelity
+against Apple, the W19 bed before:* **ΔE improves on 51 of 53** capsule and toolbar cells and
+**SSIM on 49 of 53**; best −0.00604 ΔE (`checkerboard__toolbar-group` 2x light) and +0.0394 SSIM
+(`photo__toolbar-group` 1x reduced transparency); at 1x light `photo__capsule-button` ΔE 0.0036 →
+0.0024 and SSIM 0.9860 → 0.9987, `photo__toolbar-group` ΔE 0.0064 → 0.0029 and SSIM 0.9602 →
+0.9981. *(c) The rounded rectangles:* **32 of 32** non-holdout GPU captures sha256-identical to the
+W19 bed on all six profiles — zero differing pixels; the frame-timing pair did not move by its one
+code. `glass-over-glass` and `rrect-lg` are holdout and are read at G2; their ratios (0.185, 0.286,
+0.2125) are under the crossing, so the resolver returns what it returned. *The gate:* on a scratch
+matrix with the 85 rows substituted into the W19 bed, `adopted-thresholds` passes 27 of 31 — every
+per-profile tier gate, the predicate unchanged, **the seven floors kept** — and the four failures
+are the CSS cells' `interiorLevelRatioGpuOverCss` recorded against the old GPU capture: a
+prediction for G2, where the CSS tier is re-run against the corrected one.
+
+**5. The stop.** Decision Log 2 ruling 4 stops the gate on any capsule or toolbar cell worsening on
+ΔE or SSIM. Four fired: `dark-solid__capsule-button__rest` at 2x in both schemes by +4e-7 ΔE and
+−1.4e-5 SSIM (the material nearly invisible on both sides there; the stop's letter at the fifth
+decimal), and two increased-contrast tinted cells whose ΔE improves (−0.00088, −0.00133; ΔE max by
+0.0208 and 0.2485) while SSIM falls **−0.00559** (`photo__capsule-button__rest-tint-orange`) and
+−0.00033 (`checkerboard…`). Attributed on the pixels (`g1-stop-attribution.txt`, and the parent's
+own crop): the shoulders fall 0.436 → 0.097 and 0.410 → 0.137 of |ΔL|, the body does not move
+(0.0026), and the two-pixel band inside the contour worsens 0.399 → 0.469 — because **under
+increased contrast Apple draws a dark border around the material (band luminance 0.21) where
+vitrea draws its white specular rim (0.61 → 0.68)**; before the fix the band missed part of that
+line at the capsule's ends, where vitrea's rim sat on the clamped contour outside the declared one,
+and now the geometry is right the whole line shows to the band term. The reader's
+`rimPeakLuminanceNative = 0` on these cells is the same fact seen by a reader that looks for a
+bright peak. A standing gap the corner had hidden, not one the fix opened; the increased-contrast
+rim's +0.12 over Apple was already the ledger's largest rim residual. Disposition: W20 Decision
+Log 3.
+
+**6. By eye.** `sheets/g1-1x.png`, `g1-2x.png`: column 2 (the W19 bed) shows rounded rectangles
+and, in the toolbar, rounded squares; column 3 shows stadiums and circles sitting on Apple's in
+column 1; the diff column keeps only the contour line. The `hc-text` row is holdout and joins the
+landing sheet.
+
+**7. What did not close.** The demo's reference-panel fixture (G2); holdout (G2); the CSS tier's
+byte-identity argued from the code, verified at G2; the increased-contrast border (Decision Log 3,
+Deferred); the `k` switch at the crossing, recorded not bounded.

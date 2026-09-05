@@ -225,14 +225,18 @@ reference above the ratio stays a documented refusal until the probe runs.
   conformance rule applies on that tier it reads a uniform +1.1 px, the rim border at alpha 0.5255
   drawn outside the DOM's border-radius box — the rim band on the CSS tier (W16 Deferred), a CSS
   residual under wave Decision Log 23 (a). Recorded, not chartered.
+- **The increased-contrast border** (G1, Decision Log 3 (2); claims §5.85 §5): Apple's
+  increased-contrast material carries a dark outline and no bright rim; vitrea keeps the white
+  specular rim. The renderer's item; the seven increased-contrast cells its bed; the rim's policy
+  fold under that mode the shape of the work.
 
 ## Tracking Map
 
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g0/g0-probe.md` (the native probe: `probe/`, `layer-dumps/`, `read/`; `apps/reference-apple/scenes-w20-probe.json`) and `g0/g0-instrument.md` (the instrument: `render-path-conformance.test.ts`, `capture-web --alpha`, `compare --alpha`, the four shape rows, `declared-conformance.test.ts`); claims §5.84 | CLOSED 2026-09-06 |
-| G1 | — | OPEN — dispatched on Decision Log 2 |
-| G2 | — | not started |
+| G1 | branch `worktree-agent-a463558bb21d8d14b` at `bc7706e` (the fix in `shape.ts`, `apple.ts`; `apple-saturation.test.ts`; `g1/g1-dryrun.md` with tables, scripts and logs; `sheets/g1-1x.png`, `g1-2x.png`; `.changeset/gpu-capsule-corner.md`); claims §5.85 | DECLARED 2026-09-06 — landing on Decision Log 3 |
+| G2 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g2/` | OPEN — the parent executes |
 
 ## Decision Log
 
@@ -320,6 +324,41 @@ Apple's, and it would hide the general defect for authored rounded rectangles); 
 declared region (admits the shadow on the sides the shoulders occupy, and the raster reading is
 exact where it applies).
 
+### Decision Log 3 — G1 at the gate: the stop's disposition and the landing (2026-09-06)
+
+**What G1 declared** (claims §5.85): the fix bit for bit below the crossing, the reference
+family's construction above it, the crossing 0.093 px and unblended, goldens byte-identical, the
+chain green, and on G0's instrument every capsule and toolbar cell drawn to its declaration with ΔE
+better on 51 of 53 and every rounded rectangle byte-identical.
+
+**The stop** (Decision Log 2 ruling 4) fired on four cells. Rulings, on the parent's
+recommendation under the user's standing instruction, the user's eye keeping its veto before
+publish:
+
+1. The two `dark-solid` 2x cells (+4e-7 ΔE, −1.4e-5 SSIM) are the stop's letter at the fifth
+   decimal on a cell where the material is invisible on both sides; they do not hold the landing.
+2. The two increased-contrast tinted cells lose SSIM (−0.0056, −0.0003) while their ΔE improves,
+   and the pixels attribute the loss to the contour line: Apple draws a dark border under increased
+   contrast where vitrea draws its white rim, and the corrected geometry lets the band term see
+   the whole line where the clamped corner had hidden part of it. A standing gap exposed, not a gap
+   opened; **the landing proceeds** and the gap is named — *the increased-contrast border*, W20
+   Deferred, the renderer's item: Apple's increased-contrast material carries a dark outline
+   (band luminance 0.21 against the backdrop) and no bright rim, vitrea keeps the standard white
+   rim (0.68); the bed's seven increased-contrast cells and their `rimPeakLuminanceNative = 0`
+   readings are its evidence, and the shape of the work is the rim's policy fold under
+   `increased-contrast` (the same fold that already reduces the ambient tint), measured on those
+   cells.
+3. The declaration stands as declared for G2: the canonical rebuild once from the main checkout,
+   both tiers, holdout read once, with `--alpha`; the referee's tables; the demo fixture re-copied
+   after the rebuild; the conformance bound joining `adopted-thresholds` as Decision Log 2
+   recommended; the version bump to 0.9.0 after recomposition (a `vitrea-web` minor: every pill
+   button and circle an author draws changes shape), the user publishing.
+
+**Rejected.** Holding the landing on the two increased-contrast cells (the wave's own charter
+clause says the material rows move because the region they are read in no longer holds shoulders,
+and both cells improve on ΔE and its tail); tuning the rim on those cells inside this wave (no
+fitted constant is this wave's, X2).
+
 ## Surprises & Discoveries
 
 - **The finding is the user's (2026-09-05).** Nineteen waves of sheets, and the question "is fixing
@@ -347,6 +386,8 @@ exact where it applies).
 
 ## Revision Notes
 
+- 2026-09-06: G1 DECLARED (claims §5.85) — Decision Log 3: the stop's four cells dispositioned, the
+  increased-contrast border named and deferred, the landing and the 0.9.0 cut ruled; G2 opens.
 - 2026-09-06: G0 CLOSED (claims §5.84) — Apple's policy above the ratio measured, the instrument
   adopted, Decision Log 2 written with G1's binding design and re-declared stops; three Surprises;
   three Deferred entries; G1 dispatched.
