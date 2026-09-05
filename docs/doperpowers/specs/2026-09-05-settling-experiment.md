@@ -283,6 +283,16 @@ per build, so this is roughly twelve acceptance runs' worth.
   tool call and needed a second nudge; one timed out once more and was resumed again.
   Evidence: the wave-four task notifications.
 
+- Observation: The compare brief's blinded fit rater put every arm within one point: no skill
+  2 of 5, and 1.1, 2.0 and 2.1 each 3 of 5. All four fail q4 and q5 — every build places a title
+  band and a summary or metadata strip above the comparison, and every build carries a stat row
+  or three-column block somewhere on the page. The 2.1 build's first viewport is a full-width
+  "tender evaluation" card with a six-cell metadata strip before the quotes; only its pinned
+  award bar passes q3, where the no-skill build's award control is the last row of its table.
+  So on the one pair-category brief the grammar removed the side column and nothing else; the
+  headline band it forbids on consoles reappears as an evaluation header.
+  Evidence: `fit/compare.json`; the compare first-viewport captures.
+
 ## Deferred
 
 - A second judge, for an agreement statistic.
