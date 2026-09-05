@@ -327,6 +327,18 @@ builds in one review page.
   Rationale: each was a contract the builder could not satisfy both halves of; none minor.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: Second external review round (2026-09-05, Codex over 728339c) — three findings,
+  all confirmed and fixed: the composition is derived beside the stance derivation, before
+  `DESIGN.md`, so §4 is written with the rest of the law and no staged authoring remains (the
+  first round's staging was the wrong fix — it let layout-affecting tokens precede the layout
+  law); the adopted-geometry exception now reaches every ratio prohibition (`SKILL.md`,
+  `composition.md` QA, `taste-calibration.md`); a recorded one-candidate case is exempt from
+  the rejected-candidate and candidate-distance checks. Workflow step 6 becomes "Build the
+  composition" — implementation of the chosen candidate.
+  Rationale: follow-through on round one plus one correction of it; the round produced no new
+  class of finding, which is the convergence signal.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The reference's snippet is the layout-level `#D46B2C`.
@@ -365,3 +377,4 @@ Pending — written at finish.
 - 2026-09-05: created from the layout survey and three research rounds; direction approved by
   the user ("next would be the composition grammar").
 - 2026-09-05 (second revision): first review round recorded with its six fixes.
+- 2026-09-05 (third revision): second review round recorded; composition derivation moved beside the stance derivation.
