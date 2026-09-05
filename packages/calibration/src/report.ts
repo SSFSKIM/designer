@@ -260,6 +260,59 @@ export interface ShapeAxisReport {
   /** Characteristic corner curvature of each side — the corner tightness. */
   readonly cornerCurvatureNative: MetricValue;
   readonly cornerCurvatureWeb: MetricValue;
+  /**
+   * **Declaration conformance**: the web tier's own DRAWN silhouette against the
+   * geometry the scene declares, unbounded by the declared region (W20 G0,
+   * claims §5.83).
+   *
+   * Every row above is bounded — the search region is the declaration, and a
+   * pixel outside it is outside both silhouettes whatever it holds. That bound
+   * is right for the comparison it makes (see `component-region.ts`) and it is
+   * blind in exactly one direction: a surface drawn LARGER than its declaration
+   * fills the region and reads IoU 1.000, contour 0, curvature delta 0. That is
+   * how the GPU tier drew every capsule of the bed as a rounded rectangle for
+   * nineteen waves without a single row moving.
+   *
+   * These four close that direction, and they answer a different question from
+   * the rows above: not "do the two sides agree" but "did this tier cover the
+   * region it was told to". There is no native counterpart and there should not
+   * be — the reference casts an outer shadow, so its own footprint is not
+   * separable from its shadow by any luminance rule, which is the finding the
+   * region bound exists for. The web side has an honest answer because its
+   * capture can be taken over a transparent page, where the tier's coverage IS
+   * its alpha.
+   *
+   * Absent means the declaration-conformance capture was not on disk for this
+   * cell (`capture-web --alpha`), never that the tier conformed. Optional for
+   * that reason and because they are a schema ADDITION: nothing above changes
+   * meaning, so an older matrix still reads (see `RESULT_MATRIX_SCHEMA_VERSION`).
+   */
+  readonly drawnAreaWeb?: MetricValue;
+  /** The drawn silhouette against the declared region: 1 is exact conformance. */
+  readonly declaredIoUWeb?: MetricValue;
+  readonly declaredContourP95Web?: MetricValue;
+  /**
+   * The worst boundary point, which is where a clamped corner lives: a capsule
+   * drawn at Apple's saturated radius departs from its stadium on the diagonal
+   * and nowhere else, so the p95 dilutes it over the straight edges and the max
+   * does not.
+   */
+  readonly declaredContourMaxWeb?: MetricValue;
+}
+
+/**
+ * The declaration-conformance reading, as `measureCell` hands it over.
+ *
+ * Its own input object rather than four more fields on `shapeAxisReport`,
+ * because it is all-or-nothing: the four figures come from one capture and one
+ * extraction, and a cell that has three of them would be a cell whose capture
+ * half-existed.
+ */
+export interface DeclaredConformanceInput {
+  readonly drawnAreaWeb: number;
+  readonly declaredIoUWeb: number;
+  readonly declaredContourP95Px: number;
+  readonly declaredContourMaxPx: number;
 }
 
 export function shapeAxisReport(input: {
@@ -275,6 +328,8 @@ export function shapeAxisReport(input: {
   readonly silhouetteIoU: number;
   readonly contourDistance: ContourDistanceReport;
   readonly cornerCurvature: CornerCurvatureReport;
+  /** Absent where no conformance capture was on disk, or where the tier refused it. */
+  readonly conformance?: DeclaredConformanceInput;
 }): ShapeAxisReport {
   return {
     axis: "shape",
@@ -296,6 +351,14 @@ export function shapeAxisReport(input: {
     cornerCurvatureP95Delta: metricValue(input.cornerCurvature.cornerP95DeltaPerPx, "1/px"),
     cornerCurvatureNative: metricValue(input.cornerCurvature.cornerCurvaturePerPxA, "1/px"),
     cornerCurvatureWeb: metricValue(input.cornerCurvature.cornerCurvaturePerPxB, "1/px"),
+    ...(input.conformance === undefined
+      ? {}
+      : {
+          drawnAreaWeb: metricValue(input.conformance.drawnAreaWeb, "px^2"),
+          declaredIoUWeb: metricValue(input.conformance.declaredIoUWeb, "ratio"),
+          declaredContourP95Web: metricValue(input.conformance.declaredContourP95Px, "px"),
+          declaredContourMaxWeb: metricValue(input.conformance.declaredContourMaxPx, "px"),
+        }),
   };
 }
 
@@ -936,8 +999,11 @@ export interface CellResult {
  *     for this cell" after.
  *
  * The band-windowed perceptual rows (W13 X6, `ssimBand` / `ssimInterior` /
- * `ssimOutside` and their window counts) and the shadow axis's affine pair
- * (W14 X7, `affineNative` / `affineWeb`) are schema *additions* and do not move this number.
+ * `ssimOutside` and their window counts), the shadow axis's affine pair
+ * (W14 X7, `affineNative` / `affineWeb`) and the shape axis's declaration-
+ * conformance rows (W20 G0, `drawnAreaWeb` / `declaredIoUWeb` /
+ * `declaredContour{P95,Max}Web`) are schema *additions* and do not move this
+ * number.
  * The version exists to stop a reader taking two cells as the same quantity
  * when they are not, and nothing here changes an existing quantity: every
  * schema-5 figure is measured exactly as before, the new rows are optional in

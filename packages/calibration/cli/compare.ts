@@ -336,6 +336,19 @@ interface Options {
    * for why a margin costs more than it buys against a shadow-casting reference.
    */
   readonly componentRegionMarginPx: number | undefined;
+  /**
+   * Also take, and read, the declaration-conformance capture (W20 G0, claims
+   * §5.83): `capture-web --alpha` writes `<scene>__<tier>__alpha.png` beside the
+   * composite, and the shape axis's `drawnAreaWeb` / `declaredIoUWeb` /
+   * `declaredContour{P95,Max}Web` rows are measured from it.
+   *
+   * Off by default because it costs a third page load per scene and every
+   * committed matrix so far was measured without it; a run that passes it says
+   * so in the rows, and a run that does not leaves them absent rather than
+   * asserting conformance. `--skip-capture` still reads an alpha image already
+   * on disk, which is what makes a re-measure of an existing bed possible.
+   */
+  readonly alpha: boolean;
 }
 
 function parseOptions(argv: readonly string[]): Options {
@@ -379,6 +392,7 @@ function parseOptions(argv: readonly string[]): Options {
     sets,
     renderer,
     skipCapture: argv.includes("--skip-capture"),
+    alpha: argv.includes("--alpha"),
     writePartial: argv.includes("--write-partial"),
     allowMaterialFree: argv.includes("--allow-material-free"),
     allowColourlessTints: argv.includes("--allow-colourless-tints"),
@@ -566,6 +580,7 @@ function captureFor(planned: readonly PlannedCell[], options: Options): void {
     "--out",
     captureRootFor(first.profileKey, variant),
     ...(options.materialProfile === undefined ? [] : ["--material-profile", options.materialProfile]),
+    ...(options.alpha ? ["--alpha"] : []),
   ]);
 }
 
@@ -736,6 +751,18 @@ function main(): void {
      * enriching the written matrix: the matrix stays writable by exactly one
      * sanctioned path.
      */
+    /*
+     * The declaration-conformance capture, read off disk exactly as the twin is.
+     *
+     * Selected on existence rather than on `--alpha`, so a `--skip-capture`
+     * re-measure of a bed captured with the flag still reads it. Freshness is
+     * the composite capture's: the two are written by one `capture-web`
+     * invocation, so a stale alpha image beside a fresh composite cannot happen
+     * without the driver having failed loudly first.
+     */
+    const alphaPng = resolve(captureDir, `${cell.sceneId}__${options.renderer}__alpha.png`);
+    const drawnAlphaPath = existsSync(alphaPng) ? alphaPng : undefined;
+
     const twinPng = resolve(captureDir, `${cell.sceneId}__webgpu.png`);
     const textureTwinPath = options.renderer === "css" && existsSync(twinPng) ? twinPng : undefined;
     if (options.renderer === "css" && textureTwinPath === undefined) {
@@ -747,6 +774,7 @@ function main(): void {
         nativePath: resolve(FIXTURES, cell.fixture.file),
         webPath: webPng,
         ...(textureTwinPath === undefined ? {} : { textureTwinPath }),
+        ...(drawnAlphaPath === undefined ? {} : { drawnAlphaPath }),
         backgroundPath: resolve(FIXTURES, cell.backgroundFile),
         profileKey: cell.profileKey,
         sceneId: cell.sceneId,
@@ -883,6 +911,39 @@ function main(): void {
           summarise("dE", deltaE, "max", 5),
         ].join("   "),
     );
+  }
+
+  /*
+   * Declaration conformance (W20 G0, claims §5.83). Its own block rather than
+   * more columns above, and for the same reason the shadow axis has one: it is
+   * not a residual against the reference. It asks whether this tier covered the
+   * geometry the scene declares, and the answer is only present on cells whose
+   * conformance capture was on disk and whose tier composites above the alpha
+   * coverage rule's floor.
+   */
+  const conformanceRows = measured.filter(
+    (row) => metric(row.cell, "shape", "declaredIoUWeb") !== undefined,
+  );
+  if (conformanceRows.length > 0) {
+    say("");
+    say("── declaration conformance: the web tier's DRAWN silhouette against the declaration ──");
+    say(
+      "profile                       scene                                        " +
+        "drawn px  declared px  IoU     contour p95  contour max",
+    );
+    for (const { planned: cell, cell: result } of conformanceRows) {
+      say(
+        [
+          cell.profileKey.replace(/^apple-macos-[\d.]+-/, "").padEnd(29),
+          cell.sceneId.padEnd(44),
+          fixed(metric(result, "shape", "drawnAreaWeb"), 0).padStart(8),
+          fixed(metric(result, "shape", "componentRegionArea"), 0).padStart(12),
+          fixed(metric(result, "shape", "declaredIoUWeb"), 4).padStart(7),
+          fixed(metric(result, "shape", "declaredContourP95Web"), 2).padStart(12),
+          fixed(metric(result, "shape", "declaredContourMaxWeb"), 2).padStart(12),
+        ].join(" "),
+      );
+    }
   }
 
   // ---------------------------------------------------------------------------
