@@ -169,7 +169,8 @@ async function measureOne(chromium, id) {
 const { chromium, module } = await playwright();
 console.log("playwright: " + module);
 const prev = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, "utf8")) : { builds: {} };
-const ids = fs.readdirSync(buildsDir).filter((d) => fs.existsSync(path.join(buildsDir, d, "index.html"))).filter((d) => !only || only.includes(d)).sort();
+// A build whose builder was interrupted carries a .incomplete marker and is not measured until it is removed.
+const ids = fs.readdirSync(buildsDir).filter((d) => fs.existsSync(path.join(buildsDir, d, "index.html")) && !fs.existsSync(path.join(buildsDir, d, ".incomplete"))).filter((d) => !only || only.includes(d)).sort();
 for (const id of ids) {
   const stamp = fs.statSync(path.join(buildsDir, id, "index.html")).mtimeMs;
   if (prev.builds[id] && prev.builds[id].mtimeMs === stamp && !prev.builds[id].error && !only) { continue; }

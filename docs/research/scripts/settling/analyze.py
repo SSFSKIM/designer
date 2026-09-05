@@ -103,7 +103,8 @@ def wilson(k, n, z=1.96):
 # ---------- validity gate ----------
 def valid(i):
     m = meas.get(i, {})
-    return bool(m.get("gateMechanical")) and (appear[i] == 0 or won[i] >= 1)   # human clause applies once judged
+    # The human clause (won at least one of its three pairs) applies only once all three are judged.
+    return bool(m.get("gateMechanical")) and (appear[i] < 3 or won[i] >= 1)
 
 def gate_text(i):
     m = meas.get(i, {}); parts = []
@@ -111,7 +112,7 @@ def gate_text(i):
     if m.get("overflow"): parts.append("overflow")
     if m.get("placeholder"): parts.append("placeholder")
     if m.get("contrast", {}).get("rate") is not None and m["contrast"]["rate"] < 0.9: parts.append(f"contrast {m['contrast']['rate']}")
-    if appear[i] > 0 and won[i] == 0: parts.append("won 0 pairs")
+    if appear[i] >= 3 and won[i] == 0: parts.append("won 0 pairs")
     return ", ".join(parts) or "pass"
 
 # ---------- diversity ----------

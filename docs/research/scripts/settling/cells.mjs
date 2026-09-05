@@ -73,7 +73,7 @@ function init() {
 }
 
 function load() { return JSON.parse(fs.readFileSync(manifestPath, "utf8")); }
-const built = (c) => fs.existsSync(path.join(ws, "builds", c.id, "index.html"));
+const built = (c) => fs.existsSync(path.join(ws, "builds", c.id, "index.html")) && !fs.existsSync(path.join(ws, "builds", c.id, ".incomplete"));
 
 function prompt(id) {
   const c = load().cells.find((x) => x.id === id);
