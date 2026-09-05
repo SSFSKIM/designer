@@ -1,6 +1,6 @@
 # Settling experiment — results
 
-Builds measured: 32 of 52. Judgments: 3. Topology: yes. Fit ratings: 0.
+Builds measured: 32 of 52. Judgments: 3. Topology: yes. Fit ratings: 8.
 
 ## Q — pairwise quality (human, blinded)
 
@@ -151,6 +151,15 @@ Pooled Bradley–Terry log-strength per arm (mean over briefs with judgments; 0 
 | cbd040 | rebate | v1.1 | A | #F5F4F7 L0.969 | #FF7729 h45.8 | 2 | Zilla Slab / Public Sans / Azeret Mono | heading 0.065 | dominant |  |  | y | 7.9vh | — |
 | 5d884a | rebate | v2.0 | A | #ECF4F6 L0.962 | #4A41A7 h281.8 | 1 | Zilla Slab / Atkinson Hyperlegible Next / Geist Mono | heading 0.07 | peers | band |  |  | 7.9vh | — |
 | 7acb2c | rebate | v2.1 | A | #F6F8FB L0.978 | — h | 0 | Archivo Narrow / Public Sans / Roboto Mono | block 0.09 | dominant | band |  |  | 9.4vh | -3.02 |
+
+## F — structural fit (blinded rater, secondary)
+
+| arm | builds | mean yes of 5 |
+|---|---|---|
+| none | 2 | 2.00 |
+| v1.1 | 2 | 2.50 |
+| v2.0 | 2 | 3.50 |
+| v2.1 | 2 | 5.00 |
 
 ## P — fleet against compare, per arm (all four distances)
 
