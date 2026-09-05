@@ -1,0 +1,314 @@
+{
+  "$comment": [
+    "W20 probe scene matrix — what Apple draws for RoundedRectangle(cornerRadius:style:.continuous)",
+    "when the radius exceeds 0.327083 of the short side. NOTHING else reads this file. It runs",
+    "through VITREA_SCENES into its own fixtures directory under",
+    "packages/calibration/results/2026-09-05-w20-capsule-corner/probe/, so the canonical",
+    "scenes.json and the frozen bed stay untouched. Both backgrounds reuse an existing kind",
+    "verbatim: nothing rebuilds and no TCC re-grant is needed for the rasters.",
+    "",
+    "What it is for. vitrea's Apple reference clamps the RADIUS above the saturation ratio",
+    "1 / (2 * APPLE_REACH) = 0.327083, so that Apple's measured corner reach 1.52866495 * r still",
+    "fits half the short side (packages/geometry/src/apple.ts, buildAppleContour; pinned by",
+    "test/apple.test.ts under the name 'Apple's budget policy is its own'). That was never",
+    "measured — S2 fitted the corner below the ratio only, and the bed's capsules are Capsule(), a",
+    "circular stadium by definition, which cannot answer it (claims 5.83). These rungs put the",
+    "question to Apple: five radii on a 120 x 44 box from just below the ratio to the capsule",
+    "limit, three on the 44 x 44 box that is the toolbar's case, and Capsule() beside each as the",
+    "control whose true shape is known.",
+    "",
+    "Untinted, state rest, 1x light-standard only. This measures a CONTOUR: the tint and the",
+    "colour scheme are noise on that axis, and a corner law is scale-free, so 1x is the whole",
+    "measurement rather than half of one. Two backgrounds because the contour is read two ways —",
+    "the checkerboard by a local-contrast silhouette and light-solid by the rim band's peak locus.",
+    "Nothing here is fitted to anything: every scene is 'recorded'."
+  ],
+  "version": 2,
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "light-solid": {
+      "kind": "solid",
+      "srgb": [
+        242,
+        242,
+        247
+      ],
+      "$comment": "System light grey, the canonical bed's entry verbatim so the committed raster is reused and nothing rebuilds. The flat case: no backdrop detail, so the rim band reads alone and its peak locus is the contour."
+    },
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "The canonical bed's entry verbatim. Every cell edge is a step edge, so the material's blur shows as a collapse of LOCAL CONTRAST everywhere inside the surface — which is the silhouette rule this probe reads it with, and which the outer shadow does not trip because a darkened checker keeps its contrast."
+    }
+  },
+  "components": {
+    "rrect-120x44-r14": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 14,
+      "$comment": "Ratio 0.3182, BELOW Apple's saturation ratio 0.327083 (= 1 / (2 * 1.52866495)): the reach 21.40 px still fits the corner's budget 22.00 px, so every candidate policy draws the same corner here. It is the ladder's control: the rung that tests the instrument rather than Apple."
+    },
+    "rrect-120x44-r16": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 16,
+      "$comment": "Ratio 0.3636, above saturation: the reach would be 24.46 px against a budget of 22.00 px, an overflow of 11.2 %. vitrea's policy today clamps the radius to 14.39 px; a shoulder compression would keep 16. The first rung above saturation."
+    },
+    "rrect-120x44-r18": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 18,
+      "$comment": "Ratio 0.4091, above saturation: the reach would be 27.52 px against a budget of 22.00 px, an overflow of 25.1 %. vitrea's policy today clamps the radius to 14.39 px; a shoulder compression would keep 18. Mid-ladder, where the two candidate policies are furthest apart per unit of overflow."
+    },
+    "rrect-120x44-r20": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 20,
+      "$comment": "Ratio 0.4545, above saturation: the reach would be 30.57 px against a budget of 22.00 px, an overflow of 39.0 %. vitrea's policy today clamps the radius to 14.39 px; a shoulder compression would keep 20."
+    },
+    "rrect-120x44-r22": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 22,
+      "$comment": "Ratio 0.5000, above saturation: the reach would be 33.63 px against a budget of 22.00 px, an overflow of 52.9 %. vitrea's policy today clamps the radius to 14.39 px; a shoulder compression would keep 22. The capsule limit reached by RoundedRectangle rather than by Capsule(). If Apple compresses the shoulder this must draw exactly the stadium the capsule control draws; if Apple clamps the radius it draws a rounded rectangle whose corner is a third smaller. The two are 7.6 px apart on the contour, fifteen times the grid's 0.5 px floor."
+    },
+    "capsule-120x44": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The control. `Capsule()` is a circular stadium by definition (`Sources/SceneViews.swift`), so this cell is what the contour reader is verified against before any rung is read, and it is what `rrect-120x44-r22` is compared to."
+    },
+    "rrect-44x44-r14": {
+      "kind": "rrect",
+      "size": [
+        44,
+        44
+      ],
+      "radius": 14,
+      "$comment": "Ratio 0.3182, BELOW Apple's saturation ratio 0.327083 (= 1 / (2 * 1.52866495)): the reach 21.40 px still fits the corner's budget 22.00 px, so every candidate policy draws the same corner here. The circle regime — the toolbar's 44 x 44 case — below saturation."
+    },
+    "rrect-44x44-r18": {
+      "kind": "rrect",
+      "size": [
+        44,
+        44
+      ],
+      "radius": 18,
+      "$comment": "Ratio 0.4091, above saturation: the reach would be 27.52 px against a budget of 22.00 px, an overflow of 25.1 %. vitrea's policy today clamps the radius to 14.39 px; a shoulder compression would keep 18. The square box's mid rung."
+    },
+    "rrect-44x44-r22": {
+      "kind": "rrect",
+      "size": [
+        44,
+        44
+      ],
+      "radius": 22,
+      "$comment": "Ratio 0.5000, above saturation: the reach would be 33.63 px against a budget of 22.00 px, an overflow of 52.9 %. vitrea's policy today clamps the radius to 14.39 px; a shoulder compression would keep 22. The square box at the limit: a circle of diameter 44 under a shoulder compression, a rounded square under vitrea's radius clamp. This is the shape the bed's `toolbar-group` draws."
+    },
+    "capsule-44x44": {
+      "kind": "capsule",
+      "size": [
+        44,
+        44
+      ],
+      "$comment": "`Capsule()` on a square box, which is a circle. The second control, and the shape the bed's `toolbar-group` items are declared as."
+    }
+  },
+  "states": {
+    "rest": {
+      "$comment": "No interaction."
+    }
+  },
+  "scenes": [
+    {
+      "id": "light-solid__rrect-120x44-r14__rest",
+      "background": "light-solid",
+      "component": "rrect-120x44-r14",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-120x44-r16__rest",
+      "background": "light-solid",
+      "component": "rrect-120x44-r16",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-120x44-r18__rest",
+      "background": "light-solid",
+      "component": "rrect-120x44-r18",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-120x44-r20__rest",
+      "background": "light-solid",
+      "component": "rrect-120x44-r20",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-120x44-r22__rest",
+      "background": "light-solid",
+      "component": "rrect-120x44-r22",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__capsule-120x44__rest",
+      "background": "light-solid",
+      "component": "capsule-120x44",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-44x44-r14__rest",
+      "background": "light-solid",
+      "component": "rrect-44x44-r14",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-44x44-r18__rest",
+      "background": "light-solid",
+      "component": "rrect-44x44-r18",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__rrect-44x44-r22__rest",
+      "background": "light-solid",
+      "component": "rrect-44x44-r22",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__capsule-44x44__rest",
+      "background": "light-solid",
+      "component": "capsule-44x44",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-120x44-r14__rest",
+      "background": "checkerboard",
+      "component": "rrect-120x44-r14",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-120x44-r16__rest",
+      "background": "checkerboard",
+      "component": "rrect-120x44-r16",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-120x44-r18__rest",
+      "background": "checkerboard",
+      "component": "rrect-120x44-r18",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-120x44-r20__rest",
+      "background": "checkerboard",
+      "component": "rrect-120x44-r20",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-120x44-r22__rest",
+      "background": "checkerboard",
+      "component": "rrect-120x44-r22",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__capsule-120x44__rest",
+      "background": "checkerboard",
+      "component": "capsule-120x44",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-44x44-r14__rest",
+      "background": "checkerboard",
+      "component": "rrect-44x44-r14",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-44x44-r18__rest",
+      "background": "checkerboard",
+      "component": "rrect-44x44-r18",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__rrect-44x44-r22__rest",
+      "background": "checkerboard",
+      "component": "rrect-44x44-r22",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__capsule-44x44__rest",
+      "background": "checkerboard",
+      "component": "capsule-44x44",
+      "state": "rest"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-26.5-1x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "The probe's one profile, as W18's and W19's probes had one: this machine presents at 1x and the canonical 2x fixtures were captured on a reconfigured display."
+    }
+  ],
+  "split": {
+    "$comment": [
+      "Declared before the first capture. Nothing is fitted to this bed: every cell is 'recorded'",
+      "and no number taken from it tunes a constant."
+    ],
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "recorded": [
+      "light-solid__rrect-120x44-r14__rest",
+      "light-solid__rrect-120x44-r16__rest",
+      "light-solid__rrect-120x44-r18__rest",
+      "light-solid__rrect-120x44-r20__rest",
+      "light-solid__rrect-120x44-r22__rest",
+      "light-solid__capsule-120x44__rest",
+      "light-solid__rrect-44x44-r14__rest",
+      "light-solid__rrect-44x44-r18__rest",
+      "light-solid__rrect-44x44-r22__rest",
+      "light-solid__capsule-44x44__rest",
+      "checkerboard__rrect-120x44-r14__rest",
+      "checkerboard__rrect-120x44-r16__rest",
+      "checkerboard__rrect-120x44-r18__rest",
+      "checkerboard__rrect-120x44-r20__rest",
+      "checkerboard__rrect-120x44-r22__rest",
+      "checkerboard__capsule-120x44__rest",
+      "checkerboard__rrect-44x44-r14__rest",
+      "checkerboard__rrect-44x44-r18__rest",
+      "checkerboard__rrect-44x44-r22__rest",
+      "checkerboard__capsule-44x44__rest"
+    ]
+  }
+}

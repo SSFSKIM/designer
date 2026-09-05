@@ -1,0 +1,1471 @@
+{
+ "gridFloor": 0.5,
+ "results": [
+  {
+   "scene": "light-solid__rrect-120x44-r14__rest",
+   "background": "light-solid",
+   "component": "rrect-120x44-r14",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 14,
+   "ratio": 0.3181818181818182,
+   "points": 328,
+   "arcPoints": 134,
+   "circleFitRadius": 13.668068065488736,
+   "circleFitRms": 0.12325142782578256,
+   "diagonalDepth": 5.5747620998004,
+   "impliedCircularRadius": 13.458666268341636,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 0.3537386632045019,
+    "vitrea-clamp vs circular-arc": 0.3263142447969553,
+    "vitrea-clamp vs apple-overflow": 0.0,
+    "shoulder-compress vs circular-arc": 0.3747809794879946,
+    "shoulder-compress vs apple-overflow": 0.3537386632045019,
+    "circular-arc vs apple-overflow": 0.3263142447969553
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 0.4019906359248551,
+     "p95": 0.28271043997053613,
+     "mean": 0.09451594130265005,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6674445450268525,
+     "p95CandidateToNative": 0.5005858208195446,
+     "circleFitRadius": 13.804066326169085,
+     "diagonalDepth": 5.73999061294982
+    },
+    "shoulder-compress": {
+     "max": 0.39332603856480686,
+     "p95": 0.24707648817692424,
+     "mean": 0.0874061591601241,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.7087184863330069,
+     "p95CandidateToNative": 0.5003826837413755,
+     "circleFitRadius": 13.896241011810215,
+     "diagonalDepth": 5.762253218015033
+    },
+    "circular-arc": {
+     "max": 0.393385445845564,
+     "p95": 0.24412054499512825,
+     "mean": 0.08533598095230457,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6990331908621075,
+     "p95CandidateToNative": 0.5099019513592773,
+     "circleFitRadius": 14.18382706222867,
+     "diagonalDepth": 5.780851107372579
+    },
+    "apple-overflow": {
+     "max": 0.4019906359248551,
+     "p95": 0.28271043997053613,
+     "mean": 0.09451594130265005,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6674445450268525,
+     "p95CandidateToNative": 0.5005858208195446,
+     "circleFitRadius": 13.804066326169085,
+     "diagonalDepth": 5.73999061294982
+    }
+   },
+   "crop": {
+    "box": [
+     185,
+     73,
+     225,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     234.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-120x44-r16__rest",
+   "background": "light-solid",
+   "component": "rrect-120x44-r16",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 16,
+   "ratio": 0.36363636363636365,
+   "points": 328,
+   "arcPoints": 134,
+   "circleFitRadius": 15.243823005212269,
+   "circleFitRms": 0.10185166137252545,
+   "diagonalDepth": 6.408840879909823,
+   "impliedCircularRadius": 15.47231057136941,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 0.7339552350349725,
+    "vitrea-clamp vs circular-arc": 0.7320583334981928,
+    "vitrea-clamp vs apple-overflow": 0.6961452975947686,
+    "shoulder-compress vs circular-arc": 0.35984065675308247,
+    "shoulder-compress vs apple-overflow": 0.33862461907173014,
+    "circular-arc vs apple-overflow": 0.326565375257169
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 0.6780953696039536,
+     "p95": 0.5240330215058,
+     "mean": 0.15371961502198656,
+     "withinFloor": false,
+     "maxCandidateToNative": 0.7735071744719614,
+     "p95CandidateToNative": 0.5953596756348686,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 0.3861658342548628,
+     "p95": 0.2383084815557226,
+     "mean": 0.08700077975151149,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6368719059291055,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 15.742293858563233,
+     "diagonalDepth": 6.615381240206047
+    },
+    "circular-arc": {
+     "max": 0.38625999571490216,
+     "p95": 0.23995898847167535,
+     "mean": 0.08723434531823177,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6574446643746326,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 16.00198059164037,
+     "diagonalDepth": 6.616018716606718
+    },
+    "apple-overflow": {
+     "max": 0.3796193790425508,
+     "p95": 0.283493611949883,
+     "mean": 0.10267997570357389,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6086005826501069,
+     "p95CandidateToNative": 0.5044009758299681,
+     "circleFitRadius": 15.182473535738893,
+     "diagonalDepth": 6.574264139536185
+    }
+   },
+   "crop": {
+    "box": [
+     185,
+     73,
+     225,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     234.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-120x44-r18__rest",
+   "background": "light-solid",
+   "component": "rrect-120x44-r18",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 18,
+   "ratio": 0.4090909090909091,
+   "points": 328,
+   "arcPoints": 136,
+   "circleFitRadius": 17.154829063541097,
+   "circleFitRms": 0.10403472572423121,
+   "diagonalDepth": 7.2807149510337945,
+   "impliedCircularRadius": 17.577200778558346,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 1.5431850841986203,
+    "vitrea-clamp vs circular-arc": 1.5431973994325658,
+    "vitrea-clamp vs apple-overflow": 1.507838496305745,
+    "shoulder-compress vs circular-arc": 0.35124088365684286,
+    "shoulder-compress vs apple-overflow": 0.372654406413774,
+    "circular-arc vs apple-overflow": 0.3486674295190517
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 1.505539273472535,
+     "p95": 1.3508645606581926,
+     "mean": 0.3674984942658218,
+     "withinFloor": false,
+     "maxCandidateToNative": 1.5391961217737329,
+     "p95CandidateToNative": 1.3493534935776563,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 0.35645968026700875,
+     "p95": 0.2497215534646964,
+     "mean": 0.09192163177714015,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6728152068261408,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 17.960368350276752,
+     "diagonalDepth": 7.44811997954681
+    },
+    "circular-arc": {
+     "max": 0.35644178532422216,
+     "p95": 0.24972179361544067,
+     "mean": 0.09220774939954016,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6728115928391767,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 17.9999999999999,
+     "diagonalDepth": 7.448113726981277
+    },
+    "apple-overflow": {
+     "max": 0.43027472806971123,
+     "p95": 0.30331376889465783,
+     "mean": 0.10839622549521652,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6548961715158809,
+     "p95CandidateToNative": 0.49750286876134964,
+     "circleFitRadius": 16.71042825309446,
+     "diagonalDepth": 7.408040632254605
+    }
+   },
+   "crop": {
+    "box": [
+     185,
+     73,
+     225,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     234.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-120x44-r20__rest",
+   "background": "light-solid",
+   "component": "rrect-120x44-r20",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 20,
+   "ratio": 0.45454545454545453,
+   "points": 328,
+   "arcPoints": 136,
+   "circleFitRadius": 18.987830277543274,
+   "circleFitRms": 0.10571941592894842,
+   "diagonalDepth": 8.102701009829138,
+   "impliedCircularRadius": 19.561650669783674,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 2.363819354340754,
+    "vitrea-clamp vs circular-arc": 2.3630415570899235,
+    "vitrea-clamp vs apple-overflow": 2.3259021995743048,
+    "shoulder-compress vs circular-arc": 0.28975195625030037,
+    "shoulder-compress vs apple-overflow": 1.053352877043237,
+    "circular-arc vs apple-overflow": 1.0567061467149146
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 2.3184236709824733,
+     "p95": 2.116641655334388,
+     "mean": 0.6069697260606409,
+     "withinFloor": false,
+     "maxCandidateToNative": 2.357919692408243,
+     "p95CandidateToNative": 2.119956375666653,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 0.37846464291924786,
+     "p95": 0.26647597699648984,
+     "mean": 0.1012345756780143,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6463199982961694,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 19.99999999999986,
+     "diagonalDepth": 8.278804736538413
+    },
+    "circular-arc": {
+     "max": 0.3785000006479415,
+     "p95": 0.26648984468834847,
+     "mean": 0.10136677269601195,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.5968146558680875,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 19.999999999999876,
+     "diagonalDepth": 8.278830540017607
+    },
+    "apple-overflow": {
+     "max": 0.4072643625194676,
+     "p95": 0.29885592782685816,
+     "mean": 0.11143495586657731,
+     "withinFloor": true,
+     "maxCandidateToNative": 1.0794146825990807,
+     "p95CandidateToNative": 0.5457036940798079,
+     "circleFitRadius": 19.069304011960263,
+     "diagonalDepth": 8.238170994727563
+    }
+   },
+   "crop": {
+    "box": [
+     185,
+     73,
+     225,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     234.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-120x44-r22__rest",
+   "background": "light-solid",
+   "component": "rrect-120x44-r22",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 328,
+   "arcPoints": 132,
+   "circleFitRadius": 20.834856718962925,
+   "circleFitRms": 0.10856309382291308,
+   "diagonalDepth": 8.919687439593092,
+   "impliedCircularRadius": 21.534030388794584,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 3.190240162690632,
+    "vitrea-clamp vs circular-arc": 3.190240162690632,
+    "vitrea-clamp vs apple-overflow": 3.1457788390379218,
+    "shoulder-compress vs circular-arc": 0.0,
+    "shoulder-compress vs apple-overflow": 2.8627248495425484,
+    "circular-arc vs apple-overflow": 2.8627248495425484
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 3.147129591997572,
+     "p95": 2.941848488539652,
+     "mean": 0.8665069531377704,
+     "withinFloor": false,
+     "maxCandidateToNative": 3.205713334400842,
+     "p95CandidateToNative": 2.944922678201301,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 0.3935655207058588,
+     "p95": 0.29530083267420865,
+     "mean": 0.11608228861169884,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6372264096057634,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 21.99999999999992,
+     "diagonalDepth": 9.108672415824874
+    },
+    "circular-arc": {
+     "max": 0.3935655207058588,
+     "p95": 0.29530083267420865,
+     "mean": 0.11608228861169884,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6372264096057634,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 21.99999999999992,
+     "diagonalDepth": 9.108672415824874
+    },
+    "apple-overflow": {
+     "max": 0.4793903592959317,
+     "p95": 0.3397792793882074,
+     "mean": 0.12344062450256904,
+     "withinFloor": true,
+     "maxCandidateToNative": 2.708169566846066,
+     "p95CandidateToNative": 1.510022993469214,
+     "circleFitRadius": 14.786205068065522,
+     "diagonalDepth": 9.228226573759537
+    }
+   },
+   "crop": {
+    "box": [
+     185,
+     73,
+     225,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     233.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-44x44-r14__rest",
+   "background": "light-solid",
+   "component": "rrect-44x44-r14",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 14,
+   "ratio": 0.3181818181818182,
+   "points": 176,
+   "arcPoints": 134,
+   "circleFitRadius": 13.66806806548974,
+   "circleFitRms": 0.12325142782577364,
+   "diagonalDepth": 5.5747620998004,
+   "impliedCircularRadius": 13.458666268341636,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 0.3537386632045019,
+    "vitrea-clamp vs circular-arc": 0.32631424479697085,
+    "vitrea-clamp vs apple-overflow": 0.0,
+    "shoulder-compress vs circular-arc": 0.3747809794879946,
+    "shoulder-compress vs apple-overflow": 0.3537386632045019,
+    "circular-arc vs apple-overflow": 0.32631424479697085
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 0.4019906359248566,
+     "p95": 0.3280411249424018,
+     "mean": 0.11973737859991634,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6674445450268583,
+     "p95CandidateToNative": 0.5104654965143752,
+     "circleFitRadius": 13.804066326169771,
+     "diagonalDepth": 5.739990612949826
+    },
+    "shoulder-compress": {
+     "max": 0.3933260385648048,
+     "p95": 0.32182075159300016,
+     "mean": 0.10648733006157084,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.7087184863330069,
+     "p95CandidateToNative": 0.49647591063097585,
+     "circleFitRadius": 13.896241011810744,
+     "diagonalDepth": 5.762253218015031
+    },
+    "circular-arc": {
+     "max": 0.39338544584556184,
+     "p95": 0.3218017804793493,
+     "mean": 0.10263449511426707,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6990331908621092,
+     "p95CandidateToNative": 0.5139769796410217,
+     "circleFitRadius": 14.183827062229104,
+     "diagonalDepth": 5.780851107372579
+    },
+    "apple-overflow": {
+     "max": 0.4019906359248566,
+     "p95": 0.3280411249424018,
+     "mean": 0.11973737859991634,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6674445450268583,
+     "p95CandidateToNative": 0.5104654965143752,
+     "circleFitRadius": 13.804066326169771,
+     "diagonalDepth": 5.739990612949826
+    }
+   },
+   "crop": {
+    "box": [
+     147,
+     73,
+     187,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     234.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-44x44-r18__rest",
+   "background": "light-solid",
+   "component": "rrect-44x44-r18",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 18,
+   "ratio": 0.4090909090909091,
+   "points": 176,
+   "arcPoints": 134,
+   "circleFitRadius": 17.513778663274536,
+   "circleFitRms": 0.09934243420426601,
+   "diagonalDepth": 7.281798905161133,
+   "impliedCircularRadius": 17.579817675313556,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 1.5431850841986203,
+    "vitrea-clamp vs circular-arc": 1.5431973994325658,
+    "vitrea-clamp vs apple-overflow": 1.5085237248182575,
+    "shoulder-compress vs circular-arc": 0.35124088365684286,
+    "shoulder-compress vs apple-overflow": 0.3732966808934755,
+    "circular-arc vs apple-overflow": 0.3369727483687555
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 1.5055392734725326,
+     "p95": 1.381627226607356,
+     "mean": 0.6062411679671995,
+     "withinFloor": false,
+     "maxCandidateToNative": 1.539196121773724,
+     "p95CandidateToNative": 1.394255898826743,
+     "circleFitRadius": 14.063896259220922,
+     "diagonalDepth": 5.90324009892255
+    },
+    "shoulder-compress": {
+     "max": 0.400233317162819,
+     "p95": 0.30923270375298195,
+     "mean": 0.11585903539761362,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6728152068261397,
+     "p95CandidateToNative": 0.49153743280842305,
+     "circleFitRadius": 17.960368350276784,
+     "diagonalDepth": 7.4481199795468065
+    },
+    "circular-arc": {
+     "max": 0.4002490148260896,
+     "p95": 0.30923806446075724,
+     "mean": 0.11615453953270628,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6728115928391767,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 18.0,
+     "diagonalDepth": 7.448113726981274
+    },
+    "apple-overflow": {
+     "max": 0.524891632416016,
+     "p95": 0.38566605125395087,
+     "mean": 0.15950652943111954,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6554468756910429,
+     "p95CandidateToNative": 0.5340241075179407,
+     "circleFitRadius": 16.715646677302807,
+     "diagonalDepth": 7.40804063225461
+    }
+   },
+   "crop": {
+    "box": [
+     147,
+     73,
+     187,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     234.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__rrect-44x44-r22__rest",
+   "background": "light-solid",
+   "component": "rrect-44x44-r22",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 176,
+   "arcPoints": 136,
+   "circleFitRadius": 21.982660232367326,
+   "circleFitRms": 0.09830215751481251,
+   "diagonalDepth": 8.925448680510838,
+   "impliedCircularRadius": 21.547939254754308,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 3.190240162690627,
+    "vitrea-clamp vs circular-arc": 3.190240162690627,
+    "vitrea-clamp vs apple-overflow": 3.145034648749988,
+    "shoulder-compress vs circular-arc": 0.0,
+    "shoulder-compress vs apple-overflow": 2.875836484713578,
+    "circular-arc vs apple-overflow": 2.875836484713578
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 3.147129591997572,
+     "p95": 2.992906940640882,
+     "mean": 1.502037759327898,
+     "withinFloor": false,
+     "maxCandidateToNative": 3.2057133344008437,
+     "p95CandidateToNative": 3.0108559593668307,
+     "circleFitRadius": 14.063896259220922,
+     "diagonalDepth": 5.90324009892255
+    },
+    "shoulder-compress": {
+     "max": 0.39527987946360904,
+     "p95": 0.3442168233131119,
+     "mean": 0.16879754135089045,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6372264096057616,
+     "p95CandidateToNative": 0.5195356714522108,
+     "circleFitRadius": 21.99999999999999,
+     "diagonalDepth": 9.108672415824874
+    },
+    "circular-arc": {
+     "max": 0.39527987946360904,
+     "p95": 0.3442168233131119,
+     "mean": 0.16879754135089045,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6372264096057616,
+     "p95CandidateToNative": 0.5195356714522108,
+     "circleFitRadius": 21.99999999999999,
+     "diagonalDepth": 9.108672415824874
+    },
+    "apple-overflow": {
+     "max": 0.48267653613802014,
+     "p95": 0.4285596484061789,
+     "mean": 0.19239317076634602,
+     "withinFloor": true,
+     "maxCandidateToNative": 2.7704844818482828,
+     "p95CandidateToNative": 2.2435515705742235,
+     "circleFitRadius": 12.915343395360326,
+     "diagonalDepth": 9.362017884943667
+    }
+   },
+   "crop": {
+    "box": [
+     147,
+     73,
+     187,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     233.0,
+     255.0
+    ],
+    "panelOrder": [
+     "vitrea-clamp",
+     "shoulder-compress",
+     "circular-arc",
+     "apple-overflow"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__capsule-120x44__rest",
+   "background": "light-solid",
+   "component": "capsule-120x44",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 328,
+   "arcPoints": 132,
+   "circleFitRadius": 20.834856718962925,
+   "circleFitRms": 0.10856309382291308,
+   "diagonalDepth": 8.919687439593092,
+   "impliedCircularRadius": 21.534030388794584,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {},
+   "candidates": {
+    "stadium": {
+     "max": 0.3935655207058588,
+     "p95": 0.29530083267420865,
+     "mean": 0.11608228861169884,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6372264096057634,
+     "p95CandidateToNative": 0.5009362330054525,
+     "circleFitRadius": 21.99999999999992,
+     "diagonalDepth": 9.108672415824874
+    }
+   },
+   "crop": {
+    "box": [
+     185,
+     73,
+     225,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     233.0,
+     255.0
+    ],
+    "panelOrder": [
+     "stadium"
+    ]
+   }
+  },
+  {
+   "scene": "light-solid__capsule-44x44__rest",
+   "background": "light-solid",
+   "component": "capsule-44x44",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 176,
+   "arcPoints": 136,
+   "circleFitRadius": 21.982660232367326,
+   "circleFitRms": 0.09830215751481251,
+   "diagonalDepth": 8.925448680510838,
+   "impliedCircularRadius": 21.547939254754308,
+   "extraction": {
+    "outside": 237.66666666666666,
+    "rim": 255.0,
+    "threshold": 246.33333333333331
+   },
+   "candidateSeparation": {},
+   "candidates": {
+    "stadium": {
+     "max": 0.39527987946360904,
+     "p95": 0.3442168233131119,
+     "mean": 0.16879754135089045,
+     "withinFloor": true,
+     "maxCandidateToNative": 0.6372264096057616,
+     "p95CandidateToNative": 0.5195356714522108,
+     "circleFitRadius": 21.99999999999999,
+     "diagonalDepth": 9.108672415824874
+    }
+   },
+   "crop": {
+    "box": [
+     147,
+     73,
+     187,
+     113
+    ],
+    "zoom": 8,
+    "stretch": [
+     233.0,
+     255.0
+    ],
+    "panelOrder": [
+     "stadium"
+    ]
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-120x44-r14__rest",
+   "background": "checkerboard",
+   "component": "rrect-120x44-r14",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 14,
+   "ratio": 0.3181818181818182,
+   "points": 40,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 5.102547422127684,
+   "impliedCircularRadius": 12.318639189152528,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 0.3537386632045019,
+    "vitrea-clamp vs circular-arc": 0.3263142447969553,
+    "vitrea-clamp vs apple-overflow": 0.0,
+    "shoulder-compress vs circular-arc": 0.3747809794879946,
+    "shoulder-compress vs apple-overflow": 0.3537386632045019,
+    "circular-arc vs apple-overflow": 0.3263142447969553
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 1.3891590864025218,
+     "p95": 0.9792820285612508,
+     "mean": 0.22530336900800804,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.01235941777912,
+     "p95CandidateToNative": 7.198946672566505,
+     "circleFitRadius": 13.804066326169085,
+     "diagonalDepth": 5.73999061294982
+    },
+    "shoulder-compress": {
+     "max": 1.402943925532405,
+     "p95": 1.030665136039995,
+     "mean": 0.2232602537199025,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.991777393663703,
+     "p95CandidateToNative": 7.242838383444489,
+     "circleFitRadius": 13.896241011810215,
+     "diagonalDepth": 5.762253218015033
+    },
+    "circular-arc": {
+     "max": 1.4029218108917043,
+     "p95": 1.0346964619438557,
+     "mean": 0.20961361872540932,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.921446050240645,
+     "p95CandidateToNative": 7.004625953347963,
+     "circleFitRadius": 14.18382706222867,
+     "diagonalDepth": 5.780851107372579
+    },
+    "apple-overflow": {
+     "max": 1.3891590864025218,
+     "p95": 0.9792820285612508,
+     "mean": 0.22530336900800804,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.01235941777912,
+     "p95CandidateToNative": 7.198946672566505,
+     "circleFitRadius": 13.804066326169085,
+     "diagonalDepth": 5.73999061294982
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-120x44-r16__rest",
+   "background": "checkerboard",
+   "component": "rrect-120x44-r16",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 16,
+   "ratio": 0.36363636363636365,
+   "points": 40,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 6.12600302988882,
+   "impliedCircularRadius": 14.789479597896259,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 0.7339552350349725,
+    "vitrea-clamp vs circular-arc": 0.7320583334981928,
+    "vitrea-clamp vs apple-overflow": 0.6961452975947686,
+    "shoulder-compress vs circular-arc": 0.35984065675308247,
+    "shoulder-compress vs apple-overflow": 0.33862461907173014,
+    "circular-arc vs apple-overflow": 0.326565375257169
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 1.2926098422144026,
+     "p95": 1.0070933632556485,
+     "mean": 0.22313838007375852,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.246522429359675,
+     "p95CandidateToNative": 7.198986532639481,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 1.0660489965842004,
+     "p95": 0.8012307938357788,
+     "mean": 0.19878317620278912,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.169061638213472,
+     "p95CandidateToNative": 7.18,
+     "circleFitRadius": 15.742293858563233,
+     "diagonalDepth": 6.615381240206047
+    },
+    "circular-arc": {
+     "max": 1.0660936048586682,
+     "p95": 0.8013698821809165,
+     "mean": 0.19687474503673913,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.217508529656037,
+     "p95CandidateToNative": 7.219999999999999,
+     "circleFitRadius": 16.00198059164037,
+     "diagonalDepth": 6.616018716606718
+    },
+    "apple-overflow": {
+     "max": 1.066415772298844,
+     "p95": 0.7858753136307237,
+     "mean": 0.20391705570591157,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.018896508836136,
+     "p95CandidateToNative": 7.114486864705535,
+     "circleFitRadius": 15.182473535738893,
+     "diagonalDepth": 6.574264139536185
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-120x44-r18__rest",
+   "background": "checkerboard",
+   "component": "rrect-120x44-r18",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 18,
+   "ratio": 0.4090909090909091,
+   "points": 40,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 7.523742530444445,
+   "impliedCircularRadius": 18.163921256802244,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 1.5431850841986203,
+    "vitrea-clamp vs circular-arc": 1.5431973994325658,
+    "vitrea-clamp vs apple-overflow": 1.507838496305745,
+    "shoulder-compress vs circular-arc": 0.35124088365684286,
+    "shoulder-compress vs apple-overflow": 0.372654406413774,
+    "circular-arc vs apple-overflow": 0.3486674295190517
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 1.8768688224122523,
+     "p95": 1.3363268133973023,
+     "mean": 0.33897385496555754,
+     "withinFloor": false,
+     "maxCandidateToNative": 10.137064306980557,
+     "p95CandidateToNative": 7.4659835308925135,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 1.0220731571665684,
+     "p95": 0.9933543933704364,
+     "mean": 0.17268156611949093,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.718674991936165,
+     "p95CandidateToNative": 7.228083632309939,
+     "circleFitRadius": 17.960368350276752,
+     "diagonalDepth": 7.44811997954681
+    },
+    "circular-arc": {
+     "max": 1.0220748268068574,
+     "p95": 0.9933505025580438,
+     "mean": 0.17034894294738004,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.717935810858332,
+     "p95CandidateToNative": 7.2827741418382885,
+     "circleFitRadius": 17.9999999999999,
+     "diagonalDepth": 7.448113726981277
+    },
+    "apple-overflow": {
+     "max": 1.0410964867935926,
+     "p95": 0.8153504067413698,
+     "mean": 0.16003479002598572,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.606875418388311,
+     "p95CandidateToNative": 7.276378526727737,
+     "circleFitRadius": 16.71042825309446,
+     "diagonalDepth": 7.408040632254605
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-120x44-r20__rest",
+   "background": "checkerboard",
+   "component": "rrect-120x44-r20",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 20,
+   "ratio": 0.45454545454545453,
+   "points": 40,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 8.664923670478597,
+   "impliedCircularRadius": 20.918976242197083,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 2.363819354340754,
+    "vitrea-clamp vs circular-arc": 2.3630415570899235,
+    "vitrea-clamp vs apple-overflow": 2.3259021995743048,
+    "shoulder-compress vs circular-arc": 0.28975195625030037,
+    "shoulder-compress vs apple-overflow": 1.053352877043237,
+    "circular-arc vs apple-overflow": 1.0567061467149146
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 2.241242527271545,
+     "p95": 1.9501943084892743,
+     "mean": 0.535532580091971,
+     "withinFloor": false,
+     "maxCandidateToNative": 10.613699039952959,
+     "p95CandidateToNative": 7.495000000000001,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 1.0725387025029722,
+     "p95": 0.8158693828204285,
+     "mean": 0.19936425330787433,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.762154173162756,
+     "p95CandidateToNative": 7.379999999999998,
+     "circleFitRadius": 19.99999999999986,
+     "diagonalDepth": 8.278804736538413
+    },
+    "circular-arc": {
+     "max": 1.0725069736932147,
+     "p95": 0.8158782465285696,
+     "mean": 0.199369770870929,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.713236253652717,
+     "p95CandidateToNative": 7.3329999999999975,
+     "circleFitRadius": 19.999999999999876,
+     "diagonalDepth": 8.278830540017607
+    },
+    "apple-overflow": {
+     "max": 0.8749750722985049,
+     "p95": 0.8505230389231591,
+     "mean": 0.18748292945098635,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.803028962259857,
+     "p95CandidateToNative": 7.384881065550801,
+     "circleFitRadius": 19.069304011960263,
+     "diagonalDepth": 8.238170994727563
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-120x44-r22__rest",
+   "background": "checkerboard",
+   "component": "rrect-120x44-r22",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 40,
+   "arcPoints": 15,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 9.776349916914125,
+   "impliedCircularRadius": 23.602196559919154,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 3.190240162690632,
+    "vitrea-clamp vs circular-arc": 3.190240162690632,
+    "vitrea-clamp vs apple-overflow": 3.1457788390379218,
+    "shoulder-compress vs circular-arc": 0.0,
+    "shoulder-compress vs apple-overflow": 2.8627248495425484,
+    "circular-arc vs apple-overflow": 2.8627248495425484
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 3.2050547295983214,
+     "p95": 2.65912283561422,
+     "mean": 0.8188453544922407,
+     "withinFloor": false,
+     "maxCandidateToNative": 10.613699039952959,
+     "p95CandidateToNative": 7.58806527203726,
+     "circleFitRadius": 14.063896259220412,
+     "diagonalDepth": 5.903240098922551
+    },
+    "shoulder-compress": {
+     "max": 1.1134014589701426,
+     "p95": 0.7599374516615729,
+     "mean": 0.21543192966184438,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.770979131446026,
+     "p95CandidateToNative": 7.379999999999999,
+     "circleFitRadius": 21.99999999999992,
+     "diagonalDepth": 9.108672415824874
+    },
+    "circular-arc": {
+     "max": 1.1134014589701426,
+     "p95": 0.7599374516615729,
+     "mean": 0.21543192966184438,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.770979131446026,
+     "p95CandidateToNative": 7.379999999999999,
+     "circleFitRadius": 21.99999999999992,
+     "diagonalDepth": 9.108672415824874
+    },
+    "apple-overflow": {
+     "max": 0.8565125991676809,
+     "p95": 0.7387967161755947,
+     "mean": 0.1803477465368353,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.591847427905643,
+     "p95CandidateToNative": 7.387555816949537,
+     "circleFitRadius": 14.786205068065522,
+     "diagonalDepth": 9.228226573759537
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-44x44-r14__rest",
+   "background": "checkerboard",
+   "component": "rrect-44x44-r14",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 14,
+   "ratio": 0.3181818181818182,
+   "points": 24,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 5.5047550033707005,
+   "impliedCircularRadius": 13.289654186678694,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 0.3537386632045019,
+    "vitrea-clamp vs circular-arc": 0.32631424479697085,
+    "vitrea-clamp vs apple-overflow": 0.0,
+    "shoulder-compress vs circular-arc": 0.3747809794879946,
+    "shoulder-compress vs apple-overflow": 0.3537386632045019,
+    "circular-arc vs apple-overflow": 0.32631424479697085
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 0.8379331686074932,
+     "p95": 0.8132338395763998,
+     "mean": 0.3096171879327268,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.27087975212782,
+     "p95CandidateToNative": 7.224521926609798,
+     "circleFitRadius": 13.804066326169771,
+     "diagonalDepth": 5.739990612949826
+    },
+    "shoulder-compress": {
+     "max": 0.8416821427180793,
+     "p95": 0.8253053826241137,
+     "mean": 0.31218802119263556,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.33078905432107,
+     "p95CandidateToNative": 7.372141165725904,
+     "circleFitRadius": 13.896241011810744,
+     "diagonalDepth": 5.762253218015031
+    },
+    "circular-arc": {
+     "max": 0.87559836760778,
+     "p95": 0.8205447388857301,
+     "mean": 0.31105564018619297,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.357379719095192,
+     "p95CandidateToNative": 7.262720251288538,
+     "circleFitRadius": 14.183827062229104,
+     "diagonalDepth": 5.780851107372579
+    },
+    "apple-overflow": {
+     "max": 0.8379331686074932,
+     "p95": 0.8132338395763998,
+     "mean": 0.3096171879327268,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.27087975212782,
+     "p95CandidateToNative": 7.224521926609798,
+     "circleFitRadius": 13.804066326169771,
+     "diagonalDepth": 5.739990612949826
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-44x44-r18__rest",
+   "background": "checkerboard",
+   "component": "rrect-44x44-r18",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 18,
+   "ratio": 0.4090909090909091,
+   "points": 24,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 7.668701215467953,
+   "impliedCircularRadius": 18.513882480169766,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 1.5431850841986203,
+    "vitrea-clamp vs circular-arc": 1.5431973994325658,
+    "vitrea-clamp vs apple-overflow": 1.5085237248182575,
+    "shoulder-compress vs circular-arc": 0.35124088365684286,
+    "shoulder-compress vs apple-overflow": 0.3732966808934755,
+    "circular-arc vs apple-overflow": 0.3369727483687555
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 2.1931535242263673,
+     "p95": 2.1864801132271596,
+     "mean": 0.8781529331979879,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.147303105591016,
+     "p95CandidateToNative": 7.056408571268367,
+     "circleFitRadius": 14.063896259220922,
+     "diagonalDepth": 5.90324009892255
+    },
+    "shoulder-compress": {
+     "max": 1.0065976885653736,
+     "p95": 0.7909983949074724,
+     "mean": 0.39250441521819535,
+     "withinFloor": false,
+     "maxCandidateToNative": 7.97396093426988,
+     "p95CandidateToNative": 6.974041291040093,
+     "circleFitRadius": 17.960368350276784,
+     "diagonalDepth": 7.4481199795468065
+    },
+    "circular-arc": {
+     "max": 1.0066059739256044,
+     "p95": 0.7910086085321026,
+     "mean": 0.38674451068696136,
+     "withinFloor": false,
+     "maxCandidateToNative": 7.972045223846071,
+     "p95CandidateToNative": 6.973562006988215,
+     "circleFitRadius": 18.0,
+     "diagonalDepth": 7.448113726981274
+    },
+    "apple-overflow": {
+     "max": 1.0410964867935861,
+     "p95": 0.8044210502953003,
+     "mean": 0.3805564545374936,
+     "withinFloor": false,
+     "maxCandidateToNative": 7.974794880131085,
+     "p95CandidateToNative": 7.045156364414463,
+     "circleFitRadius": 16.715646677302807,
+     "diagonalDepth": 7.40804063225461
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__rrect-44x44-r22__rest",
+   "background": "checkerboard",
+   "component": "rrect-44x44-r22",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 24,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 9.014113790892536,
+   "impliedCircularRadius": 21.76199576674711,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {
+    "vitrea-clamp vs shoulder-compress": 3.190240162690627,
+    "vitrea-clamp vs circular-arc": 3.190240162690627,
+    "vitrea-clamp vs apple-overflow": 3.145034648749988,
+    "shoulder-compress vs circular-arc": 0.0,
+    "shoulder-compress vs apple-overflow": 2.875836484713578,
+    "circular-arc vs apple-overflow": 2.875836484713578
+   },
+   "candidates": {
+    "vitrea-clamp": {
+     "max": 3.9889927912910363,
+     "p95": 3.7529943011646205,
+     "mean": 1.7735519493843699,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.810808309884004,
+     "p95CandidateToNative": 7.592201274567484,
+     "circleFitRadius": 14.063896259220922,
+     "diagonalDepth": 5.90324009892255
+    },
+    "shoulder-compress": {
+     "max": 1.2647888461031305,
+     "p95": 0.9924961686535345,
+     "mean": 0.4805145962284148,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.447772546608611,
+     "p95CandidateToNative": 7.207975166125814,
+     "circleFitRadius": 21.99999999999999,
+     "diagonalDepth": 9.108672415824874
+    },
+    "circular-arc": {
+     "max": 1.2647888461031305,
+     "p95": 0.9924961686535345,
+     "mean": 0.4805145962284148,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.447772546608611,
+     "p95CandidateToNative": 7.207975166125814,
+     "circleFitRadius": 21.99999999999999,
+     "diagonalDepth": 9.108672415824874
+    },
+    "apple-overflow": {
+     "max": 1.2924417504672365,
+     "p95": 1.0128678006102252,
+     "mean": 0.40979040859478566,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.006960605775925,
+     "p95CandidateToNative": 7.649109472239244,
+     "circleFitRadius": 12.915343395360326,
+     "diagonalDepth": 9.362017884943667
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__capsule-120x44__rest",
+   "background": "checkerboard",
+   "component": "capsule-120x44",
+   "size": [
+    120,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 40,
+   "arcPoints": 15,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 9.776349916914125,
+   "impliedCircularRadius": 23.602196559919154,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {},
+   "candidates": {
+    "stadium": {
+     "max": 1.1134014589701426,
+     "p95": 0.7599374516615729,
+     "mean": 0.21543192966184438,
+     "withinFloor": false,
+     "maxCandidateToNative": 9.770979131446026,
+     "p95CandidateToNative": 7.379999999999999,
+     "circleFitRadius": 21.99999999999992,
+     "diagonalDepth": 9.108672415824874
+    }
+   }
+  },
+  {
+   "scene": "checkerboard__capsule-44x44__rest",
+   "background": "checkerboard",
+   "component": "capsule-44x44",
+   "size": [
+    44,
+    44
+   ],
+   "declaredRadius": 22,
+   "ratio": 0.5,
+   "points": 24,
+   "arcPoints": 16,
+   "circleFitRadius": NaN,
+   "circleFitRms": NaN,
+   "diagonalDepth": 9.014113790892536,
+   "impliedCircularRadius": 21.76199576674711,
+   "extraction": {
+    "validSamples": 14368,
+    "scanBias": 1.5
+   },
+   "candidateSeparation": {},
+   "candidates": {
+    "stadium": {
+     "max": 1.2647888461031305,
+     "p95": 0.9924961686535345,
+     "mean": 0.4805145962284148,
+     "withinFloor": false,
+     "maxCandidateToNative": 8.447772546608611,
+     "p95CandidateToNative": 7.207975166125814,
+     "circleFitRadius": 21.99999999999999,
+     "diagonalDepth": 9.108672415824874
+    }
+   }
+  }
+ ]
+}

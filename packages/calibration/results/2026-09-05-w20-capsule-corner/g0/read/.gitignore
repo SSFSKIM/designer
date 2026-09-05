@@ -1,0 +1,5 @@
+# `candidates.json` is 13 MB of polyline samples at 0.02 px spacing and is a pure function of
+# `candidates.ts` and the geometry package's sources, both of which are committed. `run-read.sh`
+# regenerates it in seconds. The readings taken FROM it — `contours.json`, `tables.md`, `crops/` —
+# are the evidence and are committed.
+candidates.json

@@ -1,0 +1,124 @@
+{
+  "$comment": [
+    "W20's probe bed: twenty cells at 1x — `RoundedRectangle(cornerRadius: r, style:",
+    ".continuous)` at r = 14, 16, 18, 20, 22 on a 120 x 44 box and at r = 14, 18, 22 on a",
+    "44 x 44 box, with `Capsule()` on each box as the control, over `light-solid` and",
+    "`checkerboard` — captured on this machine by W9's protocol (claims §5.30: a 6 s bare",
+    "neutral reset before each cell, the one stable order, the run refused unless the machine",
+    "had been idle 45 s) and materialised by the majority byte-state per cell over the attested",
+    "runs.",
+    "",
+    "Nothing is fitted to this bed. It exists because vitrea's Apple reference clamps the RADIUS",
+    "above the saturation ratio 0.327083 on an assumption nobody measured (claims 5.83), and the",
+    "canonical bed's capsules are `Capsule()`, which cannot answer the question."
+  ],
+  "materializedFrom": [
+    "w20-probe-1",
+    "w20-probe-2",
+    "w20-probe-3",
+    "w20-probe-4",
+    "w20-probe-6",
+    "w20-probe-7",
+    "w20-probe-8",
+    "w20-probe-9",
+    "w20-probe-10"
+  ],
+  "excludedRuns": {
+    "w20-probe-5": "10 of 20 cells failed attestation (checkerboard__capsule-120x44__rest, checkerboard__capsule-44x44__rest, checkerboard__rrect-120x44-r14__rest, checkerboard__rrect-120x44-r18__rest, checkerboard__rrect-120x44-r20__rest, checkerboard__rrect-120x44-r22__rest, light-solid__capsule-120x44__rest, light-solid__rrect-120x44-r14__rest, light-solid__rrect-120x44-r18__rest, light-solid__rrect-120x44-r20__rest)"
+  },
+  "rule": "majority byte-state per cell across the attested runs (frequency-settled, claims §5.30); shares recorded per cell",
+  "auditResult": {
+    "w20-probe-1": "20/20",
+    "w20-probe-2": "20/20",
+    "w20-probe-3": "20/20",
+    "w20-probe-4": "20/20",
+    "w20-probe-5": "10/20",
+    "w20-probe-6": "20/20",
+    "w20-probe-7": "20/20",
+    "w20-probe-8": "20/20",
+    "w20-probe-9": "20/20",
+    "w20-probe-10": "20/20"
+  },
+  "idleSecondsAtStartAndEnd": {
+    "w20-probe-1": [
+      1170,
+      1371
+    ],
+    "w20-probe-2": [
+      1372,
+      1571
+    ],
+    "w20-probe-3": [
+      1572,
+      1772
+    ],
+    "w20-probe-4": [
+      1773,
+      1972
+    ],
+    "w20-probe-5": [
+      1972,
+      1
+    ],
+    "w20-probe-6": [
+      91,
+      291
+    ],
+    "w20-probe-7": [
+      291,
+      490
+    ],
+    "w20-probe-8": [
+      490,
+      690
+    ],
+    "w20-probe-9": [
+      691,
+      891
+    ],
+    "w20-probe-10": [
+      891,
+      1090
+    ]
+  },
+  "internalControl": {
+    "$comment": "The layer dump shows `Capsule()` and `RoundedRectangle(cornerRadius: 22, style: .continuous)` reaching Core Animation as the SAME declaration — a CASDFElementLayer of the same bounds with cornerRadius 22 and cornerCurve continuous. The two cells must therefore be byte-identical on each background, and that is checked rather than assumed.",
+    "pairs": [
+      [
+        "light-solid__capsule-120x44__rest",
+        "light-solid__rrect-120x44-r22__rest"
+      ],
+      [
+        "checkerboard__capsule-120x44__rest",
+        "checkerboard__rrect-120x44-r22__rest"
+      ],
+      [
+        "light-solid__capsule-44x44__rest",
+        "light-solid__rrect-44x44-r22__rest"
+      ],
+      [
+        "checkerboard__capsule-44x44__rest",
+        "checkerboard__rrect-44x44-r22__rest"
+      ]
+    ]
+  },
+  "toolchain": {
+    "hardware": {
+      "cpu": "Apple M2 Pro",
+      "model": "Mac14,12",
+      "osBuild": "25F84",
+      "osVersion": "Version 26.5.2 (Build 25F84)",
+      "sdk": "MacOSX26.5.sdk",
+      "xcodeVersion": "Xcode 26.6 Build version 17F113"
+    },
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 1371.354894458,
+      "hidIdleSecondsAtStart": 1170.385666083,
+      "minIdleSeconds": 45,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w20-probe-1",
+      "userIsActiveAtStart": true
+    }
+  }
+}
