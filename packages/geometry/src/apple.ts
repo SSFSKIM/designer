@@ -40,13 +40,14 @@
  */
 
 import {
+  buildReferenceContour,
   type Contour,
   type ContourSegment,
   type Point,
   ringFromCorner,
   translateSegment,
 } from "./contour";
-import type { CornerConstruction } from "./corner";
+import { type CornerConstruction, resolveCornerConstruction } from "./corner";
 import type { Vec2 } from "./channels";
 
 /** Apple's published corner-curve expansion factor for `.continuous`. */
@@ -64,11 +65,22 @@ export const APPLE_REACH = 1.52866495;
 export const APPLE_CONTINUOUS_SMOOTHING_SEED = APPLE_REACH - 1;
 
 /**
- * Radius above which Apple can no longer honour the reach and the corner warps:
- * `reach * r` must fit in half the side. Apple's budget policy — clamp the
- * radius — differs from the reference family's, which clamps smoothing. Shapes
- * above this ratio are not comparable to Apple and C7 should measure them
- * separately or exclude them from fidelity claims.
+ * The radius ratio at which Apple's published reach exactly fills the side:
+ * `APPLE_REACH * r == min(halfW, halfH)`. It is the name of a CROSSING, not of a
+ * clamp on the radius.
+ *
+ * The comment this replaces said Apple clamps the radius above the ratio and
+ * that shapes above it are not comparable to Apple at all. W20 G0 measured that
+ * on a ten-rung native ladder and it is wrong in the direction it asserts
+ * (claims §5.84 §4–§6): Core Animation states the requested radius unclamped at
+ * every rung, and on the pixels Apple KEEPS the radius and compresses the
+ * shoulder, `reach = min(APPLE_REACH * r, budget)`, within the grid's 0.5 px
+ * floor on both boxes and both backgrounds. That is the reference family's own
+ * budget clamp, so above this ratio the Apple reference resolves through
+ * `resolveCornerConstruction` at the effective smoothing `reach / r - 1`, which
+ * reaches exactly 0 at the capsule limit and draws the true stadium Apple draws
+ * there. Shapes above the ratio are comparable to Apple, and the ratio's job is
+ * to say which of the two constructions a corner is on.
  */
 export const APPLE_SATURATION_RADIUS_RATIO = 1 / (2 * APPLE_REACH);
 
@@ -131,9 +143,12 @@ function appleTopRightCorner(halfW: number, halfH: number, radius: number): Cont
 
 export interface AppleContour extends Contour {
   /**
-   * True when the requested radius exceeded what Apple's reach can fit. The real
-   * thing warps past that point in a way this construction does not reproduce,
-   * so it is reported rather than silently mismodelled.
+   * True when the requested radius is large enough that Apple's published reach
+   * no longer fits the side, so THE SHOULDER IS COMPRESSED: the radius is kept
+   * and the reach is pulled back to the corner's budget. It was previously the
+   * flag on a radius clamp; W20 G0 measured the clamp to be the wrong policy
+   * (claims §5.84), and the flag now names which of the two constructions built
+   * the contour rather than warning that the contour is mismodelled.
    */
   readonly saturated: boolean;
 }
@@ -141,6 +156,17 @@ export interface AppleContour extends Contour {
 /**
  * Apple's continuous-corner rounded rectangle. There is no smoothing parameter —
  * Apple's curve has none, which is exactly the point.
+ *
+ * Two constructions, and the crossing between them is `APPLE_SATURATION_RADIUS_
+ * RATIO`. Below it the corner is S2's Apple-direct dump at the requested radius
+ * with the published reach. Above it the reach would overflow the side — Apple's
+ * own curve there self-intersects and leaves a straight spur, which is what the
+ * probe's `apple-overflow` control shows — so the corner is the reference
+ * family's construction at the same radius with the reach clamped to the budget,
+ * the effective smoothing falling to `reach / r - 1`. W20 G0 measured that
+ * against Apple's pixels at r 14…22 on a 120 × 44 and a 44 × 44 box, max 0.40 px
+ * and p95 0.34 px, the same residual the exact capsule controls read against
+ * their own stadium (claims §5.84 §5–§6).
  */
 export function buildAppleContour(
   halfW: number,
@@ -149,8 +175,19 @@ export function buildAppleContour(
   center: Vec2 = [0, 0],
 ): AppleContour {
   const budget = Math.min(halfW, halfH);
-  const r = Math.max(0, Math.min(radius, budget / APPLE_REACH));
-  const saturated = radius > budget / APPLE_REACH + 1e-12;
+  const r = Math.max(0, Math.min(radius, budget));
+  const saturated = APPLE_REACH * r > budget + 1e-12;
+
+  if (saturated) {
+    // The seed is the requested smoothing; `resolveCornerConstruction`'s own
+    // budget clamp is what compresses it, and at the capsule limit (r = budget)
+    // it reaches exactly 0 and the cubics degenerate to the circular stadium
+    // `Capsule()` measures.
+    const seed = APPLE_CONTINUOUS_SMOOTHING_SEED;
+    const construction = resolveCornerConstruction(halfW, halfH, r, seed);
+    return { ...buildReferenceContour(halfW, halfH, construction, center), saturated };
+  }
+
   const reach = APPLE_REACH * r;
 
   const local = ringFromCorner(halfW, halfH, reach, appleTopRightCorner(halfW, halfH, r));

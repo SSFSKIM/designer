@@ -25,9 +25,13 @@
  *     continuous numeric corner profile clamped by a budget derived from size
  *     and radii).
  *   - **`"apple-continuous"`** — the Apple-direct fit. Apple's curve has no
- *     smoothing parameter, so `smoothing` is pinned at the seed and Apple's own
- *     budget policy applies (clamp the RADIUS, not the smoothing). This is what
- *     `profile: "continuous"` resolves to, per Decision Log #20.
+ *     smoothing parameter, so `smoothing` is pinned at the seed. This is what
+ *     `profile: "continuous"` resolves to, per Decision Log #20. Apple's budget
+ *     policy was read here as "clamp the RADIUS, not the smoothing" until W20 G0
+ *     measured it natively and refuted it (claims §5.84): Apple keeps the radius
+ *     and compresses the shoulder, which IS the reference family's policy, so
+ *     above `APPLE_SATURATION_RADIUS_RATIO` the two references share one
+ *     construction and differ only in the coefficient table they are fit with.
  *
  * `profile: "circular"` is smoothing 0, which is the same exact circular corner
  * under either reference and is therefore the member they share.
@@ -75,6 +79,15 @@ export interface ResolvedCorner extends CornerConstruction {
   readonly k: CornerCoefficients;
   /** max |field| on the true contour in units of the radius, for this fit */
   readonly contourDevPerR: number;
+  /**
+   * The shoulder is compressed: the requested reach `(1 + s) * r` did not fit
+   * the corner's budget, so it was pulled back to the budget and the effective
+   * smoothing with it. Carried HERE and not only on the contour builder, because
+   * the renderer resolves through `resolveCorner` and never builds a contour —
+   * which is half of why the capsule defect went nineteen waves unseen
+   * (claims §5.83 §5.84 §7).
+   */
+  readonly saturated: boolean;
 }
 
 export interface ResolvedShape {
@@ -175,11 +188,39 @@ export function resolveCorner(
   const { halfW, halfH } = halfExtents(size);
 
   if (reference === "apple-continuous") {
-    // Apple clamps the RADIUS so the reach fits the side; it has no smoothing to
-    // clamp. Past that the real corner warps, which this does not model —
-    // `buildAppleContour` reports `saturated` for the same configuration.
+    // Apple keeps the requested radius and compresses the shoulder — measured on
+    // a ten-rung native ladder at W20 G0, which refuted the radius clamp this
+    // branch used to apply from ratio 0.364 up by six times the grid's floor
+    // (claims §5.84). So the radius is bounded only by the budget, the reach by
+    // the side, and the effective smoothing is whatever reach the side left:
+    // `reach / r - 1`, which is exactly what the reference family's own clamp
+    // produces at the Apple seed.
     const budget = cornerBudget(halfW, halfH);
-    const r = Math.max(0, Math.min(radius, budget / APPLE_REACH));
+    const r = Math.max(0, Math.min(radius, budget));
+    const saturated = APPLE_REACH * r > budget + 1e-12;
+
+    if (saturated) {
+      // Above the crossing the corner IS the reference family's construction, so
+      // it takes that family's coefficient table at the compressed smoothing:
+      // S2's Apple-direct coefficients are a fit against Apple's dump, and the
+      // curve here is no longer that dump. At the capsule limit the smoothing
+      // reaches 0, the table's row there is exactly zero, and the field is exact
+      // on the stadium.
+      const construction = resolveCornerConstruction(
+        halfW,
+        halfH,
+        r,
+        APPLE_CONTINUOUS_SMOOTHING_SEED,
+      );
+      const fit = coefficientsFor(
+        "figma-smoothing",
+        family,
+        construction.smoothingEff,
+        construction.radius,
+      );
+      return { ...construction, reference, k: fit.k, contourDevPerR: fit.contourDevPerR, saturated };
+    }
+
     const fit = coefficientsFor(reference, family, APPLE_CONTINUOUS_SMOOTHING_SEED, r);
     return {
       reference,
@@ -195,12 +236,18 @@ export function resolveCorner(
       budget,
       k: fit.k,
       contourDevPerR: fit.contourDevPerR,
+      saturated: false,
     };
   }
 
   const construction = resolveCornerConstruction(halfW, halfH, radius, smoothing);
   const fit = coefficientsFor(reference, family, construction.smoothingEff, construction.radius);
-  return { ...construction, reference, k: fit.k, contourDevPerR: fit.contourDevPerR };
+  // The same reading of `saturated` on this axis: the requested reach did not fit
+  // and the clamp took it. It is the smoothing that is clamped here rather than
+  // the reach directly, but the observable is one and the same shoulder.
+  const requested = Math.min(Math.max(smoothing, 0), 1);
+  const saturated = (1 + requested) * construction.radius > construction.budget + 1e-12;
+  return { ...construction, reference, k: fit.k, contourDevPerR: fit.contourDevPerR, saturated };
 }
 
 function referenceFor(profile: CornerProfile | number | undefined): {
@@ -285,7 +332,14 @@ export function fieldParams(shape: ResolvedShape): FieldParams {
   return { halfW, halfH, reach: shape.corner.reach, k: shape.corner.k };
 }
 
-/** Field parameters for family C, the quality governor's first within-tier step. */
+/**
+ * Field parameters for family C, the quality governor's first within-tier step.
+ *
+ * It re-derives the corner through `resolveCorner` for the `rsup` table, so it
+ * takes the same budget policy the render path takes — including the compressed
+ * shoulder above the crossing, where the `rsup` coefficients come from the
+ * reference family's table for the same reason family D's do.
+ */
 export function governorFieldParams(shape: ResolvedShape): FieldParams {
   const { halfW, halfH } = halfExtents(shape.channels.size);
   const corner = resolveCorner(
@@ -298,10 +352,19 @@ export function governorFieldParams(shape: ResolvedShape): FieldParams {
   return { halfW, halfH, reach: corner.reach, k: corner.k };
 }
 
-/** The Contour IR for a resolved shape, in the shape's own coordinate space. */
+/**
+ * The Contour IR for a resolved shape, in the shape's own coordinate space.
+ *
+ * Apple's dump is applied only below the crossing. Above it the resolved corner
+ * already IS a reference-family construction (see `resolveCorner`), so the
+ * contour is built from that corner rather than re-derived — the contour and the
+ * field the renderer evaluates then come from one set of numbers.
+ * `buildAppleContour` makes the same split for a caller who has a radius rather
+ * than a resolved shape.
+ */
 export function toContour(shape: ResolvedShape): Contour {
   const { halfW, halfH } = halfExtents(shape.channels.size);
-  if (shape.corner.reference === "apple-continuous") {
+  if (shape.corner.reference === "apple-continuous" && !shape.corner.saturated) {
     return buildAppleContour(halfW, halfH, shape.corner.radius, shape.channels.center);
   }
   return buildReferenceContour(halfW, halfH, shape.corner, shape.channels.center);

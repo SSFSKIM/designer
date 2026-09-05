@@ -9,13 +9,13 @@
 
 import { describe, expect, it } from "vitest";
 
-import { APPLE_BEST_FIGMA_SMOOTHING } from "../src/apple";
-import { flattenShapeChannels, SHAPE_CHANNEL_COUNT } from "../src/channels";
+import { APPLE_BEST_FIGMA_SMOOTHING, APPLE_REACH } from "../src/apple";
+import { flattenShapeChannels, SHAPE_CHANNEL_COUNT, uniformRadii } from "../src/channels";
 import { smoothingCeiling } from "../src/corner";
 import { GeometryError } from "../src/errors";
 import { rsupnField } from "../src/field";
 import { morphShapes, sampleMorph } from "../src/morph";
-import { fieldParams, resolveShape } from "../src/shape";
+import { fieldParams, resolveFromChannels, resolveShape } from "../src/shape";
 
 const button = resolveShape({
   family: "fixed-rounded-rect",
@@ -225,6 +225,51 @@ describe("what a morph refuses", () => {
     });
     expect(onAxis.corner.reference).toBe("figma-smoothing");
     expect(() => morphShapes(onAxis, capsule, 0.5)).not.toThrow();
+  });
+
+  it("morphs an Apple-reference capsule into an Apple-reference rounded rect, continuously", () => {
+    // The render path's own pair: `resolveFromChannels` is what a morph and the
+    // renderer both take, and after W20 G1 a capsule resolved there under the
+    // Apple reference is a true stadium (claims §5.84). It has to stay morphable
+    // — before the fix it was legal only because the capsule was silently on the
+    // Apple reference with its radius clamped — and the path from it crosses the
+    // saturation ratio, which is exactly where a snap would show.
+    const size: [number, number] = [160, 44];
+    const stadium = resolveFromChannels(
+      { center: [0, 0], size, radii: uniformRadii(22), smoothing: 0, thickness: 4 },
+      "apple-continuous",
+      "capsule",
+    );
+    const small = resolveFromChannels(
+      { center: [0, 0], size, radii: uniformRadii(8), smoothing: 0, thickness: 4 },
+      "apple-continuous",
+    );
+    expect(stadium.corner.smoothingEff).toBe(0);
+    expect(stadium.corner.saturated).toBe(true);
+    expect(small.corner.saturated).toBe(false);
+    expect(() => morphShapes(stadium, small, 0.5)).not.toThrow();
+
+    const path = sampleMorph(stadium, small, 400);
+    let previous = path[0] as (typeof path)[number];
+    let worstReachStep = 0;
+    for (const shape of path.slice(1)) {
+      expect(shape.corner.reference).toBe("apple-continuous");
+      // the reach never overflows the side, on either side of the crossing
+      expect(shape.corner.reach).toBeLessThanOrEqual(22 + 1e-12);
+      worstReachStep = Math.max(
+        worstReachStep,
+        Math.abs(shape.corner.reach - previous.corner.reach),
+      );
+      previous = shape;
+    }
+    // The radius travels 14 px over 400 steps, so a reach that tracked it
+    // one-for-one would step by 0.035 px; the reach is pinned at the budget
+    // above the crossing and rises with APPLE_REACH below it, so the worst step
+    // is that times the expansion factor — and nothing snaps at the ratio.
+    expect(worstReachStep).toBeLessThan((14 / 400) * APPLE_REACH + 1e-9);
+    // the endpoints come back exactly, crossing or no crossing
+    expect(morphShapes(stadium, small, 0).corner).toEqual(stadium.corner);
+    expect(morphShapes(stadium, small, 1).corner).toEqual(small.corner);
   });
 
   it("morphs two Apple-profiled shapes without complaint", () => {

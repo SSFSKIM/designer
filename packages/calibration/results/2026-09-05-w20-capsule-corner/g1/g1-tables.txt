@@ -1,0 +1,221 @@
+# W20 G1 dry run — the corrected corner over the bed, GPU tier, to scratch
+
+after   /Users/new/.claude/jobs/5c70e47f/tmp/w20/g1/g1-dryrun.json: 85 cells
+before  conformance /Users/new/.claude/jobs/5c70e47f/tmp/w20/g0-a/bed/g0-conformance.json, fidelity /Users/new/Developer/GitHub/designer/packages/calibration/results/matrix.json
+
+
+## (a) declaration conformance, GPU tier — G0's instrument, before and after
+
+
+### capsule and toolbar cells
+
+profile                    scene                                     drawn b  drawn a declared    IoU b   IoU a   max b  max a
+------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard           checkerboard__capsule-button__rest           5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-dark-standard           checkerboard__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-dark-standard           dark-solid__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-dark-standard           impulse__capsule-button__rest                5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-dark-standard           photo__capsule-button__rest                  5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-dark-standard           photo__capsule-button__rest-tint-orange      5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-increased-contrast checkerboard__capsule-button__rest           5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-increased-contrast checkerboard__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-increased-contrast photo__capsule-button__rest                  5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-increased-contrast photo__capsule-button__rest-tint-orange      5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-increased-contrast photo__toolbar-group__rest                   5280     4584     4584   0.8682  1.0000    3.16   0.00
+1x-light-reduced-transparency checkerboard__capsule-button__rest           5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-reduced-transparency photo__capsule-button__rest                  5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-reduced-transparency photo__capsule-button__rest-tint-orange      5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-reduced-transparency photo__toolbar-group__rest                   5280     4584     4584   0.8682  1.0000    3.16   0.00
+1x-light-standard          checkerboard__capsule-button__rest           5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          checkerboard__capsule-button__rest-tint-blue     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          checkerboard__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          checkerboard__toolbar-group__rest            5280     4584     4584   0.8682  1.0000    3.16   0.00
+1x-light-standard          dark-solid__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          impulse__capsule-button__rest                5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          impulse__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          light-solid__capsule-button__rest            5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          light-solid__capsule-button__rest-tint-orange     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          photo__capsule-button__rest                  5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          photo__capsule-button__rest-tint-blue        5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          photo__capsule-button__rest-tint-orange      5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          photo__capsule-button__rest-tint-orange-half     5104     4872     4872   0.9545  1.0000    3.16   0.00
+1x-light-standard          photo__toolbar-group__rest                   5280     4584     4584   0.8682  1.0000    3.16   0.00
+2x-dark-standard           checkerboard__capsule-button__rest          20402    19474    19468   0.9542  0.9997    6.40   1.00
+2x-dark-standard           checkerboard__capsule-button__rest-tint-orange    20402    19474    19468   0.9542  0.9997    6.40   1.00
+2x-dark-standard           dark-solid__capsule-button__rest-tint-orange    20400    19468    19468   0.9543  1.0000    6.40   0.00
+2x-dark-standard           impulse__capsule-button__rest               20400    19468    19468   0.9543  1.0000    6.40   0.00
+2x-dark-standard           photo__capsule-button__rest                 20402    19474    19468   0.9542  0.9997    6.40   1.00
+2x-dark-standard           photo__capsule-button__rest-tint-orange     20402    19474    19468   0.9542  0.9997    6.40   1.00
+2x-light-standard          checkerboard__capsule-button__rest          20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          checkerboard__capsule-button__rest-tint-blue    20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          checkerboard__capsule-button__rest-tint-orange    20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          checkerboard__toolbar-group__rest           21078    18333    18276   0.8671  0.9969    6.40   1.00
+2x-light-standard          dark-solid__capsule-button__rest-tint-orange    20400    19468    19468   0.9543  1.0000    6.40   0.00
+2x-light-standard          impulse__capsule-button__rest               20400    19468    19468   0.9543  1.0000    6.40   0.00
+2x-light-standard          impulse__capsule-button__rest-tint-orange    20400    19468    19468   0.9543  1.0000    6.40   0.00
+2x-light-standard          light-solid__capsule-button__rest           20402    19477    19468   0.9542  0.9995    6.40   1.00
+2x-light-standard          light-solid__capsule-button__rest-tint-orange    20402    19477    19468   0.9542  0.9995    6.40   1.00
+2x-light-standard          photo__capsule-button__rest                 20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          photo__capsule-button__rest-tint-blue       20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          photo__capsule-button__rest-tint-orange     20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          photo__capsule-button__rest-tint-orange-half    20402    19487    19468   0.9542  0.9990    6.40   1.00
+2x-light-standard          photo__toolbar-group__rest                  21078    18333    18276   0.8671  0.9969    6.40   1.00
+
+worst declaredContourMaxWeb after, over these cells: 1.00 device px
+
+### rounded-rectangle and stack cells
+
+profile                    scene                                     drawn b  drawn a declared    IoU b   IoU a   max b  max a
+------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard           checkerboard__rrect-md__rest                15014    15014    15024   0.9992  0.9992    1.00   1.00
+1x-dark-standard           dark-solid__rrect-md__rest                  15014    15014    15024   0.9992  0.9992    1.00   1.00
+1x-dark-standard           photo__rrect-md__rest                       15014    15014    15024   0.9992  0.9992    1.00   1.00
+1x-light-increased-contrast checkerboard__rrect-md__rest                15012    15012    15024   0.9992  0.9992    1.00   1.00
+1x-light-increased-contrast photo__rrect-md__rest                       15012    15012    15024   0.9992  0.9992    1.00   1.00
+1x-light-reduced-transparency checkerboard__rrect-md__rest                15012    15012    15024   0.9992  0.9992    1.00   1.00
+1x-light-reduced-transparency photo__rrect-md__rest                       15012    15012    15024   0.9992  0.9992    1.00   1.00
+1x-light-standard          checkerboard__rrect-md__rest                15017    15017    15024   0.9993  0.9993    1.00   1.00
+1x-light-standard          checkerboard__rrect-ml__rest                28039    28039    28048   0.9990  0.9990    1.00   1.00
+1x-light-standard          checkerboard__rrect-sm__rest                 2000     2000     2000   1.0000  1.0000    0.00   0.00
+1x-light-standard          dark-solid__rrect-md__rest                  15017    15017    15024   0.9993  0.9993    1.00   1.00
+1x-light-standard          impulse__rrect-md__rest                     15017    15017    15024   0.9993  0.9993    1.00   1.00
+1x-light-standard          light-solid__rrect-md__rest                 15017    15017    15024   0.9993  0.9993    1.00   1.00
+1x-light-standard          light-solid__rrect-ml__rest                 28039    28039    28048   0.9990  0.9990    1.00   1.00
+1x-light-standard          photo__rrect-md__rest                       15017    15017    15024   0.9993  0.9993    1.00   1.00
+1x-light-standard          photo__rrect-md__rest-tint-orange           15017    15017    15024   0.9993  0.9993    1.00   1.00
+1x-light-standard          photo__rrect-ml__rest                       28039    28039    28048   0.9990  0.9990    1.00   1.00
+1x-light-standard          photo__rrect-sm__rest                        2000     2000     2000   1.0000  1.0000    0.00   0.00
+2x-dark-standard           checkerboard__rrect-md__rest                60019    60019    60064   0.9991  0.9991    1.00   1.00
+2x-dark-standard           dark-solid__rrect-md__rest                  60019    60019    60064   0.9991  0.9991    1.00   1.00
+2x-dark-standard           photo__rrect-md__rest                       60019    60019    60064   0.9991  0.9991    1.00   1.00
+2x-light-standard          checkerboard__rrect-md__rest                60023    60023    60064   0.9990  0.9990    1.00   1.00
+2x-light-standard          checkerboard__rrect-ml__rest               112119   112119   112200   0.9990  0.9990    1.00   1.00
+2x-light-standard          checkerboard__rrect-sm__rest                 7974     7974     7980   0.9992  0.9992    1.00   1.00
+2x-light-standard          dark-solid__rrect-md__rest                  60023    60023    60064   0.9990  0.9990    1.00   1.00
+2x-light-standard          impulse__rrect-md__rest                     60023    60023    60064   0.9990  0.9990    1.00   1.00
+2x-light-standard          light-solid__rrect-md__rest                 60023    60023    60064   0.9990  0.9990    1.00   1.00
+2x-light-standard          light-solid__rrect-ml__rest                112119   112119   112200   0.9990  0.9990    1.00   1.00
+2x-light-standard          photo__rrect-md__rest                       60023    60023    60064   0.9990  0.9990    1.00   1.00
+2x-light-standard          photo__rrect-md__rest-tint-orange           60023    60023    60064   0.9990  0.9990    1.00   1.00
+2x-light-standard          photo__rrect-ml__rest                      112119   112119   112200   0.9990  0.9990    1.00   1.00
+2x-light-standard          photo__rrect-sm__rest                        7974     7974     7980   0.9992  0.9992    1.00   1.00
+
+worst declaredContourMaxWeb after, over these cells: 1.00 device px
+
+
+## (b) fidelity against Apple, GPU tier — the W19 canonical bed, before and after
+
+`better` is the sign the metric improves in: ΔE down, SSIM up, IoU up. The interior
+mean is read against the NATIVE interior mean beside it, so its own column is the gap.
+
+profile                    scene                                        ΔE b     ΔE a       ΔΔE   SSIM b  SSIM a     ΔSSIM  |int gap| b |int gap| a    rim b   rim a   IoU a
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard           checkerboard__capsule-button__rest         0.0074   0.0056   -0.0018   0.9641  0.9741   +0.0100       0.0434      0.0398   0.0938  0.1470   0.999
+1x-dark-standard           checkerboard__capsule-button__rest-tint-orange   0.0027   0.0010   -0.0016   0.9897  0.9985   +0.0087       0.0068      0.0055   0.0716  0.0930   1.000
+1x-dark-standard           dark-solid__capsule-button__rest           0.0008   0.0008   +0.0000   0.9866  0.9866   +0.0000            —           —        —       —       —
+1x-dark-standard           dark-solid__capsule-button__rest-tint-orange   0.0024   0.0005   -0.0019   0.9850  0.9991   +0.0141       0.0018      0.0008   0.0000  0.0000   1.000
+1x-dark-standard           impulse__capsule-button__rest              0.0033   0.0029   -0.0004   0.9770  0.9798   +0.0028       0.0174      0.0174   0.0000  0.0000   0.113
+1x-dark-standard           photo__capsule-button__rest                0.0088   0.0077   -0.0011   0.9811  0.9904   +0.0094       0.0414      0.0385   0.0876  0.1313   0.995
+1x-dark-standard           photo__capsule-button__rest-tint-orange    0.0020   0.0010   -0.0010   0.9865  0.9971   +0.0106       0.0067      0.0056   0.0713  0.0899   1.000
+1x-light-increased-contrast checkerboard__capsule-button__rest         0.0079   0.0060   -0.0018   0.9609  0.9653   +0.0044       0.0102      0.0123   0.0173  0.0270   0.617
+1x-light-increased-contrast checkerboard__capsule-button__rest-tint-orange   0.0053   0.0040   -0.0013   0.9589  0.9585   -0.0003       0.0483      0.0559   0.2926  0.4002   0.996
+1x-light-increased-contrast photo__capsule-button__rest                0.0084   0.0070   -0.0014   0.9463  0.9490   +0.0027       0.0187      0.0169   0.0724  0.0951   1.000
+1x-light-increased-contrast photo__capsule-button__rest-tint-orange    0.0049   0.0040   -0.0009   0.9362  0.9306   -0.0056       0.0449      0.0530   0.2946  0.4077   1.000
+1x-light-increased-contrast photo__toolbar-group__rest                 0.0131   0.0087   -0.0045   0.9153  0.9258   +0.0104       0.0235      0.0298   0.0313  0.0767   1.000
+1x-light-reduced-transparency checkerboard__capsule-button__rest         0.0031   0.0014   -0.0017   0.9888  0.9971   +0.0082       0.0430      0.0411   0.0316  0.0066   0.979
+1x-light-reduced-transparency photo__capsule-button__rest                0.0023   0.0009   -0.0015   0.9857  0.9991   +0.0135       0.0029      0.0012   0.0516  0.0301   1.000
+1x-light-reduced-transparency photo__capsule-button__rest-tint-orange    0.0018   0.0007   -0.0011   0.9870  0.9977   +0.0108       0.0005      0.0017   0.0770  0.0958   1.000
+1x-light-reduced-transparency photo__toolbar-group__rest                 0.0054   0.0011   -0.0043   0.9595  0.9989   +0.0394       0.0091      0.0031   0.0100  0.0003   1.000
+1x-light-standard          checkerboard__capsule-button__rest         0.0043   0.0023   -0.0020   0.9856  0.9971   +0.0115       0.0576      0.0573   0.0772  0.0753   0.998
+1x-light-standard          checkerboard__capsule-button__rest-tint-blue   0.0031   0.0012   -0.0018   0.9890  0.9982   +0.0092       0.0036      0.0061   0.0907  0.1293   1.000
+1x-light-standard          checkerboard__capsule-button__rest-tint-orange   0.0030   0.0013   -0.0018   0.9894  0.9986   +0.0091       0.0116      0.0131   0.0842  0.1094   1.000
+1x-light-standard          checkerboard__toolbar-group__rest          0.0080   0.0023   -0.0057   0.9642  0.9969   +0.0327       0.0553      0.0546   0.0251  0.0260   0.997
+1x-light-standard          dark-solid__capsule-button__rest           0.0008   0.0008   +0.0000   0.9866  0.9866   +0.0000            —           —        —       —       —
+1x-light-standard          dark-solid__capsule-button__rest-tint-orange   0.0024   0.0005   -0.0019   0.9850  0.9991   +0.0141       0.0018      0.0008   0.0000  0.0000   1.000
+1x-light-standard          impulse__capsule-button__rest              0.0033   0.0029   -0.0004   0.9770  0.9798   +0.0028       0.0174      0.0174   0.0000  0.0000   0.113
+1x-light-standard          impulse__capsule-button__rest-tint-orange   0.0031   0.0006   -0.0026   0.9836  0.9991   +0.0155       0.0021      0.0008   0.0000  0.0000   1.000
+1x-light-standard          light-solid__capsule-button__rest          0.0008   0.0005   -0.0003   0.9925  0.9984   +0.0059       0.0019      0.0022   0.0097  0.0209   0.999
+1x-light-standard          light-solid__capsule-button__rest-tint-orange   0.0016   0.0008   -0.0009   0.9883  0.9984   +0.0101       0.0002      0.0032   0.0719  0.1252   1.000
+1x-light-standard          photo__capsule-button__rest                0.0036   0.0024   -0.0012   0.9860  0.9987   +0.0127       0.0347      0.0334   0.0946  0.0894   1.000
+1x-light-standard          photo__capsule-button__rest-tint-blue      0.0022   0.0011   -0.0011   0.9850  0.9964   +0.0114       0.0010      0.0032   0.0929  0.1284   1.000
+1x-light-standard          photo__capsule-button__rest-tint-orange    0.0022   0.0011   -0.0011   0.9864  0.9975   +0.0111       0.0071      0.0083   0.0893  0.1104   1.000
+1x-light-standard          photo__capsule-button__rest-tint-orange-half   0.0028   0.0017   -0.0011   0.9866  0.9981   +0.0115       0.0201      0.0205   0.0928  0.1045   1.000
+1x-light-standard          photo__toolbar-group__rest                 0.0064   0.0029   -0.0035   0.9602  0.9981   +0.0379       0.0351      0.0346   0.0248  0.0191   1.000
+2x-dark-standard           checkerboard__capsule-button__rest         0.0078   0.0059   -0.0019   0.9711  0.9803   +0.0092       0.0443      0.0409   0.1420  0.2262   0.999
+2x-dark-standard           checkerboard__capsule-button__rest-tint-orange   0.0028   0.0010   -0.0017   0.9904  0.9982   +0.0078       0.0080      0.0061   0.1083  0.1560   1.000
+2x-dark-standard           dark-solid__capsule-button__rest           0.0008   0.0008   +0.0000   0.9908  0.9908   -0.0000            —           —        —       —       —
+2x-dark-standard           dark-solid__capsule-button__rest-tint-orange   0.0025   0.0006   -0.0019   0.9885  0.9984   +0.0099       0.0001      0.0013   0.0000  0.0000   0.999
+2x-dark-standard           impulse__capsule-button__rest              0.0037   0.0033   -0.0005   0.9772  0.9803   +0.0031       0.0230      0.0230   0.0000  0.0000   0.121
+2x-dark-standard           photo__capsule-button__rest                0.0089   0.0078   -0.0011   0.9860  0.9927   +0.0067       0.0414      0.0384   0.1274  0.1967   0.995
+2x-dark-standard           photo__capsule-button__rest-tint-orange    0.0021   0.0010   -0.0010   0.9899  0.9973   +0.0074       0.0076      0.0058   0.1078  0.1528   0.999
+2x-light-standard          checkerboard__capsule-button__rest         0.0047   0.0026   -0.0021   0.9860  0.9963   +0.0104       0.0621      0.0631   0.1104  0.1315   0.995
+2x-light-standard          checkerboard__capsule-button__rest-tint-blue   0.0033   0.0013   -0.0020   0.9893  0.9979   +0.0086       0.0036      0.0064   0.1367  0.2060   1.000
+2x-light-standard          checkerboard__capsule-button__rest-tint-orange   0.0032   0.0013   -0.0019   0.9898  0.9982   +0.0084       0.0125      0.0148   0.1240  0.1779   1.000
+2x-light-standard          checkerboard__toolbar-group__rest          0.0085   0.0024   -0.0060   0.9666  0.9965   +0.0299       0.0575      0.0611   0.0363  0.0829   0.993
+2x-light-standard          dark-solid__capsule-button__rest           0.0008   0.0008   +0.0000   0.9908  0.9908   -0.0000            —           —        —       —       —
+2x-light-standard          dark-solid__capsule-button__rest-tint-orange   0.0025   0.0006   -0.0019   0.9885  0.9984   +0.0099       0.0001      0.0013   0.0000  0.0000   0.999
+2x-light-standard          impulse__capsule-button__rest              0.0037   0.0033   -0.0005   0.9772  0.9803   +0.0031       0.0230      0.0230   0.0000  0.0000   0.121
+2x-light-standard          impulse__capsule-button__rest-tint-orange   0.0033   0.0006   -0.0026   0.9880  0.9984   +0.0104       0.0001      0.0012   0.0000  0.0000   0.999
+2x-light-standard          light-solid__capsule-button__rest          0.0008   0.0005   -0.0003   0.9950  0.9990   +0.0040       0.0037      0.0040   0.0191  0.0332   0.999
+2x-light-standard          light-solid__capsule-button__rest-tint-orange   0.0017   0.0008   -0.0009   0.9913  0.9983   +0.0070       0.0004      0.0033   0.1103  0.1862   1.000
+2x-light-standard          photo__capsule-button__rest                0.0037   0.0024   -0.0013   0.9889  0.9984   +0.0095       0.0341      0.0342   0.1329  0.1584   1.000
+2x-light-standard          photo__capsule-button__rest-tint-blue      0.0023   0.0011   -0.0012   0.9890  0.9968   +0.0078       0.0005      0.0032   0.1382  0.2035   1.000
+2x-light-standard          photo__capsule-button__rest-tint-orange    0.0023   0.0011   -0.0012   0.9896  0.9979   +0.0083       0.0068      0.0088   0.1289  0.1790   1.000
+2x-light-standard          photo__capsule-button__rest-tint-orange-half   0.0029   0.0017   -0.0012   0.9890  0.9980   +0.0090       0.0196      0.0209   0.1325  0.1742   1.000
+2x-light-standard          photo__toolbar-group__rest                 0.0065   0.0027   -0.0038   0.9697  0.9987   +0.0290       0.0171      0.0213   0.0390  0.0799   1.000
+
+53 capsule/toolbar GPU cells.
+  ΔE:   51 improved, 2 worsened; best -0.00604 (checkerboard__toolbar-group__rest), worst +0.00000 (dark-solid__capsule-button__rest)
+  SSIM: 49 improved, 4 worsened; best +0.03945 (photo__toolbar-group__rest), worst -0.00559 (photo__capsule-button__rest-tint-orange)
+  STOP CANDIDATES on ΔE:
+    2x-dark-standard           dark-solid__capsule-button__rest         +0.000000
+    2x-light-standard          dark-solid__capsule-button__rest         +0.000000
+  STOP CANDIDATES on SSIM:
+    1x-light-increased-contrast checkerboard__capsule-button__rest-tint-orange -0.000328
+    1x-light-increased-contrast photo__capsule-button__rest-tint-orange  -0.005594
+    2x-dark-standard           dark-solid__capsule-button__rest         -0.000014
+    2x-light-standard          dark-solid__capsule-button__rest         -0.000014
+
+
+## (c) every rounded-rectangle and glass-over-glass GPU capture, byte for byte
+
+The canonical `web-captures/` is the W19 bed's, on the capture machine. A pair that
+differs is reported with its differing-pixel count and max code difference; the
+tracker's one frame-timing pair moves by a single code between any two runs.
+
+profile                    scene                                    sha equal   diff px  max code
+-------------------------------------------------------------------------------------------------
+1x-dark-standard           checkerboard__rrect-md__rest                   yes         0         0
+1x-dark-standard           dark-solid__rrect-md__rest                     yes         0         0
+1x-dark-standard           photo__rrect-md__rest                          yes         0         0
+1x-light-increased-contrast checkerboard__rrect-md__rest                   yes         0         0
+1x-light-increased-contrast photo__rrect-md__rest                          yes         0         0
+1x-light-reduced-transparency checkerboard__rrect-md__rest                   yes         0         0
+1x-light-reduced-transparency photo__rrect-md__rest                          yes         0         0
+1x-light-standard          checkerboard__rrect-md__rest                   yes         0         0
+1x-light-standard          checkerboard__rrect-ml__rest                   yes         0         0
+1x-light-standard          checkerboard__rrect-sm__rest                   yes         0         0
+1x-light-standard          dark-solid__rrect-md__rest                     yes         0         0
+1x-light-standard          impulse__rrect-md__rest                        yes         0         0
+1x-light-standard          light-solid__rrect-md__rest                    yes         0         0
+1x-light-standard          light-solid__rrect-ml__rest                    yes         0         0
+1x-light-standard          photo__rrect-md__rest                          yes         0         0
+1x-light-standard          photo__rrect-md__rest-tint-orange              yes         0         0
+1x-light-standard          photo__rrect-ml__rest                          yes         0         0
+1x-light-standard          photo__rrect-sm__rest                          yes         0         0
+2x-dark-standard           checkerboard__rrect-md__rest                   yes         0         0
+2x-dark-standard           dark-solid__rrect-md__rest                     yes         0         0
+2x-dark-standard           photo__rrect-md__rest                          yes         0         0
+2x-light-standard          checkerboard__rrect-md__rest                   yes         0         0
+2x-light-standard          checkerboard__rrect-ml__rest                   yes         0         0
+2x-light-standard          checkerboard__rrect-sm__rest                   yes         0         0
+2x-light-standard          dark-solid__rrect-md__rest                     yes         0         0
+2x-light-standard          impulse__rrect-md__rest                        yes         0         0
+2x-light-standard          light-solid__rrect-md__rest                    yes         0         0
+2x-light-standard          light-solid__rrect-ml__rest                    yes         0         0
+2x-light-standard          photo__rrect-md__rest                          yes         0         0
+2x-light-standard          photo__rrect-md__rest-tint-orange              yes         0         0
+2x-light-standard          photo__rrect-ml__rest                          yes         0         0
+2x-light-standard          photo__rrect-sm__rest                          yes         0         0
+
+0 capture(s) not byte-identical; 0 pair(s) missing a side.
