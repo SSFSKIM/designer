@@ -28,6 +28,15 @@ requires. The bed's tint registry carries strengths 1.0 and 0.5 only, which is w
 it; W17 Decision Log 2 (c) named this re-derivation as owed if S5 fired on a tinted cell, and it
 did (`hc-text__capsule-button__rest-tint-orange`, +0.0129 / +0.0118).
 
+*Corrected by G0 (claims §5.80 §2; Decision Log 2), left as written above:* the mechanism has a
+fourth term, and it is the largest. The transfer table clamps into [0, 1]; solved against the
+FOLDED colour it saturates on the seed's darkest channel over most of the ladder (47 of 180
+analytic channel cells, up to −0.083 encoded; 0.1–14.2 % of masked channel samples on captured
+cells), a hue error that fires before L2's Gaussian and breaks the affine premise W17 G1's
+derivation rests on. The fold removes it (clamp share 0.000 on every captured cell). Measured on
+pixels the error is not one-signed: −0.068 at strength 0.1 and −0.041 at 0.2 over the photo at 1x,
++0.015…+0.016 on the blue seed at 0.5, zero near the bed's one sub-unit cell.
+
 This wave measures the composite at every strength on both tiers, derives the exact fold from
 the profile with no fitted constant — the author layer folded over the floor overlay in encoded
 space so that L3's alpha never drops below α₃ and the identity holds at every strength — lands it
@@ -118,6 +127,13 @@ the table's output), so the bed's agreement on eleven of twelve scenes says noth
 strengths below one. The `orange-half` cells' small reading is the review's formula at the
 photo capsule's backdrop, where `E(M)` happens to sit near the folded colour; G0 measures whether
 that is so.
+
+*Corrected by G0 (claims §5.80 §6), left as written above:* the "+0.020 over native at 0.5 on both
+tiers" is not a reading of the strength law. Apple's curve is the encoded-space mix of Apple's own
+endpoints to 0.003 on ten rungs, the renderer's law exactly; the sub-unit `GPU − native` gap is the
+thin-span material level (+0.035 photo, +0.055 checkerboard; §5.55 §3) faded in by `(1 − s)`, plus
++0.007…+0.012 that survives at full strength — the tint shade's own gap, the renderer's. The
+`orange-half` cell's small reading is the error's zero crossing at that backdrop, measured.
 
 **The review's readings** (claims §5.79 §7 addendum; the scratch test at
 `~/.claude/jobs/5c70e47f/tmp/w18/findings/zz-w18-verify.test.ts`, not committed): the composite
@@ -256,6 +272,20 @@ its TCC gate; the two halves are independent and the web side does not wait on t
 
 - **The renderer's strength law against Apple's** — both tiers +0.020 over native at strength
   0.5 on the photo capsule (the bed); the native ladder makes it a curve. The renderer's item.
+  *Rewritten by G0 (claims §5.80 §6), the line above left as written:* the strength law IS Apple's
+  shape (the encoded-space mix within 0.003 on ten rungs; linear light refuted by +0.009…+0.033),
+  and the sub-unit gap is the thin-span level faded by `(1 − s)`, already the renderer's ledger.
+  What is new is **the tint shade's own gap at full strength**: +0.007 (photo) / +0.012
+  (checkerboard) of luminance where the material is the tint and the level gap should have
+  vanished, its hue half not taken. The renderer's item, for its charter, with the ladder's
+  twelve native cells as its bed.
+- **The clamp's cost as a colour (G0).** §5.80 §2 reports the saturation per channel and its
+  share per cell; no ΔE was taken on the ladder. The hue error is what a reader would see and what
+  an interior mean under-reports; G1's dry run reads ΔE on the ladder cells against the GPU tier.
+- **The blue seed on the ladder (G0)** — captured at 0.2, 0.5 and 1.0 only, and natively not at
+  all; the second hue is the cheap next probe if the shape is doubted.
+- **The fold profiles' tinted composite under a policy fold (G0)** — measured (§5.80 §4), not
+  attributed: `predict.ts` resolves under the nominal policy.
 - **The rim band on square boxes** (W18 Deferred; q4) — its own charter after 0.8.0 on the
   recommendation.
 - **The floor literal under a runtime-patched profile** (the tracker; review finding 3).
@@ -268,8 +298,8 @@ its TCC gate; the two halves are independent and the web side does not wait on t
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | — | OPEN 2026-09-05 (Decision Log 1's recommendations) |
-| G1 | — | — |
+| G0 | `packages/calibration/results/2026-09-05-w19-author-tint-fold/g0/g0-findings.md` (`ebade16`, merged `1e0b2a0`), `probe/` (the 1x native ladder, twelve cells, seven attested runs), `apps/reference-apple/scenes-w19-probe.json`; claims §5.80 | CLOSED 2026-09-05 — the charter's term confirmed and a larger one found beside it (the table saturates; the fold removes it), the error not one-signed (−0.068 at strength 0.1 on the photo), the fold exact to 8.9e−8 with `α″ − α₃ ≥ +0.0733` and no form flip, Apple's curve the renderer's encoded mix to 0.003, the tier crossing Apple's curve near strength 0.3; nine `[parent-impact]` items reconciled in Decision Log 2 |
+| G1 | — | OPEN 2026-09-05 (Decision Log 2's re-declared stops) |
 | G2 | — | — |
 
 ## Decision Log
@@ -323,9 +353,73 @@ G0 opens on the recommendations; each answer that differs re-opens the affected 
 (a), q1 (a), q2 (a), q3 (a), q4 (b), q5 (a). G0 continues as dispatched; the rim band on square
 boxes stays in W18's Deferred for its own charter after the 0.8.0 cut.
 
+### Decision Log 2 — G0 read: the saturation joins the mechanism, the stops re-declared on the fold's own prediction, the Deferred entry rewritten (2026-09-05; the parent)
+
+**What G0 found that the charter did not say** (claims §5.80): the transfer table saturates on
+the seed's darkest channel when solved against the folded colour — the largest of the four terms,
+a hue error, non-affine, removed entirely by the fold; the error on pixels is not one-signed and
+crosses zero near the bed's one sub-unit cell; the floor is breached today at strengths 0.1 and
+0.2; Apple's strength curve is the renderer's own encoded mix and the sub-unit gap to Apple is the
+thin-span level faded in; the tier crosses Apple's curve near strength 0.3. The nine
+`[parent-impact]` items, ruled:
+
+1. **The Purpose and the Grounding Baseline are corrected beside** (above): the saturation is the
+   fourth term; the "+0.020 over native" reading is the level curve at one point.
+2. **The acceptance's closed-form clause is re-declared in two halves.** *Analytic:* today's chain
+   reproduces the intended expression's difference to 1e−6 wherever the table does not saturate —
+   met (8.3e−8 on 133 of 180). *On captured cells:* the prediction is the FOLD's (`predFold`, which
+   does not clamp), corrected by the cell's own decoration constant read at `s = 1` on the same
+   backdrop and scale, within **0.005**; the clamp share recorded beside every row and required
+   0.000 under the fold. A form evaluated on a composite cannot model a clamp that fires inside a
+   filter before a blur, and a clause that asks it to is asking the wrong instrument. **S5 for G1
+   is this statement on the pre-check's ladder.**
+3. **The eight-bit quantum is named:** `C″` rounds to `Rgb255` (2.85e−3), the same quantum today's
+   `rgba(L, s)` carries; no clause on a tinted cell sits under 0.003, and the 0.005 clauses stand.
+4. **S3 is re-declared by capture:** every full-strength tinted cell of the bed byte-identical to
+   the W18 bed's capture, or — because the transfer's floor colour moves under an opaque layer of
+   the same shape — within 0.0005 in the interior mean with the differing pixels confined to the
+   contour ring, named per cell. Every UNTINTED CSS capture byte-identical, as written.
+5. **The fold profiles' clause is re-declared as movement against the untinted control:** on each
+   fold profile, `(CSS − GPU)_tinted − (CSS − GPU)_untinted` within **0.01** at the ladder's
+   strengths; the untinted offsets (+0.0364 under increased contrast, −0.0070 under reduced
+   transparency) are the fold's own gap (W18 §5.79 §7) and stay there.
+6. **q2 (a) stands and is now measured:** the floor breached today on six of eighteen captured
+   tinted cells; G1's pin is `α″ ≥ α₃` on every tinted surface, least margin +0.0733.
+7. **X7 is stated against the tier's own `L`:** the coherence pin holds the tier's composite to
+   `(1 − s)·E(M) + s·E(L_css)` at the tier's granularity; the renderer's per-pixel shade sits
+   0…+0.0084 above that on the analytic sweep (W10's known granularity, not this wave's). **S4
+   stays at 0.005** on every ladder cell against the GPU tier; where a checkerboard cell misses
+   by no more than the granularity term measured on that cell, the parent re-declares at the
+   pre-check with the number rather than before it.
+8. **The Deferred entry for the renderer's strength law is rewritten beside** (above): the law is
+   Apple's shape; the new item is the tint shade's own gap at full strength, the renderer's.
+9. **The activation attestation's second failure mode goes to the tracker**: a run losing cells to
+   `presentedActive: false` with the machine idle throughout; a probe now banks seven runs in
+   about ten.
+
+**G1 opens** on G0's placement (q3 (a), claims §5.80 §7): `root.ts` passes the untinted conversion
+as `untintedOptics` beside the folded `optics`; `cssTierDeclarations`' `linear` branch takes the
+transfer's floor colour from it and builds L3 from `tintedCssOptics({ ...untintedOptics,
+tintAlpha: floorAlpha }, …)`; the encoded form and the plain-`blur()` engines untouched by
+construction. Stops S1–S9 as the Children section wrote them, with S3, S4's checkerboard reading,
+S5 and the fold profiles' clause as re-declared here.
+
 ## Surprises & Discoveries
 
-(none yet)
+- **2026-09-05 (G0) — the table saturates, and that is the largest term.** The charter named a
+  level error; the clamp on the seed's darkest channel is a hue error, non-affine, up to −0.083
+  encoded, and the fold removes it entirely.
+- **2026-09-05 (G0) — the error crosses zero where the bed happened to look.** The one sub-unit
+  cell sits near the crossing; −0.068 at strength 0.1 on the same backdrop.
+- **2026-09-05 (G0) — Apple's strength curve is the renderer's encoded mix to 0.003**, and the
+  sub-unit gap to Apple is the thin-span level faded in by `(1 − s)`, not the law. The tint shade's
+  own +0.007…+0.012 at full strength is the item nobody had.
+- **2026-09-05 (G0) — the tier crosses Apple's curve** near strength 0.3 (−0.039 under native at
+  0.1 on the photo, where the renderer is +0.030 over).
+- **2026-09-05 (G0) — a closed form on a composite cannot model a clamp inside a filter**; the
+  acceptance asked for it and was re-declared on the fold's own prediction.
+- **2026-09-05 (G0) — the harness's window activation fails with the machine idle** (run 7, six
+  of twelve cells, 700–818 s idle): a second failure mode beside W18's HID one; the tracker's.
 
 ## Outcomes & Retrospective
 
@@ -337,3 +431,7 @@ boxes stays in W18's Deferred for its own charter after the 0.8.0 cut.
   on the user's decision; Decision Log 1 written; G0 dispatched on its recommendations.
 - 2026-09-05: Decision Log 1 executed on the recommendations (the user); G0 resumed after a
   usage-limit stop mid-capture.
+- 2026-09-05: G0 CLOSED (claims §5.80); Decision Log 2 — the Purpose and Grounding corrected
+  beside, the closed-form clause and S5 re-declared on the fold's prediction, S3 by capture, the
+  fold profiles' clause against the untinted control, X7 against the tier's `L`, the Deferred entry
+  rewritten; six Surprises; G1 opens.

@@ -11375,3 +11375,148 @@ group's `cssTint` was the last host's), fixed beside this landing; a public doc 
 `CssTierSurface.optics`, fixed; the floor literal under a runtime-patched profile, a tracker
 line.
 
+### 5.80 W19 G0 CLOSED: the author-tint composite on the CSS tier's linear path measured on both tiers and natively — the charter's term confirmed, the transfer table's saturation found beside it and larger, the exact fold verified to 8.9e−8, Apple's strength curve fitted by the renderer's encoded-space mix to 0.003 (2026-09-05)
+
+**Where.** `packages/calibration/results/2026-09-05-w19-author-tint-fold/g0/g0-findings.md`
+(merged `1e0b2a0`; one worker); the instrument `surface.ts` (`root.ts`'s fourteen-step chain from
+the profile to one surface's declarations, the shipped functions in the shipped order),
+`closed-form.ts`, `ladder.ts`, `predict.ts`, `native-ladder.ts`, `x4-recovery.ts`; the scratch bed
+`make-scenes.mjs` (twenty scenes: the capsule over the photo and the checkerboard, untinted and at
+nine tint ids); the native ladder `apps/reference-apple/scenes-w19-probe.json` into
+`results/2026-09-05-w19-author-tint-fold/probe/` (X10). Nothing canonical written.
+
+**1. The instrument.** X4: the reader recovers a nominal +0.030 as +0.0295…+0.0306 under every
+mask it uses (native silhouette, declared region, per surface), to 4e−15 of the offset actually on
+disk; `measureCell` reproduces the script's reading exactly. The scratch bed reproduces the
+Grounding Baseline on the five cells it shares with the canonical one to 0.0001. Eight `capture-web`
+runs on the shared adapter, GPU tier first, every scene byte-identical over two page loads, no
+fallback, no problems.
+
+**2. The mechanism, in four terms.** The charter's three hold, and a fourth is larger. (i) The
+table is solved for the floor overlay on the FOLDED colour (`root.ts` passes `tintedCssOptics`'
+output as `optics`). (ii) L3 paints `(L, s)` where the table was solved for `(T_folded, α₃)`, so
+the composite is `(1 − s)·E(F) + s·E(L)` against the renderer's `(1 − s)·E(M) + s·E(L)`, and the
+difference in encoded space is `(1 − s)·α₃/(1 − α₃)·(E(M) − E(T_folded))` — exact to 8.3e−8 on the
+133 of 180 channel cells of the analytic sweep where nothing clamps. (iii) For `s < α₃ = 0.2668`
+the painted alpha is under W17 Decision Log 4 (a)'s floor: two of the six charter strengths, six
+of the eighteen captured tinted cells. **(iv) The table saturates.** `cssTierTintTable` clamps
+into [0, 1] because an `feComponentTransfer` table cannot carry more; solved against `T_folded`,
+which on an orange seed is near zero in blue and on a blue seed near zero in red, the argument
+`(E(M) − α₃·E(T_folded))/(1 − α₃)` exceeds 1 on that channel over most of the ladder — 47 of 180
+analytic channel cells, up to −0.083 encoded, and 0.1–14.2 % of masked channel samples on the
+captured cells at 1x, rising with strength. A clamped table is not affine, so the loss fires per
+pixel before L2's Gaussian and is not recoverable from the composite (W17 G1's derivation rests
+on the affine passing through unchanged); and it is per channel on the seed's darkest channel, a
+hue shift toward the material's neutral that an interior-mean metric under-reports. **The fold
+removes it:** solved on the untinted `T` (0.995 linear) the argument stays inside [0, 1] except
+within 0.4 % of white; the clamp share under the fold is 0.000 on every captured cell at both
+scales.
+
+**3. The analytic sweep** (uniform backdrops 0.15…0.8, strengths 0.1…1.0, two seeds; today
+minus the intended expression, linear luminance). **Not one-signed:** −0.070 at `s` 0.1 over
+0.15, +0.050 at `s` 0.35 over 0.6 (blue), zero along a curve from about (0.35, 0.21) to
+(0.1, 0.65) on the orange seed — the bed's one sub-unit cell (`orange-half` over the photo) sits
+near that crossing, which is why it read −0.0008 and why eleven of twelve tinted cells said
+nothing. The review's readings (§5.79 §7 addendum) reproduce in shape and are smaller at low
+strength: the review held the interior at a literal (0.62, 0.78, 0.004) where `root.ts` resolves
+α 0.546–0.693 and a near-white tint.
+
+**4. The captured ladder** (CSS − GPU interior mean, declared region; the native silhouette agrees
+to 0.00002 where a fixture exists). Standard light, 1x:
+
+| strength | photo, orange | checkerboard, orange | photo, blue | checkerboard, blue |
+| --- | --- | --- | --- | --- |
+| 0.10 | **−0.0684** | **−0.0325** | — | — |
+| 0.20 | **−0.0408** | **−0.0117** | **−0.0220** | +0.0050 |
+| 0.35 | −0.0121 | +0.0008 | — | — |
+| 0.50 | −0.0008 | +0.0020 | **+0.0146** | **+0.0164** |
+| 0.75 | +0.0027 | −0.0008 | — | — |
+| 1.00 | −0.0001 | −0.0016 | −0.0014 | −0.0017 |
+
+At 2x the same shape (photo orange −0.0673 / −0.0397 / −0.0116 / −0.0004 / +0.0029 / −0.0001;
+checkerboard −0.0294 / −0.0130 / −0.0026 / −0.0006 / −0.0032 / −0.0031). Every CSS cell drew the
+`linear` form (20 / 20 at 1x, 20 / 20 at 2x, 4 / 4 under each fold profile). The fold profiles
+over the photo: reduced transparency untinted −0.0070, `orange-020` −0.0000, `orange-half`
++0.0137, `orange` +0.0002; increased contrast untinted **+0.0364**, `orange-020` −0.0126,
+`orange-half` +0.0186, `orange` +0.0032 — the untinted offsets are the fold's own gap (W18 §5.79
+§7), and the tinted rows carry them.
+
+**5. The closed form on captured pixels.** `predict.ts` predicts the tinted CSS capture from the
+tier's own untinted capture per pixel (on the linear form the untinted capture IS the tier's
+`E(M)`, with its body, kernel and mask inside it). Today's chain predicts the measured cell to
++0.0025…+0.0147 at 1x and +0.0023…+0.0250 at 2x, in two attributable parts: a constant
+−0.0038…−0.0043 at `s = 1` on every cell (the rim, border, highlight, shadow and antialiased
+contour, which no flat-colour prediction carries) and a positive term tracking the clamp share
+(+0.0025 at 0.1 % clamped, +0.0147 at 8.6 %), largest on the checkerboard and at 2x, because the
+prediction clamps on the composite where the tier clamps per pixel before the blur. **The
+charter's "closed form within 0.002 per cell" is therefore not met on captured cells and cannot
+be by a form evaluated on a composite**; the fold's own prediction (`predFold`) does not clamp.
+W19 Decision Log 2 re-declares the clause and S5 on it.
+
+**6. The native ladder** (1x, twelve cells, the grant live). Ten runs, eight attested, seven
+materialised by `materialize.ts --frequency-settle`; run 1 lost four cells to HID activity, run 7
+six cells to `presentedActive: false` with the machine idle throughout (700–818 s) — a second
+failure mode, the session denying the window activation, the tracker's; run 10 attested and not
+needed. Nine cells unanimous over seven runs, three settled at 6 / 7. The three recorded twins
+byte-identical to the canonical fixtures. Interior mean under the native silhouette:
+
+| strength | native, photo | GPU − native | CSS − native | native, checkerboard | GPU − native | CSS − native |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.10 | 0.5511 | +0.0295 | **−0.0389** | 0.5852 | +0.0495 | +0.0170 |
+| 0.20 | 0.5191 | +0.0272 | −0.0135 | 0.5481 | +0.0459 | +0.0343 |
+| 0.35 | 0.4783 | +0.0214 | +0.0092 | 0.5020 | +0.0366 | +0.0374 |
+| 0.50 | 0.4385 | +0.0201 | +0.0193 | 0.4578 | +0.0322 | +0.0341 |
+| 0.75 | 0.3908 | +0.0116 | +0.0143 | 0.4040 | +0.0193 | +0.0185 |
+| 1.00 | 0.3524 | +0.0071 | +0.0071 | 0.3603 | +0.0116 | +0.0100 |
+
+**Apple's curve is the encoded-space mix of Apple's own endpoints** — `D((1 − s)·E(untinted) +
+s·E(s = 1))` per pixel, both endpoints Apple's captures, nothing of vitrea's in the hypothesis —
+within 0.0032 on all ten intermediate rungs and 0.0017 on eight; the linear-light mix misses by
++0.0089…+0.0331, one-signed. §5.36 finding 3 chose the encoded space from one half-strength cell;
+the ladder makes it a curve and it holds. **The strength axis costs the renderer nothing of its
+own:** `GPU − native` grows as the strength falls because the composite is mostly the untinted
+material, whose thin-span level is +0.035 (photo) / +0.055 (checkerboard) over native (§5.55 §3,
+§5.77 §6); faded by `(1 − s)` that predicts +0.031 / +0.017 / +0.009 at 0.1 / 0.5 / 0.75 on the
+photo against +0.0295 / +0.0201 / +0.0116 measured. The charter's Grounding read "+0.020 over
+native at 0.5 on both tiers" as a strength-law reading; it is that level curve at one point,
+corrected in W19 Decision Log 2. What is new is the +0.007…+0.012 that survives at `s = 1`, where
+the material is the tint and the level gap should have vanished: the tint shade's own luminance
+gap to Apple, the renderer's, with no entry until now. **And the tier's defect is visible against
+Apple in the opposite direction:** −0.0389 under native at `s` 0.1 on the photo where the
+renderer is +0.0295 over; the tier crosses Apple's curve near `s` 0.3 and the renderer never does.
+
+**7. The exact fold, verified.** Table on the untinted `(T, α₃)`, L3 the encoded fold `α″ = 1 −
+(1 − s)(1 − α₃)`, `C″ = ((1 − s)·α₃·E(T) + s·E(L))/α″`: the identity `(1 − α″)·F + α″·C″ =
+(1 − s)·E(M) + s·E(L)` holds to **8.9e−8 encoded, 1.6e−7 in linear luminance** over sixty sweep
+cells; with `C″` rounded to `Rgb255` as a CSS colour is, 2.85e−3 — the eight-bit quantum today's
+`rgba(L, s)` carries in the same measure, and a ±0.003 floor under any per-cell identity claim.
+`α″ − α₃ ≥ +0.0733` (at `s` 0.1). At `s = 1` the L3 declaration is byte-identical to today's on all
+ten sweep cells; the transfer is not (its floor colour moves from `T_folded` to `T`, the table's
+output differing by up to 0.49 under an opaque layer of the same shape — to be verified by
+capture, Decision Log 2). No form flips: `cssTintFormAt` reads the material's composite level,
+which neither the author layer nor the fold touches. **Where G1 applies it (q3 (a), G0's
+reading):** `root.ts` passes the untinted conversion `cssOpticsFromSource(...)` — already computed
+inline — as a new optional `untintedOptics` beside the folded `optics`, and `cssTierDeclarations`,
+in its `linear` branch only, takes the transfer's floor colour from it and builds the overlay from
+`tintedCssOptics({ ...untintedOptics, tintAlpha: floorAlpha }, …)`; the encoded form and the
+other engines keep the whole-material fold on `optics` untouched. A side effect worth naming: a
+tinted surface's transfer becomes the untinted surface's at the same backdrop, so a tinted group
+stops needing its own `<filter>`.
+
+**8. The renderer's law against the tier's target.** `tintedMaterialColour` reads the shade's
+luminance per pixel; `authorTintLayer` reads it once per source (W10's granularity). On the sweep
+the renderer sits 0.0000…+0.0084 above the tier's intended expression, rising with strength and
+backdrop; X7's pin is stated against the tier's own `L` (Decision Log 2).
+
+**9. `[parent-impact]`, reconciled** — W19 Decision Log 2: the Purpose and Grounding corrected
+beside (the saturation; the level curve); the closed-form clause and S5 re-declared on the fold's
+prediction with the decoration constant as the control and the clamp share beside each row; S3
+verified by capture; the fold profiles' clause as movement against the untinted control; X7
+against the tier's `L`; the Deferred entry for the renderer's strength law rewritten; the
+activation failure mode to the tracker.
+
+**10. What did not close.** The 2x native ladder; the fold profiles' tinted composite under a
+policy fold (measured, not attributed); the clamp's cost as a colour (no ΔE on the ladder); the
+blue seed at 0.1 / 0.35 / 0.75 and natively; Apple's shade as a hue (the `s = 1` residue is its
+luminance half).
+

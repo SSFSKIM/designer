@@ -556,3 +556,18 @@ runtime is involved — the images are static fixtures. Shape of the fix: poll t
 before reading the natural size. Logged so the next chain that trips on it does not chase the
 runtime.
 
+## The reference harness loses cells to window activation with the machine idle (W19 G0, 2026-09-05)
+
+*Found on W19's native ladder.* W9's protocol attests every cell (`presentedActive`,
+`deterministic`, `materialRendered`, HID idle) and disqualifies a run that fails; W18's probe lost
+one run to HID activity near the end, which is the failure the attestation was written for. W19
+G0's run 7 lost six of twelve cells to `presentedActive: false` with 700–818 s of HID idle at start
+and end — nobody was near the machine — so the session denying the window activation is a second,
+distinct failure mode (`probe/provenance.json` in `results/2026-09-05-w19-author-tint-fold/`).
+It costs runs rather than correctness: the protocol catches it, and a probe now banks seven attested
+runs in about ten (W19: ten taken, eight attested). Shape of the fix: on a cell whose window fails
+to present active, the harness retries the activation once after its own reset interstitial before
+recording the cell as failed, and logs which activation path (`NSApp.activate`, the window's
+`makeKeyAndOrderFront`) declined; then confirm over a probe bed that the retry recovers the cell.
+Below every bound; recorded so the next probe budgets its runs.
+
