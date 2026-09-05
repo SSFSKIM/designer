@@ -1,0 +1,128 @@
+canonical: 229 cells; W18 bed: 229; dry run: 229
+rows on the W18 bed and not on the canonical bed: none; new rows: none
+webgpu tier: 115 cells against the W18 bed, worst |Δ| 0.000000; captures byte-identical 115 / 115
+css tier: 114 cells against the dry run, worst |Δ| 0.000000; captures byte-identical 114 / 114
+
+the CSS captures against the W18 bed's bytes (S3's clause as the acceptance wrote it):
+  UNTINTED capture differs from the W18 bed: checkerboard__glass-over-glass__rest @ apple-macos-26.5-2x-dark-standard
+  UNTINTED capture differs from the W18 bed: hc-text__capsule-button__rest @ apple-macos-26.5-2x-light-standard
+  untinted: byte-identical 79 / 81
+  tinted: byte-identical 12 / 33
+
+the seven rows held by floor — ssimMean, CSS tier, checkerboard (rrect-md 1x met its bound at W16):
+  cell               dpr   W18 bed   dry      canonical   floor now   landing floor
+  rrect-md           1x   0.91214   0.91214   0.91214      —        no floor (≥ 0.9 met)
+  rrect-md           2x   0.91521   0.91521   0.91521    0.9142      0.9142 kept
+  rrect-ml           1x   0.87585   0.87585   0.87585    0.8748      0.8748 kept
+  rrect-ml           2x   0.87893   0.87893   0.87893    0.8779      0.8779 kept
+  glass-over-glass   1x   0.86141   0.86141   0.86141    0.8604      0.8604 kept
+  glass-over-glass   2x   0.86811   0.86811   0.86811    0.8677      0.8677 kept
+  rrect-lg           1x   0.87039   0.87039   0.87039    0.8693      0.8693 kept
+  rrect-lg           2x   0.87220   0.87220   0.87220    0.8712      0.8712 kept
+
+every dom row against its adopted ssimMean / ΔE bound (rows under a bound listed):
+  checkerboard__glass-over-glass__rest         1x-light-standard            ssimMean 0.8614 (≥ 0.9, floor 0.8604)  ΔE 0.0331 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 1x-light-standard            ssimMean 0.8704 (≥ 0.9, floor 0.8693)  ΔE 0.0327 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 1x-light-standard            ssimMean 0.8758 (≥ 0.9, floor 0.8748)  ΔE 0.0308 (≤ 0.08)
+  checkerboard__glass-over-glass__rest         2x-light-standard            ssimMean 0.8681 (≥ 0.92, floor 0.8677)  ΔE 0.0345 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 2x-light-standard            ssimMean 0.8722 (≥ 0.92, floor 0.8712)  ΔE 0.0342 (≤ 0.08)
+  checkerboard__rrect-md__rest                 2x-light-standard            ssimMean 0.9152 (≥ 0.92, floor 0.9142)  ΔE 0.0228 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 2x-light-standard            ssimMean 0.8789 (≥ 0.92, floor 0.8779)  ΔE 0.0328 (≤ 0.08)
+  7 dom rows under an adopted bound
+
+the cross-tier interior level, CSS − GPU (interiorMeanWeb), on the bed's tinted cells (Decision Log 3):
+  cell                                           profile                       W18 bed    canonical   clause
+  checkerboard__capsule-button__rest-tint-orange 1x-dark-standard              -0.0010    -0.0010     recorded 
+  dark-solid__capsule-button__rest-tint-orange   1x-dark-standard              -0.0007    -0.0007     recorded 
+  photo__capsule-button__rest-tint-orange        1x-dark-standard              -0.0012    -0.0012     recorded 
+  checkerboard__capsule-button__rest-tint-orange 1x-light-increased-contrast   +0.0056    +0.0056     0.01 (s=1) met
+  photo__capsule-button__rest-tint-orange        1x-light-increased-contrast   +0.0055    +0.0055     0.01 (s=1) met
+  photo__capsule-button__rest-tint-orange        1x-light-reduced-transparency  +0.0002    +0.0002     0.01 (s=1) met
+  checkerboard__capsule-button__rest-tint-blue   1x-light-standard             -0.0017    -0.0017     0.005 met
+  checkerboard__capsule-button__rest-tint-orange 1x-light-standard             -0.0016    -0.0017     0.005 met
+  dark-solid__capsule-button__rest-tint-blue     1x-light-standard             -0.0003    -0.0003     0.005 met
+  dark-solid__capsule-button__rest-tint-orange   1x-light-standard             -0.0007    -0.0007     0.005 met
+  hc-text__capsule-button__rest-tint-orange      1x-light-standard             +0.0128    +0.0128     0.005 FIRES (standing)
+  impulse__capsule-button__rest-tint-orange      1x-light-standard             -0.0008    -0.0008     0.005 met
+  light-solid__capsule-button__rest-tint-orange  1x-light-standard             -0.0003    -0.0004     0.005 met
+  photo__capsule-button__rest-tint-blue          1x-light-standard             -0.0014    -0.0015     0.005 met
+  photo__capsule-button__rest-tint-orange        1x-light-standard             -0.0001    -0.0002     0.005 met
+  photo__capsule-button__rest-tint-orange-half   1x-light-standard             -0.0008    -0.0007     0.005 met
+  photo__rrect-lg__rest-tint-orange              1x-light-standard             -0.0028    -0.0028     0.005 met
+  photo__rrect-md__rest-tint-orange              1x-light-standard             -0.0023    -0.0024     0.005 met
+  checkerboard__capsule-button__rest-tint-orange 2x-dark-standard              -0.0010    -0.0010     recorded 
+  dark-solid__capsule-button__rest-tint-orange   2x-dark-standard              -0.0003    -0.0003     recorded 
+  photo__capsule-button__rest-tint-orange        2x-dark-standard              -0.0011    -0.0011     recorded 
+  checkerboard__capsule-button__rest-tint-blue   2x-light-standard             -0.0025    -0.0025     0.005 met
+  checkerboard__capsule-button__rest-tint-orange 2x-light-standard             -0.0031    -0.0031     0.005 met
+  dark-solid__capsule-button__rest-tint-blue     2x-light-standard             -0.0001    -0.0001     0.005 met
+  dark-solid__capsule-button__rest-tint-orange   2x-light-standard             -0.0003    -0.0003     0.005 met
+  hc-text__capsule-button__rest-tint-orange      2x-light-standard             +0.0117    +0.0117     0.005 FIRES (standing)
+  impulse__capsule-button__rest-tint-orange      2x-light-standard             -0.0003    -0.0003     0.005 met
+  light-solid__capsule-button__rest-tint-orange  2x-light-standard             -0.0008    -0.0008     0.005 met
+  photo__capsule-button__rest-tint-blue          2x-light-standard             -0.0016    -0.0016     0.005 met
+  photo__capsule-button__rest-tint-orange        2x-light-standard             +0.0000    -0.0000     0.005 met
+  photo__capsule-button__rest-tint-orange-half   2x-light-standard             -0.0003    -0.0004     0.005 met
+  photo__rrect-lg__rest-tint-orange              2x-light-standard             -0.0032    -0.0032     0.005 met
+  photo__rrect-md__rest-tint-orange              2x-light-standard             -0.0031    -0.0031     0.005 met
+
+the tinted cells' OKLab ΔE, W18 bed → canonical (against native / across the tiers); rows that moved by ≥ 0.0001 marked:
+  checkerboard__capsule-button__rest-tint-orange 1x-dark-standard             native 0.0036 → 0.0036   tiers 0.0029 → 0.0029
+  dark-solid__capsule-button__rest-tint-orange   1x-dark-standard             native 0.0034 → 0.0034   tiers 0.0029 → 0.0029
+  photo__capsule-button__rest-tint-orange        1x-dark-standard             native 0.0023 → 0.0023   tiers 0.0019 → 0.0019
+  checkerboard__capsule-button__rest-tint-orange 1x-light-increased-contrast  native 0.0091 → 0.0091   tiers 0.0063 → 0.0063
+  photo__capsule-button__rest-tint-orange        1x-light-increased-contrast  native 0.0073 → 0.0073   tiers 0.0049 → 0.0049
+  photo__capsule-button__rest-tint-orange        1x-light-reduced-transparency native 0.0022 → 0.0022   tiers 0.0023 → 0.0023
+  checkerboard__capsule-button__rest-tint-blue   1x-light-standard            native 0.0046 → 0.0046   tiers 0.0044 → 0.0044
+  checkerboard__capsule-button__rest-tint-orange 1x-light-standard            native 0.0047 → 0.0047   tiers 0.0044 → 0.0044
+  dark-solid__capsule-button__rest-tint-blue     1x-light-standard            native 0.0030 → 0.0030   tiers 0.0023 → 0.0023
+  dark-solid__capsule-button__rest-tint-orange   1x-light-standard            native 0.0034 → 0.0034   tiers 0.0029 → 0.0029
+  hc-text__capsule-button__rest-tint-orange      1x-light-standard            native 0.0038 → 0.0038   tiers 0.0035 → 0.0035
+  impulse__capsule-button__rest-tint-orange      1x-light-standard            native 0.0045 → 0.0045   tiers 0.0040 → 0.0040
+  light-solid__capsule-button__rest-tint-orange  1x-light-standard            native 0.0019 → 0.0019   tiers 0.0017 → 0.0017
+  photo__capsule-button__rest-tint-blue          1x-light-standard            native 0.0029 → 0.0029   tiers 0.0026 → 0.0026
+  photo__capsule-button__rest-tint-orange        1x-light-standard            native 0.0027 → 0.0027   tiers 0.0028 → 0.0028
+  photo__capsule-button__rest-tint-orange-half   1x-light-standard            native 0.0043 → 0.0032   tiers 0.0050 → 0.0034 MOVED
+  photo__rrect-lg__rest-tint-orange              1x-light-standard            native 0.0150 → 0.0150   tiers 0.0101 → 0.0100
+  photo__rrect-md__rest-tint-orange              1x-light-standard            native 0.0058 → 0.0058   tiers 0.0045 → 0.0045
+  checkerboard__capsule-button__rest-tint-orange 2x-dark-standard             native 0.0037 → 0.0037   tiers 0.0030 → 0.0030
+  dark-solid__capsule-button__rest-tint-orange   2x-dark-standard             native 0.0035 → 0.0035   tiers 0.0029 → 0.0029
+  photo__capsule-button__rest-tint-orange        2x-dark-standard             native 0.0023 → 0.0023   tiers 0.0020 → 0.0020
+  checkerboard__capsule-button__rest-tint-blue   2x-light-standard            native 0.0048 → 0.0048   tiers 0.0045 → 0.0045
+  checkerboard__capsule-button__rest-tint-orange 2x-light-standard            native 0.0049 → 0.0049   tiers 0.0046 → 0.0046
+  dark-solid__capsule-button__rest-tint-blue     2x-light-standard            native 0.0031 → 0.0031   tiers 0.0023 → 0.0023
+  dark-solid__capsule-button__rest-tint-orange   2x-light-standard            native 0.0035 → 0.0035   tiers 0.0029 → 0.0029
+  hc-text__capsule-button__rest-tint-orange      2x-light-standard            native 0.0039 → 0.0039   tiers 0.0034 → 0.0034
+  impulse__capsule-button__rest-tint-orange      2x-light-standard            native 0.0046 → 0.0046   tiers 0.0040 → 0.0040
+  light-solid__capsule-button__rest-tint-orange  2x-light-standard            native 0.0019 → 0.0019   tiers 0.0018 → 0.0018
+  photo__capsule-button__rest-tint-blue          2x-light-standard            native 0.0030 → 0.0030   tiers 0.0027 → 0.0027
+  photo__capsule-button__rest-tint-orange        2x-light-standard            native 0.0028 → 0.0028   tiers 0.0029 → 0.0029
+  photo__capsule-button__rest-tint-orange-half   2x-light-standard            native 0.0045 → 0.0033   tiers 0.0051 → 0.0035 MOVED
+  photo__rrect-lg__rest-tint-orange              2x-light-standard            native 0.0151 → 0.0151   tiers 0.0104 → 0.0104
+  photo__rrect-md__rest-tint-orange              2x-light-standard            native 0.0058 → 0.0058   tiers 0.0046 → 0.0046
+
+the cross-tier OKLab ΔE mean per profile over the non-holdout dom cells, W18 bed → canonical:
+  1x-light-standard            0.00606 → 0.00599  (26 cells)
+  2x-light-standard            0.00633 → 0.00627  (26 cells)
+  1x-light-increased-contrast  0.00669 → 0.00669  (7 cells)
+  1x-light-reduced-transparency 0.00385 → 0.00384  (6 cells)
+  1x-dark-standard             0.00405 → 0.00405  (10 cells)
+  2x-dark-standard             0.00413 → 0.00413  (10 cells)
+
+the form and the shadow carrier each group drew (report__css.json: cssTint, cssShadow), counted over the canonical bed:
+  cssTint encoded    38 groups (12 on tinted scenes); profiles: 1x-dark-standard, 1x-light-standard, 2x-dark-standard, 2x-light-standard
+      encoded tinted: checkerboard__capsule-button__rest-tint-orange @ 1x-dark-standard
+      encoded tinted: dark-solid__capsule-button__rest-tint-orange @ 1x-dark-standard
+      encoded tinted: photo__capsule-button__rest-tint-orange @ 1x-dark-standard
+      encoded tinted: dark-solid__capsule-button__rest-tint-blue @ 1x-light-standard
+      encoded tinted: dark-solid__capsule-button__rest-tint-orange @ 1x-light-standard
+      encoded tinted: impulse__capsule-button__rest-tint-orange @ 1x-light-standard
+      encoded tinted: checkerboard__capsule-button__rest-tint-orange @ 2x-dark-standard
+      encoded tinted: dark-solid__capsule-button__rest-tint-orange @ 2x-dark-standard
+      encoded tinted: photo__capsule-button__rest-tint-orange @ 2x-dark-standard
+      encoded tinted: dark-solid__capsule-button__rest-tint-blue @ 2x-light-standard
+      encoded tinted: dark-solid__capsule-button__rest-tint-orange @ 2x-light-standard
+      encoded tinted: impulse__capsule-button__rest-tint-orange @ 2x-light-standard
+  cssTint linear     82 groups (21 on tinted scenes); profiles: 1x-light-increased-contrast, 1x-light-reduced-transparency, 1x-light-standard, 2x-light-standard
+  cssShadow group     6 groups
+  cssShadow layer   114 groups

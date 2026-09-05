@@ -469,6 +469,13 @@ last style write) before the screenshot in `cli/compare.ts`'s CSS path, then con
 from-empty rebuild. Below any bound and any floor's epsilon; recorded so the next byte-identity
 scan does not chase it.
 
+*W19 (2026-09-05), the pair's shape sharpened:* the same two cells, one code, at the same pixel
+counts (746 and 6 408) — but W19's dry run, its second run and its canonical rebuild, three
+Chromium processes on one day, are byte-identical to each other on both cells and differ only
+from W18's landing captures. The pair flips between landings, not within a day's runs, which is
+what a byte-identity scan should expect: a same-day control isolates a change from it exactly
+(W19 Decision Log 4 (1); claims §5.81 §4, §5.82 §1). The fix's shape is unchanged.
+
 ## Six unverified Codex findings on the W18 CSS tint path (2026-09-05)
 
 *Found 2026-09-05, as a side effect of the designer-skill stance-derivation work.* The

@@ -534,6 +534,13 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // share of a large span's interior, which is small. Every reading below is
   // the canonical bed's at this landing; none meets its bound, the rim band
   // still the mechanism.
+  // W19 G2 (claims §5.82; W19 Decision Log 4, landed on the parent's
+  // recommendation under the user's standing instruction, 2026-09-05) KEPT
+  // all seven: the author tint folded over the contrast floor touches only
+  // tinted surfaces on the linear form, and every untinted CSS capture on
+  // this bed is byte-identical to the W19 dry run's — the seven rows below
+  // are untinted checkerboard spans, unmoved to five places. None meets
+  // its bound; the rim band still the mechanism.
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean": { measured: 0.91521, floor: 0.9142 },
   // W9 (claims §5.35, user decision 2026-09-02) RE-PINNED seven ssimMean
   // floors on the checkerboard rrect-lg/ml cells, each DOWN by 0.0002–0.0072:
