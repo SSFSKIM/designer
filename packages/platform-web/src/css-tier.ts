@@ -106,6 +106,7 @@ import {
   cssTierHeavySigmaCssPx,
   cssTierHeavyStepSigmaCssPx,
   cssTierSharpSigmaCssPx,
+  foldedOverlay,
   scatterDeepThickness,
   scatterRampReachDevicePx,
   scatterFloorAtScale,
@@ -341,6 +342,31 @@ export interface CssTierSurface {
    * for.
    */
   readonly optics: MaterialOptics;
+  /**
+   * The same conversion BEFORE the author tint was folded into it — what
+   * `cssOpticsFromSource` returned, which `optics` is `tintedCssOptics`' fold of
+   * (W19 G1; claims §5.80 §7).
+   *
+   * Only the `linear` form reads it, and it reads it for one thing: the colour
+   * `T` the transfer table is solved to composite back over. The table exists so
+   * that L3's floor overlay `(T, α₃)` and the filter's remainder compose to the
+   * material exactly, and that solve is a statement about the MATERIAL — the
+   * author's tint is a second layer over the pair, not a change to either half of
+   * it. Solving on the folded colour instead is what W19 found: on a saturated
+   * seed `T_folded` is near zero in one channel, the table's argument
+   * `(E(M) − α₃·E(T_folded))/(1 − α₃)` then exceeds one on that channel, and an
+   * `feComponentTransfer` table clamps — a per-channel hue loss that fires inside
+   * the filter, before the heavy layer's Gaussian, and is not recoverable from the
+   * composite (claims §5.80 §2 (iv)).
+   *
+   * **Absent means today's behaviour, not a throw.** A direct caller that passes
+   * only `optics` gets the declarations this function wrote before W19: the table
+   * solved on `optics.tint` and L3 painting the author's layer at the author's own
+   * strength. That caller has told this function nothing about which of the two
+   * colours it holds, and guessing would be worse than leaving it where it was.
+   * `root.ts` passes both.
+   */
+  readonly untintedOptics?: MaterialOptics;
   /**
    * The author tint this surface's `optics` were derived with
    * (`tintedCssOptics`) — the colour is already in there and is not read again
@@ -1054,21 +1080,58 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
       ? "encoded"
       : "linear";
   const floorAlpha = cssTierFloorAlpha(optics);
+  /*
+   * Which colour the floor overlay is, and what L3 paints over the table (W19 G1;
+   * claims §5.80 §7, charter Decision Log 2).
+   *
+   * `floorOptics` is the UNTINTED conversion wherever the caller passed one, and
+   * `optics` — which on an untinted surface is the same object — wherever it did
+   * not. The two matter only on a tinted surface, and there the whole of W19 is
+   * that the table must be solved on the material's own colour: `(1 − α₃)·F(b) +
+   * α₃·E(T) = E(M)` is the identity W17 solved for, and it is an identity about
+   * the material, so the colour in it is the material's.
+   *
+   * L3 then carries the author's layer folded over that same floor overlay rather
+   * than laid on the table's output at the author's own strength. The composite is
+   * the algebra of the fold and nothing else:
+   *
+   *     (1 − α″)·F + α″·C″ = (1 − s)(1 − α₃)·F + (1 − s)·α₃·E(T) + s·E(L)
+   *                        = (1 − s)·E(M) + s·E(L)
+   *
+   * which is `tintedMaterialColour`'s expression, at every strength rather than
+   * only at `s = 1` where the opaque layer covered the table's output anyway. The
+   * floor survives the change by construction, because `α″ = 1 − (1 − s)(1 − α₃)`
+   * is at least `α₃` for every strength (`foldedOverlay`) — W17 Decision Log 4
+   * (a)'s doctrine held at strengths this tier used to paint under it, measured at
+   * six of eighteen captured tinted cells before the fold.
+   *
+   * What it costs is the eight-bit quantum: `C″` is written as a CSS colour and
+   * rounds to `Rgb255`, worth 2.85e−3 of linear luminance in the identity — the
+   * same quantum `rgba(L, s)` carried in the same measure, so nothing is spent
+   * that the previous form was not already spending.
+   */
+  const floorOptics = surface.untintedOptics ?? optics;
   const transfer =
     tintForm === "linear" && interior !== undefined
       ? cssTierTintTransfer(interior, floorAlpha, [
-          optics.tint[0] / 255,
-          optics.tint[1] / 255,
-          optics.tint[2] / 255,
+          floorOptics.tint[0] / 255,
+          floorOptics.tint[1] / 255,
+          floorOptics.tint[2] / 255,
         ])
       : undefined;
   const authorLayer = surface.authorLayer;
+  const foldedAuthorLayer =
+    transfer === undefined || authorLayer === undefined || surface.untintedOptics === undefined
+      ? undefined
+      : foldedOverlay({ tint: floorOptics.tint, tintAlpha: floorAlpha }, authorLayer);
   const overlayTint =
     transfer === undefined
       ? tint
-      : authorLayer === undefined
-        ? rgba(optics.tint, floorAlpha)
-        : rgba(authorLayer.color, authorLayer.strength);
+      : foldedAuthorLayer !== undefined
+        ? rgba(foldedAuthorLayer.tint, foldedAuthorLayer.tintAlpha)
+        : authorLayer === undefined
+          ? rgba(floorOptics.tint, floorAlpha)
+          : rgba(authorLayer.color, authorLayer.strength);
 
   /*
    * X6's one honesty-core mechanism, reaching the tier most visitors get

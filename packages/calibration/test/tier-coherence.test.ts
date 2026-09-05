@@ -23,7 +23,7 @@
  * three.
  */
 
-import { NOMINAL_ACCESSIBILITY_POLICY, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
+import { NOMINAL_ACCESSIBILITY_POLICY, glassTint, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
 import {
   BACKDROP_TONE,
   CSS_TIER_MAPPING,
@@ -41,6 +41,8 @@ import {
   REDUCED_TRANSPARENCY_FROST,
   STRONG_BORDER,
   TINT_SHADE,
+  authorTintLayer,
+  cssOpticsFromSource,
   cssTierDeclarations,
   cssTierForegroundLevel,
   cssTierGroupShadowDeclarations,
@@ -97,6 +99,8 @@ import {
   sourceSize,
   cssTierFloorAlpha,
   cssTierTintTable,
+  linearTint,
+  tintedCssOptics,
   innerShadowedSourceOptics,
   interiorBandLight,
   interiorShadowKeep,
@@ -1997,6 +2001,143 @@ describe("the interior composite (X7)", () => {
         }
       }
     }
+  });
+
+  it("draws the renderer's tinted composite at every strength of the ladder (W19 X7)", () => {
+    /*
+     * The author tint on the `linear` form (W19; charter Decision Log 2 item 7,
+     * claims §5.80 §7).
+     *
+     * The renderer's law is `tintedMaterialColour` — `D((1 − s)·E(material) +
+     * s·E(layer))` per pixel — and the tier now composes to the same expression
+     * at every strength rather than only at `s = 1`: the transfer table is solved
+     * on the material's own overlay colour and L3 carries the author's layer
+     * folded over that overlay, `α″ = 1 − (1 − s)(1 − α₃)` and `C″ = ((1 − s)·α₃·
+     * E(T) + s·E(L))/α″`. This composes what the tier DECLARES — the table at the
+     * cell's own backdrop, then L3 over it — and holds it to the renderer's
+     * composite carried through that expression.
+     *
+     * **Stated against the tier's own `L`, deliberately.** `tintedMaterialColour`
+     * reads the tint shade off the material's luminance PER PIXEL; `authorTintLayer`
+     * reads it once per source, which is W10's known granularity and not this
+     * wave's. On G0's analytic sweep the renderer's per-pixel shade sits
+     * **0.0000 to +0.0084** above the tier's per-source one, rising with strength
+     * and backdrop (claims §5.80 §8). Folding that difference into this pin would
+     * be asserting the granularity rather than the fold, so the target carries the
+     * tier's `L` and the renderer's own gap is recorded here in numbers.
+     *
+     * The tolerance is the chain's quantum: `C″` is written as a CSS colour and
+     * rounds to `Rgb255`, worth 2.85e−3 of the identity (claims §5.80 §3), and the
+     * table adds its own 1e−4 interpolation bound on top.
+     */
+    const encode = (l: number): number =>
+      l <= 0.0031308 ? l * 12.92 : 1.055 * l ** (1 / 2.4) - 0.055;
+    const clamp01 = (v: number): number => Math.min(1, Math.max(0, v));
+    const shade = resolvedTintShade();
+    const size = sourceSize();
+    const toneConstants = resolvedBackdropTone();
+    const spanPx = 44;
+    const geometry = { widthCssPx: 120, heightCssPx: 44, radiusCssPx: 22, thicknessCssPx: 8 };
+    let worst = 0;
+    for (const backdrop of [0.05, 0.2, 0.5, 0.8]) {
+      const renderer = rendererComposite(spanPx, backdrop);
+      const tier = tierComposite(spanPx, backdrop);
+      const geometricK = cssSizeThickness(spanPx, size);
+      const adaptation =
+        cssBackdropToneAdaptation(backdrop, geometricK, toneConstants) *
+        cssBackdropToneUnderPolicy(
+          NOMINAL_ACCESSIBILITY_POLICY.material,
+          shade,
+          size.refractionScale,
+        );
+      const keep = interiorShadowKeep(sourceOptics().regular, geometry, geometricK, 1);
+      const band = interiorBandLight(sourceOptics().regular, geometry, 1);
+      const shadowed = innerShadowedSourceOptics(
+        { ...sourceOptics().regular, tintAlpha: tier.tintAlpha, tint: tier.tint },
+        keep,
+      );
+      const interior: CssTierInterior = {
+        tintAlpha: shadowed.tintAlpha,
+        tint: [shadowed.tint[0], shadowed.tint[1], shadowed.tint[2]],
+        addedLight: band,
+      };
+      const untinted = cssOpticsFromSource(MATERIAL_OPTICS.regular, shadowed, CSS_TIER_MAPPING);
+      const grip =
+        cssTierTintToneAdaptation(NOMINAL_ACCESSIBILITY_POLICY.material.ambientTint, shade) *
+        shade.strength *
+        (1 - adaptation);
+      for (const seed of [
+        [255, 149, 0],
+        [10, 132, 255],
+      ] as const) {
+        for (const strength of [0.1, 0.2, 0.35, 0.5, 0.75, 1.0]) {
+          const tint = glassTint(
+            [seed[0] / 255, seed[1] / 255, seed[2] / 255],
+            strength,
+          );
+          const seedLinear = linearTint(tint);
+          const author = authorTintLayer(shadowed, seedLinear, backdrop, grip, shade);
+          if (author === undefined) throw new Error("X7: the author layer resolved to nothing");
+          const render = cssTierDeclarations({
+            radii: [22, 22, 22, 22],
+            optics: tintedCssOptics(untinted, shadowed, seedLinear, backdrop, grip, shade),
+            untintedOptics: untinted,
+            tint,
+            policy: NOMINAL_ACCESSIBILITY_POLICY,
+            spanPx,
+            extentsCssPx: [geometry.widthCssPx, geometry.heightCssPx],
+            filterIdPrefix: "x7",
+            engine: { referenceFilterInBackdrop: true, maskOnBackdropFilter: "yes" },
+            interior,
+            authorLayer: author,
+            backdropLuminance: backdrop,
+          });
+          const where = `backdrop ${backdrop} seed ${seed.join("-")} strength ${strength}`;
+          // No author layer moves the boundary: `cssTintFormAt` reads the
+          // MATERIAL's composite level, which the tint does not touch.
+          expect(render.body.tintForm, where).toBe("linear");
+          const transfer = render.body.tintTransfer;
+          const overlay = render.layers?.overlay["background-color"];
+          if (transfer === undefined || overlay === undefined) {
+            throw new Error(`X7: ${where} declared no transfer or no overlay`);
+          }
+          const parsed = /^rgba\((\d+), (\d+), (\d+), ([\d.]+)\)$/.exec(overlay);
+          if (parsed === null) throw new Error(`X7: ${where} overlay is ${overlay}`);
+          const alpha = Number(parsed[4]);
+          expect(alpha, `${where} floor`).toBeGreaterThanOrEqual(cssTierFloorAlpha(untinted));
+          for (const channel of [0, 1, 2] as const) {
+            const values = cssTierTintTable({
+              tintAlpha: transfer.tintAlpha,
+              tint: transfer.tint[channel],
+              addedLight: transfer.addedLight,
+              floorAlpha: transfer.floorAlpha,
+              floorEncoded: transfer.floorEncoded[channel],
+            });
+            const x = clamp01(backdrop) * (values.length - 1);
+            const index = Math.min(Math.floor(x), values.length - 2);
+            const table = values[index]! + (x - index) * (values[index + 1]! - values[index]!);
+            const drawn =
+              (1 - alpha) * encode(table) + alpha * (Number(parsed[channel + 1]) / 255);
+            // The renderer's own composite for this channel, band and inner
+            // shadow included — the same quantity the untinted clause above holds
+            // the table to — carried through the renderer's strength law with the
+            // tier's `L` in it.
+            const material =
+              keep *
+                ((1 - renderer.alpha) * backdrop + renderer.alpha * renderer.tint[channel]) +
+              band;
+            const target =
+              (1 - strength) * encode(clamp01(material)) +
+              strength * (author.color[channel] / 255);
+            expect(Math.abs(drawn - target), `${where} channel ${channel}`).toBeLessThan(0.004);
+            worst = Math.max(worst, Math.abs(drawn - target));
+          }
+        }
+      }
+    }
+    // The chain's own quantum is the floor under this clause and the reading is
+    // recorded rather than only bounded.
+    expect(worst).toBeLessThan(0.004);
   });
 });
 

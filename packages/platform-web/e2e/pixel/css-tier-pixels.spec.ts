@@ -237,6 +237,84 @@ test("stays legible with the blur removed — the tint carries the contrast", as
   expect(filterMattered).toBeGreaterThan(0);
 });
 
+/**
+ * The same doctrine on a surface carrying a WEAK author tint (W19 G1; charter
+ * Parent-Level Acceptance "the floor holds at every strength").
+ *
+ * The contrast floor is a statement about the ELEMENT paint: whatever the filter
+ * does or fails to do, L3 keeps an `rgba()` overlay at the tier's floor alpha, so
+ * an engine that reports full support and renders no filter still leaves a
+ * surface. Before W19 an author tint replaced that overlay with the author's own
+ * layer at the author's own strength — at 0.1 that is well under the floor of
+ * 0.2668, so the one surface class the doctrine most protects, a lightly tinted
+ * one, was the class that had lost it. The fold restores it by construction
+ * (`α″ = 1 − (1 − s)(1 − α₃) ≥ α₃`), and this is that assertion in a real engine
+ * rather than in the declaration: the strength is the ladder's lowest rung and
+ * the filter is taken away exactly as the untinted test above takes it away.
+ */
+test("stays legible with the blur removed under a weak author tint", async ({ page }) => {
+  const TINTED = { x: 300, y: 400, width: 220, height: 120 };
+  await page.evaluate(async () => {
+    await window.h.createRoot({ renderer: "css" });
+    window.h.addGroup("t");
+    window.h.addSurface({
+      groupId: "t",
+      nodeId: "tinted",
+      left: 300,
+      top: 400,
+      width: 220,
+      height: 120,
+      radius: 26,
+      label: "",
+      // systemOrange at the ladder's lowest rung. A colour's alpha IS the
+      // tint's strength on both harnesses.
+      tint: "rgba(255, 149, 0, 0.1)",
+    });
+    window.h.frame(3);
+  });
+
+  // The floor, from the declaration the tier wrote — read before any pixel, so a
+  // failure says which of the two halves broke.
+  const overlay = await page.evaluate(() => {
+    const host = document.querySelector<HTMLElement>('[data-vitrea-node="tinted"]');
+    const layer = host?.querySelector<HTMLElement>('[data-vitrea-css-layer="overlay"]');
+    const colour = layer === null || layer === undefined ? "" : getComputedStyle(layer).backgroundColor;
+    const parts = /^rgba?\(([^)]*)\)$/.exec(colour)?.[1]?.split(",") ?? [];
+    return { colour, alpha: parts.length === 4 ? Number(parts[3]) : 1 };
+  });
+  expect(
+    overlay.alpha,
+    `L3 painted ${overlay.colour} on a surface tinted at strength 0.1`,
+  ).toBeGreaterThanOrEqual(0.2668);
+
+  await page.evaluate(() => {
+    const host = document.querySelector<HTMLElement>('[data-vitrea-node="tinted"]');
+    for (const layer of host?.querySelectorAll<HTMLElement>("[data-vitrea-css-layer]") ?? []) {
+      layer.style.setProperty("backdrop-filter", "none");
+      layer.style.setProperty("-webkit-backdrop-filter", "none");
+    }
+    host?.style.setProperty("backdrop-filter", "none");
+    host?.style.setProperty("-webkit-backdrop-filter", "none");
+  });
+  const withoutFilter = await sample(page, TINTED);
+  await page.evaluate(() => {
+    document
+      .querySelector<HTMLElement>('[data-vitrea-node="tinted"]')
+      ?.style.setProperty("visibility", "hidden");
+  });
+  const pageOnly = await sample(page, TINTED);
+
+  const stillVisible = ([
+    [110, 60],
+    [60, 40],
+    [170, 85],
+  ] as const).map(([x, y]) => channelDelta(withoutFilter.at(x, y), pageOnly.at(x, y)));
+  expect(
+    Math.min(...stillVisible),
+    `an unfiltered CSS-tier surface tinted at 0.1 must still read as a surface; deltas were ${stillVisible.join(", ")}`,
+  ).toBeGreaterThan(8);
+});
+
 /*
  * The property is that the surface's boundary is discernible. What carries it
  * moved, and the assertion follows the property rather than the old mechanism.

@@ -1915,8 +1915,15 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // backdrop used to short-circuit to the statically converted `baseOptics`:
         // the size law's occlusion is inside the source's alpha since W17 G1, so
         // the static table is a material one span smaller than this surface's.
+        const nodeUntintedOptics = cssOpticsFromSource(baseOptics, shadowedSource, cssMapping);
+        // The conversion is computed once and travels twice (W19 G1, claims §5.80
+        // §7). The FOLD is still what the renderer input, the encoded form and
+        // every plain-`blur()` engine need — the whole-material fold was never
+        // wrong on those paths — and the untinted conversion goes down beside it
+        // so that the linear form can solve its table on the material's own
+        // colour rather than on the folded one.
         const nodeBaseOptics = tintedCssOptics(
-          cssOpticsFromSource(baseOptics, shadowedSource, cssMapping),
+          nodeUntintedOptics,
           policySource,
           seed,
           tintBackdrop,
@@ -1978,6 +1985,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const declarations = cssTierDeclarations({
           radii: record.radii,
           optics: nodeBaseOptics,
+          untintedOptics: nodeUntintedOptics,
           ...(material.tint === undefined ? {} : { tint: material.tint }),
           mapping: cssMapping,
           policyFold,

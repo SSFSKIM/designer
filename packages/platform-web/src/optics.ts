@@ -2926,6 +2926,43 @@ export function authorTintLayer(
   };
 }
 
+/**
+ * The fold itself: one encoded `rgba()` layer over another, as one `rgba()`.
+ *
+ * ```
+ * α″ = 1 − (1 − s)(1 − α′)
+ * C″ = ((1 − s)·α′·C′ + s·E(layer)) / α″      per channel
+ * ```
+ *
+ * Split out of `tintedCssOptics` at W19 G1 because the tier now folds the author's
+ * layer over TWO different overlays and the algebra must stay in one place. On the
+ * `encoded` form and on every engine without a reference filter the overlay is the
+ * whole converted material `(C′, α′)`, which is what `tintedCssOptics` passes; on
+ * the `linear` form it is the contrast floor `(T, α₃)` that L3 keeps under the
+ * table, which is what `cssTierDeclarations` passes (W19; claims §5.80 §7).
+ *
+ * Two properties the callers rely on, and both are properties of this expression
+ * rather than of either call site. It is convex in the two colours, so the fold
+ * never leaves the gamut. And `α″ ≥ α′` for every `s` in [0, 1] — `1 − α″ =
+ * (1 − s)(1 − α′) ≤ 1 − α′` — which is why folding over the floor overlay cannot
+ * paint less than the floor, whatever the author's strength.
+ *
+ * `α″` is zero only when the base overlay is fully transparent and the strength is
+ * zero, and neither caller can reach that pair: `authorTintLayer` returns nothing
+ * at strength zero, and the floor overlay's alpha is a positive constant.
+ */
+export function foldedOverlay(
+  overlay: { readonly tint: Rgb255; readonly tintAlpha: number },
+  author: { readonly color: Rgb255; readonly strength: number },
+): { readonly tint: Rgb255; readonly tintAlpha: number } {
+  const s = clamp01(author.strength);
+  const alpha = clamp01(overlay.tintAlpha);
+  const folded = 1 - (1 - s) * (1 - alpha);
+  const channel = (index: 0 | 1 | 2): number =>
+    Math.round(((1 - s) * alpha * overlay.tint[index] + s * author.color[index]) / folded);
+  return { tint: [channel(0), channel(1), channel(2)], tintAlpha: folded };
+}
+
 export function tintedCssOptics(
   css: MaterialOptics,
   source: MaterialSourceOptics,
@@ -2936,13 +2973,8 @@ export function tintedCssOptics(
 ): MaterialOptics {
   const author = authorTintLayer(source, tint, backdropLuminance, grip, shade);
   if (author === undefined) return css;
-  const s = author.strength;
-  const layer = author.color;
-  const alpha = clamp01(css.tintAlpha);
-  const folded = 1 - (1 - s) * (1 - alpha);
-  const channel = (index: 0 | 1 | 2): number =>
-    Math.round(((1 - s) * alpha * css.tint[index] + s * layer[index]) / folded);
-  return { ...css, tintAlpha: folded, tint: [channel(0), channel(1), channel(2)] };
+  const folded = foldedOverlay({ tint: css.tint, tintAlpha: css.tintAlpha }, author);
+  return { ...css, tintAlpha: folded.tintAlpha, tint: folded.tint };
 }
 
 /**
