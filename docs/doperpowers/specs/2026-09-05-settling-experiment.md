@@ -199,7 +199,26 @@ per build, so this is roughly twelve acceptance runs' worth.
 
 ## Surprises & Discoveries
 
-Pending — recorded as the waves land.
+- Observation: Chromium serialises a computed colour in the syntax it was written in, so a
+  build whose tokens are `oklch()` reports `oklch(…)` from `getComputedStyle`, and a parser
+  that expects `rgb()` reads its ground as white, its accent as absent and its contrast sample
+  as empty (an empty sample passed the gate vacuously). Four of wave one's eight builds were
+  affected, exactly the four whose skills teach OKLCH tokens.
+  Evidence: wave one's first measurement against the builders' own reports (two "dark" grounds
+  read as `#FFFFFF`). Fixed before any judgment was collected: every colour is normalised
+  through a canvas; the wave was re-measured.
+
+- Observation: The 1.1 menu's rail build carries the reference implementation's accent hex
+  `#D46B2C` verbatim, and its rebate build a second orange at 46°; the two arms' accents are
+  0.0 apart in dispersion. The stance spec's founding finding reproduces under the frozen old
+  skill on the first wave.
+  Evidence: wave one D2 row for `v1.1`.
+
+- Observation: The no-skill arm produced the two shapes the memos named as defaults — a dark
+  command-centre board with a seven-tile stat row for the console, and a cream, serif, terracotta
+  landing page with a stat row and a three-up for the rebate — and both fail the contrast clause
+  of the gate (0.85 and 0.76 of sampled text).
+  Evidence: wave one V and D4 rows for `none`.
 
 ## Deferred
 

@@ -42,7 +42,22 @@ async function playwright() {
 // Runs in the page. Returns the token reads and the mechanical checks.
 function extract() {
   const srgb = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
-  const parse = (s) => { const m = s && s.match(/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/); return m ? { r: +m[1], g: +m[2], b: +m[3], a: m[4] == null ? 1 : +m[4] } : null; };
+  // Chromium serialises computed colours in the syntax they were written in (oklch(), color(srgb …),
+  // hsl()), so every colour goes through a canvas, which normalises any CSS colour to sRGB bytes.
+  const cv = document.createElement("canvas"); cv.width = cv.height = 1; const cx = cv.getContext("2d", { willReadFrequently: true });
+  const cache = new Map();
+  const parse = (s) => {
+    if (!s || s === "transparent") return null;
+    if (cache.has(s)) return cache.get(s);
+    let out = null;
+    const m = s.match(/^rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)$/);
+    if (m) out = { r: +m[1], g: +m[2], b: +m[3], a: m[4] == null ? 1 : +m[4] };
+    else {
+      cx.clearRect(0, 0, 1, 1); cx.fillStyle = "#000"; cx.fillStyle = s;
+      if (cx.fillStyle !== "#000000" || /black|#000/i.test(s)) { cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; const a = d[3] / 255; out = a > 0 ? { r: d[0] / a, g: d[1] / a, b: d[2] / a, a } : { r: 0, g: 0, b: 0, a: 0 }; }
+    }
+    cache.set(s, out); return out;
+  };
   const oklch = ({ r, g, b }) => {
     const R = srgb(r), G = srgb(g), B = srgb(b);
     const l = Math.cbrt(0.4122214708 * R + 0.5363325363 * G + 0.0514459929 * B), m = Math.cbrt(0.2119034982 * R + 0.6806995451 * G + 0.1073969566 * B), n = Math.cbrt(0.0883024619 * R + 0.2817188376 * G + 0.6299787005 * B);
