@@ -1,9 +1,10 @@
 # W20 — the capsule's corner on the GPU tier (2026-09-05)
 
-**Status: OPEN — chartered 2026-09-05 on wave Decision Log 23 (c), the first GPU-tier wave under
-the amended discipline; found by the user's eye on the W19 landing sheet ("where it was not round
-but rectangular") and pinned the same day (claims §5.83). G0 CLOSED 2026-09-06 (claims §5.84;
-Decision Log 2); G1 open.**
+**Status: RECOMPOSED 2026-09-06 — chartered 2026-09-05 on wave Decision Log 23 (c), the first
+GPU-tier wave under the amended discipline; found by the user's eye on the W19 landing sheet
+("where it was not round but rectangular") and pinned the same day (claims §5.83). G0 CLOSED
+(claims §5.84; Decision Log 2); G1 DECLARED (§5.85; Decision Log 3); G2 LANDED and the wave
+RECOMPOSED (§5.86). The 0.9.0 cut follows; W21, the dark scheme, is next.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W20 row; Decision Log 23). The geometry this wave
@@ -236,7 +237,7 @@ reference above the ratio stays a documented refusal until the probe runs.
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g0/g0-probe.md` (the native probe: `probe/`, `layer-dumps/`, `read/`; `apps/reference-apple/scenes-w20-probe.json`) and `g0/g0-instrument.md` (the instrument: `render-path-conformance.test.ts`, `capture-web --alpha`, `compare --alpha`, the four shape rows, `declared-conformance.test.ts`); claims §5.84 | CLOSED 2026-09-06 |
 | G1 | branch `worktree-agent-a463558bb21d8d14b` at `bc7706e` (the fix in `shape.ts`, `apple.ts`; `apple-saturation.test.ts`; `g1/g1-dryrun.md` with tables, scripts and logs; `sheets/g1-1x.png`, `g1-2x.png`; `.changeset/gpu-capsule-corner.md`); claims §5.85 | DECLARED 2026-09-06 — landing on Decision Log 3 |
-| G2 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g2/` | OPEN — the parent executes |
+| G2 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g2/` (`g2-rebuild.sh`, `g2-runs.txt`, `g2-verify.py`, `g2-verify.txt`), `sheets/g2-1x.png`, `g2-2x.png`, the canonical `results/matrix.json` (229 cells, `--alpha`), `adopted-thresholds.test.ts`'s two conformance clauses, the demo fixture; claims §5.86 | LANDED and RECOMPOSED 2026-09-06 (the parent) |
 
 ## Decision Log
 
@@ -382,10 +383,42 @@ fitted constant is this wave's, X2).
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+**The acceptance, as verified (claims §5.86 §8).** Every clause met: the capsule a stadium on the
+render path under both references to 1e-9; Apple's policy above the ratio measured on ten native
+rungs and adopted; the shape axis reading the shoulders it had certified away and the bound
+adopted into the gate; the bed better on 61 of 65 corner cells with everything else byte-identical;
+the sheets; the rebuild and the holdout once.
+
+**What this wave actually was.** A correctness defect on the most common control shape on the
+web, present since v1 on the fidelity target, invisible to a shape axis bounded by the declaration
+and to nineteen waves of tables and sheets, found by the user's eye on a zoomed row and pinned in
+an afternoon: 4.8 % of every capsule drawn where Apple draws backdrop, at ten to twenty times the
+body's error. The fix was one policy, and it was Apple's already — the reference family's own
+budget clamp, which the geometry package called exact at the capsule limit while the render path
+went round it. Two assumptions fell with it: that Apple clamps the radius (a test had pinned the
+assumption under the name of a measurement), and that `Capsule()` is a shape of its own (it is the
+continuous corner at the budget, all the way down to Core Animation). The instrument the wave
+leaves behind reads a tier's own coverage against its declaration with no region, and the gate now
+fails a rebuild that forgets to take it.
+
+**Lessons worth carrying.** A metric bounded by a declaration hides every error in the direction
+of the declaration; put one unbounded read beside it (the memory note). A "policy" pinned by a test
+without a measurement behind it is an assumption with a green badge. A stop that fires on a cell
+whose colour improves and whose structure worsens is asking for a pixel attribution, not a ruling;
+the attribution named a standing gap (the increased-contrast border) that three waves of rim work
+had not. And the eye that found this was not the parent's: the parent had looked at the same sheet
+and read tint.
+
+**Handed to the next cut.** W21, the dark scheme, on corrected capsule cells (wave Decision Log 23
+(c)); the increased-contrast border; the CSS tier's rim ring and conformance; the conformance rows
+as an axis; the general rounded rectangle above the ratio if a finer probe ever separates the
+compressed shoulder from a circular arc.
 
 ## Revision Notes
 
+- 2026-09-06: G2 LANDED and the wave RECOMPOSED (claims §5.86) — the canonical rebuild with the
+  conformance capture, the referee, the gate's two new clauses, the demo fixture, the sheets, the
+  chain; Outcomes & Retrospective written; the 0.9.0 cut follows.
 - 2026-09-06: G1 DECLARED (claims §5.85) — Decision Log 3: the stop's four cells dispositioned, the
   increased-contrast border named and deferred, the landing and the 0.9.0 cut ruled; G2 opens.
 - 2026-09-06: G0 CLOSED (claims §5.84) — Apple's policy above the ratio measured, the instrument
