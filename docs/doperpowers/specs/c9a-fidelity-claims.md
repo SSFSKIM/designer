@@ -11520,3 +11520,9 @@ policy fold (measured, not attributed); the clamp's cost as a colour (no ΔE on 
 blue seed at 0.1 / 0.35 / 0.75 and natively; Apple's shade as a hue (the `s = 1` residue is its
 luminance half).
 
+*Correction beside (W19 G1 pre-check, Decision Log 3 (3)):* §2 (iv) and §7 say the clamp share
+under the fold is 0.000 on every captured cell; to four places it is 0.0000 % everywhere but the
+2x checkerboard, where it is 0.0582 % — the pixels within 0.4 % of white that §2 (iv) itself
+names. G0's own `parts/predict-2x.json` carries the number; its text rounded it. The stop reads
+"under 0.1 % of masked channel samples".
+

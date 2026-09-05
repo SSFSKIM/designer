@@ -286,6 +286,14 @@ its TCC gate; the two halves are independent and the web side does not wait on t
   all; the second hue is the cheap next probe if the shape is doubted.
 - **The fold profiles' tinted composite under a policy fold (G0)** — measured (§5.80 §4), not
   attributed: `predict.ts` resolves under the nominal policy.
+- **The bed's strength axis (Decision Log 3 (6)).** Two rungs at 1x (orange 0.2 and 0.75 over
+  the photo and the checkerboard) from the probe's attested fixtures joining `scenes.json` as
+  calibration cells, with the partition counts and the gate's tables moved beside them — a W3
+  amendment, its own small child after the 0.8.0 cut, so a defect of this class cannot sit at
+  the bed's one zero crossing again.
+- **S5's control on a tinted surface (Decision Log 3 (2)).** The decoration constant depends on
+  L3's alpha; a per-rung control (the untinted capture's decoration scaled by the L3 alpha it
+  composites at) would close the three dpr-2 misses; an instrument item for the next tint wave.
 - **The rim band on square boxes** (W18 Deferred; q4) — its own charter after 0.8.0 on the
   recommendation.
 - **The floor literal under a runtime-patched profile** (the tracker; review finding 3).
@@ -299,7 +307,7 @@ its TCC gate; the two halves are independent and the web side does not wait on t
 | child | where | status |
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w19-author-tint-fold/g0/g0-findings.md` (`ebade16`, merged `1e0b2a0`), `probe/` (the 1x native ladder, twelve cells, seven attested runs), `apps/reference-apple/scenes-w19-probe.json`; claims §5.80 | CLOSED 2026-09-05 — the charter's term confirmed and a larger one found beside it (the table saturates; the fold removes it), the error not one-signed (−0.068 at strength 0.1 on the photo), the fold exact to 8.9e−8 with `α″ − α₃ ≥ +0.0733` and no form flip, Apple's curve the renderer's encoded mix to 0.003, the tier crossing Apple's curve near strength 0.3; nine `[parent-impact]` items reconciled in Decision Log 2 |
-| G1 | — | OPEN 2026-09-05 (Decision Log 2's re-declared stops) |
+| G1 | branch `worktree-agent-a560cc39a6bdaa3ec` at `485b824` (the fold; `g1/g1-precheck.md`, `parts/`, `run-read.sh`; `test/author-tint-fold.test.ts`, `w19-pre-fold-declarations.json`; X7 in `tier-coherence.test.ts`; the tinted contrast-floor e2e; `.changeset/css-author-tint-fold.md`) | PRE-CHECK PASSED 2026-09-05 (Decision Log 3): S4 met on 36 / 36 tinted ladder cells (worst 0.0039, from −0.0684); the hue down on every sub-unit cell; the untinted captures byte-identical, the full-strength ones within 0.00013 with every differing pixel on the contour; the floor restored (least margin +0.07318); no form flip; two clauses re-declared with the reason; the dry run opens |
 | G2 | — | — |
 
 ## Decision Log
@@ -404,8 +412,81 @@ tintAlpha: floorAlpha }, …)`; the encoded form and the plain-`blur()` engines 
 construction. Stops S1–S9 as the Children section wrote them, with S3, S4's checkerboard reading,
 S5 and the fold profiles' clause as re-declared here.
 
+### Decision Log 3 — the pre-check at the gate: the fold accepted, two clauses re-declared on what they were measuring, the dry run opens (2026-09-05; the parent)
+
+**What the pre-check measured** (`g1/g1-precheck.md`; branch at `485b824`). The fold at G0's
+placement — `untintedOptics` beside `optics`, the table's floor colour from it, L3 the encoded
+fold of the author layer over `(T, α₃)` through one function `foldedOverlay` that
+`tintedCssOptics` now calls too; a caller without `untintedOptics` gets the previous declarations.
+On G0's ladder bed, re-captured on both tiers: **S4 met on every one of the thirty-six tinted
+cells at both scales, worst |CSS − GPU| 0.0039** (sixteen were outside 0.005 before, the worst
+−0.0684); **the hue**: cross-tier OKLab ΔE down on every sub-unit tinted cell by 0.0030–0.0323,
+up on none (G0's Deferred item closed); **X3**: 48 / 48 GPU captures byte-identical; **S3 by
+capture**: every untinted CSS capture byte-identical, every full-strength tinted capture within
+0.00013 with not one differing pixel more than two device pixels inside the contour (21–42 region
+pixels, worst code 38, on the antialiased edge where the transfer's moved floor colour reaches
+the screen); **the floor**: L3 paints 0.340 where it painted 0.100, least margin +0.07318,
+twelve of thirty-six cells were under it before; **the form**: 48 / 48 `linear`, no flip;
+**the pins**: the identity to 8.885e−8 real, 1.490e−3 as written; X7's tinted clause worst
+0.00158; **S8**: no layer, no primitive, three multiply-adds per tinted surface; suites green,
+the Chromium pixel spec 11 / 11.
+
+**Ruled:**
+
+1. **The fold profiles' clause is re-declared on what the fold itself predicts.** Decision Log 2
+   (5) bounded `(CSS − GPU)_tinted − (CSS − GPU)_untinted` at 0.01, and under increased contrast
+   it reads −0.0333 at `s = 1` on a declaration the pins prove byte-identical: the clause was
+   measuring the UNTINTED increased-contrast capsule's own +0.0364 disappearing under an opaque
+   tint. The fold composites `(1 − s)·M + s·L`, so a tinted cell carries `(1 − s)` of its
+   untinted material's gap by construction — the clause is therefore
+   `(CSS − GPU)_tinted − (1 − s)·(CSS − GPU)_untinted` within 0.01, derived and not fitted. On
+   the pre-check that reads −0.0017 / −0.0036 / +0.0031 under increased contrast and +0.0023 /
+   +0.0005 / +0.0002 under reduced transparency at 0.2 / 0.5 / 1.0: **met on all six**. The
+   untinted increased-contrast gap is W18 §5.79 §7's fold item and stays there; what the fold did
+   on that profile is make the strength curve monotone (−0.049 / −0.018 / −0.033 → −0.009 /
+   −0.022 / −0.033).
+2. **S5 stays at 0.005 and the three misses are carried by name.** Its control — the decoration
+   constant read at `s = 1` — is a function of L3's alpha (the rim and the press glow on L3
+   composite at `α″`, not at 1), so the sub-unit rungs carry a residual that follows `1 − α″`.
+   Eighteen of eighteen at dpr 1 (worst −0.00499); fifteen of eighteen at dpr 2, the three over by
+   0.00011 / 0.00268 / 0.00049 (`photo` orange 0.2, `checkerboard` orange 0.1 and 0.2). The
+   number is not loosened after the reading; the misses are the control's, attributed, and the
+   fidelity claim is S4's, which those three cells meet at +0.0029 / +0.0036 / −0.0015.
+3. **The clamp share is stated to four places.** Under the fold it is 0.0000 % on every cell but
+   the 2x checkerboard's 0.0582 % (the pixels within 0.4 % of white G0 §2.1 names); G0's text
+   said 0.000 at three places and is corrected beside in claims §5.80. The stop reads "under
+   0.1 % of masked channel samples", which it is.
+4. **The 2x checkerboard untinted control** (+0.0101, byte-identical to G0's) is W18's carried
+   remainder on that box and scale, not a ladder cell; S4's "every ladder cell" is the tinted
+   cells, as read.
+5. **The filter collapse is a claim to read at the dry run:** a tinted surface's transfer is now
+   the untinted surface's at the same backdrop, so a tinted group needs no `<filter>` of its own;
+   G1 counts the definitions per group before and after on a tinted page.
+6. **The bed's own strength axis, recommended for after the cut.** The canonical bed carries one
+   sub-unit strength and it sits at this defect's zero crossing; the probe took attested 1x
+   fixtures at five more rungs. Adding two rungs (0.2 and 0.75, orange, photo and checkerboard)
+   to `scenes.json` at 1x would guard against this class of defect returning, and it is a W3
+   amendment — the split, the partition counts and the gate move with it. Recommended as its own
+   small child after the 0.8.0 cut, not inside W19; recorded in Deferred with its shape.
+
+**The dry run opens** on the frozen configuration `485b824`: the whole bed, both tiers, GPU
+first, the holdout read once (X8; the tinted holdout cells named in the acceptance), the
+referee's S1–S9 with rulings 1–3 above, the sheets (X5) with the ladder at 1x beside native, and
+`adopted-thresholds.test.ts` against the scratch matrix (X6).
+
 ## Surprises & Discoveries
 
+- **2026-09-05 (G1 pre-check) — the fold profiles' movement clause was reading the untinted
+  cell.** Under increased contrast the −0.033 "movement" at full strength is the untinted
+  capsule's +0.036 vanishing under an opaque tint; the fold's own algebra gives the right clause,
+  `(1 − s)` of the untinted gap, and it is met on all six rungs.
+- **2026-09-05 (G1 pre-check) — a control read at `s = 1` is read at `α″ = 1`**, and L3's
+  decoration composites at `α″` elsewhere; the constant is not one. Three dpr-2 cells carried by
+  name.
+- **2026-09-05 (G1 pre-check) — the transfer's moved floor colour reaches the screen at the
+  contour** under an opaque full-strength layer: 21–42 pixels per cell, none more than two device
+  pixels inside, worst code 38, interior mean within 0.00013. Byte-identity at `s = 1` was an
+  argument about compositing and the capture settled it.
 - **2026-09-05 (G0) — the table saturates, and that is the largest term.** The charter named a
   level error; the clamp on the seed's darkest channel is a hue error, non-affine, up to −0.083
   encoded, and the fold removes it entirely.
@@ -435,3 +516,6 @@ S5 and the fold profiles' clause as re-declared here.
   beside, the closed-form clause and S5 re-declared on the fold's prediction, S3 by capture, the
   fold profiles' clause against the untinted control, X7 against the tier's `L`, the Deferred entry
   rewritten; six Surprises; G1 opens.
+- 2026-09-05: Decision Log 3 — the pre-check at the gate: the fold accepted, the fold profiles'
+  clause re-declared on `(1 − s)` of the untinted gap, S5's three misses carried by name, the
+  clamp share to four places; three Surprises, two Deferred shapes; the dry run opens.
