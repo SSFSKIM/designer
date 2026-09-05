@@ -325,7 +325,7 @@ its TCC gate; the two halves are independent and the web side does not wait on t
 | --- | --- | --- |
 | G0 | `packages/calibration/results/2026-09-05-w19-author-tint-fold/g0/g0-findings.md` (`ebade16`, merged `1e0b2a0`), `probe/` (the 1x native ladder, twelve cells, seven attested runs), `apps/reference-apple/scenes-w19-probe.json`; claims §5.80 | CLOSED 2026-09-05 — the charter's term confirmed and a larger one found beside it (the table saturates; the fold removes it), the error not one-signed (−0.068 at strength 0.1 on the photo), the fold exact to 8.9e−8 with `α″ − α₃ ≥ +0.0733` and no form flip, Apple's curve the renderer's encoded mix to 0.003, the tier crossing Apple's curve near strength 0.3; nine `[parent-impact]` items reconciled in Decision Log 2 |
 | G1 | branch `worktree-agent-a560cc39a6bdaa3ec` at `485b824` (the fold; `g1/g1-precheck.md`, `parts/`, `run-read.sh`; `test/author-tint-fold.test.ts`, `w19-pre-fold-declarations.json`; X7 in `tier-coherence.test.ts`; the tinted contrast-floor e2e; `.changeset/css-author-tint-fold.md`); the dry run at `b303c33` (`g1/g1-dry-run.md`, `dry-parts/`, `dry-verify.txt`, `dry-x6-gate.txt`, `verify-dry.py`, `moved.ts`, `run-dry-readers.sh`; `sheets/g1-1x.png`, `g1-2x.png`); claims §5.81 | PRE-CHECK PASSED 2026-09-05 (Decision Log 3): S4 met on 36 / 36 tinted ladder cells (worst 0.0039, from −0.0684); the hue down on every sub-unit cell; the untinted captures byte-identical, the full-strength ones within 0.00013 with every differing pixel on the contour; the floor restored (least margin +0.07318); no form flip; two clauses re-declared with the reason; the dry run opens; **DRY RUN PASSED, G1 DECLARED 2026-09-05** (claims §5.81; Decision Log 4): the whole bed on the frozen configuration with the holdout read once — S1 115 / 115, the gate 31 / 31 with no edit, the untinted captures 79 / 81 byte-identical against the bed and 81 / 81 against the pre-fold control (the two the tracker's frame-timing cells), nineteen full-strength tinted cells contour-only within 0.00013, the dark scheme 6 / 6 by bytes, eleven of twelve light-standard tinted scenes inside 0.005 and all twelve unmoved to four places, S5 −0.00311 / −0.00327 with the clamp share 0.0000 %, the cross-tier ΔE down on both light-standard profiles and flat on four; the one cell that changes (`orange-half`) moves toward Apple and the renderer both (ΔE 0.0043 → 0.0032 / 0.0050 → 0.0034); a tinted group's `<filter>` definitions three → two; the `hc-text` tinted cell's standing gap re-attributed by measurement to the shade's granularity; landed on the parent's recommendation under the user's standing instruction |
-| G2 | — | OPENS 2026-09-05 (Decision Log 4): the merge, the canonical rebuild once from the main checkout, the referee against the W18 bed and the dry run, the floors (none down), `PREDICATE_EXCLUDES` as the machine's output, the sheets, the chain, recomposition, then the 0.8.0 cut |
+| G2 | `packages/calibration/results/2026-09-05-w19-author-tint-fold/g2/` (`g2-rebuild.sh`, `g2-runs.txt`, `g2-verify.py`, `g2-verify.txt`, `g2-landing.md`), `sheets/g2-1x.png`, `g2-2x.png`; `results/matrix.json` rebuilt (merge `062313d`, the changeset corrected `f9fe52c`); claims §5.82 | COMPLETE 2026-09-05 — the rebuild reproduces the dry run byte for byte (114 / 114 CSS captures, every row exact) and the GPU tier the W18 bed (115 / 115); seven floors kept, none moved; the predicate unchanged, the gate 31 / 31 with no literal edited; the one cell that moves nearer Apple and the renderer; the chain green; the wave RECOMPOSED (Outcomes & Retrospective) |
 
 ## Decision Log
 
@@ -560,6 +560,12 @@ user publishes, the parent tags `v0.8.0`.
 
 ## Surprises & Discoveries
 
+- **2026-09-05 (G2) — six full-strength light cells were byte-identical for a reason the
+  report did not name.** `dark-solid` blue and orange and `impulse` orange at both scales
+  draw the encoded form — the boundary puts the light scheme's capsules over its dark
+  backdrops there — and the encoded form never reads `untintedOptics`; the report's "floor
+  colours equal to eight bits" was a guess where the group state had the answer. Twelve of
+  the bed's 33 tinted groups draw the encoded form; the fold's reach is the other 21.
 - **2026-09-05 (G1 dry run) — a number that matches is not a mechanism that matches.** The
   `hc-text` tinted cell's +0.0128 sat beside its untinted twin's +0.0105 / +0.0129 and the
   report read the one as the other; at full strength the untinted term is zero by the wave's
@@ -598,7 +604,44 @@ user publishes, the parent tags `v0.8.0`.
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+**RECOMPOSED 2026-09-05** (claims §5.82 §7, clause by clause). An author tint on the CSS tier's
+linear form is now the encoded fold of the author's layer over the tier's contrast-floor overlay,
+drawn over a transfer table solved on the untinted material: the composite is the renderer's
+expression `(1 − s)·E(M) + s·E(L)` to 8.9e−8 by identity and within 0.005 of the renderer's
+rendered interior on every ladder cell at both scales by capture, where it had missed by up to
+0.068 and shifted the hue; the floor holds at every strength (`α″ ≥ α₃` by +0.0733 at least); the
+table no longer saturates (0.0000 % of masked channel samples against 4–14 %); a tinted group
+needs one `<filter>` fewer; the GPU tier and every untinted and encoded-form declaration are
+byte-identical; the canonical bed moves on one cell and it moves toward Apple and the renderer
+both. Apple's own strength curve is on the record for the first time — the encoded-space mix of
+Apple's endpoints to 0.003 on ten attested rungs, the renderer's own law — with the tint shade's
+full-strength gap to Apple (+0.007…+0.017) named as the renderer's.
+
+**What did not close, by name.** The shade's granularity on the tier (+0.013 on `hc-text`, the
+per-source shade against the renderer's per-pixel one; Deferred with its shape and its price);
+the bed's strength axis (one sub-unit cell at the defect's zero crossing; the two-rung W3
+amendment, the next small child); the tint shade's own gap to Apple at full strength (the
+renderer's); the 2x native ladder; the fold profiles' composite under a policy fold (measured,
+not attributed); the blue seed's short ladder; Apple's shade as a hue; S5's control at dpr 2; the
+tracker's frame-timing pair; the rim band on square boxes (W18's, the next charter).
+
+**Retrospective.** The charter named a level term and the spike measured a hue term beside it,
+twice the size and non-affine — the table's saturation — which the acceptance's closed form could
+not model, so the clause was re-declared in the open on the fold's own prediction with the
+decoration constant as its control, both readings kept. Three attributions were caught before
+the ledger took them, each the same way: evaluate the wave's own algebra at the operating point,
+then find one measurement the candidate mechanisms predict differently — the fold profiles'
+"movement" (the untinted cell's gap vanishing under an opaque tint), the `hc-text` tinted cell
+(the twin's number, the shade's mechanism, told apart by the interior spread), the six
+byte-identical full-strength cells (the form, not the backdrop, told apart by the group state).
+The canonical bed could not have found this defect and did not: its one sub-unit strength sat at
+the error's zero crossing, the ladder found it, and the bed's strength axis is the next child. The
+landing was executed on the recommendation under a standing instruction with the eye's veto kept
+before publish, and Decision Log 4 records that as a decision rather than a default. Process: one
+worker for G0 (the spike and the native probe after the user's grant, resumed once after a usage
+stop), one worker for G1 through a pre-check gate and the dry run, the parent for G2; the referee
+ran the landing's file against the scratch matrix (X6); the landing's rebuild reproduced the dry
+run byte for byte — the first time — and the frame-timing pair taught the tracker its shape.
 
 ## Revision Notes
 
@@ -618,3 +661,6 @@ user publishes, the parent tags `v0.8.0`.
   re-attributed by measurement to the shade's granularity and entered in Deferred, the filter
   collapse a claim); the landing executed on the parent's recommendation under the user's
   standing instruction; two Surprises; G2 opens.
+- 2026-09-05: G2 COMPLETE and the wave RECOMPOSED (claims §5.82); Outcomes & Retrospective
+  written; one Surprise (the encoded-form six) and one correction beside claims §5.81 §4; the
+  tracker's frame-timing entry amended; the 0.8.0 cut follows.

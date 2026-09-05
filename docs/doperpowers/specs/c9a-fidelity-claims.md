@@ -11690,3 +11690,126 @@ ladder, partly closed by §8's bed reading and the pre-check's ladder ΔE; the b
 ladder; Apple's shade as a hue); the shade's granularity (§5); the bed's strength axis (§8); the
 tint shade's own full-strength gap to Apple, +0.017 on `hc-text` beside §5.80 §6's +0.007 /
 +0.012.
+
+*Correction beside (W19 G2, §5.82 §1):* §4 says the six full-strength cells that are
+byte-identical outright (`dark-solid` blue and orange, `impulse` orange, both scales) owe it to
+backdrops that leave the two floor colours equal to eight bits. They owe it to the form: all six
+draw the **encoded** form (`cssTint` on the group state, read off the landed captures'
+`report__css.json`) — the boundary puts the light scheme's tinted capsules over its dark
+backdrops on the encoded form beside the dark scheme's six — and the encoded form never reads
+`untintedOptics`. So the fold's reach on the bed is the 21 tinted groups on the linear form (19 at
+full strength, contour-only; the two `orange-half` cells), and the twelve on the encoded form are
+byte-identical by construction, 12 / 33. The report's sentence was a guess where the group state
+had the answer.
+
+### 5.82 W19 G2 LANDED and RECOMPOSED: the author tint folded over the contrast floor across the canonical bed — the rebuild reproduces the dry run byte for byte, the GPU tier byte-identical, seven floors kept and none moved, the predicate unchanged, the one sub-unit cell nearer Apple and the renderer, the shade's granularity and the bed's strength axis carried by name (2026-09-05)
+
+**1. The landing.** W19 Decision Log 4: landed on the parent's recommendation under the user's
+standing instruction ("for decisions, all according to your recommendation"; "cut 0.8.0 after it
+lands"), the user's eye keeping its veto before `pnpm release`. Recorded at `496f260`; merge
+`062313d` (the G1 branch at `b303c33`); the changeset's two stale readings corrected at `f9fe52c`
+(Decision Log 3 (1), Decision Log 4 (2)); the canonical rebuild once from the main checkout
+(`results/2026-09-05-w19-author-tint-fold/g2/g2-rebuild.sh` at `f9fe52c`; twelve runs
+10:17:36–10:22:27, eleven exit 0 and one exit 1 on the cell the harness cannot measure
+(`hc-text__capsule-button__rest` under increased contrast, §5.79 §1), 0 fallen back, 0 problems;
+**229 cells and 229 captures**, the W18 bed's keys; `g2-runs.txt`). Read against the W18 bed and
+G1's dry run (`g2-verify.py`, `g2-verify.txt`): **the GPU tier byte-identical on 115 / 115
+captures with every row exact** (X3 on the canonical bed, the ninth whole-bed run in a row);
+**the CSS tier byte-identical to the dry run on 114 / 114 captures with every row exact to six
+places** — the first landing whose rebuild reproduces its dry run to the byte. Against the W18
+bed's bytes the CSS tier reads 79 / 81 untinted — the tracker's pair,
+`hc-text__capsule-button__rest` at 2x light and `checkerboard__glass-over-glass__rest` at 2x dark,
+one code; three of today's Chromium processes agree with each other and differ from W18's
+landing, so the pair flips between landings and not within a day's runs (the tracker's entry
+amended) — and 12 / 33 tinted, the twelve on the encoded form (§5.81 §4's correction beside).
+The holdout's CSS rows were read once on the frozen configuration at G1 (X8); the rebuild
+reproduced them exactly. The form each group drew, off `report__css.json` (`cssTint`): `linear`
+on 82 groups (21 tinted), `encoded` on 38 (12 tinted: the dark scheme's six and the light
+scheme's `dark-solid` blue and orange and `impulse` orange at both scales); `cssShadow` `group` on
+the six `toolbar-group` groups and `layer` on 114, as at W18.
+
+**2. The floors** (`test/adopted-thresholds.test.ts`; `ssimMean`, CSS tier, checkerboard). All
+seven rows read the W18 bed's values to five places — 0.91521, 0.87585, 0.87893, 0.86141, 0.86811,
+0.87039, 0.87220 — every capture byte-identical to the dry run's and to the W18 bed's: **seven
+kept, none ratcheted, none down**; `rrect-md` 1x 0.91214 against ≥ 0.90 with no floor.
+`UNMET_ROWS` stays 7, the tier's large spans against the rim band it has no lens to draw. The gate
+on the canonical matrix **31 / 31 with no literal edited**; a comment in the floors block records
+the landing.
+
+**3. The predicate.** `PREDICATE_EXCLUDES` unchanged — 29 lines, the gate proving it equal to the
+machine's output; the fold touches no untinted cell and the predicate's arms read none of the
+tinted ones differently.
+
+**4. The wave's stops, re-read on the canonical bed.** Every number is §5.81's, because every
+CSS capture is the dry run's byte for byte: S3's nineteen full-strength linear cells differ from
+the W18 bed on the contour only (interior means within 0.00013), the twelve encoded cells
+byte-identical; S4's twelve light-standard tinted scenes at their bed values — eleven inside
+0.005, `hc-text__capsule-button__rest-tint-orange` +0.0128 / +0.0117 standing (the shade's
+granularity, §5.81 §5) — the fold profiles +0.0056 / +0.0055 / +0.0002 under Decision Log 3 (1),
+the dark scheme −0.0012…−0.0003 recorded; S5's `orange-half` captures byte-identical to the dry
+run's, its reading carried (−0.00311 / −0.00327; the clamp share 0.0000 % against 4.0663 % /
+4.6469 %); S6's cross-tier ΔE mean 0.00606 → **0.00599** at 1x light standard (26 cells), 0.00633
+→ **0.00627** at 2x (26), 0.00385 → 0.00384 under reduced transparency (6), flat at 0.00669,
+0.00405 and 0.00413 on the other three; S8 unchanged. **The one cell that moves:**
+`photo__capsule-button__rest-tint-orange-half`, OKLab ΔE against Apple 0.0043 → **0.0032** (1x)
+and 0.0045 → **0.0033** (2x), across the tiers 0.0050 → **0.0034** and 0.0051 → **0.0035**;
+every other tinted cell flat to four places.
+
+**5. By eye** (`sheets/g2-1x.png`, `g2-2x.png` — G1's script with column 3 the canonical capture;
+the banner says so). Read by the parent: identical to G1's sheets to the eye, as the bytes say —
+the cold, washed-out low-strength rungs replaced by the warm cast Apple and the renderer carry;
+the bed's two rows unmoved; on the `hc-text` row the page's text through the GPU tier's tint and
+not the CSS tier's, the granularity item, seen. The demo fixture
+`apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.png` is byte-identical to the
+landed GPU capture; nothing to commit.
+
+**6. The chain** on the landed tree (10:23:09–10:25:50, the browser suites one at a time on the
+adapter): lint clean; `pnpm -r test` green on all eight packages (122 test files, 1 804 tests);
+Playwright **355 passed** on platform-web's four projects (the `chromium-gpu` project on the real
+adapter), **105 passed and 3 skipped** on react's three engines, **34 passed** on demo. The
+renderer's golden suite not re-run: the renderer is byte-identical by capture (§1).
+
+**7. Recomposition, clause by clause** (the charter's Parent-Level Acceptance):
+
+- *The composite is measured and attributed* — §5.80: the closed form to 8.3e−8 on the 133 of 180
+  channel cells where nothing clamps and the saturation named where it does (the clause
+  re-declared in Decision Log 2 on the fold's own prediction, the decoration constant its
+  control); the floor drop named with its cells; X4 beside every reading. **Met.**
+- *The tier lands on the renderer's composite at every strength* — 36 / 36 ladder cells within
+  0.005 at both scales (Decision Log 3, worst 0.0039); the fold profiles by Decision Log 3 (1);
+  the level ratio; the bed's twelve tinted scenes eleven within 0.005 and all twelve unmoved.
+  **Met**, one standing cell attributed (§5.81 §5).
+- *The floor holds at every strength* — `α″ ≥ α₃` by identity, least margin +0.0733; the unit
+  pin over the ladder; the contrast-floor e2e at strength 0.1. **Met.**
+- *Nothing else moves* — every untinted capture byte-identical to the same-day control (81 / 81)
+  and to the W18 bed but the tracker's pair (Decision Log 4 (1)); every full-strength tinted cell
+  within 0.00013; no dom row below its bound or floor, the seven held rows at their W18 pins;
+  `PREDICATE_EXCLUDES` unchanged. **Met** as read.
+- *The GPU tier does not move* — 115 / 115 at G1 and at G2; `tintedMaterialColour` read, never
+  edited. **Met.**
+- *The native ladder exists and is attested* — twelve 1x cells, seven attested runs of ten by
+  W9's rule, the recorded twins byte-identical to the canonical fixtures; Apple's means per
+  strength in §5.80 §6, fitted to nothing. **Met.**
+- *The encoded form is unchanged* — 12 / 12 encoded tinted groups byte-identical at G1 and G2;
+  the form each group drew recorded (`cssTint`). **Met.**
+- *The cost* — no primitive, no layer; `foldedOverlay`'s three multiply-adds; one `<filter>`
+  fewer per tinted group (§5.81 §9). **Met.**
+- *Chromium is measured; the plain-`blur()` engines keep `tintedCssOptics`' fold* — X9, the
+  encoded fold behind the conformance rows unchanged. **Met.**
+- *By eye* — the sheets at the dry run and the landing, both readings recorded; the landing on
+  the recommendation with the eye's veto retained before publish. **Met** as ruled.
+- *Suites green, the matrix rebuilt once, the holdout read once, every gap named* — §6, §1, X8,
+  §8. **Met.**
+
+**8. What did not close, by name.** The shade's granularity — +0.013 of cross-tier level on
+`hc-text`, both tiers above Apple there (Deferred with its shape: the shade folded into the
+transfer table, at the price of §5.81 §9's collapse); the bed's strength axis — one sub-unit cell
+at the defect's zero crossing (Deferred: two rungs at 1x from the probe's attested fixtures, a W3
+amendment, the next small child); the tint shade's own full-strength gap to Apple — +0.007 /
++0.012 / +0.017 (the renderer's); the 2x native ladder; the fold profiles' tinted composite under
+a policy fold, measured and not attributed; the blue seed's short ladder; Apple's shade as a hue;
+S5's control at dpr 2 (three misses by name); the tracker's frame-timing pair; the rim band on
+square boxes (W18's Deferred, the next charter on the recommendation).
+
+**9. The release.** The `@vitreajs/vitrea-web` minor pending in `.changeset/css-author-tint-fold.md`
+beside W18's `css-shadow-carriers.md`; the 0.8.0 cut follows the wave's close (the wave doc).
