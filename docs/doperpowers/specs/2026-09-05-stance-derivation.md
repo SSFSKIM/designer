@@ -591,3 +591,4 @@ GPU tier for the music build.
   Goree's layout-distance decline is 44% (2010–2019) by tree edit distance, attributed to library
   convergence. The memo's §3 diversity argument stands on the remaining lines (Zhang, Xin & Zhong
   2026; Min et al. 2022; Yun et al. 2025; Wadinambiarachchi et al. 2024; Ezzat et al. 2020; Scout).
+- 2026-09-05 (sixth revision): the deferred composition grammar is taken up in `2026-09-05-composition-grammar.md`; the layout survey it opens with (16 of 20 landing builds on one hero construction; the reference's own split snippet in seven builds) is the layout-level counterpart of this spec's hex finding.
