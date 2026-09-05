@@ -220,6 +220,29 @@ per build, so this is roughly twelve acceptance runs' worth.
   of the gate (0.85 and 0.76 of sampled text).
   Evidence: wave one V and D4 rows for `none`.
 
+- Observation: The 1.1 pharmacy builder reported that the old stance reference "routes healthcare
+  products to Institutional calm directly regardless of what the sampler returns", and ported it
+  intact. The category-to-values lookup the stance spec was founded on is visible in the builder's
+  own words under the frozen skill.
+  Evidence: the wave-two 1.1 pharmacy report; its four sampler draws all declined.
+
+- Observation: Convergence relocated to the signature element. Both derivation arms' library
+  builds (2.0 and 2.1, different agents, no shared context) drew the same hero object — a
+  reader's card with eight stamp boxes, four filled — from the brief's "weekly" and the sampler's
+  shared draw; the 1.1 build drew an eight-shape card. The stance layer's "signature" step is a
+  new attractor for the same reason the accent was: one prompt, one most-probable answer.
+  Evidence: wave-two first-viewport captures for 99499b, 672565, dd3f5c.
+
+- Observation: A 2.1 build carries a three-step "how it works" row under a hero — the narrative
+  three-up the grammar names as a default — on a brief that counts no three.
+  Evidence: 672565's D4 row; the row is a repeated group of three, three columns, outside the
+  footer.
+
+- Observation: The instrument's pairwise matrices are arrays in build order, not keyed by file;
+  the first analysis read every layout distance as missing. Fixed before any diversity number was
+  reported.
+  Evidence: wave-two results before and after the index fix.
+
 ## Deferred
 
 - A second judge, for an agreement statistic.
