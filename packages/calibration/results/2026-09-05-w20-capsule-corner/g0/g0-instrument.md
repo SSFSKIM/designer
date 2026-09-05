@@ -198,9 +198,20 @@ standard, plus the two 1x light accessibility profiles) on both tiers, `--set
 calibration,validation`, everything redirected to scratch. **It did not run**: the shared GPU
 was held for the whole session by the parallel native probe worker
 (`VitreaReference … capture --run-label w20-probe-N`, runs 3 through 8+ back to back), and the
-protocol for this bed is that two captures never overlap. The script is committed with its
-wait gate and re-runs unattended the moment the machine is free; `g0-bed-table.py` reads the
-matrix it writes and prints the per-profile, per-component table.
+protocol for this bed is that two captures never overlap. The script is committed and runs
+unattended in one command —
+
+```
+bash packages/calibration/results/2026-09-05-w20-capsule-corner/g0/g0-conformance-run.sh
+python3 packages/calibration/results/2026-09-05-w20-capsule-corner/g0/g0-bed-table.py \
+  /Users/new/.claude/jobs/5c70e47f/tmp/w20/g0-a/bed/g0-conformance.json
+```
+
+— and it must be started when nothing else is capturing. A waiter that would have fired it the
+moment the machine went quiet was deliberately stopped rather than left armed: it can only see
+that the native harness is idle, not that it is finished, and a Chromium capture starting
+inside a gap between two of its runs would damage the other side's fixtures rather than this
+side's numbers.
 
 What that leaves unverified is coverage, not mechanism: the alpha rule, the refusal, the row
 plumbing and the numbers are all read off real captures above, on the primary profile at 1x on
