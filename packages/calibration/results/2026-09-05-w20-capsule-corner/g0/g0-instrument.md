@@ -219,6 +219,59 @@ both tiers. What is not yet read is whether any 2x, dark or accessibility cell b
 differently — in particular whether the `glass-over-glass` overlay group, which resolves
 `css-backdrop` sampling even on the GPU tier, still composites above the interior-alpha floor.
 
+
+### The bed run, taken (2026-09-06 05:13–05:18, after the probe released the GPU)
+
+*The paragraph above is left as written; this is the run it describes, started by the parent once
+the native probe had finished.* `g0-conformance-run.sh` at `aa237c8`, twelve runs, every one exit
+0, 0 fallen back, 0 problems; 170 cells to scratch (`g0-conformance.json`, schema 5); the table
+from `g0-bed-table.py` kept beside this file as `g0-bed-table.txt`. Per profile, tier and
+component (n cells; drawn and declared px; IoU; contour p95 / max in device px):
+
+| profile | tier | component | n | drawn | declared | excess | IoU | p95 | max |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1x light standard | webgpu | capsule-button | 12 | 5104 | 4872 | +232 | 0.9545 | 2.83 | 3.16 |
+| 1x light standard | webgpu | toolbar-group | 2 | 5280 | 4584 | +696 | 0.8682 | 3.16 | 3.16 |
+| 1x light standard | webgpu | rrect-sm | 2 | 2000 | 2000 | 0 | 1.0000 | 0.00 | 0.00 |
+| 1x light standard | webgpu | rrect-md | 6 | 15017 | 15024 | −7 | 0.9993 | 0.00 | 1.00 |
+| 1x light standard | webgpu | rrect-ml | 3 | 28039 | 28048 | −9 | 0.9990 | 0.00 | 1.00 |
+| 2x light standard | webgpu | capsule-button | 12 | 20400 | 19468 | +932 | 0.9542 | 5.83 | 6.40 |
+| 2x light standard | webgpu | toolbar-group | 2 | 21078 | 18276 | +2802 | 0.8671 | 6.32 | 6.40 |
+| 2x light standard | webgpu | rrect-sm / md / ml | 2 / 6 / 3 | | | −6 / −41 / −81 | 0.999 | ≤ 1.00 | 1.00 |
+| 1x dark standard | webgpu | capsule-button | 6 | 5104 | 4872 | +232 | 0.9545 | 2.83 | 3.16 |
+| 2x dark standard | webgpu | capsule-button | 6 | 20400 | 19468 | +932 | 0.9542 | 5.83 | 6.40 |
+| 1x increased contrast | webgpu | capsule-button / toolbar-group | 4 / 1 | | | +232 / +696 | 0.9545 / 0.8682 | | 3.16 |
+| 1x reduced transparency | webgpu | capsule-button / toolbar-group | 3 / 1 | | | +232 / +696 | 0.9545 / 0.8682 | | 3.16 |
+| every profile | webgpu | rrect-md (dark, IC, RT) | 3 / 2 / 2 | | | −10 / −12 / −12 | 0.9992 | 0.00 | 1.00 |
+| 1x light / dark, RT | css | capsule-button | 8 / 6 / 1 | 5204 | 4872 | +332 | 0.9362 | 2.24 | 2.83 |
+| 1x light / dark | css | rrect-md | 1 / 3 | 15548 / 15540 | 15024 | +524 / +516 | 0.966 | 2.00 | 2.83–3.00 |
+| 1x increased contrast | css | capsule-button | 2 | 5544 | 4872 | +672 | 0.8788 | 5.00 | 5.66 |
+| 2x light / dark | css | capsule-button | 8 / 6 | 20796 | 19468 | +1328 | 0.936 | 5.00 | 5.66–5.83 |
+| 2x light / dark | css | rrect-md | 1 / 3 | 62138 / 62128 | 60064 | +2074 / +2064 | 0.9667 | 4.0–4.1 | 5.66–5.83 |
+
+Absent rows: on the GPU tier one cell per standard profile (the `dark-solid` cell, whose shape
+axis is absent — the numbers are in its note, §7); on the CSS tier 17 of 26 cells on each light
+standard profile and 5 of 7 on each accessibility profile, refused by the interior-alpha condition.
+
+**What the bed says.**
+
+- **The GPU tier's defect is the same number everywhere.** +232 px per capsule and +696 per toolbar
+  at 1x on every profile — light, dark, increased contrast, reduced transparency — and +932 / +2802
+  at 2x (the analytic 948 / 2844 less the antialiased band), contour max 3.16 / 6.40 device px:
+  the clamp is a ratio and nothing about the scheme, the accessibility fold or the scale touches
+  it. Every rounded rectangle reads at its declaration to the antialiased band (−6…−81 px, contour
+  max ≤ 1 device px, IoU ≥ 0.999); `rrect-sm` at 1x reads exactly 2000 of 2000.
+- **The CSS tier, where the rule applies, reads a uniform oversize.** The condition passes on the
+  full-strength tinted cells and on the dark scheme (an opaque or near-opaque material), and there
+  the tier's drawn silhouette is **+332 px on the capsule and +516…+524 on rrect-md** — about
+  **1.1 px all round** (332 over a 290 px perimeter; 516 over 478), and +672 under increased
+  contrast, +1328 / +2064 at 2x. That is not a corner: it is the rim ring, which reads 0.5255 of
+  alpha (§3) — 0.03 above the threshold — sitting outside the DOM's border-radius box. The reading
+  is honest and marginal at once: a threshold of 0.55 would drop the ring and read the box. It is
+  the same line §5.83 saw as the CSS tier's 0.17 |ΔL| ring two pixels outside the contour, and it
+  belongs to the CSS tier's rim band (W16 Deferred), recorded under wave Decision Log 23 (a) and
+  not chartered.
+
 ---
 
 ## 5. X4 — the recovery of a known dilation
