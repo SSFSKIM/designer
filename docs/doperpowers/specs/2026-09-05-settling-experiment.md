@@ -262,6 +262,27 @@ per build, so this is roughly twelve acceptance runs' worth.
   rating until its builder reports done.
   Evidence: the seven resumed reports; the marker respected by `measure.mjs` and `cells.mjs`.
 
+- Observation: On the compare brief every arm put the three suppliers on one axis, and all
+  four led with a document head — title, prose, a metadata strip — above the comparison; the
+  no-skill build added a recommendation card before the matrix. The grammar's own transient
+  rule (no band above the action) was not followed by its own arm, whose first viewport is a
+  title, a paragraph, and a metadata strip over a scale.
+  Evidence: wave-four first-viewport captures for ede597, 32cc11, 033fcb, d178d1.
+
+- Observation: The rail brief's second seed reproduced the first seed's forms arm by arm — the
+  1.1 arm a light steel console with a stat row over a train graph beside an exceptions rail,
+  the 2.0 and 2.1 arms dark or zero-chroma string-line boards with an exception queue first —
+  and the no-skill arm its dark command-centre board with a seven-tile stat row both times.
+  Within-brief partition distance across seeds is 0.22–0.25 for every arm, the same as the
+  across-brief figure; the instrument does not separate "same brief, same skill, second run"
+  from "different brief".
+  Evidence: the within-brief D table after wave four; the rail captures for both seeds.
+
+- Observation: Every wave-four builder was killed by a revoked login before writing a file;
+  all eight were resumed in place and finished. One resumed builder stopped after a single
+  tool call and needed a second nudge; one timed out once more and was resumed again.
+  Evidence: the wave-four task notifications.
+
 ## Deferred
 
 - A second judge, for an agreement statistic.
