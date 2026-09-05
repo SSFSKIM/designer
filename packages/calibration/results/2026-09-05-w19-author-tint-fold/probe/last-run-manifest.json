@@ -1,0 +1,531 @@
+{
+  "backgrounds" : {
+    "checkerboard@1x" : "backgrounds/checkerboard@1x.png",
+    "photo@1x" : "backgrounds/photo@1x.png"
+  },
+  "captureProtocol" : {
+    "hidIdleSecondsAtEnd" : 1208.712742583,
+    "hidIdleSecondsAtStart" : 1088.866056541,
+    "minIdleSeconds" : 45,
+    "resetCarriesGlass" : false,
+    "resetInterstitialSeconds" : 6,
+    "runLabel" : "w19-probe-10",
+    "userIsActiveAtStart" : true
+  },
+  "caveats" : [
+
+  ],
+  "generatedAt" : "2026-09-05T00:09:14Z",
+  "hardware" : {
+    "cpu" : "Apple M2 Pro",
+    "model" : "Mac14,12",
+    "osBuild" : "25F84",
+    "osVersion" : "Version 26.5.2 (Build 25F84)",
+    "sdk" : "MacOSX26.5.sdk",
+    "xcodeVersion" : "Xcode 26.6 Build version 17F113"
+  },
+  "profiles" : [
+    {
+      "a11yMode" : "standard",
+      "colorScheme" : "light",
+      "display" : {
+        "actualBackingScale" : 1,
+        "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
+        "pixelSize" : [
+          320,
+          200
+        ],
+        "requestedScale" : 1
+      },
+      "fixtures" : [
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:08:25Z",
+          "chromaShift" : 115.5264,
+          "deltaFromBackground" : 10.413744791666666,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1158.98125375,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 6,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest-tint-orange",
+          "settleIterations" : 1,
+          "settleSeconds" : 2.8593729734420776,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 1,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 1,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:09:05Z",
+          "chromaShift" : 11.5795,
+          "deltaFromBackground" : 9.734557291666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange-010.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1199.130039208,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 10,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest-tint-orange-010",
+          "settleIterations" : 1,
+          "settleSeconds" : 3.0206490755081177,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.1,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.10000000149011612,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-010"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:08:45Z",
+          "chromaShift" : 23.1519,
+          "deltaFromBackground" : 9.810833333333333,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange-020.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1178.969734625,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 8,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest-tint-orange-020",
+          "settleIterations" : 2,
+          "settleSeconds" : 3.9249579906463623,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.2,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.20000000298023224,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-020"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:08:55Z",
+          "chromaShift" : 40.4796,
+          "deltaFromBackground" : 9.919666666666666,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange-035.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1189.536939708,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 9,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest-tint-orange-035",
+          "settleIterations" : 2,
+          "settleSeconds" : 4.007810950279236,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.35,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.3499999940395355,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-035"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:09:14Z",
+          "chromaShift" : 86.6563,
+          "deltaFromBackground" : 10.220130208333334,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange-075.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1208.706336541,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 11,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest-tint-orange-075",
+          "settleIterations" : 1,
+          "settleSeconds" : 3.0108559131622314,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.75,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.75,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-075"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:08:05Z",
+          "chromaShift" : 57.7726,
+          "deltaFromBackground" : 10.034322916666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest-tint-orange-half.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1138.868587333,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 4,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest-tint-orange-half",
+          "settleIterations" : 1,
+          "settleSeconds" : 2.9697060585021973,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.5,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.5,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-half"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:08:15Z",
+          "chromaShift" : 49.7031,
+          "deltaFromBackground" : 7.787125,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1149.558798333,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 5,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__rest-tint-orange",
+          "settleIterations" : 2,
+          "settleSeconds" : 4.126587986946106,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 1,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 1,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:07:24Z",
+          "chromaShift" : -20.5544,
+          "deltaFromBackground" : 6.344229166666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-010.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1098.524923833,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 0,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__rest-tint-orange-010",
+          "settleIterations" : 1,
+          "settleSeconds" : 3.065532922744751,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.1,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.10000000149011612,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-010"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:07:44Z",
+          "chromaShift" : -15.2658,
+          "deltaFromBackground" : 5.764567708333334,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-020.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1118.694656958,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 2,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__rest-tint-orange-020",
+          "settleIterations" : 2,
+          "settleSeconds" : 4.096264958381653,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.2,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.20000000298023224,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-020"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:07:34Z",
+          "chromaShift" : -4.3044,
+          "deltaFromBackground" : 5.197807291666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-035.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1108.023971,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 1,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__rest-tint-orange-035",
+          "settleIterations" : 1,
+          "settleSeconds" : 2.924805998802185,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.35,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.3499999940395355,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-035"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:07:55Z",
+          "chromaShift" : 28.8989,
+          "deltaFromBackground" : 6.506885416666667,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-075.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1129.335365958,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 3,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__rest-tint-orange-075",
+          "settleIterations" : 2,
+          "settleSeconds" : 4.070165991783142,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.75,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.75,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-075"
+          },
+          "width" : 320
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-05T00:08:34Z",
+          "chromaShift" : 8.0299,
+          "deltaFromBackground" : 5.386098958333333,
+          "deterministic" : true,
+          "file" : "apple-macos-26.5-1x-light-standard/photo__capsule-button__rest-tint-orange-half.png",
+          "fixtureSet" : "recorded",
+          "height" : 200,
+          "hidIdleSeconds" : 1168.484864125,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 7,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "photo__capsule-button__rest-tint-orange-half",
+          "settleIterations" : 1,
+          "settleSeconds" : 2.9382189512252808,
+          "tint" : {
+            "colourSurvivedResolution" : true,
+            "declaredAlpha" : 0.5,
+            "declaredSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "glassValueDistinguishesHue" : true,
+            "resolvedChroma" : 255,
+            "resolvedOpacity" : 0.5,
+            "resolvedSRGB" : [
+              255,
+              149,
+              0
+            ],
+            "tintId" : "orange-half"
+          },
+          "width" : 320
+        }
+      ],
+      "profileKey" : "apple-macos-26.5-1x-light-standard"
+    }
+  ],
+  "sceneSpecVersion" : 2,
+  "schemaVersion" : 3,
+  "split" : {
+    "calibration" : [
+
+    ],
+    "holdout" : [
+
+    ],
+    "note" : "Holdout scene ids are declared here, as data. Tuning code must read the 'calibration' list; it must never name a holdout scene. A 'recorded' scene is captured and committed and read by nothing: no fit, no self-check, no bound and no claim may cite it.",
+    "recorded" : [
+      "photo__capsule-button__rest-tint-orange-010",
+      "photo__capsule-button__rest-tint-orange-020",
+      "photo__capsule-button__rest-tint-orange-035",
+      "photo__capsule-button__rest-tint-orange-half",
+      "photo__capsule-button__rest-tint-orange-075",
+      "photo__capsule-button__rest-tint-orange",
+      "checkerboard__capsule-button__rest-tint-orange-010",
+      "checkerboard__capsule-button__rest-tint-orange-020",
+      "checkerboard__capsule-button__rest-tint-orange-035",
+      "checkerboard__capsule-button__rest-tint-orange-half",
+      "checkerboard__capsule-button__rest-tint-orange-075",
+      "checkerboard__capsule-button__rest-tint-orange"
+    ],
+    "validation" : [
+
+    ]
+  }
+}

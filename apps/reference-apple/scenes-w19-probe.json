@@ -1,0 +1,233 @@
+{
+  "$comment": [
+    "W19 probe scene matrix — the author tint's strength axis, natively, and NOTHING else reads",
+    "this file. It runs through VITREA_SCENES into its own fixtures dir under",
+    "packages/calibration/results/2026-09-05-w19-author-tint-fold/probe/, so the canonical",
+    "scenes.json and the frozen bed stay untouched (contract X10). Both backgrounds reuse an",
+    "existing kind: nothing rebuilds and no TCC re-grant is needed for the rasters.",
+    "",
+    "What it is for. W19 corrects the CSS tier's author-tint composite against the RENDERER's",
+    "expression at every strength; Apple's own curve on that axis is a separate question and this",
+    "bed is its data. The bed carries strengths 1.0 and 0.5 only, and both vitrea tiers read +0.020",
+    "over native at 0.5 on the photo capsule — one point. These twelve cells make it a curve.",
+    "",
+    "Three cells are the canonical bed's own ids at its own geometry and tint and must come back",
+    "byte-identical to the frozen fixtures: photo tint-orange, photo tint-orange-half and",
+    "checkerboard tint-orange. Nothing here is fitted to anything."
+  ],
+  "version": 2,
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "photo": {
+      "kind": "synthetic-photo",
+      "seed": 20260825,
+      "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+    },
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    }
+  },
+  "components": {
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    }
+  },
+  "tints": {
+    "orange": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "$comment": "systemOrange. Warm, far from the material's neutral white, and the hue Apple's own tinting examples use."
+    },
+    "orange-half": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "alpha": 0.5,
+      "$comment": "The strength axis. vitrea reads a colour's alpha as how far the material's tint moves toward the tone, and SwiftUI's Color carries opacity the same way — so this cell checks that the two agree about what half-strength means."
+    },
+    "orange-010": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "alpha": 0.1,
+      "$comment": "W19's native strength ladder: systemOrange at strength 0.1. SwiftUI's Color carries opacity as the strength, exactly as vitrea reads a tint colour's alpha."
+    },
+    "orange-020": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "alpha": 0.2,
+      "$comment": "W19's native strength ladder: systemOrange at strength 0.2. SwiftUI's Color carries opacity as the strength, exactly as vitrea reads a tint colour's alpha."
+    },
+    "orange-035": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "alpha": 0.35,
+      "$comment": "W19's native strength ladder: systemOrange at strength 0.35. SwiftUI's Color carries opacity as the strength, exactly as vitrea reads a tint colour's alpha."
+    },
+    "orange-075": {
+      "srgb": [
+        255,
+        149,
+        0
+      ],
+      "alpha": 0.75,
+      "$comment": "W19's native strength ladder: systemOrange at strength 0.75. SwiftUI's Color carries opacity as the strength, exactly as vitrea reads a tint colour's alpha."
+    }
+  },
+  "states": {
+    "rest": {
+      "$comment": "No interaction."
+    }
+  },
+  "scenes": [
+    {
+      "id": "photo__capsule-button__rest-tint-orange-010",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-010"
+    },
+    {
+      "id": "photo__capsule-button__rest-tint-orange-020",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-020"
+    },
+    {
+      "id": "photo__capsule-button__rest-tint-orange-035",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-035"
+    },
+    {
+      "id": "photo__capsule-button__rest-tint-orange-half",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-half"
+    },
+    {
+      "id": "photo__capsule-button__rest-tint-orange-075",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-075"
+    },
+    {
+      "id": "photo__capsule-button__rest-tint-orange",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange-010",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-010"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange-020",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-020"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange-035",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-035"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange-half",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-half"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange-075",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange-075"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest-tint-orange",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest",
+      "tint": "orange"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-26.5-1x-light-standard",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": "all",
+      "$comment": "The probe's one profile. 1x only, as W18's was: this machine presents at 1x and the canonical 2x fixtures were captured on a reconfigured display, so a 2x native ladder is a session the user opens (W19 Decision Log 1 q1(a); the charter's Deferred list)."
+    }
+  ],
+  "split": {
+    "$comment": [
+      "Declared before the first capture. Nothing is fitted to this bed: every cell is 'recorded'",
+      "and compare must be asked for that set twice over."
+    ],
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "recorded": [
+      "photo__capsule-button__rest-tint-orange-010",
+      "photo__capsule-button__rest-tint-orange-020",
+      "photo__capsule-button__rest-tint-orange-035",
+      "photo__capsule-button__rest-tint-orange-half",
+      "photo__capsule-button__rest-tint-orange-075",
+      "photo__capsule-button__rest-tint-orange",
+      "checkerboard__capsule-button__rest-tint-orange-010",
+      "checkerboard__capsule-button__rest-tint-orange-020",
+      "checkerboard__capsule-button__rest-tint-orange-035",
+      "checkerboard__capsule-button__rest-tint-orange-half",
+      "checkerboard__capsule-button__rest-tint-orange-075",
+      "checkerboard__capsule-button__rest-tint-orange"
+    ]
+  }
+}
