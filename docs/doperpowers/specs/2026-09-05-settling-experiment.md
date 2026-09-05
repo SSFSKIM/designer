@@ -187,6 +187,16 @@ per build, so this is roughly twelve acceptance runs' worth.
   page.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: Implementation details fixed at the smoke test, before wave one was measured. The
+  accent is the most chromatic colour (OKLCH C ≥ 0.06, 0.2 ≤ L ≤ 0.9) on interactive elements,
+  and where those carry no chroma — a status-only accent job leaves them monochrome — the most
+  chromatic colour anywhere on the page. The contrast clause of V uses WCAG's own large-text
+  allowance (3 : 1 at 24 px, or 18.66 px bold). D4's "side region" is reported as two columns,
+  an edge region by role and a two-track band at 1.5 : 1 or wider, because the fleet acceptance
+  build showed a derived band that the raw rule reads as a rail. The smoke test ran the whole
+  chain on two derivation-eval builds in a scratch workspace.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 Pending — recorded as the waves land.
