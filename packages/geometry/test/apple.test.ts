@@ -131,22 +131,38 @@ describe("the control-point dump, checked rather than trusted", () => {
   });
 });
 
-describe("Apple's budget policy is its own", () => {
-  it("saturates the radius at r/side = 0.327083, not by reducing smoothing", () => {
-    // The reference family clamps SMOOTHING; Apple clamps the RADIUS. C7 should
-    // not compare shapes above this ratio to Apple at all — past it the real
-    // corner warps in a way this construction does not reproduce.
+describe("Apple's budget policy is the reference family's, measured", () => {
+  it("keeps the radius past r/side = 0.327083 and compresses the shoulder", () => {
+    // This test used to read the other way — "the reference family clamps
+    // SMOOTHING; Apple clamps the RADIUS", with the rider that C7 should not
+    // compare shapes above the ratio to Apple at all. W20 G0 put that assumption
+    // on a ten-rung native ladder and refuted it (claims §5.84 §4–§6): Core
+    // Animation states the requested radius unclamped at every rung, and on the
+    // pixels the radius clamp misses by up to 3.15 px where the compressed
+    // shoulder fits within the grid's 0.5 px floor. So the ratio names a
+    // CROSSING between two constructions, and shapes above it are comparable.
     expect(APPLE_SATURATION_RADIUS_RATIO).toBeCloseTo(0.327083, 6);
 
     const halfShort = 60;
     const atLimit = buildAppleContour(200, halfShort, halfShort / APPLE_REACH);
     expect(atLimit.saturated).toBe(false);
+    expect(atLimit.corner.radius).toBeCloseTo(halfShort / APPLE_REACH, 9);
     expect(atLimit.corner.reach).toBeCloseTo(halfShort, 9);
 
-    const past = buildAppleContour(200, halfShort, halfShort);
+    const past = buildAppleContour(200, halfShort, 50);
     expect(past.saturated).toBe(true);
-    // clamped, never overflowing the side
-    expect(past.corner.reach).toBeLessThanOrEqual(halfShort + 1e-9);
+    // the radius kept, the reach at the budget, the smoothing whatever is left
+    expect(past.corner.radius).toBe(50);
+    expect(past.corner.reach).toBeCloseTo(halfShort, 9);
+    expect(past.corner.smoothingEff).toBeCloseTo(halfShort / 50 - 1, 9);
+
+    // and at the capsule limit the shoulder is gone entirely: the true stadium
+    // `Capsule()` reaches Core Animation as, and the shape Apple draws there.
+    const capsule = buildAppleContour(200, halfShort, halfShort);
+    expect(capsule.saturated).toBe(true);
+    expect(capsule.corner.radius).toBe(halfShort);
+    expect(capsule.corner.reach).toBe(halfShort);
+    expect(capsule.corner.smoothingEff).toBe(0);
   });
 
   it("keeps smoothing pinned, because Apple's curve has no smoothing parameter", () => {
