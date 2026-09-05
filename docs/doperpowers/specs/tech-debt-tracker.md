@@ -450,6 +450,18 @@ in shape and the choice is still the user's.
 cuts, the window growing with each; the fix above is unchanged in shape and the choice is still
 the user's. The cold install this time waited for the window to close and passed first time.
 
+**Fifth occurrence, the 0.8.0 cut (2026-09-05):** the same shape, and read from inside the
+window this time — `@vitreajs/vitrea-web@0.8.0` at 06:40:39Z and `@vitreajs/vitrea-react@0.8.0`
+at 06:40:41Z, `@vitreajs/vitrea@0.8.0` at 06:44:45Z (registry `time`): 246 s against 70, 73,
+248 and 267. A registry read at 06:44:07Z still listed core at 0.7.0, and a cold
+`npm install @vitreajs/vitrea-web@0.8.0` failed with `ETARGET` on `@vitreajs/vitrea@^0.8.0`;
+the read at 06:47:57Z had all three and the cold install passed. Five cuts, the window at
+four minutes on the last three; the fix above is unchanged in shape — `changeset publish`
+starts the three publishes concurrently and each waits on its own one-time code, so the order
+is whichever prompt the user answers first, where `pnpm publish -r` publishes sequentially in
+the workspace's topological order and takes one `--otp` — and taking it at the next cut is now
+the parent's recommendation rather than an open choice (the wave doc's 0.8.0 addendum).
+
 ## The CSS tier's captures move by a code between runs on two 2x cells (W15 G2, W16 G2, 2026-09-04)
 
 *Found at W15's landing (one cell), confirmed at W16's.* Re-capturing the CSS tier from an
