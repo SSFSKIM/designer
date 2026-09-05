@@ -65,6 +65,7 @@ import {
   type CanvasSize,
   type CellResult,
   type CoherenceAxisReport,
+  type DeclaredConformanceInput,
   type DeclaredComponent,
   type EdgeSpreadReport,
   type FidelityTier,
@@ -125,6 +126,16 @@ export interface MeasureInput {
   readonly scale: number;
   /** Outward dilation of the declared region, device px. Defaults to zero. */
   readonly componentRegionMarginPx?: number;
+  /**
+   * The declaration-conformance capture of this same cell, when one is on disk
+   * (`capture-web --alpha`, W20 G0): the web side rendered over a transparent
+   * page with the backdrop raster hidden, so the tier's coverage is its own
+   * alpha.
+   *
+   * Absent means the reading is absent, never that the tier conformed. See
+   * `DRAWN_ALPHA_THRESHOLD` for the one condition under which it is read.
+   */
+  readonly drawnAlphaPath?: string;
 }
 
 export interface MeasureOutcome {
@@ -134,6 +145,35 @@ export interface MeasureOutcome {
 }
 
 export const DEFAULT_SILHOUETTE_THRESHOLD = 0.02;
+/**
+ * The alpha a pixel of the declaration-conformance capture must carry to count
+ * as covered, and the interior level a tier must reach for the rule to apply at
+ * all (W20 G0, claims §5.83).
+ *
+ * Half is the same rule `silhouette.ts`'s alpha extractor already states, and on
+ * a tier that composites an opaque layer it is the middle of a step: measured on
+ * `apple-macos-26.5-1x-light-standard`, the GPU tier's interior alpha is exactly
+ * 1.0000 over the whole body, its outer shadow reaches 0.106 at four device
+ * pixels outside the contour and 0.53 nowhere but the antialiased boundary band
+ * itself, and the extracted area comes back at 5104 px against the 5104 the
+ * clamped contour encloses analytically. The rule recovers the drawn shape to
+ * the pixel.
+ *
+ * `MIN_INTERIOR_ALPHA` is the conditioning half, and it exists because the CSS
+ * tier fails it. That tier composites its material as one `rgba()` layer, which
+ * over a transparent page is a flat interior alpha of 0.267 — below the
+ * threshold — while its rim border reads 0.526 and its outer shadow reaches
+ * 0.126 three pixels out. No fixed threshold separates coverage from shadow
+ * there: half the tier's own interior level admits 364 px of shadow and rim on
+ * `photo__capsule-button__rest`, which would read as a surface 1.25 px larger
+ * than declared on a tier whose shape is the DOM's and is right by
+ * construction. So the reading is REFUSED with the measured interior level
+ * rather than reported as a conformance failure that is the instrument's.
+ */
+export const DRAWN_ALPHA_THRESHOLD = 0.5;
+export const MIN_INTERIOR_ALPHA = 0.9;
+/** How deep inside the declared contour the interior level is read, in CSS px. */
+export const INTERIOR_ALPHA_DEPTH_CSS_PX = 4;
 /**
  * The chroma arm's threshold on OKLab a/b distance (W11b, claims §5.40).
  * Declared at 0.03 before the bed-wide run: the hole pixels it exists for sit
@@ -227,6 +267,74 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
   // or — worse — inventing an IoU of 0 that would read like a measured mismatch.
   // The other axes still measure what they legitimately can.
   const notes: string[] = [];
+
+  /*
+   * The declaration-conformance reading (W20 G0, claims §5.83).
+   *
+   * Computed before the shape axis is assembled because it is one of its rows,
+   * and it is the only row that is NOT a comparison between the two sides: it
+   * asks whether the web tier covered the geometry the scene declares, using
+   * that tier's own alpha over a transparent page and no bound at all. Without
+   * it the axis is blind in one direction by construction — a surface drawn
+   * larger than its declaration fills the declared region and reads perfect —
+   * and that is the direction the GPU tier's clamped capsule took.
+   */
+  let conformance: DeclaredConformanceInput | undefined;
+  if (input.drawnAlphaPath !== undefined) {
+    const drawnCapture = loadImage(input.drawnAlphaPath);
+    if (drawnCapture.width !== native.width || drawnCapture.height !== native.height) {
+      notes.push(
+        `declaration conformance NOT MEASURED: the conformance capture is ${drawnCapture.width}x` +
+          `${drawnCapture.height} where the fixture is ${native.width}x${native.height}, so the ` +
+          "declared geometry cannot be placed on it.",
+      );
+    } else {
+      // The tier's own interior alpha, read where the material is unambiguously
+      // the material: inside the declared contour by the same depth the shoulder
+      // measurement calls the body. Analytic distance, from the declaration.
+      const depthPx = INTERIOR_ALPHA_DEPTH_CSS_PX * input.scale;
+      const deep: number[] = [];
+      const pixels = drawnCapture.width * drawnCapture.height;
+      for (let index = 0; index < pixels; index += 1) {
+        if ((region.signedDistancePx[index] as number) <= -depthPx) {
+          deep.push((drawnCapture.data[index * 4 + 3] as number) / 255);
+        }
+      }
+      deep.sort((a, b) => a - b);
+      const interiorAlpha = deep.length === 0 ? 0 : (deep[Math.floor(deep.length / 2)] as number);
+      if (interiorAlpha < MIN_INTERIOR_ALPHA) {
+        notes.push(
+          `declaration conformance NOT MEASURED: this tier's interior alpha over a transparent ` +
+            `page is ${interiorAlpha.toFixed(4)}, under the ${String(MIN_INTERIOR_ALPHA)} an alpha ` +
+            `coverage rule needs. A tier that composites its material below the threshold cannot ` +
+            `be separated from its own outer shadow by any fixed alpha, so the reading is refused ` +
+            `rather than reported. Absent, not a conformance failure.`,
+        );
+      } else {
+        // No region: the whole point is to see a surface OUTSIDE the declaration.
+        const drawn = extractSilhouette(drawnCapture, {
+          kind: "alpha",
+          threshold: DRAWN_ALPHA_THRESHOLD,
+        });
+        const drawnArea = silhouetteArea(drawn);
+        if (drawnArea === 0) {
+          notes.push(
+            `declaration conformance NOT MEASURED: nothing in the conformance capture reaches ` +
+              `alpha ${String(DRAWN_ALPHA_THRESHOLD)}, so this tier drew no coverage to compare.`,
+          );
+        } else {
+          const against = contourDistance(drawn, region.silhouette);
+          conformance = {
+            drawnAreaWeb: drawnArea,
+            declaredIoUWeb: silhouetteIoU(drawn, region.silhouette),
+            declaredContourP95Px: against.p95Px,
+            declaredContourMaxPx: against.maxPx,
+          };
+        }
+      }
+    }
+  }
+
   let shape: ShapeAxisReport | undefined;
   if (nativeArea === 0 || webArea === 0) {
     const empty = [nativeArea === 0 ? "native" : undefined, webArea === 0 ? "web" : undefined]
@@ -237,6 +345,15 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
         `${String(input.silhouetteThreshold)} inside the declared component region — that capture is ` +
         `indistinguishable from its background there, so there is no contour to compare.`,
     );
+    if (conformance !== undefined) {
+      notes.push(
+        `declaration conformance measured but NOT REPORTED: it is a row of the shape axis and the ` +
+          `axis is absent for this cell. The tier drew ${String(conformance.drawnAreaWeb)} px ` +
+          `against a declared ${String(region.areaPx)} px, IoU ` +
+          `${conformance.declaredIoUWeb.toFixed(4)}, contour max ` +
+          `${conformance.declaredContourMaxPx.toFixed(2)} px.`,
+      );
+    }
   } else {
     shape = shapeAxisReport({
       silhouetteAreaNative: nativeArea,
@@ -251,6 +368,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
       silhouetteIoU: silhouetteIoU(nativeSil, webSil),
       contourDistance: contourDistance(nativeSil, webSil),
       cornerCurvature: cornerCurvature(nativeSil, webSil),
+      ...(conformance === undefined ? {} : { conformance }),
     });
   }
 

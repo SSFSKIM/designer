@@ -140,6 +140,13 @@ export interface SceneReport {
   };
   readonly pressed: boolean;
   /**
+   * Whether this capture ran with the page ground transparent and the backdrop
+   * raster hidden (`?transparent=1`, W20 G0). True means the pixels describe
+   * where the tier drew and nothing about what it drew, so the capture is a
+   * declaration-conformance reading and never a fidelity one.
+   */
+  readonly transparentPage: boolean;
+  /**
    * The author tint this capture actually rendered, as the CSS colour the
    * runtime was handed, or `null` for an untinted scene.
    *
@@ -440,6 +447,38 @@ async function build(): Promise<SceneReport> {
   stage.style.height = `${CANVAS.height}px`;
   stage.append(image);
 
+  /*
+   * `?transparent=1` — the declaration-conformance capture (W20 G0, claims §5.83).
+   *
+   * The shape axis clips both silhouettes to the declared component region, so a
+   * surface drawn LARGER than its declaration fills the region and reads as
+   * perfect. Nothing in a composite capture can recover that: over an opaque
+   * backdrop the material's own footprint is only findable by differencing
+   * against the backdrop, and the difference is exactly what the region bound
+   * exists to fence. The tier's own raster is the honest answer — what the
+   * renderer covered, in its own alpha, with no reference in the comparison at
+   * all — and it needs the page under it to contribute nothing.
+   *
+   * So the ground goes transparent and the raster is hidden. `visibility`, not
+   * `display`: the element keeps its box, so the stage stays the canvas and the
+   * capture stays the fixture's pixel size. The GPU tier's backdrop texture is
+   * the same `<img>` element and stays bound — a hidden element still decodes —
+   * so the optics pass draws the same material it always draws and only the
+   * page beneath it changes. The CSS tier's proxy samples the page, which is now
+   * transparent, so its `backdrop-filter` contributes nothing and what remains
+   * is the tier's own fill and border: the DOM's shape, which is the quantity.
+   *
+   * This capture is NOT a fidelity capture and is never measured against a
+   * fixture. It answers one question — where did this tier put pixels — and the
+   * report says it ran so a reader can never mistake one for the other.
+   */
+  const transparentPage = query.get("transparent") === "1";
+  if (transparentPage) {
+    image.style.visibility = "hidden";
+    document.documentElement.style.background = "transparent";
+    document.body.style.background = "transparent";
+  }
+
   const adapter = await probeAdapter();
 
   const diagnostics: { code: string; severity: string; message: string }[] = [];
@@ -652,6 +691,7 @@ async function build(): Promise<SceneReport> {
     tint: placed.tint ?? null,
     materialProfile: materialProfile ?? null,
     cssTierMapping: cssTierMapping ?? null,
+    transparentPage,
     accessibilityOverrides: accessibilityOverrides ?? null,
     accessibilityPolicy: root.accessibility,
     groups,

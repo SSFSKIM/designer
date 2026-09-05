@@ -216,6 +216,19 @@ interface Options {
   readonly accessibility: AccessibilityRequest | undefined;
   readonly outDir: string;
   readonly materialProfile: MaterialProfileFile | undefined;
+  /**
+   * Also take the declaration-conformance capture (W20 G0, claims §5.83): the
+   * same scene on the same resolved tier with the page ground transparent and
+   * the backdrop raster hidden, written as `<scene>__<tier>__alpha.png`.
+   *
+   * A second capture rather than a second reading of the first, because the
+   * quantity does not exist in the first: over an opaque backdrop the only way
+   * to find the material's footprint is to difference against that backdrop,
+   * and the shape axis bounds that difference to the declared region precisely
+   * so the reference's shadow stays out of it. What the tier itself covered is
+   * in its own alpha and nowhere else.
+   */
+  readonly alpha: boolean;
 }
 
 interface SceneMatrix {
@@ -232,6 +245,7 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
   let accessibility: AccessibilityRequest | undefined;
   let outDir = DEFAULT_OUT;
   let materialProfile: MaterialProfileFile | undefined;
+  let alpha = false;
   let all = false;
 
   const next = (index: number, flag: string): string => {
@@ -245,6 +259,9 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     switch (argument) {
       case "--all":
         all = true;
+        break;
+      case "--alpha":
+        alpha = true;
         break;
       case "--renderer": {
         const value = next(index, argument);
@@ -303,7 +320,17 @@ function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
     throw new Error(`These are not in the scene matrix: ${unknown.join(", ")}`);
   }
 
-  return { sceneIds, renderer, scale, frames, colorScheme, accessibility, outDir, materialProfile };
+  return {
+    sceneIds,
+    renderer,
+    scale,
+    frames,
+    colorScheme,
+    accessibility,
+    outDir,
+    materialProfile,
+    alpha,
+  };
 }
 
 /**
@@ -560,6 +587,7 @@ async function capture(
   renderer: "css" | "webgpu",
   frames: number,
   scale: number,
+  transparent = false,
 ): Promise<Capture> {
   const page = await context.newPage();
   try {
@@ -568,6 +596,7 @@ async function capture(
       renderer,
       scale: `${scale}`,
       frames: `${frames}`,
+      ...(transparent ? { transparent: "1" } : {}),
     });
     await page.goto(`${baseUrl}/index.html?${query.toString()}`);
     // `attached`, not the default `visible`: everything the page draws is in a
@@ -587,7 +616,11 @@ async function capture(
     // The measured region only — not the viewport — so the PNG's frame is the
     // scene canvas by construction rather than by the viewport happening to
     // match it.
-    const png = await page.locator("#stage").screenshot({ animations: "disabled" });
+    // `omitBackground` only on the transparent pass: it is what lets the alpha
+    // channel survive the screenshot instead of being composited onto white.
+    const png = await page
+      .locator("#stage")
+      .screenshot({ animations: "disabled", ...(transparent ? { omitBackground: true } : {}) });
     return { png, report };
   } finally {
     await page.close();
@@ -786,6 +819,47 @@ async function captureScene(
   const directory = join(options.outDir, sceneId);
   await mkdir(directory, { recursive: true });
   await writeFile(join(directory, `${sceneId}__${cell.renderer}.png`), first.png);
+
+  /*
+   * The declaration-conformance capture, on the tier that actually drew.
+   *
+   * `renderer` rather than `options.renderer`: a run that asked for the GPU tier
+   * and was demoted has already re-captured on the CSS tier above, and an alpha
+   * image filed beside a CSS-tier cell must be the CSS tier's. The resolved
+   * renderer is re-read off this capture's own report for the same reason the
+   * cell is, and a disagreement is a problem rather than a silent relabel: an
+   * alpha image from the other tier would move the conformance rows without
+   * anything in the matrix saying so.
+   */
+  if (options.alpha) {
+    const transparent = await capture(
+      context,
+      baseUrl,
+      sceneId,
+      renderer,
+      options.frames,
+      options.scale,
+      true,
+    );
+    const drew = new Set(
+      transparent.report.groups.map((group) => group.state?.activeRenderer ?? "none"),
+    );
+    const drewTier = drew.size === 1 && drew.has("webgpu") ? "webgpu" : "css";
+    if (drewTier !== cell.renderer) {
+      problems.push(
+        `The declaration-conformance capture resolved the ${drewTier} tier where the composite ` +
+          `capture resolved ${cell.renderer}. The two describe different renderers, so the alpha ` +
+          "image cannot be read as this cell's drawn silhouette.",
+      );
+    }
+    if (!transparent.report.transparentPage) {
+      problems.push(
+        "The declaration-conformance capture reports transparentPage false, so the page ground " +
+          "was opaque and its alpha is the ground's rather than the tier's.",
+      );
+    }
+    await writeFile(join(directory, `${sceneId}__${cell.renderer}__alpha.png`), transparent.png);
+  }
   await writeFile(
     join(directory, `cell__${cell.renderer}.json`),
     `${JSON.stringify(cell, undefined, 2)}\n`,

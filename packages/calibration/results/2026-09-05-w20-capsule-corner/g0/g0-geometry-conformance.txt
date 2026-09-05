@@ -1,0 +1,38 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a82664c39b28df/packages/geometry
+
+
+=== the render path at 1x (device px) ===
+shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+capsule-button         0.5000     22.00     14.39         22.00   22.00  YES        3.1797           3.1798
+toolbar-group item     0.5000     22.00     14.39         22.00   22.00  YES        3.1797           3.1798
+rrect-sm               0.2500      8.00      8.00         12.23    8.00   no        0.1104           0.0000
+rrect-md               0.2083     20.00     20.00         30.57   20.00   no        0.2760           0.0000
+rrect-ml               0.2109     27.00     27.00         41.27   27.00   no        0.3726           0.0000
+rrect-lg               0.2125     34.00     34.00         51.97   34.00   no        0.4691           0.0000
+glass-over-glass base  0.1846     24.00     24.00         36.69   24.00   no        0.3312           0.0000
+glass-over-glass over  0.2857     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+
+=== the render path at 2x (device px) ===
+shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+capsule-button         0.5000     44.00     28.78         44.00   44.00  YES        6.3594           6.3596
+toolbar-group item     0.5000     44.00     28.78         44.00   44.00  YES        6.3594           6.3596
+rrect-sm               0.2500     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+rrect-md               0.2083     40.00     40.00         61.15   40.00   no        0.5519           0.0000
+rrect-ml               0.2109     54.00     54.00         82.55   54.00   no        0.7451           0.0000
+rrect-lg               0.2125     68.00     68.00        103.95   68.00   no        0.9383           0.0000
+glass-over-glass base  0.1846     48.00     48.00         73.38   48.00   no        0.6623           0.0000
+glass-over-glass over  0.2857     32.00     32.00         48.92   32.00   no        0.4416           0.0000
+
+=== DEFAULT_HOST_SHAPE radius 12, 200 x h ===
+h  24  drawn r   7.8500  clamped by 4.1500 CSS px
+h  32  drawn r  10.4666  clamped by 1.5334 CSS px
+h  36  drawn r  11.7750  clamped by 0.2250 CSS px
+h  40  drawn r  12.0000  clamped by 0.0000 CSS px
+h  48  drawn r  12.0000  clamped by 0.0000 CSS px
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  04:45:43
+   Duration  6.46s (transform 45ms, setup 0ms, import 6.38s, tests 5ms, environment 0ms)
+

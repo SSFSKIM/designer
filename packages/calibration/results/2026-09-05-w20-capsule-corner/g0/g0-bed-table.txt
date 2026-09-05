@@ -1,0 +1,46 @@
+schemaVersion 5, 170 cells
+
+profile                      tier    component            n    drawn declared  excess      IoU    p95    max
+------------------------------------------------------------------------------------------------------------
+1x-dark-standard             css     capsule-button       6     5204     4872    +332   0.9362   2.24   2.83
+1x-dark-standard             css     rrect-md             3    15540    15024    +516   0.9668   2.00   2.83
+1x-dark-standard             webgpu  capsule-button       6     5104     4872    +232   0.9545   2.83   3.16
+1x-dark-standard             webgpu  rrect-md             3    15014    15024     -10   0.9992   0.00   1.00
+1x-light-increased-contrast  css     capsule-button       2     5544     4872    +672   0.8788   5.00   5.66
+1x-light-increased-contrast  webgpu  capsule-button       4     5104     4872    +232   0.9545   2.83   3.16
+1x-light-increased-contrast  webgpu  rrect-md             2    15012    15024     -12   0.9992   0.00   1.00
+1x-light-increased-contrast  webgpu  toolbar-group        1     5280     4584    +696   0.8682   3.16   3.16
+1x-light-reduced-transparency css     capsule-button       1     5204     4872    +332   0.9362   2.24   2.83
+1x-light-reduced-transparency webgpu  capsule-button       3     5104     4872    +232   0.9545   2.83   3.16
+1x-light-reduced-transparency webgpu  rrect-md             2    15012    15024     -12   0.9992   0.00   1.00
+1x-light-reduced-transparency webgpu  toolbar-group        1     5280     4584    +696   0.8682   3.16   3.16
+1x-light-standard            css     capsule-button       8     5204     4872    +332   0.9362   2.24   2.83
+1x-light-standard            css     rrect-md             1    15548    15024    +524   0.9663   2.00   3.00
+1x-light-standard            webgpu  capsule-button      12     5104     4872    +232   0.9545   2.83   3.16
+1x-light-standard            webgpu  rrect-md             6    15017    15024      -7   0.9993   0.00   1.00
+1x-light-standard            webgpu  rrect-ml             3    28039    28048      -9   0.9990   0.00   1.00
+1x-light-standard            webgpu  rrect-sm             2     2000     2000      +0   1.0000   0.00   0.00
+1x-light-standard            webgpu  toolbar-group        2     5280     4584    +696   0.8682   3.16   3.16
+2x-dark-standard             css     capsule-button       6    20796    19468   +1328   0.9361   5.00   5.66
+2x-dark-standard             css     rrect-md             3    62128    60064   +2064   0.9668   4.00   5.66
+2x-dark-standard             webgpu  capsule-button       6    20400    19468    +932   0.9542   5.83   6.40
+2x-dark-standard             webgpu  rrect-md             3    60019    60064     -45   0.9991   1.00   1.00
+2x-light-standard            css     capsule-button       8    20796    19468   +1328   0.9358   5.00   5.83
+2x-light-standard            css     rrect-md             1    62138    60064   +2074   0.9666   4.12   5.83
+2x-light-standard            webgpu  capsule-button      12    20400    19468    +932   0.9542   5.83   6.40
+2x-light-standard            webgpu  rrect-md             6    60023    60064     -41   0.9990   1.00   1.00
+2x-light-standard            webgpu  rrect-ml             3   112119   112200     -81   0.9990   1.00   1.00
+2x-light-standard            webgpu  rrect-sm             2     7974     7980      -6   0.9992   0.00   1.00
+2x-light-standard            webgpu  toolbar-group        2    21078    18276   +2802   0.8671   6.32   6.40
+
+rows ABSENT (no conformance capture, or the tier refused the alpha rule):
+  1x-dark-standard             css       1 cell(s)
+  1x-dark-standard             webgpu    1 cell(s)
+  1x-light-increased-contrast  css       5 cell(s)
+  1x-light-reduced-transparency css       5 cell(s)
+  1x-light-standard            css      17 cell(s)
+  1x-light-standard            webgpu    1 cell(s)
+  2x-dark-standard             css       1 cell(s)
+  2x-dark-standard             webgpu    1 cell(s)
+  2x-light-standard            css      17 cell(s)
+  2x-light-standard            webgpu    1 cell(s)
