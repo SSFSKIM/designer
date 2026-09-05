@@ -11920,3 +11920,205 @@ G0's native probe (a 120 × 44 box at r 14…22 with `Capsule()` beside it) does
 (c), first among the GPU-tier waves — a correctness defect on more than half the bed, before any
 fit, because W21 (the dark scheme) would otherwise be fitted on the wrong silhouette and refitted.
 The CSS tier is byte-identical through it. No constant moves.
+
+### 5.84 W20 G0 CLOSED: Apple keeps the requested radius above the saturation ratio and compresses the shoulder — measured natively on a ten-rung ladder within the grid's floor, the render path's clamp refuted from ratio 0.364 up by six times that floor; the shape axis given a declaration-conformance reading that sees the shoulders on the same pixels the bounded axis called perfect; no golden exposed (2026-09-06)
+
+Two workers, two halves, one bed each: the native probe
+(`results/2026-09-05-w20-capsule-corner/g0/g0-probe.md`, `probe/`, `g0/layer-dumps/`,
+`g0/read/`) and the instrument (`g0/g0-instrument.md`, its scripts and logs beside it). Nothing
+canonical was written by either; the canonical bed is the W19 bed at `802a53e`.
+
+**1. Core Animation states the corner it draws, and states it unclamped.** `dump-layers --settle 8`
+on the twenty probe scenes (no capture, no grant): the shape a `glassEffect` draws is carried on the
+`CASDFElementLayer` at the bottom of the backdrop layer's tree, which carries `cornerRadius` and
+`cornerCurve` directly. On a 120 × 44 box it states **14, 16, 18, 20 and 22** for the five rungs,
+all `cornerCurve: continuous`, including 22 at ratio 0.5 where vitrea's `buildAppleContour`
+substitutes 14.39 and reports `saturated: true`; there is no counterpart to that clamp anywhere in
+Apple's tree. Two more readings: **`Capsule()` reaches Core Animation as exactly
+`RoundedRectangle(cornerRadius: 22, style: .continuous)`** — the same layer, the same bounds, the
+same radius and curve — so SwiftUI gives a capsule no shape of its own but the short side's half as
+a continuous corner; and the tree carries no path, mask or per-corner geometry (the element's
+`mode` is `bounds`; the `CASDFOutputEffect`'s `maximum` is 39.5276 on every scene, a constant of the
+effect), so what the curve becomes when its reach overflows is a pixel question.
+
+**2. The probe bed and its runs.** `apps/reference-apple/scenes-w20-probe.json` (twenty cells: a
+120 × 44 rounded rectangle at r 14, 16, 18, 20, 22 and the 120 × 44 capsule; a 44 × 44 rounded
+rectangle at r 14, 18, 22 and the 44 × 44 capsule; over `light-solid` and `checkerboard`; 1x light
+standard) through `VITREA_SCENES` and `VITREA_FIXTURES` into `results/…/probe/`. Ten runs by W9's
+protocol, **nine attested, nine materialised** (`materialize.ts --frequency-settle --apply`);
+nineteen of twenty cells unanimous, one at an 8-of-9 majority whose internal twin published the
+same bytes; run 5 lost to HID activity (idle 1 s at its end — the ordinary failure, not the
+tracker's window-activation one, which did not occur). Provenance in `probe/provenance.json`. The
+internal control the layer dump predicts holds on the bed: the capsule and the r = 22 rung are
+**byte-identical (sha256) on all four background × box pairs**.
+
+**3. The reader, calibrated on the controls.** `g0/read-contours.py`, two independent extractions,
+the grid's floor declared at 0.5 px before reading. Over `light-solid` the contour is the
+half-coverage crossing between the shadowed backdrop and the rim's peak, along every row and column
+from each side (328 points on the 120 × 44, 176 on the 44 × 44); over `checkerboard` a
+local-contrast rule (the 3 × 3 range collapses inside the surface; the shadow darkens
+multiplicatively and leaves the ratio to the raster's own range alone), sparse by construction
+(40 and 24 points) and reading 1.5 px inside the true contour for a reason of the rule, declared
+once as `CHECKER_SCAN_BIAS`. On the capsule controls, whose shape is known exactly: `light-solid`
+mean signed error **+0.035 px, p95 0.295, max 0.394** (120 × 44) and p95 0.344 (44 × 44);
+`checkerboard` after the offset p95 0.760 / 0.992. The `light-solid` reading is the measurement and
+the `checkerboard` reading the cross-check; every verdict is stated on the first and checked for
+sign on the second.
+
+**4. The corner Apple draws.** Diagonal depth from the corner's vertex to the contour, divided by
+√2 − 1, the best-conditioned corner measurement a grid supports:
+
+| r | ratio | implied circular radius | a radius clamp predicts |
+| --- | --- | --- | --- |
+| 14 | 0.3182 | 13.46 | 14 |
+| 16 | 0.3636 | 15.47 | 14.39 |
+| 18 | 0.4091 | 17.58 | 14.39 |
+| 20 | 0.4545 | 19.56 | 14.39 |
+| 22 | 0.5000 | 21.53 | 14.39 |
+
+The implied radius tracks the requested one with a constant offset near −0.5 px, above the ratio
+and below it alike; on the 44 × 44 box the three rungs read 13.46, 17.58, 21.55. Nothing is pinned
+at 14.39.
+
+**5. The candidates against the contour** (`g0/candidates.ts`, all four through the geometry
+package's public API, sampled at 0.02 px; p95 of the native→candidate distance on `light-solid`,
+device px, floor 0.5):
+
+| component | r | vitrea's clamp | shoulder compressed | circular arc | Apple's dump overflowing |
+| --- | --- | --- | --- | --- | --- |
+| 120 × 44 | 14 | 0.283 | 0.247 | 0.244 | 0.283 |
+| 120 × 44 | 16 | **0.524** | 0.238 | 0.240 | 0.283 |
+| 120 × 44 | 18 | **1.351** | 0.250 | 0.250 | 0.303 |
+| 120 × 44 | 20 | **2.117** | 0.266 | 0.266 | 0.299 |
+| 120 × 44 | 22 | **2.942** | 0.295 | 0.295 | 0.340 |
+| 44 × 44 | 14 | 0.328 | 0.322 | 0.322 | 0.328 |
+| 44 × 44 | 18 | **1.382** | 0.309 | 0.309 | 0.386 |
+| 44 × 44 | 22 | **2.993** | 0.344 | 0.344 | 0.429 |
+| capsule 120 × 44 | 22 | — | — | — | stadium 0.295 |
+| capsule 44 × 44 | 22 | — | — | — | stadium 0.344 |
+
+Max over the same contours: the clamp 0.678 → 1.506 → 2.318 → **3.147** from r 16 to 22; the
+compressed shoulder 0.386 → 0.356 → 0.378 → 0.394; the circular arc the same to three decimals; the
+overflowing dump 0.380 → 0.479 one way and — the reverse direction, candidate→native, which is
+the only one that can see extra curve — **1.079 at r 20 and 2.708 at r 22**, where it self-intersects
+and leaves a straight spur. The `checkerboard` reading agrees in sign and ordering at about twice
+the floor (the clamp refuted from r 18 on that reading; r 16's 0.73 px separation is under its
+resolution). Where the candidate curves themselves differ: clamp vs compressed shoulder 0.354 /
+0.734 / 1.543 / 2.364 / 3.190 px at the five rungs; **compressed shoulder vs circular arc 0.375 /
+0.360 / 0.351 / 0.290 / 0.000** — never above the floor and identical at the limit, so the probe
+cannot separate those two and does not claim to.
+
+**6. The verdict.** *The radius clamp is refuted from r = 16 (ratio 0.364) up*, on both boxes and
+both backgrounds, by a margin that reaches six times the floor at the capsule limit (**3.15 px
+max**, which is the 3.18 the render path's geometry predicts, §5.83 and §7 below). *One law covers
+r 14…22 within the floor on every box and background*: the requested radius kept and the reach
+compressed to the corner's budget —
+
+```
+r      = min(radius, budget)              budget = min(halfW, halfH)
+reach  = min(APPLE_REACH · r, budget)     effective smoothing = reach / r − 1
+```
+
+— **max 0.40 px, p95 0.34 px**, the same residual the capsule controls read against their own
+exact stadium. It is the reference family's own budget clamp (`corner.ts`,
+`resolveCornerConstruction` at smoothing `APPLE_REACH − 1`), already implemented, already
+continuous in r, already exact at the capsule limit, where the effective smoothing reaches 0 and
+the corner is the circular arc `Capsule()` measures at 0.295 px p95. The plain circular arc fits
+equally and the pixels do not choose; the compressed shoulder is adopted on **continuity in r** —
+S2's dump proves the shoulder exists below the ratio, and a circular arc would step it away at
+0.327083 — and on removing a policy rather than adding one. The refusal W20 Decision Log 1 allowed
+is not needed. `apple.test.ts`'s "Apple's budget policy is its own" is now measured to be wrong in
+the direction it asserts: Apple's budget policy is the reference family's. By eye
+(`g0/read/crops/`): at r 18 and 22 the clamp's contour stands outside the native rim through the
+whole corner while the other candidates sit on it.
+
+**7. The instrument.** *Geometry-level* (`packages/geometry/test/render-path-conformance.test.ts`,
+`g0/g0-geometry-conformance.txt`): every component `scenes.json` declares through the render path
+(`resolveFromChannels(channels, "apple-continuous", family)` over the channel vector
+`registerHost` builds) and the spec path (`resolveShape`), at 1x and 2x. The two capsules resolve
+to **r 14.3916** against a declared 22 with the drawn contour **3.1797 px** outside the stadium at 1x
+and 6.3594 at 2x; every rounded rectangle of the bed resolves identically on both paths (radius,
+reach, contour to zero), its only gap to the circular declaration Apple's own curve at a fixed
+0.0138 · r — under the axis's floor on every shape, where the capsule's is 0.1445 · r. The 2x table
+is the 1x table doubled to nine decimals: the clamp is a ratio. `saturated` is set by the contour
+builder only; `resolveCorner`, which the renderer calls, returns the clamped radius with no flag.
+*Calibration-level*: the scene page gains `?transparent=1` (page ground transparent, backdrop
+raster hidden), `capture-web` gains `--alpha` (a third capture per scene on the tier that drew,
+`<scene>__<tier>__alpha.png`), `compare` gains `--alpha`, and `measureCell` reads it with the
+existing alpha extractor at 0.5 and **no region**, giving the shape axis four optional rows —
+`drawnAreaWeb`, `declaredIoUWeb`, `declaredContourP95Web`, `declaredContourMaxWeb` — schema version
+unchanged by the file's own precedent. *The alpha rule, measured rather than assumed*
+(`g0/g0-alpha-separation.txt`, 1x light standard, `apple/metal-3`): on the GPU tier the interior
+alpha is exactly **1.0000** over the body and the outer shadow never exceeds 0.110 beyond the
+antialiased band; extraction at 0.5 returns **5104 px against the 5104 the clamped contour encloses
+analytically** and the declaration's 4872 — the drawn shape to the pixel, the threshold not
+delicate (0.3 → 5120, 0.7 → 5086). On the CSS tier the material is one `rgba()` layer at a flat
+**0.2667**, the rim border 0.5255, the shadow 0.1255 three pixels out: no fixed threshold separates
+coverage from shadow (0.5 returns the 184 px rim ring alone; half the interior level admits 364 px
+of shadow and rim, a +1.25 px dilation on a tier whose shape is the DOM's and right by construction).
+So the reading is **conditioned on the tier's interior alpha** (`MIN_INTERIOR_ALPHA` 0.9, read 4 CSS
+px inside the declared contour) and refused with the level named — absent, never a failure that is
+the instrument's. *End to end* (`compare --skip-capture --alpha`, `g0/g0-x4-recovery.txt`):
+
+| cell, GPU tier, 1x light | bounded axis | drawn px | declared px | IoU | contour p95 | contour max |
+| --- | --- | --- | --- | --- | --- | --- |
+| `photo__capsule-button__rest` | 1.0000 / 0.00 | **5104** | 4872 | **0.9545** | 2.83 | **3.16** |
+| `photo__rrect-md__rest` | 1.0000 / 0.00 | 15017 | 15024 | 0.9993 | 0.00 | 1.00 |
+
+The same pixels of the same capture: the bounded axis reads perfect on both, the unbounded reading
+says the capsule is 232 px larger than declared with its contour 3.16 px out — the geometry table's
+3.18 through a raster whose floor is ±0.5 — and the rounded rectangle is not. *X4*: a four
+device-pixel Euclidean dilation injected into the driver's own conformance capture and re-measured
+through the whole pipeline reads **4.00 at p95 and 4.12 at max** on the rounded rectangle, which
+starts at its declaration (the capsule, already 3.16 out along a different normal, reads 6.71); the
+unit form (`test/declared-conformance.test.ts`, eight tests) recovers √2-bounded readings over
+synthetic masks and rebuilds the defect from the geometry alone (5104 against 4872, +232, IoU
+0.9545 at 1x; +948 at 2x).
+
+*Over the bed* (`g0/g0-conformance-run.sh` at `aa237c8` after the probe released the GPU; twelve
+runs, all exit 0, 170 cells to scratch; `g0/g0-bed-table.txt`): **the GPU tier's defect is the
+same number on every profile and both scales** — +232 px per capsule and +696 per toolbar at 1x on
+light, dark, increased-contrast and reduced-transparency profiles alike (IoU 0.9545 / 0.8682,
+contour max 3.16), +932 / +2802 at 2x (the analytic 948 / 2844 less the antialiased band, contour
+max 6.40) — while every rounded rectangle reads at its declaration to the antialiased band (−6…−81
+px, IoU ≥ 0.999, contour max ≤ 1 device px; `rrect-sm` at 1x exactly 2000 of 2000). The clamp is a
+ratio and nothing about the scheme, the fold or the scale touches it. **The CSS tier, where the
+rule applies** (the full-strength tinted cells and the dark scheme, an opaque or near-opaque
+material), **reads a uniform oversize**: +332 px on the capsule and +516…+524 on rrect-md at 1x —
+about 1.1 px all round, 332 over a 290 px perimeter — +672 under increased contrast, +1328 /
++2064 at 2x. Not a corner: the rim ring at alpha 0.5255, 0.03 over the threshold, outside the DOM's
+border-radius box; the same line §5.83 read as the CSS tier's 0.17 |ΔL| ring two pixels outside
+the contour. The CSS tier's rim band (W16 Deferred), recorded under wave Decision Log 23 (a) and
+not chartered; the reading is honest and marginal at once, and a threshold of 0.55 would read the
+box. Absent rows: the `dark-solid` cell on each GPU profile (its shape axis absent; the numbers in
+its note), and on the CSS tier 17 of 26 light-standard cells and 5 of 7 accessibility cells,
+refused by the interior-alpha condition.
+
+**8. Exposure.** The react binding registers `shapeFamily: "capsule"` with `capsuleRadius` and the
+default profile maps to `apple-continuous`, so every capsule an application authors takes the clamp,
+and the demo's capsule scenes with it. `DEFAULT_HOST_SHAPE`'s radius 12 is clamped on any short
+side under **36.688 px**: 4.15 px lost at height 24, 1.53 at 32, 0.23 at 36, nothing at 40. **No
+golden is exposed** (`g0/g0-golden-exposure.txt`): 0 of 20 surfaces are capsules; 19 draw under the
+Figma reference, which never applies the Apple policy; the one Apple-reference surface,
+`rim-two-references`'s 88 × 88 at r 26, sits at 0.2955 of its short side, under the ratio. The
+nearest miss, `lens-size-scaling`'s 48 × 30 at r 10 (0.333), is on the Figma reference where the
+budget is 15 and 10 passes unclamped.
+
+**9. What did not close.** (a) The CSS tier's own conformance: the shadow's alpha crosses the fill's;
+the work that would read it is a conformance capture with the outer shadow suppressed, which needs
+the shadow expressed as something the page can turn off per capture without a material profile the
+cell would then have to name — a design item, W20 Deferred. (b) The conformance rows ride the shape
+axis, so a cell whose shape axis is absent (silhouette empty inside the declared region, which the
+bed has over `dark-solid`) carries the numbers in a note rather than as rows; an axis of their own
+is the cleaner shape if the wave keeps them. (c) The probe cannot tell the compressed shoulder from
+a plain circular arc between the ratio and the limit; adopted on continuity, recorded as such. (d)
+The crossing at the ratio: below it the render path keeps S2's Apple-direct fit, above it the
+reference family's construction at the same reach; the two curves differ by a sub-floor amount G1
+measures and records (W20 Decision Log 2). (e) Holdout not read. (f) `./capture.sh probe` reports
+the Screen Recording grant BLOCKED when `exec`'d from a shell and OK through `open` on the bundle —
+a false negative for the path every capture takes; the tracker.
+
+**10. Disposition.** W20 Decision Log 2: the compressed shoulder adopted as the Apple reference's
+policy above the ratio, the capsule exact on the render path as its consequence; the transparent-page
+alpha reading adopted as the shape axis's conformance rows, refused on the CSS tier by interior
+alpha; G1 opens on the fix and its dry run.

@@ -605,3 +605,16 @@ silhouette read from the optics canvas on a transparent page, so a surface up to
 shows; the referee is the capsule cells reading what the pixels say before the fix and about 1.000
 after, with a synthetic dilation recovered beside the first reading. Until it lands, every
 shape-axis figure on the bed is a lower bound on the contour error, not a measurement of it.
+
+## `capture.sh probe` reports the Screen Recording grant BLOCKED from a shell while the bundle's own path is granted (W20 G0, 2026-09-06)
+
+`./capture.sh probe` `exec`s `build/harness` as a child of the calling shell, so TCC attributes the
+ScreenCaptureKit request to the shell and answers `BLOCKED` (`SCStreamErrorDomain` −3801). The same
+`probe` subcommand launched the way every capture is launched — `open` on
+`build/VitreaReference.app` with the bed and fixtures passed as `open --env` — answers
+`ScreenCaptureKit: OK`. W20 G0 recorded both outputs (`results/2026-09-05-w20-capsule-corner/g0/
+g0-probe.md` §2) and captured twenty cells over ten runs with the grant live throughout. A session
+that trusts `capture.sh probe` alone stops for nothing; the README's "grant Screen Recording, then
+re-run" instruction is right for the bundle and misleading for the shell path. Shape of the fix:
+`capture.sh probe` launches the bundle through `open` as `capture` does, or the README says which
+path the answer is for. Owner: the harness; not this wave's code.

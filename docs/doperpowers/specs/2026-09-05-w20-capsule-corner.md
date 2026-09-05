@@ -2,8 +2,8 @@
 
 **Status: OPEN — chartered 2026-09-05 on wave Decision Log 23 (c), the first GPU-tier wave under
 the amended discipline; found by the user's eye on the W19 landing sheet ("where it was not round
-but rectangular") and pinned the same day (claims §5.83). G0 opens on Decision Log 1's
-recommendations.**
+but rectangular") and pinned the same day (claims §5.83). G0 CLOSED 2026-09-06 (claims §5.84;
+Decision Log 2); G1 open.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W20 row; Decision Log 23). The geometry this wave
@@ -214,13 +214,24 @@ reference above the ratio stays a documented refusal until the probe runs.
   0.12–0.17 |ΔL| along the whole stadium contour (`shoulders.txt`, the CSS ring) — the rim band on
   the CSS tier, W16 Deferred, seen again; recorded, not this wave's.
 - **The dark scheme** — W21, next by Decision Log 23 (c), on the corrected capsule cells.
+- **The CSS tier's own declaration conformance** (G0 §7): a conformance capture with the outer
+  shadow suppressed would make the tier's alpha a clean two-level image; that needs the shadow
+  expressed as something the page can turn off per capture without a material profile the cell
+  would then have to name. A design item, its own small child if the rows are kept.
+- **The conformance rows as an axis of their own** (G0 §9 (b)): today they ride the shape axis and
+  are carried in a note where that axis is absent (the `dark-solid` cells).
+- **The crossing at the ratio**: measured and recorded at G1; a blend only if it exceeds the floor.
+- **The CSS tier's rim ring outside its box** (G0's bed run, claims §5.84 §7): where the
+  conformance rule applies on that tier it reads a uniform +1.1 px, the rim border at alpha 0.5255
+  drawn outside the DOM's border-radius box — the rim band on the CSS tier (W16 Deferred), a CSS
+  residual under wave Decision Log 23 (a). Recorded, not chartered.
 
 ## Tracking Map
 
 | child | where | status |
 | --- | --- | --- |
-| G0 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g0/`, `apps/reference-apple/scenes-w20-probe.json` | OPEN |
-| G1 | — | not started |
+| G0 | `packages/calibration/results/2026-09-05-w20-capsule-corner/g0/g0-probe.md` (the native probe: `probe/`, `layer-dumps/`, `read/`; `apps/reference-apple/scenes-w20-probe.json`) and `g0/g0-instrument.md` (the instrument: `render-path-conformance.test.ts`, `capture-web --alpha`, `compare --alpha`, the four shape rows, `declared-conformance.test.ts`); claims §5.84 | CLOSED 2026-09-06 |
+| G1 | — | OPEN — dispatched on Decision Log 2 |
 | G2 | — | not started |
 
 ## Decision Log
@@ -252,6 +263,63 @@ fitted. The CSS tier does not move. The instrument lands before the fix is measu
 Under the user's standing instruction ("for decisions, all according to your recommendation") the
 recommendations execute unless the user says otherwise; G1's landing keeps the user's eye's veto.
 
+### Decision Log 2 — G0 read: Apple's policy above the ratio measured, the instrument adopted, G1's design made binding (2026-09-06)
+
+**What G0 measured** (claims §5.84). Core Animation states the requested radius unclamped at every
+rung and draws `Capsule()` as `RoundedRectangle(cornerRadius: h/2, style: .continuous)`; on the
+pixels one law covers r 14…22 within the grid's floor — the requested radius kept, the reach
+compressed to the corner's budget, the effective smoothing `reach / r − 1` — at 0.40 px max where
+the radius clamp misses by 3.15 px; the plain circular arc fits the same and is separable from it
+only by continuity in r. The instrument reads the shoulders on the same pixels the bounded axis
+called perfect (capsule 5104 px drawn against 4872, contour max 3.16 px; rounded rectangles at
+about 1.000 / 0), recovers an injected 4 px dilation at 4.00 p95, and refuses the CSS tier by its
+interior alpha. No golden is exposed.
+
+**Rulings, on the parent's recommendation under the user's standing instruction.**
+
+1. *The Apple reference above the saturation ratio* (Decision Log 1, q1): option (a) executes and
+   the refusal is not needed. **Binding for G1:** under `apple-continuous`, `resolveCorner` keeps
+   the requested radius up to the budget and compresses the reach — `r = min(radius, budget)`,
+   `reach = min(APPLE_REACH · r, budget)`, effective smoothing `reach / r − 1`; below the ratio
+   nothing changes (S2's Apple-direct fit and its coefficients); above it the corner resolves
+   through `resolveCornerConstruction(halfW, halfH, r, APPLE_CONTINUOUS_SMOOTHING_SEED)` with the
+   reference family's coefficient table at the effective smoothing, and `toContour` /
+   `buildAppleContour` build the contour from that construction. A capsule (r = budget) then
+   resolves to effective smoothing 0 and a true stadium on the render path under the Apple
+   reference by construction — which is also what Apple draws — so `resolveFromChannels` needs no
+   family special case; the acceptance's capsule clause is asserted by a unit test on the render
+   path under both references. The crossing at the ratio (the Apple-direct fit against the family's
+   construction at the same reach) is measured as a contour Hausdorff distance and recorded; if it
+   exceeds the grid's floor at any bed size, G1 blends over a narrow band in r and says so.
+   `APPLE_SATURATION_RADIUS_RATIO` stays as the name of the crossing, re-documented; the
+   `saturated` flag becomes "the shoulder is compressed" and is carried by the resolved corner, not
+   only the contour builder. `apple.test.ts`'s "Apple's budget policy is its own" is re-pointed to
+   the measured policy with §5.84 as its reason.
+2. *The instrument* (q2): option (b), the transparent-page alpha reading, executes — not the
+   dilation. The rows stay optional; the canonical rebuild at G2 runs with `--alpha` so the
+   canonical matrix carries them; the CSS tier's refusal by interior alpha stands, with its level in
+   the cell's note. **Recommended for G2, the user's veto standing:** the GPU tier's conformance
+   joins `adopted-thresholds.test.ts` as a bound — `declaredContourMaxWeb ≤ 1 device px` and
+   `declaredIoUWeb ≥ 0.99` on every GPU cell that carries the rows — so this class cannot pass the
+   gate again.
+3. *The order* (q3): W20 first, as ruled by wave Decision Log 23 (c); unchanged.
+4. *G1's stops, re-declared on G0's numbers:* any rounded-rectangle or glass-over-glass GPU capture
+   moving by more than the frame-timing pair's one code; any capsule or toolbar cell worsening on
+   OKLab ΔE or SSIM against Apple; the CSS tier moving at all; a golden moving at all (G0 read none
+   exposed, so a moved golden is a finding, not an attribution); the conformance rows on any capsule
+   cell reading `declaredContourMaxWeb` above 1 device px after the fix. G1's dry run: the GPU tier
+   over six profiles, calibration and validation, with `--alpha`, to scratch, against the W19
+   canonical matrix (the fidelity rows before) and G0's bed-wide conformance matrix (the
+   conformance rows before), the rounded-rectangle captures compared byte for byte.
+5. *The false negative in `capture.sh probe`* goes to the tracker and the harness README; the
+   harness is not rebuilt in this wave.
+
+**Rejected.** The circular arc above the ratio (equal on pixels, a step in the shape at the
+ratio); a family special case in `resolveFromChannels` (unneeded once the reference's policy is
+Apple's, and it would hide the general defect for authored rounded rectangles); dilating the
+declared region (admits the shadow on the sides the shoulders occupy, and the raster reading is
+exact where it applies).
+
 ## Surprises & Discoveries
 
 - **The finding is the user's (2026-09-05).** Nineteen waves of sheets, and the question "is fixing
@@ -259,11 +327,28 @@ recommendations execute unless the user says otherwise; G1's landing keeps the u
   consideration?" is what put the parent's eye on the GPU column. The parent had looked at the
   same sheet and read tint, not shape. Recorded in the wave doc's Surprises and as a memory note.
 
+- **`Capsule()` is `RoundedRectangle(cornerRadius: h/2, style: .continuous)` all the way down
+  (G0, 2026-09-06).** Core Animation carries the two as the same `CASDFElementLayer` with the same
+  radius and curve, and the materialised bed has them byte-identical on all four pairs. Apple's
+  capsule is its continuous corner at the budget — which is exactly the shape vitrea's reference
+  family calls exact at the capsule limit, and which the Apple reference will produce once its
+  policy is Apple's.
+- **`./capture.sh probe` is a false negative for the Screen Recording grant** when `exec`'d from a
+  shell (TCC attributes the request to the shell); through `open` on the bundle the same probe
+  reports the material path available, and every capture takes that path. A session that trusted
+  it would have stopped for nothing. The tracker.
+- **The alpha rule is exact on the GPU tier and defeated on the CSS tier**, and the tier that is
+  right by construction is the one it cannot read — the CSS tier's flat 0.267 layer sits under any
+  threshold that excludes its own shadow. The instrument refuses rather than reports there.
+
 ## Outcomes & Retrospective
 
 (at recomposition)
 
 ## Revision Notes
 
+- 2026-09-06: G0 CLOSED (claims §5.84) — Apple's policy above the ratio measured, the instrument
+  adopted, Decision Log 2 written with G1's binding design and re-declared stops; three Surprises;
+  three Deferred entries; G1 dispatched.
 - 2026-09-05: v1 — chartered on wave Decision Log 23 (c) from claims §5.83, the finding pinned
   the same day; Decision Log 1 written; G0 opens.
