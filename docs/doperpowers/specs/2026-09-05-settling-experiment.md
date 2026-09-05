@@ -243,6 +243,25 @@ per build, so this is roughly twelve acceptance runs' worth.
   reported.
   Evidence: wave-two results before and after the index fix.
 
+- Observation: The hardware brief converged on one object across all three skill arms — a
+  will-call or shelf ticket drawn as a card at the right of the hero, with "on the shelf, not in a
+  warehouse" as the proposition — while the no-skill build drew a storefront. Three different
+  skills, three agents, one signature; the stamp-card finding from the library brief repeats on
+  the second narrative brief.
+  Evidence: wave-three first-viewport captures for 5c24f6, 0663a2, c7de7e against 4d761e.
+
+- Observation: A 2.1 build fails the mechanical gate on a 31 px horizontal overflow from a
+  sortable table header, after its builder reported "no page-level horizontal scroll" at four
+  widths. The builder measured at 1512 px; the gate measures at 1440. Recorded as a gate failure,
+  not repaired.
+  Evidence: 49e6cb, `scrollWidth` 1471 against 1440.
+
+- Observation: Wave three's builders were interrupted by a plan-usage limit and resumed in
+  place with their context; seven of eight finished after resumption with no visible break in
+  their records. An `.incomplete` marker now keeps an interrupted build out of measurement and
+  rating until its builder reports done.
+  Evidence: the seven resumed reports; the marker respected by `measure.mjs` and `cells.mjs`.
+
 ## Deferred
 
 - A second judge, for an agreement statistic.
