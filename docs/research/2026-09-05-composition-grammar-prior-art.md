@@ -65,6 +65,16 @@ the twelve-slot signature is fine enough that 50 of 51 builds differ somewhere, 
 wrong lens and prevalence is the right one. One unrelated pair has a byte-identical signature (the
 hardware-store `impeccable` build and the meditation skill build), seven more differ in one slot.
 
+*Addendum, same day, after the composition acceptance run.* The instrument gained four refinements
+while measuring the acceptance builds (a visibility gate for closed `<details>` content, one
+disclosed row allowed in a repeated group, hanging labels and footer groups marked; the spec's
+Decision Log has each), and the corpus above was re-measured with it into
+`data/2026-09-05-layout-topology-r2.json`, the original left as recorded. Six of the 51 signatures
+move (two pages gain a first-viewport stat row that closed-details geometry had been hiding, one
+loses a three-up, three change dominant role); the fractions the table reads from move by at most
+two builds (stat row 7 → 9 of 51, three-up 23 → 22) and the mean pairwise partition distance goes
+from 0.232 to 0.231. Nothing this section concludes depends on the difference.
+
 ## 1. Prior art: deriving layout from task and content
 
 | Source | Variables read | Layout properties determined | Measured diversity or fit | Not covered |

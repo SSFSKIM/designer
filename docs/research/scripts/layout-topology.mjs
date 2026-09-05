@@ -19,6 +19,13 @@
 //   sig        Hamming distance over a twelve-slot coarse topology signature (top nav, sidebar
 //              or rail, hero form, dominant first-viewport role, stat row, card grids, 3-up, ...)
 //
+// Revised during the composition acceptance run (2026-09-05, see the composition-grammar spec's
+// Decision Log): elements are gated by checkVisibility() (a closed <details> keeps its geometry),
+// one row-height member of a repeated group may differ from the median box (a disclosed row), grids
+// record a heading-only first track (a hanging label) and groups record footer membership. The
+// survey in data/2026-09-05-layout-topology.json was re-measured with this revision into the
+// -r2 file beside it; the original is kept as recorded.
+//
 // Usage: node docs/research/scripts/layout-topology.mjs [--out file.json] <html files...>
 // Runs against the gitignored eval workspace; the JSON it writes is committed evidence.
 
@@ -62,6 +69,10 @@ function extract({ vw, vh, cols, rows }) {
     if (!(el instanceof Element) || SKIP.has(el.tagName)) return false;
     const cs = getComputedStyle(el);
     if (cs.display === "none" || cs.visibility === "hidden" || parseFloat(cs.opacity) === 0) return false;
+    // Chromium hides a closed <details>' content with content-visibility rather than display:none,
+    // so it still reports geometry; checkVisibility() is the one test that sees through that.
+    if (typeof el.checkVisibility === "function" &&
+      !el.checkVisibility({ contentVisibilityAuto: true, visibilityProperty: true, opacityProperty: true })) return false;
     const r = rect(el);
     return r.w >= 4 && r.h >= 4;
   };
@@ -95,10 +106,14 @@ function extract({ vw, vh, cols, rows }) {
     let best = null;
     bySig.forEach((members, s) => {
       if (members.length < 3) return;
-      const mw = mean(members.map((m) => m.r.w));
-      const mh = mean(members.map((m) => m.r.h));
-      const uniform = members.every((m) => Math.abs(m.r.w - mw) <= 0.2 * mw && Math.abs(m.r.h - mh) <= 0.35 * mh);
-      if (!uniform) return;
+      // Typical box by median. Among row-height members one may differ from it: a list with one
+      // disclosed row is still a list, and the mean would let that row pull the group apart. Taller
+      // members (sections, panels) get no such allowance, or a page of sections would read as a list.
+      const median = (xs) => { const a = [...xs].sort((p, q) => p - q); return a[Math.floor(a.length / 2)]; };
+      const mw = median(members.map((m) => m.r.w));
+      const mh = median(members.map((m) => m.r.h));
+      const off = members.filter((m) => !(Math.abs(m.r.w - mw) <= 0.2 * mw && Math.abs(m.r.h - mh) <= 0.35 * mh));
+      if (off.length > (mh <= 0.15 * vh ? 1 : 0)) return;
       const colsN = new Set(members.map((m) => Math.round(m.r.x / 8))).size;
       const top = Math.min(...members.map((m) => m.r.y));
       const nums = members.filter((m) => numberish(m.el)).length;
@@ -112,6 +127,7 @@ function extract({ vw, vh, cols, rows }) {
       else kind = "row";
       const g = {
         sig: s, kind, count: members.length, cols: colsN, w: Math.round(mw), h: Math.round(mh), top: Math.round(top),
+        inFooter: !!el.closest("footer"),
         inFirstViewport: top < vh, areaShare: +((members.length * mw * mh) / (vw * vh)).toFixed(3),
         coverage: (members.length * mw * mh) / Math.max(1, rect(el).w * rect(el).h),
       };
@@ -198,6 +214,7 @@ function extract({ vw, vh, cols, rows }) {
   // Resolved grid tracks on large grids.
   const grids = [];
   document.querySelectorAll("body *").forEach((el) => {
+    if (!isVisible(el)) return;
     const cs = getComputedStyle(el);
     if (cs.display !== "grid" && cs.display !== "inline-grid") return;
     const r = rect(el);
@@ -205,8 +222,11 @@ function extract({ vw, vh, cols, rows }) {
     const tracks = cs.gridTemplateColumns.split(" ").map(parseFloat).filter((n) => !isNaN(n) && n > 0);
     if (tracks.length < 2) return;
     const min = Math.min(...tracks);
+    // A grid whose first track holds only a heading is a hanging label, not a side pane.
+    const first = el.firstElementChild;
+    const labelFirst = !!first && /^H[1-6]$/.test(first.tagName) && tracks[0] === min;
     grids.push({
-      sig: sig(el), top: Math.round(r.y), w: Math.round(r.w), tracks: tracks.map((t) => Math.round(t)),
+      sig: sig(el), top: Math.round(r.y), w: Math.round(r.w), h: Math.round(r.h), tracks: tracks.map((t) => Math.round(t)), labelFirst,
       ratios: tracks.map((t) => +(t / min).toFixed(2)), equal: tracks.every((t) => Math.abs(t - tracks[0]) <= 0.05 * tracks[0]),
     });
   });

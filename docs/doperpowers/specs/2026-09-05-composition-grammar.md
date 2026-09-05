@@ -347,6 +347,42 @@ builds in one review page.
   of finding.
   Date/Author: 2026-09-05, Claude.
 
+- Decision: Instrument refinements made during the acceptance run, each before its verdict was
+  read as final. (1) A visibility gate: Chromium hides a closed `<details>`' content with
+  `content-visibility`, which keeps its geometry, so the monitor build's ten closed rows were
+  measured as rendered and the page read as a field of card grids at 0.15 dominance;
+  `checkVisibility()` now gates every element and every grid. (2) Among row-height siblings one
+  member may differ from the median box, so a list with one disclosed row is still a list; taller
+  members get no allowance — the first cut allowed it for any height and collapsed three survey
+  pages of sections into one "list", and was withdrawn. (3) Grids record a heading-only first
+  track (a hanging label is not a side pane) and groups record `<footer>` membership (a
+  three-column footer is chrome, not a three-up). `assert-composition.sh` also accepts a
+  two-track band whose ratio §4 states, and `hero` as the strongest dominance label on a
+  narrative page. The committed survey was re-measured with the refined instrument and filed
+  beside the original as `data/2026-09-05-layout-topology-r2.json`: 6 of 51 signatures move, the
+  memo's fractions and mean pairwise partition do not.
+  Rationale: each was a false positive with a nameable cause, fixed in the instrument rather
+  than argued away per build; the original data stays as recorded and the corrected reading sits
+  beside it.
+  Date/Author: 2026-09-05, Claude.
+
+- Decision: C1's pair bar is recorded as not met and is not moved. First-viewport partition
+  distance between the monitor and compare builds is 0.158 against the pre-registered 0.20; the
+  three other distances the instrument computes — role raster 0.924, pq-gram 0.574, signature
+  0.5 — show the pair differing in region form and tree. The grammar's own lines predict a
+  full-width lead for both (an exception list; a matrix), which partition cannot see; the next
+  counterfactual pair is pre-registered on all four distances, the metric chosen for the
+  difference the lines predict.
+  Rationale: a bar comes off by fix or by a user decision, never by re-reading the result.
+  Date/Author: 2026-09-05, Claude.
+
+- Decision: The `DESIGN.md` budget in `guidelines-authoring.md` is raised from roughly 200
+  lines to roughly 300, with §0 and §4 taking about half.
+  Rationale: three fresh agents landed at 271, 294 and 302 lines after compressing twice each,
+  and all three reported unprompted that §0 plus §4 alone run about 160; the required record is
+  the cost, not padding, and a budget the record cannot meet is ignored rather than obeyed.
+  Date/Author: 2026-09-05, Claude.
+
 ## Surprises & Discoveries
 
 - Observation: The reference's snippet is the layout-level `#D46B2C`.
@@ -363,6 +399,31 @@ builds in one review page.
   Evidence: their `DESIGN.md` §4 text. The variable that separates them (a lot in a matrix, a
   turbine on a spatial field) was visible in the prose and had no rule to act through.
 
+- Observation: A closed `<details>` has geometry. Chromium hides its content with
+  `content-visibility`, not `display: none`, so `getBoundingClientRect` still answers and the
+  instrument measured ten closed rows as rendered.
+  Evidence: the monitor build's grids listed at consecutive 37px tops with 200px heights before
+  the visibility gate; dominance 0.15 before, 0.74 after.
+
+- Observation: The instrument's false positives clustered on structure the doctrine itself asks
+  for — a section label aligned to the criterion column, a footer in three columns, a band whose
+  ratio was derived from content minimums. Heuristics built on the corpus's defaults read earned
+  structure as default structure.
+  Evidence: the compare build's award label at 1 : 3.62, the rebate footer as a three-up, the
+  monitor's 1.85 : 1 band as a rail; all three builds otherwise clean.
+
+- Observation: The pair the doctrine predicts to differ in form does not differ in partition.
+  Evidence: partition 0.158 against raster 0.924 for monitor–compare; both first viewports are
+  chrome over one full-width region.
+
+- Observation: The record does not fit the budget. Three agents, none seeing another's work,
+  landed at 271, 294 and 302 lines and each said so.
+  Evidence: their reports; §0 plus §4 at about 160 lines in each.
+
+- Observation: Two of three agents skipped composition QA check 5 (nearest neighbour) because the
+  brief forbade reading sibling builds. The check assumes either visible siblings or a ledger.
+  Evidence: the monitor and rebate reports.
+
 ## Deferred
 
 - **The settling experiment gains a layout arm**: the same briefs under the menu, under the
@@ -375,10 +436,62 @@ builds in one review page.
   breakpoint-specific constraints and update-stability behaviour are asserted by the existing
   QA checks but not compiled.
 - **Rendered-candidate comparison** once a render path can be assumed.
+- **Counterfactual pairs pre-registered on all four distances**, with the metric chosen for the
+  difference the six lines predict; C1's partition-only bar was the wrong metric for a pair that
+  both lead full width.
+- **Load state in the record**: the instrument measures the page as loaded, and the monitor build
+  opens its first row on load; §4 should say which state is the first read so the measurement and
+  the record agree.
 
 ## Outcomes & Retrospective
 
-Pending — written at finish.
+Three builds, each a fresh agent with only its brief and the skill, under
+`figma-design-workspace/derivation-eval/` (`fleet-monitor`, `fleet-compare`, `rebate`); their
+measurement is `docs/research/data/2026-09-05-composition-acceptance.json` beside the four
+earlier builds, one instrument for all seven.
+
+- **C1 — partly met.** `assert-composition.sh` passes both: the monitor's first read is the
+  exception list, first in DOM and top-left, at 0.74 of the first viewport, no side region, its
+  one two-track band at 1.85 : 1 derived from content minimums and stated in §4; the compare
+  page's first read is one table at 0.53 with three equal quotation columns and zero card grids.
+  Both declared expectations held. The pair's partition distance is 0.158 against the
+  pre-registered 0.20 — **not met**, recorded as such (Decision Log); role raster 0.924, pq-gram
+  0.574, signature 0.5.
+- **C2 — met, with one departure stated.** No three-up outside the footer, no pricing trio, no
+  FAQ; the hero slot is `full` with the headline set inside the data drawing, not beside an empty
+  half; dominance `hero` (the plate alone 0.30 of the first viewport, three times the next
+  region). The build's order is value → eligibility → installers → form, not the declared
+  eligibility → value → apply; its §4 derives the change (decide puts the proposition before the
+  qualification; the form asks which installer, so the roster precedes it).
+- **C3 — met.** The monitor's chrome is one conventional top bar; its §4 names exception-first
+  (lines 1, 2, 5) and table-led for the matrix (lines 3, 6).
+- **C4 — met.** The grep returns nothing; the only `grid-template-columns` left in
+  `composition.md` are a one-column stack and the placeholder with named variables; no track in
+  the 1.1–1.35 band in any of the three builds — the rebate agent found its own rule split
+  resolving to 1.325 : 1 from fixed track maxima and fixed it before delivery.
+- **C5 — met.** Sampler tests 5 of 5, `claude plugin validate . --strict` passes,
+  `assert-derivation.sh` passes on pharmacy and wind-farm (and on monitor–compare, hue Δ 43.5°;
+  rebate–monitor, Δ 114.9°).
+- **C6 — met.** `derivation-eval/review.html`, seven rows, and the three captures read by eye:
+  the monitor is a workshop board (a queue with a drawn side elevation in its open row, the
+  matrix, the day grid beside parts); the compare page is a ruled schedule with in-cell
+  adjustment ledgers; the rebate page opens on an ink load-curve plate with the headline in the
+  overnight hours. One capture artefact: the compare page's fixed commit bar prints mid-page in
+  the full-page shot.
+
+**Against the pre-grammar baseline, under one instrument:** pharmacy and wind-farm still fail
+the same assertion (pharmacy: dominance 0.30, an unearned 2.53 : 1 rail); the three grammar
+builds have no side region and each first read is the region its lines predicted. The monitor
+verdict must be stated plainly: it failed until hidden rows were excluded, and passed on the
+same file afterwards — the change was in the instrument, and is recorded above with its cause.
+
+**Retrospective.** The instrument cost four refinements on real pages, which is the price of
+measuring rather than reading; the refinements were the same kind each time — the corpus's
+default shapes used as heuristics for shapes the doctrine earns. The pre-registration named one
+metric where four were available, and the one it named cannot see the difference the grammar
+predicts for a pair that both lead full width; that is a lesson about pre-registration, not a
+license to re-read. The `DESIGN.md` budget was wrong and three builds said so; it is corrected.
+Deferred as before, plus two entries above.
 
 ## Revision Notes
 
@@ -387,3 +500,6 @@ Pending — written at finish.
 - 2026-09-05 (second revision): first review round recorded with its six fixes.
 - 2026-09-05 (third revision): second review round recorded; composition derivation moved beside the stance derivation.
 - 2026-09-05 (fourth revision): third review round recorded; review loop closed.
+- 2026-09-05 (fifth revision): acceptance run recorded — C1 partly met (pair partition bar not
+  met, kept), C2–C6 met; instrument refinements, the budget change and the survey re-measurement
+  logged; Outcomes written.
