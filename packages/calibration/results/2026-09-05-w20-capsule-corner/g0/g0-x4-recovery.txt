@@ -1,0 +1,69 @@
+
+── measure (2 cell(s)) ─────────────────────────────
+matrix → /Users/new/.claude/jobs/5c70e47f/tmp/w20/g0-a/dryrun/dry.json (2 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-standard             photo__capsule-button__rest                   1.000    0.00   0.986   0.0036    0.353/ 0.364    0.5832/ 0.6178    0.0461/ 0.0474    0.0872/ 0.0946
+calibration 1x-light-standard             photo__rrect-md__rest                         1.000    0.00   0.997   0.0118    0.423/ 0.308    0.6649/ 0.6585    0.0572/ 0.0464    0.0651/ 0.0885
+
+1x-light-standard             calibration n= 2  IoU mean 1.0000 worst 1.0000   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9917 worst 0.9860   dE mean 0.00771 worst 0.01183
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+1x-light-standard             photo__capsule-button__rest                      5104         4872  0.9545         2.83         3.16
+1x-light-standard             photo__rrect-md__rest                           15017        15024  0.9993         0.00         1.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard             photo__capsule-button__rest                     1.00  0.1710/ 0.1528   24/ 39/ 32/ 34   23/ 40/ 32/ 36      7.5/   8.5     18.0/  19.4
+1x-light-standard             photo__rrect-md__rest                           1.00  0.1017/ 0.1431   20/ 36/ 28/ 30   24/ 41/ 32/ 35      8.0/   8.5     17.3/  18.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a82664c39b28df/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-standard (native standard): browser preferences, no overrides
+
+── notes (3) ────────────
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+=== after a 4 device-px Euclidean dilation of the same captures (g0-x4-dilate.py) ===
+
+── measure (2 cell(s)) ─────────────────────────────
+matrix → /Users/new/.claude/jobs/5c70e47f/tmp/w20/g0-a/dryrun/dry-x4.json (2 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 1x-light-standard             photo__capsule-button__rest                   1.000    0.00   0.986   0.0036    0.353/ 0.364    0.5832/ 0.6178    0.0461/ 0.0474    0.0872/ 0.0946
+calibration 1x-light-standard             photo__rrect-md__rest                         1.000    0.00   0.997   0.0118    0.423/ 0.308    0.6649/ 0.6585    0.0572/ 0.0464    0.0651/ 0.0885
+
+1x-light-standard             calibration n= 2  IoU mean 1.0000 worst 1.0000   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9917 worst 0.9860   dE mean 0.00771 worst 0.01183
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+1x-light-standard             photo__capsule-button__rest                      6336         4872  0.7689         6.40         6.71
+1x-light-standard             photo__rrect-md__rest                           16941        15024  0.8868         4.00         4.12
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard             photo__capsule-button__rest                     1.00  0.1710/ 0.1528   24/ 39/ 32/ 34   23/ 40/ 32/ 36      7.5/   8.5     18.0/  19.4
+1x-light-standard             photo__rrect-md__rest                           1.00  0.1017/ 0.1431   20/ 36/ 28/ 30   24/ 41/ 32/ 35      8.0/   8.5     17.3/  18.3
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a25a82664c39b28df/packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json
+web accessibility for apple-macos-26.5-1x-light-standard (native standard): browser preferences, no overrides
+
+── notes (3) ────────────
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
