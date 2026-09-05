@@ -1,0 +1,129 @@
+canonical: 229 cells; W19 bed: 229; G0 conformance run: 170
+rows on the W19 bed and not on the canonical bed: none; new rows: none
+
+GPU tier, the corner cells (capsule-button, toolbar-group) — W19 bed → canonical:
+  oklabDeltaEMean  improved 61  worsened  4   best -0.00604 checkerboard__toolbar-group__rest @ 2x-light-standard   worst +0.000000 dark-solid__capsule-button__rest @ 2x-dark-standard
+  ssimMean         improved 59  worsened  6   best +0.03945 photo__toolbar-group__rest @ 1x-light-reduced-transparency   worst -0.005594 photo__capsule-button__rest-tint-orange @ 1x-light-increased-contrast
+  cell                                           profile                      set          ΔE bed→canon        SSIM bed→canon      conformance IoU/contour G0→canon
+  checkerboard__capsule-button__rest             1x-dark-standard             calibration  0.0074 → 0.0056    0.9641 → 0.9741    0.9545/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest-tint-orange 1x-dark-standard             calibration  0.0027 → 0.0010    0.9897 → 0.9985    0.9545/3.16 → 1.0000/0.00
+  dark-solid__capsule-button__rest               1x-dark-standard             calibration  0.0008 → 0.0008    0.9866 → 0.9866      —  /  —   →   —  /  —  
+  dark-solid__capsule-button__rest-tint-orange   1x-dark-standard             calibration  0.0024 → 0.0005    0.9850 → 0.9991    0.9545/3.16 → 1.0000/0.00
+  impulse__capsule-button__rest                  1x-dark-standard             validation   0.0033 → 0.0029    0.9770 → 0.9798    0.9545/3.16 → 1.0000/0.00
+  mid-dark-solid__capsule-button__rest           1x-dark-standard             holdout      0.0055 → 0.0053    0.9753 → 0.9808      —  /  —   → 1.0000/0.00
+  photo__capsule-button__rest                    1x-dark-standard             calibration  0.0088 → 0.0077    0.9811 → 0.9904    0.9545/3.16 → 1.0000/0.00
+  photo__capsule-button__rest-tint-orange        1x-dark-standard             calibration  0.0020 → 0.0010    0.9865 → 0.9971    0.9545/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest             1x-light-increased-contrast  calibration  0.0079 → 0.0060    0.9609 → 0.9653    0.9545/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest-tint-orange 1x-light-increased-contrast  calibration  0.0053 → 0.0040    0.9589 → 0.9585    0.9545/3.16 → 1.0000/0.00
+  hc-text__capsule-button__rest                  1x-light-increased-contrast  holdout      0.0070 → 0.0059    0.9606 → 0.9632      —  /  —   → 1.0000/0.00
+  photo__capsule-button__rest                    1x-light-increased-contrast  calibration  0.0084 → 0.0070    0.9463 → 0.9490    0.9545/3.16 → 1.0000/0.00
+  photo__capsule-button__rest-tint-orange        1x-light-increased-contrast  calibration  0.0049 → 0.0040    0.9362 → 0.9306    0.9545/3.16 → 1.0000/0.00
+  photo__toolbar-group__rest                     1x-light-increased-contrast  validation   0.0131 → 0.0087    0.9153 → 0.9258    0.8682/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest             1x-light-reduced-transparency calibration  0.0031 → 0.0014    0.9888 → 0.9971    0.9545/3.16 → 1.0000/0.00
+  hc-text__capsule-button__rest                  1x-light-reduced-transparency holdout      0.0026 → 0.0015    0.9911 → 0.9969      —  /  —   → 1.0000/0.00
+  photo__capsule-button__rest                    1x-light-reduced-transparency calibration  0.0023 → 0.0009    0.9857 → 0.9991    0.9545/3.16 → 1.0000/0.00
+  photo__capsule-button__rest-tint-orange        1x-light-reduced-transparency calibration  0.0018 → 0.0007    0.9870 → 0.9977    0.9545/3.16 → 1.0000/0.00
+  photo__toolbar-group__rest                     1x-light-reduced-transparency validation   0.0054 → 0.0011    0.9595 → 0.9989    0.8682/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest             1x-light-standard            calibration  0.0043 → 0.0023    0.9856 → 0.9971    0.9545/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest-tint-blue   1x-light-standard            validation   0.0031 → 0.0012    0.9890 → 0.9982    0.9545/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest-tint-orange 1x-light-standard            calibration  0.0030 → 0.0013    0.9894 → 0.9986    0.9545/3.16 → 1.0000/0.00
+  checkerboard__toolbar-group__rest              1x-light-standard            calibration  0.0080 → 0.0023    0.9642 → 0.9969    0.8682/3.16 → 1.0000/0.00
+  dark-solid__capsule-button__rest               1x-light-standard            calibration  0.0008 → 0.0008    0.9866 → 0.9866      —  /  —   →   —  /  —  
+  dark-solid__capsule-button__rest-tint-blue     1x-light-standard            holdout      0.0022 → 0.0008    0.9852 → 0.9972      —  /  —   → 1.0000/0.00
+  dark-solid__capsule-button__rest-tint-orange   1x-light-standard            calibration  0.0024 → 0.0005    0.9850 → 0.9991    0.9545/3.16 → 1.0000/0.00
+  hc-text__capsule-button__rest                  1x-light-standard            holdout      0.0045 → 0.0030    0.9841 → 0.9952      —  /  —   → 1.0000/0.00
+  hc-text__capsule-button__rest-tint-orange      1x-light-standard            holdout      0.0030 → 0.0015    0.9901 → 0.9985      —  /  —   → 1.0000/0.00
+  impulse__capsule-button__rest                  1x-light-standard            validation   0.0033 → 0.0029    0.9770 → 0.9798    0.9545/3.16 → 1.0000/0.00
+  impulse__capsule-button__rest-tint-orange      1x-light-standard            calibration  0.0031 → 0.0006    0.9836 → 0.9991    0.9545/3.16 → 1.0000/0.00
+  light-solid__capsule-button__rest              1x-light-standard            calibration  0.0008 → 0.0005    0.9925 → 0.9984    0.9545/3.16 → 1.0000/0.00
+  light-solid__capsule-button__rest-tint-orange  1x-light-standard            calibration  0.0016 → 0.0008    0.9883 → 0.9984    0.9545/3.16 → 1.0000/0.00
+  mid-dark-solid__capsule-button__rest           1x-light-standard            holdout      0.0025 → 0.0010    0.9841 → 0.9987      —  /  —   → 1.0000/0.00
+  photo__capsule-button__rest                    1x-light-standard            calibration  0.0036 → 0.0024    0.9860 → 0.9987    0.9545/3.16 → 1.0000/0.00
+  photo__capsule-button__rest-tint-blue          1x-light-standard            calibration  0.0022 → 0.0011    0.9850 → 0.9964    0.9545/3.16 → 1.0000/0.00
+  photo__capsule-button__rest-tint-orange        1x-light-standard            calibration  0.0022 → 0.0011    0.9864 → 0.9975    0.9545/3.16 → 1.0000/0.00
+  photo__capsule-button__rest-tint-orange-half   1x-light-standard            calibration  0.0028 → 0.0017    0.9866 → 0.9981    0.9545/3.16 → 1.0000/0.00
+  photo__toolbar-group__rest                     1x-light-standard            validation   0.0064 → 0.0029    0.9602 → 0.9981    0.8682/3.16 → 1.0000/0.00
+  checkerboard__capsule-button__rest             2x-dark-standard             calibration  0.0078 → 0.0059    0.9711 → 0.9803    0.9542/6.40 → 0.9997/1.00
+  checkerboard__capsule-button__rest-tint-orange 2x-dark-standard             calibration  0.0028 → 0.0010    0.9904 → 0.9982    0.9542/6.40 → 0.9997/1.00
+  dark-solid__capsule-button__rest               2x-dark-standard             calibration  0.0008 → 0.0008    0.9908 → 0.9908      —  /  —   →   —  /  —  
+  dark-solid__capsule-button__rest-tint-orange   2x-dark-standard             calibration  0.0025 → 0.0006    0.9885 → 0.9984    0.9543/6.40 → 1.0000/0.00
+  impulse__capsule-button__rest                  2x-dark-standard             validation   0.0037 → 0.0033    0.9772 → 0.9803    0.9543/6.40 → 1.0000/0.00
+  mid-dark-solid__capsule-button__rest           2x-dark-standard             holdout      0.0055 → 0.0054    0.9829 → 0.9875      —  /  —   → 0.9997/1.00
+  photo__capsule-button__rest                    2x-dark-standard             calibration  0.0089 → 0.0078    0.9860 → 0.9927    0.9542/6.40 → 0.9997/1.00
+  photo__capsule-button__rest-tint-orange        2x-dark-standard             calibration  0.0021 → 0.0010    0.9899 → 0.9973    0.9542/6.40 → 0.9997/1.00
+  checkerboard__capsule-button__rest             2x-light-standard            calibration  0.0047 → 0.0026    0.9860 → 0.9963    0.9542/6.40 → 0.9990/1.00
+  checkerboard__capsule-button__rest-tint-blue   2x-light-standard            validation   0.0033 → 0.0013    0.9893 → 0.9979    0.9542/6.40 → 0.9990/1.00
+  checkerboard__capsule-button__rest-tint-orange 2x-light-standard            calibration  0.0032 → 0.0013    0.9898 → 0.9982    0.9542/6.40 → 0.9990/1.00
+  checkerboard__toolbar-group__rest              2x-light-standard            calibration  0.0085 → 0.0024    0.9666 → 0.9965    0.8671/6.40 → 0.9969/1.00
+  dark-solid__capsule-button__rest               2x-light-standard            calibration  0.0008 → 0.0008    0.9908 → 0.9908      —  /  —   →   —  /  —  
+  dark-solid__capsule-button__rest-tint-blue     2x-light-standard            holdout      0.0023 → 0.0008    0.9878 → 0.9965      —  /  —   → 1.0000/0.00
+  dark-solid__capsule-button__rest-tint-orange   2x-light-standard            calibration  0.0025 → 0.0006    0.9885 → 0.9984    0.9543/6.40 → 1.0000/0.00
+  hc-text__capsule-button__rest                  2x-light-standard            holdout      0.0049 → 0.0033    0.9855 → 0.9952      —  /  —   → 0.9990/1.00
+  hc-text__capsule-button__rest-tint-orange      2x-light-standard            holdout      0.0032 → 0.0016    0.9908 → 0.9983      —  /  —   → 0.9990/1.00
+  impulse__capsule-button__rest                  2x-light-standard            validation   0.0037 → 0.0033    0.9772 → 0.9803    0.9543/6.40 → 1.0000/0.00
+  impulse__capsule-button__rest-tint-orange      2x-light-standard            calibration  0.0033 → 0.0006    0.9880 → 0.9984    0.9543/6.40 → 1.0000/0.00
+  light-solid__capsule-button__rest              2x-light-standard            calibration  0.0008 → 0.0005    0.9950 → 0.9990    0.9542/6.40 → 0.9995/1.00
+  light-solid__capsule-button__rest-tint-orange  2x-light-standard            calibration  0.0017 → 0.0008    0.9913 → 0.9983    0.9542/6.40 → 0.9995/1.00
+  mid-dark-solid__capsule-button__rest           2x-light-standard            holdout      0.0027 → 0.0011    0.9877 → 0.9983      —  /  —   → 0.9990/1.00
+  photo__capsule-button__rest                    2x-light-standard            calibration  0.0037 → 0.0024    0.9889 → 0.9984    0.9542/6.40 → 0.9990/1.00
+  photo__capsule-button__rest-tint-blue          2x-light-standard            calibration  0.0023 → 0.0011    0.9890 → 0.9968    0.9542/6.40 → 0.9990/1.00
+  photo__capsule-button__rest-tint-orange        2x-light-standard            calibration  0.0023 → 0.0011    0.9896 → 0.9979    0.9542/6.40 → 0.9990/1.00
+  photo__capsule-button__rest-tint-orange-half   2x-light-standard            calibration  0.0029 → 0.0017    0.9890 → 0.9980    0.9542/6.40 → 0.9990/1.00
+  photo__toolbar-group__rest                     2x-light-standard            validation   0.0065 → 0.0027    0.9697 → 0.9987    0.8671/6.40 → 0.9969/1.00
+  corner cells worsening on ΔE or SSIM: 4
+    checkerboard__capsule-button__rest-tint-orange @ 1x-light-increased-contrast: ΔΔE -0.001330  ΔSSIM -0.000328
+    photo__capsule-button__rest-tint-orange @ 1x-light-increased-contrast: ΔΔE -0.000882  ΔSSIM -0.005594
+    dark-solid__capsule-button__rest @ 2x-dark-standard: ΔΔE +0.000000  ΔSSIM -0.000014
+    dark-solid__capsule-button__rest @ 2x-light-standard: ΔΔE +0.000000  ΔSSIM -0.000014
+
+GPU tier, every other cell — rows equal to the W19 bed and captures byte-identical (holdout included):
+  50 cells, worst |Δ| 0.000000; captures byte-identical 50 / 50
+
+CSS tier — rows equal to the W19 bed (coherence rows listed where they moved), captures byte-identical:
+  114 cells, worst |Δ| on the non-coherence rows 0.000000; captures byte-identical 114 / 114
+  coherence rows that moved (predicted at G1 on the corner cells): 80; on non-corner cells: 0
+
+the seven rows held by floor — ssimMean, CSS tier, checkerboard:
+  cell               dpr   W19 bed   canonical   floor now   landing floor
+  rrect-md           1x   0.91214   0.91214      —        no floor (≥ 0.9 met)
+  rrect-md           2x   0.91521   0.91521    0.9142      0.9142 kept
+  rrect-ml           1x   0.87585   0.87585    0.8748      0.8748 kept
+  rrect-ml           2x   0.87893   0.87893    0.8779      0.8779 kept
+  glass-over-glass   1x   0.86141   0.86141    0.8604      0.8604 kept
+  glass-over-glass   2x   0.86811   0.86811    0.8677      0.8677 kept
+  rrect-lg           1x   0.87039   0.87039    0.8693      0.8693 kept
+  rrect-lg           2x   0.87220   0.87220    0.8712      0.8712 kept
+
+every dom row against its adopted ssimMean / ΔE bound (rows under a bound listed):
+  checkerboard__glass-over-glass__rest         1x-light-standard            ssimMean 0.8614 (≥ 0.9, floor 0.8604)  ΔE 0.0331 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 1x-light-standard            ssimMean 0.8704 (≥ 0.9, floor 0.8693)  ΔE 0.0327 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 1x-light-standard            ssimMean 0.8758 (≥ 0.9, floor 0.8748)  ΔE 0.0308 (≤ 0.08)
+  checkerboard__glass-over-glass__rest         2x-light-standard            ssimMean 0.8681 (≥ 0.92, floor 0.8677)  ΔE 0.0345 (≤ 0.08)
+  checkerboard__rrect-lg__rest                 2x-light-standard            ssimMean 0.8722 (≥ 0.92, floor 0.8712)  ΔE 0.0342 (≤ 0.08)
+  checkerboard__rrect-md__rest                 2x-light-standard            ssimMean 0.9152 (≥ 0.92, floor 0.9142)  ΔE 0.0228 (≤ 0.08)
+  checkerboard__rrect-ml__rest                 2x-light-standard            ssimMean 0.8789 (≥ 0.92, floor 0.8779)  ΔE 0.0328 (≤ 0.08)
+  7 dom rows under an adopted bound
+
+the conformance rows over the canonical bed, per tier and component (min IoU, max contour, cells carrying rows / cells with a shape axis):
+  css     capsule-button     min IoU 0.8788  max contour 5.83 px   rows  37 /  54
+  css     glass-over-glass   min IoU 0.9756  max contour 5.66 px   rows   2 /   6
+  css     rrect-lg           min IoU 0.9800  max contour 5.83 px   rows   4 /  10
+  css     rrect-md           min IoU 0.9663  max contour 5.83 px   rows   8 /  24
+  css     rrect-ml           min IoU 1.0000  max contour 0.00 px   rows   0 /   6
+  css     rrect-sm           min IoU 1.0000  max contour 0.00 px   rows   0 /   4
+  css     toolbar-group      min IoU 1.0000  max contour 0.00 px   rows   0 /   6
+  webgpu  capsule-button     min IoU 0.9990  max contour 1.00 px   rows  55 /  55
+  webgpu  glass-over-glass   min IoU 0.9989  max contour 1.00 px   rows   6 /   6
+  webgpu  rrect-lg           min IoU 0.9989  max contour 1.00 px   rows  10 /  10
+  webgpu  rrect-md           min IoU 0.9990  max contour 1.00 px   rows  24 /  24
+  webgpu  rrect-ml           min IoU 0.9990  max contour 1.00 px   rows   6 /   6
+  webgpu  rrect-sm           min IoU 0.9992  max contour 1.00 px   rows   4 /   4
+  webgpu  toolbar-group      min IoU 0.9969  max contour 1.00 px   rows   6 /   6
+
+the GPU tier's OKLab ΔE mean per profile, W19 bed → canonical (non-holdout | holdout):
+  1x-light-standard            0.00411 → 0.00313 (26)  |  0.00970 → 0.00911 (10)
+  2x-light-standard            0.00421 → 0.00317 (26)  |  0.00969 → 0.00906 (10)
+  1x-light-increased-contrast  0.00950 → 0.00808 (7)  |  0.02101 → 0.02043 (2)
+  1x-light-reduced-transparency 0.00305 → 0.00163 (6)  |  0.00399 → 0.00343 (2)
+  1x-dark-standard             0.00869 → 0.00790 (10)  |  0.03002 → 0.02996 (3)
+  2x-dark-standard             0.00889 → 0.00807 (10)  |  0.03023 → 0.03017 (3)

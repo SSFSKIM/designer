@@ -12213,3 +12213,86 @@ landing sheet.
 **7. What did not close.** The demo's reference-panel fixture (G2); holdout (G2); the CSS tier's
 byte-identity argued from the code, verified at G2; the increased-contrast border (Decision Log 3,
 Deferred); the `k` switch at the crossing, recorded not bounded.
+
+### 5.86 W20 G2 LANDED and RECOMPOSED: the corrected corner across the canonical bed — every capsule and circle a stadium to the pixel on all six profiles, ΔE better on 61 of 65 corner cells with the holdout read once, every other GPU capture and all 114 CSS captures byte-identical to the W19 bed, the seven floors kept, the predicate unchanged, the conformance bound adopted into the gate, the increased-contrast border carried by name (2026-09-06)
+
+**1. The landing.** W20 Decision Log 3: landed on the parent's recommendation under the user's
+standing instruction, the user's eye keeping its veto before `pnpm release`. G1 merged at
+`3f2fe54`; the canonical rebuild once from the main checkout
+(`results/2026-09-05-w20-capsule-corner/g2/g2-rebuild.sh`; twelve runs 05:53:23–06:00:00 with
+`--alpha`, eleven exit 0 and one exit 1 on the increased-contrast CSS run's cell the harness
+cannot measure (`hc-text__capsule-button__rest`, §5.79 §1, as at W19), 0 fallen back, 0
+problems; **229 cells and 230 captures**, the W19 bed's keys, no row lost and none new;
+`g2-runs.txt`). Read against the W19 bed and G0's conformance run (`g2-verify.py`,
+`g2-verify.txt`):
+
+**2. The corner cells** (capsule-button and toolbar-group, 65 GPU cells over six profiles, the
+holdout's among them, read once here under X8): **OKLab ΔE improves on 61 and SSIM on 59**; best
+−0.00604 ΔE (`checkerboard__toolbar-group__rest` 2x light) and +0.0394 SSIM
+(`photo__toolbar-group__rest` 1x reduced transparency). The four that worsen are G1's four, with
+the holdout adding none: the two increased-contrast tinted capsules on SSIM (−0.00559, −0.00033,
+their ΔE better; the increased-contrast border, Decision Log 3 (2)) and the two `dark-solid` 2x
+cells at the fifth decimal. Conformance on every corner cell: **IoU 1.0000 and contour 0.00 at
+1x, ≥ 0.9969 and ≤ 1.00 device px at 2x**, from 0.9545 / 3.16 and 0.8682 / 3.16 on G0's run. The
+GPU tier's ΔE mean per profile, W19 bed → canonical, non-holdout | holdout:
+
+| profile | non-holdout | holdout |
+| --- | --- | --- |
+| 1x light standard | 0.00411 → **0.00313** (26) | 0.00970 → 0.00911 (10) |
+| 2x light standard | 0.00421 → **0.00317** (26) | 0.00969 → 0.00906 (10) |
+| 1x increased contrast | 0.00950 → 0.00808 (7) | 0.02101 → 0.02043 (2) |
+| 1x reduced transparency | 0.00305 → **0.00163** (6) | 0.00399 → 0.00343 (2) |
+| 1x dark standard | 0.00869 → 0.00790 (10) | 0.03002 → 0.02996 (3) |
+| 2x dark standard | 0.00889 → 0.00807 (10) | 0.03023 → 0.03017 (3) |
+
+**3. Everything else did not move.** The 50 other GPU cells (rounded rectangles and the stack,
+holdout included) equal the W19 bed's rows to six decimals and their captures are
+**byte-identical 50 / 50** — the render path below the crossing bit for bit. The CSS tier's 114
+cells equal the W19 bed on every non-coherence row and their captures are **byte-identical
+114 / 114** (X3's inverse, verified on captures); the two coherence rows moved on **80 corner cells
+and 0 others**, exactly the prediction G1 made (they are measured against the GPU capture on disk).
+The frame-timing pair did not move by its one code on this rebuild either.
+
+**4. The gate.** The seven floors kept and none moved (rrect-md 2x 0.91521 / 0.9142; rrect-ml
+0.87585 / 0.8748 and 0.87893 / 0.8779; glass-over-glass 0.86141 / 0.8604 and 0.86811 / 0.8677;
+rrect-lg 0.87039 / 0.8693 and 0.87220 / 0.8712); the seven dom rows under a bound the same seven;
+the predicate list unchanged; `adopted-thresholds.test.ts` **33 passed** — its 31 as before and the
+two clauses adopted here on Decision Log 2's recommendation: every texture-tier cell with a shape
+axis carries the conformance rows (a rebuild without `--alpha` fails, not passes), and every one
+holds `declaredContourMaxWeb ≤ 1` device px and `declaredIoUWeb ≥ 0.99`. Over the canonical bed
+the GPU tier's rows read min IoU 0.9969 (the toolbar at 2x) and max contour 1.00 on every
+component, carried on every cell with a shape axis (capsule 55 / 55, rrect-md 24 / 24, and so on).
+The CSS tier's rows exist where its interior alpha passes (37 of 54 capsule cells) and read the
+rim ring (min IoU 0.8788, contour 5.83 at 2x) — not gated, recorded (§5.84 §7, Decision Log 23 (a)).
+
+**5. The demo.** `apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.png` and its
+`.cell.json` re-copied from the canonical capture (`cell__webgpu.json`), as the spec's own comment
+requires; the reference-panel test green again on the chain below.
+
+**6. By eye** (`sheets/g2-1x.png`, `g2-2x.png`, five rows with the holdout `hc-text` capsule): in
+column 2 (the W19 bed) rounded rectangles and rounded squares; in column 3 stadiums and circles on
+Apple's; the diff column the contour line only. The sheets sent to the user.
+
+**7. The chain on the landed tree** (`g2/g2-chain.txt`, 06:01–06:04): lint clean; **1 835 unit
+tests** (from 1 804: geometry's 13 and the gate's 2, and the rest unchanged); the renderer's golden
+suite **29 passed, byte-identical**; platform-web Playwright 355 (four projects, 3 skipped); react
+105 (3 skipped); demo **34** — the reference-panel test green on the re-copied fixture.
+
+**8. Recomposition against the charter's acceptance.** *A capsule is a stadium on the GPU tier* —
+met (§5.85 §3: the render path and the spec path agree under 1e-9 under both references; the
+44 × 44 circle the same). *Apple past the saturation ratio measured, not assumed* — met (§5.84:
+the compressed shoulder within the grid's floor on ten native rungs; the refusal not needed).
+*The shape axis sees a surface larger than declared* — met (§5.84 §7: 0.9545 / 3.16 before, 1.0000
+/ 0.00 after, X4 at 4.00 p95; the dilation not taken, the raster reading adopted). *The bed
+improves where the shoulders were and moves nowhere else* — met with the four cells attributed
+(§2–§4 above). *The user's eye* — the sheets. *The rebuild once, the holdout once* — §1.
+
+**9. What did not close, carried by name.** The increased-contrast border (Decision Log 3 (2),
+W20 Deferred, the renderer's item); the CSS tier's own conformance and its rim ring outside the
+box (§5.84 §7 and §9 (a); a CSS residual under Decision Log 23 (a)); the conformance rows as an
+axis of their own (§5.84 §9 (b)); authored rounded rectangles above the ratio between the
+compressed shoulder and a circular arc, adopted on continuity (§5.84 §6); the `k` switch at the
+crossing (§5.85 §2); `capture.sh probe`'s false negative (the tracker).
+
+**10. Release.** `.changeset/gpu-capsule-corner.md` (`@vitreajs/vitrea-web` minor; the fixed group
+carries core and react) versioned to 0.9.0 after this recomposition; the user publishes.

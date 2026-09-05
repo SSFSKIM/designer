@@ -1640,6 +1640,49 @@ function bandBelow(side: readonly PairSide[] | undefined, label: string): PairSi
   return found;
 }
 
+/**
+ * W20 — the declaration-conformance bound on the texture tier (claims §5.84–§5.86; W20
+ * Decision Log 2 ruling 2, adopted at the landing).
+ *
+ * Every other shape row bounds both silhouettes to the declared geometry, and a surface drawn
+ * LARGER than its declaration fills that region and reads perfect — which is how the GPU tier
+ * drew every capsule with its corner clamped to 0.327 of its height for nineteen waves while the
+ * axis read IoU 1.000 (§5.83). These two rows read the tier's own coverage over a transparent
+ * page with no region at all, against the declaration. The bound is the raster's antialiased
+ * band: one device pixel of contour, and an IoU that band cannot take under 0.99 on the smallest
+ * shape the bed carries (the toolbar's three circles read 0.9969 at 2x). The defect read
+ * 0.9545 / 3.16 px on a capsule and 0.8682 / 3.16 px on the toolbar; a uniform one-pixel
+ * oversize reads about 0.936 (§5.84 §7).
+ *
+ * Every texture-tier cell that carries a shape axis must carry the rows: a canonical rebuild that
+ * forgot `--alpha` would otherwise pass with nothing to gate. The dom tier refuses the reading by
+ * its interior alpha (§5.84 §7) and is not gated here.
+ */
+describe("W20 — declaration conformance on the texture tier", () => {
+  const DECLARED_CONTOUR_MAX_PX = 1;
+  const DECLARED_IOU_MIN = 0.99;
+  const cells = MATRIX.cells.filter((cell) => cell.tier === "texture" && cell.shape !== undefined);
+
+  it("carries the rows on every texture-tier cell with a shape axis", () => {
+    const missing = cells
+      .filter((cell) => cell.shape?.["declaredContourMaxWeb"] === undefined)
+      .map(name);
+    expect(missing, "cells without a conformance reading — was the rebuild run with --alpha?").toEqual([]);
+    expect(cells.length).toBeGreaterThan(0);
+  });
+
+  it("holds every texture-tier cell to its declared geometry within the antialiased band", () => {
+    for (const cell of cells) {
+      const contour = reading(cell, "shape", "declaredContourMaxWeb");
+      const iou = reading(cell, "shape", "declaredIoUWeb");
+      expect(contour, `${name(cell)}: declaredContourMaxWeb = ${contour} device px`).toBeLessThanOrEqual(
+        DECLARED_CONTOUR_MAX_PX,
+      );
+      expect(iou, `${name(cell)}: declaredIoUWeb = ${iou}`).toBeGreaterThanOrEqual(DECLARED_IOU_MIN);
+    }
+  });
+});
+
 describe("W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing", () => {
   for (const profileKey of PAIR_PROFILES) {
     it(`${profileKey}: the light-solid capsule's shadow is within 20% of the reference's`, () => {
