@@ -590,3 +590,18 @@ recording the cell as failed, and logs which activation path (`NSApp.activate`, 
 `makeKeyAndOrderFront`) declined; then confirm over a probe bed that the retry recovers the cell.
 Below every bound; recorded so the next probe budgets its runs.
 
+## The shape axis clips both silhouettes to the declared region and cannot see a surface larger than declared (W20, 2026-09-05)
+
+`component-region.ts` bounds both extractors to the scene's declared geometry (wave Decision Log
+15 — the fix for the outer shadow being read as the surface, claims §5.11), and `silhouette.ts`
+rules a pixel outside the region outside the silhouette whatever it holds. A surface that is LARGER
+than declared therefore fills the region exactly and reads as perfect: on every capsule cell of the
+canonical bed `silhouetteAreaWeb` = `componentRegionArea` = 4872, IoU 1.000, contour p95 0,
+corner-curvature delta 0 — on both tiers — while the GPU tier has drawn every capsule with its
+corner clamped to 0.327 of its height since v1 (claims §5.83; W20). The axis was blind in exactly
+the direction the defect took. Shape of the fix, owned by W20 G0: the region dilated per side by
+the corner budget where the shadow does not reach (left, right, above), or the tier's own raster
+silhouette read from the optics canvas on a transparent page, so a surface up to its bounding box
+shows; the referee is the capsule cells reading what the pixels say before the fix and about 1.000
+after, with a synthetic dilation recovered beside the first reading. Until it lands, every
+shape-axis figure on the bed is a lower bound on the contour error, not a measurement of it.

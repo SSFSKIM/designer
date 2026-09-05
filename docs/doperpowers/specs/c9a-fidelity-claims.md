@@ -11822,3 +11822,101 @@ had not moved) and flattened the merge: on `main` the fold `485b824` is **`4e7e7
 its hash. The trees are identical (`git diff b303c33 8cb1d3c` is empty over the wave's paths), so
 the frozen configuration X8 names is the same tree under the new label. The landing's own commits
 are `0089cae` (G2 LANDED) and `4ab7ff4` (RECOMPOSED).
+
+### 5.83 FOUND by the user's eye on the W19 landing sheet: the GPU tier draws every capsule with its corner clamped to 0.327 of its height — the channel resolver ignores the shape family and the default Apple reference clamps the radius; the shape axis clips both silhouettes to the declared region and certified it round on every capsule cell since v1 (2026-09-05)
+
+**1. The finding.** After the 0.8.0 cut the user asked whether "fixing the geometry bug of the
+WebGPU tier, where it was not round but rectangular" was in consideration. On the W19 landing
+sheet (`results/2026-09-05-w19-author-tint-fold/sheets/g2-1x.png`, the capsule rows at three
+times zoom) column 4, the GPU tier, draws the 120 × 44 capsule with ends visibly tighter than the
+semicircles of column 1 (Apple) and columns 2–3 (the CSS tier): a rounded rectangle, not a
+stadium. Confirmed at full resolution on the canonical captures
+(`results/2026-09-05-w20-capsule-corner/finding/corners.png`): native and CSS are stadiums, the
+GPU tier is a rounded rectangle with a corner radius well under half the height, at 1x and 2x, on
+the untinted and the tinted capsule alike.
+
+**2. The mechanism, read off the code.** The renderer resolves every surface from its channel
+values: `packages/renderer-webgpu/src/instances.ts` takes
+`const reference = surface.reference ?? "apple-continuous"` and calls
+`resolveFromChannels(channels, reference, surface.family, { devMode: false })`.
+`resolveFromChannels` (`packages/geometry/src/shape.ts`) returns
+`corner: resolveCorner(channels.size, radius, channels.smoothing, reference)` and never reads the
+family. Under the Apple reference `resolveCorner` clamps the radius so that Apple's measured corner
+reach fits the side — `r = max(0, min(radius, budget / APPLE_REACH))` with `budget =
+min(halfW, halfH)` and `APPLE_REACH = 1.52866495` — and `buildAppleContour` (`apple.ts`) does the
+same for the contour, reporting `saturated: true` where it clamped. So the bed's capsule,
+registered by the capture page as `family "capsule", radius 22` (`report__webgpu.json`,
+`page.surfaces[0]`), draws with **r = 22 / 1.52866495 = 14.39 CSS px** — 28.78 device px of 44 at
+2x — and the toolbar's three 44 × 44 circles draw as rounded squares of the same radius. The spec
+resolver `resolveShape` makes a capsule exact (radius at the budget, smoothing 0, on the Figma
+reference — the "capsule limit" `corner.ts` calls the reason the field is exact on a stadium), but
+nothing on the render path goes through it. `packages/geometry/test/apple.test.ts` pins the clamp
+under the name "Apple's budget policy is its own" and says C7 "should not compare shapes above
+this ratio to Apple at all"; `scenes.json`'s capsule comment says the opposite — "capsules are
+exact in vitrea's field family (S2), so this scene isolates material error from corner error" —
+and the harness draws `Capsule()`, a circular stadium by definition
+(`apps/reference-apple/Sources/SceneViews.swift`). The two statements were both true of their own
+resolver and neither of the render path. A smaller radius in the same box is a FULLER shape: the
+drawn shape is a superset of the stadium and the difference is four shoulders at the ends, 232 px
+per capsule at 1x (4.8 % of the surface, 0.36 % of the cell), 948 at 2x, 696 for the toolbar's
+three circles. Everything the field drives — fill, lens, rim, highlight, tint — stops at the
+clamped contour; the backdrop blur, masked by the DOM's stadium, does not.
+
+**3. Measured on the canonical bed** (`finding/shoulders.py`, `shoulders.txt`; masks built from
+`scenes.json`'s geometry: the declared stadium and the same box at the clamped radius; mean |ΔL|
+in linear luminance against Apple's capture):
+
+| cell | shoulders (px) | GPU shoulders | GPU body | GPU ring | CSS shoulders | CSS body | CSS ring |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `photo__capsule-button__rest` 1x | 232 | 0.3817 | 0.0357 | 0.0063 | 0.1938 | 0.0397 | 0.1729 |
+| `checkerboard__capsule-button__rest` 1x | 232 | 0.3539 | 0.0666 | 0.0058 | 0.1766 | 0.0808 | 0.1194 |
+| `light-solid__capsule-button__rest` 1x | 232 | 0.1313 | 0.0059 | 0.0071 | 0.0698 | 0.0079 | 0.0605 |
+| `dark-solid__capsule-button__rest` 1x (light scheme) | 232 | 0.0015 | 0.0007 | 0.0002 | 0.0015 | 0.0007 | 0.0002 |
+| `photo__capsule-button__rest` 2x | 948 | 0.4138 | 0.0347 | 0.0042 | 0.1973 | 0.0409 | 0.1730 |
+| `checkerboard__capsule-button__rest` 2x | 948 | 0.3856 | 0.0709 | 0.0056 | 0.1822 | 0.0950 | 0.1252 |
+| `photo__toolbar-group__rest` 1x | 696 | 0.4170 | 0.0383 | 0.0121 | 0.2144 | 0.0323 | 0.0936 |
+| `photo__capsule-button__rest` 1x, dark scheme | 232 | 0.2013 | 0.0407 | 0.0033 | 0.1280 | 0.0431 | 0.0470 |
+| `photo__rrect-md__rest` 1x (control, ratio 0.208) | 0 | — | 0.0158 | 0.0101 | — | 0.0156 | 0.2456 |
+
+Body = the stadium eroded 4 CSS px (inside the rim); ring = 2 CSS px outside the clamped shape.
+On the GPU tier the shoulders read ten to twenty-two times the body on every light backdrop, and
+the ring reads clean: the material stops exactly at the clamped contour. The heat map
+(`shoulders.png`) puts the error in the crescents between the declared stadium and the clamped
+contour and nowhere else. The CSS tier's shoulder and ring figures are a one-pixel line along the
+whole stadium contour (`css-vs-gpu.png`) — the rim band on the CSS tier, W16 Deferred, seen from
+this side — not a filled crescent; its shape is the DOM's and is right. Over `dark-solid` in the
+light scheme the material is nearly invisible on both sides and nothing reads.
+
+**4. Why the matrix did not see it.** The shape axis bounds both extractors to the scene's declared
+geometry (`component-region.ts`; a capsule's region radius is half its short side by the same rule
+the demo and the bindings use), and `silhouette.ts` rules a pixel outside the region outside the
+silhouette whatever it holds — the fix for the outer shadow being read as the surface (§5.11,
+wave Decision Log 15). A surface LARGER than declared therefore fills the region exactly and reads
+as perfect: on `photo__capsule-button__rest` at 1x light, both tiers, `silhouetteAreaNative` =
+`silhouetteAreaWeb` = `componentRegionArea` = 4872, IoU 1.000, contour p95 0,
+`cornerCurvatureWeb` = `cornerCurvatureNative` = 0.0558, delta 0. Every capsule cell of the bed
+reads the same. The axis was blind in exactly the direction the defect took, and every shape-axis
+figure on the bed is a lower bound on the contour error until the instrument is corrected (the
+tracker; W20 G0). The perceptual and material rows carried the shoulders diluted: 0.36 % of the
+cell at a |ΔL| of 0.38 is within the 0.0027 ΔE the capsule averages, which is why nineteen waves of
+tables did not flag it and why the discipline's by-eye clause exists.
+
+**5. Reach.** On the bed: 19 capsule scenes and 2 toolbar-group scenes — 21 of 40 at every
+profile — so every GPU-tier row on more than half the bed was measured through the shoulders;
+every rounded-rectangle and stack cell sits under the ratio (rrect-sm 0.25, rrect-md 0.208,
+rrect-ml 0.211, rrect-lg 0.2125, glass-over-glass 0.185 and 0.286) and is untouched. For authors:
+the react binding registers `shapeFamily: capsule ? "capsule" : "fixed-rounded-rect"` with
+`capsuleRadius` = half the short side (`packages/react/src/surface.tsx`) and the demo's capsule
+scenes pass `capsule` (`apps/demo/src/site/Stage.tsx`) — both reach this path, so the demo has
+shown it since v1; and any `fixed-rounded-rect` host whose radius exceeds 0.327 of its short side —
+the default host shape's radius 12 on anything under 37 px — is clamped the same way.
+
+**6. What is not known.** What Apple draws for `RoundedRectangle(cornerRadius:style:.continuous)`
+above the ratio. S2 fitted the corner below it; the clamp-the-radius policy is an assumption the
+test pinned, not a measurement; the harness's capsules are `Capsule()` and cannot answer it. W20
+G0's native probe (a 120 × 44 box at r 14…22 with `Capsule()` beside it) does.
+
+**7. Disposition.** Chartered as W20 (`2026-09-05-w20-capsule-corner.md`) by wave Decision Log 23
+(c), first among the GPU-tier waves — a correctness defect on more than half the bed, before any
+fit, because W21 (the dark scheme) would otherwise be fitted on the wrong silhouette and refitted.
+The CSS tier is byte-identical through it. No constant moves.

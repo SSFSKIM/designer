@@ -104,7 +104,9 @@ backdrop tone response, tint shade, lens) and its passes in `src/wgsl/` (analysi
 highlight). The CSS tier derives its material from the **same profile** through
 `packages/platform-web/src/optics.ts` and `css-tier.ts` (one in-place `backdrop-filter` and one
 `rgba()` layer), and `packages/calibration/test/tier-coherence.test.ts` pins the two tiers to each
-other. A material change is not landed until both tiers carry it. An author backdrop hint
+other. The WebGPU tier is the fidelity target (wave Decision Log 23, 2026-09-05): a material change
+lands on it, the CSS tier derives what its two layers can carry from the same profile in the same
+wave, and a CSS-only residual is recorded in the ledger rather than chartered. An author backdrop hint
 (`hint={{ luminance }}`) takes precedence over sampling on both tiers, so a hint must state the
 real backdrop level.
 
