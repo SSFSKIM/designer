@@ -1,0 +1,39 @@
+W21 G0 — the instrument cross-check: does swapping the interior definition change W9's verdict?
+
+W21 X2 replaces the silhouette-based interior with the declared-box read on every gate,
+because on the dark scheme the silhouette returns the rim ring (claims 5.87). That swap is
+only safe if it does not move a verdict the project already reached. The check is direct:
+re-score W9's own LIGHT probe — the same seven snapshots, the same grid, the same declared
+rules — once with W9's silhouette interior and once with W21's declared-box interior.
+
+== W9's silhouette interior (the committed reading; claims 5.31 quotes 0.1070 / 0.0683 /
+   0.0683 / 0.0400, and this run reproduces those four numbers byte for byte)
+
+profile: apple-macos-26.5-1x-light-standard, interior: silhouette, read-sets: calibration,validation,holdout,recorded
+runs: 7, cells: 56, scored (non-recorded structured): 33
+
+RMS per hypothesis (P2 at k=0.005):
+  P0 current-model: 0.1070
+  P1 map-then-average: 0.0683
+  P2 band-limited: 0.0683
+  P3 encoded-mean: 0.0400
+
+pitch × component (measured | P0 | P1):
+
+== W21's declared-box interior (--interior declared), same snapshots
+
+profile: apple-macos-26.5-1x-light-standard, interior: declared, read-sets: calibration,validation,holdout,recorded
+runs: 7, cells: 56, scored (non-recorded structured): 33
+
+RMS per hypothesis (P2 at k=0.005):
+  P0 current-model: 0.1080
+  P1 map-then-average: 0.0674
+  P2 band-limited: 0.0674
+  P3 encoded-mean: 0.0380
+
+pitch × component (measured | P0 | P1):
+
+The ranking, the winner and the rejection are identical, and P3's RMS moves by 0.0020
+(0.0400 -> 0.0380) in the declared read's favour. The instrument swap is a change of
+measurement, not of verdict: whatever the dark probe says under the declared read, W9's
+light finding is not an artefact of which mask it was taken under.

@@ -1,0 +1,39 @@
+X4 — the reader validated by injection into apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest.png
+    canvas 320x200, raster 320x200, scale 1; body = box eroded 6 CSS px, rim band = outer 3 CSS px
+    the injected rim occupies the box's OUTERMOST 1 px ring only; the rest of the band carries the body level,
+    so a band MEAN would under-report the rim by roughly 3x and only a peak recovers it.
+
+case                               quantity           injected  recovered      error
+faint rim, near-black body         body                 0.0150     0.0152   +0.00021
+faint rim, near-black body         rim top              0.0340     0.0342   +0.00016
+faint rim, near-black body         rim bottom           0.0340     0.0342   +0.00016
+faint rim, near-black body         rim left             0.0300     0.0296   -0.00044
+faint rim, near-black body         rim right            0.0300     0.0296   -0.00044
+                                   body (realised)      0.0152     0.0152   +0.00000
+
+bright rim, near-black body        body                 0.0080     0.0080   +0.00002
+bright rim, near-black body        rim top              0.2400     0.2384   -0.00160
+bright rim, near-black body        rim bottom           0.2400     0.2384   -0.00160
+bright rim, near-black body        rim left             0.2400     0.2384   -0.00160
+bright rim, near-black body        rim right            0.2400     0.2384   -0.00160
+                                   body (realised)      0.0080     0.0080   +0.00000
+
+asymmetric rim                     body                 0.0450     0.0452   +0.00019
+asymmetric rim                     rim top              0.2200     0.2172   -0.00280
+asymmetric rim                     rim bottom           0.1000     0.1021   +0.00206
+asymmetric rim                     rim left             0.2300     0.2307   +0.00074
+asymmetric rim                     rim right            0.0850     0.0844   -0.00062
+                                   body (realised)      0.0452     0.0452   +0.00000
+
+rim BELOW body (definition floor)  body                 0.0500     0.0497   -0.00029   (excluded: the peak is a lower bound here)
+rim BELOW body (definition floor)  rim top              0.0300     0.0495   +0.01945   (excluded: the peak is a lower bound here)
+rim BELOW body (definition floor)  rim bottom           0.0300     0.0495   +0.01945   (excluded: the peak is a lower bound here)
+rim BELOW body (definition floor)  rim left             0.0300     0.0493   +0.01929   (excluded: the peak is a lower bound here)
+rim BELOW body (definition floor)  rim right            0.0300     0.0493   +0.01929   (excluded: the peak is a lower bound here)
+                                   body (realised)      0.0497     0.0497   +0.00000
+
+worst |error| across every injected quantity: 0.00280
+The residual is the 8-bit quantisation of the painted value: a neutral sRGB code cannot
+carry an arbitrary linear luminance exactly, and the recovered number is what the file
+holds. Against it the wave's bounds — body 0.010, rim 0.030 — have three decimal digits
+of headroom, and the run-to-run sigma the probe measures is the real noise floor.

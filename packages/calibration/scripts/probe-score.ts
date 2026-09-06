@@ -6,11 +6,40 @@
  *     --scenes ../../apps/reference-apple/scenes-w9-probe.json \
  *     --snapshots '/path/w9snap-probe-*' --out /path/probe-scores.json
  *
+ *   pnpm --filter @vitrea/calibration exec tsx scripts/probe-score.ts \
+ *     --scenes ../../apps/reference-apple/scenes-w21-probe.json \
+ *     --profile apple-macos-26.5-1x-dark-standard --interior declared \
+ *     --snapshots '/path/w21-run-*' --backgrounds /path/probe/backgrounds \
+ *     --out /path/probe-scores-dark.json
+ *
  * What it computes, and what it deliberately does not:
  *
- * - Interior level `L` per cell per run: `interiorLevel` over the NATIVE
- *   silhouette bounded to the declared region — the coherence metric's own
- *   interior definition, nothing re-derived.
+ * - Interior level `L` per cell per run, in one of two definitions selected by
+ *   `--interior`. `silhouette` (the default, W9's) is `interiorLevel` over the
+ *   NATIVE silhouette bounded to the declared region — the coherence metric's
+ *   own interior definition, nothing re-derived. `declared` is the mean linear
+ *   luminance under the DECLARED box eroded 6 CSS px, the W21 instrument
+ *   (`results/2026-09-06-w21-dark-scheme/g0/read.py`, wave contract X2).
+ *
+ *   The second definition exists because the first one cannot be used on the
+ *   dark scheme at all. Over the dark solids the reference's body sits within
+ *   the extractor's threshold of its own backdrop, so the silhouette it
+ *   recovers is the rim ring in fragments and every statistic taken over it is
+ *   a rim reading (claims §5.87). Under `--interior declared` the backdrop
+ *   statistics move with the level, to the declared box rather than the
+ *   silhouette: the footprint the material samples is the surface's own
+ *   extent, and a level and its input must be read under the same geometry or
+ *   the response curve is fitted against a backdrop the surface never covered.
+ *
+ * - The profile the levels are read from is `--profile`, so the same declared
+ *   scoring runs on W9's light probe and on W21's dark one.
+ *
+ * - `--read-sets` narrows which split roles are read AT ALL (default: every
+ *   role, W9's behaviour). It exists so that a wave which has not yet spent its
+ *   holdout read can score the law without touching those cells: a cell outside
+ *   the listed roles is skipped before its file is opened, so "unread" means
+ *   unread. `recorded` cells are still excluded from the scores wherever they
+ *   are read, exactly as §5.30 declared.
  * - The empirical response curve `R_c(l)`: monotone (Fritsch–Carlson) PCHIP
  *   through the three solid anchors measured in the same runs, per anchored
  *   component; log-area interpolation between anchored curves for the two
@@ -47,7 +76,13 @@ import { DEFAULT_SILHOUETTE_THRESHOLD } from "../cli/measure";
 
 const say = (line: string): void => void process.stdout.write(`${line}\n`);
 
-const PROFILE = "apple-macos-26.5-1x-light-standard";
+const PROFILE = flag("profile") ?? "apple-macos-26.5-1x-light-standard";
+/** W21 X2's instrument: the body is the declared box eroded this many CSS px on every side. */
+const DECLARED_ERODE_CSS_PX = 6;
+const INTERIOR = flag("interior") ?? "silhouette";
+if (INTERIOR !== "silhouette" && INTERIOR !== "declared") {
+  throw new Error(`--interior must be "silhouette" or "declared", not ${INTERIOR}`);
+}
 const K_GRID = [0.005, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32];
 const SOLID_ANCHORS = ["dark-solid", "mid-dark-solid", "light-solid"];
 /** Structured backgrounds carry the pitch their kind declares; solids and photo do not. */
@@ -138,6 +173,13 @@ const spec = JSON.parse(readFileSync(scenesPath, "utf8")) as {
 const recorded = new Set(spec.split["recorded"] ?? []);
 const calibration = new Set(spec.split["calibration"] ?? []);
 
+const ROLES = ["calibration", "validation", "holdout", "recorded"] as const;
+const readSets = new Set((flag("read-sets") ?? ROLES.join(",")).split(","));
+const roleOf = new Map<string, string>();
+for (const role of ROLES) for (const id of spec.split[role] ?? []) roleOf.set(id, role);
+/** A cell outside the readable roles is skipped before its file is opened. */
+const readable = (id: string): boolean => readSets.has(roleOf.get(id) ?? "calibration");
+
 const snapDirParent = dirname(snapshotsGlob);
 const snapPrefix = basename(snapshotsGlob).replace(/\*$/, "");
 const snapshots = readdirSync(snapDirParent)
@@ -181,6 +223,43 @@ interface CellAggregate {
 const cells = new Map<string, CellAggregate>();
 const silhouetteCache = new Map<string, Silhouette>();
 
+/**
+ * The declared box and its eroded body, in device pixels — W21 X2's geometry, the same arithmetic
+ * `results/2026-09-06-w21-dark-scheme/g0/read.py` does, so that a level scored here and a level
+ * reported in the findings are the same number. The component is centred on the declared canvas by
+ * the harness, so its box follows from the scene matrix alone and needs nothing from the capture.
+ */
+function declaredMasks(
+  component: unknown,
+  canvas: { width: number; height: number },
+  width: number,
+  height: number,
+): { box: Uint8Array; body: Uint8Array } {
+  const size = (component as { size?: readonly number[] }).size;
+  if (size === undefined) {
+    throw new Error("--interior declared needs a component with a declared size (no composites)");
+  }
+  const scale = width / canvas.width;
+  const [w, h] = [size[0] ?? 0, size[1] ?? 0];
+  const x0 = (canvas.width / 2 - w / 2) * scale;
+  const y0 = (canvas.height / 2 - h / 2) * scale;
+  const x1 = (canvas.width / 2 + w / 2) * scale;
+  const y1 = (canvas.height / 2 + h / 2) * scale;
+  const box = new Uint8Array(width * height);
+  const body = new Uint8Array(width * height);
+  const e = DECLARED_ERODE_CSS_PX * scale;
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const px = x + 0.5;
+      const py = y + 0.5;
+      const i = y * width + x;
+      if (px >= x0 && px < x1 && py >= y0 && py < y1) box[i] = 1;
+      if (px >= x0 + e && px < x1 - e && py >= y0 + e && py < y1 - e) body[i] = 1;
+    }
+  }
+  return { box, body };
+}
+
 for (const snap of snapshots) {
   const run = basename(snap);
   const manifest = JSON.parse(readFileSync(join(snap, "manifest.json"), "utf8")) as {
@@ -194,6 +273,7 @@ for (const snap of snapshots) {
   const attested = new Map(profile.fixtures.map((f) => [basename(f.file, ".png"), f.presentedActive === true]));
 
   for (const scene of spec.scenes) {
+    if (!readable(scene.id)) continue;
     const png = join(snap, PROFILE, `${scene.id}.png`);
     let native: CalibrationImage;
     let buffer: Buffer;
@@ -205,33 +285,60 @@ for (const snap of snapshots) {
     }
     const bytes = createHash("sha256").update(buffer).digest("hex").slice(0, 10);
     const background = backgroundOf(scene.background);
-    const region = componentRegion(spec.components[scene.component] as never, {
-      canvas: spec.canvas,
-      scale: 1,
-      width: native.width,
-      height: native.height,
-    });
-    const sil = extractSilhouette(native, {
-      kind: "luminance-delta",
-      background,
-      threshold: DEFAULT_SILHOUETTE_THRESHOLD,
-      region: region.silhouette,
-    });
-    const level = interiorLevel(native, { interior: sil }).mean;
+
+    // The level, and the mask its backdrop statistics are taken under. In W9's silhouette mode both
+    // come from the extracted silhouette; in W21's declared mode both come from the declared box —
+    // eroded for the level, whole for the backdrop, because the footprint the material samples is
+    // the surface's extent while the body is what survives the rim band.
+    let level: number;
+    let statMask: Uint8Array;
+    if (INTERIOR === "declared") {
+      const { box, body } = declaredMasks(
+        spec.components[scene.component],
+        spec.canvas,
+        native.width,
+        native.height,
+      );
+      const lum = linearLuminance(native);
+      let sum = 0;
+      let n = 0;
+      for (let i = 0; i < lum.length; i += 1) {
+        if ((body[i] ?? 0) === 0) continue;
+        sum += lum[i] ?? 0;
+        n += 1;
+      }
+      level = sum / n;
+      statMask = box;
+    } else {
+      const region = componentRegion(spec.components[scene.component] as never, {
+        canvas: spec.canvas,
+        scale: 1,
+        width: native.width,
+        height: native.height,
+      });
+      const sil = extractSilhouette(native, {
+        kind: "luminance-delta",
+        background,
+        threshold: DEFAULT_SILHOUETTE_THRESHOLD,
+        region: region.silhouette,
+      });
+      level = interiorLevel(native, { interior: sil }).mean;
+      statMask = sil.mask;
+      if (!cells.has(scene.id)) silhouetteCache.set(scene.id, sil);
+    }
 
     let cell = cells.get(scene.id);
     if (!cell) {
-      // Backdrop statistics under the mask, from the FIRST run's silhouette —
-      // silhouettes are byte-stable across settled runs, and one mask keeps the
-      // backdrop statistic identical across runs of the same cell.
-      silhouetteCache.set(scene.id, sil);
+      // Backdrop statistics under the mask, from the FIRST run — the mask is the same for every run
+      // of a cell (declared mode) or byte-stable across settled runs (silhouette mode), and one mask
+      // keeps the backdrop statistic identical across runs of the same cell.
       const bgLum = linearLuminance(background);
       const histogram = new Map<number, number>();
       let sumLinear = 0;
       let sumEncoded = 0;
       let count = 0;
       for (let i = 0; i < bgLum.length; i += 1) {
-        if ((sil.mask[i] ?? 0) === 0) continue;
+        if ((statMask[i] ?? 0) === 0) continue;
         const l = bgLum[i] ?? 0;
         const key = Math.round(l * 1e4) / 1e4;
         histogram.set(key, (histogram.get(key) ?? 0) + 1);
@@ -435,8 +542,12 @@ const multiState = [...cells.values()]
 
 const output = {
   declaredIn: "claims 5.30",
+  profile: PROFILE,
+  interiorDefinition: INTERIOR,
+  readSets: [...readSets],
+  declaredErodeCssPx: INTERIOR === "declared" ? DECLARED_ERODE_CSS_PX : undefined,
   snapshots: snapshots.map((s) => basename(s)),
-  silhouetteThreshold: DEFAULT_SILHOUETTE_THRESHOLD,
+  silhouetteThreshold: INTERIOR === "declared" ? undefined : DEFAULT_SILHOUETTE_THRESHOLD,
   bandLimitedK: bestK,
   overallRms: overall,
   rows: scoredRows.sort((a, b) => a.id.localeCompare(b.id)),
@@ -446,6 +557,7 @@ const output = {
 };
 writeFileSync(outPath, JSON.stringify(output, null, 2));
 
+say(`profile: ${PROFILE}, interior: ${INTERIOR}, read-sets: ${[...readSets].join(",")}`);
 say(`runs: ${snapshots.length}, cells: ${cells.size}, scored (non-recorded structured): ${scoringSet.length}`);
 say(`\nRMS per hypothesis (P2 at k=${bestK}):`);
 for (const [name, value] of Object.entries(overall)) say(`  ${name}: ${value.toFixed(4)}`);
