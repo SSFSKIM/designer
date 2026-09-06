@@ -172,6 +172,61 @@
   --measure: 66ch;
 }
 
+/*
+ * ── The dark scheme ───────────────────────────────────────────────────────
+ *
+ * Set by `site/main.tsx` on the document element, from the same state that gives
+ * `GlassRoot` its `colorScheme`. An attribute rather than a media query on
+ * purpose: the reader chooses here (the light daylight ground is this page's
+ * measured default, spec `2026-09-03-demo-hero-daylight`), and `"auto"` is one
+ * position of that choice, resolved in the component that owns it.
+ *
+ * The two grounds keep their jobs. `--paper-*` is still the document and
+ * `--stage-*` is still the instrument window; both ramps are inverted in
+ * lightness at the same hue and the steps go DOWN from the ground as the light
+ * ones go up, because a raised surface on a dark ground is lighter than it. The
+ * stage's ground is pinned by something outside this file exactly as its light
+ * twin is: `#1b2126` is `DARK_GROUND.fill`, the colour the stage canvas clears
+ * to, and the two have to agree or the window would show a seam and would be
+ * declaring the wrong backdrop level to the material.
+ */
+:root[data-color-scheme="dark"] {
+  color-scheme: dark;
+
+  --paper-0: oklch(0.145 0.010 232);
+  --paper-1: oklch(0.178 0.011 232);
+  --paper-2: oklch(0.205 0.012 232);
+  --paper-3: oklch(0.245 0.013 232);
+  --paper-4: oklch(0.300 0.014 232);
+  --paper-5: oklch(0.380 0.015 232);
+  /* 6 and 7 are pinned by contrast on `--background`, as their light twins are. */
+  --paper-6: oklch(0.520 0.017 232);
+  --paper-7: oklch(0.690 0.016 232);
+  --paper-8: oklch(0.830 0.012 232);
+  --paper-9: oklch(0.960 0.006 232);
+
+  --background: var(--paper-1);
+  --foreground: var(--paper-9);
+  --card: var(--paper-2);
+  --muted: var(--paper-3);
+  --muted-foreground: var(--paper-7);
+  --border: var(--paper-4);
+  --border-strong: var(--paper-6);
+
+  --stage-0: #1b2126;
+  --stage-1: oklch(0.268 0.013 232);
+  --stage-ink: oklch(0.965 0.006 232);
+  --stage-ink-dim: oklch(0.760 0.012 232);
+  --stage-rule: rgb(255 255 255 / 0.16);
+  --stage-graticule: rgb(255 255 255 / 0.06);
+
+  /* The accent lifts on a dark ground for the same reason it dropped on a light one. */
+  --accent: oklch(0.720 0.140 48);
+  --accent-strong: oklch(0.790 0.130 50);
+  --accent-stage: oklch(0.760 0.145 48);
+  --accent-foreground: oklch(0.180 0.020 60);
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-fast: 1ms;

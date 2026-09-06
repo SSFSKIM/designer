@@ -35,6 +35,12 @@
  * chooses**, which is why nothing in this file mentions one (Decision Log #13).
  */
 
+/*
+ * The colour scheme's vocabulary is platform-web's, re-exported so an app typing
+ * a `colorScheme` prop of its own does not have to install the runtime package
+ * to name its values (W21 G3).
+ */
+export type { GlassColorScheme, ResolvedColorScheme } from "@vitreajs/vitrea-web";
 export {
   GlassRoot,
   useGlassAccessibility,

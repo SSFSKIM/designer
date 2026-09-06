@@ -38,6 +38,7 @@ import { DEFAULT_MOTION_PROFILE, withReducedMotion, type MotionProfile } from "@
 import {
   consoleDiagnosticSink,
   createGlassRoot,
+  type GlassColorScheme,
   type GlassRoot as PlatformGlassRoot,
   type VitreaDiagnostic,
   type VitreaDiagnosticSink,
@@ -76,6 +77,16 @@ export interface GlassRootProps {
    */
   readonly renderer?: "css" | "webgpu" | undefined;
   readonly powerPreference?: GPUPowerPreference | undefined;
+  /**
+   * Which colour scheme's material the root draws (W21 G3). `"light"` by
+   * default, so nothing moves for an app that upgrades; `"dark"` selects the
+   * measured dark material, and `"auto"` follows `prefers-color-scheme` and
+   * re-derives both tiers when the operating system flips.
+   *
+   * Distinct from a surface's backdrop `hint`, which states the tone of what is
+   * behind that surface. This states which material the surface is made of.
+   */
+  readonly colorScheme?: GlassColorScheme | undefined;
   /** `"system"` follows the media query; a boolean overrules it (§Accessibility). */
   readonly reducedMotion?: AccessibilityOverride | undefined;
   readonly reducedTransparency?: AccessibilityOverride | undefined;
@@ -132,6 +143,7 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     children,
     renderer = "css",
     powerPreference,
+    colorScheme = "light",
     reducedMotion = "system",
     reducedTransparency = "system",
     increasedContrast = "system",
@@ -159,6 +171,11 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
   const sinkRef = useRef<VitreaDiagnosticSink | undefined>(onDiagnostic);
   sinkRef.current = onDiagnostic;
 
+  // Held for the same reason, one line up: the construction effect must not
+  // re-run when the scheme changes.
+  const schemeRef = useRef<GlassColorScheme>(colorScheme);
+  schemeRef.current = colorScheme;
+
   useEffect(() => {
     const consoleSink = consoleDiagnosticSink();
     const sink: VitreaDiagnosticSink = (diagnostic) => {
@@ -176,6 +193,11 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
       ...(container === undefined ? {} : { container }),
       ...(zIndex === undefined ? {} : { zIndex }),
       ...(powerPreference === undefined ? {} : { webgpu: { powerPreference } }),
+      // Read at construction so the very first frame draws the right material.
+      // A later change reaches the root through the setter below rather than
+      // through this dependency list: rebuilding the runtime for a theme toggle
+      // would drop every registration in the tree.
+      colorScheme: schemeRef.current,
     });
 
     rootRef.current = created;
@@ -198,6 +220,13 @@ export function GlassRoot(props: GlassRootProps): ReactNode {
     root.setAccessibilityOverrides(overrides);
     store.poll();
   }, [increasedContrast, reducedMotion, reducedTransparency, root, store]);
+
+  // The scheme is a material change, applied to the live root exactly as the
+  // accessibility overrides above are.
+  useEffect(() => {
+    if (root === null) return;
+    root.setColorScheme(colorScheme);
+  }, [colorScheme, root]);
 
   /*
    * The bindings' motion runs on the root's frame loop, not on one of their own.

@@ -27,6 +27,7 @@
   "scripts": {
     "build": "tsup",
     "lint": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json",
+    "profile:dark": "node scripts/generate-dark-profile.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:chromium": "playwright test --project=chromium",

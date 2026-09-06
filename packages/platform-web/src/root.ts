@@ -58,6 +58,15 @@ import {
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
 import { readHostChannels, type SurfaceChannelValues } from "./channels";
 import {
+  colorSchemeMaterialProfile,
+  mergeMaterialProfiles,
+  observeColorScheme,
+  resolveColorScheme,
+  type ColorSchemeFeed,
+  type GlassColorScheme,
+  type ResolvedColorScheme,
+} from "./color-scheme";
+import {
   cssTierDeclarations,
   foregroundDeclarations,
   hintedBackdropLuminance,
@@ -238,6 +247,24 @@ export interface GlassRootOptions {
    * transparency).
    */
   readonly materialProfile?: RendererMaterialProfile;
+  /**
+   * Which colour scheme's material this root draws (W21 G3).
+   *
+   * The material is measured per scheme, and only one scheme's numbers can be
+   * the renderer's defaults: those are light-standard's, so `"dark"` selects
+   * `darkMaterialProfile` — the calibration document's own patch — as the BASE
+   * this root resolves from, and `materialProfile` above merges over it, leaf by
+   * leaf. An app can therefore ask for the dark material and still tune it.
+   *
+   * `"auto"` follows `prefers-color-scheme: dark` and re-derives both tiers when
+   * the operating system flips, the same path a device-ratio change already
+   * takes. The default is `"light"`, so nothing moves for a host that upgrades
+   * into this option; a later major may make `"auto"` the default.
+   *
+   * Not a backdrop hint. A hint states the tone of what is behind a surface;
+   * this states which material the surface is made of.
+   */
+  readonly colorScheme?: GlassColorScheme;
   /**
    * The CSS tier's side of that crossing: what a renderer quantity costs to
    * express as `backdrop-filter` plus an sRGB overlay.
@@ -439,6 +466,22 @@ export interface GlassRoot {
    * CSS tier re-derives its declarations from the same patch.
    */
   setMaterialProfile(profile: RendererMaterialProfile): void;
+  /**
+   * Change the colour scheme after construction (W21 G3).
+   *
+   * A setter rather than a construction-only option because a scheme switch is a
+   * material change, not a lifecycle event: tearing the root down for one would
+   * drop every host registration, every proxy and the device with them. Takes
+   * effect on the next frame, which is where both tiers read the material from.
+   */
+  setColorScheme(scheme: GlassColorScheme): void;
+  /**
+   * Which scheme's material is drawing right now — `"auto"` already folded
+   * against `prefers-color-scheme`. The resolved answer, beside the resolved
+   * accessibility policy, because that is what the honesty core is for: a
+   * readout says what drew, not what was asked for.
+   */
+  readonly colorScheme: ResolvedColorScheme;
   readonly accessibility: ResolvedAccessibilityPolicy;
   readonly webgpu: WebGPUStatus | undefined;
   /**
@@ -902,25 +945,54 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * moves both tiers — the next frame's declarations are rebuilt from it, and
    * the per-host serialised diff writes only what actually changed.
    */
+  /**
+   * The colour scheme, and the two patches that resolve into one material.
+   *
+   * `schemeSetting` is what the app asked for and `hostProfile` is the app's own
+   * `materialProfile`; the material this root actually draws is the scheme's base
+   * patch with the app's merged over it. Both are held rather than folded once,
+   * because either can move after construction — `setColorScheme`, an operating
+   * system flip under `"auto"`, `setMaterialProfile` — and a fold would leave the
+   * next move composing against an answer instead of against an input.
+   */
+  let schemeSetting: GlassColorScheme = options.colorScheme ?? "light";
+  let hostProfile: RendererMaterialProfile | undefined = options.materialProfile;
+  const colorSchemeFeed: ColorSchemeFeed = observeColorScheme({
+    // On the SUPPLIED window, for the reason the device-ratio feed states: a root
+    // created for an iframe or a popup has to read that window's answer.
+    matcher: options.matcher ?? browserMediaMatcher(view),
+    onChange: () => {
+      if (schemeSetting !== "auto") return;
+      applyMaterialProfile(activeProfile());
+    },
+  });
+  /** The setting folded against the system's answer — what is actually drawing. */
+  const resolvedScheme = (): ResolvedColorScheme =>
+    resolveColorScheme(schemeSetting, colorSchemeFeed.prefersDark);
+  /** The one material both tiers derive from: the scheme's, tuned by the app's. */
+  const activeProfile = (): RendererMaterialProfile | undefined =>
+    mergeMaterialProfiles(colorSchemeMaterialProfile(resolvedScheme()), hostProfile);
+  const initialProfile = activeProfile();
+
   const cssMapping: CssTierMapping = { ...CSS_TIER_MAPPING, ...options.cssTierMapping };
-  let cssOptics = cssTierOptics(options.materialProfile, cssMapping);
+  let cssOptics = cssTierOptics(initialProfile, cssMapping);
   /**
    * The same profile *before* the tier conversion — the material the renderer is
    * drawing. The foreground decision needs it whenever the GPU tier is the one
    * painting, because the level behind the glyphs is that material's composite
    * and not the CSS tier's reproduction of it (Decision Log #32(b)).
    */
-  let gpuOptics = sourceOptics(options.materialProfile);
+  let gpuOptics = sourceOptics(initialProfile);
   /**
    * The pair a GPU-tier group writes when it has no texture to sample (W11a):
    * the renderer's tint at this tier's alpha, one number for both tiers.
    */
-  let unsampled = unsampledMaterials(options.materialProfile, cssMapping);
+  let unsampled = unsampledMaterials(initialProfile, cssMapping);
   /**
    * The renderer's light direction and the two size gains its inner shadow
    * rides — the profile block the interior derivations read (W17 G1).
    */
-  let interiorLight = sourceInteriorLight(options.materialProfile);
+  let interiorLight = sourceInteriorLight(initialProfile);
   /**
    * The profile's policy constants, held alongside the two tiers' optics because
    * they are the part of the profile neither tier's optics can carry: they
@@ -929,39 +1001,77 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * values, so the foreground decision and this tier's own fold have to use them
    * or they would model a material nothing draws.
    */
-  let policyFold = resolvedPolicyFold(options.materialProfile);
+  let policyFold = resolvedPolicyFold(initialProfile);
   /**
    * The author tint's shade law (W10), from the same profile — what turns a
    * seed into Apple's "range of tones mapped to content brightness underneath".
    * Rebuilt by `setMaterialProfile` alongside the rest, so a calibrated shade
    * lands as a data change and moves both tiers at once.
    */
-  let tintShade = resolvedTintShade(options.materialProfile);
+  let tintShade = resolvedTintShade(initialProfile);
   /**
    * The profile's size law (W2), held for the same reason as `policyFold`: the
    * constants multiply a surface's span rather than being numbers either tier's
    * optics can carry, and both the CSS declarations and the group's sampling
    * floor need them from the *same* profile the renderer is drawing with.
    */
-  let sizeConstants = sourceSize(options.materialProfile);
+  let sizeConstants = sourceSize(initialProfile);
   /**
    * The outer shadow's constants (W8), from the same profile and held for the
    * same reason: both tiers cast the one shadow, so a calibrated one has to reach
    * this tier's `box-shadow` and the renderer's field rect from a single document.
    */
-  let outerShadowConstants = sourceOuterShadow(options.materialProfile);
+  let outerShadowConstants = sourceOuterShadow(initialProfile);
   /**
    * The backdrop tone adaptation's curve (W7), from the same profile. The GPU
    * tier evaluates it per pixel; this tier evaluates it once per surface against
    * whatever it knows of the backdrop — see `backdropTone` below.
    */
-  let backdropToneConstants = resolvedBackdropTone(options.materialProfile);
+  let backdropToneConstants = resolvedBackdropTone(initialProfile);
   /**
    * The backdrop tone response's anchors (W9), from the same profile — the law
    * that owns the interior mean, where the collapse constants above own
    * texture. See the renderer's `MaterialProfile.backdropToneAnchorX`.
    */
-  let backdropToneResponse = resolvedBackdropToneResponse(options.materialProfile);
+  let backdropToneResponse = resolvedBackdropToneResponse(initialProfile);
+  /**
+   * Re-derive every one of the bindings above, on both tiers, from one profile.
+   *
+   * The one path a material change takes, whatever moved it: `setMaterialProfile`,
+   * `setColorScheme`, or the operating system flipping `prefers-color-scheme`
+   * under `"auto"`. The CSS side re-derives rather than being told — the mapping
+   * is what knows the crossing's cost, and a caller handing the CSS tier its own
+   * alpha would be re-opening K5's gap by hand.
+   *
+   * Nothing is marked dirty afterwards, and nothing needs to be: the write phase
+   * rebuilds every host's declarations from these bindings on every frame and
+   * writes what its serialised diff says has changed. A scheme flip therefore
+   * lands on the next frame, on whichever tier is drawing.
+   */
+  const applyMaterialProfile = (profile: RendererMaterialProfile | undefined): void => {
+    cssOptics = cssTierOptics(profile, cssMapping);
+    gpuOptics = sourceOptics(profile);
+    unsampled = unsampledMaterials(profile, cssMapping);
+    interiorLight = sourceInteriorLight(profile);
+    policyFold = resolvedPolicyFold(profile);
+    tintShade = resolvedTintShade(profile);
+    sizeConstants = sourceSize(profile);
+    outerShadowConstants = sourceOuterShadow(profile);
+    backdropToneConstants = resolvedBackdropTone(profile);
+    backdropToneResponse = resolvedBackdropToneResponse(profile);
+    /*
+     * The renderer's own patch takes the *resolved* profile too, so the GPU tier
+     * and this one are always drawing the same material.
+     *
+     * The empty patch is sent rather than skipped, and that is the whole of the
+     * light scheme: "light" is the absence of a difference from the renderer's
+     * defaults, so a root going back to it from dark has to hand the renderer a
+     * patch that resolves to those defaults. Skipping the call would leave the
+     * GPU tier drawing the dark material it was last told about while this tier
+     * had already gone back.
+     */
+    bridge?.setMaterialProfile(profile ?? {});
+  };
   /**
    * What this tier knows about each backdrop source's own colour, in linear
    * light — the input the adaptation cannot get any other way here.
@@ -1021,9 +1131,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     ? createGlassRendererBridge({
         layers,
         diagnostics: platformDiagnostics,
-        ...(options.materialProfile === undefined
-          ? {}
-          : { materialProfile: options.materialProfile }),
+        ...(initialProfile === undefined ? {} : { materialProfile: initialProfile }),
         ...(options.webgpu?.load === undefined ? {} : { load: options.webgpu.load }),
         onRendererUnavailable: () => {
           rendererUnavailable = true;
@@ -2789,20 +2897,20 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     },
 
     setMaterialProfile(profile) {
-      // Both tiers, from one call. The CSS side re-derives rather than being
-      // told: the mapping is what knows the crossing's cost, and a caller
-      // handing the CSS tier its own alpha would be re-opening K5's gap by hand.
-      cssOptics = cssTierOptics(profile, cssMapping);
-      gpuOptics = sourceOptics(profile);
-      unsampled = unsampledMaterials(profile, cssMapping);
-      interiorLight = sourceInteriorLight(profile);
-      policyFold = resolvedPolicyFold(profile);
-      tintShade = resolvedTintShade(profile);
-      sizeConstants = sourceSize(profile);
-      outerShadowConstants = sourceOuterShadow(profile);
-      backdropToneConstants = resolvedBackdropTone(profile);
-      backdropToneResponse = resolvedBackdropToneResponse(profile);
-      bridge?.setMaterialProfile(profile);
+      // The app's own patch, replacing whatever it passed at construction — and
+      // still merged over the colour scheme's base, because the scheme is a
+      // separate choice the app has not just changed its mind about.
+      hostProfile = profile;
+      applyMaterialProfile(activeProfile());
+    },
+
+    setColorScheme(scheme) {
+      schemeSetting = scheme;
+      applyMaterialProfile(activeProfile());
+    },
+
+    get colorScheme() {
+      return resolvedScheme();
     },
 
     setAccessibilityOverrides(overrides) {
@@ -2851,6 +2959,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       styleObserver.disconnect();
       accessibilityFeed.stop();
       devicePixelRatioFeed.stop();
+      colorSchemeFeed.stop();
       geometry.destroy();
       proxies.destroy();
       // The bridge first: it owns GPU resources built on the device the

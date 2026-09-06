@@ -94,6 +94,32 @@ export const DEFAULT_GROUND: StageGroundPaint = {
  */
 export const DEFAULT_GROUND_LUMINANCE = 0.7796;
 
+/**
+ * The window's ground when the reader has asked for the dark scheme (W21 G3).
+ *
+ * Daylight is still this page's default and still the harder demonstration — the
+ * dark ground is here because the dark MATERIAL is a different measured material
+ * and cannot be looked at over a light window. `#1b2126` is the paper ramp's cool
+ * hue taken to the bottom of its range; its linear luminance, 0.0146 by the
+ * arithmetic above, sits beside the 0.012 of `dark-solid`, the backdrop the dark
+ * reference was captured over, so what the reader sees here is the material at
+ * roughly the level it was measured at.
+ *
+ * `field: 0` because the lobes are a light-ground device: they composite with
+ * `multiply`, which is how colour is put INTO a light ground, and multiplying a
+ * light lobe onto near-black is very nearly nothing. The graticule carries the
+ * high-frequency detail the lens needs, in white, as the tone stage's swept grey
+ * already does at its dark end.
+ */
+export const DARK_GROUND: StageGroundPaint = {
+  fill: "#1b2126",
+  field: 0,
+  graticule: "rgb(255 255 255 / 0.11)",
+};
+
+/** `DARK_GROUND.fill`'s linear luminance, by the same arithmetic. */
+export const DARK_GROUND_LUMINANCE = 0.0146;
+
 export interface StageBackdropProps {
   readonly sourceId: string;
   /** Held still under reduced motion; the grid alone still carries the detail. */
