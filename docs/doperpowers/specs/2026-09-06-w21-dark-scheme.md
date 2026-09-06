@@ -1,7 +1,9 @@
 # W21 — the dark scheme on the GPU tier (2026-09-06)
 
-**Status: OPENED 2026-09-06 — chartered on wave Decision Log 23 (c) at W20's close and the 0.9.0
-cut; the finding pinned the same day (claims §5.87). G0 dispatched.**
+**Status: OPEN 2026-09-06 — chartered on wave Decision Log 23 (c) at W20's close and the 0.9.0
+cut; the finding pinned the same day (claims §5.87). G0 PARTIAL (claims §5.88): instrument, bed and
+endpoint diagnostic delivered, the native probe blocked on the console (a Screen Sharing session; the
+user's to clear). G3 built on its branch ahead of its edge, awaiting G2's numbers to ship.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W21 row; Decision Log 23 (c)). The law this wave
@@ -334,10 +336,10 @@ at a time.
 
 | child | status |
 | --- | --- |
-| G0 — the dark probe and the instrument | DISPATCHED 2026-09-06 |
+| G0 — the dark probe and the instrument | PARTIAL 2026-09-06 (claims §5.88): the bed declared, the instrument validated (X4 0.0028; W9's verdict unchanged under the swap), the endpoint diagnostic measured — the remainder runs downward, the light anchors miss by six times, the law reaches neither the collapsed nor the tinted cells; **the native probe BLOCKED** by a Screen Sharing session holding the console (the user's to clear; resumes at `run-probe.sh`) |
 | G1 — the form declared and dry-run | — |
 | G2 — the landing and its referee | — |
-| G3 — the dark scheme shipped | — |
+| G3 — the dark scheme shipped | BUILT 2026-09-06 on its branch (Decision Log 1's shape: `darkMaterialProfile` generated from the document, `colorScheme` on both roots, `"auto"` on the media feed, the demo's switch, X7 pinned in two packages); Codex review's one finding (the demo's Reference section must follow the resolved scheme) in fix; browser suites running; merge after G2 or on the parent's call |
 
 ## Decision Log
 
@@ -372,6 +374,16 @@ recommendation") the parent proceeds on (1) as recommended, opt-in, unless told 
 
 ## Surprises & Discoveries
 
+- **The dark remainder runs downward** (G0, claims §5.88 §3): every thick dark cell settles below
+  the strength-0 render, so the clamp in play is the black one — the mirror of W9's white clamp —
+  and at strength 1 the light anchors overshoot the dark reference by a factor of six. The
+  thin/thick inversion shows as opposite signs of the required strength at one encoded input.
+- **A Screen Sharing session blocks the native probe totally and invisibly** (G0, §5.88 §4): the
+  window never becomes key, every cell attests inactive, and the HID-idle guard reads 5 000 s idle
+  while a person drives the machine remotely. A third failure mode, in the tracker.
+- **The harness's tint guard reported the activation fault as a colour fault** and its default
+  deletes the staged bundle — the evidence that diagnosed the fault survived only because the
+  second run passed `--allow-colourless-tints`.
 - **The canonical dark bed's worst "interior" gap is the rim.** Over the dark solids the native
   silhouette is the rim ring in fragments, so the interior rows of `dark-solid__rrect-md` measure
   the rim on both sides (0.041 native, 0.211 web) and the cell is excluded from the gate by the
@@ -382,6 +394,11 @@ recommendation") the parent proceeds on (1) as recommended, opt-in, unless told 
 
 ## Revision Notes
 
+- 2026-09-06: G0 PARTIAL (claims §5.88) — the bed, the instrument (validated by injection and by
+  re-scoring W9's light probe under both interiors) and the endpoint diagnostic delivered and merged;
+  the native probe blocked by a Screen Sharing session on the console, the user's to clear; three
+  Surprises. G3 built on its branch ahead of its edge (the plumbing does not need the probe's
+  numbers; X7's test carries G1's re-recording through), one review finding in fix.
 - 2026-09-06: v1 — chartered on wave Decision Log 23 (c) from claims §5.87, the finding pinned the
   same day (the dark bed read under the declared geometry: the body a response surface the profile
   lacks, the rim the light scheme's at seven to ten times, the passthrough halved; the matrix's

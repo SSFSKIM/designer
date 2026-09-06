@@ -12422,3 +12422,98 @@ a `colorScheme` option on both roots (C9a's parent-impact item — today no publ
 exports the dark patch and nothing selects it). The parent's acceptance: body within 0.010 and rim
 within 0.03 per side on every untinted dark cell, dark calibration ΔE below 0.006, the light
 profiles byte-identical, the tinted cells within 0.001; 0.10.0 after the landing.
+
+### 5.88 W21 G0 PARTIAL: the declared-geometry instrument stood up and validated — injection recovered to 0.0028, W9's light verdict unchanged under the swap — the dark probe's bed declared, the endpoint diagnostic measured in dark (the remainder runs DOWNWARD; the light anchors miss the dark reference by a factor of six; the law reaches neither the collapsed nor the tinted cells); the native probe blocked by a Screen Sharing session that will not let the harness's window become key (2026-09-06)
+
+**W21 G0's findings** (`results/2026-09-06-w21-dark-scheme/g0/g0-probe.md`, the worker's file; the
+parent's reading here). The gate's instrument, bed and diagnostic are delivered and committed; the
+native probe — the six anchors, the encoded-mean verdict in dark, the passthrough curve, the rim per
+side, the tint table and the candidate's first read — is not, for a reason only the user can clear
+(§4 below). Nothing canonical was written.
+
+#### 1. The bed — `apps/reference-apple/scenes-w21-probe.json`
+
+W9's 56-cell grid verbatim (thirteen backgrounds, five components, the orange tint, the same scene
+ids) under the one dark profile (`apple-macos-26.5-1x-dark-standard`, `colorScheme: dark`), generated
+by `make-probe-scenes.mjs`. The split is re-derived by W9's own rule against the canonical DARK bed:
+`recorded` 1 (`photo__rrect-lg__rest`, the twin of the dark holdout; the dark bed's other two holdout
+scenes have no probe twin and the dark pair carries no floors), holdout 9 (the `checkerboard-8` column
+and the three large extremes), validation 5 (W9's), calibration 41. The seven cells W9 recorded for
+their LIGHT twins are calibration here — the reason for re-deriving rather than copying.
+
+#### 2. The instrument — `read.py`, validated three ways
+
+Body = mean and sd of linear luminance under the declared box eroded 6 CSS px; rim peak per side =
+the largest row (top, bottom) or column (left, right) mean in the box's outer 3 CSS px; the backdrop's
+linear and encoded means measured from the rendered raster under the box (W9's input definition);
+run-to-run σ across a probe's attested runs. (a) On the canonical dark bed it reproduces §5.87's 1x
+table number for number on all twelve rows. (b) **X4, injection** (`read-recovery.txt`): a copy of
+`dark-solid__rrect-md` with the box painted at a chosen level and its outermost one-pixel ring at
+another — the reference's own faint shape (0.034 / 0.030 over 0.015), a bright uniform rim (0.240
+over 0.008), an asymmetric rim (0.220 / 0.100 / 0.230 / 0.085 over 0.045) — recovered with a worst
+error of **0.0028**, the 8-bit quantisation of the painted value; the wave's bounds (0.010 body,
+0.030 per rim side) have three times that headroom. One property stated rather than found later: a
+peak is a maximum, so a rim BELOW its own body reads as the body (0.030 under 0.050 reads 0.0495) —
+the rim peak is a lower bound, exact while the rim is the brighter of the two, which every untinted
+dark cell in §5.87 satisfies. (c) **The swap does not move a verdict** (`instrument-crosscheck.txt`):
+`scripts/probe-score.ts` now takes `--profile`, `--interior declared` and `--read-sets`; re-scored on
+W9's own seven light-probe snapshots, the silhouette interior reproduces §5.31's 0.1070 / 0.0683 /
+0.0683 / 0.0400 byte for byte and the declared-box interior reads 0.1080 / 0.0674 / 0.0674 / 0.0380 —
+the same ranking, the same winner, the same rejection, P3 better by 0.0020. `--read-sets` skips a
+cell before its file is opened, so a gate that has not spent its holdout can score without reading it.
+
+#### 3. The endpoint diagnostic, in dark (`endpoints-canonical.txt`)
+
+§5.33's diagnostic on the canonical dark bed under the declared geometry: `web₀` the shipped dark
+document (strength 0), `web₁` the same document at strength 1 on the LIGHT anchors, both to scratch,
+the holdout not captured; `s = (reference − web₀) / (web₁ − web₀)`.
+
+| encoded input | scene | web₀ | web₁ | reference | s required |
+| --- | --- | --- | --- | --- | --- |
+| 0.0030 | `impulse__capsule-button` | 0.0037 | 0.0037 | 0.0066 | — |
+| 0.1104 | `dark-solid__rrect-md` | 0.0482 | 0.4955 | 0.0153 | **−0.074** |
+| 0.1104 | `dark-solid__capsule-button` | 0.0117 | 0.0117 | 0.0110 | — |
+| 0.1104 | `dark-solid__capsule-button` tint orange | 0.4272 | 0.4272 | 0.4243 | — |
+| 0.4860 | `photo__rrect-md` | 0.0547 | 0.6539 | 0.0466 | **−0.014** |
+| 0.4935 | `photo__capsule-button` | 0.0551 | 0.6140 | 0.0961 | 0.073 |
+| 0.4935 | `photo__capsule-button` tint orange | 0.4276 | 0.4276 | 0.4343 | — |
+| 0.5000 | `checkerboard__capsule-button` | 0.0640 | 0.6747 | 0.1059 | 0.069 |
+| 0.5000 | `checkerboard__rrect-md` | 0.0628 | 0.6931 | 0.0468 | **−0.025** |
+| 0.5000 | `checkerboard__capsule-button` tint orange | 0.4276 | 0.4276 | 0.4343 | — |
+
+Four readings. **The dark remainder runs downward:** every thick cell settles BELOW the strength-0
+render, so the clamp the charter's Design (i) asked about is the black one, the mirror of §5.33's
+white clamp; G1 declares against that side. **The light anchors are not ground in dark, by a factor
+of six:** at strength 1 the thick cells render 0.49–0.69 against a reference of 0.015–0.047 — the
+inference `material.ts` records for `backdropToneResponseStrength` 0 is now a measurement. **The
+thin/thick inversion is the sign of `s`:** the two positive strengths are capsules, the three negative
+ones `rrect-md`, at the same encoded input (`checkerboard`: +0.069 against −0.025). **The law reaches
+neither the collapsed nor the tinted cells:** five cells render identically at both endpoints (the
+collapse owns two, the tint pathway three), so G1's stops S2 and S3 are not at risk from the anchors —
+only from the alpha and the rim. What the table cannot do: ten cells at three encoded inputs, no
+`light-solid` anchor, no thin row — it states the problem's shape and supplies none of the six anchors.
+
+#### 4. The native probe: blocked, and by what
+
+Two attempts by W9's protocol from the main checkout's bundle. The first (09:08–09:19Z) captured 56 of
+56 byte-stable cells and the harness refused to publish on its own tint guard — the five tint capsules
+read chroma 0.39–0.57 against a floor of 1.0 — and deleted the staging directory. The second
+(09:20–09:31Z), with `--allow-colourless-tints` (W12's precedent, §5.21), published: HID idle 5 038 s
+at start, and **0 of 56 cells attested** — every one `presentedActive: false` with `deterministic`
+and `materialRendered` true. The tint dropout was the symptom: Liquid Glass draws its flat, colourless,
+inactive appearance when its window is not key, and the window was never key. The capture-path probe,
+launched as every capture is launched, separates the permissions —
+`ScreenCaptureKit: OK`, `isKeyWindow: false, NSApp.isActive: false` — and `pmset -g assertions` names
+the cause: `screensharingd` holding "Remote user is connected" and "Remote user active", with the
+remote user's Chrome frontmost. Three shell mitigations failed (`caffeinate -u`; hiding other
+applications through System Events; activating the app by name, `-10006`). Evidence under
+`g0/blocked/`.
+
+**A third failure mode**, distinct from the locked session (§5.17) and the tracker's partial
+idle-refusal (W19 G0): total, and invisible to the HID-idle guard because remote input is not local
+HID — the machine reports 5 000 s idle while a person is driving it. The attestation caught it as
+designed; nothing unattested was read and no bed was materialised. **What unblocks it is the user's:**
+end the Screen Sharing session, or otherwise leave the console with the harness able to come to the
+front, for about two hours (ten runs at eleven minutes). The gate resumes at three commands
+(`run-probe.sh`, `run-materialize.sh`, `run-read.sh`); no retry loop is armed. Recorded in
+`tech-debt-tracker.md` with the shape of the harness-side fix.
