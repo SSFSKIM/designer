@@ -63,7 +63,17 @@ function nativeFixtures(): Plugin {
     async closeBundle() {
       const out = resolve(here, "dist/fixtures");
       await mkdir(out, { recursive: true });
-      for (const directory of ["backgrounds", "apple-macos-26.5-1x-light-standard"]) {
+      // Both scheme profiles, because the reference section follows the colour
+      // scheme the reader resolved (W21 G3): a dark-standard capture missing from
+      // `dist/` would be a broken image where the page claims a comparison. The
+      // list stays explicit rather than copying every profile — the accessibility
+      // and 2x profiles are captured but not shown, and a build should not carry
+      // fixtures no page references.
+      for (const directory of [
+        "backgrounds",
+        "apple-macos-26.5-1x-light-standard",
+        "apple-macos-26.5-1x-dark-standard",
+      ]) {
         await cp(join(fixtures, directory), join(out, directory), { recursive: true });
       }
     },

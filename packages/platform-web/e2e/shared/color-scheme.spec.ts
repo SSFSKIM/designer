@@ -83,6 +83,23 @@ test.describe("the scheme selects the material, on both tiers", () => {
   }
 });
 
+/**
+ * The flip is waited for on the CONDITION, not on a timeout, and the reason is
+ * the mechanism rather than flake.
+ *
+ * A `MediaQueryList` reports a change in the "update the rendering" steps —
+ * "evaluate media queries and report changes" runs there, just before the
+ * animation-frame callbacks — while `matches` is answered live at any time. So a
+ * root constructed after `emulateMedia` reads the new answer immediately (the
+ * cases above), and a root that was already alive hears about it on the next
+ * rendering update. The harness drives frames by hand and starts no rAF loop, so
+ * nothing here forces one: reading straight after `emulateMedia` reads before the
+ * event has been dispatched, on all three engines. `waitForFunction` polls on
+ * animation frames, which is exactly the update the event is dispatched in.
+ *
+ * `root.colorScheme` is the thing waited on because it is the honest reading: it
+ * changes when the material changes, not when the query does.
+ */
 test("a live flip re-derives the material without a reload", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   const before = await page.evaluate(async () => {
@@ -102,6 +119,7 @@ test("a live flip re-derives the material without a reload", async ({ page }) =>
   });
 
   await page.emulateMedia({ colorScheme: "dark" });
+  await page.waitForFunction(() => window.h.requireRoot().colorScheme === "dark");
   const after = await page.evaluate(() => {
     window.h.frame(2);
     const root = window.h.requireRoot();

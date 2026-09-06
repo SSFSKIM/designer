@@ -23,7 +23,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { MEASURED_CELL_COUNT } from "./calibration";
 import { DiagnosticsReadout, GroupReadout } from "./Readout";
-import { REFERENCE_SCENES, NATIVE_PROFILE, type ReferenceScene } from "./scenes";
+import { REFERENCE_SCENES, nativeProfileFor, type ReferenceScene } from "./scenes";
 import {
   GROUPS_BY_MODE,
   RASTER_SOURCE_ID,
@@ -443,7 +443,8 @@ export function Site(props: SiteProps): ReactNode {
               Every figure is keyed to its cell: native profile, engine and version,
               renderer, sampling backend, GPU adapter class, tier and fixture set.
               The claim is never &ldquo;pixel-identical to Apple&rdquo;. It is
-              reference-calibrated against {NATIVE_PROFILE}.
+              reference-calibrated against {nativeProfileFor(props.resolvedColorScheme)},
+              the profile of the colour scheme this page is drawing.
             </li>
             <li>
               1x only. This machine reports a backing scale of 1.0, so the canonical

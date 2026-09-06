@@ -595,9 +595,21 @@ code {
   display: none;
 }
 
-.note--slot {
+.note--slot,
+/*
+ * The withdrawn comparison reads as the same kind of statement as the empty
+ * figure slot — the page declining to show something rather than something
+ * failing — and carries its own class so the suite that counts empty slots is
+ * still counting one thing.
+ */
+.note--absent {
   color: var(--stage-ink-dim);
   border-left: 0;
+}
+
+.note--absent {
+  max-width: 42ch;
+  margin: auto;
 }
 
 /* ── Glass surfaces ──────────────────────────────────────────────────────── */
