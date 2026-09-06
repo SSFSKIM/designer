@@ -462,6 +462,13 @@ is whichever prompt the user answers first, where `pnpm publish -r` publishes se
 the workspace's topological order and takes one `--otp` — and taking it at the next cut is now
 the parent's recommendation rather than an open choice (the wave doc's 0.8.0 addendum).
 
+**Sixth occurrence, the 0.9.0 cut (2026-09-06):** the same shape, narrower this time —
+`@vitreajs/vitrea-web@0.9.0` at 08:47:04Z and `@vitreajs/vitrea-react@0.9.0` at 08:47:06Z,
+`@vitreajs/vitrea@0.9.0` at 08:49:09Z (registry `time`): 124 s against 70, 73, 248, 267 and 246.
+A cold `npm install` of the three at 08:49:01Z failed with `notarget` on `@vitreajs/vitrea@0.9.0`
+and passed at 08:49:33Z. Six cuts; the fix above is unchanged in shape and remains the parent's
+recommendation for the next cut, the user's call.
+
 ## The CSS tier's captures move by a code between runs on two 2x cells (W15 G2, W16 G2, 2026-09-04)
 
 *Found at W15's landing (one cell), confirmed at W16's.* Re-capturing the CSS tier from an

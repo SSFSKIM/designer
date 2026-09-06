@@ -4,7 +4,8 @@
 GPU-tier wave under the amended discipline; found by the user's eye on the W19 landing sheet
 ("where it was not round but rectangular") and pinned the same day (claims §5.83). G0 CLOSED
 (claims §5.84; Decision Log 2); G1 DECLARED (§5.85; Decision Log 3); G2 LANDED and the wave
-RECOMPOSED (§5.86). The 0.9.0 cut follows; W21, the dark scheme, is next.**
+RECOMPOSED (§5.86). The 0.9.0 cut published 2026-09-06 (the wave doc's addendum); W21, the
+dark scheme, is next.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W20 row; Decision Log 23). The geometry this wave
@@ -416,6 +417,9 @@ compressed shoulder from a circular arc.
 
 ## Revision Notes
 
+- 2026-09-06: **the 0.9.0 cut** — published by the user from `c9f724f`, tag `v0.9.0` pushed, verified
+  by a cold install (the wave doc's addendum); the registry's publish window recurred (124 s, the
+  tracker's sixth occurrence). The wave is complete.
 - 2026-09-06: G2 LANDED and the wave RECOMPOSED (claims §5.86) — the canonical rebuild with the
   conformance capture, the referee, the gate's two new clauses, the demo fixture, the sheets, the
   chain; Outcomes & Retrospective written; the 0.9.0 cut follows.
