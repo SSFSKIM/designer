@@ -3,8 +3,10 @@
 **The instrument is built, validated and proven not to change a verdict; the scene bed is declared;
 the endpoint diagnostic is measured and it answers the charter's first open question. The native
 dark probe did not run: every cell of every attempt attests `presentedActive: false` while
-ScreenCaptureKit answers OK, because a Screen Sharing session is attached to this login and the
-harness's window cannot become key. That is a session-state refusal only the user can clear.**
+ScreenCaptureKit answers OK, because THE SCREEN IS LOCKED — `CGSSessionScreenIsLocked=Yes`,
+`loginwindow` is the front application, and no application on this machine can be made key. Only the
+user can clear that. (§4b's first reading blamed the Screen Sharing session that was attached at the
+time; §4d corrects it with the evidence, taken after that session ended and the refusal persisted.)**
 
 What this file can say, in order of what G1 needs:
 
@@ -231,12 +233,59 @@ activity (`caffeinate -u`), hiding the other applications through System Events,
 app by name during the run (`-10006`, System Events cannot set it frontmost). The harness's window
 stayed `isKeyWindow: false` through every one.
 
-This is a **third** failure mode, distinct from the two the project has recorded. It is not the
-locked session of claims §5.17, and it is not the tracker's idle-refusal ("The reference harness
-loses cells to window activation with the machine idle", W19 G0, six of twelve cells at 700–818 s
-idle): here the machine reports 5 000 s of HID idle — because remote input is not local HID — while a
-person is in fact driving it, and the refusal is total rather than partial. The attestation caught it
-exactly as designed; nothing unattested was read, and no bed was materialised.
+The attestation caught it exactly as designed; nothing unattested was read, and no bed was
+materialised.
+
+**First reading, superseded, kept because it was acted on.** This was written up as a third failure
+mode, distinct from the locked session of claims §5.17 and from the tracker's partial idle-refusal
+(W19 G0), on the grounds that the machine reported 5 000 s of HID idle — remote input is not local
+HID — while a person was in fact driving it. The parent recorded it that way in claims §5.88 and in
+the tracker. **It is wrong, and §4d has the correction.**
+
+### 4d. The correction: the screen is locked (`blocked/session-state.txt`, 2026-09-06T14:23Z)
+
+The Screen Sharing session ended, and the gate still refused: `isKeyWindow: false`,
+`NSApp.isActive: false`, `ScreenCaptureKit: OK`. What settles it is the front application, asked of
+LaunchServices rather than of System Events:
+
+```
+$ lsappinfo front
+ASN:0x0-0x3003:
+$ lsappinfo info -only name ASN:0x0-0x3003:
+"LSDisplayName"="loginwindow"
+```
+
+and the console session's own flag:
+
+```
+"IOConsoleUsers" = ({ … "kCGSSessionOnConsoleKey"=Yes, "kCGSessionLoginDoneKey"=Yes,
+                      "CGSSessionScreenIsLocked"=Yes, "CGSSessionScreenLockedTime"=3936172811, … })
+```
+
+**The screen is locked.** `who` shows the console login for `new` since 07:43 and the session is on
+console and logged in, so the machine looks awake from a shell; the front application is
+`loginwindow` and no application can be made key. `tell application "Finder" to activate` leaves the
+front application unchanged, which is the general form of the failure — it is not about this app or
+this bundle. The earlier reading that named Screen Sharing came from `System Events`'s
+`frontmost process`, which answered `Google Chrome`: that call reports the frontmost ordinary
+process, needs the Accessibility grant the shell does not hold, and cannot see `loginwindow` at all.
+It was the wrong instrument for the question.
+
+The Screen Sharing session was a coincident fact, not the cause. A viewer attached to a locked
+screen shows the login window, which is exactly the state the two failed attempts ran into: the
+screen was already locked at 09:08Z and is still locked now. The machine is headless — its only
+display is the virtual `가상 16:9` that screen sharing provides — so nothing local will unlock it.
+
+So this is **claims §5.17's failure mode**, the locked session, and the two entries the parent wrote
+from §4b's first reading (claims §5.88 and the tracker's Screen Sharing entry) need the correction:
+what a probe must assert before spending its run budget is `CGSSessionScreenIsLocked=No`, and the
+cheap check for it is `lsappinfo front` (loginwindow when locked), not any HID-idle or power
+assertion. Neither of those signals distinguishes a locked screen from an idle one — HID idle was
+5 038 s and the session was on console and logged in, both of which read as healthy.
+
+**What only the user can do:** unlock the screen — by authenticating a Screen Sharing session to the
+console, or however this headless machine is normally reached — and leave it unlocked for the
+duration of the probe, roughly two hours for ten runs at eleven minutes each.
 
 ### 4c. What it costs, and what unblocks it
 
@@ -246,11 +295,7 @@ passthrough curve, the rim per side across 56 cells, the tint table, and the can
 The scene bed, the runner, the materialiser, the provenance writer, the reader, the tables and the
 endpoint script are all built and committed, so the gate resumes at one command
 (`run-probe.sh`, then `run-materialize.sh`, then `run-read.sh`) once the session will grant
-activation.
-
-**What only the user can do:** end the Screen Sharing session (or leave the machine's console with
-the harness able to come to the front) for the duration of the probe — roughly two hours for ten runs
-at eleven minutes each. Nothing in software reached it from here.
+activation. What that takes is in §4d.
 
 ## 5. Files
 
@@ -266,4 +311,4 @@ at eleven minutes each. Nothing in software reached it from here.
 | `run-web.sh`, `run-web-canonical.sh`, `make-candidate-profiles.mjs` | vitrea's side, to scratch |
 | `tables.py`, `endpoints.py`, `run-read.sh` | the tables the findings quote |
 | `endpoints-canonical.txt` | §3's table |
-| `blocked/` | the manifest, the capture-path probe, the tint doctor and the power assertions that establish §4 |
+| `blocked/` | the manifest, the capture-path probe, the tint doctor, the power assertions and `session-state.txt` — the lock flag, the front application and the display, which establish §4d |

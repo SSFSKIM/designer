@@ -32,6 +32,19 @@ set -u
 T="${1:?usage: run-probe.sh <runRoot> <firstRun> <lastRun>}"
 FIRST="${2:?}"
 LAST="${3:?}"
+MIN_FIRST_RUN_ATTESTED="${MIN_FIRST_RUN_ATTESTED:-50}"
+
+# The pre-flight the 2026-09-06 loss paid for (findings §4d). A locked screen is invisible to every
+# signal the protocol already checks: the session reads on-console and logged in, HID idle reads in
+# the thousands of seconds, and ScreenCaptureKit answers OK — while `loginwindow` is the front
+# application and no window can be made key, so every cell records the material's flat inactive
+# appearance and fails `presentedActive`. Two hours of runs were spent discovering that. The console
+# session states the flag directly, so the probe asks before it starts and refuses in a second.
+if ioreg -n Root -d1 2>/dev/null | grep -q '"CGSSessionScreenIsLocked"=Yes'; then
+  echo "REFUSED: the screen is locked (CGSSessionScreenIsLocked=Yes) — the harness cannot make its"
+  echo "window key, so every cell would fail presentedActive. Unlock the console session and re-run."
+  exit 5
+fi
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKTREE="$(cd "$HERE/../../../../.." && pwd)"
@@ -60,5 +73,26 @@ for N in $(seq "$FIRST" "$LAST"); do
     echo "run $N attempt $A: FAILED"; tail -8 "$D.err" "$D.out"; exit 3
   done
   [ -f "$D/manifest.json" ] || { echo "run $N: gave up"; exit 4; }
+
+  # The first run is also the budget's own pre-flight. A run that attests nearly every cell is a
+  # session that will keep attesting; a run that does not is a session state the protocol cannot
+  # see, and spending nine more runs on it buys nothing. The threshold is deliberately loose — the
+  # tracker's known activation loss costs a handful of cells per run and is survivable, while the
+  # failure this guards against costs all of them.
+  ATTESTED=$(python3 -c '
+import json, sys
+m = json.load(open(sys.argv[1]))
+f = m["profiles"][0]["fixtures"]
+ok = [x for x in f if x["presentedActive"] and x["deterministic"] and x["materialRendered"]]
+print(f"{len(ok)} {len(f)}")' "$D/manifest.json")
+  echo "run $N: attested $ATTESTED"
+  if [ "$N" = "$FIRST" ]; then
+    set -- $ATTESTED
+    if [ "$1" -lt "$MIN_FIRST_RUN_ATTESTED" ]; then
+      echo "STOPPING: run $N attested $1 of $2, below the $MIN_FIRST_RUN_ATTESTED the budget is"
+      echo "worth spending. Report the session state rather than the remaining runs."
+      exit 6
+    fi
+  fi
 done
 echo "PROBE RUNS DONE $(date -u +%H:%M:%SZ)"
