@@ -446,6 +446,17 @@ code {
   color-scheme: light;
 }
 
+/*
+ * And the same statement pointed the other way when the reader asks for the dark
+ * scheme (W21 G3): the window's ground goes dark with the page, so the fallback
+ * ink for anything vitrea is not styling has to go with it. The declaration above
+ * is about the SURFACE this region is, not about a preference, which is why it is
+ * switched here by the page's own attribute rather than by a media query.
+ */
+:root[data-color-scheme="dark"] .stage--mirror {
+  color-scheme: dark;
+}
+
 .stage__canvas {
   position: absolute;
   inset: 0;
@@ -584,9 +595,21 @@ code {
   display: none;
 }
 
-.note--slot {
+.note--slot,
+/*
+ * The withdrawn comparison reads as the same kind of statement as the empty
+ * figure slot — the page declining to show something rather than something
+ * failing — and carries its own class so the suite that counts empty slots is
+ * still counting one thing.
+ */
+.note--absent {
   color: var(--stage-ink-dim);
   border-left: 0;
+}
+
+.note--absent {
+  max-width: 42ch;
+  margin: auto;
 }
 
 /* ── Glass surfaces ──────────────────────────────────────────────────────── */

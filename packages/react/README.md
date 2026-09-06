@@ -315,6 +315,32 @@ and no demotion reason. Every real demotion names both a reason and its recovery
 condition. The full model is documented in
 [`@vitreajs/vitrea`'s README](https://www.npmjs.com/package/@vitreajs/vitrea).
 
+### Colour scheme
+
+The material is measured per colour scheme, so a dark page needs the dark
+material rather than the light one dimmed:
+
+```tsx
+<GlassRoot colorScheme="auto">{/* "light" | "dark" | "auto" */}</GlassRoot>
+```
+
+`"light"` is the default and is the material the runtime's own constants are, so
+nothing moves for an app that upgrades. `"dark"` draws the numbers vitrea
+recorded from Apple's dark-mode material, and `"auto"` follows
+`prefers-color-scheme` and re-derives both tiers when the system flips — without
+rebuilding the root, so a theme toggle costs no registrations.
+
+**A backdrop hint and the colour scheme are different things.** A group's
+`hint={{ tone, luminance }}` states the tone of what is BEHIND the surface, which
+is what the adaptation and the ink decision read; the scheme states which
+material the surface is made of. A dark page can legitimately hand a light hint
+to a surface over a white card.
+
+Your own tokens stay yours: vitrea does not write your page's background, so an
+app offering "follow the system" reads `prefers-color-scheme` for its colours as
+well as passing `"auto"` here. `apps/demo`'s site switch is the worked example of
+both halves moving together.
+
 ---
 
 ## What this package exports
@@ -330,6 +356,9 @@ condition. The full model is documented in
 **Composition helpers** — `renderAsChild`, `composeRefs`, `mergeSlotProps` for
 `asChild` seams; `radiiFor`, `smoothingFor`, `capsuleRadius`,
 `cornerReferenceFor`, `assertSharedCornerReference` for shapes.
+
+**Types** — `GlassColorScheme` and `ResolvedColorScheme`, re-exported from the
+runtime so a `colorScheme` prop of your own can be typed without installing it.
 
 **Frames** — `createGlassTicker`, the rAF loop the bindings drive their motion
 from. One per tree, whatever the surface count; its `advance()` steps time by

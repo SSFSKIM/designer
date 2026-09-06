@@ -101,6 +101,8 @@ export interface RootSpec {
   readonly mergeDistance?: number;
   /** X6: the author's declared backdrop hint, forwarded straight to `registerGroup`. */
   readonly backdrop?: BackdropHint;
+  /** W21 G3: which colour scheme's material the root draws. Default light. */
+  readonly colorScheme?: "light" | "dark" | "auto";
 }
 
 export interface TextureGroupSpec {
@@ -258,6 +260,7 @@ const api = {
       renderer: spec.renderer ?? "css",
       devMode: spec.devMode ?? true,
       autoStart: false,
+      ...(spec.colorScheme === undefined ? {} : { colorScheme: spec.colorScheme }),
       ...(device === undefined || load === undefined
         ? {}
         : { webgpu: { device: device as unknown as GPUDevice, load } }),

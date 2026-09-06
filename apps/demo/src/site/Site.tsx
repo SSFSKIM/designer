@@ -17,12 +17,13 @@ import {
   useGlassAccessibility,
   useGlassRoot,
   type AccessibilityOverride,
+  type GlassColorScheme,
 } from "@vitreajs/vitrea-react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { MEASURED_CELL_COUNT } from "./calibration";
 import { DiagnosticsReadout, GroupReadout } from "./Readout";
-import { REFERENCE_SCENES, NATIVE_PROFILE, type ReferenceScene } from "./scenes";
+import { REFERENCE_SCENES, nativeProfileFor, type ReferenceScene } from "./scenes";
 import {
   GROUPS_BY_MODE,
   RASTER_SOURCE_ID,
@@ -44,6 +45,15 @@ export interface SiteProps {
   /** Owned above, because these are `GlassRoot` construction props. */
   readonly overrides: Overrides;
   readonly onOverridesChange: (next: Overrides) => void;
+  /**
+   * The scheme the reader asked for, and the scheme that came out of it — the
+   * second is the first with `"auto"` already read against `prefers-color-scheme`.
+   * Both are owned above: the setting is a `GlassRoot` prop, and the page's own
+   * ground follows the resolved one.
+   */
+  readonly colorScheme: GlassColorScheme;
+  readonly resolvedColorScheme: "light" | "dark";
+  readonly onColorSchemeChange: (next: GlassColorScheme) => void;
 }
 
 interface SectionSpec {
@@ -166,6 +176,7 @@ export function Site(props: SiteProps): ReactNode {
   const stageProps = {
     mode,
     scene,
+    scheme: props.resolvedColorScheme,
     panel,
     onPanelChange: setPanel,
     tint,
@@ -199,6 +210,27 @@ export function Site(props: SiteProps): ReactNode {
             whatever tier this browser can actually give it. Scroll, and it follows
             what you are reading.
           </p>
+          <Fields legend="Colour scheme">
+            <label className="field">
+              <span className="field__label">Colour scheme</span>
+              <select
+                value={props.colorScheme}
+                onChange={(event) =>
+                  props.onColorSchemeChange(event.target.value as GlassColorScheme)
+                }
+                data-testid="color-scheme-select"
+              >
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="auto">Auto (follow the system)</option>
+              </select>
+              <span className="field__hint">
+                The material is measured per scheme, so this is not a filter over the
+                light one: the root draws the dark reference&rsquo;s own numbers, and
+                the page takes its ground down to meet them.
+              </span>
+            </label>
+          </Fields>
           <nav className="jump" aria-label="Sections">
             <ul>
               {SECTIONS.map((section) => (
@@ -411,7 +443,8 @@ export function Site(props: SiteProps): ReactNode {
               Every figure is keyed to its cell: native profile, engine and version,
               renderer, sampling backend, GPU adapter class, tier and fixture set.
               The claim is never &ldquo;pixel-identical to Apple&rdquo;. It is
-              reference-calibrated against {NATIVE_PROFILE}.
+              reference-calibrated against {nativeProfileFor(props.resolvedColorScheme)},
+              the profile of the colour scheme this page is drawing.
             </li>
             <li>
               1x only. This machine reports a backing scale of 1.0, so the canonical

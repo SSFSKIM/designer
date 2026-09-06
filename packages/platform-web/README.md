@@ -106,13 +106,48 @@ writes.
 | planes | `root.plane(plane)` → `PlaneLayers`; `GLASS_PLANES` |
 | interaction channels | `GLASS_CHANNEL_PROPERTIES` — write 0..1, the material reads |
 | findings | `root.diagnostics`, `consoleDiagnosticSink()`, `VitreaDiagnostic` |
-| capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu` |
+| capability answers | `root.capabilities(groupId)`, `root.accessibility`, `root.webgpu`, `root.colorScheme` |
+| colour scheme | `colorScheme: "light" \| "dark" \| "auto"`, `root.setColorScheme`, `darkMaterialProfile` |
 | WebGPU | `renderer: "webgpu"`, `root.ready()`, `root.replaceDevice(device)` |
 
 Everything else this package exports is exported because the React bindings and
 the WebGPU renderer compose against it directly, and because a test should be
 able to reach the decision that failed rather than the whole runtime. Those are
 public but not the path an app takes.
+
+---
+
+## Colour scheme
+
+The material is measured per colour scheme, so a dark page needs the dark
+material rather than the light one dimmed. Ask for it at the root:
+
+```ts
+const root = createGlassRoot({ colorScheme: "auto" }); // "light" | "dark" | "auto"
+```
+
+`"light"` is the default, and it is the material the renderer's own constants
+are: nothing moves for an app that upgrades into this option. `"dark"` selects
+`darkMaterialProfile`, the patch recorded in vitrea's own calibration profile for
+Apple's dark-mode material, and `"auto"` follows `prefers-color-scheme` and
+re-derives both tiers when the system flips. `root.colorScheme` reports which of
+the two is actually drawing, and `root.setColorScheme(...)` changes it on a live
+root — a scheme change is a material change, not a reason to tear a root down.
+
+An app that resolves its own scheme somewhere vitrea cannot see can pass the
+patch directly (`materialProfile: darkMaterialProfile`), and an app that wants
+the dark material with a tuning of its own can do both: the scheme selects the
+base and `materialProfile` merges over it, leaf by leaf.
+
+**A backdrop hint and the colour scheme are different things.** A group's
+`hint: { tone, luminance }` states the tone of what is BEHIND the surface, which
+is what the adaptation and the foreground decision read; the scheme states which
+material the surface is made of. A dark page can legitimately hand a light hint
+to a surface sitting over a white card.
+
+The page's own background is still the page's: vitrea does not write your tokens,
+so an app offering "follow the system" reads `prefers-color-scheme` for its own
+colours as well as passing `"auto"` here.
 
 ---
 

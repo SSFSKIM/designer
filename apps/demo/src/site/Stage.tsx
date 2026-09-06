@@ -39,14 +39,16 @@ import {
 import { useState, type ReactNode } from "react";
 
 import { ActionsMenu } from "../ActionsMenu";
-import { REPORTS_BY_SCENE } from "./calibration";
+import { reportsFor } from "./calibration";
 import {
+  DARK_GROUND,
+  DARK_GROUND_LUMINANCE,
   DEFAULT_GROUND,
   DEFAULT_GROUND_LUMINANCE,
   StageBackdrop,
   type StageGroundPaint,
 } from "./StageBackdrop";
-import { CANVAS, type ReferenceScene } from "./scenes";
+import { CANVAS, nativeCaptureFor, nativeProfileFor, type ReferenceScene } from "./scenes";
 
 export type StageMode = "material" | "tone" | "reference" | "behavior" | "access";
 
@@ -84,8 +86,18 @@ export const GROUPS_BY_MODE: Record<StageMode, readonly { id: string; label: str
  * light ground would be a declared fact that is simply false — and on the previous
  * ground, before this hint existed, exactly that mismatch measured 1.6:1 to 3.0:1
  * on control labels.
+ *
+ * When the reader switches the page to the dark scheme the window's ground goes
+ * dark with it, so the hint has to move too — the whole point of the pair is that
+ * it states the ground the surface is actually over. Note what it is NOT: the
+ * scheme is which material the surface is made of, and this is the tone of what
+ * is behind it. On this page they happen to move together because one control
+ * moves both; on an app with a white card inside a dark page they would not.
  */
-const STAGE_HINT = { tone: "light", luminance: DEFAULT_GROUND_LUMINANCE } as const;
+const STAGE_HINT = {
+  light: { tone: "light", luminance: DEFAULT_GROUND_LUMINANCE },
+  dark: { tone: "dark", luminance: DARK_GROUND_LUMINANCE },
+} as const;
 
 const RANGES = [
   { value: "day", label: "Day" },
@@ -207,6 +219,13 @@ export interface StageProps {
    * declares. Ignored by every other mode, whose ground is the window's own.
    */
   readonly groundLevel: number;
+  /**
+   * The colour scheme the page has resolved — the material the root is drawing,
+   * and the ground this window paints under it. `"auto"` is already folded: the
+   * site reads `prefers-color-scheme` itself for its own tokens, because a page's
+   * background is the page's business and vitrea does not write it.
+   */
+  readonly scheme: "light" | "dark";
   readonly animate: boolean;
   readonly lastAction: string | null;
   readonly onAction: (key: string) => void;
@@ -217,14 +236,16 @@ export interface StageProps {
 
 export function StageGround(props: StageProps): ReactNode {
   const { mode, scene } = props;
-  const reports = REPORTS_BY_SCENE.get(scene.id) ?? [];
-  const report = reports[0];
+  const nativeCapture = nativeCaptureFor(scene, props.scheme);
+  const report = reportsFor(scene.id, props.scheme)[0];
   const ground: StageGroundPaint =
     mode === "tone"
       ? // A white grid, unlike the window's own: this ground is a grey swept from
         // near-black, where a dark hairline would be no hairline at all.
         { fill: groundFill(props.groundLevel), field: 0, graticule: "rgb(255 255 255 / 0.11)" }
-      : DEFAULT_GROUND;
+      : props.scheme === "dark"
+        ? DARK_GROUND
+        : DEFAULT_GROUND;
 
   return (
     <div
@@ -235,92 +256,119 @@ export function StageGround(props: StageProps): ReactNode {
     >
       {mode === "reference" ? (
         <div className="stage__inner">
-          <div className="pair" data-panel={props.panel}>
-            <figure className="pair__cell" data-cell="live">
-              <img
-                className="pair__raster"
-                src={scene.backgroundFile}
-                width={CANVAS.width}
-                height={CANVAS.height}
-                alt=""
-                // A cached raster can be complete before React attaches `onLoad`,
-                // and `load` never fires for it; the ref sees the element either
-                // way. Registering twice is harmless — the source is marked dirty.
-                ref={(element) => {
-                  if (element !== null && element.complete && element.naturalWidth > 0) {
-                    props.onRasterLoad(element);
-                  }
-                }}
-                onLoad={(event) => props.onRasterLoad(event.currentTarget)}
-              />
-              <figcaption className="pair__caption">
-                <span className="pair__who">vitrea, live in this browser</span>
-                <span className="pair__what">
-                  {scene.component} on {scene.background}
-                </span>
-              </figcaption>
-            </figure>
-            <figure className="pair__cell" data-cell="native">
-              <img
-                className="pair__raster"
-                src={scene.nativeCapture}
-                width={CANVAS.width}
-                height={CANVAS.height}
-                alt={`Screen capture of Apple's own Liquid Glass rendering the ${scene.component} scene on the ${scene.background} background, macOS 26.5.`}
-              />
-              <figcaption className="pair__caption">
-                <span className="pair__who">macOS 26.5, captured</span>
-                <span className="pair__what">ScreenCaptureKit, 1x, sRGB</span>
-              </figcaption>
-            </figure>
-          </div>
-
-          {/* Only ever operable in the collapsed layout; `site.css` hides it above
-              the breakpoint, where both panels are on screen at once. */}
-          <fieldset className="panel-switch">
-            <legend>Panel</legend>
-            {(["live", "native"] as const).map((value) => (
-              <label key={value}>
-                <input
-                  type="radio"
-                  name="reference-panel"
-                  value={value}
-                  checked={props.panel === value}
-                  onChange={() => props.onPanelChange(value)}
-                />
-                {value === "live" ? "vitrea, live" : "macOS 26.5"}
-              </label>
-            ))}
-          </fieldset>
-
-          {report === undefined ? (
-            <p className="note note--slot">
-              No measured cell for this scene yet. Every figure on this page is read
-              from the result matrix and keyed to the cell that produced it, so a
-              scene without one shows this rather than a number borrowed from a
-              different cell. Reference-calibrated; see the calibration report.
+          {nativeCapture === undefined ? (
+            /*
+             * No dark capture for this scene, so there is no comparison to show
+             * (W21 G3 review). The dark profile captured fourteen scenes where the
+             * light one captured every scene, and a live dark surface beside a
+             * light capture — under a figure measured in the light scheme — is not
+             * evidence, it is two different experiments in one frame. The pair is
+             * withdrawn rather than the live surface being frozen at the light
+             * material: the reader chose the scheme, and a section that quietly
+             * ignored that choice would be the same dishonesty one layer along.
+             */
+            <p className="note note--absent" data-testid="no-dark-capture">
+              No dark-scheme capture exists for this scene. The dark profile carries
+              a subset of the bed, and this page will not put a dark render beside a
+              light capture and call it a comparison — pick a scene the dark profile
+              captured, or switch the colour scheme back to light.
             </p>
           ) : (
-            <dl className="readout readout--figures">
-              {report.figures.map((figure) => (
-                <div className="readout__row" key={figure.label}>
-                  <dt>{figure.label}</dt>
-                  <dd>
-                    {figure.value}
-                    {figure.unit === "" ? "" : ` ${figure.unit}`}
-                  </dd>
-                </div>
-              ))}
-              <div className="readout__row readout__row--cell">
-                <dt>Cell</dt>
-                <dd>
-                  {report.profileKey} × {report.engine} {report.engineVersion},{" "}
-                  {report.renderer}, {report.samplingBackend}, {report.gpuAdapter}
-                  {", "}
-                  {report.tier} tier, {report.fixtureSet} set
-                </dd>
+            <>
+              <div className="pair" data-panel={props.panel}>
+                <figure className="pair__cell" data-cell="live">
+                  <img
+                    className="pair__raster"
+                    src={scene.backgroundFile}
+                    width={CANVAS.width}
+                    height={CANVAS.height}
+                    alt=""
+                    // A cached raster can be complete before React attaches `onLoad`,
+                    // and `load` never fires for it; the ref sees the element either
+                    // way. Registering twice is harmless — the source is marked dirty.
+                    ref={(element) => {
+                      if (element !== null && element.complete && element.naturalWidth > 0) {
+                        props.onRasterLoad(element);
+                      }
+                    }}
+                    onLoad={(event) => props.onRasterLoad(event.currentTarget)}
+                  />
+                  <figcaption className="pair__caption">
+                    <span className="pair__who">vitrea, live in this browser</span>
+                    <span className="pair__what">
+                      {scene.component} on {scene.background}
+                    </span>
+                  </figcaption>
+                </figure>
+                <figure className="pair__cell" data-cell="native">
+                  <img
+                    className="pair__raster"
+                    src={nativeCapture}
+                    width={CANVAS.width}
+                    height={CANVAS.height}
+                    alt={`Screen capture of Apple's own Liquid Glass rendering the ${scene.component} scene on the ${scene.background} background, macOS 26.5, ${props.scheme} colour scheme.`}
+                  />
+                  <figcaption className="pair__caption">
+                    <span className="pair__who">macOS 26.5, captured</span>
+                    {/* The profile is named on the capture itself, not only in the
+                        cell row below it: the pair is only a comparison while both
+                        halves are the same colour scheme, and the reader should be
+                        able to see which one they are looking at. */}
+                    <span className="pair__what" data-testid="native-profile">
+                      ScreenCaptureKit, 1x, sRGB — {nativeProfileFor(props.scheme)}
+                    </span>
+                  </figcaption>
+                </figure>
               </div>
-            </dl>
+
+              {/* Only ever operable in the collapsed layout; `site.css` hides it above
+                  the breakpoint, where both panels are on screen at once. */}
+              <fieldset className="panel-switch">
+                <legend>Panel</legend>
+                {(["live", "native"] as const).map((value) => (
+                  <label key={value}>
+                    <input
+                      type="radio"
+                      name="reference-panel"
+                      value={value}
+                      checked={props.panel === value}
+                      onChange={() => props.onPanelChange(value)}
+                    />
+                    {value === "live" ? "vitrea, live" : "macOS 26.5"}
+                  </label>
+                ))}
+              </fieldset>
+
+              {report === undefined ? (
+                <p className="note note--slot">
+                  No measured cell for this scene yet. Every figure on this page is read
+                  from the result matrix and keyed to the cell that produced it, so a
+                  scene without one shows this rather than a number borrowed from a
+                  different cell. Reference-calibrated; see the calibration report.
+                </p>
+              ) : (
+                <dl className="readout readout--figures">
+                  {report.figures.map((figure) => (
+                    <div className="readout__row" key={figure.label}>
+                      <dt>{figure.label}</dt>
+                      <dd>
+                        {figure.value}
+                        {figure.unit === "" ? "" : ` ${figure.unit}`}
+                      </dd>
+                    </div>
+                  ))}
+                  <div className="readout__row readout__row--cell">
+                    <dt>Cell</dt>
+                    <dd>
+                      {report.profileKey} × {report.engine} {report.engineVersion},{" "}
+                      {report.renderer}, {report.samplingBackend}, {report.gpuAdapter}
+                      {", "}
+                      {report.tier} tier, {report.fixtureSet} set
+                    </dd>
+                  </div>
+                </dl>
+              )}
+            </>
           )}
         </div>
       ) : (
@@ -360,6 +408,14 @@ export function StageGlass(props: StageProps): ReactNode {
   const [favorite, setFavorite] = useState(false);
 
   if (mode === "reference") {
+    /*
+     * The ground has withdrawn the pair because this scene has no capture in the
+     * resolved scheme, so the live surface goes with it. The two trees are one
+     * picture (see this file's header) and a surface left drawing here would be a
+     * plate floating over an explanatory note.
+     */
+    if (nativeCaptureFor(scene, props.scheme) === undefined) return null;
+
     return (
       <div className="stage stage--mirror" data-mode={mode} role="region" aria-label="Live vitrea render">
         <div className="stage__inner">
@@ -508,7 +564,7 @@ export function StageGlass(props: StageProps): ReactNode {
             <GlassToolbar
               aria-label="Document actions"
               className="bar"
-              groupProps={{ id: "behavior-bar", hint: STAGE_HINT }}
+              groupProps={{ id: "behavior-bar", hint: STAGE_HINT[props.scheme] }}
             >
               <GlassButton className="control" onClick={() => props.onAction("share")}>
                 Share
@@ -532,7 +588,7 @@ export function StageGlass(props: StageProps): ReactNode {
               </GlassButton>
             </GlassToolbar>
 
-            <GlassGroup id="behavior-range" hint={STAGE_HINT}>
+            <GlassGroup id="behavior-range" hint={STAGE_HINT[props.scheme]}>
               <GlassSegmentedControl
                 aria-label="Time range"
                 className="segmented"
@@ -549,7 +605,7 @@ export function StageGlass(props: StageProps): ReactNode {
               closed platter is measured before it pins, and until it pins it is a
               registered box at the plane layer's origin.
             */}
-            <GlassGroup id="behavior-menu" hint={STAGE_HINT}>
+            <GlassGroup id="behavior-menu" hint={STAGE_HINT[props.scheme]}>
               <ActionsMenu label="Document actions" onAction={props.onAction} />
             </GlassGroup>
           </>

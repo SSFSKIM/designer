@@ -38,6 +38,16 @@ export interface ReferenceScene {
   /** Relative to the site root, so the build can rewrite it. */
   readonly nativeCapture: string;
   /**
+   * The same scene captured under the DARK profile, absent where there is none.
+   *
+   * The dark profile carries fourteen scenes where the light one carries every
+   * scene, so most of the picker's list has no dark capture at all — and a pair
+   * is only evidence when both halves are the same colour scheme. Absent here is
+   * what the reference section reads to withdraw the comparison rather than show
+   * a dark render beside a light capture (W21 G3 review).
+   */
+  readonly darkCapture?: string;
+  /**
    * W3's author tint as a CSS colour, absent on an untinted scene.
    *
    * The pair puts a live surface beside a native capture, so this has to be
@@ -51,8 +61,32 @@ export interface ReferenceScene {
 
 export const CANVAS: { readonly width: number; readonly height: number } = matrix.canvas;
 
-/** The profile whose fixtures the pair shows. The site states this on the page. */
+/**
+ * The profiles whose fixtures the pair shows, one per colour scheme. The site
+ * states the one it is showing on the page, beside the figures.
+ *
+ * Both are the 1x profiles, because that is the scale this machine captured and
+ * the scale the pair's rasters are.
+ */
 export const NATIVE_PROFILE = "apple-macos-26.5-1x-light-standard";
+export const DARK_NATIVE_PROFILE = "apple-macos-26.5-1x-dark-standard";
+
+/** Which profile speaks for a resolved colour scheme. */
+export const nativeProfileFor = (scheme: "light" | "dark"): string =>
+  scheme === "dark" ? DARK_NATIVE_PROFILE : NATIVE_PROFILE;
+
+/**
+ * The scene's capture under a resolved scheme, `undefined` where there is none.
+ *
+ * The light profile captures every scene; the dark one captures fourteen. A
+ * caller that gets `undefined` must withdraw the comparison rather than fall
+ * back — a dark live surface beside a light capture, under a figure measured in
+ * the light scheme, is not evidence of anything.
+ */
+export const nativeCaptureFor = (
+  scene: ReferenceScene,
+  scheme: "light" | "dark",
+): string | undefined => (scheme === "dark" ? scene.darkCapture : scene.nativeCapture);
 
 type ShapeSpec = { readonly kind: string; readonly size?: readonly [number, number]; readonly radius?: number };
 
@@ -72,6 +106,27 @@ const tintOf = (id: string | undefined): string | undefined => {
   const [r, g, b] = spec.srgb;
   return `rgb(${r} ${g} ${b} / ${spec.alpha ?? 1})`;
 };
+
+/**
+ * Which scenes the dark profile actually captured, read from the same file.
+ *
+ * `scenes.json` declares a profile's membership as an explicit list or as the
+ * string `"all"`, and both arms are handled here rather than assumed: the light
+ * profiles say `"all"` today and the dark ones name fourteen, and a wave that
+ * widens the dark profile should widen this page by re-reading the file.
+ */
+const darkProfileScenes: ReadonlySet<string> | "all" = (() => {
+  const profiles = matrix.profiles as readonly {
+    readonly key: string;
+    readonly scenes: readonly string[] | string;
+  }[];
+  const found = profiles.find((profile) => profile.key === DARK_NATIVE_PROFILE);
+  if (found === undefined) return new Set<string>();
+  return found.scenes === "all" ? "all" : new Set(found.scenes as readonly string[]);
+})();
+
+const capturedInDark = (id: string): boolean =>
+  darkProfileScenes === "all" || darkProfileScenes.has(id);
 
 const setOf = (id: string): ReferenceScene["fixtureSet"] =>
   split.holdout?.includes(id) === true
@@ -123,6 +178,9 @@ export const REFERENCE_SCENES: readonly ReferenceScene[] = (
         fixtureSet: setOf(scene.id),
         box,
         nativeCapture: `fixtures/${NATIVE_PROFILE}/${scene.id}.png`,
+        ...(capturedInDark(scene.id)
+          ? { darkCapture: `fixtures/${DARK_NATIVE_PROFILE}/${scene.id}.png` }
+          : {}),
         ...(tint === undefined ? {} : { tint }),
       } satisfies ReferenceScene,
     ];
