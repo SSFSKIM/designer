@@ -12296,3 +12296,129 @@ crossing (§5.85 §2); `capture.sh probe`'s false negative (the tracker).
 
 **10. Release.** `.changeset/gpu-capsule-corner.md` (`@vitreajs/vitrea-web` minor; the fixed group
 carries core and react) versioned to 0.9.0 after this recomposition; the user publishes.
+
+### 5.87 W21 opened — the dark scheme, the finding pinned: read under the declared geometry the dark bed's gap is a response surface the profile lacks and a rim that is the light scheme's; the matrix's "interior" on the dark solids is a rim reading, and the cell that carries it is outside the gate (2026-09-06)
+
+**Added by W21** (`docs/doperpowers/specs/2026-09-06-w21-dark-scheme.md`), chartered on wave
+Decision Log 23 (c) at W20's close. Every number here is read from the canonical W20 bed
+(`results/matrix.json` at `c9f724f`, its fixtures and its captures) by
+`results/2026-09-06-w21-dark-scheme/finding/dark-read.py`; the sheet beside it
+(`dark-cells.png`) puts six dark cells native | GPU at 3x. Nothing is fitted and nothing canonical
+moves.
+
+#### Where the dark scheme stands on the W20 bed
+
+GPU tier, OKLab ΔE mean by set: the 1x dark profile 0.0085 / 0.0029 / 0.0300 (calibration /
+validation / holdout) and the 2x dark profile 0.0086 / 0.0033 / 0.0302, against the light
+profiles' 0.0033 / 0.0026 / 0.0091 at both scales. Per cell at 1x: `photo__rrect-lg` 0.0572
+(holdout), `dark-solid__rrect-md` 0.0286, `checkerboard__glass-over-glass` 0.0274 (holdout),
+`photo__rrect-md` 0.0197, `checkerboard__rrect-md` 0.0111, `photo__capsule-button` 0.0077,
+`checkerboard__capsule-button` 0.0056, `mid-dark-solid__capsule-button` 0.0053 (holdout),
+`impulse__capsule-button` 0.0029 (validation), the three tinted capsules 0.0005–0.0010,
+`dark-solid__capsule-button` 0.0008. The 2x rows are within 0.001 of these on every cell — the
+dark scheme's gap is scale-free, as W9 found the light response to be.
+
+#### The read: body and rim, under the declared geometry
+
+The body is the mean linear luminance under the declared box (`scenes.json`'s component size,
+centred) eroded 6 CSS px; the rim band is the box's outer 3 CSS px, and its peak per side is the
+largest row (top, bottom) or column (left, right) mean inside the band. Native against the GPU
+tier's capture:
+
+`apple-macos-26.5-1x-dark-standard`:
+
+| scene | body native | body web | sd native | sd web | rim peak native T / B / L / R | rim peak web T / B / L / R |
+| --- | --- | --- | --- | --- | --- | --- |
+| `dark-solid__capsule-button__rest` | 0.0110 | 0.0117 | 0.0007 | 0.0000 | 0.025 / 0.025 / 0.016 / 0.016 | 0.012 / 0.012 / 0.012 / 0.012 |
+| `checkerboard__capsule-button__rest` | 0.1059 | 0.0640 | 0.0515 | 0.0158 | 0.300 / 0.304 / 0.589 / 0.248 | 0.356 / 0.240 / 0.634 / 0.242 |
+| `photo__capsule-button__rest` | 0.0961 | 0.0551 | 0.0172 | 0.0089 | 0.191 / 0.236 / 0.186 / 0.394 | 0.260 / 0.193 / 0.231 / 0.368 |
+| `dark-solid__rrect-md__rest` | 0.0153 | 0.0482 | 0.0001 | 0.0008 | 0.034 / 0.034 / 0.030 / 0.030 | 0.224 / 0.102 / 0.233 / 0.085 |
+| `checkerboard__rrect-md__rest` | 0.0468 | 0.0628 | 0.0166 | 0.0056 | 0.184 / 0.170 / 0.238 / 0.213 | 0.338 / 0.203 / 0.413 / 0.236 |
+| `photo__rrect-md__rest` | 0.0466 | 0.0547 | 0.0105 | 0.0027 | 0.111 / 0.124 / 0.125 / 0.190 | 0.258 / 0.144 / 0.297 / 0.181 |
+| `impulse__capsule-button__rest` | 0.0066 | 0.0037 | 0.0008 | 0.0001 | 0.014 / 0.014 / 0.004 / 0.004 | 0.003 / 0.003 / 0.002 / 0.002 |
+| `photo__rrect-lg__rest` | 0.0454 | 0.0555 | 0.0132 | 0.0086 | 0.105 / 0.118 / 0.117 / 0.192 | 0.255 / 0.140 / 0.276 / 0.166 |
+| `mid-dark-solid__capsule-button__rest` | 0.0285 | 0.0500 | 0.0019 | 0.0060 | 0.067 / 0.067 / 0.062 / 0.062 | 0.223 / 0.110 / 0.132 / 0.077 |
+| `dark-solid__capsule-button__rest-tint-orange` | 0.4243 | 0.4272 | 0.0075 | 0.0090 | 0.345 / 0.345 / 0.204 / 0.204 | 0.343 / 0.343 / 0.197 / 0.197 |
+| `checkerboard__capsule-button__rest-tint-orange` | 0.4343 | 0.4276 | 0.0072 | 0.0112 | 0.519 / 0.516 / 0.648 / 0.304 | 0.574 / 0.482 / 0.683 / 0.315 |
+| `photo__capsule-button__rest-tint-orange` | 0.4343 | 0.4276 | 0.0054 | 0.0032 | 0.424 / 0.472 / 0.297 / 0.442 | 0.485 / 0.443 / 0.302 / 0.436 |
+
+`apple-macos-26.5-2x-dark-standard`:
+
+| scene | body native | body web | sd native | sd web | rim peak native T / B / L / R | rim peak web T / B / L / R |
+| --- | --- | --- | --- | --- | --- | --- |
+| `dark-solid__capsule-button__rest` | 0.0110 | 0.0117 | 0.0009 | 0.0000 | 0.028 / 0.028 / 0.016 / 0.016 | 0.012 / 0.012 / 0.012 / 0.012 |
+| `checkerboard__capsule-button__rest` | 0.1074 | 0.0638 | 0.0567 | 0.0170 | 0.333 / 0.339 / 0.596 / 0.293 | 0.448 / 0.277 / 0.651 / 0.280 |
+| `photo__capsule-button__rest` | 0.0966 | 0.0551 | 0.0181 | 0.0097 | 0.206 / 0.253 / 0.187 / 0.412 | 0.345 / 0.224 / 0.239 / 0.391 |
+| `dark-solid__rrect-md__rest` | 0.0153 | 0.0483 | 0.0003 | 0.0013 | 0.039 / 0.039 / 0.032 / 0.032 | 0.314 / 0.133 / 0.337 / 0.105 |
+| `checkerboard__rrect-md__rest` | 0.0475 | 0.0627 | 0.0192 | 0.0062 | 0.209 / 0.196 / 0.278 / 0.230 | 0.438 / 0.244 / 0.548 / 0.257 |
+| `photo__rrect-md__rest` | 0.0470 | 0.0548 | 0.0109 | 0.0031 | 0.129 / 0.140 / 0.135 / 0.220 | 0.348 / 0.178 / 0.403 / 0.216 |
+| `impulse__capsule-button__rest` | 0.0067 | 0.0033 | 0.0015 | 0.0001 | 0.016 / 0.015 / 0.006 / 0.006 | 0.003 / 0.003 / 0.002 / 0.002 |
+| `photo__rrect-lg__rest` | 0.0455 | 0.0556 | 0.0134 | 0.0090 | 0.120 / 0.134 / 0.135 / 0.212 | 0.345 / 0.172 / 0.376 / 0.192 |
+| `mid-dark-solid__capsule-button__rest` | 0.0285 | 0.0500 | 0.0021 | 0.0070 | 0.074 / 0.073 / 0.062 / 0.062 | 0.304 / 0.138 / 0.133 / 0.077 |
+| `dark-solid__capsule-button__rest-tint-orange` | 0.4243 | 0.4273 | 0.0093 | 0.0090 | 0.362 / 0.362 / 0.216 / 0.216 | 0.348 / 0.348 / 0.210 / 0.210 |
+| `checkerboard__capsule-button__rest-tint-orange` | 0.4345 | 0.4277 | 0.0097 | 0.0116 | 0.537 / 0.534 / 0.669 / 0.321 | 0.642 / 0.505 / 0.695 / 0.334 |
+| `photo__capsule-button__rest-tint-orange` | 0.4344 | 0.4276 | 0.0069 | 0.0058 | 0.425 / 0.474 / 0.304 / 0.454 | 0.545 / 0.459 / 0.307 / 0.439 |
+
+Three terms, read off the tables:
+
+1. **The body is a response surface the dark profile does not have.** The dark reference's thin
+   surface settles at 0.096–0.106 over `photo` and `checkerboard`, its thick surface at
+   0.045–0.047 over the same backdrops and 0.015 over `dark-solid` (a 0.012 backdrop); its thin
+   surface collapses onto `dark-solid`, settles at 0.029 over `mid-dark-solid` — BELOW that
+   backdrop's 0.060 — and at 0.007 over `impulse`. vitrea's dark body is 0.048–0.064 wherever the
+   collapse does not fire: the profile's `tint` 0.05 at `tintAlpha` 0.97 (C9a's four-cell fit),
+   with the response law standing at strength 0 because its anchors were measured on the light
+   reference only (§5.34; `material.ts`'s comment on `backdropToneResponseStrength`). The web is
+   too dark by 0.041–0.042 on every thin structured cell and too bright by 0.008–0.033 on every
+   thick one and on the mid-dark capsule. The row order INVERTS between schemes at the mid inputs
+   — the light reference's thin row sits below its thick row at the dark anchors, the dark
+   reference's thin row sits 0.05–0.06 ABOVE its thick row here — which W9's form carries as an
+   anchor value, not a new constant.
+2. **The rim is the light scheme's.** The dark reference's rim is faint and flat across sides:
+   0.034 / 0.034 / 0.030 / 0.030 over `dark-solid`'s 0.012, 0.067 / 0.067 / 0.062 / 0.062 over
+   `mid-dark-solid`'s 0.060, and a +0.013 trace on the collapsed capsule (0.025 top and bottom,
+   0.016 left and right, over 0.012). vitrea draws the light profile's two-light rim on the dark
+   material: 0.224 / 0.102 / 0.233 / 0.085 over `dark-solid`, 0.223 / 0.110 / 0.132 / 0.077 over
+   `mid-dark-solid` — seven to ten times the reference's excess, top-left weighted where the
+   reference is not, and absent entirely on the collapsed capsule where the reference keeps its
+   trace. §6.2 declined to fit this on four cells; W16's analytic check attributed
+   `dark-solid__rrect-md`'s excess to the rim (+0.080) and the highlight (+0.053) over a
+   near-black body (§5.74). On the structured backdrops the band's peak carries the backdrop's own
+   content and the same ordering shows through it (the web's top and left peaks above the
+   reference's by 0.05–0.17 on every rrect).
+3. **The passthrough.** The reference passes more of the backdrop's structure than vitrea: sd 0.052
+   against 0.016 on the capsule over the checkerboard, 0.017 against 0.006 on `rrect-md`, 0.011
+   against 0.003 on `photo__rrect-md`. The profile document's own caveat under `tintAlpha` says
+   why: a lerp at 0.97 cannot hold the level and pass the structure at once, and the level won the
+   fit. Under W9's law the level is the solve's and the alpha is free.
+
+The tinted capsules are within 0.007 in body and within the band's noise in rim on every cell, at
+both scales: the dark tint pathway (§5.36; `tintShadeStrength` 0) is not touched by any of this.
+
+#### Why the matrix reads it as it does
+
+Over the dark solids the body sits within the silhouette extractor's 0.02 threshold of its own
+backdrop, so the native silhouette is what clears the threshold — the rim ring, in fragments.
+`dark-solid__rrect-md` on the 1x dark profile recovers `silhouetteAreaNative` 370 px in six bodies
+of a 15 024 px region (IoU 0.025, contour max 23 px), so its `interiorMeanNative` 0.041 and
+`interiorMeanWeb` 0.211 are readings of the RIM on both sides — the body under the declared box
+reads 0.015 against 0.048 — and its `rimPeakLuminance` rows read 0 because the rim metric needs
+the silhouette the rim ring cannot give it. The conditioning predicate excludes the cell on both
+tiers at both scales (`PREDICATE_EXCLUDES`), so the dark bed's worst-shaped cell is not in the gate;
+the dark pair's bounds (ΔE mean ≤ 0.09, `ssimMean` ≥ 0.87, adopted 2026-09-01 on a bed that read
+clean) would not stop it if it were. Wave Decision Log 23 quoted this cell's "interior 0.21 against
+Apple's 0.04" as the wave's headline: the number is real, and it is the rim.
+
+#### Disposition
+
+W21 chartered as a four-gate composite (the spec): G0 the dark probe on W9's 56-cell grid at 1x
+under the dark profile's environment, with the reader above as the instrument and vitrea's
+endpoint table (strength 0, strength 1 on the light anchors) beside it; G1 the dark profile
+document re-recorded — the six response anchors as measurements, the law at strength 1, the alpha
+refitted on the passthrough rows and the rim's amplitudes on the per-side rows, each on rows that
+separate it — declared and dry-run on the canonical dark bed with the holdout read once; G2 the
+landing, the rebuild and the referee; G3 the dark profile shipped from `@vitreajs/vitrea-web` with
+a `colorScheme` option on both roots (C9a's parent-impact item — today no published package
+exports the dark patch and nothing selects it). The parent's acceptance: body within 0.010 and rim
+within 0.03 per side on every untinted dark cell, dark calibration ΔE below 0.006, the light
+profiles byte-identical, the tinted cells within 0.001; 0.10.0 after the landing.
