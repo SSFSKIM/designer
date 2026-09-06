@@ -331,6 +331,9 @@ at a time.
 - **The CSS tier's dark residual** — recorded, not chartered (Decision Log 23 (a)).
 - **The gate's dark bounds** — re-proposed at G2 by the margin rule; adopting is the user's.
 - **Default `colorScheme: "auto"`** — a later major.
+- **A unit suite for the demo.** `apps/demo` has no vitest; G3's `reportsFor` and `nativeCaptureFor`
+  are pure over committed data and are pinned only by the demo's e2e. Twenty lines of test behind a
+  config, a script and a lockfile entry — small infrastructure, not opened mid-wave.
 
 ## Tracking Map
 
@@ -339,7 +342,7 @@ at a time.
 | G0 — the dark probe and the instrument | PARTIAL 2026-09-06 (claims §5.88): the bed declared, the instrument validated (X4 0.0028; W9's verdict unchanged under the swap), the endpoint diagnostic measured — the remainder runs downward, the light anchors miss by six times, the law reaches neither the collapsed nor the tinted cells; **the native probe BLOCKED** by a locked console session — first read as a Screen Sharing failure, corrected the same day (§5.88's correction) — the user's to unlock; a watcher starts `run-probe.sh` when the lock clears |
 | G1 — the form declared and dry-run | — |
 | G2 — the landing and its referee | — |
-| G3 — the dark scheme shipped | BUILT 2026-09-06 on its branch (Decision Log 1's shape: `darkMaterialProfile` generated from the document, `colorScheme` on both roots, `"auto"` on the media feed, the demo's switch, X7 pinned in two packages); Codex review's one finding (the demo's Reference section must follow the resolved scheme) in fix; browser suites running; merge after G2 or on the parent's call |
+| G3 — the dark scheme shipped | MERGED 2026-09-06 (`c017625`, `bc0b9e8`; Decision Log 1's shape): `darkMaterialProfile` generated from the profile document and pinned to it in two packages (X7), `colorScheme: "light" \| "dark" \| "auto"` on both roots with `"auto"` on the media feed and one re-derivation path for every profile change, the demo's scheme switch with its Reference section following the resolved scheme (12 of 32 picker scenes carry a dark capture; the rest withdraw the pair with a sentence); Codex review's one finding fixed; browser suites 21 / 21 on three engines and 5 / 5 on the demo; ships its numbers with G2 — X7's test carries G1's re-recording through |
 
 ## Decision Log
 
@@ -397,6 +400,10 @@ recommendation") the parent proceeds on (1) as recommended, opt-in, unless told 
 
 ## Revision Notes
 
+- 2026-09-06: G3 MERGED ahead of its edge — the plumbing needs no probe number and X7's test fails
+  G1's re-recording until the export is regenerated; the API lands opt-in on the parent's
+  recommendation under the standing instruction (Decision Log 1); one review finding and two
+  browser-test defects fixed before the merge; one Deferred entry (the demo's unit suite).
 - 2026-09-06: G0 PARTIAL (claims §5.88) — the bed, the instrument (validated by injection and by
   re-scoring W9's light probe under both interiors) and the endpoint diagnostic delivered and merged;
   the native probe blocked by a locked console session (first read as Screen Sharing, corrected the
