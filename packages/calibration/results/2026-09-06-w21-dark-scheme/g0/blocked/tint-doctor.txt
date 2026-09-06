@@ -1,0 +1,31 @@
+== tint doctor ==
+hardware: Mac14,12, Version 26.5.2 (Build 25F84)
+
+-- probe 1/2: Color construction and resolution --
+  orange:
+    declared        sRGB(255, 149, 0) a=1.0
+    resolved light  sRGB(255.0, 149.0, 0.0) a=1.0000
+    resolved dark   sRGB(255.0, 149.0, 0.0) a=1.0000
+    NSColor sRGB    (255.0, 149.0, 0.0) a=1.0000  space=sRGB IEC61966-2.1
+
+-- probe 3: does the Glass VALUE carry the hue? --
+   (Glass is Equatable; two materials tinted with different hues at the same
+    alpha MUST compare unequal if the colour reached the material value)
+  CONTROL — same colour, built twice, must be EQUAL: equal (equality is colour-sensitive, so the answers below mean something)
+  CONTROL — same hue, different alpha, must be DISTINCT: distinct
+  orange: differs from untinted glass: YES
+      differs from pure green at the same alpha: YES — the hue is in the material value
+
+-- per-scene: the tint each tinted scene view hands the API --
+  checkerboard-4__capsule-button__rest-tint-orange
+      -> orange resolved sRGB(255.0, 149.0, 0.0) a=1.0000 chroma=255.0  colourSurvived=yes glassKeepsHue=yes
+  checkerboard-8__capsule-button__rest-tint-orange
+      -> orange resolved sRGB(255.0, 149.0, 0.0) a=1.0000 chroma=255.0  colourSurvived=yes glassKeepsHue=yes
+  checkerboard__capsule-button__rest-tint-orange
+      -> orange resolved sRGB(255.0, 149.0, 0.0) a=1.0000 chroma=255.0  colourSurvived=yes glassKeepsHue=yes
+  checkerboard-32__capsule-button__rest-tint-orange
+      -> orange resolved sRGB(255.0, 149.0, 0.0) a=1.0000 chroma=255.0  colourSurvived=yes glassKeepsHue=yes
+  checkerboard-64__capsule-button__rest-tint-orange
+      -> orange resolved sRGB(255.0, 149.0, 0.0) a=1.0000 chroma=255.0  colourSurvived=yes glassKeepsHue=yes
+
+5 tinted scene(s) across 1 registry entries.

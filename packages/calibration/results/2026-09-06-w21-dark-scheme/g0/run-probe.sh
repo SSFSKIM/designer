@@ -16,6 +16,17 @@
 # canonical is read or written on either side. The one profile in the W21 bed is dark, so the
 # harness switches the system appearance itself; nothing here has to.
 #
+# `--allow-colourless-tints` is passed, deliberately, for the reason W12's stability study passed it
+# (claims §5.21): the author tint reaching the material is INTERMITTENT on this machine (§5.10,
+# §5.20 — two runs minutes apart on the same binary, one carrying colour and one not), and the
+# guard's default is to delete the whole staged bundle when it fires. On this probe that would throw
+# away 51 attested untinted cells to protect five descriptive ones. With the flag the bed publishes,
+# the caveat is recorded in the manifest, and every fixture carries its own
+# `tint.colourReachedMaterial`, so a tint row is believable exactly when that flag says it is. W21's
+# tinted cells are descriptive (the dark tint pathway is a stop, not a fit), so nothing binding rests
+# on them; a run whose tints dropped out is still a full-strength run for everything this probe is
+# for.
+#
 # Usage: `bash run-probe.sh <runRoot> <firstRun> <lastRun>`
 set -u
 T="${1:?usage: run-probe.sh <runRoot> <firstRun> <lastRun>}"
@@ -40,7 +51,8 @@ for N in $(seq "$FIRST" "$LAST"); do
     rm -f "$D.out" "$D.err"
     open -W --env VITREA_SCENES="$SCENES" --env VITREA_FIXTURES="$D" \
       --stdout "$D.out" --stderr "$D.err" "$APP" \
-      --args capture --run-label "w21-probe-$N" --reset-interstitial 6 --min-idle-seconds 45
+      --args capture --run-label "w21-probe-$N" --reset-interstitial 6 --min-idle-seconds 45 \
+      --allow-colourless-tints
     if [ -f "$D/manifest.json" ]; then echo "run $N: complete $(date -u +%H:%M:%SZ)"; break; fi
     if grep -q -i "idle" "$D.err" "$D.out" 2>/dev/null; then
       echo "run $N attempt $A: refused for idle"; sleep 90; continue

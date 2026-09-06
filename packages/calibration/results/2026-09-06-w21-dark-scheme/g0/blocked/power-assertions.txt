@@ -1,0 +1,25 @@
+2026-09-06 18:35:04 +0900 
+Assertion status system-wide:
+   BackgroundTask                 0
+   ApplePushServiceTask           0
+   UserIsActive                   1
+   PreventUserIdleDisplaySleep    0
+   SoftwareUpdateTask             0
+   PreventSystemSleep             1
+   ExternalMedia                  0
+   InternalPreventDisplaySleep    1
+   PreventUserIdleSystemSleep     1
+   NetworkClientActive            0
+Listed by owning process:
+   pid 80782(screensharingd): [0x000073cf00078d40] 02:38:06 PreventSystemSleep named: "Remote user is connected"  
+   pid 80782(screensharingd): [0x000073d100098d41] 01:37:07 UserIsActive named: "Remote user active"  
+   pid 330(mds_stores): [0x00009670000b91a1] 00:10:21 BackgroundTask named: "com.apple.metadata.mds_stores.power"  
+   pid 183(runningboardd): [0x000098de0001924b] 00:00:00 PreventUserIdleSystemSleep named: "osservice<com.haegi.ClaudeUsage(501)>183-55014-42196:com.apple.CFNetwork.StorageDB"  
+	Created for PID: 55014. 
+   pid 131(mds): [0x00009893000b9229] 00:01:14 BackgroundTask named: "com.apple.metadata.mds.power"  
+   pid 175(WindowServer): [0x000000450009805b] 01:37:07 UserIsActive named: "com.apple.iohideventsystem.queue.tickle.nxevent service:IOHIDSystem pid:80784 process:ScreensharingAgent"  
+   pid 85816(caffeinate): [0x00009842000191dc] 00:02:35 PreventUserIdleSystemSleep named: "caffeinate command-line tool"  
+	Details: caffeinate asserting for 300 secs
+	Localized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.
+	Timeout will fire in 145 secs Action=TimeoutActionRelease
+   pid 168(bluetoothd): [0x00000065000982c1] 10:50:33 UserIsActive named: "Bluetooth Incoming Connection Request"  

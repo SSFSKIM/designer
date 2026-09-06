@@ -139,6 +139,12 @@ def main() -> int:
     ap.add_argument("--tier", default="webgpu")
     ap.add_argument("--runs", nargs="*", default=[])
     ap.add_argument("--backgrounds", default=None, help="defaults to <fixtures>/backgrounds")
+    ap.add_argument(
+        "--sets",
+        default="calibration,validation,recorded",
+        help="split roles to read at all; a cell outside them is skipped before its file is opened, "
+        "which is how a gate leaves a holdout genuinely unread",
+    )
     ap.add_argument("--erode", type=float, default=6.0)
     ap.add_argument("--band", type=float, default=3.0)
     ap.add_argument("--json", default=None)
@@ -165,6 +171,9 @@ def main() -> int:
     scene_ids = [s["id"] for s in spec["scenes"]]
     if isinstance(declared, list):
         scene_ids = [s for s in scene_ids if s in declared]
+    if spec.get("split"):
+        wanted = set(args.sets.split(","))
+        scene_ids = [s for s in scene_ids if which.get(s, "calibration") in wanted]
 
     # Attested runs, for the noise floor. A run contributes a cell only when that cell passed its
     # own audit in that run: `presentedActive` (the window was key — Liquid Glass draws a flat
@@ -268,6 +277,7 @@ def main() -> int:
                     "fixtures": os.path.abspath(args.fixtures),
                     "captures": os.path.abspath(args.captures) if args.captures else None,
                     "tier": args.tier if args.captures else None,
+                    "sets": args.sets.split(","),
                     "erodeCssPx": args.erode,
                     "rimBandCssPx": args.band,
                     "runs": [name for name, _d, _ok in run_cells],
