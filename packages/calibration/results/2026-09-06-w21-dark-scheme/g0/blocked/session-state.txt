@@ -1,0 +1,45 @@
+taken 2026-09-06T14:23:13Z
+
+== who
+new              console       9월  6 07:43 
+
+== the front application, from LaunchServices (not from System Events, which needs
+   Accessibility and answered 'Google Chrome' — the frontmost USER process, not the
+   front application)
+ASN:0x0-0x3003:
+"LSDisplayName"="loginwindow"
+
+== the console session's own flags
+"IOConsoleUsers" = ({"kCGSSessionOnConsoleKey"=Yes,"kSCSecuritySessionID"=100004,"kCGSSessionSystemSafeBoot"=No,"kCGSessionLoginDoneKey"=Yes,"kCGSSessionIDKey"=257,"kCGSSessionUserNameKey"="new","kCGSSessionGroupIDKey"=20,"CGSSessionUniqueSessionUUID"="D1494D65-E53F-46D8-A0B0-514594EFA306","CGSSessionScreenLockedTime"=3936172811,"kCGSessionLongUserNameKey"="NEW","CGSSessionScreenIsLocked"=Yes,"kCGSSessionAuditIDKey"=100004,"kCGSSessionLoginwindowSafeLogin"=No,"kCGSSessionUserIDKey"=501})
+
+== screen-sharing assertions
+   pid 175(WindowServer): [0x000000450009805b] 04:37:11 UserIsActive named: "com.apple.iohideventsystem.queue.tickle.nxevent service:IOHIDSystem pid:80784 process:ScreensharingAgent"  
+
+== the attached display
+Graphics/Displays:
+
+    Apple M2 Pro:
+
+      Chipset Model: Apple M2 Pro
+      Type: GPU
+      Bus: Built-In
+      Total Number of Cores: 16
+      Vendor: Apple (0x106b)
+      Metal Support: Metal 4
+      Displays:
+        가상 16:9:
+          Resolution: 2560 x 1440 (QHD/WQHD - Wide Quad High Definition)
+          UI Looks like: 2560 x 1440 @ 60.00Hz
+          Main Display: Yes
+          Mirror: Off
+
+== the capture path, launched the way every capture is launched
+== capture path probe ==
+hardware: Mac14,12, Version 26.5.2 (Build 25F84)
+requested scale: 1.0x
+ImageRenderer: glass-vs-none mad=0.0000 max=0 (a rendered 120x44 material should move ~5280 px)
+  → material rendered: NO
+window backingScaleFactor: 1.0
+window canBecomeKey: true, isKeyWindow: false, isMainWindow: false, NSApp.isActive: false
+cacheDisplay: 320x200, repeat mad=0.0 max=0
+ScreenCaptureKit: OK 320x200 — the material path is available
