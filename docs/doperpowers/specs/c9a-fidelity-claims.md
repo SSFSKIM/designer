@@ -12517,3 +12517,20 @@ end the Screen Sharing session, or otherwise leave the console with the harness 
 front, for about two hours (ten runs at eleven minutes). The gate resumes at three commands
 (`run-probe.sh`, `run-materialize.sh`, `run-read.sh`); no retry loop is armed. Recorded in
 `tech-debt-tracker.md` with the shape of the harness-side fix.
+
+**CORRECTED the same day (G0's commit `3b4bc26`; `g0-probe.md` §4d; `blocked/session-state.txt`).**
+The attribution to Screen Sharing above was wrong, and it stays as written because it was acted on.
+With the Screen Sharing session gone the gate still refused (`isKeyWindow: false`,
+`NSApp.isActive: false`, `ScreenCaptureKit: OK`), and LaunchServices names the front application:
+`lsappinfo front` → `loginwindow`, with `IOConsoleUsers` carrying `CGSSessionScreenIsLocked=Yes`
+beside `kCGSSessionOnConsoleKey=Yes` and `kCGSessionLoginDoneKey=Yes`. **The screen is locked** —
+§5.17's failure mode, not a third one. The earlier reading came from System Events' `frontmost
+process`, which reports the frontmost ordinary process and cannot see `loginwindow`; the Screen
+Sharing session was coincident (a viewer attached to a locked screen shows the login window, which is
+the state both attempts ran into). Neither HID idle (5 038 s, healthy-looking) nor any power
+assertion distinguishes a locked screen from an idle one; the signal is the lock flag, and
+`run-probe.sh` now refuses on it in one second and checks the first run's attestation (50 of 56)
+before launching the second. What unblocks the probe is the user's: unlock the console session — on
+this headless machine, by authenticating a Screen Sharing connection — and leave it unlocked for
+about two hours; a watcher polls the flag once a minute and starts the ten-run budget when it
+clears. The tracker entry is retitled to the mechanism.

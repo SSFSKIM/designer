@@ -613,25 +613,25 @@ shows; the referee is the capsule cells reading what the pixels say before the f
 after, with a synthetic dilation recovered beside the first reading. Until it lands, every
 shape-axis figure on the bed is a lower bound on the contour error, not a measurement of it.
 
-## A Screen Sharing session holds the console and the reference harness's window never becomes key (W21 G0, 2026-09-06)
+## A locked console session refuses the reference harness activation while HID idle and the power assertions look healthy (W21 G0, 2026-09-06; first read as a Screen Sharing failure, corrected the same day)
 
-*Found on W21's dark probe; the whole gate blocked on it.* With a Screen Sharing session attached to
-this login (`pmset -g assertions`: `screensharingd` holding "Remote user is connected" and "Remote
-user active"; the remote user's Chrome frontmost), the harness captured 56 of 56 cells byte-stable
-and every one attested `presentedActive: false` while `ScreenCaptureKit: OK` — the Screen Recording
-grant is live and what is refused is activation (`isKeyWindow: false, NSApp.isActive: false`). The
-protocol's idle guard did not fire: HID idle read 5 038 s because remote input is not local HID. A
-third failure mode beside the locked session (claims §5.17) and the partial idle-refusal above:
-total, and invisible to the guard. Three shell mitigations failed — `caffeinate -u`, hiding other
-applications through System Events, activating the app by name (System Events `-10006`). The
-attestation caught it and nothing unattested was read (claims §5.88; evidence under
-`results/2026-09-06-w21-dark-scheme/g0/blocked/`). Shape of the fix, two parts: the harness reads
-the power assertions before the first cell and refuses the run up front — naming the remote
-session — rather than capturing 56 inactive cells and reporting them through the tint guard as a
-colour fault; and the idle guard treats a `UserIsActive` assertion from `screensharingd` or
-`ScreensharingAgent` as activity. Below every bound; it costs a run and, without the up-front
-refusal, the diagnosis. Until it lands, a probe on this machine starts by checking that no Screen
-Sharing session is attached.
+*Found on W21's dark probe; the whole gate blocked on it.* The harness captured 56 of 56 cells
+byte-stable and every one attested `presentedActive: false` while `ScreenCaptureKit: OK` — the
+Screen Recording grant is live and what is refused is activation (`isKeyWindow: false,
+`NSApp.isActive: false`). The protocol's idle guard did not fire: HID idle read 5 038 s, the session
+read on-console and logged in, and the power assertions showed nothing unusual once a coincident
+Screen Sharing session (the first reading's culprit) had ended. What settles it is LaunchServices:
+`lsappinfo front` → `loginwindow`, and `IOConsoleUsers` carrying `CGSSessionScreenIsLocked=Yes`. The
+screen is locked — claims §5.17's failure mode, this time invisible to every signal the protocol
+reads (claims §5.88 and its correction; evidence under
+`results/2026-09-06-w21-dark-scheme/g0/blocked/`). System Events' `frontmost process` is the wrong
+instrument for this: it reports the frontmost ordinary process, needs an Accessibility grant, and
+cannot see `loginwindow`. The harness's tint guard reported the same fault as a colour fault and its
+default deletes the staged bundle, which would have destroyed the evidence. Shape of the fix, two
+parts: the harness reads the lock flag before the first cell and refuses the run naming it (the
+probe runner already does from the shell, in one second, and stops after a first run that attests
+fewer than 50 of 56); and the tint guard keeps the staged bundle beside its refusal rather than
+deleting it. Below every bound; it costs a run and, without the up-front refusal, the diagnosis.
 
 ## `capture.sh probe` reports the Screen Recording grant BLOCKED from a shell while the bundle's own path is granted (W20 G0, 2026-09-06)
 
