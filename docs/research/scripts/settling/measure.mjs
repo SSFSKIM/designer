@@ -54,7 +54,7 @@ function extract() {
     if (m) out = { r: +m[1], g: +m[2], b: +m[3], a: m[4] == null ? 1 : +m[4] };
     else {
       cx.clearRect(0, 0, 1, 1); cx.fillStyle = "#000"; cx.fillStyle = s;
-      if (cx.fillStyle !== "#000000" || /black|#000/i.test(s)) { cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; const a = d[3] / 255; out = a > 0 ? { r: d[0] / a, g: d[1] / a, b: d[2] / a, a } : { r: 0, g: 0, b: 0, a: 0 }; }
+      if (cx.fillStyle !== "#000000" || /black|#000/i.test(s)) { cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; const a = d[3] / 255; out = { r: d[0], g: d[1], b: d[2], a }; } // ImageData is already un-premultiplied
     }
     cache.set(s, out); return out;
   };
@@ -120,6 +120,13 @@ function extract() {
   }
   // Distinct chromatic hues in use (clustered at 20°), for the palette count.
   const hues = []; for (const c of chroma) { if (!hues.some((h) => Math.min(Math.abs(h - c.H), 360 - Math.abs(h - c.H)) < 20)) hues.push(c.H); }
+  // The accent by count: the hue cluster that appears on the most interactive elements, reported by
+  // its most chromatic member. The max-chroma accent above can be a status colour on one caution
+  // button; the colour that carries most actions is the one an author would call the accent.
+  const dh = (a, b) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+  const clusters = hues.map((h) => chroma.filter((c) => dh(c.H, h) < 20));
+  clusters.sort((a, b) => b.length - a.length);
+  const accentByCount = clusters[0] ? { ...clusters[0][0], n: clusters[0].length } : null;
 
   // Families.
   const fam = (el) => el ? getComputedStyle(el).fontFamily.split(",")[0].replace(/["']/g, "").trim() : null;
@@ -130,6 +137,7 @@ function extract() {
   const text = document.body.innerText || "";
   return {
     ground: { hex: hex(ground), ...oklch(ground) },
+    accentByCount,
     accent,
     hueCount: hues.length,
     families,
@@ -173,7 +181,10 @@ const prev = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, "utf8"
 const ids = fs.readdirSync(buildsDir).filter((d) => fs.existsSync(path.join(buildsDir, d, "index.html")) && !fs.existsSync(path.join(buildsDir, d, ".incomplete"))).filter((d) => !only || only.includes(d)).sort();
 for (const id of ids) {
   const stamp = fs.statSync(path.join(buildsDir, id, "index.html")).mtimeMs;
-  if (prev.builds[id] && prev.builds[id].mtimeMs === stamp && !prev.builds[id].error && !only) { continue; }
+  // A builder's own cleanup can delete the measurer's screenshots (a build that finishes as the
+  // measurer runs), so a measured build without both shots is measured again.
+  const shots = ["shot-fv.png", "shot-full.png"].every((f) => fs.existsSync(path.join(buildsDir, id, f)));
+  if (prev.builds[id] && prev.builds[id].mtimeMs === stamp && !prev.builds[id].error && shots && !only) { continue; }
   process.stdout.write(`measure ${id} … `);
   try { prev.builds[id] = { ...(await measureOne(chromium, id)), mtimeMs: stamp }; console.log(prev.builds[id].gateMechanical ? "ok" : "gate-fail"); }
   catch (e) { console.log("ERROR " + e.message); prev.builds[id] = { id, error: String(e.message), mtimeMs: stamp, gateMechanical: false }; }

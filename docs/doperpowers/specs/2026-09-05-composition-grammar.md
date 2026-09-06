@@ -493,6 +493,17 @@ predicts for a pair that both lead full width; that is a lesson about pre-regist
 license to re-read. The `DESIGN.md` budget was wrong and three builds said so; it is corrected.
 Deferred as before, plus two entries above.
 
+**Settling experiment (2026-09-06, `2026-09-05-settling-experiment.md`).** Over 52 blind builds
+in four arms the grammar did what C1–C3 asked of it on every console: no first-viewport stat
+row (0 of 6, against 3 of 6 with no skill and 1 of 6 under 2.0), no side region, every console a
+main-plus-rail band, fit 4.62 of 5 against 3.38 with no skill. The compare brief held to its form
+under no arm (a band above the comparison in all four). The pre-registered stop rule's layout
+clause fired: effective within-category partition distance for `v2.1` is below `v1.1` on consoles
+(0.115 against 0.257) and flat on narrative pages, which is the convergence the grammar
+prescribes read by an instrument that penalises it — the same blindness C1 recorded. The quality
+clause is pending the user's judging. Fit, not partition distance, is the acceptance instrument
+for the next change to this layer.
+
 ## Revision Notes
 
 - 2026-09-05: created from the layout survey and three research rounds; direction approved by
@@ -503,3 +514,4 @@ Deferred as before, plus two entries above.
 - 2026-09-05 (fifth revision): acceptance run recorded — C1 partly met (pair partition bar not
   met, kept), C2–C6 met; instrument refinements, the budget change and the survey re-measurement
   logged; Outcomes written.
+- 2026-09-06: settling experiment read recorded under Outcomes.

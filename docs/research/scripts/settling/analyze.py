@@ -7,7 +7,7 @@ Reads manifest.json, measurements.json, topology.json, judgments.jsonl and fit.j
 from figma-design-workspace/settling/ and writes results.md + results.json there. Handles partial
 data: every table states how many builds and judgments it stands on.
 """
-import json, os, sys, math, itertools, statistics as st
+import json, re, os, sys, math, itertools, statistics as st
 from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -266,6 +266,36 @@ for arm in ARMS:
     grounds = [f"{meas[i]['ground']['L']}/{meas[i]['ground']['H']:.0f}" for i in ids if meas[i].get("ground")]
     dark = sum(1 for i in ids if meas[i].get("ground") and meas[i]["ground"]["L"] < 0.5)
     P(f"| {arm} | {len(ids)} | {', '.join(f'{h:.0f}' for h in hues)} | {circ_disp(hues) if circ_disp(hues) is not None else '—'} | {circ_disp(ehues) if circ_disp(ehues) is not None else '—'} | {' '.join(grounds)} | {dark} |")
+P("")
+
+def accent_job(i):
+    """The accent's declared job. 2.x builds name it in DESIGN.md (directional, status-only or none);
+    for the other arms it is inferred from where the extractor found the accent — a chromatic
+    colour on an interactive element is a directional accent, a fallback read from any element
+    means the interactive layer is achromatic and the read is a status colour."""
+    if cell[i]["arm"] in ("v2.0", "v2.1"):
+        dp = os.path.join(WS, "builds", i, "DESIGN.md")
+        if os.path.exists(dp):
+            mm = re.search(r"accent job[^\n]*?\b(directional|status-only|none)\b", open(dp).read(), re.I)
+            if mm:
+                return mm.group(1).lower()
+    where = (meas[i].get("accent") or {}).get("where")
+    return "directional" if where in ("bg", "fg", "border") else "none"
+
+P("### D2 supplement — accent job, and dispersion over directional accents only\n")
+P("Added after wave five (Decision Log): on a build whose interactive layer is achromatic the "
+  "extractor's fallback reads the loudest status colour, so the D2 hue list above mixes chosen "
+  "accents with critical reds. Here the job is the declared one for the 2.x arms and inferred "
+  "from the extractor's locus for the others.\n")
+P("| arm | builds | directional | status-only | none | hues (directional) | dispersion | eff. dispersion |\n|---|---|---|---|---|---|---|---|")
+for arm in ARMS:
+    ids = arm_ids(arm)
+    jobs = {i: accent_job(i) for i in ids}
+    d = [i for i in ids if jobs[i] == "directional" and meas[i].get("accent")]
+    hues = [meas[i]["accent"]["H"] for i in d]
+    ehues = [meas[i]["accent"]["H"] for i in d if valid(i)]
+    c = lambda k: sum(1 for j in jobs.values() if j == k)
+    P(f"| {arm} | {len(ids)} | {c('directional')} | {c('status-only')} | {c('none')} | {', '.join(f'{h:.0f}' for h in hues)} | {circ_disp(hues) if circ_disp(hues) is not None else '—'} | {circ_disp(ehues) if circ_disp(ehues) is not None else '—'} |")
 P("")
 
 P("### D3 — families per arm\n")

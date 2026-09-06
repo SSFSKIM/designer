@@ -159,7 +159,7 @@ per build, so this is roughly twelve acceptance runs' worth.
 - `figma-design-workspace/settling/` (gitignored): frozen skills, builds, screenshots,
   `judgments.jsonl`.
 - Committed evidence: `docs/research/data/2026-09-05-settling/` — `manifest.json`,
-  `measurements.json`, `topology.json`, `judgments.jsonl`, `fit.json`, `results.md`.
+  `measurements.json`, `topology.json`, `judgments.jsonl`, `fit/<brief>.json`, `results.md`.
 
 ## Decision Log
 
@@ -196,6 +196,35 @@ per build, so this is roughly twelve acceptance runs' worth.
   build showed a derived band that the raw rule reads as a rail. The smoke test ran the whole
   chain on two derivation-eval builds in a scratch workspace.
   Date/Author: 2026-09-05, Claude.
+
+- Decision: A supplementary D2 row reads the accent's *job* — declared in the 2.x record, inferred
+  for the other arms from where the extractor found the colour — and reports dispersion over
+  directional accents only. The pre-registered D2 row is unchanged and stays first.
+  Rationale: the extractor's fallback on an achromatic interactive layer returns the loudest
+  status colour, so the pre-registered hue list charges a 2.x build that chose no accent with a
+  critical red. Half the 2.x builds made that choice; without the supplement the arm that
+  declines an accent looks like the arm that always picks red.
+  Date/Author: 2026-09-06, Claude.
+
+- Decision: From wave five the waves overlapped, and a running builder's directory carries the
+  `.incomplete` marker until its report arrives; the measurer and the manifest skip marked
+  builds, and the marker is removed by hand on the builder's notification.
+  Rationale: builders write `index.html` early and iterate, so without the marker the measurer
+  captured half-built pages and the rating page would have served them to the judge. The marker
+  was already the convention for interrupted builders; it now means "not finished" in either
+  sense.
+  Date/Author: 2026-09-06, Claude.
+
+- Decision: Two instrument fixes after wave seven, both re-run over all 52 builds with the diff
+  recorded under Surprises: the colour parser no longer divides canvas bytes by alpha (they are
+  already un-premultiplied), and the measurer re-measures a build whose screenshots are missing.
+  A count-based accent (the hue cluster on the most interactive elements) is recorded beside the
+  max-chroma accent but not used in any table.
+  Rationale: the alpha bug inflated every semi-transparent colour; the diff shows it moved no gate
+  verdict and one accent hex, so the pre-registered readings stand. The count-based read was tried
+  as a better accent locator and is no better (it finds body ink on one build, a status colour on
+  another); it is kept as data, not as a measure.
+  Date/Author: 2026-09-06, Claude.
 
 ## Surprises & Discoveries
 
@@ -283,6 +312,59 @@ per build, so this is roughly twelve acceptance runs' worth.
   tool call and needed a second nudge; one timed out once more and was resumed again.
   Evidence: the wave-four task notifications.
 
+- Observation: The validity gate is the no-skill arm's story. Six of thirteen no-skill builds fail
+  the contrast clause (rail A and B, rebate A, pharmacy A and B, library B), every one on small
+  muted metadata text between 3.3 and 4.1 : 1; the three skill arms fail once in thirty-nine, on
+  a 31 px overflow. Effective across-brief diversity for `none` consoles is therefore 0.0 — the
+  only two valid no-skill consoles are the two fleet builds, which are the same brief — and the
+  raw column is the one to read for that arm.
+  Evidence: the V table in `results.md`; the `fails` lists in `measurements.json`.
+
+- Observation: Half the 2.x builds chose no directional accent (2.0: seven of thirteen; 2.1: six of
+  thirteen, as status-only or none), and on those the max-chroma extractor returns the critical
+  red. Read by declared job, dispersion over directional accents is 0.36 (`none`), 0.33 (`v1.1`),
+  0.55 (`v2.0`), 0.81 (`v2.1`); the pre-registered row reads 0.28 / 0.34 / 0.41 / 0.48. The
+  no-skill and menu arms cluster between 23° and 55° (orange-red) with an occasional violet; the
+  2.x directional accents sit at 220–282° as often as in the red band. One 2.1 build (fleet B)
+  is mis-read even by job: its declared blue accent (255°) has less chroma than the red border
+  on its caution buttons, so the extractor reports 27°; with that one hue corrected the 2.1
+  figure is 0.82. An accent is a role, and no colour statistic recovers the role on every page.
+  Evidence: the D2 supplement in `results.md`; `DESIGN.md` of `f8973a`; the count-based accent
+  field, which also returns the red.
+
+- Observation: The pharmacy brief's three skill arms open on the controlled-substance count
+  discrepancy on both seeds (a fentanyl or hydromorphone variance as the first item, in 1.1 as a
+  banner, in 2.0 as a boxed-warning block, in 2.1 as the head of a time-bucketed queue), and the
+  no-skill arm opens on a six-tile KPI strip on both. Six of the eight pharmacy builds score 5 of
+  5 on fit; the two that do not are no-skill B (2) and 1.1 B (4, for the banner).
+  Evidence: `fit/pharmacy.json`; the pharmacy first-viewport captures.
+
+- Observation: Derivation alone does not remove the stat row; the grammar does. The 2.0 arm
+  carries a first-viewport stat strip on fleet B (four tiles above the workshop board, fit 2 of
+  5, the same score as no-skill fleet A) and on rebate B (four tiles under the nav); 2.1 carries
+  none on any console (0 of 6) and one on a narrative. D4 over all 52: consoles with a stat row
+  in the first viewport — `none` 3, `v1.1` 1, `v2.0` 1, `v2.1` 0; consoles with a side region —
+  `none` 2, `v2.0` 1, the others 0; every 2.1 console is a main-plus-rail band at 1.5 : 1 or
+  wider (6 of 6).
+  Evidence: D4 in `results.md`; `fit/fleet.json`; the `645bc6` and `ea1cfd` captures.
+
+- Observation: The library brief converges on a stamp motif under derivation across seeds: 2.0 A's
+  stamp card, 2.0 B's fill-a-square log grid, 2.1 B's sheet of ten perforated week-stamps. Both
+  2.x seed-B builds also take a saturated green or teal ground (L 0.885 and 0.679) with a
+  stamp-red accent. The 1.1 seed-B build took the sampler's "topographic" stance literally — a
+  contour map on dark spruce with the eight weeks as trail stations — and is the most distinct
+  library page in the set.
+  Evidence: the library captures; `DESIGN.md` of `f3d810`, `8f113d`, `b0bad8`.
+
+- Observation: On the hardware brief the four arms are least distinguishable by eye. All four
+  seed-B first viewports are a headline at left, a panel at right (storefront illustration, hours
+  card, store plate, three product cards) and a row of three facts beneath; 2.0 and 2.1 wrote
+  nearly the same headline ("Check the shelf before you drive over", "See the shelf before you
+  drive over"), and no-skill and 1.1 the same opener ("Seventy-five years on Water Street",
+  "Seventy-seven years on James Street"). Fit is saturated: six of eight at 5, two at 4, both
+  for an unrequested three-up.
+  Evidence: the hardware captures; `fit/hardware.json`.
+
 - Observation: The compare brief's blinded fit rater put every arm within one point: no skill
   2 of 5, and 1.1, 2.0 and 2.1 each 3 of 5. All four fail q4 and q5 — every build places a title
   band and a summary or metadata strip above the comparison, and every build carries a stat row
@@ -293,18 +375,131 @@ per build, so this is roughly twelve acceptance runs' worth.
   headline band it forbids on consoles reappears as an evaluation header.
   Evidence: `fit/compare.json`; the compare first-viewport captures.
 
+- Observation: The fit rater is consistent within a brief and reports its own borderline calls
+  (an "Apply" link in a page's section navigation counted as reachable; numeric readout rows and
+  strips of four or more steps not counted as three-up), but the same arm can score 5 on one seed
+  and 2 on the other (2.0 rail: A 5, B 2, the B build leading with a status strip). Per-brief
+  means by arm over all seven briefs: `none` 3.38, `v1.1` 4.23, `v2.0` 4.23, `v2.1` 4.62.
+  Evidence: `fit/*.json`; the F table.
+
+- Observation: Three procedure faults, all caught before a judgment touched them. The measurer
+  ran while waves overlapped and captured seven half-built pages (builders write `index.html`
+  early); the rating page would have served them, so running builds now carry the `.incomplete`
+  marker. A builder that finished as the measurer ran deleted the measurer's two screenshots in
+  its own cleanup (library 2.1 B), so the measurer now re-measures a build with missing shots.
+  And the rating server had been restarted on a schedule that no longer matched the judgment
+  file's pair ids; it was restarted again from the current code before judging resumed.
+  Evidence: the wave five and six task notifications; this session's shell log.
+
+- Observation: The colour parser divided un-premultiplied canvas bytes by alpha, inflating every
+  semi-transparent colour. Re-measuring all 52 builds after the fix changed no gate verdict, two
+  contrast rates by under 0.01, and one accent hex (fleet 2.1 B, from a malformed seven-digit
+  value to the same red border read correctly).
+  Evidence: the diff printed at the fix; `measurements.json`.
+
 ## Deferred
 
 - A second judge, for an agreement statistic.
 - The stance memo's hypothetical arms (archetypes with derivable tokens; axes plus one
   ingredient), if this run leaves the stance layer's contribution ambiguous.
 - Design Theater's UIClip channel; no local model.
+- The diagnosis initiative the stop rule names: where within-category layout distance is lost
+  under 2.1 (the record's composition lines, the grammar's console forms, or the instrument),
+  read against Q once the judging is complete.
+- An accent locator that reads the role rather than the colour statistic — the colour of the
+  primary action control, falling back to the declared job — for the next rendered-token run.
 
 ## Outcomes & Retrospective
 
-Pending — written at finish.
+All 52 builds exist, are measured, and are rated for fit; three of the 78 pairwise judgments are
+in. Everything below except Q, H2 and the stop rule's quality clause is final; those three are
+written when the judging finishes (`python3 docs/research/scripts/settling/analyze.py` rebuilds
+`results.md` from `judgments.jsonl`, and the paragraph marked *pending* is replaced then).
+
+**H1 (diversity) — the token clause holds, the layout clause does not.** Effective D2 accent
+dispersion rises `v1.1` 0.34 → `v2.0` 0.41 → `v2.1` 0.52, a rise of 0.07 over the 0.05 bar; read by
+declared accent job it is 0.33 → 0.55 → 0.81, and the no-skill arm sits at 0.36 with ten of its
+thirteen accents between 21° and 74°. Effective D1 is not monotonic. Partition distance across
+briefs within category: consoles `v1.1` 0.257, `v2.0` 0.308, `v2.1` 0.115 (raw 0.212, the
+effective figure carrying one overflow failure); narrative 0.254, 0.270, 0.273. pq-gram: consoles
+0.483, 0.616, 0.432 (raw 0.601); narrative 0.590, 0.601, 0.500. So `v2.0` is above `v1.1` on both
+layout measures in both categories (the console partition rise of 0.05 clears the bar; the
+narrative rise of 0.016 does not), and `v2.1` is above `v1.1` only on raw console pq-gram. Family
+Jaccard is flat and high for every arm (0.75–0.94): family choice was never where convergence
+lived. Distinct display families over thirteen builds: 7 (`none`), 8, 8, 9.
+
+**H2 (quality) — *pending*.** Three judgments; nothing is claimable. The user judges the
+remaining 75 pairs at the rating page; H2's two thresholds (`v2.1` ≥ 45 % against `v1.1`, ≥ 60 %
+against `none`) and the Bradley–Terry pooling are computed by `analyze.py` when they land.
+
+**H3 (baseline) — holds for the stat row, half-holds for the three-up.** `none` carries a
+first-viewport stat row on 3 of 6 consoles (the survey's rate was 5 of 17) and a three-up on 5
+of 6 narrative pages (the survey's 22 of 32); the skill arms carry the stat row on 1, 1 and 0
+consoles, `v2.1` lowest as predicted. The three-up is `v1.1` 5, `v2.0` 3, `v2.1` 3 of 6: the menu
+arm matches the baseline, and `v2.1` ties `v2.0` rather than sitting lowest. The side region
+(the survey's other console shape) is `none` 2, `v2.0` 1, the others 0; every `v2.1` console is a
+main-plus-rail band at 1.5 : 1 or wider.
+
+**H4 (mode collapse) — holds on narrative layout, not on consoles.** Within-brief seed distance,
+raw partition: consoles `none` 0.247 against `v2.0` 0.215 and `v2.1` 0.193; narrative `none`
+0.200 against 0.271 and 0.264. Screenshot hue distance across seeds is *lower* under 2.x on
+consoles (0.127 against 0.071 and 0.045). The effective column has 2.x above `none` everywhere,
+but only because five of six no-skill consoles fail the gate. By eye the same signatures recur
+across seeds under derivation (the stamp motif on the library brief, the count discrepancy on
+the pharmacy brief) and across arms on the hardware brief, where the four seed-B first viewports
+share one composition and two headline sentences.
+
+**H5 (the pair) — holds.** Both `v2.1` fleet builds open on the exception queue (fit q1 = 1) and
+the `v2.1` compare page puts the three suppliers on one axis in one region. It holds for every
+build of two arms (`v1.1`, `v2.1`), for `v2.0`'s seed A only (seed B leads with a stat strip),
+and for `none`'s seed B only. The compare page under every arm carries a band above the
+comparison and a stat row or three-column block somewhere, so P is satisfied by the pair's first
+reads and not by the compare page's whole structure.
+
+**F (fit, secondary) — monotone in the doctrine.** Mean yes-of-five over all thirteen builds per
+arm: `none` 3.38, `v1.1` 4.23, `v2.0` 4.23, `v2.1` 4.62. Consoles separate the arms most (rail:
+2.0, 2.5, 3.5, 5.0; fleet: 3.0, 5.0, 3.5, 5.0; pharmacy: 3.5, 4.5, 5.0, 5.0); the hardware brief is
+saturated at 4–5 for every arm; the compare brief is 2, 3, 3, 3.
+
+**V (the gate) — the no-skill arm's finding.** Six of thirteen `none` builds fail on contrast,
+all on small muted text at 3.3–4.1 : 1; the skill arms fail once in thirty-nine (a 31 px
+overflow). This is the doctrine's least glamorous and most reliable effect: every skill version
+teaches a contrast check and the fresh agent skips one, so the no-skill arm's effective
+diversity is mostly gate.
+
+**The stop rule.** Its layout clause fires: effective D1 for `v2.1` is not above `v1.1` (consoles
+0.115 against 0.257; narrative 0.273 against 0.254, a rise under the 0.03 bar). Its quality clause
+is *pending*. Per the pre-registration this is recorded here and in both parent specs, and the
+next initiative is a diagnosis, not a doctrine change. The reading to carry into that diagnosis:
+what the grammar did on consoles is converge them onto the brief's form (queue or table first,
+one rail band, no stat row, no side column — 6 of 6), and within-category partition distance is
+exactly the quantity that convergence lowers. The composition spec's C1 had already shown
+partition alone cannot see this kind of form change (within-brief distance equals across-brief
+distance for every arm). The clause was pre-registered on a measure that penalises the layer's
+intended effect, and it is reported as fired because no threshold moves after the run. Whether
+that convergence is a loss is Q's question, and Q is the user's.
+
+**What the experiment settles now.** (1) Derivation moved the tokens: accent hue and ground
+spread with the doctrine, and half the 2.x builds chose no directional accent at all, which no
+menu build did. (2) The grammar, not derivation, removed the console shapes; 2.0 still carries
+a stat strip on two seed-B builds. (3) No arm holds the compare brief to its form. (4) Layout
+diversity within a category is not a property any version raised; the honest instrument for
+the grammar is fit, and fit rose with every version. (5) The biggest single difference between
+no skill and any skill is that the skilled page passes contrast.
+
+**Retrospective.** Rendered tokens kept four arms on one footing and were worth the two
+instrument faults they cost (the OKLCH serialisation, the alpha division). The accent extractor
+is the weak reading: an accent is a role, and a page whose interactive layer is achromatic or
+whose caution buttons out-saturate its action colour defeats any colour statistic; the declared
+job is the better read where a record exists. Overlapping waves need the `.incomplete` marker
+from the first build, not from the first accident. The blinded fit rater was consistent and
+cheap and its per-brief means track the D4 counts; it should be the acceptance instrument for
+the next grammar change rather than partition distance. Seven waves cost about 15 M subagent
+tokens over roughly nine hours of wall clock, within the declared budget.
 
 ## Revision Notes
 
 - 2026-09-05: pre-registered before wave one; direction from the user ("Let's go to settling
   experiment").
+- 2026-09-06: all seven waves built, measured and fit-rated; Decision Log, Surprises, Deferred and
+  Outcomes written; Q, H2 and the stop rule's quality clause left pending on the user's judging.

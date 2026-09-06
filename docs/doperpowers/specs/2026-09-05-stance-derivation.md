@@ -572,6 +572,14 @@ settling experiment, the axis-vocabulary validation pass, a rendered-thumbnail f
 two-vector step once a render path can be assumed, and a headed-browser confirmation of the
 GPU tier for the music build.
 
+**Settling experiment (2026-09-06, `2026-09-05-settling-experiment.md`).** Over 52 blind builds
+in four arms, the stance layer's own claim held: effective accent dispersion rose `v1.1` 0.34 →
+`v2.0` 0.41 (0.81 for `v2.1` read by declared job), seven of thirteen 2.0 builds chose a
+status-only or no accent, and 2.0 raised within-category layout distance on consoles (0.257 →
+0.308 partition). The pre-registered stop rule's layout clause fired for `v2.1` (not for `v2.0`),
+and the quality clause is pending the user's judging; the next initiative is the diagnosis the
+settling spec names, not a doctrine change here.
+
 ## Revision Notes
 
 - 2026-09-05: created from the 2026-09-04 audit; direction approved by the user.
@@ -592,3 +600,4 @@ GPU tier for the music build.
   convergence. The memo's §3 diversity argument stands on the remaining lines (Zhang, Xin & Zhong
   2026; Min et al. 2022; Yun et al. 2025; Wadinambiarachchi et al. 2024; Ezzat et al. 2020; Scout).
 - 2026-09-05 (sixth revision): the deferred composition grammar is taken up in `2026-09-05-composition-grammar.md`; the layout survey it opens with (16 of 20 landing builds on one hero construction; the reference's own split snippet in seven builds) is the layout-level counterpart of this spec's hex finding.
+- 2026-09-06: settling experiment read recorded under Outcomes.

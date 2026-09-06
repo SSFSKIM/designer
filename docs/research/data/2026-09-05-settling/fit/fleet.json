@@ -1,0 +1,82 @@
+{
+  "1a63c5": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "First content in the main column, top-left under the title line, is the STOP/STATUTORY exception for vehicle 40388 with its two actions and an 'also outside tolerance' list; the dark left rail is nav plus shift context, i.e. chrome.",
+      "q2": "Only the title line 'Kingsmere Road workshop' with date, clock and two buttons sits above the exception card; nothing else spans the width.",
+      "q3": "No tile row anywhere; the fleet counts (50 of 64, in service 39, spare 11, workshop 8, off road 6) live in the left nav rail as a stacked legend, not as a strip before the work.",
+      "q4": "Left rail is nav and shift context (bay counts, fitters on, handover due, supervisor); the right column is the selected vehicle 40388 record and parts on order, both task material.",
+      "q5": "Dominant surfaces are a bay-by-hour time grid ('The workshop's day', 6 bays 06:00-19:00) plus a defects-by-vehicle table and an inspections list, matching bays to a time grid and defects to a list."
+    }
+  },
+  "49e6cb": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Needs a decision this shift' — eight exception rows with deadline bars — is the first content and occupies the top-left of the first viewport directly under the header.",
+      "q2": "Above it is only the top bar (brand, depot, find field, controller, date and clock); no other full-width block intervenes.",
+      "q3": "The counts appear as one sentence of running text ('8 items. 3 vehicles off the road, 3 records past their legal date, 2 falling due...'), not as a row of numeric tiles.",
+      "q4": "No side rail in the first viewport; the only column material lower down is parts on order beside the workshop's day, both task material.",
+      "q5": "Exceptions render as a ranked queue, open defects as a sortable table by vehicle, the workshop's day as a five-bay time grid — each unit gets its matching form."
+    }
+  },
+  "4e40b0": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "The recall block 'Two vehicles in service must be recalled', with vehicles 2219 and 4426 and their notify/swap actions, is first content and top-left of the main column; the left rail is nav and shift context.",
+      "q2": "Only the 'Engineering board' title line with date, shift and controller sits above the recall block.",
+      "q3": "No tile strip precedes the work; the numbers (101 available, 8 off the road, 9 in workshop, 97 peak) are in a 'Fleet fitness' panel beside the off-road table, below the recall block.",
+      "q4": "Left rail is section nav with counts plus shift and handover facts; the right panel is fleet fitness and an availability ladder legend that decodes the board's own status marks.",
+      "q5": "Off-road vehicles are a table, the workshop's day is a ten-lane bay-by-hour grid, open defects a list, inspections and parts on order lists — forms match units."
+    }
+  },
+  "645bc6": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "The top-left of the first viewport under the brand bar is the KPI tile 'PEAK VEHICLE REQUIREMENT 62/64'; four tiles and a tab bar precede any work surface, and the workshop's day grid only starts about a third of the way down.",
+      "q2": "A full-width four-tile stat band (peak requirement, off the road, inspections overdue, parts lines open) plus a tab strip sit between the top bar and the work; neither is chrome.",
+      "q3": "That four-tile stat row is exactly a KPI strip and it is placed before the work region.",
+      "q4": "The right column holds 'Off the road' and 'Inspections due' — vehicles and dates for the task in view, no links, tips or generic widgets.",
+      "q5": "The dominant surface is an eight-bay hour grid for the workshop's day, with defects as a table and parts on order as a table; forms match the units."
+    }
+  },
+  "7e71b0": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "Under the dark header the first content is the pull-out board — every fleet number as a chip grouped by vehicle class with out-of-service and inspection marks — starting at the top-left of the content area.",
+      "q2": "Only the dark header band (brand, the shift's headline sentence, clock, shift and feed status, refresh button) spans the width above it; it reads as a top bar and title line.",
+      "q3": "The header's counts run as one inline text line (51 of 62 serviceable, 43 needed, 5 in a bay, 2 held), small type, no tiles, no boxed metrics.",
+      "q4": "The right column carries inspections due and parts on order, each keyed to the same fleet numbers as the defect list beside it.",
+      "q5": "Vehicles appear as positions on a fleet board, defects as a classed list (A/B/C), inspections as a dated list, and the workshop's day as a six-bay hour grid."
+    }
+  },
+  "865572": {
+    "answers": {"q1": 1, "q2": 1, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "First content under the top bar is the compliance banner '3 compliance dates have passed' with three named vehicles (20106, 14402, 21044), each with the reason and what is blocking it; it holds the top-left of the first viewport.",
+      "q2": "Above that banner there is only the top bar (brand, fleet count, poll status, clock, shift and controller).",
+      "q3": "A six-tile numeric strip (106 projected for peak, 7 off road now, 41 open defects, 3 inspections past due, 23 parts lines, 19 jobs) with bars and a sparkline sits between the banner and the workshop's day grid, taking prime space ahead of the day grid and the defect table.",
+      "q4": "The right column is inspections and compliance plus parts on order, both keyed to the same vehicles as the defect table.",
+      "q5": "The workshop's day is a seven-lane bay-by-hour grid with a now line; open defects are a long table by vehicle; parts on order a list sorted by the delay each line causes."
+    }
+  },
+  "ae0658": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "The top-left position under the brand bar is the metric 'VEHICLES OFF ROAD 8'; the six-metric band runs full width across the top and every work surface (fleet rail, defect table, workshop's day) begins below it.",
+      "q2": "That six-metric band is full width, is not chrome, and sits above all three working columns.",
+      "q3": "It is a stat strip — vehicles off road, open defects, inspections overdue, parts holding a bus off road, available for peak, workshop today — placed before the work.",
+      "q4": "The left rail lists VOR, restricted and monitored fleet numbers with defect counts and the right rail carries the workshop's day and 'in the bays now'; all of it is task material.",
+      "q5": "The dominant centre region is an open-defects-by-vehicle table with filter chips, and the right rail renders the day as a bay-by-hour grid — forms match units."
+    }
+  },
+  "f8973a": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Before the early shift hands over', a nine-item decision queue with Assign to bay / Defer / Start now on each row, is the first content and sits at the top-left of the first viewport.",
+      "q2": "Only the header line (brand, workshop, shift, clock, date, search, controller) spans the width above the queue.",
+      "q3": "The counts appear as a caption inside the queue's own heading ('9 items · 3 off the road · 4 inspections past due · 2 within the window'), not as a row of tiles.",
+      "q4": "The right column is the workshop's day bay-by-hour grid, itself a work surface for the same shift; no unrelated rail anywhere.",
+      "q5": "Exceptions are a queue, the day is an eight-bay hour grid with a now line, the fleet backlog is a defects-by-vehicle table and parts on order a table — each unit in its matching form."
+    }
+  }
+}
