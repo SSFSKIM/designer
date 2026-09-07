@@ -1,0 +1,213 @@
+W21 G0 table 6 — vitrea against the dark probe, per cell
+
+Residual is web minus native. `rim d` is the largest per-side difference. These
+are diagnostics, not a fit: G1 fits, on the probe's calibration split.
+
+== web0
+scene                                          set           body d     sd d    rim d
+checkerboard-32__capsule-button__rest          calibration  -0.0485  -0.0552    0.059
+checkerboard-32__capsule-button__rest-tint-orange calibration  -0.0067  +0.0033    0.057
+checkerboard-32__rrect-lg__rest                calibration  +0.0133  -0.0022    0.183
+checkerboard-32__rrect-md__rest                calibration  +0.0131  -0.0183    0.173
+checkerboard-32__rrect-ml__rest                calibration  +0.0131  -0.0074    0.167
+checkerboard-32__rrect-sm__rest                calibration  -0.0480  -0.0577    0.067
+checkerboard-4__capsule-button__rest           calibration  -0.0356  -0.0093    0.062
+checkerboard-4__capsule-button__rest-tint-orange calibration  -0.0063  +0.0051    0.057
+checkerboard-4__rrect-lg__rest                 calibration  +0.0174  +0.0018    0.165
+checkerboard-4__rrect-md__rest                 calibration  +0.0176  -0.0056    0.171
+checkerboard-4__rrect-ml__rest                 validation   +0.0174  +0.0012    0.172
+checkerboard-4__rrect-sm__rest                 calibration  -0.0356  -0.0172    0.108
+checkerboard-64__capsule-button__rest          validation   -0.0654  -0.0768    0.112
+checkerboard-64__capsule-button__rest-tint-orange validation   -0.0081  -0.0014    0.064
+checkerboard-64__rrect-md__rest                calibration  +0.0132  -0.0219    0.184
+checkerboard-64__rrect-ml__rest                calibration  +0.0116  -0.0186    0.184
+checkerboard-64__rrect-sm__rest                calibration  -0.0838  -0.0008    0.134
+checkerboard-lc16__capsule-button__rest        calibration  -0.0619  -0.0024    0.092
+checkerboard-lc16__rrect-md__rest              validation   -0.0031  -0.0050    0.145
+checkerboard-lc16__rrect-ml__rest              calibration  -0.0046  +0.0014    0.142
+checkerboard-lc16__rrect-sm__rest              calibration  -0.0617  -0.0079    0.086
+checkerboard__capsule-button__rest             calibration  -0.0420  -0.0357    0.064
+checkerboard__capsule-button__rest-tint-orange calibration  -0.0066  +0.0040    0.055
+checkerboard__rrect-lg__rest                   calibration  +0.0167  +0.0013    0.176
+checkerboard__rrect-md__rest                   calibration  +0.0160  -0.0110    0.175
+checkerboard__rrect-ml__rest                   calibration  +0.0165  -0.0005    0.171
+checkerboard__rrect-sm__rest                   calibration  -0.0435  -0.0461    0.088
+dark-solid__rrect-lg__rest                     calibration  +0.0373  +0.0039    0.195
+dark-solid__rrect-md__rest                     calibration  +0.0330  +0.0007    0.203
+dark-solid__rrect-sm__rest                     calibration  +0.0007  -0.0000    0.016
+hc-text-28__rrect-md__rest                     calibration  +0.0086  -0.0178    0.171
+hc-text-28__rrect-sm__rest                     calibration  -0.0545  -0.0159    0.102
+hc-text-7__rrect-lg__rest                      calibration  -0.0102  +0.0007    0.126
+hc-text-7__rrect-md__rest                      validation   +0.0073  -0.0083    0.161
+hc-text-7__rrect-sm__rest                      calibration  -0.0495  -0.0211    0.111
+hc-text__rrect-lg__rest                        calibration  -0.0107  -0.0001    0.124
+hc-text__rrect-md__rest                        calibration  +0.0078  -0.0120    0.155
+hc-text__rrect-sm__rest                        calibration  -0.0571  -0.0267    0.115
+light-solid__rrect-lg__rest                    calibration  -0.0285  +0.0042    0.101
+light-solid__rrect-md__rest                    calibration  -0.0218  +0.0003    0.107
+light-solid__rrect-sm__rest                    calibration  -0.8922  -0.0000    0.701
+mid-dark-solid__rrect-lg__rest                 calibration  +0.0276  +0.0026    0.183
+mid-dark-solid__rrect-md__rest                 calibration  +0.0245  +0.0006    0.193
+mid-dark-solid__rrect-sm__rest                 calibration  +0.0213  +0.0000    0.197
+photo__rrect-md__rest                          calibration  +0.0081  -0.0078    0.172
+photo__rrect-sm__rest                          calibration  -0.0286  -0.0044    0.126
+   worst |body d|: light-solid__rrect-sm__rest at 0.8922
+   mean |body d|  all 0.0447 (46 cells) | without the appearance switch 0.0259 (45) | thin rows 0.0383 (20) | thick rows 0.0159 (25)
+   the appearance switch (light-solid__rrect-sm__rest) alone: 0.8922
+
+== web1
+scene                                          set           body d     sd d    rim d
+checkerboard-32__capsule-button__rest          calibration  +0.5629  -0.0549    0.479
+checkerboard-32__capsule-button__rest-tint-orange calibration  -0.0067  +0.0033    0.057
+checkerboard-32__rrect-lg__rest                calibration  +0.6420  -0.0052    0.624
+checkerboard-32__rrect-md__rest                calibration  +0.6435  -0.0183    0.630
+checkerboard-32__rrect-ml__rest                calibration  +0.6428  -0.0095    0.628
+checkerboard-32__rrect-sm__rest                calibration  +0.5632  -0.0573    0.549
+checkerboard-4__capsule-button__rest           calibration  +0.5734  -0.0089    0.481
+checkerboard-4__capsule-button__rest-tint-orange calibration  -0.0063  +0.0051    0.057
+checkerboard-4__rrect-lg__rest                 calibration  +0.6457  -0.0015    0.624
+checkerboard-4__rrect-md__rest                 calibration  +0.6479  -0.0048    0.636
+checkerboard-4__rrect-ml__rest                 validation   +0.6472  -0.0009    0.634
+checkerboard-4__rrect-sm__rest                 calibration  +0.5737  -0.0168    0.566
+checkerboard-64__capsule-button__rest          validation   +0.5234  -0.0717    0.400
+checkerboard-64__capsule-button__rest-tint-orange validation   -0.0081  -0.0014    0.064
+checkerboard-64__rrect-md__rest                calibration  +0.6298  -0.0212    0.607
+checkerboard-64__rrect-ml__rest                calibration  +0.6273  -0.0033    0.621
+checkerboard-64__rrect-sm__rest                calibration  +0.5042  -0.0018    0.481
+checkerboard-lc16__capsule-button__rest        calibration  +0.6810  -0.0063    0.518
+checkerboard-lc16__rrect-md__rest              validation   +0.7349  -0.0036    0.667
+checkerboard-lc16__rrect-ml__rest              calibration  +0.7326  -0.0001    0.667
+checkerboard-lc16__rrect-sm__rest              calibration  +0.6811  -0.0064    0.616
+checkerboard__capsule-button__rest             calibration  +0.5687  -0.0362    0.476
+checkerboard__capsule-button__rest-tint-orange calibration  -0.0066  +0.0040    0.055
+checkerboard__rrect-lg__rest                   calibration  +0.6457  -0.0016    0.625
+checkerboard__rrect-md__rest                   calibration  +0.6463  -0.0102    0.628
+checkerboard__rrect-ml__rest                   calibration  +0.6466  -0.0021    0.634
+checkerboard__rrect-sm__rest                   calibration  +0.5676  -0.0461    0.567
+dark-solid__rrect-lg__rest                     calibration  +0.4835  +0.0270    0.523
+dark-solid__rrect-md__rest                     calibration  +0.4802  +0.0025    0.524
+dark-solid__rrect-sm__rest                     calibration  +0.0007  -0.0000    0.016
+hc-text-28__rrect-md__rest                     calibration  +0.7736  -0.0166    0.716
+hc-text-28__rrect-sm__rest                     calibration  +0.7209  -0.0170    0.648
+hc-text-7__rrect-lg__rest                      calibration  +0.7447  -0.0150    0.633
+hc-text-7__rrect-md__rest                      validation   +0.7646  -0.0075    0.671
+hc-text-7__rrect-sm__rest                      calibration  +0.7177  -0.0207    0.680
+hc-text__rrect-lg__rest                        calibration  +0.7397  -0.0084    0.633
+hc-text__rrect-md__rest                        calibration  +0.7604  -0.0117    0.683
+hc-text__rrect-sm__rest                        calibration  +0.7038  -0.0255    0.658
+light-solid__rrect-lg__rest                    calibration  +0.8315  -0.0286    0.611
+light-solid__rrect-md__rest                    calibration  +0.8400  +0.0035    0.626
+light-solid__rrect-sm__rest                    calibration  +0.0069  +0.0000    0.006
+mid-dark-solid__rrect-lg__rest                 calibration  +0.5519  +0.0273    0.563
+mid-dark-solid__rrect-md__rest                 calibration  +0.5496  +0.0031    0.569
+mid-dark-solid__rrect-sm__rest                 calibration  +0.4280  +0.0000    0.504
+photo__rrect-md__rest                          calibration  +0.6074  -0.0071    0.597
+photo__rrect-sm__rest                          calibration  +0.5299  -0.0042    0.542
+   worst |body d|: light-solid__rrect-md__rest at 0.8400
+   mean |body d|  all 0.5564 (46 cells) | without the appearance switch 0.5686 (45) | thin rows 0.4464 (20) | thick rows 0.6664 (25)
+   the appearance switch (light-solid__rrect-sm__rest) alone: 0.0069
+
+== candidate
+scene                                          set           body d     sd d    rim d
+checkerboard-32__capsule-button__rest          calibration  +0.1103  -0.0559    0.167
+checkerboard-32__capsule-button__rest-tint-orange calibration  -0.0067  +0.0033    0.057
+checkerboard-32__rrect-lg__rest                calibration  -0.0026  -0.0017    0.173
+checkerboard-32__rrect-md__rest                calibration  -0.0029  -0.0183    0.162
+checkerboard-32__rrect-ml__rest                calibration  -0.0030  -0.0071    0.158
+checkerboard-32__rrect-sm__rest                calibration  +0.1154  -0.0573    0.196
+checkerboard-4__capsule-button__rest           calibration  +0.1224  -0.0100    0.172
+checkerboard-4__capsule-button__rest-tint-orange calibration  -0.0063  +0.0051    0.057
+checkerboard-4__rrect-lg__rest                 calibration  +0.0013  +0.0024    0.155
+checkerboard-4__rrect-md__rest                 calibration  +0.0016  -0.0057    0.162
+checkerboard-4__rrect-ml__rest                 validation   +0.0017  +0.0016    0.162
+checkerboard-4__rrect-sm__rest                 calibration  +0.1267  -0.0165    0.215
+checkerboard-64__capsule-button__rest          validation   +0.0572  -0.0767    0.082
+checkerboard-64__capsule-button__rest-tint-orange validation   -0.0081  -0.0014    0.064
+checkerboard-64__rrect-md__rest                calibration  -0.0052  -0.0219    0.170
+checkerboard-64__rrect-ml__rest                calibration  -0.0067  -0.0186    0.173
+checkerboard-64__rrect-sm__rest                calibration  +0.0424  -0.0001    0.140
+checkerboard-lc16__capsule-button__rest        calibration  +0.4147  -0.0064    0.354
+checkerboard-lc16__rrect-md__rest              validation   +0.0047  -0.0050    0.149
+checkerboard-lc16__rrect-ml__rest              calibration  +0.0031  +0.0012    0.146
+checkerboard-lc16__rrect-sm__rest              calibration  +0.4268  -0.0073    0.441
+checkerboard__capsule-button__rest             calibration  +0.1160  -0.0368    0.164
+checkerboard__capsule-button__rest-tint-orange calibration  -0.0066  +0.0040    0.055
+checkerboard__rrect-lg__rest                   calibration  +0.0007  +0.0019    0.166
+checkerboard__rrect-md__rest                   calibration  +0.0000  -0.0109    0.165
+checkerboard__rrect-ml__rest                   calibration  +0.0005  -0.0002    0.161
+checkerboard__rrect-sm__rest                   calibration  +0.1196  -0.0455    0.214
+dark-solid__rrect-lg__rest                     calibration  +0.0021  +0.0038    0.173
+dark-solid__rrect-md__rest                     calibration  -0.0023  +0.0007    0.180
+dark-solid__rrect-sm__rest                     calibration  +0.0007  -0.0000    0.016
+hc-text-28__rrect-md__rest                     calibration  +0.0170  -0.0177    0.177
+hc-text-28__rrect-sm__rest                     calibration  +0.5426  -0.0155    0.550
+hc-text-7__rrect-lg__rest                      calibration  -0.0032  +0.0003    0.130
+hc-text-7__rrect-md__rest                      validation   +0.0141  -0.0084    0.165
+hc-text-7__rrect-sm__rest                      calibration  +0.5196  -0.0208    0.574
+hc-text__rrect-lg__rest                        calibration  -0.0049  -0.0004    0.128
+hc-text__rrect-md__rest                        calibration  +0.0137  -0.0119    0.158
+hc-text__rrect-sm__rest                        calibration  +0.4950  -0.0282    0.521
+light-solid__rrect-lg__rest                    calibration  -0.0027  +0.0028    0.116
+light-solid__rrect-md__rest                    calibration  +0.0041  +0.0003    0.123
+light-solid__rrect-sm__rest                    calibration  -0.0019  +0.0000    0.007
+mid-dark-solid__rrect-lg__rest                 calibration  +0.0021  +0.0031    0.167
+mid-dark-solid__rrect-md__rest                 calibration  -0.0011  +0.0007    0.175
+mid-dark-solid__rrect-sm__rest                 calibration  +0.0000  +0.0000    0.182
+photo__rrect-md__rest                          calibration  -0.0079  -0.0078    0.160
+photo__rrect-sm__rest                          calibration  +0.0499  -0.0043    0.175
+   worst |body d|: hc-text-28__rrect-sm__rest at 0.5426
+   mean |body d|  all 0.0739 (46 cells) | without the appearance switch 0.0755 (45) | thin rows 0.1644 (20) | thick rows 0.0044 (25)
+   the appearance switch (light-solid__rrect-sm__rest) alone: 0.0019
+
+== candidate-footprint
+scene                                          set           body d     sd d    rim d
+checkerboard-32__capsule-button__rest          calibration  -0.0447  -0.0552    0.060
+checkerboard-32__capsule-button__rest-tint-orange calibration  -0.0067  +0.0033    0.057
+checkerboard-32__rrect-lg__rest                calibration  -0.0026  -0.0017    0.173
+checkerboard-32__rrect-md__rest                calibration  -0.0029  -0.0183    0.162
+checkerboard-32__rrect-ml__rest                calibration  -0.0030  -0.0071    0.158
+checkerboard-32__rrect-sm__rest                calibration  -0.0440  -0.0575    0.070
+checkerboard-4__capsule-button__rest           calibration  -0.0320  -0.0093    0.065
+checkerboard-4__capsule-button__rest-tint-orange calibration  -0.0063  +0.0051    0.057
+checkerboard-4__rrect-lg__rest                 calibration  +0.0013  +0.0024    0.155
+checkerboard-4__rrect-md__rest                 calibration  +0.0016  -0.0057    0.162
+checkerboard-4__rrect-ml__rest                 validation   +0.0017  +0.0016    0.162
+checkerboard-4__rrect-sm__rest                 calibration  -0.0318  -0.0172    0.111
+checkerboard-64__capsule-button__rest          validation   -0.0663  -0.0769    0.112
+checkerboard-64__capsule-button__rest-tint-orange validation   -0.0081  -0.0014    0.064
+checkerboard-64__rrect-md__rest                calibration  -0.0052  -0.0219    0.170
+checkerboard-64__rrect-ml__rest                calibration  -0.0067  -0.0186    0.173
+checkerboard-64__rrect-sm__rest                calibration  -0.0841  -0.0008    0.134
+checkerboard-lc16__capsule-button__rest        calibration  -0.0170  -0.0027    0.060
+checkerboard-lc16__rrect-md__rest              validation   +0.0047  -0.0050    0.149
+checkerboard-lc16__rrect-ml__rest              calibration  +0.0031  +0.0012    0.146
+checkerboard-lc16__rrect-sm__rest              calibration  -0.0167  -0.0080    0.107
+checkerboard__capsule-button__rest             calibration  -0.0384  -0.0356    0.061
+checkerboard__capsule-button__rest-tint-orange calibration  -0.0066  +0.0040    0.055
+checkerboard__rrect-lg__rest                   calibration  +0.0007  +0.0019    0.166
+checkerboard__rrect-md__rest                   calibration  +0.0000  -0.0109    0.165
+checkerboard__rrect-ml__rest                   calibration  +0.0005  -0.0002    0.161
+checkerboard__rrect-sm__rest                   calibration  -0.0395  -0.0461    0.091
+dark-solid__rrect-lg__rest                     calibration  +0.0021  +0.0038    0.173
+dark-solid__rrect-md__rest                     calibration  -0.0023  +0.0007    0.180
+dark-solid__rrect-sm__rest                     calibration  +0.0007  -0.0000    0.016
+hc-text-28__rrect-md__rest                     calibration  +0.0170  -0.0177    0.177
+hc-text-28__rrect-sm__rest                     calibration  -0.0033  -0.0162    0.137
+hc-text-7__rrect-lg__rest                      calibration  -0.0032  +0.0003    0.130
+hc-text-7__rrect-md__rest                      validation   +0.0141  -0.0084    0.165
+hc-text-7__rrect-sm__rest                      calibration  -0.0008  -0.0210    0.152
+hc-text__rrect-lg__rest                        calibration  -0.0049  -0.0004    0.128
+hc-text__rrect-md__rest                        calibration  +0.0137  -0.0119    0.158
+hc-text__rrect-sm__rest                        calibration  -0.0100  -0.0269    0.145
+light-solid__rrect-lg__rest                    calibration  -0.0027  +0.0028    0.116
+light-solid__rrect-md__rest                    calibration  +0.0041  +0.0003    0.123
+light-solid__rrect-sm__rest                    calibration  -0.8046  -0.0000    0.630
+mid-dark-solid__rrect-lg__rest                 calibration  +0.0021  +0.0031    0.167
+mid-dark-solid__rrect-md__rest                 calibration  -0.0011  +0.0007    0.175
+mid-dark-solid__rrect-sm__rest                 calibration  +0.0000  +0.0000    0.182
+photo__rrect-md__rest                          calibration  -0.0079  -0.0078    0.160
+photo__rrect-sm__rest                          calibration  -0.0300  -0.0044    0.125
+   worst |body d|: light-solid__rrect-sm__rest at 0.8046
+   mean |body d|  all 0.0305 (46 cells) | without the appearance switch 0.0133 (45) | thin rows 0.0244 (20) | thick rows 0.0044 (25)
+   the appearance switch (light-solid__rrect-sm__rest) alone: 0.8046
+

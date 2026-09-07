@@ -1,0 +1,18 @@
+W21 G0 table 2c — the equal-mean pair in the dark scheme (W9's H4 discriminator)
+
+`checkerboard` (16, black and white) and `checkerboard-lc16` (16, 128 and 229) are
+built to have the same LINEAR mean — 0.5000 against 0.4997 — and very different
+ENCODED means, 0.5000 against 0.7000. No luminance-only model can separate them at
+all; an encoded-mean model predicts a gap and its direction. W9's declared rule is
+that a contrast term survives only if the residual after the best luminance-only
+model exceeds three times the pooled run-to-run sigma of the pair.
+
+component         full (enc .50)  lc16 (enc .70)  gap lc16-full  pooled sigmaMaj   3 sigma    verdict
+rrect-sm                  0.1070          0.1253        +0.0182           0.0000    0.0000  separated
+capsule-button            0.1059          0.1256        +0.0196           0.0000    0.0000  separated
+rrect-md                  0.0468          0.0657        +0.0189           0.0000    0.0000  separated
+rrect-ml                  0.0468          0.0680        +0.0212           0.0000    0.0000  separated
+rrect-lg          (pair incomplete — one side is holdout at G0)
+
+The gap is what the encoded-mean law predicts the sign of; whether the law also
+predicts its SIZE is probe-score.ts's question, not this table's.

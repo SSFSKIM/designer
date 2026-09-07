@@ -28,7 +28,11 @@ OUT="${3:?}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKTREE="$(cd "$HERE/../../../../.." && pwd)"
 SCENES="$WORKTREE/apps/reference-apple/scenes-w21-probe.json"
-PROBE="$HERE/../probe"
+# Canonicalised, not just absolute. The scene server mounts `VITREA_FIXTURES` and then checks
+# containment with `file.startsWith(REFERENCE_FIXTURES)` against the raw environment value, while
+# the file path itself has been normalised — so a value carrying a `..` segment fails its own
+# containment check and every background comes back 403.
+PROBE="$(cd "$HERE/../probe" && pwd)"
 PROFILE=apple-macos-26.5-1x-dark-standard
 
 mkdir -p "$OUT/$LABEL"

@@ -451,6 +451,9 @@ interface Scored {
   readonly set: string;
   readonly measured: number;
   readonly sigma: number;
+  /** The backdrop statistics the predictions were computed from, so the JSON carries its inputs. */
+  readonly backdropLinearMean: number;
+  readonly backdropEncodedMean: number;
   readonly p0: number;
   readonly p1: number;
   readonly p3: number;
@@ -477,6 +480,8 @@ const scoredRows: Scored[] = structured.map((cell) => {
     set: setOf,
     measured: cell.mean,
     sigma: cell.sigma,
+    backdropLinearMean: cell.bgMeanLinear,
+    backdropEncodedMean: cell.bgMeanEncoded,
     p0: R(cell.bgMeanLinear),
     p1,
     p3: R(srgbDecode(cell.bgMeanEncoded)),

@@ -1,0 +1,159 @@
+{
+  "$comment": [
+    "W21's probe bed: W9's declared 56-cell grid (claims §5.30) — the five-component size",
+    "sweep over the checkerboard pitch axis and the low-contrast equal-mean twin, the",
+    "three-component sweep over the text-row family and the three solid response anchors,",
+    "`photo` as the broadband control, and the orange tint capsule across the pitch sweep —",
+    "captured under the DARK scheme at 1x on this machine, by W9's protocol (a 6 s bare",
+    "neutral reset before each cell, the one stable order, the run refused unless the machine",
+    "had been idle 45 s), and materialised by the majority byte-state per cell over the",
+    "attested runs.",
+    "",
+    "Nothing is fitted to this bed at G0. It exists because the dark profile's response",
+    "surface has never been measured: `backdropToneResponseStrength` is 0 on the dark",
+    "profiles precisely because their anchors were read on the LIGHT reference, and the",
+    "canonical dark bed cannot supply them — it has no `light-solid` scene, and over its dark",
+    "solids the silhouette extractor returns the rim ring rather than the body (claims §5.87).",
+    "The six anchors G1 records come from here, read under the declared geometry (W21 X2).",
+    "",
+    "The scene bed is `apps/reference-apple/scenes-w21-probe.json`, which is W9's grid",
+    "verbatim with one dark profile and the split re-derived against the canonical DARK bed.",
+    "The probe's own holdout column is unread at G0."
+  ],
+  "materializedFrom": [
+    "w21-probe-1",
+    "w21-probe-2",
+    "w21-probe-11",
+    "w21-probe-12",
+    "w21-probe-13",
+    "w21-probe-15",
+    "w21-probe-17"
+  ],
+  "excludedRuns": {
+    "w21-probe-3": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-4": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-5": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-6": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-7": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-8": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-9": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-10": "every one of 56 cells failed attestation — the session denied the window activation for the whole run, so each cell records Liquid Glass's flat inactive appearance rather than the material",
+    "w21-probe-14": "49 of 56 cells failed attestation (checkerboard-32__capsule-button__rest, checkerboard-32__capsule-button__rest-tint-orange, checkerboard-32__rrect-md__rest, checkerboard-32__rrect-ml__rest, checkerboard-32__rrect-sm__rest, checkerboard-4__capsule-button__rest, checkerboard-4__capsule-button__rest-tint-orange, checkerboard-4__rrect-lg__rest, and 41 more)",
+    "w21-probe-16": "6 of 56 cells failed attestation (checkerboard-4__rrect-sm__rest, checkerboard-8__rrect-lg__rest, checkerboard-8__rrect-md__rest, checkerboard-lc16__rrect-ml__rest, checkerboard-lc16__rrect-sm__rest, checkerboard__capsule-button__rest-tint-orange)",
+    "w21-probe-18": "17 of 56 cells failed attestation (checkerboard-32__rrect-md__rest, checkerboard-4__capsule-button__rest, checkerboard-4__capsule-button__rest-tint-orange, checkerboard-4__rrect-sm__rest, checkerboard-8__capsule-button__rest, checkerboard-8__capsule-button__rest-tint-orange, checkerboard-8__rrect-lg__rest, checkerboard-8__rrect-md__rest, and 9 more)"
+  },
+  "rule": "majority byte-state per cell across the attested runs (frequency-settled, claims §5.30); shares recorded per cell",
+  "auditResult": {
+    "w21-probe-1": "56/56",
+    "w21-probe-2": "56/56",
+    "w21-probe-3": "0/56",
+    "w21-probe-4": "0/56",
+    "w21-probe-5": "0/56",
+    "w21-probe-6": "0/56",
+    "w21-probe-7": "0/56",
+    "w21-probe-8": "0/56",
+    "w21-probe-9": "0/56",
+    "w21-probe-10": "0/56",
+    "w21-probe-11": "56/56",
+    "w21-probe-12": "56/56",
+    "w21-probe-13": "56/56",
+    "w21-probe-14": "7/56",
+    "w21-probe-15": "56/56",
+    "w21-probe-16": "50/56",
+    "w21-probe-17": "56/56",
+    "w21-probe-18": "39/56"
+  },
+  "idleSecondsAtStartAndEnd": {
+    "w21-probe-1": [
+      131,
+      665
+    ],
+    "w21-probe-2": [
+      665,
+      1199
+    ],
+    "w21-probe-3": [
+      1199,
+      1734
+    ],
+    "w21-probe-4": [
+      1734,
+      2326
+    ],
+    "w21-probe-5": [
+      2327,
+      4025
+    ],
+    "w21-probe-6": [
+      4025,
+      5423
+    ],
+    "w21-probe-7": [
+      5423,
+      5965
+    ],
+    "w21-probe-8": [
+      5965,
+      6503
+    ],
+    "w21-probe-9": [
+      6503,
+      7670
+    ],
+    "w21-probe-10": [
+      7670,
+      8209
+    ],
+    "w21-probe-11": [
+      258,
+      789
+    ],
+    "w21-probe-12": [
+      841,
+      1378
+    ],
+    "w21-probe-13": [
+      1429,
+      1966
+    ],
+    "w21-probe-14": [
+      2017,
+      449
+    ],
+    "w21-probe-15": [
+      550,
+      1088
+    ],
+    "w21-probe-16": [
+      1138,
+      1672
+    ],
+    "w21-probe-17": [
+      1722,
+      2256
+    ],
+    "w21-probe-18": [
+      2441,
+      2977
+    ]
+  },
+  "toolchain": {
+    "hardware": {
+      "cpu": "Apple M2 Pro",
+      "model": "Mac14,12",
+      "osBuild": "25F84",
+      "osVersion": "Version 26.5.2 (Build 25F84)",
+      "sdk": "unknown",
+      "xcodeVersion": "unknown"
+    },
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 665.177582416,
+      "hidIdleSecondsAtStart": 130.659608125,
+      "minIdleSeconds": 45,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w21-probe-1",
+      "userIsActiveAtStart": true
+    }
+  }
+}

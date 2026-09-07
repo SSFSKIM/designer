@@ -1,0 +1,61 @@
+W21 G0 table 3 — the passthrough: body sd against backdrop pitch, per component
+
+The alpha's evidence, and the lerp-versus-multiply discriminator.
+
+`bgSd` is the backdrop's own sd under the declared box — the structure on offer.
+`pass` is `sd / bgSd`, the fraction of it the material let through, which is the
+quantity a lerp's alpha sets directly. `sd/body` is the passed structure relative to
+the level. Under a LERP toward a constant tint the passed structure is a function of
+the alpha alone, so `pass` is flat while `sd/body` tracks 1/body; under a MULTIPLY
+the passed structure scales with the level, so `sd/body` is flat while `pass` tracks
+the body. Read the two columns against each other down a column of constant body and
+across rows whose body differs.
+
+component        background          pitch     body       sd     bgSd    pass  sd/body  sigmaMaj |       web0 sd       web0 pass |       web1 sd       web1 pass |  candidate sd  candidate pass | candidate-footprint sd candidate-footprint pass
+rrect-sm         checkerboard-4          4   0.0994   0.0188   0.5000  0.0376   0.1893    0.0000 |        0.0016          0.0032 |        0.0021          0.0041 |        0.0023          0.0046 |        0.0016          0.0032
+rrect-sm         checkerboard           16   0.1070   0.0547   0.5000  0.1093   0.5108    0.0000 |        0.0086          0.0172 |        0.0086          0.0171 |        0.0091          0.0183 |        0.0086          0.0172
+rrect-sm         checkerboard-lc16      16   0.1253   0.0129   0.2838  0.0454   0.1028    0.0000 |        0.0050          0.0175 |        0.0065          0.0229 |        0.0055          0.0195 |        0.0049          0.0171
+rrect-sm         checkerboard-32        32   0.1114   0.0672   0.5000  0.1344   0.6033    0.0000 |        0.0095          0.0191 |        0.0099          0.0198 |        0.0099          0.0198 |        0.0097          0.0194
+rrect-sm         checkerboard-64        64   0.1611   0.0018   0.0000       -   0.0112    0.0000 |        0.0010               - |        0.0000               - |        0.0017               - |        0.0010               -
+rrect-sm         hc-text-7               7   0.1161   0.0248   0.4839  0.0513   0.2139    0.0000 |        0.0038          0.0078 |        0.0041          0.0085 |        0.0040          0.0083 |        0.0038          0.0080
+rrect-sm         hc-text                14   0.1250   0.0338   0.5000  0.0675   0.2702    0.0000 |        0.0071          0.0142 |        0.0083          0.0166 |        0.0056          0.0112 |        0.0069          0.0137
+rrect-sm         hc-text-28             28   0.1163   0.0240   0.4841  0.0497   0.2067    0.0000 |        0.0082          0.0169 |        0.0070          0.0145 |        0.0085          0.0175 |        0.0079          0.0162
+
+capsule-button   checkerboard-4          4   0.0998   0.0201   0.5000  0.0401   0.2011    0.0000 |        0.0107          0.0215 |        0.0111          0.0223 |        0.0101          0.0201 |        0.0108          0.0216
+capsule-button   checkerboard           16   0.1059   0.0515   0.5000  0.1030   0.4859    0.0000 |        0.0158          0.0315 |        0.0153          0.0305 |        0.0146          0.0293 |        0.0158          0.0317
+capsule-button   checkerboard-lc16      16   0.1256   0.0158   0.2838  0.0555   0.1254    0.0000 |        0.0134          0.0471 |        0.0094          0.0332 |        0.0093          0.0329 |        0.0131          0.0461
+capsule-button   checkerboard-32        32   0.1124   0.0695   0.5000  0.1391   0.6188    0.0000 |        0.0143          0.0286 |        0.0146          0.0293 |        0.0137          0.0273 |        0.0144          0.0287
+capsule-button   checkerboard-64        64   0.1317   0.0896   0.4989  0.1796   0.6806    0.0000 |        0.0128          0.0257 |        0.0180          0.0360 |        0.0129          0.0259 |        0.0127          0.0254
+
+rrect-md         checkerboard-4          4   0.0451   0.0071   0.5000  0.0143   0.1584    0.0000 |        0.0015          0.0030 |        0.0024          0.0048 |        0.0015          0.0030 |        0.0015          0.0030
+rrect-md         checkerboard           16   0.0468   0.0166   0.5000  0.0332   0.3550    0.0000 |        0.0056          0.0113 |        0.0064          0.0127 |        0.0057          0.0114 |        0.0057          0.0114
+rrect-md         checkerboard-lc16      16   0.0657   0.0082   0.2838  0.0287   0.1241    0.0000 |        0.0032          0.0112 |        0.0046          0.0162 |        0.0031          0.0111 |        0.0031          0.0111
+rrect-md         checkerboard-32        32   0.0496   0.0253   0.5000  0.0505   0.5095    0.0000 |        0.0070          0.0140 |        0.0069          0.0139 |        0.0069          0.0139 |        0.0069          0.0139
+rrect-md         checkerboard-64        64   0.0482   0.0318   0.4989  0.0637   0.6591    0.0000 |        0.0098          0.0197 |        0.0106          0.0212 |        0.0098          0.0197 |        0.0098          0.0197
+rrect-md         hc-text-7               7   0.0587   0.0117   0.4871  0.0241   0.2002    0.0000 |        0.0035          0.0072 |        0.0043          0.0087 |        0.0034          0.0069 |        0.0034          0.0069
+rrect-md         hc-text                14   0.0574   0.0175   0.4882  0.0358   0.3040    0.0000 |        0.0055          0.0113 |        0.0057          0.0118 |        0.0055          0.0113 |        0.0055          0.0113
+rrect-md         hc-text-28             28   0.0556   0.0247   0.4666  0.0529   0.4436    0.0000 |        0.0069          0.0148 |        0.0080          0.0172 |        0.0069          0.0149 |        0.0069          0.0149
+
+rrect-ml         checkerboard-4          4   0.0458   0.0189   0.5000  0.0378   0.4124    0.0000 |        0.0201          0.0402 |        0.0180          0.0360 |        0.0204          0.0409 |        0.0204          0.0409
+rrect-ml         checkerboard           16   0.0468   0.0205   0.5000  0.0409   0.4373    0.0000 |        0.0199          0.0398 |        0.0183          0.0366 |        0.0203          0.0405 |        0.0203          0.0405
+rrect-ml         checkerboard-lc16      16   0.0680   0.0148   0.2838  0.0522   0.2177    0.0000 |        0.0162          0.0572 |        0.0147          0.0517 |        0.0161          0.0566 |        0.0161          0.0566
+rrect-ml         checkerboard-32        32   0.0503   0.0287   0.5000  0.0574   0.5711    0.0000 |        0.0213          0.0426 |        0.0192          0.0385 |        0.0216          0.0433 |        0.0216          0.0433
+rrect-ml         checkerboard-64        64   0.0505   0.0282   0.5000  0.0564   0.5581    0.0000 |        0.0096          0.0192 |        0.0249          0.0497 |        0.0096          0.0191 |        0.0096          0.0191
+
+rrect-lg         checkerboard-4          4   0.0468   0.0309   0.5000  0.0617   0.6593    0.0000 |        0.0327          0.0653 |        0.0294          0.0588 |        0.0332          0.0664 |        0.0332          0.0664
+rrect-lg         checkerboard           16   0.0474   0.0314   0.5000  0.0627   0.6611    0.0000 |        0.0327          0.0654 |        0.0298          0.0595 |        0.0333          0.0665 |        0.0333          0.0665
+rrect-lg         checkerboard-32        32   0.0508   0.0352   0.5000  0.0705   0.6940    0.0000 |        0.0330          0.0660 |        0.0300          0.0600 |        0.0336          0.0671 |        0.0336          0.0671
+rrect-lg         hc-text-7               7   0.0802   0.0399   0.4648  0.0859   0.4981    0.0000 |        0.0406          0.0874 |        0.0249          0.0536 |        0.0403          0.0867 |        0.0403          0.0867
+rrect-lg         hc-text                14   0.0804   0.0378   0.4583  0.0826   0.4708    0.0000 |        0.0377          0.0822 |        0.0294          0.0642 |        0.0375          0.0818 |        0.0375          0.0818
+
+The discriminator, stated as two predictions. The equal-mean pair is one pitch (16)
+and one component at a time, with the body level differing by a factor of about 1.4
+and the backdrop's own structure by a factor of 0.568. A MULTIPLY composite predicts
+the passed sd scales with BOTH — `sd_lc / sd_full = (body_lc / body_full) x (bgSd_lc
+/ bgSd_full)`. A LERP predicts it scales with the backdrop's structure ALONE.
+
+component          sd full   sd lc16  multiply pred  lerp pred   closer
+rrect-sm            0.0547    0.0129         0.0363     0.0310     lerp
+capsule-button      0.0515    0.0158         0.0346     0.0292     lerp
+rrect-md            0.0166    0.0082         0.0133     0.0094     lerp
+rrect-ml            0.0205    0.0148         0.0169     0.0116 multiply

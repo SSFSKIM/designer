@@ -6,35 +6,31 @@
 # anything and nothing here touches a canonical path: the native side is `probe/`, the web side is
 # whatever `run-web.sh` left in scratch, and every output lands beside this script.
 #
-# Usage: `bash run-read.sh <runRoot> <webRoot>` — `runRoot` holds the attested `run-N` directories
-# (for the noise floor), `webRoot` the `web0` / `web1` / `candidate` capture trees. Either may be
-# absent; the reads that need it are skipped.
+# The attested runs are named on the command line rather than globbed. A disqualified run is
+# disqualified whole — W9's rule and W20's — so its cells must not reach the run-to-run sigma even
+# when the run happened to attest some of them; naming the kept runs is what makes that true by
+# construction instead of by a filter that could be relaxed later.
+#
+# The probe's holdout column is left out of every reading (`read.py --sets` defaults to
+# calibration, validation and recorded): the wave's one holdout read is the canonical bed's, at G1.
+#
+# Usage: `bash run-read.sh <webRoot|-> <keptRunDir>...`
 set -u
 PY=/Users/new/.claude/jobs/5c70e47f/tmp/venv/bin/python
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKTREE="$(cd "$HERE/../../../../.." && pwd)"
 SCENES="$WORKTREE/apps/reference-apple/scenes-w21-probe.json"
 PROBE="$HERE/../probe"
-RUNS="${1:-}"
-WEB="${2:-}"
+WEB="${1:--}"
+shift || true
 
-RUN_ARGS=()
-if [ -n "$RUNS" ]; then
-  for D in "$RUNS"/run-*/; do
-    [ -f "$D/manifest.json" ] && RUN_ARGS+=("${D%/}")
-  done
-fi
-
-# The native probe, read under the declared geometry. The probe's holdout column is left out of
-# every reading at G0 (W21: the wave's one holdout read is the canonical bed's, at G1).
-"$PY" "$HERE/read.py" --scenes "$SCENES" --fixtures "$PROBE" \
-  ${RUN_ARGS[@]+--runs "${RUN_ARGS[@]}"} \
+"$PY" "$HERE/read.py" --scenes "$SCENES" --fixtures "$PROBE" ${*:+--runs "$@"} \
   --json "$HERE/probe-read.json" > "$HERE/probe-read.txt"
 
 WEB_ARGS=()
-for LABEL in web0 web1 candidate; do
+for LABEL in web0 web1 candidate candidate-footprint; do
   CAP="$WEB/$LABEL/web-captures"
-  [ -n "$WEB" ] && [ -d "$CAP" ] || continue
+  [ "$WEB" != "-" ] && [ -d "$CAP" ] || continue
   "$PY" "$HERE/read.py" --scenes "$SCENES" --fixtures "$PROBE" --captures "$CAP" --tier webgpu \
     --json "$HERE/probe-read-$LABEL.json" > "$HERE/probe-read-$LABEL.txt"
   WEB_ARGS+=(--web "$LABEL=$HERE/probe-read-$LABEL.json")

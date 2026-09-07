@@ -49,11 +49,20 @@ for (const run of runs) {
   ];
   audits[label] = `${String(fixtures.length - failing.length)}/${String(fixtures.length)}`;
   if (!kept.includes(run.split("-")[1])) {
+    // A run that lost EVERY cell lost them to one thing — the session refusing to make the window
+    // key — and listing fifty-six scene ids says less than saying that. A run that lost some names
+    // them, capped, because which cells went is the useful part when only some did.
+    const named = failing.slice(0, 8).map((f) => f.sceneId);
+    const more = failing.length - named.length;
     excluded[label] =
       failing.length === 0
         ? "attested, not needed: the materialised set was already complete"
-        : `${String(failing.length)} of ${String(fixtures.length)} cells failed attestation ` +
-          `(${failing.map((f) => f.sceneId).join(", ")})`;
+        : failing.length === fixtures.length
+          ? `every one of ${String(fixtures.length)} cells failed attestation — the session ` +
+            `denied the window activation for the whole run, so each cell records Liquid Glass's ` +
+            `flat inactive appearance rather than the material`
+          : `${String(failing.length)} of ${String(fixtures.length)} cells failed attestation ` +
+            `(${named.join(", ")}${more > 0 ? `, and ${String(more)} more` : ""})`;
   }
 }
 const keptLabels = kept.map((n) => `w21-probe-${n}`);

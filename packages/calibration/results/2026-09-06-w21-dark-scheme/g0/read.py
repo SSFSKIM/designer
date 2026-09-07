@@ -26,7 +26,12 @@ Definitions, one place, so every gate in this wave reads the same numbers:
 - **σ body / σ rim** — the run-to-run standard deviation of the body mean and of the four rim peaks
   (the largest of the four sides' σ) across the attested runs given by `--runs`. This is the noise
   floor every anchor and every rim reading is quoted against, and the only reason to keep the runs
-  after materialisation.
+  after materialisation. Reported twice, because on this bed the two numbers mean different things.
+  The plain σ runs over every attested run, state flips included: on a cell that draws the
+  material's two appearances it measures the flip, not the noise. The MAJORITY σ runs only over the
+  runs holding the published byte state — the state the bed actually carries — and is the noise
+  floor of the number the tables quote. A cell whose two σ differ by orders of magnitude is
+  bistable, and the state shares beside them say by how much.
 
 Usage:
 
@@ -40,6 +45,7 @@ reads a 1x probe and a 2x canonical profile.
 """
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -212,6 +218,10 @@ def main() -> int:
         box, _body, _sides = masks(canvas, size, scale, bg.shape, args.erode, args.band)
         bg_linear = float(bg[box].mean())
         bg_encoded = float(encode(bg[box]).mean())
+        # The structure the backdrop offers under the footprint. The body's own sd divided by this
+        # is the fraction of the backdrop's structure the material passed, which is what the alpha
+        # is fitted on and what separates a lerp from a multiply.
+        bg_sd = float(bg[box].std())
 
         row = {
             "scene": sid,
@@ -224,9 +234,10 @@ def main() -> int:
             "rimNative": nat["rim"],
             "backdropLinearMean": bg_linear,
             "backdropEncodedMean": bg_encoded,
+            "backdropSd": bg_sd,
         }
 
-        bodies, rims = [], []
+        bodies, rims, digests = [], [], []
         for name, run_dir, ok in run_cells:
             png = os.path.join(run_dir, profile, f"{sid}.png")
             if sid not in ok or not os.path.exists(png):
@@ -234,10 +245,26 @@ def main() -> int:
             r = read_one(png, canvas, size, args.erode, args.band)
             bodies.append(r["body"])
             rims.append(r["rim"])
+            digests.append(hashlib.sha256(open(png, "rb").read()).hexdigest()[:8])
         if bodies:
             row["runs"] = len(bodies)
             row["sigmaBody"] = float(np.std(bodies))
             row["sigmaRim"] = float(np.max(np.std(np.asarray(rims), axis=0)))
+            # The published byte state is the one whose bytes the bed carries; find it by digest
+            # rather than by majority count, so a cell published under `--frequency-settle` and a
+            # cell published unanimously are treated the same way.
+            published = hashlib.sha256(open(native_png, "rb").read()).hexdigest()[:8]
+            keep = [i for i, d in enumerate(digests) if d == published]
+            counts = {d: digests.count(d) for d in set(digests)}
+            row["states"] = sorted(
+                ({"digest": d, "runs": n, "share": n / len(digests)} for d, n in counts.items()),
+                key=lambda s: -s["runs"],
+            )
+            if keep:
+                row["sigmaBodyMajority"] = float(np.std([bodies[i] for i in keep]))
+                row["sigmaRimMajority"] = float(
+                    np.max(np.std(np.asarray([rims[i] for i in keep]), axis=0))
+                )
 
         if args.captures:
             web_png = os.path.join(args.captures, profile, sid, f"{sid}__{args.tier}.png")
