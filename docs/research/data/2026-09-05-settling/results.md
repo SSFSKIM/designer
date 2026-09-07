@@ -1,8 +1,10 @@
 # Settling experiment — results
 
-Builds measured: 52 of 52. Judgments: 3. Topology: yes. Fit ratings: 52.
+Builds measured: 52 of 52. Judgments: 3 (human), 78 (model). Topology: yes. Fit ratings: 52.
 
-## Q — pairwise quality (human, blinded)
+## Q — pairwise quality (human, blinded; the primary endpoint)
+
+3 judgments.
 
 | arm A | arm B | A wins | n | rate | 95 % Wilson |
 |---|---|---|---|---|---|
@@ -18,6 +20,41 @@ Pooled Bradley–Terry log-strength per arm (mean over briefs with judgments; 0 
 | v1.1 | -3.08 | 1 | 1 |
 | v2.0 | +1.00 | 1 | 1 |
 | v2.1 | -2.23 | 2 | 2 |
+
+## Q2 — the model judge (astra-medium, blinded; secondary)
+
+78 judgments.
+
+| arm A | arm B | A wins | n | rate | 95 % Wilson |
+|---|---|---|---|---|---|
+| none | v1.1 | 6 | 13 | 0.46 | 0.23–0.71 |
+| none | v2.0 | 3 | 13 | 0.23 | 0.08–0.50 |
+| none | v2.1 | 4 | 13 | 0.31 | 0.13–0.58 |
+| v1.1 | v2.0 | 3 | 13 | 0.23 | 0.08–0.50 |
+| v1.1 | v2.1 | 5 | 13 | 0.38 | 0.18–0.64 |
+| v2.0 | v2.1 | 7 | 13 | 0.54 | 0.29–0.77 |
+
+Pooled Bradley–Terry log-strength per arm (mean over briefs with judgments; 0 = brief average):
+
+| arm | mean log-strength | briefs | builds judged |
+|---|---|---|---|
+| none | -1.84 | 7 | 13 |
+| v1.1 | -1.81 | 7 | 13 |
+| v2.0 | -0.58 | 7 | 13 |
+| v2.1 | -0.53 | 7 | 13 |
+
+### Agreement between the judges
+
+Pairs judged by both: 3. Same winner on 1 (0.33); Cohen's κ 0.00.
+
+| brief | agree | n |
+|---|---|---|
+| rail | 1 | 2 |
+| rebate | 0 | 1 |
+
+### The model judge against itself
+
+Its first run (six raters, one per brief, on a schedule that differed per process) overlaps the batch run on 70 pairs: same winner on 65 (0.93); Cohen's κ 0.85.
 
 ## V — validity gate per build
 

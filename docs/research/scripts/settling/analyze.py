@@ -29,6 +29,16 @@ manifest = load("manifest.json", {"cells": []})["cells"]
 meas = load("measurements.json", {"builds": {}})["builds"]
 topo = load("topology.json", None)
 judg = load("judgments.jsonl", [])
+def load_dir(name):
+    out = []; d = os.path.join(WS, name)
+    if os.path.isdir(d):
+        for f in sorted(os.listdir(d)):
+            if f.endswith(".jsonl"):
+                out += [json.loads(l) for l in open(os.path.join(d, f)) if l.strip()]
+    return out
+
+judgm = load_dir("judgments-model")        # the second judge (a blinded model rater), one file per brief
+judgm1 = load_dir("judgments-model-run1")  # its first run, fanned out per brief on a pre-fix schedule
 fit = {}
 _fitdir = os.path.join(WS, "fit")
 if os.path.isdir(_fitdir):
@@ -62,37 +72,63 @@ def tsig(i):
     return None
 
 # ---------- judgments: Bradley–Terry per brief, win rates per arm pair ----------
-wins = defaultdict(int)      # (winner id, loser id)
-appear = defaultdict(int)
-won = defaultdict(int)
-armpair = defaultdict(lambda: [0, 0])  # (armA, armB) -> [A wins, total], ordered by ARMS index
-for j in judg:
-    w, l = (j["left"], j["right"]) if j["choice"] == "left" else (j["right"], j["left"])
-    if w not in cell or l not in cell:
-        continue
-    wins[(w, l)] += 1; appear[w] += 1; appear[l] += 1; won[w] += 1
-    a, b = cell[w]["arm"], cell[l]["arm"]
-    if ARMS.index(a) < ARMS.index(b):
-        armpair[(a, b)][0] += 1; armpair[(a, b)][1] += 1
-    else:
-        armpair[(b, a)][1] += 1
+def tally(judgments):
+    """wins[(winner, loser)], appearances and wins per build, arm-pair win counts, and the
+    Bradley–Terry log-strengths per brief, for one judge's judgment list."""
+    wins = defaultdict(int); appear = defaultdict(int); won = defaultdict(int)
+    armpair = defaultdict(lambda: [0, 0])  # (armA, armB) -> [A wins, total], ordered by ARMS index
+    for j in judgments:
+        w, l = (j["left"], j["right"]) if j["choice"] == "left" else (j["right"], j["left"])
+        if w not in cell or l not in cell:
+            continue
+        wins[(w, l)] += 1; appear[w] += 1; appear[l] += 1; won[w] += 1
+        a, b = cell[w]["arm"], cell[l]["arm"]
+        if ARMS.index(a) < ARMS.index(b):
+            armpair[(a, b)][0] += 1; armpair[(a, b)][1] += 1
+        else:
+            armpair[(b, a)][1] += 1
 
-def bradley_terry(ids, iters=200):
-    p = {i: 1.0 for i in ids}
-    for _ in range(iters):
-        new = {}
-        for i in ids:
-            w = sum(wins[(i, j)] for j in ids if j != i)
-            denom = sum((wins[(i, j)] + wins[(j, i)]) / (p[i] + p[j]) for j in ids if j != i)
-            new[i] = w / denom if denom > 0 and w > 0 else (0.05 if denom > 0 else p[i])
-        s = sum(new.values()) / len(new); p = {k: v / s for k, v in new.items()}
-    return {k: math.log(v) for k, v in p.items()}
+    def bradley_terry(ids, iters=200):
+        p = {i: 1.0 for i in ids}
+        for _ in range(iters):
+            new = {}
+            for i in ids:
+                w = sum(wins[(i, j)] for j in ids if j != i)
+                denom = sum((wins[(i, j)] + wins[(j, i)]) / (p[i] + p[j]) for j in ids if j != i)
+                new[i] = w / denom if denom > 0 and w > 0 else (0.05 if denom > 0 else p[i])
+            s = sum(new.values()) / len(new); p = {k: v / s for k, v in new.items()}
+        return {k: math.log(v) for k, v in p.items()}
 
-bt = {}
-for brief in sorted({c["brief"] for c in manifest}):
-    ids = [c["id"] for c in built if c["brief"] == brief and appear[c["id"]] > 0]
-    if len(ids) >= 2:
-        bt.update(bradley_terry(ids))
+    bt = {}
+    for brief in sorted({c["brief"] for c in manifest}):
+        ids = [c["id"] for c in built if c["brief"] == brief and appear[c["id"]] > 0]
+        if len(ids) >= 2:
+            bt.update(bradley_terry(ids))
+    return {"wins": wins, "appear": appear, "won": won, "armpair": armpair, "bt": bt}
+
+H = tally(judg); M = tally(judgm)
+wins, appear, won, armpair, bt = H["wins"], H["appear"], H["won"], H["armpair"], H["bt"]
+
+def agreement(a, b):
+    """Raw agreement and Cohen's kappa between two judges over the pairs both judged, keyed by
+    the unordered pair so a swapped left/right still compares."""
+    key = lambda j: frozenset((j["left"], j["right"]))
+    win = lambda j: j["left"] if j["choice"] == "left" else j["right"]
+    A = {key(j): win(j) for j in a}; B = {key(j): win(j) for j in b}
+    both = [k for k in A if k in B]
+    if not both:
+        return {"n": 0}
+    agree = sum(1 for k in both if A[k] == B[k])
+    po = agree / len(both)
+    # chance agreement: each judge's rate of picking the alphabetically-first id of the pair
+    fa = sum(1 for k in both if A[k] == min(k)) / len(both); fb = sum(1 for k in both if B[k] == min(k)) / len(both)
+    pe = fa * fb + (1 - fa) * (1 - fb)
+    kappa = (po - pe) / (1 - pe) if pe < 1 else float("nan")
+    per_brief = defaultdict(lambda: [0, 0])
+    for k in both:
+        j = next(x for x in a if key(x) == k); per_brief[cell[j["left"]]["brief"]][1] += 1
+        if A[k] == B[k]: per_brief[cell[j["left"]]["brief"]][0] += 1
+    return {"n": len(both), "agree": agree, "po": po, "kappa": kappa, "per_brief": dict(per_brief)}
 
 def wilson(k, n, z=1.96):
     if n == 0:
@@ -209,24 +245,43 @@ def shapes(i):
 out = []
 P = out.append
 P("# Settling experiment — results\n")
-P(f"Builds measured: {len(built)} of {len(manifest)}. Judgments: {len(judg)}. Topology: {'yes' if topo else 'no'}. Fit ratings: {len(fit)}.\n")
+P(f"Builds measured: {len(built)} of {len(manifest)}. Judgments: {len(judg)} (human), {len(judgm)} (model). Topology: {'yes' if topo else 'no'}. Fit ratings: {len(fit)}.\n")
 
-P("## Q — pairwise quality (human, blinded)\n")
-P("| arm A | arm B | A wins | n | rate | 95 % Wilson |\n|---|---|---|---|---|---|")
-for (a, b), (k, n) in sorted(armpair.items(), key=lambda kv: (ARMS.index(kv[0][0]), ARMS.index(kv[0][1]))):
-    p, lo, hi = wilson(k, n)
-    P(f"| {a} | {b} | {k} | {n} | {p:.2f} | {lo:.2f}–{hi:.2f} |")
-P("")
-P("Pooled Bradley–Terry log-strength per arm (mean over briefs with judgments; 0 = brief average):\n")
-P("| arm | mean log-strength | briefs | builds judged |\n|---|---|---|---|")
-for arm in ARMS:
-    per = defaultdict(list)
-    for c in built:
-        if c["arm"] == arm and c["id"] in bt:
-            per[c["brief"]].append(bt[c["id"]])
-    vals = [st.mean(v) for v in per.values()]
-    P(f"| {arm} | {st.mean(vals):+.2f} | {len(vals)} | {sum(len(v) for v in per.values())} |" if vals else f"| {arm} | — | 0 | 0 |")
-P("")
+def q_report(title, T, n):
+    P(f"## {title}\n")
+    P(f"{n} judgments.\n")
+    P("| arm A | arm B | A wins | n | rate | 95 % Wilson |\n|---|---|---|---|---|---|")
+    for (a, b), (k, m) in sorted(T["armpair"].items(), key=lambda kv: (ARMS.index(kv[0][0]), ARMS.index(kv[0][1]))):
+        p, lo, hi = wilson(k, m)
+        P(f"| {a} | {b} | {k} | {m} | {p:.2f} | {lo:.2f}–{hi:.2f} |")
+    P("")
+    P("Pooled Bradley–Terry log-strength per arm (mean over briefs with judgments; 0 = brief average):\n")
+    P("| arm | mean log-strength | briefs | builds judged |\n|---|---|---|---|")
+    for arm in ARMS:
+        per = defaultdict(list)
+        for c in built:
+            if c["arm"] == arm and c["id"] in T["bt"]:
+                per[c["brief"]].append(T["bt"][c["id"]])
+        vals = [st.mean(v) for v in per.values()]
+        P(f"| {arm} | {st.mean(vals):+.2f} | {len(vals)} | {sum(len(v) for v in per.values())} |" if vals else f"| {arm} | — | 0 | 0 |")
+    P("")
+
+q_report("Q — pairwise quality (human, blinded; the primary endpoint)", H, len(judg))
+q_report("Q2 — the model judge (astra-medium, blinded; secondary)", M, len(judgm))
+ag = agreement(judg, judgm)
+P("### Agreement between the judges\n")
+if ag["n"]:
+    P(f"Pairs judged by both: {ag['n']}. Same winner on {ag['agree']} ({ag['po']:.2f}); Cohen's κ {ag['kappa']:.2f}.\n")
+    P("| brief | agree | n |\n|---|---|---|")
+    for b, (k, n) in sorted(ag["per_brief"].items()):
+        P(f"| {b} | {k} | {n} |")
+    P("")
+else:
+    P("No pair judged by both yet.\n")
+sa = agreement(judgm1, judgm) if judgm1 else {"n": 0}
+if sa["n"]:
+    P("### The model judge against itself\n")
+    P(f"Its first run (six raters, one per brief, on a schedule that differed per process) overlaps the batch run on {sa['n']} pairs: same winner on {sa['agree']} ({sa['po']:.2f}); Cohen's κ {sa['kappa']:.2f}.\n")
 
 P("## V — validity gate per build\n")
 P("| id | brief | arm | seed | mechanical | judged | gate |\n|---|---|---|---|---|---|---|")

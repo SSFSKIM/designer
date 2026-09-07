@@ -577,8 +577,9 @@ in four arms, the stance layer's own claim held: effective accent dispersion ros
 `v2.0` 0.41 (0.81 for `v2.1` read by declared job), seven of thirteen 2.0 builds chose a
 status-only or no accent, and 2.0 raised within-category layout distance on consoles (0.257 →
 0.308 partition). The pre-registered stop rule's layout clause fired for `v2.1` (not for `v2.0`),
-and the quality clause is pending the user's judging; the next initiative is the diagnosis the
-settling spec names, not a doctrine change here.
+and the quality clause is pending the user's judging (a blinded model judge, secondary, puts both
+derivation arms a full Bradley–Terry unit above the menu and no-skill arms); the next initiative
+is the diagnosis the settling spec names, not a doctrine change here.
 
 ## Revision Notes
 

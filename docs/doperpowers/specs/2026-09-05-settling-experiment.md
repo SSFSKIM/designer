@@ -155,11 +155,13 @@ per build, so this is roughly twelve acceptance runs' worth.
 - `docs/research/scripts/settling/cells.mjs` — manifest and prompts;
   `measure.mjs` — screenshots, tokens, the mechanical gate, the topology run;
   `rate.py` — the blinded pairwise page and its judgment log;
+  `judge.py` — the second judge's prompt per brief, on the same pairs;
   `analyze.py` — Bradley–Terry, diversity, effective diversity, the report.
 - `figma-design-workspace/settling/` (gitignored): frozen skills, builds, screenshots,
   `judgments.jsonl`.
 - Committed evidence: `docs/research/data/2026-09-05-settling/` — `manifest.json`,
-  `measurements.json`, `topology.json`, `judgments.jsonl`, `fit/<brief>.json`, `results.md`.
+  `measurements.json`, `topology.json`, `judgments.jsonl`, `judgments-model/<brief>.jsonl`,
+  `judgments-model-run1/<brief>.jsonl`, `fit/<brief>.json`, `results.md`.
 
 ## Decision Log
 
@@ -225,6 +227,21 @@ per build, so this is roughly twelve acceptance runs' worth.
   as a better accent locator and is no better (it finds body ink on one build, a status colour on
   another); it is kept as data, not as a measure.
   Date/Author: 2026-09-06, Claude.
+
+- Decision: A second judge, a blinded `astra-medium` rater, on the same 78 pairs (same schedule,
+  same left/right, screenshots and ids only), grouped by brief so a rater reads a brief's eight
+  pages once and decides its twelve pairs; its judgments live in `judgments-model/<brief>.jsonl`
+  and the report carries a Q table per judge and raw agreement with Cohen's κ over the pairs
+  both judged. One rater takes several briefs in one prompt (`judge.py prompt a,b,c`); the first
+  run had fanned out six raters, one per brief, before the user's direction to batch arrived, and
+  those six were left to finish.
+  Rationale: the user's direction ("make it be a visual judge too — we'll collect both"; "prefer
+  batch if possible than fan-out per one"). The human's Q stays the primary endpoint and the
+  gate's human clause reads only the human file; the model's table is secondary, and the
+  agreement statistic is the reading the pre-registration said a single rater could not give.
+  The memos' warning that a vision model is a weak aesthetic judge stands, which is why it is a
+  second column and not a replacement.
+  Date/Author: 2026-09-08, Claude.
 
 ## Surprises & Discoveries
 
@@ -391,6 +408,17 @@ per build, so this is roughly twelve acceptance runs' worth.
   file's pair ids; it was restarted again from the current code before judging resumed.
   Evidence: the wave five and six task notifications; this session's shell log.
 
+- Observation: The pairwise schedule was not deterministic. Briefs were ordered by first wave with
+  ties left to a set's iteration order, which differs per process, so every process drew its own
+  left/right and seed pairing from the fixed seed. This is why the restarted rating server once
+  showed all 78 pairs pending with three judged, and why the model judge's first run — six
+  raters, one per brief, each prompt printed by its own process — judged pairs of which only 70
+  of 78 exist in the fixed schedule. Fixed by breaking the tie on the brief's name and matching
+  judged pairs by unordered id; the three human judgments all lie in the fixed schedule. The
+  first run is kept as `judgments-model-run1/` and read against the batch run as a self-agreement
+  sample.
+  Evidence: three `PYTHONHASHSEED` values now give one schedule digest; the overlap counts.
+
 - Observation: The colour parser divided un-premultiplied canvas bytes by alpha, inflating every
   semi-transparent colour. Re-measuring all 52 builds after the fix changed no gate verdict, two
   contrast rates by under 0.01, and one accent hex (fleet 2.1 B, from a malformed seven-digit
@@ -399,7 +427,6 @@ per build, so this is roughly twelve acceptance runs' worth.
 
 ## Deferred
 
-- A second judge, for an agreement statistic.
 - The stance memo's hypothetical arms (archetypes with derivable tokens; axes plus one
   ingredient), if this run leaves the stance layer's contribution ambiguous.
 - Design Theater's UIClip channel; no local model.
@@ -428,9 +455,24 @@ narrative rise of 0.016 does not), and `v2.1` is above `v1.1` only on raw consol
 Jaccard is flat and high for every arm (0.75–0.94): family choice was never where convergence
 lived. Distinct display families over thirteen builds: 7 (`none`), 8, 8, 9.
 
-**H2 (quality) — *pending*.** Three judgments; nothing is claimable. The user judges the
-remaining 75 pairs at the rating page; H2's two thresholds (`v2.1` ≥ 45 % against `v1.1`, ≥ 60 %
-against `none`) and the Bradley–Terry pooling are computed by `analyze.py` when they land.
+**H2 (quality) — *pending* on the primary judge; met on the secondary.** Three human judgments;
+nothing is claimable from them. The user judges the remaining 75 pairs at the rating page; H2's
+two thresholds (`v2.1` ≥ 45 % against `v1.1`, ≥ 60 % against `none`) and the Bradley–Terry
+pooling are computed by `analyze.py` when they land. The model judge (next paragraph) clears
+both thresholds: `v2.1` wins 8 of 13 direct pairs against `v1.1` (0.62, Wilson 0.36–0.82) and 9
+of 13 against `none` (0.69, 0.42–0.87).
+
+**Q2 — the model judge (added 2026-09-08, secondary).** A blinded `astra-medium` rater on the
+same 78 pairs. Pooled Bradley–Terry log-strength: `none` −1.84, `v1.1` −1.81, `v2.0` −0.58,
+`v2.1` −0.53 — the two derivation arms a full unit above the menu and no-skill arms, which it
+cannot tell apart (`none` wins 6 of 13 against `v1.1`), and `v2.0` against `v2.1` a coin flip (7 of
+13). Its per-brief pattern is not uniform: on the hardware brief it prefers both no-skill pages
+to everything (3 of 3 each) and both `v2.1` pages to nothing (0 of 3 each); on rail and compare
+`v2.1` wins every pair it is in; on fleet `v2.0` does. The rater is stable — its first run, six
+raters on a schedule that differed per process, agrees with the batch run on 65 of the 70 pairs
+they share (κ 0.85) — and its agreement with the human is unmeasured (three shared pairs, one
+agreeing). The memos' warning stands: this is a structural and legibility reading by a vision
+model, the column beside the human's, not the endpoint.
 
 **H3 (baseline) — holds for the stat row, half-holds for the three-up.** `none` carries a
 first-viewport stat row on 3 of 6 consoles (the survey's rate was 5 of 17) and a three-up on 5
@@ -469,7 +511,8 @@ diversity is mostly gate.
 
 **The stop rule.** Its layout clause fires: effective D1 for `v2.1` is not above `v1.1` (consoles
 0.115 against 0.257; narrative 0.273 against 0.254, a rise under the 0.03 bar). Its quality clause
-is *pending*. Per the pre-registration this is recorded here and in both parent specs, and the
+is *pending* on the human judge; the model judge does not trigger it (`v2.1` wins 62 % of its
+direct pairs against `v1.1`, the clause fires under 35 %). Per the pre-registration this is recorded here and in both parent specs, and the
 next initiative is a diagnosis, not a doctrine change. The reading to carry into that diagnosis:
 what the grammar did on consoles is converge them onto the brief's form (queue or table first,
 one rail band, no stat row, no side column — 6 of 6), and within-category partition distance is
@@ -503,3 +546,5 @@ tokens over roughly nine hours of wall clock, within the declared budget.
   experiment").
 - 2026-09-06: all seven waves built, measured and fit-rated; Decision Log, Surprises, Deferred and
   Outcomes written; Q, H2 and the stop rule's quality clause left pending on the user's judging.
+- 2026-09-08: second judge added on the user's direction (Decision Log); schedule determinism fault
+  found and fixed (Surprises); Q2 and the model's read of H2 and the stop rule written.

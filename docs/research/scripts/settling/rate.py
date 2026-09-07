@@ -33,7 +33,9 @@ def schedule():
     cells = json.load(open(MANIFEST))["cells"]
     rng = random.Random(20260905)
     pairs = []
-    briefs = sorted({c["brief"] for c in cells}, key=lambda b: min(c["wave"] for c in cells if c["brief"] == b))
+    # Ties on wave are broken by name: a set's iteration order differs per process, and with the
+    # tie unbroken every process drew a different schedule (found 2026-09-08, Surprises).
+    briefs = sorted({c["brief"] for c in cells}, key=lambda b: (min(c["wave"] for c in cells if c["brief"] == b), b))
     for b in briefs:
         bc = [c for c in cells if c["brief"] == b]
         seeds = sorted({c["seedLabel"] for c in bc})
@@ -58,13 +60,15 @@ def built(i):
 
 
 def judged():
+    """Judged pairs keyed by the unordered pair, so a judgment served under an earlier
+    orientation of the schedule still counts."""
     if not os.path.exists(JUDGMENTS):
         return {}
     out = {}
     for line in open(JUDGMENTS):
         line = line.strip()
         if line:
-            j = json.loads(line); out[j["pair"]] = j
+            j = json.loads(line); out[frozenset((j["left"], j["right"]))] = j
     return out
 
 
@@ -124,7 +128,7 @@ class H(SimpleHTTPRequestHandler):
         if self.path == "/api/state":
             done = judged(); pend = []; unbuilt = 0
             for p in schedule():
-                if p["pair"] in done:
+                if frozenset((p["left"], p["right"])) in done:
                     continue
                 if built(p["left"]) and built(p["right"]):
                     pend.append({**p, "briefText": brief_text(p["eval"])})
