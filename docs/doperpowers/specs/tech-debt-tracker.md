@@ -633,6 +633,44 @@ probe runner already does from the shell, in one second, and stops after a first
 fewer than 50 of 56); and the tint guard keeps the staged bundle beside its refusal rather than
 deleting it. Below every bound; it costs a run and, without the up-front refusal, the diagnosis.
 
+## The highlight pass draws its specular sweep as a stationary band on the left edge of every resting surface, in both colour schemes (W21 G1, 2026-09-07)
+
+*Found on W21's rim fit, read per side against a reference whose sides agree to three decimals.*
+`packages/renderer-webgpu/src/wgsl/highlight.ts` draws the specular sweep as a Gaussian band centred
+at `hu.sweep.x · 2π`, the motion driver's sweep channel; that channel is 0 at rest
+(`render-model.ts`), and 0 radians in the gradient's angular coordinate is the left edge. Every
+surface not being interacted with therefore carries a stationary shimmer on its left side: with the
+rim's specular term at zero, the left edge reads 0.12–0.15 above the other three sides on every
+solid, and the same documents with `sweepGain` 0 move the left side by −0.119 to −0.145 and every
+other side by +0.0000 (claims §5.90 §4; `results/2026-09-06-w21-dark-scheme/g1/fit-rim.txt`). The
+pass's own comment says Reduced Motion zeroes the gain because "the band is not drawn stationary,
+it is not drawn" — at nominal motion it IS drawn stationary, and nothing had measured it; three
+waves of rim work (W11c, W12, W18) fitted a two-light rim over it. On the canonical dark bed it is
+the whole of W21 clause 4's miss (`dark-solid__rrect-md` +0.1394 at 1x, +0.2445 at 2x on the left
+side). Shape of the fix, a renderer mechanism: gate the band's weight on the shimmer actually
+running (the driver's channel non-zero, or a phase that parks the band off the surface at rest),
+so a resting surface draws the ambient rim alone; then re-read the rim per side on both beds — the
+light captures move, so it cannot ride a wave that binds them byte-identical and is recommended as
+its own corrective wave (W22) ahead of the thick-span composite. Above the wave's rim clause on two
+cells; below every adopted bound.
+
+## The CSS tier's dark material over-darkens structured backdrops under the response law (W21 G1, 2026-09-07)
+
+*Found on W21's dry run.* With the dark profile's response law at strength 1, the CSS tier's dark
+rows split cleanly: over a solid the tier reads the law correctly and improves enormously
+(`dark-solid__rrect-md` 0.0307 → 0.0046 ΔE), over a structured backdrop it over-darkens
+(`checkerboard__rrect-md` 0.0213 → 0.0416; ten rows worse by more than W21's S1). The
+declared-geometry read: the CSS body lands at 0.0122 on `checkerboard__rrect-md` against the
+reference's 0.0468 and the GPU tier's 0.0475 — the dark anchor's level, on a backdrop whose encoded
+mean is 0.5 and where the law says 0.047 (claims §5.90 §6). Recorded as the wave's CSS-only
+residual (wave Decision Log 23 (a); W21 Decision Log 3 (a)). Shape of the diagnosis, bounded: read
+what input the CSS tier's `resolvedBackdropTone` / `backdropToneResponseLevel` path receives over
+the checkerboard on the dark profile (the proxy's sampled level, the hint, or a decoded value fed to
+an encoded-space law) against the GPU tier's per-pixel input; if the input is in the wrong space
+or the wrong statistic it is a derivation defect and closes in `optics.ts`; if the input is right
+and one level per surface cannot carry the law over a busy backdrop, it is the tier's limit and the
+residual stands. Either way the light CSS captures move, so it rides a wave that does not bind them.
+
 ## The calibration scene server's `VITREA_FIXTURES` containment check compares a normalised path against the raw environment value (W21 G0, 2026-09-07)
 
 *Found on W21's probe, vitrea's side.* `packages/calibration/web/vite.config.ts` mounts the

@@ -12722,3 +12722,156 @@ light appearance recorded as a deferred term with both readings on file; `specul
 `rimAlpha` fitted on the six solid cells; `tintAlpha` refitted on the passthrough rows as a lerp;
 the collapsed rim deferred with its number; `hc-text__rrect-sm` in no fit; the dry run on the
 canonical dark bed with the holdout read once.
+
+### 5.90 W21 G1 DECLARED: the dark profile re-recorded on measured anchors — the response law at strength 1, the rim's light direction gone, the alpha free to carry the passthrough; dry-run on the canonical dark bed at both scales on both tiers with the holdout read once: GPU calibration ΔE 0.0085 → 0.0041 at both scales, the holdout 0.0300 → 0.0161 with all three cells improving, the light profiles byte-identical; two named terms remain — a stationary specular sweep at rest in both schemes, and the thin rows' appearance term — and the CSS tier over-darkens structured backdrops (2026-09-07)
+
+**W21 G1's declaration** (`results/2026-09-06-w21-dark-scheme/g1/g1-dryrun.md`, with `fit-rim.txt`,
+`fit-alpha.txt`, `g1-clauses.txt`, `g1-tables.txt`, `g1-digests.txt`, `canonical-reads/` and the
+sheets under `../sheets/`); the parent's reading, and the W21 spec's Decision Log 3 rules on it.
+Nothing canonical was written; the wave's one holdout read is spent here (X6) and G2 must reproduce
+every dark capture byte for byte (`g1-digests.txt`).
+
+#### 1. The form, as recorded
+
+`packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json` (one document, both dark
+profiles); `resolvedMaterialSha256` 8b9d3d2dbe1755aa → **d86f480c0e136627**; the shipped export
+`packages/platform-web/src/dark-profile.ts` regenerated (X7's two tests green).
+
+| constant | was | now | how |
+| --- | --- | --- | --- |
+| `backdropToneAnchorX` | inherited | [0.1104, 0.2706, 0.9505] | measured (§5.89 §2) |
+| `backdropToneResponseThin` | inherited | [0.0110, 0.0284, 0.1611] | measured; the top is the footprint reading (Decision Log 2 (a)) |
+| `backdropToneResponseThick` | inherited | [0.0131, 0.0238, 0.1006] | measured |
+| `backdropToneResponseStrength` | 0 | 1 | Decision Log 2 (a) |
+| `optics.regular.specularGain` | 0.55 | **0** | declined, not fitted — the rows do not separate it |
+| `optics.regular.rimAlpha` | 0.18 | **0.082** | fitted (§2) |
+| `optics.regular.tintAlpha` | 0.97 | **0.90** | fitted (§3) |
+
+On the probe grid the law alone takes the thick body from 0.0217 to 0.0103 mean absolute error and
+the two fits move it a further 0.0011 (`probe-objective.txt`); the two constants do not disturb the
+law.
+
+#### 2. `rimAlpha`, on the six solid cells' rim excess per side (`fit-rim.txt`)
+
+Rows: `dark-solid` and `mid-dark-solid` × `rrect-sm` / `md` / `lg`, three sides each (the left
+excluded — §4); objective the mean |excess_web − excess_native| per side, declared before the
+number. The rim is additive so two rendered points fix the line per row; fitted twice independently
+(0.0819 at the old alpha, 0.0808 at the landed one), **0.082** adopted inside both. Rendered at it:
+mean |Δ excess| **0.0068** over eighteen rows, worst 0.0167, every row inside the 0.03 clause; the
+three fitted sides flat to 0.0000–0.0066 where the reference's are 0.0008–0.0044. One constant's
+cost: `dark-solid`'s rows want 0.044–0.054 and `mid-dark-solid`'s 0.081–0.090, so at 0.082
+`dark-solid` is left 0.009–0.013 bright — inside the clause, recorded rather than split into a
+backdrop-dependent rim no other row asks for. Recorded, not fitted: the collapsed rim
+(`dark-solid__rrect-sm` +0.0150–0.0167 against vitrea's 0.0000, Decision Log 2 (b)); the
+`light-solid` rows (vitrea 0.05–0.06 too dim on three sides, the reference's own
+horizontal-against-vertical split).
+
+#### 3. `tintAlpha`, on the passthrough rows (`fit-alpha.txt`)
+
+Rows: the checkerboard pitch sweep at fixed component (`rrect-sm`, `md`, `lg` over pitches 4 / 16 /
+32 / 64; ten rows; excluded with reasons `checkerboard-64__rrect-sm` (uniform footprint),
+`hc-text__rrect-sm` (4-of-7 bistable, Decision Log 2 (c)) and `checkerboard-lc16` (the check));
+objective the mean |ln(pass_web / pass_native)| against the wave's factor-of-1.5 target. Seven
+alphas rendered with the BODY read at every one, because the premise is that the solve now owns the
+level — and it does over part of the range: above 0.92 the thick body is flat in the alpha to
+0.0002; below about 0.895 it climbs steeply as the solve runs out of headroom against the black
+clamp (the downward remainder of §5.88 §3). The unconstrained minimiser (0.8225, factor 1.368) costs
+0.039 of body and is inadmissible; the separation-constrained range opens at 0.8975. **0.90**
+adopted — the nearest rendered point on the safe side of the cliff: factor **1.441**, six of ten
+rows inside 1.13, the passed structure up fourfold while the thick body moves 0.0007. The equal-mean
+pair (not told to the fit): vitrea passes the two boards almost identically (0.0374 / 0.0375) where
+the reference attenuates the low-contrast one more (0.0332 / 0.0287) — a residual in the blur, not
+the alpha. **No second constant** (S5): the thin rows' shortfall (1.9–3.5×) rides a level that is
+wrong by the appearance term, and the pitch-4 shortfall (1.83× on every component) is the blur's
+shape at the finest pitch, the scatter facet's constant (§5.41).
+
+#### 4. The stationary specular sweep — new, and not the dark scheme's
+
+With `specularGain` 0 the rim has no direction, and vitrea's LEFT edge still read 0.12–0.15 above
+its other three sides on every solid. Isolated exactly: the same documents with `sweepGain` 0 move
+the left side by −0.119 to −0.145 and every other side by **+0.0000**; with the sweep off, left
+equals right to the fourth decimal. The mechanism (`packages/renderer-webgpu/src/wgsl/highlight.ts`):
+the specular sweep is a Gaussian band centred at `hu.sweep.x · 2π`, the motion driver's sweep
+channel, which is 0 at rest (`render-model.ts`), and 0 radians in the gradient's angular coordinate
+is the left edge — a surface not being interacted with carries a stationary shimmer on its left
+side, in BOTH colour schemes, since the pass landed. Reported and not taken, on four grounds: it is
+not the constant being fitted; it is not dark-specific (the light reference's rim has left equal to
+right, vitrea's does not); zeroing `sweepGain` in the dark patch would delete the dark scheme's
+shimmer animation, which no rest-state row can see; and the correct fix — gating the band on the
+shimmer running — moves the light captures this gate binds byte-identical (X3). What it costs on the
+canonical bed: the whole of clause 4's miss — `dark-solid__rrect-md` +0.1394 (1x) / +0.2445 (2x),
+`mid-dark-solid__capsule-button` +0.0518 / +0.0579 on the left side alone.
+
+#### 5. The dry run — clauses 3 and 4 under the declared geometry (`g1-clauses.txt`)
+
+GPU tier, native | before → after, 1x (2x within 0.0006 on every row):
+
+| cell | thick | native | before | after | \|Δ\| | clause 3 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `dark-solid__rrect-md` | yes | 0.0153 | 0.0482 | 0.0130 | 0.0023 | met |
+| `checkerboard__rrect-md` | yes | 0.0468 | 0.0628 | 0.0475 | 0.0007 | met |
+| `photo__rrect-md` | yes | 0.0466 | 0.0547 | 0.0389 | 0.0077 | met |
+| `photo__rrect-lg` (holdout) | yes | 0.0454 | 0.0555 | 0.0404 | 0.0050 | met |
+| `dark-solid__capsule-button` | no | 0.0110 | 0.0117 | 0.0117 | 0.0007 | met (collapsed) |
+| `impulse__capsule-button` (validation) | no | 0.0066 | 0.0037 | 0.0037 | 0.0030 | met (collapsed) |
+| `mid-dark-solid__capsule-button` (holdout) | no | 0.0285 | 0.0500 | 0.0286 | 0.0000 | met |
+| `checkerboard__capsule-button` | no | 0.1059 | 0.0640 | 0.0673 | 0.0386 | **missed** |
+| `photo__capsule-button` | no | 0.0961 | 0.0551 | 0.0528 | 0.0433 | **missed** |
+
+The thick rows: mean 0.0039, worst 0.0079, met on every cell at both scales. The thin rows: met on
+three, missed on the two capsules over structured backdrops by 0.039–0.044 — the appearance term,
+**larger than Decision Log 2 (e) quoted** ("within 0.02" — the probe's own capsule cells read
+0.033–0.058 at the landed constants, rising with the encoded input; the correction is Decision Log
+3's). Those two cells barely moved in body and improved in ΔE anyway, because what moved on them is
+the rim and the passed structure. Clause 4: every side but the left is met on every cell (worst
++0.0163 at 2x), and the two collapsed capsules meet it on all four sides; the left and the flatness
+miss on `dark-solid__rrect-md` and `mid-dark-solid__capsule-button` by §4's sweep and nothing else.
+Against the W20 bed `dark-solid__rrect-md`'s sides were 0.2244 / 0.1021 / 0.2327 / 0.0854 against
+0.0340 / 0.0339 / 0.0296 / 0.0296; three of them are now inside 0.008.
+
+#### 6. The dry run — the matrix rows (`g1-tables.txt`)
+
+GPU tier, OKLab ΔE mean, W20 bed → dry run: 1x dark calibration 0.00846 → **0.00410**, holdout
+0.02996 → **0.01612**; 2x 0.00860 → **0.00410**, 0.03017 → **0.01596**; validation unchanged
+(0.00291 / 0.00329, the collapse's cell). Clause 5's bound (below 0.006) met at both scales by
+0.0019. Per cell at 1x: `dark-solid__rrect-md` 0.02861 → **0.00401** (p95 0.116 → 0.013, ssim
+0.931 → 0.988), `photo__rrect-md` 0.01972 → 0.01313, `checkerboard__rrect-md` 0.01110 → 0.00395,
+`photo__capsule-button` 0.00774 → 0.00753, `checkerboard__capsule-button` 0.00558 → 0.00503, the
+collapsed and tinted cells unchanged to 0.00004; **the holdout's three cells**, named with their
+movement: `photo__rrect-lg` 0.05720 → **0.03047** (the bed's worst dark row, halved),
+`checkerboard__glass-over-glass` 0.02736 → **0.01765** (the partial the charter predicted — the
+inner pane's interior still 0.0499 against 0.0436), `mid-dark-solid__capsule-button` 0.00532 →
+**0.00025** (p95 0.00000). The one GPU row worse on any axis: `photo__capsule-button`'s `ssimMean`
+by 0.0019 / 0.0017, inside S1, beside an improved ΔE.
+
+**The CSS tier** (clause 6; recorded, moved or not): 1x dark calibration 0.01147 → 0.01163,
+holdout 0.03623 → 0.04340; 2x 0.01166 → 0.01129, 0.03676 → 0.04183. A clean split: over a solid
+the CSS tier reads the law correctly and improves enormously (`dark-solid__rrect-md` 0.03065 →
+**0.00455**, `mid-dark-solid__capsule-button` 0.00583 → **0.00096**); over a structured backdrop it
+over-darkens (`checkerboard__rrect-md` 0.02125 → 0.04164, `checkerboard__glass-over-glass` 0.04074
+→ 0.07057, `photo__rrect-md` 0.02217 → 0.02373, both capsules +0.002–0.004). The declared-geometry
+read says why in one number: on `checkerboard__rrect-md` the CSS body lands at **0.0122** against
+the reference's 0.0468 and the GPU tier's 0.0475 — the tier resolves the response from one backdrop
+level for the whole surface. Clause 4 on the CSS tier is met on every side but one (its rim carries
+no sweep).
+
+**Contract X3 held**: the 1x light-standard profile captured on both tiers at G1's HEAD, 52 of 52
+captures byte-identical to the canonical `web-captures/`.
+
+#### 7. The stops (`g1-dryrun.md` §9)
+
+S1 (a row worse by > 0.001 ΔE or > 0.005 ssim) **fires on ten CSS-tier rows** — the structured cells
+of §6, worst `checkerboard__glass-over-glass` +0.0298 ΔE / −0.0555 ssim — **and on no GPU row**. S2
+(tinted ≤ 0.001): largest movement 0.00004. S3 (collapsed ≤ 0.002): +0.0000 on all eight rows. S4
+(light byte-identical): 52 / 52. S5 (a constant whose rows do not separate it): did its work —
+`specularGain` and a second alpha declined under it. S6 (the law refuted in dark): P3 0.0078 on the
+thick rows against P0 0.0176, the landed render 0.0039 on the canonical thick cells. S7 (the user's
+eye): the sheets sent.
+
+#### 8. Disposition
+
+The W21 spec's Decision Log 3: the GPU tier lands as declared; S1's ten CSS rows are the CSS-only
+residual of wave Decision Log 23 (a), recorded with their cause and a bounded diagnosis deferred by
+name; the stationary sweep is deferred to a corrective wave of its own ahead of the thick-span
+composite, since it is a renderer defect in both schemes that three waves of rim work fitted over;
+the thin rows' appearance term is carried at its measured size; G2 opens.

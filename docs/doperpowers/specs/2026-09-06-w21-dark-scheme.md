@@ -1,10 +1,11 @@
 # W21 — the dark scheme on the GPU tier (2026-09-06)
 
 **Status: OPEN — chartered 2026-09-06 on wave Decision Log 23 (c) at W20's close and the 0.9.0
-cut; the finding pinned the same day (claims §5.87). G0 CLOSED 2026-09-07 (claims §5.88–§5.89;
-Decision Log 2): the dark reference measured over seven attested runs — W9's law carries for thick
-surfaces with nothing fitted, the thin surface is an appearance switch the scene selects, the rim
-has no light direction. G3 MERGED ahead of its edge. G1 dispatched.**
+cut; the finding pinned the same day (claims §5.87). G0 CLOSED 2026-09-07 (§5.88–§5.89; Decision
+Log 2). G1 DECLARED 2026-09-07 (§5.90; Decision Log 3): GPU calibration ΔE 0.0085 → 0.0041 at both
+scales, the holdout 0.0300 → 0.0161 with all three cells improving, the light profiles
+byte-identical; the stationary specular sweep found in both schemes and deferred to its own wave.
+G3 MERGED ahead of its edge. G2 dispatched; the user's eye before publish.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W21 row; Decision Log 23 (c)). The law this wave
@@ -332,6 +333,13 @@ at a time.
 - **The CSS tier's dark residual** — recorded, not chartered (Decision Log 23 (a)).
 - **The gate's dark bounds** — re-proposed at G2 by the margin rule; adopting is the user's.
 - **Default `colorScheme: "auto"`** — a later major.
+- **The stationary specular sweep at rest** (Decision Log 3 (b); claims §5.90 §4) — a renderer
+  defect in both schemes, 0.12–0.24 on the left side of every resting surface; the fix gates the
+  band on the shimmer running and moves the light captures; recommended as W22 ahead of the
+  thick-span composite. In the tracker.
+- **The CSS tier over structured dark backdrops** (Decision Log 3 (a); §5.90 §6) — ten rows worse,
+  the body at 0.0122 against 0.0468 on `checkerboard__rrect-md`; the bounded diagnosis (an input in
+  the wrong space, or a limit of two layers) deferred by name.
 - **The appearance switch** (Decision Log 2 (a); claims §5.89 §2): the dark material's thin surface
   draws the light appearance over a uniformly bright scene — `light-solid__rrect-sm` 0.9666 against
   `checkerboard-64__rrect-sm` 0.1611 at the same footprint input. A scene-level term neither tier
@@ -356,8 +364,8 @@ at a time.
 | child | status |
 | --- | --- |
 | G0 — the dark probe and the instrument | CLOSED 2026-09-07 (claims §5.88–§5.89): seven attested runs of eighteen (the rest disqualified by name — a locked console, one mid-run input), the six anchors read at majority σ 0.0000, P3 0.0078 on the thick rows and the candidate at the measured anchors 0.0044 mean body error with nothing fitted; the thin row an appearance switch (`light-solid__rrect-sm` 0.9666 against `checkerboard-64__rrect-sm` 0.1611 at the same footprint input); the rim flat to 0.001–0.004 on the dark solids where vitrea spreads it by 0.15; the passthrough a lerp three to five times too strong; the tints untouched; Decision Log 2 |
-| G1 — the form declared and dry-run | DISPATCHED 2026-09-07 on Decision Log 2 |
-| G2 — the landing and its referee | — |
+| G1 — the form declared and dry-run | DECLARED 2026-09-07 (claims §5.90; Decision Log 3): seven constants moved (six measured anchors and strength 1; `specularGain` 0 declined on its rows; `rimAlpha` 0.082 on the six solids at 0.0068 mean; `tintAlpha` 0.90 on ten passthrough rows at factor 1.441 with the thick body moving 0.0007), fingerprint d86f480c0e136627; the dry run on the canonical dark bed at both scales on both tiers with the holdout read once — GPU calibration ΔE 0.0085 → 0.0041, holdout 0.0300 → 0.0161, every thick cell inside 0.010, the tinted and collapsed cells unmoved, 52 light captures byte-identical; S1 fires on ten CSS rows and no GPU row; the stationary sweep found (§5.90 §4) |
+| G2 — the landing and its referee | DISPATCHED 2026-09-07 on Decision Log 3 |
 | G3 — the dark scheme shipped | MERGED 2026-09-06 (`c017625`, `bc0b9e8`; Decision Log 1's shape): `darkMaterialProfile` generated from the profile document and pinned to it in two packages (X7), `colorScheme: "light" \| "dark" \| "auto"` on both roots with `"auto"` on the media feed and one re-derivation path for every profile change, the demo's scheme switch with its Reference section following the resolved scheme (12 of 32 picker scenes carry a dark capture; the rest withdraw the pair with a sentence); Codex review's one finding fixed; browser suites 21 / 21 on three engines and 5 / 5 on the demo; ships its numbers with G2 — X7's test carries G1's re-recording through |
 
 ## Decision Log
@@ -464,8 +472,68 @@ it exists on either tier; no canonical cell needs it; a spike's shape, deferred)
 composite (the pair says lerp). Fitting `specularGain` to a small value (its rows do not separate
 it). The collapsed rim now (a renderer mechanism for +0.017 on a 0.0008 cell).
 
+### Decision Log 3 — G1 at the gate: the stops dispositioned, the sweep deferred to its own wave, the CSS residual recorded, the landing ruled (2026-09-07; the parent, on the user's standing instruction, the eye's veto kept before publish)
+
+**What G1 declared** (claims §5.90). Seven constants; GPU calibration ΔE 0.0085 → 0.0041 at both
+scales and the holdout 0.0300 → 0.0161 with all three cells improving; every thick cell inside the
+0.010 body clause with nothing fitted; the tinted and collapsed cells unmoved; 52 light captures
+byte-identical. Three things did not land, each a named term rather than a miss of a fitted
+constant.
+
+**Rulings.**
+
+(a) **S1 on the CSS tier does not stop the landing.** The stop was chartered on "any untinted dark
+row" and it fires on ten CSS rows and no GPU row. The wave's target is the GPU tier and the CSS tier
+derives what its two layers carry, with a CSS-only residual recorded rather than chartered (wave
+Decision Log 23 (a)). The residual is recorded with its cause and its numbers (§5.90 §6): correct
+over solids (`dark-solid__rrect-md` 0.0307 → 0.0046), over-dark over structured backdrops (the body
+at 0.0122 against 0.0468 on `checkerboard__rrect-md`). The 0.10.0 changeset says so in one sentence
+— the dark material on the CSS tier is right over solids and too dark over busy backdrops. **One
+bounded diagnosis is deferred by name**: why the CSS tier's body lands at the dark anchor's level
+over a checkerboard whose encoded mean is 0.5, when the law at that input says 0.047 — whether the
+tier feeds the response law an input in the wrong space over a structured backdrop, which would be a
+derivation defect and not a limit of two layers. Not taken here because a CSS derivation change
+moves the light CSS captures this wave binds byte-identical (X3).
+
+(b) **The stationary specular sweep is a renderer defect in both schemes and is deferred to a
+corrective wave of its own, ahead of the thick-span composite.** Isolated to +0.0000 on three sides
+and 0.12–0.24 on the left; fitted over by three waves of rim work; unfixable inside a wave that
+binds the light captures. Clause 4 is ruled met as far as the wave's own constants reach — every
+side but the left inside 0.0163, the collapsed capsules on all four — with the left side and the
+flatness attributed to the sweep by isolation. The recommendation to the user: W22, the resting
+sweep (gate the band on the shimmer running; re-read the rim per side on both beds; the light
+captures move and the rim floors are re-read), before the thick-span composite.
+
+(c) **The thin rows' appearance term is carried at its measured size, and Decision Log 2 (e)'s
+premise is corrected here.** That ruling quoted "within 0.02"; the two canonical capsules over
+structured backdrops read 0.039 and 0.044, and the probe's capsules 0.033–0.058 rising with the
+encoded input. The direction is unchanged (no constant is added to the law; the term is a
+scene-level input neither tier has) and clause 3 is ruled met on the thick rows and the three thin
+cells it reaches, with the two structured capsules named as the appearance term's cells — their ΔE
+improved anyway, because the rim and the passed structure moved on them.
+
+(d) **The landing.** G2 lands as declared: the canonical rebuild from the main checkout, every dark
+capture reproducing `g1-digests.txt` byte for byte (X6), the light rows byte-identical, the gate's
+dark bounds re-proposed by the margin rule as a user decision, the predicate re-derived, the sheets,
+the changeset (folded into G3's 0.10.0 minor), the user's eye before publish.
+
+**Rejected.** Zeroing `sweepGain` in the dark patch (deletes the dark scheme's shimmer animation
+for a rest-state metric). A CSS-only response strength (a second material for one tier against the
+one-profile rule and the coherence pin). A thickness-graded second alpha (S5: its rows carry the
+appearance term). Holding the landing for the sweep (a light-scheme defect older than this wave, on
+its own charter).
+
 ## Surprises & Discoveries
 
+- **The highlight pass draws its specular sweep as a stationary band on the left edge of every
+  resting surface, in both colour schemes** (G1, claims §5.90 §4): the band is centred on the motion
+  driver's sweep channel, 0 at rest, and 0 radians is the left edge; isolated to +0.0000 on the
+  other three sides and 0.12–0.24 on the left. Three waves of rim work fitted a two-light rim over
+  it. Found only when the rim was read per side against a reference whose sides agree to three
+  decimals.
+- **The alpha's separation from the level is a cliff, not a slope** (G1, §5.90 §3): above 0.92 the
+  thick body is flat in the alpha to 0.0002; below about 0.895 it climbs as the solve runs out of
+  headroom against the black clamp. The landed 0.90 is the nearest rendered point on the safe side.
 - **The dark material's thin surface is an appearance switch the scene selects** (G0, claims §5.89
   §2): over a scene that is bright everywhere it draws its light appearance (0.9666, within 0.005
   of the light scheme's thin top), over a dark scene with a locally white footprint it stays dark
@@ -498,6 +566,11 @@ it). The collapsed rim now (a renderer mechanism for +0.017 on a 0.0008 cell).
 
 ## Revision Notes
 
+- 2026-09-07: G1 DECLARED (claims §5.90) — the dark profile re-recorded on measured anchors, the
+  rim's light direction gone, the alpha refitted on the passthrough; the dry run on the canonical
+  bed with the holdout read once; Decision Log 3: S1's CSS rows recorded as the tier's residual, the
+  stationary sweep deferred to its own wave, Decision Log 2 (e)'s premise corrected, the landing
+  ruled; two Surprises; two Deferred entries; G2 dispatched.
 - 2026-09-07: G0 CLOSED (claims §5.89) — the dark reference measured over seven attested runs (a
   locked console cost ten runs and one mid-run input another; every one named in provenance);
   Decision Log 2 written with G1's binding design: the measured anchors with the thin top at the
