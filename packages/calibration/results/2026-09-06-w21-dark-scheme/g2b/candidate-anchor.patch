@@ -1,0 +1,418 @@
+diff --git a/packages/calibration/test/tier-coherence.test.ts b/packages/calibration/test/tier-coherence.test.ts
+index 0a35f32..e57d41e 100644
+--- a/packages/calibration/test/tier-coherence.test.ts
++++ b/packages/calibration/test/tier-coherence.test.ts
+@@ -97,8 +97,11 @@ import {
+   sourceOptics,
+   unsampledMaterials,
+   sourceSize,
++  cssTierCompositeLevel,
+   cssTierFloorAlpha,
+   cssTierTintTable,
++  cssTintFormAt,
++  darkMaterialProfile,
+   linearTint,
+   tintedCssOptics,
+   innerShadowedSourceOptics,
+@@ -165,6 +168,12 @@ const srgbEncode = (linear: number): number => {
+   return clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * clamped ** (1 / 2.4) - 0.055;
+ };
+ 
++/** The same transfer function, decode direction. */
++const srgbDecode = (encoded: number): number => {
++  const clamped = Math.min(1, Math.max(0, encoded));
++  return clamped <= 0.04045 ? clamped / 12.92 : ((clamped + 0.055) / 1.055) ** 2.4;
++};
++
+ /** W14 G1's six amplitude anchors — three below the shadow's knee, three above. */
+ const AMPLITUDE_ANCHORS = [
+   "thinOcclusionDark",
+@@ -1930,6 +1939,124 @@ describe("the interior composite (X7)", () => {
+     }
+   });
+ 
++  it("lands the dark scheme's encoded overlay on the renderer's composite, over structure", () => {
++    /*
++     * W21 G2b, and the row that would have caught the wave's CSS-tier residual
++     * before it was captured (claims §5.90 §6; W21 Decision Log 3 (a)).
++     *
++     * The dark scheme composites below the linear chain's quantum, so the tier
++     * draws the ENCODED form — one `rgba()` over the blurred backdrop — and the
++     * conversion that writes that layer agrees with the renderer at ONE backdrop.
++     * Anchoring it on the mapping's fitted 0.02 put the layer 0.33 of alpha too
++     * opaque over a checkerboard, because the dark neutral solves INTO 0.02 and
++     * the conversion had no contrast to separate the tint from the backdrop.
++     *
++     * The backdrop here is a checkerboard's own statistics rather than a flat
++     * patch, which is the whole point: its linear mean is 0.5 and its ENCODED
++     * mean is 0.5 too, so the renderer lerps over 0.5 and the `rgba()` sits over
++     * a level that decodes to 0.214. A conversion handed one number for both
++     * cannot land, whatever it is anchored at.
++     */
++    const patch = darkMaterialProfile;
++    const spanPx = 96;
++    const geometry = { widthCssPx: 160, heightCssPx: 96, radiusCssPx: 20, thicknessCssPx: 8 };
++    const policy = NOMINAL_ACCESSIBILITY_POLICY.material;
++    const size = sourceSize(patch);
++    const base = sourceOptics(patch)["regular"];
++    const sample = {
++      rgb: [0.5, 0.5, 0.5] as [number, number, number],
++      luminance: srgbDecode(0.5),
++      linearLuminance: 0.5,
++    };
++
++    const sizeK = cssSizeThicknessUnderPolicy(spanPx, policy, size);
++    const geometricK = cssSizeThickness(spanPx, size);
++    const toneConstants = resolvedBackdropTone(patch);
++    const policyStrength = cssBackdropToneUnderPolicy(
++      policy,
++      resolvedTintShade(patch),
++      size.refractionScale,
++    );
++    const adaptation =
++      cssBackdropToneAdaptation(sample.luminance, geometricK, toneConstants) * policyStrength;
++    const occluded = {
++      ...base,
++      tintAlpha: cssSizeOcclusionAlphaAt(
++        occlusionAlphaUnderPolicy(base.tintAlpha, policy.occlusion),
++        sizeK,
++        size,
++      ),
++    };
++    const responded = toneRespondedSourceOptics(
++      occluded,
++      sample,
++      sizeK,
++      adaptation,
++      (policyStrength >= 0.999 ? 1 : 0) * Math.min(1, Math.max(0, toneConstants.max)),
++      resolvedBackdropToneResponse(patch),
++    );
++    const adapted = adaptedSourceOptics(responded, sample.rgb, adaptation);
++    const source = innerShadowedSourceOptics(
++      adapted,
++      interiorShadowKeep(base, geometry, sizeK, 1 - adaptation, sourceInteriorLight(patch)),
++    );
++    const addedLight = interiorBandLight(
++      base,
++      geometry,
++      1 - adaptation,
++      sourceInteriorLight(patch),
++    );
++
++    // The neutral clamps at black on this cell, which is the state the whole
++    // mechanism lives in — pinned, because a profile that stopped clamping would
++    // make every number below a different measurement.
++    expect(luma(source.tint)).toBe(0);
++    const renderer =
++      (1 - source.tintAlpha) * sample.linearLuminance +
++      source.tintAlpha * luma(source.tint) +
++      addedLight;
++    // Below the chain's quantum, so this surface takes the encoded form and the
++    // conversion is what draws it. The gate `root.ts` applies, evaluated here.
++    const interior = {
++      tintAlpha: source.tintAlpha,
++      tint: source.tint,
++      addedLight,
++    } as const;
++    expect(cssTintFormAt(cssTierCompositeLevel(interior, sample.luminance))).toBe("encoded");
++
++    const compositeOf = (optics: { tintAlpha: number; tint: readonly number[] }): number =>
++      srgbDecode(
++        (1 - optics.tintAlpha) * srgbEncode(sample.luminance) +
++          optics.tintAlpha *
++            luma([optics.tint[0]! / 255, optics.tint[1]! / 255, optics.tint[2]! / 255]),
++      );
++
++    const tierOptics = cssTierOptics(patch, CSS_TIER_MAPPING)["regular"];
++    const anchored = cssOpticsFromSource(tierOptics, source, CSS_TIER_MAPPING, {
++      linearMean: sample.linearLuminance,
++      toneLevel: sample.luminance,
++    });
++    expect(Math.abs(compositeOf(anchored) - renderer)).toBeLessThan(0.005);
++
++    // And the regression the anchor exists for: the mapping's fitted level is
++    // 0.02, the neutral is at 0.00, and the layer it writes lands the composite
++    // an order of magnitude under the renderer's. If a future mapping made this
++    // small the anchor would be carrying nothing and this pin should be re-read.
++    const fitted = cssOpticsFromSource(tierOptics, source, CSS_TIER_MAPPING);
++    expect(Math.abs(compositeOf(fitted) - renderer)).toBeGreaterThan(0.03);
++
++    // Contract X3's arithmetic, in one line: at full adaptation the material is
++    // opaque and the conversion is anchor-INDEPENDENT, which is why the ten
++    // committed light captures that draw the encoded form cannot move.
++    const opaque = { ...source, tintAlpha: 1 };
++    expect(
++      cssOpticsFromSource(tierOptics, opaque, CSS_TIER_MAPPING, {
++        linearMean: sample.linearLuminance,
++        toneLevel: sample.luminance,
++      }),
++    ).toEqual(cssOpticsFromSource(tierOptics, opaque, CSS_TIER_MAPPING));
++  });
++
+   it("draws the renderer's composite through the table, at every level and scale", () => {
+     /*
+      * What the form is FOR: the page's composite of L3's floor overlay over the
+diff --git a/packages/platform-web/src/css-tier.ts b/packages/platform-web/src/css-tier.ts
+index 421f18b..9b16745 100644
+--- a/packages/platform-web/src/css-tier.ts
++++ b/packages/platform-web/src/css-tier.ts
+@@ -92,6 +92,7 @@ import type {
+ import { GLASS_CHANNEL_PROPERTIES } from "./channels";
+ import {
+   boundedForegroundLevel,
++  cssTierCompositeLevel,
+   cssTintFormAt,
+   CSS_TIER_MAPPING,
+   cssTierForegroundBounds,
+@@ -134,10 +135,6 @@ export type { CssTierShadowCarrier };
+  */
+ const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
+ 
+-/** Rec. 709 relative luminance — the space the composite's level is read in. */
+-const luminanceOf = (rgb: readonly [number, number, number]): number =>
+-  0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+-
+ /** The two ink tokens the adaptive foreground chooses between. */
+ export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
+ 
+@@ -1069,9 +1066,10 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
+   const compositeLevel =
+     interior === undefined
+       ? undefined
+-      : (1 - interior.tintAlpha) * (surface.backdropLuminance ?? mapping.referenceBackdropLuminance) +
+-        interior.tintAlpha * luminanceOf(interior.tint) +
+-        interior.addedLight;
++      : cssTierCompositeLevel(
++          interior,
++          surface.backdropLuminance ?? mapping.referenceBackdropLuminance,
++        );
+   const tintForm: "linear" | "encoded" =
+     interior === undefined ||
+     body.filter !== "reference-filter" ||
+diff --git a/packages/platform-web/src/optics.ts b/packages/platform-web/src/optics.ts
+index b5c64ff..0e6f9f7 100644
+--- a/packages/platform-web/src/optics.ts
++++ b/packages/platform-web/src/optics.ts
+@@ -2429,6 +2429,31 @@ export function cssTintFormAt(
+   return linearChainQuantumCodes(compositeLevel) > toleranceCodes ? "encoded" : "linear";
+ }
+ 
++/**
++ * The level `cssTintFormAt` is read at — the interior's own composite over the
++ * backdrop the surface sampled, in linear light.
++ *
++ * One expression in one place because two callers must read the same number for
++ * the same surface: `css-tier.ts` decides which form to draw with it, and
++ * `root.ts` decides with it whether the conversion upstream may anchor on the
++ * measured backdrop (W21 G2b). Were the two to drift, a surface could be
++ * converted for one form and drawn in the other.
++ */
++export function cssTierCompositeLevel(
++  interior: {
++    readonly tintAlpha: number;
++    readonly tint: LinearRgb;
++    readonly addedLight: number;
++  },
++  backdropLuminance: number,
++): number {
++  return (
++    (1 - interior.tintAlpha) * backdropLuminance +
++    interior.tintAlpha * luminance(interior.tint) +
++    interior.addedLight
++  );
++}
++
+ /**
+  * The tint form a whole group reports, folded from the forms its surfaces drew.
+  *
+@@ -2805,15 +2830,59 @@ function encodeRgb(rgb: LinearRgb): Rgb255 {
+   ];
+ }
+ 
++/**
++ * The backdrop the conversion below is made to agree at, as the PAIR of means
++ * the two pipelines actually see (W21 G2b; claims §5.90 §6).
++ *
++ * The renderer lerps over the backdrop's **linear** mean. The `rgba()` layer
++ * sits over `backdrop-filter`'s output, which is the backdrop's **encoded**
++ * mean. Over a solid those are one number and the distinction is invisible;
++ * over a checkerboard they are 0.5000 and 0.2140 in linear light, a factor of
++ * 2.3, and a conversion handed one of them for both solves the wrong equation.
++ * `BackdropToneSample` has measured both since W9 (claims §5.31) for a
++ * neighbouring reason, so this pair costs no new reading.
++ *
++ * Both fields are linear-light quantities: `toneLevel` is the encoded mean
++ * *decoded once*, which is the convention `BackdropToneSample.luminance`
++ * already carries, so `srgbEncode(toneLevel)` is the level the overlay sits on.
++ */
++export interface CssTintAnchor {
++  /** The backdrop's linear mean — what the renderer's lerp composites over. */
++  readonly linearMean: number;
++  /** The backdrop's encoded mean, decoded once — `BackdropToneSample.luminance`. */
++  readonly toneLevel: number;
++}
++
++/**
++ * The mapping's own anchor, as the pair — the two means collapsed onto one
++ * declared level, which is what every caller without a measured backdrop gets
++ * and is arithmetically what this module did before the pair existed.
++ */
++function mappingAnchor(mapping: CssTierMapping): CssTintAnchor {
++  return {
++    linearMean: mapping.referenceBackdropLuminance,
++    toneLevel: mapping.referenceBackdropLuminance,
++  };
++}
++
+ /**
+  * The alpha that makes an sRGB-composited overlay match a linear-light lerp, at
+- * one declared backdrop level.
++ * one declared backdrop.
+  *
+  * The renderer produces `b(1−α) + t·α` in linear light and the page shows
+- * `E(that)`. The CSS tier produces `E(b)(1−α′) + E(t)·α′` directly. Solving the
+- * two for α′ at `b = referenceBackdropLuminance` is the whole conversion, and
+- * the residual either side of that level is the coherence floor named in this
+- * module's header.
++ * `E(that)`. The CSS tier produces `E(b′)(1−α′) + E(t)·α′` directly, where `b′`
++ * is what the blur handed it. Solving the two for α′ at the anchor is the whole
++ * conversion, and the residual either side of it is the coherence floor named in
++ * this module's header.
++ *
++ * `anchor` defaults to the mapping's fitted `referenceBackdropLuminance` in both
++ * spaces, which is the form this function had before W21 G2b and is what every
++ * caller that has not measured a backdrop still gets. A caller that HAS measured
++ * one passes it, and then the conversion is exact at the surface's own level
++ * instead of at a level fitted on a different scheme — see `root.ts`, where the
++ * pair is passed only where the whole tint composites in the page's encoded
++ * space and the fitted anchor was therefore never measured (claims §5.90 §6;
++ * W21 Decision Log 3 (a)).
+  *
+  * Exported because it is the mapping's substance: a reader checking whether a
+  * tuned `referenceBackdropLuminance` is doing what it claims should be able to
+@@ -2822,17 +2891,19 @@ function encodeRgb(rgb: LinearRgb): Rgb255 {
+ export function cssTintAlpha(
+   source: MaterialSourceOptics,
+   mapping: CssTierMapping = CSS_TIER_MAPPING,
++  anchor: CssTintAnchor = mappingAnchor(mapping),
+ ): number {
+-  const backdrop = mapping.referenceBackdropLuminance;
+   const tint = luminance(source.tint);
+-  const encodedBackdrop = srgbEncode(backdrop);
++  const encodedBackdrop = srgbEncode(anchor.toneLevel);
+   const span = srgbEncode(tint) - encodedBackdrop;
+-  // A tint sitting at the reference backdrop's own level is invisible in both
+-  // pipelines, so there is no alpha to solve for and the renderer's passes
+-  // through. Only reachable from a profile that tints to the reference level.
++  // A tint sitting at the anchor's own level is invisible in both pipelines, so
++  // there is no alpha to solve for and the renderer's passes through. Reachable
++  // from a profile that tints to the anchor's level — which the dark scheme's
++  // neutral does at the fitted 0.02, and which is one of the two degeneracies
++  // the measured anchor exists to leave (`g2b/diagnosis.txt` §3 (a)).
+   if (Math.abs(span) < mapping.minimumTintContrast) return clamp01(source.tintAlpha);
+ 
+-  const composited = backdrop * (1 - source.tintAlpha) + tint * source.tintAlpha;
++  const composited = anchor.linearMean * (1 - source.tintAlpha) + tint * source.tintAlpha;
+   return clamp01((srgbEncode(composited) - encodedBackdrop) / span);
+ }
+ 
+@@ -2863,12 +2934,13 @@ export function cssTintColor(
+   source: MaterialSourceOptics,
+   cssAlpha: number,
+   mapping: CssTierMapping = CSS_TIER_MAPPING,
++  anchor: CssTintAnchor = mappingAnchor(mapping),
+ ): Rgb255 {
+   if (cssAlpha <= mapping.minimumTintContrast) return encodeRgb(source.tint);
+-  const backdrop = mapping.referenceBackdropLuminance;
+-  const encodedBackdrop = srgbEncode(backdrop);
++  const encodedBackdrop = srgbEncode(anchor.toneLevel);
+   const channel = (index: 0 | 1 | 2): number => {
+-    const composited = backdrop * (1 - source.tintAlpha) + source.tint[index] * source.tintAlpha;
++    const composited =
++      anchor.linearMean * (1 - source.tintAlpha) + source.tint[index] * source.tintAlpha;
+     const solved = (srgbEncode(composited) - encodedBackdrop * (1 - cssAlpha)) / cssAlpha;
+     return Math.round(clamp01(solved) * 255);
+   };
+@@ -2990,12 +3062,13 @@ export function cssOpticsFromSource(
+   base: MaterialOptics,
+   source: MaterialSourceOptics,
+   mapping: CssTierMapping = CSS_TIER_MAPPING,
++  anchor: CssTintAnchor = mappingAnchor(mapping),
+ ): MaterialOptics {
+-  const alpha = cssTintAlpha(source, mapping);
++  const alpha = cssTintAlpha(source, mapping, anchor);
+   return {
+     ...base,
+     tintAlpha: alpha,
+-    tint: cssTintColor(source, alpha, mapping),
++    tint: cssTintColor(source, alpha, mapping, anchor),
+     // Derived rather than inherited from `base`, because the backdrop adaptation
+     // is allowed to move the rim and this is the one conversion it lands through.
+     // Identical to `base`'s for every source that did not move it — the same
+diff --git a/packages/platform-web/src/root.ts b/packages/platform-web/src/root.ts
+index b43cbff..34d94d0 100644
+--- a/packages/platform-web/src/root.ts
++++ b/packages/platform-web/src/root.ts
+@@ -133,7 +133,9 @@ import {
+   CSS_TIER_MAPPING,
+   cssOpticsFromSource,
+   cssShadowBlurRadius,
++  cssTierCompositeLevel,
+   cssTierOptics,
++  cssTintFormAt,
+   gpuTierForegroundBounds,
+   gpuTierForegroundLevel,
+   innerShadowedSourceOptics,
+@@ -2023,7 +2025,51 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
+         // backdrop used to short-circuit to the statically converted `baseOptics`:
+         // the size law's occlusion is inside the source's alpha since W17 G1, so
+         // the static table is a material one span smaller than this surface's.
+-        const nodeUntintedOptics = cssOpticsFromSource(baseOptics, shadowedSource, cssMapping);
++        /*
++         * Where the conversion is anchored (W21 G2b; claims §5.90 §6, W21
++         * Decision Log 3 (a)).
++         *
++         * `cssTintAlpha` agrees with the renderer at ONE backdrop, and the
++         * mapping's fitted `referenceBackdropLuminance` (0.02) was fitted on the
++         * light scheme's cross-tier difference. The dark scheme's neutral solves
++         * INTO that level — 0.0000 to 0.0352 across the committed bed — so the
++         * conversion is being asked to separate a tint from a backdrop that are
++         * the same colour: on two cells the span falls under
++         * `minimumTintContrast` and the renderer's linear alpha is emitted
++         * verbatim as an encoded one, and on the cell whose neutral clamps at
++         * black the solved 0.839 stands where 0.505 would have landed the
++         * renderer's own composite over a checkerboard. Measured: the CSS body
++         * over a structured dark backdrop lands at 0.0122 against the response
++         * law's 0.0468 and the GPU tier's 0.0475.
++         *
++         * So where the surface has SAMPLED a backdrop, the conversion is
++         * anchored there instead — as the pair of means the two pipelines
++         * actually see, because the renderer lerps over the linear mean and the
++         * `rgba()` sits over `backdrop-filter`'s encoded one, which differ by
++         * 2.3x on the checkerboard.
++         *
++         * The gate is the composite's own level. `cssTintFormAt(...) ===
++         * "encoded"` is a sufficient condition for the encoded form — the tier
++         * falls back to that form for other reasons too, none of which is
++         * checkable here — so no surface drawing the LINEAR form is reached, and
++         * the light bed, which has drawn the linear form since W17 G1, cannot
++         * move. The plain-`blur()` engines that keep the encoded overlay at a
++         * high composite level keep the fitted anchor and contract X9 with it.
++         * What is left inside the gate is exactly the population the fitted
++         * anchor was never measured on, plus the fully adapted cells where alpha
++         * is 1 and the conversion is anchor-independent by construction.
++         */
++        const conversionAnchor =
++          backdropTone !== undefined &&
++          cssTintFormAt(cssTierCompositeLevel(interior, backdropTone.luminance)) === "encoded"
++            ? { linearMean: backdropTone.linearLuminance, toneLevel: backdropTone.luminance }
++            : undefined;
++        const nodeUntintedOptics = cssOpticsFromSource(
++          baseOptics,
++          shadowedSource,
++          cssMapping,
++          conversionAnchor,
++        );
+         // The conversion is computed once and travels twice (W19 G1, claims §5.80
+         // §7). The FOLD is still what the renderer input, the encoded form and
+         // every plain-`blur()` engine need — the whole-material fold was never

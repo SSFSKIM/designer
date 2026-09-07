@@ -1,0 +1,92 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (33 tests | 4 failed) 35ms
+     × gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK 4ms
+     × gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 0ms
+     × gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK 2ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK
+AssertionError: dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard: ssimOutside = 0.67089, gate ≥ 0.78: expected 0.6708868083787658 to be greater than or equal to 0.78
+ ❯ test/adopted-thresholds.test.ts:1261:63
+    1259|
+    1260|             const because = `${name(cell)}: ${metric} = ${measured.toP…
+    1261|             if (comparison === "≥") expect(measured, because).toBeGrea…
+       |                                                               ^
+    1262|             else expect(measured, because).toBeLessThanOrEqual(thresho…
+    1263|           }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK
+AssertionError: texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard: silhouetteIoU = 0.92673, gate ≥ 0.93: expected 0.9267283566153572 to be greater than or equal to 0.93
+ ❯ test/adopted-thresholds.test.ts:1261:63
+    1259|
+    1260|             const because = `${name(cell)}: ${metric} = ${measured.toP…
+    1261|             if (comparison === "≥") expect(measured, because).toBeGrea…
+       |                                                               ^
+    1262|             else expect(measured, because).toBeLessThanOrEqual(thresho…
+    1263|           }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK
+AssertionError: dom / silhouetteIoU: the gate must cover every applicable cell: expected [ { key: { …(3) }, …(8) }, …(7) ] to have a length of 7 but got 8
+
+- Expected
++ Received
+
+- 7
++ 8
+
+ ❯ test/adopted-thresholds.test.ts:1244:13
+    1242|             applicable,
+    1243|             `${tier} / ${metric}: the gate must cover every applicable…
+    1244|           ).toHaveLength(expected);
+       |             ^
+    1245|           expect(applicable.length, `${tier} / ${metric}: nothing left…
+    1246|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(33) ] to deeply equal [ …(34) ]
+
+- Expected
++ Received
+
+@@ -4,11 +4,10 @@
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard",
+-   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+
+ ❯ test/adopted-thresholds.test.ts:1271:78
+    1269|   it("machine-checks the well-conditioned predicate and names every ce…
+    1270|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    1271|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    1272|       ...PREDICATE_EXCLUDES,
+    1273|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 29 passed (33)
+   Start at  17:47:24
+   Duration  196ms (transform 49ms, setup 0ms, import 79ms, tests 35ms, environment 0ms)
+
+undefined
+/Users/new/Developer/GitHub/designer/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/adopted-thresholds.test.ts

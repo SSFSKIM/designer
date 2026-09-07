@@ -1,0 +1,84 @@
+W21 G2b — the referee over the scratch read
+scratch matrix    /Users/new/.claude/jobs/5c70e47f/tmp/w21/g2b/matrix.json
+scratch captures  /Users/new/.claude/jobs/5c70e47f/tmp/w21/g2b/web-captures
+
+(i) CONTRACT: the GPU tier is untouched — 1x dark webgpu against g1-digests.txt
+    13 / 13 byte-identical to G1's digests
+
+(ii) CONTRACT X3: every light CSS capture byte-identical to the canonical bed
+    89 / 89 byte-identical
+
+(iii) THE DARK CSS ROWS — OKLab ΔE mean, W20 bed / G2 landed / G2b
+    profile  set          scene                                   W20      G2       G2b
+    -1x-dark calibration  checkerboard__capsule-button__rest     0.00946  0.01356  0.00623
+    -1x-dark calibration  checkerboard__capsule-button__rest-tint-orange 0.00361  0.00364  0.00364
+    -1x-dark holdout      checkerboard__glass-over-glass__rest   0.04074  0.07057  0.05952
+    -1x-dark calibration  checkerboard__rrect-md__rest           0.02125  0.04164  0.03353
+    -1x-dark calibration  dark-solid__capsule-button__rest       0.00077  0.00077  0.00077
+    -1x-dark calibration  dark-solid__capsule-button__rest-tint-orange 0.00340  0.00340  0.00340
+    -1x-dark calibration  dark-solid__rrect-md__rest             0.03065  0.00455  0.00453
+    -1x-dark validation   impulse__capsule-button__rest          0.00362  0.00362  0.00362
+    -1x-dark holdout      mid-dark-solid__capsule-button__rest   0.00583  0.00096  0.00066
+    -1x-dark calibration  photo__capsule-button__rest            0.00963  0.01114  0.00776
+    -1x-dark calibration  photo__capsule-button__rest-tint-orange 0.00229  0.00227  0.00227
+    -1x-dark holdout      photo__rrect-lg__rest                  0.06211  0.05867  0.02222
+    -1x-dark calibration  photo__rrect-md__rest                  0.02217  0.02373  0.01098
+    -2x-dark calibration  checkerboard__capsule-button__rest     0.00974  0.01313  0.00613
+    -2x-dark calibration  checkerboard__capsule-button__rest-tint-orange 0.00368  0.00370  0.00370
+    -2x-dark holdout      checkerboard__glass-over-glass__rest   0.04228  0.06594  0.06095
+    -2x-dark calibration  checkerboard__rrect-md__rest           0.02217  0.03849  0.03475
+    -2x-dark calibration  dark-solid__capsule-button__rest       0.00077  0.00077  0.00077
+    -2x-dark calibration  dark-solid__capsule-button__rest-tint-orange 0.00347  0.00347  0.00347
+    -2x-dark calibration  dark-solid__rrect-md__rest             0.03070  0.00455  0.00453
+    -2x-dark validation   impulse__capsule-button__rest          0.00401  0.00401  0.00401
+    -2x-dark holdout      mid-dark-solid__capsule-button__rest   0.00588  0.00097  0.00066
+    -2x-dark calibration  photo__capsule-button__rest            0.00974  0.01120  0.00793
+    -2x-dark calibration  photo__capsule-button__rest-tint-orange 0.00233  0.00231  0.00231
+    -2x-dark holdout      photo__rrect-lg__rest                  0.06213  0.05859  0.02159
+    -2x-dark calibration  photo__rrect-md__rest                  0.02237  0.02395  0.01107
+
+    the thirteen rows the gate read RED at G2, landed -> G2b
+    -1x-dark dom      checkerboard__glass-over-glass__rest   ssimMean                     0.80048 -> 0.82221
+    -2x-dark dom      checkerboard__glass-over-glass__rest   ssimMean                     0.83543 -> 0.85878
+    -2x-dark texture  checkerboard__glass-over-glass__rest   silhouetteIoU                0.92673 -> 0.92673
+    -1x-dark dom      checkerboard__capsule-button__rest     interiorLevelRatioGpuOverCss 2.07054 -> 0.64034
+    -2x-dark dom      checkerboard__capsule-button__rest     interiorLevelRatioGpuOverCss 1.99868 -> 0.64323
+    -1x-dark dom      photo__rrect-md__rest                  interiorLevelRatioGpuOverCss 1.49754 -> 0.96279
+    -2x-dark dom      photo__rrect-md__rest                  interiorLevelRatioGpuOverCss 1.51982 -> 0.97640
+    -1x-dark dom      photo__rrect-lg__rest                  interiorLevelRatioGpuOverCss 1.48598 -> 0.93162
+    -2x-dark dom      photo__rrect-lg__rest                  interiorLevelRatioGpuOverCss 1.49937 -> 0.93956
+    -1x-dark dom      photo__capsule-button__rest            interiorLevelRatioGpuOverCss 1.27721 -> 0.96728
+    -2x-dark dom      photo__capsule-button__rest            interiorLevelRatioGpuOverCss 1.28114 -> 0.98253
+    -1x-dark dom      checkerboard__glass-over-glass__rest   crossTierOklabDeltaEMean     0.06240 -> 0.05083
+    -2x-dark dom      checkerboard__glass-over-glass__rest   crossTierOklabDeltaEMean     0.05782 -> 0.05254
+
+    every dark dom cell: interior level ratio and cross-tier ΔE, landed -> G2b
+    -1x-dark checkerboard__capsule-button__rest     ratio 2.0705 -> 0.6403 | ΔE 0.0089 -> 0.0084
+    -1x-dark checkerboard__capsule-button__rest-tint-orange ratio 0.9989 -> 0.9989 | ΔE 0.0031 -> 0.0031
+    -1x-dark checkerboard__glass-over-glass__rest   ratio 2.4743 -> 0.5730 | ΔE 0.0624 -> 0.0508
+    -1x-dark checkerboard__rrect-md__rest           ratio 3.8995 -> 0.5192 | ΔE 0.0419 -> 0.0338
+    -1x-dark dark-solid__capsule-button__rest       ratio    -    ->    -    | ΔE 0.0000 -> 0.0000
+    -1x-dark dark-solid__capsule-button__rest-tint-orange ratio 0.9954 -> 0.9954 | ΔE 0.0029 -> 0.0029
+    -1x-dark dark-solid__rrect-md__rest             ratio 2.3645 -> 2.4205 | ΔE 0.0017 -> 0.0017
+    -1x-dark impulse__capsule-button__rest          ratio 0.9994 -> 0.9994 | ΔE 0.0008 -> 0.0008
+    -1x-dark mid-dark-solid__capsule-button__rest   ratio 1.0577 -> 1.0170 | ΔE 0.0010 -> 0.0007
+    -1x-dark photo__capsule-button__rest            ratio 1.2772 -> 0.9673 | ΔE 0.0039 -> 0.0034
+    -1x-dark photo__capsule-button__rest-tint-orange ratio 0.9988 -> 0.9988 | ΔE 0.0016 -> 0.0016
+    -1x-dark photo__rrect-lg__rest                  ratio 1.4860 -> 0.9316 | ΔE 0.0351 -> 0.0216
+    -1x-dark photo__rrect-md__rest                  ratio 1.4975 -> 0.9628 | ΔE 0.0131 -> 0.0091
+    -2x-dark checkerboard__capsule-button__rest     ratio 1.9987 -> 0.6432 | ΔE 0.0087 -> 0.0084
+    -2x-dark checkerboard__capsule-button__rest-tint-orange ratio 0.9999 -> 0.9999 | ΔE 0.0031 -> 0.0031
+    -2x-dark checkerboard__glass-over-glass__rest   ratio 2.2807 -> 0.5718 | ΔE 0.0578 -> 0.0525
+    -2x-dark checkerboard__rrect-md__rest           ratio 3.3258 -> 0.5130 | ΔE 0.0387 -> 0.0352
+    -2x-dark dark-solid__capsule-button__rest       ratio    -    ->    -    | ΔE 0.0000 -> 0.0000
+    -2x-dark dark-solid__capsule-button__rest-tint-orange ratio 0.9979 -> 0.9979 | ΔE 0.0029 -> 0.0029
+    -2x-dark dark-solid__rrect-md__rest             ratio 2.8722 -> 2.9410 | ΔE 0.0018 -> 0.0018
+    -2x-dark impulse__capsule-button__rest          ratio 0.9977 -> 0.9977 | ΔE 0.0008 -> 0.0008
+    -2x-dark mid-dark-solid__capsule-button__rest   ratio 1.0827 -> 1.0421 | ΔE 0.0011 -> 0.0008
+    -2x-dark photo__capsule-button__rest            ratio 1.2811 -> 0.9825 | ΔE 0.0039 -> 0.0035
+    -2x-dark photo__capsule-button__rest-tint-orange ratio 0.9999 -> 0.9999 | ΔE 0.0016 -> 0.0016
+    -2x-dark photo__rrect-lg__rest                  ratio 1.4994 -> 0.9396 | ΔE 0.0356 -> 0.0228
+    -2x-dark photo__rrect-md__rest                  ratio 1.5198 -> 0.9764 | ΔE 0.0135 -> 0.0098
+
+(iv) THE BED'S SHAPE
+    scratch matrix rows 229, distinct cells 229; canonical 229
