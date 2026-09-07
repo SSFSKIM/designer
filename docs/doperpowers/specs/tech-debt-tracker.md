@@ -633,6 +633,17 @@ probe runner already does from the shell, in one second, and stops after a first
 fewer than 50 of 56); and the tint guard keeps the staged bundle beside its refusal rather than
 deleting it. Below every bound; it costs a run and, without the up-front refusal, the diagnosis.
 
+## The calibration scene server's `VITREA_FIXTURES` containment check compares a normalised path against the raw environment value (W21 G0, 2026-09-07)
+
+*Found on W21's probe, vitrea's side.* `packages/calibration/web/vite.config.ts` mounts the
+fixtures directory named by `VITREA_FIXTURES` and then checks each served path's containment with
+`startsWith` against the environment value as given, while the served path has been normalised — so
+a fixtures path carrying a `..` segment fails its own containment check and every background
+returns 403 with a message about running `capture.sh backgrounds`, which is the wrong diagnosis.
+`run-web.sh` in the W21 G0 results canonicalises the path before exporting it. Shape of the fix,
+one line: `resolve()` the environment value before both the mount and the check. Taken by W21 G1
+(Decision Log 2 (g)).
+
 ## `capture.sh probe` reports the Screen Recording grant BLOCKED from a shell while the bundle's own path is granted (W20 G0, 2026-09-06)
 
 `./capture.sh probe` `exec`s `build/harness` as a child of the calling shell, so TCC attributes the

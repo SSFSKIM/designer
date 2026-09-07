@@ -1,9 +1,10 @@
 # W21 — the dark scheme on the GPU tier (2026-09-06)
 
-**Status: OPEN 2026-09-06 — chartered on wave Decision Log 23 (c) at W20's close and the 0.9.0
-cut; the finding pinned the same day (claims §5.87). G0 PARTIAL (claims §5.88): instrument, bed and
-endpoint diagnostic delivered, the native probe blocked on a locked console session (the user's to
-unlock; a watcher starts the probe when it clears). G3 built on its branch ahead of its edge, awaiting G2's numbers to ship.**
+**Status: OPEN — chartered 2026-09-06 on wave Decision Log 23 (c) at W20's close and the 0.9.0
+cut; the finding pinned the same day (claims §5.87). G0 CLOSED 2026-09-07 (claims §5.88–§5.89;
+Decision Log 2): the dark reference measured over seven attested runs — W9's law carries for thick
+surfaces with nothing fitted, the thin surface is an appearance switch the scene selects, the rim
+has no light direction. G3 MERGED ahead of its edge. G1 dispatched.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W21 row; Decision Log 23 (c)). The law this wave
@@ -331,6 +332,21 @@ at a time.
 - **The CSS tier's dark residual** — recorded, not chartered (Decision Log 23 (a)).
 - **The gate's dark bounds** — re-proposed at G2 by the margin rule; adopting is the user's.
 - **Default `colorScheme: "auto"`** — a later major.
+- **The appearance switch** (Decision Log 2 (a); claims §5.89 §2): the dark material's thin surface
+  draws the light appearance over a uniformly bright scene — `light-solid__rrect-sm` 0.9666 against
+  `checkerboard-64__rrect-sm` 0.1611 at the same footprint input. A scene-level term neither tier
+  has an input for; no canonical dark cell exercises it; both readings on file. A spike's shape:
+  which scene statistic selects the appearance, on a ladder of scenes between the two.
+- **The thin row's residual after the footprint anchor** (0.0244 mean on the probe grid, rising
+  with the encoded input) — the same term seen as a residual.
+- **The rim's horizontal-against-vertical split over bright backdrops** (0.09–0.12 over
+  `light-solid`, the vertical edges brighter; §5.89 §5) — recorded, not fitted; no dark canonical
+  cell shows it.
+- **The collapsed rim** (+0.017 on `dark-solid__rrect-sm`; Decision Log 2 (b)) — one number, a
+  renderer mechanism to take, below every bound.
+- **`hc-text__rrect-sm`'s 4-of-7 state share** — topped up when the console allows; in no fit.
+- **W9's H4 remainder in dark** (0.0010–0.0013 on the thick rows, sign-consistent) — where the
+  light scheme left it.
 - **A unit suite for the demo.** `apps/demo` has no vitest; G3's `reportsFor` and `nativeCaptureFor`
   are pure over committed data and are pinned only by the demo's e2e. Twenty lines of test behind a
   config, a script and a lockfile entry — small infrastructure, not opened mid-wave.
@@ -339,8 +355,8 @@ at a time.
 
 | child | status |
 | --- | --- |
-| G0 — the dark probe and the instrument | PARTIAL 2026-09-06 (claims §5.88): the bed declared, the instrument validated (X4 0.0028; W9's verdict unchanged under the swap), the endpoint diagnostic measured — the remainder runs downward, the light anchors miss by six times, the law reaches neither the collapsed nor the tinted cells; **the native probe BLOCKED** by a locked console session — first read as a Screen Sharing failure, corrected the same day (§5.88's correction) — the user's to unlock; a watcher starts `run-probe.sh` when the lock clears |
-| G1 — the form declared and dry-run | — |
+| G0 — the dark probe and the instrument | CLOSED 2026-09-07 (claims §5.88–§5.89): seven attested runs of eighteen (the rest disqualified by name — a locked console, one mid-run input), the six anchors read at majority σ 0.0000, P3 0.0078 on the thick rows and the candidate at the measured anchors 0.0044 mean body error with nothing fitted; the thin row an appearance switch (`light-solid__rrect-sm` 0.9666 against `checkerboard-64__rrect-sm` 0.1611 at the same footprint input); the rim flat to 0.001–0.004 on the dark solids where vitrea spreads it by 0.15; the passthrough a lerp three to five times too strong; the tints untouched; Decision Log 2 |
+| G1 — the form declared and dry-run | DISPATCHED 2026-09-07 on Decision Log 2 |
 | G2 — the landing and its referee | — |
 | G3 — the dark scheme shipped | MERGED 2026-09-06 (`c017625`, `bc0b9e8`; Decision Log 1's shape): `darkMaterialProfile` generated from the profile document and pinned to it in two packages (X7), `colorScheme: "light" \| "dark" \| "auto"` on both roots with `"auto"` on the media feed and one re-derivation path for every profile change, the demo's scheme switch with its Reference section following the resolved scheme (12 of 32 picker scenes carry a dark capture; the rest withdraw the pair with a sentence); Codex review's one finding fixed; browser suites 21 / 21 on three engines and 5 / 5 on the demo; ships its numbers with G2 — X7's test carries G1's re-recording through |
 
@@ -375,8 +391,90 @@ same 0.10.0; (2) the landing, on the sheet; (3) the gate's dark bounds re-propos
 0.10.0 cut. Under the standing instruction ("for decisions, all according to your
 recommendation") the parent proceeds on (1) as recommended, opt-in, unless told otherwise.
 
+### Decision Log 2 — G0 read: the law carries for thick surfaces, the thin row's top is the footprint reading, the rim loses its light direction; G1's design made binding (2026-09-07; the parent, within G1's remit, on the user's standing instruction)
+
+**What G0 measured** (claims §5.89). Seven attested runs; the six anchors at majority σ 0.0000;
+W9's law at the measured anchors predicts every thick cell to P3 0.0078 and the candidate render
+lands the thick rows at 0.0044 mean body error with nothing fitted; the thin surface is bistable
+between the material's own light and dark appearances and the scene, not the footprint, chooses
+(`light-solid__rrect-sm` 0.9666 in six runs of seven against `checkerboard-64__rrect-sm` 0.1611 in
+seven of seven at the same uniform-white footprint input); the reference's rim has no light
+direction (top = bottom, left = right, to three decimals on every solid); the passthrough is a lerp
+and vitrea holds back three to five times too much structure at every pitch; the tinted cells are
+untouched by everything.
+
+**Rulings, binding on G1.**
+
+(a) **The anchors, as measured (X1):** `backdropToneAnchorX` [0.1104, 0.2706, 0.9505] (identical to
+the light profile's, as it must be), `backdropToneResponseThick` [0.0131, 0.0238, 0.1006],
+`backdropToneResponseThin` [0.0110, 0.0284, **0.1611**], `backdropToneResponseStrength` 1, on the
+dark profile document (which serves both dark profiles). The thin row's top is
+`checkerboard-64__rrect-sm`'s uniform-white FOOTPRINT reading, not `light-solid__rrect-sm`'s 0.9666.
+The reasoning is the ruling: 0.9666 is the material's light appearance drawn on a scene that is
+bright everywhere (it sits within 0.005 of the light scheme's own thin top, 0.9713); the law's input
+is the footprint by W9's design; no canonical dark cell puts a thin surface over a bright scene; and
+a dark profile that reproduced it would draw the light material on a white page — which is exactly
+what `backdropToneResponseStrength: 0` had been protecting against. Both readings are on file
+(`anchors-measured.json`, `anchors-footprint-top.json`); the RMS is flat in the anchor between
+0.145 and 0.170, so its exact value is not load-bearing. The scene's appearance switch is
+**deferred by name** with its evidence: a scene-level term neither tier has an input for.
+
+(b) **The rim:** `optics.regular.specularGain` 0 on the dark profile — the reference's four sides
+agree to 0.001–0.004 on both dark solids where vitrea spreads them by 0.147–0.150, so the constant's
+rows do not separate it and it is carried for nothing; `optics.regular.rimAlpha` fitted on the six
+solid cells' rim excess over the body (0.015–0.019 over `dark-solid`, 0.035–0.039 over
+`mid-dark-solid`, thin to thick — two rows of three cells for one constant). The
+horizontal-against-vertical split over bright backdrops (0.09–0.12 over `light-solid`) is recorded,
+not fitted. **The collapsed rim (+0.017 on the one cell vitrea collapses) is deferred**: it is one
+number, but taking it is a renderer mechanism (the collapse retaining a rim trace) for a cell whose
+ΔE is 0.0008 — below every bound; recorded with its number.
+
+(c) **The alpha:** a lerp (three of four components on the equal-mean pair; the multiply is not
+needed and the profile document's caveat is answered). `optics.regular.tintAlpha` refitted on the
+passthrough rows — the pitch sweep at fixed component (`rrect-md` 0.0143 → 0.0637 in `pass` against
+vitrea's 0.0030 → 0.0197), checked on the equal-mean pair where the level and the structure move
+independently — with `hc-text__rrect-sm` (4-of-7, too close to call) in no fit. The blur's shape is
+nearer than its amplitude, so the alpha alone is tried first; a second constant only if the sd rows
+separate it (S5).
+
+(d) **The solve's reach:** the collapse keeps the near-black domain (the collapsed and tinted cells
+are degenerate in the endpoint table; the `impulse` validation cell stays the collapse's); the
+solve-weight fade below the dark anchor is untested by this grid and is left alone.
+
+(e) **The dry run and its stops** (X6): the canonical dark bed at both scales on the GPU tier at the
+frozen constants with the holdout read once, the CSS tier captured beside it from the same patch,
+every light-profile capture verified byte-identical on both tiers; the stops as chartered (S1–S7)
+with G1's numbers, plus the acceptance re-read: clause 3's 0.010 body is met on the thick rows by
+construction, and on the thin rows the canonical bed's capsules over structured and dark backdrops
+read within 0.02 on the probe grid, so G1 reports each thin cell's body against 0.010 and the parent
+rules on the remainder with the appearance term named — no constant is added to the law for it.
+
+(f) **The instrument's noise floor** for every bound: majority σ 0.0000 within a settled appearance;
+the reader's recovery bound 0.0028 is the floor quoted beside a level; the full σ is quoted beside a
+bistable cell (four cells, all thin).
+
+(g) **Housekeeping that rides G1:** the profile document's `$comment-w21` block and its `entries`
+re-recorded with provenance, `resolvedMaterialSha256` moved, the generated `dark-profile.ts`
+regenerated (`pnpm --filter @vitreajs/vitrea-web run profile:dark`; X7's tests fail until it is),
+the scene server's `VITREA_FIXTURES` containment check fixed with `resolve()` (claims §5.89 §8).
+
+**Rejected.** Adopting 0.9666 as the thin top (reproduces one cell to 0.0019 and costs nineteen; a
+white page would get the light material). A scene-level appearance term in this wave (no input for
+it exists on either tier; no canonical cell needs it; a spike's shape, deferred). A multiply
+composite (the pair says lerp). Fitting `specularGain` to a small value (its rows do not separate
+it). The collapsed rim now (a renderer mechanism for +0.017 on a 0.0008 cell).
+
 ## Surprises & Discoveries
 
+- **The dark material's thin surface is an appearance switch the scene selects** (G0, claims §5.89
+  §2): over a scene that is bright everywhere it draws its light appearance (0.9666, within 0.005
+  of the light scheme's thin top), over a dark scene with a locally white footprint it stays dark
+  (0.1611) — the same footprint input, 0.81 apart. Every genuinely bistable cell on the grid is
+  thin, and the bistability's direction mirrors between schemes.
+- **The reference's rim has no light direction** (§5.89 §5): top equals bottom and left equals
+  right to three decimals on every solid; vitrea's two-light rim spreads the sides by 0.15.
+- **W9's law is better in dark than in light on the thick rows** (§5.89 §3): P3 0.0078 against
+  0.0400, the equal-mean gap predicted to 0.001, `rrect-ml` interpolated to 0.0038 with no anchor.
 - **The dark remainder runs downward** (G0, claims §5.88 §3): every thick dark cell settles below
   the strength-0 render, so the clamp in play is the black one — the mirror of W9's white clamp —
   and at strength 1 the light anchors overshoot the dark reference by a factor of six. The
@@ -400,6 +498,12 @@ recommendation") the parent proceeds on (1) as recommended, opt-in, unless told 
 
 ## Revision Notes
 
+- 2026-09-07: G0 CLOSED (claims §5.89) — the dark reference measured over seven attested runs (a
+  locked console cost ten runs and one mid-run input another; every one named in provenance);
+  Decision Log 2 written with G1's binding design: the measured anchors with the thin top at the
+  footprint reading, `specularGain` 0 and `rimAlpha` on the solids, `tintAlpha` on the passthrough
+  rows, the appearance switch and the collapsed rim deferred with their numbers; three Surprises;
+  six Deferred entries; G1 dispatched.
 - 2026-09-06: G3 MERGED ahead of its edge — the plumbing needs no probe number and X7's test fails
   G1's re-recording until the export is regenerated; the API lands opt-in on the parent's
   recommendation under the standing instruction (Decision Log 1); one review finding and two
