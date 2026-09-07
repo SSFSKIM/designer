@@ -1,314 +1,568 @@
-# W21 G0 — the dark probe and the instrument (findings, PARTIAL: the native probe is blocked)
+# W21 G0 — the dark reference on W9's grid (native probe findings)
 
-**The instrument is built, validated and proven not to change a verdict; the scene bed is declared;
-the endpoint diagnostic is measured and it answers the charter's first open question. The native
-dark probe did not run: every cell of every attempt attests `presentedActive: false` while
-ScreenCaptureKit answers OK, because THE SCREEN IS LOCKED — `CGSSessionScreenIsLocked=Yes`,
-`loginwindow` is the front application, and no application on this machine can be made key. Only the
-user can clear that. (§4b's first reading blamed the Screen Sharing session that was attached at the
-time; §4d corrects it with the evidence, taken after that session ended and the refusal persisted.)**
+**The response law carries into the dark scheme for thick surfaces and does not describe thin ones
+at all.** With the six anchors read off this probe and nothing fitted, the encoded-mean law predicts
+every `rrect-md`, `rrect-ml` and `rrect-lg` cell on the grid to RMS **0.0078** — better than W9's
+light-scheme probe managed overall (0.0400) — and its prediction for the thin row is out by up to
+0.81. The reason is not the curve. The dark reference's thin surface is a **bistable switch between
+the material's own light and dark appearances**, and which one it draws is decided by the scene
+beyond the footprint, not by the footprint's own statistics. `checkerboard-64__rrect-sm`, whose
+footprint lies entirely inside one white checker cell (encoded mean 1.0000), settles at 0.1611 in
+all seven runs; `light-solid__rrect-sm`, encoded mean 0.9505 — the same uniform bright input at the
+footprint, on a scene that is bright everywhere — settles at 0.9666 in six runs of seven and at
+0.0808 in the seventh. No monotone function of a footprint statistic can be both.
 
-What this file can say, in order of what G1 needs:
+**vitrea's side says the same thing with pixels.** Rendered on the probe grid with the measured
+anchors and `backdropToneResponseStrength` 1 and nothing else changed, the mean absolute body error
+against the reference falls from the shipped profile's **0.0159 to 0.0044** on the thick rows,
+already inside the wave's 0.010 body clause with no fitting at all; on the thin rows it falls from
+0.0383 to 0.0244 only if the thin row's top anchor is taken from the uniform-white FOOTPRINT
+reading (0.1611) rather than from the scene reading (0.9666), and it rises to 0.1644 if it is not.
 
-1. **The response law's authority in the dark scheme is measured, and the light anchors are not
-   reachable ground.** Turning `backdropToneResponseStrength` from 0 to 1 on the shipped dark
-   document sends the body to 0.49–0.69 where the dark reference sits at 0.015–0.106. Of the five
-   untinted cells whose endpoints do not coincide, **three need a NEGATIVE strength** and the other
-   two need 0.069 and 0.073. The remainder in the dark scheme runs DOWNWARD — the charter's
-   Design (i) asked which side the clamp falls on and this is the answer: the black clamp, not the
-   white one. The strength knob cannot reach the dark reference from the light rows; the rows
-   themselves have to be replaced, which is the wave's premise, now measured rather than assumed.
-2. **The law has no authority at all on five of the ten dark cells**, and that is good news for two
-   of the wave's stops. Over `dark-solid` the capsule and over `impulse` the capsule render
-   identically at strength 0 and strength 1 (0.0117 and 0.0037), because the collapse owns those
-   inputs; and all three tinted capsules are byte-identical between the two documents (0.4272,
-   0.4276, 0.4276). S2 (no tinted dark cell moves by more than 0.001) and S3 (a collapsed capsule
-   moves by no more than 0.002 in body) are not threatened by the response law itself — whatever G1
-   does to the anchors, it does not reach those cells.
-3. **The instrument is validated twice over** — by injection (X4, worst error 0.0028) and by
-   re-scoring W9's own light probe under both interior definitions, where the ranking, the winner
-   and the rejection are identical and P3 moves 0.0400 → 0.0380. Swapping the silhouette for the
-   declared box changes the measurement, not the verdict.
+**The rim has no light direction.** Over every solid backdrop the reference's top and bottom peaks
+are equal to three decimal places and its left and right peaks are equal to three decimal places.
+Over the two dark solids the four sides agree to within 0.001–0.004; vitrea's two-light rim spreads
+them by 0.147–0.150. The specular goes to zero and the ambient carries the amplitude, which is the
+charter's own "flat → the ambient only".
 
 Nothing canonical was written. `apps/reference-apple/scenes.json`, `apps/reference-apple/fixtures/`,
 `packages/calibration/results/matrix.json` and `packages/calibration/web-captures/` are untouched;
-every capture in this gate went to
-`/Users/new/.claude/jobs/5c70e47f/tmp/w21/g0/`, and the reference profile documents in
-`packages/calibration/profiles/` are unmodified.
+the probe ran through `VITREA_SCENES` and `VITREA_FIXTURES` into
+`results/2026-09-06-w21-dark-scheme/probe/`, and every web capture went to scratch under
+`/Users/new/.claude/jobs/5c70e47f/tmp/w21/g0/`. The probe's own holdout column — the whole
+`checkerboard-8` column and the three large extremes — was not read: `read.py --sets` and
+`probe-score.ts --read-sets` skip those cells before their files are opened.
 
 ---
 
-## 1. The scene bed — `apps/reference-apple/scenes-w21-probe.json`
+## 1. The bed and the split
 
-W9's 56-cell grid verbatim: the same thirteen backgrounds, the same five components, the same orange
-tint, the same 320 × 200 canvas, the same scene ids, so a dark reading and W9's light reading are the
-same measurement under two schemes, cell for cell. Generated by `make-probe-scenes.mjs`, not typed.
-
-Two things differ, and both are derived. The profile block is the single dark profile the wave
-measures (`apple-macos-26.5-1x-dark-standard`, `colorScheme: dark`, `a11y: standard`, `scenes: all`).
-And the split is re-derived by W9's own rule — a probe cell whose canonical twin is held out on the
-bed the fit will be judged on takes the `recorded` role, so no fit can peek at a held-out row through
-its twin — against the canonical **dark** bed instead of the light one:
+`apps/reference-apple/scenes-w21-probe.json` is W9's 56-cell grid verbatim — the same thirteen
+backgrounds, five components, orange tint, 320 × 200 canvas and scene ids — with one profile
+(`apple-macos-26.5-1x-dark-standard`, `colorScheme: dark`) and the split re-derived by W9's own rule
+against the canonical **dark** bed. Generated by `make-probe-scenes.mjs`, not typed.
 
 | role | count | membership |
 | --- | --- | --- |
 | `recorded` | 1 | `photo__rrect-lg__rest` |
-| `holdout` | 9 | the whole `checkerboard-8` column (five rest cells and its tint capsule) plus `checkerboard-64__rrect-lg`, `checkerboard-lc16__rrect-lg`, `hc-text-28__rrect-lg` |
-| `validation` | 5 | W9's five, unchanged |
+| `holdout` | 9 | the whole `checkerboard-8` column plus `checkerboard-64__rrect-lg`, `checkerboard-lc16__rrect-lg`, `hc-text-28__rrect-lg` |
+| `validation` | 5 | W9's five |
 | `calibration` | 41 | the remainder |
 
 `recorded` collapses to one cell because the canonical dark profile's three holdout scenes are
 `photo__rrect-lg__rest`, `checkerboard__glass-over-glass__rest` and
-`mid-dark-solid__capsule-button__rest`, and the probe grid has no `glass-over-glass` component and no
-`mid-dark-solid` capsule; the dark pair carries no regression floors either (charter, Grounding
-Baseline), so nothing is recorded on that account. The seven cells W9 had to record for its LIGHT
-twins are calibration here, which is the whole reason for re-deriving rather than copying.
+`mid-dark-solid__capsule-button__rest`, and the grid has no `glass-over-glass` component and no
+`mid-dark-solid` capsule; the dark pair carries no regression floors either. The seven cells W9 had
+to record for its LIGHT twins are calibration here.
 
-## 2. The instrument — `read.py`, and what it is worth
+## 2. The run ledger
 
-**Body** = mean and sd of linear luminance (Rec.709) under the declared box eroded 6 CSS px.
-**Rim peak per side** = the largest row (top, bottom) or column (left, right) mean inside the box's
-outer 3 CSS px. **Backdrop linear and encoded means** = measured from the rendered background raster
-under the declared box, never assumed from the background's parameters (W9's input definition, claims
-§5.30). **σ body / σ rim** = the run-to-run standard deviation across a probe's attested runs.
+Eighteen runs taken by `run-probe.sh` from the main checkout's bundle, W9's protocol (a 6 s bare
+neutral reset before each cell, one stable order, the run refused unless the machine had been idle
+45 s), `--allow-colourless-tints` throughout. **Seven attested 56 of 56 and were materialised.**
 
+| run | captured (UTC) | HID idle start / end | audit | kept |
+| --- | --- | --- | --- | --- |
+| w21-probe-1 | 09-06 16:05 | 131 / 665 | 56/56 | yes |
+| w21-probe-2 | 09-06 16:14 | 665 / 1 199 | 56/56 | yes |
+| w21-probe-3 … 10 | 09-06 16:23 → 18:17 | 1 199 → 8 209 | **0/56 each** | **no** — the console locked; every cell records the flat inactive appearance |
+| w21-probe-11 | 09-07 05:31 | 258 / 789 | 56/56 | yes |
+| w21-probe-12 | 09-07 05:41 | 841 / 1 378 | 56/56 | yes |
+| w21-probe-13 | 09-07 05:51 | 1 429 / 1 966 | 56/56 | yes |
+| w21-probe-14 | 09-07 06:00 | 2 017 / **449** | 7/56 | **no** — HID input arrived mid-run |
+| w21-probe-15 | 09-07 06:11 | 550 / 1 088 | 56/56 | yes |
+| w21-probe-16 | 09-07 06:21 | 1 138 / 1 672 | 50/56 | **no** — six cells not `presentedActive` |
+| w21-probe-17 | 09-07 06:30 | 1 722 / 2 256 | 56/56 | yes |
+| w21-probe-18 | 09-07 06:42 | 2 441 / 2 977 | 39/56 | **no** — the console locked again mid-run |
+
+Materialised by `cli/materialize.ts --frequency-settle --apply` over the seven: 35 cells unanimous,
+3 voted (readings differing at or below one 8-bit code, scattered), 18 frequency-settled, 0 refused.
+Provenance: `probe/provenance.json`, 72.2 % confidence at a one-in-six minority.
+
+Three notes the next probe should have.
+
+1. **A locked screen is invisible to every signal the protocol checks.** Runs 3–10 lost all 448
+   cells to it while the session read on-console and logged in and HID idle climbed past 8 000 s.
+   `run-probe.sh` now refuses in one second on `CGSSessionScreenIsLocked`, and checks the first
+   run's attestation before spending the rest of the budget (`MIN_FIRST_RUN_ATTESTED`, default 50 of
+   56) — which is what stopped run 18 from consuming runs 19 to 22.
+2. **Idle is not the cause of the lock.** Today's runs held the window key past 2 000 s of idle, so
+   what locked the console after run 2 yesterday was almost certainly the user's Screen Sharing
+   session ending and the screen locking on disconnect, not an idle timer.
+3. **The colourless-tint guard fires on a locked screen, and it is a symptom.** The two attempts
+   made under the lock reported the author tint as not reaching the material (chroma 0.39–0.57
+   against a floor of 1.0). In the attested runs the same cells read 191.8–201.4 with
+   `colourReachedMaterial: true` and no caveat. Liquid Glass draws a flat, neutral, *colourless*
+   inactive appearance when its window is not key: the lost tint was the lock, seen from another
+   side.
+
+### The two-state material, and why the stop does not fire
+
+**21 of 56 cells hold more than one byte state across the seven runs (38 %).** Read as byte states
+that is more than W9's light probe saw (10 of 56) and more than a quarter, which is the declared
+stop. Read as *appearances* it is not an epidemic, and the difference matters: sixteen of the
+twenty-one hold states whose body levels differ by **0.0000 to 0.0056** — byte jitter inside the
+reader's own recovery bound, not a second settled appearance. Five cells hold a genuine appearance
+pair:
+
+| cell | shares | majority body | minority body | spread |
+| --- | --- | --- | --- | --- |
+| `light-solid__rrect-sm__rest` | 6/1 | 0.9666 | 0.0808 | **0.886** |
+| `hc-text__rrect-sm__rest` | 4/3 | 0.1250 | 0.0481 | 0.077 |
+| `checkerboard-4__capsule-button__rest` | 6/1 | 0.0998 | 0.0340 | 0.066 |
+| `photo__rrect-sm__rest` | 6/1 | 0.0820 | 0.0324 | 0.050 |
+| one cell in the `checkerboard-8` **holdout** column | 6/1 | — | — | — |
+
+The census counts all 56 cells because materialisation does — a bed cannot be published without
+comparing every cell across every run — but the holdout cell's levels are deliberately not quoted
+here and enter no table, no score and no fit. It is named only so that the count of five is honest.
+
+Every one of the five is a THIN surface, and in every one the minority is the material's *other*
+appearance — the darker, more-adapted one over a structured backdrop, and the darker one over
+`light-solid` too. (W9's light probe found the mirror image: every minority there was the brighter,
+less-adapted attractor.) So the bistability is not scattered noise across the grid; it is the thin
+row's own behaviour, which is the same finding §5 reaches from the residuals. The stop's purpose —
+do not score a bed whose cells are unstable draws — is met: the majority-state σ is **zero to
+floating-point on every one of the 47 cells read**, including all six anchors, and the run-to-run σ
+across all seven runs exceeds 0.005 on exactly four cells, each of them one of the thin-row
+appearance pairs above.
+
+`hc-text__rrect-sm__rest` at 4-of-7 is the one cell whose share is too close to call, and W9's
+protocol says to top such a cell up. Five top-up runs were launched; the first attested 39 of 56 and
+the budget guard stopped the rest. It is a thin-row calibration cell, its ambiguity is the finding
+rather than a threat to it, and no anchor rests on it. **Recommendation: G1 tops it up before it
+fits the alpha on the passthrough rows, or drops it from that fit.**
+
+## 3. The instrument
+
+`read.py` — body = mean and sd of linear luminance under the declared box eroded 6 CSS px; rim peak
+per side = the largest row (top, bottom) or column (left, right) mean in the box's outer 3 CSS px;
+backdrop linear mean, encoded mean and sd measured from the rendered raster under the declared box.
 The silhouette-based interior is not used and cannot be: over the dark solids the reference's body
-sits within the extractor's 0.02 threshold of its own backdrop, so the silhouette it recovers is the
-rim ring in fragments and every statistic over it is a rim reading (claims §5.87).
+sits within the extractor's threshold of its own backdrop and the silhouette it returns is the rim
+ring (claims §5.87).
 
-### 2a. It reproduces the published reading
+Validated three ways before anything was read.
 
-Run against the canonical dark bed and the canonical GPU captures, `read.py` reproduces claims
-§5.87's 1x table number for number on all twelve rows — body, sd and all four rim peaks, native and
-web. That is the first check: a new reader that does not reproduce the reading it generalises is a
-different instrument wearing the same name.
+- **It reproduces the published reading.** Against the canonical dark bed and the canonical GPU
+  captures it reproduces claims §5.87's 1x table number for number on all twelve rows.
+- **X4, by injection** (`read-recovery.txt`): a known body level and a known rim painted into a copy
+  of a canonical dark fixture and recovered, worst error **0.00280** across every bounded quantity,
+  which is the 8-bit quantisation of the painted value. One property of the definition is recorded
+  rather than discovered later: a rim peak is a maximum, so a rim dimmer than its own body reads as
+  the body and the peak is a lower bound there. Every untinted dark cell has its rim above its body.
+- **The instrument swap does not move a verdict** (`instrument-crosscheck.txt`). W9's own seven
+  light-probe snapshots re-scored under both interior definitions:
 
-### 2b. X4 — a known level and a known rim, injected and recovered (`read-recovery.txt`)
+  | interior definition | P0 | P1 | P2 | P3 | winner |
+  | --- | --- | --- | --- | --- | --- |
+  | silhouette (W9's, claims §5.31) | 0.1070 | 0.0683 | 0.0683 | **0.0400** | P3 |
+  | declared box eroded 6 CSS px (W21 X2) | 0.1080 | 0.0674 | 0.0674 | **0.0380** | P3 |
 
-A copy of `apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest.png` with the declared box
-painted at a chosen linear luminance and the box's outermost one-pixel ring painted at another. The
-ring is one pixel inside a three-pixel band that otherwise carries the body level, so a reader that
-took the band's mean instead of its peak would under-report the rim by roughly three times.
+  The silhouette row reproduces §5.31's committed numbers exactly, which is the regression check on
+  the parametrisation; the declared row keeps the ranking, the winner and P0's rejection.
 
-| case | worst |error| over body and four sides |
-| --- | --- |
-| faint rim (0.034 / 0.034 / 0.030 / 0.030) over a near-black body (0.015) — the reference's own shape | 0.00044 |
-| bright rim (0.240) over a near-black body (0.008) | 0.00160 |
-| asymmetric rim (0.220 / 0.100 / 0.230 / 0.085) over a 0.045 body | 0.00280 |
+Two sigmas are reported for every cell and they answer different questions. The plain σ runs over
+every attested run, state flips included, so on a bistable cell it measures the flip. The **majority
+σ** runs only over the runs holding the published byte state and is the noise floor of the number
+the tables quote.
 
-**Worst error across every bounded quantity: 0.00280**, which is the 8-bit quantisation of the
-painted value — a neutral sRGB code cannot carry an arbitrary linear luminance exactly, and the
-recovered number is what the file holds. The wave's clauses are 0.010 in body and 0.030 per rim side,
-so the instrument has better than three times the headroom it needs on the rim and better than three
-times on the body.
+## 4. The anchors (`anchors.txt`, `anchors-measured.json`, `anchors-footprint-top.json`)
 
-**One property of the definition, stated rather than discovered later.** A peak is a maximum, so when
-a rim sits BELOW its own body the band's brightest row is a body row and the reading is the body's:
-the rim peak is a lower bound on the rim, exact only while the rim is the brighter of the two. A
-fourth injected case measures that (rim 0.030 under body 0.050 reads 0.0495) and is excluded from the
-bound above because it is the definition working as defined. Every untinted dark cell in §5.87 has
-its rim above its body, so nothing in this wave rests on it; a gate that ever reads a rim peak equal
-to its own body level should read this paragraph before believing the number.
+The thin row is `rrect-sm` (span 32, thickness 0); the thick row is `rrect-md` and `rrect-lg` pooled
+(spans 96 and 160, thickness 1 for both — the size law saturates at 96). `rrect-ml` is thick by
+thickness but W9's grid puts no `rrect-ml` over a solid, so it is an interpolation check instead.
 
-### 2c. The instrument swap does not move a verdict (`instrument-crosscheck.txt`)
+| anchor | encoded mean | linear mean | thin (`sm`) | σ | σ majority | states | `md` | `lg` | thick mean | spread | σ majority |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `dark-solid` | 0.1104 | 0.0117 | 0.0110 | 0.0002 | 0.0000 | 6/1 | 0.0153 | 0.0110 | **0.0131** | 0.0042 | 0.0000 |
+| `mid-dark-solid` | 0.2706 | 0.0595 | 0.0284 | 0.0000 | 0.0000 | 7 | 0.0252 | 0.0223 | **0.0238** | 0.0029 | 0.0000 |
+| `light-solid` | 0.9505 | 0.8910 | **0.9666** | 0.3100 | 0.0000 | 6/1 | 0.0960 | 0.1052 | **0.1006** | 0.0092 | 0.0000 |
 
-`scripts/probe-score.ts` gains `--profile`, `--interior declared` and `--read-sets`. Re-scored on
-W9's own seven light-probe snapshots:
+```
+backdropToneAnchorX        [0.1104, 0.2706, 0.9505]
+backdropToneResponseThin   [0.0110, 0.0284, 0.9666]
+backdropToneResponseThick  [0.0131, 0.0238, 0.1006]
+```
 
-| interior definition | P0 | P1 | P2 | P3 | winner |
+`backdropToneAnchorX` comes out identical to the light profile's landed values, which it must: the
+anchors' inputs are the same rasters read under the same footprints, and only the response to them
+is scheme-dependent.
+
+**The thin row's top anchor is the wave's one genuine choice, and it is not a tuning knob.** Two
+cells on this grid put a uniform bright backdrop under a thin surface:
+
+| cell | backdrop under the footprint | encoded mean | body | states |
+| --- | --- | --- | --- | --- |
+| `light-solid__rrect-sm__rest` | white everywhere on the canvas | 0.9505 | **0.9666** | 6/1, minority 0.0808 |
+| `checkerboard-64__rrect-sm__rest` | one white checker cell, black elsewhere | 1.0000 | **0.1611** | 7 |
+
+The footprint inputs agree to within 0.05 and the reference settles 0.81 apart. Read together with
+the bistability table in §2, the reading is unambiguous: over a scene that is bright everywhere the
+dark material draws its **light appearance**; over a dark scene with a locally white footprint it
+stays dark. The interior tone is a function of the encoded mean *plus* an appearance the scene
+selects, and the second term is outside anything the response law expresses.
+
+Evaluated with the renderer's own arithmetic (`backdropToneResponse`'s monotone interpolation and
+smoothstep in thickness), on the scored cells, with no fitting:
+
+| thin row's top anchor | RMS overall | thin rows | thick rows | worst |
+| --- | --- | --- | --- | --- |
+| `light-solid` 0.9666 (the scene's light appearance) | 0.2051 | 0.3167 | 0.0053 | `checkerboard-64__rrect-sm` +0.8055 |
+| `checkerboard-64__rrect-sm` 0.1611 (the uniform-white footprint) | **0.0240** | 0.0366 | 0.0053 | `checkerboard-64__capsule-button` −0.0581 |
+
+The RMS is flat in that anchor (0.0227 at 0.1700, 0.0240 at 0.1611, 0.0269 at 0.1450), so the choice
+is a reading, not a fit, and its exact value is not load-bearing.
+
+### The interpolation check
+
+The two components with no anchor cells of their own, predicted from the six anchors with no free
+parameter (thin top 0.9666, as measured):
+
+| scene | encoded in | thickness | measured | predicted | residual |
 | --- | --- | --- | --- | --- | --- |
-| silhouette (W9's, claims §5.31) | 0.1070 | 0.0683 | 0.0683 | **0.0400** | P3 |
-| declared box eroded 6 CSS px (W21 X2) | 0.1080 | 0.0674 | 0.0674 | **0.0380** | P3 |
+| `checkerboard__rrect-ml__rest` | 0.5000 | 1.000 | 0.0468 | 0.0467 | **−0.0001** |
+| `checkerboard-4__rrect-ml__rest` | 0.5000 | 1.000 | 0.0458 | 0.0467 | +0.0009 |
+| `checkerboard-lc16__rrect-ml__rest` | 0.7000 | 1.000 | 0.0680 | 0.0706 | +0.0025 |
+| `checkerboard-32__rrect-ml__rest` | 0.5000 | 1.000 | 0.0503 | 0.0467 | −0.0036 |
+| `checkerboard-64__rrect-ml__rest` | 0.5000 | 1.000 | 0.0505 | 0.0467 | −0.0038 |
+| `checkerboard__capsule-button__rest` | 0.5000 | 0.024 | 0.1059 | 0.2220 | +0.1161 |
+| `checkerboard-lc16__capsule-button__rest` | 0.7000 | 0.024 | 0.1256 | 0.5408 | +0.4152 |
 
-The silhouette row reproduces §5.31's committed numbers exactly, which is the regression check on the
-parametrisation; the declared row keeps the ranking, the winner and P0's rejection and improves P3 by
-0.0020. Whatever the dark probe eventually says under the declared read, W9's light finding is not an
-artefact of the mask it was taken under.
+`rrect-ml` — a thickness the law interpolates but never anchors — lands within **0.0038** on every
+cell. The capsule, at thickness 0.024, is essentially the thin row and inherits its error. The
+smoothstep between rows is not the problem; the thin row's top anchor is.
 
-`--read-sets` exists so that a gate which has not spent its holdout read can score the law without
-opening those files: a cell outside the listed roles is skipped before its file is read, so "unread"
-means unread. The probe's holdout column is untouched by everything in this gate.
+## 5. The encoded-mean verdict, by W9's declared rule
 
-## 3. The endpoint diagnostic, measured on the canonical dark bed (`endpoints-canonical.txt`)
+`probe-score.ts --profile apple-macos-26.5-1x-dark-standard --interior declared --read-sets
+calibration,validation,recorded`, seven attested runs, 31 scored cells (structured, non-`recorded`,
+the probe holdout unread).
 
-Claims §5.33's diagnostic, re-run in the dark scheme under the declared geometry. Two GPU-tier
-renders of the canonical dark bed bracket the response law's reachable span per cell: `web0` is the
-shipped dark document (`backdropToneResponseStrength` 0) and `web1` is the same document with that
-one constant moved to 1 and nothing else changed, so the law runs on the LIGHT reference's anchors.
-`s = (reference − web0) / (web1 − web0)` is the strength the reference would require of the law as it
-stands. Both captures went to scratch; the canonical bed's holdout was not captured.
-
-| encoded input | scene | web₀ (s=0) | web₁ (s=1) | reference | s required |
+| hypothesis | RMS overall | thin rows | thick rows | ratio to best | verdict by the declared rule |
 | --- | --- | --- | --- | --- | --- |
-| 0.0030 | `impulse__capsule-button` | 0.0037 | 0.0037 | 0.0066 | — |
-| 0.1104 | `dark-solid__rrect-md` | 0.0482 | 0.4955 | 0.0153 | **−0.074** |
-| 0.1104 | `dark-solid__capsule-button` | 0.0117 | 0.0117 | 0.0110 | — |
-| 0.1104 | `dark-solid__capsule-button` tint orange | 0.4272 | 0.4272 | 0.4243 | — |
-| 0.4860 | `photo__rrect-md` | 0.0547 | 0.6539 | 0.0466 | **−0.014** |
-| 0.4935 | `photo__capsule-button` | 0.0551 | 0.6140 | 0.0961 | 0.073 |
-| 0.4935 | `photo__capsule-button` tint orange | 0.4276 | 0.4276 | 0.4343 | — |
-| 0.5000 | `checkerboard__capsule-button` | 0.0640 | 0.6747 | 0.1059 | 0.069 |
-| 0.5000 | `checkerboard__rrect-md` | 0.0628 | 0.6931 | 0.0468 | **−0.025** |
-| 0.5000 | `checkerboard__capsule-button` tint orange | 0.4276 | 0.4276 | 0.4343 | — |
-
-Two inside [0, 1]; three outside; five with a degenerate span (`|web₁ − web₀| < 0.002`).
+| P0 — `R(linear mean)` | 0.2519 | 0.3884 | 0.0176 | 1.57× | not rejected by the ratio |
+| P1 — `Σ wᵢ R(lᵢ)` | 0.2537 | 0.3916 | 0.0082 | 1.58× | not rejected by the ratio |
+| P2 — band-limited, one fitted `k` | 0.2535 | 0.3911 | 0.0136 | 1.58× | **no support** |
+| P3 — `R(encoded mean)` | **0.1609** | 0.2483 | **0.0078** | 1.00× | **the winner** |
 
 Four readings.
 
-1. **The dark remainder runs downward.** In the light scheme the reference sat ABOVE the strength-0
-   render on six cells and the remainder ran up against the white neutral's clamp (§5.33). Here the
-   sign flips on every thick cell: `dark-solid__rrect-md`, `photo__rrect-md` and
-   `checkerboard__rrect-md` all settle BELOW the strength-0 render, so the mirror case the charter
-   named — the black clamp on the downward side — is the one that fires. G1 declares against that
-   side.
-2. **The light anchors are not usable ground in dark, by a factor of six.** At strength 1 the thick
-   cells render 0.49–0.69 against a reference of 0.015–0.047. This is why
-   `backdropToneResponseStrength` is 0 on the dark profiles today, and it is now a measurement rather
-   than the inference `material.ts`'s comment records.
-3. **The thin/thick inversion shows up in the sign of `s`.** The two cells needing a positive
-   strength are both capsules (thickness 0.024) and the three needing a negative one are all
-   `rrect-md` (thickness 1). The dark reference's thin row sits above its thick row where the light
-   reference's sits below it — §5.87's inversion, visible here as opposite signs of the required
-   strength at the same encoded input (`checkerboard`: +0.069 on the capsule, −0.025 on the rrect).
-4. **The law cannot reach the collapsed or the tinted cells at all.** `dark-solid__capsule-button`,
-   `impulse__capsule-button` and all three tinted capsules render identically at strength 0 and
-   strength 1. The collapse owns the first two (the solve's authority fades below the dark anchor,
-   `backdropToneSolveWeight`) and the tint pathway owns the last three. G1's stops S2 and S3 are
-   therefore not at risk from the anchors themselves; they are at risk only from the alpha and the
-   rim, which is where G1 should point its guard.
+1. **On the thick rows the law is right, and better than it was in light.** P3 scores 0.0078 where
+   W9's light probe scored 0.0400 overall, and the largest residual on any thick cell is 0.0167
+   (`hc-text-7__rrect-lg`); fourteen of the eighteen are inside 0.009. P0 at 0.0176 is 2.26× P3 on
+   those rows, which is the same rejection W9 reached, reproduced in the dark scheme.
+2. **On the thin rows no hypothesis is close**, and the residuals are not noise: they rise
+   monotonically with the encoded input, from +0.0366 at 0.50 (`checkerboard__rrect-sm`) through
+   +0.1672 at 0.625 (`hc-text-28__rrect-sm`) to +0.8054 at 1.00 (`checkerboard-64__rrect-sm`).
+   That is the appearance switch, seen as a residual.
+3. **No band-limited term.** P2's one free parameter ran to the TOP of the declared grid (k = 0.32)
+   to impersonate P0, where in the light scheme it ran to the bottom to impersonate P1. A parameter
+   that runs to opposite rails in two schemes to become somebody else is not identifying anything.
+4. **The declared 2× rejection rule does not fire on the pooled RMS** because the thin row's failure
+   inflates every hypothesis together. The verdict that means something is the split one, and it is
+   the split one G1 should quote.
 
-**What this table cannot do that the probe's would.** It has ten cells at three distinct encoded
-inputs, all between 0.003 and 0.500, with no `light-solid` anchor and no thin (`rrect-sm`) row
-anywhere. It states the shape of the problem; it cannot supply a single one of the six anchors G1
-has to record.
+### The equal-mean pair (`equal-mean-pair.txt`)
 
-## 4. The native probe: what happened, and what it costs
+`checkerboard` (linear mean 0.5000, encoded 0.5000) against `checkerboard-lc16` (linear 0.4997,
+encoded 0.7000) — equal in linear light, far apart in encoded light, per component:
 
-### 4a. The runs
+| component | full contrast | low contrast | gap | pooled σ majority | 3σ | P0's predicted gap | P3's predicted gap |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.1070 | 0.1253 | **+0.0182** | 0.0000 | 0.0000 | −0.0004 | +0.2594 |
+| `capsule-button` | 0.1059 | 0.1256 | **+0.0196** | 0.0000 | 0.0000 | −0.0002 | +0.1470 |
+| `rrect-md` | 0.0468 | 0.0657 | **+0.0189** | 0.0000 | 0.0000 | −0.0000 | **+0.0202** |
+| `rrect-ml` | 0.0468 | 0.0680 | **+0.0212** | 0.0000 | 0.0000 | −0.0000 | **+0.0222** |
 
-| attempt | protocol | outcome |
-| --- | --- | --- |
-| 09:08–09:19Z | W9's, `--reset-interstitial 6 --min-idle-seconds 45` | 56/56 cells captured and byte-stable; the harness REFUSED to publish on its own tint guard — the five tint capsules read chroma 0.39–0.57 against untinted twins at 0.04–0.09, floor 1.0 — and deleted the staging directory, so no pixels survived |
-| 09:20–09:31Z | the same plus `--allow-colourless-tints` | published; HID idle 5 038 s at start, 5 583 s at end; **0 of 56 cells attested** — every one `presentedActive: false`, with `deterministic: true` and `materialRendered: true` |
+The gap is real on every component and far outside the noise. No luminance-only model can produce
+any gap at all from equal linear means — P0 predicts 0.0000 and that is not a fitting failure but an
+identity. On the thick rows the encoded-mean model predicts it to within **0.0013 and 0.0010**; on
+the thin rows it overshoots by 0.13 to 0.24. The same split, from an instrument designed before
+either scheme was measured.
 
-The evidence is committed under `blocked/`: the second run's whole manifest
-(`w21-probe-1-manifest.json`), the capture-path probe (`capture-path-probe.txt`), the tint doctor
-(`tint-doctor.txt`) and the machine's power assertions (`power-assertions.txt`).
+W9's H4 (a contrast term beyond the encoded mean) has a residual of 0.0013 and 0.0010 on the thick
+rows against a degenerate 3σ bar of 0.0000. It is real, sign-consistent, and an order of magnitude
+below what P3 explains — exactly where W9 left it in the light scheme, and no constant is proposed
+for it here either.
 
-### 4b. The diagnosis
+## 6. The passthrough and the alpha (`passthrough.txt`)
 
-`--allow-colourless-tints` is passed deliberately, as W12's stability study passed it (claims §5.21):
-the tint reaching the material is intermittent on this machine (§5.10, §5.20) and the guard's default
-is to delete the entire staged bundle, which would throw away 51 attested untinted cells to protect
-five descriptive ones. But on this run the tint dropout was not the disease — it was a symptom.
-Liquid Glass draws a flat, inactive, colourless appearance when its window is not key, and the
-manifest says the window was never key on any of the 56 cells.
+Two quantities per cell: `pass` = body sd divided by the backdrop's own sd under the footprint (the
+fraction of the offered structure that came through), and `sd/body` (the passed structure relative
+to the level).
 
-The capture path probe, launched exactly the way every capture is launched (`open` on the main
-checkout's bundle, per the tracker's entry on `capture.sh probe`), separates the two permissions
-cleanly:
+**The pitch sweep is a modulation-transfer curve, read directly.** At fixed component and fixed
+backdrop family, `pass` rises with pitch because a blur passes coarse structure and rejects fine:
 
-```
-ImageRenderer: glass-vs-none mad=0.0000 max=0 (a rendered 120x44 material should move ~5280 px)
-  → material rendered: NO
-window canBecomeKey: true, isKeyWindow: false, isMainWindow: false, NSApp.isActive: false
-ScreenCaptureKit: OK 320x200 — the material path is available
-```
+| component | pitch 4 | 16 | 32 | 64 |
+| --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.0376 | 0.1093 | 0.1344 | — (uniform footprint) |
+| `rrect-md` | 0.0143 | 0.0332 | 0.0505 | 0.0637 |
+| `rrect-ml` | 0.0378 | 0.0409 | 0.0574 | 0.0564 |
+| `rrect-lg` | 0.0617 | 0.0627 | 0.0705 | — |
 
-**The Screen Recording grant is live.** What is refused is activation. (The `ImageRenderer` line
-above also reports no material, and this gate has no healthy reading of that line to compare it
-against — W20's §2 quoted only the window and ScreenCaptureKit lines — so it is recorded as observed
-and not read as a second symptom.) `pmset -g assertions` names the cause:
+Two things fall out of that table beyond the blur. The curve is much flatter for the large surfaces
+than the small ones, and vitrea's own `pass` (in the same file) is 0.0030–0.0197 on `rrect-md`
+against the reference's 0.0143–0.0637 — the reference passes three to five times as much structure
+at every pitch, which is §5.87's passthrough gap measured across a sweep instead of on three cells.
 
-```
-pid 80782(screensharingd): PreventSystemSleep named: "Remote user is connected"
-pid 80782(screensharingd): UserIsActive named: "Remote user active"
-pid 175(WindowServer):     UserIsActive named: "...tickle.nxevent ... process:ScreensharingAgent"
-```
+**Lerp or multiply.** The equal-mean pair is the discriminator: one pitch, one component, the body
+level differing by about 1.4× and the backdrop's own structure by 0.568×. A multiply composite
+predicts the passed sd scales with both; a lerp predicts it scales with the backdrop's structure
+alone.
 
-A Screen Sharing session is attached to this login and has been for the whole gate. `loginwindow` is
-on `console` and the session is not locked, and the frontmost application is Google Chrome — the
-remote user's. Three mitigations were tried from the shell and all three failed: asserting user
-activity (`caffeinate -u`), hiding the other applications through System Events, and activating the
-app by name during the run (`-10006`, System Events cannot set it frontmost). The harness's window
-stayed `isKeyWindow: false` through every one.
+| component | sd full | sd lc16 | multiply predicts | lerp predicts | closer |
+| --- | --- | --- | --- | --- | --- |
+| `rrect-sm` | 0.0547 | 0.0129 | 0.0363 | 0.0310 | lerp |
+| `capsule-button` | 0.0515 | 0.0158 | 0.0346 | 0.0292 | lerp |
+| `rrect-md` | 0.0166 | 0.0082 | 0.0133 | 0.0094 | lerp |
+| `rrect-ml` | 0.0205 | 0.0148 | 0.0169 | 0.0116 | multiply |
 
-The attestation caught it exactly as designed; nothing unattested was read, and no bed was
-materialised.
+Three of four favour the lerp and both predictions overshoot, which says the low-contrast backdrop
+is attenuated by more than its contrast ratio alone. **The lerp survives; the multiply is not
+needed.** The profile document's caveat was written against a lerp that also had to carry the level,
+and under the solve it does not.
 
-**First reading, superseded, kept because it was acted on.** This was written up as a third failure
-mode, distinct from the locked session of claims §5.17 and from the tracker's partial idle-refusal
-(W19 G0), on the grounds that the machine reported 5 000 s of HID idle — remote input is not local
-HID — while a person was in fact driving it. The parent recorded it that way in claims §5.88 and in
-the tracker. **It is wrong, and §4d has the correction.**
+## 7. The rim per side (`rim.txt`)
 
-### 4d. The correction: the screen is locked (`blocked/session-state.txt`, 2026-09-06T14:23Z)
+Over a solid backdrop the band carries no backdrop structure, so the peak is the rim's own
+amplitude. Reference against vitrea's shipped dark profile, per side, top / bottom / left / right:
 
-The Screen Sharing session ended, and the gate still refused: `isKeyWindow: false`,
-`NSApp.isActive: false`, `ScreenCaptureKit: OK`. What settles it is the front application, asked of
-LaunchServices rather than of System Events:
+| scene | body | reference | flat | vitrea (web₀) | flat |
+| --- | --- | --- | --- | --- | --- |
+| `dark-solid__rrect-sm` | 0.0110 | 0.028 / 0.028 / 0.024 / 0.024 | **0.003** | 0.012 / 0.012 / 0.012 / 0.012 | 0.000 |
+| `dark-solid__rrect-md` | 0.0153 | 0.034 / 0.034 / 0.030 / 0.030 | **0.004** | 0.224 / 0.102 / 0.233 / 0.085 | 0.147 |
+| `dark-solid__rrect-lg` | 0.0110 | 0.026 / 0.026 / 0.022 / 0.022 | **0.004** | 0.220 / 0.100 / 0.217 / 0.080 | 0.140 |
+| `mid-dark-solid__rrect-sm` | 0.0284 | 0.068 / 0.068 / 0.067 / 0.067 | **0.001** | 0.252 / 0.120 / 0.264 / 0.110 | 0.154 |
+| `mid-dark-solid__rrect-md` | 0.0252 | 0.062 / 0.061 / 0.061 / 0.061 | **0.001** | 0.240 / 0.114 / 0.254 / 0.105 | 0.150 |
+| `mid-dark-solid__rrect-lg` | 0.0223 | 0.057 / 0.056 / 0.057 / 0.057 | **0.001** | 0.236 / 0.113 / 0.240 / 0.101 | 0.139 |
+| `light-solid__rrect-md` | 0.0960 | 0.343 / 0.331 / 0.433 / 0.433 | 0.103 | 0.433 / 0.290 / 0.540 / 0.393 | 0.250 |
+| `light-solid__rrect-lg` | 0.1052 | 0.361 / 0.340 / 0.460 / 0.460 | 0.120 | 0.441 / 0.300 / 0.561 / 0.424 | 0.260 |
 
-```
-$ lsappinfo front
-ASN:0x0-0x3003:
-$ lsappinfo info -only name ASN:0x0-0x3003:
-"LSDisplayName"="loginwindow"
-```
+Four readings.
 
-and the console session's own flag:
+1. **There is no light direction.** Top equals bottom to three decimals on every solid, and left
+   equals right to three decimals on every solid. vitrea's rim differs top from bottom by 0.12 and
+   left from right by 0.15. Whatever the reference's rim is, it is not lit from a direction.
+2. **On the dark solids the rim is flat to 0.001–0.004** — inside the wave's 0.03 clause by an order
+   of magnitude. The specular's amplitude on the dark profiles is zero.
+3. **The one asymmetry the reference does have is horizontal against vertical, and it appears only
+   over a bright backdrop**: 0.001–0.004 over the two dark solids, 0.09–0.12 over `light-solid`
+   (the vertical edges brighter). That is a backdrop-luminance-dependent edge effect, not a light
+   direction, and no dark cell in the canonical bed is over a backdrop bright enough to show it.
+4. **The rim's excess over the body scales with the backdrop, not proportionally**: 0.015–0.019 over
+   a 0.0117 backdrop, 0.035–0.039 over 0.0595, 0.337–0.355 over 0.8910. And on the collapsed thin
+   surface over `dark-solid` the reference keeps a +0.017 trace where vitrea's collapse folds the
+   rim out entirely (0.012 flat, its backdrop). That is the "collapsed rim" the charter deferred
+   unless it is one constant. It is one number, +0.017, and it is visible only on `rrect-sm`, the
+   one cell vitrea's collapse fires on; `rrect-md` and `rrect-lg` over the same backdrop draw
+   vitrea's full two-light rim instead.
 
-```
-"IOConsoleUsers" = ({ … "kCGSSessionOnConsoleKey"=Yes, "kCGSessionLoginDoneKey"=Yes,
-                      "CGSSessionScreenIsLocked"=Yes, "CGSSessionScreenLockedTime"=3936172811, … })
-```
+The response law does not touch any of this: the candidate render's rim is 0.199 / 0.076 / 0.209 /
+0.064 on `dark-solid__rrect-md` against web₀'s 0.224 / 0.102 / 0.233 / 0.085 — still seven times the
+reference's, still top-left weighted. The rim is a separate term and G1 must fit it as one.
 
-**The screen is locked.** `who` shows the console login for `new` since 07:43 and the session is on
-console and logged in, so the machine looks awake from a shell; the front application is
-`loginwindow` and no application can be made key. `tell application "Finder" to activate` leaves the
-front application unchanged, which is the general form of the failure — it is not about this app or
-this bundle. The earlier reading that named Screen Sharing came from `System Events`'s
-`frontmost process`, which answered `Google Chrome`: that call reports the frontmost ordinary
-process, needs the Accessibility grant the shell does not hold, and cannot see `loginwindow` at all.
-It was the wrong instrument for the question.
+## 8. vitrea's side: the endpoint diagnostic and the candidate's first read
 
-The Screen Sharing session was a coincident fact, not the cause. A viewer attached to a locked
-screen shows the login window, which is exactly the state the two failed attempts ran into: the
-screen was already locked at 09:08Z and is still locked now. The machine is headless — its only
-display is the virtual `가상 16:9` that screen sharing provides — so nothing local will unlock it.
+Four GPU-tier renders of the probe grid, all to scratch, all read by `read.py`: web₀ (the shipped
+dark document, `backdropToneResponseStrength` 0), web₁ (the same at strength 1 on the LIGHT
+anchors), and two candidates at strength 1 on the anchors measured here, differing only in the thin
+row's top.
 
-So this is **claims §5.17's failure mode**, the locked session, and the two entries the parent wrote
-from §4b's first reading (claims §5.88 and the tracker's Screen Sharing entry) need the correction:
-what a probe must assert before spending its run budget is `CGSSessionScreenIsLocked=No`, and the
-cheap check for it is `lsappinfo front` (loginwindow when locked), not any HID-idle or power
-assertion. Neither of those signals distinguishes a locked screen from an idle one — HID idle was
-5 038 s and the session was on console and logged in, both of which read as healthy.
+### The endpoint table (`endpoints.txt`, claims §5.33's shape)
 
-**What only the user can do:** unlock the screen — by authenticating a Screen Sharing session to the
-console, or however this headless machine is normally reached — and leave it unlocked for the
-duration of the probe, roughly two hours for ten runs at eleven minutes each.
+`s = (reference − web₀) / (web₁ − web₀)`, the strength the reference would require of the law as it
+stands. 46 cells: 21 inside [0, 1], 20 outside, 5 with a degenerate span.
 
-### 4c. What it costs, and what unblocks it
+| encoded in | scene | web₀ | web₁ | reference | s |
+| --- | --- | --- | --- | --- | --- |
+| 0.1104 | `dark-solid__rrect-sm` | 0.0117 | 0.0117 | 0.0110 | — |
+| 0.1104 | `dark-solid__rrect-md` | 0.0482 | 0.4955 | 0.0153 | **−0.074** |
+| 0.2706 | `mid-dark-solid__rrect-md` | 0.0497 | 0.5748 | 0.0252 | **−0.047** |
+| 0.5000 | `checkerboard__rrect-sm` | 0.0635 | 0.6746 | 0.1070 | +0.071 |
+| 0.5000 | `checkerboard__rrect-md` | 0.0628 | 0.6931 | 0.0468 | **−0.025** |
+| 0.5000 | `checkerboard__capsule-button` tint orange | 0.4276 | 0.4276 | 0.4343 | — |
+| 0.7000 | `checkerboard-lc16__rrect-md` | 0.0627 | 0.8006 | 0.0657 | +0.004 |
+| 0.9505 | `light-solid__rrect-md` | 0.0742 | 0.9360 | 0.0960 | +0.025 |
+| 0.9505 | `light-solid__rrect-sm` | 0.0744 | 0.9734 | 0.9666 | **+0.992** |
+| 1.0000 | `checkerboard-64__rrect-sm` | 0.0773 | 0.6654 | 0.1611 | +0.143 |
 
-Everything that needs the dark reference's own pixels is undelivered: the six anchors, the
-encoded-mean verdict in dark (P0 / P1 / P3 and the equal-mean pair), the body-sd-against-pitch
-passthrough curve, the rim per side across 56 cells, the tint table, and the candidate's first read.
-The scene bed, the runner, the materialiser, the provenance writer, the reader, the tables and the
-endpoint script are all built and committed, so the gate resumes at one command
-(`run-probe.sh`, then `run-materialize.sh`, then `run-read.sh`) once the session will grant
-activation. What that takes is in §4d.
+1. **The dark remainder runs downward.** Every thick cell needs a negative strength (−0.010 to
+   −0.083): the reference settles BELOW the strength-0 render. In the light scheme the remainder ran
+   upward against the white neutral's clamp; the mirror case the charter named — the black clamp on
+   the downward side — is the one that fires, and G1 declares against that side.
+2. **The thin/thick inversion is visible as opposite signs at the same input.** On `checkerboard`
+   the capsule needs +0.069 and the `rrect-md` needs −0.025.
+3. **The law cannot reach the collapsed or the tinted cells at all.** All five cells with a
+   degenerate span are of that kind: `dark-solid__rrect-sm`, where the collapse owns the level, and
+   the four tinted capsules, where the tint pathway does. (On the canonical bed the same diagnostic
+   found `impulse__capsule-button` degenerate for the same reason —
+   `endpoints-canonical.txt`.) **G1's stops S2 and S3 are therefore not at risk from the anchors** —
+   only from the alpha and the rim.
+4. **`light-solid__rrect-sm` needs s = 0.992**, which is the appearance switch stated a third way:
+   the LIGHT reference's anchors are exactly right on the one cell where the dark reference draws
+   the light appearance.
 
-## 5. Files
+### The candidate's first read (`candidate.txt`)
+
+Mean absolute body error against the reference, over the 46 cells read (calibration, validation and
+the one `recorded` cell; the probe holdout unread). `light-solid__rrect-sm` is reported apart
+because no monotone curve reproduces an appearance switch and a mean over 46 cells would be that one
+cell.
+
+| render | all 46 | without the switch (45) | thin rows (20) | thick rows (25) | the switch cell |
+| --- | --- | --- | --- | --- | --- |
+| web₀ — shipped, strength 0 | 0.0447 | 0.0259 | 0.0383 | 0.0159 | 0.8922 |
+| web₁ — light anchors, strength 1 | 0.5564 | 0.5686 | 0.4464 | 0.6664 | 0.0069 |
+| candidate — measured anchors (thin top 0.9666) | 0.0739 | 0.0755 | 0.1644 | **0.0044** | **0.0019** |
+| candidate — footprint top (thin top 0.1611) | **0.0305** | **0.0133** | **0.0244** | **0.0044** | 0.8046 |
+
+- **The thick rows are solved.** 0.0159 → **0.0044**, with no fitting at all, and 0.0044 is inside
+  the wave's 0.010 body clause with room. Both candidates agree there, because they share the thick
+  row.
+- **The thin rows need the footprint anchor** — 0.0383 → 0.0244 with it, 0.0383 → 0.1644 without —
+  and even then they are outside 0.010. What remains on them is the appearance term, not a curve.
+- **The two candidates trade one cell against nineteen.** The literal-measured anchors reproduce
+  `light-solid__rrect-sm` to 0.0019 and cost every other thin cell; the footprint anchor takes the
+  nineteen and misses that one by 0.80.
+- **sd and rim barely move** under either candidate: the response law sets the level and nothing
+  else, which is exactly the separation the wave's design assumed and is now measured.
+
+## 9. The tints, descriptive (`tints.txt`)
+
+| scene | encoded in | body | sd | σ maj | rim T/B/L/R | web₀ / web₁ / both candidates |
+| --- | --- | --- | --- | --- | --- | --- |
+| `checkerboard-4__capsule-button__rest-tint-orange` | 0.5000 | 0.4339 | 0.0038 | 0.0000 | 0.519 / 0.516 / 0.477 / 0.477 | 0.4276 in all four |
+| `checkerboard__capsule-button__rest-tint-orange` | 0.5000 | 0.4343 | 0.0072 | 0.0000 | 0.519 / 0.516 / 0.648 / 0.304 | 0.4276 in all four |
+| `checkerboard-32__capsule-button__rest-tint-orange` | 0.5000 | 0.4343 | 0.0056 | 0.0000 | 0.518 / 0.515 / 0.470 / 0.482 | 0.4276 in all four |
+| `checkerboard-64__capsule-button__rest-tint-orange` | 0.5333 | 0.4354 | 0.0095 | 0.0000 | 0.362 / 0.362 / 0.202 / 0.202 | 0.4273 in all four |
+
+The reference's tinted body is flat at 0.4339–0.4354 across the whole pitch sweep — the tint rides a
+mean input and the pitch does not reach it — and matches the canonical bed's 0.4343. vitrea reads
+0.4273–0.4276 under every one of the four profiles, identical to four decimal places, so the
+response law does not touch the tint pathway at all. Nothing is fitted on these rows.
+
+## 10. What none of the above predicted
+
+- **The reference's dark material draws its LIGHT appearance over a bright scene, and the
+  distinction is the scene rather than the footprint.** The charter anticipated that `light-solid`
+  might settle at the light-state attractor and said "whatever it is, it is an anchor and the law
+  carries it". It is not an anchor the law can carry: `checkerboard-64__rrect-sm` presents the same
+  uniform bright footprint and settles 0.81 lower, so the two cannot both sit on one curve over one
+  footprint statistic.
+- **Every genuinely bistable cell on this grid is a thin surface**, and the bistability's direction
+  mirrors between schemes: in W9's light probe every minority was the brighter, less-adapted state;
+  here every minority is the darker one. The attractor pair is the material's own light and dark
+  appearance, in both schemes, and thinness is what makes the choice unstable.
+- **The reference's rim has no light direction whatsoever** — top and bottom equal to three decimals
+  on every solid — where vitrea's is a two-light fit. §5.87 saw this on four canonical cells; on
+  fifty-six it is exact rather than approximate.
+- **The `rrect-ml` interpolation lands within 0.0038** on a thickness the law never anchors. The
+  smoothstep-in-thickness form is doing real work and is not the source of any error found here.
+- **Vitrea passes three to five times less backdrop structure than the reference at every pitch**,
+  and the shortfall is roughly constant in `pass` rather than growing with pitch, so the blur's
+  shape is closer than its amplitude.
+- **A tooling note.** The calibration scene server mounts `VITREA_FIXTURES` and then checks
+  containment with `startsWith` against the raw environment value while the served path has been
+  normalised, so a fixtures path carrying a `..` segment fails its own containment check and every
+  background comes back 403 with a message about running `capture.sh backgrounds`. `run-web.sh`
+  canonicalises the path; the one-line fix in `packages/calibration/web/vite.config.ts` is
+  `resolve()` on the environment value, and is left for whoever owns that file.
+
+## 11. For G1 — a Decision-Log-shaped recommendation
+
+**The form carries. Adopt W9's law on the dark profiles at strength 1, with the thick row measured
+here, and declare the thin row's top anchor as a reading with its alternative on the record.**
+
+1. **The anchors** (X1: measurements, never tuned), from `anchors.txt`, majority σ 0.0000 on all
+   six:
+
+   ```
+   backdropToneAnchorX        [0.1104, 0.2706, 0.9505]
+   backdropToneResponseThin   [0.0110, 0.0284, 0.1611]
+   backdropToneResponseThick  [0.0131, 0.0238, 0.1006]
+   backdropToneResponseStrength 1
+   ```
+
+   The thin row's top is `checkerboard-64__rrect-sm`'s uniform-white footprint reading, not
+   `light-solid__rrect-sm`'s 0.9666. The reasoning, not the number, is what G1 must record: 0.9666
+   is the material's light appearance drawn on a scene that is bright everywhere, the canonical dark
+   bed contains no such cell, and a dark profile that reproduced it would render the light material
+   on a white page — which is what `backdropToneResponseStrength: 0` was protecting against. The
+   pooled thick spread (0.0042 / 0.0029 / 0.0092) is the accepted cost of `sizeSpanMax` saturation,
+   as in light.
+
+2. **Does the law's form carry?** Yes, on the thick rows, and better than in light: P3 0.0078
+   against W9's 0.0400, the equal-mean gap predicted to 0.001, and `rrect-ml` interpolated to 0.0038
+   on a thickness with no anchor. On the thin rows it does not, and the residual is an appearance
+   switch rather than a curve error. **The clamp side is the black one** — every thick cell needs a
+   negative strength against the light anchors, so the remainder runs downward, the mirror of the
+   light scheme. **The thin/thick inversion needs no new constant**: it is two anchor rows and the
+   existing smoothstep. **The solve-weight fade at impulse is untested here** — the probe's grid
+   floor is `dark-solid` at encoded 0.1104 and `backdropToneSolveWeight` fades below it — so the
+   canonical `impulse__capsule-button` validation cell is the only evidence and it is degenerate in
+   the endpoint table (web₀ = web₁), meaning the collapse still owns it. Leave it alone.
+
+3. **What the alpha needs.** It stays a lerp; the multiply is not needed (three of four components,
+   §6). Refit `tintAlpha` on the passthrough rows: the reference's `pass` is 0.0143 → 0.0637 across
+   pitch on `rrect-md` where vitrea's is 0.0030 → 0.0197, so the alpha is holding back roughly three
+   to five times too much structure at every pitch. Fit it on the pitch sweep at fixed component,
+   check it on the equal-mean pair (which is the one place the level and the structure move
+   independently), and do not fit it on `hc-text__rrect-sm` until that cell is topped up.
+
+4. **What the rim needs.** Flat, so the ambient only. Set `specularGain` to zero on the dark
+   profiles — the reference's four sides agree to 0.001–0.004 on both dark solids and vitrea spreads
+   them by 0.147–0.150, so a constant whose rows do not separate it is being carried for nothing —
+   and fit `rimAlpha` on the six solid cells' rim excess over the body — 0.017 / 0.019 / 0.015 over
+   `dark-solid` and 0.039 / 0.037 / 0.035 over `mid-dark-solid`, thin to thick. That is two rows of three cells for one constant,
+   and they separate it. The horizontal-against-vertical split appears only over `light-solid`
+   (0.09–0.12), which the canonical dark bed does not contain: record it, do not fit it. The
+   collapsed rim is one number — over `dark-solid` the thin surface is the cell vitrea collapses,
+   and there the reference keeps a 0.017 rim excess where vitrea's collapse folds the rim out to
+   0.000 — so the charter's condition for taking it ("unless G0 shows it is one constant") is met.
+
+5. **The noise floor per row.** Majority-state σ is **zero to floating-point on all 47 cells read**,
+   the six anchors included: within one settled appearance this reference is byte-reproducible. The
+   σ that is not zero is measuring a state flip rather than noise, and it does so on exactly four
+   cells — `light-solid__rrect-sm` 0.3100, `hc-text__rrect-sm` 0.0380, `checkerboard-4__capsule-
+   button` 0.0230, `photo__rrect-sm` 0.0174 — every one a thin surface. So the bed's real floor is
+   the instrument's own recovery bound, **0.0028** (X4), which is three and a half times below the
+   wave's 0.010 body clause and ten times below its 0.03 rim clause. Quote the majority σ beside a
+   level and the full σ beside a bistable one; they are different measurements.
+
+6. **What G1 should expect to land.** The candidate render already puts the thick rows at 0.0044
+   mean absolute body error with nothing fitted. The thin rows sit at 0.0244 and the remaining error
+   there is the appearance term; the canonical dark bed's thin cells are all capsules over
+   structured or dark backdrops, where the candidate reads within 0.02, so clause 3's 0.010 is
+   reachable on the bed but not yet reached by the anchors alone. Fit the alpha and the rim first
+   and re-read before adding anything to the law.
+
+7. **The probe's holdout column is untouched** and stays that way: the wave's one holdout read is
+   the canonical bed's, at G1's dry run (X6).
+
+**Deferred, with numbers.** The dark material's appearance switch over a uniformly bright scene
+(`light-solid__rrect-sm` 0.9666 against `checkerboard-64__rrect-sm` 0.1611 at the same footprint
+input) — no cell in the canonical bed is over a bright enough backdrop for it to matter to a gate,
+and modelling it needs a scene-level term the material has never had. The horizontal-against-vertical
+rim split over bright backdrops (0.09–0.12). The thin row's residual after the footprint anchor
+(0.0244 mean). `hc-text__rrect-sm`'s 4-of-7 state share.
+
+## 12. Files
 
 | file | what it is |
 | --- | --- |
 | `../../../../apps/reference-apple/scenes-w21-probe.json` | the bed — W9's grid, one dark profile, the split re-derived |
-| `make-probe-scenes.mjs` | writes it from W9's grid and the canonical bed |
+| `../probe/` | the materialised bed: 56 cells, `manifest.json`, `provenance.json`, `backgrounds/` |
+| `make-probe-scenes.mjs`, `run-probe.sh`, `run-materialize.sh`, `make-provenance.mjs` | the bed's production chain |
 | `read.py` | the instrument (W21 X2) |
 | `x4-recovery.py`, `read-recovery.txt` | the injection check (W21 X4) |
 | `instrument-crosscheck.txt` | W9's light probe re-scored under both interior definitions |
 | `../../../scripts/probe-score.ts` | W9's scorer, parametrised (`--profile`, `--interior`, `--read-sets`) |
-| `run-probe.sh`, `run-materialize.sh`, `make-provenance.mjs` | the native probe, ready to run |
-| `run-web.sh`, `run-web-canonical.sh`, `make-candidate-profiles.mjs` | vitrea's side, to scratch |
-| `tables.py`, `endpoints.py`, `run-read.sh` | the tables the findings quote |
-| `endpoints-canonical.txt` | §3's table |
-| `blocked/` | the manifest, the capture-path probe, the tint doctor, the power assertions and `session-state.txt` — the lock flag, the front application and the display, which establish §4d |
+| `anchors.txt`, `anchors-measured.json`, `anchors-footprint-top.json` | §4 |
+| `equal-mean-pair.txt`, `passthrough.txt`, `rim.txt`, `tints.txt` | §5–§7, §9 |
+| `endpoints.txt`, `candidate.txt` | §8 |
+| `probe-read*.json`, `probe-read*.txt` | every reading the tables are computed from |
+| `run-web.sh`, `run-web-canonical.sh`, `make-candidate-profiles.mjs`, `run-read.sh`, `tables.py`, `endpoints.py` | vitrea's side and the tables |
+| `endpoints-canonical.txt` | the same endpoint diagnostic on the canonical dark bed, taken while the probe was blocked |
+| `blocked/` | the manifest, capture-path probe, tint doctor, power assertions and session state from the two attempts made under a locked console |
