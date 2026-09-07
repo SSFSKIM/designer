@@ -495,6 +495,13 @@ from W18's landing captures. The pair flips between landings, not within a day's
 what a byte-identity scan should expect: a same-day control isolates a change from it exactly
 (W19 Decision Log 4 (1); claims §5.81 §4, §5.82 §1). The fix's shape is unchanged.
 
+
+*Addendum 2026-09-07 (W21 G2 and G2c):* a third cell — the increased-contrast dom
+`photo__toolbar-group__rest` — differed from the W20 bed by one code on 17 of 64 000 edge pixels
+at G2's rebuild, reproduced the landed bytes on an immediate re-capture, and reverted to the W20
+bytes at G2c's re-capture: a session byte-state, settled as such because a material change does
+not reverse itself (claims §5.91 §1, §3).
+
 ## Six unverified Codex findings on the W18 CSS tint path (2026-09-05)
 
 *Found 2026-09-05, as a side effect of the designer-skill stance-derivation work.* The
@@ -632,6 +639,34 @@ parts: the harness reads the lock flag before the first cell and refuses the run
 probe runner already does from the shell, in one second, and stops after a first run that attests
 fewer than 50 of 56); and the tint guard keeps the staged bundle beside its refusal rather than
 deleting it. Below every bound; it costs a run and, without the up-front refusal, the diagnosis.
+
+## The luminance-delta extractor perforates a silhouette that agrees with its backdrop over a checkerboard, and the contour rows measure the holes (W21 G2c, 2026-09-07)
+
+*Found at W21's landing on the 2x dark nested pane.* A body that agrees with the reference sits
+nearer its own backdrop, so over a checkerboard's white squares the 0.02 threshold loses it in
+patches: the dom silhouette of `checkerboard__glass-over-glass__rest` at 2x carries 34 interior
+holes (the texture tier's 40; the light bed's none), the conditioning predicate admits the cell on
+area and bodies — holes are not among its arms — and `contourDistanceMean` / `P95` read 1.76 and
+13.0 against ≤ 0.5 and ≤ 3.0 as every hole's boundary is measured as contour, while W20's
+conformance rows read the same tier's drawn shape at `declaredIoUWeb` 0.99919 with a one-pixel
+contour (claims §5.91 §3; §5.27's addendum; four floors). W17's and W18's mechanism in a third
+place. Shape of the fix: an extractor arm that separates a surface from its backdrop by something
+other than luminance (W11b's chroma arm was one; the alpha-coverage read W20 added is another, on a
+transparent page), or a hole-fill step declared as part of the silhouette's definition with its
+own recovery check. Four floors carried until then.
+
+## Nine dark dom cells lose their declaration-conformance reading on the linear form (W21 G2c, 2026-09-07)
+
+*Found at W21's landing.* On the CSS tier's linear form the material composites inside the sharp
+layer's filter and only the contrast floor is an element paint, so the tier's alpha over the
+transparent conformance page is the floor overlay's 0.267–0.271 and the coverage rule's 0.9 refuses
+the reading ("declaration conformance NOT MEASURED"). The class has always held 24 of the 36
+light-standard dom cells; W21's form ruling moved nine dark dom cells into it and one out (claims
+§5.91 §3). The gate asserts conformance on the texture tier only, so nothing is red; it is a
+measurement the bed carried and now does not. Shape of the fix: a conformance read for the linear
+form that sees the filter's coverage — the optics canvas's alpha is what the texture tier reads,
+and the dom tier's filter layer could expose an equivalent on the transparent page — or the
+reading stays a texture-tier instrument by declaration.
 
 ## The highlight pass draws its specular sweep as a stationary band on the left edge of every resting surface, in both colour schemes (W21 G1, 2026-09-07)
 

@@ -4828,6 +4828,26 @@ them are on holdout cells. The honest summary of this landing is that the gate
 stopped being a statement about quality and became, on these thirty-three rows,
 a statement about direction.
 
+
+**ADDENDUM 2026-09-07 (W21 G2c; W21 Decision Log 4 (c) and its ratification) — four floors on
+one cell, `checkerboard__glass-over-glass__rest` in `apple-macos-26.5-2x-dark-standard`, both
+tiers.** The adopted bounds are texture ≥ 0.93 and dom ≥ 0.93 on `silhouetteIoU`, dom ≤ 0.5 on
+`contourDistanceMean` and dom ≤ 3.0 on `contourDistanceP95`; the bed measures 0.92673, 0.90482,
+1.76018 and 13.0, floored at 0.9257, 0.9038, 1.8602 and 13.1. What stops being claimed is a shape
+claim on this one cell at this one scale in the dark profile, as the luminance-delta extractor reads
+it. What is not withdrawn is the claim about the drawn shape: W20's conformance rows read the same
+tier's coverage against the surface's own declaration and report `declaredIoUWeb` 0.99919 with a
+contour max and p95 of one device pixel at 2x (0.99893 / 1 / 0 at 1x). The mechanism is the
+instrument's contrast, in its third place in three waves (W17, W18, here): a body that agrees with
+the reference sits nearer its own backdrop, so the set a 0.02 threshold recovers is smaller and, over
+a checkerboard, perforated — 34 interior holes on the dom silhouette against the light bed's none,
+whose boundaries the contour rows then measure. The texture row moved when the GPU tier landed the
+dark material (0.95088 → 0.92673 while that tier's ΔE on the cell fell 0.0274 → 0.0177); the three
+dom rows are G2c's, and the dom cell had no reading before this landing because the predicate
+excluded it. They come off by the instrument (an arm that separates a surface from its backdrop by
+something other than luminance, as W11b's chroma arm did) or by the nested pane's own charter, where
+the tone axis stands down over a glass backdrop (W9 Deferred; W21 Deferred). `UNMET_ROWS` 7 → 11.
+
 ### 5.28 ADOPTED — the dark pair's tables, and the predicate on both axes (2026-09-01)
 
 The last two ungated profiles. §5.3's reason for holding them back — no validation
@@ -12875,3 +12895,182 @@ residual of wave Decision Log 23 (a), recorded with their cause and a bounded di
 name; the stationary sweep is deferred to a corrective wave of its own ahead of the thick-span
 composite, since it is a renderer defect in both schemes that three waves of rim work fitted over;
 the thin rows' appearance term is carried at its measured size; G2 opens.
+
+### 5.91 W21 G2 LANDED, in three steps: the canonical bed rebuilt on the dark profile G1 froze — every dark GPU capture reproducing the dry run's digest, every light capture byte-identical — and the gate red on thirteen rows of one CSS mechanism; G2b's diagnosis (the conversion's anchor, a gain on a distribution, the W17 form boundary) and three probes; G2c under Decision Log 4 — the CSS tier's form boundary a comparison of errors, the conversion anchored at the surface's own backdrop, the light bed byte-identical by measurement, every dark CSS cell better than the bed the wave inherited, the gate green with no bound widened and four floors on one cell (2026-09-07)
+
+**W21 G2, G2b and G2c** (`results/2026-09-06-w21-dark-scheme/g2/g2-landing.md`, `g2-gate.txt`;
+`g2b/g2b-findings.md`, `diagnosis.txt`, the two candidate patches and the three probes' reads;
+`g2c/g2c-landing.md`, `g2c-verify.txt`, `g2c-gate.txt`, `g2c-chain.txt`; the sheets under
+`sheets/g2-1x.png` and `g2-2x.png`); the parent's reading, and the W21 spec's Decision Log 4 rules.
+
+#### 1. G2 — the rebuild and the referee (`g2/`)
+
+`g2-rebuild.sh` from the main checkout at `4c8f397`: `results/matrix.json` removed first, the whole
+bed rebuilt — both tiers, six profiles, `--alpha`, calibration and validation before the holdout —
+24 runs in seven minutes, 229 cells on the W20 bed's keys. The referee: all **52 dark captures**
+carry the digests G1 recorded at the frozen constants (`g1-digests.txt`), both tiers and both
+scales, holdout included — the one holdout read stands; the light profiles **176 of 177**
+byte-identical, the one exception the increased-contrast CSS `photo__toolbar-group__rest` differing
+by one code on 17 of 64 000 edge pixels, re-captured to scratch and reproducing the landed bytes — a
+session byte-state (settled at G2c, where it reverted to the W20 bytes); every dark matrix row equal
+to the dry run's; the declared-geometry read reproducing `g1-clauses.txt` line for line; 229 cells
+and the partition. What landed on the GPU tier is §5.90's: dark calibration ΔE 0.00846 / 0.00860 →
+**0.00410** at both scales, the holdout 0.02996 / 0.03017 → **0.01612 / 0.01596**, all three cells
+improving, `dark-solid__rrect-md` 0.02861 → 0.00401. The renderer's 29 goldens byte-identical.
+
+**The gate went red** on thirteen rows, all one mechanism: over a structured dark backdrop the CSS
+tier's body at 0.0122 against the law's 0.047. Two dom `ssimMean` rows on the nested pane (0.80048
+against ≥ 0.83, 0.83543 against ≥ 0.85), one texture `silhouetteIoU` on it at 2x (0.92673 against
+≥ 0.93), eight cross-tier interior-level ratios at 1.28–3.90 against 0.8…1.25 and the nested
+pane's cross-tier ΔE at 0.0624 / 0.0578 against ≤ 0.05. The predicate moved (29 → 34) because the
+predicate reads both sides: four dom rows over checkerboards fell inside the extractor's threshold of
+their backdrop at the over-dark level, and one GPU 2x row (`checkerboard__rrect-md`) recovered 0.925
+of its region where a body that agrees with the reference sits nearer its backdrop (W17's shape).
+Nothing was widened and no floor pinned; the demo's fixture byte-identical; the chain green but for
+the six gate cases.
+
+#### 2. G2b — the diagnosis, and why the first fix was not enough (`g2b/`)
+
+Replaying the tier's own shipped functions (`diag.mjs` off `platform-web/dist`) reproduces the
+measured bodies to 0.003 on eight of nine cells on both tiers. **Not the clamp**: it binds on one
+cell (`checkerboard__rrect-md`, the neutral driven to −0.0051 and truncated at black) and the
+truncated remainder is 0.0018, which the GPU tier carries inside every bound. **The conversion's
+anchor**: `cssTintAlpha` agrees with the renderer at one declared backdrop level (0.02, fitted on the
+light scheme's cross-tier difference) while every neutral the dark solve produces lands ON that
+anchor and the cells' backdrops sit at 0.0037–0.5000 — on the two photo cells the encoded span is
+0.0005, under `minimumTintContrast`, and the renderer's linear alpha 0.9053 is emitted verbatim as
+an encoded one; on the clamped cell the conversion solves 0.8388 where 0.505 lands the renderer's
+composite; and the renderer lerps over the backdrop's LINEAR mean where the `rgba()` sits over the
+ENCODED one (0.5000 against 0.2140 on a checkerboard). **Candidate A** — the conversion anchored at
+the surface's own pair of means, defaulting to the fitted level so no other caller moves — halves or
+better every dark CSS cell's ΔE against Apple and lands six of the eight ratios, with 13 / 13 GPU
+digests and 89 / 89 light CSS captures byte-identical; and the checkerboard family overshoots to the
+other side (2.07 → 0.64, 3.90 → 0.52). **The structural fact**: an encoded-space `rgba()` at α′
+multiplies every pixel's linear value by (1 − α′)^2.4, a gain on the backdrop's distribution, and no
+point solve at any single level reproduces a mean over a distribution; over a solid there is no
+distribution and the solve is exact. **Three probes on the W17 form boundary** (each a full
+re-capture of the dark CSS bed with the gate run): tolerance → ∞ (all linear; 4 red, `impulse` drawn
+0.0037 as 0.0009 and its `ssimOutside` 0.671 against ≥ 0.78), tolerance → 4 codes (3 red), and the
+boundary as a comparison of the two forms' ERRORS — the linear chain's half-step (1/510) against the
+encoded conversion's residual at this surface's own backdrop — which puts `impulse`, the two
+`dark-solid` cells and `mid-dark-solid` on the encoded form and everything else on the linear form
+where it lands on the renderer (`checkerboard__rrect-md` 0.0455 against the GPU's 0.0475 and the
+reference's 0.0468): **two rows red**, both `silhouetteIoU` on the nested pane at 2x. Nothing landed;
+both candidates kept as patches. The W21 spec's Decision Log 4 rules on it.
+
+#### 3. G2c — the landing completed under Decision Log 4 (`g2c/`)
+
+Both patches applied (`82f6171`): the form boundary as the comparison of errors, the conversion
+anchored, W17's comment rewritten to the new rule, pins in `tier-coherence.test.ts`; three unit
+files that pinned the old boundary updated with their reason and no browser spec touched (the suites
+read what the group state reports, not which form it names). The CSS tier re-captured for all six
+profiles into the canonical bed from the main checkout, the GPU tier unrendered. **The ruling's own
+condition, by measurement: all 89 light CSS captures byte-identical to the W20 bed**, four profiles
+and both scales; every GPU capture byte-identical to G2's, the 52 dark ones equal to
+`g1-digests.txt`. The CSS tier against Apple, W20 bed → G2 → G2c:
+
+| profile | calibration (9) | validation (1) | holdout (3), read once at this configuration |
+| --- | --- | --- | --- |
+| 1x dark | 0.01147 → 0.01163 → **0.00682** | 0.00362 → 0.00362 → 0.00362 | 0.03623 → 0.04340 → **0.01999** |
+| 2x dark | 0.01166 → 0.01129 → **0.00699** | 0.00401 → 0.00401 → 0.00401 | 0.03676 → 0.04183 → **0.01992** |
+
+Per cell at 1x: `photo__rrect-lg` (holdout) 0.06211 → 0.05867 → **0.01956**, a third of what the
+wave inherited; `photo__rrect-md` 0.02217 → **0.01093**; `checkerboard__glass-over-glass` (holdout)
+0.04074 → 0.07057 → **0.03975**; `checkerboard__rrect-md` 0.02125 → 0.04164 → **0.02001**; the two
+structured capsules 0.0095 / 0.0096 → **0.0079 / 0.0080**; `mid-dark-solid__capsule-button`
+(holdout) 0.00583 → **0.00066**; `dark-solid__rrect-md` 0.03065 → 0.00453. The tinted and collapsed
+cells within 0.00005. **Every dark CSS cell is better than the W20 bed.** The forms, off the
+capture's own report: five of thirteen `encoded` at each scale — the five over a solid backdrop,
+the point the conversion is exact at — and eight `linear`; the light bed's set unchanged.
+
+**The gate: 278 passed, 33 of 33 in `adopted-thresholds`, no bound widened.** Twelve of the thirteen
+rows meet their bound: the eight ratios at 0.98–1.07 (from 1.28–3.90), the nested pane's cross-tier
+ΔE 0.02941 / 0.02900 (from 0.0624 / 0.0578), its dom `ssimMean` 0.85104 / 0.87960. The predicate
+re-derived 34 → 33: the BODIES arm recovers on all four dom rows G2 added and only the 2x nested pane
+clears the AREA arm (0.9540 against 0.95); the other three recover 0.809–0.891 of their regions and
+miss that arm for the reason the GPU tier's texture row misses it — one mechanism where G2 recorded
+two. **Four floors on one cell** (§5.27's addendum; two ruled by Decision Log 4 (c), two the ruling
+did not reach because a gate case stops at its first assertion, ratified by the parent in Decision
+Log 4's addendum): the 2x nested pane's `silhouetteIoU` on both tiers and the dom tier's two contour
+rows — a silhouette with 34 interior holes against a conformance row reading the drawn shape at
+`declaredIoUWeb` 0.99919. `UNMET_ROWS` 7 → 11.
+
+**What the landing cost the conformance instrument.** Nine dark dom cells lose their
+declaration-conformance reading and two gain one (5 / 13 measured at both scales from 8 and 9): on
+the linear form the tier composites the material inside the sharp layer's filter and keeps only the
+contrast floor as an element paint, so its alpha over the transparent conformance page is the floor
+overlay's 0.267–0.271, under the 0.9 the coverage rule needs — the refusal class that has always
+held 24 of the 36 light-standard dom cells; `mid-dark-solid__capsule-button` keeps the encoded form
+and falls through the rule as its converted alpha moves 0.9061 → 0.8734; `dark-solid__rrect-md`
+crosses the other way (0.8940 → 0.9082) and is measured for the first time. The gate asserts no
+coverage on the dom tier and nothing went red; recorded because a measurement the bed carried and
+now does not is a gap.
+
+**The chain**: 1 857 unit tests; platform-web Playwright 376 on four projects; react 105; demo 39
+with the reference-panel GPU spec against the committed fixture; the renderer's goldens not re-run
+because no renderer file moved and every GPU capture is byte-identical. The demo's fixture
+byte-identical.
+
+**By eye** (`sheets/g2-1x.png`, `g2-2x.png`; native | GPU before | GPU landed | CSS landed): the CSS
+panel now sits beside the GPU panel rather than beside the background — the checkerboard reads
+through both at the reference's strength where G2's CSS panel was a near-black slab; the solids,
+`impulse` and the tinted rows indistinguishable across the panels. One difference the eye reads and
+the metrics do not: over the checkerboard the CSS panel carries a little more high-frequency board
+structure than the GPU panel — the CSS body is one `blur()` at the law's mixed σ where the
+renderer's is a two-component scatter (§5.42, §5.73) — now the visible residual on these cells,
+where before it sat under a level error four times larger. The user's eye rules before publish.
+
+### 5.92 W21 RECOMPOSED: the dark scheme on the GPU tier — the parent's nine clauses verified, two of them met as far as the wave's own constants reach with the remainder a named term each (the thin rows' appearance switch; the stationary sweep), the dark bed's error more than halved on the GPU tier and better on every CSS cell, the dark profile shipped, the 0.10.0 cut follows (2026-09-07)
+
+**The acceptance, clause by clause** (the W21 spec's Parent-Level Acceptance; the evidence
+§5.87–§5.91).
+
+1. *The dark reference measured* — met: W9's 56-cell grid at 1x, seven attested runs of eighteen
+   with every disqualified run named, the majority byte-state, nothing canonical written (§5.89 §1).
+2. *The anchors are measurements* — met: six levels at majority σ 0.0000, never tuned, in the
+   document with provenance; the encoded-mean law checked in dark by W9's rule (P3 0.0078 on the
+   thick rows; the equal-mean pair predicted to 0.001) before it was assumed (§5.89 §2–§3).
+3. *The body within 0.010* — met on every thick cell (mean 0.0039, worst 0.0079) and on three of
+   five thin cells at both scales; **missed on the two capsules over structured backdrops by
+   0.039–0.044**, the appearance term the scene selects — deferred by name with both readings on
+   file (§5.89 §2; §5.90 §5; Decision Log 3 (c)).
+4. *The rim per side within 0.03 and flat* — met on every side but the left on every cell, and on
+   all four sides of the collapsed capsules; **the left side and the flatness missed by the
+   stationary specular sweep**, a renderer defect in both schemes isolated to +0.0000 on the other
+   sides (§5.90 §4; Decision Log 3 (b)) — deferred to its own wave.
+5. *The matrix* — met: dark calibration ΔE 0.0041 at both scales (from 0.0085 / 0.0086) against
+   the 0.006 bound; no untinted GPU row worse; the holdout read once per configuration (the GPU at
+   G1, the CSS at G2c), all three cells improving on both tiers; every tinted cell within 0.00005.
+6. *The light profiles byte-identical* — met by measurement on both tiers at G1, G2 and G2c (the
+   one session byte-state settled at G2c); *the CSS tier's rows recorded* — met and exceeded: the
+   residual diagnosed to a derivation defect and closed under Decision Log 4, every dark CSS cell
+   better than the bed the wave inherited (§5.91 §3).
+7. *The constants named* — met: two fitted (`rimAlpha` on eighteen rim rows, `tintAlpha` on ten
+   passthrough rows), one declined on its rows (`specularGain`), six measured; each with its
+   objective and rows (§5.90 §1–§3).
+8. *Shipped* — met: `darkMaterialProfile` generated from the document and pinned to it in two
+   packages, `colorScheme` on both roots with `"auto"` on the media feed, the demo's switch with its
+   Reference section following the resolved scheme (G3; W21 Decision Log 1).
+9. *By eye and the gap ledger* — the sheets at both scales before publish, the user's veto kept;
+   every remaining gap named below; the 0.10.0 cut follows.
+
+**What the wave did.** On the fidelity target the dark bed's calibration error fell from 0.0085 to
+0.0041 and the holdout from 0.030 to 0.016 with a law that was already in the renderer, six
+measured numbers, one declined constant and two fitted ones; on the CSS tier every dark cell is
+better than before and the two tiers agree with each other to within 7 % on the interior where they
+disagreed by up to a factor of four. The dark profile is a shipped, selectable material for the
+first time. Three assumptions fell: that the dark reference's thin surface sits on a curve (it
+switches appearance by scene), that vitrea's rim was lit from a direction Apple's is (Apple's dark
+rim has none, and the two-light term was fitting a stationary sweep), and that the CSS tier's dark
+residual was a limit of two layers (it was a conversion anchored on the wrong level behind a form
+boundary declared where crossing it cost nothing).
+
+**Carried by name.** The stationary specular sweep at rest (both schemes; W22 recommended). The
+appearance switch (a scene-level term; 0.039–0.044 on two capsules). The nested pane in dark
+(partial on both tiers; four instrument floors on its 2x cell). The collapsed rim (+0.017). The
+passthrough one alpha cannot reach (the thin rows; pitch 4 on every component, the scatter's). The
+rim's horizontal-against-vertical split over bright backdrops. `hc-text__rrect-sm`'s 4-of-7 share.
+The dark dom cells' lost conformance readings under the linear form. The CSS body's extra
+high-frequency structure over the checkerboard (one blur against a two-component scatter). The
+gate's dark bounds, re-proposed by the margin rule (`g2/g2-dark-bounds.txt`), the user's to adopt.
+W9's H4 remainder in dark. A unit suite for the demo.
