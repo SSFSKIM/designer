@@ -1,0 +1,141 @@
+W21 G2c — the gate over the landed canonical bed. GREEN, and this file is the reading.
+
+`pnpm --filter @vitrea/calibration test`: 278 passed, 0 failed, 20 files. `adopted-thresholds.test.ts`
+33 of 33. **No bound was widened.** Four regression floors were pinned (§3), the predicate was
+re-derived from the landed artifact (§2), and `MATRIX_CELLS` and `MATRIX_PARTITION` are unchanged
+and asserted green: 229 cells, 72 / 72 / 26 / 26 / 17 / 16 per profile.
+
+
+1. THE THIRTEEN ROWS G2 READ RED, G2 -> G2c
+---------------------------------------------
+Twelve meet their adopted bound. The thirteenth is one of the four rows §3 floors.
+
+  tier    scale cell                                 row                           G2       -> G2c       bound
+  dom     1x    checkerboard__glass-over-glass__rest ssimMean                      0.80048  -> 0.85104   >= 0.83  MET
+  dom     2x    checkerboard__glass-over-glass__rest ssimMean                      0.83543  -> 0.87960   >= 0.85  MET
+  texture 2x    checkerboard__glass-over-glass__rest silhouetteIoU                 0.92673  -> 0.92673   >= 0.93  FLOORED
+  dom     1x    checkerboard__capsule-button__rest   interiorLevelRatioGpuOverCss  2.07054  -> 0.98922   0.8..1.25 MET
+  dom     2x    checkerboard__capsule-button__rest   interiorLevelRatioGpuOverCss  1.99868  -> 0.98426   0.8..1.25 MET
+  dom     1x    photo__rrect-md__rest                interiorLevelRatioGpuOverCss  1.49754  -> 1.05910   0.8..1.25 MET
+  dom     2x    photo__rrect-md__rest                interiorLevelRatioGpuOverCss  1.51982  -> 1.07357   0.8..1.25 MET
+  dom     1x    photo__rrect-lg__rest                interiorLevelRatioGpuOverCss  1.48598  -> 1.04197   0.8..1.25 MET
+  dom     2x    photo__rrect-lg__rest                interiorLevelRatioGpuOverCss  1.49937  -> 1.04846   0.8..1.25 MET
+  dom     1x    photo__capsule-button__rest          interiorLevelRatioGpuOverCss  1.27721  -> 0.98367   0.8..1.25 MET
+  dom     2x    photo__capsule-button__rest          interiorLevelRatioGpuOverCss  1.28114  -> 0.99463   0.8..1.25 MET
+  dom     1x    checkerboard__glass-over-glass__rest crossTierOklabDeltaEMean      0.06240  -> 0.02941   <= 0.05  MET
+  dom     2x    checkerboard__glass-over-glass__rest crossTierOklabDeltaEMean      0.05782  -> 0.02900   <= 0.05  MET
+
+The whole coherence axis over the dark bed, for the record — every dom cell's GPU-over-CSS interior
+level ratio, G2 -> G2c: 2.0705 -> 0.9892 and 1.9987 -> 0.9843 (`checkerboard__capsule-button`),
+3.8995 -> 1.0724 and 3.3258 -> 1.0098 (`checkerboard__rrect-md`), 2.4743 -> 1.0458 and
+2.2807 -> 1.0058 (`checkerboard__glass-over-glass`), 1.4975 -> 1.0591 and 1.5198 -> 1.0736
+(`photo__rrect-md`), 1.4860 -> 1.0420 and 1.4994 -> 1.0485 (`photo__rrect-lg`), 1.2772 -> 0.9837 and
+1.2811 -> 0.9946 (`photo__capsule-button`), 1.0577 -> 1.0170 and 1.0827 -> 1.0421
+(`mid-dark-solid__capsule-button`). The tinted and collapsed cells do not move.
+
+`dark-solid__rrect-md__rest` reads 2.4205 and 2.9410 and is not gated on this row: the predicate
+excludes it on both dark profiles, and has since W20, because over the dark solids the NATIVE
+silhouette is the rim ring in fragments and the interior rows measure the rim on both sides (claims
+§5.87). It moved 2.3645 -> 2.4205 and 2.8722 -> 2.9410 here, inside the same excluded reading.
+
+
+2. THE PREDICATE, RE-DERIVED FROM THE LANDED ARTIFACT (Decision Log 4 (d))
+---------------------------------------------------------------------------
+34 -> 33 lines. ONE row leaves and none joins:
+
+  dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard
+
+The BODIES arm recovers on all four dom rows G2 added — `checkerboard__rrect-md__rest` returns to
+one body from two at both scales, `checkerboard__glass-over-glass__rest` from two at 1x and six at
+2x — because the CSS tier's level over a structured dark backdrop is now the renderer's. Only the 2x
+nested pane clears the AREA arm with it, at 107 239 of a 112 416 px region (0.9540 against 0.95).
+
+The other three recover most of what they lost and still miss that arm, and they now miss it for the
+reason the GPU tier's texture row misses it:
+
+  row                                                       W20    -> G2      -> G2c     ratio
+  dom  1x  checkerboard__rrect-md__rest                      15 024 ->  7 618 -> 12 153   0.809
+  dom  2x  checkerboard__rrect-md__rest                      60 064 -> 30 450 -> 50 974   0.849
+  dom  1x  checkerboard__glass-over-glass__rest              28 100 -> 17 649 -> 25 047   0.891
+  dom  2x  checkerboard__glass-over-glass__rest             112 416 -> 70 609 -> 107 239  0.954  LEAVES
+  texture 2x  checkerboard__rrect-md__rest                   60 052 -> 55 561 -> 55 561   0.925
+
+A body that agrees with the reference sits inside the extractor's 0.02 threshold of its own backdrop
+over the checkerboard's white squares, so coherence costs the instrument what the material gains —
+W17's and W18's mechanism, and one mechanism now rather than two, because the CSS rows read that way
+only since they began drawing what the GPU rows draw.
+
+
+3. FOUR REGRESSION FLOORS, ON ONE CELL AT ONE SCALE
+-----------------------------------------------------
+All four are `checkerboard__glass-over-glass__rest` in `apple-macos-26.5-2x-dark-standard`, a HOLDOUT
+cell, and none is the material's level.
+
+  tier    row                    measured  floor    bound     ruled by
+  texture silhouetteIoU          0.92673   0.9257   >= 0.93   Decision Log 4 (c)
+  dom     silhouetteIoU          0.90482   0.9038   >= 0.93   Decision Log 4 (c)
+  dom     contourDistanceMean    1.76018   1.8602   <= 0.5    NOT REACHED BY (c) — see below
+  dom     contourDistanceP95    13.0      13.1      <= 3.0    NOT REACHED BY (c) — see below
+
+**Two of these the ruling did not reach, and the parent must ratify them.** Decision Log 4 (c) named
+two floors because G2b reported the cell one assertion deep — `adopted-thresholds.test.ts` stops a
+gate case at its first failure, so the `silhouetteIoU` row masked the two contour rows behind it.
+They are the same instrument on the same cell and the arithmetic says so: the dom silhouette the
+extractor recovers at 2x carries **34 interior holes**, against the texture tier's 40 and the light
+bed's none, and `contourDistance` measures every hole's boundary as contour. The same cell's TEXTURE
+contour, whose silhouette the holes do not perforate at the level the extractor can find, reads
+0.0210 and 0. The predicate admits the cell on area (0.9540) and bodies (one), which are the two arms
+it has; holes are not among them, and this is the first cell on the bed where a silhouette passes
+both arms and is perforated anyway.
+
+W10's precedent is exact and in this same list: two contour floors pinned as "an instrument floor,
+ONE interior hole the luminance-delta extractor cut", removed at W11b when the extractor gained a
+chroma arm.
+
+The shape's own instrument disagrees with all four, which is what makes the mechanism nameable.
+W20's conformance rows read the DRAWN coverage against the surface's DECLARATION rather than against
+a luminance threshold, and on this cell's texture tier they read `declaredIoUWeb` 0.99919 with a
+contour max and p95 of one device pixel at 2x (0.99893 / 1 / 0 at 1x). The tier draws the declared
+shape to a pixel. The dom tier carries no conformance row on this cell to quote beside it — see §4.
+
+`UNMET_ROWS` 7 -> 11.
+
+
+4. WHAT THE LANDING COST THE CONFORMANCE INSTRUMENT, NAMED RATHER THAN ABSORBED
+--------------------------------------------------------------------------------
+Nine dark dom cells LOSE their W20 declaration-conformance reading and two GAIN one. Net, the dark
+dom tier goes from 8 / 13 and 9 / 13 measured to 5 / 13 at both scales. The light bed does not move
+at all (12 of 36 measured at both light-standard scales, 2 of 8 and 1 of 8 on the two preference
+profiles — the same counts as G2).
+
+  LOST     1x  photo__rrect-md, photo__rrect-lg, photo__capsule-button, mid-dark-solid__capsule-button
+           2x  the same four, and checkerboard__capsule-button
+  GAINED   1x and 2x  dark-solid__rrect-md
+
+The reason is the harness's own, quoted from the run log: "declaration conformance NOT MEASURED:
+this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule
+needs." On the LINEAR form the tier composites the material inside the sharp layer's filter and
+keeps only the contrast floor as an element paint, so its alpha over the transparent conformance
+page is the floor overlay's 0.2667–0.2706. The seven cells that moved to that form join a refusal
+class that has always held 24 of the 36 light-standard dom cells, for exactly this reason; the class
+is not new and neither is its wording (claims §5.79 §1, §5.86 §1). `mid-dark-solid__capsule-button`
+keeps the encoded form and is lost for the other half of the wave: its converted alpha moved from
+0.9061 to 0.8734 under Decision Log 4 (b)'s anchor and fell through the 0.9 rule. `dark-solid__rrect-md`
+crosses the other way, 0.8940 to 0.9082, and is measured for the first time.
+
+Absent, not a conformance failure. The gate asserts no coverage on this axis and nothing there went
+red; this section exists because a measurement the bed used to carry and now does not is a gap, and
+the wave's rule is that no gap is accepted silently.
+
+
+5. WHICH FORM EACH SURFACE DREW (Decision Log 4 (a), off the capture's own report)
+-----------------------------------------------------------------------------------
+The dark bed: 5 of 13 cells `encoded` at each scale — `dark-solid__capsule-button` and its tinted
+twin, `dark-solid__rrect-md`, `impulse__capsule-button`, `mid-dark-solid__capsule-button` — and the
+other 8 `linear`. Every one of the five is a SOLID backdrop, which is the point at which the encoded
+conversion is exact and therefore the nearer drawing; `impulse` is the cell W17 measured the chain
+drawing 0.0037 as 0, and it keeps the form that does not.
+
+The light bed: 5 of 36 `encoded` in each light-standard profile and 0 of 9 and 0 of 8 in the two
+preference profiles — the identical set G2 landed, and every one of those captures is byte-identical
+(`g2c-verify.txt` (i)).

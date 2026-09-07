@@ -426,6 +426,9 @@ const FLOOR_ROUNDING = 0.0001;
 
 const FLOOR_EPSILON: Readonly<Record<string, number>> = {
   ssimMean: 0.001,
+  // An area ratio on a deterministic capture, on the same order as SSIM's and
+  // against misses of 0.003 and 0.025 (W21 Decision Log 4 (c)).
+  silhouetteIoU: 0.001,
   ssimOutside: 0.001,
   oklabDeltaEMean: 0.001,
   oklabDeltaEP95: 0.001,
@@ -579,6 +582,65 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // depth ramp (W13) was never what those rows needed. Their claims are
   // restored in §5.27. The dom rows above are unchanged in kind: the CSS tier
   // carries the adaptive alpha and no lift (W14 Decision Log 4).
+  //
+  // W21 G2c (claims §5.90 §6; W21 Decision Log 4 (c), the parent's
+  // recommendation under the user's standing instruction, 2026-09-07) PINNED the
+  // two rows below, on one cell at one scale: the nested pane's `silhouetteIoU`
+  // in the 2x dark profile, on both tiers. Neither is the material's level and
+  // neither is its shape.
+  //
+  // What they are is the luminance-delta extractor, on the third cell in three
+  // waves to show it (W17's and W18's paragraphs in `PREDICATE_EXCLUDES` have
+  // the mechanism): a body that agrees with the reference sits nearer its own
+  // backdrop, so the set the extractor recovers is smaller than the one it
+  // recovered while the body was wrong. The texture row moved when the GPU tier
+  // landed the dark material at G2 (0.95088 → 0.92673 while that tier's own ΔE
+  // on the cell fell 0.0274 → 0.0177) and has not moved since; the dom row is
+  // this landing's, and it is a row the bed could not read at all a moment ago —
+  // the predicate excluded that cell until the CSS tier's level came right, so
+  // 0.90482 is the FIRST reading of it, pinned where it was first read rather
+  // than lowered from anything.
+  //
+  // The shape's own instrument disagrees with both, which is why the mechanism
+  // is nameable. W20's conformance rows read the DRAWN coverage against the
+  // surface's DECLARATION rather than against a luminance threshold, and on this
+  // cell's texture tier they read `declaredIoUWeb` 0.99919 with a contour max and
+  // p95 of one device pixel at 2x (0.99893 / 1 / 0 at 1x). The tier draws the
+  // declared shape to a pixel; what the silhouette row measures is how much of
+  // it a threshold can find against a checkerboard. The dom tier carries no
+  // conformance row on this cell to quote beside it — the linear form composites
+  // the material inside the filter rather than as an element paint, so its
+  // interior alpha over the transparent conformance page is the floor overlay's
+  // 0.2706 and the harness refuses the reading (the same refusal, for the same
+  // reason, that 24 of the 36 light-standard dom cells have always carried).
+  //
+  // AND ITS TWO CONTOUR ROWS, which Decision Log 4 (c) did not reach because G2b
+  // reported the cell one assertion deep and stopped at the `silhouetteIoU`. They
+  // are the same instrument on the same cell, and the arithmetic says so rather
+  // than the prose: the dom silhouette the extractor recovers at 2x carries **34
+  // interior holes** against the texture tier's 40 and the light bed's none, and
+  // `contourDistance` measures every hole's boundary as contour. The mean reads
+  // 1.7602 device px against ≤ 0.5 and the p95 13 against ≤ 3.0, where the same
+  // cell's TEXTURE contour — one silhouette without the holes' perforation at the
+  // level the extractor can find — reads 0.0210 and 0. The predicate admits the
+  // cell on area (0.9540) and bodies (one), which are the two arms it has; holes
+  // are not among them, and this is the first cell on the bed where a silhouette
+  // passes both arms and is perforated anyway. Recorded here rather than by
+  // widening the predicate, which is a construct no wave may touch to make a gate
+  // pass.
+  //
+  // W10's precedent is exact and in this same list: two contour floors pinned as
+  // "an instrument floor, ONE interior hole the luminance-delta extractor cut",
+  // removed at W11b when the extractor gained a chroma arm. These come off the
+  // same way — by the instrument, or by the nested pane's own charter.
+  //
+  // The nested pane's own charter is where all four come off: the tone axis
+  // stands down over a glass backdrop (W9 Deferred, W21 Deferred), and this cell
+  // is the partial that predicts.
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.92673, floor: 0.9257 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.90482, floor: 0.9038 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean": { measured: 1.76018, floor: 1.8602 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceP95": { measured: 13.0, floor: 13.1 },
 };
 
 /**
@@ -595,9 +657,13 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * 8 after W14's outer shadow met those three (claims §5.66) — the deficit was
  * outside the silhouette all along; 7 after W16's two-layer CSS body met the
  * 1x dom-tier rrect-md row (claims §5.73), the seven left being the CSS tier's
- * large spans against the rim band it has no lens to draw.
+ * large spans against the rim band it has no lens to draw; **11 after W21 G2c
+ * pinned the nested pane's four 2x-dark shape rows** (claims §5.90 §6; W21
+ * Decision Log 4 (c) and the two contour rows it did not reach), which are the
+ * extractor's contrast and not the material's — the first two floors on this bed that are not a fidelity row at
+ * all, and the reason the comment beside them says so at length.
  */
-const UNMET_ROWS = 7;
+const UNMET_ROWS = 11;
 
 /*
  * ---------------------------------------------------------------------------
@@ -975,6 +1041,26 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * Every one of the five is still gated on all of its perceptual rows, and this
  * list is not a fidelity exceedance — see the landing document for the rows on
  * the coherence axis, which are.
+ *
+ * **What W21 G2c gave back (2026-09-07; W21 Decision Log 4 (a), (d)).** ONE of
+ * those five leaves and none joins: 34 lines become 33. The CSS tier's level over
+ * a structured dark backdrop is now the renderer's — the form boundary is a
+ * comparison of the two forms' errors and the structured cells take the exact
+ * one — and the extractor sees the surface again. The BODIES arm recovers on all
+ * four dom rows: `checkerboard__rrect-md__rest` returns to one body from two at
+ * both scales, and `checkerboard__glass-over-glass__rest` from two at 1x and six
+ * at 2x. Only the 2x nested pane clears the AREA arm with it, recovering 107 239
+ * of a 112 416 px region (0.954 against the 0.95 the predicate asks).
+ *
+ * The other three recover most of what they lost and still miss that arm —
+ * `checkerboard__rrect-md__rest` 12 153 of 15 024 (0.809) at 1x and 50 974 of
+ * 60 064 (0.849) at 2x, the 1x nested pane 25 047 of 28 100 (0.891) — and they
+ * miss it for the reason the texture row in the paragraph above misses it, which
+ * is now visibly one mechanism rather than two: a body that agrees with the
+ * reference sits inside the extractor's 0.02 threshold of its own backdrop over
+ * the checkerboard's white squares, so coherence costs the instrument what the
+ * material gains. The CSS rows read that way now because they finally draw what
+ * the GPU rows draw. Their perceptual and coherence rows gate as before.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -984,7 +1070,6 @@ const PREDICATE_EXCLUDES = [
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard",
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",

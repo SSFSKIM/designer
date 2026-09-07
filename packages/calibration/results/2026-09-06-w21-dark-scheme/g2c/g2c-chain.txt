@@ -1,0 +1,40 @@
+W21 G2c — the chain on the landed tree. Every step green.
+
+Run one at a time, each after the GPU was free, on the main checkout with the canonical bed as this
+landing left it. `chain.log` and `browser.log` in scratch hold the raw output.
+
+  18:23:44  pnpm -r build                                    exit 0
+  18:23:50  pnpm -r lint                                     exit 0
+  18:24:08  pnpm -r test                                     exit 0
+  18:24:57  packages/platform-web: npx playwright test       exit 0
+  18:25:40  pnpm --filter @vitreajs/vitrea-react test:e2e    exit 0
+  18:26:17  pnpm --filter demo test:e2e                      exit 0
+
+UNIT — 1 857 passed, 0 failed, 128 files:
+
+  policy            23      geometry         170      core             302      calibration     278
+  motion           162      renderer-webgpu  396      platform-web     425      react           101
+
+BROWSER:
+
+  platform-web   376 passed, four projects (chromium, firefox, webkit, chromium-gpu)
+  react          105 passed, three engines
+  demo            39 passed, including the reference-panel GPU spec against the committed fixture
+
+**No browser spec had to be updated.** The CSS tier's form boundary moved (W21 Decision Log 4 (a))
+and no pixel or declaration spec pinned it: the e2e suites read what the group state reports rather
+than which form it names, which is the honesty core doing what it is for. The three unit files that
+DID pin the old boundary were updated with their reason and not loosened —
+`platform-web/test/interior-level.test.ts` (the reach and the comparison, now two separate cases),
+`platform-web/test/w19-fold-cases.ts` (the encoded row's `optics` and its `interior` must describe
+one material for the comparison to be a boundary case rather than a contradiction) and
+`platform-web/test/author-tint-fold.test.ts` (contract X9's claim restated over the surface's OWN
+untinted conversion). Every recorded declaration in `w19-pre-fold-declarations.json` still matches
+byte for byte.
+
+THE RENDERER GOLDENS WERE NOT RUN, and that is a statement rather than an omission: this landing
+touches `packages/platform-web/src/{optics,css-tier,root}.ts` and two calibration test files, and
+`git diff` over `packages/renderer-webgpu`, `core`, `geometry`, `motion`, `policy` and `react` is
+empty. The renderer's own 396 unit tests pass unchanged, its 52 dark captures are byte-identical to
+`g1/g1-digests.txt` and all 115 of its captures on this bed are byte-identical to what G2 landed
+(`g2c-verify.txt` (ii)), so no golden hash can have moved.
