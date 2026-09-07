@@ -1,0 +1,150 @@
+
+=== clause 3 — the body under the declared geometry, webgpu tier ===
+  cell                                           dpr set         thick    native   before    after  |Δ| after  clause 3
+  checkerboard__capsule-button__rest             1x  calibration False    0.1059   0.0640   0.0673     0.0386    MISSED
+  checkerboard__rrect-md__rest                   1x  calibration True     0.0468   0.0628   0.0475     0.0007       met
+  dark-solid__capsule-button__rest               1x  calibration False    0.0110   0.0117   0.0117     0.0007       met
+  dark-solid__rrect-md__rest                     1x  calibration True     0.0153   0.0482   0.0130     0.0023       met
+  impulse__capsule-button__rest                  1x  validation  False    0.0066   0.0037   0.0037     0.0030       met
+  mid-dark-solid__capsule-button__rest           1x  holdout     False    0.0285   0.0500   0.0286     0.0000       met
+  photo__capsule-button__rest                    1x  calibration False    0.0961   0.0551   0.0528     0.0433    MISSED
+  photo__rrect-lg__rest                          1x  holdout     True     0.0454   0.0555   0.0404     0.0050       met
+  photo__rrect-md__rest                          1x  calibration True     0.0466   0.0547   0.0389     0.0077       met
+  checkerboard__capsule-button__rest             2x  calibration False    0.1074   0.0638   0.0685     0.0390    MISSED
+  checkerboard__rrect-md__rest                   2x  calibration True     0.0475   0.0627   0.0478     0.0004       met
+  dark-solid__capsule-button__rest               2x  calibration False    0.0110   0.0117   0.0117     0.0007       met
+  dark-solid__rrect-md__rest                     2x  calibration True     0.0153   0.0483   0.0130     0.0023       met
+  impulse__capsule-button__rest                  2x  validation  False    0.0067   0.0033   0.0033     0.0033       met
+  mid-dark-solid__capsule-button__rest           2x  holdout     False    0.0285   0.0500   0.0286     0.0000       met
+  photo__capsule-button__rest                    2x  calibration False    0.0966   0.0551   0.0527     0.0439    MISSED
+  photo__rrect-lg__rest                          2x  holdout     True     0.0455   0.0556   0.0405     0.0051       met
+  photo__rrect-md__rest                          2x  calibration True     0.0470   0.0548   0.0391     0.0079       met
+  mean |Δbody| by scale and thickness               
+    1x  thin   n= 5  mean 0.0171  worst 0.0433
+    1x  thick  n= 4  mean 0.0039  worst 0.0077
+    2x  thin   n= 5  mean 0.0174  worst 0.0439
+    2x  thick  n= 4  mean 0.0039  worst 0.0079
+
+=== stop S3 — the collapsed capsules, moved by more than 0.002 in body, webgpu tier ===
+        dark-solid__capsule-button__rest               1x  native  0.0110  before  0.0117 → after  0.0117 (+0.0000)
+        impulse__capsule-button__rest                  1x  native  0.0066  before  0.0037 → after  0.0037 (+0.0000)
+        dark-solid__capsule-button__rest               2x  native  0.0110  before  0.0117 → after  0.0117 (+0.0000)
+        impulse__capsule-button__rest                  2x  native  0.0067  before  0.0033 → after  0.0033 (+0.0000)
+
+=== clause 4 — the rim per side over a solid backdrop, webgpu tier ===
+  cell                                           dpr side      native   before    after   Δ after  clause 4
+  dark-solid__capsule-button__rest               1x  top       0.0249   0.0117   0.0117   -0.0132       met
+  dark-solid__capsule-button__rest               1x  bottom    0.0247   0.0117   0.0117   -0.0130       met
+  dark-solid__capsule-button__rest               1x  left      0.0161   0.0117   0.0117   -0.0044       met
+  dark-solid__capsule-button__rest               1x  right     0.0161   0.0117   0.0117   -0.0044       met
+  dark-solid__capsule-button__rest               1x  FLAT      0.0088            0.0000   -0.0088       met
+  dark-solid__rrect-md__rest                     1x  top       0.0340   0.2244   0.0418   +0.0078       met
+  dark-solid__rrect-md__rest                     1x  bottom    0.0339   0.1021   0.0416   +0.0077       met
+  dark-solid__rrect-md__rest                     1x  left      0.0296   0.2327   0.1690   +0.1394    MISSED
+  dark-solid__rrect-md__rest                     1x  right     0.0296   0.0854   0.0363   +0.0067       met
+  dark-solid__rrect-md__rest                     1x  FLAT      0.0044            0.1327   +0.1283    MISSED
+  impulse__capsule-button__rest                  1x  top       0.0145   0.0030   0.0030   -0.0115       met
+  impulse__capsule-button__rest                  1x  bottom    0.0137   0.0030   0.0030   -0.0107       met
+  impulse__capsule-button__rest                  1x  left      0.0041   0.0017   0.0017   -0.0024       met
+  impulse__capsule-button__rest                  1x  right     0.0042   0.0017   0.0017   -0.0025       met
+  impulse__capsule-button__rest                  1x  FLAT      0.0103            0.0013   -0.0091       met
+  mid-dark-solid__capsule-button__rest           1x  top       0.0669   0.2231   0.0637   -0.0032       met
+  mid-dark-solid__capsule-button__rest           1x  bottom    0.0667   0.1105   0.0636   -0.0030       met
+  mid-dark-solid__capsule-button__rest           1x  left      0.0622   0.1323   0.1140   +0.0518    MISSED
+  mid-dark-solid__capsule-button__rest           1x  right     0.0622   0.0766   0.0617   -0.0005       met
+  mid-dark-solid__capsule-button__rest           1x  FLAT      0.0047            0.0523   +0.0476    MISSED
+  dark-solid__capsule-button__rest               2x  top       0.0278   0.0117   0.0117   -0.0161       met
+  dark-solid__capsule-button__rest               2x  bottom    0.0277   0.0117   0.0117   -0.0159       met
+  dark-solid__capsule-button__rest               2x  left      0.0164   0.0117   0.0117   -0.0047       met
+  dark-solid__capsule-button__rest               2x  right     0.0164   0.0117   0.0117   -0.0047       met
+  dark-solid__capsule-button__rest               2x  FLAT      0.0114            0.0000   -0.0114       met
+  dark-solid__rrect-md__rest                     2x  top       0.0392   0.3137   0.0556   +0.0163       met
+  dark-solid__rrect-md__rest                     2x  bottom    0.0391   0.1326   0.0553   +0.0162       met
+  dark-solid__rrect-md__rest                     2x  left      0.0322   0.3369   0.2767   +0.2445    MISSED
+  dark-solid__rrect-md__rest                     2x  right     0.0322   0.1048   0.0455   +0.0133       met
+  dark-solid__rrect-md__rest                     2x  FLAT      0.0070            0.2312   +0.2242    MISSED
+  impulse__capsule-button__rest                  2x  top       0.0162   0.0027   0.0027   -0.0135       met
+  impulse__capsule-button__rest                  2x  bottom    0.0153   0.0027   0.0027   -0.0126       met
+  impulse__capsule-button__rest                  2x  left      0.0059   0.0016   0.0016   -0.0043       met
+  impulse__capsule-button__rest                  2x  right     0.0061   0.0016   0.0016   -0.0045       met
+  impulse__capsule-button__rest                  2x  FLAT      0.0103            0.0011   -0.0092       met
+  mid-dark-solid__capsule-button__rest           2x  top       0.0736   0.3045   0.0764   +0.0028       met
+  mid-dark-solid__capsule-button__rest           2x  bottom    0.0733   0.1382   0.0763   +0.0030       met
+  mid-dark-solid__capsule-button__rest           2x  left      0.0623   0.1334   0.1201   +0.0579    MISSED
+  mid-dark-solid__capsule-button__rest           2x  right     0.0623   0.0766   0.0626   +0.0003       met
+  mid-dark-solid__capsule-button__rest           2x  FLAT      0.0113            0.0575   +0.0462    MISSED
+
+=== clause 3 — the body under the declared geometry, css tier ===
+  cell                                           dpr set         thick    native   before    after  |Δ| after  clause 3
+  checkerboard__capsule-button__rest             1x  calibration False    0.1059   0.0545   0.0328     0.0731    MISSED
+  checkerboard__rrect-md__rest                   1x  calibration True     0.0468   0.0546   0.0122     0.0346    MISSED
+  dark-solid__capsule-button__rest               1x  calibration False    0.0110   0.0117   0.0117     0.0007       met
+  dark-solid__rrect-md__rest                     1x  calibration True     0.0153   0.0497   0.0130     0.0023       met
+  impulse__capsule-button__rest                  1x  validation  False    0.0066   0.0037   0.0037     0.0030       met
+  mid-dark-solid__capsule-button__rest           1x  holdout     False    0.0285   0.0514   0.0274     0.0012       met
+  photo__capsule-button__rest                    1x  calibration False    0.0961   0.0524   0.0421     0.0540    MISSED
+  photo__rrect-lg__rest                          1x  holdout     True     0.0454   0.0526   0.0277     0.0177    MISSED
+  photo__rrect-md__rest                          1x  calibration True     0.0466   0.0523   0.0271     0.0195    MISSED
+  checkerboard__capsule-button__rest             2x  calibration False    0.1074   0.0548   0.0347     0.0728    MISSED
+  checkerboard__rrect-md__rest                   2x  calibration True     0.0475   0.0548   0.0146     0.0329    MISSED
+  dark-solid__capsule-button__rest               2x  calibration False    0.0110   0.0117   0.0117     0.0007       met
+  dark-solid__rrect-md__rest                     2x  calibration True     0.0153   0.0497   0.0130     0.0023       met
+  impulse__capsule-button__rest                  2x  validation  False    0.0067   0.0033   0.0033     0.0033       met
+  mid-dark-solid__capsule-button__rest           2x  holdout     False    0.0285   0.0514   0.0274     0.0012       met
+  photo__capsule-button__rest                    2x  calibration False    0.0966   0.0524   0.0420     0.0546    MISSED
+  photo__rrect-lg__rest                          2x  holdout     True     0.0455   0.0526   0.0276     0.0179    MISSED
+  photo__rrect-md__rest                          2x  calibration True     0.0470   0.0522   0.0269     0.0200    MISSED
+  mean |Δbody| by scale and thickness               
+    1x  thin   n= 5  mean 0.0264  worst 0.0731
+    1x  thick  n= 4  mean 0.0185  worst 0.0346
+    2x  thin   n= 5  mean 0.0265  worst 0.0728
+    2x  thick  n= 4  mean 0.0183  worst 0.0329
+
+=== stop S3 — the collapsed capsules, moved by more than 0.002 in body, css tier ===
+        dark-solid__capsule-button__rest               1x  native  0.0110  before  0.0117 → after  0.0117 (+0.0000)
+        impulse__capsule-button__rest                  1x  native  0.0066  before  0.0037 → after  0.0037 (+0.0000)
+        dark-solid__capsule-button__rest               2x  native  0.0110  before  0.0117 → after  0.0117 (+0.0000)
+        impulse__capsule-button__rest                  2x  native  0.0067  before  0.0033 → after  0.0033 (+0.0000)
+
+=== clause 4 — the rim per side over a solid backdrop, css tier ===
+  cell                                           dpr side      native   before    after   Δ after  clause 4
+  dark-solid__capsule-button__rest               1x  top       0.0249   0.0117   0.0117   -0.0132       met
+  dark-solid__capsule-button__rest               1x  bottom    0.0247   0.0117   0.0117   -0.0130       met
+  dark-solid__capsule-button__rest               1x  left      0.0161   0.0117   0.0117   -0.0044       met
+  dark-solid__capsule-button__rest               1x  right     0.0161   0.0117   0.0117   -0.0044       met
+  dark-solid__capsule-button__rest               1x  FLAT      0.0088            0.0000   -0.0088       met
+  dark-solid__rrect-md__rest                     1x  top       0.0340   0.1809   0.0471   +0.0131       met
+  dark-solid__rrect-md__rest                     1x  bottom    0.0339   0.0489   0.0136   -0.0202       met
+  dark-solid__rrect-md__rest                     1x  left      0.0296   0.1527   0.0411   +0.0115       met
+  dark-solid__rrect-md__rest                     1x  right     0.0296   0.0485   0.0141   -0.0155       met
+  dark-solid__rrect-md__rest                     1x  FLAT      0.0044            0.0335   +0.0291       met
+  impulse__capsule-button__rest                  1x  top       0.0145   0.0030   0.0030   -0.0114       met
+  impulse__capsule-button__rest                  1x  bottom    0.0137   0.0032   0.0032   -0.0105       met
+  impulse__capsule-button__rest                  1x  left      0.0041   0.0019   0.0019   -0.0022       met
+  impulse__capsule-button__rest                  1x  right     0.0042   0.0024   0.0024   -0.0017       met
+  impulse__capsule-button__rest                  1x  FLAT      0.0103            0.0013   -0.0090       met
+  mid-dark-solid__capsule-button__rest           1x  top       0.0669   0.1768   0.0732   +0.0064       met
+  mid-dark-solid__capsule-button__rest           1x  bottom    0.0667   0.0574   0.0344   -0.0322    MISSED
+  mid-dark-solid__capsule-button__rest           1x  left      0.0622   0.0901   0.0610   -0.0011       met
+  mid-dark-solid__capsule-button__rest           1x  right     0.0622   0.0680   0.0468   -0.0153       met
+  mid-dark-solid__capsule-button__rest           1x  FLAT      0.0047            0.0388   +0.0341    MISSED
+  dark-solid__capsule-button__rest               2x  top       0.0278   0.0117   0.0117   -0.0161       met
+  dark-solid__capsule-button__rest               2x  bottom    0.0277   0.0117   0.0117   -0.0159       met
+  dark-solid__capsule-button__rest               2x  left      0.0164   0.0117   0.0117   -0.0047       met
+  dark-solid__capsule-button__rest               2x  right     0.0164   0.0117   0.0117   -0.0047       met
+  dark-solid__capsule-button__rest               2x  FLAT      0.0114            0.0000   -0.0114       met
+  dark-solid__rrect-md__rest                     2x  top       0.0392   0.1861   0.0482   +0.0090       met
+  dark-solid__rrect-md__rest                     2x  bottom    0.0391   0.0496   0.0138   -0.0253       met
+  dark-solid__rrect-md__rest                     2x  left      0.0322   0.1612   0.0429   +0.0107       met
+  dark-solid__rrect-md__rest                     2x  right     0.0322   0.0496   0.0144   -0.0178       met
+  dark-solid__rrect-md__rest                     2x  FLAT      0.0070            0.0344   +0.0274       met
+  impulse__capsule-button__rest                  2x  top       0.0162   0.0028   0.0028   -0.0134       met
+  impulse__capsule-button__rest                  2x  bottom    0.0153   0.0029   0.0029   -0.0123       met
+  impulse__capsule-button__rest                  2x  left      0.0059   0.0018   0.0018   -0.0041       met
+  impulse__capsule-button__rest                  2x  right     0.0061   0.0022   0.0022   -0.0039       met
+  impulse__capsule-button__rest                  2x  FLAT      0.0103            0.0012   -0.0091       met
+  mid-dark-solid__capsule-button__rest           2x  top       0.0736   0.1825   0.0742   +0.0006       met
+  mid-dark-solid__capsule-button__rest           2x  bottom    0.0733   0.0590   0.0351   -0.0382    MISSED
+  mid-dark-solid__capsule-button__rest           2x  left      0.0623   0.1057   0.0638   +0.0015       met
+  mid-dark-solid__capsule-button__rest           2x  right     0.0623   0.0723   0.0485   -0.0138       met
+  mid-dark-solid__capsule-button__rest           2x  FLAT      0.0113            0.0391   +0.0278       met

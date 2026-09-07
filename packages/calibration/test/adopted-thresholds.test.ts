@@ -948,12 +948,43 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * region. Coherence with the renderer no longer costs these cells. The fourth,
  * `hc-text__capsule-button__rest` under increased contrast, does not condition —
  * it leaves because the bed lost it (`GatedProfile.cells`).
+ *
+ * **What JOINS with W21 (2026-09-07, claims §5.90 and the W21 landing).** Five
+ * rows over a checkerboard in the two dark profiles, and none leaves. All five
+ * are `areaWeb` or `bodiesWeb` exclusions and all five are the same mechanism —
+ * the dark scheme's response law landing on the material, seen by a
+ * luminance-delta extractor:
+ *
+ * - The four dom rows are the CSS tier's structured-backdrop residual (W21
+ *   Decision Log 3 (a)). Its two layers resolve the response from a single
+ *   backdrop level, so over a checkerboard the body lands at 0.0122 where the
+ *   reference and the WebGPU tier put it at 0.047 — dark enough that the
+ *   extractor cuts the silhouette in half: `checkerboard__rrect-md__rest`
+ *   recovers 7 618 of a 15 024 px region in two bodies where it recovered the
+ *   whole region in one, 30 450 of 60 064 at 2x, and
+ *   `checkerboard__glass-over-glass__rest` 17 649 of 28 100 in two bodies (70 609
+ *   of 112 416 in six at 2x).
+ * - The one texture row, `checkerboard__rrect-md__rest` at 2x, is the opposite
+ *   sign of the same coin and the W17 and W18 paragraphs above have its shape
+ *   already: coherence with the reference costs the instrument what the renderer
+ *   gains. The GPU body moved from 0.0628 to 0.0475 against a reference of
+ *   0.0475, and at that level 4 503 px of the region's 60 064 (0.925 recovery,
+ *   still one body) fall inside the extractor's threshold of their own backdrop.
+ *   Its 1x twin recovers 0.9977 and still conditions.
+ *
+ * Every one of the five is still gated on all of its perceptual rows, and this
+ * list is not a fidelity exceedance — see the landing document for the rows on
+ * the coherence axis, which are.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard",
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
@@ -964,6 +995,7 @@ const PREDICATE_EXCLUDES = [
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",

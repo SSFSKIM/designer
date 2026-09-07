@@ -1,0 +1,52 @@
+W21 G2 — the dark pair's four gate tables under claims §5.15's margin rule.
+A PROPOSAL. Nothing here is adopted: W21 Decision Log 3 (d) leaves the dark bounds to the
+user, and the gate is left holding every bound in the `adopted` column exactly as it was.
+Three of those bounds the landed bed MISSES — see `g2-gate.txt`; a proposal is not where
+a missed bound is settled. The rule: `≤` the smallest half-step (1% for the unitless rows)
+reaching 1.4x the worst; `≥` 0.02 below the worst, floored to the hundredth; the worst
+over the calibration and holdout columns both.
+
+=== TEXTURE_TIER_DARK — apple-macos-26.5-1x-dark-standard, texture tier ===
+  row                    cmp  adopted   W20 worst  W20 rule   landed worst  landed rule    move  driving cell (landed)
+  silhouetteIoU          ≥       0.93      0.9523      0.93         0.9524         0.93     same  checkerboard__glass-over-glass__rest (holdout, n=9)
+  contourDistanceMean    ≤       0.50      0.0797      0.50         0.0797         0.50     same  photo__capsule-button__rest (calibration, n=9)
+  contourDistanceP95     ≤       1.50      1.0000      1.50         1.0000         1.50     same  photo__capsule-button__rest (calibration, n=9)
+  ssimMean               ≥       0.87      0.9294      0.90         0.9586         0.93  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  oklabDeltaEMean        ≤       0.09      0.0572      0.09         0.0305         0.05  tighter  photo__rrect-lg__rest (holdout, n=12)
+  oklabDeltaEP95         ≤       0.17      0.1164      0.17         0.0942         0.14  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)
+  edgeWeightedMean       ≤       0.04      0.0144      0.03         0.0103         0.02  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  ssimOutside            ≥       0.83      0.8587      0.83         0.9408         0.92  tighter  dark-solid__capsule-button__rest (calibration, n=12)
+
+=== DOM_TIER_DARK — apple-macos-26.5-1x-dark-standard, dom tier ===
+  row                    cmp  adopted   W20 worst  W20 rule   landed worst  landed rule    move  driving cell (landed)
+  silhouetteIoU          ≥       0.93      0.9523      0.93         0.9955         0.97  tighter  photo__capsule-button__rest (calibration, n=7)
+  contourDistanceMean    ≤       0.50      0.0797      0.50         0.0797         0.50     same  photo__capsule-button__rest (calibration, n=7)
+  contourDistanceP95     ≤       1.50      1.0000      1.50         1.0000         1.50     same  photo__capsule-button__rest (calibration, n=7)
+  ssimMean               ≥       0.83      0.8559      0.83         0.8005         0.78   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=12)
+  oklabDeltaEMean        ≤       0.09      0.0621      0.09         0.0706         0.10   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=12)
+  oklabDeltaEP95         ≤       0.18      0.1292      0.19         0.1576         0.23   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  edgeWeightedMean       ≤       0.05      0.0214      0.03         0.0262         0.04  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  ssimOutside            ≥       0.78      0.8023      0.78         0.8931         0.87  tighter  photo__rrect-lg__rest (holdout, n=12)
+
+=== TEXTURE_TIER_2X_DARK — apple-macos-26.5-2x-dark-standard, texture tier ===
+  row                    cmp  adopted   W20 worst  W20 rule   landed worst  landed rule    move  driving cell (landed)
+  silhouetteIoU          ≥       0.93      0.9509      0.93         0.9267         0.90   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=8)
+  contourDistanceMean    ≤       1.00      0.1033      0.50         0.1033         0.50  tighter  photo__capsule-button__rest (calibration, n=8)  (the bed moved since the 2026-09-01 adoption)
+  contourDistanceP95     ≤       1.50      1.0000      1.50         1.0000         1.50     same  photo__capsule-button__rest (calibration, n=8)
+  ssimMean               ≥       0.88      0.9444      0.92         0.9681         0.94  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  oklabDeltaEMean        ≤       0.09      0.0572      0.09         0.0300         0.05  tighter  photo__rrect-lg__rest (holdout, n=12)
+  oklabDeltaEP95         ≤       0.17      0.1168      0.17         0.0949         0.14  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)
+  edgeWeightedMean       ≤       0.04      0.0159      0.03         0.0105         0.02  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  ssimOutside            ≥       0.86      0.8897      0.86         0.9631         0.94  tighter  dark-solid__capsule-button__rest (calibration, n=12)
+
+=== DOM_TIER_2X_DARK — apple-macos-26.5-2x-dark-standard, dom tier ===
+  row                    cmp  adopted   W20 worst  W20 rule   landed worst  landed rule    move  driving cell (landed)
+  silhouetteIoU          ≥       0.93      0.9507      0.93         0.9951         0.97  tighter  photo__capsule-button__rest (calibration, n=7)
+  contourDistanceMean    ≤       0.50      0.1033      0.50         0.1033         0.50     same  photo__capsule-button__rest (calibration, n=7)
+  contourDistanceP95     ≤       3.00      1.0000      1.50         1.0000         1.50  tighter  photo__rrect-lg__rest (holdout, n=7)  (the bed moved since the 2026-09-01 adoption)
+  ssimMean               ≥       0.85      0.8771      0.85         0.8354         0.81   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=12)
+  oklabDeltaEMean        ≤       0.09      0.0621      0.09         0.0659         0.10   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=12)
+  oklabDeltaEP95         ≤       0.19      0.1301      0.19         0.1544         0.22   LOOSER  checkerboard__glass-over-glass__rest (holdout, n=12)
+  edgeWeightedMean       ≤       0.05      0.0218      0.04         0.0251         0.04  tighter  checkerboard__glass-over-glass__rest (holdout, n=12)  (the bed moved since the 2026-09-01 adoption)
+  ssimOutside            ≥       0.82      0.8455      0.82         0.8445         0.82     same  checkerboard__glass-over-glass__rest (holdout, n=12)
+

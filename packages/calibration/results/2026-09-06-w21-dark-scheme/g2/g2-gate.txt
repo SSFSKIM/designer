@@ -1,0 +1,106 @@
+W21 G2 — the gate over the landed canonical bed. RED, and this file is why.
+
+`pnpm --filter @vitrea/calibration test` on the landed bed: 271 passed, 6 failed, all six in
+`test/adopted-thresholds.test.ts` (33 cases there: 27 passed, 6 failed). Nothing was widened and no
+floor was pinned to make any of them green: W21 Decision Log 3 (d) leaves the dark bounds to the
+user, the founding rule is that a bound moves only by a narrowing recorded in writing, and a
+regression floor is a user decision. So the misses are enumerated here and the gate is left red for
+the parent to rule on.
+
+
+1. THE PREDICATE MOVED — updated, because this list is re-derived from the artifact
+------------------------------------------------------------------------------------
+Decision Log 3 (d) expected `PREDICATE_EXCLUDES` unchanged, on the reasoning that "the native
+silhouettes do not move". They do not: every native reading below is identical to the W20 bed's.
+What moved is the WEB side, which the predicate has read since §5.15's final form, and the five
+rows that join are the material landing. The list is updated in the file with a doc comment in its
+own voice; the count goes 29 -> 34.
+
+  tier    set         cell                                  profile   region  areaWeb W20 -> landed  bodiesWeb
+  dom     calibration checkerboard__rrect-md__rest          1x-dark    15024   15024 -> 7618          1 -> 2
+  dom     calibration checkerboard__rrect-md__rest          2x-dark    60064   60064 -> 30450         1 -> 2
+  dom     holdout     checkerboard__glass-over-glass__rest  1x-dark    28100   28100 -> 17649         1 -> 2
+  dom     holdout     checkerboard__glass-over-glass__rest  2x-dark   112416  112416 -> 70609         1 -> 6
+  texture calibration checkerboard__rrect-md__rest          2x-dark    60064   60052 -> 55561         1 -> 1
+
+The four dom rows are the CSS tier's structured-backdrop residual seen by a luminance-delta
+extractor: the tier's body over a checkerboard lands at 0.0122 against the reference's 0.0468
+(claims §5.90 §6), and at that level half the region falls inside the extractor's 0.02 threshold of
+its own backdrop. The one texture row is the opposite sign of the same coin, and W17's and W18's
+paragraphs in the file have its shape already — coherence with the reference costs the instrument
+what the renderer gains: the GPU body moved 0.0628 -> 0.0475 against a reference of 0.0475, and
+0.925 of the region is recovered where 1.000 was. Its 1x twin recovers 0.9977 and still conditions.
+
+Every one of the five is still gated on all of its perceptual rows.
+
+
+2. THREE ADOPTED FIDELITY BOUNDS MISSED — not touched, not floored
+-------------------------------------------------------------------
+All three are the dark bed's nested pane, `checkerboard__glass-over-glass__rest`, which is a HOLDOUT
+cell and the partial the charter predicted (the tone axis stands down over a glass backdrop; W9
+Deferred, W21 Deferred). The GPU tier's own ΔE on it improved — 0.0274 -> 0.0177 at 1x and
+0.0280 -> 0.0176 at 2x — and these three rows went the other way.
+
+  tier    scale  row              bound     landed     W20 bed
+  dom     1x     ssimMean         >= 0.83   0.80048    0.85594
+  dom     2x     ssimMean         >= 0.85   0.83543    0.87715
+  texture 2x     silhouetteIoU    >= 0.93   0.92673    0.95088
+
+The two dom rows are the CSS residual. The texture row is the extractor again — the GPU tier's
+nested pane now sits nearer its own backdrop, so the silhouette it recovers is a slightly smaller
+set — and it is the one row here that is not the CSS tier's doing.
+
+
+3. TEN COHERENCE ROWS MISSED — not touched, not floored
+---------------------------------------------------------
+The cross-tier coherence axis is the one the CSS residual was always going to reach, and nothing in
+the wave's declaration read it: §5.90 §6 recorded the residual as ΔE against Apple, and the gate
+asks a different question — whether the two TIERS agree with each other. They no longer do on any
+dark cell over a structured backdrop.
+
+`interiorLevelRatioGpuOverCss`, gated 0.8..1.25 on every well-conditioned dom cell:
+
+  set         cell                                  scale   landed    W20 bed
+  calibration checkerboard__capsule-button__rest    1x      2.07054   1.24602
+  calibration checkerboard__capsule-button__rest    2x      1.99868   1.24134
+  calibration photo__rrect-md__rest                 1x      1.49754   1.09727
+  calibration photo__rrect-md__rest                 2x      1.51982   1.10703
+  holdout     photo__rrect-lg__rest                 1x      1.48598   1.08101
+  holdout     photo__rrect-lg__rest                 2x      1.49937   1.08743
+  calibration photo__capsule-button__rest           1x      1.27721   1.12659
+  calibration photo__capsule-button__rest           2x      1.28114   1.13489
+
+`crossTierOklabDeltaEMean`, gated <= 0.05 on every dom cell, predicate or no predicate:
+
+  holdout     checkerboard__glass-over-glass__rest  1x      0.06240   0.02577
+  holdout     checkerboard__glass-over-glass__rest  2x      0.05782   0.02637
+
+Worth reading beside the first row: on the W20 bed `checkerboard__capsule-button__rest` sat at
+1.24602 against a bound of 1.25. The row had 0.004 of margin before this wave, so the axis was
+already carrying the two tiers' disagreement over a checkerboard as far as it would go.
+
+The four dark dom rows that stopped conditioning under (1) — `checkerboard__rrect-md` and
+`checkerboard__glass-over-glass` at both scales — are SKIPPED on the ratio row by the predicate
+rather than counted, so the ratio's worst cases are not even in the eight above. Their ratios read
+3.90 and 3.33 (`rrect-md`) and 2.47 and 2.28 (the nested pane).
+
+
+4. WHAT THIS IS, AND WHOSE IT IS
+----------------------------------
+One mechanism under all of it, and it is already named: the CSS tier resolves the response law from
+one backdrop level for the whole surface, which is right over a solid (`dark-solid__rrect-md`
+0.0307 -> 0.0046) and much too dark over a structured backdrop. W21 Decision Log 3 (a) recorded that
+as the CSS-only residual of wave Decision Log 23 (a) and deferred the bounded diagnosis by name,
+because a CSS derivation change moves the light captures this wave binds byte-identical (X3).
+
+What the ruling did not weigh is that the gate has adopted cross-tier coherence bounds, and a
+residual recorded on one axis is an exceedance on another. That is the W16 lesson in a new place:
+the dry run's referee measured the material and did not run this file over the candidate matrix, so
+the landing is where it was read. The three constructs a ruling can reach are the bounds, a
+regression floor pinned at the measurement with a §5.27 row saying what stopped being claimed, and
+the CSS derivation itself — the first is a widening the doctrine forbids, the second is a user
+decision, and the third is a wave. None of them is the landing worker's, so none was taken.
+
+The GPU tier, which is this wave's chartered target, misses nothing: every dark texture row is
+inside its adopted bound at both scales except the 2x nested pane's IoU above, and the tier's
+calibration ΔE mean fell 0.0085 -> 0.0041 with the holdout 0.0300 -> 0.0161.

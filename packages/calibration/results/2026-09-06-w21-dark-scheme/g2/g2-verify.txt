@@ -1,0 +1,76 @@
+canonical: 229 cells; the W20 bed: 229; the dry run: 104
+rows on the W20 bed and not on the canonical bed: none; new rows: none
+
+(i) X6 — every dark capture reproduces G1's digest, byte for byte:
+  dark captures declared by G1 and re-taken here: 52 / 52 identical
+
+(ii) X3 — every light-profile capture byte-identical to the W20 bed, both tiers:
+  DIFFERS from the W20 bed: apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png — 17 of 64000 pixels, worst channel delta 1
+  1x-light-increased-contrast    byte-identical  16, DIFFERS 1
+  1x-light-reduced-transparency  byte-identical  16
+  1x-light-standard              byte-identical  72
+  2x-light-standard              byte-identical  72
+  light captures: 176 / 177 byte-identical
+
+(iii) the rows — light against the W20 bed, dark against the dry run, to the last decimal:
+  MOVED coherence.crossTierOklabDeltaEMean photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.007996737183956534 → 0.007996663057491282
+  MOVED perceptual.edgeWeightedMean photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.052489270245439666 → 0.05248858624075715
+  MOVED perceptual.oklabDeltaEMean photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.015239959339680082 → 0.015239873513342835
+  MOVED perceptual.ssimBand photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.5902307202451564 → 0.5902301992796056
+  MOVED perceptual.ssimMean photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.912787946649968 → 0.912788520273497
+  MOVED perceptual.ssimMin photo__toolbar-group__rest @ 1x-light-increased-contrast / css: -0.6461614447217924 → -0.6458098136338545
+  MOVED perceptual.ssimOutside photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.7189684813294999 → 0.7189716062890619
+  MOVED perceptual.unweightedMean photo__toolbar-group__rest @ 1x-light-increased-contrast / css: 0.024861841197410913 → 0.024861675751308855
+  light / W20 bed: 177 rows compared, 8 readings moved, worst |Δ| 0.000351631 on perceptual.ssimMin photo__toolbar-group__rest @ 1x-light-increased-contrast / css
+  dark / dry run: 52 rows compared, 0 readings moved, 164 conformance readings the reference run did not take
+
+(v) the bed's shape — the partition adopted-thresholds.test.ts asserts:
+  1x-dark-standard                26 cells ok
+  1x-light-increased-contrast     17 cells ok
+  1x-light-reduced-transparency   16 cells ok
+  1x-light-standard               72 cells ok
+  2x-dark-standard                26 cells ok
+  2x-light-standard               72 cells ok
+  229 cells against MATRIX_CELLS 229: ok
+
+the dark bed's OKLab ΔE mean per profile and tier, W20 bed → canonical (calibration | validation | holdout):
+  1x-dark-standard   webgpu  0.00846 → 0.00410 (9)      0.00291 → 0.00291 (1)      0.02996 → 0.01612 (3)
+  1x-dark-standard   css     0.01147 → 0.01163 (9)      0.00362 → 0.00362 (1)      0.03623 → 0.04340 (3)
+  2x-dark-standard   webgpu  0.00860 → 0.00410 (9)      0.00329 → 0.00329 (1)      0.03017 → 0.01596 (3)
+  2x-dark-standard   css     0.01166 → 0.01129 (9)      0.00401 → 0.00401 (1)      0.03676 → 0.04183 (3)
+
+the dark cells per row, GPU tier, W20 bed → canonical (ΔE mean, p95, ssimMean):
+  checkerboard__capsule-button__rest             1x-dark-standard   calibration ΔE 0.00558 → 0.00503   p95 0.03343 → 0.04672   ssim 0.97413 → 0.99167
+  checkerboard__capsule-button__rest-tint-orange 1x-dark-standard   calibration ΔE 0.00104 → 0.00101   p95 0.00650 → 0.00650   ssim 0.99848 → 0.99874
+  checkerboard__glass-over-glass__rest           1x-dark-standard   holdout     ΔE 0.02736 → 0.01765   p95 0.09875 → 0.09419   ssim 0.92945 → 0.95861
+  checkerboard__rrect-md__rest                   1x-dark-standard   calibration ΔE 0.01110 → 0.00395   p95 0.07769 → 0.01997   ssim 0.95743 → 0.98697
+  dark-solid__capsule-button__rest               1x-dark-standard   calibration ΔE 0.00077 → 0.00077   p95 0.00511 → 0.00511   ssim 0.98661 → 0.98661
+  dark-solid__capsule-button__rest-tint-orange   1x-dark-standard   calibration ΔE 0.00054 → 0.00054   p95 0.00227 → 0.00227   ssim 0.99906 → 0.99906
+  dark-solid__rrect-md__rest                     1x-dark-standard   calibration ΔE 0.02861 → 0.00401   p95 0.11606 → 0.01326   ssim 0.93069 → 0.98767
+  impulse__capsule-button__rest                  1x-dark-standard   validation  ΔE 0.00291 → 0.00291   p95 0.03240 → 0.03240   ssim 0.97976 → 0.97976
+  mid-dark-solid__capsule-button__rest           1x-dark-standard   holdout     ΔE 0.00532 → 0.00025   p95 0.06249 → 0.00000   ssim 0.98082 → 0.99692
+  photo__capsule-button__rest                    1x-dark-standard   calibration ΔE 0.00774 → 0.00753   p95 0.08856 → 0.08900   ssim 0.99044 → 0.98852
+  photo__capsule-button__rest-tint-orange        1x-dark-standard   calibration ΔE 0.00102 → 0.00098   p95 0.00682 → 0.00682   ssim 0.99708 → 0.99750
+  photo__rrect-lg__rest                          1x-dark-standard   holdout     ΔE 0.05720 → 0.03047   p95 0.11643 → 0.06901   ssim 0.94968 → 0.98939
+  photo__rrect-md__rest                          1x-dark-standard   calibration ΔE 0.01972 → 0.01313   p95 0.10323 → 0.06665   ssim 0.97505 → 0.99274
+  checkerboard__capsule-button__rest             2x-dark-standard   calibration ΔE 0.00587 → 0.00483   p95 0.03391 → 0.03132   ssim 0.98029 → 0.99202
+  checkerboard__capsule-button__rest-tint-orange 2x-dark-standard   calibration ΔE 0.00105 → 0.00102   p95 0.00444 → 0.00444   ssim 0.99824 → 0.99841
+  checkerboard__glass-over-glass__rest           2x-dark-standard   holdout     ΔE 0.02798 → 0.01759   p95 0.09875 → 0.09494   ssim 0.94884 → 0.96812
+  checkerboard__rrect-md__rest                   2x-dark-standard   calibration ΔE 0.01180 → 0.00402   p95 0.07769 → 0.02046   ssim 0.97188 → 0.98945
+  dark-solid__capsule-button__rest               2x-dark-standard   calibration ΔE 0.00077 → 0.00077   p95 0.00511 → 0.00511   ssim 0.99083 → 0.99083
+  dark-solid__capsule-button__rest-tint-orange   2x-dark-standard   calibration ΔE 0.00060 → 0.00060   p95 0.00227 → 0.00227   ssim 0.99840 → 0.99840
+  dark-solid__rrect-md__rest                     2x-dark-standard   calibration ΔE 0.02867 → 0.00400   p95 0.11606 → 0.01326   ssim 0.94440 → 0.99198
+  impulse__capsule-button__rest                  2x-dark-standard   validation  ΔE 0.00329 → 0.00329   p95 0.03716 → 0.03716   ssim 0.98032 → 0.98032
+  mid-dark-solid__capsule-button__rest           2x-dark-standard   holdout     ΔE 0.00536 → 0.00026   p95 0.06249 → 0.00000   ssim 0.98746 → 0.99742
+  photo__capsule-button__rest                    2x-dark-standard   calibration ΔE 0.00782 → 0.00759   p95 0.08872 → 0.08946   ssim 0.99266 → 0.99101
+  photo__capsule-button__rest-tint-orange        2x-dark-standard   calibration ΔE 0.00103 → 0.00099   p95 0.00682 → 0.00681   ssim 0.99729 → 0.99742
+  photo__rrect-lg__rest                          2x-dark-standard   holdout     ΔE 0.05716 → 0.03002   p95 0.11679 → 0.06806   ssim 0.96000 → 0.98945
+  photo__rrect-md__rest                          2x-dark-standard   calibration ΔE 0.01982 → 0.01307   p95 0.10417 → 0.06528   ssim 0.98138 → 0.99377
+
+(iv) X2 — the dark rows under the declared geometry, off the LANDED canonical captures:
+  `g2-read-canonical.sh` re-read the two dark profiles on both tiers against the canonical
+  fixtures (the "after" column the landed `web-captures/`, the "before" column the W20 bed's in
+  scratch), and `g1-clauses.py` over `canonical-reads/` printed `g2-clauses.txt`.
+  `diff g1/g1-clauses.txt g2/g2-clauses.txt` is EMPTY: clause 3's bodies, stop S3's collapsed
+  capsules and clause 4's per-side rims reproduce G1's reading line for line, which is what (i)
+  predicts once the captures are the same bytes and says independently of them.
