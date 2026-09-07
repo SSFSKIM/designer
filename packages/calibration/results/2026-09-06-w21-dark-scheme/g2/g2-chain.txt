@@ -1,0 +1,41 @@
+W21 G2 — the chain on the landed tree, 17:11:00–17:13:47, one step at a time with the GPU free.
+
+=== 17:11:00 build ===
+    exit=0
+=== 17:11:06 lint ===
+    exit=0
+=== 17:11:23 unit ===
+    exit=1
+=== 17:11:44 goldens ===
+    exit=0
+=== 17:11:55 platform-web-e2e ===
+    exit=0
+=== 17:12:38 react-e2e ===
+    exit=0
+=== 17:13:13 demo-e2e ===
+    exit=0
+CHAIN DONE 17:13:47
+
+=== totals ===
+unit: 1848 passed, 6 failed (1854), by package —
+  policy            23 passed
+  motion           162 passed
+  geometry         170 passed
+  renderer-webgpu  396 passed
+  core             302 passed
+  platform-web     423 passed
+  react            101 passed   (its summary does not surface in `pnpm -r test`'s interleaved
+                                 output; read separately with the same command on the package)
+  calibration      271 passed, 6 FAILED — all six in test/adopted-thresholds.test.ts (33 cases:
+                   27 passed, 6 failed). The gate is red on the landed bed and `g2-gate.txt` is
+                   the enumeration: five predicate rows joined (updated in the file), three
+                   adopted fidelity bounds and ten coherence rows missed, none touched, no floor
+                   pinned. This is the one red step in the chain.
+
+goldens          29 passed, byte-identical. The dark patch is not the default material and no
+                 golden hash moved, which is the check that this wave reached the profile and not
+                 the renderer's own constants.
+platform-web    376 passed (chromium, firefox, webkit, chromium-gpu)
+react           105 passed, 3 skipped (three engines)
+demo             39 passed — including the reference-panel GPU spec against the e2e fixture, which
+                 is byte-identical to the new canonical capture and was not re-copied
