@@ -1,0 +1,127 @@
+W21 G1 fit 2 — optics.regular.tintAlpha, on the checkerboard pitch sweep's passthrough
+
+pass = body sd / backdrop sd under the declared footprint. specularGain 0 and rimAlpha at
+the fit-1 value on every candidate, so the only thing moving between columns is the alpha.
+
+component  background          native   a=0.80   a=0.86   a=0.88   a=0.90   a=0.92   a=0.94   a=0.97
+rrect-sm   checkerboard-4      0.0376   0.0212   0.0150   0.0122   0.0107   0.0079   0.0060   0.0032
+rrect-sm   checkerboard        0.1093   0.1142   0.0797   0.0680   0.0565   0.0452   0.0339   0.0172
+rrect-sm   checkerboard-32     0.1344   0.1298   0.0910   0.0779   0.0651   0.0521   0.0389   0.0194
+rrect-sm   checkerboard-64          —   (no structure under the footprint; excluded)
+rrect-md   checkerboard-4      0.0143   0.0161   0.0108   0.0101   0.0078   0.0065   0.0045   0.0026
+rrect-md   checkerboard        0.0332   0.0745   0.0518   0.0447   0.0374   0.0300   0.0224   0.0113
+rrect-md   checkerboard-32     0.0505   0.0923   0.0647   0.0554   0.0462   0.0370   0.0277   0.0138
+rrect-md   checkerboard-64     0.0637   0.1310   0.0917   0.0786   0.0655   0.0524   0.0393   0.0197
+rrect-lg   checkerboard-4      0.0617   0.0617   0.0631   0.0637   0.0642   0.0642   0.0641   0.0641
+rrect-lg   checkerboard        0.0627   0.0788   0.0719   0.0702   0.0688   0.0672   0.0659   0.0645
+rrect-lg   checkerboard-32     0.0705   0.0932   0.0800   0.0764   0.0733   0.0702   0.0677   0.0652
+10 fit rows
+
+The body beside the sd — the constraint. Under the solve the level should not move with
+the alpha; where it does, the solve has run out of headroom (the black clamp, §5.88 §3).
+component  background          native   a=0.80   a=0.86   a=0.88   a=0.90   a=0.92   a=0.94   a=0.97
+rrect-sm   checkerboard-4      0.0994   0.0999   0.0699   0.0676   0.0677   0.0676   0.0676   0.0676
+rrect-sm   checkerboard        0.1070   0.1001   0.0700   0.0674   0.0673   0.0675   0.0677   0.0675
+rrect-sm   checkerboard-32     0.1114   0.0999   0.0700   0.0676   0.0676   0.0676   0.0675   0.0674
+rrect-sm   checkerboard-64     0.1611   0.1921   0.1344   0.1208   0.1111   0.1011   0.0914   0.0770
+rrect-md   checkerboard-4      0.0451   0.0947   0.0664   0.0570   0.0474   0.0467   0.0466   0.0467
+rrect-md   checkerboard        0.0468   0.0948   0.0662   0.0570   0.0475   0.0468   0.0467   0.0468
+rrect-md   checkerboard-32     0.0496   0.0948   0.0664   0.0569   0.0474   0.0467   0.0467   0.0467
+rrect-md   checkerboard-64     0.0482   0.0854   0.0598   0.0512   0.0427   0.0419   0.0423   0.0430
+rrect-lg   checkerboard-4      0.0468   0.0960   0.0676   0.0582   0.0487   0.0481   0.0480   0.0480
+rrect-lg   checkerboard        0.0474   0.0960   0.0676   0.0582   0.0487   0.0480   0.0481   0.0480
+rrect-lg   checkerboard-32     0.0508   0.0960   0.0676   0.0582   0.0487   0.0480   0.0480   0.0480
+                              mean |Δ|   0.0339   0.0238   0.0198   0.0165   0.0173   0.0182   0.0194
+                                worst   0.0496   0.0414   0.0438   0.0500   0.0600   0.0697   0.0841
+
+The two curves against alpha, on a grid interpolated between the rendered points.
+`worst |Δbody|` is against the reference on the thick rows (the wave's clause 3, 0.010); `drift` is the same rows against their own value on the clamp-free
+plateau at alpha 0.92 (the separation, 0.0028 — the reader's recovery bound).
+  alpha  |ln ratio|   factor  worst |Δbody|  clause    drift  separated
+  0.800      0.3410    1.406         0.0496  MISSED   0.0481         no
+  0.805      0.3313    1.393         0.0472  MISSED   0.0457         no
+  0.810      0.3229    1.381         0.0448  MISSED   0.0433         no
+  0.815      0.3181    1.375         0.0425  MISSED   0.0410         no
+  0.820      0.3132    1.368         0.0401  MISSED   0.0386         no
+  0.825      0.3138    1.369         0.0378  MISSED   0.0362         no
+  0.830      0.3150    1.370         0.0354  MISSED   0.0339         no
+  0.835      0.3164    1.372         0.0331  MISSED   0.0315         no
+  0.840      0.3178    1.374         0.0307  MISSED   0.0291         no
+  0.845      0.3194    1.376         0.0283  MISSED   0.0268         no
+  0.850      0.3210    1.379         0.0260  MISSED   0.0244         no
+  0.855      0.3227    1.381         0.0236  MISSED   0.0220         no
+  0.860      0.3246    1.383         0.0213  MISSED   0.0197         no
+  0.865      0.3261    1.386         0.0189  MISSED   0.0173         no
+  0.870      0.3277    1.388         0.0166  MISSED   0.0150         no
+  0.875      0.3294    1.390         0.0142  MISSED   0.0126         no
+  0.880      0.3313    1.393         0.0119  MISSED   0.0103         no
+  0.885      0.3349    1.398         0.0095     met   0.0079         no
+  0.890      0.3388    1.403         0.0071     met   0.0055         no
+  0.895      0.3512    1.421         0.0047     met   0.0031         no
+  0.900      0.3655    1.441         0.0055     met   0.0008        yes
+  0.905      0.3846    1.469         0.0057     met   0.0006        yes
+  0.910      0.4110    1.508         0.0059     met   0.0004        yes
+  0.915      0.4475    1.564         0.0061     met   0.0002        yes
+  0.920      0.4901    1.632         0.0062     met   0.0000        yes
+  0.925      0.5373    1.711         0.0061     met   0.0001        yes
+  0.930      0.5878    1.800         0.0060     met   0.0002        yes
+  0.935      0.6423    1.901         0.0059     met   0.0003        yes
+  0.940      0.7014    2.017         0.0059     met   0.0004        yes
+  0.945      0.7605    2.139         0.0057     met   0.0005        yes
+  0.950      0.8251    2.282         0.0056     met   0.0006        yes
+  0.955      0.8962    2.450         0.0055     met   0.0007        yes
+  0.960      0.9753    2.652         0.0054     met   0.0008        yes
+  0.965      1.0645    2.899         0.0053     met   0.0009        yes
+  0.970      1.1668    3.212         0.0052     met   0.0010        yes
+unconstrained minimiser: alpha 0.8225, factor 1.368, worst |Δbody| 0.0390, drift 0.0374
+constrained by the clause: the range opens at alpha 0.8850; the objective's minimiser inside it is alpha 0.8850 at factor 1.398 (worst |Δbody| 0.0095, drift 0.0079)
+constrained by the separation: the range opens at alpha 0.8975; the objective's minimiser inside it is alpha 0.8975 at factor 1.431 (worst |Δbody| 0.0044, drift 0.0019)
+
+Per row at each rendered alpha, the factor against the reference (the shape of what one
+constant can and cannot close):
+component  background          native   a=0.80   a=0.86   a=0.88   a=0.90   a=0.92   a=0.94   a=0.97
+rrect-sm   checkerboard-4      0.0376    1.772    2.510    3.074    3.526    4.766    6.285   11.790
+rrect-sm   checkerboard        0.1093    1.045    1.372    1.607    1.935    2.417    3.229    6.374
+rrect-sm   checkerboard-32     0.1344    1.036    1.478    1.725    2.066    2.580    3.451    6.930
+rrect-md   checkerboard-4      0.0143    1.126    1.321    1.414    1.826    2.204    3.188    5.584
+rrect-md   checkerboard        0.0332    2.242    1.558    1.346    1.125    1.107    1.486    2.938
+rrect-md   checkerboard-32     0.0505    1.827    1.280    1.097    1.094    1.366    1.822    3.658
+rrect-md   checkerboard-64     0.0637    2.058    1.440    1.235    1.029    1.214    1.620    3.236
+rrect-lg   checkerboard-4      0.0617    1.000    1.022    1.031    1.040    1.039    1.039    1.038
+rrect-lg   checkerboard        0.0627    1.256    1.146    1.119    1.097    1.071    1.050    1.029
+rrect-lg   checkerboard-32     0.0705    1.323    1.135    1.084    1.040    1.004    1.041    1.081
+
+The equal-mean pair, the check the fit is not told about: `checkerboard` and
+`checkerboard-lc16` hold the same encoded mean and differ in structure by 0.568.
+component  background              native   a=0.80   a=0.86   a=0.88   a=0.90   a=0.92   a=0.94   a=0.97
+rrect-sm   checkerboard            0.1093   0.1142   0.0797   0.0680   0.0565   0.0452   0.0339   0.0172
+rrect-sm   checkerboard-lc16       0.0454   0.1145   0.0794   0.0691   0.0585   0.0448   0.0344   0.0171
+rrect-md   checkerboard            0.0332   0.0745   0.0518   0.0447   0.0374   0.0300   0.0224   0.0113
+rrect-md   checkerboard-lc16       0.0287   0.0744   0.0511   0.0439   0.0375   0.0304   0.0219   0.0107
+rrect-lg   checkerboard            0.0627   0.0788   0.0719   0.0702   0.0688   0.0672   0.0659   0.0645
+
+Reported beside the fit, never fitted on — the text backdrops. `hc-text__rrect-sm` is the
+4-of-7 cell Decision Log 2 (c) keeps out of every fit and is marked.
+component  background          native   a=0.80   a=0.86   a=0.88   a=0.90   a=0.92   a=0.94   a=0.97
+rrect-sm   hc-text-7           0.0513   0.0505   0.0353   0.0308   0.0255   0.0200   0.0150   0.0080
+rrect-sm   hc-text             0.0675   0.0935   0.0654   0.0562   0.0468   0.0370   0.0274   0.0137  (bistable, in no fit)
+rrect-sm   hc-text-28          0.0497   0.1123   0.0788   0.0675   0.0561   0.0438   0.0346   0.0162
+rrect-md   hc-text-7           0.0241   0.0449   0.0316   0.0271   0.0225   0.0180   0.0135   0.0067
+rrect-md   hc-text             0.0358   0.0740   0.0518   0.0444   0.0370   0.0296   0.0223   0.0112
+rrect-md   hc-text-28          0.0529   0.0977   0.0683   0.0586   0.0487   0.0391   0.0294   0.0148
+rrect-lg   hc-text-7           0.0859   0.1003   0.0934   0.0918   0.0902   0.0882   0.0865   0.0848
+rrect-lg   hc-text             0.0826   0.1036   0.0928   0.0900   0.0875   0.0846   0.0824   0.0801
+
+Confirmation — rendered at tintAlpha 0.90, against the reference:
+component  background           native      web   factor   ≤ 1.5   body Δ
+rrect-sm   checkerboard-4       0.0376   0.0107    3.526      NO  -0.0317
+rrect-sm   checkerboard         0.1093   0.0565    1.935      NO  -0.0397
+rrect-sm   checkerboard-32      0.1344   0.0651    2.066      NO  -0.0438
+rrect-md   checkerboard-4       0.0143   0.0078    1.826      NO  +0.0023
+rrect-md   checkerboard         0.0332   0.0374    1.125     yes  +0.0007
+rrect-md   checkerboard-32      0.0505   0.0462    1.094     yes  -0.0022
+rrect-md   checkerboard-64      0.0637   0.0655    1.029     yes  -0.0055
+rrect-lg   checkerboard-4       0.0617   0.0642    1.040     yes  +0.0019
+rrect-lg   checkerboard         0.0627   0.0688    1.097     yes  +0.0013
+rrect-lg   checkerboard-32      0.0705   0.0733    1.040     yes  -0.0020
+rows inside a factor of 1.5: 6 / 10; worst 3.526; geometric mean 1.441

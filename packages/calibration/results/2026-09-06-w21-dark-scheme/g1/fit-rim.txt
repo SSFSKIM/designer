@@ -1,0 +1,167 @@
+W21 G1 fit 1 — optics.regular.rimAlpha, on the six solid cells' rim excess per side
+
+Every number is (side peak − that capture's own body) under the declared geometry: the
+rim band is the declared box's outer 3 CSS px and a side's peak is the largest row or
+column mean inside it (the wave's instrument, X2). specularGain 0 throughout.
+
+scene                            side      native   a=0.02   a=0.08   fitted
+dark-solid__rrect-sm__rest       top       0.0167   0.0000   0.0000      yes
+dark-solid__rrect-sm__rest       bottom    0.0166   0.0000   0.0000      yes
+dark-solid__rrect-sm__rest       left      0.0133   0.0000   0.0000  no (sweep)
+dark-solid__rrect-sm__rest       right     0.0132   0.0000   0.0000      yes
+dark-solid__rrect-md__rest       top       0.0187   0.0069   0.0288      yes
+dark-solid__rrect-md__rest       bottom    0.0186   0.0067   0.0286      yes
+dark-solid__rrect-md__rest       left      0.0143   0.1238   0.1560  no (sweep)
+dark-solid__rrect-md__rest       right     0.0143   0.0052   0.0234      yes
+dark-solid__rrect-lg__rest       top       0.0149   0.0066   0.0280      yes
+dark-solid__rrect-lg__rest       bottom    0.0147   0.0064   0.0278      yes
+dark-solid__rrect-lg__rest       left      0.0114   0.1151   0.1450  no (sweep)
+dark-solid__rrect-lg__rest       right     0.0114   0.0046   0.0214      yes
+mid-dark-solid__rrect-sm__rest   top       0.0391   0.0126   0.0366      yes
+mid-dark-solid__rrect-sm__rest   bottom    0.0391   0.0126   0.0366      yes
+mid-dark-solid__rrect-sm__rest   left      0.0383   0.1490   0.1803  no (sweep)
+mid-dark-solid__rrect-sm__rest   right     0.0383   0.0167   0.0369      yes
+mid-dark-solid__rrect-md__rest   top       0.0367   0.0133   0.0358      yes
+mid-dark-solid__rrect-md__rest   bottom    0.0360   0.0123   0.0347      yes
+mid-dark-solid__rrect-md__rest   left      0.0361   0.1422   0.1731  no (sweep)
+mid-dark-solid__rrect-md__rest   right     0.0361   0.0160   0.0350      yes
+mid-dark-solid__rrect-lg__rest   top       0.0348   0.0133   0.0352      yes
+mid-dark-solid__rrect-lg__rest   bottom    0.0333   0.0123   0.0341      yes
+mid-dark-solid__rrect-lg__rest   left      0.0343   0.1343   0.1626  no (sweep)
+mid-dark-solid__rrect-lg__rest   right     0.0343   0.0167   0.0343      yes
+
+The line excess(rimAlpha) = m·rimAlpha + c per fitted row, and the rimAlpha that row
+alone would choose. S5's test: a constant whose rows do not separate it is declined, so
+what has to be legible here is whether the per-row answers agree.
+scene                            side           m        c   target  rimAlpha*
+dark-solid__rrect-sm__rest       top       0.0000   0.0000   0.0167        nan
+dark-solid__rrect-sm__rest       bottom    0.0000   0.0000   0.0166        nan
+dark-solid__rrect-sm__rest       right     0.0000   0.0000   0.0132        nan
+dark-solid__rrect-md__rest       top       0.3539  -0.0002   0.0187     0.0536
+dark-solid__rrect-md__rest       bottom    0.3535  -0.0004   0.0186     0.0537
+dark-solid__rrect-md__rest       right     0.2935  -0.0007   0.0143     0.0513
+dark-solid__rrect-lg__rest       top       0.3452  -0.0003   0.0149     0.0441
+dark-solid__rrect-lg__rest       bottom    0.3452  -0.0005   0.0147     0.0440
+dark-solid__rrect-lg__rest       right     0.2713  -0.0009   0.0114     0.0451
+mid-dark-solid__rrect-sm__rest   top       0.3879   0.0048   0.0391     0.0884
+mid-dark-solid__rrect-sm__rest   bottom    0.3879   0.0048   0.0391     0.0884
+mid-dark-solid__rrect-sm__rest   right     0.3256   0.0102   0.0383     0.0861
+mid-dark-solid__rrect-md__rest   top       0.3621   0.0061   0.0367     0.0847
+mid-dark-solid__rrect-md__rest   bottom    0.3624   0.0050   0.0360     0.0853
+mid-dark-solid__rrect-md__rest   right     0.3061   0.0099   0.0361     0.0856
+mid-dark-solid__rrect-lg__rest   top       0.3528   0.0063   0.0348     0.0807
+mid-dark-solid__rrect-lg__rest   bottom    0.3520   0.0053   0.0333     0.0798
+mid-dark-solid__rrect-lg__rest   right     0.2832   0.0111   0.0343     0.0819
+
+Cells whose rim the constant cannot reach because vitrea's collapse folds the rim out (recorded, not fitted; Decision Log 2 (b) defers the collapsed rim): dark-solid__rrect-sm__rest
+The pooled minimiser over the 15 live rows: rimAlpha = 0.0808, mean |Δexcess| 0.0051
+the per-row answers span 0.0440 to 0.0884, median 0.0807
+
+The recorded term — the highlight pass's stationary specular sweep, isolated. The same
+documents with sweepGain 0 and nothing else, so the difference is that term alone:
+scene                            side     sweep on  sweep off         Δ
+  [rimAlpha 0.02, tintAlpha 0.97]
+dark-solid__rrect-sm__rest       top        0.0000     0.0000   +0.0000
+dark-solid__rrect-sm__rest       bottom     0.0000     0.0000   +0.0000
+dark-solid__rrect-sm__rest       left       0.0000     0.0000   +0.0000
+dark-solid__rrect-sm__rest       right      0.0000     0.0000   +0.0000
+dark-solid__rrect-md__rest       top        0.0069     0.0069   +0.0000
+dark-solid__rrect-md__rest       bottom     0.0067     0.0067   +0.0000
+dark-solid__rrect-md__rest       left       0.1238     0.0051   -0.1186
+dark-solid__rrect-md__rest       right      0.0051     0.0051   +0.0000
+dark-solid__rrect-lg__rest       top        0.0066     0.0066   +0.0000
+dark-solid__rrect-lg__rest       bottom     0.0064     0.0064   +0.0000
+dark-solid__rrect-lg__rest       left       0.1151     0.0046   -0.1105
+dark-solid__rrect-lg__rest       right      0.0046     0.0046   +0.0000
+mid-dark-solid__rrect-sm__rest   top        0.0126     0.0126   +0.0000
+mid-dark-solid__rrect-sm__rest   bottom     0.0126     0.0126   +0.0000
+mid-dark-solid__rrect-sm__rest   left       0.1490     0.0167   -0.1322
+mid-dark-solid__rrect-sm__rest   right      0.0167     0.0167   +0.0000
+mid-dark-solid__rrect-md__rest   top        0.0133     0.0133   +0.0000
+mid-dark-solid__rrect-md__rest   bottom     0.0122     0.0122   +0.0000
+mid-dark-solid__rrect-md__rest   left       0.1422     0.0160   -0.1262
+mid-dark-solid__rrect-md__rest   right      0.0160     0.0160   +0.0000
+mid-dark-solid__rrect-lg__rest   top        0.0133     0.0133   +0.0000
+mid-dark-solid__rrect-lg__rest   bottom     0.0123     0.0123   +0.0000
+mid-dark-solid__rrect-lg__rest   left       0.1342     0.0167   -0.1175
+mid-dark-solid__rrect-lg__rest   right      0.0167     0.0167   +0.0000
+  [rimAlpha 0.18, tintAlpha 0.97]
+dark-solid__rrect-sm__rest       top        0.0000     0.0000   +0.0000
+dark-solid__rrect-sm__rest       bottom     0.0000     0.0000   +0.0000
+dark-solid__rrect-sm__rest       left       0.0000     0.0000   +0.0000
+dark-solid__rrect-sm__rest       right      0.0000     0.0000   +0.0000
+dark-solid__rrect-md__rest       top        0.0630     0.0630   +0.0000
+dark-solid__rrect-md__rest       bottom     0.0628     0.0628   +0.0000
+dark-solid__rrect-md__rest       left       0.1963     0.0515   -0.1448
+dark-solid__rrect-md__rest       right      0.0515     0.0515   +0.0000
+dark-solid__rrect-lg__rest       top        0.0616     0.0616   +0.0000
+dark-solid__rrect-lg__rest       bottom     0.0613     0.0613   +0.0000
+dark-solid__rrect-lg__rest       left       0.1824     0.0476   -0.1348
+dark-solid__rrect-lg__rest       right      0.0476     0.0476   +0.0000
+mid-dark-solid__rrect-sm__rest   top        0.0730     0.0730   +0.0000
+mid-dark-solid__rrect-sm__rest   bottom     0.0730     0.0730   +0.0000
+mid-dark-solid__rrect-sm__rest   left       0.2179     0.0674   -0.1505
+mid-dark-solid__rrect-sm__rest   right      0.0674     0.0674   +0.0000
+mid-dark-solid__rrect-md__rest   top        0.0702     0.0702   +0.0000
+mid-dark-solid__rrect-md__rest   bottom     0.0690     0.0690   +0.0000
+mid-dark-solid__rrect-md__rest   left       0.2101     0.0638   -0.1464
+mid-dark-solid__rrect-md__rest   right      0.0638     0.0638   +0.0000
+mid-dark-solid__rrect-lg__rest   top        0.0688     0.0688   +0.0000
+mid-dark-solid__rrect-lg__rest   bottom     0.0676     0.0676   +0.0000
+mid-dark-solid__rrect-lg__rest   left       0.1971     0.0610   -0.1361
+mid-dark-solid__rrect-lg__rest   right      0.0610     0.0610   +0.0000
+
+Confirmation — rendered at rimAlpha 0.082 with specularGain 0, against the reference:
+scene                            side      native      web         Δ  clause 4
+dark-solid__rrect-sm__rest       top       0.0167   0.0000   -0.0167       MET
+dark-solid__rrect-sm__rest       bottom    0.0166   0.0000   -0.0166       MET
+dark-solid__rrect-sm__rest       left      0.0133   0.0000   -0.0132       MET
+dark-solid__rrect-sm__rest       right     0.0132   0.0000   -0.0132       MET
+dark-solid__rrect-md__rest       top       0.0187   0.0288   +0.0101       MET
+dark-solid__rrect-md__rest       bottom    0.0186   0.0286   +0.0100       MET
+dark-solid__rrect-md__rest       left      0.0143   0.1560   +0.1417    MISSED
+dark-solid__rrect-md__rest       right     0.0143   0.0234   +0.0090       MET
+dark-solid__rrect-lg__rest       top       0.0149   0.0280   +0.0131       MET
+dark-solid__rrect-lg__rest       bottom    0.0147   0.0278   +0.0131       MET
+dark-solid__rrect-lg__rest       left      0.0114   0.1450   +0.1337    MISSED
+dark-solid__rrect-lg__rest       right     0.0114   0.0214   +0.0100       MET
+mid-dark-solid__rrect-sm__rest   top       0.0391   0.0366   -0.0025       MET
+mid-dark-solid__rrect-sm__rest   bottom    0.0391   0.0366   -0.0025       MET
+mid-dark-solid__rrect-sm__rest   left      0.0383   0.1803   +0.1420    MISSED
+mid-dark-solid__rrect-sm__rest   right     0.0383   0.0369   -0.0013       MET
+mid-dark-solid__rrect-md__rest   top       0.0367   0.0358   -0.0010       MET
+mid-dark-solid__rrect-md__rest   bottom    0.0360   0.0347   -0.0012       MET
+mid-dark-solid__rrect-md__rest   left      0.0361   0.1731   +0.1370    MISSED
+mid-dark-solid__rrect-md__rest   right     0.0361   0.0350   -0.0011       MET
+mid-dark-solid__rrect-lg__rest   top       0.0348   0.0352   +0.0004       MET
+mid-dark-solid__rrect-lg__rest   bottom    0.0333   0.0341   +0.0008       MET
+mid-dark-solid__rrect-lg__rest   left      0.0343   0.1626   +0.1284    MISSED
+mid-dark-solid__rrect-lg__rest   right     0.0343   0.0343   +0.0000       MET
+mean |Δexcess| over the 18 fitted rows: 0.0068; worst 0.0167
+
+Flatness — max side minus min side, the reference's against vitrea's, over the three
+fitted sides and over all four (clause 4 asks for the reference's flatness within 0.03):
+scene                             nat T/B/R  web T/B/R  nat all  web all
+dark-solid__rrect-sm__rest           0.0035     0.0000   0.0035   0.0000
+dark-solid__rrect-md__rest           0.0044     0.0055   0.0044   0.1327
+dark-solid__rrect-lg__rest           0.0036     0.0066   0.0036   0.1237
+mid-dark-solid__rrect-sm__rest       0.0009     0.0003   0.0009   0.1436
+mid-dark-solid__rrect-md__rest       0.0008     0.0010   0.0008   0.1383
+mid-dark-solid__rrect-lg__rest       0.0014     0.0011   0.0014   0.1285
+
+Recorded, not fitted — the `light-solid` cells under the same constant. The reference's
+own horizontal-against-vertical split lives here (claims §5.89 §5) and no dark
+canonical cell shows it:
+scene                            side      native      web         Δ
+light-solid__rrect-lg__rest      top       0.2557   0.1957   -0.0599
+light-solid__rrect-lg__rest      bottom    0.2344   0.1827   -0.0517
+light-solid__rrect-lg__rest      left      0.3547   0.4439   +0.0891
+light-solid__rrect-lg__rest      right     0.3547   0.3070   -0.0476
+light-solid__rrect-md__rest      top       0.2468   0.1861   -0.0608
+light-solid__rrect-md__rest      bottom    0.2345   0.1740   -0.0605
+light-solid__rrect-md__rest      left      0.3374   0.4243   +0.0869
+light-solid__rrect-md__rest      right     0.3372   0.2773   -0.0599
+light-solid__rrect-sm__rest      top       0.0137   0.1491   +0.1354
+light-solid__rrect-sm__rest      bottom    0.0110   0.1464   +0.1354
+light-solid__rrect-sm__rest      left     -0.0003   0.4119   +0.4122
+light-solid__rrect-sm__rest      right    -0.0002   0.2627   +0.2630

@@ -1,0 +1,23 @@
+W21 G1 — the chain, 2026-09-07 (pnpm -r build && pnpm -r lint && pnpm -r test)
+
+BUILD=0
+LINT=0
+TEST=0
+
+unit suites:
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:  Test Files  9 passed (9)
+packages/motion test:       Tests  162 passed (162)
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:  Test Files  22 passed (22)
+packages/renderer-webgpu test:       Tests  396 passed (396)
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:  Test Files  32 passed (32)
+packages/platform-web test:       Tests  423 passed (423)
+packages/calibration test:  Test Files  20 passed (20)
+packages/calibration test:       Tests  277 passed (277)
+packages/react test:  Test Files  13 passed (13)
+packages/react test:       Tests  101 passed (101)

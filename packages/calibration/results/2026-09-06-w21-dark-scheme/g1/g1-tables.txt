@@ -1,0 +1,175 @@
+dry run: 104 cells; the canonical W20 bed: 229 cells
+dry-run captures: /Users/new/.claude/jobs/5c70e47f/tmp/w21/g1/dryrun/web-captures
+canonical captures: /Users/new/developer/github/designer/packages/calibration/web-captures
+
+=== the dark bed, GPU tier — the W20 bed → this dry run ===
+  cell                                           dpr set                    ΔE mean             ΔE p95           ssimMean
+  checkerboard__capsule-button__rest             1x  calibration  0.00558 → 0.00503  0.03343 → 0.04672  0.97413 → 0.99167
+  checkerboard__capsule-button__rest-tint-orange 1x  calibration  0.00104 → 0.00101  0.00650 → 0.00650  0.99848 → 0.99874
+  checkerboard__glass-over-glass__rest           1x  holdout      0.02736 → 0.01765  0.09875 → 0.09419  0.92945 → 0.95861
+  checkerboard__rrect-md__rest                   1x  calibration  0.01110 → 0.00395  0.07769 → 0.01997  0.95743 → 0.98697
+  dark-solid__capsule-button__rest               1x  calibration  0.00077 → 0.00077  0.00511 → 0.00511  0.98661 → 0.98661
+  dark-solid__capsule-button__rest-tint-orange   1x  calibration  0.00054 → 0.00054  0.00227 → 0.00227  0.99906 → 0.99906
+  dark-solid__rrect-md__rest                     1x  calibration  0.02861 → 0.00401  0.11606 → 0.01326  0.93069 → 0.98767
+  impulse__capsule-button__rest                  1x  validation   0.00291 → 0.00291  0.03240 → 0.03240  0.97976 → 0.97976
+  mid-dark-solid__capsule-button__rest           1x  holdout      0.00532 → 0.00025  0.06249 → 0.00000  0.98082 → 0.99692
+  photo__capsule-button__rest                    1x  calibration  0.00774 → 0.00753  0.08856 → 0.08900  0.99044 → 0.98852
+  photo__capsule-button__rest-tint-orange        1x  calibration  0.00102 → 0.00098  0.00682 → 0.00682  0.99708 → 0.99750
+  photo__rrect-lg__rest                          1x  holdout      0.05720 → 0.03047  0.11643 → 0.06901  0.94968 → 0.98939
+  photo__rrect-md__rest                          1x  calibration  0.01972 → 0.01313  0.10323 → 0.06665  0.97505 → 0.99274
+  checkerboard__capsule-button__rest             2x  calibration  0.00587 → 0.00483  0.03391 → 0.03132  0.98029 → 0.99202
+  checkerboard__capsule-button__rest-tint-orange 2x  calibration  0.00105 → 0.00102  0.00444 → 0.00444  0.99824 → 0.99841
+  checkerboard__glass-over-glass__rest           2x  holdout      0.02798 → 0.01759  0.09875 → 0.09494  0.94884 → 0.96812
+  checkerboard__rrect-md__rest                   2x  calibration  0.01180 → 0.00402  0.07769 → 0.02046  0.97188 → 0.98945
+  dark-solid__capsule-button__rest               2x  calibration  0.00077 → 0.00077  0.00511 → 0.00511  0.99083 → 0.99083
+  dark-solid__capsule-button__rest-tint-orange   2x  calibration  0.00060 → 0.00060  0.00227 → 0.00227  0.99840 → 0.99840
+  dark-solid__rrect-md__rest                     2x  calibration  0.02867 → 0.00400  0.11606 → 0.01326  0.94440 → 0.99198
+  impulse__capsule-button__rest                  2x  validation   0.00329 → 0.00329  0.03716 → 0.03716  0.98032 → 0.98032
+  mid-dark-solid__capsule-button__rest           2x  holdout      0.00536 → 0.00026  0.06249 → 0.00000  0.98746 → 0.99742
+  photo__capsule-button__rest                    2x  calibration  0.00782 → 0.00759  0.08872 → 0.08946  0.99266 → 0.99101
+  photo__capsule-button__rest-tint-orange        2x  calibration  0.00103 → 0.00099  0.00682 → 0.00681  0.99729 → 0.99742
+  photo__rrect-lg__rest                          2x  holdout      0.05716 → 0.03002  0.11679 → 0.06806  0.96000 → 0.98945
+  photo__rrect-md__rest                          2x  calibration  0.01982 → 0.01307  0.10417 → 0.06528  0.98138 → 0.99377
+
+  the material axes, GPU tier (native | W20 bed → dry run):
+  cell                                           dpr               interiorMean             interiorStdDev           rimPeakLuminance
+  checkerboard__capsule-button__rest             1x   0.1130 |  0.0732 →  0.0708  0.0671 |  0.0494 →  0.0374  0.1066 |  0.1470 →  0.0572
+  checkerboard__capsule-button__rest-tint-orange 1x   0.4385 |  0.4330 →  0.4283  0.0291 |  0.0375 →  0.0238  0.0642 |  0.0930 →  0.0219
+  checkerboard__glass-over-glass__rest           1x   0.0436 |  0.0658 →  0.0499  0.0233 |  0.0379 →  0.0269  0.0263 |  0.0849 →  0.0416
+  checkerboard__rrect-md__rest                   1x   0.0493 |  0.0683 →  0.0501  0.0280 |  0.0392 →  0.0313  0.0728 |  0.1665 →  0.0796
+  dark-solid__capsule-button__rest               1x                           —                          —                          —
+  dark-solid__capsule-button__rest-tint-orange   1x   0.4257 |  0.4249 →  0.4249  0.0304 |  0.0240 →  0.0240  0.0196 |  0.0000 →  0.0000
+  dark-solid__rrect-md__rest                     1x   0.0414 |  0.2105 →  0.0788  0.0051 |  0.0910 →  0.0695  0.0000 |  0.0000 →  0.0000
+  impulse__capsule-button__rest                  1x   0.0210 |  0.0037 →  0.0037  0.0038 |  0.0001 →  0.0001  0.0082 |  0.0000 →  0.0000
+  mid-dark-solid__capsule-button__rest           1x   0.0289 |  0.0512 →  0.0291  0.0049 |  0.0169 →  0.0082  0.0064 |  0.0199 →  0.0085
+  photo__capsule-button__rest                    1x   0.1020 |  0.0635 →  0.0556  0.0318 |  0.0417 →  0.0189  0.0907 |  0.1313 →  0.0463
+  photo__capsule-button__rest-tint-orange        1x   0.4384 |  0.4328 →  0.4280  0.0255 |  0.0289 →  0.0118  0.0617 |  0.0899 →  0.0177
+  photo__rrect-lg__rest                          1x   0.0464 |  0.0581 →  0.0413  0.0161 |  0.0253 →  0.0171  0.0678 |  0.1525 →  0.0699
+  photo__rrect-md__rest                          1x   0.0490 |  0.0600 →  0.0415  0.0177 |  0.0334 →  0.0208  0.0656 |  0.1575 →  0.0719
+  checkerboard__capsule-button__rest             2x   0.1141 |  0.0732 →  0.0717  0.0701 |  0.0511 →  0.0363  0.1500 |  0.2262 →  0.0850
+  checkerboard__capsule-button__rest-tint-orange 2x   0.4399 |  0.4339 →  0.4289  0.0323 |  0.0384 →  0.0188  0.0955 |  0.1560 →  0.0448
+  checkerboard__glass-over-glass__rest           2x   0.0442 |  0.0664 →  0.0506  0.0259 |  0.0440 →  0.0319  0.0498 |  0.1416 →  0.0711
+  checkerboard__rrect-md__rest                   2x   0.0498 |  0.0686 →  0.0506  0.0291 |  0.0429 →  0.0351  0.0943 |  0.2425 →  0.1183
+  dark-solid__capsule-button__rest               2x                           —                          —                          —
+  dark-solid__capsule-button__rest-tint-orange   2x   0.4276 |  0.4264 →  0.4264  0.0315 |  0.0157 →  0.0157  0.0746 |  0.0000 →  0.0000
+  dark-solid__rrect-md__rest                     2x   0.0457 |  0.2495 →  0.0976  0.0095 |  0.1466 →  0.1150  0.0000 |  0.0000 →  0.0000
+  impulse__capsule-button__rest                  2x   0.0263 |  0.0033 →  0.0033  0.0046 |  0.0001 →  0.0001  0.0004 |  0.0000 →  0.0000
+  mid-dark-solid__capsule-button__rest           2x   0.0298 |  0.0558 →  0.0303  0.0088 |  0.0411 →  0.0142  0.0242 |  0.1060 →  0.0317
+  photo__capsule-button__rest                    2x   0.1023 |  0.0638 →  0.0556  0.0324 |  0.0466 →  0.0206  0.1195 |  0.1967 →  0.0688
+  photo__capsule-button__rest-tint-orange        2x   0.4395 |  0.4338 →  0.4287  0.0289 |  0.0348 →  0.0130  0.0880 |  0.1528 →  0.0408
+  photo__rrect-lg__rest                          2x   0.0465 |  0.0583 →  0.0415  0.0164 |  0.0295 →  0.0200  0.0923 |  0.2390 →  0.1118
+  photo__rrect-md__rest                          2x   0.0493 |  0.0605 →  0.0419  0.0185 |  0.0388 →  0.0251  0.0911 |  0.2430 →  0.1142
+
+=== the dark bed, CSS tier — the W20 bed → this dry run ===
+  cell                                           dpr set                    ΔE mean             ΔE p95           ssimMean
+  checkerboard__capsule-button__rest             1x  calibration  0.00946 → 0.01356  0.05951 → 0.11751  0.94848 → 0.95158
+  checkerboard__capsule-button__rest-tint-orange 1x  calibration  0.00361 → 0.00364  0.00679 → 0.00679  0.98282 → 0.98265
+  checkerboard__glass-over-glass__rest           1x  holdout      0.04074 → 0.07057  0.10668 → 0.15764  0.85594 → 0.80048
+  checkerboard__rrect-md__rest                   1x  calibration  0.02125 → 0.04164  0.08467 → 0.15297  0.90927 → 0.87919
+  dark-solid__capsule-button__rest               1x  calibration  0.00077 → 0.00077  0.00511 → 0.00511  0.98661 → 0.98661
+  dark-solid__capsule-button__rest-tint-orange   1x  calibration  0.00340 → 0.00340  0.00227 → 0.00227  0.97638 → 0.97638
+  dark-solid__rrect-md__rest                     1x  calibration  0.03065 → 0.00455  0.11954 → 0.01326  0.90740 → 0.96617
+  impulse__capsule-button__rest                  1x  validation   0.00362 → 0.00362  0.03240 → 0.03240  0.97564 → 0.97564
+  mid-dark-solid__capsule-button__rest           1x  holdout      0.00583 → 0.00096  0.06630 → 0.00401  0.97067 → 0.98751
+  photo__capsule-button__rest                    1x  calibration  0.00963 → 0.01114  0.09669 → 0.11642  0.97818 → 0.97269
+  photo__capsule-button__rest-tint-orange        1x  calibration  0.00229 → 0.00227  0.00684 → 0.00684  0.97987 → 0.98344
+  photo__rrect-lg__rest                          1x  holdout      0.06211 → 0.05867  0.12919 → 0.12333  0.92497 → 0.94033
+  photo__rrect-md__rest                          1x  calibration  0.02217 → 0.02373  0.11195 → 0.11313  0.96192 → 0.96606
+  checkerboard__capsule-button__rest             2x  calibration  0.00974 → 0.01313  0.05219 → 0.10858  0.96164 → 0.96106
+  checkerboard__capsule-button__rest-tint-orange 2x  calibration  0.00368 → 0.00370  0.00679 → 0.00679  0.98613 → 0.98583
+  checkerboard__glass-over-glass__rest           2x  holdout      0.04228 → 0.06594  0.10702 → 0.15443  0.87715 → 0.83543
+  checkerboard__rrect-md__rest                   2x  calibration  0.02217 → 0.03849  0.08648 → 0.14785  0.93051 → 0.90081
+  dark-solid__capsule-button__rest               2x  calibration  0.00077 → 0.00077  0.00511 → 0.00511  0.99084 → 0.99084
+  dark-solid__capsule-button__rest-tint-orange   2x  calibration  0.00347 → 0.00347  0.00227 → 0.00227  0.98329 → 0.98329
+  dark-solid__rrect-md__rest                     2x  calibration  0.03070 → 0.00455  0.11954 → 0.01326  0.92804 → 0.97714
+  impulse__capsule-button__rest                  2x  validation   0.00401 → 0.00401  0.03716 → 0.03716  0.97586 → 0.97586
+  mid-dark-solid__capsule-button__rest           2x  holdout      0.00588 → 0.00097  0.06630 → 0.00401  0.97950 → 0.99051
+  photo__capsule-button__rest                    2x  calibration  0.00974 → 0.01120  0.09688 → 0.11656  0.98375 → 0.97938
+  photo__capsule-button__rest-tint-orange        2x  calibration  0.00233 → 0.00231  0.00684 → 0.00684  0.98558 → 0.98760
+  photo__rrect-lg__rest                          2x  holdout      0.06213 → 0.05859  0.13014 → 0.12435  0.94245 → 0.95351
+  photo__rrect-md__rest                          2x  calibration  0.02237 → 0.02395  0.11339 → 0.11384  0.97098 → 0.97346
+
+  the material axes, CSS tier (native | W20 bed → dry run):
+  cell                                           dpr               interiorMean             interiorStdDev           rimPeakLuminance
+  checkerboard__capsule-button__rest             1x   0.1130 |  0.0588 →  0.0342  0.0671 |  0.0273 →  0.0131  0.1066 |  0.0658 →  0.0222
+  checkerboard__capsule-button__rest-tint-orange 1x   0.4385 |  0.4307 →  0.4287  0.0291 |  0.0225 →  0.0126  0.0642 |  0.0471 →  0.0174
+  checkerboard__glass-over-glass__rest           1x   0.0436 |  0.0574 →  0.0202  0.0233 |  0.0254 →  0.0169  0.0263 |  0.0382 →  0.0196
+  checkerboard__rrect-md__rest                   1x   0.0493 |  0.0572 →  0.0128  0.0280 |  0.0214 →  0.0080  0.0728 |  0.0765 →  0.0192
+  dark-solid__capsule-button__rest               1x                           —                          —                          —
+  dark-solid__capsule-button__rest-tint-orange   1x   0.4257 |  0.4268 →  0.4268  0.0304 |  0.0122 →  0.0122  0.0196 |  0.0000 →  0.0000
+  dark-solid__rrect-md__rest                     1x   0.0414 |  0.1310 →  0.0333  0.0051 |  0.0849 →  0.0210  0.0000 |  0.0000 →  0.0000
+  impulse__capsule-button__rest                  1x   0.0210 |  0.0037 →  0.0037  0.0038 |  0.0000 →  0.0000  0.0082 |  0.0000 →  0.0000
+  mid-dark-solid__capsule-button__rest           1x   0.0289 |  0.0517 →  0.0275  0.0049 |  0.0061 →  0.0023  0.0064 |  0.0053 →  0.0021
+  photo__capsule-button__rest                    1x   0.1020 |  0.0564 →  0.0435  0.0318 |  0.0252 →  0.0089  0.0907 |  0.0602 →  0.0216
+  photo__capsule-button__rest-tint-orange        1x   0.4384 |  0.4305 →  0.4285  0.0255 |  0.0211 →  0.0108  0.0617 |  0.0441 →  0.0144
+  photo__rrect-lg__rest                          1x   0.0464 |  0.0537 →  0.0278  0.0161 |  0.0153 →  0.0053  0.0678 |  0.0694 →  0.0199
+  photo__rrect-md__rest                          1x   0.0490 |  0.0547 →  0.0277  0.0177 |  0.0202 →  0.0062  0.0656 |  0.0728 →  0.0208
+  checkerboard__capsule-button__rest             2x   0.1141 |  0.0589 →  0.0359  0.0701 |  0.0275 →  0.0121  0.1500 |  0.0754 →  0.0252
+  checkerboard__capsule-button__rest-tint-orange 2x   0.4399 |  0.4310 →  0.4289  0.0323 |  0.0222 →  0.0107  0.0955 |  0.0555 →  0.0226
+  checkerboard__glass-over-glass__rest           2x   0.0442 |  0.0575 →  0.0222  0.0259 |  0.0261 →  0.0165  0.0498 |  0.0453 →  0.0134
+  checkerboard__rrect-md__rest                   2x   0.0498 |  0.0574 →  0.0152  0.0291 |  0.0213 →  0.0081  0.0943 |  0.0770 →  0.0196
+  dark-solid__capsule-button__rest               2x                           —                          —                          —
+  dark-solid__capsule-button__rest-tint-orange   2x   0.4276 |  0.4273 →  0.4273  0.0315 |  0.0078 →  0.0078  0.0746 |  0.0000 →  0.0000
+  dark-solid__rrect-md__rest                     2x   0.0457 |  0.1341 →  0.0340  0.0095 |  0.0857 →  0.0213  0.0000 |  0.0000 →  0.0000
+  impulse__capsule-button__rest                  2x   0.0263 |  0.0033 →  0.0033  0.0046 |  0.0001 →  0.0001  0.0004 |  0.0000 →  0.0000
+  mid-dark-solid__capsule-button__rest           2x   0.0298 |  0.0533 →  0.0279  0.0088 |  0.0182 →  0.0056  0.0242 |  0.0348 →  0.0108
+  photo__capsule-button__rest                    2x   0.1023 |  0.0563 →  0.0434  0.0324 |  0.0257 →  0.0088  0.1195 |  0.0660 →  0.0225
+  photo__capsule-button__rest-tint-orange        2x   0.4395 |  0.4308 →  0.4288  0.0289 |  0.0217 →  0.0099  0.0880 |  0.0545 →  0.0226
+  photo__rrect-lg__rest                          2x   0.0465 |  0.0536 →  0.0277  0.0164 |  0.0155 →  0.0055  0.0923 |  0.0775 →  0.0221
+  photo__rrect-md__rest                          2x   0.0493 |  0.0546 →  0.0276  0.0185 |  0.0205 →  0.0064  0.0911 |  0.0783 →  0.0220
+
+=== the stops, on the matrix's rows ===
+  S1 — an untinted dark row worse than the W20 bed by more than 0.001 ΔE mean or 0.005 ssimMean:
+    FIRES checkerboard__capsule-button__rest @ 1x-dark-standard / css: ΔE 0.00946 → 0.01356 (+0.00411), ssim 0.94848 → 0.95158 (+0.00310)
+    FIRES checkerboard__glass-over-glass__rest @ 1x-dark-standard / css: ΔE 0.04074 → 0.07057 (+0.02982), ssim 0.85594 → 0.80048 (-0.05545)
+    FIRES checkerboard__rrect-md__rest @ 1x-dark-standard / css: ΔE 0.02125 → 0.04164 (+0.02039), ssim 0.90927 → 0.87919 (-0.03008)
+    FIRES photo__capsule-button__rest @ 1x-dark-standard / css: ΔE 0.00963 → 0.01114 (+0.00150), ssim 0.97818 → 0.97269 (-0.00550)
+    FIRES photo__rrect-md__rest @ 1x-dark-standard / css: ΔE 0.02217 → 0.02373 (+0.00155), ssim 0.96192 → 0.96606 (+0.00414)
+    FIRES checkerboard__capsule-button__rest @ 2x-dark-standard / css: ΔE 0.00974 → 0.01313 (+0.00339), ssim 0.96164 → 0.96106 (-0.00058)
+    FIRES checkerboard__glass-over-glass__rest @ 2x-dark-standard / css: ΔE 0.04228 → 0.06594 (+0.02366), ssim 0.87715 → 0.83543 (-0.04172)
+    FIRES checkerboard__rrect-md__rest @ 2x-dark-standard / css: ΔE 0.02217 → 0.03849 (+0.01632), ssim 0.93051 → 0.90081 (-0.02970)
+    FIRES photo__capsule-button__rest @ 2x-dark-standard / css: ΔE 0.00974 → 0.01120 (+0.00146), ssim 0.98375 → 0.97938 (-0.00437)
+    FIRES photo__rrect-md__rest @ 2x-dark-standard / css: ΔE 0.02237 → 0.02395 (+0.00158), ssim 0.97098 → 0.97346 (+0.00248)
+  S2 — a tinted dark cell moved by more than 0.001:
+          checkerboard__capsule-button__rest-tint-orange @ 1x-dark-standard   / css    ΔE 0.00361 → 0.00364 (+0.00003)
+          dark-solid__capsule-button__rest-tint-orange   @ 1x-dark-standard   / css    ΔE 0.00340 → 0.00340 (+0.00000)
+          photo__capsule-button__rest-tint-orange        @ 1x-dark-standard   / css    ΔE 0.00229 → 0.00227 (-0.00002)
+          checkerboard__capsule-button__rest-tint-orange @ 1x-dark-standard   / webgpu ΔE 0.00104 → 0.00101 (-0.00003)
+          dark-solid__capsule-button__rest-tint-orange   @ 1x-dark-standard   / webgpu ΔE 0.00054 → 0.00054 (+0.00000)
+          photo__capsule-button__rest-tint-orange        @ 1x-dark-standard   / webgpu ΔE 0.00102 → 0.00098 (-0.00004)
+          checkerboard__capsule-button__rest-tint-orange @ 2x-dark-standard   / css    ΔE 0.00368 → 0.00370 (+0.00003)
+          dark-solid__capsule-button__rest-tint-orange   @ 2x-dark-standard   / css    ΔE 0.00347 → 0.00347 (+0.00000)
+          photo__capsule-button__rest-tint-orange        @ 2x-dark-standard   / css    ΔE 0.00233 → 0.00231 (-0.00003)
+          checkerboard__capsule-button__rest-tint-orange @ 2x-dark-standard   / webgpu ΔE 0.00105 → 0.00102 (-0.00003)
+          dark-solid__capsule-button__rest-tint-orange   @ 2x-dark-standard   / webgpu ΔE 0.00060 → 0.00060 (+0.00000)
+          photo__capsule-button__rest-tint-orange        @ 2x-dark-standard   / webgpu ΔE 0.00103 → 0.00099 (-0.00004)
+
+=== X3 — every light-profile capture byte-identical to the canonical bed ===
+  byte-identical 52 / 52; missing 0
+
+=== the dark bed's ΔE mean per profile, tier and split, W20 bed → dry run ===
+  profile                tier    split          n  bed → dry run
+  1x-dark-standard       webgpu  calibration    9  0.00846 → 0.00410
+  1x-dark-standard       webgpu  validation     1  0.00291 → 0.00291
+  1x-dark-standard       webgpu  holdout        3  0.02996 → 0.01612
+  1x-dark-standard       css     calibration    9  0.01147 → 0.01163
+  1x-dark-standard       css     validation     1  0.00362 → 0.00362
+  1x-dark-standard       css     holdout        3  0.03623 → 0.04340
+  2x-dark-standard       webgpu  calibration    9  0.00860 → 0.00410
+  2x-dark-standard       webgpu  validation     1  0.00329 → 0.00329
+  2x-dark-standard       webgpu  holdout        3  0.03017 → 0.01596
+  2x-dark-standard       css     calibration    9  0.01166 → 0.01129
+  2x-dark-standard       css     validation     1  0.00401 → 0.00401
+  2x-dark-standard       css     holdout        3  0.03676 → 0.04183
+
+stops fired: 10
+  S1 checkerboard__capsule-button__rest @ 1x-dark-standard / css (+0.00411, -0.00310)
+  S1 checkerboard__glass-over-glass__rest @ 1x-dark-standard / css (+0.02982, +0.05545)
+  S1 checkerboard__rrect-md__rest @ 1x-dark-standard / css (+0.02039, +0.03008)
+  S1 photo__capsule-button__rest @ 1x-dark-standard / css (+0.00150, +0.00550)
+  S1 photo__rrect-md__rest @ 1x-dark-standard / css (+0.00155, -0.00414)
+  S1 checkerboard__capsule-button__rest @ 2x-dark-standard / css (+0.00339, +0.00058)
+  S1 checkerboard__glass-over-glass__rest @ 2x-dark-standard / css (+0.02366, +0.04172)
+  S1 checkerboard__rrect-md__rest @ 2x-dark-standard / css (+0.01632, +0.02970)
+  S1 photo__capsule-button__rest @ 2x-dark-standard / css (+0.00146, +0.00437)
+  S1 photo__rrect-md__rest @ 2x-dark-standard / css (+0.00158, -0.00248)

@@ -32,12 +32,17 @@
 import type { RendererMaterialProfile } from "./renderer-bridge";
 
 export const darkMaterialProfile: RendererMaterialProfile = {
-  backdropToneResponseStrength: 0,
+  backdropToneAnchorX: [0.1104, 0.2706, 0.9505],
+  backdropToneResponseThin: [0.011, 0.0284, 0.1611],
+  backdropToneResponseThick: [0.0131, 0.0238, 0.1006],
+  backdropToneResponseStrength: 1,
   tintShadeStrength: 0,
   optics: {
     regular: {
       tint: [0.05, 0.05, 0.05],
-      tintAlpha: 0.97,
+      tintAlpha: 0.9,
+      rimAlpha: 0.082,
+      specularGain: 0,
     },
   },
   adaptiveTintDark: [0.05, 0.05, 0.05],

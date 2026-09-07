@@ -278,17 +278,45 @@ describe("tuned calibration profiles", () => {
   it("applies the dark patch as a real change, and only where it claims to", () => {
     const dark = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, DARK.patch);
     expect(dark).not.toEqual(DEFAULT_MATERIAL_PROFILE);
-    expect(dark.optics.regular.tintAlpha).toBe(0.97);
     expect(dark.optics.regular.tint).toEqual([0.05, 0.05, 0.05]);
     expect(dark.adaptiveTintDark).toEqual(dark.adaptiveTintLight);
 
+    /*
+     * W21 G1 (claims §5.89; W21 Decision Log 2) moved three of these and named
+     * two constants the document had never named. They are asserted here rather
+     * than only through the fingerprint for the reason the light case gives: the
+     * numbers that move most should be legible in the test as well as in the
+     * profile.
+     *
+     * `tintAlpha` 0.97 → 0.90 is the passthrough refit, which only became
+     * possible once the response law below took the interior level off the
+     * alpha. `specularGain` 0.55 → 0 is a declination, not a fit: the dark
+     * reference's rim has no light direction at all. `rimAlpha` 0.18 → 0.082 is
+     * the ambient rim fitted on the six solid cells' per-side excess.
+     */
+    expect(dark.optics.regular.tintAlpha).toBe(0.9);
+    expect(dark.optics.regular.rimAlpha).toBe(0.082);
+    expect(dark.optics.regular.specularGain).toBe(0);
+
+    // The response law runs in this scheme now, on this scheme's own measured
+    // anchors. The anchor POSITIONS are the light profile's, as they must be —
+    // the same rasters read under the same footprints — and the two response
+    // rows are the dark reference's.
+    expect(dark.backdropToneResponseStrength).toBe(1);
+    expect(dark.backdropToneAnchorX).toEqual(DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX);
+    expect(dark.backdropToneResponseThin).not.toEqual(
+      DEFAULT_MATERIAL_PROFILE.backdropToneResponseThin,
+    );
+    expect(dark.backdropToneResponseThick).not.toEqual(
+      DEFAULT_MATERIAL_PROFILE.backdropToneResponseThick,
+    );
+
     // A patch names leaves; it must not quietly drop their siblings. These are
-    // the constants the dark profile explicitly declines to retune, and they have
-    // to survive the merge for that declining to mean anything.
+    // constants the dark profile still explicitly declines to retune, and they
+    // have to survive the merge for that declining to mean anything.
     expect(dark.optics.regular.blurSigma).toBe(DEFAULT_MATERIAL_PROFILE.optics.regular.blurSigma);
-    expect(dark.optics.regular.rimAlpha).toBe(DEFAULT_MATERIAL_PROFILE.optics.regular.rimAlpha);
-    expect(dark.optics.regular.specularGain).toBe(
-      DEFAULT_MATERIAL_PROFILE.optics.regular.specularGain,
+    expect(dark.optics.regular.specularPower).toBe(
+      DEFAULT_MATERIAL_PROFILE.optics.regular.specularPower,
     );
     expect(dark.optics.clear).toEqual(DEFAULT_MATERIAL_PROFILE.optics.clear);
   });

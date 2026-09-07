@@ -20,9 +20,16 @@ const repoRoot = fileURLToPath(new URL("../../..", import.meta.url));
  * the probe-bed override the whole pipeline honours (claims §5.30): the dev
  * server inherits it from `capture-web`, so the browser fetches the probe's own
  * backgrounds while the canonical fixtures stay untouched.
+ *
+ * `resolve()` wraps the environment value as well as the default, because the
+ * containment check below compares a NORMALISED path against this one: a value
+ * carrying a `..` segment would fail its own check and every background would
+ * come back 403 (claims §5.89 §8). Canonicalising once, here, keeps the mount
+ * and the check reading the same string.
  */
-const REFERENCE_FIXTURES =
-  process.env["VITREA_FIXTURES"] ?? resolve(repoRoot, "apps/reference-apple/fixtures");
+const REFERENCE_FIXTURES = resolve(
+  process.env["VITREA_FIXTURES"] ?? resolve(repoRoot, "apps/reference-apple/fixtures"),
+);
 
 /** URL prefix the page fetches backgrounds under. */
 export const REFERENCE_MOUNT = "/reference-fixtures";

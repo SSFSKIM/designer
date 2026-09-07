@@ -196,8 +196,11 @@ describe("composing two patches", () => {
     // The scheme's tint, named beside the alpha the app replaced, survives.
     expect(merged?.optics?.regular?.tint).toEqual([0.05, 0.05, 0.05]);
     expect(merged?.outerShadow?.liftAmplitude).toBe(0.0051);
-    // And the scheme's own patch was not mutated.
-    expect(darkMaterialProfile.optics?.regular?.tintAlpha).toBe(0.97);
+    // And the scheme's own patch was not mutated. 0.90 since W21 G1 refitted the
+    // alpha on the dark probe's passthrough rows (claims §5.89 §4); the assertion
+    // is on the document's value rather than on a literal history, so it moves
+    // with the profile and still catches a merge that wrote through its input.
+    expect(darkMaterialProfile.optics?.regular?.tintAlpha).toBe(0.9);
   });
 
   it("passes either side through when the other is absent", () => {
