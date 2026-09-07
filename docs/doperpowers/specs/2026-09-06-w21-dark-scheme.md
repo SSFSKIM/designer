@@ -365,7 +365,7 @@ at a time.
 | --- | --- |
 | G0 — the dark probe and the instrument | CLOSED 2026-09-07 (claims §5.88–§5.89): seven attested runs of eighteen (the rest disqualified by name — a locked console, one mid-run input), the six anchors read at majority σ 0.0000, P3 0.0078 on the thick rows and the candidate at the measured anchors 0.0044 mean body error with nothing fitted; the thin row an appearance switch (`light-solid__rrect-sm` 0.9666 against `checkerboard-64__rrect-sm` 0.1611 at the same footprint input); the rim flat to 0.001–0.004 on the dark solids where vitrea spreads it by 0.15; the passthrough a lerp three to five times too strong; the tints untouched; Decision Log 2 |
 | G1 — the form declared and dry-run | DECLARED 2026-09-07 (claims §5.90; Decision Log 3): seven constants moved (six measured anchors and strength 1; `specularGain` 0 declined on its rows; `rimAlpha` 0.082 on the six solids at 0.0068 mean; `tintAlpha` 0.90 on ten passthrough rows at factor 1.441 with the thick body moving 0.0007), fingerprint d86f480c0e136627; the dry run on the canonical dark bed at both scales on both tiers with the holdout read once — GPU calibration ΔE 0.0085 → 0.0041, holdout 0.0300 → 0.0161, every thick cell inside 0.010, the tinted and collapsed cells unmoved, 52 light captures byte-identical; S1 fires on ten CSS rows and no GPU row; the stationary sweep found (§5.90 §4) |
-| G2 — the landing and its referee | DISPATCHED 2026-09-07 on Decision Log 3 |
+| G2 — the landing and its referee | LANDING 2026-09-07: the canonical rebuild reproduced G1 byte for byte (52 / 52 dark, 176 / 177 light with the one a session byte-state); the gate red on thirteen rows of one CSS mechanism; G2b diagnosed it (the conversion's anchor; a gain on a distribution; the W17 form boundary) and landed nothing; Decision Log 4 re-rules the form boundary and anchors the conversion, pins two silhouette floors on the nested pane at 2x; G2c completes the landing |
 | G3 — the dark scheme shipped | MERGED 2026-09-06 (`c017625`, `bc0b9e8`; Decision Log 1's shape): `darkMaterialProfile` generated from the profile document and pinned to it in two packages (X7), `colorScheme: "light" \| "dark" \| "auto"` on both roots with `"auto"` on the media feed and one re-derivation path for every profile change, the demo's scheme switch with its Reference section following the resolved scheme (12 of 32 picker scenes carry a dark capture; the rest withdraw the pair with a sentence); Codex review's one finding fixed; browser suites 21 / 21 on three engines and 5 / 5 on the demo; ships its numbers with G2 — X7's test carries G1's re-recording through |
 
 ## Decision Log
@@ -523,6 +523,81 @@ one-profile rule and the coherence pin). A thickness-graded second alpha (S5: it
 appearance term). Holding the landing for the sweep (a light-scheme defect older than this wave, on
 its own charter).
 
+### Decision Log 4 — G2 at the gate: the CSS tier's form boundary re-ruled as a comparison of errors, the conversion anchored at the surface's own backdrop, two silhouette floors on the nested pane at 2x; the landing completes as G2c (2026-09-07; the parent, on the user's standing instruction, the eye's veto kept before publish)
+
+**What G2 and G2b measured** (`g2/g2-landing.md`, `g2/g2-gate.txt`, `g2b/g2b-findings.md`,
+`g2b/diagnosis.txt`). The canonical rebuild reproduced G1's 52 dark captures byte for byte and
+176 of 177 light captures (the one exception a session byte-state of one increased-contrast CSS
+cell, re-captured and reproducing the landed bytes). The gate went red on thirteen rows, one
+mechanism: over a structured dark backdrop the CSS tier's body lands at 0.0122 against the law's
+0.047. G2b's diagnosis, replaying the tier's own shipped functions to 0.003 of the measured bodies:
+not the clamp (it binds on one cell and costs 0.0018), but the conversion of the renderer's linear
+alpha to the page's encoded `rgba()` — anchored at a fitted backdrop level of 0.02 while the dark
+solve's neutrals land ON that anchor and the cells' backdrops sit at 0.004–0.5, so the guard fires
+on two cells and emits a linear alpha as an encoded one, and on the clamped cell the conversion
+solves 0.839 where 0.505 lands the composite; and beneath it a structural fact: an encoded-space
+alpha is a gain on the backdrop's distribution, and no point solve at any single level reproduces a
+mean over a distribution. Anchoring the conversion at the surface's own backdrop (candidate A)
+halves every dark CSS cell's ΔE against Apple and lands six coherence rows, and the checkerboard
+family overshoots to the other side. What carries the structured cells is the form the tier draws:
+W17 Decision Log 4 (c) sends every composite below the linear chain's quantum to the encoded form,
+declared against a light bed where crossing it cost nothing; compared by ERROR — the linear chain's
+half-step (1/510) against the encoded conversion's residual at this surface's own backdrop — the
+structured dark cells draw the linear form and land on the renderer (`checkerboard__rrect-md`
+0.0455 against the GPU's 0.0475 and the reference's 0.0468) while `impulse`, the two `dark-solid`
+cells and `mid-dark-solid` keep the encoded form, where the solid backdrop is the point the solve
+is exact at. Under that rule the gate falls to two rows, both `silhouetteIoU` on the nested pane at
+2x, neither the material's level.
+
+**Rulings.**
+
+(a) **The form boundary is re-ruled as a comparison of errors.** The CSS tier draws whichever of
+its two forms is nearer the renderer at this surface's own backdrop: the linear chain's half-step
+against the encoded conversion's residual, evaluated from what the tier already reads. Derivable,
+no fitted number, and it reproduces W17's intent (a chain that cannot hold a value the page could
+is drawing a different material) while weighing the other form's error, which W17 never had to.
+W17 Decision Log 4 (c) is superseded by this entry and says so in its Revision Notes. The ten light
+cells that draw the encoded form today sit at full adaptation, where the residual is zero and they
+stay encoded — an arithmetic expectation this ruling makes a MEASUREMENT: every light CSS capture
+on all four light profiles at both scales is re-captured and must be byte-identical; a light
+capture that moves voids the ruling, because the wave does not own the light bed.
+
+(b) **The conversion is anchored at the surface's own backdrop** (candidate A) with (a): the pair
+of means the two pipelines see, defaulting to the fitted level so no other caller moves; it removes
+a degeneracy (`minimumTintContrast` firing on a real profile) that recurs on any scheme whose
+neutral sits near the fitted anchor, improves the three cells that keep the encoded form, and is
+byte-inert on the light bed by arithmetic (α = 1) and by capture (89 / 89 at G2b).
+
+(c) **Two regression floors on the nested pane at 2x**, pinned at their measurements with a claims
+row in §5.27's form: `texture / holdout / checkerboard__glass-over-glass__rest / 2x-dark`
+`silhouetteIoU` 0.9267 against ≥ 0.93, and its dom twin 0.9048. Neither is the material's level or
+its shape: W20's conformance rows read the drawn shape against its declaration, and what the
+`silhouetteIoU` row reads is the luminance-delta extractor recovering a smaller set as the nested
+pane sits nearer its own backdrop — W17's and W18's mechanism in a third place, on the cell whose
+inner pane the tone axis stands down over (W9 Deferred). Under the standing instruction the parent
+pins them on its recommendation; the user's veto stands, and the nested pane's own charter is where
+they come off.
+
+(d) **The predicate is re-derived** from the landed artifact (34 → 33: the four CSS rows G2 added
+recover the moment the tier's level is right; the GPU 2x `checkerboard__rrect-md` row stays
+excluded, W17's coherence-costs-the-instrument shape).
+
+(e) **The landing completes as G2c**: both patches applied from `g2b/`, pinned in
+`tier-coherence.test.ts`; the CSS tier re-captured for all six profiles into the canonical bed from
+the main checkout — the light CSS captures byte-identical (the measurement of (a)), the dark CSS
+rows read once at this configuration with their holdout, the GPU tier untouched (digests equal
+`g1-digests.txt`); the gate green with no bound widened and the two floors of (c); the sheets' CSS
+column; the platform-web browser suite since the CSS tier moved; the changeset's CSS sentence made
+true; the recomposition follows.
+
+**Rejected.** Thirteen floors for one mechanism the tier's own derivation can close (against the
+wave's rule that the CSS tier derives what it can carry in the same wave). A downward alpha
+remainder on the solve (0.0018 on one cell, and it moves the GPU tier). A tolerance number on the
+boundary (`probe-tol4`: three rows still red, and a fitted number where a comparison of errors
+needs none). Leaving the dark CSS rows worse than the W20 bed under Decision Log 3 (a)'s letter —
+that ruling deferred a diagnosis, and the diagnosis found a derivation defect, which is the wave's
+to fix.
+
 ## Surprises & Discoveries
 
 - **The highlight pass draws its specular sweep as a stationary band on the left edge of every
@@ -566,6 +641,11 @@ its own charter).
 
 ## Revision Notes
 
+- 2026-09-07: G2 LANDED the GPU tier and went red on the CSS tier; G2b diagnosed the thirteen rows
+  to the CSS conversion's anchor and the W17 form boundary and landed nothing (`g2b/`); Decision
+  Log 4: the form boundary re-ruled as a comparison of errors (W17 Decision Log 4 (c) superseded),
+  the conversion anchored at the surface's own backdrop, two silhouette floors on the nested pane
+  at 2x, the predicate re-derived; G2c dispatched to complete the landing.
 - 2026-09-07: G1 DECLARED (claims §5.90) — the dark profile re-recorded on measured anchors, the
   rim's light direction gone, the alpha refitted on the passthrough; the dry run on the canonical
   bed with the holdout read once; Decision Log 3: S1's CSS rows recorded as the tier's residual, the

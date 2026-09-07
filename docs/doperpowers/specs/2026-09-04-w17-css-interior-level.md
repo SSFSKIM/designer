@@ -887,6 +887,14 @@ lesson), and the landing found nothing the dry run had not.
 
 ## Revision Notes
 
+- 2026-09-07 (**superseded in part by W21 Decision Log 4 (a)**): Decision Log 4 (c)'s form
+  boundary — every composite below the linear chain's quantum drawn on the encoded form — was
+  declared against the light bed, where crossing it cost nothing. On the dark scheme under W21's
+  response law the encoded form cannot reproduce a linear-light lerp over a structured backdrop at
+  any alpha (an encoded-space alpha is a gain on the backdrop's distribution), and the boundary is
+  re-ruled as a comparison of the two forms' errors at the surface's own backdrop; the light cells
+  on the encoded form stay there (`2026-09-06-w21-dark-scheme.md` Decision Log 4; claims §5.91).
+
 - 2026-09-04: chartered from W16's Deferred entry and claims §5.73 §7 on the
   user's pick after the 0.6.0 cut ("chartering the interior level's closure
   would be next"); G0 opened.
