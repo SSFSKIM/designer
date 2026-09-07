@@ -133,7 +133,9 @@ import {
   CSS_TIER_MAPPING,
   cssOpticsFromSource,
   cssShadowBlurRadius,
+  cssTierCompositeLevel,
   cssTierOptics,
+  linearChainReaches,
   gpuTierForegroundBounds,
   gpuTierForegroundLevel,
   innerShadowedSourceOptics,
@@ -2023,7 +2025,60 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         // backdrop used to short-circuit to the statically converted `baseOptics`:
         // the size law's occlusion is inside the source's alpha since W17 G1, so
         // the static table is a material one span smaller than this surface's.
-        const nodeUntintedOptics = cssOpticsFromSource(baseOptics, shadowedSource, cssMapping);
+        /*
+         * Where the conversion is anchored (W21 G2b; claims §5.90 §6, W21
+         * Decision Log 3 (a)).
+         *
+         * `cssTintAlpha` agrees with the renderer at ONE backdrop, and the
+         * mapping's fitted `referenceBackdropLuminance` (0.02) was fitted on the
+         * light scheme's cross-tier difference. The dark scheme's neutral solves
+         * INTO that level — 0.0000 to 0.0352 across the committed bed — so the
+         * conversion is being asked to separate a tint from a backdrop that are
+         * the same colour: on two cells the span falls under
+         * `minimumTintContrast` and the renderer's linear alpha is emitted
+         * verbatim as an encoded one, and on the cell whose neutral clamps at
+         * black the solved 0.839 stands where 0.505 would have landed the
+         * renderer's own composite over a checkerboard. Measured: the CSS body
+         * over a structured dark backdrop lands at 0.0122 against the response
+         * law's 0.0468 and the GPU tier's 0.0475.
+         *
+         * So where the surface has SAMPLED a backdrop, the conversion is
+         * anchored there instead — as the pair of means the two pipelines
+         * actually see, because the renderer lerps over the linear mean and the
+         * `rgba()` sits over `backdrop-filter`'s encoded one, which differ by
+         * 2.3x on the checkerboard.
+         *
+         * **The gate is the chain's reach, and it is deliberately not the form**
+         * (W21 Decision Log 4 (b)). `cssTintForm` chooses the drawing by
+         * comparing the two forms' errors, and the encoded form's error is a
+         * property of the conversion this line produces — so reading the form
+         * here would be circular. What the gate asks instead is the question the
+         * fitted anchor's provenance answers: a composite the linear chain
+         * cannot hold is a composite the mapping's `referenceBackdropLuminance`
+         * was never measured on, because W16 fitted it and W17 measured it on a
+         * light bed whose composites all sit above that reach. Below it the
+         * fitted level is an unmeasured number and the surface's own backdrop is
+         * a measured one, so the measured one is taken.
+         *
+         * Above the reach nothing moves, which is how the light bed stays
+         * byte-identical (contract X3): every light capture on the CSS tier
+         * either composites above the chain's reach and keeps the fitted anchor,
+         * or is fully adapted, where alpha is 1 and the conversion is
+         * anchor-independent by construction. The plain-`blur()` engines that
+         * keep the encoded overlay at a high composite level keep the fitted
+         * anchor too, and contract X9 with it.
+         */
+        const conversionAnchor =
+          backdropTone !== undefined &&
+          !linearChainReaches(cssTierCompositeLevel(interior, backdropTone.luminance))
+            ? { linearMean: backdropTone.linearLuminance, toneLevel: backdropTone.luminance }
+            : undefined;
+        const nodeUntintedOptics = cssOpticsFromSource(
+          baseOptics,
+          shadowedSource,
+          cssMapping,
+          conversionAnchor,
+        );
         // The conversion is computed once and travels twice (W19 G1, claims §5.80
         // §7). The FOLD is still what the renderer input, the encoded form and
         // every plain-`blur()` engine need — the whole-material fold was never

@@ -97,8 +97,11 @@ import {
   sourceOptics,
   unsampledMaterials,
   sourceSize,
+  cssTierCompositeLevel,
   cssTierFloorAlpha,
   cssTierTintTable,
+  linearChainReaches,
+  darkMaterialProfile,
   linearTint,
   tintedCssOptics,
   innerShadowedSourceOptics,
@@ -163,6 +166,12 @@ import { describe, expect, it } from "vitest";
 const srgbEncode = (linear: number): number => {
   const clamped = Math.min(1, Math.max(0, linear));
   return clamped <= 0.0031308 ? clamped * 12.92 : 1.055 * clamped ** (1 / 2.4) - 0.055;
+};
+
+/** The same transfer function, decode direction. */
+const srgbDecode = (encoded: number): number => {
+  const clamped = Math.min(1, Math.max(0, encoded));
+  return clamped <= 0.04045 ? clamped / 12.92 : ((clamped + 0.055) / 1.055) ** 2.4;
 };
 
 /** W14 G1's six amplitude anchors — three below the shadow's knee, three above. */
@@ -1930,6 +1939,127 @@ describe("the interior composite (X7)", () => {
     }
   });
 
+  it("anchors the dark scheme's conversion on the renderer's composite, over structure", () => {
+    /*
+     * W21 Decision Log 4 (b), and the row that would have caught the wave's
+     * CSS-tier residual before it was captured (claims §5.90 §6).
+     *
+     * This is a pin on the CONVERSION and not on which form draws. The
+     * conversion writes the `rgba()` the encoded form lays down, and it decides
+     * the boundary either way — `cssTintForm` measures the encoded form's error
+     * with it — so a conversion that cannot reproduce the renderer here is what
+     * sent the dark scheme to the worse drawing in the first place. Anchoring it
+     * on the mapping's fitted 0.02 put the layer 0.33 of alpha too opaque over a
+     * checkerboard, because the dark neutral solves INTO 0.02 and the conversion
+     * had no contrast left to separate the tint from the backdrop.
+     *
+     * The backdrop here is a checkerboard's own statistics rather than a flat
+     * patch, which is the whole point: its linear mean is 0.5 and its ENCODED
+     * mean is 0.5 too, so the renderer lerps over 0.5 and the `rgba()` sits over
+     * a level that decodes to 0.214. A conversion handed one number for both
+     * cannot land, whatever it is anchored at.
+     */
+    const patch = darkMaterialProfile;
+    const spanPx = 96;
+    const geometry = { widthCssPx: 160, heightCssPx: 96, radiusCssPx: 20, thicknessCssPx: 8 };
+    const policy = NOMINAL_ACCESSIBILITY_POLICY.material;
+    const size = sourceSize(patch);
+    const base = sourceOptics(patch)["regular"];
+    const sample = {
+      rgb: [0.5, 0.5, 0.5] as [number, number, number],
+      luminance: srgbDecode(0.5),
+      linearLuminance: 0.5,
+    };
+
+    const sizeK = cssSizeThicknessUnderPolicy(spanPx, policy, size);
+    const geometricK = cssSizeThickness(spanPx, size);
+    const toneConstants = resolvedBackdropTone(patch);
+    const policyStrength = cssBackdropToneUnderPolicy(
+      policy,
+      resolvedTintShade(patch),
+      size.refractionScale,
+    );
+    const adaptation =
+      cssBackdropToneAdaptation(sample.luminance, geometricK, toneConstants) * policyStrength;
+    const occluded = {
+      ...base,
+      tintAlpha: cssSizeOcclusionAlphaAt(
+        occlusionAlphaUnderPolicy(base.tintAlpha, policy.occlusion),
+        sizeK,
+        size,
+      ),
+    };
+    const responded = toneRespondedSourceOptics(
+      occluded,
+      sample,
+      sizeK,
+      adaptation,
+      (policyStrength >= 0.999 ? 1 : 0) * Math.min(1, Math.max(0, toneConstants.max)),
+      resolvedBackdropToneResponse(patch),
+    );
+    const adapted = adaptedSourceOptics(responded, sample.rgb, adaptation);
+    const source = innerShadowedSourceOptics(
+      adapted,
+      interiorShadowKeep(base, geometry, sizeK, 1 - adaptation, sourceInteriorLight(patch)),
+    );
+    const addedLight = interiorBandLight(
+      base,
+      geometry,
+      1 - adaptation,
+      sourceInteriorLight(patch),
+    );
+
+    // The neutral clamps at black on this cell, which is the state the whole
+    // mechanism lives in — pinned, because a profile that stopped clamping would
+    // make every number below a different measurement.
+    expect(luma(source.tint)).toBe(0);
+    const renderer =
+      (1 - source.tintAlpha) * sample.linearLuminance +
+      source.tintAlpha * luma(source.tint) +
+      addedLight;
+    // Beyond the linear chain's reach, which is the gate `root.ts` applies to
+    // decide that the conversion may anchor on this surface's own backdrop
+    // (W21 Decision Log 4 (b)) — evaluated here on the same quantity.
+    const interior = {
+      tintAlpha: source.tintAlpha,
+      tint: source.tint,
+      addedLight,
+    } as const;
+    expect(linearChainReaches(cssTierCompositeLevel(interior, sample.luminance))).toBe(false);
+
+    const compositeOf = (optics: { tintAlpha: number; tint: readonly number[] }): number =>
+      srgbDecode(
+        (1 - optics.tintAlpha) * srgbEncode(sample.luminance) +
+          optics.tintAlpha *
+            luma([optics.tint[0]! / 255, optics.tint[1]! / 255, optics.tint[2]! / 255]),
+      );
+
+    const tierOptics = cssTierOptics(patch, CSS_TIER_MAPPING)["regular"];
+    const anchored = cssOpticsFromSource(tierOptics, source, CSS_TIER_MAPPING, {
+      linearMean: sample.linearLuminance,
+      toneLevel: sample.luminance,
+    });
+    expect(Math.abs(compositeOf(anchored) - renderer)).toBeLessThan(0.005);
+
+    // And the regression the anchor exists for: the mapping's fitted level is
+    // 0.02, the neutral is at 0.00, and the layer it writes lands the composite
+    // an order of magnitude under the renderer's. If a future mapping made this
+    // small the anchor would be carrying nothing and this pin should be re-read.
+    const fitted = cssOpticsFromSource(tierOptics, source, CSS_TIER_MAPPING);
+    expect(Math.abs(compositeOf(fitted) - renderer)).toBeGreaterThan(0.03);
+
+    // Contract X3's arithmetic, in one line: at full adaptation the material is
+    // opaque and the conversion is anchor-INDEPENDENT, which is why the ten
+    // committed light captures that draw the encoded form cannot move.
+    const opaque = { ...source, tintAlpha: 1 };
+    expect(
+      cssOpticsFromSource(tierOptics, opaque, CSS_TIER_MAPPING, {
+        linearMean: sample.linearLuminance,
+        toneLevel: sample.luminance,
+      }),
+    ).toEqual(cssOpticsFromSource(tierOptics, opaque, CSS_TIER_MAPPING));
+  });
+
   it("draws the renderer's composite through the table, at every level and scale", () => {
     /*
      * What the form is FOR: the page's composite of L3's floor overlay over the
@@ -2093,8 +2223,9 @@ describe("the interior composite (X7)", () => {
             backdropLuminance: backdrop,
           });
           const where = `backdrop ${backdrop} seed ${seed.join("-")} strength ${strength}`;
-          // No author layer moves the boundary: `cssTintFormAt` reads the
-          // MATERIAL's composite level, which the tint does not touch.
+          // No author layer moves the boundary: it is decided on the MATERIAL's
+          // composite against the MATERIAL's own conversion (W21 Decision Log 4
+          // (a)), neither of which the author's tint touches.
           expect(render.body.tintForm, where).toBe("linear");
           const transfer = render.body.tintTransfer;
           const overlay = render.layers?.overlay["background-color"];

@@ -106,7 +106,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     let worstReal = 0;
     let worstDeclared = 0;
     for (const c of LINEAR_TINTED) {
-      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.resolved.untinted });
+      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
       expect(render.body.tintForm, c.name).toBe("linear");
       const transfer = render.body.tintTransfer;
       const overlay = render.layers?.overlay["background-color"];
@@ -152,7 +152,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // clamps it, and a clamped table is not affine, so a saturating channel's
     // loss fires per pixel before L2's Gaussian and cannot be undone downstream.
     for (const c of LINEAR_TINTED) {
-      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.resolved.untinted });
+      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
       const transfer = render.body.tintTransfer!;
       for (const channel of [0, 1, 2] as const) {
         const material = encode(
@@ -177,7 +177,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // eighteen captured tinted cells of G0's ladder.
     let leastMargin = Number.POSITIVE_INFINITY;
     for (const c of LINEAR_TINTED) {
-      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.resolved.untinted });
+      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
       const alpha = parseRgba(render.layers!.overlay["background-color"]!).alpha;
       expect(alpha, c.name).toBeGreaterThanOrEqual(FLOOR_ALPHA);
       leastMargin = Math.min(leastMargin, alpha - FLOOR_ALPHA);
@@ -191,7 +191,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // the tier writes on L3 is the one it wrote before this change — which is why
     // every full-strength cell of the bed is insensitive to the whole wave.
     for (const c of LINEAR_TINTED.filter((entry) => entry.strength === 1)) {
-      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.resolved.untinted });
+      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
       const recorded = RECORDED[c.name] as { layers: { overlay: Record<string, string> } };
       expect(render.layers?.overlay, c.name).toEqual(recorded.layers.overlay);
     }
@@ -199,11 +199,19 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
 
   it("leaves the encoded form and the plain-blur engines exactly where they were", () => {
     // Contract X9. Both paths keep `tintedCssOptics`' whole-material fold on
-    // `optics`, and passing `untintedOptics` beside it must change nothing they
-    // declare — asserted over the whole declaration rather than over the overlay,
-    // because "nothing" is the claim.
+    // `optics`, and passing the surface's own untinted conversion beside it must
+    // change nothing they declare — asserted over the whole declaration rather
+    // than over the overlay, because "nothing" is the claim.
+    //
+    // "Its own" is load-bearing since W21 Decision Log 4 (a): the boundary is the
+    // nearer of the two drawings and it reads the material's conversion to find
+    // it, so a row handed a conversion of some OTHER material states a
+    // contradiction rather than a boundary case. `c.untinted` is the conversion
+    // that describes each row's `optics` (`w19-fold-cases.ts`), and on the encoded
+    // form it reaches the boundary and nothing else — which is why these
+    // declarations are still the recorded ones.
     for (const c of CASES.filter((entry) => entry.form !== "linear")) {
-      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.resolved.untinted });
+      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
       expect(render, c.name).toEqual(RECORDED[c.name]);
     }
   });
@@ -223,7 +231,7 @@ describe("the author tint folded over the contrast floor (W19 G1)", () => {
     // untinted conversion IS `optics`, so the transfer's floor colour and L3's
     // overlay are the ones the tier already wrote.
     for (const c of CASES.filter((entry) => entry.seed === "none")) {
-      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.resolved.untinted });
+      const render = cssTierDeclarations({ ...c.args, untintedOptics: c.untinted });
       expect(render, c.name).toEqual(RECORDED[c.name]);
     }
   });

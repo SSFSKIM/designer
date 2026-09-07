@@ -45,9 +45,13 @@ import {
   backdropToneAdaptation,
   cssTierTintTable,
   cssTintAlpha,
-  cssTintFormAt,
+  cssTierCompositeLevel,
+  cssTintEncodedFormError,
+  cssTintForm,
   linearChainQuantumCodes,
+  linearChainReaches,
   LINEAR_CHAIN_CODE_TOLERANCE,
+  LINEAR_CHAIN_HALF_STEP,
   linearTint,
   occlusionAlphaUnderPolicy,
   innerShadowedSourceOptics,
@@ -430,26 +434,67 @@ describe("the tint's transfer (W17 G1, re-formed at Decision Log 4 (a))", () => 
   });
 });
 
-describe("the boundary the darks take (W17 G1, Decision Log 4 (c))", () => {
-  it("derives the boundary from the chain's quantum against the page's", () => {
+describe("the boundary between the forms (W21 Decision Log 4 (a); W17 Decision Log 4 (c))", () => {
+  it("derives the chain's reach from its quantum against the page's", () => {
     // The linear-light chain holds eight bits IN LINEAR LIGHT, so its step is
     // 1/255 there and `E(L + 1/255) − E(L)` wide in the buffer the page keeps.
     expect(linearChainQuantumCodes(0)).toBeCloseTo(12.7, 1);
     expect(linearChainQuantumCodes(0.05)).toBeCloseTo(2.47, 2);
     expect(linearChainQuantumCodes(0.5)).toBeCloseTo(0.657, 3);
-    // The tolerance is the page's own quantum, so the boundary is where the two
+    // The tolerance is the page's own quantum, so the reach ends where the two
     // are equal — 0.2443 on the shipped transfer function.
     expect(LINEAR_CHAIN_CODE_TOLERANCE).toBe(1);
     expect(linearChainQuantumCodes(0.2443)).toBeCloseTo(1, 2);
-    expect(cssTintFormAt(0.24)).toBe("encoded");
-    expect(cssTintFormAt(0.25)).toBe("linear");
+    expect(linearChainReaches(0.24)).toBe(false);
+    expect(linearChainReaches(0.25)).toBe(true);
   });
 
-  it("puts every light composite on the exact form and the dark scheme on E's", () => {
+  it("reaches every light composite and no dark one, which is what the anchor gates on", () => {
     // The bed's own levels: the light cells' composites sit at 0.62 to 0.98 and
     // the dark scheme's at 0.05 to 0.09, where the chain steps by two codes.
-    for (const level of [0.62, 0.69, 0.7, 0.93, 0.98]) expect(cssTintFormAt(level)).toBe("linear");
-    for (const level of [0.0037, 0.05, 0.09, 0.2]) expect(cssTintFormAt(level)).toBe("encoded");
+    // Since W21 Decision Log 4 (b) this predicate no longer chooses the form —
+    // it decides whether the conversion may anchor on the surface's own
+    // backdrop, and the dark scheme is exactly the population it may.
+    for (const level of [0.62, 0.69, 0.7, 0.93, 0.98]) expect(linearChainReaches(level)).toBe(true);
+    for (const level of [0.0037, 0.05, 0.09, 0.2]) expect(linearChainReaches(level)).toBe(false);
+  });
+
+  /*
+   * W21 Decision Log 4 (a): the form is the nearer of the two drawings, not the
+   * one side of the comparison W17 had to weigh. The numbers are the canonical
+   * dark bed's, measured in `results/2026-09-06-w21-dark-scheme/g2b/`.
+   */
+  it("draws whichever form is nearer the renderer, at this surface's own backdrop", () => {
+    // Half the chain's own step in linear light, which is the linear form's
+    // worst representation error and the only quantity on that side.
+    expect(LINEAR_CHAIN_HALF_STEP).toBeCloseTo(1 / 510, 12);
+    // A solid backdrop is the point the encoded conversion is exact at, so the
+    // encoded form wins there however dark the composite — `impulse` composites
+    // at 0.0037, which the chain would round to 0.0009.
+    expect(cssTintForm(0)).toBe("encoded");
+    expect(cssTintForm(LINEAR_CHAIN_HALF_STEP)).toBe("encoded");
+    // Over a structured dark backdrop the encoded conversion's residual is 0.03
+    // to 0.05 of the level, against the chain's 0.002.
+    expect(cssTintForm(0.0339)).toBe("linear");
+    expect(cssTintForm(0.0413)).toBe("linear");
+  });
+
+  it("measures the encoded form's error as what it would draw against what the renderer does", () => {
+    const interior = { tintAlpha: 0.9, tint: [0, 0, 0] as const, addedLight: 0 };
+    // An overlay that reproduces the renderer's composite has no error, whatever
+    // the backdrop: the conversion at the anchor it was solved at.
+    const exact = cssTierCompositeLevel(interior, 0.5);
+    const code = Math.round((1.055 * exact ** (1 / 2.4) - 0.055) * 255);
+    const opaque = {
+      ...MATERIAL_OPTICS.regular,
+      tintAlpha: 1,
+      tint: [code, code, code] as const,
+    };
+    expect(cssTintEncodedFormError(opaque, interior, 0.5)).toBeLessThan(1e-3);
+    // And an overlay that draws black over the same backdrop is off by the whole
+    // composite.
+    const black = { ...MATERIAL_OPTICS.regular, tintAlpha: 1, tint: [0, 0, 0] as const };
+    expect(cssTintEncodedFormError(black, interior, 0.5)).toBeCloseTo(exact, 6);
   });
 });
 

@@ -2377,8 +2377,8 @@ export function innerShadowedSourceOptics(
 }
 
 /**
- * The chain's own quantum at one composite level, in **encoded codes** — the
- * number that decides which form the tier draws (W17 G1; Decision Log 4 (c)).
+ * The chain's own quantum at one composite level, in **encoded codes** — how
+ * coarsely the linear form can hold a value (W17 G1; W17 Decision Log 4 (c)).
  *
  * `color-interpolation-filters="linearRGB"` says what space the filter works in
  * and not what precision it works at, and the engines carry eight bits: the
@@ -2395,38 +2395,143 @@ export function linearChainQuantumCodes(compositeLevel: number): number {
 }
 
 /**
- * The tolerance the boundary is declared against: **one encoded code**.
+ * The point where the chain's quantum equals the page's: **one encoded code**.
  *
- * Not fitted and not chosen for a cell. It is the page's own quantum: the buffer
- * this tier composites into holds eight bits per channel in the ENCODED space,
- * so a filter chain whose intermediate is coarser than that buffer is drawing a
- * material the page could have held and did not. One code is the point where the
- * two are equal, and it is the only value on this axis that is a statement about
- * the pipeline rather than about a threshold someone liked.
+ * Not fitted and not chosen for a cell. The buffer this tier composites into
+ * holds eight bits per channel in the ENCODED space, so a filter chain whose
+ * intermediate is coarser than that buffer cannot hold a value the page could.
+ * One code is where the two are equal, and it is the only value on this axis
+ * that is a statement about the pipeline rather than about a threshold someone
+ * liked. Solving `E(L + 1/255) − E(L) = 1/255` puts it at **0.2443** in linear
+ * light on the shipped transfer function; the predicate is written rather than
+ * that number so a different tolerance moves it honestly.
  */
 export const LINEAR_CHAIN_CODE_TOLERANCE = 1;
 
 /**
- * Which form the tier draws for a composite at this level (Decision Log 4 (c)).
+ * Whether the linear form's chain can hold a composite at this level.
  *
- * `linear` is the exact one — the remainder inside the linear-light filter — and
- * it is what every light cell of the bed takes. `encoded` is W16's form with W17's
- * ordering fix and inner shadow: one `rgba()` over the blurred backdrop,
- * composited in the page's own encoded space, whose conversion is exact at one
- * declared backdrop level and off either side of it. The dark scheme keeps the
- * second, and that is a named gap rather than a silent one — the group state and
- * the capture cell both report which form drew.
+ * **This used to decide which form the tier draws, and no longer does (W21
+ * Decision Log 4 (a); claims §5.90 §6).** W17 Decision Log 4 (c) sent every
+ * composite the chain could not hold to the encoded form, which is half of a
+ * comparison: it weighed the linear form's error against the page and never
+ * against the OTHER form's, because on the light bed the other form's error was
+ * small wherever the question came up. On the dark scheme it is not — the
+ * encoded conversion is off by two to four times the level over a structured
+ * backdrop — so the rule sent every dark surface to the worse drawing.
+ * `cssTintForm` below is the whole comparison and is what decides now.
  *
- * The boundary is the quantum, not a level: solving
- * `E(L + 1/255) − E(L) = 1/255` puts it at **0.2443** in linear light on the
- * shipped transfer function, and the constant is written as the predicate rather
- * than as that number so a different tolerance moves it honestly.
+ * What is left for this predicate is the question it always actually answered,
+ * and one caller still needs it: the composites BELOW the chain's reach are the
+ * population the mapping's fitted `referenceBackdropLuminance` was never
+ * measured on, so `root.ts` reads it to decide whether the conversion may anchor
+ * on the surface's own backdrop instead (`CssTintAnchor`).
  */
-export function cssTintFormAt(
+export function linearChainReaches(
   compositeLevel: number,
   toleranceCodes: number = LINEAR_CHAIN_CODE_TOLERANCE,
+): boolean {
+  return linearChainQuantumCodes(compositeLevel) <= toleranceCodes;
+}
+
+/**
+ * Half the linear chain's own step, in linear light — the LINEAR form's worst
+ * representation error, and the quantity `cssTintForm` weighs against.
+ *
+ * The chain carries eight bits in linear light, so its step is 1/255 there and a
+ * value it rounds is wrong by at most half of that. Stated in linear luminance
+ * rather than in codes because the other side of the comparison is a residual
+ * against the renderer's composite, which is a linear-light quantity, and two
+ * errors can only be compared in one unit.
+ */
+export const LINEAR_CHAIN_HALF_STEP = 1 / 510;
+
+/**
+ * The ENCODED form's error at one surface: how far the `rgba()` this tier would
+ * lay over the blurred backdrop lands from the composite the renderer draws,
+ * in linear light.
+ *
+ * The encoded form's conversion agrees with the renderer at one backdrop and is
+ * off either side of it (`cssTintAlpha`), so its error is a property of the
+ * surface rather than of the tier — it is zero over a backdrop the conversion is
+ * anchored at, which is every fully adapted surface and every solid the anchor
+ * was measured on, and it is the whole of §5.90 §6's residual over a structured
+ * dark one. Both quantities the comparison needs are already in hand:
+ * `cssTierForegroundLevel` is exactly the level the encoded overlay composites
+ * to, and `cssTierCompositeLevel` is exactly what the renderer draws.
+ */
+export function cssTintEncodedFormError(
+  optics: MaterialOptics,
+  interior: {
+    readonly tintAlpha: number;
+    readonly tint: LinearRgb;
+    readonly addedLight: number;
+  },
+  backdropLuminance: number,
+): number {
+  const drawn = srgbDecode(cssTierForegroundLevel(optics, backdropLuminance));
+  return Math.abs(drawn - cssTierCompositeLevel(interior, backdropLuminance));
+}
+
+/**
+ * Which form the tier draws — **the one that is nearer the renderer** (W21
+ * Decision Log 4 (a); claims §5.90 §6).
+ *
+ * `linear` is the exact form: L3 keeps the overlay at the floor alpha and the
+ * sharp layer's reference filter carries the remainder as a table, so the
+ * composite is the renderer's per pixel, wrong only by what the chain's eight
+ * bits round away. `encoded` is W16's form with W17's ordering fix and inner
+ * shadow: one `rgba()` over the blurred backdrop, composited in the page's own
+ * space, exact at one declared backdrop level and off either side of it.
+ *
+ * Neither is exact, so the rule is a comparison and not a threshold: draw the
+ * form whose error is smaller. That keeps W17's intent — a chain that cannot
+ * hold a value the page could is drawing a different material rather than a more
+ * precise one — and supplies the half W17 did not need: over a structured dark
+ * backdrop the encoded form's residual is 0.03 to 0.05 of linear luminance
+ * against the chain's 0.002, so the material the page could have held is much
+ * further from the reference than the one the chain rounds. Measured on the
+ * canonical dark bed (`results/2026-09-06-w21-dark-scheme/g2b/`): the structured
+ * cells take `linear` and land on the renderer (`checkerboard__rrect-md` 0.0455
+ * against the GPU tier's 0.0475 and the reference's 0.0468), while `impulse`,
+ * both `dark-solid` cells and `mid-dark-solid` keep `encoded`, where a solid
+ * backdrop is the point the conversion is exact at and the chain would have
+ * drawn 0.0037 as 0.0009.
+ *
+ * Which form drew is still reported by the group state and by the capture cell,
+ * because a comparison of errors is a per-surface answer and a reader is owed
+ * the one their surface got.
+ */
+export function cssTintForm(
+  encodedFormError: number,
+  chainHalfStep: number = LINEAR_CHAIN_HALF_STEP,
 ): "linear" | "encoded" {
-  return linearChainQuantumCodes(compositeLevel) > toleranceCodes ? "encoded" : "linear";
+  return encodedFormError <= chainHalfStep ? "encoded" : "linear";
+}
+
+/**
+ * What the renderer draws for this surface — the interior's own composite over
+ * the backdrop the surface sampled, in linear light.
+ *
+ * One expression in one place because three readers must agree about it for the
+ * same surface: `css-tier.ts` measures the encoded form's error against it,
+ * `root.ts` reads it through `linearChainReaches` to decide whether the
+ * conversion may anchor on the measured backdrop, and the comparison of the two
+ * forms' errors is taken in its units (W21 Decision Log 4 (a), (b)).
+ */
+export function cssTierCompositeLevel(
+  interior: {
+    readonly tintAlpha: number;
+    readonly tint: LinearRgb;
+    readonly addedLight: number;
+  },
+  backdropLuminance: number,
+): number {
+  return (
+    (1 - interior.tintAlpha) * backdropLuminance +
+    interior.tintAlpha * luminance(interior.tint) +
+    interior.addedLight
+  );
 }
 
 /**
@@ -2486,9 +2591,8 @@ export function weakestCssTintForm(
  *
  * ## What it is not
  *
- * Not defined below the boundary `cssTintFormAt` draws: where the chain's own
- * quantum exceeds the tolerance the tier draws the encoded form and never builds
- * a table. And the values are clamped at zero — the spec clamps a primitive's
+ * Not defined where the encoded form draws: `cssTintForm` sends a surface there
+ * whenever that form is the nearer of the two, and no table is built for it. And the values are clamped at zero — the spec clamps a primitive's
  * result anyway — with the non-negativity the ruling names asserted by the tests
  * rather than assumed here.
  */
@@ -2806,14 +2910,58 @@ function encodeRgb(rgb: LinearRgb): Rgb255 {
 }
 
 /**
+ * The backdrop the conversion below is made to agree at, as the PAIR of means
+ * the two pipelines actually see (W21 G2b; claims §5.90 §6).
+ *
+ * The renderer lerps over the backdrop's **linear** mean. The `rgba()` layer
+ * sits over `backdrop-filter`'s output, which is the backdrop's **encoded**
+ * mean. Over a solid those are one number and the distinction is invisible;
+ * over a checkerboard they are 0.5000 and 0.2140 in linear light, a factor of
+ * 2.3, and a conversion handed one of them for both solves the wrong equation.
+ * `BackdropToneSample` has measured both since W9 (claims §5.31) for a
+ * neighbouring reason, so this pair costs no new reading.
+ *
+ * Both fields are linear-light quantities: `toneLevel` is the encoded mean
+ * *decoded once*, which is the convention `BackdropToneSample.luminance`
+ * already carries, so `srgbEncode(toneLevel)` is the level the overlay sits on.
+ */
+export interface CssTintAnchor {
+  /** The backdrop's linear mean — what the renderer's lerp composites over. */
+  readonly linearMean: number;
+  /** The backdrop's encoded mean, decoded once — `BackdropToneSample.luminance`. */
+  readonly toneLevel: number;
+}
+
+/**
+ * The mapping's own anchor, as the pair — the two means collapsed onto one
+ * declared level, which is what every caller without a measured backdrop gets
+ * and is arithmetically what this module did before the pair existed.
+ */
+function mappingAnchor(mapping: CssTierMapping): CssTintAnchor {
+  return {
+    linearMean: mapping.referenceBackdropLuminance,
+    toneLevel: mapping.referenceBackdropLuminance,
+  };
+}
+
+/**
  * The alpha that makes an sRGB-composited overlay match a linear-light lerp, at
- * one declared backdrop level.
+ * one declared backdrop.
  *
  * The renderer produces `b(1−α) + t·α` in linear light and the page shows
- * `E(that)`. The CSS tier produces `E(b)(1−α′) + E(t)·α′` directly. Solving the
- * two for α′ at `b = referenceBackdropLuminance` is the whole conversion, and
- * the residual either side of that level is the coherence floor named in this
- * module's header.
+ * `E(that)`. The CSS tier produces `E(b′)(1−α′) + E(t)·α′` directly, where `b′`
+ * is what the blur handed it. Solving the two for α′ at the anchor is the whole
+ * conversion, and the residual either side of it is the coherence floor named in
+ * this module's header.
+ *
+ * `anchor` defaults to the mapping's fitted `referenceBackdropLuminance` in both
+ * spaces, which is the form this function had before W21 G2b and is what every
+ * caller that has not measured a backdrop still gets. A caller that HAS measured
+ * one passes it, and then the conversion is exact at the surface's own level
+ * instead of at a level fitted on a different scheme — see `root.ts`, where the
+ * pair is passed only where the whole tint composites in the page's encoded
+ * space and the fitted anchor was therefore never measured (claims §5.90 §6;
+ * W21 Decision Log 3 (a)).
  *
  * Exported because it is the mapping's substance: a reader checking whether a
  * tuned `referenceBackdropLuminance` is doing what it claims should be able to
@@ -2822,17 +2970,19 @@ function encodeRgb(rgb: LinearRgb): Rgb255 {
 export function cssTintAlpha(
   source: MaterialSourceOptics,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
+  anchor: CssTintAnchor = mappingAnchor(mapping),
 ): number {
-  const backdrop = mapping.referenceBackdropLuminance;
   const tint = luminance(source.tint);
-  const encodedBackdrop = srgbEncode(backdrop);
+  const encodedBackdrop = srgbEncode(anchor.toneLevel);
   const span = srgbEncode(tint) - encodedBackdrop;
-  // A tint sitting at the reference backdrop's own level is invisible in both
-  // pipelines, so there is no alpha to solve for and the renderer's passes
-  // through. Only reachable from a profile that tints to the reference level.
+  // A tint sitting at the anchor's own level is invisible in both pipelines, so
+  // there is no alpha to solve for and the renderer's passes through. Reachable
+  // from a profile that tints to the anchor's level — which the dark scheme's
+  // neutral does at the fitted 0.02, and which is one of the two degeneracies
+  // the measured anchor exists to leave (`g2b/diagnosis.txt` §3 (a)).
   if (Math.abs(span) < mapping.minimumTintContrast) return clamp01(source.tintAlpha);
 
-  const composited = backdrop * (1 - source.tintAlpha) + tint * source.tintAlpha;
+  const composited = anchor.linearMean * (1 - source.tintAlpha) + tint * source.tintAlpha;
   return clamp01((srgbEncode(composited) - encodedBackdrop) / span);
 }
 
@@ -2863,12 +3013,13 @@ export function cssTintColor(
   source: MaterialSourceOptics,
   cssAlpha: number,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
+  anchor: CssTintAnchor = mappingAnchor(mapping),
 ): Rgb255 {
   if (cssAlpha <= mapping.minimumTintContrast) return encodeRgb(source.tint);
-  const backdrop = mapping.referenceBackdropLuminance;
-  const encodedBackdrop = srgbEncode(backdrop);
+  const encodedBackdrop = srgbEncode(anchor.toneLevel);
   const channel = (index: 0 | 1 | 2): number => {
-    const composited = backdrop * (1 - source.tintAlpha) + source.tint[index] * source.tintAlpha;
+    const composited =
+      anchor.linearMean * (1 - source.tintAlpha) + source.tint[index] * source.tintAlpha;
     const solved = (srgbEncode(composited) - encodedBackdrop * (1 - cssAlpha)) / cssAlpha;
     return Math.round(clamp01(solved) * 255);
   };
@@ -2990,12 +3141,13 @@ export function cssOpticsFromSource(
   base: MaterialOptics,
   source: MaterialSourceOptics,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
+  anchor: CssTintAnchor = mappingAnchor(mapping),
 ): MaterialOptics {
-  const alpha = cssTintAlpha(source, mapping);
+  const alpha = cssTintAlpha(source, mapping, anchor);
   return {
     ...base,
     tintAlpha: alpha,
-    tint: cssTintColor(source, alpha, mapping),
+    tint: cssTintColor(source, alpha, mapping, anchor),
     // Derived rather than inherited from `base`, because the backdrop adaptation
     // is allowed to move the rim and this is the one conversion it lands through.
     // Identical to `base`'s for every source that did not move it — the same

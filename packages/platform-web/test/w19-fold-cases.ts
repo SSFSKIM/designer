@@ -169,14 +169,37 @@ export function resolveSurface(
 export const FLOOR_ALPHA = cssTierFloorAlpha(MATERIAL_OPTICS.regular);
 
 /**
- * A dark interior, which puts `cssTintFormAt` on the `encoded` form — the path
- * this wave must not touch, pinned by replay rather than by argument.
+ * A dark interior, which puts the boundary on the `encoded` form — the path W19
+ * must not touch, pinned by replay rather than by argument.
  */
 export const DARK_INTERIOR: CssTierInterior = {
   tintAlpha: 0.95,
   tint: [0.04, 0.04, 0.04],
   addedLight: 0,
 };
+
+/**
+ * The untinted conversion that DESCRIBES that interior (W21 Decision Log 4 (a)).
+ *
+ * The boundary is no longer the chain's reach alone but the nearer of the two
+ * drawings, and the drawing the encoded form would make is read off the material's
+ * own conversion — so a row that pairs one material's `optics` with another's
+ * `interior` no longer states a boundary case, it states a contradiction. This is
+ * the conversion of `DARK_INTERIOR` itself, exact at the mapping's own anchor by
+ * `cssTintAlpha`'s construction, which is what makes the encoded form nearer
+ * there. It changes no declaration: on the encoded form the untinted conversion
+ * is read for the boundary and for nothing else, which is why the recorded bytes
+ * still describe these rows.
+ */
+export const DARK_UNTINTED: MaterialOptics = cssOpticsFromSource(
+  MATERIAL_OPTICS.regular,
+  {
+    ...MATERIAL_SOURCE_OPTICS.regular,
+    tintAlpha: DARK_INTERIOR.tintAlpha,
+    tint: DARK_INTERIOR.tint,
+  },
+  CSS_TIER_MAPPING,
+);
 
 /**
  * One case: a name, the `cssTierDeclarations` argument as the tier was called
@@ -192,6 +215,13 @@ export interface FoldCase {
   readonly name: string;
   readonly args: CssTierSurface;
   readonly resolved: ResolvedSurface;
+  /**
+   * The untinted conversion that describes THIS row's `optics` — `resolved`'s on
+   * the two rows that draw the material it resolved, and `DARK_UNTINTED` on the
+   * encoded row, whose interior is a different material by construction (W21
+   * Decision Log 4 (a)).
+   */
+  readonly untinted: MaterialOptics;
   readonly strength: number;
   readonly backdrop: number;
   readonly seed: string;
@@ -243,6 +273,7 @@ export function foldCases(): FoldCase[] {
             interior: resolved.interior,
           },
           resolved,
+          untinted: resolved.untinted,
           strength,
           backdrop,
           seed: seed.id,
@@ -258,6 +289,7 @@ export function foldCases(): FoldCase[] {
             backdropLuminance: 0.02,
           },
           resolved,
+          untinted: DARK_UNTINTED,
           strength,
           backdrop,
           seed: seed.id,
@@ -272,6 +304,7 @@ export function foldCases(): FoldCase[] {
             interior: resolved.interior,
           },
           resolved,
+          untinted: resolved.untinted,
           strength,
           backdrop,
           seed: seed.id,
@@ -289,6 +322,7 @@ export function foldCases(): FoldCase[] {
       name: `linear-untinted-b${String(backdrop)}`,
       args: { ...shared, engine: CHROMIUM, interior: resolved.interior },
       resolved,
+      untinted: resolved.untinted,
       strength: 0,
       backdrop,
       seed: "none",
@@ -298,6 +332,7 @@ export function foldCases(): FoldCase[] {
       name: `plain-blur-untinted-b${String(backdrop)}`,
       args: { ...shared, engine: PLAIN_BLUR, interior: resolved.interior },
       resolved,
+      untinted: resolved.untinted,
       strength: 0,
       backdrop,
       seed: "none",

@@ -92,7 +92,10 @@ import type {
 import { GLASS_CHANNEL_PROPERTIES } from "./channels";
 import {
   boundedForegroundLevel,
-  cssTintFormAt,
+  cssTierCompositeLevel,
+  cssTintEncodedFormError,
+  cssTintForm,
+  linearChainReaches,
   CSS_TIER_MAPPING,
   cssTierForegroundBounds,
   cssTierForegroundLevel,
@@ -133,10 +136,6 @@ export type { CssTierShadowCarrier };
  * depends on it at module scope. `tier-coherence` pins the two together.
  */
 const CSS_TIER_TINT_FLOOR_ALPHA = 0.2668228970218852;
-
-/** Rec. 709 relative luminance — the space the composite's level is read in. */
-const luminanceOf = (rgb: readonly [number, number, number]): number =>
-  0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 
 /** The two ink tokens the adaptive foreground chooses between. */
 export const FOREGROUND_INK = { dark: "#1c1c1e", light: "#f5f5f7" } as const;
@@ -1053,32 +1052,51 @@ export function cssTierDeclarations(surface: CssTierSurface): CssTierRender {
    * wave is.
    */
   /*
-   * Which form draws, and what each half of it carries (Decision Log 4 (a), (c)).
+   * Which form draws, and what each half of it carries (W21 Decision Log 4 (a);
+   * W17 Decision Log 4 (a), (c), superseded in part; claims §5.90 §6).
    *
    * `encoded` is W16's: one `rgba()` over the blurred backdrop at the group's
    * whole converted alpha, composited in the page's own space. `linear` is W17's
    * re-form: L3 keeps that same overlay at the FLOOR alpha, which is the tint
    * this tier painted at rest and is what the contrast-floor doctrine asks for,
-   * and the sharp layer's filter carries the exact remainder as a table. The
-   * boundary between them is the chain's own quantum against the page's
-   * (`cssTintFormAt`), read at the composite's sampled level, because a filter
-   * chain that cannot hold a value the page could is drawing a different
-   * material rather than a more precise one.
+   * and the sharp layer's filter carries the exact remainder as a table.
+   *
+   * **The choice between them is a comparison of the two forms' errors**, taken
+   * at this surface's own backdrop and in one unit. It used to be the chain's
+   * quantum against the page's alone, which weighed the linear form's error and
+   * never the encoded form's — right wherever the encoded form is nearly exact,
+   * and wrong by two to four times the level over a structured dark backdrop,
+   * which is what sent the whole dark scheme to the worse drawing (§5.90 §6).
+   * `cssTintForm` reads both: the linear chain's half-step against
+   * `cssTintEncodedFormError`, which is what the `rgba()` this tier would lay
+   * down actually composites to, against what the renderer draws.
+   *
+   * The error is measured on the UNTINTED conversion, for the same reason the
+   * table below is solved on it (W19 G1): `interior` states the MATERIAL's
+   * composite, so the drawing it is compared against has to be the material's
+   * overlay and not the author's fold over it — otherwise a strong author tint
+   * would move the boundary, which W19 measured it must not.
+   *
+   * Which is also why a caller that passes no `untintedOptics` keeps the reach
+   * (`linearChainReaches`) instead. It has said nothing about which of the two
+   * colours its `optics` holds, so the tier has no pair it can honestly compare
+   * and falls back to the question W17 answered with the same information. The
+   * runtime always passes it (`root.ts`), so this is a direct caller's fallback
+   * and not a second rule on any shipped path.
    */
   const interior = surface.interior;
-  const compositeLevel =
+  const formBackdrop = surface.backdropLuminance ?? mapping.referenceBackdropLuminance;
+  const material = surface.untintedOptics;
+  const nearerForm: "linear" | "encoded" | undefined =
     interior === undefined
       ? undefined
-      : (1 - interior.tintAlpha) * (surface.backdropLuminance ?? mapping.referenceBackdropLuminance) +
-        interior.tintAlpha * luminanceOf(interior.tint) +
-        interior.addedLight;
+      : material === undefined
+        ? linearChainReaches(cssTierCompositeLevel(interior, formBackdrop))
+          ? "linear"
+          : "encoded"
+        : cssTintForm(cssTintEncodedFormError(material, interior, formBackdrop));
   const tintForm: "linear" | "encoded" =
-    interior === undefined ||
-    body.filter !== "reference-filter" ||
-    compositeLevel === undefined ||
-    cssTintFormAt(compositeLevel) === "encoded"
-      ? "encoded"
-      : "linear";
+    nearerForm === "linear" && body.filter === "reference-filter" ? "linear" : "encoded";
   const floorAlpha = cssTierFloorAlpha(optics);
   /*
    * Which colour the floor overlay is, and what L3 paints over the table (W19 G1;
