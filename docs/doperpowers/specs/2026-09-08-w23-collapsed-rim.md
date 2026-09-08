@@ -1,11 +1,13 @@
 # W23 — the collapsed rim: a rim that survives the collapse, and the rim's law read at the contour on both beds (2026-09-08)
 
-**Status: G0 CLOSED 2026-09-08 (claims §5.100; Decision Log 2) — chartered 2026-09-08 from W22's
-Deferred list ("the collapsed rim", W22 Decision Log 4 (d); claims §5.96 §4) and the user's eye on
-the W22 landing sheets (claims §5.99), on the user's "you can proceed with the collapsed rim" at the
-0.11.0 bump. The rim's law is affine in the surface's own level with the gain's sign opposite in the
-two schemes; the collapsed rim is an absolute constant and not the dark rim; the tinted rows and the
-2x rows are the two terms G1 carries beyond the fit. G1 dispatched.**
+**Status: G1 DECLARED and READ 2026-09-08 (claims §5.101 by G1, §5.102 the parent's ruling; Decision
+Log 3) — chartered 2026-09-08 from W22's Deferred list ("the collapsed rim", W22 Decision Log 4 (d);
+claims §5.96 §4) and the user's eye on the W22 landing sheets (claims §5.99). G0 CLOSED (§5.100;
+Decision Log 2). G1's dry run met the rim on every collapsed cell and the law on every solid, missed
+clause 3 on the left/right sides under structure and clause 4 on the band read (the corners), and the
+eye on its captures found the painted rim's hue wrong — Apple's rim on a tinted surface keeps the
+paint's chroma, vitrea's adds white — so G3 (the rim beneath the paint) is inserted before the
+landing; G1's holdout read is recorded as spent on a superseded configuration. G3 dispatched.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W23 row). The term it takes was deferred twice
@@ -255,6 +257,38 @@ collapsed rim (gain at `toneAdapt` 0 / 1 / between); `adopted-thresholds` re-der
 - **Acceptance:** clauses 1–8 and 9 of the parent's; the chain green; the claims section.
 - **Edges:** blocked-by G1. **Track:** controlled; the landing is the user's call.
 
+### G3: The rim beneath the paint — the painted surface's rim keeps the paint's hue — controlled (added by Decision Log 3)
+
+- **Purpose:** on every tinted cell the reference's contour rim is the paint's own colour lifted in
+  luminance with its chroma kept, and vitrea's is white added over the paint. At 2x in light, the
+  contour row over the straight top span (mean RGB): `dark-solid__capsule-button__rest-tint-orange`
+  native body (255, 148, 0) → rim (254, 188, 0) — blue stays 0 — against vitrea's (255, 192, 130) at
+  G1 and (255, 149, 0) landed (collapsed, no rim); `photo__…-tint-orange` native (231, 134, 0) →
+  (246, 189, 16) against G1's (255, 197, 153) and the landed bed's (247, 163, 99);
+  `checkerboard__…-tint-blue` native (8, 120, 236) → (59, 199, 248) against G1's (145, 183, 255).
+  The reference lifts the green channel of an orange paint by 27 % and leaves blue at 0: its rim
+  passes through the paint, or is scaled by it; vitrea's rim is composited after the author's
+  colour (the optics pass adds the rim last). Find the composition that reproduces the hue — the
+  rim's light beneath the author layer, or a luminance lift the paint's colour scales — on the
+  tinted calibration rows (seven light, three dark) with the tinted validation rows as the check
+  (`checkerboard__capsule-button__rest-tint-blue`, `photo__rrect-md__rest-tint-orange`); re-read
+  the painted rim's amplitude law under it (`rimCollapsedTinted` 0.337 and the material-level input
+  were fitted with the rim over the paint and are replaced if the mechanism makes them redundant);
+  the collapsed painted cells' +0.115 orange / +0.176 blue read against the mechanism's prediction.
+- **Binding:** on every tinted calibration and validation cell at both scales, the contour row's
+  chromaticity (OKLab a, b of the straight-span mean) within 0.02 of the reference's and its
+  luminance rim within the tinted bindings of Decision Log 2 (c); no untinted capture moves (the
+  mechanism reaches painted pixels only — byte identity on every untinted cell is the proof); the
+  goldens attributed as X2; then the dry run again on all six profiles and both tiers with the
+  holdout read once on the final configuration — G1's read at `ee0010558553ee12` /
+  `afd0e999e2f5813e` stands on the record as a read spent on a configuration not landed.
+- **Stops:** G1's S1–S8; (S9) a tinted cell whose luminance rim leaves Decision Log 2 (c)'s binding;
+  (S10) any untinted capture moved.
+- **Acceptance:** the hue clause; the tinted rows; byte identity elsewhere; the dry run's clauses
+  re-read; the sheet with the tinted capsules at 4× beside the black-on-black cells; the claims
+  section by the parent from the findings.
+- **Edges:** blocked-by G1; blocks G2. **Track:** controlled; the G1 worker, on G1's branch.
+
 ## Cross-Child Contracts
 
 - **X1 — the instrument.** The contour read is the rim definition on every gate in this wave;
@@ -275,7 +309,7 @@ collapsed rim (gain at `toneAdapt` 0 / 1 / between); `adopted-thresholds` re-der
 
 ## Ordering & Dependency Map
 
-G0 → G1 → G2 → the 0.12.0 cut. After this wave: the thick-span composite (wave Decision Log 23
+G0 → G1 → G3 → G2 → the 0.12.0 cut (G3 inserted by Decision Log 3). After this wave: the thick-span composite (wave Decision Log 23
 (c)) on the user's word; the appearance switch carries whatever this wave's collapse work leaves
 it. The GPU is shared; one capture at a time.
 
@@ -432,6 +466,71 @@ as a harness capability rather than a gate's script.
 landing it twice would move them twice), merges main, and lands everything in one merge with a
 codex review on the whole diff before it.
 
+
+### Decision Log 3 — G1 read: the rim landed and read on every cell; two clauses missed and recorded, two stops taken at the number, the painted rim's hue found by eye and taken as G3 before the landing (2026-09-08; the parent, on the user's standing instruction)
+
+Read from `g1/g1-dryrun.md` and claims §5.101 (authored by G1 and adopted by the parent — the
+section is the declaration's own record and every number in it was re-read here), the crops the
+parent made from G1's dry-run captures (`w23/g1-review/`), and the codex review of the code diff.
+
+(a) **Clause 1 met on the rim, the body's miss on `impulse__capsule-button` pre-existing and
+unmoved** (−6.2 codes, S7 worst 0.00004; §5.100 §3). Glass on black draws its outline on every
+collapsed cell of both beds at both scales, worst 0.0040 against 0.005.
+
+(b) **Clause 2 met** (worst 0.0200 against 0.03; `L−R` inside 0.003; `light-solid` clips in both).
+
+(c) **Clause 3 MISSED as a per-side bound and stands as missed.** 24 of 88 structured sides over
+0.05 (68 before), five of them top/bottom; the residual is the left and right sides under a
+structured backdrop, where the reference's own two sides split 2.4× on a cell whose top and bottom
+agree to 0.002 — the per-pixel level under structure that the environment term was declined on and
+the CSS tier cannot carry. The eight sides that met before and do not now (six `photo` rrect sides
+at 2x overshooting +0.06…+0.12, two dark `checkerboard__rrect-md` left) are named; validation reads
+0.0155 against calibration's 0.0479, so the law is not a fit to its own rows. Recorded, not
+chartered; the clause is not restated.
+
+(d) **Clause 4 MISSED and stands as written; the corner rim is named work.** The eighteen deferred
+sides crossed the band target (1x −0.093 → +0.031, 2x −0.087 → +0.088) and 47 sides left W22's band
+bound while the contour read on the same captures is inside 0.03. The two instruments differ only
+where they differ — the corner arcs the contour read excludes and the band read averages in — so
+the candidate is a rim brighter in the corners than on the span. No corner reader exists; G1's
+tracker entry carries it. The wave's acceptance is X1's contour read; the band read stays on the
+record beside it.
+
+(e) **Clause 5 met on the GPU tier; S3 taken at the number.** Every GPU calibration mean improves;
+the CSS 2x light calibration mean rises +0.00011 against the 0.0001 stop (W22 Decision Log 4 (b)'s
+shape) and is taken with the number. **S2 taken at the number:** one CSS cell
+(`photo__capsule-button__rest-tint-orange-half`) moves +0.0035 in body at both scales through
+`interiorBandLight`'s brighter band in the derived level — the mechanism the stop watches, working;
+a CSS-only residual under wave Decision Log 23 (a).
+
+(f) **The holdout, read once at G1** — light 0.00914 → 0.00909 / 0.00906 → 0.00904, dark 0.01326
+→ 0.01331 / 0.01301 → 0.01317 — **stands on the record as spent on a configuration that will not
+land** (see (h)). The dark holdout's +0.00005 / +0.00016 is recorded with its sign.
+
+(g) **Accepted as declared:** `rimWidth2x` 1.35; `rimEnvGain` removed; `rimTintKeep` refused on
+rendered rows (0.534 light against 0.294 dark for a byte-identical fixture); the law's input the
+material's own level; `borderAlphaPerRimAlpha` re-based and not refitted (the CSS rim's fit is a
+CSS wave's, on the contour instrument — G1's tracker entry); the goldens re-recorded under
+`W23_HASHES` with 0 pixels outside any band and a new `collapsed-tone` scene; the `rimLuma` feed
+verified on 42 groups per bed; `PREDICATE_EXCLUDES` 29 → 27 to be re-derived at G2.
+
+(h) **The painted rim's hue: G3, before the landing.** The parent's crops of G1's captures beside
+the fixtures show Apple's rim on a tinted surface as the paint's colour lifted — orange (255, 148,
+0) → (254, 188, 0) with blue at 0, blue (8, 120, 236) → (59, 199, 248) — and vitrea's as white
+added over the paint ((255, 192, 130); (145, 183, 255)). The 0.11.0 bed drew the same white rim
+fainter; G1's amplitude makes it plain. The luminance clauses cannot see it and the eye does, on the
+most common surface an author paints. It is the composition order (the optics pass adds the rim
+after the author's colour) and is a mechanism, so it is taken as G3 on G1's branch before any
+canonical capture — the W22 precedent, where a known-wrong input is corrected before the landing's
+one holdout read — and G1's read is recorded as spent. `rimCollapsedTinted` and the material-level
+input, both fitted with the rim over the paint, are G3's to keep or replace.
+
+(i) **The codex review's verified findings go to the same worker as a fix wave with G3**; a finding
+that is real and small is logged, not fixed here.
+
+(j) **The user decides:** the landing after G3, the eye on the sheets (the tinted capsules at 4×
+beside the black-on-black cells), the 0.12.0 cut.
+
 ## Surprises & Discoveries
 
 - **The "collapsed rim in light" was never collapsed.** Three cells, eighteen sides, two waves under
@@ -451,6 +550,11 @@ codex review on the whole diff before it.
   fixtures) where the untinted one keeps +0.020: an author tint over black is painted, not adapted.
 - **W21's probe grid collapses `rrect-sm` and `rrect-lg` over `dark-solid` and not `rrect-md`.** On
   the record; read by nothing here.
+- **The painted rim keeps the paint's hue** (G1, by eye on the crops). Every luminance clause was
+  met on the tinted capsules and the rim was the wrong colour: orange's blue channel stays 0 in the
+  reference and rises to 130 in vitrea. A clause on the rim's chromaticity did not exist until G3.
+- **The two readers disagree only at the corners.** Clause 2 met on the contour and clause 4 missed
+  on the band, on the same captures; the corner arc is the one region only one of them reads.
 
 ## Outcomes & Retrospective
 
