@@ -715,22 +715,51 @@ export const RIM_COLLAPSED = 0.038;
  */
 export const RIM_COLLAPSED_TINTED = 0.337;
 
+/** The two absolute rims a collapsed surface keeps, bare and at full coverage. */
+export interface CollapsedRimConstants {
+  readonly bare: number;
+  readonly painted: number;
+}
+
+/**
+ * The profile's own collapsed rims, or the mirrored defaults where it names
+ * neither — the same shape as `resolvedBackdropTone` above, and for the same
+ * reason (W23 G1's review fix).
+ *
+ * The renderer reads these two off the material profile the root was given, so a
+ * tier that read the built-in constants instead would diverge from its twin the
+ * moment an app passed a profile that names them — including a profile that sets
+ * both to 0, which is exactly how a caller would ask for the pre-W23 collapse.
+ */
+export function resolvedCollapsedRim(patch?: RendererMaterialProfile): CollapsedRimConstants {
+  return {
+    bare: patch?.rimCollapsed ?? RIM_COLLAPSED,
+    painted: patch?.rimCollapsedTinted ?? RIM_COLLAPSED_TINTED,
+  };
+}
+
 /**
  * The rim a collapsed surface of this tint coverage keeps — the renderer's
  * `mix(rimCollapsed, rimCollapsedTinted, tintStrength)`, which this tier
- * evaluates once per surface where the shader evaluates it per pixel.
+ * evaluates once per surface where the shader evaluates it per pixel, and the
+ * mirror of the renderer's `collapsedRimUnderPolicy`.
  *
  * It is the caller's to pass into `adaptedSourceOptics`, because the author tint
- * is a property of the surface and the adaptation is a property of the group's
- * backdrop, and only the caller holds both.
+ * is a property of the surface, the adaptation is a property of the group's
+ * backdrop and the constants are a property of the profile, and only the caller
+ * holds all three.
+ *
+ * The accessibility regime is not a parameter here, and it is on the renderer's
+ * side (`collapsedRimUnderPolicy`): this tier's `opticsUnderPolicy` replaces
+ * `borderAlpha` and `borderWidth` after the conversion, so a strong border
+ * already reaches a collapsed surface without this expression knowing about it.
  */
 export function collapsedRim(
   tintStrength: number,
-  bare: number = RIM_COLLAPSED,
-  painted: number = RIM_COLLAPSED_TINTED,
+  constants: CollapsedRimConstants = { bare: RIM_COLLAPSED, painted: RIM_COLLAPSED_TINTED },
 ): number {
   const strength = clamp01(tintStrength);
-  return bare + (painted - bare) * strength;
+  return constants.bare + (constants.painted - constants.bare) * strength;
 }
 
 /**
@@ -2899,7 +2928,7 @@ export interface CssTierMapping {
    * replaced. This constant moved by exactly that ratio and by nothing else —
    * see its value below.
    */
-  readonly borderAlphaPerRimAlpha: number;
+  readonly borderAlphaPerRimAlpha: Readonly<Record<MaterialVariant, number>>;
   /**
    * `border-width` in CSS px. CSS-only: a box border is not the renderer's rim
    * band, and deriving one from the other would be arithmetic dressed as a
@@ -3010,8 +3039,18 @@ export const CSS_TIER_MAPPING: CssTierMapping = {
    * this tier's light rim is 30–45 % short of the reference on the dark-backdrop
    * cells — is recorded as a CSS-only residual for a wave that fits this tier's
    * border on the contour instrument, not taken here.
+   *
+   * **PER VARIANT, because the re-basing is** (W23 G1's review fix). Only the
+   * `regular` variant's rim became a law: `clear` has no scene on the calibration
+   * bed, so its `rimAlpha` stands at 0.14 with a gain of 0 and its amplitude is
+   * the constant it always was. One ratio over both would have divided the clear
+   * variant's border by three for a numerator that never moved — 0.273 → 0.0896
+   * on this tier while its GPU rim stayed where it was — so the clear variant
+   * keeps 1.95 and the identity `0.14 × 1.95 = 0.273` with it. The record has
+   * the same shape as `saturation` above, which is per variant for the same kind
+   * of reason: a conversion is a property of the pair it converts between.
    */
-  borderAlphaPerRimAlpha: 0.64,
+  borderAlphaPerRimAlpha: { regular: 0.64, clear: 1.95 },
   borderWidth: 1,
   // A hint that names only a tone is a coarse statement, and these are the coarse
   // readings of it: near-black and near-white. An app that wants the foreground
@@ -3294,6 +3333,7 @@ export function cssOpticsFromSource(
   source: MaterialSourceOptics,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
   anchor: CssTintAnchor = mappingAnchor(mapping),
+  variant: MaterialVariant = "regular",
 ): MaterialOptics {
   const alpha = cssTintAlpha(source, mapping, anchor);
   return {
@@ -3304,8 +3344,10 @@ export function cssOpticsFromSource(
     // is allowed to move the rim and this is the one conversion it lands through.
     // The source arriving here has been through `adaptedSourceOptics`, so its
     // `rimAlpha` is the amplitude law already evaluated at that surface's own
-    // level and folded with the collapse — not the law's intercept (W23).
-    borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha),
+    // level and folded with the collapse — not the law's intercept (W23). The
+    // conversion is the VARIANT's, because only the regular variant's rim became
+    // a law and the re-basing that followed is its alone.
+    borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha[variant]),
   };
 }
 
@@ -3455,7 +3497,8 @@ export function cssTierOptics(
       // near-opaque outline. A surface with a measured backdrop lands its own
       // level through `cssOpticsFromSource`, which overwrites this.
       borderAlpha: clamp01(
-        rimAmplitude(source, mapping.referenceBackdropLuminance) * mapping.borderAlphaPerRimAlpha,
+        rimAmplitude(source, mapping.referenceBackdropLuminance)
+          * mapping.borderAlphaPerRimAlpha[variant],
       ),
       border: encodeRgb(source.highlight),
       borderWidth: mapping.borderWidth,

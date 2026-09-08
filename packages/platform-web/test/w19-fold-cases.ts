@@ -137,10 +137,14 @@ export const RECORDED_SOURCE_OPTICS: MaterialSourceOptics = {
  * is the same border either way; a bed frozen at the recording's 0.18 amplitude
  * has to be frozen at the recording's 1.95 with it, or it would state the old
  * rim through the new tier's scale and land on a border no tree ever drew.
+ *
+ * Per variant since the review fix, because the shipped constant is: the clear
+ * variant's rim never became a law and keeps 1.95 in the shipped mapping too, so
+ * only the regular entry is a freeze.
  */
 export const RECORDED_MAPPING = {
   ...CSS_TIER_MAPPING,
-  borderAlphaPerRimAlpha: 1.95,
+  borderAlphaPerRimAlpha: { regular: 1.95, clear: 1.95 },
 } as const;
 
 export interface ResolvedSurface {

@@ -393,8 +393,11 @@ describe("tuned calibration profiles", () => {
     // Re-based rather than refitted in W23 (claims §5.100 §8): the renderer's rim
     // became a law and the amplitude this converts is about three times the
     // constant it replaced, so 1.95 against it would clamp to an opaque outline.
-    expect(LIGHT.cssTierMapping?.borderAlphaPerRimAlpha).toBe(0.64);
-    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha).toBe(
+    // Per variant since W23 G1's review fix: only the regular variant's rim became
+    // a law, so only its conversion is re-based and `clear` keeps the 1.95 that
+    // preserves its own 0.14 × 1.95 = 0.273.
+    expect(LIGHT.cssTierMapping?.borderAlphaPerRimAlpha).toEqual({ regular: 0.64, clear: 1.95 });
+    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha).toEqual(
       LIGHT.cssTierMapping?.borderAlphaPerRimAlpha,
     );
     expect(CSS_TIER_MAPPING.referenceBackdropLuminance).toBe(

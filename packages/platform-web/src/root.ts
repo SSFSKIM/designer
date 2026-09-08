@@ -151,6 +151,7 @@ import {
   opticsUnderPolicy,
   resolvedBackdropTone,
   resolvedBackdropToneResponse,
+  resolvedCollapsedRim,
   resolvedPolicyFold,
   resolvedTintShade,
   rimAmplitude,
@@ -1036,6 +1037,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * whatever it knows of the backdrop — see `backdropTone` below.
    */
   let backdropToneConstants = resolvedBackdropTone(initialProfile);
+  /*
+   * The two absolute rims a collapsed surface keeps, off the SAME profile the
+   * renderer reads them from (W23 G1's review fix). Held beside the tone's
+   * constants and re-resolved with them, because a tier that read the mirrored
+   * defaults would diverge from its twin the moment an app named either.
+   */
+  let collapsedRimConstants = resolvedCollapsedRim(initialProfile);
   /**
    * The backdrop tone response's anchors (W9), from the same profile — the law
    * that owns the interior mean, where the collapse constants above own
@@ -1066,6 +1074,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     sizeConstants = sourceSize(profile);
     outerShadowConstants = sourceOuterShadow(profile);
     backdropToneConstants = resolvedBackdropTone(profile);
+    collapsedRimConstants = resolvedCollapsedRim(profile);
     backdropToneResponse = resolvedBackdropToneResponse(profile);
     /*
      * The renderer's own patch takes the *resolved* profile too, so the GPU tier
@@ -2021,7 +2030,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // (W23): a painted surface over black keeps a brighter rim than a bare
           // one, and the strength is per surface where the adaptation is per
           // group, so the caller is the only place the two meet.
-          collapsedRim(material.tint?.strength ?? 0),
+          // The strong-border regime is NOT folded in here, unlike the renderer's
+          // `collapsedRimUnderPolicy`: on this tier `opticsUnderPolicy` replaces
+          // `borderAlpha` and `borderWidth` last of all (`css-tier.ts`), so the
+          // substitution already reaches a collapsed surface's border and folding
+          // it twice would put the policy's alpha into the author tint's fold and
+          // the foreground decision, which read this source too.
+          collapsedRim(material.tint?.strength ?? 0, collapsedRimConstants),
         );
         /*
          * The inner shadow, folded into the (colour, alpha) pair (W17 Decision
@@ -2199,6 +2214,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           shadowedSource,
           cssMapping,
           conversionAnchor,
+          variant,
         );
         // The conversion is computed once and travels twice (W19 G1, claims §5.80
         // §7). The FOLD is still what the renderer input, the encoded form and

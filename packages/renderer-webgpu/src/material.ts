@@ -2208,9 +2208,63 @@ export function opticsUnderPolicy(
     ),
   };
 
-  if (policy.border === "strong") next = { ...next, ...profile.strongBorderRim };
+  /*
+   * The accessibility border SUBSTITUTES the rim; it does not tune it (W23 G1's
+   * review fix). A spread of `strongBorderRim`'s two numbers leaves every other
+   * constant the rim now reads at the variant's own value, and after W23 the rim
+   * reads three more: the band's second anchor and the amplitude law's gain, and
+   * they carried the substitution away from what it declares. `rimWidth2x` 1.35
+   * narrowed a 2 CSS px border to 1.35 at dpr 2, and `rimLevelGain` −0.628 turned
+   * an alpha of 0.95 into 0.64 on a surface of level 0.5 and 0.35 on a bright one
+   * — a border that fades exactly where a preference asked for one. So the fold
+   * takes BOTH width anchors to the declared width and the gain to 0: under this
+   * policy the border is one width and one brightness at every scale and over
+   * every backdrop, which is what `border: "strong"` means.
+   *
+   * The specular is left where the variant has it, as it always was: it is gated
+   * to nothing at rest (W22) and this fold has no reading on it.
+   */
+  if (policy.border === "strong") {
+    next = {
+      ...next,
+      rimWidth: profile.strongBorderRim.rimWidth,
+      rimWidth2x: profile.strongBorderRim.rimWidth,
+      rimAlpha: profile.strongBorderRim.rimAlpha,
+      rimLevelGain: 0,
+    };
+  }
 
   return next;
+}
+
+/**
+ * The rim a COLLAPSED surface keeps, under the accessibility regime (W23 G1's
+ * review fix) — `mix(rimCollapsed, rimCollapsedTinted, tintStrength)`, except
+ * where a preference has asked for a border.
+ *
+ * The collapse trades the appearance's own rim for an absolute one, and the
+ * absolute one is 0.038 bare and 0.337 painted: what Apple's collapsed capsule
+ * keeps. Under `border: "strong"` that trade would take a border the user's
+ * preference asked for and hand back a mark a twenty-fifth as bright, on the one
+ * surface that is already the hardest to see — a material that has taken its
+ * backdrop's tone. The substitution therefore reaches the collapsed rim too, and
+ * the border is the same on a collapsed surface as on any other.
+ *
+ * **No cell of any bed exercises this branch**: the two accessibility profiles
+ * declare no scene over `dark-solid` or `impulse`, so nothing on the calibration
+ * bed both collapses and carries a strong border. It is a correctness statement
+ * about the policy rather than a fitted constant, and it is written here rather
+ * than left implicit because the alternative is a preference that silently stops
+ * being honoured on one class of surface.
+ */
+export function collapsedRimUnderPolicy(
+  policy: MaterialPolicyView,
+  tintStrength: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+): number {
+  if (policy.border === "strong") return profile.strongBorderRim.rimAlpha;
+  const strength = Math.min(1, Math.max(0, tintStrength));
+  return profile.rimCollapsed + (profile.rimCollapsedTinted - profile.rimCollapsed) * strength;
 }
 
 /** How much of the analysis-driven tint is applied, under the contrast regime. */

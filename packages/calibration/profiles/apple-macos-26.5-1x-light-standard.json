@@ -314,7 +314,10 @@
   },
   "cssTierMapping": {
     "referenceBackdropLuminance": 0.02,
-    "borderAlphaPerRimAlpha": 0.64
+    "borderAlphaPerRimAlpha": {
+      "regular": 0.64,
+      "clear": 1.95
+    }
   },
   "entries": {
     "lens": {
@@ -917,9 +920,22 @@
     },
     "cssTierMapping.borderAlphaPerRimAlpha": {
       "status": "measured-with-a-caveat",
-      "value": 0.64,
+      "value": {
+        "regular": 0.64,
+        "clear": 1.95
+      },
       "tier": "dom",
       "method": [
+        "PER VARIANT since 2026-09-09 (W23 G1's review fix): the re-basing below is the",
+        "REGULAR variant's and only the regular variant's. Only that variant's rim became",
+        "a law - clear declares no scene on this bed, so its rimAlpha stands at 0.14 with",
+        "a gain of 0 and its amplitude is the constant it always was. One ratio over both",
+        "divided the clear variant's border by three for a numerator that never moved",
+        "(0.273 -> 0.0896 on this tier while its GPU rim stayed where it was), so clear",
+        "keeps 1.95 and the identity 0.14 x 1.95 = 0.273 with it. The record now has the",
+        "same shape as cssTierMapping.saturation, which is per variant for the same kind",
+        "of reason.",
+        "",
         "RE-BASED 1.95 -> 0.64 (2026-09-08, W23 G1; claims 5.100 section 8). NOT a",
         "refit: the same conversion against a numerator whose scale changed. This",
         "constant converts the renderer's rim into this tier's border alpha, and in W23",

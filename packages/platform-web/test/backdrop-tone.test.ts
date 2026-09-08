@@ -28,7 +28,10 @@ import {
   cssOpticsFromSource,
   CSS_TIER_MAPPING,
   cssTierOptics,
+  collapsedRim,
+  resolvedCollapsedRim,
   RIM_COLLAPSED,
+  RIM_COLLAPSED_TINTED,
   rimAmplitude,
   sourceOptics,
 } from "../src/optics";
@@ -149,7 +152,7 @@ describe("the material one backdrop reading produces", () => {
     // The collapsed rim the reference keeps, through the one constant that
     // carries a rim across this boundary: 0.038 × 0.64 (W23; claims §5.100 §§3-4).
     expect(cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1)).borderAlpha).toBeCloseTo(
-      RIM_COLLAPSED * CSS_TIER_MAPPING.borderAlphaPerRimAlpha,
+      RIM_COLLAPSED * CSS_TIER_MAPPING.borderAlphaPerRimAlpha.regular,
       12,
     );
     // …and an unadapted source declares the shipped border exactly, so the
@@ -192,5 +195,88 @@ describe("what the axis does to an ordinary page", () => {
         expect(backdropToneAdaptation(backdrop, thickness, BACKDROP_TONE)).toBe(0);
       }
     }
+  });
+});
+
+describe("the collapsed rim's constants come from the profile the root was given (W23 G1 review)", () => {
+  /*
+   * The renderer reads `rimCollapsed` and `rimCollapsedTinted` off the material
+   * profile it was handed, and this tier has to read the same two numbers off the
+   * same document. Reading the mirrored defaults instead is invisible until an
+   * app passes a profile that names either — including the profile that names
+   * both as 0, which is how a caller asks for the pre-W23 collapse — and then the
+   * two tiers draw different rims on the same surface with nothing to say so.
+   */
+  it("resolves both ends off the patch, and falls back to the mirror where it names neither", () => {
+    expect(resolvedCollapsedRim()).toEqual({ bare: RIM_COLLAPSED, painted: RIM_COLLAPSED_TINTED });
+    expect(resolvedCollapsedRim({})).toEqual({
+      bare: RIM_COLLAPSED,
+      painted: RIM_COLLAPSED_TINTED,
+    });
+    expect(resolvedCollapsedRim({ rimCollapsed: 0, rimCollapsedTinted: 0 })).toEqual({
+      bare: 0,
+      painted: 0,
+    });
+    // One named, one not: the patch's own merge rule, leaf by leaf.
+    expect(resolvedCollapsedRim({ rimCollapsed: 0.02 })).toEqual({
+      bare: 0.02,
+      painted: RIM_COLLAPSED_TINTED,
+    });
+  });
+
+  it("carries those constants into the collapsed rim and into the border", () => {
+    const source = sourceOptics().regular;
+    const tone = [0.0117, 0.0117, 0.0117] as const;
+    const off = resolvedCollapsedRim({ rimCollapsed: 0, rimCollapsedTinted: 0 });
+    // A profile that declines the collapsed rim draws no border on a collapsed
+    // surface, painted or bare — which is what the renderer does with the same
+    // document, and what this tier did NOT do while it read the mirror.
+    for (const strength of [0, 0.5, 1]) {
+      expect(collapsedRim(strength, off)).toBe(0);
+      expect(
+        adaptedSourceOptics(source, tone, 1, collapsedRim(strength, off)).rimAlpha,
+      ).toBe(0);
+    }
+    // And the shipped constants still lerp between the two absolutes.
+    const shipped = resolvedCollapsedRim();
+    expect(collapsedRim(0, shipped)).toBe(RIM_COLLAPSED);
+    expect(collapsedRim(1, shipped)).toBe(RIM_COLLAPSED_TINTED);
+    expect(collapsedRim(0.5, shipped)).toBeCloseTo((RIM_COLLAPSED + RIM_COLLAPSED_TINTED) / 2, 12);
+  });
+});
+
+describe("the border conversion is the variant's (W23 G1 review)", () => {
+  /*
+   * `borderAlphaPerRimAlpha` was re-based 1.95 → 0.64 because the REGULAR
+   * variant's rim became a law and its amplitude tripled. The `clear` variant's
+   * did not: it declares no scene on the calibration bed, so its `rimAlpha`
+   * stands at 0.14 with a gain of 0. One ratio over both divided the clear
+   * variant's border by three for a numerator that never moved.
+   */
+  it("keeps the clear variant's border where it has always been", () => {
+    const clear = sourceOptics().clear;
+    expect(clear.rimAlpha).toBe(0.14);
+    expect(clear.rimLevelGain).toBe(0);
+    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha.clear).toBe(1.95);
+    expect(cssTierOptics().clear.borderAlpha).toBeCloseTo(0.14 * 1.95, 12);
+    // Through the adapted conversion too, on a surface with a measured backdrop:
+    // the clear variant's amplitude is its intercept at every level.
+    const adapted = adaptedSourceOptics(clear, [0.0117, 0.0117, 0.0117], 0);
+    expect(adapted.rimAlpha).toBe(0.14);
+    expect(
+      cssOpticsFromSource(cssTierOptics().clear, adapted, CSS_TIER_MAPPING, undefined, "clear")
+        .borderAlpha,
+    ).toBeCloseTo(0.14 * 1.95, 12);
+  });
+
+  it("re-bases the regular variant only, and its product is the border it always drew", () => {
+    const regular = sourceOptics().regular;
+    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha.regular).toBe(0.64);
+    // 0.844 − 0.628 × materialLuminance(regular, 0.02) = 0.5483; × 0.64 = 0.3509,
+    // against the 0.351 this tier has drawn since W6 (claims §5.100 §8).
+    const amplitude = rimAmplitude(regular, CSS_TIER_MAPPING.referenceBackdropLuminance);
+    expect(amplitude).toBeCloseTo(0.5483, 4);
+    expect(cssTierOptics().regular.borderAlpha).toBeCloseTo(0.3509, 4);
+    expect(cssTierOptics().regular.borderAlpha).toBeCloseTo(0.18 * 1.95, 3);
   });
 });

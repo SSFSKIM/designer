@@ -76,6 +76,7 @@ import {
   adaptationStrength,
   backdropToneSizeBiasUnderPolicy,
   backdropToneUnderPolicy,
+  collapsedRimUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
@@ -956,8 +957,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // one appearance and the reference's fixtures carry it identically in
         // both schemes, painted or bare (X4).
         rimLevelGain: optics.rimLevelGain,
-        rimCollapsed: material.rimCollapsed,
-        rimCollapsedTinted: material.rimCollapsedTinted,
+        // Both ends of the collapsed rim's tint lerp, under the accessibility
+        // regime: `collapsedRimUnderPolicy` returns the two absolute constants
+        // unless a preference has asked for a border, in which case both ends are
+        // the border's own alpha and the shader's `mix` is that constant at every
+        // tint strength (W23 G1's review fix).
+        rimCollapsed: collapsedRimUnderPolicy(policy, 0, material),
+        rimCollapsedTinted: collapsedRimUnderPolicy(policy, 1, material),
         lightDirection: material.lightDirection,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
