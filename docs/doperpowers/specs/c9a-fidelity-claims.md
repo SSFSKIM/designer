@@ -14338,3 +14338,85 @@ the panel before it a uniform outline, the CSS panel unable. The user's veto sta
 reproduced byte for byte, the predicate re-derived, every floor re-read and the two of §6 re-pinned,
 the demo fixture, the changeset (`vitrea-web` minor → 0.13.0), the sheets, the chain; goldens in
 the foreground; 0.12.0 held.
+
+### 5.110 W24 G3 LANDED: the canonical bed rebuilt at the frozen configuration — 228 of 229 digests reproduced byte for byte and the one mover a validation cell's fourth session flake, now on the render path; the predicate 27 → 31 with the lit arcs as the reason, two passing 2x light calibration cells leaving the shape gate on its topology arm; twelve floors held and the two of §5.109 §6 re-pinned; the chain green; the changeset cut (2026-09-09)
+
+**Evidence** `results/2026-09-09-w24-lit-edge/g3/` — `g3-landing.md`, `g3-rebuild.sh`,
+`g3-runs.txt`, `g3-verify.py`, `g3-referee.txt`, `g3-gate.txt`, `g3-predicate.py/.txt`,
+`g3-floors.py/.txt`, `g3-chain.txt`, `sheets/`; the canonical `results/matrix.json`; commit
+`4a2f766` on `main`. Run from the main checkout at `b3c5d28` (the merge of `worktree-w24-g2` with
+the review fix), as W24 Decision Log 3 (i) directs.
+
+**§1 The rebuild and the referee.** Both documents verified against `g2-digests.txt` before the
+first capture (light `cecea9cd…` / `7968a7f8106b10a4`, dark `ef4af5ae…` / `0d741cd19cd1243b`);
+`rm results/matrix.json`; the whole bed, six profiles × two tiers × (calibration and validation,
+then holdout), `--alpha --write-partial`, GPU before CSS, 24 runs 03:47:57 → 03:55:26, the one
+expected exit 1 on `hc-text__capsule-button__rest` under increased contrast. **228 of 229 digests
+identical**, 15 322 matrix rows compared and 8 differ, all on the one mover:
+`1x-light-increased-contrast / photo__toolbar-group__rest / css` — a VALIDATION cell, so every
+holdout capture reproduced and the wave's one holdout read (X3) stands. The render differs by 17
+of 64 000 pixels, at most one code, colour channels only, inside the toolbar's soft edge; its alpha
+sibling by 19 pixels. Re-captured a third time to scratch under the same flags it reproduces the
+dry run's bytes, so the rebuild's own capture is the outlier: the fourth sighting of the session
+byte-state on this cell (W21 G2 and W23 G2 saw it on the `__alpha` render) and the first on the
+render path. The landed file is left as captured; of its eight moved rows seven are in the sixth
+decimal or beyond and `ssimMin` moves 0.00035; no bound, floor or predicate arm reads any of them
+differently. Tracker addendum.
+
+**§2 The gate.** Five failures first — the same five G2 read on its scratch matrix — then 33 / 33.
+`PREDICATE_EXCLUDES` 27 → 31, derived and equal, four join and none leaves; the shape-cell counts
+35 → 36, 33 → 31, 12 → 13 as predicted. Two mechanisms, both the lit edge through the extractor.
+The lit arcs give the 1x collapsed `dark-solid__capsule-button` an outline it did not have, in
+both schemes on the texture tier: what the extractor recovers is the arcs alone (25 px native / 34
+px web of a 4 872 px region, in 16 and 18 pieces) and every arm refuses it — the cell leaves
+`NO_SHAPE_AXIS_SCENES` (the 1x texture lists now empty, as W23 emptied the 2x ones) for the
+exclusion list, its fidelity read on its perceptual rows as always (ΔE 0.00052 → 0.00047). And the
+unlit arcs pinch two `2x light` texture calibration silhouettes into one more body each
+(`checkerboard__rrect-md`, `checkerboard__toolbar-group`; `bodiesWeb` 1 → 2 and 3 → 4): **the
+landing's one loss of gated coverage, recorded and not recovered.** Both cells meet every shape
+row the gate would have asked — `rrect-md` IoU 0.99634, contour mean 0.236, p95 1;
+`toolbar-group` 0.99026 / 0.205 / 1.414, its IoU and mean improved on the 0.12.0 bed (0.98714 /
+0.288) — and both ΔE means improve. The predicate is a construct no wave touches to make a gate
+pass; tracker. **Floors: 14 read, 12 held on their W23 numbers, 2 re-pinned** as §5.109 §6 ruled,
+the canonical readings the dry run's exactly: `silhouetteIoU` 0.910068 → 0.908039, floor 0.9090 →
+0.9070; `contourDistanceP95` 8 → 8.25, floor 8.1 → 8.35; W23's numbers beside in the comment;
+`contourDistanceMean` 0.966 → 1.033 holds under 1.0658. No other floor breached, none inert, no
+bound widened, `UNMET_ROWS` 14.
+
+**§3 The bed at the landing.** Every GPU group improves or holds on all three sets in both
+schemes at both scales: calibration light 0.00324 → 0.00321 and 0.00329 → 0.00326, dark 0.00395 →
+0.00393 and 0.00397 → 0.00395; holdout light 0.00901 → 0.00898, dark 0.01331 → 0.01325 — the dry
+run's numbers, reproduced.
+
+**§4 The demo, the changeset, the sheets, the chain.** The harness fixture
+`checkerboard__capsule-button__rest__webgpu.png` was 211 px / 34 codes from the landed capture and
+is re-copied with its cell record (`sha256:cecea9cd02a7`); the demo e2e 39 green. The changeset
+`.changeset/the-edge-is-lit.md`, `@vitreajs/vitrea-web` minor, names both mechanisms plainly and
+the `clear` variant's retired highlight; consumed to **0.13.0** by the parent. Sheets
+`sheets/g3-1x.png` / `g3-2x.png`, 31 rows each, native | GPU before (0.12.0) | GPU landed | CSS
+landed with the dark capsules and rrects at 4× — the parent's eye: the landed 2x dark capsule dims
+from north-west to north-east as the reference does, the 0.12.0 panel a uniform outline. The
+chain from this checkout over the canonical matrix: build, lint, 1 893 unit tests / 130 files, 33
+goldens (foreground), 9 platform-web GPU e2e, 39 demo e2e, the adopted gate 33 / 33 — nothing red
+(`g3-chain.txt`).
+
+### 5.111 W24 RECOMPOSED: the lit edge and the collapse that keeps transmission — the parent's eight clauses verified; the rim lit by a symmetric cosine about the diagonal on every untinted solid cell and the impulse dot back through the collapsed capsule at the reference's peak; clauses 1 (ratio half), 2 (width, body) and 4 (two floors) carried with their numbers; the 0.13.0 cut follows, the user's eye before publish (2026-09-09)
+
+The clause-by-clause verdict is the spec's Outcomes & Retrospective
+(`2026-09-09-w24-lit-edge.md`), with the evidence §5.107–§5.110. **Met:** 1 on the half that
+measures the shape (10 of 12 rows at or under half the landed bed's worst-bin error, none worse;
+the straight spans 0.00029), 2 on the peak (within 0.0002 at both scales), 3 (answered: `k` = 0),
+4 on every number of the bed, 5 (the holdout once at G2, reproduced at G3), 6, 7 (as far as one
+inset shadow and a degenerate anchored conversion reach), 8 by the parent's eye. **Missed and
+carried:** 1's ratio half (5 of 12; a degenerate statistic and the exponent's scale dependence),
+2's width (4.99 against 7.57 CSS px at 1x; the scatter kernel) and body (−0.0029 / −0.0033; the
+collapse's target level), and 4's "none re-pinned without the user" — two extractor floors
+re-pinned under the standing instruction, the user's to undo. **Open:** 8's user's eye.
+
+What the wave leaves by name: the exponent's scale dependence and the null's floor (a shoulder);
+the transmitted dot's width and the collapsed body's level; the CSS tier's degenerate anchored
+conversion; the WebGPU tier over a `css-backdrop` proxy; the `clear` variant's retired highlight;
+the nested pane's extractor rows (four re-pins on one cell); the along-side variation on thick
+panels (the thickness term); the session byte-state on one cell, now on the render path; two
+passing 2x light calibration cells outside the shape gate. All in the tracker with numbers. The
+thick-span composite is next, on the user's word (wave Decision Log 23 (c)).

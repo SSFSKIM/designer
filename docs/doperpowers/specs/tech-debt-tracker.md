@@ -1061,3 +1061,36 @@ other. Re-pinned by the parent on the standing instruction (W24 Decision Log 3 (
 beside. Shape of the work: a silhouette extractor for nested panes that does not threshold on the
 material's own level (the seven nested-pane floors' entry), and a gate that reports every breach
 of a profile rather than the first — collect the failures and assert once. `g2/g2-gate.txt`.
+
+## The session byte-state on `photo__toolbar-group__rest` under increased contrast has a fourth sighting, the first on the render path (W24 G3, 2026-09-09)
+
+At W24's canonical rebuild the `1x-light-increased-contrast / photo__toolbar-group__rest / css`
+RENDER capture differed from G2's dry-run digest by 17 of 64 000 pixels, at most one code, colour
+channels only, inside the toolbar's soft edge (its alpha sibling by 19 px, max 4 codes — the
+un-premultiply of one alpha code W23 measured on the same file). Re-captured a third time to
+scratch under identical flags it reproduces the dry run's bytes (`24cda2a5…` render,
+`fb25641867…` alpha), not the landed `001eceb6…`: the rebuild's own capture is the outlier, and the
+dry-run session and the recheck agree. W21 G2 and W23 G2 saw this cell on its `__alpha` render;
+this is the first time the render path itself moved. A validation cell, so the holdout read stands;
+228 of 229 digests reproduced. Eight matrix rows on the cell move, seven in the sixth decimal or
+beyond and `ssimMin` by 0.00035; no bound, floor or predicate arm reads differently. The landed
+file is left as captured. Shape of the work: it is always this cell, always this profile — the one
+whose accessibility policy composites an extra opaque layer over a photo — and always one code at
+a soft edge; a capture-time re-read of that cell against its own second frame (the harness already
+takes eight frames) would name whether the byte-state is the compositor's or the page's.
+`g3/g3-landing.md` §2.1, `g3-referee.txt`.
+
+## The lit arcs move two passing 2x light calibration cells out of the shape gate on the predicate's topology arm (W24 G3, 2026-09-09)
+
+`checkerboard__rrect-md__rest` and `checkerboard__toolbar-group__rest` at 2x light on the texture
+tier: the unlit north-east and south-west arcs pinch the extractor's silhouette into one more
+body each (`bodiesWeb` 1 → 2 and 3 → 4), and the predicate excludes them from the shape rows
+(`PREDICATE_EXCLUDES` 27 → 31 with the two 1x collapsed capsules whose lit arcs are all the
+extractor recovers). Both meet every shape row the gate would have asked — `rrect-md` IoU 0.99634,
+contour mean 0.236, p95 1; `toolbar-group` 0.99026 / 0.205 / 1.414, better than the 0.12.0 bed's
+0.98714 / 0.288 — and both ΔE means improve. The landing's one loss of gated coverage, recorded
+rather than recovered, because the predicate is a construct no wave touches to make a gate pass.
+Shape of the work: the extractor's body count is a threshold crossing on a rim that now varies
+around the contour by design; a silhouette extractor that closes the arcs (a morphological close
+at the rim's own width before counting bodies) would keep these two and the nested-pane rows
+honest at once — the same work as the nested pane's extractor entry. `g3/g3-predicate.txt`.
