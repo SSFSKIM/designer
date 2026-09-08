@@ -1,0 +1,138 @@
+{
+  "args": {
+    "scene": "checkerboard__glass-over-glass__rest",
+    "scale": 1,
+    "colorScheme": "dark",
+    "renderer": "webgpu",
+    "profile": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ac98f964c1299c688/packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json"
+  },
+  "observed": {
+    "groups": [
+      {
+        "id": "component",
+        "configuredSource": "texture",
+        "state": {
+          "configuredSource": "texture",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "refraction": "true",
+          "analysis": "exact",
+          "health": "ok"
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": null,
+        "backdropTone": {
+          "level": 0.21404114048223255,
+          "linearLuminance": 0.5,
+          "rgb": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      {
+        "id": "component-over",
+        "configuredSource": "dom",
+        "state": {
+          "configuredSource": "dom",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "css-backdrop",
+          "refraction": "approximate",
+          "analysis": "none",
+          "health": "ok"
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": {
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9198011518738324
+        },
+        "backdropTone": {
+          "level": 0.048329212863935475,
+          "linearLuminance": 0.048329212863935475,
+          "rgb": [
+            0.048329212863935475,
+            0.048329212863935475,
+            0.048329212863935475
+          ]
+        }
+      }
+    ],
+    "surfaces": [
+      {
+        "nodeId": "base",
+        "groupId": "component",
+        "plane": "base",
+        "family": "fixed-rounded-rect",
+        "radius": 24,
+        "bounds": {
+          "x": 50,
+          "y": 35,
+          "width": 220,
+          "height": 130
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      },
+      {
+        "nodeId": "over",
+        "groupId": "component-over",
+        "plane": "overlay",
+        "family": "fixed-rounded-rect",
+        "radius": 16,
+        "bounds": {
+          "x": 100,
+          "y": 64,
+          "width": 120,
+          "height": 56
+        },
+        "refraction": {
+          "state": "approximate",
+          "accessibilityCap": "true",
+          "effective": "approximate"
+        }
+      }
+    ],
+    "proxies": [
+      {
+        "groupId": "component-over",
+        "plane": "overlay",
+        "box": {
+          "x": 86.9375,
+          "y": 50.9375,
+          "width": 146.109375,
+          "height": 82.109375
+        },
+        "clipPath": "path(\"M 29.0556 13.0556 L 117.056 13.0556 A 16 16 0 0 1 133.056 29.0556 L 133.056 53.0556 A 16 16 0 0 1 117.056 69.0556 L 29.0556 69.0556 A 16 16 0 0 1 13.0556 53.0556 L 13.0556 29.0556 A 16 16 0 0 1 29.0556 13.0556 Z\")",
+        "backdropFilter": "blur(4.35186px) saturate(1.8)"
+      }
+    ],
+    "hosts": [
+      {
+        "index": 0,
+        "box": {
+          "x": 50,
+          "y": 35,
+          "width": 220,
+          "height": 130
+        }
+      },
+      {
+        "index": 1,
+        "box": {
+          "x": 100,
+          "y": 64,
+          "width": 120,
+          "height": 56
+        }
+      }
+    ]
+  }
+}
