@@ -1,8 +1,11 @@
 # W23 — the collapsed rim: a rim that survives the collapse, and the rim's law read at the contour on both beds (2026-09-08)
 
-**Status: CHARTERED 2026-09-08 from W22's Deferred list ("the collapsed rim", W22 Decision Log 4 (d);
-claims §5.96 §4) and the user's eye on the W22 landing sheets (claims §5.99), on the user's "you
-can proceed with the collapsed rim" at the 0.11.0 bump. G0 dispatched.**
+**Status: G0 CLOSED 2026-09-08 (claims §5.100; Decision Log 2) — chartered 2026-09-08 from W22's
+Deferred list ("the collapsed rim", W22 Decision Log 4 (d); claims §5.96 §4) and the user's eye on
+the W22 landing sheets (claims §5.99), on the user's "you can proceed with the collapsed rim" at the
+0.11.0 bump. The rim's law is affine in the surface's own level with the gain's sign opposite in the
+two schemes; the collapsed rim is an absolute constant and not the dark rim; the tinted rows and the
+2x rows are the two terms G1 carries beyond the fit. G1 dispatched.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W23 row). The term it takes was deferred twice
@@ -300,15 +303,24 @@ it. The GPU is shared; one capture at a time.
 - **The dark thick body over `dark-solid`** (0.0130 against 0.0153, three codes) — read in G0;
   taken only if one constant on the dark law separates it inside the stops, else carried with its
   number.
-- **The environment term** if G0 finds it real and it is not this wave's law.
+- **The environment term** — declined at G0 (Decision Log 2 (a)): worse than the affine law on
+  the reference in both schemes (0.0105 / 0.0042 against 0.0081 / 0.0013) and separated by no row on
+  vitrea's side (0.0005 per 0.10 of gain). The reference's dark rim grows 0.026 → 0.041 → 0.055 →
+  0.103 across `dark-solid`, `mid-dark-solid`, the structured backdrops and `light-solid` at a body
+  that moves a twelfth as much; the affine law carries it through the body, a proxy. A bed with a
+  mid-bright solid backdrop under a light-scheme thick surface would tell the two apart.
+- **The probe grids as a harness capability** — W9's and W21's grids are the only fitting ground
+  for a two-constant law on either material; G0 rendered them through a gate script.
+- **`light-solid`'s second contour row** — 53 % of the peak in the reference against −6 %; once
+  the first row clips no metric on the bed reads it.
 - **The `clear` variant's rim** — no rows on the bed.
 
 ## Tracking Map
 
 | child | status |
 | --- | --- |
-| G0 — the instrument, the read, the law | DISPATCHED 2026-09-08 |
-| G1 — the mechanism landed, the form dry-run | — |
+| G0 — the instrument, the read, the law | CLOSED 2026-09-08 (claims §5.100; branch `worktree-agent-aa0ee5ea92534c3fd` at `499f7c0`, carried into G1's worktree; Decision Log 2) |
+| G1 — the mechanism landed, the form dry-run | DISPATCHED 2026-09-08 (from G0's branch; Decision Log 2's rulings) |
 | G2 — the landing and its referee | — |
 
 ## Decision Log
@@ -337,6 +349,89 @@ therefore one constant on `DEFAULT_MATERIAL_PROFILE` (X4).
 (d) **The user decides:** the landing, the eye's veto on the sheets, the 0.12.0 cut, and any floor
 re-pinned. Everything else is the parent's on the standing instruction.
 
+
+### Decision Log 2 — G0 read: the law is affine in the surface's own level, the collapsed rim is absolute, and the two terms the fit did not reach — the tinted rows and the 2x rows — go to G1 as mechanisms (2026-09-08; the parent, on the user's standing instruction)
+
+Read from `results/2026-09-08-w23-collapsed-rim/g0/g0-findings.md` (claims §5.100), verified on the
+branch: 400 renderer and 444 platform-web unit tests green, lint clean, 29 goldens byte-identical
+at the shipped defaults, the one red the expected fingerprint move.
+
+(a) **The law is (L4), `rim = rimAlpha + rimLevelGain × luminance(surface)`, and (L3) is
+declined.** On the reference's own solid, unclipped, uncollapsed sides — 44 in light (bodies
+0.43…0.93, both canonical scales and W9's grid) and 36 in dark (0.015…0.10, both scales and W21's
+grid) — L4 reads mean |residual| 0.0081 / 0.0013 (light / dark) against additive 0.0249 / 0.0253,
+screen 0.0168 / 0.0259 and screen-plus-environment 0.0105 / 0.0042; the light slope is −0.275 where
+pure screen needs −α = −0.43, and the environment term separates on no row of either bed (the
+`rimEnvGain` ladder moved every solid cell by 0 or 0.0005 — `light-solid` is clipped and the dark
+solids have no environment). The charter's advisory preference for the screen form is overturned
+by the probe grids' range, which the two canonical cells could not see. **`rimEnvGain` is removed
+from the code at G1** — a constant whose rows do not separate it is not carried (C9a §6.2) — and the
+environment term goes to Deferred with its numbers. The constants solved on vitrea's own captures:
+light `rimAlpha` 0.844 / `rimLevelGain` −0.628, dark 0.0265 / +2.334 (condition 9.7 / 29.7); the
+rendered confirmation takes the solid rows from 0.087 → 0.016 (light 1x) and 0.011 → 0.0005 (dark
+1x) mean |d|. The sign of the gain is the finding: the light rim is a fraction of the body's
+headroom, the dark rim rides its own body up.
+
+(b) **`rimCollapsed` = 0.038 on the material, and it is NOT the dark rim.** The reference's collapsed
+rim is +0.0189 mean over 28 sides (+0.0196…+0.0204 over `dark-solid`, +0.0149…+0.0168 over
+`impulse`) against the dark material's +0.0257 over the same backdrop — nine codes on an instrument
+exact in float. The charter's conditional resolves to no; the constant is absolute, in its own
+units, and X4 holds and is strengthened: the byte identity across schemes extends to a tinted
+collapsed cell (`dark-solid__capsule-button__rest-tint-orange`, both scales). 0.038 is the minimiser
+(worst side 0.0031) and the only value that leaves every untinted collapsed side inside clause 1's
+0.005; rendered, the collapsed sides go 0.0180 → 0.0021 mean.
+
+(c) **The tinted rows are G1's, as a mechanism.** The fit was on untinted solids and the tinted
+calibration rows were not in it; at the fitted point they overshoot by 0.05–0.09 (`checkerboard`
+tint-orange 0.238 against 0.168; `photo` tint-blue 0.302 against 0.212; `light-solid` tint-orange
+0.192 against 0.141; landed 0.05–0.07 on all three), and the tinted COLLAPSED cells undershoot by
+0.10–0.16 (the reference keeps +0.115 on `dark-solid` / `impulse` tint-orange and +0.176 on the
+holdout tint-blue where vitrea draws 0.0146 at `rimCollapsed` 0.038). Both are one shape: in the
+reference an author tint sits above the rim and attenuates it, and a tinted surface over black does
+not fold its rim out — the tint is painted, not adapted. G1 tests the rim's placement relative to
+the author tint (the rim beneath the tint's coverage; the collapse's `present` on the rim gated by
+the tint's strength) on a ladder with the tinted rows as its rows, before any constant is declared.
+Binding: no tinted row worse than landed by more than 0.03 at the contour; the tinted collapsed
+cells within 0.05 of the reference.
+
+(d) **The 2x rows want a scale-graded width: `rimWidth2x` joins G1.** With one width the fitted
+law lands 1x at −0.003…−0.007 and 2x at +0.037…+0.051 on the dark-backdrop solids; vitrea's
+integral rises 19 % between the scales while the reference's falls 10 %. At 1x over a dark backdrop
+the two rims are already the same one-pixel line (row 1 at 8 % against −7 %), so `rimWidth` does not
+move; the 2x band narrows by about 20 % on the precedent of `sizeScatterGainMax2x`. One more ladder
+pair, both scales. Clause 2 is not narrowed.
+
+(e) **A collapsed-surface golden with a fed backdrop tone.** `rimCollapsed` moves no golden because
+no golden scene collapses and the golden harness feeds no backdrop tone; G1 adds one scene that
+does, so X2's attribution covers the constant.
+
+(f) **The `rimLuma` feed is verified at G1, not assumed.** The shader takes the surface's level as
+the tint shade does (the composite where the layer covers, the group's `toneColour.w` where it does
+not), and G0 saw that feed at 0 on some groups (gap 5). G1 reads the published backdrop tone per
+group on the calibration page for every scene and records it; the law's input is the tint shade's
+quantity by construction, so the two level terms stay coherent whatever the feed.
+
+(g) **Corrections beside the charter, not rewrites.** X1's injection bound is "exact in float,
+under one code at 8 bits" — 0.001 is not reachable on a mid-grey body where one code is 0.0059; the
+straight span excludes 1.6 radii (the rounded corner is continuous and the first row still climbs
+between `r` and `1.5r`); the fit's quantity is `rimLocal`, the excess over the side's own base 2–4
+CSS px in, with `rim` against the eroded body reported beside it (over a photograph the two differ by
+up to 0.03 and the difference is the photograph); §5.99's width reading (69 % / 25 % against 100 % /
+56 %) was the 2x reading and at 1x the lines are the same.
+
+(h) **Declined for this wave, carried with numbers:** the dark thick body over `dark-solid` (−2.9
+codes; no scalar separates it from `mid-dark-solid__capsule-button` at 0.02 of a code;
+`adaptiveTintDark` is the constant a body wave would fit); the appearance switch, now measured at
+−16 and −19 codes on the dark thin structured cells and +0.115 worse on W21's probe `light-solid__
+rrect-sm` under the fitted dark law (not a canonical row); W21's probe anomaly (`rrect-sm` and
+`rrect-lg` collapse over `dark-solid`, `rrect-md` between them does not); `light-solid`'s second
+row (53 % of peak against −6 %, unreadable by any metric once the first row clips); the probe grids
+as a harness capability rather than a gate's script.
+
+(i) **G1 starts from G0's branch** (the mechanism at 0 is inert but moves the profile fingerprints;
+landing it twice would move them twice), merges main, and lands everything in one merge with a
+codex review on the whole diff before it.
+
 ## Surprises & Discoveries
 
 - **The "collapsed rim in light" was never collapsed.** Three cells, eighteen sides, two waves under
@@ -347,6 +442,15 @@ re-pinned. Everything else is the parent's on the standing instruction.
 - **vitrea's rim is a constant; the reference's is a law.** +0.060…0.078 linear on every light cell
   against +0.10…0.26 — and the CSS tier's inset shadow already has the form (source-over white)
   the GPU tier lacks.
+- **The law's slope changes sign with the scheme** (G0). Light −0.275 of the surface's level, dark
+  +0.94: the same expression, the opposite reading. Neither the screen form the charter favoured nor
+  the environment term survived the probe grids.
+- **The canonical light bed has two fittable solid cells.** Any two-constant law on the light
+  material is unfittable without W9's probe grid, which nothing in the harness captures routinely.
+- **The tinted collapsed capsule keeps a rim of +0.115** (both schemes, both scales, byte-identical
+  fixtures) where the untinted one keeps +0.020: an author tint over black is painted, not adapted.
+- **W21's probe grid collapses `rrect-sm` and `rrect-lg` over `dark-solid` and not `rrect-md`.** On
+  the record; read by nothing here.
 
 ## Outcomes & Retrospective
 
@@ -355,3 +459,8 @@ re-pinned. Everything else is the parent's on the standing instruction.
 ## Revision Notes
 
 - 2026-09-08: chartered; G0 dispatched.
+- 2026-09-08: G0 CLOSED (claims §5.100); Decision Log 2 — the law affine in the surface's own level
+  (the charter's advisory preference for the screen form overturned on the probe grids), the
+  collapsed rim absolute and not the dark rim (the charter's conditional resolved to no), the tinted
+  rows and `rimWidth2x` added to G1 as mechanisms, a collapsed golden added, X1's injection bound and
+  the straight span restated; `rimEnvGain` to be removed at G1. Deferred and Surprises updated.

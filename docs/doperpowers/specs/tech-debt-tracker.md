@@ -836,3 +836,40 @@ record (document digest `9360d73bd071`). Shape of the fix: a script the canonica
 the spec reading the capture from `web-captures/` on the capture machine with the fixture as the
 fallback.
 
+## The appearance switch measured at the contour instrument: the dark thin cells over structured backdrops are −16 and −19 codes in body (W23 G0, 2026-09-08)
+
+*Found beside the rim read (claims §5.100 §7).* `checkerboard__capsule-button__rest` and
+`photo__capsule-button__rest` in the dark scheme sit −16.05 and −19.05 codes below the reference's
+body at both scales, five to six times the thick cell's −2.93 over `dark-solid`; and on W21's probe
+grid the reference draws its LIGHT appearance on `light-solid__rrect-sm` in the dark scheme (body
+0.9666, contour clipped) where vitrea draws the dark material, which the W23 rim law makes 0.115
+worse on that non-canonical row. The same term W21 and W22 deferred by name, now with numbers in the
+contour instrument's units. Closes with the appearance switch's charter.
+
+## W21's probe grid collapses `rrect-sm` and `rrect-lg` over `dark-solid` and not `rrect-md` between them (W23 G0, 2026-09-08)
+
+*Found reading the collapsed cells (claims §5.100 §3).* In the dark reference's probe grid
+`dark-solid__rrect-sm` and `dark-solid__rrect-lg` both draw the collapsed appearance (body 0.0110,
+rim +0.0201 / +0.0196) while `dark-solid__rrect-md` does not (body 0.0153, rim +0.0256). A size law
+that collapses the small and the large surface and not the middle one is not a size law; the probe
+fixture may carry a state flip (claims §5.17's bistability) or the reference may key the collapse on
+something other than span. Read by nothing; a native re-capture of the three at one sitting would
+tell. Closes when the collapse's key is read.
+
+## The probe grids are the only fitting ground for a two-constant material law, and nothing in the harness captures them routinely (W23 G0, 2026-09-08)
+
+*Found fitting the rim's law (claims §5.100 §4).* The canonical light bed has two fittable solid
+cells (`dark-solid__rrect-md`, `impulse__rrect-md`, bodies 0.43 and 0.48 — nearly collinear) and the
+dark bed one; any law with an intercept and a slope on either material is unidentifiable without
+W9's light grid and W21's dark grid, which G0 rendered through its own `probe-ladder.sh` with
+`VITREA_SCENES` / `VITREA_FIXTURES`. If the material's laws are to be maintained, the harness should
+capture the probe grids as a declared set with their own reads, not a gate's script. Closes when the
+grids are a harness set.
+
+## `light-solid`'s second contour row carries 53 % of the reference's rim and −6 % of vitrea's, and no metric can read it once the first row clips (W23 G0, 2026-09-08)
+
+*Found on the width read (claims §5.100 §5).* Over `light-solid` both contour rows clip to 255 on
+the first row, so the summed rim differs by 0.024 at 1x through the SECOND row alone; ΔE and SSIM
+on a clipped row report nothing. The eye sees a softer edge. A width term (`rimWidth2x` at G1 for
+the 2x rows) does not reach the 1x second row; recorded as unreadable on this bed.
+
