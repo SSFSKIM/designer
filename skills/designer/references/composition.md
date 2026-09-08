@@ -223,7 +223,16 @@ Brief
   → test at the actual slot size
 ```
 
-Search a stock-photo service when the product needs photography or reference imagery. If the project already contains brand photography, user-uploaded assets, or an imported design with images, those take priority over a fresh search.
+An image-led brief ships imagery. Where the subject is a world — a place, a product, food, people at work — that is a photograph; where it is an artifact — a diagram, a record, an object the page explains — it is drawn as content (see "Imagery as content" above). A coloured block, an empty half, or a guessed URL where a picture belongs is a defect, and restraint is not a reason for it.
+
+Photographs come off a ladder, and each slot records the rung it landed on in `DESIGN.md` §4:
+
+1. **The project's own assets.** `node scripts/find-image.mjs inventory` (path relative to this skill's directory) lists every image already in the project with its size. Brand photography, uploaded assets, and an imported design's images outrank any search — a supplied photo is content to use, never redrawn.
+2. **Unsplash**, when an access key is present (`UNSPLASH_ACCESS_KEY`, or `~/.config/designer/unsplash-key`). `node scripts/find-image.mjs search "<query>" --n 6 --orientation landscape` returns candidates the script has already confirmed resolve, with size, colour, alt, photographer and the credit line. `pick <id>` prints the `<figure>` for the chosen one and registers the use, as Unsplash's API terms require.
+3. **Openverse**, the same commands without a key: Creative Commons photographs, no key, a lower editorial band and a licence that needs the credit line the script returns.
+4. **Draw it.** When no rung answers — no network, no key, nothing relevant — the slot is drawn as content and §4 says so, so a later pass with a source knows which slots to revisit.
+
+A photo id is never guessed and a URL is never typed from memory: a wrong id ships as a broken image. Every image carries alt text, its intrinsic width and height, a container background colour so the layout holds while it loads, and the credit its source requires — Unsplash asks for the photographer and a link, Creative Commons for the attribution string.
 
 ### Define the image's job before searching
 
