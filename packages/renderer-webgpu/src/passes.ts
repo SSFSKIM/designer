@@ -142,12 +142,12 @@ export interface OpticsPassArgs {
   readonly specularGain: number;
   /**
    * The rim's amplitude law (W23): the gain on the surface's own rendered
-   * luminance, the gain on the group's backdrop tone, and the rim the collapsed
-   * appearance keeps. All three are 0 on the shipped profile.
+   * luminance, and the rim the collapsed appearance keeps — bare, and at an
+   * author tint's full coverage.
    */
   readonly rimLevelGain: number;
-  readonly rimEnvGain: number;
   readonly rimCollapsed: number;
+  readonly rimCollapsedTinted: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -736,8 +736,8 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // constant living in the shadow's block is a layout nobody could read.
       // `d[99]` stays free.
       d[96] = args.rimLevelGain;
-      d[97] = args.rimEnvGain;
-      d[98] = args.rimCollapsed;
+      d[97] = args.rimCollapsed;
+      d[98] = args.rimCollapsedTinted;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

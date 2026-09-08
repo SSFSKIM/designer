@@ -109,11 +109,39 @@ export const SEEDS = [
  * a DIFFERENCE (passing `untintedOptics` changes nothing), and a difference is
  * stated at fixed constants or it is not stated at all. The shipped value's own
  * pins are `interior-level.test.ts` and `tier-coherence.test.ts`.
+ *
+ * The rim joined it in W23 (claims §5.100). The recording was taken while the
+ * rim was the constant 0.18 and nothing else — no law, no gain on the surface's
+ * own level, and nothing left of it once a material had collapsed — so all three
+ * are frozen at what the recording held: `rimAlpha` 0.18, `rimLevelGain` 0, and
+ * the collapsed rim 0 where `resolveSurface` calls `adaptedSourceOptics` below.
+ * The rim reaches these declarations twice, through `interiorBandLight`'s
+ * `addedLight` and through the border alpha, and the shipped constants' own pins
+ * are `interior-level.test.ts`, `backdrop-tone.test.ts` and `tier-coherence.test.ts`.
  */
 export const RECORDED_SOURCE_OPTICS: MaterialSourceOptics = {
   ...MATERIAL_SOURCE_OPTICS.regular,
   specularGain: 0.55,
+  rimAlpha: 0.18,
+  rimLevelGain: 0,
 };
+
+/**
+ * The mapping the recording was taken through, frozen for the same reason and in
+ * the same breath as the rim (W23; claims §5.100 §4).
+ *
+ * `borderAlphaPerRimAlpha` is a ratio whose NUMERATOR changed scale: it converts
+ * the renderer's resolved rim amplitude into this tier's one inset shadow, and
+ * W23 re-based it 1.95 → 0.64 because the amplitude it divides into grew about
+ * threefold when the rim became a law rather than a constant. The shipped border
+ * is the same border either way; a bed frozen at the recording's 0.18 amplitude
+ * has to be frozen at the recording's 1.95 with it, or it would state the old
+ * rim through the new tier's scale and land on a border no tree ever drew.
+ */
+export const RECORDED_MAPPING = {
+  ...CSS_TIER_MAPPING,
+  borderAlphaPerRimAlpha: 1.95,
+} as const;
 
 export interface ResolvedSurface {
   readonly interior: CssTierInterior;
@@ -165,7 +193,9 @@ export function resolveSurface(
     (policyStrength >= 0.999 ? 1 : 0) * clamp01(toneConstants.max),
     resolvedBackdropToneResponse(),
   );
-  const adapted = adaptedSourceOptics(responded, tone.rgb, adaptation);
+  // `rimCollapsed` 0: the tree this bed was recorded on faded the rim to nothing,
+  // and W23's 0.038 is a later reading of the reference (claims §5.100 §3).
+  const adapted = adaptedSourceOptics(responded, tone.rgb, adaptation, 0);
   const present = 1 - adaptation;
   const shadowed = innerShadowedSourceOptics(
     adapted,
@@ -179,7 +209,7 @@ export function resolveSurface(
   const grip =
     tintToneAdaptation(policy.material.ambientTint, shade) * shade.strength * (1 - adaptation);
   const seedLinear = tint === undefined ? undefined : linearTint(tint);
-  const untinted = cssOpticsFromSource(MATERIAL_OPTICS.regular, shadowed, CSS_TIER_MAPPING);
+  const untinted = cssOpticsFromSource(MATERIAL_OPTICS.regular, shadowed, RECORDED_MAPPING);
   return {
     interior,
     untinted,
@@ -221,7 +251,7 @@ export const DARK_UNTINTED: MaterialOptics = cssOpticsFromSource(
     tintAlpha: DARK_INTERIOR.tintAlpha,
     tint: DARK_INTERIOR.tint,
   },
-  CSS_TIER_MAPPING,
+  RECORDED_MAPPING,
 );
 
 /**

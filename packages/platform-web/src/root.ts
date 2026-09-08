@@ -135,6 +135,7 @@ import {
   backdropToneUnderPolicy,
   boundedForegroundLevel,
   CSS_TIER_MAPPING,
+  collapsedRim,
   cssOpticsFromSource,
   cssShadowBlurRadius,
   cssTierCompositeLevel,
@@ -152,6 +153,7 @@ import {
   resolvedBackdropToneResponse,
   resolvedPolicyFold,
   resolvedTintShade,
+  rimAmplitude,
   WEBGPU_PROXY_PROJECTION_SCALE,
   groupScatterSigma,
   sizeThickness,
@@ -2015,6 +2017,11 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           respondedSource,
           backdropTone?.rgb as LinearRgb | undefined,
           backdropAdaptation,
+          // The collapsed rim this surface keeps, which is the author tint's
+          // (W23): a painted surface over black keeps a brighter rim than a bare
+          // one, and the strength is per surface where the adaptation is per
+          // group, so the caller is the only place the two meet.
+          collapsedRim(material.tint?.strength ?? 0),
         );
         /*
          * The inner shadow, folded into the (colour, alpha) pair (W17 Decision
@@ -2066,7 +2073,23 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
                 rimWidth: policyFold.strongBorder.borderWidth,
                 rimAlpha: policyFold.strongBorder.borderAlpha,
               }
-            : gpuOptics[variant];
+            : {
+                ...gpuOptics[variant],
+                /*
+                 * The rim's AMPLITUDE, not its intercept (W23; claims §5.100 §8).
+                 * `interiorBandLight` integrates `rimAlpha` over the band, and
+                 * since the rim became a law of the surface's own level the
+                 * intercept is no longer the height of anything. Read at the same
+                 * level `adaptedSourceOptics` reads it at, so the border this
+                 * tier draws and the light the derived interior credits the band
+                 * with are one number; `present` beside it is still the caller's,
+                 * because the collapse belongs to the group's backdrop.
+                 */
+                rimAlpha: rimAmplitude(
+                  gpuOptics[variant],
+                  backdropTone?.linearLuminance ?? toneBackdrop,
+                ),
+              };
         const interior: CssTierInterior = {
           tintAlpha: shadowedSource.tintAlpha,
           tint: [shadowedSource.tint[0], shadowedSource.tint[1], shadowedSource.tint[2]],

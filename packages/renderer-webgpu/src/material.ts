@@ -87,44 +87,73 @@ export interface MaterialOptics {
   /** Rim band half-width in CSS px, and its ambient brightness. */
   readonly rimWidth: number;
   readonly rimAlpha: number;
+  /**
+   * **The rim band's half-width at dpr 2** (W23; claims §5.100 §5, Decision
+   * Log 2 (d)) — `rimWidth`'s second reading, on the precedent of
+   * `sizeScatterGainMax2x` and its siblings and interpolated by the same
+   * `rampAtScale`.
+   *
+   * The rim's amplitude below is one law for both scales, and it cannot be: read
+   * at the contour, vitrea's per-CSS-px band integral RISES 19 % between 1x and
+   * 2x (0.068 → 0.081) while the reference's FALLS 10 % (0.229 → 0.205), so the
+   * same amplitude that lands the 1x dark-backdrop solids at −0.003…−0.007 lands
+   * the 2x rows at +0.037…+0.051. The mismatch is the band's shape and not its
+   * height: at 1x over a dark backdrop the two rims are already the same
+   * one-pixel line (the reference's second contour row carries 8 % of the peak
+   * and vitrea's −7 %), and at 2x vitrea spreads 35 % of its peak onto the second
+   * row where the reference puts 55 % of a NARROWER line. So `rimWidth` does not
+   * move — the 1x rows do not ask it to — and the 2x band narrows instead.
+   *
+   * At dpr ≤ 1 this constant is not read at all (`rimWidthAtScale`), so a profile
+   * that carries it renders the 1x material unchanged by construction.
+   */
+  readonly rimWidth2x: number;
   /** Specular exponent and gain on the rim. */
   readonly specularPower: number;
   readonly specularGain: number;
   /**
-   * **The rim's amplitude law (W23)** — the two terms that let the rim depend on
-   * what it is drawn over, which `rimAlpha` alone cannot.
+   * **The rim's amplitude law (W23; claims §5.100 §4, Decision Log 2 (a))** — the
+   * term that lets the rim depend on what it is drawn over, which `rimAlpha`
+   * alone cannot.
    *
-   * `rimAlpha` is an additive constant: the shader adds `rimWeight × rimAlpha`
-   * and nothing scales it. The reference's rim is not a constant. Read at the
-   * contour (claims §5.99, W23 X1) the light reference's rim is +0.23…0.26 of
-   * linear luminance over a dark solid, +0.13…0.21 over a structured backdrop
-   * and clipped to white over `light-solid`, while vitrea draws the same
-   * +0.060…0.078 everywhere; and the dark reference's rim GROWS with what is
-   * behind it, +0.026 over `dark-solid` and +0.103 over `light-solid`, at a body
-   * that moves by only a twelfth as much.
+   * `rimAlpha` was an additive constant: the shader added `rimWeight × rimAlpha`
+   * and nothing scaled it. The reference's rim is not a constant. Read at the
+   * contour (claims §5.99, §5.100 §2; W23 X1) the light reference's rim is
+   * +0.23…0.26 of linear luminance over a dark solid, +0.13…0.21 over a
+   * structured backdrop and clipped to white over `light-solid`, while vitrea
+   * drew the same +0.060…0.078 everywhere; and the dark reference's rim GROWS
+   * with what is behind it, +0.026 over `dark-solid` and +0.103 over
+   * `light-solid`, at a body that moves by only a twelfth as much.
    *
    * `rimLevelGain` is the coefficient of the surface's OWN rendered level: the
-   * rim becomes `rimAlpha + rimLevelGain × luminance(surface)`. It is signed,
-   * and its sign is the whole finding. A negative gain is the screen form — a
-   * white line composited source-over at alpha `−rimLevelGain` of the body's
+   * rim becomes `rimAlpha + rimLevelGain × luminance(surface)`. Four candidate
+   * forms were fitted on the reference's own solid, unclipped, uncollapsed sides
+   * — 44 in light and 36 in dark, from both canonical scales and both probe grids
+   * — and this one wins in both schemes on mean |residual|: 0.0081 / 0.0013
+   * against 0.0249 / 0.0253 for the additive constant, 0.0168 / 0.0259 for a pure
+   * screen and 0.0105 / 0.0042 for screen plus an environment term.
+   *
+   * The gain is SIGNED, and its sign is the whole finding. A negative gain is the
+   * screen form — a white line composited source-over at a fraction of the body's
    * headroom, which is what the CSS tier's inset `box-shadow` already is — and
    * the light material's rows want one. A positive gain is a rim that rides its
-   * own body up, and the dark material's rows want that.
+   * own body up, and the dark material's rows want that, strongly.
    *
-   * `rimEnvGain` is the coefficient of the ENVIRONMENT: the backdrop source's own
-   * average luminance, the number the group already resolved for the tone
-   * response (`toneColour.w` in the optics uniform). It is the term W23 chartered
-   * as (L3) — the candidate for what makes the reference's rim clip over a bright
-   * backdrop while its body is nowhere near white. It is a per-group constant and
-   * not a per-pixel backdrop sample on purpose: the CSS tier can carry a group
-   * constant through `optics.ts` and cannot carry a per-pixel one, and X5 asks
-   * the two tiers to derive from one law.
-   *
-   * Both default to 0, at which the rim is exactly `rimAlpha` and every golden
-   * and every capture reproduces byte for byte.
+   * **The environment term is not here, and its absence is a measurement.** W23
+   * chartered `rimEnvGain` — a coefficient on the backdrop source's own average
+   * luminance — as the candidate (L3) for what makes the reference's rim clip
+   * over a bright backdrop while its body is nowhere near white. It is declined
+   * and REMOVED rather than shipped at 0: it is worse than this law on the
+   * reference in both schemes, and no row of either bed separates it on vitrea's
+   * side (a rendered ladder point at +0.10 of gain moved every solid cell by 0 or
+   * 0.0005, because `light-solid` clips and the dark solids have no environment
+   * to speak of). C9a §6.2's rule is that a constant whose rows do not separate
+   * it is not carried. What the reference does there is real and is recorded in
+   * the wave's Deferred list with its numbers: a bed with a mid-bright solid
+   * backdrop under a light-scheme thick surface would tell the environment apart
+   * from the body, and no bed that exists can.
    */
   readonly rimLevelGain: number;
-  readonly rimEnvGain: number;
   /** Inner-shadow depth (0..1) and how much of it is applied. */
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -1033,11 +1062,46 @@ export interface MaterialProfile {
    * appearance is scheme-independent and the fixtures say so: the light and dark
    * fixtures of `dark-solid__capsule-button` are byte-identical at both scales
    * (W23 X4). A reading that separates the schemes under collapse is a finding
-   * about the wave, not a second constant.
+   * about the wave, not a second constant. G0 strengthened the evidence: the
+   * identity survives an AUTHOR TINT — `dark-solid__capsule-button__rest-tint-
+   * orange` is the same bytes in both schemes at both scales — so what the
+   * collapse draws is one appearance however the surface was painted.
    *
-   * 0 by default: the collapse folds the rim out exactly as it did before.
+   * It is expressed in its own units and not in the dark rim's, because the two
+   * were measured apart: see the value's own note on the default profile.
    */
   readonly rimCollapsed: number;
+
+  /**
+   * **The rim a PAINTED surface keeps under the collapse** (W23 G1; claims
+   * §5.100 §5, Decision Log 2 (c)) — `rimCollapsed`'s sibling, at the author
+   * tint's full coverage, with the two lerped by the coverage between them.
+   *
+   * The reference's collapsed capsules keep +0.020 of contour rim bare and
+   * **+0.115 painted** (`dark-solid` and `impulse` `capsule-button`
+   * `rest-tint-orange`, both schemes, both scales, on fixtures that are the same
+   * bytes in the two schemes). An author tint over black is painted, not
+   * adapted: the tone collapse takes the material's own appearance to its
+   * backdrop and the colour the author put on it does not go with it.
+   *
+   * It is ABSOLUTE, in its own units, for the same reason `rimCollapsed` is and
+   * on the same evidence — and G1 measured what the alternative would have cost.
+   * Decision Log 2 (c) proposed gating the collapse itself on the tint's
+   * coverage, so that a painted surface keeps its APPEARANCE's own rim; rendered,
+   * that mechanism needs a gate of 0.534 on the light bed and 0.294 on the dark
+   * one to reach +0.115 on a cell whose reference fixture is byte-identical
+   * between the schemes, because it makes the kept rim proportional to each
+   * scheme's own amplitude law and those differ by 1.8× there. A proportional
+   * form cannot draw one appearance from two materials; an absolute one does,
+   * which is X4 again and the reason this constant has the shape it has.
+   *
+   * It is fitted on orange alone, and that is a stated limit: the reference's
+   * collapsed tint-blue capsule reads +0.176 against orange's +0.115, so the
+   * quantity depends on the tint's own colour, and every collapsed blue cell on
+   * the bed is holdout. What lands here is the orange rows' answer with the
+   * colour dependence recorded as future work.
+   */
+  readonly rimCollapsedTinted: number;
 
   /**
    * **The backdrop tone response (W9)** — the law that owns the interior MEAN,
@@ -1206,7 +1270,70 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
       tint: srgbToLinear(SRGB_WHITE_TINT),
       tintAlpha: 0.46,
       rimWidth: 1.5,
-      rimAlpha: 0.18,
+      /*
+       * REFITTED 0.18 → 0.844 (W23 G1; claims §5.100 §4, W23 Decision Log 2 (a)),
+       * as the intercept of the amplitude law below rather than as the whole rim.
+       *
+       * It is not the same quantity it was. Before W23 this constant WAS the rim,
+       * and 0.18 drew the same +0.060…0.078 of linear luminance at the contour on
+       * every cell of the light bed against a reference of +0.10…+0.26; now it is
+       * one of two terms, and on a light surface whose own level is 0.48 the pair
+       * draws `0.844 − 0.628 × 0.48 = 0.542` of amplitude — three times the old
+       * constant, for a rim about a third brighter than the old one at the
+       * contour, because the amplitude is not the rim: the band weight `W` the
+       * first two CSS px carry is 0.38…0.46 (claims §5.100 §4).
+       *
+       * Fitted on vitrea's OWN captures, not on a prediction: the shader's rim is
+       * linear in each constant, so a base capture at the shipped `rimAlpha`
+       * gives each cell's band weight and one rendered `rimLevelGain` point gives
+       * `W × L`, and the pair is solved by least squares over 40 rendered solid
+       * rows on 10 cells. **The canonical bed cannot fit it** — over a solid
+       * backdrop, unclipped, uncollapsed and outside the holdout the light bed
+       * leaves exactly two cells at bodies 0.48 and 0.43, and two nearly collinear
+       * rows separate no slope from an intercept (solved on 1x alone they give
+       * (0.302, +0.569) and on 2x alone (0.383, +0.183), a factor of three apart
+       * and both with the wrong sign) — so W9's light probe grid, whose bodies
+       * span 0.43…0.93, is what conditions the solve (9.7). That the routine
+       * harness captures no probe grid is recorded as a gap, not fixed here.
+       *
+       * Rendered, on the rows the wave's acceptance names: the light 1x solid
+       * cells go from 0.087 to 0.016 mean |rim − reference| per side (worst 0.168
+       * → 0.033) and `dark-solid__rrect-md` from 0.068 to 0.227 against the
+       * reference's 0.229.
+       *
+       * W22 G1 declined this constant on the same rows and that decline is not
+       * rewritten (claims §5.94 §3): it was read through the declared box's 3 CSS
+       * px band, whose peak-row mean over a dark backdrop carries the corners'
+       * backdrop and dilutes a one-pixel line, and it was the right answer to the
+       * question that instrument asked. The contour read is a different question.
+       */
+      rimAlpha: 0.844,
+      /*
+       * FITTED 1.35 (W23 G1; claims §5.100 §5, Decision Log 2 (d)) — the band at
+       * dpr 2, about 10 % narrower than at dpr 1.
+       *
+       * Two clauses of the wave meet on this constant and they pull opposite
+       * ways, which is why it is not simply the minimiser of one of them. The
+       * uncollapsed 2x solids want the band NARROW: at 1.5 `dark-solid__rrect-md`
+       * reads +0.2467 against the reference's +0.2052 on the light bed, and the
+       * rendered ladder point at 1.2 reads +0.1883, so the row's own answer is
+       * 1.29. The COLLAPSED cells want it wide, because `rimCollapsed` was
+       * fitted through this same band: at 1.5 they read −0.0017 from the
+       * reference and at 1.2 −0.0059, which is outside the wave's 0.005.
+       *
+       * 1.35 leaves the solids at +0.0123 against a bound of 0.03 and the
+       * collapsed sides at 0.0038 against a bound of 0.005 — each clause inside
+       * its own bound with margin in proportion to how tight that bound is. The
+       * joint minimiser over the twelve rows is 1.30, and it is not taken: at
+       * 1.30 the collapsed sides read 0.0045 against a 0.005 bound, a margin of
+       * 0.0005 on an instrument whose 8-bit resolution at that level is 0.00067.
+       *
+       * The dark bed does not identify it — its one 2x solid row moves by 0.0061
+       * across the whole ladder and is inside the bound at every value — so this
+       * is the light bed's constant, checked against the dark bed rather than
+       * fitted on it.
+       */
+      rimWidth2x: 1.35,
       specularPower: 6,
       /*
        * FITTED 0.55 → 0 (W22 G1; claims §5.94 §3, W22 Decision Log 2 (b)). The
@@ -1255,13 +1382,27 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        */
       specularGain: 0,
       /*
-       * 0 / 0: the rim's amplitude law is DECLARED but not yet fitted (W23 G0).
-       * At zero the rim is the additive constant it has been since W11c, so the
-       * seam is here with its rationale beside it and no pixel has moved; G1
-       * lands the fitted pair under the wave's Decision Log 2.
+       * FITTED −0.628 (W23 G1; claims §5.100 §4, W23 Decision Log 2 (a)) — the
+       * light rim is a fraction of the body's HEADROOM, and the negative sign is
+       * the measurement.
+       *
+       * On the reference's own solid, unclipped, uncollapsed light sides — 44 of
+       * them, bodies 0.4287…0.9326, from both canonical scales and W9's probe
+       * grid — the rim falls as the surface brightens: `0.3559 − 0.2752 × base`,
+       * mean |residual| 0.0081 where an additive constant reads 0.0249 and a pure
+       * screen 0.0168. A pure screen would need the slope to be exactly −α; it is
+       * −0.275 against the −0.43 the screen form requires, which the canonical
+       * bed's two cells at 0.43 and 0.48 could not have told apart and the probe
+       * grid's range can. So the light rim is a white line composited source-over
+       * — the form the CSS tier's inset `box-shadow` has always drawn — with an
+       * additive part beside it, and this is that composite written once.
+       *
+       * The gain is steeper here (−0.628) than on the reference (−0.2752) for the
+       * same reason `rimAlpha` is larger than the rim: this constant multiplies
+       * the shader's per-pixel `rimLuma` before the band weight, and the fit is
+       * the one solved on rendered rows.
        */
-      rimLevelGain: 0,
-      rimEnvGain: 0,
+      rimLevelGain: -0.628,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
@@ -1286,12 +1427,13 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
       tintAlpha: 0.1,
       rimWidth: 1.25,
       rimAlpha: 0.14,
+      // No scene on the calibration bed declares this variant, so its rim has no
+      // rows: the amplitude law stays at the additive form and the band stays
+      // ungraded across the scales (W22's rule for `clear`, C9a §6.2).
+      rimWidth2x: 1.25,
       specularPower: 8,
       specularGain: 0.45,
-      // No scene on the calibration bed declares this variant, so its rim law
-      // has no rows and stays at the additive form (W22's rule for `clear`).
       rimLevelGain: 0,
-      rimEnvGain: 0,
       shadowDepth: 0.22,
       shadowAlpha: 0.4,
       highlight: srgbToLinear(SRGB_WHITE_TINT),
@@ -1620,11 +1762,52 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneSizeBias: 0.05,
 
   /*
-   * 0: the collapse still folds the rim out, exactly as it has since W7. The
-   * seam is declared here with its measurement beside it (W23 G0) and G1 lands
-   * the value the collapsed cells read; at 0 no capture and no golden moves.
+   * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is
+   * NOT the dark material's rim, which is the one thing the charter thought it
+   * might be.
+   *
+   * The reference's collapsed rim, read at the contour over 11 cells and 28
+   * sides of both beds at both scales, is +0.0189 mean (+0.0196…+0.0204 over
+   * `dark-solid`, +0.0149…+0.0168 over `impulse` — the spread is the backdrop,
+   * not noise). The dark material's OWN rim over the same backdrop, uncollapsed,
+   * is +0.0256…+0.0258. The two are 0.0068 apart, nine 8-bit codes at that level
+   * on an instrument that is exact in float and resolves 0.00067 there, so the
+   * collapsed rim is an absolute constant in its own units and the charter's
+   * conditional resolves to no.
+   *
+   * 0.038 is the minimiser over every collapsed side: the worst residual reads
+   * 0.0042 at 0.035, **0.0031 at 0.038**, 0.0041 at 0.040 and 0.0065 at 0.045,
+   * and it is the only value that leaves every untinted collapsed side inside
+   * the wave's clause 1 (0.005) with margin. Rendered, the collapsed sides go
+   * from 0.0180 to 0.0021 mean |rim − reference|.
+   *
+   * The per-row answers span 0.0317…0.0441, which under a rule that refuses a
+   * constant its rows do not separate (C9a §6.2) needs a stated reason: the rows
+   * disagree because the REFERENCE's own collapsed rim differs by backdrop —
+   * +0.0200 over `dark-solid` against +0.0158 over `impulse` — and not because
+   * the constant is unidentified on vitrea's side, where the leverage is exactly
+   * linear and every row reads the same slope.
+   *
+   * The collapsed BODY is read and not chased: 0.01103 native against 0.01171
+   * web over `dark-solid` (+1.05 codes) and 0.00664 against 0.00367 over
+   * `impulse` (−6.2 codes). This constant does not touch it.
    */
-  rimCollapsed: 0,
+  rimCollapsed: 0.038,
+
+  /*
+   * FITTED 0.337 (W23 G1; claims §5.100 §5, Decision Log 2 (c)). The reference's
+   * collapsed tint-orange capsule keeps +0.1149 of contour rim at 1x and +0.1179
+   * at 2x where the bare one keeps +0.0200, and the drawn rim is exactly linear
+   * in this constant, so one rendered point per scale gives each row its own
+   * answer: 0.327 at 1x and 0.349 at 2x, the difference being the band, which is
+   * scale-graded and this constant is not. 0.337 is the minimiser of the worst
+   * residual over the four cells — +0.0036 at 1x and −0.0039 at 2x — and the
+   * three non-holdout cells that carry it (`dark-solid__capsule-button__rest-
+   * tint-orange` and `impulse__capsule-button__rest-tint-orange` on the light bed
+   * and `dark-solid__capsule-button__rest-tint-orange` on the dark one) all
+   * answer the same value in both schemes, because the constant is absolute.
+   */
+  rimCollapsedTinted: 0.337,
 
   /*
    * MEASURED (W9 probe, claims §5.30–§5.33): the anchors are the probe bed's
@@ -1853,6 +2036,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneHigh?: number;
   readonly backdropToneSizeBias?: number;
   readonly rimCollapsed?: number;
+  readonly rimCollapsedTinted?: number;
   readonly backdropToneAnchorX?: readonly [number, number, number];
   readonly backdropToneResponseThin?: readonly [number, number, number];
   readonly backdropToneResponseThick?: readonly [number, number, number];
@@ -1980,6 +2164,7 @@ export function withMaterialOverrides(
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
     backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
+    rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
     backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
     backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,
@@ -2664,6 +2849,23 @@ function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): numb
   if (t <= 0) return at1x;
   if (t >= 1) return at2x;
   return at1x + (at2x - at1x) * t;
+}
+
+/**
+ * **The rim band's half-width at a device scale** (W23 G1, claims §5.100 §5;
+ * W23 Decision Log 2 (d)).
+ *
+ * The rim's amplitude is one law for both scales and its band is not: read at
+ * the contour, vitrea's per-CSS-px band integral rises 19 % between 1x and 2x
+ * while the reference's falls 10 %, and no amplitude constant can absorb a
+ * mismatch that is across the scale axis. So the band takes a second anchor at
+ * dpr 2 through the same `rampAtScale` the body's second-scale constants use,
+ * and at dpr ≤ 1 it returns `rimWidth` exactly — a variant whose two anchors
+ * are equal renders identically at every ratio, which is what the `clear`
+ * variant and the strong-border rim both do.
+ */
+export function rimWidthAtScale(optics: MaterialOptics, devicePixelRatio = 1): number {
+  return rampAtScale(optics.rimWidth, optics.rimWidth2x, devicePixelRatio);
 }
 
 /**

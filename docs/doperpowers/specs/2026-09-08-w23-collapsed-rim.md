@@ -320,7 +320,7 @@ it. The GPU is shared; one capture at a time.
 | child | status |
 | --- | --- |
 | G0 — the instrument, the read, the law | CLOSED 2026-09-08 (claims §5.100; branch `worktree-agent-aa0ee5ea92534c3fd` at `499f7c0`, carried into G1's worktree; Decision Log 2) |
-| G1 — the mechanism landed, the form dry-run | DISPATCHED 2026-09-08 (from G0's branch; Decision Log 2's rulings) |
+| G1 — the mechanism landed, the form dry-run | DECLARED 2026-09-08 (claims §5.101; branch `worktree-w23-g1`; the holdout read once at fingerprints `ee0010558553ee12` / `afd0e999e2f5813e`) — clauses 1 (rim), 2, 5, 6, 7 and 8 met; clauses 3 and 4 missed with their numbers; stops S2 and S3 fire at the fifth decimal; the parent's calls are in `g1/g1-dryrun.md` §10 |
 | G2 — the landing and its referee | — |
 
 ## Decision Log
@@ -459,6 +459,15 @@ codex review on the whole diff before it.
 ## Revision Notes
 
 - 2026-09-08: chartered; G0 dispatched.
+- 2026-09-08: G1 DECLARED (claims §5.101). The law landed with the constants G0 solved, plus three
+  terms Decision Log 2 handed it: `rimWidth2x` 1.35, `rimCollapsedTinted` 0.337 and the law's input
+  moved to the MATERIAL's own level rather than the painted one — without which the dark bed's
+  tinted rows drew +0.344 against a reference of +0.129. `rimEnvGain` removed and `rimTintKeep`
+  refused, both on rendered rows. `cssTierMapping.borderAlphaPerRimAlpha` re-based 1.95 → 0.64.
+  Clause 1's rim half met on every collapsed side of both beds at both scales (worst 0.0040);
+  clauses 2, 5, 6, 7 and 8 met; clause 3 missed on 24 of 88 structured sides (68 before) and
+  clause 4 not closed — the band read overshoots where the contour read matches, and the corner is
+  where the two readers differ. Two stops fire at the fifth decimal, both on the CSS tier.
 - 2026-09-08: G0 CLOSED (claims §5.100); Decision Log 2 — the law affine in the surface's own level
   (the charter's advisory preference for the screen form overturned on the probe grids), the
   collapsed rim absolute and not the dark rim (the charter's conditional resolved to no), the tinted

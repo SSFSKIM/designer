@@ -13762,3 +13762,114 @@ term real in the reference and unmeasurable on this bed; the light bed's two fit
 `light-solid__rrect-sm` on the probe grid 0.115 worse under the fitted dark law (the appearance
 switch).
 
+
+### 5.101 W23 G1 DECLARED: the rim landed as a law of the surface's own level, with a band graded across the scales and a rim the collapse keeps — glass on black is visible on every collapsed cell of both beds at both scales, the goldens moved inside their contour bands and nowhere else, and the dry run read the holdout once; two of the wave's mechanisms were rendered and refused, the band read does not close where the contour read does, and two stops fire at the fifth decimal (2026-09-08)
+
+**Evidence** `results/2026-09-08-w23-collapsed-rim/g1/` — `g1-dryrun.md` (the declaration above the
+rule, the run below it), `g1-clauses.txt`, `stops.txt`, `delta-e.txt`, `byte-identity.txt`,
+`g1-digests.txt`, `g1-gate.txt`, `goldens-attribution.txt`, `rim-feed.txt`, `ladder/`,
+`fit-mechanisms.py`, `sheets/g1-1x.png` and `g1-2x.png`. Six profiles, both tiers, 229 cells, the
+holdout read once at the frozen configuration.
+
+**§1 What landed.** Six constants move and one is removed, all of them leaves of the profile:
+
+| constant | before → after | fitted on |
+| --- | --- | --- |
+| `optics.regular.rimAlpha` (light) | 0.18 → **0.844** | 40 rendered solid rows, 10 cells, condition 9.7 |
+| `optics.regular.rimLevelGain` (light) | — → **−0.628** | the same solve |
+| `optics.regular.rimAlpha` (dark patch) | 0.082 → **0.0265** | 32 rendered solid rows, 8 cells, condition 29.7 |
+| `optics.regular.rimLevelGain` (dark patch) | — → **+2.334** | the same solve |
+| `optics.regular.rimWidth2x` | — → **1.35** | one rendered point at 1.2 on both beds at 2x |
+| `rimCollapsed` | — → **0.038** | 28 reference sides on 11 collapsed cells |
+| `rimCollapsedTinted` | — → **0.337** | one rendered point per scale on three tinted collapsed cells |
+| `cssTierMapping.borderAlphaPerRimAlpha` | 1.95 → **0.64** | re-based onto the law's amplitude, not refitted |
+| `optics.*.rimEnvGain` | 0 → **removed** | declined on every row of both beds (C9a §6.2) |
+
+Fingerprints `f6c54a1ea236447a` → **`ee0010558553ee12`** (light) and `d86f480c0e136627` →
+**`afd0e999e2f5813e`** (dark). Both documents move, so all six profiles were re-run.
+`platform-web/src/dark-profile.ts` regenerates from the dark document (X7).
+
+**§2 The law's input is the MATERIAL's level, and that is G1's finding rather than G0's.** The
+shader took the level as the tint shade does, and the tint shade reads the composite AFTER the
+author's colour. On untinted rows the two are the same quantity; on tinted ones they are not, and at
+G0's fitted point the dark bed's tinted structured cells drew **+0.3444 against the reference's
++0.1286** — worse than the landed bed by 0.108, where Decision Log 2 (c) binds this gate to no
+tinted row worse than landed by more than 0.03. The rim is the material's mark and the author's
+colour is painted over it, which is (c)'s own first candidate read as an INPUT rather than as a
+composite order. The shader now carries the material's own composite beside the tinted one and the
+law reads that; for an untinted pixel the two are bit-identical and no untinted row moves. Rendered,
+every tinted row on both beds is better than landed: light 1x `checkerboard` tint-orange 0.0699 →
+**0.1719** against +0.1684, `photo` tint-blue 0.0698 → **0.2007** against +0.2115, dark 1x
+`checkerboard` tint-orange 0.0207 → **0.0551** against +0.1286.
+
+**§3 Two mechanisms rendered and refused.** `rimEnvGain`, the wave's chartered (L3), is worse than
+the affine law on the reference in both schemes and separated by no row on either bed (+0.10 of gain
+moved every solid cell by 0 or 0.0005), so it is removed from the code rather than shipped at 0.
+`rimTintKeep` — Decision Log 2 (c)'s second candidate, gating the collapse on the author tint's
+coverage so a painted surface keeps its APPEARANCE's own rim — was rendered on both beds and needs
+**0.534 on the light bed and 0.294 on the dark one** to reach the reference's +0.1149 on a cell
+whose fixture is byte-identical between the schemes. A gate on `present` makes the kept rim
+proportional to each scheme's amplitude law and those differ by 1.8× there, so no single value draws
+one appearance out of two materials. `rimCollapsedTinted` lands instead, absolute in its own units
+exactly as `rimCollapsed` is — which is X4 again.
+
+**§4 The clauses.**
+
+1. **MET on the rim.** Every collapsed side of every collapsed cell, both schemes, both scales,
+   inside 0.005; worst **0.0040**. Before this gate every one of them read exactly 0.0000. The body
+   half is met on `dark-solid__capsule-button` (+0.0007) and missed on `impulse__capsule-button` by
+   0.0029–0.0033 — the pre-existing −6.2 codes of §5.100 §3, which did not move (S7 worst 0.00004).
+2. **MET.** Worst |after − native| over every untinted solid side at both scales in both schemes
+   **0.0200** against 0.03; `L−R` inside 0.003; the clipped `light-solid` rows clip in both.
+3. **MISSED as a per-side bound, met on its second half.** Over 88 structured sides: mean |d|
+   0.0886 → **0.0420**, sides over 0.05 **68 → 24**, and on top/bottom alone 41 → 5 at mean 0.0227.
+   The residual is the LEFT and RIGHT sides under a structured backdrop, where the reference's own
+   two sides split by 2.4× on a cell whose top and bottom agree to 0.002. Validation reads 0.0155
+   against calibration's 0.0479, so the law is not a fit to its own rows.
+4. **MISSED, and the two instruments disagree in a legible place.** The eighteen deferred sides
+   crossed the target rather than reaching it (1x −0.093 → **+0.031**, 2x −0.087 → **+0.088**), and
+   47 sides that met W22's 0.03 no longer do. On `dark-solid__rrect-md` at 1x the CONTOUR read gives
+   +0.2176 against +0.2293 while the BAND read gives an excess of +0.078 against +0.047: the contour
+   read excludes 1.6 radii of corner and the band read averages the arcs in, so what they disagree
+   about is **the rim in the corners**. A candidate, not a proof — this gate has no corner reader.
+5. **MET on the GPU tier.** Every GPU calibration mean improves or holds: light 0.00330 → 0.00328
+   (1x) and 0.00333 → 0.00332 (2x), dark 0.00404 → 0.00398 and 0.00403 → 0.00400. No untinted row
+   fires S1 (worst ΔE rise +0.00078 against 0.001, worst `ssimMean` fall −0.00475 against 0.005). No
+   adopted bound widened.
+6. **The holdout, once.** GPU light **0.00914 → 0.00909** (1x) and **0.00906 → 0.00904** (2x); GPU
+   dark **0.01326 → 0.01331** (1x) and **0.01301 → 0.01317** (2x). 229 digests for G2.
+7. **The goldens, attributable.** Every scene rendered twice through the isolation proof's own seam,
+   before and after the rim's five constants: **not one pixel outside a contour band moved on any
+   scene**; inside, 8–80 codes on the ten that carry a rim and 130 on the new `collapsed-tone`.
+   `highlight-press-glow` moved 0 pixels, as it has through every wave since 2026-08-25. Ten hashes
+   re-recorded under `W23_HASHES`, one new; the suite is 31 / 31.
+8. **The CSS tier derives, every mover named.** 107 of 115 CSS renders move; the 8 that do not are
+   the increased-contrast profile, where `border: "strong"` substitutes its own width and alpha and
+   the law does not reach the tier at all. The movers are the amplitude law, the re-based
+   conversion, the collapsed rims' floor and `interiorBandLight`'s derived level.
+
+**§5 The `rimLuma` feed, verified (Decision Log 2 (f)).** The tone `scene.ts` publishes, read per
+group on every scene of both beds at both scales: **42 groups per bed, none absent, none exactly 0**,
+spanning 0.00375 to 0.89097 in linear mean. G0's gap 5 resolves in two halves — the feed was 0 in the
+GOLDEN harness, which `collapsed-tone` now supplies, and it is a real measured level on every
+calibration group.
+
+**§6 The gate, and what G2 re-derives.** 24 of 33 pass; the nine failures are the machine's
+bookkeeping. `PREDICATE_EXCLUDES` re-derives **29 → 27** — four dom cells become well-conditioned
+(`dark-solid__rrect-md` in dark at both scales, and two holdout cells) and two are newly refused
+(`texture / dark-solid__capsule-button` at 2x in both schemes). One mechanism, both directions: a rim
+on a surface that drew nothing changes the web silhouette. Cell counts and the coherence rows' own
+lists move with it.
+
+**§7 The stops.** S1, S4, S6 and S7 do not fire. **S2 fires** on
+`photo__capsule-button__rest-tint-orange-half`, CSS tier, both scales, body +0.0035 against 0.002 —
+the one tinted cell whose material shows through the paint, carrying `interiorBandLight`'s brighter
+band into the derived interior level. **S3 fires on the CSS tier at the fifth decimal** (2x light
++0.00011 against 0.0001) while every GPU calibration mean improves. S5 refused a mechanism rather
+than firing on a landed constant. S8 is the user's, on `sheets/g1-1x.png` and `g1-2x.png`.
+
+**Gaps this gate adds to the record:** the CSS tier's own rim amplitude, now measurable on the
+contour instrument and 30–45 % short over a dark backdrop in light and 1.6× bright in dark, with
+`borderAlphaPerRimAlpha` re-based and unfitted; the tinted collapsed rim's dependence on the tint's
+own COLOUR (+0.115 orange against +0.176 blue, and every collapsed blue cell holdout); and the
+corner rim clause 4 points at. All three are in `tech-debt-tracker.md`.

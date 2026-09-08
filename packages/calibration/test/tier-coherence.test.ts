@@ -39,9 +39,12 @@ import {
   MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
+  RIM_COLLAPSED,
+  RIM_COLLAPSED_TINTED,
   STRONG_BORDER,
   TINT_SHADE,
   authorTintLayer,
+  collapsedRim,
   cssOpticsFromSource,
   cssTierDeclarations,
   cssTierForegroundLevel,
@@ -193,9 +196,33 @@ describe("tier coherence (K5)", () => {
       expect(mirrored.blurSigma, variant).toBe(renderer.blurSigma);
       expect(mirrored.tintAlpha, variant).toBe(renderer.tintAlpha);
       expect(mirrored.rimAlpha, variant).toBe(renderer.rimAlpha);
+      // The rim's amplitude law, mirrored (W23; claims §5.100 §8): `rimAlpha` is
+      // the law's intercept on both sides of the boundary and the gain is the
+      // other half of it, so a mirror that carried one and not the other would
+      // put the two tiers on different rims while passing the line above.
+      expect(mirrored.rimLevelGain, variant).toBe(renderer.rimLevelGain);
       expect([...mirrored.tint], variant).toEqual([...renderer.tint]);
       expect([...mirrored.highlight], variant).toEqual([...renderer.highlight]);
     }
+  });
+
+  it("mirrors the two collapsed rims, which are the profile's and not a variant's", () => {
+    /*
+     * The rim a collapsed surface keeps (W23; claims §5.100 §§3 and 5). Both are
+     * profile-level and not per variant, because the reference's collapsed
+     * capsules are byte-identical between the two colour schemes — painted as
+     * well as bare (W23 X4) — so the mirror is two constants rather than a leaf
+     * of the loop above, and `collapsedRim` is the one expression both tiers
+     * lerp them with.
+     */
+    expect(RIM_COLLAPSED).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsed);
+    expect(RIM_COLLAPSED_TINTED).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted);
+    expect(collapsedRim(0)).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsed);
+    expect(collapsedRim(1)).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted);
+    expect(collapsedRim(0.5)).toBeCloseTo(
+      (DEFAULT_MATERIAL_PROFILE.rimCollapsed + DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted) / 2,
+      12,
+    );
   });
 
   it("covers exactly the renderer's variants — a new one must not default silently", () => {

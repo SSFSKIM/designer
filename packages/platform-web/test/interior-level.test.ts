@@ -263,14 +263,25 @@ describe("the band's derived light (W17 G1)", () => {
     for (const probe of PROBES) {
       /*
        * G0's evaluation was taken at `specularGain` 0.55, which W22 G1 fitted to
-       * 0 (claims §5.94 §3). Its numbers are committed evidence and are not
-       * rewritten: the reproduction is asserted at the constants G0 held, and the
-       * value the shipped constant now derives is recorded beside it as
-       * `bandLightW22` and asserted in its own right. The derivation is what is
-       * being pinned here, and it is unchanged — only its argument moved.
+       * 0 (claims §5.94 §3), and at a rim that was the constant 0.18, which W23
+       * replaced with the amplitude law `rimAlpha + rimLevelGain × luminance` and
+       * a border re-based to match (claims §5.100 §§4, 8). Its numbers are
+       * committed evidence and are not rewritten: the reproduction is asserted at
+       * the constants G0 held, and the value the shipped constants now derive is
+       * recorded beside it as `bandLightW22` and asserted in its own right. The
+       * derivation is what is being pinned here, and it is unchanged — only its
+       * arguments moved.
+       *
+       * W23 residual: `interiorBandLight` now integrates a rim about three times
+       * the height G0 measured, so the ABSOLUTE `X` this tier credits the band
+       * with under the shipped law has not been read back off a capture. What is
+       * pinned here is the form — the reproduction at G0's constants, and the
+       * exact linearity in the rim's amplitude below, which is what makes the new
+       * material's `X` the same integral evaluated at the new height.
        */
+      const atG0Rim = { rimAlpha: 0.18, rimLevelGain: 0 } as const;
       const atG0 = interiorBandLight(
-        { ...MATERIAL_SOURCE_OPTICS.regular, specularGain: 0.55 },
+        { ...MATERIAL_SOURCE_OPTICS.regular, ...atG0Rim, specularGain: 0.55 },
         probe.geometry,
         1,
       );
@@ -278,8 +289,31 @@ describe("the band's derived light (W17 G1)", () => {
       // corner arcs' own shrinkage in the specular term.
       expect(atG0, probe.cell).toBeCloseTo(probe.bandLight, 4);
 
-      const derived = interiorBandLight(MATERIAL_SOURCE_OPTICS.regular, probe.geometry, 1);
+      const derived = interiorBandLight(
+        { ...MATERIAL_SOURCE_OPTICS.regular, ...atG0Rim },
+        probe.geometry,
+        1,
+      );
       expect(derived, probe.cell).toBeCloseTo(probe.bandLightW22, 12);
+      /*
+       * And the band's light is EXACTLY linear in the rim's amplitude, with no
+       * intercept once the specular term is off — the property that lets the two
+       * pins above stand at G0's height while the runtime evaluates the same
+       * integral at the law's. `root.ts` hands this function the resolved
+       * amplitude rather than the law's intercept for precisely this reason
+       * (claims §5.100 §8), so a scale on the argument has to be a scale on the
+       * result and nothing else.
+       */
+      for (const amplitude of [0.038, 0.5483376, 0.844]) {
+        expect(
+          interiorBandLight(
+            { ...MATERIAL_SOURCE_OPTICS.regular, rimAlpha: amplitude, rimLevelGain: 0 },
+            probe.geometry,
+            1,
+          ),
+          `${probe.cell} at amplitude ${String(amplitude)}`,
+        ).toBeCloseTo((derived * amplitude) / 0.18, 12);
+      }
       expect(derived, probe.cell).toBeGreaterThan(0);
       // The ambient rim is the whole of the band's light now, so the term is the
       // fraction of G0's that the ambient carried: 0.574 on the capsule, whose

@@ -873,3 +873,38 @@ the first row, so the summed rim differs by 0.024 at 1x through the SECOND row a
 on a clipped row report nothing. The eye sees a softer edge. A width term (`rimWidth2x` at G1 for
 the 2x rows) does not reach the 1x second row; recorded as unreadable on this bed.
 
+
+## The CSS tier's rim is 30–45 % short over a dark backdrop in light and 1.6× too bright in dark, and the fixtures cannot fit the constant that would close it (W23 G1, 2026-09-08)
+
+*Found landing the rim's law (claims §5.100 §8).* The contour instrument reads the CSS tier for the
+first time: light 1x `dark-solid__rrect-md` +0.1576 against the reference's +0.2293,
+`checkerboard__rrect-md` +0.0985 against +0.1763 and `mid-dark-solid__capsule-button` +0.1719
+against +0.2421; dark 1x `dark-solid__rrect-md` +0.0415 against +0.0256. W23 G1 re-based
+`cssTierMapping.borderAlphaPerRimAlpha` 1.95 → 0.64 so the conversion survives a numerator whose
+scale tripled — the product on an unsampled surface is 0.3509 against the 0.351 it drew before —
+and did NOT refit it, because the sweep that declined it moved the cross-tier ΔE over a 1.01× grid
+between 0 and 1.95 and the fixtures still cannot identify it. The contour read can. Closes when a
+CSS wave fits this tier's border on the contour instrument rather than on the matrix's ΔE.
+
+## The collapsed rim a painted surface keeps depends on the tint's own colour, and every collapsed blue cell on the bed is holdout (W23 G1, 2026-09-08)
+
+*Found fitting `rimCollapsedTinted` (claims §5.100 §5).* The reference's collapsed tint-ORANGE
+capsule keeps +0.1149 of contour rim at 1x and the collapsed tint-BLUE one +0.176, against +0.020
+bare — so what the collapse keeps under paint is a function of the paint, and `rimCollapsedTinted`
+is one absolute number fitted on orange alone (0.337, worst residual 0.0039 over the four orange
+cells at both scales). The two blue collapsed cells (`dark-solid__capsule-button__rest-tint-blue`
+and its 2x sibling) are holdout, so no calibration row can fit the colour dependence and the wave
+did not try. Closes when the bed declares a non-holdout collapsed cell in a second tint, or when the
+quantity is read as a function of the seed's own luminance on a probe grid.
+
+## The contour read and W22's band read disagree about the same rim, and the difference is in the corners (W23 G1, 2026-09-08)
+
+*Found on the parent's clause 4 (claims §5.101 §4).* On `dark-solid__rrect-md` in light at 1x the
+CONTOUR read gives vitrea +0.2176 against the reference's +0.2293, inside the wave's 0.03; the BAND
+read on the same captures gives an excess over the body of +0.078 against the reference's +0.047,
+1.65× over, and 47 sides that met W22's band bound of 0.03 no longer do. The contour read excludes
+1.6 radii of corner by construction and the band read averages the corner arcs in, so the only place
+the two can disagree is the rim in the CORNERS: on the straight span vitrea now matches the
+reference and over the whole side it overshoots. A candidate rather than a proof — no reader in the
+project measures the corner arc's rim. Closes when a corner reader exists and says which of the two
+is right, or when the parent restates clause 4 on the straight span.

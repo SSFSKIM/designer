@@ -26,7 +26,10 @@ import {
   backdropToneAdaptation,
   BACKDROP_TONE,
   cssOpticsFromSource,
+  CSS_TIER_MAPPING,
   cssTierOptics,
+  RIM_COLLAPSED,
+  rimAmplitude,
   sourceOptics,
 } from "../src/optics";
 
@@ -62,9 +65,33 @@ describe("the material one backdrop reading produces", () => {
   const source = sourceOptics()["regular"];
   const base = cssTierOptics()["regular"];
 
-  it("is the pre-W7 material exactly, with no reading", () => {
-    expect(adaptedSourceOptics(source, undefined, 1)).toBe(source);
-    expect(adaptedSourceOptics(source, [0, 0, 0], 0)).toBe(source);
+  it("is the pre-W7 material, but for the rim's resolved amplitude, with no reading", () => {
+    /*
+     * The guard is unchanged in substance: a surface the tier read nothing for,
+     * and a surface at zero adaptation, draw the material the profile ships and
+     * not a guess at one. What no longer survives it is object identity, and the
+     * reason is the rim's law (W23; claims §5.100 §4). `rimAlpha` is the law's
+     * INTERCEPT everywhere upstream of `adaptedSourceOptics` and the resolved
+     * amplitude everywhere downstream, so the law has to be evaluated here even
+     * with nothing sampled — handing the intercept 0.844 on to
+     * `borderAlphaPerRimAlpha` would put a near-opaque white outline around every
+     * unsampled surface. Every other field is asserted untouched, which is the
+     * half that was ever about the adaptation.
+     */
+    const unsampled = adaptedSourceOptics(source, undefined, 1);
+    expect(unsampled).toEqual({
+      ...source,
+      rimAlpha: rimAmplitude(source, CSS_TIER_MAPPING.referenceBackdropLuminance),
+    });
+    // The level with nothing sampled is the mapping's reference, the one
+    // `cssTintAlpha` already falls back to: 0.844 − 0.628 × 0.4708.
+    expect(unsampled.rimAlpha).toBeCloseTo(0.5483, 4);
+    // With a reading and no adaptation the same holds at the level that was read
+    // rather than at the fallback — black, so the material's own luminance is its
+    // tint alpha and the amplitude is 0.844 − 0.628 × 0.46.
+    const unadapted = adaptedSourceOptics(source, [0, 0, 0], 0);
+    expect(unadapted).toEqual({ ...source, rimAlpha: rimAmplitude(source, 0) });
+    expect(unadapted.rimAlpha).toBeCloseTo(0.5551, 4);
   });
 
   it("is the backdrop itself, opaquely, at full adaptation", () => {
@@ -99,18 +126,38 @@ describe("the material one backdrop reading produces", () => {
     // rim included. Left in, this tier's border is a white outline around a
     // surface that is meant not to be there — which is exactly what it was, until
     // this axis made the body dark enough to see it against.
+    //
+    // What the fade ends AT moved in W23 (claims §5.100 §3): the reference's
+    // collapsed capsule is byte-identical to its background in its body and still
+    // keeps a contour rim of +0.020 linear, in both schemes at both scales. So
+    // the fade is a trade between the two rims — `amplitude·(1 − k) +
+    // rimCollapsed·k` — rather than a fade to nothing, and the endpoint it fades
+    // FROM is the law's amplitude at this tone, not the law's intercept.
     const tone = [0.0117, 0.0117, 0.0117] as const;
-    expect(adaptedSourceOptics(source, tone, 1).rimAlpha).toBe(0);
-    expect(adaptedSourceOptics(source, tone, 0.5).rimAlpha).toBeCloseTo(source.rimAlpha / 2, 12);
-    expect(adaptedSourceOptics(source, tone, 0).rimAlpha).toBe(source.rimAlpha);
+    const amplitude = rimAmplitude(source, 0.0117);
+    expect(amplitude).toBeCloseTo(0.5512, 4);
+    expect(adaptedSourceOptics(source, tone, 1).rimAlpha).toBe(RIM_COLLAPSED);
+    expect(adaptedSourceOptics(source, tone, 0.5).rimAlpha).toBeCloseTo(
+      (amplitude + RIM_COLLAPSED) / 2,
+      12,
+    );
+    expect(adaptedSourceOptics(source, tone, 0).rimAlpha).toBe(amplitude);
   });
 
   it("carries that fade into the declared border, and nowhere else", () => {
     const tone = [0.0117, 0.0117, 0.0117] as const;
-    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1)).borderAlpha).toBe(0);
+    // The collapsed rim the reference keeps, through the one constant that
+    // carries a rim across this boundary: 0.038 × 0.64 (W23; claims §5.100 §§3-4).
+    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1)).borderAlpha).toBeCloseTo(
+      RIM_COLLAPSED * CSS_TIER_MAPPING.borderAlphaPerRimAlpha,
+      12,
+    );
     // …and an unadapted source declares the shipped border exactly, so the
-    // conversion is not a second opinion about it.
-    expect(cssOpticsFromSource(base, source).borderAlpha).toBeCloseTo(base.borderAlpha, 12);
+    // conversion is not a second opinion about it. The source has to come through
+    // `adaptedSourceOptics` to say that now: that is where the law is resolved,
+    // and `cssOpticsFromSource` reads an amplitude rather than an intercept (W23).
+    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, undefined, 0)).borderAlpha)
+      .toBeCloseTo(base.borderAlpha, 12);
   });
 
   it("reaches the CSS declaration through the one conversion the tier already has", () => {

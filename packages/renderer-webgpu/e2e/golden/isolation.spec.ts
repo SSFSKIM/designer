@@ -551,7 +551,66 @@ const W22_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "6f1f24ae2690deb40d5a8e389fff6679",
 };
 
+/**
+ * **W23 G1 — the rim became a law** (claims §5.100; W23 Decision Log 2). Every
+ * scene that captures the optics canvas moves, and one scene is new.
+ *
+ * ## What moved the material
+ *
+ * Five constants and one shader line. `optics.regular.rimAlpha` 0.18 → 0.844 and
+ * `rimLevelGain` 0 → −0.628 make the rim affine in the surface's OWN rendered
+ * level instead of an additive constant; `rimWidth2x` 1.35 grades the band across
+ * the scales; `rimCollapsed` 0.038 and `rimCollapsedTinted` 0.337 give the
+ * COLLAPSED appearance a rim it never had, bare and painted. The environment term
+ * W23 chartered beside them, `rimEnvGain`, is declined and removed. Every one of
+ * the five is a leaf of the profile, so the attribution is measured through this
+ * file's own seam with nothing else in the difference by construction.
+ *
+ * ## What the measurement says
+ *
+ * `results/2026-09-08-w23-collapsed-rim/g1/goldens-attribution.txt`, from
+ * `g1-golden-attribution.spec.ts`: every scene rendered twice through
+ * `PRE_C9A_PROFILE` — once with the rim's five constants set back to what they
+ * were before this gate, once as shipped — and compared per pixel, inside a
+ * contour band (3 px of a coverage discontinuity, taken from the before render's
+ * own alpha) and outside it.
+ *
+ * **Not one pixel outside a contour band moved, on any scene.** The largest delta
+ * outside a band is 0 on all eleven; inside, it is 8–80 code values on the ten
+ * that carry a rim (2 392 pixels on `field-mask`, 466–3 531 on the rest) and 130
+ * on the new scene. A rim law that moved an interior would have failed the wave's
+ * stop S4 here rather than in a metric later.
+ *
+ * `highlight-press-glow` is the control and it holds again: **0 pixels**, hash
+ * byte-identical to the 2026-08-25 original through C9a, W8, the post-v1 wave,
+ * W11a, W11c, W12, W14, W15, W22 and now this. It captures the HIGHLIGHT canvas,
+ * and the rim's ambient band is the optics pass's.
+ *
+ * ## The scene that is new
+ *
+ * `collapsed-tone` has no previous hash because it did not exist: no golden scene
+ * reached the collapsed appearance at all (every other scene leaves `backdropTone`
+ * absent, at which the tone axis stands down), so `rimCollapsed` and
+ * `rimCollapsedTinted` moved nothing in this suite and X2's attribution for them
+ * was vacuous. The scene hands two groups a tone below `backdropToneLow` — one
+ * bare, one painted — and is the attribution for both constants.
+ */
+const W23_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "e67371a3d262d54c69a17d50d8cb5aa8",
+  "collapsed-tone": "af0fb2ffdbae964c9ebf7dbbea8ba04a",
+  "concentric-nesting": "b16760eae201b66814e76e35fda26897",
+  "field-mask": "9089cd4076d75fb6630ec14d2220929c",
+  "lens-size-scaling": "d2fe6a88276d47c8a69a10c1e6a59908",
+  "placed-checkerboard": "752cb63ac38fe39fb2cd3a13ce32f623",
+  "refraction-checkerboard": "753d56ac0f1252a76487ed55295872c6",
+  "rim-two-references": "02d35f041e88d373a1b088cda0be31c6",
+  "tint-adaptation-dark": "3b224b681b678f91ecaaca73e8080c04",
+  "tint-adaptation-light": "e34c27a17715ad1f74ee4ee95938e338",
+  "union-pair": "54fa5082b5504cc22b16d4ebc1f29eb3",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W23_HASHES[name] ??
   W22_HASHES[name] ??
   W15_G2_HASHES[name] ??
   W15_HASHES[name] ??

@@ -24,6 +24,7 @@ import {
   MATERIAL_SOURCE_OUTER_SHADOW,
   MATERIAL_SOURCE_SIZE,
   REDUCED_TRANSPARENCY_FROST,
+  adaptedSourceOptics,
   cssOpticsFromSource,
   cssTierOptics,
   cssTierForegroundLevel,
@@ -65,6 +66,16 @@ import {
  * (claims §5.74 §3). The policies below are unchanged — the same lift, the same
  * gain, the same direction — and what moved is where in the chain they land, so
  * the pins move with them rather than being dropped.
+ *
+ * The source goes through `adaptedSourceOptics` on the way in since W23 (claims
+ * §5.100 §4), with nothing sampled and no adaptation, because `root.ts` never
+ * reaches `cssOpticsFromSource` by any other road. That call is where the rim's
+ * amplitude law is resolved, and `cssOpticsFromSource` reads the resolved
+ * amplitude: handed the raw mirror it would multiply the law's INTERCEPT (0.844)
+ * by `borderAlphaPerRimAlpha` and declare a near-opaque outline no surface draws.
+ * With nothing sampled the law is evaluated at the mapping's reference level, so
+ * these declarations carry the shipped border and the helper still differs from
+ * the shipped surface in the one thing it exists to vary — the alpha.
  */
 const occludedOptics = (
   source: MaterialSourceOptics,
@@ -90,7 +101,10 @@ const occludedOptics = (
           sizeThicknessUnderPolicy(options.spanPx, policy.material, sizeConstants),
           sizeConstants,
         );
-  return cssOpticsFromSource(MATERIAL_OPTICS.regular, { ...source, tintAlpha: sized });
+  return cssOpticsFromSource(
+    MATERIAL_OPTICS.regular,
+    adaptedSourceOptics({ ...source, tintAlpha: sized }, undefined, 0),
+  );
 };
 
 const surface = {

@@ -41,8 +41,9 @@ export const darkMaterialProfile: RendererMaterialProfile = {
     regular: {
       tint: [0.05, 0.05, 0.05],
       tintAlpha: 0.9,
-      rimAlpha: 0.082,
+      rimAlpha: 0.0265,
       specularGain: 0,
+      rimLevelGain: 2.334,
     },
   },
   adaptiveTintDark: [0.05, 0.05, 0.05],

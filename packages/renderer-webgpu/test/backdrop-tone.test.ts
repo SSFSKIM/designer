@@ -397,49 +397,66 @@ describe("the optics pass's statement of the axis", () => {
     expect(WGSL_OPTICS_PASS).toContain("let present = 1.0 - toneAdapt;");
     // The inner shadow's own profile since W12 G2 (the lens took its own law).
     expect(WGSL_OPTICS_PASS).toContain("shadowProfile * shadowDepth * ou.light.w * present");
-    // Since W23 the rim's fade carries a second term: the appearance's own rim
-    // falls with `present` exactly as before, and `rimCollapsed` — 0 on the
-    // shipped profile — rises with the adaptation the rest of it falls with.
-    expect(WGSL_OPTICS_PASS).toContain("rimAmplitude * present + ou.rimLaw.z * toneAdapt");
+    // Since W23 the rim's fade is a TRADE and not a fade: the appearance's own
+    // rim falls with `present` exactly as before and the collapsed appearance's
+    // own rim rises with `toneAdapt`, so the two can never both be drawn.
+    expect(WGSL_OPTICS_PASS).toContain(
+      "rw * (rimAmplitude * present + rimCollapsed * toneAdapt)",
+    );
   });
 
-  it("keeps the collapsed rim inert at the shipped constants, and linear in toneAdapt", () => {
+  it("trades the appearance's rim for the collapsed one, bare and painted", () => {
     /*
-     * The shader's rim, as arithmetic (W23). `rimWeight` and the specular are
-     * shared with the old expression and are not what this pins; what is pinned
-     * is that the two new gains and `rimCollapsed` are exactly zero on the
-     * shipped profile, so the term is the additive rim it has always been, and
-     * that when `rimCollapsed` is not zero the collapse trades one rim for the
-     * other on one factor rather than adding a second.
+     * The shader's rim, as arithmetic (W23; claims §5.100 §§3-5). What is pinned
+     * is the SHAPE — that the amplitude is affine in the surface's own level,
+     * that the collapse trades the appearance's rim for an ABSOLUTE one on one
+     * factor rather than adding a second, and that the absolute one is the
+     * author tint's coverage lerped between the bare and the painted constant —
+     * and the shipped values beside it, so that a constant moving without its
+     * ledger section fails here.
      */
     const rim = (
-      optics: { rimAlpha: number; rimLevelGain: number; rimEnvGain: number },
-      rimCollapsed: number,
+      optics: { rimAlpha: number; rimLevelGain: number },
+      profile: { rimCollapsed: number; rimCollapsedTinted: number },
       surfaceLuma: number,
-      backdropLuma: number,
       toneAdapt: number,
+      tintStrength: number,
     ): number => {
-      const amplitude =
-        optics.rimAlpha + optics.rimLevelGain * surfaceLuma + optics.rimEnvGain * backdropLuma;
-      return amplitude * (1 - toneAdapt) + rimCollapsed * toneAdapt;
+      const amplitude = optics.rimAlpha + optics.rimLevelGain * surfaceLuma;
+      const collapsed =
+        profile.rimCollapsed +
+        (profile.rimCollapsedTinted - profile.rimCollapsed) * tintStrength;
+      return amplitude * (1 - toneAdapt) + collapsed * toneAdapt;
     };
     const shipped = DEFAULT_MATERIAL_PROFILE.optics.regular;
-    expect(shipped.rimLevelGain).toBe(0);
-    expect(shipped.rimEnvGain).toBe(0);
-    expect(DEFAULT_MATERIAL_PROFILE.rimCollapsed).toBe(0);
-    for (const toneAdapt of [0, 0.25, 0.5, 1]) {
-      expect(rim(shipped, DEFAULT_MATERIAL_PROFILE.rimCollapsed, 0.48, 0.012, toneAdapt)).toBeCloseTo(
-        shipped.rimAlpha * (1 - toneAdapt),
-        12,
-      );
-    }
-    // With a collapsed rim declared, `toneAdapt` 1 draws exactly it, `toneAdapt`
-    // 0 draws exactly the appearance's own, and the crossover is the one lerp.
-    const law = { rimAlpha: 0.18, rimLevelGain: -0.3, rimEnvGain: 0.05 };
-    expect(rim(law, 0.02, 0.48, 0.012, 1)).toBeCloseTo(0.02, 12);
-    expect(rim(law, 0.02, 0.48, 0.012, 0)).toBeCloseTo(0.18 - 0.3 * 0.48 + 0.05 * 0.012, 12);
-    expect(rim(law, 0.02, 0.48, 0.012, 0.5)).toBeCloseTo(
-      (0.18 - 0.3 * 0.48 + 0.05 * 0.012) * 0.5 + 0.02 * 0.5,
+    expect(shipped.rimAlpha).toBe(0.844);
+    expect(shipped.rimLevelGain).toBe(-0.628);
+    expect(shipped.rimWidth2x).toBe(1.35);
+    expect(DEFAULT_MATERIAL_PROFILE.rimCollapsed).toBe(0.038);
+    expect(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted).toBe(0.337);
+    // A bare surface: `toneAdapt` 1 draws exactly the collapsed rim, 0 exactly
+    // the appearance's own, and the crossover is the one lerp.
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 0)).toBeCloseTo(0.038, 12);
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 0, 0)).toBeCloseTo(
+      0.844 - 0.628 * 0.48,
+      12,
+    );
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 0.5, 0)).toBeCloseTo(
+      (0.844 - 0.628 * 0.48) * 0.5 + 0.038 * 0.5,
+      12,
+    );
+    // A painted one keeps the brighter collapsed rim the reference draws on it,
+    // and half a tint's coverage keeps half the difference — the reference's
+    // +0.115 against +0.020 on the same fixture (claims §5.100 §5).
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 1)).toBeCloseTo(0.337, 12);
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 0.5)).toBeCloseTo(
+      (0.038 + 0.337) / 2,
+      12,
+    );
+    // Uncollapsed, the tint reaches the rim only through the surface's own level
+    // — the amplitude is the same expression however the surface was painted.
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 0, 1)).toBeCloseTo(
+      rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 0, 0),
       12,
     );
   });

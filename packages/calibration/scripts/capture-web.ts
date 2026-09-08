@@ -423,6 +423,9 @@ const MATERIAL_PATCH_KEYS = new Set([
   // the collapsed appearance is one appearance in both schemes (the reference's
   // light and dark fixtures of the collapsed cells are byte-identical).
   "rimCollapsed",
+  // The same rim at an author tint's full coverage (W23 G1, Decision Log 2 (c)):
+  // a painted surface over black keeps a brighter rim than a bare one.
+  "rimCollapsedTinted",
   // The backdrop tone response (W9): the anchors of R(encodedMean, thickness),
   // measured constants in the profile document like every other key here.
   "backdropToneAnchorX",
