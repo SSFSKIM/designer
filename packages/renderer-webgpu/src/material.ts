@@ -108,7 +108,37 @@ export interface MaterialOptics {
    * that carries it renders the 1x material unchanged by construction.
    */
   readonly rimWidth2x: number;
-  /** Specular exponent and gain on the rim. */
+  /**
+   * Specular exponent and gain on the rim — **RETIRED from the rim (W24 G2;
+   * claims §5.108 §1, W24 Decision Log 2 (a)), and the note is set beside the
+   * W22 fit below rather than over it.**
+   *
+   * The term was `max(dot(normal, lightDirection), 0)^specularPower ×
+   * specularGain`, one-sided, added to the rim's amplitude. W24 read the
+   * reference's rim around the whole contour instead of per side and found the
+   * variation it was reaching for — but symmetric about the diagonal, not
+   * one-sided: the two ends of that diagonal are drawn EQUAL to a thousandth
+   * (2x dark tl 0.0418 against br 0.0418; 2x light 0.2786 against 0.2823), and
+   * over the nineteen untinted solid rows the one-sided form reaches a
+   * normalised RMS of 0.288 against the symmetric form's 0.148, degenerating in
+   * the fit to the ceiling of both its exponent and its floor trying to become
+   * symmetric. So the shape was wrong, which is the deeper reason W22 G1 rightly
+   * fitted the gain to 0 on the regular variant (claims §5.94 §3): no amount of
+   * a term with the wrong shape helps. `rimLitExponent` below is the shape the
+   * rows chose, and it replaces this one.
+   *
+   * Nothing on either canonical bed moves: the shipped profiles carry
+   * `specularGain` 0 on `regular` since W21/W22, and no scene on either bed or in
+   * the golden suite declares `clear`. What DOES change is the `clear` variant's
+   * unfitted structural 0.45, which drew a one-sided highlight this material is
+   * now measured not to have; it is recorded rather than replaced, because the
+   * lit factor is inert on `clear` for want of rows.
+   *
+   * The two constants stay on the profile so that the W22 fit's record and the
+   * profile documents that carry it remain readable, and so that removing them
+   * is one reviewable change of the profile's SHAPE rather than a side effect of
+   * a material gate. Nothing reads them.
+   */
   readonly specularPower: number;
   readonly specularGain: number;
   /**
@@ -1572,14 +1602,33 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        */
       rimLevelGain: -0.628,
       /*
-       * INERT (W24 G0; claims §5.107) — the lit edge's exponent, 0 until a
-       * profile carries it, so that this gate's mechanism moves no golden and no
-       * capture. G0 fits the reference's own bins at 1.05 over both schemes
-       * (1.30 over the 2x dark rows alone, 1.10 over the 2x light ones, 0.70–1.55
-       * per cell); the value a profile adopts is the wave's declaration, not this
-       * default's.
+       * ADOPTED 1.15 (W24 G2, on G0's fit; claims §5.108 §1, W24 Decision Log 2
+       * (a)) — one exponent for both schemes and both scales, and the value at
+       * which the most rows meet the wave's clause.
+       *
+       * The rows, and what they separate. Fitted on the reference's own angular
+       * bins over the nineteen untinted solid cells of both canonical beds and
+       * both probe grids (285 bins, each cell normalised by its own brightest
+       * bin), the joint minimiser is 1.05; the 2x rows — whose arcs the raster
+       * actually resolves — give 1.10 light and 1.30 dark, and vitrea's own
+       * rendered rows read against the reference give 1.10 ± 0.22 light and
+       * 1.24 ± 0.17 dark. The schemes OVERLAP, so what the rows separate is one
+       * constant and not two, and 1.15 is where four of the twelve solid rows
+       * meet both halves of clause 1 against two at 1.00, two at 1.30 and none
+       * at 1.45.
+       *
+       * What it is not. It is not a per-scale pair: every 2x row wants 1.30–1.45
+       * and every 1x row 0.85–1.10, which is a real scale dependence in the
+       * reference's own angular contrast (its lit-diagonal bins over its
+       * straight-side bins read 1.07 at 1x against 1.39 at 2x on the dark
+       * `dark-solid` capsule). A `rimLitExponent2x` sibling on the precedent of
+       * `rimWidth2x` would be a third constant fitted on four rows, so the
+       * dependence is recorded (W24's Deferred list) rather than carried.
+       *
+       * The `clear` variant keeps 0 below: no scene on either bed declares it, so
+       * it has no rows and nothing to be fitted on (C9a §6.2).
        */
-      rimLitExponent: 0,
+      rimLitExponent: 1.15,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
@@ -1942,15 +1991,35 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneSizeBias: 0.05,
 
   /*
-   * INERT at 0 in the worktree W24 G1 declared it in: at 0 the collapse's target
-   * is the group's mean backdrop colour and every golden and every capture is
-   * W23's to the byte. The value the fit lands on is a per-scale reading like
-   * the scatter facet's, because what the reference transmits is set by a kernel
-   * whose width is a different number at each scale (the field's own note), and
-   * it belongs on the profile documents rather than here — the dark and light
-   * fixtures of the collapsed cells are the same bytes, so it is one appearance
-   * in both schemes, and it is the SCALE, not the scheme, that separates the
-   * rows.
+   * FITTED 0.017 at dpr 1 and 0.070 at dpr 2 (W24 G1, landed by G2; claims
+   * §5.108 §2, W24 Decision Log 2 (b) and (d)) — one pair for both schemes, on
+   * the peak of the collapsed `impulse__capsule-button`'s centre dot.
+   *
+   * At `k` 1 the composite is exactly `(1 − c)·toneColour + c·backdrop`, so the
+   * dot's excess is LINEAR in this constant and one non-zero rendered rung fixes
+   * it: at c 0.10 vitrea's collapsed capsule passes +0.0386 at 1x and +0.0363 at
+   * 2x where the reference passes +0.0066 and +0.0254, which gives 0.0171 and
+   * 0.0700. Rendered back at the fit the dot lands +0.0067 and +0.0256 —
+   * clause 2's peak met to ±0.0002 against a bound of 0.005 — and the structure
+   * that had been passing 0.0000 passes 0.0066 at 1x and 0.0250 at 2x against
+   * the reference's 0.0104 and 0.0205.
+   *
+   * The light and dark rungs read the same numbers to four decimals on that
+   * cell, which is why this is one pair in both schemes and lives on the shared
+   * default rather than in a per-scheme patch. What separates the two ANCHORS is
+   * the kernel and not the scheme: the reference transmits through σ 2.63 device
+   * px at 1x and 1.30 at 2x — invariant in neither CSS nor device pixels — where
+   * vitrea's runs 1.68 → 4.86, so the SHARE that comes through cannot be one
+   * number over a width that is two. How wide the dot ARRIVES is the material's
+   * own scatter law and is a recorded gap, not a fit (the dot's FWHM lands 4.99
+   * CSS px at 1x against the reference's 7.57, and 4.64 against 3.80 at 2x).
+   *
+   * What it costs the bed is two cells. `impulse__capsule-button` at 2x pays
+   * ΔE +0.00006 and `ssimMean` −0.00096 while its `ssimMin` improves by 0.068
+   * and its interior level closes 68 % of its gap; `impulse__rrect-md` at 1x
+   * improves; every other capture on both beds is byte-identical, including
+   * `dark-solid__capsule-button`, the collapsed stop, where a solid backdrop
+   * makes the target's lerp the identity by construction.
    *
    * The correction this constant carries is set beside W7's paragraph above, not
    * over it: "texture collapse" was fitted on `dark-solid`, where a mean and a
@@ -1958,8 +2027,8 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * figure W7 recorded stands; what it did not measure is what happens over a
    * backdrop that HAS texture, and the impulse bed says the reference keeps it.
    */
-  collapseTransmission: 0,
-  collapseTransmission2x: 0,
+  collapseTransmission: 0.017,
+  collapseTransmission2x: 0.07,
 
   /*
    * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is

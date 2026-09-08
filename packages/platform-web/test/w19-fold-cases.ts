@@ -41,7 +41,6 @@ import {
   backdropToneUnderPolicy,
   cssOpticsFromSource,
   innerShadowedSourceOptics,
-  interiorBandLight,
   interiorShadowKeep,
   linearTint,
   occlusionAlphaUnderPolicy,
@@ -110,6 +109,13 @@ export const SEEDS = [
  * stated at fixed constants or it is not stated at all. The shipped value's own
  * pins are `interior-level.test.ts` and `tier-coherence.test.ts`.
  *
+ * The lit edge joined it in W24 (claims §5.108 §1). The recording was taken on
+ * a rim of one brightness the whole way round, so `rimLitExponent` is frozen at
+ * 0 here — the value at which the directional factor is 1 for every normal — and
+ * the collapse's transmission is frozen at 0 in the `adaptedSourceOptics` call
+ * below for the same reason: a difference is stated at fixed constants or it is
+ * not stated at all.
+ *
  * The rim joined it in W23 (claims §5.100). The recording was taken while the
  * rim was the constant 0.18 and nothing else — no law, no gain on the surface's
  * own level, and nothing left of it once a material had collapsed — so all three
@@ -119,9 +125,26 @@ export const SEEDS = [
  * `addedLight` and through the border alpha, and the shipped constants' own pins
  * are `interior-level.test.ts`, `backdrop-tone.test.ts` and `tier-coherence.test.ts`.
  */
+/**
+ * The band's derived light the recording carried, frozen as a NUMBER because it
+ * can no longer be derived (W24; claims §5.108 §1).
+ *
+ * `interiorBandLight` produced it at `specularGain` 0.55 over the rim of 0.18
+ * above, and W24 retired the one-sided specular from the band with the rim it
+ * modelled — so freezing the constants is no longer enough to reproduce the
+ * recording and the value it produced is frozen instead. It is the same
+ * 0.009278741795284628 every one of the 65 transfers in
+ * `w19-pre-fold-declarations.json` carries, at the one box and the one presence
+ * this bed declares; `interiorBandLight`'s own linearity in `present` is what
+ * lets it be scaled rather than re-derived, and the shipped derivation's pins
+ * are `interior-level.test.ts` and `tier-coherence.test.ts`.
+ */
+const RECORDED_BAND_LIGHT = 0.009278741795284628;
+
 export const RECORDED_SOURCE_OPTICS: MaterialSourceOptics = {
   ...MATERIAL_SOURCE_OPTICS.regular,
   specularGain: 0.55,
+  rimLitExponent: 0,
   rimAlpha: 0.18,
   rimLevelGain: 0,
 };
@@ -199,7 +222,7 @@ export function resolveSurface(
   );
   // `rimCollapsed` 0: the tree this bed was recorded on faded the rim to nothing,
   // and W23's 0.038 is a later reading of the reference (claims §5.100 §3).
-  const adapted = adaptedSourceOptics(responded, tone.rgb, adaptation, 0);
+  const adapted = adaptedSourceOptics(responded, tone.rgb, adaptation, 0, undefined, 0);
   const present = 1 - adaptation;
   const shadowed = innerShadowedSourceOptics(
     adapted,
@@ -208,7 +231,7 @@ export function resolveSurface(
   const interior: CssTierInterior = {
     tintAlpha: shadowed.tintAlpha,
     tint: [shadowed.tint[0], shadowed.tint[1], shadowed.tint[2]],
-    addedLight: interiorBandLight(gpuSource, box, present),
+    addedLight: present * RECORDED_BAND_LIGHT,
   };
   const grip =
     tintToneAdaptation(policy.material.ambientTint, shade) * shade.strength * (1 - adaptation);

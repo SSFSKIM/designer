@@ -1,0 +1,32 @@
+W24 G2 — the stops S1, S2, S7 and S11, read with numbers
+================================================================================================================
+
+=== S1 — every row's ΔE mean and ssimMean against the W23 bed ===
+  bound: ΔE mean +0.001, ssimMean −0.005, on UNTINTED rows
+  profile                                        scene                                        tier           ΔdE      Δssim  verdict
+  worst ΔE mean rise +0.00008 (bound +0.001); worst ssimMean fall -0.00082 (bound −0.005); rows firing: 0
+
+  the row S1 is watched on, with its sign (W24 Decision Log 2 (g)):
+    apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest         css     ΔE 0.00123 → 0.00123  ssim 0.98659 → 0.98659
+    apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest         webgpu  ΔE 0.00016 → 0.00011  ssim 0.99861 → 0.99959
+    apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest         css     ΔE 0.00400 → 0.00389  ssim 0.97453 → 0.97453
+    apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest         webgpu  ΔE 0.00103 → 0.00098  ssim 0.99871 → 0.99899
+    apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest         css     ΔE 0.00122 → 0.00122  ssim 0.99082 → 0.99082
+    apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest         webgpu  ΔE 0.00019 → 0.00015  ssim 0.99824 → 0.99912
+    apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest         css     ΔE 0.00417 → 0.00412  ssim 0.98230 → 0.98230
+    apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest         webgpu  ΔE 0.00108 → 0.00103  ssim 0.99825 → 0.99850
+
+=== S2 — the tinted cells' bodies (bound 0.002) ===
+  profile                                        scene                                        tier      before     after         Δ  verdict
+  worst |Δ body|: 0.00026 against 0.002; rows firing: 0
+
+=== S7 — the collapsed cells' bodies (bound 0.002) ===
+  profile                                        scene                                        tier      before     after         Δ  verdict
+  worst |Δ body|: 0.00007 against 0.002; rows firing: 0
+
+=== S11 — W23's straight-span contour reads, per solid side (bound 0.005) ===
+  the lit factor is 1 on every straight span by construction; this is that, on the bed.
+  profile                                        scene                                        tier   side      before     after         Δ  verdict
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest         css    top      0.16256   0.16827  +0.00571    FIRES
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest         css    bottom   0.00534   0.01105  +0.00571    FIRES
+  worst |Δ straight span|: 0.00571 against 0.005; sides firing: 2

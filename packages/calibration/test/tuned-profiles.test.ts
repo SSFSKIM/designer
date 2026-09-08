@@ -84,6 +84,17 @@ const FITTED_CONSTANTS = [
   "optics.regular.rimAlpha",
   "optics.regular.rimLevelGain",
   "optics.regular.rimWidth2x",
+  // W24's two mechanisms (claims §5.108; W24 Decision Log 2). The lit edge is the
+  // rim's SHAPE where W23's constants are its amount — an exponent on the
+  // material and an axis on the profile, the axis taken as the exact diagonal
+  // rather than the fitted 136.0° because only there is the factor equal on all
+  // four straight sides. The collapse's transmission is how much of the pixel
+  // beneath a collapsed surface still comes through it, with a second anchor at
+  // dpr 2 because the reference's kernel is a different width at each scale.
+  "optics.regular.rimLitExponent",
+  "rimLitAxis",
+  "collapseTransmission",
+  "collapseTransmission2x",
   "rimCollapsed",
   "rimCollapsedTinted",
   "adaptiveTintDark",

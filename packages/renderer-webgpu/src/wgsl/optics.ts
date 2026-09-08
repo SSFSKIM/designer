@@ -96,7 +96,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// accessibility fold — the refraction ladder read at the preference's cap,
   /// which every facet's span-dependent rise is multiplied by (W11c)
   tone : vec4f,
-  /// rimWidthPx, rimAlpha, specularPower, specularGain
+  /// rimWidthPx, rimAlpha; (z) and (w) carried specularPower and specularGain
+  /// until W24 retired the one-sided specular from the rim (claims 5.108
+  /// section 1) and are written but unread
   rim : vec4f,
   /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
   light : vec4f,
@@ -981,11 +983,18 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   materialColour = materialColour * (shadowKeep * materialAlpha / max(materialShadowedAlpha, 1e-6));
   materialAlpha = materialShadowedAlpha;
 
-  // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
-  // the specular term is the same edge lit from 'light.xy'.
+  /*
+   * The rim from the gradient. Its amplitude law is below and the direction it
+   * is LIT from is the factor after it.
+   *
+   * The one-sided specular that used to be added here — 'pow(clamp(dot(normal,
+   * light.xy), 0, 1), rim.z) * rim.w' — is retired (W24; claims §5.108 §1). Read
+   * around the whole contour the reference's rim is symmetric about the diagonal
+   * rather than one-sided, and a term that can only reach one end of it fits at
+   * 0.288 of normalised RMS where the symmetric factor fits at 0.148. 'rim.z'
+   * and 'rim.w' are written by the pass and no longer read.
+   */
   let rw = rim_weight(d, ou.rim.x);
-  let facing = dot(normal, ou.light.xy);
-  let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
   /*
    * The rim's amplitude law, and the rim that survives the collapse (W23;
    * claims §5.100 §§3-4).
@@ -1015,7 +1024,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   let rimLuma = materialAlpha * dot(materialColour, vec3f(0.2126, 0.7152, 0.0722))
     + (1.0 - materialAlpha) * ou.toneColour.w;
-  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma + spec;
+  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;
   let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, clamp(aux.w, 0.0, 1.0));
   /*
    * The lit edge (W24; claims §5.107) — the directional factor the whole rim is

@@ -136,6 +136,7 @@ import {
   boundedForegroundLevel,
   CSS_TIER_MAPPING,
   collapsedRim,
+  collapseTransmissionAtScale,
   cssOpticsFromSource,
   cssShadowBlurRadius,
   cssTierCompositeLevel,
@@ -152,6 +153,7 @@ import {
   resolvedBackdropTone,
   resolvedBackdropToneResponse,
   resolvedCollapsedRim,
+  resolvedCollapseTransmission,
   resolvedRimTintChroma,
   resolvedPolicyFold,
   resolvedTintShade,
@@ -1045,6 +1047,13 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * defaults would diverge from its twin the moment an app named either.
    */
   let collapsedRimConstants = resolvedCollapsedRim(initialProfile);
+  /*
+   * And how much of what is beneath a collapsed surface still comes through it
+   * (W24; claims §5.108 §2), off that same profile. Two anchors rather than one
+   * number, because the scale they are resolved at is the frame's and not the
+   * profile's.
+   */
+  let collapseTransmissionConstants = resolvedCollapseTransmission(initialProfile);
   let rimTintChromaConstant = resolvedRimTintChroma(initialProfile);
   /**
    * The backdrop tone response's anchors (W9), from the same profile — the law
@@ -1077,6 +1086,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     outerShadowConstants = sourceOuterShadow(profile);
     backdropToneConstants = resolvedBackdropTone(profile);
     collapsedRimConstants = resolvedCollapsedRim(profile);
+    collapseTransmissionConstants = resolvedCollapseTransmission(profile);
     rimTintChromaConstant = resolvedRimTintChroma(profile);
     backdropToneResponse = resolvedBackdropToneResponse(profile);
     /*
@@ -2040,6 +2050,18 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           // it twice would put the policy's alpha into the author tint's fold and
           // the foreground decision, which read this source too.
           collapsedRim(material.tint?.strength ?? 0, collapsedRimConstants),
+          undefined,
+          // The transmission a collapsed surface keeps (W24; claims §5.108 §2),
+          // at this root's live device ratio because the two anchors differ by
+          // the kernel the transmission arrives through. Gated on the
+          // UN-DEGRADED regime, the renderer's own gate mirrored: the constant
+          // is fitted on the standard reference, and an accessibility fold means
+          // a material whose collapsed appearance was never read over a textured
+          // backdrop. Under any fold the target is the mean, which is W7's
+          // behaviour and what those profiles were fitted on.
+          backdropTonePolicyStrength >= 0.999
+            ? collapseTransmissionAtScale(collapseTransmissionConstants, devicePixelRatio)
+            : 0,
         );
         /*
          * The inner shadow, folded into the (colour, alpha) pair (W17 Decision
@@ -2111,7 +2133,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const interior: CssTierInterior = {
           tintAlpha: shadowedSource.tintAlpha,
           tint: [shadowedSource.tint[0], shadowedSource.tint[1], shadowedSource.tint[2]],
-          addedLight: interiorBandLight(bandSource, interiorGeometry, present, interiorLight),
+          addedLight: interiorBandLight(bandSource, interiorGeometry, present),
         };
         // The material the shade is read off is the one the tier draws — the
         // occlusion regime's lift, the size law's thickening and the inner

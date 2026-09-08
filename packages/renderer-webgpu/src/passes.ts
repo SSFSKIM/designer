@@ -138,6 +138,12 @@ export interface OpticsPassArgs {
   readonly tintShade: readonly [number, number, number];
   readonly rimWidth: number;
   readonly rimAlpha: number;
+  /**
+   * The retired one-sided specular's two constants (W24; claims §5.108 §1).
+   * They still travel to the uniform's `rim.zw` so that the buffer's layout and
+   * the profile's shape are one reviewable change rather than two, and the
+   * optics pass no longer reads either of them.
+   */
   readonly specularPower: number;
   readonly specularGain: number;
   /**

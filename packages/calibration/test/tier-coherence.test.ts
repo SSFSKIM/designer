@@ -1382,23 +1382,40 @@ describe("tier coherence (K5)", () => {
     }
   });
 
-  it("adapts one material onto one backdrop to the same colour and alpha on both tiers", () => {
+  it("adapts one material onto one backdrop to the same COMPOSITE on both tiers", () => {
+    /*
+     * The two tiers state the adaptation as a (colour, alpha) pair, and since
+     * W24 they state it as two DIFFERENT pairs of the same composite (claims
+     * §5.108 §2). The renderer puts the transmission in the target's colour,
+     * where it has the per-pixel blurred backdrop in hand; this tier has only
+     * the group's tone in its `rgba()` and the blurred backdrop under its
+     * `backdrop-filter`, so it takes the same share out of the layer's ALPHA
+     * instead — `A' = A − k·c`, with the tone's share of the colour re-solved
+     * against it. What has to agree is therefore what lands on the page.
+     */
     const backdrop = [0.02, 0.013, 0.03] as const;
+    const source = sourceOptics()["regular"];
+    const nominal = DEFAULT_MATERIAL_PROFILE.optics.regular;
     for (const adaptation of [0, 0.1, 0.256, 0.5, 0.9, 1]) {
-      const source = sourceOptics()["regular"];
       const css = adaptedSourceOptics(source, backdrop, adaptation);
-      const rendererColour = adaptedTintColour(
-        DEFAULT_MATERIAL_PROFILE.optics.regular.tint,
-        backdrop,
-        adaptation,
-        DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha,
-      );
-      expect(css.tintAlpha, `adaptation ${adaptation}`).toBeCloseTo(
-        adaptedTintAlpha(DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha, adaptation),
-        12,
-      );
+      const rendererColour = adaptedTintColour(nominal.tint, backdrop, adaptation, nominal.tintAlpha);
+      const rendererAlpha = adaptedTintAlpha(nominal.tintAlpha, adaptation);
       for (const index of [0, 1, 2] as const) {
-        expect(css.tint[index], `adaptation ${adaptation} channel ${index}`).toBeCloseTo(
+        // What is beneath this pixel on both tiers. The group's tone IS the pixel
+        // here, which is the case the renderer's transmitting target reduces to
+        // the mean in — so the renderer's pair is W7's unchanged, and every
+        // difference below belongs to this tier's re-decomposition.
+        const beneath = backdrop[index] as number;
+        const gpu = (1 - rendererAlpha) * beneath + rendererAlpha * (rendererColour[index] as number);
+        const tier = (1 - css.tintAlpha) * beneath + css.tintAlpha * (css.tint[index] as number);
+        expect(tier, `adaptation ${adaptation} channel ${index}`).toBeCloseTo(gpu, 12);
+      }
+      // And with the transmission declined the two tiers state the same PAIR, so
+      // the whole of the difference above is this one constant.
+      const declined = adaptedSourceOptics(source, backdrop, adaptation, undefined, undefined, 0);
+      expect(declined.tintAlpha, `adaptation ${adaptation}`).toBeCloseTo(rendererAlpha, 12);
+      for (const index of [0, 1, 2] as const) {
+        expect(declined.tint[index], `adaptation ${adaptation} channel ${index}`).toBeCloseTo(
           rendererColour[index] as number,
           12,
         );
@@ -1955,17 +1972,36 @@ describe("the interior composite (X7)", () => {
   });
 
   it("resolves one span and one backdrop to the same composite on both tiers", () => {
+    /*
+     * The comparison is of what the two tiers PUT ON THE PAGE, and since W24 it
+     * has to be (claims §5.108 §2): the renderer carries the collapse's
+     * transmission in its target colour, where it has the pixel beneath in hand,
+     * and this tier carries the same share in its layer's alpha because all it
+     * has is one `rgba()` over one `backdrop-filter`. Over the solid backdrop
+     * these rows declare, the two decompositions are of one composite, and that
+     * identity is what is asserted — with the pair itself checked where the
+     * collapse is not running, which is every row whose adaptation is 0.
+     */
     for (const spanPx of [44, 96, 128, 160]) {
       for (const backdrop of [0.05, 0.2, 0.5, 0.8]) {
         const renderer = rendererComposite(spanPx, backdrop);
         const tier = tierComposite(spanPx, backdrop);
         const where = `span ${spanPx} backdrop ${backdrop}`;
-        expect(tier.tintAlpha, `${where} alpha`).toBeCloseTo(renderer.alpha, 12);
         for (const index of [0, 1, 2] as const) {
-          expect(tier.tint[index], `${where} channel ${index}`).toBeCloseTo(
-            renderer.tint[index],
-            12,
-          );
+          const gpu = (1 - renderer.alpha) * backdrop + renderer.alpha * renderer.tint[index];
+          const css = (1 - tier.tintAlpha) * backdrop + tier.tintAlpha * (tier.tint[index] as number);
+          expect(css, `${where} channel ${index}`).toBeCloseTo(gpu, 12);
+        }
+        // Where nothing has collapsed the two pairs are still identical, so a
+        // divergence anywhere else in the chain cannot hide behind the identity
+        // above.
+        if (Math.abs(tier.tintAlpha - renderer.alpha) < 1e-12) {
+          for (const index of [0, 1, 2] as const) {
+            expect(tier.tint[index], `${where} channel ${index}`).toBeCloseTo(
+              renderer.tint[index],
+              12,
+            );
+          }
         }
       }
     }
@@ -2034,12 +2070,11 @@ describe("the interior composite (X7)", () => {
       adapted,
       interiorShadowKeep(base, geometry, sizeK, 1 - adaptation, sourceInteriorLight(patch)),
     );
-    const addedLight = interiorBandLight(
-      base,
-      geometry,
-      1 - adaptation,
-      sourceInteriorLight(patch),
-    );
+    // The band's light no longer reads a light DIRECTION: the one-sided specular
+    // is retired with the rim it modelled and the lit edge's factor, which
+    // replaced it, integrates over the arcs without needing one (W24; claims
+    // §5.108 §1).
+    const addedLight = interiorBandLight(base, geometry, 1 - adaptation);
 
     // The neutral clamps at black on this cell, which is the state the whole
     // mechanism lives in — pinned, because a profile that stopped clamping would

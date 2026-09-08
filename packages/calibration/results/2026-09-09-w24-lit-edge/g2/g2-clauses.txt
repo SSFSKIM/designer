@@ -1,0 +1,92 @@
+W24 G2 — clauses 1 and 3, read on the angular instrument and on the eroded body
+======================================================================================================================
+before = the landed 0.12.0 bed (the W23 bed); after = this gate's dry run.
+Clause 1 is W24 Decision Log 2 (b)'s: the ratio within 20 % where the reference's
+exceeds 2, and the worst bin error no more than half the landed bed's.
+
+=== CLAUSE 1 (a) — the brightest/dimmest bin ratio, GPU tier, untinted solid rows ===
+  profile                                        scene                                         ref   before    after  after/ref   verdict
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest            12.38     1.29    13.38       1.08       met
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest                   5.46     2.33    47.75       8.75    MISSED
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest         5.82     2.00    18.02       3.10    MISSED
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest            15.97     1.25    12.48       0.78    MISSED
+  apple-macos-26.5-2x-light-standard             dark-solid__rrect-md__rest                   7.72     1.49    17.97       2.33    MISSED
+  apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest         6.23     1.44    16.31       2.62    MISSED
+  apple-macos-26.5-1x-dark-standard              dark-solid__capsule-button__rest            12.38     1.29    13.38       1.08       met
+  apple-macos-26.5-1x-dark-standard              dark-solid__rrect-md__rest                  21.07     1.25    17.83       0.85       met
+  apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest         2.16     1.24     2.26       1.05       met
+  apple-macos-26.5-2x-dark-standard              dark-solid__capsule-button__rest            15.97     1.25    12.48       0.78    MISSED
+  apple-macos-26.5-2x-dark-standard              dark-solid__rrect-md__rest                  25.86     1.25    13.73       0.53    MISSED
+  apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest         2.43     1.07     2.66       1.09       met
+  rows where the reference's ratio exceeds 2: 12; met 5
+
+=== CLAUSE 1 (b) — the worst bin error, GPU tier, untinted solid rows ===
+  bound: no more than HALF the landed bed's, per row.
+  profile                                        scene                                     bins    before     after   share   verdict
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest            15    0.0130    0.0024    0.18       met
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest                  16    0.1070    0.0657    0.61    MISSED
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest        16    0.1284    0.0884    0.69    MISSED
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest            15    0.0177    0.0044    0.25       met
+  apple-macos-26.5-2x-light-standard             dark-solid__rrect-md__rest                  14    0.2020    0.0844    0.42       met
+  apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest        16    0.2038    0.0960    0.47       met
+  apple-macos-26.5-1x-dark-standard              dark-solid__capsule-button__rest            15    0.0130    0.0024    0.18       met
+  apple-macos-26.5-1x-dark-standard              dark-solid__rrect-md__rest                  16    0.0194    0.0085    0.44       met
+  apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest         9    0.0118    0.0042    0.35       met
+  apple-macos-26.5-2x-dark-standard              dark-solid__capsule-button__rest            15    0.0177    0.0044    0.25       met
+  apple-macos-26.5-2x-dark-standard              dark-solid__rrect-md__rest                  16    0.0292    0.0112    0.38       met
+  apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest        10    0.0145    0.0070    0.48       met
+  untinted solid rows read: 12; at or under half the landed bed's: 10
+
+=== CLAUSE 1 — the same two, on the CSS tier, as context (X5) ===
+  This tier draws one border alpha the whole way round and cannot carry an angular
+  profile in any form; what moves here is the band's derived interior light.
+  profile                                        scene                                         ref   before    after
+  apple-macos-26.5-1x-light-standard             dark-solid__capsule-button__rest            12.38    63.45    63.78
+  apple-macos-26.5-1x-light-standard             dark-solid__rrect-md__rest                   5.46      inf      inf
+  apple-macos-26.5-1x-light-standard             light-solid__capsule-button__rest            1.02  1022.49  1022.49
+  apple-macos-26.5-1x-light-standard             light-solid__rrect-md__rest                  1.18      inf      inf
+  apple-macos-26.5-1x-light-standard             light-solid__rrect-ml__rest                  1.17      inf      inf
+  apple-macos-26.5-1x-light-standard             mid-dark-solid__capsule-button__rest         5.82      inf      inf
+  apple-macos-26.5-2x-light-standard             dark-solid__capsule-button__rest            15.97      inf      inf
+  apple-macos-26.5-2x-light-standard             dark-solid__rrect-md__rest                   7.72      inf      inf
+  apple-macos-26.5-2x-light-standard             light-solid__capsule-button__rest            1.03   191.22   191.22
+  apple-macos-26.5-2x-light-standard             light-solid__rrect-md__rest                  1.15      inf      inf
+  apple-macos-26.5-2x-light-standard             light-solid__rrect-ml__rest                  1.15      inf      inf
+  apple-macos-26.5-2x-light-standard             mid-dark-solid__capsule-button__rest         6.23      inf      inf
+  apple-macos-26.5-1x-dark-standard              dark-solid__capsule-button__rest            12.38    63.45    63.78
+  apple-macos-26.5-1x-dark-standard              dark-solid__rrect-md__rest                  21.07    33.48    33.48
+  apple-macos-26.5-1x-dark-standard              mid-dark-solid__capsule-button__rest         2.16    16.73    16.73
+  apple-macos-26.5-2x-dark-standard              dark-solid__capsule-button__rest            15.97      inf      inf
+  apple-macos-26.5-2x-dark-standard              dark-solid__rrect-md__rest                  25.86      inf      inf
+  apple-macos-26.5-2x-dark-standard              mid-dark-solid__capsule-button__rest         2.43    13.02    13.02
+
+=== CLAUSE 3 — the dark structured thin capsules did not move ===
+  Their `k` is 0.0000 at both scales in both schemes (W24 G1 §4, read off the running
+  system's own published group state), so no transmission constant reaches them; what
+  is read here is that nothing else did either.
+  profile                                        scene                                    tier      native    before     after         Δ
+  apple-macos-26.5-1x-light-standard             checkerboard__capsule-button__rest       webgpu   0.61326   0.67429   0.67418  -0.00011
+  apple-macos-26.5-1x-light-standard             photo__capsule-button__rest              webgpu   0.57661   0.61192   0.61180  -0.00011
+  apple-macos-26.5-1x-light-standard             checkerboard__capsule-button__rest       css      0.61326   0.67945   0.67872  -0.00073
+  apple-macos-26.5-1x-light-standard             photo__capsule-button__rest              css      0.57661   0.62096   0.62037  -0.00059
+  apple-macos-26.5-2x-light-standard             checkerboard__capsule-button__rest       webgpu   0.61525   0.68053   0.68042  -0.00011
+  apple-macos-26.5-2x-light-standard             photo__capsule-button__rest              webgpu   0.57724   0.61164   0.61154  -0.00010
+  apple-macos-26.5-2x-light-standard             checkerboard__capsule-button__rest       css      0.61525   0.69472   0.69424  -0.00048
+  apple-macos-26.5-2x-light-standard             photo__capsule-button__rest              css      0.57724   0.62250   0.62190  -0.00060
+  apple-macos-26.5-1x-dark-standard              checkerboard__capsule-button__rest       webgpu   0.10595   0.06743   0.06736  -0.00007
+  apple-macos-26.5-1x-dark-standard              photo__capsule-button__rest              webgpu   0.09608   0.05282   0.05277  -0.00005
+  apple-macos-26.5-1x-dark-standard              checkerboard__capsule-button__rest       css      0.10595   0.07442   0.07430  -0.00011
+  apple-macos-26.5-1x-dark-standard              photo__capsule-button__rest              css      0.09608   0.05579   0.05579  +0.00000
+  apple-macos-26.5-2x-dark-standard              checkerboard__capsule-button__rest       webgpu   0.10745   0.06856   0.06851  -0.00006
+  apple-macos-26.5-2x-dark-standard              photo__capsule-button__rest              webgpu   0.09660   0.05274   0.05270  -0.00004
+  apple-macos-26.5-2x-dark-standard              checkerboard__capsule-button__rest       css      0.10745   0.07412   0.07383  -0.00029
+  apple-macos-26.5-2x-dark-standard              photo__capsule-button__rest              css      0.09660   0.05496   0.05496  +0.00000
+  apple-macos-26.5-1x-light-increased-contrast   checkerboard__capsule-button__rest       webgpu   0.97825   0.93242   0.93242  +0.00000
+  apple-macos-26.5-1x-light-increased-contrast   photo__capsule-button__rest              webgpu   0.98198   0.89359   0.89359  +0.00000
+  apple-macos-26.5-1x-light-increased-contrast   checkerboard__capsule-button__rest       css      0.97825   0.95195   0.95111  -0.00084
+  apple-macos-26.5-1x-light-increased-contrast   photo__capsule-button__rest              css      0.98198   0.91404   0.91284  -0.00120
+  apple-macos-26.5-1x-light-reduced-transparency checkerboard__capsule-button__rest       webgpu   0.88797   0.93205   0.93198  -0.00008
+  apple-macos-26.5-1x-light-reduced-transparency photo__capsule-button__rest              webgpu   0.89174   0.89304   0.89296  -0.00008
+  apple-macos-26.5-1x-light-reduced-transparency checkerboard__capsule-button__rest       css      0.88797   0.93105   0.93055  -0.00049
+  apple-macos-26.5-1x-light-reduced-transparency photo__capsule-button__rest              css      0.89174   0.89307   0.89258  -0.00049
+  worst |Δ body| on the cells clause 3 names: 0.00120

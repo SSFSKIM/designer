@@ -159,9 +159,23 @@ export interface MaterialSourceOptics {
    */
   /** The rim band's half-width in CSS px — `MaterialOptics.rimWidth`. */
   readonly rimWidth: number;
-  /** The specular exponent on the same band — `MaterialOptics.specularPower`. */
+  /**
+   * The lit edge's exponent — `MaterialOptics.rimLitExponent` (W24; claims
+   * §5.108 §1), mirrored for the same reason the specular below was: this tier
+   * cannot vary a border's alpha around a contour, but `interiorBandLight` has
+   * to know what the renderer's band integrates to, and the factor is exactly 1
+   * on the straight runs and less than 1 on the arcs.
+   */
+  readonly rimLitExponent: number;
+  /**
+   * The retired one-sided specular's two constants —
+   * `MaterialOptics.specularPower` and `.specularGain` (W24; claims §5.108 §1).
+   * The renderer's rim stopped reading them when the lit edge replaced the
+   * shape they carried, and so did `interiorBandLight`; they stay on the mirror
+   * so that `tier-coherence` still pins the two profiles to each other field by
+   * field.
+   */
   readonly specularPower: number;
-  /** The specular gain on the same band — `MaterialOptics.specularGain`. */
   readonly specularGain: number;
   /** The inner shadow's peak darkening at the contour — `MaterialOptics.shadowDepth`. */
   readonly shadowDepth: number;
@@ -190,6 +204,14 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
     rimLevelGain: -0.628,
     highlight: [1, 1, 1],
     rimWidth: 1.5,
+    // The lit edge, adopted at 1.15 in W24 (claims §5.108 §1). This tier draws
+    // one border alpha the whole way round and cannot carry the factor as a
+    // FEATURE, but the renderer's band integrates to less light with it than
+    // without — the factor is 1 on the four straight runs by construction and
+    // below 1 on every corner arc — and `interiorBandLight` carries that into
+    // the derived interior level, exactly as it carried the specular it
+    // replaces.
+    rimLitExponent: 1.15,
     specularPower: 6,
     // 0.55 → 0 in W22 G1's fit (claims §5.94 §3): the light reference's rim has
     // no vertical light, and the constant that said it did was fitted beside the
@@ -219,6 +241,9 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
     rimLevelGain: 0,
     highlight: [1, 1, 1],
     rimWidth: 1.25,
+    // No scene on either bed declares this variant, so the lit edge has no rows
+    // here and stays inert (C9a §6.2), exactly as in the renderer's profile.
+    rimLitExponent: 0,
     specularPower: 8,
     specularGain: 0.45,
     shadowDepth: 0.22,
@@ -553,6 +578,26 @@ export function backdropToneUnderPolicy(
  * backdrop they show different pixels by construction. Measured: GPU over CSS
  * interior ratio 23.5 against a gated band of 0.80…1.25. A material that shows a
  * colour is tier-independent; one that shows its backdrop is not.
+ *
+ * **The collapse transmits, and on this tier that is one alpha (W24 G2; claims
+ * §5.108 §2, X5).** The paragraph above is right that the adapting material
+ * stops transmitting and wrong that it stops entirely: through the reference's
+ * collapsed capsule over the impulse dots the centre dot still comes through.
+ * The renderer lerps the collapse's TARGET from the group's mean toward the
+ * per-pixel blurred backdrop by `collapseTransmission`; matching that composite
+ * term by term against this tier's own — where `backdrop-filter` has already put
+ * the blurred backdrop `B` under the tint layer — gives the whole mirror in two
+ * lines and no new layer:
+ *
+ *     A' = α + k(1 − α) − k·c  =  A − k·c
+ *     T' = ((1 − k)·α·tint + k·(1 − c)·tone) / A'
+ *
+ * `(1 − A')·B + A'·T'` is then `(1 − k)·M + k·[(1 − c)·tone + c·B]` exactly, so
+ * the SHARE this tier transmits is the renderer's to the arithmetic. What it
+ * cannot carry is the WIDTH: `B` arrives through one Gaussian at `blurSigma`
+ * where the renderer mixes a sharp and a heavy component, so the dot is the
+ * right height and the wrong width here — the tier's recorded residual, smaller
+ * than the residual the renderer itself carries against the reference.
  */
 export function adaptedSourceOptics(
   source: MaterialSourceOptics,
@@ -560,6 +605,7 @@ export function adaptedSourceOptics(
   adaptation: number,
   rimCollapsed: number = RIM_COLLAPSED,
   unsampledBackdropLuminance: number = CSS_TIER_MAPPING.referenceBackdropLuminance,
+  transmission: number = COLLAPSE_TRANSMISSION,
 ): MaterialSourceOptics {
   /*
    * The rim under adaptation, on this tier's one seam (W23; claims §5.100 §§3-4
@@ -591,14 +637,19 @@ export function adaptedSourceOptics(
   }
   const rimAlpha = amplitude * (1 - k) + rimCollapsed * k;
   if (k <= 0) return rimAlpha === source.rimAlpha ? source : { ...source, rimAlpha };
-  const alpha = source.tintAlpha + k * (1 - source.tintAlpha);
+  // The transmission the collapse keeps, taken out of the collapsed material's
+  // own opacity so that what is beneath comes through the layer it already has.
+  const c = clamp01(transmission);
+  const alpha = source.tintAlpha + k * (1 - source.tintAlpha) - k * c;
   if (alpha <= 0) return { ...source, rimAlpha };
   // The pair that makes the interior CONVERGE on the backdrop's tone, rather than
   // two independently lerped parameters — see the renderer's `adaptedTintColour`
-  // for the cells that caught the difference.
+  // for the cells that caught the difference. The tone's share of the colour is
+  // `k(1 − c)` and not `k`, which is what keeps the pair solving the same
+  // composite once the alpha has given `k·c` of it away.
   const weight = (1 - k) * source.tintAlpha;
   const mix = (index: 0 | 1 | 2): number =>
-    (source.tint[index] * weight + backdrop[index] * k) / alpha;
+    (source.tint[index] * weight + backdrop[index] * k * (1 - c)) / alpha;
   return {
     ...source,
     tint: [mix(0), mix(1), mix(2)],
@@ -747,6 +798,56 @@ export function resolvedCollapsedRim(patch?: RendererMaterialProfile): Collapsed
 /** The profile's own `rimTintChroma`, or the mirrored default (W23 G3). */
 export function resolvedRimTintChroma(patch?: RendererMaterialProfile): number {
   return patch?.rimTintChroma ?? RIM_TINT_CHROMA;
+}
+
+/**
+ * Mirrors `DEFAULT_MATERIAL_PROFILE.collapseTransmission` and its second anchor
+ * at dpr 2 — how much of what is BENEATH a collapsed surface still comes
+ * through it (W24 G1; claims §5.108 §2).
+ *
+ * Profile-level and not per variant for the same reason `RIM_COLLAPSED` is: the
+ * reference's collapsed cells are the same bytes in both schemes, and what
+ * separates the two anchors is the kernel the transmission arrives through,
+ * which is a different width at each scale.
+ */
+export const COLLAPSE_TRANSMISSION = 0.017;
+export const COLLAPSE_TRANSMISSION_2X = 0.07;
+
+/** The collapse's two transmission anchors, at dpr 1 and at dpr 2. */
+export interface CollapseTransmissionConstants {
+  readonly at1x: number;
+  readonly at2x: number;
+}
+
+/**
+ * The profile's own transmission anchors, or the mirrored defaults — the same
+ * shape as `resolvedCollapsedRim` above and for the same reason. A profile that
+ * names only the 1x anchor gets it at both scales, exactly as the renderer's
+ * `withMaterialOverrides` resolves it.
+ */
+export function resolvedCollapseTransmission(
+  patch?: RendererMaterialProfile,
+): CollapseTransmissionConstants {
+  return {
+    at1x: patch?.collapseTransmission ?? COLLAPSE_TRANSMISSION,
+    at2x:
+      patch?.collapseTransmission2x ?? patch?.collapseTransmission ?? COLLAPSE_TRANSMISSION_2X,
+  };
+}
+
+/**
+ * The transmission at a device scale — the mirror of the renderer's
+ * `collapseTransmissionAtScale`, interpolated between the two anchors by the
+ * same rule and equal to the 1x anchor at every ratio at or below 1.
+ */
+export function collapseTransmissionAtScale(
+  constants: CollapseTransmissionConstants,
+  devicePixelRatio = 1,
+): number {
+  const t = devicePixelRatio - 1;
+  if (t <= 0) return constants.at1x;
+  if (t >= 1) return constants.at2x;
+  return constants.at1x + (constants.at2x - constants.at1x) * t;
 }
 
 /**
@@ -2378,32 +2479,33 @@ function coAreaBand(
 }
 
 /**
- * `∮ clamp(n̂ · L, 0, 1)^p dθ` over one full turn of the unit normal — the corner
- * arcs' share of the specular contour integral, per unit of radius.
+ * `∮ (√2·|cos θ|)^p dθ` over one full turn of the unit normal — the corner arcs'
+ * share of the LIT edge's contour integral, per unit of radius (W24; claims
+ * §5.108 §1).
  *
- * Memoised on the exponent and the direction because it depends on neither the
- * surface's geometry nor its backdrop: every surface of one profile shares one
- * value, and this runs on the paint path. The quadrature is 2048 midpoints of a
- * smooth periodic integrand (the clamp's corner is `C^{p−1}` at `p` ≥ 6), which
- * agrees with the closed form `√π·Γ((p+1)/2)/Γ(p/2+1)` to 1e−12 at the profile's
- * exponents; it is written as a sum because that identity would need a gamma
- * function this package does not carry for a constant it evaluates once.
+ * At `p` = 0 it is `2π` exactly, which is the unlit band this replaced, so a
+ * profile that declines the lit edge derives the same interior it always did.
+ * Memoised on the exponent alone: the integral does not depend on where the
+ * axis points, because a full turn sees every angle to it.
  */
-const arcSpecularCache = new Map<string, number>();
-function arcSpecularIntegral(power: number, light: readonly [number, number]): number {
-  const key = `${power}|${light[0]}|${light[1]}`;
-  const hit = arcSpecularCache.get(key);
+const arcLitCache = new Map<number, number>();
+function arcLitIntegral(power: number): number {
+  const hit = arcLitCache.get(power);
   if (hit !== undefined) return hit;
-  const exponent = Math.max(power, 1e-3);
+  const exponent = Math.max(power, 0);
+  if (exponent <= 0) {
+    arcLitCache.set(power, 2 * Math.PI);
+    return 2 * Math.PI;
+  }
   const samples = 2048;
   let total = 0;
   for (let index = 0; index < samples; index += 1) {
-    const angle = ((index + 0.5) / samples) * 2 * Math.PI;
-    const facing = clamp01(Math.cos(angle) * light[0] + Math.sin(angle) * light[1]);
-    total += Math.pow(facing, exponent) * ((2 * Math.PI) / samples);
+    const theta = ((index + 0.5) / samples) * 2 * Math.PI;
+    total += Math.pow(Math.SQRT2 * Math.abs(Math.cos(theta)), exponent);
   }
-  arcSpecularCache.set(key, total);
-  return total;
+  const value = (total / samples) * 2 * Math.PI;
+  arcLitCache.set(power, value);
+  return value;
 }
 
 /**
@@ -2444,7 +2546,6 @@ export function interiorBandLight(
   source: MaterialSourceOptics,
   geometry: InteriorSurfaceGeometry,
   present: number,
-  light: MaterialSourceInteriorLight = MATERIAL_SOURCE_INTERIOR_LIGHT,
 ): number {
   const metrics = rrectMetrics(geometry);
   const { area, radius, span } = metrics;
@@ -2455,28 +2556,21 @@ export function interiorBandLight(
   const depth = Math.min(Math.max(source.rimWidth, 0), radius, span / 2);
   if (depth <= 0 || present <= 0) return 0;
 
-  const direction = unitDirection(light.lightDirection);
-  const lit = (nx: number, ny: number): number =>
-    Math.pow(clamp01(nx * direction[0] + ny * direction[1]), Math.max(source.specularPower, 1e-3));
-  const straightSpecular =
-    (geometry.widthCssPx - 2 * radius) * (lit(0, -1) + lit(0, 1)) +
-    (geometry.heightCssPx - 2 * radius) * (lit(-1, 0) + lit(1, 0));
-  // The straight runs' specular weight is a length like `straight` is, and the
-  // arcs' is the contour integral per unit radius — the same two slots the
-  // ambient band fills with its own length and `2π`.
-  const ambient = coAreaBand(depth, metrics, 2 * Math.PI);
-  const specular = coAreaBand(
-    depth,
-    { ...metrics, straight: straightSpecular },
-    arcSpecularIntegral(source.specularPower, direction),
-  );
-  return (present * (source.rimAlpha * ambient + source.specularGain * specular)) / area;
-}
-
-/** A direction, normalised — the shader's `light.xy` is a unit vector and this says so. */
-function unitDirection(direction: readonly [number, number]): readonly [number, number] {
-  const length = Math.hypot(direction[0], direction[1]);
-  return length > 1e-6 ? [direction[0] / length, direction[1] / length] : [0, -1];
+  /*
+   * The lit edge, in the one place this tier can carry it (W24; claims §5.108
+   * §1). The renderer multiplies the whole rim by `(√2·|n̂ · L|)^p`, which is
+   * exactly 1 wherever the normal is horizontal or vertical and less than 1
+   * everywhere else — so the four STRAIGHT runs keep their weight of 1 and the
+   * corner arcs, which sweep one full turn between them, carry the factor's own
+   * contour integral in place of the `2π` an unlit band would have.
+   *
+   * That integral is independent of where the axis points, because the arcs
+   * sweep the whole turn: `∮ (√2|cos(θ − φ)|)^p dθ` is the same number for every
+   * φ. It is a statement about the ARC and not about the axis, which is why this
+   * function needs the exponent and not the direction.
+   */
+  const ambient = coAreaBand(depth, metrics, arcLitIntegral(source.rimLitExponent));
+  return (present * source.rimAlpha * ambient) / area;
 }
 
 /**
