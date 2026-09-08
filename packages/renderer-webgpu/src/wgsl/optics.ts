@@ -145,7 +145,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// three anchors for a surface of sizeThickness 0 (xyz); w is the law's
   /// per-profile authority — 0 on dark profiles, whose response is unmeasured
   toneRowThin : vec4f,
-  /// the thick row (sizeThickness saturated), same layout
+  /// the thick row (sizeThickness saturated), xyz as the thin row's; w is the
+  /// collapse's transmission (W24 G1), in the padding slot this vec4's alignment
+  /// already required — it belongs to the tone block and the tone block's other
+  /// three vec4s are full. At 0 the collapse's target is the group's mean
+  /// backdrop colour and this pass is W7's to the bit.
   toneRowThick : vec4f,
   /// the size law's bands: the scatter facet's floor (x, resolved at the
   /// group's device ratio since W15 G1 — the deep value is per-scale, claims
@@ -781,11 +785,44 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     }
   }
 
+  /*
+   * The collapse's TARGET (W24 G1) — what the material converges on where it has
+   * adapted, and the one place the transmission was lost.
+   *
+   * The pair below reduces exactly to 'colour = (1 − k)·M + k·target', with 'M'
+   * the unadapted composite '(1 − α)·backdrop + α·neutral'. At 'target' =
+   * 'toneColour.rgb', the group's MEAN backdrop colour, a fully collapsed
+   * surface is one flat number and nothing under it comes through — which is
+   * exactly what the reference's collapsed capsule over the impulse grid does
+   * NOT do (claims §5.107 §2: it passes the centre dot at four times its own
+   * body). So the target lerps toward the per-pixel blurred backdrop the
+   * refraction path above already sampled, by the profile's own constant.
+   *
+   * Only the target moves. The tone axis's argument is still the group's mean
+   * luminance and the response solve still composites against 'toneAnchor.w',
+   * so 'k' and the law's level are the numbers W7 and W9 fitted: the collapse
+   * still collapses the level, and stops flattening the structure.
+   *
+   * The alpha solve above needs no gate of its own, and this is arithmetic
+   * rather than a choice: on a fully collapsed surface it never runs (its own
+   * 'toneAdapt < 0.995' stands it down where the collapse owns the pixel), and
+   * below that it is the (1 − k) half of the same lerp, which transmits already.
+   *
+   * Gated on 'flags.x': with no pyramid to sample 'backdrop' is the zero vector
+   * and this pass writes a layer for the browser to composite, so a target
+   * lerped toward it would be a black surface rather than a transmitting one.
+   * There the CSS tier's own 'backdrop-filter' is what carries the transmission.
+   */
+  var toneTarget = ou.toneColour.rgb;
+  if (ou.flags.x > 0.5) {
+    toneTarget = mix(toneTarget, backdrop, clamp(ou.toneRowThick.w, 0.0, 1.0));
+  }
+
   let adaptedAlpha = solvedAlpha + toneAdapt * (1.0 - solvedAlpha);
   var adapted = solvedNeutral;
   if (toneAdapt > 0.0 && adaptedAlpha > 0.0) {
     adapted =
-      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + ou.toneColour.rgb * toneAdapt) /
+      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + toneTarget * toneAdapt) /
       adaptedAlpha;
   }
 

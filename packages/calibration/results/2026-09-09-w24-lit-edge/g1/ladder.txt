@@ -1,0 +1,582 @@
+W24 G1 (c) — the ladder: the collapse's transmission on vitrea's own pixels
+
+Nine rendered points, GPU tier (apple/metal-3), `--set calibration,validation` — the holdout is not
+captured at any rung (X3). Everything under
+`/Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/`; nothing canonical was written.
+
+  control-1x-light   collapseTransmission = 0      the byte-identity control
+  probe-{1x,2x}-{light,dark}   = 0.10              the leverage rung
+  fit-{1x,2x}-{light,dark}     = 0.017 / 0.070     the confirmation
+
+The fit is exact arithmetic on one rung, because at k = 1 (every `impulse__capsule-button` cell)
+the composite is `colour = (1 − c)·toneColour + c·backdrop` and the dot's excess is therefore
+LINEAR in c:
+
+  1x   c* = 0.10 × 0.0066 / 0.0386 = 0.0171 → 0.017
+  2x   c* = 0.10 × 0.0254 / 0.0363 = 0.0700 → 0.070
+
+and the confirmation rungs render +0.0067 and +0.0256 against the reference's +0.0066 and +0.0254.
+The two scales differ by a factor of four because vitrea's own blurred backdrop carries nearly the
+same excess at both (0.386 and 0.363) where the reference's transmitted peak is four times larger
+at 2x — the kernel finding of `g1-findings.md` §5, stated as a constant.
+
+======== the control at c = 0, against the landed 0.12.0 bytes
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-blue
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      checkerboard__rrect-ml__rest
+  same      checkerboard__rrect-sm__rest
+  same      checkerboard__toolbar-group__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  same      impulse__capsule-button__rest-tint-orange
+  same      impulse__capsule-button__rest
+  same      impulse__rrect-md__rest
+  same      light-solid__capsule-button__rest-tint-orange
+  same      light-solid__capsule-button__rest
+  same      light-solid__rrect-md__rest
+  same      light-solid__rrect-ml__rest
+  same      photo__capsule-button__rest-tint-blue
+  same      photo__capsule-button__rest-tint-orange-half
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest-tint-orange
+  same      photo__rrect-md__rest
+  same      photo__rrect-ml__rest
+  same      photo__rrect-sm__rest
+  same      photo__toolbar-group__rest
+######## probe-1x-light — apple-macos-26.5-1x-light-standard (1x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/probe-1x-light/web-captures
+
+== apple-macos-26.5-1x-light-standard impulse__capsule-button__rest  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+rung     *( 160.0, 104.0)     x   0.0037    0.0386    5.03    0.2053
+rung     *( 160.0, 104.0)     y   0.0037    0.0386    5.03    0.2060
+rung      body over the shape eroded 6 CSS px: 0.0038
+
+== apple-macos-26.5-1x-light-standard impulse__capsule-button__rest-tint-orange  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.4244    0.0000       -    0.0000
+native   *( 160.0, 104.0)     y   0.4244    0.0000       -    0.0000
+native    body over the shape eroded 6 CSS px: 0.4244
+rung     *( 160.0, 104.0)     x   0.4275   -0.0000       -    0.0000
+rung     *( 160.0, 104.0)     y   0.4275    0.0000       -    0.0000
+rung      body over the shape eroded 6 CSS px: 0.4275
+
+== apple-macos-26.5-1x-light-standard impulse__rrect-md__rest  (rrect-md, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    (  96.0, 104.0)     y   0.4342    0.0687    7.92    0.5399
+native   *( 160.0, 104.0)     x   0.4342    0.0510    8.43    0.4171
+native   *( 160.0, 104.0)     y   0.4342    0.0510    8.19    0.4115
+native    ( 224.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    ( 224.0, 104.0)     y   0.4342    0.0687    7.92    0.5514
+native    body over the shape eroded 6 CSS px: 0.4311
+rung      (  96.0, 104.0)     x   0.4656    0.1382    8.41    1.1863
+rung      (  96.0, 104.0)     y   0.4641    0.1070    5.23    0.6394
+rung     *( 160.0, 104.0)     x   0.4666    0.1373    4.92    0.7656
+rung     *( 160.0, 104.0)     y   0.4657    0.1381    4.94    0.7795
+rung      ( 224.0, 104.0)     x   0.4670    0.1369    8.37    1.1545
+rung      ( 224.0, 104.0)     y   0.4621    0.1285    5.55    0.7980
+rung      body over the shape eroded 6 CSS px: 0.4643
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-1x-light-standard  checkerboard__capsule-button__restnative     0.6130   0.1363   0.5000  0.2727  205.37
+apple-macos-26.5-1x-light-standard  checkerboard__capsule-button__restweb        0.6744   0.1360   0.5000  0.2720  214.27
+apple-macos-26.5-1x-light-standard  photo__capsule-button__rest     native     0.5743   0.0335   0.0777  0.4313  199.50
+apple-macos-26.5-1x-light-standard  photo__capsule-button__rest     web        0.6099   0.0330   0.0777  0.4249  204.91
+apple-macos-26.5-1x-light-standard  impulse__capsule-button__rest   native     0.0066   0.0007   0.0701  0.0104   19.26
+apple-macos-26.5-1x-light-standard  impulse__capsule-button__rest   web        0.0038   0.0027   0.0701  0.0388   12.50
+apple-macos-26.5-1x-light-standard  dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-1x-light-standard  dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-blue
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      checkerboard__rrect-ml__rest
+  same      checkerboard__rrect-sm__rest
+  same      checkerboard__toolbar-group__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  same      impulse__capsule-button__rest-tint-orange
+  MOVED     impulse__capsule-button__rest
+  MOVED     impulse__rrect-md__rest
+  same      light-solid__capsule-button__rest-tint-orange
+  same      light-solid__capsule-button__rest
+  same      light-solid__rrect-md__rest
+  same      light-solid__rrect-ml__rest
+  same      photo__capsule-button__rest-tint-blue
+  same      photo__capsule-button__rest-tint-orange-half
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest-tint-orange
+  same      photo__rrect-md__rest
+  same      photo__rrect-ml__rest
+  same      photo__rrect-sm__rest
+  same      photo__toolbar-group__rest
+######## probe-2x-light — apple-macos-26.5-2x-light-standard (2x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/probe-2x-light/web-captures
+
+== apple-macos-26.5-2x-light-standard impulse__capsule-button__rest  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+rung     *( 160.0, 104.0)     x   0.0033    0.0363    4.63    0.2025
+rung     *( 160.0, 104.0)     y   0.0035    0.0361    4.54    0.1992
+rung      body over the shape eroded 6 CSS px: 0.0035
+
+== apple-macos-26.5-2x-light-standard impulse__capsule-button__rest-tint-orange  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.4244    0.0064    3.49    0.0254
+native   *( 160.0, 104.0)     y   0.4244    0.0064    3.49    0.0254
+native    body over the shape eroded 6 CSS px: 0.4244
+rung     *( 160.0, 104.0)     x   0.4275   -0.0000       -    0.0000
+rung     *( 160.0, 104.0)     y   0.4275    0.0000       -    0.0000
+rung      body over the shape eroded 6 CSS px: 0.4275
+
+== apple-macos-26.5-2x-light-standard impulse__rrect-md__rest  (rrect-md, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4322    0.1584    7.86    1.3518
+native    (  96.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native   *( 160.0, 104.0)     x   0.4314    0.0596    8.65    0.5763
+native   *( 160.0, 104.0)     y   0.4314    0.0596    8.15    0.5821
+native    ( 224.0, 104.0)     x   0.4316    0.1590    7.88    1.3651
+native    ( 224.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native    body over the shape eroded 6 CSS px: 0.4311
+rung      (  96.0, 104.0)     x   0.4637    0.1204    8.64    1.1500
+rung      (  96.0, 104.0)     y   0.4630    0.1050    5.95    0.7949
+rung     *( 160.0, 104.0)     x   0.4632    0.0701    8.28    0.6822
+rung     *( 160.0, 104.0)     y   0.4632    0.0701    8.78    0.6791
+rung      ( 224.0, 104.0)     x   0.4634    0.1207    8.65    1.1567
+rung      ( 224.0, 104.0)     y   0.4630    0.1050    5.95    0.7965
+rung      body over the shape eroded 6 CSS px: 0.4645
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-2x-light-standard  checkerboard__capsule-button__restnative     0.6151   0.1504   0.5000  0.3009  205.68
+apple-macos-26.5-2x-light-standard  checkerboard__capsule-button__restweb        0.6806   0.1387   0.5000  0.2774  215.14
+apple-macos-26.5-2x-light-standard  photo__capsule-button__rest     native     0.5749   0.0351   0.0783  0.4486  199.59
+apple-macos-26.5-2x-light-standard  photo__capsule-button__rest     web        0.6094   0.0352   0.0783  0.4503  204.84
+apple-macos-26.5-2x-light-standard  impulse__capsule-button__rest   native     0.0067   0.0014   0.0701  0.0205   19.34
+apple-macos-26.5-2x-light-standard  impulse__capsule-button__rest   web        0.0035   0.0025   0.0701  0.0353   11.55
+apple-macos-26.5-2x-light-standard  dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-2x-light-standard  dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-blue
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      checkerboard__rrect-ml__rest
+  same      checkerboard__rrect-sm__rest
+  same      checkerboard__toolbar-group__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  same      impulse__capsule-button__rest-tint-orange
+  MOVED     impulse__capsule-button__rest
+  MOVED     impulse__rrect-md__rest
+  same      light-solid__capsule-button__rest-tint-orange
+  same      light-solid__capsule-button__rest
+  same      light-solid__rrect-md__rest
+  same      light-solid__rrect-ml__rest
+  same      photo__capsule-button__rest-tint-blue
+  same      photo__capsule-button__rest-tint-orange-half
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest-tint-orange
+  same      photo__rrect-md__rest
+  same      photo__rrect-ml__rest
+  same      photo__rrect-sm__rest
+  same      photo__toolbar-group__rest
+######## probe-1x-dark — apple-macos-26.5-1x-dark-standard (1x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/probe-1x-dark/web-captures
+
+== apple-macos-26.5-1x-dark-standard impulse__capsule-button__rest  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+rung     *( 160.0, 104.0)     x   0.0037    0.0386    5.03    0.2053
+rung     *( 160.0, 104.0)     y   0.0037    0.0386    5.03    0.2060
+rung      body over the shape eroded 6 CSS px: 0.0038
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-1x-dark-standard   checkerboard__capsule-button__restnative     0.1056   0.0501   0.5000  0.1001   91.40
+apple-macos-26.5-1x-dark-standard   checkerboard__capsule-button__restweb        0.0671   0.0252   0.5000  0.0505   73.26
+apple-macos-26.5-1x-dark-standard   photo__capsule-button__rest     native     0.0948   0.0151   0.0777  0.1950   86.80
+apple-macos-26.5-1x-dark-standard   photo__capsule-button__rest     web        0.0522   0.0067   0.0777  0.0862   64.56
+apple-macos-26.5-1x-dark-standard   impulse__capsule-button__rest   native     0.0066   0.0007   0.0701  0.0104   19.26
+apple-macos-26.5-1x-dark-standard   impulse__capsule-button__rest   web        0.0038   0.0027   0.0701  0.0388   12.50
+apple-macos-26.5-1x-dark-standard   dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-1x-dark-standard   dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  MOVED     impulse__capsule-button__rest
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest
+######## probe-2x-dark — apple-macos-26.5-2x-dark-standard (2x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/probe-2x-dark/web-captures
+
+== apple-macos-26.5-2x-dark-standard impulse__capsule-button__rest  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+rung     *( 160.0, 104.0)     x   0.0033    0.0363    4.63    0.2025
+rung     *( 160.0, 104.0)     y   0.0035    0.0361    4.54    0.1992
+rung      body over the shape eroded 6 CSS px: 0.0035
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-2x-dark-standard   checkerboard__capsule-button__restnative     0.1071   0.0552   0.5000  0.1105   92.03
+apple-macos-26.5-2x-dark-standard   checkerboard__capsule-button__restweb        0.0682   0.0257   0.5000  0.0514   73.86
+apple-macos-26.5-2x-dark-standard   photo__capsule-button__rest     native     0.0953   0.0158   0.0783  0.2024   87.00
+apple-macos-26.5-2x-dark-standard   photo__capsule-button__rest     web        0.0520   0.0072   0.0783  0.0915   64.49
+apple-macos-26.5-2x-dark-standard   impulse__capsule-button__rest   native     0.0067   0.0014   0.0701  0.0205   19.34
+apple-macos-26.5-2x-dark-standard   impulse__capsule-button__rest   web        0.0035   0.0025   0.0701  0.0353   11.55
+apple-macos-26.5-2x-dark-standard   dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-2x-dark-standard   dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  MOVED     impulse__capsule-button__rest
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest
+######## fit-1x-light — apple-macos-26.5-1x-light-standard (1x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/fit-1x-light/web-captures
+
+== apple-macos-26.5-1x-light-standard impulse__capsule-button__rest  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+rung     *( 160.0, 104.0)     x   0.0037    0.0067    4.99    0.0353
+rung     *( 160.0, 104.0)     y   0.0037    0.0067    4.99    0.0353
+rung      body over the shape eroded 6 CSS px: 0.0037
+
+== apple-macos-26.5-1x-light-standard impulse__capsule-button__rest-tint-orange  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.4244    0.0000       -    0.0000
+native   *( 160.0, 104.0)     y   0.4244    0.0000       -    0.0000
+native    body over the shape eroded 6 CSS px: 0.4244
+rung     *( 160.0, 104.0)     x   0.4275   -0.0000       -    0.0000
+rung     *( 160.0, 104.0)     y   0.4275    0.0000       -    0.0000
+rung      body over the shape eroded 6 CSS px: 0.4275
+
+== apple-macos-26.5-1x-light-standard impulse__rrect-md__rest  (rrect-md, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    (  96.0, 104.0)     y   0.4342    0.0687    7.92    0.5399
+native   *( 160.0, 104.0)     x   0.4342    0.0510    8.43    0.4171
+native   *( 160.0, 104.0)     y   0.4342    0.0510    8.19    0.4115
+native    ( 224.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    ( 224.0, 104.0)     y   0.4342    0.0687    7.92    0.5514
+native    body over the shape eroded 6 CSS px: 0.4311
+rung      (  96.0, 104.0)     x   0.4656    0.1382    8.41    1.1863
+rung      (  96.0, 104.0)     y   0.4641    0.1070    5.23    0.6394
+rung     *( 160.0, 104.0)     x   0.4666    0.1373    4.91    0.7526
+rung     *( 160.0, 104.0)     y   0.4657    0.1381    4.93    0.7671
+rung      ( 224.0, 104.0)     x   0.4670    0.1369    8.37    1.1545
+rung      ( 224.0, 104.0)     y   0.4621    0.1285    5.55    0.7980
+rung      body over the shape eroded 6 CSS px: 0.4643
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-1x-light-standard  checkerboard__capsule-button__restnative     0.6130   0.1363   0.5000  0.2727  205.37
+apple-macos-26.5-1x-light-standard  checkerboard__capsule-button__restweb        0.6744   0.1360   0.5000  0.2720  214.27
+apple-macos-26.5-1x-light-standard  photo__capsule-button__rest     native     0.5743   0.0335   0.0777  0.4313  199.50
+apple-macos-26.5-1x-light-standard  photo__capsule-button__rest     web        0.6099   0.0330   0.0777  0.4249  204.91
+apple-macos-26.5-1x-light-standard  impulse__capsule-button__rest   native     0.0066   0.0007   0.0701  0.0104   19.26
+apple-macos-26.5-1x-light-standard  impulse__capsule-button__rest   web        0.0037   0.0005   0.0701  0.0066   12.17
+apple-macos-26.5-1x-light-standard  dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-1x-light-standard  dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-blue
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      checkerboard__rrect-ml__rest
+  same      checkerboard__rrect-sm__rest
+  same      checkerboard__toolbar-group__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  same      impulse__capsule-button__rest-tint-orange
+  MOVED     impulse__capsule-button__rest
+  MOVED     impulse__rrect-md__rest
+  same      light-solid__capsule-button__rest-tint-orange
+  same      light-solid__capsule-button__rest
+  same      light-solid__rrect-md__rest
+  same      light-solid__rrect-ml__rest
+  same      photo__capsule-button__rest-tint-blue
+  same      photo__capsule-button__rest-tint-orange-half
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest-tint-orange
+  same      photo__rrect-md__rest
+  same      photo__rrect-ml__rest
+  same      photo__rrect-sm__rest
+  same      photo__toolbar-group__rest
+######## fit-2x-light — apple-macos-26.5-2x-light-standard (2x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/fit-2x-light/web-captures
+
+== apple-macos-26.5-2x-light-standard impulse__capsule-button__rest  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+rung     *( 160.0, 104.0)     x   0.0034    0.0256    4.64    0.1408
+rung     *( 160.0, 104.0)     y   0.0035    0.0260    4.48    0.1385
+rung      body over the shape eroded 6 CSS px: 0.0034
+
+== apple-macos-26.5-2x-light-standard impulse__capsule-button__rest-tint-orange  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.4244    0.0064    3.49    0.0254
+native   *( 160.0, 104.0)     y   0.4244    0.0064    3.49    0.0254
+native    body over the shape eroded 6 CSS px: 0.4244
+rung     *( 160.0, 104.0)     x   0.4275   -0.0000       -    0.0000
+rung     *( 160.0, 104.0)     y   0.4275    0.0000       -    0.0000
+rung      body over the shape eroded 6 CSS px: 0.4275
+
+== apple-macos-26.5-2x-light-standard impulse__rrect-md__rest  (rrect-md, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4322    0.1584    7.86    1.3518
+native    (  96.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native   *( 160.0, 104.0)     x   0.4314    0.0596    8.65    0.5763
+native   *( 160.0, 104.0)     y   0.4314    0.0596    8.15    0.5821
+native    ( 224.0, 104.0)     x   0.4316    0.1590    7.88    1.3651
+native    ( 224.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native    body over the shape eroded 6 CSS px: 0.4311
+rung      (  96.0, 104.0)     x   0.4637    0.1171    8.76    1.1452
+rung      (  96.0, 104.0)     y   0.4630    0.1018    6.13    0.7917
+rung     *( 160.0, 104.0)     x   0.4632    0.0701    8.28    0.6822
+rung     *( 160.0, 104.0)     y   0.4632    0.0701    8.78    0.6791
+rung      ( 224.0, 104.0)     x   0.4634    0.1174    8.77    1.1551
+rung      ( 224.0, 104.0)     y   0.4630    0.1050    5.95    0.7949
+rung      body over the shape eroded 6 CSS px: 0.4645
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-2x-light-standard  checkerboard__capsule-button__restnative     0.6151   0.1504   0.5000  0.3009  205.68
+apple-macos-26.5-2x-light-standard  checkerboard__capsule-button__restweb        0.6806   0.1387   0.5000  0.2774  215.14
+apple-macos-26.5-2x-light-standard  photo__capsule-button__rest     native     0.5749   0.0351   0.0783  0.4486  199.59
+apple-macos-26.5-2x-light-standard  photo__capsule-button__rest     web        0.6094   0.0352   0.0783  0.4503  204.84
+apple-macos-26.5-2x-light-standard  impulse__capsule-button__rest   native     0.0067   0.0014   0.0701  0.0205   19.34
+apple-macos-26.5-2x-light-standard  impulse__capsule-button__rest   web        0.0034   0.0018   0.0701  0.0250   11.31
+apple-macos-26.5-2x-light-standard  dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-2x-light-standard  dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-blue
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      checkerboard__rrect-ml__rest
+  same      checkerboard__rrect-sm__rest
+  same      checkerboard__toolbar-group__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  same      impulse__capsule-button__rest-tint-orange
+  MOVED     impulse__capsule-button__rest
+  MOVED     impulse__rrect-md__rest
+  same      light-solid__capsule-button__rest-tint-orange
+  same      light-solid__capsule-button__rest
+  same      light-solid__rrect-md__rest
+  same      light-solid__rrect-ml__rest
+  same      photo__capsule-button__rest-tint-blue
+  same      photo__capsule-button__rest-tint-orange-half
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest-tint-orange
+  same      photo__rrect-md__rest
+  same      photo__rrect-ml__rest
+  same      photo__rrect-sm__rest
+  same      photo__toolbar-group__rest
+######## fit-1x-dark — apple-macos-26.5-1x-dark-standard (1x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/fit-1x-dark/web-captures
+
+== apple-macos-26.5-1x-dark-standard impulse__capsule-button__rest  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+rung     *( 160.0, 104.0)     x   0.0037    0.0067    4.99    0.0353
+rung     *( 160.0, 104.0)     y   0.0037    0.0067    4.99    0.0353
+rung      body over the shape eroded 6 CSS px: 0.0037
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-1x-dark-standard   checkerboard__capsule-button__restnative     0.1056   0.0501   0.5000  0.1001   91.40
+apple-macos-26.5-1x-dark-standard   checkerboard__capsule-button__restweb        0.0671   0.0252   0.5000  0.0505   73.26
+apple-macos-26.5-1x-dark-standard   photo__capsule-button__rest     native     0.0948   0.0151   0.0777  0.1950   86.80
+apple-macos-26.5-1x-dark-standard   photo__capsule-button__rest     web        0.0522   0.0067   0.0777  0.0862   64.56
+apple-macos-26.5-1x-dark-standard   impulse__capsule-button__rest   native     0.0066   0.0007   0.0701  0.0104   19.26
+apple-macos-26.5-1x-dark-standard   impulse__capsule-button__rest   web        0.0037   0.0005   0.0701  0.0066   12.17
+apple-macos-26.5-1x-dark-standard   dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-1x-dark-standard   dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  MOVED     impulse__capsule-button__rest
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest
+######## fit-2x-dark — apple-macos-26.5-2x-dark-standard (2x), captures under /Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/fit-2x-dark/web-captures
+
+== apple-macos-26.5-2x-dark-standard impulse__capsule-button__rest  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+rung     *( 160.0, 104.0)     x   0.0034    0.0256    4.64    0.1408
+rung     *( 160.0, 104.0)     y   0.0035    0.0260    4.48    0.1385
+rung      body over the shape eroded 6 CSS px: 0.0034
+
+-- the structured and stop cells (body, passed structure)
+profile                             scene                           src          body       sd     bgSd    pass    code
+apple-macos-26.5-2x-dark-standard   checkerboard__capsule-button__restnative     0.1071   0.0552   0.5000  0.1105   92.03
+apple-macos-26.5-2x-dark-standard   checkerboard__capsule-button__restweb        0.0682   0.0257   0.5000  0.0514   73.86
+apple-macos-26.5-2x-dark-standard   photo__capsule-button__rest     native     0.0953   0.0158   0.0783  0.2024   87.00
+apple-macos-26.5-2x-dark-standard   photo__capsule-button__rest     web        0.0520   0.0072   0.0783  0.0915   64.49
+apple-macos-26.5-2x-dark-standard   impulse__capsule-button__rest   native     0.0067   0.0014   0.0701  0.0205   19.34
+apple-macos-26.5-2x-dark-standard   impulse__capsule-button__rest   web        0.0034   0.0018   0.0701  0.0250   11.31
+apple-macos-26.5-2x-dark-standard   dark-solid__capsule-button__restnative     0.0110   0.0000   0.0000     nan   27.07
+apple-macos-26.5-2x-dark-standard   dark-solid__capsule-button__restweb        0.0117   0.0000   0.0000     nan   28.15
+
+-- byte identity against the landed 0.12.0 capture, per cell
+  same      checkerboard__capsule-button__rest-tint-orange
+  same      checkerboard__capsule-button__rest
+  same      checkerboard__rrect-md__rest
+  same      dark-solid__capsule-button__rest-tint-orange
+  same      dark-solid__capsule-button__rest
+  same      dark-solid__rrect-md__rest
+  MOVED     impulse__capsule-button__rest
+  same      photo__capsule-button__rest-tint-orange
+  same      photo__capsule-button__rest
+  same      photo__rrect-md__rest
+
+======== the bed's own metrics on the cells that move, fit against the landed matrix
+-- fit-1x-light
+scene                                       metric                      landed        rung           Δ
+impulse__capsule-button__rest               oklabDeltaEMean            0.00251     0.00247    -0.00004
+impulse__capsule-button__rest               oklabDeltaEP95             0.03240     0.03240     0.00000
+impulse__capsule-button__rest               oklabDeltaEMax             0.09693     0.09693     0.00000
+impulse__capsule-button__rest               ssimMean                   0.99009     0.99066     0.00057
+impulse__capsule-button__rest               ssimMin                    0.50438     0.50438     0.00000
+impulse__capsule-button__rest               interiorMeanNative         0.02105     0.02105     0.00000
+impulse__capsule-button__rest               interiorMeanWeb            0.01830     0.01906     0.00076
+impulse__capsule-button__rest               interiorMeanBackdrop       0.11268     0.11268     0.00000
+impulse__rrect-md__rest                     oklabDeltaEMean            0.00454     0.00454    -0.00000
+impulse__rrect-md__rest                     oklabDeltaEP95             0.01909     0.01909     0.00000
+impulse__rrect-md__rest                     oklabDeltaEMax             0.27274     0.27274     0.00000
+impulse__rrect-md__rest                     ssimMean                   0.99801     0.99801     0.00000
+impulse__rrect-md__rest                     ssimMin                    0.74752     0.74949     0.00198
+impulse__rrect-md__rest                     interiorMeanNative         0.43583     0.43583     0.00000
+impulse__rrect-md__rest                     interiorMeanWeb            0.46848     0.46848     0.00000
+impulse__rrect-md__rest                     interiorMeanBackdrop       0.00319     0.00319     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMean            0.00052     0.00052     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEP95             0.00511     0.00511     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMax             0.08299     0.08299     0.00000
+dark-solid__capsule-button__rest            ssimMean                   0.99849     0.99849     0.00000
+dark-solid__capsule-button__rest            ssimMin                    0.53786     0.53786     0.00000
+impulse__capsule-button__rest-tint-orange   oklabDeltaEMean            0.00044     0.00044     0.00000
+impulse__capsule-button__rest-tint-orange   oklabDeltaEP95             0.00227     0.00227     0.00000
+impulse__capsule-button__rest-tint-orange   oklabDeltaEMax             0.33752     0.33752     0.00000
+impulse__capsule-button__rest-tint-orange   ssimMean                   0.99913     0.99913     0.00000
+impulse__capsule-button__rest-tint-orange   ssimMin                    0.74766     0.74766     0.00000
+impulse__capsule-button__rest-tint-orange   interiorMeanNative         0.42536     0.42536     0.00000
+impulse__capsule-button__rest-tint-orange   interiorMeanWeb            0.43156     0.43156     0.00000
+impulse__capsule-button__rest-tint-orange   interiorMeanBackdrop       0.00328     0.00328     0.00000
+-- fit-2x-light
+scene                                       metric                      landed        rung           Δ
+impulse__capsule-button__rest               oklabDeltaEMean            0.00294     0.00299     0.00006
+impulse__capsule-button__rest               oklabDeltaEP95             0.03716     0.03716     0.00000
+impulse__capsule-button__rest               oklabDeltaEMax             0.25615     0.25615     0.00000
+impulse__capsule-button__rest               ssimMean                   0.98787     0.98691    -0.00096
+impulse__capsule-button__rest               ssimMin                    0.22094     0.28878     0.06784
+impulse__capsule-button__rest               interiorMeanNative         0.02632     0.02632     0.00000
+impulse__capsule-button__rest               interiorMeanWeb            0.02091     0.02461     0.00370
+impulse__capsule-button__rest               interiorMeanBackdrop       0.12121     0.12121     0.00000
+impulse__rrect-md__rest                     oklabDeltaEMean            0.00459     0.00459    -0.00000
+impulse__rrect-md__rest                     oklabDeltaEP95             0.01909     0.01909     0.00000
+impulse__rrect-md__rest                     oklabDeltaEMax             0.26329     0.26329     0.00000
+impulse__rrect-md__rest                     ssimMean                   0.99865     0.99865     0.00000
+impulse__rrect-md__rest                     ssimMin                    0.71311     0.71311     0.00000
+impulse__rrect-md__rest                     interiorMeanNative         0.43598     0.43598     0.00000
+impulse__rrect-md__rest                     interiorMeanWeb            0.46914     0.46914     0.00000
+impulse__rrect-md__rest                     interiorMeanBackdrop       0.00320     0.00320     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMean            0.00055     0.00055     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEP95             0.00511     0.00511     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMax             0.09281     0.09281     0.00000
+dark-solid__capsule-button__rest            ssimMean                   0.99827     0.99827     0.00000
+dark-solid__capsule-button__rest            ssimMin                    0.38200     0.38200     0.00000
+dark-solid__capsule-button__rest            interiorMeanNative         0.03838     0.03838     0.00000
+dark-solid__capsule-button__rest            interiorMeanWeb            0.03344     0.03344     0.00000
+dark-solid__capsule-button__rest            interiorMeanBackdrop       0.01171     0.01171     0.00000
+impulse__capsule-button__rest-tint-orange   oklabDeltaEMean            0.00052     0.00052     0.00000
+impulse__capsule-button__rest-tint-orange   oklabDeltaEP95             0.00227     0.00227     0.00000
+impulse__capsule-button__rest-tint-orange   oklabDeltaEMax             0.72651     0.72651     0.00000
+impulse__capsule-button__rest-tint-orange   ssimMean                   0.99848     0.99848     0.00000
+impulse__capsule-button__rest-tint-orange   ssimMin                    0.28095     0.28095     0.00000
+impulse__capsule-button__rest-tint-orange   interiorMeanNative         0.42740     0.42740     0.00000
+impulse__capsule-button__rest-tint-orange   interiorMeanWeb            0.43275     0.43275     0.00000
+impulse__capsule-button__rest-tint-orange   interiorMeanBackdrop       0.00329     0.00329     0.00000
+-- fit-1x-dark
+scene                                       metric                      landed        rung           Δ
+impulse__capsule-button__rest               oklabDeltaEMean            0.00251     0.00247    -0.00004
+impulse__capsule-button__rest               oklabDeltaEP95             0.03240     0.03240     0.00000
+impulse__capsule-button__rest               oklabDeltaEMax             0.09693     0.09693     0.00000
+impulse__capsule-button__rest               ssimMean                   0.99009     0.99066     0.00057
+impulse__capsule-button__rest               ssimMin                    0.50438     0.50438     0.00000
+impulse__capsule-button__rest               interiorMeanNative         0.02105     0.02105     0.00000
+impulse__capsule-button__rest               interiorMeanWeb            0.01830     0.01906     0.00076
+impulse__capsule-button__rest               interiorMeanBackdrop       0.11268     0.11268     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMean            0.00052     0.00052     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEP95             0.00511     0.00511     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMax             0.08299     0.08299     0.00000
+dark-solid__capsule-button__rest            ssimMean                   0.99849     0.99849     0.00000
+dark-solid__capsule-button__rest            ssimMin                    0.53786     0.53786     0.00000
+-- fit-2x-dark
+scene                                       metric                      landed        rung           Δ
+impulse__capsule-button__rest               oklabDeltaEMean            0.00294     0.00299     0.00006
+impulse__capsule-button__rest               oklabDeltaEP95             0.03716     0.03716     0.00000
+impulse__capsule-button__rest               oklabDeltaEMax             0.25615     0.25615     0.00000
+impulse__capsule-button__rest               ssimMean                   0.98787     0.98691    -0.00096
+impulse__capsule-button__rest               ssimMin                    0.22094     0.28878     0.06784
+impulse__capsule-button__rest               interiorMeanNative         0.02632     0.02632     0.00000
+impulse__capsule-button__rest               interiorMeanWeb            0.02091     0.02461     0.00370
+impulse__capsule-button__rest               interiorMeanBackdrop       0.12121     0.12121     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMean            0.00055     0.00055     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEP95             0.00511     0.00511     0.00000
+dark-solid__capsule-button__rest            oklabDeltaEMax             0.09281     0.09281     0.00000
+dark-solid__capsule-button__rest            ssimMean                   0.99827     0.99827     0.00000
+dark-solid__capsule-button__rest            ssimMin                    0.38200     0.38200     0.00000
+dark-solid__capsule-button__rest            interiorMeanNative         0.03838     0.03838     0.00000
+dark-solid__capsule-button__rest            interiorMeanWeb            0.03344     0.03344     0.00000
+dark-solid__capsule-button__rest            interiorMeanBackdrop       0.01171     0.01171     0.00000

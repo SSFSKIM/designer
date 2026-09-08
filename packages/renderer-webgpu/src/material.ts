@@ -1088,6 +1088,78 @@ export interface MaterialProfile {
   readonly backdropToneSizeBias: number;
 
   /**
+   * **The transmission the collapse keeps (W24 G1)** — and the correction, set
+   * BESIDE the paragraph above rather than over it, of what "texture collapse"
+   * was measured on.
+   *
+   * W7 fitted the collapse on `dark-solid`, a backdrop with no texture in it,
+   * and the paragraph above therefore says the collapse converges the interior
+   * on the backdrop's mean COLOUR. On a solid backdrop the mean and the pixel
+   * are the same number, so the fit could not tell the two apart; the impulse
+   * bed can, and it says they are not the same. Through the reference's
+   * collapsed `impulse__capsule-button` the centre dot still comes through at
+   * +0.0065 linear over a body of 0.0065 at 1x and +0.0254 over 0.0065 at 2x,
+   * where vitrea's collapsed capsule passes exactly 0.0000 (claims §5.107 §2).
+   * The reference's collapsed material is a dark glass that still transmits what
+   * lies beneath it, blurred — it collapses the LEVEL, not the structure.
+   *
+   * The arithmetic the collapse already has makes the correction one constant.
+   * Writing `M` for the unadapted composite this pass would otherwise produce,
+   * the (colour, alpha) pair the shader solves reduces exactly to
+   * `colour = (1 − k)·M + k·target`, and `target` is today the group's mean
+   * backdrop colour — one number for the whole surface, which is precisely what
+   * flattens the dot away at `k` 1. So `collapseTransmission` lerps the TARGET
+   * from that mean (0) to the per-pixel blurred backdrop sample the refraction
+   * path already computed (1):
+   *
+   *     target = mix(toneColour.rgb, backdrop, collapseTransmission)
+   *
+   * The tone axis's ARGUMENT is untouched — `k` is still read from the group's
+   * mean luminance and the size bias, and the response law still solves against
+   * `toneAnchor.w` — so the collapse collapses exactly as far as it did and
+   * only stops flattening what is under it. The blurred sample's mean under the
+   * surface is the group's mean to within the difference between a local and a
+   * global average, so the body's LEVEL moves by less than a code where the
+   * backdrop is anything like uniform, and not at all where it is solid: over
+   * `dark-solid` the sample IS the mean and every collapsed cell of that bed is
+   * byte-identical at any value of this constant. That is the stop the fit is
+   * checked against.
+   *
+   * At 0 the target is the mean and the shader's arithmetic is W7's to the bit,
+   * which is why this can be added without moving a pixel anywhere.
+   *
+   * What it cannot carry is the reference's WIDTH. Fitted on the reference's own
+   * dot the transmitted profile is a 4 CSS px box convolved with σ 2.63 device
+   * px at 1x and σ 1.38 device px at 2x — the same kernel the reference's
+   * UNCOLLAPSED cells show (σ 2.86 / 1.40 device px on `impulse__rrect-md`), so
+   * the collapse does not change Apple's blur, but that kernel is neither
+   * CSS-invariant nor device-invariant and vitrea's is neither of those numbers.
+   * This constant sets how MUCH comes through; how WIDE it arrives is the
+   * material's own scatter law and is recorded as a gap, not fitted here
+   * (W24 G1 findings).
+   */
+  readonly collapseTransmission: number;
+
+  /**
+   * **The collapse's transmission at dpr 2** (W24 G1), the second anchor of the
+   * constant above, on the pattern `sizeScatterGainMax2x` established for the
+   * body's own second scale (claims §5.69 §1).
+   *
+   * It is a per-scale reading and not a per-scheme one, and the evidence is the
+   * fixtures': the light and dark captures of the collapsed cells are the same
+   * bytes, so the collapsed appearance is one appearance in both schemes, while
+   * the width the reference transmits through is a different number at each
+   * scale. Fitted on the reference's own dot, its kernel is a 4 CSS px box
+   * convolved with σ 2.63 device px at 1x and σ 1.38 device px at 2x — a width
+   * that is invariant in neither CSS nor device pixels — so the SHARE that comes
+   * through cannot be one number over a kernel that is two.
+   *
+   * Defaults to the 1x constant, so a profile that names only that one renders
+   * it at every ratio and this anchor is the identity on the landed material.
+   */
+  readonly collapseTransmission2x: number;
+
+  /**
    * **The rim that survives the collapse (W23)** — the one mark the collapsed
    * appearance keeps.
    *
@@ -1870,6 +1942,26 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneSizeBias: 0.05,
 
   /*
+   * INERT at 0 in the worktree W24 G1 declared it in: at 0 the collapse's target
+   * is the group's mean backdrop colour and every golden and every capture is
+   * W23's to the byte. The value the fit lands on is a per-scale reading like
+   * the scatter facet's, because what the reference transmits is set by a kernel
+   * whose width is a different number at each scale (the field's own note), and
+   * it belongs on the profile documents rather than here — the dark and light
+   * fixtures of the collapsed cells are the same bytes, so it is one appearance
+   * in both schemes, and it is the SCALE, not the scheme, that separates the
+   * rows.
+   *
+   * The correction this constant carries is set beside W7's paragraph above, not
+   * over it: "texture collapse" was fitted on `dark-solid`, where a mean and a
+   * pixel are the same number and no fit could have told them apart. Every
+   * figure W7 recorded stands; what it did not measure is what happens over a
+   * backdrop that HAS texture, and the impulse bed says the reference keeps it.
+   */
+  collapseTransmission: 0,
+  collapseTransmission2x: 0,
+
+  /*
    * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is
    * NOT the dark material's rim, which is the one thing the charter thought it
    * might be.
@@ -2113,6 +2205,8 @@ export const BACKDROP_TONE_MAX = DEFAULT_MATERIAL_PROFILE.backdropToneMax;
 export const BACKDROP_TONE_LOW = DEFAULT_MATERIAL_PROFILE.backdropToneLow;
 export const BACKDROP_TONE_HIGH = DEFAULT_MATERIAL_PROFILE.backdropToneHigh;
 export const BACKDROP_TONE_SIZE_BIAS = DEFAULT_MATERIAL_PROFILE.backdropToneSizeBias;
+export const COLLAPSE_TRANSMISSION = DEFAULT_MATERIAL_PROFILE.collapseTransmission;
+export const COLLAPSE_TRANSMISSION_2X = DEFAULT_MATERIAL_PROFILE.collapseTransmission2x;
 export const BACKDROP_TONE_ANCHOR_X = DEFAULT_MATERIAL_PROFILE.backdropToneAnchorX;
 export const BACKDROP_TONE_RESPONSE_THIN = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThin;
 export const BACKDROP_TONE_RESPONSE_THICK = DEFAULT_MATERIAL_PROFILE.backdropToneResponseThick;
@@ -2176,6 +2270,8 @@ export interface MaterialProfilePatch {
   readonly backdropToneLow?: number;
   readonly backdropToneHigh?: number;
   readonly backdropToneSizeBias?: number;
+  readonly collapseTransmission?: number;
+  readonly collapseTransmission2x?: number;
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
@@ -2306,6 +2402,9 @@ export function withMaterialOverrides(
     backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
     backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
+    collapseTransmission: patch.collapseTransmission ?? base.collapseTransmission,
+    collapseTransmission2x:
+      patch.collapseTransmission2x ?? patch.collapseTransmission ?? base.collapseTransmission2x,
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,
@@ -3080,6 +3179,24 @@ export function rimWidthAtScale(optics: MaterialOptics, devicePixelRatio = 1): n
  * `rampAtScale`, so a profile that names only the 1x gain returns it at every
  * ratio and this function is the identity on the landed material.
  */
+/**
+ * **The collapse's transmission at a device scale** (W24 G1).
+ *
+ * Interpolated by `rampAtScale`, so a profile that names only the 1x constant
+ * returns it at every ratio and this function is the identity on the landed
+ * material — where both anchors are 0 and the collapse is W7's to the bit.
+ */
+export function collapseTransmissionAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    profile.collapseTransmission,
+    profile.collapseTransmission2x,
+    devicePixelRatio,
+  );
+}
+
 export function scatterGainAtScale(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
   devicePixelRatio = 1,

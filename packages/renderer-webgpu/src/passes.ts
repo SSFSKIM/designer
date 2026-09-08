@@ -295,6 +295,12 @@ export interface OpticsPassArgs {
    * `MaterialProfile.backdropToneResponseStrength`. */
   readonly backdropToneResponseStrength: number;
   /**
+   * How far the collapse's target moves from the group's mean backdrop colour
+   * to the per-pixel blurred sample (W24 G1) — see
+   * `MaterialProfile.collapseTransmission`. At 0 the collapse is W7's.
+   */
+  readonly collapseTransmission: number;
+  /**
    * The backdrop's LINEAR-space mean under the same weighting as the tone
    * colour — what the response solve composites against. Falls back to the
    * tone level where the host measured no separate linear mean.
@@ -692,7 +698,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[68] = args.backdropToneResponseThick[0];
       d[69] = args.backdropToneResponseThick[1];
       d[70] = args.backdropToneResponseThick[2];
-      d[71] = 0;
+      // The collapse's transmission (W24 G1), in the tone block's one padding
+      // slot; the other three vec4s of the block are full and a collapse
+      // constant living outside it is a layout nobody could read. The slot was
+      // written as zero, which is this constant's inert value, so the buffer's
+      // size and every default render are unchanged.
+      d[71] = args.collapseTransmission;
       d[72] = args.sizeScatterFloor;
       // The depth ramp's THIN start (W13 G1), in the slot the retired
       // `sizeScatterSpanMax` held — the scatter facet's second number, where its
