@@ -1,13 +1,13 @@
 # W23 — the collapsed rim: a rim that survives the collapse, and the rim's law read at the contour on both beds (2026-09-08)
 
-**Status: G1 DECLARED and READ 2026-09-08 (claims §5.101 by G1, §5.102 the parent's ruling; Decision
-Log 3) — chartered 2026-09-08 from W22's Deferred list ("the collapsed rim", W22 Decision Log 4 (d);
-claims §5.96 §4) and the user's eye on the W22 landing sheets (claims §5.99). G0 CLOSED (§5.100;
-Decision Log 2). G1's dry run met the rim on every collapsed cell and the law on every solid, missed
-clause 3 on the left/right sides under structure and clause 4 on the band read (the corners), and the
-eye on its captures found the painted rim's hue wrong — Apple's rim on a tinted surface keeps the
-paint's chroma, vitrea's adds white — so G3 (the rim beneath the paint) is inserted before the
-landing; G1's holdout read is recorded as spent on a superseded configuration. G3 dispatched.**
+**Status: G3 CLOSED and the landing RULED 2026-09-09 (claims §5.104; Decision Log 4) — chartered
+2026-09-08 from W22's Deferred list ("the collapsed rim", W22 Decision Log 4 (d)) and the user's eye
+on the W22 landing sheets (§5.99). G0 CLOSED (§5.100; Decision Log 2); G1 DECLARED and READ
+(§5.101–§5.102; Decision Log 3); G3 DECLARED (§5.103) — the painted rim spent in the paint's own
+chromaticity, the three review findings fixed, the holdout read once on the configuration that
+lands — and CLOSED by the parent with the chain green on the merged tree (`95c13ce`). G2 dispatched:
+the canonical rebuild from the main checkout, the referee against `g3-digests.txt`, the predicate
+29 → 27, the floors, the 0.12.0 changeset; the user's eye before publish.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W23 row). The term it takes was deferred twice
@@ -355,8 +355,8 @@ it. The GPU is shared; one capture at a time.
 | --- | --- |
 | G0 — the instrument, the read, the law | CLOSED 2026-09-08 (claims §5.100; branch `worktree-agent-aa0ee5ea92534c3fd` at `499f7c0`, carried into G1's worktree; Decision Log 2) |
 | G1 — the mechanism landed, the form dry-run | DECLARED 2026-09-08 (claims §5.101; branch `worktree-w23-g1`; the holdout read once at fingerprints `ee0010558553ee12` / `afd0e999e2f5813e`) — clauses 1 (rim), 2, 5, 6, 7 and 8 met; clauses 3 and 4 missed with their numbers; stops S2 and S3 fire at the fifth decimal; the parent's calls are in `g1/g1-dryrun.md` §10 |
-| G3 — the rim beneath the paint | DECLARED 2026-09-09 (claims §5.102; branch `worktree-w23-g1`; the holdout read once at fingerprints `c426a37744c38cce` / `bf5752ac1b152238`, which supersedes G1's spent read) — `rimTintChroma` 1 and `rimCollapsedTinted` 0.337 → 0.520; the numbers are in `g3/g3-findings.md` |
-| G2 — the landing and its referee | — |
+| G3 — the rim beneath the paint | CLOSED 2026-09-09 (claims §5.103 — the row first cited §5.102, which is the parent's G1 ruling; corrected beside — and §5.104; Decision Log 4; merged `95c13ce`) / DECLARED 2026-09-09 (claims §5.103; branch `worktree-w23-g1`; the holdout read once at fingerprints `c426a37744c38cce` / `bf5752ac1b152238`, which supersedes G1's spent read) — `rimTintChroma` 1 and `rimCollapsedTinted` 0.337 → 0.520; the numbers are in `g3/g3-findings.md` |
+| G2 — the landing and its referee | DISPATCHED 2026-09-09 (Decision Log 4 (f)) |
 
 ## Decision Log
 
@@ -532,6 +532,57 @@ that is real and small is logged, not fixed here.
 (j) **The user decides:** the landing after G3, the eye on the sheets (the tinted capsules at 4×
 beside the black-on-black cells), the 0.12.0 cut.
 
+### Decision Log 4 — G3 read: the painted rim's composition taken, the hue clause met on one axis and recorded on the other, the review fixes verified, the landing ruled (2026-09-09; the parent, on the user's standing instruction, the eye's veto kept before publish)
+
+Read from `g3/g3-findings.md` (claims §5.103, authored by G3 and adopted), the parent's crops of
+G3's captures (`w23/g3-review/`), and the chain on the branch before the merge: build, lint, 1 891
+unit tests (402 renderer, 451 platform-web, 280 calibration), 31 goldens.
+
+(a) **The composition is taken:** the rim's light spent in `mix(white, paint / luminance(paint),
+rimTintChroma × tintStrength)` with `rimTintChroma` 1 — the rows chose luminance normalisation over
+the brightest channel (mean |da| 0.0222 against 0.0441; the collapsed painted rim 0.072 against
+0.030 at the old amount) and the reference's own channels say the same (green lifted 0.213 where a
+white rim lifts it 0.304, and 0.70 is that orange's green coefficient over its luminance). The
+first candidate of Decision Log 3 (h), a rim strictly beneath an opaque paint, was refuted before a
+capture (the tinted base over `dark-solid` is the seed exactly, so a rim beneath it is no rim).
+`rimCollapsedTinted` 0.337 → 0.520 for the light lost to a saturated channel. By eye on the crops
+the orange button's rim is a lighter orange and the blue button's a light cyan, as the reference's.
+
+(b) **The hue clause: met on `b`, missed on `a` on 36 of 52 sides, all of them the dark bed's
+tinted rows** where vitrea draws 0.031 of contour rim against +0.127 — a rim that dim cannot move
+its row's hue whatever colour it is spent in. That is the dark amplitude law's amount (one fittable
+dark solid cell; G0's finding), recorded in the tracker, not this composition's. Mean |da| 0.0520
+→ 0.0203 and |db| 0.0371 → 0.0088 against the landed bed.
+
+(c) **The CSS tier's tinted `a` moves the wrong way** (0.0417 → 0.0461) while its `b` improves:
+one inset shadow of one colour is not a coloured light per pixel. A CSS-only residual under wave
+Decision Log 23 (a); G3's tracker entry.
+
+(d) **The fix wave verified:** the accessibility strong border substitutes the whole rim (both
+width anchors, the gain zeroed, the collapsed rim under the policy), with a test that fails against
+the old code (1.35 against 2); the CSS tier reads the collapsed rims off the profile it was given
+and re-resolves on `setMaterialProfile`; `borderAlphaPerRimAlpha` per variant `{ regular 0.64,
+clear 1.95 }`. The strong-border fold moved 14 increased-contrast GPU captures, re-captured in G3's
+dry run (IC calibration 0.00793 → 0.00793). The other two review findings were the review branch's
+artefacts (the tests and goldens G1 had already changed) and are dismissed.
+
+(e) **The stops:** S2 taken at the number as at G1 (+0.0035, one CSS cell, `interiorBandLight`);
+S3 no longer fires; S9 and S10 clean (0 untinted movers in isolation; the 16 against G1's dry run
+are the fix wave's IC captures and two one-code flakes already in the tracker). Clauses 3 and 4
+stand as Decision Log 3 (c)–(d) ruled them; no untinted capture moved.
+
+(f) **The landing is ruled: G2 opens** — the canonical rebuild from the main checkout with
+`rm results/matrix.json` first (both documents' hashes move), the referee against `g3-digests.txt`
+byte for byte, `PREDICATE_EXCLUDES` re-derived 29 → 27 with the six cells' silhouettes as the
+reason, every floor re-read, the demo's calibration figures and its harness fixture re-copied, the
+changeset a `vitrea-web` minor (0.12.0), the landing sheets. The user's eye on `g3-1x.png` /
+`g3-2x.png` (sent) and the landing sheets before publish; the veto kept.
+
+(g) **Recorded, not this wave's:** the dark bed's tinted rim amount (0.031 against +0.127); the
+corner rim (clause 4); the left/right sides under structure (clause 3); the CSS tier's rim fit on
+the contour instrument and its painted rim's hue; the probe grids as a harness set; `light-solid`'s
+second row.
+
 ## Surprises & Discoveries
 
 - **The "collapsed rim in light" was never collapsed.** Three cells, eighteen sides, two waves under
@@ -564,6 +615,9 @@ beside the black-on-black cells), the 0.12.0 cut.
 ## Revision Notes
 
 - 2026-09-08: chartered; G0 dispatched.
+- 2026-09-09: G3 CLOSED and the landing ruled (claims §5.104; Decision Log 4); the branch merged at
+  `95c13ce` with the chain green; G2 dispatched. The Tracking Map's G3 row cited §5.102 for G3's own
+  section, which is §5.103; corrected beside.
 - 2026-09-09: G3 DECLARED (claims §5.102), with the review fix wave beside it. The rim's light on a
   PAINTED surface is spent in the paint's own chromaticity (`rimTintChroma` 1, normalised by the
   paint's luminance so the rim keeps its amount and takes only its hue), and `rimCollapsedTinted`

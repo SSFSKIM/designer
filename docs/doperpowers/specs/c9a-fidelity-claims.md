@@ -14009,3 +14009,38 @@ the clear variant's border by three.
 **Gaps this gate adds to the record:** the dark bed's tinted rows' AMOUNT, which is what the hue
 clause's remaining 36 sides really measure; and the CSS tier's one inset shadow against a coloured
 light added per pixel. Both are in `tech-debt-tracker.md`.
+
+### 5.104 W23 G3 CLOSED and the landing ruled: the painted rim spent in the paint's own chromaticity — by eye the orange button's rim is orange again and the blue's cyan; the hue clause met on the yellow-blue axis and recorded on the red-green one where the dark bed's rim is too dim to carry a colour; the three review findings verified fixed; the chain green on the merged tree; G2 opens (2026-09-09)
+
+**The record.** §5.103 (G3's declaration and dry run, adopted) and W23 Decision Log 4. Verified by
+the parent on the branch before the merge (`95c13ce`): build, lint, 1 891 unit tests (402 renderer,
+451 platform-web, 280 calibration, 302 core, 170 geometry, 162 motion, 101 react, 23 policy), 31
+goldens; the parent's own crops of the dry-run captures at 5× beside the fixtures — the orange
+capsule over `dark-solid` (native (255, 148, 0) → (255, 189, 0); vitrea now (255, 195, 0), blue back
+at 0 from G1's 130), the orange capsule over the photo, the blue capsule over the checkerboard (a
+light cyan line where G1 drew lilac), and the black-on-black capsule with its outline.
+
+**What G3 settled.** The rim on a painted surface is the same rim, spent in the paint's colour
+normalised by the paint's luminance (`rimTintChroma` 1, fitted on 52 tinted sides with per-side
+answers 0.92…1.73 monotone to the bound); `rimCollapsedTinted` 0.337 → 0.520 for the light a
+saturated channel cannot carry. The chromaticity of the tinted contour rows against the reference
+(OKLab, 52 sides, GPU): |da| 0.0520 → 0.0203, |db| 0.0371 → 0.0088; 36 sides still over 0.02 on `a`,
+every one on the dark bed where vitrea's tinted rim is 0.031 against +0.127 (the dark amount, not
+the composition — one fittable dark solid cell; the tracker). No untinted capture moved (0 in
+isolation on the ladder); ten of eleven goldens moved no pixel and the one that did is the painted
+`collapsed-tone`, re-recorded under `W23_G3_HASHES`. The holdout, read once on the configuration
+that lands: light 0.00914 → 0.00901 / 0.00906 → 0.00898, dark 0.01326 → 0.01331 / 0.01301 →
+0.01317; every GPU calibration mean improves (light 0.00330 → 0.00324 / 0.00333 → 0.00329, dark
+0.00404 → 0.00395 / 0.00403 → 0.00397); S3 no longer fires; S2 as at G1. Fingerprints
+`c426a37744c38cce` (light) / `bf5752ac1b152238` (dark).
+
+**The review's three findings, fixed and verified** (Decision Log 4 (d)): the accessibility strong
+border substitutes the whole rim; the CSS tier reads the collapsed rims off the profile it was
+given; `borderAlphaPerRimAlpha` per variant. Two findings dismissed as the review branch's
+artefacts.
+
+**The landing is ruled** (Decision Log 4 (f)): G2 rebuilds the canonical bed from the main checkout
+with `rm results/matrix.json` first, referees against `g3-digests.txt`, re-derives the predicate
+29 → 27, re-reads every floor, re-copies the demo's fixture, cuts the 0.12.0 changeset. The user's
+eye before publish.
+
