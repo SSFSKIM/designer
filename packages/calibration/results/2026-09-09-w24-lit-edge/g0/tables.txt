@@ -1,0 +1,448 @@
+
+== apple-macos-26.5-1x-dark-standard / webgpu
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+dark-solid__capsule-button__rest             calibration |     NW   0.0208  0.081   12.38 |      E   0.0173  0.778    1.29
+checkerboard__capsule-button__rest           calibration |     NW   0.8544 -0.061     inf |     NW   0.9009 -0.005     inf
+impulse__capsule-button__rest                validation  |      N   0.0139  0.012   85.88 |      S   0.0165  0.698    1.43
+photo__capsule-button__rest                  calibration |     SE   0.4097  0.239    4.19 |     SE   0.4562  0.187    5.34
+dark-solid__rrect-md__rest                   calibration |    WNW   0.0246  0.047   21.07 |      N   0.0251  0.803    1.25
+checkerboard__rrect-md__rest                 calibration |    NNE   0.8584  0.008  119.37 |    NNE   0.8623  0.050   19.94
+photo__rrect-md__rest                        calibration |      E   0.3686  0.203    4.92 |      E   0.3713  0.146    6.85
+photo__rrect-lg__rest                        holdout     |      E   0.2806  0.195    5.12 |      E   0.2943  0.141    7.07
+photo__capsule-button__pressed               recorded    |     SE   0.4097  0.239    4.19 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |     NW   0.0624  0.464    2.16 |     NW   0.0506  0.804    1.24
+dark-solid__capsule-button__rest-tint-orange calibration |      S   0.0860  0.088   11.41 |      S   0.1105  0.489    2.05
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5248  0.011   93.49 |     NW   0.5427  0.012   81.83
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.1280  0.065   15.30 |     SE   0.0817  0.133    7.49
+
+== apple-macos-26.5-1x-light-increased-contrast / webgpu
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard__capsule-button__rest           calibration |    NNE   0.0129 -1.208     inf |     NE   0.0676  0.963    1.04
+photo__capsule-button__rest                  calibration |    SSW   0.0091 -1.300     inf |      S   0.1064  0.971    1.03
+hc-text__capsule-button__rest                holdout     |      S   0.0385  0.001 1246.25 |      S   0.0574  0.996    1.00
+checkerboard__rrect-md__rest                 calibration |    SSW   0.0058 -3.226     inf |      N   0.0669  0.927    1.08
+photo__rrect-md__rest                        calibration |    WNW  -0.0004 26.029     inf |    NNE   0.1042  0.914    1.09
+photo__rrect-lg__rest                        holdout     |    SSW   0.0051 -2.525     inf |    SSE   0.1045  0.957    1.05
+photo__capsule-button__pressed               recorded    |    SSW   0.0091 -1.300     inf |      -        -      -       -
+checkerboard__capsule-button__rest-tint-oran calibration |    WSW   0.3124  0.009  116.79 |     NW   0.5549  0.472    2.12
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.0159 -0.142     inf |      E   0.4366  0.672    1.49
+
+== apple-macos-26.5-1x-light-reduced-transparency / webgpu
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard__capsule-button__rest           calibration |     NW   0.0809  0.587    1.70 |     NW   0.0674 -0.052     inf
+photo__capsule-button__rest                  calibration |      S   0.0685  0.647    1.54 |      N   0.0987  0.388    2.57
+hc-text__capsule-button__rest                holdout     |      N   0.0839  0.619    1.62 |      N   0.0578  0.338    2.96
+checkerboard__rrect-md__rest                 calibration |    WNW   0.0829  0.661    1.51 |    NNE   0.0655  0.201    4.98
+photo__rrect-md__rest                        calibration |      N   0.0705  0.584    1.71 |      S   0.0897  0.282    3.55
+photo__rrect-lg__rest                        holdout     |      S   0.0737  0.716    1.40 |      S   0.0898  0.372    2.68
+photo__capsule-button__pressed               recorded    |      S   0.0685  0.647    1.54 |      -        -      -       -
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.2191  0.056   17.85 |      E   0.0861  0.411    2.43
+
+== apple-macos-26.5-1x-light-standard / webgpu
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+light-solid__capsule-button__rest            calibration |      N   0.0332  0.979    1.02 |      N   0.0276  0.929    1.08
+dark-solid__capsule-button__rest             calibration |     NW   0.0208  0.081   12.38 |      E   0.0173  0.778    1.29
+checkerboard__capsule-button__rest           calibration |     NW   0.2882 -0.443     inf |     NW   0.2988 -0.106     inf
+impulse__capsule-button__rest                validation  |      N   0.0139  0.012   85.88 |      S   0.0165  0.698    1.43
+photo__capsule-button__rest                  calibration |     SE   0.1419  0.283    3.54 |      N   0.1838  0.457    2.19
+hc-text__capsule-button__rest                holdout     |    NNW   0.2277  0.220    4.55 |     NE   0.1859  0.048   20.65
+light-solid__rrect-md__rest                  calibration |      N   0.0634  0.849    1.18 |      N   0.0678  0.823    1.22
+dark-solid__rrect-md__rest                   calibration |      S   0.1892  0.183    5.46 |      S   0.2098  0.429    2.33
+checkerboard__rrect-md__rest                 calibration |     NW   0.2264 -0.034     inf |      W   0.2568  0.500    2.00
+impulse__rrect-md__rest                      validation  |      S   0.2009  0.158    6.35 |      S   0.2146  0.413    2.42
+photo__rrect-md__rest                        calibration |     SE   0.1532  0.160    6.23 |      E   0.1917  0.306    3.27
+hc-text__rrect-md__rest                      holdout     |     NE   0.2059  0.529    1.89 |    NNE   0.2466  0.433    2.31
+light-solid__rrect-ml__rest                  calibration |      N   0.0651  0.854    1.17 |      N   0.0675  0.792    1.26
+checkerboard__rrect-ml__rest                 calibration |     NE   0.1907  0.277    3.61 |     NE   0.2540  0.283    3.54
+photo__rrect-ml__rest                        calibration |      E   0.1473  0.059   17.04 |      E   0.2353  0.187    5.34
+checkerboard__rrect-sm__rest                 calibration |    NNW   0.2673  0.428    2.33 |     NW   0.2476  0.312    3.20
+photo__rrect-sm__rest                        validation  |      E   0.1767  0.223    4.48 |      S   0.1975  0.297    3.36
+checkerboard__rrect-lg__rest                 holdout     |      N   0.1624  0.149    6.70 |     NW   0.2440  0.123    8.13
+photo__rrect-lg__rest                        holdout     |     NE   0.1396  0.268    3.73 |      E   0.2175  0.254    3.94
+checkerboard__capsule-button__pressed        recorded    |     NW   0.2882 -0.443     inf |      -        -      -       -
+photo__capsule-button__pressed               recorded    |     SE   0.1419  0.283    3.54 |      -        -      -       -
+checkerboard__rrect-md__pressed              recorded    |     NW   0.2264 -0.034     inf |      -        -      -       -
+photo__rrect-md__pressed                     recorded    |     SE   0.1532  0.160    6.23 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |      N   0.1906  0.172    5.82 |      N   0.2354  0.501    2.00
+dark-solid__capsule-button__rest-tint-orange calibration |      S   0.0860  0.088   11.41 |      S   0.1105  0.489    2.05
+impulse__capsule-button__rest-tint-orange +o calibration |     NW   0.0855  0.089   11.30 |      S   0.1101  0.473    2.11
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5155 -0.046     inf |     NW   0.4986  0.116    8.64
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.2302  0.060   16.80 |      E   0.1608  0.547    1.83
+light-solid__capsule-button__rest-tint-orang calibration |    NNE   0.4313  0.897    1.11 |      N   0.4221  0.904    1.11
+photo__capsule-button__rest-tint-blue +blue  calibration |     SE   0.3057  0.111    9.04 |     SE   0.2522  0.428    2.34
+photo__capsule-button__rest-tint-orange-half calibration |    SSE   0.2000  0.133    7.53 |      E   0.1860  0.510    1.96
+checkerboard__capsule-button__rest-tint-blue validation  |     NW   0.6712 -0.013     inf |     NW   0.6596  0.130    7.69
+photo__rrect-md__rest-tint-orange +orange    validation  |     SE   0.1946  0.045   22.44 |      E   0.1335  0.509    1.97
+hc-text__capsule-button__rest-tint-orange +o holdout     |    NNW   0.5209  0.228    4.39 |      N   0.4970  0.288    3.48
+photo__rrect-lg__rest-tint-orange +orange    holdout     |    ESE   0.1990  0.071   14.10 |      S   0.1226  0.595    1.68
+dark-solid__capsule-button__rest-tint-blue + holdout     |      S   0.1410  0.070   14.21 |      S   0.1572  0.551    1.81
+
+== apple-macos-26.5-2x-dark-standard / webgpu
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+dark-solid__capsule-button__rest             calibration |     NW   0.0333  0.063   15.97 |      N   0.0248  0.797    1.25
+checkerboard__capsule-button__rest           calibration |     NW   0.8661 -0.048     inf |     NW   0.9049  0.018   56.75
+impulse__capsule-button__rest                validation  |     SE   0.0231  0.052   19.11 |      N   0.0245  0.757    1.32
+photo__capsule-button__rest                  calibration |     SE   0.4156  0.237    4.21 |     SE   0.4594  0.209    4.78
+dark-solid__rrect-md__rest                   calibration |    NNW   0.0420  0.039   25.86 |      N   0.0361  0.802    1.25
+checkerboard__rrect-md__rest                 calibration |    NNE   0.8731  0.004  242.02 |    NNE   0.8686  0.073   13.61
+photo__rrect-md__rest                        calibration |      E   0.3680  0.220    4.54 |      E   0.3694  0.175    5.70
+photo__rrect-lg__rest                        holdout     |      E   0.2812  0.248    4.03 |      E   0.2978  0.175    5.72
+photo__capsule-button__pressed               recorded    |     SE   0.4156  0.237    4.21 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |     NW   0.0712  0.411    2.43 |      N   0.0599  0.932    1.07
+dark-solid__capsule-button__rest-tint-orange calibration |     SE   0.1644  0.080   12.52 |      N   0.1695  0.678    1.47
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5390  0.021   46.81 |     NW   0.5459  0.032   30.93
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.1972  0.068   14.65 |     SE   0.0851  0.329    3.04
+
+== apple-macos-26.5-2x-light-standard / webgpu
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+light-solid__capsule-button__rest            calibration |      E   0.0334  0.971    1.03 |      N   0.0276  1.000    1.00
+dark-solid__capsule-button__rest             calibration |     NW   0.0333  0.063   15.97 |      N   0.0248  0.797    1.25
+checkerboard__capsule-button__rest           calibration |     NW   0.3017 -0.320     inf |     SW   0.3138  0.179    5.60
+impulse__capsule-button__rest                validation  |     SE   0.0231  0.052   19.11 |      N   0.0245  0.757    1.32
+photo__capsule-button__rest                  calibration |     SE   0.2236  0.228    4.38 |      N   0.2850  0.692    1.44
+hc-text__capsule-button__rest                holdout     |    SSE   0.2666  0.340    2.94 |      S   0.2440  0.306    3.27
+light-solid__rrect-md__rest                  calibration |      N   0.0640  0.870    1.15 |      E   0.0682  0.992    1.01
+dark-solid__rrect-md__rest                   calibration |    SSE   0.2901  0.130    7.72 |      N   0.3317  0.672    1.49
+checkerboard__rrect-md__rest                 calibration |     NW   0.2678  0.082   12.17 |      W   0.2913  0.597    1.67
+impulse__rrect-md__rest                      validation  |    SSE   0.3083  0.110    9.10 |      S   0.3295  0.667    1.50
+photo__rrect-md__rest                        calibration |    SSE   0.1683  0.137    7.31 |      E   0.2790  0.620    1.61
+hc-text__rrect-md__rest                      holdout     |    ESE   0.2226  0.411    2.43 |    NNE   0.2478  0.721    1.39
+light-solid__rrect-ml__rest                  calibration |      N   0.0660  0.866    1.15 |      E   0.0683  0.984    1.02
+checkerboard__rrect-ml__rest                 calibration |    ESE   0.2177  0.446    2.24 |    NNE   0.2744  0.561    1.78
+photo__rrect-ml__rest                        calibration |    SSE   0.1704  0.337    2.97 |      E   0.2705  0.515    1.94
+checkerboard__rrect-sm__rest                 calibration |    NNW   0.2672  0.705    1.42 |    NNE   0.3009  0.684    1.46
+photo__rrect-sm__rest                        validation  |    ESE   0.2821  0.146    6.83 |      S   0.2929  0.728    1.37
+checkerboard__rrect-lg__rest                 holdout     |     NW   0.1964  0.217    4.62 |     NW   0.2860  0.355    2.82
+photo__rrect-lg__rest                        holdout     |     NW   0.1692  0.309    3.24 |      E   0.2702  0.613    1.63
+checkerboard__capsule-button__pressed        recorded    |     NW   0.3017 -0.320     inf |      -        -      -       -
+photo__capsule-button__pressed               recorded    |     SE   0.2236  0.228    4.38 |      -        -      -       -
+checkerboard__rrect-md__pressed              recorded    |     NW   0.2678  0.082   12.17 |      -        -      -       -
+photo__rrect-md__pressed                     recorded    |    SSE   0.1683  0.137    7.31 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |     SE   0.3067  0.161    6.23 |      N   0.3548  0.696    1.44
+dark-solid__capsule-button__rest-tint-orange calibration |     SE   0.1644  0.080   12.52 |      N   0.1695  0.678    1.47
+impulse__capsule-button__rest-tint-orange +o calibration |     SE   0.1639  0.080   12.48 |      N   0.1692  0.665    1.50
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5163 -0.009     inf |     NW   0.4985  0.256    3.91
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.2855  0.095   10.53 |      E   0.1880  0.763    1.31
+light-solid__capsule-button__rest-tint-orang calibration |    NNE   0.4281  0.904    1.11 |      N   0.4221  0.904    1.11
+photo__capsule-button__rest-tint-blue +blue  calibration |     SE   0.3770  0.110    9.10 |     SE   0.2635  0.632    1.58
+photo__capsule-button__rest-tint-orange-half calibration |     SE   0.3090  0.130    7.69 |      N   0.2451  0.753    1.33
+checkerboard__capsule-button__rest-tint-blue validation  |     NW   0.6731  0.017   57.86 |     NW   0.6617  0.226    4.42
+photo__rrect-md__rest-tint-orange +orange    validation  |    ESE   0.2798  0.057   17.68 |      S   0.1710  0.744    1.34
+hc-text__capsule-button__rest-tint-orange +o holdout     |    NNW   0.5225  0.205    4.88 |      N   0.4961  0.333    3.01
+photo__rrect-lg__rest-tint-orange +orange    holdout     |    ESE   0.2673  0.085   11.73 |      N   0.1711  0.752    1.33
+dark-solid__capsule-button__rest-tint-blue + holdout     |     SE   0.2602  0.066   15.20 |      N   0.2327  0.712    1.40
+
+== apple-macos-26.5-1x-dark-standard / native only
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard-4__rrect-sm__rest               calibration |    NNE   0.8829  0.033   30.67 |      -        -      -       -
+checkerboard-4__capsule-button__rest         calibration |    NNE   0.7090  0.493    2.03 |      -        -      -       -
+checkerboard-4__rrect-md__rest               calibration |    NNE   0.6908  0.583    1.71 |      -        -      -       -
+checkerboard-4__rrect-ml__rest               validation  |     NW   0.7254  0.292    3.43 |      -        -      -       -
+checkerboard-4__rrect-lg__rest               calibration |     NW   0.7332  0.242    4.13 |      -        -      -       -
+checkerboard__rrect-sm__rest                 calibration |    NNW   0.8752  0.063   15.95 |      -        -      -       -
+checkerboard__capsule-button__rest           calibration |     NW   0.8544 -0.061     inf |      -        -      -       -
+checkerboard__rrect-md__rest                 calibration |    NNE   0.8584  0.008  119.37 |      -        -      -       -
+checkerboard__rrect-ml__rest                 calibration |    ENE   0.8106  0.040   25.06 |      -        -      -       -
+checkerboard__rrect-lg__rest                 calibration |    NNW   0.7193  0.047   21.46 |      -        -      -       -
+checkerboard-32__rrect-sm__rest              calibration |    NNW   0.8709 -0.079     inf |      -        -      -       -
+checkerboard-32__capsule-button__rest        calibration |    NNE   0.8691 -0.035     inf |      -        -      -       -
+checkerboard-32__rrect-md__rest              calibration |    NNE   0.8553 -0.012     inf |      -        -      -       -
+checkerboard-32__rrect-ml__rest              calibration |    WNW   0.7926 -0.030     inf |      -        -      -       -
+checkerboard-32__rrect-lg__rest              calibration |    NNE   0.8340  0.012   82.82 |      -        -      -       -
+checkerboard-64__rrect-sm__rest              calibration |    NNE   0.8211  0.190    5.27 |      -        -      -       -
+checkerboard-64__capsule-button__rest        validation  |      N   0.6242 -0.164     inf |      -        -      -       -
+checkerboard-64__rrect-md__rest              calibration |    NNW   0.8662  0.079   12.67 |      -        -      -       -
+checkerboard-64__rrect-ml__rest              calibration |      E   0.5814 -0.045     inf |      -        -      -       -
+checkerboard-lc16__rrect-sm__rest            calibration |    NNW   0.6429  0.133    7.54 |      -        -      -       -
+checkerboard-lc16__capsule-button__rest      calibration |     NW   0.6302  0.135    7.40 |      -        -      -       -
+checkerboard-lc16__rrect-md__rest            validation  |    NNE   0.6519  0.193    5.19 |      -        -      -       -
+checkerboard-lc16__rrect-ml__rest            calibration |    ENE   0.6150  0.263    3.80 |      -        -      -       -
+hc-text-7__rrect-sm__rest                    calibration |    NNE   0.8662  0.103    9.68 |      -        -      -       -
+hc-text-7__rrect-md__rest                    validation  |      N   0.8640  0.337    2.97 |      -        -      -       -
+hc-text-7__rrect-lg__rest                    calibration |    NNE   0.8183  0.480    2.09 |      -        -      -       -
+hc-text__rrect-sm__rest                      calibration |      N   0.8569  0.039   25.38 |      -        -      -       -
+hc-text__rrect-md__rest                      calibration |      N   0.8650  0.102    9.81 |      -        -      -       -
+hc-text__rrect-lg__rest                      calibration |    NNE   0.8181  0.203    4.92 |      -        -      -       -
+hc-text-28__rrect-sm__rest                   calibration |    NNE   0.8660  0.426    2.35 |      -        -      -       -
+hc-text-28__rrect-md__rest                   calibration |      N   0.8679  0.383    2.61 |      -        -      -       -
+light-solid__rrect-sm__rest                  calibration |    NNE   0.0334  0.962    1.04 |      -        -      -       -
+light-solid__rrect-md__rest                  calibration |      N   0.7377  0.903    1.11 |      -        -      -       -
+light-solid__rrect-lg__rest                  calibration |    NNW   0.6957  0.860    1.16 |      -        -      -       -
+dark-solid__rrect-sm__rest                   calibration |     NW   0.0225  0.064   15.59 |      -        -      -       -
+dark-solid__rrect-md__rest                   calibration |    WNW   0.0246  0.047   21.07 |      -        -      -       -
+dark-solid__rrect-lg__rest                   calibration |    NNW   0.0218  0.029   34.25 |      -        -      -       -
+mid-dark-solid__rrect-sm__rest               calibration |     NW   0.0628  0.449    2.22 |      -        -      -       -
+mid-dark-solid__rrect-md__rest               calibration |     NW   0.0622  0.436    2.29 |      -        -      -       -
+mid-dark-solid__rrect-lg__rest               calibration |     NW   0.0574  0.451    2.22 |      -        -      -       -
+photo__rrect-sm__rest                        calibration |    ESE   0.3017  0.178    5.61 |      -        -      -       -
+photo__rrect-md__rest                        calibration |      E   0.3686  0.203    4.92 |      -        -      -       -
+checkerboard-4__capsule-button__rest-tint-or calibration |    NNE   0.4250  0.529    1.89 |      -        -      -       -
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5248  0.011   93.49 |      -        -      -       -
+checkerboard-32__capsule-button__rest-tint-o calibration |    NNE   0.5472  0.084   11.88 |      -        -      -       -
+checkerboard-64__capsule-button__rest-tint-o validation  |      N   0.4167  0.004  256.10 |      -        -      -       -
+
+== apple-macos-26.5-1x-light-standard / native only
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard-4__rrect-sm__rest               calibration |    NNE   0.2769  0.226    4.42 |      -        -      -       -
+checkerboard-4__capsule-button__rest         calibration |    NNE   0.2460  0.568    1.76 |      -        -      -       -
+checkerboard-4__rrect-md__rest               calibration |      N   0.1877  0.527    1.90 |      -        -      -       -
+checkerboard-4__rrect-ml__rest               validation  |     NW   0.1906  0.238    4.19 |      -        -      -       -
+checkerboard-4__rrect-lg__rest               calibration |     NW   0.1940  0.220    4.55 |      -        -      -       -
+checkerboard-32__rrect-sm__rest              calibration |    NNW   0.3065 -0.568     inf |      -        -      -       -
+checkerboard-32__capsule-button__rest        calibration |    NNE   0.2611 -0.227     inf |      -        -      -       -
+checkerboard-32__rrect-md__rest              calibration |     NE   0.2824 -0.309     inf |      -        -      -       -
+checkerboard-32__rrect-ml__rest              calibration |    ESE   0.2615 -0.542     inf |      -        -      -       -
+checkerboard-32__rrect-lg__rest              calibration |    NNE   0.2200 -0.005     inf |      -        -      -       -
+checkerboard-64__rrect-sm__rest              calibration |      N   0.0340  0.869    1.15 |      -        -      -       -
+checkerboard-64__capsule-button__rest        validation  |      N   0.1799 -1.107     inf |      -        -      -       -
+checkerboard-64__rrect-md__rest              calibration |      N   0.2889  0.027   36.69 |      -        -      -       -
+checkerboard-64__rrect-ml__rest              calibration |      N   0.2399 -0.557     inf |      -        -      -       -
+checkerboard-lc16__rrect-sm__rest            calibration |    ENE   0.1248  0.233    4.29 |      -        -      -       -
+checkerboard-lc16__capsule-button__rest      calibration |     NW   0.0981  0.148    6.75 |      -        -      -       -
+checkerboard-lc16__rrect-md__rest            validation  |     SE   0.1226  0.094   10.63 |      -        -      -       -
+checkerboard-lc16__rrect-ml__rest            calibration |      S   0.1071  0.515    1.94 |      -        -      -       -
+hc-text-7__rrect-sm__rest                    calibration |    NNW   0.2144  0.594    1.68 |      -        -      -       -
+hc-text-7__rrect-md__rest                    validation  |    ESE   0.2197  0.372    2.69 |      -        -      -       -
+hc-text-7__rrect-lg__rest                    calibration |     SE   0.1751  0.212    4.71 |      -        -      -       -
+hc-text__rrect-sm__rest                      calibration |    ESE   0.1526  0.584    1.71 |      -        -      -       -
+hc-text__rrect-lg__rest                      calibration |     SE   0.1895  0.276    3.62 |      -        -      -       -
+hc-text-28__rrect-sm__rest                   calibration |    SSE   0.2202  0.394    2.54 |      -        -      -       -
+hc-text-28__rrect-md__rest                   calibration |    ESE   0.2490  0.647    1.54 |      -        -      -       -
+light-solid__rrect-sm__rest                  calibration |    NNE   0.0334  0.962    1.04 |      -        -      -       -
+light-solid__rrect-md__rest                  calibration |      N   0.0634  0.849    1.18 |      -        -      -       -
+light-solid__rrect-lg__rest                  calibration |      N   0.0598  0.868    1.15 |      -        -      -       -
+dark-solid__rrect-sm__rest                   calibration |     NW   0.0225  0.064   15.59 |      -        -      -       -
+dark-solid__rrect-md__rest                   calibration |      S   0.1892  0.183    5.46 |      -        -      -       -
+dark-solid__rrect-lg__rest                   calibration |      S   0.1831  0.172    5.80 |      -        -      -       -
+mid-dark-solid__rrect-sm__rest               calibration |      N   0.2140  0.167    5.99 |      -        -      -       -
+mid-dark-solid__rrect-md__rest               calibration |      S   0.1686  0.210    4.76 |      -        -      -       -
+mid-dark-solid__rrect-lg__rest               calibration |      N   0.1630  0.230    4.34 |      -        -      -       -
+photo__rrect-sm__rest                        calibration |      E   0.1767  0.223    4.48 |      -        -      -       -
+photo__rrect-md__rest                        calibration |     SE   0.1532  0.160    6.23 |      -        -      -       -
+checkerboard-4__capsule-button__rest-tint-or calibration |    NNE   0.4332  0.551    1.81 |      -        -      -       -
+checkerboard-32__capsule-button__rest-tint-o calibration |    NNE   0.5299  0.171    5.86 |      -        -      -       -
+checkerboard-64__capsule-button__rest-tint-o validation  |      N   0.4064 -0.098     inf |      -        -      -       -
+
+== apple-macos-26.5-1x-dark-standard / css
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+dark-solid__capsule-button__rest             calibration |     NW   0.0208  0.081   12.38 |      N   0.0036  0.016   63.45
+checkerboard__capsule-button__rest           calibration |     NW   0.8544 -0.061     inf |     NW   0.8983 -0.024     inf
+impulse__capsule-button__rest                validation  |      N   0.0139  0.012   85.88 |      N   0.0023  0.013   78.87
+photo__capsule-button__rest                  calibration |     SE   0.4097  0.239    4.19 |      W   0.1240  0.185    5.42
+dark-solid__rrect-md__rest                   calibration |    WNW   0.0246  0.047   21.07 |      N   0.0069  0.030   33.48
+checkerboard__rrect-md__rest                 calibration |    NNE   0.8584  0.008  119.37 |    WNW   0.7518 -0.027     inf
+photo__rrect-md__rest                        calibration |      E   0.3686  0.203    4.92 |    WSW   0.1407  0.062   16.25
+photo__rrect-lg__rest                        holdout     |      E   0.2806  0.195    5.12 |      W   0.2397  0.048   20.88
+photo__capsule-button__pressed               recorded    |     SE   0.4097  0.239    4.19 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |     NW   0.0624  0.464    2.16 |      W   0.0271  0.060   16.73
+dark-solid__capsule-button__rest-tint-orange calibration |      S   0.0860  0.088   11.41 |      N   0.0316  0.034   29.84
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5248  0.011   93.49 |     NW   0.5445  0.001 1987.75
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.1280  0.065   15.30 |      N   0.0092  0.035   28.27
+
+== apple-macos-26.5-1x-light-increased-contrast / css
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard__capsule-button__rest           calibration |    NNE   0.0129 -1.208     inf |    WSW   0.0480 -0.673     inf
+photo__capsule-button__rest                  calibration |    SSW   0.0091 -1.300     inf |    NNE   0.0834 -0.052     inf
+hc-text__capsule-button__rest                holdout     |      S   0.0385  0.001 1246.25 |      N   0.0287 -0.159     inf
+checkerboard__rrect-md__rest                 calibration |    SSW   0.0058 -3.226     inf |    WNW   0.0547 -0.501     inf
+photo__rrect-md__rest                        calibration |    WNW  -0.0004 26.029     inf |    WSW   0.0839 -0.054     inf
+photo__rrect-lg__rest                        holdout     |    SSW   0.0051 -2.525     inf |      W   0.0909 -0.387     inf
+photo__capsule-button__pressed               recorded    |    SSW   0.0091 -1.300     inf |      -        -      -       -
+checkerboard__capsule-button__rest-tint-oran calibration |    WSW   0.3124  0.009  116.79 |    NNE   0.5337 -0.002     inf
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.0159 -0.142     inf |      N   0.5369 -0.002     inf
+
+== apple-macos-26.5-1x-light-reduced-transparency / css
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard__capsule-button__rest           calibration |     NW   0.0809  0.587    1.70 |    WSW   0.0334 -1.120     inf
+photo__capsule-button__rest                  calibration |      S   0.0685  0.647    1.54 |    ENE   0.0260 -0.344     inf
+hc-text__capsule-button__rest                holdout     |      N   0.0839  0.619    1.62 |    NNE   0.0465 -0.212     inf
+checkerboard__rrect-md__rest                 calibration |    WNW   0.0829  0.661    1.51 |     SE   0.0297 -1.382     inf
+photo__rrect-md__rest                        calibration |      N   0.0705  0.584    1.71 |      E   0.0337 -0.500     inf
+photo__rrect-lg__rest                        holdout     |      S   0.0737  0.716    1.40 |      E   0.0313 -1.359     inf
+photo__capsule-button__pressed               recorded    |      S   0.0685  0.647    1.54 |      -        -      -       -
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.2191  0.056   17.85 |    WSW   0.0282  0.009  107.74
+
+== apple-macos-26.5-1x-light-standard / css
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+light-solid__capsule-button__rest            calibration |      N   0.0332  0.979    1.02 |      N   0.0077  0.001 1022.49
+dark-solid__capsule-button__rest             calibration |     NW   0.0208  0.081   12.38 |      N   0.0036  0.016   63.45
+checkerboard__capsule-button__rest           calibration |     NW   0.2882 -0.443     inf |     NW   0.2223 -0.660     inf
+impulse__capsule-button__rest                validation  |      N   0.0139  0.012   85.88 |      N   0.0023  0.013   78.87
+photo__capsule-button__rest                  calibration |     SE   0.1419  0.283    3.54 |    ENE   0.1367  0.142    7.06
+hc-text__capsule-button__rest                holdout     |    NNW   0.2277  0.220    4.55 |     NE   0.2115 -0.204     inf
+light-solid__rrect-md__rest                  calibration |      N   0.0634  0.849    1.18 |      N   0.0078  0.000     inf
+dark-solid__rrect-md__rest                   calibration |      S   0.1892  0.183    5.46 |      N   0.1453 -0.165     inf
+checkerboard__rrect-md__rest                 calibration |     NW   0.2264 -0.034     inf |    WNW   0.1993 -0.556     inf
+impulse__rrect-md__rest                      validation  |      S   0.2009  0.158    6.35 |      N   0.1449 -0.168     inf
+photo__rrect-md__rest                        calibration |     SE   0.1532  0.160    6.23 |      E   0.1433 -0.119     inf
+hc-text__rrect-md__rest                      holdout     |     NE   0.2059  0.529    1.89 |     SE   0.1821 -0.047     inf
+light-solid__rrect-ml__rest                  calibration |      N   0.0651  0.854    1.17 |      N   0.0079 -0.065     inf
+checkerboard__rrect-ml__rest                 calibration |     NE   0.1907  0.277    3.61 |     SW   0.1620 -0.440     inf
+photo__rrect-ml__rest                        calibration |      E   0.1473  0.059   17.04 |      E   0.1373 -0.071     inf
+checkerboard__rrect-sm__rest                 calibration |    NNW   0.2673  0.428    2.33 |     NW   0.2387 -0.834     inf
+photo__rrect-sm__rest                        validation  |      E   0.1767  0.223    4.48 |      E   0.1125  0.468    2.14
+checkerboard__rrect-lg__rest                 holdout     |      N   0.1624  0.149    6.70 |    NNW   0.1585 -0.591     inf
+photo__rrect-lg__rest                        holdout     |     NE   0.1396  0.268    3.73 |      E   0.1266 -0.369     inf
+checkerboard__capsule-button__pressed        recorded    |     NW   0.2882 -0.443     inf |      -        -      -       -
+photo__capsule-button__pressed               recorded    |     SE   0.1419  0.283    3.54 |      -        -      -       -
+checkerboard__rrect-md__pressed              recorded    |     NW   0.2264 -0.034     inf |      -        -      -       -
+photo__rrect-md__pressed                     recorded    |     SE   0.1532  0.160    6.23 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |      N   0.1906  0.172    5.82 |      N   0.1548 -0.052     inf
+dark-solid__capsule-button__rest-tint-orange calibration |      S   0.0860  0.088   11.41 |      N   0.0316  0.034   29.84
+impulse__capsule-button__rest-tint-orange +o calibration |     NW   0.0855  0.089   11.30 |      N   0.0316  0.034   29.58
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5155 -0.046     inf |     NW   0.5247  0.002  526.06
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.2302  0.060   16.80 |      N   0.0457  0.023   43.94
+light-solid__capsule-button__rest-tint-orang calibration |    NNE   0.4313  0.897    1.11 |    NNW   0.4297  0.001 1932.76
+photo__capsule-button__rest-tint-blue +blue  calibration |     SE   0.3057  0.111    9.04 |      N   0.1104  0.020   50.20
+photo__capsule-button__rest-tint-orange-half calibration |    SSE   0.2000  0.133    7.53 |    ENE   0.0678  0.347    2.89
+checkerboard__capsule-button__rest-tint-blue validation  |     NW   0.6712 -0.013     inf |     NW   0.6857  0.003  312.05
+photo__rrect-md__rest-tint-orange +orange    validation  |     SE   0.1946  0.045   22.44 |      N   0.0415  0.032   30.81
+hc-text__capsule-button__rest-tint-orange +o holdout     |    NNW   0.5209  0.228    4.39 |    NNW   0.5033  0.001 1791.68
+photo__rrect-lg__rest-tint-orange +orange    holdout     |    ESE   0.1990  0.071   14.10 |      N   0.0416  0.028   36.11
+dark-solid__capsule-button__rest-tint-blue + holdout     |      S   0.1410  0.070   14.21 |      N   0.1186  0.023   44.05
+
+== apple-macos-26.5-2x-dark-standard / css
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+dark-solid__capsule-button__rest             calibration |     NW   0.0333  0.063   15.97 |      N   0.0036 -0.001     inf
+checkerboard__capsule-button__rest           calibration |     NW   0.8661 -0.048     inf |     NW   0.9072 -0.032     inf
+impulse__capsule-button__rest                validation  |     SE   0.0231  0.052   19.11 |      N   0.0023 -0.000     inf
+photo__capsule-button__rest                  calibration |     SE   0.4156  0.237    4.21 |      W   0.1293  0.174    5.73
+dark-solid__rrect-md__rest                   calibration |    NNW   0.0420  0.039   25.86 |      N   0.0070 -0.000     inf
+checkerboard__rrect-md__rest                 calibration |    NNE   0.8731  0.004  242.02 |    WNW   0.8569 -0.031     inf
+photo__rrect-md__rest                        calibration |      E   0.3680  0.220    4.54 |    WSW   0.1619  0.074   13.49
+photo__rrect-lg__rest                        holdout     |      E   0.2812  0.248    4.03 |      W   0.2396  0.043   23.03
+photo__capsule-button__pressed               recorded    |     SE   0.4156  0.237    4.21 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |     NW   0.0712  0.411    2.43 |      N   0.0270  0.077   13.02
+dark-solid__capsule-button__rest-tint-orange calibration |     SE   0.1644  0.080   12.52 |      W   0.0331  0.001  801.77
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5390  0.021   46.81 |     NW   0.5538 -0.000     inf
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.1972  0.068   14.65 |      N   0.0097  0.004  239.21
+
+== apple-macos-26.5-2x-light-standard / css
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+light-solid__capsule-button__rest            calibration |      E   0.0334  0.971    1.03 |      N   0.0079  0.005  191.22
+dark-solid__capsule-button__rest             calibration |     NW   0.0333  0.063   15.97 |      N   0.0036 -0.001     inf
+checkerboard__capsule-button__rest           calibration |     NW   0.3017 -0.320     inf |    WSW   0.2288 -0.702     inf
+impulse__capsule-button__rest                validation  |     SE   0.0231  0.052   19.11 |      N   0.0023 -0.000     inf
+photo__capsule-button__rest                  calibration |     SE   0.2236  0.228    4.38 |    ENE   0.1350  0.022   44.69
+hc-text__capsule-button__rest                holdout     |    SSE   0.2666  0.340    2.94 |     NE   0.2378 -0.188     inf
+light-solid__rrect-md__rest                  calibration |      N   0.0640  0.870    1.15 |      W   0.0081 -0.076     inf
+dark-solid__rrect-md__rest                   calibration |    SSE   0.2901  0.130    7.72 |      N   0.1476 -0.116     inf
+checkerboard__rrect-md__rest                 calibration |     NW   0.2678  0.082   12.17 |    WNW   0.2387 -0.716     inf
+impulse__rrect-md__rest                      validation  |    SSE   0.3083  0.110    9.10 |      N   0.1467 -0.123     inf
+photo__rrect-md__rest                        calibration |    SSE   0.1683  0.137    7.31 |      E   0.1494 -0.380     inf
+hc-text__rrect-md__rest                      holdout     |    ESE   0.2226  0.411    2.43 |     SE   0.1996 -0.077     inf
+light-solid__rrect-ml__rest                  calibration |      N   0.0660  0.866    1.15 |      N   0.0081 -0.064     inf
+checkerboard__rrect-ml__rest                 calibration |    ESE   0.2177  0.446    2.24 |     SW   0.1869 -0.506     inf
+photo__rrect-ml__rest                        calibration |    SSE   0.1704  0.337    2.97 |      E   0.1395 -0.184     inf
+checkerboard__rrect-sm__rest                 calibration |    NNW   0.2672  0.705    1.42 |     SW   0.2710 -0.888     inf
+photo__rrect-sm__rest                        validation  |    ESE   0.2821  0.146    6.83 |      E   0.1185  0.411    2.43
+checkerboard__rrect-lg__rest                 holdout     |     NW   0.1964  0.217    4.62 |    WSW   0.1611 -0.705     inf
+photo__rrect-lg__rest                        holdout     |     NW   0.1692  0.309    3.24 |      E   0.1269 -0.540     inf
+checkerboard__capsule-button__pressed        recorded    |     NW   0.3017 -0.320     inf |      -        -      -       -
+photo__capsule-button__pressed               recorded    |     SE   0.2236  0.228    4.38 |      -        -      -       -
+checkerboard__rrect-md__pressed              recorded    |     NW   0.2678  0.082   12.17 |      -        -      -       -
+photo__rrect-md__pressed                     recorded    |    SSE   0.1683  0.137    7.31 |      -        -      -       -
+mid-dark-solid__capsule-button__rest         holdout     |     SE   0.3067  0.161    6.23 |      N   0.1577 -0.032     inf
+dark-solid__capsule-button__rest-tint-orange calibration |     SE   0.1644  0.080   12.52 |      W   0.0331  0.001  801.77
+impulse__capsule-button__rest-tint-orange +o calibration |     SE   0.1639  0.080   12.48 |      N   0.0331  0.001  707.01
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5163 -0.009     inf |     NW   0.5293 -0.000     inf
+photo__capsule-button__rest-tint-orange +ora calibration |     SE   0.2855  0.095   10.53 |      W   0.0465 -0.000     inf
+light-solid__capsule-button__rest-tint-orang calibration |    NNE   0.4281  0.904    1.11 |    NNW   0.4304 -0.000     inf
+photo__capsule-button__rest-tint-blue +blue  calibration |     SE   0.3770  0.110    9.10 |      N   0.1112 -0.001     inf
+photo__capsule-button__rest-tint-orange-half calibration |     SE   0.3090  0.130    7.69 |      W   0.0681  0.369    2.71
+checkerboard__capsule-button__rest-tint-blue validation  |     NW   0.6731  0.017   57.86 |     NW   0.6917 -0.000     inf
+photo__rrect-md__rest-tint-orange +orange    validation  |    ESE   0.2798  0.057   17.68 |      N   0.0419 -0.000     inf
+hc-text__capsule-button__rest-tint-orange +o holdout     |    NNW   0.5225  0.205    4.88 |    NNW   0.5031  0.000 24618.57
+photo__rrect-lg__rest-tint-orange +orange    holdout     |    ESE   0.2673  0.085   11.73 |      W   0.0429  0.010  104.23
+dark-solid__capsule-button__rest-tint-blue + holdout     |     SE   0.2602  0.066   15.20 |      W   0.1223 -0.000     inf
+
+== apple-macos-26.5-1x-dark-standard / native only
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard-4__rrect-sm__rest               calibration |    NNE   0.8829  0.033   30.67 |      -        -      -       -
+checkerboard-4__capsule-button__rest         calibration |    NNE   0.7090  0.493    2.03 |      -        -      -       -
+checkerboard-4__rrect-md__rest               calibration |    NNE   0.6908  0.583    1.71 |      -        -      -       -
+checkerboard-4__rrect-ml__rest               validation  |     NW   0.7254  0.292    3.43 |      -        -      -       -
+checkerboard-4__rrect-lg__rest               calibration |     NW   0.7332  0.242    4.13 |      -        -      -       -
+checkerboard__rrect-sm__rest                 calibration |    NNW   0.8752  0.063   15.95 |      -        -      -       -
+checkerboard__capsule-button__rest           calibration |     NW   0.8544 -0.061     inf |      -        -      -       -
+checkerboard__rrect-md__rest                 calibration |    NNE   0.8584  0.008  119.37 |      -        -      -       -
+checkerboard__rrect-ml__rest                 calibration |    ENE   0.8106  0.040   25.06 |      -        -      -       -
+checkerboard__rrect-lg__rest                 calibration |    NNW   0.7193  0.047   21.46 |      -        -      -       -
+checkerboard-32__rrect-sm__rest              calibration |    NNW   0.8709 -0.079     inf |      -        -      -       -
+checkerboard-32__capsule-button__rest        calibration |    NNE   0.8691 -0.035     inf |      -        -      -       -
+checkerboard-32__rrect-md__rest              calibration |    NNE   0.8553 -0.012     inf |      -        -      -       -
+checkerboard-32__rrect-ml__rest              calibration |    WNW   0.7926 -0.030     inf |      -        -      -       -
+checkerboard-32__rrect-lg__rest              calibration |    NNE   0.8340  0.012   82.82 |      -        -      -       -
+checkerboard-64__rrect-sm__rest              calibration |    NNE   0.8211  0.190    5.27 |      -        -      -       -
+checkerboard-64__capsule-button__rest        validation  |      N   0.6242 -0.164     inf |      -        -      -       -
+checkerboard-64__rrect-md__rest              calibration |    NNW   0.8662  0.079   12.67 |      -        -      -       -
+checkerboard-64__rrect-ml__rest              calibration |      E   0.5814 -0.045     inf |      -        -      -       -
+checkerboard-lc16__rrect-sm__rest            calibration |    NNW   0.6429  0.133    7.54 |      -        -      -       -
+checkerboard-lc16__capsule-button__rest      calibration |     NW   0.6302  0.135    7.40 |      -        -      -       -
+checkerboard-lc16__rrect-md__rest            validation  |    NNE   0.6519  0.193    5.19 |      -        -      -       -
+checkerboard-lc16__rrect-ml__rest            calibration |    ENE   0.6150  0.263    3.80 |      -        -      -       -
+hc-text-7__rrect-sm__rest                    calibration |    NNE   0.8662  0.103    9.68 |      -        -      -       -
+hc-text-7__rrect-md__rest                    validation  |      N   0.8640  0.337    2.97 |      -        -      -       -
+hc-text-7__rrect-lg__rest                    calibration |    NNE   0.8183  0.480    2.09 |      -        -      -       -
+hc-text__rrect-sm__rest                      calibration |      N   0.8569  0.039   25.38 |      -        -      -       -
+hc-text__rrect-md__rest                      calibration |      N   0.8650  0.102    9.81 |      -        -      -       -
+hc-text__rrect-lg__rest                      calibration |    NNE   0.8181  0.203    4.92 |      -        -      -       -
+hc-text-28__rrect-sm__rest                   calibration |    NNE   0.8660  0.426    2.35 |      -        -      -       -
+hc-text-28__rrect-md__rest                   calibration |      N   0.8679  0.383    2.61 |      -        -      -       -
+light-solid__rrect-sm__rest                  calibration |    NNE   0.0334  0.962    1.04 |      -        -      -       -
+light-solid__rrect-md__rest                  calibration |      N   0.7377  0.903    1.11 |      -        -      -       -
+light-solid__rrect-lg__rest                  calibration |    NNW   0.6957  0.860    1.16 |      -        -      -       -
+dark-solid__rrect-sm__rest                   calibration |     NW   0.0225  0.064   15.59 |      -        -      -       -
+dark-solid__rrect-md__rest                   calibration |    WNW   0.0246  0.047   21.07 |      -        -      -       -
+dark-solid__rrect-lg__rest                   calibration |    NNW   0.0218  0.029   34.25 |      -        -      -       -
+mid-dark-solid__rrect-sm__rest               calibration |     NW   0.0628  0.449    2.22 |      -        -      -       -
+mid-dark-solid__rrect-md__rest               calibration |     NW   0.0622  0.436    2.29 |      -        -      -       -
+mid-dark-solid__rrect-lg__rest               calibration |     NW   0.0574  0.451    2.22 |      -        -      -       -
+photo__rrect-sm__rest                        calibration |    ESE   0.3017  0.178    5.61 |      -        -      -       -
+photo__rrect-md__rest                        calibration |      E   0.3686  0.203    4.92 |      -        -      -       -
+checkerboard-4__capsule-button__rest-tint-or calibration |    NNE   0.4250  0.529    1.89 |      -        -      -       -
+checkerboard__capsule-button__rest-tint-oran calibration |     NW   0.5248  0.011   93.49 |      -        -      -       -
+checkerboard-32__capsule-button__rest-tint-o calibration |    NNE   0.5472  0.084   11.88 |      -        -      -       -
+checkerboard-64__capsule-button__rest-tint-o validation  |      N   0.4167  0.004  256.10 |      -        -      -       -
+
+== apple-macos-26.5-1x-light-standard / native only
+scene                                        set         | bright     peak  floor   ratio | bright     peak  floor   ratio
+checkerboard-4__rrect-sm__rest               calibration |    NNE   0.2769  0.226    4.42 |      -        -      -       -
+checkerboard-4__capsule-button__rest         calibration |    NNE   0.2460  0.568    1.76 |      -        -      -       -
+checkerboard-4__rrect-md__rest               calibration |      N   0.1877  0.527    1.90 |      -        -      -       -
+checkerboard-4__rrect-ml__rest               validation  |     NW   0.1906  0.238    4.19 |      -        -      -       -
+checkerboard-4__rrect-lg__rest               calibration |     NW   0.1940  0.220    4.55 |      -        -      -       -
+checkerboard-32__rrect-sm__rest              calibration |    NNW   0.3065 -0.568     inf |      -        -      -       -
+checkerboard-32__capsule-button__rest        calibration |    NNE   0.2611 -0.227     inf |      -        -      -       -
+checkerboard-32__rrect-md__rest              calibration |     NE   0.2824 -0.309     inf |      -        -      -       -
+checkerboard-32__rrect-ml__rest              calibration |    ESE   0.2615 -0.542     inf |      -        -      -       -
+checkerboard-32__rrect-lg__rest              calibration |    NNE   0.2200 -0.005     inf |      -        -      -       -
+checkerboard-64__rrect-sm__rest              calibration |      N   0.0340  0.869    1.15 |      -        -      -       -
+checkerboard-64__capsule-button__rest        validation  |      N   0.1799 -1.107     inf |      -        -      -       -
+checkerboard-64__rrect-md__rest              calibration |      N   0.2889  0.027   36.69 |      -        -      -       -
+checkerboard-64__rrect-ml__rest              calibration |      N   0.2399 -0.557     inf |      -        -      -       -
+checkerboard-lc16__rrect-sm__rest            calibration |    ENE   0.1248  0.233    4.29 |      -        -      -       -
+checkerboard-lc16__capsule-button__rest      calibration |     NW   0.0981  0.148    6.75 |      -        -      -       -
+checkerboard-lc16__rrect-md__rest            validation  |     SE   0.1226  0.094   10.63 |      -        -      -       -
+checkerboard-lc16__rrect-ml__rest            calibration |      S   0.1071  0.515    1.94 |      -        -      -       -
+hc-text-7__rrect-sm__rest                    calibration |    NNW   0.2144  0.594    1.68 |      -        -      -       -
+hc-text-7__rrect-md__rest                    validation  |    ESE   0.2197  0.372    2.69 |      -        -      -       -
+hc-text-7__rrect-lg__rest                    calibration |     SE   0.1751  0.212    4.71 |      -        -      -       -
+hc-text__rrect-sm__rest                      calibration |    ESE   0.1526  0.584    1.71 |      -        -      -       -
+hc-text__rrect-lg__rest                      calibration |     SE   0.1895  0.276    3.62 |      -        -      -       -
+hc-text-28__rrect-sm__rest                   calibration |    SSE   0.2202  0.394    2.54 |      -        -      -       -
+hc-text-28__rrect-md__rest                   calibration |    ESE   0.2490  0.647    1.54 |      -        -      -       -
+light-solid__rrect-sm__rest                  calibration |    NNE   0.0334  0.962    1.04 |      -        -      -       -
+light-solid__rrect-md__rest                  calibration |      N   0.0634  0.849    1.18 |      -        -      -       -
+light-solid__rrect-lg__rest                  calibration |      N   0.0598  0.868    1.15 |      -        -      -       -
+dark-solid__rrect-sm__rest                   calibration |     NW   0.0225  0.064   15.59 |      -        -      -       -
+dark-solid__rrect-md__rest                   calibration |      S   0.1892  0.183    5.46 |      -        -      -       -
+dark-solid__rrect-lg__rest                   calibration |      S   0.1831  0.172    5.80 |      -        -      -       -
+mid-dark-solid__rrect-sm__rest               calibration |      N   0.2140  0.167    5.99 |      -        -      -       -
+mid-dark-solid__rrect-md__rest               calibration |      S   0.1686  0.210    4.76 |      -        -      -       -
+mid-dark-solid__rrect-lg__rest               calibration |      N   0.1630  0.230    4.34 |      -        -      -       -
+photo__rrect-sm__rest                        calibration |      E   0.1767  0.223    4.48 |      -        -      -       -
+photo__rrect-md__rest                        calibration |     SE   0.1532  0.160    6.23 |      -        -      -       -
+checkerboard-4__capsule-button__rest-tint-or calibration |    NNE   0.4332  0.551    1.81 |      -        -      -       -
+checkerboard-32__capsule-button__rest-tint-o calibration |    NNE   0.5299  0.171    5.86 |      -        -      -       -
+checkerboard-64__capsule-button__rest-tint-o validation  |      N   0.4064 -0.098     inf |      -        -      -       -

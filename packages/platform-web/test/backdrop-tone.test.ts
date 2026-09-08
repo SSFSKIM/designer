@@ -29,6 +29,7 @@ import {
   CSS_TIER_MAPPING,
   cssTierOptics,
   collapsedRim,
+  COLLAPSE_TRANSMISSION,
   resolvedCollapsedRim,
   RIM_COLLAPSED,
   RIM_COLLAPSED_TINTED,
@@ -100,13 +101,45 @@ describe("the material one backdrop reading produces", () => {
     expect(unadapted.rimAlpha).toBeCloseTo(0.5551, 4);
   });
 
-  it("is the backdrop itself, opaquely, at full adaptation", () => {
+  it("is the backdrop itself at full adaptation, less the transmission it keeps", () => {
+    /*
+     * The collapse's target is the backdrop's tone and its opacity is one minus
+     * what still comes through (W24; claims §5.108 §2). At full adaptation the
+     * pair is `A' = 1 − c` and `T' = tone`, so the surface draws the tone over
+     * `c` of whatever `backdrop-filter` has put beneath it — which is the
+     * reference's collapsed capsule passing its backdrop's centre dot, and what
+     * this tier was asserting the absence of.
+     */
     const tone = [0.0117, 0.0117, 0.0125] as const;
     const adapted = adaptedSourceOptics(source, tone, 1);
-    expect(adapted.tintAlpha).toBeCloseTo(1, 12);
+    expect(adapted.tintAlpha).toBeCloseTo(1 - COLLAPSE_TRANSMISSION, 12);
     for (const index of [0, 1, 2] as const) {
       expect(adapted.tint[index]).toBeCloseTo(tone[index] as number, 12);
     }
+    // And a profile that declines the transmission is opaque again, exactly as
+    // W7 left it: the mechanism is one constant and it is the whole of it.
+    const w7 = adaptedSourceOptics(source, tone, 1, undefined, undefined, 0);
+    expect(w7.tintAlpha).toBeCloseTo(1, 12);
+  });
+
+  it("is a window at the transmission's far end, and not the tint at full opacity", () => {
+    /*
+     * The endpoint, which the pair states degenerately: `A' = A − k·c` reaches 0
+     * where a fully collapsed surface transmits everything, and there is no
+     * colour a zero-opacity layer shows. The alpha is written as 0 rather than
+     * left at the material's own, because the second is what a surface meant to
+     * be a window would draw — the untransformed tint over the whole of it.
+     *
+     * No shipped profile reaches this: `collapseTransmission` is 0.017 and the
+     * far end is 1. It is pinned because the arithmetic passes through it and
+     * the branch that handles it is unreachable from any capture on the bed.
+     */
+    const tone = [0.0117, 0.0117, 0.0125] as const;
+    const open = adaptedSourceOptics(source, tone, 1, undefined, undefined, 1);
+    expect(open.tintAlpha).toBe(0);
+    // The rim is the collapsed one, because a collapsed surface keeps its rim
+    // whatever it transmits — the transmission is the BODY's term.
+    expect(open.rimAlpha).toBeCloseTo(RIM_COLLAPSED, 12);
   });
 
   it("darkens rather than brightens on the way there", () => {
@@ -178,12 +211,17 @@ describe("the material one backdrop reading produces", () => {
     }
   });
 
-  it("declares a fully adapted surface AS its backdrop", () => {
+  it("declares a fully adapted surface AS its backdrop, all but what it transmits", () => {
     const tone = [0.0117, 0.0117, 0.0117] as const;
     const declared = cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1));
-    // sRGB(0.0117) ≈ 0.1124 → 29/255. An opaque overlay of the backdrop's own
-    // colour is what makes the surface vanish on a tier that cannot sample.
-    expect(declared.tintAlpha).toBeCloseTo(1, 6);
+    // sRGB(0.0117) ≈ 0.1124 → 29/255. A near-opaque overlay of the backdrop's own
+    // colour is what makes the surface vanish on a tier that cannot sample; the
+    // `collapseTransmission` it stops short of opacity by is what still comes
+    // through the `backdrop-filter` beneath it (W24; claims §5.108 §2).
+    // 0.98 and not 0.983: the source's `1 − c` crosses the tier boundary through
+    // `cssOpticsFromSource`'s own alpha solve, which is where the two composites'
+    // transfer functions are reconciled.
+    expect(declared.tintAlpha).toBeCloseTo(0.98, 4);
     for (const index of [0, 1, 2] as const) {
       expect(declared.tint[index]).toBeGreaterThanOrEqual(27);
       expect(declared.tint[index]).toBeLessThanOrEqual(31);

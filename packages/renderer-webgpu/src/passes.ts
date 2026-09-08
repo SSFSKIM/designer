@@ -138,6 +138,12 @@ export interface OpticsPassArgs {
   readonly tintShade: readonly [number, number, number];
   readonly rimWidth: number;
   readonly rimAlpha: number;
+  /**
+   * The retired one-sided specular's two constants (W24; claims §5.108 §1).
+   * They still travel to the uniform's `rim.zw` so that the buffer's layout and
+   * the profile's shape are one reviewable change rather than two, and the
+   * optics pass no longer reads either of them.
+   */
   readonly specularPower: number;
   readonly specularGain: number;
   /**
@@ -148,6 +154,12 @@ export interface OpticsPassArgs {
   readonly rimLevelGain: number;
   readonly rimCollapsed: number;
   readonly rimCollapsedTinted: number;
+  /**
+   * The lit edge (W24): the axis the rim's directional factor is symmetric about
+   * and the factor's exponent. At exponent 0 the factor is 1 for every normal.
+   */
+  readonly rimLitAxis: readonly [number, number];
+  readonly rimLitExponent: number;
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -288,6 +300,12 @@ export interface OpticsPassArgs {
   /** The response law's per-profile authority (0 on dark profiles) — see
    * `MaterialProfile.backdropToneResponseStrength`. */
   readonly backdropToneResponseStrength: number;
+  /**
+   * How far the collapse's target moves from the group's mean backdrop colour
+   * to the per-pixel blurred sample (W24 G1) — see
+   * `MaterialProfile.collapseTransmission`. At 0 the collapse is W7's.
+   */
+  readonly collapseTransmission: number;
   /**
    * The backdrop's LINEAR-space mean under the same weighting as the tone
    * colour — what the response solve composites against. Falls back to the
@@ -595,7 +613,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 100);
+      const slot = uniformSlot(`optics:${args.groupId}`, 104);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -686,7 +704,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[68] = args.backdropToneResponseThick[0];
       d[69] = args.backdropToneResponseThick[1];
       d[70] = args.backdropToneResponseThick[2];
-      d[71] = 0;
+      // The collapse's transmission (W24 G1), in the tone block's one padding
+      // slot; the other three vec4s of the block are full and a collapse
+      // constant living outside it is a layout nobody could read. The slot was
+      // written as zero, which is this constant's inert value, so the buffer's
+      // size and every default render are unchanged.
+      d[71] = args.collapseTransmission;
       d[72] = args.sizeScatterFloor;
       // The depth ramp's THIN start (W13 G1), in the slot the retired
       // `sizeScatterSpanMax` held — the scatter facet's second number, where its
@@ -740,6 +763,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[97] = args.rimCollapsed;
       d[98] = args.rimCollapsedTinted;
       d[99] = args.rimTintChroma;
+      // The lit edge (W24), in a vec4 of its own because `rimLaw` has been full
+      // since W23 G3 and an axis living in the shadow's block is a layout nobody
+      // could read. `d[103]` is free.
+      d[100] = args.rimLitAxis[0];
+      d[101] = args.rimLitAxis[1];
+      d[102] = args.rimLitExponent;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

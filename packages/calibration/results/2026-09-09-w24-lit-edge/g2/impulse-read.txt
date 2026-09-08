@@ -1,0 +1,207 @@
+W24 G2 — clause 2: the collapsed impulse capsule's dot, native | landed 0.12.0 | this gate
+peak is the excess over the LOCAL body in linear luma; fwhm is in CSS px; the body printed
+under each source is the mean over the declared shape eroded 6 CSS px.
+
+validate 1x: 15 dots, [(4, 4)] device px = [(4.0, 4.0)] CSS px
+  dot (  32.0,  40.0) x: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+  dot (  32.0,  40.0) y: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+  dot ( 160.0, 104.0) x: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+  dot ( 160.0, 104.0) y: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+validate 2x: 15 dots, [(8, 8)] device px = [(4.0, 4.0)] CSS px
+  dot (  32.0,  40.0) x: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+  dot (  32.0,  40.0) y: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+  dot ( 160.0, 104.0) x: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+  dot ( 160.0, 104.0) y: body  0.0000 peak  1.0000 fwhm   4.00 integral  4.000
+VALIDATION PASS — a dot reads its own size (peak 1.0, FWHM 4.0, integral 4.0)
+
+== apple-macos-26.5-1x-light-standard impulse__capsule-button__rest (webgpu)  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+landed   *( 160.0, 104.0)     x   0.0037   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0037    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0037
+w24      *( 160.0, 104.0)     x   0.0037    0.0067    4.99    0.0353
+w24      *( 160.0, 104.0)     y   0.0037    0.0067    4.99    0.0353
+w24       body over the shape eroded 6 CSS px: 0.0037
+
+== apple-macos-26.5-1x-dark-standard impulse__capsule-button__rest (webgpu)  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+landed   *( 160.0, 104.0)     x   0.0037   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0037    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0037
+w24      *( 160.0, 104.0)     x   0.0037    0.0067    4.99    0.0353
+w24      *( 160.0, 104.0)     y   0.0037    0.0067    4.99    0.0353
+w24       body over the shape eroded 6 CSS px: 0.0037
+
+== apple-macos-26.5-1x-light-standard impulse__rrect-md__rest (webgpu)  (rrect-md, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    (  96.0, 104.0)     y   0.4342    0.0687    7.92    0.5399
+native   *( 160.0, 104.0)     x   0.4342    0.0510    8.43    0.4171
+native   *( 160.0, 104.0)     y   0.4342    0.0510    8.19    0.4115
+native    ( 224.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    ( 224.0, 104.0)     y   0.4342    0.0687    7.92    0.5514
+native    body over the shape eroded 6 CSS px: 0.4311
+landed    (  96.0, 104.0)     x   0.4656    0.1382    8.41    1.1863
+landed    (  96.0, 104.0)     y   0.4641    0.1070    5.23    0.6394
+landed   *( 160.0, 104.0)     x   0.4666    0.1373    4.91    0.7526
+landed   *( 160.0, 104.0)     y   0.4657    0.1381    4.93    0.7671
+landed    ( 224.0, 104.0)     x   0.4670    0.1369    8.37    1.1545
+landed    ( 224.0, 104.0)     y   0.4621    0.1285    5.55    0.7980
+landed    body over the shape eroded 6 CSS px: 0.4643
+w24       (  96.0, 104.0)     x   0.4656    0.1382    8.41    1.1863
+w24       (  96.0, 104.0)     y   0.4641    0.1070    5.23    0.6394
+w24      *( 160.0, 104.0)     x   0.4666    0.1373    4.91    0.7526
+w24      *( 160.0, 104.0)     y   0.4657    0.1381    4.93    0.7671
+w24       ( 224.0, 104.0)     x   0.4670    0.1369    8.37    1.1545
+w24       ( 224.0, 104.0)     y   0.4621    0.1285    5.55    0.7980
+w24       body over the shape eroded 6 CSS px: 0.4643
+
+== apple-macos-26.5-1x-light-standard impulse__capsule-button__rest (css)  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+landed   *( 160.0, 104.0)     x   0.0037   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0037    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0037
+w24      *( 160.0, 104.0)     x   0.0037   -0.0000       -    0.0000
+w24      *( 160.0, 104.0)     y   0.0037    0.0000       -    0.0000
+w24       body over the shape eroded 6 CSS px: 0.0037
+
+== apple-macos-26.5-1x-dark-standard impulse__capsule-button__rest (css)  (capsule-button, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0066    7.57    0.0508
+native   *( 160.0, 104.0)     y   0.0065    0.0066    7.57    0.0505
+native    body over the shape eroded 6 CSS px: 0.0066
+landed   *( 160.0, 104.0)     x   0.0037   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0037    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0037
+w24      *( 160.0, 104.0)     x   0.0037   -0.0000       -    0.0000
+w24      *( 160.0, 104.0)     y   0.0037    0.0000       -    0.0000
+w24       body over the shape eroded 6 CSS px: 0.0037
+
+== apple-macos-26.5-1x-light-standard impulse__rrect-md__rest (css)  (rrect-md, 1x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    (  96.0, 104.0)     y   0.4342    0.0687    7.92    0.5399
+native   *( 160.0, 104.0)     x   0.4342    0.0510    8.43    0.4171
+native   *( 160.0, 104.0)     y   0.4342    0.0510    8.19    0.4115
+native    ( 224.0, 104.0)     x   0.4342    0.0687   11.59    0.7924
+native    ( 224.0, 104.0)     y   0.4342    0.0687    7.92    0.5514
+native    body over the shape eroded 6 CSS px: 0.4311
+landed    (  96.0, 104.0)     x   0.4678    0.1294    5.05    0.7129
+landed    (  96.0, 104.0)     y   0.4678    0.1294    5.05    0.7129
+landed   *( 160.0, 104.0)     x   0.4678    0.1228    5.27    0.6869
+landed   *( 160.0, 104.0)     y   0.4678    0.1228    5.27    0.6869
+landed    ( 224.0, 104.0)     x   0.4678    0.1294    5.05    0.7129
+landed    ( 224.0, 104.0)     y   0.4678    0.1294    5.05    0.7129
+landed    body over the shape eroded 6 CSS px: 0.4673
+w24       (  96.0, 104.0)     x   0.4678    0.1294    5.05    0.7129
+w24       (  96.0, 104.0)     y   0.4678    0.1294    5.05    0.7129
+w24      *( 160.0, 104.0)     x   0.4678    0.1228    5.22    0.6750
+w24      *( 160.0, 104.0)     y   0.4678    0.1228    5.27    0.6869
+w24       ( 224.0, 104.0)     x   0.4678    0.1294    5.05    0.7129
+w24       ( 224.0, 104.0)     y   0.4678    0.1294    5.05    0.7129
+w24       body over the shape eroded 6 CSS px: 0.4673
+
+== apple-macos-26.5-2x-light-standard impulse__capsule-button__rest (webgpu)  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+landed   *( 160.0, 104.0)     x   0.0033   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0033    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0033
+w24      *( 160.0, 104.0)     x   0.0034    0.0256    4.64    0.1408
+w24      *( 160.0, 104.0)     y   0.0035    0.0260    4.48    0.1385
+w24       body over the shape eroded 6 CSS px: 0.0034
+
+== apple-macos-26.5-2x-dark-standard impulse__capsule-button__rest (webgpu)  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+landed   *( 160.0, 104.0)     x   0.0033   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0033    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0033
+w24      *( 160.0, 104.0)     x   0.0034    0.0256    4.64    0.1408
+w24      *( 160.0, 104.0)     y   0.0035    0.0260    4.48    0.1385
+w24       body over the shape eroded 6 CSS px: 0.0034
+
+== apple-macos-26.5-2x-light-standard impulse__rrect-md__rest (webgpu)  (rrect-md, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4322    0.1584    7.86    1.3518
+native    (  96.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native   *( 160.0, 104.0)     x   0.4314    0.0596    8.65    0.5763
+native   *( 160.0, 104.0)     y   0.4314    0.0596    8.15    0.5821
+native    ( 224.0, 104.0)     x   0.4316    0.1590    7.88    1.3651
+native    ( 224.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native    body over the shape eroded 6 CSS px: 0.4311
+landed    (  96.0, 104.0)     x   0.4637    0.1171    8.76    1.1436
+landed    (  96.0, 104.0)     y   0.4628    0.1019    6.11    0.7881
+landed   *( 160.0, 104.0)     x   0.4632    0.0701    8.28    0.6791
+landed   *( 160.0, 104.0)     y   0.4632    0.0701    8.78    0.6791
+landed    ( 224.0, 104.0)     x   0.4634    0.1174    8.77    1.1502
+landed    ( 224.0, 104.0)     y   0.4628    0.1019    6.11    0.7881
+landed    body over the shape eroded 6 CSS px: 0.4645
+w24       (  96.0, 104.0)     x   0.4637    0.1171    8.76    1.1452
+w24       (  96.0, 104.0)     y   0.4630    0.1018    6.13    0.7917
+w24      *( 160.0, 104.0)     x   0.4632    0.0701    8.28    0.6822
+w24      *( 160.0, 104.0)     y   0.4632    0.0701    8.78    0.6791
+w24       ( 224.0, 104.0)     x   0.4634    0.1174    8.77    1.1551
+w24       ( 224.0, 104.0)     y   0.4630    0.1050    5.95    0.7949
+w24       body over the shape eroded 6 CSS px: 0.4645
+
+== apple-macos-26.5-2x-light-standard impulse__capsule-button__rest (css)  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+landed   *( 160.0, 104.0)     x   0.0033   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0033    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0033
+w24      *( 160.0, 104.0)     x   0.0033   -0.0000       -    0.0000
+w24      *( 160.0, 104.0)     y   0.0033    0.0000       -    0.0000
+w24       body over the shape eroded 6 CSS px: 0.0033
+
+== apple-macos-26.5-2x-dark-standard impulse__capsule-button__rest (css)  (capsule-button, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native   *( 160.0, 104.0)     x   0.0065    0.0254    3.80    0.1074
+native   *( 160.0, 104.0)     y   0.0065    0.0266    3.66    0.1081
+native    body over the shape eroded 6 CSS px: 0.0067
+landed   *( 160.0, 104.0)     x   0.0033   -0.0000       -    0.0000
+landed   *( 160.0, 104.0)     y   0.0033    0.0000       -    0.0000
+landed    body over the shape eroded 6 CSS px: 0.0033
+w24      *( 160.0, 104.0)     x   0.0033   -0.0000       -    0.0000
+w24      *( 160.0, 104.0)     y   0.0033    0.0000       -    0.0000
+w24       body over the shape eroded 6 CSS px: 0.0033
+
+== apple-macos-26.5-2x-light-standard impulse__rrect-md__rest (css)  (rrect-md, 2x)
+src             dot (CSS)  axis     body      peak    fwhm  integral
+native    (  96.0, 104.0)     x   0.4322    0.1584    7.86    1.3518
+native    (  96.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native   *( 160.0, 104.0)     x   0.4314    0.0596    8.65    0.5763
+native   *( 160.0, 104.0)     y   0.4314    0.0596    8.15    0.5821
+native    ( 224.0, 104.0)     x   0.4316    0.1590    7.88    1.3651
+native    ( 224.0, 104.0)     y   0.4314    0.1397    4.50    0.8333
+native    body over the shape eroded 6 CSS px: 0.4311
+landed    (  96.0, 104.0)     x   0.4678    0.1163    6.10    0.8744
+landed    (  96.0, 104.0)     y   0.4678    0.1163    6.10    0.8773
+landed   *( 160.0, 104.0)     x   0.4678    0.0779    8.85    0.7390
+landed   *( 160.0, 104.0)     y   0.4678    0.0779    8.85    0.7390
+landed    ( 224.0, 104.0)     x   0.4678    0.1163    6.10    0.8615
+landed    ( 224.0, 104.0)     y   0.4678    0.1163    6.10    0.8644
+landed    body over the shape eroded 6 CSS px: 0.4694
+w24       (  96.0, 104.0)     x   0.4678    0.1163    5.90    0.8526
+w24       (  96.0, 104.0)     y   0.4678    0.1163    5.69    0.8648
+w24      *( 160.0, 104.0)     x   0.4678    0.0779    8.85    0.7236
+w24      *( 160.0, 104.0)     y   0.4678    0.0779    8.85    0.7298
+w24       ( 224.0, 104.0)     x   0.4678    0.1163    5.69    0.8366
+w24       ( 224.0, 104.0)     y   0.4678    0.1163    5.69    0.8551
+w24       body over the shape eroded 6 CSS px: 0.4693

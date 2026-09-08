@@ -1,0 +1,27 @@
+W24 G1 — the goldens' attribution at the defaults
+
+The mechanism is inert at `collapseTransmission` 0, so the attribution is the strongest kind there
+is: nothing moved, and the suite says so on the pixels.
+
+  pnpm --filter @vitrea/renderer-webgpu test:golden   ->  31 passed (11.5s)
+
+`collapsed-tone` — the only collapsed scene in the suite — passed with the rest. It will keep
+passing at ANY value of the constant, and that is a defect in the suite rather than a proof: its
+backdrop is `{ kind: "flat", luminance: 0.01 }`, a solid, so the per-pixel sample equals the group's
+mean and `mix(toneColour.rgb, backdrop, c)` is the identity. The suite has no scene where a
+collapsed surface stands over a textured backdrop, so an isolation proof naming
+`collapseTransmission` would be vacuous — exactly the situation `rimCollapsed` and
+`rimCollapsedTinted` were in before W23 added `collapsed-tone` itself (isolation.spec.ts:591).
+
+G2's proposal (g1-findings.md section 8): `collapsed-tone-textured`, the same two groups and the
+same declared `backdropTone: [0.01, 0.01, 0.01]` — which is what sets k, so the collapse still fires
+fully — over `backdrop: { kind: "gradient", from: [0, 0, 0], to: [0.06, 0.06, 0.06] }`. A gradient
+rather than a checkerboard, because a smooth per-pixel variation survives any kernel and so the
+scene attributes the constant and not the blur. Its hash is a FIRST reading under `W24_HASHES`.
+
+Beside the goldens, the captures carry the same claim and carry it on the bed: the ladder's
+`control-1x-light` rung renders the shipped document with the constant pinned at 0 through the new
+code path, and all 26 captures are byte-identical to the landed 0.12.0 PNGs (ladder.txt).
+
+The run's own tail:
+  31 passed (11.5s)

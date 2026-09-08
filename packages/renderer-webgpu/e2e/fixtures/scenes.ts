@@ -304,6 +304,39 @@ export const SCENES: readonly Scene[] = [
     ],
   },
   {
+    /*
+     * The collapsed appearance over a backdrop that HAS structure (W24; claims
+     * §5.108 §2, W24 Decision Log 2 (g)).
+     *
+     * `collapsed-tone` above stands over a FLAT backdrop, where the group's mean
+     * and the pixel beneath are the same number — so `collapseTransmission`,
+     * which lerps the collapse's target between exactly those two, is the
+     * identity there at every value and the isolation proof's attribution for it
+     * would be vacuous, exactly as it was for the two collapsed rims before that
+     * scene existed. This is the same scene over a gradient.
+     *
+     * A gradient and not a checkerboard: a smooth per-pixel variation survives
+     * any blur kernel, so what the golden attributes is the constant and not the
+     * width the material transmits through. The declared `backdropTone` is the
+     * same 0.01 — the tone is what sets `k`, and the collapse has to fire fully
+     * for the transmission to be reachable at all — while the drawn backdrop
+     * runs from black to 0.06, which straddles the tone and keeps the whole
+     * canvas below `backdropToneLow`.
+     */
+    ...VIEWPORT,
+    name: "collapsed-tone-textured",
+    backdrop: { kind: "gradient", from: [0, 0, 0], to: [0.06, 0.06, 0.06] },
+    warmupFrames: 40,
+    groups: [
+      group("bare", [rect("s", [56, 60], [88, 44])], { backdropTone: [0.01, 0.01, 0.01] }),
+      group(
+        "painted",
+        [rect("t", [148, 60], [88, 44], { tint: { color: [1, 0.3, 0], strength: 1 } })],
+        { backdropTone: [0.01, 0.01, 0.01] },
+      ),
+    ],
+  },
+  {
     // The highlight canvas: X1 puts it above the semantic host DOM, so it is a
     // separate target and needs a golden of its own.
     ...VIEWPORT,

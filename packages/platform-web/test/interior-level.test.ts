@@ -104,6 +104,7 @@ const PROBES = [
     innerShadowKeep: 0.9964045039906037,
     bandLight: 0.004619103946700296,
     bandLightW22: 0.002848685486224002,
+    bandLightW24: 0.0027802610151692947,
   },
   {
     cell: "checkerboard__capsule-button__rest",
@@ -113,6 +114,7 @@ const PROBES = [
     innerShadowKeep: 0.996963419321641,
     bandLight: 0.009300152791914134,
     bandLightW22: 0.005326032506147461,
+    bandLightW24: 0.005093282542136354,
   },
   {
     cell: "checkerboard__rrect-ml__rest",
@@ -122,6 +124,7 @@ const PROBES = [
     innerShadowKeep: 0.997296244989193,
     bandLight: 0.0033885124629982654,
     bandLightW22: 0.002055413984662739,
+    bandLightW24: 0.0020090926592363826,
   },
 ] as const;
 
@@ -285,16 +288,34 @@ describe("the band's derived light (W17 G1)", () => {
         probe.geometry,
         1,
       );
-      // Within 2.2e-5 of G0's, which used the same co-area weight without the
-      // corner arcs' own shrinkage in the specular term.
-      expect(atG0, probe.cell).toBeCloseTo(probe.bandLight, 4);
+      /*
+       * W24 correction, beside the two readings above and not over them: the
+       * one-sided specular is retired from the band with the rim it modelled
+       * (claims §5.108 §1), so this derivation can no longer be evaluated at
+       * G0's constants at all — `specularGain` 0.55 is now inert, and `atG0`
+       * reads the ambient term alone. G0's 0.00462 / 0.00930 / 0.00339 stand as
+       * what G0 measured; what is asserted here is that the gain no longer
+       * reaches the result, which is the retirement itself.
+       */
+      expect(atG0, probe.cell).not.toBeCloseTo(probe.bandLight, 4);
 
       const derived = interiorBandLight(
         { ...MATERIAL_SOURCE_OPTICS.regular, ...atG0Rim },
         probe.geometry,
         1,
       );
-      expect(derived, probe.cell).toBeCloseTo(probe.bandLightW22, 12);
+      expect(atG0, probe.cell).toBeCloseTo(derived, 12);
+      /*
+       * And the ambient term itself moved, by the lit edge and by that alone:
+       * the factor is 1 on the four straight runs and below 1 on the corner
+       * arcs, so the band integrates to 0.976 of `bandLightW22` on `rrect-md`,
+       * 0.977 on `rrect-ml` and 0.956 on the capsule — whose band is entirely
+       * corner arc, which is exactly where the factor lives. Both readings are
+       * kept: `bandLightW22` is what the unlit band derived and `bandLightW24`
+       * is what the lit one does.
+       */
+      expect(derived, probe.cell).toBeCloseTo(probe.bandLightW24, 12);
+      expect(probe.bandLightW24 / probe.bandLightW22, probe.cell).toBeLessThan(1);
       /*
        * And the band's light is EXACTLY linear in the rim's amplitude, with no
        * intercept once the specular term is off — the property that lets the two
@@ -315,12 +336,12 @@ describe("the band's derived light (W17 G1)", () => {
         ).toBeCloseTo((derived * amplitude) / 0.18, 12);
       }
       expect(derived, probe.cell).toBeGreaterThan(0);
-      // The ambient rim is the whole of the band's light now, so the term is the
-      // fraction of G0's that the ambient carried: 0.574 on the capsule, whose
-      // band is entirely corner arc, to 0.617 on `rrect-md`. A derivation that
-      // lost the ambient too would read 0 and pass the pin above.
-      expect(derived / atG0, probe.cell).toBeGreaterThan(0.57);
-      expect(derived / atG0, probe.cell).toBeLessThan(0.62);
+      // And it is a fraction of G0's, not zero: the ambient rim is the whole of
+      // the band's light now — 0.548 of G0's on the capsule, whose band is
+      // entirely corner arc, to 0.602 on `rrect-md` — so a derivation that lost
+      // the ambient too would read 0 and pass the pins above.
+      expect(derived / probe.bandLight, probe.cell).toBeGreaterThan(0.54);
+      expect(derived / probe.bandLight, probe.cell).toBeLessThan(0.62);
     }
   });
 
@@ -364,20 +385,79 @@ describe("the band's derived light (W17 G1)", () => {
       12,
     );
     /*
-     * The doubling above no longer exercises the specular channel, because W22
-     * G1 fitted `specularGain` to 0 and twice nothing is nothing (claims §5.94
-     * §3). So the specular half of the mirror is asserted separately: a patch
-     * that turns the term back on has to reach this tier, or a future document
-     * that revives it would silently draw a band the renderer is not drawing —
-     * K5's gap, which is what this case exists to catch.
+     * The specular channel that used to be asserted here is retired with the
+     * renderer's own (W24; claims §5.108 §1), so what a patch has to reach is
+     * the lit edge's exponent instead — the term that now decides how much of
+     * the band's light survives the corner arcs. A document that raises it draws
+     * a dimmer band on both tiers, and a mirror that ignored it would put this
+     * tier on a band the renderer is not drawing, which is the gap this case
+     * exists to catch.
      */
-    const specular = interiorBandLight({ ...source, specularGain: 0.55 }, probe.geometry, 1);
-    expect(specular).toBeGreaterThan(interiorBandLight(source, probe.geometry, 1));
+    expect(interiorBandLight({ ...source, specularGain: 0.55 }, probe.geometry, 1)).toBe(
+      interiorBandLight(source, probe.geometry, 1),
+    );
+    const unlit = interiorBandLight({ ...source, rimLitExponent: 0 }, probe.geometry, 1);
+    expect(unlit).toBeGreaterThan(interiorBandLight(source, probe.geometry, 1));
+    // And the factor's own arithmetic, which is why the exponent is not a
+    // monotone dimmer: `(√2·cos θ)²` averages to exactly 1 over a full turn, so
+    // at an exponent of 2 the arcs integrate to the same `2π` an unlit band does.
+    expect(interiorBandLight({ ...source, rimLitExponent: 2 }, probe.geometry, 1)).toBeCloseTo(
+      unlit,
+      12,
+    );
     expect(sourceInteriorLight({ lensSizeGainMax: 4 }).shadowDepthGainMax).toBe(4);
     expect(sourceInteriorLight().lightDirection).toEqual(
       MATERIAL_SOURCE_INTERIOR_LIGHT.lightDirection,
     );
   });
+
+  it("weights the straight runs by where the AXIS points, and the arcs by neither", () => {
+    /*
+     * The half of the lit edge that is not axis-independent (W24; claims §5.108
+     * §1). The corner arcs sweep one full turn on both of this tier's shapes, so
+     * their contour integral is the same for every axis; the four straight runs
+     * have one normal each, so each carries the factor at its own normal — the
+     * horizontal runs the axis's y component and the vertical runs its x.
+     *
+     * At the shipped axis, the exact diagonal, all four weights are
+     * `(√2·cos 45°)^p` = 1 and this derivation is bit-for-bit the unlit one on
+     * the straight runs, which is why no capture, alpha or golden moved when the
+     * factor landed. A profile that turns the axis onto a horizontal
+     * extinguishes the top and bottom runs in the SHADER, and a derivation that
+     * kept counting their light would put this tier on a band the renderer is
+     * not drawing — K5's gap, through the one constant this wave added.
+     */
+    const probe = PROBES[0]!;
+    const source = MATERIAL_SOURCE_OPTICS.regular;
+    const diagonal = interiorBandLight(source, probe.geometry, 1);
+    expect(diagonal).toBeCloseTo(
+      interiorBandLight(source, probe.geometry, 1, MATERIAL_SOURCE_INTERIOR_LIGHT),
+      12,
+    );
+    // The axis on the horizontal: the two horizontal runs go to nothing and the
+    // two vertical ones are lit at `√2` — brighter than the diagonal's 1, since
+    // the factor is normalised so that the diagonal is where it equals 1.
+    const horizontal = interiorBandLight(source, probe.geometry, 1, {
+      ...MATERIAL_SOURCE_INTERIOR_LIGHT,
+      rimLitAxis: [1, 0],
+    });
+    expect(horizontal).not.toBeCloseTo(diagonal, 6);
+    // And the two are the same wherever there are no straight runs to weight: a
+    // capsule of square proportions is all arc, and the arcs do not read the axis.
+    const allArc = { widthCssPx: 44, heightCssPx: 44, radiusCssPx: 22, thicknessCssPx: 8 };
+    expect(interiorBandLight(source, allArc, 1, {
+      ...MATERIAL_SOURCE_INTERIOR_LIGHT,
+      rimLitAxis: [1, 0],
+    })).toBeCloseTo(interiorBandLight(source, allArc, 1), 12);
+    // The axis is not `lightDirection`, and moving that one reaches nothing here.
+    expect(
+      interiorBandLight(source, probe.geometry, 1, {
+        ...MATERIAL_SOURCE_INTERIOR_LIGHT,
+        lightDirection: [0, -1],
+      }),
+    ).toBeCloseTo(diagonal, 12);
+  });
+
 });
 
 describe("the tint's transfer (W17 G1, re-formed at Decision Log 4 (a))", () => {

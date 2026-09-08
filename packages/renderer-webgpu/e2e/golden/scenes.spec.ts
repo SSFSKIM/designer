@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "efe12480b30909ba17bd89c8bd906ff5";
+const PLACED_CHECKERBOARD_COVER_HASH = "53a02cb65260ffc06328156f5355694a";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -199,6 +199,17 @@ const PLACED_CHECKERBOARD_COVER_HASH = "efe12480b30909ba17bd89c8bd906ff5";
  * whole of the delta on this scene sits inside a contour band and not one pixel
  * outside any band moved. This constant still says only that the two fits differ
  * by the fit.
+ *
+ * And at W24 G2 (claims §5.108 §1; `efe12480b30909ba17bd89c8bd906ff5` → the value
+ * below): the rim became LIT — multiplied by `(√2·|n · L|)^p` about the exact
+ * diagonal — and the cover-fit render draws that rim like the placed one does.
+ * The attribution is the isolation proof's `W24_HASHES` and
+ * `results/2026-09-09-w24-lit-edge/g2/goldens-attribution.txt`, where this
+ * scene's whole delta is 30 code values inside a contour band on 644 pixels and
+ * NOT ONE PIXEL outside any band on any scene. The collapse's transmission, the
+ * wave's other mechanism, moves this scene by nothing at all: its backdrop is a
+ * texture and nothing on it collapses. This constant still says only that the two
+ * fits differ by the fit.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {

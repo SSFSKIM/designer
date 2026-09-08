@@ -391,7 +391,7 @@ describe("the optics pass's statement of the axis", () => {
     expect(curve).toContain("max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6)");
   });
 
-  it("fades the rim, the specular and the inner shadow on the one factor", () => {
+  it("fades the rim and the inner shadow on the one factor", () => {
     // The marks that say a surface is here rather than what is behind it. All of
     // them, or the surface leaves an outline where the reference leaves nothing.
     expect(WGSL_OPTICS_PASS).toContain("let present = 1.0 - toneAdapt;");
@@ -400,9 +400,27 @@ describe("the optics pass's statement of the axis", () => {
     // Since W23 the rim's fade is a TRADE and not a fade: the appearance's own
     // rim falls with `present` exactly as before and the collapsed appearance's
     // own rim rises with `toneAdapt`, so the two can never both be drawn.
+    // W24 puts the lit edge's directional factor OUTSIDE that bracket, so it
+    // multiplies the collapsed rim exactly as it multiplies the appearance's own
+    // — which is what the reference's collapsed cells read — and the trade
+    // itself is untouched.
     expect(WGSL_OPTICS_PASS).toContain(
-      "rw * (rimAmplitude * present + rimCollapsed * toneAdapt)",
+      "rw * lit * (rimAmplitude * present + rimCollapsed * toneAdapt)",
     );
+    // The factor is normalised by `cos 45 deg`, so it is exactly 1 on every
+    // straight side and the rim's fitted amplitude keeps its meaning.
+    expect(WGSL_OPTICS_PASS).toContain(
+      "let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);",
+    );
+    // And the one-sided specular the lit edge replaces is gone from the rim's
+    // amplitude rather than left at a gain of zero (W24; claims §5.108 §1): the
+    // amplitude is the law and nothing else, and `ou.rim.z` / `ou.rim.w` are no
+    // longer read anywhere in the pass.
+    expect(WGSL_OPTICS_PASS).toContain(
+      "let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;",
+    );
+    expect(WGSL_OPTICS_PASS).not.toContain("ou.rim.z");
+    expect(WGSL_OPTICS_PASS).not.toContain("ou.rim.w");
   });
 
   it("trades the appearance's rim for the collapsed one, bare and painted", () => {

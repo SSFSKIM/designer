@@ -96,7 +96,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// accessibility fold — the refraction ladder read at the preference's cap,
   /// which every facet's span-dependent rise is multiplied by (W11c)
   tone : vec4f,
-  /// rimWidthPx, rimAlpha, specularPower, specularGain
+  /// rimWidthPx, rimAlpha; (z) and (w) carried specularPower and specularGain
+  /// until W24 retired the one-sided specular from the rim (claims 5.108
+  /// section 1) and are written but unread
   rim : vec4f,
   /// light direction, unit (xy), shadowDepth (z), shadowAlpha (w)
   light : vec4f,
@@ -145,7 +147,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// three anchors for a surface of sizeThickness 0 (xyz); w is the law's
   /// per-profile authority — 0 on dark profiles, whose response is unmeasured
   toneRowThin : vec4f,
-  /// the thick row (sizeThickness saturated), same layout
+  /// the thick row (sizeThickness saturated), xyz as the thin row's; w is the
+  /// collapse's transmission (W24 G1), in the padding slot this vec4's alignment
+  /// already required — it belongs to the tone block and the tone block's other
+  /// three vec4s are full. At 0 the collapse's target is the group's mean
+  /// backdrop colour and this pass is W7's to the bit.
   toneRowThick : vec4f,
   /// the size law's bands: the scatter facet's floor (x, resolved at the
   /// group's device ratio since W15 G1 — the deep value is per-scale, claims
@@ -192,6 +198,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// scheme's own rim falls with, and how much of an author tint's own colour
   /// the rim's light is spent in (w)
   rimLaw : vec4f,
+  /// the lit edge (W24): the axis the rim's directional factor is symmetric
+  /// about, unit, viewport coordinates with y down (xy), and the factor's
+  /// exponent (z) — 0 leaves the factor at 1 for every normal and the rim
+  /// exactly as W23 left it. (w) is free.
+  rimLit : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -776,11 +787,44 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     }
   }
 
+  /*
+   * The collapse's TARGET (W24 G1) — what the material converges on where it has
+   * adapted, and the one place the transmission was lost.
+   *
+   * The pair below reduces exactly to 'colour = (1 − k)·M + k·target', with 'M'
+   * the unadapted composite '(1 − α)·backdrop + α·neutral'. At 'target' =
+   * 'toneColour.rgb', the group's MEAN backdrop colour, a fully collapsed
+   * surface is one flat number and nothing under it comes through — which is
+   * exactly what the reference's collapsed capsule over the impulse grid does
+   * NOT do (claims §5.107 §2: it passes the centre dot at four times its own
+   * body). So the target lerps toward the per-pixel blurred backdrop the
+   * refraction path above already sampled, by the profile's own constant.
+   *
+   * Only the target moves. The tone axis's argument is still the group's mean
+   * luminance and the response solve still composites against 'toneAnchor.w',
+   * so 'k' and the law's level are the numbers W7 and W9 fitted: the collapse
+   * still collapses the level, and stops flattening the structure.
+   *
+   * The alpha solve above needs no gate of its own, and this is arithmetic
+   * rather than a choice: on a fully collapsed surface it never runs (its own
+   * 'toneAdapt < 0.995' stands it down where the collapse owns the pixel), and
+   * below that it is the (1 − k) half of the same lerp, which transmits already.
+   *
+   * Gated on 'flags.x': with no pyramid to sample 'backdrop' is the zero vector
+   * and this pass writes a layer for the browser to composite, so a target
+   * lerped toward it would be a black surface rather than a transmitting one.
+   * There the CSS tier's own 'backdrop-filter' is what carries the transmission.
+   */
+  var toneTarget = ou.toneColour.rgb;
+  if (ou.flags.x > 0.5) {
+    toneTarget = mix(toneTarget, backdrop, clamp(ou.toneRowThick.w, 0.0, 1.0));
+  }
+
   let adaptedAlpha = solvedAlpha + toneAdapt * (1.0 - solvedAlpha);
   var adapted = solvedNeutral;
   if (toneAdapt > 0.0 && adaptedAlpha > 0.0) {
     adapted =
-      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + ou.toneColour.rgb * toneAdapt) /
+      (solvedNeutral * ((1.0 - toneAdapt) * solvedAlpha) + toneTarget * toneAdapt) /
       adaptedAlpha;
   }
 
@@ -939,11 +983,18 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   materialColour = materialColour * (shadowKeep * materialAlpha / max(materialShadowedAlpha, 1e-6));
   materialAlpha = materialShadowedAlpha;
 
-  // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
-  // the specular term is the same edge lit from 'light.xy'.
+  /*
+   * The rim from the gradient. Its amplitude law is below and the direction it
+   * is LIT from is the factor after it.
+   *
+   * The one-sided specular that used to be added here — 'pow(clamp(dot(normal,
+   * light.xy), 0, 1), rim.z) * rim.w' — is retired (W24; claims §5.108 §1). Read
+   * around the whole contour the reference's rim is symmetric about the diagonal
+   * rather than one-sided, and a term that can only reach one end of it fits at
+   * 0.288 of normalised RMS where the symmetric factor fits at 0.148. 'rim.z'
+   * and 'rim.w' are written by the pass and no longer read.
+   */
   let rw = rim_weight(d, ou.rim.x);
-  let facing = dot(normal, ou.light.xy);
-  let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
   /*
    * The rim's amplitude law, and the rim that survives the collapse (W23;
    * claims §5.100 §§3-4).
@@ -973,9 +1024,41 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   let rimLuma = materialAlpha * dot(materialColour, vec3f(0.2126, 0.7152, 0.0722))
     + (1.0 - materialAlpha) * ou.toneColour.w;
-  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma + spec;
+  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma;
   let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, clamp(aux.w, 0.0, 1.0));
-  let rim = rw * (rimAmplitude * present + rimCollapsed * toneAdapt);
+  /*
+   * The lit edge (W24; claims §5.107) — the directional factor the whole rim is
+   * multiplied by, symmetric about 'rimLit.xy'.
+   *
+   * Apple's rim is not one number around the contour. Read at 720 or more points
+   * of the declared boundary and binned by the NORMAL's angle, the reference's
+   * north-west and south-east bins are five to twenty-five times its north-east
+   * and south-west ones on every untinted solid cell of both beds, while every
+   * per-side reader in three waves read it flat — a light on the diagonal
+   * projects equally on all four straight sides. This is the shape of that.
+   *
+   * '1.4142135' is the amplitude's re-expression and not a scale: it normalises
+   * the dot product by 'cos 45 deg', so at the default axis the factor is exactly
+   * 1 wherever the normal is horizontal or vertical, at EVERY exponent. W23
+   * fitted 'rimAlpha' and 'rimLevelGain' on those straight spans, so they keep
+   * their meaning untouched and only the corners and the arcs move — which is
+   * also why the CSS tier, whose one inset layer cannot vary around a contour,
+   * needs no counterpart and no re-fit.
+   *
+   * The factor multiplies the COLLAPSED rim as well as the appearance's own. That
+   * is a measurement and not a symmetry: the reference's collapsed cells — the
+   * 'dark-solid' capsule at both scales and the probe grids' 'dark-solid'
+   * rrect-sm and rrect-lg — fit the same axis (136.0 deg) and the same exponent
+   * (1.15 against 1.00) as the uncollapsed rows, so one factor outside the
+   * bracket is what the rows say and two constants would be one more than they
+   * separate.
+   *
+   * The floor is 1e-6 and not 0 so that 'pow' is defined where the normal is
+   * exactly perpendicular to the axis; at exponent 0 it returns 1 there as it
+   * does everywhere else, which is what makes this term inert at the defaults.
+   */
+  let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);
+  let rim = rw * lit * (rimAmplitude * present + rimCollapsed * toneAdapt);
   let rimLight = rim * rimTintColour;
   if (ou.flags.x > 0.5) {
     colour = colour + rimLight;

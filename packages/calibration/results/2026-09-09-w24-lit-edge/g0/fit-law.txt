@@ -1,0 +1,288 @@
+== the rows: 19 untinted solid reference cells (8 light, 11 dark; 10 canonical, 9 probe)
+cell                                                             scale     peak    floor   ratio bright clip trunc outsd coll
+canonical/apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest   1.0   0.0208   0.0017   12.38     NW    0     0     0  yes   (= canonical/apple-macos-26.5-1x-light-standard)
+canonical/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest   1.0   0.0246   0.0012   21.07    WNW    0     0     0    -   (= probe/apple-macos-26.5-1x-dark-standard)
+canonical/apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest   1.0   0.0624   0.0417    1.50     NW    0     0     6    -
+canonical/apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest   1.0   0.1892   0.0347    5.46      S    0     0     0    -   (= probe/apple-macos-26.5-1x-light-standard)
+canonical/apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest   1.0   0.1906   0.0327    5.82      N    0     0     0    -
+canonical/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest   2.0   0.0333   0.0021   15.97     NW    0     0     0  yes   (= canonical/apple-macos-26.5-2x-light-standard)
+canonical/apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest   2.0   0.0420   0.0016   25.86    NNW    0     0     0    -
+canonical/apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest   2.0   0.0712   0.0521    1.37     NW    0     0     6    -
+canonical/apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest   2.0   0.2901   0.0376    7.72    SSE    0     0     0    -
+canonical/apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest   2.0   0.3067   0.0493    6.23     SE    0     0     0    -
+probe/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-lg__rest   1.0   0.0218   0.0006   34.25    NNW    0     0     0  yes
+probe/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-sm__rest   1.0   0.0225   0.0014   15.59     NW    0     0     1  yes   (= probe/apple-macos-26.5-1x-light-standard)
+probe/apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-lg__rest   1.0   0.0574   0.0354    1.62     NW    0     0     8    -
+probe/apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-md__rest   1.0   0.0622   0.0386    1.61     NW    0     0     8    -
+probe/apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-sm__rest   1.0   0.0628   0.0406    1.55     NW    0     0     6    -
+probe/apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__rest   1.0   0.1831   0.0316    5.80      S    0     0     0  yes
+probe/apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__rest   1.0   0.1630   0.0375    4.34      N    0     0     0    -
+probe/apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__rest   1.0   0.1686   0.0355    4.76      S    0     0     0    -
+probe/apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__rest   1.0   0.2140   0.0357    5.99      N    0     0     0    -
+
+== the forms, fitted on the same rows (RMS of the normalised bin residual)
+rows                   form                             phi      p      a      rms     n
+both schemes           symmetric |cos(t-phi)|^p       136.0   1.05  0.000  0.14753   269
+                       one-sided max(cos,0)^p         317.0   3.00  0.600  0.28809   269
+                       flat (what vitrea draws)           -      -      -  0.31208   269
+light                  symmetric |cos(t-phi)|^p       137.5   0.80  0.000  0.17566   128
+                       one-sided max(cos,0)^p         139.0   2.40  0.600  0.28070   128
+                       flat (what vitrea draws)           -      -      -  0.30268   128
+dark                   symmetric |cos(t-phi)|^p       135.5   1.25  0.000  0.10090   141
+                       one-sided max(cos,0)^p         316.0   3.00  0.600  0.29390   141
+                       flat (what vitrea draws)           -      -      -  0.32037   141
+uncollapsed            symmetric |cos(t-phi)|^p       136.0   1.00  0.000  0.15014   190
+                       one-sided max(cos,0)^p         317.0   3.00  0.600  0.27649   190
+                       flat (what vitrea draws)           -      -      -  0.29492   190
+collapsed              symmetric |cos(t-phi)|^p       136.0   1.15  0.000  0.13903    79
+                       one-sided max(cos,0)^p         317.0   3.00  0.515  0.31183    79
+                       flat (what vitrea draws)           -      -      -  0.34992    79
+light 1x               symmetric |cos(t-phi)|^p       138.5   0.70  0.000  0.19449    96
+                       one-sided max(cos,0)^p         140.0   2.10  0.600  0.27743    96
+                       flat (what vitrea draws)           -      -      -  0.29352    96
+light 2x               symmetric |cos(t-phi)|^p       136.0   1.10  0.020  0.07818    32
+                       one-sided max(cos,0)^p         137.0   3.00  0.535  0.28664    32
+                       flat (what vitrea draws)           -      -      -  0.32865    32
+dark 1x                symmetric |cos(t-phi)|^p       135.0   1.25  0.000  0.11018    99
+                       one-sided max(cos,0)^p         316.0   3.00  0.600  0.29415    99
+                       flat (what vitrea draws)           -      -      -  0.31943    99
+dark 2x                symmetric |cos(t-phi)|^p       135.5   1.30  0.000  0.07404    42
+                       one-sided max(cos,0)^p         316.0   3.00  0.590  0.29326    42
+                       flat (what vitrea draws)           -      -      -  0.32258    42
+canonical              symmetric |cos(t-phi)|^p       136.0   1.10  0.000  0.12261   148
+                       one-sided max(cos,0)^p         317.0   3.00  0.580  0.29292   148
+                       flat (what vitrea draws)           -      -      -  0.32242   148
+probe                  symmetric |cos(t-phi)|^p       136.0   1.00  0.000  0.17278   121
+                       one-sided max(cos,0)^p         318.0   2.85  0.600  0.28190   121
+                       flat (what vitrea draws)           -      -      -  0.29896   121
+
+== per cell, fitted alone (S5: do the rows agree on the constants?)
+cell                                                                 phi      p      a      rms
+canonical/apple-macos-26.5-1x-dark-standard/dark-solid__capsule-button__rest   136.0   1.00  0.000  0.09076
+canonical/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest   135.0   1.30  0.000  0.17221
+canonical/apple-macos-26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest   133.5   3.00  0.515  0.00976
+canonical/apple-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest   137.5   0.75  0.000  0.20190
+canonical/apple-macos-26.5-1x-light-standard/mid-dark-solid__capsule-button__rest   141.0   0.75  0.000  0.13167
+canonical/apple-macos-26.5-2x-dark-standard/dark-solid__capsule-button__rest   136.0   1.15  0.000  0.03214
+canonical/apple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest   135.0   1.55  0.000  0.09830
+canonical/apple-macos-26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest   135.0   0.90  0.015  0.00353
+canonical/apple-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest   135.5   1.25  0.000  0.09246
+canonical/apple-macos-26.5-2x-light-standard/mid-dark-solid__capsule-button__rest   136.5   0.95  0.040  0.03427
+probe/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-lg__rest   135.0   1.45  0.000  0.13029
+probe/apple-macos-26.5-1x-dark-standard/dark-solid__rrect-sm__rest   136.0   1.35  0.000  0.12194
+probe/apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-lg__rest   134.5   1.30  0.000  0.03842
+probe/apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-md__rest   135.0   1.95  0.265  0.01848
+probe/apple-macos-26.5-1x-dark-standard/mid-dark-solid__rrect-sm__rest   134.5   1.30  0.000  0.02210
+probe/apple-macos-26.5-1x-light-standard/dark-solid__rrect-lg__rest   138.0   0.70  0.000  0.21036
+probe/apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__rest   138.5   0.65  0.000  0.19842
+probe/apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-md__rest   137.0   0.70  0.000  0.19337
+probe/apple-macos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__rest   137.5   0.75  0.000  0.21577
+  light: phi 137.7 +/- 1.5 (min 135.5 max 141.0); p 0.81 +/- 0.18; a 0.005 +/- 0.013
+  dark: phi 135.0 +/- 0.7 (min 133.5 max 136.0); p 1.48 +/- 0.55; a 0.072 +/- 0.159
+
+== the prediction, bin by bin, at the constants each scheme's rows chose
+   `want` is the reference's bin; `law` is A_cell x (a + (1 - a) |cos(theta - phi)|^p)
+   with A_cell the least-squares amplitude for that cell alone.
+
+-- light: phi 137.5, p 0.8, a 0.0
+cell                                                       src         N     NNE      NE     ENE       E     ESE      SE     SSE       S     SSW      SW     WSW       W     WNW      NW     NNW   maxErr
+le-macos-26.5-1x-light-standard/dark-solid__rrect-md__rest want   0.1888  0.0360  0.0366  0.0381  0.1671  0.1259  0.1274  0.1258  0.1892  0.0347  0.0370  0.0362  0.1675  0.1269  0.1222  0.1281         
+                                                           law    0.1213  0.0770  0.0244  0.0651  0.1131  0.1425  0.1539  0.1466  0.1213  0.0769  0.0239  0.0650  0.1131  0.1422  0.1539  0.1466   0.0679
+6.5-1x-light-standard/mid-dark-solid__capsule-button__rest want   0.1906  0.0624  0.0339  0.0546  0.1372  0.1336  0.1492  0.1468  0.1900  0.0614  0.0327  0.0555  0.1363  0.1302  0.1536  0.1458         
+                                                           law    0.1302  0.0827  0.0257  0.0692  0.1210  0.1530  0.1653  0.1573  0.1302  0.0828  0.0262  0.0692  0.1204  0.1529  0.1653  0.1573   0.0604
+le-macos-26.5-2x-light-standard/dark-solid__rrect-md__rest want   0.2470  0.0602  0.0376  0.0692  0.2330  0.2855  0.2838  0.2901  0.2470  0.0606  0.0376  0.0694  0.2330  0.2855  0.2838  0.2896         
+                                                           law    0.2261  0.1435  0.0453  0.1204  0.2108  0.2654  0.2870  0.2730  0.2261  0.1435  0.0453  0.1204  0.2108  0.2654  0.2870  0.2730   0.0833
+6.5-2x-light-standard/mid-dark-solid__capsule-button__rest want   0.2591  0.1240  0.0493  0.1251  0.2246  0.2877  0.3067  0.2892  0.2587  0.1239  0.0493  0.1251  0.2246  0.2877  0.3067  0.2893         
+                                                           law    0.2415  0.1527  0.0479  0.1291  0.2239  0.2834  0.3065  0.2920  0.2415  0.1527  0.0479  0.1291  0.2239  0.2834  0.3065  0.2920   0.0289
+le-macos-26.5-1x-light-standard/dark-solid__rrect-lg__rest want   0.1831  0.0348  0.0316  0.0354  0.1581  0.1036  0.1239  0.1064  0.1831  0.0351  0.0322  0.0356  0.1584  0.1061  0.1241  0.1027         
+                                                           law    0.1114  0.0707  0.0223  0.0596  0.1038  0.1308  0.1414  0.1346  0.1114  0.0707  0.0220  0.0596  0.1038  0.1307  0.1413  0.1346   0.0717
+acos-26.5-1x-light-standard/mid-dark-solid__rrect-lg__rest want   0.1630  0.0383  0.0375  0.0383  0.1415  0.0954  0.1144  0.0982  0.1629  0.0383  0.0383  0.0382  0.1417  0.0980  0.1152  0.0950         
+                                                           law    0.1026  0.0652  0.0206  0.0549  0.0957  0.1205  0.1303  0.1240  0.1026  0.0651  0.0203  0.0549  0.0957  0.1204  0.1302  0.1240   0.0603
+acos-26.5-1x-light-standard/mid-dark-solid__rrect-md__rest want   0.1684  0.0368  0.0376  0.0405  0.1497  0.1144  0.1171  0.1131  0.1686  0.0355  0.0380  0.0382  0.1501  0.1152  0.1124  0.1159         
+                                                           law    0.1105  0.0701  0.0222  0.0593  0.1030  0.1298  0.1402  0.1335  0.1105  0.0701  0.0218  0.0592  0.1030  0.1295  0.1402  0.1335   0.0582
+acos-26.5-1x-light-standard/mid-dark-solid__rrect-sm__rest want   0.2140  0.0379  0.0357  0.0387  0.1907  0.1401  0.1198  0.1484  0.2136  0.0379  0.0357  0.0387  0.1909  0.1412  0.1198  0.1499         
+                                                           law    0.1335  0.0849  0.0267  0.0717  0.1244  0.1569  0.1694  0.1610  0.1335  0.0849  0.0267  0.0717  0.1244  0.1569  0.1694  0.1610   0.0805
+   worst absolute bin error over the scheme's rows: 0.0833
+
+-- dark: phi 135.5, p 1.25, a 0.0
+cell                                                       src         N     NNE      NE     ENE       E     ESE      SE     SSE       S     SSW      SW     WSW       W     WNW      NW     NNW   maxErr
+cos-26.5-1x-dark-standard/dark-solid__capsule-button__rest want   0.0192  0.0070  0.0019  0.0067  0.0182  0.0189  0.0203  0.0199  0.0192  0.0070  0.0017  0.0064  0.0181  0.0193  0.0208  0.0196         
+                                                           law    0.0151  0.0072  0.0013  0.0068  0.0148  0.0207  0.0229  0.0209  0.0151  0.0072  0.0014  0.0068  0.0147  0.0207  0.0229  0.0209   0.0041
+ple-macos-26.5-1x-dark-standard/dark-solid__rrect-md__rest want   0.0244  0.0028  0.0012  0.0035  0.0234  0.0230  0.0234  0.0243  0.0244  0.0027  0.0012  0.0032  0.0235  0.0246  0.0245  0.0238         
+                                                           law    0.0180  0.0085  0.0016  0.0081  0.0176  0.0246  0.0273  0.0248  0.0180  0.0085  0.0016  0.0081  0.0176  0.0246  0.0272  0.0248   0.0064
+26.5-1x-dark-standard/mid-dark-solid__capsule-button__rest want   0.0418  0.0311  0.0289  0.0322  0.0442  0.0549  0.0616  0.0554  0.0417  0.0307  0.0291  0.0316  0.0438  0.0569  0.0624  0.0544         
+                                                           law    0.0413   excl    excl    excl   0.0403  0.0564  0.0625  0.0569  0.0413   excl    excl    excl   0.0400  0.0564  0.0625  0.0568   0.0039
+cos-26.5-2x-dark-standard/dark-solid__capsule-button__rest want   0.0256  0.0101  0.0022  0.0101  0.0227  0.0305  0.0333  0.0307  0.0256  0.0101  0.0021  0.0101  0.0227  0.0305  0.0333  0.0307         
+                                                           law    0.0227  0.0107  0.0020  0.0102  0.0221  0.0310  0.0344  0.0313  0.0227  0.0107  0.0020  0.0102  0.0221  0.0310  0.0344  0.0313   0.0029
+ple-macos-26.5-2x-dark-standard/dark-solid__rrect-md__rest want   0.0328  0.0047  0.0016  0.0059  0.0312  0.0418  0.0408  0.0420  0.0328  0.0047  0.0016  0.0059  0.0312  0.0418  0.0408  0.0420         
+                                                           law    0.0290  0.0137  0.0026  0.0130  0.0284  0.0396  0.0439  0.0399  0.0290  0.0137  0.0026  0.0130  0.0284  0.0396  0.0439  0.0399   0.0090
+26.5-2x-dark-standard/mid-dark-solid__capsule-button__rest want   0.0531  0.0320  0.0293  0.0324  0.0521  0.0666  0.0711  0.0662  0.0529  0.0315  0.0293  0.0323  0.0521  0.0667  0.0712  0.0665         
+                                                           law    0.0492   excl    excl    excl   0.0479  0.0672  0.0745  0.0679  0.0492   excl    excl    excl   0.0479  0.0672  0.0745  0.0679   0.0042
+ple-macos-26.5-1x-dark-standard/dark-solid__rrect-lg__rest want   0.0188  0.0024  0.0009  0.0031  0.0181  0.0214  0.0201  0.0208  0.0188  0.0020  0.0006  0.0029  0.0181  0.0213  0.0217  0.0218         
+                                                           law    0.0153  0.0072  0.0014  0.0069  0.0150  0.0209  0.0232  0.0211  0.0153  0.0072  0.0013  0.0069  0.0150  0.0209  0.0232  0.0211   0.0052
+ple-macos-26.5-1x-dark-standard/dark-solid__rrect-sm__rest want   0.0198  0.0042  0.0016  0.0037  0.0192  0.0206  0.0222  0.0218  0.0198  0.0039  0.0014  0.0036  0.0192  0.0208  0.0225  0.0222         
+                                                           law    0.0159  0.0076   excl   0.0072  0.0156  0.0218  0.0241  0.0219  0.0159  0.0076  0.0014  0.0072  0.0156  0.0218  0.0241  0.0219   0.0038
+macos-26.5-1x-dark-standard/mid-dark-solid__rrect-lg__rest want   0.0377  0.0322  0.0305  0.0305  0.0369  0.0538  0.0543  0.0521  0.0354  0.0259  0.0266  0.0281  0.0369  0.0549  0.0574  0.0561         
+                                                           law     excl    excl    excl    excl   0.0374  0.0523  0.0579  0.0527  0.0382   excl    excl    excl    excl   0.0522  0.0579  0.0527   0.0036
+macos-26.5-1x-dark-standard/mid-dark-solid__rrect-md__rest want   0.0396  0.0307  0.0300  0.0296  0.0397  0.0527  0.0591  0.0543  0.0386  0.0275  0.0271  0.0286  0.0397  0.0551  0.0622  0.0555         
+                                                           law     excl    excl    excl    excl   0.0389  0.0544  0.0602  0.0548  0.0398   excl    excl    excl    excl   0.0542  0.0602  0.0548   0.0020
+macos-26.5-1x-dark-standard/mid-dark-solid__rrect-sm__rest want   0.0406  0.0294  0.0286  0.0294  0.0416  0.0601  0.0625  0.0598  0.0406  0.0294  0.0282  0.0294  0.0416  0.0601  0.0628  0.0598         
+                                                           law    0.0425   excl    excl    excl   0.0416  0.0582  0.0644  0.0584  0.0425   excl    excl    excl   0.0416  0.0582  0.0644  0.0584   0.0020
+   worst absolute bin error over the scheme's rows: 0.0090
+
+-> /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a22f98cf20d905337/packages/calibration/results/2026-09-09-w24-lit-edge/g0/fit-law.json
+
+##############################################################################
+
+== 1. the shader against the arithmetic
+   For every solid untinted row: vitrea's RENDERED bin at the exponent against the
+   landed bed's own bin times the binned mean of (sqrt2 |cos(theta - 135)|)^p, in
+   absolute linear luminance. The identity is only expected where the rim is the whole
+   of the near-contour excess: over `light-solid` the material's body sits at 0.93 and
+   the rim runs into the encoding's ceiling, so the peak the reader returns is not the
+   rim's own amplitude and those rows are printed but not summed into the bound.
+row                                                     p max |rendered - landed x factor|  straight moved
+light-1x/light-solid__capsule-button__rest         1.0                          0.00983         0.00037   at the ceiling — printed, not summed
+light-1x/dark-solid__capsule-button__rest          1.0                          0.00032         0.00017
+light-1x/light-solid__rrect-md__rest               1.0                          0.02133         0.00011   at the ceiling — printed, not summed
+light-1x/dark-solid__rrect-md__rest                1.0                          0.00760         0.00007
+light-1x/light-solid__rrect-ml__rest               1.0                          0.01902         0.00006   at the ceiling — printed, not summed
+light-2x/light-solid__capsule-button__rest         1.0                          0.01111         0.00008   at the ceiling — printed, not summed
+light-2x/dark-solid__capsule-button__rest          1.0                          0.00024         0.00017
+light-2x/light-solid__rrect-md__rest               1.0                          0.02690         0.00000   at the ceiling — printed, not summed
+light-2x/dark-solid__rrect-md__rest                1.0                          0.00860         0.00052
+light-2x/light-solid__rrect-ml__rest               1.0                          0.02737         0.00004   at the ceiling — printed, not summed
+dark-1x/dark-solid__capsule-button__rest          1.0                          0.00032         0.00017
+dark-1x/dark-solid__rrect-md__rest                1.0                          0.00072         0.00006
+dark-2x/dark-solid__capsule-button__rest          1.0                          0.00024         0.00017
+dark-2x/dark-solid__rrect-md__rest                1.0                          0.00158         0.00003
+light-2x/light-solid__capsule-button__rest         2.0                          0.02683         0.00007   at the ceiling — printed, not summed
+light-2x/dark-solid__capsule-button__rest          2.0                          0.00079         0.00013
+light-2x/light-solid__rrect-md__rest               2.0                          0.06545         0.00009   at the ceiling — printed, not summed
+light-2x/dark-solid__rrect-md__rest                2.0                          0.02772         0.00009
+light-2x/light-solid__rrect-ml__rest               2.0                          0.06615         0.00012   at the ceiling — printed, not summed
+dark-2x/dark-solid__capsule-button__rest          2.0                          0.00079         0.00013
+dark-2x/dark-solid__rrect-md__rest                2.0                          0.00191         0.00001
+   worst |rendered - landed x factor| over the unclipped rows and both points: 0.02772
+   worst movement on a straight bin: 0.00052 of linear luminance
+
+== 2. the exponent vitrea's own rows want, per row
+   The bins are interpolated in closed form between the rendered points, which section 1
+   licenses: bin(p) = bin(0) x factor(p). The objective is the summed square of
+   (vitrea - reference) over the twelve ARC bins; the four straight bins are the control.
+row                                                      set            p* arc err at 0 arc err at p*
+light-1x/dark-solid__capsule-button__rest                calibration  1.10       0.0078        0.0007
+light-1x/checkerboard__capsule-button__rest  [structured calibration  0.15       0.0474        0.0390
+light-1x/impulse__capsule-button__rest  [structured]     validation   0.70       0.0073        0.0046
+light-1x/photo__capsule-button__rest  [structured]       calibration  0.35       0.0410        0.0190
+light-1x/dark-solid__rrect-md__rest                      calibration  0.85       0.0645        0.0363
+light-1x/checkerboard__rrect-md__rest  [structured]      calibration  0.45       0.0752        0.0559
+light-1x/impulse__rrect-md__rest  [structured]           validation   0.95       0.0670        0.0356
+light-1x/photo__rrect-md__rest  [structured]             calibration  0.45       0.0541        0.0408
+light-1x/hc-text__rrect-md__rest  [structured]           holdout      0.00       0.0404        0.0404
+light-1x/checkerboard__rrect-ml__rest  [structured]      calibration  0.15       0.0571        0.0525
+light-1x/photo__rrect-ml__rest  [structured]             calibration  0.20       0.0316        0.0219
+light-1x/checkerboard__rrect-sm__rest  [structured]      calibration  0.05       0.0408        0.0396
+light-1x/photo__rrect-sm__rest  [structured]             validation   0.95       0.0400        0.0189
+light-1x/checkerboard__rrect-lg__rest  [structured]      holdout      0.35       0.0791        0.0686
+light-1x/photo__rrect-lg__rest  [structured]             holdout      0.10       0.0281        0.0242
+light-1x/mid-dark-solid__capsule-button__rest            holdout      0.60       0.0637        0.0234
+light-2x/dark-solid__capsule-button__rest                calibration  1.45       0.0123        0.0011
+light-2x/checkerboard__capsule-button__rest  [structured calibration  0.25       0.0777        0.0593
+light-2x/impulse__capsule-button__rest  [structured]     validation   0.95       0.0103        0.0031
+light-2x/photo__capsule-button__rest  [structured]       calibration  0.50       0.0844        0.0373
+light-2x/hc-text__capsule-button__rest  [structured]     holdout      0.35       0.0526        0.0448
+light-2x/dark-solid__rrect-md__rest                      calibration  1.00       0.1303        0.0396
+light-2x/checkerboard__rrect-md__rest  [structured]      calibration  0.60       0.0958        0.0543
+light-2x/impulse__rrect-md__rest  [structured]           validation   1.15       0.1347        0.0325
+light-2x/photo__rrect-md__rest  [structured]             calibration  0.50       0.1116        0.0785
+light-2x/hc-text__rrect-md__rest  [structured]           holdout      0.10       0.0513        0.0428
+light-2x/checkerboard__rrect-ml__rest  [structured]      calibration  0.25       0.0567        0.0437
+light-2x/photo__rrect-ml__rest  [structured]             calibration  0.45       0.0940        0.0671
+light-2x/checkerboard__rrect-sm__rest  [structured]      calibration  0.10       0.0479        0.0410
+light-2x/photo__rrect-sm__rest  [structured]             validation   0.80       0.1134        0.0524
+light-2x/checkerboard__rrect-lg__rest  [structured]      holdout      0.30       0.0958        0.0806
+light-2x/photo__rrect-lg__rest  [structured]             holdout      0.35       0.1012        0.0809
+light-2x/mid-dark-solid__capsule-button__rest            holdout      0.80       0.1141        0.0209
+dark-1x/dark-solid__capsule-button__rest                 calibration  1.10       0.0078        0.0007
+dark-1x/impulse__capsule-button__rest  [structured]      validation   0.70       0.0073        0.0046
+dark-1x/dark-solid__rrect-md__rest                       calibration  1.05       0.0134        0.0057
+dark-1x/photo__rrect-lg__rest  [structured]              holdout      0.40       0.0153        0.0064
+dark-1x/mid-dark-solid__capsule-button__rest             holdout      0.60       0.0096        0.0008
+dark-2x/dark-solid__capsule-button__rest                 calibration  1.45       0.0123        0.0011
+dark-2x/impulse__capsule-button__rest  [structured]      validation   0.95       0.0103        0.0031
+dark-2x/dark-solid__rrect-md__rest                       calibration  1.35       0.0200        0.0052
+dark-2x/photo__rrect-md__rest  [structured]              calibration  0.85       0.0410        0.0200
+dark-2x/photo__rrect-lg__rest  [structured]              holdout      0.50       0.0196        0.0074
+dark-2x/mid-dark-solid__capsule-button__rest             holdout      0.65       0.0119        0.0004
+   light / solid calibration: p* mean 1.10 +/- 0.22 (min 0.85 max 1.45, 4 rows)
+   light / structured: p* mean 0.43 +/- 0.31 (min 0.00 max 1.15, 27 rows)
+   dark / solid calibration: p* mean 1.24 +/- 0.17 (min 1.05 max 1.45, 4 rows)
+   dark / structured: p* mean 0.68 +/- 0.21 (min 0.40 max 0.95, 5 rows)
+
+== 3. the straight spans, W23's own contour reader, ladder against the landed bed
+   `rim` per side in luminance per CSS px; solid untinted rows; the bound is 0.005.
+row                                            point  side      landed   ladder    delta
+   worst |delta| on any solid straight span, over both ladder points: 0.00021 at light-1x/light-solid__capsule-button__rest/top at lit1   bound 0.005: PASS
+
+== 4. the prediction against parent acceptance clause 1, at three candidate exponents
+   Clause 1 asks, on every untinted SOLID cell of both beds at both scales: the
+   brightest/dimmest bin ratio within 20 % of the reference's wherever the reference's
+   exceeds 2, and every bin within 0.005 (dark) / 0.03 (light) of the reference's. The
+   bins are interpolated from the landed capture by the factor, which section 1
+   licenses; a rendered dry run at the declared constant is G2's.
+   `maxBin@0` is the same worst bin error on the LANDED bed, so the mechanism's own
+   contribution is legible against what W23's amplitude already leaves.
+row                                                p  refRatio     ours     d%  maxBin@0   maxBin  bound  verdict
+light-1x/dark-solid__capsule-button__rest      1.00     12.38    10.32    -17    0.0131   0.0024  0.030      MET
+light-1x/dark-solid__rrect-md__rest            1.00      5.46    16.07    194    0.1070   0.0503  0.030   missed
+light-1x/mid-dark-solid__capsule-button__rest  1.00      5.82    10.76     85    0.1284   0.0745  0.030   missed
+light-2x/dark-solid__capsule-button__rest      1.00     15.97    10.17    -36    0.0177   0.0055  0.030   missed
+light-2x/dark-solid__rrect-md__rest            1.00      7.72    10.16     32    0.2020   0.0845  0.030   missed
+light-2x/mid-dark-solid__capsule-button__rest  1.00      6.23    10.17     63    0.2038   0.0958  0.030   missed
+dark-1x/dark-solid__capsule-button__rest      1.00     12.38    10.32    -17    0.0131   0.0024  0.005      MET
+dark-1x/dark-solid__rrect-md__rest            1.00     21.07    10.62    -50    0.0194   0.0090  0.005   missed
+dark-1x/mid-dark-solid__capsule-button__rest  1.00      1.50     1.75     17    0.0124   0.0087  0.005   missed
+dark-2x/dark-solid__capsule-button__rest      1.00     15.97    10.17    -36    0.0177   0.0055  0.005   missed
+dark-2x/dark-solid__rrect-md__rest            1.00     25.86    10.02    -61    0.0292   0.0109  0.005   missed
+dark-2x/mid-dark-solid__capsule-button__rest  1.00      1.37     1.37      0    0.0145   0.0086  0.005   missed
+   exponent 1.00: 2 of 12 solid rows meet clause 1 on both halves
+light-1x/dark-solid__capsule-button__rest      1.15     12.38    14.20     15    0.0131   0.0024  0.030      MET
+light-1x/dark-solid__rrect-md__rest            1.15      5.46    20.89    283    0.1070   0.0574  0.030   missed
+light-1x/mid-dark-solid__capsule-button__rest  1.15      5.82    14.28    145    0.1284   0.0864  0.030   missed
+light-2x/dark-solid__capsule-button__rest      1.15     15.97    13.96    -13    0.0177   0.0040  0.030      MET
+light-2x/dark-solid__rrect-md__rest            1.15      7.72    13.93     81    0.2020   0.0844  0.030   missed
+light-2x/mid-dark-solid__capsule-button__rest  1.15      6.23    13.96    124    0.2038   0.0958  0.030   missed
+dark-1x/dark-solid__capsule-button__rest      1.15     12.38    14.20     15    0.0131   0.0024  0.005      MET
+dark-1x/dark-solid__rrect-md__rest            1.15     21.07    14.59    -31    0.0194   0.0080  0.005   missed
+dark-1x/mid-dark-solid__capsule-button__rest  1.15      1.50     1.84     23    0.0124   0.0124  0.005   missed
+dark-2x/dark-solid__capsule-button__rest      1.15     15.97    13.96    -13    0.0177   0.0040  0.005      MET
+dark-2x/dark-solid__rrect-md__rest            1.15     25.86    13.74    -47    0.0292   0.0096  0.005   missed
+dark-2x/mid-dark-solid__capsule-button__rest  1.15      1.37     1.44      6    0.0145   0.0128  0.005   missed
+   exponent 1.15: 4 of 12 solid rows meet clause 1 on both halves
+light-1x/dark-solid__capsule-button__rest      1.30     12.38    19.43     57    0.0131   0.0026  0.030   missed
+light-1x/dark-solid__rrect-md__rest            1.30      5.46    27.03    395    0.1070   0.0648  0.030   missed
+light-1x/mid-dark-solid__capsule-button__rest  1.30      5.82    19.46    234    0.1284   0.0990  0.030   missed
+light-2x/dark-solid__capsule-button__rest      1.30     15.97    19.06     19    0.0177   0.0025  0.030      MET
+light-2x/dark-solid__rrect-md__rest            1.30      7.72    19.01    146    0.2020   0.0901  0.030   missed
+light-2x/mid-dark-solid__capsule-button__rest  1.30      6.23    19.06    206    0.2038   0.0958  0.030   missed
+dark-1x/dark-solid__capsule-button__rest      1.30     12.38    19.43     57    0.0131   0.0026  0.005   missed
+dark-1x/dark-solid__rrect-md__rest            1.30     21.07    19.96     -5    0.0194   0.0084  0.005   missed
+dark-1x/mid-dark-solid__capsule-button__rest  1.30      1.50     1.94     29    0.0124   0.0164  0.005   missed
+dark-2x/dark-solid__capsule-button__rest      1.30     15.97    19.06     19    0.0177   0.0025  0.005      MET
+dark-2x/dark-solid__rrect-md__rest            1.30     25.86    18.76    -27    0.0292   0.0084  0.005   missed
+dark-2x/mid-dark-solid__capsule-button__rest  1.30      1.37     1.52     11    0.0145   0.0172  0.005   missed
+   exponent 1.30: 2 of 12 solid rows meet clause 1 on both halves
+light-1x/dark-solid__capsule-button__rest      1.45     12.38    26.48    114    0.0131   0.0038  0.030   missed
+light-1x/dark-solid__rrect-md__rest            1.45      5.46    34.83    538    0.1070   0.0726  0.030   missed
+light-1x/mid-dark-solid__capsule-button__rest  1.45      5.82    26.48    355    0.1284   0.1122  0.030   missed
+light-2x/dark-solid__capsule-button__rest      1.45     15.97    25.92     62    0.0177   0.0017  0.030   missed
+light-2x/dark-solid__rrect-md__rest            1.45      7.72    25.84    235    0.2020   0.1096  0.030   missed
+light-2x/mid-dark-solid__capsule-button__rest  1.45      6.23    25.92    316    0.2038   0.1076  0.030   missed
+dark-1x/dark-solid__capsule-button__rest      1.45     12.38    26.48    114    0.0131   0.0038  0.005   missed
+dark-1x/dark-solid__rrect-md__rest            1.45     21.07    27.19     29    0.0194   0.0101  0.005   missed
+dark-1x/mid-dark-solid__capsule-button__rest  1.45      1.50     2.04     36    0.0124   0.0205  0.005   missed
+dark-2x/dark-solid__capsule-button__rest      1.45     15.97    25.92     62    0.0177   0.0017  0.005   missed
+dark-2x/dark-solid__rrect-md__rest            1.45     25.86    25.49     -1    0.0292   0.0088  0.005   missed
+dark-2x/mid-dark-solid__capsule-button__rest  1.45      1.37     1.60     17    0.0145   0.0218  0.005   missed
+   exponent 1.45: 0 of 12 solid rows meet clause 1 on both halves

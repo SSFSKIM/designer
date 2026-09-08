@@ -632,7 +632,80 @@ const W23_G3_HASHES: Readonly<Record<string, string>> = {
   "collapsed-tone": "931de3048608304e6cbc70e69833e6c8",
 };
 
+/**
+ * **W24 — the lit edge, and the collapse that keeps its transmission** (claims
+ * §5.108). EVERY scene that draws a rim moves, one scene moves for a second
+ * reason, and one scene is new.
+ *
+ * ## What moved the material
+ *
+ * Four constants and one retirement, all of them leaves of the profile.
+ * `optics.regular.rimLitExponent` 1.15 with `rimLitAxis` on the exact diagonal
+ * multiplies the whole rim by `(√2·|n · L|)^p` — the reference's edge is LIT,
+ * symmetric about the top-left/bottom-right diagonal, where vitrea drew one
+ * brightness the whole way round. `collapseTransmission` 0.017 and
+ * `collapseTransmission2x` 0.070 lerp the collapse's target from the group's mean
+ * backdrop colour toward the per-pixel blurred backdrop, so a collapsed surface
+ * transmits what is beneath it instead of flattening it. The one-sided specular
+ * the lit edge replaces is retired from the rim; it drew nothing on any scene
+ * here, since every shipped profile carries `specularGain` 0 on `regular` and no
+ * scene declares `clear`.
+ *
+ * ## What the measurement says
+ *
+ * `results/2026-09-09-w24-lit-edge/g2/goldens-attribution.txt`, from
+ * `g2-golden-attribution.spec.ts`: every scene rendered at the landed constants
+ * and again with each mechanism declined, compared per pixel inside a contour
+ * band (3 px of a coverage discontinuity, from the landed render's own alpha) and
+ * outside it.
+ *
+ * **The lit edge moved not one pixel outside a contour band, on any scene.** Its
+ * outside delta is 0 on all twelve; inside, it is 15–81 code values on the eleven
+ * that carry a rim (194–2 558 pixels). That is the `√2` normalisation working
+ * from the other side: the factor is exactly 1 wherever the normal is horizontal
+ * or vertical, so the straight spans hold and only the corners and arcs move.
+ *
+ * **The transmission moved two scenes and nothing else.** On
+ * `collapsed-tone-textured` it moves 1 669 pixels inside the band and 13 147
+ * outside it by up to 3 code values — the collapsed bodies, which is the whole
+ * reason that scene exists. On `collapsed-tone` it moves 16 pixels by 1 code, all
+ * inside the band: that scene's backdrop is FLAT, so the per-pixel sample and the
+ * group's mean agree everywhere except where the refraction path's own
+ * displacement reaches past the surface at the contour. Every other scene is
+ * byte-identical under it, `highlight-press-glow` included.
+ *
+ * `highlight-press-glow` is the control and it holds again: **0 pixels** under
+ * both mechanisms, hash byte-identical to the 2026-08-25 original through C9a,
+ * W8, the post-v1 wave, W11a, W11c, W12, W14, W15, W22, W23 and now this. It
+ * captures the HIGHLIGHT canvas, and both mechanisms live in the optics pass.
+ *
+ * ## The scene that is new
+ *
+ * `collapsed-tone-textured` has no previous hash because it did not exist.
+ * `collapsed-tone` stands over a FLAT backdrop, where the group's mean and the
+ * pixel beneath are the same number — so `collapseTransmission`, which lerps
+ * between exactly those two, is the identity there and the attribution for it
+ * would have been vacuous, exactly as it was for the two collapsed rims before
+ * `collapsed-tone` itself existed. This is the same scene over a gradient, and it
+ * is the attribution for both anchors.
+ */
+const W24_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "18b2dee7c100789ffa32e1a19f800d9e",
+  "collapsed-tone": "e2a1aacb92fce5d900315ab872c781a4",
+  "collapsed-tone-textured": "42a658d09c8bbab518847cf97506d8ce",
+  "concentric-nesting": "0aaf2f8d041ffec99108a43caac6c0d9",
+  "field-mask": "a83fb6370059a243feeda2379c43ca30",
+  "lens-size-scaling": "c19b7b0cf8131e8a52453098abc38b2a",
+  "placed-checkerboard": "e9022c82fb5c9abc779e4ff237ecca2c",
+  "refraction-checkerboard": "21565f2e9ef4c68223cd231342a5c078",
+  "rim-two-references": "d5c318721df463e879f7d47b985ee7e8",
+  "tint-adaptation-dark": "110f45d08197bec7b3fda4e802871139",
+  "tint-adaptation-light": "3a2b9937c6e1d468cc4267fbe7651138",
+  "union-pair": "41f98a289ddcf84dd4743105d6fc04c3",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W24_HASHES[name] ??
   W23_G3_HASHES[name] ??
   W23_HASHES[name] ??
   W22_HASHES[name] ??

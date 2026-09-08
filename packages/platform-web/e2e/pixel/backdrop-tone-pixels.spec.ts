@@ -4,10 +4,16 @@ import {
   adaptedSourceOptics,
   backdropToneAdaptation,
   backdropToneResponseLevel,
-  cssTintAlpha,
+  cssOpticsFromSource,
+  cssTierCompositeLevel,
+  cssTierOptics,
   cssTintColor,
+  COLLAPSE_TRANSMISSION,
+  CSS_TIER_MAPPING,
   innerShadowedSourceOptics,
+  interiorBandLight,
   interiorShadowKeep,
+  linearChainReaches,
   sizeOcclusionAlphaAt,
   sizeThickness,
   sourceOptics,
@@ -184,7 +190,33 @@ const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
     adapted,
     interiorShadowKeep(SOURCE, geometry, thickness, 1 - collapse),
   );
-  const alpha = cssTintAlpha(shadowed);
+  /*
+   * The conversion the tier actually runs, ANCHOR AND ALL (W21 Decision Log 4
+   * (a)), and it has to be the anchored one since W24 (claims §5.108 §2).
+   *
+   * The unanchored `cssTintAlpha` stood in for it while a collapsed surface's
+   * alpha saturated at 1, where the two agree by construction. The collapse now
+   * keeps a transmission, so the alpha it hands the conversion is `1 − k·c`
+   * rather than 1, and on a backdrop this dark the tier anchors its solve on the
+   * group's own tone — where the two conversions differ by 0.012, which is eight
+   * times the declaration's own rounding step. So the helper follows the tier
+   * here as it already follows it on the order of the size occlusion above.
+   */
+  const interior = {
+    tintAlpha: shadowed.tintAlpha,
+    tint: shadowed.tint,
+    addedLight: interiorBandLight(SOURCE, geometry, 1 - collapse),
+  };
+  const anchor = linearChainReaches(cssTierCompositeLevel(interior, tone.luminance))
+    ? undefined
+    : { linearMean: tone.linearLuminance, toneLevel: tone.luminance };
+  const alpha = cssOpticsFromSource(
+    cssTierOptics().regular,
+    shadowed,
+    CSS_TIER_MAPPING,
+    anchor,
+    "regular",
+  ).tintAlpha;
   return {
     colour: cssTintColor(shadowed, alpha).join(", "),
     occlusion: Math.round(alpha * 1000) / 1000,
@@ -196,18 +228,26 @@ const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
 const ROUNDING = 0.0015;
 
 test("a small surface over a near-black backdrop becomes that backdrop", async ({ page }) => {
-  // `dark-solid` (28, 28, 30) — the calibration backdrop where the reference's own
-  // capsule is byte-identical to its background. Fully adapted, the CSS tier
-  // declares the backdrop's own colour at an opacity of 1, so the surface renders
-  // as its backdrop rather than as a body in front of it.
+  /*
+   * `dark-solid` (28, 28, 30) — the calibration backdrop where the reference's
+   * own capsule is byte-identical to its background. Fully adapted, the CSS tier
+   * declares the backdrop's own colour, so the surface renders as its backdrop
+   * rather than as a body in front of it.
+   *
+   * At an opacity of 1 − `collapseTransmission` since W24 (claims §5.108 §2),
+   * where it was 1 before: Apple's collapsed material is a dark glass that still
+   * transmits what is beneath it, so the tier takes the transmission out of the
+   * layer's own alpha and lets `backdrop-filter` supply the rest. 0.983 at
+   * dpr 1 is that constant, and it is the whole of the difference.
+   */
   await buildScene(page, "rgb(28, 28, 30)");
 
   const small = await declared(page, "small");
-  expect(small.occlusion).toBeCloseTo(1, 3);
-  // Not "close to" the backdrop — the backdrop's own bytes, at an opacity of 1.
-  // The reading, the curve and the linear-lerp-to-sRGB-overlay conversion all
-  // have to be right for this string to come out.
-  expect(small.tint).toBe("rgba(28, 28, 30, 1)");
+  expect(small.occlusion).toBeCloseTo(1 - COLLAPSE_TRANSMISSION, 3);
+  // Not "close to" the backdrop — the backdrop's own bytes, at the collapse's own
+  // opacity. The reading, the curve and the linear-lerp-to-sRGB-overlay
+  // conversion all have to be right for this string to come out.
+  expect(small.tint).toBe("rgba(28, 28, 30, 0.983)");
 
   const pixel = (await sample(page, SMALL)).at(60, 22);
   expect(Math.abs(level(pixel) - level({ r: 28, g: 28, b: 30 }))).toBeLessThan(4);
@@ -291,6 +331,15 @@ test("across the transition the level is monotone, the collapse is a slope, and 
    * would show as a second dip. And the collapse is a slope rather than a
    * switch, which the coarse grid cannot resolve (the band is a few grey levels
    * wide), so a finer sweep across it carries that claim on its own.
+   *
+   * **The collapse arm carries a second named seam since W24** (claims §5.108
+   * §2). The declared opacity is now `A − k·c`, and `k` falls across this sweep,
+   * so the term the tier hands back to `backdrop-filter` shrinks with it — a RISE
+   * where the arm falls, measured at +0.0025 over the whole arm, which is less
+   * than the constant itself and is bounded by it. The arm's tolerance therefore
+   * admits `COLLAPSE_TRANSMISSION` beside the rounding step, and the claim it
+   * still carries is unchanged in kind: the excursion the V has to show is 0.15,
+   * an order of magnitude larger than either seam.
    */
   const steps = 12;
   const occlusions: number[] = [];
@@ -311,14 +360,16 @@ test("across the transition the level is monotone, the collapse is a slope, and 
     expect(levels[i] as number, `level ${i}`).toBeGreaterThanOrEqual((levels[i - 1] as number) - 1);
   }
 
-  // The ends: fully collapsed over black, and the curve's own value at the grey.
-  expect(occlusions[0] as number).toBeCloseTo(1, 3);
+  // The ends: fully collapsed over black — at the collapse's own opacity, which
+  // is `1 − collapseTransmission` since W24 — and the curve's own value at the
+  // grey.
+  expect(occlusions[0] as number).toBeCloseTo(1 - COLLAPSE_TRANSMISSION, 3);
   const dip = occlusions.indexOf(Math.min(...occlusions));
   expect(dip).toBeGreaterThan(0);
   expect(dip).toBeLessThan(steps - 1);
   for (let i = 1; i <= dip; i += 1) {
     expect(occlusions[i] as number, `collapse arm ${i}`).toBeLessThanOrEqual(
-      (occlusions[i - 1] as number) + ROUNDING,
+      (occlusions[i - 1] as number) + ROUNDING + COLLAPSE_TRANSMISSION,
     );
   }
   for (let i = dip + 1; i < steps; i += 1) {

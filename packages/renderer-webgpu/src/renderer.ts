@@ -77,6 +77,7 @@ import {
   backdropToneSizeBiasUnderPolicy,
   backdropToneUnderPolicy,
   collapsedRimUnderPolicy,
+  collapseTransmissionAtScale,
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
@@ -970,6 +971,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // be the paint again, which is what it exists not to be.
         rimTintChroma: policy.border === "strong" ? 0 : material.rimTintChroma,
         lightDirection: material.lightDirection,
+        // The lit edge (W24): the rim's own axis, kept apart from
+        // `lightDirection` because the shadow reads that one and the two are
+        // measured 22 degrees apart. The exponent comes from the variant's
+        // optics under the accessibility fold, so a strong border's rim is one
+        // brightness the whole way round.
+        rimLitAxis: material.rimLitAxis,
+        rimLitExponent: optics.rimLitExponent,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         // The size law's gains, per group (W2); the per-pixel factor they
@@ -1054,6 +1062,19 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
             : 0,
         backdropToneLinearMean:
           input.backdropToneLinearLuminance ?? backdropToneLevel,
+        /*
+         * The collapse's transmission (W24 G1) rides the UN-DEGRADED regime, on
+         * the same gate and for the same reason as the response law above: it is
+         * fitted on the standard reference, and the accessibility references are
+         * a nearly opaque material whose collapsed appearance was never read
+         * over a textured backdrop. Where any policy fold touches the tone axis
+         * the collapse's target is the group's mean, which is W7's behaviour and
+         * what those profiles were fitted on.
+         */
+        collapseTransmission:
+          backdropToneUnderPolicy(policy, material) >= 0.999
+            ? collapseTransmissionAtScale(material, dpr)
+            : 0,
         outerShadow: [
           // The thin regime's LINEAR occlusion at this group's backdrop (W14
           // G1). The conversion to the compositing space moved into the shader
