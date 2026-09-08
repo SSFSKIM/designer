@@ -1,13 +1,12 @@
 # W23 — the collapsed rim: a rim that survives the collapse, and the rim's law read at the contour on both beds (2026-09-08)
 
-**Status: G3 CLOSED and the landing RULED 2026-09-09 (claims §5.104; Decision Log 4) — chartered
+**Status: RECOMPOSED 2026-09-09 (claims §5.106) with clause 9 open on the user's eye — chartered
 2026-09-08 from W22's Deferred list ("the collapsed rim", W22 Decision Log 4 (d)) and the user's eye
 on the W22 landing sheets (§5.99). G0 CLOSED (§5.100; Decision Log 2); G1 DECLARED and READ
-(§5.101–§5.102; Decision Log 3); G3 DECLARED (§5.103) — the painted rim spent in the paint's own
-chromaticity, the three review findings fixed, the holdout read once on the configuration that
-lands — and CLOSED by the parent with the chain green on the merged tree (`95c13ce`). G2 dispatched:
-the canonical rebuild from the main checkout, the referee against `g3-digests.txt`, the predicate
-29 → 27, the floors, the 0.12.0 changeset; the user's eye before publish.**
+(§5.101–§5.102; Decision Log 3); G3 DECLARED and CLOSED (§5.103–§5.104; Decision Log 4); G2 LANDED
+(§5.105; Decision Log 5): 229 / 229 digests reproduced, the predicate 29 → 27, eleven floors held and
+three first readings pinned on the 1x dark nested pane (the parent's recommendation, the user's to
+undo), the changeset cut. The 0.12.0 cut follows.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W23 row). The term it takes was deferred twice
@@ -356,7 +355,7 @@ it. The GPU is shared; one capture at a time.
 | G0 — the instrument, the read, the law | CLOSED 2026-09-08 (claims §5.100; branch `worktree-agent-aa0ee5ea92534c3fd` at `499f7c0`, carried into G1's worktree; Decision Log 2) |
 | G1 — the mechanism landed, the form dry-run | DECLARED 2026-09-08 (claims §5.101; branch `worktree-w23-g1`; the holdout read once at fingerprints `ee0010558553ee12` / `afd0e999e2f5813e`) — clauses 1 (rim), 2, 5, 6, 7 and 8 met; clauses 3 and 4 missed with their numbers; stops S2 and S3 fire at the fifth decimal; the parent's calls are in `g1/g1-dryrun.md` §10 |
 | G3 — the rim beneath the paint | CLOSED 2026-09-09 (claims §5.103 — the row first cited §5.102, which is the parent's G1 ruling; corrected beside — and §5.104; Decision Log 4; merged `95c13ce`) / DECLARED 2026-09-09 (claims §5.103; branch `worktree-w23-g1`; the holdout read once at fingerprints `c426a37744c38cce` / `bf5752ac1b152238`, which supersedes G1's spent read) — `rimTintChroma` 1 and `rimCollapsedTinted` 0.337 → 0.520; the numbers are in `g3/g3-findings.md` |
-| G2 — the landing and its referee | DISPATCHED 2026-09-09 (Decision Log 4 (f)) |
+| G2 — the landing and its referee | LANDED 2026-09-09 (claims §5.105; `843ecc7` + `16bb9c2`; Decision Log 5): 229 / 229 digests, the predicate 29 → 27, eleven floors held, three first readings pinned, the chain green but for the react e2e flake, the changeset cut |
 
 ## Decision Log
 
@@ -583,6 +582,50 @@ corner rim (clause 4); the left/right sides under structure (clause 3); the CSS 
 the contour instrument and its painted rim's hue; the probe grids as a harness set; `light-solid`'s
 second row.
 
+### Decision Log 5 — G2 read: the landing reproduced byte for byte, the predicate re-derived, three first readings pinned on the 1x dark nested pane under W21 G2c's precedent, one refuted e2e assertion corrected (2026-09-09; the parent, on the user's standing instruction; the floors the user's to undo)
+
+(a) **The referee: 229 / 229** capture digests equal to `g3-digests.txt`, 15 218 matrix rows equal
+to G3's dry run, both documents' file digests reproduced. One `__css__alpha` conformance render
+moved by one code of alpha on 19 px and a third capture reproduced the landed bytes — the tracker's
+session byte-state, third sighting, same cell as W21 G2's; no measured row with it.
+
+(b) **The predicate 29 → 27, derived from the machine:** `dark-solid__rrect-md` dom in both dark
+profiles leaves (the CSS body now sits within the extractor's threshold of its backdrop); the 1x
+dark nested pane and the 2x light `hc-text__capsule-button` are admitted on merit (areaWeb 25 069 →
+26 912; bodiesWeb 2 → 1); `dark-solid__capsule-button` texture at 2x in both schemes joins (a shape
+axis consisting of the new rim alone, 457 px of a 19 468 region, 60 bodies). `NO_SHAPE_AXIS_SCENES`
+becomes per tier because the tiers no longer agree on which scenes vanish. One mechanism in both
+directions: a rim on a surface that drew nothing changes the web silhouette (the wave's Risks).
+
+(c) **Three floors pinned at their first reading, `UNMET_ROWS` 11 → 14.** Admitting the 1x dark
+nested pane put three shape rows into the gate that no bed had read — `silhouetteIoU` 0.91007
+(≥ 0.93), `contourDistanceMean` 0.96579 (≤ 0.5), `contourDistanceP95` 8 (≤ 3.0) — the same rows,
+the same cell family and the same mechanism (13 interior holes in a silhouette whose tier draws the
+declared shape to a pixel, `declaredIoUWeb` 0.99886) as W21 G2c's four floors on the 2x twin, and
+every one better than the twin's pin. Taken as the parent's recommendation under the standing
+instruction, exactly as W21 Decision Log 4 took the twin's: pinned where first read, lowered from
+nothing, reversible in one edit, and **the user's to undo** — the alternative on offer was widening
+the predicate, which no wave may do. They come off with the four beside them, by the instrument or
+by the nested pane's own charter.
+
+(d) **Eleven floors re-read and held**, none inert, none re-pinned, none widened; the four W21
+instrument floors moved further toward their bounds than in any wave since pinning (dom IoU +0.0238,
+contour mean −0.471, p95 13 → 10) and still miss.
+
+(e) **One e2e assertion corrected:** `platform-web/e2e/gpu/tint-gpu.spec.ts` required the rim to
+raise an orange paint's blue channel — the white rim's signature, which G3 refuted; corrected to what
+the reference draws (green lifted, blue held at 0). It survived G1, G3 and the merge because no
+child's chain runs the platform-web Playwright projects; G2's tracker entry names the gap (the e2e
+suites that read the rim belong in a child's chain when the child moves the rim).
+
+(f) **The chain:** build, lint, 1 891 unit tests, 31 goldens, `test:e2e:gpu` 9 / 9 after (e),
+platform-web Playwright 376, demo e2e 39 / 39, react e2e one firefox flake (`morph.spec.ts:191`,
+27 / 27 on a repeat; the tracker's standing entry). The changeset
+`.changeset/rim-survives-the-collapse.md`, a `vitrea-web` minor → 0.12.0.
+
+(g) **The user decides:** the eye on `g2-1x.png` / `g2-2x.png` (sent; the G3 sheets before them),
+the three first-reading floors, the 0.12.0 cut.
+
 ## Surprises & Discoveries
 
 - **The "collapsed rim in light" was never collapsed.** Three cells, eighteen sides, two waves under
@@ -610,11 +653,70 @@ second row.
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+**Outcome (claims §5.106).** Glass on black is visible: every collapsed cell of both beds at both
+scales draws its contour rim within 0.004 of the reference's where it drew exactly nothing. The rim
+is a law of the surface's own level — `rimAlpha + rimLevelGain × luminance(material)`, light 0.844 /
+−0.628, dark 0.0265 / +2.334, `rimWidth2x` 1.35, `rimCollapsed` 0.038, `rimCollapsedTinted` 0.520,
+`rimTintChroma` 1 — read at the contour on every cell of both beds and both probe grids; the
+painted rim keeps the paint's hue. GPU calibration ΔE light 0.00330 → 0.00324 / 0.00333 → 0.00329,
+dark 0.00404 → 0.00395 / 0.00403 → 0.00397; the light holdout 0.00914 → 0.00901 / 0.00906 →
+0.00898, the dark holdout 0.01326 → 0.01331 / 0.01301 → 0.01317; the predicate 29 → 27; eleven
+floors held, three first readings pinned; the accessibility border kept whole under the new law.
+
+**The acceptance, clause by clause** (the evidence §5.100–§5.105):
+
+1. **Glass on black is visible — met on the rim** (worst 0.0040 against 0.005 on every collapsed
+   side of both beds at both scales); the body half met over `dark-solid` (+0.0007) and missed over
+   `impulse` by 0.003, pre-existing and unmoved (the collapse's own level, carried).
+2. **The rim's law on the solids — met** (worst 0.0200 against 0.03; `L−R` inside 0.003;
+   `light-solid` clips in both).
+3. **The law off the solids — missed as a per-side bound, met on its second half** (24 of 88
+   structured sides over 0.05, from 68; five of them top/bottom; validation 0.0155 against
+   calibration 0.0479). The left/right sides under structure carried (Decision Log 3 (c)).
+4. **The band read closes — missed** (the eighteen sides crossed the band target; 47 sides left
+   W22's bound while the contour read is inside 0.03 on the same captures; the corner rim named
+   work, Decision Log 3 (d)).
+5. **The bed no worse anywhere — met on the GPU tier**, every calibration mean improving; S2 taken
+   at +0.0035 on one CSS cell's body; the CSS light means +0.00010 / +0.00012 recorded as the tier's
+   residual (Decision Log 4 (c)).
+6. **The holdout once — met on the configuration that landed** (G3's read; G1's recorded as spent
+   on a superseded configuration); G2 reproduced 229 / 229.
+7. **The goldens attributable — met**: ten re-recorded under `W23_HASHES`, one new `collapsed-tone`
+   under `W23_G3_HASHES`, 0 pixels outside any contour band at every step.
+8. **The CSS tier derives — met as far as the tier reaches**: the law, the collapsed rims and the
+   painted rim's colour through the mirror, every mover named; the band's shape, the per-pixel
+   level and the painted rim's chroma recorded as CSS-only residuals.
+9. **By eye, and the ledger — open on the eye.** The sheets sent; every gap named; the 0.12.0 cut
+   after the user's veto.
+
+**What this wave actually was.** A deferral named for the wrong mechanism, read at the right scale.
+"The collapsed rim" covered a rim the collapse folded out and a rim law the band reader could not
+see; the contour instrument found both, the probe grids made the law fittable, and the eye found
+the third thing — the painted rim's hue — that no luminance clause could. Three holdout-bearing
+gates in one wave (G1 spent, G3 landed, G2 reproduced) is the cost of finding a mechanism after the
+dry run, and the W22 precedent says it is the right cost.
+
+**Lessons worth carrying.** (i) A band statistic over a thin feature measures the mixture; read a
+thin feature at its own scale before fitting its amplitude. (ii) A two-constant law needs rows that
+spread its regressor; the canonical bed is not automatically the bed that can fit the next law.
+(iii) A clause on one channel certifies nothing about the others; a coloured surface needs a
+chromaticity read beside the luminance one. (iv) A review branch that omits the tests and fixtures
+reports their absence. (v) The e2e suites that read a term belong in the chain of the child that
+moves it.
+
+**Handed to the next cut** (the user's call): the thick-span composite (the base pane's haze); the
+appearance switch, now with the dark thin cells at −16 / −19 codes and the dark tinted rim's amount
+(0.031 against +0.127); the corner rim with a corner reader; the left/right sides under structure
+(the per-pixel level; the environment term's numbers); the CSS tier's rim fitted on the contour
+instrument; the probe grids as a harness set; the seven nested-pane floors; the collapse's own body
+over `impulse`.
 
 ## Revision Notes
 
 - 2026-09-08: chartered; G0 dispatched.
+- 2026-09-09: G2 LANDED (claims §5.105; Decision Log 5) and the wave RECOMPOSED against its
+  acceptance (§5.106) with clause 9 open on the user's eye; Outcomes & Retrospective written; the
+  0.12.0 cut follows.
 - 2026-09-09: G3 CLOSED and the landing ruled (claims §5.104; Decision Log 4); the branch merged at
   `95c13ce` with the chain green; G2 dispatched. The Tracking Map's G3 row cited §5.102 for G3's own
   section, which is §5.103; corrected beside.

@@ -14044,3 +14044,69 @@ with `rm results/matrix.json` first, referees against `g3-digests.txt`, re-deriv
 29 → 27, re-reads every floor, re-copies the demo's fixture, cuts the 0.12.0 changeset. The user's
 eye before publish.
 
+### 5.105 W23 G2 LANDED: the canonical bed rebuilt at the frozen configuration — 229 / 229 of G3's digests reproduced byte for byte and 15 218 matrix rows equal to the dry run; the predicate 29 → 27 with the six cells' silhouettes as the reason; eleven floors held and three first readings pinned on the 1x dark nested pane; one refuted e2e assertion corrected; the chain green; the changeset cut (2026-09-09)
+
+**Evidence** `results/2026-09-08-w23-collapsed-rim/g2/` (`g2-landing.md`, `g2-rebuild.sh`,
+`g2-runs.txt`, `g2-verify.py`, `g2-referee.txt`, `g2-gate.txt`, `g2-predicate.*`, `g2-floors.*`,
+`g2-chain.txt`, `sheets/`); commits `843ecc7` (the matrix, the gate, the demo fixture, the e2e fix,
+the changeset) and `16bb9c2` (the evidence). The parent re-ran the calibration gate on the landed
+tree: 280 / 280.
+
+**The rebuild and the referee.** `rm results/matrix.json` first (both documents' hashes moved), the
+whole bed into the canonical matrix and `web-captures/`, six profiles, both tiers, `--alpha`,
+calibration and validation before the holdout, GPU before CSS. **229 / 229** capture digests equal
+to `g3-digests.txt`; 15 218 rows equal to G3's scratch matrix to the last decimal; the documents'
+file digests reproduced (resolved `c426a37744c38cce` / `bf5752ac1b152238`). One of 460 files moved
+— a `__css__alpha` conformance render by one code of alpha on 19 px, a third capture reproducing the
+landed bytes: the session byte-state's third sighting (the tracker), no measured row with it.
+
+**The gate.** `PREDICATE_EXCLUDES` 29 → 27 from the machine's output: two dom cells leave
+(`dark-solid__rrect-md` in both dark profiles — the CSS body within the extractor's threshold of its
+backdrop; dark dom ΔE 0.00682 → 0.00633), two are admitted (the 1x dark nested pane, areaWeb
+25 069 → 26 912; the 2x light `hc-text__capsule-button`, bodiesWeb 2 → 1), two join
+(`dark-solid__capsule-button` texture at 2x in both schemes: a shape axis of the new rim alone, 457
+px of 19 468, 60 bodies); `NO_SHAPE_AXIS_SCENES` per tier. **Eleven floors re-read, eleven held**,
+none inert, none re-pinned, no bound widened; the four W21 instrument floors moved toward their
+bounds by more than in any wave since pinning (dom IoU 0.90482 → 0.92878, contour mean 1.76018 →
+1.289, p95 13 → 10). **Three floors pinned at first reading** on the admitted 1x dark nested pane —
+`silhouetteIoU` 0.91007 (≥ 0.93), `contourDistanceMean` 0.96579 (≤ 0.5), `contourDistanceP95` 8
+(≤ 3.0) — the 2x twin's rows and mechanism (13 interior holes; `declaredIoUWeb` 0.99886), each better
+than the twin's pin; `UNMET_ROWS` 11 → 14 (W23 Decision Log 5 (c); the user's to undo).
+
+**The bed at the landing (GPU, ΔE mean).** Light calibration 0.00330 → 0.00324 (1x) / 0.00333 →
+0.00329 (2x), holdout 0.00914 → 0.00901 / 0.00906 → 0.00898; dark calibration 0.00404 → 0.00395 /
+0.00403 → 0.00397, holdout 0.01326 → 0.01331 / 0.01301 → 0.01317; increased contrast 0.00793 →
+0.00793; CSS light calibration +0.00010 / +0.00012 (the tier's residual), CSS dark −0.0005.
+
+**One e2e assertion corrected.** `platform-web/e2e/gpu/tint-gpu.spec.ts` required the rim to raise
+an orange paint's blue channel — the white rim G3 refuted; now green lifted, blue held at 0. Not in
+any child's chain (the tracker).
+
+**The chain.** Build; lint; 1 891 unit tests; 31 goldens; `test:e2e:gpu` 9 / 9; platform-web
+Playwright 376; demo e2e 39 / 39; react e2e one firefox flake, 27 / 27 on a repeat. The demo
+fixture re-copied. `.changeset/rim-survives-the-collapse.md`, a `vitrea-web` minor → 0.12.0. The
+sheets `g2-1x.png` / `g2-2x.png` (28 rows) sent; by the gate's eye the 2x collapsed capsule shows
+nothing before and the outline at the reference's weight after.
+
+### 5.106 W23 RECOMPOSED: the collapsed rim — the parent's nine clauses verified; glass on black visible on every collapsed cell, the rim a law of the surface's own level read at the contour, the painted rim keeping the paint's hue; clauses 3 and 4 missed and carried with their numbers; the 0.12.0 cut follows, the user's eye before publish (2026-09-09)
+
+The clause-by-clause verdict is the spec's Outcomes & Retrospective (`2026-09-08-w23-collapsed-rim.md`),
+with the evidence §5.99–§5.105. **Met:** 1 (the rim; the `impulse` body's 0.003 pre-existing), 2, 5
+(GPU), 6, 7, 8 (as far as the CSS tier reaches). **Missed and carried:** 3 (the left/right sides
+under structure, 24 of 88, from 68) and 4 (the band read's corners). **Open:** 9, the user's eye.
+
+**What the wave changed, in numbers.** The collapsed cells' contour rim 0.0000 → within 0.0040 of
++0.020 on every side of both beds at both scales; the light material's rim over dark solids 3.4–4.0×
+short → within 0.02 (worst solid side 0.0200); the tinted rows' chromaticity |da| 0.0520 → 0.0203,
+|db| 0.0371 → 0.0088; GPU calibration ΔE light 0.00330 → 0.00324, dark 0.00404 → 0.00395; the light
+holdout 0.00914 → 0.00901; the dark holdout +0.00005 / +0.00016; the predicate 29 → 27;
+`UNMET_ROWS` 11 → 14 (three first readings).
+
+**Carried by name.** The thick-span composite (the base pane's haze, the eye's confirmation). The
+appearance switch with the dark thin structured cells at −16 / −19 codes and the dark tinted rim's
+amount (0.031 against +0.127). The corner rim (a corner reader). The left/right sides under
+structure (the per-pixel level; the environment term's numbers). The CSS tier's rim fitted on the
+contour instrument, its painted rim's chroma, its band shape. The probe grids as a harness set. The
+seven nested-pane floors. The collapse's body over `impulse` (−6.2 codes). `light-solid`'s second
+row. W21's probe anomaly. The e2e suites in a child's chain. The 0.12.0 cut follows.
+
