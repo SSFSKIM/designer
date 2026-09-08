@@ -713,7 +713,13 @@ export const RIM_COLLAPSED = 0.038;
  * author tint's full coverage (W23 G1; claims §5.100 §5). The reference's
  * collapsed capsule keeps +0.020 of contour rim bare and +0.115 painted.
  */
-export const RIM_COLLAPSED_TINTED = 0.337;
+export const RIM_COLLAPSED_TINTED = 0.52;
+
+/**
+ * Mirrors `DEFAULT_MATERIAL_PROFILE.rimTintChroma` — how much of an author
+ * tint's own colour the rim's light is spent in (W23 G3; claims §5.102).
+ */
+export const RIM_TINT_CHROMA = 1;
 
 /** The two absolute rims a collapsed surface keeps, bare and at full coverage. */
 export interface CollapsedRimConstants {
@@ -736,6 +742,11 @@ export function resolvedCollapsedRim(patch?: RendererMaterialProfile): Collapsed
     bare: patch?.rimCollapsed ?? RIM_COLLAPSED,
     painted: patch?.rimCollapsedTinted ?? RIM_COLLAPSED_TINTED,
   };
+}
+
+/** The profile's own `rimTintChroma`, or the mirrored default (W23 G3). */
+export function resolvedRimTintChroma(patch?: RendererMaterialProfile): number {
+  return patch?.rimTintChroma ?? RIM_TINT_CHROMA;
 }
 
 /**
@@ -3312,11 +3323,58 @@ export function tintedCssOptics(
   backdropLuminance: number,
   grip: number,
   shade: TintShadeConstants = TINT_SHADE,
+  rimTintChroma: number = RIM_TINT_CHROMA,
 ): MaterialOptics {
   const author = authorTintLayer(source, tint, backdropLuminance, grip, shade);
   if (author === undefined) return css;
   const folded = foldedOverlay({ tint: css.tint, tintAlpha: css.tintAlpha }, author);
-  return { ...css, tintAlpha: folded.tintAlpha, tint: folded.tint };
+  return {
+    ...css,
+    tintAlpha: folded.tintAlpha,
+    tint: folded.tint,
+    // The rim's colour on a PAINTED surface (W23 G3), mirrored: this tier draws
+    // the rim as an inset `box-shadow` of `border`, and Apple's rim on a painted
+    // surface is the paint lifted rather than white added over it. The shader
+    // spends the rim's light in `mix(white, paint / max(paint), chroma × s)` per
+    // pixel; this tier spends it in the same expression once per surface, on the
+    // author's own layer colour. An untinted surface never reaches this function
+    // at all (`authorTintLayer` returns nothing at strength 0), which is the same
+    // reason the renderer's untinted pixels do not move.
+    border: rimTintColour(css.border, author, rimTintChroma),
+  };
+}
+
+/**
+ * `mix(white, paint / luminance(paint), chroma × strength)` on this tier's
+ * border colour — the CPU statement of what the optics pass spends the rim's
+ * light in (W23 G3; claims §5.102).
+ *
+ * The paint's CHROMATICITY, so the rim keeps its amount and takes only its hue;
+ * the divisor's floor is the shader's, for the same reason. What this tier
+ * cannot mirror is the composite: the renderer adds a coloured light to a linear
+ * composite per pixel, and this tier can only colour one inset `box-shadow`
+ * whose alpha is fixed elsewhere, so a channel the normalisation would push past
+ * the border's own value is clamped here and clips in the composite there. That
+ * difference is a CSS-only residual, recorded rather than chartered.
+ */
+export function rimTintColour(
+  border: Rgb255,
+  author: { readonly color: Rgb255; readonly strength: number },
+  chroma: number = RIM_TINT_CHROMA,
+): Rgb255 {
+  const weight = clamp01(chroma) * clamp01(author.strength);
+  if (weight <= 0) return border;
+  const linear: LinearRgb = [
+    srgbDecode(author.color[0] / 255),
+    srgbDecode(author.color[1] / 255),
+    srgbDecode(author.color[2] / 255),
+  ];
+  const level = Math.max(luminance(linear), 0.05);
+  const channel = (index: 0 | 1 | 2): number =>
+    Math.round(
+      Math.min(255, Math.max(0, border[index] * (1 - weight + (linear[index] / level) * weight))),
+    );
+  return [channel(0), channel(1), channel(2)];
 }
 
 /**

@@ -1,0 +1,328 @@
+{
+  "profile": "apple-macos-26.5-1x-dark-standard",
+  "fixtures": "/Users/new/Developer/GitHub/designer/.claude/worktrees/w23-g1/apps/reference-apple/fixtures",
+  "captures": "/Users/new/.claude/jobs/5c70e47f/tmp/w23/g3/dryrun/web-captures",
+  "tier": "css",
+  "sets": [
+    "calibration",
+    "validation",
+    "holdout"
+  ],
+  "erodeCssPx": 6.0,
+  "rimBandCssPx": 3.0,
+  "runs": [],
+  "rows": [
+    {
+      "scene": "dark-solid__capsule-button__rest",
+      "background": "dark-solid",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "calibration",
+      "bodyNative": 0.011034218463649227,
+      "sdNative": 0.0006888895924128898,
+      "rimNative": [
+        0.0248662034831925,
+        0.024715419910793776,
+        0.01607173087048625,
+        0.016070249556244313
+      ],
+      "backdropLinearMean": 0.011711216012871267,
+      "backdropEncodedMean": 0.11038773116395986,
+      "backdropSd": 0.0,
+      "bodyWeb": 0.011713245283908118,
+      "sdWeb": 7.201392557469179e-05,
+      "rimWeb": [
+        0.014272424368613883,
+        0.011827002605503375,
+        0.012456149004601437,
+        0.012026997629140656
+      ]
+    },
+    {
+      "scene": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "calibration",
+      "bodyNative": 0.10594765092941838,
+      "sdNative": 0.05147884735837952,
+      "rimNative": [
+        0.299584556307453,
+        0.30355262247202075,
+        0.58881048006972,
+        0.24777316550618586
+      ],
+      "backdropLinearMean": 0.5,
+      "backdropEncodedMean": 0.4999999999999999,
+      "backdropSd": 0.5,
+      "bodyWeb": 0.0744152621529721,
+      "sdWeb": 0.02774828589923558,
+      "rimWeb": [
+        0.20765004645819202,
+        0.14052049366213085,
+        0.5311744256390089,
+        0.12488078618885985
+      ]
+    },
+    {
+      "scene": "impulse__capsule-button__rest",
+      "background": "impulse",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "validation",
+      "bodyNative": 0.006640250243351193,
+      "sdNative": 0.0007976517911882023,
+      "rimNative": [
+        0.014454199479863476,
+        0.01369046713069865,
+        0.004109733378606806,
+        0.00415332569056373
+      ],
+      "backdropLinearMean": 0.0030303030303030303,
+      "backdropEncodedMean": 0.00303030303030303,
+      "backdropSd": 0.05496471862793046,
+      "bodyWeb": 0.0036771049091991943,
+      "sdWeb": 3.9606908914755675e-05,
+      "rimWeb": [
+        0.0043200696274558045,
+        0.0032745385767869273,
+        0.002040640649421938,
+        0.002580228922427865
+      ]
+    },
+    {
+      "scene": "photo__capsule-button__rest",
+      "background": "photo",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "calibration",
+      "bodyNative": 0.09608372774306059,
+      "sdNative": 0.017225629332229677,
+      "rimNative": [
+        0.19092520640098762,
+        0.23638816719830225,
+        0.18550780477922932,
+        0.39435083490999484
+      ],
+      "backdropLinearMean": 0.21831444759290805,
+      "backdropEncodedMean": 0.49348509513990557,
+      "backdropSd": 0.09636286348452844,
+      "bodyWeb": 0.05578617702135976,
+      "sdWeb": 0.008484738498267301,
+      "rimWeb": [
+        0.10873552220864363,
+        0.10763606140387529,
+        0.15368699749971215,
+        0.2439382256837087
+      ]
+    },
+    {
+      "scene": "dark-solid__rrect-md__rest",
+      "background": "dark-solid",
+      "component": "rrect-md",
+      "tint": null,
+      "set": "calibration",
+      "bodyNative": 0.015267177655670013,
+      "sdNative": 0.00012818261657872573,
+      "rimNative": [
+        0.03400563900993327,
+        0.033863525606638044,
+        0.029596401161502483,
+        0.029594815128647117
+      ],
+      "backdropLinearMean": 0.011711216012871265,
+      "backdropEncodedMean": 0.11038773116395985,
+      "backdropSd": 1.734723475976807e-18,
+      "bodyWeb": 0.01520877919975517,
+      "sdWeb": 2.9521133721893927e-05,
+      "rimWeb": [
+        0.020026575611752043,
+        0.014942890495688052,
+        0.01852751418974768,
+        0.014811996631580634
+      ]
+    },
+    {
+      "scene": "checkerboard__rrect-md__rest",
+      "background": "checkerboard",
+      "component": "rrect-md",
+      "tint": null,
+      "set": "calibration",
+      "bodyNative": 0.04679765768942846,
+      "sdNative": 0.016613976392435587,
+      "rimNative": [
+        0.18418034606225783,
+        0.17026240132255502,
+        0.23835665516210147,
+        0.21297884273778198
+      ],
+      "backdropLinearMean": 0.5,
+      "backdropEncodedMean": 0.4999999999999999,
+      "backdropSd": 0.5,
+      "bodyWeb": 0.04809644243085999,
+      "sdWeb": 0.020779523709476472,
+      "rimWeb": [
+        0.14056411213130549,
+        0.08745773822473464,
+        0.17041680992619204,
+        0.1575550248825519
+      ]
+    },
+    {
+      "scene": "photo__rrect-md__rest",
+      "background": "photo",
+      "component": "rrect-md",
+      "tint": null,
+      "set": "calibration",
+      "bodyNative": 0.046559494942583775,
+      "sdNative": 0.01046719125961807,
+      "rimNative": [
+        0.110947422275485,
+        0.12388279225783774,
+        0.12507629720981892,
+        0.19049307111870054
+      ],
+      "backdropLinearMean": 0.21429155887649637,
+      "backdropEncodedMean": 0.4860256734715593,
+      "backdropSd": 0.10774321112017374,
+      "bodyWeb": 0.03976861953725965,
+      "sdWeb": 0.009457661397076333,
+      "rimWeb": [
+        0.06778650439607678,
+        0.05319077596505645,
+        0.08657654123562515,
+        0.09297682612405711
+      ]
+    },
+    {
+      "scene": "photo__rrect-lg__rest",
+      "background": "photo",
+      "component": "rrect-lg",
+      "tint": null,
+      "set": "holdout",
+      "bodyNative": 0.045385691775355966,
+      "sdNative": 0.01317341906943699,
+      "rimNative": [
+        0.10450807394069458,
+        0.11820773564809178,
+        0.11737564881457423,
+        0.19199682920695696
+      ],
+      "backdropLinearMean": 0.22453604211173786,
+      "backdropEncodedMean": 0.4937939948259143,
+      "backdropSd": 0.12090478587599156,
+      "bodyWeb": 0.040445822625805455,
+      "sdWeb": 0.012115749963269643,
+      "rimWeb": [
+        0.065138688637871,
+        0.050031088370619474,
+        0.08860596349898783,
+        0.08807486689845105
+      ]
+    },
+    {
+      "scene": "mid-dark-solid__capsule-button__rest",
+      "background": "mid-dark-solid",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "holdout",
+      "bodyNative": 0.02851138886533134,
+      "sdNative": 0.0019118414967522548,
+      "rimNative": [
+        0.0668545251040169,
+        0.06665470998955553,
+        0.06217175388418146,
+        0.06216501190312757
+      ],
+      "backdropLinearMean": 0.05951123816298119,
+      "backdropEncodedMean": 0.27058823529411763,
+      "backdropSd": 6.938893903907228e-18,
+      "bodyWeb": 0.03073443633152157,
+      "sdWeb": 0.0004154519415645136,
+      "rimWeb": [
+        0.049434014514618894,
+        0.03609835928840967,
+        0.0541301692687961,
+        0.04573272099418604
+      ]
+    },
+    {
+      "scene": "dark-solid__capsule-button__rest-tint-orange",
+      "background": "dark-solid",
+      "component": "capsule-button",
+      "tint": "orange",
+      "set": "calibration",
+      "bodyNative": 0.4242562614753372,
+      "sdNative": 0.0075126290015472665,
+      "rimNative": [
+        0.3451410407835881,
+        0.34495553305902776,
+        0.20420339462883608,
+        0.20420335769735487
+      ],
+      "backdropLinearMean": 0.011711216012871267,
+      "backdropEncodedMean": 0.11038773116395986,
+      "backdropSd": 0.0,
+      "bodyWeb": 0.4274912923192234,
+      "sdWeb": 0.004415720858171165,
+      "rimWeb": [
+        0.3510918150422249,
+        0.37424206458599907,
+        0.21902953979178566,
+        0.28216658400207884
+      ]
+    },
+    {
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "tint": "orange",
+      "set": "calibration",
+      "bodyNative": 0.4342630511107074,
+      "sdNative": 0.007203541011871997,
+      "rimNative": [
+        0.5194193350571831,
+        0.5155041198309884,
+        0.6479041905407228,
+        0.30392518771227794
+      ],
+      "backdropLinearMean": 0.5,
+      "backdropEncodedMean": 0.4999999999999999,
+      "backdropSd": 0.5,
+      "bodyWeb": 0.4275474158186804,
+      "sdWeb": 0.0004756957170554824,
+      "rimWeb": [
+        0.4424283708368846,
+        0.4399151989687792,
+        0.6054526181530476,
+        0.3208261760890738
+      ]
+    },
+    {
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "background": "photo",
+      "component": "capsule-button",
+      "tint": "orange",
+      "set": "calibration",
+      "bodyNative": 0.434316566196523,
+      "sdNative": 0.0053747447892674065,
+      "rimNative": [
+        0.4237932934270536,
+        0.47175838151810345,
+        0.29663518282805657,
+        0.4415229347004988
+      ],
+      "backdropLinearMean": 0.21831444759290805,
+      "backdropEncodedMean": 0.49348509513990557,
+      "backdropSd": 0.09636286348452844,
+      "bodyWeb": 0.42749611898215084,
+      "sdWeb": 0.003324448263411811,
+      "rimWeb": [
+        0.3841825386383968,
+        0.4168973864525247,
+        0.29608036446525177,
+        0.42182224325176937
+      ]
+    }
+  ]
+}

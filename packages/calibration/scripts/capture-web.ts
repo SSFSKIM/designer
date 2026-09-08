@@ -426,6 +426,8 @@ const MATERIAL_PATCH_KEYS = new Set([
   // The same rim at an author tint's full coverage (W23 G1, Decision Log 2 (c)):
   // a painted surface over black keeps a brighter rim than a bare one.
   "rimCollapsedTinted",
+  // How much of an author tint's colour the rim's light is spent in (W23 G3).
+  "rimTintChroma",
   // The backdrop tone response (W9): the anchors of R(encodedMean, thickness),
   // measured constants in the profile document like every other key here.
   "backdropToneAnchorX",

@@ -964,6 +964,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // tint strength (W23 G1's review fix).
         rimCollapsed: collapsedRimUnderPolicy(policy, 0, material),
         rimCollapsedTinted: collapsedRimUnderPolicy(policy, 1, material),
+        // The rim's light in the author's own colour (W23 G3). Under a strong
+        // border the rim is the preference's mark and not the material's, so it
+        // stays white: an accessibility border that took the paint's hue would
+        // be the paint again, which is what it exists not to be.
+        rimTintChroma: policy.border === "strong" ? 0 : material.rimTintChroma,
         lightDirection: material.lightDirection,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,

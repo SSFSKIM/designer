@@ -217,7 +217,11 @@ export function resolveSurface(
   return {
     interior,
     untinted,
-    folded: tintedCssOptics(untinted, shadowed, seedLinear, tone.linearLuminance, grip, shade),
+    // `rimTintChroma` 0 is frozen with the rest of the recording (W23 G3): the
+    // painted rim's colour landed after this JSON was taken, and a replay that
+    // spent the rim's light in the paint would state today's border through
+    // yesterday's tree — the same freeze `RECORDED_SOURCE_OPTICS` is.
+    folded: tintedCssOptics(untinted, shadowed, seedLinear, tone.linearLuminance, grip, shade, 0),
     authorLayer: authorTintLayer(shadowed, seedLinear, tone.linearLuminance, grip, shade),
   };
 }

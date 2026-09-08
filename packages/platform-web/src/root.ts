@@ -152,6 +152,7 @@ import {
   resolvedBackdropTone,
   resolvedBackdropToneResponse,
   resolvedCollapsedRim,
+  resolvedRimTintChroma,
   resolvedPolicyFold,
   resolvedTintShade,
   rimAmplitude,
@@ -1044,6 +1045,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    * defaults would diverge from its twin the moment an app named either.
    */
   let collapsedRimConstants = resolvedCollapsedRim(initialProfile);
+  let rimTintChromaConstant = resolvedRimTintChroma(initialProfile);
   /**
    * The backdrop tone response's anchors (W9), from the same profile — the law
    * that owns the interior mean, where the collapse constants above own
@@ -1075,6 +1077,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     outerShadowConstants = sourceOuterShadow(profile);
     backdropToneConstants = resolvedBackdropTone(profile);
     collapsedRimConstants = resolvedCollapsedRim(profile);
+    rimTintChromaConstant = resolvedRimTintChroma(profile);
     backdropToneResponse = resolvedBackdropToneResponse(profile);
     /*
      * The renderer's own patch takes the *resolved* profile too, so the GPU tier
@@ -2229,6 +2232,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           tintBackdrop,
           tintGrip,
           tintShade,
+          // Off the profile the root was given, like the collapsed rims beside
+          // it: this tier and the renderer spend the rim's light in the same
+          // colour or they draw two different painted surfaces (W23 G3). Under a
+          // strong border the rim is the preference's mark and not the
+          // material's, so it stays white — the renderer folds the same way.
+          accessibility.material.border === "strong" ? 0 : rimTintChromaConstant,
         );
         // The alpha is put back for the same reason `cssTierDeclarations` puts
         // it back: the regime's occlusion lift is inside the source's alpha

@@ -1104,6 +1104,27 @@ export interface MaterialProfile {
   readonly rimCollapsedTinted: number;
 
   /**
+   * **How much of an author tint's own colour the rim's light is spent in**
+   * (W23 G3; claims §5.102) — 0…1, multiplied by the surface's tint coverage.
+   *
+   * Apple's rim on a painted surface is the paint LIFTED, not white added over
+   * it. Read on the contour row's straight-span mean colour at 2x in light, an
+   * orange paint of (255, 148, 0) rises to (254, 188, 0) with its blue channel
+   * still at 0, and a blue paint of (8, 120, 236) to (59, 199, 248); vitrea drew
+   * (255, 192, 130) and (145, 183, 255) — the same rim in white, which turns an
+   * orange edge peach and a blue edge lilac. No luminance clause sees it: the
+   * rim's amplitude is right and its colour is not.
+   *
+   * So the rim's light is spent in `mix(white, paint / max(paint), chroma × s)`.
+   * The paint is normalised by its own brightest channel rather than by its
+   * luminance, so a dark paint darkens the rim's HUE and not its amount, and the
+   * factor is the pixel's own tint strength, so an untinted surface keeps a white
+   * rim at every value of this constant — which is what makes the mechanism reach
+   * painted pixels only and every untinted capture byte-identical (W23 S10).
+   */
+  readonly rimTintChroma: number;
+
+  /**
    * **The backdrop tone response (W9)** — the law that owns the interior MEAN,
    * where the four constants above own texture collapse and nothing else.
    *
@@ -1795,19 +1816,51 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   rimCollapsed: 0.038,
 
   /*
-   * FITTED 0.337 (W23 G1; claims §5.100 §5, Decision Log 2 (c)). The reference's
-   * collapsed tint-orange capsule keeps +0.1149 of contour rim at 1x and +0.1179
-   * at 2x where the bare one keeps +0.0200, and the drawn rim is exactly linear
-   * in this constant, so one rendered point per scale gives each row its own
-   * answer: 0.327 at 1x and 0.349 at 2x, the difference being the band, which is
-   * scale-graded and this constant is not. 0.337 is the minimiser of the worst
-   * residual over the four cells — +0.0036 at 1x and −0.0039 at 2x — and the
-   * three non-holdout cells that carry it (`dark-solid__capsule-button__rest-
-   * tint-orange` and `impulse__capsule-button__rest-tint-orange` on the light bed
-   * and `dark-solid__capsule-button__rest-tint-orange` on the dark one) all
-   * answer the same value in both schemes, because the constant is absolute.
+   * REFITTED 0.337 → 0.520 (W23 G3; claims §5.102) under the painted rim's own
+   * composition. The reference's collapsed tint-orange capsule keeps +0.1149 of
+   * contour rim at 1x and +0.1179 at 2x where the bare one keeps +0.0200, and
+   * the drawn rim is linear in this constant, so one rendered point per scale
+   * gives each row its own answer.
+   *
+   * It moved because the LIGHT is now spent differently, not because the reading
+   * did. `rimTintChroma` spends a painted surface's rim in the paint's own
+   * chromaticity, and an orange paint's red channel is already at 255, so the
+   * share of the light that goes there is lost to the raster: at 0.337 the
+   * collapsed painted rim fell from +0.115 to +0.072 against a reference of
+   * +0.118. The constant carries what the composition costs, which is what an
+   * absolute constant is for.
+   *
+   * The per-side answers are 0.510 at 1x and 0.544 at 2x — the difference is the
+   * band, which is scale-graded and this constant is not — and 0.520 is the
+   * minimiser over all twelve sides, worst residual 0.0055. The three non-holdout
+   * cells that carry it (`dark-solid__capsule-button__rest-tint-orange` and
+   * `impulse__capsule-button__rest-tint-orange` on the light bed and
+   * `dark-solid__capsule-button__rest-tint-orange` on the dark one) answer the
+   * same value in both schemes, because the constant is absolute (X4).
    */
-  rimCollapsedTinted: 0.337,
+  rimCollapsedTinted: 0.52,
+
+  /*
+   * FITTED 1 (W23 G3; claims §5.102) — the rim's light on a painted surface is
+   * spent ENTIRELY in the paint's own chromaticity.
+   *
+   * The rows do not merely prefer it, they ask for more than the constant can be:
+   * over 52 tinted sides of both beds at both scales the per-side answer is
+   * 0.921…1.732 with a mean of 1.154, and the objective is monotone up to the
+   * bound. A mix weight cannot exceed 1, so 1 is both the fit and the ceiling,
+   * and what the rows are really saying past it is that the tinted rows' AMOUNT
+   * is short in the dark scheme — which is the amplitude law's residual and not
+   * this constant's (see below).
+   *
+   * Rendered, mean |Δ| of the contour row's OKLab against the reference's, over
+   * every tinted side of both beds at both scales: **b 0.0554 → 0.0093** and
+   * **a 0.0399 → 0.0222**, with the sides outside the wave's 0.02 falling from
+   * 52 of 52 to 36. The whole of the remaining 36 is `a` on the dark bed's tinted
+   * rows, where vitrea's rim is 0.031 against a reference of 0.127: a rim that
+   * dim cannot move its row's hue whatever colour it is spent in, so that
+   * residual is the dark law's amount and is recorded as one.
+   */
+  rimTintChroma: 1,
 
   /*
    * MEASURED (W9 probe, claims §5.30–§5.33): the anchors are the probe bed's
@@ -2037,6 +2090,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneSizeBias?: number;
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
+  readonly rimTintChroma?: number;
   readonly backdropToneAnchorX?: readonly [number, number, number];
   readonly backdropToneResponseThin?: readonly [number, number, number];
   readonly backdropToneResponseThick?: readonly [number, number, number];
@@ -2165,6 +2219,7 @@ export function withMaterialOverrides(
     backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
+    rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,
     backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
     backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
     backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,
@@ -2243,7 +2298,7 @@ export function opticsUnderPolicy(
  * where a preference has asked for a border.
  *
  * The collapse trades the appearance's own rim for an absolute one, and the
- * absolute one is 0.038 bare and 0.337 painted: what Apple's collapsed capsule
+ * absolute one is 0.038 bare and 0.520 painted: what Apple's collapsed capsule
  * keeps. Under `border: "strong"` that trade would take a border the user's
  * preference asked for and hand back a mark a twenty-fifth as bright, on the one
  * surface that is already the hardest to see — a material that has taken its

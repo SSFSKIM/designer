@@ -148,6 +148,7 @@ export interface OpticsPassArgs {
   readonly rimLevelGain: number;
   readonly rimCollapsed: number;
   readonly rimCollapsedTinted: number;
+  readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -734,10 +735,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // The rim's amplitude law (W23), in a vec4 of its own rather than in a
       // padding slot: the rim's own vec4 is full at four numbers and a rim
       // constant living in the shadow's block is a layout nobody could read.
-      // `d[99]` stays free.
+      // Full since W23 G3, whose `rimTintChroma` took the slot left free.
       d[96] = args.rimLevelGain;
       d[97] = args.rimCollapsed;
       d[98] = args.rimCollapsedTinted;
+      d[99] = args.rimTintChroma;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

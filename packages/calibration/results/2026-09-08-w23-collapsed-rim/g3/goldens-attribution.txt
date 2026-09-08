@@ -1,0 +1,139 @@
+W23 G1 — the landed rim law's reach on every golden, and the suite before the re-record
+
+==============================================================================
+(1) THE ATTRIBUTION — where the rim law's delta lands, per scene
+==============================================================================
+
+Running 1 test using 1 worker
+
+[1/1] [chromium-gpu] › e2e/golden/w23-g3-attribution.spec.ts:113:3 › @golden W23 G3 the painted rim's reach on every golden › the painted rim moves the contour band of the painted scene and nothing else
+[chromium-gpu] › e2e/golden/w23-g3-attribution.spec.ts:113:3 › @golden W23 G3 the painted rim's reach on every golden › the painted rim moves the contour band of the painted scene and nothing else
+W23 G3 — the painted rim's reach on every golden, against the rim G1 left
+
+
+
+`inBand` / `outside` are the largest 8-bit channel delta between G1's rim and this one,
+
+inside and outside the contour band (3 px of a coverage discontinuity). A scene with no
+
+painted surface must not move at all: that is stop S10 on the golden suite.
+
+`movedOut` is the count of pixels outside the band that moved at all: X2 wants it 0.
+
+
+
+scene                       inBand  outside  movedIn  movedOut
+
+field-mask                       0        0        0         0
+
+refraction-checkerboard          0        0        0         0
+
+body-ramp-1x                     0        0        0         0
+
+placed-checkerboard              0        0        0         0
+
+lens-size-scaling                0        0        0         0
+
+tint-adaptation-light            0        0        0         0
+
+tint-adaptation-dark             0        0        0         0
+
+rim-two-references               0        0        0         0
+
+concentric-nesting               0        0        0         0
+
+union-pair                       0        0        0         0
+
+collapsed-tone                 130        0     1448         0
+
+highlight-press-glow             0        0        0         0
+
+
+
+the largest movement outside any contour band, over every scene: 0
+
+  1 passed (3.2s)
+
+==============================================================================
+(2) THE SUITE BEFORE THE RE-RECORD — every golden the rim moves, with its hash
+==============================================================================
+
+Running 31 tests using 1 worker
+
+[1/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › field-mask renders its pinned bytes from the named profile
+[2/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile
+[3/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › body-ramp-1x renders its pinned bytes from the named profile
+[4/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile
+[5/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile
+[6/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › tint-adaptation-light renders its pinned bytes from the named profile
+[7/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › tint-adaptation-dark renders its pinned bytes from the named profile
+[8/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile
+[9/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile
+[10/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile
+[11/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › collapsed-tone renders its pinned bytes from the named profile
+  1) [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › collapsed-tone renders its pinned bytes from the named profile 
+
+    Error: collapsed-tone: rendering with the named profile, outer shadow declined, must reproduce its pinned bytes — if this moved, find what moved it before re-recording the hash
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "af0fb2ffdbae964c9ebf7dbbea8ba04a"
+    Received: "931de3048608304e6cbc70e69833e6c8"
+
+      665 |           `must reproduce its pinned bytes — if this moved, find what moved it ` +
+      666 |           `before re-recording the hash`,
+    > 667 |       ).toBe(expectedHashFor(scene.name));
+          |         ^
+      668 |     });
+      669 |   }
+      670 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/w23-g1/packages/renderer-webgpu/e2e/golden/isolation.spec.ts:667:9
+
+    Error Context: test-results/golden-isolation--golden-t-12b13-ytes-from-the-named-profile-chromium-gpu/error-context.md
+
+
+[12/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › highlight-press-glow renders its pinned bytes from the named profile
+[13/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:671:3 › @golden the goldens move only through the named profile seam › the outer shadow is the whole of W8's delta — it draws, and only there
+[14/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:725:3 › @golden the goldens move only through the named profile seam › the geometry change is confined to the scenes it can reach
+[15/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:741:3 › @golden the goldens move only through the named profile seam › the 1x pin carries the depth ramp — its fail-before record
+[16/31] [chromium-gpu] › e2e/golden/isolation.spec.ts:773:3 › @golden the goldens move only through the named profile seam › and the tuned profile is not the old one — the proof is not vacuous
+[17/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › field-mask matches its golden
+[18/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › refraction-checkerboard matches its golden
+[19/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › body-ramp-1x matches its golden
+[20/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › placed-checkerboard matches its golden
+[21/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › lens-size-scaling matches its golden
+[22/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-light matches its golden
+[23/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-dark matches its golden
+[24/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › rim-two-references matches its golden
+[25/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › concentric-nesting matches its golden
+[26/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › union-pair matches its golden
+[27/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › collapsed-tone matches its golden
+  2) [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › collapsed-tone matches its golden 
+
+    Error: collapsed-tone: max channel delta
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 4
+    Received:    130
+
+      75 |
+      76 |       const difference = compare(actual, expected);
+    > 77 |       expect(difference.maxChannelDelta, `${scene.name}: max channel delta`).toBeLessThanOrEqual(
+         |                                                                              ^
+      78 |         MAX_CHANNEL_DELTA,
+      79 |       );
+      80 |       expect(difference.meanChannelDelta, `${scene.name}: mean channel delta`).toBeLessThanOrEqual(
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/w23-g1/packages/renderer-webgpu/e2e/golden/scenes.spec.ts:77:78
+
+    Error Context: test-results/golden-scenes--golden-sRGB-e32fb-sed-tone-matches-its-golden-chromium-gpu/error-context.md
+
+
+[28/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › highlight-press-glow matches its golden
+[29/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:91:3 › @golden the goldens are distinguishable › two scenes that should differ do differ
+[30/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:112:3 › @golden acceptance #2 — lensing scales with surface size › a larger surface bends a deeper band of the same backdrop
+[31/31] [chromium-gpu] › e2e/golden/scenes.spec.ts:205:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced
+  2 failed
+    [chromium-gpu] › e2e/golden/isolation.spec.ts:651:5 › @golden the goldens move only through the named profile seam › collapsed-tone renders its pinned bytes from the named profile 
+    [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › collapsed-tone matches its golden 
+  29 passed (10.8s)

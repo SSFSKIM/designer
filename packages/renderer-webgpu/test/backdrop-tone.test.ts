@@ -433,7 +433,8 @@ describe("the optics pass's statement of the axis", () => {
     expect(shipped.rimLevelGain).toBe(-0.628);
     expect(shipped.rimWidth2x).toBe(1.35);
     expect(DEFAULT_MATERIAL_PROFILE.rimCollapsed).toBe(0.038);
-    expect(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted).toBe(0.337);
+    expect(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted).toBe(0.52);
+    expect(DEFAULT_MATERIAL_PROFILE.rimTintChroma).toBe(1);
     // A bare surface: `toneAdapt` 1 draws exactly the collapsed rim, 0 exactly
     // the appearance's own, and the crossover is the one lerp.
     expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 0)).toBeCloseTo(0.038, 12);
@@ -448,9 +449,9 @@ describe("the optics pass's statement of the axis", () => {
     // A painted one keeps the brighter collapsed rim the reference draws on it,
     // and half a tint's coverage keeps half the difference — the reference's
     // +0.115 against +0.020 on the same fixture (claims §5.100 §5).
-    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 1)).toBeCloseTo(0.337, 12);
+    expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 1)).toBeCloseTo(0.52, 12);
     expect(rim(shipped, DEFAULT_MATERIAL_PROFILE, 0.48, 1, 0.5)).toBeCloseTo(
-      (0.038 + 0.337) / 2,
+      (0.038 + 0.52) / 2,
       12,
     );
     // Uncollapsed, the tint reaches the rim only through the surface's own level

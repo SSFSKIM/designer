@@ -13918,3 +13918,94 @@ every CSS mover named. Accepted as declared: `rimWidth2x` 1.35, `rimEnvGain` rem
 feed on 42 groups per bed. `rimCollapsedTinted` 0.337 and the material-level input were fitted with
 the rim over the paint and are G3's to keep or replace.
 
+
+### 5.103 W23 G3 DECLARED: the rim beneath the paint — a painted surface's rim is spent in the paint's own chromaticity, which is what Apple draws and what no luminance clause could see; the tinted rows' hue closes on the b axis and the residual on a is the dark bed's amount; no untinted capture moves, ten of eleven goldens move no pixel, and the holdout is read once on the configuration that lands (2026-09-09)
+
+**Evidence** `results/2026-09-08-w23-collapsed-rim/g3/` — `g3-findings.md` (the declaration above the
+rule, the run below it), `chroma-before.txt` and `chroma-after.txt`, `fit-chroma.txt`,
+`tinted-rows.txt`, `untinted-identity.txt`, `g3-clauses.txt`, `stops.txt`, `delta-e.txt`,
+`byte-identity.txt`, `g3-digests.txt`, `g3-gate.txt`, `goldens-attribution.txt`, `sheets/g3-1x.png`
+and `g3-2x.png`. Six profiles, both tiers, 229 cells, the holdout read once at the final
+configuration; G1's read stands on the record as spent (§5.102, Decision Log 3 (f)).
+
+**§1 The instrument gained a hue column.** `read-contour.py`, this gate's copy, now reports the
+contour ROW's straight-span mean COLOUR — encoded sRGB for reading and OKLab for the clause — beside
+the amplitude it already read. The colour is meaned in linear light and the clause is on (a, b),
+because a chromaticity read in sRGB would call an orange whose red channel has clipped a different
+hue from the same orange one code darker.
+
+**§2 What the reference does, measured.** The tinted bases agree to a code — the paint is right —
+and the rows do not. Light 2x, contour row's mean RGB, native | landed 0.11.0 | G1:
+`dark-solid__capsule-button__rest-tint-orange` **(255, 189, 0)** | (255, 149, 0) | (255, 192, 130);
+`photo__…-tint-orange` **(245, 188, 14)** | (247, 163, 99) | (255, 197, 153);
+`checkerboard__…-tint-blue` **(58, 199, 248)** | (100, 153, 250) | (145, 183, 255). Apple lifts an
+orange's green channel and leaves its blue at 0; vitrea lifted all three, which turns an orange edge
+peach and a blue edge lilac.
+
+**§3 The composition, chosen on the rows.** A rim strictly BENEATH the author layer is refuted before
+a capture — the reference's tinted base over `dark-solid` is the seed exactly, so the paint is opaque
+there and a rim under an opaque paint is no rim, where the reference draws +0.118. What lands is the
+rim's light spent in the paint's own colour, and the rows chose which normalisation:
+
+| the light is spent in | mean \|da\| | mean \|db\| | the collapsed painted rim |
+| --- | --- | --- | --- |
+| white (G1) | 0.0399 | 0.0554 | +0.115 against +0.118 |
+| the paint / its brightest channel | 0.0441 | 0.0221 | **+0.030** against +0.118 |
+| **the paint / its LUMINANCE** | **0.0222** | **0.0093** | +0.072 against +0.118 |
+
+The brightest-channel form reproduces the hue and loses the amount — it divides the rim's luminance
+by the paint's. The luminance form is what the reference's own channels say: on the collapsed orange
+capsule at 2x the reference lifts green by 0.213 of linear light where a white rim of the same amount
+lifts it by 0.304, and 0.213 / 0.304 = 0.70 is exactly that orange's green coefficient over its
+luminance. So the rim's light is `mix(white, paint / luminance(paint), rimTintChroma × tintStrength)`,
+with a floor of 0.05 on the divisor.
+
+**§4 The constants.** `rimTintChroma` **1** — the rows ask for more than a mix weight can be
+(per-side answers 0.921…1.732 over 52 tinted sides, mean 1.154, the objective monotone to the bound)
+— and `rimCollapsedTinted` **0.337 → 0.520**, which carries what the composition costs where the
+paint's brightest channel has already saturated (per-side answers 0.510 at 1x and 0.544 at 2x, worst
+residual 0.0055). Fingerprints `ee0010558553ee12` → **`c426a37744c38cce`** (light) and
+`afd0e999e2f5813e` → **`bf5752ac1b152238`** (dark); the dark PATCH does not move and its resolved
+material does. `rimTintChroma` is 0 under a strong border on both tiers: an accessibility border that
+took the paint's hue would be the paint again.
+
+**§5 The hue clause.** Over 52 tinted sides of both beds at both scales on the GPU tier, mean |Δ|
+against the reference: **a 0.0399 → 0.0203 and b 0.0554 → 0.0088**, better than the landed bed on
+both axes (0.0520 / 0.0371) and with the sides outside 0.02 falling from 52 to 36. **The clause's
+0.02 is not met on those 36**, and every one is `a` on the dark bed's tinted rows, where vitrea
+draws 0.031 of contour rim against +0.127: a rim that dim cannot move its row's hue whatever colour
+it is spent in. That is the dark amplitude law's amount and it is in the tracker.
+
+**§6 The amount the hue must not cost (S9).** No tinted row is worse than the landed bed at all —
+worst excess over Decision Log 2 (c)'s 0.03 is **0.0000** — and every collapsed painted side is
+inside 0.05 at a worst of **0.0052**.
+
+**§7 The mechanism reaches painted pixels only (S10).** On the ladder, with `rimTintChroma` the only
+difference in the build, **0 untinted captures moved and 0 tinted captures did not**, on all four
+beds. The golden suite says it from the other side: ten of the eleven scenes moved **0 pixels** and
+the eleventh is `collapsed-tone`, the only scene carrying a paint, which moved 1 448 pixels by at
+most 130 codes with nothing outside its contour band. One hash re-recorded under `W23_G3_HASHES`.
+Against G1's dry run the count is 16, and all 16 are attributable elsewhere: 14 to the review fix
+wave's strong-border fold on the increased-contrast profile and two to a one-code capture flake
+already in the tracker.
+
+**§8 The bed.** Every GPU calibration mean improves and by more than G1's did — light 0.00330 →
+**0.00324** (1x) and 0.00333 → **0.00329** (2x), dark 0.00404 → **0.00395** and 0.00403 →
+**0.00397**. **The holdout, read once at the landing configuration:** light **0.00914 → 0.00901**
+(1x) and **0.00906 → 0.00898** (2x), dark 0.01326 → 0.01331 and 0.01301 → 0.01317. S1 fires on no
+row; **S3 no longer fires** (the CSS mean that rose +0.00011 at G1 is inside the stop). S2 fires
+unchanged at +0.0035 on one CSS cell, already taken at the number. Clauses 1–4 are G1's numbers
+exactly, because no untinted capture moved. `PREDICATE_EXCLUDES` re-derives 29 → 27 as before.
+
+**§9 The review fix wave, landed with it** (Decision Log 3 (i)). Three verified findings, each with a
+unit test that failed against the code as it stood: the accessibility border now substitutes the
+WHOLE rim (both width anchors, the level gain and the collapsed rim — `rimWidth2x` had narrowed a
+declared 2 CSS px border to 1.35 at dpr 2, and `rimLevelGain` had turned a declared 0.95 into 0.35 on
+a bright surface); the CSS tier reads the collapsed rims off the profile the root was given rather
+than off its mirrored defaults; and `borderAlphaPerRimAlpha` became per variant, `{ regular: 0.64,
+clear: 1.95 }`, because only the regular variant's rim became a law and one ratio over both divided
+the clear variant's border by three.
+
+**Gaps this gate adds to the record:** the dark bed's tinted rows' AMOUNT, which is what the hue
+clause's remaining 36 sides really measure; and the CSS tier's one inset shadow against a coloured
+light added per pixel. Both are in `tech-debt-tracker.md`.

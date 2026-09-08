@@ -32,6 +32,9 @@ import {
   resolvedCollapsedRim,
   RIM_COLLAPSED,
   RIM_COLLAPSED_TINTED,
+  RIM_TINT_CHROMA,
+  resolvedRimTintChroma,
+  rimTintColour,
   rimAmplitude,
   sourceOptics,
 } from "../src/optics";
@@ -278,5 +281,56 @@ describe("the border conversion is the variant's (W23 G1 review)", () => {
     expect(amplitude).toBeCloseTo(0.5483, 4);
     expect(cssTierOptics().regular.borderAlpha).toBeCloseTo(0.3509, 4);
     expect(cssTierOptics().regular.borderAlpha).toBeCloseTo(0.18 * 1.95, 3);
+  });
+});
+
+describe("the rim's colour on a painted surface (W23 G3)", () => {
+  /*
+   * Apple's rim on a tinted capsule is the paint LIFTED — an orange of
+   * (255, 148, 0) rises to (254, 188, 0) with its blue channel still at 0 — and
+   * vitrea drew (255, 192, 130), the same rim in white. This tier draws the rim
+   * as one inset `box-shadow`, so what it has to get right is the shadow's
+   * COLOUR, and the expression is the shader's own read once per surface.
+   */
+  it("is white at chroma 0, the paint's CHROMATICITY at 1, and the mix between", () => {
+    const white: [number, number, number] = [255, 255, 255];
+    const orange = { color: [255, 148, 0] as [number, number, number], strength: 1 };
+    expect(rimTintColour(white, orange, 0)).toEqual(white);
+    /*
+     * Normalised by the paint's own LUMINANCE and not by its brightest channel,
+     * which is what the rows chose (claims §5.102): the rim keeps its AMOUNT and
+     * takes only its hue. That orange is (1, 0.2961, 0) in linear light at a
+     * luminance of 0.4244, so the gains are (2.356, 0.698, 0) — red saturates,
+     * green takes 0.70 of the light and blue takes none, which is the ratio the
+     * reference's own contour row carries. A normalisation by the brightest
+     * channel would have given green 0.30 and divided the rim's luminance by the
+     * paint's, which the collapsed orange capsule measured as 0.115 → 0.030.
+     */
+    const [r, g, b] = rimTintColour(white, orange, 1);
+    expect(r).toBe(255);
+    expect(g / 255).toBeCloseTo(0.698, 2);
+    expect(b).toBe(0);
+    // Half the chroma is half the way from white to that.
+    const [hr, hg, hb] = rimTintColour(white, orange, 0.5);
+    expect(hr).toBe(255);
+    expect(hg / 255).toBeCloseTo((1 + 0.698) / 2, 2);
+    expect(hb / 255).toBeCloseTo(0.5, 2);
+  });
+
+  it("is the pixel's own tint strength that gates it, so an untinted surface is untouched", () => {
+    const white: [number, number, number] = [255, 255, 255];
+    for (const chroma of [0, 0.5, 1]) {
+      expect(rimTintColour(white, { color: [255, 148, 0], strength: 0 }, chroma)).toEqual(white);
+    }
+    // Half a coverage takes half the hue, which is the shader's `chroma × s`.
+    expect(rimTintColour(white, { color: [255, 148, 0], strength: 0.5 }, 1)).toEqual(
+      rimTintColour(white, { color: [255, 148, 0], strength: 1 }, 0.5),
+    );
+  });
+
+  it("reads the constant off the profile the root was given", () => {
+    expect(resolvedRimTintChroma()).toBe(RIM_TINT_CHROMA);
+    expect(resolvedRimTintChroma({})).toBe(RIM_TINT_CHROMA);
+    expect(resolvedRimTintChroma({ rimTintChroma: 1 })).toBe(1);
   });
 });

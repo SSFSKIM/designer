@@ -41,6 +41,7 @@ import {
   REDUCED_TRANSPARENCY_FROST,
   RIM_COLLAPSED,
   RIM_COLLAPSED_TINTED,
+  RIM_TINT_CHROMA,
   STRONG_BORDER,
   TINT_SHADE,
   authorTintLayer,
@@ -217,6 +218,10 @@ describe("tier coherence (K5)", () => {
      */
     expect(RIM_COLLAPSED).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsed);
     expect(RIM_COLLAPSED_TINTED).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted);
+    // And the colour the rim's light is spent in on a painted surface (W23 G3):
+    // profile-level for the same reason, and mirrored so the two tiers cannot
+    // draw one painted surface two ways.
+    expect(RIM_TINT_CHROMA).toBe(DEFAULT_MATERIAL_PROFILE.rimTintChroma);
     expect(collapsedRim(0)).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsed);
     expect(collapsedRim(1)).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted);
     expect(collapsedRim(0.5)).toBeCloseTo(

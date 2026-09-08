@@ -609,7 +609,31 @@ const W23_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "54fa5082b5504cc22b16d4ebc1f29eb3",
 };
 
+/**
+ * **W23 G3 — the rim beneath the paint** (claims §5.102). ONE golden moves, and
+ * which one is the attribution.
+ *
+ * Two constants: `rimTintChroma` 1 spends a painted surface's rim in the paint's
+ * own chromaticity rather than in white, and `rimCollapsedTinted` 0.337 → 0.520
+ * carries what that composition costs, since the share of the light spent toward
+ * an already-saturated channel is lost to the raster. Both are gated by the
+ * pixel's own tint strength, so they reach PAINTED pixels and nothing else.
+ *
+ * `results/2026-09-08-w23-collapsed-rim/g3/goldens-attribution.txt`: every scene
+ * rendered twice through this file's own profile seam, once with the two
+ * constants back at G1's values and once as shipped. **Ten of the eleven scenes
+ * moved 0 pixels.** The eleventh is `collapsed-tone`, the only scene in the suite
+ * that carries an author tint, and it moved 1 448 pixels by at most 130 code
+ * values — every one of them inside a contour band, none outside any band on any
+ * scene. That list being exactly the painted scenes is stop S10 read on the
+ * golden suite, and it is why one hash moves here where W23 G1 moved ten.
+ */
+const W23_G3_HASHES: Readonly<Record<string, string>> = {
+  "collapsed-tone": "931de3048608304e6cbc70e69833e6c8",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W23_G3_HASHES[name] ??
   W23_HASHES[name] ??
   W22_HASHES[name] ??
   W15_G2_HASHES[name] ??

@@ -908,3 +908,26 @@ the two can disagree is the rim in the CORNERS: on the straight span vitrea now 
 reference and over the whole side it overshoots. A candidate rather than a proof — no reader in the
 project measures the corner arc's rim. Closes when a corner reader exists and says which of the two
 is right, or when the parent restates clause 4 on the straight span.
+
+## The dark bed's tinted rows are 0.031 of contour rim against a reference of 0.127, and no colour the rim is spent in can move their hue (W23 G3, 2026-09-09)
+
+*Found landing the painted rim's colour (claims §5.102).* `rimTintChroma` brought the tinted rows'
+OKLab b to within 0.009 of the reference's on average, and left `a` at 0.022 — with every one of the
+36 sides still outside the wave's 0.02 sitting on the DARK bed, where `checkerboard__capsule-
+button__rest-tint-orange` and `photo__…-tint-orange` draw 0.031 of contour rim against +0.127. A rim
+that dim cannot move its row's hue whatever colour it is spent in, so the residual is the dark
+amplitude law's amount and not the composition's. The dark law is fitted on one canonical solid cell
+plus W21's probe grid (the tracker entry above), so closing it needs a bed with more than one
+fittable dark solid. Closes with the dark bed's own fitting ground.
+
+## The CSS tier colours one inset shadow where the renderer adds a coloured light per pixel (W23 G3, 2026-09-09)
+
+*Found mirroring the painted rim (claims §5.102).* The renderer spends the rim's light in
+`mix(white, paint / luminance(paint), chroma × strength)` and adds it to a linear composite, where
+the CSS tier can only set the `border-color` of one inset `box-shadow` whose alpha is fixed by
+`borderAlphaPerRimAlpha`. A channel the normalisation pushes past the border's own value is clamped
+on this tier and clips in the composite on the other, and the mix is taken in the encoded space this
+tier composites in rather than in linear light. The two agree at the ends — chroma 0, and a white
+paint — and differ in the middle by the transfer's curvature. A CSS-only residual under wave
+Decision Log 23 (a); closes with the CSS rim wave that fits `borderAlphaPerRimAlpha` on the contour
+instrument.

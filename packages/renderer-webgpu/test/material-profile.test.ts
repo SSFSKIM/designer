@@ -156,7 +156,7 @@ describe("withMaterialOverrides", () => {
   it("keeps the strong border under the collapse, painted or bare", () => {
     /*
      * The collapse trades the appearance's rim for an absolute one — 0.038 bare,
-     * 0.337 painted — and under a strong border that would hand back a mark a
+     * 0.520 painted — and under a strong border that would hand back a mark a
      * twenty-fifth as bright on the surface that is already hardest to see. The
      * substitution reaches the collapsed rim too (W23 G1's review fix).
      */
