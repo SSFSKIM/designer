@@ -1,0 +1,63 @@
+W24 G1 (b) — solve-state: what the collapse and the response solve are actually doing, per cell
+
+Read off the calibration page's own publication in the landed 0.12.0 captures
+(`web-captures/<profile>/<scene>/report__webgpu.json`, `page.groups[].backdropTone` beside
+`page.surfaces[].bounds` and the material patch the run was given), evaluated through the shader's
+own arithmetic by `solve-state.py`. The matrix is at `408ad2e`; `--renderer webgpu`.
+
+Columns: `sizeK` the size law's thickness at the surface's span; `toneX` the collapse's argument
+(`level + backdropToneSizeBias · sizeK`); `k` the collapse's strength; `alpha` the pre-solve
+occlusion; `auth` the W9 response solve's authority; `solve` whether that solve runs at all.
+
+THE FINDING THIS TABLE CARRIES, and it decides G1's mechanism question:
+
+  1. On every `impulse__capsule-button` cell — both schemes, both scales, bare and tinted — the
+     collapse is FULL: `k` = 1.0000 exactly (toneX 0.0049, well under `backdropToneLow` 0.02).
+  2. On those cells the alpha solve does not run, and it is stood down TWICE over: by `k ≥ 0.995`
+     ("at k → 1 the collapse owns the pixel outright") and independently by `auth` = 0 (the
+     backdrop's encoded level 0.00375 is below half the dark anchor 0.1104). So the transmission
+     cannot have been removed by the solve. It is removed by the collapse's TARGET.
+  3. The dark thin structured cells the wave's clause 3 names — `checkerboard__capsule-button` and
+     `photo__capsule-button` — have `k` = 0.0000 at both scales in both schemes (toneX 0.219 and
+     0.155 against `backdropToneHigh` 0.055). The collapse is not running on them at all, so a
+     transmitting collapse cannot reach them; see `g1-findings.md`.
+  4. The mechanism's whole reach on this bed is therefore: the four `impulse__capsule-button` cells
+     and `impulse__capsule-button__rest-tint-orange` at k = 1, `impulse__rrect-md__rest` at
+     k = 0.049, and the `dark-solid__*` capsules at k = 1 where the backdrop is solid and the
+     per-pixel sample IS the mean (byte-identical at any constant, which is the fit's stop).
+
+profile                                 scene                             node      span   sizeK    level   toneX       k   alpha   auth  solve
+apple-macos-26.5-1x-light-standard      impulse__capsule-button__rest     body        44  0.0923  0.00029  0.0049  1.0000  0.4625  0.000     no
+apple-macos-26.5-1x-dark-standard       impulse__capsule-button__rest     body        44  0.0923  0.00029  0.0049  1.0000  0.9005  0.000     no
+apple-macos-26.5-1x-light-standard      impulse__capsule-button__rest-tint-orangebody        44  0.0923  0.00029  0.0049  1.0000  0.4625  0.000     no
+apple-macos-26.5-1x-light-standard      impulse__rrect-md__rest           body        96  1.0000  0.00029  0.0503  0.0494  0.4870  0.000     no
+apple-macos-26.5-1x-light-standard      dark-solid__capsule-button__rest  body        44  0.0923  0.01171  0.0163  1.0000  0.4625  1.000     no
+apple-macos-26.5-1x-dark-standard       dark-solid__capsule-button__rest  body        44  0.0923  0.01171  0.0163  1.0000  0.9005  1.000     no
+apple-macos-26.5-1x-light-standard      dark-solid__capsule-button__rest-tint-orangebody        44  0.0923  0.01171  0.0163  1.0000  0.4625  1.000     no
+apple-macos-26.5-1x-dark-standard       dark-solid__capsule-button__rest-tint-orangebody        44  0.0923  0.01171  0.0163  1.0000  0.9005  1.000     no
+apple-macos-26.5-1x-light-standard      dark-solid__rrect-md__rest        body        96  1.0000  0.01171  0.0617  0.0000  0.4870  1.000    yes
+apple-macos-26.5-1x-dark-standard       dark-solid__rrect-md__rest        body        96  1.0000  0.01171  0.0617  0.0000  0.9050  1.000    yes
+apple-macos-26.5-1x-light-standard      checkerboard__capsule-button__restbody        44  0.0923  0.21404  0.2187  0.0000  0.4625  1.000    yes
+apple-macos-26.5-1x-dark-standard       checkerboard__capsule-button__restbody        44  0.0923  0.21404  0.2187  0.0000  0.9005  1.000    yes
+apple-macos-26.5-1x-light-standard      photo__capsule-button__rest       body        44  0.0923  0.15148  0.1561  0.0000  0.4625  1.000    yes
+apple-macos-26.5-1x-dark-standard       photo__capsule-button__rest       body        44  0.0923  0.15148  0.1561  0.0000  0.9005  1.000    yes
+apple-macos-26.5-1x-light-standard      mid-dark-solid__capsule-button__restbody        44  0.0923  0.05951  0.0641  0.0000  0.4625  1.000    yes
+apple-macos-26.5-1x-dark-standard       mid-dark-solid__capsule-button__restbody        44  0.0923  0.05951  0.0641  0.0000  0.9005  1.000    yes
+apple-macos-26.5-1x-light-standard      light-solid__capsule-button__rest body        44  0.0923  0.89097  0.8956  0.0000  0.4625  1.000    yes
+apple-macos-26.5-2x-light-standard      impulse__capsule-button__rest     body        44  0.0923  0.00029  0.0049  1.0000  0.4625  0.000     no
+apple-macos-26.5-2x-dark-standard       impulse__capsule-button__rest     body        44  0.0923  0.00029  0.0049  1.0000  0.9005  0.000     no
+apple-macos-26.5-2x-light-standard      impulse__capsule-button__rest-tint-orangebody        44  0.0923  0.00029  0.0049  1.0000  0.4625  0.000     no
+apple-macos-26.5-2x-light-standard      impulse__rrect-md__rest           body        96  1.0000  0.00029  0.0503  0.0495  0.4870  0.000     no
+apple-macos-26.5-2x-light-standard      dark-solid__capsule-button__rest  body        44  0.0923  0.01171  0.0163  1.0000  0.4625  1.000     no
+apple-macos-26.5-2x-dark-standard       dark-solid__capsule-button__rest  body        44  0.0923  0.01171  0.0163  1.0000  0.9005  1.000     no
+apple-macos-26.5-2x-light-standard      dark-solid__capsule-button__rest-tint-orangebody        44  0.0923  0.01171  0.0163  1.0000  0.4625  1.000     no
+apple-macos-26.5-2x-dark-standard       dark-solid__capsule-button__rest-tint-orangebody        44  0.0923  0.01171  0.0163  1.0000  0.9005  1.000     no
+apple-macos-26.5-2x-light-standard      dark-solid__rrect-md__rest        body        96  1.0000  0.01171  0.0617  0.0000  0.4870  1.000    yes
+apple-macos-26.5-2x-dark-standard       dark-solid__rrect-md__rest        body        96  1.0000  0.01171  0.0617  0.0000  0.9050  1.000    yes
+apple-macos-26.5-2x-light-standard      checkerboard__capsule-button__restbody        44  0.0923  0.21393  0.2185  0.0000  0.4625  1.000    yes
+apple-macos-26.5-2x-dark-standard       checkerboard__capsule-button__restbody        44  0.0923  0.21393  0.2185  0.0000  0.9005  1.000    yes
+apple-macos-26.5-2x-light-standard      photo__capsule-button__rest       body        44  0.0923  0.15014  0.1548  0.0000  0.4625  1.000    yes
+apple-macos-26.5-2x-dark-standard       photo__capsule-button__rest       body        44  0.0923  0.15014  0.1548  0.0000  0.9005  1.000    yes
+apple-macos-26.5-2x-light-standard      mid-dark-solid__capsule-button__restbody        44  0.0923  0.05951  0.0641  0.0000  0.4625  1.000    yes
+apple-macos-26.5-2x-dark-standard       mid-dark-solid__capsule-button__restbody        44  0.0923  0.05951  0.0641  0.0000  0.9005  1.000    yes
+apple-macos-26.5-2x-light-standard      light-solid__capsule-button__rest body        44  0.0923  0.89097  0.8956  0.0000  0.4625  1.000    yes

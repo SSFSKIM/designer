@@ -419,6 +419,17 @@ const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneLow",
   "backdropToneHigh",
   "backdropToneSizeBias",
+  // The transmission the collapse keeps (W24 G1): how far the collapse's target
+  // moves from the group's mean backdrop colour to the per-pixel blurred sample.
+  // A profile-level constant like `rimCollapsed`, and per SCALE rather than per
+  // scheme — the collapsed appearance is one appearance in both schemes, and
+  // what separates the rows is the width of the kernel the reference transmits
+  // through, which is a different number at each scale.
+  "collapseTransmission",
+  // Its second anchor at dpr 2 (the same pattern as `sizeScatterGainMax2x`),
+  // because one profile document serves both scales and the reference's
+  // transmitted kernel is a different width at each of them.
+  "collapseTransmission2x",
   // The rim that survives the collapse (W23): a profile-level constant, because
   // the collapsed appearance is one appearance in both schemes (the reference's
   // light and dark fixtures of the collapsed cells are byte-identical).
