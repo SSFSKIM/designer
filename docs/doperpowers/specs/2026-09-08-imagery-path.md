@@ -1,6 +1,6 @@
 # The imagery path
 
-**Status:** in progress. **Follows** `2026-09-05-settling-experiment.md`, whose 52 builds showed
+**Status:** landed (2.2.1). **Follows** `2026-09-05-settling-experiment.md`, whose 52 builds showed
 the gap this closes, and the user's question of 2026-09-08 ("does our skill have a path that lets
 it use the photos it needs?"). Sources compared: the Figma Make interview's imagery rules and
 Unsplash tool (`Figma Design/Interview Round 2 Result.md` §60–62 and its image-search workflow)
@@ -179,13 +179,53 @@ Three builds at roughly 0.4 M tokens each, one measurement pass, one look.
 
 - A role-aware locator for the settling instrument (the accent read), unrelated to this path but
   the same lesson: read the role, not the statistic.
-- Pexels as a third keyed source, if Unsplash's fifty-an-hour demo limit binds on a large build.
+- Unsplash production access (five thousand requests an hour) — the user's application; the
+  demo tier bound inside one build.
+- Pexels as a third keyed source, if production access is not granted.
+- A library rebuild under 2.2.1, to see disqualifier 11 hold on the brief that produced it.
 - The vitrea route: a photograph beneath a glass surface needs the backdrop hint measured from
   the image, which `references/material.md` already describes.
 
 ## Outcomes & Retrospective
 
-Pending — written after the acceptance builds.
+Four builds — the three image-led briefs under 2.2.0 with the key present, then hardware again
+under 2.2.1 — audited by `docs/research/scripts/imagery-check.mjs`; the audit and each build's
+saved search and pick output are under `docs/research/data/2026-09-08-imagery-check/`.
+
+- **A1 — met, four of four.** Every build ships photographs that resolve (rebate 2, hardware 10,
+  library 2, hardware-2 2) and every record names the rung per slot. The same three briefs
+  shipped none of the 52 settling builds' zero photographs.
+- **A2 — met on three, not on the first hardware build.** Every image in every build carries
+  alt text, intrinsic size and a container colour. The first hardware build credited ten
+  photographs as "by their authors on Unsplash" with no names — a placement the reference had
+  not addressed, now the credit rule and the audit's name check; the rebuild names both
+  photographers in one footer line.
+- **A3 — met, four of four.** No `src` was guessed: every remote URL appears in the builder's
+  saved script output.
+- **A4 — met, four of four.** No page error, no overflow, no placeholder.
+- **A5 — met on three, partly on library.** Rebate: a wall of battery cabinets and an installer
+  at a service panel, captioned. Hardware: a drill, hammer, chisels, brass fittings, a rack of
+  old tools on whitewashed boards — the product's world, one photograph per featured item, which
+  the brief's "featured tools" earns. Hardware-2: a stocked aisle as hero and rain running off a
+  K-style gutter under the seasonal guide, the tools drawn as line plates. Library: the
+  picture-book baskets pass; the hero is a casual Flickr snapshot of an identifiable child cast
+  as the programme's reader, taken from the Openverse rung after Unsplash's quota was spent —
+  permitted by licence, wrong by the judgment the reference now states (disqualifier 11).
+
+**What the run settled.** The skill had the whole art direction for photographs and no way to
+obtain one; with a way, fresh agents use it well on the first try — narrow queries, one pick
+rejected on sight as the wrong country, credits and captions, and drawn artifacts where the
+subject is an object. The costs are operational, not aesthetic: hourly quotas bind inside a
+single build, and the free rung's editorial band is low enough that a stock child can land in
+a hero. Both are now handled in the script and the reference, and the second is the one to
+watch, because it is a judgment the licence does not make for you.
+
+**Retrospective.** Reading the sources before designing paid twice: Unsplash's own guidelines
+(download endpoint, UTM links, credit) shaped `pick`, and impeccable's "guessed ids 404" shaped
+the verify step that made the never-guess rule mechanical. The audit's first credit check
+would have passed a token line; checking each photographer's name against the page is the
+right test and it found the miss. Cost: four builds at roughly 0.35 M tokens each, under the
+declared budget with the rebuild.
 
 ## Revision Notes
 

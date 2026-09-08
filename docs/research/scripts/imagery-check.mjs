@@ -25,12 +25,15 @@ async function head(url) {
   finally { clearTimeout(t); }
 }
 
-function savedCreators(dir) {
+// Photographers of the picked photos that are actually on the page; a pick rejected on sight
+// owes no credit.
+function savedCreators(dir, pageUrls) {
   const d = path.join(dir, "images"); const names = new Set();
   if (!fs.existsSync(d)) return names;
+  const base = (u) => (u || "").split("&w=")[0].split("?")[0];
   for (const f of fs.readdirSync(d)) {
     if (!f.startsWith("pick") || !f.endsWith(".json")) continue;
-    try { const j = JSON.parse(fs.readFileSync(path.join(d, f), "utf8")); if (j.creator) names.add(j.creator); } catch { /* not evidence */ }
+    try { const j = JSON.parse(fs.readFileSync(path.join(d, f), "utf8")); if (j.creator && pageUrls.has(base(j.url))) names.add(j.creator); } catch { /* not evidence */ }
   }
   return names;
 }
@@ -100,7 +103,7 @@ async function check(browser, dir) {
   const rung = (design.match(/\b(project asset|unsplash|openverse|drawn)\b/gi) || []).map((s) => s.toLowerCase());
   const photos = r.imgs.filter((i) => i.remote);
   // Every photographer the build picked must be named on the page; "via Unsplash" is not a credit.
-  const creators = [...savedCreators(dir)];
+  const creators = [...savedCreators(dir, new Set(photos.map((i) => i.src.split("&w=")[0].split("?")[0])))];
   const uncredited = creators.filter((n) => !r.text.includes(n));
   return {
     creators: creators.length, uncredited,
