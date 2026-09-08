@@ -111,7 +111,64 @@ Three builds at roughly 0.4 M tokens each, one measurement pass, one look.
   nothing told the agent to look; an inventory the agent runs makes the precedence real.
   Date/Author: 2026-09-08, Claude.
 
+- Decision: Results are cached for a day under `~/.cache/designer/find-image` (and every
+  candidate by id for a week), a spent Unsplash quota falls through to Openverse in `auto`
+  mode with the fall-through named in the output, the output carries Unsplash's remaining
+  quota, and a host that refuses HEAD is retried with a one-byte GET before a candidate is
+  dropped.
+  Rationale: the first acceptance run spent Unsplash's fifty-an-hour demo quota inside one
+  build (sixteen searches, ten picks at two requests each) and the next build found both
+  Unsplash and Openverse's anonymous tier closed; the library builder handled the 403 by hand.
+  A pick now costs one request, a repeated query none, and the ladder descends on its own. A
+  Flickr host answered the browser but refused HEAD, which would have dropped a good candidate.
+  Date/Author: 2026-09-08, Claude.
+
+- Decision: A credit may sit in the figure's caption or in one credits line per page, but it
+  names every photographer with a link; "photographs via Unsplash" is not a credit. The audit
+  checks the picked photographers' names against the page text.
+  Rationale: the hardware build put ten product photographs in a grid where a caption per tile
+  is noise, and credited them as "by their authors on Unsplash" — a placement problem the
+  reference had not addressed, answered by a consolidated line that still meets the source's
+  terms.
+  Date/Author: 2026-09-08, Claude.
+
+- Decision: One more disqualifier — a stranger presented as the product's own: an identifiable
+  person from a stock source cast as this product's reader, patient or staff, and a child from
+  a stock source in any role. Stock photographs carry the world; faces that belong to the
+  product come from the project's assets.
+  Rationale: the library build's hero is a Creative Commons snapshot of an identifiable child
+  holding library books, cast as the programme's reader. Licence permits it; judgment should
+  not. Neither reference names this; the memos' warning about staged people is the nearest.
+  Date/Author: 2026-09-08, Claude.
+
 ## Surprises & Discoveries
+
+- Observation: Every one of the three builds shipped photographs — rebate two, hardware ten,
+  library two — and every photograph resolves, appears in the builder's saved search output, and
+  carries alt, intrinsic size and a container colour; every record names the rung per slot. In
+  the settling run the same three briefs shipped none. The rebate pair (a wall of battery
+  cabinets; an installer at a service panel) and the hardware set (drill, hammer, chisels,
+  fittings, a rack of old tools on whitewashed boards) are the product's world on sight.
+  Evidence: `docs/research/scripts/imagery-check.mjs` over the three builds; the captures.
+
+- Observation: Quota is the binding constraint, not the search. The hardware build alone spent
+  thirty-six Unsplash requests; the library build, starting a few minutes later, found Unsplash
+  at zero remaining and Openverse's anonymous tier closed after five searches, fell to Openverse
+  for its two photographs, and recorded the fall in its §4. The ladder worked as designed and
+  the cost showed: the Openverse hero is a casual Flickr snapshot of a child, a quality band
+  and a subject the page around it does not deserve.
+  Evidence: `library/images/search-1.json` (Unsplash, verified 2, no child-and-library
+  subject), `search-6.json` (403 from Openverse), the library capture.
+
+- Observation: The one clause that failed in the first run is placement, not sourcing: the
+  hardware build named no photographer. The audit's first credit regex accepted any "Photo by …
+  on Unsplash" line and would have passed a single token credit; it now checks every picked
+  photographer's name against the page.
+  Evidence: the hardware page's footer line; `imagery-check.mjs` before and after.
+
+- Observation: A rate-limited search returns 403, not 429, from both services, so the
+  fall-through keys on either.
+  Evidence: the library build's saved error files.
 
 - Observation: The Unsplash search results carry an `alt_description` and a dominant `color`
   per photo, which give the container colour and a draft alt for free; Openverse carries a
@@ -134,3 +191,6 @@ Pending — written after the acceptance builds.
 
 - 2026-09-08: created from the user's question and the settling evidence; script, tests and the
   skill edits written; acceptance builds to follow.
+- 2026-09-08 (second revision): three acceptance builds run; cache, quota fall-through, ranged
+  GET, the credit placement rule and the people-from-stock disqualifier added (2.2.1); hardware
+  rebuilt under 2.2.1 for the credit clause.

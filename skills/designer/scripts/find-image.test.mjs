@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { dimensions, inventory, normalizeUnsplash, normalizeOpenverse, orientationParams, unsplashKey, snippet, verify } from "./find-image.mjs";
+import { dimensions, inventory, normalizeUnsplash, normalizeOpenverse, orientationParams, unsplashKey, snippet, verify, cacheKey, creditHtml } from "./find-image.mjs";
 
 const png = (w, h) => {
   const b = Buffer.alloc(33); b.writeUInt32BE(0x89504e47, 0); b.writeUInt32BE(0x0d0a1a0a, 4);
@@ -85,11 +85,24 @@ test("the snippet carries alt, intrinsic size, a container colour and the credit
   assert.match(s, /Photo by <a href="https:\/\/unsplash.com\/@oxana\?utm">Oxana Melis<\/a> on <a href="https:\/\/unsplash.com\/\?utm_source=designer&utm_medium=referral">Unsplash<\/a>/);
 });
 
-test("verify accepts only an OK image response", async () => {
-  const ok = async () => ({ ok: true, headers: new Map([["content-type", "image/jpeg"]]) });
-  const html = async () => ({ ok: true, headers: new Map([["content-type", "text/html"]]) });
-  const gone = async () => ({ ok: false, headers: new Map() });
+test("verify accepts an image response, retries a refused HEAD as a ranged GET, and drops the rest", async () => {
+  const ok = async () => ({ ok: true, status: 200, headers: new Map([["content-type", "image/jpeg"]]) });
+  const html = async () => ({ ok: true, status: 200, headers: new Map([["content-type", "text/html"]]) });
+  const gone = async () => ({ ok: false, status: 404, headers: new Map() });
+  const headRefused = async (_, init) => init.method === "HEAD" ? { ok: false, status: 405, headers: new Map() } : { ok: false, status: 206, headers: new Map([["content-type", "image/jpeg"]]) };
   assert.equal(await verify({ url: "https://x" }, ok), true);
   assert.equal(await verify({ url: "https://x" }, html), false);
   assert.equal(await verify({ url: "https://x" }, gone), false);
+  assert.equal(await verify({ url: "https://x" }, headRefused), true);
+});
+
+test("the cache key is stable for one query and differs across options", () => {
+  assert.equal(cacheKey(["unsplash", "q", 6, "", 1600]), cacheKey(["unsplash", "q", 6, "", 1600]));
+  assert.notEqual(cacheKey(["unsplash", "q", 6, "", 1600]), cacheKey(["openverse", "q", 6, "", 1600]));
+  assert.match(cacheKey(["a"]), /^[0-9a-f]{20}\.json$/);
+});
+
+test("creditHtml names the photographer for either source", () => {
+  assert.match(creditHtml({ source: "unsplash", creator: "Tianlei Wu", creatorUrl: "https://unsplash.com/@wutianlei?utm" }), /Tianlei Wu.*on <a href="https:\/\/unsplash.com\/\?utm_source=designer&utm_medium=referral">Unsplash/);
+  assert.equal(creditHtml({ source: "openverse", alt: "Story Hour", creator: "shannonpatrick17", creatorUrl: "https://flickr.com/p", page: "https://flickr.com/photos/1", license: "BY 2.0" }), '<a href="https://flickr.com/photos/1">Story Hour</a> by <a href="https://flickr.com/p">shannonpatrick17</a>, BY 2.0');
 });
