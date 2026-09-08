@@ -1,0 +1,12 @@
+== apple-macos-26.5-1x-light-reduced-transparency / webgpu  fixtures=/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures captures=/Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+scene                                        set           bodyN   bodyW |                  rim native T/B/L/R |                     rim web T/B/L/R | clipN
+checkerboard__capsule-button__rest           calibration  0.8880  0.9320 | +0.1191 +0.1191     -       -   | +0.0420 +0.0419     -       -   |  0.00  0.00   -     -  
+photo__capsule-button__rest                  calibration  0.8917  0.8929 | +0.1114 +0.1122     -       -   | +0.0410 +0.0460     -       -   |  0.00  0.00   -     -  
+hc-text__capsule-button__rest                holdout      0.8879  0.9421 | +0.1193 +0.1193     -       -   | +0.0458 +0.0026     -       -   |  0.00  0.00   -     -  
+checkerboard__rrect-md__rest                 calibration  0.8880  0.9331 | +0.1191 +0.1191 +0.1191 +0.1191 | +0.0405 +0.0445 +0.0516 +0.0305 |  0.00  0.00  0.00  0.00
+photo__rrect-md__rest                        calibration  0.8921  0.8957 | +0.1094 +0.1066 +0.1008 +0.1047 | +0.0328 +0.0515 +0.0401 +0.1126 |  0.00  0.00  0.00  0.00
+photo__rrect-lg__rest                        holdout      0.8893  0.8951 | +0.1143 +0.1132 +0.1153 +0.1098 | +0.0301 +0.0411 +0.0888 +0.0990 |  0.00  0.00  0.00  0.00
+photo__capsule-button__pressed               recorded     0.8917       - | +0.1114 +0.1122     -       -   |                                     |  0.00  0.00   -     -  
+photo__capsule-button__rest-tint-orange      calibration  0.4091  0.4126 | +0.1546 +0.1549     -       -   | +0.0611 +0.0626     -       -   |  0.00  0.00   -     -  
+
+-> /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa0ee5ea92534c3fd/packages/calibration/results/2026-09-08-w23-collapsed-rim/g0/reads/canonical-apple-macos-26.5-1x-light-reduced-transparency-webgpu.json

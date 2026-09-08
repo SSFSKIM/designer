@@ -17,6 +17,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  collapsedRimUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
   INCREASED_OCCLUSION_LIFT,
   lensDepthPx,
@@ -30,6 +31,7 @@ import {
   MATERIAL_VARIANTS,
   occlusionAlphaUnderPolicy,
   opticsUnderPolicy,
+  rimWidthAtScale,
   REFRACTION_LADDER,
   REFRACTION_SCALE,
   withMaterialOverrides,
@@ -116,6 +118,67 @@ describe("withMaterialOverrides", () => {
     expect(scatter.sizeSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.sizeSpanMax);
     expect(next.sweepGain).toBe(DEFAULT_MATERIAL_PROFILE.sweepGain);
     expect(next.lightDirection).toEqual(DEFAULT_MATERIAL_PROFILE.lightDirection);
+  });
+
+  it("substitutes the WHOLE rim under a strong border, at both scales and every level", () => {
+    /*
+     * The accessibility border is a substitution and not a tuning (W23 G1's
+     * review fix). Before it, `opticsUnderPolicy` spread `strongBorderRim`'s two
+     * numbers over the variant's optics and left the three constants the rim had
+     * gained since — so the declared 2 CSS px border narrowed to `rimWidth2x`
+     * 1.35 at dpr 2, and the declared alpha of 0.95 became `0.95 − 0.628 × level`
+     * on the amplitude law: 0.636 on a surface of level 0.5 and 0.35 on a bright
+     * one. A border a preference asked for is not allowed to fade where the
+     * surface is bright.
+     */
+    const strong = opticsUnderPolicy(DEFAULT_MATERIAL_PROFILE.optics.regular, {
+      ...NOMINAL_MATERIAL_POLICY,
+      border: "strong",
+    });
+    const { rimWidth, rimAlpha } = DEFAULT_MATERIAL_PROFILE.strongBorderRim;
+    expect(strong.rimAlpha).toBe(rimAlpha);
+    expect(strong.rimWidth).toBe(rimWidth);
+    // Both anchors, so the band is the declared width at dpr 1 AND dpr 2.
+    expect(strong.rimWidth2x).toBe(rimWidth);
+    expect(rimWidthAtScale(strong, 1)).toBe(rimWidth);
+    expect(rimWidthAtScale(strong, 2)).toBe(rimWidth);
+    // And no level gain, so the amplitude is the declared alpha over every
+    // backdrop rather than a line that fades as the surface brightens.
+    expect(strong.rimLevelGain).toBe(0);
+    for (const level of [0, 0.5, 0.93]) {
+      expect(strong.rimAlpha + strong.rimLevelGain * level).toBe(rimAlpha);
+    }
+    // The variant's own numbers are untouched by the fold.
+    expect(DEFAULT_MATERIAL_PROFILE.optics.regular.rimWidth2x).toBe(1.35);
+    expect(DEFAULT_MATERIAL_PROFILE.optics.regular.rimLevelGain).toBe(-0.628);
+  });
+
+  it("keeps the strong border under the collapse, painted or bare", () => {
+    /*
+     * The collapse trades the appearance's rim for an absolute one — 0.038 bare,
+     * 0.520 painted — and under a strong border that would hand back a mark a
+     * twenty-fifth as bright on the surface that is already hardest to see. The
+     * substitution reaches the collapsed rim too (W23 G1's review fix).
+     */
+    const nominal = NOMINAL_MATERIAL_POLICY;
+    expect(collapsedRimUnderPolicy(nominal, 0)).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsed);
+    expect(collapsedRimUnderPolicy(nominal, 1)).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted);
+    expect(collapsedRimUnderPolicy(nominal, 0.5)).toBeCloseTo(
+      (DEFAULT_MATERIAL_PROFILE.rimCollapsed + DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted) / 2,
+      12,
+    );
+    const strong = { ...nominal, border: "strong" } as const;
+    for (const strength of [0, 0.5, 1]) {
+      expect(collapsedRimUnderPolicy(strong, strength)).toBe(
+        DEFAULT_MATERIAL_PROFILE.strongBorderRim.rimAlpha,
+      );
+    }
+    // And it reads the PROFILE it is given, not the shipped one.
+    const patched = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
+      rimCollapsed: 0,
+      rimCollapsedTinted: 0,
+    });
+    expect(collapsedRimUnderPolicy(nominal, 1, patched)).toBe(0);
   });
 
   it("does not mutate the base", () => {

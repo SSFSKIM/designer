@@ -26,7 +26,16 @@ import {
   backdropToneAdaptation,
   BACKDROP_TONE,
   cssOpticsFromSource,
+  CSS_TIER_MAPPING,
   cssTierOptics,
+  collapsedRim,
+  resolvedCollapsedRim,
+  RIM_COLLAPSED,
+  RIM_COLLAPSED_TINTED,
+  RIM_TINT_CHROMA,
+  resolvedRimTintChroma,
+  rimTintColour,
+  rimAmplitude,
   sourceOptics,
 } from "../src/optics";
 
@@ -62,9 +71,33 @@ describe("the material one backdrop reading produces", () => {
   const source = sourceOptics()["regular"];
   const base = cssTierOptics()["regular"];
 
-  it("is the pre-W7 material exactly, with no reading", () => {
-    expect(adaptedSourceOptics(source, undefined, 1)).toBe(source);
-    expect(adaptedSourceOptics(source, [0, 0, 0], 0)).toBe(source);
+  it("is the pre-W7 material, but for the rim's resolved amplitude, with no reading", () => {
+    /*
+     * The guard is unchanged in substance: a surface the tier read nothing for,
+     * and a surface at zero adaptation, draw the material the profile ships and
+     * not a guess at one. What no longer survives it is object identity, and the
+     * reason is the rim's law (W23; claims §5.100 §4). `rimAlpha` is the law's
+     * INTERCEPT everywhere upstream of `adaptedSourceOptics` and the resolved
+     * amplitude everywhere downstream, so the law has to be evaluated here even
+     * with nothing sampled — handing the intercept 0.844 on to
+     * `borderAlphaPerRimAlpha` would put a near-opaque white outline around every
+     * unsampled surface. Every other field is asserted untouched, which is the
+     * half that was ever about the adaptation.
+     */
+    const unsampled = adaptedSourceOptics(source, undefined, 1);
+    expect(unsampled).toEqual({
+      ...source,
+      rimAlpha: rimAmplitude(source, CSS_TIER_MAPPING.referenceBackdropLuminance),
+    });
+    // The level with nothing sampled is the mapping's reference, the one
+    // `cssTintAlpha` already falls back to: 0.844 − 0.628 × 0.4708.
+    expect(unsampled.rimAlpha).toBeCloseTo(0.5483, 4);
+    // With a reading and no adaptation the same holds at the level that was read
+    // rather than at the fallback — black, so the material's own luminance is its
+    // tint alpha and the amplitude is 0.844 − 0.628 × 0.46.
+    const unadapted = adaptedSourceOptics(source, [0, 0, 0], 0);
+    expect(unadapted).toEqual({ ...source, rimAlpha: rimAmplitude(source, 0) });
+    expect(unadapted.rimAlpha).toBeCloseTo(0.5551, 4);
   });
 
   it("is the backdrop itself, opaquely, at full adaptation", () => {
@@ -99,18 +132,38 @@ describe("the material one backdrop reading produces", () => {
     // rim included. Left in, this tier's border is a white outline around a
     // surface that is meant not to be there — which is exactly what it was, until
     // this axis made the body dark enough to see it against.
+    //
+    // What the fade ends AT moved in W23 (claims §5.100 §3): the reference's
+    // collapsed capsule is byte-identical to its background in its body and still
+    // keeps a contour rim of +0.020 linear, in both schemes at both scales. So
+    // the fade is a trade between the two rims — `amplitude·(1 − k) +
+    // rimCollapsed·k` — rather than a fade to nothing, and the endpoint it fades
+    // FROM is the law's amplitude at this tone, not the law's intercept.
     const tone = [0.0117, 0.0117, 0.0117] as const;
-    expect(adaptedSourceOptics(source, tone, 1).rimAlpha).toBe(0);
-    expect(adaptedSourceOptics(source, tone, 0.5).rimAlpha).toBeCloseTo(source.rimAlpha / 2, 12);
-    expect(adaptedSourceOptics(source, tone, 0).rimAlpha).toBe(source.rimAlpha);
+    const amplitude = rimAmplitude(source, 0.0117);
+    expect(amplitude).toBeCloseTo(0.5512, 4);
+    expect(adaptedSourceOptics(source, tone, 1).rimAlpha).toBe(RIM_COLLAPSED);
+    expect(adaptedSourceOptics(source, tone, 0.5).rimAlpha).toBeCloseTo(
+      (amplitude + RIM_COLLAPSED) / 2,
+      12,
+    );
+    expect(adaptedSourceOptics(source, tone, 0).rimAlpha).toBe(amplitude);
   });
 
   it("carries that fade into the declared border, and nowhere else", () => {
     const tone = [0.0117, 0.0117, 0.0117] as const;
-    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1)).borderAlpha).toBe(0);
+    // The collapsed rim the reference keeps, through the one constant that
+    // carries a rim across this boundary: 0.038 × 0.64 (W23; claims §5.100 §§3-4).
+    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, tone, 1)).borderAlpha).toBeCloseTo(
+      RIM_COLLAPSED * CSS_TIER_MAPPING.borderAlphaPerRimAlpha.regular,
+      12,
+    );
     // …and an unadapted source declares the shipped border exactly, so the
-    // conversion is not a second opinion about it.
-    expect(cssOpticsFromSource(base, source).borderAlpha).toBeCloseTo(base.borderAlpha, 12);
+    // conversion is not a second opinion about it. The source has to come through
+    // `adaptedSourceOptics` to say that now: that is where the law is resolved,
+    // and `cssOpticsFromSource` reads an amplitude rather than an intercept (W23).
+    expect(cssOpticsFromSource(base, adaptedSourceOptics(source, undefined, 0)).borderAlpha)
+      .toBeCloseTo(base.borderAlpha, 12);
   });
 
   it("reaches the CSS declaration through the one conversion the tier already has", () => {
@@ -145,5 +198,139 @@ describe("what the axis does to an ordinary page", () => {
         expect(backdropToneAdaptation(backdrop, thickness, BACKDROP_TONE)).toBe(0);
       }
     }
+  });
+});
+
+describe("the collapsed rim's constants come from the profile the root was given (W23 G1 review)", () => {
+  /*
+   * The renderer reads `rimCollapsed` and `rimCollapsedTinted` off the material
+   * profile it was handed, and this tier has to read the same two numbers off the
+   * same document. Reading the mirrored defaults instead is invisible until an
+   * app passes a profile that names either — including the profile that names
+   * both as 0, which is how a caller asks for the pre-W23 collapse — and then the
+   * two tiers draw different rims on the same surface with nothing to say so.
+   */
+  it("resolves both ends off the patch, and falls back to the mirror where it names neither", () => {
+    expect(resolvedCollapsedRim()).toEqual({ bare: RIM_COLLAPSED, painted: RIM_COLLAPSED_TINTED });
+    expect(resolvedCollapsedRim({})).toEqual({
+      bare: RIM_COLLAPSED,
+      painted: RIM_COLLAPSED_TINTED,
+    });
+    expect(resolvedCollapsedRim({ rimCollapsed: 0, rimCollapsedTinted: 0 })).toEqual({
+      bare: 0,
+      painted: 0,
+    });
+    // One named, one not: the patch's own merge rule, leaf by leaf.
+    expect(resolvedCollapsedRim({ rimCollapsed: 0.02 })).toEqual({
+      bare: 0.02,
+      painted: RIM_COLLAPSED_TINTED,
+    });
+  });
+
+  it("carries those constants into the collapsed rim and into the border", () => {
+    const source = sourceOptics().regular;
+    const tone = [0.0117, 0.0117, 0.0117] as const;
+    const off = resolvedCollapsedRim({ rimCollapsed: 0, rimCollapsedTinted: 0 });
+    // A profile that declines the collapsed rim draws no border on a collapsed
+    // surface, painted or bare — which is what the renderer does with the same
+    // document, and what this tier did NOT do while it read the mirror.
+    for (const strength of [0, 0.5, 1]) {
+      expect(collapsedRim(strength, off)).toBe(0);
+      expect(
+        adaptedSourceOptics(source, tone, 1, collapsedRim(strength, off)).rimAlpha,
+      ).toBe(0);
+    }
+    // And the shipped constants still lerp between the two absolutes.
+    const shipped = resolvedCollapsedRim();
+    expect(collapsedRim(0, shipped)).toBe(RIM_COLLAPSED);
+    expect(collapsedRim(1, shipped)).toBe(RIM_COLLAPSED_TINTED);
+    expect(collapsedRim(0.5, shipped)).toBeCloseTo((RIM_COLLAPSED + RIM_COLLAPSED_TINTED) / 2, 12);
+  });
+});
+
+describe("the border conversion is the variant's (W23 G1 review)", () => {
+  /*
+   * `borderAlphaPerRimAlpha` was re-based 1.95 → 0.64 because the REGULAR
+   * variant's rim became a law and its amplitude tripled. The `clear` variant's
+   * did not: it declares no scene on the calibration bed, so its `rimAlpha`
+   * stands at 0.14 with a gain of 0. One ratio over both divided the clear
+   * variant's border by three for a numerator that never moved.
+   */
+  it("keeps the clear variant's border where it has always been", () => {
+    const clear = sourceOptics().clear;
+    expect(clear.rimAlpha).toBe(0.14);
+    expect(clear.rimLevelGain).toBe(0);
+    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha.clear).toBe(1.95);
+    expect(cssTierOptics().clear.borderAlpha).toBeCloseTo(0.14 * 1.95, 12);
+    // Through the adapted conversion too, on a surface with a measured backdrop:
+    // the clear variant's amplitude is its intercept at every level.
+    const adapted = adaptedSourceOptics(clear, [0.0117, 0.0117, 0.0117], 0);
+    expect(adapted.rimAlpha).toBe(0.14);
+    expect(
+      cssOpticsFromSource(cssTierOptics().clear, adapted, CSS_TIER_MAPPING, undefined, "clear")
+        .borderAlpha,
+    ).toBeCloseTo(0.14 * 1.95, 12);
+  });
+
+  it("re-bases the regular variant only, and its product is the border it always drew", () => {
+    const regular = sourceOptics().regular;
+    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha.regular).toBe(0.64);
+    // 0.844 − 0.628 × materialLuminance(regular, 0.02) = 0.5483; × 0.64 = 0.3509,
+    // against the 0.351 this tier has drawn since W6 (claims §5.100 §8).
+    const amplitude = rimAmplitude(regular, CSS_TIER_MAPPING.referenceBackdropLuminance);
+    expect(amplitude).toBeCloseTo(0.5483, 4);
+    expect(cssTierOptics().regular.borderAlpha).toBeCloseTo(0.3509, 4);
+    expect(cssTierOptics().regular.borderAlpha).toBeCloseTo(0.18 * 1.95, 3);
+  });
+});
+
+describe("the rim's colour on a painted surface (W23 G3)", () => {
+  /*
+   * Apple's rim on a tinted capsule is the paint LIFTED — an orange of
+   * (255, 148, 0) rises to (254, 188, 0) with its blue channel still at 0 — and
+   * vitrea drew (255, 192, 130), the same rim in white. This tier draws the rim
+   * as one inset `box-shadow`, so what it has to get right is the shadow's
+   * COLOUR, and the expression is the shader's own read once per surface.
+   */
+  it("is white at chroma 0, the paint's CHROMATICITY at 1, and the mix between", () => {
+    const white: [number, number, number] = [255, 255, 255];
+    const orange = { color: [255, 148, 0] as [number, number, number], strength: 1 };
+    expect(rimTintColour(white, orange, 0)).toEqual(white);
+    /*
+     * Normalised by the paint's own LUMINANCE and not by its brightest channel,
+     * which is what the rows chose (claims §5.102): the rim keeps its AMOUNT and
+     * takes only its hue. That orange is (1, 0.2961, 0) in linear light at a
+     * luminance of 0.4244, so the gains are (2.356, 0.698, 0) — red saturates,
+     * green takes 0.70 of the light and blue takes none, which is the ratio the
+     * reference's own contour row carries. A normalisation by the brightest
+     * channel would have given green 0.30 and divided the rim's luminance by the
+     * paint's, which the collapsed orange capsule measured as 0.115 → 0.030.
+     */
+    const [r, g, b] = rimTintColour(white, orange, 1);
+    expect(r).toBe(255);
+    expect(g / 255).toBeCloseTo(0.698, 2);
+    expect(b).toBe(0);
+    // Half the chroma is half the way from white to that.
+    const [hr, hg, hb] = rimTintColour(white, orange, 0.5);
+    expect(hr).toBe(255);
+    expect(hg / 255).toBeCloseTo((1 + 0.698) / 2, 2);
+    expect(hb / 255).toBeCloseTo(0.5, 2);
+  });
+
+  it("is the pixel's own tint strength that gates it, so an untinted surface is untouched", () => {
+    const white: [number, number, number] = [255, 255, 255];
+    for (const chroma of [0, 0.5, 1]) {
+      expect(rimTintColour(white, { color: [255, 148, 0], strength: 0 }, chroma)).toEqual(white);
+    }
+    // Half a coverage takes half the hue, which is the shader's `chroma × s`.
+    expect(rimTintColour(white, { color: [255, 148, 0], strength: 0.5 }, 1)).toEqual(
+      rimTintColour(white, { color: [255, 148, 0], strength: 1 }, 0.5),
+    );
+  });
+
+  it("reads the constant off the profile the root was given", () => {
+    expect(resolvedRimTintChroma()).toBe(RIM_TINT_CHROMA);
+    expect(resolvedRimTintChroma({})).toBe(RIM_TINT_CHROMA);
+    expect(resolvedRimTintChroma({ rimTintChroma: 1 })).toBe(1);
   });
 });

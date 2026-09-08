@@ -1,0 +1,95 @@
+W23 G0 (c) — the collapsed cells: the rim the reference keeps, the schemes' byte
+identity, and the body's level against its own backdrop
+
+The instrument is `read-contour.py` (X1): the excess over the cell's own local base
+summed over the first two CSS px inside each side's contour, linear, per CSS px. `rimN` is
+the reference's, `rimW` the landed GPU capture's (matrix 3587400, the 0.11.0 bed).
+
+== 1. the cells vitrea collapses — the landed capture's contour rim is 0 on every side
+bed           scene                                      bodyN   bodyW          rimN T/B          rimW T/B
+light-1x      dark-solid__capsule-button__rest          0.0110  0.0117  +0.0201  +0.0201  +0.0000  +0.0000
+light-1x      impulse__capsule-button__rest             0.0066  0.0037  +0.0168  +0.0149  +0.0000  +0.0000
+light-2x      dark-solid__capsule-button__rest          0.0110  0.0117  +0.0204  +0.0204  +0.0000  +0.0000
+light-2x      impulse__capsule-button__rest             0.0067  0.0033  +0.0163  +0.0155  +0.0000  +0.0000
+dark-1x       dark-solid__capsule-button__rest          0.0110  0.0117  +0.0201  +0.0201  +0.0000  +0.0000
+dark-1x       impulse__capsule-button__rest             0.0066  0.0037  +0.0168  +0.0149  +0.0000  +0.0000
+dark-2x       dark-solid__capsule-button__rest          0.0110  0.0117  +0.0204  +0.0204  +0.0000  +0.0000
+dark-2x       impulse__capsule-button__rest             0.0067  0.0033  +0.0163  +0.0155  +0.0000  +0.0000
+
+and the probe beds' cells whose reference body sits within one code of its own dark
+backdrop — the same appearance, read where no current capture exists:
+probe21-dark  dark-solid__rrect-sm__rest                0.0110       -  +0.0201  +0.0201
+probe21-dark  dark-solid__rrect-lg__rest                0.0110       -  +0.0196  +0.0196
+probe9-light  dark-solid__rrect-sm__rest                0.0110       -  +0.0201  +0.0201
+
+== 2. the collapsed rim against the DARK material's rim on the same backdrop
+
+The uncollapsed dark rows over the same and neighbouring backdrops, for the comparison:
+bed           scene                                      bodyN  rimN mean
+dark-1x       dark-solid__rrect-md__rest                0.0153     0.0257
+dark-1x       mid-dark-solid__capsule-button__rest      0.0285     0.0412
+dark-2x       dark-solid__rrect-md__rest                0.0153     0.0256
+dark-2x       mid-dark-solid__capsule-button__rest      0.0285     0.0400
+probe21-dark  light-solid__rrect-sm__rest               0.9666     0.0586
+probe21-dark  light-solid__rrect-md__rest               0.0960     0.1036
+probe21-dark  light-solid__rrect-lg__rest               0.1052     0.1092
+probe21-dark  dark-solid__rrect-md__rest                0.0153     0.0257
+probe21-dark  mid-dark-solid__rrect-sm__rest            0.0284     0.0412
+probe21-dark  mid-dark-solid__rrect-md__rest            0.0252     0.0386
+probe21-dark  mid-dark-solid__rrect-lg__rest            0.0223     0.0355
+
+the collapsed rim over 11 cells / 28 sides: mean 0.0189, min 0.0149, max 0.0204, spread 0.0056
+the DARK material's own rim over the same backdrop (`dark-solid`, uncollapsed): mean 0.0257, min 0.0256, max 0.0257
+difference: -0.0068 linear per CSS px
+
+== 3. the two schemes' fixtures, every scene both standard profiles declare
+
+-- 1x: 14 scenes declared by both profiles
+scene                                         identical  light sha        dark sha
+dark-solid__capsule-button__rest                    YES  038e9efd6fd0c9d6  038e9efd6fd0c9d6
+checkerboard__capsule-button__rest                   no  6f94450ebb5059bd  5c2b4fc0ae71d2f5
+impulse__capsule-button__rest                       YES  cb8d748d4dceafb8  cb8d748d4dceafb8
+photo__capsule-button__rest                          no  6a125e3fc28b8a6d  473fc1bb33cce56f
+dark-solid__rrect-md__rest                           no  c065de41be8afede  728894cf444a7664
+checkerboard__rrect-md__rest                         no  e6699199cfdeab04  efae0f1515bc55c7
+photo__rrect-md__rest                                no  87034346ff005b5b  46950d8569a03040
+photo__rrect-lg__rest                                no  4f8792eda6c16431  eea7786ca37f8b16
+checkerboard__glass-over-glass__rest                 no  3e601352166828b5  c74671d65d2ca384
+photo__capsule-button__pressed                       no  6a125e3fc28b8a6d  473fc1bb33cce56f
+mid-dark-solid__capsule-button__rest                 no  d65d917ef55400ed  39fd3ef91c02ea63
+dark-solid__capsule-button__rest-tint-orange        YES  1a7d9b3405202412  1a7d9b3405202412
+checkerboard__capsule-button__rest-tint-orange         no  ffcec06f305d52ce  524ab8fc6af343b0
+photo__capsule-button__rest-tint-orange              no  d2ce69eacf2aa17c  5e6d9c30888433de
+   3 of 14 byte-identical
+
+-- 2x: 14 scenes declared by both profiles
+scene                                         identical  light sha        dark sha
+dark-solid__capsule-button__rest                    YES  0fe148f979c8cbe9  0fe148f979c8cbe9
+checkerboard__capsule-button__rest                   no  a46155e557321ede  d03a3ae5996c8d27
+impulse__capsule-button__rest                        no  7d814f5585096bbc  971bf33421a07190
+photo__capsule-button__rest                          no  c6bbd8de39b7b0b7  2fb5bef1bbc06882
+dark-solid__rrect-md__rest                           no  2c4c5f3cf90c5e40  1c7edb5c7f6ad606
+checkerboard__rrect-md__rest                         no  6917cf7f844ce704  39190722b3fc0a6a
+photo__rrect-md__rest                                no  55346eb32e332240  5d5554310d929841
+photo__rrect-lg__rest                                no  6c38420735d8ee02  819f185f79527a32
+checkerboard__glass-over-glass__rest                 no  9dcbe32c622df0e9  ac28895f5c39305c
+photo__capsule-button__pressed                       no  c6bbd8de39b7b0b7  2fb5bef1bbc06882
+mid-dark-solid__capsule-button__rest                 no  f57bae76110797ed  576779356bb08220
+dark-solid__capsule-button__rest-tint-orange        YES  7c55ad97935c3ea7  7c55ad97935c3ea7
+checkerboard__capsule-button__rest-tint-orange         no  3a8e082c630641cb  b7eaf9457e7c457f
+photo__capsule-button__rest-tint-orange              no  c875b21cc79b9360  3af4603acaeef87e
+   2 of 14 byte-identical
+
+== 4. the collapsed body against its own backdrop, in codes
+bed           scene                                       bodyN    bodyW  backdrop  N-bg codes
+light-1x      dark-solid__capsule-button__rest          0.01103  0.01171   0.01101
+light-1x      impulse__capsule-button__rest             0.00664  0.00367   0.00651
+light-2x      dark-solid__capsule-button__rest          0.01104  0.01171   0.01101
+light-2x      impulse__capsule-button__rest             0.00669  0.00334   0.00651
+dark-1x       dark-solid__capsule-button__rest          0.01103  0.01171   0.01101
+dark-1x       impulse__capsule-button__rest             0.00664  0.00367   0.00651
+dark-2x       dark-solid__capsule-button__rest          0.01104  0.01171   0.01101
+dark-2x       impulse__capsule-button__rest             0.00669  0.00334   0.00651
+probe21-dark  dark-solid__rrect-sm__rest                0.01101        -   0.01101
+probe21-dark  dark-solid__rrect-lg__rest                0.01102        -   0.01101
+probe9-light  dark-solid__rrect-sm__rest                0.01101  0.01171   0.01101

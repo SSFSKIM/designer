@@ -76,6 +76,7 @@ import {
   adaptationStrength,
   backdropToneSizeBiasUnderPolicy,
   backdropToneUnderPolicy,
+  collapsedRimUnderPolicy,
   DEFAULT_MATERIAL_PROFILE,
   effectiveRefraction,
   NOMINAL_MATERIAL_POLICY,
@@ -84,6 +85,7 @@ import {
   outerShadowReachPx,
   outerShadowThinOcclusion,
   outerShadowUnderPolicy,
+  rimWidthAtScale,
   scatterFloorAtScale,
   scatterGainAtScale,
   scatterGainFarAtScale,
@@ -941,10 +943,32 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         tintSeed: (policy.glass === "none" ? undefined : groupTintSeed(input)) ?? optics.tint,
         tintToneAdaptation: tintToneAdaptation(policy, material),
         tintShade: [material.tintShadeDark, material.tintShadeLight, material.tintShadeStrength],
-        rimWidth: optics.rimWidth,
+        // The band's half-width is a per-scale reading since W23: the reference's
+        // rim narrows between the scales where vitrea's widened (claims §5.100
+        // §5). At dpr 1, and on any variant whose two anchors are equal, this is
+        // `optics.rimWidth` exactly.
+        rimWidth: rimWidthAtScale(optics, dpr),
         rimAlpha: optics.rimAlpha,
         specularPower: optics.specularPower,
         specularGain: optics.specularGain,
+        // The rim's amplitude law (W23). The level gain is per variant, because
+        // a variant with a different `rimAlpha` has a different rim; the two
+        // collapsed rims are the profile's, because the collapsed appearance is
+        // one appearance and the reference's fixtures carry it identically in
+        // both schemes, painted or bare (X4).
+        rimLevelGain: optics.rimLevelGain,
+        // Both ends of the collapsed rim's tint lerp, under the accessibility
+        // regime: `collapsedRimUnderPolicy` returns the two absolute constants
+        // unless a preference has asked for a border, in which case both ends are
+        // the border's own alpha and the shader's `mix` is that constant at every
+        // tint strength (W23 G1's review fix).
+        rimCollapsed: collapsedRimUnderPolicy(policy, 0, material),
+        rimCollapsedTinted: collapsedRimUnderPolicy(policy, 1, material),
+        // The rim's light in the author's own colour (W23 G3). Under a strong
+        // border the rim is the preference's mark and not the material's, so it
+        // stays white: an accessibility border that took the paint's hue would
+        // be the paint again, which is what it exists not to be.
+        rimTintChroma: policy.border === "strong" ? 0 : material.rimTintChroma,
         lightDirection: material.lightDirection,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
@@ -1101,6 +1125,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
            * it, on this same product, and that zeroing is unchanged.
            */
           sweepGain: policy.glass === "none" ? 0 : material.sweepGain * lead.channels.shimmer,
+          // `rimWidth`, NOT the scale-graded band the optics pass takes (W23).
+          // The second anchor was fitted on the ambient rim read at the contour
+          // on a resting surface, and this band carries the specular sweep,
+          // which is gated to nothing at rest (W22) and has no row on any bed.
+          // A constant whose rows do not separate it is not applied here either.
           rimWidth: optics.rimWidth,
           pressPointCss: lead.channels.pressPoint ?? lead.centre,
           glowRadiusCss: material.glowRadiusCss,

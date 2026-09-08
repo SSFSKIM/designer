@@ -121,6 +121,27 @@ export interface MaterialSourceOptics {
   readonly tintAlpha: number;
   /** The renderer's ambient rim brightness, 0..1. */
   readonly rimAlpha: number;
+  /**
+   * The rim's amplitude law (W23), mirrored: the gain on the material's own
+   * luminance, so that this tier's border is the same function of the same level
+   * the renderer's rim is.
+   *
+   * The mirror reaches as far as the amplitude and no further, and what it
+   * cannot reach is recorded rather than approximated away. This tier draws the
+   * rim as a one-CSS-px inset `box-shadow` of a single alpha, so it can carry a
+   * rim whose ALPHA depends on the material's level — that is a group constant
+   * and `materialLuminance` already computes it — but it cannot carry the
+   * renderer's band SHAPE: `rimWidth` 1.5 with a squared falloff spreads the
+   * light over two rows and a second anchor narrows that band at dpr 2
+   * (`rimWidth2x`), and one inset shadow of one width has neither. Nor can it
+   * carry a PER-PIXEL level: over a structured backdrop the renderer's `rimLuma`
+   * varies along the contour and this tier has one number for the group, which
+   * is the approximation the tint shade's `materialLuminance` already makes and
+   * `tier-coherence` already gates. `interiorBandLight` is where the band-shape
+   * difference is accounted for in the derived interior LEVEL, and it reads this
+   * gain through `rimAmplitude` for the same reason.
+   */
+  readonly rimLevelGain: number;
   /** The renderer's highlight colour, in linear light. The rim reads from this. */
   readonly highlight: LinearRgb;
   /*
@@ -161,7 +182,12 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
     blurSigma: 1.25,
     tint: [1, 1, 1],
     tintAlpha: 0.46,
-    rimAlpha: 0.18,
+    // The renderer's `optics.regular.rimAlpha` and `rimLevelGain`, mirrored
+    // (W23 G1; claims §5.100 §4). The pair is the amplitude law's intercept and
+    // its gain on the surface's own level, and this tier evaluates it once per
+    // group where the renderer evaluates it per pixel.
+    rimAlpha: 0.844,
+    rimLevelGain: -0.628,
     highlight: [1, 1, 1],
     rimWidth: 1.5,
     specularPower: 6,
@@ -190,6 +216,7 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
     tint: [1, 1, 1],
     tintAlpha: 0.1,
     rimAlpha: 0.14,
+    rimLevelGain: 0,
     highlight: [1, 1, 1],
     rimWidth: 1.25,
     specularPower: 8,
@@ -531,11 +558,41 @@ export function adaptedSourceOptics(
   source: MaterialSourceOptics,
   backdrop: LinearRgb | undefined,
   adaptation: number,
+  rimCollapsed: number = RIM_COLLAPSED,
+  unsampledBackdropLuminance: number = CSS_TIER_MAPPING.referenceBackdropLuminance,
 ): MaterialSourceOptics {
+  /*
+   * The rim under adaptation, on this tier's one seam (W23; claims §5.100 §§3-4
+   * and §8). Two changes to the same expression, and a third thing this function
+   * now owns.
+   *
+   * Its amplitude is the LAW's — `rimAlpha + rimLevelGain × luminance(material)`
+   * — evaluated at the level this tier knows, and `MaterialSourceOptics.rimAlpha`
+   * is therefore the law's INTERCEPT everywhere upstream of here and the resolved
+   * amplitude everywhere downstream. This is the one place the two meet, which is
+   * why the level has to be resolved here even when nothing was sampled: a
+   * surface with no measured backdrop still draws a rim, and reading the
+   * intercept as an amplitude there would put a near-opaque white outline on it.
+   * `unsampledBackdropLuminance` is the same reference level `cssTintAlpha` falls
+   * back to, so the two features read one number.
+   *
+   * And what survives the collapse is no longer zero but `rimCollapsed`: the
+   * reference's collapsed capsule keeps a contour rim of +0.020 linear in both
+   * schemes at both scales (claims §5.99, §5.100 §3), and this tier's border is
+   * the only mark it has to draw it with.
+   */
+  const amplitude = rimAmplitude(
+    source,
+    backdrop === undefined ? unsampledBackdropLuminance : luminance(backdrop),
+  );
   const k = clamp01(adaptation);
-  if (backdrop === undefined || k <= 0) return source;
+  if (backdrop === undefined) {
+    return amplitude === source.rimAlpha ? source : { ...source, rimAlpha: amplitude };
+  }
+  const rimAlpha = amplitude * (1 - k) + rimCollapsed * k;
+  if (k <= 0) return rimAlpha === source.rimAlpha ? source : { ...source, rimAlpha };
   const alpha = source.tintAlpha + k * (1 - source.tintAlpha);
-  if (alpha <= 0) return source;
+  if (alpha <= 0) return { ...source, rimAlpha };
   // The pair that makes the interior CONVERGE on the backdrop's tone, rather than
   // two independently lerped parameters — see the renderer's `adaptedTintColour`
   // for the cells that caught the difference.
@@ -551,8 +608,9 @@ export function adaptedSourceOptics(
     // has no lit edge to show, and the reference agrees on a calibration cell
     // rather than by inference: `dark-solid__capsule-button__rest` is
     // byte-identical to its own background, rim included. Left in, the border is a
-    // white outline around a surface that is meant not to be there.
-    rimAlpha: source.rimAlpha * (1 - k),
+    // white outline around a surface that is meant not to be there — except for
+    // the one rim the reference DOES keep, which `rimCollapsed` above carries.
+    rimAlpha,
   };
 }
 
@@ -639,6 +697,95 @@ export function tintShadeLayer(
 function materialLuminance(source: MaterialSourceOptics, backdropLuminance: number): number {
   const alpha = clamp01(source.tintAlpha);
   return (1 - alpha) * backdropLuminance + alpha * luminance(source.tint);
+}
+
+/**
+ * Mirrors `@vitrea/renderer-webgpu`'s `DEFAULT_MATERIAL_PROFILE.rimCollapsed` —
+ * the rim the collapsed appearance keeps (W23 G1; claims §5.100 §3).
+ * Profile-level and not per variant, because the collapsed appearance is one
+ * appearance in both schemes: the reference's light and dark fixtures of the
+ * collapsed capsules are byte-identical.
+ */
+export const RIM_COLLAPSED = 0.038;
+
+/**
+ * Mirrors `DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted` — the same rim at an
+ * author tint's full coverage (W23 G1; claims §5.100 §5). The reference's
+ * collapsed capsule keeps +0.020 of contour rim bare and +0.115 painted.
+ */
+export const RIM_COLLAPSED_TINTED = 0.52;
+
+/**
+ * Mirrors `DEFAULT_MATERIAL_PROFILE.rimTintChroma` — how much of an author
+ * tint's own colour the rim's light is spent in (W23 G3; claims §5.102).
+ */
+export const RIM_TINT_CHROMA = 1;
+
+/** The two absolute rims a collapsed surface keeps, bare and at full coverage. */
+export interface CollapsedRimConstants {
+  readonly bare: number;
+  readonly painted: number;
+}
+
+/**
+ * The profile's own collapsed rims, or the mirrored defaults where it names
+ * neither — the same shape as `resolvedBackdropTone` above, and for the same
+ * reason (W23 G1's review fix).
+ *
+ * The renderer reads these two off the material profile the root was given, so a
+ * tier that read the built-in constants instead would diverge from its twin the
+ * moment an app passed a profile that names them — including a profile that sets
+ * both to 0, which is exactly how a caller would ask for the pre-W23 collapse.
+ */
+export function resolvedCollapsedRim(patch?: RendererMaterialProfile): CollapsedRimConstants {
+  return {
+    bare: patch?.rimCollapsed ?? RIM_COLLAPSED,
+    painted: patch?.rimCollapsedTinted ?? RIM_COLLAPSED_TINTED,
+  };
+}
+
+/** The profile's own `rimTintChroma`, or the mirrored default (W23 G3). */
+export function resolvedRimTintChroma(patch?: RendererMaterialProfile): number {
+  return patch?.rimTintChroma ?? RIM_TINT_CHROMA;
+}
+
+/**
+ * The rim a collapsed surface of this tint coverage keeps — the renderer's
+ * `mix(rimCollapsed, rimCollapsedTinted, tintStrength)`, which this tier
+ * evaluates once per surface where the shader evaluates it per pixel, and the
+ * mirror of the renderer's `collapsedRimUnderPolicy`.
+ *
+ * It is the caller's to pass into `adaptedSourceOptics`, because the author tint
+ * is a property of the surface, the adaptation is a property of the group's
+ * backdrop and the constants are a property of the profile, and only the caller
+ * holds all three.
+ *
+ * The accessibility regime is not a parameter here, and it is on the renderer's
+ * side (`collapsedRimUnderPolicy`): this tier's `opticsUnderPolicy` replaces
+ * `borderAlpha` and `borderWidth` after the conversion, so a strong border
+ * already reaches a collapsed surface without this expression knowing about it.
+ */
+export function collapsedRim(
+  tintStrength: number,
+  constants: CollapsedRimConstants = { bare: RIM_COLLAPSED, painted: RIM_COLLAPSED_TINTED },
+): number {
+  const strength = clamp01(tintStrength);
+  return constants.bare + (constants.painted - constants.bare) * strength;
+}
+
+/**
+ * The rim's amplitude under the law (W23), before the adaptation fades it.
+ *
+ * The renderer's expression is `rimAlpha + rimLevelGain × luminance(surface)`
+ * evaluated per pixel; this tier evaluates it once per group at the same level —
+ * the material's own luminance over that backdrop, the number the tint shade is
+ * already read at. The renderer's per-pixel level and this group-level one
+ * differ only where the backdrop has structure under the contour, which is the
+ * same approximation `materialLuminance` already makes and which
+ * `tier-coherence` gates.
+ */
+export function rimAmplitude(source: MaterialSourceOptics, backdropLuminance: number): number {
+  return source.rimAlpha + source.rimLevelGain * materialLuminance(source, backdropLuminance);
 }
 
 /**
@@ -2781,12 +2928,18 @@ export interface CssTierMapping {
    */
   readonly saturation: Readonly<Record<MaterialVariant, number>>;
   /**
-   * `border-color` alpha per unit of the renderer's `rimAlpha`. A conversion
+   * `border-color` alpha per unit of the renderer's rim AMPLITUDE. A conversion
    * with a wide seam: the renderer's rim is a `rimWidth`-wide band with a
    * specular term on top of it, and the CSS tier's is a hard 1px line with
    * neither, so the two are the same feature only in intent.
+   *
+   * Its numerator changed scale in W23: the renderer's rim stopped being the
+   * constant `rimAlpha` and became `rimAlpha + rimLevelGain × luminance(surface)`,
+   * whose value on the light material is about three times the constant it
+   * replaced. This constant moved by exactly that ratio and by nothing else —
+   * see its value below.
    */
-  readonly borderAlphaPerRimAlpha: number;
+  readonly borderAlphaPerRimAlpha: Readonly<Record<MaterialVariant, number>>;
   /**
    * `border-width` in CSS px. CSS-only: a box border is not the renderer's rim
    * band, and deriving one from the other would be arithmetic dressed as a
@@ -2869,7 +3022,46 @@ export const CSS_TIER_MAPPING: CssTierMapping = {
    * the border is half of what carries that. Deleting the feature the estimator
    * measures to win a flat grid is fitting the estimator.
    */
-  borderAlphaPerRimAlpha: 1.95,
+  /*
+   * RE-BASED 1.95 → 0.64 (W23 G1; claims §5.100 §8, W23 Decision Log 2 (a)) — the
+   * same conversion against a numerator whose scale changed, and NOT a refit.
+   *
+   * The renderer's rim became a law: `rimAlpha` 0.18 was the whole amplitude and
+   * is now the law's intercept, and the amplitude the law evaluates at this
+   * mapping's own `referenceBackdropLuminance` is 0.5483 (`0.844 − 0.628 ×
+   * 0.4708`). 1.95 against that reads 1.07 and would clamp — an opaque white
+   * outline on every surface this tier draws — so the constant is divided by the
+   * same ratio: `0.351 / 0.5483 = 0.6401`, taken as 0.64, at which the border on
+   * an unsampled surface is 0.3509 against the 0.351 it has drawn since W6. The
+   * remaining 0.00006 is a fortieth of an 8-bit code and is recorded rather than
+   * chased.
+   *
+   * What DOES move, and it is the law arriving on this tier: the border now
+   * varies with the surface's own level, brighter over a dark backdrop and
+   * dimmer over a bright one. On the dark bed that is a correction the contour
+   * read had already measured — `dark-solid__rrect-md` drew +0.0415 against the
+   * reference's +0.0256 (claims §5.100 §2) — and the re-based conversion roughly
+   * halves the dark border toward it.
+   *
+   * The constant is NOT refitted, because the fixtures do not identify it: the
+   * sweep that declined it (this profile document's
+   * `entries["cssTierMapping.borderAlphaPerRimAlpha"]`) moved the cross-tier ΔE
+   * over a 1.01× grid between 0 and 1.95. What the contour read now says — that
+   * this tier's light rim is 30–45 % short of the reference on the dark-backdrop
+   * cells — is recorded as a CSS-only residual for a wave that fits this tier's
+   * border on the contour instrument, not taken here.
+   *
+   * **PER VARIANT, because the re-basing is** (W23 G1's review fix). Only the
+   * `regular` variant's rim became a law: `clear` has no scene on the calibration
+   * bed, so its `rimAlpha` stands at 0.14 with a gain of 0 and its amplitude is
+   * the constant it always was. One ratio over both would have divided the clear
+   * variant's border by three for a numerator that never moved — 0.273 → 0.0896
+   * on this tier while its GPU rim stayed where it was — so the clear variant
+   * keeps 1.95 and the identity `0.14 × 1.95 = 0.273` with it. The record has
+   * the same shape as `saturation` above, which is per variant for the same kind
+   * of reason: a conversion is a property of the pair it converts between.
+   */
+  borderAlphaPerRimAlpha: { regular: 0.64, clear: 1.95 },
   borderWidth: 1,
   // A hint that names only a tone is a coarse statement, and these are the coarse
   // readings of it: near-black and near-white. An app that wants the foreground
@@ -3131,11 +3323,58 @@ export function tintedCssOptics(
   backdropLuminance: number,
   grip: number,
   shade: TintShadeConstants = TINT_SHADE,
+  rimTintChroma: number = RIM_TINT_CHROMA,
 ): MaterialOptics {
   const author = authorTintLayer(source, tint, backdropLuminance, grip, shade);
   if (author === undefined) return css;
   const folded = foldedOverlay({ tint: css.tint, tintAlpha: css.tintAlpha }, author);
-  return { ...css, tintAlpha: folded.tintAlpha, tint: folded.tint };
+  return {
+    ...css,
+    tintAlpha: folded.tintAlpha,
+    tint: folded.tint,
+    // The rim's colour on a PAINTED surface (W23 G3), mirrored: this tier draws
+    // the rim as an inset `box-shadow` of `border`, and Apple's rim on a painted
+    // surface is the paint lifted rather than white added over it. The shader
+    // spends the rim's light in `mix(white, paint / max(paint), chroma × s)` per
+    // pixel; this tier spends it in the same expression once per surface, on the
+    // author's own layer colour. An untinted surface never reaches this function
+    // at all (`authorTintLayer` returns nothing at strength 0), which is the same
+    // reason the renderer's untinted pixels do not move.
+    border: rimTintColour(css.border, author, rimTintChroma),
+  };
+}
+
+/**
+ * `mix(white, paint / luminance(paint), chroma × strength)` on this tier's
+ * border colour — the CPU statement of what the optics pass spends the rim's
+ * light in (W23 G3; claims §5.102).
+ *
+ * The paint's CHROMATICITY, so the rim keeps its amount and takes only its hue;
+ * the divisor's floor is the shader's, for the same reason. What this tier
+ * cannot mirror is the composite: the renderer adds a coloured light to a linear
+ * composite per pixel, and this tier can only colour one inset `box-shadow`
+ * whose alpha is fixed elsewhere, so a channel the normalisation would push past
+ * the border's own value is clamped here and clips in the composite there. That
+ * difference is a CSS-only residual, recorded rather than chartered.
+ */
+export function rimTintColour(
+  border: Rgb255,
+  author: { readonly color: Rgb255; readonly strength: number },
+  chroma: number = RIM_TINT_CHROMA,
+): Rgb255 {
+  const weight = clamp01(chroma) * clamp01(author.strength);
+  if (weight <= 0) return border;
+  const linear: LinearRgb = [
+    srgbDecode(author.color[0] / 255),
+    srgbDecode(author.color[1] / 255),
+    srgbDecode(author.color[2] / 255),
+  ];
+  const level = Math.max(luminance(linear), 0.05);
+  const channel = (index: 0 | 1 | 2): number =>
+    Math.round(
+      Math.min(255, Math.max(0, border[index] * (1 - weight + (linear[index] / level) * weight))),
+    );
+  return [channel(0), channel(1), channel(2)];
 }
 
 /**
@@ -3152,6 +3391,7 @@ export function cssOpticsFromSource(
   source: MaterialSourceOptics,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
   anchor: CssTintAnchor = mappingAnchor(mapping),
+  variant: MaterialVariant = "regular",
 ): MaterialOptics {
   const alpha = cssTintAlpha(source, mapping, anchor);
   return {
@@ -3160,9 +3400,12 @@ export function cssOpticsFromSource(
     tint: cssTintColor(source, alpha, mapping, anchor),
     // Derived rather than inherited from `base`, because the backdrop adaptation
     // is allowed to move the rim and this is the one conversion it lands through.
-    // Identical to `base`'s for every source that did not move it — the same
-    // expression `cssTierOptics` uses, on the same constant.
-    borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha),
+    // The source arriving here has been through `adaptedSourceOptics`, so its
+    // `rimAlpha` is the amplitude law already evaluated at that surface's own
+    // level and folded with the collapse — not the law's intercept (W23). The
+    // conversion is the VARIANT's, because only the regular variant's rim became
+    // a law and the re-basing that followed is its alone.
+    borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha[variant]),
   };
 }
 
@@ -3306,7 +3549,15 @@ export function cssTierOptics(
       saturation: mapping.saturation[variant],
       tintAlpha: cssTintAlpha(source, mapping),
       tint: encodeRgb(source.tint),
-      borderAlpha: clamp01(source.rimAlpha * mapping.borderAlphaPerRimAlpha),
+      // The rim's amplitude law, at the same reference level `cssTintAlpha` uses
+      // when nothing was sampled (W23): `source.rimAlpha` is the law's intercept
+      // and not the rim, so this declared material would otherwise carry a
+      // near-opaque outline. A surface with a measured backdrop lands its own
+      // level through `cssOpticsFromSource`, which overwrites this.
+      borderAlpha: clamp01(
+        rimAmplitude(source, mapping.referenceBackdropLuminance)
+          * mapping.borderAlphaPerRimAlpha[variant],
+      ),
       border: encodeRgb(source.highlight),
       borderWidth: mapping.borderWidth,
       // Unconverted, and the mapping carries no constant for them — see

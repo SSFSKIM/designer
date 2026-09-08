@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "7e57804fc608fdab66f2e85c851ab588";
+const PLACED_CHECKERBOARD_COVER_HASH = "efe12480b30909ba17bd89c8bd906ff5";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -189,6 +189,16 @@ const PLACED_CHECKERBOARD_COVER_HASH = "7e57804fc608fdab66f2e85c851ab588";
  * 96 000 pixels by up to 42 codes on the placed render, in a band at most 2.24
  * device px thick with 99.9 % of the moved luminance in its upper half, alpha
  * untouched). This constant still says only that the two fits differ by the fit.
+ *
+ * And at W23 G1 (claims §5.100; `7e57804fc608fdab66f2e85c851ab588` → the value
+ * below): the rim became a law of the surface's own level, with a band graded
+ * across the scales and a rim that survives the collapse, and the cover-fit
+ * render draws that rim like the placed one does. The attribution is the
+ * isolation proof's `W23_HASHES` and
+ * `results/2026-09-08-w23-collapsed-rim/g1/goldens-attribution.txt`, where the
+ * whole of the delta on this scene sits inside a contour band and not one pixel
+ * outside any band moved. This constant still says only that the two fits differ
+ * by the fit.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {

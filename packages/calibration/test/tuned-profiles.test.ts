@@ -74,6 +74,18 @@ const FITTED_CONSTANTS = [
   // W22 G1's fit of the light rim's specular (claims §5.94 §3), readable for the
   // first time once the resting sweep was gated off the rim
   "optics.regular.specularGain",
+  // W23 G1's rim law (claims §5.100 §§3–5; W23 Decision Log 2). `rimAlpha` enters
+  // this list for the first time — it was the structural default the comment
+  // above names, declined by C9a and again by W22 G1, and the contour instrument
+  // is what made it fittable. It is now the law's intercept rather than the rim,
+  // beside the gain on the surface's own level; `rimWidth2x` is the band's second
+  // anchor and the two collapsed rims are what a collapsed surface keeps, bare
+  // and painted.
+  "optics.regular.rimAlpha",
+  "optics.regular.rimLevelGain",
+  "optics.regular.rimWidth2x",
+  "rimCollapsed",
+  "rimCollapsedTinted",
   "adaptiveTintDark",
   "adaptiveTintLight",
   // W2's size law, and the cascade's refit of the gain the bed could finally see
@@ -323,10 +335,25 @@ describe("tuned calibration profiles", () => {
      * alpha. `specularGain` 0.55 → 0 is a declination, not a fit: the dark
      * reference's rim has no light direction at all. `rimAlpha` 0.18 → 0.082 is
      * the ambient rim fitted on the six solid cells' per-side excess.
+     *
+     * W23 G1 (claims §5.100 §4; W23 Decision Log 2 (a)) moved the rim again, and
+     * changed what `rimAlpha` MEANS here: the rim became affine in the surface's
+     * own rendered level, so 0.0265 is the law's intercept and +2.334 is its
+     * gain. The sign is the finding — the light material's gain is −0.628, so the
+     * two schemes read the same expression in opposite directions — and it is
+     * asserted here because a patch that carried only the intercept would look
+     * like a rim four times too dim.
      */
     expect(dark.optics.regular.tintAlpha).toBe(0.9);
-    expect(dark.optics.regular.rimAlpha).toBe(0.082);
+    expect(dark.optics.regular.rimAlpha).toBe(0.0265);
+    expect(dark.optics.regular.rimLevelGain).toBe(2.334);
     expect(dark.optics.regular.specularGain).toBe(0);
+    // The collapsed rims and the band's second anchor are the MATERIAL's and not
+    // this patch's, because the reference's collapsed capsules are byte-identical
+    // between the schemes, painted as well as bare (W23 X4).
+    expect(dark.rimCollapsed).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsed);
+    expect(dark.rimCollapsedTinted).toBe(DEFAULT_MATERIAL_PROFILE.rimCollapsedTinted);
+    expect(dark.optics.regular.rimWidth2x).toBe(DEFAULT_MATERIAL_PROFILE.optics.regular.rimWidth2x);
 
     // The response law runs in this scheme now, on this scheme's own measured
     // anchors. The anchor POSITIONS are the light profile's, as they must be —
@@ -363,6 +390,16 @@ describe("tuned calibration profiles", () => {
     // the mapping's tuned constant and its record can drift, which is the exact
     // shape of the gap K5 closed — one tier retuned, the other left behind.
     expect(LIGHT.cssTierMapping?.referenceBackdropLuminance).toBe(0.02);
+    // Re-based rather than refitted in W23 (claims §5.100 §8): the renderer's rim
+    // became a law and the amplitude this converts is about three times the
+    // constant it replaced, so 1.95 against it would clamp to an opaque outline.
+    // Per variant since W23 G1's review fix: only the regular variant's rim became
+    // a law, so only its conversion is re-based and `clear` keeps the 1.95 that
+    // preserves its own 0.14 × 1.95 = 0.273.
+    expect(LIGHT.cssTierMapping?.borderAlphaPerRimAlpha).toEqual({ regular: 0.64, clear: 1.95 });
+    expect(CSS_TIER_MAPPING.borderAlphaPerRimAlpha).toEqual(
+      LIGHT.cssTierMapping?.borderAlphaPerRimAlpha,
+    );
     expect(CSS_TIER_MAPPING.referenceBackdropLuminance).toBe(
       LIGHT.cssTierMapping?.referenceBackdropLuminance,
     );

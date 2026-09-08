@@ -1,0 +1,36 @@
+W23 G0 (e) — the dark bed's body, native against the landed GPU capture
+
+linear Rec.709 luminance over the declared box eroded 6 CSS px (W21's body). `codes` is
+the difference expressed in 8-bit codes at that level, which is the only honest unit for
+a difference of two thousandths on a near-black surface.
+
+== apple-macos-26.5-1x-dark-standard
+scene                                        set       bodyN    bodyW         d   codes
+dark-solid__capsule-button__rest             calibr  0.01103  0.01171  +0.00068    1.05
+checkerboard__capsule-button__rest           calibr  0.10595  0.06730  -0.03865  -16.05
+impulse__capsule-button__rest                valida  0.00664  0.00367  -0.00297   -6.20
+photo__capsule-button__rest                  calibr  0.09608  0.05274  -0.04335  -19.05
+dark-solid__rrect-md__rest                   calibr  0.01527  0.01299  -0.00228   -2.93
+checkerboard__rrect-md__rest                 calibr  0.04680  0.04747  +0.00068    0.45
+photo__rrect-md__rest                        calibr  0.04656  0.03891  -0.00765   -5.13
+photo__rrect-lg__rest                        holdou  0.04539  0.04038  -0.00501   -3.41
+mid-dark-solid__capsule-button__rest         holdou  0.02851  0.02853  +0.00002    0.02
+dark-solid__capsule-button__rest-tint-orange (tinted) calibr  0.42426  0.42724  +0.00299    0.55
+checkerboard__capsule-button__rest-tint-orange (tinted) calibr  0.43426  0.42744  -0.00682   -1.24
+photo__capsule-button__rest-tint-orange (tinted) calibr  0.43432  0.42740  -0.00692   -1.26
+
+== apple-macos-26.5-2x-dark-standard
+scene                                        set       bodyN    bodyW         d   codes
+dark-solid__capsule-button__rest             calibr  0.01104  0.01171  +0.00067    1.04
+checkerboard__capsule-button__rest           calibr  0.10745  0.06847  -0.03898  -16.05
+impulse__capsule-button__rest                valida  0.00669  0.00334  -0.00334   -6.95
+photo__capsule-button__rest                  calibr  0.09660  0.05268  -0.04392  -19.25
+dark-solid__rrect-md__rest                   calibr  0.01527  0.01299  -0.00228   -2.93
+checkerboard__rrect-md__rest                 calibr  0.04748  0.04783  +0.00035    0.23
+photo__rrect-md__rest                        calibr  0.04697  0.03909  -0.00788   -5.26
+photo__rrect-lg__rest                        holdou  0.04552  0.04046  -0.00507   -3.44
+mid-dark-solid__capsule-button__rest         holdou  0.02851  0.02853  +0.00002    0.02
+dark-solid__capsule-button__rest-tint-orange (tinted) calibr  0.42432  0.42730  +0.00297    0.55
+checkerboard__capsule-button__rest-tint-orange (tinted) calibr  0.43455  0.42748  -0.00707   -1.29
+photo__capsule-button__rest-tint-orange (tinted) calibr  0.43437  0.42742  -0.00695   -1.27
+

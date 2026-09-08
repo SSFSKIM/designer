@@ -186,6 +186,12 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// which is the only place the CSS-px-to-texel conversion is knowable, and
   /// already clamped to chainMaxLod (w)
   shadowLift : vec4f,
+  /// the rim's amplitude law (W23): the gain on the surface's own rendered
+  /// luminance (x), the rim the COLLAPSED appearance keeps — bare (y) and at the
+  /// author tint's full coverage (z) — which rises with the adaptation the
+  /// scheme's own rim falls with, and how much of an author tint's own colour
+  /// the rim's light is spent in (w)
+  rimLaw : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -832,6 +838,45 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   // seed); and '1 − toneAdapt' folds the shade out where the collapse has made
   // the material a dark body, where the reference renders the pure seed too.
   // At zero grip the layer is the bare seed — the author's colour, flat.
+  /*
+   * The material's own composite, kept beside the tinted one (W23; claims §5.100
+   * §5). The rim is the MATERIAL's mark and the author's colour is painted over
+   * it, so the amplitude law below reads the level the material reached and not
+   * the level the paint left — which is what the reference does: its tinted rows
+   * read +0.13…+0.17 of contour rim in BOTH colour schemes, where the two
+   * materials' own laws on the PAINTED level differ by a factor of five and land
+   * the dark bed's tinted rows 0.216 over.
+   *
+   * For an untinted pixel these carry exactly 'colour' and 'bodyAlpha', so the
+   * rim below is bit-identical to the law without them.
+   */
+  var materialColour = colour;
+  var materialAlpha = bodyAlpha;
+  /*
+   * The colour the rim's light is spent in (W23 G3; claims §5.102). White on a
+   * bare surface, and on a PAINTED one the author's own CHROMATICITY: the
+   * reference's rim on a tinted capsule is the paint lifted rather than white
+   * added over it — orange (255, 148, 0) rises to (254, 188, 0) with its blue
+   * channel still at 0, where vitrea drew (255, 192, 130).
+   *
+   * The layer is normalised by its own LUMINANCE and not by its brightest
+   * channel, which is what the rows chose: on the collapsed orange capsule at 2x
+   * the reference lifts the green channel by 0.213 of linear light where a white
+   * rim of the same amount lifts it by 0.304, and 0.213 / 0.304 = 0.70 is exactly
+   * the green coefficient of that orange divided by its luminance. Normalising by
+   * the brightest channel instead reproduces the hue and loses the AMOUNT — it
+   * divides the rim's luminance by the paint's, which on the same cell took the
+   * contour rim from 0.115 to 0.030 against a reference of 0.118. Chromaticity is
+   * unbounded as a paint darkens, so the divisor has a floor of 0.05: below that
+   * the paint has no readable hue and the normalisation would be a colour cast of
+   * arbitrary size rather than a rim.
+   *
+   * 'rimTintChroma' (rimLaw.w) is how much of that is taken, and it is
+   * multiplied by the pixel's own tint strength, so an UNTINTED pixel keeps a
+   * white rim at every value of the constant — which is what makes the mechanism
+   * reach painted pixels only (W23 S10).
+   */
+  var rimTintColour = vec3f(1.0);
   if (aux.w > 0.0) {
     // The untinted material's luminance at this pixel. Over a backdrop that is
     // the composite; as a layer it is the layer over the tone the host measured
@@ -842,6 +887,8 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     let shade = mix(1.0, clamp(mix(ou.tone.x, ou.tone.y, clamp(u, 0.0, 1.0)), 0.0, 1.0), grip);
     let layer = ou.seed.rgb * shade;
     let s = clamp(aux.w, 0.0, 1.0);
+    let layerLuma = max(dot(layer, vec3f(0.2126, 0.7152, 0.0722)), 0.05);
+    rimTintColour = mix(vec3f(1.0), layer / layerLuma, clamp(ou.rimLaw.w, 0.0, 1.0) * s);
     let encodedMaterial = linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0)));
     let encodedLayer = linear_to_srgb(layer);
     if (ou.flags.x > 0.5) {
@@ -886,15 +933,52 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let shadowedAlpha = 1.0 - shadowKeep * (1.0 - bodyAlpha);
   colour = colour * (shadowKeep * bodyAlpha / max(shadowedAlpha, 1e-6));
   bodyAlpha = shadowedAlpha;
+  // The same occlusion on the material's own composite, so that the rim's law
+  // reads a level the inner shadow has reached exactly as it always did.
+  let materialShadowedAlpha = 1.0 - shadowKeep * (1.0 - materialAlpha);
+  materialColour = materialColour * (shadowKeep * materialAlpha / max(materialShadowedAlpha, 1e-6));
+  materialAlpha = materialShadowedAlpha;
 
   // Rim and specular from the gradient. The rim is unlit ambient edge brightness;
   // the specular term is the same edge lit from 'light.xy'.
   let rw = rim_weight(d, ou.rim.x);
   let facing = dot(normal, ou.light.xy);
   let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
-  let rim = rw * (ou.rim.y + spec) * present;
+  /*
+   * The rim's amplitude law, and the rim that survives the collapse (W23;
+   * claims §5.100 §§3-4).
+   *
+   * - The amplitude is affine in the MATERIAL's own rendered luminance, taken
+   *   exactly as the tint shade takes it above — the composite where this layer
+   *   covers the pixel, the group's measured backdrop tone where it does not,
+   *   and in both cases before the author's colour is painted over it —
+   *   so that a rim fitted as 'a fraction of the body's headroom' (a negative
+   *   gain, the screen form the CSS tier's inset shadow already is) and a rim
+   *   fitted as 'a line that rides its own body up' (a positive one, which is
+   *   what the dark reference's rows read as) are the same expression with the
+   *   sign the rows chose. The environment term the wave chartered beside it is
+   *   not here: it is worse than this law on the reference in both schemes and
+   *   no row of either bed separates it, so it is not carried (C9a §6.2).
+   * - 'rimCollapsed' rises with 'toneAdapt' exactly as the rest of the
+   *   appearance falls with it. At toneAdapt 1 the surface draws its backdrop
+   *   with this rim and nothing else, which is what the reference's collapsed
+   *   capsule does; at 0 it contributes nothing at all.
+   *   The collapsed rim it rises to is the AUTHOR TINT's coverage lerped between
+   *   two absolute constants: the reference's collapsed capsule keeps +0.020 of
+   *   contour rim bare and +0.115 painted, and both are absolutes rather than
+   *   fractions of the appearance's own rim, because the reference draws one
+   *   collapsed appearance out of two materials whose amplitude laws differ by
+   *   1.8× (claims §5.100 §5). 'aux.w' is the same per-pixel tint strength the
+   *   author tint layer composites with sixty lines above.
+   */
+  let rimLuma = materialAlpha * dot(materialColour, vec3f(0.2126, 0.7152, 0.0722))
+    + (1.0 - materialAlpha) * ou.toneColour.w;
+  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma + spec;
+  let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, clamp(aux.w, 0.0, 1.0));
+  let rim = rw * (rimAmplitude * present + rimCollapsed * toneAdapt);
+  let rimLight = rim * rimTintColour;
   if (ou.flags.x > 0.5) {
-    colour = colour + vec3f(rim);
+    colour = colour + rimLight;
   } else {
     // Added light has no premultiplied form of its own — a canvas colour may
     // not exceed its alpha — so the layer carries the light in its opacity:
@@ -905,8 +989,11 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // shows through — where the mix form ("white over the layer at the rim's
     // weight") is short by the rim times the whole composite, which halved
     // the rim on a tinted panel.
+    // The alpha the rim carries is its LIGHT and not its colour: a coloured rim
+    // spends the same light through a narrower set of channels, so the layer's
+    // opacity is still 'rim' and only the colour it carries is tinted.
     let carried = clamp(bodyAlpha + rim, 0.0, 1.0);
-    colour = min((colour * bodyAlpha + vec3f(rim)) / max(carried, 1e-6), vec3f(1.0));
+    colour = min((colour * bodyAlpha + rimLight) / max(carried, 1e-6), vec3f(1.0));
     bodyAlpha = carried;
   }
 

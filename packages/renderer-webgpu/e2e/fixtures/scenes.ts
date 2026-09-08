@@ -272,6 +272,38 @@ export const SCENES: readonly Scene[] = [
     ],
   },
   {
+    /*
+     * The COLLAPSED appearance, which no other golden reaches (W23; claims
+     * §5.100 §6, W23 Decision Log 2 (e)).
+     *
+     * Every other scene here leaves `backdropTone` absent, at which the tone
+     * axis stands down and `toneAdapt` is 0 — so `rimCollapsed` and
+     * `rimCollapsedTinted` moved not one pixel of the suite and the isolation
+     * proof's attribution was vacuous for both. This scene hands each group a
+     * tone of 0.01, below `backdropToneLow` 0.02, on surfaces thin enough that
+     * the size bias does not lift them back out, so both groups draw the
+     * collapsed appearance: the body takes the backdrop's tone and the rim is
+     * the collapsed constant alone.
+     *
+     * Two groups, because the collapsed rim is two constants. The bare surface
+     * carries `rimCollapsed` and the painted one carries `rimCollapsedTinted` —
+     * the reference keeps +0.020 of contour rim on the first and +0.115 on the
+     * second — and a group is one tint seed, so they cannot be one group.
+     */
+    ...VIEWPORT,
+    name: "collapsed-tone",
+    backdrop: { kind: "flat", luminance: 0.01 },
+    warmupFrames: 40,
+    groups: [
+      group("bare", [rect("s", [56, 60], [88, 44])], { backdropTone: [0.01, 0.01, 0.01] }),
+      group(
+        "painted",
+        [rect("t", [148, 60], [88, 44], { tint: { color: [1, 0.3, 0], strength: 1 } })],
+        { backdropTone: [0.01, 0.01, 0.01] },
+      ),
+    ],
+  },
+  {
     // The highlight canvas: X1 puts it above the semantic host DOM, so it is a
     // separate target and needs a golden of its own.
     ...VIEWPORT,

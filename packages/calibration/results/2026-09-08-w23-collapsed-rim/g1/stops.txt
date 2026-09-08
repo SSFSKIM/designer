@@ -1,0 +1,17 @@
+W23 G1 — the stops S1, S2 and S7, read with numbers
+================================================================================================================
+
+=== S1 — every row's ΔE mean and ssimMean against the W22 bed ===
+  bound: ΔE mean +0.001, ssimMean −0.005, on UNTINTED rows
+  profile                                        scene                                        tier           ΔdE      Δssim  verdict
+  worst ΔE mean rise +0.00078 (bound +0.001); worst ssimMean fall -0.00475 (bound −0.005); rows firing: 0
+
+=== S2 — the tinted cells' bodies (bound 0.002) ===
+  profile                                        scene                                        tier      before     after         Δ  verdict
+  apple-macos-26.5-1x-light-standard             photo__capsule-button__rest-tint-orange-half css      0.45293   0.45643  +0.00350    FIRES
+  apple-macos-26.5-2x-light-standard             photo__capsule-button__rest-tint-orange-half css      0.45342   0.45697  +0.00354    FIRES
+  worst |Δ body|: 0.00354 against 0.002; rows firing: 2
+
+=== S7 — the collapsed cells' bodies (bound 0.002) ===
+  profile                                        scene                                        tier      before     after         Δ  verdict
+  worst |Δ body|: 0.00004 against 0.002; rows firing: 0
