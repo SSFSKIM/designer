@@ -232,7 +232,9 @@ Photographs come off a ladder, and each slot records the rung it landed on in `D
 3. **Openverse**, the same commands without a key: Creative Commons photographs, no key, a lower editorial band and a licence that needs the credit line the script returns.
 4. **Draw it.** When no rung answers — no network, no key, nothing relevant — the slot is drawn as content and §4 says so, so a later pass with a source knows which slots to revisit.
 
-A photo id is never guessed and a URL is never typed from memory: a wrong id ships as a broken image. Every image carries alt text, its intrinsic width and height, a container background colour so the layout holds while it loads, and the credit its source requires — Unsplash asks for the photographer and a link, Creative Commons for the attribution string.
+A photo id is never guessed and a URL is never typed from memory: a wrong id ships as a broken image. Every image carries alt text, its intrinsic width and height, and a container background colour so the layout holds while it loads. Every sourced photograph is credited by name: Unsplash asks for the photographer and a link, Creative Commons for the attribution string. The credit sits in the figure's caption, or — on a product grid, where a caption per tile is noise — in one credits line for the page that names every photographer with a link. "Photographs via Unsplash" without names is not a credit.
+
+Both services meter use by the hour (Unsplash's demo tier: fifty requests; a build spends one per query and one per pick; Openverse's anonymous tier is smaller still), so the script caches a day's results and falls through to the next rung when a quota is spent, saying so in its output. Plan the queries before running them — three to six per slot, not a query per idea — and when the search rungs are exhausted, draw the slot and record it rather than waiting.
 
 ### Define the image's job before searching
 
@@ -331,6 +333,7 @@ Reject an image when it has any of these problems.
 8. **Weak subject readability at thumbnail scale** — a beautiful wide landscape may be useless as a 72px content thumbnail.
 9. **Text embedded in the image** — unless the image is a documented poster, cover, or artifact where the text itself is required.
 10. **Mismatched production quality** — if one image looks like high-end editorial photography and another looks like casual phone photography, the difference must be intentional.
+11. **A stranger presented as the product's own** — an identifiable person from a stock source cast as this library's reader, this clinic's patient, this shop's staff; a child from a stock source in any role. Faces that belong to the product come from the project's own assets; a stock photograph carries the world (the place, the work, the objects), not the people the copy is about.
 
 ### Crop and aspect rules by layout slot
 

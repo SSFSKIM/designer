@@ -15,10 +15,14 @@
 //
 // The Unsplash key is read from UNSPLASH_ACCESS_KEY, else from ~/.config/designer/unsplash-key.
 // Without a key the search rung is Openverse (Creative Commons, no key, lower editorial quality).
-import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
+// Both services meter anonymous or demo use by the hour (Unsplash demo: 50 requests), so results
+// are cached under ~/.cache/designer/find-image for a day — a repeated query costs nothing, a
+// pick costs one request instead of two — and an exhausted Unsplash falls through to Openverse.
+import { readFileSync, readdirSync, statSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, extname, relative } from "node:path";
 import { homedir } from "node:os";
+import { createHash } from "node:crypto";
 
 const IMAGE_EXT = new Set([".png", ".jpg", ".jpeg", ".webp", ".avif", ".gif", ".svg"]);
 const SKIP_DIRS = new Set(["node_modules", ".git", "dist", "build", ".next", "out", "coverage", ".cache"]);
@@ -142,66 +146,117 @@ export function unsplashKey(env = process.env) {
   return null;
 }
 
+class HttpError extends Error { constructor(status, host) { super(`${status} from ${host}`); this.status = status; this.host = host; } }
+
 async function fetchJson(url, headers = {}) {
   const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 15000);
   try {
     const res = await fetch(url, { headers, signal: ac.signal });
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText} from ${new URL(url).host}`);
-    return await res.json();
+    if (!res.ok) throw new HttpError(res.status, new URL(url).host);
+    const remaining = res.headers.get("x-ratelimit-remaining");
+    const body = await res.json();
+    return { body, remaining: remaining == null ? null : +remaining };
   } finally { clearTimeout(t); }
 }
 
+// ---------- the cache: a day per query, and every candidate by id for pick ----------
+const CACHE = join(homedir(), ".cache", "designer", "find-image");
+const DAY = 24 * 3600 * 1000;
+function cacheRead(name, maxAge = DAY) {
+  const f = join(CACHE, name);
+  try { if (Date.now() - statSync(f).mtimeMs > maxAge) return null; return JSON.parse(readFileSync(f, "utf8")); } catch { return null; }
+}
+function cacheWrite(name, value) {
+  try { mkdirSync(join(CACHE, "by-id"), { recursive: true }); writeFileSync(join(CACHE, name), JSON.stringify(value)); } catch { /* a cache that cannot write is just slower */ }
+}
+export const cacheKey = (parts) => createHash("sha1").update(parts.join("|")).digest("hex").slice(0, 20) + ".json";
+
 // A candidate is reported only if its URL answers with an image; a photo that 404s is worse
-// than no photo, because it ships as a broken-image placeholder.
+// than no photo, because it ships as a broken-image placeholder. Some hosts refuse HEAD, so a
+// refusal is retried as a one-byte GET before the candidate is dropped.
 export async function verify(c, fetchImpl = fetch) {
-  const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 10000);
-  try {
-    const res = await fetchImpl(c.url, { method: "HEAD", redirect: "follow", signal: ac.signal });
-    const type = res.headers.get("content-type") || "";
-    return res.ok && type.startsWith("image/");
-  } catch { return false; }
-  finally { clearTimeout(t); }
+  const attempt = async (init) => {
+    const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 10000);
+    try {
+      const res = await fetchImpl(c.url, { ...init, redirect: "follow", signal: ac.signal });
+      const type = res.headers.get("content-type") || "";
+      return (res.ok || res.status === 206) && type.startsWith("image/");
+    } catch { return false; }
+    finally { clearTimeout(t); }
+  };
+  return (await attempt({ method: "HEAD" })) || (await attempt({ method: "GET", headers: { Range: "bytes=0-0" } }));
+}
+
+async function searchUnsplash(q, n, o, width, key) {
+  const { body, remaining } = await fetchJson(`https://api.unsplash.com/search/photos?query=${q}&per_page=${n}&content_filter=high${o.unsplash}`,
+    { Authorization: `Client-ID ${key}`, "Accept-Version": "v1" });
+  return { raw: body.results.map((r) => normalizeUnsplash(r, width)), remaining };
+}
+async function searchOpenverse(q, n, o) {
+  const { body } = await fetchJson(`https://api.openverse.org/v1/images/?q=${q}&page_size=${n}&license_type=commercial&mature=false${o.openverse}`);
+  return { raw: body.results.map(normalizeOpenverse), remaining: null };
 }
 
 export async function search(query, { n = 6, orientation = null, source = "auto", width = 1600, key = unsplashKey() } = {}) {
   const o = orientationParams(orientation);
   const q = encodeURIComponent(query);
-  let raw, used;
-  if (source === "unsplash" || (source === "auto" && key)) {
+  const wantUnsplash = source === "unsplash" || (source === "auto" && key);
+  const ck = cacheKey([wantUnsplash ? "unsplash" : "openverse", query, n, orientation || "", width]);
+  const hit = cacheRead(ck);
+  if (hit) return { ...hit, cached: true };
+  let raw, used, remaining = null, fallback = null;
+  if (wantUnsplash) {
     if (!key) throw new Error("no Unsplash access key: set UNSPLASH_ACCESS_KEY or write ~/.config/designer/unsplash-key");
-    const d = await fetchJson(`https://api.unsplash.com/search/photos?query=${q}&per_page=${n}&content_filter=high${o.unsplash}`,
-      { Authorization: `Client-ID ${key}`, "Accept-Version": "v1" });
-    raw = d.results.map((r) => normalizeUnsplash(r, width)); used = "unsplash";
-  } else {
-    const d = await fetchJson(`https://api.openverse.org/v1/images/?q=${q}&page_size=${n}&license_type=commercial&mature=false${o.openverse}`);
-    raw = d.results.map(normalizeOpenverse); used = "openverse";
+    try { ({ raw, remaining } = await searchUnsplash(q, n, o, width, key)); used = "unsplash"; }
+    catch (e) {
+      if (source === "unsplash" || !(e instanceof HttpError) || ![403, 429].includes(e.status)) throw e;
+      // The demo quota resets on the hour; the next rung answers now, and the record says so.
+      fallback = `unsplash ${e.status} (hourly quota exhausted) → openverse`;
+      process.stderr.write(`find-image: ${fallback}\n`);
+    }
+  }
+  if (!used) {
+    try { ({ raw } = await searchOpenverse(q, n, o)); used = "openverse"; }
+    catch (e) {
+      if (e instanceof HttpError && [403, 429].includes(e.status)) throw new Error(`${e.message}: Openverse's anonymous quota is spent for now; wait, or draw the slot (rung 4) and record it`);
+      throw e;
+    }
   }
   const checks = await Promise.all(raw.map((c) => verify(c)));
   const candidates = raw.filter((_, i) => checks[i]);
-  return { query, source: used, requested: raw.length, verified: candidates.length, candidates };
+  for (const c of candidates) cacheWrite(join("by-id", c.id + ".json"), c);
+  const out = { query, source: used, requested: raw.length, verified: candidates.length, candidates };
+  if (fallback) out.fallback = fallback;
+  if (remaining != null) out.rateLimitRemaining = remaining;
+  cacheWrite(ck, out);
+  return { ...out, cached: false };
+}
+
+// The credit, as HTML: beside the photo in a figcaption, or gathered into one credits line per
+// page that names every photographer — either placement satisfies the sources' terms.
+export function creditHtml(c) {
+  if (c.source === "unsplash") return `Photo by <a href="${c.creatorUrl}">${c.creator}</a> on <a href="https://unsplash.com/${UTM}">Unsplash</a>`;
+  if (c.creator && c.creatorUrl) return `<a href="${c.page || c.creatorUrl}">${c.alt || "Photo"}</a> by <a href="${c.creatorUrl}">${c.creator}</a>, ${c.license}`;
+  return c.credit || "";
 }
 
 export function snippet(c) {
   const alt = (c.alt || "").replace(/"/g, "&quot;");
-  const creditHtml = c.source === "unsplash"
-    ? `Photo by <a href="${c.creatorUrl}">${c.creator}</a> on <a href="https://unsplash.com/${UTM}">Unsplash</a>`
-    : c.creator && c.creatorUrl ? `<a href="${c.page || c.creatorUrl}">${c.alt || "Photo"}</a> by <a href="${c.creatorUrl}">${c.creator}</a>, ${c.license}`
-    : c.credit || "";
-  return `<figure>\n  <img src="${c.url}" alt="${alt}" width="${c.width}" height="${c.height}" loading="lazy" style="background:${c.color || "#e5e5e5"}">\n  <figcaption>${creditHtml}</figcaption>\n</figure>`;
+  return `<figure>\n  <img src="${c.url}" alt="${alt}" width="${c.width}" height="${c.height}" loading="lazy" style="background:${c.color || "#e5e5e5"}">\n  <figcaption>${creditHtml(c)}</figcaption>\n</figure>`;
 }
 
 export async function pick(id, { key = unsplashKey(), width = 1600 } = {}) {
   const isOpenverse = /^[0-9a-f]{8}-[0-9a-f]{4}-/i.test(id);
-  let c;
+  let c = cacheRead(join("by-id", id + ".json"), 7 * DAY);
   if (isOpenverse) {
-    c = normalizeOpenverse(await fetchJson(`https://api.openverse.org/v1/images/${id}/`));
+    if (!c) c = normalizeOpenverse((await fetchJson(`https://api.openverse.org/v1/images/${id}/`)).body);
   } else {
     if (!key) throw new Error("pick needs the Unsplash access key");
     const h = { Authorization: `Client-ID ${key}`, "Accept-Version": "v1" };
-    c = normalizeUnsplash(await fetchJson(`https://api.unsplash.com/photos/${id}`, h), width);
+    if (!c) c = normalizeUnsplash((await fetchJson(`https://api.unsplash.com/photos/${id}`, h)).body, width);
     await fetchJson(c.downloadLocation, h); // registers the use, as the API guidelines ask
   }
-  return { ...c, snippet: snippet(c) };
+  return { ...c, creditHtml: creditHtml(c), snippet: snippet(c) };
 }
 
 // ---------- CLI ----------
