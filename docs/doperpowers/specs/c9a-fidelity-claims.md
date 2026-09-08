@@ -13074,3 +13074,68 @@ The dark dom cells' lost conformance readings under the linear form. The CSS bod
 high-frequency structure over the checkerboard (one blur against a two-component scatter). The
 gate's dark bounds, re-proposed by the margin rule (`g2/g2-dark-bounds.txt`), the user's to adopt.
 W9's H4 remainder in dark. A unit suite for the demo.
+
+### 5.93 W22 OPENED: the resting sweep chartered as the corrective wave (§5.90 §4), and the user's eye on the W21 landing sheets pinned — the dark `impulse` capsule flat where Apple's is glass, the dark nested pane inverted (2026-09-08)
+
+**The wave** (`docs/doperpowers/specs/2026-09-08-w22-resting-sweep.md`; the finding
+`results/2026-09-08-w22-resting-sweep/finding/`). W22 takes the defect §5.90 §4 isolated — the
+highlight pass's specular band centred at the sweep phase's idle value, which is the left edge, drawn
+at `sweepGain` 0.85 on every resting surface in both schemes — and gates the band on an amplitude
+the motion driver owns (`shimmer`, 0 at idle), so a resting surface draws its ambient rim alone.
+Nothing in the workspace drives `--vitrea-sweep`; the harness and one golden set it directly. The
+light rim's constants (`rimAlpha`, `specularGain`, `lightDirection`) were fitted by W11c, W12 and
+W18 with the band present on the left, so the wave re-reads the rim per side on BOTH beds under the
+declared geometry with the band gone before it re-fits anything, and re-reads every rim row and
+floor on the rebuilt bed. The light captures move; the holdout is read once at G1; the goldens must
+reproduce byte for byte (only `highlight-press-glow` captures the highlight canvas, and it drives
+the sweep).
+
+**The user's eye on `sheets/g2-1x.png` / `g2-2x.png`** — "pretty decent" overall, with two
+observations, each pinned here with the bed's numbers at `800a04f` and carried into W22 G0 as reads.
+
+1. **`impulse__capsule-button__rest`, dark:** "still Apple's most visible and glassy — a glassier
+   edge that makes the capsule more noticeable; Apple's slightly darker." The crop
+   (`finding/impulse-capsule-2x-dark.png`: native | GPU | CSS at 2x) shows Apple drawing a visible
+   rim ring and passing the centre impulse square through the body as a soft glow; vitrea's capsule
+   is a flat near-black with neither. The numbers:
+
+   | reading | native 1x | native 2x | web 1x | web 2x |
+   | --- | --- | --- | --- | --- |
+   | body, declared geometry (W21 `g1-clauses.txt`) | 0.0066 | 0.0067 | 0.0037 | 0.0033 |
+   | `interiorMeanNative` / `Web` (silhouette) | 0.0210 | 0.0263 | 0.0037 | 0.0033 |
+   | rim peak top / bottom (1x) | 0.0145 / 0.0137 | — | 0.0030 / 0.0030 | — |
+   | rim peak left / right (1x) | 0.0041 / 0.0042 | — | 0.0017 / 0.0017 | — |
+   | `luminanceSlope` (1x) | −0.0090 | −0.0012 | 0.000005 | 0.000019 |
+
+   The two instruments disagree by a factor of three on the native body because the centre glow is
+   inside the silhouette read and dominated out of the declared one; W21 clause 3 scored the cell
+   "met (collapsed)" on the declared read alone (§5.90 §5), and the eye read the glow and the ring.
+   The mechanism on vitrea's side is the backdrop tone collapse (`backdropToneLow` 0.02 /
+   `backdropToneHigh` 0.055, W7's measurement on the LIGHT reference — "the settled reference's
+   capsule over a near-black backdrop is byte-identical to that background"), inherited by the dark
+   patch unmeasured: over the black between the squares it folds the dark material, rim included,
+   onto the backdrop. The dark reference does not collapse there; whether it collapses over
+   `dark-solid` (native 0.0110 against a 0.012 backdrop, §5.90 §5) is the read that decides if this
+   is one constant in the dark patch or the appearance switch's scene-level term. The eye's
+   "darker" is the contrast the ring and the glow lend the body, not its mean — the mean runs the
+   other way.
+
+2. **`checkerboard__glass-over-glass__rest`, dark:** "Apple's topmost glass is noticeably darker
+   than ours, and the bottom glass is slightly hazier." The crop (`finding/nested-pane-2x-dark.png`):
+   Apple's overlay pane is darker than its base; vitrea's overlay is LIGHTER than its base — a flat
+   mid grey on the GPU tier, lighter still on the CSS tier. Apple's base blurs the checker to a haze
+   (`blurSigmaNative` 4.84 px at 2x against web 0.69 with fit residual 1.81 — the thick-span
+   composite of wave Decision Log 23 (c)). No per-pane number exists on the bed: the matrix's
+   interior rows read the stack as one region (interior 0.0389 / 0.0423 at 1x, GPU), and the declared
+   reader refuses composites. On the web the overlay samples the base's rendered output through the
+   `dom` backend; a flat grey lighter than its backdrop is not what the response law gives at these
+   levels, so the read must first say what the overlay's backdrop IS. W22 G0 extends the declared
+   reader to a stack (the base's box with the overlay's cut out; the overlay's box; each eroded 6
+   CSS px with its own rim band) and reads both panes on both beds, both tiers, both scales; the
+   base's haze is handed to the thick-span composite by name with its per-pane blur reading.
+
+Both are gaps to macOS and are recorded as such: the first sits on a validation cell the gate
+scores "met", the second on the holdout cell that carries four instrument floors (§5.27's addendum;
+W21 Decision Log 4). Neither is tuned here; each is measured in W22 G0 and closes there by one
+constant on its own rows or is chartered with its numbers.
+

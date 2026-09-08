@@ -696,6 +696,10 @@ light captures move, so it cannot ride a wave that binds them byte-identical and
 its own corrective wave (W22) ahead of the thick-span composite. Above the wave's rim clause on two
 cells; below every adopted bound.
 
+**Chartered 2026-09-08 as W22** (`2026-09-08-w22-resting-sweep.md`; claims §5.93): the gate is an
+amplitude channel the driver owns (`shimmer`, 0 at idle); the rim read per side on both beds before
+the light rim's constants move. Closes at W22's landing.
+
 ## The CSS tier's dark material over-darkens structured backdrops under the response law (W21 G1, 2026-09-07)
 
 *Found on W21's dry run.* With the dark profile's response law at strength 1, the CSS tier's dark

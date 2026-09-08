@@ -1,0 +1,28 @@
+W22 finding — the user's eye on the W21 landing sheets (g2-1x.png / g2-2x.png), 2026-09-08.
+Crops here: native | GPU landed | CSS landed, 2x dark, nearest-neighbour 2x zoom, from the
+canonical fixtures and web-captures at the 0.10.0 landing (matrix at 800a04f).
+
+1. impulse__capsule-button__rest (dark): "still Apple's most visible and glassy — a glassier
+   edge that makes the capsule more noticeable; Apple's slightly darker".
+   Numbers on the bed (matrix.json, GPU tier / declared-geometry read from W21 g1-clauses.txt):
+     interiorMean (silhouette)   native 0.0210 (1x) 0.0263 (2x)   web 0.0037 / 0.0033
+     body (declared, eroded 6px) native 0.0066 (1x) 0.0067 (2x)   web 0.0037 / 0.0033  "met (collapsed)"
+     rim peak per side, 1x       native top 0.0145 bottom 0.0137 left 0.0041 right 0.0042
+                                 web    top 0.0030 bottom 0.0030 left 0.0017 right 0.0017
+     luminanceSlope (structure)  native -0.0090 (1x)               web 0.000005
+   The two instruments disagree by 3x on the native body (0.0066 vs 0.0210): the crop shows why —
+   Apple passes the centre impulse square as a soft glow through the body, and draws a visible rim
+   ring; vitrea's capsule is a flat near-black with neither. vitrea's collapse (backdropToneLow
+   0.02 / High 0.055, W7's light-scheme measurement, inherited by the dark patch unmeasured) folds
+   the material onto the black between the squares; the dark reference does not collapse there.
+   The eye's "darker" is the contrast the ring and the glow give the body, not its mean.
+
+2. checkerboard__glass-over-glass__rest (dark): "Apple's topmost glass is noticeably darker than
+   ours, and the bottom glass is slightly hazier".
+   The crop: Apple's overlay pane is DARKER than its base pane; vitrea's overlay is LIGHTER than its
+   base (a flat mid grey on the GPU tier, lighter still on the CSS tier). Apple's base pane blurs the
+   checker to a haze (blurSigmaNative 4.84 px at 2x; web 0.69 with residual 1.81 — the thick-span
+   composite, wave Decision Log 23 (c)); vitrea's base passes the checker more sharply.
+   The matrix's interior rows read the stack as one region; the declared reader refuses composites
+   ("--interior declared needs a component with a declared size (no composites)"), so no per-pane
+   number exists yet. G0 extends the reader to a stack's two boxes and reads both panes.
