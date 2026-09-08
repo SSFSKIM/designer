@@ -5,9 +5,18 @@ bed is the landed 0.12.0 one (`408ad2e`, CI green, unpublished). Nothing canonic
 no `results/matrix.json`, no `web-captures/`, no fixture, no `scenes.json`, no profile document.
 The holdout was neither captured nor fitted; landed holdout captures were not read.
 
+**The headline.** What removes the transmission is the collapse's TARGET, not the alpha solve, and
+that is arithmetic rather than inference (§3). Corrected behind `collapseTransmission` = **0.017 at
+1x, 0.070 at 2x**, the collapsed capsule's dot goes **0.0000 → +0.0067** against the reference's
++0.0066 at 1x and **0.0000 → +0.0256** against +0.0254 at 2x, in both schemes; every golden and
+every capture reproduces byte for byte at the inert default; and at the fitted constants exactly
+two cells of the bed move. The dark thin structured cells clause 3 names cannot be reached by any
+transmission constant, because the collapse is not running on them at all (§4).
+
 Artefacts beside this file: `read-impulse.py` (the instrument), `read-structure.py`, `psf.py`,
-`solve-state.py` and their runners; `transmission-read.txt`, `solve-state.txt`; `ladder.sh`,
-`make-candidates.sh`, `read-ladder.sh`; `fingerprints.mts`.
+`solve-state.py`, `fit-transmission.py`, `moved-rows.py` and their runners;
+`transmission-read.txt`, `solve-state.txt`, `ladder.txt`; `ladder.sh`, `make-candidates.sh`,
+`read-ladder.sh`; `fingerprints.mts`.
 
 ---
 
@@ -275,7 +284,102 @@ reason recorded, and every other golden must reproduce byte for byte.
 
 ## 9. The ladder, the fit and the rows
 
-*(filled in below after the ladder runs; the GPU is G0's until its DONE marker — X4.)*
+Nine rendered points, GPU tier (`apple/metal-3`), `--set calibration,validation` — **the holdout was
+not captured at any rung** (X3) — all to scratch under
+`/Users/new/.claude/jobs/5c70e47f/tmp/w24/g1/ladder/`. Full record in `ladder.txt`. G0's `DONE`
+marker was present and `pgrep`/`lsof` clear before every run (X4).
+
+### The control: the mechanism is inert on captures as well as on goldens
+
+`control-1x-light` renders the shipped document with `collapseTransmission` pinned at 0 through the
+new code path. **All 26 captures are byte-identical to the landed 0.12.0 PNGs**, and the golden
+suite is **31/31 green at the defaults** (`goldens-defaults.log`), `collapsed-tone` included. The
+renderer's 402 unit tests and platform-web's 451 pass. The only red assertion anywhere is
+`tuned-profiles.test.ts`'s resolved-material fingerprint, which moves because the material gained a
+field; §10 carries the two digests.
+
+### The fit, which is exact arithmetic on one rung
+
+At `k` = 1 the composite is `colour = (1 − c)·toneColour + c·backdrop`, so the dot's excess is
+linear in `c` and one non-zero rung fixes vitrea's own blurred-backdrop excess `E`:
+
+| scale | native peak | rung peak at c = 0.10 | E | **c\*** |
+| --- | --- | --- | --- | --- |
+| 1x | +0.0066 | +0.0386 | 0.386 | 0.10 × 0.0066 / 0.0386 = 0.0171 → **0.017** |
+| 2x | +0.0254 | +0.0363 | 0.363 | 0.10 × 0.0254 / 0.0363 = 0.0700 → **0.070** |
+
+The light and dark rungs read **identically** on the collapsed capsule at both scales (peak 0.0386
+and 0.0363 to four decimals), which is the evidence that this is one constant in both schemes —
+the same fact W23 X4 established for the collapsed rim.
+
+**The two scales differ by a factor of four, and that is the kernel finding stated as a constant.**
+vitrea's blurred backdrop carries nearly the same excess at both scales (0.386 against 0.363) where
+the reference's transmitted peak is four times larger at 2x, because vitrea's kernel is
+CSS-invariant and the reference's is not (§5). One constant cannot serve both; hence
+`collapseTransmission2x`.
+
+### The confirmation rungs, against the reference
+
+| cell | native | landed 0.12.0 | **at the fit** | clause 2 |
+| --- | --- | --- | --- | --- |
+| `impulse__capsule-button` 1x, peak | +0.0066 | 0.0000 | **+0.0067** | ✅ ±0.0001 against ±0.005 |
+| 1x, FWHM (CSS px) | 7.57 | — | **4.99** | ❌ 2.58 against ±2 — the kernel, §5 |
+| 1x, integral | 0.0508 | 0.0000 | 0.0353 | (not graded) |
+| 1x, body | 0.0066 | 0.0037 | 0.0037 | ❌ 0.0029, unchanged and pre-existing — see below |
+| `impulse__capsule-button` 2x, peak | +0.0254 | 0.0000 | **+0.0256** | ✅ ±0.0002 |
+| 2x, FWHM | 3.80 | — | **4.64** | ✅ 0.84 |
+| 2x, integral | 0.1074 | 0.0000 | 0.1408 | (not graded) |
+| 2x, body | 0.0067 | 0.0033 | 0.0034 | ❌ 0.0033, unchanged |
+| passthrough 1x (`pass` = sd / bgSd) | 0.0104 | **0.0000** | **0.0066** | structure now passes |
+| passthrough 2x | 0.0205 | **0.0000** | **0.0250** | structure now passes |
+
+Both schemes render the same numbers; the dark rows are the light rows.
+
+### What it costs the bed
+
+On the two cells that move, fit against the committed matrix (`moved-rows.py`):
+
+| profile | cell | ΔE mean | ssimMean | ssimMin | interiorMeanWeb (native) |
+| --- | --- | --- | --- | --- | --- |
+| 1x light | `impulse__capsule-button` | 0.00251 → **0.00247** | 0.99009 → **0.99066** | — | 0.01830 → **0.01906** (0.02105) |
+| 1x light | `impulse__rrect-md` | 0.00454 → 0.00454 | — | 0.74752 → **0.74949** | unchanged |
+| 2x light | `impulse__capsule-button` | 0.00294 → 0.00299 (**+0.00006**) | 0.98787 → 0.98691 (**−0.00096**) | 0.22094 → **0.28878** | 0.02091 → **0.02461** (0.02632) |
+| 2x light | `impulse__rrect-md` | unchanged | unchanged | unchanged | unchanged |
+| both | `dark-solid__capsule-button` | **identical to five decimals** | identical | identical | identical |
+
+The 2x row is the only one that pays anything: ΔE +0.00006 against clause 4's 0.001 and `ssimMean`
+−0.00096 against its 0.005, both comfortably inside, while `ssimMin` improves by 0.068 and the
+interior level closes 68 % of its gap to the reference. The cost is the width: the dot arrives 0.84
+CSS px wide of the reference's, which SSIM's local windows see and the level does not.
+
+**`dark-solid__capsule-button` — the stop — is byte-identical at every rung including c = 0.10**, on
+the pixels and on every metric. That is the fit's own guard working: a solid backdrop has no
+structure to transmit and the target's lerp is the identity there.
+
+### S10, on captures rather than on argument
+
+At **every** rung, probe and fit, exactly the impulse cells move and nothing else: 24 of 26 captures
+byte-identical at 1x light and 2x light, 25 of 26 on the dark profiles (which carry no
+`impulse__rrect-md` cell). Byte-identical at every rung: all seven `checkerboard` cells, all nine
+`photo` cells, all four `light-solid` cells, all three `dark-solid` cells **and
+`impulse__capsule-button__rest-tint-orange`**.
+
+### The tinted collapsed capsule passes nothing, on either side of the comparison
+
+`impulse__capsule-button__rest-tint-orange` is byte-identical at every rung, because at full paint
+vitrea's author tint occludes the transmission entirely. The reference's does too at 1x (its dot is
+below the 8-bit floor at that body) but **not at 2x, where it passes +0.0064 over a body of
+0.4244** — a quarter of the bare cell's +0.0254. So the paint attenuates Apple's transmission and
+does not extinguish it, and vitrea extinguishes it.
+
+**This matters for the split.** That tinted cell is the only `impulse` **calibration** cell; the
+bare capsule is validation. So on this bed the constant is fitted on a validation row against a
+calibration row (`dark-solid__capsule-button`) that can only ever hold it at zero — the calibration
+set contains no cell that separates this constant. That is a property of the bed, it should be said
+out loud rather than papered over, and the honest reading is that `collapseTransmission` is fitted
+on `impulse__capsule-button__rest` and **checked** by three independent things: the two scales
+agreeing on a mechanism, the two schemes rendering the same numbers, and every other cell of both
+beds holding byte-identical.
 
 ## 10. The exact diff for G2
 
@@ -300,13 +404,49 @@ reason recorded, and every other golden must reproduce byte for byte.
 3. **The textured collapsed golden** (§8).
 4. **`FITTED_CONSTANTS`** in `tuned-profiles.test.ts`, if the constant is to be named there.
 
-## 11. Every gap, with numbers
+## 11. The recommendation, Decision-Log shaped
+
+**(a) The mechanism is the collapse's target, and only that.** The alpha solve is not implicated
+and needs no gate: on every cell where the dot is missing it is already stood down twice over
+(§3). `collapseTransmission` lerps the target from the group's mean to the per-pixel blurred
+backdrop the refraction path already sampled, leaving the tone axis's argument and the response
+law's level exactly as W7 and W9 fitted them.
+
+**(b) The constants: 0.017 at 1x and 0.070 at 2x**, one pair for both schemes, fitted on the peak
+of `impulse__capsule-button__rest`'s centre dot and confirmed by a rendered point (+0.0067 against
++0.0066; +0.0256 against +0.0254). Fitting on the peak rather than the integral is a choice and the
+reason is clause 2: the peak is what it grades and what the eye reads, and the integral fit would
+miss the 2x peak by 0.0062 against a 0.005 allowance. The two anchors differ by four because the
+kernels do (§5), not because the material does.
+
+**(c) Clause 2 is met on the peak and missed on two sub-clauses, both of them for reasons that are
+not this mechanism's.** The FWHM misses at 1x by 0.58 CSS px because vitrea's kernel is the wrong
+width there — a scatter-law term, §5. The body misses by 0.0029 / 0.0033 because the collapse's
+target LEVEL is the backdrop's mean and the reference's is above it — a collapse-level term, §12's
+table, and the natural next child after this one. Neither was introduced by this wave and neither
+is closable by a transmission constant. **Recommend the parent re-declare clause 2 as the peak and
+the FWHM-at-2x, and carry the other two by name.**
+
+**(d) Clause 3 is answered by its "or why not" branch, and the charter is corrected on a point of
+fact** (§4): the dark structured thin capsules have `k` = 0.0000, so the collapse is not running on
+them at all. Their −18 to −22 codes are the dark material's own level and passthrough — §5.89's
+open term — and are not the collapse's flattening. Two terms, one symptom.
+
+**(e) What the parent must decide.** (i) Whether the accessibility stand-down in §6 is right or
+whether a degraded regime should transmit too. (ii) Whether to accept a constant whose calibration
+row cannot separate it (§9) or to charter a textured dark calibration cell. (iii) Whether the
+collapsed body's level term goes into this wave or the next. (iv) The textured collapsed golden
+(§8), which is a scene addition and therefore a first hash under `W24_HASHES`.
+
+## 12. Every gap, with numbers
 
 | gap | number | where it belongs |
 | --- | --- | --- |
-| The reference's transmitted kernel is invariant in neither unit; vitrea's runs the other way | σ 2.63 → 1.30 device px (1x → 2x) native, 1.68 → 4.86 vitrea | claims §5.107; the material's scatter law, a future wave |
+| The reference's transmitted kernel is invariant in neither unit; vitrea's runs the other way | σ 2.63 → 1.30 device px (1x → 2x) native, 1.68 → 4.86 vitrea. Rendered: the dot's FWHM is 4.99 CSS px at 1x against the reference's 7.57 (**clause 2's ±2 missed by 0.58**) and 4.64 against 3.80 at 2x (met). It is why the constant needs two anchors — 0.017 and 0.070, a factor of four | claims §5.107; the material's scatter law, a future wave |
 | The dark structured thin capsules' body and passthrough at `k` = 0 | −18.1 / −18.2 / −22.2 / −22.5 codes; pass 0.0505 vs 0.1001 and 0.0862 vs 0.1950 | the same term as §5.89's passthrough; carried by name, NOT reachable by this mechanism |
-| The collapsed body itself is 7–8 codes dark before any transmission | dark `impulse__capsule-button` 19.26 → 12.00 (1x), 19.34 → 11.00 (2x) | partly closed by the mechanism (the transmitted energy raises the mean); the residual is the collapse's own level |
+| **The collapsed body sits at the backdrop's mean and the reference's sits above it.** vitrea's collapsed capsule over `impulse` renders 0.0037, which IS the group's linear mean 0.00375, by construction; the reference renders 0.0066 — 76 % higher, 7 codes. Over `dark-solid` the reference sits 0.0007 BELOW its backdrop. So Apple's collapsed material is a dark glass with a floor of its own, not the backdrop's mean, and the collapse's TARGET LEVEL is wrong as well as its flatness | 0.0029 (1x) / 0.0033 (2x) linear; unchanged by this mechanism (Δ < 0.0001) — the transmitted energy's own mean under the capsule is 0.00303 against the group's 0.00375, so it pulls the body very slightly DOWN | **clause 2's body sub-clause is missed and was missed before this wave**; the next term after this one — a floor on the collapse's target, fitted on the two dark backdrops that bracket it |
+| The author tint extinguishes vitrea's transmission where it only attenuates the reference's | 2x `impulse__capsule-button__rest-tint-orange`: native +0.0064 over body 0.4244, vitrea 0.0000 at every rung | claims §5.107; the composition contract's order over a collapsed surface |
+| The bed's calibration set contains no cell that separates this constant | the only `impulse` calibration cell is the tinted one, which does not move; `dark-solid` holds it at zero by construction | a bed gap, recorded — the fit is on a validation row and checked three other ways (§9) |
 | The CSS tier transmits through one Gaussian, not the renderer's two components | width only; the share is exact | X5 residual, recorded |
 | The mechanism is stood down under every accessibility fold by decision | — | §6; the parent's call |
 | The golden suite has no textured collapsed scene | — | §8 |
