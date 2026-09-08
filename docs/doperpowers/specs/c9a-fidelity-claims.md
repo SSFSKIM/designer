@@ -13342,3 +13342,115 @@ main at `3e88921` plus the light profile's `specularGain`; its one holdout read 
 stacked cells on both tiers, read per pane with `read-stack.py`, and G2 re-reads the four W21 floors
 on the 2x dark nested pane. The changeset for the wave is G2's.
 
+### 5.96 W22 G1 DECLARED: `specularGain` fitted to 0 on the light profile — eleven of twenty contrast rows separate it and every one minimises at 0; ten goldens re-recorded under an exact attribution through the profile seam; the dry run on the whole bed with the holdout read once — W21's two open rim cells close, the dark holdout 0.0161 → 0.0133, the nested pane's sign right on all twelve rows, the four W21 floors held, the predicate 33 → 29; one stop fires at the sixth decimal (2026-09-08)
+
+**W22 G1** (`results/2026-09-08-w22-resting-sweep/g1/g1-dryrun.md` with `fit-ladder.txt`,
+`g1-clauses.txt`, `delta-e.txt`, `moved-rows.txt`, `byte-identity.txt`, `stack.txt`,
+`shadow-rows.txt`, `stops.txt`, `g1-digests.txt`, `attribute-w22-goldens.py`; the sheets under
+`../sheets/g1-1x.png`, `g1-2x.png`; the code at `d9cd2cc`). Nothing canonical written; the wave's one
+holdout read is spent here (X5) and G2 must reproduce all 230 captures byte for byte.
+
+#### 1. The form
+
+`DEFAULT_MATERIAL_PROFILE.optics.regular.specularGain` **0.55 → 0** (the light profile; the dark patch
+already carried 0, so the dark resolved material and its hash `d86f480c0e136627` are unchanged and
+`dark-profile.ts` regenerates with an empty diff). The CSS mirror in `platform-web/src/optics.ts`
+moves with it — `interiorBandLight` carries the term into that tier's derived level, 0.0013–0.0053
+of band light between the widest and narrowest calibration surfaces, so the CSS captures move where
+the sweep gate's did not. The light profile document's `resolvedMaterialSha256` b1ff51ad15273736 →
+**f6c54a1ea236447a**; the constant named in `patch` and `FITTED_CONSTANTS`; the `rimIntensity`
+entry re-recorded (the value 0.18 stands; its reason "below the capture's own resolution" was the
+silhouette-band instrument's and the declared read measures the rim at 0.0288 against a 0.0079 code
+step). The `clear` variant's 0.45 has no rows on the bed and is left, recorded. `rimAlpha` on both
+profiles and `lightDirection` declined per Decision Log 2 (b); the shadow rows read beside the
+declaration and unmoved (`shadow-rows.txt`).
+
+**The fit, per contrast** (`fit-ladder.txt`): eight documents differing in that leaf alone, rendered
+on the five untinted solid calibration cells at both light scales (`mid-dark-solid` is holdout and
+could not be a fit row; read once afterwards, it agrees: `L−R` +0.0523 → +0.0000). Eleven of twenty
+`T−B` / `L−R` rows separate the constant above the 0.000625 instrument floor and **every one
+minimises at 0**; the objective is monotone in the gain, mean |Δ| 0.00097 at 0 against 0.03102 at
+0.55. The load-bearing row is `dark-solid__rrect-md` `T−B`: the reference +0.0002, the shipped
+constant +0.1237 (1x) / +0.1817 (2x). S5 does not fire.
+
+#### 2. The goldens — ten moved, the attribution exact
+
+The isolation spec pins the old constant through the profile seam, so the delta IS expressible as a
+patch: one tree, the constant injected, reproduces the old bytes. Ten goldens re-recorded under
+`W22_HASHES` (plus `PLACED_CHECKERBOARD_COVER_HASH`) with the attribution measured
+(`attribute-w22-goldens.py`): 166–1 261 px per scene moved, all in a band ≤ 2.24 device px at the
+rim, 98–100 % of the moved luminance in the upper half (the light direction's signature), alpha
+moving only on `field-mask` (the unsampled premultiplied-layer path). `highlight-press-glow` — the
+one golden capturing the highlight canvas — moves 0 of 96 000 px and keeps its 2026-08-25 hash.
+29 / 29 pass; build, lint, 1 880 unit tests.
+
+#### 3. The dry run — all six profiles, both tiers, 229 cells, the holdout once (`delta-e.txt`)
+
+Before is the canonical W21 bed at `800a04f`; after includes G0's gate and G3's fix, both on main.
+
+| profile | tier | calibration | validation | holdout |
+| --- | --- | --- | --- | --- |
+| 1x light | webgpu | 0.00329 → 0.00330 (+0.000008) | 0.00259 → 0.00261 | 0.00911 → 0.00914 |
+| 2x light | webgpu | 0.00334 → 0.00333 | 0.00263 → 0.00263 | 0.00906 → 0.00906 |
+| 1x dark | webgpu | 0.00410 → 0.00404 | 0.00291 → 0.00291 | 0.01612 → **0.01326** |
+| 2x dark | webgpu | 0.00410 → 0.00403 | 0.00329 → 0.00329 | 0.01596 → **0.01301** |
+| 1x increased-contrast | webgpu | 0.00798 → 0.00793 | 0.00867 → 0.00862 | 0.02043 → 0.02042 |
+| 1x reduced-transparency | webgpu | 0.00173 → 0.00172 | 0.00111 → 0.00113 | 0.00343 → 0.00341 |
+| 1x light | css | 0.00707 → 0.00699 | 0.00546 → 0.00544 | 0.01615 → 0.01581 |
+| 2x light | css | 0.00737 → 0.00727 | 0.00566 → 0.00563 | 0.01654 → 0.01618 |
+| 1x dark | css | 0.00682 → 0.00682 | 0.00362 → 0.00362 | 0.01999 → **0.01732** |
+| 2x dark | css | 0.00699 → 0.00699 | 0.00401 → 0.00401 | 0.01992 → **0.01724** |
+| 1x increased-contrast | css | 0.01293 → 0.01300 | 0.01524 → 0.01531 | 0.04531 → 0.04557 |
+| 1x reduced-transparency | css | 0.00446 → 0.00442 | 0.00470 → 0.00473 | 0.00756 → 0.00752 |
+
+The dark holdout's −0.0027 to −0.0030 on both tiers and both scales is G3's nested pane arriving in
+the matrix for the first time. S1 fires on zero rows (worst +0.000252 ΔE, −0.001787 `ssimMean`).
+
+#### 4. Clause 2 — the rim per side (`g1-clauses.txt`)
+
+W21 clause 4's two open cells close at both scales: `dark-solid__rrect-md` `L−R` +0.1327 → +0.0000,
+`mid-dark-solid__capsule-button` +0.0523 → +0.0000, each left side within 0.0133 of the reference.
+GPU tier: five sides newly met, one newly missed, 90 unchanged; CSS 0 / 0 / 96. The dark bed misses
+nothing on the GPU tier. **All eighteen standing misses are one term** — the light material's rim
+over a dark backdrop, on `dark-solid__rrect-md`, `impulse__rrect-md` and
+`mid-dark-solid__capsule-button` at both scales, 0.031–0.093 too dim (the "collapsed rim in light",
+§5.94 §3, now three cells: two could not be read before this gate opened the validation and holdout
+sets). The one newly missed side is that term seen from the other side: `light 1x impulse__rrect-md`
+top +0.0242 → −0.0898, the specular having lifted one side of a rim too dim on all four — its `T−B`
++0.1092 → −0.0048 against a reference of +0.0001.
+
+#### 5. The nested pane, first read against the reference at the corrected input (`stack.txt`)
+
+X3 re-validated on this run (both bodies exact, eight rim peaks within 0.000625; the placement
+asserted, base 220 × 130 at (50, 35), overlay 120 × 56 at (100, 64)). The overlay's excess over its
+base, native | before | after: dark GPU −0.0260 | +0.0023 | **−0.0232** (1x), −0.0267 | +0.0018 |
+**−0.0246** (2x); dark CSS −0.0220 / −0.0244 after; light GPU unmoved within 0.0001 (within 0.0016–
+0.0123 of the reference); light CSS recovered 0.0531–0.0669 to within 0.0030–0.0094 of the reference
+(§5.95's prediction 0.056–0.069). **The sign agrees with the reference on all twelve rows**; the
+overlay sits 0.0021–0.0040 from the reference's excess where it sat 0.028 the wrong side. The base
+pane's haze is unchanged (σ-match 16.00 native against 8.00 web at 2x dark) and remains the
+thick-span composite's. The four W21 floors on the 2x dark nested pane held: texture `silhouetteIoU`
+0.92673 → 0.92732, dom 0.90482 → 0.90493, dom `contourDistanceMean` 1.76018 and P95 13.0 unmoved.
+
+#### 6. The gate over the full scratch matrix, the CSS tier, the stops
+
+`adopted-thresholds` 31 / 33, both failures one fact: `PREDICATE_EXCLUDES` re-derives to **29
+lines** — four 2x light texture cells become well-conditioned because the band had fragmented their
+web silhouettes (2 / 3 / 3 / 4 bodies → 1 each); with those lines removed the gate passes 33 / 33,
+`UNMET_ROWS` stays 11, no floor inert, no bound widened; G2's edit. Clause 6: every CSS mover named
+(`byte-identity.txt`) — the derived level through `interiorBandLight`, G3's stacked scenes, one
+19-px encoding step under increased contrast; the increased-contrast CSS tier is 0.00006–0.00025
+worse in ΔE while its GPU twin improves, a CSS-only residual for the tracker.
+`1x-light-increased-contrast / css / holdout` exits 1 on `hc-text__capsule-button__rest` ("a 0.00 px
+contour … carries no curvature"), pre-existing and reproducible from the canonical bed.
+
+**S3 fires, at the sixth decimal:** `1x-light-standard` / webgpu / calibration 0.0032930 →
+0.0033010, **+0.0000080** — two cells, `dark-solid__rrect-md` +0.0001102 (the deferred term) and
+`photo__capsule-button__rest-tint-blue` +0.0000741, against eleven cells improving; 1/125 of S1's
+per-row bound; the 2x column of the same scheme and both dark columns improve. S1, S2, S4, S5, S6 do
+not fire; S7 is the user's. The ruling is the W22 spec's Decision Log 4.
+
+By eye (X6; the sheets sent): the resting band gone from every left edge; the dark overlay darker
+than its base again; `dark-solid__rrect-md` in light symmetric and uniformly too faint — the
+deferred residual, visible.
+

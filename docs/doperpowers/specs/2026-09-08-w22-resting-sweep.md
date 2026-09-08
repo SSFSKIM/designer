@@ -8,7 +8,10 @@ W21 landing sheets pinned as findings the same day (claims §5.93). G0 CLOSED 20
 the appearance switch, the nested pane a plumbing defect taken as G3 ahead of G1. G3 CLOSED
 2026-09-08 (claims §5.95; Decision Log 3): the overlay had been handed no backdrop at all; fixed as
 a mechanism, the overlay's dark body within 0.0017 of the law, the rest byte-identical, two review
-findings fixed. G1 dispatched.**
+findings fixed. G1 DECLARED 2026-09-08 (claims §5.96; Decision Log 4): `specularGain` 0.55 → 0 on the
+light profile, ten goldens re-recorded under an exact attribution, the holdout read once, W21's two
+open rim cells closed, the nested pane's sign right on every row, one stop fired at the sixth decimal
+and taken. G2 dispatched: the landing.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W22 row; wave Decision Log 23 (c)'s ordering, this
@@ -312,10 +315,12 @@ or something else). The GPU is shared; one capture at a time.
   numbers: the glow +0.0014 / +0.0019 against +0.0000, the top rim 0.0145 / 0.0162 against 0.0030,
   no anchor below encoded 0.1104, and the `backdropToneMax` 0 table as the bound on what the
   existing axis can buy. The collapse and the appearance term are one axis (Decision Log 2 (d)).
-- **The collapsed rim in light** — `dark-solid__rrect-md` under the light profile misses clause 2 on
-  its bottom by 0.093 / 0.088 (the light material's rim over a dark backdrop too dim by 0.05–0.11;
-  `rimAlpha`'s rows there demand 2.4–2.9). W21 deferred the same term at +0.017 in dark. In the
-  tracker.
+- **The collapsed rim in light** — three cells under the light profile, `dark-solid__rrect-md`,
+  `impulse__rrect-md` and `mid-dark-solid__capsule-button` at both scales, eighteen sides missing
+  clause 2 by 0.031–0.093 (the light material's rim over a dark backdrop too dim; `rimAlpha`'s rows
+  there demand 2.4–2.9; the one side G1 newly missed, `light 1x impulse__rrect-md` top, is this term
+  with the specular's one-sided lift removed). W21 deferred the same term at +0.017 in dark. In the
+  tracker (Decision Log 4 (d)).
 - **The CSS tier's sweep.** The CSS tier draws no shimmer and gains none here.
 
 ## Tracking Map
@@ -324,8 +329,8 @@ or something else). The GPU is shared; one capture at a time.
 | --- | --- |
 | G0 — the isolation, the light rim per side, the two eye reads | CLOSED 2026-09-08 (claims §5.94; the gate at `550f16d`, merged `eda878b`; Decision Log 2) |
 | G3 — the overlay's backdrop input | CLOSED 2026-09-08 (claims §5.95; `71d5d5c` + `86d05cd`, merged `3e88921`; Decision Log 3) |
-| G1 — the form declared and dry-run | DISPATCHED 2026-09-08 |
-| G2 — the landing and its referee | — |
+| G1 — the form declared and dry-run | DECLARED 2026-09-08 (claims §5.96; `d9cd2cc`; Decision Log 4) |
+| G2 — the landing and its referee | DISPATCHED 2026-09-08 |
 
 ## Decision Log
 
@@ -403,7 +408,41 @@ web side) and are read against the reference for the first time there.
 (d) **Recorded, not this wave's:** the per-source tone measurement's residual on a light base
 (+0.0349 derived against measured; tracker).
 
+### Decision Log 4 — G1 at the gate: the fit taken, the goldens' attribution accepted, S3 taken at the sixth decimal, clause 6 corrected, the collapsed rim in light three cells, the landing ruled (2026-09-08; the parent, on the user's standing instruction, the eye's veto kept before publish)
+
+(a) **`specularGain` 0 on the light profile lands as fitted** (claims §5.96 §1): eleven of twenty
+contrast rows separate it and all minimise at 0. The `clear` variant is left at 0.45 with no rows,
+recorded. The ten goldens' re-record is accepted on its attribution (a patch through the seam
+reproduces the old bytes; the highlight golden unmoved).
+
+(b) **S3 fires by +0.0000080 on one column and is taken, the number recorded.** The stop as written
+is "calibration ΔE mean above the W21 bed's"; the excess is 1/125 of S1's own per-row bound, is
+carried by a cell the wave deferred by name and a tinted capsule, and the same scheme's 2x column and
+both dark columns improve. A stop that fires at a rounding is a stop the charter drew too fine, and
+the charter is corrected here rather than the number smoothed: clause 4's "not above" reads "not
+above by more than 0.0001" from this ruling, with the reason.
+
+(c) **Clause 6 is corrected.** "The CSS tier has no sweep, so its captures are expected
+byte-identical" was true of the sweep gate and false of a material fit that moves
+`interiorBandLight`'s argument; the clause's intent — every CSS mover explained — is what binds, and
+G1 met it. The increased-contrast CSS tier's 0.00006–0.00025 is a CSS-only residual (wave Decision
+Log 23 (a)), in the tracker.
+
+(d) **The collapsed rim in light is three cells** (`dark-solid__rrect-md`, `impulse__rrect-md`,
+`mid-dark-solid__capsule-button`; eighteen sides 0.031–0.093 too dim), the one newly missed side
+(`light 1x impulse__rrect-md` top) among them; the Deferred entry and the tracker say three.
+
+(e) **The landing is ruled: G2 opens** — the canonical rebuild from the main checkout with
+`rm results/matrix.json` first, the referee against `g1-digests.txt` byte for byte, the four
+`PREDICATE_EXCLUDES` lines removed with the four cells' silhouette bodies as the reason, the four
+W21 floors re-read, the changeset a `vitrea-web` minor (0.11.0). The user's eye on `g1-1x.png` /
+`g1-2x.png` before publish; the veto kept.
+
 ## Surprises & Discoveries
+
+- **The band had been fragmenting silhouettes.** Four 2x light texture cells re-enter the gate's
+  predicate at G1 because their web silhouettes went from 2–4 bodies to 1 with the band gone; the
+  predicate had been excluding cells for a defect in the renderer, not in the extractor.
 
 - **The overlay had no backdrop, and three waves read "partial" through it.** The nested pane's
   response law was never evaluated on the overlay pane; the capture that could not say what a
@@ -438,3 +477,6 @@ web side) and are read against the reference for the first time there.
 - 2026-09-08: G0 CLOSED (claims §5.94); Decision Log 2 — G3 (the overlay's backdrop input) added and
   ordered ahead of G1; the Ordering map, the Tracking Map, Deferred and Surprises updated.
 - 2026-09-08: G3 CLOSED (claims §5.95); Decision Log 3; G1 dispatched on the frozen configuration.
+- 2026-09-08: G1 DECLARED (claims §5.96); Decision Log 4 — clause 4's "not above" read as "not above
+  by more than 0.0001" (S3 at +0.0000080 taken), clause 6's wording corrected, the collapsed rim in
+  light three cells; G2 dispatched.

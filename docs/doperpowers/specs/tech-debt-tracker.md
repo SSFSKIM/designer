@@ -749,7 +749,9 @@ clause 2 on three sides at 1x and four at 2x, worst −0.093 / −0.088 on the b
 keeps a bright rim where the light material collapses onto a near-black backdrop and vitrea's
 collapse folds the rim out with the body (W7). `rimAlpha`'s rows on that cell demand 2.4–2.9, so no
 admissible value of the ambient rim reaches it; W21 deferred the same term at +0.017 in the dark
-scheme ("the collapsed rim"). Shape of the fix: a rim that survives the collapse — the reference's
+scheme ("the collapsed rim"). **At W22 G1 (claims §5.96 §4), three cells:** `dark-solid__rrect-md`,
+`impulse__rrect-md` and `mid-dark-solid__capsule-button` under the light profile at both scales,
+eighteen sides 0.031–0.093 too dim — every standing clause-2 miss on the bed is this one term. Shape of the fix: a rim that survives the collapse — the reference's
 rim under collapse read against the un-collapsed rim on both beds, one fraction if it is one. Not
 created by the sweep gate; hidden under the band until W22.
 
@@ -783,4 +785,13 @@ law's input is the footprint's encoded mean sampled by the shader); it reaches t
 and any group stacked on a light surface. Shape of the fix: the tone measured under the group's
 footprint rather than the source's extent — the declared-geometry reader already does this on the
 calibration side.
+
+## The CSS tier under increased contrast is 0.00006–0.00025 worse in ΔE at W22 G1 while its GPU twin improves (2026-09-08)
+
+*Found at W22 G1's dry run (claims §5.96 §6).* With `specularGain` 0 on the light profile the CSS
+tier's derived level (`interiorBandLight`) loses 0.0013–0.0053 of band light; under the
+increased-contrast profile the CSS calibration ΔE moves 0.01293 → 0.01300 and the holdout 0.04531 →
+0.04557 while the GPU tier's rows improve. Small, one profile, the CSS tier only — a CSS-only
+residual under wave Decision Log 23 (a), recorded, not chartered. Shape of the work: the
+increased-contrast fold's band term read against the reference on that profile's own rows.
 
