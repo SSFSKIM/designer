@@ -1,0 +1,78 @@
+{
+  "profile": "apple-macos-26.5-1x-dark-standard",
+  "tier": "webgpu",
+  "fixtures": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a929b7db2ba66befd/apps/reference-apple/fixtures",
+  "captures": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+  "component": "glass-over-glass",
+  "placement": {
+    "base": {
+      "left": 50.0,
+      "top": 35.0,
+      "width": 220.0,
+      "height": 130.0
+    },
+    "over": {
+      "left": 100.0,
+      "top": 64.0,
+      "width": 120.0,
+      "height": 56.0
+    }
+  },
+  "erodeCssPx": 6.0,
+  "rimBandCssPx": 3.0,
+  "rows": [
+    {
+      "scene": "checkerboard__glass-over-glass__rest",
+      "background": "checkerboard",
+      "tint": null,
+      "set": "holdout",
+      "native": {
+        "baseBody": 0.04673137663470361,
+        "baseSd": 0.016458862518928148,
+        "baseRim": [
+          0.1684877666113567,
+          0.16082252307310602,
+          0.195715521958242,
+          0.22908951757736884
+        ],
+        "overBody": 0.020698143592795676,
+        "overSd": 0.0010653361416728426,
+        "overRim": [
+          0.05186018534624459,
+          0.051223785670044715,
+          0.05126618591306638,
+          0.04997623714329019
+        ],
+        "excess": -0.02603323304190793,
+        "baseBlurSigmaMatchPx": 1.5,
+        "baseBlurMatchRms": 0.0144920361140927,
+        "overBlurSigmaMatchPx": 0.0,
+        "overBlurMatchRms": 0.0
+      },
+      "web": {
+        "baseBody": 0.04703100141989231,
+        "baseSd": 0.02050250642341859,
+        "baseRim": [
+          0.1562552511661285,
+          0.14828456796862513,
+          0.33585787982867843,
+          0.21306933924380816
+        ],
+        "overBody": 0.049327079122857366,
+        "overSd": 0.0006621208760019022,
+        "overRim": [
+          0.07598072917456257,
+          0.07617389049332522,
+          0.19420187784541798,
+          0.06484395893625923
+        ],
+        "excess": 0.0022960777029650548,
+        "baseBlurSigmaMatchPx": 2.2,
+        "baseBlurMatchRms": 0.017521322355225626,
+        "overBlurSigmaMatchPx": 0.0,
+        "overBlurMatchRms": 0.0
+      }
+    }
+  ],
+  "injectionCheck": null
+}

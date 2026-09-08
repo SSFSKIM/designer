@@ -1,0 +1,97 @@
+W22 G1 — stops S2 and S3, and the four W21 instrument floors
+============================================================================================================
+
+=== S2 — the tinted cells: body before → after, the stop at 0.002 ===
+  cell                                         scheme dpr tier      native   before    after     moved   stop
+  checkerboard__capsule-button__rest-tint-blue light  1x  webgpu    0.1950   0.2046   0.2045   -0.0001     ok
+  checkerboard__capsule-button__rest-tint-orange light  1x  webgpu    0.3519   0.3669   0.3668   -0.0001     ok
+  dark-solid__capsule-button__rest-tint-blue   light  1x  webgpu    0.2351   0.2377   0.2377   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange light  1x  webgpu    0.4243   0.4272   0.4272   +0.0000     ok
+  hc-text__capsule-button__rest-tint-orange    light  1x  webgpu    0.3616   0.3825   0.3824   -0.0001     ok
+  impulse__capsule-button__rest-tint-orange    light  1x  webgpu    0.4242   0.4272   0.4272   +0.0000     ok
+  light-solid__capsule-button__rest-tint-orange light  1x  webgpu    0.4229   0.4279   0.4278   -0.0001     ok
+  photo__capsule-button__rest-tint-blue        light  1x  webgpu    0.1908   0.1972   0.1971   -0.0001     ok
+  photo__capsule-button__rest-tint-orange      light  1x  webgpu    0.3441   0.3541   0.3540   -0.0001     ok
+  photo__capsule-button__rest-tint-orange-half light  1x  webgpu    0.4303   0.4529   0.4528   -0.0001     ok
+  photo__rrect-lg__rest-tint-orange            light  1x  webgpu    0.3648   0.3634   0.3633   -0.0001     ok
+  photo__rrect-md__rest-tint-orange            light  1x  webgpu    0.3607   0.3627   0.3627   -0.0000     ok
+  checkerboard__capsule-button__rest-tint-blue light  2x  webgpu    0.1954   0.2051   0.2050   -0.0001     ok
+  checkerboard__capsule-button__rest-tint-orange light  2x  webgpu    0.3522   0.3684   0.3683   -0.0001     ok
+  dark-solid__capsule-button__rest-tint-blue   light  2x  webgpu    0.2352   0.2377   0.2377   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange light  2x  webgpu    0.4243   0.4273   0.4273   +0.0000     ok
+  hc-text__capsule-button__rest-tint-orange    light  2x  webgpu    0.3609   0.3834   0.3833   -0.0001     ok
+  impulse__capsule-button__rest-tint-orange    light  2x  webgpu    0.4243   0.4273   0.4273   +0.0000     ok
+  light-solid__capsule-button__rest-tint-orange light  2x  webgpu    0.4229   0.4279   0.4278   -0.0001     ok
+  photo__capsule-button__rest-tint-blue        light  2x  webgpu    0.1909   0.1972   0.1971   -0.0001     ok
+  photo__capsule-button__rest-tint-orange      light  2x  webgpu    0.3442   0.3539   0.3538   -0.0001     ok
+  photo__capsule-button__rest-tint-orange-half light  2x  webgpu    0.4306   0.4529   0.4527   -0.0001     ok
+  photo__rrect-lg__rest-tint-orange            light  2x  webgpu    0.3648   0.3634   0.3633   -0.0001     ok
+  photo__rrect-md__rest-tint-orange            light  2x  webgpu    0.3609   0.3628   0.3628   -0.0000     ok
+  checkerboard__capsule-button__rest-tint-orange dark   1x  webgpu    0.4343   0.4275   0.4274   -0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange dark   1x  webgpu    0.4243   0.4272   0.4272   +0.0000     ok
+  photo__capsule-button__rest-tint-orange      dark   1x  webgpu    0.4343   0.4274   0.4274   -0.0000     ok
+  checkerboard__capsule-button__rest-tint-orange dark   2x  webgpu    0.4345   0.4275   0.4275   -0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange dark   2x  webgpu    0.4243   0.4273   0.4273   +0.0000     ok
+  photo__capsule-button__rest-tint-orange      dark   2x  webgpu    0.4344   0.4274   0.4274   -0.0000     ok
+  checkerboard__capsule-button__rest-tint-blue light  1x  css       0.1950   0.2041   0.2041   +0.0000     ok
+  checkerboard__capsule-button__rest-tint-orange light  1x  css       0.3519   0.3666   0.3666   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-blue   light  1x  css       0.2351   0.2378   0.2378   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange light  1x  css       0.4243   0.4275   0.4275   +0.0000     ok
+  hc-text__capsule-button__rest-tint-orange    light  1x  css       0.3616   0.3973   0.3973   +0.0000     ok
+  impulse__capsule-button__rest-tint-orange    light  1x  css       0.4242   0.4275   0.4275   +0.0000     ok
+  light-solid__capsule-button__rest-tint-orange light  1x  css       0.4229   0.4277   0.4277   +0.0000     ok
+  photo__capsule-button__rest-tint-blue        light  1x  css       0.1908   0.1973   0.1973   +0.0000     ok
+  photo__capsule-button__rest-tint-orange      light  1x  css       0.3441   0.3556   0.3556   +0.0000     ok
+  photo__capsule-button__rest-tint-orange-half light  1x  css       0.4303   0.4545   0.4529   -0.0016     ok
+  photo__rrect-lg__rest-tint-orange            light  1x  css       0.3648   0.3615   0.3615   -0.0000     ok
+  photo__rrect-md__rest-tint-orange            light  1x  css       0.3607   0.3618   0.3618   +0.0000     ok
+  checkerboard__capsule-button__rest-tint-blue light  2x  css       0.1954   0.2042   0.2042   +0.0000     ok
+  checkerboard__capsule-button__rest-tint-orange light  2x  css       0.3522   0.3666   0.3666   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-blue   light  2x  css       0.2352   0.2378   0.2378   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange light  2x  css       0.4243   0.4275   0.4275   +0.0000     ok
+  hc-text__capsule-button__rest-tint-orange    light  2x  css       0.3609   0.3973   0.3973   +0.0000     ok
+  impulse__capsule-button__rest-tint-orange    light  2x  css       0.4243   0.4275   0.4275   +0.0000     ok
+  light-solid__capsule-button__rest-tint-orange light  2x  css       0.4229   0.4277   0.4277   -0.0000     ok
+  photo__capsule-button__rest-tint-blue        light  2x  css       0.1909   0.1974   0.1974   -0.0000     ok
+  photo__capsule-button__rest-tint-orange      light  2x  css       0.3442   0.3556   0.3556   -0.0000     ok
+  photo__capsule-button__rest-tint-orange-half light  2x  css       0.4306   0.4550   0.4534   -0.0016     ok
+  photo__rrect-lg__rest-tint-orange            light  2x  css       0.3648   0.3615   0.3615   -0.0000     ok
+  photo__rrect-md__rest-tint-orange            light  2x  css       0.3609   0.3618   0.3618   +0.0000     ok
+  checkerboard__capsule-button__rest-tint-orange dark   1x  css       0.4343   0.4276   0.4276   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange dark   1x  css       0.4243   0.4275   0.4275   +0.0000     ok
+  photo__capsule-button__rest-tint-orange      dark   1x  css       0.4343   0.4275   0.4275   +0.0000     ok
+  checkerboard__capsule-button__rest-tint-orange dark   2x  css       0.4345   0.4276   0.4276   +0.0000     ok
+  dark-solid__capsule-button__rest-tint-orange dark   2x  css       0.4243   0.4275   0.4275   +0.0000     ok
+  photo__capsule-button__rest-tint-orange      dark   2x  css       0.4344   0.4275   0.4275   +0.0000     ok
+  → 0 cell(s) past the stop.
+
+=== S3 — the collapsed cells: body before → after, the stop at 0.002 ===
+  cell                                         scheme dpr tier      native   before    after     moved   stop
+  dark-solid__capsule-button__rest             light  1x  webgpu    0.0110   0.0117   0.0117   +0.0000     ok
+  impulse__capsule-button__rest                light  1x  webgpu    0.0066   0.0037   0.0037   +0.0000     ok
+  dark-solid__capsule-button__rest             light  2x  webgpu    0.0110   0.0117   0.0117   +0.0000     ok
+  impulse__capsule-button__rest                light  2x  webgpu    0.0067   0.0033   0.0033   +0.0000     ok
+  dark-solid__capsule-button__rest             dark   1x  webgpu    0.0110   0.0117   0.0117   +0.0000     ok
+  dark-solid__rrect-md__rest                   dark   1x  webgpu    0.0153   0.0130   0.0130   -0.0000     ok
+  impulse__capsule-button__rest                dark   1x  webgpu    0.0066   0.0037   0.0037   +0.0000     ok
+  dark-solid__capsule-button__rest             dark   2x  webgpu    0.0110   0.0117   0.0117   +0.0000     ok
+  dark-solid__rrect-md__rest                   dark   2x  webgpu    0.0153   0.0130   0.0130   -0.0000     ok
+  impulse__capsule-button__rest                dark   2x  webgpu    0.0067   0.0033   0.0033   +0.0000     ok
+  dark-solid__capsule-button__rest             light  1x  css       0.0110   0.0117   0.0117   +0.0000     ok
+  impulse__capsule-button__rest                light  1x  css       0.0066   0.0037   0.0037   +0.0000     ok
+  dark-solid__capsule-button__rest             light  2x  css       0.0110   0.0117   0.0117   +0.0000     ok
+  impulse__capsule-button__rest                light  2x  css       0.0067   0.0033   0.0033   +0.0000     ok
+  dark-solid__capsule-button__rest             dark   1x  css       0.0110   0.0117   0.0117   +0.0000     ok
+  dark-solid__rrect-md__rest                   dark   1x  css       0.0153   0.0130   0.0130   +0.0000     ok
+  impulse__capsule-button__rest                dark   1x  css       0.0066   0.0037   0.0037   +0.0000     ok
+  dark-solid__capsule-button__rest             dark   2x  css       0.0110   0.0117   0.0117   +0.0000     ok
+  dark-solid__rrect-md__rest                   dark   2x  css       0.0153   0.0130   0.0130   +0.0000     ok
+  impulse__capsule-button__rest                dark   2x  css       0.0067   0.0033   0.0033   +0.0000     ok
+  → 0 cell(s) past the stop.
+
+=== the four W21 instrument floors on the 2x dark nested pane, re-read ===
+  tier     row                        measured      floor  direction         
+  texture  silhouetteIoU               0.92732     0.9257   at least     held
+  dom      silhouetteIoU               0.90493     0.9038   at least     held
+  dom      contourDistanceMean         1.76018     1.8602    at most     held
+  dom      contourDistanceP95         13.00000    13.1000    at most     held

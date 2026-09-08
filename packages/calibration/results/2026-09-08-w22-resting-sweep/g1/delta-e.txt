@@ -1,0 +1,53 @@
+W22 G1 — OKLab ΔE mean, per profile, per set, per tier, before → after
+====================================================================================================
+before = the canonical matrix at the 0.10.0 landing (the W21 bed); after = the dry run.
+Clause 4 is stated on the GPU tier; the CSS tier is beside it.
+
+  profile                                        tier    set           cells     before      after      delta
+  apple-macos-26.5-1x-dark-standard              css     calibration       9    0.00682    0.00682   +0.00000
+  apple-macos-26.5-1x-dark-standard              css     holdout           3    0.01999    0.01732   -0.00267
+  apple-macos-26.5-1x-dark-standard              css     validation        1    0.00362    0.00362   +0.00000
+  apple-macos-26.5-1x-dark-standard              webgpu  calibration       9    0.00410    0.00404   -0.00007
+  apple-macos-26.5-1x-dark-standard              webgpu  holdout           3    0.01612    0.01326   -0.00287
+  apple-macos-26.5-1x-dark-standard              webgpu  validation        1    0.00291    0.00291   +0.00000
+  apple-macos-26.5-1x-light-increased-contrast   css     calibration       6    0.01293    0.01300   +0.00006
+  apple-macos-26.5-1x-light-increased-contrast   css     holdout           1    0.04531    0.04557   +0.00025
+  apple-macos-26.5-1x-light-increased-contrast   css     validation        1    0.01524    0.01531   +0.00007
+  apple-macos-26.5-1x-light-increased-contrast   webgpu  calibration       6    0.00798    0.00793   -0.00005
+  apple-macos-26.5-1x-light-increased-contrast   webgpu  holdout           2    0.02043    0.02042   -0.00001
+  apple-macos-26.5-1x-light-increased-contrast   webgpu  validation        1    0.00867    0.00862   -0.00004
+  apple-macos-26.5-1x-light-reduced-transparency css     calibration       5    0.00446    0.00442   -0.00004
+  apple-macos-26.5-1x-light-reduced-transparency css     holdout           2    0.00756    0.00752   -0.00004
+  apple-macos-26.5-1x-light-reduced-transparency css     validation        1    0.00470    0.00473   +0.00004
+  apple-macos-26.5-1x-light-reduced-transparency webgpu  calibration       5    0.00173    0.00172   -0.00001
+  apple-macos-26.5-1x-light-reduced-transparency webgpu  holdout           2    0.00343    0.00341   -0.00002
+  apple-macos-26.5-1x-light-reduced-transparency webgpu  validation        1    0.00111    0.00113   +0.00002
+  apple-macos-26.5-1x-light-standard             css     calibration      20    0.00707    0.00699   -0.00008
+  apple-macos-26.5-1x-light-standard             css     holdout          10    0.01615    0.01581   -0.00034
+  apple-macos-26.5-1x-light-standard             css     validation        6    0.00546    0.00544   -0.00002
+  apple-macos-26.5-1x-light-standard             webgpu  calibration      20    0.00329    0.00330   +0.00001
+  apple-macos-26.5-1x-light-standard             webgpu  holdout          10    0.00911    0.00914   +0.00003
+  apple-macos-26.5-1x-light-standard             webgpu  validation        6    0.00259    0.00261   +0.00002
+  apple-macos-26.5-2x-dark-standard              css     calibration       9    0.00699    0.00699   +0.00000
+  apple-macos-26.5-2x-dark-standard              css     holdout           3    0.01992    0.01724   -0.00267
+  apple-macos-26.5-2x-dark-standard              css     validation        1    0.00401    0.00401   +0.00000
+  apple-macos-26.5-2x-dark-standard              webgpu  calibration       9    0.00410    0.00403   -0.00007
+  apple-macos-26.5-2x-dark-standard              webgpu  holdout           3    0.01596    0.01301   -0.00295
+  apple-macos-26.5-2x-dark-standard              webgpu  validation        1    0.00329    0.00329   +0.00000
+  apple-macos-26.5-2x-light-standard             css     calibration      20    0.00737    0.00727   -0.00010
+  apple-macos-26.5-2x-light-standard             css     holdout          10    0.01654    0.01618   -0.00036
+  apple-macos-26.5-2x-light-standard             css     validation        6    0.00566    0.00563   -0.00002
+  apple-macos-26.5-2x-light-standard             webgpu  calibration      20    0.00334    0.00333   -0.00000
+  apple-macos-26.5-2x-light-standard             webgpu  holdout          10    0.00906    0.00906   -0.00000
+  apple-macos-26.5-2x-light-standard             webgpu  validation        6    0.00263    0.00263   +0.00000
+
+  worse anywhere? (a positive delta is worse)
+    apple-macos-26.5-1x-light-increased-contrast / css / calibration: 0.01293 → 0.01300 (+0.00006)
+    apple-macos-26.5-1x-light-increased-contrast / css / holdout: 0.04531 → 0.04557 (+0.00025)
+    apple-macos-26.5-1x-light-increased-contrast / css / validation: 0.01524 → 0.01531 (+0.00007)
+    apple-macos-26.5-1x-light-reduced-transparency / css / validation: 0.00470 → 0.00473 (+0.00004)
+    apple-macos-26.5-1x-light-reduced-transparency / webgpu / validation: 0.00111 → 0.00113 (+0.00002)
+    apple-macos-26.5-1x-light-standard / webgpu / calibration: 0.00329 → 0.00330 (+0.00001)
+    apple-macos-26.5-1x-light-standard / webgpu / holdout: 0.00911 → 0.00914 (+0.00003)
+    apple-macos-26.5-1x-light-standard / webgpu / validation: 0.00259 → 0.00261 (+0.00002)
+    apple-macos-26.5-2x-light-standard / webgpu / validation: 0.00263 → 0.00263 (+0.00000)
