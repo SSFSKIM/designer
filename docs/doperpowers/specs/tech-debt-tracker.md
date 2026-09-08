@@ -764,3 +764,23 @@ inflated for the outer shadow (19.3 % raw checkerboard mixed into the base's out
 number). Dark-only by visibility; the same input error moves a bright backdrop very little. Fixed
 in W22 G3 if the mechanism is what the candidate says; closes at W22's landing.
 
+**Closed at W22 G3 (2026-09-08; claims §5.95), with the mechanism corrected beside the candidate:**
+the proxy box sat wholly inside the base pane; the overlay had been handed no backdrop tone at all
+(a `css-backdrop` group has no texture for `backdrop-tone.ts` to measure), so the tone axis stood
+down and the pane drew the unadapted material. Fixed as a mechanism (`backdrop-stack.ts`): a group
+on other glass is handed that glass's composite tone. The overlay's dark body 0.0493 → 0.0239 against
+the law's 0.0245.
+
+## The backdrop tone is one number per source, and a light surface over a structured source carries the difference (W22 G3, 2026-09-08)
+
+*Found deriving the base pane's output tone for the overlay above it (claims §5.95 §5).*
+`backdrop-tone.ts` measures a source once — the whole raster's mean — and every group over that
+source is handed the same tone whatever its footprint covers. Pushed through the material's
+composite, the derived output level overshoots the base pane's measured body by +0.0349 in light
+and +0.0012 in dark: a light material's 0.51 transmission carries the source-level error where a
+dark material's 0.095 scales it away. Nothing measurable on the GPU tier's own rows (the response
+law's input is the footprint's encoded mean sampled by the shader); it reaches the CSS tier's level
+and any group stacked on a light surface. Shape of the fix: the tone measured under the group's
+footprint rather than the source's extent — the declared-geometry reader already does this on the
+calibration side.
+

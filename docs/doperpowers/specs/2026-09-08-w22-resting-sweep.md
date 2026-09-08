@@ -5,7 +5,10 @@
 W21 landing sheets pinned as findings the same day (claims §5.93). G0 CLOSED 2026-09-08 (claims
 §5.94; Decision Log 2): the gate merged with the goldens byte-identical, the light rim read per side,
 `specularGain` to be fitted to 0 and three constants declined, the `impulse` capsule chartered to
-the appearance switch, the nested pane a plumbing defect taken as G3 ahead of G1. G3 dispatched.**
+the appearance switch, the nested pane a plumbing defect taken as G3 ahead of G1. G3 CLOSED
+2026-09-08 (claims §5.95; Decision Log 3): the overlay had been handed no backdrop at all; fixed as
+a mechanism, the overlay's dark body within 0.0017 of the law, the rest byte-identical, two review
+findings fixed. G1 dispatched.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W22 row; wave Decision Log 23 (c)'s ordering, this
@@ -320,8 +323,8 @@ or something else). The GPU is shared; one capture at a time.
 | child | status |
 | --- | --- |
 | G0 — the isolation, the light rim per side, the two eye reads | CLOSED 2026-09-08 (claims §5.94; the gate at `550f16d`, merged `eda878b`; Decision Log 2) |
-| G3 — the overlay's backdrop input | DISPATCHED 2026-09-08 |
-| G1 — the form declared and dry-run | — (after G3) |
+| G3 — the overlay's backdrop input | CLOSED 2026-09-08 (claims §5.95; `71d5d5c` + `86d05cd`, merged `3e88921`; Decision Log 3) |
+| G1 — the form declared and dry-run | DISPATCHED 2026-09-08 |
 | G2 — the landing and its referee | — |
 
 ## Decision Log
@@ -380,7 +383,32 @@ rim in light, bottom −0.093; `rimAlpha`'s rows there inadmissible); the `rimIn
 superseded reason, re-recorded at G1 with the value unchanged; `--alpha` on every scratch bed; G1
 captures both tiers together and runs the gate over its own matrix.
 
+### Decision Log 3 — G3 read: the mechanism was an absent input, not a leaking proxy; the fix lands as a mechanism; the frozen configuration for G1 (2026-09-08; the parent, on the user's standing instruction)
+
+(a) **G0's candidate is refuted and the record says so beside it** (claims §5.95 §1): the proxy box
+sits wholly inside the base pane; the overlay's resolved backdrop tone was null, so the tone axis
+never ran. The "2.9× input" of §5.94 §5 was an inversion through a law that was not evaluated —
+recorded, not rewritten.
+
+(b) **The fix lands as G3 built it** (`backdrop-stack.ts`; merged `3e88921`): a group on other glass
+is handed the glass's composite tone, by containment of visible extents, one hop, the author tint
+included, no constant. The output level is the linear mean; the transported-gap form is recorded
+as discarded with its number. Two review findings fixed before the merge.
+
+(c) **The frozen configuration for G1** is main at `3e88921` plus the light profile's
+`specularGain` at its rows' answer. G1's one holdout read includes both stacked cells on both tiers,
+read per pane; the light nested pane's CSS rows are expected to move (0.056–0.069 recovered on the
+web side) and are read against the reference for the first time there.
+
+(d) **Recorded, not this wave's:** the per-source tone measurement's residual on a light base
+(+0.0349 derived against measured; tracker).
+
 ## Surprises & Discoveries
+
+- **The overlay had no backdrop, and three waves read "partial" through it.** The nested pane's
+  response law was never evaluated on the overlay pane; the capture that could not say what a
+  group was drawing over is how it survived W9, W11a and W21. `scene.ts` now publishes the tone
+  each group was handed.
 
 - **The light reference's rim is left-equals-right to 0.0002.** Three waves fitted a two-light rim
   whose horizontal signature was the band; with the band gone vitrea's left equals right to 0.0022
@@ -409,3 +437,4 @@ captures both tiers together and runs the gate over its own matrix.
 - 2026-09-08: chartered; G0 dispatched.
 - 2026-09-08: G0 CLOSED (claims §5.94); Decision Log 2 — G3 (the overlay's backdrop input) added and
   ordered ahead of G1; the Ordering map, the Tracking Map, Deferred and Surprises updated.
+- 2026-09-08: G3 CLOSED (claims §5.95); Decision Log 3; G1 dispatched on the frozen configuration.

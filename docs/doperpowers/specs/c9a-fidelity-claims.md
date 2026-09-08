@@ -13263,3 +13263,82 @@ read measures the rim at 0.0288 against a 0.0079 code step) — the value stands
 re-recorded at G1. G1 re-reads both panes of the nested pane with `read-stack.py` when it opens the
 holdout; G2 re-reads the four W21 instrument floors on the 2x dark nested pane.
 
+### 5.95 W22 G3 CLOSED: the overlay of a stacked scene was handed no backdrop at all — the tone axis stood down and it drew the unadapted material; fixed as a mechanism (a group standing on other glass is handed the glass's composite tone), the overlay's dark body 0.0493 → 0.0239 against the law's 0.0245, 144 / 144 non-stacked captures and 29 / 29 goldens byte-identical; two review findings fixed (2026-09-08)
+
+**W22 G3** (`results/2026-09-08-w22-resting-sweep/g3/g3-findings.md` with `stack-web.txt`,
+`byte-identity.txt`, `base-stats.txt`, `read-stack-web.py`; the fix at `71d5d5c`, the review fix
+wave at `86d05cd`, merged at `3e88921`). No native fixture opened: both stacked scenes are holdout,
+and every verification reads vitrea's own capture against the law's answer at the base's measured
+output (the W22 spec's Decision Log 2 (e)).
+
+#### 1. The mechanism, read off the live page
+
+§5.94 §5's candidate (the proxy sampling past the base pane) is refuted at 0 %: the overlay's proxy
+box, read off the live DOM, is x [86.94, 233.05] × y [50.94, 133.05], wholly inside a base pane
+spanning x [50, 270] × y [35, 165] (nearest margin 15.94 px; effective padding 13.05 px, 3σ at
+σ 4.35). What the live read shows instead: the overlay group's resolved `backdropTone` is **null**.
+`backdrop-tone.ts` measures textures only, and a group sampling the DOM through `css-backdrop` had
+no texture to read, so the whole tone axis stood down for it — the collapse at zero by design and
+W9's response law on the same gate — and it drew the material's unadapted body over the base's
+output: `(1 − 0.9198)·0.0470 + 0.9198·0.05 = 0.0498` against the measured 0.0493. The "backdrop of
+linear 0.1344" §5.94 §5 inverted from the law is an input nothing in the pipeline ever held; the
+law never ran. Three waves (W9, W11a, W21) read the nested pane "partial" through a response law
+that was never evaluated on the overlay.
+
+#### 2. The fix, a mechanism and no constant
+
+`packages/platform-web/src/backdrop-stack.ts`: a group with the `css-backdrop` backend and no
+texture takes its backdrop tone from the last-painted surface in a strictly lower plane whose
+visible box contains the group's whole visible footprint (containment, not overlap: a footprint
+straddling a surface's edge is over glass and over an unmeasured page at once and is handed
+nothing, the refusal `backdrop-tone.ts` states by name). The tone handed is that surface's OUTPUT:
+its backdrop's tone pushed through the renderer's own composite affine (`cssTierCompositeLevel`'s
+subject), then through the author tint's encoded-space lerp in W10's order; the output's level is
+its linear mean — measured on the stacked cell's own captures, the base pane's encoded-space mean
+sits 0.0020–0.0027 below its linear mean in dark and 0.0037–0.0048 in light against an input whose
+two statistics stand 0.286 apart, so the input's gap does not travel (a first form that transported
+it scaled by transmission² read −0.0749 where the capture reads −0.0042 and was discarded). Groups
+resolve back to front by plane so the surface beneath is painted first; `renderer-bridge.ts`
+forwards a tone wherever the host measured one rather than only where a texture is bound; the
+optics pass gates the collapse and the solve on the measured strength alone, no longer on
+`hasBackdrop` beside it. `scene.ts`'s group report now publishes the tone each group was handed.
+`backdrop-stack.test.ts`, 18 cases, three of them failing against the pre-fix root.
+
+#### 3. Verified on vitrea's own captures (`stack-web.txt`)
+
+The overlay's body, web side only, against the shipped response law at the base pane's measured
+output:
+
+| dark | GPU 1x | GPU 2x | CSS 1x | CSS 2x |
+| --- | --- | --- | --- | --- |
+| before → after | 0.0493 → **0.0239** | 0.0494 → **0.0229** | 0.0502 → **0.0235** | 0.0506 → **0.0238** |
+| the law's answer | 0.0245 | 0.0247 | 0.0240 | 0.0248 |
+
+Every cell within 0.0017 of the law; the overlay's excess over its base now −0.0220 to −0.0246
+against the reference's −0.0260 / −0.0267 (§5.94 §5) — the sign the eye saw inverted, restored. In
+light the GPU rows do not move (they sat within 0.0008 of the law already) and the CSS rows recover
+0.056–0.069. **144 / 144** non-stacked captures byte-identical against G0's scratch bed with G0's
+flags; **29 / 29** goldens (`concentric-nesting` and `union-pair` among them); build, lint, 1 868
+unit tests, platform-web Playwright chromium + chromium-gpu 150.
+
+#### 4. Two review findings, fixed at `86d05cd`
+
+An independent review (gpt-6-astra, high) reproduced two defects with in-memory root probes: the
+published tone ignored the author's tint (a full-strength red base handed the overlay the same
+achromatic tone as an untinted one) and containment was tested on the unclipped border box (a base
+cropped away by an overflow ancestor still handed its tone). Both fixed — the tint layer composited
+into the published tone after the material's affine; both sides of the containment test on the
+visible extent, so a cropped-away surface reduces to no extent and the existing rule refuses it —
+with seven new cases, three at root level against a real `overflow: hidden` ancestor. Neither reaches
+a committed capture: the bed carries no tinted and no clipped stack.
+
+#### 5. For the ledger
+
+The derived output level overshoots the base pane's measured body by **+0.0349 in light** (+0.0012
+in dark): `backdrop-tone.ts` measures one tone per SOURCE rather than per footprint, and a light
+material's 0.51 transmission carries the source-level error where a dark material's 0.095 scales it
+away. Nothing measurable on the GPU tier this wave; in the tracker. G1's frozen configuration is
+main at `3e88921` plus the light profile's `specularGain`; its one holdout read includes both
+stacked cells on both tiers, read per pane with `read-stack.py`, and G2 re-reads the four W21 floors
+on the 2x dark nested pane. The changeset for the wave is G2's.
+
