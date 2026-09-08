@@ -956,3 +956,24 @@ tier composites in rather than in linear light. The two agree at the ends — ch
 paint — and differ in the middle by the transfer's curvature. A CSS-only residual under wave
 Decision Log 23 (a); closes with the CSS rim wave that fits `borderAlphaPerRimAlpha` on the contour
 instrument.
+
+## The collapse pulls the material onto the backdrop's MEAN and removes the transmission the reference keeps; W7's "texture collapse" was fitted where there was no texture (W24 finding, 2026-09-09)
+
+*Found by the user's eye on the W23 landing sheets (claims §5.107 §2).* Through the collapsed
+`impulse__capsule-button` the reference passes the centre dot at +0.0254 over a 0.0065 body, 4 CSS
+px wide at 2x (+0.0065, 8 px at 1x); vitrea passes 0.0000 in both schemes at both scales, because
+the collapse's target is the group's mean backdrop colour (`toneColour.rgb`) and the alpha solve
+stops the material transmitting. W7 measured the collapse on `dark-solid`, a backdrop with nothing
+to transmit, and named it texture collapse; the reference's collapsed material is a dark glass that
+transmits what lies beneath it, blurred. Chartered as W24 G1; the same term as the appearance
+switch's −16 / −19 codes on the dark thin structured cells. Closes when W24 lands.
+
+## A diagonal rim light is invisible to every per-side reader, and three waves of rim instruments were per-side (W24 finding, 2026-09-09)
+
+*Found by the user's eye on the W23 landing sheets (claims §5.107 §1).* The reference's rim varies
+around the contour as |cos| about the top-left ↔ bottom-right diagonal (dark rrect corners 0.042 /
+0.006, sides 0.032); a light on the 45° diagonal projects equally on all four straight sides, so
+W21's band peak, W22's per-side contrasts and W23's contour span all read the reference flat and
+fitted vitrea flat. The variation lives in the corner arcs; W23 clause 4's corner overshoot was it.
+Chartered as W24 G0 with an angular instrument. Closes when W24 lands; the lesson is in memory.
+

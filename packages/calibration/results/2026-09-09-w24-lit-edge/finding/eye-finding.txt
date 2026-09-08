@@ -1,0 +1,58 @@
+W24 finding — the user's eye on the W23 landing sheets (g2-1x.png / g2-2x.png), 2026-09-09, and the
+parent's reads (angular-read.py / angular-read.txt; the impulse table below). Matrix at the 0.12.0
+bump (408ad2e; CI green).
+
+1. "On aesthetics a regression; on fidelity better than W23 G1. The edge is there, but it feels
+   artificial. Apple's edge on the dark capsules feels natural because it is not constant
+   everywhere — it differs from part to part, like a glassy edge made by the physics of light —
+   while ours feels like a consistent line drawn on the edge."
+
+   The rim read along the WHOLE contour (peak excess over the body at each position, 16 bins
+   clockwise from the top-left of the top edge; 2x dark dark-solid__capsule-button):
+     native  0.024 0.028 0.028 0.026 | 0.013 0.008 0.029 0.031 | 0.024 0.028 0.028 0.026 | 0.014 0.007 0.029 0.030   min/max 0.000/0.038
+     landed  0.025 0.025 0.025 0.025 | 0.022 0.020 0.021 0.021 | 0.025 0.025 0.025 0.025 | 0.022 0.020 0.021 0.021   min/max 0.011/0.025
+   and on the dark rrect-md, by segment (top, top-right corner, right, bottom-right, bottom,
+   bottom-left, left, top-left):
+     native  0.033  0.006  0.032  0.042  0.033  0.006  0.032  0.041
+     landed  0.037  0.028  0.036  0.030  0.036  0.028  0.036  0.030
+   The light rrect-md over dark-solid reads the same shape (tr 0.069, bl 0.068 against tl 0.279,
+   br 0.282, the straight sides 0.24–0.25; landed 0.23 on every corner and 0.32–0.34 on the sides).
+
+   Apple's rim is LIT: brightest where the contour's normal points to the top-left or the
+   bottom-right, near zero where it points to the top-right or bottom-left, and 0.7–0.85 of the
+   peak on every straight side — the profile of |n · L| (or a root of it) with L on the diagonal,
+   symmetric at both ends, plus a small ambient floor (dark: ~0.006 of a 0.042 peak; light: 0.068
+   of 0.28). Ours is the same number everywhere the normal is vertical or horizontal and slightly
+   less on the arcs — a drawn line.
+
+   Why no instrument saw it: a light on the 45° diagonal projects EQUALLY on all four straight
+   sides, so every per-side reader (W21's band, W23's contour span) reads "flat" and L−R = T−B = 0
+   exactly as the reference does; the variation lives entirely in the corner arcs, which the
+   contour reader excludes by construction and the band reader averages into its "corner
+   overshoot" (W23 clause 4 — that miss was this). W22's specular (one-sided Lambert from
+   [−0.37, −0.93], ~22° off vertical) was the wrong shape and was rightly fitted to 0; the right
+   shape is a symmetric |cos| about the diagonal.
+
+2. "The transparency seen on the light impulse over the dark background is not there — ours is far
+   more opaque, so the impulse isn't seen behind it, and the haze differs."
+
+   The impulse background is fifteen 4 CSS px white dots on black. The centre dot through the
+   glass (horizontal profile, peak excess over the body, FWHM, integral per CSS px):
+     scheme  cell                          native                                   landed
+     light   impulse__rrect-md 1x          +0.057  FWHM 8   integral 0.61            +0.133  FWHM 6   0.84   (body 0.429 / 0.462)
+     light   impulse__rrect-md 2x          +0.062  FWHM 9   0.65                     +0.071  FWHM 8   0.70
+     light   impulse__capsule-button 1x    +0.0065 FWHM 8   0.050                    +0.0000  —       0.000  (body 0.0065 / 0.0037)
+     light   impulse__capsule-button 2x    +0.0254 FWHM 4   0.107                    +0.0000  —       0.000
+     dark    impulse__capsule-button 1x/2x +0.0065 / +0.0254 (the same fixture bytes) +0.0000           0.000
+   The uncollapsed thick cell passes the dot in both (ours a little brighter and tighter at 1x, a
+   little brighter over a body 0.033 too bright). The COLLAPSED capsule passes nothing at all in
+   vitrea and passes the dot in the reference — at 2x a peak four times the body, 4 CSS px wide.
+   vitrea's collapse pulls the material onto the backdrop's MEAN (W7's "texture collapse", measured
+   on a SOLID backdrop where there was no texture to keep); the reference's collapsed material is
+   a dark glass that still transmits what is beneath it, blurred. That is the same term W21/W22
+   carried as "the appearance switch" (the dark thin cells over structured backdrops −16 / −19
+   codes at W23 G0) seen on the cleanest cell the bed has for it.
+
+Both are the user's eye on W23's landing; neither is caught by the metrics that scored the wave
+"met". The first is an aesthetic regression on the dark capsule (a rim where there was none, but
+drawn, not lit); the second is a transparency the collapse removes. W24 takes both.

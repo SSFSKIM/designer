@@ -686,8 +686,14 @@ floors held, three first readings pinned; the accessibility border kept whole un
 8. **The CSS tier derives — met as far as the tier reaches**: the law, the collapsed rims and the
    painted rim's colour through the mirror, every mover named; the band's shape, the per-pixel
    level and the painted rim's chroma recorded as CSS-only residuals.
-9. **By eye, and the ledger — open on the eye.** The sheets sent; every gap named; the 0.12.0 cut
-   after the user's veto.
+9. **By eye, and the ledger — read 2026-09-09: an aesthetic regression on the dark capsule's edge,
+   a fidelity improvement everywhere the instruments read.** The user: "the edge is there, but it
+   feels artificial — Apple's is not constant everywhere, ours is a consistent line drawn on the
+   edge"; and the light impulse invisible through the collapsed capsule. Both measured and
+   chartered as W24 (claims §5.107): the rim has the right amount and the wrong shape (a diagonal
+   light every per-side reader is blind to — clause 4's corner miss was this), and the collapse
+   removes the transmission the reference keeps. The 0.12.0 publish held on the parent's
+   recommendation; the user decides.
 
 **What this wave actually was.** A deferral named for the wrong mechanism, read at the right scale.
 "The collapsed rim" covered a rim the collapse folded out and a rim law the band reader could not
@@ -714,6 +720,11 @@ over `impulse`.
 ## Revision Notes
 
 - 2026-09-08: chartered; G0 dispatched.
+- 2026-09-09: clause 9 read by the user — an aesthetic regression on the dark capsule's edge (the
+  rim drawn, not lit) and the collapsed capsule's lost transmission; both chartered as W24
+  (`2026-09-09-w24-lit-edge.md`, claims §5.107). Beside Decision Log 3 (d): the band read's corner
+  overshoot was the lit edge — a diagonal light projects equally on every straight side, so the
+  contour span read could not see it and the band read could only see it as a corner excess.
 - 2026-09-09: G2 LANDED (claims §5.105; Decision Log 5) and the wave RECOMPOSED against its
   acceptance (§5.106) with clause 9 open on the user's eye; Outcomes & Retrospective written; the
   0.12.0 cut follows.

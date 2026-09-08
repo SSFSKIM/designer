@@ -14110,3 +14110,63 @@ contour instrument, its painted rim's chroma, its band shape. The probe grids as
 seven nested-pane floors. The collapse's body over `impulse` (−6.2 codes). `light-solid`'s second
 row. W21's probe anomaly. The e2e suites in a child's chain. The 0.12.0 cut follows.
 
+### 5.107 W24 OPENED: the user's eye on the W23 landing — the dark capsule's edge "drawn, not lit" (a rim of the right amount and the wrong shape: Apple's varies |cos| about the diagonal, ours is constant, and every per-side reader is blind to it by geometry), and the light impulse invisible through the collapsed capsule (the collapse pulls onto the backdrop's mean; the reference's collapsed glass transmits the dot at four times the body) (2026-09-09)
+
+**The wave** (`docs/doperpowers/specs/2026-09-09-w24-lit-edge.md`; the finding
+`results/2026-09-09-w24-lit-edge/finding/`). Opened on the user's eye on `g2-1x.png` / `g2-2x.png`
+at the 0.12.0 bump (`408ad2e`; CI green; the parent recommends holding the publish).
+
+**1. "On aesthetics a regression; on fidelity better than W23 G1 — the edge is there but feels
+artificial; Apple's edge on the dark capsules is not constant everywhere and feels like the
+physics of light, ours like a line drawn on the edge."** The rim read along the whole contour
+(`finding/angular-read.py`: the peak excess over the body along the inward normal at 720 boundary
+points, 16 bins of 22.5° clockwise from the top edge's left end):
+
+| cell | native, bins 0–15 | landed |
+| --- | --- | --- |
+| 2x dark `dark-solid__capsule-button` | 0.024 0.028 0.028 0.026 · 0.013 0.008 0.029 0.031 · 0.024 0.028 0.028 0.026 · 0.014 0.007 0.029 0.030 (min/max 0.000 / 0.038) | 0.025 ×4 · 0.022 0.020 0.021 0.021 · 0.025 ×4 · 0.022 0.020 0.021 0.021 (0.011 / 0.025) |
+| 2x dark `dark-solid__rrect-md`, by segment (top, tr, right, br, bottom, bl, left, tl) | 0.033 **0.006** 0.032 **0.042** 0.033 **0.006** 0.032 **0.041** | 0.037 0.028 0.036 0.030 0.036 0.028 0.036 0.030 |
+| 2x light `dark-solid__rrect-md`, by segment | 0.251 **0.069** 0.239 **0.282** 0.251 **0.068** 0.238 **0.279** | 0.337 0.228 0.322 0.236 0.337 0.226 0.322 0.227 |
+| 1x dark `dark-solid__capsule-button`, by segment (top, right arc, bottom, left arc) | 0.020 0.013 0.020 0.013 | 0.017 0.015 0.017 0.015 |
+| 2x light `light-solid__rrect-md` | 0.059–0.066 (clipped) | 0.068 flat |
+
+Apple's rim is lit: brightest where the normal points to the top-left or the bottom-right (equal to
+0.001), near zero where it points to the top-right or bottom-left, and 0.75–0.85 of the peak on
+every straight side — `|n · L|` or a root of it with `L` on the diagonal, symmetric at both ends,
+over an ambient floor (~0.15 of the peak in dark, ~0.25 in light). vitrea's rim is one number
+wherever the normal is horizontal or vertical and slightly less on the arcs. **No per-side reader
+can see this, by geometry:** a light on the 45° diagonal projects equally on all four straight
+sides, so W21's band peak and W23's contour span both read a flat rim with `L−R` = `T−B` = 0 — and
+so does the reference on those readers. The variation is in the corner arcs, which the contour read
+excludes by construction and the band read averaged into W23 clause 4's "corner overshoot": that
+miss was this. W22's specular (one-sided Lambert, 22° off vertical) was the wrong shape and was
+rightly fitted to 0; the right shape is a symmetric cosine about the diagonal.
+
+**2. "The transparency on the light impulse over the dark background is not there — ours is far
+more opaque so the impulse isn't seen behind it, and the haze differs."** The impulse background is
+fifteen 4 CSS px white dots on black. The centre dot through the body (horizontal profile: peak
+excess over the body, FWHM, integral per CSS px):
+
+| cell | native | landed |
+| --- | --- | --- |
+| light `impulse__rrect-md` 1x | +0.057, FWHM 8, 0.61 (body 0.429) | +0.133, FWHM 6, 0.84 (body 0.462) |
+| light `impulse__rrect-md` 2x | +0.062, 9, 0.65 | +0.071, 8, 0.70 |
+| light `impulse__capsule-button` 1x | **+0.0065, 8, 0.050** (body 0.0065) | **0.0000** (body 0.0037) |
+| light `impulse__capsule-button` 2x | **+0.0254, 4, 0.107** | **0.0000** |
+| dark `impulse__capsule-button` 1x / 2x | the same bytes as light | 0.0000 |
+
+The uncollapsed thick cell passes the dot in both (ours brighter at 1x over a body 0.033 too
+bright — W9's law at the dark anchor). The collapsed capsule passes nothing in vitrea and passes
+the dot in the reference at four times the body, 4 CSS px wide at 2x (8 at 1x — a width that does
+not double with the scale). vitrea's collapse pulls the material onto the backdrop's MEAN (W7's
+"texture collapse", fitted on a SOLID backdrop where there was no texture to keep, §5.8 / §5.33);
+the reference's collapsed material is a dark glass that still transmits what lies beneath it,
+blurred. This is the term W21 and W22 carried as "the appearance switch" and W23 G0 measured at −16
+/ −19 codes on the dark `checkerboard` / `photo` capsules (§5.100 §7), on the cleanest cell the bed
+has for it.
+
+**W24** takes both: the angular instrument and the lit edge's law (G0), the collapse's transmission
+(G1), one declaration and dry run with the holdout once (G2), the landing as 0.13.0 (G3). W23
+clause 9's verdict is recorded on its spec: an aesthetic regression on the dark capsule's edge, a
+fidelity improvement everywhere the instruments read.
+
