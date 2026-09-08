@@ -783,6 +783,24 @@ export function collapsedRim(
  * differ only where the backdrop has structure under the contour, which is the
  * same approximation `materialLuminance` already makes and which
  * `tier-coherence` gates.
+ *
+ * **The lit edge does not reach this tier, and the reason is the tier's own
+ * (W24; claims §5.107).** The renderer multiplies this amplitude by a factor of
+ * the contour's NORMAL — brightest where it points north-west or south-east,
+ * nothing where it points north-east — and this tier draws its rim as one inset
+ * `box-shadow` and one `rgba()` layer, neither of which can vary around a
+ * contour: CSS has no per-normal quantity, and an angular gradient laid over the
+ * shape would be a second painted layer with its own mask, its own blend and its
+ * own cost, on a tier whose whole discipline is two layers.
+ *
+ * So the tier keeps the STRAIGHT-SPAN value, and that costs it nothing it had:
+ * the renderer's factor is normalised by `cos 45°`, which makes it exactly 1
+ * wherever the normal is horizontal or vertical, so the amplitude this function
+ * returns is unchanged by the mechanism and no constant here moves. What the
+ * tier does not draw is the corners' and the arcs' departure from that value —
+ * on the reference's 2x dark `dark-solid__rrect-md`, +0.009 of linear luminance
+ * at the lit diagonal and −0.031 at the unlit one against a straight side of
+ * 0.032. That is a recorded residual (X5), not a chartered one.
  */
 export function rimAmplitude(source: MaterialSourceOptics, backdropLuminance: number): number {
   return source.rimAlpha + source.rimLevelGain * materialLuminance(source, backdropLuminance);

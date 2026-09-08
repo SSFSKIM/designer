@@ -154,6 +154,56 @@ export interface MaterialOptics {
    * from the body, and no bed that exists can.
    */
   readonly rimLevelGain: number;
+  /**
+   * **The lit edge (W24; claims §5.107)** — the exponent of the directional
+   * factor `(√2 · |n · L|)^rimLitExponent` the rim's whole amplitude is
+   * multiplied by, with `L` the profile's `rimLitAxis`.
+   *
+   * W23 gave the rim the right AMOUNT and the wrong SHAPE. Read around the whole
+   * contour rather than per side (`results/2026-09-09-w24-lit-edge/g0/
+   * read-angular.py`), Apple's rim is not constant: on the 2x dark
+   * `dark-solid__rrect-md` the bins whose normal points north-west and
+   * south-east read 0.0408 and 0.0418 against 0.0016 for north-east and
+   * south-west, with the four straight sides at 0.0312–0.0328; the same cell in
+   * the light scheme reads 0.284 / 0.286 against 0.038, sides 0.233–0.247.
+   * vitrea drew one number everywhere — a drawn line, which is what the user's
+   * eye called an aesthetic regression on the W23 landing sheet.
+   *
+   * No per-side reader could see it, and the reason is geometric: a light on the
+   * 45° diagonal projects EQUALLY on all four straight sides, so `L−R` and
+   * `T−B` are 0 for the reference exactly as they are for vitrea. The variation
+   * lives in the corner arcs, which W23's contour reader excludes by
+   * construction and W21's band reader averages into its corner overshoot.
+   *
+   * **The form is symmetric and it is not a Lambert.** Fitted on the reference's
+   * own bins over the 19 untinted solid cells of both canonical beds and both
+   * probe grids, `(√2 · |n · L|)^p` reaches an RMS of 0.148 of each cell's own
+   * peak against 0.288 for the one-sided `max(n · L, 0)^p` that W22's `spec`
+   * term draws and 0.312 for the flat rim vitrea ships. The one-sided form
+   * cannot reach both ends of a diagonal whose two corners the reference draws
+   * equal to a thousandth, and that — not its gain — is why W22 rightly fitted
+   * `specularGain` to 0.
+   *
+   * **There is no ambient floor.** The wave chartered `a + (1 − a)|n · L|^p` with
+   * `a` expected around 0.15 dark and 0.25 light. Every grouping of the rows fits
+   * `a` to 0.000 (the search ran 0…0.6 in steps of 0.005), because the bin mean
+   * of `|cos|^p` over the 22.5° straddling the null is already 0.10–0.16 and
+   * supplies everything the null bins carry. A constant every row fits to zero is
+   * a constant the material does not have (C9a §6.2), so it is not here.
+   *
+   * **The `√2` is the amplitude's re-expression, in closed form.** W23 fitted
+   * `rimAlpha` and `rimLevelGain` on the STRAIGHT SPANS, which under this factor
+   * sit at `(cos 45°)^p` of the peak. Normalising the dot product by `cos 45°`
+   * inside the power makes the factor exactly 1 wherever the normal is
+   * horizontal or vertical, at every exponent — so no fitted amplitude moves,
+   * W23's straight-span reads hold identically rather than approximately, and
+   * only the corners and the arcs change. It is why the CSS tier, whose inset
+   * shadow cannot vary around a contour, needs no re-fit either.
+   *
+   * At 0 the factor is `pow(x, 0)` = 1 for every normal, so a profile that does
+   * not carry this constant renders the W23 material byte for byte.
+   */
+  readonly rimLitExponent: number;
   /** Inner-shadow depth (0..1) and how much of it is applied. */
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -1187,6 +1237,31 @@ export interface MaterialProfile {
    * specular from.
    */
   readonly lightDirection: readonly [number, number];
+  /**
+   * **The lit edge's axis (W24; claims §5.107)** — the unit direction `L` the
+   * rim's directional factor is symmetric about, in the same viewport
+   * coordinates as `lightDirection`, y pointing down.
+   *
+   * It is a SEPARATE constant from `lightDirection` and not a second reading of
+   * it, for two reasons the rows give. First, they are measured to differ: the
+   * rim's axis fits at 136° of compass bearing over the 19 solid rows (135.0° ±
+   * 0.7° over the dark rows alone, 137.7° ± 1.5° over the light ones), where
+   * `lightDirection` [−0.3714, −0.9285] is a bearing of 338.2°, an axis of
+   * 158.2° — 22° away, and it was fitted for the inner shadow and the sweep, not
+   * for the contour. Second, `light.xy` reaches the one-sided `spec` term this
+   * factor replaces, and re-pointing it to fit the contour would move the
+   * shadow's own light with it; a constant of its own keeps that seam where W2
+   * and W22 left it.
+   *
+   * The default is the exact diagonal (−1, −1)/√2 — a bearing of 135° — and not
+   * the fitted 136°: the rows do not separate the two (the joint fit's RMS moves
+   * by less than a thousandth between them), and only the exact diagonal makes
+   * the factor equal on all four straight sides, which is what lets the
+   * amplitude's re-expression be exact rather than a 2 % trade against W23's
+   * straight-span reads. `rimLitExponent` is 0, so the axis draws nothing until a
+   * profile carries an exponent.
+   */
+  readonly rimLitAxis: readonly [number, number];
   /** Specular sweep band width in radians, and the press glow's reach in CSS px. */
   readonly sweepBandRadians: number;
   readonly glowRadiusCss: number;
@@ -1424,6 +1499,15 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        * the one solved on rendered rows.
        */
       rimLevelGain: -0.628,
+      /*
+       * INERT (W24 G0; claims §5.107) — the lit edge's exponent, 0 until a
+       * profile carries it, so that this gate's mechanism moves no golden and no
+       * capture. G0 fits the reference's own bins at 1.05 over both schemes
+       * (1.30 over the 2x dark rows alone, 1.10 over the 2x light ones, 0.70–1.55
+       * per cell); the value a profile adopts is the wave's declaration, not this
+       * default's.
+       */
+      rimLitExponent: 0,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
@@ -1455,6 +1539,9 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
       specularPower: 8,
       specularGain: 0.45,
       rimLevelGain: 0,
+      // No scene declares this variant, so the lit edge has no rows here either
+      // and the factor stays inert (C9a §6.2, as `rimLevelGain` above).
+      rimLitExponent: 0,
       shadowDepth: 0.22,
       shadowAlpha: 0.4,
       highlight: srgbToLinear(SRGB_WHITE_TINT),
@@ -1975,6 +2062,7 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   },
 
   lightDirection: [-0.3714, -0.9285],
+  rimLitAxis: [-0.7071, -0.7071],
   sweepBandRadians: 0.55,
   glowRadiusCss: 44,
   glowGain: 0.6,
@@ -2097,6 +2185,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneResponseStrength?: number;
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
+  readonly rimLitAxis?: readonly [number, number];
   readonly sweepBandRadians?: number;
   readonly glowRadiusCss?: number;
   readonly glowGain?: number;
@@ -2227,6 +2316,7 @@ export function withMaterialOverrides(
       patch.backdropToneResponseStrength ?? base.backdropToneResponseStrength,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },
     lightDirection: patch.lightDirection ?? base.lightDirection,
+    rimLitAxis: patch.rimLitAxis ?? base.rimLitAxis,
     sweepBandRadians: patch.sweepBandRadians ?? base.sweepBandRadians,
     glowRadiusCss: patch.glowRadiusCss ?? base.glowRadiusCss,
     glowGain: patch.glowGain ?? base.glowGain,
@@ -2286,6 +2376,10 @@ export function opticsUnderPolicy(
       rimWidth2x: profile.strongBorderRim.rimWidth,
       rimAlpha: profile.strongBorderRim.rimAlpha,
       rimLevelGain: 0,
+      // And the lit edge stands down with it (W24): a border a preference asked
+      // for is one brightness the whole way round, and a directional factor
+      // would take it to nothing on two of its four corners.
+      rimLitExponent: 0,
     };
   }
 

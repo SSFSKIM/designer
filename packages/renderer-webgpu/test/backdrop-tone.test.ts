@@ -400,8 +400,17 @@ describe("the optics pass's statement of the axis", () => {
     // Since W23 the rim's fade is a TRADE and not a fade: the appearance's own
     // rim falls with `present` exactly as before and the collapsed appearance's
     // own rim rises with `toneAdapt`, so the two can never both be drawn.
+    // W24 puts the lit edge's directional factor OUTSIDE that bracket, so it
+    // multiplies the collapsed rim exactly as it multiplies the appearance's own
+    // — which is what the reference's collapsed cells read — and the trade
+    // itself is untouched.
     expect(WGSL_OPTICS_PASS).toContain(
-      "rw * (rimAmplitude * present + rimCollapsed * toneAdapt)",
+      "rw * lit * (rimAmplitude * present + rimCollapsed * toneAdapt)",
+    );
+    // The factor is normalised by `cos 45 deg`, so it is exactly 1 on every
+    // straight side and the rim's fitted amplitude keeps its meaning.
+    expect(WGSL_OPTICS_PASS).toContain(
+      "let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);",
     );
   });
 

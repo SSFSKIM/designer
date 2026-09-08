@@ -442,6 +442,11 @@ const MATERIAL_PATCH_KEYS = new Set([
   // still naming it would otherwise pass this set and render the defaults.
   "outerShadow",
   "lightDirection",
+  // The lit edge's axis (W24): a profile-level constant beside `lightDirection`
+  // because the rim's axis and the inner shadow's light are measured 22 degrees
+  // apart, and the factor's exponent lives under `optics` with the rim's other
+  // per-variant constants.
+  "rimLitAxis",
   "sweepBandRadians",
   "glowRadiusCss",
   "glowGain",

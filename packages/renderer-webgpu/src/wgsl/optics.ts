@@ -192,6 +192,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// scheme's own rim falls with, and how much of an author tint's own colour
   /// the rim's light is spent in (w)
   rimLaw : vec4f,
+  /// the lit edge (W24): the axis the rim's directional factor is symmetric
+  /// about, unit, viewport coordinates with y down (xy), and the factor's
+  /// exponent (z) — 0 leaves the factor at 1 for every normal and the rim
+  /// exactly as W23 left it. (w) is free.
+  rimLit : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -975,7 +980,39 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     + (1.0 - materialAlpha) * ou.toneColour.w;
   let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma + spec;
   let rimCollapsed = mix(ou.rimLaw.y, ou.rimLaw.z, clamp(aux.w, 0.0, 1.0));
-  let rim = rw * (rimAmplitude * present + rimCollapsed * toneAdapt);
+  /*
+   * The lit edge (W24; claims §5.107) — the directional factor the whole rim is
+   * multiplied by, symmetric about 'rimLit.xy'.
+   *
+   * Apple's rim is not one number around the contour. Read at 720 or more points
+   * of the declared boundary and binned by the NORMAL's angle, the reference's
+   * north-west and south-east bins are five to twenty-five times its north-east
+   * and south-west ones on every untinted solid cell of both beds, while every
+   * per-side reader in three waves read it flat — a light on the diagonal
+   * projects equally on all four straight sides. This is the shape of that.
+   *
+   * '1.4142135' is the amplitude's re-expression and not a scale: it normalises
+   * the dot product by 'cos 45 deg', so at the default axis the factor is exactly
+   * 1 wherever the normal is horizontal or vertical, at EVERY exponent. W23
+   * fitted 'rimAlpha' and 'rimLevelGain' on those straight spans, so they keep
+   * their meaning untouched and only the corners and the arcs move — which is
+   * also why the CSS tier, whose one inset layer cannot vary around a contour,
+   * needs no counterpart and no re-fit.
+   *
+   * The factor multiplies the COLLAPSED rim as well as the appearance's own. That
+   * is a measurement and not a symmetry: the reference's collapsed cells — the
+   * 'dark-solid' capsule at both scales and the probe grids' 'dark-solid'
+   * rrect-sm and rrect-lg — fit the same axis (136.0 deg) and the same exponent
+   * (1.15 against 1.00) as the uncollapsed rows, so one factor outside the
+   * bracket is what the rows say and two constants would be one more than they
+   * separate.
+   *
+   * The floor is 1e-6 and not 0 so that 'pow' is defined where the normal is
+   * exactly perpendicular to the axis; at exponent 0 it returns 1 there as it
+   * does everywhere else, which is what makes this term inert at the defaults.
+   */
+  let lit = pow(max(abs(dot(normal, ou.rimLit.xy)) * 1.4142135, 1e-6), ou.rimLit.z);
+  let rim = rw * lit * (rimAmplitude * present + rimCollapsed * toneAdapt);
   let rimLight = rim * rimTintColour;
   if (ou.flags.x > 0.5) {
     colour = colour + rimLight;

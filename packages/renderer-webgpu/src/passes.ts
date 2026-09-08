@@ -148,6 +148,12 @@ export interface OpticsPassArgs {
   readonly rimLevelGain: number;
   readonly rimCollapsed: number;
   readonly rimCollapsedTinted: number;
+  /**
+   * The lit edge (W24): the axis the rim's directional factor is symmetric about
+   * and the factor's exponent. At exponent 0 the factor is 1 for every normal.
+   */
+  readonly rimLitAxis: readonly [number, number];
+  readonly rimLitExponent: number;
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -595,7 +601,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 100);
+      const slot = uniformSlot(`optics:${args.groupId}`, 104);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -740,6 +746,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[97] = args.rimCollapsed;
       d[98] = args.rimCollapsedTinted;
       d[99] = args.rimTintChroma;
+      // The lit edge (W24), in a vec4 of its own because `rimLaw` has been full
+      // since W23 G3 and an axis living in the shadow's block is a layout nobody
+      // could read. `d[103]` is free.
+      d[100] = args.rimLitAxis[0];
+      d[101] = args.rimLitAxis[1];
+      d[102] = args.rimLitExponent;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

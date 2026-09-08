@@ -970,6 +970,13 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // be the paint again, which is what it exists not to be.
         rimTintChroma: policy.border === "strong" ? 0 : material.rimTintChroma,
         lightDirection: material.lightDirection,
+        // The lit edge (W24): the rim's own axis, kept apart from
+        // `lightDirection` because the shadow reads that one and the two are
+        // measured 22 degrees apart. The exponent comes from the variant's
+        // optics under the accessibility fold, so a strong border's rim is one
+        // brightness the whole way round.
+        rimLitAxis: material.rimLitAxis,
+        rimLitExponent: optics.rimLitExponent,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,
         // The size law's gains, per group (W2); the per-pixel factor they
