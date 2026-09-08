@@ -14232,3 +14232,109 @@ collapsed golden is G2's.
 CSS mirror (`A' = A − k·c`, the tint re-solved), `tier-coherence`, the textured golden, the dry run
 on all six profiles and both tiers with the holdout read once; the clauses as re-declared.
 
+
+### 5.109 W24 G2 CLOSED: both mechanisms landed on the dry run — every GPU group of the bed and the holdout improved or held, the 2x dark capsule's arcs lit by eye and the impulse dot back at the reference's peak; clause 1 met on the half that measures the shape and recorded on the ratio half; S11 fired once on the CSS tier and was a level statistic; two extractor floors on the 1x dark nested pane re-pinned; the review's three findings verified, two fixed and one logged; G3 opens (2026-09-09)
+
+**Evidence** `results/2026-09-09-w24-lit-edge/g2/` — `g2-dryrun.md` (the declaration above its
+rule, the run below it), `g2-clauses.txt`, `impulse-read.txt`, `stops.txt`, `delta-e.txt`,
+`byte-identity.txt`, `g2-digests.txt`, `g2-gate.txt`, `goldens-attribution.txt`,
+`canonical-reads/`, `sheets/g2-1x.png` and `g2-2x.png`; the scripts beside them. On
+`worktree-w24-g2` at `f075c8e` (the fix wave's commit beside it). Verified by the parent: the chain
+green on the branch, the sheets read at 4×, all fourteen floors compared against the scratch matrix
+by the parent's own script, the codex review on a branch carrying the tests and goldens (W24
+Decision Log 3).
+
+**§1 The declaration.** Four constants land and one term retires: `rimLitExponent` 1.15,
+`rimLitAxis` [−0.7071, −0.7071] (fitted 136.0°, the exact diagonal taken so the factor is 1 on
+every straight side and W23's amplitudes hold by construction), `collapseTransmission` 0.017 and
+`collapseTransmission2x` 0.070; the ambient term never carried (fits 0.000); the rim's one-sided
+`spec` term retired on both tiers. Fingerprints light `c426a37744c38cce` → `7968a7f8106b10a4`,
+dark `bf5752ac1b152238` → `0d741cd19cd1243b`; the dark patch itself does not move and
+`dark-profile.ts` regenerates byte-identical. Stops S1–S8, S10 and S11 declared before a canonical
+pixel was captured; twenty-four runs, calibration and validation first, the holdout once after
+every clause and stop had been read on them.
+
+**§2 Clause 1 — the edge is lit.** The angular instrument on the GPU tier, untinted solid rows,
+both beds, both scales, holdout included. The worst-bin error is at or under half the landed bed's
+on 10 of 12 rows and no row is worse: the dark capsule 0.0130 → 0.0024 (0.18), the 2x dark rrect
+0.0292 → 0.0112 (0.38), the 2x light rrect 0.2020 → 0.0844 (0.42); the two misses are the light
+1x rrect (0.61) and `mid-dark-solid__capsule-button` (0.69), improvements of 39 % and 31 % whose
+residual is W23's amplitude. The brightest-to-dimmest ratio is within 20 % of the reference's on
+5 of 12 — the dark capsule 12.38 / 13.38, the 1x dark rrect 21.07 / 17.83, the dark `mid-dark`
+capsules 2.16 / 2.26 and 2.43 / 2.66 — and misses in two ways that are not the shape: the light
+bed's rrect and `mid-dark` rows overshoot (2.3–8.8×) because the quotient's denominator is the
+dimmest bin, which `|cos|^p` takes to zero where the reference keeps a floor (G0 §8.5); and the 2x
+rows undershoot (0.78, 0.53) because one exponent serves a contrast that depends on the scale (2x
+wants 1.30–1.45, 1x 0.85–1.10; G0 §8.1). Every row went from one number the whole way round
+(1.07–2.33) to the reference's kind of contrast (2.26–47.75). The row Decision Log 2 (g) named,
+`mid-dark-solid__capsule-button`, improves on all four profiles (worst bin 0.1284 → 0.0884,
+0.2038 → 0.0960, 0.0118 → 0.0042, 0.0145 → 0.0070) and S1 does not fire. **Ruled met on the
+bin-by-bin half and recorded on the ratio half** (Decision Log 3 (a)); the null's floor and the
+exponent's scale dependence to the tracker.
+
+**§3 Clauses 2 and 3.** The collapsed `impulse__capsule-button`'s centre dot, GPU tier, both
+schemes rendering the same numbers: 1x peak +0.0067 against the reference's +0.0066 (landed bed
+0.0000), 2x +0.0256 against +0.0254 — **met** within 0.0002 at both scales. FWHM 4.99 against 7.57
+CSS px at 1x (2.58 short: the scatter kernel, which no transmission share can widen) and 4.64
+against 3.80 at 2x; body −0.0029 / −0.0033, unchanged and pre-existing (the collapse's target
+level) — both recorded as Decision Log 2 (f) directs. Clause 3 answered: the dark structured
+capsules run `k` = 0 at both scales in both schemes and nothing else reached them (bodies move
+≤ 0.00011 GPU, ≤ 0.00120 CSS against their −18 / −22 codes of standing passthrough deficit, §5.89).
+
+**§4 The bed and the holdout.** Every GPU calibration mean improves — 1x light 0.00324 → 0.00321,
+2x light 0.00329 → 0.00326, 1x dark 0.00395 → 0.00393, 2x dark 0.00397 → 0.00395,
+reduced-transparency 0.00172 → 0.00171, increased-contrast unchanged — against a clause of +0.0001
+at most; five groups of twenty-four are worse at all, worst +0.00008 (increased-contrast / css /
+validation). Row by row the worst ΔE rise is +0.00008 against 0.001 and the worst `ssimMean` fall
+−0.00082 against 0.005. The straight spans: GPU worst 0.00029 against 0.005. **The holdout, read
+once** (03:16–03:19, nothing moved between): GPU 1x light 0.00901 → 0.00898, 2x light 0.00898 →
+0.00895, 1x dark 0.01331 → 0.01325, 2x dark 0.01317 → 0.01311, reduced-transparency 0.00345 →
+0.00343, increased-contrast held; CSS 1x dark 0.01731 → 0.01735 and increased-contrast 0.04557 →
+0.04561 worse by 0.00004, the other four CSS groups better or held.
+
+**§5 The goldens and the CSS tier.** The lit edge moves no pixel outside a contour band on any of
+the eleven scenes that draw a rim (15–81 codes inside); the transmission moves `collapsed-tone`
+(16 pixels by 1 code) and the new `collapsed-tone-textured` (13 147 pixels outside the band by up
+to 3 codes — the collapsed bodies, the scene's purpose); `highlight-press-glow` byte-identical to
+the 2026-08-25 original for the eleventh wave. Twelve hashes re-recorded under `W24_HASHES`, one a
+first reading; 33 / 33 green. The CSS tier takes the lit edge's derivable half — the band integral
+over the arcs, 0.956 (capsule) / 0.976 (rrect-md) / 0.977 (rrect-ml) of before, 80 renders moved,
+the rim amplitude untouched by the √2 normalisation — and the transmission's exact mirror
+`A' = A − k·c` with the tone's share re-solved, which reaches no capture on this bed: every
+collapsed cell here anchors its conversion on the group's own tone (W21 Decision Log 4 (a)), that
+solve is degenerate over a backdrop whose tone equals the tint, and it returns alpha 1 — at
+transmission 0.2 the CSS capture is byte-identical. An X5 residual, recorded; the fix (cap the
+anchored solve at the source's own alpha) moves every anchored cell and is its own gate.
+
+**§6 The stops, the floors and the gate.** S1–S8 and S10 clear (S10: the nine byte-identical GPU
+captures are the increased-contrast cells where `border: "strong"` folds the exponent to 0; every
+other GPU cell draws a rim the lit edge reaches by construction). S11 fires once, CSS tier,
+`mid-dark-solid__capsule-button` 1x light, +0.00571 on the top and bottom spans: a 0.00285 level
+shift read twice by a `peak − body` statistic (body −0.00285, contour row +0.00286), no rim
+constant that tier reads moved, the cell's ΔE 0.00400 → 0.00389; the GPU tier the stop was written
+for reads 0.00029. Dispositioned, not a halt (Decision Log 3 (d)). Over the scratch matrix the gate
+fails 5 of 33: four are the predicate moving (`PREDICATE_EXCLUDES` 27 → 31 and the three shape-cell
+counts 35 → 36, 33 → 31, 12 → 13, G3's re-derivation) and one is a floor —
+`dom / holdout / checkerboard__glass-over-glass__rest / 1x-dark :: silhouetteIoU` 0.91007 →
+0.90804 against 0.9090. The parent's own comparison of all fourteen floors finds a second on the
+same cell the test never reached, `contourDistanceP95` 8 → 8.25 against 8.1 (the test stops at its
+first failed assertion); `contourDistanceMean` 0.966 → 1.033 holds under 1.0658. The cell's ΔE
+moves +0.00005 and its interior level 0.00005 linear, and the 2x sibling's same three rows swing
+the other way by ten times (IoU 0.90482 → 0.92878, mean 1.760 → 1.289, P95 13 → 10) — the
+extractor's threshold, not the material's. **Both re-pinned** at G3's canonical readings with W23's
+pins kept beside, on the user's standing instruction; the user's to undo (Decision Log 3 (d)).
+
+**§7 The review and the eye.** Codex (gpt-6-astra, high) on a branch carrying the tests and
+goldens: three P2s, all real — the WebGPU tier over a `css-backdrop` proxy keeps the opaque
+collapse (no bed cell is that combination alone; logged); `adaptedSourceOptics` at the
+transmission's alpha endpoint returned the source (fixed, tested); `interiorBandLight` weighted the
+straight spans 1 whatever the axis (fixed, inert at the shipped diagonal, an off-axis case tested).
+The `clear` variant's unfitted one-sided specular 0.45 retired with the term (no rows either way;
+one line to restore; named in the changeset). By eye on `g2-2x.png` at 4×: the reference's
+north-west arc on the dark capsule visibly brighter than its north-east, the landed panel the same,
+the panel before it a uniform outline, the CSS panel unable. The user's veto stands (X6, S8).
+
+**G3 opens:** the canonical rebuild from the main checkout at the merged tree, the 229 digests
+reproduced byte for byte, the predicate re-derived, every floor re-read and the two of §6 re-pinned,
+the demo fixture, the changeset (`vitrea-web` minor → 0.13.0), the sheets, the chain; goldens in
+the foreground; 0.12.0 held.

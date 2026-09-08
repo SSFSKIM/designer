@@ -977,3 +977,87 @@ W21's band peak, W22's per-side contrasts and W23's contour span all read the re
 fitted vitrea flat. The variation lives in the corner arcs; W23 clause 4's corner overshoot was it.
 Chartered as W24 G0 with an angular instrument. Closes when W24 lands; the lesson is in memory.
 
+
+## The lit edge's exponent depends on the scale, and the reference's angular profile keeps a floor at the null that a single power law takes to zero (W24 G2, 2026-09-09)
+
+`(√2·|n̂ · L|)^p` at one exponent, 1.15, is what the rows separate; the 2x rows want 1.30–1.45
+and the 1x rows 0.85–1.10 (`g0/fit-law.txt`), so the brightest-to-dimmest ratio under-reaches at
+2x (0.78 and 0.53 of the reference's on the dark capsule and rrect) and the dark 1x rows meet it.
+And the reference's dim bins do not go to zero where the law's do: the light bed's ratio overshoots
+by 2.3–8.8× because the quotient's denominator is the null, where the reference keeps a floor and
+`|cos|^p` does not. The floor is not an ambient term — the charter's `a + (1 − a)|n·L|^p` fits
+`a` to 0.000 on every grouping — but a shoulder in the lobe (G0 §8.5). Shape of the work: a second
+exponent anchor per scale (as `rimWidth2x` and `collapseTransmission2x` already are), and a lobe
+with a shoulder (`|cos|^p` blended with a wider power, or a Lambert-plus-power) fitted on the same
+285 bins; four solid rows per scale cannot separate either alone, so the probe grids (W23's
+tracker entry) are the rows to add. Numbers: `g2/g2-clauses.txt`; W24 Decision Log 3 (a).
+
+## The collapsed capsule's transmitted dot is 2.6 CSS px too narrow at 1x, and the collapsed body sits 0.003 below the reference's (W24 G2, 2026-09-09)
+
+The transmission share puts the dot's PEAK within 0.0002 of the reference's at both scales
+(`g2/impulse-read.txt`), and two things it cannot move are recorded beside it. The FWHM is 4.99
+against 7.57 CSS px at 1x (4.64 against 3.80 at 2x): the reference transmits through σ 2.63 device
+px at 1x / 1.30 at 2x, the same kernel as its uncollapsed cells, while vitrea's scatter kernel runs
+1.68 → 4.86 — a width no share can change. And the collapsed body is −0.0029 / −0.0033 linear
+below the reference's on both schemes: the collapse's target sits at the backdrop's mean where
+Apple's collapsed glass sits above it. Shape of the work: the kernel is the thick-span composite's
+(wave Decision Log 23 (c)); the body level is one constant on the collapse's target (a lift above
+the mean), fittable on the same validation row whose independence W24 already spent, so it wants
+a calibration row — the probe grids again. W24 Decision Log 2 (f) and 3 (b).
+
+## The CSS tier's anchored conversion is degenerate over a backdrop whose tone equals the tint, returns alpha 1, and throws the collapse's transmission away (W24 G2, 2026-09-09)
+
+The mirror is exact — `A' = A − k·c` with the tone's share `k(1 − c)` re-solved — and inert on
+every collapsed cell of the bed, because every one of them sits below the linear chain's reach and
+anchors its conversion on the group's own tone (W21 Decision Log 4 (a), `conversionAnchor`). That
+solve reproduces the GPU tier's LEVEL; over a backdrop whose tone is the tint, every alpha
+reproduces the same level, and it returns `cssTintAlpha` 1 for source alphas of 0.983 and 0.800
+alike. Measured: at `collapseTransmission` 0.2 the collapsed `impulse__capsule-button` CSS capture
+is byte-identical to the landed one. So **the CSS tier does not transmit on the cells this bed can
+see**, and the impulse dot the GPU tier now passes is absent on the CSS tier. The candidate fix is
+one line — a tier may not draw a surface MORE opaque than the material is, so cap the anchored
+solve at the source's own alpha — but it changes the conversion on every anchored cell and belongs
+to a gate with its own rows and the parent's word. `g2/g2-dryrun.md` clause 7; W24 Decision Log 3
+(f).
+
+## The WebGPU tier over a `css-backdrop` proxy keeps W7's opaque collapse: the transmission is gated on a sampled pyramid, and root.ts paints CSS layers only for the CSS renderer (W24 G2 review, 2026-09-09)
+
+The shader lerps the collapse's target toward the per-pixel blurred backdrop only when
+`flags.x` says a pyramid was sampled; with a DOM proxy beneath the canvas the backdrop vector is
+zero and the target stays the group's mean, while `adaptedAlpha` still reaches 1 — so a fully
+collapsed untinted group on the WebGPU renderer over `css-backdrop` writes an opaque layer that
+hides the blurred proxy entirely, exactly as before W24. The doc comment says the CSS tier's
+`backdrop-filter` carries the transmission there, but root.ts paints the CSS layers only for the
+CSS renderer and `unsampledMaterial` carries the unadapted pair. No bed cell is that combination
+alone (six are `gpu-texture+css-backdrop`, 109 `gpu-texture`), so nothing measured moves. Shape
+of the work: apply the transmitting decomposition (`A − k·c`, the tone's share re-solved) to the
+unsampled GPU path's output alpha so the proxy shows through by the profile's share; a gate with a
+cell in that combination. The independent review's first finding, verified; W24 Decision Log 3 (g).
+
+## The `clear` variant's one-sided specular (0.45, never fitted) retired with the rim's `spec` term, on no rows in either direction (W24 G2, 2026-09-09)
+
+W22 fitted `specularGain` to 0 on `regular`; W24 G0 read why — the one-sided `max(n · L, 0)^p`
+cannot reach both ends of a diagonal whose two corners the reference draws equal, and degenerates in
+the fit trying to become symmetric — and G2 retired the term from the rim on both tiers so the rim
+has one law. `clear` carried a structural 0.45 that no scene on either bed or in the golden suite
+declares, so it lost a visible highlight without a measurement either way. `specularPower` and
+`specularGain` stay on the profile and in both documents so the W22 record is unchanged; nothing
+reads them. One line restores the term for `clear` alone if a row ever asks for it; the lit edge
+at `optics.clear.rimLitExponent` 0 is the flat rim. Named in 0.13.0's changeset. W24 Decision Log
+3 (h).
+
+## The nested pane's extractor rows move by a hundred times the level shift that causes them, in opposite directions at 1x and 2x, and the gate reports one breach where there are two (W24 G2, 2026-09-09)
+
+The CSS tier's band integral over the arcs moved the 1x dark
+`checkerboard__glass-over-glass__rest` CSS cell's interior by 0.00005 linear (a fiftieth of a
+code) and its ΔE by +0.00005, and its `silhouetteIoU` fell 0.91007 → 0.90804 and its
+`contourDistanceP95` rose 8 → 8.25, breaching the two W23 first-reading floors (0.9090 / 8.1); the
+2x sibling's same three rows swung the other way by ten times on the same change (IoU 0.90482 →
+0.92878, mean 1.760 → 1.289, P95 13 → 10). Both are the extractor's threshold crossing on the
+nested pane's low-contrast contour, as the W21 and W23 pins' comment says. The gate reported the
+first only — `adopted-thresholds.test.ts` stops a profile's test at its first failed assertion —
+so a parent reading the gate's output alone would have re-pinned one floor and left G3 to find the
+other. Re-pinned by the parent on the standing instruction (W24 Decision Log 3 (d)), W23's numbers
+beside. Shape of the work: a silhouette extractor for nested panes that does not threshold on the
+material's own level (the seven nested-pane floors' entry), and a gate that reports every breach
+of a profile rather than the first — collect the failures and assert once. `g2/g2-gate.txt`.
