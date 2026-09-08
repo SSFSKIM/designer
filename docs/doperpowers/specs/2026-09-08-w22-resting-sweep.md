@@ -1,17 +1,10 @@
 # W22 — the resting sweep: the highlight band gated on the shimmer running, the rim re-read per side on both beds (2026-09-08)
 
-**Status: IN PROGRESS — chartered 2026-09-08 from W21 Decision Log 3 (b) (claims §5.90 §4) at the
-0.10.0 cut, on the user's "let's continue with that sweep"; the user's two eye observations on the
-W21 landing sheets pinned as findings the same day (claims §5.93). G0 CLOSED 2026-09-08 (claims
-§5.94; Decision Log 2): the gate merged with the goldens byte-identical, the light rim read per side,
-`specularGain` to be fitted to 0 and three constants declined, the `impulse` capsule chartered to
-the appearance switch, the nested pane a plumbing defect taken as G3 ahead of G1. G3 CLOSED
-2026-09-08 (claims §5.95; Decision Log 3): the overlay had been handed no backdrop at all; fixed as
-a mechanism, the overlay's dark body within 0.0017 of the law, the rest byte-identical, two review
-findings fixed. G1 DECLARED 2026-09-08 (claims §5.96; Decision Log 4): `specularGain` 0.55 → 0 on the
-light profile, ten goldens re-recorded under an exact attribution, the holdout read once, W21's two
-open rim cells closed, the nested pane's sign right on every row, one stop fired at the sixth decimal
-and taken. G2 dispatched: the landing.**
+**Status: RECOMPOSED 2026-09-08 — chartered 2026-09-08 from W21 Decision Log 3 (b) (claims §5.90
+§4) at the 0.10.0 cut, on the user's "let's continue with that sweep"; the user's two eye
+observations pinned the same day (§5.93). G0 CLOSED (§5.94; Decision Log 2); G3 CLOSED (§5.95;
+Decision Log 3); G1 DECLARED (§5.96; Decision Log 4); G2 LANDED (§5.97); the wave RECOMPOSED against
+its acceptance (§5.98) with clause 8 open on the user's eye. The 0.11.0 cut follows.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W22 row; wave Decision Log 23 (c)'s ordering, this
@@ -330,7 +323,7 @@ or something else). The GPU is shared; one capture at a time.
 | G0 — the isolation, the light rim per side, the two eye reads | CLOSED 2026-09-08 (claims §5.94; the gate at `550f16d`, merged `eda878b`; Decision Log 2) |
 | G3 — the overlay's backdrop input | CLOSED 2026-09-08 (claims §5.95; `71d5d5c` + `86d05cd`, merged `3e88921`; Decision Log 3) |
 | G1 — the form declared and dry-run | DECLARED 2026-09-08 (claims §5.96; `d9cd2cc`; Decision Log 4) |
-| G2 — the landing and its referee | DISPATCHED 2026-09-08 |
+| G2 — the landing and its referee | LANDED 2026-09-08 (claims §5.97; `6a0b8f1`): 229 / 229 digests, the predicate 33 → 29, eleven floors held, the chain green but for the react e2e flakiness, the changeset cut |
 
 ## Decision Log
 
@@ -469,7 +462,36 @@ W21 floors re-read, the changeset a `vitrea-web` minor (0.11.0). The user's eye 
 
 ## Outcomes & Retrospective
 
-(at recomposition)
+**Outcome (claims §5.98).** Every resting surface now draws its ambient rim alone: the band that
+had sat on the left edge of every surface since the highlight pass landed is gated on an amplitude
+the driver owns, and the light rim's specular — fitted three times over the band — is 0 on the rows
+that separate it. The nested pane's overlay sees the glass beneath it for the first time; the dark
+holdout fell from 0.0161 to 0.0133 on the GPU tier and from 0.0200 to 0.0173 on the CSS tier. Four
+cells re-entered the gate's predicate. Both of the user's eye findings were measured to their
+mechanism; one closed as a mechanism with no constant, one chartered with numbers and a bound on
+what the existing axis can buy. Nothing widened, no floor moved, one stop taken at the sixth
+decimal with its number recorded.
+
+**Retrospective.** (i) The defect that three waves fitted over was found by reading a term per
+side; the rule that came of it — read the rest state of every animated term — was W21's lesson,
+and this wave is its cost. (ii) A candidate mechanism with clean arithmetic (the proxy leak, 19.3 %
+reproducing the number exactly) was wrong; the live read of what the group was actually handed
+settled it in one probe. A number that reproduces is not a mechanism until the pipeline is shown to
+hold it — `scene.ts` now publishes what each group is handed so the next such question is a read,
+not an inversion. (iii) An eroded-box mean is a level, not the cell: the user's eye found a glow
+and a ring that the declared read had dominated out and the silhouette read had kept; two readers
+on one cell are reported together now. (iv) The independent review earned its place twice on G3
+(the tint omitted from the published tone; containment on an unclipped box), both reproduced with
+root probes and both fixed before the merge. (v) A stop drawn at "not above" fires at a rounding;
+the charter states a tolerance now. (vi) The holdout rule needs the split read at charter time —
+both stacked scenes were holdout and G0 could not take an "after" column; the wave still spent its
+one read where it should, at G1.
+
+**Handed to the next cut** (the user's call after this wave): the collapsed rim, now measured on
+both beds (three light cells, 0.031–0.093; dark +0.017) — one term, likely one fraction of the rim
+that survives the collapse; the appearance switch with the `impulse` capsule's numbers and the
+one-axis finding; the thick-span composite with the base pane's haze; the per-source tone
+measurement; the demo's harness fixture as a script the rebuild runs.
 
 ## Revision Notes
 
@@ -480,3 +502,6 @@ W21 floors re-read, the changeset a `vitrea-web` minor (0.11.0). The user's eye 
 - 2026-09-08: G1 DECLARED (claims §5.96); Decision Log 4 — clause 4's "not above" read as "not above
   by more than 0.0001" (S3 at +0.0000080 taken), clause 6's wording corrected, the collapsed rim in
   light three cells; G2 dispatched.
+- 2026-09-08: G2 LANDED (claims §5.97) and the wave RECOMPOSED (§5.98) with clause 8 open on the
+  user's eye; Outcomes & Retrospective written; §5.96 §3's "230 captures" corrected beside to 229
+  (the digest file's header was counted). The 0.11.0 cut follows.

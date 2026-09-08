@@ -795,3 +795,33 @@ increased-contrast profile the CSS calibration ΔE moves 0.01293 → 0.01300 and
 residual under wave Decision Log 23 (a), recorded, not chartered. Shape of the work: the
 increased-contrast fold's band term read against the reference on that profile's own rows.
 
+## A conformance capture moved by one code value between a dry run and its landing, twice (W21 G2, W22 G2; 2026-09-08)
+
+*Second sighting at W22 G2 (claims §5.97).* The 1x dark `checkerboard__glass-over-glass__rest` CSS
+alpha conformance render differed from G1's dry run by 2 of 64 000 pixels, ±1 code in alpha at the
+canvas edge, rgb identical, no measured row moved; a third capture reproduced the dry run's bytes.
+W21 G2's sighting was the increased-contrast toolbar's render capture (17 of 64 000 edge pixels).
+Both are session byte-states that a re-capture settles; neither moved a row. The referee compares
+declared digests and reports the conformance renders beside them; a determinism claim on the
+conformance path is not made. Shape of the work: a second capture of any differing file inside
+the rebuild, and the pair recorded.
+
+## The react e2e suite cannot be read as pass/fail at a landing (addendum, W22 G2, 2026-09-08)
+
+*Addendum to the standing entry on `packages/react`'s press and morph specs.* Three consecutive
+runs of the unchanged tree at W22's landing failed 3, then 1, then 1 case from `press.spec.ts` /
+`morph.spec.ts`, a different case each time, each passing on repeat — a fourth distribution beside
+the entry's 0/2/4/4, and one failure on chromium where the entry says chromium passes every time.
+Nothing the wave moved touches a press or a morph; the landing was recorded with the suite "not
+claimed green" (claims §5.97). The shape of the fix is the entry's.
+
+## The demo's harness fixture is a hand-kept byte copy that went stale silently (W22 G2, 2026-09-08)
+
+*Found at W22's landing (claims §5.97).* `apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.png`
+is the harness capture `reference-panel.gpu.spec.ts` compares against, kept current by a doc
+comment; at W22's landing it was 178 px / 46 code values from the landed capture at the rim band,
+and only the spec's 0.02 tolerance kept it green through W21 and W22. Re-copied with its cell
+record (document digest `9360d73bd071`). Shape of the fix: a script the canonical rebuild runs, or
+the spec reading the capture from `web-captures/` on the capture machine with the fixture as the
+fallback.
+

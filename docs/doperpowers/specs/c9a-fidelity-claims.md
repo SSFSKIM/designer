@@ -13454,3 +13454,101 @@ By eye (X6; the sheets sent): the resting band gone from every left edge; the da
 than its base again; `dark-solid__rrect-md` in light symmetric and uniformly too faint — the
 deferred residual, visible.
 
+### 5.97 W22 G2 LANDED: the canonical bed rebuilt at the frozen configuration — 229 / 229 of G1's digests reproduced byte for byte and 15 216 matrix rows equal to the dry run; the predicate 33 → 29 with the four cells' silhouettes as the reason; eleven floors held, none inert, none re-pinned; the chain green; the changeset cut (2026-09-08)
+
+**W22 G2** (`results/2026-09-08-w22-resting-sweep/g2/g2-landing.md` with `g2-rebuild.sh`,
+`g2-runs.txt`, `g2-referee.txt`, `g2-gate.txt`, `g2-chain.txt`; the sheets `../sheets/g2-1x.png`,
+`g2-2x.png`; landed at `6a0b8f1`). From the main checkout at `e45fe8c`: `results/matrix.json`
+removed, 24 runs (six profiles × two tiers × two set-columns, `--alpha --write-partial`, GPU before
+CSS, calibration and validation before the holdout) in 7 min 21 s into the canonical matrix and
+`web-captures/`; the one non-zero exit the predicted `1x-light-increased-contrast / css / holdout`
+on `hc-text__capsule-button__rest`.
+
+**The referee.** 229 of 229 declared captures carry G1's digests (`g1-digests.txt`; a correction
+beside §5.96 §3's "230": that count included the file's column header). 15 216 matrix rows against
+G1's scratch matrix, none differing; 229 cells, the partition equal to the W21 bed's count for
+count. One file differs and it is not a declared digest: the 1x dark
+`checkerboard__glass-over-glass__rest` CSS alpha conformance render, 2 of 64 000 pixels by ±1 code
+in alpha at the canvas edge, rgb identical, no measured row moved; a third capture to scratch
+reproduces the dry run's bytes — a session byte-state on a conformance capture, the second landing
+to see one (W21 G2's was the increased-contrast toolbar's render), in the tracker.
+
+**The gate, 33 / 33.** `PREDICATE_EXCLUDES` re-derived by the machine at 29 lines and equal to the
+file: the four leaving are the 2x light texture checkerboard cells, `silhouetteAreaNative`
+bit-identical on all four and the whole movement web-side — `bodiesWeb` 2 / 3 / 3 / 4 → 1, IoU
+0.99792 → 0.99953, 0.99861 → 0.99981, 0.99750 → 0.99803, 0.99885 → 0.99993, contour mean 0.1335 →
+0.0302, 0.1202 → 0.0164, 0.1068 → 0.0031, 0.1199 → 0.0075 (P95 1 → 0 each). `UNMET_ROWS` 11. All
+eleven floors re-read on the landed matrix: held, none inert, none moved; the four W21 floors on the
+2x dark nested pane landed at 0.92732 (+0.00059), 0.90493 (+0.00011), 1.76018 and 13.0 (unmoved),
+recorded beside the W21 numbers. Tightest margin on the bed: `rrect-lg` 1x dom `ssimMean` +0.00063
+over its floor.
+
+**The chain.** Build and lint clean; 1 880 unit tests over 130 files (adopted-thresholds and
+tier-coherence over the canonical matrix); goldens 29 / 29; platform-web Playwright 376; demo e2e
+39. React e2e is **not claimed green**: three runs of the unchanged tree failed 3, 1, 1 cases from
+`press.spec.ts` / `morph.spec.ts`, a different case each time, each passing on repeat — the
+tracker's standing flakiness entry, with a fourth distribution and one chromium instance added to
+it; nothing this wave moved touches a press or a morph. Every landed ΔE column reproduces §5.96 §3's
+"after" to the stated decimal (GPU 1x dark 0.00404 / 0.00291 / 0.01326; CSS 1x dark 0.00682 /
+0.00362 / 0.01732; the full table in `g2-landing.md` §6).
+
+**The demo.** `calibration.ts` imports the matrix at build, so the figures follow the rebuild; the
+demo's hand-kept harness fixture (`apps/demo/e2e/fixtures/checkerboard__capsule-button__rest__webgpu.png`,
+compared by `reference-panel.gpu.spec.ts`) was 178 px / 46 code values from the landed capture at
+the rim band and had gone stale silently under its 0.02 tolerance — re-copied with its cell record
+(document digest `9360d73bd071`); in the tracker as a script the rebuild should run. The changeset
+`.changeset/resting-surfaces-settle.md`, a `vitrea-web` minor (0.11.0). The landing sheets sent;
+S7 — the user's eye — open.
+
+### 5.98 W22 RECOMPOSED: the resting sweep — the parent's eight clauses verified; every resting surface draws its ambient rim alone, the light rim's false specular gone, the nested pane's overlay seeing the glass beneath it; the dark holdout 0.0161 → 0.0133; two eye findings measured, one closed as a mechanism and one chartered; the 0.11.0 cut follows, the user's eye before publish (2026-09-08)
+
+**The acceptance, clause by clause** (the W22 spec's Parent-Level Acceptance; the evidence
+§5.93–§5.97).
+
+1. **Nothing at rest — met.** `shimmer` 0 at idle, the pass's gain `sweepGain × shimmer`, the unit
+   test on the uniform's bytes; `highlight-press-glow` byte-identical with its scene declaring the
+   shimmer running; the eight optics goldens byte-identical at G0 and re-recorded at G1 for the
+   specular alone under an exact attribution (§5.94 §1, §5.96 §2).
+2. **The rim per side, both beds — met on the dark bed; met on the light bed but for one term.**
+   Left within 0.0022 of right on every solid in both schemes; W21 clause 4's two cells closed at
+   both scales; the dark bed misses nothing on the GPU tier. Eighteen sides on three light cells
+   miss by 0.031–0.093 and they are one term, the light material's rim over a dark backdrop — the
+   collapsed rim, deferred by name with its rows (§5.96 §4; Decision Log 4 (d)).
+3. **The light rim re-fitted on its rows — met.** `specularGain` 0.55 → 0 on eleven separating
+   rows all minimising at 0; `rimAlpha` on both profiles and `lightDirection` declined on their
+   rows, the shadow rows unmoved; the dark hash unchanged (§5.96 §1).
+4. **The bed no worse anywhere, better on the rim — met under Decision Log 4 (b)'s tolerance.**
+   No column above the W21 bed's by more than 0.0001 (the 1x light GPU calibration column
+   +0.0000080, taken and recorded); no row worse by more than 0.001 ΔE / 0.005 `ssimMean`; every
+   moved rim row recorded; no bound widened; eleven floors held, none inert (§5.96 §3, §5.97).
+5. **The holdout once — met.** Spent at G1 on the frozen configuration (main at `3e88921` plus the
+   fit); G2 reproduced 229 / 229 digests (§5.96 §3, §5.97).
+6. **The CSS tier derives — met as corrected.** Every CSS mover named: the derived level through
+   `interiorBandLight`, G3's stacked scenes, one encoding step under increased contrast; the
+   increased-contrast CSS tier's 0.00006–0.00025 a CSS-only residual in the tracker (Decision Log
+   4 (c)).
+7. **The two eye findings measured — met.** The dark `impulse` capsule read under both instruments
+   and reconciled, the collapse predicted across the dark bed and found inadmissible, the term
+   chartered to the appearance switch with its numbers (§5.94 §4). The nested pane read per pane
+   with the reader extended to stacks and validated by injection; its cause found to be an absent
+   input and closed as a mechanism (§5.95), the overlay's sign right on all twelve rows and within
+   0.0021–0.0040 of the reference's excess in dark (§5.96 §5); the base's haze handed to the
+   thick-span composite with its number.
+8. **By eye, and the ledger — open on the eye.** The sheets at both scales sent; every remaining gap
+   named below; the 0.11.0 cut after the user's veto.
+
+**What the wave changed, in numbers.** Dark GPU holdout ΔE 0.01612 / 0.01596 → 0.01326 / 0.01301;
+dark calibration 0.00410 → 0.00404 / 0.00403; light GPU calibration flat (0.00329 → 0.00330,
+0.00334 → 0.00333); CSS light calibration 0.00707 → 0.00699, 0.00737 → 0.00727; the dark CSS
+holdout 0.01999 / 0.01992 → 0.01732 / 0.01724; the predicate 33 → 29 lines; the rim's `L−R`
++0.1327 / +0.2312 → ≤ 0.0022 on the light solids; the overlay's excess in dark +0.0023 → −0.0232
+against −0.0260.
+
+**Carried by name.** The collapsed rim in light (three cells, eighteen sides, 0.031–0.093) and in
+dark (+0.017). The appearance switch, now with the `impulse` capsule's numbers and the finding
+that the collapse and the appearance term are one axis. The thick-span composite with the base
+pane's haze (σ 16 native against 8). The per-source tone measurement's residual on a light base
+(+0.0349). The increased-contrast CSS residual. The session byte-state on conformance captures. The
+react e2e flakiness at a landing. The demo's harness fixture as a script. The `clear` variant's
+specular, unfitted. The 0.11.0 cut follows.
+
