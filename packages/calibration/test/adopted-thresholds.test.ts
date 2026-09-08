@@ -646,6 +646,50 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // silhouetteIoU, +0.00011), 1.76018 (dom contourDistanceMean, bit-identical)
   // and 13.0 (dom contourDistanceP95, bit-identical). Two improve, two do not
   // move, all four still miss their adopted bound — none goes inert.
+  //
+  // RE-READ again at the W23 landing (claims §5.104; W23 Decision Log 4 (f)),
+  // where the rim's law moved every cell on the bed. The `measured` values below
+  // stand as recorded and NO FLOOR MOVES; the landing's own readings beside them
+  // are 0.92708 (texture silhouetteIoU, −0.00024 against the W22 landing and
+  // still over its floor by 0.0014), 0.92878 (dom silhouetteIoU, +0.0238),
+  // 1.28921 (dom contourDistanceMean, −0.471) and 10.0 (dom contourDistanceP95,
+  // −3). The three dom rows are the largest movement any of these four has seen,
+  // and it is the instrument again from the other side: the rim gives the
+  // extractor the overlay's boundary, so the perforated silhouette the W21
+  // comment describes closes up. None of the four meets its adopted bound — the
+  // dom `silhouetteIoU` is the nearest at 0.0012 under ≥ 0.93 — so all eleven
+  // floors are held, none is inert, and none is re-pinned or widened.
+  //
+  // W23 G2 (claims §5.104; W23 Decision Log 4 (f)) PINNED THREE MORE, on the 1x
+  // sibling of exactly that cell and on exactly those rows: the nested pane's
+  // `silhouetteIoU`, `contourDistanceMean` and `contourDistanceP95` on the dom
+  // tier of the 1x dark profile. **They are first readings, not regressions.**
+  // The predicate excluded this cell through 0.11.0 on its `areaWeb` arm (25 069
+  // of a 28 100 px region against a 26 695 floor), so no bed has ever gated these
+  // three rows; the collapsed rim gives the overlay an edge the extractor can
+  // hold, `areaWeb` rises to 26 912, the cell is admitted, and the first thing it
+  // says is the same thing its 2x twin says.
+  //
+  // The mechanism is the paragraph above, unchanged in kind and now read at both
+  // scales. This silhouette carries **13 interior holes** against the reference's
+  // own 14, and `contourDistance` measures every hole's boundary as contour — so
+  // the mean reads 0.9658 device px against ≤ 0.5 and the p95 8 against ≤ 3.0,
+  // where the SAME TIER's conformance row on the texture side reads
+  // `declaredIoUWeb` 0.99886 with a contour max of one device pixel and a p95 of
+  // zero. The tier draws the declared shape to a pixel. What the silhouette rows
+  // measure is how much of it a luminance threshold can find against a
+  // checkerboard, and the reference is perforated there too.
+  //
+  // Every one of the three reads BETTER than the 2x twin's pinned value
+  // (0.91007 against 0.90482, 0.9658 against 1.7602, 8 against 13) and better
+  // than its own 0.11.0 reading behind the predicate (0.84448, 1.2903, 10).
+  // Nothing was widened and nothing was lowered: three rows the bed could not
+  // read are pinned where they were first read, and they come off the way W10's
+  // did — by the instrument, or by the nested pane's own charter, which is where
+  // all seven of these now wait.
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: silhouetteIoU": { measured: 0.91007, floor: 0.9090 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceMean": { measured: 0.96579, floor: 1.0658 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceP95": { measured: 8.0, floor: 8.1 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.92673, floor: 0.9257 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.90482, floor: 0.9038 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean": { measured: 1.76018, floor: 1.8602 },
@@ -670,9 +714,13 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
  * pinned the nested pane's four 2x-dark shape rows** (claims §5.90 §6; W21
  * Decision Log 4 (c) and the two contour rows it did not reach), which are the
  * extractor's contrast and not the material's — the first two floors on this bed that are not a fidelity row at
- * all, and the reason the comment beside them says so at length.
+ * all, and the reason the comment beside them says so at length; **14 after W23
+ * G2 pinned the same three rows on the same cell's 1x sibling** (claims §5.104;
+ * W23 Decision Log 4 (f)), which the conditioning predicate had excluded until
+ * the collapsed rim gave the extractor an edge to hold — three first readings of
+ * rows no bed had gated, every one of them better than the 2x twin's pin.
  */
-const UNMET_ROWS = 11;
+const UNMET_ROWS = 14;
 
 /*
  * ---------------------------------------------------------------------------
@@ -882,22 +930,64 @@ const MATRIX_CELLS = 229; // 230 until W18 G2 (claims §5.79); the row lost is n
  * This list is about the REFERENCE's silhouette, so W7 landing the same
  * adaptation on vitrea's side does not move it. Both sides now vanish into that
  * backdrop, which is the point — but the extractor still has nothing to find.
+ *
+ * **Per TIER since W23 G2** (claims §5.104; W23 Decision Log 4 (f)). It was one
+ * list per profile while the two tiers agreed on which scenes vanish, and the
+ * collapsed rim separated them: a rim on a surface that drew nothing gives the
+ * extractor an outline to find where it had none, and a CSS body that lands
+ * closer to its own backdrop takes one away. Both movements are the same
+ * mechanism read from the two sides, and neither is a fidelity row — the shape
+ * axis is what the extractor could resolve, never what vitrea drew.
  */
-const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
+const NO_SHAPE_AXIS_SCENES: Readonly<
+  Record<string, { readonly texture: readonly string[]; readonly dom: readonly string[] }>
+> = {
   // One scene, not two. `light-solid__rrect-md__rest` was here against the
   // retired inactive bed, whose untinted material over a light solid left the
   // extractor no interior to sample at all. The frozen active bed carries a
   // shadow and a rim it did not, so the scene has an interior again and is
   // gated like any other. Removed because the matrix says so — the assertion
   // below re-derives this list from the artifact on every run.
-  "apple-macos-26.5-1x-light-standard": ["dark-solid__capsule-button__rest"],
-  "apple-macos-26.5-2x-light-standard": ["dark-solid__capsule-button__rest"],
+  //
+  // W23 G2: at 2x the GPU tier's `dark-solid__capsule-button__rest` LEAVES this
+  // list in both schemes. The collapsed rim lands +0.020 of linear light on a
+  // body one code under a near-black backdrop, which is over the extractor's
+  // 0.02 threshold, so the cell now carries a shape axis — of the rim alone
+  // (457 px of a 19 468 px region, 60 bodies), which the conditioning predicate
+  // then refuses. It moves from "no axis to gate" to "an axis the predicate
+  // excludes", and is named in `PREDICATE_EXCLUDES` instead of here. At 1x the
+  // same rim falls under the threshold and the cell stays here.
+  "apple-macos-26.5-1x-light-standard": {
+    texture: ["dark-solid__capsule-button__rest"],
+    dom: ["dark-solid__capsule-button__rest"],
+  },
+  "apple-macos-26.5-2x-light-standard": {
+    texture: [],
+    dom: ["dark-solid__capsule-button__rest"],
+  },
   // The same scene, the same reason, in the two profiles adopted 2026-09-01: a
   // dark solid under a dark scheme leaves no interior to sample either.
-  "apple-macos-26.5-1x-dark-standard": ["dark-solid__capsule-button__rest"],
-  "apple-macos-26.5-2x-dark-standard": ["dark-solid__capsule-button__rest"],
-  "apple-macos-26.5-1x-light-reduced-transparency": [],
-  "apple-macos-26.5-1x-light-increased-contrast": [],
+  //
+  // W23 G2: `dark-solid__rrect-md__rest` JOINS this list on the CSS tier in both
+  // dark profiles. The dark bed's dom cell was the degenerate one the 2026-09-01
+  // predicate extension was adopted for — the extractor recovered 205 px of a
+  // 15 024 px region at 1x and 849 of 60 064 at 2x, in six to nine pieces — and
+  // on the landed bed it recovers nothing at all. That is the CSS tier's body
+  // arriving closer to the backdrop it sits on (the dark dom calibration ΔE mean
+  // falls 0.00682 → 0.00633 at 1x and 0.00699 → 0.00658 at 2x), read through a
+  // luminance-delta extractor: the better the body agrees, the less there is to
+  // find. Nothing is lost from the gate — the cell was excluded by the predicate
+  // before and carries no axis now — and the reason moves with it.
+  "apple-macos-26.5-1x-dark-standard": {
+    texture: ["dark-solid__capsule-button__rest"],
+    dom: ["dark-solid__capsule-button__rest", "dark-solid__rrect-md__rest"],
+  },
+  "apple-macos-26.5-2x-dark-standard": {
+    texture: [],
+    dom: ["dark-solid__capsule-button__rest", "dark-solid__rrect-md__rest"],
+  },
+  "apple-macos-26.5-1x-light-reduced-transparency": { texture: [], dom: [] },
+  "apple-macos-26.5-1x-light-increased-contrast": { texture: [], dom: [] },
 };
 
 /**
@@ -1093,17 +1183,45 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * The gate got stricter, not looser: four cells the bed could not read it now
  * reads, each meeting every bound it newly carries with room, and no bound was
  * widened to take them.
+ *
+ * **What moved with W23 G2 (2026-09-08; claims §5.104, W23 Decision Log 4 (f)):
+ * 29 → 27, four lines leaving and two joining, one mechanism in both
+ * directions.** The rim is now a law of the surface's own level with an absolute
+ * floor the collapse keeps, so a surface that drew nothing over a near-black
+ * backdrop draws an outline — and what the extractor can find moves with it.
+ *
+ * - **`dom / calibration / dark-solid__rrect-md__rest`, both dark profiles —
+ *   LEAVES by losing the axis, not by conditioning.** It recovered 205 px of a
+ *   15 024 px region (1x) and 849 of 60 064 (2x), in six to nine pieces; the
+ *   landed CSS body sits closer to its own backdrop and the extractor recovers
+ *   nothing at all, so the cell carries no shape axis and is named in
+ *   `NO_SHAPE_AXIS_SCENES` instead. Same coverage, a different reason.
+ * - **`dom / holdout / checkerboard__glass-over-glass__rest / 1x dark` — LEAVES,
+ *   admitted.** `areaWeb` 25 069 → 26 912 against a floor of 26 695: the rim
+ *   gives the nested pane's overlay an edge the threshold can hold, and the cell
+ *   is gated on all four shape rows again (IoU 0.84448 → 0.91007).
+ * - **`dom / holdout / hc-text__capsule-button__rest / 2x light` — LEAVES,
+ *   admitted.** `bodiesWeb` 2 → 1: the rim closes the gap that split the mask.
+ * - **`texture / calibration / dark-solid__capsule-button__rest / 2x dark and
+ *   2x light` — JOIN.** These two are the collapsed cell the whole wave is for.
+ *   At 2x the kept rim is +0.020 of linear light over the extractor's 0.02
+ *   threshold, so the cell gains a shape axis where it had none — an axis of the
+ *   RIM alone, 457 px of a 19 468 px region in 60 bodies, on both the native and
+ *   the web side (the reference's fixture carries the same outline and no body).
+ *   Every arm fires. The predicate is doing exactly what it exists to do: a
+ *   silhouette that is one hairline is not a shape to gate a contour on, and the
+ *   cell's fidelity is read on its perceptual rows as it always was.
+ *
+ * No cell lost a gated row to this and no bound moved. Two cells joined the
+ * shape gate, two changed which construct names them, and two are excluded for a
+ * silhouette that consists of the rim this wave added.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
-  "dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
-  "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
   "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
@@ -1113,6 +1231,8 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -1324,7 +1444,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
       it(`gates the ${tier}-tier ${profile.profileKey} cells against ${constant}`, () => {
         const cells = cellsOf(profile.profileKey, tier);
         const shapeCells = cells.filter((cell) => cell.shape !== undefined);
-        const noShape = NO_SHAPE_AXIS_SCENES[profile.profileKey] ?? [];
+        const noShape = NO_SHAPE_AXIS_SCENES[profile.profileKey]?.[tier] ?? [];
 
         // The shape rows gate fewer cells than the perceptual rows, for named
         // reasons only. Derived from the names so a new such scene cannot arrive
@@ -1546,7 +1666,7 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
       const dom = cellsOf(profileKey, "dom");
       const { min, max } = COHERENCE_ROWS.interiorLevelRatioGpuOverCss;
       const deltaE = COHERENCE_ROWS.crossTierOklabDeltaEMean;
-      const noShape = NO_SHAPE_AXIS_SCENES[profileKey] ?? [];
+      const noShape = NO_SHAPE_AXIS_SCENES[profileKey]?.dom ?? [];
 
       // Coherence is a property of the pair, so it is present on every dom cell
       // whose texture twin was captured — which, in this matrix, is all of them.
@@ -1670,13 +1790,24 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
      * to fail in both directions.
      *
      * The exclusion must be earned by the measurement, not by the scene id. So
-     * the degenerate cell is asserted to FAIL a named arm — if a future bed
-     * resolves `dark-solid__rrect-md__rest` properly, this fails and the cell
-     * goes back to being gated, which is the correct outcome and not a
-     * maintenance burden to route around.
+     * the degenerate cell is asserted to be excluded by what the bed says about
+     * it — if a future bed resolves `dark-solid__rrect-md__rest` properly, this
+     * fails and the cell goes back to being gated, which is the correct outcome
+     * and not a maintenance burden to route around.
      *
-     * And the extension must not have quietly emptied the row: a well-conditioned
-     * dark cell is asserted to still be gated on its ratio.
+     * **W23 G2 (claims §5.104): the measurement moved and the exclusion changed
+     * construct.** Through 0.11.0 the cell had a shape axis of two degenerate
+     * samples — 205 px of a 15 024 px region at 1x, 849 of 60 064 at 2x, in six
+     * to nine pieces — and the predicate refused it. On the landed bed the CSS
+     * tier's body sits closer to the dark solid it is over and the luminance-
+     * delta extractor recovers NOTHING, so `cli/measure.ts` writes the cell with
+     * no shape axis and no interior ratio at all. It is now excluded by absence
+     * and named in `NO_SHAPE_AXIS_SCENES`, which is a stronger statement of the
+     * same fact, and this test asserts that fact rather than the old one.
+     *
+     * And the extension must not have quietly emptied the row: it is asserted to
+     * still refuse dom cells on this profile by a web-side arm, and a
+     * well-conditioned dark cell is asserted to still be gated on its ratio.
      */
     const degenerate = MATRIX.cells.filter(
       (cell) =>
@@ -1687,14 +1818,43 @@ describe("the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30)
     expect(degenerate, "the cell the extension exists for").toHaveLength(DARK_PROFILES.length);
 
     for (const cell of degenerate) {
-      const at = (metric: string): number => reading(cell, "shape", metric);
-      // Excluded, and excluded because the extractor recovered almost nothing —
-      // roughly 2% of the declared region, not a borderline miss of the floor.
-      expect(isWellConditioned(cell), `${name(cell)}: must fail the predicate`).toBe(false);
-      expect(at("silhouetteAreaNative") / at("componentRegionArea")).toBeLessThan(0.05);
-      // And its ratio is the out-of-band number the extension exists to keep out.
-      const ratio = reading(cell, "coherence", "interiorLevelRatioGpuOverCss");
-      expect(ratio).toBeGreaterThan(COHERENCE_ROWS.interiorLevelRatioGpuOverCss.max);
+      // Excluded, and excluded because the extractor recovered nothing at all —
+      // not a borderline miss of the floor, and not a decision about the scene.
+      expect(cell.shape, `${name(cell)}: no silhouette the extractor could find`).toBeUndefined();
+      expect(
+        cell.coherence?.interiorLevelRatioGpuOverCss,
+        `${name(cell)}: and so no interior to sample either`,
+      ).toBeUndefined();
+      expect(
+        [...(NO_SHAPE_AXIS_SCENES[cell.key.profileKey]?.dom ?? [])],
+        `${name(cell)}: named where the reason lives`,
+      ).toContain(cell.key.sceneId);
+      // The GPU tier still resolves the same scene, which is what makes this a
+      // property of the CSS tier's own agreement rather than of the scene.
+      const twin = MATRIX.cells.find(
+        (candidate) =>
+          candidate.tier === "texture" &&
+          candidate.key.sceneId === cell.key.sceneId &&
+          candidate.key.profileKey === cell.key.profileKey,
+      );
+      expect(twin?.shape, `${name(cell)}: the texture twin still carries a shape axis`).toBeDefined();
+    }
+
+    // The extension itself must still bite on these profiles: a dom cell the
+    // native-only predicate would have passed and the web-side arms refuse.
+    for (const profileKey of DARK_PROFILES) {
+      const refusedOnTheWeb = cellsOf(profileKey, "dom").filter((cell) => {
+        if (cell.shape === undefined || isWellConditioned(cell)) return false;
+        const at = (metric: string): number => reading(cell, "shape", metric);
+        return (
+          at("silhouetteAreaNative") >= WELL_CONDITIONED_AREA_RATIO * at("componentRegionArea") &&
+          at("silhouetteBodiesNative") <= at("componentRegionBodies")
+        );
+      });
+      expect(
+        refusedOnTheWeb.length,
+        `${profileKey}: the web-side arms must still refuse a cell the native arms pass`,
+      ).toBeGreaterThan(0);
     }
 
     // The other side of the pin: the row still bites on this profile.

@@ -117,13 +117,19 @@ test.describe("the tinted surface is a material", () => {
       `the surface reads ${JSON.stringify(centre)}, which is the seed itself`,
     ).toBeGreaterThan(8);
 
-    // And the rim is still on it, which a fill has no way to produce: white
-    // light added to a channel the orange seed leaves at zero.
+    // And the rim is still on it, which a fill has no way to produce. Until W23
+    // the assertion was that the rim raised the BLUE channel the orange seed
+    // leaves at zero — the signature of white light added over the paint. That
+    // is the thing W23 G3 measured against Apple's own captures and refuted: the
+    // reference lifts an orange's green channel and leaves its blue at 0, and
+    // vitrea now spends the rim's light in the paint's own chromaticity (claims
+    // §5.103; W23 Decision Log 4 (a)). So the rim is read here the way the
+    // reference draws it — brighter in the channels the paint HAS, and still
+    // zero in the one it does not.
     const rim = panel.at(0.5, 60);
-    expect(
-      rim.b,
-      `rim ${JSON.stringify(rim)} against centre ${JSON.stringify(centre)}`,
-    ).toBeGreaterThan(centre.b + 8);
+    const because = `rim ${JSON.stringify(rim)} against centre ${JSON.stringify(centre)}`;
+    expect(rim.g, because).toBeGreaterThan(centre.g + 8);
+    expect(rim.b, because).toBeLessThanOrEqual(centre.b + 1);
     expect(channelDelta(centre, rim)).toBeGreaterThan(8);
   });
 });
