@@ -122,6 +122,26 @@ describe("the material one backdrop reading produces", () => {
     expect(w7.tintAlpha).toBeCloseTo(1, 12);
   });
 
+  it("is a window at the transmission's far end, and not the tint at full opacity", () => {
+    /*
+     * The endpoint, which the pair states degenerately: `A' = A − k·c` reaches 0
+     * where a fully collapsed surface transmits everything, and there is no
+     * colour a zero-opacity layer shows. The alpha is written as 0 rather than
+     * left at the material's own, because the second is what a surface meant to
+     * be a window would draw — the untransformed tint over the whole of it.
+     *
+     * No shipped profile reaches this: `collapseTransmission` is 0.017 and the
+     * far end is 1. It is pinned because the arithmetic passes through it and
+     * the branch that handles it is unreachable from any capture on the bed.
+     */
+    const tone = [0.0117, 0.0117, 0.0125] as const;
+    const open = adaptedSourceOptics(source, tone, 1, undefined, undefined, 1);
+    expect(open.tintAlpha).toBe(0);
+    // The rim is the collapsed one, because a collapsed surface keeps its rim
+    // whatever it transmits — the transmission is the BODY's term.
+    expect(open.rimAlpha).toBeCloseTo(RIM_COLLAPSED, 12);
+  });
+
   it("darkens rather than brightens on the way there", () => {
     // The failure this pins: lerping the colour and the alpha independently makes
     // a partially adapted surface LIGHTER than the one it started from, because a

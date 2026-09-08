@@ -270,6 +270,18 @@ export interface MaterialSourceInteriorLight {
   /** The unit direction the band is lit from, in the surface's own 2D frame. */
   readonly lightDirection: readonly [number, number];
   /**
+   * The axis the rim's directional factor is symmetric about —
+   * `MaterialProfile.rimLitAxis` (W24; claims §5.108 §1), mirrored here for the
+   * same reason `lightDirection` is: this tier draws no lit edge, and
+   * `interiorBandLight` still has to know how much light the renderer's band
+   * integrates to, which depends on where the axis points.
+   *
+   * It is NOT `lightDirection`. That constant is a bearing 22° off this one,
+   * fitted for the inner shadow, and the two are separate on the renderer's
+   * profile precisely so that neither moves when the other is fitted.
+   */
+  readonly rimLitAxis: readonly [number, number];
+  /**
    * The inner shadow's DEPTH gain — `MaterialProfile.lensSizeGainMax`, which the
    * shader reads as `shadowLensDepth = thickness · (1 + (gain − 1) · sizeK)`.
    * It is the lens's constant by name and the shadow's by use; the lens stopped
@@ -287,6 +299,7 @@ export interface MaterialSourceInteriorLight {
 /** Mirrors `@vitrea/renderer-webgpu`'s three profile-level interior constants. */
 export const MATERIAL_SOURCE_INTERIOR_LIGHT: MaterialSourceInteriorLight = {
   lightDirection: [-0.3714, -0.9285],
+  rimLitAxis: [-0.7071, -0.7071],
   shadowDepthGainMax: 2.6,
   shadowAmplitudeGainMax: 1,
 };
@@ -297,6 +310,7 @@ export function sourceInteriorLight(
 ): MaterialSourceInteriorLight {
   return {
     lightDirection: patch?.lightDirection ?? MATERIAL_SOURCE_INTERIOR_LIGHT.lightDirection,
+    rimLitAxis: patch?.rimLitAxis ?? MATERIAL_SOURCE_INTERIOR_LIGHT.rimLitAxis,
     shadowDepthGainMax:
       patch?.lensSizeGainMax ?? MATERIAL_SOURCE_INTERIOR_LIGHT.shadowDepthGainMax,
     shadowAmplitudeGainMax:
@@ -641,7 +655,19 @@ export function adaptedSourceOptics(
   // own opacity so that what is beneath comes through the layer it already has.
   const c = clamp01(transmission);
   const alpha = source.tintAlpha + k * (1 - source.tintAlpha) - k * c;
-  if (alpha <= 0) return { ...source, rimAlpha };
+  /*
+   * A layer that transmits everything, stated as one (W24; claims §5.108 §2).
+   *
+   * `A' = A − k·c` reaches 0 exactly where a fully collapsed surface is given a
+   * transmission of 1, and there the pair is degenerate: a zero-opacity layer
+   * shows no colour, and what the page composites is the backdrop this tier's
+   * `backdrop-filter` has already put beneath it. The alpha has to be written
+   * down anyway, so it is written as 0 rather than left at the material's own —
+   * which would draw the untransformed tint at full opacity over a surface that
+   * is meant to be a window. The rim is the collapsed one either way, because a
+   * collapsed surface keeps its rim whatever it transmits.
+   */
+  if (alpha <= 0) return { ...source, tintAlpha: 0, rimAlpha };
   // The pair that makes the interior CONVERGE on the backdrop's tone, rather than
   // two independently lerped parameters — see the renderer's `adaptedTintColour`
   // for the cells that caught the difference. The tone's share of the colour is
@@ -2485,8 +2511,10 @@ function coAreaBand(
  *
  * At `p` = 0 it is `2π` exactly, which is the unlit band this replaced, so a
  * profile that declines the lit edge derives the same interior it always did.
- * Memoised on the exponent alone: the integral does not depend on where the
- * axis points, because a full turn sees every angle to it.
+ * Memoised on the exponent alone, and that is a property of the ARC and not of
+ * the term: a full turn sees every angle to the axis, so this integral is the
+ * same for every axis. The straight runs are where the axis is read, and
+ * `interiorBandLight` reads it there.
  */
 const arcLitCache = new Map<number, number>();
 function arcLitIntegral(power: number): number {
@@ -2546,31 +2574,50 @@ export function interiorBandLight(
   source: MaterialSourceOptics,
   geometry: InteriorSurfaceGeometry,
   present: number,
+  light: MaterialSourceInteriorLight = MATERIAL_SOURCE_INTERIOR_LIGHT,
 ): number {
   const metrics = rrectMetrics(geometry);
   const { area, radius, span } = metrics;
   // The band cannot reach past the half span, and past the corner's radius the
-  // specular contour integral below would need the rectangle branch's own
-  // normals. Inert on every calibration surface — the narrowest radius on the
-  // bed is 8 CSS px against a 1.5 px band — and a guard rather than a law.
+  // contour integral below would need the rectangle branch's own normals. Inert
+  // on every calibration surface — the narrowest radius on the bed is 8 CSS px
+  // against a 1.5 px band — and a guard rather than a law.
   const depth = Math.min(Math.max(source.rimWidth, 0), radius, span / 2);
   if (depth <= 0 || present <= 0) return 0;
 
   /*
    * The lit edge, in the one place this tier can carry it (W24; claims §5.108
-   * §1). The renderer multiplies the whole rim by `(√2·|n̂ · L|)^p`, which is
-   * exactly 1 wherever the normal is horizontal or vertical and less than 1
-   * everywhere else — so the four STRAIGHT runs keep their weight of 1 and the
-   * corner arcs, which sweep one full turn between them, carry the factor's own
-   * contour integral in place of the `2π` an unlit band would have.
+   * §1). The renderer multiplies the whole rim by `(√2·|n̂ · L|)^p`, so what the
+   * band integrates to is no longer its length: each part of the contour carries
+   * the factor evaluated at its own normal.
    *
-   * That integral is independent of where the axis points, because the arcs
-   * sweep the whole turn: `∮ (√2|cos(θ − φ)|)^p dθ` is the same number for every
-   * φ. It is a statement about the ARC and not about the axis, which is why this
-   * function needs the exponent and not the direction.
+   * The two families separate cleanly, which is what makes this derivable at
+   * all. The four STRAIGHT runs each have one normal, so each carries one
+   * weight — the horizontal runs the axis's y component and the vertical runs
+   * its x — and the CORNER ARCS sweep one full turn between them on both of this
+   * tier's shapes, so they carry `∮ (√2|cos(θ − φ)|)^p dθ` in place of the `2π`
+   * an unlit band would have. That arc integral is the same number for every
+   * axis, and the straight runs' weights are not: at the shipped axis, the exact
+   * diagonal, all four are `(√2·cos 45°)^p` = 1 exactly and this derivation is
+   * bit-for-bit what it was before the factor existed, while a profile that
+   * turns the axis onto an axis-aligned direction extinguishes two runs in the
+   * shader and has to extinguish them here too.
    */
-  const ambient = coAreaBand(depth, metrics, arcLitIntegral(source.rimLitExponent));
+  const axis = unitDirection(light.rimLitAxis);
+  const exponent = Math.max(source.rimLitExponent, 0);
+  const lit = (nx: number, ny: number): number =>
+    exponent <= 0 ? 1 : Math.pow(Math.SQRT2 * Math.abs(nx * axis[0] + ny * axis[1]), exponent);
+  const straight =
+    (geometry.widthCssPx - 2 * radius) * (lit(0, -1) + lit(0, 1)) +
+    (geometry.heightCssPx - 2 * radius) * (lit(-1, 0) + lit(1, 0));
+  const ambient = coAreaBand(depth, { ...metrics, straight }, arcLitIntegral(exponent));
   return (present * source.rimAlpha * ambient) / area;
+}
+
+/** A direction, normalised — the shader's own axes are unit vectors and this says so. */
+function unitDirection(direction: readonly [number, number]): readonly [number, number] {
+  const length = Math.hypot(direction[0], direction[1]);
+  return length > 1e-6 ? [direction[0] / length, direction[1] / length] : [0, -1];
 }
 
 /**

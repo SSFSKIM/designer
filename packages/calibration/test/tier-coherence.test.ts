@@ -1951,6 +1951,11 @@ describe("the interior composite (X7)", () => {
       }
     }
     expect(sourceInteriorLight().lightDirection).toEqual(DEFAULT_MATERIAL_PROFILE.lightDirection);
+    // And the lit edge's own axis beside it (W24; claims §5.108 §1). The two are
+    // separate constants on the renderer's profile — a bearing 22° apart — and a
+    // mirror that folded them together would put this tier's derived band on a
+    // direction the shader is not lighting from.
+    expect(sourceInteriorLight().rimLitAxis).toEqual(DEFAULT_MATERIAL_PROFILE.rimLitAxis);
     expect(sourceInteriorLight().shadowDepthGainMax).toBe(DEFAULT_MATERIAL_PROFILE.lensSizeGainMax);
     expect(sourceInteriorLight().shadowAmplitudeGainMax).toBe(
       DEFAULT_MATERIAL_PROFILE.sizeShadowGainMax,
@@ -1959,12 +1964,14 @@ describe("the interior composite (X7)", () => {
     // moves the band moves this tier's derived light with it.
     const patch = {
       lightDirection: [0, -1] as const,
+      rimLitAxis: [-0.9239, -0.3827] as const,
       lensSizeGainMax: 3.1,
       sizeShadowGainMax: 1.4,
       optics: { regular: { rimWidth: 2.5, specularGain: 0.7 } },
     };
     const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
     expect(sourceInteriorLight(patch).lightDirection).toEqual(resolved.lightDirection);
+    expect(sourceInteriorLight(patch).rimLitAxis).toEqual(resolved.rimLitAxis);
     expect(sourceInteriorLight(patch).shadowDepthGainMax).toBe(resolved.lensSizeGainMax);
     expect(sourceInteriorLight(patch).shadowAmplitudeGainMax).toBe(resolved.sizeShadowGainMax);
     expect(sourceOptics(patch).regular.rimWidth).toBe(resolved.optics.regular.rimWidth);
@@ -2070,11 +2077,16 @@ describe("the interior composite (X7)", () => {
       adapted,
       interiorShadowKeep(base, geometry, sizeK, 1 - adaptation, sourceInteriorLight(patch)),
     );
-    // The band's light no longer reads a light DIRECTION: the one-sided specular
-    // is retired with the rim it modelled and the lit edge's factor, which
-    // replaced it, integrates over the arcs without needing one (W24; claims
-    // §5.108 §1).
-    const addedLight = interiorBandLight(base, geometry, 1 - adaptation);
+    // The band's light reads the lit edge's AXIS where it used to read the light
+    // direction: the one-sided specular is retired with the rim it modelled, and
+    // the factor that replaced it weights the four straight runs by where the
+    // axis points (W24; claims §5.108 §1).
+    const addedLight = interiorBandLight(
+      base,
+      geometry,
+      1 - adaptation,
+      sourceInteriorLight(patch),
+    );
 
     // The neutral clamps at black on this cell, which is the state the whole
     // mechanism lives in — pinned, because a profile that stopped clamping would

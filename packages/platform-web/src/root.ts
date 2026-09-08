@@ -2133,7 +2133,7 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
         const interior: CssTierInterior = {
           tintAlpha: shadowedSource.tintAlpha,
           tint: [shadowedSource.tint[0], shadowedSource.tint[1], shadowedSource.tint[2]],
-          addedLight: interiorBandLight(bandSource, interiorGeometry, present),
+          addedLight: interiorBandLight(bandSource, interiorGeometry, present, interiorLight),
         };
         // The material the shade is read off is the one the tier draws — the
         // occlusion regime's lift, the size law's thickening and the inner

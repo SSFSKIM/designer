@@ -410,6 +410,54 @@ describe("the band's derived light (W17 G1)", () => {
       MATERIAL_SOURCE_INTERIOR_LIGHT.lightDirection,
     );
   });
+
+  it("weights the straight runs by where the AXIS points, and the arcs by neither", () => {
+    /*
+     * The half of the lit edge that is not axis-independent (W24; claims §5.108
+     * §1). The corner arcs sweep one full turn on both of this tier's shapes, so
+     * their contour integral is the same for every axis; the four straight runs
+     * have one normal each, so each carries the factor at its own normal — the
+     * horizontal runs the axis's y component and the vertical runs its x.
+     *
+     * At the shipped axis, the exact diagonal, all four weights are
+     * `(√2·cos 45°)^p` = 1 and this derivation is bit-for-bit the unlit one on
+     * the straight runs, which is why no capture, alpha or golden moved when the
+     * factor landed. A profile that turns the axis onto a horizontal
+     * extinguishes the top and bottom runs in the SHADER, and a derivation that
+     * kept counting their light would put this tier on a band the renderer is
+     * not drawing — K5's gap, through the one constant this wave added.
+     */
+    const probe = PROBES[0]!;
+    const source = MATERIAL_SOURCE_OPTICS.regular;
+    const diagonal = interiorBandLight(source, probe.geometry, 1);
+    expect(diagonal).toBeCloseTo(
+      interiorBandLight(source, probe.geometry, 1, MATERIAL_SOURCE_INTERIOR_LIGHT),
+      12,
+    );
+    // The axis on the horizontal: the two horizontal runs go to nothing and the
+    // two vertical ones are lit at `√2` — brighter than the diagonal's 1, since
+    // the factor is normalised so that the diagonal is where it equals 1.
+    const horizontal = interiorBandLight(source, probe.geometry, 1, {
+      ...MATERIAL_SOURCE_INTERIOR_LIGHT,
+      rimLitAxis: [1, 0],
+    });
+    expect(horizontal).not.toBeCloseTo(diagonal, 6);
+    // And the two are the same wherever there are no straight runs to weight: a
+    // capsule of square proportions is all arc, and the arcs do not read the axis.
+    const allArc = { widthCssPx: 44, heightCssPx: 44, radiusCssPx: 22, thicknessCssPx: 8 };
+    expect(interiorBandLight(source, allArc, 1, {
+      ...MATERIAL_SOURCE_INTERIOR_LIGHT,
+      rimLitAxis: [1, 0],
+    })).toBeCloseTo(interiorBandLight(source, allArc, 1), 12);
+    // The axis is not `lightDirection`, and moving that one reaches nothing here.
+    expect(
+      interiorBandLight(source, probe.geometry, 1, {
+        ...MATERIAL_SOURCE_INTERIOR_LIGHT,
+        lightDirection: [0, -1],
+      }),
+    ).toBeCloseTo(diagonal, 12);
+  });
+
 });
 
 describe("the tint's transfer (W17 G1, re-formed at Decision Log 4 (a))", () => {
