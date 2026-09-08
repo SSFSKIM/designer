@@ -1,0 +1,16 @@
+W22 G0 (e2) — the overlay pane against the shipped dark law evaluated at its own backdrop
+
+anchors (encoded)      [0.1104, 0.2706, 0.9505]
+backdropToneResponseThin  [0.011, 0.0284, 0.1611]
+backdropToneResponseThick [0.0131, 0.0238, 0.1006]
+
+The overlay is 120 x 56 CSS px, well under sizeSpanMin 32 .. sizeSpanMax 96 on its short
+side, so it is a THIN surface and the law is evaluated on the thin row; the thick row is
+printed beside it as the bound in the other direction. `input` is the encoded mean of the
+overlay's backdrop, which is the base pane's own measured body.
+
+profile                                 base body    input  law thin  law thick  native over  web over
+apple-macos-26.5-1x-dark-standard          0.0470   0.2402    0.0245     0.0214       0.0207    0.0493
+                                       the encoded input the law would need to produce what the overlay DREW: 0.4022 (linear 0.1344)
+apple-macos-26.5-2x-dark-standard          0.0475   0.2415    0.0246     0.0215       0.0208    0.0494
+                                       the encoded input the law would need to produce what the overlay DREW: 0.4025 (linear 0.1346)

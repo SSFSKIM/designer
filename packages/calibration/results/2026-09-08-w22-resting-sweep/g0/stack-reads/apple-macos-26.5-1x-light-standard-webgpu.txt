@@ -1,0 +1,23 @@
+placement (CSS px, from component-region.ts's rule restated here)
+  base {'left': 50.0, 'top': 35.0, 'width': 220.0, 'height': 130.0}
+  over {'left': 100.0, 'top': 64.0, 'width': 120.0, 'height': 56.0}
+== apple-macos-26.5-1x-light-standard / webgpu  (/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-ac5e591b52341c4ce/apps/reference-apple/fixtures)
+scene                                        side    baseBody  overBody   excess  baseSd blurSig | base rim T/B/L/R | over rim T/B/L/R
+checkerboard__glass-over-glass__rest         native    0.6676    0.9047  +0.2371  0.0940    1.50 | 0.7511 0.7372 0.6646 0.7005 | 0.9048 0.8894 0.8371 0.8363
+checkerboard__glass-over-glass__rest         web       0.6611    0.8902  +0.2291  0.0959    2.20 | 0.8069 0.6844 0.6972 0.6448 | 0.8774 0.8423 0.8073 0.8045
+photo__glass-over-glass__rest                native    0.6497    0.8936  +0.2439  0.0690   16.00 | 0.6452 0.6662 0.5875 0.6805 | 0.8692 0.8749 0.8122 0.8437
+photo__glass-over-glass__rest                web       0.6313    0.8736  +0.2423  0.0578   16.00 | 0.7153 0.6291 0.5946 0.6636 | 0.8588 0.8320 0.7766 0.8159
+
+X3 — the reader's recovery on a stack, by injection (known levels painted into a
+copy of a capture and recovered through the same masks and the same peak statistic):
+  base body  truth 0.0450 read 0.0450  err 0.000000
+  over body  truth 0.0320 read 0.0320  err 0.000000
+  base rim top     truth 0.0900 read 0.0897  err 0.000341
+  base rim bottom  truth 0.0850 read 0.0848  err 0.000205
+  base rim left    truth 0.0800 read 0.0800  err 0.000000
+  base rim right   truth 0.0750 read 0.0750  err 0.000000
+  over rim top     truth 0.1400 read 0.1394  err 0.000625
+  over rim bottom  truth 0.1350 read 0.1346  err 0.000375
+  over rim left    truth 0.1300 read 0.1300  err 0.000000
+  over rim right   truth 0.1250 read 0.1250  err 0.000000
+  worst recovery error over the ten quantities: 0.000625

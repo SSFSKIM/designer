@@ -1,0 +1,83 @@
+W22 G0 (e1) — the declared body, the centre 16 x 16 CSS px glow and the rim per side
+== apple-macos-26.5-1x-light-standard
+
+`glow` is the centre square's mean minus the mean over the rest of the eroded box: the
+structure the material passes, isolated from the level it sits at. `intN` / `intW` are the
+matrix's own SILHOUETTE interior means, printed beside so the two instruments' disagreement stays visible.
+
+scene                                    which                      body      sd   centre  surround      glow | rim T/B/L/R
+light-solid__capsule-button__rest        native                   0.9668  0.0025   0.9666    0.9668   -0.0002 | 0.9627 0.9541 0.9072 0.9074
+light-solid__capsule-button__rest        gate                     0.9724  0.0039   0.9741    0.9723   +0.0018 | 0.9608 0.9492 0.8999 0.8991
+light-solid__capsule-button__rest        matrix silhouette      intN 0.9696  intW 0.9718  slopeN None  slopeW None
+dark-solid__capsule-button__rest         native                   0.0110  0.0007   0.0110    0.0110   -0.0000 | 0.0249 0.0247 0.0161 0.0161
+dark-solid__capsule-button__rest         gate                     0.0117  0.0000   0.0117    0.0117   -0.0000 | 0.0117 0.0117 0.0117 0.0117
+checkerboard__capsule-button__rest       native                   0.6133  0.1372   0.6130    0.6133   -0.0002 | 0.6623 0.6456 0.7474 0.3380
+checkerboard__capsule-button__rest       gate                     0.6741  0.1371   0.6742    0.6741   +0.0000 | 0.7502 0.6388 0.7746 0.3041
+checkerboard__capsule-button__rest       matrix silhouette      intN 0.6207  intW 0.6780  slopeN 0.17067016639050622  slopeW 0.16636930105139683
+impulse__capsule-button__rest            native                   0.0066  0.0008   0.0080    0.0065   +0.0014 | 0.0145 0.0137 0.0041 0.0042
+impulse__capsule-button__rest            gate                     0.0037  0.0001   0.0037    0.0037   +0.0000 | 0.0030 0.0030 0.0017 0.0017
+impulse__capsule-button__rest            matrix silhouette      intN 0.0210  intW 0.0037  slopeN -0.009002134966210799  slopeW 5.0891864171353835e-06
+photo__capsule-button__rest              native                   0.5766  0.0351   0.5439    0.5792   -0.0353 | 0.5369 0.5699 0.3648 0.5017
+photo__capsule-button__rest              gate                     0.6117  0.0342   0.5832    0.6140   -0.0308 | 0.6330 0.5526 0.3641 0.5047
+photo__capsule-button__rest              matrix silhouette      intN 0.5832  intW 0.6165  slopeN 0.353057819993635  slopeW 0.31953758619358164
+light-solid__rrect-md__rest              native                   0.9345  0.0013   0.9344    0.9345   -0.0000 | 0.9633 0.9495 0.9322 0.9322
+light-solid__rrect-md__rest              gate                     0.9318  0.0012   0.9320    0.9317   +0.0002 | 0.9675 0.9497 0.9294 0.9291
+light-solid__rrect-md__rest              matrix silhouette      intN 0.9373  intW 0.9325  slopeN None  slopeW None
+dark-solid__rrect-md__rest               native                   0.4798  0.0015   0.4797    0.4798   -0.0000 | 0.5272 0.5269 0.4195 0.4196
+dark-solid__rrect-md__rest               gate                     0.4955  0.0026   0.4969    0.4955   +0.0015 | 0.5577 0.4340 0.3884 0.3877
+dark-solid__rrect-md__rest               matrix silhouette      intN 0.4844  intW 0.4975  slopeN None  slopeW None
+checkerboard__rrect-md__rest             native                   0.6792  0.1105   0.6790    0.6792   -0.0002 | 0.7339 0.7302 0.6872 0.6566
+checkerboard__rrect-md__rest             gate                     0.6929  0.1000   0.6945    0.6929   +0.0016 | 0.7958 0.6770 0.7264 0.6492
+checkerboard__rrect-md__rest             matrix silhouette      intN 0.6829  intW 0.6946  slopeN 0.10992619803059596  slopeW 0.10597565705463828
+impulse__rrect-md__rest                  native                   0.4311  0.0089   0.4462    0.4308   +0.0154 | 0.4949 0.4948 0.3876 0.3876
+impulse__rrect-md__rest                  gate                     0.4642  0.0115   0.4821    0.4638   +0.0183 | 0.5191 0.4100 0.3588 0.3580
+impulse__rrect-md__rest                  matrix silhouette      intN 0.4358  intW 0.4660  slopeN 0.06134401634017121  slopeW 0.10658194368768006
+photo__rrect-md__rest                    native                   0.6610  0.0534   0.6269    0.6617   -0.0348 | 0.6167 0.6366 0.5522 0.6346
+photo__rrect-md__rest                    gate                     0.6555  0.0391   0.6278    0.6561   -0.0283 | 0.6971 0.5960 0.5387 0.6031
+photo__rrect-md__rest                    matrix silhouette      intN 0.6649  intW 0.6585  slopeN 0.42337598245506064  slopeW 0.3078054898199322
+light-solid__rrect-ml__rest              native                   0.9326  0.0046   0.9326    0.9326   +0.0000 | 0.9632 0.9493 0.9276 0.9277
+light-solid__rrect-ml__rest              gate                     0.9317  0.0052   0.9320    0.9317   +0.0003 | 0.9670 0.9467 0.9243 0.9238
+light-solid__rrect-ml__rest              matrix silhouette      intN 0.9347  intW 0.9323  slopeN None  slopeW None
+checkerboard__rrect-ml__rest             native                   0.6906  0.0843   0.6907    0.6906   +0.0001 | 0.7421 0.7273 0.6321 0.6828
+checkerboard__rrect-ml__rest             gate                     0.6931  0.0891   0.6945    0.6931   +0.0014 | 0.7993 0.6742 0.6568 0.6191
+checkerboard__rrect-ml__rest             matrix silhouette      intN 0.6936  intW 0.6947  slopeN 0.0954528960130816  slopeW 0.10739422439710619
+photo__rrect-ml__rest                    native                   0.6707  0.0611   0.6419    0.6710   -0.0291 | 0.6298 0.6508 0.5510 0.6706
+photo__rrect-ml__rest                    gate                     0.6577  0.0476   0.6288    0.6580   -0.0293 | 0.7016 0.6161 0.5061 0.6489
+photo__rrect-ml__rest                    matrix silhouette      intN 0.6734  intW 0.6604  slopeN 0.43831842828710826  slopeW 0.3544069850039351
+checkerboard__rrect-sm__rest             native                   0.6149  0.1490   0.6135    0.6153   -0.0018 | 0.7102 0.7086 0.7805 0.6003
+checkerboard__rrect-sm__rest             gate                     0.6731  0.1535   0.6736    0.6729   +0.0007 | 0.7886 0.6703 0.7272 0.6290
+checkerboard__rrect-sm__rest             matrix silhouette      intN 0.6285  intW 0.6796  slopeN 0.201882416171626  slopeW 0.1977718087190408
+photo__rrect-sm__rest                    native                   0.5411  0.0131   0.5319    0.5441   -0.0122 | 0.6103 0.6226 0.5112 0.5472
+photo__rrect-sm__rest                    gate                     0.5889  0.0105   0.5814    0.5913   -0.0099 | 0.6966 0.5755 0.5412 0.5377
+photo__rrect-sm__rest                    matrix silhouette      intN 0.5559  intW 0.5980  slopeN 0.335027154092161  slopeW 0.19170904073886105
+checkerboard__capsule-button__pressed    native                   0.6133  0.1372   0.6130    0.6133   -0.0002 | 0.6623 0.6456 0.7474 0.3380
+photo__capsule-button__pressed           native                   0.5766  0.0351   0.5439    0.5792   -0.0353 | 0.5369 0.5699 0.3648 0.5017
+checkerboard__rrect-md__pressed          native                   0.6792  0.1105   0.6790    0.6792   -0.0002 | 0.7339 0.7302 0.6872 0.6566
+photo__rrect-md__pressed                 native                   0.6610  0.0534   0.6269    0.6617   -0.0348 | 0.6167 0.6366 0.5522 0.6346
+dark-solid__capsule-button__rest-tint-orange native                   0.4243  0.0075   0.4244    0.4242   +0.0002 | 0.3451 0.3450 0.2042 0.2042
+dark-solid__capsule-button__rest-tint-orange gate                     0.4272  0.0090   0.4275    0.4272   +0.0003 | 0.3431 0.3431 0.1972 0.1972
+dark-solid__capsule-button__rest-tint-orange matrix silhouette      intN 0.4257  intW 0.4249  slopeN None  slopeW None
+impulse__capsule-button__rest-tint-orange native                   0.4242  0.0082   0.4244    0.4242   +0.0002 | 0.3405 0.3405 0.1964 0.1964
+impulse__capsule-button__rest-tint-orange gate                     0.4272  0.0101   0.4275    0.4272   +0.0004 | 0.3401 0.3401 0.1891 0.1891
+impulse__capsule-button__rest-tint-orange matrix silhouette      intN 0.4254  intW 0.4245  slopeN -0.0009609507103180826  slopeW 0.0030149414883538046
+checkerboard__capsule-button__rest-tint-orange native                   0.3519  0.0303   0.3518    0.3520   -0.0002 | 0.4947 0.4775 0.5933 0.2918
+checkerboard__capsule-button__rest-tint-orange gate                     0.3669  0.0303   0.3669    0.3669   -0.0000 | 0.5406 0.4246 0.5747 0.2712
+checkerboard__capsule-button__rest-tint-orange matrix silhouette      intN 0.3603  intW 0.3734  slopeN 0.038011828278389656  slopeW 0.037827484326249085
+photo__capsule-button__rest-tint-orange  native                   0.3441  0.0096   0.3368    0.3447   -0.0080 | 0.4014 0.4353 0.2572 0.4068
+photo__capsule-button__rest-tint-orange  gate                     0.3541  0.0080   0.3483    0.3545   -0.0062 | 0.4530 0.3821 0.2480 0.3800
+photo__capsule-button__rest-tint-orange  matrix silhouette      intN 0.3524  intW 0.3606  slopeN 0.08552563375526241  slopeW 0.05631984560972422
+light-solid__capsule-button__rest-tint-orange native                   0.4229  0.0085   0.4225    0.4229   -0.0004 | 0.6631 0.6511 0.7838 0.7837
+light-solid__capsule-button__rest-tint-orange gate                     0.4279  0.0101   0.4275    0.4279   -0.0003 | 0.6876 0.5855 0.7694 0.7687
+light-solid__capsule-button__rest-tint-orange matrix silhouette      intN 0.4319  intW 0.4352  slopeN None  slopeW None
+photo__capsule-button__rest-tint-blue    native                   0.1908  0.0096   0.1866    0.1912   -0.0046 | 0.3330 0.3665 0.2208 0.3825
+photo__capsule-button__rest-tint-blue    gate                     0.1971  0.0069   0.1936    0.1974   -0.0038 | 0.3508 0.2741 0.1828 0.3524
+photo__capsule-button__rest-tint-blue    matrix silhouette      intN 0.2019  intW 0.2051  slopeN 0.0603160834940226  slopeW 0.03187877445096502
+photo__capsule-button__rest-tint-orange-half native                   0.4303  0.0167   0.4160    0.4314   -0.0154 | 0.4594 0.4919 0.2990 0.4296
+photo__capsule-button__rest-tint-orange-half gate                     0.4529  0.0169   0.4392    0.4540   -0.0148 | 0.5264 0.4479 0.2934 0.4213
+photo__capsule-button__rest-tint-orange-half matrix silhouette      intN 0.4385  intW 0.4590  slopeN 0.16853169691072445  slopeW 0.14629243147387994
+checkerboard__capsule-button__rest-tint-blue native                   0.1950  0.0190   0.1946    0.1951   -0.0004 | 0.4238 0.4061 0.5703 0.2680
+checkerboard__capsule-button__rest-tint-blue gate                     0.2046  0.0194   0.2044    0.2046   -0.0002 | 0.4359 0.3128 0.5365 0.2423
+checkerboard__capsule-button__rest-tint-blue matrix silhouette      intN 0.2064  intW 0.2125  slopeN 0.021816997734371808  slopeW 0.02214714566064907
+photo__rrect-md__rest-tint-orange        native                   0.3607  0.0104   0.3544    0.3609   -0.0064 | 0.4357 0.4473 0.3966 0.4349
+photo__rrect-md__rest-tint-orange        gate                     0.3627  0.0082   0.3568    0.3628   -0.0059 | 0.4777 0.3766 0.3314 0.3702
+photo__rrect-md__rest-tint-orange        matrix silhouette      intN 0.3656  intW 0.3664  slopeN 0.0740742434181514  slopeW 0.05133282014400993
