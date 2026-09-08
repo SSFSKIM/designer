@@ -1,0 +1,357 @@
+# W23 — the collapsed rim: a rim that survives the collapse, and the rim's law read at the contour on both beds (2026-09-08)
+
+**Status: CHARTERED 2026-09-08 from W22's Deferred list ("the collapsed rim", W22 Decision Log 4 (d);
+claims §5.96 §4) and the user's eye on the W22 landing sheets (claims §5.99), on the user's "you
+can proceed with the collapsed rim" at the 0.11.0 bump. G0 dispatched.**
+
+Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
+tail. Parent: `2026-08-28-post-v1-wave.md` (the W23 row). The term it takes was deferred twice
+under one name — W21 Decision Log 2 (b) at +0.017 on the dark bed's collapsed `rrect-sm`, W22
+Decision Log 4 (d) at 0.031–0.093 on eighteen sides of three light cells — and this charter's
+grounding found the name covered two mechanisms on one term (Decision Log 1 (a)). The rim it
+re-reads is the ambient rim W11c fitted, W22 read per side and fitted `specularGain` 0 on
+(`optics.regular.rimAlpha`, `rimWidth`; the dark patch's `rimAlpha` 0.082, W21 G1). The
+thick-span composite (wave Decision Log 23 (c)) is the larger piece after this wave, on the user's
+word.
+
+## Purpose
+
+Apple's glass on black is visible; vitrea's is not. On the dark bed's `dark-solid` capsule the
+reference draws a body one code below its backdrop and a contour rim of +0.020 linear (55/255 on a
+28/255 backdrop at 2x), and vitrea draws the backdrop: the tone collapse (`backdropToneLow` 0.02 /
+`backdropToneHigh` 0.055, W7) folds the body AND the rim onto the sampled backdrop through the
+shader's one `present = 1 − toneAdapt` factor, on the strength of a W7 reading that the settled
+reference's collapsed capsule was "byte-identical to its background, rim included". Under the
+contour read it is not: the reference keeps a rim under collapse, and the rim it keeps is the dark
+material's (`dark-solid__rrect-md` in the dark scheme, uncollapsed: +0.026). The light and dark
+fixtures of the collapsed capsules are byte-identical (`dark-solid__capsule-button` at both
+scales, `impulse__capsule-button` at 1x; two pixels at ≤ 2 codes at 2x) — Apple's collapsed
+appearance is one appearance in both schemes, which is W22's "the collapse and the appearance term
+are one axis" seen from the fixtures' side.
+
+The three light cells W22 deferred under the same name (`dark-solid__rrect-md`, `impulse__rrect-md`,
+`mid-dark-solid__capsule-button`, eighteen sides 0.031–0.093 too dim) are not collapsed cells at
+all: the size bias holds the thick surfaces' collapse argument above `backdropToneHigh` (the W9
+re-scope in `material.ts`), `present` is 1 on all three, and the rim is drawn in full. Their miss
+is the rim's amplitude law. Read at the contour, per pixel, in linear light (claims §5.99;
+`results/2026-09-08-w23-collapsed-rim/finding/contour-table.txt`), vitrea's rim is the same
++0.060…0.078 on every light cell — the shader adds `rw × rimAlpha` and nothing scales it — while
+the reference's is +0.23…0.26 over the dark solids, +0.13…0.21 over the structured backdrops and
+clipped to white over `light-solid`, 3.4–4.0× vitrea's where the backdrop is dark and 1.3–1.7×
+where it is bright. Over the solids a white line composited source-over at 0.41–0.45 of the body's
+headroom reproduces the three dark cells within 2 %; over `light-solid` that alone leaves the
+contour row at 0.982 where the reference reads 1.000, so a second, backdrop-fed term is there too
+(the reference's only top-over-bottom split is over bright backdrops — §5.94 §3). The W22 G0 fit
+that declined `rimAlpha` read the rim through the declared box's 3 CSS px band, whose peak-row mean
+over a dark backdrop carries the corners' backdrop and dilutes the line; the leverage it measured on
+the dark cells (0.019–0.049 per unit `rimAlpha` against 0.22–0.35 over `light-solid`) was that
+dilution. The decline stands on that instrument and is corrected beside it here, not rewritten.
+
+The two are one wave because they are one term: the rim under collapse is the dark material's rim,
+the dark material's rim over a dark backdrop is what vitrea already draws (1.5× too bright on the
+thick cell, 1.6–1.7× too dim over the structured backdrops), and the light material's rim over a
+dark backdrop is what the same law must give at the other end. This wave reads the rim at the
+contour on every cell of both beds, fits the law that reproduces it on the solid cells and checks it
+on the structured and validation cells, gives the collapse a rim that survives it, lands both on the
+GPU tier with the CSS tier deriving, rebuilds the bed and reads every rim row and floor, and puts
+the black-on-black cells in front of the user's eye.
+
+## Parent-Level Acceptance
+
+Binding. The numbers are the charter's; G1 re-declares them with G0's readings beside. The
+instrument is X1's contour read: the excess over the body summed over the first two CSS px inside
+each side's contour, linear light, per CSS px; W22's band read reported beside it.
+
+1. **Glass on black is visible.** On every collapsed cell of the bed (`dark-solid__capsule-button`
+   in both schemes, `impulse__capsule-button` in dark, W21's probe `dark-solid__rrect-sm`) vitrea's
+   contour rim is within 0.005 of the reference's (+0.020…0.021) on every side, and its body is
+   within 0.002 of the reference's (one code below the backdrop). The user sees the outline on the
+   2x dark sheet.
+2. **The rim's law on the solids.** On every untinted texture-tier cell over a solid backdrop at
+   both scales in both schemes, vitrea's contour rim is within 0.03 of the reference's per side
+   (today 0.16–0.19 short on the three light cells; 0.010–0.014 over on the dark thick cell), and
+   where the reference's contour row clips to 1.000 (`light-solid`) vitrea's does too. `L−R` within
+   0.003 as W22 left it.
+3. **The law holds off the solids.** On the structured calibration cells (`checkerboard`, `photo`
+   at every component) the contour rim is within 0.05 of the reference's per side, and on the
+   validation cells (`impulse__rrect-md`, `impulse__capsule-button`, `photo__rrect-sm`) no worse
+   than the calibration cells' mean miss — the law was fitted on the solids and must not be a fit
+   to them alone.
+4. **The band read closes.** Under W22's per-side band read (clause 2 of W22), the eighteen sides
+   on the three light cells come within 0.03 of the reference; no side that met W22 clause 2 leaves
+   it.
+5. **The bed no worse anywhere.** At both scales on the GPU tier: calibration ΔE mean not above
+   the W22 bed's by more than 0.0001 in either scheme (W22 Decision Log 4 (b)'s tolerance); no
+   untinted row worse by more than 0.001 in ΔE mean or 0.005 in `ssimMean`; every `rimPeakLuminance`
+   / `rimFwhm` row moved recorded with its direction; no adopted bound widened; every floor re-read
+   — a floor whose cell recovers goes inert and is removed with its reason, none re-pinned without
+   the user.
+6. **The holdout once**, at G1's dry run on the frozen configuration, both schemes, both scales;
+   G2 reproduces byte for byte.
+7. **The goldens attributable.** The rim moves every optics golden; each is re-recorded under the
+   isolation proof with the rim's law and constants as the sole reason (the proof's ladder shows
+   the change confined to the rim band); a golden that moves for any other reason stops G1.
+8. **The CSS tier derives.** The CSS tier's inset rim already composites a white line source-over
+   (the screen form); it takes the same constants through `optics.ts`'s mirror and the collapsed
+   rim's floor through the same `(1 − k)` seam, with `tier-coherence` pinning the two tiers; every
+   CSS mover explained.
+9. **By eye, and the ledger.** The landing sheet (native | GPU before | GPU landed | CSS landed) at
+   both scales on the solids in both schemes with the black-on-black cells at 4× zoom beside;
+   the user's veto kept. **0.12.0** after the landing (a `vitrea-web` minor: the material moves).
+
+## Grounding Baseline (the W22 bed, 2026-09-08, matrix at `3587400`)
+
+- Light GPU calibration ΔE 0.00330 / 0.00333 (1x / 2x), holdout 0.0091; dark GPU calibration
+  0.00404 / 0.00403, holdout 0.01326 / 0.01301 (claims §5.97–§5.98). `PREDICATE_EXCLUDES` 29,
+  `UNMET_ROWS` 11, eleven floors (four W21 instrument floors on the 2x dark nested pane).
+- The contour read (`finding/contour-table.txt`, `contour-profiles.txt`; the parent's script
+  `contour-profile.py`): the tables in the Purpose. The reference's rim is one CSS px wide with an
+  inner shoulder (2x: rows 0.744 / 0.629 linear over a 0.481 body on `dark-solid__rrect-md`;
+  vitrea 0.610 / 0.532 over 0.492); vitrea's `rimWidth` 1.5 CSS px with the squared falloff puts
+  69 % / 25 % of its peak on those two rows against the reference's 100 % / 56 %.
+- The collapse: `optics.ts` line ~876 `present = 1.0 − toneAdapt`, multiplying the inner shadow,
+  the rim and the specular; `material.ts` `backdropToneLow` 0.02 / `High` 0.055 / `SizeBias` 0.05
+  / `Max` 1 (W7, re-scoped W9: full at `dark-solid` for thin surfaces, zero for thick ones by the
+  bias); the CSS mirror `optics.ts` line ~555 `rimAlpha: source.rimAlpha * (1 − k)`; the CSS rim an
+  inset `box-shadow` on the overlay layer (`css-tier.ts` L3, `borderAlphaPerRimAlpha`).
+- The rim constants: light `optics.regular` `rimWidth` 1.5, `rimAlpha` 0.18, `specularPower` 6,
+  `specularGain` 0 (W22), `highlight` white; the dark patch `rimAlpha` 0.082, `specularGain` 0;
+  `clear` 1.25 / 0.14 / 0.45 (no rows on the bed).
+- The dark bed's solid cells at the contour: `dark-solid__rrect-md` rim +0.0258 native / +0.0367
+  web (1x), +0.0257 / +0.0399 (2x); `mid-dark-solid__capsule-button` (holdout) +0.0412 / +0.0364;
+  the structured cells +0.058 / +0.036 (`checkerboard__rrect-md`), +0.059 / +0.035 (`photo`). The
+  dark thick body over `dark-solid` 0.0130 against 0.0153 (three codes; W21 clause 1 met at 0.010).
+- The fixtures' identity: the collapsed capsules' light and dark fixtures are the same bytes.
+- W21's probe bed (`results/2026-09-06-w21-dark-scheme/probe/`, read by `g0/rim.txt`) carries the
+  dark reference over `dark-solid`, `mid-dark-solid` and `light-solid` at three sizes — the dark
+  law's fitting ground, not holdout — and W9's light probe snapshots carry the light reference on
+  the same grid.
+
+## Design (advisory unless marked)
+
+**The instrument (binding).** The rim is read at the contour: for each side, the rows (top,
+bottom) or columns (left, right) from the declared box's first pixel inside the shape inward, the
+excess of each over the cell's body (W21's eroded box) in linear luminance, summed over the first
+two CSS px and divided by the scale — one number per side in the units of `finding/contour-table.txt`,
+with the first row's own excess and the reference's clip state reported beside. The straight span
+only: the corner arcs are excluded by the component's radius so the read is not the band reader's
+corner mixture. Validated by injection (a synthetic one-pixel line of known linear amplitude on a
+copy of a capture reads back within 0.001) and against the parent's `contour-profile.py` on the
+cells it read. W22's band read runs beside it wherever a clause of W22's is re-checked.
+
+**The collapsed rim (binding as to shape; the constant G0's).** The collapse keeps a rim. The
+shader's rim term becomes `rw × (rimAmplitude × present + rimCollapsed × toneAdapt)` — the
+scheme's rim fading with the adaptation as now, and an absolute rim the collapsed appearance owns
+rising with it — so that at `toneAdapt` 1 the surface draws the backdrop with a rim of
+`rimCollapsed` and at 0 nothing changes. One constant in `DEFAULT_MATERIAL_PROFILE`, not in the dark
+patch: the collapsed appearance is one appearance in both schemes (the fixtures are the same bytes),
+so the constant is the material's and the dark patch inherits it. Its value is the reference's
+collapsed contour rim (+0.020…0.021 per CSS px on the capsules, +0.017 on W21's `rrect-sm`), which
+G0 reads against the dark material's own rim on the same backdrop (`dark-solid__rrect-md` +0.026):
+if the two agree within the read's precision, the collapsed rim IS the dark rim and the constant is
+expressed in the dark rim's units. The CSS mirror takes the same floor through its `(1 − k)` seam
+(`rimAlpha × (1 − k) + rimCollapsed × k`). The inner shadow stays folded out under collapse (nothing
+in the read says otherwise). The body's one code below the backdrop is the collapse's own level and
+is read, not chased, unless one constant on the collapse's mean pull takes it inside the stops.
+
+**The rim's law (advisory; G0 decides the form).** vitrea's rim is additive-constant and the
+reference's is not. The candidates, each to be fitted on the solid calibration cells of both beds
+(light: `dark-solid__rrect-md`, `light-solid__{capsule-button,rrect-md,rrect-ml}`; dark:
+`dark-solid__rrect-md` and W21's probe grid over `dark-solid` / `mid-dark-solid` / `light-solid` at
+three sizes) and checked on the structured calibration cells and the validation cells:
+
+- (L1) additive with a larger amplitude (`rimAlpha` × 3.4–4.0 in light): refuted on the light bed's
+  structured cells at the parent's read (0.13–0.21 where 0.23–0.26 is predicted) unless the
+  structured cells' contour base — the lens's outside sample at the edge — accounts for the
+  difference; G0 reads that base from the reference's own neighbouring rows before ruling.
+- (L2) screen: a white line composited source-over at alpha α of the body's headroom, `rim =
+  α × (1 − body)`. Fits the three light dark-backdrop cells within 2 % at α 0.41–0.45 and the
+  structured cells at 0.37–0.55; leaves `light-solid`'s contour row at 0.982 against 1.000. The CSS
+  tier's inset rim is already this form.
+- (L3) screen plus an environment term: `α × (1 − body) + κ × outside`, the second term the
+  backdrop just outside the contour, which is what the reference's bright-backdrop-only top/bottom
+  split and its `light-solid` clip both point at, and what the dark rim's growth with the backdrop
+  (0.026 over `dark-solid`, 0.041 over `mid-dark-solid`, 0.058 over the structured backdrops at a
+  body that barely moves) reads as. Two constants per scheme at most; κ shared across schemes if
+  the rows allow.
+- (L4) any better law the data suggests, with the evidence.
+
+The form is chosen on the solid rows (they are clean: the base is the body and the outside is the
+backdrop level), and the rule is C9a §6.2's — a constant whose rows do not separate it is not
+carried. The dark patch's `rimAlpha` is re-fitted on the contour under the chosen law (it is 1.5×
+over on the thick solid and 1.6× under on the structured cells today, which a backdrop-fed term
+would reconcile and a scalar cannot); `rimWidth` is read on the 2x rows (the reference's 100 % /
+56 % against vitrea's 69 % / 25 %) and moved only if its rows move it. The specular stays at 0 on
+the light profile (W22); the `clear` variant has no rows and does not move.
+
+**How G0 fits without guessing (advisory).** The law is implemented in a worktree behind profile
+constants (`rimLaw` selectable, α / κ / `rimCollapsed` as constants), and a short ladder is captured
+in scratch on both beds at both scales on the GPU tier — W22 G0's method — so every fit is on
+vitrea's actual pixels through the actual pipeline, not on an arithmetic prediction (the memory
+note "a number that reproduces is not a mechanism until the pipeline is shown to hold it"). The
+goldens are run at every point of the ladder; the isolation proof's attribution is the evidence
+that only the rim moved.
+
+**What ships.** `material.ts`: the rim law's constants with their rationale, `rimCollapsed`, the
+shader's rim term; `optics.ts` (CSS mirror) the same two seams; the light profile document's hash
+and `$comment-w23`; the dark patch only if its rows move it (`dark-profile.ts` regenerates, W21 X7);
+the ten goldens re-recorded under attribution; `tier-coherence` and a renderer unit test on the
+collapsed rim (gain at `toneAdapt` 0 / 1 / between); `adopted-thresholds` re-derived at G2.
+
+## Children
+
+### G0: The contour instrument, the rim read on both beds, the law fitted on the solids — spike (deliverable: findings)
+
+- **Purpose:** (a) the instrument as the design binds (`read-contour.py`, validated by injection
+  and against the parent's `contour-profile.py`); (b) the read on every untinted cell of both
+  canonical beds at both scales, native against the landed captures, per side, with the band read
+  beside — tinted cells reported as context; W21's probe bed and W9's light probe snapshots read the
+  same way; (c) the collapsed rim: the collapsed cells' contour against the dark material's rim on
+  the same backdrop, the fixtures' byte identity across schemes stated, the body's one code below
+  the backdrop read; (d) the law: the candidates implemented in a worktree behind profile constants,
+  the ladder captured in scratch on both beds (the GPU rule), each candidate fitted on the solid
+  calibration rows and checked on the structured and validation rows with the structured cells'
+  contour base read from the reference; (e) the dark thick body over `dark-solid` (three codes)
+  read beside and its constant named if one separates it; (f) `g0-findings.md` — the tables, the
+  law's verdict with the constants and a prediction per cell, `rimCollapsed`'s value and whether it
+  is the dark rim, the goldens' attribution at every ladder point, the shape of the shader and CSS
+  change for G1, and a Decision-Log-2-shaped recommendation.
+- **Acceptance:** the instrument validated; the read on both beds; the fit tables with the
+  separating rows named; the goldens attributed; nothing canonical written; the findings file; the
+  claims section written by the parent from it.
+- **Edges:** none. **Track:** spike; one worker in a worktree; findings, not the spec. The GPU is
+  shared — one capture process at a time; the calibration server's port and the capture pgrep
+  clear before every run.
+
+### G1: The mechanism landed and the form declared and dry-run — controlled
+
+- **Purpose:** the collapsed rim and the rim law as G0 recommends and Decision Log 2 rules, on
+  main: shader, material, the CSS mirror, the unit tests, the goldens re-recorded under attribution;
+  the constants fitted per G0 with `resolvedMaterialSha256` moved on any profile document that
+  moves, with the reason; the dry run on both canonical beds at both scales on both tiers with the
+  holdout read once (the frozen configuration), the gate run over the scratch matrix, the sheet with
+  the black-on-black cells at 4× zoom, the declaration in claims before any landing capture.
+- **Stops:** (S1) any untinted row worse than the W22 bed by more than 0.001 ΔE mean or 0.005
+  `ssimMean`; (S2) any tinted cell moved by more than 0.002 in body; (S3) a calibration ΔE mean above
+  the W22 bed's by more than 0.0001; (S4) a golden moved for any reason but the rim — the
+  attribution failed; (S5) a fitted constant whose rows do not separate it; (S6) a CSS capture moved
+  without an explanation; (S7) a collapsed cell whose body moves by more than 0.002; (S8) the user's
+  eye.
+- **Acceptance:** the claims section; the sheet sent; the stops dispositioned in a Decision Log.
+- **Edges:** blocked-by G0. **Track:** controlled.
+
+### G2: The landing and its referee — controlled
+
+- **Purpose:** merge; the canonical rebuild from the main checkout (`rm results/matrix.json`
+  first — the light profile's hash moves; both tiers, six profiles, `--alpha`, calibration and
+  validation before the holdout); the referee — every capture against the dry run byte for byte;
+  the gate — every rim row and floor re-read, inert floors removed with their reason,
+  `PREDICATE_EXCLUDES` re-derived (the web silhouettes on the collapsed cells may change: a rim
+  where there was none); the demo's calibration figures and its harness fixture; the landing sheet;
+  the user's eye; the changeset (a `vitrea-web` minor, 0.12.0).
+- **Acceptance:** clauses 1–8 and 9 of the parent's; the chain green; the claims section.
+- **Edges:** blocked-by G1. **Track:** controlled; the landing is the user's call.
+
+## Cross-Child Contracts
+
+- **X1 — the instrument.** The contour read is the rim definition on every gate in this wave;
+  W22's band read is reported beside it wherever a W22 clause is re-checked. The straight span
+  only; two CSS px; linear; per CSS px.
+- **X2 — the goldens attributable.** At every ladder point and at G1 and G2 the isolation proof
+  names the rim as the sole reason for every golden that moves.
+- **X3 — the holdout once**, at G1's dry run on the frozen constants; G2 reproduces byte for byte.
+- **X4 — one appearance under collapse.** `rimCollapsed` lives in the material, not the dark
+  patch; a reading that separates the schemes under collapse is a `[parent-impact]`, not a second
+  constant.
+- **X5 — the CSS tier derives.** The same law and the same floor through `optics.ts`'s mirror;
+  `tier-coherence` pins them; a CSS-only residual is recorded, not chartered.
+- **X6 — by eye.** The sheet at W21's zoom plus the black-on-black cells at 4×: native | GPU
+  before | GPU landed | CSS landed, both scales, both schemes.
+- **X7 — one source.** A dark patch that moves regenerates `dark-profile.ts`; the two W21 tests
+  pin it.
+
+## Ordering & Dependency Map
+
+G0 → G1 → G2 → the 0.12.0 cut. After this wave: the thick-span composite (wave Decision Log 23
+(c)) on the user's word; the appearance switch carries whatever this wave's collapse work leaves
+it. The GPU is shared; one capture at a time.
+
+## Risks & Mitigations
+
+- **The law is undetermined from the desk.** Seven contour reads and two candidate laws each fit
+  most of them; the solid rows of both beds and the probe grids are the discriminating data, and
+  G0 fits on vitrea's own ladder captures, not on predictions. A law that needs more than two
+  constants per scheme is a finding, not a fit.
+- **The rim moves every cell.** Every light capture with a rim moves; the floors and the predicate
+  are re-read at G2 as W22 did, and the tolerance on the calibration mean is W22's 0.0001.
+- **The collapsed cells' silhouettes.** A rim on a surface that drew nothing changes the web
+  silhouette; `PREDICATE_EXCLUDES` is re-derived, not edited.
+- **The band read and the contour read disagree on purpose.** W22's clause 2 is re-checked on its
+  own instrument (clause 4) so the two readers' verdicts are both on the record.
+- **No native probe this wave** — every reference read is from committed fixtures and the two
+  probe beds; the console lock is not in the path.
+
+## Deferred / Out of Scope
+
+- **The thick-span composite** (wave Decision Log 23 (c)) — the base pane's haze; the user's eye
+  named it again on the W22 sheets ("Apple's bottom glass is very slightly less transparent").
+- **The appearance switch** (W21 / W22 Deferred) — the dark thin cells over structured backdrops;
+  the collapsed rim may be its rim, and G0's read of the collapsed cells is handed to it.
+- **The dark thick body over `dark-solid`** (0.0130 against 0.0153, three codes) — read in G0;
+  taken only if one constant on the dark law separates it inside the stops, else carried with its
+  number.
+- **The environment term** if G0 finds it real and it is not this wave's law.
+- **The `clear` variant's rim** — no rows on the bed.
+
+## Tracking Map
+
+| child | status |
+| --- | --- |
+| G0 — the instrument, the read, the law | DISPATCHED 2026-09-08 |
+| G1 — the mechanism landed, the form dry-run | — |
+| G2 — the landing and its referee | — |
+
+## Decision Log
+
+### Decision Log 1 — the cut, the instrument, and what the user decides (2026-09-08; the parent, on the user's standing instruction)
+
+(a) **One wave, two mechanisms on one term.** The user's charter named "the collapsed rim: three
+light cells and the dark capsule, likely one fraction of the rim surviving the collapse". The
+grounding read at the contour says the three light cells are not collapsed (`present` 1 by the
+size bias) and their miss is the rim's amplitude law, while the collapsed cells' miss is a rim the
+collapse folds out — and that the rim the reference keeps under collapse is the dark material's,
+whose amplitude the same law must give. Split, each is a fit to half the evidence; together they
+are the rim. The wave takes both, with the law's form G0's to decide.
+
+(b) **The instrument is the contour, not the band.** W21's band read served the body and the
+flatness; for the rim's amplitude its peak-row mean over a dark backdrop is corner-contaminated and
+diluted, and W22 G0's `rimAlpha` decline (claims §5.94 §3) was made on it. That decline is not
+rewritten — it was the right answer to the question the band asked — and the contour read's answer
+is recorded beside it in §5.99. Every clause here is on the contour; W22's clause 2 is re-checked on
+the band so the two instruments' verdicts both stand.
+
+(c) **The collapsed rim is the material's, not the dark patch's.** The fixtures decide it: the
+collapsed capsules' light and dark fixtures are byte-identical. A rim that survives the collapse is
+therefore one constant on `DEFAULT_MATERIAL_PROFILE` (X4).
+
+(d) **The user decides:** the landing, the eye's veto on the sheets, the 0.12.0 cut, and any floor
+re-pinned. Everything else is the parent's on the standing instruction.
+
+## Surprises & Discoveries
+
+- **The "collapsed rim in light" was never collapsed.** Three cells, eighteen sides, two waves under
+  one name; the size bias exempts every one of them from the collapse. The name came from the band
+  reader's numbers looking like a folded-out rim.
+- **The reference's collapsed capsule is the same bytes in both schemes.** W7's "byte-identical to
+  its background" was a body reading; the rim was there, at 55/255 on 28/255, all along.
+- **vitrea's rim is a constant; the reference's is a law.** +0.060…0.078 linear on every light cell
+  against +0.10…0.26 — and the CSS tier's inset shadow already has the form (source-over white)
+  the GPU tier lacks.
+
+## Outcomes & Retrospective
+
+(at recomposition)
+
+## Revision Notes
+
+- 2026-09-08: chartered; G0 dispatched.

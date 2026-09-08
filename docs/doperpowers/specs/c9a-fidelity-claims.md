@@ -13552,3 +13552,89 @@ pane's haze (σ 16 native against 8). The per-source tone measurement's residual
 react e2e flakiness at a landing. The demo's harness fixture as a script. The `clear` variant's
 specular, unfitted. The 0.11.0 cut follows.
 
+### 5.99 W23 OPENED: the collapsed rim chartered — the user's eye on the W22 sheets pinned (glass on black invisible where Apple's shows an outline; glass on glass "very good"), the rim read at the contour on both beds for the first time, and the W22 deferral's three light cells found not collapsed at all: their miss is the rim's law, vitrea's additive constant against the reference's (2026-09-08)
+
+**The wave** (`docs/doperpowers/specs/2026-09-08-w23-collapsed-rim.md`; the finding
+`results/2026-09-08-w23-collapsed-rim/finding/`). W23 takes the term deferred twice as "the
+collapsed rim" (W21 Decision Log 2 (b) at +0.017; W22 Decision Log 4 (d) at 0.031–0.093 on
+eighteen sides of three light cells) and the user's eye on the W22 landing sheets, on the user's
+"you can proceed with the collapsed rim" at the 0.11.0 bump. Its grounding read is here; it changes
+what the term is.
+
+**The user's eye on `sheets/g2-1x.png` / `g2-2x.png`.** Two observations, pinned with the bed's
+numbers at `3587400` (the 0.11.0 landing).
+
+1. **Glass on glass:** "now very good; Apple's bottom glass is very slightly less transparent."
+   The eye's confirmation of W22 G3 (§5.95–§5.96) and the base pane's haze by name —
+   `blurSigmaNative` 4.84 px at 2x against 0.69 (§5.94 §5), the thick-span composite's (wave
+   Decision Log 23 (c)). Recorded; nothing new to measure.
+2. **Black glass on black:** "not one of our glasses is visible on black, where Apple's clearly
+   show their presence and even a transparency." Read at the contour — the excess over the body
+   (W21's eroded box) summed over the first two CSS px inside the top edge, linear luminance, per
+   CSS px (`finding/contour-profile.py`, `contour-table.txt`; the crops
+   `dark-2x-*__native-landed.png`):
+
+   | cell, dark scheme, 2x | body native | body web | rim native | rim web |
+   | --- | --- | --- | --- | --- |
+   | `dark-solid__capsule-button__rest` | 0.0110 | 0.0117 | +0.0204 | 0.0000 |
+   | `impulse__capsule-button__rest` | 0.0065 | 0.0033 | +0.0213 | 0.0000 |
+   | `dark-solid__rrect-md__rest` | 0.0153 | 0.0130 | +0.0257 | +0.0399 |
+
+   In 8-bit terms Apple's capsule contour is 55/255 on a 28/255 backdrop with the body one code
+   below the backdrop; vitrea's capsule is 28 everywhere — the tone collapse (`backdropToneLow`
+   0.02 / `High` 0.055) folds body and rim onto the sampled backdrop through the shader's one
+   `present = 1 − toneAdapt` factor, on W7's reading that the settled reference's collapsed capsule
+   was "byte-identical to its background, rim included". It is not, and never was at the contour:
+   the rim is there in every fixture. The thick `rrect-md` is not collapsed (the size bias) and
+   draws a rim 1.5× the reference's over a body three codes too dark (0.0130 against 0.0153; W21
+   clause 1 met at 0.010). **The reference's collapsed appearance is one appearance in both
+   schemes:** the light and dark fixtures of `dark-solid__capsule-button` are byte-identical at both
+   scales, and of `impulse__capsule-button` at 1x (two pixels at ≤ 2 codes at 2x) — W22's "the
+   collapse and the appearance term are one axis" (§5.94 §4), seen from the fixtures' side. And the
+   rim the collapsed capsule keeps (+0.020) is the dark material's rim over the same backdrop
+   (+0.026 on the uncollapsed thick cell).
+
+**The W22 deferral, re-read at the contour.** The three light cells W22 named "the collapsed rim in
+light" (`dark-solid__rrect-md`, `impulse__rrect-md`, `mid-dark-solid__capsule-button`) are not
+collapsed: the size bias keeps their collapse argument above `backdropToneHigh` (the W9 re-scope),
+`present` is 1, and the rim is drawn in full. Their miss is the rim's amplitude law:
+
+   | cell, light scheme, 1x | body native | body web | rim native | rim web | ratio |
+   | --- | --- | --- | --- | --- | --- |
+   | `dark-solid__rrect-md__rest` | 0.4797 | 0.4910 | +0.2310 | +0.0682 | 3.38 |
+   | `impulse__rrect-md__rest` | 0.4287 | 0.4621 | +0.2590 | +0.0655 | 3.95 |
+   | `mid-dark-solid__capsule-button__rest` | 0.4397 | 0.4564 | +0.2425 | +0.0712 | 3.40 |
+   | `checkerboard__rrect-md__rest` | 0.6784 | 0.6893 | +0.1778 | +0.0671 | 2.65 |
+   | `checkerboard__capsule-button__rest` | 0.6054 | 0.6740 | +0.2096 | +0.0627 | 3.34 |
+   | `photo__rrect-md__rest` | 0.6392 | 0.6271 | +0.1323 | +0.0618 | 2.14 |
+   | `light-solid__rrect-md__rest` | 0.9344 | 0.9314 | +0.1002 | +0.0601 | 1.67 (contour row clipped at 1.0 in both) |
+   | `dark-solid__rrect-md__rest`, 2x | 0.4797 | 0.4910 | +0.2073 | +0.0781 | 2.65 |
+
+   vitrea's rim is +0.060…0.078 on every cell: the shader adds `rw × rimAlpha` and nothing scales
+   it. The reference's is +0.23…0.26 over the dark solids, +0.13…0.21 over the structured
+   backdrops, clipped over `light-solid`. A white line composited source-over at 0.41–0.45 of the
+   body's headroom (the screen form — which the CSS tier's inset rim already is) reproduces the
+   three dark-backdrop cells within 2 %; over `light-solid` it leaves the contour row at 0.982
+   against 1.000, so a second, backdrop-fed term is present there (the reference's only
+   top-over-bottom split is over bright backdrops, §5.94 §3), and the dark rim's growth with the
+   backdrop (0.026 over `dark-solid`, 0.041 over `mid-dark-solid`, 0.058 over the structured
+   backdrops at a body that barely moves) reads the same way. The rim's width: the reference's is
+   one CSS px with an inner shoulder (2x rows 0.744 / 0.629 linear over 0.481); vitrea's `rimWidth`
+   1.5 with the squared falloff puts 69 % / 25 % of its peak where the reference has 100 % / 56 %.
+
+**A correction beside §5.94 §3, not a rewrite.** W22 G0 declined `rimAlpha` on the light profile
+because its per-row answers spanned 0.17–2.7 and the pooled objective sat at 0.18. That fit read
+the rim through the declared box's outer 3 CSS px band, whose peak-row mean over a dark backdrop
+carries the corners' backdrop inside the band and dilutes a one-pixel line; the leverage it
+measured on the dark cells (0.019–0.049 per unit `rimAlpha` against 0.22–0.35 over `light-solid`)
+is that dilution — at the contour the same ladder moves `dark-solid__rrect-md`'s first row by 0.28
+per unit. The decline was the right answer to the band's question and stands; the contour's answer
+is that the light rim is 3.4–4.0× short over dark backdrops and not a scalar short (1.3–1.7× where
+the backdrop is bright). W23 binds the contour read as its instrument and re-checks W22 clause 2 on
+the band beside it (W23 Decision Log 1 (b)).
+
+**What the wave does.** A rim that survives the collapse at the collapsed appearance's own
+amplitude — one constant on the material, not the dark patch, since the collapsed appearance is
+scheme-independent (W23 X4) — and the rim's law fitted at the contour on the solid rows of both beds
+and checked off them, landed on the GPU tier with the CSS tier deriving, the bed rebuilt and every
+rim row and floor re-read; 0.12.0 after the landing. G0 dispatched.

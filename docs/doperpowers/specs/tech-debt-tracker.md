@@ -755,6 +755,17 @@ eighteen sides 0.031–0.093 too dim — every standing clause-2 miss on the bed
 rim under collapse read against the un-collapsed rim on both beds, one fraction if it is one. Not
 created by the sweep gate; hidden under the band until W22.
 
+**Chartered as W23 (2026-09-08; `2026-09-08-w23-collapsed-rim.md`; claims §5.99), and re-read at the
+contour first:** the three light cells are NOT collapsed (the size bias holds their collapse argument
+above `backdropToneHigh`; `present` is 1) — their miss is the rim's amplitude law, vitrea's additive
++0.060…0.078 linear on every cell against the reference's +0.23…0.26 over dark solids, +0.13…0.21
+over structured backdrops and clipped over `light-solid`; the band read's per-row leverage on the dark
+cells was the corners' dilution. The collapsed cells proper (the capsules over `dark-solid` and
+`impulse`, W21's `rrect-sm`) lose their rim to the collapse's one `present` factor where the reference
+keeps +0.020 — the dark material's rim, the same bytes in both schemes. W23 takes both as one term:
+a rim that survives the collapse (one constant on the material) and the rim's law fitted at the
+contour. Closes when W23 lands.
+
 ## The overlay group of a stacked scene is handed a backdrop 2.9× its base pane's output (W22 G0, 2026-09-08; taken as W22 G3)
 
 *Found by the user's eye on the W21 landing sheet — "Apple's topmost glass is noticeably darker
