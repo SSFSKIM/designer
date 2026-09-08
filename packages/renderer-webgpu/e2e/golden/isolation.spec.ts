@@ -494,7 +494,65 @@ const W15_G2_HASHES: Readonly<Record<string, string>> = {
   "union-pair": "25ca33c47abd68cc27358ab9e4e24eb4",
 };
 
+/**
+ * Ten goldens after W22 G1 — `optics.regular.specularGain` 0.55 → 0, the light
+ * rim's specular fitted on its own contrasts (2026-09-08; claims §5.94 §3, W22
+ * Decision Log 2 (b)).
+ *
+ * ## Why re-recording is legitimate, and why the proof is stronger than usual
+ *
+ * This delta IS expressible through the profile seam — it is one leaf of
+ * `optics.regular` and nothing else — which is the case the file was written for
+ * and has not had since W8. So the attribution needed no second worktree: the
+ * before and after renders come from ONE tree, differing only in that constant
+ * injected through `materialProfile`, and nothing else can be in the difference by
+ * construction (`results/2026-09-08-w22-resting-sweep/g1/goldens-attribution.txt`,
+ * `attribute-w22-goldens.py`, the capture generalised in `w15-attribution.spec.ts`).
+ *
+ * ## What the measurement says
+ *
+ * The rim is drawn on every surface, so every scene that captures the OPTICS
+ * canvas moves and the count is the same order on all of them: 166 of 24 000
+ * pixels on `body-ramp-1x`, 588–1 261 of 96 000 on the rest, by at most 34–57
+ * code values. Two properties identify the mover:
+ *
+ *  - **It is a band.** The largest distance from a moved pixel to an unmoved one
+ *    is 1.41–2.24 device px on every scene, against a `rimWidth` of 1.5 CSS px.
+ *    Nothing moved in an interior.
+ *  - **It is lit from above.** 98–100 % of the moved luminance sits in the upper
+ *    half of the moved region on nine of the ten, which is the signature of
+ *    `lightDirection`'s −0.9285 y-component through `clamp(n · l)^6`. The
+ *    exception is `lens-size-scaling`'s default render at 0.676, whose two
+ *    surfaces of different sizes share one bounding box, so "upper half" splits
+ *    the smaller surface's own band across the line rather than the term
+ *    reaching downward.
+ *  - **Alpha moved on exactly one scene**, `field-mask`, by up to 97. It is the
+ *    only scene with `noBackdrop: true`, and on that path the optics pass writes a
+ *    premultiplied LAYER rather than an opaque pixel (W11a, above), so light added
+ *    to the rim is light added to alpha there. Every other scene's alpha is
+ *    untouched.
+ *
+ * `highlight-press-glow` is the control and it holds: **0 of 96 000 pixels**, hash
+ * byte-identical to the 2026-08-25 original, through C9a, W8, the post-v1 wave,
+ * W11a, W11c, W12, W14, W15 and now this. It is the one golden that captures the
+ * HIGHLIGHT canvas rather than the optics canvas, and the rim's specular is the
+ * optics pass's — so the one scene that could not move did not.
+ */
+const W22_HASHES: Readonly<Record<string, string>> = {
+  "body-ramp-1x": "3d764e99ddb4b9fd01cffa90b36b9f7f",
+  "concentric-nesting": "c432833f16473444351f254af92c3ef8",
+  "field-mask": "46c50e2ea60cc117e13424b2dc525ecc",
+  "lens-size-scaling": "3017c655e209af193fcd2ccb29e4430b",
+  "placed-checkerboard": "604671447a7bcfeb4cfb2de3983ed1c3",
+  "refraction-checkerboard": "9fbfd2fca043da0aecbe7846104c677a",
+  "rim-two-references": "7dadf14967c9f362a9592d50b0e3fbf5",
+  "tint-adaptation-dark": "0e2b298be747f777fbbb802125d486b1",
+  "tint-adaptation-light": "e6558d6654c506f1cca088a75b944411",
+  "union-pair": "6f1f24ae2690deb40d5a8e389fff6679",
+};
+
 const expectedHashFor = (name: string): string | undefined =>
+  W22_HASHES[name] ??
   W15_G2_HASHES[name] ??
   W15_HASHES[name] ??
   W14_HASHES[name] ??

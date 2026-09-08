@@ -165,7 +165,17 @@ export const MATERIAL_SOURCE_OPTICS: Readonly<Record<MaterialVariant, MaterialSo
     highlight: [1, 1, 1],
     rimWidth: 1.5,
     specularPower: 6,
-    specularGain: 0.55,
+    // 0.55 → 0 in W22 G1's fit (claims §5.94 §3): the light reference's rim has
+    // no vertical light, and the constant that said it did was fitted beside the
+    // resting specular band W22 gated away. The number's reasons are authored in
+    // the renderer's profile; this is the mirror, and `tier-coherence.test.ts`
+    // pins the two together in both directions. This tier draws no specular, but
+    // `interiorBandLight` carries the term into the derived interior level, so
+    // the mirror is not decorative: the band's light falls by 0.0013 on the
+    // widest calibration surface and 0.0053 on the narrowest (`rrect-ml` 224×128
+    // and `rrect-sm` 64×32, at full presence), which is why W22 G1's CSS captures
+    // move where the sweep gate's did not.
+    specularGain: 0,
     shadowDepth: 0.35,
     // 0.55 → 0.05 in the 2026-08-31 refit: the inner shadow was darkening the
     // contour faster than the rim lit it. The number's reasons are authored in

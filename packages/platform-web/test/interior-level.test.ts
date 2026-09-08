@@ -103,6 +103,7 @@ const PROBES = [
     shaderOrderTintLuma: 0.8991049060110656,
     innerShadowKeep: 0.9964045039906037,
     bandLight: 0.004619103946700296,
+    bandLightW22: 0.002848685486224002,
   },
   {
     cell: "checkerboard__capsule-button__rest",
@@ -111,6 +112,7 @@ const PROBES = [
     shaderOrderTintLuma: 0.877090561648483,
     innerShadowKeep: 0.996963419321641,
     bandLight: 0.009300152791914134,
+    bandLightW22: 0.005326032506147461,
   },
   {
     cell: "checkerboard__rrect-ml__rest",
@@ -119,6 +121,7 @@ const PROBES = [
     shaderOrderTintLuma: 0.8991049060110656,
     innerShadowKeep: 0.997296244989193,
     bandLight: 0.0033885124629982654,
+    bandLightW22: 0.002055413984662739,
   },
 ] as const;
 
@@ -258,11 +261,32 @@ describe("the interior level's alpha chain (W17 G1)", () => {
 describe("the band's derived light (W17 G1)", () => {
   it("derives X from the profile and the box, reproducing G0's evaluation", () => {
     for (const probe of PROBES) {
-      const derived = interiorBandLight(MATERIAL_SOURCE_OPTICS.regular, probe.geometry, 1);
+      /*
+       * G0's evaluation was taken at `specularGain` 0.55, which W22 G1 fitted to
+       * 0 (claims §5.94 §3). Its numbers are committed evidence and are not
+       * rewritten: the reproduction is asserted at the constants G0 held, and the
+       * value the shipped constant now derives is recorded beside it as
+       * `bandLightW22` and asserted in its own right. The derivation is what is
+       * being pinned here, and it is unchanged — only its argument moved.
+       */
+      const atG0 = interiorBandLight(
+        { ...MATERIAL_SOURCE_OPTICS.regular, specularGain: 0.55 },
+        probe.geometry,
+        1,
+      );
       // Within 2.2e-5 of G0's, which used the same co-area weight without the
       // corner arcs' own shrinkage in the specular term.
-      expect(derived, probe.cell).toBeCloseTo(probe.bandLight, 4);
+      expect(atG0, probe.cell).toBeCloseTo(probe.bandLight, 4);
+
+      const derived = interiorBandLight(MATERIAL_SOURCE_OPTICS.regular, probe.geometry, 1);
+      expect(derived, probe.cell).toBeCloseTo(probe.bandLightW22, 12);
       expect(derived, probe.cell).toBeGreaterThan(0);
+      // The ambient rim is the whole of the band's light now, so the term is the
+      // fraction of G0's that the ambient carried: 0.574 on the capsule, whose
+      // band is entirely corner arc, to 0.617 on `rrect-md`. A derivation that
+      // lost the ambient too would read 0 and pass the pin above.
+      expect(derived / atG0, probe.cell).toBeGreaterThan(0.57);
+      expect(derived / atG0, probe.cell).toBeLessThan(0.62);
     }
   });
 
@@ -295,11 +319,26 @@ describe("the band's derived light (W17 G1)", () => {
     // A mirror that did not follow the document would put this tier on a band the
     // renderer is not drawing — K5's gap, reappearing through the patch.
     const probe = PROBES[0]!;
-    const patched = { ...MATERIAL_SOURCE_OPTICS.regular, rimAlpha: 0.36, specularGain: 1.1 };
+    const source = MATERIAL_SOURCE_OPTICS.regular;
+    const patched = {
+      ...source,
+      rimAlpha: 2 * source.rimAlpha,
+      specularGain: 2 * source.specularGain,
+    };
     expect(interiorBandLight(patched, probe.geometry, 1)).toBeCloseTo(
-      2 * interiorBandLight(MATERIAL_SOURCE_OPTICS.regular, probe.geometry, 1),
+      2 * interiorBandLight(source, probe.geometry, 1),
       12,
     );
+    /*
+     * The doubling above no longer exercises the specular channel, because W22
+     * G1 fitted `specularGain` to 0 and twice nothing is nothing (claims §5.94
+     * §3). So the specular half of the mirror is asserted separately: a patch
+     * that turns the term back on has to reach this tier, or a future document
+     * that revives it would silently draw a band the renderer is not drawing —
+     * K5's gap, which is what this case exists to catch.
+     */
+    const specular = interiorBandLight({ ...source, specularGain: 0.55 }, probe.geometry, 1);
+    expect(specular).toBeGreaterThan(interiorBandLight(source, probe.geometry, 1));
     expect(sourceInteriorLight({ lensSizeGainMax: 4 }).shadowDepthGainMax).toBe(4);
     expect(sourceInteriorLight().lightDirection).toEqual(
       MATERIAL_SOURCE_INTERIOR_LIGHT.lightDirection,

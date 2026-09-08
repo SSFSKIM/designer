@@ -1,0 +1,33 @@
+W22 G1 — the goldens, attributed to `optics.regular.specularGain` 0.55 -> 0
+================================================================================================================
+Both directories are the SAME tree; `before` renders the constant at 0.55 through the
+profile seam. The declined column is the isolation proof's named profile.
+
+  scene                      render     px moved      of  max|d|rgb  max|d|a  band px  upper share  hash (declined)
+  body-ramp-1x               declined        166   24000         34        0     1.41        1.000  3d764e99ddb4b9fd01cffa90b36b9f7f
+  body-ramp-1x               default         172   24000         32        0     1.41        0.998  
+  concentric-nesting         declined       1005   96000         51        0     2.24        0.998  c432833f16473444351f254af92c3ef8
+  concentric-nesting         default        1016   96000         45        0     2.24        0.998  
+  field-mask                 declined        857   96000         97       97     2.24        1.000  46c50e2ea60cc117e13424b2dc525ecc
+  field-mask                 default         950   96000         97       97     2.24        1.000  
+  highlight-press-glow       declined          0   96000          0        0        —            —  0b9dc460a6616c5a3d6fb69a6b97a783
+  highlight-press-glow       default           0   96000          0        0        —            —  
+  lens-size-scaling          declined        928   96000         42        0     2.24        0.984  3017c655e209af193fcd2ccb29e4430b
+  lens-size-scaling          default         935   96000         41        0     2.24        0.676  
+  placed-checkerboard        declined        853   96000         42        0     2.24        1.000  604671447a7bcfeb4cfb2de3983ed1c3
+  placed-checkerboard        default         854   96000         40        0     2.24        0.999  
+  refraction-checkerboard    declined        857   96000         44        0     2.24        0.999  9fbfd2fca043da0aecbe7846104c677a
+  refraction-checkerboard    default         851   96000         42        0     2.24        0.999  
+  rim-two-references         declined       1261   96000         50        0     2.24        0.998  7dadf14967c9f362a9592d50b0e3fbf5
+  rim-two-references         default        1235   96000         45        0     2.24        0.998  
+  tint-adaptation-dark       declined        849   96000         57        0     2.00        1.000  0e2b298be747f777fbbb802125d486b1
+  tint-adaptation-dark       default         845   96000         49        0     2.24        0.991  
+  tint-adaptation-light      declined        841   96000         40        0     2.00        0.994  e6558d6654c506f1cca088a75b944411
+  tint-adaptation-light      default         588   96000         34        0     2.00        0.983  
+  union-pair                 declined        773   96000         50        0     2.24        0.999  6f1f24ae2690deb40d5a8e389fff6679
+  union-pair                 default         769   96000         45        0     2.24        0.999  
+
+`band px` is the largest distance from a moved pixel to the nearest unmoved one, so a
+value near 1-2 device px says the change is a rim band and not an interior. `upper share`
+is the fraction of the moved luminance in the upper half of the moved region — the
+signature of a light direction with a −0.93 y-component.

@@ -1,0 +1,130 @@
+{
+  "profile": "apple-macos-26.5-1x-light-standard",
+  "tier": "webgpu",
+  "fixtures": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-a929b7db2ba66befd/apps/reference-apple/fixtures",
+  "captures": "/Users/new/.claude/jobs/5c70e47f/tmp/w22/g1/dryrun/web-captures",
+  "component": "glass-over-glass",
+  "placement": {
+    "base": {
+      "left": 50.0,
+      "top": 35.0,
+      "width": 220.0,
+      "height": 130.0
+    },
+    "over": {
+      "left": 100.0,
+      "top": 64.0,
+      "width": 120.0,
+      "height": 56.0
+    }
+  },
+  "erodeCssPx": 6.0,
+  "rimBandCssPx": 3.0,
+  "rows": [
+    {
+      "scene": "checkerboard__glass-over-glass__rest",
+      "background": "checkerboard",
+      "tint": null,
+      "set": "holdout",
+      "native": {
+        "baseBody": 0.6676019244514251,
+        "baseSd": 0.09402749128188968,
+        "baseRim": [
+          0.7511128018093998,
+          0.7371652975426204,
+          0.6646097288272286,
+          0.7005268437997001
+        ],
+        "overBody": 0.9046645577403862,
+        "overSd": 0.007778669540698711,
+        "overRim": [
+          0.9048093942344959,
+          0.8893918533167192,
+          0.8371456506168435,
+          0.8362625487326003
+        ],
+        "excess": 0.23706263328896116,
+        "baseBlurSigmaMatchPx": 1.5,
+        "baseBlurMatchRms": 0.0783748815804678,
+        "overBlurSigmaMatchPx": 0.0,
+        "overBlurMatchRms": 0.0
+      },
+      "web": {
+        "baseBody": 0.6610166841992087,
+        "baseSd": 0.09593588924790988,
+        "baseRim": [
+          0.6939018780955776,
+          0.6844033821443052,
+          0.6773179277649277,
+          0.6447548265865145
+        ],
+        "overBody": 0.8901673456866801,
+        "overSd": 0.012860549504350692,
+        "overRim": [
+          0.8437174569905431,
+          0.8355041723849774,
+          0.7998546933394743,
+          0.7994430925752324
+        ],
+        "excess": 0.22915066148747143,
+        "baseBlurSigmaMatchPx": 2.2,
+        "baseBlurMatchRms": 0.07945550720679181,
+        "overBlurSigmaMatchPx": 0.0,
+        "overBlurMatchRms": 0.0
+      }
+    },
+    {
+      "scene": "photo__glass-over-glass__rest",
+      "background": "photo",
+      "tint": null,
+      "set": "holdout",
+      "native": {
+        "baseBody": 0.6496853805610825,
+        "baseSd": 0.06901578776880683,
+        "baseRim": [
+          0.6451949814764631,
+          0.666243438393231,
+          0.5874860123239651,
+          0.6805194191570004
+        ],
+        "overBody": 0.8936300709254601,
+        "overSd": 0.011792842088056376,
+        "overRim": [
+          0.8691550325314246,
+          0.8748617350080227,
+          0.8121729066051222,
+          0.8436653756957567
+        ],
+        "excess": 0.2439446903643776,
+        "baseBlurSigmaMatchPx": 16.0,
+        "baseBlurMatchRms": 0.03526130048005054,
+        "overBlurSigmaMatchPx": 0.0,
+        "overBlurMatchRms": 0.0
+      },
+      "web": {
+        "baseBody": 0.6312699096881262,
+        "baseSd": 0.05785304521376015,
+        "baseRim": [
+          0.5895579298083782,
+          0.62905101242088,
+          0.5269909491437813,
+          0.6635648904080833
+        ],
+        "overBody": 0.8735661512677011,
+        "overSd": 0.009865814408677235,
+        "overRim": [
+          0.8133835397811904,
+          0.8251106022128993,
+          0.768313611118386,
+          0.8105383700984115
+        ],
+        "excess": 0.24229624157957486,
+        "baseBlurSigmaMatchPx": 16.0,
+        "baseBlurMatchRms": 0.03402169486784493,
+        "overBlurSigmaMatchPx": 0.0,
+        "overBlurMatchRms": 2.154758136513918e-17
+      }
+    }
+  ],
+  "injectionCheck": null
+}

@@ -60,15 +60,20 @@ interface TunedProfile {
  * asking "is this number recorded anywhere?" needs an answer that names it.
  *
  * A constant belongs here when a measurement chose its value. Structural
- * defaults the wave never fitted are deliberately absent — `rimAlpha`,
- * `specularGain`, the glow and sweep constants — and the profile's own `entries`
- * record why each of those was left alone.
+ * defaults the wave never fitted are deliberately absent — `rimAlpha`, the glow
+ * and sweep constants — and the profile's own `entries` record why each of those
+ * was left alone. `specularGain` was one of them until W22 G1, which is the
+ * shape this list is meant to have: a constant enters when a wave measures it,
+ * and the entry that used to say why it was left alone says what moved it.
  */
 const FITTED_CONSTANTS = [
   // C9a and the recalibration cascade, on the optics
   "optics.regular.blurSigma",
   "optics.regular.tintAlpha",
   "optics.regular.shadowAlpha",
+  // W22 G1's fit of the light rim's specular (claims §5.94 §3), readable for the
+  // first time once the resting sweep was gated off the rim
+  "optics.regular.specularGain",
   "adaptiveTintDark",
   "adaptiveTintLight",
   // W2's size law, and the cascade's refit of the gain the bed could finally see
@@ -265,6 +270,31 @@ describe("tuned calibration profiles", () => {
     // one is the kind of number a reader would otherwise assume had never moved.
     expect(LIGHT.patch.optics?.regular?.tintAlpha).toBe(0.46);
     expect(DEFAULT_MATERIAL_PROFILE.optics.regular.tintAlpha).toBe(0.46);
+  });
+
+  it("records the light rim's specular at the value its own contrasts chose", () => {
+    /*
+     * W22 G1 (claims §5.94 §3; W22 Decision Log 2 (b)), named here on the same
+     * doctrine as the tint alpha above: the constant a wave moved should be
+     * legible in the test and not only in the fingerprint.
+     *
+     * 0.55 was a structural default three waves of rim work fitted AROUND, not
+     * against: the highlight pass parked a stationary specular band on the left
+     * edge of every resting surface, so the reference's own left-against-right
+     * was unreadable. With that gated, the light reference's rim has left equal
+     * to right to 0.0002 and a top-over-bottom of +0.0002 over a dark backdrop —
+     * against the +0.1237 this constant was drawing there — and every separating
+     * contrast row minimises at 0.
+     *
+     * Both schemes now hold the same number by two different routes, which is
+     * why the dark assertion below is not redundant with this one: the light
+     * value is a FIT on the light bed's contrasts, the dark value is W21's
+     * declination, and either could move without the other.
+     */
+    expect(LIGHT.patch.optics?.regular?.specularGain).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.optics.regular.specularGain).toBe(0);
+    // The clear variant has no scene on the bed and was not fitted with it.
+    expect(DEFAULT_MATERIAL_PROFILE.optics.clear.specularGain).toBe(0.45);
   });
 
   it("leaves the backdrop tint crossover inert by default", () => {

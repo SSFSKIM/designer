@@ -10,6 +10,15 @@
  * both as PNGs to `$VITREA_ATTRIB_OUT`; `results/2026-09-04-w15-body-2x/g2/
  * attribute-goldens.py` reads two such directories and prints the table. It runs
  * only when that variable is set, so the ordinary suites never write anywhere.
+ *
+ * W22 G1 generalised it by one field. When a landing's delta IS expressible
+ * through the profile seam — that wave's was, a single `optics.regular` constant
+ * — the two trees collapse into one: set `$VITREA_ATTRIB_PATCH` to a JSON
+ * material patch and this capture renders the "before" material on the "after"
+ * tree, which is a stronger attribution than a two-worktree diff because nothing
+ * but the named constant can differ between the two directories. The patch is
+ * merged over BOTH renders, so the declined column stays the isolation proof's
+ * named profile with the constant restored on top of it.
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -19,6 +28,8 @@ import { SCENES } from "../fixtures/scenes";
 import { decodeCapture, openHarness, requireHardwareAdapter } from "../support";
 
 const OUT = process.env.VITREA_ATTRIB_OUT;
+/** An optional material patch merged over both renders — see the doc comment. */
+const EXTRA = process.env.VITREA_ATTRIB_PATCH;
 const DECLINED = {
   optics: { regular: { tintAlpha: 0.28 } },
   adaptiveTintLight: [0.008540382112116999, 0.008540382112116999, 0.010022825574869039],
@@ -37,10 +48,14 @@ test("@attrib write every golden scene's declined and default readbacks", async 
   mkdirSync(out, { recursive: true });
   for (const scene of SCENES.filter((s) => s.measureOnly !== true)) {
     for (const [tag, profile] of [["declined", DECLINED], ["default", undefined]] as const) {
+      const patched =
+        EXTRA === undefined
+          ? profile
+          : mergePatch(profile as Record<string, unknown> | undefined, JSON.parse(EXTRA));
       const raster = decodeCapture(
         await page.evaluate(
           ([name, p]) => window.vitrea.renderScene(name, undefined, p),
-          [scene.name, profile] as const,
+          [scene.name, patched] as const,
         ),
       );
       const png = new PNG({ width: raster.width, height: raster.height });
@@ -49,3 +64,20 @@ test("@attrib write every golden scene's declined and default readbacks", async 
     }
   }
 });
+
+/** A deep merge of two material patches — the seam's own rule, restated for the env override. */
+function mergePatch(
+  base: Record<string, unknown> | undefined,
+  extra: Record<string, unknown>,
+): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...(base ?? {}) };
+  for (const [key, value] of Object.entries(extra)) {
+    const existing = out[key];
+    out[key] =
+      value !== null && typeof value === "object" && !Array.isArray(value) &&
+      existing !== null && typeof existing === "object" && !Array.isArray(existing)
+        ? mergePatch(existing as Record<string, unknown>, value as Record<string, unknown>)
+        : value;
+  }
+  return out;
+}

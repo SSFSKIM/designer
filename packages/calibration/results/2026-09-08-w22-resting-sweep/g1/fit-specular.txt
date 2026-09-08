@@ -1,0 +1,91 @@
+W22 G1 — `optics.regular.specularGain` on the light profile, fitted per contrast
+============================================================================================================
+The objective is |contrast_web − contrast_native| per row per contrast; never pooled over
+sides (W22 Decision Log 2 (b)). The ladder is eight documents differing in this constant
+alone. A row separates the constant when its objective moves by more than 0.000625
+across the ladder — G0's injection floor for this instrument.
+
+=== the contrast T-B: vitrea's reading at each gain, against the reference ===
+  dpr cell                                      native    0.000    0.025    0.050    0.100    0.150    0.250    0.400    0.550
+  1x  dark-solid__capsule-button__rest          0.0002   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+  1x  dark-solid__rrect-md__rest                0.0002   0.0004   0.0055   0.0109   0.0252   0.0357   0.0570   0.0899   0.1237
+  1x  light-solid__capsule-button__rest         0.0086   0.0103   0.0106   0.0107   0.0108   0.0109   0.0112   0.0115   0.0116
+  1x  light-solid__rrect-md__rest               0.0138   0.0149   0.0156   0.0160   0.0165   0.0168   0.0172   0.0175   0.0178
+  1x  light-solid__rrect-ml__rest               0.0139   0.0176   0.0182   0.0185   0.0192   0.0194   0.0197   0.0200   0.0203
+  2x  dark-solid__capsule-button__rest          0.0002   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+  2x  dark-solid__rrect-md__rest                0.0002   0.0005   0.0102   0.0158   0.0355   0.0514   0.0838   0.1342   0.1817
+  2x  light-solid__capsule-button__rest         0.0113   0.0095   0.0095   0.0096   0.0097   0.0098   0.0099   0.0100   0.0100
+  2x  light-solid__rrect-md__rest               0.0162   0.0165   0.0168   0.0170   0.0173   0.0185   0.0245   0.0247   0.0248
+  2x  light-solid__rrect-ml__rest               0.0162   0.0194   0.0196   0.0197   0.0201   0.0206   0.0267   0.0268   0.0270
+
+=== the objective |ΔT-B| per row, and each row's own minimiser ===
+  dpr cell                                      0.000    0.025    0.050    0.100    0.150    0.250    0.400    0.550     span  argmin  separates
+  1x  dark-solid__capsule-button__rest         0.0002   0.0002   0.0002   0.0002   0.0002   0.0002   0.0002   0.0002   0.0000   0.000         no
+  1x  dark-solid__rrect-md__rest               0.0001   0.0053   0.0106   0.0250   0.0354   0.0568   0.0897   0.1234   0.1233   0.000        yes
+  1x  light-solid__capsule-button__rest        0.0017   0.0020   0.0021   0.0023   0.0023   0.0026   0.0029   0.0030   0.0013   0.000        yes
+  1x  light-solid__rrect-md__rest              0.0011   0.0019   0.0023   0.0027   0.0030   0.0034   0.0037   0.0040   0.0029   0.000        yes
+  1x  light-solid__rrect-ml__rest              0.0036   0.0043   0.0046   0.0052   0.0054   0.0058   0.0061   0.0063   0.0027   0.000        yes
+  2x  dark-solid__capsule-button__rest         0.0002   0.0002   0.0002   0.0002   0.0002   0.0002   0.0002   0.0002   0.0000   0.000         no
+  2x  dark-solid__rrect-md__rest               0.0003   0.0100   0.0155   0.0353   0.0512   0.0835   0.1340   0.1815   0.1813   0.000        yes
+  2x  light-solid__capsule-button__rest        0.0018   0.0018   0.0017   0.0016   0.0015   0.0014   0.0013   0.0013   0.0006   0.550         no
+  2x  light-solid__rrect-md__rest              0.0003   0.0005   0.0008   0.0011   0.0023   0.0083   0.0085   0.0086   0.0083   0.000        yes
+  2x  light-solid__rrect-ml__rest              0.0032   0.0033   0.0035   0.0038   0.0044   0.0105   0.0106   0.0108   0.0076   0.000        yes
+
+  separating rows on T-B: 7
+    1x dark-solid__rrect-md__rest                   argmin 0.000  span 0.1233
+    1x light-solid__capsule-button__rest            argmin 0.000  span 0.0013
+    1x light-solid__rrect-md__rest                  argmin 0.000  span 0.0029
+    1x light-solid__rrect-ml__rest                  argmin 0.000  span 0.0027
+    2x dark-solid__rrect-md__rest                   argmin 0.000  span 0.1813
+    2x light-solid__rrect-md__rest                  argmin 0.000  span 0.0083
+    2x light-solid__rrect-ml__rest                  argmin 0.000  span 0.0076
+  the separating rows' minimisers: ['0.000']
+  mean over those rows: 0.000=0.0015 0.025=0.0039 0.050=0.0056 0.100=0.0108 0.150=0.0149 0.250=0.0244 0.400=0.0365 0.550=0.0482
+  → minimiser on T-B: 0.000
+
+=== the contrast L-R: vitrea's reading at each gain, against the reference ===
+  dpr cell                                      native    0.000    0.025    0.050    0.100    0.150    0.250    0.400    0.550
+  1x  dark-solid__capsule-button__rest          0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+  1x  dark-solid__rrect-md__rest               -0.0001   0.0000   0.0000   0.0002   0.0002   0.0003   0.0004   0.0006   0.0008
+  1x  light-solid__capsule-button__rest        -0.0002   0.0000   0.0000   0.0000   0.0002   0.0004   0.0004   0.0006   0.0008
+  1x  light-solid__rrect-md__rest              -0.0000   0.0000   0.0000   0.0000   0.0000   0.0002   0.0003   0.0003   0.0003
+  1x  light-solid__rrect-ml__rest              -0.0001   0.0000   0.0000   0.0001   0.0001   0.0001   0.0002   0.0004   0.0005
+  2x  dark-solid__capsule-button__rest         -0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+  2x  dark-solid__rrect-md__rest               -0.0000   0.0000   0.0000   0.0001   0.0002   0.0003   0.0004   0.0007   0.0009
+  2x  light-solid__capsule-button__rest        -0.0001   0.0000   0.0000   0.0001   0.0001   0.0001   0.0002   0.0005   0.0007
+  2x  light-solid__rrect-md__rest              -0.0001   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+  2x  light-solid__rrect-ml__rest               0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0001
+
+=== the objective |ΔL-R| per row, and each row's own minimiser ===
+  dpr cell                                      0.000    0.025    0.050    0.100    0.150    0.250    0.400    0.550     span  argmin  separates
+  1x  dark-solid__capsule-button__rest         0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.000         no
+  1x  dark-solid__rrect-md__rest               0.0001   0.0001   0.0002   0.0003   0.0003   0.0005   0.0006   0.0008   0.0008   0.000        yes
+  1x  light-solid__capsule-button__rest        0.0002   0.0002   0.0002   0.0004   0.0006   0.0006   0.0008   0.0010   0.0008   0.000        yes
+  1x  light-solid__rrect-md__rest              0.0000   0.0000   0.0000   0.0000   0.0002   0.0003   0.0003   0.0004   0.0003   0.000         no
+  1x  light-solid__rrect-ml__rest              0.0001   0.0001   0.0002   0.0002   0.0002   0.0003   0.0005   0.0006   0.0005   0.000         no
+  2x  dark-solid__capsule-button__rest         0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.000         no
+  2x  dark-solid__rrect-md__rest               0.0000   0.0000   0.0001   0.0002   0.0003   0.0004   0.0007   0.0009   0.0009   0.000        yes
+  2x  light-solid__capsule-button__rest        0.0001   0.0001   0.0002   0.0002   0.0002   0.0003   0.0006   0.0008   0.0007   0.000        yes
+  2x  light-solid__rrect-md__rest              0.0001   0.0001   0.0001   0.0001   0.0001   0.0001   0.0001   0.0001   0.0000   0.000         no
+  2x  light-solid__rrect-ml__rest              0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0001   0.0001   0.000         no
+
+  separating rows on L-R: 4
+    1x dark-solid__rrect-md__rest                   argmin 0.000  span 0.0008
+    1x light-solid__capsule-button__rest            argmin 0.000  span 0.0008
+    2x dark-solid__rrect-md__rest                   argmin 0.000  span 0.0009
+    2x light-solid__capsule-button__rest            argmin 0.000  span 0.0007
+  the separating rows' minimisers: ['0.000']
+  mean over those rows: 0.000=0.0001 0.025=0.0001 0.050=0.0002 0.100=0.0003 0.150=0.0004 0.250=0.0004 0.400=0.0007 0.550=0.0009
+  → minimiser on L-R: 0.000
+
+=== the declaration: every separating row of either contrast, one table ===
+  11 separating rows; mean objective per ladder point:
+    specularGain  0.000   0.00097
+    specularGain  0.025   0.00251
+    specularGain  0.050   0.00365
+    specularGain  0.100   0.00695
+    specularGain  0.150   0.00959
+    specularGain  0.250   0.01570
+    specularGain  0.400   0.02346
+    specularGain  0.550   0.03102
+  → the fit's answer: specularGain 0.000

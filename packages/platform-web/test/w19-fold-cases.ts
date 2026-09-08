@@ -92,6 +92,29 @@ export const SEEDS = [
   { id: "blue", srgb: [10, 132, 255] },
 ] as const;
 
+/**
+ * The band's source optics AT THE MATERIAL THE RECORDING WAS TAKEN ON, frozen.
+ *
+ * `w19-pre-fold-declarations.json` was recorded by walking this list on the tree
+ * as it stood BEFORE the fold landed, and that tree cannot be re-run: the code
+ * that produced it is gone, so the file can never be re-recorded and its bytes
+ * are the whole of the "nothing else moved" claim. A bed that read the live
+ * mirror would therefore turn every later material change into a failure of a
+ * pin that is not about the material at all.
+ *
+ * So the constants the recording depended on are named here. `specularGain` is
+ * the first one to move — W22 G1 fitted it 0.55 → 0 (claims §5.94 §3) and it
+ * enters these declarations through `interiorBandLight`'s `addedLight` — and it
+ * is frozen at the recorded value rather than tracked. What this bed asserts is
+ * a DIFFERENCE (passing `untintedOptics` changes nothing), and a difference is
+ * stated at fixed constants or it is not stated at all. The shipped value's own
+ * pins are `interior-level.test.ts` and `tier-coherence.test.ts`.
+ */
+export const RECORDED_SOURCE_OPTICS: MaterialSourceOptics = {
+  ...MATERIAL_SOURCE_OPTICS.regular,
+  specularGain: 0.55,
+};
+
 export interface ResolvedSurface {
   readonly interior: CssTierInterior;
   readonly untinted: MaterialOptics;
@@ -112,7 +135,7 @@ export function resolveSurface(
   const size = sourceSize();
   const shade = resolvedTintShade();
   const toneConstants = resolvedBackdropTone();
-  const gpuSource = MATERIAL_SOURCE_OPTICS.regular;
+  const gpuSource = RECORDED_SOURCE_OPTICS;
   const spanPx = Math.min(box.widthCssPx, box.heightCssPx);
   const tone = {
     rgb: [backdropLinear, backdropLinear, backdropLinear] as [number, number, number],
@@ -194,7 +217,7 @@ export const DARK_INTERIOR: CssTierInterior = {
 export const DARK_UNTINTED: MaterialOptics = cssOpticsFromSource(
   MATERIAL_OPTICS.regular,
   {
-    ...MATERIAL_SOURCE_OPTICS.regular,
+    ...RECORDED_SOURCE_OPTICS,
     tintAlpha: DARK_INTERIOR.tintAlpha,
     tint: DARK_INTERIOR.tint,
   },
