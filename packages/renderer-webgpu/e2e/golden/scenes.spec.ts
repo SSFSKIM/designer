@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "a0cd4e7b1b08ffeeb4ec341fcb060e27";
+const PLACED_CHECKERBOARD_COVER_HASH = "7e57804fc608fdab66f2e85c851ab588";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -180,6 +180,15 @@ const PLACED_CHECKERBOARD_COVER_HASH = "a0cd4e7b1b08ffeeb4ec341fcb060e27";
  * where they differed by more than 24 before. The bound's job is to say the two
  * renders are not the same picture, which 22 codes on a seventh of the pixels
  * does; the hash below is what says the cover render is exactly the record.
+ *
+ * And at W22 G1 (claims §5.94 §3; `a0cd4e7b1b08ffeeb4ec341fcb060e27` → the value
+ * below): `optics.regular.specularGain` 0.55 → 0 takes the vertical light off the
+ * rim band, and the cover-fit render draws that rim like the placed one does. The
+ * attribution is the isolation proof's `W22_HASHES` and
+ * `results/2026-09-08-w22-resting-sweep/g1/goldens-attribution.txt` (853 of
+ * 96 000 pixels by up to 42 codes on the placed render, in a band at most 2.24
+ * device px thick with 99.9 % of the moved luminance in its upper half, alpha
+ * untouched). This constant still says only that the two fits differ by the fit.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {

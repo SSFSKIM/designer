@@ -1142,7 +1142,52 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
       rimWidth: 1.5,
       rimAlpha: 0.18,
       specularPower: 6,
-      specularGain: 0.55,
+      /*
+       * FITTED 0.55 → 0 (W22 G1; claims §5.94 §3, W22 Decision Log 2 (b)). The
+       * light reference's rim has no vertical light in it, and the constant that
+       * said it did had been fitting a defect.
+       *
+       * What was measured: the declared-geometry rim per side (the box's outer
+       * 3 CSS px, a peak per side) on the five untinted solid calibration cells
+       * of the light bed — `light-solid__{capsule-button,rrect-md,rrect-ml}` and
+       * `dark-solid__{capsule-button,rrect-md}` — at both backing scales, over
+       * eight rendered documents differing in this constant alone.
+       *
+       * Why per contrast rather than per side: a side's peak under the declared
+       * box mixes rim with the background the rounded shape leaves inside a
+       * rectangle's band, and the mixture's weight differs between the horizontal
+       * and the vertical pair, so only `T−B` and `L−R` — two sides of identical
+       * geometry — are clean. A mean pooled over sides is worse than unclean: it
+       * PREFERS 0.55, because the specular lifts `dark-solid__rrect-md`'s top row
+       * from −0.061 to +0.062 against a reference of +0.047 while leaving its
+       * bottom at −0.061 against the same +0.047. It buys one side of a pair by
+       * breaking the other, and only the contrast can see that.
+       *
+       * The rows, and what they say: eleven of the twenty contrast rows separate
+       * the constant, and every one of them minimises at 0. The objective is
+       * monotone in the gain on both contrasts — mean |Δ| over the separating
+       * rows 0.00097 at 0 rising to 0.03102 at 0.55 — and the separating row is
+       * `dark-solid__rrect-md` `T−B` at both scales, where the reference splits
+       * top from bottom by +0.0002 and this constant at 0.55 splits them by
+       * +0.1237 (1x) and +0.1817 (2x).
+       *
+       * Why it survived three waves of rim work: until W22 gated the specular
+       * sweep on a shimmer amplitude, the highlight pass parked a stationary band
+       * on the left edge of every resting surface, so `L−R` was unreadable and
+       * `T−B` was being fitted beside a defect worth 0.12–0.15 of luminance. With
+       * the band gone the reference's own structure is legible — left equal to
+       * right to 0.0002, top over bottom by +0.0002 over a dark backdrop and
+       * +0.0086…+0.0162 over a bright one — and this term is an order of
+       * magnitude larger than anything it was supposed to be reproducing.
+       *
+       * The `clear` variant's 0.45 does not move: no scene on the calibration bed
+       * declares that variant, so it has no rows and nothing to be fitted on.
+       * `lightDirection` and `rimAlpha` were read on the same rows and declined
+       * (claims §5.94 §3); the direction still feeds the inner shadow through
+       * `platform-web`'s `light.xy`, and it is only on the RIM that this fit
+       * makes it inert.
+       */
+      specularGain: 0,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
