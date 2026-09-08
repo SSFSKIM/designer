@@ -637,6 +637,15 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // The nested pane's own charter is where all four come off: the tone axis
   // stands down over a glass backdrop (W9 Deferred, W21 Deferred), and this cell
   // is the partial that predicts.
+  //
+  // RE-READ at the W22 landing (claims §5.96 §5; W22 Decision Log 4 (e)) — the
+  // first gate that could, because the wave rebuilt the whole bed and W22 G3 gave
+  // this cell's overlay the backdrop it had never been handed. The `measured`
+  // values below stand as recorded and no floor moves; the landing's own readings
+  // beside them are 0.92732 (texture silhouetteIoU, +0.00059), 0.90493 (dom
+  // silhouetteIoU, +0.00011), 1.76018 (dom contourDistanceMean, bit-identical)
+  // and 13.0 (dom contourDistanceP95, bit-identical). Two improve, two do not
+  // move, all four still miss their adopted bound — none goes inert.
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.92673, floor: 0.9257 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.90482, floor: 0.9038 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean": { measured: 1.76018, floor: 1.8602 },
@@ -1061,6 +1070,29 @@ const NO_SHAPE_AXIS_SCENES: Readonly<Record<string, readonly string[]>> = {
  * the checkerboard's white squares, so coherence costs the instrument what the
  * material gains. The CSS rows read that way now because they finally draw what
  * the GPU rows draw. Their perceptual and coherence rows gate as before.
+ *
+ * **What LEAVES with W22 (2026-09-08, claims §5.96 §6; W22 Decision Log 4 (e)).**
+ * FOUR texture rows leave and none joins: 33 lines become 29, and the predicate
+ * had been excluding cells for a defect in the RENDERER rather than one in the
+ * extractor. All four are 2x light-standard checkerboard cells and all four are
+ * the same mechanism — the resting specular sweep, a stationary band the
+ * highlight pass drew on the left edge of every surface because nothing in v1
+ * ever drove its phase, was fragmenting the web silhouette, and this predicate
+ * refuses a mask in pieces. With the band gated on a shimmer amplitude the
+ * driver owns (0 at rest), each mask comes back as ONE body:
+ *
+ * - `checkerboard__rrect-md__rest` 2 bodies → 1, IoU 0.99792 → 0.99953,
+ *   contour mean 0.1335 → 0.0302, p95 1 → 0;
+ * - `checkerboard__rrect-ml__rest` 3 → 1, 0.99861 → 0.99981, 0.1202 → 0.0164,
+ *   p95 1 → 0;
+ * - `checkerboard__glass-over-glass__rest` 3 → 1 with its 4 interior holes gone,
+ *   0.99750 → 0.99803, 0.1068 → 0.0031, p95 1 → 0;
+ * - `checkerboard__rrect-lg__rest` 4 → 1, 0.99885 → 0.99993, 0.1199 → 0.0075,
+ *   p95 1 → 0.
+ *
+ * The gate got stricter, not looser: four cells the bed could not read it now
+ * reads, each meeting every bound it newly carries with room, and no bound was
+ * widened to take them.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -1081,12 +1113,8 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
-  "texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard",
-  "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
   "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
