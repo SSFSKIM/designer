@@ -13873,6 +13873,7 @@ contour instrument and 30–45 % short over a dark backdrop in light and 1.6× b
 `borderAlphaPerRimAlpha` re-based and unfitted; the tinted collapsed rim's dependence on the tint's
 own COLOUR (+0.115 orange against +0.176 blue, and every collapsed blue cell holdout); and the
 corner rim clause 4 points at. All three are in `tech-debt-tracker.md`.
+
 ### 5.102 W23 G1 READ by the parent: clauses 1, 2, 5–8 met and 3–4 missed with their numbers, S2 and S3 taken at the number, the holdout read recorded as spent — and the painted rim's hue found by eye (Apple's rim keeps the paint's chroma, vitrea's adds white), taken as G3 before the landing (2026-09-08)
 
 **The record.** §5.101 (G1's declaration and dry run, adopted) and W23 Decision Log 3. The parent
