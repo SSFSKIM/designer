@@ -14170,3 +14170,65 @@ has for it.
 clause 9's verdict is recorded on its spec: an aesthetic regression on the dark capsule's edge, a
 fidelity improvement everywhere the instruments read.
 
+### 5.108 W24 G0 and G1 CLOSED: the lit edge is a symmetric cosine about the exact diagonal at exponent 1.15 with no ambient term, exactly 1 on every straight side so nothing W23 fitted moves; the transmission is the collapse's target alone — one constant per scale puts the dot's peak within 0.0002 of the reference's through the collapsed capsule — while the dark structured capsules never collapse at all (2026-09-09)
+
+**Evidence** `results/2026-09-09-w24-lit-edge/g0/` (`read-angular.py`, `instrument.txt`,
+`angular-read.txt`, `tables.txt`, `fit-law.txt`, `along-span.txt`, `goldens-attribution.txt`,
+`ladder/`, `g0-findings.md`) and `g1/` (`read-impulse.py`, `psf.py`, `solve-state.py`,
+`transmission-read.txt`, `solve-state.txt`, `ladder.txt`, `goldens-attribution.txt`,
+`g1-findings.md`), on the two spike branches merged into `w24-g2`. Verified by the parent on the
+merged tree: 402 / 451 / 279 unit tests green with the fingerprint red as expected (light
+`c426a37744c38cce` → `3864909bfbfc7b55` at the inert defaults of both mechanisms), 31 goldens
+byte-identical, the straight spans moved 0.00021 worst on G0's ladder.
+
+**§1 The lit edge.** The angular instrument (the peak excess along the inward normal at ≥ 720
+boundary points, binned by the normal's angle; injection-validated; within the parent's
+`angular-read.py` on its cells) read on every untinted cell of both beds and both probe grids. On
+nineteen untinted solid reference rows, normalised RMS: flat rim 0.312, one-sided Lambert (W22's
+form) 0.288, **symmetric `|cos(θ − φ)|^p` 0.148**; the reference's top-left and bottom-right
+corners equal to 0.001, which no one-sided form reaches. Axis 136.0° (dark 135.0 ± 0.7°, light
+137.7 ± 1.5°) — the exact diagonal taken; exponent 1.05 jointly, 1.10–1.30 on 2x, 0.85–1.10 on 1x
+— 1.15 taken as one constant, the scale dependence recorded; the ambient fraction fits 0.000 on
+every grouping and is declined. The factor `pow(|dot(normal, axis)| × √2, p)` outside W23's
+amplitude bracket is exactly 1 on every straight side at every exponent, so W23's fitted amplitudes
+and its clause 2 hold by construction and the CSS tier needs no counterpart. On the ladder the
+worst bin error halves to quarters on every solid row (2x light `dark-solid__rrect-md` 0.2020 →
+0.0845; 2x dark 0.0292 → 0.0109); the residual is W23's amplitude (0.05–0.10 on the light bed), so
+the charter's absolute bin bound is re-declared (W24 Decision Log 2 (b)). Two findings beside: on
+the light 1x rows the reference's corners sit BELOW its straight sides (0.126 against 0.178),
+which a factor ≥ 1 moves the wrong way while still improving the row; and on thick rounded
+rectangles the reference's rim varies ALONG a straight side (2x dark `dark-solid__rrect-md` top
+0.0442 → 0.0158, silhouette straight to 0.06 px, interior uniform) — flat on the capsule and
+`rrect-sm`, graded on `rrect-md` and `rrect-lg`: a thickness term, deferred. The holdout
+`mid-dark-solid__capsule-button` (read, not fitted) moves the wrong way above exponent 1.0 (worst
+bin 0.0124 landed → 0.0087 at 1.00 → 0.0164 at 1.30); named for G2's S1.
+
+**§2 The collapse's transmission.** The impulse instrument (a dot's peak excess, FWHM and integral
+through the body; a dot on the background reads 1.0000 / 4.00 / 4.000 exactly; within the parent's
+table). The mechanism, from the shader and the published group state: `colour = (1 − k)·M +
+k·target`, `target` the group's mean backdrop colour, `k` = **1.0000** on every
+`impulse__capsule-button` cell, the W9 alpha solve stood down twice over (by `toneAdapt ≥ 0.995`
+and by authority 0) — the target alone removes the dot, and W7 could not have seen it on
+`dark-solid` where a mean and a pixel are one number. The correction: `target = mix(mean, blurred
+backdrop sample, c)` with the group mean kept as the tone axis's argument; **`collapseTransmission`
+0.017 (1x), `collapseTransmission2x` 0.070**, one pair for both schemes. The reference transmits
+through σ 2.63 device px at 1x and 1.30 at 2x — the same kernel as its uncollapsed cells (2.87 /
+1.40), invariant in neither CSS nor device px — where vitrea's runs 1.68 → 4.86; hence two anchors,
+and the kernel is a finding. Rendered: the collapsed capsule's dot peak 0.0000 → **+0.0067 / +0.0256**
+against +0.0066 / +0.0254 (1x / 2x), passthrough 0.0066 / 0.0250 against 0.0104 / 0.0205; the
+`dark-solid` capsule (the stop) byte-identical at every rung including `c` = 0.10; the `c` = 0
+control reproduced all 26 landed captures; exactly two cells move at the fit. The FWHM misses at 1x
+by 0.58 CSS px (the kernel) and the collapsed body by 0.0029 / 0.0033 (the target's LEVEL; a later
+child). **The dark `checkerboard` / `photo` capsules have `k` = 0.0000** at both scales in both
+schemes (toneX 0.219 / 0.155 against `backdropToneHigh` 0.055): the collapse is not running on
+them, their bodies stay at 73.3 / 73.9 / 64.6 / 64.5 codes against 91.4 / 92.0 / 86.8 / 87.0, and
+their term is §5.89's dark passthrough — the charter's clause 3 corrected beside (Decision Log 2
+(f)). **The fit's row is validation** (`impulse__capsule-button`; the only `impulse` calibration
+cell is tinted and inert): recorded as that row's independence spent on this term (Decision Log 2
+(e)). `collapsed-tone` feeds a solid backdrop and cannot attribute the transmission; a textured
+collapsed golden is G2's.
+
+**G2 opens:** both mechanisms declared with their constants, the documents re-recorded once, the
+CSS mirror (`A' = A − k·c`, the tint re-solved), `tier-coherence`, the textured golden, the dry run
+on all six profiles and both tiers with the holdout read once; the clauses as re-declared.
+
