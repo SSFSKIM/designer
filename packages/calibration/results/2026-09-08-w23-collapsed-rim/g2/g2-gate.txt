@@ -1,0 +1,55 @@
+=== pnpm --filter @vitrea/calibration test (the whole package, over the CANONICAL matrix) ===
+$ vitest run
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/packages/calibration
+
+
+ Test Files  20 passed (20)
+      Tests  280 passed (280)
+   Start at  01:02:00
+   Duration  1.69s (transform 2.46s, setup 0ms, import 3.85s, tests 3.10s, environment 1ms)
+
+
+=== the adopted gate alone, verbose ===
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/packages/calibration
+
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > reads the schema it was written against, which is no longer the one the build writes 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > covers four profiles of the settled bed, and names the two it leaves 6ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-standard cells against TEXTURE_TIER_LIGHT 3ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 3ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-reduced-transparency cells against TEXTURE_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-increased-contrast cells against TEXTURE_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-increased-contrast cells against DOM_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-dark-standard cells against TEXTURE_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > proves every regression floor stands on a genuinely unmet bound 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > measures coherence on every profile the rows do not gate 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > excludes the degenerate coherence cell by measurement, and gates its neighbours 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > carries a coherence axis on the dom tier and nowhere else 1ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > carries the rows on every texture-tier cell with a shape axis 0ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > holds every texture-tier cell to its declared geometry within the antialiased band 1ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+
+ Test Files  1 passed (1)
+      Tests  33 passed (33)
+   Start at  01:02:02
+   Duration  196ms (transform 54ms, setup 0ms, import 84ms, tests 33ms, environment 0ms)
+

@@ -1,0 +1,117 @@
+1. the machine's derivation off the landed matrix: 27 lines
+    dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast
+    dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard
+    dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast
+    dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency
+    dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard
+    texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast
+    texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast
+    texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard
+    texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard
+    texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast
+    texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency
+    texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard
+    texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard
+
+PREDICATE_EXCLUDES as the file carries it: 27 lines
+equal: True
+
+what the 0.11.0 bed excluded that this one does not, and what joins:
+    LEAVES  dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard
+            0.11.0  region 15024/1  areaNative 370  areaWeb 205  bodiesNative 6  bodiesWeb 9  IoU 0.43750   arms: areaNative 370 < 14273; areaWeb 205 < 14273; bodiesNative 6 > 1; bodiesWeb 9 > 1
+            landed  NO SHAPE AXIS — the extractor found nothing to measure
+    LEAVES  dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+            0.11.0  region 60064/1  areaNative 1208  areaWeb 849  bodiesNative 2  bodiesWeb 3  IoU 0.40218   arms: areaNative 1208 < 57061; areaWeb 849 < 57061; bodiesNative 2 > 1; bodiesWeb 3 > 1
+            landed  NO SHAPE AXIS — the extractor found nothing to measure
+    LEAVES  dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard
+            0.11.0  region 28100/1  areaNative 26759  areaWeb 25069  bodiesNative 1  bodiesWeb 1  IoU 0.84448   arms: areaWeb 25069 < 26695
+            landed  region 28100/1  areaNative 26759  areaWeb 26912  bodiesNative 1  bodiesWeb 1  IoU 0.91007   arms: none
+    LEAVES  dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard
+            0.11.0  region 19468/1  areaNative 19468  areaWeb 19434  bodiesNative 1  bodiesWeb 2  IoU 0.99825   arms: bodiesWeb 2 > 1
+            landed  region 19468/1  areaNative 19468  areaWeb 19308  bodiesNative 1  bodiesWeb 1  IoU 0.99178   arms: none
+    JOINS   texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+            0.11.0  NO SHAPE AXIS — the extractor found nothing to measure
+            landed  region 19468/1  areaNative 457  areaWeb 456  bodiesNative 6  bodiesWeb 60  IoU 0.56873   arms: areaNative 457 < 18495; areaWeb 456 < 18495; bodiesNative 6 > 1; bodiesWeb 60 > 1
+    JOINS   texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard
+            0.11.0  NO SHAPE AXIS — the extractor found nothing to measure
+            landed  region 19468/1  areaNative 457  areaWeb 456  bodiesNative 6  bodiesWeb 60  IoU 0.56873   arms: areaNative 457 < 18495; areaWeb 456 < 18495; bodiesNative 6 > 1; bodiesWeb 60 > 1
+
+2. the cells carrying no `shape` axis, per profile and TIER (0.11.0 bed -> landed):
+    apple-macos-26.5-1x-dark-standard            dom      ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest', 'dark-solid__rrect-md__rest']   <-- MOVED
+    apple-macos-26.5-1x-dark-standard            texture  ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest']
+    apple-macos-26.5-1x-light-standard           dom      ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest']
+    apple-macos-26.5-1x-light-standard           texture  ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest']
+    apple-macos-26.5-2x-dark-standard            dom      ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest', 'dark-solid__rrect-md__rest']   <-- MOVED
+    apple-macos-26.5-2x-dark-standard            texture  ['dark-solid__capsule-button__rest'] -> []   <-- MOVED
+    apple-macos-26.5-2x-light-standard           dom      ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest']
+    apple-macos-26.5-2x-light-standard           texture  ['dark-solid__capsule-button__rest'] -> []   <-- MOVED
+
+3. the dom cells with no `coherence.interiorLevelRatioGpuOverCss` (0.11.0 bed -> landed):
+    apple-macos-26.5-1x-dark-standard            ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest', 'dark-solid__rrect-md__rest']   <-- MOVED
+    apple-macos-26.5-1x-light-standard           ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest']
+    apple-macos-26.5-2x-dark-standard            ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest', 'dark-solid__rrect-md__rest']   <-- MOVED
+    apple-macos-26.5-2x-light-standard           ['dark-solid__capsule-button__rest'] -> ['dark-solid__capsule-button__rest']
+
+4. the two scenes the rim moved, read on both beds:
+    dark-solid__capsule-button__rest           dom      apple-macos-26.5-1x-dark-standard
+        0.11.0  no shape axis
+        landed  no shape axis
+    dark-solid__capsule-button__rest           texture  apple-macos-26.5-1x-dark-standard
+        0.11.0  no shape axis
+        landed  no shape axis
+    dark-solid__capsule-button__rest           dom      apple-macos-26.5-1x-light-standard
+        0.11.0  no shape axis
+        landed  no shape axis
+    dark-solid__capsule-button__rest           texture  apple-macos-26.5-1x-light-standard
+        0.11.0  no shape axis
+        landed  no shape axis
+    dark-solid__capsule-button__rest           dom      apple-macos-26.5-2x-dark-standard
+        0.11.0  no shape axis
+        landed  no shape axis
+    dark-solid__capsule-button__rest           texture  apple-macos-26.5-2x-dark-standard
+        0.11.0  no shape axis
+        landed  areaNative 457  areaWeb 456  region 19468  bodiesWeb 60/1  IoU 0.56873
+    dark-solid__capsule-button__rest           dom      apple-macos-26.5-2x-light-standard
+        0.11.0  no shape axis
+        landed  no shape axis
+    dark-solid__capsule-button__rest           texture  apple-macos-26.5-2x-light-standard
+        0.11.0  no shape axis
+        landed  areaNative 457  areaWeb 456  region 19468  bodiesWeb 60/1  IoU 0.56873
+    dark-solid__rrect-md__rest                 dom      apple-macos-26.5-1x-dark-standard
+        0.11.0  areaNative 370  areaWeb 205  region 15024  bodiesWeb 9/1  IoU 0.43750
+        landed  no shape axis
+    dark-solid__rrect-md__rest                 texture  apple-macos-26.5-1x-dark-standard
+        0.11.0  areaNative 370  areaWeb 464  region 15024  bodiesWeb 1/1  IoU 0.79741
+        landed  areaNative 370  areaWeb 432  region 15024  bodiesWeb 24/1  IoU 0.80631
+    dark-solid__rrect-md__rest                 dom      apple-macos-26.5-1x-light-standard
+        0.11.0  areaNative 15024  areaWeb 15024  region 15024  bodiesWeb 1/1  IoU 1.00000
+        landed  areaNative 15024  areaWeb 15024  region 15024  bodiesWeb 1/1  IoU 1.00000
+    dark-solid__rrect-md__rest                 texture  apple-macos-26.5-1x-light-standard
+        0.11.0  areaNative 15024  areaWeb 15024  region 15024  bodiesWeb 1/1  IoU 1.00000
+        landed  areaNative 15024  areaWeb 15024  region 15024  bodiesWeb 1/1  IoU 1.00000
+    dark-solid__rrect-md__rest                 dom      apple-macos-26.5-2x-dark-standard
+        0.11.0  areaNative 1208  areaWeb 849  region 60064  bodiesWeb 3/1  IoU 0.40218
+        landed  no shape axis
+    dark-solid__rrect-md__rest                 texture  apple-macos-26.5-2x-dark-standard
+        0.11.0  areaNative 1208  areaWeb 1786  region 60064  bodiesWeb 1/1  IoU 0.66149
+        landed  areaNative 1208  areaWeb 1000  region 60064  bodiesWeb 1/1  IoU 0.56818
+    dark-solid__rrect-md__rest                 dom      apple-macos-26.5-2x-light-standard
+        0.11.0  areaNative 60053  areaWeb 60064  region 60064  bodiesWeb 1/1  IoU 0.99982
+        landed  areaNative 60053  areaWeb 60064  region 60064  bodiesWeb 1/1  IoU 0.99982
+    dark-solid__rrect-md__rest                 texture  apple-macos-26.5-2x-light-standard
+        0.11.0  areaNative 60053  areaWeb 60056  region 60064  bodiesWeb 1/1  IoU 0.99995
+        landed  areaNative 60053  areaWeb 60056  region 60064  bodiesWeb 1/1  IoU 0.99995

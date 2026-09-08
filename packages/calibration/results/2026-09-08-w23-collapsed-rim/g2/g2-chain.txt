@@ -1,0 +1,75 @@
+W23 G2 — the chain at the landing, run from the MAIN checkout on `main` at ab1ea4b
+(the merge of G3's branch), over the CANONICAL matrix this gate rebuilt.
+
+=============================================================================
+pnpm -r build                                    GREEN
+    every package, and apps/demo with it (the demo imports
+    packages/calibration/results/matrix.json at build time, so this is also the
+    demo built against the landed bed).
+
+pnpm -r lint                                     GREEN
+    eslint + tsc --noEmit + tsc --noEmit -p tsconfig.e2e.json in every package.
+    Re-run after the tint-gpu spec edit below; green both times.
+
+pnpm -r test                                     GREEN — 1 891 tests, 130 files
+        23   @vitrea/policy
+       162   @vitrea/motion
+       170   @vitrea/geometry
+       402   @vitrea/renderer-webgpu
+       302   @vitreajs/vitrea
+       451   @vitreajs/vitrea-web
+       280   @vitrea/calibration   <- adopted-thresholds + tier-coherence, over
+                                      the canonical matrix (see g2-gate.txt)
+       101   @vitreajs/vitrea-react
+    The same 1 891 the parent read on the merged tree at Decision Log 4; the
+    gate's bookkeeping edits add no test and remove none.
+
+pnpm --filter @vitrea/renderer-webgpu test:golden GREEN — 31 / 31
+    Including `collapsed-tone`, the scene G1 added for exactly this wave's
+    attribution, at G3's re-recorded hash.
+
+pnpm --filter @vitreajs/vitrea-web test:e2e:gpu   GREEN — 9 / 9, AFTER ONE FIX
+    First run: 1 failed, 8 passed.
+
+      [chromium-gpu] e2e/gpu/tint-gpu.spec.ts:82
+      "stays glass on the GPU tier — a material, not a fill of the author's colour"
+      Error: rim {"r":255,"g":152,"b":0} against centre {"r":239,"g":139,"b":0}
+             expect(rim.b).toBeGreaterThan(centre.b + 8)  ->  0 > 8
+
+    NOT a flake and not a regression: the assertion was the white rim's own
+    signature. It required the rim to raise the BLUE channel that an orange
+    paint leaves at zero, which is the composition W23 G3 measured against
+    Apple's captures and refuted — the reference lifts an orange's green channel
+    and leaves its blue at 0 (claims §5.103; W23 Decision Log 4 (a)). The spec
+    now reads the rim the way the reference draws it: brighter in the channels
+    the paint HAS (`rim.g` > `centre.g` + 8, measured 152 against 139) and still
+    at the paint's own level in the one it does not (`rim.b` <= `centre.b` + 1,
+    measured 0 against 0), with the existing `channelDelta` arm untouched. The
+    doc comment carries the reason and cites the claims section.
+
+    This suite is not in the set the parent ran on the merged tree at Decision
+    Log 4, which is why the landing is where it surfaced.
+
+packages/platform-web, all four Playwright projects    GREEN — 376 passed (1.8 m)
+    chromium, firefox, webkit, chromium-gpu.
+
+pnpm --filter @vitreajs/vitrea-react test:e2e     1 failed, 104 passed, 3 skipped
+    [firefox] e2e/morph.spec.ts:191 "the geometry travels continuously, with no
+    jump between frames" — the tracker's standing entry ("`packages/react`'s
+    press and morph specs are flaky on Firefox", with the W22 G2 addendum's
+    3 / 1 / 1 distribution). Recorded as a distribution, not claimed green, and
+    NOT looped: one confirmation repeat of the whole file on the failing engine,
+    `morph.spec.ts --project=firefox --repeat-each=3`, is 27 / 27 passed.
+    Nothing this wave moved is in a morph — the rim's law, its collapsed floor
+    and its chromaticity reach the optics pass, not the geometry channel.
+
+pnpm --filter demo test:e2e                       GREEN — 39 / 39
+    Including `reference-panel.gpu.spec.ts`, after the harness fixture was
+    re-copied from the landed bed (see g2-landing.md §5).
+=============================================================================
+
+The GPU is shared and was serialised throughout: `pgrep -f
+'compare.ts|sweep.ts|cost.mjs|capture.mjs|capture-web|VitreaReference|playwright'`
+and `lsof -i :5189` clear before every capture run, one capture process at a
+time, the rebuild detached with a DONE marker and waited on by a background
+until-loop.

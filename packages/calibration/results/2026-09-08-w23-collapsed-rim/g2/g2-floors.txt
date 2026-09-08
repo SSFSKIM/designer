@@ -1,0 +1,32 @@
+14 floors (UNMET_ROWS is 14)
+
+dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.9142   recorded 0.91521   W21 bed 0.9152319513482459   landed 0.9154043951750944   held
+dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean
+    floor ge 0.8748   recorded 0.87585   W21 bed 0.875656258166244   landed 0.8761045369116217   held
+dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.8779   recorded 0.87893   W21 bed 0.8789123338240378   landed 0.8789383192138389   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean
+    floor ge 0.8604   recorded 0.86141   W21 bed 0.8627684161297823   landed 0.8635535099951052   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.8677   recorded 0.86811   W21 bed 0.8684614166477145   landed 0.8687015477623105   held
+dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean
+    floor ge 0.8693   recorded 0.87039   W21 bed 0.8699280761488112   landed 0.8705815063458865   held
+dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.8712   recorded 0.8722   W21 bed 0.872255812573577   landed 0.8723223349253475   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: silhouetteIoU
+    floor ge 0.909   recorded 0.91007   W21 bed 0.8444784511904339   landed 0.9100679739492509   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceMean
+    floor le 1.0658   recorded 0.96579   W21 bed 1.2903025259696663   landed 0.9657912233128884   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceP95
+    floor le 8.1   recorded 8.0   W21 bed 10   landed 8   held
+texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU
+    floor ge 0.9257   recorded 0.92673   W21 bed 0.9273199683226111   landed 0.9270803673120729   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU
+    floor ge 0.9038   recorded 0.90482   W21 bed 0.9049347460567403   landed 0.9287766776090457   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean
+    floor le 1.8602   recorded 1.76018   W21 bed 1.7601760952562688   landed 1.2892141491127727   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceP95
+    floor le 13.1   recorded 13.0   W21 bed 13   landed 10   held
+
+14 held, 0 broken

@@ -806,7 +806,7 @@ increased-contrast profile the CSS calibration ΔE moves 0.01293 → 0.01300 and
 residual under wave Decision Log 23 (a), recorded, not chartered. Shape of the work: the
 increased-contrast fold's band term read against the reference on that profile's own rows.
 
-## A conformance capture moved by one code value between a dry run and its landing, twice (W21 G2, W22 G2; 2026-09-08)
+## A conformance capture moved by one code value between a dry run and its landing, three times (W21 G2, W22 G2, W23 G2; 2026-09-09)
 
 *Second sighting at W22 G2 (claims §5.97).* The 1x dark `checkerboard__glass-over-glass__rest` CSS
 alpha conformance render differed from G1's dry run by 2 of 64 000 pixels, ±1 code in alpha at the
@@ -816,6 +816,31 @@ Both are session byte-states that a re-capture settles; neither moved a row. The
 declared digests and reports the conformance renders beside them; a determinism claim on the
 conformance path is not made. Shape of the work: a second capture of any differing file inside
 the rebuild, and the pair recorded.
+
+*Third sighting at W23 G2 (claims §5.104).* The increased-contrast
+`photo__toolbar-group__rest` CSS alpha conformance render differed from G3's dry run by 19 of
+64 000 pixels, alpha by exactly one code on every one of them, at interior pixels of the toolbar's
+own soft edge; the rgb differences that come with them (51→55, 225→229) are the un-premultiply of
+that one code. No measured row moved — the landing's 15 218-row comparison against the dry run finds
+none differing, and the cell's render capture is one of the 229 that reproduce their declared digest
+exactly. A third capture in the landing session reproduced the LANDED bytes, not the dry run's,
+which is W21's shape rather than W22's: the state belongs to a session, not to a file. Three
+landings, three cells, one code each. The fix's shape is unchanged.
+
+## A wave's own claim survived in an e2e spec that no child's chain runs (W23 G2, 2026-09-09)
+
+*Found at W23's landing.* `packages/platform-web/e2e/gpu/tint-gpu.spec.ts:82` asserted that the rim
+on an orange surface raises the BLUE channel the paint leaves at zero — the white rim's signature,
+correct when it was written. W23 G3 measured that composition against Apple's own captures and
+refuted it (claims §5.103): the reference lifts an orange's green channel and leaves its blue at 0.
+The spec still passed at G1 and at G3 and through the merge, because a child's chain runs build,
+lint, the unit suites and the goldens, and the platform-web Playwright projects are not in it. The
+landing ran them and the spec failed, on the wave's own new behaviour. Nothing shipped wrong and the
+spec is corrected in place — but a gate that only the landing runs is a gate the wave discovers its
+own contradictions at the latest possible moment. Shape of the work: when a child moves a term the
+e2e suites read (the rim, the tint, the shadow), that child's chain runs the suites that read it,
+or the suites gain a pointer to the claims section they encode so a wave that moves the claim finds
+them by grep.
 
 ## The react e2e suite cannot be read as pass/fail at a landing (addendum, W22 G2, 2026-09-08)
 
