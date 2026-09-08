@@ -1,0 +1,134 @@
+W22 G2 — the gate at the landing, over the CANONICAL matrix rebuilt at this gate.
+
+=== adopted-thresholds.test.ts, canonical matrix ===
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/packages/calibration
+
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > reads the schema it was written against, which is no longer the one the build writes 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > covers four profiles of the settled bed, and names the two it leaves 6ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-standard cells against TEXTURE_TIER_LIGHT 4ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 3ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-reduced-transparency cells against TEXTURE_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-increased-contrast cells against TEXTURE_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-increased-contrast cells against DOM_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-dark-standard cells against TEXTURE_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > proves every regression floor stands on a genuinely unmet bound 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > measures coherence on every profile the rows do not gate 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > excludes the degenerate coherence cell by measurement, and gates its neighbours 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > carries a coherence axis on the dom tier and nowhere else 2ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > carries the rows on every texture-tier cell with a shape axis 0ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > holds every texture-tier cell to its declared geometry within the antialiased band 2ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+
+ Test Files  1 passed (1)
+      Tests  33 passed (33)
+   Start at  13:34:37
+   Duration  203ms (transform 51ms, setup 0ms, import 81ms, tests 40ms, environment 0ms)
+
+
+=== tier-coherence.test.ts ===
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/packages/calibration
+
+
+ Test Files  1 passed (1)
+      Tests  43 passed (43)
+   Start at  13:34:38
+   Duration  490ms (transform 290ms, setup 0ms, import 349ms, tests 60ms, environment 0ms)
+
+
+=== the predicate re-derived from the landed matrix (g2-predicate.py) ===
+the machine's derivation off the landed matrix: 29 lines
+    dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast
+    dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-dark-standard
+    dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast
+    dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard
+    dom / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard
+    dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency
+    dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-2x-light-standard
+    dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard
+    texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast
+    texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast
+    texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard
+    texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-2x-dark-standard
+    texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast
+    texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency
+    texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard
+    texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard
+    texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard
+
+PREDICATE_EXCLUDES as the file carries it: 29 lines
+equal: True
+
+what the W21 bed excluded that this one does not:
+    LEAVES  texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard
+    LEAVES  texture / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard
+    LEAVES  texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard
+    LEAVES  texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard
+
+the four cells W22 removes, read on both beds (area native/web against 0.95 × region, bodies native/web against region bodies):
+    checkerboard__rrect-md__rest             W21 bed  region    60064/1  areaNative    60058  areaWeb    59937  bodiesNative 1  bodiesWeb 2  IoU 0.99792  contourMean 0.1335  P95 1
+    checkerboard__rrect-md__rest             landed   region    60064/1  areaNative    60058  areaWeb    60034  bodiesNative 1  bodiesWeb 1  IoU 0.99953  contourMean 0.0302  P95 0
+    checkerboard__rrect-ml__rest             W21 bed  region   112200/1  areaNative   112175  areaWeb   112031  bodiesNative 1  bodiesWeb 3  IoU 0.99861  contourMean 0.1202  P95 1
+    checkerboard__rrect-ml__rest             landed   region   112200/1  areaNative   112175  areaWeb   112164  bodiesNative 1  bodiesWeb 1  IoU 0.99981  contourMean 0.0164  P95 0
+    checkerboard__glass-over-glass__rest     W21 bed  region   112416/1  areaNative   112180  areaWeb   112183  bodiesNative 1  bodiesWeb 3  IoU 0.99750  contourMean 0.1068  P95 1
+    checkerboard__glass-over-glass__rest     landed   region   112416/1  areaNative   112180  areaWeb   112401  bodiesNative 1  bodiesWeb 1  IoU 0.99803  contourMean 0.0031  P95 0
+    checkerboard__rrect-lg__rest             W21 bed  region   175240/1  areaNative   175185  areaWeb   175015  bodiesNative 1  bodiesWeb 4  IoU 0.99885  contourMean 0.1199  P95 1
+    checkerboard__rrect-lg__rest             landed   region   175240/1  areaNative   175185  areaWeb   175197  bodiesNative 1  bodiesWeb 1  IoU 0.99993  contourMean 0.0075  P95 0
+
+=== every REGRESSION_FLOORS entry re-read on the landed matrix (g2-floors.py) ===
+11 floors (UNMET_ROWS is 11)
+
+dom / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.9142   recorded 0.91521   W21 bed 0.9152088804798493   landed 0.9152319513482459   held
+dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-1x-light-standard :: ssimMean
+    floor ge 0.8748   recorded 0.87585   W21 bed 0.8758484536676633   landed 0.875656258166244   held
+dom / calibration / checkerboard__rrect-ml__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.8779   recorded 0.87893   W21 bed 0.8789342909085949   landed 0.8789123338240378   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-light-standard :: ssimMean
+    floor ge 0.8604   recorded 0.86141   W21 bed 0.8614101416551175   landed 0.8627684161297823   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.8677   recorded 0.86811   W21 bed 0.8681081616327042   landed 0.8684614166477145   held
+dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-1x-light-standard :: ssimMean
+    floor ge 0.8693   recorded 0.87039   W21 bed 0.8703873561801054   landed 0.8699280761488112   held
+dom / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard :: ssimMean
+    floor ge 0.8712   recorded 0.8722   W21 bed 0.8722004479251723   landed 0.872255812573577   held
+texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU
+    floor ge 0.9257   recorded 0.92673   W21 bed 0.9267283566153572   landed 0.9273199683226111   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU
+    floor ge 0.9038   recorded 0.90482   W21 bed 0.9048190948962254   landed 0.9049347460567403   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean
+    floor le 1.8602   recorded 1.76018   W21 bed 1.7601760952562688   landed 1.7601760952562688   held
+dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceP95
+    floor le 13.1   recorded 13.0   W21 bed 13   landed 13   held
+
+11 held, 0 broken

@@ -1,0 +1,85 @@
+=== 13:33:28 pnpm -r build ===
+apps/demo build: dist/playground/index.html                  1.16 kB │ gzip:   0.60 kB
+apps/demo build: dist/laws/index.html                        1.47 kB │ gzip:   0.72 kB
+apps/demo build: dist/assets/laws-C5fyvLlQ.css               0.94 kB │ gzip:   0.42 kB
+apps/demo build: dist/assets/playground-huNYU38K.css         5.56 kB │ gzip:   1.90 kB
+apps/demo build: dist/assets/StageBackdrop-CD79DVVT.css     14.86 kB │ gzip:   3.77 kB
+apps/demo build: dist/assets/StageBackdrop-K7-o3a9z.js       3.86 kB │ gzip:   1.77 kB
+apps/demo build: dist/assets/concentric-ncHh5tjE.js          8.08 kB │ gzip:   3.40 kB
+apps/demo build: dist/assets/playground-BTFWj6Oo.js         10.60 kB │ gzip:   3.62 kB
+apps/demo build: dist/assets/laws-CqtjHMU0.js               25.96 kB │ gzip:   8.28 kB
+apps/demo build: dist/assets/ActionsMenu-D5R62V93.js       100.21 kB │ gzip:  32.72 kB
+apps/demo build: dist/assets/src-8iGIkcKm.js               147.63 kB │ gzip:  49.20 kB
+apps/demo build: dist/assets/client-DJhyfZPI.js            333.59 kB │ gzip: 107.95 kB
+apps/demo build: dist/assets/index-DfAc1T_C.js           4,637.16 kB │ gzip: 410.19 kB
+apps/demo build: ✓ built in 453ms
+apps/demo build: [plugin builtin:vite-reporter] 
+apps/demo build: (!) Some chunks are larger than 500 kB after minification. Consider:
+apps/demo build: - Using dynamic import() to code-split the application
+apps/demo build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+apps/demo build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/demo build: Done
+build exit=
+
+=== 13:33:40 pnpm -r lint ===
+lint exit=0
+packages/react lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/react lint: Done
+packages/calibration lint: Done
+apps/demo lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+apps/demo lint: Done
+
+=== 13:34:03 pnpm -r test ===
+test exit=0
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:  Test Files  9 passed (9)
+packages/motion test:       Tests  162 passed (162)
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:  Test Files  23 passed (23)
+packages/renderer-webgpu test:       Tests  399 passed (399)
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:  Test Files  33 passed (33)
+packages/platform-web test:       Tests  444 passed (444)
+packages/calibration test:  Test Files  20 passed (20)
+packages/calibration test:       Tests  279 passed (279)
+packages/react test:  Test Files  13 passed (13)
+packages/react test:       Tests  101 passed (101)
+
+=== 13:34:45 renderer-webgpu test:golden ===
+golden exit=0
+  29 passed (11.9s)
+
+=== platform-web playwright (all projects) ===
+exit=0
+  376 passed (46.7s)
+
+=== renderer-webgpu test:golden ===
+29 passed — the ten W22 goldens re-recorded at G1 behind the isolation proof reproduce.
+
+=== packages/platform-web, npx playwright test (chromium, firefox, webkit, chromium-gpu) ===
+exit 0 — 376 passed.
+
+=== packages/react, test:e2e (three engines) ===
+exit 1 on each of three consecutive runs of this unchanged tree, a DIFFERENT case each time and
+every one of them from `e2e/press.spec.ts` / `e2e/morph.spec.ts`:
+  run 1  3 failed / 102 passed  (chromium press:93, firefox morph:191, firefox press:138)
+  run 2  1 failed / 104 passed  (chromium morph:222)
+  run 3  1 failed / 104 passed  (firefox morph:284)
+Each failing case passes on its own: `morph.spec.ts --project=chromium --repeat-each=3` 27 passed,
+and firefox morph+press --repeat-each=3 fails a different single case again (41 press:138).
+This is the tracker's standing entry, "`packages/react`'s press and morph specs are flaky on
+Firefox" (re-measured over four runs of one unchanged tree at 0, 2, 4, 4 failures): every affected
+case asserts a driver output AT A MOMENT, and nothing this wave moved is in a press or a morph — the
+shimmer amplitude, `specularGain` and the backdrop-stack tone reach the optics and highlight passes,
+not the geometry or the press channel. Recorded as a distribution, not claimed green.
+
+=== apps/demo, test:e2e ===
+exit 0 — 39 passed, INCLUDING `reference-panel.gpu.spec.ts`, which compares the live reference panel
+against the harness's own capture of the same scene. Its committed fixture
+(`apps/demo/e2e/fixtures/`) was byte-identical to the W21 bed and 178 px / 46 code values from the
+landed capture — the rim band — so both files were re-copied from
+`web-captures/apple-macos-26.5-1x-light-standard/checkerboard__capsule-button__rest/` as that
+spec's doc comment requires, and the suite re-run green afterwards.

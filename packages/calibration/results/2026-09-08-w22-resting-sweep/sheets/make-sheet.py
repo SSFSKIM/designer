@@ -36,6 +36,10 @@ FIXTURES = os.path.join(ROOT, 'apps', 'reference-apple', 'fixtures')
 GAP = 6
 LABEL_H = 18
 BANNER_H = 44
+# What column 3 is, per gate. G1's panels came from the dry run's scratch captures; G2's come from
+# the canonical `web-captures/` the landing rebuilt, which is the same render read from the bed the
+# repository now carries.
+AFTER_LABEL = {'g1': 'W22 G1 dry run', 'g2': 'W22 G2 LANDED (the canonical bed)'}
 
 # Per scheme, in the order the sheet reads them. A scene a profile does not declare is skipped with
 # a printed line rather than silently, so the sheet's absences are legible.
@@ -138,7 +142,7 @@ def main():
         font = None
     banner = ('1 Apple native (the canonical fixture)   2 GPU tier BEFORE (the W21 bed at 0.10.0: '
               'the resting specular band, specularGain 0.55, the overlay handed no backdrop)   '
-              '3 GPU tier, W22 G1 dry run   4 CSS tier, same document, same run   '
+              f'3 GPU tier, {AFTER_LABEL[args.gate]}   4 CSS tier, same document, same run   '
               f'-- both schemes at {args.scale}x, whole canvas, zoom {zoom}')
     draw.text((GAP, GAP), banner, fill=(230, 230, 230), font=font)
     y = BANNER_H
