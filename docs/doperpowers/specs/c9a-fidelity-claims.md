@@ -13638,3 +13638,127 @@ amplitude — one constant on the material, not the dark patch, since the collap
 scheme-independent (W23 X4) — and the rim's law fitted at the contour on the solid rows of both beds
 and checked off them, landed on the GPU tier with the CSS tier deriving, the bed rebuilt and every
 rim row and floor re-read; 0.12.0 after the landing. G0 dispatched.
+
+### 5.100 W23 G0 CLOSED: the rim read at the contour on every cell of both beds and both probe grids; the law is affine in the surface's own level with the gain's sign opposite in the two schemes (light −0.628, dark +2.334, solved on vitrea's own ladder); the collapsed rim an absolute 0.038 and not the dark rim; the environment term declined on every row; the tinted rows and the 2x rows the two terms the fit did not reach (2026-09-08)
+
+**Evidence** `results/2026-09-08-w23-collapsed-rim/g0/` on G0's branch (`499f7c0`; carried into
+G1): `read-contour.py` and `instrument.txt`, `contour-read.txt`, `collapsed.txt`, `fit-law.txt`
+with `ladder/`, `goldens-attribution.txt`, `width.txt`, `dark-body.txt`, `g0-findings.md`.
+Verified by the parent on the branch: 400 renderer and 444 platform-web unit tests green, lint
+clean, 29 goldens byte-identical at the shipped defaults; the one red is the profile fingerprint
+moving for three inert constants (`f6c54a1ea236447a` → `f067ef07c4512872` light,
+`d86f480c0e136627` → `30696365ef40287a` dark), re-recorded at G1 with the fitted values.
+
+**§1 The instrument (X1).** The contour read as the charter binds, with two things the pixels
+forced: the straight span excludes 1.6 radii (the reference's corner is continuous; on
+`dark-solid__rrect-md` the first row still climbs 0.60 → 0.74 between `r` and `1.5r`, and the read
+converges by 1.5 on every rrect and is flat on every capsule), and the fit's quantity is
+`rimLocal` — the excess over the side's OWN base 2–4 CSS px in — with `rim` against the eroded body
+beside it (on `photo__rrect-md` the four sides read +0.106 / +0.126 / +0.157 / +0.234 against the
+body and +0.150 / +0.151 / +0.147 / +0.060 against their own bases: the spread is the photograph).
+Injection: exact in float (|error| 0.000000000 on every side of seven cases); at 8 bits within
+0.11–0.65 of one code — the charter's "within 0.001" is not reachable on a mid-grey body where one
+code is 0.0059, and the bound is restated (W23 Decision Log 2 (g)). Clipped sides are a declared
+limit. Against the parent's `contour-profile.py`: every solid row within 0.0021; the structured rows
+diverge by up to 0.027 because the parent's read was a 20 px window and this one the whole span.
+
+**§2 The read.** Every cell of the six committed profiles, both tiers, native against the landed
+0.11.0 captures, per side; W21's dark probe grid and W9's light probe grid read the same way. The
+rows that carry the wave (linear, per CSS px, top side): light 1x `dark-solid__rrect-md` +0.2293
+native / +0.0593 web, `impulse__rrect-md` +0.2400 / +0.0613, `mid-dark-solid__capsule-button`
+(holdout, read only) +0.2421 / +0.0715, `light-solid__rrect-md` +0.1002 / +0.0593 both clipped;
+light 2x `dark-solid__rrect-md` +0.2052 / +0.0692; dark 1x `dark-solid__rrect-md` +0.0256 /
++0.0367; the collapsed capsules +0.0201…+0.0204 / 0.0000 in both schemes at both scales. The tinted
+calibration rows, landed: +0.05…+0.07 against the reference's +0.14…+0.21 (uncollapsed) and
++0.0006 against +0.115 on the two tinted capsules over `dark-solid` / `impulse`.
+
+**§3 The collapsed rim.** The cells whose landed rim is exactly 0 on every side:
+`dark-solid__capsule-button` and `impulse__capsule-button`, both schemes, both scales; on the probe
+grids `dark-solid__rrect-sm` (both) and `dark-solid__rrect-lg` (W21's) — and W21's `rrect-md`
+between them does not collapse (a Surprise; read by nothing). The reference's collapsed rim over
+11 cells and 28 sides: mean +0.0189, +0.0196…+0.0204 over `dark-solid`, +0.0149…+0.0168 over
+`impulse` — the spread is the backdrop, not noise. Against the dark material's own rim over the same
+backdrop, +0.0256…+0.0258, it is 0.0068 lower — nine codes — so **the collapsed rim is not the dark
+rim** and the charter's conditional resolves to no. The ladder at `rimCollapsed` 0.05 drew +0.0227
+(1x) / +0.0245 (2x); per-row answers 0.0317…0.0441 (the reference's own spread); the worst
+collapsed side at 0.035 / 0.038 / 0.040 / 0.045: 0.0042 / **0.0031** / 0.0041 / 0.0065. Rendered at
+0.038: collapsed sides 0.0180 → 0.0021 mean, worst 0.0033 (1x) / 0.0029 (2x). The collapsed body is
+not chased: 0.01103 native against 0.01171 web (+1.05 codes) over `dark-solid`, 0.00664 against
+0.00367 (−6.2 codes) over `impulse`. The schemes' fixtures, all fourteen shared scenes: byte-identical
+at 1x for `dark-solid__capsule-button`, `impulse__capsule-button` and
+`dark-solid__capsule-button__rest-tint-orange`; at 2x for the first and the third — the identity
+survives an author tint (X4 holds and is strengthened).
+
+**§4 The law.** Least squares on the reference's own solid, unclipped, uncollapsed sides — 44 in
+light (bodies 0.4287…0.9326), 36 in dark (0.0153…0.1029), both canonical scales and both probe
+grids — mean / max |residual|:
+
+| candidate | light | dark |
+| --- | --- | --- |
+| (L1) additive `c` | 0.0249 / 0.1162 | 0.0253 / 0.0601 |
+| (L2) screen `α(1 − base)` | 0.0168 / 0.0666 | 0.0259 / 0.0644 |
+| (L3) screen + environment | 0.0105 / 0.0228 | 0.0042 / 0.0090 |
+| **(L4) affine `c + m·base`** | **0.0081 / 0.0187** | **0.0013 / 0.0021** |
+| (L4e) affine + environment | 0.0071 / 0.0193 | 0.0010 / 0.0020 |
+
+The reference: light `0.3559 − 0.2752 × base`, dark `0.0130 + 0.9425 × base`. L1 is refuted with the
+structured cells read against their own bases (0.045 mean miss); L2 by the W9 grid's range (slope
+−0.275 against the −0.43 pure screen requires — the two canonical cells at 0.43…0.48 cannot tell
+them apart, which is why §5.99 saw a screen); L3 worse than L4 in both schemes and separated by no
+row on vitrea's side (the `rimEnvGain` +0.10 ladder point moved every solid cell by 0 or 0.0005:
+`light-solid` clips and the dark solids' `out` is 0.0117 or 0). **The canonical bed cannot fit a
+two-constant law:** the light bed leaves two nearly collinear cells (solved alone, 1x gives (0.302,
++0.569) and 2x (0.383, +0.183), the wrong sign), the dark bed one (rank-deficient); the probe grids
+make it fittable (condition 9.7 light, 29.7 dark). Solved on vitrea's own captures — a base at the
+shipped `rimAlpha` for the band weight `W` (0.38…0.46) and one rendered `rimLevelGain` point for
+`W × L` per cell, pooled over 40 / 32 rows: **light `rimAlpha` 0.8440 / `rimLevelGain` −0.6283**
+(mean |d| 0.0250), **dark 0.0265 / +2.3343** (0.0020). Rendered on both beds at both scales and
+both grids, mean |rim − reference| per side landed → fitted: light 1x solids 0.0872 → 0.0164
+(worst 0.168 → 0.033), structured 0.1135 → 0.0462; light 2x solids 0.0618 → 0.0282, structured
+0.0884 → 0.0772; dark 1x solids 0.0110 → 0.0005, structured 0.0397 → 0.0251; dark 2x 0.0143 →
+0.0023; W9 grid 0.1008 → 0.0148; W21 grid 0.0268 → 0.0182. Per cell at 1x: light
+`dark-solid__rrect-md` 0.2294 reference / 0.0682 landed / 0.2266 fitted; `impulse__rrect-md`
+(validation) 0.2449 / 0.0769 / 0.2375; dark `dark-solid__rrect-md` 0.0256 / 0.0367 / 0.0252. The
+single worst row is W21's probe `light-solid__rrect-sm` at +0.1148 — the appearance switch (the
+reference draws its light appearance there), not on the canonical bed.
+
+**§5 What the fit did not reach — the tinted rows and the 2x rows.** At the fitted point the
+tinted calibration rows overshoot: `checkerboard__capsule-button` tint-orange 0.238 against 0.168,
+`photo` tint-blue 0.302 against 0.212, `light-solid` tint-orange 0.192 against 0.141 (landed
+0.05–0.07 on all three); the tinted collapsed cells undershoot: 0.0146 against +0.115 on the two
+tint-orange capsules over `dark-solid` / `impulse` (+0.176 on the holdout tint-blue). Taken by
+Decision Log 2 (c) as a mechanism for G1 — the author tint above the rim, the collapse not folding a
+painted tint's rim. And the width: at 1x over a dark backdrop the two rims are the same one-pixel
+line (row 1 at 8 % of peak against −7 %); at 2x 100 % / 55 % against 100 % / 35 %, and the per-CSS-px
+integral rises 19 % between the scales on vitrea's side while the reference's falls 10 % — with one
+width the fitted law lands 1x at −0.003…−0.007 and 2x at +0.037…+0.051. `rimWidth2x` joins G1
+(Decision Log 2 (d)); §5.99's "69 % / 25 % against 100 % / 56 %" was the 2x reading, corrected
+beside.
+
+**§6 The goldens (X2).** 29 / 29 byte-identical at the shipped defaults with three new constants,
+a re-formed rim line, a fourth uniform vec4 and the CSS mirror's seam. At every ladder point, per
+scene, the largest 8-bit delta outside any contour band is **0** (inside: 25 at `rimLevelGain`
+−0.30, 28 at +0.50; `rimEnvGain` +0.10 and `rimCollapsed` 0.05 move no golden — the harness feeds no
+backdrop tone and no scene collapses; a collapsed golden with a fed tone is G1's, Decision Log 2 (e)).
+
+**§7 The dark bed's body, read beside.** `dark-solid__rrect-md` in dark: 0.01527 native, 0.01299
+web, −2.93 codes at both scales; no scalar separates it from `mid-dark-solid__capsule-button` at
++0.02 of a code (`adaptiveTintDark` named as the constant a body wave would fit). The dark thin
+cells over structured backdrops: −16.05 codes (`checkerboard__capsule-button`) and −19.05
+(`photo__capsule-button`) — the appearance switch with a number in this instrument's units for the
+first time; in the tracker.
+
+**§8 The CSS mirror's reach.** The amplitude law and the collapsed floor are group constants the
+tier already knows (`materialLuminance`, the backdrop's luminance) and its inset white shadow is
+source-over — the right form; `interiorBandLight` must take the law's amplitude too or the derived
+interior drifts. It cannot carry the band's shape (the 2x width) or a per-pixel level over a
+structured backdrop — the tint shade's approximation, gated by `tier-coherence`; a CSS-only
+residual to record.
+
+**Gaps the metrics do not catch, with numbers** (G0 §f): the 2x width (+0.05, 20 % of band);
+`light-solid`'s second row (53 % against −6 %, unreadable once the first row clips); the environment
+term real in the reference and unmeasurable on this bed; the light bed's two fittable solids; the
+`toneColour.w` feed at 0 on some groups (G1 verifies, Decision Log 2 (f)); the dark scheme's
+`light-solid__rrect-sm` on the probe grid 0.115 worse under the fitted dark law (the appearance
+switch).
+
