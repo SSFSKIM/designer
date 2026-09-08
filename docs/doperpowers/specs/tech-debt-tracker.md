@@ -469,6 +469,13 @@ A cold `npm install` of the three at 08:49:01Z failed with `notarget` on `@vitre
 and passed at 08:49:33Z. Six cuts; the fix above is unchanged in shape and remains the parent's
 recommendation for the next cut, the user's call.
 
+**Seventh occurrence, the 0.10.0 cut (2026-09-08):** the same shape, the narrowest yet —
+`@vitreajs/vitrea-web@0.10.0` at 01:19:42Z and `@vitreajs/vitrea-react@0.10.0` at 01:19:44Z,
+`@vitreajs/vitrea@0.10.0` at 01:20:35Z (registry `time`): 53 s against 70, 73, 248, 267, 246
+and 124. No install was attempted inside the window; the cold install after all three were
+listed passed. Seven cuts; the fix above is unchanged in shape and remains the parent's
+recommendation for the next cut, the user's call.
+
 ## The CSS tier's captures move by a code between runs on two 2x cells (W15 G2, W16 G2, 2026-09-04)
 
 *Found at W15's landing (one cell), confirmed at W16's.* Re-capturing the CSS tier from an
