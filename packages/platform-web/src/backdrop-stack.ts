@@ -34,6 +34,15 @@
  * does, and the reason this is a mechanism rather than a level: nothing here
  * carries a number of its own.
  *
+ * **The author's tint is part of what the surface draws, so it is part of what a
+ * group above it samples.** W10's composition contract puts the author's layer
+ * last — the seed at its shade, opaque, at the author's opacity, composited over
+ * the converted material in the ENCODED space, which is what a `CALayer` with
+ * `opacity` does and what both tiers draw. So the layer is applied here in that
+ * space, after the material's affine and not folded into it. Without it a
+ * full-strength red base published the same achromatic tone as an untinted one and
+ * the pane above it adapted to a colour and a level that were on nobody's screen.
+ *
  * The one place the affine is not the whole answer is W9's split between the
  * tone's two spaces. The tone COLOUR and `linearLuminance` are linear means and
  * the affine carries them exactly. The tone LEVEL is the backdrop's ENCODED-space
@@ -105,10 +114,41 @@ import type { BackdropToneSample } from "./backdrop-tone";
 export interface PaintedSurface {
   readonly plane: GlassPlane;
   readonly order: number;
-  /** The surface's measured border box, viewport CSS px. */
+  /**
+   * The surface's VISIBLE extent, viewport CSS px — its measured border box
+   * reduced to the windows its clipping ancestors let through.
+   *
+   * Visible and not measured, for the same reason `ProxyGeometry.clipUnion` is
+   * (Decision Log #41(k)): a host's border box is reported unclipped, so a
+   * surface scrolled out of an `overflow: scroll` ancestor still has a full-size
+   * box while painting nothing at all. A backdrop is what a group above actually
+   * looks through to, and a surface that is not on the screen is not one.
+   */
   readonly bounds: Rect;
   readonly tone: BackdropToneSample;
 }
+
+/**
+ * The author's tint as the tier draws it: the seed at its shade, in encoded
+ * channels 0..255, at the author's opacity.
+ *
+ * `authorTintLayer`'s return shape, restated structurally rather than imported,
+ * so this module keeps its one dependency on `css-tier`'s vocabulary.
+ */
+export interface AuthorTintLayer {
+  readonly color: readonly [number, number, number];
+  readonly strength: number;
+}
+
+const srgbEncode = (linear: number): number => {
+  const clamped = Math.min(1, Math.max(0, linear));
+  return clamped <= 0.0031308 ? 12.92 * clamped : 1.055 * Math.pow(clamped, 1 / 2.4) - 0.055;
+};
+
+const srgbDecode = (encoded: number): number => {
+  const clamped = Math.min(1, Math.max(0, encoded));
+  return clamped <= 0.04045 ? clamped / 12.92 : Math.pow((clamped + 0.055) / 1.055, 2.4);
+};
 
 /**
  * Containment, on rects that both have extent.
@@ -129,26 +169,45 @@ const contains = (outer: Rect, inner: Rect): boolean =>
   inner.y + inner.height <= outer.y + outer.height;
 
 /**
- * The tone a surface with this interior renders at, over a backdrop with this
- * tone — the renderer's own composite, applied to the tone sample's colour.
+ * The tone a surface with this interior and this author tint renders at, over a
+ * backdrop with this tone — the renderer's own composite, applied to the tone
+ * sample's colour.
  *
- * The colour and the linear mean take the affine exactly; the level is the linear
+ * Two steps, in the two spaces the composition contract puts them in: the
+ * material's affine in linear light, then the author's layer as an encoded lerp
+ * over it. The colour and the linear mean follow exactly; the level is the linear
  * mean, for the reason the module comment gives and with the residual it names.
  */
 export function compositeToneOver(
   interior: CssTierInterior,
   tone: BackdropToneSample,
+  author?: AuthorTintLayer,
 ): BackdropToneSample {
   const alpha = Math.min(1, Math.max(0, interior.tintAlpha));
   const transmission = 1 - alpha;
   const composite = (backdrop: number, tint: number): number =>
     transmission * backdrop + alpha * tint + interior.addedLight;
 
-  const rgb: readonly [number, number, number] = [
+  const material: readonly [number, number, number] = [
     composite(tone.rgb[0], interior.tint[0]),
     composite(tone.rgb[1], interior.tint[1]),
     composite(tone.rgb[2], interior.tint[2]),
   ];
+
+  // `(1 − s)·material + s·layer`, encoded — the space the author's layer
+  // composites in on both tiers. At strength 0 the round trip through the
+  // transfer is the identity to the last bit the transfer is invertible in, and
+  // the branch keeps it exactly so rather than nearly so.
+  const strength = author === undefined ? 0 : Math.min(1, Math.max(0, author.strength));
+  const rgb: readonly [number, number, number] =
+    author === undefined || strength <= 0
+      ? material
+      : [
+          srgbDecode((1 - strength) * srgbEncode(material[0]) + strength * (author.color[0] / 255)),
+          srgbDecode((1 - strength) * srgbEncode(material[1]) + strength * (author.color[1] / 255)),
+          srgbDecode((1 - strength) * srgbEncode(material[2]) + strength * (author.color[2] / 255)),
+        ];
+
   const linearLuminance = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
   return { rgb, linearLuminance, luminance: linearLuminance };
 }

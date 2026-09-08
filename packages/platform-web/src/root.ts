@@ -34,6 +34,7 @@ import {
   createGlassScene,
   resolveGlassGroupState,
   resolveMaterial,
+  clipRect,
   unionRect,
   GLASS_PLANES,
   type AccessibilityOverrides,
@@ -1709,7 +1710,12 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
        */
       const stackedTone = (): BackdropToneSample | undefined => {
         if (state.samplingBackend !== "css-backdrop" || measured.length === 0) return undefined;
-        const footprint = measured.map((entry) => entry.bounds).reduce(unionRect);
+        // The group's own VISIBLE footprint, on the same rule the painted side
+        // uses: the part of this group an ancestor is not cropping away is the
+        // part that has to be standing on something.
+        const footprint = measured
+          .map((entry) => clipRect(entry.bounds, scene.glassNode(entry.record.nodeId)?.clip))
+          .reduce(unionRect);
         let backPlane: GlassPlane = "overlay";
         for (const plane of planesMeasured) {
           if (GLASS_PLANES.indexOf(plane) < GLASS_PLANES.indexOf(backPlane)) backPlane = plane;
@@ -2066,24 +2072,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           tint: [shadowedSource.tint[0], shadowedSource.tint[1], shadowedSource.tint[2]],
           addedLight: interiorBandLight(bandSource, interiorGeometry, present, interiorLight),
         };
-        /*
-         * What this surface renders at, published for any group stacked on top
-         * of it (W22 G3). `interior` is the renderer's own composite —
-         * `cssTierCompositeLevel`'s subject — so pushing the group's backdrop
-         * tone through it is the surface's output tone.
-         *
-         * Only where a backdrop was measured. A surface over a page nobody
-         * measured has no output level to state, and stating one would be the
-         * guess this file refuses two rules above.
-         */
-        if (backdropTone !== undefined) {
-          painted.push({
-            plane: record.plane,
-            order: record.order,
-            bounds,
-            tone: compositeToneOver(interior, backdropTone),
-          });
-        }
         // The material the shade is read off is the one the tier draws — the
         // occlusion regime's lift, the size law's thickening and the inner
         // shadow are all part of it (the increased-contrast reference is at
@@ -2100,6 +2088,37 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           tintGrip,
           tintShade,
         );
+        /*
+         * What this surface renders at, published for any group stacked on top
+         * of it (W22 G3). `interior` is the renderer's own composite —
+         * `cssTierCompositeLevel`'s subject — and the author's layer goes over it
+         * in the encoded space W10's contract puts it in, so the pair is the
+         * surface's output tone.
+         *
+         * **After the author's layer and not before it.** The tint is the last
+         * step of the composition contract and it is opaque at full strength, so
+         * a group above a red platter samples red; publishing `interior` alone
+         * handed it the untinted material's achromatic tone and let it adapt to a
+         * colour nothing on the screen had.
+         *
+         * The footprint is the surface's VISIBLE extent — the measured box
+         * reduced by the clip windows the read phase carried alongside it
+         * (Decision Log #41(k)). A host scrolled out of its scroller still
+         * reports a full-size border box while painting nothing, and a backdrop
+         * that is not on the screen is not a backdrop.
+         *
+         * Only where a backdrop was measured. A surface over a page nobody
+         * measured has no output level to state, and stating one would be the
+         * guess this file refuses two rules above.
+         */
+        if (backdropTone !== undefined) {
+          painted.push({
+            plane: record.plane,
+            order: record.order,
+            bounds: clipRect(bounds, scene.glassNode(record.nodeId)?.clip),
+            tone: compositeToneOver(interior, backdropTone, authorLayer),
+          });
+        }
         // Always through the conversion now, where a group with no measured
         // backdrop used to short-circuit to the statically converted `baseOptics`:
         // the size law's occlusion is inside the source's alpha since W17 G1, so

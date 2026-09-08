@@ -325,7 +325,72 @@ moved. The isolation spec's pinned hashes stand.
 
 ---
 
-## 7. The chain
+## 7. Review fix wave (2026-09-08)
+
+An independent review of the branch against `516f71f` returned two P2 findings, both reproduced
+against the runtime with in-memory root probes. Both are real, both are about the same thing — the
+published tone has to be **what a group above would actually sample**, and the first version
+published something narrower than that twice. Both are fixed, both carry a test that fails against
+the pre-fix code, and neither moves a number on the calibration bed.
+
+### 7.1 The published tone ignored the author's tint
+
+`interior` describes the **untinted** material; `authorTintLayer` is computed after it and never
+entered `compositeToneOver`. So a full-strength red base published the same achromatic tone as an
+untinted one, and the pane above it adapted, on both tiers, to a colour and a level that were on
+nobody's screen.
+
+W10's composition contract puts the author's layer last — the seed at its shade, opaque, at the
+author's opacity, composited over the converted material in the ENCODED space, which is what a
+`CALayer` with `opacity` does and what both tiers draw. `compositeToneOver` now takes that layer and
+applies it in that space, after the material's affine and not folded into it; `root.ts` publishes the
+surface after the layer is resolved rather than before. At strength zero, and where there is no
+layer, the result is the identity by branch rather than by round trip.
+
+**Tests** (`backdrop-stack.test.ts`): three on the arithmetic — the identity at zero strength and at
+no layer; a full-strength red layer publishing red (`rgb` (1, 0, 0), `linearLuminance` 0.2126)
+rather than the material's grey; and a half-strength layer moving the colour and the level together
+in the encoded lerp. One at the root — two stacks built to the bed's own geometry, one with a
+`#ff0000` base and one without, asserting the overlay's handed tone is achromatic in the first and
+red by more than 0.2 of a channel in the second, with a level that moved with it.
+
+### 7.2 Containment was tested on the unclipped border box
+
+A host's border box is reported **unclipped** — Decision Log #41(k)'s own point, and the reason
+`ProxyGeometry.clipUnion` is documented as the *visible* extent rather than the measured one. So a
+base scrolled out of an `overflow` ancestor kept a full-size box while painting nothing, satisfied
+containment, and handed its tone to the overlay.
+
+Both sides of the test now use the visible extent: a painted surface publishes
+`clipRect(bounds, node.clip)`, and the querying group's footprint is the union of its members'
+clipped rects on the same rule. A fully cropped surface reduces to no extent, and `contains` already
+refuses a rect without extent on either side — so the hidden case falls out of the rule rather than
+needing a second one.
+
+**Tests** (`backdrop-stack.test.ts`, at the root, with a real `overflow: hidden` ancestor so the clip
+travels the chain the runtime reads it on): a base cropped away entirely → the overlay is handed
+nothing; a base cropped back so the overlay's footprint is no longer inside what is left → nothing;
+and the control, a crop that trims only margin the overlay does not stand on → the tone still
+arrives.
+
+### 7.3 Re-verification
+
+| step | result |
+| --- | --- |
+| `pnpm -r build`, `pnpm -r lint`, `pnpm -r test` | clean; `backdrop-stack.test.ts` now 18 cases |
+| the three new root cases against the pre-fix code | **3 failed / 15 passed** — the fail-before record |
+| `pnpm --filter @vitrea/renderer-webgpu test:golden` | **29 / 29 byte-identical** |
+| `platform-web` Playwright, `chromium` + `chromium-gpu` | **150 passed** |
+| byte-identity, `--set calibration,validation`, four profiles, webgpu, `--alpha` | **144 / 144**, 0 moved |
+| the two `glass-over-glass` cells re-read, web side only | **every figure in §4 reproduced to four decimals** |
+
+The bed carries no tinted stack and no clipped stack, so neither fix can reach a committed capture,
+and neither did: `stack-web.txt`, `byte-identity.txt` and `base-stats.txt` are unchanged by this
+wave, and only `digests.txt` moved — on its timestamp line.
+
+---
+
+## 8. The chain
 
 | step | result |
 | --- | --- |

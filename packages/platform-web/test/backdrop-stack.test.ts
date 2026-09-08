@@ -76,13 +76,23 @@ const stubCanvasContexts = (): void => {
   };
 };
 
+interface StackOptions {
+  /** The author tint on the BASE group, as `registerHost` parses it. */
+  readonly baseTint?: string;
+  /**
+   * A clipping ancestor's window around the base host, as the read phase would
+   * measure it. jsdom lays nothing out, so the scroller is a box like any other.
+   */
+  readonly baseClip?: Rect;
+}
+
 /**
  * A root drawing the calibration bed's stacked scene: a base surface over a
  * declared backdrop, and a DOM-sampling overlay sitting inside it on the overlay
  * plane. The geometry is `glass-over-glass`'s own — base 220 × 130 at (50, 35),
  * overlay 120 × 56 at (100, 64).
  */
-function stackedRoot(overlayBox: Rect): GlassRoot {
+function stackedRoot(overlayBox: Rect, options: StackOptions = {}): GlassRoot {
   stubCanvasContexts();
   const container = document.createElement("div");
   document.body.append(container);
@@ -104,8 +114,23 @@ function stackedRoot(overlayBox: Rect): GlassRoot {
   instance.registerGroup({ id: "over" });
 
   const baseHost = boxed(document.createElement("div"), { x: 50, y: 35, width: 220, height: 130 });
-  instance.plane("base").hostLayer.append(baseHost);
-  instance.registerHost({ host: baseHost, groupId: "base", plane: "base", nodeId: "base" });
+  // A real clipping ancestor, so the clip travels the path the runtime reads it
+  // on (`geometry-sync.ts`'s chain) rather than being written onto the node.
+  const scroller = options.baseClip === undefined ? undefined : boxed(document.createElement("div"), options.baseClip);
+  if (scroller !== undefined) {
+    scroller.style.overflow = "hidden";
+    instance.plane("base").hostLayer.append(scroller);
+    scroller.append(baseHost);
+  } else {
+    instance.plane("base").hostLayer.append(baseHost);
+  }
+  instance.registerHost({
+    host: baseHost,
+    groupId: "base",
+    plane: "base",
+    nodeId: "base",
+    ...(options.baseTint === undefined ? {} : { tint: options.baseTint }),
+  });
 
   const overHost = boxed(document.createElement("div"), overlayBox);
   instance.plane("overlay").hostLayer.append(overHost);
@@ -116,6 +141,12 @@ function stackedRoot(overlayBox: Rect): GlassRoot {
 
 const toneOf = (instance: GlassRoot, groupId: string): number | undefined =>
   instance.renderInput()?.groups.find((entry) => entry.groupId === groupId)?.backdropToneLevel;
+
+const toneRgbOf = (
+  instance: GlassRoot,
+  groupId: string,
+): readonly [number, number, number] | undefined =>
+  instance.renderInput()?.groups.find((entry) => entry.groupId === groupId)?.backdropTone;
 
 beforeEach(() => {
   (globalThis as { ResizeObserver?: unknown }).ResizeObserver = StubResizeObserver;
@@ -166,6 +197,44 @@ describe("the tone a surface renders at (W22 G3)", () => {
     // together, which is what the capture reads: the base pane's own body is
     // 0.002 to 0.005 apart in both schemes because the material flattened it.
     expect(output.luminance).toBe(output.linearLuminance);
+  });
+});
+
+describe("the author's tint is part of what the surface renders (W22 G3, review)", () => {
+  const untinted = { tintAlpha: 0.5, tint: [1, 1, 1] as const, addedLight: 0 };
+
+  it("is the identity at zero strength, and at no layer at all", () => {
+    const bare = compositeToneOver(untinted, checkerboard);
+    expect(compositeToneOver(untinted, checkerboard, { color: [255, 0, 0], strength: 0 })).toEqual(
+      bare,
+    );
+  });
+
+  it("hands a group above an opaque tint the tint's own colour", () => {
+    // W10's contract: the author's layer is opaque at full strength, so what is
+    // above a full-strength red platter is looking at red. Publishing the
+    // untinted material here was the whole of the review's first finding.
+    const output = compositeToneOver(untinted, checkerboard, {
+      color: [255, 0, 0],
+      strength: 1,
+    });
+    expect(output.rgb[0]).toBeCloseTo(1, 6);
+    expect(output.rgb[1]).toBeCloseTo(0, 6);
+    expect(output.rgb[2]).toBeCloseTo(0, 6);
+    expect(output.linearLuminance).toBeCloseTo(0.2126, 6);
+  });
+
+  it("moves the colour and the level together at half strength", () => {
+    const bare = compositeToneOver(untinted, checkerboard);
+    const tinted = compositeToneOver(untinted, checkerboard, {
+      color: [255, 0, 0],
+      strength: 0.5,
+    });
+    // The lerp is encoded, which is the space both tiers composite the layer in.
+    expect(tinted.rgb[0]).toBeGreaterThan(bare.rgb[0]);
+    expect(tinted.rgb[2]).toBeLessThan(bare.rgb[2]);
+    expect(tinted.linearLuminance).not.toBeCloseTo(bare.linearLuminance, 3);
+    expect(tinted.luminance).toBe(tinted.linearLuminance);
   });
 });
 
@@ -259,5 +328,71 @@ describe("the root hands a stacked group the glass beneath it (W22 G3)", () => {
     instance.runFrame(16);
 
     expect(toneOf(instance, "over")).toBeUndefined();
+  });
+
+  it("carries the base's author tint into the tone the overlay is handed", async () => {
+    // The review's first finding, at the root: a full-strength red base and an
+    // untinted one published the same achromatic tone, so the overlay adapted to
+    // a colour nothing on the screen had.
+    const overlay = { x: 100, y: 64, width: 120, height: 56 };
+    const plain = stackedRoot(overlay);
+    await plain.ready();
+    plain.runFrame(16);
+
+    const tinted = stackedRoot(overlay, { baseTint: "#ff0000" });
+    await tinted.ready();
+    tinted.runFrame(16);
+
+    const plainTone = toneRgbOf(plain, "over");
+    const tintedTone = toneRgbOf(tinted, "over");
+    expect(plainTone).toBeDefined();
+    expect(tintedTone).toBeDefined();
+    if (plainTone === undefined || tintedTone === undefined) return;
+
+    // Achromatic before, red after — the tint's own hue, and a level that moved
+    // with it rather than staying where the untinted material left it.
+    expect(plainTone[0]).toBeCloseTo(plainTone[2], 6);
+    expect(tintedTone[0]).toBeGreaterThan(tintedTone[2] + 0.2);
+    expect(toneOf(tinted, "over")).not.toBeCloseTo(toneOf(plain, "over") ?? -1, 3);
+  });
+
+  it("refuses a base its ancestors have cropped away entirely", async () => {
+    // The review's second finding: the border box is reported unclipped, so a
+    // base scrolled out of its scroller still had a full-size box while painting
+    // nothing at all.
+    const instance = stackedRoot(
+      { x: 100, y: 64, width: 120, height: 56 },
+      { baseClip: { x: 600, y: 600, width: 200, height: 200 } },
+    );
+    await instance.ready();
+    instance.runFrame(16);
+
+    expect(toneOf(instance, "over")).toBeUndefined();
+  });
+
+  it("refuses a base cropped back off the overlay's footprint", async () => {
+    // Half the base is still on screen, and the overlay is no longer inside the
+    // half that is.
+    const instance = stackedRoot(
+      { x: 100, y: 64, width: 120, height: 56 },
+      { baseClip: { x: 50, y: 35, width: 60, height: 130 } },
+    );
+    await instance.ready();
+    instance.runFrame(16);
+
+    expect(toneOf(instance, "over")).toBeUndefined();
+  });
+
+  it("keeps a base whose crop still carries the whole footprint", async () => {
+    // The control: a clip that trims the base's right-hand margin and nothing the
+    // overlay stands on must not stand the adaptation down.
+    const instance = stackedRoot(
+      { x: 100, y: 64, width: 120, height: 56 },
+      { baseClip: { x: 50, y: 35, width: 200, height: 130 } },
+    );
+    await instance.ready();
+    instance.runFrame(16);
+
+    expect(toneOf(instance, "over")).toBeDefined();
   });
 });
