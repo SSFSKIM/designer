@@ -110,6 +110,24 @@ export interface GroupReport {
   readonly probeVerdict: string | undefined;
   /** The layer pair an unsampled GPU-tier group composited at (W11a); `null` where none. */
   readonly unsampledMaterial: UnsampledMaterial | null;
+  /**
+   * The backdrop tone this group was actually handed, or `null` where it was
+   * handed none (W22 G3).
+   *
+   * The same honesty rule the rest of this record follows. The backdrop level is
+   * the single largest input to the material — every tone-adaptation term and the
+   * whole W9 response law key on it — and until this field existed a capture said
+   * what a group *drew* but not what it was drawing *over*, so a group handed no
+   * backdrop at all looked exactly like a group whose response law had missed.
+   * That is precisely how a stacked scene's overlay came to be read as a material
+   * error for three waves.
+   */
+  readonly backdropTone: {
+    /** The encoded-space mean, decoded — the response law's input (W9). */
+    readonly level: number;
+    readonly linearLuminance: number;
+    readonly rgb: readonly [number, number, number];
+  } | null;
 }
 
 export interface SurfaceReport {
@@ -638,6 +656,16 @@ async function build(): Promise<SceneReport> {
     return undefined;
   };
 
+  const backdropToneOf = (groupId: string): GroupReport["backdropTone"] => {
+    const entry = root.renderInput()?.groups.find((candidate) => candidate.groupId === groupId);
+    if (entry?.backdropTone === undefined || entry.backdropToneLevel === undefined) return null;
+    return {
+      level: entry.backdropToneLevel,
+      linearLuminance: entry.backdropToneLinearLuminance ?? entry.backdropToneLevel,
+      rgb: entry.backdropTone,
+    };
+  };
+
   const groups: GroupReport[] = placed.groups.map((group) => ({
     id: group.id,
     configuredSource: group.source,
@@ -651,6 +679,7 @@ async function build(): Promise<SceneReport> {
     unsampledMaterial:
       root.renderInput()?.groups.find((entry) => entry.groupId === group.id)?.unsampledMaterial ??
       null,
+    backdropTone: backdropToneOf(group.id),
   }));
 
   // The one thing a capture may not do: claim a renderer it did not get. The

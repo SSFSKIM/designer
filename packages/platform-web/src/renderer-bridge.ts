@@ -311,11 +311,21 @@ export function toRendererGroups(
             ? { unsampledMaterial: group.unsampledMaterial }
             : {}),
           // The backdrop's own average colour (W7), measured once on this side so
-          // both tiers adapt onto the same tone by the same amount. Forwarded only
-          // where the group is actually sampling that source: a group with no
-          // backdrop has no tone to take. The linear mean rides along as the
-          // denominator of the W9 correction ratio (claims §5.31).
-          ...(sampled && group.backdropTone !== undefined
+          // both tiers adapt onto the same tone by the same amount. The linear
+          // mean rides along as the denominator of the W9 correction ratio
+          // (claims §5.31).
+          //
+          // Forwarded wherever the host MEASURED one, which since W22 G3 is no
+          // longer the same set as the groups binding a source: a group stacked
+          // over other glass takes its backdrop from the surface underneath it
+          // (`backdrop-stack.ts`) and composites its material as a layer over a
+          // proxy carrying exactly that tone. Gating on `sampled` here read
+          // "there is a texture bound" as "there is a backdrop", and left the
+          // nested pane's overlay drawing an unadapted body — 0.0493 of linear
+          // luminance where the law at its own backdrop gives 0.0245 (claims
+          // §5.94 §5). The condition that means what the comment says is the
+          // measurement's own presence.
+          ...(group.backdropTone !== undefined
             ? {
                 backdropTone: group.backdropTone,
                 ...(group.backdropToneLevel === undefined

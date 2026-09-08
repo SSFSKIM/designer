@@ -670,15 +670,22 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * 'sizeK' is still per pixel, so a container holding a small control and a large
    * platter adapts each of them by its own thickness out of one pass.
    *
-   * Strength is zero where the host measured no tone, and the whole axis stands
-   * down where there is no backdrop at all rather than reading the zero vector as
-   * a black backdrop and dissolving the surface into nothing.
+   * Strength is zero where the host measured no tone, and that strength is the
+   * WHOLE gate (W22 G3). It used to be read together with 'hasBackdrop', because
+   * a group with no pyramid to sample had no measured tone either and the pair
+   * said one thing twice — until a group stacked over other glass acquired a
+   * backdrop the host can state without a texture to sample ('backdrop-stack.ts').
+   * The concern the flag stood in for is the zero vector being read as a black
+   * backdrop, and 'toneAdapt.w' answers exactly that: it is zero wherever nothing
+   * was measured, and zero wherever the policy has stood the axis down. Reading
+   * the flag as well is what left a nested pane drawing its unadapted body over
+   * glass it had measured — 0.0493 against the law's 0.0245 (claims 5.94 section 5).
    *
    * Written out instead of calling smoothstep() so that a profile patched with
    * low >= high degrades to a step rather than to NaN.
    */
   var toneAdapt = 0.0;
-  if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0) {
+  if (ou.toneAdapt.w > 0.0) {
     let toneX = ou.toneColour.w + ou.toneAdapt.z * sizeK;
     let toneT = clamp(
       (toneX - ou.toneAdapt.x) / max(ou.toneAdapt.y - ou.toneAdapt.x, 1e-6),
@@ -711,6 +718,11 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * measured response. Chroma is untouched — the shift is achromatic — and
    * the author tint still displaces the result per the composition contract.
    *
+   * The solve reads the backdrop as 'toneAnchor.w' — the group's own linear mean
+   * — and never as the per-pixel sample, so it is the same closed form whether
+   * this pass composites the backdrop itself or writes a layer for the browser to
+   * composite over a proxy carrying the same mean (W22 G3).
+   *
    * Three stand-downs, each measured rather than defensive: the whole axis is
    * off where no backdrop tone was measured (same gate as the collapse); the
    * solve's authority fades to zero below the dark anchor, where the only
@@ -720,7 +732,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   var solvedNeutral = neutral;
   var solvedAlpha = sizedAlpha;
-  if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0 && ou.toneRowThin.w > 0.0 &&
+  if (ou.toneAdapt.w > 0.0 && ou.toneRowThin.w > 0.0 &&
       sizedAlpha > 1e-3 && toneAdapt < 0.995) {
     let encodedInput = srgb_encode(ou.toneColour.w);
     let anchor = max(ou.toneAnchor.x, 1e-4);

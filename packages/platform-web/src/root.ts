@@ -34,6 +34,9 @@ import {
   createGlassScene,
   resolveGlassGroupState,
   resolveMaterial,
+  clipRect,
+  unionRect,
+  GLASS_PLANES,
   type AccessibilityOverrides,
   type BackdropSourceDescriptor,
   type FrameInfo,
@@ -56,6 +59,7 @@ import {
 } from "@vitreajs/vitrea";
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
+import { compositeToneOver, toneBeneath, type PaintedSurface } from "./backdrop-stack";
 import { readHostChannels, type SurfaceChannelValues } from "./channels";
 import {
   colorSchemeMaterialProfile,
@@ -1550,6 +1554,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
+    /**
+     * Every surface resolved so far this frame, with the tone it RENDERS at —
+     * what a group stacked on top of it is sampling (W22 G3, `backdrop-stack.ts`).
+     *
+     * Frame-scoped, because every quantity in it is: a surface's output moves
+     * with its backdrop, its size and the accessibility policy, and a tone
+     * carried over from the previous frame would be one frame of glass behind
+     * the glass it is standing on.
+     */
+    const painted: PaintedSurface[] = [];
     const nodesByPlane = new Map<GlassPlane, GlassNodeRenderInput[]>();
     /**
      * Every group with something measured, and *every* plane its proxies belong
@@ -1558,7 +1572,33 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     const auditablePlanes = new Map<string, Set<GlassPlane>>();
 
-    for (const resolved of resolution.groups) {
+    /*
+     * The groups in BACK-TO-FRONT plane order, so that a group stacked over
+     * another has the surface beneath it already resolved when its own backdrop
+     * is decided (W22 G3).
+     *
+     * Keyed on the plane alone, and stable within it. §Geometry's X1 forbids two
+     * overlapping nodes in one plane, so a stack is two planes by law and the
+     * order within a plane can say nothing about what is under what; keeping
+     * registration order there is what leaves every single-plane page — which is
+     * every page that is not a stack — resolving in exactly the sequence it
+     * always did. A group with nothing measured paints nothing and sorts first.
+     */
+    const backPlaneOf = (groupId: string): number => {
+      let index = Number.POSITIVE_INFINITY;
+      for (const record of hosts.values()) {
+        if (record.groupId !== groupId) continue;
+        if (scene.glassNode(record.nodeId)?.bounds === undefined) continue;
+        index = Math.min(index, GLASS_PLANES.indexOf(record.plane));
+      }
+      return Number.isFinite(index) ? index : -1;
+    };
+    const orderedGroups = resolution.groups
+      .map((resolved, index) => ({ resolved, index, plane: backPlaneOf(resolved.groupId) }))
+      .sort((a, b) => a.plane - b.plane || a.index - b.index)
+      .map((entry) => entry.resolved);
+
+    for (const resolved of orderedGroups) {
       const groupId = resolved.groupId;
       const groupRecord = scene.glassGroup(groupId);
       if (groupRecord === undefined) continue;
@@ -1655,9 +1695,36 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             (declaredHint.tone === "dark" || declaredHint.tone === "light"
               ? cssMapping.toneLuminance[declaredHint.tone]
               : undefined));
+      /*
+       * The third statement, between the app's pixels and nothing: **the glass
+       * this group is standing on** (W22 G3; `backdrop-stack.ts`).
+       *
+       * A group that samples the DOM has no texture to read, so the two rules
+       * above leave it unadapted — correct over a page vitrea has not measured,
+       * and wrong over a surface vitrea drew itself, whose output is a closed
+       * form of quantities already resolved this frame. Reached only from the
+       * `css-backdrop` backend, which is exactly the group whose pixels come from
+       * the page rather than from a texture, and only where one already-painted
+       * surface carries this group's whole footprint. It is still not a guess:
+       * where nothing underneath answers, nothing is adapted.
+       */
+      const stackedTone = (): BackdropToneSample | undefined => {
+        if (state.samplingBackend !== "css-backdrop" || measured.length === 0) return undefined;
+        // The group's own VISIBLE footprint, on the same rule the painted side
+        // uses: the part of this group an ancestor is not cropping away is the
+        // part that has to be standing on something.
+        const footprint = measured
+          .map((entry) => clipRect(entry.bounds, scene.glassNode(entry.record.nodeId)?.clip))
+          .reduce(unionRect);
+        let backPlane: GlassPlane = "overlay";
+        for (const plane of planesMeasured) {
+          if (GLASS_PLANES.indexOf(plane) < GLASS_PLANES.indexOf(backPlane)) backPlane = plane;
+        }
+        return toneBeneath(footprint, backPlane, painted);
+      };
       const backdropTone: BackdropToneSample | undefined =
         declaredLuminance === undefined
-          ? backdropToneFor(groupRecord.descriptor.backdropSourceId)
+          ? (backdropToneFor(groupRecord.descriptor.backdropSourceId) ?? stackedTone())
           : {
               rgb: [declaredLuminance, declaredLuminance, declaredLuminance],
               luminance: declaredLuminance,
@@ -2021,6 +2088,37 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           tintGrip,
           tintShade,
         );
+        /*
+         * What this surface renders at, published for any group stacked on top
+         * of it (W22 G3). `interior` is the renderer's own composite —
+         * `cssTierCompositeLevel`'s subject — and the author's layer goes over it
+         * in the encoded space W10's contract puts it in, so the pair is the
+         * surface's output tone.
+         *
+         * **After the author's layer and not before it.** The tint is the last
+         * step of the composition contract and it is opaque at full strength, so
+         * a group above a red platter samples red; publishing `interior` alone
+         * handed it the untinted material's achromatic tone and let it adapt to a
+         * colour nothing on the screen had.
+         *
+         * The footprint is the surface's VISIBLE extent — the measured box
+         * reduced by the clip windows the read phase carried alongside it
+         * (Decision Log #41(k)). A host scrolled out of its scroller still
+         * reports a full-size border box while painting nothing, and a backdrop
+         * that is not on the screen is not a backdrop.
+         *
+         * Only where a backdrop was measured. A surface over a page nobody
+         * measured has no output level to state, and stating one would be the
+         * guess this file refuses two rules above.
+         */
+        if (backdropTone !== undefined) {
+          painted.push({
+            plane: record.plane,
+            order: record.order,
+            bounds: clipRect(bounds, scene.glassNode(record.nodeId)?.clip),
+            tone: compositeToneOver(interior, backdropTone, authorLayer),
+          });
+        }
         // Always through the conversion now, where a group with no measured
         // backdrop used to short-circuit to the statically converted `baseOptics`:
         // the size law's occlusion is inside the source's alpha since W17 G1, so
