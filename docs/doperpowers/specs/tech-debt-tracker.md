@@ -740,3 +740,27 @@ that trusts `capture.sh probe` alone stops for nothing; the README's "grant Scre
 re-run" instruction is right for the bundle and misleading for the shell path. Shape of the fix:
 `capture.sh probe` launches the bundle through `open` as `capture` does, or the README says which
 path the answer is for. Owner: the harness; not this wave's code.
+
+## The light material's rim over a dark backdrop is too dim by 0.05–0.11 — the collapsed rim, read in light (W22 G0, 2026-09-08)
+
+*Found when the resting sweep's band came off the left side and the light bed was read per side for
+the first time (claims §5.94 §3).* `dark-solid__rrect-md` under the light profile misses W22
+clause 2 on three sides at 1x and four at 2x, worst −0.093 / −0.088 on the bottom: the reference
+keeps a bright rim where the light material collapses onto a near-black backdrop and vitrea's
+collapse folds the rim out with the body (W7). `rimAlpha`'s rows on that cell demand 2.4–2.9, so no
+admissible value of the ambient rim reaches it; W21 deferred the same term at +0.017 in the dark
+scheme ("the collapsed rim"). Shape of the fix: a rim that survives the collapse — the reference's
+rim under collapse read against the un-collapsed rim on both beds, one fraction if it is one. Not
+created by the sweep gate; hidden under the band until W22.
+
+## The overlay group of a stacked scene is handed a backdrop 2.9× its base pane's output (W22 G0, 2026-09-08; taken as W22 G3)
+
+*Found by the user's eye on the W21 landing sheet — "Apple's topmost glass is noticeably darker
+than ours" — and measured at claims §5.94 §5.* The shipped dark response law evaluated at the
+overlay's true backdrop (the base pane's measured body, 0.0470 linear) gives 0.0245 against the
+reference's 0.0207; the capture is 0.0493, the law's answer at linear 0.1344. The candidate
+mechanism is the overlay's `css-backdrop` proxy sampling past the base pane through the padding W8
+inflated for the outer shadow (19.3 % raw checkerboard mixed into the base's output reproduces the
+number). Dark-only by visibility; the same input error moves a bright backdrop very little. Fixed
+in W22 G3 if the mechanism is what the candidate says; closes at W22's landing.
+

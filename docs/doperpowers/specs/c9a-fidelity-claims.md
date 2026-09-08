@@ -13139,3 +13139,127 @@ scores "met", the second on the holdout cell that carries four instrument floors
 W21 Decision Log 4). Neither is tuned here; each is measured in W22 G0 and closes there by one
 constant on its own rows or is chartered with its numbers.
 
+### 5.94 W22 G0 CLOSED: the band gated on a shimmer amplitude with the goldens byte-identical, the isolation exact on both beds (the left side on 54 of 68 cells, nothing else); the light reference's rim left equal to right to 0.0002 and vitrea's after the gate to 0.0022; `specularGain` to be fitted to 0 on the light profile, three rim constants declined; the two eye findings measured — the dark `impulse` capsule the appearance switch's (chartered), the dark nested pane a plumbing defect in the overlay's backdrop input (W22 G3) (2026-09-08)
+
+**W22 G0** (`results/2026-09-08-w22-resting-sweep/g0/g0-findings.md` with `per-side.txt`,
+`fit-rim-1x/2x.txt`, `probe-fit-rim.txt`, `moved-rows.txt`, `isolation.txt`, `glow-reads/`,
+`stack.txt`, `overlay-prediction.txt`, `digests.txt`, the scripts and candidate profiles); the gate
+itself at `550f16d`, merged at `eda878b`. Nothing canonical written; the holdout not read (X5) —
+both `glass-over-glass` cells are holdout, which the charter did not say, so the nested pane has a
+native column and the canonical W21 capture and no "after" column this gate.
+
+#### 1. The gate, and its attribution
+
+`shimmer` ∈ [0, 1] joins the surface channel vocabulary (`--vitrea-shimmer`; `IDLE_CHANNELS` 0;
+the renderer's `SurfaceChannels` likewise) and the highlight pass's gain is `sweepGain ×
+shimmer(lead)`, Reduced Motion's zeroing unchanged; the golden `highlight-press-glow` and the two
+harness scenes that drive `sweep` declare `shimmer: 1`. **29 of 29 goldens byte-identical**, the
+isolation spec's hash tables included; 1 861 unit tests, build and lint green;
+`test/resting-sweep.test.ts` pins the uniform's own bytes at gain 0 idle, `sweepGain` at shimmer 1,
+linear between, the press glow untouched. On the captures (both beds, both scales, GPU tier,
+calibration + validation, `--alpha`; 72 of 72 captures reproducing byte for byte across two runs)
+the isolation is near-exact: over 68 readable cells the gate moved the left side on 54, the top on
+2 by ≤ 0.000045 (the peak statistic choosing a different row of the top band), bottom and right on
+none; no body by more than 0.000029.
+
+#### 2. The bed, before → after (GPU tier; `moved-rows.txt`)
+
+| | calibration | validation |
+| --- | --- | --- |
+| 1x light | 0.00329 → 0.00329 | 0.00259 → 0.00259 |
+| 2x light | 0.00334 → 0.00333 | 0.00263 → 0.00262 |
+| 1x dark | 0.00410 → 0.00404 | 0.00291 → 0.00291 |
+| 2x dark | 0.00410 → 0.00403 | 0.00329 → 0.00329 |
+
+No scheme, scale or set worse; G1's S1 would fire on zero rows (worst wrong-direction move ΔE
++0.000025, `ssimMean` −0.000145). The gate over a merged scratch matrix passes 29 of 33, the four
+being the cross-tier identity check on a partial rebuild (the dom-tier coherence rows move by
+≤ 0.004 inside [0.8, 1.25]); G1 captures both tiers together. No floor goes inert and none could be
+re-read here: every live floor is CSS-tier or on the holdout nested pane.
+
+#### 3. The light rim, read per side for the first time (`per-side.txt`, `fit-rim-*.txt`)
+
+The light reference's rim has **left equal to right to 0.0002** on every solid at both scales;
+vitrea's read +0.1327 (1x) / +0.2312 (2x) before the gate and ≤ 0.0022 after. Top against bottom
+the reference is not flat: +0.0002 over `dark-solid` and +0.0086 to +0.0162 over `light-solid`,
+against vitrea's +0.1237 / +0.1817 at the shipped `specularGain` 0.55. An instrument caveat for the
+ledger: the declared reader's horizontal-against-vertical gap is a geometric artefact — the
+vertical bands admit more corner background (covered fractions 0.758 / 0.341 on the capsule, 0.839 /
+0.732 on `rrect-md`), and its sign follows sign(backdrop − rim) on both beds — so only `L−R` and
+`T−B` are clean contrasts, and the wave's flatness is stated on those two.
+
+The recommendation, constant by constant, on its rows:
+
+- **`specularGain` (light): fit, to 0.** The separating row is `dark-solid__rrect-md` T−B at both
+  scales — reference +0.0002, shipped +0.1237 / +0.1817, at 0 +0.0002 / +0.0001; the `light-solid`
+  rows do not separate it (both settings within 0.01 of the reference, near saturation). The pooled
+  objective over 16 rows prefers the shipped constant (0.0178 against 0.0236 at 1x) because the
+  specular lifts `dark-solid__rrect-md`'s top from −0.061 to +0.062 against a reference of +0.047
+  while leaving its bottom at −0.061 against the same +0.047 — it buys one side by breaking the pair,
+  so G1 states the objective per contrast, not pooled over sides. The same verdict W21 reached on the
+  dark patch (§5.90 §1).
+- **`rimAlpha` (light): declined** — its twelve `light-solid` rows re-choose 0.1819 (1x) / 0.1793
+  (2x) against the shipped 0.18.
+- **`lightDirection`: declined on the rim rows** — the x-component contributes 0.0014 at
+  `specularPower` 6, under the instrument; the y-component is what `specularGain` scales; the shadow
+  rows are read before it is touched.
+- **The dark patch's `rimAlpha` 0.082: declined** — W21's fit re-run with the fourth side readable
+  gives 0.0818 against 0.0808 (span 0.0441–0.0903), and all 24 sides of the six dark solids now meet
+  clause 2 where six missed; web flatness 0.1436 → 0.0066.
+
+**A new open cell, hidden under the band:** `dark-solid__rrect-md` under the LIGHT profile misses
+clause 2 on three sides at 1x and four at 2x, worst −0.093 / −0.088 on the bottom — the light
+material's rim over a dark backdrop is too dim by 0.05–0.11 and `rimAlpha`'s rows there demand
+2.4–2.9, inadmissible. This is the collapsed rim W21 deferred at +0.017 in dark, read in light; not
+created by the gate, not this wave's constant, recorded (the W22 spec's Deferred).
+
+#### 4. Eye finding 1 — the dark `impulse` capsule is the appearance switch's (`glow-reads/`)
+
+Under both instruments at both scales: the reference passes a centre glow of +0.0014 / +0.0019 (the
+central 16 × 16 CSS px against the rest of the eroded box) and draws a top rim of 0.0145 / 0.0162;
+vitrea passes +0.0000 and draws 0.0030. The mechanism the read shows: the reference **collapses over
+`dark-solid`** (body 0.0110 against a 0.0117 backdrop of sd 0.0000; vitrea matches it to 0.0007)
+and **does not over `impulse`** (0.0066, 2.2× a 0.0030 backdrop of sd 0.0550) — the design's own
+rule sends this to the appearance switch. A term keyed on the backdrop's mean cannot separate the
+two cells (both sit far below `backdropToneLow` 0.02 and collapse fully; what differs is the
+backdrop's structure), and the W9 dark law has no anchor below `dark-solid` (encoded 0.1104;
+`impulse` is 0.0030 and clamps). `backdropToneMax` 0 is inadmissible, measured across the dark bed:
+the `dark-solid` capsule goes from 0.0007 to **0.0357** of body error (the stop the design named),
+`impulse` from 0.0030 to 0.0389, `dark-solid__rrect-md` 0.0023 → 0.0314, `checkerboard__rrect-md`
+0.0007 → 0.0458 — while the two cells that improve (`checkerboard__capsule-button` 0.0387 → 0.0109,
+`photo__capsule-button` 0.0433 → 0.0302) are exactly W21's two appearance-term misses. **The
+appearance term and the collapse are one axis pulling two ways**, and one constant cannot serve
+both; the setting also overshoots the glow 3× and the rim 4×. Chartered with these numbers into the
+appearance-switch spike (W21 Deferred; the W22 spec's Deferred).
+
+#### 5. Eye finding 2 — the dark nested pane is a plumbing defect in the overlay's input (`stack.txt`, `overlay-prediction.txt`)
+
+The declared reader extended to a stack (the base's box with the overlay's cut out; the overlay's
+box; each eroded 6 CSS px with its own 3 px band per side) and validated by injection: bodies
+recovered exactly, eight rim peaks within 0.000625 (X3). The inversion is dark-only: the reference's
+overlay sits −0.0260 (1x) / −0.0267 (2x) below its base; vitrea's +0.0023 / +0.0018 on the GPU tier
+and +0.0048 / +0.0025 on the CSS tier — a **0.028** miss on the overlay's body with the base pane
+right to 0.0012. The shipped dark response law, evaluated term for term at the overlay's TRUE
+backdrop (the base pane's measured body, 0.0470 linear / 0.2402 encoded), gives **0.0245** on the
+thin row against the reference's **0.0207**; the capture is **0.0493**, the level the law gives at an
+encoded input of 0.4022 — **linear 0.1344, 2.9× the base's output**. The law is right; the input the
+overlay group is handed is wrong. A candidate mechanism, untested: 0.1344 is 19.3 % of the raw
+checkerboard (0.500) mixed into the base's output, consistent with the overlay's proxy sampling
+past the base pane — the proxy rect is the group's rect inflated by the padding W8 enlarged for the
+outer shadow, and the overlay sits 29 CSS px under the base's top edge. Invisible in light because
+the same error moves a bright backdrop very little. Taken as **W22 G3** (the spec's Decision Log 2):
+a fix in the sampling path, not a constant, verified on vitrea's own overlay against the law's
+answer without opening a native fixture, ahead of G1 so the wave's one holdout read is spent on a
+configuration that hands the overlay the right input. The base pane's haze is handed to the
+thick-span composite with its number: whole-region σ-match 16.00 native (the search ceiling)
+against 8.00 web at 2x dark, 16.00 against 7.50 / 12.50 in light on `checkerboard` / `photo`.
+
+#### 6. For the ledger
+
+`--alpha` is not optional on a scratch bed the gate will read (the first pass omitted it; the
+re-run reproduced 72 / 72 captures). The light profile's `rimIntensity` entry carries a superseded
+reason ("below the capture's own resolution", the silhouette-band instrument's finding; the declared
+read measures the rim at 0.0288 against a 0.0079 code step) — the value stands, the reason is
+re-recorded at G1. G1 re-reads both panes of the nested pane with `read-stack.py` when it opens the
+holdout; G2 re-reads the four W21 instrument floors on the 2x dark nested pane.
+

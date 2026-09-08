@@ -1,9 +1,11 @@
 # W22 — the resting sweep: the highlight band gated on the shimmer running, the rim re-read per side on both beds (2026-09-08)
 
-**Status: OPENED 2026-09-08 — chartered from W21 Decision Log 3 (b) (claims §5.90 §4) at the
+**Status: IN PROGRESS — chartered 2026-09-08 from W21 Decision Log 3 (b) (claims §5.90 §4) at the
 0.10.0 cut, on the user's "let's continue with that sweep"; the user's two eye observations on the
-W21 landing sheets pinned as findings the same day (claims §5.93) and carried into G0. G0
-dispatched.**
+W21 landing sheets pinned as findings the same day (claims §5.93). G0 CLOSED 2026-09-08 (claims
+§5.94; Decision Log 2): the gate merged with the goldens byte-identical, the light rim read per side,
+`specularGain` to be fitted to 0 and three constants declined, the `impulse` capsule chartered to
+the appearance switch, the nested pane a plumbing defect taken as G3 ahead of G1. G3 dispatched.**
 
 Composite spec: design at the top; Decision Log, Surprises, Deferred and Revision Notes at the
 tail. Parent: `2026-08-28-post-v1-wave.md` (the W22 row; wave Decision Log 23 (c)'s ordering, this
@@ -238,6 +240,28 @@ document moves only if its rows move it (and `dark-profile.ts` regenerates from 
 - **Acceptance:** clauses 1–6 and 8 of the parent's; the chain green; the claims section.
 - **Edges:** blocked-by G1. **Track:** controlled; the landing is the user's call.
 
+### G3: The overlay's backdrop input — controlled (added by Decision Log 2)
+
+- **Purpose:** the overlay group of a stacked scene is handed a backdrop 2.9× its base pane's
+  rendered output (claims §5.94 §5: the shipped dark law at the true input gives 0.0245 against
+  the reference's 0.0207; the capture is 0.0493, the law's answer at linear 0.1344). Find the
+  mechanism in the sampling path — the candidate is the overlay's `css-backdrop` proxy sampling
+  past the base pane through the padding W8 inflated for the outer shadow (`proxy-geometry.ts`,
+  `backdrop-proxy.ts`, the proxy requests in `root.ts`, `backdrop-tone.ts`'s measurement of what
+  the group is handed), read directly off the proxy's readback and the group's resolved
+  `backdropTone` on the calibration page — and fix it where it lives, with a unit test on the
+  mechanism. Verified WITHOUT opening a native fixture: vitrea's overlay body on its own capture
+  read with `read-stack.py` against the law's answer at the base's measured output (target 0.0245
+  ± 0.004 in dark at both scales; the light nested pane read the same way), and every non-stacked
+  capture byte-identical on both beds (the fix must reach only groups whose proxy overlaps another
+  surface's output).
+- **Stops:** any non-stacked capture moved; a fix that is a constant rather than a mechanism.
+- **Acceptance:** the mechanism named with its arithmetic; the fix; the test; the overlay read; the
+  byte-identity of the rest; the findings file; the claims section by the parent.
+- **Edges:** blocked-by G0; blocks G1 (the frozen configuration includes this fix, so the wave's
+  one holdout read is spent on an overlay handed the right input). **Track:** controlled; one
+  worker in a worktree; captures to scratch under the GPU rule.
+
 ## Cross-Child Contracts
 
 - **X1 — the gate before the read.** No rim is read on vitrea's side until the band is gone; a
@@ -256,7 +280,7 @@ document moves only if its rows move it (and `dark-profile.ts` regenerates from 
 
 ## Ordering & Dependency Map
 
-G0 → G1 → G2 → the 0.11.0 cut. After this wave the next is the user's call (the thick-span
+G0 → G3 → G1 → G2 → the 0.11.0 cut (G3 inserted by Decision Log 2). After this wave the next is the user's call (the thick-span
 composite of wave Decision Log 23 (c), the eye findings' charters if Decision Log 2 sends them out,
 or something else). The GPU is shared; one capture at a time.
 
@@ -281,16 +305,23 @@ or something else). The GPU is shared; one capture at a time.
   output and nothing more. Post-v1 (the design's §Motion).
 - **The thick-span composite** (wave Decision Log 23 (c)) — the base pane's haze in the nested
   pane belongs to it; G0 hands it the per-pane blur reading.
-- **The appearance switch** (W21 Deferred) — if the `impulse` capsule's read shows the collapse to
-  be scene-level rather than a constant, it joins this spike's charter with the numbers.
+- **The appearance switch** (W21 Deferred) — the `impulse` capsule joins it with claims §5.94 §4's
+  numbers: the glow +0.0014 / +0.0019 against +0.0000, the top rim 0.0145 / 0.0162 against 0.0030,
+  no anchor below encoded 0.1104, and the `backdropToneMax` 0 table as the bound on what the
+  existing axis can buy. The collapse and the appearance term are one axis (Decision Log 2 (d)).
+- **The collapsed rim in light** — `dark-solid__rrect-md` under the light profile misses clause 2 on
+  its bottom by 0.093 / 0.088 (the light material's rim over a dark backdrop too dim by 0.05–0.11;
+  `rimAlpha`'s rows there demand 2.4–2.9). W21 deferred the same term at +0.017 in dark. In the
+  tracker.
 - **The CSS tier's sweep.** The CSS tier draws no shimmer and gains none here.
 
 ## Tracking Map
 
 | child | status |
 | --- | --- |
-| G0 — the isolation, the light rim per side, the two eye reads | DISPATCHED 2026-09-08 |
-| G1 — the form declared and dry-run | — |
+| G0 — the isolation, the light rim per side, the two eye reads | CLOSED 2026-09-08 (claims §5.94; the gate at `550f16d`, merged `eda878b`; Decision Log 2) |
+| G3 — the overlay's backdrop input | DISPATCHED 2026-09-08 |
+| G1 — the form declared and dry-run | — (after G3) |
 | G2 — the landing and its referee | — |
 
 ## Decision Log
@@ -314,7 +345,52 @@ The sheets before publish, the eye's veto kept.
 (d) **This is the last wave chartered on the parent's list for now**, on the user's word; after
 the cut the parent recommends and the user directs.
 
+### Decision Log 2 — G0 read: the gate lands as built, `specularGain` goes to its rows' answer, three constants declined, the `impulse` capsule chartered, the nested pane's input defect taken as G3 ahead of G1 (2026-09-08; the parent, on the user's standing instruction, the eye's veto kept before publish)
+
+(a) **The gate is the design's and it lands as G0 built it** (`550f16d`; merged): the amplitude
+channel, the goldens 29 / 29 byte-identical, the isolation exact to the left side. The
+implementation is not re-litigated at G1.
+
+(b) **`specularGain` on the light profile is fitted at G1 per contrast** — `T−B` and `L−R` over the
+solid rows at both scales, never a mean pooled over sides (G0 showed the pooled mean keeps the term
+because it buys one side of a pair by breaking the other). G0's reading is 0; G1 declares the fit's
+answer with its rows. `rimAlpha` (light), `lightDirection` and the dark patch's `rimAlpha` are
+**declined** on G0's rows (claims §5.94 §3) and do not move this wave; `lightDirection`'s shadow
+rows are read beside the declaration.
+
+(c) **The instrument's flatness is `L−R` and `T−B`.** The declared reader's horizontal-against-
+vertical gap is a geometric artefact of the bands' corner coverage (binding on clause 2's reading;
+per-side peaks against the reference's same side remain the clause's per-side term).
+
+(d) **Eye finding 1 is chartered, not tuned.** The dark reference collapses over `dark-solid` and
+not over `impulse`; the collapse and the appearance term are one axis pulling two ways; the dark law
+has no anchor below encoded 0.1104; `backdropToneMax` 0 breaks four cells to improve two. It joins
+the appearance-switch spike with §5.94 §4's table. The demo and the gate are not touched for it.
+
+(e) **Eye finding 2 is a plumbing defect and is taken as G3, ahead of G1.** The law at the true
+input lands within 0.004 of the reference; the overlay is handed 2.9× its base's output. A fix in
+the sampling path is a mechanism, not a constant, and the wave's one holdout read must not be spent
+on a configuration known to hand the overlay the wrong input — so G3 is inserted between G0 and G1
+and G1's frozen configuration includes it. Verification without the native fixture: the overlay on
+vitrea's own capture against the law's answer at the base's output. The base pane's haze goes to
+the thick-span composite with G0's number.
+
+(f) **Recorded, not this wave's:** `dark-solid__rrect-md` under the light profile (the collapsed
+rim in light, bottom −0.093; `rimAlpha`'s rows there inadmissible); the `rimIntensity` entry's
+superseded reason, re-recorded at G1 with the value unchanged; `--alpha` on every scratch bed; G1
+captures both tiers together and runs the gate over its own matrix.
+
 ## Surprises & Discoveries
+
+- **The light reference's rim is left-equals-right to 0.0002.** Three waves fitted a two-light rim
+  whose horizontal signature was the band; with the band gone vitrea's left equals right to 0.0022
+  with no constant moved, and the only lit term the reference keeps is a top-against-bottom
+  +0.0002 to +0.0162 that `specularGain` 0.55 overdraws by an order of magnitude.
+- **The overlay pane never saw its base.** The nested pane has been in the bed since S1 and read
+  "partial" through W9, W11a and W21; the response law was right at every step and the input was
+  2.9× the base's output. A flat grey lighter than its backdrop was the symptom no metric named.
+- **The collapse and the appearance term are one axis.** The setting that fixes W21's two thin
+  structured-backdrop capsules is the setting that breaks the four cells the collapse gets right.
 
 - **The channel nothing drives.** `--vitrea-sweep` is read by `readChannels` and written by
   nothing in the workspace; the e2e harness and one golden set it directly. The shimmer has been a
@@ -331,3 +407,5 @@ the cut the parent recommends and the user directs.
 ## Revision Notes
 
 - 2026-09-08: chartered; G0 dispatched.
+- 2026-09-08: G0 CLOSED (claims §5.94); Decision Log 2 — G3 (the overlay's backdrop input) added and
+  ordered ahead of G1; the Ordering map, the Tracking Map, Deferred and Surprises updated.
