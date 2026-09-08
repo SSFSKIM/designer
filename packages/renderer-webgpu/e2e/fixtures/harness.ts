@@ -908,7 +908,7 @@ function benchScene(config: {
         thickness: 10,
       },
       reference: "figma-smoothing" as const,
-      channels: { press: 0.2, glow: 0.4, sweep: 0.3, lensStrength: 1 },
+      channels: { press: 0.2, glow: 0.4, sweep: 0.3, shimmer: 1, lensStrength: 1 },
     }));
 
   return {
@@ -948,7 +948,7 @@ function benchScene(config: {
               thickness: 16,
             },
             reference: "figma-smoothing",
-            channels: { press: 0.35, glow: 0.8, sweep: 0.6, lensStrength: 1 },
+            channels: { press: 0.35, glow: 0.8, sweep: 0.6, shimmer: 1, lensStrength: 1 },
           },
         ],
         backdropSourceId: "bg",

@@ -298,6 +298,13 @@ export interface HighlightPassArgs {
   readonly cssPerDevice: number;
   readonly sweep: number;
   readonly sweepBandRadians: number;
+  /**
+   * The band's gain, already multiplied by the lead surface's `shimmer` channel
+   * by the caller (W22). It is exactly 0 on a resting surface, which is what
+   * makes the sweep term vanish rather than park itself on the left edge, and
+   * this pass takes it as one number because the shader has no business knowing
+   * which of the two factors was zero.
+   */
   readonly sweepGain: number;
   readonly rimWidth: number;
   readonly pressPointCss: readonly [number, number];

@@ -172,7 +172,14 @@ describe("toRendererGroups", () => {
   });
 
   it("carries the channel values straight through", () => {
-    const channels = { press: 0.3, glow: 0.9, sweep: 0.1, lensStrength: 1.2, pressPoint: [150, 70] as const };
+    const channels = {
+      press: 0.3,
+      glow: 0.9,
+      sweep: 0.1,
+      shimmer: 0.4,
+      lensStrength: 1.2,
+      pressPoint: [150, 70] as const,
+    };
     const [base] = toRendererGroups(
       frame([group()], [{ plane: "base", nodes: [node({ channels })] }]),
       always,

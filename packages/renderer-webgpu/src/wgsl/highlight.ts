@@ -12,8 +12,19 @@
  *  - **`sweep`** ∈ [0, 1] is the shimmer's position along the rim. The band is a
  *    Gaussian in the angular coordinate of the gradient, so it travels around the
  *    contour rather than sliding across a bounding box, and it exists only where
- *    the rim exists. Reduced Motion sets `shimmer: "none"`, which the CPU turns
- *    into a zero gain — the band is not drawn stationary, it is not drawn.
+ *    the rim exists.
+ *  - **`shimmer`** ∈ [0, 1] is that band's amplitude, and it is what makes "the
+ *    band is not drawn stationary, it is not drawn" true rather than aspirational.
+ *    The angular coordinate covers the whole contour, so there is no phase that
+ *    means "not shimmering" — 0 radians is the left edge, not nowhere — and until
+ *    W22 the channel's idle 0 parked a band of gain `sweepGain` on the left of
+ *    every resting surface in both colour schemes (claims §5.90 §4). The gain the
+ *    CPU packs into `sweep.z` is therefore `sweepGain × shimmer(lead)`: at rest
+ *    the sweep term is exactly zero and this pass writes nothing, and a driven
+ *    surface draws the band at its driven phase and amplitude unchanged. Nothing
+ *    in v1 drives the channel; it is the amplitude a shimmer driver will output
+ *    when one exists (§Motion). Reduced Motion sets `shimmer: "none"`, which the
+ *    CPU turns into a zero gain by the same seam.
  *  - **`glow`** ∈ [0, 1] is the press illumination, from the fast-attack /
  *    slow-decay driver. It arrives **per pixel**, unioned through the field pass,
  *    multiplied by a radial falloff around the press point and clipped to the

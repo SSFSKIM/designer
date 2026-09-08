@@ -38,6 +38,7 @@ export const GLASS_CHANNEL_PROPERTIES = {
   press: "--vitrea-press",
   glow: "--vitrea-glow",
   sweep: "--vitrea-sweep",
+  shimmer: "--vitrea-shimmer",
   lensStrength: "--vitrea-lens",
   pressX: "--vitrea-press-x",
   pressY: "--vitrea-press-y",
@@ -58,6 +59,18 @@ export interface SurfaceChannelValues {
   readonly glow: number;
   /** Specular sweep position, 0..1 around the contour. */
   readonly sweep: number;
+  /**
+   * The shimmer's amplitude, 0..1 — the specular sweep's gain, not its position.
+   *
+   * The phase alone cannot say whether the shimmer is running: the band travels
+   * an angular coordinate that covers the whole contour, so every phase is a
+   * phase on the surface and 0 is the left edge rather than nowhere. This channel
+   * is what a shimmer driver will output when one exists (§Motion names shimmer
+   * travel; v1 has no driver for it), and until then it is 0 on every surface, so
+   * at rest the renderer's sweep term is exactly zero and the highlight pass
+   * writes nothing.
+   */
+  readonly shimmer: number;
   /** `lensStrength`, 0..1+. Multiplies the resolved refraction scale. */
   readonly lensStrength: number;
   /** Viewport CSS px. Absent means the renderer uses the surface's centre. */
@@ -67,12 +80,15 @@ export interface SurfaceChannelValues {
 /**
  * An undriven surface. `lensStrength` is 1 rather than 0 — a surface nobody is
  * animating still refracts at its material's nominal strength; zero would be a
- * surface with its lens switched off, which is a different claim.
+ * surface with its lens switched off, which is a different claim. `shimmer` is 0
+ * for the opposite reason: nobody animating the surface means no shimmer is
+ * travelling, and a resting surface catches no travelling highlight.
  */
 export const IDLE_CHANNELS: SurfaceChannelValues = {
   press: 0,
   glow: 0,
   sweep: 0,
+  shimmer: 0,
   lensStrength: 1,
 };
 
@@ -107,6 +123,7 @@ export function readHostChannels(host: ChannelSource, bounds: Rect): SurfaceChan
     press: numberFrom(read(GLASS_CHANNEL_PROPERTIES.press), IDLE_CHANNELS.press),
     glow: numberFrom(read(GLASS_CHANNEL_PROPERTIES.glow), IDLE_CHANNELS.glow),
     sweep: numberFrom(read(GLASS_CHANNEL_PROPERTIES.sweep), IDLE_CHANNELS.sweep),
+    shimmer: numberFrom(read(GLASS_CHANNEL_PROPERTIES.shimmer), IDLE_CHANNELS.shimmer),
     lensStrength: numberFrom(
       read(GLASS_CHANNEL_PROPERTIES.lensStrength),
       IDLE_CHANNELS.lensStrength,
