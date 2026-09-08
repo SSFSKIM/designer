@@ -13762,3 +13762,47 @@ term real in the reference and unmeasurable on this bed; the light bed's two fit
 `light-solid__rrect-sm` on the probe grid 0.115 worse under the fitted dark law (the appearance
 switch).
 
+### 5.102 W23 G1 READ by the parent: clauses 1, 2, 5–8 met and 3–4 missed with their numbers, S2 and S3 taken at the number, the holdout read recorded as spent — and the painted rim's hue found by eye (Apple's rim keeps the paint's chroma, vitrea's adds white), taken as G3 before the landing (2026-09-08)
+
+**The record.** §5.101 (G1's declaration and dry run, adopted) and W23 Decision Log 3. The parent
+re-read the dry run's captures beside the fixtures (`/Users/new/.claude/jobs/5c70e47f/tmp/w23/
+g1-review/`, crops at 5× of the 2x cells: `dark-solid__rrect-md`'s corner, `photo__rrect-md`'s
+corner, the black-on-black capsules, and the tinted capsules over `dark-solid`, `photo` and
+`light-solid`). The black-on-black capsules draw their outline (clause 1); the untinted corners and
+the photo cell read as the reference's at this zoom; the tinted capsules do not.
+
+**The painted rim's hue, in numbers.** The contour row's mean RGB over the straight top span, 2x
+light, native → vitrea at G1 (the landed 0.11.0 bed beside):
+
+| cell | native body | native rim | G1 rim | landed rim |
+| --- | --- | --- | --- | --- |
+| `dark-solid__capsule-button__rest-tint-orange` | (255, 148, 0) | (254, 188, 0) | (255, 192, 130) | (255, 149, 0) — collapsed, none |
+| `photo__capsule-button__rest-tint-orange` | (231, 134, 0) | (246, 189, 16) | (255, 197, 153) | (247, 163, 99) |
+| `light-solid__capsule-button__rest-tint-orange` | (254, 148, 0) | (255, 195, 4) | (255, 180, 112) | (255, 173, 99) |
+| `checkerboard__capsule-button__rest-tint-blue` | (8, 120, 236) | (59, 199, 248) | (145, 183, 255) | (100, 153, 250) |
+
+The reference lifts the orange paint's green channel by 27 % and leaves its blue at 0 — the rim is
+the paint's own colour, brighter — where vitrea adds white over the paint (blue 0 → 130; on the blue
+paint red 8 → 145 against the reference's 59). The 0.11.0 bed drew the same white rim, fainter; the
+law's amplitude makes it plain. Every luminance clause of this wave was met on these cells; none of
+them can see a hue. The composition is the mechanism: the optics pass adds the rim after the
+author's colour is painted (`optics.ts`, the author tint at ~line 819, the rim at ~line 950), and
+the reference's rim is beneath the paint or scaled by it. **G3, the rim beneath the paint, is
+inserted before the landing** (Decision Log 3 (h)) on the W22 precedent: a known-wrong composition
+is corrected before the landing's holdout read, and G1's read at `ee0010558553ee12` /
+`afd0e999e2f5813e` stands on the record as spent on a configuration not landed.
+
+**The clauses, ruled** (Decision Log 3 (a)–(f)): 1 met on the rim (worst 0.0040 against 0.005; the
+`impulse` body's −6.2 codes pre-existing and unmoved); 2 met (worst 0.0200); 3 MISSED as a per-side
+bound and left as missed — 24 of 88 structured sides, the left/right under structure where the
+reference's own sides split 2.4×, validation 0.0155 against calibration 0.0479; 4 MISSED and left
+as written — the band read overshoots (+0.031 / +0.088 on the deferred sides) where the contour read
+matches, the corners the one region only one reader sees, a corner reader named work; 5 met on the
+GPU tier with S3 taken at +0.00011 on the CSS 2x light mean and S2 taken at +0.0035 on one CSS
+cell's body through `interiorBandLight`; 6 the holdout once (light 0.00914 → 0.00909 / 0.00906 →
+0.00904, dark 0.01326 → 0.01331 / 0.01301 → 0.01317); 7 the goldens 0 pixels outside any band; 8
+every CSS mover named. Accepted as declared: `rimWidth2x` 1.35, `rimEnvGain` removed,
+`rimTintKeep` refused, the material-level input, `borderAlphaPerRimAlpha` re-based, the `rimLuma`
+feed on 42 groups per bed. `rimCollapsedTinted` 0.337 and the material-level input were fitted with
+the rim over the paint and are G3's to keep or replace.
+
