@@ -1,0 +1,38 @@
+W24 G3 — the chain, run from the MAIN checkout on `main` at b3c5d28 over the CANONICAL matrix
+rebuilt by g3-rebuild.sh. Every command below was run in this session, in this order.
+
+$ pnpm -r build                     exit 0
+$ pnpm -r lint                      exit 0
+$ pnpm -r test                      exit 0 — 1893 tests over 130 files, all passing
+    packages/policy test:       Tests  23 passed (23)
+    packages/motion test:       Tests  162 passed (162)
+    packages/geometry test:       Tests  170 passed (170)
+    packages/renderer-webgpu test:       Tests  402 passed (402)
+    packages/core test:       Tests  302 passed (302)
+    packages/platform-web test:       Tests  453 passed (453)
+    packages/calibration test:       Tests  280 passed (280)
+    packages/react test:       Tests  101 passed (101)
+
+$ pnpm --filter @vitrea/renderer-webgpu test:golden   exit 0 — 33 passed (foreground; a
+    detached golden run loses Playwright's webServer child, W24 Decision Log 2 (h))
+      ✓  33 [chromium-gpu] › e2e/golden/scenes.spec.ts:216:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced (283ms)
+    
+      33 passed (12.6s)
+
+$ pnpm --filter @vitreajs/vitrea-web test:e2e:gpu     exit 0 — 9 passed
+      ✓  9 [chromium-gpu] › e2e/gpu/webgpu-tier.spec.ts:188:3 › device loss swaps the tier and recovers › draws again once a device is restored (747ms)
+    
+      9 passed (4.5s)
+
+$ pnpm --filter demo test:e2e                        exit 0 — 39 passed, after the harness
+    fixture was re-copied from the landed canonical capture (211 px / max 34 code values
+    from the committed copy — the lit arcs)
+      ✓  39 [chromium-gpu] › e2e/reference-panel.gpu.spec.ts:74:3 › the reference panel renders the harness capture › the live panel matches the calibration harness's render of the same scene (2.3s)
+    
+      39 passed (40.7s)
+
+$ npx vitest run test/adopted-thresholds.test.ts      exit 0 — 33 of 33 over the canonical
+    matrix, after the predicate was re-derived and the two floors of Decision Log 3 (d)
+    re-pinned (g3-gate.txt)
+
+No red anywhere in the chain.

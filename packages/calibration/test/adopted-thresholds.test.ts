@@ -687,9 +687,34 @@ const REGRESSION_FLOORS: Readonly<Record<string, Floor>> = {
   // read are pinned where they were first read, and they come off the way W10's
   // did — by the instrument, or by the nested pane's own charter, which is where
   // all seven of these now wait.
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: silhouetteIoU": { measured: 0.91007, floor: 0.9090 },
+  //
+  // W24 G3 (claims §5.109 §6; W24 Decision Log 3 (d), the parent's
+  // recommendation under the user's standing instruction, 2026-09-09) RE-PINNED
+  // TWO of those three, on the same cell, DOWN: `silhouetteIoU` from a W23 pin
+  // of 0.9090 under a measured 0.91007 to 0.9070 under a measured 0.90804, and
+  // `contourDistanceP95` from 8.1 under 8.0 to 8.35 under 8.25. W23's numbers
+  // stay written here beside them, as this list's discipline requires; nothing
+  // was rewritten. The third row, `contourDistanceMean`, moved 0.96579 → 1.03304
+  // and HOLDS under its 1.0658 floor, which is left where W23 pinned it.
+  //
+  // What moved is not the material and not this cell's fidelity. The wave's
+  // transmitting collapse shifts this CSS interior's level by 0.00005 linear —
+  // a fiftieth of an eight-bit code — and the cell's own ΔE moves +0.00005. What
+  // that shift moves is where a luminance threshold crosses, which is the same
+  // mechanism the paragraphs above describe from the other side, and the proof
+  // that it is the extractor's and not the material's is the 2x sibling: the
+  // identical change swings its three rows the OTHER way by ten times (IoU
+  // 0.90482 → 0.92878, contour mean 1.760 → 1.289, p95 13 → 10), and those three
+  // are the untouched floors below.
+  //
+  // A floor comes off by fix and is re-pinned only by the user (the fidelity
+  // discipline). This is a decision, taken on the parent's recommendation under
+  // the standing instruction, reversible in one edit and the user's to undo.
+  // These two come off the way all seven do — by the instrument, or by the
+  // nested pane's own charter.
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: silhouetteIoU": { measured: 0.90804, floor: 0.9070 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceMean": { measured: 0.96579, floor: 1.0658 },
-  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceP95": { measured: 8.0, floor: 8.1 },
+  "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-1x-dark-standard :: contourDistanceP95": { measured: 8.25, floor: 8.35 },
   "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.92673, floor: 0.9257 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: silhouetteIoU": { measured: 0.90482, floor: 0.9038 },
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-26.5-2x-dark-standard :: contourDistanceMean": { measured: 1.76018, floor: 1.8602 },
@@ -957,8 +982,19 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
   // then refuses. It moves from "no axis to gate" to "an axis the predicate
   // excludes", and is named in `PREDICATE_EXCLUDES` instead of here. At 1x the
   // same rim falls under the threshold and the cell stays here.
+  //
+  // W24 G3 (claims §5.109; W24 Decision Log 3 (i)): at 1x it LEAVES too, in
+  // both schemes, and the mechanism is one wave further on. The lit edge
+  // modulates the rim's amplitude around the contour by a symmetric cosine
+  // about the top-left ↔ bottom-right diagonal, so the two lit arcs are drawn
+  // brighter than the flat rim W23 shipped while the straight sides are
+  // unchanged, and at 1x those arcs are what now crosses the extractor's 0.02
+  // threshold on this near-black cell. What it finds is the arcs alone — 25 px
+  // native and 34 px web of a 4 872 px region, in 16 and 18 pieces — and every
+  // one of the predicate's four arms refuses it. Same movement as the 2x cells
+  // above, same destination: `PREDICATE_EXCLUDES`, not a fidelity row.
   "apple-macos-26.5-1x-light-standard": {
-    texture: ["dark-solid__capsule-button__rest"],
+    texture: [],
     dom: ["dark-solid__capsule-button__rest"],
   },
   "apple-macos-26.5-2x-light-standard": {
@@ -978,8 +1014,13 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
   // luminance-delta extractor: the better the body agrees, the less there is to
   // find. Nothing is lost from the gate — the cell was excluded by the predicate
   // before and carries no axis now — and the reason moves with it.
+  //
+  // W24 G3: the texture list here empties for the reason the light bed's does —
+  // the lit edge's arcs give the 1x collapsed capsule a shape axis of the rim
+  // alone, which the predicate then refuses. The two schemes read identically
+  // on this cell because the fixture and the capture are the same bytes.
   "apple-macos-26.5-1x-dark-standard": {
-    texture: ["dark-solid__capsule-button__rest"],
+    texture: [],
     dom: ["dark-solid__capsule-button__rest", "dark-solid__rrect-md__rest"],
   },
   "apple-macos-26.5-2x-dark-standard": {
@@ -1215,6 +1256,38 @@ const NO_SHAPE_AXIS_SCENES: Readonly<
  * No cell lost a gated row to this and no bound moved. Two cells joined the
  * shape gate, two changed which construct names them, and two are excluded for a
  * silhouette that consists of the rim this wave added.
+ *
+ * W24 G3 (claims §5.109; W24 Decision Log 3 (i)) — **27 → 31, four join and
+ * none leaves.** The wave lights the rim around the contour by a symmetric
+ * cosine about the top-left ↔ bottom-right diagonal, which brightens the two lit
+ * arcs and leaves every straight side exactly where W23 fitted it. Both kinds of
+ * movement below are that factor read through a luminance-delta extractor, and
+ * neither is a fidelity row.
+ *
+ * - **`texture / calibration / dark-solid__capsule-button__rest`, 1x dark and 1x
+ *   light — JOIN by GAINING an axis.** These are the 1x siblings of the two 2x
+ *   cells above and the story is the same one wave on: the lit arcs cross the
+ *   extractor's 0.02 threshold where W23's flat rim at 1x did not, so the cell
+ *   carries a shape axis for the first time — of the ARCS alone, 25 px native
+ *   and 34 px web of a 4 872 px region, in 16 and 18 pieces, IoU 0.639. All four
+ *   arms fire. The cell moves out of `NO_SHAPE_AXIS_SCENES` and into this list,
+ *   and its fidelity is read on its perceptual rows as it always was (ΔE mean
+ *   0.00052 → 0.00047, `ssimMean` 0.99849 → 0.99951).
+ * - **`texture / calibration / checkerboard__rrect-md__rest / 2x light` and
+ *   `checkerboard__toolbar-group__rest / 2x light` — JOIN on the topology arm,
+ *   with every row they take out of the gate met.** `bodiesWeb` goes 1 → 2 and
+ *   3 → 4: the lit factor dims the two unlit arcs of a large 2x span by enough
+ *   for the threshold to pinch the silhouette into one more piece. This is the
+ *   arm doing what it exists to do — a silhouette in more pieces than the
+ *   reference's is not one to gate a contour on — but it is worth naming that
+ *   nothing was hiding behind it. On the landed bed `rrect-md` reads IoU 0.99634
+ *   (≥ 0.93), contour mean 0.236 (≤ 0.5) and p95 1 (≤ 3.0), and `toolbar-group`
+ *   reads 0.99026, 0.205 and 1.414 — every one inside its adopted bound, and the
+ *   toolbar's IoU and contour mean IMPROVED against the 0.12.0 bed (0.98714 and
+ *   0.288). Both cells' ΔE means improve too (0.00367 → 0.00364, 0.00243 →
+ *   0.00235). Two calibration cells leave the shape gate meeting every row it
+ *   would have asked of them; that is coverage lost to the extractor's
+ *   topology, recorded here rather than recovered by touching the predicate.
  */
 const PREDICATE_EXCLUDES = [
   "dom / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
@@ -1231,6 +1304,10 @@ const PREDICATE_EXCLUDES = [
   "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
   "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-dark-standard",
+  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / checkerboard__toolbar-group__rest / apple-macos-26.5-2x-light-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+  "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-1x-light-standard",
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
   "texture / calibration / dark-solid__capsule-button__rest / apple-macos-26.5-2x-light-standard",
   "texture / calibration / dark-solid__rrect-md__rest / apple-macos-26.5-1x-dark-standard",

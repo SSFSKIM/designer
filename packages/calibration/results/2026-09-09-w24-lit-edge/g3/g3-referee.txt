@@ -1,0 +1,120 @@
+canonical: 229 cells; the 0.12.0 bed: 229; the dry run: 229
+rows on the dry run and not on the canonical bed: none; new rows: none
+
+(i) X3 — every landed capture reproduces G3's declared digest, byte for byte:
+    file sha256         cecea9cd02a7784af38d29f0e2fa4b1b1e921eb9bcfad37d4c77a884eda6a39f
+    resolvedMaterialSha256  7968a7f8106b10a4
+    file sha256         ef4af5aef2cdbe83087248632bf2ddbd68aaa21634dafdb38021d5b0b890196f
+    resolvedMaterialSha256  0d741cd19cd1243b
+    sha256                                                            capture
+    229 of 229 declared captures found and hashed; 228 identical, 1 MOVED, 0 MISSING
+    MOVED    apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+             declared 24cda2a592c63b0c729c9914434c637a00df89064ceef524a2ef73f54e2465db
+             landed   001eceb60e3bfc7c16ca26b6680375e6841b723e594bfbfc4cc50ed175f5cf1c
+             17 px of 64000, max code delta 1, channels bgr, 0 in the top 8 rows, first at (207,77), (208,78), (198,79), (199,80), (197,85), (193,91)
+
+(ii) the whole capture tree against the dry run's, alpha renders included:
+    460 landed, 460 in the dry run; 458 identical, 2 moved
+    MOVED        apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css.png
+                 17 px of 64000, max code delta 1, channels bgr, 0 in the top 8 rows, first at (207,77), (208,78), (198,79), (199,80), (197,85), (193,91)
+    MOVED        apple-macos-26.5-1x-light-increased-contrast/photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png
+                 19 px of 64000, max code delta 4, channels abgr, 0 in the top 8 rows, first at (207,77), (208,78), (198,79), (193,80), (199,80), (197,85)
+
+(iii) every matrix row against the dry run's, to the last decimal:
+    15322 rows compared; 8 differ
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimMin  dry -0.6474793554676489 -> landed -0.6471271706825356  (|Δ| 0.00035218478511334084)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimOutside  dry 0.7191840302311272 -> landed 0.7191871802954274  (|Δ| 3.150064300183608e-06)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.edgeWeightedMean  dry 0.052780928580100715 -> landed 0.05278024885669235  (|Δ| 6.797234083644188e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimMean  dry 0.9126923544320348 -> landed 0.9126929321830214  (|Δ| 5.77750986607839e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.ssimBand  dry 0.5884581251924904 -> landed 0.5884575938636988  (|Δ| 5.313287916308695e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.unweightedMean  dry 0.025255781802909116 -> landed 0.02525561587291679  (|Δ| 1.6592999232609151e-07)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: perceptual.oklabDeltaEMean  dry 0.015381550601730437 -> landed 0.01538146441170816  (|Δ| 8.619002227726325e-08)
+    ('apple-macos-26.5-1x-light-increased-contrast', 'css', 'photo__toolbar-group__rest') :: coherence.crossTierOklabDeltaEMean  dry 0.007827928731214587 -> landed 0.007827852899972473  (|Δ| 7.583124211375802e-08)
+
+(iv) the bed's shape:
+    229 cells (expected 229); partition MATCHES
+      apple-macos-26.5-1x-dark-standard: 26 (expected 26)
+      apple-macos-26.5-1x-light-increased-contrast: 17 (expected 17)
+      apple-macos-26.5-1x-light-reduced-transparency: 16 (expected 16)
+      apple-macos-26.5-1x-light-standard: 72 (expected 72)
+      apple-macos-26.5-2x-dark-standard: 26 (expected 26)
+      apple-macos-26.5-2x-light-standard: 72 (expected 72)
+    verdict: ok
+
+    per (profile, tier, set), landed against the 0.12.0 bed:
+      apple-macos-26.5-1x-dark-standard            dom      calibration    9 (0.12.0 bed 9)
+      apple-macos-26.5-1x-dark-standard            dom      holdout        3 (0.12.0 bed 3)
+      apple-macos-26.5-1x-dark-standard            dom      validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-dark-standard            texture  calibration    9 (0.12.0 bed 9)
+      apple-macos-26.5-1x-dark-standard            texture  holdout        3 (0.12.0 bed 3)
+      apple-macos-26.5-1x-dark-standard            texture  validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-light-increased-contrast dom      calibration    6 (0.12.0 bed 6)
+      apple-macos-26.5-1x-light-increased-contrast dom      holdout        1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-light-increased-contrast dom      validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-light-increased-contrast texture  calibration    6 (0.12.0 bed 6)
+      apple-macos-26.5-1x-light-increased-contrast texture  holdout        2 (0.12.0 bed 2)
+      apple-macos-26.5-1x-light-increased-contrast texture  validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-light-reduced-transparency dom      calibration    5 (0.12.0 bed 5)
+      apple-macos-26.5-1x-light-reduced-transparency dom      holdout        2 (0.12.0 bed 2)
+      apple-macos-26.5-1x-light-reduced-transparency dom      validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-light-reduced-transparency texture  calibration    5 (0.12.0 bed 5)
+      apple-macos-26.5-1x-light-reduced-transparency texture  holdout        2 (0.12.0 bed 2)
+      apple-macos-26.5-1x-light-reduced-transparency texture  validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-1x-light-standard           dom      calibration   20 (0.12.0 bed 20)
+      apple-macos-26.5-1x-light-standard           dom      holdout       10 (0.12.0 bed 10)
+      apple-macos-26.5-1x-light-standard           dom      validation     6 (0.12.0 bed 6)
+      apple-macos-26.5-1x-light-standard           texture  calibration   20 (0.12.0 bed 20)
+      apple-macos-26.5-1x-light-standard           texture  holdout       10 (0.12.0 bed 10)
+      apple-macos-26.5-1x-light-standard           texture  validation     6 (0.12.0 bed 6)
+      apple-macos-26.5-2x-dark-standard            dom      calibration    9 (0.12.0 bed 9)
+      apple-macos-26.5-2x-dark-standard            dom      holdout        3 (0.12.0 bed 3)
+      apple-macos-26.5-2x-dark-standard            dom      validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-2x-dark-standard            texture  calibration    9 (0.12.0 bed 9)
+      apple-macos-26.5-2x-dark-standard            texture  holdout        3 (0.12.0 bed 3)
+      apple-macos-26.5-2x-dark-standard            texture  validation     1 (0.12.0 bed 1)
+      apple-macos-26.5-2x-light-standard           dom      calibration   20 (0.12.0 bed 20)
+      apple-macos-26.5-2x-light-standard           dom      holdout       10 (0.12.0 bed 10)
+      apple-macos-26.5-2x-light-standard           dom      validation     6 (0.12.0 bed 6)
+      apple-macos-26.5-2x-light-standard           texture  calibration   20 (0.12.0 bed 20)
+      apple-macos-26.5-2x-light-standard           texture  holdout       10 (0.12.0 bed 10)
+      apple-macos-26.5-2x-light-standard           texture  validation     6 (0.12.0 bed 6)
+
+(v) OKLab ΔE mean per profile, tier and set, on the landed bed (the 0.12.0 bed's beside):
+      apple-macos-26.5-1x-dark-standard            dom      calibration  n=  9 0.12.0 0.00633 -> landed 0.00633
+      apple-macos-26.5-1x-dark-standard            dom      holdout      n=  3 0.12.0 0.01731 -> landed 0.01735
+      apple-macos-26.5-1x-dark-standard            dom      validation   n=  1 0.12.0 0.00364 -> landed 0.00364
+      apple-macos-26.5-1x-dark-standard            texture  calibration  n=  9 0.12.0 0.00395 -> landed 0.00393
+      apple-macos-26.5-1x-dark-standard            texture  holdout      n=  3 0.12.0 0.01331 -> landed 0.01325
+      apple-macos-26.5-1x-dark-standard            texture  validation   n=  1 0.12.0 0.00251 -> landed 0.00244
+      apple-macos-26.5-1x-light-increased-contrast dom      calibration  n=  6 0.12.0 0.01300 -> landed 0.01301
+      apple-macos-26.5-1x-light-increased-contrast dom      holdout      n=  1 0.12.0 0.04557 -> landed 0.04561
+      apple-macos-26.5-1x-light-increased-contrast dom      validation   n=  1 0.12.0 0.01531 -> landed 0.01538
+      apple-macos-26.5-1x-light-increased-contrast texture  calibration  n=  6 0.12.0 0.00793 -> landed 0.00793
+      apple-macos-26.5-1x-light-increased-contrast texture  holdout      n=  2 0.12.0 0.02042 -> landed 0.02042
+      apple-macos-26.5-1x-light-increased-contrast texture  validation   n=  1 0.12.0 0.00862 -> landed 0.00862
+      apple-macos-26.5-1x-light-reduced-transparency dom      calibration  n=  5 0.12.0 0.00448 -> landed 0.00447
+      apple-macos-26.5-1x-light-reduced-transparency dom      holdout      n=  2 0.12.0 0.00751 -> landed 0.00751
+      apple-macos-26.5-1x-light-reduced-transparency dom      validation   n=  1 0.12.0 0.00454 -> landed 0.00454
+      apple-macos-26.5-1x-light-reduced-transparency texture  calibration  n=  5 0.12.0 0.00172 -> landed 0.00171
+      apple-macos-26.5-1x-light-reduced-transparency texture  holdout      n=  2 0.12.0 0.00345 -> landed 0.00343
+      apple-macos-26.5-1x-light-reduced-transparency texture  validation   n=  1 0.12.0 0.00112 -> landed 0.00110
+      apple-macos-26.5-1x-light-standard           dom      calibration  n= 20 0.12.0 0.00709 -> landed 0.00709
+      apple-macos-26.5-1x-light-standard           dom      holdout      n= 10 0.12.0 0.01577 -> landed 0.01576
+      apple-macos-26.5-1x-light-standard           dom      validation   n=  6 0.12.0 0.00552 -> landed 0.00552
+      apple-macos-26.5-1x-light-standard           texture  calibration  n= 20 0.12.0 0.00324 -> landed 0.00321
+      apple-macos-26.5-1x-light-standard           texture  holdout      n= 10 0.12.0 0.00901 -> landed 0.00898
+      apple-macos-26.5-1x-light-standard           texture  validation   n=  6 0.12.0 0.00246 -> landed 0.00241
+      apple-macos-26.5-2x-dark-standard            dom      calibration  n=  9 0.12.0 0.00658 -> landed 0.00657
+      apple-macos-26.5-2x-dark-standard            dom      holdout      n=  3 0.12.0 0.01741 -> landed 0.01739
+      apple-macos-26.5-2x-dark-standard            dom      validation   n=  1 0.12.0 0.00403 -> landed 0.00403
+      apple-macos-26.5-2x-dark-standard            texture  calibration  n=  9 0.12.0 0.00397 -> landed 0.00395
+      apple-macos-26.5-2x-dark-standard            texture  holdout      n=  3 0.12.0 0.01317 -> landed 0.01311
+      apple-macos-26.5-2x-dark-standard            texture  validation   n=  1 0.12.0 0.00294 -> landed 0.00297
+      apple-macos-26.5-2x-light-standard           dom      calibration  n= 20 0.12.0 0.00739 -> landed 0.00738
+      apple-macos-26.5-2x-light-standard           dom      holdout      n= 10 0.12.0 0.01617 -> landed 0.01617
+      apple-macos-26.5-2x-light-standard           dom      validation   n=  6 0.12.0 0.00570 -> landed 0.00569
+      apple-macos-26.5-2x-light-standard           texture  calibration  n= 20 0.12.0 0.00329 -> landed 0.00326
+      apple-macos-26.5-2x-light-standard           texture  holdout      n= 10 0.12.0 0.00898 -> landed 0.00895
+      apple-macos-26.5-2x-light-standard           texture  validation   n=  6 0.12.0 0.00250 -> landed 0.00248
+
+VERDICT: SEE THE MISMATCHES ABOVE
