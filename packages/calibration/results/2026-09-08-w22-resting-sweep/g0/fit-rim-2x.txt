@@ -1,0 +1,122 @@
+W22 G0 — optics.regular.rimAlpha / specularGain / lightDirection on the LIGHT profile,
+re-read per side with the resting sweep gone
+
+Every number is (side peak - that capture's own body) under the declared geometry: the rim
+band is the declared box's outer 3 CSS px and a side's peak is the largest row or column
+mean inside it (W22 X2). The rendered points carry specularGain 0; the baseline column
+carries the SHIPPED constants (rimAlpha 0.18, specularGain 0.55) at the gate, so the
+difference between it and the a=0.18 point is the specular term and nothing else.
+
+== the solid rows (fitted)
+scene                            side      native  shipped   a=0.04   a=0.18  covered
+dark-solid__capsule-button__rest top       0.0168  -0.0000  -0.0000  -0.0000    0.758
+dark-solid__capsule-button__rest bottom    0.0166  -0.0000  -0.0000  -0.0000    0.758
+dark-solid__capsule-button__rest left      0.0054   0.0000   0.0000   0.0000    0.341
+dark-solid__capsule-button__rest right     0.0054   0.0000   0.0000   0.0000    0.341
+dark-solid__rrect-md__rest       top       0.0610   0.1393  -0.0645  -0.0419    0.839
+dark-solid__rrect-md__rest       bottom    0.0608  -0.0424  -0.0647  -0.0424    0.839
+dark-solid__rrect-md__rest       left     -0.0490  -0.1010  -0.1047  -0.1019    0.732
+dark-solid__rrect-md__rest       right    -0.0490  -0.1019  -0.1047  -0.1019    0.732
+light-solid__capsule-button__rest top      -0.0119  -0.0108  -0.0291  -0.0114    0.758
+light-solid__capsule-button__rest bottom   -0.0232  -0.0208  -0.0351  -0.0208    0.758
+light-solid__capsule-button__rest left     -0.0619  -0.0707  -0.0757  -0.0714    0.341
+light-solid__capsule-button__rest right    -0.0618  -0.0714  -0.0757  -0.0714    0.341
+light-solid__rrect-md__rest      top       0.0230   0.0370  -0.0126   0.0287    0.839
+light-solid__rrect-md__rest      bottom    0.0067   0.0122  -0.0274   0.0122    0.839
+light-solid__rrect-md__rest      left     -0.0085  -0.0106  -0.0339  -0.0106    0.732
+light-solid__rrect-md__rest      right    -0.0084  -0.0106  -0.0339  -0.0106    0.732
+light-solid__rrect-ml__rest      top       0.0254   0.0364  -0.0121   0.0288    0.833
+light-solid__rrect-ml__rest      bottom    0.0092   0.0094  -0.0301   0.0094    0.833
+light-solid__rrect-ml__rest      left     -0.0106  -0.0160  -0.0375  -0.0161    0.708
+light-solid__rrect-ml__rest      right    -0.0106  -0.0161  -0.0375  -0.0161    0.708
+
+== the two contamination-free contrasts
+
+L-R cancels the band's corner mixture exactly (identical geometry); T-B likewise. A
+reference whose L-R is zero has no horizontal light; one whose T-B is zero has no vertical
+light, and then the specular term is fitting nothing.
+scene                            stat     native   shipped    a=0.04    a=0.18
+dark-solid__capsule-button__rest L-R     -0.0000   +0.0000   +0.0000   +0.0000
+dark-solid__capsule-button__rest T-B     +0.0002   +0.0000   +0.0000   +0.0000
+dark-solid__rrect-md__rest       L-R     -0.0000   +0.0009   +0.0000   +0.0000
+dark-solid__rrect-md__rest       T-B     +0.0002   +0.1817   +0.0001   +0.0005
+light-solid__capsule-button__rest L-R     -0.0001   +0.0007   +0.0000   +0.0000
+light-solid__capsule-button__rest T-B     +0.0113   +0.0100   +0.0060   +0.0095
+light-solid__rrect-md__rest      L-R     -0.0001   +0.0000   +0.0000   +0.0000
+light-solid__rrect-md__rest      T-B     +0.0162   +0.0248   +0.0148   +0.0165
+light-solid__rrect-ml__rest      L-R     +0.0000   +0.0001   +0.0000   +0.0000
+light-solid__rrect-ml__rest      T-B     +0.0162   +0.0270   +0.0180   +0.0194
+
+== the line excess(rimAlpha) = m*rimAlpha + c per row, and the rimAlpha that row alone
+would choose (S5's test: what has to be legible is whether the per-row answers agree)
+scene                            side           m        c   target  rimAlpha*
+dark-solid__capsule-button__rest top       0.0000  -0.0000   0.0168        nan
+dark-solid__capsule-button__rest bottom    0.0000  -0.0000   0.0166        nan
+dark-solid__capsule-button__rest left      0.0000   0.0000   0.0054        nan
+dark-solid__capsule-button__rest right     0.0000   0.0000   0.0054        nan
+dark-solid__rrect-md__rest       top       0.1614  -0.0710   0.0610     0.8180
+dark-solid__rrect-md__rest       bottom    0.1591  -0.0710   0.0608     0.8289
+dark-solid__rrect-md__rest       left      0.0198  -0.1055  -0.0490     2.8520
+dark-solid__rrect-md__rest       right     0.0198  -0.1055  -0.0490     2.8520
+light-solid__capsule-button__rest top       0.1266  -0.0342  -0.0119     0.1761
+light-solid__capsule-button__rest bottom    0.1019  -0.0392  -0.0232     0.1573
+light-solid__capsule-button__rest left      0.0311  -0.0770  -0.0619     0.4851
+light-solid__capsule-button__rest right     0.0311  -0.0770  -0.0618     0.4882
+light-solid__rrect-md__rest      top       0.2949  -0.0243   0.0230     0.1604
+light-solid__rrect-md__rest      bottom    0.2830  -0.0387   0.0067     0.1606
+light-solid__rrect-md__rest      left      0.1663  -0.0406  -0.0085     0.1926
+light-solid__rrect-md__rest      right     0.1663  -0.0406  -0.0084     0.1933
+light-solid__rrect-ml__rest      top       0.2918  -0.0237   0.0254     0.1685
+light-solid__rrect-ml__rest      bottom    0.2820  -0.0414   0.0092     0.1793
+light-solid__rrect-ml__rest      left      0.1529  -0.0436  -0.0106     0.2162
+light-solid__rrect-ml__rest      right     0.1529  -0.0436  -0.0106     0.2162
+
+Rows the constant cannot reach — the rim is folded out of the capture entirely (recorded, not fitted): dark-solid__capsule-button__rest
+The pooled minimiser over the 16 live rows: rimAlpha = 0.1793, mean |d excess| 0.0227
+the per-row answers span 0.1573 to 2.8520, median 0.2162
+  the objective at the rendered rimAlpha 0.04: 0.0419
+  the objective at the rendered rimAlpha 0.18: 0.0228
+  the objective at the SHIPPED constants (shipped, specularGain 0.55): 0.0221
+
+== recorded, not fitted — the structured and impulse rows under the same points
+scene                            side      native  shipped   a=0.04   a=0.18  covered
+checkerboard__capsule-button__rest top       0.0494   0.1194  -0.0497  -0.0004    0.758
+checkerboard__capsule-button__rest bottom    0.0298  -0.0158  -0.0586  -0.0158    0.758
+checkerboard__capsule-button__rest left      0.1377   0.1087   0.1005   0.1069    0.341
+checkerboard__capsule-button__rest right    -0.2717  -0.3624  -0.3777  -0.3623    0.341
+checkerboard__rrect-md__rest     top       0.0631   0.1246  -0.0381   0.0191    0.839
+checkerboard__rrect-md__rest     bottom    0.0561   0.0058  -0.0435   0.0059    0.839
+checkerboard__rrect-md__rest     left      0.0094   0.0624   0.0041   0.0617    0.732
+checkerboard__rrect-md__rest     right    -0.0139  -0.0322  -0.0351  -0.0322    0.732
+checkerboard__rrect-ml__rest     top       0.0584   0.1330  -0.0416   0.0187    0.833
+checkerboard__rrect-ml__rest     bottom    0.0448   0.0039  -0.0481   0.0039    0.833
+checkerboard__rrect-ml__rest     left     -0.0465  -0.0307  -0.0336  -0.0311    0.708
+checkerboard__rrect-ml__rest     right     0.0181  -0.0675  -0.0790  -0.0675    0.708
+checkerboard__rrect-sm__rest     top       0.1107   0.1574  -0.0200   0.0288    0.886
+checkerboard__rrect-sm__rest     bottom    0.1055   0.0179  -0.0217   0.0179    0.886
+checkerboard__rrect-sm__rest     left      0.1625   0.0799   0.0228   0.0793    0.772
+checkerboard__rrect-sm__rest     right     0.0096  -0.0144  -0.0195  -0.0144    0.772
+impulse__capsule-button__rest    top       0.0095  -0.0006  -0.0006  -0.0006    0.758
+impulse__capsule-button__rest    bottom    0.0086  -0.0006  -0.0006  -0.0006    0.758
+impulse__capsule-button__rest    left     -0.0008  -0.0017  -0.0017  -0.0017    0.341
+impulse__capsule-button__rest    right    -0.0006  -0.0017  -0.0017  -0.0017    0.341
+impulse__rrect-md__rest          top       0.0831   0.1301  -0.0651  -0.0431    0.839
+impulse__rrect-md__rest          bottom    0.0816  -0.0334  -0.0651  -0.0334    0.839
+impulse__rrect-md__rest          left     -0.0327  -0.0996  -0.1032  -0.1005    0.732
+impulse__rrect-md__rest          right    -0.0327  -0.1005  -0.1032  -0.1005    0.732
+photo__capsule-button__rest      top      -0.0405   0.0879  -0.0964  -0.0711    0.758
+photo__capsule-button__rest      bottom   -0.0100  -0.0416  -0.0607  -0.0415    0.758
+photo__capsule-button__rest      left     -0.2051  -0.2339  -0.2424  -0.2361    0.341
+photo__capsule-button__rest      right    -0.0716  -0.0970  -0.1033  -0.0969    0.341
+photo__rrect-md__rest            top      -0.0476   0.1047  -0.0799  -0.0670    0.839
+photo__rrect-md__rest            bottom   -0.0335  -0.0432  -0.0634  -0.0432    0.839
+photo__rrect-md__rest            left     -0.1000  -0.1100  -0.1139  -0.1110    0.732
+photo__rrect-md__rest            right    -0.0186  -0.0419  -0.0448  -0.0419    0.732
+photo__rrect-ml__rest            top      -0.0479   0.1101  -0.0906  -0.0601    0.833
+photo__rrect-ml__rest            bottom   -0.0257  -0.0206  -0.0625  -0.0206    0.833
+photo__rrect-ml__rest            left     -0.1085  -0.1476  -0.1509  -0.1482    0.708
+photo__rrect-ml__rest            right     0.0014   0.0002  -0.0070   0.0003    0.708
+photo__rrect-sm__rest            top       0.0782   0.1797  -0.0310  -0.0066    0.886
+photo__rrect-sm__rest            bottom    0.0925   0.0047  -0.0251   0.0047    0.886
+photo__rrect-sm__rest            left     -0.0235  -0.0330  -0.0453  -0.0396    0.772
+photo__rrect-sm__rest            right     0.0145  -0.0403  -0.0460  -0.0404    0.772

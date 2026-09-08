@@ -1,0 +1,476 @@
+W22 G0 (c) — the rim per side on both canonical beds, GPU tier, before and after the gate
+
+before = the canonical `web-captures/` at the 0.10.0 landing (the W21 bed, the band
+present); after = this gate's scratch captures at `shimmer` 0 (the band gone). The native
+column is the committed fixtures, identical in both, so the two web columns differ only by
+what vitrea drew. `flatNat` / `flatAft` are max side minus min side over the four sides.
+
+== apple-macos-26.5-1x-light-standard
+scene                                          side      native   before    after   d(a-b)  a-native
+checkerboard__capsule-button__rest             top       0.6623   0.7502   0.7502  +0.0000   +0.0880   (context)
+checkerboard__capsule-button__rest             bottom    0.6456   0.6388   0.6388  +0.0000   -0.0068   (context)
+checkerboard__capsule-button__rest             left      0.7474   0.7792   0.7746  -0.0046   +0.0272   (context)
+checkerboard__capsule-button__rest             right     0.3380   0.3041   0.3041  +0.0000   -0.0339   (context)
+checkerboard__capsule-button__rest-tint-blue   top       0.4238   0.4359   0.4359  +0.0000   +0.0121   (context)
+checkerboard__capsule-button__rest-tint-blue   bottom    0.4061   0.3128   0.3128  +0.0000   -0.0933   (context)
+checkerboard__capsule-button__rest-tint-blue   left      0.5703   0.5861   0.5365  -0.0496   -0.0338   (context)
+checkerboard__capsule-button__rest-tint-blue   right     0.2680   0.2423   0.2423  +0.0000   -0.0257   (context)
+checkerboard__capsule-button__rest-tint-orange top       0.4947   0.5406   0.5406  +0.0000   +0.0459   (context)
+checkerboard__capsule-button__rest-tint-orange bottom    0.4775   0.4246   0.4246  +0.0000   -0.0530   (context)
+checkerboard__capsule-button__rest-tint-orange left      0.5933   0.6107   0.5747  -0.0360   -0.0186   (context)
+checkerboard__capsule-button__rest-tint-orange right     0.2918   0.2712   0.2712  +0.0000   -0.0205   (context)
+checkerboard__rrect-md__rest                   top       0.7339   0.7958   0.7958  +0.0000   +0.0619   (context)
+checkerboard__rrect-md__rest                   bottom    0.7302   0.6770   0.6770  +0.0000   -0.0532   (context)
+checkerboard__rrect-md__rest                   left      0.6872   0.7602   0.7264  -0.0338   +0.0392   (context)
+checkerboard__rrect-md__rest                   right     0.6566   0.6492   0.6492  +0.0000   -0.0073   (context)
+checkerboard__rrect-ml__rest                   top       0.7421   0.7993   0.7993  +0.0000   +0.0572   (context)
+checkerboard__rrect-ml__rest                   bottom    0.7273   0.6742   0.6742  +0.0000   -0.0531   (context)
+checkerboard__rrect-ml__rest                   left      0.6321   0.6768   0.6568  -0.0200   +0.0247   (context)
+checkerboard__rrect-ml__rest                   right     0.6828   0.6191   0.6191  +0.0000   -0.0637   (context)
+checkerboard__rrect-sm__rest                   top       0.7102   0.7886   0.7886  +0.0000   +0.0784   (context)
+checkerboard__rrect-sm__rest                   bottom    0.7086   0.6703   0.6703  +0.0000   -0.0383   (context)
+checkerboard__rrect-sm__rest                   left      0.7805   0.7961   0.7272  -0.0689   -0.0534   (context)
+checkerboard__rrect-sm__rest                   right     0.6003   0.6290   0.6290  +0.0000   +0.0287   (context)
+dark-solid__capsule-button__rest               top       0.0249   0.0117   0.0117  +0.0000   -0.0132
+dark-solid__capsule-button__rest               bottom    0.0247   0.0117   0.0117  +0.0000   -0.0130
+dark-solid__capsule-button__rest               left      0.0161   0.0117   0.0117  +0.0000   -0.0044
+dark-solid__capsule-button__rest               right     0.0161   0.0117   0.0117  +0.0000   -0.0044
+dark-solid__capsule-button__rest-tint-orange   top       0.3451   0.3431   0.3431  +0.0000   -0.0020
+dark-solid__capsule-button__rest-tint-orange   bottom    0.3450   0.3431   0.3431  +0.0000   -0.0019
+dark-solid__capsule-button__rest-tint-orange   left      0.2042   0.1972   0.1972  +0.0000   -0.0070
+dark-solid__capsule-button__rest-tint-orange   right     0.2042   0.1972   0.1972  +0.0000   -0.0070
+dark-solid__rrect-md__rest                     top       0.5272   0.5577   0.5577  +0.0000   +0.0305
+dark-solid__rrect-md__rest                     bottom    0.5269   0.4340   0.4340  +0.0000   -0.0930
+dark-solid__rrect-md__rest                     left      0.4195   0.4549   0.3884  -0.0665   -0.0311
+dark-solid__rrect-md__rest                     right     0.4196   0.3877   0.3877  +0.0000   -0.0319
+impulse__capsule-button__rest                  top       0.0145   0.0030   0.0030  +0.0000   -0.0115   (context)
+impulse__capsule-button__rest                  bottom    0.0137   0.0030   0.0030  +0.0000   -0.0107   (context)
+impulse__capsule-button__rest                  left      0.0041   0.0017   0.0017  +0.0000   -0.0024   (context)
+impulse__capsule-button__rest                  right     0.0042   0.0017   0.0017  +0.0000   -0.0025   (context)
+impulse__capsule-button__rest-tint-orange      top       0.3405   0.3401   0.3401  +0.0000   -0.0004   (context)
+impulse__capsule-button__rest-tint-orange      bottom    0.3405   0.3401   0.3401  +0.0000   -0.0004   (context)
+impulse__capsule-button__rest-tint-orange      left      0.1964   0.1891   0.1891  +0.0000   -0.0073   (context)
+impulse__capsule-button__rest-tint-orange      right     0.1964   0.1891   0.1891  +0.0000   -0.0073   (context)
+impulse__rrect-md__rest                        top       0.4949   0.5191   0.5191  +0.0000   +0.0242   (context)
+impulse__rrect-md__rest                        bottom    0.4948   0.4100   0.4100  +0.0000   -0.0848   (context)
+impulse__rrect-md__rest                        left      0.3876   0.4277   0.3588  -0.0689   -0.0287   (context)
+impulse__rrect-md__rest                        right     0.3876   0.3580   0.3580  +0.0000   -0.0296   (context)
+light-solid__capsule-button__rest              top       0.9627   0.9608   0.9608  +0.0000   -0.0019
+light-solid__capsule-button__rest              bottom    0.9541   0.9492   0.9492  +0.0000   -0.0049
+light-solid__capsule-button__rest              left      0.9072   0.9003   0.8999  -0.0004   -0.0073
+light-solid__capsule-button__rest              right     0.9074   0.8991   0.8991  +0.0000   -0.0082
+light-solid__capsule-button__rest-tint-orange  top       0.6631   0.6876   0.6876  +0.0000   +0.0245
+light-solid__capsule-button__rest-tint-orange  bottom    0.6511   0.5855   0.5855  +0.0000   -0.0656
+light-solid__capsule-button__rest-tint-orange  left      0.7838   0.8034   0.7694  -0.0340   -0.0145
+light-solid__capsule-button__rest-tint-orange  right     0.7837   0.7687   0.7687  +0.0000   -0.0151
+light-solid__rrect-md__rest                    top       0.9633   0.9675   0.9675  +0.0000   +0.0043
+light-solid__rrect-md__rest                    bottom    0.9495   0.9497   0.9497  +0.0000   +0.0002
+light-solid__rrect-md__rest                    left      0.9322   0.9316   0.9294  -0.0022   -0.0028
+light-solid__rrect-md__rest                    right     0.9322   0.9291   0.9291  +0.0000   -0.0031
+light-solid__rrect-ml__rest                    top       0.9632   0.9670   0.9670  +0.0000   +0.0037
+light-solid__rrect-ml__rest                    bottom    0.9493   0.9467   0.9467  +0.0000   -0.0026
+light-solid__rrect-ml__rest                    left      0.9276   0.9267   0.9243  -0.0024   -0.0033
+light-solid__rrect-ml__rest                    right     0.9277   0.9238   0.9238  +0.0000   -0.0039
+photo__capsule-button__rest                    top       0.5369   0.6330   0.6330  +0.0000   +0.0960   (context)
+photo__capsule-button__rest                    bottom    0.5699   0.5526   0.5526  +0.0000   -0.0173   (context)
+photo__capsule-button__rest                    left      0.3648   0.3725   0.3641  -0.0084   -0.0008   (context)
+photo__capsule-button__rest                    right     0.5017   0.5047   0.5047  +0.0000   +0.0031   (context)
+photo__capsule-button__rest-tint-blue          top       0.3330   0.3508   0.3508  +0.0000   +0.0178   (context)
+photo__capsule-button__rest-tint-blue          bottom    0.3665   0.2741   0.2741  +0.0000   -0.0924   (context)
+photo__capsule-button__rest-tint-blue          left      0.2208   0.2351   0.1828  -0.0523   -0.0380   (context)
+photo__capsule-button__rest-tint-blue          right     0.3825   0.3524   0.3524  +0.0000   -0.0301   (context)
+photo__capsule-button__rest-tint-orange        top       0.4014   0.4530   0.4530  +0.0000   +0.0516   (context)
+photo__capsule-button__rest-tint-orange        bottom    0.4353   0.3821   0.3821  +0.0000   -0.0532   (context)
+photo__capsule-button__rest-tint-orange        left      0.2572   0.2581   0.2480  -0.0101   -0.0092   (context)
+photo__capsule-button__rest-tint-orange        right     0.4068   0.3800   0.3800  +0.0000   -0.0268   (context)
+photo__capsule-button__rest-tint-orange-half   top       0.4594   0.5264   0.5264  +0.0000   +0.0670   (context)
+photo__capsule-button__rest-tint-orange-half   bottom    0.4919   0.4479   0.4479  +0.0000   -0.0440   (context)
+photo__capsule-button__rest-tint-orange-half   left      0.2990   0.3030   0.2934  -0.0096   -0.0056   (context)
+photo__capsule-button__rest-tint-orange-half   right     0.4296   0.4213   0.4213  +0.0000   -0.0083   (context)
+photo__rrect-md__rest                          top       0.6167   0.6971   0.6971  +0.0000   +0.0805   (context)
+photo__rrect-md__rest                          bottom    0.6366   0.5960   0.5960  +0.0000   -0.0406   (context)
+photo__rrect-md__rest                          left      0.5522   0.5799   0.5387  -0.0412   -0.0135   (context)
+photo__rrect-md__rest                          right     0.6346   0.6031   0.6031  +0.0000   -0.0315   (context)
+photo__rrect-md__rest-tint-orange              top       0.4357   0.4777   0.4777  +0.0000   +0.0420   (context)
+photo__rrect-md__rest-tint-orange              bottom    0.4473   0.3766   0.3766  +0.0000   -0.0707   (context)
+photo__rrect-md__rest-tint-orange              left      0.3966   0.4495   0.3314  -0.1180   -0.0652   (context)
+photo__rrect-md__rest-tint-orange              right     0.4349   0.3702   0.3702  +0.0000   -0.0647   (context)
+photo__rrect-ml__rest                          top       0.6298   0.7016   0.7016  +0.0000   +0.0718   (context)
+photo__rrect-ml__rest                          bottom    0.6508   0.6161   0.6161  +0.0000   -0.0347   (context)
+photo__rrect-ml__rest                          left      0.5510   0.5586   0.5061  -0.0525   -0.0448   (context)
+photo__rrect-ml__rest                          right     0.6706   0.6489   0.6489  +0.0000   -0.0217   (context)
+photo__rrect-sm__rest                          top       0.6103   0.6966   0.6966  +0.0000   +0.0862   (context)
+photo__rrect-sm__rest                          bottom    0.6226   0.5755   0.5755  +0.0000   -0.0471   (context)
+photo__rrect-sm__rest                          left      0.5112   0.5715   0.5412  -0.0302   +0.0300   (context)
+photo__rrect-sm__rest                          right     0.5472   0.5377   0.5377  +0.0000   -0.0095   (context)
+
+Flatness and the body, per cell:
+scene                                           flatNat  flatBef  flatAft  bodyNat  bodyBef  bodyAft  L-R nat  L-R aft
+checkerboard__capsule-button__rest               0.4094   0.4751   0.4705   0.6133   0.6741   0.6741  +0.4094  +0.4705
+checkerboard__capsule-button__rest-tint-blue     0.3023   0.3438   0.2942   0.1950   0.2046   0.2046  +0.3023  +0.2942
+checkerboard__capsule-button__rest-tint-orange   0.3015   0.3394   0.3035   0.3519   0.3669   0.3669  +0.3015  +0.3035
+checkerboard__rrect-md__rest                     0.0773   0.1466   0.1466   0.6792   0.6929   0.6929  +0.0307  +0.0772
+checkerboard__rrect-ml__rest                     0.1100   0.1801   0.1801   0.6906   0.6931   0.6931  -0.0507  +0.0377
+checkerboard__rrect-sm__rest                     0.1802   0.1671   0.1596   0.6149   0.6731   0.6731  +0.1802  +0.0982
+dark-solid__capsule-button__rest                 0.0088   0.0000   0.0000   0.0110   0.0117   0.0117  +0.0000  +0.0000
+dark-solid__capsule-button__rest-tint-orange     0.1409   0.1459   0.1459   0.4243   0.4272   0.4272  +0.0000  +0.0000
+dark-solid__rrect-md__rest                       0.1077   0.1700   0.1700   0.4798   0.4955   0.4955  -0.0001  +0.0008
+impulse__capsule-button__rest                    0.0103   0.0013   0.0013   0.0066   0.0037   0.0037  -0.0000  +0.0000
+impulse__capsule-button__rest-tint-orange        0.1441   0.1510   0.1510   0.4242   0.4272   0.4272  +0.0000  +0.0000
+impulse__rrect-md__rest                          0.1074   0.1611   0.1611   0.4311   0.4642   0.4642  -0.0001  +0.0008
+light-solid__capsule-button__rest                0.0555   0.0617   0.0617   0.9668   0.9724   0.9724  -0.0002  +0.0008
+light-solid__capsule-button__rest-tint-orange    0.1327   0.2178   0.1838   0.4229   0.4279   0.4279  +0.0001  +0.0007
+light-solid__rrect-md__rest                      0.0311   0.0385   0.0385   0.9345   0.9318   0.9318  -0.0000  +0.0003
+light-solid__rrect-ml__rest                      0.0356   0.0432   0.0432   0.9326   0.9317   0.9317  -0.0001  +0.0005
+photo__capsule-button__rest                      0.2051   0.2605   0.2689   0.5766   0.6117   0.6117  -0.1368  -0.1407
+photo__capsule-button__rest-tint-blue            0.1617   0.1173   0.1696   0.1908   0.1972   0.1971  -0.1617  -0.1696
+photo__capsule-button__rest-tint-orange          0.1781   0.1949   0.2050   0.3441   0.3541   0.3541  -0.1496  -0.1319
+photo__capsule-button__rest-tint-orange-half     0.1929   0.2234   0.2330   0.4303   0.4529   0.4529  -0.1306  -0.1279
+photo__rrect-md__rest                            0.0844   0.1173   0.1584   0.6610   0.6555   0.6555  -0.0823  -0.0644
+photo__rrect-md__rest-tint-orange                0.0507   0.1075   0.1462   0.3607   0.3627   0.3627  -0.0383  -0.0387
+photo__rrect-ml__rest                            0.1196   0.1430   0.1955   0.6707   0.6577   0.6577  -0.1196  -0.1428
+photo__rrect-sm__rest                            0.1114   0.1589   0.1589   0.5411   0.5889   0.5889  -0.0360  +0.0036
+
+The CSS tier's own rim on the same cells (the canonical captures; the CSS tier draws
+no sweep, so this column is the record of what the other tier's rim looks like):
+scene                                              body | rim T/B/L/R
+checkerboard__capsule-button__rest               0.6774 | 0.6785 0.6548 0.6804 0.4883
+checkerboard__capsule-button__rest-tint-blue     0.2041 | 0.3875 0.2416 0.5506 0.1902
+checkerboard__capsule-button__rest-tint-orange   0.3666 | 0.4956 0.3832 0.5888 0.2881
+checkerboard__rrect-md__rest                     0.6950 | 0.7258 0.6670 0.6757 0.6790
+checkerboard__rrect-ml__rest                     0.6940 | 0.7227 0.6659 0.6521 0.6288
+checkerboard__rrect-sm__rest                     0.6801 | 0.7399 0.6860 0.7411 0.6657
+dark-solid__capsule-button__rest                 0.0117 | 0.0117 0.0117 0.0117 0.0117
+dark-solid__capsule-button__rest-tint-orange     0.4275 | 0.3501 0.3734 0.2163 0.2800
+dark-solid__rrect-md__rest                       0.5009 | 0.5280 0.4593 0.4452 0.4300
+impulse__capsule-button__rest                    0.0037 | 0.0030 0.0032 0.0019 0.0024
+impulse__capsule-button__rest-tint-orange        0.4275 | 0.3473 0.3715 0.2087 0.2748
+impulse__rrect-md__rest                          0.4668 | 0.4961 0.4258 0.4158 0.3984
+light-solid__capsule-button__rest                0.9743 | 0.9544 0.9561 0.9104 0.9273
+light-solid__capsule-button__rest-tint-orange    0.4277 | 0.6480 0.5043 0.7714 0.6459
+light-solid__rrect-md__rest                      0.9332 | 0.9298 0.9221 0.9115 0.9183
+light-solid__rrect-ml__rest                      0.9331 | 0.9278 0.9173 0.9042 0.9108
+photo__capsule-button__rest                      0.6162 | 0.5675 0.5842 0.3883 0.5971
+photo__capsule-button__rest-tint-blue            0.1973 | 0.3117 0.2204 0.2110 0.2974
+photo__capsule-button__rest-tint-orange          0.3556 | 0.4194 0.3528 0.2697 0.3764
+photo__capsule-button__rest-tint-orange-half     0.4545 | 0.4834 0.4432 0.3159 0.4544
+photo__rrect-md__rest                            0.6534 | 0.6240 0.6079 0.5627 0.6584
+photo__rrect-md__rest-tint-orange                0.3618 | 0.4504 0.3490 0.4082 0.3456
+photo__rrect-ml__rest                            0.6554 | 0.6278 0.5990 0.5567 0.6565
+photo__rrect-sm__rest                            0.5959 | 0.6442 0.5987 0.5807 0.6141
+
+== apple-macos-26.5-2x-light-standard
+scene                                          side      native   before    after   d(a-b)  a-native
+checkerboard__capsule-button__rest             top       0.6647   0.7998   0.7998  +0.0000   +0.1351   (context)
+checkerboard__capsule-button__rest             bottom    0.6450   0.6646   0.6646  +0.0000   +0.0195   (context)
+checkerboard__capsule-button__rest             left      0.7530   0.7915   0.7891  -0.0023   +0.0361   (context)
+checkerboard__capsule-button__rest             right     0.3436   0.3180   0.3180  +0.0000   -0.0255   (context)
+checkerboard__capsule-button__rest-tint-blue   top       0.4650   0.5191   0.5191  +0.0000   +0.0541   (context)
+checkerboard__capsule-button__rest-tint-blue   bottom    0.4444   0.3448   0.3448  +0.0000   -0.0996   (context)
+checkerboard__capsule-button__rest-tint-blue   left      0.5698   0.5899   0.5427  -0.0472   -0.0271   (context)
+checkerboard__capsule-button__rest-tint-blue   right     0.2842   0.2685   0.2685  +0.0000   -0.0157   (context)
+checkerboard__capsule-button__rest-tint-orange top       0.5163   0.6083   0.6083  +0.0000   +0.0920   (context)
+checkerboard__capsule-button__rest-tint-orange bottom    0.4964   0.4515   0.4515  +0.0000   -0.0449   (context)
+checkerboard__capsule-button__rest-tint-orange left      0.5998   0.6246   0.5870  -0.0376   -0.0127   (context)
+checkerboard__capsule-button__rest-tint-orange right     0.3007   0.2906   0.2906  +0.0000   -0.0101   (context)
+checkerboard__rrect-md__rest                   top       0.7431   0.8239   0.8239  +0.0000   +0.0808   (context)
+checkerboard__rrect-md__rest                   bottom    0.7361   0.7052   0.7052  +0.0000   -0.0309   (context)
+checkerboard__rrect-md__rest                   left      0.6893   0.7845   0.7618  -0.0227   +0.0724   (context)
+checkerboard__rrect-md__rest                   right     0.6661   0.6671   0.6671  +0.0000   +0.0010   (context)
+checkerboard__rrect-ml__rest                   top       0.7486   0.8323   0.8323  +0.0000   +0.0837   (context)
+checkerboard__rrect-ml__rest                   bottom    0.7350   0.7032   0.7032  +0.0000   -0.0318   (context)
+checkerboard__rrect-ml__rest                   left      0.6437   0.6998   0.6686  -0.0311   +0.0249   (context)
+checkerboard__rrect-ml__rest                   right     0.7082   0.6318   0.6318  +0.0000   -0.0764   (context)
+checkerboard__rrect-sm__rest                   top       0.7270   0.8372   0.8372  +0.0000   +0.1101   (context)
+checkerboard__rrect-sm__rest                   bottom    0.7219   0.6976   0.6976  +0.0000   -0.0243   (context)
+checkerboard__rrect-sm__rest                   left      0.7788   0.8211   0.7596  -0.0614   -0.0192   (context)
+checkerboard__rrect-sm__rest                   right     0.6259   0.6653   0.6653  +0.0000   +0.0394   (context)
+dark-solid__capsule-button__rest               top       0.0278   0.0117   0.0117  +0.0000   -0.0161
+dark-solid__capsule-button__rest               bottom    0.0277   0.0117   0.0117  +0.0000   -0.0159
+dark-solid__capsule-button__rest               left      0.0164   0.0117   0.0117  +0.0000   -0.0047
+dark-solid__capsule-button__rest               right     0.0164   0.0117   0.0117  +0.0000   -0.0047
+dark-solid__capsule-button__rest-tint-orange   top       0.3622   0.3478   0.3478  +0.0000   -0.0144
+dark-solid__capsule-button__rest-tint-orange   bottom    0.3620   0.3478   0.3478  +0.0000   -0.0142
+dark-solid__capsule-button__rest-tint-orange   left      0.2165   0.2099   0.2099  +0.0000   -0.0065
+dark-solid__capsule-button__rest-tint-orange   right     0.2165   0.2099   0.2099  +0.0000   -0.0065
+dark-solid__rrect-md__rest                     top       0.5408   0.6348   0.6348  +0.0000   +0.0940
+dark-solid__rrect-md__rest                     bottom    0.5406   0.4531   0.4531  +0.0000   -0.0875
+dark-solid__rrect-md__rest                     left      0.4307   0.4874   0.3945  -0.0929   -0.0362
+dark-solid__rrect-md__rest                     right     0.4307   0.3936   0.3936  +0.0000   -0.0371
+impulse__capsule-button__rest                  top       0.0162   0.0027   0.0027  +0.0000   -0.0135   (context)
+impulse__capsule-button__rest                  bottom    0.0153   0.0027   0.0027  +0.0000   -0.0126   (context)
+impulse__capsule-button__rest                  left      0.0059   0.0016   0.0016  +0.0000   -0.0043   (context)
+impulse__capsule-button__rest                  right     0.0061   0.0016   0.0016  +0.0000   -0.0045   (context)
+impulse__capsule-button__rest-tint-orange      top       0.3578   0.3452   0.3452  +0.0000   -0.0126   (context)
+impulse__capsule-button__rest-tint-orange      bottom    0.3578   0.3452   0.3452  +0.0000   -0.0126   (context)
+impulse__capsule-button__rest-tint-orange      left      0.2096   0.2031   0.2031  +0.0000   -0.0066   (context)
+impulse__capsule-button__rest-tint-orange      right     0.2096   0.2031   0.2031  +0.0000   -0.0066   (context)
+impulse__rrect-md__rest                        top       0.5142   0.5945   0.5945  +0.0000   +0.0803   (context)
+impulse__rrect-md__rest                        bottom    0.5127   0.4310   0.4310  +0.0000   -0.0817   (context)
+impulse__rrect-md__rest                        left      0.3984   0.4641   0.3648  -0.0994   -0.0337   (context)
+impulse__rrect-md__rest                        right     0.3984   0.3639   0.3639  +0.0000   -0.0345   (context)
+light-solid__capsule-button__rest              top       0.9548   0.9616   0.9616  +0.0000   +0.0068
+light-solid__capsule-button__rest              bottom    0.9435   0.9516   0.9516  +0.0000   +0.0081
+light-solid__capsule-button__rest              left      0.9047   0.9018   0.9017  -0.0001   -0.0030
+light-solid__capsule-button__rest              right     0.9048   0.9010   0.9010  +0.0000   -0.0038
+light-solid__capsule-button__rest-tint-orange  top       0.7005   0.7613   0.7613  +0.0000   +0.0608
+light-solid__capsule-button__rest-tint-orange  bottom    0.6863   0.6147   0.6147  +0.0000   -0.0716
+light-solid__capsule-button__rest-tint-orange  left      0.8030   0.8256   0.7923  -0.0332   -0.0106
+light-solid__capsule-button__rest-tint-orange  right     0.8029   0.7921   0.7921  +0.0000   -0.0109
+light-solid__rrect-md__rest                    top       0.9574   0.9688   0.9688  +0.0000   +0.0114
+light-solid__rrect-md__rest                    bottom    0.9412   0.9440   0.9440  +0.0000   +0.0028
+light-solid__rrect-md__rest                    left      0.9259   0.9231   0.9211  -0.0020   -0.0048
+light-solid__rrect-md__rest                    right     0.9260   0.9211   0.9211  +0.0000   -0.0049
+light-solid__rrect-ml__rest                    top       0.9580   0.9681   0.9681  +0.0000   +0.0101
+light-solid__rrect-ml__rest                    bottom    0.9417   0.9411   0.9411  +0.0000   -0.0006
+light-solid__rrect-ml__rest                    left      0.9220   0.9179   0.9157  -0.0023   -0.0063
+light-solid__rrect-ml__rest                    right     0.9220   0.9156   0.9156  +0.0000   -0.0064
+photo__capsule-button__rest                    top       0.5367   0.6994   0.6994  +0.0000   +0.1627   (context)
+photo__capsule-button__rest                    bottom    0.5672   0.5699   0.5699  +0.0000   +0.0027   (context)
+photo__capsule-button__rest                    left      0.3721   0.3840   0.3776  -0.0065   +0.0055   (context)
+photo__capsule-button__rest                    right     0.5056   0.5145   0.5145  +0.0000   +0.0089   (context)
+photo__capsule-button__rest-tint-blue          top       0.3607   0.4261   0.4261  +0.0000   +0.0654   (context)
+photo__capsule-button__rest-tint-blue          bottom    0.3950   0.3009   0.3009  +0.0000   -0.0941   (context)
+photo__capsule-button__rest-tint-blue          left      0.2203   0.2335   0.1857  -0.0477   -0.0345   (context)
+photo__capsule-button__rest-tint-blue          right     0.3858   0.3633   0.3633  +0.0000   -0.0225   (context)
+photo__capsule-button__rest-tint-orange        top       0.4105   0.5142   0.5142  +0.0000   +0.1036   (context)
+photo__capsule-button__rest-tint-orange        bottom    0.4453   0.4057   0.4057  +0.0000   -0.0396   (context)
+photo__capsule-button__rest-tint-orange        left      0.2587   0.2662   0.2535  -0.0127   -0.0052   (context)
+photo__capsule-button__rest-tint-orange        right     0.4061   0.3833   0.3833  +0.0000   -0.0228   (context)
+photo__capsule-button__rest-tint-orange-half   top       0.4608   0.5917   0.5917  +0.0000   +0.1309   (context)
+photo__capsule-button__rest-tint-orange-half   bottom    0.4933   0.4691   0.4691  +0.0000   -0.0242   (context)
+photo__capsule-button__rest-tint-orange-half   left      0.3030   0.3102   0.3021  -0.0081   -0.0009   (context)
+photo__capsule-button__rest-tint-orange-half   right     0.4377   0.4258   0.4258  +0.0000   -0.0119   (context)
+photo__rrect-md__rest                          top       0.6142   0.7609   0.7609  +0.0000   +0.1467   (context)
+photo__rrect-md__rest                          bottom    0.6284   0.6131   0.6131  +0.0000   -0.0153   (context)
+photo__rrect-md__rest                          left      0.5619   0.5947   0.5462  -0.0484   -0.0156   (context)
+photo__rrect-md__rest                          right     0.6433   0.6144   0.6144  +0.0000   -0.0289   (context)
+photo__rrect-md__rest-tint-orange              top       0.4538   0.5401   0.5401  +0.0000   +0.0863   (context)
+photo__rrect-md__rest-tint-orange              bottom    0.4673   0.4017   0.4017  +0.0000   -0.0657   (context)
+photo__rrect-md__rest-tint-orange              left      0.3978   0.5068   0.3419  -0.1649   -0.0559   (context)
+photo__rrect-md__rest-tint-orange              right     0.4478   0.3901   0.3901  +0.0000   -0.0577   (context)
+photo__rrect-ml__rest                          top       0.6230   0.7680   0.7680  +0.0000   +0.1450   (context)
+photo__rrect-ml__rest                          bottom    0.6452   0.6373   0.6373  +0.0000   -0.0079   (context)
+photo__rrect-ml__rest                          left      0.5624   0.5766   0.5102  -0.0664   -0.0522   (context)
+photo__rrect-ml__rest                          right     0.6723   0.6581   0.6581  +0.0000   -0.0142   (context)
+photo__rrect-sm__rest                          top       0.6191   0.7664   0.7664  +0.0000   +0.1474   (context)
+photo__rrect-sm__rest                          bottom    0.6333   0.5913   0.5913  +0.0000   -0.0420   (context)
+photo__rrect-sm__rest                          left      0.5173   0.5798   0.5537  -0.0261   +0.0364   (context)
+photo__rrect-sm__rest                          right     0.5553   0.5464   0.5464  +0.0000   -0.0089   (context)
+
+Flatness and the body, per cell:
+scene                                           flatNat  flatBef  flatAft  bodyNat  bodyBef  bodyAft  L-R nat  L-R aft
+checkerboard__capsule-button__rest               0.4094   0.4818   0.4818   0.6152   0.6804   0.6804  +0.4094  +0.4711
+checkerboard__capsule-button__rest-tint-blue     0.2856   0.3213   0.2741   0.1954   0.2051   0.2051  +0.2856  +0.2741
+checkerboard__capsule-button__rest-tint-orange   0.2991   0.3341   0.3177   0.3522   0.3684   0.3684  +0.2991  +0.2965
+checkerboard__rrect-md__rest                     0.0770   0.1568   0.1568   0.6800   0.6993   0.6993  +0.0232  +0.0946
+checkerboard__rrect-ml__rest                     0.1048   0.2005   0.2005   0.6902   0.6993   0.6993  -0.0645  +0.0368
+checkerboard__rrect-sm__rest                     0.1529   0.1719   0.1719   0.6163   0.6798   0.6798  +0.1529  +0.0943
+dark-solid__capsule-button__rest                 0.0114   0.0000   0.0000   0.0110   0.0117   0.0117  -0.0000  +0.0000
+dark-solid__capsule-button__rest-tint-orange     0.1457   0.1378   0.1378   0.4243   0.4273   0.4273  -0.0000  +0.0000
+dark-solid__rrect-md__rest                       0.1101   0.2412   0.2412   0.4798   0.4955   0.4955  -0.0000  +0.0009
+impulse__capsule-button__rest                    0.0103   0.0011   0.0011   0.0067   0.0033   0.0033  -0.0002  +0.0000
+impulse__capsule-button__rest-tint-orange        0.1482   0.1422   0.1422   0.4243   0.4273   0.4273  +0.0000  +0.0000
+impulse__rrect-md__rest                          0.1157   0.2306   0.2306   0.4311   0.4644   0.4644  +0.0000  +0.0008
+light-solid__capsule-button__rest                0.0500   0.0606   0.0606   0.9666   0.9724   0.9724  -0.0001  +0.0007
+light-solid__capsule-button__rest-tint-orange    0.1167   0.2109   0.1776   0.4229   0.4279   0.4279  +0.0000  +0.0003
+light-solid__rrect-md__rest                      0.0315   0.0477   0.0477   0.9344   0.9318   0.9318  -0.0001  +0.0000
+light-solid__rrect-ml__rest                      0.0360   0.0525   0.0525   0.9325   0.9317   0.9317  +0.0000  +0.0001
+photo__capsule-button__rest                      0.1951   0.3154   0.3219   0.5772   0.6115   0.6115  -0.1335  -0.1370
+photo__capsule-button__rest-tint-blue            0.1748   0.1926   0.2404   0.1909   0.1972   0.1972  -0.1656  -0.1776
+photo__capsule-button__rest-tint-orange          0.1866   0.2479   0.2607   0.3442   0.3539   0.3539  -0.1474  -0.1298
+photo__capsule-button__rest-tint-orange-half     0.1903   0.2815   0.2896   0.4306   0.4529   0.4528  -0.1347  -0.1237
+photo__rrect-md__rest                            0.0815   0.1663   0.2147   0.6619   0.6563   0.6563  -0.0815  -0.0682
+photo__rrect-md__rest-tint-orange                0.0696   0.1500   0.1982   0.3609   0.3628   0.3628  -0.0501  -0.0482
+photo__rrect-ml__rest                            0.1099   0.1914   0.2578   0.6709   0.6579   0.6579  -0.1099  -0.1478
+photo__rrect-sm__rest                            0.1160   0.2200   0.2200   0.5408   0.5867   0.5867  -0.0380  +0.0073
+
+The CSS tier's own rim on the same cells (the canonical captures; the CSS tier draws
+no sweep, so this column is the record of what the other tier's rim looks like):
+scene                                              body | rim T/B/L/R
+checkerboard__capsule-button__rest               0.6935 | 0.6979 0.6668 0.6873 0.5074
+checkerboard__capsule-button__rest-tint-blue     0.2042 | 0.3909 0.2442 0.5579 0.2013
+checkerboard__capsule-button__rest-tint-orange   0.3666 | 0.4997 0.3838 0.6018 0.2934
+checkerboard__rrect-md__rest                     0.7041 | 0.7355 0.6763 0.6807 0.6877
+checkerboard__rrect-ml__rest                     0.7048 | 0.7333 0.6756 0.6669 0.6404
+checkerboard__rrect-sm__rest                     0.6936 | 0.7621 0.6988 0.7659 0.6792
+dark-solid__capsule-button__rest                 0.0117 | 0.0117 0.0117 0.0117 0.0117
+dark-solid__capsule-button__rest-tint-orange     0.4275 | 0.3547 0.3762 0.2289 0.2875
+dark-solid__rrect-md__rest                       0.5023 | 0.5397 0.4589 0.4649 0.4296
+impulse__capsule-button__rest                    0.0033 | 0.0028 0.0029 0.0018 0.0022
+impulse__capsule-button__rest-tint-orange        0.4275 | 0.3524 0.3746 0.2226 0.2830
+impulse__rrect-md__rest                          0.4688 | 0.5086 0.4257 0.4362 0.3977
+light-solid__capsule-button__rest                0.9744 | 0.9541 0.9561 0.9126 0.9291
+light-solid__capsule-button__rest-tint-orange    0.4277 | 0.6551 0.5088 0.7898 0.6590
+light-solid__rrect-md__rest                      0.9332 | 0.9312 0.9225 0.9122 0.9184
+light-solid__rrect-ml__rest                      0.9331 | 0.9290 0.9175 0.9048 0.9109
+photo__capsule-button__rest                      0.6177 | 0.5812 0.5831 0.3949 0.6019
+photo__capsule-button__rest-tint-blue            0.1974 | 0.3171 0.2215 0.2223 0.3038
+photo__capsule-button__rest-tint-orange          0.3556 | 0.4285 0.3528 0.2731 0.3795
+photo__capsule-button__rest-tint-orange-half     0.4550 | 0.4943 0.4429 0.3202 0.4552
+photo__rrect-md__rest                            0.6549 | 0.6341 0.6052 0.5783 0.6627
+photo__rrect-md__rest-tint-orange                0.3618 | 0.4569 0.3498 0.4162 0.3467
+photo__rrect-ml__rest                            0.6562 | 0.6350 0.5965 0.5718 0.6594
+photo__rrect-sm__rest                            0.5960 | 0.6564 0.5962 0.6007 0.6136
+
+== apple-macos-26.5-1x-dark-standard
+scene                                          side      native   before    after   d(a-b)  a-native
+checkerboard__capsule-button__rest             top       0.2996   0.2124   0.2124  +0.0000   -0.0872   (context)
+checkerboard__capsule-button__rest             bottom    0.3036   0.2105   0.2105  +0.0000   -0.0931   (context)
+checkerboard__capsule-button__rest             left      0.5888   0.6268   0.5747  -0.0522   -0.0141   (context)
+checkerboard__capsule-button__rest             right     0.2478   0.2227   0.2227  +0.0000   -0.0251   (context)
+checkerboard__capsule-button__rest-tint-orange top       0.5194   0.4596   0.4596  +0.0000   -0.0598   (context)
+checkerboard__capsule-button__rest-tint-orange bottom    0.5155   0.4567   0.4567  +0.0000   -0.0588   (context)
+checkerboard__capsule-button__rest-tint-orange left      0.6479   0.6744   0.6366  -0.0377   -0.0113   (context)
+checkerboard__capsule-button__rest-tint-orange right     0.3039   0.3046   0.3046  +0.0000   +0.0007   (context)
+checkerboard__rrect-md__rest                   top       0.1842   0.1637   0.1637  +0.0000   -0.0205   (context)
+checkerboard__rrect-md__rest                   bottom    0.1703   0.1548   0.1548  +0.0000   -0.0154   (context)
+checkerboard__rrect-md__rest                   left      0.2384   0.3776   0.2329  -0.1447   -0.0054   (context)
+checkerboard__rrect-md__rest                   right     0.2130   0.1886   0.1886  +0.0000   -0.0244   (context)
+dark-solid__capsule-button__rest               top       0.0249   0.0117   0.0117  +0.0000   -0.0132
+dark-solid__capsule-button__rest               bottom    0.0247   0.0117   0.0117  +0.0000   -0.0130
+dark-solid__capsule-button__rest               left      0.0161   0.0117   0.0117  +0.0000   -0.0044
+dark-solid__capsule-button__rest               right     0.0161   0.0117   0.0117  +0.0000   -0.0044
+dark-solid__capsule-button__rest-tint-orange   top       0.3451   0.3431   0.3431  +0.0000   -0.0020
+dark-solid__capsule-button__rest-tint-orange   bottom    0.3450   0.3431   0.3431  +0.0000   -0.0019
+dark-solid__capsule-button__rest-tint-orange   left      0.2042   0.1972   0.1972  +0.0000   -0.0070
+dark-solid__capsule-button__rest-tint-orange   right     0.2042   0.1972   0.1972  +0.0000   -0.0070
+dark-solid__rrect-md__rest                     top       0.0340   0.0418   0.0418  +0.0000   +0.0078
+dark-solid__rrect-md__rest                     bottom    0.0339   0.0416   0.0416  +0.0000   +0.0077
+dark-solid__rrect-md__rest                     left      0.0296   0.1690   0.0363  -0.1327   +0.0067
+dark-solid__rrect-md__rest                     right     0.0296   0.0363   0.0363  +0.0000   +0.0067
+impulse__capsule-button__rest                  top       0.0145   0.0030   0.0030  +0.0000   -0.0115   (context)
+impulse__capsule-button__rest                  bottom    0.0137   0.0030   0.0030  +0.0000   -0.0107   (context)
+impulse__capsule-button__rest                  left      0.0041   0.0017   0.0017  +0.0000   -0.0024   (context)
+impulse__capsule-button__rest                  right     0.0042   0.0017   0.0017  +0.0000   -0.0025   (context)
+photo__capsule-button__rest                    top       0.1909   0.1125   0.1125  +0.0000   -0.0784   (context)
+photo__capsule-button__rest                    bottom    0.2364   0.1576   0.1576  +0.0000   -0.0788   (context)
+photo__capsule-button__rest                    left      0.1855   0.2166   0.1617  -0.0549   -0.0238   (context)
+photo__capsule-button__rest                    right     0.3944   0.3545   0.3545  +0.0000   -0.0399   (context)
+photo__capsule-button__rest-tint-orange        top       0.4238   0.3782   0.3782  -0.0000   -0.0456   (context)
+photo__capsule-button__rest-tint-orange        bottom    0.4718   0.4169   0.4169  +0.0000   -0.0548   (context)
+photo__capsule-button__rest-tint-orange        left      0.2966   0.2962   0.2866  -0.0096   -0.0101   (context)
+photo__capsule-button__rest-tint-orange        right     0.4415   0.4251   0.4251  +0.0000   -0.0164   (context)
+photo__rrect-md__rest                          top       0.1109   0.0856   0.0856  +0.0000   -0.0253   (context)
+photo__rrect-md__rest                          bottom    0.1239   0.0961   0.0961  +0.0000   -0.0278   (context)
+photo__rrect-md__rest                          left      0.1251   0.2479   0.1063  -0.1416   -0.0188   (context)
+photo__rrect-md__rest                          right     0.1905   0.1440   0.1440  +0.0000   -0.0465   (context)
+
+Flatness and the body, per cell:
+scene                                           flatNat  flatBef  flatAft  bodyNat  bodyBef  bodyAft  L-R nat  L-R aft
+checkerboard__capsule-button__rest               0.3410   0.4164   0.3642   0.1059   0.0673   0.0673  +0.3410  +0.3520
+checkerboard__capsule-button__rest-tint-orange   0.3440   0.3698   0.3321   0.4343   0.4275   0.4274  +0.3440  +0.3321
+checkerboard__rrect-md__rest                     0.0681   0.2228   0.0781   0.0468   0.0475   0.0475  +0.0254  +0.0443
+dark-solid__capsule-button__rest                 0.0088   0.0000   0.0000   0.0110   0.0117   0.0117  +0.0000  +0.0000
+dark-solid__capsule-button__rest-tint-orange     0.1409   0.1459   0.1459   0.4243   0.4272   0.4272  +0.0000  +0.0000
+dark-solid__rrect-md__rest                       0.0044   0.1327   0.0055   0.0153   0.0130   0.0130  +0.0000  +0.0000
+impulse__capsule-button__rest                    0.0103   0.0013   0.0013   0.0066   0.0037   0.0037  -0.0000  +0.0000
+photo__capsule-button__rest                      0.2088   0.2420   0.2420   0.0961   0.0528   0.0527  -0.2088  -0.1928
+photo__capsule-button__rest-tint-orange          0.1751   0.1289   0.1385   0.4343   0.4274   0.4274  -0.1449  -0.1385
+photo__rrect-md__rest                            0.0795   0.1623   0.0584   0.0466   0.0389   0.0389  -0.0654  -0.0377
+
+The CSS tier's own rim on the same cells (the canonical captures; the CSS tier draws
+no sweep, so this column is the record of what the other tier's rim looks like):
+scene                                              body | rim T/B/L/R
+checkerboard__capsule-button__rest               0.0698 | 0.2168 0.1375 0.5338 0.1240
+checkerboard__capsule-button__rest-tint-orange   0.4276 | 0.4683 0.4411 0.6118 0.3239
+checkerboard__rrect-md__rest                     0.0455 | 0.1627 0.0857 0.1883 0.1572
+dark-solid__capsule-button__rest                 0.0117 | 0.0117 0.0117 0.0117 0.0117
+dark-solid__capsule-button__rest-tint-orange     0.4275 | 0.3501 0.3734 0.2163 0.2800
+dark-solid__rrect-md__rest                       0.0130 | 0.0458 0.0136 0.0400 0.0140
+impulse__capsule-button__rest                    0.0037 | 0.0030 0.0032 0.0019 0.0024
+photo__capsule-button__rest                      0.0547 | 0.1264 0.1079 0.1572 0.2471
+photo__capsule-button__rest-tint-orange          0.4275 | 0.3937 0.4168 0.2971 0.4204
+photo__rrect-md__rest                            0.0383 | 0.0914 0.0529 0.1070 0.0934
+
+== apple-macos-26.5-2x-dark-standard
+scene                                          side      native   before    after   d(a-b)  a-native
+checkerboard__capsule-button__rest             top       0.3334   0.2364   0.2364  +0.0000   -0.0969   (context)
+checkerboard__capsule-button__rest             bottom    0.3394   0.2339   0.2339  +0.0000   -0.1055   (context)
+checkerboard__capsule-button__rest             left      0.5957   0.6449   0.5890  -0.0559   -0.0067   (context)
+checkerboard__capsule-button__rest             right     0.2934   0.2622   0.2622  +0.0000   -0.0312   (context)
+checkerboard__capsule-button__rest-tint-orange top       0.5367   0.4718   0.4718  +0.0000   -0.0649   (context)
+checkerboard__capsule-button__rest-tint-orange bottom    0.5337   0.4685   0.4685  +0.0000   -0.0652   (context)
+checkerboard__capsule-button__rest-tint-orange left      0.6692   0.6870   0.6489  -0.0381   -0.0203   (context)
+checkerboard__capsule-button__rest-tint-orange right     0.3206   0.3236   0.3236  +0.0000   +0.0030   (context)
+checkerboard__rrect-md__rest                   top       0.2088   0.1900   0.1900  +0.0000   -0.0188   (context)
+checkerboard__rrect-md__rest                   bottom    0.1956   0.1801   0.1801  +0.0000   -0.0156   (context)
+checkerboard__rrect-md__rest                   left      0.2784   0.5152   0.2819  -0.2333   +0.0035   (context)
+checkerboard__rrect-md__rest                   right     0.2301   0.1970   0.1970  +0.0000   -0.0331   (context)
+dark-solid__capsule-button__rest               top       0.0278   0.0117   0.0117  +0.0000   -0.0161
+dark-solid__capsule-button__rest               bottom    0.0277   0.0117   0.0117  +0.0000   -0.0159
+dark-solid__capsule-button__rest               left      0.0164   0.0117   0.0117  +0.0000   -0.0047
+dark-solid__capsule-button__rest               right     0.0164   0.0117   0.0117  +0.0000   -0.0047
+dark-solid__capsule-button__rest-tint-orange   top       0.3622   0.3478   0.3478  +0.0000   -0.0144
+dark-solid__capsule-button__rest-tint-orange   bottom    0.3620   0.3478   0.3478  +0.0000   -0.0142
+dark-solid__capsule-button__rest-tint-orange   left      0.2165   0.2099   0.2099  +0.0000   -0.0065
+dark-solid__capsule-button__rest-tint-orange   right     0.2165   0.2099   0.2099  +0.0000   -0.0065
+dark-solid__rrect-md__rest                     top       0.0392   0.0556   0.0556  +0.0000   +0.0163
+dark-solid__rrect-md__rest                     bottom    0.0391   0.0553   0.0553  +0.0000   +0.0162
+dark-solid__rrect-md__rest                     left      0.0322   0.2767   0.0455  -0.2312   +0.0133
+dark-solid__rrect-md__rest                     right     0.0322   0.0455   0.0455  +0.0000   +0.0133
+impulse__capsule-button__rest                  top       0.0162   0.0027   0.0027  +0.0000   -0.0135   (context)
+impulse__capsule-button__rest                  bottom    0.0153   0.0027   0.0027  +0.0000   -0.0126   (context)
+impulse__capsule-button__rest                  left      0.0059   0.0016   0.0016  +0.0000   -0.0043   (context)
+impulse__capsule-button__rest                  right     0.0061   0.0016   0.0016  +0.0000   -0.0045   (context)
+photo__capsule-button__rest                    top       0.2062   0.1279   0.1279  +0.0000   -0.0783   (context)
+photo__capsule-button__rest                    bottom    0.2526   0.1740   0.1740  +0.0000   -0.0786   (context)
+photo__capsule-button__rest                    left      0.1872   0.2283   0.1698  -0.0585   -0.0174   (context)
+photo__capsule-button__rest                    right     0.4118   0.3789   0.3789  +0.0000   -0.0329   (context)
+photo__capsule-button__rest-tint-orange        top       0.4254   0.3821   0.3820  -0.0000   -0.0434   (context)
+photo__capsule-button__rest-tint-orange        bottom    0.4740   0.4224   0.4224  +0.0000   -0.0516   (context)
+photo__capsule-button__rest-tint-orange        left      0.3037   0.3010   0.2926  -0.0084   -0.0110   (context)
+photo__capsule-button__rest-tint-orange        right     0.4537   0.4292   0.4292  +0.0000   -0.0245   (context)
+photo__rrect-md__rest                          top       0.1294   0.1006   0.1006  +0.0000   -0.0288   (context)
+photo__rrect-md__rest                          bottom    0.1404   0.1139   0.1139  +0.0000   -0.0265   (context)
+photo__rrect-md__rest                          left      0.1351   0.3559   0.1211  -0.2348   -0.0139   (context)
+photo__rrect-md__rest                          right     0.2200   0.1679   0.1679  +0.0000   -0.0521   (context)
+
+Flatness and the body, per cell:
+scene                                           flatNat  flatBef  flatAft  bodyNat  bodyBef  bodyAft  L-R nat  L-R aft
+checkerboard__capsule-button__rest               0.3023   0.4110   0.3551   0.1074   0.0685   0.0685  +0.3023  +0.3268
+checkerboard__capsule-button__rest-tint-orange   0.3486   0.3634   0.3253   0.4345   0.4275   0.4275  +0.3486  +0.3253
+checkerboard__rrect-md__rest                     0.0827   0.3351   0.1018   0.0475   0.0478   0.0478  +0.0482  +0.0849
+dark-solid__capsule-button__rest                 0.0114   0.0000   0.0000   0.0110   0.0117   0.0117  -0.0000  +0.0000
+dark-solid__capsule-button__rest-tint-orange     0.1457   0.1378   0.1378   0.4243   0.4273   0.4273  -0.0000  +0.0000
+dark-solid__rrect-md__rest                       0.0070   0.2312   0.0101   0.0153   0.0130   0.0130  +0.0000  +0.0000
+impulse__capsule-button__rest                    0.0103   0.0011   0.0011   0.0067   0.0033   0.0033  -0.0002  +0.0000
+photo__capsule-button__rest                      0.2246   0.2510   0.2510   0.0966   0.0527   0.0527  -0.2246  -0.2091
+photo__capsule-button__rest-tint-orange          0.1703   0.1283   0.1366   0.4344   0.4274   0.4274  -0.1501  -0.1366
+photo__rrect-md__rest                            0.0906   0.2553   0.0673   0.0470   0.0391   0.0391  -0.0849  -0.0467
+
+The CSS tier's own rim on the same cells (the canonical captures; the CSS tier draws
+no sweep, so this column is the record of what the other tier's rim looks like):
+scene                                              body | rim T/B/L/R
+checkerboard__capsule-button__rest               0.0702 | 0.2275 0.1455 0.5568 0.1450
+checkerboard__capsule-button__rest-tint-orange   0.4276 | 0.4755 0.4426 0.6303 0.3316
+checkerboard__rrect-md__rest                     0.0487 | 0.1732 0.0950 0.2137 0.1664
+dark-solid__capsule-button__rest                 0.0117 | 0.0117 0.0117 0.0117 0.0117
+dark-solid__capsule-button__rest-tint-orange     0.4275 | 0.3547 0.3762 0.2289 0.2875
+dark-solid__rrect-md__rest                       0.0130 | 0.0469 0.0138 0.0417 0.0143
+impulse__capsule-button__rest                    0.0033 | 0.0028 0.0029 0.0018 0.0022
+photo__capsule-button__rest                      0.0537 | 0.1277 0.1114 0.1632 0.2627
+photo__capsule-button__rest-tint-orange          0.4275 | 0.4058 0.4179 0.3059 0.4241
+photo__rrect-md__rest                            0.0381 | 0.0903 0.0536 0.1085 0.0989
+
+== the reference's own flatness, gathered — the light bed's verdict
+
+Clause 2 asks the reference's per-side rim to be flat within 0.03 before it asks vitrea's
+to match. `T-B` is top minus bottom, `L-R` left minus right, `H-V` the mean of left and
+right minus the mean of top and bottom. A reference with L-R at zero and H-V away from
+zero is lit along one axis and flat along the other; a reference flat on both is flat.
+profile                                scene                                 T-B      L-R      H-V     flat
+apple-macos-26.5-1x-light-standard     dark-solid__capsule-button__rest  +0.0002  +0.0000  -0.0087   0.0088
+apple-macos-26.5-1x-light-standard     dark-solid__rrect-md__rest        +0.0002  -0.0001  -0.1075   0.1077
+apple-macos-26.5-1x-light-standard     light-solid__capsule-button__rest  +0.0086  -0.0002  -0.0511   0.0555
+apple-macos-26.5-1x-light-standard     light-solid__rrect-md__rest       +0.0138  -0.0000  -0.0242   0.0311
+apple-macos-26.5-1x-light-standard     light-solid__rrect-ml__rest       +0.0139  -0.0001  -0.0286   0.0356
+apple-macos-26.5-2x-light-standard     dark-solid__capsule-button__rest  +0.0002  -0.0000  -0.0113   0.0114
+apple-macos-26.5-2x-light-standard     dark-solid__rrect-md__rest        +0.0002  -0.0000  -0.1100   0.1101
+apple-macos-26.5-2x-light-standard     light-solid__capsule-button__rest  +0.0113  -0.0001  -0.0443   0.0500
+apple-macos-26.5-2x-light-standard     light-solid__rrect-md__rest       +0.0162  -0.0001  -0.0233   0.0315
+apple-macos-26.5-2x-light-standard     light-solid__rrect-ml__rest       +0.0162  +0.0000  -0.0279   0.0360
+apple-macos-26.5-1x-dark-standard      dark-solid__capsule-button__rest  +0.0002  +0.0000  -0.0087   0.0088
+apple-macos-26.5-1x-dark-standard      dark-solid__rrect-md__rest        +0.0001  +0.0000  -0.0043   0.0044
+apple-macos-26.5-2x-dark-standard      dark-solid__capsule-button__rest  +0.0002  -0.0000  -0.0113   0.0114
+apple-macos-26.5-2x-dark-standard      dark-solid__rrect-md__rest        +0.0002  +0.0000  -0.0069   0.0070

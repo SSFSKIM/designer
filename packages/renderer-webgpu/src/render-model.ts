@@ -55,6 +55,16 @@ export interface SurfaceChannels {
   readonly glow: number;
   /** Specular sweep position, 0..1 around the contour. */
   readonly sweep: number;
+  /**
+   * The shimmer's amplitude, 0..1 — the sweep's gain rather than its position.
+   *
+   * The band's angular coordinate covers the whole contour, so no phase is off
+   * the surface and the phase alone cannot mean "not shimmering"; this channel
+   * carries that. It is 0 on a resting surface, which makes the highlight pass's
+   * sweep term exactly zero there, and it is what a shimmer driver will output
+   * when v1 gains one.
+   */
+  readonly shimmer: number;
   /** `lensStrength`, 0..1. Multiplies the resolved refraction scale. */
   readonly lensStrength: number;
   /** Press point in viewport CSS px. Defaults to the surface's centre. */
@@ -65,6 +75,7 @@ export const IDLE_CHANNELS: SurfaceChannels = {
   press: 0,
   glow: 0,
   sweep: 0,
+  shimmer: 0,
   lensStrength: 1,
 };
 

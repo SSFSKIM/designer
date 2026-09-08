@@ -32,6 +32,7 @@ describe("readHostChannels", () => {
         [GLASS_CHANNEL_PROPERTIES.press]: "0.4210",
         [GLASS_CHANNEL_PROPERTIES.glow]: "0.8000",
         [GLASS_CHANNEL_PROPERTIES.sweep]: "0.2500",
+        [GLASS_CHANNEL_PROPERTIES.shimmer]: "0.7500",
         [GLASS_CHANNEL_PROPERTIES.lensStrength]: "1.0600",
       }),
       BOUNDS,
@@ -40,7 +41,17 @@ describe("readHostChannels", () => {
     expect(channels.press).toBeCloseTo(0.421, 6);
     expect(channels.glow).toBeCloseTo(0.8, 6);
     expect(channels.sweep).toBeCloseTo(0.25, 6);
+    expect(channels.shimmer).toBeCloseTo(0.75, 6);
     expect(channels.lensStrength).toBeCloseTo(1.06, 6);
+  });
+
+  it("idles the shimmer at zero, which is what makes a resting rim plain", () => {
+    // The sweep's phase idles at 0 too, but 0 radians of the band's angular
+    // coordinate is the left edge rather than nowhere, so the amplitude is the
+    // channel that has to say "not shimmering" (W22; claims 5.90 4). Nothing in
+    // v1 writes the property, so this is the value every resting surface gets.
+    expect(IDLE_CHANNELS.shimmer).toBe(0);
+    expect(readHostChannels(bare(), BOUNDS).shimmer).toBe(0);
   });
 
   it("falls back to idle for an undriven surface", () => {

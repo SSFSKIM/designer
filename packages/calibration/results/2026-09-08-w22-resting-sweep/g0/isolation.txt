@@ -1,0 +1,21 @@
+W22 G0 — the gate's isolation on the captures: which sides moved, and by how much
+
+For every cell of every profile the declared reader could read, the per-side rim peak
+before the gate against after. `moved` counts a side whose reading changed at all.
+
+profile                                 cells    top  bottom   left  right  worst non-left  worst left
+apple-macos-26.5-1x-light-standard         24      0       0     20      0    0.0000000000     -0.1180
+apple-macos-26.5-2x-light-standard         24      0       0     20      0    0.0000000000     -0.1649
+apple-macos-26.5-1x-dark-standard          10      1       0      7      0   -0.0000428744     -0.1447
+apple-macos-26.5-2x-dark-standard          10      1       0      7      0   -0.0000448822     -0.2348
+
+over 68 cells (272 sides): top 2, bottom 0, left 54, right 0 moved
+the largest movement on any side but the left: -0.0000448822 (photo__capsule-button__rest-tint-orange)
+
+The body, likewise — the eroded box is six CSS px inside the band, so the sweep should
+reach it only where its blur shoulder does:
+profile                                 cells moved  worst d body cell                                    
+apple-macos-26.5-1x-light-standard               16     -0.000028 photo__capsule-button__rest-tint-blue   
+apple-macos-26.5-2x-light-standard               16     -0.000027 photo__capsule-button__rest-tint-blue   
+apple-macos-26.5-1x-dark-standard                 7     -0.000029 checkerboard__capsule-button__rest      
+apple-macos-26.5-2x-dark-standard                 7     -0.000028 checkerboard__capsule-button__rest      

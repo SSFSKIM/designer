@@ -283,7 +283,18 @@ export const SCENES: readonly Scene[] = [
         "g",
         [
           rect("s", [100, 60], [140, 68], {
-            channels: { press: 0.6, glow: 1, sweep: 0.15, lensStrength: 1, pressPoint: [72, 48] },
+            // `shimmer: 1` declares the shimmer running, which is what this
+            // scene has always meant by driving a sweep phase: the band's gain
+            // is `sweepGain x shimmer` since W22, so a scene that wants the band
+            // says so and its pinned bytes hold across the gate.
+            channels: {
+              press: 0.6,
+              glow: 1,
+              sweep: 0.15,
+              shimmer: 1,
+              lensStrength: 1,
+              pressPoint: [72, 48],
+            },
           }),
         ],
         { noBackdrop: true, refraction: "none", analysisExact: false },

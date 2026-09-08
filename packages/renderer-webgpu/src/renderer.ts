@@ -1087,8 +1087,20 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           cssPerDevice,
           sweep: lead.channels.sweep,
           sweepBandRadians: material.sweepBandRadians,
-          // Reduced Motion removes shimmer travel outright rather than freezing it.
-          sweepGain: policy.glass === "none" ? 0 : material.sweepGain,
+          /*
+           * The band's amplitude, from the same lead surface that supplies its
+           * phase. `shimmer` is 0 on a resting surface and nothing in v1 drives
+           * it, so a surface nobody is animating contributes exactly no sweep
+           * term and the pass writes nothing on its rim — the contract the
+           * pass's own comment states, which the profile's `sweepGain` alone
+           * could not keep, because 0 radians of the band's angular coordinate
+           * is the left edge rather than nowhere (W22's Design; the defect
+           * claims §5.90 §4 isolated).
+           *
+           * Reduced Motion removes shimmer travel outright rather than freezing
+           * it, on this same product, and that zeroing is unchanged.
+           */
+          sweepGain: policy.glass === "none" ? 0 : material.sweepGain * lead.channels.shimmer,
           rimWidth: optics.rimWidth,
           pressPointCss: lead.channels.pressPoint ?? lead.centre,
           glowRadiusCss: material.glowRadiusCss,
