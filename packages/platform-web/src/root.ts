@@ -34,6 +34,8 @@ import {
   createGlassScene,
   resolveGlassGroupState,
   resolveMaterial,
+  unionRect,
+  GLASS_PLANES,
   type AccessibilityOverrides,
   type BackdropSourceDescriptor,
   type FrameInfo,
@@ -56,6 +58,7 @@ import {
 } from "@vitreajs/vitrea";
 
 import { createBackdropProxyManager, type ProxyRequest } from "./backdrop-proxy";
+import { compositeToneOver, toneBeneath, type PaintedSurface } from "./backdrop-stack";
 import { readHostChannels, type SurfaceChannelValues } from "./channels";
 import {
   colorSchemeMaterialProfile,
@@ -1550,6 +1553,16 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
 
     const groupInputs: GlassGroupRenderInput[] = [];
     const proxyRequests: ProxyRequest[] = [];
+    /**
+     * Every surface resolved so far this frame, with the tone it RENDERS at —
+     * what a group stacked on top of it is sampling (W22 G3, `backdrop-stack.ts`).
+     *
+     * Frame-scoped, because every quantity in it is: a surface's output moves
+     * with its backdrop, its size and the accessibility policy, and a tone
+     * carried over from the previous frame would be one frame of glass behind
+     * the glass it is standing on.
+     */
+    const painted: PaintedSurface[] = [];
     const nodesByPlane = new Map<GlassPlane, GlassNodeRenderInput[]>();
     /**
      * Every group with something measured, and *every* plane its proxies belong
@@ -1558,7 +1571,33 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
      */
     const auditablePlanes = new Map<string, Set<GlassPlane>>();
 
-    for (const resolved of resolution.groups) {
+    /*
+     * The groups in BACK-TO-FRONT plane order, so that a group stacked over
+     * another has the surface beneath it already resolved when its own backdrop
+     * is decided (W22 G3).
+     *
+     * Keyed on the plane alone, and stable within it. §Geometry's X1 forbids two
+     * overlapping nodes in one plane, so a stack is two planes by law and the
+     * order within a plane can say nothing about what is under what; keeping
+     * registration order there is what leaves every single-plane page — which is
+     * every page that is not a stack — resolving in exactly the sequence it
+     * always did. A group with nothing measured paints nothing and sorts first.
+     */
+    const backPlaneOf = (groupId: string): number => {
+      let index = Number.POSITIVE_INFINITY;
+      for (const record of hosts.values()) {
+        if (record.groupId !== groupId) continue;
+        if (scene.glassNode(record.nodeId)?.bounds === undefined) continue;
+        index = Math.min(index, GLASS_PLANES.indexOf(record.plane));
+      }
+      return Number.isFinite(index) ? index : -1;
+    };
+    const orderedGroups = resolution.groups
+      .map((resolved, index) => ({ resolved, index, plane: backPlaneOf(resolved.groupId) }))
+      .sort((a, b) => a.plane - b.plane || a.index - b.index)
+      .map((entry) => entry.resolved);
+
+    for (const resolved of orderedGroups) {
       const groupId = resolved.groupId;
       const groupRecord = scene.glassGroup(groupId);
       if (groupRecord === undefined) continue;
@@ -1655,9 +1694,31 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
             (declaredHint.tone === "dark" || declaredHint.tone === "light"
               ? cssMapping.toneLuminance[declaredHint.tone]
               : undefined));
+      /*
+       * The third statement, between the app's pixels and nothing: **the glass
+       * this group is standing on** (W22 G3; `backdrop-stack.ts`).
+       *
+       * A group that samples the DOM has no texture to read, so the two rules
+       * above leave it unadapted — correct over a page vitrea has not measured,
+       * and wrong over a surface vitrea drew itself, whose output is a closed
+       * form of quantities already resolved this frame. Reached only from the
+       * `css-backdrop` backend, which is exactly the group whose pixels come from
+       * the page rather than from a texture, and only where one already-painted
+       * surface carries this group's whole footprint. It is still not a guess:
+       * where nothing underneath answers, nothing is adapted.
+       */
+      const stackedTone = (): BackdropToneSample | undefined => {
+        if (state.samplingBackend !== "css-backdrop" || measured.length === 0) return undefined;
+        const footprint = measured.map((entry) => entry.bounds).reduce(unionRect);
+        let backPlane: GlassPlane = "overlay";
+        for (const plane of planesMeasured) {
+          if (GLASS_PLANES.indexOf(plane) < GLASS_PLANES.indexOf(backPlane)) backPlane = plane;
+        }
+        return toneBeneath(footprint, backPlane, painted);
+      };
       const backdropTone: BackdropToneSample | undefined =
         declaredLuminance === undefined
-          ? backdropToneFor(groupRecord.descriptor.backdropSourceId)
+          ? (backdropToneFor(groupRecord.descriptor.backdropSourceId) ?? stackedTone())
           : {
               rgb: [declaredLuminance, declaredLuminance, declaredLuminance],
               luminance: declaredLuminance,
@@ -2005,6 +2066,24 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           tint: [shadowedSource.tint[0], shadowedSource.tint[1], shadowedSource.tint[2]],
           addedLight: interiorBandLight(bandSource, interiorGeometry, present, interiorLight),
         };
+        /*
+         * What this surface renders at, published for any group stacked on top
+         * of it (W22 G3). `interior` is the renderer's own composite —
+         * `cssTierCompositeLevel`'s subject — so pushing the group's backdrop
+         * tone through it is the surface's output tone.
+         *
+         * Only where a backdrop was measured. A surface over a page nobody
+         * measured has no output level to state, and stating one would be the
+         * guess this file refuses two rules above.
+         */
+        if (backdropTone !== undefined) {
+          painted.push({
+            plane: record.plane,
+            order: record.order,
+            bounds,
+            tone: compositeToneOver(interior, backdropTone),
+          });
+        }
         // The material the shade is read off is the one the tier draws — the
         // occlusion regime's lift, the size law's thickening and the inner
         // shadow are all part of it (the increased-contrast reference is at

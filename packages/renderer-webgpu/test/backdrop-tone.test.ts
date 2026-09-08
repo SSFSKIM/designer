@@ -371,12 +371,17 @@ describe("the optics pass's statement of the axis", () => {
     expect(WGSL_OPTICS_PASS).toContain("toneColour : vec4f");
   });
 
-  it("stands the axis down with no backdrop and with no measured tone", () => {
-    // Two guards, and both matter: the backdrop vector is a zero rather than a
-    // measurement where there is none, and a group whose tone nobody could read
-    // gets a strength of zero rather than a guessed level. Reading either as a
-    // black backdrop would dissolve the surface into nothing.
-    expect(WGSL_OPTICS_PASS).toContain("if (ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0)");
+  it("stands the axis down on the measurement alone, and not on the texture", () => {
+    // ONE guard, and it is the measurement's: a group whose tone nobody could
+    // read gets a strength of zero rather than a guessed level, and reading a
+    // zero vector as a black backdrop would dissolve the surface into nothing.
+    // Reading `hasBackdrop` beside it said the same thing twice until a group
+    // stacked over other glass acquired a measured tone with no texture bound
+    // (W22 G3), and then it said something false — the nested pane drew its
+    // unadapted body over a backdrop it had measured. The collapse and the W9
+    // solve both take the strength and neither takes the flag.
+    expect(WGSL_OPTICS_PASS).toContain("if (ou.toneAdapt.w > 0.0)");
+    expect(WGSL_OPTICS_PASS).not.toContain("ou.flags.x > 0.5 && ou.toneAdapt.w > 0.0");
   });
 
   it("evaluates the curve without smoothstep, so a collapsed band is not a NaN", () => {
