@@ -1,0 +1,159 @@
+W23 G0 — the goldens at the shipped defaults, and the rim law's reach at every ladder point
+
+==============================================================================
+(1) THE SUITE AT THE DEFAULTS — the attribution for the seam itself
+==============================================================================
+Three new profile constants (optics.rimLevelGain, optics.rimEnvGain, rimCollapsed), a
+re-formed rim line in the optics shader, one more vec4 in the optics uniform, and the CSS
+mirror's rim seam. All three constants are 0, so every golden must reproduce byte for byte
+AND the isolation proof's pinned hashes must reproduce from the named pre-C9a profile.
+
+
+Running 29 tests using 1 worker
+
+[1/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › field-mask renders its pinned bytes from the named profile
+[2/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile
+[3/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › body-ramp-1x renders its pinned bytes from the named profile
+[4/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile
+[5/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile
+[6/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › tint-adaptation-light renders its pinned bytes from the named profile
+[7/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › tint-adaptation-dark renders its pinned bytes from the named profile
+[8/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile
+[9/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile
+[10/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile
+[11/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:592:5 › @golden the goldens move only through the named profile seam › highlight-press-glow renders its pinned bytes from the named profile
+[12/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:612:3 › @golden the goldens move only through the named profile seam › the outer shadow is the whole of W8's delta — it draws, and only there
+[13/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:666:3 › @golden the goldens move only through the named profile seam › the geometry change is confined to the scenes it can reach
+[14/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:682:3 › @golden the goldens move only through the named profile seam › the 1x pin carries the depth ramp — its fail-before record
+[15/29] [chromium-gpu] › e2e/golden/isolation.spec.ts:714:3 › @golden the goldens move only through the named profile seam › and the tuned profile is not the old one — the proof is not vacuous
+[16/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › field-mask matches its golden
+[17/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › refraction-checkerboard matches its golden
+[18/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › body-ramp-1x matches its golden
+[19/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › placed-checkerboard matches its golden
+[20/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › lens-size-scaling matches its golden
+[21/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-light matches its golden
+[22/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › tint-adaptation-dark matches its golden
+[23/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › rim-two-references matches its golden
+[24/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › concentric-nesting matches its golden
+[25/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › union-pair matches its golden
+[26/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:49:5 › @golden sRGB-locked scenes › highlight-press-glow matches its golden
+[27/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:91:3 › @golden the goldens are distinguishable › two scenes that should differ do differ
+[28/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:112:3 › @golden acceptance #2 — lensing scales with surface size › a larger surface bends a deeper band of the same backdrop
+[29/29] [chromium-gpu] › e2e/golden/scenes.spec.ts:195:3 › @golden claims §5.47 — a backdrop is sampled where it sits › the placed render is the golden, and the cover-fit render is what it replaced
+  29 passed (9.6s)
+
+==============================================================================
+(2) THE LADDER POINTS — where each constant's delta lands
+==============================================================================
+
+Running 1 test using 1 worker
+
+[1/1] [chromium-gpu] › e2e/golden/w23-ladder.spec.ts:101:3 › @golden W23 the rim law's reach on every golden › every ladder point moves the contour band and nothing else
+[chromium-gpu] › e2e/golden/w23-ladder.spec.ts:101:3 › @golden W23 the rim law's reach on every golden › every ladder point moves the contour band and nothing else
+W23 G0 — the rim law's reach on every golden, per ladder point
+
+
+
+`inBand` / `outside` are the largest 8-bit channel delta against the SHIPPED render,
+
+inside and outside the contour band (3 px of a coverage discontinuity). `movedOutside` is
+
+the count of pixels outside the band that moved at all: X2 wants it 0.
+
+
+
+scene                      point                   inBand  outside  movedIn  movedOut
+
+field-mask                 rimLevelGain -0.30          25        0     2384         0
+
+field-mask                 rimLevelGain +0.50          42        0     2400         0
+
+field-mask                 rimEnvGain +0.10             0        0        0         0
+
+field-mask                 rimCollapsed 0.05            0        0        0         0
+
+refraction-checkerboard    rimLevelGain -0.30          20        0     2210         0
+
+refraction-checkerboard    rimLevelGain +0.50          29        0     2310         0
+
+refraction-checkerboard    rimEnvGain +0.10             0        0        0         0
+
+refraction-checkerboard    rimCollapsed 0.05            0        0        0         0
+
+body-ramp-1x               rimLevelGain -0.30          15        0      454         0
+
+body-ramp-1x               rimLevelGain +0.50          21        0      466         0
+
+body-ramp-1x               rimEnvGain +0.10             0        0        0         0
+
+body-ramp-1x               rimCollapsed 0.05            0        0        0         0
+
+placed-checkerboard        rimLevelGain -0.30          21        0     2180         0
+
+placed-checkerboard        rimLevelGain +0.50          29        0     2316         0
+
+placed-checkerboard        rimEnvGain +0.10             0        0        0         0
+
+placed-checkerboard        rimCollapsed 0.05            0        0        0         0
+
+lens-size-scaling          rimLevelGain -0.30          20        0     2798         0
+
+lens-size-scaling          rimLevelGain +0.50          28        0     2954         0
+
+lens-size-scaling          rimEnvGain +0.10             0        0        0         0
+
+lens-size-scaling          rimCollapsed 0.05            0        0        0         0
+
+tint-adaptation-light      rimLevelGain -0.30          21        0     2368         0
+
+tint-adaptation-light      rimLevelGain +0.50          30        0     1684         0
+
+tint-adaptation-light      rimEnvGain +0.10             0        0        0         0
+
+tint-adaptation-light      rimCollapsed 0.05            0        0        0         0
+
+tint-adaptation-dark       rimLevelGain -0.30          16        0     2360         0
+
+tint-adaptation-dark       rimLevelGain +0.50          23        0     2400         0
+
+tint-adaptation-dark       rimEnvGain +0.10             0        0        0         0
+
+tint-adaptation-dark       rimCollapsed 0.05            0        0        0         0
+
+rim-two-references         rimLevelGain -0.30          18        0     3798         0
+
+rim-two-references         rimLevelGain +0.50          27        0     3825         0
+
+rim-two-references         rimEnvGain +0.10             0        0        0         0
+
+rim-two-references         rimCollapsed 0.05            0        0        0         0
+
+concentric-nesting         rimLevelGain -0.30          19        0     3240         0
+
+concentric-nesting         rimLevelGain +0.50          28        0     3271         0
+
+concentric-nesting         rimEnvGain +0.10             0        0        0         0
+
+concentric-nesting         rimCollapsed 0.05            0        0        0         0
+
+union-pair                 rimLevelGain -0.30          18        0     1931         0
+
+union-pair                 rimLevelGain +0.50          26        0     1956         0
+
+union-pair                 rimEnvGain +0.10             0        0        0         0
+
+union-pair                 rimCollapsed 0.05            0        0        0         0
+
+highlight-press-glow       rimLevelGain -0.30           0        0        0         0
+
+highlight-press-glow       rimLevelGain +0.50           0        0        0         0
+
+highlight-press-glow       rimEnvGain +0.10             0        0        0         0
+
+highlight-press-glow       rimCollapsed 0.05            0        0        0         0
+
+
+
+the largest movement outside any contour band, over every scene and every point: 0
+
+  1 passed (2.7s)

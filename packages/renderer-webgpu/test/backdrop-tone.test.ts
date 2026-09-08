@@ -397,6 +397,50 @@ describe("the optics pass's statement of the axis", () => {
     expect(WGSL_OPTICS_PASS).toContain("let present = 1.0 - toneAdapt;");
     // The inner shadow's own profile since W12 G2 (the lens took its own law).
     expect(WGSL_OPTICS_PASS).toContain("shadowProfile * shadowDepth * ou.light.w * present");
-    expect(WGSL_OPTICS_PASS).toContain("rw * (ou.rim.y + spec) * present");
+    // Since W23 the rim's fade carries a second term: the appearance's own rim
+    // falls with `present` exactly as before, and `rimCollapsed` — 0 on the
+    // shipped profile — rises with the adaptation the rest of it falls with.
+    expect(WGSL_OPTICS_PASS).toContain("rimAmplitude * present + ou.rimLaw.z * toneAdapt");
+  });
+
+  it("keeps the collapsed rim inert at the shipped constants, and linear in toneAdapt", () => {
+    /*
+     * The shader's rim, as arithmetic (W23). `rimWeight` and the specular are
+     * shared with the old expression and are not what this pins; what is pinned
+     * is that the two new gains and `rimCollapsed` are exactly zero on the
+     * shipped profile, so the term is the additive rim it has always been, and
+     * that when `rimCollapsed` is not zero the collapse trades one rim for the
+     * other on one factor rather than adding a second.
+     */
+    const rim = (
+      optics: { rimAlpha: number; rimLevelGain: number; rimEnvGain: number },
+      rimCollapsed: number,
+      surfaceLuma: number,
+      backdropLuma: number,
+      toneAdapt: number,
+    ): number => {
+      const amplitude =
+        optics.rimAlpha + optics.rimLevelGain * surfaceLuma + optics.rimEnvGain * backdropLuma;
+      return amplitude * (1 - toneAdapt) + rimCollapsed * toneAdapt;
+    };
+    const shipped = DEFAULT_MATERIAL_PROFILE.optics.regular;
+    expect(shipped.rimLevelGain).toBe(0);
+    expect(shipped.rimEnvGain).toBe(0);
+    expect(DEFAULT_MATERIAL_PROFILE.rimCollapsed).toBe(0);
+    for (const toneAdapt of [0, 0.25, 0.5, 1]) {
+      expect(rim(shipped, DEFAULT_MATERIAL_PROFILE.rimCollapsed, 0.48, 0.012, toneAdapt)).toBeCloseTo(
+        shipped.rimAlpha * (1 - toneAdapt),
+        12,
+      );
+    }
+    // With a collapsed rim declared, `toneAdapt` 1 draws exactly it, `toneAdapt`
+    // 0 draws exactly the appearance's own, and the crossover is the one lerp.
+    const law = { rimAlpha: 0.18, rimLevelGain: -0.3, rimEnvGain: 0.05 };
+    expect(rim(law, 0.02, 0.48, 0.012, 1)).toBeCloseTo(0.02, 12);
+    expect(rim(law, 0.02, 0.48, 0.012, 0)).toBeCloseTo(0.18 - 0.3 * 0.48 + 0.05 * 0.012, 12);
+    expect(rim(law, 0.02, 0.48, 0.012, 0.5)).toBeCloseTo(
+      (0.18 - 0.3 * 0.48 + 0.05 * 0.012) * 0.5 + 0.02 * 0.5,
+      12,
+    );
   });
 });

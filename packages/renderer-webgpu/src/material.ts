@@ -90,6 +90,41 @@ export interface MaterialOptics {
   /** Specular exponent and gain on the rim. */
   readonly specularPower: number;
   readonly specularGain: number;
+  /**
+   * **The rim's amplitude law (W23)** — the two terms that let the rim depend on
+   * what it is drawn over, which `rimAlpha` alone cannot.
+   *
+   * `rimAlpha` is an additive constant: the shader adds `rimWeight × rimAlpha`
+   * and nothing scales it. The reference's rim is not a constant. Read at the
+   * contour (claims §5.99, W23 X1) the light reference's rim is +0.23…0.26 of
+   * linear luminance over a dark solid, +0.13…0.21 over a structured backdrop
+   * and clipped to white over `light-solid`, while vitrea draws the same
+   * +0.060…0.078 everywhere; and the dark reference's rim GROWS with what is
+   * behind it, +0.026 over `dark-solid` and +0.103 over `light-solid`, at a body
+   * that moves by only a twelfth as much.
+   *
+   * `rimLevelGain` is the coefficient of the surface's OWN rendered level: the
+   * rim becomes `rimAlpha + rimLevelGain × luminance(surface)`. It is signed,
+   * and its sign is the whole finding. A negative gain is the screen form — a
+   * white line composited source-over at alpha `−rimLevelGain` of the body's
+   * headroom, which is what the CSS tier's inset `box-shadow` already is — and
+   * the light material's rows want one. A positive gain is a rim that rides its
+   * own body up, and the dark material's rows want that.
+   *
+   * `rimEnvGain` is the coefficient of the ENVIRONMENT: the backdrop source's own
+   * average luminance, the number the group already resolved for the tone
+   * response (`toneColour.w` in the optics uniform). It is the term W23 chartered
+   * as (L3) — the candidate for what makes the reference's rim clip over a bright
+   * backdrop while its body is nowhere near white. It is a per-group constant and
+   * not a per-pixel backdrop sample on purpose: the CSS tier can carry a group
+   * constant through `optics.ts` and cannot carry a per-pixel one, and X5 asks
+   * the two tiers to derive from one law.
+   *
+   * Both default to 0, at which the rim is exactly `rimAlpha` and every golden
+   * and every capture reproduces byte for byte.
+   */
+  readonly rimLevelGain: number;
+  readonly rimEnvGain: number;
   /** Inner-shadow depth (0..1) and how much of it is applied. */
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -974,6 +1009,37 @@ export interface MaterialProfile {
   readonly backdropToneSizeBias: number;
 
   /**
+   * **The rim that survives the collapse (W23)** — the one mark the collapsed
+   * appearance keeps.
+   *
+   * The paragraph above is right about the body and wrong about the rim. W7 read
+   * the settled reference's `dark-solid__capsule-button` as "byte-identical to
+   * its own background, rim included", and at the contour it never was: the
+   * fixture carries a body one code BELOW its backdrop and a contour rim of
+   * +0.020 linear per CSS px (55/255 on a 28/255 backdrop at 2x), in every
+   * standard profile, at both scales, in both schemes (claims §5.99). vitrea
+   * folds that rim out with everything else through the shader's one
+   * `present = 1 − toneAdapt`, and the user's eye named the result: "not one of
+   * our glasses is visible on black, where Apple's clearly show their presence."
+   *
+   * So the shader's rim becomes
+   * `rimWeight × (rimAmplitude × present + rimCollapsed × toneAdapt)`: the
+   * scheme's own rim fading out with the adaptation as it does now, and an
+   * absolute rim the collapsed appearance owns rising with it. At `toneAdapt` 0
+   * nothing changes at all, which is why this constant can be added without
+   * moving a single uncollapsed pixel.
+   *
+   * It lives on the profile and NOT in the dark patch, because the collapsed
+   * appearance is scheme-independent and the fixtures say so: the light and dark
+   * fixtures of `dark-solid__capsule-button` are byte-identical at both scales
+   * (W23 X4). A reading that separates the schemes under collapse is a finding
+   * about the wave, not a second constant.
+   *
+   * 0 by default: the collapse folds the rim out exactly as it did before.
+   */
+  readonly rimCollapsed: number;
+
+  /**
    * **The backdrop tone response (W9)** — the law that owns the interior MEAN,
    * where the four constants above own texture collapse and nothing else.
    *
@@ -1188,6 +1254,14 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        * makes it inert.
        */
       specularGain: 0,
+      /*
+       * 0 / 0: the rim's amplitude law is DECLARED but not yet fitted (W23 G0).
+       * At zero the rim is the additive constant it has been since W11c, so the
+       * seam is here with its rationale beside it and no pixel has moved; G1
+       * lands the fitted pair under the wave's Decision Log 2.
+       */
+      rimLevelGain: 0,
+      rimEnvGain: 0,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
@@ -1214,6 +1288,10 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
       rimAlpha: 0.14,
       specularPower: 8,
       specularGain: 0.45,
+      // No scene on the calibration bed declares this variant, so its rim law
+      // has no rows and stays at the additive form (W22's rule for `clear`).
+      rimLevelGain: 0,
+      rimEnvGain: 0,
       shadowDepth: 0.22,
       shadowAlpha: 0.4,
       highlight: srgbToLinear(SRGB_WHITE_TINT),
@@ -1542,6 +1620,13 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneSizeBias: 0.05,
 
   /*
+   * 0: the collapse still folds the rim out, exactly as it has since W7. The
+   * seam is declared here with its measurement beside it (W23 G0) and G1 lands
+   * the value the collapsed cells read; at 0 no capture and no golden moves.
+   */
+  rimCollapsed: 0,
+
+  /*
    * MEASURED (W9 probe, claims §5.30–§5.33): the anchors are the probe bed's
    * settled reference levels, frequency-settled over seven attested runs,
    * under the probe's own native-mask interior. Thick rows pool the 96 px
@@ -1767,6 +1852,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneLow?: number;
   readonly backdropToneHigh?: number;
   readonly backdropToneSizeBias?: number;
+  readonly rimCollapsed?: number;
   readonly backdropToneAnchorX?: readonly [number, number, number];
   readonly backdropToneResponseThin?: readonly [number, number, number];
   readonly backdropToneResponseThick?: readonly [number, number, number];
@@ -1893,6 +1979,7 @@ export function withMaterialOverrides(
     backdropToneLow: patch.backdropToneLow ?? base.backdropToneLow,
     backdropToneHigh: patch.backdropToneHigh ?? base.backdropToneHigh,
     backdropToneSizeBias: patch.backdropToneSizeBias ?? base.backdropToneSizeBias,
+    rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     backdropToneAnchorX: patch.backdropToneAnchorX ?? base.backdropToneAnchorX,
     backdropToneResponseThin: patch.backdropToneResponseThin ?? base.backdropToneResponseThin,
     backdropToneResponseThick: patch.backdropToneResponseThick ?? base.backdropToneResponseThick,

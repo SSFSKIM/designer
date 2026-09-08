@@ -945,6 +945,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         rimAlpha: optics.rimAlpha,
         specularPower: optics.specularPower,
         specularGain: optics.specularGain,
+        // The rim's amplitude law (W23). The two gains are per variant, because
+        // a variant with a different `rimAlpha` has a different rim; the
+        // collapsed rim is the profile's, because the collapsed appearance is
+        // one appearance and the reference's fixtures carry it identically in
+        // both schemes (X4).
+        rimLevelGain: optics.rimLevelGain,
+        rimEnvGain: optics.rimEnvGain,
+        rimCollapsed: material.rimCollapsed,
         lightDirection: material.lightDirection,
         shadowDepth: optics.shadowDepth,
         shadowAlpha: optics.shadowAlpha,

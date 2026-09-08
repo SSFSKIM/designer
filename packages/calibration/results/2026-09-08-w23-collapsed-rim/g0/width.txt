@@ -1,0 +1,97 @@
+W23 G0 (f) — the rim's profile across the contour, top side, straight span
+
+Rows are DEVICE pixels inward from the declared box's first pixel, over 4 CSS px.
+`excess` is over the side's own base (the rows from 4 to 8 CSS px in). `%peak` is that
+row's excess as a fraction of the FIRST row's, which is the shape with the amplitude
+divided out — the number `rimWidth` and the falloff are read on.
+
+== apple-macos-26.5-1x-light-standard  dark-solid__rrect-md__rest   (scale 1x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.50 |   0.6915   0.2117  100.0% |   0.5647   0.0737  100.0%
+      1      1.50 |   0.4974   0.0176    8.3% |   0.4856  -0.0054   -7.4%
+      2      2.50 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+      3      3.50 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+
+== apple-macos-26.5-1x-light-standard  light-solid__rrect-md__rest   (scale 1x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.50 |   1.0000   0.0656  100.0% |   1.0000   0.0726  100.0%
+      1      1.50 |   0.9691   0.0347   52.9% |   0.9228  -0.0046   -6.3%
+      2      2.50 |   0.9344   0.0000    0.0% |   0.9228  -0.0046   -6.3%
+      3      3.50 |   0.9344   0.0000    0.0% |   0.9234  -0.0040   -5.4%
+
+== apple-macos-26.5-1x-light-standard  impulse__rrect-md__rest   (scale 1x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.50 |   0.6560   0.2273  100.0% |   0.5333   0.0738  100.0%
+      1      1.50 |   0.4462   0.0176    7.7% |   0.4564  -0.0031   -4.2%
+      2      2.50 |   0.4287   0.0000    0.0% |   0.4564  -0.0031   -4.2%
+      3      3.50 |   0.4287   0.0000    0.0% |   0.4564  -0.0031   -4.2%
+
+== apple-macos-26.5-2x-light-standard  dark-solid__rrect-md__rest   (scale 2x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.25 |   0.7437   0.2639  100.0% |   0.6105   0.1195  100.0%
+      1      0.75 |   0.6262   0.1465   55.5% |   0.5333   0.0423   35.4%
+      2      1.25 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+      3      1.75 |   0.4797   0.0000    0.0% |   0.4856  -0.0054   -4.6%
+      4      2.25 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+      5      2.75 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+      6      3.25 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+      7      3.75 |   0.4797   0.0000    0.0% |   0.4910   0.0000    0.0%
+
+== apple-macos-26.5-2x-light-standard  light-solid__rrect-md__rest   (scale 2x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.25 |   1.0000   0.0656  100.0% |   1.0000   0.0726  100.0%
+      1      0.75 |   0.9772   0.0428   65.3% |   0.9660   0.0386   53.1%
+      2      1.25 |   0.9344   0.0000    0.0% |   0.9234  -0.0040   -5.4%
+      3      1.75 |   0.9344   0.0000    0.0% |   0.9228  -0.0046   -6.3%
+      4      2.25 |   0.9344   0.0000    0.0% |   0.9228  -0.0046   -6.3%
+      5      2.75 |   0.9344   0.0000    0.0% |   0.9228  -0.0046   -6.3%
+      6      3.25 |   0.9344   0.0000    0.0% |   0.9234  -0.0040   -5.4%
+      7      3.75 |   0.9344   0.0000    0.0% |   0.9234  -0.0040   -5.4%
+
+== apple-macos-26.5-2x-light-standard  impulse__rrect-md__rest   (scale 2x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.25 |   0.7153   0.2866  100.0% |   0.5733   0.1140  100.0%
+      1      0.75 |   0.5868   0.1581   55.2% |   0.4980   0.0387   34.0%
+      2      1.25 |   0.4293   0.0006    0.2% |   0.4621   0.0028    2.5%
+      3      1.75 |   0.4287   0.0000    0.0% |   0.4564  -0.0028   -2.5%
+      4      2.25 |   0.4287   0.0000    0.0% |   0.4564  -0.0028   -2.5%
+      5      2.75 |   0.4287   0.0000    0.0% |   0.4564  -0.0028   -2.5%
+      6      3.25 |   0.4287   0.0000    0.0% |   0.4564  -0.0028   -2.5%
+      7      3.75 |   0.4287   0.0000    0.0% |   0.4564  -0.0028   -2.5%
+
+== apple-macos-26.5-1x-dark-standard  dark-solid__rrect-md__rest   (scale 1x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.50 |   0.0408   0.0256  100.0% |   0.0497   0.0367  100.0%
+      1      1.50 |   0.0153   0.0001    0.2% |   0.0130   0.0000    0.0%
+      2      2.50 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+      3      3.50 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+
+== apple-macos-26.5-2x-dark-standard  dark-solid__rrect-md__rest   (scale 2x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.25 |   0.0499   0.0347  100.0% |   0.0704   0.0574  100.0%
+      1      0.75 |   0.0316   0.0163   47.1% |   0.0331   0.0201   35.1%
+      2      1.25 |   0.0153   0.0000    0.0% |   0.0152   0.0022    3.9%
+      3      1.75 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+      4      2.25 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+      5      2.75 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+      6      3.25 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+      7      3.75 |   0.0153   0.0000    0.0% |   0.0130   0.0000    0.0%
+
+== apple-macos-26.5-1x-dark-standard  dark-solid__capsule-button__rest   (scale 1x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.50 |   0.0311   0.0201  100.0% |   0.0117   0.0000    nan%
+      1      1.50 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      2      2.50 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      3      3.50 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+
+== apple-macos-26.5-2x-dark-standard  dark-solid__capsule-button__rest   (scale 2x)
+    row  depth px |  ref lin   excess   %peak |  web lin   excess   %peak
+      0      0.25 |   0.0386   0.0276  100.0% |   0.0117   0.0000    nan%
+      1      0.75 |   0.0243   0.0133   48.2% |   0.0117   0.0000    nan%
+      2      1.25 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      3      1.75 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      4      2.25 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      5      2.75 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      6      3.25 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+      7      3.75 |   0.0110   0.0000    0.0% |   0.0117   0.0000    nan%
+

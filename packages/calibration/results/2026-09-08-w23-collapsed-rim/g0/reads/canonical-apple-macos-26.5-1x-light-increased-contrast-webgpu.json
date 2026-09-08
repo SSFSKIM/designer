@@ -1,0 +1,649 @@
+{
+  "profile": "apple-macos-26.5-1x-light-increased-contrast",
+  "scenes": "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-aa0ee5ea92534c3fd/apps/reference-apple/scenes.json",
+  "fixtures": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures",
+  "captures": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+  "tier": "webgpu",
+  "sets": [
+    "calibration",
+    "holdout",
+    "recorded",
+    "validation"
+  ],
+  "erodeCssPx": 6.0,
+  "depthCssPx": 2.0,
+  "cornerFactor": 1.6,
+  "sides": [
+    "top",
+    "bottom",
+    "left",
+    "right"
+  ],
+  "rows": [
+    {
+      "scene": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "calibration",
+      "radius": 22.0,
+      "scale": 1.0,
+      "bodyNative": 0.9782508026569944,
+      "rimNative": [
+        -0.9613747911816628,
+        -0.9613747911816628,
+        NaN,
+        NaN
+      ],
+      "rimLocalNative": [
+        -0.9782335477889552,
+        -0.9779446618859309,
+        NaN,
+        NaN
+      ],
+      "baseNative": [
+        0.9866801809606406,
+        0.9865357380091284,
+        NaN,
+        NaN
+      ],
+      "row0Native": [
+        -0.9742260856384981,
+        -0.9742260856384981,
+        NaN,
+        NaN
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaNative": "6a82e2a818ec",
+      "bodyWeb": 0.9324226542731296,
+      "rimWeb": [
+        0.10989701942224428,
+        0.1115134209738653,
+        NaN,
+        NaN
+      ],
+      "rimLocalWeb": [
+        0.12293529952241855,
+        0.12408737834920758,
+        NaN,
+        NaN
+      ],
+      "baseWeb": [
+        0.9259035142230425,
+        0.9261356755854585,
+        NaN,
+        NaN
+      ],
+      "row0Web": [
+        0.06757734572687035,
+        0.06757734572687035,
+        NaN,
+        NaN
+      ],
+      "clipWeb": [
+        1.0,
+        1.0,
+        NaN,
+        NaN
+      ],
+      "shaWeb": "8788a7857291"
+    },
+    {
+      "scene": "photo__capsule-button__rest",
+      "background": "photo",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "calibration",
+      "radius": 22.0,
+      "scale": 1.0,
+      "bodyNative": 0.981977415202296,
+      "rimNative": [
+        -0.9689064262241651,
+        -0.96888127307873,
+        NaN,
+        NaN
+      ],
+      "rimLocalNative": [
+        -0.9817068718195572,
+        -0.9812808740722025,
+        NaN,
+        NaN
+      ],
+      "baseNative": [
+        0.988377637999992,
+        0.9881772156990323,
+        NaN,
+        NaN
+      ],
+      "row0Native": [
+        -0.9779526981837997,
+        -0.9779526981837997,
+        NaN,
+        NaN
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaNative": "ce218e7e5aba",
+      "bodyWeb": 0.8935880602315762,
+      "rimWeb": [
+        0.1482857794766016,
+        0.14991926407081957,
+        NaN,
+        NaN
+      ],
+      "rimLocalWeb": [
+        0.17483592422632788,
+        0.1752674436716255,
+        NaN,
+        NaN
+      ],
+      "baseWeb": [
+        0.8803129878567131,
+        0.8809139704311733,
+        NaN,
+        NaN
+      ],
+      "row0Web": [
+        0.10641193976842378,
+        0.10641193976842378,
+        NaN,
+        NaN
+      ],
+      "clipWeb": [
+        1.0,
+        1.0,
+        NaN,
+        NaN
+      ],
+      "shaWeb": "e28c38a84da7"
+    },
+    {
+      "scene": "hc-text__capsule-button__rest",
+      "background": "hc-text",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "holdout",
+      "radius": 22.0,
+      "scale": 1.0,
+      "bodyNative": 0.9406485069666133,
+      "rimNative": [
+        -0.9125860490202653,
+        -0.8861701998009006,
+        NaN,
+        NaN
+      ],
+      "rimLocalNative": [
+        -0.8915107518378862,
+        -0.9168198923662463,
+        NaN,
+        NaN
+      ],
+      "baseNative": [
+        0.9301108583754237,
+        0.9559733532492861,
+        NaN,
+        NaN
+      ],
+      "row0Native": [
+        -0.936623789948117,
+        -0.936623789948117,
+        NaN,
+        NaN
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaNative": "ebb1c50dde51",
+      "bodyWeb": 0.9425619240214513,
+      "rimWeb": [
+        0.10597824907092701,
+        0.07956239985156233,
+        NaN,
+        NaN
+      ],
+      "rimLocalWeb": [
+        0.11373064019805346,
+        0.13848894430762682,
+        NaN,
+        NaN
+      ],
+      "baseWeb": [
+        0.9386857284578881,
+        0.9130986517934191,
+        NaN,
+        NaN
+      ],
+      "row0Web": [
+        0.057438075978548664,
+        0.057438075978548664,
+        NaN,
+        NaN
+      ],
+      "clipWeb": [
+        1.0,
+        1.0,
+        NaN,
+        NaN
+      ],
+      "shaWeb": "ebaff45dd5e0"
+    },
+    {
+      "scene": "checkerboard__rrect-md__rest",
+      "background": "checkerboard",
+      "component": "rrect-md",
+      "tint": null,
+      "set": "calibration",
+      "radius": 20.0,
+      "scale": 1.0,
+      "bodyNative": 0.9853228408674116,
+      "rimNative": [
+        -0.9755188676024973,
+        -0.9755188676024973,
+        -0.9755188676024972,
+        -0.9755188676024972
+      ],
+      "rimLocalNative": [
+        -0.9760693041504898,
+        -0.975701659022741,
+        -0.9870773800953335,
+        -0.9300611506364821
+      ],
+      "baseNative": [
+        0.9855980591414079,
+        0.9854142365775335,
+        0.9911020971138298,
+        0.9625939823844041
+      ],
+      "row0Native": [
+        -0.9812981238489153,
+        -0.9812981238489153,
+        -0.9812981238489153,
+        -0.9812981238489153
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "shaNative": "3a7cda17a8d2",
+      "bodyWeb": 0.9331283354856401,
+      "rimWeb": [
+        0.1093702046518864,
+        0.11099377976555713,
+        0.11476544686309698,
+        0.10432354377952935
+      ],
+      "rimLocalWeb": [
+        0.1283333783949382,
+        0.12867574847960128,
+        0.12346025247437709,
+        0.13218466141680718
+      ],
+      "baseWeb": [
+        0.9236467486141142,
+        0.924287351128618,
+        0.9287809326800001,
+        0.9191977766670012
+      ],
+      "row0Web": [
+        0.06687166451435989,
+        0.06687166451435989,
+        0.06687166451435989,
+        0.06687166451435989
+      ],
+      "clipWeb": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shaWeb": "ba328f01e901"
+    },
+    {
+      "scene": "photo__rrect-md__rest",
+      "background": "photo",
+      "component": "rrect-md",
+      "tint": null,
+      "set": "calibration",
+      "radius": 20.0,
+      "scale": 1.0,
+      "bodyNative": 0.9915190360691578,
+      "rimNative": [
+        -0.9879112580059897,
+        -0.9879112580059897,
+        -0.9879112580059896,
+        -0.9906978210359129
+      ],
+      "rimLocalNative": [
+        -0.9853189968718714,
+        -0.9854366563212213,
+        -0.9870773800953335,
+        -0.9663195471189135
+      ],
+      "baseNative": [
+        0.9902229055020987,
+        0.9902817352267737,
+        0.9911020971138298,
+        0.9793298991106582
+      ],
+      "row0Native": [
+        -0.9874943190506615,
+        -0.9874943190506615,
+        -0.9874943190506615,
+        -0.9874943190506615
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "shaNative": "34ca00a10bb1",
+      "bodyWeb": 0.8957862530861883,
+      "rimWeb": [
+        0.14159292570888138,
+        0.1507275554631884,
+        0.14505595531668225,
+        0.18385150252420313
+      ],
+      "rimLocalWeb": [
+        0.18098212061591445,
+        0.1706134651152047,
+        0.1781918173006175,
+        0.12959554715970256
+      ],
+      "baseWeb": [
+        0.8760916556326718,
+        0.8858432982601802,
+        0.8792183220942207,
+        0.9229142307684386
+      ],
+      "row0Web": [
+        0.10421374691381169,
+        0.10421374691381169,
+        0.10421374691381169,
+        0.10421374691381169
+      ],
+      "clipWeb": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shaWeb": "347c4fbe3469"
+    },
+    {
+      "scene": "photo__rrect-lg__rest",
+      "background": "photo",
+      "component": "rrect-lg",
+      "tint": null,
+      "set": "holdout",
+      "radius": 34.0,
+      "scale": 1.0,
+      "bodyNative": 0.9860172163618391,
+      "rimNative": [
+        -0.9769076185913522,
+        -0.9769939646332485,
+        -0.9769076185913522,
+        -0.9865666242324326
+      ],
+      "rimLocalNative": [
+        -0.9855450060014456,
+        -0.9858097001025611,
+        -0.9870773800953335,
+        -0.9583208549013998
+      ],
+      "baseNative": [
+        0.9903359100668858,
+        0.9904250840964954,
+        0.9911020971138298,
+        0.9718943316963228
+      ],
+      "row0Native": [
+        -0.9819924993433429,
+        -0.9819924993433429,
+        -0.9819924993433429,
+        -0.9820463444382199
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "shaNative": "c94443649887",
+      "bodyWeb": 0.8954808569570519,
+      "rimWeb": [
+        0.13956549713899435,
+        0.14543390466199646,
+        0.1697714735296606,
+        0.17655690258580714
+      ],
+      "rimLocalWeb": [
+        0.18142903399718113,
+        0.17697979913417694,
+        0.15093994492510332,
+        0.14291744209795287
+      ],
+      "baseWeb": [
+        0.8745490885279585,
+        0.8797079097209617,
+        0.9048966212593306,
+        0.9123005872009791
+      ],
+      "row0Web": [
+        0.10451914304294807,
+        0.10451914304294807,
+        0.10451914304294807,
+        0.10451914304294807
+      ],
+      "clipWeb": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shaWeb": "54bf2bdd503a"
+    },
+    {
+      "scene": "photo__capsule-button__pressed",
+      "background": "photo",
+      "component": "capsule-button",
+      "tint": null,
+      "set": "recorded",
+      "radius": 22.0,
+      "scale": 1.0,
+      "bodyNative": 0.981977415202296,
+      "rimNative": [
+        -0.9689064262241651,
+        -0.96888127307873,
+        NaN,
+        NaN
+      ],
+      "rimLocalNative": [
+        -0.9817068718195572,
+        -0.9812808740722025,
+        NaN,
+        NaN
+      ],
+      "baseNative": [
+        0.988377637999992,
+        0.9881772156990323,
+        NaN,
+        NaN
+      ],
+      "row0Native": [
+        -0.9779526981837997,
+        -0.9779526981837997,
+        NaN,
+        NaN
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaNative": "ce218e7e5aba"
+    },
+    {
+      "scene": "checkerboard__capsule-button__rest-tint-orange",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "tint": "orange",
+      "set": "calibration",
+      "radius": 22.0,
+      "scale": 1.0,
+      "bodyNative": 0.4217234444023869,
+      "rimNative": [
+        -0.35420849455855674,
+        -0.35420849455855674,
+        NaN,
+        NaN
+      ],
+      "rimLocalNative": [
+        -0.35924250594476814,
+        -0.35916368535503485,
+        NaN,
+        NaN
+      ],
+      "baseNative": [
+        0.4242404500954926,
+        0.42420103980062596,
+        NaN,
+        NaN
+      ],
+      "row0Native": [
+        -0.3568831414311291,
+        -0.3568831414311291,
+        NaN,
+        NaN
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaNative": "5a1acf1ddc4b",
+      "bodyWeb": 0.4263269544735035,
+      "rimWeb": [
+        0.46096254068452724,
+        0.46167632122515345,
+        NaN,
+        NaN
+      ],
+      "rimLocalWeb": [
+        0.46918631787234444,
+        0.46990009841297065,
+        NaN,
+        NaN
+      ],
+      "baseWeb": [
+        0.4222150658795949,
+        0.4222150658795949,
+        NaN,
+        NaN
+      ],
+      "row0Web": [
+        0.41680087614340894,
+        0.41751465668403515,
+        NaN,
+        NaN
+      ],
+      "clipWeb": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaWeb": "d1a4675fec92"
+    },
+    {
+      "scene": "photo__capsule-button__rest-tint-orange",
+      "background": "photo",
+      "component": "capsule-button",
+      "tint": "orange",
+      "set": "calibration",
+      "radius": 22.0,
+      "scale": 1.0,
+      "bodyNative": 0.42220374565143187,
+      "rimNative": [
+        -0.3551690970566467,
+        -0.3551690970566467,
+        NaN,
+        NaN
+      ],
+      "rimLocalNative": [
+        -0.35955778830370144,
+        -0.35955778830370144,
+        NaN,
+        NaN
+      ],
+      "baseNative": [
+        0.42439809127495925,
+        0.42439809127495925,
+        NaN,
+        NaN
+      ],
+      "row0Native": [
+        -0.35736344268017406,
+        -0.35736344268017406,
+        NaN,
+        NaN
+      ],
+      "clipNative": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaNative": "b4a48830c778",
+      "bodyWeb": 0.4231239481920038,
+      "rimWeb": [
+        0.4616238580878544,
+        0.4618617849347298,
+        NaN,
+        NaN
+      ],
+      "rimLocalWeb": [
+        0.4692377310443428,
+        0.4674462627407007,
+        NaN,
+        NaN
+      ],
+      "baseWeb": [
+        0.41931701171375957,
+        0.4203317092890183,
+        NaN,
+        NaN
+      ],
+      "row0Web": [
+        0.4164349797217766,
+        0.416672906568652,
+        NaN,
+        NaN
+      ],
+      "clipWeb": [
+        0.0,
+        0.0,
+        NaN,
+        NaN
+      ],
+      "shaWeb": "7c8543aac859"
+    }
+  ]
+}

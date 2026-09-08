@@ -186,6 +186,12 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// which is the only place the CSS-px-to-texel conversion is knowable, and
   /// already clamped to chainMaxLod (w)
   shadowLift : vec4f,
+  /// the rim's amplitude law (W23): the gain on the surface's own rendered
+  /// luminance (x) and on the backdrop source's average luminance (y), and the
+  /// rim the COLLAPSED appearance keeps (z), which rises with the adaptation the
+  /// scheme's own rim falls with. (w) is free. All three are 0 at the shipped
+  /// defaults, at which this vec4 reproduces the additive rim exactly
+  rimLaw : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -892,7 +898,32 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
   let rw = rim_weight(d, ou.rim.x);
   let facing = dot(normal, ou.light.xy);
   let spec = pow(clamp(facing, 0.0, 1.0), max(ou.rim.z, 1e-3)) * ou.rim.w;
-  let rim = rw * (ou.rim.y + spec) * present;
+  /*
+   * The rim's amplitude law (W23). Two terms beyond the constant, and one rim
+   * that survives the collapse:
+   *
+   * - the surface's OWN rendered luminance, taken exactly as the tint shade
+   *   takes it above — the composite where this layer covers the pixel, the
+   *   group's measured backdrop tone where it does not — so that a rim fitted as
+   *   'a fraction of the body's headroom' (a negative gain, the screen form the
+   *   CSS tier's inset shadow already is) and a rim fitted as 'a line that rides
+   *   its own body up' (a positive one, which is what the dark reference's rows
+   *   read as) are the same expression with the sign the rows chose.
+   * - the ENVIRONMENT, the backdrop source's average luminance the group already
+   *   resolved for the tone response. A group constant and not a per-pixel
+   *   sample, so that the CSS tier can carry the same term (X5).
+   * - 'rimCollapsed', which rises with 'toneAdapt' exactly as the rest of the
+   *   appearance falls with it. At toneAdapt 1 the surface draws its backdrop
+   *   with this rim and nothing else, which is what the reference's collapsed
+   *   capsule does; at 0 it contributes nothing at all.
+   *
+   * Every one of the three is 0 at the shipped defaults, where this line is
+   * arithmetically 'rw * (rim.y + spec) * present' and reproduces byte for byte.
+   */
+  let rimLuma = bodyAlpha * dot(colour, vec3f(0.2126, 0.7152, 0.0722))
+    + (1.0 - bodyAlpha) * ou.toneColour.w;
+  let rimAmplitude = ou.rim.y + ou.rimLaw.x * rimLuma + ou.rimLaw.y * ou.toneColour.w + spec;
+  let rim = rw * (rimAmplitude * present + ou.rimLaw.z * toneAdapt);
   if (ou.flags.x > 0.5) {
     colour = colour + vec3f(rim);
   } else {

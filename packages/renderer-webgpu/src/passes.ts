@@ -140,6 +140,14 @@ export interface OpticsPassArgs {
   readonly rimAlpha: number;
   readonly specularPower: number;
   readonly specularGain: number;
+  /**
+   * The rim's amplitude law (W23): the gain on the surface's own rendered
+   * luminance, the gain on the group's backdrop tone, and the rim the collapsed
+   * appearance keeps. All three are 0 on the shipped profile.
+   */
+  readonly rimLevelGain: number;
+  readonly rimEnvGain: number;
+  readonly rimCollapsed: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
   readonly shadowAlpha: number;
@@ -586,7 +594,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 96);
+      const slot = uniformSlot(`optics:${args.groupId}`, 100);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -723,6 +731,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[93] = args.outerShadowLift[1];
       d[94] = args.outerShadowLift[2];
       d[95] = args.outerShadowLift[3];
+      // The rim's amplitude law (W23), in a vec4 of its own rather than in a
+      // padding slot: the rim's own vec4 is full at four numbers and a rim
+      // constant living in the shadow's block is a layout nobody could read.
+      // `d[99]` stays free.
+      d[96] = args.rimLevelGain;
+      d[97] = args.rimEnvGain;
+      d[98] = args.rimCollapsed;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

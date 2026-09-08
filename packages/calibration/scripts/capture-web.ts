@@ -419,6 +419,10 @@ const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneLow",
   "backdropToneHigh",
   "backdropToneSizeBias",
+  // The rim that survives the collapse (W23): a profile-level constant, because
+  // the collapsed appearance is one appearance in both schemes (the reference's
+  // light and dark fixtures of the collapsed cells are byte-identical).
+  "rimCollapsed",
   // The backdrop tone response (W9): the anchors of R(encodedMean, thickness),
   // measured constants in the profile document like every other key here.
   "backdropToneAnchorX",

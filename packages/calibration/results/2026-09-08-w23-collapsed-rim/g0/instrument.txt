@@ -1,0 +1,224 @@
+W23 G0 (a) — the contour reader validated: injection, the corner sweep, the cross-check
+
+reader: results/2026-09-08-w23-collapsed-rim/g0/read-contour.py
+body: the declared box eroded 6 CSS px (W21's). depth: 2 CSS px. corner factor: 1.6.
+units: linear Rec.709 luminance per CSS px.
+
+==============================================================================
+(i) INJECTION — a synthetic line of known amplitude, one CSS px deep, on the
+    straight span of a real capture
+==============================================================================
+injection on dark-solid__rrect-md__rest__webgpu.png (dark-solid__rrect-md__rest), amplitude 0.0500 linear, one CSS px deep
+  -- unquantised (exact): body 0.49550; one 8-bit code there is 0.00592 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.05929    0.10929    0.05000   0.000000    0.00      0.00
+     bottom       0.05929    0.10929    0.05000   0.000000    0.00      0.00
+     left         0.05929    0.10929    0.05000   0.000000    0.00      0.00
+     right        0.05929    0.10929    0.05000   0.000000    0.00      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.49550; one 8-bit code there is 0.00592 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.05929    0.11178    0.05250   0.002495    0.42      0.00
+     bottom       0.05929    0.11178    0.05250   0.002495    0.42      0.00
+     left         0.05929    0.11178    0.05250   0.002495    0.42      0.00
+     right        0.05929    0.11178    0.05250   0.002495    0.42      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.002495 = 0.42 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+injection on dark-solid__rrect-md__rest__webgpu.png (dark-solid__rrect-md__rest), amplitude 0.0050 linear, one CSS px deep
+  -- unquantised (exact): body 0.49550; one 8-bit code there is 0.00592 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.05929    0.06429    0.00500  -0.000000   -0.00      0.00
+     bottom       0.05929    0.06429    0.00500  -0.000000   -0.00      0.00
+     left         0.05929    0.06429    0.00500   0.000000    0.00      0.00
+     right        0.05929    0.06429    0.00500   0.000000    0.00      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.49550; one 8-bit code there is 0.00592 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.05929    0.06570    0.00641   0.001413    0.24      0.00
+     bottom       0.05929    0.06570    0.00641   0.001413    0.24      0.00
+     left         0.05929    0.06570    0.00641   0.001413    0.24      0.00
+     right        0.05929    0.06570    0.00641   0.001413    0.24      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.001413 = 0.24 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+injection on light-solid__rrect-md__rest__webgpu.png (light-solid__rrect-md__rest), amplitude 0.0050 linear, one CSS px deep
+  -- unquantised (exact): body 0.93175; one 8-bit code there is 0.00856 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     bottom       0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     left         0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     right        0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.93175; one 8-bit code there is 0.00856 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     bottom       0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     left         0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     right        0.05932    0.05932    0.00000  -0.005000   -0.58      1.00   CLIPPED — excluded
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000 = 0.00 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+injection on checkerboard__rrect-sm__rest__webgpu.png (checkerboard__rrect-sm__rest), amplitude 0.0300 linear, one CSS px deep
+  -- unquantised (exact): body 0.67309; one 8-bit code there is 0.00708 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.06079    0.09079    0.03000   0.000000    0.00      0.00
+     bottom       0.06213    0.09213    0.03000   0.000000    0.00      0.00
+     left        -0.07058   -0.04058    0.03000   0.000000    0.00      0.00
+     right        0.19157    0.22157    0.03000   0.000000    0.00      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.67309; one 8-bit code there is 0.00708 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.06079    0.09090    0.03011   0.000114    0.02      0.00
+     bottom       0.06213    0.09224    0.03011   0.000114    0.02      0.00
+     left        -0.07058   -0.03921    0.03137   0.001369    0.19      0.00
+     right        0.19157    0.22087    0.02930  -0.000699   -0.10      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.001369 = 0.19 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+injection on dark-solid__rrect-md__rest__webgpu.png (dark-solid__rrect-md__rest), amplitude 0.0500 linear, one CSS px deep
+  -- unquantised (exact): body 0.49551; one 8-bit code there is 0.00592 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.06916    0.11916    0.05000   0.000000    0.00      0.00
+     bottom       0.06916    0.11916    0.05000   0.000000    0.00      0.00
+     left         0.06916    0.11916    0.05000   0.000000    0.00      0.00
+     right        0.06916    0.11916    0.05000   0.000000    0.00      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.49551; one 8-bit code there is 0.00592 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.06916    0.11850    0.04934  -0.000659   -0.11      0.00
+     bottom       0.06916    0.11850    0.04934  -0.000659   -0.11      0.00
+     left         0.06916    0.11850    0.04934  -0.000659   -0.11      0.00
+     right        0.06916    0.11850    0.04934  -0.000659   -0.11      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000659 = 0.11 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+injection on dark-solid__capsule-button__rest__webgpu.png (dark-solid__capsule-button__rest), amplitude 0.0200 linear, one CSS px deep
+  -- unquantised (exact): body 0.01171; one 8-bit code there is 0.00067 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top         -0.00000    0.02000    0.02000  -0.000000   -0.00      0.00
+     bottom      -0.00000    0.02000    0.02000  -0.000000   -0.00      0.00
+     left             nan        nan          -          -       -         -  (no straight span: capsule end)
+     right            nan        nan          -          -       -         -  (no straight span: capsule end)
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.01171; one 8-bit code there is 0.00067 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top         -0.00000    0.02027    0.02027   0.000272    0.41      0.00
+     bottom      -0.00000    0.02027    0.02027   0.000272    0.41      0.00
+     left             nan        nan          -          -       -         -  (no straight span: capsule end)
+     right            nan        nan          -          -       -         -  (no straight span: capsule end)
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000272 = 0.41 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+injection on dark-solid__rrect-md__rest__webgpu.png (dark-solid__rrect-md__rest), amplitude 0.0050 linear, one CSS px deep
+  -- unquantised (exact): body 0.01299; one 8-bit code there is 0.00071 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.03985    0.04485    0.00500  -0.000000   -0.00      0.00
+     bottom       0.03985    0.04485    0.00500  -0.000000   -0.00      0.00
+     left         0.03985    0.04485    0.00500  -0.000000   -0.00      0.00
+     right        0.03985    0.04485    0.00500  -0.000000   -0.00      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000000000  bound 1e-06: PASS
+     the eroded body must not move: +0.000000000
+  -- 8-bit (the bed): body 0.01299; one 8-bit code there is 0.00071 linear
+     side      rim before  rim after  recovered      error   codes clipAfter
+     top          0.03985    0.04532    0.00546   0.000462    0.65      0.00
+     bottom       0.03985    0.04532    0.00546   0.000462    0.65      0.00
+     left         0.03985    0.04532    0.00546   0.000462    0.65      0.00
+     right        0.03985    0.04532    0.00546   0.000462    0.65      0.00
+     a clipped side is excluded from the bound: the raster cannot carry the line, and
+     that is the instrument's declared limit, not its error (the `clip` column exists for it).
+     worst |error| 0.000462 = 0.65 codes (the bed's resolution, not the reader's)
+     the eroded body must not move: +0.000000000
+
+==============================================================================
+(ii) THE CORNER SWEEP — where the straight span becomes straight
+==============================================================================
+The native fixture's TOP-side contour rim at a ladder of corner factors. A capsule's
+radius is half its short side, so factor 1 already excludes its semicircular ends and
+its read is flat across the ladder; an rrect's is not.
+
+profile                                scene                               f=1.0    f=1.2    f=1.4    f=1.5    f=1.6    f=1.8    f=2.0
+apple-macos-26.5-1x-light-standard     dark-solid__rrect-md__rest         0.2141   0.2235   0.2281   0.2291   0.2293   0.2296   0.2297
+apple-macos-26.5-1x-light-standard     light-solid__rrect-md__rest        0.0991   0.0998   0.1000   0.1002   0.1002   0.1002   0.1002
+apple-macos-26.5-1x-light-standard     dark-solid__capsule-button__rest   0.0198   0.0200   0.0200   0.0200   0.0200   0.0200   0.0200
+apple-macos-26.5-1x-light-standard     light-solid__rrect-ml__rest        0.1003   0.1015   0.1019   0.1021   0.1021   0.1021   0.1021
+apple-macos-26.5-1x-light-standard     checkerboard__rrect-sm__rest       0.1867   0.1886   0.1890   0.1890   0.1888   0.1884   0.1891
+apple-macos-26.5-2x-light-standard     dark-solid__rrect-md__rest         0.1906   0.2000   0.2043   0.2050   0.2052   0.2055   0.2058
+apple-macos-26.5-1x-dark-standard      dark-solid__rrect-md__rest         0.0252   0.0254   0.0256   0.0256   0.0256   0.0257   0.0257
+apple-macos-26.5-2x-dark-standard      dark-solid__capsule-button__rest   0.0199   0.0202   0.0203   0.0204   0.0204   0.0204   0.0204
+
+The read converges by factor 1.5 on every rrect and is flat on every capsule. 1.6 is
+taken: it keeps a margin over the convergence point and still leaves 96 of 160 CSS px
+of straight span on `rrect-md` and 38 of 64 on `rrect-sm`.
+
+==============================================================================
+(iii) CROSS-CHECK against the parent's contour-profile.py / contour-table.txt
+==============================================================================
+`rim nat` / `rim web` are the parent's numbers; `top` is this reader's TOP side.
+`d` is this reader minus the parent's. One 8-bit code is 0.0059 of linear luminance at
+a body of 0.48 and 0.0007 at a body of 0.011, so the dark bed's agreement is tighter in
+codes than it looks in luminance.
+
+profile                              scene                                      natP     natT        d     webP     webT        d
+apple-macos-26.5-1x-light-standard   dark-solid__rrect-md__rest               0.2310   0.2293  -0.0017   0.0682   0.0593  -0.0089
+apple-macos-26.5-1x-light-standard   impulse__rrect-md__rest                  0.2590   0.2400  -0.0190   0.0655   0.0613  -0.0042
+apple-macos-26.5-1x-light-standard   mid-dark-solid__capsule-button__rest     0.2425   0.2421  -0.0004   0.0712   0.0715  +0.0003
+apple-macos-26.5-1x-light-standard   light-solid__rrect-md__rest              0.1002   0.1002  -0.0000   0.0601   0.0593  -0.0008
+apple-macos-26.5-1x-light-standard   checkerboard__rrect-md__rest             0.1778   0.1763  -0.0015   0.0671   0.0605  -0.0066
+apple-macos-26.5-1x-light-standard   photo__rrect-md__rest                    0.1323   0.1056  -0.0267   0.0618   0.0173  -0.0445
+apple-macos-26.5-1x-light-standard   checkerboard__capsule-button__rest       0.2096   0.1930  -0.0166   0.0627   0.0624  -0.0003
+apple-macos-26.5-1x-light-standard   dark-solid__capsule-button__rest         0.0201   0.0200  -0.0001  -0.0000   0.0000  +0.0000
+apple-macos-26.5-1x-light-standard   impulse__capsule-button__rest            0.0198   0.0166  -0.0032  -0.0000   0.0000  +0.0000
+apple-macos-26.5-2x-light-standard   dark-solid__rrect-md__rest               0.2073   0.2052  -0.0021   0.0781   0.0692  -0.0089
+apple-macos-26.5-2x-light-standard   light-solid__rrect-md__rest              0.0542   0.0542  -0.0000   0.0434   0.0426  -0.0008
+apple-macos-26.5-2x-light-standard   dark-solid__capsule-button__rest         0.0204   0.0204  -0.0000  -0.0000  -0.0000  -0.0000
+apple-macos-26.5-1x-dark-standard    dark-solid__rrect-md__rest               0.0258   0.0256  -0.0002   0.0367   0.0367  +0.0000
+apple-macos-26.5-1x-dark-standard    dark-solid__capsule-button__rest         0.0201   0.0200  -0.0001  -0.0000   0.0000  +0.0000
+apple-macos-26.5-1x-dark-standard    impulse__capsule-button__rest            0.0198   0.0166  -0.0032  -0.0000   0.0000  +0.0000
+apple-macos-26.5-1x-dark-standard    mid-dark-solid__capsule-button__rest     0.0412   0.0410  -0.0002   0.0364   0.0362  -0.0002
+apple-macos-26.5-1x-dark-standard    checkerboard__rrect-md__rest             0.0583   0.0547  -0.0036   0.0357   0.0350  -0.0007
+apple-macos-26.5-1x-dark-standard    photo__rrect-md__rest                    0.0588   0.0486  -0.0102   0.0346   0.0259  -0.0087
+apple-macos-26.5-2x-dark-standard    dark-solid__rrect-md__rest               0.0257   0.0255  -0.0002   0.0399   0.0399  -0.0000
+apple-macos-26.5-2x-dark-standard    dark-solid__capsule-button__rest         0.0204   0.0204  -0.0000  -0.0000  -0.0000  -0.0000
+apple-macos-26.5-2x-dark-standard    impulse__capsule-button__rest            0.0213   0.0159  -0.0054   0.0000   0.0000  +0.0000
+apple-macos-26.5-2x-dark-standard    mid-dark-solid__capsule-button__rest     0.0400   0.0398  -0.0002   0.0390   0.0388  -0.0002
+
+the largest disagreement on the native side: -0.0267 (apple-macos-26.5-1x-light-standard photo__rrect-md__rest)
+
+Where the two agree to a thousandth the backdrop under the parent's centre window was
+the same as under the whole span. Where they do not, the span read is the one to
+believe: the centre window is 20 CSS px of a 120–224 px edge and inherits whatever
+structure sits under it, and on `photo` and `checkerboard` that is most of the
+difference between a rim and a backdrop feature.
