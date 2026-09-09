@@ -14,13 +14,17 @@ WHAT IT ASSUMES INSTEAD, and why each assumption is safe here.
   * The kernel is RADIALLY SYMMETRIC and is one profile K(r) on a radial grid, non-negative and of
     unit mass. Non-negativity is physical for a scatter kernel; unit mass is only a gauge, since a
     per-backdrop gain is fitted beside it.
-  * The interior maps to the backdrop AFFINELY: observed ≈ a_b · (backdrop ⊛ K) + b_b, one gain and
-    one offset per backdrop. This is not an approximation of convenience — it is what
-    `wgsl/optics.ts` does. The tone response reads `toneColour`, the backdrop SOURCE's own average,
-    which is one number per scene and not a per-pixel sample; the tint mix and the size law's level
-    are then constants over a band of constant depth. So on vitrea the affine model is exact in the
-    deep interior, and on the reference it is the same one-parameter-per-backdrop freedom every
-    earlier reader gave itself as a polynomial.
+  * The interior maps to the backdrop AFFINELY: observed ≈ a_b · (backdrop ⊛ K) + n_b(depth), one
+    gain per backdrop and one low-order polynomial in DEPTH beside it. The gain is what
+    `wgsl/optics.ts` justifies: the tone response reads `toneColour`, the backdrop SOURCE's own
+    average, which is one number per scene and not a per-pixel sample, so the tint mix and the size
+    law's level are constants at a given depth. The polynomial is what a real interior needs on top
+    of that, and it is not a licence — the inner shadow's decay, the lens's residual displacement
+    and the share's own ramp are each a function of the distance inside the contour and of nothing
+    else, so the whole nuisance space is one coordinate wide and cannot imitate a backdrop whose
+    period is a fraction of the band. With a bare offset instead, this reader FAILED its control on
+    vitrea's own captures while passing on synthetics built from the same backdrops with the same
+    kernel and the same 8-bit step; the difference between those two is precisely this term.
   * The reading is taken on a BAND OF CONSTANT DEPTH. Vitrea's own share is a function of depth —
     `sharpShare = sDeep + max(rampStart − sDeep, 0) · max(1 − depth/reach, 0)` with a reach of 80
     device px at 1x — so a kernel read over a whole interior is a depth average whatever the reader
@@ -173,6 +177,75 @@ def _second_difference(nodes):
     return D
 
 
+def prepare_rows(rows, nodes):
+    """Reduce every row once: a thin QR of [Aᵀ | nuisance], and the row's quantisation floor."""
+    n = nodes.size
+    for r in rows:
+        r["sd"] = float(np.std(r["y"])) or 1e-12
+        if "noise" not in r:
+            r["noise"] = code_noise(float(np.mean(r["y"])))
+        if r.get("QR") is None:
+            nuis = r.get("nuis")
+            if nuis is None:
+                nuis = np.ones((r["A"].shape[1], 1))
+            r["Q"], r["QR"] = np.linalg.qr(np.concatenate([r["A"].T, nuis], axis=1),
+                                           mode="reduced")
+        if "q" not in r:
+            y = r["y"]
+            r["q"] = r["Q"].T @ y
+            r["rho"] = max(float(y @ y) - float(r["q"] @ r["q"]), 0.0)
+            r["N"] = float(y.size)
+        r["P"] = r["QR"][:, :n]
+        r["p"] = r["QR"][:, n:]
+    return rows
+
+
+def profile_residual(rows, c):
+    """Every row's residual at a GIVEN kernel, gain and nuisance refitted, in quantisation steps.
+
+    This is the objective that decides everything below. A kernel is judged by how well it explains
+    the PIXELS, in the one unit the pixels have — the 8-bit display step — so a residual near 1 is a
+    kernel fitted as well as the file allows and a residual of 3 is a kernel the file rejects.
+    """
+    per = []
+    for r in rows:
+        m = r["P"] @ c
+        X = np.concatenate([m[:, None], r["p"]], axis=1)
+        sol, *_ = np.linalg.lstsq(X, r["q"], rcond=None)
+        res = X @ sol - r["q"]
+        rms = math.sqrt(max(float(res @ res) + r["rho"], 0.0) / r["N"])
+        per.append(rms / (r["noise"] * math.sqrt(12.0)))
+    return float(np.sqrt(np.mean(np.array(per) ** 2))), per
+
+
+def fit_family(rows, nodes, build, starts, bounds=None):
+    """The best member of a ONE- OR TWO-PARAMETER kernel family, judged on the pixels.
+
+    WHY A FAMILY SCAN SITS BESIDE THE FREE PROFILE, and why it is the stronger instrument here. The
+    control measured both on a band where the drawn kernel is known exactly: the forty-parameter
+    free profile reaches a lower residual, but its SHAPE is not determined by the data — it buys a
+    tenth of a quantisation step with a half-maximum width off by a factor of two. A scan over one
+    parameter cannot do that. On the same band the residual falls steeply to a single minimum at the
+    LOD the material actually draws and rises on both sides, so the width is identified by these
+    backdrops even where the shape is not. That asymmetry is the reader's real finding and this is
+    the function that exploits it.
+    """
+    from scipy.optimize import minimize
+    best = None
+    for x0 in starts:
+        try:
+            out = minimize(lambda p: profile_residual(rows, build(p))[0], np.asarray(x0, float),
+                           method="Nelder-Mead",
+                           options={"xatol": 1e-3, "fatol": 1e-6, "maxiter": 400})
+        except Exception:
+            continue
+        if best is None or out.fun < best.fun:
+            best = out
+    if best is None:
+        return None
+    return {"x": best.x, "resid": float(best.fun), "c": build(best.x)}
+
+
 def joint_profile(rows, nodes, lam=1e-3, sweeps=600, tol=1e-11):
     """One K over every row at once, with a per-row gain and offset.
 
@@ -203,32 +276,20 @@ def joint_profile(rows, nodes, lam=1e-3, sweeps=600, tol=1e-11):
     """
     D = _second_difference(nodes)
     n = nodes.size
-    for r in rows:
-        r["sd"] = float(np.std(r["y"])) or 1e-12
-        if "noise" not in r:
-            r["noise"] = code_noise(float(np.mean(r["y"])))
-        if r.get("QR") is None:
-            B = np.concatenate([r["A"].T, np.ones((r["A"].shape[1], 1))], axis=1)
-            r["Q"], r["QR"] = np.linalg.qr(B, mode="reduced")
-        if "q" not in r:
-            y = r["y"]
-            r["q"] = r["Q"].T @ y
-            r["rho"] = max(float(y @ y) - float(r["q"] @ r["q"]), 0.0)
-            r["N"] = float(y.size)
-        r["P"] = r["QR"][:, :n]
-        r["p"] = r["QR"][:, n]
+    prepare_rows(rows, nodes)
     weights = [1.0 / (r["noise"] * math.sqrt(r["N"])) for r in rows]
     masses = _masses(nodes)
 
     def row_obj(r, c, g, b):
-        res = g * (r["P"] @ c) + b * r["p"] - r["q"]
+        res = g * (r["P"] @ c) + r["p"] @ b - r["q"]
         return float(res @ res) + r["rho"]
 
     def solve_gain(r, c):
+        """The row's gain and its whole nuisance vector at once: linear, so solved and not searched."""
         m = r["P"] @ c
-        X = np.stack([m, r["p"]], axis=1)
+        X = np.concatenate([m[:, None], r["p"]], axis=1)
         sol, *_ = np.linalg.lstsq(X, r["q"], rcond=None)
-        return float(sol[0]), float(sol[1])
+        return float(sol[0]), sol[1:]
 
     def sweep(c0):
         c = np.asarray(c0, dtype=np.float64).copy()
@@ -242,7 +303,7 @@ def joint_profile(rows, nodes, lam=1e-3, sweeps=600, tol=1e-11):
             blocks, targets = [], []
             for r, g, b, w in zip(rows, gains, offs, weights):
                 blocks.append((w * g) * r["P"])
-                targets.append(w * (r["q"] - b * r["p"]))
+                targets.append(w * (r["q"] - r["p"] @ b))
             M = np.vstack(blocks)
             t = np.concatenate(targets)
             # λ is dimensionless: the penalty block is normalised to the data block's own scale, so
@@ -288,7 +349,7 @@ def joint_profile(rows, nodes, lam=1e-3, sweeps=600, tol=1e-11):
     per = []
     for r, g, b in zip(rows, gains, offs):
         rms = math.sqrt(max(row_obj(r, c, g, b), 0.0) / r["N"])
-        per.append({"name": r.get("name", "?"), "gain": g, "offset": b,
+        per.append({"name": r.get("name", "?"), "gain": g, "nuisance": b,
                     "rmsRel": rms / r["sd"],
                     "rmsCodes": rms / (r["noise"] * math.sqrt(12.0)),
                     "n": int(r["N"])})

@@ -1,0 +1,60 @@
+W26 G1b — reader E on synthetics: the smoothness weight, and the reader's bias by shape
+====================================================================================================
+
+Every row is the fixture's OWN backdrop raster convolved with the named kernel, gained and
+offset to the level and p2..p98 amplitude the real capture of that row carries, and put
+through the 8-bit sRGB step. So the modulation the reader has to work with is the modulation
+the real file carries.
+
+TWO MTF BANDS, and the second one is the load-bearing one. `S` is the RMS relative error over
+the brief's band, 1/64..1/8 cycles per device px; `F` is the same over 1/512..1/8, which is
+where a kernel tens of device px wide actually carries modulation. Both are taken only at the
+frequencies where the KNOWN kernel's own modulation is at least 1 %, since a relative error
+against a modulation of 10⁻⁵ is a statement about arithmetic and not about a kernel; the
+fraction of each band that leaves is printed beside it as `cov`. On the brief's band alone a
+kernel of σ 13 device px has essentially nothing left to be right or wrong about — which is
+the first thing this reader has to say about how the wave's earlier widths were compared.
+
+### 1. The smoothness weight, chosen once and frozen
+
+      lambda |               gauss-8 |             two-gauss |                 chain |                vitrea |           exponential
+   ----------+-----------------------+-----------------------+-----------------------+-----------------------+----------------------
+     0.00001 | F  2.2% H 25.2% R  3.9% | F  2.7% H 74.0% R  2.6% | F  2.2% H  2.5% R  2.0% | F  1.5% H 60.6% R  1.5% | F 16.8% H 46.7% R  0.7%
+     0.00010 | F  2.3% H 18.5% R  4.0% | F  2.8% H 47.1% R  2.6% | F  2.5% H  2.9% R  2.3% | F  1.6% H 49.0% R  1.5% | F 16.6% H 47.0% R  0.6%
+     0.00030 | F  2.6% H 13.6% R  4.6% | F  2.8% H 12.8% R  2.6% | F  2.5% H  4.0% R  1.6% | F  1.6% H 14.0% R  1.5% | F 19.6% H 54.2% R  0.5%
+     0.00100 | F  3.0% H 10.0% R  5.2% | F  2.8% H  7.1% R  2.6% | F  2.6% H  2.2% R  1.6% | F  1.6% H  9.7% R  1.5% | F 17.0% H 27.0% R  0.7%
+     0.00300 | F  4.1% H  4.7% R  8.6% | F  2.7% H  7.9% R  2.6% | F  2.5% H  4.7% R  1.5% | F  1.6% H  9.6% R  1.6% | F 14.8% H 19.5% R  1.0%
+     0.01000 | F  5.4% H  7.3% R 12.8% | F  2.8% H 11.2% R  2.7% | F  2.7% H  5.3% R  1.8% | F  1.8% H  6.7% R  2.3% | F 10.8% H 17.1% R  1.3%
+     0.03000 | F 16.4% H  4.3% R 42.6% | F  4.2% H 10.9% R  3.6% | F  3.1% H  4.5% R  2.1% | F  3.7% H  5.3% R  6.1% | F 21.9% H  5.5% R  1.1%
+
+   `F` is the MTF error over 1/512..1/8, `H` the half-maximum width error, `R` the second
+   moment's. The weight is chosen on their sum, averaged over every shape and every case:
+   λ 1e-05: 49.0%  λ 0.0001: 40.3%  λ 0.0003: 27.7%  λ 0.001: 18.9%  λ 0.003: 17.5%  λ 0.01: 18.4%  λ 0.03: 27.1%
+
+   CHOSEN: λ = 0.003. Frozen from here — the control and the reference are read at it.
+
+### 2. Per case and per shape, at the chosen weight
+
+     surface  sc rows                     kernel       S   cov       F   cov        HWHM t/r        RMSσ t/r
+    rrect-md   1    8                    gauss-8   15.1%  0.64   10.2%  0.80   8.001/  7.598   8.029/  9.617
+    rrect-md   1    8   two-gauss 2.0/19.5 @0.47    1.5%  1.00    1.0%  1.00   2.018/  1.954  13.299/ 13.644
+    rrect-md   1    8              chain level 4    8.4%  0.32    2.9%  0.64  14.629/ 13.543  15.540/ 15.906
+    rrect-md   1    8 vitrea rrect-md 1x (k=0.496)    0.9%  1.00    0.8%  1.00   1.267/  1.205  10.979/ 11.121
+    rrect-md   1    8            exponential L=8   31.0%  0.84   23.9%  0.92   4.723/  6.340  13.595/ 13.914
+    rrect-md   2    8                    gauss-8    1.6%  0.64    0.5%  0.80   8.001/  7.933   8.029/  8.119
+    rrect-md   2    8   two-gauss 2.0/19.5 @0.47    8.7%  1.00    6.9%  1.00   2.018/  1.868  13.299/ 13.899
+    rrect-md   2    8              chain level 4   22.1%  0.32    4.8%  0.64  14.629/ 14.464  15.540/ 15.753
+    rrect-md   2    8 vitrea rrect-md 2x (k=0.924)    2.5%  1.00    1.9%  1.00   1.483/  1.417  10.382/ 10.622
+    rrect-md   2    8            exponential L=8    9.8%  0.84    8.4%  0.92   4.723/  3.904  13.595/ 13.730
+    rrect-lg   1    8                    gauss-8    7.7%  0.64    4.9%  0.80   8.001/  7.564   8.029/  8.967
+    rrect-lg   1    8   two-gauss 2.0/19.5 @0.47    0.8%  1.00    0.6%  1.00   2.018/  2.052  13.299/ 13.510
+    rrect-lg   1    8              chain level 4    8.0%  0.32    2.0%  0.64  14.629/ 14.216  15.540/ 15.860
+    rrect-lg   1    8 vitrea rrect-lg 1x (k=0.695)    1.2%  1.00    0.9%  1.00   1.275/  1.197  12.979/ 13.270
+    rrect-lg   1    8            exponential L=8   19.8%  0.84   18.8%  0.92   4.723/  5.074  13.595/ 13.551
+    rrect-lg   2    8                    gauss-8    4.0%  0.64    0.7%  0.80   8.001/  7.414   8.029/  8.163
+    rrect-lg   2    8   two-gauss 2.0/19.5 @0.47    3.3%  1.00    2.4%  1.00   2.018/  1.626  13.299/ 13.055
+    rrect-lg   2    8              chain level 4    4.7%  0.32    0.5%  0.64  14.629/ 13.543  15.540/ 15.582
+    rrect-lg   2    8 vitrea rrect-lg 2x (k=0.961)    3.1%  1.00    2.8%  1.00   1.510/  1.165  13.900/ 13.984
+    rrect-lg   2    8            exponential L=8    8.4%  0.84    8.0%  0.92   4.723/  5.610  13.595/ 13.635
+
+CHOSEN LAMBDA = 0.003

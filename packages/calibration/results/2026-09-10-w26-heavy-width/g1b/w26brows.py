@@ -45,6 +45,29 @@ def depth_mask(cell, scale, shape, lo_css, hi_css):
     return (depth >= lo_css) & (depth <= hi_css)
 
 
+NUISANCE_ORDER = 3
+
+
+def nuisance(cell, scale, shape, mask, order=NUISANCE_ORDER):
+    """The per-row nuisance basis: a low-order polynomial in DEPTH inside the contour.
+
+    The gain and offset the model needs are the first two columns; the rest is what the interior
+    has that is not a convolution of the backdrop. Everything of that kind varies with DEPTH and
+    with nothing else — the inner shadow's decay, the lens's residual displacement, the size law's
+    own level and the share's own ramp are each a function of the distance inside the contour, so
+    a polynomial in that one coordinate is the whole nuisance space and cannot imitate a backdrop
+    whose period is a fraction of the band's width. An offset alone is not enough, and that was
+    measured: with a constant only, this reader failed its control on vitrea's real captures while
+    passing on synthetics built from the same backdrops with the same kernel and the same 8-bit
+    step — the difference between the two being exactly the smooth structure a real interior has.
+    """
+    d = L.signed_distance(cell.box, cell.radius, scale, shape, cell.kind)
+    u = (-d)[mask]
+    lo, hi = float(u.min()), float(u.max())
+    t = (u - lo) / max(hi - lo, 1e-9) * 2.0 - 1.0
+    return np.stack([t ** k for k in range(order + 1)], axis=1)
+
+
 def load_row(path, backdrop, cell, scale, band, nodes, pad="edge", bg_override=None):
     if not os.path.exists(path):
         return None
@@ -58,6 +81,7 @@ def load_row(path, backdrop, cell, scale, band, nodes, pad="edge", bg_override=N
     bg = L.background_for(backdrop, scale, shape) if bg_override is None else bg_override
     cols = E.basis_columns(bg, nodes, pad=pad)
     return {"name": backdrop, "A": cols[:, mask], "y": lum[mask].astype(np.float64),
+            "nuis": nuisance(cell, scale, shape, mask),
             "mask": mask, "bg": bg, "level": float(lum[mask].mean()),
             "amp": float(np.percentile(lum[mask], 98) - np.percentile(lum[mask], 2))}
 

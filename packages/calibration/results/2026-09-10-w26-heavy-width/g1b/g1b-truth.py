@@ -67,6 +67,9 @@ FALLBACK = {
     "sizeScatterHeavyShareThick1x": 0.0, "sizeScatterHeavyShareThick2x": 0.0,
 }
 CHAIN_SIGMA_AT_LEVEL_1 = 1.2
+# `pyramid-plan.ts`'s `CHAIN_LEVEL_SIGMA`: the width each chain level really draws, by half maximum,
+# in level-0 texels. Not the advisory constant above, which under-states level 1 by 24 %.
+LEVEL_SIGMA = [0.0, 1.542, 3.281, 6.679, 13.418, 26.867]
 PLANS = {1.0: (320, 200), 2.0: (640, 400)}
 SPANS = {"rrect-sm": 32.0, "rrect-md": 96.0, "rrect-ml": 128.0, "rrect-lg": 160.0}
 
@@ -152,6 +155,96 @@ def chain_profile(level, nodes):
     return E.radial_profile_of_kernel2d(level_psf(level), nodes)
 
 
+def heavy_tap_profile(sigma_dev, scale, nodes):
+    """What `heavyTapPlan` would draw for a heavy σ — the mechanism W26 built, as a profile.
+
+    The deepest chain level whose own measured width is at or below σ, blurred by the residual in
+    quadrature. This is not a Gaussian and does not become one: below `CHAIN_LEVEL_SIGMA[1]` it IS
+    a Gaussian, and above it the platykurtic chain kernel dominates whatever the residual adds.
+    """
+    levels = max_lod(scale) + 1
+    level = 0
+    for i in range(1, levels):
+        if LEVEL_SIGMA[min(i, len(LEVEL_SIGMA) - 1)] > sigma_dev:
+            break
+        level = i
+    covered = LEVEL_SIGMA[min(level, len(LEVEL_SIGMA) - 1)] if level else 0.0
+    residual = math.sqrt(max(sigma_dev ** 2 - covered ** 2, 0.0))
+    if level == 0:
+        return E.gauss_profile(nodes, max(residual, 1e-6))
+    ker = level_psf(level)
+    if residual > 1e-6:
+        from scipy.ndimage import gaussian_filter
+        ker = gaussian_filter(ker, residual, mode="constant")
+    return E.radial_profile_of_kernel2d(ker, nodes)
+
+
+def sigma_naming_lod(lod, scale, nodes, band=(1.0 / 512.0, 1.0 / 8.0)):
+    """The `sizeHeavyTapSigma` whose `heavyTapPlan` kernel matches the tap drawn at `lod`.
+
+    The control needs the drawn tap and the fitted family to be quoted in ONE statistic, and they
+    are two different constructions: `scatterLod` blends two chain levels trilinearly, while
+    `heavyTapPlan` takes one level and blurs it. Reducing each to a half-maximum width and
+    comparing those would compare two reductions rather than two kernels, so the drawn tap is
+    instead expressed as the σ whose plan kernel has the nearest modulation transfer — the same
+    quantity the family fit returns, so the two columns are commensurable. Where the tap is a whole
+    level (every 1x row on this bed) the answer is `CHAIN_LEVEL_SIGMA` at that level, exactly.
+
+
+    Compared LINEARLY and only where the drawn tap still transfers 2 % of its modulation: a
+    trilinear blend of two chain levels RINGS — `rrect-lg` at 2x reads a modulation of −0.015 at
+    1/16 cycles per px — and a log-domain comparison is then decided by where the transform crosses
+    zero rather than by the width.
+    """
+    f = E.band_freqs(31, band)
+    target = E.mtf_of_profile(nodes, chain_profile_at(lod, nodes), f)
+    keep = np.abs(target) >= 0.02
+    best = None
+    for i in range(20, 400):
+        s = i / 10.0
+        m = E.mtf_of_profile(nodes, heavy_tap_profile(s, scale, nodes), f)
+        d = float(np.sqrt(np.mean((m[keep] - target[keep]) ** 2)))
+        if best is None or d < best[0]:
+            best = (d, s)
+    return best[1]
+
+
+def chain_profile_at(lod, nodes):
+    """The tap at a FRACTIONAL lod — `textureSampleLevel`'s trilinear blend of two levels."""
+    lo = int(math.floor(lod))
+    frac = lod - lo
+    ker = level_psf(lo)
+    if frac > 1e-9:
+        ker = (1 - frac) * ker + frac * level_psf(lo + 1)
+    return E.radial_profile_of_kernel2d(ker, nodes)
+
+
+def body_profile(nodes, m=None):
+    """The BODY's own point spread, which is not a Gaussian of `blurSigma` and never was.
+
+    `bodyBlurPlan(1.25, plan)` picks the deepest chain level whose advisory σ is at or below 1.25 —
+    `CHAIN_SIGMA_AT_LEVEL_1` is 1.2, so that is level 1 — and applies the residual
+    √(1.25² − 1.2²) = 0.35 level-0 texels on top of it. The body sample is therefore the chain's
+    LEVEL-1 kernel, whose measured half-maximum σ is 1.542 and not 1.2 and whose kurtosis is −0.43,
+    blurred by a third of a texel. Reading it as a Gaussian of 1.25 understates its width by about
+    a quarter and misstates its shape, and that is not a rounding error in a control: it is the
+    whole of what a half-maximum statistic sees. W25 G0's reader A reads vitrea's sharp component
+    at 1.65–1.84 device px at 1x, which is this and not 1.25.
+    """
+    m = m or material()
+    body = m["blurSigma"]
+    covered = CHAIN_SIGMA_AT_LEVEL_1
+    level = 1 if body >= covered else 0
+    residual = math.sqrt(max(body * body - (covered if level else 0.0) ** 2, 0.0))
+    ker = level_psf(level) if level else None
+    if ker is None:
+        return E.gauss_profile(nodes, max(body, 1e-6))
+    if residual > 1e-6:
+        from scipy.ndimage import gaussian_filter
+        ker = gaussian_filter(ker, residual, mode="constant")
+    return E.radial_profile_of_kernel2d(ker, nodes)
+
+
 def truth_profile(span, scale, depths_css, nodes, m=None):
     """The kernel vitrea draws, averaged over a band of depths — the control's target.
 
@@ -166,7 +259,7 @@ def truth_profile(span, scale, depths_css, nodes, m=None):
     heavy = chain_profile(lo, nodes)
     if frac > 1e-9:
         heavy = (1 - frac) * heavy + frac * chain_profile(lo + 1, nodes)
-    sharp = E.gauss_profile(nodes, m["blurSigma"])
+    sharp = body_profile(nodes, m)
     ks = np.array([k_scatter(span, scale, d, m) for d in np.atleast_1d(depths_css)])
     kbar = float(ks.mean())
     prof = (1 - kbar) * sharp + kbar * heavy

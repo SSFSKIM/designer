@@ -37,7 +37,7 @@ _spec = importlib.util.spec_from_file_location("g1btruth", os.path.join(HERE, "g
 TRUTH = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(TRUTH)
 
-EXTENT = {1.0: 64.0, 2.0: 64.0}
+EXTENT = {1.0: 96.0, 2.0: 96.0}
 NODES = 40
 CASES = (("rrect-md", 1.0, (16.0, 48.0)), ("rrect-md", 2.0, (16.0, 48.0)),
          ("rrect-lg", 1.0, (16.0, 80.0)), ("rrect-lg", 2.0, (16.0, 80.0)))

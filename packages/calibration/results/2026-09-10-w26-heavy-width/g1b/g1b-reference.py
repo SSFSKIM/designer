@@ -48,7 +48,7 @@ _spec = importlib.util.spec_from_file_location("g1btruth", os.path.join(HERE, "g
 TRUTH = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(TRUTH)
 
-EXTENT = 64.0
+EXTENT = 96.0
 NODES = 40
 FREQS = np.array([1 / 512, 1 / 256, 1 / 192, 1 / 128, 1 / 96, 1 / 64, 1 / 48, 1 / 32,
                   1 / 24, 1 / 16, 1 / 12, 1 / 8, 1 / 6, 1 / 4])
@@ -164,6 +164,82 @@ def main(argv):
     e("under about 10 % means the mechanism can carry K; the σ column is then the constant.")
     e("")
 
+    # ------------------------------------------------------------------ families on the pixels
+    e("### 3b. Four kernel FAMILIES, each fitted to the pixels, judged in quantisation steps")
+    e("")
+    e("The control's finding is that the free forty-parameter profile reaches a lower residual than")
+    e("the kernel the material actually draws while getting its shape wrong, and that a scan over ONE")
+    e("width does not: on the band where the drawn kernel is known the residual falls to a single")
+    e("minimum at the LOD the material draws. So the families below are fitted to the PIXELS rather")
+    e("than to a recovered profile, and the question each answers is how much of the file a shape")
+    e("can explain — not how close it comes to a curve that was itself inferred.")
+    e("")
+    e("`resid` is the RMS over rows of each row's residual in units of its own 8-bit step. `free` is")
+    e("the forty-parameter profile on the same rows and is a lower bound no shape can beat; the gap")
+    e("between a family and `free` is what that family cannot describe.")
+    e("")
+    e(f"  {'surface':>9} {'sc':>3} {'src':>9} {'family':>28} {'parameters':>34} {'resid':>7}")
+    for comp, scale, band, scheme in jobs:
+        pkey = f"{'1x' if scale == 1 else '2x'}-{scheme}"
+        profile, _, _ = L.PROFILES[pkey]
+        for source in ("native", "web"):
+            key = (comp, scale, scheme, source)
+            if key not in store:
+                continue
+            fit, rows, _ = store[key]
+            E.prepare_rows(rows, nodes)
+            lab = "reference" if source == "native" else "vitrea"
+            body = TRUTH.body_profile(nodes)
+
+            def one_gauss(p):
+                return E.gauss_profile(nodes, max(abs(p[0]), 0.05))
+
+            def two_gauss(p):
+                s1, s2 = max(abs(p[0]), 0.05), max(abs(p[1]), 0.05)
+                w = 1.0 / (1.0 + math.exp(-p[2]))
+                return (1 - w) * E.gauss_profile(nodes, s1) + w * E.gauss_profile(nodes, s2)
+
+            def body_plus_gauss(p):
+                """Vitrea's own composite: the BODY it already draws plus one Gaussian at a share."""
+                s = max(abs(p[0]), 0.05)
+                w = 1.0 / (1.0 + math.exp(-p[1]))
+                return (1 - w) * body + w * E.gauss_profile(nodes, s)
+
+            def body_plus_chain(p):
+                """Vitrea's MECHANISM: the body plus a chain level blurred to σ, at a share.
+
+                `heavyTapPlan` picks the level from σ and the residual Gaussian carries the rest, so
+                the σ this returns is exactly what `sizeHeavyTapSigma` would have to name.
+                """
+                s = max(abs(p[0]), 0.5)
+                w = 1.0 / (1.0 + math.exp(-p[1]))
+                return (1 - w) * body + w * TRUTH.heavy_tap_profile(s, scale, nodes)
+
+            fams = (
+                ("one Gaussian", one_gauss, [[6.0], [14.0], [22.0]], lambda x: f"σ {abs(x[0]):.2f}"),
+                ("two Gaussians", two_gauss,
+                 [[2.0, 10.0, 0.0], [2.0, 20.0, 0.8], [4.0, 30.0, -0.8]],
+                 lambda x: (f"sharp {abs(x[0]):.2f} heavy {abs(x[1]):.2f} "
+                            f"@{1 / (1 + math.exp(-x[2])):.3f}")),
+                ("vitrea body + Gaussian", body_plus_gauss,
+                 [[10.0, 0.0], [20.0, 0.8], [30.0, -0.5]],
+                 lambda x: (f"heavy σ {abs(x[0]):.2f} @{1 / (1 + math.exp(-x[1])):.3f}")),
+                ("vitrea body + chain tap", body_plus_chain,
+                 [[10.0, 0.0], [20.0, 0.8], [30.0, -0.5]],
+                 lambda x: (f"sizeHeavyTapSigma {abs(x[0]):.2f} @{1 / (1 + math.exp(-x[1])):.3f}")),
+            )
+            for name, build, starts, fmt in fams:
+                out = E.fit_family(rows, nodes, build, starts)
+                if out is None:
+                    continue
+                e(f"  {comp:>9} {scale:3.0f} {lab:>9} {name:>28} {fmt(out['x']):>34}"
+                  f" {out['resid']:7.3f}")
+                store.setdefault("fam", {})[(comp, scale, scheme, source, name)] = out
+            free, _ = E.profile_residual(rows, fit["c"])
+            e(f"  {comp:>9} {scale:3.0f} {lab:>9} {'free profile (40 nodes)':>28} {'':>34}"
+              f" {free:7.3f}")
+    e("")
+
     # ------------------------------------------------------------------ per-row residuals
     e("### 4. Per-row residual, in units of the row's own quantisation step")
     e("")
@@ -180,7 +256,13 @@ def main(argv):
     # ------------------------------------------------------------------ sensitivity
     e("### 5. Sensitivity — the same reading under the choices that could have made it")
     e("")
-    e(f"  {'surface':>9} {'sc':>3} {'variant':>28} {'rows':>4} {'RMSσ':>7} {'HWHMσ':>7} {'MTFσ':>7}")
+    e("The instrument here is the one that PASSED the control — vitrea's own mechanism family fitted")
+    e("to the pixels — not the free profile, whose shape the control showed is not determined.")
+    e("`σ` is `sizeHeavyTapSigma`, `share` the heavy component's weight, `resid` the fit in")
+    e("quantisation steps, and `freeRMSσ` the free profile's second moment on the same rows.")
+    e("")
+    e(f"  {'surface':>9} {'sc':>3} {'variant':>28} {'rows':>4} {'σ':>8} {'share':>7} {'resid':>7}"
+      f" {'freeRMSσ':>8}")
     variants = [
         ("as read", dict()),
         ("band 24..: deeper", dict(band_lo=24.0)),
@@ -200,15 +282,25 @@ def main(argv):
         for name, opt in variants:
             bd = opt.get("keep") or tuple(b for b in R.BACKDROPS if b not in opt.get("drop", ()))
             bb = (opt.get("band_lo", band[0]), band[1])
-            fit, rows = read("native", profile, scale, comp, bb, nodes, comps, args.lam,
-                             backdrops=bd, pad=opt.get("pad", "edge"))
-            if fit is None:
+            cell, rows = R.assemble("native", profile, scale, comp, bb, nodes, comps,
+                                    backdrops=bd, pad=opt.get("pad", "edge"))
+            if len(rows) < 4:
                 e(f"  {comp:>9} {scale:3.0f} {name:>28}  only {len(rows)} rows")
                 continue
+            E.prepare_rows(rows, nodes)
+            body = TRUTH.body_profile(nodes)
+
+            def mech(p, scale=scale, body=body):
+                w = 1.0 / (1.0 + math.exp(-p[1]))
+                return (1 - w) * body + w * TRUTH.heavy_tap_profile(max(abs(p[0]), 0.5), scale,
+                                                                   nodes)
+
+            out = E.fit_family(rows, nodes, mech, [[9.0, 0.0], [14.0, 0.8], [20.0, -0.5]])
+            fit = E.joint_profile(rows, nodes, lam=args.lam)
             w = E.widths_of_profile(nodes, fit["c"])
-            s, _, *_ = E.sigma_matching_mtf(nodes, fit["c"], band=FULL_BAND, n=31)
             e(f"  {comp:>9} {scale:3.0f} {name:>28} {len(rows):4d}"
-              f" {w['sigmaRms']:7.3f} {w['sigmaHwhm']:7.3f} {s:7.3f}")
+              f" {abs(out['x'][0]):8.2f} {1 / (1 + math.exp(-out['x'][1])):7.3f}"
+              f" {out['resid']:7.3f} {w['sigmaRms']:8.2f}")
     e("")
 
     # ------------------------------------------------------------------ the profiles
