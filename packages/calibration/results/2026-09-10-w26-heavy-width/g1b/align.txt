@@ -1,0 +1,31 @@
+W26 G1b — the committed backdrop rasters against the fixtures' own free background
+====================================================================================================
+
+`rrect-sm` scenes, every pixel more than 56 CSS px outside the contour and 2 CSS px inside
+the canvas edge. A gain of 1 and an offset of 0 mean the harness drew the raster unmodified;
+a shift of (0, 0) means it drew it where the raster says. `codes` is the residual in 8-bit
+display codes at the region's own level.
+
+   profile           backdrop  dy  dx     gain    offset   codes      px
+  1x-light            impulse   0   0   1.0000   0.00000    0.00   40084
+  1x-light    checkerboard-64   0   0   1.0000  -0.00000    0.00   40084
+  1x-light    checkerboard-32   0   0   1.0000  -0.00000    0.00   40084
+  1x-light       checkerboard   0   0   1.0000  -0.00000    0.00   40084
+  1x-light     checkerboard-8   0   0   1.0000   0.00000    0.00   40084
+  1x-light     checkerboard-4   0   0   1.0000  -0.00000    0.00   40084
+  1x-light            hc-text   0   0   1.0000   0.00000    0.00   40084
+  1x-light              photo   0   0   1.0000  -0.00000    0.00   40084
+  2x-light            impulse   0   0   1.0000  -0.00000    0.00  160436
+  2x-light    checkerboard-64   0   0   1.0000  -0.00000    0.00  160436
+  2x-light    checkerboard-32   0   0   1.0000   0.00000    0.00  160436
+  2x-light       checkerboard   0   0   1.0000   0.00000    0.00  160436
+  2x-light     checkerboard-8   0   0   1.0000   0.00000    0.00  160436
+  2x-light     checkerboard-4   0   0   1.0000   0.00000    0.00  160436
+  2x-light            hc-text   0   0   0.9998  -0.00000    1.57  160436
+  2x-light              photo   0   0   1.0000  -0.00000    0.00  160436
+   1x-dark            impulse   0   0   1.0000   0.00000    0.00   40084
+   1x-dark    checkerboard-64   0   0   1.0000  -0.00000    0.00   40084
+   1x-dark    checkerboard-32   0   0   1.0000  -0.00000    0.00   40084
+   1x-dark     checkerboard-8   0   0   1.0000   0.00000    0.00   40084
+   1x-dark     checkerboard-4   0   0   1.0000  -0.00000    0.00   40084
+   1x-dark            hc-text   0   0   1.0000   0.00000    0.00   40084

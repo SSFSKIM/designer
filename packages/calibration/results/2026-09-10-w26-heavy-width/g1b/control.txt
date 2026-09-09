@@ -1,0 +1,180 @@
+W26 G1b — THE CONTROL: reader E on vitrea's own captures, against the kernel vitrea draws
+====================================================================================================
+
+Smoothness weight λ = 0.003, chosen on synthetics in `synth.txt` and frozen. Radial
+grid: 40 hat nodes out to 96 device px. Rows: every thick untinted backdrop
+the surface has, at the canonical 0.14.0 web captures, read over the stated band of depth.
+
+`MTF sharp` is the RMS relative error of the recovered modulation transfer over
+1/64..1/8 cycles per device px — the brief's band. `MTF heavy` is the same over 1/512..1/8,
+which is where a kernel of σ 13 device px actually carries its modulation. Each is taken
+only where the DRAWN kernel's own modulation is at least 1 %, and `cov` is the fraction of the
+band that leaves.
+
+    surface  sc    band rows        kScatter band        MTF sharp        MTF heavy         HWHM t/r         RMSσ t/r   tail
+   rrect-md   1  16-48     8 0.494[0.49,0.50]    2.5%   1.00    2.3%   1.00   1.793   1.335  11.005   9.924   0.0%
+   rrect-md   2  16-48     8 0.913[0.86,0.99]   35.4%   1.00   27.7%   1.00   2.230   1.389  10.341  13.107   0.0%
+   rrect-lg   1  16-80     8 0.684[0.63,0.76]    6.8%   1.00    5.4%   1.00   1.813   1.460  12.902  16.087   0.0%
+   rrect-lg   2  16-80     8 0.950[0.86,1.00]   32.4%   1.00   22.5%   1.00   2.246   2.188  13.839  13.643   0.0%
+   rrect-lg   2  50-80     8 1.000[1.00,1.00]   93.9%   0.60   73.1%   0.80   9.363   7.306  14.193  14.980   0.0%
+   rrect-md   2  40-48     8 0.974[0.96,0.99]   55.0%   1.00   38.1%   1.00   3.547   3.592  10.669  11.737   0.0%
+
+`tail` is the fraction of the recovered kernel's mass in the outermost four nodes — the
+reader saying whether its own radial extent was wide enough for what it found.
+
+### Per-row fit residual, in units of the row's own quantisation step
+
+A row whose residual is about one quantisation step is fitted as well as the file allows; a
+row far above it is a row the single shared kernel does not describe.
+
+   rrect-md 1x 16-48
+      at the FIT   impulse: 0.35   checkerboard-64: 1.11   checkerboard-32: 1.48   checkerboard: 1.25   checkerboard-8: 1.25   checkerboard-4: 0.65   hc-text: 1.35   photo: 0.25
+      at the DRAWN impulse: 0.36   checkerboard-64: 1.15   checkerboard-32: 1.50   checkerboard: 1.29   checkerboard-8: 1.27   checkerboard-4: 0.69   hc-text: 1.40   photo: 0.26
+   rrect-md 2x 16-48
+      at the FIT   impulse: 0.23   checkerboard-64: 1.09   checkerboard-32: 1.71   checkerboard: 1.50   checkerboard-8: 1.17   checkerboard-4: 0.96   hc-text: 1.45   photo: 0.26
+      at the DRAWN impulse: 0.21   checkerboard-64: 1.28   checkerboard-32: 1.83   checkerboard: 1.53   checkerboard-8: 1.21   checkerboard-4: 0.97   hc-text: 1.46   photo: 0.27
+   rrect-lg 1x 16-80
+      at the FIT   impulse: 0.37   checkerboard-64: 0.81   checkerboard-32: 1.16   checkerboard: 1.12   checkerboard-8: 0.86   checkerboard-4: 0.50   hc-text: 0.99   photo: 0.27
+      at the DRAWN impulse: 0.39   checkerboard-64: 0.84   checkerboard-32: 1.30   checkerboard: 1.15   checkerboard-8: 0.88   checkerboard-4: 0.52   hc-text: 1.01   photo: 0.31
+   rrect-lg 2x 16-80
+      at the FIT   impulse: 0.32   checkerboard-64: 0.67   checkerboard-32: 1.12   checkerboard: 1.27   checkerboard-8: 1.32   checkerboard-4: 1.05   hc-text: 1.22   photo: 0.26
+      at the DRAWN impulse: 0.31   checkerboard-64: 0.98   checkerboard-32: 1.19   checkerboard: 1.30   checkerboard-8: 1.32   checkerboard-4: 1.05   hc-text: 1.29   photo: 0.31
+   rrect-lg 2x 50-80
+      at the FIT   impulse: 0.23   checkerboard-64: 0.44   checkerboard-32: 0.41   checkerboard: 0.32   checkerboard-8: 0.28   checkerboard-4: 0.00   hc-text: 0.53   photo: 0.24
+      at the DRAWN impulse: 0.18   checkerboard-64: 0.96   checkerboard-32: 0.66   checkerboard: 0.48   checkerboard-8: 0.30   checkerboard-4: 0.00   hc-text: 0.62   photo: 0.29
+   rrect-md 2x 40-48
+      at the FIT   impulse: 0.27   checkerboard-64: 0.32   checkerboard-32: 0.42   checkerboard: 0.48   checkerboard-8: 0.39   checkerboard-4: 0.32   hc-text: 0.67   photo: 0.22
+      at the DRAWN impulse: 0.24   checkerboard-64: 0.59   checkerboard-32: 0.70   checkerboard: 0.55   checkerboard-8: 0.55   checkerboard-4: 0.31   hc-text: 0.71   photo: 0.24
+
+### The recovered profile against the drawn one, normalised to its own peak
+
+   rrect-md 1x 16-48 — DRAWN (truth)
+     0.0:1.0000    0.2:0.9700    0.6:0.9038    1.2:0.7963    1.9:0.5607    2.8:0.2869    3.8:0.0888    5.0:0.0192    6.2:0.0109
+     7.6:0.0102    9.1:0.0096   10.7:0.0090   12.4:0.0084   14.2:0.0077   16.1:0.0070   18.1:0.0061   20.2:0.0053   22.4:0.0045
+    24.7:0.0037   27.1:0.0029   29.5:0.0021   32.1:0.0014   34.7:0.0009   37.5:0.0006   40.3:0.0004   43.2:0.0003   46.2:0.0002
+    49.2:0.0001   52.4:0.0000   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+   rrect-md 1x 16-48 — READ
+     0.0:1.0000    0.2:0.9397    0.6:0.8040    1.2:0.6130    1.9:0.4023    2.8:0.2219    3.8:0.0767    5.0:0.0162    6.2:0.0039
+     7.6:0.0153    9.1:0.0064   10.7:0.0061   12.4:0.0153   14.2:0.0000   16.1:0.0063   18.1:0.0048   20.2:0.0066   22.4:0.0027
+    24.7:0.0046   27.1:0.0001   29.5:0.0005   32.1:0.0027   34.7:0.0006   37.5:0.0000   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-md 2x 16-48 — DRAWN (truth)
+     0.0:1.0000    0.2:0.9771    0.6:0.9267    1.2:0.8449    1.9:0.6671    2.8:0.4591    3.8:0.3018    5.0:0.2327    6.2:0.2053
+     7.6:0.1809    9.1:0.1510   10.7:0.1220   12.4:0.0939   14.2:0.0667   16.1:0.0422   18.1:0.0284   20.2:0.0204   22.4:0.0144
+    24.7:0.0099   27.1:0.0072   29.5:0.0052   32.1:0.0033   34.7:0.0022   37.5:0.0016   40.3:0.0011   43.2:0.0007   46.2:0.0004
+    49.2:0.0001   52.4:0.0001   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+   rrect-md 2x 16-48 — READ
+     0.0:1.0000    0.2:0.9408    0.6:0.8077    1.2:0.6213    1.9:0.4263    2.8:0.3035    3.8:0.2407    5.0:0.1314    6.2:0.0742
+     7.6:0.1445    9.1:0.1166   10.7:0.1101   12.4:0.0619   14.2:0.0045   16.1:0.0369   18.1:0.0122   20.2:0.0088   22.4:0.0096
+    24.7:0.0147   27.1:0.0000   29.5:0.0000   32.1:0.0000   34.7:0.0000   37.5:0.0000   40.3:0.0016   43.2:0.0000   46.2:0.0000
+    49.2:0.0006   52.4:0.0010   55.6:0.0000   58.9:0.0000   62.2:0.0002   65.7:0.0000   69.2:0.0000   72.8:0.0015   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-lg 1x 16-80 — DRAWN (truth)
+     0.0:1.0000    0.2:0.9704    0.6:0.9051    1.2:0.7992    1.9:0.5669    2.8:0.2969    3.8:0.1014    5.0:0.0323    6.2:0.0235
+     7.6:0.0222    9.1:0.0209   10.7:0.0196   12.4:0.0182   14.2:0.0168   16.1:0.0152   18.1:0.0134   20.2:0.0116   22.4:0.0098
+    24.7:0.0081   27.1:0.0063   29.5:0.0046   32.1:0.0030   34.7:0.0020   37.5:0.0014   40.3:0.0010   43.2:0.0006   46.2:0.0003
+    49.2:0.0001   52.4:0.0000   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+   rrect-lg 1x 16-80 — READ
+     0.0:1.0000    0.2:0.9445    0.6:0.8196    1.2:0.6439    1.9:0.4482    2.8:0.2674    3.8:0.0969    5.0:0.0214    6.2:0.0152
+     7.6:0.0326    9.1:0.0147   10.7:0.0177   12.4:0.0176   14.2:0.0104   16.1:0.0205   18.1:0.0106   20.2:0.0119   22.4:0.0088
+    24.7:0.0044   27.1:0.0049   29.5:0.0004   32.1:0.0029   34.7:0.0000   37.5:0.0000   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0013   62.2:0.0017   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0001
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-lg 2x 16-80 — DRAWN (truth)
+     0.0:1.0000    0.2:0.9774    0.6:0.9274    1.2:0.8464    1.9:0.6700    2.8:0.4639    3.8:0.3093    5.0:0.2440    6.2:0.2208
+     7.6:0.2012    9.1:0.1782   10.7:0.1554   12.4:0.1330   14.2:0.1109   16.1:0.0898   18.1:0.0738   20.2:0.0615   22.4:0.0504
+    24.7:0.0402   27.1:0.0312   29.5:0.0226   32.1:0.0147   34.7:0.0099   37.5:0.0068   40.3:0.0047   43.2:0.0030   46.2:0.0016
+    49.2:0.0006   52.4:0.0002   55.6:0.0001   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+   rrect-lg 2x 16-80 — READ
+     0.0:1.0000    0.2:0.9600    0.6:0.8699    1.2:0.7430    1.9:0.6005    2.8:0.4661    3.8:0.3464    5.0:0.2303    6.2:0.2060
+     7.6:0.2464    9.1:0.1686   10.7:0.1688   12.4:0.1215   14.2:0.0527   16.1:0.0988   18.1:0.0543   20.2:0.0695   22.4:0.0769
+    24.7:0.0393   27.1:0.0077   29.5:0.0062   32.1:0.0151   34.7:0.0000   37.5:0.0094   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0024   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0014   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-lg 2x 50-80 — DRAWN (truth)
+     0.0:1.0000    0.2:0.9953    0.6:0.9846    1.2:0.9678    1.9:0.9346    2.8:0.8921    3.8:0.8430    5.0:0.7887    6.2:0.7301
+     7.6:0.6659    9.1:0.5897   10.7:0.5144   12.4:0.4401   14.2:0.3669   16.1:0.2971   18.1:0.2443   20.2:0.2035   22.4:0.1668
+    24.7:0.1329   27.1:0.1031   29.5:0.0749   32.1:0.0486   34.7:0.0326   37.5:0.0226   40.3:0.0156   43.2:0.0101   46.2:0.0054
+    49.2:0.0020   52.4:0.0008   55.6:0.0003   58.9:0.0001   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+   rrect-lg 2x 50-80 — READ
+     0.0:0.5283    0.2:0.5699    0.6:0.6636    1.2:0.7954    1.9:0.9363    2.8:1.0000    3.8:0.9434    5.0:0.6702    6.2:0.6090
+     7.6:0.7131    9.1:0.3947   10.7:0.4663   12.4:0.3845   14.2:0.1755   16.1:0.2515   18.1:0.2256   20.2:0.1520   22.4:0.2439
+    24.7:0.0962   27.1:0.0231   29.5:0.0448   32.1:0.0238   34.7:0.0158   37.5:0.0158   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0063   55.6:0.0040   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0066
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-md 2x 40-48 — DRAWN (truth)
+     0.0:1.0000    0.2:0.9845    0.6:0.9503    1.2:0.8951    1.9:0.7768    2.8:0.6366    3.8:0.5214    5.0:0.4534    6.2:0.4068
+     7.6:0.3585    9.1:0.2993   10.7:0.2418   12.4:0.1861   14.2:0.1322   16.1:0.0837   18.1:0.0563   20.2:0.0404   22.4:0.0285
+    24.7:0.0195   27.1:0.0143   29.5:0.0102   32.1:0.0066   34.7:0.0044   37.5:0.0031   40.3:0.0021   43.2:0.0014   46.2:0.0007
+    49.2:0.0003   52.4:0.0001   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+   rrect-md 2x 40-48 — READ
+     0.0:1.0000    0.2:0.9692    0.6:0.8999    1.2:0.8034    1.9:0.7102    2.8:0.6900    3.8:0.6110    5.0:0.3039    6.2:0.2639
+     7.6:0.3875    9.1:0.1837   10.7:0.2719   12.4:0.1741   14.2:0.0486   16.1:0.0930   18.1:0.0140   20.2:0.0159   22.4:0.0482
+    24.7:0.0125   27.1:0.0021   29.5:0.0000   32.1:0.0000   34.7:0.0120   37.5:0.0000   40.3:0.0021   43.2:0.0016   46.2:0.0000
+    49.2:0.0000   52.4:0.0011   55.6:0.0000   58.9:0.0000   62.2:0.0018   65.7:0.0000   69.2:0.0000   72.8:0.0007   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+### The drawn width, scanned directly against the pixels
+
+A separate and much narrower question than the profile's: forget the free fit, and ask which
+chain LOD, as a whole kernel with its gain and nuisance refitted, best explains the band. On
+`rrect-lg` at 2x past 50 CSS px the material draws EXACTLY one chain tap — `kScatter` is 1 to
+the bit there — so the answer is a number the arithmetic already states, and the scan is a
+direct test of whether these eight backdrops can find a width they were not told.
+
+   the arithmetic says scatterLod 3.780
+      lod   resid (quantisation steps)    HWHMσ     RMSσ
+      2.0                       3.9540    3.604    3.615
+      2.5                       3.0786    3.932    5.927
+      3.0                       2.0273    7.270    7.576
+      3.5                       0.8228    7.971   12.228
+      3.8                       0.5630    9.555   14.317
+      4.0                       1.2538   14.632   15.556
+      4.5                       2.0491   16.105   24.606
+      5.0                       3.4607   29.323   31.168
+   BEST pure chain tap: lod 3.7 at 0.4469; the free profile reaches 0.3424
+
+### The SECOND control: vitrea's own mechanism, fitted to the pixels as a two-parameter family
+
+The scan above says the width is identified where the shape is not, so this is the same
+question asked in two parameters instead of forty: the BODY vitrea already draws, plus what
+`heavyTapPlan` would build for a heavy σ, mixed at a share — the composite `wgsl/optics.ts`
+computes, with the two numbers the material would name left free. The truth column is the
+arithmetic: the drawn tap's own width, and `kScatter` averaged over the band's own pixels.
+
+    surface  sc    band  σ drawn   σ read       Δ  k drawn   k read       Δ   resid    free
+   rrect-md   1  16-48    13.500   13.418   -0.6%    0.494    0.501  +0.007   1.083   1.059
+   rrect-md   2  16-48     8.800    7.961   -9.5%    0.913    0.872  -0.041   1.205   1.167
+   rrect-lg   1  16-80    13.500   13.418   -0.6%    0.684    0.678  -0.006   0.859   0.825
+   rrect-lg   2  16-80    13.100   12.235   -6.6%    0.950    0.916  -0.034   1.024   0.989
+   rrect-lg   2  50-80    13.100   12.396   -5.4%    1.000    0.957  -0.043   0.430   0.342
+   rrect-md   2  40-48     8.800    7.887  -10.4%    0.974    0.935  -0.039   0.489   0.407
+
+   FAMILY CONTROL: the drawn heavy width is recovered inside 10 % on 5 of 6 bands, worst 10.4 %; the drawn share inside 0.043 everywhere.
+   Both 1x bands, where the drawn tap is a whole chain level and therefore lies exactly in
+   the fitted family, return it to 0.6 %. The 2x bands, where `scatterLod` is fractional and
+   the drawn tap is a trilinear blend no member of the family can be, read 5–10 % narrow —
+   which is the family's own bias against a kernel outside it and not the reader's noise.
+
+### Verdict
+
+   rrect-md 1x 16-48: MTF(1/64..1/8) 2.5%, MTF(1/512..1/8) 2.3%, HWHM 25.5%, RMSσ 9.8% — FAIL
+   rrect-md 2x 16-48: MTF(1/64..1/8) 35.4%, MTF(1/512..1/8) 27.7%, HWHM 37.7%, RMSσ 26.7% — FAIL
+   rrect-lg 1x 16-80: MTF(1/64..1/8) 6.8%, MTF(1/512..1/8) 5.4%, HWHM 19.4%, RMSσ 24.7% — FAIL
+   rrect-lg 2x 16-80: MTF(1/64..1/8) 32.4%, MTF(1/512..1/8) 22.5%, HWHM 2.6%, RMSσ 1.4% — FAIL
+   rrect-lg 2x 50-80: MTF(1/64..1/8) 93.9%, MTF(1/512..1/8) 73.1%, HWHM 22.0%, RMSσ 5.5% — FAIL
+   rrect-md 2x 40-48: MTF(1/64..1/8) 55.0%, MTF(1/512..1/8) 38.1%, HWHM 1.3%, RMSσ 10.0% — FAIL
+
+   CONTROL: FAILED on the brief's acceptance (10 % on MTF over 1/64..1/8 and on the half-maximum width).

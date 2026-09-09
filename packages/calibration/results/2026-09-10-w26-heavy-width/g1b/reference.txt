@@ -1,0 +1,268 @@
+W26 G1b — Apple's point spread, recovered non-parametrically, per surface per scale
+====================================================================================================
+
+Smoothness weight λ = 0.003, chosen on synthetics and frozen. Radial grid: 40 hat
+nodes out to 96 device px. Widths in DEVICE px, frequencies in cycles per device px.
+
+### 1. The widths, reference and vitrea side by side
+
+    surface  sc   sch       src rows    RMSσ   HWHMσ    MTFσ  MTF miss   2-gauss sharp/heavy@share   resid   tail
+   rrect-md   1 light reference    8  16.583   1.503   2.571     46.6%     1.468 /  12.513 @0.529   13.0%   0.0%
+   rrect-md   1 light    vitrea    8   9.924   1.335   2.605     43.1%     1.677 /  14.763 @0.496    9.2%   0.0%
+   rrect-md   2 light reference    8  18.797   1.330   3.320    131.0%     1.347 /   9.828 @0.815   22.8%   1.7%
+   rrect-md   2 light    vitrea    8  13.107   1.389   3.736    167.4%     1.643 /   8.919 @0.891   24.3%   0.0%
+   rrect-lg   1 light reference    8  28.390   1.648   3.136    100.8%     1.503 /  12.817 @0.735   19.3%   6.7%
+   rrect-lg   1 light    vitrea    8  16.087   1.460   3.094     88.6%     1.744 /  15.077 @0.681    9.9%   0.0%
+   rrect-lg   2 light reference    8  20.865   5.207   6.269 3283980850.5%     1.758 /  10.425 @0.987   27.7%   0.4%
+   rrect-lg   2 light    vitrea    8  13.643   2.188   4.406    395.0%     2.129 /  12.649 @0.924   21.1%   0.0%
+   rrect-md   1  dark reference    6   9.379   1.469   2.341     36.7%     1.413 /  11.475 @0.452   13.1%   0.0%
+   rrect-md   1  dark    vitrea    6  11.907   1.302   2.648     45.0%     1.660 /  15.019 @0.511    8.5%   0.8%
+
+`MTFσ` is the Gaussian whose modulation transfer best matches K's over 1/512..1/8; `MTF miss`
+is how far that best single Gaussian still is from K, in RMS relative modulation. A large
+miss means K has no Gaussian-equivalent width at all, and that two readings of it taken
+through different backdrops were never measuring the same quantity.
+
+### 2. The modulation transfer, reference against vitrea
+
+      1/512    1/256    1/192    1/128     1/96     1/64     1/48     1/32     1/24     1/16     1/12      1/8      1/6      1/4
+   rrect-md 1x light reference
+     0.9799   0.9258   0.8788   0.7850   0.7209   0.6858   0.6291   0.5092   0.3957   0.3687   0.3534   0.2138   0.1675   0.0162
+   rrect-md 1x light    vitrea
+     0.9926   0.9711   0.9495   0.8924   0.8227   0.6763   0.5626   0.4782   0.4567   0.4057   0.3269   0.2042   0.1071   0.0305
+   rrect-md 2x light reference
+     0.9748   0.9135   0.8686   0.8046   0.7791   0.6926   0.5555   0.3099   0.1794   0.1276   0.1305   0.1151   0.0918   0.0162
+   rrect-md 2x light    vitrea
+     0.9874   0.9532   0.9228   0.8567   0.7951   0.6730   0.5262   0.3023   0.1865   0.0522   0.0734   0.0739   0.0097   0.0180
+   rrect-lg 1x light reference
+     0.9423   0.8016   0.6985   0.5641   0.5642   0.6079   0.4620   0.2983   0.2165   0.1885   0.1923   0.1227   0.0949   0.0034
+   rrect-lg 1x light    vitrea
+     0.9810   0.9292   0.8829   0.7834   0.6979   0.5734   0.4275   0.2834   0.2656   0.2511   0.2044   0.1261   0.0501   0.0107
+   rrect-lg 2x light reference
+     0.9685   0.8876   0.8222   0.7075   0.6411   0.5390   0.3625   0.1856   0.0615  -0.0151   0.0038   0.0302   0.0028   0.0012
+   rrect-lg 2x light    vitrea
+     0.9862   0.9468   0.9091   0.8152   0.7087   0.4909   0.3023   0.1197   0.0936   0.0433   0.0233   0.0234   0.0046   0.0048
+   rrect-md 1x dark reference
+     0.9934   0.9745   0.9559   0.9085   0.8545   0.7563   0.6928   0.5844   0.4482   0.4239   0.4064   0.2982   0.1986   0.0249
+   rrect-md 1x dark    vitrea
+     0.9896   0.9612   0.9353   0.8742   0.8045   0.6541   0.5489   0.4701   0.4447   0.3912   0.3225   0.1834   0.1076   0.0183
+
+### 3. Can vitrea's mechanism draw K? A sharp Gaussian plus a chain level blurred to width
+
+    surface  sc       src level   blur σ  sharp σ  share  MTF miss
+   rrect-md   1 reference     2   13.604    1.565  0.524      8.1%
+   rrect-md   1    vitrea     3   12.334    1.698  0.502      1.4%
+   rrect-md   2 reference     3    5.082    0.000  0.872      8.2%
+   rrect-md   2    vitrea     3    2.582    0.000  0.933     14.1%
+   rrect-lg   1 reference     4    2.950    1.724  0.706     21.9%
+   rrect-lg   1    vitrea     2   14.418    1.708  0.695      4.4%
+   rrect-lg   2 reference     3   12.291    0.020  1.000 2675223.1%
+   rrect-lg   2    vitrea     2   11.149    1.953  0.942     82.5%
+   rrect-md   1 reference     2    9.228    1.174  0.526      3.8%
+   rrect-md   1    vitrea     3   13.204    1.749  0.505      1.7%
+
+`blur σ` is the residual Gaussian the chosen chain level would have to be blurred by — which
+is exactly what `sizeHeavyTapSigma` names once `heavyTapPlan` has chosen the level. A miss
+under about 10 % means the mechanism can carry K; the σ column is then the constant.
+
+### 3b. Four kernel FAMILIES, each fitted to the pixels, judged in quantisation steps
+
+The control's finding is that the free forty-parameter profile reaches a lower residual than
+the kernel the material actually draws while getting its shape wrong, and that a scan over ONE
+width does not: on the band where the drawn kernel is known the residual falls to a single
+minimum at the LOD the material draws. So the families below are fitted to the PIXELS rather
+than to a recovered profile, and the question each answers is how much of the file a shape
+can explain — not how close it comes to a curve that was itself inferred.
+
+`resid` is the RMS over rows of each row's residual in units of its own 8-bit step. `free` is
+the forty-parameter profile on the same rows and is a lower bound no shape can beat; the gap
+between a family and `free` is what that family cannot describe.
+
+    surface  sc       src                       family                         parameters   resid
+   rrect-md   1 reference                 one Gaussian                             σ 1.92   2.691
+   rrect-md   1 reference                two Gaussians       sharp 1.35 heavy 8.94 @0.482   2.047
+   rrect-md   1 reference       vitrea body + Gaussian                heavy σ 9.85 @0.437   2.150
+   rrect-md   1 reference      vitrea body + chain tap      sizeHeavyTapSigma 9.11 @0.436   2.149
+   rrect-md   1 reference      free profile (40 nodes)                                      1.959
+   rrect-md   1    vitrea                 one Gaussian                             σ 2.11   1.832
+   rrect-md   1    vitrea                two Gaussians      sharp 1.66 heavy 14.91 @0.513   1.075
+   rrect-md   1    vitrea       vitrea body + Gaussian               heavy σ 14.97 @0.513   1.079
+   rrect-md   1    vitrea      vitrea body + chain tap     sizeHeavyTapSigma 13.42 @0.499   1.083
+   rrect-md   1    vitrea      free profile (40 nodes)                                      1.059
+   rrect-md   2 reference                 one Gaussian                             σ 6.98   2.363
+   rrect-md   2 reference                two Gaussians       sharp 1.35 heavy 8.65 @0.845   2.092
+   rrect-md   2 reference       vitrea body + Gaussian                heavy σ 8.74 @0.833   2.105
+   rrect-md   2 reference      vitrea body + chain tap      sizeHeavyTapSigma 7.92 @0.831   2.099
+   rrect-md   2 reference      free profile (40 nodes)                                      2.011
+   rrect-md   2    vitrea                 one Gaussian                             σ 7.36   1.424
+   rrect-md   2    vitrea                two Gaussians       sharp 1.75 heavy 8.78 @0.872   1.203
+   rrect-md   2    vitrea       vitrea body + Gaussian                heavy σ 8.74 @0.876   1.203
+   rrect-md   2    vitrea      vitrea body + chain tap      sizeHeavyTapSigma 7.96 @0.872   1.205
+   rrect-md   2    vitrea      free profile (40 nodes)                                      1.167
+   rrect-lg   1 reference                 one Gaussian                             σ 3.69   2.534
+   rrect-lg   1 reference                two Gaussians       sharp 1.40 heavy 9.01 @0.675   1.905
+   rrect-lg   1 reference       vitrea body + Gaussian                heavy σ 9.31 @0.649   1.927
+   rrect-lg   1 reference      vitrea body + chain tap      sizeHeavyTapSigma 8.55 @0.648   1.926
+   rrect-lg   1 reference      free profile (40 nodes)                                      1.787
+   rrect-lg   1    vitrea                 one Gaussian                             σ 3.54   2.232
+   rrect-lg   1    vitrea                two Gaussians      sharp 1.68 heavy 14.67 @0.679   0.855
+   rrect-lg   1    vitrea       vitrea body + Gaussian               heavy σ 14.64 @0.681   0.854
+   rrect-lg   1    vitrea      vitrea body + chain tap     sizeHeavyTapSigma 13.42 @0.678   0.859
+   rrect-lg   1    vitrea      free profile (40 nodes)                                      0.825
+   rrect-lg   2 reference                 one Gaussian                             σ 9.27   2.101
+   rrect-lg   2 reference                two Gaussians      sharp 7.77 heavy 15.72 @0.409   2.038
+   rrect-lg   2 reference       vitrea body + Gaussian                heavy σ 9.68 @0.988   2.043
+   rrect-lg   2 reference      vitrea body + chain tap      sizeHeavyTapSigma 8.97 @0.987   2.045
+   rrect-lg   2 reference      free profile (40 nodes)                                      1.985
+   rrect-lg   2    vitrea                 one Gaussian                            σ 10.73   1.299
+   rrect-lg   2    vitrea                two Gaussians      sharp 2.73 heavy 13.14 @0.893   1.008
+   rrect-lg   2    vitrea       vitrea body + Gaussian               heavy σ 12.74 @0.916   1.024
+   rrect-lg   2    vitrea      vitrea body + chain tap     sizeHeavyTapSigma 12.23 @0.916   1.024
+   rrect-lg   2    vitrea      free profile (40 nodes)                                      0.989
+   rrect-md   1 reference                 one Gaussian                             σ 1.73   2.347
+   rrect-md   1 reference                two Gaussians       sharp 1.29 heavy 9.07 @0.474   1.904
+   rrect-md   1 reference       vitrea body + Gaussian                heavy σ 9.93 @0.423   2.003
+   rrect-md   1 reference      vitrea body + chain tap      sizeHeavyTapSigma 9.18 @0.422   2.002
+   rrect-md   1 reference      free profile (40 nodes)                                      1.861
+   rrect-md   1    vitrea                 one Gaussian                             σ 2.05   1.715
+   rrect-md   1    vitrea                two Gaussians      sharp 1.64 heavy 15.23 @0.517   0.981
+   rrect-md   1    vitrea       vitrea body + Gaussian               heavy σ 15.38 @0.516   0.986
+   rrect-md   1    vitrea      vitrea body + chain tap     sizeHeavyTapSigma 13.42 @0.519   0.988
+   rrect-md   1    vitrea      free profile (40 nodes)                                      0.968
+
+### 4. Per-row residual, in units of the row's own quantisation step
+
+   rrect-md 1x light reference
+      impulse: 0.66   checkerboard-64: 1.16   checkerboard-32: 2.08   checkerboard: 2.27   checkerboard-8: 1.88   checkerboard-4: 1.82   hc-text: 3.22   photo: 1.52
+   rrect-md 1x light vitrea
+      impulse: 0.35   checkerboard-64: 1.11   checkerboard-32: 1.48   checkerboard: 1.25   checkerboard-8: 1.25   checkerboard-4: 0.65   hc-text: 1.35   photo: 0.25
+   rrect-md 2x light reference
+      impulse: 0.39   checkerboard-64: 1.29   checkerboard-32: 2.11   checkerboard: 2.15   checkerboard-8: 2.65   checkerboard-4: 2.37   hc-text: 2.46   photo: 1.68
+   rrect-md 2x light vitrea
+      impulse: 0.23   checkerboard-64: 1.09   checkerboard-32: 1.71   checkerboard: 1.50   checkerboard-8: 1.17   checkerboard-4: 0.96   hc-text: 1.45   photo: 0.26
+   rrect-lg 1x light reference
+      impulse: 0.50   checkerboard-64: 1.60   checkerboard-32: 1.81   checkerboard: 2.28   checkerboard-8: 1.53   checkerboard-4: 1.18   hc-text: 2.14   photo: 2.44
+   rrect-lg 1x light vitrea
+      impulse: 0.37   checkerboard-64: 0.81   checkerboard-32: 1.16   checkerboard: 1.12   checkerboard-8: 0.86   checkerboard-4: 0.50   hc-text: 0.99   photo: 0.27
+   rrect-lg 2x light reference
+      impulse: 0.35   checkerboard-64: 1.79   checkerboard-32: 2.85   checkerboard: 2.91   checkerboard-8: 0.60   checkerboard-4: 0.94   hc-text: 1.44   photo: 2.87
+   rrect-lg 2x light vitrea
+      impulse: 0.32   checkerboard-64: 0.67   checkerboard-32: 1.12   checkerboard: 1.27   checkerboard-8: 1.32   checkerboard-4: 1.05   hc-text: 1.22   photo: 0.26
+   rrect-md 1x dark reference
+      checkerboard-64: 2.31   checkerboard-32: 2.11   checkerboard: 1.76   checkerboard-8: 1.79   checkerboard-4: 1.35   photo: 1.69
+   rrect-md 1x dark vitrea
+      checkerboard-64: 0.98   checkerboard-32: 1.29   checkerboard: 1.13   checkerboard-8: 1.11   checkerboard-4: 0.65   photo: 0.25
+
+### 5. Sensitivity — the same reading under the choices that could have made it
+
+The instrument here is the one that PASSED the control — vitrea's own mechanism family fitted
+to the pixels — not the free profile, whose shape the control showed is not determined.
+`σ` is `sizeHeavyTapSigma`, `share` the heavy component's weight, `resid` the fit in
+quantisation steps, and `freeRMSσ` the free profile's second moment on the same rows.
+
+    surface  sc                      variant rows        σ   share   resid freeRMSσ
+   rrect-md   1                      as read    8     9.11   0.436   2.149    16.58
+   rrect-md   1            band 24..: deeper    8     8.79   0.476   1.508    19.16
+   rrect-md   1      band 32..: deeper still    8     9.10   0.497   1.362    16.03
+   rrect-md   1 backdrop tiled outside canvas    8     9.11   0.436   2.149    16.58
+   rrect-md   1                without photo    7     9.07   0.433   2.225    14.98
+   rrect-md   1              without impulse    7     9.14   0.435   2.288    16.41
+   rrect-md   1 without the fine checkerboards    6     9.11   0.436   2.216    16.33
+   rrect-md   1           checkerboards only    5     9.27   0.392   2.172    11.81
+   rrect-md   2                      as read    8     7.92   0.831   2.099    18.80
+   rrect-md   2            band 24..: deeper    8     7.63   0.888   1.458    13.97
+   rrect-md   2      band 32..: deeper still    8     7.58   0.930   1.160    14.32
+   rrect-md   2 backdrop tiled outside canvas    8     7.92   0.831   2.099    18.80
+   rrect-md   2                without photo    7     7.91   0.831   2.154    20.44
+   rrect-md   2              without impulse    7     7.92   0.830   2.240    18.98
+   rrect-md   2 without the fine checkerboards    6     7.84   0.835   1.901    19.19
+   rrect-md   2           checkerboards only    5     7.52   0.815   2.261    20.02
+   rrect-lg   1                      as read    8     8.55   0.648   1.926    28.39
+   rrect-lg   1            band 24..: deeper    8     8.45   0.673   1.713    27.86
+   rrect-lg   1      band 32..: deeper still    8     8.38   0.688   1.529    25.20
+   rrect-lg   1 backdrop tiled outside canvas    8     8.55   0.648   1.926    25.53
+   rrect-lg   1                without photo    7     8.35   0.644   1.769    23.53
+   rrect-lg   1              without impulse    7     8.56   0.647   2.052    28.33
+   rrect-lg   1 without the fine checkerboards    6     8.55   0.648   2.065    28.00
+   rrect-lg   1           checkerboards only    5     8.16   0.617   1.863    26.18
+   rrect-lg   2                      as read    8     8.97   0.987   2.045    20.87
+   rrect-lg   2            band 24..: deeper    8     9.41   0.981   1.780    23.26
+   rrect-lg   2      band 32..: deeper still    8     9.52   0.983   1.585    24.63
+   rrect-lg   2 backdrop tiled outside canvas    8     8.97   0.987   2.045    23.55
+   rrect-lg   2                without photo    7     8.87   0.989   1.874    18.44
+   rrect-lg   2              without impulse    7     8.96   0.987   2.182    20.87
+   rrect-lg   2 without the fine checkerboards    6     8.94   0.989   2.309    20.53
+   rrect-lg   2           checkerboards only    5     8.71   0.994   2.095    17.14
+
+### 6. The profiles, normalised to their own peak
+
+   rrect-md 1x light — REFERENCE
+     0.0:1.0000    0.2:0.9518    0.6:0.8434    1.2:0.6843    1.9:0.4550    2.8:0.1619    3.8:0.0161    5.0:0.0075    6.2:0.0285
+     7.6:0.0107    9.1:0.0053   10.7:0.0164   12.4:0.0205   14.2:0.0000   16.1:0.0000   18.1:0.0056   20.2:0.0031   22.4:0.0000
+    24.7:0.0008   27.1:0.0000   29.5:0.0000   32.1:0.0000   34.7:0.0000   37.5:0.0026   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0007   55.6:0.0000   58.9:0.0000   62.2:0.0018   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-md 1x light — vitrea 0.14.0
+     0.0:1.0000    0.2:0.9397    0.6:0.8040    1.2:0.6130    1.9:0.4023    2.8:0.2219    3.8:0.0767    5.0:0.0162    6.2:0.0039
+     7.6:0.0153    9.1:0.0064   10.7:0.0061   12.4:0.0153   14.2:0.0000   16.1:0.0063   18.1:0.0048   20.2:0.0066   22.4:0.0027
+    24.7:0.0046   27.1:0.0001   29.5:0.0005   32.1:0.0027   34.7:0.0006   37.5:0.0000   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-md 2x light — REFERENCE
+     0.0:1.0000    0.2:0.9411    0.6:0.8088    1.2:0.6201    1.9:0.3925    2.8:0.1708    3.8:0.0432    5.0:0.0374    6.2:0.0480
+     7.6:0.0654    9.1:0.0621   10.7:0.0361   12.4:0.0610   14.2:0.0134   16.1:0.0008   18.1:0.0260   20.2:0.0000   22.4:0.0000
+    24.7:0.0000   27.1:0.0000   29.5:0.0000   32.1:0.0000   34.7:0.0000   37.5:0.0000   40.3:0.0000   43.2:0.0002   46.2:0.0000
+    49.2:0.0000   52.4:0.0013   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0005   76.5:0.0000
+    80.3:0.0013   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0008
+
+   rrect-md 2x light — vitrea 0.14.0
+     0.0:1.0000    0.2:0.9408    0.6:0.8077    1.2:0.6213    1.9:0.4263    2.8:0.3035    3.8:0.2407    5.0:0.1314    6.2:0.0742
+     7.6:0.1445    9.1:0.1166   10.7:0.1101   12.4:0.0619   14.2:0.0045   16.1:0.0369   18.1:0.0122   20.2:0.0088   22.4:0.0096
+    24.7:0.0147   27.1:0.0000   29.5:0.0000   32.1:0.0000   34.7:0.0000   37.5:0.0000   40.3:0.0016   43.2:0.0000   46.2:0.0000
+    49.2:0.0006   52.4:0.0010   55.6:0.0000   58.9:0.0000   62.2:0.0002   65.7:0.0000   69.2:0.0000   72.8:0.0015   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-lg 1x light — REFERENCE
+     0.0:1.0000    0.2:0.9585    0.6:0.8651    1.2:0.7260    1.9:0.5089    2.8:0.2010    3.8:0.0300    5.0:0.0220    6.2:0.0472
+     7.6:0.0286    9.1:0.0309   10.7:0.0224   12.4:0.0364   14.2:0.0115   16.1:0.0019   18.1:0.0195   20.2:0.0000   22.4:0.0000
+    24.7:0.0000   27.1:0.0000   29.5:0.0000   32.1:0.0000   34.7:0.0000   37.5:0.0000   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0039   62.2:0.0015   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0032
+    80.3:0.0000   84.1:0.0017   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-lg 1x light — vitrea 0.14.0
+     0.0:1.0000    0.2:0.9445    0.6:0.8196    1.2:0.6439    1.9:0.4482    2.8:0.2674    3.8:0.0969    5.0:0.0214    6.2:0.0152
+     7.6:0.0326    9.1:0.0147   10.7:0.0177   12.4:0.0176   14.2:0.0104   16.1:0.0205   18.1:0.0106   20.2:0.0119   22.4:0.0088
+    24.7:0.0044   27.1:0.0049   29.5:0.0004   32.1:0.0029   34.7:0.0000   37.5:0.0000   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0013   62.2:0.0017   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0001
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-lg 2x light — REFERENCE
+     0.0:1.0000    0.2:0.9846    0.6:0.9500    1.2:0.9008    1.9:0.8414    2.8:0.7783    3.8:0.6766    5.0:0.5218    6.2:0.4983
+     7.6:0.5406    9.1:0.5638   10.7:0.4758   12.4:0.3155   14.2:0.1176   16.1:0.1418   18.1:0.1579   20.2:0.0487   22.4:0.0000
+    24.7:0.0481   27.1:0.0206   29.5:0.0000   32.1:0.0082   34.7:0.0416   37.5:0.0027   40.3:0.0000   43.2:0.0000   46.2:0.0025
+    49.2:0.0000   52.4:0.0000   55.6:0.0125   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0010   72.8:0.0230   76.5:0.0047
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0018
+
+   rrect-lg 2x light — vitrea 0.14.0
+     0.0:1.0000    0.2:0.9600    0.6:0.8699    1.2:0.7430    1.9:0.6005    2.8:0.4661    3.8:0.3464    5.0:0.2303    6.2:0.2060
+     7.6:0.2464    9.1:0.1686   10.7:0.1688   12.4:0.1215   14.2:0.0527   16.1:0.0988   18.1:0.0543   20.2:0.0695   22.4:0.0769
+    24.7:0.0393   27.1:0.0077   29.5:0.0062   32.1:0.0151   34.7:0.0000   37.5:0.0094   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0024   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0014   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-md 1x dark — REFERENCE
+     0.0:1.0000    0.2:0.9509    0.6:0.8405    1.2:0.6779    1.9:0.4404    2.8:0.1347    3.8:0.0000    5.0:0.0003    6.2:0.0200
+     7.6:0.0069    9.1:0.0230   10.7:0.0060   12.4:0.0132   14.2:0.0066   16.1:0.0000   18.1:0.0062   20.2:0.0000   22.4:0.0000
+    24.7:0.0000   27.1:0.0000   29.5:0.0000   32.1:0.0003   34.7:0.0000   37.5:0.0027   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0000
+
+   rrect-md 1x dark — vitrea 0.14.0
+     0.0:1.0000    0.2:0.9380    0.6:0.7987    1.2:0.6031    1.9:0.3901    2.8:0.2137    3.8:0.0771    5.0:0.0095    6.2:0.0116
+     7.6:0.0128    9.1:0.0060   10.7:0.0075   12.4:0.0099   14.2:0.0064   16.1:0.0020   18.1:0.0055   20.2:0.0059   22.4:0.0048
+    24.7:0.0027   27.1:0.0000   29.5:0.0027   32.1:0.0008   34.7:0.0000   37.5:0.0015   40.3:0.0000   43.2:0.0000   46.2:0.0000
+    49.2:0.0000   52.4:0.0000   55.6:0.0000   58.9:0.0000   62.2:0.0000   65.7:0.0000   69.2:0.0000   72.8:0.0000   76.5:0.0000
+    80.3:0.0000   84.1:0.0000   88.0:0.0000   92.0:0.0000   96.0:0.0002
+

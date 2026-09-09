@@ -1,0 +1,30 @@
+W26 G1b — vitrea's own kernel at the 0.14.0 material, from the arithmetic that draws it
+====================================================================================================
+
+  chainMaxLod: 1x 4   2x 5     blurSigma 1.25   bodyChainLod 1.0589
+
+    surface scale  span scatterLod  level sigma                    kScatter @ depth (CSS px)
+   rrect-md     1    96     4.0000       13.418  8:0.484  16:0.488  24:0.492  32:0.496  48:0.503  80:0.519
+   rrect-md     2    96     3.3219        8.848  8:0.824  16:0.857  24:0.891  32:0.924  48:0.992  80:1.000
+   rrect-lg     1   160     4.0000       13.418  8:0.610  16:0.627  24:0.644  32:0.661  48:0.695  80:0.764
+   rrect-lg     2   160     3.7803       11.938  8:0.824  16:0.857  24:0.891  32:0.924  48:0.992  80:1.000
+
+`level sigma` is the linear blend of the two neighbouring chain levels' half-maximum sigmas
+in level-0 texels (= device px), quoted for orientation only: the control's target is the
+blended PSF itself, not a sigma of it.
+
+The truth kernel on each control band, reduced by reader E's own statistics:
+
+    surface scale   band CSS           kScatter  sigmaHWHM  sigmaRMS  sigmaMTF  MTF-fit
+   rrect-md     1   16-24    0.490 [0.488,0.492]      1.790    10.941     2.611   57.82%
+   rrect-md     1   24-40    0.496 [0.492,0.499]      1.791    11.004     2.624   59.05%
+   rrect-md     1   16-48    0.496 [0.488,0.503]      1.791    11.004     2.624   59.05%
+   rrect-md     2   16-24    0.874 [0.857,0.891]      2.070    10.107     3.776  146.71%
+   rrect-md     2   24-40    0.924 [0.891,0.958]      2.300    10.386     4.107  193.10%
+   rrect-md     2   16-48    0.924 [0.857,0.992]      2.300    10.386     4.107  193.10%
+   rrect-lg     1   16-24    0.635 [0.627,0.644]      1.803    12.429     2.962   98.13%
+   rrect-lg     1   24-40    0.661 [0.644,0.678]      1.806    12.673     3.033  108.16%
+   rrect-lg     1   16-80    0.695 [0.627,0.764]      1.811    12.992     3.134  123.69%
+   rrect-lg     2   16-24    0.874 [0.857,0.891]      1.946    13.267     3.828  216.11%
+   rrect-lg     2   24-40    0.924 [0.891,0.958]      2.072    13.638     4.174  294.11%
+   rrect-lg     2   16-80    0.961 [0.857,1.000]      2.390    13.902     4.570  400.43%
