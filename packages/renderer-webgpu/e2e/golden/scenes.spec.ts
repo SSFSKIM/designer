@@ -147,7 +147,7 @@ test.describe("@golden acceptance #2 — lensing scales with surface size", () =
  * day the placed fit landed, and never regenerated: it is the fail-before
  * record, the render the golden replaced.
  */
-const PLACED_CHECKERBOARD_COVER_HASH = "53a02cb65260ffc06328156f5355694a";
+const PLACED_CHECKERBOARD_COVER_HASH = "7533eabdf189d6fd03bd507339f473e8";
 
 /**
  * The cover-fit hash above was `e1383ed6f133d99d19b7e44b73022749` when the
@@ -210,6 +210,17 @@ const PLACED_CHECKERBOARD_COVER_HASH = "53a02cb65260ffc06328156f5355694a";
  * wave's other mechanism, moves this scene by nothing at all: its backdrop is a
  * texture and nothing on it collapses. This constant still says only that the two
  * fits differ by the fit.
+ *
+ * And at W25 G3 (claims §5.115; `53a02cb65260ffc06328156f5355694a` → the value
+ * below): `optics.regular.rimAlongSideSlope` 0 → 0.45 grades the rim's amplitude
+ * corner to corner across the surface, and the cover-fit render draws that graded
+ * rim like the placed one does — the field is a function of the surface's own
+ * normalised coordinates and knows nothing about where the backdrop was sampled.
+ * The attribution is the isolation proof's `W25_HASHES` and
+ * `results/2026-09-09-w25-thick-span-composite/g3/goldens-attribution.txt`, where
+ * this scene's whole delta is 10 code values inside a contour band on 1 248
+ * pixels and NOT ONE PIXEL outside any band on any of the thirteen scenes. This
+ * constant still says only that the two fits differ by the fit.
  */
 
 test.describe("@golden claims §5.47 — a backdrop is sampled where it sits", () => {

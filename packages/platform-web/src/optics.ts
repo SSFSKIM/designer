@@ -168,8 +168,9 @@ export interface MaterialSourceOptics {
    */
   readonly rimLitExponent: number;
   /*
-   * W25's along-side field (claims §5.113; W25 Decision Log 3 (c)) is NOT
-   * mirrored here, and the omission is a measurement rather than an oversight.
+   * W25's along-side field (claims §5.113 and §5.115; W25 Decision Log 3 (c),
+   * landed at 0.45 by G3) is NOT mirrored here, and the omission is a
+   * measurement rather than an oversight.
    *
    * The factor is `1 + slope · sizeThickness(span) · (x/hw)(y/hh)`, and that
    * field is odd under `x → −x` and under `y → −y`, so its integral around the

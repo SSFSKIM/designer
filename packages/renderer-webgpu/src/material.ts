@@ -1781,15 +1781,29 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
        */
       rimLitExponent: 1.15,
       /*
-       * W25's along-side field, INERT at the default (claims §5.113; W25 Decision
-       * Log 3 (c)). The reference's own rows read 0.62–0.73 through this form and
-       * G2's fit on the solids of the two probe grids is recorded in
-       * `results/2026-09-09-w25-thick-span-composite/g2/fit-field.txt`, but the
-       * wave lands the mechanism before the value: G2 is the fitting child and G3 is
-       * the declaring one, so what ships here until G3 is a factor of exactly 1
-       * at every position and every span.
+       * W25's along-side field, FITTED (claims §5.113 and §5.115; W25 Decision
+       * Log 3 (c), landed at G3's declaration).
+       *
+       * Two independent row sets chose it and they bracket this value. G2 fitted
+       * 0.45 on the 64 straight sides of the two 1x probe grids' flat solids
+       * (`g2/fit-field.txt`); G3 re-fitted it on the probe set at BOTH scales in
+       * both schemes — 64 sides of six thick cells over the three solids — and
+       * read a lever-weighted 0.425 with a median of 0.479
+       * (`g3/g3-fit-field.txt`). One constant is what the rows separate: the
+       * per-scheme and per-scale groups run 0.35 (1x light) to 0.63 (2x dark) and
+       * overlap throughout.
+       *
+       * It costs nothing anywhere else. Over the whole probe set the mean OKLab
+       * ΔE moves −0.00001, the worst thick cell rises 0.000056 and the worst thin
+       * cell 0.000004 against X5's bound of 0.001 — the field's mean over any
+       * straight side is exactly zero, so W23's amplitude and W24's lit edge are
+       * left where their own rows put them and only the corner-to-corner grading
+       * moves.
+       *
+       * The `clear` variant keeps 0 below, as the lit edge does: no scene on
+       * either bed declares it, so it has no rows (C9a §6.2).
        */
-      rimAlongSideSlope: 0,
+      rimAlongSideSlope: 0.45,
       shadowDepth: 0.35,
       /*
        * REFITTED 0.55 → 0.05 (2026-08-31), and it is the largest single
