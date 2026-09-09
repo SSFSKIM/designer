@@ -72,6 +72,8 @@ These are design decisions, made while composing the page. They constrain layout
 - **Surfaces in a plane never overlap.** Overlap across planes is the supported case and is how a morph works; overlap within one plane is an error. Compositions that stack floating chrome need to be redrawn as adjacency or as a plane change.
 - **The backdrop must be honest and declared.** Each group declares the tone and luminance of what is actually behind it. This is a fact the design asserts, and asserting it falsely measurably breaks label contrast — the demo recorded 1.6:1 to 3.0:1 from precisely that mismatch. If the backdrop's luminance changes with content (album artwork, a video), pick the honest declaration for the range and measure at its worst phase.
 - **The sampling group is a layout unit, so groups need room.** One group is one backdrop read shared by its members, and the runtime derives that group's sampling padding from the blur it actually resolved — at least 3σ — so it moves with the surface's span and reduced-transparency rather than sitting at a fixed number. The safe gap between two groups is therefore at least the *larger* group's effective sampling padding, not the sum of two defaults; below that, one group's padded proxy box covers the other's shapes, the backdrop filter applies twice there, and `packages/platform-web/src/backdrop-proxy.ts` reports `proxy-overlap-after-enforcement`. The demo's 4rem is one product's comfortable margin, not a rule.
+- **No backdrop-root trigger on any ancestor of the root's container.** A `filter`, `backdrop-filter`, `opacity` below 1, `mask-image`, `mask-border-source`, `clip-path`, `mix-blend-mode`, or a `will-change` naming any of them, on any ancestor, re-roots the proxy's backdrop and demotes the group with `probe-failed`. `transform`, `translate3d`, `contain`, `isolation`, `z-index` and `will-change: transform` were measured harmless and are not on the list — the intuitive list over-triggers (`docs/research/2026-09-10-vitrea-authoring-surface.md` §3).
+- **The size law has a floor at span 32.** Below a 32 px short side the size law is inert and the rim grading is flat by construction, so a control under 32 shows none of the material's size behaviour and a sweep entirely under 32 demonstrates nothing; design the smallest floating control at or above it.
 - **Size and radius as a family, not per component.** The demo's worked example is a three-step size sweep at 112 / 68 / 40px short side with radii 26 / 18 / 12 and a single shared thickness of 8. That is one instantiation of the method — a small set of sizes, a radius per size, one thickness across all of them — not a table to copy.
 - **The backdrop is designed, not inherited.** The lens needs both high and low spatial frequency to have anything to show. The demo's ground is one canvas painting a 32px graticule plus slow chromatic lobes, with the graticule painted *into* the texture rather than laid over it in CSS — a CSS grid on top of the backdrop is not behind the glass and will not be refracted. Where the backdrop is real content (artwork, video, a map), this is already satisfied; where it is a designed field, design it as one image.
 - **Portalling costs a landmark.** Content portalled into a plane leaves its position in the document. Re-establishing a landmark region for it is the author's job, and it is a design decision about how the overlay is announced, not a cleanup task.
@@ -128,13 +130,15 @@ const handle = root.registerHost({
 
 `createGlassRoot()` defaults to the CSS renderer — `options.renderer ?? "css"` in `packages/platform-web/src/root.ts` — so this root never asks for a GPU device; pass `createGlassRoot({ renderer: "webgpu" })` to request the GPU tier, without which the localhost-and-HTTPS note below never applies.
 
-**One API asymmetry, documented in no README.** React's `<GlassGroup hint={...}>` maps to a core descriptor field named `backdrop`. In plain JS the honest backdrop declaration is passed as `root.registerGroup({ id, backdrop: { tone, luminance } })`. Passing `hint:` there is silently ignored and the group resolves to `analysis: "none"` — no error, just a group that never learned what is behind it.
+**One API asymmetry, documented in no README.** React's `<GlassGroup hint={...}>` maps to a core descriptor field named `backdrop`. In plain JS the honest backdrop declaration is passed as `root.registerGroup({ id, backdrop: { tone, luminance } })`. Passing `hint:` there is silently ignored and the group resolves to `analysis: "none"` — no error, just a group that never learned what is behind it. The asymmetry runs both ways: React also has a prop literally called `backdrop`, and it means the opposite thing — the texture source — whose plain-JS name is `backdropSourceId`. State both halves when instructing a builder, or the mistake is unavoidable. The hint itself has three fields, `tone` required and `luminance` and `complexity` (0..1) optional; `{ tone }` alone is a legal hint and a weaker one (`docs/research/2026-09-10-vitrea-authoring-surface.md` §2, §7).
 
-**Single self-contained HTML file.** `<script type="module">import { createGlassRoot } from "https://esm.sh/@vitreajs/vitrea-web@0.6.0"</script>` works with no import map (verified 2026-09-05); esm.sh rewrites the one bare specifier and the dynamic WebGPU chunk import. unpkg serves the raw bare specifier and does need an import map. `navigator.gpu` is undefined outside a secure context, so a page opened from `file://` always gets the CSS tier with `demotionReason: "no-webgpu"` — serve over `http://localhost` or HTTPS to see the GPU tier. And a CDN import means the "self-contained" file needs network to run at all, which `DESIGN.md` must say plainly.
+**The workspace build, when working in this repository.** `pnpm -r build` emits `packages/core/dist/index.js` and `packages/platform-web/dist/index.js`; the latter carries one bare specifier, so a page served from the repo root needs an import map — `{ "imports": { "@vitreajs/vitrea": "/packages/core/dist/index.js", "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js" } }` — and then `import { createGlassRoot } from "@vitreajs/vitrea-web"` resolves. Serve the repo root (`python3 -m http.server`, `npx serve .`); `navigator.gpu` needs a secure context and `http://localhost` qualifies. Such a page is one HTML file plus a served repository, and its `DESIGN.md` says so.
+
+**Single self-contained HTML file, off the registry.** `<script type="module">import { createGlassRoot } from "https://esm.sh/@vitreajs/vitrea-web@<version>"</script>` worked with no import map at 0.6.0 (verified 2026-09-05): esm.sh rewrites the one bare specifier and the dynamic WebGPU chunk import. Pin the newest *published* version — the registry's `latest` (0.13.0 on 2026-09-10; 0.12.0 was never published and 0.14.0 was unpublished at that date) — and re-verify the fetch before relying on it, since it has not been re-checked since 0.6.0. unpkg serves the raw bare specifier and does need an import map. A module page does not load over `file://` at all, so a CDN import means the "self-contained" file needs both network and an `http` origin to run, which `DESIGN.md` must say plainly.
 
 ### The fallback is the design, by construction
 
-The runtime resolves a tier per group and reports what it drew. `GlassGroupState` is a closed set (`packages/core/src/state.ts`):
+The runtime resolves a tier per group and reports what it drew. `GlassGroupState` is a closed set of eleven fields (`packages/core/src/state.ts`):
 
 ```ts
 configuredSource: "texture" | "dom";   // what you declared — never mutated
@@ -146,6 +150,8 @@ health:          "ok" | "demoted";
 demotionReason?: "no-webgpu" | "no-backdrop-filter" | "tainted-source" | "incompatible-texture"
                | "no-texture-supplied" | "device-lost" | "probe-failed" | "governor";
 cssBody?:        "two-layer" | "collapsed";
+cssTint?:        "linear" | "encoded";
+cssShadow?:      "layer" | "group" | "host";
 ```
 
 `configuredSource` survives demotion, every demotion names a reason, and choosing CSS is not a fault — a root that never asked for WebGPU resolves `activeRenderer: "css"`, `health: "ok"`. The CSS tier converts the same material profile the root carries rather than holding one of its own, so retuning the material moves both tiers together and the fallback cannot drift away from the design. `refraction: "none"` on the CSS tier is by contract: `backdrop-filter` blurs, it never bends. `cssBody` names which body the CSS tier drew: `two-layer` is the full material — a sharp `backdrop-filter` and a heavy one over it, mixed by the renderer's own depth ramp — and `collapsed` is the declared reduction taken when the CSS cost budget cannot afford two layers; it is absent on a WebGPU-tier group and before that group has resolved a frame. Read the state with `useGlassCapabilities(groupId)` or `root.capabilities(groupId)`, and in development keep diagnostics at zero — a page with warnings is not finished.
@@ -171,7 +177,7 @@ The author's job is contrast. The runtime publishes `--vitrea-foreground` (with 
 | --- | --- | --- |
 | Chromium (Chrome, Edge) | Default-on 113 desktop, 121 Android | Yes — backdrop-proxy equivalence measured byte-exact |
 | Safari / WebKit | Default-on from Safari 26 | Yes, manually verified only |
-| Firefox / Gecko | Default-on 141 Windows, 145 ARM Mac; still flagged on Linux | Yes, manually verified |
+| Firefox / Gecko | Default-on 141 Windows, 145 ARM Mac; still flagged on Linux | Unverified — the conformance table's Gecko gate is still open (`packages/platform-web/src/probe/conformance-table.ts`); not "no", but capture-path blindness the repo has declined to claim past |
 
 No cross-engine pixel-fidelity claim exists, and none can be made: `backdrop-filter` is a complete no-op in every automatable capture path on Gecko and WebKit while rendering correctly live, so there is nothing to compare. Never write "pixel-identical to Apple" or claim cross-engine parity in a `DESIGN.md` or a hand-off note. What is true is narrower and enough: the material resolves per engine, and the runtime says which tier drew.
 
@@ -208,7 +214,8 @@ groups: "transport" (backdrop: tone dark, luminance 0.18), "queue" (tone dark, 0
   derives from the resolved blur rather than from a fixed default.
 surfaces: transport bar radius 26, buttons radius 18, volume capsule; thickness 8 across
   all three. One tint seed per group, unset by default.
-tier expectation: webgpu on Chromium over https, css elsewhere and always on file://.
+tier expectation: webgpu on Chromium over https or localhost, css elsewhere; a module page
+  does not load over file:// at all, so there is no tier there.
   The CSS tier is the same material without refraction, and it is a complete design.
 accessibility: reducedTransparency and increasedContrast set explicitly at the root
   because prefers-reduced-transparency is not Baseline. forced-colors removes the glass.
@@ -221,7 +228,7 @@ contrast: labels get their own foreground on a child element, measured on render
 Run these alongside `references/qa-protocol.md`, not instead of it:
 
 1. **Measure label contrast on rendered pixels**, across the backdrop's phases — 4.5:1 for labels, 3:1 for plates. An automated contrast checker reporting "incomplete" over a canvas is not a pass.
-2. **Force the CSS tier once** (`renderer="css"`, or open the page from `file://`) and confirm the page is still the design rather than a degraded copy of it.
+2. **Force the CSS tier once** (`renderer="css"`; opening the page from `file://` does not force the tier, it stops the module loading) and confirm the page is still the design rather than a degraded copy of it.
 3. **Check `prefers-reduced-transparency` and `forced-colors` renders.** Under forced colors there is no glass at all; confirm what remains is a working interface.
 4. **Zero dev-mode diagnostics.** `glass-inside-glass`, `glass-in-content-layer`, overlap errors and tint warnings are all part of done.
 5. **No glass scrolled out from under itself** — scroll every scrollable region to both ends with the floating chrome in view.
