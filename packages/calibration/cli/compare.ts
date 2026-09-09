@@ -104,10 +104,17 @@ const REFERENCE = resolve(REPO_ROOT, "apps", "reference-apple");
 const SCENES = process.env["VITREA_SCENES"] ?? resolve(REFERENCE, "scenes.json");
 const FIXTURES = process.env["VITREA_FIXTURES"] ?? resolve(REFERENCE, "fixtures");
 
-const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded"] as const;
+const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded", "probe"] as const;
 /**
  * Holdout is opt-in and `recorded` is opt-in twice over: the default is what a
  * tuning loop is allowed to look at, and a recorded cell is never that.
+ *
+ * `probe` is opt-in for a different reason. A probe cell may be read by a fit —
+ * that is what it is for — but it is not part of the bed the gate judges, so a
+ * run that leaves it out of `--set` is the run that reproduces a committed
+ * matrix. `--set probe` measures it and writes it with `fixtureSet: "probe"`;
+ * the cell key is otherwise the same one every other row carries, so a probe
+ * row and a gated row over the same profile can never collide or be confused.
  */
 const DEFAULT_SETS: readonly FixtureSet[] = ["calibration", "validation"];
 

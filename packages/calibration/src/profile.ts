@@ -60,7 +60,25 @@ export function parseProfileKey(key: string): NativeProfile | null {
  * given one of them by default (claims §5.18: four `__pressed` fixtures that are
  * byte-copies of their `__rest` twins, two of them sitting in `validation` as
  * copies of `calibration` cells).
+ *
+ * `probe` is the fifth role and the inverse of `recorded`: a fixture the fits
+ * and the claims **do** read, and that the *gate* does not. It is captured by
+ * the ordinary harness run like any other cell, but no adopted bound, no
+ * regression floor, no conditioning exclusion and no cross-tier coherence row
+ * is ever stated over one — so a probe cell can be added, re-captured or
+ * re-scoped without moving a number the frozen bed is judged by. It exists
+ * because a measurement bed and a judgement bed are not the same thing: W25
+ * needed the two probe grids and a coarse-pitch ladder as fitting ground for a
+ * kernel width the frozen bed cannot identify at all, and folding them into the
+ * gated sets would have re-partitioned the holdout to buy it (claims §5.113;
+ * W25 Decision Log 3 (e)).
  */
-export const FIXTURE_SETS = ["calibration", "validation", "holdout", "recorded"] as const;
+export const FIXTURE_SETS = [
+  "calibration",
+  "validation",
+  "holdout",
+  "recorded",
+  "probe",
+] as const;
 
 export type FixtureSet = (typeof FIXTURE_SETS)[number];

@@ -187,6 +187,10 @@ struct FixtureManifest: Codable {
     let holdout: [String]
     /// Captured and committed, read by nothing. See `SplitSpec.recorded`.
     let recorded: [String]
+    /// Captured routinely, read by fits and claims, gated by nothing. See
+    /// `SplitSpec.probe`. Optional so a manifest written before W25 — every
+    /// committed one — still decodes when a later run merges over it.
+    let probe: [String]?
     let note: String
   }
 }
