@@ -9,8 +9,13 @@ THE COMPOSITE, from `wgsl/optics.ts` verbatim:
 
     backdrop = mix(bodySample, scatterSample, kScatter)
 
-`bodySample` is the level-0 backdrop blurred separably by `blurSigma` — a Gaussian of 1.25 device
-px at both scales, since `bodySigmaCssFor` divides by the ratio and the raster multiplies it back.
+`bodySample` is NOT a Gaussian of `blurSigma`, and reading it as one is the first thing the control
+caught. `bodyBlurPlan(1.25, plan)` picks the deepest chain level whose advisory sigma is at or below
+1.25 — `CHAIN_SIGMA_AT_LEVEL_1` is 1.2, so level 1 — and applies the residual sqrt(1.25^2 - 1.2^2) =
+0.35 level-0 texels on top of it. So the body sample is the chain's LEVEL-1 kernel, whose measured
+half-maximum sigma is 1.542 rather than 1.2 and whose kurtosis is -0.43, blurred by a third of a
+texel. `bodySigmaCssFor` divides by the ratio and the raster multiplies it back, so this is the same
+kernel in device px at both scales.
 `scatterSample` is `textureSampleLevel(backdropChain, uv, scatterLod)`, whose point spread is the
 13-tap chain's own level kernel, reconstructed onto the level-0 grid, trilinearly blended between
 the two neighbouring integer levels where `scatterLod` is fractional. It is NOT a Gaussian: W26 G0
