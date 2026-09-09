@@ -313,7 +313,53 @@ a one-time download. The user: under thirty minutes. Scripts and analysis: a wor
 
 ## Findings
 
-Pending — written after the diagnosis, once the instrument is accepted.
+The grammar reading, run as **exploratory**: the instrument's outcome is Partial (below), so nothing
+here is a confirmatory claim. Panel of four model raters, 52 pages, 13 `v2.1` − `v2.0` pairs.
+
+**0. The confirmation gate does not pass.** The paired d1 difference is −0.33 [−1.08, 0.46] and
+three or more raters carry its sign on 6 of 13 pairs. The smallest difference 13 pairs could have
+detected is 0.81 of a point. So the settling run's reading — two of three forced-choice judges
+preferring 2.0 to 2.1 — is *not detectable* here, not confirmed and not refuted. Per arm, d1 on the
+panel: `none` 4.71, `v1.1` 4.96, `v2.0` 5.15, `v2.1` 4.83, every interval overlapping.
+
+**1. Which items move.** Brief fit is flat (−0.07). Defects are slightly higher under 2.1 (+0.21
+[−0.21, 0.65]). The VisAWI-S aesthetics total is lower under 2.1 by 0.30 [−0.58, 0.01], at the edge
+of detectability, carried by variety (a2 −0.37) and colour (a3 −0.31); and per arm the aesthetics
+total falls with every version of the doctrine — `none` 5.78, `v1.1` 5.55, `v2.0` 5.40, `v2.1`
+5.11 — again on a2 (5.60 → 4.60) and a3 (5.85 → 4.71), while a1 (everything goes together) and a4
+(professionally designed) hold. Conventionality moves as the grammar intends: e1 −1.27 [−2.21,
+−0.37] on the pairs, and per arm 6.08, 4.29, 4.79, 3.52.
+
+**2. Defects as the arm's outcome.** Of the four pairs where three or more raters put 2.0 ahead on
+d1, two are 2.1 pages with a capture-visible defect — fleet·A (49e6cb, the over-wide sheet, +2.0
+defects) and pharmacy·A (f344b7, clipped records, +1.0) — and two are brief-fit misses on the 2.1
+page: rebate·A (7acb2c states eligibility after the first screen; b1 −2.0) and compare·A (d178d1
+never shows a recorded pick; b4 −1.75). The one pair where three or more raters put 2.1 ahead
+(rail·B, +2.50) is 2.0's clipped roster (92cba1). Where d1 moved by two or more points for three
+raters, the reason on record is a defect or a missing brief region on one side, never the
+composition as such. Whether the grammar's density rules *produce* the clips is what the clause
+coding (step 4) reads.
+
+**3. Conventionality does not cost deliverability.** Within arm, the panel's e1 against its d1 is
++0.41 (`none`), −0.40 (`v1.1`), −0.05 (`v2.0`), −0.28 (`v2.1`); within brief, −0.15 on average
+over the seven briefs. The panel does not penalise leaving the default shell as such; if anything,
+within a brief the less conventional page rates a little higher. The grammar's loss, where there is
+one, is not the price of its intent.
+
+**4. The clause coding.** Pending — two coders on the six qualifying cells.
+
+**The no-skill hold** (settling Decision Log 2026-09-09) is not decided at this sample: `none` −
+`v1.1` on d1 is −0.25 [−0.88, 0.44]; on defects `none` carries more, +0.37 [0.00, 0.69]. Per brief,
+`none` is the worst arm on the three consoles (fleet 3.88, pharmacy 3.88, rail 3.75) and the best on
+library (6.25) and among the best on hardware and compare: the no-skill deficit the user saw is a
+console deficit.
+
+**What the next grammar wave should be, on this reading.** Not a composition-rule change: the
+composition's intended effect is confirmed and is not penalised. The losses on record are (a) a
+defect class — over-wide sheets and clipped records, two of the three worst 2.1 pages — which is
+composition QA, and (b) two brief-fit misses that a first-screen check would catch (the brief's
+eligibility or pick region placed late or absent). And a token-level question for the stance layer:
+the panel reads each version's colour restraint as a less attractive, less varied page.
 
 ## Decision Log
 
@@ -469,7 +515,59 @@ Pending — written after the diagnosis, once the instrument is accepted.
 
 ## Outcomes & Retrospective
 
-Pending — written at finish.
+**The instrument: Partial.** Against the four declared lines, over the 26 `v2.0` and `v2.1`
+pages: d1's α across the four raters is 0.46 [0.21, 0.64] (floor 0.67; pooled over 52 it is 0.48);
+between the two family means 0.43 (floor 0.5); retest α per rater 0.54–0.70, one of four over 0.67
+(within ±1 on 88–93 % of repeated ratings); the user's ρ is *pending*. d1's α sits in the Partial
+band [0.4, 0.67) after the one revision, which was spent elsewhere, so the outcome is Partial
+whatever ρ returns: the items that clear α are usable readings, d1 is not, and the grammar reading
+ran as exploratory.
+
+What clears the floor: brief fit (α 0.83 pooled, 0.86 on the 2.x pages) and the revised
+conventionality item (0.71 / 0.67, between families 0.72). What sits between: the VisAWI-S total
+(0.57 pooled, 0.37 on the 2.x pages — range restriction on competent pages), defects (0.56), d1
+(0.48). What does not read: c4 (spacing inconsistency, 0.08) and c3 (too rare). The panel's c5 finds
+both over-wide pages with no false positive by majority; one rater (claude-sonnet) sees neither.
+Position in the shuffle has no effect on any item.
+
+Why d1 misses: not order but level. The raters order pages within a brief alike — mean pairwise
+Spearman ρ on d1 0.65 for same-family pairs, 0.66 across families — and sit at different heights on
+the scale, 4.35 (astra-high) to 5.58 (claude-sonnet), the lenient rater also counting a third as
+many defects. α charges that gap in full. The GPT pair is one model at two efforts and agrees with
+itself at 0.87; the Claude pair at 0.34, on level. A per-rater calibration (a fixed anchor set, or
+the user's ratings as few-shot examples, Deferred) is the next try for the endpoint; the floors
+themselves do not move.
+
+The one wording revision, spent on conventionality, worked: α 0.35 → 0.71 pooled and 0.25 → 0.67
+on the 2.x pages, with the Claude pair from −0.05 to 0.73 — the first wording had asked two
+questions (structural typicality and visual familiarity) and the raters had answered different
+ones.
+
+Pointwise against pairwise: each rater's d1, read as a verdict on the settling run's 78 pairs,
+agrees with the user's forced choices at κ −0.12 to 0.28, and astra-medium's implied verdicts agree
+with its own earlier forced choices at only 0.21 (claude-opus's with its own at 0.67). The two
+formats do not elicit the same judgment from the same model; the pre-registered comparison the
+critique asked for says the settling run's forced choice and this rubric are different instruments,
+not two readings of one.
+
+UIClip does not track the panel: ρ −0.08 with d1 and 0.05 with aesthetics over 52 pages. Its per-arm
+means put `v2.1` lowest on both captures; as a relevance-plus-quality score against the brief's
+text it is reading something else, and it is retired from this instrument.
+
+**The user's anchor — pending.** ρ against the panel mean on d1 over the 16 anchor pages, the
+interval, the mean absolute difference, and the user's own four-page retest, written when the
+ratings land.
+
+**Retrospective.** Three things the settling run lacked made this run readable: items that name a
+fact (brief fit at 0.83 where the forced choice was at chance), one capture set (both over-wide
+pages found by the panel majority), and a pilot (the string-valued numbers were caught on the first
+brief). Two things the design got wrong were caught by the critique before the run — pooled α would
+have certified agreement the within-brief comparison never uses, and a "diagnosis" of a loss an
+instrument at chance had reported — and one thing the critique predicted came true: d1 splits on
+the middle pages, and a wording revision could not have moved it. The cost of the endpoint's miss
+is a level effect that a calibration step handles; the cost of the settling run's miss was the
+question itself. Runs: 28 first pass, 8 retests, 28 single-item re-rates, four pilot, two coders;
+about 5.5 M subagent tokens; the user under thirty minutes.
 
 ## Revision Notes
 
@@ -481,3 +579,6 @@ Pending — written at finish.
   three outcomes, the grammar reading's gate and coding method all changed.
 - 2026-09-10: the panel's first pass and retests in (Surprises); the one wording revision spent on
   e1 (Decision Log); the level-or-order diagnostic added to the report beside the family split.
+- 2026-09-10 (later): the e1 re-rate in; Outcomes written for the panel side (Partial), the
+  grammar reading written as exploratory (Findings); the user's anchor and the clause coding
+  marked pending.
