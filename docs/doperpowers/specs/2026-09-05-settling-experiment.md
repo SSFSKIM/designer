@@ -265,6 +265,18 @@ per build, so this is roughly twelve acceptance runs' worth.
   for in which no judge decides alone.
   Date/Author: 2026-09-09, Claude, on the user's direction.
 
+- Decision: The order of the next work is (1) a quality instrument that several judges can
+  agree on, read against these same 52 builds, then (2) the diagnosis of the grammar's quality
+  loss (`v2.1` against `v2.0`) with that instrument. The reading that two of three judges
+  prefer the no-skill page to the skill arms is held as instrument noise, not as a finding: the
+  user's own comparison when the skill was first made found the no-skill output plainly
+  deficient against `v1.1`, and six of thirteen no-skill builds fail the mechanical gate. The
+  new instrument's re-read of the same builds is what confirms or overturns that hold.
+  Rationale: the user's direction ("fix the quality instrument first, then diagnose the
+  grammar's quality loss"; "on no skill, it's probably noise"). Three judges at chance cannot
+  hold the next change to anything, so the instrument comes first.
+  Date/Author: 2026-09-09, the user.
+
 ## Surprises & Discoveries
 
 - Observation: Chromium serialises a computed colour in the syntax it was written in, so a
