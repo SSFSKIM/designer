@@ -1,0 +1,1794 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Network control — Ashport Transit Authority</title>
+<meta name="description" content="The desktop operations map for Ashport Transit Authority's control room: forty vehicles on eight corridors, six active alerts.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400..800&family=Geist+Mono:wght@400..600&display=swap">
+
+<script type="importmap">
+{ "imports": { "@vitreajs/vitrea": "/packages/core/dist/index.js", "@vitreajs/vitrea-web": "/packages/platform-web/dist/index.js" } }
+</script>
+
+<style>
+/* ═════════════════════════════════════════════════════════════════════════════
+   TOKENS — the only place a colour, a size or a duration is written.
+   DESIGN.md §1 and §2 govern which role does which job. Canvas paint code reads
+   these back out of the custom properties rather than carrying literals of its
+   own, which is why §8's "no colour literal outside :root" is checkable.
+   ═════════════════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: light;
+
+  /* One neutral ramp. Hue 250, C ≤ 0.008: the land must argue with nothing, so
+     the state ladder keeps its whole spread. Not the cream band by construction
+     (that band is hue 40–100). */
+  --n0: oklch(0.992 0.001 250);
+  --n1: oklch(0.975 0.002 250);
+  --n2: oklch(0.951 0.003 250);
+  --n3: oklch(0.920 0.004 250);
+  --n4: oklch(0.862 0.005 250);
+  --n5: oklch(0.762 0.006 250);
+  --n6: oklch(0.640 0.007 250);
+  --n7: oklch(0.502 0.007 250);
+  --n8: oklch(0.330 0.008 250);
+  --n9: oklch(0.192 0.008 250);
+
+  /* The ground's only chroma: the harbour, the river and three parks. */
+  --water:      oklch(0.884 0.031 233);
+  --water-edge: oklch(0.812 0.040 233);
+  --green:      oklch(0.888 0.046 148);
+
+  /* The five service states. The page's one sanctioned literal-colour set, and
+     it appears on the blade, the alert row's square and the platter's reading —
+     never on a control's background, never as a link or a focus ring. Spread in
+     lightness as well as hue, and always doubled by a notch and a word. */
+  --st-early-fill:    oklch(0.878 0.055 252);
+  --st-early-line:    oklch(0.505 0.140 252);
+  --st-ontime-fill:   oklch(0.905 0.048 152);
+  --st-ontime-line:   oklch(0.478 0.098 152);
+  --st-late-fill:     oklch(0.898 0.078 82);
+  --st-late-line:     oklch(0.582 0.135 62);
+  --st-verylate-fill: oklch(0.876 0.060 27);
+  --st-verylate-line: oklch(0.498 0.170 27);
+  --st-nosig-fill:    oklch(0.905 0.003 250);
+  --st-nosig-line:    oklch(0.545 0.005 250);
+
+  /* Type. Two families: dense allows one plus a mono, and the data role is real. */
+  --font-ui: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, "Segoe UI", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --t-label: 11px;      --t-label-track: 0.085em;
+  --t-micro: 10.5px;
+  --t-body: 12.5px;
+  --t-ui: 13px;
+  --t-title: 14.5px;
+  --t-head: 16px;
+  --t-data: 12px;
+  --t-data-lg: 15px;
+
+  /* Space. 4/8/12/16/20/24/32/48. */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 20px; --s6: 24px; --s8: 32px; --s12: 48px;
+
+  /* The size family: three rungs, one radius each, one thickness of 8.
+     s = 44 (12px past the size law's inert floor), m = 64 (mid-curve),
+     l = 336 (past saturation at 96). */
+  --r-s: 14px;  --r-m: 18px;  --r-l: 26px;
+
+  /* Layout. Every floating box is positioned from these, so the group gaps in
+     DESIGN.md §3 are checkable against the stylesheet. */
+  --inset: 20px;
+  --bar-h: 44px;
+  --w-routes: 332px;
+  --w-state: 340px;
+  --w-find: 200px;
+  --w-side: 336px;
+  --x-routes: 20px;
+  --x-state: 400px;
+  --x-find: 788px;
+  --x-side: 1084px;
+
+  --ease-out: cubic-bezier(0.17, 0.84, 0.36, 1);
+  --d-press: 90ms;
+  --d-hover: 140ms;
+  --d-platter: 220ms;
+
+  --rule: color-mix(in oklab, var(--n9) 12%, transparent);
+  --rule-strong: color-mix(in oklab, var(--n9) 24%, transparent);
+
+  --map-land: var(--n3);
+  --map-density: var(--n4);
+  --map-casing: var(--n4);
+  --map-street: var(--n0);
+  --map-art-casing: var(--n5);
+  --map-art: var(--n0);
+  --map-ink: var(--n7);
+  --map-halo: var(--n1);
+  --map-shield: var(--n0);
+  --map-shield-rule: var(--n6);
+  --map-shield-ink: var(--n8);
+  --map-corridor: var(--n8);
+  --map-corridor-off: var(--n6);
+  --map-corridor-halo: var(--n0);
+  --map-grat: var(--n5);
+  --map-grat-minor: var(--n4);
+  --map-rail: var(--n5);
+}
+
+/* Night. Derived as a second surface system, not an inversion: the ramp keeps
+   its hue family and loses chroma at the dark end, the state fills darken while
+   their rules lighten so the ladder keeps the same spread, and the water and the
+   parks stay the city's own. */
+:root[data-scheme="dark"] {
+  color-scheme: dark;
+  --n0: oklch(0.148 0.006 250);
+  --n1: oklch(0.178 0.007 250);
+  --n2: oklch(0.212 0.008 250);
+  --n3: oklch(0.252 0.009 250);
+  --n4: oklch(0.315 0.010 250);
+  --n5: oklch(0.400 0.010 250);
+  --n6: oklch(0.520 0.010 250);
+  --n7: oklch(0.660 0.009 250);
+  --n8: oklch(0.820 0.007 250);
+  --n9: oklch(0.945 0.004 250);
+  --water:      oklch(0.268 0.038 233);
+  --water-edge: oklch(0.352 0.048 233);
+  --green:      oklch(0.268 0.032 148);
+  --st-early-fill:    oklch(0.330 0.075 252);
+  --st-early-line:    oklch(0.735 0.130 252);
+  --st-ontime-fill:   oklch(0.322 0.062 152);
+  --st-ontime-line:   oklch(0.760 0.110 152);
+  --st-late-fill:     oklch(0.352 0.078 72);
+  --st-late-line:     oklch(0.808 0.135 78);
+  --st-verylate-fill: oklch(0.348 0.085 27);
+  --st-verylate-line: oklch(0.702 0.165 27);
+  --st-nosig-fill:    oklch(0.290 0.005 250);
+  --st-nosig-line:    oklch(0.640 0.006 250);
+  --rule: color-mix(in oklab, var(--n9) 18%, transparent);
+  --rule-strong: color-mix(in oklab, var(--n9) 32%, transparent);
+
+  --map-land: var(--n1);
+  --map-density: var(--n3);
+  --map-casing: var(--n0);
+  --map-street: var(--n4);
+  --map-art-casing: var(--n0);
+  --map-art: var(--n5);
+  --map-ink: var(--n7);
+  --map-halo: var(--n0);
+  --map-shield: var(--n2);
+  --map-shield-rule: var(--n5);
+  --map-shield-ink: var(--n9);
+  --map-corridor: var(--n8);
+  --map-corridor-off: var(--n5);
+  --map-corridor-halo: var(--n0);
+  --map-grat: var(--n5);
+  --map-grat-minor: var(--n3);
+  --map-rail: var(--n6);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  overflow: hidden;
+}
+body {
+  /* Flat, so nothing on any ancestor of the plane root re-roots the backdrop:
+     no filter, no opacity, no mask, no clip-path, no mix-blend-mode. */
+  background: var(--n2);
+  color: var(--n9);
+  font-family: var(--font-ui);
+  font-size: var(--t-ui);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── the live plane ─────────────────────────────────────────────────────────
+   The city, painted every frame and handed to the runtime as a texture, so the
+   glass reads real pixels instead of a declared hint. It is first in DOM order
+   and covers the window: the plane is the product, and the instruments float. */
+#map {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+#map.dragging { cursor: grabbing; }
+#map.over-blade { cursor: pointer; }
+
+/* ── page attribution, in the map's own annotation register ─────────────── */
+.attrib {
+  position: fixed; left: 104px; bottom: 20px; z-index: 2;
+  right: calc(var(--w-side) + 48px);
+  margin: 0;
+  font-size: var(--t-micro);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--n8);
+}
+.attrib a { color: var(--n9); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.attrib .sep { color: var(--n5); padding: 0 6px; }
+
+/* the map's scale bar, drawn as content beside the attribution */
+.scale {
+  position: fixed; left: 104px; bottom: 44px; z-index: 2;
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: var(--t-micro); color: var(--n8);
+}
+.scale i { display: block; height: 6px; border: 1px solid var(--n6); border-top: 0; }
+
+.sr {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden; border: 0;
+  white-space: nowrap;
+}
+/* The roster is the keyboard and screen-reader path to a vehicle the map draws
+   in a canvas. A `position: fixed` child escapes the clip without a containing
+   block, so the item that has focus becomes a readable chip where the reader is
+   looking — a hidden control that can take focus and cannot be seen is worse
+   than no control. */
+#roster button {
+  font: inherit; border: 0; background: none; color: inherit; text-align: left;
+}
+#roster button:focus-visible {
+  /* clear of the view stack, which is the one surface at this corner */
+  position: fixed; left: calc(var(--inset) + 68px); bottom: 96px; z-index: 4;
+  width: auto; height: auto; margin: 0; padding: 8px 12px;
+  white-space: normal; max-width: 420px;
+  background: var(--n0); color: var(--n9);
+  border: 1.5px solid var(--n9); border-radius: 10px;
+  outline: 2px solid var(--n9); outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--n0);
+  font-size: var(--t-body); line-height: 1.4;
+}
+
+/* ═══ the floating layer ═══════════════════════════════════════════════════
+   Six surfaces, six groups. Nothing here sets a background: the material is
+   the surface, and a background on a glass host is a solid fill that destroys
+   it (and is rewritten every frame by the CSS tier besides). */
+.gh {
+  position: absolute;
+  color: var(--n9);
+  font-family: var(--font-ui);
+  color-scheme: light;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+:root[data-scheme="dark"] .gh { color-scheme: dark; }
+
+.gh :focus-visible,
+.gh:focus-visible {
+  /* two rings, because one ring in one ink can land on a matching backdrop:
+     the dark ring is read against the light one, whatever the map is doing */
+  outline: 2px solid var(--n9);
+  outline-offset: 1px;
+  box-shadow: 0 0 0 1px var(--n0);
+  border-radius: 6px;
+}
+
+/* ── 1 + 2. the two racks ───────────────────────────────────────────────── */
+.rack {
+  top: var(--inset); height: var(--bar-h);
+  display: flex; align-items: center; gap: 1px;
+  padding: 5px;
+}
+#routes { left: var(--x-routes); width: var(--w-routes); }
+#state  { left: var(--x-state);  width: var(--w-state); }
+
+.seg {
+  flex: 1 1 0; min-width: 0; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 4px;
+  /* concentric with the rack: radius 14 − the rack's 5px inset */
+  border-radius: 9px;
+  border: 0; background: transparent;
+  font-family: inherit; font-size: var(--t-ui); font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--n8);
+  cursor: pointer;
+  transition: background-color var(--d-hover) var(--ease-out), color var(--d-hover) var(--ease-out);
+  white-space: nowrap; overflow: hidden;
+}
+#state .seg { flex: 1 1 auto; font-size: 12px; font-weight: 650; padding: 0 7px; }
+.seg:hover { background: color-mix(in oklab, var(--n9) 8%, transparent); }
+.seg[aria-checked="true"], .seg[aria-pressed="true"] {
+  background: var(--n9); color: var(--n0);
+}
+.seg[aria-checked="true"]:hover, .seg[aria-pressed="true"]:hover {
+  background: color-mix(in oklab, var(--n9) 88%, var(--n0));
+}
+.seg .dot {
+  width: 6px; height: 6px; border-radius: 2px; flex: none;
+  border: 1px solid currentColor;
+}
+.seg[data-state="early"] .dot    { background: var(--st-early-line);    border-color: var(--st-early-line); }
+.seg[data-state="late"] .dot     { background: var(--st-late-line);     border-color: var(--st-late-line); }
+.seg[data-state="verylate"] .dot { background: var(--st-verylate-line); border-color: var(--st-verylate-line); }
+.seg[data-state="nosignal"] .dot { background: transparent; border-color: var(--st-nosig-line); }
+
+/* ── 3. the search field, at the bar's trailing edge ────────────────────── */
+#find {
+  left: var(--x-find); top: var(--inset);
+  width: var(--w-find); height: var(--bar-h);
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 12px;
+}
+#find svg { flex: none; color: var(--n7); }
+#find input {
+  flex: 1 1 auto; min-width: 0;
+  border: 0; background: transparent; outline: none;
+  font-family: var(--font-ui); font-size: var(--t-ui); font-weight: 500;
+  color: var(--n9);
+}
+#find input::placeholder { color: var(--n7); opacity: 1; }
+#find input:focus-visible { outline: 2px solid var(--n9); outline-offset: 3px; border-radius: 4px; }
+#find .count {
+  font-family: var(--font-mono); font-size: var(--t-micro); color: var(--n7);
+  flex: none; font-variant-numeric: tabular-nums;
+}
+
+/* ── 4. the view stack ──────────────────────────────────────────────────── */
+#view {
+  left: var(--inset);
+  bottom: calc(var(--inset) + 60px);
+  width: 44px; height: 140px;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 4px 0;
+}
+#view button {
+  width: 36px; height: 42px;
+  display: grid; place-items: center;
+  border: 0; background: transparent; border-radius: 10px;
+  color: var(--n8); cursor: pointer;
+  font-family: var(--font-ui); font-size: 15px; font-weight: 700;
+  transition: background-color var(--d-hover) var(--ease-out);
+}
+#view button:hover { background: color-mix(in oklab, var(--n9) 8%, transparent); }
+#view .divider { width: 22px; height: 1px; background: var(--rule); flex: none; }
+
+/* ── 5. the alerts sidebar ──────────────────────────────────────────────── */
+#alerts {
+  left: var(--x-side); top: var(--inset);
+  width: var(--w-side);
+  height: calc(100vh - var(--inset) * 2);
+  display: flex; flex-direction: column;
+  padding: 10px;
+}
+.side-head { flex: none; padding: 6px 6px 10px; }
+.side-head .org {
+  font-size: var(--t-label); font-weight: 800; letter-spacing: var(--t-label-track);
+  text-transform: uppercase; color: var(--n7); margin: 0 0 6px;
+}
+.side-head .row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.side-head h1 { margin: 0; font-size: var(--t-head); font-weight: 800; letter-spacing: -0.012em; }
+.side-head .clock {
+  font-family: var(--font-mono); font-size: var(--t-data-lg); font-weight: 500;
+  font-variant-numeric: tabular-nums; color: var(--n9);
+}
+.side-head .summary {
+  margin: 8px 0 0; font-family: var(--font-mono); font-size: var(--t-data);
+  color: var(--n7); font-variant-numeric: tabular-nums;
+}
+/* the one scroll edge on the page: hard style, desktop default, and it appears
+   only once the list actually passes under the header. */
+.scroll-edge { flex: none; height: 1px; background: transparent; transition: background-color 120ms linear; }
+.scroll-edge[data-on="1"] { background: var(--rule-strong); }
+
+.side-list {
+  flex: 1 1 auto; min-height: 0;
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 8px 0 6px;
+  display: flex; flex-direction: column; gap: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--n5) transparent;
+}
+
+.alert {
+  /* opaque and tonal underneath the glass: one lightness step, one hairline,
+     no shadow at rest. Radius concentric with the sidebar: 26 − its 10px inset. */
+  border-radius: 16px;
+  border: 1px solid var(--rule);
+  background: color-mix(in oklab, var(--n0) 72%, transparent);
+  padding: 10px 10px 11px;
+  text-align: left; width: 100%;
+  font-family: inherit; color: var(--n9);
+  cursor: pointer; display: block;
+  transition: border-color var(--d-hover) var(--ease-out), background-color var(--d-hover) var(--ease-out);
+}
+.alert:hover { background: color-mix(in oklab, var(--n0) 88%, transparent); }
+.alert[aria-expanded="true"] {
+  border: 1.5px solid var(--n9);
+  background: color-mix(in oklab, var(--n0) 92%, transparent);
+}
+.alert .top { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+.alert .sq { width: 10px; height: 10px; border-radius: 3px; flex: none; border: 1.5px solid; }
+.alert .ttl {
+  font-size: var(--t-title); font-weight: 800; letter-spacing: -0.012em;
+  flex: 1 1 auto; min-width: 0;
+}
+.alert .at {
+  font-family: var(--font-mono); font-size: var(--t-data); color: var(--n7);
+  font-variant-numeric: tabular-nums; flex: none;
+}
+.alert .body { margin: 0; font-size: var(--t-body); line-height: 1.45; color: var(--n8); }
+.alert .meta {
+  margin-top: 7px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
+}
+.chip {
+  font-family: var(--font-mono); font-size: var(--t-micro); font-weight: 500;
+  padding: 2px 5px; border-radius: 5px;
+  border: 1px solid var(--rule);
+  color: var(--n8);
+  font-variant-numeric: tabular-nums;
+}
+.chip.route { font-family: var(--font-ui); font-weight: 800; letter-spacing: 0.01em; }
+.alert .state-word { font-size: var(--t-micro); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--n7); }
+
+.cam { margin: 10px 0 0; }
+.cam .plate {
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--rule);
+  aspect-ratio: 760 / 428;
+}
+.cam img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover;
+  /* cool technical tone matching, so two frames from two photographers read as
+     one camera estate rather than as two stock photos */
+  filter: saturate(0.76) contrast(1.05);
+}
+:root[data-scheme="dark"] .cam img { filter: saturate(0.7) contrast(1.02) brightness(0.86); }
+.cam figcaption {
+  margin-top: 5px;
+  font-family: var(--font-mono); font-size: var(--t-micro); color: var(--n7);
+  font-variant-numeric: tabular-nums;
+}
+.no-cam {
+  margin: 9px 0 0; font-size: var(--t-micro); color: var(--n7);
+  letter-spacing: 0.01em;
+}
+.alert-actions { margin-top: 9px; display: flex; gap: 6px; }
+.btn {
+  font-family: var(--font-ui); font-size: 11.5px; font-weight: 700;
+  padding: 6px 10px; border-radius: 8px;
+  border: 1px solid var(--rule-strong); background: transparent; color: var(--n9);
+  cursor: pointer;
+  transition: background-color var(--d-hover) var(--ease-out);
+}
+.btn:hover { background: color-mix(in oklab, var(--n9) 9%, transparent); }
+.btn.primary { background: var(--n9); color: var(--n0); border-color: var(--n9); }
+.btn.primary:hover { background: color-mix(in oklab, var(--n9) 86%, var(--n0)); }
+
+.credits {
+  display: none;
+  flex: none; width: 240px;
+  border-radius: 16px; border: 1px dashed var(--rule-strong);
+  padding: 10px 12px;
+  font-size: var(--t-micro); line-height: 1.5; color: var(--n8);
+}
+.credits a { color: var(--n9); }
+
+.empty {
+  margin: 16px 6px; padding: 14px;
+  border: 1px dashed var(--rule-strong); border-radius: 14px;
+  font-size: var(--t-body); color: var(--n8);
+}
+.empty b { display: block; font-size: var(--t-title); margin-bottom: 4px; }
+
+/* ── 6. the selected-vehicle platter, on the overlay plane ──────────────── */
+#platter {
+  width: 460px; height: 64px;
+  display: none; align-items: center; gap: 10px;
+  padding: 0 12px;
+}
+#platter[data-open="1"] { display: flex; }
+#platter .blade {
+  flex: none; width: 36px; height: 26px; border-radius: 6px;
+  display: grid; place-items: center;
+  border: 1.5px solid; font-weight: 800; font-size: var(--t-ui);
+  letter-spacing: -0.02em; color: var(--n9);
+}
+#platter .txt { flex: 1 1 auto; min-width: 0; }
+#platter .l1 { display: flex; align-items: baseline; gap: 7px; }
+#platter .fleet {
+  font-family: var(--font-mono); font-size: var(--t-data-lg); font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+#platter .dest {
+  font-size: var(--t-body); font-weight: 700; color: var(--n8);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+#platter .l2 {
+  display: block;
+  margin-top: 2px; font-family: var(--font-mono); font-size: 11px; color: var(--n7);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+#platter .l2 b { color: var(--n9); font-weight: 550; }
+#platter .acts { flex: none; display: flex; gap: 5px; }
+#platter .acts .btn { padding: 7px 9px; border-radius: 6px; }  /* 18 − the platter's 12px inset */
+
+/* ── responsive collapse ──────────────────────────────────────────────────
+   Two breakpoints, both placed where the *group gaps* stop fitting rather than
+   at a round number: a glass group whose padded proxy reaches its neighbour's
+   painted region filters the backdrop twice, so a bar that merely squeezes is
+   a defect the runtime reports. The single-row bar needs
+   20 + 332 + 48 + 340 + 48 + 200 + 56 + 336 + 20 = 1400 px, and the two-row bar
+   beside a sidebar needs 1024. */
+@media (max-width: 1399px) {
+  /* Search leaves the bar's trailing edge for a second row at the leading edge:
+     the trailing edge is where the sidebar now is. 32 px between rows, because
+     that is past both the group's sampling padding and its merge distance. */
+  :root { --w-side: 300px; --w-routes: 288px; --w-state: 300px; --w-find: 220px; }
+  #routes { left: var(--inset); }
+  #state  { left: calc(var(--inset) + var(--w-routes) + 48px); }
+  #find   { left: var(--inset); top: 96px; }
+  #alerts { left: auto; right: var(--inset); }
+}
+@media (max-width: 1023px) {
+  /* An intentional collapse, not a compression. Three things change together:
+     the alert list leaves the right edge for a bottom sheet so the map keeps
+     its full width; the state filter drops from five service states to the one
+     decision a small screen actually makes, all against exceptions; and the
+     view stack turns horizontal above the sheet. */
+  #routes { left: var(--inset); right: var(--inset); width: auto; top: 20px;
+            overflow-x: auto; scrollbar-width: none; }
+  #routes .seg { flex: 0 0 40px; }
+  #state { left: var(--inset); right: calc(55% + 16px); width: auto; top: 96px; }
+  #find  { left: calc(45% + 16px); right: var(--inset); width: auto; top: 96px; }
+  #state .seg[data-state] { display: none; }
+  #state .seg[data-state="exceptions"] { display: inline-flex; }
+  #alerts {
+    left: var(--inset); right: var(--inset); width: auto;
+    top: auto; bottom: var(--inset); height: 220px;
+  }
+  .side-head .org { display: none; }
+  .side-head { padding: 4px 6px 8px; }
+  .side-list { flex-direction: row; overflow-x: auto; overflow-y: hidden; gap: 10px; }
+  .alert { width: 288px; flex: none; }
+  .cam, .alert-actions { display: none; }
+  #roster button:focus-visible {
+    left: var(--inset); right: var(--inset); max-width: none; bottom: calc(220px + 140px);
+  }
+  #view {
+    left: var(--inset); bottom: calc(220px + 52px);
+    width: 140px; height: 44px; flex-direction: row; padding: 0 4px;
+  }
+  #view .divider { width: 1px; height: 22px; }
+  .attrib { display: none; }
+  .credits { display: block; }
+  .scale { display: none; }
+}
+@media (min-width: 1024px) {
+  #state .seg[data-state="exceptions"] { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; }
+}
+
+/* Forced colours removes the material outright; what is left has to be a
+   working interface on its own borders. */
+@media (forced-colors: active) {
+  .gh { border: 1px solid CanvasText; background: Canvas; border-radius: var(--r-s); }
+  #alerts { border-radius: var(--r-l); }
+  #platter { border-radius: var(--r-m); }
+  .seg[aria-checked="true"], .seg[aria-pressed="true"], .btn.primary { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+  .alert { border: 1px solid CanvasText; background: Canvas; }
+}
+</style>
+</head>
+<body>
+
+<!-- The live plane: first in DOM order, top-left, and the whole first viewport. -->
+<canvas id="map" role="img"
+  aria-label="Operations map of Ashport. Eight bus corridors over the city, the River Ashe and the harbour, with forty vehicles shown as route-numbered blades coloured by service state."></canvas>
+
+<div class="scale" aria-hidden="true"><i id="scalebar" style="width:96px"></i><span id="scaletext">500 m</span></div>
+
+<p class="attrib">
+  Ashport Transit Authority · network control · a fictional network on real cartographic conventions
+  <span class="sep">·</span>
+  Street cameras:
+  <a href="https://unsplash.com/@skyfly_rich?utm_source=designer&amp;utm_medium=referral">Richard Lu</a>
+  and
+  <a href="https://unsplash.com/@a4ry55?utm_source=designer&amp;utm_medium=referral">Eyforis Lurt</a>
+  on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>
+</p>
+
+<!-- A keyboard and screen-reader path to every vehicle the canvas draws. -->
+<section class="sr" id="roster" aria-label="Vehicles in service"></section>
+<div class="sr" id="live" role="status" aria-live="polite"></div>
+
+<script type="module">
+import { createGlassRoot, GLASS_CHANNEL_PROPERTIES } from "@vitreajs/vitrea-web";
+
+/* ════════════════════════════════════════════════════════════════════════════
+   1. THE NETWORK — one city, eight corridors, forty vehicles, six alerts.
+   Every number relates to every other: a vehicle named in an alert is on the
+   corridor the alert names and carries the state the alert claims, and the
+   headway gap is the difference between the two vehicles it names.
+   ════════════════════════════════════════════════════════════════════════ */
+
+const W = 2000, H = 1250;                       // world units
+
+/* the River Ashe: two banks, sampled as functions so bridges and quays land on
+   the water rather than near it */
+const bankN = (x) => 830 + 0.090 * x;
+const bankS = (x) => 960 + 0.075 * x;
+
+const PARKS = [
+  { name: "Kelvin Park",    at: [268, 296], pts: [[118,182],[332,150],[424,242],[400,382],[248,432],[126,358]] },
+  { name: "Cathedral Green",at: [900, 552], pts: [[828,506],[962,494],[988,566],[900,602],[818,568]] },
+  { name: "Fairview Common",at: [1502, 262],pts: [[1382,192],[1584,176],[1642,276],[1518,346],[1388,300]] },
+];
+
+/* the harbour basin, cut into the north bank in the east, with two quays */
+const HARBOUR = [[1300, bankN(1300)],[1342, 872],[1500, 838],[1660, 842],[1820, 856],[1960, 878],[2000, 1016],
+                 [1880, bankN(1880)],[1700, bankN(1700)],[1520, bankN(1520)],[1380, bankN(1380)]];
+const QUAYS = [[1452, 866, 32, 96], [1616, 862, 32, 100]];
+
+/* Kelvin Reservoir and the Kelvin Cut, the canal that carries it round the
+   north of the city into the harbour. Geography first — but it is also what
+   puts a real edge, a real curve and a real chroma lobe under the toolbar,
+   which would otherwise float over the emptiest quarter of the plane. */
+const RESERVOIR = [[132,44],[286,32],[352,74],[338,140],[214,158],[128,116]];
+const CANAL = [[40,182],[300,124],[620,90],[940,76],[1180,106],[1360,212],[1462,432],[1520,692],[1534,850]];
+
+const BRIDGES = [
+  { name: "Victoria Bridge", a: [1144, 918], b: [1248, 1068] },
+  { name: "Ferry Road Bridge", a: [786, 896], b: [828, 1024] },
+];
+
+const RAIL = [[0,702],[380,712],[700,730],[930,748],[1250,762],[1600,748],[2000,722]];
+
+const DISTRICTS = [
+  ["Northgate", 828, 152], ["Kelvin", 214, 470], ["Fairview Heights", 1470, 372],
+  ["Elmwood", 262, 660], ["Old Market", 906, 636], ["Union Station", 952, 786],
+  ["Riverside", 486, 1104], ["Southgate", 1268, 1168], ["Dockside", 1560, 786],
+  ["Ashport Airport", 1876, 540],
+];
+
+/* Eight corridors. Route identity is carried by the number on the blade and on
+   the shield, never by a hue: the plane's colour is spent on service state, and
+   the control layer stays monochrome. */
+const ROUTES = [
+  { id: "2",  name: "Harbour Loop",       loop: true,
+    pts: [[1242,700],[1400,716],[1560,746],[1720,776],[1858,802],[1902,722],[1762,660],[1602,640],[1442,636],[1302,652],[1242,700]] },
+  { id: "7",  name: "Kingsway",
+    pts: [[100,506],[340,520],[620,546],[900,566],[1150,590],[1420,626],[1700,666],[1930,702]] },
+  { id: "11", name: "Northgate – Southgate",
+    pts: [[834,90],[856,236],[880,396],[900,566],[986,690],[1085,790],[1144,918],[1248,1068],[1306,1146],[1382,1206]] },
+  { id: "14", name: "Elmwood Crosstown",
+    pts: [[90,690],[300,650],[520,600],[730,530],[940,456],[1160,390],[1390,330],[1580,290]] },
+  { id: "22", name: "Cathedral Green",
+    pts: [[700,762],[760,690],[830,620],[906,566],[986,510],[1080,456],[1190,420],[1300,406]] },
+  { id: "31", name: "Fairview Heights",
+    pts: [[900,566],[1010,496],[1140,426],[1280,356],[1410,276],[1530,206],[1620,150]] },
+  { id: "44", name: "Riverside",
+    pts: [[240,1036],[500,1030],[760,1050],[1010,1076],[1260,1106],[1500,1140],[1720,1186]] },
+  { id: "58", name: "Union Station – Airport",
+    pts: [[930,722],[1080,732],[1250,746],[1440,760],[1620,760],[1790,700],[1892,592]] },
+];
+
+/* Fleet. [fleet, routeIndex, t, adherence seconds, next timing point, driver,
+   passengers, no-signal] — adherence signed, negative early. */
+const FLEET = [
+  [4302,0,0.060,  -70,"Dockside Quay",  "R. Adeyemi",  22],
+  [4311,0,0.105,   40,"Dockside Quay",  "P. Novak",    31],
+  [4318,0,0.148,  150,"Dockside Quay",  "M. Haddad",   18],
+  [4325,0,0.520,  310,"Airport Approach","J. Whitlock",27],
+  [4331,0,0.804,   95,"Quay Street",    "C. Iwu",      14],
+
+  [4104,1,0.082,   25,"Elmwood Gate",   "S. Petrova",  36],
+  [4112,1,0.240,  -95,"Ninth Street",   "D. Osei",     41],
+  [4119,1,0.412,  285,"Old Market",     "A. Ferreira", 52],
+  [4126,1,0.585,  530,"Kingsway East",  "T. Lindqvist",47],
+  [4133,1,0.730,  140,"Harbour Road",   "N. Baptiste", 29],
+  [4141,1,0.902,  -40,"Airport Interchange","L. Mensah",16],
+
+  [4405,2,0.052,  180,"Northgate Depot","K. Ravelli",  24],
+  [4412,2,0.312,  380,"Victoria Bridge","D. Osei",     38],
+  [4419,2,0.470,  -55,"Old Market",     "H. Bekele",   44],
+  [4427,2,0.628,  640,"Southgate Green","E. Duarte",   51],
+  [4434,2,0.790,   70,"Southgate Green","F. Okonkwo",  33],
+  [4441,2,0.942,  215,"Southgate Green","V. Marchetti",19],
+
+  [4208,3,0.124,   60,"Elmwood Gate",   "B. Sørensen", 21],
+  [4215,3,0.380, -130,"Cathedral Green","I. Nakamura", 26],
+  [4223,3,0.632,  410,"Fairview Common","G. Salazar",  35],
+  [4230,3,0.862,   30,"Fairview Common","O. Ademola",  12],
+
+  [4152,4,0.102,   90,"Ferry Road",     "W. Chukwu",   17],
+  [4159,4,0.290,  255,"Cathedral Green","Y. Aslan",    23],
+  [4166,4,0.482,  -20,"Cathedral Green","R. Delacroix",30],
+  [4173,4,0.668,  720,"Ninth Street",   "M. Grigoryan",43],
+  [4180,4,0.880,  105,"Fairview Gate",  "S. Bhatt",    15],
+
+  [4116,5,0.118,   60,"Old Market",     "T. Nowak",    28],
+  [4108,5,0.302,  505,"Fairview Common","A. Kowalczyk",46],
+  [4127,5,0.622, -400,"Fairview Common","J. Mbeki",     9],
+  [4135,5,0.782,   35,"Hill Terminus",  "C. Andersen", 20],
+  [4143,5,0.930,  190,"Hill Terminus",  "P. Ramírez",  25],
+
+  [4251,6,0.092,   45,"Riverside West", "N. Dimitrova",32],
+  [4258,6,0.334,    0,"Ferry Road",     "K. Obi",      27, true],
+  [4265,6,0.578,  305,"Southgate Green","L. Fournier", 39],
+  [4272,6,0.842,  -85,"Dock Gate",      "H. Yamamoto", 13],
+
+  [4501,7,0.070,  115,"Union Station",  "E. Bianchi",  34],
+  [4507,7,0.264,  160,"Old Market East","H. Bekele",   48],
+  [4514,7,0.442,  -30,"Southgate Green","M. Kaur",     37],
+  [4521,7,0.664,  470,"Airport Interchange","D. Traoré",55],
+  [4528,7,0.870,   75,"Airport Interchange","A. Lindgren",23],
+];
+
+const ALERTS = [
+  { id: "a1", kind: "Victoria Bridge lift", at: "09:12", state: "verylate", routes: ["11","44"],
+    body: "Bridge lifted at 09:12 for the coaster Ravenna. Southbound held at the north approach; clearance expected 09:19.",
+    vehicles: [4427, 4434, 4265],
+    cam: { src: "images/cam-14-victoria-bridge.jpg", w: 760, h: 428, bg: "#737359",
+           alt: "An elevated view of a city and a bridge over a river, looking along the crossing",
+           label: "Camera 14 · Victoria Bridge north approach · 09:12:40" },
+    actions: ["Hold northbound", "Log to incident"] },
+
+  { id: "a2", kind: "Headway gap — 31 Fairview Heights", at: "09:06", state: "late", routes: ["31"],
+    body: "14:20 between 4108 and 4127 against an 8:00 headway. 4127 is running 6:40 hot and will close it at Hill Terminus.",
+    vehicles: [4108, 4127], cam: null,
+    actions: ["Hold 4127", "Even out headway"] },
+
+  { id: "a3", kind: "Signal failure — Kingsway at Ninth", at: "08:54", state: "verylate", routes: ["7","22"],
+    body: "Junction on manual control since 08:54. Routes 7 and 22 divert via Canal Street; add five minutes to running time.",
+    vehicles: [4126, 4173],
+    cam: { src: "images/cam-31-kingsway-ninth.jpg", w: 760, h: 428, bg: "#8c8c8c",
+           alt: "Road construction with warning signs, barrier tape and stacked materials across a city street",
+           label: "Camera 31 · Kingsway at Ninth · 09:01:05" },
+    actions: ["Confirm diversion", "Notify duty engineer"] },
+
+  { id: "a4", kind: "Bunching — 2 Harbour Loop", at: "09:09", state: "late", routes: ["2"],
+    body: "4302, 4311 and 4318 are within 90 seconds of each other at Dockside Quay. Holding 4318 for three minutes restores the loop.",
+    vehicles: [4302, 4311, 4318], cam: null,
+    actions: ["Hold 4318 · 3 min", "Call 4318"] },
+
+  { id: "a5", kind: "Ramp fault — 4412", at: "08:41", state: "late", routes: ["11"],
+    body: "Wheelchair ramp will not deploy. 4412 continues to Southgate Green and swaps with 4419 on relief at 09:34.",
+    vehicles: [4412], cam: null,
+    actions: ["Confirm swap", "Call 4412"] },
+
+  { id: "a6", kind: "Relief overdue — block 5811", at: "09:03", state: "nosignal", routes: ["58"],
+    body: "Relief driver is twelve minutes late at Union Station. Duty driver H. Bekele is over hours at 09:26.",
+    vehicles: [4507], cam: null,
+    actions: ["Reassign relief", "Call Union Station"] },
+];
+
+const STATE_ORDER = ["early", "ontime", "late", "verylate", "nosignal"];
+const STATE_WORD = { early: "early", ontime: "on time", late: "late", verylate: "10+ late", nosignal: "no signal" };
+
+function stateOf(v) {
+  if (v.nosig) return "nosignal";
+  if (v.delta <= -60) return "early";
+  if (v.delta < 240) return "ontime";
+  if (v.delta < 600) return "late";
+  return "verylate";
+}
+function deltaText(v) {
+  if (v.nosig) return "no signal 4:10";
+  const s = Math.abs(v.delta), m = Math.floor(s / 60), r = String(s % 60).padStart(2, "0");
+  const sign = v.delta < 0 ? "−" : "+";
+  return `${sign}${m}:${r} ${STATE_WORD[stateOf(v)]}`;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   2. THE PAINTED PLANE
+   Both spatial frequencies are painted INTO the texture: low is the water, the
+   parks and the density wash; high is the graticule, the street web and the
+   corridor casings. Anything laid over the canvas in CSS would not be behind
+   the glass and would not be refracted.
+   ════════════════════════════════════════════════════════════════════════ */
+
+const canvas = document.getElementById("map");
+const ctx = canvas.getContext("2d", { alpha: false });
+let vw = 0, vh = 0, dpr = 1;
+
+const C = {};
+const TOKENS = ["n0","n1","n2","n3","n4","n5","n6","n7","n8","n9","water","water-edge","green",
+  "st-early-fill","st-early-line","st-ontime-fill","st-ontime-line","st-late-fill","st-late-line",
+  "st-verylate-fill","st-verylate-line","st-nosig-fill","st-nosig-line",
+  "map-land","map-density","map-casing","map-street","map-art-casing","map-art","map-ink","map-halo",
+  "map-shield","map-shield-rule","map-shield-ink","map-corridor","map-corridor-off",
+  "map-corridor-halo","map-grat","map-grat-minor","map-rail"];
+function readTokens() {
+  const cs = getComputedStyle(document.documentElement);
+  for (const t of TOKENS) C[t] = cs.getPropertyValue("--" + t).trim();
+  rgbCache.clear();
+}
+
+/* A token resolved to sRGB by painting one pixel and reading it back. Needed
+   because a canvas gradient stop at the keyword `transparent` is transparent
+   BLACK, and un-premultiplied interpolation to it darkens the wash's own
+   midtones — the fade has to end on the same colour at zero alpha. */
+const rgbCache = new Map();
+const probe = document.createElement("canvas");
+probe.width = probe.height = 1;
+const probeCtx = probe.getContext("2d", { willReadFrequently: true });
+function rgba(token, alpha) {
+  if (!rgbCache.has(token)) {
+    probeCtx.clearRect(0, 0, 1, 1);
+    probeCtx.fillStyle = C[token];
+    probeCtx.fillRect(0, 0, 1, 1);
+    const d = probeCtx.getImageData(0, 0, 1, 1).data;
+    rgbCache.set(token, [d[0], d[1], d[2]]);
+  }
+  const [r, g, b] = rgbCache.get(token);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+const fill = { early: "st-early-fill", ontime: "st-ontime-fill", late: "st-late-fill", verylate: "st-verylate-fill", nosignal: "st-nosig-fill" };
+const line = { early: "st-early-line", ontime: "st-ontime-line", late: "st-late-line", verylate: "st-verylate-line", nosignal: "st-nosig-line" };
+
+/* a deterministic street web, so the city is the same city on every load */
+let seed = 20260910;
+const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+
+function gridStreets(x0, x1, y0, y1, sx, sy, jit) {
+  const out = [];
+  for (let x = x0; x <= x1; x += sx) {
+    const j = (rnd() - 0.5) * jit;
+    out.push([[x + j, y0], [x + j * 0.4, (y0 + y1) / 2], [x + j, y1]]);
+  }
+  for (let y = y0; y <= y1; y += sy) {
+    const j = (rnd() - 0.5) * jit;
+    out.push([[x0, y + j], [(x0 + x1) / 2, y + j * 0.4], [x1, y + j]]);
+  }
+  return out;
+}
+const STREETS = [
+  ...gridStreets(700, 1140, 430, 770, 48, 46, 7),     // the downtown grid
+  ...gridStreets(640, 1060, 40, 400, 60, 56, 10),     // Northgate
+  ...gridStreets(110, 620, 470, 800, 58, 54, 11),     // Elmwood
+  ...gridStreets(130, 610, 30, 440, 70, 66, 14),      // Kelvin
+  ...gridStreets(240, 1200, 990, 1240, 64, 50, 9),    // Riverside and Southgate
+  ...gridStreets(1100, 1990, 40, 800, 68, 60, 12),    // Fairview and the docks
+  ...gridStreets(1330, 1900, 1080, 1240, 66, 54, 9),  // the eastern south bank
+  ...gridStreets(1120, 1560, 120, 340, 62, 58, 13),   // Fairview Heights terraces
+];
+const ARTERIALS = (() => {
+  const out = [], cx = 906, cy = 600;
+  for (let i = 0; i < 9; i++) {
+    const a = (i / 9) * Math.PI * 2 + 0.22, pts = [];
+    for (let r = 0; r <= 1180; r += 118) {
+      pts.push([cx + Math.cos(a) * r * 1.32 + Math.sin(r * 0.01) * 16,
+                cy + Math.sin(a) * r * 0.86 + Math.cos(r * 0.012) * 14]);
+    }
+    out.push(pts);
+  }
+  const ring = [];
+  for (let i = 0; i <= 48; i++) {
+    const a = (i / 48) * Math.PI * 2;
+    ring.push([cx + Math.cos(a) * 636 + Math.sin(a * 3) * 22, cy + Math.sin(a) * 428 + Math.cos(a * 3) * 18]);
+  }
+  out.push(ring);
+  return out;
+})();
+
+const STREET_LABELS = [
+  ["Kingsway", [620, 546], [900, 566]],
+  ["Ninth Street", [1010, 430], [1024, 700]],
+  ["Canal Street", [782, 448], [796, 748]],
+  ["Northgate Road", [856, 236], [880, 396]],
+  ["Harbour Road", [1420, 626], [1700, 666]],
+  ["Elm Road", [300, 650], [520, 600]],
+  ["Quay Street", [1560, 746], [1720, 776]],
+  ["Riverside Way", [500, 1030], [760, 1050]],
+  ["Hill Road", [1140, 426], [1280, 356]],
+];
+
+/* the camera: world units to screen pixels */
+const view = { cx: W / 2, cy: H / 2, z: 0.72 };
+const SX = (x) => (x - view.cx) * view.z + vw / 2;
+const SY = (y) => (y - view.cy) * view.z + vh / 2;
+const WX = (px) => (px - vw / 2) / view.z + view.cx;
+const WY = (py) => (py - vh / 2) / view.z + view.cy;
+function fitView() {
+  view.z = Math.max(vw / W, vh / H);
+  view.cx = W / 2; view.cy = H / 2;
+}
+/** The city always covers the window: panning past its edge would show bare
+    ground, and bare ground is the flat field the material has nothing to do
+    over. */
+function clampView() {
+  const hw = vw / 2 / view.z, hh = vh / 2 / view.z;
+  view.cx = hw * 2 >= W ? W / 2 : Math.min(W - hw, Math.max(hw, view.cx));
+  view.cy = hh * 2 >= H ? H / 2 : Math.min(H - hh, Math.max(hh, view.cy));
+}
+
+/* corridor geometry, measured once so a vehicle's t is a real arc length */
+for (const r of ROUTES) {
+  r.seg = []; r.len = 0;
+  for (let i = 1; i < r.pts.length; i++) {
+    const d = Math.hypot(r.pts[i][0] - r.pts[i - 1][0], r.pts[i][1] - r.pts[i - 1][1]);
+    r.seg.push(d); r.len += d;
+  }
+}
+function along(r, t) {
+  let d = ((t % 1) + 1) % 1 * r.len, i = 0;
+  while (i < r.seg.length && d > r.seg[i]) { d -= r.seg[i]; i++; }
+  i = Math.min(i, r.seg.length - 1);
+  const k = r.seg[i] === 0 ? 0 : d / r.seg[i], a = r.pts[i], b = r.pts[i + 1];
+  return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
+}
+
+const vehicles = FLEET.map(([fleet, ri, t, delta, stop, driver, load, nosig]) => ({
+  fleet, ri, t, delta, stop, driver, load, nosig: !!nosig,
+  route: ROUTES[ri],
+  block: String(ROUTES[ri].id).padStart(2, "0") + String(fleet % 100).padStart(2, "0"),
+  speed: 26 + (fleet % 7) * 2.4,
+  x: 0, y: 0, px: 0, py: 0, shown: true,
+}));
+for (const v of vehicles) { const p = along(v.route, v.t); v.x = p[0]; v.y = p[1]; }
+
+/* ── filters and selection ─────────────────────────────────────────────── */
+const filters = { routes: new Set(), states: new Set(), query: "" };
+let selected = null;             // fleet number or null
+let expandedAlert = ALERTS[0].id;
+let safeRects = [];              // the floating layer's boxes, for the hand-built safe area
+
+function matches(v) {
+  if (filters.routes.size && !filters.routes.has(v.route.id)) return false;
+  if (filters.states.size && !filters.states.has(stateOf(v))) return false;
+  const q = filters.query.trim().toLowerCase();
+  if (q) {
+    const hay = `${v.fleet} ${v.route.id} ${v.route.name} ${v.block} ${v.stop} ${v.driver}`.toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+const routeActive = (id) => !filters.routes.size || filters.routes.has(id);
+
+/* ── painting ──────────────────────────────────────────────────────────── */
+function path(p, pts, close) {
+  p.beginPath();
+  p.moveTo(SX(pts[0][0]), SY(pts[0][1]));
+  for (let i = 1; i < pts.length; i++) p.lineTo(SX(pts[i][0]), SY(pts[i][1]));
+  if (close) p.closePath();
+}
+function inSafe(x, y, pad = 12) {
+  for (const r of safeRects) {
+    if (x > r.left - pad && x < r.right + pad && y > r.top - pad && y < r.bottom + pad) return true;
+  }
+  return false;
+}
+
+function paintGround(p) {
+  p.fillStyle = C["map-land"]; p.fillRect(0, 0, vw, vh);
+
+  // low frequency: four built-density plateaus, the broad shape the lens bends
+  for (const [wx, wy, r, a] of [[906, 600, 620, 0.8], [846, 226, 400, 0.5], [1540, 720, 360, 0.44], [560, 1090, 380, 0.4]]) {
+    const g = p.createRadialGradient(SX(wx), SY(wy), 0, SX(wx), SY(wy), r * view.z);
+    g.addColorStop(0, rgba("map-density", a)); g.addColorStop(0.6, rgba("map-density", a * 0.4)); g.addColorStop(1, rgba("map-density", 0));
+    p.fillStyle = g; p.fillRect(0, 0, vw, vh);
+  }
+
+  for (const park of PARKS) { path(p, park.pts, true); p.fillStyle = C.green; p.fill(); }
+}
+
+function paintStreets(p) {
+  p.lineCap = "round"; p.lineJoin = "round";
+  p.strokeStyle = C["map-casing"]; p.lineWidth = Math.max(1, 3.4 * view.z);
+  for (const s of STREETS) { path(p, s); p.stroke(); }
+  p.strokeStyle = C["map-street"]; p.lineWidth = Math.max(0.8, 2.2 * view.z);
+  for (const s of STREETS) { path(p, s); p.stroke(); }
+
+  p.strokeStyle = C["map-art-casing"]; p.lineWidth = Math.max(1.4, 5.6 * view.z);
+  for (const s of ARTERIALS) { path(p, s); p.stroke(); }
+  p.strokeStyle = C["map-art"]; p.lineWidth = Math.max(1, 3.8 * view.z);
+  for (const s of ARTERIALS) { path(p, s); p.stroke(); }
+}
+
+function paintWater(p) {
+  // the canal first, so the reservoir's own edge closes over its head
+  p.lineCap = "round"; p.lineJoin = "round";
+  path(p, CANAL);
+  p.strokeStyle = C["water-edge"]; p.lineWidth = Math.max(2.6, 26 * view.z); p.stroke();
+  path(p, CANAL);
+  p.strokeStyle = C.water; p.lineWidth = Math.max(1.6, 21 * view.z); p.stroke();
+  path(p, RESERVOIR, true);
+  p.fillStyle = C.water; p.fill();
+  p.strokeStyle = C["water-edge"]; p.lineWidth = Math.max(1, 1.6 * view.z); p.stroke();
+
+  const river = [];
+  for (let x = -40; x <= W + 40; x += 80) river.push([x, bankN(x)]);
+  for (let x = W + 40; x >= -40; x -= 80) river.push([x, bankS(x)]);
+  path(p, river, true); p.fillStyle = C.water; p.fill();
+  p.strokeStyle = C["water-edge"]; p.lineWidth = Math.max(1, 1.6 * view.z); p.stroke();
+
+  path(p, HARBOUR, true); p.fillStyle = C.water; p.fill(); p.stroke();
+
+  p.fillStyle = C.n2;
+  for (const [x, y, w, h] of QUAYS) p.fillRect(SX(x), SY(y), w * view.z, h * view.z);
+
+  // bridges, drawn as light decks over the water
+  p.lineCap = "butt";
+  for (const b of BRIDGES) {
+    path(p, [b.a, b.b]);
+    p.strokeStyle = C["map-art-casing"]; p.lineWidth = Math.max(2, 9 * view.z); p.stroke();
+    p.strokeStyle = C["map-art"]; p.lineWidth = Math.max(1.4, 6 * view.z); p.stroke();
+  }
+  p.lineCap = "round";
+
+  // the rail line, dashed, running through Union Station
+  p.save();
+  p.setLineDash([7 * view.z, 5 * view.z]);
+  p.strokeStyle = C["map-rail"]; p.lineWidth = Math.max(1, 1.8 * view.z);
+  path(p, RAIL); p.stroke();
+  p.restore();
+}
+
+function paintGraticule(p) {
+  // painted INTO the texture, at 32 px with a major every 128 px, so the lens
+  // has a fine structure to displace as well as a broad one to bend
+  const step = 32, major = 128;
+  const ox = ((SX(0) % step) + step) % step, oy = ((SY(0) % step) + step) % step;
+  p.lineWidth = 1;
+  for (let x = ox; x < vw; x += step) {
+    const isMajor = Math.round((x - SX(0)) / step) % 4 === 0;
+    p.strokeStyle = isMajor ? C["map-grat"] : C["map-grat-minor"];
+    p.globalAlpha = isMajor ? 0.34 : 0.16;
+    p.beginPath(); p.moveTo(Math.round(x) + 0.5, 0); p.lineTo(Math.round(x) + 0.5, vh); p.stroke();
+  }
+  for (let y = oy; y < vh; y += step) {
+    const isMajor = Math.round((y - SY(0)) / step) % 4 === 0;
+    p.strokeStyle = isMajor ? C["map-grat"] : C["map-grat-minor"];
+    p.globalAlpha = isMajor ? 0.34 : 0.16;
+    p.beginPath(); p.moveTo(0, Math.round(y) + 0.5); p.lineTo(vw, Math.round(y) + 0.5); p.stroke();
+  }
+  p.globalAlpha = 1;
+
+  // grid references, in the mono, at the majors — the topographic annotation
+  p.font = `500 9px ${cssVar("--font-mono")}`;
+  p.fillStyle = C["map-grat"]; p.textAlign = "left"; p.textBaseline = "top";
+  const LET = "ABCDEFGHJKLMNPQRSTUV";
+  for (let x = ox; x < vw; x += step) {
+    const cx = Math.round((x - SX(0)) / step);
+    if (cx % 4 !== 0) continue;
+    for (let y = oy; y < vh; y += step) {
+      const cy = Math.round((y - SY(0)) / step);
+      if (cy % 4 !== 0) continue;
+      const ref = `${LET[((cx / 4) % 20 + 20) % 20]}${(((cy / 4) % 20) + 20) % 20}`;
+      if (inSafe(x + 4, y + 3, 6)) continue;
+      p.fillText(ref, x + 4, y + 3);
+    }
+  }
+}
+
+function paintCorridors(p) {
+  p.lineCap = "round"; p.lineJoin = "round";
+  for (const r of ROUTES) {
+    const on = routeActive(r.id);
+    p.globalAlpha = on ? 1 : 0.16;
+    path(p, r.pts, !!r.loop);
+    p.strokeStyle = C["map-corridor-halo"]; p.lineWidth = Math.max(3, 7.5 * view.z); p.stroke();
+    path(p, r.pts, !!r.loop);
+    p.strokeStyle = on ? C["map-corridor"] : C["map-corridor-off"];
+    p.lineWidth = Math.max(1.6, (on ? 3.4 : 2.4) * view.z); p.stroke();
+  }
+  p.globalAlpha = 1;
+}
+
+function paintShields(p) {
+  p.textAlign = "center"; p.textBaseline = "middle";
+  for (const r of ROUTES) {
+    if (!routeActive(r.id)) continue;
+    const anchors = r.loop ? [0.12, 0.62] : [0.04, 0.55, 0.97];
+    for (const t of anchors) {
+      const [wx, wy] = along(r, t);
+      const x = SX(wx), y = SY(wy);
+      if (x < 12 || x > vw - 12 || y < 12 || y > vh - 12) continue;
+      if (inSafe(x, y, 16)) continue;
+      const w = 22, h = 16;
+      roundRect(p, x - w / 2, y - h / 2, w, h, 3);
+      p.fillStyle = C["map-shield"]; p.fill();
+      p.lineWidth = 1; p.strokeStyle = C["map-shield-rule"]; p.stroke();
+      p.fillStyle = C["map-shield-ink"]; p.font = `800 10px ${cssVar("--font-ui")}`;
+      p.fillText(r.id, x, y + 0.5);
+    }
+  }
+}
+
+function paintAnnotations(p) {
+  p.textAlign = "center"; p.textBaseline = "middle";
+  for (const [name, wx, wy] of DISTRICTS) {
+    const x = SX(wx), y = SY(wy);
+    p.save(); p.letterSpacing = "1.5px";
+    p.font = `700 11px ${cssVar("--font-ui")}`;
+    const half = p.measureText(name.toUpperCase()).width / 2 + 4;
+    if (x - half < 8 || x + half > vw - 8 || y < 20 || y > vh - 20
+        || inSafe(x - half, y, 10) || inSafe(x + half, y, 10)) { p.restore(); continue; }
+    p.lineWidth = 3.5; p.lineJoin = "round"; p.strokeStyle = C["map-halo"];
+    p.strokeText(name.toUpperCase(), x, y);
+    p.fillStyle = C["map-ink"];
+    p.fillText(name.toUpperCase(), x, y);
+    p.restore();
+  }
+  for (const [name, wx, wy] of [["Kelvin Reservoir", 240, 96], ["Kelvin Cut", 900, 76], ["Ashe Reach", 1420, 900]]) {
+    const x = SX(wx), y = SY(wy);
+    p.font = `500 10px ${cssVar("--font-ui")}`;
+    const half = p.measureText(name).width / 2 + 4;
+    if (x - half < 8 || x + half > vw - 8 || y < 14 || y > vh - 14
+        || inSafe(x - half, y, 8) || inSafe(x + half, y, 8)) continue;
+    p.fillStyle = C["map-ink"];
+    p.fillText(name, x, y);
+  }
+  for (const park of PARKS) {
+    const x = SX(park.at[0]), y = SY(park.at[1]);
+    p.font = `500 10px ${cssVar("--font-ui")}`;
+    const half = p.measureText(park.name).width / 2 + 4;
+    if (inSafe(x - half, y, 8) || inSafe(x + half, y, 8)) continue;
+    p.fillStyle = C["map-ink"];
+    p.fillText(park.name, x, y);
+  }
+  for (const [name, a, b] of STREET_LABELS) {
+    const x1 = SX(a[0]), y1 = SY(a[1]), x2 = SX(b[0]), y2 = SY(b[1]);
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    if (mx < 30 || mx > vw - 30 || my < 14 || my > vh - 14) continue;
+    if (inSafe(mx, my, 12)) continue;
+    let a2 = Math.atan2(y2 - y1, x2 - x1);
+    if (a2 > Math.PI / 2) a2 -= Math.PI;
+    if (a2 < -Math.PI / 2) a2 += Math.PI;
+    p.save();
+    p.translate(mx, my); p.rotate(a2);
+    p.font = `500 10px ${cssVar("--font-ui")}`;
+    p.lineWidth = 3.5; p.lineJoin = "round"; p.strokeStyle = C["map-halo"];
+    p.strokeText(name, 0, -6);
+    p.fillStyle = C["map-ink"];
+    p.fillText(name, 0, -6);
+    p.restore();
+  }
+  for (const b of BRIDGES) {
+    const mx = (SX(b.a[0]) + SX(b.b[0])) / 2, my = (SY(b.a[1]) + SY(b.b[1])) / 2;
+    if (inSafe(mx, my, 12)) continue;
+    p.font = `500 10px ${cssVar("--font-ui")}`;
+    p.fillStyle = C["map-ink"];
+    p.fillText(b.name, mx + 46, my);
+  }
+}
+
+function roundRect(p, x, y, w, h, r) {
+  p.beginPath();
+  p.moveTo(x + r, y);
+  p.arcTo(x + w, y, x + w, y + h, r);
+  p.arcTo(x + w, y + h, x, y + h, r);
+  p.arcTo(x, y + h, x, y, r);
+  p.arcTo(x, y, x + w, y, r);
+  p.closePath();
+}
+
+/* The running blade — the signature element. A destination-blind chip: route
+   number in ink on a plate tinted by service state, ruled by the state at full
+   strength, with an adherence notch above or below so state is never hue alone. */
+function paintBlade(p, v) {
+  const x = Math.round(SX(v.x)), y = Math.round(SY(v.y));
+  v.px = x; v.py = y;
+  if (x < -40 || x > vw + 40 || y < -40 || y > vh + 40) return;
+  const st = stateOf(v);
+  const isSel = selected === v.fleet;
+  const dim = !v.shown;
+  p.globalAlpha = dim ? 0.22 : 1;
+
+  const w = 28, h = 20;
+  // the adherence notch: above for early, below for late, doubled for 10+ late
+  const notch = (dy, dir) => {
+    p.beginPath();
+    p.moveTo(x - 4, y + dy); p.lineTo(x + 4, y + dy); p.lineTo(x, y + dy + 4.5 * dir);
+    p.closePath(); p.fill();
+  };
+  p.fillStyle = isSel ? C.n9 : C[line[st]];
+  if (st === "early") notch(-h / 2 - 1, -1);
+  if (st === "late") notch(h / 2 + 1, 1);
+  if (st === "verylate") { notch(h / 2 + 1, 1); notch(h / 2 + 6, 1); }
+
+  roundRect(p, x - w / 2, y - h / 2, w, h, 5);
+  p.fillStyle = isSel ? C.n9 : C[fill[st]];
+  p.fill();
+  p.lineWidth = isSel ? 2 : 1.5;
+  p.strokeStyle = isSel ? C.n0 : C[line[st]];
+  p.stroke();
+
+  if (st === "nosignal") {
+    p.beginPath(); p.arc(x + w / 2 - 1, y - h / 2 + 1, 3, 0, Math.PI * 2);
+    p.fillStyle = C.n0; p.fill();
+    p.lineWidth = 1.2; p.strokeStyle = C[line.nosignal]; p.stroke();
+  }
+
+  p.font = `800 11px ${cssVar("--font-ui")}`;
+  p.textAlign = "center"; p.textBaseline = "middle";
+  p.fillStyle = isSel ? C.n0 : C.n9;
+  p.fillText(v.route.id, x, y + 0.5);
+  p.globalAlpha = 1;
+}
+
+const cssVarCache = new Map();
+function cssVar(name) {
+  if (!cssVarCache.has(name)) {
+    cssVarCache.set(name, getComputedStyle(document.documentElement).getPropertyValue(name).trim());
+  }
+  return cssVarCache.get(name);
+}
+
+function paint() {
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  paintGround(ctx);
+  paintStreets(ctx);
+  paintWater(ctx);
+  paintGraticule(ctx);
+  paintCorridors(ctx);
+  paintShields(ctx);
+  paintAnnotations(ctx);
+  for (const v of vehicles) if (!v.shown) paintBlade(ctx, v);
+  for (const v of vehicles) if (v.shown && selected !== v.fleet) paintBlade(ctx, v);
+  const sel = vehicles.find((v) => v.fleet === selected);
+  if (sel) paintBlade(ctx, sel);
+}
+
+function resize() {
+  vw = window.innerWidth; vh = window.innerHeight;
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.round(vw * dpr); canvas.height = Math.round(vh * dpr);
+  fitView();
+  clampView();
+  measureSafe();
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   3. THE GLASS ROOT — six surfaces, six groups, one texture
+   ════════════════════════════════════════════════════════════════════════ */
+
+const root = createGlassRoot({
+  renderer: "webgpu",
+  devMode: true,
+  colorScheme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+  // prefers-reduced-transparency is not Baseline, so stating the source is
+  // load-bearing rather than boilerplate: where an engine cannot answer, the
+  // runtime reports it instead of silently resolving false.
+  accessibilityOverrides: {
+    reducedTransparency: "system", reducedMotion: "system", increasedContrast: "system",
+  },
+});
+window.__vitrea = root;
+
+// declare the source, then supply the pixels — two steps, because core holds no
+// HTMLCanvasElement. A texture group declares no hint: the runtime reads the
+// real pixels and every group resolves analysis: "exact".
+root.registerBackdropSource({
+  id: "city", kind: "texture",
+  probe: { taint: "clean", textureCompatibility: "compatible" },
+});
+root.setBackdropTexture("city", { kind: "canvas", canvas });
+
+for (const id of ["routes", "state", "find", "view", "alerts", "platter"]) {
+  root.registerGroup({ id, backdropSourceId: "city" });
+}
+
+const base = root.plane("base").hostLayer;
+const overlay = root.plane("overlay").hostLayer;
+
+function host(el, groupId, radius, plane) {
+  (plane === "overlay" ? overlay : base).append(el);
+  const handle = root.registerHost({
+    host: el, groupId, plane: plane || "base",
+    shapeFamily: "fixed-rounded-rect",
+    radii: [radius, radius, radius, radius],
+    thickness: 8,
+  });
+  wirePress(el);
+  return handle;
+}
+
+/* press is the runtime's own glow at the pointer, written as channels — never a
+   colour swap, and never a second animation loop */
+const pressed = new Map();
+function wirePress(el) {
+  pressed.set(el, { v: 0, target: 0 });
+  el.addEventListener("pointerdown", (e) => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.pressX, ((e.clientX - r.left) / r.width).toFixed(3));
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.pressY, ((e.clientY - r.top) / r.height).toFixed(3));
+    pressed.get(el).target = 1;
+  });
+  for (const ev of ["pointerup", "pointerleave", "pointercancel"]) {
+    el.addEventListener(ev, () => { pressed.get(el).target = 0; });
+  }
+}
+
+/* ── surface 1 + 2: the two racks ──────────────────────────────────────── */
+const routesEl = document.createElement("div");
+routesEl.className = "gh rack"; routesEl.id = "routes";
+routesEl.setAttribute("role", "group");
+routesEl.setAttribute("aria-label", "Filter by route");
+for (const r of ROUTES) {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "seg"; b.setAttribute("role", "switch");
+  b.setAttribute("aria-checked", "false");
+  b.setAttribute("aria-label", `Route ${r.id} ${r.name}`);
+  b.dataset.route = r.id;
+  b.textContent = r.id;
+  b.addEventListener("click", () => {
+    filters.routes.has(r.id) ? filters.routes.delete(r.id) : filters.routes.add(r.id);
+    b.setAttribute("aria-checked", String(filters.routes.has(r.id)));
+    applyFilters();
+  });
+  routesEl.append(b);
+}
+host(routesEl, "routes", 14);
+
+const stateEl = document.createElement("div");
+stateEl.className = "gh rack"; stateEl.id = "state";
+stateEl.setAttribute("role", "group");
+stateEl.setAttribute("aria-label", "Filter by service state");
+const STATE_SEGS = [["", "All"], ["early", "Early"], ["late", "Late"], ["verylate", "10+ late"],
+                    ["nosignal", "No signal"], ["exceptions", "Exceptions"]];
+const EXCEPTION_STATES = ["late", "verylate", "nosignal"];
+for (const [key, label] of STATE_SEGS) {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "seg";
+  b.setAttribute("role", "switch"); b.setAttribute("aria-checked", key === "" ? "true" : "false");
+  if (key) b.dataset.state = key;
+  // the dot is the state's own colour, doubling the word; "Exceptions" is three
+  // states at once and has no single colour to show
+  if (key && key !== "exceptions") b.append(Object.assign(document.createElement("span"), { className: "dot" }));
+  b.append(document.createTextNode(label));
+  b.addEventListener("click", () => {
+    if (!key) filters.states.clear();
+    else if (key === "exceptions") {
+      const on = EXCEPTION_STATES.every((k) => filters.states.has(k));
+      filters.states.clear();
+      if (!on) for (const k of EXCEPTION_STATES) filters.states.add(k);
+    } else if (filters.states.has(key)) filters.states.delete(key);
+    else filters.states.add(key);
+    for (const seg of stateEl.querySelectorAll(".seg")) {
+      const k = seg.dataset.state || "";
+      seg.setAttribute("aria-checked", String(
+        k === "exceptions" ? EXCEPTION_STATES.every((x) => filters.states.has(x))
+          : k ? filters.states.has(k)
+          : filters.states.size === 0));
+    }
+    applyFilters();
+  });
+  stateEl.append(b);
+}
+host(stateEl, "state", 14);
+
+/* ── surface 3: search, at the bar's trailing edge ─────────────────────── */
+const findEl = document.createElement("div");
+findEl.className = "gh"; findEl.id = "find"; findEl.setAttribute("role", "search");
+findEl.innerHTML =
+  `<svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+     <circle cx="6.5" cy="6.5" r="4.6" stroke="currentColor" stroke-width="1.6"/>
+     <path d="M10 10L13.5 13.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+   </svg>
+   <label class="sr" for="q">Find a vehicle, block or stop</label>
+   <input id="q" type="search" placeholder="Fleet, block or stop" autocomplete="off" spellcheck="false">
+   <span class="count" id="findcount">40</span>`;
+host(findEl, "find", 14);
+const qInput = findEl.querySelector("#q");
+qInput.addEventListener("input", () => {
+  filters.query = qInput.value;
+  applyFilters();
+  const hits = vehicles.filter((v) => v.shown);
+  if (hits.length === 1) selectVehicle(hits[0].fleet, true);
+});
+
+/* ── surface 4: the view stack ─────────────────────────────────────────── */
+const viewEl = document.createElement("div");
+viewEl.className = "gh"; viewEl.id = "view";
+viewEl.setAttribute("role", "group"); viewEl.setAttribute("aria-label", "Map view");
+viewEl.innerHTML =
+  `<button type="button" data-a="in" aria-label="Zoom in">
+     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+       <path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+     </svg>
+   </button>
+   <span class="divider" aria-hidden="true"></span>
+   <button type="button" data-a="out" aria-label="Zoom out">
+     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+       <path d="M2 7.5h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+     </svg>
+   </button>
+   <span class="divider" aria-hidden="true"></span>
+   <button type="button" data-a="fit" aria-label="Fit the whole network">
+     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+       <path d="M1.6 5V1.6H5M10 1.6h3.4V5M13.4 10v3.4H10M5 13.4H1.6V10"
+             stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+     </svg>
+   </button>`;
+host(viewEl, "view", 14);
+viewEl.addEventListener("click", (e) => {
+  const a = e.target.closest("button")?.dataset.a;
+  if (a === "in") zoomBy(1.28);
+  else if (a === "out") zoomBy(1 / 1.28);
+  else if (a === "fit") { fitView(); announce("Map fitted to the whole network."); }
+});
+function zoomBy(k) {
+  view.z = Math.min(2.4, Math.max(Math.max(vw / W, vh / H), view.z * k));
+  clampView();
+  announce(`Map scale ${Math.round(view.z * 100)} percent.`);
+}
+
+/* ── surface 5: the alerts sidebar ─────────────────────────────────────── */
+const alertsEl = document.createElement("aside");
+alertsEl.className = "gh"; alertsEl.id = "alerts";
+alertsEl.setAttribute("aria-label", "Active alerts");
+alertsEl.innerHTML =
+  `<div class="side-head">
+     <p class="org">Ashport Transit Authority</p>
+     <div class="row"><h1>Active alerts</h1><span class="clock" id="clock">09:14:00</span></div>
+     <p class="summary" id="summary">40 in service · 6 alerts</p>
+   </div>
+   <div class="scroll-edge" id="edge" aria-hidden="true"></div>
+   <div class="side-list" id="list"></div>`;
+host(alertsEl, "alerts", 26);
+const listEl = alertsEl.querySelector("#list");
+const edgeEl = alertsEl.querySelector("#edge");
+listEl.addEventListener("scroll", () => { edgeEl.dataset.on = listEl.scrollTop > 2 ? "1" : "0"; });
+
+/* ── surface 6: the platter, on the overlay plane ──────────────────────── */
+const platterEl = document.createElement("div");
+platterEl.className = "gh"; platterEl.id = "platter";
+platterEl.setAttribute("role", "group");
+platterEl.setAttribute("aria-label", "Selected vehicle");
+platterEl.innerHTML =
+  `<span class="blade" id="p-blade">11</span>
+   <span class="txt">
+     <span class="l1"><span class="fleet" id="p-fleet">4412</span><span class="dest" id="p-dest"></span></span>
+     <span class="l2" id="p-meta"></span>
+   </span>
+   <span class="acts">
+     <button type="button" class="btn primary" id="p-hold">Hold</button>
+     <button type="button" class="btn" id="p-call">Call</button>
+   </span>`;
+const platterHandle = host(platterEl, "platter", 18, "overlay");
+platterEl.querySelector("#p-hold").addEventListener("click", () => {
+  const v = vehicles.find((x) => x.fleet === selected);
+  if (v) announce(`Hold instruction sent to ${v.fleet} on route ${v.route.id}.`);
+});
+platterEl.querySelector("#p-call").addEventListener("click", () => {
+  const v = vehicles.find((x) => x.fleet === selected);
+  if (v) announce(`Calling ${v.driver} on ${v.fleet}.`);
+});
+
+/* ════════════════════════════════════════════════════════════════════════════
+   4. RENDERING THE PANELS
+   ════════════════════════════════════════════════════════════════════════ */
+
+function stateSquare(st) {
+  return `<span class="sq" style="background:var(--st-${st === "nosignal" ? "nosig" : st}-fill);border-color:var(--st-${st === "nosignal" ? "nosig" : st}-line)"></span>`;
+}
+
+function renderAlerts() {
+  listEl.textContent = "";
+  for (const a of ALERTS) {
+    const open = expandedAlert === a.id;
+    const el = document.createElement("button");
+    el.type = "button"; el.className = "alert"; el.dataset.id = a.id;
+    el.setAttribute("aria-expanded", String(open));
+    const routes = a.routes.map((r) => `<span class="chip route">${r}</span>`).join("");
+    const fleetChips = a.vehicles.map((f) => `<span class="chip">${f}</span>`).join("");
+    el.innerHTML =
+      `<span class="top">${stateSquare(a.state)}<span class="ttl">${a.kind}</span><span class="at">${a.at}</span></span>
+       <p class="body">${a.body}</p>
+       <span class="meta">${routes}${fleetChips}<span class="state-word">${STATE_WORD[a.state]}</span></span>` +
+      (open
+        ? (a.cam
+            ? `<figure class="cam"><span class="plate" style="background:${a.cam.bg};display:block">
+                 <img src="${a.cam.src}" width="${a.cam.w}" height="${a.cam.h}" alt="${a.cam.alt}">
+               </span><figcaption>${a.cam.label}</figcaption></figure>`
+            : `<p class="no-cam">No street camera at this location — this alert is raised from vehicle telemetry.</p>`)
+          + `<span class="alert-actions">
+               <span class="btn primary">${a.actions[0]}</span>
+               <span class="btn">${a.actions[1]}</span>
+             </span>`
+        : "");
+    el.addEventListener("click", () => {
+      expandedAlert = expandedAlert === a.id ? null : a.id;
+      renderAlerts();
+      if (expandedAlert === a.id) {
+        selectVehicle(a.vehicles[0], true);
+        announce(`${a.kind}. ${a.body}`);
+      }
+    });
+    listEl.append(el);
+  }
+  // The page's credit line rides with the sheet at the widths where the camera
+  // frames and the map's own attribution line are not shown.
+  const credits = document.createElement("div");
+  credits.className = "credits";
+  credits.innerHTML =
+    `Ashport Transit Authority · network control. Fictional network, real cartographic conventions.
+     Street camera stills:
+     <a href="https://unsplash.com/@skyfly_rich?utm_source=designer&amp;utm_medium=referral">Richard Lu</a>
+     and <a href="https://unsplash.com/@a4ry55?utm_source=designer&amp;utm_medium=referral">Eyforis Lurt</a>
+     on <a href="https://unsplash.com/?utm_source=designer&amp;utm_medium=referral">Unsplash</a>.`;
+  listEl.append(credits);
+  edgeEl.dataset.on = listEl.scrollTop > 2 ? "1" : "0";
+}
+
+function renderRoster() {
+  const wrap = document.getElementById("roster");
+  wrap.textContent = "";
+  for (const v of vehicles) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = `${v.fleet}, route ${v.route.id} ${v.route.name}, block ${v.block}, ${deltaText(v)}, next ${v.stop}, driver ${v.driver}, ${v.load} passengers`;
+    b.addEventListener("click", () => selectVehicle(v.fleet, true));
+    wrap.append(b);
+  }
+}
+
+function applyFilters() {
+  let shown = 0;
+  for (const v of vehicles) { v.shown = matches(v); if (v.shown) shown++; }
+  document.getElementById("findcount").textContent = String(shown);
+  const s = document.getElementById("summary");
+  const exceptions = vehicles.filter((v) => ["late", "verylate", "nosignal"].includes(stateOf(v))).length;
+  s.textContent = shown === vehicles.length
+    ? `${vehicles.length} in service · ${exceptions} exceptions · ${ALERTS.length} alerts`
+    : `${shown} of ${vehicles.length} shown · ${exceptions} exceptions · ${ALERTS.length} alerts`;
+  renderEmpty(shown);
+}
+
+let emptyEl = null;
+function renderEmpty(shown) {
+  if (shown === 0 && !emptyEl) {
+    emptyEl = document.createElement("div");
+    emptyEl.className = "empty";
+    emptyEl.innerHTML =
+      `<b>Nothing matches this filter.</b>
+       No vehicle is on the selected routes in the selected state right now. Clear the state filter to see the whole network.`;
+    listEl.prepend(emptyEl);
+  } else if (shown > 0 && emptyEl) {
+    emptyEl.remove(); emptyEl = null;
+  }
+}
+
+function announce(text) { document.getElementById("live").textContent = text; }
+
+/* ── selection and the platter's materialise ───────────────────────────── */
+let platterAnim = null;
+function selectVehicle(fleet, fly) {
+  const v = vehicles.find((x) => x.fleet === fleet);
+  if (!v) return;
+  const from = platterEl.getBoundingClientRect();
+  selected = fleet;
+  const st = stateOf(v);
+  platterEl.querySelector("#p-blade").textContent = v.route.id;
+  platterEl.querySelector("#p-blade").style.background = `var(--st-${st === "nosignal" ? "nosig" : st}-fill)`;
+  platterEl.querySelector("#p-blade").style.borderColor = `var(--st-${st === "nosignal" ? "nosig" : st}-line)`;
+  platterEl.querySelector("#p-fleet").textContent = String(v.fleet);
+  platterEl.querySelector("#p-dest").textContent = `${v.route.id} ${v.route.name}`;
+  platterEl.querySelector("#p-meta").innerHTML =
+    `<b>${deltaText(v)}</b> · next ${v.stop} · ${v.driver}`;
+  platterEl.dataset.open = "1";
+
+  if (fly) {
+    const tx = v.x, ty = v.y;
+    const dx = tx - view.cx, dy = ty - view.cy;
+    if (Math.abs(dx) > W * 0.18 || Math.abs(dy) > H * 0.18) { view.cx += dx * 0.55; view.cy += dy * 0.55; }
+    clampView();
+  }
+  placePlatter(v, from);
+  announce(`${v.fleet} selected. Route ${v.route.id} ${v.route.name}, ${deltaText(v)}, next ${v.stop}.`);
+}
+
+const PLATTER_W = 460, PLATTER_H = 64;
+function placePlatter(v, fromRect) {
+  const pw = PLATTER_W, ph = PLATTER_H, gap = 18;
+  const sideRect = alertsEl.getBoundingClientRect();
+  let left = v.px + 22;
+  if (left + pw > sideRect.left - gap) left = v.px - 22 - pw;
+  left = Math.max(20, Math.min(left, vw - 20 - pw));
+  let top = v.py - ph / 2;
+  top = Math.max(84, Math.min(top, vh - 20 - ph));
+  platterEl.style.left = `${Math.round(left)}px`;
+  platterEl.style.top = `${Math.round(top)}px`;
+
+  // materialise: one registered host whose box the page animates from the blade
+  // it opened from. Never a cross-fade, never a second surface faded in.
+  if (root.accessibility?.motion?.elasticity === "none" || reducedMotion.matches) {
+    platterHandle.invalidateGeometry();
+    return;
+  }
+  const t0 = performance.now();
+  const startW = 30, startH = 22;
+  const startL = v.px - startW / 2, startT = v.py - startH / 2;
+  if (platterAnim) cancelAnimationFrame(platterAnim);
+  const step = (now) => {
+    const k = Math.min(1, (now - t0) / 220);
+    const e = 1 - Math.pow(1 - k, 3);
+    const w = startW + (pw - startW) * e, h = startH + (ph - startH) * e;
+    platterEl.style.width = `${w.toFixed(1)}px`;
+    platterEl.style.height = `${h.toFixed(1)}px`;
+    platterEl.style.left = `${(startL + (left - startL) * e).toFixed(1)}px`;
+    platterEl.style.top = `${(startT + (top - startT) * e).toFixed(1)}px`;
+    platterEl.style.setProperty(GLASS_CHANNEL_PROPERTIES.lens, e.toFixed(3));
+    platterHandle.invalidateGeometry();
+    if (k < 1) platterAnim = requestAnimationFrame(step);
+    else {
+      platterEl.style.width = ""; platterEl.style.height = "";
+      platterAnim = null; measureSafe();
+    }
+  };
+  platterAnim = requestAnimationFrame(step);
+}
+
+/* ── the hand-built safe area ──────────────────────────────────────────────
+   The desktop web has no safe-area inset, so the page owes the guarantee by
+   hand: the painter is given every floating box and suppresses its own
+   annotations, shields and grid references inside it, inflated by 12 px. */
+function measureSafe() {
+  const els = [routesEl, stateEl, findEl, viewEl, alertsEl];
+  if (platterEl.dataset.open === "1") els.push(platterEl);
+  safeRects = els.map((e) => e.getBoundingClientRect());
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   5. THE FRAME — one loop, the root's own
+   ════════════════════════════════════════════════════════════════════════ */
+
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const darkQuery = matchMedia("(prefers-color-scheme: dark)");
+function applyScheme() {
+  const dark = darkQuery.matches;
+  document.documentElement.dataset.scheme = dark ? "dark" : "light";
+  root.setColorScheme(dark ? "dark" : "light");
+  cssVarCache.clear();
+  readTokens();
+}
+darkQuery.addEventListener("change", applyScheme);
+
+let clockSeconds = 9 * 3600 + 14 * 60;
+let clockAcc = 0, stepAcc = 0;
+
+root.subscribe(({ deltaMs }) => {
+  const dt = Math.min(deltaMs, 100) / 1000;   // a backgrounded tab returns an
+                                              // arbitrarily large first step
+  for (const [el, p] of pressed) {
+    const k = Math.min(1, dt * 11);
+    p.v += (p.target - p.v) * k;
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.press, p.v.toFixed(4));
+    el.style.setProperty(GLASS_CHANNEL_PROPERTIES.glow, (p.v * 0.85).toFixed(4));
+  }
+
+  if (reducedMotion.matches) {
+    // reduced, not frozen: the positions are the information, so they step
+    stepAcc += dt;
+    if (stepAcc >= 4) { advance(stepAcc); stepAcc = 0; }
+  } else {
+    advance(dt);
+  }
+
+  clockAcc += dt;
+  if (clockAcc >= 1) {
+    clockSeconds += Math.floor(clockAcc); clockAcc %= 1;
+    const h = Math.floor(clockSeconds / 3600) % 24, m = Math.floor(clockSeconds / 60) % 60, s = clockSeconds % 60;
+    document.getElementById("clock").textContent =
+      `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  }
+
+  const sel = vehicles.find((v) => v.fleet === selected);
+  if (sel && platterEl.dataset.open === "1" && !platterAnim) {
+    const sideRect = alertsEl.getBoundingClientRect();
+    let left = sel.px + 22;
+    if (left + PLATTER_W > sideRect.left - 18) left = sel.px - 22 - PLATTER_W;
+    left = Math.max(20, Math.min(left, vw - 20 - PLATTER_W));
+    let top = Math.max(84, Math.min(sel.py - 32, vh - 84));
+    const cur = platterEl.getBoundingClientRect();
+    if (Math.abs(cur.left - left) > 1 || Math.abs(cur.top - top) > 1) {
+      platterEl.style.left = `${Math.round(cur.left + (left - cur.left) * Math.min(1, dt * 6))}px`;
+      platterEl.style.top = `${Math.round(cur.top + (top - cur.top) * Math.min(1, dt * 6))}px`;
+      platterHandle.invalidateGeometry();
+    }
+  }
+
+  paint();
+});
+
+function advance(dt) {
+  for (const v of vehicles) {
+    if (v.nosig) continue;
+    v.t = (v.t + (v.speed * dt) / v.route.len) % 1;
+    const p = along(v.route, v.t);
+    v.x = p[0]; v.y = p[1];
+  }
+}
+
+/* ── map interaction ───────────────────────────────────────────────────── */
+let drag = null;
+canvas.addEventListener("pointerdown", (e) => {
+  drag = { x: e.clientX, y: e.clientY, cx: view.cx, cy: view.cy, moved: false };
+  canvas.setPointerCapture(e.pointerId);
+  canvas.classList.add("dragging");
+});
+canvas.addEventListener("pointermove", (e) => {
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+    view.cx = drag.cx - dx / view.z;
+    view.cy = drag.cy - dy / view.z;
+    clampView();
+  } else {
+    canvas.classList.toggle("over-blade", !!hitBlade(e.clientX, e.clientY));
+  }
+});
+for (const ev of ["pointerup", "pointercancel"]) {
+  canvas.addEventListener(ev, (e) => {
+    if (drag && !drag.moved) {
+      const v = hitBlade(e.clientX, e.clientY);
+      if (v) { selectVehicle(v.fleet, false); liftAlertFor(v.fleet); }
+      else { selected = null; platterEl.dataset.open = "0"; measureSafe(); }
+    }
+    drag = null; canvas.classList.remove("dragging");
+  });
+}
+canvas.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  zoomBy(e.deltaY < 0 ? 1.08 : 1 / 1.08);
+}, { passive: false });
+
+function hitBlade(x, y) {
+  let best = null, bd = 20;
+  for (const v of vehicles) {
+    if (!v.shown) continue;
+    const d = Math.hypot(v.px - x, v.py - y);
+    if (d < bd) { bd = d; best = v; }
+  }
+  return best;
+}
+function liftAlertFor(fleet) {
+  const a = ALERTS.find((al) => al.vehicles.includes(fleet));
+  if (!a) return;
+  expandedAlert = a.id;
+  renderAlerts();
+  listEl.querySelector(`[data-id="${a.id}"]`)?.scrollIntoView({ block: "nearest" });
+}
+
+/* ── boot ──────────────────────────────────────────────────────────────── */
+/* Tab order follows the reading order the composition declared: the floating
+   controls first, then the page's own content. vitrea appends its plane root to
+   the body when the root is created, so the page's own trailing elements are
+   moved after it rather than the plane being moved before them. */
+for (const el of [document.querySelector(".scale"), document.querySelector(".attrib"),
+                  document.getElementById("roster"), document.getElementById("live")]) {
+  document.body.append(el);
+}
+
+window.addEventListener("resize", () => { resize(); measureSafe(); });
+
+applyScheme();
+readTokens();
+resize();
+renderAlerts();
+renderRoster();
+applyFilters();
+measureSafe();
+paint();
+
+document.fonts.ready.then(() => { cssVarCache.clear(); measureSafe(); paint(); });
+
+// The audit opens the one transient surface the resting captures cannot show.
+window.__glassDemo = {
+  openMenu() {
+    const a = ALERTS.find((x) => x.id === "a5");
+    expandedAlert = a.id;
+    renderAlerts();
+    selectVehicle(4412, true);
+  },
+};
+</script>
+</body>
+</html>
