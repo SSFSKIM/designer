@@ -395,14 +395,14 @@ const MATERIAL_PATCH_KEYS = new Set([
   "sizeScatterHeavyShareThick1x",
   "sizeScatterHeavyShareThick2x",
   "sizeToneLevelFar",
-  // W26 G0's three candidate heavy taps (W26 Decision Log 1; the measured cause
-  // in claims §5.116 §2), each inert at its default: a fractional pyramid level,
-  // a Gaussian at the tap whose σ is a device-px quantity anchored at both
-  // scales, and a share of the next chain level. A ladder rung names one of them.
-  "sizeHeavyLevelOffset",
+  // The heavy blur's width (W26; the measured cause in claims §5.116 §2 and the
+  // mechanism in §5.119), inert at 0 and anchored at both scales because it is a
+  // device-px quantity whose two readings do not halve into each other. G0's two
+  // other candidates — a fractional pyramid level and a share of the next chain
+  // level — were measured inert to the bit at dpr 1 and removed with the spike
+  // (W26 Decision Log 2 (a)), so a rung naming either would silently do nothing.
   "sizeHeavyTapSigma",
   "sizeHeavyTapSigma2x",
-  "sizeHeavySecondShare",
   // The lens (W12 G2): the gain on the reference's amount law, the height and
   // amount laws themselves, the thickness they are read at, the profile's
   // extent and exponent, and the direction's ovalization with its knee.

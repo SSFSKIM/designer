@@ -170,25 +170,18 @@ export interface OpticsPassArgs {
   readonly sizeScatterHeavyShareThick: number;
   readonly sizeToneLevelFar: number;
   /**
-   * W26 G0's three candidate heavy taps (W26 Decision Log 1; the measured cause
-   * in claims §5.116 §2), each 0 or off on the landed material.
+   * The heavy blur (W26; `MaterialProfile.sizeHeavyTapSigma`) — whether this
+   * group's source carries one, which is the whole of what this pass needs to
+   * know about it.
    *
-   * `heavyLevelOffset` is candidate (i), added to `scatterLod` before the same
-   * clamp. `heavySecondShare` is candidate (iii), the share of the next chain
-   * level. Candidate (ii) arrives already planned: the renderer has resolved the
-   * profile's σ in device px through the pyramid into the level to tap, the
-   * residual σ in that level's texels and the uv extent of one of them, because
-   * the CSS-px-to-texel conversion is knowable only where the chain was built —
-   * the same rule `bodyChainLod` and the shadow's lift LOD already follow.
-   * `heavyTapEnabled` is carried separately from the σ because a width that lands
-   * exactly on a chain level has residual σ 0 and is still a width.
+   * The width itself never reaches here: the pyramid built it into a texture of
+   * its own before any group was drawn (`PyramidResources.heavy`), so what the
+   * shader does is swap one `textureSampleLevel` of the chain for one
+   * `textureSampleLevel` of that texture. False on the landed material and
+   * wherever the source has no pyramid, and then the chain's own `scatterLod` tap
+   * is what runs — the 0.14.0 path, to the bit.
    */
-  readonly heavyLevelOffset: number;
-  readonly heavySecondShare: number;
   readonly heavyTapEnabled: boolean;
-  readonly heavyTapLevel: number;
-  readonly heavyTapResidualSigmaTexels: number;
-  readonly heavyTapStepUv: readonly [number, number];
   readonly rimTintChroma: number;
   readonly lightDirection: readonly [number, number];
   readonly shadowDepth: number;
@@ -341,7 +334,14 @@ export interface OpticsPassArgs {
    * tone level where the host measured no separate linear mean.
    */
   readonly backdropToneLinearMean: number;
-  readonly backdrop: { readonly chain: GPUTextureView; readonly body: GPUTextureView } | undefined;
+  readonly backdrop:
+    | {
+        readonly chain: GPUTextureView;
+        readonly body: GPUTextureView;
+        /** The heavy blur (W26), absent where the profile named no width. */
+        readonly heavy: GPUTextureView | undefined;
+      }
+    | undefined;
 }
 
 export interface HighlightPassArgs {
@@ -642,7 +642,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.groupId}`, 116);
+      const slot = uniformSlot(`optics:${args.groupId}`, 112);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -807,25 +807,24 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[105] = args.sizeToneLevelFar;
       d[106] = 0;
       d[107] = 0;
-      // W26 G0's three candidate heavy taps (W26 Decision Log 1). Two vec4s of
-      // their own: the tap's plan is four numbers the CPU resolved through the
-      // pyramid and there is no block above with four free slots, and a width
-      // living in the thick-span composite's padding would be a layout nobody
-      // could read. At the inert defaults `d[108]` and `d[111]` are zero — one
-      // addition of zero on `scatterLod` and one `mix` at zero — and `d[114]`
-      // stands the Gaussian tap's branch down, so the pass is the 0.14.0 bytes.
-      d[108] = args.heavyLevelOffset;
-      d[109] = args.heavyTapResidualSigmaTexels;
-      d[110] = args.heavyTapLevel;
-      d[111] = args.heavySecondShare;
-      d[112] = args.heavyTapStepUv[0];
-      d[113] = args.heavyTapStepUv[1];
-      d[114] = args.heavyTapEnabled ? 1 : 0;
-      d[115] = 0;
+      // The heavy blur's enable (W26). One vec4 of its own rather than a slot in
+      // the thick-span composite's padding, because a width's switch living in
+      // another facet's spare lane is a layout nobody could read back; the other
+      // three components are free and stay zero. At the inert default this is 0
+      // and the pass takes the chain tap it has always taken, so the bytes are
+      // the 0.14.0 bed's.
+      d[108] = args.heavyTapEnabled ? 1 : 0;
+      d[109] = 0;
+      d[110] = 0;
+      d[111] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
       const body = args.backdrop?.body ?? placeholderView;
+      // The heavy texture is bound at every draw because the bind group's layout
+      // is one layout; where there is none the placeholder stands in it and the
+      // enable above is what keeps the shader from reading it.
+      const heavy = args.backdrop?.heavy ?? placeholderView;
 
       const pipeline = opticsPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
@@ -850,6 +849,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             // read at all when the governor shrank them below the group's rect.
             { binding: 6, resource: context.flatSampler },
             { binding: 7, resource: args.fields.aux2.createView() },
+            { binding: 8, resource: heavy },
           ],
         }),
       );

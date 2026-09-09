@@ -1,36 +1,41 @@
 /**
- * W26 G0 — the heavy tap as a parameter: the three candidates' shape, and that all
- * three are inert at their defaults (W26 Decision Log 1; the measured cause in
- * claims §5.116 §2).
+ * W26 — the heavy blur: one width in device px per scale, built into a texture of
+ * its own by the pyramid's separable passes (W26 Decision Log 2; the measured
+ * cause in claims §5.116 §2 and the mechanism in §5.119).
  *
- * The spike lands three mechanisms and lands them off, so what this file pins is
- * what each of them is for and what none of them may reach:
+ * G0 built three candidate taps and measured two of them **inert to the bit** at
+ * dpr 1 — a fractional pyramid level and a blend of two levels both stop at
+ * `chainMaxLod`, which is exactly where the gain already saturates — so G1 removed
+ * them and built the third structurally. What this file pins:
  *
- *  1. **Inert at the defaults.** The level offset is one addition of zero to
- *     `scatterLod`, the second-level share one `mix` at zero, and the Gaussian
- *     tap's σ resolves to a plan whose enable is false — so the optics uniform's
- *     four new slots are zero and the pass takes the single `textureSampleLevel`
- *     the material has always taken. The pins here are on the arithmetic and on
- *     the uniform's bytes; the 33 renderer goldens and the bed's `rrect-sm` cells
- *     are the pin on the pixels.
+ *  1. **Inert at the default.** At σ 0 the pyramid allocates no heavy texture and
+ *     encodes no heavy pass, the optics uniform's new slot is zero and the pass
+ *     takes the single `textureSampleLevel` of the chain the material has always
+ *     taken. The pins here are on the arithmetic, on the passes and on the
+ *     uniform's bytes; the 33 renderer goldens and the bed's `rrect-sm` cells are
+ *     the pin on the pixels.
  *  2. **The chain's own width is measured, not assumed.** `CHAIN_LEVEL_SIGMA` is
  *     the simulation's reading of `WGSL_DOWNSAMPLE_PASS` and is what
  *     `heavyTapPlan` subtracts in quadrature. It is deliberately NOT
  *     `CHAIN_SIGMA_AT_LEVEL_1`, which is 24 % narrower and says of itself that it
- *     is advisory — the body blur can absorb that and the heavy tap cannot,
- *     because the heavy tap's whole claim is that the σ it is given comes back out
- *     of reader A.
- *  3. **The plan is monotone and unbounded by `chainMaxLod`.** The whole point of
- *     candidate (ii) is that a target the chain is too short to reach is still
- *     drawn, because the residual Gaussian carries the octave the chain lacks —
- *     which is exactly what the clamp on `scatterLod` cannot do.
- *  4. **The residual never exceeds what the tap can integrate.** The level is the
+ *     is advisory — the body blur can absorb that and the heavy blur cannot,
+ *     because its whole claim is that the σ it is given comes back out of reader A.
+ *  3. **The plan is monotone and unbounded by `chainMaxLod`.** The whole point is
+ *     that a target the chain is too short to reach is still drawn, because the
+ *     residual Gaussian carries the octave the chain lacks — which is exactly what
+ *     the clamp on `scatterLod` cannot do.
+ *  4. **The residual never exceeds what the blur can integrate.** The level is the
  *     deepest at or below the target, so the residual is bounded in that level's
- *     own texels, and the shader's 9 × 9 grid at one-texel spacing is at least
- *     three of them in every direction.
+ *     own texels, and `fs_blur`'s nine taps at one-texel spacing reach four of
+ *     them in every direction.
+ *  5. **The structure is the pyramid's, not the fragment shader's.** The heavy
+ *     texture is built once per source per frame beside the body, at the extent of
+ *     the level it was blurred from, and the optics pass reads it once. That is
+ *     what makes it 0.070 ms rather than the +1.1 ms G0 measured for a 9 × 9 grid
+ *     at the tap, and it is also what makes the width one per source.
  *
- * No fitted value is asserted anywhere here, on purpose: G0 measures the
- * mechanism and G1 fits the constant.
+ * No fitted value is asserted anywhere here, on purpose: the constants are fitted
+ * on captures and declared in the profile documents.
  */
 
 import { describe, expect, it } from "vitest";
@@ -59,12 +64,10 @@ const P = DEFAULT_MATERIAL_PROFILE;
 /** The bed's own backdrop: a 320 × 200 raster, whose chain is five levels deep. */
 const BED = planPyramid(320, 200, { scale: 1, maxDimension: 2048 });
 
-describe("W26 the three candidates are inert at their defaults", () => {
-  it("names all four constants at zero", () => {
-    expect(P.sizeHeavyLevelOffset).toBe(0);
+describe("W26 the heavy blur is inert at its default", () => {
+  it("names both constants at zero", () => {
     expect(P.sizeHeavyTapSigma).toBe(0);
     expect(P.sizeHeavyTapSigma2x).toBe(0);
-    expect(P.sizeHeavySecondShare).toBe(0);
   });
 
   it("resolves the tap σ to zero at every ratio, so no scale can switch it on", () => {
@@ -73,14 +76,14 @@ describe("W26 the three candidates are inert at their defaults", () => {
     }
   });
 
-  it("plans nothing at σ 0 — level 0, no residual, no step", () => {
+  it("plans nothing at σ 0 — level 0, no residual", () => {
     const plan = heavyTapPlan(0, BED);
     expect(plan.level).toBe(0);
     expect(plan.residualSigmaTexels).toBe(0);
   });
 });
 
-describe("W26 the tap σ is a per-scale constant", () => {
+describe("W26 the heavy σ is a per-scale constant", () => {
   it("interpolates between its two anchors and holds outside them", () => {
     // The pattern `sizeScatterGainMax2x` established: the reference's heavy
     // component is a device-px quantity that halves between the scales, so one
@@ -137,11 +140,11 @@ describe("W26 the chain's own width, and the plan built on it", () => {
   });
 
   it("keeps the residual inside the grid the shader integrates it over", () => {
-    // The shader's grid is 9 × 9 at one-texel spacing, so it reaches four texels
-    // in every direction. While the chain still has a level to grow into, the
+    // `fs_blur` is nine taps at one-texel spacing, so it reaches four texels in
+    // every direction. While the chain still has a level to grow into, the
     // plan's rule bounds the residual at about 1.46 of the chosen level's texels,
-    // which is 2.7 σ inside the grid — and renormalising the weights costs the
-    // kernel no mass there.
+    // which is 2.7 σ inside the kernel — and renormalising the weights costs it
+    // no mass there.
     for (let sigma = 0.1; sigma < 200; sigma *= 1.07) {
       const plan = heavyTapPlan(sigma, BED);
       if (plan.level === BED.maxLod) continue;
@@ -149,14 +152,14 @@ describe("W26 the chain's own width, and the plan built on it", () => {
     }
   });
 
-  it("names its own ceiling: past twice the chain's last level the grid truncates", () => {
+  it("names its own ceiling: past twice the chain's last level the kernel truncates", () => {
     // The honest limit of candidate (ii) on THIS bed. Level 4 is the last the
     // 320 × 200 chain has and is 13.4 texels wide, so a target up to about 26.8
-    // still lands inside the grid; past that the residual leaves it and the tap
-    // draws narrower than it was asked for. The wave's range is 10–25 device px
-    // at dpr 1, which is inside — but a wider fit at G1 needs a deeper chain or a
-    // wider grid, and the ceiling is stated here so that cannot be discovered by
-    // a capture.
+    // still lands inside the kernel; past that the residual leaves it and the
+    // blur draws narrower than it was asked for. The wave's range is 10–25 device
+    // px at dpr 1, which is inside — but a wider fit needs a deeper chain or a
+    // wider kernel, and the ceiling is stated here so that cannot be discovered
+    // by a capture.
     const ceiling = 2 * chainLevelSigma(BED.maxLod);
     expect(heavyTapPlan(ceiling * 0.99, BED).residualSigmaTexels).toBeLessThan(1.5);
     expect(heavyTapPlan(ceiling * 2, BED).residualSigmaTexels).toBeGreaterThan(3);
@@ -175,10 +178,13 @@ describe("W26 the chain's own width, and the plan built on it", () => {
     }
   });
 
-  it("states the step as one tap-level texel in uv, so the shader needs no extent", () => {
-    const plan = heavyTapPlan(14, BED);
-    expect(plan.stepUv[0]).toBeCloseTo(Math.pow(2, plan.level) / BED.width, 12);
-    expect(plan.stepUv[1]).toBeCloseTo(Math.pow(2, plan.level) / BED.height, 12);
+  it("lands the target width on the chain's own level where the chain has one", () => {
+    // The rule is `bodyBlurPlan`'s: the deepest level at or below the target, so a
+    // target that IS a chain level costs no residual pass width at all and a
+    // target between two levels is carried the rest of the way by the Gaussian.
+    const exact = heavyTapPlan(chainLevelSigma(3), BED);
+    expect(exact.level).toBe(3);
+    expect(exact.residualSigmaTexels).toBeCloseTo(0, 9);
   });
 });
 
@@ -228,19 +234,17 @@ function opticsUniformWrites(gpu: FakeGpu): Float32Array[] {
   return writes;
 }
 
-/** `heavyTap` lands at d[108..111] and `heavyStep` at d[112..115] (see `passes.ts`). */
-function heavyOf(write: Float32Array) {
-  return {
-    levelOffset: write[108],
-    residualSigmaTexels: write[109],
-    tapLevel: write[110],
-    secondShare: write[111],
-    stepUv: [write[112], write[113]],
-    enabled: write[114],
-  };
-}
+/** The heavy blur's enable lands at d[108] (`heavyTap.x`; see `passes.ts`). */
+const heavyEnabledOf = (write: Float32Array): number => write[108] as number;
 
-function lastOpticsUniform(overrides?: MaterialProfilePatch) {
+/**
+ * A renderer with one group over one gradient source, drawn once.
+ *
+ * `size` is the SOURCE's, not the viewport's: the leak below is a per-source
+ * allocation and the review's scenario states it at 1024², where the heavy
+ * texture and its scratch are 16 MiB of rgba16float apiece.
+ */
+function harness(overrides?: MaterialProfilePatch, size = 320) {
   const gpu = createFakeGpu();
   const writes = opticsUniformWrites(gpu);
   const renderer = createWebGPURenderer({
@@ -255,47 +259,113 @@ function lastOpticsUniform(overrides?: MaterialProfilePatch) {
       device: gpu.device,
       stops: linearGradientStops([0, 0, 0], [1, 1, 1]),
       generation: 1,
-      width: 320,
-      height: 200,
+      width: size,
+      height: size === 320 ? 200 : size,
     }),
   );
+  return { gpu, renderer, writes };
+}
+
+function drawOnce(overrides?: MaterialProfilePatch) {
+  const { gpu, renderer, writes } = harness(overrides);
   renderer.drawFrame(frameArgs(1));
   const last = writes.at(-1);
   expect(last).toBeDefined();
-  return heavyOf(last as Float32Array);
+  return { gpu, write: last as Float32Array };
 }
 
+/** Every heavy texture the fake device ever made for the source, and whether it is still alive. */
+const heavyTextures = (gpu: FakeGpu) =>
+  gpu.textures.filter((t) => t.label.endsWith(":heavy") || t.label.endsWith(":heavy-scratch"));
+
+describe("W26 the heavy blur is given back when the material stops asking for it", () => {
+  it("releases the heavy texture AND its scratch when the width returns to 0", () => {
+    // The review's scenario, and the leak it found: dropping `heavy` from the
+    // record leaves the pool holding both allocations, which nothing will bind
+    // and only `forget` would reclaim — 16 MiB of rgba16float each on a 1024²
+    // source, held until the source is unregistered.
+    const { gpu, renderer } = harness({ sizeHeavyTapSigma: 1, sizeHeavyTapSigma2x: 1 }, 1024);
+    renderer.drawFrame(frameArgs(1));
+    const built = heavyTextures(gpu);
+    expect(built.length).toBe(2);
+    expect(built.every((t) => !t.destroyed)).toBe(true);
+
+    renderer.setMaterialProfile({});
+    renderer.drawFrame(frameArgs(2));
+    expect(
+      heavyTextures(gpu).filter((t) => !t.destroyed),
+      "the heavy texture and its scratch are still held after the width returned to 0",
+    ).toEqual([]);
+  });
+
+  it("rebuilds a source whose width was a hair above 0, rather than calling it unchanged", () => {
+    // The tolerance comparison's blind spot: `same` is relative, so around zero it
+    // is an absolute tolerance of 1e-6 and it calls σ 1e-7 and σ 0 equal. They are
+    // not — at 1e-7 the plan resolves to level 0 with no residual, an unsampled
+    // copy of the backdrop, which is the FURTHEST thing from the chain tap σ 0
+    // means. A clean source would have kept it and the pass would have kept
+    // reading it.
+    const { gpu, renderer, writes } = harness({
+      sizeHeavyTapSigma: 1e-7,
+      sizeHeavyTapSigma2x: 1e-7,
+    });
+    renderer.drawFrame(frameArgs(1));
+    expect(heavyEnabledOf(writes.at(-1) as Float32Array)).toBe(1);
+    expect(heavyTextures(gpu).filter((t) => !t.destroyed).length).toBe(2);
+
+    renderer.setMaterialProfile({});
+    renderer.drawFrame(frameArgs(2));
+    expect(
+      heavyEnabledOf(writes.at(-1) as Float32Array),
+      "the optics pass is still bound to a heavy texture the material stopped asking for",
+    ).toBe(0);
+    expect(heavyTextures(gpu).filter((t) => !t.destroyed)).toEqual([]);
+  });
+});
+
 describe("W26 the slot plumbing", () => {
-  it("writes eight zeros on the landed material", () => {
-    const heavy = lastOpticsUniform();
-    expect(heavy.levelOffset).toBe(0);
-    expect(heavy.residualSigmaTexels).toBe(0);
-    expect(heavy.tapLevel).toBe(0);
-    expect(heavy.secondShare).toBe(0);
-    expect(heavy.stepUv).toEqual([0, 0]);
-    expect(heavy.enabled).toBe(0);
+  it("writes the enable at zero on the landed material", () => {
+    expect(heavyEnabledOf(drawOnce().write)).toBe(0);
   });
 
-  it("carries the level offset and the second-level share straight through", () => {
-    const heavy = lastOpticsUniform({ sizeHeavyLevelOffset: -0.75, sizeHeavySecondShare: 0.3 });
-    expect(heavy.levelOffset).toBeCloseTo(-0.75, 6);
-    expect(heavy.secondShare).toBeCloseTo(0.3, 6);
-    // Neither of them switches the Gaussian tap on: three candidates, three
-    // constants, and a ladder rung moves exactly one.
-    expect(heavy.enabled).toBe(0);
+  it("switches the enable on when the profile names a width", () => {
+    // The uniform carries the enable and nothing else: the width itself is
+    // already in the texture, so the shader's only decision is which texture the
+    // deep sample comes from.
+    const { write } = drawOnce({ sizeHeavyTapSigma: 20, sizeHeavyTapSigma2x: 20 });
+    expect(heavyEnabledOf(write)).toBe(1);
+  });
+});
+
+describe("W26 the heavy blur is the pyramid's, not the fragment shader's", () => {
+  const blurPasses = (gpu: FakeGpu, kind: string): readonly string[] =>
+    gpu.passes.filter((pass) => pass.label.includes(`:${kind}-blur-`)).map((pass) => pass.label);
+
+  it("encodes no heavy pass and allocates no heavy texture at σ 0", () => {
+    // What makes the mechanism free where it is declined, and what the goldens'
+    // byte-identity rests on: not a pass that writes the same pixels, but no pass.
+    const { gpu } = drawOnce();
+    expect(blurPasses(gpu, "body")).toHaveLength(2);
+    expect(blurPasses(gpu, "heavy")).toHaveLength(0);
+    expect(gpu.textures.filter((t) => t.label.endsWith(":heavy"))).toHaveLength(0);
   });
 
-  it("resolves the tap σ through the pyramid rather than passing it on", () => {
-    // The shader is handed a level, a residual σ in that level's texels and a uv
-    // step — never the profile's device-px σ, because only the pyramid knows the
-    // source's texels per CSS px and the downscale the plan applied.
-    const heavy = lastOpticsUniform({ sizeHeavyTapSigma: 20, sizeHeavyTapSigma2x: 20 });
-    expect(heavy.enabled).toBe(1);
-    const want = heavyTapPlan(20, BED);
-    expect(heavy.tapLevel).toBe(want.level);
-    expect(heavy.residualSigmaTexels).toBeCloseTo(want.residualSigmaTexels, 5);
-    expect(heavy.stepUv[0]).toBeCloseTo(want.stepUv[0] as number, 6);
-    expect(heavy.stepUv[1]).toBeCloseTo(want.stepUv[1] as number, 6);
+  it("encodes the same two separable passes as the body when a width is named", () => {
+    // Two passes per source per frame — the structure G0 measured at 0.070 ms
+    // against +1.1 ms for a 9 × 9 grid per covered pixel (W26 Decision Log 2 (b)).
+    const { gpu } = drawOnce({ sizeHeavyTapSigma: 20, sizeHeavyTapSigma2x: 20 });
+    expect(blurPasses(gpu, "heavy")).toHaveLength(2);
+  });
+
+  it("sizes the heavy texture at the extent of the level it was blurred from", () => {
+    // The body's rule, and the reason the width costs one texture rather than a
+    // full-resolution one: level 4 of the bed's chain is 20 × 12.
+    const { gpu } = drawOnce({ sizeHeavyTapSigma: 20, sizeHeavyTapSigma2x: 20 });
+    const level = heavyTapPlan(20, BED).level;
+    const want = BED.levels[level] as { width: number; height: number };
+    const heavy = gpu.textures.filter((t) => t.label.endsWith(":heavy"));
+    expect(heavy).toHaveLength(1);
+    expect([heavy[0]?.width, heavy[0]?.height]).toEqual([want.width, want.height]);
   });
 });
 
@@ -305,38 +375,32 @@ describe("W26 the slot plumbing", () => {
  * checked here is what the string must contain, in the spirit of
  * `wgsl-contract.test.ts`.
  */
-describe("W26 the optics pass's statement of the tap", () => {
-  it("carries both uniform slots the CPU writes", () => {
+describe("W26 the optics pass's statement of the heavy blur", () => {
+  it("carries the uniform slot and the texture binding the CPU writes", () => {
     expect(WGSL_OPTICS_PASS).toContain("heavyTap : vec4f");
-    expect(WGSL_OPTICS_PASS).toContain("heavyStep : vec4f");
+    expect(WGSL_OPTICS_PASS).toContain("@group(0) @binding(8) var backdropHeavy : texture_2d<f32>");
   });
 
-  it("adds the level offset inside the same clamp the gain has always taken", () => {
-    // Inside, not outside: the offset is a candidate for the width and not a way
-    // around the chain's own last level, and a fractional level past `maxLod` is
-    // a level the chain does not have.
+  it("leaves the gain's clamp exactly as the material has always taken it", () => {
+    // G0's level offset came out again: it could not widen anything at dpr 1,
+    // because there is no level past `ou.lens.w` to interpolate toward (W26
+    // Decision Log 2 (a)).
     expect(WGSL_OPTICS_PASS).toContain(
-      "let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)) + ou.heavyTap.x, 0.0, ou.lens.w);",
+      "let scatterLod = clamp(ou.size.w + log2(max(gainEff, 1e-4)), 0.0, ou.lens.w);",
     );
+    expect(WGSL_OPTICS_PASS).not.toContain("heavyStep");
   });
 
-  it("gates the Gaussian on its own enable and not on the residual σ", () => {
-    // A target width that lands exactly on a chain level has residual σ 0 and is
-    // still a width the profile asked for.
-    expect(WGSL_OPTICS_PASS).toContain("if (ou.heavyStep.z > 0.5)");
-    expect(WGSL_OPTICS_PASS).not.toContain("if (ou.heavyTap.y > 0.0)");
+  it("replaces the deep sample with one read of the heavy texture", () => {
+    expect(WGSL_OPTICS_PASS).toContain("if (ou.heavyTap.x > 0.5)");
+    expect(WGSL_OPTICS_PASS).toContain(
+      "scatterSample = textureSampleLevel(backdropHeavy, backdropSampler, refractedUv, 0.0);",
+    );
+    // One read, not a grid: the width is in the texture.
+    expect(WGSL_OPTICS_PASS).not.toContain("for (var j = -4; j <= 4; j = j + 1)");
   });
 
-  it("integrates a 9 x 9 grid and renormalises it", () => {
-    expect(WGSL_OPTICS_PASS).toContain("for (var j = -4; j <= 4; j = j + 1)");
-    expect(WGSL_OPTICS_PASS).toContain("for (var i = -4; i <= 4; i = i + 1)");
-    // Renormalised rather than pre-weighted, so the truncation costs no mass and
-    // the premultiplied alpha the tap averages stays the alpha the unpremultiply
-    // below it divides by.
-    expect(WGSL_OPTICS_PASS).toContain("scatterSample = acc / wsum;");
-  });
-
-  it("keeps the single tap as the path a default material takes", () => {
+  it("keeps the single chain tap as the path a default material takes", () => {
     expect(WGSL_OPTICS_PASS).toContain(
       "var scatterSample = textureSampleLevel(backdropChain, backdropSampler, refractedUv, scatterLod);",
     );

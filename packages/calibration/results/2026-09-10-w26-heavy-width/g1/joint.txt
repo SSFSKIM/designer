@@ -1,0 +1,33 @@
+W26 G1 §7 — one kernel fitted jointly across the impulse tile and `checkerboard-64`
+====================================================================================================
+
+Per-tile gain and per-tile polynomial; ONE sharp sigma, ONE heavy sigma, ONE share. Each
+tile's residual is normalised by its own signal, so the high-contrast checkerboard does not
+outvote the impulse tile by loudness. `separate` repeats each tile's own two-component fit
+beside it, and is quoted from `checker.txt` D and E rather than recomputed here.
+
+### 1x-light — reference
+
+    component | JOINT sharp   heavy  share   resid |        separate: impulse          checkerboard-64
+     rrect-lg |        2.75    9.37  0.786  0.3522 |                                                  
+              |   per-tile residual at the joint kernel: impulse 0.4717   checkerboard-64 0.1281
+     rrect-ml |        2.60    9.48  0.675  0.2296 |                                                  
+              |   per-tile residual at the joint kernel: impulse 0.2821   checkerboard-64 0.1499
+     rrect-md |        2.76    9.02  0.382  0.2333 |                                                  
+              |   per-tile residual at the joint kernel: impulse 0.2865   checkerboard-64 0.1464
+
+### 1x-light — vitrea r0
+
+    component | JOINT sharp   heavy  share   resid |        separate: impulse          checkerboard-64
+     rrect-lg |        1.69   11.28  0.812  0.4141 |                                                  
+              |   per-tile residual at the joint kernel: impulse 0.5676   checkerboard-64 0.0823
+     rrect-ml |        1.59   10.28  0.617  0.1470 |                                                  
+              |   per-tile residual at the joint kernel: impulse 0.1897   checkerboard-64 0.0736
+     rrect-md |        2.02   11.55  0.474  0.3084 |                                                  
+              |   per-tile residual at the joint kernel: impulse 0.4110   checkerboard-64 0.0849
+
+Vitrea's r0 rows are the CONTROL and its kernel is known: at the inert default the deep
+sample is the chain's own level 4, half-maximum sigma 13.42 device px, mixed with a body of
+1.25. A joint fit that recovers that from the two tiles together says the instrument pair is
+consistent and the reference's disagreement is Apple's kernel; one that does not says the
+disagreement is the instruments'.

@@ -191,9 +191,8 @@ export function chainLevelSigma(level: number): number {
 }
 
 /**
- * The plan for a **heavy** tap of σ level-0 texels (W26 G0, candidate (ii)): the
- * chain level to read, the residual σ in that level's own texels, and the uv
- * offset of one of its texels.
+ * The plan for the **heavy** blur of σ level-0 texels (W26; `sizeHeavyTapSigma`):
+ * the chain level to blur from and the residual σ in that level's own texels.
  *
  * The level is the deepest whose own blur is at or below the target, so the
  * residual never has to undo width the chain has already applied, and it is
@@ -202,15 +201,17 @@ export function chainLevelSigma(level: number): number {
  * chain is too short to supply, which is the whole reason this mechanism exists
  * (`MaterialProfile.sizeHeavyTapSigma`, and the measured cause in claims
  * §5.116 §2).
+ *
+ * This is `bodyBlurPlan`'s rule with one difference, and the difference is the
+ * measured chain kernel: the body's residual pass absorbs whatever
+ * `CHAIN_SIGMA_AT_LEVEL_1` misses, while the heavy blur's whole purpose is that
+ * the σ it is given comes back out of reader A, so it subtracts `CHAIN_LEVEL_SIGMA`
+ * — the width the chain really draws — in quadrature instead.
  */
 export function heavyTapPlan(
   sigmaTexels: number,
   plan: PyramidPlan,
-): {
-  readonly level: number;
-  readonly residualSigmaTexels: number;
-  readonly stepUv: readonly [number, number];
-} {
+): { readonly level: number; readonly residualSigmaTexels: number } {
   let level = 0;
   if (sigmaTexels > 0) {
     for (let i = 1; i < plan.levelCount; i += 1) {
@@ -221,9 +222,5 @@ export function heavyTapPlan(
   const scale = Math.pow(2, level);
   const covered = chainLevelSigma(level);
   const residual = Math.sqrt(Math.max(sigmaTexels * sigmaTexels - covered * covered, 0)) / scale;
-  return {
-    level,
-    residualSigmaTexels: residual,
-    stepUv: [scale / Math.max(plan.width, 1), scale / Math.max(plan.height, 1)],
-  };
+  return { level, residualSigmaTexels: residual };
 }

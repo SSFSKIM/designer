@@ -151,6 +151,15 @@ the user's eye; X7 the dark profile a difference document.
 
 ## Deferred / Out of Scope
 
+- **The 1x heavy width, and the probe fixture that would let it be fitted** (Decision Log 3 (b)) —
+  a wider pitch AND a larger dot, so the transmitted heavy peak is codes rather than a fraction of
+  one; a native sitting, which is the user's console.
+- **The sharp component at 1x, 40 % narrow and unaddressed.** Vitrea reads 1.65–1.84 device px at
+  every rung against the reference's 2.74–2.79, and no constant in the material moves it (claims
+  §5.120 §8).
+- **The 2x span grading the one-width-per-source structure gives up** — the reference's `-lg` row
+  reads 16.92 against `-md`'s 11.29 at 2x, and the chain's clamped tap followed that where a single
+  width cannot (Decision Log 2 (f), measured in Decision Log 3 (f) (i)).
 - The rim's arc amplitude as a three-term joint fit (W23's law, W24's exponent, W25's field).
 - The size-keyed light adaptation of a small surface over a bright backdrop in the dark scheme.
 - The contour instrument's refusal on flat-cornered dark squares; the 2x reference's run-to-run
@@ -161,7 +170,7 @@ the user's eye; X7 the dark profile a difference document.
 | child | status |
 | --- | --- |
 | G0 — the heavy tap as a parameter | CLOSED 2026-09-10 (claims §5.119) |
-| G1 — the width, the share, the lever, the level | DISPATCHED 2026-09-10 (Decision Log 2 (f)) |
+| G1 — the width, the share, the lever, the level | DELIVERED 2026-09-10 (claims §5.120 DRAFT; Decision Log 3 DRAFT — two rulings open) |
 | G2 — declared and dry-run | — |
 | G3 — the landing | — |
 
@@ -222,8 +231,153 @@ reports it rather than takes it. On (b): one width per source loses the 2x span 
 and that is recorded as a named gap in the tracker at G1's declaration rather than answered with a
 second texture; the mid-span rows are the check that the one width does not cross a floor.
 
+### Decision Log 3 — G1's read: the mechanism is free, the 1x width is unfittable on this bed, and two costs are the parent's to rule (2026-09-10; claims §5.120 DRAFT)
+
+DRAFT, by G1. The parent rules (a)–(f) and amends beside; G2 declares whatever survives.
+
+(a) **The tap is structural and it is exact.** The heavy width is a third pyramid texture built by
+the existing separable body blur, and at σ2x 11.3 it reproduces G0's 9 × 9 in-shader grid on all
+three 2x impulse rows **to the last digit** — 12.22 / 11.95 / 12.04, 0.0 % against a 5 % acceptance.
+The bench row is 2.366 ms against a 2.186 ms control, +0.180 ms inside the 0.2 ms acceptance, with
+the OPTICS pass unchanged and the whole cost on `body-blur`. Inert at 0 to the bit (33 goldens,
+36 bed rows). Decision Log 2 (b) is executed and closed.
+
+(b) **The 1x width cannot be fitted on this bed, and the cause is the FIXTURE.** Decision Log 2 (c)
+named reader A's window; that is the smaller half. The 1x `impulse` interior carries about one
+display code of modulation in total (native `rrect-lg`: standard deviation 0.0055 at a level of
+0.4508, where one 8-bit sRGB code is 0.0059), and the heavy component's own peak is 0.08–0.33 codes.
+A heavy component of 13.42 device px and one of 25.0 device px are bit-identical on 96.7 % of the
+tile after quantisation. Reader D — validated exact on the model, within 5.2 % on the chain's own
+kernel, and within a median 4.5 % of reader A where reader A works — reads to 1.6 % where the heavy
+peak is 2.56 codes and misses by 79–90 % under half a code. **The instrument extension worked and
+the fixture is the wall.** The fallback is a probe scene whose transmitted dot peak is many codes
+(about a 12 CSS px dot on a 128 CSS px pitch) captured in a native sitting; G1 reports it and does
+not take it, per the ruling that a sitting is the user's console.
+
+(c) **The 1x anchor is named, not fitted, and it is free.** `sizeHeavyTapSigma` = 13.418 =
+`CHAIN_LEVEL_SIGMA[4]`, the width the clamped tap already draws at dpr 1. It is **byte-identical**
+on all 17 1x ladder rows and every 1x and dark probe cell, it keeps `rampAtScale` continuous between
+the anchors (a 1x anchor of 0 beside a nonzero 2x anchor would make the heavy blur vanish at dpr 1
+and be a fraction of a pixel wide at dpr 1.05), and it turns the 1x heavy width from a property of
+the backdrop raster's size into a material constant every raster reproduces. That last is a
+correctness improvement independent of any fit and closes one of G0's tracker entries.
+
+(d) **The reference's own 2x `-ml` and `-lg` rows are unconditioned**, and reader A's fitted SHARP
+component is what says so: 11.80 and 9.67 device px against `rrect-md`'s 1.40 and the 1x rows'
+2.74–2.79. Reader A has split a single wide kernel there. `sizeHeavyTapSigma2x` is therefore fitted
+on `impulse__rrect-md` alone — residual |log| 0.2536 → 0.0143 at **10.3** — and §5.113 §2's readings
+for those two rows stand as recorded with this one beside them.
+
+(e) **Three constants decline on measurement.** `sizeScatterFloor2x` stays 1: the objective is flat
+(0.1174 → 0.1140 at 0.85, worse below) and every value off 1 moves the thin `impulse__rrect-sm` row,
+which X5 forbids — the floor has no `sizeThick` factor to make it inert at the thin end the way the
+lift does, and that structural difference is the decision. `sizeScatterHeavyShareThick2x` stays 0:
+the 2x share is too HIGH, so a lift is the wrong sign, which answers "the lift applied before the
+floor" without a code change. `sizeToneLevelFar` stays 0: the candidate moves no probe solid by more
+than 0.00001 and W25's sign flip across backdrops is unchanged, so the flip was never a symptom of a
+narrow heavy component.
+
+(f) **Two rulings for the parent.** (i) `impulse__rrect-lg` at 2x goes 16.59 → 11.07 against an
+unconditioned reference of 16.92; G2's stop S15 fires on it as stated. The choices are to re-state
+S15 onto the conditioned rows, to accept it as the gap Decision Log 2 (f) already recorded, or to
+decline the 2x width — in which case (c)'s anchor is all W26 lands, byte-identical. The advisory
+remedy (blending the chain's tap back by the ramp) does not reach it: the row is at the THICK end of
+that ramp, and the mid-span rows the advisory was written for move by 0 at 1x and under 0.0004 ΔE at
+2x. (ii) `sizeScatterHeavyShareThick1x` = 0.25 improves the identified share by 72 % (mean |Δ|
+0.2652 → 0.0745) and WORSENS the bed's OKLab ΔE at every 1x thick span (96: 6 / 9 cells, 128: 5 / 7,
+160: 7 / 12). Those columns isolate the lift exactly, since the 1x width is byte-identical. The
+wave's premise was that the share could be raised once the width was right; at 1x the width could not
+be made right, so the premise was never tested, and declining the lift is the consistent reading of
+W25.
+
+(g) **The bed stands.** Every adopted bound and all fourteen thick regression floors pass at the
+candidate; no floor became removable. Two gate assertions fail as one improvement: the conditioning
+predicate ADMITS two 2x-light texture cells the frozen bed excludes, and both meet the bounds.
+`PREDICATE_EXCLUDES` and the 2x-light count are G2's edit. X5 over 81 thin probe cells: worst move
+0.00017 against 0.001.
+
+### Decision Log 4 — the parent's two rulings, and G1 §7's follow-on: a readable 1x lever and an unidentified target (2026-09-10; claims §5.120 addendum)
+
+(a) **S15 is re-stated** (the parent): "any fitted row, or any row whose reference two-component fit
+is conditioned (sharp under 4 device px)". It does not fire on `impulse__rrect-lg` at 2x — not a
+fitted row, and its reference fit returns a sharp component of 9.67 device px — so Decision Log
+3 (f) (i)'s first choice is taken and the row's move stays the gap Decision Log 2 (f) recorded.
+
+(b) **`sizeScatterHeavyShareThick1x` = 0.25 is DECLINED** at the current 1x width (the parent), on
+the evidence shape W25 declined it on. Re-tested only if the 1x width becomes fittable; (e) says it
+does not, so the decline stands and W25's four declines are joined by this one.
+
+(c) **The dark columns of G1's probe table were the inert material.** A scratch rung writes its
+constants into the LIGHT document only, and the dark difference document is resolved over
+`DEFAULT_MATERIAL_PROFILE` rather than over the light patch — so the dark captures took this wave's
+constants from the code default of 0. Nothing about the dark scheme makes the heavy width inert; a
+LANDED constant reaches it, because landing edits the default. Re-captured with the candidate in
+both documents the dark bed moves and X5 holds at 0.00013 over 41 thin cells. **The lesson
+generalises past this wave: a scratch rung is not a rehearsal of a landing unless every document a
+landing would move is moved in the rung**, and the two differ precisely for constants the dark patch
+does not name.
+
+(d) **The coarse checkerboards are an instrument for the 1x width after all**, and Decision Log 2 (d)
+is not disturbed: what it retired was a SINGLE-Gaussian objective dominated by the kernel's core. A
+two-component lattice reader on `checkerboard-64` — 63–73 display codes where the impulse tile's
+heavy component has 0.08–0.33 — returns the drawn width to 0.0–1.8 % on synthetics at the fixtures'
+own contrast and tracks readers A and D within 10–13 % at 2x, and vitrea's 1x ladder on it is
+monotone at a slope of 0.95 from σ 13.418 up. `checkerboard-32` cannot, and its pitch says so before
+any capture.
+
+(e) **The 1x width is still not fitted, and the reason has changed.** The lever is readable and the
+TARGET is not identified: the reference's 1x heavy component reads 8.4–8.7 through `checkerboard-64`
+and 14.7–23.3 through the impulse tile, a joint fit across both tiles lands at 9.0–9.5 and **fails
+its control** by under-reading vitrea's known 13.42 by 14–23 %, and every reader's residual on the
+real surfaces is 5–7 times its residual on its own synthetics. Apple's kernel is not two Gaussians;
+which two a reader recovers depends on the backdrop. Fitting on either instrument would be fitting
+an instrument, which is the failure mode this wave was chartered to avoid.
+
+(f) **What that puts in question is W25 clause 2**, whose "heavy σ within 15 % of the reference's at
+both scales" presumes the reference's heavy σ is a single number. It is a projection onto a
+two-Gaussian basis and the projection is backdrop-dependent by a factor of 3 at 1x after each
+instrument is debiased against vitrea's known kernel. The parent's clause list is the parent's; G1
+records the measurement and does not amend the clause.
+
+(g) **The next instrument, and it needs no sitting** — a kernel model with more than two components,
+or two with a shape parameter, fitted jointly across three or more backdrops of one surface and
+validated first on VITREA's own known kernel. That control is the one every reader in this wave
+should have had, and building it is what turned the disagreement from a puzzle into a measurement.
+The wider-pitch impulse probe scene stays the fallback for the impulse-side reading and drops to
+second priority.
+
 ## Surprises & Discoveries
 
+- **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
+  `DEFAULT_MATERIAL_PROFILE`, not over the light patch, so a rung that patches the light document
+  alone renders the dark scheme at the CODE defaults — which for a wave's new constants is inert.
+  Every dark reading taken that way measures the old material, and the tell is that it moves by
+  exactly zero.
+- **The reference's heavy component is not one number.** Read through the impulse tile it is 19.5
+  device px at 1x; read through `checkerboard-64` it is 8.4; a joint fit across both says 9.4 and
+  under-reads vitrea's KNOWN kernel by a fifth. Apple's kernel is not two Gaussians, and a
+  two-Gaussian reader recovers whichever two the backdrop weights — which means a wave can fit a
+  constant to a target that does not exist.
+- **The control nobody built.** Vitrea's own drawn kernel is known exactly at the inert default
+  (the chain's level 4, half-maximum σ 13.42), so every reader could have been calibrated against a
+  ground truth at any point since W24. Doing it for the first time here put a ±10-40 % bias on each
+  instrument and turned an argument between readers into a measurement.
+- **The impulse fixture's own dynamic range is the wall at 1x, not the reader.** W26 G0 read reader
+  A's half-pitch window as the cause of the unreadable 1x ladder. G1 built the window away and found
+  the fixture underneath it: the 1x `impulse` interior carries about one 8-bit code of modulation in
+  total, and the heavy component's share of that is a fraction of a code. Every "the reader parks on
+  its bound" reading in this wave and in W25 inherits that, and so does the reference's own 19.52.
+- **Reader A's fitted SHARP component is a conditioning statistic and nobody had read it as one.**
+  Where it comes back at 9–12 device px the two-component fit has split one wide kernel in half and
+  the "heavy" it reports is not a component. That is what the reference's 2x `-ml` and `-lg` rows do.
+- **Naming the chain's own width is byte-identical.** `heavyTapPlan` at `CHAIN_LEVEL_SIGMA[4]` picks
+  level 4 with a residual of exactly zero, and the separable pair then reproduces the chain tap it
+  replaces to the bit — so the mechanism can take over the 1x width at literally no cost, which is
+  what makes the ramp between the two scale anchors safe to close.
+- **The candidate CONDITIONS two cells the frozen bed excludes.** `checkerboard__rrect-md` and
+  `checkerboard__toolbar-group` on `apple-macos-26.5-2x-light-standard` enter the shape gate at the
+  candidate and meet its bounds. A fidelity change moving `PREDICATE_EXCLUDES` is usually a cell
+  falling out; this one is two falling in.
 - **The gain was never a width.** `bodyChainLod + log2(8)` = 4.0589 against a `chainMaxLod` of 4:
   the material has been clamped since W11c fitted it, and W15 G1's 2x re-form fitted two more
   constants (`sizeScatterGainMax2x`, `sizeScatterGainFar2x`) onto the same axis. They were fitted
@@ -250,3 +404,14 @@ second texture; the mid-span rows are the check that the one width does not cros
 - 2026-09-10: the parent's ruling appended as Decision Log 2 (f); G1's section re-stated in three
   parts (the structural tap, the lattice reader, the fits) with the original line kept beneath.
   G1 dispatched.
+- 2026-09-10: G1 DELIVERED (claims §5.120 DRAFT). The structural tap accepted at 0.0 % against the
+  grid and +0.180 ms against the control; the lattice reader validated and the 1x fixture measured as
+  the wall; the 2x width, the 1x anchor and the 1x share fitted, three constants declined, the bed's
+  fourteen floors and every bound passing. Decision Log 3 records the read and leaves two rulings —
+  S15 on the 2x `-lg` row, and whether the 1x share lift's off-row cost is acceptable — to the
+  parent.
+- 2026-09-10: the parent's rulings recorded as Decision Log 4 (a) and (b); G1 §7 delivered on the
+  follow-on. `checkerboard-64` reads the 1x width where the impulse fixture cannot, and the fit is
+  still declined because the reference's 1x heavy component is not identified — a factor of 3 between
+  instruments after each is debiased against vitrea's own known kernel. The dark bed re-captured with
+  the candidate in both documents. The candidate is unchanged.
