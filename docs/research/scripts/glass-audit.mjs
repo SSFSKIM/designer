@@ -542,9 +542,11 @@ async function auditOne(browser, dir) {
         sampling: g.state?.samplingBackend ?? null, health: g.state?.health ?? null,
       }))
       : null,
+    // The same shape as the resting `diagnostics` (code, subjects, message), minus what was
+    // already reported at rest: a menu-pass diagnostic is about the platter's arrival.
     menuDiagnostics: menuGlass
       ? menuGlass.diagnostics.filter((d) => !glass.diagnostics.some((p) => p.code === d.code
-        && p.subjects.join() === d.subjects.join())).map((d) => d.code)
+        && p.subjects.join() === d.subjects.join()))
       : null,
     reduced,
     captures: ["shot-fv.png", "shot-full.png", "tile-2.png", "tile-3.png", "shot-menu.png",
