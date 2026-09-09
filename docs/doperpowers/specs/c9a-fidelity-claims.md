@@ -15079,3 +15079,72 @@ Decision Log 4 (a); the 1x share lift declined (4 (b)); the reference's kernel u
 two-Gaussian reader (4 (e)), so G1b identifies it non-parametrically under a binding control before
 G2 declares, and clause 2 is re-stated beside its original as an MTF match. The wider-pitch impulse
 probe (a sitting) stays second priority.
+
+### 5.121 W26 G1b CLOSED: the kernel's shape is not identified by this bed and a width is — read jointly across eight backdrops with the renderer's own draw as the control, Apple's heavy component is 8.6–9.2 device px at 1x and 8.7–9.6 at 2x, vitrea's 13.418 at dpr 1 is half again too wide, and the share is already within 0.07 (2026-09-10)
+
+**Evidence** `results/2026-09-10-w26-heavy-width/g1b/` — `g1b-findings.md`, `align.txt`,
+`synth.txt`, `truth.txt`, `control.txt`, `reference.txt`, the readers `w26blib.py` / `w26brows.py`
+and the scripts beside them. A spike; nothing fitted, nothing landed; read-only on every canonical
+file.
+
+**§1 The raster is where the harness drew it.** On every `rrect-sm` scene the fixture's free
+background matches the committed raster at shift (0, 0), gain 1.0000, 0.00 display codes, both
+scales, both schemes (`hc-text` at 2x 1.57 codes, the harness's text antialiasing). A recovered
+width is not a displaced raster.
+
+**§2 The free profile fails its control.** A forty-node non-negative radial profile fitted jointly
+across `impulse`, `checkerboard-64/-32/-16/-8/-4`, `hc-text` and `photo` recovers five known kernels
+from synthetics at the fixtures' own levels to 0.5–8 % in MTF — and on vitrea's real captures fits
+the pixels BETTER than the kernel vitrea draws while missing its half maximum by 19–38 % and moving
+its second moment 11.8 → 28.4 when one backdrop is dropped. The shape is not identified at 8 bits.
+Two corrections to the statement of what vitrea draws came out of the control: the body is the
+chain's level-1 kernel (half-maximum σ 1.542, kurtosis −0.43) plus a residual of a third of a
+texel, not a Gaussian of `blurSigma` 1.25; and `kScatter` over a band is pixel-weighted (0.924
+against 0.913 on `rrect-md` at 2x).
+
+**§3 A width is identified.** The family the material itself computes — body + `heavyTapPlan`'s
+kernel at a share — fitted to the same pixels returns the drawn σ to **−0.6 %** on both 1x bands
+(13.418 for 13.500-equivalent) and the share within 0.043 everywhere; 5–10 % narrow on the 2x bands,
+where the drawn tap is a trilinear blend outside the family — the family's measured bias. With no
+family at all, a scan of the chain LOD on `rrect-lg` at 2x past 50 CSS px puts the minimum at 3.7
+against the arithmetic's 3.780, doubling within half a level either side. `control.txt`.
+
+**§4 Apple's kernel, read with the instrument that passed** (σ = `sizeHeavyTapSigma`, device px;
+share beside; vitrea 0.14.0 beside):
+
+| surface | scale | scheme | reference σ | share | vitrea σ | share |
+| --- | --- | --- | --- | --- | --- | --- |
+| `rrect-md` | 1x | light | **9.11** | 0.436 | 13.418 | 0.499 |
+| `rrect-lg` | 1x | light | **8.55** | 0.648 | 13.418 | 0.678 |
+| `rrect-md` | 2x | light | **7.92** | 0.831 | 7.961 | 0.872 |
+| `rrect-lg` | 2x | light | **8.97** | 0.987 | 12.235 | 0.916 |
+| `rrect-md` | 1x | dark | **9.18** | 0.422 | 13.418 | 0.519 |
+
+Debiased: **8.6–9.2 at 1x, 8.7–9.6 at 2x.** Every reading moves under 6 % under a deeper band, the
+deepest band, tiling, and dropping `photo`, `impulse` or the fine checkerboards. So vitrea's 1x heavy
+component is about **50 % too wide**, not 30 % too narrow — `checkerboard-64`'s sign in §5.120 §7
+was right and the impulse tile's 19.52 was a single-backdrop projection; the share is within 0.07
+on every row and the lift both waves declined would have moved it the wrong way; at 2x the 96-span
+surface is right and the 160-span one 36 % too wide through `sizeScatterGainFar2x`'s grading,
+which the reference does not show (8.55 → 9.11 across the spans). The dark scheme reads 0.8 % from
+the light.
+
+**§5 Two Gaussians are enough.** In display codes, one Gaussian 2.10–2.69, two Gaussians
+1.905–2.092, body + chain tap 1.926–2.149, the free profile 1.787–2.011 on the reference rows: two
+components come within 0.05–0.12 of a code of forty free parameters, and the mechanism's family
+within 0.02 of a code of two Gaussians. §5.120's "not two Gaussians" is withdrawn beside its record:
+the factor of three came from fitting one backdrop at a time. Fitted across eight backdrops the
+two-Gaussian sharp is **1.29–1.40** against vitrea's 1.64–1.75 (20–30 % too wide; §5.120 §3g's
+"40 % too narrow against 2.74–2.79" was the impulse tile's projection). `rrect-lg` at 2x is the
+exception (7.77 / 15.72 at 0.409 — two halves of one kernel, not a reading).
+
+**§6 What no kernel explains.** Every family leaves 1.79–2.01 display codes RMS of Apple's interior
+against 0.83–1.17 of vitrea's — 3.22 on `hc-text` against 1.35. A displaced raster is ruled out (§1),
+the depth nuisance absorbs anything that varies with depth alone. A non-symmetric kernel, a
+non-affine transmission, a kernel varying with something other than depth, or a component that is
+not a convolution; unresolved, and the bound on every width fitted on this bed. Tracker.
+
+**§7 The ruling** (W26 Decision Log 5): the family reader is the instrument of record; G1's 2x fit
+(10.3 on reader A) withdrawn beside its record; G1c re-fits both widths on rendered rungs with the
+control at every rung and the bed cost with both documents patched; clause 2 narrowed to the
+identified quantities; the sharp component the named gap for the wave after.

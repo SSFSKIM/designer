@@ -175,8 +175,9 @@ the user's eye; X7 the dark profile a difference document.
 | --- | --- |
 | G0 — the heavy tap as a parameter | CLOSED 2026-09-10 (claims §5.119) |
 | G1 — the width, the share, the lever, the level | CLOSED 2026-09-10 (claims §5.120; Decision Logs 3–4; merged at `d306214` after the review's two fixes at `d06fe3c`) |
-| G1b — Apple's kernel identified without a shape assumption (spike) | DISPATCHED 2026-09-10 (Decision Log 4 (h)) |
-| G2 — declared and dry-run | blocked-by G1b |
+| G1b — Apple's kernel identified without a shape assumption (spike) | CLOSED 2026-09-10 (claims §5.121; merged at `1d541bf`) |
+| G1c — the fits, second reading: both widths on the family reader (controlled) | DISPATCHED 2026-09-10 (Decision Log 5) |
+| G2 — declared and dry-run | blocked-by G1c |
 | G3 — the landing | — |
 
 ## Decision Log
@@ -366,6 +367,54 @@ px, identified by G1b's instrument, within 15 % at every band; a two-Gaussian σ
 with the backdrop it was read through. If G1b's control fails, the 1x width stays named at 13.418
 and W26 lands the mechanism and the 2x width, with the identification carried as the next wave.
 
+### Decision Log 5 — G1b's verdict: the shape is not identified, a width is, and it is half of what vitrea draws (2026-09-10; the parent; claims §5.121)
+
+(a) **The instrument of record for the thick body's kernel is the family reader** — the composite
+`wgsl/optics.ts` computes (the body vitrea draws, plus `heavyTapPlan`'s kernel for a heavy σ, at
+a share), fitted to the PIXELS jointly across every thick untinted probe backdrop of one surface
+(eight rows at 1x light), with a per-backdrop gain and a depth nuisance. It reproduces vitrea's own
+drawn width to 0.6 % and its share to 0.043 where the drawn tap is in the family (every 1x row),
+and reads 5–10 % narrow where it is a trilinear blend (2x); every reading of the reference moves by
+under 6 % when any backdrop is dropped, the band moved or the raster tiled. The free forty-node
+profile the brief asked for fails its control (half maximum off by 19–38 %, the second moment
+11.8 → 28.4 under a dropped backdrop) — the SHAPE is not identified by this bed, a width is.
+Two-Gaussian readers fitted to ONE backdrop are single-backdrop projections and are quoted from
+here on only with the backdrop they were read through: §5.113 §2's 19.52 and §5.120's 2.74–2.79
+sharp stand as recorded, beside 9.1 and 1.35–1.50.
+
+(b) **The reading.** Apple's heavy width is 8.6–9.2 device px at 1x on both surfaces and both
+schemes, and 8.7–9.6 at 2x after the family bias; the share 0.44 / 0.65 (1x) and 0.83 / 0.99 (2x)
+against vitrea's 0.50 / 0.68 and 0.87 / 0.92 — every difference under 0.07. So: vitrea's 1x heavy
+component (13.418, the chain's level 4) is about 50 % TOO WIDE, the direction G1 §7's
+`checkerboard-64` gave; the share needs no lift, and W25's and W26's declines of the lift are
+confirmed by measurement; at 2x the 96-span surface is right (7.96 against 7.92) and the 160-span
+one is 36 % too wide because `sizeScatterGainFar2x` grades a width the reference barely grades.
+Two Gaussians describe Apple's kernel within 0.05–0.12 of a display code of forty free parameters,
+so Decision Log 4 (e)'s "not two Gaussians" is withdrawn beside its record. The reference's SHARP
+component is 1.29–1.40 against vitrea's 1.64–1.75 (the body is the chain's level-1 kernel, 1.542,
+plus a third of a texel — not a Gaussian of `blurSigma`): 20–30 % too wide, reversing §5.120 §3g.
+
+(c) **G1's 2x fit is withdrawn beside its record.** `sizeHeavyTapSigma2x` 10.3 was fitted on
+reader A's single-backdrop read of the impulse tile; the family reader wants about 8.7–9.6. The
+candidate is re-fitted by **G1c** on the family reader: rendered rungs at 1x (σ 8 / 9 / 10 / 11 /
+13.418) and 2x (σ 8 / 9 / 10 / 11), read on `rrect-md` and `rrect-lg` at both scales in the light
+standard and `rrect-md` in the dark, each rung with the control (the drawn σ read back), the bed
+cost at every rung with BOTH documents patched (Decision Log 4 (c)), X5, the fourteen floors, the
+per-span ΔE, the goldens. The 2x span grading is read at the candidate: with the heavy texture in
+place `scatterLod` no longer reaches the thick body, so `sizeScatterGainFar2x` is expected to fall
+silent there — G1c states what it still grades and G2 declares whether it is retired.
+
+(d) **What no convolution explains is recorded, not chased.** Every family, the free profile
+included, leaves about one display code RMS of Apple's interior unexplained (1.79–2.01 against
+0.83–1.17 on vitrea's; 3.22 on `hc-text`), with a displaced raster ruled out. A non-symmetric or
+non-affine component; the tracker carries it as the bound on every width fitted on this bed.
+Clause 2's re-statement in Decision Log 4 (h) is narrowed to what is identified: the heavy width
+and the share on the family reader, within 15 % and 0.05, per surface per scale.
+
+(e) **The sharp component is this wave's named gap, not its fit.** It is `blurSigma`'s body, the
+thin capsule's own and X5-entangled (W25); recorded for the wave after this with the family
+reader's number beside W25's.
+
 ## Surprises & Discoveries
 
 - **A scratch rung is not a rehearsal of a landing.** The dark difference document resolves over
@@ -439,3 +488,7 @@ and W26 lands the mechanism and the 2x width, with the identification carried as
   `d06fe3c`. Decision Log 4 (h): G1b (the kernel identified without a shape assumption, a spike
   with a binding control) dispatched ahead of G2; clause 2 re-stated beside the original as an MTF
   match.
+- 2026-09-10: G1b CLOSED and merged (`1d541bf`). Decision Log 5: the family reader is the
+  instrument of record; Apple's heavy width 8.6–9.2 / 8.7–9.6 device px, vitrea's 1x half again too
+  wide; the share right; the sharp component reversed; G1's 2x fit withdrawn beside its record;
+  G1c dispatched to re-fit both widths; clause 2 narrowed to the identified quantities.

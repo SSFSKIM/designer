@@ -1541,3 +1541,32 @@ bias of +7 % on reader A over the impulse tile, +23 to +39 % on reader D over `c
 by making that calibration a standing part of any width reader's validation, beside the synthetic
 kernels: a reader that has not been read against vitrea's own known kernel has an unmeasured bias.
 `g1/joint.txt`, claims §5.120 §12.
+
+## About one display code of Apple's thick interior is not a radially symmetric convolution of the backdrop (W26 G1b, 2026-09-10)
+
+Every kernel family, a free forty-node radial profile included, leaves 1.79–2.01 display codes RMS
+of the reference's interior unexplained against 0.83–1.17 of vitrea's through the same reader —
+3.22 on `hc-text` at 1x against 1.35. The raster is aligned (0.00 codes at zero shift), and a depth
+nuisance absorbs anything that varies with depth alone. Candidates: a non-symmetric kernel, a
+transmission not affine in the backdrop's luma (per channel or per level), a kernel varying with
+something other than depth, or a component that is not a convolution. It bounds the trust in every
+width fitted on this bed. Closes with an instrument that separates those four: a per-channel read,
+an oriented read on the text row, a read at two tone levels of one backdrop. `g1b/reference.txt`.
+
+## The sharp component is 20–30 % too wide, reversing the ledger's sign; it is the body (chain level 1 plus a third of a texel), thin-entangled (W26 G1b, 2026-09-10)
+
+The reference's sharp Gaussian reads 1.29–1.40 device px across eight backdrops against vitrea's
+1.64–1.75; §5.120 §3g's "40 % too narrow against 2.74–2.79" was the impulse tile's single-backdrop
+projection. Vitrea's sharp is the chain's level-1 kernel (half-maximum 1.542, not the advisory 1.2)
+plus `bodyBlurPlan`'s residual, so `blurSigma` 1.25 does not name what is drawn. It is the thin
+capsule's own width (X5) and is not fitted in W26. Closes with a wave that fits `blurSigma` on the
+family reader with the thin cells' floors re-read — and reads `bodyBlurPlan` on `CHAIN_LEVEL_SIGMA`
+rather than the advisory constant.
+
+## `sizeScatterGainFar2x` grades the 2x heavy width from 8.0 to 12.2 across spans 96 → 160 where the reference goes 7.9 → 9.0 (W26 G1b, 2026-09-10)
+
+Read with the family reader, the reference's heavy width barely grades with span at 2x and
+vitrea's grades by half. With the heavy texture in place the thick body no longer reads
+`scatterLod`, so the constant is expected to fall silent above the knee; G1c states what it still
+grades and G2 declares whether it is retired. Supersedes the direction of the W26 G1 entry "one
+heavy width per source loses the 2x span grading", which is kept beside as recorded.
