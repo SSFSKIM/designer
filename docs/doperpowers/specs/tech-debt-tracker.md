@@ -1129,3 +1129,69 @@ it" (claims §5.60); `backdrop-filter: url(#f)` with linearRGB reads 1.17–1.50
 dpr 1 and 0.97–1.03× at dpr 2. Recorded under wave Decision Log 23 (a) as a CSS-only residual,
 not chartered; W25 re-reads it and the coherence pin (≤ 0.05; the checkerboard cells at
 0.023–0.043) as the GPU kernel widens. Closes only with a tier that can encode the space.
+
+## The reference's kernel is two components and the thick surface differs from the thin in the heavy SHARE; vitrea's share at 1x is 0.23 against 0.47 and its 1x kernel 32–46 % too wide on every thick span (W25 G0, 2026-09-09)
+
+One reference cell at 1x reads 1.30 device px against a 16 CSS px checkerboard, 4.75 against 32
+and 6.25 against 64 (`g0/argument.txt` Table 1); a single Gaussian returns one number at every
+pitch. Reader A on the uncollapsed `impulse__rrect-md`: sharp 2.79 → 1.40, heavy 19.52 → 11.29
+device px from 1x to 2x, share 0.47 → 0.69 (`g0/widths.txt` Table 1); thin cells at pitch 64
+read 2.00–2.10 where thick read 6.00–6.75. vitrea's share at 1x 0.23; its single width 1.66–1.73
+against 1.14–1.30 on every thick span at 1x (both readers, both schemes); on `photo` 14–19 % short
+on `rrect-ml` and `-lg`. Chartered as W25 G2's first mechanism (the share and the sharp width per
+scale on `sizeThickness`; Decision Log 3 (a)). The 2x width above span 96 is identified by NO
+fixture on disk (`g0/identification.txt`) — the coarse structured backdrops at 2x of W25's
+`probe` set are the rows. Closes when clause 2's triple is met.
+
+## The thick surface's body level keeps grading above the knee, and two levels larger than the chartered miss were not in the ledger (W25 G0, 2026-09-09)
+
+`sizeThickness(short side)` at knee 96 is the right argument (r 0.95–0.998 against every
+alternative) but the reference's level grades on by about a fifth of the thin-to-thick step per
+span doubling to 160 where the curve is flat (`g0/argument.txt` Table 2). Levels in codes,
+reference minus GPU (`g0/levels.txt`): `checkerboard__toolbar-group` **+8.77 / +9.34** — the
+largest thick-cell miss, a calibration row whose members are span 44 (thin to the law; the
+group's sampling or the level term, G2 reads which); `photo__rrect-md` dark **−5.41 / −5.55**,
+nearly twice the chartered `dark-solid__rrect-md` −3.07; `photo__rrect-lg` −3.35 / −3.55;
+`impulse__rrect-md` +5.93. W25 G2's second mechanism, a level term above the knee (Decision Log 3
+(b)). Closes when clause 2's level is met.
+
+## The along-side rim term is a diagonal position field on thick solids, which a per-normal lit-edge factor cannot express; and the 2x reference's rim mean is corner-asymmetric where the 1x is not (W25 G0, 2026-09-09)
+
+Supersedes the along-side entry above for its verdict. Present on flat `light-solid` /
+`dark-solid` / `mid-dark-solid` (range 0.0187 / 0.0226 / 0.0345 at span 96), zero at spans 32
+and 44, saturating above 96 — it rides `sizeThickness`; the four sides' slopes exactly
+antisymmetric (±0.000192 top/bottom, ±0.000379 left/right luma per CSS px on the 1x dark
+`dark-solid__rrect-md`), slope × side length reproducing the range: a corner-to-corner ramp.
+vitrea's landed range 0.0015–0.0083 against the reference's 0.0206–0.0357 (`g0/along-side.txt`
+Tables 2, 4). Taken as W25 G2's third mechanism — a linear field along the diagonal on the rim's
+amplitude riding `sizeThickness` (Decision Log 3 (c)). On `checkerboard` the reader correlates
+0.85–0.96 with the backdrop under the body: the lens, separable only on the solids. Found beside
+and NOT taken: at 2x the reference's rim MEAN is 0.0330 / 0.0313 (top / left) against 0.0168 /
+0.0176 (bottom / right) where the 1x reads 0.0248–0.0251 on all four — a scale-dependent
+asymmetry of the mean, unexplained. Closes when G2's clause is met; the 2x mean asymmetry closes
+with a reason.
+
+## Two of the W21 dark grid's fixtures are the W9 light grid's files, and span is confounded with clearance on the 320 × 200 canvas (W25 G0, 2026-09-09)
+
+Resolves the `rrect-sm` half of the entry "W21's probe grid collapses `rrect-sm` and `rrect-lg`
+and not `rrect-md`" above, and leaves the other half standing. The dark grid's manifest records
+18 of 56 cells bistable across seven attested runs at one sitting; `dark-solid__rrect-sm__rest`
+and `light-solid__rrect-sm__rest` are bistable and their majority files are byte-identical
+(SHA-1) to the W9 light grid's captures of the same scenes — `light-solid__rrect-sm` reads a body
+of 0.96659 over a 0.8918 backdrop, a light-scheme frame beyond doubt (`g0/grid-state.txt`
+Tables 1, 4). **Withdrawn as dark readings**; nothing on the bed was fitted on them; re-captured
+under the dark scheme at W25 G1's sitting. `rrect-md` (96, uncollapsed) against `rrect-lg` (160,
+collapsed) is single-state in all seven runs and survives — but on the canvas the short-axis
+clearance is 84 / 52 / 20 CSS px at spans 32 / 96 / 160, so a size-keyed collapse and an
+edge-proximity one fit the fixtures equally. G1 adds `dark-solid` at 48, 64, 80, 128 and a
+clearance variant (`rrect-md` at a 20 px margin or `rrect-lg` on a wider canvas). Closes when
+clause 5 is read on those rows.
+
+## The edge-spread reader identifies a kernel only to an eighth of the backdrop's step pitch, and no ceiling changes that (W25 G0, 2026-09-09)
+
+Addendum to the base pane's haze entry above. `blurEdgeSpread`'s window is bounded by the
+neighbouring step, so on the 16 CSS px canonical checkerboard it identifies to 2 device px at 1x
+and 4 at 2x; ceilings of 8 → 128 were swept and the best row is usually the smallest
+(`g0/validate.txt`). The web residual 1.81 recorded at §5.94 §5 was that bound, not a property of
+vitrea's material. The reading that identifies a thick kernel is reader A on a dot or readers B / C
+on a coarser pitch (32, 64 CSS px), which W25's `probe` set carries. Closes with the set.

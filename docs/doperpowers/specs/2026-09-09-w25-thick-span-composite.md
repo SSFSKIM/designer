@@ -250,9 +250,9 @@ G0 → (the user: the amendment, the console) → G1 → G2 (may start on G0 alo
 
 | child | status |
 | --- | --- |
-| G0 — the width instrument, the read, the argument, the along-side reader | DISPATCHED 2026-09-09 |
-| G1 — the bed amendment and the native captures | RULED 2026-09-09 (Decision Log 2: the grids as a harness set with structured backdrops; waits on G0's identification table and the console's unlock) |
-| G2 — the law fitted | — |
+| G0 — the width instrument, the read, the argument, the along-side reader | CLOSED 2026-09-09 (claims §5.113; `g0/g0-findings.md`; merged `058dd64`; Decision Log 3) |
+| G1 — the bed amendment and the native captures | DISPATCHED 2026-09-09 (the `probe` set's declaration by a worker; the capture at the user's unlock; Decision Log 3 (e)) |
+| G2 — the law fitted | DISPATCHED 2026-09-09 (three mechanisms; the 1x fit first; Decision Log 3 (f)) |
 | G3 — declared and dry-run | — |
 | G4 — the landing | — |
 
@@ -301,6 +301,100 @@ unlock the console session). G1's capture waits on the unlock; G0 and G2 do not.
 sitting) is taken at G1's sitting, in the same session as the harness set, so the grid and the
 key share a session state.
 
+### Decision Log 3 — G0 read: the kernel is two components and the thick-span mechanism is the heavy share; clauses 1, 2 and 4 re-declared on the evidence; the along-side term taken as a position field; the amendment sharpened to the grids whole at both scales with coarse structure; two grid fixtures withdrawn; G1 and G2 dispatched (2026-09-09; the parent, on the user's standing instruction)
+
+Evidence `results/2026-09-09-w25-thick-span-composite/g0/` (`g0-findings.md`, `validate.txt`,
+`widths.txt`, `levels.txt`, `argument.txt`, `along-side.txt`, `grid-state.txt`,
+`identification.txt`), merged at `058dd64`. Verified by the parent: the validation table (reader
+A recovers 2–16 device px at both scales; B binds on the backdrop's step pitch, not the ceiling;
+C's guards), the headline widths, the levels table, the antisymmetric slopes, the grid's manifest
+frequencies and the two byte-identical files.
+
+(a) **The kernel is two components, and every width in the ledger was a true reading of a
+different part of it.** The same reference cell at 1x reads 1.30 device px against a 16 CSS px
+checkerboard, 4.75 against 32 and 6.25 against 64, where a single Gaussian returns one number at
+every pitch (validated to 0.00 %). Reader A on the uncollapsed `impulse__rrect-md`: sharp 2.79 →
+1.40 and heavy 19.52 → 11.29 device px from 1x to 2x (both halve; W24 G1's 2.87 / 1.40 and 28.9 /
+11.1 reproduced to 0.08 px), and the heavy SHARE 0.47 → 0.69. The collapsed capsule's share is
+0.00 — W24's "reference kernel" was the collapsed material's, and the Design's "vitrea runs the
+other way" compared vitrea's single width with the reference's sharp component; like for like,
+both grow. The thin and the thick surface differ in the share, not in a width (pitch 64: thin
+2.00–2.10, thick 6.00–6.75; pitch 16: all 1.2–1.6). vitrea's share at 1x is 0.23 against 0.47,
+and its 1x kernel is 32–46 % too wide on every thick span on two readers in both schemes; on
+`photo` its width falls 14–19 % short on `rrect-ml` and `-lg`, a gap that opens with span.
+**Ruling: the wave's mechanism is the heavy share and the sharp width per scale, riding
+`sizeThickness`** — the deep-value law re-expressed as a share the bed can identify — and clause 1
+is re-declared: the width is the triple (sharp σ, heavy σ, share) read by reader A on the impulse
+rows and by readers B and C on the coarse checkerboards, with the residual beside; the edge-spread
+reader identifies to one eighth of the pitch and no ceiling changes that, so "retired as a
+reading" is struck and "read at the pitch that identifies it" stands. Clause 2's "kernel width
+within 15 %" becomes sharp σ within 15 % and share within 0.05 at both scales on every thick
+untinted cell a fixture identifies.
+
+(b) **Clause 4 is answered in the landed law's favour, with a residual above the knee.**
+`sizeThickness(short side)` at knee 96 scores r 0.95–0.998 against 0.68–0.96 for the long side,
+area, √area and radius, on width and level, both grids, both schemes. The width does not grade
+above 96; the LEVEL does, by about a fifth of the thin-to-thick step per span doubling to 160,
+where the curve is flat. The knee's lever is 0.002 on every bed shape (a smoothstep's derivative
+vanishes at its edge). **Ruling: the argument and the knee stay; a level term above the knee is
+this wave's** (identified on 118–238 level rows), and the lens, occlusion, inner shadow and tone
+bias are not touched. Two levels larger than the chartered miss are on record now and are the
+level term's rows: `checkerboard__toolbar-group` +8.77 / +9.34 codes (a calibration row; members
+span 44, thin to the law — G2 reads whether the level term or the group's sampling carries it)
+and `photo__rrect-md` dark −5.41 / −5.55.
+
+(c) **The along-side term is taken, as a position field.** Present on flat solids where a lens
+has nothing to refract (range 0.0187 / 0.0226 / 0.0345 at span 96 on `light-solid` /
+`dark-solid` / `mid-dark-solid`), zero at spans 32 and 44, saturating above 96 — it rides
+`sizeThickness`. Its shape is a corner-to-corner diagonal ramp: the four sides' slopes exactly
+antisymmetric (top −0.000192, bottom +0.000192, left −0.000379, right +0.000379 luma per CSS px
+on the 1x dark `dark-solid__rrect-md`), slope × side length reproducing the range. vitrea's
+per-normal factor is 1 on every straight side (landed range 0.0015–0.0083 against 0.0206–0.0357).
+**Ruling: the lit-edge amplitude takes a linear field along the diagonal across the surface,
+riding `sizeThickness`, one constant for the slope per unit span** — G2's third mechanism, with
+its clause: the corner-to-corner range on the thick solids within 20 % of the reference's, zero
+on the capsule and `rrect-sm` by construction. On `checkerboard` the reader correlates 0.85–0.96
+with the backdrop under the body — that is the lens, separable only on the solids, and the
+solids are where the constant is fitted. The 2x reference's rim MEAN is top-left/bottom-right
+asymmetric (0.0330 / 0.0313 against 0.0168 / 0.0176) where the 1x is symmetric: recorded, not
+taken (tracker).
+
+(d) **The grid's contradiction resolved into two halves; two fixtures withdrawn.** The W21 dark
+grid is seven attested runs at one sitting with per-cell byte-state frequencies; 18 of 56 cells
+are bistable. `dark-solid__rrect-sm` is one, and its majority state is byte-identical to the W9
+LIGHT grid's file — as is `light-solid__rrect-sm`, whose body 0.96659 over a 0.8918 backdrop is a
+light-scheme frame beyond doubt. **Both are withdrawn as dark readings** (a tracker entry names
+them; nothing on the bed was fitted on them). `rrect-md` (96, uncollapsed) against `rrect-lg`
+(160, collapsed) is single-state in all seven runs and SURVIVES: the reference collapses the
+large surface and not the middle one over `dark-solid`, and on the 320 × 200 canvas span is
+confounded with clearance (84 / 52 / 20 CSS px at 32 / 96 / 160). **Ruling: G1's sitting
+re-captures the two withdrawn cells under the dark scheme, adds `dark-solid` at spans 48, 64, 80
+and 128 in both schemes, and separates span from clearance (`rrect-md` at a 20 px margin, or
+`rrect-lg` on a wider canvas) — clause 5 is read on those rows.** The dark contrast is six codes
+where the light is a hundred; the light grid carries the same question at a hundred.
+
+(e) **The amendment, sharpened within Decision Log 2 (a).** Shape (ii) buys one 2x width row at
+span 96; the grids as they stand are 1x only and buy nothing at 2x; the heavy share is carried by
+four rows today, all of them collapsed or `checkerboard-64`; the collapsed body's level needs the
+grids' solids. **Ruling: the harness set is the grids whole — solids kept — captured at BOTH
+scales in both schemes, plus coarse structured backdrops (`checkerboard` at 32 and 64 CSS px
+pitch, and `impulse`) over `rrect-sm`, `-md`, `-ml`, `-lg` at both scales, which is the only
+fixture that identifies the 2x width above span 96.** Declared as a `probe` fixture set in
+`scenes.json` beside `recorded`: read by the fits and by claims, captured routinely by the
+harness, and not a gated set — the gate's counts, predicate and floors do not move on it.
+`rrect-lg` and `glass-over-glass` stay holdout. G1 designs the set to that rule and the parent
+runs the harness at the user's unlock.
+
+(f) **G1 and G2 dispatched.** G1 (a worker in a worktree, then the parent at the console): the
+`probe` set declared in `scenes.json` and the harness's scene files, `compare.ts` reading it
+through `--set probe`, the gate ignoring it by name, the two withdrawn fixtures listed; then the
+native capture at both scales in both schemes at one sitting with the collapse-key rows. G2 (a
+worker in a worktree, on the current bed and the 1x grids): the three mechanisms inert at the
+defaults — the share law per scale on `sizeThickness`, the level term above the knee, the
+along-side field — with the readers of G0 as the ladder's instruments, fitted on what the 1x rows
+identify (the 1x sharp σ and share, the level term, the along-side slope) and re-fitted at 2x
+when G1's fixtures land; a thin cell moved by more than 0.001 ΔE stops the ladder (X5).
+
 ## Surprises & Discoveries
 
 - **The haze was never measured on the web side.** The residual that says so was quoted as the
@@ -308,6 +402,15 @@ key share a session state.
 - **The size law cannot tell the thick cells apart.** Span 96, 128, 130 and 160 are one number to
   `sizeThickness`; the scatter ramp's third anchor is the workaround on record.
 - **The two largest spans were never fitting rows.** Every thick constant was read out on them.
+- **The kernel is two components, and the ledger's widths were all true.** 1.30 / 4.75 / 6.25
+  device px on one cell against three pitches; the share is what moves between thin and thick and
+  between scales.
+- **The along-side term is a diagonal field, not a function of the normal.** Slopes exactly
+  antisymmetric across opposite sides on every thick cell.
+- **Two of the dark grid's fixtures are the light grid's files**, flagged bistable by the grid's own
+  manifest; and span is confounded with clearance on the canvas.
+- **The edge-spread reader binds on the backdrop's pitch.** No ceiling identifies a kernel wider
+  than an eighth of the step.
 
 ## Outcomes & Retrospective
 
@@ -318,3 +421,7 @@ key share a session state.
 - 2026-09-09: chartered; G0 dispatched; the amendment and the console named as the user's.
 - 2026-09-09: Decision Log 2 — the user's word "both on your recommendation": the grids as a
   harness set (ii), the console unlocked at G1's sitting on the parent's ask; the console read locked.
+- 2026-09-09: G0 CLOSED (claims §5.113); Decision Log 3 — clauses 1, 2 and 4 re-declared (the
+  triple, the share, the level above the knee), the along-side field taken, two grid fixtures
+  withdrawn, the amendment sharpened to the grids whole at both scales with coarse structure as a
+  `probe` set; G1 and G2 dispatched.

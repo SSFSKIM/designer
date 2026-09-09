@@ -14465,3 +14465,85 @@ items as far as the bed identifies them. **G0 dispatched** on the fixtures on di
 every thick cell's width and level with residuals on both sides, the size law's argument across
 spans 44 → 160, the along-side profile on the four thick shapes with the capsule and `rrect-sm`
 as controls, the dark grid read for a state flip, the amendment's identification table.
+
+### 5.113 W25 G0 CLOSED: the reference's kernel is two components and every width in the ledger was a true reading of a different part of it — the thick surface differs from the thin in the heavy share (0.47 / 0.69 at 1x / 2x, vitrea 0.23 at 1x), both components halve in device px between scales; the size law's argument and knee confirmed with a level residual above the knee; the along-side rim a diagonal position field on thick solids; two dark-grid fixtures found to be the light grid's files; the 2x width above span 96 identified by nothing on disk (2026-09-09)
+
+**Evidence** `results/2026-09-09-w25-thick-span-composite/g0/` — `g0-findings.md`, `w25lib.py`
+(the three readers), `validate.py/.txt`, `widths.py/.txt/.json`, `levels.txt`, `argument.py/.txt`,
+`along-side.py/.txt/.json`, `grid-state.py/.txt`, `identification.py/.txt`; merged `058dd64`.
+Read-only on the fixtures and the 0.13.0 `web-captures/`; no capture launched. Rulings in W25
+Decision Log 3.
+
+**§1 Three readers, validated.** A (the dot PSF, box ⊗ sharp + heavy Gaussians in device px,
+W24's bounds replaced by an ordering heavy = sharp + δ) recovers 2 / 4 / 8 / 16 device px at both
+scales and misses σ 1 by 8.2 % (the 4 CSS px box's floor). B (edge spread on a checker step)
+identifies to one eighth of the pitch — 2 device px at 1x, 4 at 2x on the 16 CSS px checkerboard
+— and raising the ceiling (8 → 128) does not help: the window is bounded by the neighbouring step.
+C (the whole-region σ-match, grid extended past 16) identifies to a quarter of the pitch on a
+checkerboard and to 16 on the impulse, after two guards (without them it returned σ 15.50 at gain
+495 on a synthetic of true σ 8). The 2x dark nested base now reads 20.00 on C. `validate.txt`.
+
+**§2 The kernel is two components.** One reference cell at 1x reads 1.30 device px against a
+16 CSS px pitch, 4.75 against 32, 6.25 against 64; a single Gaussian returns one number at every
+pitch. Reader A on the uncollapsed `impulse__rrect-md`: sharp 2.79 → 1.40, heavy 19.52 → 11.29
+device px from 1x to 2x (W24 G1's 2.87 / 1.40 and 28.9 / 11.1 reproduced within 0.08), share 0.47
+→ 0.69; the collapsed capsule's share 0.00 (W24's "reference kernel" was the collapsed
+material's). Thin against thick at pitch 64: 2.00–2.10 against 6.00–6.75; at pitch 16 all
+1.2–1.6 — **the thick surface differs in the share, not in a width.** Headline widths (device px,
+reference B / C against landed GPU): 1x `checkerboard__rrect-md` 1.26 / 1.30 against 1.66 / 1.80,
+`-ml` 1.21 / 1.20 against 1.67 / 1.80, `-lg` 1.14 / 1.30 against 1.66 / 1.90, the nested base
+1.23–1.28 / 1.50 against 1.67–1.73 / 2.10 — **vitrea 32–46 % too wide at 1x on every thick
+span**, both readers, both schemes; at 2x the reference reads 6.18–7.41 (B) and 6.75–20.00 (C),
+past both readers' validated bounds on `rrect-ml`, `-lg` and the base. vitrea's share at 1x 0.23
+against 0.47; on `photo` its width 14–19 % short on `rrect-ml` and `-lg`. §5.94 §5's pair "4.84
+against 0.69" and the dossier's "vitrea runs the other way" are both readings of one component
+each — corrected beside. `widths.txt` Tables 1–3.
+
+**§3 The levels** (body over the declared shape eroded 6 CSS px, codes, reference minus GPU):
+`dark-solid__rrect-md` +2.70 light / **−3.07** dark (the ledger's −2.93 with the matrix's mask,
+reproduced: 0.01527 / 0.01298); `checkerboard__toolbar-group` **+8.77 / +9.34** (a calibration
+row; members span 44); `photo__rrect-md` dark **−5.41 / −5.55**; `photo__rrect-lg` −3.35 / −3.55;
+`impulse__rrect-md` +5.93; the nested base −0.97 / −0.04 light, +0.20 / +0.04 dark. The CSS tier
+tracks the GPU within 1.5 codes except `checkerboard__toolbar-group` (+9.11 / +11.13) and
+`checkerboard__rrect-md` 2x (+3.74). `levels.txt`.
+
+**§4 The argument.** `sizeThickness(short side)` at knee 96: r 0.95–0.998 on width and level in
+every group against 0.68–0.96 for the long side, area, √area and radius. The width does not grade
+above 96 at any pitch; the level does, by about a fifth of the thin-to-thick step per span doubling
+to 160, where the curve is flat. The knee's lever is 0.002 on every bed shape. **Clause 4 answered
+in the landed law's favour; a level term above the knee is the wave's** (Decision Log 3 (b)).
+`argument.txt` Tables 1–2.
+
+**§5 The along-side term** (the rim's excess over the body indexed by position along the straight
+part of a side, the body beside each point): absent on the thin controls and present on the thick
+ones on FLAT solids — `light-solid` 1x light range 0.0000 / 0.0000 / 0.0187 / 0.0197 / 0.0145 at
+spans 32 / 44 / 96 / 128 / 160; `dark-solid` 1x dark 0.0016 / 0.0226 / 0.0180 at 44 / 96 / 160 —
+saturating at the level's knee; the four sides' slopes exactly antisymmetric (top −0.000192, bottom
++0.000192, left −0.000379, right +0.000379 luma per CSS px on the 1x dark `dark-solid__rrect-md`),
+slope × side length reproducing the range: a corner-to-corner diagonal ramp, not a function of
+the normal. vitrea's landed range 0.0015–0.0083 against 0.0206–0.0357. On `checkerboard` the
+reader correlates 0.85–0.96 with the backdrop under the body — the lens, separable only on the
+solids. Found beside: the 2x reference's rim MEAN is top-left/bottom-right asymmetric (0.0330 /
+0.0313 against 0.0168 / 0.0176) where the 1x is symmetric (0.0248–0.0251). **A thickness term,
+taken as a position field** (Decision Log 3 (c)). `along-side.txt` Tables 2–4.
+
+**§6 The grid's state.** The W21 dark grid is seven attested runs at one sitting with per-cell
+byte-state frequencies; 18 of 56 cells bistable (most 6:1). `dark-solid__rrect-sm`'s majority
+state is byte-identical (SHA-1) to the W9 LIGHT grid's file, and so is `light-solid__rrect-sm`,
+whose body 0.96659 over a 0.8918 backdrop is a light-scheme frame beyond doubt — the only
+cross-directory duplicates among 239 fixture PNGs that are not a grid reusing a canonical cell.
+**Both withdrawn as dark readings.** `rrect-md` (96, body 0.015265, uncollapsed) against
+`rrect-lg` (160, 0.011007, collapsed) is single-state in all seven runs and survives; on the
+320 × 200 canvas span is confounded with clearance (84 / 52 / 20 CSS px), so nothing on disk
+separates a size-keyed collapse from an edge-proximity one. The dark contrast is six codes where
+the light's is a hundred. `grid-state.txt` Tables 1, 4, 5.
+
+**§7 Identification.** Per constant, rows that separate it on five bed shapes: the 2x sharp width
+above span 96 is identified by nothing on the current bed, on the bed with `rrect-lg` and the
+stack moved to calibration (one 2x row, at span 96), or on the grids as captured (1x only); the
+grids at both scales give 52 rows at spans 32–160; the heavy share goes 4 → 24 → 44 rows; the
+collapsed body's level needs the grids' solids (8 → 24 rows). **The amendment sharpened to the
+grids whole at both scales with coarse structured backdrops, as a `probe` set** (Decision Log 3
+(e)). `identification.txt`.
+
+**G1 and G2 open** (Decision Log 3 (f)).
