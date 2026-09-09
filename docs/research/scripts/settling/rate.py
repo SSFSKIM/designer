@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Blinded pairwise rating for the settling experiment (spec: 2026-09-05-settling-experiment.md, Q).
 
-    python3 rate.py            serve on http://localhost:8765/
+    python3 rate.py                       serve on http://localhost:8765/
+    SETTLING_REVIEW=1 python3 rate.py     also serve /review — every build unblinded (arm, seed,
+                                          gate, each judge's record, links) — for after the judging
 
 The schedule is derived from manifest.json with a fixed seed: within each brief, across arms only,
 every build in exactly three pairs (each arm pair twice, on matched or crossed seeds), left/right
@@ -19,6 +21,7 @@ JUDGMENTS = os.path.join(WS, "judgments.jsonl")
 EVALS = os.path.join(REPO, "evals/evals.json")
 PORT = 8765
 ARMS = ["none", "v1.1", "v2.0", "v2.1"]
+REVIEW = os.environ.get("SETTLING_REVIEW") == "1"
 
 
 def brief_text(ev):
@@ -115,6 +118,57 @@ load();
 </script>"""
 
 
+def review_page():
+    """The unblinded gallery: per brief, every build by arm and seed with its mechanical gate, the
+    wins each judge gave it, and links to the live page, both captures and DESIGN.md."""
+    from html import escape
+    cells = json.load(open(MANIFEST))["cells"]
+    meas = json.load(open(os.path.join(WS, "measurements.json")))["builds"] if os.path.exists(os.path.join(WS, "measurements.json")) else {}
+    judges = [("human", [JUDGMENTS]), ("astra", sorted(__import__("glob").glob(os.path.join(WS, "judgments-model", "*.jsonl")))),
+              ("opus", sorted(__import__("glob").glob(os.path.join(WS, "judgments-model-b", "*.jsonl"))))]
+    rec = {}
+    for name, files in judges:
+        for f in files:
+            if not os.path.exists(f):
+                continue
+            for line in open(f):
+                if not line.strip():
+                    continue
+                j = json.loads(line); w = j[j["choice"]]; l = j["right"] if j["choice"] == "left" else j["left"]
+                rec.setdefault((name, w), [0, 0]); rec.setdefault((name, l), [0, 0])
+                rec[(name, w)][0] += 1; rec[(name, w)][1] += 1; rec[(name, l)][1] += 1
+    def gate(i):
+        m = meas.get(i, {}); parts = []
+        if m.get("errors"): parts.append("js-error")
+        if m.get("overflow"): parts.append("overflow")
+        if m.get("placeholder"): parts.append("placeholder")
+        r = (m.get("contrast") or {}).get("rate")
+        if r is not None and r < 0.9: parts.append(f"contrast {r}")
+        return ", ".join(parts) or "pass"
+    briefs = sorted({c["brief"] for c in cells}, key=lambda b: (min(c["wave"] for c in cells if c["brief"] == b), b))
+    out = ["<!doctype html><meta charset=utf-8><title>settling — review</title><style>",
+           "body{margin:0;padding:16px 24px;font:14px/1.45 system-ui;color:#222;background:#f4f4f4}",
+           "h2{margin:28px 0 4px} p.brief{margin:0 0 12px;color:#444;max-width:100ch}",
+           ".grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}",
+           ".card{background:#fff;border:1px solid #ccc;padding:10px} .card img{width:100%;display:block;border:1px solid #e5e5e5;margin:6px 0}",
+           ".arm{font-weight:700;font-size:15px} .id{color:#777;font-family:ui-monospace,monospace} .gate{color:#a00} .pass{color:#282}",
+           "table{border-collapse:collapse;margin:6px 0;font-size:13px} td{padding:1px 8px 1px 0} a{color:#06c}",
+           "</style><h1>Settling experiment — every build, unblinded</h1><p>Wins are of the three pairs each build was in, per judge.</p>"]
+    for b in briefs:
+        bc = sorted([c for c in cells if c["brief"] == b], key=lambda c: (c["seedLabel"], ARMS.index(c["arm"])))
+        out.append(f"<h2>{escape(b)}</h2><p class=brief>{escape(brief_text(bc[0]['eval']))}</p><div class=grid>")
+        for c in bc:
+            i = c["id"]; g = gate(i)
+            wins = " ".join(f"{n} {rec.get((n, i), [0, 0])[0]}/{rec.get((n, i), [0, 0])[1]}" for n, _ in judges)
+            out.append(f"<div class=card><span class=arm>{escape(c['arm'])}</span> · seed {escape(c['seedLabel'])} · <span class=id>{i}</span>"
+                       f"<br><span class='{'pass' if g == 'pass' else 'gate'}'>gate: {escape(g)}</span><br>{escape(wins)}"
+                       f"<a href='/builds/{i}/index.html' target=_blank><img src='/builds/{i}/shot-fv.png' alt=''></a>"
+                       f"<a href='/builds/{i}/index.html' target=_blank>live page</a> · <a href='/builds/{i}/shot-full.png' target=_blank>full capture</a>"
+                       f" · <a href='/builds/{i}/DESIGN.md' target=_blank>DESIGN.md</a></div>")
+        out.append("</div>")
+    return "\n".join(out)
+
+
 class H(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=WS, **k)
@@ -125,6 +179,8 @@ class H(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/" or self.path.startswith("/?"):
             body = PAGE.encode(); self.send_response(200); self.send_header("content-type", "text/html; charset=utf-8"); self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body); return
+        if self.path.startswith("/review") and REVIEW:
+            body = review_page().encode(); self.send_response(200); self.send_header("content-type", "text/html; charset=utf-8"); self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body); return
         if self.path == "/api/state":
             done = judged(); pend = []; unbuilt = 0
             for p in schedule():
@@ -136,7 +192,7 @@ class H(SimpleHTTPRequestHandler):
                     unbuilt += 1
             body = json.dumps({"done": len(done), "pending": pend, "unbuilt": unbuilt}).encode()
             self.send_response(200); self.send_header("content-type", "application/json"); self.send_header("content-length", str(len(body))); self.end_headers(); self.wfile.write(body); return
-        if self.path.startswith("/builds/") and (self.path.endswith("DESIGN.md") or self.path.endswith("/")):
+        if self.path.startswith("/builds/") and (self.path.endswith("/") or (self.path.endswith("DESIGN.md") and not REVIEW)):
             self.send_response(403); self.end_headers(); return
         super().do_GET()
 
@@ -155,5 +211,5 @@ if __name__ == "__main__":
         for p in schedule():
             print(p["brief"], p["left"], p["right"])
         sys.exit()
-    print(f"settling rating → http://localhost:{PORT}/   (judgments → {JUDGMENTS})")
+    print(f"settling rating → http://localhost:{PORT}/   (judgments → {JUDGMENTS})" + (f"   review → http://localhost:{PORT}/review" if REVIEW else ""))
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
