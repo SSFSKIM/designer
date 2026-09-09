@@ -5,7 +5,7 @@ skill.md, "C. The audit").
     python3 glass-rules-analyze.py [--out results.md]
 
 Reads every `rules/<rater>/<slug>.json` the panel wrote under the wave's data directory and the
-`audit.json` `glass-audit.mjs` left beside each demo, and writes the verdict as markdown to stdout
+`audit/<slug>.json` frozen in the wave data directory, and writes the verdict as markdown to stdout
 and to `docs/research/data/2026-09-10-liquid-glass-demos/results.md`:
 
   - the panel majority per rule per demo — a tie is a failure, because the pass line asks that a
@@ -22,7 +22,7 @@ majority over two raters is not the majority the pass line means, and α over th
 α a panel's reliability could be claimed from. Standard library only, and the statistics come from
 the settling instrument's `reliability.py` rather than from a second implementation of them.
 """
-import os, sys, json, importlib.util, statistics as st
+import os, sys, json, argparse, importlib.util, statistics as st
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "settling"))
@@ -45,33 +45,12 @@ FATAL = set(gr.FATAL_TAGS)
 FATAL_KEYS = [k for k in RULE_KEYS if RULE_TAG[k] in FATAL]
 AESTHETIC = ["a1", "a2", "a3", "a4"]
 HOLD_FLOOR = 22                          # of 25, the spec's line
-MAX_FAILED = 25 - HOLD_FLOOR             # the same line as "at most three of the rules read failed"
 D1_FLOOR = 5.0                           # the panel's d1 mean over the six, the initiative's clause
 RULES_DIR = os.path.join(gr.DATA, "rules")
 
-# Three rules a static capture cannot show, and the prompt tells the panel that a rule it cannot see
-# holding does not hold — so every rater scored them 0 on every page, and the four-rater panel's
-# first two readings said so in as many words (2026-09-10). Left in the count they would make the
-# spec's "22 of 25" mean "every rule the captures can show", which is not the line the spec drew.
-# The mechanical audit exists to read what captures cannot, and it measures two of the three:
-#   r18 (text on glass meets the contrast floor) — the audit's rendered-pixel contrast sample, every
-#       pair passing and every pair on glass passing, in the page's own colour scheme (one scheme,
-#       not both; the residual is recorded in the report);
-#   r19 (works with transparency reduced, contrast increased, motion reduced) — the audit's reduced
-#       pass: no page error with reduced motion emulated and reduced transparency asked of the
-#       runtime, the override honoured and the material moved (two of the three modes; increased
-#       contrast is not emulated).
-# r23 (motion: materialise, morph, press feedback) has no measurement and is UNREAD — neither held
-# nor failed — and the line is applied as "at most three of the rules read failed". The panel-only
-# reading, exactly as pre-registered, is printed beside this one so the amendment is visible.
-MECHANICAL_RULES = {
-    "r18": lambda a: (a.get("contrast") or {}).get("rate") == 1
-                     and (a.get("contrast") or {}).get("onGlassPass") == (a.get("contrast") or {}).get("onGlass"),
-    "r19": lambda a: bool((a.get("reduced") or {}).get("ok"))
-                     and bool((a.get("reduced") or {}).get("overrideHonoured"))
-                     and bool((a.get("reduced") or {}).get("materialMoved")),
-}
-UNSHOWABLE_RULES = ["r23"]
+# The named, pre-registered panel; extra files cannot substitute for a missing member.
+EXPECTED_RATERS = ("astra-medium", "astra-high", "claude-opus", "claude-sonnet")
+AUDITS_DIR = os.path.join(gr.DATA, "audit")
 
 
 def _int(v):
@@ -116,10 +95,10 @@ def load_ratings():
 
 
 def load_audits(slugs):
-    """The mechanical audit beside each demo, keyed by slug; a demo never audited is absent."""
+    """The frozen baseline audit, keyed by slug; absent evidence stays absent."""
     out = {}
     for s in slugs:
-        p = os.path.join(gr.DEMOS, s, "audit.json")
+        p = os.path.join(AUDITS_DIR, s + ".json")
         if os.path.exists(p):
             try:
                 out[s] = json.load(open(p, encoding="utf-8"))
@@ -129,7 +108,7 @@ def load_audits(slugs):
 
 
 ratings, orders = load_ratings()
-RATERS = sorted(ratings)
+RATERS = [r for r in EXPECTED_RATERS if r in ratings]
 # The demos the report covers: the six the briefs name, plus any slug a rater or an audit produced
 # that the brief list does not — a file under an unknown slug is evidence and is not dropped.
 SLUGS = list(gr.SLUGS) + sorted(
@@ -160,19 +139,9 @@ def majority(slug, key):
     return (yes * 2 > len(vs), yes, len(vs))
 
 
-def demo_reading(slug, panel_only=False):
-    """One demo's whole reading: the majority per rule, the count held, the rules that failed, the
-    fatal-tag failures, and how much of the rubric was answered at all. With `panel_only` the
-    reading is the pre-registered one, every rule from the panel; otherwise r18 and r19 come from
-    the mechanical audit where one exists and r23 is unread (see MECHANICAL_RULES)."""
+def demo_reading(slug):
+    """The pre-registered panel-only reading; audits never replace or drop rule answers."""
     maj = {k: majority(slug, k) for k in RULE_KEYS}
-    if not panel_only:
-        a = audits.get(slug)
-        for k, read_it in MECHANICAL_RULES.items():
-            if a is not None and not a.get("error"):
-                maj[k] = (bool(read_it(a)), None, "audit")
-        for k in UNSHOWABLE_RULES:
-            maj[k] = (None, 0, 0)
     read = [k for k in RULE_KEYS if maj[k][0] is not None]
     held = [k for k in RULE_KEYS if maj[k][0] is True]
     failed = [k for k in RULE_KEYS if maj[k][0] is False]
@@ -184,76 +153,68 @@ def demo_reading(slug, panel_only=False):
     }
 
 
+def panel_missing(slug, keys=RULE_KEYS, section="rules"):
+    """Named raters whose required answers are missing, including partially written files."""
+    return [r for r in EXPECTED_RATERS
+            if not all(k in ratings.get(r, {}).get(slug, {}).get(section, {}) for k in keys)]
+
+
 def mechanical(slug):
-    """The mechanical read of one demo's `audit.json`, or None when it was never audited. The
-    renderer is taken from the groups that actually drew rather than from what the page asked
-    for — `glass-audit.mjs` reports the resolved `GlassGroupState`, which is the honest one."""
-    a = audits.get(slug)
-    if a is None:
-        return None
-    groups = a.get("groups") or []
-    reduced = a.get("reduced") or {}
-    return {
-        "error": a.get("error"),
-        "errors": len(a.get("errors") or []),
-        "overflowCapture": a.get("overflowCapture"),
-        "gateMechanical": a.get("gateMechanical"),
-        "renderers": sorted({g.get("renderer") for g in groups if g.get("renderer")}),
-        "groups": len(groups),
-        "diagnostics": len(a.get("diagnostics") or []),
-        "diagnosticCodes": sorted({d.get("code") for d in (a.get("diagnostics") or [])
-                                   if isinstance(d, dict) and d.get("code")}),
-        "rootFound": a.get("rootFound"),
-        "reducedOk": reduced.get("ok"),
-        "reducedHonoured": reduced.get("overrideHonoured"),
-        "surfaces": a.get("surfaces"),
-    }
+    """Keep the frozen audit facts intact, including transient-state and reduced-mode evidence."""
+    return audits.get(slug)
+
+
+def all_observed(checks):
+    """A known failure fails; a missing observation cannot pass."""
+    if any(c is False for c in checks):
+        return False
+    return True if all(c is True for c in checks) else None
+
+
+def empty_observed(value):
+    return not value if isinstance(value, list) else None
 
 
 def verdict(slug):
-    """The spec's pass line, clause by clause: at least 22 of the 25 rules held by panel majority,
-    no `[layer]` or `[material]` rule failed, no group diagnostic in the mechanical read, and the
-    page still working with transparency reduced. A clause whose data has not arrived is unknown
-    rather than met, and a demo passes only when all four are met."""
+    """Apply the original 22/25 panel line only after all four named raters have answered."""
     d, m = demo_reading(slug), mechanical(slug)
-    clauses = []
-    if not d["read"]:
-        clauses.append(("at least 22 of 25 held", None, "no rule answers yet"))
-    else:
-        # The line as "at most three of the rules read failed": a rule nobody has read yet can still
-        # fail, so the clause is met only once the rules still unread could not push the failures
-        # past three, and lost as soon as they already have. r23 is unread by design (no
-        # measurement) and is counted among neither.
-        n, f = len(d["held"]), len(d["failed"])
-        u = [k for k in d["unread"] if k not in UNSHOWABLE_RULES]
-        ok = True if f <= MAX_FAILED and not u else (False if f > MAX_FAILED else None)
-        clauses.append((f"at most {MAX_FAILED} of the rules read failed (22 of 25)",
-                        ok, f"{n} held, {f} failed, {len(d['read'])} read"
-                        + (f", unread: {', '.join(u)}" if u else "")
-                        + f", not measurable: {', '.join(UNSHOWABLE_RULES)}"))
-    if not d["read"]:
-        clauses.append(("no [layer] or [material] rule fails", None, "no rule answers yet"))
-    else:
-        unread_fatal = [k for k in d["unread"] if RULE_TAG[k] in FATAL]
-        ok = None if (unread_fatal and not d["fatalFailed"]) else not d["fatalFailed"]
-        note = ("none failed" if not d["fatalFailed"] else ", ".join(d["fatalFailed"]))
-        if unread_fatal:
-            note += f"; unread: {', '.join(unread_fatal)}"
-        clauses.append(("no [layer] or [material] rule fails", ok, note))
+    missing = panel_missing(slug)
+    complete = not missing
+    clauses = [
+        ("four-rater panel complete", True if complete else None,
+         "all 25 rules answered" if complete else "missing/partial: " + ", ".join(missing)),
+        ("at least 22 of 25 held", len(d["held"]) >= HOLD_FLOOR if complete else None,
+         f"{len(d['held'])} of 25 held" + (" (provisional)" if missing else "")),
+        ("no [layer] or [material] rule fails", not d["fatalFailed"] if complete else None,
+         ", ".join(d["fatalFailed"]) or "none failed in available answers"),
+    ]
     if m is None or m.get("error"):
-        clauses.append(("no group diagnostic", None,
-                        "no audit.json" if m is None else str(m.get("error"))))
-        clauses.append(("works with transparency reduced", None,
-                        "no audit.json" if m is None else str(m.get("error"))))
+        note = "no frozen audit" if m is None else str(m["error"])
+        clauses.extend([( "no group diagnostic", None, note),
+                        ("works with transparency reduced", None, note)])
     else:
-        clauses.append(("no group diagnostic", m["diagnostics"] == 0,
-                        f"{m['diagnostics']} reported"
-                        + (": " + ", ".join(m["diagnosticCodes"]) if m["diagnosticCodes"] else "")))
-        clauses.append(("works with transparency reduced", m["reducedOk"],
-                        f"reduced pass ok={m['reducedOk']}, override honoured="
-                        f"{m['reducedHonoured']}"))
-    passed = all(c[1] is True for c in clauses)
-    return {"clauses": clauses, "pass": passed,
+        diagnostics = [empty_observed(m.get("diagnostics"))]
+        if m.get("menu") == "captured":
+            diagnostics.append(empty_observed(m.get("menuDiagnostics")))
+        elif m.get("menu") != "not-offered":
+            diagnostics.append(None)
+        reduced = m.get("reduced") or {}
+        works = all_observed([reduced.get("ok"), reduced.get("rootFound"),
+                              reduced.get("overrideHonoured"), reduced.get("materialMoved"),
+                              empty_observed(reduced.get("errors")),
+                              empty_observed(m.get("errors"))])
+        clauses.extend([
+            ("no group diagnostic", all_observed(diagnostics),
+             "rest=" + json.dumps(m.get("diagnostics"))
+             + "; menu=" + json.dumps(m.get("menuDiagnostics"))),
+            ("works with transparency reduced", works,
+             "reduced ok=" + str(reduced.get("ok"))
+             + "; overrideHonoured=" + str(reduced.get("overrideHonoured"))
+             + "; materialMoved=" + str(reduced.get("materialMoved"))
+             + "; errors=" + json.dumps(reduced.get("errors"))
+             + "; runtime smoke check only, not full accessibility"),
+        ])
+    return {"clauses": clauses, "pass": all(c[1] is True for c in clauses),
             "readable": all(c[1] is not None for c in clauses)}
 
 
@@ -308,6 +269,8 @@ def yn(v):
 out = []
 P = out.append
 P("# Liquid Glass demos — the panel's rule reading\n")
+P("The pre-registered panel is " + ", ".join(EXPECTED_RATERS) + ". Missing or partial "
+  "members keep acceptance provisional; rule answers are never replaced by audit checks.\n")
 P(f"Raters: {len(RATERS)}" + (f" ({', '.join(RATERS)})" if RATERS else "") + ". "
   f"Demos with a rule file: {sum(1 for s in COVERED if raters_of(s))} of {len(gr.SLUGS)}. "
   f"Demos with an audit.json: {len(audits)} of {len(gr.SLUGS)}. "
@@ -369,26 +332,17 @@ for s in COVERED:
     if not d["raters"]:
         P("No rater has answered the rules for this demo.\n")
     else:
-        po = demo_reading(s, panel_only=True)
-        mech = [k for k in MECHANICAL_RULES if d["majority"][k][2] == "audit"]
         P(f"Raters: {len(d['raters'])} ({', '.join(d['raters'])}). Held: "
-          f"**{len(d['held'])} of {len(d['read'])} read**"
-          + (f" ({', '.join(mech)} from the audit; " if mech else " (")
-          + f"{', '.join(UNSHOWABLE_RULES)} not measurable)"
-          + (f", with {len([k for k in d['unread'] if k not in UNSHOWABLE_RULES])} rule(s) "
-             "unanswered" if [k for k in d['unread'] if k not in UNSHOWABLE_RULES] else "")
-          + ". Panel-only, as pre-registered: "
-          f"{len(po['held'])} of {len(RULE_KEYS)}."
-          + (" Fatal-tag failures: **" + ", ".join(f"{k} [{RULE_TAG[k]}]" for k in d["fatalFailed"])
-             + "**." if d["fatalFailed"] else " No `[layer]` or `[material]` rule failed."))
+          f"**{len(d['held'])} of {len(RULE_KEYS)}** by panel majority"
+          + (" (provisional; panel incomplete)" if panel_missing(s) else "")
+          + (f"; unanswered: {', '.join(d['unread'])}" if d["unread"] else "")
+          + (". Fatal-tag failures: **" + ", ".join(d["fatalFailed"]) + "**."
+             if d["fatalFailed"] else ". No fatal-tag failure in available answers."))
         P("")
         if d["failed"]:
             P("Rules that failed:\n")
             P("| rule | tag | yes/n | a rater that said no | its evidence |\n|---|---|---|---|---|")
             for k in d["failed"]:
-                if d["majority"][k][2] == "audit":
-                    P(f"| {k} | {RULE_TAG[k]} | audit | — | the mechanical read |")
-                    continue
                 no = [r for r, val in votes(s, k) if val == 0]
                 ev = next((ratings[r][s]["evidence"].get(k) for r in no
                            if ratings[r][s]["evidence"].get(k)), "")
@@ -397,26 +351,26 @@ for s in COVERED:
                   f"{ev.replace('|', '/') if ev else '—'} |")
             P("")
     if m is None:
-        P(f"Mechanical read: **no `audit.json`** under `{os.path.join(gr.DEMOS, s)}`; the "
-          "diagnostic and reduced-transparency clauses cannot be read.\n")
-    elif m.get("error"):
-        P(f"Mechanical read: the audit recorded an error — {m['error']}.\n")
+        P(f"Mechanical read: **no frozen audit** at `{os.path.join(AUDITS_DIR, s + '.json')}`.\n")
     else:
-        P("Mechanical read (`audit.json`): "
-          f"errors {m['errors']}; overflowCapture {yn(m['overflowCapture'])}; "
-          f"gateMechanical {yn(m['gateMechanical'])}; "
-          f"renderer {', '.join(m['renderers']) or '—'} over {m['groups']} group(s); "
-          f"diagnostics {m['diagnostics']}"
-          + (f" ({', '.join(m['diagnosticCodes'])})" if m["diagnosticCodes"] else "")
-          + f"; rootFound {yn(m['rootFound'])}; surfaces "
-          + f"{m['surfaces'] if m['surfaces'] is not None else '—'}.\n")
+        facts = {k: m.get(k) for k in (
+            "error", "errors", "consoleErrors", "failedRequests", "overflowCapture",
+            "gateMechanical", "rootFound", "surfaces", "groups", "diagnostics",
+            "menu", "menuGroups", "menuDiagnostics", "colorScheme", "contrast", "reduced")}
+        P("Frozen mechanical facts (null means unrecorded):\n\n```json\n"
+          + json.dumps(facts, indent=2) + "\n```\n")
+    P("Evidence limits: r18 requires contrast in both schemes; the audit samples only the "
+      "recorded scheme. r19 requires all three accessibility modes; reduced motion emulation "
+      "and a reduced-transparency runtime smoke check do not establish full accessibility, "
+      "and increased contrast is not tested. r23 requires motion evidence absent from static "
+      "captures. These gaps do not replace panel zeros with passes or remove rules from 25.\n")
     P("Verdict, clause by clause:\n")
     P("| clause | met | on |\n|---|---|---|")
     for name, ok, note in v["clauses"]:
         P(f"| {name} | {'yes' if ok else ('no' if ok is False else 'not yet readable')} | {note} |")
     P("")
     P(f"**{s}: " + ("PASSES" if v["pass"] else
-                    ("FAILS" if v["readable"] else "no verdict yet — a clause has no data"))
+                    ("FAILS" if v["readable"] else "no final verdict — incomplete evidence; provisional reading above"))
       + "**\n")
 
 # ---------- agreement ----------
@@ -461,16 +415,16 @@ else:
         mean = st.mean(d1s)
         P(f"d1 mean over {len(d1s)} of {len(gr.SLUGS)} demos: **{mean:.2f}** against the "
           f"initiative's floor of {D1_FLOOR:.1f} — "
-          + ("met" if mean >= D1_FLOOR else "not met")
-          + ("." if len(d1s) == len(gr.SLUGS)
-             else "; the floor is stated over all six, so this is a partial read.") + "\n")
+          + (("met" if mean >= D1_FLOOR else "not met")
+             if all(not panel_missing(s, ["d1"], "quality") for s in gr.SLUGS)
+             else "provisional only; the four-rater d1 panel over all six is incomplete") + "\n")
     else:
         P("No d1 values recorded.\n")
 
 # ---------- the line ----------
 
 passing = [s for s in COVERED if verdict(s)["pass"]]
-unreadable = [s for s in COVERED if not verdict(s)["readable"]]
+unreadable = [s for s in gr.SLUGS if not verdict(s)["readable"]]
 P("## The line\n")
 P(f"**{len(passing)} of {len(gr.SLUGS)} demos pass**"
   + (f" ({', '.join('`' + s + '`' for s in passing)})" if passing else "")
@@ -479,9 +433,9 @@ P(f"**{len(passing)} of {len(gr.SLUGS)} demos pass**"
   " the user's comparison is not in this report.")
 
 res = "\n".join(out)
-outp = os.path.join(gr.DATA, "results.md")
-if "--out" in sys.argv:
-    outp = sys.argv[sys.argv.index("--out") + 1]
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--out", default=os.path.join(gr.DATA, "results.md"))
+outp = parser.parse_args().out
 os.makedirs(os.path.dirname(os.path.abspath(outp)), exist_ok=True)
 open(outp, "w", encoding="utf-8").write(res + "\n")
 print(res)
